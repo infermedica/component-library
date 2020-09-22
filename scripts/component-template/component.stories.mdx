@@ -1,0 +1,29 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs/blocks';
+import ComponentNameCamelCase from './ComponentNameCamelCase.vue';
+
+<Meta
+  title="ComponentType/ComponentName"
+  component={ComponentNameCamelCase}
+  argTypes={{
+    customProp: {control: {type: 'text'}}
+  }}
+/>
+
+# ComponentName
+
+<Canvas>
+  <Story
+    name="Common"
+    args={{
+      customProp: 'customProp'
+    }}
+  >
+    {((args, {argTypes}) => ({
+      props: Object.keys(argTypes),
+      components: {ComponentNameCamelCase},
+      template: `<ComponentNameCamelCase customProp="customProp"/>`
+    })).bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story='Common' />

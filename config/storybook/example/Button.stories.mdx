@@ -1,0 +1,26 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs/blocks';
+
+<Meta
+  title="Example/Button"
+  argTypes={{
+    content: {control: {type: 'text'}}
+  }}
+/>
+
+# ComponentName
+
+<Canvas>
+  <Story
+    name="Common"
+    args={{
+      content: 'Hello World!'
+    }}
+  >
+    {((args, {argTypes}) => ({
+      props: Object.keys(argTypes),
+      template: `<button>{{ content }}</button>`
+    })).bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story='Common' />
