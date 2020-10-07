@@ -1,0 +1,46 @@
+import { Meta, Canvas, Story, ArgsTable, } from '@storybook/addon-docs/blocks';
+import UiButton from './UiButton.vue';
+console.log(UiButton);
+
+<Meta
+  title="Atoms/Button"
+  component={UiButton}
+  argTypes={{
+    content: {control: {type: 'text'}},
+    disabled: {control: {type: 'boolean'}},
+    cssClass: {control: {type: 'inline-check', options: {
+      'ui-button--text': 'ui-button--text',
+      'ui-button--outlined': 'ui-button--outlined'
+    }}},
+  }}
+/>
+
+# Button
+<Canvas>
+  <Story
+    name="Common"
+    args={{
+      content: 'Next'
+    }}
+  >
+    {((args, {argTypes}) => ({
+      props: Object.keys(argTypes),
+      components: {UiButton},
+      template: `<UiButton
+        :class="cssClass"
+        :disabled="disabled"
+      >{{ content }}</UiButton>`
+    })).bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story='Common' />
+
+## Component API
+<ArgsTable of={UiButton} />
+
+## CSS modifiers
+<ArgsTable of={{__docgenInfo: {props: [
+  {name: '.ui-button--text', description: 'Use this modifier to render button as a text button.'},
+  {name: '.ui-button--outlined', description: 'Use this modifier to render button with border and without background.'}
+]}}} />
