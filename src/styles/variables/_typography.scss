@@ -1,0 +1,31 @@
+:root {
+  // font-family
+  --f-family: "Roboto", sans-serif;
+
+  // font-size
+  --f-size-1: 0.625rem;
+  --f-size-2: 0.75rem;
+  --f-size-3: 0.875rem;
+  --f-size-4: 1rem;
+  --f-size-5: 1.25rem;
+  --f-size-6: 1.5rem;
+  --f-size-7: 2.125rem;
+  --f-size-8: 3rem;
+  --f-size-9: 3.75rem;
+  --f-size-10: 6rem;
+
+  // font - base on Google Material
+  --f-h1: 100 var(--f-size-10) / normal var(--f-family);
+  --f-h2: 100 var(--f-size-9) / normal var(--f-family);
+  --f-h3: 400 var(--f-size-8) / normal var(--f-family);
+  --f-h4: 400 var(--f-size-7) / normal var(--f-family);
+  --f-h5: 400 var(--f-size-6) / normal var(--f-family);
+  --f-h6: 500 var(--f-size-5) / normal var(--f-family);
+  --f-subtitle-1: 400 var(--f-size-4) / normal var(--f-family);
+  --f-subtitle-2: 500 var(--f-size-3) / normal var(--f-family);
+  --f-body-1: 400 var(--f-size-4) / normal var(--f-family);
+  --f-body-2: 400 var(--f-size-3) / normal var(--f-family);
+  --f-button: 500 var(--f-size-3) / normal var(--f-family);
+  --f-caption: 400 var(--f-size-2) / normal var(--f-family);
+  --f-overline: 400 var(--f-size-1) / normal var(--f-family);
+}

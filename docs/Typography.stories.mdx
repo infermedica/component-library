@@ -1,0 +1,124 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs/blocks';
+import DocsTable from './components/DocsTable.vue';
+
+<Meta
+  title="Docs/Global variables/Typography"
+/>
+
+# Typography
+
+## font-family
+
+<Story
+  name="font-family"
+>
+  {((args, { argTypes }) => ({
+    components: { DocsTable },
+    data() {
+      return { ...args };
+    },
+    template: `<DocsTable style="margin: 0 -15px">
+      <template #thead>
+        <tr>
+          <th>Render</th>
+          <th>Property</th>
+          <th>Default</th>
+        </tr>
+      </template>
+      <template #tbody>
+        <tr>
+          <td :style="{fontFamily: 'var(--f-family)'}">Roboto</span></td>
+          <td>--f-family</td>
+          <td>"Roboto", sans-serif;</td>
+        </tr>
+      </template>
+    </DocsTable>`,
+  })).bind({})}
+</Story>
+
+
+## font-size
+
+<Story
+  name="font-size"
+  args={{
+    content: 'Infermedica ',
+  }}
+>
+  {((args, { argTypes }) => ({
+    components: { DocsTable },
+    data() {
+      return {
+        ...args,
+        sizes: [0.625, 0.75, 0.875, 1, 1.25, 1.5, 2.125, 3, 3.75, 6]
+      };
+    },
+    template: `<DocsTable style="margin: 0 -15px">
+      <template #thead>
+        <tr>
+          <th>Render</th>
+          <th>Property</th>
+          <th>Default</th>
+        </tr>
+      </template>
+      <template #tbody>
+        <template v-for="(size, key) in sizes">
+         <tr :key="key">
+          <td><span :style="{fontSize: 'var(--f-size-'+ (key + 1) +')'}">Roboto</span></td>
+          <td>--f-size-{{ key+1 }}</td>
+          <td>{{ size }}rem</td>
+        </tr></template>
+      </template>
+    </DocsTable>`,
+  })).bind({})}
+</Story>
+
+## font
+
+<Story
+  name="font"
+  args={{
+    content: 'Infermedica ',
+  }}
+>
+  {((args, { argTypes }) => ({
+    components: { DocsTable },
+    data() {
+      return {
+        ...args,
+        fonts: [
+          {name: 'Headline 1', props: 'h1', initial: '100 var(--f-size-10) / normal var(--f-family)'},
+          {name: 'Headline 2', props: 'h2', initial: '100 var(--f-size-9) / normal var(--f-family)'},
+          {name: 'Headline 3', props: 'h3', initial: '400 var(--f-size-8) / normal var(--f-family)'},
+          {name: 'Headline 4', props:'h4', initial: '400 var(--f-size-7) / normal var(--f-family)'},
+          {name: 'Headline 5', props:'h5', initial: '400 var(--f-size-6) / normal var(--f-family)'},
+          {name: 'Headline 6', props:'h6', initial: '500 var(--f-size-5) / normal var(--f-family)'},
+          {name: 'Subtitle 1', props:'subtitle-1', initial: '400 var(--f-size-4) / normal var(--f-family)'},
+          {name: 'Subtitle 2', props: 'subtitle-2', initial: '500 var(--f-size-3) / normal var(--f-family)'},
+          {name: 'Body 1', props: 'body-1', initial: '400 var(--f-size-4) / normal var(--f-family)'},
+          {name: 'Body 2', props: 'body-2', initial: '400 var(--f-size-3) / normal var(--f-family)'},
+          {name: 'BUTTON', props: 'button', initial: '500 var(--f-size-3) / normal var(--f-family)'},
+          {name: 'Caption', props: 'caption', initial: '400 var(--f-size-2) / normal var(--f-family)'},
+          {name: 'OVERLINE', props:'overline', initial: '400 var(--f-size-1) / normal var(--f-family)'}
+        ]
+      };
+    },
+    template: `<DocsTable style="margin: 0 -15px">
+      <template #thead>
+        <tr>
+          <th>Render</th>
+          <th>Property</th>
+          <th>Default</th>
+        </tr>
+      </template>
+      <template #tbody>
+        <template v-for="(font, key) in fonts">
+         <tr :key="key">
+          <td><span :style="{font: 'var(--f-'+ font.props +')'}">{{ font.name }}</span></td>
+          <td>--f-{{ font.props }}</td>
+          <td>{{ font.initial }}</td>
+        </tr></template>
+      </template>
+    </DocsTable>`,
+  })).bind({})}
+</Story>
