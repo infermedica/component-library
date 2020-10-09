@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "test:unit": "vue-cli-service test:unit",
-    "lint:js": "vue-cli-service lint",
-    "lint:scss": "stylelint 'src/**/*.{vue,htm,html,css,sss,less,scss}'",
+    "lint:js": "vue-cli-service lint --fix",
+    "lint:scss": "stylelint 'src/**/*.{vue,htm,html,css,sss,less,scss}' --fix",
     "storybook:build": "vue-cli-service storybook:build -s ./public -c config/storybook",
     "storybook:serve": "vue-cli-service storybook:serve -s ./public -p 6006 -c config/storybook",
     "create-component": "node ./scripts/create-component.js",
@@ -59,8 +59,8 @@
   },
   "lint-staged": {
     "*.{js,jsx,vue}": [
-      "vue-cli-service lint:js --fix",
-      "vue-cli-service lint:scss --fix",
+      "lint:js",
+      "lint:scss",
       "git add"
     ]
   }
