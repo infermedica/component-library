@@ -8,7 +8,7 @@
   --color-white: #fff;
 
   @include color(
-    $name: gray,
+    $name: 'gray',
     $colors: (
       '50': #F3F5F7,
       '100': #E7EBEF,
@@ -23,7 +23,7 @@
     )
   );
   @include color(
-    $name: green,
+    $name: 'green',
     $colors: (
       '50': #E6F9F2,
       '100': #C9F3E4,
@@ -38,7 +38,7 @@
     )
   );
   @include color(
-    $name: blue,
+    $name: 'blue',
     $colors: (
       '50': #EDF6FD,
       '100': #DAEDFB,
@@ -53,7 +53,7 @@
     )
   );
   @include color(
-    $name: red,
+    $name: 'red',
     $colors: (
       '50': #FFF1F1,
       '100': #FFE4E4,
@@ -68,7 +68,7 @@
     )
   );
   @include color(
-    $name: yellow,
+    $name: 'yellow',
     $colors: (
       '50': #FFF4D1,
       '100': #FFF4D1,
