@@ -29,7 +29,7 @@ This component should support native attributes. [MDN web docs](https://develope
     }}
   >
     {((args, {argTypes}) => ({
-      props: Object.keys(argTypes),
+      props: Object.keys(argTypes).filter((key) => (key !== 'value')),
       components: { UiInput },
       data() {
         return {
@@ -58,7 +58,6 @@ Use `suffix` props to set text suffix
     name="Input with text suffix"
   >
     {((args, {argTypes}) => ({
-      props: Object.keys(argTypes),
       components: { UiInput },
       data() {
         return {
@@ -83,7 +82,6 @@ Use `aside` slot to replace aside template
     name="Input with icon suffix"
   >
     {((args, {argTypes}) => ({
-      props: Object.keys(argTypes),
       components: { UiInput },
       data() {
         return {
@@ -117,7 +115,7 @@ Use `aside` slot to replace aside template
             </svg>
           </template>
         </template>
-      <UiInput>`,
+      </UiInput>`,
       methods: {
         clear(){
           this.value = '';

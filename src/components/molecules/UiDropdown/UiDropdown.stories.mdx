@@ -1,0 +1,133 @@
+import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import UiDropdown from './UiDropdown.vue';
+import UiButton from '../../atoms/UiButton/UiButton.vue';
+import UiInput from '../../atoms/UiInput/UiInput.vue'
+
+<Meta
+  title="Molecules/Dropdown"
+  component={UiDropdown}
+/>
+
+# Dropdown
+
+Use `default` slot and `text` props for common scenario
+
+<Canvas>
+  <Story
+    name="Common"
+    height="80px"
+    args={{
+      text: 'Dropdown toggle'
+    }}
+  >
+    {((args, {argTypes}) => ({
+      props: Object.keys(argTypes),
+      components: { UiDropdown, UiButton },
+      data() {
+        return {
+          symptoms: [
+            { label: 'headache' },
+            { label: 'head pressure' },
+            { label: 'headache, generalized' },
+            { label: 'headache, pulsating' }
+          ]
+        }
+      },
+      template: `<UiDropdown
+        :text="text"
+      >
+        Dropdown content
+      </UiDropdown>`
+    })).bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story='Common' />
+
+Use `toggle` slot which has `{ toggle, open, close, isOpen }` in scope to replace toggle template
+
+<Canvas>
+  <Story
+    name="Input as dropdown toggle"
+    height="253px"
+  >
+    {((args, {argTypes}) => ({
+      props: Object.keys(argTypes),
+      components: { UiDropdown, UiButton, UiInput },
+      data() {
+        return {
+          contentOfDropdown: ''
+        }
+      },
+      template: `<UiDropdown
+        :text="text"
+        style="width: 25rem"
+      >
+        <template #default="{close}">
+          <p>No results</p>
+          <p>Unfortunately, the symptom was not found.</p>
+          <ul>
+            <li>Please try to enter single words</li>
+            <li>Keep in mind, that you can only select symptoms from the autocomplete list</li>
+          </ul>
+          <UiButton
+            class="ui-button--text"
+            @click="close"
+          >Start a new search</UiButton>
+        </template>
+        <template #toggle="{open, close}">
+          <UiInput
+            :value="contentOfDropdown"
+            @input="inputHandler($event, open, close)"
+            type="search"
+            placeholder="Search, e.g. headache"
+          />
+        </template>
+      </UiDropdown>`,
+      methods: {
+        inputHandler(value, open, close) {
+          if (value.length > 0) open();
+          else close();
+          this.contentOfDropdown = value;
+        },
+        clickHandler(open) {
+          if (this.contentOfDropdown.length > 0) open();
+        },
+      }
+    })).bind({})}
+  </Story>
+</Canvas>
+
+Use `content` slot which has `{ close, isOpen }` in scope to replace content template
+
+
+<Canvas>
+  <Story
+    name="Replace dropdown content template"
+    height="80px"
+  >
+    {((args, {argTypes}) => ({
+      props: Object.keys(argTypes),
+      components: { UiDropdown },
+      template: `<UiDropdown
+        text="Dropdown toggle"
+      >
+        <template #default>
+          {{ contentOfDropdown }}
+        </template>
+        <template #content="{ isOpen }">
+          <div
+            v-if="isOpen"
+            class="ui-dropdown__content"
+          >
+            Dropdown content
+          </div>
+        </template>
+      </UiDropdown>`
+    })).bind({})}
+  </Story>
+</Canvas>
+
+# Props
+
+<Props of={UiDropdown} />
