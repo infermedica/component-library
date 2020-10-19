@@ -1,50 +1,145 @@
 @mixin color ($name, $colors) {
   @each $key, $value in $colors {
-    --c-#{$name}-#{$key}: #{$value};
+    --color-#{$name}-#{$key}: #{$value};
   }
 }
 
 :root {
+  --color-white: #fff;
+
   @include color(
     $name: gray,
     $colors: (
-      '100': #f5f5f5,
-      '200': #eee,
-      '300': #e0e0e0,
-      '400': #bdbdbd,
-      '500': #9e9e9e,
-      '600': #757575,
-      '700': #616161,
-      '800': #424242,
-      '900': #212121
+      '50': #F3F5F7,
+      '100': #E7EBEF,
+      '200': #D6DDE3,
+      '300': #C1CBD5,
+      '400': #A4B1BF,
+      '500': #7D8FA3,
+      '600': #5F7285,
+      '700': #475463,
+      '800': #333D48,
+      '900': #1F262C
     )
   );
   @include color(
     $name: green,
     $colors: (
-      '100': #F0FFF4,
-      '200': #C6F6D5,
-      '300': #9AE6B4,
-      '400': #68D391,
-      '500': #48BB78,
-      '600': #38A169,
-      '700': #2F855A,
-      '800': #276749,
-      '900': #22543D
+      '50': #E6F9F2,
+      '100': #C9F3E4,
+      '200': #9FECD0,
+      '300': #4BE2AE,
+      '400': #1AC78D,
+      '500': #15A172,
+      '600': #107F5A,
+      '700': #0C5F43,
+      '800': #094531,
+      '900': #063123
     )
   );
   @include color(
     $name: blue,
     $colors: (
-      '100': #EBF8FF,
-      '200': #BEE3F8,
-      '300': #90CDF4,
-      '400': #63B3ED,
-      '500': #4299E1,
-      '600': #3182CE,
-      '700': #2B6CB0,
-      '800': #2C5282,
-      '900': #2A4365
+      '50': #EDF6FD,
+      '100': #DAEDFB,
+      '200': #C2E0F8,
+      '300': #A2CFF5,
+      '400': #71B5F0,
+      '500': #2F91EA,
+      '600': #1471C9,
+      '700': #0F5496,
+      '800': #0B3D6D,
+      '900': #0B3D6D
     )
   );
+  @include color(
+    $name: red,
+    $colors: (
+      '50': #FFF1F1,
+      '100': #FFE4E4,
+      '200': #FFD2D2,
+      '300': #FFB8B7,
+      '400': #FF8F8E,
+      '500': #F75452,
+      '600': #DA2121,
+      '700': #A41919,
+      '800': #791212,
+      '900': #580D0D
+    )
+  );
+  @include color(
+    $name: yellow,
+    $colors: (
+      '50': #FFF4D1,
+      '100': #FFF4D1,
+      '200': #FFF4D1,
+      '300': #FFF4D1,
+      '400': #FFF4D1,
+      '500': #FFF4D1,
+      '600': #FFF4D1,
+      '700': #FFF4D1,
+      '800': #FFF4D1,
+      '900': #FFF4D1
+    )
+  );
+
+  // Text
+  --color-text-body: var(--color-gray-900);
+  --color-text-heading: var(--color-gray-900);
+  --color-text-link-primary: var(--color-blue-600);
+  --color-text-link-primary-hover: var(--color-blue-700);
+  --color-text-link-primary-active: var(--color-blue-800);
+  --color-text-link-secondary: var(--color-gray-600);
+  --color-text-link-secondary-hover: var(--color-gray-700);
+  --color-text-link-secondary-active: var(--color-gray-800);
+  --color-text-placeholder: var(--color-gray-600);
+  --color-text-negative: var(--color-white);
+
+  // Icons
+  --color-icon-primary: var(--color-blue-600);
+  --color-icon-primary-hover: var(--color-blue-700);
+  --color-icon-primary-active: var(--color-blue-800);
+  --color-icon-secondary: var(--color-gray-600);
+  --color-icon-secondary-hover: var(--color-gray-700);
+  --color-icon-secondary-active: var(--color-gray-800);
+  --color-icon-negative: var(--color-white);
+
+  // UI (colors shared by graphic UI elements)
+  --color-ui-bg-lightest: var(--color-white);
+  --color-ui-bg-light: var(--color-gray-50);
+  --color-ui-element-lighter: var(--color-gray-100);
+  --color-ui-element-light: var(--color-gray-200);
+  --color-ui-element-accessible: var(--color-gray-500);
+  --color-ui-backdrop: var(--color-gray-800);
+  --color-ui-bg-hover: var(--color-gray-50);
+  --color-ui-focus: var(--color-blue-500);
+
+  // Messages
+  --color-alert-error-text: var(--color-red-600);
+  --color-alert-error-icon: var(--color-red-500);
+  --color-alert-error-border: var(--color-red-300);
+  --color-alert-error-bg: var(--color-red-50);
+  --color-alert-warning-text: var(--color-yellow-600);
+  --color-alert-warning-icon: var(--color-yellow-500);
+  --color-alert-warning-border: var(--color-yellow-300);
+  --color-alert-warning-bg: var(--color-yellow-50);
+  --color-alert-success-text: var(--color-green-600);
+  --color-alert-success-icon: var(--color-green-500);
+  --color-alert-success-border: var(--color-green-300);
+  --color-alert-success-bg: var(--color-green-50);
+  --color-alert-info-text: var(--color-blue-600);
+  --color-alert-info-icon: var(--color-blue-500);
+  --color-alert-info-border: var(--color-blue-300);
+  --color-alert-info-bg: var(--color-blue-50);
+
+  // Component-specific - selection controls
+  --color-selection: var(--color-green-500);
+  --color-selection-hover: var(--color-green-600);
+  --color-selection-active: var(--color-green-700);
+
+  // Component-specific - triage hero colors
+  --color-triage-emergency-ambulance: var(--color-red-500);
+  --color-triage-emergency-department: var(--color-white);
+  --color-triage-consultation: var(--color-blue-500);
+  --color-triage-self-care: var(--color-green-500);
 }

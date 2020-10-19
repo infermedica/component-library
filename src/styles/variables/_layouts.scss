@@ -1,16 +1,24 @@
 :root {
-  --s-1: 0.25rem;
-  --s-2: 0.5rem;
-  --s-3: 0.75rem;
-  --s-4: 1rem;
-  --s-5: 1.25rem;
-  --s-6: 1.5rem;
-  --s-8: 2rem;
-  --s-10: 2.5rem;
-  --s-12: 3rem;
-  --s-16: 4rem;
-  --s-20: 5rem;
-  --s-24: 6rem;
-  --s-32: 8rem;
-  --s-40: 10rem;
+  // Space
+  --space-2: 0.125rem;
+  --space-4: 0.25rem;
+  --space-8: 0.5rem;
+  --space-12: 0.75rem;
+  --space-16: 1rem;
+  --space-20: 1.25rem;
+  --space-24: 1.5rem;
+  --space-32: 2rem;
+  --space-40: 2.5rem;
+  --space-48: 3rem;
+  --space-64: 4rem;
+
+  // Border-radius
+  --border-radius-sharp: 0;
+  --border-radius-card: 5px;
+  --border-radius-form: 5px;
+  --border-radius-pill: 20rem;
+  --border-radius-circle: 50%;
+
+  // Box shadows
+  --box-shadow-default: 0 2px 6px 0 rgba(125, 143, 163, 0.2);
 }

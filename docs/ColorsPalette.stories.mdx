@@ -1,0 +1,408 @@
+import { Meta, Story } from '@storybook/addon-docs/blocks';
+import DocsTable from './components/DocsTable.vue';
+
+<Meta
+  title="Docs/Design/Colors system/Colors palettes"
+/>
+
+# Colors palettes
+
+## Gray
+
+<Story name="Gray">
+  {{
+    components: {
+      DocsTable
+    },
+    data() {
+      return {
+        colors: [
+          {
+            hex: '#FFFFFF',
+            token: '--color-white',
+            description: 'Accessible text with 600-900, Accessible UI with 500-900',
+          },
+          {
+            hex: '#F3F5F7',
+            token: '--color-gray-50',
+            description: 'Accessible text with 600-900, Accessible UI* with 500-900',
+          },
+          {
+            hex: '#E7EBEF',
+            token: '--color-gray-100',
+            description: 'Non-accessible',
+          },
+          {
+            hex: '#D6DDE3',
+            token: '--color-gray-200',
+            description: 'Non-accessible',
+          },
+          {
+            hex: '#C1CBD5',
+            token: '--color-gray-300',
+            description: 'Non-accessible',
+          },
+          {
+            hex: '#A4B1BF',
+            token: '--color-gray-400',
+            description: 'Non-accessible',
+          },
+          {
+            hex: '#7D8FA3',
+            token: '--color-gray-500',
+            description: 'Accessible text and UI* with white and 50',
+          },
+          {
+            hex: '#5F7285',
+            token: '--color-gray-600',
+            description: 'Accessible text and UI* with white and 50',
+          },
+          {
+            hex: '#475463',
+            token: '--color-gray-700',
+            description: 'Accessible text and UI* with white and 50',
+          },
+          {
+            hex: '#333D48',
+            token: '--color-gray-800',
+            description: 'Accessible text and UI* with white and 50',
+          },
+          {
+            hex: '#1F262C',
+            token: '--color-gray-900',
+            description: 'Accessible text and UI* with white and 50',
+          },
+        ]
+      }
+    },
+    template: `<DocsTable>
+      <template #thead>
+        <th>Preview</th>
+        <th>Value</th>
+        <th>Token</th>
+        <th>Usage</th>
+      </template>
+      <template #tbody>
+        <template v-for="color in colors">
+          <tr>
+            <td>
+              <div :style="'background: var(' + color.token + '); height: 32px; width: 200px; border-radius: 5px'"></div>
+            </td>
+            <template v-for="value in color">
+              <td>{{value}}</td>
+            </template>
+          </tr>
+        </template>
+      </template>
+    </DocsTable>`
+  }}
+</Story>
+
+*UI - here: graphic, non-text elements of user interface.
+
+## Blue
+
+<Story name="Blue">
+  {{
+    components: {
+      DocsTable
+    },
+    data() {
+      return {
+        colors: [
+          {
+            hex: '#EDF6FD',
+            token: '--color-blue-50',
+            description: 'Accessible text with 600-900, Accessible UI* with 500-900',
+          },
+          {
+            hex: '#DAEDFB',
+            token: '--color-blue-100',
+            description: 'Non-accessible',
+          },
+          {
+            hex: '#C2E0F8',
+            token: '--color-blue-200',
+            description: 'Non-accessible',
+          },
+          {
+            hex: '#A2CFF5',
+            token: '--color-blue-300',
+            description: 'Non-accessible',
+          },
+          {
+            hex: '#71B5F0',
+            token: '--color-blue-400',
+            description: 'Non-accessible',
+          },
+          {
+            hex: '#2F91EA',
+            token: '--color-blue-500',
+            description: 'Accessible text and UI* with white and 50',
+          },
+          {
+            hex: '#1471C9',
+            token: '--color-blue-600',
+            description: 'Accessible text and UI* with white and 50',
+          },
+          {
+            hex: '#0F5496',
+            token: '--color-blue-700',
+            description: 'Accessible text and UI* with white and 50',
+          },
+          {
+            hex: '#0B3D6D',
+            token: '--color-blue-800',
+            description: 'Accessible text and UI* with white and 50',
+          },
+          {
+            hex: '#082C4D',
+            token: '--color-blue-900',
+            description: 'Accessible text and UI* with white and 50',
+          },
+        ]
+      }
+    },
+    template: `<DocsTable>
+      <template #thead>
+        <th>Preview</th>
+        <th>Value</th>
+        <th>Token</th>
+        <th>Usage</th>
+      </template>
+      <template #tbody>
+        <template v-for="color in colors">
+          <tr>
+            <td>
+              <div :style="'background: var(' + color.token + '); height: 32px; width: 200px; border-radius: 5px'"></div>
+            </td>
+            <template v-for="value in color">
+              <td>{{value}}</td>
+            </template>
+          </tr>
+        </template>
+      </template>
+    </DocsTable>`
+  }}
+</Story>
+
+*UI - here: graphic, non-text elements of user interface.
+
+## Green
+
+<Story name="Green">
+  {{
+    components: {
+      DocsTable
+    },
+    data() {
+      return {
+        colors: [
+          {
+            hex: '#E6F9F2',
+            token: '--color-green-50',
+            description: 'Accessible text with 600-900, Accessible UI* with 500-900',
+          },
+          {
+            hex: '#C9F3E4',
+            token: '--color-green-100',
+            description: 'Non-accessible',
+          },
+          {
+            hex: '#9FECD0',
+            token: '--color-green-200',
+            description: 'Non-accessible',
+          },
+          {
+            hex: '#4BE2AE',
+            token: '--color-green-300',
+            description: 'Non-accessible',
+          },
+          {
+            hex: '#1AC78D',
+            token: '--color-green-400',
+            description: 'Non-accessible',
+          },
+          {
+            hex: '#15A172',
+            token: '--color-green-500',
+            description: 'Accessible text and UI* with white and 50',
+          },
+          {
+            hex: '#107F5A',
+            token: '--color-green-600',
+            description: 'Accessible text and UI* with white and 50',
+          },
+          {
+            hex: '#0C5F43',
+            token: '--color-green-700',
+            description: 'Accessible text and UI* with white and 50',
+          },
+          {
+            hex: '#094531',
+            token: '--color-green-800',
+            description: 'Accessible text and UI* with white and 50',
+          },
+          {
+            hex: '#063123',
+            token: '--color-green-900',
+            description: 'Accessible text and UI* with white and 50',
+          },
+        ]
+      }
+    },
+    template: `<DocsTable>
+      <template #thead>
+        <th>Preview</th>
+        <th>Value</th>
+        <th>Token</th>
+        <th>Usage</th>
+      </template>
+      <template #tbody>
+        <template v-for="color in colors">
+          <tr>
+            <td>
+              <div :style="'background: var(' + color.token + '); height: 32px; width: 200px; border-radius: 5px'"></div>
+            </td>
+            <template v-for="value in color">
+              <td>{{value}}</td>
+            </template>
+          </tr>
+        </template>
+      </template>
+    </DocsTable>`
+  }}
+</Story>
+
+*UI - here: graphic, non-text elements of user interface.
+
+## Red
+
+<Story name="Red">
+  {{
+    components: {
+      DocsTable
+    },
+    data() {
+      return {
+        colors: [
+          {
+            hex: '#FFF1F1',
+            token: '--color-red-50',
+            description: 'Accessible text with 600-900, Accessible UI* with 500-900',
+          },
+          {
+            hex: '#FFE4E4',
+            token: '--color-red-100',
+            description: 'Non-accessible',
+          },
+          {
+            hex: '#FFD2D2',
+            token: '--color-red-200',
+            description: 'Non-accessible',
+          },
+          {
+            hex: '#FFB8B7',
+            token: '--color-red-300',
+            description: 'Non-accessible',
+          },
+          {
+            hex: '#FF8F8E',
+            token: '--color-red-400',
+            description: 'Non-accessible',
+          },
+          {
+            hex: '#F75452',
+            token: '--color-red-500',
+            description: 'Accessible text and UI* with white and 50',
+          },
+          {
+            hex: '#DA2121',
+            token: '--color-red-600',
+            description: 'Accessible text and UI* with white and 50',
+          },
+          {
+            hex: '#A41919',
+            token: '--color-red-700',
+            description: 'Accessible text and UI* with white and 50',
+          },
+          {
+            hex: '#791212',
+            token: '--color-red-800',
+            description: 'Accessible text and UI* with white and 50',
+          },
+          {
+            hex: '#580D0D',
+            token: '--color-red-900',
+            description: 'Accessible text and UI* with white and 50',
+          },
+        ]
+      }
+    },
+    template: `<DocsTable>
+      <template #thead>
+        <th>Preview</th>
+        <th>Value</th>
+        <th>Token</th>
+        <th>Usage</th>
+      </template>
+      <template #tbody>
+        <template v-for="color in colors">
+          <tr>
+            <td>
+              <div :style="'background: var(' + color.token + '); height: 32px; width: 200px; border-radius: 5px'"></div>
+            </td>
+            <template v-for="value in color">
+              <td>{{value}}</td>
+            </template>
+          </tr>
+        </template>
+      </template>
+    </DocsTable>`
+  }}
+</Story>
+
+*UI - here: graphic, non-text elements of user interface.
+
+## Yellow
+
+<Story name="[WIP] Yellow">
+  {{
+    components: {
+      DocsTable
+    },
+    data() {
+      return {
+        colors: [
+          {
+            hex: '#FFF4D1',
+            token: '--color-yellow-50',
+            description: 'Accessible text with 600-900, Accessible UI* with 500-900',
+          },
+        ]
+      }
+    },
+    template: `<DocsTable>
+      <template #thead>
+        <th>Preview</th>
+        <th>Value</th>
+        <th>Token</th>
+        <th>Usage</th>
+      </template>
+      <template #tbody>
+        <template v-for="color in colors">
+          <tr>
+            <td>
+              <div :style="'background: var(' + color.token + '); height: 32px; width: 200px; border-radius: 5px'"></div>
+            </td>
+            <template v-for="value in color">
+              <td>{{value}}</td>
+            </template>
+          </tr>
+        </template>
+      </template>
+    </DocsTable>`
+  }}
+</Story>
+
+*UI - here: graphic, non-text elements of user interface.

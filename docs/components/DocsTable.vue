@@ -1,7 +1,9 @@
 <template>
   <table class="docs-table">
     <thead>
-      <slot name="thead" />
+      <tr>
+        <slot name="thead" />
+      </tr>
     </thead>
     <tbody>
       <slot name="tbody" />
@@ -18,17 +20,21 @@ export default {
 <style lang="scss">
 .docs-table {
   width: 100%;
-  font-size: 13px;
-  color: #333;
-  border-spacing: 0;
-  border-collapse: collapse;
+  margin: 1rem 0;
+
+  tr {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: center;
+  }
+
+  th {
+    place-self: start;
+  }
 
   th,
   td {
-    padding: 10px 15px;
-    text-align: left;
-    vertical-align: middle;
-    border: none;
+    padding: 8px 4px;
   }
 }
 </style>

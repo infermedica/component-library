@@ -1,31 +1,40 @@
 :root {
-  // font-family
-  --f-family: "Roboto", sans-serif;
+  // Font family
+  --font-family-heading: "Roboto", sans-serif;
+  --font-family-body: "Roboto", sans-serif;
 
-  // font-size
-  --f-size-1: 0.625rem;
-  --f-size-2: 0.75rem;
-  --f-size-3: 0.875rem;
-  --f-size-4: 1rem;
-  --f-size-5: 1.25rem;
-  --f-size-6: 1.5rem;
-  --f-size-7: 2.125rem;
-  --f-size-8: 3rem;
-  --f-size-9: 3.75rem;
-  --f-size-10: 6rem;
+  // Font size
+  --font-size-1: 0.875rem;
+  --font-size-2: 1rem;
+  --font-size-3: 1.125rem;
+  --font-size-4: 1.25rem;
+  --font-size-5: 1.5rem;
+  --font-size-6: 2rem;
 
-  // font - base on Google Material
-  --f-h1: 100 var(--f-size-10) / normal var(--f-family);
-  --f-h2: 100 var(--f-size-9) / normal var(--f-family);
-  --f-h3: 400 var(--f-size-8) / normal var(--f-family);
-  --f-h4: 400 var(--f-size-7) / normal var(--f-family);
-  --f-h5: 400 var(--f-size-6) / normal var(--f-family);
-  --f-h6: 500 var(--f-size-5) / normal var(--f-family);
-  --f-subtitle-1: 400 var(--f-size-4) / normal var(--f-family);
-  --f-subtitle-2: 500 var(--f-size-3) / normal var(--f-family);
-  --f-body-1: 400 var(--f-size-4) / normal var(--f-family);
-  --f-body-2: 400 var(--f-size-3) / normal var(--f-family);
-  --f-button: 500 var(--f-size-3) / normal var(--f-family);
-  --f-caption: 400 var(--f-size-2) / normal var(--f-family);
-  --f-overline: 400 var(--f-size-1) / normal var(--f-family);
+  // Font weight
+  --font-weight-default: 400;
+  --font-weight-thick: 500;
+
+  // Line height
+  --line-height-default: 1.5;
+  --line-height-1: 1.25;
+  --line-height-2: 1.5;
+
+  // Letter spacing
+  --letter-spacing-none: 0;
+  --letter-spacing-small: 0.01rem;
+  --letter-spacing-medium: 0.02rem;
+
+  // Font
+  --font-h1: var(--font-weight-default) var(--font-size-6) / var(--line-height-default) var(--font-family-heading);
+  --font-h2: var(--font-weight-default) var(--font-size-5) / var(--line-height-default) var(--font-family-heading);
+  --font-h3: var(--font-weight-default) var(--font-size-4) / var(--line-height-default) var(--font-family-heading);
+  --font-h4: var(--font-weight-thick) var(--font-size-2) / var(--line-height-default) var(--font-family-heading);
+  --font-h5: var(--font-weight-thick) var(--font-size-1) / var(--line-height-2) var(--font-family-heading);
+  --font-body-1: var(--font-weight-default) var(--font-size-2) / var(--line-height-default) var(--font-family-body);
+  --font-body-1-thick: var(--font-weight-thick) var(--font-size-2) / var(--line-height-default) var(--font-family-body);
+  --font-body-2-comfortable: var(--font-weight-default) var(--font-size-1) / var(--line-height-2) var(--font-family-body);
+  --font-body-2-compact: var(--font-weight-default) var(--font-size-1) / var(--line-height-1) var(--font-family-body);
+  --font-body-2-comfortable-thick: var(--font-weight-thick) var(--font-size-1) / var(--line-height-2) var(--font-family-body);
+  --font-body-2-compact-thick: var(--font-weight-thick) var(--font-size-1) / var(--line-height-1) var(--font-family-body);
 }

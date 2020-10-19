@@ -1,0 +1,459 @@
+import { Meta, Story } from '@storybook/addon-docs/blocks';
+import DocsTable from './components/DocsTable.vue';
+
+<Meta
+  title="Docs/Design/Colors system/Colors usage"
+/>
+
+# Colors usage
+
+## Text
+
+<Story name="Text">
+  {{
+    components: {
+      DocsTable
+    },
+    data() {
+      return {
+        colors: [
+          {
+            hex: '--color-gray-900',
+            token: '--color-text-body',
+            description: 'Default non-interactive body text color.',
+          },
+          {
+            hex: '--color-gray-900',
+            token: '--color-text-heading',
+            description: 'Default non-interactive heading text color.',
+          },
+          {
+            hex: '--color-blue-600',
+            token: '--color-text-link-primary',
+            description: 'Primary links and command links text color in enabled state.',
+          },
+          {
+            hex: '--color-blue-700',
+            token: '--color-text-link-primary-hover',
+            description: 'Primary links and command links text color in hover state.',
+          },
+          {
+            hex: '--color-blue-800',
+            token: '--color-text-link-primary-active',
+            description: 'Primary links and command links text color in active and selected state.',
+          },
+          {
+            hex: '--color-gray-600',
+            token: '--color-text-link-secondary',
+            description: 'Secondary links and command links text color in enabled state.',
+          },
+          {
+            hex: '--color-gray-700',
+            token: '--color-text-link-secondary-hover',
+            description: 'Secondary links and command links text color in hover state.',
+          },
+          {
+            hex: '--color-gray-800',
+            token: '--color-text-link-secondary-active',
+            description: 'Secondary links and command links text color in active and selected state.',
+          },
+          {
+            hex: '--color-white',
+            token: '--color-text-negative',
+            description: 'Default text color on dark backgrounds.',
+          },
+        ]
+      }
+    },
+    template: `<DocsTable>
+      <template #thead>
+        <th>Preview</th>
+        <th>Value</th>
+        <th>Token</th>
+        <th>Usage</th>
+      </template>
+      <template #tbody>
+        <template v-for="color in colors">
+          <tr>
+            <td>
+              <div :style="'background: var(' + color.token + '); height: 32px; width: 200px; border-radius: 5px'"></div>
+            </td>
+            <template v-for="value in color">
+              <td>{{value}}</td>
+            </template>
+          </tr>
+        </template>
+      </template>
+    </DocsTable>`
+  }}
+</Story>
+
+## Icons
+
+<Story name="Icons">
+  {{
+    components: {
+      DocsTable
+    },
+    data() {
+      return {
+        colors: [
+          {
+            hex: '--color-blue-600',
+            token: '--color-icon-primary',
+            description: 'Color of primary icon in enabled state.',
+          },
+          {
+            hex: '--color-blue-700',
+            token: '--color-icon-primary-hover',
+            description: 'Color of primary icon in hover state.',
+          },
+          {
+            hex: '--color-blue-800',
+            token: '--color-icon-primary-active',
+            description: 'Color of primary icon in active and selected state.',
+          },
+          {
+            hex: '--color-gray-600',
+            token: '--color-icon-secondary',
+            description: 'Color of secondary icon in enabled state.',
+          },
+          {
+            hex: '--color-gray-700',
+            token: '--color-icon-secondary-hover',
+            description: 'Color of secondary icon in hover state.',
+          },
+          {
+            hex: '--color-gray-800',
+            token: '--color-icon-secondary-active',
+            description: 'Color of secondary icon in active and selected state.',
+          },
+          {
+            hex: '--color-white',
+            token: '--color-icon-negative',
+            description: 'Color of icons on dark backgrounds in enabled state.',
+          },
+        ]
+      }
+    },
+    template: `<DocsTable>
+      <template #thead>
+        <th>Preview</th>
+        <th>Value</th>
+        <th>Token</th>
+        <th>Usage</th>
+      </template>
+      <template #tbody>
+        <template v-for="color in colors">
+          <tr>
+            <td>
+              <div :style="'background: var(' + color.token + '); height: 32px; width: 200px; border-radius: 5px'"></div>
+            </td>
+            <template v-for="value in color">
+              <td>{{value}}</td>
+            </template>
+          </tr>
+        </template>
+      </template>
+    </DocsTable>`
+  }}
+</Story>
+
+## UI (colors shared by graphic UI elements)
+
+<Story name="UI">
+  {{
+    components: {
+      DocsTable
+    },
+    data() {
+      return {
+        colors: [
+          {
+            hex: '--color-white',
+            token: 'color-ui-bg-lightest',
+            description: 'Default background color for cards, tiles, panels, inputs, dropdowns.',
+          },
+          {
+            hex: '--color-gray-50',
+            token: '--color-ui-bg-light',
+            description: 'Subtle neutral backgrounds.',
+          },
+          {
+            hex: '--color-gray-100',
+            token: '--color-ui-element-lighter',
+            description: 'Color of subtle graphic ui elements that do not need to be accessible (borders, dividers).',
+          },
+          {
+            hex: '--color-gray-200',
+            token: '--color-ui-element-light',
+            description: 'Color of subtle graphic ui elements that do not need to be accessible (borders).',
+          },
+          {
+            hex: '--color-gray-500',
+            token: '--color-ui-element-accessible',
+            description: 'Color of accessible graphic ui elements (e.g. accessible borders).',
+          },
+          {
+            hex: '--color-gray-800',
+            token: '--color-ui-backdrop',
+            description: 'Color of dark backdrop overlays.',
+          },
+          {
+            hex: '--color-gray-50',
+            token: '--color-ui-bg-hover',
+            description: 'Default hover background color for elements with lightest (white) background.',
+          },
+          {
+            hex: '--color-blue-500',
+            token: '--color-ui-focus',
+            description: 'Color of focus selector.',
+          },
+        ]
+      }
+    },
+    template: `<DocsTable>
+      <template #thead>
+        <th>Preview</th>
+        <th>Value</th>
+        <th>Token</th>
+        <th>Usage</th>
+      </template>
+      <template #tbody>
+        <template v-for="color in colors">
+          <tr>
+            <td>
+              <div :style="'background: var(' + color.token + '); height: 32px; width: 200px; border-radius: 5px'"></div>
+            </td>
+            <template v-for="value in color">
+              <td>{{value}}</td>
+            </template>
+          </tr>
+        </template>
+      </template>
+    </DocsTable>`
+  }}
+</Story>
+
+## Alerts
+
+<Story name="Alerts">
+  {{
+    components: {
+      DocsTable
+    },
+    data() {
+      return {
+        colors: [
+          {
+            hex: '--color-red-600',
+            token: '--color-alert-error-text',
+            description: 'Color of accessible text elements in error alerts.',
+          },
+          {
+            hex: '--color-red-500',
+            token: '--color-alert-error-icon',
+            description: 'Color of accessible graphic UI elements in error alerts.',
+          },
+          {
+            hex: '--color-red-300',
+            token: '--color-alert-error-border',
+            description: 'Color of accessible graphic UI elements in error alerts.',
+          },
+          {
+            hex: '--color-red-50',
+            token: '--color-alert-error-bg',
+            description: 'Color of backgrounds in error alerts.',
+          },
+          {
+            hex: '--color-yellow-600',
+            token: '--color-alert-warning-text',
+            description: 'Color of accessible text elements in warning alerts.',
+          },
+          {
+            hex: '--color-yellow-500',
+            token: '--color-alert-warning-icon',
+            description: 'Color of accessible graphic UI elements in warning alerts.',
+          },
+          {
+            hex: '--color-yellow-300',
+            token: '--color-alert-warning-border',
+            description: 'Color of accessible graphic UI elements in warning alerts.',
+          },
+          {
+            hex: '--color-yellow-50',
+            token: '--color-alert-warning-bg',
+            description: 'Color of backgrounds in warning alerts.',
+          },
+          {
+            hex: '--color-green-600',
+            token: '--color-alert-success-text',
+            description: 'Color of accessible text elements in success alerts.',
+          },
+          {
+            hex: '--color-green-500',
+            token: '--color-alert-success-icon',
+            description: 'Color of accessible graphic UI elements in success alerts.',
+          },
+          {
+            hex: '--color-green-300',
+            token: '--color-alert-success-border',
+            description: 'Color of accessible graphic UI elements in success alerts.',
+          },
+          {
+            hex: '--color-green-50',
+            token: '--color-alert-success-bg',
+            description: 'Color of backgrounds in success alerts.',
+          },
+           {
+            hex: '--color-blue-600',
+            token: '--color-alert-info-text',
+            description: 'Color of accessible text elements in info alerts.',
+          },
+          {
+            hex: '--color-blue-500',
+            token: '--color-alert-info-icon',
+            description: 'Color of accessible graphic UI elements in info alerts.',
+          },
+          {
+            hex: '--color-blue-300',
+            token: '--color-alert-info-border',
+            description: 'Color of accessible graphic UI elements in info alerts.',
+          },
+          {
+            hex: '--color-blue-50',
+            token: '--color-alert-info-bg',
+            description: 'Color of backgrounds in info alerts.',
+          }
+        ]
+      }
+    },
+    template: `<DocsTable>
+      <template #thead>
+        <th>Preview</th>
+        <th>Value</th>
+        <th>Token</th>
+        <th>Usage</th>
+      </template>
+      <template #tbody>
+        <template v-for="color in colors">
+          <tr>
+            <td>
+              <div :style="'background: var(' + color.token + '); height: 32px; width: 200px; border-radius: 5px'"></div>
+            </td>
+            <template v-for="value in color">
+              <td>{{value}}</td>
+            </template>
+          </tr>
+        </template>
+      </template>
+    </DocsTable>`
+  }}
+</Story>
+
+## Selection controls
+
+<Story name="Selection controls">
+  {{
+    components: {
+      DocsTable
+    },
+    data() {
+      return {
+        colors: [
+          {
+            hex: '--color-green-500',
+            token: '--color-selection',
+            description: 'Color of checkboxes and radio buttons in selected-enabled state.',
+          },
+          {
+            hex: '--color-green-600',
+            token: '--color-selection-hover',
+            description: 'Color of checkboxes and radio buttons in selected-hover and selected-focus state.',
+          },
+          {
+            hex: '--color-green-700',
+            token: '--color-selection-active',
+            description: 'Color of checkboxes and radio buttons in selected-active.',
+          }
+        ]
+      }
+    },
+    template: `<DocsTable>
+      <template #thead>
+        <th>Preview</th>
+        <th>Value</th>
+        <th>Token</th>
+        <th>Usage</th>
+      </template>
+      <template #tbody>
+        <template v-for="color in colors">
+          <tr>
+            <td>
+              <div :style="'background: var(' + color.token + '); height: 32px; width: 200px; border-radius: 5px'"></div>
+            </td>
+            <template v-for="value in color">
+              <td>{{value}}</td>
+            </template>
+          </tr>
+        </template>
+      </template>
+    </DocsTable>`
+  }}
+</Story>
+
+## Triage hero colors
+
+<Story name="Triage hero controls">
+  {{
+    components: {
+      DocsTable
+    },
+    data() {
+      return {
+        colors: [
+          {
+            hex: '--color-red-500',
+            token: '--color-triage-emergency-ambulance',
+            description: 'Color of emergency ambulance triage hero element.',
+          },
+          {
+            hex: '',
+            token: '--color-triage-emergency-department',
+            description: 'Color of emergency department triage hero element.',
+          },
+          {
+            hex: '--color-blue-500',
+            token: '--color-triage-consultation',
+            description: 'Color of consultation and consultation 24h triage hero element.',
+          },
+          {
+            hex: '--color-green-500',
+            token: '--color-triage-self-care',
+            description: 'Color of self-care triage hero element.',
+          },
+        ]
+      }
+    },
+    template: `<DocsTable>
+      <template #thead>
+        <th>Preview</th>
+        <th>Value</th>
+        <th>Token</th>
+        <th>Usage</th>
+      </template>
+      <template #tbody>
+        <template v-for="color in colors">
+          <tr>
+            <td>
+              <div :style="'background: var(' + color.token + '); height: 32px; width: 200px; border-radius: 5px'"></div>
+            </td>
+            <template v-for="value in color">
+              <td>{{value}}</td>
+            </template>
+          </tr>
+        </template>
+      </template>
+    </DocsTable>`
+  }}
+</Story>

@@ -1,124 +1,395 @@
-import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Meta, Story } from '@storybook/addon-docs/blocks';
 import DocsTable from './components/DocsTable.vue';
 
 <Meta
-  title="Docs/Global variables/Typography"
+  title="Docs/Design/Typography"
 />
 
-# Typography
+# Font family
 
-## font-family
-
-<Story
-  name="font-family"
->
-  {((args, { argTypes }) => ({
-    components: { DocsTable },
-    data() {
-      return { ...args };
+<Story name="Font family">
+  {{
+    components: {
+      DocsTable
     },
-    template: `<DocsTable style="margin: 0 -15px">
-      <template #thead>
-        <tr>
-          <th>Render</th>
-          <th>Property</th>
-          <th>Default</th>
-        </tr>
-      </template>
-      <template #tbody>
-        <tr>
-          <td :style="{fontFamily: 'var(--f-family)'}">Roboto</span></td>
-          <td>--f-family</td>
-          <td>"Roboto", sans-serif;</td>
-        </tr>
-      </template>
-    </DocsTable>`,
-  })).bind({})}
-</Story>
-
-
-## font-size
-
-<Story
-  name="font-size"
-  args={{
-    content: 'Infermedica ',
-  }}
->
-  {((args, { argTypes }) => ({
-    components: { DocsTable },
     data() {
       return {
-        ...args,
-        sizes: [0.625, 0.75, 0.875, 1, 1.25, 1.5, 2.125, 3, 3.75, 6]
-      };
-    },
-    template: `<DocsTable style="margin: 0 -15px">
-      <template #thead>
-        <tr>
-          <th>Render</th>
-          <th>Property</th>
-          <th>Default</th>
-        </tr>
-      </template>
-      <template #tbody>
-        <template v-for="(size, key) in sizes">
-         <tr :key="key">
-          <td><span :style="{fontSize: 'var(--f-size-'+ (key + 1) +')'}">Roboto</span></td>
-          <td>--f-size-{{ key+1 }}</td>
-          <td>{{ size }}rem</td>
-        </tr></template>
-      </template>
-    </DocsTable>`,
-  })).bind({})}
-</Story>
-
-## font
-
-<Story
-  name="font"
-  args={{
-    content: 'Infermedica ',
-  }}
->
-  {((args, { argTypes }) => ({
-    components: { DocsTable },
-    data() {
-      return {
-        ...args,
-        fonts: [
-          {name: 'Headline 1', props: 'h1', initial: '100 var(--f-size-10) / normal var(--f-family)'},
-          {name: 'Headline 2', props: 'h2', initial: '100 var(--f-size-9) / normal var(--f-family)'},
-          {name: 'Headline 3', props: 'h3', initial: '400 var(--f-size-8) / normal var(--f-family)'},
-          {name: 'Headline 4', props:'h4', initial: '400 var(--f-size-7) / normal var(--f-family)'},
-          {name: 'Headline 5', props:'h5', initial: '400 var(--f-size-6) / normal var(--f-family)'},
-          {name: 'Headline 6', props:'h6', initial: '500 var(--f-size-5) / normal var(--f-family)'},
-          {name: 'Subtitle 1', props:'subtitle-1', initial: '400 var(--f-size-4) / normal var(--f-family)'},
-          {name: 'Subtitle 2', props: 'subtitle-2', initial: '500 var(--f-size-3) / normal var(--f-family)'},
-          {name: 'Body 1', props: 'body-1', initial: '400 var(--f-size-4) / normal var(--f-family)'},
-          {name: 'Body 2', props: 'body-2', initial: '400 var(--f-size-3) / normal var(--f-family)'},
-          {name: 'BUTTON', props: 'button', initial: '500 var(--f-size-3) / normal var(--f-family)'},
-          {name: 'Caption', props: 'caption', initial: '400 var(--f-size-2) / normal var(--f-family)'},
-          {name: 'OVERLINE', props:'overline', initial: '400 var(--f-size-1) / normal var(--f-family)'}
+        families: [
+          {
+            value: 'Roboto',
+            token: '--font-family-heading',
+            description: 'Used for headings.',
+          },
+          {
+            value: 'Roboto',
+            token: '--font-family-body',
+            description: 'Used for body text',
+          }
         ]
-      };
+      }
     },
-    template: `<DocsTable style="margin: 0 -15px">
+    template: `<DocsTable>
       <template #thead>
-        <tr>
-          <th>Render</th>
-          <th>Property</th>
-          <th>Default</th>
-        </tr>
+        <th>Preview</th>
+        <th>Value</th>
+        <th>Token</th>
+        <th>Usage</th>
       </template>
       <template #tbody>
-        <template v-for="(font, key) in fonts">
-         <tr :key="key">
-          <td><span :style="{font: 'var(--f-'+ font.props +')'}">{{ font.name }}</span></td>
-          <td>--f-{{ font.props }}</td>
-          <td>{{ font.initial }}</td>
-        </tr></template>
+        <template v-for="family in families">
+          <tr>
+            <td>
+              <div :style="'font-family: var('+ family.token +')'">Symptom Checker</div>
+            </td>
+            <td>
+              {{ family.value }}
+            </td>
+            <td>{{ family.token }}</td>
+            <td>{{ family.description }}</td>
+          </tr>
+        </template>
       </template>
-    </DocsTable>`,
-  })).bind({})}
+    </DocsTable>`
+  }}
+</Story>
+
+# Font sizes
+
+<Story name="Font sizes">
+  {{
+    components: {
+      DocsTable
+    },
+    data() {
+      return {
+        px: false,
+        sizes: [
+          {
+            size: {rem: '0.875rem', px: '14px'},
+            token: '--font-size-1',
+            description: 'Small annotations and by-lines, small subheadings.',
+          },
+          {
+            size: {rem: '1rem', px: '16px'},
+            token: '--font-size-2',
+            description: 'Standard body text, small headings',
+          },
+          {
+            size: {rem: '1.125rem', px: '18px'},
+            token: '--font-size-3',
+            description: 'Headings.',
+          },
+          {
+            size: {rem: '1.25rem', px: '20px'},
+            token: '--font-size-4',
+            description: 'Headings, large paragraphs.',
+          },
+          {
+            size: {rem: '1.5rem', px: '24px'},
+            token: '--font-size-5',
+            description: 'Headings, large paragraphs.',
+          },
+          {
+            size: {rem: '2rem', px: '32px'},
+            token: '--font-size-6',
+            description: 'Headings.',
+          },
+        ]
+      }
+    },
+    computed: {
+      unit(){
+        return this.px ? 'px' : 'rem';
+      }
+    },
+    template: `<div>
+      <label style="display: flex; align-items: center; margin: 1rem 0; display: block;"><input v-model="px" type="checkbox">show in px</label>
+      <DocsTable>
+        <template #thead>
+          <th>Preview</th>
+          <th>Value</th>
+          <th>Token</th>
+          <th>Usage</th>
+        </template>
+        <template #tbody>
+          <template v-for="size in sizes">
+            <tr>
+              <td>
+                <div :style="'font-size: var('+ size.token +')'">Symptom Checker</div>
+              </td>
+              <td>
+                {{ size.size[unit] }}
+              </td>
+              <td>{{ size.token }}</td>
+              <td>{{ size.description }}</td>
+            </tr>
+          </template>
+        </template>
+      </DocsTable>
+    </div>`
+  }}
+</Story>
+
+# Font weight
+
+<Story name="Font weight">
+  {{
+    components: {
+      DocsTable
+    },
+    data() {
+      return {
+        weights: [
+          {
+            value: '400',
+            token: '--font-weight-default',
+            description: 'Body text.',
+          },
+          {
+            value: '500',
+            token: '--font-weight-thick',
+            description: 'Headings, buttons.',
+          }
+        ]
+      }
+    },
+    template: `<DocsTable>
+      <template #thead>
+        <th>Preview</th>
+        <th>Value</th>
+        <th>Token</th>
+        <th>Usage</th>
+      </template>
+      <template #tbody>
+        <template v-for="weight in weights">
+          <tr>
+            <td>
+              <div :style="'font-weight: var('+ weight.token +')'">Symptom Checker</div>
+            </td>
+            <td>
+              {{ weight.value }}
+            </td>
+            <td>{{ weight.token }}</td>
+            <td>{{ weight.description }}</td>
+          </tr>
+        </template>
+      </template>
+    </DocsTable>`
+  }}
+</Story>
+
+# Line heights
+
+<Story name="Line heights">
+  {{
+    components: {
+      DocsTable
+    },
+    data() {
+      return {
+        px: false,
+        sizes: [
+          {
+            size: {rem: '1.5', px: '24px'},
+            token: '--line-height-default',
+            description: 'Used with all text sizes except --font-size-1.',
+          },
+          {
+            size: {rem: '1.25', px: '20px'},
+            token: '--line-height-1',
+            description: 'Used with --font-size-1',
+          },
+          {
+            size: {rem: '1.5', px: '24px'},
+            token: '--line-height-2',
+            description: 'Used with font-size-1',
+          }
+        ]
+      }
+    },
+    computed: {
+      unit(){
+        return this.px ? 'px' : 'rem';
+      }
+    },
+    template: `<div>
+      <label style="display: flex; align-items: center; margin: 1rem 0; display: block;"><input v-model="px" type="checkbox">show in px</label>
+      <DocsTable>
+        <template #thead>
+          <th>Preview</th>
+          <th>Value</th>
+          <th>Token</th>
+          <th>Usage</th>
+        </template>
+        <template #tbody>
+          <template v-for="size in sizes">
+            <tr>
+              <td>
+                <div :style="'line-height: var('+ size.token +'); width: 200px'">What concerns you about your health today?</div>
+              </td>
+              <td>
+                {{ size.size[unit] }}
+              </td>
+              <td>{{ size.token }}</td>
+              <td>{{ size.description }}</td>
+            </tr>
+          </template>
+        </template>
+      </DocsTable>
+    </div>`
+  }}
+</Story>
+
+# Letter spacing
+
+<Story name="Letter spacing">
+  {{
+    components: {
+      DocsTable
+    },
+    data() {
+      return {
+        spacings: [
+          {
+            text: 'Symptom checker',
+            fontSize: '--font-size-5',
+            value: '0rem',
+            token: '--letter-spacing-none',
+            description: 'Used with --font-size-5 and --font-size-6.',
+          },
+          {
+            text: 'What concerns you about your health today?',
+            fontSize: '--font-size-3',
+            value: '0.01rem',
+            token: '--letter-spacing-none',
+            description: 'Used with --font-size-3 and --font-size-4.',
+          },
+          {
+            text: 'What concerns you about your health today?',
+            fontSize: '--font-size-1',
+            value: '0.02rem',
+            token: '--letter-spacing-none',
+            description: 'Used with --font-size-1 and --font-size-2.',
+          },
+        ]
+      }
+    },
+    template: `<DocsTable>
+      <template #thead>
+        <th>Preview</th>
+        <th>Value</th>
+        <th>Token</th>
+        <th>Usage</th>
+      </template>
+      <template #tbody>
+        <template v-for="spacing in spacings">
+          <tr>
+            <td>
+              <div :style="'font-size: var('+ spacing.fontSize +'); letter-spacing: var('+ spacing.token +');'">{{ spacing.text }}</div>
+            </td>
+            <td>
+              {{ spacing.value }}
+            </td>
+            <td>{{ spacing.token }}</td>
+            <td>{{ spacing.description }}</td>
+          </tr>
+        </template>
+      </template>
+    </DocsTable>`
+  }}
+</Story>
+
+# Font style
+
+<Story name="Font style">
+  {{
+    components: {
+      DocsTable
+    },
+    data() {
+      return {
+        fonts: [
+          {
+            values: ['--font-weight-default', '--font-size-6', '--line-height-default', '--font-family-heading', '--letter-spacing-none'],
+            token: '--font-h1',
+            description: 'Headings.',
+          },
+          {
+            values: ['--font-weight-default', '--font-size-5', '--line-height-default', '--font-family-heading', '--letter-spacing-none'],
+            token: '--font-h2',
+            description: 'Headings.',
+          },
+          {
+            values: ['--font-weight-default', '--font-size-4', '--line-height-default', '--font-family-heading', '--letter-spacing-small'],
+            token: '--font-h3',
+            description: 'Headings.',
+          },
+          {
+            values: ['--font-weight-thick', '--font-size-2', '--line-height-default', '--font-family-heading', '--letter-spacing-medium'],
+            token: '--font-h4',
+            description: 'Headings.',
+          },
+          {
+            values: ['--font-weight-thick', '--font-size-1', '--line-height-2', '--font-family-heading', '--letter-spacing-medium'],
+            token: '--font-h5',
+            description: 'Headings.',
+          },
+          {
+            values: ['--font-weight-default', '--font-size-2', '--line-height-default', '--font-family-body', '--letter-spacing-medium'],
+            token: '--font-body-1',
+            description: 'Main body text.',
+          },
+          {
+            values: ['--font-weight-thick', '--font-size-2', '--line-height-default', '--font-family-body', '--letter-spacing-medium'],
+            token: '--font-body-1-thick',
+            description: 'Main body text.',
+          },
+          {
+            values: ['--font-weight-default', '--font-size-1', '--line-height-2', '--font-family-body', '--letter-spacing-medium'],
+            token: '--font-body-2-comfortable',
+            description: 'Small body text with bigger line height.',
+          },
+          {
+            values: ['--font-weight-thick', '--font-size-1', '--line-height-2', '--font-family-body', '--letter-spacing-medium'],
+            token: '--font-body-2-comfortable-thick',
+            description: 'Small body text with bigger line height.',
+          },
+          {
+            values: ['--font-weight-default', '--font-size-1', '--line-height-1', '--font-family-body', '--letter-spacing-medium'],
+            token: '--font-body-2-compact',
+            description: 'Small body text with compact line height.',
+          },
+          {
+            values: ['--font-weight-thick', '--font-size-1', '--line-height-1', '--font-family-body', '--letter-spacing-medium'],
+            token: '--font-body-2-compact-thick',
+            description: 'Small body text with compact line height.',
+          }
+        ]
+      }
+    },
+    template: `<DocsTable>
+      <template #thead>
+        <th>Preview</th>
+        <th>Value</th>
+        <th>Token</th>
+        <th>Usage</th>
+      </template>
+      <template #tbody>
+        <template v-for="font in fonts">
+          <tr>
+            <td>
+              <div :style="'font: var('+ font.token +')'">Symptom Checker</div>
+            </td>
+            <td>
+              <template v-for="value in font.values">
+                <p style="margin: 0">{{value}}</p>
+              </template>
+            </td>
+            <td>{{ font.token }}</td>
+            <td>{{ font.description }}</td>
+          </tr>
+        </template>
+      </template>
+    </DocsTable>`
+  }}
 </Story>
