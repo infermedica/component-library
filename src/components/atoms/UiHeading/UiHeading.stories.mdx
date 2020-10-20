@@ -1,0 +1,35 @@
+import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import UiHeading from './UiHeading.vue';
+
+<Meta
+  title="Atoms/Heading"
+  component={UiHeading}
+  argTypes={{
+    customProp: {control: {type: 'text'}}
+  }}
+/>
+
+# Heading
+
+This component working like native heading. [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements)
+
+<Canvas>
+  <Story
+    name="Common"
+    args={{
+      customProp: 'customProp'
+    }}
+  >
+    {((args, {argTypes}) => ({
+      props: Object.keys(argTypes),
+      components: {UiHeading},
+      template: `<UiHeading>Symptom Checker</UiHeading>`
+    })).bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story='Common' />
+
+# Props
+
+<Props of={UiHeading} />
