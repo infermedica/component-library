@@ -1,0 +1,35 @@
+import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import UiList from './UiList.vue';
+
+<Meta
+  title="Organisms/List"
+  component={UiList}
+  argTypes={{
+    tag: {control: {type: 'select', options: ['ul', 'ol']}},
+  }}
+/>
+
+# List
+
+This component working like native list of items. [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul)
+
+<Canvas>
+  <Story
+    name="Common"
+  >
+    {((args, {argTypes}) => ({
+      props: Object.keys(argTypes),
+      components: {UiList},
+      template: `<UiList>
+        <UiListItem>List Item A</UiListItem>
+        <UiListItem>List Item B</UiListItem>
+      </UiList>`
+    })).bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story='Common' />
+
+# Props
+
+<Props of={UiList} />
