@@ -1,5 +1,6 @@
 import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
 import UiRadio from './UiRadio.vue';
+import UiIcon from '../UiIcon/UiIcon.vue'
 
 <Meta
   title="Atoms/Radio"
@@ -80,7 +81,7 @@ This component can be used as radio button. You can use to `checkbox` slot to ge
     name="Radio button"
   >
     {((args, {argTypes}) => ({
-      components: {UiRadio},
+      components: { UiRadio, UiIcon },
       data(){
         return {
           picked: ''
@@ -97,12 +98,7 @@ This component can be used as radio button. You can use to `checkbox` slot to ge
               :class="{focused}"
               :style="{display: 'grid', gap: '14px', justifyItems: 'center', '--button-border': checked ? '2px solid #abb8c4' : undefined}"
             >
-              <svg
-                style="height: 56px"
-                viewBox="0 0 512 512"
-              >
-              <path d="M194.025 512C87.04 512 0 424.96 0 317.975S87.04 123.95 194.025 123.95c36.237 0 71.116 9.891 101.636 28.716l62.617-62.617h-46.414V0H512v200.088h-90.048v-46.366l-62.617 62.617c18.825 30.52 28.716 65.398 28.716 101.636C388.051 424.96 301.011 512 194.025 512zm0-358.051C103.582 153.949 30 227.531 30 317.975S103.582 482 194.025 482 358.05 408.418 358.05 317.975c0-34.255-10.448-67.067-30.216-94.889l-7.341-10.332L451.952 81.295v88.793H482V30H341.864v30.048h88.841L299.246 191.506l-10.332-7.341c-27.821-19.768-60.633-30.216-94.889-30.216z"/><path d="M194.025 452C120.124 452 60 391.876 60 317.975S120.124 183.95 194.025 183.95 328.05 244.074 328.05 317.975 267.927 452 194.025 452zm0-238.051C136.666 213.949 90 260.615 90 317.975S136.666 422 194.025 422 298.05 375.334 298.05 317.975s-46.665-104.026-104.025-104.026z"/>
-              </svg>
+              <UiIcon icon="male" style="--icon-size: 56px" />
               Male
             </div>
           </template>
@@ -117,12 +113,7 @@ This component can be used as radio button. You can use to `checkbox` slot to ge
               :class="{focused}"
               :style="{display: 'grid', gap: '14px', justifyItems: 'center', '--button-border': checked ? '2px solid #abb8c4' : undefined}"
             >
-              <svg
-                style="height: 56px"
-                viewBox="0 0 512 512"
-              >
-                <path d="M301.024 512h-90.048v-60.048h-60.048v-90.048h60.048V325.66c-32.243-9.098-61.327-27.98-82.873-54.019-24.525-29.639-38.031-67.182-38.031-105.713C90.072 74.435 164.507 0 256 0s165.928 74.435 165.928 165.928c0 38.531-13.506 76.074-38.031 105.713-21.546 26.039-50.629 44.921-82.873 54.019v36.244h60.048v90.048h-60.048zm-60.048-30h30.048v-60.048h60.048v-30.048h-60.048V301.59l12.032-2.429c63.084-12.733 108.872-68.767 108.872-133.233C391.928 90.977 330.951 30 256 30S120.072 90.977 120.072 165.928c0 64.467 45.787 120.5 108.872 133.233l12.032 2.429v90.314h-60.048v30.048h60.048z"/><path d="M256 271.856c-58.409 0-105.928-47.519-105.928-105.928S197.591 60 256 60s105.928 47.519 105.928 105.928S314.409 271.856 256 271.856zM256 90c-41.867 0-75.928 34.061-75.928 75.928s34.062 75.928 75.928 75.928 75.928-34.061 75.928-75.928S297.867 90 256 90z"/>
-              </svg>
+              <UiIcon icon="female" style="--icon-size: 56px" />
               Female
             </div>
           </template>

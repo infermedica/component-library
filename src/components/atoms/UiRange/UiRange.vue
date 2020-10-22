@@ -114,7 +114,7 @@ export default {
   padding:
     calc(
       var(--range-thumb-size, 2.5rem)
-      +  var(--range-label-spacing-bottom, 0.5rem)
+      + var(--range-label-spacing-bottom, 0.5rem)
     ) 0 0 0;
 
   &__input {
