@@ -24,5 +24,5 @@ export default {
 </script>
 
 <style lang="scss">
-.ui-list-item {}
+// .ui-list-item {}
 </style>

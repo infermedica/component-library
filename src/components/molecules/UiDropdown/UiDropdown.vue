@@ -73,7 +73,7 @@ export default {
   position: relative;
   display: inline-block;
 
-  &__toggle {}
+  // &__toggle {}
 
   &__content {
     position: absolute;
@@ -91,9 +91,3 @@ export default {
   }
 }
 </style>
-
-<i18n>
-{
-"en": {}
-}
-</i18n>

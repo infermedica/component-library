@@ -29,7 +29,7 @@ export default {
 </script>
 
 <style lang="scss">
-.ui-heading {}
+// .ui-heading {}
 
 @for $i from 1 through 6 {
   h#{$i} {

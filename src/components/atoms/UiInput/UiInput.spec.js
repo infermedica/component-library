@@ -55,8 +55,8 @@ describe('UiInput.vue', () => {
         $t: () => {},
       },
     });
-    await wrapper.find('.ui-input__element').setValue(content);
-    wrapper.trigger('input');
+    wrapper.find('.ui-input__element').setValue(content);
+    await wrapper.trigger('input');
     expect(wrapper.emitted('input')[0][0]).toBe(content);
   });
 });
