@@ -1,5 +1,5 @@
 {
-  "name": "symptom-checker-storybook",
+  "name": "@symptom-checker/ui-kit",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,9 +8,10 @@
     "lint:scss": "stylelint 'src/**/*.{vue,htm,html,css,sss,less,scss}' --fix",
     "storybook:build": "vue-cli-service storybook:build -s ./public -c config/storybook",
     "storybook:serve": "vue-cli-service storybook:serve -s ./public -p 6006 -c config/storybook",
-    "create-component": "node ./scripts/create-component.js",
+    "create-component": "node scripts/create-component.js",
     "create-index": "node scripts/create-index.js",
-    "chromatic": "npx chromatic --project-token=hw4976nuxwf --build-script-name=storybook:build"
+    "chromatic": "npx chromatic --project-token=hw4976nuxwf --build-script-name=storybook:build",
+    "postinstall": "node scripts/create-index.js"
   },
   "dependencies": {
     "core-js": "^3.6.5",
@@ -40,7 +41,6 @@
     "eslint-plugin-vue": "^6.2.2",
     "file-save": "^0.2.0",
     "glob": "^7.1.6",
-    "lint-staged": "^9.5.0",
     "node-sass": "^4.14.1",
     "prompts": "^2.3.2",
     "sass-loader": "^10.0.2",
@@ -53,15 +53,5 @@
     "uppercamelcase": "^3.0.0",
     "vue-cli-plugin-storybook": "~1.3.0",
     "vue-template-compiler": "^2.6.11"
-  },
-  "gitHooks": {
-    "pre-commit": "lint-staged"
-  },
-  "lint-staged": {
-    "*.{js,jsx,vue}": [
-      "lint:js",
-      "lint:scss",
-      "git add"
-    ]
   }
 }
