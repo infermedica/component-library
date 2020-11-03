@@ -6,7 +6,7 @@ module.exports = {
     jest: true,
   },
   extends: [
-    'plugin:vue/vue3-essential',
+    'plugin:vue/vue3-recommended',
     '@vue/airbnb',
   ],
   parserOptions: {
@@ -19,6 +19,13 @@ module.exports = {
     'max-len': ['error', {
       code: 80, ignoreStrings: true, ignoreUrls: true, ignorePattern: 'url',
     }],
+    'vue/max-attributes-per-line': ['error', {
+      singleline: 1,
+      multiline: {
+        max: 1,
+        allowFirstLine: false
+      }
+    }]
   },
   ignorePatterns: ['**/utilities/*', '**/.storybook/*'],
 };
