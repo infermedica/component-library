@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { computed } from 'vue';
 import icons from './icons';
 
 export default {
@@ -38,25 +39,28 @@ export default {
       default: '0 0 24 24',
     },
   },
-  computed: {
-    isArray() {
-      return Array.isArray(this.icon);
-    },
-    iconPaths() {
-      return !this.isArray && icons[this.icon]
-        ? icons[this.icon].paths
-        : [];
-    },
-    iconViewBox() {
-      return icons[this.icon]
-        ? icons[this.icon].viewBox
-        : this.viewBox;
-    },
-    paths() {
-      return this.isArray
-        ? this.icon
-        : this.iconPaths;
-    },
+  setup(props) {
+    const isArray = computed(() => (Array.isArray(props.icon)));
+    const iconPaths = computed(() => (
+      !isArray.value && icons[props.icon]
+        ? icons[props.icon].paths
+        : []));
+    const iconViewBox = computed(() => (
+      icons[props.icon]
+        ? icons[props.icon].viewBox
+        : props.viewBox));
+    const paths = computed(() => (
+      isArray.value
+        ? props.icon
+        : iconPaths.value
+    ));
+
+    return {
+      isArray,
+      iconPaths,
+      iconViewBox,
+      paths,
+    };
   },
 };
 </script>

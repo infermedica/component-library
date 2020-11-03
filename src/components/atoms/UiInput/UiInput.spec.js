@@ -1,23 +1,16 @@
-import { shallowMount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import UiInput from './UiInput.vue';
 
 describe('UiInput.vue', () => {
   test('render a component', () => {
-    const wrapper = shallowMount(UiInput, {
-      mocks: {
-        $t: () => {},
-      },
-    });
+    const wrapper = mount(UiInput);
     expect(wrapper.classes('ui-input')).toBe(true);
   });
   test('render a component with suffix', () => {
     const suffix = 'symptom checker';
-    const wrapper = shallowMount(UiInput, {
-      propsData: {
+    const wrapper = mount(UiInput, {
+      props: {
         suffix,
-      },
-      mocks: {
-        $t: () => {},
       },
     });
     const aside = wrapper.find('.ui-input__aside');
@@ -25,8 +18,8 @@ describe('UiInput.vue', () => {
   });
   test('render a native attributes on input element', () => {
     const placeholder = 'symptom checker';
-    const wrapper = shallowMount(UiInput, {
-      propsData: {
+    const wrapper = mount(UiInput, {
+      props: {
         placeholder,
       },
       mocks: {
@@ -37,12 +30,9 @@ describe('UiInput.vue', () => {
     expect(input.attributes('placeholder')).toBe(placeholder);
   });
   test('render a content via aside slot', () => {
-    const wrapper = shallowMount(UiInput, {
+    const wrapper = mount(UiInput, {
       slots: {
         aside: '<div class="symptom-checker"></div>',
-      },
-      mocks: {
-        $t: () => {},
       },
     });
     const aside = wrapper.find('.symptom-checker');
@@ -50,13 +40,9 @@ describe('UiInput.vue', () => {
   });
   test('a component emits input event', async () => {
     const content = 'symptom checker';
-    const wrapper = shallowMount(UiInput, {
-      mocks: {
-        $t: () => {},
-      },
-    });
+    const wrapper = mount(UiInput);
     wrapper.find('.ui-input__element').setValue(content);
     await wrapper.trigger('input');
-    expect(wrapper.emitted('input')[0][0]).toBe(content);
+    expect(wrapper.emitted('update:modelValue')[0][0]).toBe(content);
   });
 });

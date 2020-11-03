@@ -1,9 +1,9 @@
 export const test = {
-  bind(el, binding) {
+  beforeMount(el, binding) {
     if (process.env.NODE_ENV !== 'development') return;
     el.setAttribute('data-testid', binding.value);
   },
-  unbind(el) {
+  beforeUnmount(el) {
     if (process.env.NODE_ENV !== 'development') return;
     el.removeAttribute('data-testid');
   },

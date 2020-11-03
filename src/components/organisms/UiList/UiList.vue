@@ -9,12 +9,6 @@
 </template>
 
 <script>
-import Vue from 'vue';
-import UiListItem from './_internal/UiListItem.vue';
-
-// TODO: Vue3  this.component('UiLitItem', UiListItem)
-Vue.component('UiListItem', UiListItem);
-
 export default {
   name: 'UiList',
   props: {

@@ -6,7 +6,7 @@ module.exports = {
     jest: true,
   },
   extends: [
-    'plugin:vue/recommended',
+    'plugin:vue/vue3-essential',
     '@vue/airbnb',
   ],
   parserOptions: {
@@ -20,5 +20,5 @@ module.exports = {
       code: 80, ignoreStrings: true, ignoreUrls: true, ignorePattern: 'url',
     }],
   },
-  ignorePatterns: ['**/directives/*', '**/config/*'],
+  ignorePatterns: ['**/utilities/*', '**/.storybook/*'],
 };

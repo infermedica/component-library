@@ -2,7 +2,7 @@
   <div class="ui-input">
     <input
       v-bind="$attrs"
-      :value="value"
+      :value="modelValue"
       class="ui-input__element"
       @input="inputHandler($event.target.value)"
     >
@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import { computed } from 'vue';
+
 export default {
   name: 'UiInput',
   inheritAttrs: false,
@@ -34,26 +36,21 @@ export default {
     /**
      * Use this props or v-model to set value.
      */
-    value: {
+    modelValue: {
       type: String,
       default: '',
     },
   },
-  computed: {
-    isEmpty() {
-      return this.value.trim().length === 0;
-    },
-  },
-  methods: {
-    inputHandler(value) {
-      /**
-       * Update input value.
-       *
-       * @event input
-       * @property {string} new value
-       */
-      this.$emit('input', value);
-    },
+  setup(props, { emit }) {
+    const isEmpty = computed(() => (props.modelValue.trim().length === 0));
+    function inputHandler(value) {
+      emit('update:modelValue', value);
+    }
+
+    return {
+      isEmpty,
+      inputHandler,
+    };
   },
 };
 </script>

@@ -1,74 +1,52 @@
-import { shallowMount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import UiRadio from './UiRadio.vue';
 
 describe('UiRadio.vue', () => {
   test('renders a component', () => {
-    const wrapper = shallowMount(UiRadio, {
-      mocks: {
-        $t: () => {},
-      },
-    });
+    const wrapper = mount(UiRadio);
     expect(wrapper.classes('ui-radio')).toBe(true);
   });
   test('render a content via default slot', () => {
-    const wrapper = shallowMount(UiRadio, {
+    const wrapper = mount(UiRadio, {
       slots: {
         default: '<div class="symptom-checker"></div>',
-      },
-      mocks: {
-        $t: () => {},
       },
     });
     const slot = wrapper.find('.symptom-checker');
     expect(slot.exists()).toBe(true);
   });
   test('render a content via radiobutton slot', () => {
-    const wrapper = shallowMount(UiRadio, {
+    const wrapper = mount(UiRadio, {
       slots: {
         radiobutton: '<div class="symptom-checker"></div>',
-      },
-      mocks: {
-        $t: () => {},
       },
     });
     const slot = wrapper.find('.symptom-checker');
     expect(slot.exists()).toBe(true);
   });
   test('render default id for non passed id property', () => {
-    const wrapper = shallowMount(UiRadio, {
-      mocks: {
-        $t: () => {},
-      },
-    });
-    // eslint-disable-next-line no-underscore-dangle
-    const id = `radio-${wrapper.vm._uid}`;
+    const wrapper = mount(UiRadio);
     const input = wrapper.find('input[type="radio"]');
-    expect(input.attributes('id')).toBe(id);
+    expect(input.attributes('id')).toContain('radio-');
   });
   test('a radio click emits change event', async () => {
     const value = 'symptom checker';
-    const wrapper = shallowMount(UiRadio, {
-      propsData: {
-        checked: '',
+    const wrapper = mount(UiRadio, {
+      props: {
+        modelValue: '',
         value,
-      },
-      mocks: {
-        $t: () => {},
       },
     });
     const input = wrapper.find('input[type="radio"]');
     await input.trigger('click');
-    expect(wrapper.emitted('change')[0][0]).toBe(value);
+    expect(wrapper.emitted('update:modelValue')[0][0]).toBe(value);
   });
   test('a component pass Object as value', () => {
     const value = { value: 'symptom checker' };
-    const wrapper = shallowMount(UiRadio, {
-      propsData: {
-        checked: value,
+    const wrapper = mount(UiRadio, {
+      props: {
+        modelValue: value,
         value,
-      },
-      mocks: {
-        $t: () => {},
       },
     });
     const input = wrapper.find('input[type="radio"]');

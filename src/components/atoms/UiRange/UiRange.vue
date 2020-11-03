@@ -6,11 +6,11 @@
     <!-- @slot Use this slot to replace decrement template. -->
     <slot
       name="decrement"
-      v-bind="{change: changeHandler, value}"
+      v-bind="{change: changeHandler, value: modelValue}"
     >
       <UiButton
         class="ui-button--outlined ui-range__decrement"
-        @click="changeHandler(value, -1)"
+        @click="changeHandler(modelValue, -1)"
       >
         -
       </UiButton>
@@ -19,7 +19,7 @@
       <!-- @slot Use this slot to replace value template. -->
       <slot name="value">
         <div class="ui-range__value">
-          {{ value }}
+          {{ modelValue }}
         </div>
       </slot>
       <input
@@ -27,7 +27,7 @@
         type="range"
         :min="min"
         :max="max"
-        :value="value"
+        :value="modelValue"
         class="ui-range__track"
         @input="changeHandler($event.target.value)"
       >
@@ -35,11 +35,11 @@
     <!-- @slot Use this slot to replace increment template.-->
     <slot
       name="increment"
-      v-bind="{change: changeHandler, value}"
+      v-bind="{change: changeHandler, value: modelValue}"
     >
       <UiButton
         class="ui-button--outlined ui-range__increment"
-        @click="changeHandler(value, 1)"
+        @click="changeHandler(modelValue, 1)"
       >
         +
       </UiButton>
@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import { computed } from 'vue';
 import UiButton from '../UiButton/UiButton.vue';
 
 export default {
@@ -56,14 +57,11 @@ export default {
     UiButton,
   },
   inheritAttrs: false,
-  model: {
-    event: 'change',
-  },
   props: {
     /**
      * Use this props or v-model to set value.
      */
-    value: {
+    modelValue: {
       type: [String, Number],
       default: '',
     },
@@ -82,27 +80,24 @@ export default {
       default: '1',
     },
   },
-  computed: {
-    trackWidth() {
-      const value = parseInt(this.value, 10);
-      const min = parseInt(this.min, 10);
-      const max = parseInt(this.max, 10);
+  setup(props, { emit }) {
+    const trackWidth = computed(() => {
+      const value = parseInt(props.modelValue, 10);
+      const min = parseInt(props.min, 10);
+      const max = parseInt(props.max, 10);
       const scope = max - min;
       const position = value - min;
       return `${(position / scope) * 100}%`;
-    },
-  },
-  methods: {
-    changeHandler(value, modifier = 0) {
+    });
+    function changeHandler(value, modifier = 0) {
       const newValue = parseInt(value, 10) + modifier;
-      /**
-       * Update range state.
-       *
-       * @event change
-       * @property {string} new state of range
-       */
-      this.$emit('change', `${newValue}`);
-    },
+      emit('update:modelValue', `${newValue}`);
+    }
+
+    return {
+      trackWidth,
+      changeHandler,
+    };
   },
 };
 </script>

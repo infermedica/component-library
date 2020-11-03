@@ -2,7 +2,6 @@
   <button
     v-outline
     class="ui-button"
-    v-on="$listeners"
   >
     <!-- @slot Use this slot to place content inside button. -->
     <slot />
@@ -10,7 +9,7 @@
 </template>
 
 <script>
-import { outline } from '../../../directives';
+import { outline } from '../../../utilities/directives';
 
 export default {
   name: 'UiButton',

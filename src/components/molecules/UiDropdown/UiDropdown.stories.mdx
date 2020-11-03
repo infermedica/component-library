@@ -63,7 +63,7 @@ Use `toggle` slot which has `{ toggle, open, close, isOpen }` in scope to replac
         :text="text"
         style="width: 25rem"
       >
-        <template #default="{close}">
+        <template #default="{closeHandler}">
           <p>No results</p>
           <p>Unfortunately, the symptom was not found.</p>
           <ul>
@@ -75,10 +75,10 @@ Use `toggle` slot which has `{ toggle, open, close, isOpen }` in scope to replac
             @click="close"
           >Start a new search</UiButton>
         </template>
-        <template #toggle="{open, close}">
+        <template #toggle="{openHandler, closeHandler}">
           <UiInput
-            :value="contentOfDropdown"
-            @input="inputHandler($event, open, close)"
+            :modelValue="contentOfDropdown"
+            @update:modelValue="inputHandler($event, openHandler, closeHandler)"
             type="search"
             placeholder="Search, e.g. headache"
           />

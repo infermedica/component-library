@@ -1,23 +1,16 @@
-import { shallowMount, mount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import UiDropdown from './UiDropdown.vue';
 
 describe('UiDropdown.vue', () => {
   test('renders a component', () => {
-    const wrapper = shallowMount(UiDropdown, {
-      mocks: {
-        $t: () => {},
-      },
-    });
+    const wrapper = mount(UiDropdown);
     expect(wrapper.classes('ui-dropdown')).toBe(true);
   });
   test('render a content from text props', () => {
     const text = 'symptom checker';
-    const wrapper = shallowMount(UiDropdown, {
-      propsData: {
+    const wrapper = mount(UiDropdown, {
+      props: {
         text,
-      },
-      mocks: {
-        $t: () => {},
       },
     });
     const toggle = wrapper.find('.ui-dropdown__toggle');
@@ -28,9 +21,6 @@ describe('UiDropdown.vue', () => {
       slots: {
         default: '<div class="symptom-checker"></div>',
       },
-      mocks: {
-        $t: () => {},
-      },
     });
     const toggle = wrapper.find('.ui-dropdown__toggle');
     await toggle.trigger('click');
@@ -38,7 +28,7 @@ describe('UiDropdown.vue', () => {
     expect(slot.exists()).toBe(true);
   });
   test('render a content via toggle slot', () => {
-    const wrapper = shallowMount(UiDropdown, {
+    const wrapper = mount(UiDropdown, {
       slots: {
         toggle: '<div class="symptom-checker"></div>',
       },
@@ -50,23 +40,16 @@ describe('UiDropdown.vue', () => {
     expect(slot.exists()).toBe(true);
   });
   test('render a content via content slot', () => {
-    const wrapper = shallowMount(UiDropdown, {
+    const wrapper = mount(UiDropdown, {
       slots: {
         content: '<div class="symptom-checker"></div>',
-      },
-      mocks: {
-        $t: () => {},
       },
     });
     const slot = wrapper.find('.symptom-checker');
     expect(slot.exists()).toBe(true);
   });
   test('a trigger button click open dropdown', async () => {
-    const wrapper = mount(UiDropdown, {
-      mocks: {
-        $t: () => {},
-      },
-    });
+    const wrapper = mount(UiDropdown);
     const toggle = wrapper.find('.ui-dropdown__toggle');
     await toggle.trigger('click');
     expect(wrapper.vm.isOpen).toBe(true);

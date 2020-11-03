@@ -2,15 +2,16 @@
   <div
     class="ui-dropdown"
     :class="{'is-active': isOpen}"
+    v-click-outside="closeHandler"
   >
     <!-- @slot Use this slot to place toggle template. -->
     <slot
       name="toggle"
-      v-bind="{toggle, open, close, isOpen}"
+      v-bind="{toggleHandler, openHandler, closeHandler, isOpen}"
     >
       <UiButton
         class="ui-dropdown__toggle"
-        @click="toggle"
+        @click="toggleHandler"
       >
         {{ text }}
       </UiButton>
@@ -18,22 +19,22 @@
     <!-- @slot Use this slot to place content template. -->
     <slot
       name="content"
-      v-bind="{close, isOpen}"
+      v-bind="{closeHandler, isOpen}"
     >
       <div
         v-if="isOpen"
-        v-click-outside="close"
         class="ui-dropdown__content"
       >
         <!-- @slot Use this slot to place dropdown content inside dropdown. -->
-        <slot v-bind="{close, isOpen}" />
+        <slot v-bind="{closeHandler, isOpen}" />
       </div>
     </slot>
   </div>
 </template>
 
 <script>
-import { clickOutside } from '../../../directives';
+import { ref } from 'vue';
+import { clickOutside } from '../../../utilities/directives';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 
 export default {
@@ -49,21 +50,23 @@ export default {
       default: '',
     },
   },
-  data() {
+  setup() {
+    const isOpen = ref(false);
+    function toggleHandler() {
+      isOpen.value = !isOpen.value;
+    }
+    function openHandler() {
+      isOpen.value = true;
+    }
+    function closeHandler() {
+      isOpen.value = false;
+    }
     return {
-      isOpen: false,
+      isOpen,
+      toggleHandler,
+      openHandler,
+      closeHandler,
     };
-  },
-  methods: {
-    toggle() {
-      this.isOpen = !this.isOpen;
-    },
-    open() {
-      this.isOpen = true;
-    },
-    close() {
-      this.isOpen = false;
-    },
   },
 };
 </script>

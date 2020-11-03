@@ -5,12 +5,12 @@
     <!-- @slot Use this slot to replace remove template. -->
     <slot
       name="remove"
-      v-bind="{click, attrs: buttonAttrs}"
+      v-bind="{clickHandler, attrs: buttonAttrs}"
     >
       <UiButton
         v-bind="buttonAttrs"
         class="ui-chips__remove"
-        @click="click"
+        @click="clickHandler"
       >
         <UiIcon icon="close" />
       </UiButton>
@@ -37,15 +37,13 @@ export default {
       default: () => ({}),
     },
   },
-  methods: {
-    click() {
-      /**
-       * Remove request.
-       *
-       * @event click:remove
-       */
-      this.$emit('click:remove', true);
-    },
+  setup(props, { emit }) {
+    function clickHandler() {
+      emit('remove', true);
+    }
+    return {
+      clickHandler,
+    };
   },
 };
 </script>

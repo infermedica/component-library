@@ -1,6 +1,6 @@
 export const highlight = {
-  bind(el, binding) {
-    el._highlightHandler = function(el, binding) {
+  beforeMount(el, binding) {
+    el.__highlightHandler__ = function(el, binding) {
       const query = binding.value;
       const content = el.innerHTML.replace(/<\/?mark>/gi, '');
       const marked = content.replace(
@@ -11,9 +11,9 @@ export const highlight = {
       )
       el.innerHTML = marked;
     }
-    el._highlightHandler(el, binding)
+    el.__highlightHandler__(el, binding)
   },
-  update(el, binding) {
-    el._highlightHandler(el, binding)
+  beforeUnmount(el, binding) {
+    el.__highlightHandler__(el, binding)
   }
 }

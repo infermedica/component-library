@@ -36,13 +36,12 @@
 </template>
 
 <script>
+import { uid } from 'uid/single';
+import { ref, computed } from 'vue';
+
 export default {
   name: 'UiRadio',
   inheritAttrs: false,
-  model: {
-    prop: 'checked',
-    event: 'change',
-  },
   props: {
     /**
      * Use this props to set radio id
@@ -61,37 +60,31 @@ export default {
     /**
      * Use this props or v-model to set checked.
      */
-    checked: {
+    modelValue: {
       type: [String, Object],
       default: '',
     },
   },
-  data() {
-    return {
-      focused: false,
-    };
-  },
-  computed: {
-    radioId() {
-      // eslint-disable-next-line no-underscore-dangle
-      return `radio-${this._uid}`;
-    },
-    isChecked() {
-      return JSON.stringify(this.value) === JSON.stringify(this.checked);
-    },
-  },
-  methods: {
-    changeHandler(checked) {
+  setup(props, { emit }) {
+    const focused = ref(false);
+    const radioId = computed(() => (
+      props.id || `radio-${uid()}`
+    ));
+    const isChecked = computed(() => (
+      JSON.stringify(props.value) === JSON.stringify(props.modelValue)
+    ));
+    function changeHandler(checked) {
       if (checked) {
-        /**
-         * Update radio checked state
-         *
-         * @event change
-         * @property {string, object} new state of checked
-         */
-        this.$emit('change', JSON.parse(JSON.stringify(this.value)));
+        emit('update:modelValue', JSON.parse(JSON.stringify(props.value)));
       }
-    },
+    }
+
+    return {
+      focused,
+      radioId,
+      isChecked,
+      changeHandler,
+    };
   },
 };
 </script>

@@ -37,13 +37,12 @@
 </template>
 
 <script>
+import { uid } from 'uid/single';
+import { ref, computed } from 'vue';
+
 export default {
   name: 'UiCheckbox',
   inheritAttrs: false,
-  model: {
-    prop: 'checked',
-    event: 'change',
-  },
   props: {
     /**
      * Use this props to set checkbox id.
@@ -63,58 +62,49 @@ export default {
     /**
      *  Use this props or v-model to set checked.
      */
-    checked: {
+    modelValue: {
       type: [Boolean, Array],
       default: false,
     },
   },
-  data() {
-    return {
-      focused: false,
-    };
-  },
-  computed: {
-    checkboxId() {
-      // eslint-disable-next-line no-underscore-dangle
-      return this.id || `checkbox-${this._uid}`;
-    },
-    isObject() {
-      return typeof this.checked === 'object';
-    },
-    isChecked() {
-      return this.isObject
-        ? this.checked.filter(
-          (option) => (JSON.stringify(option) === JSON.stringify(this.value)),
+  setup(props, { emit }) {
+    const focused = ref(false);
+    const checkboxId = computed(() => (
+      props.id || `checkbox-${uid()}`
+    ));
+    const isObject = computed(() => (typeof props.modelValue === 'object'));
+    const isChecked = computed(() => (
+      isObject.value
+        ? props.modelValue.filter(
+          (option) => (JSON.stringify(option) === JSON.stringify(props.value)),
         ).length > 0
-        : this.checked;
-    },
-  },
-  methods: {
-    newChecked(checked) {
+        : props.modelValue
+    ));
+
+    function getChecked(checked) {
       let newChecked;
-      if (this.isObject) {
+      if (isObject.value) {
         newChecked = checked
-          ? [
-            ...this.checked,
-            JSON.parse(JSON.stringify(this.value)),
-          ]
-          : this.checked.filter(
-            (option) => (JSON.stringify(option) !== JSON.stringify(this.value)),
+          ? [...props.modelValue, JSON.parse(JSON.stringify(props.value))]
+          : props.modelValue.filter(
+            (option) => (JSON.stringify(option) !== JSON.stringify(props.value)),
           );
       } else {
         newChecked = checked;
       }
       return newChecked;
-    },
-    changeHandler(checked) {
-      /**
-       * Update checkbox checked state.
-       *
-       * @event change
-       * @property {boolean, object} new state of checked
-       */
-      this.$emit('change', this.newChecked(checked));
-    },
+    }
+    function changeHandler(checked) {
+      emit('update:modelValue', getChecked(checked));
+    }
+
+    return {
+      focused,
+      checkboxId,
+      isObject,
+      isChecked,
+      changeHandler,
+    };
   },
 };
 </script>

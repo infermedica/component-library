@@ -3,11 +3,7 @@ import UiHeading from './UiHeading.vue';
 
 describe('UiHeading.vue', () => {
   test('renders a component', () => {
-    const wrapper = shallowMount(UiHeading, {
-      mocks: {
-        $t: () => {},
-      },
-    });
+    const wrapper = shallowMount(UiHeading);
     expect(wrapper.classes('ui-heading')).toBe(true);
   });
 });

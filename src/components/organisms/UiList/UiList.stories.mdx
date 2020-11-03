@@ -1,5 +1,6 @@
 import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
 import UiList from './UiList.vue';
+import UiListItem from './_internal/UiListItem.vue'
 
 <Meta
   title="Organisms/List"
@@ -19,7 +20,7 @@ This component working like native list of items. [MDN web docs](https://develop
   >
     {((args, {argTypes}) => ({
       props: Object.keys(argTypes),
-      components: {UiList},
+      components: {UiList, UiListItem},
       template: `<UiList>
         <UiListItem>List Item A</UiListItem>
         <UiListItem>List Item B</UiListItem>

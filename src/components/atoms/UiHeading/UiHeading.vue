@@ -9,6 +9,8 @@
 </template>
 
 <script>
+import { computed } from 'vue';
+
 export default {
   name: 'UiHeading',
   props: {
@@ -20,10 +22,12 @@ export default {
       default: '2',
     },
   },
-  computed: {
-    tag() {
-      return `h${this.level}`;
-    },
+  setup(props) {
+    const tag = computed(() => (`h${props.level}`));
+
+    return {
+      tag,
+    };
   },
 };
 </script>
