@@ -21,4 +21,5 @@
 
   // Box shadows
   --box-shadow-default: 0 2px 6px 0 rgba(125, 143, 163, 0.2);
+  --box-shadow-outline: 0 0 0 2px var(--color-white), 0 0 0 4px var(--color-ui-focus);
 }

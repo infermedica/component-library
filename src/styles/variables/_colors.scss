@@ -142,4 +142,17 @@
   --color-triage-emergency-department: var(--color-white);
   --color-triage-consultation: var(--color-blue-500);
   --color-triage-self-care: var(--color-green-500);
+
+  // Component-specific - Checkbox and Radio
+  --color-radio-checkbox-selected-enabled: var(--color-selection);
+  --color-radio-checkbox-selected-hover: var(--color-selection-hover);
+  --color-radio-checkbox-selected-active: var(--color-selection-active);
+
+  // Component-specific - Border
+  --color-border-divider: var(--color-gray-100);
+  --color-border-subtle: var(--color-gray-200);
+  --color-border-accessible: var(--color-gray-500);
+  --color-border-hover: var(--color-gray-700);
+  --color-border-active: var(--color-gray-900);
+  --color-border-alert-error-accessible: var(--color-red-500);
 }

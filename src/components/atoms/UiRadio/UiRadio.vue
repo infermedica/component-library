@@ -2,37 +2,36 @@
   <label
     class="ui-radio"
     :for="radioId"
+    v-bind="rootAttrs"
   >
     <input
       :id="radioId"
-      v-bind="$attrs"
       type="radio"
-      class="hidden"
+      class="visual-hidden"
       :checked="isChecked"
+      v-bind="inputAttrs"
       @change="changeHandler($event.target.checked)"
-      @focus="focused = true"
-      @blur="focused = false"
     >
     <!-- @slot Use this slot to replace radiobutton template. -->
     <slot
       name="radiobutton"
-      v-bind="{checked: isChecked, focused}"
     >
       <div
         class="ui-radio__radiobutton"
-        :class="{
-          'is-checked': isChecked,
-          'focused': focused
-        }"
       >
         <div
-          v-if="isChecked"
           class="ui-radio__mark"
         />
       </div>
-      <!-- @slot Use this slot to place content inside label. -->
-      <slot />
-    </slot></label>
+    </slot>
+    <!-- @slot Use this slot to replace label template. -->
+    <slot name="label">
+      <div class="ui-radio__label">
+        <!-- @slot Use this slot to place content inside label. -->
+        <slot />
+      </div>
+    </slot>
+  </label>
 </template>
 
 <script>
@@ -65,13 +64,27 @@ export default {
       default: '',
     },
   },
-  setup(props, { emit }) {
+  setup(props, { emit, attrs }) {
     const focused = ref(false);
     const radioId = computed(() => (
       props.id || `radio-${uid()}`
     ));
     const isChecked = computed(() => (
       JSON.stringify(props.value) === JSON.stringify(props.modelValue)
+    ));
+    const inputAttrs = computed(() => (
+      Object.keys(attrs)
+        .filter((key) => !key.match(/class|styles|^on.*/gi))
+        .reduce((obj, key) => (
+          { ...obj, [key]: attrs[key] }
+        ), {})
+    ));
+    const rootAttrs = computed(() => (
+      Object.keys(attrs)
+        .filter((key) => key.match(/class|styles|^on.*/gi))
+        .reduce((obj, key) => (
+          { ...obj, [key]: attrs[key] }
+        ), {})
     ));
     function changeHandler(checked) {
       if (checked) {
@@ -83,6 +96,8 @@ export default {
       focused,
       radioId,
       isChecked,
+      rootAttrs,
+      inputAttrs,
       changeHandler,
     };
   },
@@ -91,38 +106,118 @@ export default {
 
 <style lang="scss">
 .ui-radio {
+  $this: &;
+
   display: inline-flex;
-  align-items: center;
-  justify-content: flex-start;
+  cursor: pointer;
 
   &__radiobutton {
-    width: var(--radio-width, 12px);
-    height: var(--radio-height, 12px);
-    margin: var(--radio-margin, 4px);
-    overflow: hidden;
-    background: #ccc;
-    border-radius: 100%;
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: var(--radio-size, 1.25rem);
+    height: var(--radio-size, 1.25rem);
+    margin: var(--radio-margin, 0 var(--space-12) 0 0);
+    border: var(--radio-border, solid var(--color-border-accessible));
+    border-width: var(--radio-border-width, 2px);
+    border-radius: var(--border-radius-circle);
+
+    &:hover {
+      --radio-border: solid var(--color-border-hover);
+
+      #{$this}--has-error & {
+        --radio-border: solid var(--color-border-alert-error-accessible);
+      }
+
+      #{$this}--is-disabled & {
+        --radio-border: solid var(--color-border-subtle);
+      }
+    }
   }
 
   &__mark {
-    width: 12px;
-    height: 12px;
-    background: #2e85ff;
+    flex: none;
+    width: var(--radio-mark-size, 0.625rem);
+    height: var(--radio-mark-size, 0.625rem);
+    background: var(--radio-mark-background, transparent);
+    border-radius: var(--border-radius-circle);
   }
-}
 
-.hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-  clip-path: inset(50%);
-}
+  input {
+    &:checked {
+      & + #{$this}__radiobutton {
+        --radio-border: solid var(--color-radio-checkbox-selected-enabled);
+        --radio-mark-background: var(--color-radio-checkbox-selected-enabled);
 
-.focused {
-  outline: 5px auto Highlight;
-  outline: 5px auto -webkit-focus-ring-color;
+        &:hover {
+          --radio-border: solid var(--color-radio-checkbox-selected-hover);
+          --radio-mark-background: var(--color-radio-checkbox-selected-hover);
+        }
+
+        @at-root #{$this}--is-disabled#{&} {
+          --radio-border: solid var(--color-border-subtle);
+          --radio-mark-background: var(--color-border-subtle);
+        }
+
+        @at-root #{$this}--has-error#{&} {
+          --radio-border: solid var(--color-border-alert-error-accessible);
+          --radio-mark-background: var(--color-border-alert-error-accessible);
+        }
+      }
+      &:active + #{$this}__radiobutton {
+        --radio-border: solid var(--color-radio-checkbox-selected-active);
+        --radio-mark-background: var(--color-radio-checkbox-selected-active);
+
+        @at-root #{$this}--is-disabled#{&} {
+          --radio-border: solid var(--color-border-subtle);
+          --radio-mark-background: var(--color-border-subtle);
+        }
+
+        @at-root #{$this}--has-error#{&} {
+          --radio-border: solid var(--color-border-alert-error-accessible);
+          --radio-mark-background: var(--color-border-alert-error-accessible);
+        }
+      }
+    }
+
+    &:active + #{$this}__radiobutton {
+      --radio-border: solid var(--color-border-active);
+
+      @at-root #{$this}--is-disabled#{&} {
+        --radio-border: solid var(--color-border-subtle);
+        --radio-mark-background: var(--color-border-subtle);
+      }
+
+      @at-root #{$this}--has-error#{&} {
+        --radio-border: solid var(--color-border-alert-error-accessible);
+        --radio-mark-background: var(--color-border-alert-error-accessible);
+      }
+    }
+
+    &:focus + #{$this}__radiobutton {
+      box-shadow: var(--box-shadow-outline);
+    }
+  }
+
+  &__label {
+    flex: unset;
+  }
+
+  &--is-disabled {
+    --radio-border: solid var(--color-border-subtle);
+
+    &:hover {
+      --radio-border: solid var(--color-border-subtle);
+    }
+  }
+
+  &--has-error {
+    --radio-border: solid var(--color-border-alert-error-accessible);
+
+    &:hover {
+      --radio-border: solid var(--color-border-alert-error-accessible);
+    }
+  }
 }
 </style>

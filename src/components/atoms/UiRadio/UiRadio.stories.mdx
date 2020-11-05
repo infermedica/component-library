@@ -1,13 +1,18 @@
 import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
 import UiRadio from './UiRadio.vue';
-import UiIcon from '../UiIcon/UiIcon.vue'
+import UiList from '../../organisms/UiList/UiList.vue'
+import UiListItem from '../../organisms/UiList/_internal/UiListItem.vue'
 
 <Meta
   title="Atoms/Radio"
   component={UiRadio}
   argTypes={{
     label: { control: { type: 'text' } },
-    'v-model': { name: 'checked' }
+    disabled: { control: {type: 'boolean'} },
+    cssClass: {control: {type: 'inline-check', options: {
+      'ui-radio--is-disabled': 'ui-radio--is-disabled',
+      'ui-radio--has-error': 'ui-radio--has-error'
+    }}},
   }}
 />
 
@@ -20,13 +25,14 @@ This component should working like native radio in Vue.js. [Form Input Bindings 
     name="Common"
     args={{
       label: 'Yes',
+      disabled: false,
       id: 'present',
       value: 'present'
     }}
   >
     {((args, {argTypes}) => ({
       props: Object.keys(argTypes),
-      components: {UiRadio},
+      components: { UiRadio },
       data(){
         return {
           picked: ''
@@ -36,12 +42,12 @@ This component should working like native radio in Vue.js. [Form Input Bindings 
           v-model="picked"
           :id="id"
           :value="value"
+          :disabled="disabled"
+          :class="cssClass"
         >{{ label }}</UiRadio>`
     })).bind({})}
   </Story>
 </Canvas>
-
-<ArgsTable story='Common' />
 
 This component can be used as a radio button. You can use to `checkbox` slot to get it.
 
@@ -49,76 +55,33 @@ This component can be used as a radio button. You can use to `checkbox` slot to 
   <Story
     name="Multiple radio"
   >
-    {((args, {argTypes}) => ({
-      components: {UiRadio},
+    {(() => ({
+      components: { UiRadio, UiList, UiListItem},
       data(){
         return {
           picked: ''
         }
       },
-      template: `<div style="display: grid">
-        <UiRadio
-          v-model="picked"
-          value="present"
-        >Yes</UiRadio>
-        <UiRadio
-          v-model="picked"
-          value="absent"
-        >No</UiRadio>
-        <UiRadio
-          v-model="picked"
-          :value="{id: 's-234', value: 'unknown'}"
-        >Don't know</UiRadio>
-      </div>`
-    })).bind({})}
-  </Story>
-</Canvas>
-
-This component can be used as radio button. You can use to `checkbox` slot to get it.
-
-<Canvas>
-  <Story
-    name="Radio button"
-  >
-    {((args, {argTypes}) => ({
-      components: { UiRadio, UiIcon },
-      data(){
-        return {
-          picked: ''
-        }
-      },
-      template: `<div style="display: grid; grid-template-columns: repeat(2, 108px); gap: 20px">
-        <UiRadio
-          v-model="picked"
-          value="male"
-        >
-          <template #radiobutton="{ checked, focused }">
-            <div
-              class="ui-button ui-button--outlined"
-              :class="{focused}"
-              :style="{display: 'grid', gap: '14px', justifyItems: 'center', '--button-border': checked ? '2px solid #abb8c4' : undefined}"
-            >
-              <UiIcon icon="male" style="--icon-size: 56px" />
-              Male
-            </div>
-          </template>
-        </UiRadio>
-        <UiRadio
-          v-model="picked"
-          value="female"
-        >
-          <template #radiobutton="{ checked, focused }">
-            <div
-              class="ui-button ui-button--outlined"
-              :class="{focused}"
-              :style="{display: 'grid', gap: '14px', justifyItems: 'center', '--button-border': checked ? '2px solid #abb8c4' : undefined}"
-            >
-              <UiIcon icon="female" style="--icon-size: 56px" />
-              Female
-            </div>
-          </template>
-        </UiRadio>
-      </div>`
+      template: `<UiList>
+        <UiListItem>
+          <UiRadio
+            v-model="picked"
+            value="present"
+          >Yes</UiRadio>
+        </UiListItem>
+        <UiListItem>
+          <UiRadio
+            v-model="picked"
+            value="absent"
+          >No</UiRadio>
+        </UiListItem>
+        <UiListItem>
+          <UiRadio
+            v-model="picked"
+            :value="{id: 's-234', value: 'unknown'}"
+          >Don't know</UiRadio>
+        </UiListItem>
+      </UiList>`
     })).bind({})}
   </Story>
 </Canvas>

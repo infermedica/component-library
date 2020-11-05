@@ -137,8 +137,8 @@ export default {
   height: 1px;
   overflow: hidden;
   clip: rect(0 0 0 0);
-  white-space: nowrap;
   clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 .focused {
