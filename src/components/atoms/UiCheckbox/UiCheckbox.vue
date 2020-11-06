@@ -2,46 +2,50 @@
   <label
     class="ui-checkbox"
     :for="checkboxId"
+    v-bind="rootAttrs"
   >
     <input
       :id="checkboxId"
-      v-bind="$attrs"
+      v-bind="inputAttrs"
       :checked="isChecked"
       type="checkbox"
-      class="hidden"
+      class="visual-hidden"
       @change="changeHandler($event.target.checked)"
-      @focus="focused = true"
-      @blur="focused = false"
     >
     <!-- @slot Use this slot to replace checkbutton template.-->
     <slot
       name="checkbutton"
-      v-bind="{checked: isChecked, focused}"
+      v-bind="{checked: isChecked}"
     >
       <div
         class="ui-checkbox__checkbutton"
-        :class="{
-          'is-checked': isChecked,
-          'focused': focused
-        }"
       >
-        <div
-          v-if="isChecked"
+        <UiIcon
+          icon="check"
           class="ui-checkbox__mark"
         />
       </div>
     </slot>
-    <!-- @slot Use this slot to place content inside label.-->
-    <slot />
+    <!-- @slot Use this slot to replace label template. -->
+    <slot name="label">
+      <div class="ui-checkbox__label">
+        <!-- @slot Use this slot to place content inside label. -->
+        <slot />
+      </div>
+    </slot>
   </label>
 </template>
 
 <script>
 import { uid } from 'uid/single';
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
+import UiIcon from '../UiIcon/UiIcon.vue';
 
 export default {
   name: 'UiCheckbox',
+  components: {
+    UiIcon,
+  },
   inheritAttrs: false,
   props: {
     /**
@@ -67,8 +71,21 @@ export default {
       default: false,
     },
   },
-  setup(props, { emit }) {
-    const focused = ref(false);
+  setup(props, { attrs, emit }) {
+    const rootAttrs = computed(() => (
+      Object.keys(attrs)
+        .filter((key) => key.match(/class|styles|^on.*/gi))
+        .reduce((obj, key) => (
+          { ...obj, [key]: attrs[key] }
+        ), {})
+    ));
+    const inputAttrs = computed(() => (
+      Object.keys(attrs)
+        .filter((key) => !key.match(/class|styles|^on.*/gi))
+        .reduce((obj, key) => (
+          { ...obj, [key]: attrs[key] }
+        ), {})
+    ));
     const checkboxId = computed(() => (
       props.id || `checkbox-${uid()}`
     ));
@@ -87,62 +104,138 @@ export default {
         newChecked = checked
           ? [...props.modelValue, JSON.parse(JSON.stringify(props.value))]
           : props.modelValue.filter(
-            (option) => (JSON.stringify(option) !== JSON.stringify(props.value)),
+            (option) => (
+              JSON.stringify(option) !== JSON.stringify(props.value)
+            ),
           );
       } else {
         newChecked = checked;
       }
       return newChecked;
     }
+
     function changeHandler(checked) {
       emit('update:modelValue', getChecked(checked));
     }
 
     return {
-      focused,
       checkboxId,
       isObject,
       isChecked,
       changeHandler,
+      rootAttrs,
+      inputAttrs,
     };
   },
 };
 </script>
 
 <style lang="scss">
+// use .ui-checkbox--is-disabled class for disabling checkbox visually
+// use .ui-checkbox--has-error class indicating validation error visually
+
 .ui-checkbox {
+  $this: &;
+
   display: inline-flex;
   align-items: center;
-  justify-content: flex-start;
+  cursor: pointer;
+
+  &:hover {
+    --checkbox-border: solid var(--color-border-hover);
+  }
+
+  &:active {
+    --checkbox-border: solid var(--color-border-active);
+  }
 
   &__checkbutton {
-    width: var(--chekcbox-width, 12px);
-    height: var(--checkbox-height, 12px);
-    margin: var(--checkbox-margin, 4px);
+    --icon-size: 1rem;
+    --icon-color: transparent;
+
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: var(--checkbox-size, 1.25rem);
+    height: var(--checkbox-size, 1.25rem);
+    margin: var(--checkbox-margin, 0 var(--space-12) 0 0);
     overflow: hidden;
-    background: #ccc;
-    border-radius: var(--checkbox-border-radius, 0);
+    background: var(--checkbox-background, var(--color-ui-bg-lightest));
+    border: var(--checkbox-border, solid var(--color-border-accessible));
+    border-width: var(--checkbox-border-width, 2px);
+    border-radius: var(--checkbox-border-radiud, var(--border-radius-form));
   }
 
-  &__mark {
-    width: 12px;
-    height: 12px;
-    background: #2e85ff;
+  input {
+    &:checked {
+      & + #{$this}__checkbutton {
+        --icon-color: var(--color-icon-negative);
+        --checkbox-border: solid var(--color-radio-checkbox-selected-enabled);
+        --checkbox-background: var(--color-radio-checkbox-selected-enabled);
+      }
+
+      &:hover + #{$this}__checkbutton {
+        --checkbox-background: var(--color-radio-checkbox-selected-hover);
+        --checkbox-border: solid var(--color-radio-checkbox-selected-hover);
+      }
+
+      &:active + #{$this}__checkbutton {
+        --checkbox-background: var(--color-radio-checkbox-selected-active);
+        --checkbox-border: solid var(--color-radio-checkbox-selected-active);
+      }
+    }
+    &:focus + #{$this}__checkbutton {
+      box-shadow: var(--box-shadow-outline);
+    }
   }
-}
 
-.hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
+  &__label {
+    flex: none;
+  }
 
-.focused {
-  outline: 5px auto Highlight;
-  outline: 5px auto -webkit-focus-ring-color;
+  &--is-disabled {
+    --checkbox-border: solid var(--color-border-subtle);
+
+    cursor: not-allowed;
+
+    &:hover {
+      --checkbox-border: solid var(--color-border-subtle);
+    }
+
+    &:active {
+      --checkbox-border: solid var(--color-border-subtle);
+    }
+
+    input:checked {
+      & + #{$this}__checkbutton,
+      &:hover + #{$this}__checkbutton,
+      &:active + #{$this}__checkbutton {
+        --checkbox-border: solid var(--color-border-subtle);
+        --checkbox-background: var(--color-border-subtle);
+      }
+    }
+  }
+
+  &--has-error {
+    --checkbox-border: solid var(--color-border-alert-error-accessible);
+
+    &:hover {
+      --checkbox-border: solid var(--color-border-alert-error-accessible);
+    }
+
+    &:active {
+      --checkbox-border: solid var(--color-border-alert-error-accessible);
+    }
+
+    input:checked {
+      & + #{$this}__checkbutton,
+      &:hover + #{$this}__checkbutton,
+      &:active + #{$this}__checkbutton {
+        --checkbox-border: solid var(--color-border-alert-error-accessible);
+        --checkbox-background: var(--color-border-alert-error-accessible);
+      }
+    }
+  }
 }
 </style>

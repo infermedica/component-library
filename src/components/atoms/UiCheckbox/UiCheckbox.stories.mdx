@@ -5,8 +5,12 @@ import UiCheckbox from './UiCheckbox.vue';
   title="Atoms/Checkbox"
   component={UiCheckbox}
   argTypes={{
-    label: {control: {type: 'text'}},
-    'v-model': { name: 'checked' }
+    label: { control: { type: 'text' } },
+    disabled: { control: {type: 'boolean'} },
+    cssClass: {control: {type: 'inline-check', options: {
+      'ui-checkbox--is-disabled': 'ui-checkbox--is-disabled',
+      'ui-checkbox--has-error': 'ui-checkbox--has-error'
+    }}},
   }}
 />
 
@@ -19,6 +23,7 @@ This component should working like native checkbox in Vue.js. [Form Input Bindin
     name="Common"
     args={{
       label: 'I read and accept Terms of Service and Privacy Policy',
+      disabled: false,
       id: 'agreement'
     }}
   >
@@ -30,7 +35,14 @@ This component should working like native checkbox in Vue.js. [Form Input Bindin
         }
       },
       components: {UiCheckbox},
-      template: `<UiCheckbox v-model="checked" :id="id">{{label}}</UiCheckbox>`
+      template: `<UiCheckbox
+        v-model="checked"
+        :id="id"
+        :disabled="disabled"
+        :class="cssClass"
+      >
+        {{label}}
+      </UiCheckbox>`
     })).bind({})}
   </Story>
 </Canvas>
