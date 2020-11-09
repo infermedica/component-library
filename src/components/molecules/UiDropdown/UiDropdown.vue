@@ -1,8 +1,8 @@
 <template>
   <div
+    v-click-outside="closeHandler"
     class="ui-dropdown"
     :class="{'is-active': isOpen}"
-    v-click-outside="closeHandler"
   >
     <!-- @slot Use this slot to place toggle template. -->
     <slot

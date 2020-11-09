@@ -64,6 +64,7 @@ export default {
       default: '',
     },
   },
+  emits: ['update:modelValue'],
   setup(props, { emit, attrs }) {
     const focused = ref(false);
     const radioId = computed(() => (
@@ -130,6 +131,8 @@ export default {
     width: var(--radio-size, 1.25rem);
     height: var(--radio-size, 1.25rem);
     margin: var(--radio-margin, 0 var(--space-12) 0 0);
+    overflow: hidden;
+    background: var(--radio-background, var(--color-ui-bg-lightest));
     border: var(--radio-border, solid var(--color-border-accessible));
     border-width: var(--radio-border-width, 2px);
     border-radius: var(--border-radius-circle);

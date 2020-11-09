@@ -37,6 +37,7 @@ export default {
       default: () => ({}),
     },
   },
+  emits: ['remove'],
   setup(props, { emit }) {
     function clickHandler() {
       emit('remove', true);

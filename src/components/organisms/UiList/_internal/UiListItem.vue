@@ -24,5 +24,7 @@ export default {
 </script>
 
 <style lang="scss">
-// .ui-list-item {}
+.ui-list-item {
+  padding: var(--list-item-padding, var(--space-12) 0);
+}
 </style>

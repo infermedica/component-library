@@ -17,7 +17,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-multiple-empty-lines': ['error', { max: 1 }],
     'max-len': ['error', {
-      code: 80, ignoreStrings: true, ignoreUrls: true, ignorePattern: 'url',
+      code: 120, ignoreStrings: true, ignoreUrls: true, ignorePattern: 'url',
     }],
     'vue/max-attributes-per-line': ['error', {
       singleline: 1,

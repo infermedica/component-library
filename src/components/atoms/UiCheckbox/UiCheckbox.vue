@@ -71,6 +71,7 @@ export default {
       default: false,
     },
   },
+  emits: ['update:modelValue'],
   setup(props, { attrs, emit }) {
     const rootAttrs = computed(() => (
       Object.keys(attrs)

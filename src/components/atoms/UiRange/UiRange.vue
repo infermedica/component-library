@@ -80,6 +80,7 @@ export default {
       default: '1',
     },
   },
+  emits: ['update:modelValue'],
   setup(props, { emit }) {
     const trackWidth = computed(() => {
       const value = parseInt(props.modelValue, 10);

@@ -41,6 +41,7 @@ export default {
       default: '',
     },
   },
+  emits: ['update:modelValue'],
   setup(props, { emit }) {
     const isEmpty = computed(() => (props.modelValue.trim().length === 0));
     function inputHandler(value) {
