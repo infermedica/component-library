@@ -185,6 +185,7 @@ export default {
         --checkbox-border: solid var(--color-radio-checkbox-selected-active);
       }
     }
+
     &:focus + #{$this}__checkbutton {
       box-shadow: var(--box-shadow-outline);
     }

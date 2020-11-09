@@ -105,11 +105,22 @@ export default {
 </script>
 
 <style lang="scss">
+// use .ui-radio--is-disabled class for disabling checkbox visually
+// use .ui-radio--has-error class indicating validation error visually
+
 .ui-radio {
   $this: &;
 
   display: inline-flex;
   cursor: pointer;
+
+  &:hover {
+    --radio-border: solid var(--color-border-hover);
+  }
+
+  &:active {
+    --radio-border: solid var(--color-border-active);
+  }
 
   &__radiobutton {
     display: flex;
@@ -122,18 +133,6 @@ export default {
     border: var(--radio-border, solid var(--color-border-accessible));
     border-width: var(--radio-border-width, 2px);
     border-radius: var(--border-radius-circle);
-
-    &:hover {
-      --radio-border: solid var(--color-border-hover);
-
-      #{$this}--has-error & {
-        --radio-border: solid var(--color-border-alert-error-accessible);
-      }
-
-      #{$this}--is-disabled & {
-        --radio-border: solid var(--color-border-subtle);
-      }
-    }
   }
 
   &__mark {
@@ -149,49 +148,16 @@ export default {
       & + #{$this}__radiobutton {
         --radio-border: solid var(--color-radio-checkbox-selected-enabled);
         --radio-mark-background: var(--color-radio-checkbox-selected-enabled);
-
-        &:hover {
-          --radio-border: solid var(--color-radio-checkbox-selected-hover);
-          --radio-mark-background: var(--color-radio-checkbox-selected-hover);
-        }
-
-        @at-root #{$this}--is-disabled#{&} {
-          --radio-border: solid var(--color-border-subtle);
-          --radio-mark-background: var(--color-border-subtle);
-        }
-
-        @at-root #{$this}--has-error#{&} {
-          --radio-border: solid var(--color-border-alert-error-accessible);
-          --radio-mark-background: var(--color-border-alert-error-accessible);
-        }
       }
+
+      &:hover + #{$this}__radiobutton {
+        --radio-border: solid var(--color-radio-checkbox-selected-hover);
+        --radio-mark-background: var(--color-radio-checkbox-selected-hover);
+      }
+
       &:active + #{$this}__radiobutton {
         --radio-border: solid var(--color-radio-checkbox-selected-active);
         --radio-mark-background: var(--color-radio-checkbox-selected-active);
-
-        @at-root #{$this}--is-disabled#{&} {
-          --radio-border: solid var(--color-border-subtle);
-          --radio-mark-background: var(--color-border-subtle);
-        }
-
-        @at-root #{$this}--has-error#{&} {
-          --radio-border: solid var(--color-border-alert-error-accessible);
-          --radio-mark-background: var(--color-border-alert-error-accessible);
-        }
-      }
-    }
-
-    &:active + #{$this}__radiobutton {
-      --radio-border: solid var(--color-border-active);
-
-      @at-root #{$this}--is-disabled#{&} {
-        --radio-border: solid var(--color-border-subtle);
-        --radio-mark-background: var(--color-border-subtle);
-      }
-
-      @at-root #{$this}--has-error#{&} {
-        --radio-border: solid var(--color-border-alert-error-accessible);
-        --radio-mark-background: var(--color-border-alert-error-accessible);
       }
     }
 
@@ -207,8 +173,23 @@ export default {
   &--is-disabled {
     --radio-border: solid var(--color-border-subtle);
 
+    cursor: not-allowed;
+
     &:hover {
       --radio-border: solid var(--color-border-subtle);
+    }
+
+    &:active {
+      --radio-border: solid var(--color-border-subtle);
+    }
+
+    input:checked {
+      & + #{$this}__radiobutton,
+      &:hover + #{$this}__radiobutton,
+      &:active + #{$this}__radiobutton {
+        --radio-border: solid var(--color-border-subtle);
+        --radio-mark-background: var(--color-border-subtle);
+      }
     }
   }
 
@@ -217,6 +198,19 @@ export default {
 
     &:hover {
       --radio-border: solid var(--color-border-alert-error-accessible);
+    }
+
+    &:active {
+      --radio-border: solid var(--color-border-alert-error-accessible);
+    }
+
+    input:checked {
+      & + #{$this}__radiobutton,
+      &:hover + #{$this}__radiobutton,
+      &:active + #{$this}__radiobutton {
+        --radio-border: solid var(--color-border-alert-error-accessible);
+        --radio-mark-background: var(--color-border-alert-error-accessible);
+      }
     }
   }
 }
