@@ -1,6 +1,5 @@
 <template>
   <button
-    v-outline
     class="ui-button"
   >
     <!-- @slot Use this slot to place content inside button. -->
@@ -9,84 +8,172 @@
 </template>
 
 <script>
-import { outline } from '../../../utilities/directives';
-
 export default {
   name: 'UiButton',
-  directives: {
-    outline,
-  },
 };
 </script>
 
 <style lang="scss">
 .ui-button {
+  $this: &;
+
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
   width: var(--button-width);
   height: var(--button-height);
-  padding: var(--button-padding, 0.75rem 2rem);
-  font: var(--button-font, inherit);
-  color: var(--button-color, #fff);
+  padding: var(--button-padding, var(--space-12) var(--space-32));
+  font: var(--button-font, var(--font-body-1-thick));
+  color: var(--button-color, var(--color-button-contained-text));
   text-transform: var(--button-text-transform);
   white-space: var(--button-white-space, nowrap);
   cursor: var(--button-cursor, pointer);
-  background: var(--button-background, #1ac98e);
-  border: var(--button-border);
-  border-radius: var(--button-border-radius, 5px);
-  fill: var(--button-fill, #fff);
+  background:
+    var(
+      --button-background,
+      var(--color-button-contained-background-enabled)
+    );
+  border:
+    var(
+      --button-border,
+      var(--button-border-style, solid) var(--button-border-color, transparent)
+    );
+  border-width: var(--button-border-width, 1px);
+  border-radius: var(--button-border-radius, var(--border-radius-form));
   transition: var(--button-transition, background-color 150ms ease-in-out);
 
   &:hover {
-    color:
-      var(
-        --button-hover-color,
-        var(--button-color, #fff)
-      );
-    background:
-      var(
-        --button-hover-background,
-        var(--button-background, #17b580)
-      );
-    fill:
-      var(
-        --button-hover-fill,
-        var(--button-fill, #fff)
-      );
+    color: var(--button-hover-color, var(--color-button-contained-text));
+    background: var(--button-hover-background, var(--color-button-contained-background-hover));
+
+    &#{$this}--has-icon {
+      --icon-color: var(--button-icon-color-hover, var(--color-icon-primary-hover));
+    }
   }
 
-  &:disabled {
-    color:
-      var(
-        --button-disabled-color,
-        var(--button-color, #fff)
-      );
-    background:
-      var(
-        --button-disabled-background,
-        var(--button-background, #dbe1e6)
-      );
-    fill:
-      var(
-        --button-disabled-fill,
-        var(--button-fill, #fff)
-      );
+  &:active {
+    color: var(--button-active-color, var(--color-button-contained-text));
+    background: var(--button-active-background, var(--color-button-contained-background-active));
+
+    &#{$this}--has-icon {
+      --icon-color: var(--button-icon-color-active, var(--color-icon-primary-active));
+    }
   }
 
-  &--text {
-    --button-color: #1576d1;
-    --button-fill: #1576d1;
-    --button-background: transparent;
-    --button-transition: color 150ms ease-in-out;
-    --button-hover-color: #105ea7;
-    --button-hover-fill: #105ea7;
-    --button-disabled-color: #dbe1e6;
+  &:focus {
+    outline: none;
+    box-shadow: var(--box-shadow-outline);
+  }
+
+  &__icon {
+    --icon-size: var(--button-icon-size, 1.25rem);
+
+    // adds negative left margin to position icon within button and avoid changing padding
+    margin: var(--button-icon-margin, 0 var(--space-4) 0 calc(var(--space-8) * -1));
+
+    &--right {
+      // adds negative right margin to position icon within button and avoid changing padding
+      --button-icon-margin: 0 calc(var(--space-8) * -1) 0 var(--space-4);
+    }
+  }
+
+  &--small {
+    --button-padding: var(--space-8) var(--space-20);
+  }
+
+  &--is-disabled {
+    --button-background: var(--color-ui-disabled);
+    --button-hover-background: var(--color-ui-disabled);
+    --button-active-background: var(--color-ui-disabled);
+
+    cursor: not-allowed;
+  }
+
+  &--has-icon {
+    --icon-color: var(--button-icon-color, var(--color-icon-primary));
+    --icon-size: var(--button-icon-size, 1.5rem);
   }
 
   &--outlined {
-    --button-color: #555;
-    --button-fill: #555;
+    --button-color: var(--color-text-action-primary-enabled);
+    --button-hover-color: var(--color-text-action-primary-hover);
+    --button-active-color: var(--color-text-action-primary-active);
+    --button-border-color: var(--color-gray-200);
     --button-background: transparent;
-    --button-border: 1px solid #dbe1e6;
-    --button-hover-background: #f3f5f7;
+    --button-hover-background: var(--color-background-white-hover);
+    --button-active-background: var(--color-gray-100);
+
+    &#{$this}--is-disabled {
+      --button-color: var(--color-text-disabled);
+      --button-hover-color: var(--color-text-disabled);
+      --button-active-color: var(--color-text-disabled);
+      --button-background: var(--color-white);
+      --button-hover-background: var(--color-white);
+      --button-active-background: var(--color-white);
+      --button-icon-color: var(--color-icon-disabled);
+      --button-icon-color-hover: var(--color-icon-disabled);
+      --button-icon-color-active: var(--color-icon-disabled);
+    }
+  }
+
+  &--circled {
+    --button-border-radius: var(--border-radius-circle);
+    --button-padding: var(--space-12);
+  }
+
+  &--text {
+    --button-color: var(--color-text-action-primary-enabled);
+    --button-hover-color: var(--color-text-action-primary-hover);
+    --button-active-color: var(--color-text-action-primary-active);
+    --button-border-width: 0;
+    --button-background: transparent;
+    --button-hover-background: transparent;
+    --button-active-background: var(--color-white);
+    --button-padding: 0;
+    --button-font: var(--font-body-1);
+
+    #{$this}__icon {
+      --button-icon-size: 1.5rem;
+      --button-icon-margin: 0 var(--space-4) 0 0;
+
+      &--right {
+        --button-icon-margin: 0 0 0 var(--space-4);
+      }
+    }
+
+    &#{$this}--small {
+      --button-font: var(--font-body-2-comfortable);
+    }
+
+    &#{$this}--is-disabled {
+      --button-color: var(--color-text-disabled);
+      --button-hover-color: var(--color-text-disabled);
+      --button-active-color: var(--color-text-disabled);
+      --button-background: transparent;
+      --button-hover-background: transparent;
+      --button-active-background: var(--color-white);
+      --button-icon-color: var(--color-icon-disabled);
+      --button-icon-color-hover: var(--color-icon-disabled);
+      --button-icon-color-active: var(--color-icon-disabled);
+    }
+  }
+
+  &--secondary {
+    --button-color: var(--color-text-action-secondary-enabled);
+    --button-hover-color: var(--color-text-action-secondary-hover);
+    --button-active-color: var(--color-text-action-secondary-active);
+
+    &#{$this}--has-icon {
+      --button-icon-color: var(--color-icon-secondary);
+      --button-icon-color-hover: var(--color-icon-secondary-hover);
+      --button-icon-color-active: var(--color-icon-secondary-active);
+    }
+
+    &#{$this}--is-disabled {
+      --button-icon-color: var(--color-icon-disabled);
+      --button-icon-color-hover: var(--color-icon-disabled);
+      --button-icon-color-active: var(--color-icon-disabled);
+    }
   }
 }
 </style>

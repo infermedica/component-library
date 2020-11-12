@@ -1,5 +1,6 @@
 import { Meta, Canvas, Story, ArgsTable, } from '@storybook/addon-docs/blocks';
 import UiButton from './UiButton.vue';
+import UiIcon from '../UiIcon/UiIcon.vue';
 
 <Meta
   title="Atoms/Button"
@@ -7,39 +8,224 @@ import UiButton from './UiButton.vue';
   argTypes={{
     content: {control: {type: 'text'}},
     disabled: {control: {type: 'boolean'}},
-    cssClass: {control: {type: 'inline-check', options: {
-      'ui-button--text': 'ui-button--text',
-      'ui-button--outlined': 'ui-button--outlined'
+    icon: {control: {type: 'text'}},
+    modifiers: {control: {type: 'inline-check', options: {
+      'ui-button--small': 'ui-button--small',
+      'ui-button--is-disabled': 'ui-button--is-disabled',
     }}},
   }}
 />
 
 # Button
+## Contained
 <Canvas>
   <Story
-    name="Common"
+    name="Contained"
     args={{
-      content: 'Next'
+      content: 'Next',
+      disabled: false,
     }}
   >
     {((args, {argTypes}) => ({
       props: Object.keys(argTypes),
       components: {UiButton},
-      template: `<UiButton
-        :class="cssClass"
-        :disabled="disabled"
-      >{{ content }}</UiButton>`
+      template: `
+        <UiButton
+          :class="modifiers"
+          :disabled="disabled"
+        >
+          {{ content }}
+        </UiButton>
+      `
     })).bind({})}
   </Story>
 </Canvas>
 
-<ArgsTable story='Common' />
+## Outlined
+<Canvas>
+  <Story
+    name="Outlined"
+    args={{
+      content: 'Next',
+      disabled: false,
+      icon: 'reversePlus'
+    }}
+  >
+    {((args, {argTypes}) => ({
+      props: Object.keys(argTypes),
+      components: {UiButton, UiIcon},
+      template: `
+        <div style="margin-bottom: 20px;">
+          <UiButton
+            class="ui-button--outlined"
+            :class="modifiers"
+            :disabled="disabled"
+          >
+            {{ content }}
+          </UiButton>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <UiButton
+            class="ui-button--outlined ui-button--has-icon"
+            :class="modifiers"
+            :disabled="disabled"
+          >
+            <UiIcon
+              :icon="icon"
+              class="ui-button__icon"
+            />
+            <span>{{ content }}</span>
+          </UiButton>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <UiButton
+            class="ui-button--outlined ui-button--has-icon"
+            :class="modifiers"
+            :disabled="disabled"
+          >
+            <span>{{ content }}</span>
+            <UiIcon
+              :icon="icon"
+              class="ui-button__icon ui-button__icon--right"
+            />
+          </UiButton>
+        </div>
+      `
+    })).bind({})}
+  </Story>
+</Canvas>
 
-## Component API
-<ArgsTable of={UiButton} />
+## Circled
+<Canvas>
+  <Story
+    name="Circled"
+    args={{
+      disabled: false,
+      icon: 'plus'
+    }}
+  >
+    {((args, {argTypes}) => ({
+      props: Object.keys(argTypes),
+      components: {UiButton, UiIcon},
+      template: `
+        <UiButton
+          class="ui-button--outlined ui-button--circled ui-button--has-icon"
+          :class="modifiers"
+          :disabled="disabled"
+        >
+          <UiIcon
+            :icon="icon"
+          />
+        </UiButton>
+      `
+    })).bind({})}
+  </Story>
+</Canvas>
 
-## CSS modifiers
-<ArgsTable of={{__docgenInfo: {props: [
-  {name: '.ui-button--text', description: 'Use this modifier to render button as a text button.'},
-  {name: '.ui-button--outlined', description: 'Use this modifier to render button with border and without background.'}
-]}}} />
+## Text
+<Canvas>
+  <Story
+    name="Text"
+    args={{
+      content: 'Next',
+      disabled: false,
+      icon: 'chevronLeft'
+    }}
+  >
+    {((args, {argTypes}) => ({
+      props: Object.keys(argTypes),
+      components: {UiButton, UiIcon},
+      template: `
+        <div style="margin-bottom: 20px;">
+          <UiButton
+            class="ui-button--text"
+            :class="modifiers"
+            :disabled="disabled"
+          >
+            {{ content }}
+          </UiButton>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <UiButton
+            class="ui-button--text ui-button--has-icon"
+            :class="modifiers"
+            :disabled="disabled"
+          >
+            {{ content }}
+            <UiIcon
+              :icon="icon"
+              class="ui-button__icon ui-button__icon--right"
+            />
+          </UiButton>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <UiButton
+            class="ui-button--text ui-button--has-icon"
+            :class="modifiers"
+            :disabled="disabled"
+          >
+            <UiIcon
+              :icon="icon"
+              class="ui-button__icon"
+            />
+            {{ content }}
+          </UiButton>
+        </div>
+      `
+    })).bind({})}
+  </Story>
+</Canvas>
+
+## Text secondary
+<Canvas>
+  <Story
+    name="Text secondary"
+    args={{
+      content: 'Next',
+      disabled: false,
+      icon:'chevronRight'
+    }}
+  >
+    {((args, {argTypes}) => ({
+      props: Object.keys(argTypes),
+      components: {UiButton, UiIcon},
+      template: `
+        <div style="margin-bottom: 20px;">
+          <UiButton
+            class="ui-button--text ui-button--secondary"
+            :class="modifiers"
+            :disabled="disabled"
+          >
+            {{ content }}
+          </UiButton>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <UiButton
+            class="ui-button--text ui-button--secondary ui-button--has-icon"
+            :class="modifiers"
+            :disabled="disabled"
+          >
+            {{ content }}
+            <UiIcon
+              :icon="icon"
+              class="ui-button__icon ui-button__icon--right"
+            />
+          </UiButton>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <UiButton
+            class="ui-button--text ui-button--secondary ui-button--has-icon"
+            :class="modifiers"
+            :disabled="disabled"
+          >
+            <UiIcon
+              :icon="icon"
+              class="ui-button__icon"
+            />
+            {{ content }}
+          </UiButton>
+        </div>
+      `
+    })).bind({})}
+  </Story>
+</Canvas>

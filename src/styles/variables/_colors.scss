@@ -94,6 +94,13 @@
   --color-text-link-secondary-active: var(--color-gray-800);
   --color-text-placeholder: var(--color-gray-600);
   --color-text-negative: var(--color-white);
+  --color-text-action-primary-enabled: var(--color-blue-600);
+  --color-text-action-primary-hover: var(--color-blue-700);
+  --color-text-action-primary-active: var(--color-blue-800);
+  --color-text-action-secondary-enabled: var(--color-gray-600);
+  --color-text-action-secondary-hover: var(--color-gray-700);
+  --color-text-action-secondary-active: var(--color-gray-800);
+  --color-text-disabled: var(--color-gray-400);
 
   // Icons
   --color-icon-primary: var(--color-blue-600);
@@ -103,6 +110,7 @@
   --color-icon-secondary-hover: var(--color-gray-700);
   --color-icon-secondary-active: var(--color-gray-800);
   --color-icon-negative: var(--color-white);
+  --color-icon-disabled: var(--color-gray-300);
 
   // UI (colors shared by graphic UI elements)
   --color-ui-bg-light: var(--color-gray-50);
@@ -115,6 +123,7 @@
   --color-background-white-active: var(--color-gray-100);
   --color-background-subtle: var(--color-gray-50);
   --color-ui-focus: var(--color-blue-500);
+  --color-ui-disabled: var(--color-gray-200);
 
   // Messages
   --color-alert-error-text: var(--color-red-600);
@@ -144,6 +153,12 @@
   --color-triage-emergency-department: var(--color-white);
   --color-triage-consultation: var(--color-blue-500);
   --color-triage-self-care: var(--color-green-500);
+
+  // Component-specific - button colors
+  --color-button-contained-background-enabled: var(--color-green-600);
+  --color-button-contained-background-hover: var(--color-green-700);
+  --color-button-contained-background-active: var(--color-green-800);
+  --color-button-contained-text: var(--color-white);
 
   // Component-specific - Checkbox and Radio
   --color-radio-checkbox-selected-enabled: var(--color-selection);
