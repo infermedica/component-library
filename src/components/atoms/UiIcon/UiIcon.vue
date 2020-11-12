@@ -11,7 +11,7 @@
       <path
         v-for="(path, key) in paths"
         :key="key"
-        :d="path"
+        v-bind="path"
       />
     </slot>
   </svg>

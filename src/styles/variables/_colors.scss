@@ -105,13 +105,15 @@
   --color-icon-negative: var(--color-white);
 
   // UI (colors shared by graphic UI elements)
-  --color-ui-bg-lightest: var(--color-white);
   --color-ui-bg-light: var(--color-gray-50);
   --color-ui-element-lighter: var(--color-gray-100);
   --color-ui-element-light: var(--color-gray-200);
   --color-ui-element-accessible: var(--color-gray-500);
   --color-ui-backdrop: var(--color-gray-800);
-  --color-ui-bg-hover: var(--color-gray-50);
+  --color-background-white: var(--color-white);
+  --color-background-white-hover: var(--color-gray-50);
+  --color-background-white-active: var(--color-gray-100);
+  --color-background-subtle: var(--color-gray-50);
   --color-ui-focus: var(--color-blue-500);
 
   // Messages

@@ -21,7 +21,7 @@
         class="ui-checkbox__checkbutton"
       >
         <UiIcon
-          icon="check"
+          icon="checkmark"
           class="ui-checkbox__mark"
         />
       </div>
@@ -75,14 +75,14 @@ export default {
   setup(props, { attrs, emit }) {
     const rootAttrs = computed(() => (
       Object.keys(attrs)
-        .filter((key) => key.match(/class|styles|^on.*/gi))
+        .filter((key) => key.match(/class|style|^on.*/gi))
         .reduce((obj, key) => (
           { ...obj, [key]: attrs[key] }
         ), {})
     ));
     const inputAttrs = computed(() => (
       Object.keys(attrs)
-        .filter((key) => !key.match(/class|styles|^on.*/gi))
+        .filter((key) => !key.match(/class|style|^on.*/gi))
         .reduce((obj, key) => (
           { ...obj, [key]: attrs[key] }
         ), {})
@@ -140,6 +140,7 @@ export default {
 
   display: inline-flex;
   align-items: center;
+  font: var(--checkbox-font, var(--font-body-1));
   cursor: pointer;
 
   &:hover {
@@ -162,7 +163,7 @@ export default {
     height: var(--checkbox-size, 1.25rem);
     margin: var(--checkbox-margin, 0 var(--space-12) 0 0);
     overflow: hidden;
-    background: var(--checkbox-background, var(--color-ui-bg-lightest));
+    background: var(--checkbox-background, var(--color-background-white));
     border: var(--checkbox-border, solid var(--color-border-accessible));
     border-width: var(--checkbox-border-width, 2px);
     border-radius: var(--checkbox-border-radiud, var(--border-radius-form));

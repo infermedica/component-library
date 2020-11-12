@@ -75,14 +75,14 @@ export default {
     ));
     const inputAttrs = computed(() => (
       Object.keys(attrs)
-        .filter((key) => !key.match(/class|styles|^on.*/gi))
+        .filter((key) => !key.match(/class|style|^on.*/gi))
         .reduce((obj, key) => (
           { ...obj, [key]: attrs[key] }
         ), {})
     ));
     const rootAttrs = computed(() => (
       Object.keys(attrs)
-        .filter((key) => key.match(/class|styles|^on.*/gi))
+        .filter((key) => key.match(/class|style|^on.*/gi))
         .reduce((obj, key) => (
           { ...obj, [key]: attrs[key] }
         ), {})
@@ -113,6 +113,8 @@ export default {
   $this: &;
 
   display: inline-flex;
+  align-items: center;
+  font: var(--checkbox-font, var(--font-body-1));
   cursor: pointer;
 
   &:hover {
@@ -132,7 +134,7 @@ export default {
     height: var(--radio-size, 1.25rem);
     margin: var(--radio-margin, 0 var(--space-12) 0 0);
     overflow: hidden;
-    background: var(--radio-background, var(--color-ui-bg-lightest));
+    background: var(--radio-background, var(--color-background-white));
     border: var(--radio-border, solid var(--color-border-accessible));
     border-width: var(--radio-border-width, 2px);
     border-radius: var(--border-radius-circle);

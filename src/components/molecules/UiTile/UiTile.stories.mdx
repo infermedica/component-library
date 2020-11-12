@@ -1,0 +1,91 @@
+import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import UiTile from './UiTile.vue';
+
+<Meta
+  title="Molecules/Tile"
+  component={UiTile}
+  argTypes={{
+      label: { control: { type: 'text' } },
+      iconAttrs: { control: { type: 'object' } },
+      cssClass: {control: {type: 'inline-check', options: {
+        'ui-tile--small': 'ui-tile--small',
+      }}},
+    }}
+/>
+
+# Tile
+
+This component base on UiRadio component
+
+<Canvas>
+  <Story
+    name="Common"
+    height="200px"
+    args={{
+      label: 'Yes',
+      iconAttrs: {icon: 'check'},
+      id: 'present',
+      value: 'present'
+    }}
+  >
+    {((args, {argTypes}) => ({
+      props: Object.keys(argTypes),
+      data() {
+        return {
+          picked: {}
+        }
+      },
+      components: {UiTile},
+      template: `<UiTile
+        v-model="picked"
+        :id="id"
+        :value="value"
+        :iconAttrs="iconAttrs"
+        :class="cssClass"
+        style="width: 272px;"
+      >{{ label }}</UiTile>`
+    })).bind({})}
+  </Story>
+</Canvas>
+
+This component can be used as radio group
+
+<Canvas>
+  <Story
+    name="Multiple tiles"
+    height="200px"
+  >
+    {(() => ({
+      data() {
+        return {
+          picked: {}
+        }
+      },
+      components: {UiTile},
+      template: `<div style="max-width: 560px; display: flex;">
+        <UiTile
+          v-model="picked"
+          value="present"
+          :iconAttrs="{icon: 'check'}"
+          style="flex: 1 1 33%; margin: 0 1rem 0 0;"
+        >Yes</UiTile>
+        <UiTile
+          v-model="picked"
+          value="absent"
+          :iconAttrs="{icon: 'cross'}"
+          style="flex: 1 1 33%; margin: 0 1rem 0 0;"
+        >No</UiTile>
+        <UiTile
+          v-model="picked"
+          value="unknown"
+          :iconAttrs="{icon: 'arrowRight'}"
+          style="flex: 1 1 33%;"
+        >Don't know</UiTile>
+      </div>`
+    })).bind({})}
+  </Story>
+</Canvas>
+
+# Props
+
+<Props of={UiTile} />

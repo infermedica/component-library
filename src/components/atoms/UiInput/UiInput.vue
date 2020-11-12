@@ -58,7 +58,7 @@ export default {
 
 <style lang="scss">
 .ui-input {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   overflow: hidden;
   border: var(--input-border, 1px solid #dbe1e6);

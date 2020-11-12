@@ -198,7 +198,7 @@ export default {
   &__value {
     position: absolute;
     left: var(--range-selected-track-width);
-    font-size: 32px;
+    font: var(--range-value-font, var(--font-h1));
     text-align: center;
     transform:
       translate(

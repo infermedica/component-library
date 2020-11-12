@@ -9,7 +9,8 @@
   --font-size-3: 1.125rem;
   --font-size-4: 1.25rem;
   --font-size-5: 1.5rem;
-  --font-size-6: 2rem;
+  --font-size-6: 1.75rem;
+  --font-size-7: 2rem;
 
   // Font weight
   --font-weight-default: 400;
@@ -26,7 +27,7 @@
   --letter-spacing-medium: 0.02rem;
 
   // Font
-  --font-h1: var(--font-weight-default) var(--font-size-6) / var(--line-height-default) var(--font-family-heading);
+  --font-h1: var(--font-weight-default) var(--font-size-7) / var(--line-height-default) var(--font-family-heading);
   --font-h2: var(--font-weight-default) var(--font-size-5) / var(--line-height-default) var(--font-family-heading);
   --font-h3: var(--font-weight-default) var(--font-size-4) / var(--line-height-default) var(--font-family-heading);
   --font-h4: var(--font-weight-thick) var(--font-size-2) / var(--line-height-default) var(--font-family-heading);

@@ -55,6 +55,7 @@ export default {
   align-items: center;
   justify-content: space-between;
   padding: 0.25rem 0.75rem;
+  font: var(--chips-font, var(--font-body-2-comfortable));
   color: #fff;
   background: #1576d1;
   border-radius: 20rem;

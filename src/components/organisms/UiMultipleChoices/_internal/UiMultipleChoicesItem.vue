@@ -101,6 +101,7 @@ export default {
         var(--space-12) var(--space-20)
       );
     margin: 0 auto 0 0;
+    font: var(--multiple-choices-item-name-font, var(--font-body-1));
   }
 
   &__option {
