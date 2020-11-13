@@ -1,0 +1,60 @@
+import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import UiLink from './UiLink.vue';
+import UiIcon from '../UiIcon/UiIcon.vue';
+
+<Meta
+  title="Atoms/Link"
+  component={UiLink}
+  argTypes={{
+    content: {control: {type: 'text'}},
+    tag: {control: {type: 'text'}},
+    to: {control: {type: 'text'}},
+    href: {control: {type: 'text'}}
+  }}
+/>
+
+# Link
+
+<Canvas>
+  <Story
+    name="Common"
+    args={{
+      content: 'Next',
+      tag: '',
+      to: '',
+      href: 'https://infermedica.com/'
+    }}
+  >
+    {((args, {argTypes}) => ({
+      components: {UiLink},
+      props: Object.keys(argTypes),
+      template: `<UiLink
+        :tag="tag"
+        :to="to"
+        :href="href"
+      >
+        {{content}}
+      </UiLink>`
+    })).bind({})}
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story
+    name="Link with component"
+  >
+    {(() => ({
+      components: {UiLink, UiIcon},
+      template: `<UiLink
+        href="https://infermedica.com/"
+        target="_blank"
+      >
+        <UiIcon icon="search" />
+      </UiLink>`
+    })).bind({})}
+  </Story>
+</Canvas>
+
+# Props
+
+<Props of={UiLink} />
