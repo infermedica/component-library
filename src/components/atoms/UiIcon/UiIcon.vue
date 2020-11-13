@@ -36,7 +36,7 @@ export default {
      */
     viewBox: {
       type: String,
-      default: '0 0 24 24',
+      default: '0 0 48 48',
     },
   },
   setup(props) {

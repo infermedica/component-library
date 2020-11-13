@@ -1,5 +1,6 @@
 import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
 import UiIcon from './UiIcon.vue';
+import icons from './icons'
 
 <Meta
   title="Atoms/Icon"
@@ -7,7 +8,7 @@ import UiIcon from './UiIcon.vue';
 />
 
 # Icon
-
+## Common
 <Canvas>
   <Story
     name="Common"
@@ -21,6 +22,7 @@ import UiIcon from './UiIcon.vue';
 
 <ArgsTable story='Common' />
 
+## Custom svg paths
 You can use an array of paths for custom icons.
 
 <Canvas>
@@ -41,6 +43,38 @@ You can use an array of paths for custom icons.
         :icon="paths"
         viewBox="0 0 512 512"
       />`
+    })).bind({})}
+  </Story>
+</Canvas>
+
+## All icons
+<Canvas>
+  <Story
+    name="All icons"
+  >
+    {(() => ({
+      data(){
+        return {
+          icons: Object.entries(icons).map(icon => icon[0])
+        }
+      },
+      components: {UiIcon},
+      template: `
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr);">
+        <div
+          style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100px; width: 100%;"
+          v-for="icon in icons"
+        >
+          <UiIcon
+            :icon="icon"
+            style="--icon-size: 50px;"
+          />
+          <div>
+            {{icon}}
+          </div>
+        </div>
+      </div>
+      `
     })).bind({})}
   </Story>
 </Canvas>
