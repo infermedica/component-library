@@ -66,7 +66,7 @@ export default {
   }
 
   &__icon {
-    --icon-size: var(--button-icon-size, 1.25rem);
+    --icon-size: var(--button-icon-size, 1.5rem);
 
     // adds negative left margin to position icon within button and avoid changing padding
     margin: var(--button-icon-margin, 0 var(--space-4) 0 calc(var(--space-8) * -1));
@@ -133,7 +133,6 @@ export default {
     --button-font: var(--font-body-1);
 
     #{$this}__icon {
-      --button-icon-size: 1.5rem;
       --button-icon-margin: 0 var(--space-4) 0 0;
 
       &--right {
