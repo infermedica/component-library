@@ -1,15 +1,16 @@
 <template>
   <component
-    :is="is"
-    v-bind="route"
+    :is="componentTag"
+    v-bind="routeAttrs"
     class="ui-link"
   >
+    <!-- @slot Use this slot to place content inside link. -->
     <slot />
   </component>
 </template>
 
 <script>
-import { computed } from 'vue';
+import useLink from '../../../composable/useLink';
 
 export default {
   name: 'UiLink',
@@ -19,7 +20,7 @@ export default {
      */
     tag: {
       type: [String, Object],
-      default: '',
+      default: 'span',
     },
     /**
      * Use this props to set route for internal link.
@@ -37,23 +38,8 @@ export default {
     },
   },
   setup(props) {
-    const is = computed(() => {
-      if (props.tag) {
-        return props.tag;
-      }
-      return props.href
-        ? 'a'
-        : 'router-link';
-    });
-    const route = computed(() => {
-      if (props.tag) {
-        return {};
-      }
-      return props.href
-        ? { href: props.href }
-        : { to: props.to };
-    });
-    return { is, route };
+    const { componentTag, routeAttrs } = useLink(props);
+    return { componentTag, routeAttrs };
   },
 };
 </script>

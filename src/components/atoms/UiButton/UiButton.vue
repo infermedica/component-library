@@ -1,15 +1,46 @@
 <template>
-  <button
+  <component
+    :is="componentTag"
+    v-bind="routeAttrs"
     class="ui-button"
   >
     <!-- @slot Use this slot to place content inside button. -->
     <slot />
-  </button>
+  </component>
 </template>
 
 <script>
+import useLink from '../../../composable/useLink';
+
 export default {
   name: 'UiButton',
+  props: {
+    /**
+     * Use this props to set tag when a component shouldn't be a button.
+     */
+    tag: {
+      type: [String, Object],
+      default: 'button',
+    },
+    /**
+     * Use this props to set route for internal link.
+     */
+    to: {
+      type: [String, Object],
+      default: '',
+    },
+    /**
+     * Use this props to set route for external link.
+     */
+    href: {
+      type: String,
+      default: '',
+    },
+  },
+  setup(props) {
+    const { componentTag, routeAttrs } = useLink(props);
+    return { componentTag, routeAttrs };
+  },
 };
 </script>
 
@@ -25,6 +56,7 @@ export default {
   padding: var(--button-padding, var(--space-12) var(--space-32));
   font: var(--button-font, var(--font-body-1-thick));
   color: var(--button-color, var(--color-button-contained-text));
+  text-decoration: var(--button-text-decoration, none);
   text-transform: var(--button-text-transform);
   white-space: var(--button-white-space, nowrap);
   cursor: var(--button-cursor, pointer);

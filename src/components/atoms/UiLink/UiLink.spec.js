@@ -6,7 +6,7 @@ describe('UiLink.vue', () => {
     const wrapper = mount(UiLink);
     expect(wrapper.classes('ui-link')).toBe(true);
   });
-  test('component is router-link when you put to', () => {
+  test('component is router-link when you pass it a "to" prop', () => {
     const wrapper = mount(UiLink, {
       props: {
         to: '/symptom-checker',
@@ -14,7 +14,7 @@ describe('UiLink.vue', () => {
     });
     expect(wrapper.element.tagName).toBe('ROUTER-LINK');
   });
-  test('component is link when you put href', () => {
+  test('component is link when you pass it a  "href" propf', () => {
     const wrapper = mount(UiLink, {
       props: {
         href: '/symptom-checker',
@@ -22,12 +22,8 @@ describe('UiLink.vue', () => {
     });
     expect(wrapper.element.tagName).toBe('A');
   });
-  test('component isn\'t link when you put tag', () => {
-    const wrapper = mount(UiLink, {
-      props: {
-        tag: 'span',
-      },
-    });
+  test('component is a span without "to" and "href" props', () => {
+    const wrapper = mount(UiLink);
     expect(wrapper.element.tagName).toBe('SPAN');
   });
   test('component hasn\'t link attrs when you put tag', () => {

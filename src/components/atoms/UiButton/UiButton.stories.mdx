@@ -13,6 +13,9 @@ import UiIcon from '../UiIcon/UiIcon.vue';
       'ui-button--small': 'ui-button--small',
       'ui-button--is-disabled': 'ui-button--is-disabled',
     }}},
+    tag: {control: {type: 'text'}},
+    to: {control: {type: 'text'}},
+    href: {control: {type: 'text'}}
   }}
 />
 
@@ -183,7 +186,7 @@ import UiIcon from '../UiIcon/UiIcon.vue';
     args={{
       content: 'Next',
       disabled: false,
-      icon:'chevronRight'
+      icon:'chevronRight',
     }}
   >
     {((args, {argTypes}) => ({
@@ -229,3 +232,34 @@ import UiIcon from '../UiIcon/UiIcon.vue';
     })).bind({})}
   </Story>
 </Canvas>
+
+## Button as link
+
+<Canvas>
+  <Story
+    name="Button as link"
+    args={{
+      content: 'Next',
+      tag: 'button',
+      to: '',
+      href: 'https://infermedica.com/'
+    }}
+  >
+    {((args, {argTypes}) => ({
+      props: Object.keys(argTypes),
+      components: { UiButton },
+      template: `<UiButton
+      class="ui-button--text"
+      :tag="tag"
+      :to="to"
+      :href="href"
+      >
+         {{ content }}
+       </UiButton>`
+    })).bind({})}
+  </Story>
+</Canvas>
+
+# Props
+
+<Props of={UiButton} />
