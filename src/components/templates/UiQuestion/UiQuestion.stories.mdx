@@ -1,0 +1,138 @@
+import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import UiQuestion from './UiQuestion.vue';
+import UiMultipleChoices from '../../organisms/UiMultipleChoices/UiMultipleChoices.vue'
+import UiTile from '../../molecules/UiTile/UiTile.vue'
+import UiLink from '../../atoms/UiLink/UiLink.vue'
+
+<Meta
+  title="Templates/Question"
+  component={UiQuestion}
+  argTypes={{
+    title: {control: {type: 'text'}},
+    hint: {control: {type: 'text'}},
+    isAnswerAbove: {control: {type: 'boolean'}},
+    isInvalid: {control: {type: 'boolean'}},
+    toBack: {control: {type: 'text'}},
+    toNext: {control: {type: 'text'}},
+    t: {control: {type: 'object'}},
+  }}
+/>
+
+# Question
+
+<Canvas>
+  <Story
+    name="Common"
+    args={{
+      title: 'What is your superpower?',
+      hint: 'Select one answer.',
+      toBack: '/3-3',
+      toNext: '/5-4',
+      t: {
+        back: 'Back',
+        next: 'Next',
+        answerAbove: 'Select an answer above',
+      }
+    }}
+  >
+    {((args, {argTypes}) => ({
+      props: Object.keys(argTypes),
+      components: { UiQuestion },
+      template: `<UiQuestion
+        :title="title"
+        :hint="hint"
+        :is-answer-above="isAnswerAbove"
+        :is-invalid="isInvalid"
+        :to-back="toBack"
+        :to-next="toNext"
+        :t="t"
+        style="max-width: 780px; min-height: 465px"
+      />`
+    })).bind({})}
+  </Story>
+</Canvas>
+
+Question component with multiple choices and simple validation
+
+<Canvas>
+  <Story
+    name="Question with multiple choices"
+  >
+    {((args, {argTypes}) => ({
+      props: Object.keys(argTypes),
+      components: { UiQuestion, UiMultipleChoices },
+      data() {
+        return {
+          back: "/3-3",
+          next: "/5-3",
+          evidences: [],
+          choices: [
+            {
+              id: 6,
+              name: 'I have diabetes',
+              linked_observation: 'p_8'
+            },
+            {
+              id: 5,
+              name: 'I have hypertension',
+              linked_observation: 'p_9'
+            },
+            {
+              id: 4,
+              name: 'I have high cholesterol',
+              linked_observation: 'p_10'
+            },
+            {
+              id: 174,
+              name: 'I\'m pregnant',
+              linked_observation: 'p_42'
+            },
+            {
+              id: 1,
+              name: 'I\'m postmenopausal',
+              linked_observation: 'p_11'
+            },
+            {
+              id: 2,
+              name: 'I\'m overweight or obese or very very fat',
+              linked_observation: 'p_7'
+            },
+            {
+              id: 3,
+              name: 'I smoke cigarettes',
+              linked_observation: 'p_28'
+            }
+          ]
+        }
+      },
+      computed: {
+        invalid(){
+          return this.evidences.length !== this.choices.length
+        }
+      },
+      template: `<UiQuestion
+        title="Please check all the statements below that apply to you."
+        hint="Select one answer in each row."
+        :to-next="next"
+        :to-back="back"
+        :is-invalid="invalid"
+        @has-error="hasError"
+        style="max-width: 780px; min-height: 465px"
+      >
+        <UiMultipleChoices
+          v-model="evidences"
+          :choices="choices"
+        />
+      </UiQuestion>`,
+      methods: {
+        hasError() {
+          alert('something is wrong...')
+        }
+      }
+    })).bind({})}
+  </Story>
+</Canvas>
+
+# Props
+
+<Props of={UiQuestion} />

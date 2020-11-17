@@ -155,7 +155,7 @@ export default {
     &:active {
       --range-thumb-background-color:
         var(
-          --range-thumb-active-background-color
+          --range-thumb-active-background-color,
           var(--color-range-slider-thumb-background-active)
         );
     }
