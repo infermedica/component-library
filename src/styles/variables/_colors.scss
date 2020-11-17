@@ -165,6 +165,13 @@
   --color-radio-checkbox-selected-hover: var(--color-selection-hover);
   --color-radio-checkbox-selected-active: var(--color-selection-active);
 
+  // Component-specific - Range
+  --color-range-slider-thumb-background-enabled: var(--color-green-600);
+  --color-range-slider-thumb-background-hover: var(--color-green-700);
+  --color-range-slider-thumb-background-active: var(--color-green-800);
+  --color-range-slider-bar-indicator: var(--color-green-600);
+  --color-range-slider-bar-track: var(--color-gray-200);
+
   // Component-specific - Border
   --color-border-divider: var(--color-gray-100);
   --color-border-subtle: var(--color-gray-200);

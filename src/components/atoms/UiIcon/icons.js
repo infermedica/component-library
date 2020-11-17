@@ -36,6 +36,12 @@ export default {
       { d: 'M45 13.242l-27 27-15-15L7.242 21 18 31.758 40.758 9zm0 0' },
     ],
   },
+  minus: {
+    viewBox: '0 0 48 48',
+    paths: [
+      { d: 'M8 22h32v4H8zm0 0' },
+    ],
+  },
   plus: {
     viewBox: '0 0 48 48',
     paths: [
@@ -58,6 +64,15 @@ export default {
     viewBox: '0 0 48 48',
     paths: [
       { d: 'M20 12l-2.828 2.828L26.344 24l-9.172 9.172L20 36l12-12zm0 0' },
+    ],
+  },
+  chevronLeftAndRight: {
+    viewBox: '0 0 48 48',
+    paths: [
+      {
+        d: 'M34 12l-2.8281 2.8281L40.3437 24l-9.1718 9.1719L34 36l12-12zm0 0M14 12l2.8281 2.8281L7.6563 24l9.1718 9.1719L14 36 2 24zm0 0',
+        'fill-rule': 'evenodd',
+      },
     ],
   },
   check: {

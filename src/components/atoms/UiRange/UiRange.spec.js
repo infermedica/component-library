@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils';
 import UiRange from './UiRange.vue';
+import UiButton from '../UiButton/UiButton.vue';
 
 describe('UiRange.vue', () => {
   test('renders a component', () => {
@@ -53,7 +54,7 @@ describe('UiRange.vue', () => {
     });
     expect(wrapper.element.style.getPropertyValue('--range-selected-track-width')).toBe('50%');
   });
-  test('a increment click increment value', async () => {
+  test('clicking increment button increments the value', async () => {
     const wrapper = mount(UiRange, {
       props: {
         modelValue: '70',
@@ -61,11 +62,11 @@ describe('UiRange.vue', () => {
         max: '122',
       },
     });
-    const button = wrapper.find('.ui-range__increment');
-    await button.trigger('click');
+    const incrementButton = wrapper.findAllComponents(UiButton)[1];
+    await incrementButton.trigger('click');
     expect(wrapper.emitted('update:modelValue')[0][0]).toBe('71');
   });
-  test('a decrement click decrement value', async () => {
+  test('clicking decrement button decrements the value', async () => {
     const wrapper = mount(UiRange, {
       props: {
         modelValue: '70',
@@ -73,8 +74,35 @@ describe('UiRange.vue', () => {
         max: '122',
       },
     });
-    const button = wrapper.find('.ui-range__decrement');
-    await button.trigger('click');
+    const decrementButton = wrapper.findAllComponents(UiButton)[0];
+    await decrementButton.trigger('click');
     expect(wrapper.emitted('update:modelValue')[0][0]).toBe('69');
+  });
+  test('component passes attributes to child button components', async () => {
+    const initialModelValue = 70;
+    const wrapper = mount(UiRange, {
+      props: {
+        modelValue: initialModelValue,
+        min: '18',
+        max: '122',
+        buttonIncrementAttrs: {
+          disabled: true,
+        },
+        buttonDecrementAttrs: {
+          disabled: true,
+        },
+      },
+    });
+    const buttons = wrapper.findAllComponents(UiButton);
+    const decrementButton = buttons[0];
+    const incrementButton = buttons[1];
+
+    await incrementButton.trigger('click');
+    expect(wrapper.emitted()['update:modelValue']).not.toBeTruthy();
+    expect(wrapper.vm.modelValue).toBe(initialModelValue);
+
+    await decrementButton.trigger('click');
+    expect(wrapper.emitted()['update:modelValue']).not.toBeTruthy();
+    expect(wrapper.vm.modelValue).toBe(initialModelValue);
   });
 });
