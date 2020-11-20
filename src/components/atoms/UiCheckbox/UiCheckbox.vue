@@ -2,11 +2,11 @@
   <label
     class="ui-checkbox"
     :for="checkboxId"
-    v-bind="rootAttrs"
+    v-bind="getRootAttrs($attrs)"
   >
     <input
       :id="checkboxId"
-      v-bind="inputAttrs"
+      v-bind="getInputAttrs($attrs)"
       :checked="isChecked"
       type="checkbox"
       class="visual-hidden"
@@ -72,21 +72,7 @@ export default {
     },
   },
   emits: ['update:modelValue'],
-  setup(props, { attrs, emit }) {
-    const rootAttrs = computed(() => (
-      Object.keys(attrs)
-        .filter((key) => key.match(/class|style|^on.*/gi))
-        .reduce((obj, key) => (
-          { ...obj, [key]: attrs[key] }
-        ), {})
-    ));
-    const inputAttrs = computed(() => (
-      Object.keys(attrs)
-        .filter((key) => !key.match(/class|style|^on.*/gi))
-        .reduce((obj, key) => (
-          { ...obj, [key]: attrs[key] }
-        ), {})
-    ));
+  setup(props, { emit }) {
     const checkboxId = computed(() => (
       props.id || `checkbox-${uid()}`
     ));
@@ -98,7 +84,20 @@ export default {
         ).length > 0
         : props.modelValue
     ));
-
+    function getInputAttrs(attrs) {
+      return Object.keys(attrs)
+        .filter((key) => !key.match(/class|style|^on.*/gi))
+        .reduce((obj, key) => (
+          { ...obj, [key]: attrs[key] }
+        ), {});
+    }
+    function getRootAttrs(attrs) {
+      return Object.keys(attrs)
+        .filter((key) => key.match(/class|style|^on.*/gi))
+        .reduce((obj, key) => (
+          { ...obj, [key]: attrs[key] }
+        ), {});
+    }
     function getChecked(checked) {
       let newChecked;
       if (isObject.value) {
@@ -124,8 +123,8 @@ export default {
       isObject,
       isChecked,
       changeHandler,
-      rootAttrs,
-      inputAttrs,
+      getRootAttrs,
+      getInputAttrs,
     };
   },
 };

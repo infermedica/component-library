@@ -66,18 +66,21 @@ This component can be used as a radio button. You can use to `checkbox` slot to 
         <UiListItem>
           <UiRadio
             v-model="picked"
+            name="answer"
             value="present"
           >Yes</UiRadio>
         </UiListItem>
         <UiListItem>
           <UiRadio
             v-model="picked"
+            name="answer"
             value="absent"
           >No</UiRadio>
         </UiListItem>
         <UiListItem>
           <UiRadio
             v-model="picked"
+            name="answer"
             :value="{id: 's-234', value: 'unknown'}"
           >Don't know</UiRadio>
         </UiListItem>

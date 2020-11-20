@@ -2,14 +2,14 @@
   <label
     class="ui-radio"
     :for="radioId"
-    v-bind="rootAttrs"
+    v-bind="getRootAttrs($attrs)"
   >
     <input
       :id="radioId"
       type="radio"
       class="visual-hidden"
       :checked="isChecked"
-      v-bind="inputAttrs"
+      v-bind="getInputAttrs($attrs)"
       @change="changeHandler($event.target.checked)"
     >
     <!-- @slot Use this slot to replace radiobutton template. -->
@@ -36,7 +36,7 @@
 
 <script>
 import { uid } from 'uid/single';
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 
 export default {
   name: 'UiRadio',
@@ -65,28 +65,27 @@ export default {
     },
   },
   emits: ['update:modelValue'],
-  setup(props, { emit, attrs }) {
-    const focused = ref(false);
+  setup(props, { emit }) {
     const radioId = computed(() => (
       props.id || `radio-${uid()}`
     ));
     const isChecked = computed(() => (
       JSON.stringify(props.value) === JSON.stringify(props.modelValue)
     ));
-    const inputAttrs = computed(() => (
-      Object.keys(attrs)
+    function getInputAttrs(attrs) {
+      return Object.keys(attrs)
         .filter((key) => !key.match(/class|style|^on.*/gi))
         .reduce((obj, key) => (
           { ...obj, [key]: attrs[key] }
-        ), {})
-    ));
-    const rootAttrs = computed(() => (
-      Object.keys(attrs)
+        ), {});
+    }
+    function getRootAttrs(attrs) {
+      return Object.keys(attrs)
         .filter((key) => key.match(/class|style|^on.*/gi))
         .reduce((obj, key) => (
           { ...obj, [key]: attrs[key] }
-        ), {})
-    ));
+        ), {});
+    }
     function changeHandler(checked) {
       if (checked) {
         emit('update:modelValue', JSON.parse(JSON.stringify(props.value)));
@@ -94,11 +93,10 @@ export default {
     }
 
     return {
-      focused,
       radioId,
       isChecked,
-      rootAttrs,
-      inputAttrs,
+      getRootAttrs,
+      getInputAttrs,
       changeHandler,
     };
   },

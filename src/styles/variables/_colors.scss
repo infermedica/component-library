@@ -162,9 +162,9 @@
   --color-button-contained-text: var(--color-white);
 
   // Component-specific - Checkbox and Radio
-  --color-radio-checkbox-selected-enabled: var(--color-selection);
-  --color-radio-checkbox-selected-hover: var(--color-selection-hover);
-  --color-radio-checkbox-selected-active: var(--color-selection-active);
+  --color-radio-checkbox-selected-enabled: var(--color-green-500);
+  --color-radio-checkbox-selected-hover: var(--color-green-600);
+  --color-radio-checkbox-selected-active: var(--color-green-700);
 
   // Component-specific - Range
   --color-range-slider-thumb-background-enabled: var(--color-green-600);
