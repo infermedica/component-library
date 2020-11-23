@@ -45,4 +45,14 @@ describe('UiInput.vue', () => {
     await wrapper.trigger('input');
     expect(wrapper.emitted('update:modelValue')[0][0]).toBe(content);
   });
+  test('a number input cant accept non-numerical value', async () => {
+    const wrapper = mount(UiInput, {
+      props: {
+        type: 'number',
+      },
+    });
+    const input = wrapper.find('input');
+    await input.setValue('i');
+    expect(wrapper.emitted('update:modelValue')[0][0]).toBe('');
+  });
 });

@@ -117,9 +117,14 @@ export default {
       const position = value - min;
       return `${(position / scope) * 100}%`;
     });
+    function valueValidation(value) {
+      return value >= parseInt(props.min, 10) && value <= parseInt(props.max, 10);
+    }
     function changeHandler(value, modifier = 0) {
       const newValue = parseInt(value, 10) + modifier;
-      emit('update:modelValue', `${newValue}`);
+      if (valueValidation(newValue)) {
+        emit('update:modelValue', `${newValue}`);
+      }
     }
 
     return {

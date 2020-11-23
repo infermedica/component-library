@@ -4,6 +4,7 @@
       v-bind="$attrs"
       :value="modelValue"
       class="ui-input__element"
+      @keydown="keyValidation"
       @input="inputHandler($event.target.value)"
     >
     <!-- @slot Use this slot to place aside. -->
@@ -42,14 +43,26 @@ export default {
     },
   },
   emits: ['update:modelValue'],
-  setup(props, { emit }) {
+  setup(props, { emit, attrs }) {
     const isEmpty = computed(() => (props.modelValue.trim().length === 0));
+    function keyValidation(event) {
+      const { key } = event;
+      switch (attrs.type) {
+        case 'number':
+          if (!/\d/.test(key) && key.length === 1) {
+            event.preventDefault();
+          }
+          break;
+        default:
+      }
+    }
     function inputHandler(value) {
       emit('update:modelValue', value);
     }
 
     return {
       isEmpty,
+      keyValidation,
       inputHandler,
     };
   },
