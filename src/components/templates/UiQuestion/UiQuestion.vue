@@ -34,7 +34,7 @@
     <!-- @slot Use this slot to replace bottom template. -->
     <slot
       name="bottom"
-      v-bind="{toBack, toNext, isAnswerAbove, isInvalid, translation}"
+      v-bind="{toBack, toNext, isAnswerAbove, invalid, translation}"
     >
       <div class="ui-question__bottom">
         <!-- @slot Use this slot to replace back template. -->
@@ -67,14 +67,14 @@
         </slot>
         <!-- @slot Use this slot to replace next template. -->
         <slot
-          v-bind="{isAnswerAbove, validNext, isInvalid, translation}"
+          v-bind="{isAnswerAbove, validNext, invalid, translation}"
           name="next"
         >
           <UiButton
             v-if="!isAnswerAbove"
             v-bind="validNext"
             class="ui-question__next"
-            :class="{'ui-button--is-disabled': isInvalid}"
+            :class="{'ui-button--is-disabled': invalid}"
           >
             {{ translation.next }}
           </UiButton>
@@ -139,11 +139,11 @@ export default {
       default: '',
     },
     /**
-     * Use this props to set valid state of the question.
+     * Use this props to set invalid state of the question.
      */
-    isInvalid: {
+    invalid: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     /**
      * Use this props to override labels inside component translation.
@@ -163,7 +163,7 @@ export default {
       emit('has-error');
     }
     const validNext = computed(() => (
-      props.isInvalid
+      props.invalid
         ? {
           onClick: hasError,
         }

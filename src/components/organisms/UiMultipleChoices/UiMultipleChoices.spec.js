@@ -36,4 +36,16 @@ describe('UiMultipleChoices.vue', () => {
     const choicesItemOptions = wrapper.findComponent(UiMultipleChoicesItem).vm.options;
     expect(choicesItemOptions).toStrictEqual(options);
   });
+  test('a possible to valid custom choices component', async () => {
+    const wrapper = mount(UiMultipleChoices, {
+      props: {
+        invalid: true,
+        touched: false,
+        choices: [{ id: 6, name: 'I have diabetes', linked_observation: 'p_8' }],
+      },
+    });
+    wrapper.setProps({ modelValue: [{ choice_id: 'absent', id: 'p_8', source: 'initial' }] });
+    await wrapper.vm.$nextTick();
+    expect(wrapper.emitted('update:invalid')).toBeTruthy();
+  });
 });

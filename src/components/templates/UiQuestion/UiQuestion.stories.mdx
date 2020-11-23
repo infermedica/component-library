@@ -11,10 +11,10 @@ import UiLink from '../../atoms/UiLink/UiLink.vue'
     title: {control: {type: 'text'}},
     hint: {control: {type: 'text'}},
     isAnswerAbove: {control: {type: 'boolean'}},
-    isInvalid: {control: {type: 'boolean'}},
+    invalid: {control: {type: 'boolean'}},
     toBack: {control: {type: 'text'}},
     toNext: {control: {type: 'text'}},
-    t: {control: {type: 'object'}},
+    translation: {control: {type: 'object'}},
   }}
 />
 
@@ -28,7 +28,8 @@ import UiLink from '../../atoms/UiLink/UiLink.vue'
       hint: 'Select one answer.',
       toBack: '/3-3',
       toNext: '/5-4',
-      t: {
+      invalid: true,
+      translation: {
         back: 'Back',
         next: 'Next',
         answerAbove: 'Select an answer above',
@@ -42,10 +43,10 @@ import UiLink from '../../atoms/UiLink/UiLink.vue'
         :title="title"
         :hint="hint"
         :is-answer-above="isAnswerAbove"
-        :is-invalid="isInvalid"
+        :invalid="invalid"
         :to-back="toBack"
         :to-next="toNext"
-        :t="t"
+        :translation="translation"
         style="max-width: 780px; min-height: 465px"
       />`
     })).bind({})}
@@ -57,12 +58,20 @@ Question component with multiple choices and simple validation
 <Canvas>
   <Story
     name="Question with multiple choices"
+    argTypes={{
+      touched: {control: {type: 'boolean'}},
+    }}
+    args={{
+      invalid: false,
+      touched: false,
+    }}
   >
     {((args, {argTypes}) => ({
       props: Object.keys(argTypes),
       components: { UiQuestion, UiMultipleChoices },
       data() {
         return {
+          isTouched: false,
           back: "/3-3",
           next: "/5-3",
           evidences: [],
@@ -105,27 +114,25 @@ Question component with multiple choices and simple validation
           ]
         }
       },
-      computed: {
-        invalid(){
-          return this.evidences.length !== this.choices.length
-        }
-      },
       template: `<UiQuestion
         title="Please check all the statements below that apply to you."
         hint="Select one answer in each row."
         :to-next="next"
         :to-back="back"
-        :is-invalid="invalid"
+        :invalid="invalid"
         @has-error="hasError"
         style="max-width: 780px; min-height: 465px"
       >
         <UiMultipleChoices
           v-model="evidences"
+          v-model:invalid="invalid"
           :choices="choices"
+          :touched="touched"
         />
       </UiQuestion>`,
       methods: {
         hasError() {
+          this.touched = true
           alert('something is wrong...')
         }
       }

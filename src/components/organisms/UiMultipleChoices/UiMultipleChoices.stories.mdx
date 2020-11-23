@@ -16,6 +16,8 @@ import UiMultipleChoices from './UiMultipleChoices.vue';
     {((args, {argTypes}) => ({
       data(){
         return {
+          invalid: true,
+          touched: false,
           evidences: [],
           choices: [
             {
@@ -59,7 +61,9 @@ import UiMultipleChoices from './UiMultipleChoices.vue';
       components: { UiMultipleChoices },
       template: `<UiMultipleChoices
         v-model="evidences"
+        v-model:invalid="invalid"
         :choices="choices"
+        :touched="touched"
       />`
     })).bind({})}
   </Story>

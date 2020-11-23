@@ -19,6 +19,8 @@
               :choice="choice"
               :options="options"
               :model-value="evidences"
+              :invalid="hasError(choice.linked_observation)"
+              class="ui-multiple-choices__choice"
               @update:modelValue="updateHandler($event)"
             />
           </slot>
@@ -29,7 +31,7 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { watchEffect, computed } from 'vue';
 import UiMultipleChoicesItem from './_internal/UiMultipleChoicesItem.vue';
 import UiList from '../UiList/UiList.vue';
 import UiListItem from '../UiList/_internal/UiListItem.vue';
@@ -70,19 +72,50 @@ export default {
       type: Array,
       default: () => ([]),
     },
+    /**
+     * Use this props to set invalid state of component.
+     */
+    invalid: {
+      type: Boolean,
+      default: true,
+    },
+    /**
+     * Use this props to touch component and show validation errors.
+     */
+    touched: {
+      type: Boolean,
+      default: false,
+    },
   },
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'update:invalid'],
   setup(props, { emit }) {
     const evidences = computed(() => (
       props.modelValue.reduce(
-        (obj, evidence) => ({ ...obj, [evidence.id]: evidence }), {},
+        (object, evidence) => {
+          // eslint-disable-next-line camelcase
+          const { choice_id, id } = evidence;
+          return { ...object, [id]: { choice_id, id } };
+        }, {},
       )
     ));
+    const valid = computed(() => (
+      props.modelValue.length === props.choices.length
+    ));
+    watchEffect(() => {
+      if (!valid.value !== props.invalid) {
+        emit('update:invalid', !valid.value);
+      }
+    });
+    function hasError(id) {
+      return props.touched && !evidences.value[id];
+    }
     function updateHandler(value) {
       emit('update:modelValue', Object.values(value).map((evidence) => ({ ...evidence, source: props.source })));
     }
     return {
       evidences,
+      valid,
+      hasError,
       updateHandler,
     };
   },
@@ -94,27 +127,32 @@ export default {
   --list-item-padding: 0;
 
   &__list-item {
-    margin: var(--multiple-choices-list-item-margin, 8px 0 0 0);
     border:
       var(
         --multiple-choices-list-item-border,
         solid var(--color-border-subtle)
       );
-    border-width: var(--multiple-choices-list-item-border-width, 0 0 1px 0);
+    border-width: var(--multiple-choices-list-item-border-width, 1px 0 0 0);
 
     &:last-of-type {
-      border-width: var(--multiple-choices-list-item-border-width, 0);
+      border-width: var(--multiple-choices-list-item-border-width, 1px 0);
     }
 
     &:hover {
       background: var(--multiple-choices-list-item-hover-background);
+
+      @media (min-width: 480px) {
+        background: var(--multiple-choices-list-item-hover-background, var(--color-gray-50));
+      }
     }
   }
 
-  @media (min-width: 480px) {
-    --list-item-padding: var(--space-12) var(--space-8);
-    --multiple-choices-list-item-margin: 0;
-    --multiple-choices-list-item-hover-background: var(--color-gray-50);
+  &__choice {
+    padding: var(--multiple-choices-choice-padding);
+
+    @media (min-width: 480px) {
+      padding: var(--multiple-choices-choice-padding, var(--space-12));
+    }
   }
 }
 </style>
