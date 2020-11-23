@@ -80,7 +80,13 @@ export default {
     const isChecked = computed(() => (
       isObject.value
         ? props.modelValue.filter(
-          (option) => (JSON.stringify(option) === JSON.stringify(props.value)),
+          (option) => {
+            if (typeof props.value === 'string') {
+              return props.value === option;
+            }
+            return Object.keys(option)
+              .every((key) => (option[key]) === props.value[key]);
+          },
         ).length > 0
         : props.modelValue
     ));
@@ -104,9 +110,13 @@ export default {
         newChecked = checked
           ? [...props.modelValue, JSON.parse(JSON.stringify(props.value))]
           : props.modelValue.filter(
-            (option) => (
-              JSON.stringify(option) !== JSON.stringify(props.value)
-            ),
+            (option) => {
+              if (typeof props.value === 'string') {
+                return props.value !== option;
+              }
+              return !Object.keys(props.value)
+                .every((key) => (props.value[key] === option[key]));
+            },
           );
       } else {
         newChecked = checked;

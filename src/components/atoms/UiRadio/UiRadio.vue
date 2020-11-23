@@ -69,9 +69,13 @@ export default {
     const radioId = computed(() => (
       props.id || `radio-${uid()}`
     ));
-    const isChecked = computed(() => (
-      JSON.stringify(props.value) === JSON.stringify(props.modelValue)
-    ));
+    const isChecked = computed(() => {
+      if (typeof props.modelValue === 'string') {
+        return props.value === props.modelValue;
+      }
+      return Object.keys(props.modelValue)
+        .every((key) => (props.modelValue[key] === props.value[key]));
+    });
     function getInputAttrs(attrs) {
       return Object.keys(attrs)
         .filter((key) => !key.match(/class|style|^on.*/gi))
