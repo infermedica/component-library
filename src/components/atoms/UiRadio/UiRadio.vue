@@ -37,6 +37,7 @@
 <script>
 import { uid } from 'uid/single';
 import { computed } from 'vue';
+import useInput from '../../../composable/useInput';
 
 export default {
   name: 'UiRadio',
@@ -76,20 +77,8 @@ export default {
       return Object.keys(props.modelValue)
         .every((key) => (props.modelValue[key] === props.value[key]));
     });
-    function getInputAttrs(attrs) {
-      return Object.keys(attrs)
-        .filter((key) => !key.match(/class|style|^on.*/gi))
-        .reduce((obj, key) => (
-          { ...obj, [key]: attrs[key] }
-        ), {});
-    }
-    function getRootAttrs(attrs) {
-      return Object.keys(attrs)
-        .filter((key) => key.match(/class|style|^on.*/gi))
-        .reduce((obj, key) => (
-          { ...obj, [key]: attrs[key] }
-        ), {});
-    }
+    const { getRootAttrs, getInputAttrs } = useInput();
+
     function changeHandler(checked) {
       if (checked) {
         emit('update:modelValue', JSON.parse(JSON.stringify(props.value)));

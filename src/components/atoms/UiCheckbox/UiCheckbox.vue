@@ -40,6 +40,7 @@
 import { uid } from 'uid/single';
 import { computed } from 'vue';
 import UiIcon from '../UiIcon/UiIcon.vue';
+import useInput from '../../../composable/useInput';
 
 export default {
   name: 'UiCheckbox',
@@ -90,20 +91,8 @@ export default {
         ).length > 0
         : props.modelValue
     ));
-    function getInputAttrs(attrs) {
-      return Object.keys(attrs)
-        .filter((key) => !key.match(/class|style|^on.*/gi))
-        .reduce((obj, key) => (
-          { ...obj, [key]: attrs[key] }
-        ), {});
-    }
-    function getRootAttrs(attrs) {
-      return Object.keys(attrs)
-        .filter((key) => key.match(/class|style|^on.*/gi))
-        .reduce((obj, key) => (
-          { ...obj, [key]: attrs[key] }
-        ), {});
-    }
+    const { getRootAttrs, getInputAttrs } = useInput();
+
     function getChecked(checked) {
       let newChecked;
       if (isObject.value) {
@@ -175,7 +164,7 @@ export default {
     background: var(--checkbox-background, var(--color-background-white));
     border: var(--checkbox-border, solid var(--color-border-accessible));
     border-width: var(--checkbox-border-width, 2px);
-    border-radius: var(--checkbox-border-radiud, var(--border-radius-form));
+    border-radius: var(--checkbox-border-radius, var(--border-radius-form));
   }
 
   input {

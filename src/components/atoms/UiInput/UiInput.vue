@@ -1,30 +1,44 @@
 <template>
-  <div class="ui-input">
-    <input
-      v-bind="$attrs"
-      :value="modelValue"
-      class="ui-input__element"
-      @keydown="keyValidation"
-      @input="inputHandler($event.target.value)"
+  <div
+    class="ui-input"
+    v-bind="getRootAttrs($attrs)"
+  >
+    <!-- @slot Use this slot to replace input template. -->
+    <slot
+      name="input"
+      v-bind="{attrs: getInputAttrs($attrs), input: inputHandler, value: modelValue}"
     >
-    <!-- @slot Use this slot to place aside. -->
+      <input
+        v-bind="getInputAttrs($attrs)"
+        :value="modelValue"
+        class="ui-input__element"
+        @keydown="keyValidation"
+        @input="inputHandler($event.target.value)"
+      >
+    </slot>
+    <!-- @slot Use this slot to place aside element. -->
     <slot
       name="aside"
-      v-bind="{isEmpty}"
     >
-      <span
+      <UiText
         v-if="suffix"
         class="ui-input__aside"
-      >{{ suffix }}</span>
+      >
+        {{ suffix }}
+      </UiText>
     </slot>
   </div>
 </template>
 
 <script>
-import { computed } from 'vue';
+import UiText from '../UiText/UiText.vue';
+import useInput from '../../../composable/useInput';
 
 export default {
   name: 'UiInput',
+  components: {
+    UiText,
+  },
   inheritAttrs: false,
   props: {
     /**
@@ -43,8 +57,8 @@ export default {
     },
   },
   emits: ['update:modelValue'],
-  setup(props, { emit, attrs }) {
-    const isEmpty = computed(() => (props.modelValue.trim().length === 0));
+  setup(props, { attrs, emit }) {
+    const { getRootAttrs, getInputAttrs } = useInput();
     function keyValidation(event) {
       const { key } = event;
       switch (attrs.type) {
@@ -61,7 +75,8 @@ export default {
     }
 
     return {
-      isEmpty,
+      getInputAttrs,
+      getRootAttrs,
       keyValidation,
       inputHandler,
     };
@@ -71,32 +86,109 @@ export default {
 
 <style lang="scss">
 .ui-input {
+  $this: &;
+
   display: inline-flex;
   align-items: center;
   overflow: hidden;
-  border: var(--input-border, 1px solid #dbe1e6);
-  border-radius: var(--input-border-radius, 5px);
+  font: var(--input-font, var(--font-body-1));
+  color: var(--input-color, var(--color-text-body));
+  background-color: var(--input-background-color, var(--color-background-white));
+  border: var(--input-border, solid var(--input-border-color, var(--color-border-accessible)));
+  border-width: var(--input-border-width, 1px);
+  border-radius: var(--input-border-radius, var(--border-radius-form));
 
   &:focus-within {
-    border: var(--input-focus-border, 1px solid #abb8c4);
-    outline: 5px auto Highlight;
-    outline: 5px auto -webkit-focus-ring-color;
+    --input-border-color: var(--input-focus-border-color, var(--color-border-accessible));
+    --input-placeholder-color: var(--input-focus-placeholder-color, var(--color-text-dimmed));
+
+    outline: none;
+    box-shadow: var(--box-shadow-outline);
   }
 
-  &.is-invalid {
-    border: var(--input-is-invalid-border, 1px solid #e03131);
+  &:hover {
+    --input-border-color: var(--input-hover-border-color, var(--color-border-hover));
+
+    &:focus-within {
+      --input-hover-border-color: var(--input-focus-border-color);
+    }
   }
 
   &__element {
     width: 100%;
-    padding: var(--input-padding, 8px 12px);
-    color: var(--input-color, #555);
+    padding: var(--input-padding, var(--space-12) var(--space-16));
+    font: var(--input-font);
+    color: var(--input-color);
     border: 0;
     outline: none;
+    caret-color: var(--input-caret-color, var(--color-blue-500));
+
+    &::placeholder {
+      color: var(--input-placeholder-color, var(--color-text-dimmed));
+    }
+
+    &::-webkit-search-decoration,
+    &::-webkit-search-cancel-button,
+    &::-webkit-search-results-button,
+    &::-webkit-search-results-decoration {
+      display: none;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      background: var(--input-background-color, var(--color-background-white));
+    }
+
+    &[type="number"] {
+      &::-webkit-inner-spin-button,
+      &::-webkit-outer-spin-button {
+        margin: 0;
+        -webkit-appearance: none;
+      }
+
+      -moz-appearance: none;
+    }
   }
 
   &__aside {
-    margin: var(--input-aside-margin, 0 12px 0 0);
+    margin: var(--input-aside-margin, 0 var(--space-16) 0 0);
+    font: var(--input-suffix-font);
+    color: var(--input-suffix-color, var(--input-color), var(--color-text-body));
+  }
+
+  &--has-icon {
+    --icon-size: var(--input-icon-size, 1.5rem);
+
+    #{$this}__aside {
+      --input-aside-margin: var(--input-aside-margin, 0 var(--space-12) 0 0);
+    }
+  }
+
+  &--has-error {
+    --input-color: var(--input-error-color, var(--color-text-body));
+    --input-placeholder-color: var(--input-error-placeholder-color, var(--color-text-body));
+    --input-focus-placeholder-color: var(--input-error-focus-placeholder-color, var(--color-text-body));
+    --input-border-color: var(--input-error-border-color, var(--color-border-alert-error-accessible));
+    --input-hover-border-color: var(--input-error-hover-border-color, var(--color-border-alert-error-accessible));
+    --input-focus-border-color: var(--input-error-focus-border-color, var(--color-border-alert-error-accessible));
+    --input-caret-color: var(--input-error-caret-color, var(--color-border-alert-error-accessible));
+  }
+
+  &--is-disabled {
+    cursor: not-allowed;
+
+    --input-color: var(--input-disabled-color, var(--color-text-disabled));
+    --input-placeholder-color: var(--input-disabled-placeholder-color, var(--color-text-disabled));
+    --input-focus-placeholder-color: var(--input-disabled-focus-placeholder-color, var(--color-text-disabled));
+    --input-border-color: var(--input-disabled-border-color, var(--color-border-subtle));
+    --input-hover-border-color: var(--input-disabled-hover-border-color, var(--color-border-subtle));
+    --input-focus-border-color: var(--input-disabled-focus-border-color, var(--color-border-subtle));
+    --input-caret-color: var(--input-disabled-caret-color, var(--color-border-subtle));
+    --icon-color: var(--color-icon-disabled);
+
+    #{$this}__element {
+      cursor: not-allowed;
+    }
   }
 }
 </style>

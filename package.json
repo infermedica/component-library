@@ -11,7 +11,8 @@
     "postinstall": "node scripts/create-index.js",
     "storybook:build": "node_modules/.bin/build-storybook -s ./public",
     "storybook:serve": "node_modules/.bin/start-storybook -s ./public -p 6006",
-    "test:unit": "jest"
+    "test:unit": "jest",
+    "test:verbose": "jest --verbose"
   },
   "eslintConfig": {
     "env": {

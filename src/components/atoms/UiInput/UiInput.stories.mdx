@@ -2,6 +2,7 @@ import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blo
 import UiInput from './UiInput.vue';
 import UiIcon from '../UiIcon/UiIcon.vue';
 
+
 <Meta
   title="Atoms/Input"
   component={UiInput}
@@ -11,7 +12,8 @@ import UiIcon from '../UiIcon/UiIcon.vue';
     placeholder: {control: {type: 'text'}},
     type: {control: {type: 'select', options: ['text', 'number', 'email', 'search', 'tel', 'url', 'password']}},
     cssClass: {control: {type: 'inline-check', options: {
-      'is-invalid': 'is-invalid',
+      'ui-input--is-disabled': 'ui-input--is-disabled',
+      'ui-input--has-error': 'ui-input--has-error'
     }}},
   }}
 />
@@ -20,6 +22,7 @@ import UiIcon from '../UiIcon/UiIcon.vue';
 
 This component should support native attributes. [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input)
 
+## Common
 <Canvas>
   <Story
     name="Common"
@@ -52,13 +55,20 @@ This component should support native attributes. [MDN web docs](https://develope
 
 <ArgsTable story='Common' />
 
+## With text suffix
 Use `suffix` props to set text suffix
 
 <Canvas>
   <Story
-    name="Input with text suffix"
+    name="with suffix"
+    args={{
+      suffix: 'cm',
+      placeholder: 'Search, e.g. headache',
+      type: 'text',
+    }}
   >
     {((args, {argTypes}) => ({
+      props: Object.keys(argTypes).filter((key) => (key !== 'value')),
       components: { UiInput },
       data() {
         return {
@@ -67,22 +77,32 @@ Use `suffix` props to set text suffix
       },
       template: `<UiInput
         v-model="value"
-        suffix="cm"
-        type="text"
-        placeholder="Search, e.g. headache"
+        :suffix="suffix"
+        :type="type"
+        :disabled="disabled"
+        :placeholder="placeholder"
+        :class="cssClass"
         style="width:400px"
       />`
     })).bind({})}
   </Story>
 </Canvas>
 
+## With icon suffix
 Use `aside` slot to replace aside template
 
 <Canvas>
   <Story
-    name="Input with icon suffix"
+    name="[slot] aside"
+    args={{
+      suffix: 'cm',
+      placeholder: 'Search, e.g. headache',
+      type: 'text',
+      icon: 'search'
+    }}
   >
     {((args, {argTypes}) => ({
+      props: Object.keys(argTypes).filter((key) => (key !== 'value')),
       components: { UiInput, UiIcon },
       data() {
         return {
@@ -91,26 +111,19 @@ Use `aside` slot to replace aside template
       },
       template: `<UiInput
         v-model="value"
-        placeholder="Search, e.g. headache"
+        :suffix="suffix"
+        :type="type"
+        :disabled="disabled"
+        :placeholder="placeholder"
+        :class="cssClass"
+        class="ui-input--has-icon"
         style="width:400px"
       >
-        <template #aside="{ isEmpty }">
-          <template v-if="isEmpty">
-            <UiIcon
-              class="ui-input__aside"
-              icon="search"
-              style="--icon-size: 12px; --icon-color: #abb8c4; cursor: pointer"
-            />
-          </template>
-          <template v-else>
-            <!-- TODO: use UiButton for clickable elements -->
-            <UiIcon
-              class="ui-input__aside"
-              style="--icon-size: 12px; --icon-color: #abb8c4; cursor: pointer"
-              icon="close"
-              @click="clear"
-            />
-          </template>
+        <template #aside>
+          <UiIcon
+            :icon="icon"
+            class="ui-input__aside"
+          />
         </template>
       </UiInput>`,
       methods: {
