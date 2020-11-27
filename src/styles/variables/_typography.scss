@@ -27,9 +27,10 @@
   --letter-spacing-medium: 0.02rem;
 
   // Font
-  --font-h1: var(--font-weight-default) var(--font-size-7) / var(--line-height-default) var(--font-family-heading);
-  --font-h2: var(--font-weight-default) var(--font-size-5) / var(--line-height-default) var(--font-family-heading);
-  --font-h3: var(--font-weight-default) var(--font-size-4) / var(--line-height-default) var(--font-family-heading);
+  // mobile variants
+  --font-h1: var(--font-weight-default) var(--font-size-6) / var(--line-height-default) var(--font-family-heading);
+  --font-h2: var(--font-weight-default) var(--font-size-4) / var(--line-height-default) var(--font-family-heading);
+  --font-h3: var(--font-weight-default) var(--font-size-3) / var(--line-height-default) var(--font-family-heading);
   --font-h4: var(--font-weight-thick) var(--font-size-2) / var(--line-height-default) var(--font-family-heading);
   --font-h5: var(--font-weight-thick) var(--font-size-1) / var(--line-height-2) var(--font-family-heading);
   --font-body-1: var(--font-weight-default) var(--font-size-2) / var(--line-height-default) var(--font-family-body);
@@ -38,4 +39,11 @@
   --font-body-2-compact: var(--font-weight-default) var(--font-size-1) / var(--line-height-1) var(--font-family-body);
   --font-body-2-comfortable-thick: var(--font-weight-thick) var(--font-size-1) / var(--line-height-2) var(--font-family-body);
   --font-body-2-compact-thick: var(--font-weight-thick) var(--font-size-1) / var(--line-height-1) var(--font-family-body);
+
+  @media screen and (min-width: 480px) {
+    // desktop variants
+    --font-h1: var(--font-weight-default) var(--font-size-7) / var(--line-height-default) var(--font-family-heading);
+    --font-h2: var(--font-weight-default) var(--font-size-5) / var(--line-height-default) var(--font-family-heading);
+    --font-h3: var(--font-weight-default) var(--font-size-4) / var(--line-height-default) var(--font-family-heading);
+  }
 }

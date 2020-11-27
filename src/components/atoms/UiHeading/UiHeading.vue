@@ -1,7 +1,8 @@
 <template>
   <component
-    :is="tag"
+    :is="headingTag"
     class="ui-heading"
+    :class="headingClass"
   >
     <!-- @slot Use this slot to place content inside heading -->
     <slot />
@@ -15,31 +16,55 @@ export default {
   name: 'UiHeading',
   props: {
     /**
-     * Use this props to set heading level.
+     * Use this props to set heading level from 1-6
      */
     level: {
       type: String,
       default: '2',
+      validator: (value) => {
+        const level = parseInt(value, 10);
+        return (level <= 6 && level > 0);
+      },
+    },
+    /**
+     * Use this props to set heading HTML tag
+     */
+    tag: {
+      type: String,
+      default: '',
     },
   },
   setup(props) {
-    const tag = computed(() => (`h${props.level}`));
-
+    const headingTag = computed(() => (props.tag ? props.tag : `h${props.level}`));
+    const headingClass = computed(() => `ui-heading--h${props.level}`);
     return {
-      tag,
+      headingTag,
+      headingClass,
     };
   },
 };
 </script>
 
 <style lang="scss">
-// .ui-heading {}
+.ui-heading {
+  margin: var(--heading-margin, 0);
+  font: var(--heading-font);
+  color: var(--heading-color);
+  text-decoration: var(--heading-text-decoration);
+  text-transform: var(--heading-text-transform);
 
-@for $i from 1 through 6 {
-  h#{$i} {
-    margin: 0;
-    font-size: 1rem;
-    font-weight: normal;
+  @for $i from 1 through 6 {
+
+    &--h#{$i} {
+      --heading-font: var(--font-h#{$i});
+    }
+
+    /**
+     * Use special classes from h1 to h6 to overwrite styles for headings
+     */
+    &.h#{$i} {
+      --heading-font: var(--font-h#{$i}) !important;
+    }
   }
 }
 </style>

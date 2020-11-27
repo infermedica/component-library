@@ -5,28 +5,35 @@ import UiHeading from './UiHeading.vue';
   title="Atoms/Heading"
   component={UiHeading}
   argTypes={{
-    customProp: {control: {type: 'text'}}
+    level: {control: {type: 'select', options: ['1', '2', '3', '4', '5', '6']}},
+    tag: {control: {type: 'text' }},
+    cssClass: {control: {type: 'select', options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']}},
   }}
 />
 
 # Heading
 
-This component working like native heading. [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements)
+This component works like the native heading. [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements)
+
+## Common heading
 
 <Canvas>
   <Story
     name="Common"
     args={{
-      customProp: 'customProp'
+      level: '2',
+      tag: '',
+      cssClass: ''
     }}
   >
     {((args, {argTypes}) => ({
       props: Object.keys(argTypes),
       components: {UiHeading},
-      template: `<UiHeading>Symptom Checker</UiHeading>`
+      template: `<UiHeading :level="level" :tag="tag" :class="cssClass">Symptom Checker</UiHeading>`
     })).bind({})}
   </Story>
 </Canvas>
+
 
 <ArgsTable story='Common' />
 
