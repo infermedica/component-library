@@ -15,7 +15,7 @@ export default function useLink(props) {
       return { href: props.href };
     }
     if (props.to) {
-      return { href: props.to };
+      return { to: props.to };
     }
     return {};
   });
