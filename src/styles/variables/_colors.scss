@@ -182,4 +182,12 @@
   --color-border-hover: var(--color-gray-700);
   --color-border-active: var(--color-gray-900);
   --color-border-alert-error-accessible: var(--color-red-500);
+
+  // Component-specific - Chips
+  --color-chip-text: var(--color-white);
+  --color-chip-backgroud: var(--color-blue-600);
+  --color-chip-icon-on-dark-enabled: var(--color-white);
+  --color-chip-icon-backgroud-enabled: var(--color-blue-700);
+  --color-chip-icon-backgroud-hover: var(--color-blue-800);
+  --color-chip-icon-backgroud-active: var(--color-blue-900);
 }

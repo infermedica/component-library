@@ -9,10 +9,13 @@
     >
       <UiButton
         v-bind="buttonAttrs"
-        class="ui-chips__remove"
+        class="ui-chips__remove ui-button--has-icon ui-button--circled"
         @click="clickHandler"
       >
-        <UiIcon icon="close" />
+        <UiIcon
+          icon="reverseClose"
+          class="ui-chips__icon"
+        />
       </UiButton>
     </slot>
   </div>
@@ -53,22 +56,25 @@ export default {
 .ui-chips {
   display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0.25rem 0.75rem;
+  padding: var(--chips-padding, var(--space-4) var(--space-4) var(--space-4) var(--space-12));
   font: var(--chips-font, var(--font-body-2-comfortable));
-  color: #fff;
-  background: #1576d1;
-  border-radius: 20rem;
+  color: var(--chips-color, var(--color-chip-text));
+  background: var(--chips-backgorund, var(--color-chip-backgroud));
+  border-radius: var(--chips-border-radius, var(--border-radius-pill));
 
   &__remove {
-    --button-width: 1.5rem;
-    --button-height: 1.5rem;
     --button-padding: 0;
-    --button-border-radius: 50%;
-    --button-background: #2b62a7;
-    --icon-size: 0.75rem;
+    --button-border-width: 0;
+    --button-icon-color: var(--chips-remove-background, var(--color-chip-icon-backgroud-enabled));
+    --button-icon-color-hover: var(--chips-remove-hover-background, var(--color-chip-icon-backgroud-hover));
+    --button-icon-color-active: var(--chips-remove-active-background, var(--color-chip-icon-backgroud-active));
+    --icon-size: var(--chips-remove-size, 1.5rem);
 
-    margin: 0 0 0 0.25rem;
+    margin: var(--chips-remove-margin, 2px 2px 2px calc(var(--space-4) + 2px));
+  }
+
+  &__icon {
+    margin: var(--chips-icon-margin, -2px);
   }
 }
 </style>
