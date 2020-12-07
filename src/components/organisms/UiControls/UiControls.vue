@@ -19,6 +19,7 @@
           v-bind="{toBack, translation}"
         >
           <UiButton
+            v-if="toBack"
             :to="toBack"
             class="ui-controls__back ui-button--text ui-button--has-icon"
           >
@@ -43,6 +44,7 @@
         </slot>
         <!-- @slot Use this slot to replace next template. -->
         <slot
+          v-if="toNext"
           v-bind="{isAnswerAbove, validNext, invalid, translation}"
           name="next"
         >
@@ -88,14 +90,14 @@ export default {
      * Use this props to set route to back screen.
      */
     toBack: {
-      type: [String, Object],
+      type: [String, Object, Boolean],
       default: '',
     },
     /**
      * Use this props to set route to next screen.
      */
     toNext: {
-      type: [String, Object],
+      type: [String, Object, Boolean],
       default: '',
     },
     /**
@@ -164,6 +166,10 @@ export default {
   &__answer-above {
     padding: var(--controls-answer-above-padding, var(--space-12) 0);
     color: var(--controls-answer-above-color, var(--color-text-dimmed));
+  }
+
+  &__next {
+    margin: var(--controls-next-margin, 0 0 0 auto);
   }
 }
 </style>
