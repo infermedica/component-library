@@ -147,4 +147,12 @@ export default {
       },
     ],
   },
+  menu: {
+    viewBox: '0 0 48 48',
+    paths: [
+      {
+        d: 'M0 8h48v4H0zm0 0M0 22h48v4H0zm0 0M0 36h48v4H0zm0 0',
+      },
+    ],
+  },
 };
