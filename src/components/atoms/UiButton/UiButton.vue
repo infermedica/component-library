@@ -160,7 +160,7 @@ export default {
     --button-border-width: 0;
     --button-background: transparent;
     --button-hover-background: transparent;
-    --button-active-background: var(--color-white);
+    --button-active-background: transparent;
     --button-padding: 0;
     --button-font: var(--font-body-1);
 
