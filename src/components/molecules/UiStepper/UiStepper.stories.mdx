@@ -1,0 +1,63 @@
+import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import UiStepper from './UiStepper.vue';
+
+<Meta
+  title="Molecules/Stepper"
+  component={UiStepper}
+  argTypes={{
+    currentStep: {control: {type: 'select', options: ['Introduction', 'Patient', 'Symptoms', 'Regions', 'Interview', 'Results']}},
+  }}
+/>
+
+# Stepper
+
+<Canvas>
+  <Story
+    name="Common"
+    args={{
+      currentStep: 'Introduction',
+    }}
+  >
+    {((args, {argTypes}) => ({
+      props: Object.keys(argTypes),
+      components: {UiStepper},
+      data() {
+        return {
+          steps: [
+            {
+              name: 'Introduction',
+              route: '/intro'
+            },
+            {
+              name: 'Patient',
+              route: '/patient'
+            },
+            {
+              name: 'Symptoms',
+              route: '/symptoms'
+            },
+            {
+              name: 'Regions',
+              route: '/regions'
+            },
+            {
+              name: 'Interview',
+              route: '/interview'
+            },
+            {
+              name: 'Results',
+              route: '/results'
+            },
+          ]
+        }
+      },
+      template: `<UiStepper :steps="steps" :currentStep="currentStep"/>`
+    })).bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story='Common' />
+
+# Props
+
+<Props of={UiStepper} />

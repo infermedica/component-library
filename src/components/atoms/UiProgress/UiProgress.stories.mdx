@@ -1,0 +1,37 @@
+import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import UiProgress from './UiProgress.vue';
+
+<Meta
+  title="Atoms/Progress"
+  component={UiProgress}
+  argTypes={{
+    min: {control: {type: 'text'}},
+    max: {control: {type: 'text'}},
+    value: {control: {type: 'text'}},
+  }}
+/>
+
+# Progress
+
+<Canvas>
+  <Story
+    name="Common"
+    args={{
+      min: '0',
+      max: '100',
+      value: '30',
+    }}
+  >
+    {((args, {argTypes}) => ({
+      props: Object.keys(argTypes),
+      components: {UiProgress},
+      template: `<div style="display: 'inline-flex'; width: 8rem;"><UiProgress :min="min" :max="max" :value="value"/></div>`
+    })).bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story='Common' />
+
+# Props
+
+<Props of={UiProgress} />
