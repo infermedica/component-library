@@ -1,0 +1,73 @@
+import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import Message from './Message.vue';
+import UiText from '../../atoms/UiText/UiText.vue'
+import UiControls from '../../organisms/UiControls/UiControls.vue'
+
+<Meta
+  title="Templates/Message"
+  component={Message}
+  argTypes={{
+    title: {control: {type: 'text'}},
+    paragraph: {control: {type: 'text'}},
+    illustration: {control: {type: 'select', options: [false, 'instruction', 'message', 'terms-of-service']}},
+  }}
+/>
+
+# Message
+
+<Canvas>
+  <Story
+    name="Common"
+    args={{
+      title: 'How to use it?',
+      paragraph: 'Please provide symptoms related to a single health problem. If you’re coming for a visit with a few different issues, please focus on the most relevant one.',
+      illustration: 'instruction'
+    }}
+  >
+    {((args, {argTypes}) => ({
+      props: Object.keys(argTypes),
+      components: { Message, UiText },
+      template: `<Message
+        :title="title"
+        :illustration="illustration"
+        style="max-width: 780px; min-height: 540px"
+      >
+        <UiText>
+           {{paragraph}}
+        </UiText>
+      </Message>`
+    })).bind({})}
+  </Story>
+</Canvas>
+
+with Controls
+
+<Canvas>
+  <Story
+    name="[example] with Controls"
+    args={{
+      title: 'How to use it?',
+      paragraph: 'Please provide symptoms related to a single health problem. If you’re coming for a visit with a few different issues, please focus on the most relevant one.',
+      illustration: 'instruction'
+    }}
+  >
+    {((args, {argTypes}) => ({
+      props: Object.keys(argTypes),
+      components: { Message, UiText, UiControls },
+      template: `<UiControls style="max-width: 780px; min-height: 540px">
+        <Message
+          :title="title"
+          :illustration="illustration"
+        >
+          <UiText>
+             {{paragraph}}
+          </UiText>
+        </Message>
+      </UiControls>`
+    })).bind({})}
+  </Story>
+</Canvas>
+
+# Props
+
+<Props of={Message} />

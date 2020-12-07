@@ -1,22 +1,22 @@
 import { mount } from '@vue/test-utils';
-import UiQuestion from './UiQuestion.vue';
+import UiControls from './UiControls.vue';
 
-describe('UiQuestion.vue', () => {
+describe('UiControls.vue', () => {
   test('renders a component', () => {
-    const wrapper = mount(UiQuestion);
-    expect(wrapper.classes('ui-question')).toBe(true);
+    const wrapper = mount(UiControls);
+    expect(wrapper.classes('ui-controls')).toBe(true);
   });
   test('component has above text when "isAnswerAbove" is true', () => {
-    const wrapper = mount(UiQuestion, {
+    const wrapper = mount(UiControls, {
       props: {
         isAnswerAbove: true,
       },
     });
-    const answerAbove = wrapper.find('.ui-question__answer-above');
+    const answerAbove = wrapper.find('.ui-controls__answer-above');
     expect(answerAbove.exists()).toBe(true);
   });
-  test('component has disabled next link when "isInvalid" is true', () => {
-    const wrapper = mount(UiQuestion, {
+  test('component has disabled next button when "invalid" is true', () => {
+    const wrapper = mount(UiControls, {
       props: {
         isInvalid: true,
       },
@@ -24,8 +24,8 @@ describe('UiQuestion.vue', () => {
     const button = wrapper.find('.ui-button--is-disabled');
     expect(button.exists()).toBe(true);
   });
-  test('component emit has-error when "isInvalid" is true', async () => {
-    const wrapper = mount(UiQuestion, {
+  test('component emit has-error when "invalid" is true', async () => {
+    const wrapper = mount(UiControls, {
       props: {
         isInvalid: true,
       },

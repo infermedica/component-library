@@ -21,6 +21,7 @@ export default {
 
 <style lang="scss">
 .ui-text {
-  font: var(--font-body-1);
+  margin: var(--text-margin, 0);
+  font: var(--text-font, var(--font-body-1));
 }
 </style>

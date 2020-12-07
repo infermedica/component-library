@@ -1,33 +1,9 @@
 <template>
-  <UiContainer class="ui-question">
+  <UiContainer class="ui-controls">
     <!-- @slot Use this slot to replace container content. -->
-    <slot
-      name="container"
-      v-bind="{title, hint}"
-    >
-      <div class="ui-question__container">
-        <!-- @slot Use this slot to replace title template. -->
-        <slot
-          name="title"
-          v-bind="{title}"
-        >
-          <UiHeading class="ui-question__title">
-            {{ title }}
-          </UiHeading>
-        </slot>
-        <!-- @slot Use this slot to replace hint template. -->
-        <slot
-          name="hint"
-          v-bind="{hint}"
-        >
-          <UiText
-            tag="div"
-            class="ui-question__hint"
-          >
-            {{ hint }}
-          </UiText>
-        </slot>
-        <!-- @slot Use this slot to place content inside question. -->
+    <slot name="container">
+      <div class="ui-controls__container">
+        <!-- @slot Use this slot to place container content. -->
         <slot />
       </div>
     </slot>
@@ -36,7 +12,7 @@
       name="bottom"
       v-bind="{toBack, toNext, isAnswerAbove, invalid, translation}"
     >
-      <div class="ui-question__bottom">
+      <div class="ui-controls__bottom">
         <!-- @slot Use this slot to replace back template. -->
         <slot
           name="back"
@@ -44,7 +20,7 @@
         >
           <UiButton
             :to="toBack"
-            class="ui-question__back ui-button--text ui-button--has-icon"
+            class="ui-controls__back ui-button--text ui-button--has-icon"
           >
             <UiIcon
               icon="chevronLeft"
@@ -60,7 +36,7 @@
           <UiText
             v-if="isAnswerAbove"
             tag="div"
-            class="ui-question__answer-above"
+            class="ui-controls__answer-above"
           >
             {{ translation.answerAbove }}
           </UiText>
@@ -73,7 +49,7 @@
           <UiButton
             v-if="!isAnswerAbove"
             v-bind="validNext"
-            class="ui-question__next"
+            class="ui-controls__next"
             :class="{'ui-button--is-disabled': invalid}"
           >
             {{ translation.next }}
@@ -88,10 +64,9 @@
 import { computed } from 'vue';
 
 import UiText from '../../atoms/UiText/UiText.vue';
-import UiContainer from '../../organisms/UiContainer/UiContainer.vue';
+import UiContainer from '../UiContainer/UiContainer.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
-import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
 
 export default {
   name: 'UiQuestion',
@@ -100,23 +75,8 @@ export default {
     UiContainer,
     UiButton,
     UiIcon,
-    UiHeading,
   },
   props: {
-    /**
-     * Use this props to set question title.
-     */
-    title: {
-      type: String,
-      default: '',
-    },
-    /**
-     * Use this props to set hint for question.
-     */
-    hint: {
-      type: String,
-      default: '',
-    },
     /**
      * Use this props to move the responsibility to move to the next screen to question content.
      */
@@ -175,7 +135,7 @@ export default {
 </script>
 
 <style lang="scss">
-.ui-question {
+.ui-controls {
   --container-padding: 0;
 
   display: flex;
@@ -184,38 +144,26 @@ export default {
   &__container {
     display: flex;
     flex: 1;
-    flex-direction: var(--question-container-flex-direction, column);
-    align-items: var(--question-container-align-items, flex-start);
-    justify-content: var(--question-container-justify-content, center);
-    padding: var(--question-container-padding, var(--space-16) var(--space-32));
+    padding: var(--controls-container-padding, var(--space-32) var(--space-20));
 
     @media (min-width: 480px) {
-      align-items: var(--question-container-align-items, center);
+      padding: var(--controls-container-padding, var(--space-48) var(--space-48) var(--space-40));
     }
-  }
-
-  &__title {
-    margin: var(--question-title-margin, 0 0 var(--space-32) 0);
-    font: var(--font-h2); // TODO: update UiHeading component
-  }
-
-  &__hint {
-    margin: var(--question-hint-margin, 0 0 var(--space-32) 0);
-    font: var(--question-hint-font, var(--font-body-2-comfortable-thick));
-    color: var(--question-hint-color, var(--color-text-dimmed));
   }
 
   &__bottom {
     display: flex;
-    align-items: var(--question-bottom-align-items, center);
-    justify-content: var(--question-bottom-justify-content, space-between);
-    padding: var(--question-bottom-padding, var(--space-16) var(--space-32));
-    border: var(--question-bottom-border, solid var(--color-border-divider));
-    border-width: var(--question-bottom-border-width, 1px 0 0 0);
+    align-items: var(--controls-bottom-align-items, center);
+    justify-content: var(--controls-bottom-justify-content, space-between);
+    height: var(--controls-bottom, 5rem);
+    padding: var(--controls-bottom-padding, var(--space-16) var(--space-32));
+    border: var(--controls-bottom-border, solid var(--color-border-divider));
+    border-width: var(--controls-bottom-border-width, 1px 0 0 0);
   }
 
   &__answer-above {
-    color: var(--question-answer-above-color, var(--color-text-dimmed));
+    padding: var(--controls-answer-above-padding, var(--space-12) 0);
+    color: var(--controls-answer-above-color, var(--color-text-dimmed));
   }
 }
 </style>

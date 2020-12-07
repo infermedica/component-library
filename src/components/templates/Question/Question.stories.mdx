@@ -1,0 +1,147 @@
+import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import Question from './Question.vue';
+import UiMultipleChoices from '../../organisms/UiMultipleChoices/UiMultipleChoices.vue'
+import UiControls from '../../organisms/UiControls/UiControls.vue'
+
+<Meta
+  title="Templates/Question"
+  component={Question}
+  argTypes={{
+    title: {control: {type: 'text'}},
+    hint: {control: {type: 'text'}},
+    invalid: {control: {type: 'boolean'}},
+    translation: {control: {type: 'object'}},
+  }}
+/>
+
+# Question
+
+<Canvas>
+  <Story
+    name="Common"
+    args={{
+      title: 'What is your superpower?',
+      hint: 'Select one answer.',
+      invalid: true,
+      translation: {
+        info: 'What does it mean?',
+        why: 'Why am I being asked this?',
+        issue: 'Report an issues with this question',
+      },
+      options: {
+        info: true,
+        why: true,
+        issue: true,
+      }
+    }}
+  >
+    {((args, {argTypes}) => ({
+      props: Object.keys(argTypes),
+      components: { Question, UiMultipleChoices },
+      data() {
+        return {
+          evidences: [],
+            choices: [
+              {
+                id: 6,
+                name: 'I have diabetes',
+                linked_observation: 'p_8'
+              },
+              {
+                id: 5,
+                name: 'I have hypertension',
+                linked_observation: 'p_9'
+              },
+              {
+                id: 4,
+                name: 'I have high cholesterol',
+                linked_observation: 'p_10'
+              },
+            ]
+        }
+      },
+      template: `<Question
+        :title="title"
+        :hint="hint"
+        :invalid="invalid"
+        :translation="translation"
+        :options="options"
+        style="max-width: 780px; min-height: 465px"
+      >
+        <UiMultipleChoices
+          v-model="evidences"
+          :choices="choices"
+        />
+      </Question>`
+    })).bind({})}
+  </Story>
+</Canvas>
+
+with Controls
+
+<Canvas>
+  <Story
+    name="[example] with Controls"
+    args={{
+      title: 'What is your superpower?',
+      hint: 'Select one answer.',
+      invalid: true,
+      translation: {
+        info: 'What does it mean?',
+        why: 'Why am I being asked this?',
+        issue: 'Report an issues with this question',
+      },
+      options: {
+        info: true,
+        why: true,
+        issue: true,
+      }
+    }}
+  >
+    {((args, {argTypes}) => ({
+      props: Object.keys(argTypes),
+      components: { Question, UiMultipleChoices, UiControls },
+      data() {
+        return {
+          evidences: [],
+            choices: [
+              {
+                id: 6,
+                name: 'I have diabetes',
+                linked_observation: 'p_8'
+              },
+              {
+                id: 5,
+                name: 'I have hypertension',
+                linked_observation: 'p_9'
+              },
+              {
+                id: 4,
+                name: 'I have high cholesterol',
+                linked_observation: 'p_10'
+              },
+            ]
+        }
+      },
+      template: `<UiControls style="max-width: 780px; min-height: 540px">
+        <Question
+          :title="title"
+          :hint="hint"
+          :invalid="invalid"
+          :translation="translation"
+          :options="options"
+          style="flex: 1"
+        >
+          <UiMultipleChoices
+            v-model="evidences"
+            :choices="choices"
+          />
+        </Question>
+      </UiControls>`
+    })).bind({})}
+  </Story>
+</Canvas>
+
+# Props
+
+<Props of={Question} />

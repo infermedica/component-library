@@ -1,0 +1,30 @@
+import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import UiImage from './UiImage.vue';
+
+<Meta
+  title="Atoms/Image"
+  component={UiImage}
+/>
+
+# Image
+
+<Canvas>
+  <Story
+    name="Common"
+    args={{
+      src: '/assets/illustrations/instruction.svg'
+    }}
+  >
+    {((args, {argTypes}) => ({
+      props: Object.keys(argTypes),
+      components: {UiImage},
+      template: `<UiImage :src="src"/>`
+    })).bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story='Common' />
+
+# Props
+
+<Props of={UiImage} />

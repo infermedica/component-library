@@ -7,6 +7,7 @@
     <!-- @slot Use this slot to replace icon template. -->
     <slot name="icon">
       <UiIcon
+        v-if="icon"
         :icon="icon"
         class="ui-alert__icon"
       />
@@ -40,12 +41,13 @@ export default {
       type: String,
       required: false,
       default: 'error',
-      validator: (value) => ['success', 'info', 'warning', 'error'].includes(value),
+      validator: (value) => ['default', 'success', 'info', 'warning', 'error'].includes(value),
     },
   },
   setup(props) {
     const rootClassModifier = computed(() => `ui-alert--${props.type}`);
     const icon = computed(() => {
+      if (props.type === 'default') return '';
       if (props.type === 'success' || props.type === 'info') return props.type;
       return 'exclamation';
     });
@@ -74,7 +76,7 @@ export default {
   &__message {
     margin: 0 0 0 var(--space-8);
     font: var(--alert-font, var(--font-body-2-comfortable));
-    color: var(--alert-color);
+    color: var(--alert-color, var(--color-text-body));
   }
 
   &--success {
