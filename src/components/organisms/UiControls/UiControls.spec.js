@@ -15,19 +15,31 @@ describe('UiControls.vue', () => {
     const answerAbove = wrapper.find('.ui-controls__answer-above');
     expect(answerAbove.exists()).toBe(true);
   });
-  test('component has disabled next button when "invalid" is true', () => {
+  test('component does not show next button when "toNext" is absent', () => {
+    const wrapper = mount(UiControls);
+    const button = wrapper.find('.ui-controls__next');
+    expect(button.exists()).toBe(false);
+  });
+  test('component does not show back button when "toBack" is absent', () => {
+    const wrapper = mount(UiControls);
+    const button = wrapper.find('.ui-controls__back');
+    expect(button.exists()).toBe(false);
+  });
+  test('component has disabled next button when "invalid" is true and "toNext" is present', () => {
     const wrapper = mount(UiControls, {
       props: {
         isInvalid: true,
+        toNext: '/3-3',
       },
     });
     const button = wrapper.find('.ui-button--is-disabled');
     expect(button.exists()).toBe(true);
   });
-  test('component emit has-error when "invalid" is true', async () => {
+  test('component emit has-error when "invalid" is true and "toNext" is present', async () => {
     const wrapper = mount(UiControls, {
       props: {
         isInvalid: true,
+        toNext: '/5-4',
       },
     });
     const button = wrapper.find('.ui-button--is-disabled');
