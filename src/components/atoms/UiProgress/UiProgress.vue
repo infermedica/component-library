@@ -17,7 +17,10 @@ export default {
   &[value] {
     border: var(--progress-border, 0);
     -webkit-appearance: none;
+    -moz-appearance: none;
     appearance: none;
+    border-radius: var(--progress-border-radius, var(--border-radius-pill));
+    background-color: var(--progress-background, var(--color-bar-track));
 
     &::-webkit-progress-bar {
       background-color: var(--progress-background, var(--color-bar-track));
@@ -27,6 +30,11 @@ export default {
     &::-webkit-progress-value {
       background-color: var(--progress-value-background, var(--color-bar-indicator));
       border-radius: var(--progress-border-radius, var(--border-radius-pill));
+    }
+
+    &::-moz-progress-bar {
+      border-radius: var(--progress-border-radius, var(--border-radius-pill));
+      background-color: var(--progress-value-background, var(--color-bar-indicator));
     }
   }
 }
