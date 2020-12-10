@@ -97,6 +97,10 @@ export default {
     }
   }
 
+  &__label {
+    color: var(--tile-label-color, var(--color-text-body));
+  }
+
   input {
     &:focus + #{$this}__button {
       box-shadow: var(--box-shadow-outline);

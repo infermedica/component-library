@@ -193,6 +193,7 @@ export default {
 
   &__label {
     flex: none;
+    color: var(--checkbox-label-color, var(--color-text-body));
   }
 
   &--is-disabled {

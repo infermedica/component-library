@@ -271,6 +271,7 @@ export default {
     position: absolute;
     left: var(--range-selected-track-width);
     font: var(--range-value-font, var(--font-h1));
+    color: var(--range-value-color, var(--color-text-body));
     text-align: center;
     transform:
       translate(

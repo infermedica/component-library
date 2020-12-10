@@ -23,5 +23,6 @@ export default {
 .ui-text {
   margin: var(--text-margin, 0);
   font: var(--text-font, var(--font-body-1));
+  color: var(--text-color, var(--color-text-body));
 }
 </style>

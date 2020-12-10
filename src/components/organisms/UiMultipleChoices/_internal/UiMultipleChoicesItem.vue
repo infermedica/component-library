@@ -10,12 +10,13 @@
       name="name"
       v-bind="{choice}"
     >
-      <div
+      <UiText
         :id="choice.linked_observation"
         class="ui-multiple-choices-item__name"
+        tag="span"
       >
         {{ choice.name }}
-      </div>
+      </UiText>
     </slot>
     <template
       v-for="(option, key) in options"
@@ -43,10 +44,11 @@
 
 <script>
 import UiRadio from '../../../atoms/UiRadio/UiRadio.vue';
+import UiText from '../../../atoms/UiText/UiText.vue';
 
 export default {
   name: 'UiMultipleChoicesItem',
-  components: { UiRadio },
+  components: { UiRadio, UiText },
   props: {
     /**
      *  Use this props or v-model to set checked.
@@ -118,8 +120,9 @@ export default {
         --multiple-choices-item-name-padding,
         var(--space-32) var(--space-20) var(--space-12)
       );
-    margin: 0;
-    font: var(--multiple-choices-item-name-font, var(--font-body-1));
+
+    --text-font: var(--multiple-choices-item-name-font, var(--font-body-1));
+
     background: var(--multiple-choices-item-name-background, var(--color-background-white));
 
     @media (min-width: 480px) {

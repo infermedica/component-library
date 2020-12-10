@@ -1,5 +1,6 @@
 import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
 import UiContainer from './UiContainer.vue';
+import UiText from '../../atoms/UiText/UiText.vue';
 
 <Meta
   title="Organisms/Container"
@@ -20,9 +21,9 @@ import UiContainer from './UiContainer.vue';
   >
     {((args, {argTypes}) => ({
       props: Object.keys(argTypes),
-      components: {UiContainer},
+      components: {UiContainer, UiText},
       template: `<UiContainer>
-        {{content}}
+        <UiText>{{content}}</UiText>
       </UiContainer>`
     })).bind({})}
   </Story>

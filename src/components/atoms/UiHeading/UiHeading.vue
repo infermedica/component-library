@@ -49,7 +49,7 @@ export default {
 .ui-heading {
   margin: var(--heading-margin, 0);
   font: var(--heading-font);
-  color: var(--heading-color);
+  color: var(--heading-color, var(--color-text-body));
   text-decoration: var(--heading-text-decoration);
   text-transform: var(--heading-text-transform);
 

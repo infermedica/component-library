@@ -123,6 +123,7 @@ export default {
 
   &__label-text {
     margin: var(--form-field-label-text-margin, 0 0 var(--space-8) 0);
+    color: var(--form-field-label-text-color, var(--color-text-body));
   }
 
   &__label-tag {

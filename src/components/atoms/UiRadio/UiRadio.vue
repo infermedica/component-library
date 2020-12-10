@@ -164,6 +164,7 @@ export default {
 
   &__label {
     flex: unset;
+    color: var(--radio-label-color, var(--color-text-body));
   }
 
   &--is-disabled {
