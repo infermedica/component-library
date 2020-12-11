@@ -217,13 +217,15 @@ export default {
   }
 
   &__track {
-    position: relative;
+    position: absolute;
+    top: 50%;
     z-index: 1;
     width: 100%;
     margin: 0;
     cursor: pointer;
     background: transparent;
     outline: none;
+    transform: translateY(-50%);
     -webkit-appearance: none;
 
     @mixin range-thumb {
@@ -239,6 +241,7 @@ export default {
       background-repeat: no-repeat;
       background-position: center;
       background-size: var(--range-thumb-background-size, 2rem);
+      border: 0;
       border-radius: var(--range-thumb-border-radius, 50%);
       box-shadow: 0 1px 3px 0 rgba(148, 164, 179, 0.2);
     }
