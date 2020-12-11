@@ -14,26 +14,21 @@
     "test:unit": "jest",
     "test:verbose": "jest --verbose"
   },
-  "eslintConfig": {
-    "env": {
-      "node": true
-    },
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended"
-    ],
-    "rules": {},
-    "root": true
-  },
+  "main": "index.js",
+  "module": "index.js",
+  "files": [
+    "scripts/create-index.js",
+    "src/*",
+    "index.js"
+  ],
   "dependencies": {
-    "core-js": "^3.6.5",
     "uid": "^2.0.0",
+    "core-js": "^3.6.5",
     "vue": "^3.0.2"
   },
   "devDependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "@andoshin11/storybook-vue3": "0.0.5",
     "@storybook/addon-a11y": "^6.0.28",
     "@storybook/addon-controls": "^6.0.28",
@@ -68,5 +63,9 @@
     "uppercamelcase": "^3.0.0",
     "vue-jest": "^5.0.0-alpha.5",
     "vue-loader": "^16.0.0-beta.9"
-  }
+  },
+  "sideEffects": [
+    "*.vue",
+    "*.scss"
+  ]
 }

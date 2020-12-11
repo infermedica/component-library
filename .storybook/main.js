@@ -4,9 +4,6 @@ module.exports = {
     '../src/**/*.stories.@(mdx)'
   ],
   addons: [
-    '@storybook/preset-scss',
-    '@storybook/addon-controls',
-    '@storybook/addon-a11y',
     {
       name: '@storybook/addon-docs',
       options: {
@@ -15,5 +12,8 @@ module.exports = {
         sourceLoaderOptions: null,
       },
     },
+    '@storybook/preset-scss',
+    '@storybook/addon-controls',
+    '@storybook/addon-a11y',
   ],
 }
