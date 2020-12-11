@@ -32,7 +32,7 @@ This component base on UiRadio component
       props: Object.keys(argTypes),
       data() {
         return {
-          picked: {}
+          picked: ''
         }
       },
       components: {UiTile},
@@ -58,7 +58,7 @@ This component can be used as radio group
     {(() => ({
       data() {
         return {
-          picked: {}
+          picked: ''
         }
       },
       components: {UiTile},
@@ -66,18 +66,24 @@ This component can be used as radio group
         <UiTile
           v-model="picked"
           value="present"
+          name="answer"
+          id="present"
           :iconAttrs="{icon: 'check'}"
           style="flex: 1 1 33%; margin: 0 1rem 0 0;"
         >Yes</UiTile>
         <UiTile
           v-model="picked"
           value="absent"
+          name="answer"
+          id="absent"
           :iconAttrs="{icon: 'cross'}"
           style="flex: 1 1 33%; margin: 0 1rem 0 0;"
         >No</UiTile>
         <UiTile
           v-model="picked"
           value="unknown"
+          name="answer"
+          id="unknown"
           :iconAttrs="{icon: 'arrowRight'}"
           style="flex: 1 1 33%;"
         >Don't know</UiTile>

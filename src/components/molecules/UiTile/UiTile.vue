@@ -76,11 +76,16 @@ export default {
     @media (min-width: 480px) {
       flex-direction: var(--tile-flex-direction, column);
       justify-content: var(--tile-flex-direction, center);
-      padding: var(--tile-padding, var(--space-32) var(--space-16) var(--space-24) var(--space-16));
+      padding: var(--tile-padding, var(--space-24) var(--space-16));
     }
 
     &:hover {
       background: var(--tile-hover-background, var(--color-background-white-hover));
+    }
+
+    &:active {
+      background: var(--tile-active-background, var(--color-background-white-active));
+      transform: var(--tile-active-transform, scale(0.96));
     }
   }
 
@@ -106,22 +111,25 @@ export default {
       box-shadow: var(--box-shadow-outline);
     }
 
-    &:active + #{$this}__button {
-      background: var(--tile-active-background, var(--color-background-white-active));
-      transform: var(--tile-active-transform, scale(0.96));
-    }
-
     &:checked {
       & + #{$this}__button {
+        --tile-background: var(--color-background-white);
         --tile-border: solid var(--color-border-accessible);
+      }
+
+      &:hover + #{$this}__button {
+        --tile-hover-background: var(--color-background-white-hover);
+      }
+
+      &:active + #{$this}__button {
+        background: var(--tile-active-background, var(--color-background-white-active));
+        transform: var(--tile-active-transform, scale(0.96));
       }
     }
   }
 
   &--small {
-    @media (min-width: 480px) {
-      --tile-icon-size: 2rem;
-    }
+    --tile-icon-size: 2rem;
   }
 }
 </style>
