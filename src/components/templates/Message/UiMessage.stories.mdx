@@ -1,15 +1,15 @@
 import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
-import Message from './Message.vue';
+import UiMessage from './UiMessage.vue';
 import UiText from '../../atoms/UiText/UiText.vue'
 import UiControls from '../../organisms/UiControls/UiControls.vue'
 
 <Meta
   title="Templates/Message"
-  component={Message}
+  component={UiMessage}
   argTypes={{
     title: {control: {type: 'text'}},
     paragraph: {control: {type: 'text'}},
-    illustration: {control: {type: 'select', options: [false, 'instruction', 'message', 'terms-of-service']}},
+    illustration: {control: {type: 'select', options: [false, 'instruction', 'UiMessage', 'terms-of-service']}},
   }}
 />
 
@@ -26,8 +26,8 @@ import UiControls from '../../organisms/UiControls/UiControls.vue'
   >
     {((args, {argTypes}) => ({
       props: Object.keys(argTypes),
-      components: { Message, UiText },
-      template: `<Message
+      components: { UiMessage, UiText },
+      template: `<UiMessage
         :title="title"
         :illustration="illustration"
         style="max-width: 780px; min-height: 540px"
@@ -35,7 +35,7 @@ import UiControls from '../../organisms/UiControls/UiControls.vue'
         <UiText>
            {{paragraph}}
         </UiText>
-      </Message>`
+      </UiMessage>`
     })).bind({})}
   </Story>
 </Canvas>
@@ -53,16 +53,16 @@ with Controls
   >
     {((args, {argTypes}) => ({
       props: Object.keys(argTypes),
-      components: { Message, UiText, UiControls },
+      components: { UiMessage, UiText, UiControls },
       template: `<UiControls style="max-width: 780px; min-height: 540px">
-        <Message
+        <UiMessage
           :title="title"
           :illustration="illustration"
         >
           <UiText>
              {{paragraph}}
           </UiText>
-        </Message>
+        </UiMessage>
       </UiControls>`
     })).bind({})}
   </Story>
@@ -70,4 +70,4 @@ with Controls
 
 # Props
 
-<Props of={Message} />
+<Props of={UiMessage} />

@@ -1,11 +1,11 @@
 import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
-import Question from './Question.vue';
+import UiQuestion from './UiQuestion.vue';
 import UiMultipleChoices from '../../organisms/UiMultipleChoices/UiMultipleChoices.vue'
 import UiControls from '../../organisms/UiControls/UiControls.vue'
 
 <Meta
   title="Templates/Question"
-  component={Question}
+  component={UiQuestion}
   argTypes={{
     title: {control: {type: 'text'}},
     hint: {control: {type: 'text'}},
@@ -26,7 +26,7 @@ import UiControls from '../../organisms/UiControls/UiControls.vue'
       translation: {
         info: 'What does it mean?',
         why: 'Why am I being asked this?',
-        issue: 'Report an issues with this question',
+        issue: 'Report an issues with this UiQuestion',
       },
       options: {
         info: true,
@@ -37,7 +37,7 @@ import UiControls from '../../organisms/UiControls/UiControls.vue'
   >
     {((args, {argTypes}) => ({
       props: Object.keys(argTypes),
-      components: { Question, UiMultipleChoices },
+      components: { UiQuestion, UiMultipleChoices },
       data() {
         return {
           evidences: [],
@@ -60,7 +60,7 @@ import UiControls from '../../organisms/UiControls/UiControls.vue'
             ]
         }
       },
-      template: `<Question
+      template: `<UiQuestion
         :title="title"
         :hint="hint"
         :invalid="invalid"
@@ -72,7 +72,7 @@ import UiControls from '../../organisms/UiControls/UiControls.vue'
           v-model="evidences"
           :choices="choices"
         />
-      </Question>`
+      </UiQuestion>`
     })).bind({})}
   </Story>
 </Canvas>
@@ -89,7 +89,7 @@ with Controls
       translation: {
         info: 'What does it mean?',
         why: 'Why am I being asked this?',
-        issue: 'Report an issues with this question',
+        issue: 'Report an issues with this UiQuestion',
       },
       options: {
         info: true,
@@ -100,7 +100,7 @@ with Controls
   >
     {((args, {argTypes}) => ({
       props: Object.keys(argTypes),
-      components: { Question, UiMultipleChoices, UiControls },
+      components: { UiQuestion, UiMultipleChoices, UiControls },
       data() {
         return {
           evidences: [],
@@ -124,7 +124,7 @@ with Controls
         }
       },
       template: `<UiControls style="max-width: 780px; min-height: 540px">
-        <Question
+        <UiQuestion
           :title="title"
           :hint="hint"
           :invalid="invalid"
@@ -136,7 +136,7 @@ with Controls
             v-model="evidences"
             :choices="choices"
           />
-        </Question>
+        </UiQuestion>
       </UiControls>`
     })).bind({})}
   </Story>
@@ -144,4 +144,4 @@ with Controls
 
 # Props
 
-<Props of={Question} />
+<Props of={UiQuestion} />

@@ -1,11 +1,11 @@
 <template>
-  <div class="question">
+  <div class="ui-question">
     <!-- @slot Use this slot to replace title template. -->
     <slot
       name="title"
       v-bind="{title}"
     >
-      <UiHeading class="question__title">
+      <UiHeading class="ui-question__title">
         {{ title }}
       </UiHeading>
     </slot>
@@ -15,7 +15,7 @@
     >
       <UiButton
         v-if="options.info"
-        class="question__alert ui-button--text"
+        class="ui-question__alert ui-button--text"
       >
         <UiAlert type="info">
           {{ translation.info }}
@@ -29,7 +29,7 @@
     >
       <UiAlert
         :type="hintType"
-        class="question__hint"
+        class="ui-question__hint"
       >
         {{ hint }}
       </UiAlert>
@@ -41,7 +41,7 @@
       name="actions"
       v-bind="{options, translation}"
     >
-      <div class="question__actions">
+      <div class="ui-question__actions">
         <!-- @slot Use this slot to replace why template. -->
         <slot
           name="why"
@@ -49,7 +49,7 @@
         >
           <div
             v-if="options.why"
-            class="question__action"
+            class="ui-question__action"
           >
             <UiButton class="ui-button--text">
               {{ translation.why }}
@@ -63,9 +63,9 @@
         >
           <div
             v-if="options.issue"
-            class="question__action"
+            class="ui-question__action"
           >
-            <UiButton class="question__action ui-button--text">
+            <UiButton class="ui-question__action ui-button--text">
               {{ translation.issue }}
             </UiButton>
           </div>
@@ -82,7 +82,7 @@ import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
 
 export default {
-  name: 'Question',
+  name: 'UiQuestion',
   components: {
     UiAlert,
     UiButton,
@@ -143,7 +143,7 @@ export default {
 </script>
 
 <style lang="scss">
-.question {
+.ui-question {
   @media (min-width: 480px) {
     padding: var(--space-16) var(--space-48);
   }

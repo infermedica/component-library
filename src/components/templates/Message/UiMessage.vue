@@ -1,17 +1,17 @@
 <template>
-  <div class="message">
+  <div class="ui-message">
     <!-- @slot Use this slot to replace content template. -->
     <slot
       name="content"
       v-bind="{title}"
     >
-      <div class="message__content">
+      <div class="ui-message__content">
         <!-- @slot Use this slot to replace title template. -->
         <slot
           name="title"
           v-bind="{title}"
         >
-          <UiHeading class="message__title">
+          <UiHeading class="ui-message__title">
             {{ title }}
           </UiHeading>
         </slot>
@@ -25,14 +25,14 @@
     >
       <div
         v-if="illustration"
-        class="message__aside"
+        class="ui-message__aside"
       >
         <slot
           name="illustration"
           v-bind="{illustration}"
         >
           <UiImage
-            class="message__illustration"
+            class="ui-message__illustration"
             :src="`/assets/illustrations/${illustration}.svg`"
           />
         </slot>
@@ -71,7 +71,7 @@ export default {
 </script>
 
 <style lang="scss">
-.message {
+.ui-message {
   display: flex;
   flex-direction: column-reverse;
 
