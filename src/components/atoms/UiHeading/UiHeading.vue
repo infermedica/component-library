@@ -46,24 +46,24 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../../styles/mixins/_mixins.scss';
+
 .ui-heading {
   margin: var(--heading-margin, 0);
-  font: var(--heading-font);
   color: var(--heading-color, var(--color-text-body));
   text-decoration: var(--heading-text-decoration);
   text-transform: var(--heading-text-transform);
 
   @for $i from 1 through 6 {
-
     &--h#{$i} {
-      --heading-font: var(--font-h#{$i});
+      @include font(--font-h#{$i});
     }
 
     /**
      * Use special classes from h1 to h6 to overwrite styles for headings
      */
     &.h#{$i} {
-      --heading-font: var(--font-h#{$i}) !important;
+      @include font(--font-h#{$i}, true);
     }
   }
 }

@@ -45,7 +45,10 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../../styles/mixins/_mixins.scss';
+
 .ui-button {
+  @include font(--font-body-1-thick);
   $this: &;
 
   box-sizing: border-box;
@@ -54,7 +57,6 @@ export default {
   width: var(--button-width);
   height: var(--button-height);
   padding: var(--button-padding, var(--space-12) var(--space-32));
-  font: var(--button-font, var(--font-body-1-thick));
   color: var(--button-color, var(--color-button-contained-text));
   text-decoration: var(--button-text-decoration, none);
   text-transform: var(--button-text-transform);
@@ -162,7 +164,8 @@ export default {
     --button-hover-background: transparent;
     --button-active-background: transparent;
     --button-padding: 0;
-    --button-font: var(--font-body-1);
+
+    @include font(--font-body-1);
 
     #{$this}__icon {
       --button-icon-margin: 0 var(--space-4) 0 0;
@@ -173,7 +176,7 @@ export default {
     }
 
     &#{$this}--small {
-      --button-font: var(--font-body-2-comfortable);
+      @include font(--font-body-2-comfortable);
     }
 
     &#{$this}--is-disabled {

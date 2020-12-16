@@ -136,6 +136,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../../styles/mixins/_mixins.scss';
+
 .ui-range {
   display: flex;
   flex-wrap: wrap;
@@ -271,9 +273,10 @@ export default {
   }
 
   &__value {
+    @include font(--font-h1);
+
     position: absolute;
     left: var(--range-selected-track-width);
-    font: var(--range-value-font, var(--font-h1));
     color: var(--range-value-color, var(--color-text-body));
     text-align: center;
     transform:

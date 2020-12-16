@@ -85,13 +85,14 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../../styles/mixins/_mixins.scss';
+
 .ui-input {
   $this: &;
 
   display: inline-flex;
   align-items: center;
   overflow: hidden;
-  font: var(--input-font, var(--font-body-1));
   color: var(--input-color, var(--color-text-body));
   background-color: var(--input-background-color, var(--color-background-white));
   border: var(--input-border, solid var(--input-border-color, var(--color-border-accessible)));
@@ -115,9 +116,10 @@ export default {
   }
 
   &__element {
+    @include font(--font-body-1);
+
     width: 100%;
     padding: var(--input-padding, var(--space-12) var(--space-16));
-    font: var(--input-font);
     color: var(--input-color);
     border: 0;
     outline: none;
@@ -151,8 +153,9 @@ export default {
   }
 
   &__aside {
+    @include font(--font-body-1);
+
     margin: var(--input-aside-margin, 0 var(--space-16) 0 0);
-    font: var(--input-suffix-font);
     color: var(--input-suffix-color, var(--input-color), var(--color-text-body));
   }
 

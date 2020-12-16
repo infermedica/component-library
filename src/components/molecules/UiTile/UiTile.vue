@@ -53,12 +53,16 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../../styles/mixins/_mixins.scss';
+
 .ui-tile {
   $this: &;
 
   display: flex;
 
   &__button {
+    @include font(--font-body-1);
+
     position: relative;
     display: flex;
     flex: 1;
@@ -66,7 +70,6 @@ export default {
     align-items: center;
     justify-content: var(--tile-flex-direction, flex-start);
     padding: var(--tile-padding, var(--space-16));
-    font: var(--tile-font, var(--font-body-1));
     background: var(--tile-background, var(--color-background-white));
     border: var(--tile-border, solid var(--color-border-subtle));
     border-width: var(--tile-border-width, 2px);

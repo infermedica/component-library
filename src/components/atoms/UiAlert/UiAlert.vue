@@ -61,6 +61,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../../styles/mixins/_mixins.scss';
+
 .ui-alert {
   display: inline-flex;
   align-items: center;
@@ -74,8 +76,9 @@ export default {
   }
 
   &__message {
+    @include font(--font-body-2-comfortable);
+
     margin: 0 0 0 var(--space-8);
-    font: var(--alert-font, var(--font-body-2-comfortable));
     color: var(--alert-color, var(--color-text-body));
   }
 

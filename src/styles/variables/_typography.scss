@@ -28,6 +28,7 @@
 
   // Font
   // mobile variants
+  /* stylelint-disable */
   --font-h1: var(--font-weight-default) var(--font-size-6) / var(--line-height-default) var(--font-family-heading);
   --font-h2: var(--font-weight-default) var(--font-size-4) / var(--line-height-default) var(--font-family-heading);
   --font-h3: var(--font-weight-default) var(--font-size-3) / var(--line-height-default) var(--font-family-heading);
@@ -46,4 +47,5 @@
     --font-h2: var(--font-weight-default) var(--font-size-5) / var(--line-height-default) var(--font-family-heading);
     --font-h3: var(--font-weight-default) var(--font-size-4) / var(--line-height-default) var(--font-family-heading);
   }
+  /* stylelint-enable */
 }

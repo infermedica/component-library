@@ -53,11 +53,14 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../../styles/mixins/_mixins.scss';
+
 .ui-chips {
+  @include font(--font-body-2-comfortable);
+
   display: inline-flex;
   align-items: center;
   padding: var(--chips-padding, var(--space-4) var(--space-4) var(--space-4) var(--space-12));
-  font: var(--chips-font, var(--font-body-2-comfortable));
   color: var(--chips-color, var(--color-chip-text));
   background: var(--chips-backgorund, var(--color-chip-backgroud));
   border-radius: var(--chips-border-radius, var(--border-radius-pill));

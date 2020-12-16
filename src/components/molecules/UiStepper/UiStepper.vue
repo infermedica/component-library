@@ -120,8 +120,12 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../../styles/mixins/_mixins.scss';
+
 .ui-stepper {
   // Variables for inner progress-bar customization
+  $this: &;
+
   --progress-background: var(--stepper-progress-background, var(--color-bar-track));
   --progress-value-background: var(--stepper-progress-background, var(--color-bar-indicator));
   --progress-value-background: var(--stepper-progress-background, var(--color-bar-indicator));
@@ -165,21 +169,21 @@ export default {
   }
 
   &__text {
-    --text-font: var(--stepper-text-font, var(--font-body-2-compact));
+    @include font(--font-body-2-compact);
 
     @media (min-width: 480px) {
-      --stepper-text-font: var(--font-body-1);
+      @include font(--font-body-1);
     }
   }
 
   &__item {
-    font: var(--stepper-item-font, var(--font-body-1));
+    @include font(--font-body-1);
+
     color: var(--stepper-item-color);
 
     @media (min-width: 768px) {
       position: relative;
 
-      --link-font: var(--stepper-item-font);
       --link-color: var(--stepper-item-color);
       --list-item-padding:
         calc(var(--space-20) * 0.5)
@@ -214,13 +218,18 @@ export default {
 
       &--active {
         --stepper-item-color: var(--color-text-body);
-        --stepper-item-font: var(--font-body-1-thick);
+
+        #{$this}__item-link {
+          @include font(--font-body-1-thick);
+        }
       }
     }
   }
 
   &__item-link {
     @media (min-width: 768px) {
+      @include font(--font-body-1);
+
       width: 100%;
     }
   }

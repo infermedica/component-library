@@ -97,15 +97,17 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../../styles/mixins/_mixins.scss';
 // use .ui-radio--is-disabled class for disabling checkbox visually
 // use .ui-radio--has-error class indicating validation error visually
 
 .ui-radio {
+  @include font(--font-body-1);
+
   $this: &;
 
   display: inline-flex;
   align-items: center;
-  font: var(--checkbox-font, var(--font-body-1));
   cursor: pointer;
 
   &:hover {

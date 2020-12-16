@@ -58,11 +58,14 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../../styles/mixins/_mixins.scss';
+
 .ui-textarea {
+  @include font(--font-body-1);
+
   display: inline-flex;
   align-items: center;
   padding: var(--textarea-padding, var(--space-12) var(--space-16));
-  font: var(--textarea-font, var(--font-body-1));
   color: var(--textarea-color, var(--color-text-body));
   background-color: var(--textarea-background-color, var(--color-background-white));
   border: var(--textarea-border, solid var(--textarea-border-color, var(--color-border-accessible)));
@@ -70,7 +73,8 @@ export default {
   border-radius: var(--textarea-border-radius, var(--border-radius-form));
 
   &::placeholder {
-    font: var(--textarea-placeholder-font, var(--textarea-font));
+    @include font(--font-body-1);
+
     color: var(--textarea-placeholder-color, var(--color-text-dimmed));
   }
 

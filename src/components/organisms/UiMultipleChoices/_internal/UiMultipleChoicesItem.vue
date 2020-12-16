@@ -103,6 +103,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../../../styles/mixins/_mixins.scss';
+
 .ui-multiple-choices-item {
   display: flex;
   flex-direction: var(--multiple-choices-item-flex-direction, column);
@@ -115,14 +117,13 @@ export default {
   }
 
   &__name {
+    @include font(--font-body-1);
+
     padding:
       var(
         --multiple-choices-item-name-padding,
         var(--space-32) var(--space-20) var(--space-12)
       );
-
-    --text-font: var(--multiple-choices-item-name-font, var(--font-body-1));
-
     background: var(--multiple-choices-item-name-background, var(--color-background-white));
 
     @media (min-width: 480px) {

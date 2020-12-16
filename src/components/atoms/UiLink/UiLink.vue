@@ -45,9 +45,12 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../../styles/mixins/_mixins.scss';
+
 .ui-link {
+  @include font(--font-body-1);
+
   display: inline-flex;
-  font: var(--link-font, var(--font-body-1));
   color: var(--link-color, inherit);
   text-decoration: var(--link-text-decoration, none);
 

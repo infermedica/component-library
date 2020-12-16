@@ -143,6 +143,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../../styles/mixins/_mixins.scss';
+
 .ui-question {
   @media (min-width: 480px) {
     padding: var(--space-16) var(--space-48);
@@ -157,9 +159,10 @@ export default {
   }
 
   &__hint {
+    @include font(--font-body-2-comfortable-thick);
+
     display: flex;
     margin: var(--question-hint-margin, var(--space-32) 0 var(--space-12) 0);
-    font: var(--question-hint-font, var(--font-body-2-comfortable-thick));
     color: var(--question-hint-color, var(--color-text-dimmed));
   }
 
