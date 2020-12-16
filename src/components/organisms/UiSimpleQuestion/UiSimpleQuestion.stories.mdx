@@ -1,0 +1,146 @@
+import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import UiSimpleQuestion from './UiSimpleQuestion.vue';
+import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
+
+<Meta
+  title="Organisms/SimpleQuestion"
+  component={UiSimpleQuestion}
+/>
+
+# SimpleQuestion
+
+<Canvas>
+  <Story
+    name="Common"
+  >
+    {((args, {argTypes}) => ({
+      props: Object.keys(argTypes),
+      data() {
+        return {
+          selected: '',
+          options: [
+            {
+              id:'present-id',
+              name: 'yes-no-dontknow',
+              label: 'Yes',
+              value: 'present',
+              iconAttrs: { icon: 'check' },
+            },
+            {
+              id:'absent-id',
+              name: 'yes-no-dontknow',
+              label: 'No',
+              value: 'absent',
+              iconAttrs: { icon: 'cross' },
+            },
+            {
+              id:'unknown-id',
+              name: 'yes-no-dontknow',
+              label: 'Don\’t know sometimes is long',
+              value: 'unknown',
+              iconAttrs: { icon: 'arrowRight' },
+            },
+          ]
+        }
+      },
+      components: {UiSimpleQuestion},
+      template: `
+        <UiSimpleQuestion
+          :options="options"
+          v-model="selected"
+          class="ui-simple-question--small"
+        />
+      `
+    })).bind({})}
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story
+    name="example Sex"
+  >
+    {((args, {argTypes}) => ({
+      props: Object.keys(argTypes),
+      data() {
+        return {
+          selected: '',
+          options: [
+            {
+              id:'female-id',
+              name: 'sex',
+              label: 'Female',
+              value: 'female',
+              iconAttrs: { icon: 'female' },
+            },
+            {
+              id:'male-id',
+              name: 'sex',
+              label: 'Male',
+              value: 'male',
+              iconAttrs: { icon: 'male' },
+            },
+          ]
+        }
+      },
+      components: {UiSimpleQuestion},
+      template: `
+        <UiSimpleQuestion :options="options" v-model="selected" />
+      `
+    })).bind({})}
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story
+    name="[slot] option"
+  >
+    {((args, {argTypes}) => ({
+      props: Object.keys(argTypes),
+      data() {
+        return {
+          selected: '',
+          options: [
+            {
+              id:'female-id',
+              name: 'sex',
+              label: 'Female',
+              value: 'female',
+              iconAttrs: { icon: 'female' },
+            },
+            {
+              id:'male-id',
+              name: 'sex',
+              label: 'Male',
+              value: 'male',
+              iconAttrs: { icon: 'male' },
+            },
+          ]
+        }
+      },
+      components: {UiSimpleQuestion, UiRadio},
+      template: `
+        <div>
+          <UiSimpleQuestion :options="options" v-model="selected">
+             <template #tile="{ option }">
+               <UiRadio
+                v-model="selected"
+                :id="option.id"
+                :value="option.value"
+                :name="option.name"
+                class="ui-simple-question__option"
+              >
+                {{option.label}}
+              </UiRadio>
+            </template>
+          </UiSimpleQuestion>
+        </div>
+      `
+    })).bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story='Common' />
+
+# Props
+
+<Props of={UiSimpleQuestion} />
