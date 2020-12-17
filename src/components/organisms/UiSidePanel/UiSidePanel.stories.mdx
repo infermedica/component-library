@@ -1,0 +1,65 @@
+import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import UiSidePanel from './UiSidePanel.vue';
+import UiText from '../../atoms/UiText/UiText.vue';
+import UiButton from '../../atoms/UiButton/UiButton.vue';
+
+<Meta
+  title="Organisms/SidePanel"
+  component={UiSidePanel}
+  argTypes={{
+    title: {control: {type: 'text'}},
+  }}
+  parameters={{
+    layout: 'full'
+  }}
+/>
+
+# SidePanel
+
+<Canvas>
+  <Story
+    name="Common"
+    args={{
+      title: 'Term of Service'
+    }}
+    height="446px"
+  >
+    {((args, {argTypes}) => ({
+      props: Object.keys(argTypes),
+      components: {UiSidePanel, UiText, UiButton},
+      data() {
+        return {
+          open: false
+        }
+      },
+      computed: {
+        computedButtonAttrs() {
+          return {
+            'aria-label': 'remove ' + this.content + ' from symptoms'
+          }
+        }
+      },
+      template: `<div>
+        <UiButton
+          class="ui-button--text ui-button--secondary"
+          @click="open = true;"
+        >{{ title }}</UiButton>
+        <UiSidePanel
+          v-model="open"
+          :title="title"
+          :buttonAttrs="computedButtonAttrs"
+        >
+          <UiText v-for="_ in 4" :key="_">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam facilisis lectus erat, consectetur dignissim tortor malesuada et. Nunc orci tellus, tincidunt iaculis dui et, egestas pretium risus. Nulla mattis in risus at gravida. Praesent ac facilisis enim. Nam tristique lectus dolor, sagittis tristique nisi imperdiet ut. Proin rhoncus sollicitudin ante, non imperdiet sem tincidunt ut. Cras nisl ante, tempus semper sodales pretium, vulputate non massa. Nullam vitae lectus vitae velit volutpat condimentum nec at nulla. Nam eu quam eget ex consectetur faucibus. Ut ornare tortor a ex auctor, non tempus ante ultrices. Etiam tempus condimentum nibh.
+          </UiText>
+        </UiSidePanel>
+      </div>`
+    })).bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story='Common' />
+
+# Props
+
+<Props of={UiSidePanel} />
