@@ -5,7 +5,6 @@
   "scripts": {
     "lint:js": "vue-cli-service lint --fix",
     "lint:scss": "stylelint 'src/**/*.{vue,htm,html,css,sss,less,scss}' --fix",
-    "chromatic": "npx chromatic --project-token=hw4976nuxwf --build-script-name=storybook:build",
     "create-component": "node scripts/create-component.js",
     "create-index": "node scripts/create-index.js",
     "postinstall": "node scripts/create-index.js",
