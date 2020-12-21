@@ -56,6 +56,8 @@ export default {
 @import '../../../styles/mixins/_mixins.scss';
 
 .ui-tile {
+  --radio-label-flex: 0;
+
   $this: &;
 
   display: flex;

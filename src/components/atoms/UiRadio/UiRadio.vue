@@ -164,7 +164,7 @@ export default {
   }
 
   &__label {
-    flex: 1;
+    flex: var(--radio-label-flex, 1);
     color: var(--radio-label-color, var(--color-text-body));
   }
 
