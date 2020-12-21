@@ -32,20 +32,38 @@
               >
                 <UiButton
                   ref="button"
-                  class="ui-side-panel__close"
+                  class="ui-button--has-icon ui-button--secondary ui-button--text ui-side-panel__close"
                   v-bind="buttonAttrs"
                   @click="closeHandler"
                 >
-                  <UiIcon icon="cross" />
+                  <UiIcon icon="close" />
                 </UiButton>
               </slot>
               <!-- @slot Use this slot to replace label template. -->
               <slot
                 name="label"
-                v-bind="{title}"
+                v-bind="{title, subtitle}"
               >
                 <div class="ui-side-panel__label">
-                  <UiHeading>{{ title }}</UiHeading>
+                  <!-- @slot Use this slot to replace title template. -->
+                  <slot
+                    name="title"
+                    v-bind="title"
+                  >
+                    <UiHeading>{{ title }}</UiHeading>
+                  </slot>
+                  <!-- @slot Use this slot to replace subtitle template. -->
+                  <slot
+                    name="subtitle"
+                    v-bind="{subtitle}"
+                  >
+                    <UiText
+                      v-if="subtitle"
+                      class="ui-side-panel__subtitle"
+                    >
+                      {{ subtitle }}
+                    </UiText>
+                  </slot>
                 </div>
               </slot>
             </div>
@@ -72,11 +90,14 @@ import {
   watchEffect,
   nextTick,
 } from 'vue';
+
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
+
 import UiBackdrop from '../../atoms/UiBackdrop/UiBackdrop.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
+import UiText from '../../atoms/UiText/UiText.vue';
 
 export default {
   name: 'UiSidePanel',
@@ -85,6 +106,7 @@ export default {
     UiHeading,
     UiButton,
     UiIcon,
+    UiText,
   },
   props: {
     modelValue: {
@@ -95,6 +117,13 @@ export default {
      * Use this props to set side panel title.
      */
     title: {
+      type: String,
+      default: '',
+    },
+    /**
+     * Use this props to set side panel subtitle.
+     */
+    subtitle: {
       type: String,
       default: '',
     },
@@ -171,26 +200,27 @@ export default {
     display: flex;
     flex: none;
     flex-direction: column;
-    padding: var(--side-panel-header-padding, var(--space-20));
+    padding: var(--side-panel-header-padding, var(--space-20) var(--space-20) var(--space-24));
     background: var(--side-panel-header-background, var(--color-background-subtle));
 
     @media (min-width: 480px) {
-      padding: var(--side-panel-header-tablet-padding, var(--space-32) var(--space-40) var(--space-32) var(--space-40));
+      padding: var(--side-panel-header-tablet-padding, var(--space-40) var(--space-40) var(--space-32));
     }
   }
 
   &__close {
-    --icon-size: var(--side-panel-close-ison-size, 1.5rem);
+    --icon-size: var(--side-panel-close-icon-size, 1.5rem);
     --button-padding: 0;
-    --button-background: transparent;
-    --button-hover-background: transparent;
-    --button-active-background: transparent;
 
     margin: var(--side-panel-close-margin, 0 0 var(--space-32) auto);
   }
 
   &__label {
-    background: transparent;
+    padding: var(--side-panel-label-padding, 0 var(--space-8));
+  }
+
+  &__subtitle {
+    margin: var(--side-panel-subtitle-margin, var(--space-8) 0 0 0);
   }
 
   &__content {

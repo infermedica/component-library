@@ -8,6 +8,7 @@ import UiButton from '../../atoms/UiButton/UiButton.vue';
   component={UiSidePanel}
   argTypes={{
     title: {control: {type: 'text'}},
+    subtitle: {control: {type: 'text'}},
   }}
   parameters={{
     layout: 'full'
@@ -20,7 +21,8 @@ import UiButton from '../../atoms/UiButton/UiButton.vue';
   <Story
     name="Common"
     args={{
-      title: 'Term of Service'
+      title: 'Term of Service',
+      subtitle: 'Last updated: Mar 10, 2020'
     }}
     height="446px"
   >
@@ -29,7 +31,7 @@ import UiButton from '../../atoms/UiButton/UiButton.vue';
       components: {UiSidePanel, UiText, UiButton},
       data() {
         return {
-          open: false
+          open: true
         }
       },
       computed: {
@@ -47,6 +49,7 @@ import UiButton from '../../atoms/UiButton/UiButton.vue';
         <UiSidePanel
           v-model="open"
           :title="title"
+          :subtitle="subtitle"
           :buttonAttrs="computedButtonAttrs"
         >
           <UiText v-for="_ in 4" :key="_">
