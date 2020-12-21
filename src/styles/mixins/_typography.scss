@@ -29,14 +29,14 @@
   @else if $font-token=="--font-h2" {
     letter-spacing:
       with-important(
-        var(--letter-spacing-none),
+        var(--letter-spacing-small),
         $important-flag
       );
 
     @media screen and (min-width: 480px) {
       letter-spacing:
         with-important(
-          var(--letter-spacing-small),
+          var(--letter-spacing-none),
           $important-flag
         );
     }
