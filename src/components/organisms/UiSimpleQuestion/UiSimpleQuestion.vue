@@ -87,11 +87,8 @@ export default {
     margin: var(--simple-question-option-margin, 0 0 var(--space-12) 0);
 
     @media (min-width: 480px) {
-      align-items: stretch;
       width: 100%;
       margin: var(--simple-question-option-tablet-margin, 0 var(--space-32) 0 0);
-      margin-bottom: 0;
-      text-align: center;
     }
 
     &:last-child {
