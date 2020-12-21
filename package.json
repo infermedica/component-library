@@ -40,7 +40,7 @@
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.2",
     "@vue/eslint-config-airbnb": "^5.0.2",
-    "@vue/test-utils": "^2.0.0-beta.8",
+    "@vue/test-utils": "^2.0.0-beta.10",
     "babel-eslint": "^10.1.0",
     "chromatic": "^5.2.0",
     "css-loader": "^5.0.0",

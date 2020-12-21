@@ -147,6 +147,22 @@ export default {
       },
     ],
   },
+  chevronDown: {
+    viewBox: '0 0 48 48',
+    paths: [
+      {
+        d: 'M36 20l-2.828-2.828L24 26.344l-9.172-9.172L12 20l12 12zm0 0',
+      },
+    ],
+  },
+  chevronUp: {
+    viewBox: '0 0 48 48',
+    paths: [
+      {
+        d: 'M36 28l-2.828 2.828L24 21.656l-9.172 9.172L12 28l12-12zm0 0',
+      },
+    ],
+  },
   menu: {
     viewBox: '0 0 48 48',
     paths: [

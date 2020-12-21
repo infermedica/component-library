@@ -1,0 +1,148 @@
+import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import UiAccordion from './UiAccordion.vue';
+import UiAccordionItem from './_internal/UiAccordionItem.vue';
+import UiText from '../../atoms/UiText/UiText.vue';
+
+<Meta
+  title="Organisms/Accordion"
+  component={UiAccordion}
+/>
+
+# Accordion
+
+<Canvas>
+  <Story
+    name="Common"
+  >
+    {((args, {argTypes}) => ({
+      components: {
+        UiAccordion,
+        UiAccordionItem,
+        UiText
+      },
+      data() {
+        return {
+          opened: '',
+          items: [
+            {
+              title: 'Mortphology',
+              name: 'mortphology',
+              content: 'Serum uric acid concentration'
+            },
+            {
+             title: 'Rheumatology blood tests panel',
+             name: 'rheumatology',
+             content: '1. Erythrocyte Sedimentation Rate 2. Erythrocyte Sedimentation Rate  '
+            },
+            {
+              title: 'Inflammation panel',
+              name: 'inflammation',
+              content: 'Rheumatoid factor'
+            },
+          ]
+        }
+      },
+      template: `<UiAccordion v-model="opened">
+        <template
+          v-for="(item, key) in items"
+          :key="key"
+        >
+          <UiAccordionItem
+            :name="item.name"
+            :title="item.title"
+          >
+            <UiText>{{ item.content }}</UiText>
+          </UiAccordionItem>
+        </template>
+      </UiAccordion>`
+    })).bind()}
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story
+    name="Multiple opened"
+  >
+    {((args, {argTypes}) => ({
+      components: {
+        UiAccordion,
+        UiAccordionItem,
+        UiText
+      },
+      data() {
+        return {
+          opened: [],
+          items: [
+            {
+              title: 'Mortphology',
+              name: 'mortphology',
+              content: 'Serum uric acid concentration'
+            },
+            {
+             title: 'Rheumatology blood tests panel',
+             name: 'rheumatology',
+             content: '1. Erythrocyte Sedimentation Rate 2. Erythrocyte Sedimentation Rate  '
+            },
+            {
+              title: 'Inflammation panel',
+              name: 'inflammation',
+              content: 'Rheumatoid factor'
+            },
+          ]
+        }
+      },
+      template: `<UiAccordion v-model="opened">
+        <template
+          v-for="(item, key) in items"
+          :key="key"
+        >
+          <UiAccordionItem
+            :name="item.name"
+            :title="item.title"
+          >
+            <UiText>{{ item.content }}</UiText>
+          </UiAccordionItem>
+        </template>
+      </UiAccordion>`
+    })).bind()}
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story
+    name="Single accordion"
+  >
+    {((args, {argTypes}) => ({
+      components: {
+        UiAccordion,
+        UiAccordionItem,
+        UiText
+      },
+      data() {
+        return {
+          opened: '',
+          items: [
+            {
+              title: 'Mortphology',
+              name: 'mortphology',
+              content: 'Serum uric acid concentration'
+            }
+          ]
+        }
+      },
+      template: `<UiAccordion v-model="opened">
+        <template
+          v-for="(item, key) in items"
+          :key="key"
+        >
+          <UiAccordionItem
+            :name="item.name"
+            :title="item.title"
+          >
+            <UiText>{{ item.content }}</UiText>
+          </UiAccordionItem>
+        </template>
+      </UiAccordion>`
+    })).bind()}
+  </Story>
+</Canvas>
