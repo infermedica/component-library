@@ -68,9 +68,9 @@
 
   @else {
     letter-spacing:
-    with-important(
-      var(--letter-spacing-medium),
-      $important-flag
-    );
+      with-important(
+        var(--letter-spacing-medium),
+        $important-flag
+      );
   }
 }

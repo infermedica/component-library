@@ -98,8 +98,8 @@ export default {
   &__icon {
     --icon-size: var(--tile-icon-size, 3rem);
     --icon-color: var(--color-icon-primary);
-    flex: none;
 
+    flex: none;
     margin: var(--tile-icon-margin, 0 var(--space-16) 0 0);
 
     @media (min-width: 480px) {
@@ -114,8 +114,8 @@ export default {
     text-align: var(--tile-label-text-align);
 
     @media (min-width: 480px) {
-      text-align: var(--tile-label-tablet-text-align, center);
       margin: var(--tile-label-tablet-margin, auto);
+      text-align: var(--tile-label-tablet-text-align, center);
     }
   }
 

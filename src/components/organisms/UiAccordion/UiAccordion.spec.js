@@ -1,4 +1,4 @@
-import { h, nextTick } from 'vue';
+import { h } from 'vue';
 import { mount } from '@vue/test-utils';
 import UiAccordion from './UiAccordion.vue';
 import UiAccordionItem from './_internal/UiAccordionItem.vue';
