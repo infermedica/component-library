@@ -107,7 +107,6 @@ export default {
   $this: &;
 
   display: inline-flex;
-  align-items: center;
   cursor: pointer;
 
   &:hover {
@@ -125,7 +124,7 @@ export default {
     justify-content: center;
     width: var(--radio-size, 1.25rem);
     height: var(--radio-size, 1.25rem);
-    margin: var(--radio-margin, 0 var(--space-12) 0 0);
+    margin: var(--radio-margin, 0.125rem var(--space-12) 0 0);
     overflow: hidden;
     background: var(--radio-background, var(--color-background-white));
     border: var(--radio-border, solid var(--color-border-accessible));
@@ -165,7 +164,7 @@ export default {
   }
 
   &__label {
-    flex: unset;
+    flex: 1;
     color: var(--radio-label-color, var(--color-text-body));
   }
 
