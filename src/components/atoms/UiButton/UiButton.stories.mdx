@@ -1,4 +1,6 @@
-import { Meta, Canvas, Story, ArgsTable, } from '@storybook/addon-docs/blocks';
+import {
+  Meta, Canvas, Story, ArgsTable,
+} from '@storybook/addon-docs/blocks';
 import UiButton from './UiButton.vue';
 import UiIcon from '../UiIcon/UiIcon.vue';
 
@@ -6,16 +8,21 @@ import UiIcon from '../UiIcon/UiIcon.vue';
   title="Atoms/Button"
   component={UiButton}
   argTypes={{
-    content: {control: {type: 'text'}},
-    disabled: {control: {type: 'boolean'}},
-    icon: {control: {type: 'text'}},
-    modifiers: {control: {type: 'inline-check', options: {
-      'ui-button--small': 'ui-button--small',
-      'ui-button--is-disabled': 'ui-button--is-disabled',
-    }}},
-    tag: {control: {type: 'text'}},
-    to: {control: {type: 'text'}},
-    href: {control: {type: 'text'}}
+    content: { control: { type: 'text' } },
+    disabled: { control: { type: 'boolean' } },
+    icon: { control: { type: 'text' } },
+    modifiers: {
+      control: {
+        type: 'inline-check',
+        options: {
+          'ui-button--small': 'ui-button--small',
+          'ui-button--is-disabled': 'ui-button--is-disabled',
+        },
+      },
+    },
+    tag: { control: { type: 'text' } },
+    to: { control: { type: 'text' } },
+    href: { control: { type: 'text' } },
   }}
 />
 
@@ -29,9 +36,9 @@ import UiIcon from '../UiIcon/UiIcon.vue';
       disabled: false,
     }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
-      components: {UiButton},
+      components: { UiButton },
       template: `
         <UiButton
           :class="modifiers"
@@ -39,7 +46,7 @@ import UiIcon from '../UiIcon/UiIcon.vue';
         >
           {{ content }}
         </UiButton>
-      `
+      `,
     })).bind({})}
   </Story>
 </Canvas>
@@ -51,12 +58,12 @@ import UiIcon from '../UiIcon/UiIcon.vue';
     args={{
       content: 'Next',
       disabled: false,
-      icon: 'reversePlus'
+      icon: 'reversePlus',
     }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
-      components: {UiButton, UiIcon},
+      components: { UiButton, UiIcon },
       template: `
         <div style="margin-bottom: 20px;">
           <UiButton
@@ -93,7 +100,7 @@ import UiIcon from '../UiIcon/UiIcon.vue';
             />
           </UiButton>
         </div>
-      `
+      `,
     })).bind({})}
   </Story>
 </Canvas>
@@ -104,12 +111,12 @@ import UiIcon from '../UiIcon/UiIcon.vue';
     name="Circled"
     args={{
       disabled: false,
-      icon: 'plus'
+      icon: 'plus',
     }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
-      components: {UiButton, UiIcon},
+      components: { UiButton, UiIcon },
       template: `
         <UiButton
           class="ui-button--outlined ui-button--circled ui-button--has-icon"
@@ -120,7 +127,7 @@ import UiIcon from '../UiIcon/UiIcon.vue';
             :icon="icon"
           />
         </UiButton>
-      `
+      `,
     })).bind({})}
   </Story>
 </Canvas>
@@ -132,12 +139,12 @@ import UiIcon from '../UiIcon/UiIcon.vue';
     args={{
       content: 'Next',
       disabled: false,
-      icon: 'reversePlus'
+      icon: 'reversePlus',
     }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
-      components: {UiButton, UiIcon},
+      components: { UiButton, UiIcon },
       template: `
         <div style="margin-bottom: 20px;">
           <UiButton
@@ -174,7 +181,7 @@ import UiIcon from '../UiIcon/UiIcon.vue';
             {{ content }}
           </UiButton>
         </div>
-      `
+      `,
     })).bind({})}
   </Story>
 </Canvas>
@@ -186,12 +193,12 @@ import UiIcon from '../UiIcon/UiIcon.vue';
     args={{
       content: 'Next',
       disabled: false,
-      icon:'reversePlus',
+      icon: 'reversePlus',
     }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
-      components: {UiButton, UiIcon},
+      components: { UiButton, UiIcon },
       template: `
         <div style="margin-bottom: 20px;">
           <UiButton
@@ -228,7 +235,7 @@ import UiIcon from '../UiIcon/UiIcon.vue';
             {{ content }}
           </UiButton>
         </div>
-      `
+      `,
     })).bind({})}
   </Story>
 </Canvas>
@@ -242,10 +249,10 @@ import UiIcon from '../UiIcon/UiIcon.vue';
       content: 'Next',
       tag: 'button',
       to: '',
-      href: 'https://infermedica.com/'
+      href: 'https://infermedica.com/',
     }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
       components: { UiButton },
       template: `<UiButton
@@ -255,7 +262,7 @@ import UiIcon from '../UiIcon/UiIcon.vue';
       :href="href"
       >
          {{ content }}
-       </UiButton>`
+       </UiButton>`,
     })).bind({})}
   </Story>
 </Canvas>

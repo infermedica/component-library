@@ -1,4 +1,6 @@
-import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import {
+  Meta, Canvas, Story, Props, ArgsTable,
+} from '@storybook/addon-docs/blocks';
 import UiLink from './UiLink.vue';
 import UiIcon from '../UiIcon/UiIcon.vue';
 
@@ -6,10 +8,10 @@ import UiIcon from '../UiIcon/UiIcon.vue';
   title="Atoms/Link"
   component={UiLink}
   argTypes={{
-    content: {control: {type: 'text'}},
-    tag: {control: {type: 'text'}},
-    to: {control: {type: 'text'}},
-    href: {control: {type: 'text'}}
+    content: { control: { type: 'text' } },
+    tag: { control: { type: 'text' } },
+    to: { control: { type: 'text' } },
+    href: { control: { type: 'text' } },
   }}
 />
 
@@ -22,11 +24,11 @@ import UiIcon from '../UiIcon/UiIcon.vue';
       content: 'Next',
       tag: 'span',
       to: '',
-      href: 'https://infermedica.com/'
+      href: 'https://infermedica.com/',
     }}
   >
-    {((args, {argTypes}) => ({
-      components: {UiLink},
+    {((args, { argTypes }) => ({
+      components: { UiLink },
       props: Object.keys(argTypes),
       template: `<UiLink
         :tag="tag"
@@ -34,7 +36,7 @@ import UiIcon from '../UiIcon/UiIcon.vue';
         :href="href"
       >
         {{content}}
-      </UiLink>`
+      </UiLink>`,
     })).bind({})}
   </Story>
 </Canvas>
@@ -44,13 +46,13 @@ import UiIcon from '../UiIcon/UiIcon.vue';
     name="Link with component"
   >
     {(() => ({
-      components: {UiLink, UiIcon},
+      components: { UiLink, UiIcon },
       template: `<UiLink
         href="https://infermedica.com/"
         target="_blank"
       >
         <UiIcon icon="search" />
-      </UiLink>`
+      </UiLink>`,
     })).bind({})}
   </Story>
 </Canvas>

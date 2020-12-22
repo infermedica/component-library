@@ -1,7 +1,9 @@
-import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import {
+  Meta, Canvas, Story, Props, ArgsTable,
+} from '@storybook/addon-docs/blocks';
 import UiDropdown from './UiDropdown.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
-import UiInput from '../../atoms/UiInput/UiInput.vue'
+import UiInput from '../../atoms/UiInput/UiInput.vue';
 
 <Meta
   title="Molecules/Dropdown"
@@ -17,10 +19,10 @@ Use `default` slot and `text` props for common scenario
     name="Common"
     height="80px"
     args={{
-      text: 'Dropdown toggle'
+      text: 'Dropdown toggle',
     }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
       components: { UiDropdown, UiButton },
       data() {
@@ -29,15 +31,15 @@ Use `default` slot and `text` props for common scenario
             { label: 'headache' },
             { label: 'head pressure' },
             { label: 'headache, generalized' },
-            { label: 'headache, pulsating' }
-          ]
-        }
+            { label: 'headache, pulsating' },
+          ],
+        };
       },
       template: `<UiDropdown
         :text="text"
       >
         Dropdown content
-      </UiDropdown>`
+      </UiDropdown>`,
     })).bind({})}
   </Story>
 </Canvas>
@@ -51,13 +53,13 @@ Use `toggle` slot which has `{ toggle, open, close, isOpen }` in scope to replac
     name="Input as dropdown toggle"
     height="253px"
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
       components: { UiDropdown, UiButton, UiInput },
       data() {
         return {
-          contentOfDropdown: ''
-        }
+          contentOfDropdown: '',
+        };
       },
       template: `<UiDropdown
         :text="text"
@@ -93,20 +95,19 @@ Use `toggle` slot which has `{ toggle, open, close, isOpen }` in scope to replac
         clickHandler(open) {
           if (this.contentOfDropdown.length > 0) open();
         },
-      }
+      },
     })).bind({})}
   </Story>
 </Canvas>
 
 Use `content` slot which has `{ close, isOpen }` in scope to replace content template
 
-
 <Canvas>
   <Story
     name="Replace dropdown content template"
     height="80px"
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
       components: { UiDropdown },
       template: `<UiDropdown
@@ -123,7 +124,7 @@ Use `content` slot which has `{ close, isOpen }` in scope to replace content tem
             Dropdown content
           </div>
         </template>
-      </UiDropdown>`
+      </UiDropdown>`,
     })).bind({})}
   </Story>
 </Canvas>

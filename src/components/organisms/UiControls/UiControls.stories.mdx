@@ -1,18 +1,20 @@
-import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import {
+  Meta, Canvas, Story, Props, ArgsTable,
+} from '@storybook/addon-docs/blocks';
 import UiControls from './UiControls.vue';
-import UiMultipleChoices from '../../organisms/UiMultipleChoices/UiMultipleChoices.vue'
-import UiTile from '../../molecules/UiTile/UiTile.vue'
-import UiLink from '../../atoms/UiLink/UiLink.vue'
+import UiMultipleChoices from '../UiMultipleChoices/UiMultipleChoices.vue';
+import UiTile from '../../molecules/UiTile/UiTile.vue';
+import UiLink from '../../atoms/UiLink/UiLink.vue';
 
 <Meta
   title="Organisms/Controls"
   component={UiControls}
   argTypes={{
-    isAnswerAbove: {control: {type: 'boolean'}},
-    invalid: {control: {type: 'boolean'}},
-    toBack: {control: {type: 'text'}},
-    toNext: {control: {type: 'text'}},
-    translation: {control: {type: 'object'}},
+    isAnswerAbove: { control: { type: 'boolean' } },
+    invalid: { control: { type: 'boolean' } },
+    toBack: { control: { type: 'text' } },
+    toNext: { control: { type: 'text' } },
+    translation: { control: { type: 'object' } },
   }}
 />
 
@@ -29,10 +31,10 @@ import UiLink from '../../atoms/UiLink/UiLink.vue'
         back: 'Back',
         next: 'Next',
         answerAbove: 'Select an answer above',
-      }
+      },
     }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
       components: { UiControls },
       template: `<UiControls
@@ -42,7 +44,7 @@ import UiLink from '../../atoms/UiLink/UiLink.vue'
         :to-next="toNext"
         :translation="translation"
         style="max-width: 780px; min-height: 465px"
-      />`
+      />`,
     })).bind({})}
   </Story>
 </Canvas>

@@ -1,18 +1,25 @@
-import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import {
+  Meta, Canvas, Story, Props, ArgsTable,
+} from '@storybook/addon-docs/blocks';
 import UiRadio from './UiRadio.vue';
-import UiList from '../../organisms/UiList/UiList.vue'
-import UiListItem from '../../organisms/UiList/_internal/UiListItem.vue'
+import UiList from '../../organisms/UiList/UiList.vue';
+import UiListItem from '../../organisms/UiList/_internal/UiListItem.vue';
 
 <Meta
   title="Atoms/Radio"
   component={UiRadio}
   argTypes={{
     label: { control: { type: 'text' } },
-    disabled: { control: {type: 'boolean'} },
-    cssClass: {control: {type: 'inline-check', options: {
-      'ui-radio--is-disabled': 'ui-radio--is-disabled',
-      'ui-radio--has-error': 'ui-radio--has-error'
-    }}},
+    disabled: { control: { type: 'boolean' } },
+    cssClass: {
+      control: {
+        type: 'inline-check',
+        options: {
+          'ui-radio--is-disabled': 'ui-radio--is-disabled',
+          'ui-radio--has-error': 'ui-radio--has-error',
+        },
+      },
+    },
   }}
 />
 
@@ -27,16 +34,16 @@ This component should working like native radio in Vue.js. [Form Input Bindings 
       label: 'Yes',
       disabled: false,
       id: 'present',
-      value: 'present'
+      value: 'present',
     }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
       components: { UiRadio },
-      data(){
+      data() {
         return {
-          picked: ''
-        }
+          picked: '',
+        };
       },
       template: `<UiRadio
           v-model="picked"
@@ -44,7 +51,7 @@ This component should working like native radio in Vue.js. [Form Input Bindings 
           :value="value"
           :disabled="disabled"
           :class="cssClass"
-        >{{ label }}</UiRadio>`
+        >{{ label }}</UiRadio>`,
     })).bind({})}
   </Story>
 </Canvas>
@@ -56,11 +63,11 @@ This component can be used as a radio button. You can use to `checkbox` slot to 
     name="Multiple radio"
   >
     {(() => ({
-      components: { UiRadio, UiList, UiListItem},
-      data(){
+      components: { UiRadio, UiList, UiListItem },
+      data() {
         return {
-          picked: ''
-        }
+          picked: '',
+        };
       },
       template: `<UiList>
         <UiListItem>
@@ -84,7 +91,7 @@ This component can be used as a radio button. You can use to `checkbox` slot to 
             :value="{id: 's-234', value: 'unknown'}"
           >Don't know</UiRadio>
         </UiListItem>
-      </UiList>`
+      </UiList>`,
     })).bind({})}
   </Story>
 </Canvas>

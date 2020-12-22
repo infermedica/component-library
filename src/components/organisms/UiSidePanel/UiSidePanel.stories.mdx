@@ -1,4 +1,6 @@
-import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import {
+  Meta, Canvas, Story, Props, ArgsTable,
+} from '@storybook/addon-docs/blocks';
 import UiSidePanel from './UiSidePanel.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
@@ -7,11 +9,11 @@ import UiButton from '../../atoms/UiButton/UiButton.vue';
   title="Organisms/SidePanel"
   component={UiSidePanel}
   argTypes={{
-    title: {control: {type: 'text'}},
-    subtitle: {control: {type: 'text'}},
+    title: { control: { type: 'text' } },
+    subtitle: { control: { type: 'text' } },
   }}
   parameters={{
-    layout: 'full'
+    layout: 'full',
   }}
 />
 
@@ -22,24 +24,24 @@ import UiButton from '../../atoms/UiButton/UiButton.vue';
     name="Common"
     args={{
       title: 'Term of Service',
-      subtitle: 'Last updated: Mar 10, 2020'
+      subtitle: 'Last updated: Mar 10, 2020',
     }}
     height="446px"
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
-      components: {UiSidePanel, UiText, UiButton},
+      components: { UiSidePanel, UiText, UiButton },
       data() {
         return {
-          open: true
-        }
+          open: true,
+        };
       },
       computed: {
         computedButtonAttrs() {
           return {
-            'aria-label': 'remove ' + this.content + ' from symptoms'
-          }
-        }
+            'aria-label': `remove ${this.content} from symptoms`,
+          };
+        },
       },
       template: `<div>
         <UiButton
@@ -56,7 +58,7 @@ import UiButton from '../../atoms/UiButton/UiButton.vue';
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam facilisis lectus erat, consectetur dignissim tortor malesuada et. Nunc orci tellus, tincidunt iaculis dui et, egestas pretium risus. Nulla mattis in risus at gravida. Praesent ac facilisis enim. Nam tristique lectus dolor, sagittis tristique nisi imperdiet ut. Proin rhoncus sollicitudin ante, non imperdiet sem tincidunt ut. Cras nisl ante, tempus semper sodales pretium, vulputate non massa. Nullam vitae lectus vitae velit volutpat condimentum nec at nulla. Nam eu quam eget ex consectetur faucibus. Ut ornare tortor a ex auctor, non tempus ante ultrices. Etiam tempus condimentum nibh.
           </UiText>
         </UiSidePanel>
-      </div>`
+      </div>`,
     })).bind({})}
   </Story>
 </Canvas>

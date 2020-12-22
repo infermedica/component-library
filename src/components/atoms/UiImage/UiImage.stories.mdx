@@ -1,4 +1,6 @@
-import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import {
+  Meta, Canvas, Story, Props, ArgsTable,
+} from '@storybook/addon-docs/blocks';
 import UiImage from './UiImage.vue';
 
 <Meta
@@ -12,13 +14,13 @@ import UiImage from './UiImage.vue';
   <Story
     name="Common"
     args={{
-      src: '/assets/illustrations/instruction.svg'
+      src: '/assets/illustrations/instruction.svg',
     }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
-      components: {UiImage},
-      template: `<UiImage :src="src"/>`
+      components: { UiImage },
+      template: '<UiImage :src="src"/>',
     })).bind({})}
   </Story>
 </Canvas>

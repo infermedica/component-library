@@ -1,15 +1,16 @@
-import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import {
+  Meta, Canvas, Story, Props, ArgsTable,
+} from '@storybook/addon-docs/blocks';
 import UiAlert from './UiAlert.vue';
 import UiIcon from '../UiIcon/UiIcon.vue';
 import UiLink from '../UiLink/UiLink.vue';
 import UiText from '../UiText/UiText.vue';
 
-
 <Meta
   title="Atoms/Alert"
   component={UiAlert}
   argTypes={{
-    type: {control: {type: 'select', options: ['default', 'success', 'info', 'warning', 'error']}},
+    type: { control: { type: 'select', options: ['default', 'success', 'info', 'warning', 'error'] } },
   }}
 />
 
@@ -23,10 +24,10 @@ import UiText from '../UiText/UiText.vue';
       type: 'error',
     }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
-      components: {UiAlert},
-      template: `<UiAlert :type="type">Error message</UiAlert>`
+      components: { UiAlert },
+      template: '<UiAlert :type="type">Error message</UiAlert>',
     })).bind({})}
   </Story>
 </Canvas>
@@ -39,9 +40,9 @@ import UiText from '../UiText/UiText.vue';
       type: 'error',
     }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
-      components: {UiAlert, UiIcon},
+      components: { UiAlert, UiIcon },
       template: `<UiAlert :type="type">
         <template #icon>
           <UiIcon
@@ -50,7 +51,7 @@ import UiText from '../UiText/UiText.vue';
           />
         </template>
         Custom icon
-      </UiAlert>`
+      </UiAlert>`,
     })).bind({})}
   </Story>
 </Canvas>
@@ -63,9 +64,11 @@ import UiText from '../UiText/UiText.vue';
       type: 'error',
     }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
-      components: {UiAlert, UiLink, UiIcon, UiText},
+      components: {
+        UiAlert, UiLink, UiIcon, UiText,
+      },
       template: `<UiAlert :type="type">
         <template #message>
           <UiLink
@@ -79,7 +82,7 @@ import UiText from '../UiText/UiText.vue';
             </UiText>
           </UiLink>
         </template>
-      </UiAlert>`
+      </UiAlert>`,
     })).bind({})}
   </Story>
 </Canvas>
@@ -92,9 +95,11 @@ import UiText from '../UiText/UiText.vue';
       type: 'error',
     }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
-      components: {UiAlert, UiLink, UiIcon, UiText},
+      components: {
+        UiAlert, UiLink, UiIcon, UiText,
+      },
       template: `<UiAlert :type="type">
         <template #icon>
           <UiIcon
@@ -114,7 +119,7 @@ import UiText from '../UiText/UiText.vue';
             </UiText>
           </UiLink>
         </template>
-      </UiAlert>`
+      </UiAlert>`,
     })).bind({})}
   </Story>
 </Canvas>

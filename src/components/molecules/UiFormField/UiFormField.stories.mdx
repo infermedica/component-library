@@ -1,4 +1,6 @@
-import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import {
+  Meta, Canvas, Story, Props, ArgsTable,
+} from '@storybook/addon-docs/blocks';
 import UiFormField from './UiFormField.vue';
 import UiInput from '../../atoms/UiInput/UiInput.vue';
 import UiTextArea from '../../atoms/UiTextArea/UiTextArea.vue';
@@ -10,15 +12,15 @@ import UiText from '../../atoms/UiText/UiText.vue';
   title="Molecules/FormField"
   component={UiFormField}
   argTypes={{
-    label: {control: {type: 'text'}},
-    hint: {control: {type: 'text'}},
-    placeholderText: {control: {type: 'text'}},
-    id: {control: {type: 'text'}},
-    disabled: {control: {type: 'boolean'}},
-    hasError: {control: {type: 'boolean'}},
-    errorMessage: {control: {type: 'text'}},
-    inputType: {control: {type: 'select', options: ['text', 'number', 'email', 'search', 'tel', 'url', 'password']}},
-    checked: {control: {type: 'boolean'}},
+    label: { control: { type: 'text' } },
+    hint: { control: { type: 'text' } },
+    placeholderText: { control: { type: 'text' } },
+    id: { control: { type: 'text' } },
+    disabled: { control: { type: 'boolean' } },
+    hasError: { control: { type: 'boolean' } },
+    errorMessage: { control: { type: 'text' } },
+    inputType: { control: { type: 'select', options: ['text', 'number', 'email', 'search', 'tel', 'url', 'password'] } },
+    checked: { control: { type: 'boolean' } },
   }}
 />
 
@@ -33,14 +35,14 @@ import UiText from '../../atoms/UiText/UiText.vue';
       errorMessage: 'Alert message',
       hint: 'Required',
       id: 'inputId',
-      placeholderText: "Placeholder text",
+      placeholderText: 'Placeholder text',
       disabled: false,
       hasError: false,
     }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
-      components: {UiFormField, UiInput},
+      components: { UiFormField, UiInput },
       template: `
         <UiFormField
           style="width:400px"
@@ -60,7 +62,7 @@ import UiText from '../../atoms/UiText/UiText.vue';
               :placeholder="placeholderText"
             />
           </template>
-        </UiFormField>`
+        </UiFormField>`,
     })).bind({})}
   </Story>
 </Canvas>
@@ -74,14 +76,14 @@ import UiText from '../../atoms/UiText/UiText.vue';
       errorMessage: 'Alert message',
       hint: 'Required',
       id: 'inputId',
-      placeholderText: "Placeholder text",
+      placeholderText: 'Placeholder text',
       disabled: false,
       hasError: false,
     }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
-      components: {UiFormField, UiInput, UiText},
+      components: { UiFormField, UiInput, UiText },
       template: `
         <UiFormField
           style="width:400px"
@@ -111,7 +113,7 @@ import UiText from '../../atoms/UiText/UiText.vue';
               :placeholder="placeholderText"
             />
           </template>
-        </UiFormField>`
+        </UiFormField>`,
     })).bind({})}
   </Story>
 </Canvas>
@@ -125,14 +127,14 @@ import UiText from '../../atoms/UiText/UiText.vue';
       errorMessage: 'Alert message',
       hint: 'Required',
       id: 'inputId',
-      placeholderText: "Placeholder text",
+      placeholderText: 'Placeholder text',
       disabled: false,
       hasError: false,
     }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
-      components: {UiFormField, UiTextArea},
+      components: { UiFormField, UiTextArea },
       template: `
         <UiFormField
           style="width:400px"
@@ -152,7 +154,7 @@ import UiText from '../../atoms/UiText/UiText.vue';
               :placeholder="placeholderText"
             />
           </template>
-        </UiFormField>`
+        </UiFormField>`,
     })).bind({})}
   </Story>
 </Canvas>
@@ -169,9 +171,11 @@ import UiText from '../../atoms/UiText/UiText.vue';
       hasError: false,
     }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
-      components: {UiFormField, UiCheckbox, UiLink, UiText},
+      components: {
+        UiFormField, UiCheckbox, UiLink, UiText,
+      },
       template: `
         <UiFormField
           :errorMessage="hasError && errorMessage"
@@ -212,7 +216,7 @@ import UiText from '../../atoms/UiText/UiText.vue';
             </UiText>
           </template>
           </UiCheckbox>
-        </UiFormField>`
+        </UiFormField>`,
     })).bind({})}
   </Story>
 </Canvas>

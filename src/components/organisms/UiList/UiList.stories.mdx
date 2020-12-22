@@ -1,13 +1,15 @@
-import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import {
+  Meta, Canvas, Story, Props, ArgsTable,
+} from '@storybook/addon-docs/blocks';
 import UiList from './UiList.vue';
-import UiListItem from './_internal/UiListItem.vue'
+import UiListItem from './_internal/UiListItem.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 
 <Meta
   title="Organisms/List"
   component={UiList}
   argTypes={{
-    tag: {control: {type: 'select', options: ['ul', 'ol']}},
+    tag: { control: { type: 'select', options: ['ul', 'ol'] } },
   }}
 />
 
@@ -19,13 +21,13 @@ This component working like native list of items. [MDN web docs](https://develop
   <Story
     name="Common"
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
-      components: {UiList, UiListItem, UiText},
+      components: { UiList, UiListItem, UiText },
       template: `<UiList>
         <UiListItem><UiText>List Item A</UiText></UiListItem>
         <UiListItem><UiText>List Item B</UiText></UiListItem>
-      </UiList>`
+      </UiList>`,
     })).bind({})}
   </Story>
 </Canvas>

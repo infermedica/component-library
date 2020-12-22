@@ -1,4 +1,6 @@
-import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import {
+  Meta, Canvas, Story, Props, ArgsTable,
+} from '@storybook/addon-docs/blocks';
 import UiSimpleQuestion from './UiSimpleQuestion.vue';
 import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
 
@@ -13,44 +15,44 @@ import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
   <Story
     name="Common"
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
       data() {
         return {
           selected: '',
           options: [
             {
-              id:'present-id',
+              id: 'present-id',
               name: 'yes-no-dontknow',
               label: 'Yes',
               value: 'present',
               iconAttrs: { icon: 'check' },
             },
             {
-              id:'absent-id',
+              id: 'absent-id',
               name: 'yes-no-dontknow',
               label: 'No',
               value: 'absent',
               iconAttrs: { icon: 'cross' },
             },
             {
-              id:'unknown-id',
+              id: 'unknown-id',
               name: 'yes-no-dontknow',
               label: 'Don\’t know sometimes is long',
               value: 'unknown',
               iconAttrs: { icon: 'arrowRight' },
             },
-          ]
-        }
+          ],
+        };
       },
-      components: {UiSimpleQuestion},
+      components: { UiSimpleQuestion },
       template: `
         <UiSimpleQuestion
           :options="options"
           v-model="selected"
           class="ui-simple-question--small"
         />
-      `
+      `,
     })).bind({})}
   </Story>
 </Canvas>
@@ -59,33 +61,33 @@ import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
   <Story
     name="example Sex"
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
       data() {
         return {
           selected: '',
           options: [
             {
-              id:'female-id',
+              id: 'female-id',
               name: 'sex',
               label: 'Female',
               value: 'female',
               iconAttrs: { icon: 'female' },
             },
             {
-              id:'male-id',
+              id: 'male-id',
               name: 'sex',
               label: 'Male',
               value: 'male',
               iconAttrs: { icon: 'male' },
             },
-          ]
-        }
+          ],
+        };
       },
-      components: {UiSimpleQuestion},
+      components: { UiSimpleQuestion },
       template: `
         <UiSimpleQuestion :options="options" v-model="selected" />
-      `
+      `,
     })).bind({})}
   </Story>
 </Canvas>
@@ -94,30 +96,30 @@ import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
   <Story
     name="[slot] option"
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
       data() {
         return {
           selected: '',
           options: [
             {
-              id:'female-id',
+              id: 'female-id',
               name: 'sex',
               label: 'Female',
               value: 'female',
               iconAttrs: { icon: 'female' },
             },
             {
-              id:'male-id',
+              id: 'male-id',
               name: 'sex',
               label: 'Male',
               value: 'male',
               iconAttrs: { icon: 'male' },
             },
-          ]
-        }
+          ],
+        };
       },
-      components: {UiSimpleQuestion, UiRadio},
+      components: { UiSimpleQuestion, UiRadio },
       template: `
         <div>
           <UiSimpleQuestion :options="options" v-model="selected">
@@ -134,7 +136,7 @@ import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
             </template>
           </UiSimpleQuestion>
         </div>
-      `
+      `,
     })).bind({})}
   </Story>
 </Canvas>

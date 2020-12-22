@@ -1,15 +1,17 @@
-import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import {
+  Meta, Canvas, Story, Props, ArgsTable,
+} from '@storybook/addon-docs/blocks';
 import UiMessage from './UiMessage.vue';
-import UiText from '../../atoms/UiText/UiText.vue'
-import UiControls from '../../organisms/UiControls/UiControls.vue'
+import UiText from '../../atoms/UiText/UiText.vue';
+import UiControls from '../../organisms/UiControls/UiControls.vue';
 
 <Meta
   title="Templates/Message"
   component={UiMessage}
   argTypes={{
-    title: {control: {type: 'text'}},
-    paragraph: {control: {type: 'text'}},
-    illustration: {control: {type: 'select', options: [false, 'instruction', 'UiMessage', 'terms-of-service']}},
+    title: { control: { type: 'text' } },
+    paragraph: { control: { type: 'text' } },
+    illustration: { control: { type: 'select', options: [false, 'instruction', 'UiMessage', 'terms-of-service'] } },
   }}
 />
 
@@ -21,10 +23,10 @@ import UiControls from '../../organisms/UiControls/UiControls.vue'
     args={{
       title: 'How to use it?',
       paragraph: 'Please provide symptoms related to a single health problem. If you’re coming for a visit with a few different issues, please focus on the most relevant one.',
-      illustration: 'instruction'
+      illustration: 'instruction',
     }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
       components: { UiMessage, UiText },
       template: `<UiMessage
@@ -35,7 +37,7 @@ import UiControls from '../../organisms/UiControls/UiControls.vue'
         <UiText>
            {{paragraph}}
         </UiText>
-      </UiMessage>`
+      </UiMessage>`,
     })).bind({})}
   </Story>
 </Canvas>
@@ -48,10 +50,10 @@ with Controls
     args={{
       title: 'How to use it?',
       paragraph: 'Please provide symptoms related to a single health problem. If you’re coming for a visit with a few different issues, please focus on the most relevant one.',
-      illustration: 'instruction'
+      illustration: 'instruction',
     }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
       components: { UiMessage, UiText, UiControls },
       template: `<UiControls style="max-width: 780px; min-height: 540px">
@@ -63,7 +65,7 @@ with Controls
              {{paragraph}}
           </UiText>
         </UiMessage>
-      </UiControls>`
+      </UiControls>`,
     })).bind({})}
   </Story>
 </Canvas>

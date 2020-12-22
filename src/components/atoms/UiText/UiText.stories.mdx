@@ -1,12 +1,14 @@
-import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import {
+  Meta, Canvas, Story, Props, ArgsTable,
+} from '@storybook/addon-docs/blocks';
 import UiText from './UiText.vue';
 
 <Meta
   title="Atoms/Text"
   component={UiText}
   argTypes={{
-    tag: {control: {type: 'text'}},
-    content: {control: {type: 'text'}}
+    tag: { control: { type: 'text' } },
+    content: { control: { type: 'text' } },
   }}
 />
 
@@ -17,15 +19,15 @@ import UiText from './UiText.vue';
     name="Common"
     args={{
       tag: 'p',
-      content: 'Next'
+      content: 'Next',
     }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
-      components: {UiText},
+      components: { UiText },
       template: `<UiText :tag="tag">
         {{content}}
-      </UiText>`
+      </UiText>`,
     })).bind({})}
   </Story>
 </Canvas>

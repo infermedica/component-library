@@ -1,4 +1,6 @@
-import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import {
+  Meta, Canvas, Story, Props, ArgsTable,
+} from '@storybook/addon-docs/blocks';
 import UiTextArea from './UiTextArea.vue';
 import UiIcon from '../UiIcon/UiIcon.vue';
 
@@ -6,13 +8,18 @@ import UiIcon from '../UiIcon/UiIcon.vue';
   title="Atoms/Textarea"
   component={UiTextArea}
   argTypes={{
-    disabled: {control: {type: 'boolean'}},
-    placeholder: {control: {type: 'text'}},
-    resize: {control: {type: 'select', options: [true, false, 'horizontal', 'vertical']}},
-    cssClass: {control: {type: 'inline-check', options: {
-      'ui-textarea--is-disabled': 'ui-textarea--is-disabled',
-      'ui-textarea--has-error': 'ui-textarea--has-error'
-    }}},
+    disabled: { control: { type: 'boolean' } },
+    placeholder: { control: { type: 'text' } },
+    resize: { control: { type: 'select', options: [true, false, 'horizontal', 'vertical'] } },
+    cssClass: {
+      control: {
+        type: 'inline-check',
+        options: {
+          'ui-textarea--is-disabled': 'ui-textarea--is-disabled',
+          'ui-textarea--has-error': 'ui-textarea--has-error',
+        },
+      },
+    },
   }}
 />
 
@@ -24,24 +31,24 @@ import UiIcon from '../UiIcon/UiIcon.vue';
     args={{
       placeholder: 'Search, e.g. headache',
       resize: 'both',
-      disabled: false
+      disabled: false,
     }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes).filter((key) => (key !== 'value')),
       data() {
         return {
           value: '',
-        }
+        };
       },
-      components: {UiTextArea},
+      components: { UiTextArea },
       template: `<UiTextArea
         v-model="value"
         :class="cssClass"
         :disabled="disabled"
         :resize="resize"
         :placeholder="placeholder"
-      />`
+      />`,
     })).bind({})}
   </Story>
 </Canvas>

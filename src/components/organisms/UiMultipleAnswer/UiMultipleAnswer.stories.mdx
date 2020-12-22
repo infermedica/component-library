@@ -1,4 +1,6 @@
-import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import {
+  Meta, Canvas, Story, Props, ArgsTable,
+} from '@storybook/addon-docs/blocks';
 import UiMultipleAnswer from './UiMultipleAnswer.vue';
 import UiAlert from '../../atoms/UiAlert/UiAlert.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
@@ -9,8 +11,8 @@ import UiButton from '../../atoms/UiButton/UiButton.vue';
   title="Organisms/MultipleAnswer"
   component={UiMultipleAnswer}
   argTypes={{
-    invalid: {control: {type: 'boolean'}},
-    touched: {control: {type: 'boolean'}},
+    invalid: { control: { type: 'boolean' } },
+    touched: { control: { type: 'boolean' } },
   }}
 />
 
@@ -24,52 +26,52 @@ import UiButton from '../../atoms/UiButton/UiButton.vue';
       touched: false,
     }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       data() {
         return {
           evidence: [],
-          name: "checkboxes",
+          name: 'checkboxes',
           choices: [
             {
-              id: "6",
+              id: '6',
               name: 'I have diabetes',
-              linked_observation: 'p_8'
+              linked_observation: 'p_8',
             },
             {
-              id: "5",
+              id: '5',
               name: 'I have hypertension',
-              linked_observation: 'p_9'
+              linked_observation: 'p_9',
             },
             {
-              id: "4",
+              id: '4',
               name: 'I have high cholesterol',
-              linked_observation: 'p_10'
+              linked_observation: 'p_10',
             },
             {
-              id: "174",
+              id: '174',
               name: 'I\'m pregnant',
-              linked_observation: 'p_42'
+              linked_observation: 'p_42',
             },
             {
-              id: "1",
+              id: '1',
               name: 'I\'m postmenopausal',
-              linked_observation: 'p_11'
+              linked_observation: 'p_11',
             },
             {
-              id: "2",
+              id: '2',
               name: 'I\'m overweight or obese or very very fat',
-              linked_observation: 'p_7'
+              linked_observation: 'p_7',
             },
             {
-              id: "3",
+              id: '3',
               name: 'I smoke cigarettes',
-              linked_observation: 'p_28'
-            }
-          ]
-        }
+              linked_observation: 'p_28',
+            },
+          ],
+        };
       },
       props: Object.keys(argTypes),
-      components: {UiMultipleAnswer, UiAlert},
+      components: { UiMultipleAnswer, UiAlert },
       template: `
         <UiMultipleAnswer
           :name="name"
@@ -79,7 +81,7 @@ import UiButton from '../../atoms/UiButton/UiButton.vue';
           :choices="choices"
           source="initial"
         />
-      `
+      `,
     })).bind({})}
   </Story>
 </Canvas>
@@ -88,57 +90,57 @@ import UiButton from '../../atoms/UiButton/UiButton.vue';
   <Story
     name="Common radio"
      args={{
-      invalid: true,
-      touched: false,
-    }}
+       invalid: true,
+       touched: false,
+     }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       data() {
         return {
           evidence: {},
-          name: "radioses",
+          name: 'radioses',
           choices: [
             {
-              id: "6",
+              id: '6',
               name: 'I have diabetes',
               linked_observation: 'p_8',
               explication: true,
             },
             {
-              id: "5",
+              id: '5',
               name: 'I have hypertension',
-              linked_observation: 'p_9'
+              linked_observation: 'p_9',
             },
             {
-              id: "4",
+              id: '4',
               name: 'I have high cholesterol',
-              linked_observation: 'p_10'
+              linked_observation: 'p_10',
             },
             {
-              id: "174",
+              id: '174',
               name: 'I\'m pregnant',
-              linked_observation: 'p_42'
+              linked_observation: 'p_42',
             },
             {
-              id: "1",
+              id: '1',
               name: 'I\'m postmenopausal',
-              linked_observation: 'p_11'
+              linked_observation: 'p_11',
             },
             {
-              id: "2",
+              id: '2',
               name: 'I\'m overweight or obese or very very fat',
-              linked_observation: 'p_7'
+              linked_observation: 'p_7',
             },
             {
-              id: "3",
+              id: '3',
               name: 'I smoke cigarettes',
-              linked_observation: 'p_28'
-            }
-          ]
-        }
+              linked_observation: 'p_28',
+            },
+          ],
+        };
       },
       props: Object.keys(argTypes),
-      components: {UiMultipleAnswer, UiAlert},
+      components: { UiMultipleAnswer, UiAlert },
       template: `
         <UiMultipleAnswer
           :name="name"
@@ -148,7 +150,7 @@ import UiButton from '../../atoms/UiButton/UiButton.vue';
           :choices="choices"
           source="initial"
         />
-      `
+      `,
     })).bind({})}
   </Story>
 </Canvas>

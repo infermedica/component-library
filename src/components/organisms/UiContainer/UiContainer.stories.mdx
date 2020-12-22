@@ -1,4 +1,6 @@
-import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import {
+  Meta, Canvas, Story, Props, ArgsTable,
+} from '@storybook/addon-docs/blocks';
 import UiContainer from './UiContainer.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 
@@ -6,7 +8,7 @@ import UiText from '../../atoms/UiText/UiText.vue';
   title="Organisms/Container"
   component={UiContainer}
   argTypes={{
-    content: {control: {type: 'text'}}
+    content: { control: { type: 'text' } },
   }}
 />
 
@@ -16,15 +18,15 @@ import UiText from '../../atoms/UiText/UiText.vue';
   <Story
     name="Common"
     args={{
-      content: 'Your symptoms may require prompt medical evaluation. If your symptoms suddenly get worse, go to the nearest emergency department.'
+      content: 'Your symptoms may require prompt medical evaluation. If your symptoms suddenly get worse, go to the nearest emergency department.',
     }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
-      components: {UiContainer, UiText},
+      components: { UiContainer, UiText },
       template: `<UiContainer>
         <UiText>{{content}}</UiText>
-      </UiContainer>`
+      </UiContainer>`,
     })).bind({})}
   </Story>
 </Canvas>

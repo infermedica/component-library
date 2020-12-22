@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "lint:mdx": "eslint --ext .mdx src --fix",
     "lint:js": "vue-cli-service lint --fix",
     "lint:scss": "stylelint 'src/**/*.{vue,htm,html,css,sss,less,scss}' --fix",
     "create-component": "node scripts/create-component.js",
@@ -27,8 +28,6 @@
     "vue": "^3.0.2"
   },
   "devDependencies": {
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
     "@andoshin11/storybook-vue3": "0.0.5",
     "@storybook/addon-a11y": "^6.0.28",
     "@storybook/addon-controls": "^6.0.28",
@@ -45,11 +44,14 @@
     "chromatic": "^5.2.0",
     "css-loader": "^5.0.0",
     "eslint": "^6.7.2",
+    "eslint-plugin-mdx": "^1.8.2",
     "eslint-plugin-vue": "^7.0.0-0",
     "file-save": "^0.2.0",
     "glob": "^7.1.6",
     "jest": "^26.6.2",
     "prompts": "^2.3.2",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "sass": "^1.28.0",
     "sass-loader": "^10.0.5",
     "style-loader": "^2.0.0",

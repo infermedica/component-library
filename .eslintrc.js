@@ -27,5 +27,14 @@ module.exports = {
       },
     }],
   },
+  overrides: [
+    {
+      files: ['*.mdx'],
+      extends: ['plugin:mdx/recommended'],
+      rules: {
+        semi: 0
+      }
+    },
+  ],
   ignorePatterns: ['**/utilities/*', '**/.storybook/*'],
 };

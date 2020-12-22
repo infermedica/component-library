@@ -1,11 +1,13 @@
-import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import {
+  Meta, Canvas, Story, Props, ArgsTable,
+} from '@storybook/addon-docs/blocks';
 import UiBackdrop from './UiBackdrop.vue';
 
 <Meta
   title="Atoms/Backdrop"
   component={UiBackdrop}
   argTypes={{
-    customProp: {control: {type: 'text'}}
+    customProp: { control: { type: 'text' } },
   }}
 />
 
@@ -15,13 +17,13 @@ import UiBackdrop from './UiBackdrop.vue';
   <Story
     name="Common"
     args={{
-      customProp: 'customProp'
+      customProp: 'customProp',
     }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
-      components: {UiBackdrop},
-      template: `<UiBackdrop customProp="customProp"/>`
+      components: { UiBackdrop },
+      template: '<UiBackdrop customProp="customProp"/>',
     })).bind({})}
   </Story>
 </Canvas>

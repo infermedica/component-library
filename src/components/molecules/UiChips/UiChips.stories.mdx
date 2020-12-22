@@ -1,11 +1,13 @@
-import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import {
+  Meta, Canvas, Story, Props, ArgsTable,
+} from '@storybook/addon-docs/blocks';
 import UiChips from './UiChips.vue';
 
 <Meta
   title="Molecules/Chips"
   component={UiChips}
   argTypes={{
-    content: {control: {type: 'text'}}
+    content: { control: { type: 'text' } },
   }}
 />
 
@@ -15,20 +17,20 @@ import UiChips from './UiChips.vue';
   <Story
     name="Common"
     args={{
-      content: 'Stomach pain'
+      content: 'Stomach pain',
     }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
-      components: {UiChips},
+      components: { UiChips },
       computed: {
         computedButtonAttrs() {
           return {
-            'aria-label': 'remove ' + this.content + ' from symptoms'
-          }
-        }
+            'aria-label': `remove ${this.content} from symptoms`,
+          };
+        },
       },
-      template: `<UiChips :button-attrs="computedButtonAttrs">{{ content }}</UiChips>`
+      template: '<UiChips :button-attrs="computedButtonAttrs">{{ content }}</UiChips>',
     })).bind({})}
   </Story>
 </Canvas>

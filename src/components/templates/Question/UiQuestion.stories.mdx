@@ -1,16 +1,18 @@
-import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import {
+  Meta, Canvas, Story, Props, ArgsTable,
+} from '@storybook/addon-docs/blocks';
 import UiQuestion from './UiQuestion.vue';
-import UiMultipleChoices from '../../organisms/UiMultipleChoices/UiMultipleChoices.vue'
-import UiControls from '../../organisms/UiControls/UiControls.vue'
+import UiMultipleChoices from '../../organisms/UiMultipleChoices/UiMultipleChoices.vue';
+import UiControls from '../../organisms/UiControls/UiControls.vue';
 
 <Meta
   title="Templates/Question"
   component={UiQuestion}
   argTypes={{
-    title: {control: {type: 'text'}},
-    hint: {control: {type: 'text'}},
-    invalid: {control: {type: 'boolean'}},
-    translation: {control: {type: 'object'}},
+    title: { control: { type: 'text' } },
+    hint: { control: { type: 'text' } },
+    invalid: { control: { type: 'boolean' } },
+    translation: { control: { type: 'object' } },
   }}
 />
 
@@ -32,33 +34,33 @@ import UiControls from '../../organisms/UiControls/UiControls.vue'
         info: true,
         why: true,
         issue: true,
-      }
+      },
     }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
       components: { UiQuestion, UiMultipleChoices },
       data() {
         return {
           evidences: [],
-            choices: [
-              {
-                id: 6,
-                name: 'I have diabetes',
-                linked_observation: 'p_8'
-              },
-              {
-                id: 5,
-                name: 'I have hypertension',
-                linked_observation: 'p_9'
-              },
-              {
-                id: 4,
-                name: 'I have high cholesterol',
-                linked_observation: 'p_10'
-              },
-            ]
-        }
+          choices: [
+            {
+              id: 6,
+              name: 'I have diabetes',
+              linked_observation: 'p_8',
+            },
+            {
+              id: 5,
+              name: 'I have hypertension',
+              linked_observation: 'p_9',
+            },
+            {
+              id: 4,
+              name: 'I have high cholesterol',
+              linked_observation: 'p_10',
+            },
+          ],
+        };
       },
       template: `<UiQuestion
         :title="title"
@@ -72,7 +74,7 @@ import UiControls from '../../organisms/UiControls/UiControls.vue'
           v-model="evidences"
           :choices="choices"
         />
-      </UiQuestion>`
+      </UiQuestion>`,
     })).bind({})}
   </Story>
 </Canvas>
@@ -95,33 +97,33 @@ with Controls
         info: true,
         why: true,
         issue: true,
-      }
+      },
     }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
       components: { UiQuestion, UiMultipleChoices, UiControls },
       data() {
         return {
           evidences: [],
-            choices: [
-              {
-                id: 6,
-                name: 'I have diabetes',
-                linked_observation: 'p_8'
-              },
-              {
-                id: 5,
-                name: 'I have hypertension',
-                linked_observation: 'p_9'
-              },
-              {
-                id: 4,
-                name: 'I have high cholesterol',
-                linked_observation: 'p_10'
-              },
-            ]
-        }
+          choices: [
+            {
+              id: 6,
+              name: 'I have diabetes',
+              linked_observation: 'p_8',
+            },
+            {
+              id: 5,
+              name: 'I have hypertension',
+              linked_observation: 'p_9',
+            },
+            {
+              id: 4,
+              name: 'I have high cholesterol',
+              linked_observation: 'p_10',
+            },
+          ],
+        };
       },
       template: `<UiControls style="max-width: 780px; min-height: 540px">
         <UiQuestion
@@ -137,7 +139,7 @@ with Controls
             :choices="choices"
           />
         </UiQuestion>
-      </UiControls>`
+      </UiControls>`,
     })).bind({})}
   </Story>
 </Canvas>

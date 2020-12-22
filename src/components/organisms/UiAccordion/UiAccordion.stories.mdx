@@ -1,4 +1,6 @@
-import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import {
+  Meta, Canvas, Story, Props, ArgsTable,
+} from '@storybook/addon-docs/blocks';
 import UiAccordion from './UiAccordion.vue';
 import UiAccordionItem from './_internal/UiAccordionItem.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
@@ -14,11 +16,11 @@ import UiText from '../../atoms/UiText/UiText.vue';
   <Story
     name="Common"
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       components: {
         UiAccordion,
         UiAccordionItem,
-        UiText
+        UiText,
       },
       data() {
         return {
@@ -27,20 +29,20 @@ import UiText from '../../atoms/UiText/UiText.vue';
             {
               title: 'Mortphology',
               name: 'mortphology',
-              content: 'Serum uric acid concentration'
+              content: 'Serum uric acid concentration',
             },
             {
-             title: 'Rheumatology blood tests panel',
-             name: 'rheumatology',
-             content: '1. Erythrocyte Sedimentation Rate 2. Erythrocyte Sedimentation Rate  '
+              title: 'Rheumatology blood tests panel',
+              name: 'rheumatology',
+              content: '1. Erythrocyte Sedimentation Rate 2. Erythrocyte Sedimentation Rate  ',
             },
             {
               title: 'Inflammation panel',
               name: 'inflammation',
-              content: 'Rheumatoid factor'
+              content: 'Rheumatoid factor',
             },
-          ]
-        }
+          ],
+        };
       },
       template: `<UiAccordion v-model="opened">
         <template
@@ -54,7 +56,7 @@ import UiText from '../../atoms/UiText/UiText.vue';
             <UiText>{{ item.content }}</UiText>
           </UiAccordionItem>
         </template>
-      </UiAccordion>`
+      </UiAccordion>`,
     })).bind()}
   </Story>
 </Canvas>
@@ -63,11 +65,11 @@ import UiText from '../../atoms/UiText/UiText.vue';
   <Story
     name="Multiple opened"
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       components: {
         UiAccordion,
         UiAccordionItem,
-        UiText
+        UiText,
       },
       data() {
         return {
@@ -76,20 +78,20 @@ import UiText from '../../atoms/UiText/UiText.vue';
             {
               title: 'Mortphology',
               name: 'mortphology',
-              content: 'Serum uric acid concentration'
+              content: 'Serum uric acid concentration',
             },
             {
-             title: 'Rheumatology blood tests panel',
-             name: 'rheumatology',
-             content: '1. Erythrocyte Sedimentation Rate 2. Erythrocyte Sedimentation Rate  '
+              title: 'Rheumatology blood tests panel',
+              name: 'rheumatology',
+              content: '1. Erythrocyte Sedimentation Rate 2. Erythrocyte Sedimentation Rate  ',
             },
             {
               title: 'Inflammation panel',
               name: 'inflammation',
-              content: 'Rheumatoid factor'
+              content: 'Rheumatoid factor',
             },
-          ]
-        }
+          ],
+        };
       },
       template: `<UiAccordion v-model="opened">
         <template
@@ -103,7 +105,7 @@ import UiText from '../../atoms/UiText/UiText.vue';
             <UiText>{{ item.content }}</UiText>
           </UiAccordionItem>
         </template>
-      </UiAccordion>`
+      </UiAccordion>`,
     })).bind()}
   </Story>
 </Canvas>
@@ -112,11 +114,11 @@ import UiText from '../../atoms/UiText/UiText.vue';
   <Story
     name="Single accordion"
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       components: {
         UiAccordion,
         UiAccordionItem,
-        UiText
+        UiText,
       },
       data() {
         return {
@@ -125,10 +127,10 @@ import UiText from '../../atoms/UiText/UiText.vue';
             {
               title: 'Mortphology',
               name: 'mortphology',
-              content: 'Serum uric acid concentration'
-            }
-          ]
-        }
+              content: 'Serum uric acid concentration',
+            },
+          ],
+        };
       },
       template: `<UiAccordion v-model="opened">
         <template
@@ -142,7 +144,7 @@ import UiText from '../../atoms/UiText/UiText.vue';
             <UiText>{{ item.content }}</UiText>
           </UiAccordionItem>
         </template>
-      </UiAccordion>`
+      </UiAccordion>`,
     })).bind()}
   </Story>
 </Canvas>

@@ -1,16 +1,23 @@
-import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import {
+  Meta, Canvas, Story, Props, ArgsTable,
+} from '@storybook/addon-docs/blocks';
 import UiTile from './UiTile.vue';
 
 <Meta
   title="Molecules/Tile"
   component={UiTile}
   argTypes={{
-      label: { control: { type: 'text' } },
-      iconAttrs: { control: { type: 'object' } },
-      cssClass: {control: {type: 'inline-check', options: {
-        'ui-tile--small': 'ui-tile--small',
-      }}},
-    }}
+    label: { control: { type: 'text' } },
+    iconAttrs: { control: { type: 'object' } },
+    cssClass: {
+      control: {
+        type: 'inline-check',
+        options: {
+          'ui-tile--small': 'ui-tile--small',
+        },
+      },
+    },
+  }}
 />
 
 # Tile
@@ -23,19 +30,19 @@ This component base on UiRadio component
     height="200px"
     args={{
       label: 'Yes',
-      iconAttrs: {icon: 'check'},
+      iconAttrs: { icon: 'check' },
       id: 'present',
-      value: 'present'
+      value: 'present',
     }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
       data() {
         return {
-          picked: ''
-        }
+          picked: '',
+        };
       },
-      components: {UiTile},
+      components: { UiTile },
       template: `<UiTile
         v-model="picked"
         :id="id"
@@ -43,7 +50,7 @@ This component base on UiRadio component
         :iconAttrs="iconAttrs"
         :class="cssClass"
         style="width: 272px;"
-      >{{ label }}</UiTile>`
+      >{{ label }}</UiTile>`,
     })).bind({})}
   </Story>
 </Canvas>
@@ -58,10 +65,10 @@ This component can be used as radio group
     {(() => ({
       data() {
         return {
-          picked: ''
-        }
+          picked: '',
+        };
       },
-      components: {UiTile},
+      components: { UiTile },
       template: `<div style="max-width: 560px; display: flex;">
         <UiTile
           v-model="picked"
@@ -87,7 +94,7 @@ This component can be used as radio group
           :iconAttrs="{icon: 'arrowRight'}"
           style="flex: 1 1 33%;"
         >Don't know</UiTile>
-      </div>`
+      </div>`,
     })).bind({})}
   </Story>
 </Canvas>

@@ -1,4 +1,6 @@
-import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import {
+  Meta, Canvas, Story, Props, ArgsTable,
+} from '@storybook/addon-docs/blocks';
 import UiMultipleChoices from './UiMultipleChoices.vue';
 
 <Meta
@@ -13,8 +15,8 @@ import UiMultipleChoices from './UiMultipleChoices.vue';
     name="Common"
     height="350px"
   >
-    {((args, {argTypes}) => ({
-      data(){
+    {((args, { argTypes }) => ({
+      data() {
         return {
           invalid: true,
           touched: false,
@@ -23,40 +25,40 @@ import UiMultipleChoices from './UiMultipleChoices.vue';
             {
               id: 6,
               name: 'I have diabetes',
-              linked_observation: 'p_8'
+              linked_observation: 'p_8',
             },
             {
               id: 5,
               name: 'I have hypertension',
-              linked_observation: 'p_9'
+              linked_observation: 'p_9',
             },
             {
               id: 4,
               name: 'I have high cholesterol',
-              linked_observation: 'p_10'
+              linked_observation: 'p_10',
             },
             {
               id: 174,
               name: 'I\'m pregnant',
-              linked_observation: 'p_42'
+              linked_observation: 'p_42',
             },
             {
               id: 1,
               name: 'I\'m postmenopausal',
-              linked_observation: 'p_11'
+              linked_observation: 'p_11',
             },
             {
               id: 2,
               name: 'I\'m overweight or obese or very very fat',
-              linked_observation: 'p_7'
+              linked_observation: 'p_7',
             },
             {
               id: 3,
               name: 'I smoke cigarettes',
-              linked_observation: 'p_28'
-            }
-          ]
-        }
+              linked_observation: 'p_28',
+            },
+          ],
+        };
       },
       components: { UiMultipleChoices },
       template: `<UiMultipleChoices
@@ -64,7 +66,7 @@ import UiMultipleChoices from './UiMultipleChoices.vue';
         v-model:invalid="invalid"
         :choices="choices"
         :touched="touched"
-      />`
+      />`,
     })).bind({})}
   </Story>
 </Canvas>
@@ -76,55 +78,55 @@ Custom choices
     name="Custom choices"
     height="350px"
   >
-    {((args, {argTypes}) => ({
-      data(){
+    {((args, { argTypes }) => ({
+      data() {
         return {
           evidences: [],
           choices: [
             {
               id: 6,
               name: 'I have diabetes',
-              linked_observation: 'p_8'
+              linked_observation: 'p_8',
             },
             {
               id: 5,
               name: 'I have hypertension',
-              linked_observation: 'p_9'
+              linked_observation: 'p_9',
             },
             {
               id: 4,
               name: 'I have high cholesterol',
-              linked_observation: 'p_10'
+              linked_observation: 'p_10',
             },
             {
               id: 174,
               name: 'I\'m pregnant',
-              linked_observation: 'p_42'
+              linked_observation: 'p_42',
             },
             {
               id: 1,
               name: 'I\'m postmenopausal',
-              linked_observation: 'p_11'
+              linked_observation: 'p_11',
             },
             {
               id: 2,
               name: 'I\'m overweight or obese or very very fat',
-              linked_observation: 'p_7'
+              linked_observation: 'p_7',
             },
             {
               id: 3,
               name: 'I smoke cigarettes',
-              linked_observation: 'p_28'
-            }
-          ]
-        }
+              linked_observation: 'p_28',
+            },
+          ],
+        };
       },
       components: { UiMultipleChoices },
       template: `<UiMultipleChoices
         v-model="evidences"
         :choices="choices"
         :options="[{ name: 'I think so', value: 'present' },{ name: 'Probably not', value: 'absent' }]"
-      />`
+      />`,
     })).bind({})}
   </Story>
 </Canvas>
