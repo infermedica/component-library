@@ -117,26 +117,23 @@ export default {
   }
 
   &__toggler {
-    --button-padding: var(--accordion-item-toggler-padding, var(--space-20));
+    --button-align-items: flex-start;
+    --button-padding: var(--accordion-item-toggler-padding, var(--space-12));
     --button-border-width: 0;
-
-    @media (min-width: 480px) {
-      --button-padding: var(--accordion-item-toggler-tablet-padding, var(--space-12));
-    }
+    --button-border-radius: 0;
+    --button-white-space: wrap;
+    --button-text-align: left;
   }
 
   &__chevron {
     --icon-size: var(--accordion-item-chevron-icon-size, 1.5rem);
 
+    flex: none;
     margin: var(--accordion-item-chevron-margin, 0 var(--space-12) 0 0);
   }
 
   &__content {
-    padding: var(--accordion-item-content-padding, var(--space-12) var(--space-24));
-
-    @media (min-width: 480px) {
-      padding: var(--accordion-item-content-tablet-padding, var(--space-12) var(--space-48));
-    }
+    padding: var(--accordion-item-content-padding, var(--space-12) var(--space-12) var(--space-12) var(--space-48));
   }
 }
 </style>

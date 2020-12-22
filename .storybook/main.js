@@ -12,6 +12,7 @@ module.exports = {
         sourceLoaderOptions: null,
       },
     },
+    '@storybook/addon-viewport',
     '@storybook/preset-scss',
     '@storybook/addon-controls',
     '@storybook/addon-a11y',
