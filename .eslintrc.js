@@ -32,8 +32,8 @@ module.exports = {
       files: ['*.mdx'],
       extends: ['plugin:mdx/recommended'],
       rules: {
-        semi: 0
-      }
+        semi: 0,
+      },
     },
   ],
   ignorePatterns: ['**/utilities/*', '**/.storybook/*'],

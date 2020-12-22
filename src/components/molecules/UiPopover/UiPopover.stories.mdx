@@ -1,0 +1,63 @@
+import {
+  Meta, Canvas, Story, Props, ArgsTable,
+} from '@storybook/addon-docs/blocks';
+import UiPopover from './UiPopover.vue';
+import UiText from "../../atoms/UiText/UiText";
+
+<Meta
+  title="Molecules/Popover"
+  component={UiPopover}
+  argTypes={{
+    title: { control: { type: 'text' } },
+    content: { control: { type: 'text' } },
+    modifiers: {
+      control: {
+        type: 'inline-check',
+        options: {
+          'ui-popover--unrounded': 'ui-popover--unrounded',
+          'ui-popover--has-arrow': 'ui-popover--has-arrow',
+        },
+      },
+    },
+  }}
+/>
+
+# Popover
+
+<Canvas>
+  <Story
+    name="Common"
+    args={{
+      title: 'Heading',
+      content: 'You’re about to use a short (3 min), safe and anonymous health checkup.'
+    }}
+  >
+    {((args, { argTypes }) => ({
+      props: Object.keys(argTypes),
+      components: { UiPopover, UiText },
+      computed: {
+        computedButtonAttrs() {
+          return {
+            'aria-label': `close ${this.title} popover`,
+          };
+        },
+      },
+      template: `<UiPopover
+        :title="title"
+        :button-attrs="computedButtonAttrs"
+        :class="modifiers"
+        style="max-width: 22.5rem"
+      >
+        <UiText style="padding: 8px">
+          {{ content }}
+        </UiText>
+      </UiPopover>`,
+    })).bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story='Common' />
+
+# Props
+
+<Props of={UiPopover} />
