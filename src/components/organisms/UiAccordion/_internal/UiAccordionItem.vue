@@ -118,11 +118,11 @@ export default {
 
   &__toggler {
     --button-align-items: flex-start;
+    --button-justify-content: left;
     --button-padding: var(--accordion-item-toggler-padding, var(--space-12));
     --button-border-width: 0;
     --button-border-radius: 0;
     --button-white-space: wrap;
-    --button-text-align: left;
   }
 
   &__chevron {

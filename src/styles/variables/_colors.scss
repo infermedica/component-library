@@ -102,6 +102,7 @@
   --color-text-action-secondary-active: var(--color-gray-800);
   --color-text-dimmed: var(--color-gray-600);
   --color-text-disabled: var(--color-gray-400);
+  --color-text-on-dark: var(--color-white);
 
   // Icons
   --color-icon-primary: var(--color-blue-600);
@@ -126,6 +127,7 @@
   --color-background-alert-error: var(--color-red-50);
   --color-ui-focus: var(--color-blue-500);
   --color-ui-disabled: var(--color-gray-200);
+  --color-background-dark: var(--color-blue-600);
 
   // Messages
   --color-alert-error-text: var(--color-red-600);

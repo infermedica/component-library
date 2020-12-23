@@ -102,8 +102,6 @@ export default {
 // use .ui-radio--has-error class indicating validation error visually
 
 .ui-radio {
-  @include font(--font-body-1);
-
   $this: &;
 
   display: inline-flex;
@@ -164,6 +162,8 @@ export default {
   }
 
   &__label {
+    @include font(--font-body-1);
+
     flex: var(--radio-label-flex, 1);
     color: var(--radio-label-color, var(--color-text-body));
   }

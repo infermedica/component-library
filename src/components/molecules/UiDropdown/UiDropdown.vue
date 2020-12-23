@@ -11,6 +11,7 @@
     >
       <UiButton
         class="ui-dropdown__toggle"
+        :aria-expanded="`${isOpen}`"
         @click="toggleHandler"
       >
         {{ text }}
@@ -21,25 +22,31 @@
       name="content"
       v-bind="{closeHandler, isOpen}"
     >
-      <div
+      <UiPopover
         v-if="isOpen"
         class="ui-dropdown__content"
+        @close="closeHandler"
       >
         <!-- @slot Use this slot to place dropdown content inside dropdown. -->
-        <slot v-bind="{closeHandler, isOpen}" />
-      </div>
+        <UiList>
+          <slot v-bind="{closeHandler, isOpen}" />
+        </UiList>
+      </UiPopover>
     </slot>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue';
+import { uid } from 'uid/single';
+import { ref, computed, provide } from 'vue';
 import { clickOutside } from '../../../utilities/directives';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
+import UiPopover from '../UiPopover/UiPopover.vue';
+import UiList from '../../organisms/UiList/UiList.vue';
 
 export default {
   name: 'UiDropdown',
-  components: { UiButton },
+  components: { UiButton, UiPopover, UiList },
   directives: { clickOutside },
   props: {
     /**
@@ -49,8 +56,17 @@ export default {
       type: String,
       default: '',
     },
+    name: {
+      type: String,
+      default: '',
+    },
+    modelValue: {
+      type: [String, Object],
+      default: '',
+    },
   },
-  setup() {
+  emits: ['update:modelValue'],
+  setup(props, { emit }) {
     const isOpen = ref(false);
     function toggleHandler() {
       isOpen.value = !isOpen.value;
@@ -61,6 +77,17 @@ export default {
     function closeHandler() {
       isOpen.value = false;
     }
+    const dropdownName = computed(() => (
+      props.name || `dropdown-${uid()}`
+    ));
+    provide('name', dropdownName);
+    const modelValue = computed(() => (props.modelValue));
+    provide('modelValue', modelValue);
+    function changeHandler(value) {
+      emit('update:modelValue', value);
+    }
+    provide('changeHandler', changeHandler);
+
     return {
       isOpen,
       toggleHandler,
@@ -76,21 +103,19 @@ export default {
   position: relative;
   display: inline-block;
 
-  // &__toggle {}
+  &__toggle {
+    width: var(--dropdown-toggle-width, 100%);
+  }
 
   &__content {
     position: absolute;
     top: 100%;
     width: var(--dropdown-content-width, 100%);
-    padding: var(--dropdown-content-padding, 8px 12px);
-    border: var(--dropdown-content-border, 1px solid #dbe1e6);
-    border-radius: var(--dropdown-content-border-radius, 0 0 5px 5px);
-    box-shadow:
-      var(
-        --dropdown-content-box-shadow,
-        0 1px 3px 0 rgba(148, 164, 179, 0.2)
-      );
-    transform: var(--dropdown-content-transform, translateY(-1px));
+    padding: var(--dropdown-content-padding, var(--space-8));
+    border: var(--dropdown-content-border, 1px solid var(--color-border-subtle));
+    border-radius: var(--dropdown-content-border-radius, var(--border-radius-form));
+    box-shadow: var(--dropdown-content-box-shadow, var(--box-shadow-modal));
+    transform: var(--dropdown-content-transform, translateY(var(--space-8)));
   }
 }
 </style>

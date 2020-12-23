@@ -52,13 +52,13 @@ export default {
   $this: &;
 
   box-sizing: border-box;
-  display: inline-flex;
+  display: var(--button-display, inline-flex);
   align-items: var(--button-align-items, center);
+  justify-content: var(--button-justify-content, center);
   width: var(--button-width);
   height: var(--button-height);
   padding: var(--button-padding, var(--space-12) var(--space-32));
   color: var(--button-color, var(--color-button-contained-text));
-  text-align: var(--button-text-align, center);
   text-decoration: var(--button-text-decoration, none);
   text-transform: var(--button-text-transform);
   white-space: var(--button-white-space, nowrap);
