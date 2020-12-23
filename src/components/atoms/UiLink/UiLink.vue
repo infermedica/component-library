@@ -49,14 +49,108 @@ export default {
 
 .ui-link {
   @include font(--font-body-1);
+  $this: &;
 
   display: inline-flex;
+  align-items: center;
   color: var(--link-color, inherit);
   text-decoration: var(--link-text-decoration, none);
+
+  &:hover {
+    color: var(--link-hover-color, var(--color-text-link-primary-hover));
+
+    &#{$this}--has-icon {
+      --icon-color: var(--link-icon-hover-color, var(--color-icon-primary-hover));
+    }
+  }
+
+  &:active {
+    color: var(--link-active-color, var(--color-text-link-primary-active));
+
+    &#{$this}--has-icon {
+      --icon-color: var(--link-icon-active-color, var(--color-text-link-primary-active));
+    }
+  }
 
   &:focus {
     outline: none;
     box-shadow: var(--box-shadow-outline);
+  }
+
+  &__icon {
+    --icon-size: var(--link-icon-size, var(--space-24));
+
+    // adds negative left margin to position icon within link and avoid changing padding
+    margin: var(--link-icon-margin, 0 var(--space-4) 0 calc(var(--space-8) * -1));
+
+    &--right {
+      // adds negative right margin to position icon within link and avoid changing padding
+      --link-icon-margin: 0 calc(var(--space-8) * -1) 0 var(--space-4);
+    }
+  }
+
+  &--has-icon {
+    --icon-color: var(--link-icon-color, var(--color-icon-primary));
+    --icon-size: var(--link-icon-size, var(--space-24));
+  }
+
+  &--small {
+    @include font(--font-body-2-comfortable);
+  }
+
+  &--is-disabled {
+    --link-color: var(--color-ui-disabled);
+    --link-hover-color: var(--color-ui-disabled);
+    --link-active-color: var(--color-ui-disabled);
+
+    cursor: not-allowed;
+  }
+
+  &--text {
+    --link-color: var(--color-text-action-primary-enabled);
+    --link-hover-color: var(--color-text-action-primary-hover);
+    --link-active-color: var(--color-text-action-primary-active);
+
+    @include font(--font-body-1);
+
+    #{$this}__icon {
+      --link-icon-margin: 0 var(--space-4) 0 0;
+
+      &--right {
+        --link-icon-margin: 0 0 0 var(--space-4);
+      }
+    }
+
+    &#{$this}--small {
+      @include font(--font-body-2-comfortable);
+    }
+
+    &#{$this}--is-disabled {
+      --link-color: var(--color-text-disabled);
+      --link-hover-color: var(--color-text-disabled);
+      --link-active-color: var(--color-text-disabled);
+      --link-icon-color: var(--color-icon-disabled);
+      --link-icon-hover-color: var(--color-icon-disabled);
+      --link-icon-active-color: var(--color-icon-disabled);
+    }
+  }
+
+  &--secondary {
+    --link-color: var(--color-text-action-secondary-enabled);
+    --link-hover-color: var(--color-text-action-secondary-hover);
+    --link-active-color: var(--color-text-action-secondary-active);
+
+    &#{$this}--has-icon {
+      --link-icon-color: var(--color-icon-secondary);
+      --link-icon-hover-color: var(--color-icon-secondary-hover);
+      --link-icon-active-color: var(--color-icon-secondary-active);
+    }
+
+    &#{$this}--is-disabled {
+      --link-icon-color: var(--color-icon-disabled);
+      --link-icon-hover-color: var(--color-icon-disabled);
+      --link-icon-active-color: var(--color-icon-disabled);
+    }
   }
 }
 </style>

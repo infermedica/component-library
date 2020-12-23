@@ -8,10 +8,15 @@ import UiIcon from '../UiIcon/UiIcon.vue';
   title="Atoms/Link"
   component={UiLink}
   argTypes={{
-    content: { control: { type: 'text' } },
-    tag: { control: { type: 'text' } },
-    to: { control: { type: 'text' } },
-    href: { control: { type: 'text' } },
+    content: {control: {type: 'text'}},
+    icon: {control: {type: 'text'}},
+    modifiers: {control: {type: 'inline-check', options: {
+      'ui-link--small': 'ui-link--small',
+      'ui-link--is-disabled': 'ui-link--is-disabled',
+    }}},
+    tag: {control: {type: 'text'}},
+    to: {control: {type: 'text'}},
+    href: {control: {type: 'text'}}
   }}
 />
 
@@ -33,13 +38,42 @@ import UiIcon from '../UiIcon/UiIcon.vue';
       template: `<UiLink
         :tag="tag"
         :to="to"
+        :class="modifiers"
         :href="href"
       >
-        {{content}}
-      </UiLink>`,
+        {{ content }}
+      </UiLink>`
     })).bind({})}
   </Story>
 </Canvas>
+
+# Link secondary
+
+<Canvas>
+  <Story
+    name="Common secondary"
+    args={{
+      content: 'Next',
+      tag: 'span',
+      to: '',
+      href: 'https://infermedica.com/'
+    }}
+  >
+    {((args, {argTypes}) => ({
+      props: Object.keys(argTypes),
+      components: {UiLink},
+      template: `<UiLink
+        class="ui-link--secondary"
+        :class="modifiers"
+        :href="href"
+      >
+        {{ content }}
+      </UiLink>`
+    })).bind({})}
+  </Story>
+</Canvas>
+
+# Link with component
 
 <Canvas>
   <Story
@@ -53,6 +87,59 @@ import UiIcon from '../UiIcon/UiIcon.vue';
       >
         <UiIcon icon="search" />
       </UiLink>`,
+    })).bind({})}
+  </Story>
+</Canvas>
+
+## Link as Back button
+
+<Canvas>
+  <Story
+    name="Link as button"
+    args={{
+      content: 'Back',
+      tag: 'span',
+      to: '',
+      disabled: true,
+      href: 'https://infermedica.com/',
+      icon: 'chevronLeft',
+    }}
+  >
+    {((args, {argTypes}) => ({
+      props: Object.keys(argTypes),
+      components: { UiLink, UiIcon },
+      template: `
+          <div style="margin-bottom: 20px;">
+            <UiLink
+              class="ui-link--text ui-link--has-icon"
+              :class="modifiers"
+              :tag="tag"
+              :to="to"
+              :href="href"
+            >
+              <UiIcon
+                class="ui-link__icon"
+                :icon="icon"
+              />
+                {{ content }}
+            </UiLink>
+          </div>
+          <div style="margin-bottom: 20px;">
+            <UiLink
+              class="ui-link--text ui-link--secondary ui-link--has-icon"
+              :class="modifiers"
+              :tag="tag"
+              :to="to"
+              :href="href"
+            >
+              <UiIcon
+                class="ui-link__icon"
+                :icon="icon"
+              />
+                {{ content }}
+            </UiLink>
+          </div>
+      `
     })).bind({})}
   </Story>
 </Canvas>
