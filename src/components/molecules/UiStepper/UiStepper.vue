@@ -106,6 +106,7 @@ export default {
     const stepsProgress = computed(() => (currentStepDisplayNumber.value / stepsLength.value) * 100);
     const determineStep = (itemIndex, route) => ({
       to: itemIndex < indexOfActiveStep.value ? route : null,
+      class: itemIndex <= indexOfActiveStep.value ? null : 'ui-link--is-disabled',
     });
 
     return {
@@ -221,6 +222,9 @@ export default {
 
         #{$this}__item-link {
           @include font(--font-body-1-thick);
+
+          --link-hover-color: var(--color-text-body);
+          --link-active-color: var(--color-text-body);
         }
       }
     }
