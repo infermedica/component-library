@@ -98,43 +98,6 @@ export default {
     @include font(--font-body-2-comfortable);
   }
 
-  &--is-disabled {
-    --link-color: var(--color-ui-disabled);
-    --link-hover-color: var(--color-ui-disabled);
-    --link-active-color: var(--color-ui-disabled);
-
-    cursor: not-allowed;
-  }
-
-  &--text {
-    --link-color: var(--color-text-action-primary-enabled);
-    --link-hover-color: var(--color-text-action-primary-hover);
-    --link-active-color: var(--color-text-action-primary-active);
-
-    @include font(--font-body-1);
-
-    #{$this}__icon {
-      --link-icon-margin: 0 var(--space-4) 0 0;
-
-      &--right {
-        --link-icon-margin: 0 0 0 var(--space-4);
-      }
-    }
-
-    &#{$this}--small {
-      @include font(--font-body-2-comfortable);
-    }
-
-    &#{$this}--is-disabled {
-      --link-color: var(--color-text-disabled);
-      --link-hover-color: var(--color-text-disabled);
-      --link-active-color: var(--color-text-disabled);
-      --link-icon-color: var(--color-icon-disabled);
-      --link-icon-hover-color: var(--color-icon-disabled);
-      --link-icon-active-color: var(--color-icon-disabled);
-    }
-  }
-
   &--secondary {
     --link-color: var(--color-text-action-secondary-enabled);
     --link-hover-color: var(--color-text-action-secondary-hover);
@@ -151,6 +114,14 @@ export default {
       --link-icon-hover-color: var(--color-icon-disabled);
       --link-icon-active-color: var(--color-icon-disabled);
     }
+  }
+
+  &--is-disabled {
+    --link-color: var(--color-ui-disabled);
+    --link-hover-color: var(--color-ui-disabled);
+    --link-active-color: var(--color-ui-disabled);
+
+    cursor: not-allowed;
   }
 }
 </style>

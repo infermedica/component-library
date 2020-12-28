@@ -53,7 +53,7 @@
           >
             <UiLink
               v-bind="determineStep(index, step.route)"
-              class="ui-stepper__item-link"
+              class="ui-link--secondary ui-stepper__item-link"
             >
               {{ step.name }}
             </UiLink>
