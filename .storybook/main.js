@@ -1,6 +1,6 @@
 module.exports = {
   stories: [
-    '../docs/**/*.stories.@(mdx)',
+    // '../docs/**/*.stories.@(mdx)',
     '../src/**/*.stories.@(mdx)'
   ],
   addons: [
