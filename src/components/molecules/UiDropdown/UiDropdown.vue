@@ -65,17 +65,23 @@ export default {
       default: '',
     },
   },
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'open', 'close'],
   setup(props, { emit }) {
     const isOpen = ref(false);
-    function toggleHandler() {
-      isOpen.value = !isOpen.value;
-    }
     function openHandler() {
       isOpen.value = true;
+      emit('open');
     }
     function closeHandler() {
       isOpen.value = false;
+      emit('close');
+    }
+    function toggleHandler() {
+      if (isOpen.value) {
+        closeHandler();
+      } else {
+        openHandler();
+      }
     }
     const dropdownName = computed(() => (
       props.name || `dropdown-${uid()}`
@@ -85,6 +91,7 @@ export default {
     provide('modelValue', modelValue);
     function changeHandler(value) {
       emit('update:modelValue', value);
+      closeHandler();
     }
     provide('changeHandler', changeHandler);
 

@@ -8,15 +8,20 @@ import UiIcon from '../UiIcon/UiIcon.vue';
   title="Atoms/Link"
   component={UiLink}
   argTypes={{
-    content: {control: {type: 'text'}},
-    icon: {control: {type: 'text'}},
-    modifiers: {control: {type: 'inline-check', options: {
-      'ui-link--small': 'ui-link--small',
-      'ui-link--is-disabled': 'ui-link--is-disabled',
-    }}},
-    tag: {control: {type: 'text'}},
-    to: {control: {type: 'text'}},
-    href: {control: {type: 'text'}}
+    content: { control: { type: 'text' } },
+    icon: { control: { type: 'text' } },
+    modifiers: {
+      control: {
+        type: 'inline-check',
+        options: {
+          'ui-link--small': 'ui-link--small',
+          'ui-link--is-disabled': 'ui-link--is-disabled',
+        },
+      },
+    },
+    tag: { control: { type: 'text' } },
+    to: { control: { type: 'text' } },
+    href: { control: { type: 'text' } },
   }}
 />
 
@@ -42,7 +47,7 @@ import UiIcon from '../UiIcon/UiIcon.vue';
         :href="href"
       >
         {{ content }}
-      </UiLink>`
+      </UiLink>`,
     })).bind({})}
   </Story>
 </Canvas>
@@ -56,19 +61,19 @@ import UiIcon from '../UiIcon/UiIcon.vue';
       content: 'Next',
       tag: 'span',
       to: '',
-      href: 'https://infermedica.com/'
+      href: 'https://infermedica.com/',
     }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
-      components: {UiLink},
+      components: { UiLink },
       template: `<UiLink
         class="ui-link--secondary"
         :class="modifiers"
         :href="href"
       >
         {{ content }}
-      </UiLink>`
+      </UiLink>`,
     })).bind({})}
   </Story>
 </Canvas>
@@ -105,7 +110,7 @@ import UiIcon from '../UiIcon/UiIcon.vue';
       icon: 'chevronLeft',
     }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
       components: { UiLink, UiIcon },
       template: `
@@ -139,7 +144,7 @@ import UiIcon from '../UiIcon/UiIcon.vue';
                 {{ content }}
             </UiLink>
           </div>
-      `
+      `,
     })).bind({})}
   </Story>
 </Canvas>

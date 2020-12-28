@@ -1,0 +1,64 @@
+import {
+  Meta, Canvas, Story, Props, ArgsTable,
+} from '@storybook/addon-docs/blocks';
+import UiSearch from './UiSearch.vue';
+
+<Meta
+  title="Organisms/Search"
+  component={UiSearch}
+/>
+
+# Search
+
+<Canvas>
+  <Story
+    name="Common"
+  >
+    {((args, { argTypes }) => ({
+      props: Object.keys(argTypes),
+      components: { UiSearch },
+      data() {
+        return {
+          query: '',
+          results: [],
+          selected: [],
+        }
+      },
+      watch: {
+        query(value) {
+          this.results = [];
+          if (value.length >= 3) {
+            // API request
+            if(value.includes('hea')) {
+              // API response
+              this.results = [
+                'headache',
+                'head pressure',
+                'headache, generalized',
+                'headache, pulsing',
+                'headache, unilateral',
+                'headache, severe',
+                'headache that comes and goes'
+              ].filter((item)=>(!this.selected.includes(item)))
+            }
+          }
+        },
+      },
+      template: `<UiSearch
+        v-model="query"
+        v-model:selected="selected"
+        :results="results"
+        :inputAttrs="{
+          placeholder: 'Search, e.g. headache'
+        }"
+        style="max-width: 404px"
+      />`,
+    })).bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story='Common' />
+
+# Props
+
+<Props of={UiSearch} />

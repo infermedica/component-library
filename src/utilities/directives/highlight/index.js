@@ -13,6 +13,9 @@ export const highlight = {
     }
     el.__highlightHandler__(el, binding)
   },
+  updated(el, binding) {
+    el.__highlightHandler__(el, binding)
+  },
   beforeUnmount(el, binding) {
     el.__highlightHandler__(el, binding)
   }
