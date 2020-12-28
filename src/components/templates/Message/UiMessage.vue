@@ -46,7 +46,7 @@ import UiImage from '../../atoms/UiImage/UiImage.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
 
 export default {
-  name: 'Message',
+  name: 'UiMessage',
   components: {
     UiImage,
     UiHeading,
