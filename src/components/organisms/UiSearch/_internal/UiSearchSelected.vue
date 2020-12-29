@@ -14,7 +14,7 @@
           class="ui-search-selected__chips"
           @remove="removeHandler(select)"
         >
-          {{ select }}
+          {{ select.label }}
         </UiChips>
       </UiListItem>
     </UiList>
@@ -53,7 +53,7 @@ export default {
   setup(props, { emit }) {
     const hasSelected = computed(() => (props.modelValue.length > 0));
     function removeHandler(value) {
-      emit('update:modelValue', props.modelValue.filter((item) => (item !== value)));
+      emit('update:modelValue', props.modelValue.filter((item) => (item.id !== value.id)));
     }
 
     return {

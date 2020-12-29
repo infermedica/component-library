@@ -35,7 +35,7 @@
             <span
               v-highlight="`${modelValue}`"
               class="ui-search__highlighted"
-            >{{ result }}</span>
+            >{{ result.label }}</span>
           </UiDropdownItem>
         </template>
         <UiSearchNoResults v-else />
