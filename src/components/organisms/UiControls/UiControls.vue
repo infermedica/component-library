@@ -71,7 +71,7 @@ import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 
 export default {
-  name: 'UiQuestion',
+  name: 'UiControls',
   components: {
     UiText,
     UiContainer,
