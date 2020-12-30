@@ -19,7 +19,7 @@
               :choice="choice"
               :options="options"
               :model-value="evidences"
-              :invalid="hasError(choice.linked_observation)"
+              :invalid="hasError(choice.id)"
               class="ui-multiple-choices__choice"
               @update:modelValue="updateHandler($event)"
             />

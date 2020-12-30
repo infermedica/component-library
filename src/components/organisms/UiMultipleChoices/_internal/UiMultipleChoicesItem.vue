@@ -82,11 +82,11 @@ export default {
   emits: ['update:modelValue'],
   setup(props, { emit }) {
     function getModelValue(choice) {
-      return props.modelValue[choice.linked_observation];
+      return props.modelValue[choice.id];
     }
     function getRadioValue(choice, option) {
       return {
-        id: choice.linked_observation,
+        id: choice.id,
         choice_id: option.value,
       };
     }

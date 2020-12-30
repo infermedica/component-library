@@ -21,16 +21,16 @@
             <component
               :is="component"
               :id="choice.id"
-              :value="choice.linked_observation"
+              :value="choice.id"
               :name="name"
               class="ui-multiple-answer__choice"
               :class="errorClass"
-              @update:modelValue="updateHandler(choice.linked_observation)"
+              @update:modelValue="updateHandler(choice.id)"
             >
               <template #label>
                 <!-- @slot Use this slot to replace choice-label template for specific item.-->
                 <slot
-                  :name="`label-${choice.linked_observation}`"
+                  :name="`label-${choice.id}`"
                   v-bind="{choice}"
                 >
                   <div class="ui-multiple-answer__label">
