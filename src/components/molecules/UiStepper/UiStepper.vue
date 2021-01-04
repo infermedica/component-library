@@ -133,13 +133,11 @@ export default {
   --progress-border-radius: var(--stepper-progress-border-radius, 2px);
 
   padding: var(--stepper-padding, var(--space-12) var(--space-20));
-  color: var(--stepper-color, var(--color-text-body));
   background: var(--stepper-background, var(--color-background-subtle));
 
   @media (min-width: 768px) {
     --stepper-padding: 0;
     --stepper-background: transparent;
-    --stepper-color: var(--color-text-disabled);
 
     justify-content: flex-start;
   }
@@ -178,14 +176,11 @@ export default {
   }
 
   &__item {
-    @include font(--font-body-1);
-
-    color: var(--stepper-item-color);
-
     @media (min-width: 768px) {
+      @include font(--font-body-1);
+
       position: relative;
 
-      --link-color: var(--stepper-item-color);
       --list-item-padding:
         calc(var(--space-20) * 0.5)
         var(--space-12)
@@ -210,21 +205,18 @@ export default {
       }
 
       &--visited {
-        --stepper-item-color: var(--color-text-action-secondary-enabled);
-
         &::after {
           @include progress-vertical(var(--color-bar-indicator), 1);
         }
       }
 
       &--active {
-        --stepper-item-color: var(--color-text-body);
-
         #{$this}__item-link {
           @include font(--font-body-1-thick);
 
-          --link-hover-color: var(--color-text-body);
-          --link-active-color: var(--color-text-body);
+          --link-color: var(--stepper-link-active-color, var(--color-text-body));
+          --link-hover-color: var(--stepper-link-active-color, var(--color-text-body));
+          --link-active-color: var(--stepper-link-active-color, var(--color-text-body));
         }
       }
     }
