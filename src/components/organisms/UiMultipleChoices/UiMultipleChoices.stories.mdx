@@ -6,6 +6,11 @@ import UiMultipleChoices from './UiMultipleChoices.vue';
 <Meta
   title="Organisms/MultipleChoices"
   component={UiMultipleChoices}
+  argTypes={{
+    hint: { control: { type: 'text' } },
+    invalid: { control: { type: 'boolean' } },
+    touched: { control: { type: 'boolean' } },
+  }}
 />
 
 # MultipleChoices
@@ -18,8 +23,9 @@ import UiMultipleChoices from './UiMultipleChoices.vue';
     {((args, { argTypes }) => ({
       data() {
         return {
-          invalid: true,
           touched: false,
+          hint: 'Select one answer in each row.',
+          invalid: true,
           evidences: [],
           choices: [
             {
@@ -57,6 +63,7 @@ import UiMultipleChoices from './UiMultipleChoices.vue';
       template: `<UiMultipleChoices
         v-model="evidences"
         v-model:invalid="invalid"
+        :hint="hint"
         :choices="choices"
         :touched="touched"
       />`,
@@ -74,6 +81,9 @@ Custom choices
     {((args, { argTypes }) => ({
       data() {
         return {
+          touched: false,
+          hint: 'Select one answer in each row.',
+          invalid: true,
           evidences: [],
           choices: [
             {
@@ -117,7 +127,10 @@ Custom choices
       components: { UiMultipleChoices },
       template: `<UiMultipleChoices
         v-model="evidences"
+        v-model:invalid="invalid"
+        :hint="hint"
         :choices="choices"
+        :touched="touched"
         :options="[{ name: 'I think so', value: 'present' },{ name: 'Probably not', value: 'absent' }]"
       />`,
     })).bind({})}

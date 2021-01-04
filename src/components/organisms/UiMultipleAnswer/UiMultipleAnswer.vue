@@ -1,5 +1,17 @@
 <template>
   <UiList class="ui-multiple-answer">
+    <!-- @slot Use this slot to replace hint template. -->
+    <slot
+      name="hint"
+      v-bind="{hint}"
+    >
+      <UiAlert
+        :type="hintType"
+        class="ui-multiple-answer__hint"
+      >
+        {{ hint }}
+      </UiAlert>
+    </slot>
     <template
       v-for="choice in choices"
       :key="choice.id"
@@ -59,6 +71,7 @@
 
 <script>
 import { computed, watchEffect } from 'vue';
+import useQuestionHintType from '../../../composable/useQuestionHintType';
 import UiList from '../UiList/UiList.vue';
 import UiListItem from '../UiList/_internal/UiListItem.vue';
 import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
@@ -66,6 +79,7 @@ import UiText from '../../atoms/UiText/UiText.vue';
 import UiCheckbox from '../../atoms/UiCheckbox/UiCheckbox.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
+import UiAlert from '../../atoms/UiAlert/UiAlert.vue';
 
 export default {
   name: 'UiMultipleAnswer',
@@ -77,6 +91,7 @@ export default {
     UiText,
     UiButton,
     UiIcon,
+    UiAlert,
   },
   props: {
     /**
@@ -115,6 +130,13 @@ export default {
       default: false,
     },
     /**
+     * Use this props to set hint for question.
+     */
+    hint: {
+      type: String,
+      default: '',
+    },
+    /**
      * Use this props to touch component and show validation errors.
      */
     touched: {
@@ -144,6 +166,7 @@ export default {
         : props.modelValue.id;
     });
     const hasError = computed(() => (props.touched && !valid.value));
+    const { hintType } = useQuestionHintType(hasError.value);
     const errorClass = computed(() => (hasError.value ? `${component.value}--has-error` : ''));
 
     watchEffect(() => {
@@ -165,6 +188,7 @@ export default {
     }
 
     return {
+      hintType,
       component,
       hasError,
       errorClass,
@@ -202,9 +226,20 @@ export default {
     }
   }
 
+  &__hint {
+    @include font(--font-body-2-comfortable-thick);
+
+    margin: var(--multiple-answer-mobile-hint-margin, var(--space-12) var(--space-20));
+    color: var(--multiple-answer-hint-color, var(--color-text-dimmed));
+
+    @media (min-width: 480px) {
+      margin: var(--multiple-answer-tablet-hint-margin, var(--space-12) 0);
+    }
+  }
+
   &__choice {
     width: 100%;
-    padding: var(--multiple-answer-choice-padding, var(--space-12));
+    padding: var(--multiple-answer-choice-padding, var(--space-12) var(--space-20));
   }
 
   &__label {

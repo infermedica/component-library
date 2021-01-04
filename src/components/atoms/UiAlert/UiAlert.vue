@@ -64,6 +64,8 @@ export default {
 @import '../../../styles/mixins/_mixins.scss';
 
 .ui-alert {
+  $this: &;
+
   display: inline-flex;
   align-items: center;
   background: var(--alert-background);
@@ -78,28 +80,43 @@ export default {
   &__message {
     @include font(--font-body-2-comfortable);
 
-    margin: 0 0 0 var(--space-8);
     color: var(--alert-color, var(--color-text-body));
   }
 
   &--success {
     --alert-icon-color: var(--color-alert-success-icon);
     --alert-color: var(--color-alert-success-text);
+
+    #{$this}__message {
+      margin: 0 0 0 var(--space-8);
+    }
   }
 
   &--info {
     --alert-icon-color: var(--color-alert-info-icon);
     --alert-color: var(--color-alert-info-text);
+
+    #{$this}__message {
+      margin: 0 0 0 var(--space-8);
+    }
   }
 
   &--warning {
     --alert-icon-color: var(--color-alert-warning-icon);
     --alert-color: var(--color-alert-warning-text);
+
+    #{$this}__message {
+      margin: 0 0 0 var(--space-8);
+    }
   }
 
   &--error {
     --alert-icon-color: var(--color-alert-error-icon);
     --alert-color: var(--color-alert-error-text);
+
+    #{$this}__message {
+      margin: 0 0 0 var(--space-8);
+    }
   }
 }
 </style>

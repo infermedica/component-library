@@ -11,6 +11,7 @@ import UiButton from '../../atoms/UiButton/UiButton.vue';
   title="Organisms/MultipleAnswer"
   component={UiMultipleAnswer}
   argTypes={{
+    hint: { control: { type: 'text' } },
     invalid: { control: { type: 'boolean' } },
     touched: { control: { type: 'boolean' } },
   }}
@@ -24,6 +25,7 @@ import UiButton from '../../atoms/UiButton/UiButton.vue';
     args={{
       invalid: true,
       touched: false,
+      hint: 'Select all answers that apply.',
     }}
   >
     {((args, { argTypes }) => ({
@@ -70,6 +72,7 @@ import UiButton from '../../atoms/UiButton/UiButton.vue';
           :name="name"
           v-model="evidence"
           :invalid="invalid"
+          :hint="hint"
           :touched="touched"
           :choices="choices"
           source="initial"
@@ -83,8 +86,9 @@ import UiButton from '../../atoms/UiButton/UiButton.vue';
   <Story
     name="Common radio"
      args={{
-       invalid: true,
-       touched: false,
+        invalid: true,
+        touched: false,
+        hint: 'Select one answer.',
      }}
   >
     {((args, { argTypes }) => ({
@@ -139,6 +143,7 @@ import UiButton from '../../atoms/UiButton/UiButton.vue';
           :name="name"
           v-model="evidence"
           :invalid="invalid"
+          :hint="hint"
           :touched="touched"
           :choices="choices"
           source="initial"

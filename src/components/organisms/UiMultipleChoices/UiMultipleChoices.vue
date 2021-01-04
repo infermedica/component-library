@@ -1,5 +1,17 @@
 <template>
   <UiList class="ui-multiple-choices">
+    <!-- @slot Use this slot to replace hint template. -->
+    <slot
+      name="hint"
+      v-bind="{hint}"
+    >
+      <UiAlert
+        :type="hintType"
+        class="ui-multiple-choices__hint"
+      >
+        {{ hint }}
+      </UiAlert>
+    </slot>
     <template
       v-for="choice in choices"
       :key="choice.id"
@@ -32,13 +44,17 @@
 
 <script>
 import { watchEffect, computed } from 'vue';
+import useQuestionHintType from '../../../composable/useQuestionHintType';
 import UiMultipleChoicesItem from './_internal/UiMultipleChoicesItem.vue';
 import UiList from '../UiList/UiList.vue';
 import UiListItem from '../UiList/_internal/UiListItem.vue';
+import UiAlert from '../../atoms/UiAlert/UiAlert.vue';
 
 export default {
   name: 'UiMultipleChoices',
-  components: { UiMultipleChoicesItem, UiList, UiListItem },
+  components: {
+    UiMultipleChoicesItem, UiList, UiListItem, UiAlert,
+  },
   props: {
     /**
      *  Use this props to set source of evidences.
@@ -57,6 +73,13 @@ export default {
         { name: 'No', value: 'absent' },
         { name: 'Don\'t know', value: 'unknown' },
       ]),
+    },
+    /**
+     * Use this props to set hint for question.
+     */
+    hint: {
+      type: String,
+      default: '',
     },
     /**
      *  Use this props to set possible choices.
@@ -89,6 +112,7 @@ export default {
   },
   emits: ['update:modelValue', 'update:invalid'],
   setup(props, { emit }) {
+    const { hintType } = useQuestionHintType(props.invalid);
     const evidences = computed(() => (
       props.modelValue.reduce(
         (object, evidence) => {
@@ -113,6 +137,7 @@ export default {
       emit('update:modelValue', Object.values(value).map((evidence) => ({ ...evidence, source: props.source })));
     }
     return {
+      hintType,
       evidences,
       valid,
       hasError,
@@ -123,6 +148,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../../styles/mixins/_mixins.scss';
+
 .ui-multiple-choices {
   --list-item-padding: 0;
 
@@ -144,6 +171,17 @@ export default {
       @media (min-width: 480px) {
         background: var(--multiple-choices-list-item-hover-background, var(--color-gray-50));
       }
+    }
+  }
+
+  &__hint {
+    @include font(--font-body-2-comfortable-thick);
+
+    margin: var(--multiple-choices-mobile-hint-margin, var(--space-12) var(--space-20));
+    color: var(--multiple-choices-hint-color, var(--color-text-dimmed));
+
+    @media (min-width: 480px) {
+      margin: var(--multiple-choices-tablet-hint-margin, var(--space-12) 0);
     }
   }
 

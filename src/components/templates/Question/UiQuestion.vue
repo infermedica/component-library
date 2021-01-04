@@ -22,20 +22,10 @@
         </UiAlert>
       </UiButton>
     </slot>
-    <!-- @slot Use this slot to replace hint template. -->
-    <slot
-      name="hint"
-      v-bind="{hint}"
-    >
-      <UiAlert
-        :type="hintType"
-        class="ui-question__hint"
-      >
-        {{ hint }}
-      </UiAlert>
-    </slot>
-    <!-- @slot Use this slot to place content inside question. -->
-    <slot />
+    <div class="ui-question__content">
+      <!-- @slot Use this slot to place content inside question. -->
+      <slot />
+    </div>
     <!-- @slot Use this slot to replace actions template. -->
     <slot
       name="actions"
@@ -76,7 +66,6 @@
 </template>
 
 <script>
-import { computed } from 'vue';
 import UiAlert from '../../atoms/UiAlert/UiAlert.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
@@ -95,20 +84,6 @@ export default {
     title: {
       type: String,
       default: '',
-    },
-    /**
-     * Use this props to set hint for question.
-     */
-    hint: {
-      type: String,
-      default: '',
-    },
-    /**
-     * Use this props to set invalid state for question.
-     */
-    invalid: {
-      type: Boolean,
-      default: true,
     },
     /**
      * Use this props to set valid state of the question.
@@ -133,12 +108,6 @@ export default {
       }),
     },
   },
-  setup(props) {
-    const hintType = computed(() => (props.invalid ? 'error' : 'default'));
-    return {
-      hintType,
-    };
-  },
 };
 </script>
 
@@ -146,6 +115,8 @@ export default {
 @import '../../../styles/mixins/_mixins.scss';
 
 .ui-question {
+  padding: 0 var(--space-20);
+
   @media (min-width: 480px) {
     padding: var(--space-16) var(--space-48);
   }
@@ -158,14 +129,6 @@ export default {
     margin: var(--question-alert-margin, var(--space-12) 0 0 0);
   }
 
-  &__hint {
-    @include font(--font-body-2-comfortable-thick);
-
-    display: flex;
-    margin: var(--question-hint-margin, var(--space-32) 0 var(--space-12) 0);
-    color: var(--question-hint-color, var(--color-text-dimmed));
-  }
-
   &__actions {
     display: flex;
     flex-direction: column;
@@ -174,6 +137,14 @@ export default {
     @media (min-width: 480px) {
       flex-direction: row;
       align-items: center;
+    }
+  }
+
+  &__content {
+    margin: var(--question-mobile-content-margin, var(--space-20) 0 0 calc(var(--space-20) * -1));
+
+    @media (min-width: 480px) {
+      margin: var(--question-tablet-content-margin, var(--space-20) 0 0 0);
     }
   }
 

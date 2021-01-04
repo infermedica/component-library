@@ -17,7 +17,7 @@ describe('UiMultipleChoices.vue', () => {
         }],
       },
     });
-    const emitted = [{ id: 'p_8', choice_id: 'present', source: 'initial' }];
+    const emitted = [{ id: 6, choice_id: 'present', source: 'initial' }];
     await wrapper.find('input[type="radio"]').trigger('click');
     expect(wrapper.emitted('update:modelValue')[0][0]).toStrictEqual(emitted);
   });
