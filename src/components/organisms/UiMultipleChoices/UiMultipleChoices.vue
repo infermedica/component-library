@@ -6,6 +6,7 @@
       v-bind="{hint}"
     >
       <UiAlert
+        v-if="hint"
         :type="hintType"
         class="ui-multiple-choices__hint"
       >
