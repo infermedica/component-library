@@ -47,13 +47,14 @@ export default {
 <style lang="scss">
 .ui-bullet-points-item {
   display: flex;
-  align-items: var(--bullet-points-item-align-items, center);
-  margin: var(--bullet-points-item--margin, var(--space-4) 0);
+  align-items: var(--bullet-points-item-align-items, flex-start);
+  margin: var(--bullet-points-item-margin, var(--space-4) 0);
 
   &__marker {
     --icon-size: var(--bullet-points-item-marker-icon-size, 1.5rem);
     --icon-color: var(--bullet-points-item-marker-icon-color, var(--color-text-body));
 
+    flex: none;
     margin: var(--bullet-points-item-marker-padding, 0 var(--space-12) 0 0);
 
     &::before {

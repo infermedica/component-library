@@ -22,6 +22,9 @@ export default {
       type: String,
       default: 'ul',
     },
+    /**
+     * Use this props to set list type.
+     */
     type: {
       type: String,
       default: '1',
