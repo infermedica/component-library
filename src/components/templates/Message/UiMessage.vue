@@ -11,7 +11,10 @@
           name="title"
           v-bind="{title}"
         >
-          <UiHeading class="ui-message__title">
+          <UiHeading
+            v-if="title"
+            class="ui-message__title"
+          >
             {{ title }}
           </UiHeading>
         </slot>

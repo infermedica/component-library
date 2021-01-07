@@ -5,7 +5,10 @@
       name="title"
       v-bind="{title}"
     >
-      <UiHeading class="ui-question__title">
+      <UiHeading
+        v-if="title"
+        class="ui-question__title"
+      >
         {{ title }}
       </UiHeading>
     </slot>
