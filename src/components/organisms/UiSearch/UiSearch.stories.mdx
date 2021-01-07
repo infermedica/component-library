@@ -29,17 +29,17 @@ import UiSearch from './UiSearch.vue';
           this.results = [];
           if (value.length >= 3) {
             // API request
-            if(value.includes('hea')) {
+            if (value.includes('hea')) {
               // API response
               this.results = [
-                {label: 'headache'},
-                {label: 'head pressure'},
-                {label: 'headache, generalized'},
-                {label: 'headache, pulsing'},
-                {label: 'headache, unilateral'},
-                {label: 'headache, severe'},
-                {label: 'headache that comes and goes'}
-              ].filter((item)=>(!this.selected.includes(item)))
+                { label: 'headache' },
+                { label: 'head pressure' },
+                { label: 'headache, generalized' },
+                { label: 'headache, pulsing' },
+                { label: 'headache, unilateral' },
+                { label: 'headache, severe' },
+                { label: 'headache that comes and goes' },
+              ].filter((item) => (!this.selected.includes(item)))
             }
           }
         },
