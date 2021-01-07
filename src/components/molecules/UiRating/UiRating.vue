@@ -1,0 +1,175 @@
+<template>
+  <div class="ui-rating">
+    <template
+      v-for="index in maxScore"
+      :key="index"
+    >
+      <!-- @slot Use this slot to replace option template. -->
+      <slot name="option">
+        <UiRadio
+          v-model="rate"
+          :value="`${index}`"
+          :name="ratingName"
+          class="ui-rating__option"
+          @mouseover="hoverHandler($event, index)"
+          @mouseleave="hoverHandler($event, index)"
+        >
+          <template #radiobutton>
+            <template v-if="index <= finalScore">
+              <!-- @slot Use this slot to replace positive rating icon. -->
+              <slot name="icon-active">
+                <UiIcon
+                  :icon="settings.iconActive"
+                  class="ui-rating__icon ui-rating__icon--active"
+                />
+              </slot>
+            </template>
+            <template v-else>
+              <!-- @slot Use this slot to replace rating icon. -->
+              <slot name="icon">
+                <UiIcon
+                  :icon="settings.icon"
+                  class="ui-rating__icon"
+                />
+              </slot>
+            </template>
+          </template>
+        </UiRadio>
+      </slot>
+    </template>
+  </div>
+</template>
+
+<script>
+import { computed, ref } from 'vue';
+import { uid } from 'uid/single';
+import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
+import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
+
+export default {
+  name: 'UiRating',
+  components: {
+    UiRadio,
+    UiIcon,
+  },
+  props: {
+    /**
+    * Use this props to set current rate.
+    */
+    modelValue: {
+      type: [String, Number],
+      default: '0',
+    },
+    /**
+     * Use this props to set max rate
+     */
+    max: {
+      type: String,
+      default: '1',
+    },
+    /**
+     * Use this props to set radio name.
+     */
+    name: {
+      type: String,
+      default: '',
+    },
+    /**
+     * Use this props to setup item component.
+     */
+    settings: {
+      type: Object,
+      default: () => ({
+        icon: 'starOutlined',
+        iconActive: 'starFilled',
+      }),
+    },
+  },
+  emits: ['update:modelValue'],
+  setup(props, { emit }) {
+    const ratingName = computed(() => (
+      props.name || `radio-${uid()}`
+    ));
+
+    const rate = computed({
+      get: () => (`${props.modelValue}`),
+      set: (value) => { emit('update:modelValue', value); },
+    });
+    const maxScore = computed(() => (parseInt(props.max, 10)));
+
+    const hoverScore = ref('0');
+    function hoverHandler({ type }, value) {
+      hoverScore.value = type === 'mouseover' ? value : '0';
+    }
+
+    const finalScore = computed(() => (
+      parseInt(hoverScore.value, 10)
+        ? parseInt(hoverScore.value, 10)
+        : parseInt(rate.value, 10)));
+
+    return {
+      rate,
+      ratingName,
+      maxScore,
+      finalScore,
+      hoverScore,
+      hoverHandler,
+    };
+  },
+};
+</script>
+
+<style lang="scss">
+.ui-rating {
+  $this: &;
+
+  display: inline-flex;
+
+  &__option {
+    padding: var(--rating-option, 0 var(--space-24) 0 0);
+
+    &:last-of-type {
+      padding: var(--rating-option, 0);
+    }
+  }
+
+  &__icon {
+    --icon-size: var(--rating-icon-size, 1.5rem);
+    --icon-color: var(--rating-icon-icon-color, var(--color-icon-secondary));
+
+    &:hover {
+      --icon-color: var(--rating-icon-hover-icon-color, var(--color-icon-secondary-hover));
+    }
+
+    &:active {
+      --icon-color: var(--rating-icon-active-icon-color, var(--color-icon-secondary-active));
+    }
+
+    &--active {
+      --icon-color: var(--rating-icon-positive-icon-color, var(--color-icon-primary));
+
+      &:hover {
+        --icon-color: var(--rating-icon-positive-hover-icon-color, var(--color-icon-primary-hover));
+      }
+
+      &:active {
+        --icon-color: var(--rating-icon-positive-active-icon-color, var(--color-icon-primary-active));
+      }
+    }
+  }
+
+  input {
+    &:focus + #{$this}__icon {
+      box-shadow: var(--box-shadow-outline);
+    }
+
+    &:active + #{$this}__icon {
+      --icon-color: var(--rating-icon-active-icon-color, var(--color-icon-secondary-active));
+
+      &--active {
+        --icon-color: var(--rating-icon-positive-active-icon-color, var(--color-icon-primary-active));
+      }
+    }
+  }
+}
+</style>

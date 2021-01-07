@@ -1,0 +1,41 @@
+import {
+  Meta, Canvas, Story, Props, ArgsTable,
+} from '@storybook/addon-docs/blocks';
+import UiRating from './UiRating.vue';
+
+<Meta
+  title="Molecules/Rating"
+  component={UiRating}
+  argTypes={{
+    max: { control: { type: 'text' } },
+  }}
+/>
+
+# Rating
+
+<Canvas>
+  <Story
+    name="Common"
+    args={{
+      max: '5',
+    }}
+  >
+    {((args, { argTypes }) => ({
+      props: Object.keys(argTypes),
+      components: { UiRating },
+      data() {
+        return {
+          rate: '3',
+        }
+      },
+      template: `<UiRating
+        v-model="rate"
+        :max="max"
+      />`,
+    })).bind({})}
+  </Story>
+</Canvas>
+
+# Props
+
+<Props of={UiRating} />
