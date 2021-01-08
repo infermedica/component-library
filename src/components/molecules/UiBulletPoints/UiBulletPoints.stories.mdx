@@ -89,6 +89,13 @@ import UiText from '../../atoms/UiText/UiText.vue';
               <template v-for="(item, key) in items" :key="key">
                 <UiBulletPointsItem>
                   <UiText tag="span">{{item}}</UiText>
+                  <UiBulletPoints tag="ul">
+                    <template v-for="(item, key) in items" :key="key">
+                      <UiBulletPointsItem>
+                        <UiText tag="span">{{item}}</UiText>
+                      </UiBulletPointsItem>
+                    </template>
+                  </UiBulletPoints>
                 </UiBulletPointsItem>
               </template>
             </UiBulletPoints>
