@@ -15,7 +15,11 @@
         class="ui-bullet-points-item__marker"
       />
     </slot>
-    <slot />
+    <slot name="content">
+      <div class="ui-bullet-points-item__content">
+        <slot />
+      </div>
+    </slot>
   </li>
 </template>
 

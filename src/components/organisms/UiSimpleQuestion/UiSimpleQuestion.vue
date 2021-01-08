@@ -9,6 +9,7 @@
         <UiTile
           :id="option.id"
           v-bind="tileAttrs"
+          :model-value="modelValue"
           :value="option.value"
           :icon-attrs="option.iconAttrs"
           :name="option.name"

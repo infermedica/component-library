@@ -60,7 +60,44 @@ import UiText from '../../atoms/UiText/UiText.vue';
   </Story>
 </Canvas>
 
-<ArgsTable story='Common' />
+<Canvas>
+  <Story
+    name="[example] nested"
+  >
+    {((args, { argTypes }) => ({
+      props: Object.keys(argTypes),
+      components: { UiBulletPoints, UiBulletPointsItem, UiText },
+      data() {
+        return {
+          items: [
+            'Painful swallowing',
+            'Stuffy nose',
+            'Sneeze',
+            'Muscle pain',
+          ],
+        }
+      },
+      template: `<UiBulletPoints tag="ol" type="1">
+        <template v-for="(item, key) in items" :key="key">
+          <UiBulletPointsItem :icon="icon" :class="modifiers">
+            <UiText tag="span">{{item}}</UiText>
+          </UiBulletPointsItem>
+        </template>
+        <UiBulletPointsItem>
+            <UiText tag="span">Runny nose</UiText>
+            <UiBulletPoints tag="ol" type="a">
+              <template v-for="(item, key) in items" :key="key">
+                <UiBulletPointsItem>
+                  <UiText tag="span">{{item}}</UiText>
+                </UiBulletPointsItem>
+              </template>
+            </UiBulletPoints>
+        </UiBulletPointsItem>
+      </UiBulletPoints>`,
+    })).bind({})}
+  </Story>
+</Canvas>
+
 
 # Props
 
