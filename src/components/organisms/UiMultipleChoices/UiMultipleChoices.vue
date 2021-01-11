@@ -138,7 +138,7 @@ export default {
       emit('update:modelValue', Object.values(value));
     }
     const choicesToUse = computed(() => (
-      props.choices.map((evidence) => ({ ...evidence, source: props.source }))
+      props.choices.map((evidence) => (props.source ? { ...evidence, source: props.source } : {...evidence}))
     ));
     return {
       hintType,
