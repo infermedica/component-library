@@ -86,7 +86,7 @@ export default {
     }
     function getRadioValue(choice, option) {
       return {
-        id: choice.id,
+        ...choice,
         choice_id: option.value,
       };
     }

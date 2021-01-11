@@ -14,7 +14,7 @@
       </UiAlert>
     </slot>
     <template
-      v-for="choice in choices"
+      v-for="choice in choicesToUse"
       :key="choice.id"
     >
       <!-- @slot Use this slot to replace list-item template.-->
@@ -118,8 +118,8 @@ export default {
       props.modelValue.reduce(
         (object, evidence) => {
           // eslint-disable-next-line camelcase
-          const { choice_id, id } = evidence;
-          return { ...object, [id]: { choice_id, id } };
+          const { id } = evidence;
+          return { ...object, [id]: { ...evidence } };
         }, {},
       )
     ));
@@ -135,14 +135,18 @@ export default {
       return props.touched && !evidences.value[id];
     }
     function updateHandler(value) {
-      emit('update:modelValue', Object.values(value).map((evidence) => ({ ...evidence, source: props.source })));
+      emit('update:modelValue', Object.values(value));
     }
+    const choicesToUse = computed(() => (
+      props.choices.map((evidence) => ({ ...evidence, source: props.source }))
+    ));
     return {
       hintType,
       evidences,
       valid,
       hasError,
       updateHandler,
+      choicesToUse,
     };
   },
 };

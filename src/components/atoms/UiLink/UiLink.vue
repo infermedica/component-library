@@ -73,9 +73,9 @@ export default {
   }
 
   &:focus {
+    border-radius: var(--border-radius-form);
     outline: none;
     box-shadow: var(--box-shadow-outline);
-    border-radius: var(--border-radius-form);
   }
 
   &__icon {
