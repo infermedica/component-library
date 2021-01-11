@@ -38,8 +38,8 @@ export default {
     * Use v-model to bind value to the component, example: <UiSimpleQuestion v-model="selected" />
     */
     modelValue: {
-      type: String,
-      default: '',
+      type: [Object, String],
+      default: () => ({}),
     },
     /**
     * Use this props to pass options for question
