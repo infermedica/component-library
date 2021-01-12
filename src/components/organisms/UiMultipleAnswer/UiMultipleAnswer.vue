@@ -35,6 +35,7 @@
               :is="component"
               :id="choice.id"
               :value="choice.id"
+              :model-value="modelValue.id"
               :name="name"
               class="ui-multiple-answer__choice"
               :class="errorClass"
