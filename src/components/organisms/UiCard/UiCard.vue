@@ -12,47 +12,56 @@
         />
       </div>
     </slot>
-    <slot name="content" v-bind="{description}">
-     <div class="ui-card__content">
-       <slot name="subtitle">
-         <UiText
-           v-if="subtitle"
-           class="ui-card__subtitle"
-         >
-          {{ subtitle }}
-         </UiText>
-       </slot>
-       <slot name="title">
-        <UiHeading
-          v-if="title"
-          class="ui-card__title"
-        >
-          {{ title }}
-        </UiHeading>
-       </slot>
-       <slot name="description">
-         <UiText
-           v-if="description"
-           class="ui-card__description"
-         >
-           {{ description }}
-         </UiText>
-       </slot>
-       <slot name="symptoms">
-         <template v-if="symptoms">
+    <slot
+      name="content"
+      v-bind="{description}"
+    >
+      <div class="ui-card__content">
+        <slot name="subtitle">
           <UiText
-            class="ui-card__symptoms-header">
-            {{ symptomsHeader }}
+            v-if="subtitle"
+            class="ui-card__subtitle"
+          >
+            {{ subtitle }}
           </UiText>
-          <UiBulletPoints>
-            <template v-for="(symptom, key) in symptoms" :key="key">
-              <UiBulletPointsItem >
-                <UiText tag="span">{{ symptom }}</UiText>
-              </UiBulletPointsItem>
-            </template>
-          </UiBulletPoints>
-         </template>
-       </slot>
+        </slot>
+        <slot name="title">
+          <UiHeading
+            v-if="title"
+            class="ui-card__title"
+          >
+            {{ title }}
+          </UiHeading>
+        </slot>
+        <slot name="description">
+          <UiText
+            v-if="description"
+            class="ui-card__description"
+          >
+            {{ description }}
+          </UiText>
+        </slot>
+        <slot name="symptoms">
+          <template v-if="!!symptoms.length">
+            <UiText
+              class="ui-card__symptoms-header"
+            >
+              {{ symptomsHeader }}
+            </UiText>
+            <UiBulletPoints>
+              <template
+                v-for="(symptom, key) in symptoms"
+                :key="key"
+              >
+                <UiBulletPointsItem>
+                  <UiText tag="span">
+                    {{ symptom }}
+                  </UiText>
+                </UiBulletPointsItem>
+              </template>
+            </UiBulletPoints>
+          </template>
+        </slot>
       </div>
     </slot>
   </UiContainer>
@@ -60,8 +69,8 @@
 
 <script>
 import { computed } from 'vue';
-import UiBulletPoints from '../../molecules/UiBulletPoints/UiBulletPoints'
-import UiBulletPointsItem from '../../molecules/UiBulletPoints/_internal/UiBulletPointsItem'
+import UiBulletPoints from '../../molecules/UiBulletPoints/UiBulletPoints.vue';
+import UiBulletPointsItem from '../../molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue';
 import UiContainer from '../UiContainer/UiContainer.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
@@ -120,7 +129,7 @@ export default {
       type: String,
       default: 'emergency-ambulance',
       validator: (value) => [
-        'emergency-ambulance', 'emergency-department', 'consultation-24', 'consultation', 'self-care',
+        'emergency_ambulance', 'emergency', 'consultation_24', 'consultation', 'self_care',
       ].includes(value),
     },
   },
@@ -128,14 +137,14 @@ export default {
     const rootClassModifier = computed(() => `ui-card--${props.type}`);
     const icon = computed(() => {
       const icons = {
-        'emergency-ambulance': 'emergencyAmbulance',
-        'emergency-department': 'emergencyDepartment',
-        'consultation-24': 'consultation24',
-        'consultation': 'consultation',
-        'self-care': 'selfCare'
-      }
-      return icons[props.type]
-  });
+        emergency_ambulance: 'emergencyAmbulance',
+        emergency: 'emergencyDepartment',
+        consultation_24: 'consultation24',
+        consultation: 'consultation',
+        self_care: 'selfCare',
+      };
+      return icons[props.type];
+    });
 
     return {
       rootClassModifier,
@@ -148,7 +157,11 @@ export default {
 <style lang="scss">
 .ui-card {
   --container-padding: var(--space-20) var(--space-20) var(--space-32) var(--space-20);
-  --bullet-points-item-marker-icon-color: var(--card-symptoms-marker-icon-color, var(--color-triage-background-emergency-ambulance));
+  --bullet-points-item-marker-icon-color:
+    var(
+      --card-symptoms-marker-icon-color,
+      var(--color-triage-background-emergency-ambulance)
+    );
   --bullet-points-item-marker-icon-size: var(--space-36);
   --bullet-points-item-align-items: center;
   --bullet-points-item-margin: var(--space-2);
@@ -158,9 +171,7 @@ export default {
 
   @media (min-width: 480px) {
     flex-direction: row;
-  }
 
-  @media (min-width: 768px) {
     --container-padding: 0 0 0 0;
     --card-triage-border-top-right-radius: 0;
     --card-triage-border-bottom-right-radius: 0;
@@ -172,11 +183,19 @@ export default {
   }
 
   &__content {
-    padding-bottom: var(--card-content-bottom-padding, var(--space-48));
+    padding: var(--card-content-padding, 0);
+
+    @media (min-width: 480px) {
+      padding: var(--card-tablet-content-padding, 0 0 var(--space-48) 0);
+    }
   }
 
   &__title {
     padding: var(--card-title-padding, var(--space-4) 0 0 0);
+
+    @media (min-width: 480px) {
+      padding: var(--card-tablet-title-padding, 0 var(--space-48) 0 var(--space-40));
+    }
   }
 
   &__triage {
@@ -186,8 +205,8 @@ export default {
     background: var(--card-triage-background, var(--color-red-500));
     border-top-left-radius: var(--card-triage-border-top-left-radius, var(--border-radius-card));
     border-top-right-radius: var(--card-triage-border-top-right-radius, var(--border-radius-card));
-    border-bottom-left-radius: var(--card-triage-border-bottom-left-radius, var(--border-radius-card));
     border-bottom-right-radius: var(--card-triage-border-bottom-right-radius, var(--border-radius-card));
+    border-bottom-left-radius: var(--card-triage-border-bottom-left-radius, var(--border-radius-card));
   }
 
   &__icon {
@@ -196,7 +215,7 @@ export default {
   }
 
   &__subtitle {
-    padding: var(--card-subtitle-padding, var(--space-20) 0 0 0);
+    padding: var(--card-subtitle-padding, var(--space-20) var(--space-20) 0 0);
     color: var(--card-subtitle-color, var(--color-text-dimmed));
   }
 
@@ -208,15 +227,15 @@ export default {
     padding: var(--card-symptoms-header-padding, var(--space-8) var(--space-48) var(--space-4) 0);
   }
 
-  &--emergency-ambulance {
+  &--emergency_ambulance {
     --card-triage-background: var(--color-triage-background-emergency-ambulance);
   }
 
-  &--emergency-department {
+  &--emergency {
     --card-triage-background: var(--color-triage-background-emergency-department);
   }
 
-  &--consultation-24 {
+  &--consultation_24 {
     --card-triage-background: var(--color-triage-background-consultation-24);
   }
 
@@ -224,7 +243,7 @@ export default {
     --card-triage-background: var(--color-triage-background-consultation);
   }
 
-  &--self-care {
+  &--self_care {
     --card-triage-background: var(--color-triage-background-self-care);
   }
 }

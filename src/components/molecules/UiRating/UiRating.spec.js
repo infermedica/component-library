@@ -22,6 +22,6 @@ describe('UiRating.vue', () => {
         modelValue: '3',
       },
     });
-    expect(wrapper.findAll('.ui-rating__icon--positive').length).toBe(3);
+    expect(wrapper.findAll('.ui-rating__icon--active').length).toBe(3);
   });
 });
