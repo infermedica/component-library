@@ -19,6 +19,7 @@
               <!-- @slot Use this slot to replace positive rating icon. -->
               <slot name="icon-active">
                 <UiIcon
+                  :aria-label="`${index} ${translation.stars}`"
                   :icon="settings.iconActive"
                   class="ui-rating__icon ui-rating__icon--active"
                 />
@@ -28,6 +29,7 @@
               <!-- @slot Use this slot to replace rating icon. -->
               <slot name="icon">
                 <UiIcon
+                  :aria-label="`${index} ${translation.stars}`"
                   :icon="settings.icon"
                   class="ui-rating__icon"
                 />
@@ -82,6 +84,15 @@ export default {
       default: () => ({
         icon: 'starOutlined',
         iconActive: 'starFilled',
+      }),
+    },
+    /**
+     * Use this props to override labels inside component translation.
+     */
+    translation: {
+      type: Object,
+      default: () => ({
+        stars: 'stars',
       }),
     },
   },
