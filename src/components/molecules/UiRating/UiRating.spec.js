@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import UiRating from './UiRating.vue';
-import UiRadio from '../UiRadio/UiRadio.vue';
+import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
 
 describe('UiRating.vue', () => {
   test('check if component renders', () => {
