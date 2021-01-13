@@ -1,0 +1,67 @@
+import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import UiCard from './UiCard.vue';
+
+<Meta
+  title="Organisms/Card"
+  component={UiCard}
+  argTypes={{
+    type: {control: {type: 'select', options: ['emergency-ambulance', 'emergency-department', 'consultation-24', 'consultation', 'self-care',]}},
+  }}
+/>
+
+# UiCard common
+
+<Canvas>
+  <Story
+    name="Common"
+  >
+    {((args, {argTypes}) => ({
+      props: Object.keys(argTypes),
+      components: {UiCard},
+      template: `
+      <UiCard
+        :type="type"
+        subtitle="Recommendation"
+        title="Call an ambulance"
+        description="Your symptoms may require prompt medical evaluation. If your symptoms suddenly get worse, go to the nearest emergency department."
+      >
+      </UiCard>`
+    })).bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story='Common' />
+
+# UiCard - Emergency Department
+
+<Canvas>
+  <Story
+    name="Emergency Department"
+    args={{
+      type: 'emergency-department',
+      symptomsHeader: 'Alarming symptoms:',
+      symptoms: ['Vomiting', 'Abdominal pain, lasting 2 to 7 days']
+    }}
+  >
+    {((args, {argTypes}) => ({
+      props: Object.keys(argTypes),
+      components: { UiCard },
+      template: `
+      <UiCard
+        :type="type"
+        subtitle="Recommendation"
+        title="Go to the nearest emergency department"
+        description="Your symptoms are worrisome and you may require urgent care. If you can’t get to an emergency department, please call an ambulance."
+        :symptomsHeader="symptomsHeader"
+        :symptoms="symptoms"
+        >
+      </UiCard>`
+    })).bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story='Emergency Department' />
+
+# Props
+
+<Props of={UiCard} />
