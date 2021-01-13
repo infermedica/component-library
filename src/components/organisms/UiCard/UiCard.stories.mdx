@@ -5,7 +5,7 @@ import UiCard from './UiCard.vue';
   title="Organisms/Card"
   component={UiCard}
   argTypes={{
-    type: {control: {type: 'select', options: ['emergency-ambulance', 'emergency-department', 'consultation-24', 'consultation', 'self-care',]}},
+    type: {control: {type: 'select', options: ['emergency_ambulance', 'emergency', 'consultation_24', 'consultation', 'self_care',]}},
   }}
 />
 
@@ -14,6 +14,9 @@ import UiCard from './UiCard.vue';
 <Canvas>
   <Story
     name="Common"
+      args={{
+      type: 'consultation_24',
+    }}
   >
     {((args, {argTypes}) => ({
       props: Object.keys(argTypes),
@@ -38,7 +41,7 @@ import UiCard from './UiCard.vue';
   <Story
     name="Emergency Department"
     args={{
-      type: 'emergency-department',
+      type: 'emergency',
       symptomsHeader: 'Alarming symptoms:',
       symptoms: ['Vomiting', 'Abdominal pain, lasting 2 to 7 days']
     }}
