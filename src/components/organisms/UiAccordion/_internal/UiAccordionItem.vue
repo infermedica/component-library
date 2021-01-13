@@ -126,6 +126,8 @@ export default {
 
     &:focus {
       --button-border-radius: var(--border-radius-form);
+
+      z-index: 1;
     }
   }
 
