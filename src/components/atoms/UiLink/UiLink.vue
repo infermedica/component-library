@@ -53,7 +53,7 @@ export default {
 
   display: inline-flex;
   align-items: center;
-  color: var(--link-color, inherit);
+  color: var(--link-color, var(--color-text-link-primary));
   text-decoration: var(--link-text-decoration, none);
 
   &:hover {
@@ -73,6 +73,7 @@ export default {
   }
 
   &:focus {
+    color: var(--link-focus-color, var(--color-text-link-primary));
     border-radius: var(--border-radius-form);
     outline: none;
     box-shadow: var(--box-shadow-outline);
@@ -118,9 +119,9 @@ export default {
   }
 
   &--is-disabled {
-    --link-color: var(--color-ui-disabled);
-    --link-hover-color: var(--color-ui-disabled);
-    --link-active-color: var(--color-ui-disabled);
+    --link-color: var(--color-text-disabled);
+    --link-hover-color: var(--color-text-disabled);
+    --link-active-color: var(--color-text-disabled);
 
     cursor: not-allowed;
   }
