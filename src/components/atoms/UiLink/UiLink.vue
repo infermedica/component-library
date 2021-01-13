@@ -73,7 +73,6 @@ export default {
   }
 
   &:focus {
-    color: var(--link-focus-color, var(--color-text-link-primary));
     border-radius: var(--border-radius-form);
     outline: none;
     box-shadow: var(--box-shadow-outline);
@@ -83,11 +82,11 @@ export default {
     --icon-size: var(--link-icon-size, var(--space-24));
 
     // adds negative left margin to position icon within link and avoid changing padding
-    margin: var(--link-icon-margin, 0 var(--space-4) 0 calc(var(--space-8) * -1));
+    margin: var(--link-icon-margin, 0 var(--space-4) 0 0);
 
     &--right {
       // adds negative right margin to position icon within link and avoid changing padding
-      --link-icon-margin: 0 calc(var(--space-8) * -1) 0 var(--space-4);
+      --link-icon-margin: 0 0 0 var(--space-4);
     }
   }
 
@@ -104,24 +103,18 @@ export default {
     --link-color: var(--color-text-action-secondary-enabled);
     --link-hover-color: var(--color-text-action-secondary-hover);
     --link-active-color: var(--color-text-action-secondary-active);
-
-    &#{$this}--has-icon {
-      --link-icon-color: var(--color-icon-secondary);
-      --link-icon-hover-color: var(--color-icon-secondary-hover);
-      --link-icon-active-color: var(--color-icon-secondary-active);
-    }
-
-    &#{$this}--is-disabled {
-      --link-icon-color: var(--color-icon-disabled);
-      --link-icon-hover-color: var(--color-icon-disabled);
-      --link-icon-active-color: var(--color-icon-disabled);
-    }
+    --link-icon-color: var(--color-icon-secondary);
+    --link-icon-hover-color: var(--color-icon-secondary-hover);
+    --link-icon-active-color: var(--color-icon-secondary-active);
   }
 
   &--is-disabled {
     --link-color: var(--color-text-disabled);
     --link-hover-color: var(--color-text-disabled);
     --link-active-color: var(--color-text-disabled);
+    --link-icon-color: var(--color-icon-disabled);
+    --link-icon-hover-color: var(--color-icon-disabled);
+    --link-icon-active-color: var(--color-icon-disabled);
 
     cursor: not-allowed;
   }

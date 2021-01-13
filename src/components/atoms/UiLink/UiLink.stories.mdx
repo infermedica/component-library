@@ -15,6 +15,7 @@ import UiIcon from '../UiIcon/UiIcon.vue';
         type: 'inline-check',
         options: {
           'ui-link--small': 'ui-link--small',
+          'ui-link--secondary': 'ui-link--secondary',
           'ui-link--is-disabled': 'ui-link--is-disabled',
         },
       },
@@ -52,32 +53,6 @@ import UiIcon from '../UiIcon/UiIcon.vue';
   </Story>
 </Canvas>
 
-# Link secondary
-
-<Canvas>
-  <Story
-    name="Common secondary"
-    args={{
-      content: 'Next',
-      tag: 'span',
-      to: '',
-      href: 'https://infermedica.com/',
-    }}
-  >
-    {((args, { argTypes }) => ({
-      props: Object.keys(argTypes),
-      components: { UiLink },
-      template: `<UiLink
-        class="ui-link--secondary"
-        :class="modifiers"
-        :href="href"
-      >
-        {{ content }}
-      </UiLink>`,
-    })).bind({})}
-  </Story>
-</Canvas>
-
 # Link with component
 
 <Canvas>
@@ -90,7 +65,7 @@ import UiIcon from '../UiIcon/UiIcon.vue';
         href="https://infermedica.com/"
         target="_blank"
       >
-        <UiIcon icon="search" />
+        <UiIcon icon="search" class="ui-link__icon" />
       </UiLink>`,
     })).bind({})}
   </Story>
@@ -100,7 +75,7 @@ import UiIcon from '../UiIcon/UiIcon.vue';
 
 <Canvas>
   <Story
-    name="Link as button"
+    name="Link with icon"
     args={{
       content: 'Back',
       tag: 'span',
@@ -117,21 +92,6 @@ import UiIcon from '../UiIcon/UiIcon.vue';
           <div style="margin-bottom: 20px;">
             <UiLink
               class="ui-link--text ui-link--has-icon"
-              :class="modifiers"
-              :tag="tag"
-              :to="to"
-              :href="href"
-            >
-              <UiIcon
-                class="ui-link__icon"
-                :icon="icon"
-              />
-                {{ content }}
-            </UiLink>
-          </div>
-          <div style="margin-bottom: 20px;">
-            <UiLink
-              class="ui-link--text ui-link--secondary ui-link--has-icon"
               :class="modifiers"
               :tag="tag"
               :to="to"
