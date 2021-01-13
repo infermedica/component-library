@@ -123,6 +123,10 @@ export default {
     --button-border-width: 0;
     --button-border-radius: 0;
     --button-white-space: wrap;
+
+    &:focus {
+      --button-border-radius: var(--border-radius-form);
+    }
   }
 
   &__chevron {

@@ -160,6 +160,7 @@ export default {
 
   input {
     &:focus + #{$this}__icon {
+      border-radius: var(--border-radius-form);
       box-shadow: var(--box-shadow-outline);
     }
 
