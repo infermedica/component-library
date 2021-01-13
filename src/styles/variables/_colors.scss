@@ -196,4 +196,11 @@
   --color-chip-icon-backgroud-enabled: var(--color-blue-700);
   --color-chip-icon-backgroud-hover: var(--color-blue-800);
   --color-chip-icon-backgroud-active: var(--color-blue-900);
+
+  // Component-specific - Card
+  --color-triage-background-emergency-ambulance: var(--color-red-500);
+  --color-triage-background-emergency-department: var(--color-yellow-300);
+  --color-triage-background-consultation-24: var(--color-blue-500);
+  --color-triage-background-consultation: var(--color-blue-500);
+  --color-triage-background-self-care: var(--color-green-500);
 }
