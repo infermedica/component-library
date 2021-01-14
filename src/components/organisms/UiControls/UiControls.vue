@@ -13,22 +13,6 @@
       v-bind="{toBack, toNext, isAnswerAbove, invalid, translation}"
     >
       <div class="ui-controls__bottom">
-        <!-- @slot Use this slot to replace back template. -->
-        <slot
-          name="back"
-          v-bind="{toBack, translation}"
-        >
-          <UiButton
-            v-if="toBack"
-            :to="toBack"
-            class="ui-controls__back ui-button--text ui-button--has-icon"
-          >
-            <UiIcon
-              icon="chevronLeft"
-              class="ui-button__icon"
-            /> {{ translation.back }}
-          </UiButton>
-        </slot>
         <!-- @slot Use this slot to replace answer above template. -->
         <slot
           v-bind="{isAnswerAbove, translation}"
@@ -55,6 +39,22 @@
             :class="{'ui-button--is-disabled': invalid}"
           >
             {{ translation.next }}
+          </UiButton>
+        </slot>
+        <!-- @slot Use this slot to replace back template. -->
+        <slot
+          name="back"
+          v-bind="{toBack, translation}"
+        >
+          <UiButton
+            v-if="toBack"
+            :to="toBack"
+            class="ui-controls__back ui-button--text ui-button--has-icon"
+          >
+            <UiIcon
+              icon="chevronLeft"
+              class="ui-button__icon"
+            /> {{ translation.back }}
           </UiButton>
         </slot>
       </div>
@@ -155,6 +155,7 @@ export default {
 
   &__bottom {
     display: flex;
+    flex-direction: row-reverse;
     align-items: var(--controls-bottom-align-items, center);
     justify-content: var(--controls-bottom-justify-content, space-between);
     height: var(--controls-bottom, 5rem);
