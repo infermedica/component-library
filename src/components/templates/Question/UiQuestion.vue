@@ -120,7 +120,7 @@ export default {
 .ui-question {
   padding: 0 var(--space-20);
 
-  @media (min-width: 480px) {
+  @media (min-width: 768px) {
     padding: var(--space-16) var(--space-48);
   }
 
@@ -137,7 +137,7 @@ export default {
     flex-direction: column;
     margin: var(--space-32) 0 0 0;
 
-    @media (min-width: 480px) {
+    @media (min-width: 768px) {
       flex-direction: row;
       align-items: center;
     }
@@ -146,7 +146,7 @@ export default {
   &__content {
     margin: var(--question-mobile-content-margin, var(--space-20) 0 0 calc(var(--space-20) * -1));
 
-    @media (min-width: 480px) {
+    @media (min-width: 768px) {
       margin: var(--question-tablet-content-margin, var(--space-20) 0 0 0);
     }
   }
@@ -156,12 +156,12 @@ export default {
     align-items: center;
     margin: var(--space-20) 0 0 0;
 
-    @media (min-width: 480px) {
+    @media (min-width: 768px) {
       margin: 0;
     }
 
     &::before {
-      @media (min-width: 480px) {
+      @media (min-width: 768px) {
         flex: none;
         align-self: stretch;
         width: 1px;

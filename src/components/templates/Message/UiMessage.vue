@@ -78,7 +78,7 @@ export default {
   display: flex;
   flex-direction: column-reverse;
 
-  @media (min-width: 480px) {
+  @media (min-width: 768px) {
     flex-direction: row;
   }
 
@@ -95,7 +95,7 @@ export default {
     flex: none;
     margin: 0 auto var(--space-24) auto;
 
-    @media (min-width: 480px) {
+    @media (min-width: 768px) {
       order: 0;
       margin: 0 0 0 var(--space-40);
     }

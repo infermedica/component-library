@@ -173,7 +173,7 @@ export default {
     &:hover {
       background: var(--multiple-choices-list-item-hover-background);
 
-      @media (min-width: 480px) {
+      @media (min-width: 768px) {
         background: var(--multiple-choices-list-item-hover-background, var(--color-gray-50));
       }
     }
@@ -185,7 +185,7 @@ export default {
     margin: var(--multiple-choices-mobile-hint-margin, var(--space-12) var(--space-20));
     color: var(--multiple-choices-hint-color, var(--color-text-dimmed));
 
-    @media (min-width: 480px) {
+    @media (min-width: 768px) {
       margin: var(--multiple-choices-tablet-hint-margin, var(--space-12) 0);
     }
   }
@@ -193,7 +193,7 @@ export default {
   &__choice {
     padding: var(--multiple-choices-choice-padding);
 
-    @media (min-width: 480px) {
+    @media (min-width: 768px) {
       padding: var(--multiple-choices-choice-padding, var(--space-12));
     }
   }

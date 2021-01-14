@@ -148,7 +148,7 @@ export default {
       + var(--range-label-spacing-bottom, 0.5rem)
     ) 0 0 0;
 
-  @media (min-width: 480px) {
+  @media (min-width: 768px) {
     flex-wrap: nowrap;
   }
 
@@ -171,7 +171,7 @@ export default {
   &__increment {
     margin: var(--range-mobile-increment-margin, var(--space-24) 0 0 var(--space-12));
 
-    @media (min-width: 480px) {
+    @media (min-width: 768px) {
       --range-mobile-increment-margin: 0;
     }
   }
@@ -179,7 +179,7 @@ export default {
   &__decrement {
     margin: var(--range-mobile-decrement-margin, var(--space-24) var(--space-12) 0 0);
 
-    @media (min-width: 480px) {
+    @media (min-width: 768px) {
       --range-mobile-decrement-margin: 0;
     }
   }
@@ -192,7 +192,7 @@ export default {
     height: var(--range-thumb-size, 3rem);
     margin: var(--range-track-margin, 0 1rem);
 
-    @media (min-width: 480px) {
+    @media (min-width: 768px) {
       flex: 0 1 auto;
       order: 0;
     }

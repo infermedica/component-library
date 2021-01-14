@@ -41,7 +41,7 @@
   --font-body-2-comfortable-thick: var(--font-weight-thick) var(--font-size-1) / var(--line-height-2) var(--font-family-body);
   --font-body-2-compact-thick: var(--font-weight-thick) var(--font-size-1) / var(--line-height-1) var(--font-family-body);
 
-  @media screen and (min-width: 480px) {
+  @media screen and (min-width: 768px) {
     // desktop variants
     --font-h1: var(--font-weight-default) var(--font-size-7) / var(--line-height-default) var(--font-family-heading);
     --font-h2: var(--font-weight-default) var(--font-size-5) / var(--line-height-default) var(--font-family-heading);

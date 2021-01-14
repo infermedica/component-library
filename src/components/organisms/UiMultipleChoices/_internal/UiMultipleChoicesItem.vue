@@ -111,7 +111,7 @@ export default {
   align-items: var(--multiple-choices-item-align-items, stretch);
   background: var(--multiple-choices-item-background);
 
-  @media (min-width: 480px) {
+  @media (min-width: 768px) {
     flex-direction: var(--multiple-choices-item-flex-direction, row);
     align-items: var(--multiple-choices-item-align-items, center);
   }
@@ -126,7 +126,7 @@ export default {
       );
     background: var(--multiple-choices-item-name-background, var(--color-background-white));
 
-    @media (min-width: 480px) {
+    @media (min-width: 768px) {
       padding: var(--multiple-choices-item-name-padding, 0);
       margin: 0 auto 0 0;
       background: var(--multiple-choices-item-name-background);
@@ -148,7 +148,7 @@ export default {
       );
     border-width: var(--multiple-choices-item-option-border-width, 1px 0 0 0);
 
-    @media (min-width: 480px) {
+    @media (min-width: 768px) {
       padding: var(--multiple-choices-item-option-padding, 0);
       margin: var(--multiple-choices-item-option-margin, 0 0 0 var(--space-24));
       border-width: var(--multiple-choices-item-option-border-width, 0);
