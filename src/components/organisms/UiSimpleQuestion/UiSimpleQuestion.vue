@@ -80,14 +80,14 @@ export default {
   display: flex;
   flex-direction: column;
 
-  @media (min-width: 480px) {
+  @media (min-width: 768px) {
     flex-direction: row;
   }
 
   &__option {
     margin: var(--simple-question-option-margin, 0 0 var(--space-12) 0);
 
-    @media (min-width: 480px) {
+    @media (min-width: 768px) {
       width: 100%;
       margin: var(--simple-question-option-tablet-margin, 0 var(--space-32) 0 0);
     }

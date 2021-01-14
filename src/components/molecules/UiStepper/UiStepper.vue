@@ -135,7 +135,7 @@ export default {
   padding: var(--stepper-padding, var(--space-12) var(--space-20));
   background: var(--stepper-background, var(--color-background-subtle));
 
-  @media (min-width: 768px) {
+  @media (min-width: 992px) {
     --stepper-padding: 0;
     --stepper-background: transparent;
 
@@ -149,11 +149,11 @@ export default {
     align-items: center;
     justify-content: space-between;
 
-    @media (min-width: 480px) {
+    @media (min-width: 768px) {
       --progress-width: 11.25rem;
     }
 
-    @media (min-width: 768px) {
+    @media (min-width: 992px) {
       display: none;
     }
   }
@@ -161,7 +161,7 @@ export default {
   &__desktop {
     display: none;
 
-    @media (min-width: 768px) {
+    @media (min-width: 992px) {
       display: flex;
       flex-direction: column;
     }
@@ -170,13 +170,13 @@ export default {
   &__text {
     @include font(--font-body-2-compact);
 
-    @media (min-width: 480px) {
+    @media (min-width: 768px) {
       @include font(--font-body-1);
     }
   }
 
   &__item {
-    @media (min-width: 768px) {
+    @media (min-width: 992px) {
       @include font(--font-body-1);
 
       position: relative;
@@ -223,7 +223,7 @@ export default {
   }
 
   &__item-link {
-    @media (min-width: 768px) {
+    @media (min-width: 992px) {
       @include font(--font-body-1);
 
       width: 100%;

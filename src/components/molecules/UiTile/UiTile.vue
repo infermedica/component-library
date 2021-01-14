@@ -79,7 +79,7 @@ export default {
     border-radius: var(--tile-border-radius, var(--border-radius-form));
     transition: transform 200ms ease;
 
-    @media (min-width: 480px) {
+    @media (min-width: 768px) {
       flex-direction: var(--tile-tablet-flex-direction, column);
       justify-content: var(--tile-tablet-justify-content, space-between);
       padding: var(--tile-padding, var(--space-24) var(--space-16));
@@ -102,7 +102,7 @@ export default {
     flex: none;
     margin: var(--tile-icon-margin, 0 var(--space-16) 0 0);
 
-    @media (min-width: 480px) {
+    @media (min-width: 768px) {
       --icon-size: var(--tile-icon-size, 4rem);
 
       margin: var(--tile-icon-tablet-margin, 0 0 var(--space-16) 0);
@@ -113,7 +113,7 @@ export default {
     color: var(--tile-label-color, var(--color-text-body));
     text-align: var(--tile-label-text-align);
 
-    @media (min-width: 480px) {
+    @media (min-width: 768px) {
       margin: var(--tile-label-tablet-margin, auto);
       text-align: var(--tile-label-tablet-text-align, center);
     }

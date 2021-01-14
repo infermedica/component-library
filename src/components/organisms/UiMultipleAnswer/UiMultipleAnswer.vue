@@ -218,7 +218,7 @@ export default {
     &:hover {
       background: var(--multiple-answer-list-item-hover-background);
 
-      @media (min-width: 480px) {
+      @media (min-width: 768px) {
         background: var(--multiple-answer-list-item-tablet-hover-background, var(--color-gray-50));
       }
     }
@@ -234,7 +234,7 @@ export default {
     margin: var(--multiple-answer-mobile-hint-margin, var(--space-12) var(--space-20));
     color: var(--multiple-answer-hint-color, var(--color-text-dimmed));
 
-    @media (min-width: 480px) {
+    @media (min-width: 768px) {
       margin: var(--multiple-answer-tablet-hint-margin, var(--space-12) 0);
     }
   }
