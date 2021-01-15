@@ -1,43 +1,45 @@
 <template>
-  <UiRadio class="ui-tile">
-    <template #radiobutton>
-      <!-- @slot Use this slot to replace tile template. -->
-      <slot
-        name="button"
-        v-bind="{iconAttrs}"
+  <UiButton
+    class="ui-tile ui-button--outlined"
+    :class="{'ui-tile--selected': isChecked}"
+    role="radio"
+    :aria-checked="`${isChecked}`"
+    @click="selectHandler"
+  >
+    <!-- @slot Use this slot to replace icon template. -->
+    <slot
+      name="icon"
+      v-bind="{iconAttrs}"
+    >
+      <UiIcon
+        v-bind="iconAttrs"
+        class="ui-tile__icon"
+      />
+    </slot>
+    <!-- @slot Use this slot to replace label template. -->
+    <slot name="label">
+      <UiText
+        tag="span"
+        class="ui-tile__label"
       >
-        <div class="ui-tile__button">
-          <!-- @slot Use this slot to replace icon template. -->
-          <slot
-            name="icon"
-            v-bind="{iconAttrs}"
-          >
-            <UiIcon
-              v-bind="iconAttrs"
-              class="ui-tile__icon"
-            />
-          </slot>
-          <!-- @slot Use this slot to replace label template. -->
-          <slot name="label">
-            <div class="ui-tile__label">
-              <!-- @slot Use this slot to place content inside label. -->
-              <slot />
-            </div>
-          </slot>
-        </div>
-      </slot>
-    </template>
-  </UiRadio>
+        <!-- @slot Use this slot to place content inside label. -->
+        <slot />
+      </UiText>
+    </slot>
+  </UiButton>
 </template>
-
 <script>
-import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
+import { uid } from 'uid/single';
+import { computed } from 'vue';
+import UiButton from '../../atoms/UiButton/UiButton.vue';
+import UiText from '../../atoms/UiText/UiText.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 
 export default {
   name: 'UiTile',
   components: {
-    UiRadio,
+    UiButton,
+    UiText,
     UiIcon,
   },
   props: {
@@ -48,96 +50,110 @@ export default {
       type: Object,
       default: () => ({}),
     },
+    /**
+     * Use this props to set radio id
+     */
+    id: {
+      type: String,
+      default: '',
+    },
+    /**
+     * Use this props to set value of radio.
+     */
+    value: {
+      type: [String, Object],
+      default: '',
+    },
+    /**
+     * Use this props or v-model to set checked.
+     */
+    modelValue: {
+      type: [String, Object],
+      default: '',
+    },
+  },
+  emits: ['update:modelValue'],
+  setup(props, { emit }) {
+    const tileId = computed(() => (
+      props.id || `tile-${uid()}`
+    ));
+    const isChecked = computed(() => {
+      if (typeof props.modelValue === 'string') {
+        return props.value === props.modelValue;
+      }
+      return Object.keys(props.modelValue)
+        .every((key) => (props.modelValue[key] === props.value[key]));
+    });
+    function selectHandler() {
+      emit('update:modelValue', JSON.parse(JSON.stringify(props.value)));
+    }
+    return {
+      tileId,
+      isChecked,
+      selectHandler,
+    };
   },
 };
 </script>
-
 <style lang="scss">
-@import '../../../styles/mixins/_mixins.scss';
-
 .ui-tile {
-  $this: &;
+  --button-border-width: 0;
+  --button-padding: var(--tile-padding, var(--space-16));
+  --button-white-space: wrap;
 
-  --radio-label-flex: 0;
+  position: relative;
+  align-items: center;
+  justify-content: flex-start;
+  transition: transform 200ms ease;
 
-  display: flex;
-  align-items: stretch;
+  &::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 1px;
+    content: "";
+    border-radius: var(--border-radius-form);
+    box-shadow: 0 0 0 1px var(--tile-border-color, var(--color-border-subtle));
+  }
 
-  &__button {
-    @include font(--font-body-1);
+  @media (min-width: 768px) {
+    flex-direction: column;
+    justify-content: center;
 
-    position: relative;
-    display: flex;
-    flex: 1;
-    flex-direction: var(--tile-flex-direction, row);
-    align-items: center;
-    justify-content: var(--tile-flex-direction, flex-start);
-    padding: var(--tile-padding, var(--space-16));
-    background: var(--tile-background, var(--color-background-white));
-    border: var(--tile-border, solid var(--color-border-subtle));
-    border-width: var(--tile-border-width, 2px);
-    border-radius: var(--tile-border-radius, var(--border-radius-form));
-    transition: transform 200ms ease;
+    --button-padding: var(--tile-padding, var(--space-24) var(--space-16));
+  }
 
-    @media (min-width: 768px) {
-      flex-direction: var(--tile-tablet-flex-direction, column);
-      justify-content: var(--tile-tablet-justify-content, space-between);
-      padding: var(--tile-padding, var(--space-24) var(--space-16));
-    }
-
-    &:hover {
-      background: var(--tile-hover-background, var(--color-background-white-hover));
-    }
-
-    &:active {
-      background: var(--tile-active-background, var(--color-background-white-active));
-      transform: var(--tile-active-transform, scale(0.96));
-    }
+  &:active {
+    transform: var(--tile-active-transform, scale(0.96));
   }
 
   &__icon {
     --icon-size: var(--tile-icon-size, 3rem);
-    --icon-color: var(--color-icon-primary);
+    --icon-color: var(--tile-icon-color, var(--color-icon-primary));
 
     flex: none;
-    margin: var(--tile-icon-margin, 0 var(--space-16) 0 0);
 
     @media (min-width: 768px) {
       --icon-size: var(--tile-icon-size, 4rem);
-
-      margin: var(--tile-icon-tablet-margin, 0 0 var(--space-16) 0);
     }
   }
 
   &__label {
-    color: var(--tile-label-color, var(--color-text-body));
-    text-align: var(--tile-label-text-align);
+    padding: var(--tile-label-padding, 0);
+    margin: var(--tile-label-margin, 0 0 0 var(--space-16));
+    text-align: var(--tile-label-text-align, left);
 
     @media (min-width: 768px) {
-      margin: var(--tile-label-tablet-margin, auto);
+      margin: var(--tile-label-tablet-margin, var(--space-16) 0 0 0);
       text-align: var(--tile-label-tablet-text-align, center);
     }
   }
 
-  input {
-    &:focus + #{$this}__button {
-      box-shadow: var(--box-shadow-outline);
-    }
-
-    &:checked {
-      & + #{$this}__button {
-        --tile-background: var(--color-background-white);
-        --tile-border: solid var(--color-border-accessible);
-      }
-
-      &:hover + #{$this}__button {
-        --tile-hover-background: var(--color-background-white-hover);
-      }
-
-      &:active + #{$this}__button {
-        background: var(--tile-active-background, var(--color-background-white-active));
-        transform: var(--tile-active-transform, scale(0.96));
-      }
+  &--selected {
+    &::before {
+      box-shadow: 0 0 0 2px var(--tile-border-color, var(--color-border-accessible));
     }
   }
 

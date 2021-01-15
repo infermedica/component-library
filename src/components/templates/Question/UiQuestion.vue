@@ -34,7 +34,10 @@
       name="actions"
       v-bind="{options, translation}"
     >
-      <div class="ui-question__actions">
+      <div
+        v-if="options.why || options.issue"
+        class="ui-question__actions"
+      >
         <!-- @slot Use this slot to replace why template. -->
         <slot
           name="why"

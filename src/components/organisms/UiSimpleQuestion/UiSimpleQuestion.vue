@@ -1,5 +1,8 @@
 <template>
-  <div class="ui-simple-question">
+  <div
+    class="ui-simple-question"
+    role="radiogroup"
+  >
     <template v-for="option in options">
       <!-- Use this slot to replace tile template -->
       <slot
