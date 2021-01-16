@@ -92,8 +92,7 @@ export default {
   setup(props, { emit }) {
     const hasResults = computed(() => (props.results.length > 0));
     function inputHandler(value, open, close) {
-      const min = 3;
-      if (value.length >= min) {
+      if (value.length > 0) {
         open();
       } else if (value.length < 1) {
         close();
