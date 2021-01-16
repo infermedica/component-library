@@ -129,7 +129,7 @@ export default {
      */
     invalid: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     /**
      * Use this props to set hint for question.
