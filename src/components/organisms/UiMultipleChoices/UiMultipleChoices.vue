@@ -160,8 +160,8 @@ export default {
   &__list-item {
     border:
       var(
-          --multiple-choices-list-item-border,
-          solid var(--color-border-subtle)
+        --multiple-choices-list-item-border,
+        solid var(--color-border-subtle)
       );
     border-width: var(--multiple-choices-list-item-border-width, 1px 0 0 0);
 
