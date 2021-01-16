@@ -3,7 +3,7 @@
     class="ui-notification"
     :class="rootClassModifier"
   >
-    <slot/>
+    <slot />
   </div>
 </template>
 
