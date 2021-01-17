@@ -34,8 +34,11 @@
         </UiInput>
       </template>
       <template #default>
+        <template v-if="isLoading">
+          <slot name="loading" />
+        </template>
         <template
-          v-if="hasResults"
+          v-else-if="hasResults"
         >
           <UiDropdownItem
             v-for="(result, key) in results"
@@ -99,6 +102,10 @@ export default {
     inputAttrs: {
       type: Object,
       default: () => ({}),
+    },
+    isLoading: {
+      type: Boolean,
+      default: false,
     },
   },
   emits: ['update:modelValue', 'update:selected'],

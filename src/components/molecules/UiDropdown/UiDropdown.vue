@@ -30,9 +30,9 @@
         @close="closeHandler"
       >
         <!-- @slot Use this slot to place dropdown content inside dropdown. -->
-        <UiList>
+        <div role="radiogroup">
           <slot v-bind="{closeHandler, isOpen}" />
-        </UiList>
+        </div>
       </UiPopover>
     </slot>
   </div>
@@ -46,11 +46,10 @@ import {
 import { clickOutside } from '../../../utilities/directives';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiPopover from '../UiPopover/UiPopover.vue';
-import UiList from '../../organisms/UiList/UiList.vue';
 
 export default {
   name: 'UiDropdown',
-  components: { UiButton, UiPopover, UiList },
+  components: { UiButton, UiPopover },
   directives: { clickOutside },
   props: {
     /**

@@ -1,36 +1,30 @@
 <template>
-  <UiListItem
+  <UiButton
     ref="dropdownitem"
-    class="ui-dropdown-item"
+    :tabindex="tabindex"
+    class="ui-dropdown-item ui-button--outlined ui-button--small ui-button--has-icon"
     :class="{'ui-dropdown-item--selected': isChecked}"
+    :aria-checked="`${isChecked}`"
+    role="radio"
+    @click="changeHandler(value)"
+    @keydown="keypressHandler"
   >
-    <UiButton
-      ref="dropdownoption"
-      :tabindex="tabindex"
-      class="ui-dropdown-item__option ui-button--outlined ui-button--small ui-button--has-icon"
-      :aria-checked="`${isChecked}`"
-      @click="changeHandler(value)"
-      @keydown="keypressHandler"
-    >
-      <slot />
-      <UiIcon
-        icon="tick"
-      />
-    </UiButton>
-  </UiListItem>
+    <slot />
+    <UiIcon
+      icon="tick"
+    />
+  </UiButton>
 </template>
 
 <script>
 import { computed, ref, inject } from 'vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
-import UiListItem from '../../../organisms/UiList/_internal/UiListItem.vue';
 
 export default {
   name: 'UiDropdownItem',
   components: {
     UiButton,
-    UiListItem,
     UiIcon,
   },
   props: {
@@ -66,12 +60,12 @@ export default {
         case 'Tab':
           return event.preventDefault();
         case 'ArrowDown':
-          if (dropdownitem.value.$el.nextSibling.tagName !== 'LI') return false;
-          dropdownitem.value.$el.nextSibling.querySelector('button').focus();
+          if (dropdownitem.value.$el.nextSibling.tagName !== 'BUTTON') return false;
+          dropdownitem.value.$el.nextSibling.focus();
           return true;
         case 'ArrowUp':
-          if (dropdownitem.value.$el.previousSibling.tagName !== 'LI') return false;
-          dropdownitem.value.$el.previousSibling.querySelector('button').focus();
+          if (dropdownitem.value.$el.previousSibling.tagName !== 'BUTTON') return false;
+          dropdownitem.value.$el.previousSibling.focus();
           return true;
         default:
           return false;
@@ -97,42 +91,35 @@ export default {
 .ui-dropdown-item {
   $this: &;
 
-  --list-item-padding: 0;
+  @include font(--font-body-1);
 
+  --button-icon-color: transparent;
+  --button-icon-color-hover: transparent;
+  --button-icon-color-active: transparent;
+  --button-padding: var(--dropdown-item-button-padding, var(--space-8));
+  --button-border-width: 0;
+  --button-justify-content: space-between;
+  --button-color: var(--color-text-body);
+  --button-hover-color: var(--color-text-body);
+  --button-active-color: var(--color-text-body);
+
+  width: 100%;
   margin: var(--dropdown-item-margin, 0 0 var(--space-8) 0);
 
   &:last-of-type {
     margin: var(--dropdown-item-margin, 0);
   }
 
-  &__option {
-    @include font(--font-body-1);
-
-    --button-icon-color: transparent;
-    --button-icon-color-hover: transparent;
-    --button-icon-color-active: transparent;
-    --button-padding: var(--dropdown-item-button-padding, var(--space-8));
-    --button-border-width: 0;
-    --button-justify-content: space-between;
-    --button-color: var(--color-text-body);
-    --button-hover-color: var(--color-text-body);
-    --button-active-color: var(--color-text-body);
-
-    width: 100%;
-  }
-
   &--selected {
-    #{$this}__option {
-      --button-icon-color: var(--color-icon-negative);
-      --button-icon-color-hover: var(--color-icon-negative);
-      --button-icon-color-active: var(--color-icon-negative);
-      --button-background: var(--dropdown-item-button-selected-background, var(--color-background-dark));
-      --button-hover-background: var(--dropdown-item-button-selected-background, var(--color-background-dark));
-      --button-active-background: var(--dropdown-item-button-selected-background, var(--color-background-dark));
-      --button-color: var(--color-text-on-dark);
-      --button-hover-color: var(--color-text-on-dark);
-      --button-active-color: var(--color-text-on-dark);
-    }
+    --button-icon-color: var(--color-icon-negative);
+    --button-icon-color-hover: var(--color-icon-negative);
+    --button-icon-color-active: var(--color-icon-negative);
+    --button-background: var(--dropdown-item-button-selected-background, var(--color-background-dark));
+    --button-hover-background: var(--dropdown-item-button-selected-background, var(--color-background-dark));
+    --button-active-background: var(--dropdown-item-button-selected-background, var(--color-background-dark));
+    --button-color: var(--color-text-on-dark);
+    --button-hover-color: var(--color-text-on-dark);
+    --button-active-color: var(--color-text-on-dark);
   }
 
   &--compact {
