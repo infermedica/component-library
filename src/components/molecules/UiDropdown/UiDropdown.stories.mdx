@@ -27,7 +27,7 @@ Use `default` slot and `text` props for common scenario
       components: { UiDropdown, UiDropdownItem },
       data() {
         return {
-          selected: '',
+          selected: {},
           symptoms: [
             { label: 'headache' },
             { label: 'head pressure' },
@@ -41,9 +41,9 @@ Use `default` slot and `text` props for common scenario
         v-model="selected"
         style="width: 100%; max-width: 304px;"
       >
-        <UiDropdownItem value="enabled-a">Enabled A</UiDropdownItem>
-        <UiDropdownItem value="enabled-b">Enabled B</UiDropdownItem>
-        <UiDropdownItem value="enabled-c">Enabled C</UiDropdownItem>
+      <template v-for="(symptom, key) in symptoms" :key="key">
+        <UiDropdownItem :value="symptom">{{symptom.label}}</UiDropdownItem>
+      </template>
       </UiDropdown>`,
     })).bind({})}
   </Story>

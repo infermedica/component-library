@@ -2,12 +2,12 @@
   <div class="ui-search">
     <UiDropdown
       class="ui-search__dropdown"
+      :toggle-element="input"
       @update:model-value="updateHandler"
-      @open="openHandler"
-      @close="closeHandler"
     >
       <template #toggle="{openHandler, closeHandler}">
         <UiInput
+          ref="dropdowntoggle"
           v-bind="inputAttrs"
           :model-value="modelValue"
           type="search"
@@ -15,7 +15,18 @@
           @update:model-value="inputHandler($event, openHandler, closeHandler)"
         >
           <template #aside>
+            <UiButton
+              v-if="hasSearchQuery"
+              tabindex="-1"
+              class="ui-input__aside ui-button--text ui-button--secondary ui-button--has-icon"
+              @click="inputHandler('', openHandler, closeHandler)"
+            >
+              <UiIcon
+                icon="closeCompact"
+              />
+            </UiButton>
             <UiIcon
+              v-else
               icon="search"
               class="ui-input__aside ui-search__icon"
             />
@@ -50,8 +61,9 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { highlight } from '../../../utilities/directives';
+import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiInput from '../../atoms/UiInput/UiInput.vue';
 import UiDropdown from '../../molecules/UiDropdown/UiDropdown.vue';
@@ -62,6 +74,7 @@ import UiSearchSelected from './_internal/UiSearchSelected.vue';
 export default {
   name: 'UiSearch',
   components: {
+    UiButton,
     UiIcon,
     UiInput,
     UiDropdown,
@@ -90,7 +103,12 @@ export default {
   },
   emits: ['update:modelValue', 'update:selected'],
   setup(props, { emit }) {
+    const dropdowntoggle = ref(null);
+    const input = computed(() => (
+      dropdowntoggle.value?.$el.querySelector('input')
+    ));
     const hasResults = computed(() => (props.results.length > 0));
+    const hasSearchQuery = computed(() => (props.modelValue.length > 0));
     function inputHandler(value, open, close) {
       if (value.length > 0) {
         open();
@@ -106,15 +124,14 @@ export default {
     function removeHandler(selected) {
       emit('update:selected', selected);
     }
-    function closeHandler() {}
-    function openHandler() {}
     return {
       hasResults,
+      hasSearchQuery,
       inputHandler,
       updateHandler,
       removeHandler,
-      openHandler,
-      closeHandler,
+      dropdowntoggle,
+      input,
     };
   },
 };
@@ -142,6 +159,10 @@ export default {
 
   &__selected {
     margin: var(--space-16) 0 0 0;
+  }
+
+  &__icon {
+    --icon-color: var(--search-icon-color, var(--color-icon-primary));
   }
 }
 </style>

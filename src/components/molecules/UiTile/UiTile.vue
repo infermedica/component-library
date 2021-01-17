@@ -28,6 +28,7 @@
     </slot>
   </UiButton>
 </template>
+
 <script>
 import { uid } from 'uid/single';
 import { computed } from 'vue';
@@ -95,6 +96,7 @@ export default {
   },
 };
 </script>
+
 <style lang="scss">
 .ui-tile {
   --button-border-width: 0;
