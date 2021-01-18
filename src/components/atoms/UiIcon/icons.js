@@ -143,6 +143,15 @@ export default {
       },
     ],
   },
+  warning: {
+    viewBox: '0 0 48 48',
+    paths: [
+      {
+        d: 'M24 2l24 40H0zm2 30v4h-4v-4zm0-14h-4v10h4zm0 0',
+        'fill-rule': 'evenodd',
+      },
+    ],
+  },
   reverseClose: {
     viewBox: '0 0 48 48',
     paths: [

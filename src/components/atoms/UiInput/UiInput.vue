@@ -155,13 +155,13 @@ export default {
   &__aside {
     @include font(--font-body-1);
 
+    flex: none;
     margin: var(--input-aside-margin, 0 var(--space-16) 0 0);
     color: var(--input-suffix-color, var(--input-color), var(--color-text-body));
   }
 
   &--has-icon {
     --icon-size: var(--input-icon-size, 1.5rem);
-
     #{$this}__aside {
       --input-aside-margin: var(--input-aside-margin, 0 var(--space-12) 0 0);
     }

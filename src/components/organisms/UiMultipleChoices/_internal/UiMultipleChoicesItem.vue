@@ -30,7 +30,7 @@
         <UiRadio
           :model-value="getModelValue(choice)"
           :value="getRadioValue(choice, option)"
-          :name="choice.linked_observation"
+          :name="choice.id"
           class="ui-multiple-choices-item__option"
           :class="{'ui-radio--has-error': invalid}"
           @update:model-value="updateHandler"

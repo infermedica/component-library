@@ -1,11 +1,13 @@
-import { Meta, Canvas, Story, Props, ArgsTable } from '@storybook/addon-docs/blocks';
+import {
+  Meta, Canvas, Story, Props, ArgsTable,
+} from '@storybook/addon-docs/blocks';
 import UiCard from './UiCard.vue';
 
 <Meta
   title="Organisms/Card"
   component={UiCard}
   argTypes={{
-    type: {control: {type: 'select', options: ['emergency_ambulance', 'emergency', 'consultation_24', 'consultation', 'self_care',]}},
+    type: { control: { type: 'select', options: ['emergency_ambulance', 'emergency', 'consultation_24', 'consultation', 'self_care'] } },
   }}
 />
 
@@ -15,12 +17,12 @@ import UiCard from './UiCard.vue';
   <Story
     name="Common"
       args={{
-      type: 'consultation_24',
-    }}
+        type: 'consultation_24',
+      }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
-      components: {UiCard},
+      components: { UiCard },
       template: `
       <UiCard
         :type="type"
@@ -28,7 +30,7 @@ import UiCard from './UiCard.vue';
         title="Call an ambulance"
         description="Your symptoms may require prompt medical evaluation. If your symptoms suddenly get worse, go to the nearest emergency department."
       >
-      </UiCard>`
+      </UiCard>`,
     })).bind({})}
   </Story>
 </Canvas>
@@ -43,10 +45,10 @@ import UiCard from './UiCard.vue';
     args={{
       type: 'emergency',
       symptomsHeader: 'Alarming symptoms:',
-      symptoms: ['Vomiting', 'Abdominal pain, lasting 2 to 7 days']
+      symptoms: ['Vomiting', 'Abdominal pain, lasting 2 to 7 days'],
     }}
   >
-    {((args, {argTypes}) => ({
+    {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
       components: { UiCard },
       template: `
@@ -58,7 +60,7 @@ import UiCard from './UiCard.vue';
         :symptomsHeader="symptomsHeader"
         :symptoms="symptoms"
         >
-      </UiCard>`
+      </UiCard>`,
     })).bind({})}
   </Story>
 </Canvas>

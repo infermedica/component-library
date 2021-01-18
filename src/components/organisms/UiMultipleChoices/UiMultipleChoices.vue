@@ -45,7 +45,6 @@
 
 <script>
 import { watchEffect, computed } from 'vue';
-import useQuestionHintType from '../../../composable/useQuestionHintType';
 import UiMultipleChoicesItem from './_internal/UiMultipleChoicesItem.vue';
 import UiList from '../UiList/UiList.vue';
 import UiListItem from '../UiList/_internal/UiListItem.vue';
@@ -62,7 +61,7 @@ export default {
      */
     source: {
       type: String,
-      default: 'initial',
+      default: '',
     },
     /**
      *  Use this props to override default options.
@@ -113,7 +112,7 @@ export default {
   },
   emits: ['update:modelValue', 'update:invalid'],
   setup(props, { emit }) {
-    const { hintType } = useQuestionHintType(props.invalid);
+    const hintType = computed(() => (props.touched && props.invalid ? 'error' : 'default'));
     const evidences = computed(() => (
       props.modelValue.reduce(
         (object, evidence) => {
@@ -124,7 +123,7 @@ export default {
       )
     ));
     const valid = computed(() => (
-      props.modelValue.length === props.choices.length
+      props.choices.every((choice) => (evidences.value[choice.id]))
     ));
     watchEffect(() => {
       if (!valid.value !== props.invalid) {

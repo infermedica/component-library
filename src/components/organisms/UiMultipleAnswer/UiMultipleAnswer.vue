@@ -73,7 +73,6 @@
 
 <script>
 import { computed, watchEffect } from 'vue';
-import useQuestionHintType from '../../../composable/useQuestionHintType';
 import UiList from '../UiList/UiList.vue';
 import UiListItem from '../UiList/_internal/UiListItem.vue';
 import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
@@ -129,7 +128,7 @@ export default {
      */
     invalid: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     /**
      * Use this props to set hint for question.
@@ -168,7 +167,7 @@ export default {
         : props.modelValue.id;
     });
     const hasError = computed(() => (props.touched && !valid.value));
-    const { hintType } = useQuestionHintType(hasError.value);
+    const hintType = computed(() => (props.touched && props.invalid ? 'error' : 'default'));
     const errorClass = computed(() => (hasError.value ? `${component.value}--has-error` : ''));
 
     watchEffect(() => {

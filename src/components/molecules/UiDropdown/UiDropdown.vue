@@ -1,6 +1,7 @@
 <template>
+  <!-- v-click-outside should be trigger only when required -->
   <div
-    v-click-outside="closeHandler"
+    v-click-outside="closeHandler.bind(this, true)"
     class="ui-dropdown"
     :class="{'is-active': isOpen}"
   >
@@ -10,6 +11,7 @@
       v-bind="{toggleHandler, openHandler, closeHandler, isOpen}"
     >
       <UiButton
+        ref="toggle"
         class="ui-dropdown__toggle"
         :aria-expanded="`${isOpen}`"
         @click="toggleHandler"
@@ -28,9 +30,9 @@
         @close="closeHandler"
       >
         <!-- @slot Use this slot to place dropdown content inside dropdown. -->
-        <UiList>
+        <div role="radiogroup">
           <slot v-bind="{closeHandler, isOpen}" />
-        </UiList>
+        </div>
       </UiPopover>
     </slot>
   </div>
@@ -38,15 +40,16 @@
 
 <script>
 import { uid } from 'uid/single';
-import { ref, computed, provide } from 'vue';
+import {
+  ref, computed, provide,
+} from 'vue';
 import { clickOutside } from '../../../utilities/directives';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiPopover from '../UiPopover/UiPopover.vue';
-import UiList from '../../organisms/UiList/UiList.vue';
 
 export default {
   name: 'UiDropdown',
-  components: { UiButton, UiPopover, UiList },
+  components: { UiButton, UiPopover },
   directives: { clickOutside },
   props: {
     /**
@@ -64,15 +67,26 @@ export default {
       type: [String, Object],
       default: '',
     },
+    /**
+     * Use this props to set toggle DOM element to back to it after close popover.
+     */
+    toggleElement: {
+      type: Object,
+    },
   },
   emits: ['update:modelValue', 'open', 'close'],
   setup(props, { emit }) {
+    const toggle = ref(null);
     const isOpen = ref(false);
+    const dropdowntoggle = computed(() => (props.toggleElement || toggle.value?.$el));
     function openHandler() {
       isOpen.value = true;
       emit('open');
     }
-    function closeHandler() {
+    function closeHandler(outside) {
+      if (dropdowntoggle.value && !outside) {
+        dropdowntoggle.value.focus();
+      }
       isOpen.value = false;
       emit('close');
     }
@@ -94,12 +108,12 @@ export default {
       closeHandler();
     }
     provide('changeHandler', changeHandler);
-
     return {
       isOpen,
       toggleHandler,
       openHandler,
       closeHandler,
+      toggle,
     };
   },
 };
