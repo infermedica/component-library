@@ -275,6 +275,7 @@ export default {
   &__value {
     @include font(--font-h1);
 
+    width: var(--range-thumb-size, 3rem);
     position: absolute;
     left: var(--range-selected-track-width);
     color: var(--range-value-color, var(--color-text-body));
