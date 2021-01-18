@@ -275,11 +275,13 @@ export default {
   &__value {
     @include font(--font-h1);
 
-    width: var(--range-thumb-size, 3rem);
     position: absolute;
     left: var(--range-selected-track-width);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--range-thumb-size, 3rem);
     color: var(--range-value-color, var(--color-text-body));
-    text-align: center;
     transform:
       translate(
         calc(var(--range-selected-track-width) * -1),
