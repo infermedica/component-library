@@ -16,14 +16,14 @@
     </div>
     <div class="ui-search-no-results__content">
       <UiText>Unfortunately, the symptom was not found.</UiText>
-      <UiList>
-        <UiListItem>
+      <UiBulletPoints>
+        <UiBulletPointsItem>
           <UiText>Please try to enter single words</UiText>
-        </UiListItem>
-        <UiListItem>
+        </UiBulletPointsItem>
+        <UiBulletPointsItem>
           <UiText>Keep in mind, that you can only select symptoms from the autocomplete list</UiText>
-        </UiListItem>
-      </UiList>
+        </UiBulletPointsItem>
+      </UiBulletPoints>
     </div>
   </div>
 </template>
@@ -32,17 +32,17 @@
 import UiHeading from '../../../atoms/UiHeading/UiHeading.vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import UiText from '../../../atoms/UiText/UiText.vue';
-import UiList from '../../UiList/UiList.vue';
-import UiListItem from '../../UiList/_internal/UiListItem.vue';
+import UiBulletPoints from '../../../molecules/UiBulletPoints/UiBulletPoints.vue';
+import UiBulletPointsItem from '../../../molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue';
 
 export default {
   name: 'UiSearchNoResults',
   components: {
+    UiBulletPoints,
+    UiBulletPointsItem,
     UiHeading,
     UiIcon,
     UiText,
-    UiList,
-    UiListItem,
   },
 };
 </script>
