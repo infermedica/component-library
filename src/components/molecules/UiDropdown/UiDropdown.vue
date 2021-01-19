@@ -138,5 +138,9 @@ export default {
     box-shadow: var(--dropdown-content-box-shadow, var(--box-shadow-modal));
     transform: var(--dropdown-content-transform, translateY(var(--space-8)));
   }
+
+  &--compact {
+    --dropdown-item-button-padding: var(--space-4) var(--space-8);
+  }
 }
 </style>
