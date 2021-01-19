@@ -49,6 +49,7 @@ export default {
     const icon = computed(() => {
       if (props.type === 'default') return '';
       if (props.type === 'success' || props.type === 'info') return props.type;
+      if (props.type === 'warning') return props.type;
       return 'exclamation';
     });
 
