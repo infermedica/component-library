@@ -1,7 +1,7 @@
 <template>
   <div class="ui-search">
     <UiDropdown
-      class="ui-search__dropdown"
+      class="ui-search__dropdown ui-dropdown--compact"
       :toggle-element="input"
       @update:model-value="updateHandler"
     >
@@ -44,7 +44,6 @@
             v-for="(result, key) in results"
             :key="key"
             :value="result"
-            class="ui-dropdown-item--compact"
           >
             <span
               v-highlight="`${modelValue}`"
