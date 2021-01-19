@@ -8,6 +8,15 @@ import UiRating from './UiRating.vue';
   component={UiRating}
   argTypes={{
     max: { control: { type: 'text' } },
+    disabled: { control: { type: 'boolean' } },
+    modifiers: {
+      control: {
+        type: 'inline-check',
+        options: {
+          'ui-rating--is-disabled': 'ui-rating--is-disabled',
+        },
+      },
+    },
   }}
 />
 
@@ -18,6 +27,7 @@ import UiRating from './UiRating.vue';
     name="Common"
     args={{
       max: '5',
+      disabled: false
     }}
   >
     {((args, { argTypes }) => ({
@@ -30,6 +40,8 @@ import UiRating from './UiRating.vue';
       },
       template: `<UiRating
         v-model="rate"
+        :class="modifiers"
+        :radio-attrs="{disabled: disabled}"
         :max="max"
       />`,
     })).bind({})}

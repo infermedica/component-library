@@ -8,6 +8,7 @@
       <slot name="option">
         <UiRadio
           v-model="rate"
+          v-bind="radioAttrs"
           :value="`${index}`"
           :name="ratingName"
           class="ui-rating__option"
@@ -75,6 +76,13 @@ export default {
     name: {
       type: String,
       default: '',
+    },
+    /**
+     * Use this props to pass attrs for UiRadio
+     */
+    radioAttrs: {
+      type: Object,
+      default: () => ({}),
     },
     /**
      * Use this props to setup item component.
@@ -166,6 +174,25 @@ export default {
       &:active {
         --icon-color: var(--rating-icon-positive-active-icon-color, var(--color-icon-primary-active));
       }
+    }
+  }
+
+  &--is-disabled {
+    #{$this}__icon {
+      --rating-icon-icon-color: var(--rating-icon-disabled-icon-color, var(--color-icon-disabled));
+      --rating-icon-hover-icon-color: var(--rating-icon-disabled-hover-icon-color, var(--color-icon-disabled));
+      --rating-icon-active-icon-color: var(--rating-icon-disabled-active-icon-color, var(--color-icon-disabled));
+      --rating-icon-positive-icon-color: var(--rating-icon-disabled-positive-icon-color, var(--color-icon-disabled));
+      --rating-icon-positive-hover-icon-color:
+        var(
+          --rating-icon-disabled-positive-hover-icon-color,
+          var(--color-icon-disabled)
+        );
+      --rating-icon-positive-active-icon-color:
+        var(
+          --rating-icon-disabled-positive-active-icon-color,
+          var(--color-icon-disabled)
+        );
     }
   }
 
