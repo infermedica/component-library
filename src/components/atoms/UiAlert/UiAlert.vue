@@ -119,5 +119,13 @@ export default {
       margin: 0 0 0 var(--space-8);
     }
   }
+
+  &--secondary {
+    --alert-color: var(--color-text-body);
+
+    #{$this}__message {
+      @include font(--font-body-1);
+    }
+  }
 }
 </style>

@@ -35,7 +35,7 @@ export default {
 
 <style lang="scss">
 .ui-notification {
-  padding: var(--notification-paddin, var(--space-12));
+  padding: var(--notification-padding, var(--space-12));
   background: var(--notification-background);
   border: var(--notification-border);
   border-width: 1px;
