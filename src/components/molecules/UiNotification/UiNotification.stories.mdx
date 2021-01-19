@@ -56,7 +56,7 @@ import UiAlert from '../../atoms/UiAlert/UiAlert.vue';
       },
       template: `<UiNotification :type="type">
         <UiAlert :type="type" class="ui-alert--secondary">{{notification}}</UiAlert>
-        <UiLink class="ui-link--has-icon ui-link--small" style="margin: var(--space-4) 0 0 var(--space-36); display: flex;">
+        <UiLink :href="href" class="ui-link--has-icon ui-link--small" style="margin: var(--space-4) 0 0 var(--space-36); display: flex;">
           Skip this question <UiIcon icon="chevronRight" class="ui-link__icon ui-link__icon--right"/></UiLink>
       </UiNotification>`,
     })).bind({})}
