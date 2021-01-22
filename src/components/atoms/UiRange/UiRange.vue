@@ -2,6 +2,7 @@
   <div
     class="ui-range"
     :style="{'--range-selected-track-width': trackWidth}"
+    v-bind="getRootAttrs($attrs)"
   >
     <!-- @slot Use this slot to replace decrement template. -->
     <slot
@@ -29,7 +30,7 @@
       <!-- @slot Use this slot to replace range template. -->
       <slot name="range">
         <input
-          v-bind="$attrs"
+          v-bind="getInputAttrs($attrs)"
           type="range"
           :min="min"
           :max="max"
@@ -62,6 +63,7 @@
 import { computed } from 'vue';
 import UiButton from '../UiButton/UiButton.vue';
 import UiIcon from '../UiIcon/UiIcon.vue';
+import useInput from '../../../composable/useInput';
 
 export default {
   name: 'UiRange',
@@ -109,6 +111,7 @@ export default {
   },
   emits: ['update:modelValue'],
   setup(props, { emit }) {
+    const { getRootAttrs, getInputAttrs } = useInput();
     const trackWidth = computed(() => {
       const value = parseInt(props.modelValue, 10);
       const min = parseInt(props.min, 10);
@@ -128,6 +131,8 @@ export default {
     }
 
     return {
+      getInputAttrs,
+      getRootAttrs,
       trackWidth,
       changeHandler,
     };
