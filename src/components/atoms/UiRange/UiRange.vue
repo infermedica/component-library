@@ -240,16 +240,15 @@ export default {
     @mixin range-thumb {
       width: var(--range-thumb-size, 3rem);
       height: var(--range-thumb-size, 3rem);
-      background:
+      background-color: var(--range-thumb-background-color, var(--color-range-slider-thumb-background-enabled));
+      background-image:
         var(
           --range-thumb-background-image,
-          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cdefs/%3E%3Cpath fill='%23fff' fill-rule='evenodd' d='M17 6l-1.4142 1.4142L20.1716 12l-4.5858 4.5858L17 18l6-6-6-6zM7 6l1.4142 1.4142L3.8284 12l4.5858 4.5858L7 18l-6-6 6-6z' clip-rule='evenodd'/%3E%3C/svg%3E"),
-          #ffff
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M34 12l-2.828 2.828L40.344 24l-9.172 9.172L34 36l12-12zm0 0M14 12l2.828 2.828L7.656 24l9.172 9.172L14 36 2 24zm0 0' fill-rule='evenodd' fill='%23fff'/%3E%3C/svg%3E%0A")
         );
-      background-color: var(--range-thumb-background-color, var(--color-range-slider-thumb-background-enabled));
       background-repeat: no-repeat;
       background-position: center;
-      background-size: var(--range-thumb-background-size, 2rem);
+      background-size: var(--range-thumb-background-size, 1.5rem);
       border: 0;
       border-radius: var(--range-thumb-border-radius, 50%);
       box-shadow: 0 1px 3px 0 rgba(148, 164, 179, 0.2);
