@@ -11,7 +11,7 @@ import UiControls from '../../organisms/UiControls/UiControls.vue';
   argTypes={{
     title: { control: { type: 'text' } },
     paragraph: { control: { type: 'text' } },
-    illustration: { control: { type: 'select', options: [false, 'instruction', 'UiMessage', 'terms-of-service'] } },
+    illustration: { control: { type: 'select', options: [false, 'instruction', 'message', 'terms-of-service'] } },
   }}
 />
 
@@ -32,7 +32,7 @@ import UiControls from '../../organisms/UiControls/UiControls.vue';
       template: `<UiMessage
         :title="title"
         :illustration="illustration"
-        style="max-width: 780px; min-height: 540px"
+        style="max-width: 684px; min-height: 372px"
       >
         <UiText>
            {{paragraph}}
@@ -56,7 +56,11 @@ with Controls
     {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
       components: { UiMessage, UiText, UiControls },
-      template: `<UiControls style="max-width: 780px; min-height: 540px">
+      template: `<UiControls
+          toBack="/3-3"
+          toNext="/5-4"
+          style="max-width: 780px; min-height: 540px"
+        >
         <UiMessage
           :title="title"
           :illustration="illustration"

@@ -147,6 +147,7 @@ export default {
       var(--range-thumb-size, 3rem)
       + var(--range-label-spacing-bottom, 0.5rem)
     ) 0 0 0;
+  touch-action: none;
 
   @media (min-width: 768px) {
     flex-wrap: nowrap;
@@ -172,7 +173,7 @@ export default {
     margin: var(--range-mobile-increment-margin, var(--space-24) 0 0 var(--space-12));
 
     @media (min-width: 768px) {
-      --range-mobile-increment-margin: 0;
+      --range-mobile-increment-margin: 0 0 0 var(--space-4);
     }
   }
 
@@ -180,7 +181,7 @@ export default {
     margin: var(--range-mobile-decrement-margin, var(--space-24) var(--space-12) 0 0);
 
     @media (min-width: 768px) {
-      --range-mobile-decrement-margin: 0;
+      --range-mobile-decrement-margin: 0 var(--space-4) 0 0;
     }
   }
 
@@ -190,7 +191,7 @@ export default {
     order: -1;
     width: 100%;
     height: var(--range-thumb-size, 3rem);
-    margin: var(--range-track-margin, 0 1rem);
+    margin: var(--range-track-margin);
 
     @media (min-width: 768px) {
       flex: 0 1 auto;
@@ -205,15 +206,16 @@ export default {
       height: var(--range-track-height, 4px);
       content: "";
       border-radius: var(--range-track-border-radius, 4px);
+      transform: translateX(var(--space-24));
     }
 
     &::after {
-      width: var(--range-selected-track-width);
+      width: calc(var(--range-selected-track-width) - var(--space-24));
       background: var(--range-selected-track-background, var(--color-range-slider-bar-indicator));
     }
 
     &::before {
-      width: 100%;
+      width: calc(100% - (2 * var(--space-24)));
       background: var(--range-track-background, var(--color-range-slider-bar-track));
     }
   }
@@ -283,14 +285,10 @@ export default {
     width: var(--range-thumb-size, 3rem);
     color: var(--range-value-color, var(--color-text-body));
     transform:
-      translate(
+      translate3d(
         calc(var(--range-selected-track-width) * -1),
-        calc(
-          (
-            var(--range-thumb-size, 2.5rem)
-            + var(--range-label-spacing-bottom, 0.5rem)
-          ) * -1
-        )
+        calc((var(--range-thumb-size, 3rem) + var(--space-8)) * -1),
+        0
       );
     transform-origin: center;
   }
