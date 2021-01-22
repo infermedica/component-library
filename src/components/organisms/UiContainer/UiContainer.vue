@@ -14,7 +14,11 @@ export default {
 .ui-container {
   padding: var(--container-padding, var(--space-40) var(--space-32));
   background: var(--containter-background, var(--color-white));
-  border-radius: var(--container-border-radius, var(--border-radius-card));
+  border-radius: var(--container-border-radius, 0);
   box-shadow: var(--box-shadow-default);
+
+  @media (min-width: 768px) {
+    border-radius: var(--container-tablet-border-radius, var(--border-radius-card));
+  }
 }
 </style>

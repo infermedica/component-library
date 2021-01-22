@@ -1,4 +1,12 @@
+const path = require('path');
 module.exports = {
+  webpackFinal: async (config, {configType}) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@':path.resolve('src'),
+    }
+    return config;
+  },
   stories: [
     // '../docs/**/*.stories.@(mdx)',
     '../src/**/*.stories.@(mdx)'

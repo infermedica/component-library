@@ -1,6 +1,9 @@
 import {
   Meta, Canvas, Story, Props, ArgsTable,
 } from '@storybook/addon-docs/blocks';
+import UiText from '@/components/atoms/UiText/UiText.vue';
+import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints';
+import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem';
 import UiCard from './UiCard.vue';
 
 <Meta
@@ -22,7 +25,9 @@ import UiCard from './UiCard.vue';
   >
     {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
-      components: { UiCard },
+      components: {
+        UiCard, UiText, UiBulletPoints, UiBulletPointsItem,
+      },
       template: `
       <UiCard
         :type="type"
@@ -30,6 +35,21 @@ import UiCard from './UiCard.vue';
         title="Call an ambulance"
         description="Your symptoms may require prompt medical evaluation. If your symptoms suddenly get worse, go to the nearest emergency department."
       >
+      <template #symptoms>
+        <UiText style="margin: var(--space-8) 0">Alarming symptoms:</UiText>
+        <UiBulletPoints >
+          <UiBulletPointsItem icon="bulletAlarming">
+            <UiText>
+              Vomiting
+            </UiText>
+          </UiBulletPointsItem>
+          <UiBulletPointsItem icon="bulletAlarming">
+            <UiText>
+              Abdominal pain, lasting 2 to 7 days
+            </UiText>
+          </UiBulletPointsItem>
+        </UiBulletPoints>
+      </template>
       </UiCard>`,
     })).bind({})}
   </Story>

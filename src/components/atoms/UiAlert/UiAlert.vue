@@ -68,7 +68,7 @@ export default {
   $this: &;
 
   display: inline-flex;
-  align-items: center;
+  align-items: flex-start;
   background: var(--alert-background);
   border: var(--alert-border);
   border-width: var(--alert-border-width);
@@ -76,6 +76,8 @@ export default {
   &__icon {
     --icon-size: var(--alert-icon-size, 1.5rem);
     --icon-color: var(--alert-icon-color, var(--color-alert-error-icon));
+
+    flex: none;
   }
 
   &__message {
