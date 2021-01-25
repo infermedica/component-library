@@ -13,9 +13,3 @@ export default {
 <style lang="scss">
 .ComponentNameKebabCase {}
 </style>
-
-<i18n>
-{
-"en": {}
-}
-</i18n>
