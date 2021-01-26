@@ -96,7 +96,7 @@ export default {
      */
     type: {
       type: String,
-      default: 'emergency-ambulance',
+      default: 'emergency_ambulance',
       validator: (value) => [
         'emergency_ambulance', 'emergency', 'consultation_24', 'consultation', 'self_care',
       ].includes(value),

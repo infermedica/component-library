@@ -17,7 +17,7 @@ describe('UiMultipleChoices.vue', () => {
       },
     });
     const emitted = [{
-      id: 'p_8', name: 'I have diabetes', choice_id: 'present', source: 'initial',
+      choice_id: 'present', id: 'p_8', name: 'I have diabetes',
     }];
     await wrapper.find('input[type="radio"]').trigger('click');
     expect(wrapper.emitted('update:modelValue')[0][0]).toStrictEqual(emitted);
@@ -42,7 +42,10 @@ describe('UiMultipleChoices.vue', () => {
       props: {
         invalid: true,
         touched: false,
-        choices: [{ id: 6, name: 'I have diabetes', linked_observation: 'p_8' }],
+        choices: [{
+          id: 'p_8',
+          name: 'I have diabetes',
+        }],
       },
     });
     wrapper.setProps({ modelValue: [{ choice_id: 'absent', id: 'p_8', source: 'initial' }] });
