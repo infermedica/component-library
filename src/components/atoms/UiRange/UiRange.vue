@@ -211,7 +211,7 @@ export default {
       height: var(--range-track-height, 4px);
       content: "";
       border-radius: var(--range-track-border-radius, 4px);
-      transform: translateX(var(--space-24));
+      transform: translateX(var(--space-24)) translateY(-50%);
     }
 
     &::after {
