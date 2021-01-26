@@ -1,22 +1,30 @@
+/* eslint-disable import/prefer-default-export, no-underscore-dangle, no-param-reassign */
 export const highlight = {
   beforeMount(el, binding) {
-    el.__highlightHandler__ = function(el, binding) {
+    if (!process.env.NODE_ENV.production) {
+      console.warn('beforeMount: v-highlight', el);
+    }
+    el.__highlightHandler__ = function (element) {
       const query = binding.value;
-      const content = el.innerHTML.replace(/<\/?mark>/gi, '');
+      const content = element.innerHTML.replace(/<\/?mark>/gi, '');
       const marked = content.replace(
         new RegExp(query, 'gi'),
-        (match) => {
-          return `<mark>${match}</mark>`
-        }
-      )
-      el.innerHTML = marked;
-    }
-    el.__highlightHandler__(el, binding)
+        (match) => `<mark>${match}</mark>`,
+      );
+      element.innerHTML = marked;
+    };
+    el.__highlightHandler__(el, binding);
   },
   updated(el, binding) {
-    el.__highlightHandler__(el, binding)
+    if (!process.env.NODE_ENV.production) {
+      console.warn('update: v-highlight', el);
+    }
+    el.__highlightHandler__(el, binding);
   },
   beforeUnmount(el, binding) {
-    el.__highlightHandler__(el, binding)
-  }
-}
+    if (!process.env.NODE_ENV.production) {
+      console.warn('beforeUnmount: v-highlight', el);
+    }
+    el.__highlightHandler__(el, binding);
+  },
+};

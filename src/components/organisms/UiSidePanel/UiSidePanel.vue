@@ -17,6 +17,7 @@
       <transition name="slide">
         <dialog
           v-if="modelValue"
+          v-focus-trap
           class="ui-side-panel__container"
         >
           <!-- @slot Use this slot to replace header template. -->
@@ -71,7 +72,7 @@
           <!-- @slot Use this slot to replace content template. -->
           <slot name="content">
             <div
-              ref="content"
+              v-body-scroll-lock
               class="ui-side-panel__content"
             >
               <!-- @slot Use this slot to place side panel content. -->
@@ -90,8 +91,7 @@ import {
   watchEffect,
   nextTick,
 } from 'vue';
-
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
+import { focusTrap, bodyScrollLock } from '@/utilities/directives';
 
 import UiBackdrop from '../../atoms/UiBackdrop/UiBackdrop.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
@@ -107,6 +107,10 @@ export default {
     UiButton,
     UiIcon,
     UiText,
+  },
+  directives: {
+    focusTrap,
+    bodyScrollLock,
   },
   props: {
     modelValue: {
@@ -142,15 +146,6 @@ export default {
       emit('update:modelValue', false);
     }
 
-    const content = ref(null);
-    function toggleBodyScroll(element, state) {
-      if (!element) return;
-      if (state) {
-        disableBodyScroll(element);
-      } else {
-        enableBodyScroll(element);
-      }
-    }
     function focus(element) {
       element.focus();
     }
@@ -158,16 +153,12 @@ export default {
       if (props.modelValue) {
         nextTick(() => {
           focus(button.value.$el);
-          toggleBodyScroll(content.value, true);
         });
-      } else {
-        toggleBodyScroll(content.value, false);
       }
     });
 
     return {
       button,
-      content,
       closeHandler,
     };
   },

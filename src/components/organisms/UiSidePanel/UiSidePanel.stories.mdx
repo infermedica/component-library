@@ -2,8 +2,8 @@ import {
   Meta, Canvas, Story, Props, ArgsTable,
 } from '@storybook/addon-docs/blocks';
 import UiSidePanel from './UiSidePanel.vue';
-import UiText from '../../atoms/UiText/UiText.vue';
-import UiButton from '../../atoms/UiButton/UiButton.vue';
+import UiText from '@/components/atoms/UiText/UiText.vue';
+import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 
 <Meta
   title="Organisms/SidePanel"
@@ -48,6 +48,7 @@ import UiButton from '../../atoms/UiButton/UiButton.vue';
           class="ui-button--text ui-button--secondary"
           @click="open = true;"
         >{{ title }}</UiButton>
+        <div style="min-height: 111vh;"></div>
         <UiSidePanel
           v-model="open"
           :title="title"

@@ -36,5 +36,5 @@ module.exports = {
       },
     },
   ],
-  ignorePatterns: ['**/utilities/*', '**/.storybook/*'],
+  ignorePatterns: ['**/.storybook/*'],
 };
