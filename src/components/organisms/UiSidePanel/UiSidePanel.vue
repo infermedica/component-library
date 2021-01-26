@@ -91,7 +91,7 @@ import {
   watchEffect,
   nextTick,
 } from 'vue';
-import { focusTrap, bodyScrollLock } from '@/utilities/directives';
+import { focusTrap, bodyScrollLock } from '../../../utilities/directives';
 
 import UiBackdrop from '../../atoms/UiBackdrop/UiBackdrop.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';

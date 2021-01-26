@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export, no-underscore-dangle, no-param-reassign */
-import { getFocusableElements, isFocusable, moveFocus } from '@/utilities/directives/focus-trap/helpers';
 import { nextTick } from 'vue';
+import { getFocusableElements, isFocusable, moveFocus } from './helpers';
 
 export const focusTrap = {
   async beforeMount(el) {
@@ -10,7 +10,7 @@ export const focusTrap = {
     await nextTick();
     el.__vueFocusableElements__ = getFocusableElements(el);
     el.__vueKeyHandler__ = function (event) {
-      if (event?.key === 'Tab') {
+      if (event.key === 'Tab') {
         if (!isFocusable(event, el.__vueFocusableElements__)) {
           el.__vueLastFocusedElement = event.target;
         }
