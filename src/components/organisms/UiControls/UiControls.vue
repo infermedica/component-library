@@ -149,7 +149,7 @@ export default {
     padding: var(--controls-container-padding, var(--space-32) var(--space-20));
 
     @media (min-width: 768px) {
-      padding: var(--controls-container-padding, var(--space-48) var(--space-48) var(--space-40));
+      padding: var(--controls-container-tablet-padding, var(--space-48) var(--space-48) var(--space-40));
     }
   }
 

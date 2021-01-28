@@ -88,7 +88,11 @@ import UiButton from '../../atoms/UiButton/UiButton.vue'
       components: { UiLoader, UiControls },
       template: `
         <UiControls
-          style="max-width: 780px; min-height: 540px"
+          style="
+            max-width: 780px; min-height: 540px;
+            --controls-container-padding: 44px 20px 0 20px;
+            --controls-container-tablet-padding: 76px 96px 0 76px;
+          "
           toBack="/3-3"
           toNext="/5-4"
           :isAnswerAbove="true"
@@ -126,56 +130,59 @@ import UiButton from '../../atoms/UiButton/UiButton.vue'
       props: Object.keys(argTypes),
       components: { UiLoader, UiSearch },
       template: `
-        <UiSearch
-          text="Open dropdown with loader"
-          :is-loading="true"
-          style="max-width: 404px"
-        >
-          <template #loading>
-            <UiLoader
-              type="skeleton"
-              :is-loading="isLoading"
-            >
-              <template #loader>
-                <div
-                  class="ui-loader-skeleton__block ui-loader-skeleton__block--small"
-                  style="
-                    --loader-skeleton-block-small-margin: 0 0 var(--space-24) 0;
-                    --loader-skeleton-block-small-tablet-margin: 0 0 var(--space-24) 0;
-                    --loader-skeleton-block-small-tablet-height: 0.75rem;
-                  "
-                />
-                <div
-                  class="ui-loader-skeleton__block ui-loader-skeleton__block--small"
-                  style="
-                    width: 50%;
-                    --loader-skeleton-block-small-margin: 0 0 var(--space-24) 0;
-                    --loader-skeleton-block-small-tablet-margin: 0 0 var(--space-24) 0;
-                    --loader-skeleton-block-small-tablet-height: 0.75rem;
-                  "
-                />
-                <div
-                  class="ui-loader-skeleton__block ui-loader-skeleton__block--small"
-                  style="
-                    width: 75%;
-                    --loader-skeleton-block-small-margin: 0 0 var(--space-24) 0;
-                    --loader-skeleton-block-small-tablet-margin: 0 0 var(--space-24) 0;
-                    --loader-skeleton-block-small-tablet-height: 0.75rem;
-                  "
-                />
-                <div
-                  class="ui-loader-skeleton__block ui-loader-skeleton__block--small"
-                  style="
-                    width: 50%;
-                    --loader-skeleton-block-small-margin: 0;
-                    --loader-skeleton-block-small-tablet-margin: 0;
-                    --loader-skeleton-block-small-tablet-height: 0.75rem;
-                  "
-                />
-              </template>
-            </UiLoader>
-          </template>
-        </UiSearch>
+        <label for="search-input-loader">
+          <UiSearch
+            text="Open dropdown with loader"
+            :is-loading="true"
+            style="max-width: 404px"
+            :inputAttrs="{id: 'search-input-loader'}"
+          >
+            <template #loading>
+              <UiLoader
+                type="skeleton"
+                :is-loading="isLoading"
+              >
+                <template #loader>
+                  <div
+                    class="ui-loader-skeleton__block ui-loader-skeleton__block--small"
+                    style="
+                      --loader-skeleton-block-small-margin: 0 0 var(--space-24) 0;
+                      --loader-skeleton-block-small-tablet-margin: 0 0 var(--space-24) 0;
+                      --loader-skeleton-block-small-tablet-height: 0.75rem;
+                    "
+                  />
+                  <div
+                    class="ui-loader-skeleton__block ui-loader-skeleton__block--small"
+                    style="
+                      width: 50%;
+                      --loader-skeleton-block-small-margin: 0 0 var(--space-24) 0;
+                      --loader-skeleton-block-small-tablet-margin: 0 0 var(--space-24) 0;
+                      --loader-skeleton-block-small-tablet-height: 0.75rem;
+                    "
+                  />
+                  <div
+                    class="ui-loader-skeleton__block ui-loader-skeleton__block--small"
+                    style="
+                      width: 75%;
+                      --loader-skeleton-block-small-margin: 0 0 var(--space-24) 0;
+                      --loader-skeleton-block-small-tablet-margin: 0 0 var(--space-24) 0;
+                      --loader-skeleton-block-small-tablet-height: 0.75rem;
+                    "
+                  />
+                  <div
+                    class="ui-loader-skeleton__block ui-loader-skeleton__block--small"
+                    style="
+                      width: 50%;
+                      --loader-skeleton-block-small-margin: 0;
+                      --loader-skeleton-block-small-tablet-margin: 0;
+                      --loader-skeleton-block-small-tablet-height: 0.75rem;
+                    "
+                  />
+                </template>
+              </UiLoader>
+            </template>
+          </UiSearch>
+        </label>
       `,
     })).bind({})}
   </Story>
