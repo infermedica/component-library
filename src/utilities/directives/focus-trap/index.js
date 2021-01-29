@@ -4,9 +4,6 @@ import { getFocusableElements, isFocusable, moveFocus } from './helpers';
 
 export const focusTrap = {
   async beforeMount(el) {
-    if (!process.env.NODE_ENV.production) {
-      console.warn('beforeMount: v-focus-trap', el);
-    }
     await nextTick();
     el.__vueFocusableElements__ = getFocusableElements(el);
     el.__vueKeyHandler__ = function (event) {
@@ -20,19 +17,13 @@ export const focusTrap = {
     document.addEventListener('keydown', el.__vueKeyHandler__);
   },
   async update(el) {
-    if (!process.env.NODE_ENV.production) {
-      console.warn('update: v-focus-trap', el);
-    }
     await nextTick();
     el.__vueFocusableElements__ = getFocusableElements(el);
   },
   beforeUnmount(el) {
-    if (!process.env.NODE_ENV.production) {
-      console.warn('beforeUnmount: v-focus-trap', el);
-    }
     if (el.__vueLastFocusedElement) {
       el.__vueLastFocusedElement.focus();
-      document.removeEventListener('keydown', el.__vueKeyHandler__);
     }
+    document.removeEventListener('keydown', el.__vueKeyHandler__);
   },
 };
