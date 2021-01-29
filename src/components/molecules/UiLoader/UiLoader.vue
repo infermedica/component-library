@@ -1,26 +1,32 @@
 <template>
-  <transition
-    name="fade"
-    mode="out-in"
+  <transition-group
+    :name="transitionName"
   >
-    <div
+    <!-- @slot Use this slot to replace loader. -->
+    <slot
       v-if="isLoading"
-      class="ui-loader"
-      v-bind="$attrs"
-      aria-live="polite"
-      :aria-busy="isLoading ? true : false"
+      name="loader"
     >
       <component
-        :is="component"
-        v-bind="loaderAttrs"
+        :is="tag"
+        v-bind="$attrs"
+        key="loading"
+        class="ui-loader"
+        aria-live="polite"
+        :aria-busy="`${isLoading}`"
       >
-        <!-- @slot Use this slot to replace loader template. -->
-        <slot name="loader" />
+        <component
+          :is="component"
+          v-bind="loaderAttrs"
+        >
+          <!-- @slot Use this slot to place loader blocks. -->
+          <slot name="loader-blocks" />
+        </component>
       </component>
-    </div>
+    </slot>
     <!-- @slot Use this slot to put loaded content.-->
     <slot v-else />
-  </transition>
+  </transition-group>
 </template>
 
 <script>
@@ -49,32 +55,48 @@ export default {
   inheritAttrs: false,
   props: {
     /**
-    * use this props to show UiLoader component
-    */
+     * use this props to show UiLoader component
+     */
     isLoading: {
       type: Boolean,
       default: true,
     },
     /**
-    * use this props to select UiLoader variant
-    */
+     * use this props to select UiLoader variant
+     */
     type: {
       type: String,
       default: 'spinner',
       validator: (value) => ['spinner', 'ellipsis', 'skeleton'].includes(value),
     },
     /**
-    * use this props to pass attributes to internal child components
-    */
+     * use this props to pass attributes to internal child components
+     */
     loaderAttrs: {
       type: Object,
       default: () => ({}),
     },
+    /**
+     * use this props to pass tag of loader
+     */
+    tag: {
+      type: [String, Object],
+      default: 'div',
+    },
+    /**
+     * use this ptops to pas transition name
+     */
+    transition: {
+      type: [String, Boolean],
+      default: false,
+    },
   },
   setup(props) {
     const component = computed(() => `ui-loader-${props.type}`);
+    const transitionName = computed(() => (props.transition ? props.transition : null));
     return {
       component,
+      transitionName,
     };
   },
 };
@@ -82,20 +104,16 @@ export default {
 
 <style lang="scss">
 .ui-loader {
-  display: flex;
-  flex: 1;
-  align-items: var(--loader-align-items, center);
-  justify-content: var(--loader-justify-content, center);
+  .fade {
+    &-enter-active,
+    &-leave-active {
+      transition: opacity 300ms ease;
+    }
 
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: opacity 0.5s ease;
-  }
-
-  .fade-enter-from,
-  .fade-leave-to {
-    opacity: 0;
+    &-enter-from,
+    &-leave-to {
+      opacity: 0;
+    }
   }
 }
 </style>
-

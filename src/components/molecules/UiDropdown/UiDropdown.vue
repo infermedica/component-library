@@ -21,18 +21,23 @@
     </slot>
     <!-- @slot Use this slot to place content template. -->
     <slot
-      name="content"
+      name="popover"
       v-bind="{closeHandler, isOpen}"
     >
       <UiPopover
         v-if="isOpen"
-        class="ui-dropdown__content"
+        class="ui-dropdown__popover"
         @close="closeHandler"
       >
-        <!-- @slot Use this slot to place dropdown content inside dropdown. -->
-        <div role="radiogroup">
-          <slot v-bind="{closeHandler, isOpen}" />
-        </div>
+        <slot
+          name="content"
+          v-bind="{closeHandler, isOpen}"
+        >
+          <!-- @slot Use this slot to place dropdown content inside dropdown. -->
+          <div role="radiogroup">
+            <slot v-bind="{closeHandler, isOpen}" />
+          </div>
+        </slot>
       </UiPopover>
     </slot>
   </div>
@@ -128,15 +133,15 @@ export default {
     width: var(--dropdown-toggle-width, 100%);
   }
 
-  &__content {
+  &__popover {
     position: absolute;
     top: 100%;
-    width: var(--dropdown-content-width, 100%);
-    padding: var(--dropdown-content-padding, var(--space-8));
-    border: var(--dropdown-content-border, 1px solid var(--color-border-subtle));
-    border-radius: var(--dropdown-content-border-radius, var(--border-radius-form));
-    box-shadow: var(--dropdown-content-box-shadow, var(--box-shadow-modal));
-    transform: var(--dropdown-content-transform, translateY(var(--space-8)));
+    width: var(--dropdown-popover-width, 100%);
+    min-height: var(--dropdown-popover-min-height, 0);
+    border: var(--dropdown-popover-border, 1px solid var(--color-border-subtle));
+    border-radius: var(--dropdown-popover-border-radius, var(--border-radius-form));
+    box-shadow: var(--dropdown-popover-box-shadow, var(--box-shadow-modal));
+    transform: var(--dropdown-popover-transform, translateY(var(--space-8)));
   }
 
   &--compact {

@@ -36,13 +36,16 @@ import UiButton from '../../atoms/UiButton/UiButton.vue'
           toNext="/5-4"
           :isAnswerAbove="true"
         >
-          <UiLoader
-            type="spinner"
-            :is-loading="isLoading"
-            :loaderAttrs="loaderAttrs"
-          >
-            I am loaded!
-          </UiLoader>
+          <div style="position: relative; flex: 1; display: flex">
+            <UiLoader
+              type="spinner"
+              :is-loading="isLoading"
+              :loaderAttrs="loaderAttrs"
+              style="position: absolute; display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; "
+            >
+              I am loaded!
+            </UiLoader>
+          </div>
         </UiControls>
       `,
     })).bind({})}
@@ -58,6 +61,9 @@ import UiButton from '../../atoms/UiButton/UiButton.vue'
         class: 'ui-loader-spinner--on-dark',
       },
     }}
+    parameters={{
+      layout: 'full',
+    }}
   >
     {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
@@ -66,7 +72,7 @@ import UiButton from '../../atoms/UiButton/UiButton.vue'
         <UiLoader
           :loaderAttrs="loaderAttrs"
           type="spinner"
-          style="height: 100vh;"
+          style="position: absolute; z-index: 1; display: flex; align-items: center; justify-content: center; width: 100%;height: 100%; background: var(--color-blue-600); margin: -8px;"
           :is-loading="isLoading"
         />
       `,
@@ -97,22 +103,25 @@ import UiButton from '../../atoms/UiButton/UiButton.vue'
           toNext="/5-4"
           :isAnswerAbove="true"
         >
+          <div style="position: relative; flex: 1">
           <UiLoader
             type="skeleton"
             :is-loading="isLoading"
+            style="position: absolute; width: 100%; height: 100%;"
           >
-            <template #loader>
+            <template #loader-blocks>
               <div
-                class="ui-loader-skeleton__block ui-loader-skeleton__block--small"
+                class="ui-loader-skeleton__block"
               />
               <div
-                class="ui-loader-skeleton__block ui-loader-skeleton__block--small"
+                class="ui-loader-skeleton__block"
                 style="width: 75%;"
                />
               <div class="ui-loader-skeleton__block ui-loader-skeleton__block--large" />
             </template>
             I am loaded!
           </UiLoader>
+</div>
         </UiControls>
       `,
     })).bind({})}
@@ -129,9 +138,15 @@ import UiButton from '../../atoms/UiButton/UiButton.vue'
     {((args, { argTypes }) => ({
       props: Object.keys(argTypes),
       components: { UiLoader, UiSearch },
+      data() {
+        return {
+          query: '',
+        }
+      },
       template: `
         <label for="search-input-loader">
           <UiSearch
+            v-model="query"
             text="Open dropdown with loader"
             :is-loading="true"
             style="max-width: 404px"
@@ -188,32 +203,6 @@ import UiButton from '../../atoms/UiButton/UiButton.vue'
   </Story>
 </Canvas>
 
-# Ellipsis
-
-<Canvas>
-  <Story
-    name="Ellipsis common"
-    args={{
-      isLoading: true,
-    }}
-  >
-    {((args, { argTypes }) => ({
-      props: Object.keys(argTypes),
-      components: { UiLoader, UiButton },
-      template: `
-        <UiButton>
-          <UiLoader
-            type="ellipsis"
-            :is-loading="isLoading"
-          >
-            I am loaded!
-          </UiLoader>
-        </UiButton>
-      `,
-    })).bind({})}
-  </Story>
-</Canvas>
-
 <Canvas>
   <Story
     name="Ellipsis visual hidden"
@@ -226,11 +215,12 @@ import UiButton from '../../atoms/UiButton/UiButton.vue'
       components: { UiLoader, UiButton },
       template: `
         <UiButton>
-          <div :class="{'visual-hidden': isLoading}">I am loaded</div>
           <UiLoader
-            type="ellipsis"
-            :is-loading="isLoading"
+          type="ellipsis"
+          :is-loading="isLoading"
+          style="position: absolute"
           />
+          <span :style="{ opacity: isLoading ? 0 : 1 }">I am loaded</span>
         </UiButton>
       `,
     })).bind({})}

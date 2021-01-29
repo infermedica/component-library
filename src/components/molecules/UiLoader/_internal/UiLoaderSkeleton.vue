@@ -22,6 +22,8 @@ export default {
   &__block {
     position: relative;
     width: var(--loader-skeleton-block-width, 100%);
+    height: var(--loader-skeleton-block-height, 0.75rem);
+    margin: var(--loader-skeleton-block-margin, var(--space-12) 0 var(--space-16) 0);
     background:
       var(
         --loader-skeleton-block-background,
@@ -36,19 +38,14 @@ export default {
     border-radius: var(--loader-skeleton-block-border-radius, var(--border-radius-card));
     animation: skeleton-shine 1s linear infinite;
 
-    &--small {
-      height: var(--loader-skeleton-block-small-height, 0.75rem);
-      margin: var(--loader-skeleton-block-small-margin, 0 0 var(--space-16) 0);
-
-      @media (min-width: 768px) {
-        height: var(--loader-skeleton-block-small-tablet-height, 1rem);
-        margin: var(--loader-skeleton-block-small-tablet-margin, 0 0 var(--space-20) 0);
-      }
+    @media (min-width: 768px) {
+      height: var(--loader-skeleton-block-tablet-height, 1rem);
+      margin: var(--loader-skeleton-block-tablet-margin, var(--space-12) 0 var(--space-20) 0);
     }
 
     &--large {
       height: var(--loader-skeleton-block-large-height, 7.5rem);
-      margin: var(--loader-skeleton-block-large-margin, var(--space-40) 0 0 0);
+      margin: var(--loader-skeleton-block-large-margin, var(--space-40) 0 var(--space-12) 0);
 
       @media (min-width: 768px) {
         height: var(--loader-skeleton-block-large-tablet-height, 7.5rem);

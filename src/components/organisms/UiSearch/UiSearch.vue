@@ -33,25 +33,48 @@
           </template>
         </UiInput>
       </template>
-      <template #default>
-        <template v-if="isLoading">
-          <slot name="loading" />
-        </template>
-        <template
-          v-else-if="hasResults"
+      <template #content>
+        <UiLoader
+          :is-loading="isLoading"
+          type="skeleton"
+          class="ui-search__loader"
         >
-          <UiDropdownItem
-            v-for="(result, key) in results"
-            :key="key"
-            :value="result"
+          <template #loader-blocks>
+            <div class="ui-loader-skeleton__block" />
+            <div
+              class="ui-loader-skeleton__block"
+              style="--loader-skeleton-block-width: 60%;"
+            />
+            <div
+              class="ui-loader-skeleton__block"
+              style="--loader-skeleton-block-width: 80%;"
+            />
+            <div
+              class="ui-loader-skeleton__block"
+              style="--loader-skeleton-block-width: 60%;"
+            />
+          </template>
+          <template
+            v-if="hasResults"
           >
-            <span
-              v-highlight="`${modelValue}`"
-              class="ui-search__highlighted"
-            >{{ result.label }}</span>
-          </UiDropdownItem>
-        </template>
-        <UiSearchNoResults v-else />
+            <div
+              role="radiogroup"
+              class="ui-search__options"
+            >
+              <UiDropdownItem
+                v-for="(result, key) in results"
+                :key="key"
+                :value="result"
+              >
+                <span
+                  v-highlight="`${modelValue}`"
+                  class="ui-search__highlighted"
+                >{{ result.label }}</span>
+              </UiDropdownItem>
+            </div>
+          </template>
+          <UiSearchNoResults v-else />
+        </UiLoader>
       </template>
     </UiDropdown>
     <UiSearchSelected
@@ -72,6 +95,7 @@ import UiDropdown from '../../molecules/UiDropdown/UiDropdown.vue';
 import UiDropdownItem from '../../molecules/UiDropdown/_internal/UiDropdownItem.vue';
 import UiSearchNoResults from './_internal/UiSearchNoResults.vue';
 import UiSearchSelected from './_internal/UiSearchSelected.vue';
+import UiLoader from '../../molecules/UiLoader/UiLoader.vue';
 
 export default {
   name: 'UiSearch',
@@ -83,6 +107,7 @@ export default {
     UiDropdownItem,
     UiSearchNoResults,
     UiSearchSelected,
+    UiLoader,
   },
   directives: { highlight },
   props: {
@@ -147,6 +172,9 @@ export default {
 @import '../../../styles/mixins/_mixins.scss';
 
 .ui-search {
+  --popover-content-padding: 0;
+  --dropdown-popover-min-height: 9.5rem;
+
   &__dropdown,
   &__input {
     width: 100%;
@@ -169,6 +197,20 @@ export default {
 
   &__icon {
     --icon-color: var(--search-icon-color, var(--color-icon-primary));
+  }
+
+  &__options {
+    padding: var(--search-options-padding, var(--space-8));
+  }
+
+  &__loader {
+    --loader-skeleton-block-tablet-height: 0.75rem;
+    --loader-skeleton-block-margin: 0 0 var(--space-24) 0;
+    --loader-skeleton-block-tablet-margin: 0 0 var(--space-24) 0;
+
+    position: absolute;
+    width: 100%;
+    padding: var(--space-16);
   }
 }
 </style>

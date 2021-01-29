@@ -38,54 +38,31 @@ export default {
 
 <style lang="scss">
 .ui-loader-spinner {
-  $this: &;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: var(--loader-spinner-height, 100%);
-  height: var(--loader-spinner-width, 100%);
-  background: var(--loader-spinner-background, var(--color-white));
 
   &__loader {
-    width: var(--loader-spinner-loader-widtht, 4rem);
-    height: var(--loader-spinner-loader-height, 4rem);
-    // cannot use hexadecimal variable
-    border: var(--loader-spinner-loader-border, 2px solid rgba(95, 114, 133, 0.3));
-    border-top-color: var(--loader-spinner-loader-border-top-color, var(--color-icon-secondary));
+    width: var(--loader-spinner-loader-size, 4rem);
+    height: var(--loader-spinner-loader-size, 4rem);
+    border: var(--loader-spinner-loader-border, solid rgba(95, 114, 133, 0.3));
+    border-width: var(--loader-spinner-loader-border-width, 2px);
+    border-top-color: var(--loader-spinner-loader-highlighted-color, var(--color-icon-secondary));
     border-radius: var(--loader-spinner-loader-border-radius, var(--border-radius-circle));
     animation: rotate 0.8s cubic-bezier(0.8, 0.4, 0.4, 0.8) infinite;
   }
 
   &__label {
-    margin: var(--loader-spinner-text-margin, var(--space-24) 0 0 0);
+    --text-color: var(--loader-spinner-label-color, var(--color-text-body));
 
-    --text-color: var(--loader-spinner-text-color, var(--color-text-body));
+    margin: var(--loader-spinner-label-margin, var(--space-24) 0 0 0);
   }
 
   &--on-dark {
-    --loader-spinner-background:
-      var(
-        --loader-spinner-on-dark-background,
-        var(--color-background-dark)
-      );
-    --loader-spinner-loader-border-top-color:
-      var(
-        --loader-spinner-on-dark-spinner-border-top-color,
-        var(--color-icon-on-dark-enabled)
-      );
-    // cannot use hexadecimal variable
-    --loader-spinner-loader-border:
-      var(
-        --loader-spinner-on-dark-spinner-border,
-        2px solid rgba(255, 255, 255, 0.3)
-      );
-    --loader-spinner-text-color:
-      var(
-        --loader-spinner-on-dark-text-color,
-        var(--color-text-on-dark)
-      );
+    --loader-spinner-loader-border: solid rgba(255, 255, 255, 0.3);
+    --loader-spinner-loader-highlighted-color: var(--color-icon-on-dark-enabled);
+    --loader-spinner-label-color: var(--color-text-on-dark);
   }
 
   @keyframes rotate {
