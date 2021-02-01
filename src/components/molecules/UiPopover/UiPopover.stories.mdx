@@ -13,10 +13,7 @@ import UiText from '../../atoms/UiText/UiText';
     modifiers: {
       control: {
         type: 'inline-check',
-        options: {
-          'ui-popover--unrounded': 'ui-popover--unrounded',
-          'ui-popover--has-arrow': 'ui-popover--has-arrow',
-        },
+        options: ['ui-popover--unrounded', 'ui-popover--has-arrow', 'ui-popover--has-mobile'],
       },
     },
   }}
@@ -47,6 +44,41 @@ import UiText from '../../atoms/UiText/UiText';
         :button-attrs="computedButtonAttrs"
         :class="modifiers"
         style="max-width: 22.5rem"
+      >
+        <UiText style="padding: 8px">
+          {{ content }}
+        </UiText>
+      </UiPopover>`,
+    })).bind({})}
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story
+    name="[example] mobile"
+    args={{
+      title: 'Heading',
+      content: 'You’re about to use a short (3 min), safe and anonymous health checkup.',
+      modifiers: ['ui-popover--has-mobile']
+    }}
+    parameters={{
+      layout: 'full',
+    }}
+  >
+    {((args, { argTypes }) => ({
+      props: Object.keys(argTypes),
+      components: { UiPopover, UiText },
+      computed: {
+        computedButtonAttrs() {
+          return {
+            'aria-label': `close ${this.title} popover`,
+          };
+        },
+      },
+      template: `<UiPopover
+        :title="title"
+        :button-attrs="computedButtonAttrs"
+        :class="modifiers"
       >
         <UiText style="padding: 8px">
           {{ content }}

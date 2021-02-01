@@ -93,7 +93,7 @@ export default {
   border-width: var(--popover-border-width, 1px);
   border-radius: var(--popover-border-radius, var(--border-radius-form));
   box-shadow: var(--popover-box-shadow, var(--box-shadow-modal));
-  transform: var(--popover-transform, translateY(var(--space-8)));
+  transform: var(--popover-transform, 0);
 
   &__header {
     position: relative;
@@ -126,6 +126,29 @@ export default {
         border: var(--popover-border, solid var(--color-border-subtle));
         border-width: var(--popover-arrow-border-width, 1px 1px 0 0);
         transform: translate(50%, -50%) rotate(45deg);
+      }
+    }
+  }
+
+  &--has-mobile {
+    @media (max-width: 767px) {
+      --popover-border-radius: 0;
+
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: var(--popover-has-mobile-height, 50%);
+    }
+
+    &#{$this}--has-arrow {
+      #{$this}__header {
+        &::after {
+          @media (max-width: 767px) {
+            content: none;
+          }
+        }
       }
     }
   }

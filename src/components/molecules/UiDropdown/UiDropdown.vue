@@ -138,9 +138,6 @@ export default {
     top: 100%;
     width: var(--dropdown-popover-width, 100%);
     min-height: var(--dropdown-popover-min-height, 0);
-    border: var(--dropdown-popover-border, 1px solid var(--color-border-subtle));
-    border-radius: var(--dropdown-popover-border-radius, var(--border-radius-form));
-    box-shadow: var(--dropdown-popover-box-shadow, var(--box-shadow-modal));
     transform: var(--dropdown-popover-transform, translateY(var(--space-8)));
   }
 
