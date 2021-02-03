@@ -1,5 +1,4 @@
 <template>
-  <!-- v-click-outside should be trigger only when required -->
   <div
     v-click-outside="closeHandler.bind(this, true)"
     class="ui-dropdown"
@@ -77,6 +76,7 @@ export default {
      */
     toggleElement: {
       type: Object,
+      default: undefined,
     },
   },
   emits: ['update:modelValue', 'open', 'close'],

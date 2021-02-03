@@ -116,6 +116,7 @@ export default {
 .ui-form-field {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 
   &__label {
     display: flex;

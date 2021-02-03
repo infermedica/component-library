@@ -26,6 +26,7 @@
       role="region"
       :aria-labelledby="`toggler${name}`"
       class="ui-tabs-item__content"
+      v-bind="$attrs"
     >
       <slot />
     </div>
@@ -112,7 +113,7 @@ export default {
     --button-padding: var(--space-16) 0;
 
     position: relative;
-    margin: 0 var(--space-24) 0 0;
+    margin: var(--tabs-item-toggler-margin, 0 var(--space-24) 0 0);
 
     &:last-of-type {
       margin: 0;

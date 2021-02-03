@@ -14,11 +14,11 @@
     </slot>
     <!-- @slot Use this slot to replace container template. -->
     <slot name="container">
-      <transition name="slide">
+      <transition :name="transition">
         <dialog
           v-if="modelValue"
           v-focus-trap
-          class="ui-side-panel__container"
+          class="ui-side-panel__dialog"
         >
           <!-- @slot Use this slot to replace header template. -->
           <slot
@@ -45,13 +45,18 @@
                 name="label"
                 v-bind="{title, subtitle}"
               >
-                <div class="ui-side-panel__label">
+                <div
+                  v-if="title || subtitle"
+                  class="ui-side-panel__label"
+                >
                   <!-- @slot Use this slot to replace title template. -->
                   <slot
                     name="title"
                     v-bind="title"
                   >
-                    <UiHeading>{{ title }}</UiHeading>
+                    <UiHeading v-if="title">
+                      {{ title }}
+                    </UiHeading>
                   </slot>
                   <!-- @slot Use this slot to replace subtitle template. -->
                   <slot
@@ -138,6 +143,10 @@ export default {
       type: Object,
       default: () => ({}),
     },
+    transition: {
+      type: String,
+      default: 'fade',
+    },
   },
   emits: ['update:modelValue'],
   setup(props, { emit }) {
@@ -147,12 +156,12 @@ export default {
     }
 
     function focus(element) {
-      element.focus();
+      if (element) { element.focus(); }
     }
     watchEffect(() => {
       if (props.modelValue) {
         nextTick(() => {
-          focus(button.value.$el);
+          focus(button.value?.$el);
         });
       }
     });
@@ -167,12 +176,13 @@ export default {
 
 <style lang="scss">
 .ui-side-panel {
-  &__container {
+  &__dialog {
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
     left: auto;
+    z-index: var(--side-panel-z-index, 1000);
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -203,11 +213,12 @@ export default {
     --icon-size: var(--side-panel-close-icon-size, 1.5rem);
     --button-padding: 0;
 
-    margin: var(--side-panel-close-margin, 0 0 var(--space-32) auto);
+    margin: var(--side-panel-close-margin, 0 0 0 auto);
   }
 
   &__label {
     padding: var(--side-panel-label-padding, 0 var(--space-8));
+    margin: var(--side-panel-label-margin, var(--space-32) 0 0 0);
   }
 
   &__subtitle {
@@ -217,7 +228,7 @@ export default {
   &__content {
     flex: 1;
     padding: var(--side-panel-content-padding, var(--space-32) var(--space-20));
-    overflow: auto;
+    overflow: var(--side-panel-content-overflow, auto);
 
     @media (min-width: 768px) {
       padding: var(--side-panel-content-tablet-padding, var(--space-32) var(--space-48));
