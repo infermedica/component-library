@@ -1,7 +1,7 @@
 <template>
   <slot
     name="toggler"
-    v-bind="{ toggle, name, icon, title, isOpen }"
+    v-bind="{ toggle, name, title, isOpen }"
   >
     <UiButton
       :id="`toggler${name}`"
@@ -57,16 +57,6 @@ export default {
     name: {
       type: String,
       default: '',
-    },
-    /**
-     * Use this props to setup item component.
-     */
-    settings: {
-      type: Object,
-      default: () => ({
-        iconOpen: 'chevronUp',
-        iconClose: 'chevronDown',
-      }),
     },
   },
   setup(props) {
