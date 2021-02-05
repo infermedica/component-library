@@ -14,7 +14,10 @@
     </slot>
     <!-- @slot Use this slot to replace container template. -->
     <slot name="container">
-      <transition :name="transition">
+      <transition
+        :name="transition"
+        @after-enter="afterEnterHandler"
+      >
         <dialog
           v-if="modelValue"
           v-focus-trap
@@ -145,16 +148,19 @@ export default {
     },
     transition: {
       type: String,
-      default: 'fade',
+      default: 'slide',
     },
   },
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'after-enter'],
   setup(props, { emit }) {
     const button = ref(null);
     function closeHandler() {
       emit('update:modelValue', false);
     }
 
+    function afterEnterHandler() {
+      emit('after-enter');
+    }
     function focus(element) {
       if (element) { element.focus(); }
     }
@@ -169,6 +175,7 @@ export default {
     return {
       button,
       closeHandler,
+      afterEnterHandler,
     };
   },
 };
