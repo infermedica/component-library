@@ -122,7 +122,7 @@ export default {
     justify-content: center;
     width: var(--radio-size, 1.25rem);
     height: var(--radio-size, 1.25rem);
-    margin: var(--radio-margin, 0.125rem var(--space-12) 0 0);
+    margin: var(--radio-margin, 0.125rem var(--space-12) 0.125rem 0.125rem);
     overflow: hidden;
     background: var(--radio-background, var(--color-background-white));
     border: var(--radio-border, solid var(--color-border-accessible));
