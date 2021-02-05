@@ -35,6 +35,8 @@ export default {
 
 <style lang="scss">
 .ui-notification {
+  --alert-message-margin: 0 0 0 var(--space-12);
+
   display: flex;
   flex-direction: column;
   padding: var(--notification-padding, var(--space-12));

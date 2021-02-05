@@ -160,7 +160,7 @@ export default {
     justify-content: center;
     width: var(--checkbox-size, 1.25rem);
     height: var(--checkbox-size, 1.25rem);
-    margin: var(--checkbox-margin, 0.125rem var(--space-12) 0.125rem 0.125rem );
+    margin: var(--checkbox-margin, 0.125rem);
     overflow: hidden;
     background: var(--checkbox-background, var(--color-background-white));
     border: var(--checkbox-border, solid var(--color-border-accessible));
@@ -194,6 +194,7 @@ export default {
 
   &__label {
     flex: var(--checkbox-label-flex, 1);
+    margin: var(--checkbox-label-margin, 0 0 0 var(--space-12));
     color: var(--checkbox-label-color, var(--color-text-body));
   }
 
