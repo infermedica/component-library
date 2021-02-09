@@ -47,7 +47,10 @@
                   :name="`label-${choice.id}`"
                   v-bind="{choice}"
                 >
-                  <div class="ui-multiple-answer__label">
+                  <div
+                    class="ui-multiple-answer__label"
+                    :class="`${component}__label`"
+                  >
                     <UiText
                       tag="span"
                     >
