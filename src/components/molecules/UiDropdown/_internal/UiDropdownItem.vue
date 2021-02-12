@@ -12,6 +12,7 @@
     <slot />
     <UiIcon
       icon="tick"
+      class="ui-dropdown-item__icon"
     />
   </UiButton>
 </template>
@@ -110,6 +111,9 @@ export default {
     margin: var(--dropdown-item-margin, 0);
   }
 
+  &__icon {
+    flex: none;
+  }
   &--selected {
     --button-icon-color: var(--color-icon-negative);
     --button-icon-color-hover: var(--color-icon-negative);
