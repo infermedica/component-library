@@ -55,7 +55,7 @@
                   <!-- @slot Use this slot to replace title template. -->
                   <slot
                     name="title"
-                    v-bind="title"
+                    v-bind="{title}"
                   >
                     <UiHeading v-if="title">
                       {{ title }}

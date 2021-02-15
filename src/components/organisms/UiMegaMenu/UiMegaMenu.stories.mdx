@@ -1,0 +1,114 @@
+import {
+  Meta, Canvas, Story, Props, ArgsTable,
+} from '@storybook/addon-docs/blocks';
+import UiMegaMenu from './UiMegaMenu.vue';
+import UiMegaMenuItem from './_internal/UiMegaMenuItem.vue';
+import UiButton from '../../atoms/UiButton/UiButton';
+import UiText from '../../atoms/UiText/UiText';
+import UiSidePanel from '../UiSidePanel/UiSidePanel.vue';
+
+<Meta
+  title="Organisms/MegaMenu"
+  component={UiMegaMenu}
+  argTypes={{
+    customProp: { control: { type: 'text' } },
+  }}
+/>
+
+# MegaMenu
+
+<Canvas>
+  <Story
+    name="Common"
+    args={{
+      customProp: 'customProp',
+    }}
+  >
+    {((args, { argTypes }) => ({
+      props: Object.keys(argTypes),
+      components: {
+        UiMegaMenu, UiMegaMenuItem, UiButton, UiText,
+      },
+      data() {
+        return {
+          opened: [],
+        }
+      },
+      template: `<div style="max-width: 360px">
+        <UiMegaMenu v-model="opened">
+          <UiMegaMenuItem title="For business" name="for-business">
+            <template #trigger="{goToHandler, title}">
+              <UiButton class="ui-button--text" style="display: block" @click="goToHandler">{{title}}</UiButton>
+            </template>
+            <template #default="{backHandler}">
+                <UiButton class="ui-button--text" @click="backHandler">Back</UiButton>
+                <UiText>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque non odio tellus. Etiam auctor hendrerit sapien vehicula eleifend. Fusce et viverra purus, vitae imperdiet felis. Nunc risus dui, tempor in neque sed, volutpat convallis urna. Vivamus sagittis mauris ac nunc consequat venenatis. Fusce leo purus, ornare at mattis nec, pulvinar eget lectus. Praesent nec metus vel felis interdum semper quis at nisi. Quisque nec mollis augue, at posuere leo. Vestibulum lobortis massa dui, sed pulvinar sem sollicitudin sit amet. In nec massa volutpat, commodo urna sit amet, convallis diam. Phasellus luctus porta pulvinar. Aenean ultricies, nibh eu dignissim fermentum, eros odio blandit elit, vitae rutrum enim leo vitae libero. Fusce sed posuere ex.</UiText>
+                <UiText>Donec pellentesque orci et justo mattis convallis. In eu ex a nunc blandit dictum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce vitae porttitor lectus. Aenean in efficitur massa. Phasellus quis suscipit nisl. Quisque massa purus, aliquet sit amet porta id, sagittis congue tortor. Donec volutpat tellus in erat pellentesque faucibus. Donec mattis sagittis facilisis. Duis facilisis felis gravida tristique hendrerit. Sed condimentum dui sapien, sed egestas diam molestie eu. In hac habitasse platea dictumst.</UiText>
+            </template>
+          </UiMegaMenuItem>
+          <UiMegaMenuItem title="CE Marking" name="ce-marking">
+            <template #trigger="{goToHandler, title}">
+              <UiButton class="ui-button--text" style="display: block" @click="goToHandler">{{title}}</UiButton>
+            </template>
+            <template #default="{backHandler}">
+                <UiButton class="ui-button--text" @click="backHandler">Back</UiButton>
+                <UiText>Aliquam erat volutpat. Aenean a vulputate lacus. Cras accumsan turpis vel ipsum dictum facilisis. Phasellus risus felis, fringilla sed lacus in, venenatis fringilla ante. Maecenas commodo ultricies accumsan. Sed id dignissim justo, eget iaculis mi. Suspendisse in mi diam.</UiText>
+            </template>
+          </UiMegaMenuItem>
+        </UiMegaMenu>
+      </div>`,
+    })).bind({})}
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story
+    name="[example] with SidePanel"
+    height="446px"
+  >
+    {((args, { argTypes }) => ({
+      components: {
+        UiSidePanel, UiMegaMenu, UiMegaMenuItem, UiButton, UiText,
+      },
+      data() {
+        return {
+          open: true,
+          opened: [],
+        };
+      },
+      template: `<UiSidePanel
+        v-model="open"
+        title="Info"
+        style="--side-panel-content-padding: 0; --side-panel-content-tablet-padding: 0 var(--space-40);"
+      >
+      <UiMegaMenu v-model="opened" style="padding: 0 20px">
+        <UiMegaMenuItem title="For business" name="for-business">
+          <template #trigger="{goToHandler, title}">
+            <UiButton class="ui-button--text" style="display: block; margin: var(--space-24) 0;" @click="goToHandler">{{title}}</UiButton>
+          </template>
+          <template #default="{backHandler}">
+            <UiButton class="ui-button--text" style="display: block; margin: 0 0 var(--space-24) 0;" @click="backHandler">Back</UiButton>
+            <UiText>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque non odio tellus. Etiam auctor hendrerit sapien vehicula eleifend. Fusce et viverra purus, vitae imperdiet felis. Nunc risus dui, tempor in neque sed, volutpat convallis urna. Vivamus sagittis mauris ac nunc consequat venenatis. Fusce leo purus, ornare at mattis nec, pulvinar eget lectus. Praesent nec metus vel felis interdum semper quis at nisi. Quisque nec mollis augue, at posuere leo. Vestibulum lobortis massa dui, sed pulvinar sem sollicitudin sit amet. In nec massa volutpat, commodo urna sit amet, convallis diam. Phasellus luctus porta pulvinar. Aenean ultricies, nibh eu dignissim fermentum, eros odio blandit elit, vitae rutrum enim leo vitae libero. Fusce sed posuere ex.</UiText>
+            <UiText>Donec pellentesque orci et justo mattis convallis. In eu ex a nunc blandit dictum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce vitae porttitor lectus. Aenean in efficitur massa. Phasellus quis suscipit nisl. Quisque massa purus, aliquet sit amet porta id, sagittis congue tortor. Donec volutpat tellus in erat pellentesque faucibus. Donec mattis sagittis facilisis. Duis facilisis felis gravida tristique hendrerit. Sed condimentum dui sapien, sed egestas diam molestie eu. In hac habitasse platea dictumst.</UiText>
+          </template>
+        </UiMegaMenuItem>
+      <UiMegaMenuItem title="CE Marking" name="ce-marking">
+        <template #trigger="{goToHandler, title}">
+        <UiButton class="ui-button--text" style="display: block; margin: var(--space-24) 0;" @click="goToHandler">{{title}}</UiButton>
+          </template>
+          <template #default="{backHandler}">
+              <UiButton class="ui-button--text" style="display: block; margin: 0 0 var(--space-24) 0;" @click="backHandler">Back</UiButton>
+              <UiText>Aliquam erat volutpat. Aenean a vulputate lacus. Cras accumsan turpis vel ipsum dictum facilisis. Phasellus risus felis, fringilla sed lacus in, venenatis fringilla ante. Maecenas commodo ultricies accumsan. Sed id dignissim justo, eget iaculis mi. Suspendisse in mi diam.</UiText>
+          </template>
+        </UiMegaMenuItem>
+      </UiMegaMenu>
+      </UiSidePanel>`,
+    })).bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story='Common' />
+
+# Props
+
+<Props of={UiMegaMenu} />

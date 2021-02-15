@@ -1,4 +1,4 @@
-/* eslint-disable import/prefer-default-export, no-underscore-dangle, no-param-reassign */
+/* eslint-disable import/prefer-default-export, no-underscore-dangle, no-param-reassign, func-names */
 export const highlight = {
   beforeMount(el, binding) {
     el.__highlightHandler__ = function (element) {

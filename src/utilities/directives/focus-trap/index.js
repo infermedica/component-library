@@ -1,4 +1,4 @@
-/* eslint-disable import/prefer-default-export, no-underscore-dangle, no-param-reassign */
+/* eslint-disable import/prefer-default-export, no-underscore-dangle, no-param-reassign, func-names */
 import { nextTick } from 'vue';
 import { getFocusableElements, isFocusable, moveFocus } from './helpers';
 

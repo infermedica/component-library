@@ -114,6 +114,7 @@ export default {
   &__icon {
     flex: none;
   }
+
   &--selected {
     --button-icon-color: var(--color-icon-negative);
     --button-icon-color-hover: var(--color-icon-negative);
