@@ -26,7 +26,10 @@
     </slot>
     <!-- @slot Use this slot to replace label template. -->
     <slot name="label">
-      <div class="ui-radio__label">
+      <div
+        v-if="hasLabel"
+        class="ui-radio__label"
+      >
         <!-- @slot Use this slot to place content inside label. -->
         <slot />
       </div>
@@ -66,7 +69,8 @@ export default {
     },
   },
   emits: ['update:modelValue'],
-  setup(props, { emit }) {
+  setup(props, { emit, slots }) {
+    const hasLabel = computed(() => (slots.default));
     const radioId = computed(() => (
       props.id || `radio-${uid()}`
     ));
@@ -86,6 +90,7 @@ export default {
     }
 
     return {
+      hasLabel,
       radioId,
       isChecked,
       getRootAttrs,

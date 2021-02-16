@@ -28,7 +28,10 @@
     </slot>
     <!-- @slot Use this slot to replace label template. -->
     <slot name="label">
-      <div class="ui-checkbox__label">
+      <div
+        v-if="hasLabel"
+        class="ui-checkbox__label"
+      >
         <!-- @slot Use this slot to place content inside label. -->
         <slot />
       </div>
@@ -73,7 +76,8 @@ export default {
     },
   },
   emits: ['update:modelValue'],
-  setup(props, { emit }) {
+  setup(props, { emit, slots }) {
+    const hasLabel = computed(() => (slots.default));
     const checkboxId = computed(() => (
       props.id || `checkbox-${uid()}`
     ));
@@ -118,6 +122,7 @@ export default {
     }
 
     return {
+      hasLabel,
       checkboxId,
       isObject,
       isChecked,
