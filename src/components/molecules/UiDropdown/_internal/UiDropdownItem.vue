@@ -4,13 +4,14 @@
     :tabindex="tabindex"
     class="ui-dropdown-item ui-button--outlined ui-button--small ui-button--has-icon"
     :class="{'ui-dropdown-item--selected': isChecked}"
-    :aria-checked="`${isChecked}`"
-    role="radio"
-    @click="changeHandler(value)"
+
+    v-bind="accessybilityAttrs"
+    @click="optionChangeHandler(value)"
     @keydown="keypressHandler"
   >
     <slot />
     <UiIcon
+      v-if="isChecked"
       icon="tick"
       class="ui-dropdown-item__icon"
     />
@@ -40,12 +41,16 @@ export default {
     const changeHandler = inject('changeHandler');
     const modelValue = inject('modelValue');
     const isChecked = computed(() => {
+      if (!modelValue.value) {
+        return false;
+      }
       if (typeof modelValue.value === 'string') {
         return props.value === modelValue.value;
       }
       return Object.keys(props.value)
         .every((key) => (modelValue.value[key] === props.value[key]));
     });
+    const isOption = computed(() => !!props.value);
     const tabindex = computed(() => {
       if (isChecked.value) {
         return 0;
@@ -72,15 +77,28 @@ export default {
           return false;
       }
     }
-
+    function optionChangeHandler(value) {
+      if (isOption.value) {
+        changeHandler(value);
+      }
+    }
+    const accessybilityAttrs = computed(() => (
+      isOption.value
+        ? {
+          role: 'radio',
+          'aria-checked': `${isChecked.value}`,
+        }
+        : {}
+    ));
     return {
       dropdownitem,
       name,
       modelValue,
       isChecked,
-      changeHandler,
+      optionChangeHandler,
       keypressHandler,
       tabindex,
+      accessybilityAttrs,
     };
   },
 };
@@ -94,9 +112,6 @@ export default {
 
   @include font(--font-body-1);
 
-  --button-icon-color: transparent;
-  --button-icon-color-hover: transparent;
-  --button-icon-color-active: transparent;
   --button-padding: var(--dropdown-item-button-padding, var(--space-8));
   --button-border-width: 0;
   --button-justify-content: space-between;
