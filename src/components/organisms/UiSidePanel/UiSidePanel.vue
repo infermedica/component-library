@@ -21,6 +21,7 @@
         <dialog
           v-if="modelValue"
           v-focus-trap
+          v-body-scroll-lock
           class="ui-side-panel__dialog"
         >
           <!-- @slot Use this slot to replace header template. -->
@@ -80,8 +81,8 @@
           <!-- @slot Use this slot to replace content template. -->
           <slot name="content">
             <div
-              v-body-scroll-lock
               class="ui-side-panel__content"
+              :body-scroll-lock-ignore="true"
             >
               <!-- @slot Use this slot to place side panel content. -->
               <slot />
@@ -183,6 +184,7 @@ export default {
 
 <style lang="scss">
 .ui-side-panel {
+  z-index: 1;
   &__dialog {
     position: fixed;
     top: 0;
@@ -236,6 +238,7 @@ export default {
     flex: 1;
     padding: var(--side-panel-content-padding, var(--space-32) var(--space-20));
     overflow: var(--side-panel-content-overflow, auto);
+    height: 100%;
 
     @media (min-width: 768px) {
       padding: var(--side-panel-content-tablet-padding, var(--space-32) var(--space-48));
