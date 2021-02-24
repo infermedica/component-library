@@ -185,6 +185,7 @@ export default {
 <style lang="scss">
 .ui-side-panel {
   z-index: 1;
+
   &__dialog {
     position: fixed;
     top: 0;
@@ -236,9 +237,9 @@ export default {
 
   &__content {
     flex: 1;
+    height: 100%;
     padding: var(--side-panel-content-padding, var(--space-32) var(--space-20));
     overflow: var(--side-panel-content-overflow, auto);
-    height: 100%;
 
     @media (min-width: 768px) {
       padding: var(--side-panel-content-tablet-padding, var(--space-32) var(--space-48));

@@ -121,10 +121,10 @@ export default {
 @import '../../../styles/mixins/_mixins.scss';
 
 .ui-question {
-  padding: 0 var(--space-20);
+  padding: var(--question-padding, 0 var(--space-20));
 
   @media (min-width: 768px) {
-    padding: var(--space-16) var(--space-48);
+    padding: var(--question-tablet-padding, var(--space-16) var(--space-48));
   }
 
   &__title {
