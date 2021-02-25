@@ -5,24 +5,19 @@ module.exports = {
       ...config.resolve.alias,
       '@':path.resolve('src'),
     }
+    config.module.rules.push({
+      test: /\.scss$/,
+      use: ['style-loader', 'css-loader', 'sass-loader'],
+      include: path.resolve(__dirname, '../'),
+    })
     return config;
   },
   stories: [
-    // '../docs/**/*.stories.@(mdx)',
     '../src/**/*.stories.@(mdx)'
   ],
   addons: [
-    {
-      name: '@storybook/addon-docs',
-      options: {
-        configureJSX: true,
-        babelOptions: {},
-        sourceLoaderOptions: null,
-      },
-    },
-    '@storybook/addon-viewport',
-    '@storybook/preset-scss',
-    '@storybook/addon-controls',
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
     '@storybook/addon-a11y',
   ],
 }
