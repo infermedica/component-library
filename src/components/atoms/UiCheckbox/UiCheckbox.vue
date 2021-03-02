@@ -89,8 +89,8 @@ export default {
             if (typeof props.value === 'string') {
               return props.value === option;
             }
-            return Object.keys(option)
-              .every((key) => (option[key]) === props.value[key]);
+            return Object.keys(props.value)
+              .every((key) => (props.value[key]) === option[key]);
           },
         ).length > 0
         : props.modelValue

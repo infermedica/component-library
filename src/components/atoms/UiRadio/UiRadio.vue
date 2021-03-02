@@ -78,8 +78,8 @@ export default {
       if (typeof props.modelValue === 'string') {
         return props.value === props.modelValue;
       }
-      return Object.keys(props.modelValue)
-        .every((key) => (props.modelValue[key] === props.value[key]));
+      return Object.keys(props.value)
+        .every((key) => (props.value[key] === props.modelValue[key]));
     });
     const { getRootAttrs, getInputAttrs } = useInput();
 
