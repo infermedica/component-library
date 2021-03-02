@@ -34,12 +34,12 @@
             <component
               :is="component"
               :id="choice.id"
-              :value="choice.id"
-              :model-value="modelValue.id"
+              :value="choice"
+              :model-value="modelValue"
               :name="name"
               class="ui-multiple-answer__choice"
               :class="errorClass"
-              @update:modelValue="updateHandler(choice.id)"
+              @update:modelValue="updateHandler(choice)"
             >
               <template #label>
                 <!-- @slot Use this slot to replace choice-label template for specific item.-->
@@ -113,13 +113,6 @@ export default {
       default: () => ([]),
     },
     /**
-     *  Use this props to set evidence source
-     */
-    source: {
-      type: String,
-      default: '',
-    },
-    /**
      *  Use this props to group inputs with name attribute
      */
     name: {
@@ -181,13 +174,13 @@ export default {
 
     function updateHandler(value) {
       if (!isCheckbox.value) {
-        emit('update:modelValue', { id: value, source: props.source, choice_id: 'present' });
+        emit('update:modelValue', value);
         return;
       }
-      if (props.modelValue.some((evidence) => evidence.id === value)) {
-        emit('update:modelValue', props.modelValue.filter((evidence) => evidence.id !== value));
+      if (props.modelValue.some((evidence) => evidence.id === value.id)) {
+        emit('update:modelValue', props.modelValue.filter((evidence) => evidence.id !== value.id));
       } else {
-        emit('update:modelValue', [...props.modelValue, { id: value, source: props.source, choice_id: 'present' }]);
+        emit('update:modelValue', [...props.modelValue, value]);
       }
     }
 
@@ -258,4 +251,3 @@ export default {
   }
 }
 </style>
-
