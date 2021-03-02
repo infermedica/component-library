@@ -1,80 +1,37 @@
 <template>
-  <div
-    class="ui-mega-menu"
-    :style="settings"
-  >
-    <component
-      :is="track.is"
-      v-bind="track"
-    >
-      <!-- @slot Use this slot to place content inside MegaMenu. -->
-      <slot />
-    </component>
+  <div class="ui-mega-menu">
+    <!-- @slot Use this slot to place content inside MegaMenu. -->
+    <slot />
   </div>
 </template>
 
 <script>
-import {
-  ref, computed, provide, inject,
-} from 'vue';
+import { computed, provide } from 'vue';
 
 export default {
-  name: 'UiMegaMenu',
+  name: 'UiMegaMenu.vue',
   props: {
     modelValue: {
-      type: Array,
-      default: () => ([]),
+      type: String,
+      default: '',
     },
   },
-  emits: ['update.modelValue'],
+  emits: ['update:modelValue'],
   setup(props, { emit }) {
-    const minHeight = ref(0);
-    const opened = computed(() => (props.modelValue));
-    const hasOpen = computed(() => (opened.value.length > 0));
-    function toggleHandler(name) {
-      emit('update:modelValue', opened.value.includes(name)
-        ? props.modelValue.filter((item) => (item !== name))
-        : [...props.modelValue, name]);
+    const open = computed(() => (props.modelValue));
+    const hasOpen = computed(() => (!!props.modelValue));
+    function openHandler(name) {
+      emit('update:modelValue', name);
     }
-    const isDeep = inject('deep');
-    const track = computed(() => (
-      isDeep
-        ? {
-          is: 'fragment',
-        }
-        : {
-          is: 'div',
-          class: 'ui-mega-menu__track',
-        }
-    ));
-    if (!isDeep) {
-      provide('deep', true);
-      provide('opened', opened);
-      provide('minHeight', minHeight);
-      provide('toggleHandler', toggleHandler);
-    }
-
-    const settings = computed(() => ({
-      '--mega-menu-min-height': hasOpen.value && minHeight.value,
-      '--mega-menu-current-size': hasOpen.value && props.modelValue.length,
-    }));
-
-    return {
-      track,
-      settings,
-    };
+    provide('open', open);
+    provide('hasOpen', hasOpen);
+    provide('openHandler', openHandler);
   },
 };
 </script>
 
 <style lang="scss">
 .ui-mega-menu {
-  min-height: calc(1px * var(--mega-menu-min-height, 0));
-  overflow: hidden;
-
-  &__track {
-    transition: transform 150ms ease-in-out;
-    transform: translate3d(calc(-100% * var(--mega-menu-current-size, 0)), 0, 0);
-  }
+  cursor: inherit;
 }
 </style>
