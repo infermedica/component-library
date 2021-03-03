@@ -9,7 +9,7 @@
 import { computed, provide } from 'vue';
 
 export default {
-  name: 'UiMegaMenu.vue',
+  name: 'UiMegaMenu',
   props: {
     modelValue: {
       type: String,

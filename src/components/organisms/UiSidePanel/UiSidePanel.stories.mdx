@@ -22,10 +22,6 @@ import UiSidePanel from './UiSidePanel.vue';
 <Canvas>
   <Story
     name="Common"
-    args={{
-      title: 'Term of Service',
-      subtitle: 'Last updated: Mar 10, 2020',
-    }}
     height="446px"
   >
     {((args, { argTypes }) => ({
@@ -34,6 +30,8 @@ import UiSidePanel from './UiSidePanel.vue';
       data() {
         return {
           open: true,
+          title: 'Term of Service',
+          subtitle: 'Last updated: Mar 10, 2020',
         };
       },
       computed: {

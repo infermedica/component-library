@@ -99,6 +99,8 @@ import {
   ref,
   watchEffect,
   nextTick,
+  onMounted,
+  onBeforeUnmount,
 } from 'vue';
 import { focusTrap, bodyScrollLock } from '../../../utilities/directives';
 
@@ -171,6 +173,17 @@ export default {
           focus(button.value?.$el);
         });
       }
+    });
+
+    function keydownHandler({ key }) {
+      if (key !== 'Escape') return;
+      emit('update:modelValue', false);
+    }
+    onMounted(() => {
+      window.addEventListener('keydown', keydownHandler);
+    });
+    onBeforeUnmount(() => {
+      window.removeEventListener('keydown', keydownHandler);
     });
 
     return {
