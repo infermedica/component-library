@@ -1,3 +1,4 @@
+// todo: check how to write composable in the right way
 import { computed } from 'vue';
 
 export default function useLink(props) {

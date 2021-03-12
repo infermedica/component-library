@@ -7,7 +7,7 @@ steps:
 
   - id: 'build'
     name: 'gcr.io/cloud-builders/npm'
-    args: [ 'run', 'storybook:build' ]
+    args: [ 'run', 'build-storybook' ]
     waitFor: [ 'install-dependencies' ]
 
   - id: 'archive-build'

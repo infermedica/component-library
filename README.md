@@ -53,12 +53,12 @@ Use `create-component` to create component. It created directory with 3 files.
 |__Ui<ComponentName>.spec.js
 |__Ui<ComponentName>.stories.mdx
 ```
-- `vue` Vue.js component file. In this file you can find `template`, `script`, `styles` 
-by scss and `i18n` for eng strings.
-- `spec.js` Jest test file. By default you can find `render test` on it. Read more about 
-[Vue Test Utils](https://vue-test-utils.vuejs.org/) and [Jest](https://jestjs.io/)
-- `stories.mdx` Storybook stories file. By default you can find `common` stories. Read more about 
-[Storybook](https://storybook.js.org/) and [Storybook MDX](https://storybook.js.org/docs/react/writing-docs/mdx)
+- `vue` Vue.js component file. In this file you can find `template`, `script`, `styles`
+  by scss and `i18n` for eng strings.
+- `spec.js` Jest test file. By default you can find `render test` on it. Read more about
+  [Vue Test Utils](https://vue-test-utils.vuejs.org/) and [Jest](https://jestjs.io/)
+- `stories.mdx` Storybook stories file. By default you can find `common` stories. Read more about
+  [Storybook](https://storybook.js.org/) and [Storybook MDX](https://storybook.js.org/docs/react/writing-docs/mdx)
 ### CSS Rules
 #### Naming
 We want to fallow [BEMs](http://getbem.com/introduction/) for naming SCSS modifiers and CSS classes.
