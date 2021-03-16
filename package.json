@@ -1,6 +1,6 @@
 {
   "name": "@symptom-checker/ui-kit",
-  "version": "0.1.0",
+  "version": "0.0.1-beta.1",
   "private": true,
   "scripts": {
     "lint:mdx": "eslint --ext .mdx src --fix",
@@ -36,9 +36,9 @@
     "@babel/core": "^7.13.1",
     "@storybook/addon-a11y": "^6.2.0-beta.2",
     "@storybook/addon-actions": "^6.2.0-beta.2",
-    "@storybook/addon-storyshots": "^6.2.0-beta.2",
     "@storybook/addon-essentials": "^6.2.0-beta.2",
     "@storybook/addon-links": "^6.2.0-beta.2",
+    "@storybook/addon-storyshots": "^6.2.0-beta.2",
     "@storybook/addon-viewport": "^6.2.0-beta.2",
     "@storybook/vue3": "^6.2.0-beta.2",
     "@vue/cli-plugin-babel": "~4.5.0",
