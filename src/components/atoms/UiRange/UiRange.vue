@@ -219,6 +219,16 @@ export default {
       order: 0;
     }
 
+    &::after {
+      width: calc(var(--range-selected-track-width) - var(--space-24));
+      background: var(--range-selected-track-background, var(--color-range-slider-bar-indicator));
+    }
+
+    &::before {
+      width: calc(100% - (2 * var(--space-24)));
+      background: var(--range-track-background, var(--color-range-slider-bar-track));
+    }
+
     &::before,
     &::after {
       position: absolute;
@@ -234,16 +244,6 @@ export default {
         left: auto;
         transform: translateX(calc(var(--space-24) * -1)) translateY(-50%);
       }
-    }
-
-    &::after {
-      width: calc(var(--range-selected-track-width) - var(--space-24));
-      background: var(--range-selected-track-background, var(--color-range-slider-bar-indicator));
-    }
-
-    &::before {
-      width: calc(100% - (2 * var(--space-24)));
-      background: var(--range-track-background, var(--color-range-slider-bar-track));
     }
   }
 

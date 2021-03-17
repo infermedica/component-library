@@ -57,14 +57,14 @@ export default {
      * Use this props to set value of radio.
      */
     value: {
-      type: [String, Object],
+      type: [Number, String, Object],
       default: '',
     },
     /**
      * Use this props or v-model to set checked.
      */
     modelValue: {
-      type: [String, Object],
+      type: [Number, String, Object],
       default: '',
     },
   },
@@ -75,7 +75,7 @@ export default {
       props.id || `radio-${uid()}`
     ));
     const isChecked = computed(() => {
-      if (typeof props.modelValue === 'string') {
+      if (typeof props.modelValue === 'string' || typeof props.modelValue === 'number') {
         return props.value === props.modelValue;
       }
       return Object.keys(props.value)

@@ -17,8 +17,8 @@
         />
       </g>
       <g
-        class="ui-icon__group ui-icon__group--rtl"
         v-if="rtlIconPaths"
+        class="ui-icon__group ui-icon__group--rtl"
       >
         <path
           v-for="(path, key) in rtlIconPaths"
