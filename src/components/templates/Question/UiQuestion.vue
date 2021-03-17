@@ -149,6 +149,10 @@ export default {
   &__content {
     margin: var(--question-mobile-content-margin, var(--space-20) 0 0 calc(var(--space-20) * -1));
 
+    [dir=rtl] & {
+      margin: var(--question-mobile-content-margin, var(--space-20) calc(var(--space-20) * -1) 0 0);
+    }
+
     @media (min-width: 768px) {
       margin: var(--question-tablet-content-margin, var(--space-20) 0 0 0);
     }

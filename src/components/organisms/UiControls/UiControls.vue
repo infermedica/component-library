@@ -171,6 +171,10 @@ export default {
 
   &__next {
     margin: var(--controls-next-margin, 0 0 0 auto);
+
+    [dir=rtl] & {
+      margin: var(--controls-next-margin, 0 auto 0 0);
+    }
   }
 }
 </style>

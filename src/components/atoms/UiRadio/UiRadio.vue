@@ -172,6 +172,10 @@ export default {
     flex: var(--radio-label-flex, 1);
     margin: var(--radio-label-margin, 0 0 0 var(--space-12));
     color: var(--radio-label-color, var(--color-text-body));
+
+    [dir=rtl] & {
+      margin: var(--radio-label-margin, 0 var(--space-12) 0 0);
+    }
   }
 
   &--is-disabled {

@@ -248,6 +248,10 @@ export default {
 
   &__explication {
     margin: var(--multiple-answer-margin, 0 0 0 var(--space-12));
+
+    [dir=rtl] & {
+      margin: var(--multiple-answer-margin, 0 var(--space-12) 0 0);
+    }
   }
 }
 </style>

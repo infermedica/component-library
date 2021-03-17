@@ -39,12 +39,22 @@ export default {
       @include dot(0s);
 
       left: -0.75rem;
+
+      [dir=rtl] & {
+        right: -0.75rem;
+        left: auto;
+      }
     }
 
     &::after {
       @include dot(1s);
 
       left: 0.75rem;
+
+      [dir=rtl] & {
+        right: 0.75rem;
+        left: auto;
+      }
     }
   }
 

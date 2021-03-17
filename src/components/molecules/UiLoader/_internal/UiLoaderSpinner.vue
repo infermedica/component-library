@@ -67,6 +67,7 @@ export default {
 
   @keyframes rotate {
     100% {
+      // RTL rotation intentionally in same direction
       transform: rotate(360deg);
     }
   }

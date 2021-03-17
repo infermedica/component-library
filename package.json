@@ -47,6 +47,7 @@
     "@vue/compiler-sfc": "^3.0.0",
     "@vue/eslint-config-airbnb": "^5.3.0",
     "@vue/test-utils": "^2.0.0-rc.1",
+    "arcade-storybook-addon-rtl": "0.0.10",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
     "eslint": "^6.7.2",

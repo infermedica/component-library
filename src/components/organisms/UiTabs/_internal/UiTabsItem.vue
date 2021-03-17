@@ -105,6 +105,10 @@ export default {
     position: relative;
     margin: var(--tabs-item-toggler-margin, 0 var(--space-24) 0 0);
 
+    [dir=rtl] & {
+      margin: var(--tabs-item-toggler-margin, 0 0 0 var(--space-24));
+    }
+
     &:last-of-type {
       margin: 0;
     }

@@ -187,6 +187,14 @@ export default {
         calc(var(--space-20) * 0.5)
         var(--space-16);
 
+      [dir=rtl] & {
+        --list-item-padding:
+          calc(var(--space-20) * 0.5)
+          var(--space-16)
+          calc(var(--space-20) * 0.5)
+          var(--space-12);
+      }
+
       @mixin progress-vertical($background, $z-index) {
         position: absolute;
         top: -2px;
@@ -198,6 +206,11 @@ export default {
         content: "";
         background-color: $background;
         border-radius: var(--stepper-progress-radius);
+
+        [dir=rtl] & {
+          right: 0;
+          left: auto;
+        }
       }
 
       &::after {

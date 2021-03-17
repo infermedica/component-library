@@ -45,6 +45,10 @@ export default {
   border-width: 1px;
   border-radius: var(--notification-border-radius, var(--border-radius-card));
 
+  [dir=rtl] & {
+    --alert-message-margin: 0 var(--space-12) 0 0;
+  }
+
   &--success {
     --notification-background: var(--notification-success-backgroud-color, var(--color-alert-success-bg));
     --notification-border: solid var(--notification-success-border-color, var(--color-alert-success-border));

@@ -61,6 +61,10 @@ export default {
     flex: none;
     margin: var(--bullet-points-item-marker-padding, 0 var(--space-12) 0 0);
 
+    [dir=rtl] & {
+      margin: var(--bullet-points-item-marker-padding, 0 0 0 var(--space-12));
+    }
+
     &::before {
       display: block;
       width: var(--bullet-points-item-marker-before-width, 1.5rem);

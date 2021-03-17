@@ -169,6 +169,10 @@ export default {
 
     @media (min-width: 768px) {
       padding: var(--card-content-tablet-padding, var(--space-40) var(--space-48) var(--space-48) var(--space-40));
+
+      [dir=rtl] & {
+        padding: var(--card-content-tablet-padding, var(--space-40) var(--space-40) var(--space-48) var(--space-48));
+      }
     }
   }
 

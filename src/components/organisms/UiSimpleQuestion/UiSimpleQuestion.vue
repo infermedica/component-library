@@ -93,6 +93,10 @@ export default {
     @media (min-width: 768px) {
       width: 100%;
       margin: var(--simple-question-option-tablet-margin, 0 var(--space-24) 0 0);
+
+      [dir=rtl] & {
+        margin: var(--simple-question-option-tablet-margin, 0 0 0 var(--space-24));
+      }
     }
 
     &:last-child {

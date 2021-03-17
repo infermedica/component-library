@@ -177,16 +177,32 @@ export default {
   &__increment {
     margin: var(--range-mobile-increment-margin, var(--space-24) 0 0 var(--space-12));
 
+    [dir=rtl] & {
+      margin: var(--range-mobile-increment-margin, var(--space-24) var(--space-12) 0 0);
+    }
+
     @media (min-width: 768px) {
       --range-mobile-increment-margin: 0 0 0 var(--space-4);
+
+      [dir=rtl] & {
+        --range-mobile-increment-margin: 0 var(--space-4) 0 0;
+      }
     }
   }
 
   &__decrement {
     margin: var(--range-mobile-decrement-margin, var(--space-24) var(--space-12) 0 0);
 
+    [dir=rtl] & {
+      margin: var(--range-mobile-increment-margin, var(--space-24) 0 0 var(--space-12));
+    }
+
     @media (min-width: 768px) {
       --range-mobile-decrement-margin: 0 var(--space-4) 0 0;
+
+      [dir=rtl] & {
+        --range-mobile-increment-margin: 0 0 0 var(--space-4);
+      }
     }
   }
 
@@ -212,6 +228,12 @@ export default {
       content: "";
       border-radius: var(--range-track-border-radius, 4px);
       transform: translateX(var(--space-24)) translateY(-50%);
+
+      [dir=rtl] & {
+        right: 0;
+        left: auto;
+        transform: translateX(calc(var(--space-24) * -1)) translateY(-50%);
+      }
     }
 
     &::after {
@@ -295,6 +317,17 @@ export default {
         0
       );
     transform-origin: center;
+
+    [dir=rtl] & {
+      right: var(--range-selected-track-width);
+      left: auto;
+      transform:
+        translate3d(
+          var(--range-selected-track-width),
+          calc((var(--range-thumb-size, 3rem) + var(--space-8)) * -1),
+          0
+        );
+    }
   }
 }
 </style>

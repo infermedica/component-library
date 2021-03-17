@@ -43,9 +43,12 @@ export default {
         1: { style: 'decimal', suffix: '.' },
       };
 
+      // TODO: decide how to handle latin/roman styles
+      // Decimal appears to be perfectly fine for most of Arabic variants
+
       return {
         '--list-style-type': type[props.type]?.style,
-        '--list-item-suffix': `'${type[props.type]?.suffix}'`,
+        '--list-item-suffix': `"${type[props.type]?.suffix}"`,
       };
     });
 
