@@ -196,6 +196,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../../styles/mixins/_mixins.scss';
+
 .ui-side-panel {
   z-index: 1;
 
