@@ -254,6 +254,8 @@ export default {
   }
 
   &__subtitle {
+    @include font(--font-body-2-comfortable);
+
     margin: var(--side-panel-subtitle-margin, var(--space-8) 0 0 0);
   }
 
