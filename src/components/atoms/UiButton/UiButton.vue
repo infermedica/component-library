@@ -107,9 +107,17 @@ export default {
     // adds negative left margin to position icon within button and avoid changing padding
     margin: var(--button-icon-margin, 0 var(--space-4) 0 calc(var(--space-8) * -1));
 
+    [dir=rtl] & {
+      margin: var(--button-icon-margin, 0 calc(var(--space-8) * -1) 0 var(--space-4));
+    }
+
     &--right {
       // adds negative right margin to position icon within button and avoid changing padding
       --button-icon-margin: 0 calc(var(--space-8) * -1) 0 var(--space-4);
+
+      [dir=rtl] & {
+        --button-icon-margin: 0 var(--space-4) 0 calc(var(--space-8) * -1);
+      }
     }
   }
 
@@ -172,8 +180,16 @@ export default {
     #{$this}__icon {
       --button-icon-margin: 0 var(--space-4) 0 0;
 
+      [dir=rtl] & {
+        --button-icon-margin: 0 0 0 var(--space-4);
+      }
+
       &--right {
         --button-icon-margin: 0 0 0 var(--space-4);
+
+        [dir=rtl] & {
+          --button-icon-margin: 0 var(--space-4) 0 0;
+        }
       }
     }
 

@@ -147,6 +147,10 @@ export default {
     margin: var(--tile-label-margin, 0 0 0 var(--space-16));
     text-align: var(--tile-label-text-align, left);
 
+    [dir=rtl] & {
+      margin: var(--tile-label-margin, 0 var(--space-16) 0 0);
+    }
+
     @media (min-width: 768px) {
       margin: var(--tile-label-tablet-margin, var(--space-16) 0 0 0);
       text-align: var(--tile-label-tablet-text-align, center);

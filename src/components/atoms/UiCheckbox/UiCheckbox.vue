@@ -201,6 +201,10 @@ export default {
     flex: var(--checkbox-label-flex, 1);
     margin: var(--checkbox-label-margin, 0 0 0 var(--space-12));
     color: var(--checkbox-label-color, var(--color-text-body));
+
+    [dir=rtl] & {
+      margin: var(--checkbox-label-margin, 0 var(--space-12) 0 0);
+    }
   }
 
   &--is-disabled {

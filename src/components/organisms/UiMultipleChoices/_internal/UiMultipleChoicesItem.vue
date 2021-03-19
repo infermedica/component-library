@@ -130,6 +130,10 @@ export default {
       padding: var(--multiple-choices-item-name-padding, 0);
       margin: 0 auto 0 0;
       background: var(--multiple-choices-item-name-background);
+
+      [dir=rtl] & {
+        margin: 0 0 0 auto;
+      }
     }
   }
 
@@ -152,6 +156,10 @@ export default {
       padding: var(--multiple-choices-item-option-padding, 0);
       margin: var(--multiple-choices-item-option-margin, 0 0 0 var(--space-24));
       border-width: var(--multiple-choices-item-option-border-width, 0);
+
+      [dir=rtl] & {
+        margin: var(--multiple-choices-item-option-margin, 0 var(--space-24) 0 0);
+      }
     }
   }
 

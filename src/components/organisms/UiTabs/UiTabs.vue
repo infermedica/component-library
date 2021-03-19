@@ -49,6 +49,9 @@ export default {
       const { x: tabsX } = tabs.value.getBoundingClientRect();
       const { x: elementX, width: elementWidth } = element.getBoundingClientRect();
       underlineWidth.value = elementWidth;
+      // FIXME: potential bug with calculation in RTL
+      // elementX might be broken depending how RTL property is implemented
+      // maybe it should somehow force a recalculate on direction change
       underlineX.value = elementX - tabsX;
     };
     function gap(element) {
@@ -95,6 +98,7 @@ export default {
     height: 2px;
     background: var(--color-border-accessible);
     transition: transform 150ms ease-in-out;
+    // No RTL necessary due to being JS generated
     transform: translateX(var(--tabs-underline-x, var(--tabs-underline-x-default, 0))) translateY(-1px);
   }
 

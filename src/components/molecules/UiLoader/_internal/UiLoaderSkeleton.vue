@@ -38,6 +38,20 @@ export default {
     border-radius: var(--loader-skeleton-block-border-radius, var(--border-radius-card));
     animation: skeleton-shine 1s linear infinite;
 
+    [dir=rtl] & {
+      background:
+        var(
+          --loader-skeleton-block-background,
+          linear-gradient(
+            60deg,
+            var(--color-background-subtle) 20%,
+            var(--color-gray-100) 30%,
+            var(--color-background-subtle) 40%
+          )
+        );
+      background-size: 200% 100%; // This needs to be repeated
+    }
+
     @media (min-width: 768px) {
       height: var(--loader-skeleton-block-tablet-height, 1rem);
       margin: var(--loader-skeleton-block-tablet-margin, var(--space-12) 0 var(--space-20) 0);
@@ -61,6 +75,18 @@ export default {
 
     100% {
       background-position: -100% 0;
+    }
+  }
+
+  [dir=rtl] & {
+    @keyframes skeleton-shine {
+      0% {
+        background-position: -100% 0;
+      }
+
+      100% {
+        background-position: 100% 0;
+      }
     }
   }
 }

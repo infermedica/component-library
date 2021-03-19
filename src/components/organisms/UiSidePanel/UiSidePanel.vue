@@ -196,6 +196,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../../styles/mixins/_mixins.scss';
+
 .ui-side-panel {
   z-index: 1;
 
@@ -214,6 +216,11 @@ export default {
     background: var(--side-panel-background, var(--color-background-white));
     border-width: 0;
     box-shadow: var(--side-panel-box-shadow, var(--box-shadow-modal));
+
+    [dir=rtl] & {
+      right: auto;
+      left: 0;
+    }
 
     @media (min-width: 768px) {
       max-width: var(--side-panel-container-tablet-max-width, 40rem);
@@ -237,6 +244,10 @@ export default {
     --button-padding: 0;
 
     margin: var(--side-panel-close-margin, 0 0 0 auto);
+
+    [dir=rtl] & {
+      margin: var(--side-panel-close-margin, 0 auto 0 0);
+    }
   }
 
   &__label {
@@ -245,6 +256,8 @@ export default {
   }
 
   &__subtitle {
+    @include font(--font-body-2-comfortable);
+
     margin: var(--side-panel-subtitle-margin, var(--space-8) 0 0 0);
   }
 
@@ -282,6 +295,10 @@ export default {
   &-leave-to {
     transition: transform 0.5s ease-in;
     transform: translate3d(100%, 0, 0);
+
+    [dir=rtl] & {
+      transform: translate3d(-100%, 0, 0);
+    }
   }
 }
 </style>

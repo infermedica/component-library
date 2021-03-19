@@ -130,6 +130,10 @@ export default {
   &__label-tag {
     margin: var(--form-field-label-tag-margin, 0 0 0 var(--space-8));
     color: var(--form-field-label-tag-color, var(--color-text-dimmed));
+
+    [dir=rtl] & {
+      margin: var(--form-field-label-tag-margin, 0 var(--space-8) 0 0);
+    }
   }
 
   &__alert {

@@ -98,6 +98,10 @@ export default {
     @media (min-width: 768px) {
       order: 0;
       margin: 0 0 0 var(--space-40);
+
+      [dir=rtl] & {
+        margin: 0 var(--space-40) 0 0;
+      }
     }
   }
 

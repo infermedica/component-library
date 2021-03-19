@@ -147,6 +147,10 @@ export default {
   &__option {
     padding: var(--rating-option, 0 var(--space-24) 0 0);
 
+    [dir=rtl] & {
+      padding: var(--rating-option, 0 0 0 var(--space-24));
+    }
+
     &:last-of-type {
       padding: var(--rating-option, 0);
     }

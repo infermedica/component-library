@@ -126,6 +126,10 @@ export default {
         border: var(--popover-border, solid var(--color-border-subtle));
         border-width: var(--popover-arrow-border-width, 1px 1px 0 0);
         transform: translate(50%, -50%) rotate(45deg);
+
+        [dir=rtl] & {
+          border-width: var(--popover-arrow-border-width, 1px 0 0 1px);
+        }
       }
     }
   }

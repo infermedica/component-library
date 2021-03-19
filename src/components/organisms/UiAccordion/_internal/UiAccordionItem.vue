@@ -136,10 +136,18 @@ export default {
 
     flex: none;
     margin: var(--accordion-item-chevron-margin, 0 var(--space-12) 0 0);
+
+    [dir=rtl] & {
+      margin: var(--accordion-item-chevron-margin, 0 0 0 var(--space-12));
+    }
   }
 
   &__content {
     padding: var(--accordion-item-content-padding, var(--space-12) var(--space-12) var(--space-12) var(--space-48));
+
+    [dir=rtl] & {
+      padding: var(--accordion-item-content-padding, var(--space-12) var(--space-48) var(--space-12) var(--space-12));
+    }
   }
 }
 </style>

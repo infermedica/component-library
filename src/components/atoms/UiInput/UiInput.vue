@@ -159,12 +159,20 @@ export default {
     flex: none;
     margin: var(--input-aside-margin, 0 var(--space-16) 0 0);
     color: var(--input-suffix-color, var(--input-color), var(--color-text-body));
+
+    [dir=rtl] & {
+      margin: var(--input-aside-margin, 0 0 0 var(--space-16));
+    }
   }
 
   &--has-icon {
     --icon-size: var(--input-icon-size, 1.5rem);
     #{$this}__aside {
       --input-aside-margin: var(--input-aside-margin, 0 var(--space-12) 0 0);
+
+      [dir=rtl] & {
+        --input-aside-margin: var(--input-aside-margin, 0 0 0 var(--space-12));
+      }
     }
   }
 

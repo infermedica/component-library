@@ -85,6 +85,10 @@ export default {
 
     margin: var(--alert-message-margin, 0 0 0 var(--space-4));
     color: var(--alert-color, var(--color-text-body));
+
+    [dir=rtl] & {
+      margin: var(--alert-message-margin, 0 var(--space-4) 0 0);
+    }
   }
 
   &--success {

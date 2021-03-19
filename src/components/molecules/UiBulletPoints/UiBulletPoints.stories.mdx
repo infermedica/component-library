@@ -10,7 +10,7 @@ import UiText from '../../atoms/UiText/UiText.vue';
   component={UiBulletPoints}
   argTypes={{
     tag: { control: { type: 'select', options: ['ul', 'ol'] } },
-    type: { control: { type: 'select', options: [1, 'a', 'A', 'i', 'I'] } },
+    type: { control: { type: 'select', options: ['1', 'a', 'A', 'i', 'I'] } },
     icon: { control: { type: 'text' } },
     modifiers: {
       control: {
@@ -31,7 +31,7 @@ import UiText from '../../atoms/UiText/UiText.vue';
     name="Common"
     args={{
       tag: 'ul',
-      type: 1,
+      type: '1',
       icon: 'bullet',
     }}
   >

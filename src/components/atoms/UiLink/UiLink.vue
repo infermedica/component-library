@@ -84,9 +84,17 @@ export default {
     // adds negative left margin to position icon within link and avoid changing padding
     margin: var(--link-icon-margin, 0 var(--space-4) 0 0);
 
+    [dir=rtl] & {
+      margin: var(--link-icon-margin, 0 0 0 var(--space-4));
+    }
+
     &--right {
       // adds negative right margin to position icon within link and avoid changing padding
       --link-icon-margin: 0 0 0 var(--space-4);
+
+      [dir=rtl] & {
+        --link-icon-margin: 0 var(--space-4) 0 0;
+      }
     }
   }
 

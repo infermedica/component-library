@@ -65,6 +65,10 @@ export default {
   background: var(--chips-backgorund, var(--color-chip-backgroud));
   border-radius: var(--chips-border-radius, var(--border-radius-pill));
 
+  [dir=rtl] & {
+    padding: var(--chips-padding, var(--space-4) var(--space-12) var(--space-4) var(--space-4));
+  }
+
   &__remove {
     --button-padding: 0;
     --button-border-width: 0;
@@ -74,6 +78,10 @@ export default {
     --icon-size: var(--chips-remove-size, 1.5rem);
 
     margin: var(--chips-remove-margin, 2px 2px 2px calc(var(--space-4) + 2px));
+
+    [dir=rtl] & {
+      margin: var(--chips-remove-margin, 2px calc(var(--space-4) + 2px) 2px 2px);
+    }
   }
 
   &__icon {
