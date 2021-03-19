@@ -24,4 +24,4 @@ const Template = (args) => ({
 });
 
 export const Common = Template.bind({});
-Common.decorators = [() => ({ template: '<div class="w-32"><story /></div>' })];
+Common.decorators = [() => ({ template: '<div class="max-w-32"><story /></div>' })];

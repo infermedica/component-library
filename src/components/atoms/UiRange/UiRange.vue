@@ -117,7 +117,6 @@ export default {
   },
   emits: ['update:modelValue'],
   setup(props, { emit }) {
-    console.log(props);
     const { getRootAttrs, getInputAttrs } = useInput();
     const trackWidth = computed(() => {
       const value = parseInt(props.modelValue, 10);
