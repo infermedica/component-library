@@ -7,5 +7,5 @@ export default create({
   colorSecondary: '#2e85ff',
   brandTitle: 'Infermedica UI Kit',
   brandUrl: 'https://infermedica.com/',
-  brandImage: '/assets/brand.svg\'',
+  brandImage: '/assets/brand.svg',
 });

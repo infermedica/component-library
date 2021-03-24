@@ -10,6 +10,11 @@ module.exports = {
       use: ['style-loader', 'css-loader', 'sass-loader'],
       include: path.resolve(__dirname, '../'),
     })
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      crypto: false,
+      'crypto-browserify': require.resolve('crypto-browserify')
+    }
     return config;
   },
   stories: [
@@ -20,7 +25,6 @@ module.exports = {
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     '@storybook/addon-a11y',
-    'arcade-storybook-addon-rtl',
     {
       name: '@storybook/addon-postcss',
       options: {
@@ -34,3 +38,4 @@ module.exports = {
     "builder": "webpack5"
   }
 }
+
