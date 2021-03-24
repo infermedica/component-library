@@ -4,9 +4,7 @@
     :tabindex="tabindex"
     class="ui-dropdown-item ui-button--outlined ui-button--small ui-button--has-icon"
     :class="{'ui-dropdown-item--selected': isChecked}"
-
-    v-bind="accessybilityAttrs"
-    @click="optionChangeHandler(value)"
+    v-bind="buttonAttrs"
     @keydown="keypressHandler"
   >
     <slot />
@@ -35,7 +33,7 @@ export default {
       default: '',
     },
   },
-  setup(props) {
+  setup(props, { attrs }) {
     const dropdownitem = ref(null);
     const name = inject('name');
     const changeHandler = inject('changeHandler');
@@ -62,15 +60,16 @@ export default {
     });
     function keypressHandler(event) {
       const { key } = event;
+      const allowTagNames = ['BUTTON', 'A'];
       switch (key) {
         case 'Tab':
           return event.preventDefault();
         case 'ArrowDown':
-          if (dropdownitem.value.$el.nextSibling.tagName !== 'BUTTON') return false;
+          if (!allowTagNames.includes(dropdownitem.value.$el.nextSibling.tagName)) return false;
           dropdownitem.value.$el.nextSibling.focus();
           return true;
         case 'ArrowUp':
-          if (dropdownitem.value.$el.previousSibling.tagName !== 'BUTTON') return false;
+          if (!allowTagNames.includes(dropdownitem.value.$el.previousSibling.tagName)) return false;
           dropdownitem.value.$el.previousSibling.focus();
           return true;
         default:
@@ -82,14 +81,11 @@ export default {
         changeHandler(value);
       }
     }
-    const accessybilityAttrs = computed(() => (
-      isOption.value
-        ? {
-          role: 'radio',
-          'aria-checked': `${isChecked.value}`,
-        }
-        : {}
-    ));
+    const buttonAttrs = computed(() => ({
+      role: isOption.value ? 'radio' : undefined,
+      'aria-checked': isOption.value ? `${isChecked.value}` : undefined,
+      onClick: attrs.to ? undefined : optionChangeHandler.bind(this, props.value),
+    }));
     return {
       dropdownitem,
       name,
@@ -98,7 +94,7 @@ export default {
       optionChangeHandler,
       keypressHandler,
       tabindex,
-      accessybilityAttrs,
+      buttonAttrs,
     };
   },
 };
