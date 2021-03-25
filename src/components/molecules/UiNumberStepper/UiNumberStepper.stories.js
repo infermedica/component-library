@@ -96,6 +96,11 @@ WithControlsOnMobile.args = {
 WithControlsOnMobile.argTypes = {
   hasControls: { control: false },
 };
+WithControlsOnMobile.parameters = {
+  viewport: {
+    defaultViewport: 'mobile2',
+  },
+};
 
 export const WithDecrementSlot = (args) => ({
   components: {
