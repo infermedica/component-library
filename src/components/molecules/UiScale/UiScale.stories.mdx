@@ -39,6 +39,8 @@ import UiScale from './UiScale.vue';
         v-model="scaleValue"
         :name="name"
         :steps="steps"
+        :button-decrement-attrs="{'aria-label': 'decrement pain'}"
+        :button-increment-attrs="{'aria-label': 'increment pain'}"
       />`
     })).bind({})}
   </Story>
