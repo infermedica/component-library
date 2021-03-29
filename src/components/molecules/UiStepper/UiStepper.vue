@@ -1,15 +1,15 @@
 <template>
   <div class="ui-stepper">
-    <!-- use this slot to replace the mobile stepper -->
+    <!-- @slot Use this slot to replace the mobile stepper -->
     <slot
       name="mobile"
-      v-bind="{steps, currentStep, currentStepDisplayText}"
+      v-bind="{currentStep, currentStepDisplayText, stepsProgress}"
     >
       <div class="ui-stepper__mobile">
-        <!-- use this slot to replace text in the mobile stepper -->
+        <!-- @slot Use this slot to replace text in the mobile stepper -->
         <slot
-          name="currentStep"
-          v-bind="{steps, currentStep}"
+          name="current-step"
+          v-bind="{currentStepDisplayText}"
         >
           <UiText
             tag="span"
@@ -18,7 +18,7 @@
             {{ currentStepDisplayText }}
           </UiText>
         </slot>
-        <!-- use this slot to replace progress in the stepper -->
+        <!-- @slot Use this slot to replace progress in the stepper -->
         <slot
           name="progress"
           v-bind="{stepsProgress}"
@@ -31,16 +31,16 @@
         </slot>
       </div>
     </slot>
-    <!-- use this slot to replace desktop version of the stepper -->
+    <!-- @slot Use this slot to replace desktop version of the stepper -->
     <slot
       name="desktop"
       v-bind="{steps, currentStep, indexOfActiveStep, determineStep}"
     >
       <UiList class="ui-stepper__desktop">
-        <!-- use this slot to replace items in the desktop list -->
+        <!-- @slot Use this slot to replace items in the desktop list -->
         <slot
           name="items"
-          v-bind="{steps, currentStep, indexOfActiveStep, determineStep}"
+          v-bind="{steps, indexOfActiveStep, determineStep}"
         >
           <UiListItem
             v-for="(step, index) in steps"

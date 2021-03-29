@@ -18,12 +18,12 @@ module.exports = {
     return config;
   },
   stories: [
-    "../docs/**/*.stories.@(js|jsx|ts|tsx|mdx)",
-    "../src/**/*.stories.@(js|jsx|ts|tsx|mdx)"
+    // '../docs/**/*.stories.@(js|jsx|ts|tsx|mdx)',
+    '../src/**/*.stories.@(js|jsx|ts|tsx|mdx)'
   ],
   addons: [
-    "@storybook/addon-links",
-    "@storybook/addon-essentials",
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
     '@storybook/addon-a11y',
     {
       name: '@storybook/addon-postcss',
@@ -35,7 +35,7 @@ module.exports = {
     }
   ],
   core: {
-    "builder": "webpack5"
+    'builder': 'webpack5'
   }
 }
 

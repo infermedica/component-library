@@ -18,7 +18,10 @@
           <template #radiobutton>
             <template v-if="index <= finalScore">
               <!-- @slot Use this slot to replace positive rating icon. -->
-              <slot name="icon-active">
+              <slot
+                name="icon-active"
+                v-bind="{translation: `${index} ${translation.stars}`, icon: settings.iconActive}"
+              >
                 <UiIcon
                   :aria-label="`${index} ${translation.stars}`"
                   :icon="settings.iconActive"
@@ -28,7 +31,10 @@
             </template>
             <template v-else>
               <!-- @slot Use this slot to replace rating icon. -->
-              <slot name="icon">
+              <slot
+                name="icon"
+                v-bind="{translation: `${index} ${translation.stars}`, icon: settings.icon}"
+              >
                 <UiIcon
                   :aria-label="`${index} ${translation.stars}`"
                   :icon="settings.icon"

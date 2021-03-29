@@ -7,7 +7,7 @@
     <!-- @slot Use this slot to place toggle template. -->
     <slot
       name="toggle"
-      v-bind="{toggleHandler, openHandler, closeHandler, isOpen}"
+      v-bind="{toggleHandler, openHandler, closeHandler, isOpen, text}"
     >
       <UiButton
         ref="toggle"
@@ -18,7 +18,7 @@
         {{ text }}
       </UiButton>
     </slot>
-    <!-- @slot Use this slot to place content template. -->
+    <!-- @slot Use this slot to replace popover template. -->
     <slot
       name="popover"
       v-bind="{closeHandler, isOpen}"
@@ -28,12 +28,13 @@
         class="ui-dropdown__popover"
         @close="closeHandler"
       >
+        <!-- @slot Use this slot to replace content template. -->
         <slot
           name="content"
           v-bind="{closeHandler, isOpen}"
         >
-          <!-- @slot Use this slot to place dropdown content inside dropdown. -->
           <div role="radiogroup">
+            <!-- @slot Use this slot to place dropdown content inside dropdown. -->
             <slot v-bind="{closeHandler, isOpen}" />
           </div>
         </slot>

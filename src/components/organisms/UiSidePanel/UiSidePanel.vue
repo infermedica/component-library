@@ -202,7 +202,7 @@ export default {
   z-index: 1;
 
   &__dialog {
-    position: fixed;
+    position: var(--side-panel-position, fixed);
     top: 0;
     right: 0;
     bottom: 0;

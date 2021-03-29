@@ -3,7 +3,7 @@ import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 
 export default {
   title: 'Atoms/Button',
-  components: { UiButton },
+  component: { UiButton },
   args: {
     content: 'Next',
     disabled: false,
