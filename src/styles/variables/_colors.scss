@@ -204,4 +204,9 @@
   --color-triage-background-consultation-24: var(--color-blue-500);
   --color-triage-background-consultation: var(--color-blue-500);
   --color-triage-background-self-care: var(--color-green-500);
+
+  // Component-specific - Scale
+  --color-pain-scale-unselected: var(--color-gray-100);
+  --color-pain-scale-low-end: var(--color-yellow-300);
+  --color-pain-scale-high-end: var(--color-red-500);
 }
