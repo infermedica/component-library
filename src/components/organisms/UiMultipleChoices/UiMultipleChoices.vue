@@ -3,7 +3,7 @@
     <!-- @slot Use this slot to replace hint template. -->
     <slot
       name="hint"
-      v-bind="{hint}"
+      v-bind="{hint, hintType}"
     >
       <UiAlert
         v-if="hint"

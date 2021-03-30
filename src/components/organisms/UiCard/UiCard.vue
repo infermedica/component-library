@@ -3,7 +3,10 @@
     class="ui-card"
     :class="rootClassModifier"
   >
-    <slot name="triage">
+    <slot
+      name="triage"
+      v-bind="{icon}"
+    >
       <div class="ui-card__triage">
         <UiIcon
           v-if="icon"
@@ -14,7 +17,7 @@
     </slot>
     <slot
       name="content"
-      v-bind="{description}"
+      v-bind="{subtitle, title, description}"
     >
       <div class="ui-card__content">
         <slot name="subtitle">

@@ -27,7 +27,7 @@
           <!-- @slot Use this slot to replace header template. -->
           <slot
             name="header"
-            v-bind="{attr: buttonAttrs, closeHandler, title}"
+            v-bind="{attrs: buttonAttrs, closeHandler, title, subtitle}"
           >
             <div class="ui-side-panel__header">
               <!-- @slot Use this slot to replace close template. -->
