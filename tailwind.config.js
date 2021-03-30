@@ -9,6 +9,7 @@ module.exports = {
     },
     maxWidth: {
       32: '8rem',
+      35: '8.75rem',
       68: '17rem',
       80: '20rem',
       147: '36.75rem',

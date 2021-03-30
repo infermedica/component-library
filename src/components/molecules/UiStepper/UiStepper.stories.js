@@ -7,7 +7,7 @@ import UiLink from '@/components/atoms/UiLink/UiLink.vue';
 
 const steps = [
   { name: 'Introduction', route: '#' },
-  { name: 'Patient', route: '#' },
+  { name: 'A multiline step', route: '#' },
   { name: 'Symptoms', route: '#' },
   { name: 'Regions', route: '#' },
   { name: 'Interview', route: '#' },
@@ -46,6 +46,7 @@ const Template = (args) => ({
 });
 
 export const WithCurrentStep = Template.bind({});
+WithCurrentStep.decorators = [() => ({ template: '<div class="desktop:max-w-35"><story /></div>' })];
 
 export const WithCurrentStepSlot = (args) => ({
   components: { UiStepper, UiText },
@@ -66,6 +67,7 @@ export const WithCurrentStepSlot = (args) => ({
     </template>
   </UiStepper>`,
 });
+WithCurrentStepSlot.decorators = [() => ({ template: '<div class="desktop:max-w-35"><story /></div>' })];
 
 export const WithProgressSlot = (args) => ({
   components: { UiStepper, UiProgress },
@@ -85,6 +87,7 @@ export const WithProgressSlot = (args) => ({
     </template>
   </UiStepper>`,
 });
+WithProgressSlot.decorators = [() => ({ template: '<div class="desktop:max-w-35"><story /></div>' })];
 
 export const WithDesktopSlot = (args) => ({
   components: {
@@ -119,6 +122,7 @@ export const WithDesktopSlot = (args) => ({
     </template>
   </UiStepper>`,
 });
+WithDesktopSlot.decorators = [() => ({ template: '<div class="desktop:max-w-35"><story /></div>' })];
 
 export const WithItemsSlot = (args) => ({
   components: { UiStepper, UiListItem, UiLink },
@@ -149,6 +153,7 @@ export const WithItemsSlot = (args) => ({
     </template>
   </UiStepper>`,
 });
+WithItemsSlot.decorators = [() => ({ template: '<div class="desktop:max-w-35"><story /></div>' })];
 
 export const WithMobileSlot = (args) => ({
   components: { UiStepper, UiText, UiProgress },
@@ -181,3 +186,4 @@ WithMobileSlot.parameters = {
     defaultViewport: 'mobile2',
   },
 };
+WithMobileSlot.decorators = [() => ({ template: '<div class="desktop:max-w-35"><story /></div>' })];

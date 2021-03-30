@@ -202,7 +202,7 @@ export default {
         z-index: $z-index;
         display: block;
         width: 0.25rem;
-        height: 3rem;
+        height: 100%;
         content: "";
         background-color: $background;
         border-radius: var(--stepper-progress-radius);
