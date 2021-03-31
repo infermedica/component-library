@@ -3,17 +3,21 @@
     name="toggler"
     v-bind="{ toggle, name, title, isOpen }"
   >
-    <UiButton
-      :id="`toggler${name}`"
-      ref="toggler"
-      :aria-expanded="`${isOpen}`"
-      :aria-controls="name"
-      class="ui-tabs-item__toggler ui-button--text"
-      :class="{'ui-tabs-item__toggler--active': isOpen}"
-      @click="toggle(name)"
+    <div
+      ref="tab"
+      class="ui-tabs-item__tab"
     >
-      {{ title }}
-    </UiButton>
+      <UiButton
+        :id="`toggler${name}`"
+        :aria-expanded="`${isOpen}`"
+        :aria-controls="name"
+        class="ui-tabs-item__tab-button ui-button--text"
+        :class="{'ui-tabs-item__tab-button--active': isOpen}"
+        @click="toggle(name)"
+      >
+        {{ title }}
+      </UiButton>
+    </div>
   </slot>
   <slot
     name="content"
@@ -60,7 +64,7 @@ export default {
     },
   },
   setup(props) {
-    const toggler = ref(null);
+    const tab = ref(null);
 
     const opened = inject('opened');
     const toggle = inject('toggle');
@@ -75,17 +79,17 @@ export default {
     watchEffect(async () => {
       if (isOpen.value) {
         await nextTick();
-        underline(toggler.value.$el);
+        underline(tab.value);
       }
     });
     const gap = inject('gap');
     onMounted(async () => {
       await nextTick();
-      gap(toggler.value.$el);
+      gap(tab.value);
     });
 
     return {
-      toggler,
+      tab,
       toggle,
       isOpen,
     };
@@ -99,26 +103,34 @@ export default {
 .ui-tabs-item {
   $this: &;
 
-  &__toggler {
-    --button-padding: var(--space-16) 0;
-
+  &__tab {
+    flex: var(--tabs-item-tab-flex, unset);
+    margin: var(--tabs-item-tab-margin, 0 var(--space-24) 0 0);
+    padding: var(--tabs-item-tab-padding, var(--space-16) 0);
     position: relative;
-    margin: var(--tabs-item-toggler-margin, 0 var(--space-24) 0 0);
+
+    &:nth-last-child(2) {
+      margin: var(--tabs-item-tab-last-margin, 0);
+    }
 
     [dir=rtl] & {
-      margin: var(--tabs-item-toggler-margin, 0 0 0 var(--space-24));
+      margin: var(--tabs-item-tab-margin, 0 0 0 var(--space-24));
     }
+  }
 
-    &:last-of-type {
-      margin: 0;
-    }
+  &__tab-button {
+    --button-color: var(--tabs-item-tab-button-color, var(--color-text-action-primary-enabled));
+    --button-hover-color: var(--tabs-item-tab-button-hover-color, var(--color-text-action-secondary-hover));
+    --button-active-color: var(--tabs-item-tab-button-active-color, var(--color-text-action-secondary-active));
+
+    width: 100%;
 
     &--active {
       @include font(--font-body-1-thick);
 
-      --button-color: var(--color-text-body);
-      --button-hover-color: var(--color-text-body);
-      --button-active-color: var(--color-text-body);
+      --button-color: var(--tabs-item-tab-button-active-color, var(--color-text-body));
+      --button-hover-color: var(--tabs-item-tab-button-active-hover-color, var(--color-text-body));
+      --button-active-color: var(--tabs-item-tab-button-active-active-color, var(--color-text-body));
     }
   }
 

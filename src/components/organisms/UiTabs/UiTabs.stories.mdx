@@ -103,3 +103,49 @@ import UiText from '../../atoms/UiText/UiText.vue';
   </Story>
 </Canvas>
 
+<Canvas>
+  <Story
+    name="Fixed"
+  >
+    {((args, { argTypes }) => ({
+      components: {
+        UiTabs,
+        UiTabsItem,
+        UiText,
+      },
+      data() {
+        return {
+          opened: 'search',
+          items: [
+            {
+              title: 'Search',
+              name: 'search',
+              content: 'Serum uric acid concentration',
+            },
+            {
+              title: 'Point on the body',
+              name: 'point-on-the-body',
+              content: '1. Erythrocyte Sedimentation Rate',
+            },
+          ],
+        };
+      },
+      template: `<UiTabs
+        v-model="opened"
+        class="ui-tabs--fixed"
+      >
+        <template
+          v-for="(item, key) in items"
+          :key="key"
+        >
+          <UiTabsItem
+            :name="item.name"
+            :title="item.title"
+          >
+            <UiText>{{ item.content }}</UiText>
+          </UiTabsItem>
+        </template>
+      </UiTabs>`,
+    })).bind()}
+  </Story>
+</Canvas>
