@@ -22,6 +22,7 @@ module.exports = {
     '../src/**/*.stories.@(js|jsx|ts|tsx|mdx)'
   ],
   addons: [
+    '@pxblue/storybook-rtl-addon/register',
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-a11y',
