@@ -21,7 +21,7 @@
   </slot>
   <slot
     name="content"
-    v-bind="{ isOpen }"
+    v-bind="{ isOpen, name, attrs: $attrs }"
   >
     <!-- @slot Use this slot to replace content template. -->
     <div
@@ -104,10 +104,10 @@ export default {
   $this: &;
 
   &__tab {
-    flex: var(--tabs-item-tab-flex, unset);
-    margin: var(--tabs-item-tab-margin, 0 var(--space-24) 0 0);
-    padding: var(--tabs-item-tab-padding, var(--space-16) 0);
     position: relative;
+    flex: var(--tabs-item-tab-flex, unset);
+    padding: var(--tabs-item-tab-padding, var(--space-16) 0);
+    margin: var(--tabs-item-tab-margin, 0 var(--space-24) 0 0);
 
     &:nth-last-child(2) {
       margin: var(--tabs-item-tab-last-margin, 0);

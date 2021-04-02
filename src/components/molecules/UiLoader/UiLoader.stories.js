@@ -1,9 +1,9 @@
-import {Common} from "@/components/atoms/UiBackdrop/UiBackdrop.stories.js";
+
 import UiLoader from '@/components/molecules/UiLoader/UiLoader.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
 import UiContainer from '@/components/organisms/UiContainer/UiContainer.vue';
-// import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
+import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import UiControls from '@/components/organisms/UiControls/UiControls.vue';
 
 export default {
@@ -153,43 +153,38 @@ LoadingContainer.args = {
   type: 'skeleton',
 };
 
-// todo: body-scroll-lock lock scroll when UiSidePanel is open
-export const LoadingSidePanel = () => ({
-  template: 'Oops! Not found!',
+export const LoadingSidePanel = (args) => ({
+  components: { UiLoader, UiSidePanel },
+  setup() {
+    return { ...args };
+  },
+  template: `<UiSidePanel
+    :model-value="true"
+    title="Loading..."
+  >
+    <UiLoader
+      :is-loading="isLoading"
+      :loader-attrs="loaderAttrs"
+      :type="type"
+      :transition="transition"
+      :tag="tag"
+      style="--loader-skeleton-block-tablet-margin: var(--space-12) 0 var(--space-20);"
+    >
+      <template #loader-blocks>
+        <div class="ui-loader-skeleton__block" style="width: 75%;"/>
+        <div class="ui-loader-skeleton__block" style="width: 50%;"/>
+        <div class="ui-loader-skeleton__block"/>
+        <div class="ui-loader-skeleton__block" style="width: 50%;"/>
+      </template>
+      A custom Symptomate app that you can use anywhere.
+    </UiLoader>
+  </UiSidePanel>`,
 });
+LoadingSidePanel.args = {
+  type: 'skeleton',
+};
+LoadingSidePanel.decorators = [() => ({ template: '<div style="--backdrop-position: absolute; --side-panel-position: absolute; --side-panel-z-index: 0; min-height: 320px;"><story /></div>' })];
 
-// export const LoadingSidePanel = (args) => ({
-//   components: { UiLoader, UiSidePanel },
-//   setup() {
-//     return { ...args };
-//   },
-//   template: `<UiSidePanel
-//     :model-value="true"
-//     title="Loading..."
-//     style="--backdrop-position: absolute; --side-panel-position: absolute;"
-//   >
-//     <UiLoader
-//       :is-loading="isLoading"
-//       :loader-attrs="loaderAttrs"
-//       :type="type"
-//       :transition="transition"
-//       :tag="tag"
-//       style="--loader-skeleton-block-tablet-margin: var(--space-12) 0 var(--space-20);"
-//     >
-//       <template #loader-blocks>
-//         <div class="ui-loader-skeleton__block" style="width: 75%;"/>
-//         <div class="ui-loader-skeleton__block" style="width: 50%;"/>
-//         <div class="ui-loader-skeleton__block"/>
-//         <div class="ui-loader-skeleton__block" style="width: 50%;"/>
-//       </template>
-//       A custom Symptomate app that you can use anywhere.
-//     </UiLoader>
-//   </UiSidePanel>`,
-// });
-// LoadingSidePanel.args = {
-//   type: 'skeleton',
-// };
-//
 export const LoadingControls = (args) => ({
   components: { UiLoader, UiControls },
   setup() {

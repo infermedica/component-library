@@ -16,10 +16,6 @@ export default {
         category: 'HTML attributes',
       },
     },
-    onClick: {
-      action: 'clicked',
-      table: { category: 'Events' },
-    },
     modifiers: {
       control: {
         type: 'multi-select',
@@ -46,7 +42,6 @@ const Template = (args) => ({
   template: `<UiButton 
     :class="modifiers"
     :disabled="disabled"
-    @click="onClick"
   >
     {{content}}  
   </UiButton>`,
@@ -70,7 +65,6 @@ export const OutlinedLargeWithIcon = (args) => ({
   template: `<UiButton 
     :class="modifiers"
     :disabled="disabled"
-    @click="onClick"
   >
     <UiIcon 
       icon="reversePlus" 
@@ -94,7 +88,6 @@ export const Circled = (args) => ({
   template: `<UiButton 
     :class="modifiers"
     :disabled="disabled"
-    @click="onClick"
   >
     <UiIcon icon="plus"/>
   </UiButton>`,
@@ -119,7 +112,6 @@ export const OutlinedLargeWithIconOnRight = (args) => ({
   template: `<UiButton 
     :class="modifiers"
     :disabled="disabled"
-    @click="onClick"
   >
     {{ content }}
     <UiIcon
@@ -174,7 +166,6 @@ export const ContainedLargeAsRouterLink = (args) => ({
     :class="modifiers"
     :disabled="disabled"
     :to="to"
-    @click="onClick"
   >
     {{content}}  
   </UiButton>`,
@@ -193,7 +184,6 @@ export const ContainedLargeAsLink = (args) => ({
     :class="modifiers"
     :disabled="disabled"
     :href="href"
-    @click="onClick"
   >
     {{content}}  
   </UiButton>`,

@@ -3,7 +3,7 @@
     <!-- @slot Use this slot to replace backdrop template. -->
     <slot
       name="backdrop"
-      v-bind="{closeHandler}"
+      v-bind="{closeHandler, modelValue}"
     >
       <transition name="fade">
         <UiBackdrop
@@ -13,7 +13,10 @@
       </transition>
     </slot>
     <!-- @slot Use this slot to replace container template. -->
-    <slot name="container">
+    <slot
+      name="container"
+      v-bind="{transition, afterEnterHandler, modelValue, buttonAttrs, closeHandler, title, subtitle}"
+    >
       <transition
         :name="transition"
         @after-enter="afterEnterHandler"
@@ -27,7 +30,7 @@
           <!-- @slot Use this slot to replace header template. -->
           <slot
             name="header"
-            v-bind="{attr: buttonAttrs, closeHandler, title}"
+            v-bind="{attrs: buttonAttrs, closeHandler, title, subtitle}"
           >
             <div class="ui-side-panel__header">
               <!-- @slot Use this slot to replace close template. -->

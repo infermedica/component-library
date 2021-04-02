@@ -25,11 +25,11 @@
         {{ title }}
       </UiButton>
     </slot>
+    <!-- @slot Use this slot to replace content template. -->
     <slot
       name="content"
-      v-bind="{ isOpen }"
+      v-bind="{ isOpen, name }"
     >
-      <!-- @slot Use this slot to replace content template. -->
       <div
         v-show="isOpen"
         :id="name"

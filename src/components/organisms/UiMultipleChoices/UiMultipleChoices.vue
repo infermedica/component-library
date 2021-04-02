@@ -3,7 +3,7 @@
     <!-- @slot Use this slot to replace hint template. -->
     <slot
       name="hint"
-      v-bind="{hint}"
+      v-bind="{hint, hintType}"
     >
       <UiAlert
         v-if="hint"
@@ -20,13 +20,13 @@
       <!-- @slot Use this slot to replace list-item template.-->
       <slot
         name="list-item"
-        v-bind="{choice, evidences, updateHandler}"
+        v-bind="{choice, options, evidences, updateHandler, hasError}"
       >
         <UiListItem class="ui-multiple-choices__list-item">
           <!-- @slot Use this slot to replace choice-item template.-->
           <slot
             name="choice-item"
-            v-bind="{choice, evidences, updateHandler}"
+            v-bind="{choice, options, evidences, hasError, updateHandler}"
           >
             <UiMultipleChoicesItem
               :choice="choice"

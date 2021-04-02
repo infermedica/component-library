@@ -7,7 +7,7 @@
       <!-- Use this slot to replace tile template -->
       <slot
         name="tile"
-        v-bind="{option}"
+        v-bind="{option, tileAttrs, modelValue, isTileSmall, updateHandler}"
       >
         <UiTile
           :id="option.id"
