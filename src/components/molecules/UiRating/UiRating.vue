@@ -158,7 +158,9 @@ export default {
     }
 
     &:last-of-type {
-      padding: var(--rating-option, 0);
+      [dir] & {
+        padding: var(--rating-option, 0);
+      }
     }
   }
 

@@ -154,7 +154,9 @@ export default {
     }
 
     @media (min-width: 768px) {
-      margin: var(--question-tablet-content-margin, var(--space-20) 0 0 0);
+      [dir] & {
+        margin: var(--question-tablet-content-margin, var(--space-20) 0 0 0);
+      }
     }
   }
 
