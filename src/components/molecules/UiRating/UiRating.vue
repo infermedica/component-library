@@ -168,10 +168,6 @@ export default {
     --icon-size: var(--rating-icon-size, 1.5rem);
     --icon-color: var(--rating-icon-icon-color, var(--color-icon-secondary));
 
-    &:hover {
-      --icon-color: var(--rating-icon-hover-icon-color, var(--color-icon-secondary-hover));
-    }
-
     &:active {
       --icon-color: var(--rating-icon-active-icon-color, var(--color-icon-secondary-active));
     }
@@ -179,12 +175,18 @@ export default {
     &--active {
       --icon-color: var(--rating-icon-positive-icon-color, var(--color-icon-primary));
 
-      &:hover {
-        --icon-color: var(--rating-icon-positive-hover-icon-color, var(--color-icon-primary-hover));
-      }
-
       &:active {
         --icon-color: var(--rating-icon-positive-active-icon-color, var(--color-icon-primary-active));
+      }
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        --icon-color: var(--rating-icon-hover-icon-color, var(--color-icon-secondary-hover));
+      }
+
+      &--active:hover {
+        --icon-color: var(--rating-icon-positive-hover-icon-color, var(--color-icon-primary-hover));
       }
     }
   }
