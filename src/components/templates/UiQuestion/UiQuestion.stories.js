@@ -79,12 +79,11 @@ export const AsMultipleAnswer = (args) => ({
     const modelValue = ref('');
     return { ...args, modelValue };
   },
-  template: `
-    <UiQuestion
-      :title="title"
-      :translation="translation"
-      :options="options"
-    >
+  template: `<UiQuestion
+    :title="title"
+    :translation="translation"
+    :options="options"
+  >
     <UiMultipleAnswer
       v-model="modelValue"
       :choices="[
@@ -106,13 +105,7 @@ export const AsMultipleAnswer = (args) => ({
         },
       ]"
     />
-    </UiQuestion>
-    <script>
-    import UiMultipleAnswer from "./UiMultipleAnswer.vue";
-    export default {
-      components: {UiMultipleAnswer}
-    }
-    </script>`,
+  </UiQuestion>`,
 });
 
 export const AsSimpleQuestion = (args) => ({

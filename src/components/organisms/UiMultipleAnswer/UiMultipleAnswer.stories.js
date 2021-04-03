@@ -181,7 +181,7 @@ WithMultipleChoices.args = {
 export const WithSingleChoice = (args) => ({
   components: { UiMultipleAnswer },
   setup() {
-    const modelValue = ref('');
+    const modelValue = ref({});
     return { ...args, modelValue };
   },
   template: `<UiMultipleAnswer
@@ -198,7 +198,7 @@ export const WithSingleChoice = (args) => ({
 export const WithHintSlot = (args) => ({
   components: { UiMultipleAnswer, UiAlert },
   setup() {
-    const modelValue = ref('');
+    const modelValue = ref({});
     return { ...args, modelValue };
   },
   template: `<UiMultipleAnswer
@@ -227,7 +227,7 @@ export const WithListItemSlot = (args) => ({
     UiMultipleAnswer, UiListItem, UiRadio, UiText, UiButton, UiIcon,
   },
   setup() {
-    const modelValue = ref('');
+    const modelValue = ref({});
     return { ...args, modelValue };
   },
   template: `<UiMultipleAnswer
@@ -284,7 +284,7 @@ export const WithChoiceItemSlot = (args) => ({
     UiMultipleAnswer, UiRadio, UiText, UiButton, UiIcon,
   },
   setup() {
-    const modelValue = ref('');
+    const modelValue = ref({});
     return { ...args, modelValue };
   },
   template: `<UiMultipleAnswer
@@ -336,7 +336,7 @@ export const WithLabelChoiceIdSlot = (args) => ({
     UiMultipleAnswer, UiText, UiButton, UiIcon,
   },
   setup() {
-    const modelValue = ref('');
+    const modelValue = ref({});
     return { ...args, modelValue };
   },
   template: `<UiMultipleAnswer

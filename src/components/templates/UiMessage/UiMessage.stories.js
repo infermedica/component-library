@@ -12,6 +12,28 @@ export default {
     illustration: 'message',
     content: 'You’re about to use a short (3 min), safe and anonymous health checkup. Your answers will be carefully analyzed and you’ll learn about possible causes of your symptoms.',
   },
+  argTypes: {
+    title: {
+      control: { type: 'text' },
+      description: 'Use this props to set message title.',
+      table: {
+        category: 'props',
+      },
+    },
+    content: {
+      control: { type: 'text' },
+      description: '',
+      table: {
+        category: 'props',
+      },
+    },
+    illustration: {
+      control: { type: 'multi-select', options: ['instruction', 'message', 'terms-of-service'] },
+      table: {
+        category: 'props',
+      },
+    },
+  },
   decorators: [() => ({ template: '<div class="tablet:flex tablet:max-w-171 tablet:min-h-115"><story /></div>' })],
 };
 

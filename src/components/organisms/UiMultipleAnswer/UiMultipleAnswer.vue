@@ -102,7 +102,7 @@ export default {
      *  Use this props or v-model to set checked.
      */
     modelValue: {
-      type: [Object, Array],
+      type: [String, Object, Array],
       default: () => ([]),
     },
     /**
