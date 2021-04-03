@@ -152,8 +152,11 @@ export default {
     }
 
     @media (min-width: 768px) {
-      margin: var(--tile-label-tablet-margin, var(--space-16) 0 0 0);
       text-align: var(--tile-label-tablet-text-align, center);
+
+      [dir] & {
+        margin: var(--tile-label-tablet-margin, var(--space-16) 0 0 0);
+      }
     }
   }
 

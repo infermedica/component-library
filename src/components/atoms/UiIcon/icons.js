@@ -98,7 +98,7 @@ export default {
     ],
     canMirrorForRtl: true,
   },
-  me: {
+  myself: {
     viewBox: '0 0 48 48',
     paths: [
       {

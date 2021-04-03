@@ -90,16 +90,22 @@ export default {
   &::before {
     width: 100%;
     height: 1px;
-    background: var(--color-border-divider);
+    background: var(--tabs-underline-border, var(--color-border-divider));
   }
 
   &::after {
     width: var(--tabs-underline-width, 100%);
     height: 2px;
-    background: var(--color-border-accessible);
+    background: var(--tabs-underline-color, var(--color-border-accessible));
     transition: transform 150ms ease-in-out;
     // No RTL necessary due to being JS generated
     transform: translateX(var(--tabs-underline-x, var(--tabs-underline-x-default, 0))) translateY(-1px);
+  }
+
+  &--fixed {
+    --tabs-item-tab-margin: var(--tabs-item-tab-fixed-margin, 0);
+    --tabs-item-tab-padding: var(--tabs-item-tab-fixed-padding, var(--space-16) var(--space-8));
+    --tabs-item-tab-flex: 1;
   }
 
   &--prevent-transition {

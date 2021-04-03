@@ -22,13 +22,19 @@
     </slot>
     <div class="ui-range__input">
       <!-- @slot Use this slot to replace value template. -->
-      <slot name="value">
+      <slot
+        name="value"
+        v-bind="{value: modelValue}"
+      >
         <div class="ui-range__value">
           {{ modelValue }}
         </div>
       </slot>
       <!-- @slot Use this slot to replace range template. -->
-      <slot name="range">
+      <slot
+        name="range"
+        v-bind="{attrs: getInputAttrs($attrs), min, max, value: modelValue, change: changeHandler}"
+      >
         <input
           v-bind="getInputAttrs($attrs)"
           type="range"

@@ -20,7 +20,7 @@
       <!-- @slot Use this slot to replace list-item template.-->
       <slot
         name="list-item"
-        v-bind="{choice, updateHandler, errorClass, name, component}"
+        v-bind="{choice, modelValue, updateHandler, errorClass, name, component}"
       >
         <UiListItem
           class="ui-multiple-answer__list-item"
@@ -29,7 +29,7 @@
           <!-- @slot Use this slot to replace choice-item template.-->
           <slot
             name="choice-item"
-            v-bind="{choice, updateHandler, errorClass, name, component}"
+            v-bind="{choice, modelValue, updateHandler, errorClass, name, component}"
           >
             <component
               :is="component"
@@ -45,7 +45,7 @@
                 <!-- @slot Use this slot to replace choice-label template for specific item.-->
                 <slot
                   :name="`label-${choice.id}`"
-                  v-bind="{choice}"
+                  v-bind="{choice, component}"
                 >
                   <div
                     class="ui-multiple-answer__label"
@@ -102,7 +102,7 @@ export default {
      *  Use this props or v-model to set checked.
      */
     modelValue: {
-      type: [Object, Array],
+      type: [String, Object, Array],
       default: () => ([]),
     },
     /**

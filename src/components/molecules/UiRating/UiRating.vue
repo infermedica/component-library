@@ -18,7 +18,10 @@
           <template #radiobutton>
             <template v-if="index <= finalScore">
               <!-- @slot Use this slot to replace positive rating icon. -->
-              <slot name="icon-active">
+              <slot
+                name="icon-active"
+                v-bind="{translation: `${index} ${translation.stars}`, icon: settings.iconActive}"
+              >
                 <UiIcon
                   :aria-label="`${index} ${translation.stars}`"
                   :icon="settings.iconActive"
@@ -28,7 +31,10 @@
             </template>
             <template v-else>
               <!-- @slot Use this slot to replace rating icon. -->
-              <slot name="icon">
+              <slot
+                name="icon"
+                v-bind="{translation: `${index} ${translation.stars}`, icon: settings.icon}"
+              >
                 <UiIcon
                   :aria-label="`${index} ${translation.stars}`"
                   :icon="settings.icon"
@@ -152,17 +158,15 @@ export default {
     }
 
     &:last-of-type {
-      padding: var(--rating-option, 0);
+      [dir] & {
+        padding: var(--rating-option, 0);
+      }
     }
   }
 
   &__icon {
     --icon-size: var(--rating-icon-size, 1.5rem);
     --icon-color: var(--rating-icon-icon-color, var(--color-icon-secondary));
-
-    &:hover {
-      --icon-color: var(--rating-icon-hover-icon-color, var(--color-icon-secondary-hover));
-    }
 
     &:active {
       --icon-color: var(--rating-icon-active-icon-color, var(--color-icon-secondary-active));
@@ -171,12 +175,18 @@ export default {
     &--active {
       --icon-color: var(--rating-icon-positive-icon-color, var(--color-icon-primary));
 
-      &:hover {
-        --icon-color: var(--rating-icon-positive-hover-icon-color, var(--color-icon-primary-hover));
-      }
-
       &:active {
         --icon-color: var(--rating-icon-positive-active-icon-color, var(--color-icon-primary-active));
+      }
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        --icon-color: var(--rating-icon-hover-icon-color, var(--color-icon-secondary-hover));
+      }
+
+      &--active:hover {
+        --icon-color: var(--rating-icon-positive-hover-icon-color, var(--color-icon-primary-hover));
       }
     }
   }

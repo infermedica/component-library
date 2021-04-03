@@ -1,5 +1,6 @@
 <template>
   <li class="ui-bullet-points-item">
+    <!-- @slot Use this slot to replace bullet points item marker -->
     <slot
       name="marker"
       v-bind="{isUnordered, icon}"
@@ -15,8 +16,10 @@
         class="ui-bullet-points-item__marker"
       />
     </slot>
+    <!-- @slot Use this slot to replace bullet points item content -->
     <slot name="content">
       <div class="ui-bullet-points-item__content">
+        <!-- @slot Use this slot to place bullet points item content -->
         <slot />
       </div>
     </slot>

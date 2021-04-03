@@ -10,15 +10,33 @@ module.exports = {
       use: ['style-loader', 'css-loader', 'sass-loader'],
       include: path.resolve(__dirname, '../'),
     })
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      crypto: false,
+      'crypto-browserify': require.resolve('crypto-browserify')
+    }
     return config;
   },
   stories: [
-    '../src/**/*.stories.@(mdx)'
+    // '../docs/**/*.stories.@(js|jsx|ts|tsx|mdx)',
+    '../src/**/*.stories.@(js|jsx|ts|tsx|mdx)'
   ],
   addons: [
+    '@pxblue/storybook-rtl-addon/register',
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-a11y',
-    'arcade-storybook-addon-rtl',
+    {
+      name: '@storybook/addon-postcss',
+      options: {
+        postcssLoaderOptions: {
+          implementation: require('postcss'),
+        }
+      }
+    }
   ],
+  core: {
+    'builder': 'webpack5'
+  }
 }
+

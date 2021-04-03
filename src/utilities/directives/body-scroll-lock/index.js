@@ -4,6 +4,7 @@ import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 
 export const bodyScrollLock = {
   async beforeMount(el) {
+    if (window.__STORYBOOK_ADDONS) return;
     await nextTick();
     disableBodyScroll(el, {
       allowTouchMove: (el) => {
@@ -19,6 +20,7 @@ export const bodyScrollLock = {
     document.body.style.overflow = 'hidden';
   },
   beforeUnmount(el) {
+    if (window.__STORYBOOK_ADDONS) return;
     enableBodyScroll(el);
     document.body.style.overflow = '';
   },

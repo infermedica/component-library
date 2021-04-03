@@ -3,16 +3,14 @@
   "version": "0.0.1-beta.3",
   "private": true,
   "scripts": {
-    "lint:mdx": "eslint --ext .mdx src --fix",
-    "lint:js": "vue-cli-service lint --fix",
-    "lint:scss": "stylelint 'src/**/*.{vue,htm,html,css,sss,less,scss}' --fix",
-    "create-component": "node scripts/create-component.js",
+    "test:unit": "vue-cli-service test:unit",
+    "test:verbose": "vue-cli-service test:unit --verbose",
+    "lint": "vue-cli-service lint --fix",
+    "stylelint": "stylelint src/**/*.{vue,scss} --fix",
+    "build-storybook": "build-storybook -s ./public",
+    "storybook": "start-storybook -s ./public -p 6006",
     "create-index": "node scripts/create-index.js",
-    "postinstall": "node scripts/create-index.js",
-    "storybook:build": "node_modules/.bin/build-storybook -s ./public",
-    "storybook:serve": "node_modules/.bin/start-storybook -s ./public -p 6006",
-    "test:unit": "jest",
-    "test:verbose": "jest --verbose"
+    "create-component": "node scripts/create-component.js"
   },
   "main": "index.js",
   "module": "index.js",
@@ -23,54 +21,183 @@
   ],
   "husky": {
     "hooks": {
-      "pre-push": "npm run lint:js && npm run lint:scss"
+      "pre-push": "npm run lint && npm run stylelint"
     }
   },
   "dependencies": {
+    "@pxblue/storybook-rtl-addon": "^1.0.0",
     "body-scroll-lock": "^3.1.5",
-    "core-js": "^3.6.5",
+    "core-js": "^3.8.3",
+    "crypto-browserify": "^3.12.0",
     "uid": "^2.0.0",
-    "vue": "^3.0.0"
+    "vue": "^3.0.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.13.1",
-    "@storybook/addon-a11y": "^6.2.0-beta.2",
-    "@storybook/addon-actions": "^6.2.0-beta.2",
-    "@storybook/addon-essentials": "^6.2.0-beta.2",
-    "@storybook/addon-links": "^6.2.0-beta.2",
-    "@storybook/addon-storyshots": "^6.2.0-beta.2",
-    "@storybook/addon-viewport": "^6.2.0-beta.2",
-    "@storybook/vue3": "^6.2.0-beta.2",
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "@vue/compiler-sfc": "^3.0.0",
+    "@babel/core": "^7.13.10",
+    "@babel/eslint-parser": "^7.12.16",
+    "@babel/preset-env": "^7.13.10",
+    "@storybook/addon-a11y": "^6.2.1",
+    "@storybook/addon-actions": "^6.2.1",
+    "@storybook/addon-essentials": "^6.2.1",
+    "@storybook/addon-links": "^6.2.1",
+    "@storybook/addon-postcss": "^2.0.0",
+    "@storybook/builder-webpack5": "^6.2.1",
+    "@storybook/vue3": "^6.2.1",
+    "@vue/cli-plugin-babel": "~5.0.0-alpha.7",
+    "@vue/cli-plugin-eslint": "~5.0.0-alpha.7",
+    "@vue/cli-plugin-unit-jest": "~5.0.0-alpha.7",
+    "@vue/cli-service": "~5.0.0-alpha.7",
+    "@vue/compiler-sfc": "^3.0.4",
     "@vue/eslint-config-airbnb": "^5.3.0",
-    "@vue/test-utils": "^2.0.0-rc.1",
-    "arcade-storybook-addon-rtl": "0.0.10",
-    "babel-eslint": "^10.1.0",
+    "@vue/test-utils": "^2.0.0-0",
+    "autoprefixer": "^10.2.5",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^26.6.3",
     "babel-loader": "^8.2.2",
-    "eslint": "^6.7.2",
-    "eslint-plugin-mdx": "^1.9.0",
-    "eslint-plugin-vue": "^7.0.0-0",
+    "eslint": "^7.20.0",
+    "eslint-plugin-vue": "^7.2.0",
     "file-save": "^0.2.0",
     "glob": "^7.1.6",
-    "husky": "^5.1.1",
-    "jest": "^26.6.3",
-    "prompts": "^2.4.0",
+    "husky": "^5.1.3",
+    "postcss": "^8.2.8",
+    "prompt": "^1.1.0",
     "sass": "^1.32.8",
-    "sass-loader": "^10.0.5",
-    "stylelint": "^13.11.0",
+    "sass-loader": "^11.0.1",
+    "stylelint": "^13.12.0",
     "stylelint-config-recess-order": "^2.3.0",
     "stylelint-config-scss": "^1.0.0-security",
-    "stylelint-config-standard": "^20.0.0",
+    "stylelint-config-standard": "^21.0.0",
     "stylelint-scss": "^3.19.0",
+    "tailwindcss": "^2.0.3",
+    "typescript": "~4.1.2",
     "uppercamelcase": "^3.0.0",
-    "vue-jest": "^5.0.0-alpha.8",
+    "vue-jest": "^5.0.0-0",
     "vue-loader": "^16.1.2"
   },
-  "sideEffects": [
-    "*.vue",
-    "*.scss"
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true,
+      "es6": true
+    },
+    "extends": [
+      "plugin:vue/vue3-recommended",
+      "@vue/airbnb"
+    ],
+    "parserOptions": {
+      "parser": "@babel/eslint-parser"
+    },
+    "rules": {
+      "no-multiple-empty-lines": [
+        "error",
+        {
+          "max": 1
+        }
+      ],
+      "max-len": [
+        "off"
+      ],
+      "vue/max-len": [
+        "error",
+        {
+          "code": 120,
+          "template": 120,
+          "tabWidth": 2,
+          "comments": 120,
+          "ignorePattern": "",
+          "ignoreComments": true,
+          "ignoreTrailingComments": true,
+          "ignoreUrls": true,
+          "ignoreStrings": true,
+          "ignoreTemplateLiterals": true,
+          "ignoreRegExpLiterals": true,
+          "ignoreHTMLAttributeValues": true,
+          "ignoreHTMLTextContents": true
+        }
+      ],
+      "vue/max-attributes-per-line": [
+        "error",
+        {
+          "singleline": 1,
+          "multiline": {
+            "max": 1,
+            "allowFirstLine": false
+          }
+        }
+      ]
+    },
+    "overrides": [
+      {
+        "files": [
+          "*.spec.{j,t}s?(x)"
+        ],
+        "env": {
+          "jest": true
+        }
+      }
+    ],
+    "ignorePatterns": [
+      "**/.storybook/*"
+    ]
+  },
+  "stylelint": {
+    "extends": [
+      "stylelint-config-standard",
+      "stylelint-scss",
+      "stylelint-config-recess-order"
+    ],
+    "rules": {
+      "selector-max-id": 0,
+      "max-line-length": 120,
+      "at-rule-no-unknown": [
+        true,
+        {
+          "ignoreAtRules": [
+            "function",
+            "if",
+            "each",
+            "for",
+            "include",
+            "mixin",
+            "at-root",
+            "return",
+            "else"
+          ]
+        }
+      ]
+    }
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "vue"
+    ],
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1"
+    },
+    "transform": {
+      "^.+\\.js$": "babel-jest",
+      ".*\\.(vue)$": "vue-jest"
+    },
+    "collectCoverage": false,
+    "collectCoverageFrom": [
+      "**/*.{js,vue}",
+      "!**/node_modules/**"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/scripts/"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "@vue/cli-plugin-babel/preset"
+    ]
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
   ]
 }

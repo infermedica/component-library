@@ -3,7 +3,7 @@
     <!-- @slot Use this slot to replace backdrop template. -->
     <slot
       name="backdrop"
-      v-bind="{closeHandler}"
+      v-bind="{closeHandler, modelValue}"
     >
       <transition name="fade">
         <UiBackdrop
@@ -13,7 +13,10 @@
       </transition>
     </slot>
     <!-- @slot Use this slot to replace container template. -->
-    <slot name="container">
+    <slot
+      name="container"
+      v-bind="{transition, afterEnterHandler, modelValue, buttonAttrs, closeHandler, title, subtitle}"
+    >
       <transition
         :name="transition"
         @after-enter="afterEnterHandler"
@@ -202,7 +205,7 @@ export default {
   z-index: 1;
 
   &__dialog {
-    position: fixed;
+    position: var(--side-panel-position, fixed);
     top: 0;
     right: 0;
     bottom: 0;

@@ -20,7 +20,10 @@
       v-bind="{subtitle, title, description}"
     >
       <div class="ui-card__content">
-        <slot name="subtitle">
+        <slot
+          name="subtitle"
+          v-bind="{subtitle}"
+        >
           <UiText
             v-if="subtitle"
             class="ui-card__subtitle"
@@ -28,7 +31,10 @@
             {{ subtitle }}
           </UiText>
         </slot>
-        <slot name="title">
+        <slot
+          name="title"
+          v-bind="{title}"
+        >
           <UiHeading
             v-if="title"
             class="ui-card__title"
@@ -36,7 +42,10 @@
             {{ title }}
           </UiHeading>
         </slot>
-        <slot name="description">
+        <slot
+          name="description"
+          v-bind="{description}"
+        >
           <UiText
             v-if="description"
             class="ui-card__description"
@@ -77,13 +86,6 @@ export default {
      * Use this props to set subtitle for card.
      */
     subtitle: {
-      type: String,
-      default: '',
-    },
-    /**
-     * Use this props to set symptoms header for card.
-     */
-    symptomsHeader: {
       type: String,
       default: '',
     },
