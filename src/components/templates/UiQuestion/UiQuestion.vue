@@ -14,7 +14,7 @@
     </slot>
     <slot
       name="info"
-      v-bind="{options}"
+      v-bind="{options, translation}"
     >
       <UiButton
         v-if="options.info"
@@ -138,35 +138,30 @@ export default {
   &__actions {
     display: flex;
     flex-direction: column;
-    margin: var(--space-32) 0 0 0;
+    margin: var(--question-actions-margin, var(--space-32) 0 0 0);
 
     @media (min-width: 768px) {
       flex-direction: row;
       align-items: center;
+      margin: var(--question-tablet-actions-margin, var(--space-32) 0 0 0);
     }
   }
 
   &__content {
-    margin: var(--question-mobile-content-margin, var(--space-20) 0 0 calc(var(--space-20) * -1));
-
-    [dir=rtl] & {
-      margin: var(--question-mobile-content-margin, var(--space-20) calc(var(--space-20) * -1) 0 0);
-    }
+    margin: var(--question-content-margin, var(--space-32) 0 0 0);
 
     @media (min-width: 768px) {
-      [dir] & {
-        margin: var(--question-tablet-content-margin, var(--space-20) 0 0 0);
-      }
+      margin: var(--question-tablet-content-margin, var(--space-32) 0 0 0);
     }
   }
 
   &__action {
     display: flex;
     align-items: center;
-    margin: var(--space-20) 0 0 0;
+    margin: var(--question-action-margin, var(--space-20) 0 0 0);
 
     @media (min-width: 768px) {
-      margin: 0;
+      margin: var(--question-tablet-action-margin, 0);
     }
 
     &::before {
@@ -174,9 +169,9 @@ export default {
         flex: none;
         align-self: stretch;
         width: 1px;
-        margin: 0 var(--space-12);
+        margin: var(--question-action-before-margin, 0 var(--space-12));
         content: "";
-        background: var(--color-border-divider);
+        background: var(--question-action-before-background, var(--color-border-divider));
       }
     }
 

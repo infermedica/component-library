@@ -224,7 +224,7 @@ export const WithHintSlot = (args) => ({
 
 export const WithListItemSlot = (args) => ({
   components: {
-    UiMultipleAnswer, UiListItem, UiRadio, UiText, UiButton, UiIcon
+    UiMultipleAnswer, UiListItem, UiRadio, UiText, UiButton, UiIcon,
   },
   setup() {
     const modelValue = ref('');
