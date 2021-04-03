@@ -1,6 +1,6 @@
 {
   "name": "@symptom-checker/ui-kit",
-  "version": "0.0.1-beta.3",
+  "version": "0.0.1-beta.4",
   "private": true,
   "scripts": {
     "test:unit": "vue-cli-service test:unit",

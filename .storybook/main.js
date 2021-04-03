@@ -18,7 +18,7 @@ module.exports = {
     return config;
   },
   stories: [
-    // '../docs/**/*.stories.@(js|jsx|ts|tsx|mdx)',
+    '../docs/**/*.stories.@(js|jsx|ts|tsx|mdx)',
     '../src/**/*.stories.@(js|jsx|ts|tsx|mdx)'
   ],
   addons: [
