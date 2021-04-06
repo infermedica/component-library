@@ -10,7 +10,8 @@
     "build-storybook": "build-storybook -s ./public",
     "storybook": "start-storybook -s ./public -p 6006",
     "create-index": "node scripts/create-index.js",
-    "create-component": "node scripts/create-component.js"
+    "create-component": "node scripts/create-component.js",
+    "postinstall": "node scripts/create-index.js"
   },
   "main": "index.js",
   "module": "index.js",
