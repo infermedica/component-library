@@ -36,8 +36,8 @@
 </template>
 
 <script>
-import UiButton from '@/components/atoms/UiButton/UiButton.vue';
-import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
+import UiButton from '../../atoms/UiButton/UiButton.vue';
+import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 
 export default {
   name: 'UiNumberStepper',
