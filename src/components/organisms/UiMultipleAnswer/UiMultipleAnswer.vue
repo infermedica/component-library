@@ -3,10 +3,11 @@
     <!-- @slot Use this slot to replace hint template. -->
     <slot
       name="hint"
-      v-bind="{hint, hintType}"
+      v-bind="{hint, hintType, alertHintAttrs}"
     >
       <UiAlert
         v-if="hint"
+        v-bind="alertHintAttrs"
         :type="hintType"
         class="ui-multiple-answer__hint"
       >
@@ -148,6 +149,13 @@ export default {
       default: () => ({
         explication: 'explication for',
       }),
+    },
+    /**
+     * Use this props to pass attrs for hint UiAlert
+     */
+    alertHintAttrs: {
+      type: Object,
+      default: () => ({}),
     },
   },
   emits: ['update:modelValue', 'update:invalid'],

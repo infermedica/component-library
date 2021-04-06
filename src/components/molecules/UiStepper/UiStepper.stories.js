@@ -23,6 +23,7 @@ export default {
   args: {
     steps,
     currentStep: steps[0].name,
+    progressAttrs: { id: 'progress' },
   },
   argTypes: {
     currentStep: {
@@ -42,6 +43,7 @@ const Template = (args) => ({
   template: `<UiStepper
     :steps="steps"
     :current-step="currentStep"
+    :progress-attrs="progressAttrs"
   />`,
 });
 
@@ -56,6 +58,7 @@ export const WithCurrentStepSlot = (args) => ({
   template: `<UiStepper
     :steps="steps"
     :current-step="currentStep"
+    :progress-attrs="progressAttrs"
   >
     <template #current-step="{currentStepDisplayText}">
       <UiText
@@ -77,6 +80,7 @@ export const WithProgressSlot = (args) => ({
   template: `<UiStepper
     :steps="steps"
     :current-step="currentStep"
+    :progress-attrs="progressAttrs"
   >
     <template #progress="{stepsProgress}">
       <UiProgress
@@ -99,6 +103,7 @@ export const WithDesktopSlot = (args) => ({
   template: `<UiStepper
     :steps="steps"
     :current-step="currentStep"
+    :progress-attrs="progressAttrs"
   >
     <template #desktop="{steps, indexOfActiveStep, determineStep}">
       <UiList class="ui-stepper__desktop">
@@ -132,6 +137,7 @@ export const WithItemsSlot = (args) => ({
   template: `<UiStepper
     :steps="steps"
     :current-step="currentStep"
+    :progress-attrs="progressAttrs"
   >
     <template #items="{steps, indexOfActiveStep, determineStep}">
       <UiListItem
@@ -163,6 +169,7 @@ export const WithMobileSlot = (args) => ({
   template: `<UiStepper
     :steps="steps"
     :current-step="currentStep"
+    :progress-attrs="progressAttrs"
   >
     <template #mobile="{currentSteps, currentStepDisplayText, stepsProgress}">
       <div class="ui-stepper__mobile">

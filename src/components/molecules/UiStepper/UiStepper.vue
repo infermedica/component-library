@@ -24,6 +24,7 @@
           v-bind="{stepsProgress}"
         >
           <UiProgress
+            v-bind="progressAttrs"
             min="0"
             max="100"
             :value="stepsProgress"
@@ -94,6 +95,10 @@ export default {
     currentStep: {
       type: String,
       default: '',
+    },
+    progressAttrs: {
+      type: Object,
+      default: () => ({}),
     },
   },
   setup(props) {

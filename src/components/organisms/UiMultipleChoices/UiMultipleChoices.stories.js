@@ -69,6 +69,9 @@ export default {
     ],
     hint: 'Select one answer in each row',
     source: 'predefined',
+    alertHintAttrs: {
+      id: 'hint',
+    },
   },
   argTypes: {
     modelValue: {
@@ -103,6 +106,7 @@ const Template = (args) => ({
     :hint="hint"
     :invalid="invalid"
     :touched="touched"
+    :alert-hint-attrs="alertHintAttrs"
   />`,
 });
 
@@ -122,6 +126,7 @@ export const WithHintSlot = (args) => ({
     :hint="hint"
     :invalid="invalid"
     :touched="touched"
+    :alert-hint-attrs="alertHintAttrs"
   >
     <template #hint="{hint, hintType}">
       <UiAlert
@@ -149,6 +154,7 @@ export const WithListItemSlot = (args) => ({
     :hint="hint"
     :invalid="invalid"
     :touched="touched"
+    :alert-hint-attrs="alertHintAttrs"
   >
     <template #list-type="{choice, options, evidences, updateHandler, hasError}">
       <UiListItem class="ui-multiple-choices__list-item">
@@ -179,6 +185,7 @@ export const WithChoiceItem = (args) => ({
     :hint="hint"
     :invalid="invalid"
     :touched="touched"
+    :alert-hint-attrs="alertHintAttrs"
   >
     <template #choice-item="{choice, options, evidences, hasError, updateHandler}">
       <UiMultipleChoicesItem

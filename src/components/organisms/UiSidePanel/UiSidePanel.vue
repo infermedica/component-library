@@ -30,18 +30,18 @@
           <!-- @slot Use this slot to replace header template. -->
           <slot
             name="header"
-            v-bind="{attrs: buttonAttrs, closeHandler, title, subtitle}"
+            v-bind="{attrs: buttonCloseAttrs, closeHandler, title, subtitle}"
           >
             <div class="ui-side-panel__header">
               <!-- @slot Use this slot to replace close template. -->
               <slot
                 name="close"
-                v-bind="{attrs: buttonAttrs, closeHandler}"
+                v-bind="{attrs: buttonCloseAttrs, closeHandler}"
               >
                 <UiButton
                   ref="button"
                   class="ui-button--has-icon ui-button--secondary ui-button--text ui-side-panel__close"
-                  v-bind="buttonAttrs"
+                  v-bind="buttonCloseAttrs"
                   @click="closeHandler"
                 >
                   <UiIcon icon="close" />
@@ -59,9 +59,12 @@
                   <!-- @slot Use this slot to replace title template. -->
                   <slot
                     name="title"
-                    v-bind="{title}"
+                    v-bind="{title, headingTitleAttrs}"
                   >
-                    <UiHeading v-if="title">
+                    <UiHeading
+                      v-if="title"
+                      v-bind="headingTitleAttrs"
+                    >
                       {{ title }}
                     </UiHeading>
                   </slot>
@@ -72,6 +75,7 @@
                   >
                     <UiText
                       v-if="subtitle"
+                      v-bind="textSubtitleAttrs"
                       class="ui-side-panel__subtitle"
                     >
                       {{ subtitle }}
@@ -146,9 +150,23 @@ export default {
       default: '',
     },
     /**
-     * Use this props to pass attrs for UiButton
+     * Use this props to pass attrs for close UiButton
      */
-    buttonAttrs: {
+    buttonCloseAttrs: {
+      type: Object,
+      default: () => ({}),
+    },
+    /**
+     * Use this props to pass attrs for title UiHeading
+     */
+    headingTitleAttrs: {
+      type: Object,
+      default: () => ({}),
+    },
+    /**
+     * Use this props to pass attrs for subtitle UiText
+     */
+    textSubtitleAttrs: {
       type: Object,
       default: () => ({}),
     },

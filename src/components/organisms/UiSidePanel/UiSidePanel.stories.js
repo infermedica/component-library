@@ -19,8 +19,15 @@ export default {
     modelValue: true,
     title: 'For business',
     subtitle: '',
-    buttonAttrs: {
+    buttonCloseAttrs: {
+      id: 'close',
       'aria-label': 'close panel',
+    },
+    headingTitleAttrs: {
+      id: 'title',
+    },
+    textSubtitleAttrs: {
+      id: 'subtitle',
     },
     transition: 'slide',
   },
@@ -58,7 +65,9 @@ const Template = (args) => ({
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :button-attrs="buttonAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
   >
     <UiHeading>§1. General Provisions</UiHeading>
     <UiBulletPoints tag="ol">
@@ -128,7 +137,9 @@ export const WithBackdropSlot = (args) => ({
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :button-attrs="buttonAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
   >
     <template #backdrop="{closeHandler, modelValue}">
       <transition name="fade">
@@ -162,9 +173,11 @@ export const WithContainerSlot = (args) => ({
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :button-attrs="buttonAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
   >
-    <template #container="{transition, afterEnterHandler, modelValue, buttonAttrs, closeHandler, title, subtitle}">
+    <template #container="{transition, afterEnterHandler, modelValue, buttonCloseAttrs, closeHandler, title, subtitle}">
       <transition
         :name="transition"
         @after-enter="afterEnterHandler"
@@ -180,7 +193,7 @@ export const WithContainerSlot = (args) => ({
             <UiButton
               ref="button"
               class="ui-button--has-icon ui-button--secondary ui-button--text ui-side-panel__close"
-              v-bind="buttonAttrs"
+              v-bind="buttonCloseAttrs"
               @click="closeHandler"
             >
               <UiIcon icon="close" />
@@ -228,7 +241,9 @@ export const WithHeaderSlot = (args) => ({
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :button-attrs="buttonAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
   >
     <template #header="{attrs, closeHandler, title, subtitle}">
       <div class="ui-side-panel__header">
@@ -276,7 +291,9 @@ export const WithCloseSlot = (args) => ({
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :button-attrs="buttonAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
   >
     <template #close="{attrs, closeHandler}">
       <UiButton
@@ -308,7 +325,9 @@ export const WithLabelSlot = (args) => ({
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :button-attrs="buttonAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
   >
     <template #label="{title, subtitle}">
       <div
@@ -346,7 +365,9 @@ export const WithTitleSlot = (args) => ({
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :button-attrs="buttonAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
   >
     <template #title="{title}">
       <UiHeading v-if="title">
@@ -373,7 +394,9 @@ export const WithSubtitleSlot = (args) => ({
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :button-attrs="buttonAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
   >
     <template #subtitle="{subtitle}">
       <UiText
@@ -403,7 +426,9 @@ export const WithContentSlot = (args) => ({
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :button-attrs="buttonAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
   >
     <template #content>
       <div
