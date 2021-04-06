@@ -118,7 +118,7 @@ export const AsSimpleQuestion = (args) => ({
     :title="title"
     :translation="translation"
     :options="options"
-    style="--question-tablet-actions-margin: var(--space-48) 0 0 0; --question-tablet-content-margin: var(--space-48) 0 0 0"
+    style="--question-tablet-actions-margin: var(--space-48) 0 0 0;"
   >
     <UiSimpleQuestion
       v-model="modelValue"
