@@ -189,11 +189,11 @@ export default {
   &__hint {
     @include font(--font-body-2-comfortable-thick);
 
-    margin: var(--multiple-choices-mobile-hint-margin, var(--space-12) var(--space-20));
+    margin: var(--multiple-choices-mobile-hint-margin, 0 var(--space-20) var(--space-12) var(--space-20));
     color: var(--multiple-choices-hint-color, var(--color-text-dimmed));
 
     @media (min-width: 768px) {
-      margin: var(--multiple-choices-tablet-hint-margin, var(--space-12) 0);
+      margin: var(--multiple-choices-tablet-hint-margin, 0 0 var(--space-12) 0);
     }
   }
 
