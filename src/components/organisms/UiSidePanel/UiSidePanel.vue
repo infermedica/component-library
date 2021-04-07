@@ -15,7 +15,7 @@
     <!-- @slot Use this slot to replace container template. -->
     <slot
       name="container"
-      v-bind="{transition, afterEnterHandler, modelValue, buttonAttrs, closeHandler, title, subtitle}"
+      v-bind="{transition, afterEnterHandler, modelValue, buttonCloseAttrs, closeHandler, title, subtitle}"
     >
       <transition
         :name="transition"
