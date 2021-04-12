@@ -9,7 +9,7 @@
         :id="`toggler${name}`"
         :aria-expanded="`${isOpen}`"
         :aria-controls="name"
-        class="ui-accordion-item__toggler ui-button--outlined ui-button--has-icon"
+        class="ui-accordion-item__toggler ui-button--text ui-button--has-icon"
         @click="toggle(name)"
       >
         <!-- @slot Use this slot to replace chevron template. -->

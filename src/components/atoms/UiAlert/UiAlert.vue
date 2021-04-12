@@ -78,17 +78,17 @@ export default {
     --icon-color: var(--alert-icon-color, var(--color-alert-error-icon));
 
     flex: none;
+    margin: var(--alert-icon-margin, 0 var(--space-4) 0 0);
+
+    [dir=rtl] & {
+      margin: var(--alert-message-margin, 0 0 0 var(--space-4));
+    }
   }
 
   &__message {
     @include font(--font-body-2-comfortable);
 
-    margin: var(--alert-message-margin, 0 0 0 var(--space-4));
     color: var(--alert-color, var(--color-text-body));
-
-    [dir=rtl] & {
-      margin: var(--alert-message-margin, 0 var(--space-4) 0 0);
-    }
   }
 
   &--success {
