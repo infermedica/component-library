@@ -81,7 +81,7 @@ export default {
     margin: var(--alert-icon-margin, 0 var(--space-4) 0 0);
 
     [dir=rtl] & {
-      margin: var(--alert-message-margin, 0 0 0 var(--space-4));
+      margin: var(--alert-icon-margin, 0 0 0 var(--space-4));
     }
   }
 
