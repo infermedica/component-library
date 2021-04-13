@@ -18,7 +18,7 @@
     >
       <UiButton
         v-if="options.info"
-        class="ui-question__alert ui-button--text"
+        class="ui-question__info ui-button--text"
       >
         <UiAlert type="info">
           {{ translation.info }}
@@ -62,11 +62,39 @@
             class="ui-question__action"
           >
             <UiButton class="ui-question__action ui-button--text">
-              {{ translation.issue }}
+              {{ translation.issue.action }}
             </UiButton>
           </div>
         </slot>
       </div>
+    </slot>
+    <!-- @slot Use this slot to replace feedback template. -->
+    <slot
+      name="feedback"
+      v-bind="{options, translation, buttonSkipAttrs}"
+    >
+      <UiNotification
+        v-if="options.issue?.feedback"
+        type="success"
+        class="ui-question__feedback"
+      >
+        <UiAlert
+          type="success"
+          class="ui-alert--secondary"
+        >
+          {{ translation.issue.feedback }}
+        </UiAlert>
+        <UiButton
+          v-bind="buttonSkipAttrs"
+          class="ui-question__skip ui-button--text ui-button--has-icon"
+        >
+          {{ translation.issue.skip }}
+          <UiIcon
+            icon="chevronRight"
+            class="ui-button__icon ui-button__icon--right"
+          />
+        </UiButton>
+      </UiNotification>
     </slot>
   </div>
 </template>
@@ -75,6 +103,8 @@
 import UiAlert from '../../atoms/UiAlert/UiAlert.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
+import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
+import UiNotification from '../../molecules/UiNotification/UiNotification.vue';
 
 export default {
   name: 'UiQuestion',
@@ -82,6 +112,8 @@ export default {
     UiAlert,
     UiButton,
     UiHeading,
+    UiIcon,
+    UiNotification,
   },
   props: {
     /**
@@ -99,7 +131,11 @@ export default {
       default: () => ({
         info: 'What does it mean?',
         why: 'Why am I being asked this?',
-        issue: 'Report an issues with this question',
+        issue: {
+          action: 'Report an issues with this question',
+          feedback: 'Thank you. We’ll review this question as soon as possible.',
+          skip: 'Skip this question',
+        },
       }),
     },
     /**
@@ -110,16 +146,23 @@ export default {
       default: () => ({
         info: true,
         why: true,
-        issue: true,
+        issue: {
+          feedback: true,
+        },
       }),
+    },
+    /**
+     * Use this props to pass attrs for question skip UiButton
+     */
+    buttonSkipAttrs: {
+      type: Object,
+      default: () => ({}),
     },
   },
 };
 </script>
 
 <style lang="scss">
-@import '../../../styles/mixins/_mixins.scss';
-
 .ui-question {
   padding: var(--question-padding, 0 var(--space-20));
 
@@ -131,7 +174,7 @@ export default {
     background: inherit;
   }
 
-  &__alert {
+  &__info {
     margin: var(--question-alert-margin, var(--space-12) 0 0 0);
   }
 
@@ -181,6 +224,25 @@ export default {
       &::before {
         content: none;
       }
+    }
+  }
+
+  &__feedback {
+    --alert-icon-margin: 0 var(--space-12) 0 0;
+
+    align-items: flex-start;
+    margin: var(--space-24) 0 0 0;
+
+    [dir=rtl] & {
+      --alert-icon-margin: 0 0 0 var(--space-12);
+    }
+  }
+
+  &__skip {
+    margin: var(--space-4) 0 0 var(--space-36);
+
+    [dir=rtl] & {
+      margin: var(--space-4) var(--space-36) 0 0;
     }
   }
 }

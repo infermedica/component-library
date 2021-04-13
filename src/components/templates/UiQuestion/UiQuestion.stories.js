@@ -15,12 +15,18 @@ export default {
     translation: {
       info: 'What does it mean?',
       why: 'Why am I being asked this?',
-      issue: 'Report an issues with this question',
+      issue: {
+        action: 'Report an issues with this question',
+        feedback: 'Thank you. We’ll review this question as soon as possible.',
+        skip: 'Skip this question',
+      },
     },
     options: {
       info: true,
       why: true,
-      issue: true,
+      issue: {
+        feedback: true,
+      },
     },
   },
   argTypes: {
@@ -73,6 +79,7 @@ export default {
 //     />
 //   </UiQuestion>`,
 // });
+
 export const AsMultipleAnswer = (args) => ({
   components: { UiQuestion, UiMultipleAnswer },
   setup() {
