@@ -10,13 +10,29 @@
       name="name"
       v-bind="{choice}"
     >
-      <UiText
-        :id="choice.linked_observation"
-        class="ui-multiple-choices-item__name"
-        tag="span"
-      >
-        {{ choice.name }}
-      </UiText>
+      <div class="ui-multiple-choices-item__header">
+        <UiText
+          :id="choice.linked_observation"
+          class="ui-multiple-choices-item__name"
+          tag="span"
+        >
+          {{ choice.name }}
+        </UiText>
+        <UiButton
+          v-if="choice.buttonInfoAttrs"
+          v-bind="choice.buttonInfoAttrs"
+          :aria-label="`${choice.name}`"
+          class="ui-multiple-choices-item__info ui-button--small ui-button--text ui-button--has-icon"
+        >
+          <UiIcon
+            icon="infoOutlined"
+            class="ui-button__icon"
+          />
+          <span class="ui-multiple-choices-item__info-message">
+            {{ translation.info }}
+          </span>
+        </UiButton>
+      </div>
     </slot>
     <template
       v-for="(option, key) in options"
@@ -43,12 +59,17 @@
 </template>
 
 <script>
+import { inject } from 'vue';
 import UiRadio from '../../../atoms/UiRadio/UiRadio.vue';
 import UiText from '../../../atoms/UiText/UiText.vue';
+import UiButton from '../../../atoms/UiButton/UiButton.vue';
+import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 
 export default {
   name: 'UiMultipleChoicesItem',
-  components: { UiRadio, UiText },
+  components: {
+    UiRadio, UiText, UiButton, UiIcon,
+  },
   props: {
     /**
      *  Use this props or v-model to set checked.
@@ -81,6 +102,7 @@ export default {
   },
   emits: ['update:modelValue'],
   setup(props, { emit }) {
+    const translation = inject('translation');
     function getModelValue(choice) {
       return props.modelValue[choice.id];
     }
@@ -93,7 +115,9 @@ export default {
     function updateHandler(value) {
       emit('update:modelValue', { ...props.modelValue, [value.id]: value });
     }
+
     return {
+      translation,
       getModelValue,
       getRadioValue,
       updateHandler,
@@ -113,12 +137,16 @@ export default {
 
   @media (min-width: 768px) {
     flex-direction: var(--multiple-choices-item-flex-direction, row);
-    align-items: var(--multiple-choices-item-align-items, center);
+    align-items: var(--multiple-choices-item-align-items, flex-start);
   }
 
-  &__name {
+  &__header {
     @include font(--font-body-1);
 
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
     padding:
       var(
         --multiple-choices-item-name-padding,
@@ -127,6 +155,7 @@ export default {
     background: var(--multiple-choices-item-name-background, var(--color-background-white));
 
     @media (min-width: 768px) {
+      flex-direction: column;
       padding: var(--multiple-choices-item-name-padding, 0);
       margin: 0 auto 0 0;
       background: var(--multiple-choices-item-name-background);
@@ -165,6 +194,24 @@ export default {
 
   &--has-error {
     --multiple-choices-item-background: var(--color-background-alert-error);
+  }
+
+  &__info {
+    @media (min-width: 768px) {
+      margin: var(--multiple-choices-item-info-margin, var(--space-8) 0 0 0);
+    }
+  }
+
+  &__info-message {
+    @media (max-width: 767px) {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
   }
 }
 </style>

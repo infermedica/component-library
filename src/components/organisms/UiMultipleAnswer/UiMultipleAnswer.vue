@@ -58,11 +58,12 @@
                       {{ choice.name }}
                     </UiText>
                     <UiButton
-                      v-if="choice.explication"
+                      v-if="choice.buttonInfoAttrs"
+                      v-bind="choice.buttonInfoAttrs"
                       :aria-label="`${translation.explication} ${choice.name}`"
                       class="ui-multiple-answer__explication ui-button--text ui-button--has-icon"
                     >
-                      <UiIcon icon="info" />
+                      <UiIcon icon="infoOutlined" />
                     </UiButton>
                   </div>
                 </slot>

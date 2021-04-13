@@ -178,6 +178,56 @@ WithMultipleChoices.args = {
   ],
 };
 
+export const WithButtonInfo = Template.bind({});
+WithButtonInfo.args = {
+  name: 'suggest',
+  hint: 'Select all answers that apply',
+  choices: [
+    {
+      id: 's_2100',
+      name: 'Fatigue',
+      common_name: 'Fatigue',
+      source: 'suggest',
+      buttonInfoAttrs: {
+        to: { path: '/' },
+      },
+    },
+    {
+      id: 's_98',
+      name: 'Fever',
+      common_name: 'Fever',
+      source: 'suggest',
+    },
+    {
+      id: 's_156',
+      name: 'Nausea',
+      common_name: 'Feeling sick',
+      source: 'suggest',
+    },
+    {
+      id: 's_305',
+      name: 'Vomiting',
+      common_name: 'Vomiting',
+      source: 'suggest',
+    },
+    {
+      id: 's_81',
+      name: 'Illusion of surrounding objects being bigger or smaller than they actually are',
+      common_name: 'Illusion',
+      source: 'suggest',
+      buttonInfoAttrs: {
+        to: { path: '/' },
+      },
+    },
+    {
+      id: 's_370',
+      name: 'Dizziness',
+      common_name: 'Dizzy',
+      source: 'suggest',
+    },
+  ],
+};
+
 export const WithSingleChoice = (args) => ({
   components: { UiMultipleAnswer },
   setup() {

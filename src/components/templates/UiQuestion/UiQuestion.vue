@@ -14,15 +14,18 @@
     </slot>
     <slot
       name="info"
-      v-bind="{options, translation}"
+      v-bind="{buttonInfoAttrs, options, translation}"
     >
       <UiButton
         v-if="options.info"
-        class="ui-question__info ui-button--text"
+        v-bind="buttonInfoAttrs"
+        class="ui-question__info ui-button--text ui-button--small ui-button--has-icon"
       >
-        <UiAlert type="info">
-          {{ translation.info }}
-        </UiAlert>
+        <UiIcon
+          icon="infoOutlined"
+          class="ui-button__icon"
+        />
+        {{ translation.info }}
       </UiButton>
     </slot>
     <div class="ui-question__content">
@@ -32,7 +35,7 @@
     <!-- @slot Use this slot to replace actions template. -->
     <slot
       name="actions"
-      v-bind="{options, translation}"
+      v-bind="{buttonWhyAttrs, options, translation}"
     >
       <div
         v-if="options.why || options.issue"
@@ -47,7 +50,10 @@
             v-if="options.why"
             class="ui-question__action"
           >
-            <UiButton class="ui-button--text">
+            <UiButton
+              v-bind="buttonWhyAttrs"
+              class="ui-button--small ui-button--text"
+            >
               {{ translation.why }}
             </UiButton>
           </div>
@@ -55,13 +61,16 @@
         <!-- @slot Use this slot to replace issue template. -->
         <slot
           name="issue"
-          v-bind="{options, translation}"
+          v-bind="{buttonIssueAttrs, options, translation}"
         >
           <div
             v-if="options.issue"
             class="ui-question__action"
           >
-            <UiButton class="ui-question__action ui-button--text">
+            <UiButton
+              v-bind="buttonIssueAttrs"
+              class="ui-button--small ui-button--text"
+            >
               {{ translation.issue.action }}
             </UiButton>
           </div>
@@ -155,6 +164,27 @@ export default {
      * Use this props to pass attrs for question skip UiButton
      */
     buttonSkipAttrs: {
+      type: Object,
+      default: () => ({}),
+    },
+    /**
+     * Use this props to pass attrs for info UiButton
+     */
+    buttonInfoAttrs: {
+      type: Object,
+      default: () => ({}),
+    },
+    /**
+     * Use this props to pass attrs for why UiButton
+     */
+    buttonWhyAttrs: {
+      type: Object,
+      default: () => ({}),
+    },
+    /**
+     * Use this props to pass attrs for issue UiButton
+     */
+    buttonIssueAttrs: {
       type: Object,
       default: () => ({}),
     },

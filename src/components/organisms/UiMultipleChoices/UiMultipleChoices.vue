@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { watchEffect, computed } from 'vue';
+import { watchEffect, computed, provide } from 'vue';
 import UiMultipleChoicesItem from './_internal/UiMultipleChoicesItem.vue';
 import UiList from '../UiList/UiList.vue';
 import UiListItem from '../UiList/_internal/UiListItem.vue';
@@ -117,6 +117,15 @@ export default {
       type: Object,
       default: () => ({}),
     },
+    /**
+     * Use this props to set valid state of the question.
+     */
+    translation: {
+      type: Object,
+      default: () => ({
+        info: 'What does it mean?',
+      }),
+    },
   },
   emits: ['update:modelValue', 'update:invalid'],
   setup(props, { emit }) {
@@ -147,6 +156,8 @@ export default {
     const choicesToUse = computed(() => (
       props.choices.map((evidence) => (props.source ? { ...evidence, source: props.source } : { ...evidence }))
     ));
+
+    provide('translation', props.translation);
     return {
       hintType,
       evidences,

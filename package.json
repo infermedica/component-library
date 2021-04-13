@@ -162,7 +162,8 @@
             "mixin",
             "at-root",
             "return",
-            "else"
+            "else",
+            "extend"
           ]
         }
       ]
