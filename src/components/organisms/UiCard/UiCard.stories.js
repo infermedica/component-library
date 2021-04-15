@@ -90,7 +90,7 @@ export const WithSymptomsSlot = (args) => ({
           v-for="(symptom, key) in ['Vomiting', 'Abdominal pain, lasting 2 to 7 days']"
           :key="key"
         >
-          <UiBulletPointsItem icon="bulletAlarming">
+          <UiBulletPointsItem icon="bulletAlarming" class="ui-bullet-points-item--primary">
             <UiText>{{ symptom }}</UiText>
           </UiBulletPointsItem>
         </template>

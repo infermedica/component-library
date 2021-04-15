@@ -183,27 +183,22 @@ export default {
 
   &--emergency_ambulance {
     --card-triage-background: var(--color-triage-background-emergency-ambulance);
-    --bullet-points-item-marker-icon-color: var(--color-triage-background-emergency-ambulance);
   }
 
   &--emergency {
     --card-triage-background: var(--color-triage-background-emergency-department);
-    --bullet-points-item-marker-icon-color: var(--color-triage-background-emergency-department);
   }
 
   &--consultation_24 {
     --card-triage-background: var(--color-triage-background-consultation-24);
-    --bullet-points-item-marker-icon-color: var(--color-triage-background-consultation-24);
   }
 
   &--consultation {
     --card-triage-background: var(--color-triage-background-consultation);
-    --bullet-points-item-marker-icon-color: var(--color-triage-background-consultation);
   }
 
   &--self_care {
     --card-triage-background: var(--color-triage-background-self-care);
-    --bullet-points-item-marker-icon-color: var(--color-triage-background-self-care);
   }
 }
 
