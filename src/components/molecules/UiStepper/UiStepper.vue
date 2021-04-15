@@ -134,7 +134,6 @@ export default {
 
   --progress-background: var(--stepper-progress-background, var(--color-bar-track));
   --progress-value-background: var(--stepper-progress-background, var(--color-bar-indicator));
-  --progress-value-background: var(--stepper-progress-background, var(--color-bar-indicator));
   --progress-border-radius: var(--stepper-progress-border-radius, 2px);
 
   padding: var(--stepper-padding, var(--space-12) var(--space-20));

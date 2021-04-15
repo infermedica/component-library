@@ -7,14 +7,14 @@
 export default function useInput() {
   function getInputAttrs(attrs) {
     return Object.keys(attrs)
-      .filter((key) => !key.match(/class|style|^on.*/gi))
+      .filter((key) => !key.match(/class|style|^on(?!Blur$|Focus$).*/gi))
       .reduce((obj, key) => (
         { ...obj, [key]: attrs[key] }
       ), {});
   }
   function getRootAttrs(attrs) {
     return Object.keys(attrs)
-      .filter((key) => key.match(/class|style|^on.*/gi))
+      .filter((key) => key.match(/class|style|^on(?!Blur$|Focus$).*/gi))
       .reduce((obj, key) => (
         { ...obj, [key]: attrs[key] }
       ), {});
