@@ -74,7 +74,7 @@ export default {
       --button-border,
       var(--button-border-style, solid) var(--button-border-color, transparent)
     );
-  border-width: var(--button-border-width, 1px);
+  border-width: var(--button-border-width, 0);
   border-radius: var(--button-border-radius, var(--border-radius-form));
   transition: var(--button-transition, background-color 150ms ease-in-out);
 
@@ -143,6 +143,7 @@ export default {
     --button-hover-color: var(--color-text-action-primary-hover);
     --button-active-color: var(--color-text-action-primary-active);
     --button-border-color: var(--color-gray-200);
+    --button-border-width: 1px;
     --button-background: transparent;
     --button-hover-background: var(--color-background-white-hover);
     --button-active-background: var(--color-gray-100);
