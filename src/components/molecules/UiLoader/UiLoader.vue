@@ -30,20 +30,10 @@
 </template>
 
 <script>
-import { computed, defineAsyncComponent } from 'vue';
-
-const UiLoaderSpinner = defineAsyncComponent(() => import(
-  /* webpackChunkName: "Spinner" */
-  './_internal/UiLoaderSpinner.vue'
-));
-const UiLoaderSkeleton = defineAsyncComponent(() => import(
-  /* webpackChunkName: "Skeleton" */
-  './_internal/UiLoaderSkeleton.vue'
-));
-const UiLoaderEllipsis = defineAsyncComponent(() => import(
-  /* webpackChunkName: "Ellipsis" */
-  './_internal/UiLoaderEllipsis.vue'
-));
+import { computed } from 'vue';
+import UiLoaderSpinner from './_internal/UiLoaderSpinner.vue';
+import UiLoaderSkeleton from './_internal/UiLoaderSkeleton.vue';
+import UiLoaderEllipsis from './_internal/UiLoaderEllipsis.vue';
 
 export default {
   name: 'UiLoader',
