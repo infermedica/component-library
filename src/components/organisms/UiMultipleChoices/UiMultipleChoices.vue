@@ -117,15 +117,6 @@ export default {
       type: Object,
       default: () => ({}),
     },
-    /**
-     * Use this props to set valid state of the question.
-     */
-    translation: {
-      type: Object,
-      default: () => ({
-        info: 'What does it mean?',
-      }),
-    },
   },
   emits: ['update:modelValue', 'update:invalid'],
   setup(props, { emit }) {
@@ -157,7 +148,6 @@ export default {
       props.choices.map((evidence) => (props.source ? { ...evidence, source: props.source } : { ...evidence }))
     ));
 
-    provide('translation', props.translation);
     return {
       hintType,
       evidences,

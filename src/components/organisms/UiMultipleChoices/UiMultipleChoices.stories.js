@@ -72,9 +72,6 @@ export default {
     alertHintAttrs: {
       id: 'hint',
     },
-    translation: {
-      info: 'What does it mean?',
-    },
   },
   argTypes: {
     modelValue: {
@@ -110,7 +107,6 @@ const Template = (args) => ({
     :invalid="invalid"
     :touched="touched"
     :alert-hint-attrs="alertHintAttrs"
-    :translation="translation"
   />`,
 });
 
@@ -124,6 +120,7 @@ WithButtonInfo.args = {
       question: 37,
       name: 'I have diabetes',
       linked_observation: 'p_8',
+      translation: { info: 'What does it mean?' },
       buttonInfoAttrs: {
         to: { path: '/' },
       },
@@ -163,6 +160,7 @@ WithButtonInfo.args = {
       question: 37,
       name: "I'm pregnant",
       linked_observation: 'p_42',
+      translation: { info: 'How to check it?' },
       buttonInfoAttrs: {
         to: { path: '/' },
       },
@@ -191,7 +189,6 @@ export const WithHintSlot = (args) => ({
     :invalid="invalid"
     :touched="touched"
     :alert-hint-attrs="alertHintAttrs"
-    :translation="translation"
   >
     <template #hint="{hint, hintType}">
       <UiAlert
@@ -220,7 +217,6 @@ export const WithListItemSlot = (args) => ({
     :invalid="invalid"
     :touched="touched"
     :alert-hint-attrs="alertHintAttrs"
-    :translation="translation"
   >
     <template #list-type="{choice, options, evidences, updateHandler, hasError}">
       <UiListItem class="ui-multiple-choices__list-item">
@@ -252,7 +248,6 @@ export const WithChoiceItem = (args) => ({
     :invalid="invalid"
     :touched="touched"
     :alert-hint-attrs="alertHintAttrs"
-    :translation="translation"
   >
     <template #choice-item="{choice, options, evidences, hasError, updateHandler}">
       <UiMultipleChoicesItem

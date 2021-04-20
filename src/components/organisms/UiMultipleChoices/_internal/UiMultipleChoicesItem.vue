@@ -21,7 +21,6 @@
         <UiButton
           v-if="choice.buttonInfoAttrs"
           v-bind="choice.buttonInfoAttrs"
-          :aria-label="`${choice.name}`"
           class="ui-multiple-choices-item__info ui-button--small ui-button--text ui-button--has-icon"
         >
           <UiIcon
@@ -29,7 +28,7 @@
             class="ui-button__icon"
           />
           <span class="ui-multiple-choices-item__info-message">
-            {{ translation.info }}
+            {{ choice?.translation?.info }}
           </span>
         </UiButton>
       </div>
@@ -59,7 +58,6 @@
 </template>
 
 <script>
-import { inject } from 'vue';
 import UiRadio from '../../../atoms/UiRadio/UiRadio.vue';
 import UiText from '../../../atoms/UiText/UiText.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
@@ -102,7 +100,6 @@ export default {
   },
   emits: ['update:modelValue'],
   setup(props, { emit }) {
-    const translation = inject('translation');
     function getModelValue(choice) {
       return props.modelValue[choice.id];
     }
@@ -117,7 +114,6 @@ export default {
     }
 
     return {
-      translation,
       getModelValue,
       getRadioValue,
       updateHandler,

@@ -100,9 +100,6 @@ export default {
         ],
       },
     ],
-    translation: {
-      explication: 'explication for',
-    },
   },
   argTypes: {
     modelValue: {
@@ -130,7 +127,6 @@ const Template = (args) => ({
     :invalid="invalid"
     :hint="hint"
     :touched="touched"
-    :translation="translation"
   />`,
 });
 
@@ -189,6 +185,7 @@ WithButtonInfo.args = {
       common_name: 'Fatigue',
       source: 'suggest',
       buttonInfoAttrs: {
+        'aria-label': 'How to check it?',
         to: { path: '/' },
       },
     },
@@ -216,6 +213,7 @@ WithButtonInfo.args = {
       common_name: 'Illusion',
       source: 'suggest',
       buttonInfoAttrs: {
+        'aria-label': 'What does it mean?',
         to: { path: '/' },
       },
     },
@@ -241,7 +239,6 @@ export const WithSingleChoice = (args) => ({
     :invalid="invalid"
     :hint="hint"
     :touched="touched"
-    :translation="translation"
   />`,
 });
 
@@ -258,7 +255,6 @@ export const WithHintSlot = (args) => ({
     :invalid="invalid"
     :hint="hint"
     :touched="touched"
-    :translation="translation"
   >
     <template #hint="{hint, hintType}">
       <UiAlert
@@ -287,7 +283,6 @@ export const WithListItemSlot = (args) => ({
     :invalid="invalid"
     :hint="hint"
     :touched="touched"
-    :translation="translation"
   >
     <template #list-item="{choice, modelValue, updateHandler, errorClass, name, component}">
       <UiListItem
@@ -316,7 +311,7 @@ export const WithListItemSlot = (args) => ({
               </UiText>
               <UiButton
                 v-if="choice.explication"
-                :aria-label="translation.explication + ' ' + choice.name"
+                v-bind="choice.buttonInfoAttrs"
                 class="ui-multiple-answer__explication ui-button--text ui-button--has-icon"
               >
                 <UiIcon icon="info"/>
@@ -344,7 +339,6 @@ export const WithChoiceItemSlot = (args) => ({
     :invalid="invalid"
     :hint="hint"
     :touched="touched"
-    :translation="translation"
   >
     <template #choice-item="{choice, modelValue, updateHandler, errorClass, name, component}">
       <component
@@ -369,7 +363,7 @@ export const WithChoiceItemSlot = (args) => ({
             </UiText>
             <UiButton
               v-if="choice.explication"
-              :aria-label="translation.explication + ' ' + choice.name"
+              v-bind="choice.buttonInfoAttrs"
               class="ui-multiple-answer__explication ui-button--text ui-button--has-icon"
             >
               <UiIcon icon="info"/>
@@ -396,7 +390,6 @@ export const WithLabelChoiceIdSlot = (args) => ({
     :invalid="invalid"
     :hint="hint"
     :touched="touched"
-    :translation="translation"
   >
     <template #label-s_1907="{choice, component}">
       <div
@@ -410,7 +403,7 @@ export const WithLabelChoiceIdSlot = (args) => ({
         </UiText>
         <UiButton
           v-if="choice.explication"
-          :aria-label="translation.explication + ' ' + choice.name"
+          v-bind="choice.buttonInfoAttrs"
           class="ui-multiple-answer__explication ui-button--text ui-button--has-icon"
         >
           <UiIcon icon="info"/>

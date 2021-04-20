@@ -60,7 +60,6 @@
                     <UiButton
                       v-if="choice.buttonInfoAttrs"
                       v-bind="choice.buttonInfoAttrs"
-                      :aria-label="`${translation.explication} ${choice.name}`"
                       class="ui-multiple-answer__explication ui-button--text ui-button--has-icon"
                     >
                       <UiIcon icon="infoOutlined" />
@@ -141,15 +140,6 @@ export default {
     touched: {
       type: Boolean,
       default: false,
-    },
-    /**
-     * Use this props to override labels inside component translation.
-     */
-    translation: {
-      type: Object,
-      default: () => ({
-        explication: 'explication for',
-      }),
     },
     /**
      * Use this props to pass attrs for hint UiAlert
