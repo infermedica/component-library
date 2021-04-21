@@ -31,7 +31,8 @@
     "crypto-browserify": "^3.12.0",
     "date-fns": "^2.19.0",
     "uid": "^2.0.0",
-    "vue": "^3.0.4"
+    "vue": "^3.0.4",
+    "vue-router": "^4.0.6"
   },
   "devDependencies": {
     "@babel/core": "^7.13.10",
