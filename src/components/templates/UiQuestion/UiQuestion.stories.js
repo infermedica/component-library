@@ -231,7 +231,7 @@ export const WithActionsSlot = (args) => ({
           class="ui-question__action"
         >
           <UiButton class="ui-question__action ui-button--text">
-            {{ translation.issue }}
+            {{ translation.issue.action }}
           </UiButton>
         </div>
       </div>
@@ -278,7 +278,7 @@ export const WithIssueSlot = (args) => ({
         class="ui-question__action"
       >
         <UiButton class="ui-question__action ui-button--text">
-          {{ translation.issue }}
+          {{ translation.issue.action }}
         </UiButton>
       </div>
     </template>
