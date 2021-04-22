@@ -1,5 +1,5 @@
 import UiQuestion from '@/components/templates/UiQuestion/UiQuestion.vue';
-import UiAlert from '@/components/atoms/UiAlert/UiAlert.vue';
+import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiSimpleQuestion from '@/components/organisms/UiSimpleQuestion/UiSimpleQuestion.vue';
@@ -9,7 +9,7 @@ import { ref } from 'vue';
 export default {
   title: 'Templates/Question',
   component: UiQuestion,
-  subcomponents: { UiAlert, UiButton, UiHeading },
+  subcomponents: { UiButton, UiIcon, UiHeading },
   args: {
     title: 'Do you have a sore throat?',
     translation: {
@@ -178,7 +178,7 @@ export const WithTitleSlot = (args) => ({
 });
 
 export const WithInfoSlot = (args) => ({
-  components: { UiQuestion, UiButton, UiAlert },
+  components: { UiQuestion, UiButton, UiIcon },
   setup() {
     return { ...args };
   },
@@ -190,11 +190,14 @@ export const WithInfoSlot = (args) => ({
     <template #info="{options, translation}">
       <UiButton
         v-if="options.info"
-        class="ui-question__alert ui-button--text"
+        v-bind="buttonInfoAttrs"
+        class="ui-question__info ui-button--text ui-button--small ui-button--has-icon"
       >
-        <UiAlert type="info">
-          {{ translation.info }}
-        </UiAlert>
+        <UiIcon
+          icon="infoOutlined"
+          class="ui-button__icon"
+        />
+        {{ translation.info }}
       </UiButton>
     </template>
   </UiQuestion>`,
