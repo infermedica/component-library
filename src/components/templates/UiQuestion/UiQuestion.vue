@@ -16,7 +16,10 @@
       name="actions-top"
       v-bind="{buttonInfoAttrs, options, translation}"
     >
-      <div class="ui-question__actions-top">
+      <div
+        v-if="options.info"
+        class="ui-question__actions-top"
+      >
         <slot
           name="info"
           v-bind="{buttonInfoAttrs, options, translation}"
