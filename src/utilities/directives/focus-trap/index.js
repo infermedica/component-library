@@ -16,7 +16,7 @@ export const focusTrap = {
     };
     document.addEventListener('keydown', el.__vueKeyHandler__);
   },
-  async update(el) {
+  async updated(el) {
     await nextTick();
     el.__vueFocusableElements__ = getFocusableElements(el);
   },
