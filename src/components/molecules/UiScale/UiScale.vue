@@ -220,6 +220,12 @@ export default {
     position: relative;
     flex: 1;
     justify-content: center;
+    border: solid transparent;
+    border-width: 0 1px 0 0;
+
+    [dir=rtl] & {
+      border-width: 0 0 0 1px;
+    }
 
     &--first {
       #{$this}__square {
@@ -232,6 +238,8 @@ export default {
     }
 
     &--last {
+      border-width: 0;
+
       #{$this}__square {
         border-radius: 0 var(--border-radius-form) var(--border-radius-form) 0;
 
@@ -247,10 +255,7 @@ export default {
   }
 
   &__radiobutton {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+    flex: 1;
 
     &--is-active {
       --scale-square-base-background: var(--color-pain-scale-low-end);
@@ -259,7 +264,6 @@ export default {
 
   &__square {
     position: relative;
-    width: calc(100% - 1px);
     height: 40px;
     overflow: hidden;
     background: var(--scale-square-base-background, var(--color-pain-scale-unselected));
