@@ -236,6 +236,10 @@ export default {
   &__choice {
     width: 100%;
     padding: var(--multiple-answer-choice-padding, var(--space-12) var(--space-20));
+
+    @media (min-width: 768px) {
+      padding: var(--multiple-answer-tablet-choice-padding, var(--space-12));
+    }
   }
 
   &__label {
