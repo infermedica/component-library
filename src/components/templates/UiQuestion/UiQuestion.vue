@@ -13,20 +13,27 @@
       </UiHeading>
     </slot>
     <slot
-      name="info"
+      name="actions-top"
       v-bind="{buttonInfoAttrs, options, translation}"
     >
-      <UiButton
-        v-if="options.info"
-        v-bind="buttonInfoAttrs"
-        class="ui-question__info ui-button--text ui-button--small ui-button--has-icon"
-      >
-        <UiIcon
-          icon="infoOutlined"
-          class="ui-button__icon"
-        />
-        {{ translation.info }}
-      </UiButton>
+      <div class="ui-question__actions-top">
+        <slot
+          name="info"
+          v-bind="{buttonInfoAttrs, options, translation}"
+        >
+          <UiButton
+            v-if="options.info"
+            v-bind="buttonInfoAttrs"
+            class="ui-question__info ui-button--text ui-button--small ui-button--has-icon"
+          >
+            <UiIcon
+              icon="infoOutlined"
+              class="ui-button__icon"
+            />
+            {{ translation.info }}
+          </UiButton>
+        </slot>
+      </div>
     </slot>
     <div class="ui-question__content">
       <!-- @slot Use this slot to place content inside question. -->
@@ -34,12 +41,12 @@
     </div>
     <!-- @slot Use this slot to replace actions template. -->
     <slot
-      name="actions"
-      v-bind="{buttonWhyAttrs, options, translation}"
+      name="actions-bottom"
+      v-bind="{buttonWhyAttrs, buttonIssueAttrs, options, translation}"
     >
       <div
         v-if="options.why || options.issue"
-        class="ui-question__actions"
+        class="ui-question__actions-bottom"
       >
         <!-- @slot Use this slot to replace why template. -->
         <slot
@@ -204,19 +211,20 @@ export default {
     background: inherit;
   }
 
-  &__info {
-    margin: var(--question-alert-margin, var(--space-12) 0 0 0);
+  &__actions-top {
+    display: flex;
+    margin: var(--question-actions-top-margin, var(--space-12) 0 0 0);
   }
 
-  &__actions {
+  &__actions-bottom {
     display: flex;
     flex-direction: column;
-    margin: var(--question-actions-margin, var(--space-32) 0 0 0);
+    margin: var(--question-actions-bottom-margin, var(--space-32) 0 0 0);
 
     @media (min-width: 768px) {
       flex-direction: row;
       align-items: center;
-      margin: var(--question-tablet-actions-margin, var(--space-32) 0 0 0);
+      margin: var(--question-tablet-actions-bottom-margin, var(--space-32) 0 0 0);
     }
   }
 

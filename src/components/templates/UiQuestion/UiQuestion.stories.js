@@ -12,6 +12,7 @@ export default {
   subcomponents: { UiButton, UiIcon, UiHeading },
   args: {
     title: 'Do you have a sore throat?',
+    buttonInfoAttrs: { to: '/' },
     translation: {
       info: 'What does it mean?',
       why: 'Why am I being asked this?',
@@ -90,6 +91,7 @@ export const AsMultipleAnswer = (args) => ({
     :title="title"
     :translation="translation"
     :options="options"
+    :button-info-attrs="buttonInfoAttrs"
   >
     <UiMultipleAnswer
       v-model="modelValue"
@@ -125,7 +127,8 @@ export const AsSimpleQuestion = (args) => ({
     :title="title"
     :translation="translation"
     :options="options"
-    style="--question-tablet-actions-margin: var(--space-48) 0 0 0;"
+    :button-info-attrs="buttonInfoAttrs"
+    style="--question-tablet-content-margin: var(--space-48) 0 0 0; --question-tablet-actions-margin: var(--space-48) 0 0 0;"
   >
     <UiSimpleQuestion
       v-model="modelValue"
@@ -191,7 +194,7 @@ export const WithInfoSlot = (args) => ({
       <UiButton
         v-if="options.info"
         v-bind="buttonInfoAttrs"
-        class="ui-question__info ui-button--text ui-button--small ui-button--has-icon"
+        class="ui-question__info ui-button--text ui-button--small ui-button--small ui-button--has-icon"
       >
         <UiIcon
           icon="infoOutlined"
@@ -203,7 +206,7 @@ export const WithInfoSlot = (args) => ({
   </UiQuestion>`,
 });
 
-export const WithActionsSlot = (args) => ({
+export const WithActionsBottomSlot = (args) => ({
   components: { UiQuestion, UiButton },
   setup() {
     return { ...args };
@@ -213,16 +216,16 @@ export const WithActionsSlot = (args) => ({
     :translation="translation"
     :options="options"
   >
-    <template #actions="{options, translation}">
+    <template #actions-bottom="{options, translation}">
       <div
         v-if="options.why || options.issue"
-        class="ui-question__actions"
+        class="ui-question__actions-bottom"
       >
         <div
           v-if="options.why"
           class="ui-question__action"
         >
-          <UiButton class="ui-button--text">
+          <UiButton class="ui-button--text ui-button--small">
             {{ translation.why }}
           </UiButton>
         </div>
@@ -230,7 +233,7 @@ export const WithActionsSlot = (args) => ({
           v-if="options.issue"
           class="ui-question__action"
         >
-          <UiButton class="ui-question__action ui-button--text">
+          <UiButton class="ui-question__action ui-button--text ui-button--small">
             {{ translation.issue.action }}
           </UiButton>
         </div>
@@ -254,7 +257,7 @@ export const WithWhySlot = (args) => ({
         v-if="options.why"
         class="ui-question__action"
       >
-        <UiButton class="ui-button--text">
+        <UiButton class="ui-button--text ui-button--small">
           {{ translation.why }}
         </UiButton>
       </div>
@@ -277,7 +280,7 @@ export const WithIssueSlot = (args) => ({
         v-if="options.issue"
         class="ui-question__action"
       >
-        <UiButton class="ui-question__action ui-button--text">
+        <UiButton class="ui-question__action ui-button--text ui-button--small">
           {{ translation.issue.action }}
         </UiButton>
       </div>
