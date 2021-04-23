@@ -272,8 +272,12 @@ export default {
   }
 
   &__label {
-    padding: var(--side-panel-label-padding, 0 var(--space-8));
+    padding: var(--side-panel-label-padding, 0);
     margin: var(--side-panel-label-margin, var(--space-32) 0 0 0);
+
+    @media (min-width: 768px) {
+      padding: var(--side-panel-tablet-label-padding, 0 var(--space-8));
+    }
   }
 
   &__subtitle {
