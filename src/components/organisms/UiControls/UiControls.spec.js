@@ -6,14 +6,14 @@ describe('UiControls.vue', () => {
     const wrapper = mount(UiControls);
     expect(wrapper.classes('ui-controls')).toBe(true);
   });
-  test('component has above text when "isAnswerAbove" is true', () => {
+  test('component does not show next button when "hideNextButton" is true', () => {
     const wrapper = mount(UiControls, {
       props: {
-        isAnswerAbove: true,
+        hideNextButton: true,
       },
     });
-    const answerAbove = wrapper.find('.ui-controls__answer-above');
-    expect(answerAbove.exists()).toBe(true);
+    const button = wrapper.find('.ui-controls__next');
+    expect(button.exists()).toBe(false);
   });
   test('component does not show next button when "toNext" is absent', () => {
     const wrapper = mount(UiControls);

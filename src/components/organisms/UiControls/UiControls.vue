@@ -10,30 +10,17 @@
     <!-- @slot Use this slot to replace bottom template. -->
     <slot
       name="bottom"
-      v-bind="{toBack, toNext, isAnswerAbove, invalid, translation}"
+      v-bind="{toBack, toNext, hideNextButton, invalid, translation}"
     >
       <div class="ui-controls__bottom">
-        <!-- @slot Use this slot to replace answer above template. -->
-        <slot
-          v-bind="{isAnswerAbove, translation}"
-          name="answer-above"
-        >
-          <UiText
-            v-if="isAnswerAbove"
-            tag="div"
-            class="ui-controls__answer-above"
-          >
-            {{ translation.answerAbove }}
-          </UiText>
-        </slot>
         <!-- @slot Use this slot to replace next template. -->
         <slot
           v-if="toNext"
-          v-bind="{isAnswerAbove, validNext, invalid, translation}"
+          v-bind="{hideNextButton, validNext, invalid, translation}"
           name="next"
         >
           <UiButton
-            v-if="!isAnswerAbove"
+            v-if="!hideNextButton"
             v-bind="validNext"
             class="ui-controls__next"
             :class="{'ui-button--is-disabled': invalid}"
@@ -82,7 +69,7 @@ export default {
     /**
      * Use this props to move the responsibility to move to the next screen to question content.
      */
-    isAnswerAbove: {
+    hideNextButton: {
       type: Boolean,
       default: false,
     },
@@ -115,7 +102,6 @@ export default {
       default: () => ({
         back: 'Back',
         next: 'Next',
-        answerAbove: 'Select an answer above',
       }),
     },
   },
@@ -168,16 +154,19 @@ export default {
     }
   }
 
-  &__answer-above {
-    padding: var(--controls-answer-above-padding, var(--space-12) 0);
-    color: var(--controls-answer-above-color, var(--color-text-dimmed));
-  }
-
   &__next {
     margin: var(--controls-next-margin, 0 0 0 auto);
 
     [dir=rtl] & {
       margin: var(--controls-next-margin, 0 auto 0 0);
+    }
+  }
+
+  &__back {
+    margin: var(--controls-back-margin, 0 auto 0 0);
+
+    [dir=rtl] & {
+      margin: var(--controls-back-margin, 0 0 0 auto);
     }
   }
 }

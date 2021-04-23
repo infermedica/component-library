@@ -13,14 +13,13 @@ export default {
     translation: {
       back: 'Back',
       next: 'Next',
-      answerAbove: 'Select an answer above',
     },
   },
   argTypes: {
     invalid: {
       control: { type: 'boolean' },
     },
-    isAnswerAbove: {
+    hideNextButton: {
       control: { type: 'boolean' },
     },
     toBack: { control: { type: 'text' } },
@@ -34,7 +33,7 @@ const Template = (args) => ({
     return { ...args };
   },
   template: `<UiControls
-    :is-answer-above="isAnswerAbove"
+    :hide-next-button="hideNextButton"
     :to-back="toBack"
     :to-next="toNext"
     :invalid="invalid"
@@ -50,7 +49,7 @@ export const WithContainerSlot = (args) => ({
     return { ...args };
   },
   template: `<UiControls
-    :is-answer-above="isAnswerAbove"
+    :hide-next-button="hideNextButton"
     :to-back="toBack"
     :to-next="toNext"
     :invalid="invalid"
@@ -71,24 +70,17 @@ export const WithBottomSlot = (args) => ({
     return { ...args };
   },
   template: `<UiControls
-    :is-answer-above="isAnswerAbove"
+    :hide-next-button="hideNextButton"
     :to-back="toBack"
     :to-next="toNext"
     :invalid="invalid"
     :translation="translation"
     @has-error="hasError"
   >
-    <template #bottom="{toBack, toNext, isAnswerAbove, invalid, translation}">
+    <template #bottom="{toBack, toNext, hideNextButton, invalid, translation}">
       <div class="ui-controls__bottom">
-        <UiText
-          v-if="isAnswerAbove"
-          tag="div"
-          class="ui-controls__answer-above"
-        >
-          {{ translation.answerAbove }}
-        </UiText>
         <UiButton
-          v-if="!isAnswerAbove"
+          v-if="!hideNextButton"
           v-bind="validNext"
           class="ui-controls__next"
           :class="{'ui-button--is-disabled': invalid}"
@@ -110,47 +102,22 @@ export const WithBottomSlot = (args) => ({
   </UiControls>`,
 });
 
-export const WithAnswerAboveSlot = (args) => ({
-  components: { UiControls, UiText },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiControls
-    :is-answer-above="isAnswerAbove"
-    :to-back="toBack"
-    :to-next="toNext"
-    :invalid="invalid"
-    :translation="translation"
-    @has-error="hasError"
-  >
-    <template #answer-above="{isAnswerAbove, translation}">
-      <UiText
-        v-if="isAnswerAbove"
-        tag="div"
-        class="ui-controls__answer-above"
-      >
-        {{ translation.answerAbove }}
-      </UiText>
-    </template>
-  </UiControls>`,
-});
-
 export const WithNextSlot = (args) => ({
   components: { UiControls, UiButton },
   setup() {
     return { ...args };
   },
   template: `<UiControls
-    :is-answer-above="isAnswerAbove"
+    :hide-next-button="hideNextButton"
     :to-back="toBack"
     :to-next="toNext"
     :invalid="invalid"
     :translation="translation"
     @has-error="hasError"
   >
-    <template #next="{isAnswerAbove, validNext, invalid, translation}">
+    <template #next="{hideNextButton, validNext, invalid, translation}">
       <UiButton
-        v-if="!isAnswerAbove"
+        v-if="!hideNextButton"
         v-bind="validNext"
         class="ui-controls__next"
         :class="{'ui-button--is-disabled': invalid}"
@@ -167,7 +134,7 @@ export const WithBackSlot = (args) => ({
     return { ...args };
   },
   template: `<UiControls
-    :is-answer-above="isAnswerAbove"
+    :hide-next-button="hideNextButton"
     :to-back="toBack"
     :to-next="toNext"
     :invalid="invalid"
