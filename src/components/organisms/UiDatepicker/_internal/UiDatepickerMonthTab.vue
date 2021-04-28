@@ -9,9 +9,9 @@
       class="ui-button--text ui-datepicker-month-tab__label"
       :class="{
         'ui-datepicker-month-tab__label--selected': month == i,
-        'ui-button--is-disabled': isDisabled(undefined, i),
+        'ui-button--is-disabled': isDisabled(i),
       }"
-      :disabled="isDisabled(undefined, i)"
+      :disabled="isDisabled(i)"
       @click="select(`${i}`)"
     >
       {{ monthNames[i-1] }}
@@ -44,7 +44,7 @@ export default {
   emits: ['update:modelValue', 'change'],
   setup(props, { emit }) {
     const monthNames = inject('monthNames');
-    const isDisabled = inject('checkDayMonthAvailability');
+    const isDisabled = inject('checkMonthAvailability');
 
     const month = computed({
       get: () => (`${props.modelValue}`),

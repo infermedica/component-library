@@ -189,49 +189,81 @@ export default {
     );
     provide('date', date);
 
+    const currentDate = new Date();
+    const currentDay = lightFormat(currentDate, 'dd');
+    const currentMonth = lightFormat(currentDate, 'MM');
+
     const yearsList = computed(() => {
-      const firstYear = new Date().getUTCFullYear() - props.minLimit;
+      const firstYear = currentDate.getUTCFullYear() - props.minLimit;
       const yearsNumber = props.maxLimit - props.minLimit + 1;
       const years = Array(yearsNumber).fill('').map((_, i) => firstYear - i);
       return years;
     });
-    const firstYear = computed(() => parseInt(yearsList.value[0], 10));
+    const firstAvailableYear = computed(() => parseInt(yearsList.value[0], 10));
+    const lastAvailableYear = computed(() => parseInt(yearsList.value[yearsList.value.length - 1], 10));
     provide('yearsList', yearsList);
 
-    function checkDayMonthAvailability(day = date.day, month = date.month) {
+    function checkDayMonthLimit(day = date.day, month = date.month) {
       let daysLimit = new Date(date.year, month, 0).getDate();
       if (day === '29' && !date.year.length) daysLimit += 1;
       return parseInt(day, 10) > daysLimit;
     }
-    provide('checkDayMonthAvailability', checkDayMonthAvailability);
 
     // Day validations
+    function checkDayAvailability(day) {
+      const isMonthDaysLimitExceeded = checkDayMonthLimit(day, undefined);
+      const isDayAboveLimit = (parseInt(date.year, 10) === firstAvailableYear.value)
+        && (date.month === currentMonth) && (day >= parseInt(currentDay, 10));
+      const isDayBelowLimit = (parseInt(date.year, 10) === lastAvailableYear.value)
+        && (date.month === currentMonth) && (day <= parseInt(currentDay, 10));
+      return isDayAboveLimit || isDayBelowLimit || isMonthDaysLimitExceeded;
+    }
     const isDayValid = computed(() => {
       const selectedDay = parseInt(date.day, 10);
-      return selectedDay > 0 && selectedDay <= 31 && !checkDayMonthAvailability(date.day, undefined);
+      return selectedDay > 0 && selectedDay <= 31 && !checkDayMonthLimit(date.day, undefined);
     });
     const isDayFulfilled = computed(() => (date.day.length === 2));
     const hasDayError = computed(() => (isDayFulfilled.value && !isDayValid.value));
+    provide('checkDayAvailability', checkDayAvailability);
 
     // Month validations
+    function checkMonthAvailability(month) {
+      const isMonthDaysLimitExceeded = checkDayMonthLimit(undefined, month);
+      const isMonthAboveLimit = (parseInt(date.year, 10) === firstAvailableYear.value
+        && (month > parseInt(currentMonth, 10)
+        || (month >= parseInt(currentMonth, 10) && currentDay <= date.day))
+      );
+      const isMonthBelowLimit = (parseInt(date.year, 10) === lastAvailableYear.value
+        && (month < parseInt(currentMonth, 10)
+        || (date.day && month <= parseInt(currentMonth, 10) && currentDay > date.day))
+      );
+      return isMonthAboveLimit || isMonthBelowLimit || isMonthDaysLimitExceeded;
+    }
     const isMonthValid = computed(() => {
       const selectedMonth = parseInt(date.month, 10);
-      return selectedMonth > 0 && selectedMonth <= 12 && !checkDayMonthAvailability(undefined, date.month);
+      return selectedMonth > 0 && selectedMonth <= 12 && !checkDayMonthLimit(undefined, date.month);
     });
     const isMonthFulfilled = computed(() => (date.month.length === 2));
     const hasMonthError = computed(() => (isMonthFulfilled.value && !isMonthValid.value));
+    provide('checkMonthAvailability', checkMonthAvailability);
 
     // Year validations
     function checkYearAvailability(year) {
-      const isLeapYear = !((year % 4) || (!(year % 25) && (year % 16)));
-      return parseInt(date.day, 10) === 29 && parseInt(date.month, 10) === 2 && !isLeapYear;
+      const isLeapYearLimit = ((year % 4) || (!(year % 25) && (year % 16)))
+        && (parseInt(date.day, 10) === 29 && parseInt(date.month, 10) === 2);
+      const isYearAboveLimit = (year === firstAvailableYear.value)
+        && (currentMonth < date.month || (currentMonth <= date.month && currentDay < date.day));
+      const isYearBelowLimit = (year === lastAvailableYear.value) && date.month
+        && (currentMonth > date.month || (date.day && currentMonth === date.month && currentDay > date.day));
+      return isYearAboveLimit || isYearBelowLimit || isLeapYearLimit;
     }
     const isYearValid = computed(() => {
       const selectedYear = parseInt(date.year, 10);
       return yearsList.value.includes(selectedYear) && !checkYearAvailability(date.year);
     });
     const isYearFulfilled = computed(() => (date.year.length === 4));
-    const hasYearError = computed(() => (isYearFulfilled.value && !isYearValid.value));
+    const hasYearError = computed(() => (isYearFulfilled.value && !isYearValid.value)
+      || date.year[0] === '0');
     provide('checkYearAvailability', checkYearAvailability);
 
     // Date validations
@@ -245,16 +277,15 @@ export default {
         limitDate.setFullYear(limitDate.getFullYear() - props.maxLimit);
         return selectedDate > startDate
           || selectedDate < limitDate
-          || (!isDateFulfilled.value && date.year > firstYear.value);
+          || (!isDateFulfilled.value && date.year > firstAvailableYear.value);
       }
-      return !isDateFulfilled.value && parseInt(date.year, 10) > firstYear.value;
+      return !isDateFulfilled.value && parseInt(date.year, 10) > firstAvailableYear.value;
     });
     const isDateInFuture = computed(() => {
-      const todayDate = new Date();
-      const currentYear = lightFormat(todayDate, 'yyyy');
+      const currentYear = lightFormat(currentDate, 'yyyy');
       if (isMonthValid.value && isYearFulfilled.value) {
         const selectedDate = new Date(date.year, date.month - 1, date.day);
-        return selectedDate > todayDate;
+        return selectedDate > currentDate;
       }
       return isYearFulfilled.value && parseInt(date.year, 10) > currentYear;
     });
@@ -337,6 +368,14 @@ export default {
       if (currentInputIndex < props.order.length - 1) focusInput(props.order[currentInputIndex + 1]);
     }
 
+    // TODO - refactor, for test only
+    const unfulfilledDay = ref(false);
+    const unfulfilledMonth = ref(false);
+    const unfulfilledYear = ref(false);
+    provide('unfulfilledDay', unfulfilledDay);
+    provide('unfulfilledMonth', unfulfilledMonth);
+    provide('unfulfilledYear', unfulfilledYear);
+
     const errorDisplayHandler = computed(() => {
       let error = false;
       if (props.touched) {
@@ -346,6 +385,8 @@ export default {
       } else if (isDateOutOfBounds.value && isDayValid.value && isMonthValid.value) {
         error = props.translation.errorOutOfBounds;
       } else if (hasDayError.value || hasMonthError.value || hasYearError.value) {
+        error = props.translation.errorWrongDate;
+      } else if (unfulfilledDay.value || unfulfilledMonth.value || unfulfilledYear.value) {
         error = props.translation.errorWrongDate;
       }
       return error;
@@ -412,13 +453,13 @@ export default {
 
   position: relative;
   display: flex;
-  justify-content: space-between;
 
   &__dropdown {
-    margin: var(--datepicker-dropdown-margin, 0 0 0 var(--space-16));
+    --dropdown-popover-top: var(--datepicker-dropdown-popover-top, 5.125rem);
+    margin: var(--datepicker-dropdown-margin, 0 0 0 var(--space-24));
 
     [dir=rtl] & {
-      margin: var(--datepicker-dropdown-margin, 0 var(--space-16) 0 0);
+      margin: var(--datepicker-dropdown-margin, 0 var(--space-24) 0 0);
     }
   }
 
@@ -443,6 +484,10 @@ export default {
 
     [dir=rtl] & {
       margin: var(--datepicker-group-field-margin, 0 0 0 var(--space-8));
+    }
+
+    &:last-child {
+      margin: var(--datepicker-group-field-last-margin, 0);
     }
   }
 

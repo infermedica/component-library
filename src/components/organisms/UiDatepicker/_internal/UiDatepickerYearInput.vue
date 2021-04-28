@@ -2,7 +2,7 @@
   <UiInput
     id="year"
     v-model="year"
-    :class="{ 'ui-input--has-error': hasError }"
+    :class="{ 'ui-input--has-error': hasError || error }"
     :placeholder="translation.placeholderYear"
     maxlength="4"
     @blur="standardizeYearFormat"
@@ -15,6 +15,7 @@
 import {
   computed,
   inject,
+  nextTick,
 } from 'vue';
 import UiInput from '../../../atoms/UiInput/UiInput.vue';
 import useKeyValidation from '../../../../composable/useKeyValidation';
@@ -49,6 +50,7 @@ export default {
   emits: ['update:modelValue', 'change-input'],
   setup(props, { emit }) {
     const translation = inject('translation');
+    const unfulfilledYearError = inject('unfulfilledYear');
     const { numbersOnly } = useKeyValidation();
 
     const year = computed({
@@ -57,17 +59,19 @@ export default {
     });
 
     const validationError = computed(() => (year.value.length === 4 && !props.valid));
-    const hasError = computed(() => (validationError.value || props.error));
+    const hasError = computed(() => (validationError.value || unfulfilledYearError.value || props.error));
 
-    function checkYear(event) {
+    async function checkYear(event) {
+      unfulfilledYearError.value = false;
       const inputValue = event.data;
+      await nextTick();
       if (inputValue && year.value.length === 4 && props.valid) {
         emit('change-input');
       }
     }
 
     function standardizeYearFormat() {
-      if (year.value.length !== 4) year.value = '';
+      if (year.value.length > 0 && year.value.length < 4) unfulfilledYearError.value = true;
     }
 
     return {

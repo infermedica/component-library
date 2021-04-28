@@ -15,6 +15,7 @@
 import {
   computed,
   inject,
+  nextTick,
 } from 'vue';
 import UiInput from '../../../atoms/UiInput/UiInput.vue';
 import useKeyValidation from '../../../../composable/useKeyValidation';
@@ -49,6 +50,7 @@ export default {
   emits: ['update:modelValue', 'change-input'],
   setup(props, { emit }) {
     const translation = inject('translation');
+    const unfulfilledMonthError = inject('unfulfilledMonth');
     const { numbersOnly } = useKeyValidation();
 
     const month = computed({
@@ -57,17 +59,25 @@ export default {
     });
 
     const validationError = computed(() => (month.value.length === 2 && !props.valid));
-    const hasError = computed(() => (validationError.value || props.error));
+    const hasError = computed(() => (validationError.value || unfulfilledMonthError.value || props.error));
 
-    function checkMonth(event) {
+    async function checkMonth(event) {
+      unfulfilledMonthError.value = false;
       const inputValue = event.data;
+      await nextTick();
       if (inputValue && (!['0', '1'].includes(inputValue) || month.value.length === 2) && props.valid) {
         emit('change-input');
       }
     }
 
     function standardizeMonthFormat() {
-      if (month.value.length === 1) month.value = `0${month.value}`;
+      if (month.value.length === 1) {
+        if (month.value !== '0') {
+          month.value = `0${month.value}`;
+        } else {
+          unfulfilledMonthError.value = true;
+        }
+      }
     }
 
     return {

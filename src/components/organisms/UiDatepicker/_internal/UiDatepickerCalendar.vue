@@ -10,6 +10,7 @@
       >
         <UiButton
           class="ui-button--outlined ui-button--circled ui-button--has-icon ui-datepicker-calender__toggler"
+          aria-label="Calendar"
           @click="toggleHandler"
         >
           <UiIcon icon="calendar" />
@@ -136,6 +137,7 @@ export default {
   }
 
   &__tabs {
+    --tabs-item-tab-padding: var(--datepicker-tabs-item-tab-padding, var(--space-20) var(--space-4) var(--space-12));
     --tabs-item-tab-button-color:
       var(
         --datepicker-tabs-item-tab-button-color,

@@ -14,6 +14,7 @@
 import {
   computed,
   inject,
+  nextTick,
 } from 'vue';
 import UiInput from '../../../atoms/UiInput/UiInput.vue';
 import useKeyValidation from '../../../../composable/useKeyValidation';
@@ -48,6 +49,7 @@ export default {
   emits: ['update:modelValue', 'change-input'],
   setup(props, { emit }) {
     const translation = inject('translation');
+    const unfulfilledDayError = inject('unfulfilledDay');
     const { numbersOnly } = useKeyValidation();
 
     const day = computed({
@@ -56,17 +58,25 @@ export default {
     });
 
     const validationError = computed(() => (day.value.length === 2 && !props.valid));
-    const hasError = computed(() => (validationError.value || props.error));
+    const hasError = computed(() => (validationError.value || unfulfilledDayError.value || props.error));
 
-    function checkDay(event) {
+    async function checkDay(event) {
+      unfulfilledDayError.value = false;
       const inputValue = event.data;
+      await nextTick();
       if (inputValue && (!['0', '1', '2', '3'].includes(inputValue) || day.value.length === 2) && props.valid) {
         emit('change-input');
       }
     }
 
     function standardizeDayFormat() {
-      if (day.value.length === 1) day.value = `0${day.value}`;
+      if (day.value.length === 1) {
+        if (day.value !== '0') {
+          day.value = `0${day.value}`;
+        } else {
+          unfulfilledDayError.value = true;
+        }
+      }
     }
 
     return {

@@ -9,9 +9,9 @@
       class="ui-button--text ui-datepicker-day-tab__label"
       :class="{
         'ui-datepicker-day-tab__label--selected': day == i,
-        'ui-button--is-disabled': isDisabled(i, undefined),
+        'ui-button--is-disabled': isDisabled(i),
       }"
-      :disabled="isDisabled(i, undefined)"
+      :disabled="isDisabled(i)"
       @click="select(`${i}`)"
     >
       {{ i }}
@@ -43,7 +43,7 @@ export default {
   },
   emits: ['update:modelValue', 'change'],
   setup(props, { emit }) {
-    const isDisabled = inject('checkDayMonthAvailability');
+    const isDisabled = inject('checkDayAvailability');
 
     const day = computed({
       get: () => (`${props.modelValue}`),

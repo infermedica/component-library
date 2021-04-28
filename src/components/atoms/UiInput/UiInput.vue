@@ -34,6 +34,7 @@
 <script>
 import UiText from '../UiText/UiText.vue';
 import useInput from '../../../composable/useInput';
+import useKeyValidation from '../../../composable/useKeyValidation';
 
 export default {
   name: 'UiInput',
@@ -60,13 +61,12 @@ export default {
   emits: ['update:modelValue'],
   setup(props, { attrs, emit }) {
     const { getRootAttrs, getInputAttrs } = useInput();
+    const { numbersOnly } = useKeyValidation();
+
     function keyValidation(event) {
-      const { key } = event;
       switch (attrs.type) {
         case 'number':
-          if (!/\d/.test(key) && key.length === 1) {
-            event.preventDefault();
-          }
+          numbersOnly(event);
           break;
         default:
       }
