@@ -151,7 +151,7 @@ export default {
         info: 'What does it mean?',
         why: 'Why am I being asked this?',
         issue: {
-          action: 'Report an issues with this question',
+          action: 'Report an issue with this question',
           feedback: 'Thank you. We’ll review this question as soon as possible.',
           skip: 'Skip this question',
         },
