@@ -95,22 +95,29 @@ export const AsMultipleAnswer = (args) => ({
   >
     <UiMultipleAnswer
       v-model="modelValue"
+      name="group-single"
       :choices="[
         {
           id: 's_1907',
           name: 'Seconds to minutes',
+          buttonInfoAttrs: null,
         },
         {
           id: 's_1868',
           name: 'A few minutes to 4 hours',
+          buttonInfoAttrs: {
+            'aria-label': 'What does it mean?',
+          },
         },
         {
           id: 's_1870',
           name: '4 hours to 3 days',
+          buttonInfoAttrs: null,
         },
         {
           id: 's_1901',
           name: 'Over 3 days',
+          buttonInfoAttrs: null,
         },
       ]"
     />

@@ -41,6 +41,7 @@
               class="ui-multiple-answer__choice"
               :class="errorClass"
               @update:modelValue="updateHandler(choice)"
+              @keydown="focusExplication"
             >
               <template #label>
                 <!-- @slot Use this slot to replace choice-label template for specific item.-->
@@ -61,6 +62,7 @@
                       v-if="choice.buttonInfoAttrs"
                       v-bind="choice.buttonInfoAttrs"
                       class="ui-multiple-answer__explication ui-button--text ui-button--has-icon"
+                      @keydown="unfocusExplication"
                     >
                       <UiIcon icon="infoOutlined" />
                     </UiButton>
@@ -183,12 +185,28 @@ export default {
       }
     }
 
+    function focusExplication(event) {
+      const explicationButton = event.target.closest('.ui-radio').querySelector('.ui-multiple-answer__explication');
+      if (explicationButton && event.key === 'ArrowRight') {
+        event.preventDefault();
+        explicationButton.focus();
+      }
+    }
+    function unfocusExplication(event) {
+      const answerInput = event.target.closest('.ui-radio').querySelector('input');
+      if (answerInput && event.key === 'ArrowLeft') {
+        answerInput.focus();
+      }
+    }
+
     return {
       hintType,
       component,
       hasError,
       errorClass,
       updateHandler,
+      focusExplication,
+      unfocusExplication,
     };
   },
 };
