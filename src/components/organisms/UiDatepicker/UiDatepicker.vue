@@ -213,7 +213,7 @@ export default {
     function checkDayAvailability(day) {
       const isMonthDaysLimitExceeded = checkDayMonthLimit(day, undefined);
       const isDayAboveLimit = (parseInt(date.year, 10) === firstAvailableYear.value)
-        && (date.month === currentMonth) && (day >= parseInt(currentDay, 10));
+        && (date.month === currentMonth) && (day > parseInt(currentDay, 10));
       const isDayBelowLimit = (parseInt(date.year, 10) === lastAvailableYear.value)
         && (date.month === currentMonth) && (day <= parseInt(currentDay, 10));
       return isDayAboveLimit || isDayBelowLimit || isMonthDaysLimitExceeded;
@@ -378,9 +378,8 @@ export default {
 
     const errorDisplayHandler = computed(() => {
       let error = false;
-      if (props.touched) {
-        error = props.error;
-      } else if (isDateInFuture.value) {
+
+      if (isDateInFuture.value) {
         error = props.translation.errorDateInFuture;
       } else if (isDateOutOfBounds.value && isDayValid.value && isMonthValid.value) {
         error = props.translation.errorOutOfBounds;
@@ -388,6 +387,8 @@ export default {
         error = props.translation.errorWrongDate;
       } else if (unfulfilledDay.value || unfulfilledMonth.value || unfulfilledYear.value) {
         error = props.translation.errorWrongDate;
+      } else if (props.touched && props.error) {
+        error = props.error;
       }
       return error;
     });
