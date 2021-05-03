@@ -61,6 +61,7 @@
                     <UiButton
                       v-if="choice.buttonInfoAttrs"
                       v-bind="choice.buttonInfoAttrs"
+                      tabindex="-1"
                       class="ui-multiple-answer__explication ui-button--text ui-button--has-icon"
                       @keydown="unfocusExplication"
                     >
