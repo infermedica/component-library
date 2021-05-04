@@ -66,7 +66,7 @@ export default {
       const inputValue = event.data;
       await nextTick();
       if (inputValue && year.value.length === 4 && props.valid) {
-        emit('change-input');
+        emit('change-input', 'year');
       }
     }
 

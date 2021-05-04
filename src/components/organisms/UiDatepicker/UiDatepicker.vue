@@ -35,7 +35,7 @@
     </UiFormField>
 
     <UiDatepickerCalendar
-      v-model="currentDatePart"
+      :last-focused="lastFocusedDatePart"
       class="ui-datepicker__dropdown"
     />
   </div>
@@ -175,8 +175,6 @@ export default {
     const monthInput = ref(null);
     const yearInput = ref(null);
 
-    const currentDatePart = ref(`${props.order[0]}`);
-
     const monthNames = ref([]);
     provide('monthNames', monthNames);
 
@@ -195,7 +193,7 @@ export default {
 
     const yearsList = computed(() => {
       const firstYear = currentDate.getUTCFullYear() - props.minLimit;
-      const yearsNumber = props.maxLimit - props.minLimit + 1;
+      const yearsNumber = props.maxLimit - props.minLimit + 2;
       const years = Array(yearsNumber).fill('').map((_, i) => firstYear - i);
       return years;
     });
@@ -231,7 +229,7 @@ export default {
       const isMonthDaysLimitExceeded = checkDayMonthLimit(undefined, month);
       const isMonthAboveLimit = (parseInt(date.year, 10) === firstAvailableYear.value
         && (month > parseInt(currentMonth, 10)
-        || (month >= parseInt(currentMonth, 10) && currentDay <= date.day))
+        || (month >= parseInt(currentMonth, 10) && currentDay < date.day))
       );
       const isMonthBelowLimit = (parseInt(date.year, 10) === lastAvailableYear.value
         && (month < parseInt(currentMonth, 10)
@@ -254,7 +252,7 @@ export default {
       const isYearAboveLimit = (year === firstAvailableYear.value)
         && (currentMonth < date.month || (currentMonth <= date.month && currentDay < date.day));
       const isYearBelowLimit = (year === lastAvailableYear.value) && date.month
-        && (currentMonth > date.month || (date.day && currentMonth === date.month && currentDay > date.day));
+        && (currentMonth > date.month || (date.day && currentMonth === date.month && currentDay >= date.day));
       return isYearAboveLimit || isYearBelowLimit || isLeapYearLimit;
     }
     const isYearValid = computed(() => {
@@ -274,7 +272,8 @@ export default {
         startDate.setFullYear(startDate.getFullYear() - props.minLimit);
         const selectedDate = new Date(date.year, parseInt(date.month, 10) - 1, date.day);
         const limitDate = new Date();
-        limitDate.setFullYear(limitDate.getFullYear() - props.maxLimit);
+        limitDate.setFullYear(limitDate.getFullYear() - props.maxLimit - 1);
+
         return selectedDate > startDate
           || selectedDate < limitDate
           || (!isDateFulfilled.value && date.year > firstAvailableYear.value);
@@ -337,9 +336,11 @@ export default {
       }
     }
 
+    const lastFocusedDatePart = ref(`${props.order[0]}`);
+
     function synchronizeTab(event) {
       const fieldId = event.target.id;
-      currentDatePart.value = `${fieldId}`;
+      lastFocusedDatePart.value = `${fieldId}`;
     }
 
     const focus = async (inputElement) => {
@@ -363,8 +364,8 @@ export default {
           break;
       }
     }
-    function focusNextField() {
-      const currentInputIndex = props.order.indexOf(currentDatePart.value);
+    function focusNextField(currentField) {
+      const currentInputIndex = props.order.indexOf(currentField);
       if (currentInputIndex < props.order.length - 1) focusInput(props.order[currentInputIndex + 1]);
     }
 
@@ -434,7 +435,7 @@ export default {
       monthInput,
       yearInput,
       date,
-      currentDatePart,
+      lastFocusedDatePart,
       isDateValid,
       isDateOutOfBounds,
       isInputValid,

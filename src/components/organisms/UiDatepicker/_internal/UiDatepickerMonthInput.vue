@@ -66,7 +66,7 @@ export default {
       const inputValue = event.data;
       await nextTick();
       if (inputValue && (!['0', '1'].includes(inputValue) || month.value.length === 2) && props.valid) {
-        emit('change-input');
+        emit('change-input', 'month');
       }
     }
 

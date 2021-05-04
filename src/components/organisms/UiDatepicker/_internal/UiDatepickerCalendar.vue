@@ -11,7 +11,7 @@
         <UiButton
           class="ui-button--outlined ui-button--circled ui-button--has-icon ui-datepicker-calender__toggler"
           aria-label="Calendar"
-          @click="toggleHandler"
+          @click="openCalendar(toggleHandler)"
         >
           <UiIcon icon="calendar" />
         </UiButton>
@@ -65,22 +65,30 @@ export default {
     /**
      * Use this props to set cuurent tab value.
      */
-    modelValue: {
+    lastFocused: {
       type: String,
       default: '',
     },
   },
   emits: ['update:modelValue'],
-  setup(props, { emit }) {
+  setup(props) {
     const dropdown = ref(null);
     const translation = inject('translation');
     const order = inject('order');
 
     const date = inject('date');
 
-    const currentTab = computed({
-      get: () => (props.modelValue),
-      set: (value) => { emit('update:modelValue', value); },
+    const currentTab = ref(`${order[0]}`);
+    const firstEmptyTab = computed(() => {
+      let firstEmpty = '';
+      // eslint-disable-next-line
+      for (const [key, value] of Object.entries(date)) {
+        if (!value) {
+          firstEmpty = key;
+          break;
+        }
+      }
+      return firstEmpty;
     });
 
     function tabComponentSelector(datePart) {
@@ -96,10 +104,18 @@ export default {
       }
     }
 
+    function openCalendar(open) {
+      currentTab.value = firstEmptyTab.value ? firstEmptyTab.value : props.lastFocused;
+      open();
+    }
+
     function goToNextTab() {
       const currentTabIndex = order.indexOf(currentTab.value);
       if (currentTabIndex < order.length - 1) {
         currentTab.value = order[currentTabIndex + 1];
+      } else if (firstEmptyTab.value) {
+        const firstEmptyTabIndex = order.indexOf(firstEmptyTab.value);
+        currentTab.value = order[firstEmptyTabIndex];
       } else {
         dropdown.value.isOpen = false;
       }
@@ -114,6 +130,7 @@ export default {
       date,
       currentTab,
       tabComponentSelector,
+      openCalendar,
       goToNextTab,
       capitalize,
     };
