@@ -189,3 +189,112 @@ AsGroup.argTypes = {
   disabled: { control: false },
   content: { control: false },
 };
+
+export const AsGroupWithNestedObject = (args) => ({
+  components: { UiCheckbox, UiList, UiListItem },
+  setup() {
+    const modelValue = ref([{
+      label: 'Europe',
+      id: 'p_15',
+      choice_id: 'present',
+      source: 'predefined',
+      checkboxAttrs: {
+        ariaLabel: 'Europe',
+      },
+    }]);
+    return { ...args, modelValue };
+  },
+  template: `<UiList style="--list-item-padding: var(--space-12) 0;">
+    <UiListItem 
+      v-for="(value, key) in values"
+      :key="key"
+    >
+      <UiCheckbox
+        v-model="modelValue"
+        v-bind="value.checkboxAttrs"
+        :value="value"
+      >
+        {{value.label}}
+      </UiCheckbox>
+    </UiListItem>
+  </UiList>`,
+});
+AsGroupWithNestedObject.args = {
+  values: [
+    {
+      label: 'Russia, Kazakhstan or Mongolia',
+      id: 'p_20',
+      choice_id: 'present',
+      source: 'predefined',
+      checkboxAttrs: {
+        ariaLabel: 'Russia, Kazakhstan or Mongolia',
+      },
+    },
+    {
+      label: 'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
+      id: 'p_236',
+      choice_id: 'present',
+      source: 'predefined',
+      checkboxAttrs: {
+        ariaLabel: 'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
+      },
+    },
+    {
+      label: 'Europe',
+      id: 'p_15',
+      choice_id: 'present',
+      source: 'predefined',
+      checkboxAttrs: {
+        ariaLabel: 'Europe',
+      },
+    },
+  ],
+};
+AsGroupWithNestedObject.argTypes = {
+  values: {
+    control: 'object',
+  },
+  id: { control: false },
+  value: { control: false },
+  modifiers: { control: false },
+  disabled: { control: false },
+  content: { control: false },
+};
+
+export const AsGroupWithPrimitiveTypes = (args) => ({
+  components: { UiCheckbox, UiList, UiListItem },
+  setup() {
+    const modelValue = ref(['Europe']);
+    return { ...args, modelValue };
+  },
+  template: `<UiList style="--list-item-padding: var(--space-12) 0;">
+    <UiListItem 
+      v-for="(value, key) in values"
+      :key="key"
+    >
+      <UiCheckbox
+        v-model="modelValue"
+        :value="value"
+      >
+        {{value}}
+      </UiCheckbox>
+    </UiListItem>
+  </UiList>`,
+});
+AsGroupWithPrimitiveTypes.args = {
+  values: [
+    'Russia, Kazakhstan or Mongolia',
+    'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
+    'Europe',
+  ],
+};
+AsGroupWithPrimitiveTypes.argTypes = {
+  values: {
+    control: 'object',
+  },
+  id: { control: false },
+  value: { control: false },
+  modifiers: { control: false },
+  disabled: { control: false },
+  content: { control: false },
+};

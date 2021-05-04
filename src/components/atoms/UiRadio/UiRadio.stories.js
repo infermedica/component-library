@@ -110,12 +110,11 @@ export const WithLabelSlot = (args) => ({
 export const AsGroup = (args) => ({
   components: { UiRadio, UiList, UiListItem },
   setup() {
-    const modelValue = ref([{
-      label: 'Europe',
-      id: 'p_15',
+    const modelValue = ref({
+      label: 'I haven’t checked my temperature',
+      id: 's_15',
       choice_id: 'present',
-      source: 'predefined',
-    }]);
+    });
     return { ...args, modelValue };
   },
   template: `<UiList style="--list-item-padding: var(--space-12) 0;">
@@ -153,6 +152,113 @@ AsGroup.args = {
   ],
 };
 AsGroup.argTypes = {
+  values: {
+    control: 'object',
+  },
+  id: { control: false },
+  value: { control: false },
+  modifiers: { control: false },
+  disabled: { control: false },
+  content: { control: false },
+};
+
+export const AsGroupWithNestedObject = (args) => ({
+  components: { UiRadio, UiList, UiListItem },
+  setup() {
+    const modelValue = ref({
+      label: '98.6–100.4 °F or 37–38 °C',
+      id: 's_20',
+      choice_id: 'present',
+      radioAttrs: {
+        ariaLabel: '98.6–100.4 °F or 37–38 °C',
+      },
+    });
+    return { ...args, modelValue };
+  },
+  template: `<UiList style="--list-item-padding: var(--space-12) 0;">
+    <UiListItem 
+      v-for="(value, key) in values"
+      :key="key"
+    >
+      <UiRadio
+        v-model="modelValue"
+        v-bind="value.radioAttrs"
+        :value="value"
+        name=""
+      >
+        {{value.label}}
+      </UiRadio>
+    </UiListItem>
+  </UiList>`,
+});
+AsGroupWithNestedObject.args = {
+  values: [
+    {
+      label: '98.6–100.4 °F or 37–38 °C',
+      id: 's_20',
+      choice_id: 'present',
+      radioAttrs: {
+        ariaLabel: '98.6–100.4 °F or 37–38 °C',
+      },
+    },
+    {
+      label: '100.5–104 °F or 38.1–40 °C',
+      id: 's_236',
+      choice_id: 'present',
+      radioAttrs: {
+        ariaLabel: '100.5–104 °F or 38.1–40 °C',
+      },
+    },
+    {
+      label: 'I haven’t checked my temperature',
+      id: 's_15',
+      choice_id: 'present',
+      radioAttrs: {
+        ariaLabel: 'I haven’t checked my temperature',
+      },
+    },
+  ],
+};
+AsGroupWithNestedObject.argTypes = {
+  values: {
+    control: 'object',
+  },
+  id: { control: false },
+  value: { control: false },
+  modifiers: { control: false },
+  disabled: { control: false },
+  content: { control: false },
+};
+
+export const AsGroupWithPrimitiveTypes = (args) => ({
+  components: { UiRadio, UiList, UiListItem },
+  setup() {
+    const modelValue = ref('Europe');
+    return { ...args, modelValue };
+  },
+  template: `<UiList style="--list-item-padding: var(--space-12) 0;">
+    <UiListItem 
+      v-for="(value, key) in values"
+      :key="key"
+    >
+      <UiRadio
+        v-model="modelValue"
+        :value="value"
+        name=""
+      >
+        {{ value }}
+      </UiRadio>
+    </UiListItem>
+  </UiList>`,
+});
+AsGroupWithPrimitiveTypes.args = {
+  values: [
+    'Russia, Kazakhstan or Mongolia',
+    'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
+    'Europe',
+  ],
+};
+AsGroupWithPrimitiveTypes.argTypes = {
   values: {
     control: 'object',
   },

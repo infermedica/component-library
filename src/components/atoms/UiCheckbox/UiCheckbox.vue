@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import equal from 'fast-deep-equal';
 import { uid } from 'uid/single';
 import { computed } from 'vue';
 import UiIcon from '../UiIcon/UiIcon.vue';
@@ -77,58 +78,33 @@ export default {
   },
   emits: ['update:modelValue'],
   setup(props, { emit, slots }) {
-    const hasLabel = computed(() => (slots.default));
-    const checkboxId = computed(() => (
-      props.id || `checkbox-${uid()}`
-    ));
-    const isObject = computed(() => (typeof props.modelValue === 'object'));
-    const isChecked = computed(() => (
-      isObject.value
-        ? props.modelValue.filter(
-          (option) => {
-            if (typeof props.value === 'string') {
-              return props.value === option;
-            }
-            return Object.keys(props.value)
-              .every((key) => (props.value[key]) === option[key]);
-          },
-        ).length > 0
-        : props.modelValue
-    ));
     const { getRootAttrs, getInputAttrs } = useInput();
-
-    function getChecked(checked) {
-      let newChecked;
-      if (isObject.value) {
-        newChecked = checked
+    const hasLabel = computed(() => (slots.default));
+    const checkboxId = computed(() => (props.id || `checkbox-${uid()}`));
+    const isGroup = computed(() => (Array.isArray(props.modelValue)));
+    const isChecked = computed(() => (isGroup.value
+      ? props.modelValue
+        .find((option) => (equal(props.value, option)))
+      : props.modelValue));
+    const getChecked = (checked) => {
+      if (isGroup.value) {
+        return checked
           ? [...props.modelValue, JSON.parse(JSON.stringify(props.value))]
-          : props.modelValue.filter(
-            (option) => {
-              if (typeof props.value === 'string') {
-                return props.value !== option;
-              }
-              return !Object.keys(props.value)
-                .every((key) => (props.value[key] === option[key]));
-            },
-          );
-      } else {
-        newChecked = checked;
+          : props.modelValue
+            .filter((option) => (!equal(props.value, option)));
       }
-      return newChecked;
-    }
-
+      return checked;
+    };
     function changeHandler(checked) {
       emit('update:modelValue', getChecked(checked));
     }
-
     return {
-      hasLabel,
-      checkboxId,
-      isObject,
-      isChecked,
-      changeHandler,
       getRootAttrs,
       getInputAttrs,
+      hasLabel,
+      checkboxId,
+      isChecked,
+      changeHandler,
     };
   },
 };

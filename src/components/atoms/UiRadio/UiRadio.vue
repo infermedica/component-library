@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import equal from 'fast-deep-equal';
 import { uid } from 'uid/single';
 import { computed } from 'vue';
 import useInput from '../../../composable/useInput';
@@ -74,13 +75,7 @@ export default {
     const radioId = computed(() => (
       props.id || `radio-${uid()}`
     ));
-    const isChecked = computed(() => {
-      if (typeof props.modelValue === 'string' || typeof props.modelValue === 'number') {
-        return props.value === props.modelValue;
-      }
-      return Object.keys(props.value)
-        .every((key) => (props.value[key] === props.modelValue[key]));
-    });
+    const isChecked = computed(() => (equal(props.value, props.modelValue)));
     const { getRootAttrs, getInputAttrs } = useInput();
 
     function changeHandler(checked) {
