@@ -190,6 +190,7 @@ export default {
     const currentDate = new Date();
     const currentDay = lightFormat(currentDate, 'dd');
     const currentMonth = lightFormat(currentDate, 'MM');
+    const currentYear = lightFormat(currentDate, 'yyyy');
 
     const yearsList = computed(() => {
       const firstYear = currentDate.getUTCFullYear() - props.minLimit;
@@ -235,7 +236,10 @@ export default {
         && (month < parseInt(currentMonth, 10)
         || (date.day && month <= parseInt(currentMonth, 10) && currentDay > date.day))
       );
-      return isMonthAboveLimit || isMonthBelowLimit || isMonthDaysLimitExceeded;
+      const isCurrentLastDayOfMonth = new Date(currentYear, currentMonth, 0).getDate() === parseInt(currentDay, 10);
+      const monthWithoutAvailableDays = parseInt(date.year, 10) === lastAvailableYear.value
+        && month === parseInt(currentMonth, 10) && isCurrentLastDayOfMonth;
+      return isMonthAboveLimit || isMonthBelowLimit || isMonthDaysLimitExceeded || monthWithoutAvailableDays;
     }
     const isMonthValid = computed(() => {
       const selectedMonth = parseInt(date.month, 10);
@@ -281,7 +285,6 @@ export default {
       return !isDateFulfilled.value && parseInt(date.year, 10) > firstAvailableYear.value;
     });
     const isDateInFuture = computed(() => {
-      const currentYear = lightFormat(currentDate, 'yyyy');
       if (isMonthValid.value && isYearFulfilled.value) {
         const selectedDate = new Date(date.year, date.month - 1, date.day);
         return selectedDate > currentDate;
