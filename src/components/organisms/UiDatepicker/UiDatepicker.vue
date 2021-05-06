@@ -271,18 +271,17 @@ export default {
     // Date validations
     const isDateFulfilled = computed(() => isDayFulfilled.value && isMonthFulfilled.value && isYearFulfilled.value);
     const isDateOutOfBounds = computed(() => {
+      const startDate = new Date(firstAvailableYear.value, currentMonth - 1, currentDay);
+      const limitDate = new Date(lastAvailableYear.value, currentMonth - 1, currentDay);
       if (isDateFulfilled.value) {
-        const startDate = new Date();
-        startDate.setFullYear(startDate.getFullYear() - props.minLimit);
         const selectedDate = new Date(date.year, parseInt(date.month, 10) - 1, date.day);
-        const limitDate = new Date();
-        limitDate.setFullYear(limitDate.getFullYear() - props.maxLimit - 1);
-
-        return selectedDate > startDate
-          || selectedDate < limitDate
-          || (!isDateFulfilled.value && date.year > firstAvailableYear.value);
+        return selectedDate > startDate || selectedDate <= limitDate;
+      } else if (isMonthFulfilled.value && isYearFulfilled.value) {
+        const selectedDate = new Date(date.year, parseInt(date.month, 10) - 1, currentDay);
+        return selectedDate > startDate || selectedDate < limitDate;
       }
-      return !isDateFulfilled.value && parseInt(date.year, 10) > firstAvailableYear.value;
+      return isYearFulfilled.value && (parseInt(date.year, 10) > firstAvailableYear.value
+        || parseInt(date.year, 10) < lastAvailableYear.value);
     });
     const isDateInFuture = computed(() => {
       if (isMonthValid.value && isYearFulfilled.value) {
@@ -385,7 +384,7 @@ export default {
 
       if (isDateInFuture.value) {
         error = props.translation.errorDateInFuture;
-      } else if (isDateOutOfBounds.value && isDayValid.value && isMonthValid.value) {
+      } else if (isDateOutOfBounds.value) {
         error = props.translation.errorOutOfBounds;
       } else if (hasDayError.value || hasMonthError.value || hasYearError.value) {
         error = props.translation.errorWrongDate;
