@@ -94,6 +94,7 @@ export default {
   border-radius: var(--popover-border-radius, var(--border-radius-form));
   box-shadow: var(--popover-box-shadow, var(--box-shadow-modal));
   transform: var(--popover-transform, 0);
+  z-index: 1;
 
   &__header {
     position: relative;
