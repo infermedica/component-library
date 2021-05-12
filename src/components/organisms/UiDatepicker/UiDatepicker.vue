@@ -270,6 +270,7 @@ export default {
 
     // Date validations
     const isDateFulfilled = computed(() => isDayFulfilled.value && isMonthFulfilled.value && isYearFulfilled.value);
+    const isDateEmpty = computed(() => !isDayFulfilled.value && !isMonthFulfilled.value && !isYearFulfilled.value);
     const isDateOutOfBounds = computed(() => {
       const startDate = new Date(firstAvailableYear.value, currentMonth - 1, currentDay);
       const limitDate = new Date(lastAvailableYear.value, currentMonth - 1, currentDay);
@@ -322,6 +323,9 @@ export default {
       if (isDateFulfilled.value && isDateValid.value) {
         const newDate = format(new Date(date.year, date.month - 1, date.day), 'yyyy-MM-dd');
         formattedDate.value = newDate;
+      }
+      if (isDateEmpty.value) {
+        formattedDate.value = '';
       }
     }
 
