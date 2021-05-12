@@ -10,15 +10,49 @@ export default {
   argTypes: {
     content: { control: 'text' },
     tag: { control: 'text', table: { category: 'HTML Attributes' } },
+    modifiers: {
+      control: { type: 'select', options: ['1-thick', '2-comfortable', '2-compact', '2-comfortable-thick', '2-compact-thick'].map((modifier) => (`ui-text--${modifier}`)) },
+      table: {
+        category: 'HTML attributes',
+      },
+    },
   },
 };
 
 const Template = (args) => ({
   components: { UiText },
   setup() { return { ...args }; },
-  template: `<UiText :tag="tag">
+  template: `<UiText 
+    :tag="tag" 
+    :class="modifiers"
+  >
     {{content}}  
   </UiText>`,
 });
 
-export const TextAsParagraph = Template.bind({});
+export const TextBody1 = Template.bind({});
+
+export const TextBody1Thick = Template.bind({});
+TextBody1Thick.args = {
+  modifiers: 'ui-text--1-thick',
+};
+
+export const TextBody2Comfortable = Template.bind({});
+TextBody2Comfortable.args = {
+  modifiers: 'ui-text--2-comfortable',
+};
+
+export const TextBody2Compact = Template.bind({});
+TextBody2Compact.args = {
+  modifiers: 'ui-text--2-compact',
+};
+
+export const TextBody2ComfortableThick = Template.bind({});
+TextBody2ComfortableThick.args = {
+  modifiers: 'ui-text--2-comfortable-thick',
+};
+
+export const TextBody2CompactThick = Template.bind({});
+TextBody2CompactThick.args = {
+  modifiers: 'ui-text--2-compact-thick',
+};
