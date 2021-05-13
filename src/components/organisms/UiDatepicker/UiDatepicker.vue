@@ -277,7 +277,7 @@ export default {
       if (isDateFulfilled.value) {
         const selectedDate = new Date(date.year, parseInt(date.month, 10) - 1, date.day);
         return selectedDate > startDate || selectedDate <= limitDate;
-      } else if (isMonthFulfilled.value && isYearFulfilled.value) {
+      } if (isMonthFulfilled.value && isYearFulfilled.value) {
         const selectedDate = new Date(date.year, parseInt(date.month, 10) - 1, currentDay);
         return selectedDate > startDate || selectedDate < limitDate;
       }

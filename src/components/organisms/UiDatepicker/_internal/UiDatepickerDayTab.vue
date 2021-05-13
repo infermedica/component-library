@@ -12,9 +12,9 @@
         'ui-button--is-disabled': isDisabled(i),
       }"
       :disabled="isDisabled(i)"
-      @click="select(`${i}`)"
+      @click="select(i)"
     >
-      {{ i }}
+      {{ formatDay(i) }}
     </UiButton>
   </UiTabsItem>
 </template>
@@ -50,13 +50,18 @@ export default {
       set: (value) => { emit('update:modelValue', value); },
     });
 
+    function formatDay(value) {
+      return `${value}`.padStart(2, '0');
+    }
+
     function select(value) {
-      day.value = value.length === 1 ? `0${value}` : value;
+      day.value = formatDay(value);
     }
 
     return {
       day,
       isDisabled,
+      formatDay,
       select,
     };
   },
