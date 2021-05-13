@@ -463,7 +463,6 @@ export default {
   display: flex;
 
   &__dropdown {
-    --dropdown-popover-top: var(--datepicker-dropdown-popover-top, 5.125rem);
     margin: var(--datepicker-dropdown-margin, 0 0 0 var(--space-24));
 
     [dir=rtl] & {
