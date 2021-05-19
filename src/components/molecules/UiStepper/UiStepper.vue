@@ -43,22 +43,37 @@
           name="items"
           v-bind="{steps, indexOfActiveStep, determineStep}"
         >
-          <UiListItem
+          <template
             v-for="(step, index) in steps"
-            :key="step.route"
-            class="ui-stepper__item"
-            :class="{
-              'ui-stepper__item--visited': indexOfActiveStep >= index,
-              'ui-stepper__item--active': indexOfActiveStep === index,
-            }"
+            :key="index"
           >
-            <UiLink
-              v-bind="determineStep(index, step.route)"
-              class="ui-link--secondary ui-stepper__item-link"
+            <!-- @slot Use this slot to replace item in the desktop list -->
+            <slot
+              name="item"
+              v-bind="{step, index, indexOfActiveStep, determineStep}"
             >
-              {{ step.name }}
-            </UiLink>
-          </Uilistitem>
+              <UiListItem
+                class="ui-stepper__item"
+                :class="{
+                  'ui-stepper__item--visited': indexOfActiveStep >= index,
+                  'ui-stepper__item--active': indexOfActiveStep === index,
+                }"
+              >
+                <!-- @slot Use this slot to replace items-link in the desktop list -->
+                <slot
+                  name="item-link"
+                  v-bind="{index, step, determineStep}"
+                >
+                  <UiLink
+                    v-bind="determineStep(index, step.route)"
+                    class="ui-link--secondary ui-stepper__item-link"
+                  >
+                    {{ step.name }}
+                  </UiLink>
+                </slot>
+              </Uilistitem>
+            </slot>
+          </template>
         </slot>
       </Uilist>
     </slot>

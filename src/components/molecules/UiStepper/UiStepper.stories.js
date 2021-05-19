@@ -107,9 +107,11 @@ export const WithDesktopSlot = (args) => ({
   >
     <template #desktop="{steps, indexOfActiveStep, determineStep}">
       <UiList class="ui-stepper__desktop">
-        <UiListItem
-            v-for="(step, index) in steps"
-            :key="step.route"
+        <template
+          v-for="(step, index) in steps"
+          :key="index"
+        >
+          <UiListItem
             class="ui-stepper__item"
             :class="{
               'ui-stepper__item--visited': indexOfActiveStep >= index,
@@ -123,6 +125,7 @@ export const WithDesktopSlot = (args) => ({
               {{ step.name }}
             </UiLink>
           </Uilistitem>
+        </template>
       </Uilist>
     </template>
   </UiStepper>`,
@@ -140,14 +143,47 @@ export const WithItemsSlot = (args) => ({
     :progress-attrs="progressAttrs"
   >
     <template #items="{steps, indexOfActiveStep, determineStep}">
-      <UiListItem
+      <template
         v-for="(step, index) in steps"
-        :key="step.route"
+        :key="index"
+      >
+        <UiListItem
+          class="ui-stepper__item"
+          :class="{
+                'ui-stepper__item--visited': indexOfActiveStep >= index,
+                'ui-stepper__item--active': indexOfActiveStep === index,
+              }"
+        >
+          <UiLink
+            v-bind="determineStep(index, step.route)"
+            class="ui-link--secondary ui-stepper__item-link"
+          >
+            {{ step.name }}
+          </UiLink>
+        </Uilistitem>
+      </template>
+    </template>
+  </UiStepper>`,
+});
+WithItemsSlot.decorators = [() => ({ template: '<div class="desktop:max-w-35"><story /></div>' })];
+
+export const WithItemSlot = (args) => ({
+  components: { UiStepper, UiListItem, UiLink },
+  setup() {
+    return { ...args };
+  },
+  template: `<UiStepper
+    :steps="steps"
+    :current-step="currentStep"
+    :progress-attrs="progressAttrs"
+  >
+    <template #item="{step, index, indexOfActiveStep, determineStep}">
+      <UiListItem
         class="ui-stepper__item"
         :class="{
-              'ui-stepper__item--visited': indexOfActiveStep >= index,
-              'ui-stepper__item--active': indexOfActiveStep === index,
-            }"
+          'ui-stepper__item--visited': indexOfActiveStep >= index,
+          'ui-stepper__item--active': indexOfActiveStep === index,
+        }"
       >
         <UiLink
           v-bind="determineStep(index, step.route)"
@@ -159,7 +195,29 @@ export const WithItemsSlot = (args) => ({
     </template>
   </UiStepper>`,
 });
-WithItemsSlot.decorators = [() => ({ template: '<div class="desktop:max-w-35"><story /></div>' })];
+WithItemSlot.decorators = [() => ({ template: '<div class="desktop:max-w-35"><story /></div>' })];
+
+export const WithItemLinkSlot = (args) => ({
+  components: { UiStepper, UiListItem, UiLink },
+  setup() {
+    return { ...args };
+  },
+  template: `<UiStepper
+    :steps="steps"
+    :current-step="currentStep"
+    :progress-attrs="progressAttrs"
+  >
+    <template #item-link="{index, step, determineStep}">
+      <UiLink
+        v-bind="determineStep(index, step.route)"
+        class="ui-link--secondary ui-stepper__item-link"
+      >
+        {{ step.name }}
+      </UiLink>
+    </template>
+  </UiStepper>`,
+});
+WithItemLinkSlot.decorators = [() => ({ template: '<div class="desktop:max-w-35"><story /></div>' })];
 
 export const WithMobileSlot = (args) => ({
   components: { UiStepper, UiText, UiProgress },
