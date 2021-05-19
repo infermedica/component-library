@@ -62,7 +62,7 @@
                 <!-- @slot Use this slot to replace items-link in the desktop list -->
                 <slot
                   name="item-link"
-                  v-bind="{index, step, determineStep}"
+                  v-bind="{step, index, indexOfActiveStep, determineStep}"
                 >
                   <UiLink
                     v-bind="determineStep(index, step.route)"
