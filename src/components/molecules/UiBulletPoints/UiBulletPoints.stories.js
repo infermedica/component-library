@@ -18,7 +18,7 @@ export default {
   },
   argTypes: {
     tag: { control: { type: 'select', options: ['ul', 'ol'] } },
-    type: { control: { type: 'select', options: ['a', 'A', 'i', 'I', '1'] } },
+    type: { control: { type: 'select', options: ['a', 'A', 'i', 'I', '1', 'ar'] } },
     icon: {
       control: {
         type: 'select',

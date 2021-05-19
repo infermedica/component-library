@@ -41,6 +41,7 @@ export default {
         i: { style: 'lower-roman', suffix: '.' },
         I: { style: 'upper-roman', suffix: '.' },
         1: { style: 'decimal', suffix: '.' },
+        ar: { style: 'arabic-indic', suffix: '.' },
       };
 
       // TODO: decide how to handle latin/roman styles
