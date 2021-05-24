@@ -52,7 +52,6 @@
 <script>
 import { computed } from 'vue';
 
-import UiText from '../../atoms/UiText/UiText.vue';
 import UiContainer from '../UiContainer/UiContainer.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
@@ -60,7 +59,6 @@ import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 export default {
   name: 'UiControls',
   components: {
-    UiText,
     UiContainer,
     UiButton,
     UiIcon,

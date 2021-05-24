@@ -5,6 +5,8 @@
     :class="{ 'ui-input--has-error': hasError }"
     :placeholder="translation.placeholderMonth"
     maxlength="2"
+    inputmode="numeric"
+    pattern="[0-9]*"
     @blur="standardizeMonthFormat"
     @input="checkMonth"
     @keydown="numbersOnly"

@@ -4,6 +4,8 @@
     :class="{ 'ui-input--has-error': hasError }"
     :placeholder="translation.placeholderDay"
     maxlength="2"
+    inputmode="numeric"
+    pattern="[0-9]*"
     @blur="standardizeDayFormat"
     @input="checkDay"
     @keydown="numbersOnly"

@@ -5,6 +5,8 @@
     :class="{ 'ui-input--has-error': hasError || error }"
     :placeholder="translation.placeholderYear"
     maxlength="4"
+    inputmode="numeric"
+    pattern="[0-9]*"
     @blur="standardizeYearFormat"
     @input="checkYear"
     @keydown="numbersOnly"

@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { watchEffect, computed, provide } from 'vue';
+import { watchEffect, computed } from 'vue';
 import UiMultipleChoicesItem from './_internal/UiMultipleChoicesItem.vue';
 import UiList from '../UiList/UiList.vue';
 import UiListItem from '../UiList/_internal/UiListItem.vue';
