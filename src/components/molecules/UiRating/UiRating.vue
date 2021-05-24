@@ -12,6 +12,7 @@
           :value="`${index}`"
           :name="ratingName"
           class="ui-rating__option"
+          :aria-label="`${index} ${translation.stars}`"
           @mouseover="hoverHandler($event, index)"
           @mouseleave="hoverHandler($event, index)"
         >
@@ -20,10 +21,9 @@
               <!-- @slot Use this slot to replace positive rating icon. -->
               <slot
                 name="icon-active"
-                v-bind="{translation: `${index} ${translation.stars}`, icon: settings.iconActive}"
+                v-bind="{icon: settings.iconActive}"
               >
                 <UiIcon
-                  :aria-label="`${index} ${translation.stars}`"
                   :icon="settings.iconActive"
                   class="ui-rating__icon ui-rating__icon--active"
                 />
@@ -33,10 +33,9 @@
               <!-- @slot Use this slot to replace rating icon. -->
               <slot
                 name="icon"
-                v-bind="{translation: `${index} ${translation.stars}`, icon: settings.icon}"
+                v-bind="{icon: settings.icon}"
               >
                 <UiIcon
-                  :aria-label="`${index} ${translation.stars}`"
                   :icon="settings.icon"
                   class="ui-rating__icon"
                 />

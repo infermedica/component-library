@@ -10,7 +10,7 @@
       >
         <UiButton
           class="ui-button--outlined ui-button--circled ui-button--has-icon ui-datepicker-calender__toggler"
-          aria-label="Calendar"
+          v-bind="buttonCalendarAttrs"
           @click="openCalendar(toggleHandler)"
         >
           <UiIcon icon="calendar" />
@@ -63,11 +63,18 @@ export default {
   },
   props: {
     /**
-     * Use this props to set cuurent tab value.
+     * Use this props to set current tab value.
      */
     lastFocused: {
       type: String,
       default: '',
+    },
+    /**
+     * Use this props to pass attrs for calendar UiButton
+     */
+    buttonCalendarAttrs: {
+      type: Object,
+      default: () => ({}),
     },
   },
   emits: ['update:modelValue'],
