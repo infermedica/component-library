@@ -12,7 +12,6 @@
           :value="`${index}`"
           :name="ratingName"
           class="ui-rating__option"
-          :aria-label="`${index} ${translation.stars}`"
           @mouseover="hoverHandler($event, index)"
           @mouseleave="hoverHandler($event, index)"
         >
@@ -41,6 +40,9 @@
                 />
               </slot>
             </template>
+          </template>
+          <template #label>
+            <span class="visual-hidden">{{ index }} {{ translation.stars }}</span>
           </template>
         </UiRadio>
       </slot>
