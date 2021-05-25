@@ -36,6 +36,7 @@
 
     <UiDatepickerCalendar
       :last-focused="lastFocusedDatePart"
+      v-bind="datepickerCalendarAttrs"
       class="ui-datepicker__dropdown"
     />
   </div>
@@ -166,6 +167,17 @@ export default {
       type: Number,
       default: 120,
       validator: (value) => value > 0,
+    },
+    /**
+     *  Use this props to pass attrs to UiDatepickerCalendar
+     */
+    datepickerCalendarAttrs: {
+      type: Object,
+      default: () => ({
+        buttonCalendarAttrs: {
+          'aria-label': 'Calendar',
+        },
+      }),
     },
   },
   emits: ['update:modelValue', 'update:invalid'],
