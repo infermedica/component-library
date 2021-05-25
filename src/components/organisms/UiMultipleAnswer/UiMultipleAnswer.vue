@@ -187,14 +187,14 @@ export default {
     }
 
     function focusExplication(event) {
-      const explicationButton = event.target.closest('.ui-radio').querySelector('.ui-multiple-answer__explication');
+      const explicationButton = event.target.closest(`.${component.value}`).querySelector('.ui-multiple-answer__explication');
       if (explicationButton && event.key === 'ArrowRight') {
         event.preventDefault();
         explicationButton.focus();
       }
     }
     function unfocusExplication(event) {
-      const answerInput = event.target.closest('.ui-radio').querySelector('input');
+      const answerInput = event.target.closest(`.${component.value}`).querySelector('input');
       if (answerInput && event.key === 'ArrowLeft') {
         answerInput.focus();
       }
