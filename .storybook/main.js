@@ -27,6 +27,7 @@ module.exports = {
     '@storybook/addon-essentials',
     '@storybook/addon-a11y',
     'storybook-addon-outline',
+    "@storybook/addon-measure",
     {
       name: '@storybook/addon-postcss',
       options: {
