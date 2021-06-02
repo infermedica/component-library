@@ -41,6 +41,9 @@
           :min="min"
           :max="max"
           :value="modelValue"
+          :aria-valuemin="min"
+          :aria-valuemax="max"
+          :aria-valuenow="modelValue"
           class="ui-range__track"
           @input="changeHandler($event.target.value)"
         >
