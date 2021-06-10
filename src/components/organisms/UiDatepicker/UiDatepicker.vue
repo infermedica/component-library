@@ -51,10 +51,11 @@ import {
 import {
   computed,
   nextTick,
+  onMounted,
   provide,
   reactive,
   ref,
-  watchEffect,
+  watch,
 } from 'vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiDropdown from '../../molecules/UiDropdown/UiDropdown.vue';
@@ -110,9 +111,9 @@ export default {
       type: Array,
       default: () => (['day', 'month', 'year']),
       validator: (value) => value.length === 3
-          && value.includes('day')
-          && value.includes('month')
-          && value.includes('year'),
+        && value.includes('day')
+        && value.includes('month')
+        && value.includes('year'),
     },
     /**
      * Use this props to set invalid state of component.
@@ -242,11 +243,11 @@ export default {
       const isMonthDaysLimitExceeded = checkDayMonthLimit(undefined, month);
       const isMonthAboveLimit = (parseInt(date.year, 10) === firstAvailableYear.value
         && (month > parseInt(currentMonth, 10)
-        || (month >= parseInt(currentMonth, 10) && currentDay < date.day))
+          || (month >= parseInt(currentMonth, 10) && currentDay < date.day))
       );
       const isMonthBelowLimit = (parseInt(date.year, 10) === lastAvailableYear.value
         && (month < parseInt(currentMonth, 10)
-        || (date.day && month <= parseInt(currentMonth, 10) && currentDay > date.day))
+          || (date.day && month <= parseInt(currentMonth, 10) && currentDay > date.day))
       );
       const isCurrentLastDayOfMonth = new Date(currentYear, currentMonth, 0).getDate() === parseInt(currentDay, 10);
       const monthWithoutAvailableDays = parseInt(date.year, 10) === lastAvailableYear.value
@@ -415,9 +416,9 @@ export default {
     const localizeMonths = async (locale) => {
       let localeFile;
       try {
-        localeFile = await import(`date-fns/locale/${locale}/index.js`);
+        localeFile = await import(`date-fns/locale/${locale}/index`);
       } catch (error) {
-        localeFile = await import('date-fns/locale/en-US/index.js');
+        localeFile = await import('date-fns/locale/en-US/index');
         if (!process.env.NODE_ENV.production) {
           // eslint-disable-next-line no-console
           console.error('Unrecognized language props value, default \'en-US\' language loaded');
@@ -428,18 +429,19 @@ export default {
       }
     };
 
-    watchEffect(() => {
+    onMounted(() => {
       localizeMonths(props.lang);
-
-      if (formattedDate.value !== props.modelValue) {
-        formattedDate.value = props.modelValue;
-      } else {
-        setDate();
+      if (props.modelValue) {
+        assignDateParts();
       }
+    });
 
-      if (!isDateValid.value !== props.invalid) {
-        emit('update:invalid', !isDateValid.value);
-      }
+    watch(isDateFulfilled, () => {
+      setDate();
+    });
+
+    watch(isDateValid, (isValid) => {
+      emit('update:invalid', !isValid);
     });
 
     const capitalize = (value) => value.replace(/^\w/gm, (char) => (char.toUpperCase()));
