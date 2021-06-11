@@ -436,7 +436,7 @@ export default {
       }
     });
 
-    watch(isDateFulfilled, () => {
+    watch([() => date.day, () => date.month, () => date.year], () => {
       setDate();
     });
 
