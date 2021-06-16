@@ -216,7 +216,7 @@ export default {
     provide('yearsList', yearsList);
 
     function checkDayMonthLimit(day = date.day, month = date.month) {
-      let daysLimit = new Date(date.year, month, 0).getDate();
+      let daysLimit = new Date(date.year, month, 0, 0, 0, 0).getDate();
       if (day === '29' && !date.year.length) daysLimit += 1;
       return parseInt(day, 10) > daysLimit;
     }
@@ -249,7 +249,7 @@ export default {
         && (month < parseInt(currentMonth, 10)
           || (date.day && month <= parseInt(currentMonth, 10) && currentDay > date.day))
       );
-      const isCurrentLastDayOfMonth = new Date(currentYear, currentMonth, 0).getDate() === parseInt(currentDay, 10);
+      const isCurrentLastDayOfMonth = new Date(currentYear, currentMonth, 0, 0, 0, 0).getDate() === parseInt(currentDay, 10);
       const monthWithoutAvailableDays = parseInt(date.year, 10) === lastAvailableYear.value
         && month === parseInt(currentMonth, 10) && isCurrentLastDayOfMonth;
       return isMonthAboveLimit || isMonthBelowLimit || isMonthDaysLimitExceeded || monthWithoutAvailableDays;
@@ -285,10 +285,10 @@ export default {
     const isDateFulfilled = computed(() => isDayFulfilled.value && isMonthFulfilled.value && isYearFulfilled.value);
     const isDateEmpty = computed(() => !isDayFulfilled.value && !isMonthFulfilled.value && !isYearFulfilled.value);
     const isDateOutOfBounds = computed(() => {
-      const startDate = new Date(firstAvailableYear.value, currentMonth - 1, currentDay);
-      const limitDate = new Date(lastAvailableYear.value, currentMonth - 1, currentDay);
+      const startDate = new Date(firstAvailableYear.value, currentMonth - 1, currentDay, 0, 0, 0);
+      const limitDate = new Date(lastAvailableYear.value, currentMonth - 1, currentDay, 0, 0, 0);
       if (isDateFulfilled.value) {
-        const selectedDate = new Date(date.year, parseInt(date.month, 10) - 1, date.day);
+        const selectedDate = new Date(date.year, parseInt(date.month, 10) - 1, date.day, 0, 0, 0);
         return selectedDate > startDate || selectedDate <= limitDate;
       } if (isMonthFulfilled.value && isYearFulfilled.value) {
         const selectedDate = new Date(date.year, parseInt(date.month, 10) - 1, currentDay);
@@ -314,7 +314,7 @@ export default {
     }));
 
     function assignDateParts() {
-      const plainDate = new Date(props.modelValue);
+      const plainDate = new Date(`${props.modelValue}T00:00:00`);
       date.day = lightFormat(plainDate, 'dd');
       date.month = lightFormat(plainDate, 'MM');
       date.year = lightFormat(plainDate, 'yyyy');
@@ -334,7 +334,7 @@ export default {
 
     function setDate() {
       if (isDateFulfilled.value && isDateValid.value) {
-        const newDate = format(new Date(date.year, date.month - 1, date.day), 'yyyy-MM-dd');
+        const newDate = format(new Date(date.year, date.month - 1, date.day, 0, 0, 0), 'yyyy-MM-dd');
         formattedDate.value = newDate;
       }
       if (isDateEmpty.value) {
