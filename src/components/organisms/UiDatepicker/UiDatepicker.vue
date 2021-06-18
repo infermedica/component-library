@@ -249,7 +249,8 @@ export default {
         && (month < parseInt(currentMonth, 10)
           || (date.day && month <= parseInt(currentMonth, 10) && currentDay > date.day))
       );
-      const isCurrentLastDayOfMonth = new Date(currentYear, currentMonth, 0, 0, 0, 0).getDate() === parseInt(currentDay, 10);
+      const isCurrentLastDayOfMonth = new Date(currentYear, currentMonth, 0, 0, 0, 0).getDate()
+        === parseInt(currentDay, 10);
       const monthWithoutAvailableDays = parseInt(date.year, 10) === lastAvailableYear.value
         && month === parseInt(currentMonth, 10) && isCurrentLastDayOfMonth;
       return isMonthAboveLimit || isMonthBelowLimit || isMonthDaysLimitExceeded || monthWithoutAvailableDays;
