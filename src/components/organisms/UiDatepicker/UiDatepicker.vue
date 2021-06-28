@@ -420,8 +420,7 @@ export default {
         localeFile = await import(`date-fns/locale/${locale}/index`);
       } catch (error) {
         localeFile = await import('date-fns/locale/en-US/index');
-        if (!process.env.NODE_ENV.production) {
-          // eslint-disable-next-line no-console
+        if (process.env.NODE_ENV !== 'production') {
           console.error('Unrecognized language props value, default \'en-US\' language loaded');
         }
       }
