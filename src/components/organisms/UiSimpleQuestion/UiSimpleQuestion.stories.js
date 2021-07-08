@@ -9,6 +9,7 @@ export default {
   args: {
     options: [
       {
+        id: 'female',
         value: 'female',
         name: 'sex',
         label: 'Female',
@@ -17,6 +18,7 @@ export default {
         },
       },
       {
+        id: 'male',
         value: 'male',
         name: 'sex',
         label: 'Male',

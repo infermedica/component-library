@@ -1,5 +1,6 @@
 <template>
   <UiButton
+    :id="tileId"
     class="ui-tile ui-button--outlined"
     :class="{'ui-tile--selected': isChecked}"
     role="radio"
