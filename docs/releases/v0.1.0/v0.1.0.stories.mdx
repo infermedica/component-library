@@ -1,0 +1,41 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Releases/v0.1.0/v0.1.0" />
+
+<style> {`
+  code {
+    background-color: transparent!important;
+  }
+`}</style>
+
+# v0.1.0 (July 09, 2021)
+v0.1.0 add few improvements and fix bugs in UiDatepicker component, add UiProgressbar component and improve accessibility.
+## 🚀 Features
+- SC-950: [UiProgressbar](?path=/story/molecules-progressbar--common&globals=measureEnabled:false) component
+- SC-862: add aria-values to [UiRange](?path=/story/atoms-range--common&globals=measureEnabled:false) component
+- SC-859: add option to pass attrs from Datepicker to Calendar
+- SC-413: labeled stars in [UiRating](?path=/story/molecules-rating--common&globals=measureEnabled:false)
+- SC-413: add aria-labels
+- Numeric keyboard for [UiDatepicker](?path=/story/organisms-datepicker--common&globals=measureEnabled:false)
+- indexOfActiveStep binded to item-link in [UiStepper](?path=/story/molecules-stepper--with-current-step&globals=measureEnabled:false)
+- SC-740: Add new slots to stepper
+- SC-738: arabic bullet points
+- Text component has modifiers for all body fonts
+- SC-742: [UiDatepicker](?path=/story/organisms-datepicker--common&globals=measureEnabled:false) emit empty value on clear all values
+- SC-747: Add z-index for UiPopover
+- SC-676: Diable month if no days available
+
+## 🐛 Fixes
+- UiTile handle id
+- Localize error in [UiDatepicker](?path=/story/organisms-datepicker--common&globals=measureEnabled:false) is hidden on production
+- SC-925: [UiDatepicker](?path=/story/organisms-datepicker--common&globals=measureEnabled:false) calendar return the same day on assignDateParts
+- SC-925: data is update after change it on calendar
+- SC-914: [UiDatepicker](?path=/story/organisms-datepicker--common&globals=measureEnabled:false) without memory leak
+- SC-858: focus function in multiple answer use right component class
+- SC-741: Reduce [UiDatepicker](?path=/story/organisms-datepicker--common&globals=measureEnabled:false) popover top position to correct value
+- SC-758: Change displayed date format, D -> DD
+- Change letter spacing units - rem to em
+- SC-728: Correct validation for not fully filled dates - only month/year
+
+## 🧹 Chores
+- Upgrade SB to 6.3 with Measure addon
