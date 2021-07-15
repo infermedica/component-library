@@ -1,3 +1,4 @@
+import {Warning} from "@/components/atoms/UiAlert/UiAlert.stories.js";
 import UiCard from '@/components/organisms/UiCard/UiCard.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
@@ -16,7 +17,6 @@ export default {
     title: 'Call an ambulance',
     subtitle: 'Recommendation',
     description: 'Your symptoms are very serious, and you may require emergency care.',
-    type: 'emergency_ambulance',
   },
   argTypes: {
     title: {
@@ -64,7 +64,30 @@ const Template = (args) => ({
   />`,
 });
 
-export const Common = Template.bind({});
+export const Ambulance = Template.bind({});
+Ambulance.args = {
+  type: 'emergency_ambulance',
+};
+
+export const Emergency = Template.bind({});
+Emergency.args = {
+  type: 'emergency',
+};
+
+export const Consultation24 = Template.bind({});
+Consultation24.args = {
+  type: 'consultation_24',
+};
+
+export const Consultation = Template.bind({});
+Consultation.args = {
+  type: 'consultation',
+};
+
+export const SelfCare = Template.bind({});
+SelfCare.args = {
+  type: 'self_care',
+};
 
 export const WithSymptomsSlot = (args) => ({
   components: {
