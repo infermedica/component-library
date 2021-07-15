@@ -1,14 +1,10 @@
 <template>
-  <!-- @slot Use this slot to replace textarea template. -->
-  <slot>
-    <textarea
-      v-bind="$attrs"
-      :value="modelValue"
-      class="ui-textarea"
-      :style="{resize: resizeValue}"
-      @input="inputHandler($event.target.value)"
-    />
-  </slot>
+  <textarea
+    :value="modelValue"
+    class="ui-textarea"
+    :style="{resize: resizeValue}"
+    @input="inputHandler($event.target.value)"
+  />
 </template>
 
 <script>
@@ -16,7 +12,6 @@ import { computed } from 'vue';
 
 export default {
   name: 'UiTextArea',
-  inheritAttrs: false,
   props: {
     /**
      * Use this props or v-model to set value.
