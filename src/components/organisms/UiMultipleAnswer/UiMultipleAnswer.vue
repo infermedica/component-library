@@ -65,7 +65,7 @@
                       class="ui-multiple-answer__explication ui-button--text ui-button--has-icon"
                       @keydown="unfocusExplication"
                     >
-                      <UiIcon icon="infoOutlined" />
+                      <UiIcon icon="info" />
                     </UiButton>
                   </div>
                 </slot>

@@ -144,21 +144,21 @@ export const AsSimpleQuestion = (args) => ({
         value: 'present',
         label: 'Yes',
         iconAttrs: {
-          icon: 'check',
+          icon: 'yes',
         },
       },
       {
         value: 'absent',
         label: 'Male',
         iconAttrs: {
-          icon: 'cross',
+          icon: 'no',
         },
       },
       {
         value: 'unknown',
         label: 'Don\\'t know',
         iconAttrs: {
-          icon: 'arrowRight',
+          icon: 'dont-know',
         },
       },
     ]"
@@ -204,7 +204,7 @@ export const WithInfoSlot = (args) => ({
         class="ui-question__info ui-button--text ui-button--small ui-button--small ui-button--has-icon"
       >
         <UiIcon
-          icon="infoOutlined"
+          icon="info"
           class="ui-button__icon"
         />
         {{ translation.info }}

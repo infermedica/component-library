@@ -67,7 +67,7 @@ export const WithIconSlot = (args) => ({
   >
     <template #icon>
       <UiIcon 
-        icon="success"
+        icon="error-filled"
         class="ui-alert__icon"
       />
     </template>

@@ -5,6 +5,30 @@ module.exports = {
       ...config.resolve.alias,
       '@':path.resolve('src'),
     }
+    config.module.rules = config.module.rules.map((rule)=>{
+      if(rule.type !== 'asset/resource') {
+        return rule
+      }
+      rule.test = /\.(ico|jpg|jpeg|png|apng|gif|eot|otf|webp|ttf|woff|woff2|cur|ani|pdf)(\?.*)?$/;
+      return rule;
+    })
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: [
+        'vue-loader',
+        { loader: 'vue-svg-loader',
+          options: {
+            svgo: {
+              plugins: [
+                { removeDimensions: true },
+                { removeUselessStrokeAndFill: true },
+                { convertStyleToAttrs: true },
+              ]
+            }
+          }
+        },
+      ],
+    })
     config.module.rules.push({
       test: /\.scss$/,
       use: ['style-loader', 'css-loader', 'sass-loader'],

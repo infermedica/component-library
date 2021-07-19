@@ -13,7 +13,7 @@ export default {
     value: 'present',
     id: 'present',
     iconAttrs: {
-      icon: 'check',
+      icon: 'yes',
     },
   },
   argTypes: {
@@ -130,7 +130,7 @@ export const AsGroup = (args) => ({
         value: { choice_id: 'present' },
         id: 'present',
         iconAttrs: {
-          icon: 'check',
+          icon: 'yes',
         },
         label: 'Yes',
         class: ['mb-3', 'tablet:mr-6', 'tablet:mb-0'],
@@ -140,7 +140,7 @@ export const AsGroup = (args) => ({
         value: { choice_id: 'absent' },
         id: 'absent',
         iconAttrs: {
-          icon: 'cross',
+          icon: 'no',
         },
         label: 'No',
         class: ['mb-3', 'tablet:mr-6', 'tablet:mb-0'],
@@ -150,7 +150,7 @@ export const AsGroup = (args) => ({
         value: { choice_id: 'unknown' },
         id: 'unknown',
         iconAttrs: {
-          icon: 'arrowRight',
+          icon: 'dont-know',
         },
         label: 'Don\'t know',
       },

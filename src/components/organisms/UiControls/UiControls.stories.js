@@ -93,7 +93,7 @@ export const WithBottomSlot = (args) => ({
           class="ui-controls__back ui-button--text ui-button--has-icon"
         >
           <UiIcon
-            icon="chevronLeft"
+            icon="chevron-left"
             class="ui-button__icon"
           /> {{ translation.back }}
         </UiButton>
@@ -148,7 +148,7 @@ export const WithBackSlot = (args) => ({
         class="ui-controls__back ui-button--text ui-button--has-icon"
       >
         <UiIcon
-          icon="chevronLeft"
+          icon="chevron-left"
           class="ui-button__icon"
         /> {{ translation.back }}
       </UiButton>

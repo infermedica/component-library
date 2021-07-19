@@ -97,8 +97,8 @@ export default {
     settings: {
       type: Object,
       default: () => ({
-        icon: 'starOutlined',
-        iconActive: 'starFilled',
+        icon: 'star-outlined',
+        iconActive: 'star-filled',
       }),
     },
     /**

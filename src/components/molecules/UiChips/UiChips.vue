@@ -13,7 +13,7 @@
         @click="clickHandler"
       >
         <UiIcon
-          icon="reverseClose"
+          icon="chip-remove"
           class="ui-chips__icon"
         />
       </UiButton>

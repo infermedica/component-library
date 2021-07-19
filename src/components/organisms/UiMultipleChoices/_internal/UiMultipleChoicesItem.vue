@@ -24,7 +24,7 @@
           class="ui-multiple-choices-item__info ui-button--small ui-button--text ui-button--has-icon"
         >
           <UiIcon
-            icon="infoOutlined"
+            icon="info"
             class="ui-button__icon"
           />
           <span class="ui-multiple-choices-item__info-message">

@@ -100,7 +100,7 @@ WithIconAsSuffix.argTypes = {
   icon: {
     control: {
       type: 'select',
-      options: Object.keys(icons),
+      options: icons,
     },
   },
 };

@@ -13,8 +13,8 @@ export default {
     max: '5',
     radioAttrs: {},
     settings: {
-      icon: 'starOutlined',
-      iconActive: 'starFilled',
+      icon: 'star-outlined',
+      iconActive: 'star-filled',
     },
     translation: {
       stars: 'stars',

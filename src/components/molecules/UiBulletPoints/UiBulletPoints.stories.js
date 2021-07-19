@@ -14,7 +14,7 @@ export default {
     items: ['Painful swallowing', 'Stuffy nose', 'Sneeze', 'Muscle pain', 'Runny nose'],
     tag: 'ul',
     type: '1',
-    icon: 'bullet',
+    icon: 'bullet-common',
   },
   argTypes: {
     tag: { control: { type: 'select', options: ['ul', 'ol'] } },
@@ -22,7 +22,7 @@ export default {
     icon: {
       control: {
         type: 'select',
-        options: Object.keys(icons),
+        options: icons,
       },
     },
   },

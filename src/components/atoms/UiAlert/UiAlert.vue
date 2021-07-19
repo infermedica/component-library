@@ -48,9 +48,9 @@ export default {
     const rootClassModifier = computed(() => `ui-alert--${props.type}`);
     const icon = computed(() => {
       if (props.type === 'default') return '';
-      if (props.type === 'success' || props.type === 'info') return props.type;
-      if (props.type === 'warning') return props.type;
-      return 'exclamation';
+      if (props.type === 'success' || props.type === 'info') return `${props.type}-filled`;
+      if (props.type === 'warning') return `${props.type}-filled`;
+      return 'error-filled';
     });
 
     return {

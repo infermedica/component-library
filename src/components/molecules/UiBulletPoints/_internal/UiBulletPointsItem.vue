@@ -37,7 +37,7 @@ export default {
   props: {
     icon: {
       type: String,
-      default: 'bullet',
+      default: 'bullet-common',
     },
   },
   setup() {

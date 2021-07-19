@@ -1,18 +1,19 @@
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
+import UiText from '@/components/atoms/UiText/UiText.vue';
 import icons from '@/components/atoms/UiIcon/icons';
+import { defineAsyncComponent } from 'vue';
 
 export default {
   title: 'Atoms/Icon',
   component: UiIcon,
   args: {
-    icon: 'bulletAlarming',
-    viewBox: '0 0 48 48',
+    icon: 'absent',
   },
   argTypes: {
     icon: {
       control: {
         type: 'select',
-        options: Object.keys(icons),
+        options: icons,
       },
     },
   },
@@ -21,50 +22,67 @@ export default {
 const Template = (args) => ({
   components: { UiIcon },
   setup() { return { ...args }; },
-  template: `<UiIcon 
-    :icon="icon"
-    :view-box="viewBox"
-  />`,
+  template: '<UiIcon :icon="icon"/>',
 });
 
 export const IconAsName = Template.bind({});
 
-export const IconAsPaths = Template.bind({});
-IconAsPaths.args = {
-  icon: [{ d: 'M40 22c0 1-.453 2.402-3.648 4-1.301.652-2.692 1.117-4.352 1.434v3.957c7.848-1.336 12-4.77 12-9.391 0-6-8.953-10-20-10S4 16 4 22c0 5.43 5.73 9.219 16.45 9.895l-3.762 3.761 2.828 2.828L28 30l-8.484-8.484-2.828 2.828 3.566 3.57c-3.79-.203-6.332-.777-8.606-1.914C8.453 24.402 8 23 8 22s.453-2.402 3.648-4c2.954-1.477 7.317-2 12.352-2s9.398.523 12.352 2C39.547 19.598 40 21 40 22zm0 0' }],
-};
-IconAsPaths.argTypes = {
-  icon: { control: false },
-};
+export const IconAsImport = (args) => ({
+  components: { UiIcon },
+  setup() {
+    // todo: broken render on Docs view
+    const icon = defineAsyncComponent(() => import(
+      /* WebpackChunkName: "[request]" */
+      /* WebpackMode: "lazy-once" */
+      '../../../assets/svg/ce.svg'
+    ));
+    return {
+      ...args,
+      icon,
+    };
+  },
+  template: '<UiIcon :icon="icon"/>',
+});
 
-export const WithPathSlot = (args) => ({
+export const IconAsIllustration = (args) => ({
   components: { UiIcon },
   setup() { return { ...args }; },
-  template: `<UiIcon>
-    <template #path>
-      <path d="M31.418 15.14L24 0l-7.418 15.14L0 17.57l12 11.785L9.168 46 24 38.14 38.832 46 36 29.355 48 17.57zm8.031 5.22L28.75 18.792 24 9.093l-4.75 9.7-10.7 1.566 7.743 7.61-1.82 10.695L24 33.617l9.527 5.047-1.82-10.695zm0 0" fill-rule="evenodd"></path>
-    </template>
-  </UiIcon>`,
+  template: `<UiIcon
+      :icon="icon"
+      style="--icon-size: 15rem;"
+  />`,
 });
-WithPathSlot.argTypes = {
-  icon: { control: false },
-  viewBox: { control: false },
+IconAsIllustration.args = {
+  icon: 'agreement',
+  isIllustration: true,
 };
-WithPathSlot.parameters = {
-  controls: { hideNoControlsWarning: true },
+IconAsIllustration.argTypes = {
+  icon: {
+    control: {
+      type: 'select',
+      options: ['agreement', 'boy', 'no-internet-illustration', 'podium'],
+    },
+  },
 };
 
 export const ListOfIcons = () => ({
-  components: { UiIcon },
+  components: { UiIcon, UiText },
   setup() { return { icons }; },
-  template: `<div class="grid grid-cols-icon">
+  template: `<div class="grid grid-cols-icon gap-2">
     <div
-      v-for="(value, name) in icons"
+      v-for="icon in icons"
       :key="icon"
-      class="flex flex-col justify-center items-center h-24"
+      class="flex flex-col justify-center items-center"
     >
-      <UiIcon :icon="name"/>
-      <div class="my-2">{{ name }}</div>
+      <div class="flex justify-center items-center h-10">
+        <UiIcon 
+          :icon="icon"
+        />
+      </div>
+      <UiText 
+        class="ui-text--2-compact"
+        style="white-space: nowrap"
+      >{{ icon }}</UiText>
     </div>
   </div>`,
 });

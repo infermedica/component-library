@@ -1,15 +1,15 @@
 import UiMessage from '@/components/templates/UiMessage/UiMessage.vue';
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
-import UiImage from '@/components/atoms/UiImage/UiImage.vue';
+import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 
 export default {
   title: 'Templates/Message',
   component: UiMessage,
-  subcomponents: { UiHeading, UiImage },
+  subcomponents: { UiHeading, UiIcon },
   args: {
     title: 'Hello!',
-    illustration: 'message',
+    illustration: 'boy',
     content: 'You’re about to use a short (3 min), safe and anonymous health checkup. Your answers will be carefully analyzed and you’ll learn about possible causes of your symptoms.',
   },
   argTypes: {
@@ -28,7 +28,10 @@ export default {
       },
     },
     illustration: {
-      control: { type: 'multi-select', options: ['instruction', 'message', 'terms-of-service'] },
+      control: {
+        type: 'select',
+        options: ['agreement', 'boy', 'no-internet-illustration', 'podium', 'lock', 'agreement-rtl', 'boy-rtl', 'no-internet-illustration-rtl', 'podium-rtl'],
+      },
       table: {
         category: 'props',
       },
@@ -76,7 +79,7 @@ export const WithContentSlot = (args) => ({
 });
 
 export const WithAsideSlot = (args) => ({
-  components: { UiMessage, UiText, UiImage },
+  components: { UiMessage, UiText, UiIcon },
   setup() {
     return { ...args };
   },
@@ -89,9 +92,9 @@ export const WithAsideSlot = (args) => ({
         v-if="illustration"
         class="ui-message__aside"
       >
-        <UiImage
+        <UiIcon
+          :icon="illustration"
           class="ui-message__illustration"
-          :src="'/assets/illustrations/' + illustration + '.svg'"
         />
       </div>
     </template>
@@ -100,7 +103,7 @@ export const WithAsideSlot = (args) => ({
 });
 
 export const WithIllustrationSlot = (args) => ({
-  components: { UiMessage, UiText, UiImage },
+  components: { UiMessage, UiText, UiIcon },
   setup() {
     return { ...args };
   },
@@ -109,9 +112,9 @@ export const WithIllustrationSlot = (args) => ({
     :illustration="illustration"
   >
     <template #illustration="{illustration}">
-      <UiImage
+      <UiIcon
+        :icon="illustration"
         class="ui-message__illustration"
-        :src="'/assets/illustrations/' + illustration + '.svg'"
       />
     </template>
     <UiText>{{content}}</UiText>

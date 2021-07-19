@@ -34,9 +34,9 @@
           name="illustration"
           v-bind="{illustration}"
         >
-          <UiImage
+          <UiIcon
+            :icon="illustration"
             class="ui-message__illustration"
-            :src="`/assets/illustrations/${illustration}.svg`"
           />
         </slot>
       </div>
@@ -45,13 +45,13 @@
 </template>
 
 <script>
-import UiImage from '../../atoms/UiImage/UiImage.vue';
+import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
 
 export default {
   name: 'UiMessage',
   components: {
-    UiImage,
+    UiIcon,
     UiHeading,
   },
   props: {
@@ -106,8 +106,10 @@ export default {
   }
 
   &__illustration {
-    width: 100%;
+    --icon-size: 100%;
+
     max-width: 15rem;
+    max-height: 15rem;
   }
 }
 </style>

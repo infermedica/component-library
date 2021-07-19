@@ -1,17 +1,18 @@
 {
   "name": "@symptom-checker/ui-kit",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "test:unit": "vue-cli-service test:unit",
     "test:verbose": "vue-cli-service test:unit --verbose",
     "lint": "vue-cli-service lint --fix",
     "stylelint": "stylelint src/**/*.{vue,scss} --fix",
-    "build-storybook": "build-storybook -s ./public",
-    "storybook": "start-storybook -s ./public -p 6006",
+    "build-storybook": "node scripts/create-icons-list.js && build-storybook -s ./public",
+    "storybook": "node scripts/create-icons-list.js && start-storybook -s ./public -p 6006",
     "create-index": "node scripts/create-index.js",
     "create-component": "node scripts/create-component.js",
-    "postinstall": "node scripts/create-index.js"
+    "postinstall": "node scripts/create-index.js",
+    "create-icons-list": "node scripts/create-icons-list.js"
   },
   "main": "index.js",
   "module": "index.js",
@@ -79,7 +80,8 @@
     "typescript": "~4.3.4",
     "uppercamelcase": "^3.0.0",
     "vue-jest": "^5.0.0-alpha.10",
-    "vue-loader": "^16.1.2"
+    "vue-loader": "^16.1.2",
+    "vue-svg-loader": "^0.17.0-beta.2"
   },
   "eslintConfig": {
     "root": true,

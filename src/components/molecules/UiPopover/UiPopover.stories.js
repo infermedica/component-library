@@ -117,7 +117,7 @@ export const WithCloseSlot = (args) => ({
         class="ui-button--has-icon ui-button--secondary ui-button--text ui-popover__close"
         @click="clickHandler"
       >
-        <UiIcon icon="closeCompact" />
+        <UiIcon icon="clear" />
       </UiButton>
     </template>
     {{content}}

@@ -10,7 +10,7 @@
     <slot />
     <UiIcon
       v-if="isChecked"
-      icon="tick"
+      icon="present"
       class="ui-dropdown-item__icon"
     />
   </UiButton>

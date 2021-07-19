@@ -1,4 +1,3 @@
-import {Warning} from "@/components/atoms/UiAlert/UiAlert.stories.js";
 import UiCard from '@/components/organisms/UiCard/UiCard.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
@@ -113,7 +112,7 @@ export const WithSymptomsSlot = (args) => ({
           v-for="(symptom, key) in ['Vomiting', 'Abdominal pain, lasting 2 to 7 days']"
           :key="key"
         >
-          <UiBulletPointsItem icon="bulletAlarming" class="ui-bullet-points-item--primary">
+          <UiBulletPointsItem icon="bullet-alarming" class="ui-bullet-points-item--primary">
             <UiText>{{ symptom }}</UiText>
           </UiBulletPointsItem>
         </template>

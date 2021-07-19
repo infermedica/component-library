@@ -30,7 +30,7 @@
             class="ui-question__info ui-button--text ui-button--small ui-button--has-icon"
           >
             <UiIcon
-              icon="infoOutlined"
+              icon="info"
               class="ui-button__icon"
             />
             {{ translation.info }}
@@ -109,7 +109,7 @@
         >
           {{ translation.issue.skip }}
           <UiIcon
-            icon="chevronRight"
+            icon="chevron-right"
             class="ui-button__icon ui-button__icon--right"
           />
         </UiButton>

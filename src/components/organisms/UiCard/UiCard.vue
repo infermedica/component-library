@@ -111,11 +111,11 @@ export default {
     const rootClassModifier = computed(() => `ui-card--${props.type}`);
     const icon = computed(() => {
       const icons = {
-        emergency_ambulance: 'emergencyAmbulance',
-        emergency: 'emergencyDepartment',
-        consultation_24: 'consultation24',
+        emergency_ambulance: 'emergency-ambulance',
+        emergency: 'emergency',
+        consultation_24: 'consultation-24',
         consultation: 'consultation',
-        self_care: 'selfCare',
+        self_care: 'self-care',
       };
       return icons[props.type];
     });

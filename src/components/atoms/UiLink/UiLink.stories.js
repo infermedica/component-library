@@ -49,7 +49,7 @@ export const LargeWithIcon = (args) => ({
     @click="onClick"
   >
     <UiIcon
-      icon="reversePlus"
+      icon="plus-circled-filled"
       class="ui-link__icon"
     />
     {{content}}  

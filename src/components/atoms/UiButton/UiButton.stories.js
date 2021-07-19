@@ -67,7 +67,7 @@ export const OutlinedLargeWithIcon = (args) => ({
     :disabled="disabled"
   >
     <UiIcon 
-      icon="reversePlus" 
+      icon="plus-circled-filled" 
       class="ui-button__icon"
     />
       {{ content }}
@@ -115,7 +115,7 @@ export const OutlinedLargeWithIconOnRight = (args) => ({
   >
     {{ content }}
     <UiIcon
-      icon="reversePlus"
+      icon="plus-circled-filled"
       class="ui-button__icon ui-button__icon--right"
     />
   </UiButton>`,

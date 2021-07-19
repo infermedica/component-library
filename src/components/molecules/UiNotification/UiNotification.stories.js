@@ -86,7 +86,7 @@ export const WithLink = (args) => ({
     >
       Skip this question
       <UiIcon 
-        icon="chevronRight"
+        icon="chevron-right"
         class="ui-link__icon ui-link__icon--right"
       />
     </UiLink>

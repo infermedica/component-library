@@ -4,7 +4,7 @@ node_modules
 
 # auto-generated file
 /index.js
-
+icons.js
 # local env files
 .env.local
 .env.*.local

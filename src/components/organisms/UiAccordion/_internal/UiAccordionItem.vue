@@ -3,7 +3,7 @@
     <!-- @slot Use this slot to replace toggler template. -->
     <slot
       name="toggler"
-      v-bind="{ toggle, name, icon, title, isOpen }"
+      v-bind="{ toggle, name, icon, title, isOpen, iconOpen: settings.iconOpen, iconClose: settings.iconClose }"
     >
       <UiButton
         :id="`toggler${name}`"
@@ -15,12 +15,20 @@
         <!-- @slot Use this slot to replace chevron template. -->
         <slot
           name="chevron"
-          v-bind="{ icon }"
+          v-bind="{ isOpen, iconOpen: settings.iconOpen, iconClose: settings.iconClose }"
         >
-          <UiIcon
-            :icon="icon"
-            class="ui-accordion-item__chevron"
-          />
+          <template v-if="isOpen">
+            <UiIcon
+              :icon="settings.iconOpen"
+              class="ui-accordion-item__chevron"
+            />
+          </template>
+          <template v-else>
+            <UiIcon
+              :icon="settings.iconClose"
+              class="ui-accordion-item__chevron"
+            />
+          </template>
         </slot>
         {{ title }}
       </UiButton>
@@ -76,8 +84,8 @@ export default {
     settings: {
       type: Object,
       default: () => ({
-        iconOpen: 'chevronUp',
-        iconClose: 'chevronDown',
+        iconOpen: 'chevron-up',
+        iconClose: 'chevron-down',
       }),
     },
   },
