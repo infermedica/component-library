@@ -1,4 +1,8 @@
 module.exports = {
+  purge: [
+    './src/**/*.stories.js',
+    './src/**/*.stories.mdx',
+  ],
   theme: {
     screens: {
       tablet: '768px',

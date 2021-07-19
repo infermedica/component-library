@@ -2,6 +2,7 @@ import UiMessage from '@/components/templates/UiMessage/UiMessage.vue';
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
+import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 
 export default {
   title: 'Templates/Message',
@@ -16,6 +17,13 @@ export default {
     title: {
       control: { type: 'text' },
       description: 'Use this props to set message title.',
+      table: {
+        category: 'props',
+      },
+    },
+    subtitle: {
+      control: { type: 'text' },
+      description: 'Use this props to set message subtitle.',
       table: {
         category: 'props',
       },
@@ -120,3 +128,58 @@ export const WithIllustrationSlot = (args) => ({
     <UiText>{{content}}</UiText>
   </UiMessage>`,
 });
+
+export const AsNotAuthorized = (args) => ({
+  components: { UiMessage, UiText },
+  setup() {
+    return { ...args };
+  },
+  template: `<UiMessage
+    :title="title"
+    :subtitle="subtitle"
+    :illustration="illustration"
+    :style="{
+      '--message-tablet-flex-direction': 'row-reverse',
+      '--message-aside-tablet-margin': '0 var(--space-40) 0 0',
+      '--message-aside-tablet-rtl-margin': '0 0 0 var(--space-40)',
+      '--message-content-align-slef': 'flex-start',
+      '--message-illustration-size': '10rem',
+    }"
+  >
+  <UiText>If you are an administrator of this website, then check your integration settings.</UiText>
+  </UiMessage>`,
+});
+AsNotAuthorized.args = {
+  subtitle: 'Error 401',
+  title: 'Sorry, you are not allowed to see this page',
+  illustration: 'lock',
+};
+
+export const AsOffline = (args) => ({
+  components: { UiMessage, UiText, UiButton },
+  setup() {
+    return { ...args };
+  },
+  template: `<UiMessage
+    :title="title"
+    :subtitle="subtitle"
+    :illustration="illustration"
+    :style="{
+      '--message-tablet-flex-direction': 'row-reverse',
+      '--message-aside-tablet-margin': '0 var(--space-40) 0 0',
+      '--message-aside-tablet-rtl-margin': '0 0 0 var(--space-40)',
+      '--message-content-align-slef': 'flex-start',
+      '--message-illustration-size': '10rem',
+    }"
+  >
+  <UiText>If you are an administrator of this website, then check your integration settings.</UiText>
+  <UiButton 
+    class="ui-button--text" 
+    style="margin: var(--space-16) 0 0 0;"
+  >Try again</UiButton>
+  </UiMessage>`,
+});
+AsOffline.args = {
+  title: 'No internet connection',
+  illustration: 'no-internet-illustration',
+};
