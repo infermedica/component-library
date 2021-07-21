@@ -183,3 +183,37 @@ AsOffline.args = {
   title: 'No internet connection',
   illustration: 'no-internet-illustration',
 };
+
+export const AsOfflinePopover = (args) => ({
+  components: { UiMessage, UiText, UiButton },
+  setup() {
+    return { ...args };
+  },
+  template: `<UiMessage
+    :title="title"
+    :subtitle="subtitle"
+    :illustration="illustration"
+    :heading-title-attrs="headingTitleAttrs"
+    :style="{
+      '--message-tablet-flex-direction': 'row-reverse',
+      '--message-content-tablet-margin': '0',
+      '--message-aside-tablet-margin': '0 var(--space-12) 0 0',
+      '--message-aside-tablet-rtl-margin': '0 0 0 var(--space-12)',
+      '--message-content-align-slef': 'flex-start',
+      '--message-illustration-size': '1.5rem',
+    }"
+  >
+  <UiText>If you are an administrator of this website, then check your integration settings.</UiText>
+  <UiButton 
+    class="ui-button--text" 
+    style="margin: var(--space-16) 0 0 0;"
+  >Try again</UiButton>
+  </UiMessage>`,
+});
+AsOfflinePopover.args = {
+  title: 'No internet connection',
+  illustration: 'no-internet',
+  headingTitleAttrs: {
+    level: '4',
+  },
+};

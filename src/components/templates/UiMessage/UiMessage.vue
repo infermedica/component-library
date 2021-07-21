@@ -21,10 +21,11 @@
         <!-- @slot Use this slot to replace title template. -->
         <slot
           name="title"
-          v-bind="{title}"
+          v-bind="{title, headingTitleAttrs}"
         >
           <UiHeading
             v-if="title"
+            v-bind="headingTitleAttrs"
             class="ui-message__title"
           >
             {{ title }}
@@ -89,6 +90,13 @@ export default {
     illustration: {
       type: [String, Boolean],
       default: '',
+    },
+    /**
+     * Use this props to pass attrs for title UiHeading
+     */
+    headingTitleAttrs: {
+      type: Object,
+      default: () => ({}),
     },
   },
 };
