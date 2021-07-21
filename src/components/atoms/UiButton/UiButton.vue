@@ -1,6 +1,7 @@
 <template>
   <component
     :is="componentTag"
+    v-keyboard-focus
     v-bind="routeAttrs"
     class="ui-button"
   >
@@ -11,9 +12,13 @@
 
 <script>
 import useLink from '../../../composable/useLink';
+import { keyboardFocus } from '../../../utilities/directives';
 
 export default {
   name: 'UiButton',
+  directives: {
+    keyboardFocus,
+  },
   props: {
     /**
      * Use this props to set tag when a component shouldn't be a button.

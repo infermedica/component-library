@@ -9,6 +9,7 @@
       v-bind="{attrs: getInputAttrs($attrs), input: inputHandler, value: modelValue, validation: keyValidation}"
     >
       <input
+        v-keyboard-focus
         v-bind="getInputAttrs($attrs)"
         :value="modelValue"
         class="ui-input__element"
@@ -35,11 +36,15 @@
 import UiText from '../UiText/UiText.vue';
 import useInput from '../../../composable/useInput';
 import useKeyValidation from '../../../composable/useKeyValidation';
+import { keyboardFocus } from '../../../utilities/directives';
 
 export default {
   name: 'UiInput',
   components: {
     UiText,
+  },
+  directives: {
+    keyboardFocus,
   },
   inheritAttrs: false,
   props: {

@@ -38,8 +38,10 @@ export default {
 
 const Template = (args) => ({
   components: { UiButton },
-  setup() { return { ...args }; },
-  template: `<UiButton 
+  setup() {
+    return { ...args };
+  },
+  template: `<UiButton
     :class="modifiers"
     :disabled="disabled"
   >

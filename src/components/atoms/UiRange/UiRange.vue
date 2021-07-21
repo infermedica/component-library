@@ -36,6 +36,7 @@
         v-bind="{attrs: getInputAttrs($attrs), min, max, value: modelValue, change: changeHandler}"
       >
         <input
+          v-keyboard-focus
           v-bind="getInputAttrs($attrs)"
           type="range"
           :min="min"
@@ -73,12 +74,16 @@ import { computed } from 'vue';
 import UiButton from '../UiButton/UiButton.vue';
 import UiIcon from '../UiIcon/UiIcon.vue';
 import useInput from '../../../composable/useInput';
+import { keyboardFocus } from '../../../utilities/directives';
 
 export default {
   name: 'UiRange',
   components: {
     UiButton,
     UiIcon,
+  },
+  directives: {
+    keyboardFocus,
   },
   inheritAttrs: false,
   props: {

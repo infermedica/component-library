@@ -1,5 +1,6 @@
 <template>
   <textarea
+    v-keyboard-focus
     :value="modelValue"
     class="ui-textarea"
     :style="{resize: resizeValue}"
@@ -9,9 +10,13 @@
 
 <script>
 import { computed } from 'vue';
+import { keyboardFocus } from '../../../utilities/directives';
 
 export default {
   name: 'UiTextArea',
+  directives: {
+    keyboardFocus,
+  },
   props: {
     /**
      * Use this props or v-model to set value.

@@ -6,6 +6,7 @@
   >
     <input
       :id="radioId"
+      v-keyboard-focus
       type="radio"
       class="visual-hidden"
       :checked="isChecked"
@@ -42,9 +43,13 @@ import equal from 'fast-deep-equal';
 import { uid } from 'uid/single';
 import { computed } from 'vue';
 import useInput from '../../../composable/useInput';
+import { keyboardFocus } from '../../../utilities/directives';
 
 export default {
   name: 'UiRadio',
+  directives: {
+    keyboardFocus,
+  },
   inheritAttrs: false,
   props: {
     /**

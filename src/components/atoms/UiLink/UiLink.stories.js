@@ -6,6 +6,7 @@ export default {
   component: UiLink,
   args: {
     content: 'Back',
+    href: '#',
   },
   argTypes: {
     content: { control: 'text' },
@@ -29,7 +30,8 @@ export default {
 const Template = (args) => ({
   components: { UiLink },
   setup() { return { ...args }; },
-  template: `<UiLink 
+  template: `<UiLink
+    :href="href"
     :class="modifiers"
     :disabled="disabled"
     @click="onClick"
@@ -43,7 +45,8 @@ export const Large = Template.bind({});
 export const LargeWithIcon = (args) => ({
   components: { UiLink, UiIcon },
   setup() { return { ...args }; },
-  template: `<UiLink 
+  template: `<UiLink
+    :href="href"
     :class="modifiers"
     :disabled="disabled"
     @click="onClick"
@@ -97,10 +100,10 @@ SmallSecondaryWithIcon.args = {
 export const LargeAsRouterLink = (args) => ({
   components: { UiLink },
   setup() { return { ...args }; },
-  template: `<UiLink 
+  template: `<UiLink
+    :to="to"
     :class="modifiers"
     :disabled="disabled"
-    :to="to"
   >
     {{content}}  
   </UiLink>`,
@@ -115,10 +118,10 @@ LargeAsRouterLink.argTypes = {
 export const LargeAsLink = (args) => ({
   components: { UiLink },
   setup() { return { ...args }; },
-  template: `<UiLink 
+  template: `<UiLink
+    :href="href"
     :class="modifiers"
     :disabled="disabled"
-    :href="href"
   >
     {{content}}  
   </UiLink>`,

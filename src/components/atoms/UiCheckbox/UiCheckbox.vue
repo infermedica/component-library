@@ -6,6 +6,7 @@
   >
     <input
       :id="checkboxId"
+      v-keyboard-focus
       v-bind="getInputAttrs($attrs)"
       :checked="isChecked"
       type="checkbox"
@@ -45,11 +46,15 @@ import { uid } from 'uid/single';
 import { computed } from 'vue';
 import UiIcon from '../UiIcon/UiIcon.vue';
 import useInput from '../../../composable/useInput';
+import { keyboardFocus } from '../../../utilities/directives';
 
 export default {
   name: 'UiCheckbox',
   components: {
     UiIcon,
+  },
+  directives: {
+    keyboardFocus,
   },
   inheritAttrs: false,
   props: {
