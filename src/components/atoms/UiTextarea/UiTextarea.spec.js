@@ -1,15 +1,15 @@
 import { mount } from '@vue/test-utils';
-import UiTextArea from './UiTextArea.vue';
+import UiTextarea from './UiTextarea.vue';
 
-describe('UiTextArea.vue', () => {
+describe('UiTextarea.vue', () => {
   test('renders a component', () => {
-    const wrapper = mount(UiTextArea);
+    const wrapper = mount(UiTextarea);
     const textarea = wrapper.find('textarea');
     expect(textarea.classes('ui-textarea')).toBe(true);
   });
   test('render a native attributes on input element', () => {
     const placeholder = 'symptom checker';
-    const wrapper = mount(UiTextArea, {
+    const wrapper = mount(UiTextarea, {
       props: {
         placeholder,
       },
@@ -19,7 +19,7 @@ describe('UiTextArea.vue', () => {
   });
   test('a component emits input event', async () => {
     const content = 'symptom checker';
-    const wrapper = mount(UiTextArea);
+    const wrapper = mount(UiTextarea);
     wrapper.setValue(content);
     await wrapper.trigger('input');
     expect(wrapper.emitted('update:modelValue')[0][0]).toBe(content);

@@ -1,10 +1,10 @@
-import UiTextArea from '@/components/atoms/UiTextArea/UiTextArea.vue';
+import UiTextarea from '@/components/atoms/UiTextarea/UiTextarea.vue';
 
 import { ref } from 'vue';
 
 export default {
-  title: 'Atoms/TextArea',
-  component: UiTextArea,
+  title: 'Atoms/Textarea',
+  component: UiTextarea,
   args: {
     placeholder: 'I still don’t know what should I do',
     resize: true,
@@ -35,12 +35,12 @@ export default {
 };
 
 const Template = (args) => ({
-  components: { UiTextArea },
+  components: { UiTextarea },
   setup() {
     const modelValue = ref('');
     return { ...args, modelValue };
   },
-  template: `<UiTextArea
+  template: `<UiTextarea
     v-model="modelValue"
     :resize="resize"
     :placeholder="placeholder"

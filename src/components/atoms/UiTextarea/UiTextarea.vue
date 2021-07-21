@@ -13,7 +13,7 @@ import { computed } from 'vue';
 import { keyboardFocus } from '../../../utilities/directives';
 
 export default {
-  name: 'UiTextArea',
+  name: 'UiTextarea',
   directives: {
     keyboardFocus,
   },
