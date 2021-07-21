@@ -12,9 +12,6 @@ export const keyboardFocus = {
     };
     window.addEventListener('mousedown', el.__vueMouseHandler__);
     el.addEventListener('keyup', el.__vueKeyHandler__);
-    el.addEventListener('focus', () => {
-      document.body.style.setProperty('--box-shadow-outline', 'none');
-    });
   },
   beforeUnmount(el) {
     window.removeEventListener('mousedown', el.__vueMouseHandler__);
