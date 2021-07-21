@@ -88,6 +88,7 @@
           <!-- @slot Use this slot to replace content template. -->
           <slot name="content">
             <div
+              v-scroll-tabindex
               class="ui-side-panel__content"
               :body-scroll-lock-ignore="true"
             >
@@ -109,7 +110,7 @@ import {
   onMounted,
   onBeforeUnmount,
 } from 'vue';
-import { focusTrap, bodyScrollLock } from '../../../utilities/directives';
+import { focusTrap, bodyScrollLock, scrollTabindex } from '../../../utilities/directives';
 
 import UiBackdrop from '../../atoms/UiBackdrop/UiBackdrop.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
@@ -129,6 +130,7 @@ export default {
   directives: {
     focusTrap,
     bodyScrollLock,
+    scrollTabindex,
   },
   props: {
     modelValue: {

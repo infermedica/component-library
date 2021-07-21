@@ -14,16 +14,21 @@ export const focusTrap = {
       }
       moveFocus(event, el.__vueFocusableElements__);
     };
+    el.__observer__ = new MutationObserver(() => {
+      el.__vueFocusableElements__ = getFocusableElements(el);
+    });
+    el.__observer__.observe(el, {
+      attributes: false,
+      childList: true,
+      subtree: true,
+    });
     document.addEventListener('keydown', el.__vueKeyHandler__);
-  },
-  async updated(el) {
-    await nextTick();
-    el.__vueFocusableElements__ = getFocusableElements(el);
   },
   beforeUnmount(el) {
     if (el.__vueLastFocusedElement) {
       el.__vueLastFocusedElement.focus();
     }
     document.removeEventListener('keydown', el.__vueKeyHandler__);
+    el.__observer__.disconnect();
   },
 };

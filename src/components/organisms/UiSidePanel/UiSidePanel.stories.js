@@ -6,8 +6,9 @@ import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints.vue';
 import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue';
-import { focusTrap, bodyScrollLock } from '@/utilities/directives';
-import { ref } from 'vue';
+import UiLink from '@/components/atoms/UiLink/UiLink.vue';
+import { focusTrap, bodyScrollLock, scrollTabindex } from '@/utilities/directives';
+import { onMounted, ref } from 'vue';
 
 export default {
   title: 'Organisms/SidePanel',
@@ -51,7 +52,7 @@ export default {
 
 const Template = (args) => ({
   components: {
-    UiSidePanel, UiButton, UiHeading, UiBulletPoints, UiBulletPointsItem, UiText,
+    UiSidePanel, UiButton, UiHeading, UiBulletPoints, UiBulletPointsItem, UiText, UiLink,
   },
   setup() {
     const modelValue = ref(true);
@@ -78,7 +79,7 @@ const Template = (args) => ({
           type="a"
         >
           <UiBulletPointsItem>
-            <UiText>principles of operation of the website and the mobile application "Symptomate.com",</UiText>
+            <UiText>principles of operation of the website and the mobile application "<UiLink href="#">Symptomate.com</UiLink>",</UiText>
           </UiBulletPointsItem>
           <UiBulletPointsItem>
             <UiText>rules on the provision of services by electronic means,</UiText>
@@ -414,6 +415,7 @@ export const WithContentSlot = (args) => ({
   components: {
     UiSidePanel, UiButton, UiText,
   },
+  directives: { scrollTabindex },
   setup() {
     const modelValue = ref(true);
     return { ...args, modelValue };
@@ -432,11 +434,86 @@ export const WithContentSlot = (args) => ({
   >
     <template #content>
       <div
+        v-scroll-tabindex
         class="ui-side-panel__content"
         :body-scroll-lock-ignore="true"
       >
         <UiText>Symptomate is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
       </div>
+    </template>
+  </UiSidePanel>`,
+});
+
+export const WithAsynContent = (args) => ({
+  components: {
+    UiSidePanel, UiButton, UiHeading, UiBulletPoints, UiBulletPointsItem, UiText, UiLink,
+  },
+  setup() {
+    const modelValue = ref(true);
+    const isLoaded = ref(false);
+    onMounted(() => (
+      window.setTimeout(() => (
+        isLoaded.value = true
+      ), 1000)
+    ));
+    return { ...args, modelValue, isLoaded };
+  },
+  template: `<UiButton
+      class="ui-button--text ui-button--secondary"
+      @click="modelValue = true;"
+  >{{ title }}</UiButton>
+  <UiSidePanel 
+    v-model="modelValue"
+    :title="title"
+    :subtitle="subtitle"
+    :button-close-attrs="buttonCloseAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
+  >
+    <template v-if="isLoaded">
+      <UiHeading>§1. General Provisions</UiHeading>
+      <UiBulletPoints tag="ol">
+        <UiBulletPointsItem style="margin: var(--space-32) 0">
+          <UiText>These Terms of Service specify:</UiText>
+          <UiBulletPoints
+            tag="ol"
+            type="a"
+          >
+            <UiBulletPointsItem>
+              <UiText>principles of operation of the website and the mobile application "<UiLink href="#">Symptomate.com</UiLink>",</UiText>
+            </UiBulletPointsItem>
+            <UiBulletPointsItem>
+              <UiText>rules on the provision of services by electronic means,</UiText>
+            </UiBulletPointsItem>
+            <UiBulletPointsItem>
+              <UiText>the rights and obligations of the Service Provider and the Service Recipients.</UiText>
+            </UiBulletPointsItem>
+          </UiBulletPoints>
+        </UiBulletPointsItem>
+        <UiBulletPointsItem style="margin: var(--space-32) 0">
+          <UiText>Whenever these Terms of Service refer to:</UiText>
+          <UiBulletPoints
+            tag="ol"
+            type="a"
+          >
+            <UiBulletPointsItem>
+              <UiText>Application, this means the software for portable devices, made available free of charge by the Service Provider referred to in sec. 2(l) below, enabling the use of the Services referred to in sec. 2(k) below,</UiText>
+            </UiBulletPointsItem>
+            <UiBulletPointsItem>
+              <UiText>Articles, this means articles referring to medical and pharmaceutical topics,</UiText>
+            </UiBulletPointsItem>
+            <UiBulletPointsItem>
+              <UiText>License, this means a non-exclusive, royalty-free license granted to Users referred to in sec. 2(m) below to use the Application or Website referred to in sec. 2(j) below,</UiText>
+            </UiBulletPointsItem>
+            <UiBulletPointsItem>
+              <UiText>Terms of Service, this means these Terms of Service,</UiText>
+            </UiBulletPointsItem>
+            <UiBulletPointsItem>
+              <UiText>GDPR, this means Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016 on the protection of individuals with regard to the processing of personal data and on the free movement of such data and repealing Directive 95/46/EC (General Data Protection Regulation) (OJ L 119, p. 1),</UiText>
+            </UiBulletPointsItem>
+          </UiBulletPoints>
+        </UiBulletPointsItem>
+      </UiBulletPoints>
     </template>
   </UiSidePanel>`,
 });
