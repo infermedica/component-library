@@ -19,8 +19,9 @@ export default {
   setup(props) {
     const file = typeof props.icon === 'string'
       ? defineAsyncComponent(() => import(
-        /* WebpackChunkName: "[request]" */
-        /* WebpackMode: "lazy-once" */
+        /* WebpackChunkName: "icons" */
+        /* WebpackMode: "eager" */
+        /* webpackPrefetch: true */
         `../../../assets/svg/${props.icon}.svg`
       ))
       : props.icon;
