@@ -17,7 +17,7 @@ export default {
   argTypes: {
     content: { control: 'text' },
     modifiers: {
-      control: { type: 'multi-select', options: ['ui-popover--has-arrow', 'ui-popover--unrounded', 'ui-popover--has-mobile'] },
+      control: { type: 'multi-select', options: ['ui-popover--has-arrow', 'ui-popover--has-left-arrow', 'ui-popover--unrounded', 'ui-popover--has-mobile'] },
       table: {
         category: 'HTML attributes',
       },
@@ -40,10 +40,16 @@ const Template = (args) => ({
   </UiPopover>`,
 });
 
-export const Popover = Template.bind({});
-Popover.args = {
+export const HasArrow = Template.bind({});
+HasArrow.args = {
   modifiers: ['ui-popover--has-arrow'],
 };
+
+export const HasLeftArrow = Template.bind({});
+HasLeftArrow.args = {
+  modifiers: ['ui-popover--has-left-arrow'],
+};
+
 export const Unrounded = Template.bind({});
 Unrounded.args = {
   modifiers: ['ui-popover--unrounded'],
@@ -72,8 +78,8 @@ BottomPanel.parameters = {
     defaultViewport: 'mobile2',
   },
 };
-export const Dropdown = Template.bind({});
-Dropdown.args = {
+export const AsDropdown = Template.bind({});
+AsDropdown.args = {
   title: '',
 };
 

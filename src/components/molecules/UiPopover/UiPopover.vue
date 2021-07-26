@@ -114,23 +114,37 @@ export default {
     --popover-border-radius: 0;
   }
 
-  &--has-arrow {
+  &--has-arrow,
+  &--has-left-arrow {
     #{$this}__header {
       &::after {
         position: absolute;
         top: 50%;
-        right: 0;
         width: var(--popver-arrow-size, 0.75rem);
         height: var(--popver-arrow-size, 0.75rem);
         content: "";
         background: var(--popover-header-background, var(--color-background-subtle));
         border: var(--popover-border, solid var(--color-border-subtle));
+      }
+    }
+  }
+
+  &--has-arrow {
+    #{$this}__header {
+      &::after {
+        right: 0;
         border-width: var(--popover-arrow-border-width, 1px 1px 0 0);
         transform: translate(50%, -50%) rotate(45deg);
+      }
+    }
+  }
 
-        [dir=rtl] & {
-          border-width: var(--popover-arrow-border-width, 1px 0 0 1px);
-        }
+  &--has-left-arrow {
+    #{$this}__header {
+      &::after {
+        left: 0;
+        border-width: var(--popover-arrow-border-width, 0 0 1px 1px);
+        transform: translate(-50%, -50%) rotate(45deg);
       }
     }
   }
