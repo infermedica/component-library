@@ -16,7 +16,7 @@
             :for="datePart"
             class="ui-datepicker__label"
           >
-            {{ capitalize(translation[datePart]) }}
+            {{ capitalizeFirst(translation[datePart]) }}
           </UiText>
           <component
             :is="inputComponentSelector(`${datePart}`)"
@@ -44,11 +44,6 @@
 
 <script>
 import {
-  format,
-  isMatch,
-  lightFormat,
-} from 'date-fns';
-import {
   computed,
   nextTick,
   onMounted,
@@ -57,6 +52,13 @@ import {
   ref,
   watch,
 } from 'vue';
+import {
+  format,
+  isMatch,
+  lightFormat,
+} from 'date-fns';
+import { capitalizeFirst } from '@/utilities/helpers/capitalize-first';
+
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiDropdown from '../../molecules/UiDropdown/UiDropdown.vue';
 import UiFormField from '../../molecules/UiFormField/UiFormField.vue';
@@ -444,8 +446,6 @@ export default {
       emit('update:invalid', !isValid);
     });
 
-    const capitalize = (value) => value.replace(/^\w/gm, (char) => (char.toUpperCase()));
-
     provide('translation', props.translation);
     provide('order', props.order);
 
@@ -463,7 +463,7 @@ export default {
       focusNextField,
       inputComponentSelector,
       errorDisplayHandler,
-      capitalize,
+      capitalizeFirst,
     };
   },
 };

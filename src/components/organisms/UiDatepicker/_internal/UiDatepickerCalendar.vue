@@ -28,7 +28,7 @@
           v-for="(datePart, key) in order"
           :key="key"
           v-model="date[datePart]"
-          :title="capitalize(translation[datePart])"
+          :title="capitalizeFirst(translation[datePart])"
           class="ui-datepicker-calender__tab-content"
           @update:modelValue="goToNextTab"
         />
@@ -43,6 +43,8 @@ import {
   inject,
   ref,
 } from 'vue';
+import { capitalizeFirst } from '@/utilities/helpers/capitalize-first';
+
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiDropdown from '../../../molecules/UiDropdown/UiDropdown.vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
@@ -128,8 +130,6 @@ export default {
       }
     }
 
-    const capitalize = (value) => value.replace(/^\w/gm, (char) => (char.toUpperCase()));
-
     return {
       dropdown,
       translation,
@@ -139,7 +139,7 @@ export default {
       tabComponentSelector,
       openCalendar,
       goToNextTab,
-      capitalize,
+      capitalizeFirst,
     };
   },
 };
