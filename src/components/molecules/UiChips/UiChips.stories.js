@@ -25,8 +25,8 @@ export default {
 const Template = (args) => ({
   components: { UiChips },
   setup() { return { ...args }; },
-  template: `<UiChips 
-    :button-attrs="buttonAttrs" 
+  template: `<UiChips
+    :button-attrs="buttonAttrs"
     @remove="onRemove"
   >
     {{content}}
@@ -49,7 +49,7 @@ export const WithRemoveSlot = (args) => ({
         @click="clickHandler"
       >
         <UiIcon
-          icon="chip-remove"
+          icon="remove-filled"
           class="ui-chips__icon"
         />
       </UiButton>

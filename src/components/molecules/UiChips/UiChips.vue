@@ -13,7 +13,7 @@
         @click="clickHandler"
       >
         <UiIcon
-          icon="chip-remove"
+          icon="remove-filled"
           class="ui-chips__icon"
         />
       </UiButton>
@@ -76,6 +76,7 @@ export default {
     --button-icon-color-hover: var(--chips-remove-hover-background, var(--color-chip-icon-backgroud-hover));
     --button-icon-color-active: var(--chips-remove-active-background, var(--color-chip-icon-backgroud-active));
     --icon-size: var(--chips-remove-size, 1.5rem);
+    --remove-filled-close: var(--chips-remove-cross, var(--color-chip-icon-on-dark-enabled));
 
     margin: var(--chips-remove-margin, 2px 2px 2px calc(var(--space-4) + 2px));
 
