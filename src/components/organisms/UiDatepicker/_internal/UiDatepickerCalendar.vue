@@ -43,7 +43,7 @@ import {
   inject,
   ref,
 } from 'vue';
-import { capitalizeFirst } from '@/utilities/helpers/capitalize-first';
+import { capitalizeFirst } from '../../../../utilities/helpers';
 
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiDropdown from '../../../molecules/UiDropdown/UiDropdown.vue';
