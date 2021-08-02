@@ -3,6 +3,11 @@ html {
   --font-family-heading: "Roboto", sans-serif;
   --font-family-body: "Roboto", sans-serif;
 
+  &[dir=rtl] {
+    --font-family-heading: "IBM Plex Sans", sans-serif;
+    --font-family-body: "IBM Plex Sans", sans-serif;
+  }
+
   // Font size
   --font-size-1: 0.875rem;
   --font-size-2: 1rem;
@@ -27,8 +32,6 @@ html {
   --letter-spacing-medium: 0.02em;
 
   // Font
-  // mobile variants
-  /* stylelint-disable */
   --font-h1: var(--font-weight-default) var(--font-size-6) / var(--line-height-default) var(--font-family-heading);
   --font-h2: var(--font-weight-default) var(--font-size-4) / var(--line-height-default) var(--font-family-heading);
   --font-h3: var(--font-weight-default) var(--font-size-3) / var(--line-height-default) var(--font-family-heading);
@@ -42,15 +45,26 @@ html {
   --font-body-2-compact-thick: var(--font-weight-thick) var(--font-size-1) / var(--line-height-1) var(--font-family-body);
 
   @media screen and (min-width: 768px) {
-    // desktop variants
     --font-h1: var(--font-weight-default) var(--font-size-7) / var(--line-height-default) var(--font-family-heading);
     --font-h2: var(--font-weight-default) var(--font-size-5) / var(--line-height-default) var(--font-family-heading);
     --font-h3: var(--font-weight-default) var(--font-size-4) / var(--line-height-default) var(--font-family-heading);
   }
-  /* stylelint-enable */
 
-  &[dir=rtl] {
-    --font-family-heading: "IBM Plex Sans", sans-serif;
-    --font-family-body: "IBM Plex Sans", sans-serif;
+  // Font letter spacing
+  --letter-spacing-h1: var(--letter-spacing-none);
+  --letter-spacing-h2: var(--letter-spacing-none);
+  --letter-spacing-h3: var(--letter-spacing-small);
+  --letter-spacing-h4: var(--letter-spacing-medium);
+  --letter-spacing-h5: var(--letter-spacing-medium);
+  --letter-spacing-font-body-1: var(--letter-spacing-medium);
+  --letter-spacing-font-body-1-thick: var(--letter-spacing-medium);
+  --letter-spacing-font-body-2-comfortable: var(--letter-spacing-medium);
+  --letter-spacing-font-body-2-comfortable-thick: var(--letter-spacing-medium);
+  --letter-spacing-font-body-2-compact: var(--letter-spacing-medium);
+  --letter-spacing-font-body-2-compact-thick: var(--letter-spacing-medium);
+
+  @media screen and (min-width: 768px) {
+    --letter-spacing-h2: var(--letter-spacing-small);
+    --letter-spacing-h3: var(--letter-spacing-small);
   }
 }

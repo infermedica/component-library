@@ -56,14 +56,7 @@ export default {
 
   @for $i from 1 through 6 {
     &--h#{$i} {
-      @include font(--font-h#{$i});
-    }
-
-    /**
-     * Use special classes from h1 to h6 to overwrite styles for headings
-     */
-    &.h#{$i} {
-      @include font(--font-h#{$i}, true);
+      @include font(h#{$i});
     }
   }
 }
