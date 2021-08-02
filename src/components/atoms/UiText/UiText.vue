@@ -25,14 +25,14 @@ export default {
 .ui-text {
   $styles: '1-thick', '2-comfortable', '2-compact', '2-comfortable-thick', '2-compact-thick';
 
-  @include font(--font-body-1);
+  @include font(body-1);
 
   margin: var(--text-margin, 0);
   color: var(--text-color, var(--color-text-body));
 
   @each $style in $styles {
     &--#{$style} {
-      @include font(--font-body-#{$style});
+      @include font(body-#{$style});
     }
   }
 }
