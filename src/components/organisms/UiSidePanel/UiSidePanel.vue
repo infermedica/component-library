@@ -297,6 +297,11 @@ export default {
     @media (min-width: 768px) {
       padding: var(--side-panel-content-tablet-padding, var(--space-32) var(--space-48));
     }
+
+    &:focus {
+      outline: none;
+      box-shadow: var(--box-shadow-outline);
+    }
   }
 }
 
