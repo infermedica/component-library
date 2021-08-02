@@ -18,7 +18,7 @@ export const focusTrap = {
       el.__vueFocusableElements__ = getFocusableElements(el);
     });
     el.__observer__.observe(el, {
-      attributes: false,
+      attributes: true,
       childList: true,
       subtree: true,
     });
