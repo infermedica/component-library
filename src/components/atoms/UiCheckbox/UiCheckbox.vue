@@ -121,7 +121,7 @@ export default {
 // use .ui-checkbox--has-error class indicating validation error visually
 
 .ui-checkbox {
-  @include font(--font-body-1);
+  @include font(body-1);
 
   $this: &;
 

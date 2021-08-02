@@ -86,7 +86,7 @@ export default {
   }
 
   &__message {
-    @include font(--font-body-2-comfortable);
+    @include font(body-2-comfortable);
 
     color: var(--alert-color, var(--color-text-body));
   }
@@ -115,7 +115,7 @@ export default {
     --alert-color: var(--color-text-body);
 
     #{$this}__message {
-      @include font(--font-body-1);
+      @include font(body-1);
     }
   }
 }

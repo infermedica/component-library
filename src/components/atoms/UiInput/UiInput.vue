@@ -122,7 +122,7 @@ export default {
   }
 
   &__element {
-    @include font(--font-body-1);
+    @include font(body-1);
 
     width: 100%;
     padding: var(--input-padding, var(--space-12) var(--space-16));
@@ -159,7 +159,7 @@ export default {
   }
 
   &__aside {
-    @include font(--font-body-1);
+    @include font(body-1);
 
     flex: none;
     margin: var(--input-aside-margin, 0 var(--space-16) 0 0);

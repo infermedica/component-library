@@ -167,7 +167,7 @@ export default {
   }
 
   &__label {
-    @include font(--font-body-1);
+    @include font(body-1);
 
     flex: var(--radio-label-flex, 1);
     margin: var(--radio-label-margin, 0 0 0 var(--space-12));

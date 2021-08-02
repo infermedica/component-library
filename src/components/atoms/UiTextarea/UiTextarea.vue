@@ -61,7 +61,7 @@ export default {
 @import '../../../styles/mixins/_mixins.scss';
 
 .ui-textarea {
-  @include font(--font-body-1);
+  @include font(body-1);
 
   display: inline-flex;
   align-items: center;
@@ -73,7 +73,7 @@ export default {
   border-radius: var(--textarea-border-radius, var(--border-radius-form));
 
   &::placeholder {
-    @include font(--font-body-1);
+    @include font(body-1);
 
     color: var(--textarea-placeholder-color, var(--color-text-dimmed));
   }

@@ -126,7 +126,7 @@ export default {
     width: 100%;
 
     &--active {
-      @include font(--font-body-1-thick);
+      @include font(body-1-thick);
 
       --button-color: var(--tabs-item-tab-button-active-color, var(--color-text-body));
       --button-hover-color: var(--tabs-item-tab-button-active-hover-color, var(--color-text-body));

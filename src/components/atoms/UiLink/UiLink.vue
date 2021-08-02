@@ -53,7 +53,7 @@ export default {
 @import '../../../styles/mixins/_mixins.scss';
 
 .ui-link {
-  @include font(--font-body-1);
+  @include font(body-1);
   $this: &;
 
   display: inline-flex;
@@ -109,7 +109,7 @@ export default {
   }
 
   &--small {
-    @include font(--font-body-2-comfortable);
+    @include font(body-2-comfortable);
   }
 
   &--secondary {

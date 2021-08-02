@@ -106,7 +106,7 @@ export default {
 .ui-dropdown-item {
   $this: &;
 
-  @include font(--font-body-1);
+  @include font(body-1);
 
   --button-padding: var(--dropdown-item-button-padding, var(--space-8));
   --button-border-width: 0;

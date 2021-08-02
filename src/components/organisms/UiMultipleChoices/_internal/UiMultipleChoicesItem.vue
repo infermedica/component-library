@@ -137,7 +137,7 @@ export default {
   }
 
   &__header {
-    @include font(--font-body-1);
+    @include font(body-1);
 
     display: flex;
     flex-direction: row;

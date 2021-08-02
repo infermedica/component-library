@@ -315,7 +315,7 @@ export default {
   }
 
   &__value {
-    @include font(--font-h1);
+    @include font(h1);
 
     position: absolute;
     left: var(--range-selected-track-width);

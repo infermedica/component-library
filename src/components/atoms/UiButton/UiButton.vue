@@ -53,7 +53,7 @@ export default {
 @import '../../../styles/mixins/_mixins.scss';
 
 .ui-button {
-  @include font(--font-body-1-thick);
+  @include font(body-1-thick);
   $this: &;
 
   box-sizing: border-box;
@@ -181,7 +181,7 @@ export default {
     --button-active-background: transparent;
     --button-padding: 0;
 
-    @include font(--font-body-1);
+    @include font(body-1);
 
     #{$this}__icon {
       --button-icon-margin: 0 var(--space-4) 0 0;
@@ -200,7 +200,7 @@ export default {
     }
 
     &#{$this}--small {
-      @include font(--font-body-2-comfortable);
+      @include font(body-2-comfortable);
     }
 
     &#{$this}--is-disabled {

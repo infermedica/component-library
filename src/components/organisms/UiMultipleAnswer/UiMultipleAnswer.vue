@@ -242,7 +242,7 @@ export default {
   }
 
   &__hint {
-    @include font(--font-body-2-comfortable-thick);
+    @include font(body-2-comfortable-thick);
 
     margin: var(--multiple-answer-mobile-hint-margin, 0 var(--space-20) var(--space-12) var(--space-20));
     color: var(--multiple-answer-hint-color, var(--color-text-dimmed));

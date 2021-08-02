@@ -56,7 +56,7 @@ export default {
 @import '../../../styles/mixins/_mixins.scss';
 
 .ui-chips {
-  @include font(--font-body-2-comfortable);
+  @include font(body-2-comfortable);
 
   display: inline-flex;
   align-items: center;

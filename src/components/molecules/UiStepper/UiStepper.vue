@@ -187,16 +187,16 @@ export default {
   }
 
   &__text {
-    @include font(--font-body-2-compact);
+    @include font(body-2-compact);
 
     @media (min-width: 768px) {
-      @include font(--font-body-1);
+      @include font(body-1);
     }
   }
 
   &__item {
     @media (min-width: 992px) {
-      @include font(--font-body-1);
+      @include font(body-1);
 
       position: relative;
 
@@ -244,7 +244,7 @@ export default {
 
       &--active {
         #{$this}__item-link {
-          @include font(--font-body-1-thick);
+          @include font(body-1-thick);
 
           --link-color: var(--stepper-link-active-color, var(--color-text-body));
           --link-hover-color: var(--stepper-link-active-color, var(--color-text-body));
@@ -256,7 +256,7 @@ export default {
 
   &__item-link {
     @media (min-width: 992px) {
-      @include font(--font-body-1);
+      @include font(body-1);
 
       width: 100%;
     }
