@@ -1,4 +1,5 @@
 import './tailwindcss.css';
+import './styles.css';
 import '@/styles/styles.scss';
 import { createRouter, createWebHistory } from 'vue-router';
 import { app } from '@storybook/vue3';

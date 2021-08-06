@@ -1,0 +1,7 @@
+/* RTL overrides for stories */
+[dir=rtl] .ui-message--error-rtl {
+	--message-aside-tablet-margin: 0 0 0 var(--space-40) !important;
+}
+[dir=rtl] .ui-message--error-condensed-rtl {
+	--message-aside-tablet-margin: 0 0 0 var(--space-12) !important;
+}

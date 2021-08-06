@@ -135,13 +135,13 @@ export const AsNotAuthorized = (args) => ({
     return { ...args };
   },
   template: `<UiMessage
+    class="ui-message--error-rtl"
     :title="title"
     :subtitle="subtitle"
     :illustration="illustration"
     :style="{
       '--message-tablet-flex-direction': 'row-reverse',
       '--message-aside-tablet-margin': '0 var(--space-40) 0 0',
-      '--message-aside-tablet-rtl-margin': '0 0 0 var(--space-40)',
       '--message-content-align-slef': 'flex-start',
       '--message-illustration-size': '10rem',
     }"
@@ -161,13 +161,13 @@ export const AsOffline = (args) => ({
     return { ...args };
   },
   template: `<UiMessage
+    class="ui-message--error-rtl"
     :title="title"
     :subtitle="subtitle"
     :illustration="illustration"
     :style="{
       '--message-tablet-flex-direction': 'row-reverse',
       '--message-aside-tablet-margin': '0 var(--space-40) 0 0',
-      '--message-aside-tablet-rtl-margin': '0 0 0 var(--space-40)',
       '--message-content-align-slef': 'flex-start',
       '--message-illustration-size': '10rem',
     }"
@@ -190,6 +190,7 @@ export const AsOfflinePopover = (args) => ({
     return { ...args };
   },
   template: `<UiMessage
+    class="ui-message--error-condensed-rtl"
     :title="title"
     :subtitle="subtitle"
     :illustration="illustration"
@@ -198,7 +199,6 @@ export const AsOfflinePopover = (args) => ({
       '--message-tablet-flex-direction': 'row-reverse',
       '--message-content-tablet-margin': '0',
       '--message-aside-tablet-margin': '0 var(--space-12) 0 0',
-      '--message-aside-tablet-rtl-margin': '0 0 0 var(--space-12)',
       '--message-content-align-slef': 'flex-start',
       '--message-illustration-size': '1.5rem',
     }"
