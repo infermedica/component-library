@@ -3,13 +3,13 @@
     <!-- @slot Use this slot to replace content template. -->
     <slot
       name="content"
-      v-bind="{title}"
+      v-bind="{subtitle, title, headingTitleAttrs}"
     >
       <div class="ui-message__content">
         <!-- @slot Use this slot to replace subtitle template. -->
         <slot
           name="subtitle"
-          v-bind="subtitle"
+          v-bind="{subtitle}"
         >
           <UiText
             v-if="subtitle"
@@ -35,14 +35,16 @@
         <slot />
       </div>
     </slot>
+    <!-- @slot Use this slot to replace aside template. -->
     <slot
       name="aside"
-      v-bind="illustration"
+      v-bind="{illustration}"
     >
       <div
         v-if="illustration"
         class="ui-message__aside"
       >
+        <!-- @slot Use this slot to replace illustration template. -->
         <slot
           name="illustration"
           v-bind="{illustration}"
