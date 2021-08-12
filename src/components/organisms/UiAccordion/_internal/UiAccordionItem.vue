@@ -133,7 +133,7 @@ export default {
     --button-white-space: wrap;
 
     &:focus {
-      --button-border-radius: var(--border-radius-form);
+      --button-border-radius: var(--border-radius-outline);
 
       z-index: 1;
     }

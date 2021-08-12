@@ -78,7 +78,7 @@ export default {
   }
 
   &:focus {
-    border-radius: var(--border-radius-form);
+    border-radius: var(--border-radius-outline);
     outline: none;
     box-shadow: var(--box-shadow-outline);
   }

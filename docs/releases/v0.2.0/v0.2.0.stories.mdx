@@ -14,6 +14,13 @@ v0.2.0 has a breaking changes
 ## 🚀 Features
 - SC-764: Accessible scrolled content in side panels
 - SC-532: focus is visible only for keyboard navigation
+  - to handle focus visible in your app use `.focus-is-hidden` class, added by ui-kit components to body
+  ```css
+  .focus-is-hidden {
+    --box-shadow-outline: none;
+    --border-radius-outline: 0;
+  }
+  ```
 - extended [UiMessage](?path=/story/templates-message--as-introduction&globals=measureEnabled:false) template
 - Use html instead root
 

@@ -349,7 +349,7 @@ export default {
   input {
     &:focus + #{$this}__radiobutton {
       z-index: 1;
-      border-radius: var(--border-radius-form);
+      border-radius: var(--border-radius-outline);
       box-shadow: var(--box-shadow-outline);
       & #{$this}__label {
         width: 100%;
@@ -358,8 +358,8 @@ export default {
       & #{$this}__square {
         width: 100%;
         border: 0;
-        border-bottom-right-radius: var(--border-radius-form);
-        border-bottom-left-radius: var(--border-radius-form);
+        border-bottom-right-radius: var(--border-radius-outline);
+        border-bottom-left-radius: var(--border-radius-outline);
       }
     }
   }

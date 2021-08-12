@@ -1,7 +1,14 @@
+/* focus hidden */
+.focus-is-hidden {
+  --box-shadow-outline: none;
+  --border-radius-outline: 0;
+}
+
 /* RTL overrides for stories */
 [dir=rtl] .ui-message--error-rtl {
-	--message-aside-tablet-margin: 0 0 0 var(--space-40) !important;
+  --message-aside-tablet-margin: 0 0 0 var(--space-40) !important;
 }
+
 [dir=rtl] .ui-message--error-condensed-rtl {
-	--message-aside-tablet-margin: 0 0 0 var(--space-12) !important;
+  --message-aside-tablet-margin: 0 0 0 var(--space-12) !important;
 }
