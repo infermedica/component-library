@@ -423,7 +423,7 @@ export default {
       } catch (error) {
         localeFile = await import('date-fns/locale/en-US/index');
         if (process.env.NODE_ENV !== 'production') {
-          console.error('Unrecognized language props value, default \'en-US\' language loaded');
+          console.error('Unrecognized language props value, default \'en-US\' language loaded'); // eslint-disable-line no-console
         }
       }
       for (let i = 0; i < 12; i += 1) {

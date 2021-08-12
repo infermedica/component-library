@@ -452,9 +452,9 @@ export const WithAsynContent = (args) => ({
     const modelValue = ref(true);
     const isLoaded = ref(false);
     onMounted(() => (
-      window.setTimeout(() => (
-        isLoaded.value = true
-      ), 1000)
+      window.setTimeout(() => {
+        isLoaded.value = true;
+      }, 1000)
     ));
     return { ...args, modelValue, isLoaded };
   },
