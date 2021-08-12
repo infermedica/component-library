@@ -107,7 +107,6 @@ export default {
 
   &:focus-within {
     --input-border-color: var(--input-focus-border-color, var(--color-border-accessible));
-    --input-placeholder-color: var(--input-focus-placeholder-color, var(--color-text-dimmed));
 
     outline: none;
     box-shadow: var(--box-shadow-outline);
@@ -183,8 +182,6 @@ export default {
 
   &--has-error {
     --input-color: var(--input-error-color, var(--color-text-body));
-    --input-placeholder-color: var(--input-error-placeholder-color, var(--color-text-body));
-    --input-focus-placeholder-color: var(--input-error-focus-placeholder-color, var(--color-text-body));
     --input-border-color: var(--input-error-border-color, var(--color-border-alert-error-accessible));
     --input-hover-border-color: var(--input-error-hover-border-color, var(--color-border-alert-error-accessible));
     --input-focus-border-color: var(--input-error-focus-border-color, var(--color-border-alert-error-accessible));
@@ -192,16 +189,15 @@ export default {
   }
 
   &--is-disabled {
-    cursor: not-allowed;
-
+    --input-placeholder-color: var(--color-text-disabled);
     --input-color: var(--input-disabled-color, var(--color-text-disabled));
-    --input-placeholder-color: var(--input-disabled-placeholder-color, var(--color-text-disabled));
-    --input-focus-placeholder-color: var(--input-disabled-focus-placeholder-color, var(--color-text-disabled));
     --input-border-color: var(--input-disabled-border-color, var(--color-border-subtle));
     --input-hover-border-color: var(--input-disabled-hover-border-color, var(--color-border-subtle));
     --input-focus-border-color: var(--input-disabled-focus-border-color, var(--color-border-subtle));
     --input-caret-color: var(--input-disabled-caret-color, var(--color-border-subtle));
     --icon-color: var(--color-icon-disabled);
+
+    cursor: not-allowed;
 
     #{$this}__element {
       cursor: not-allowed;
