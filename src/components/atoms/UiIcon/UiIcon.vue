@@ -34,6 +34,7 @@ export default {
 
 <style lang="scss">
 .ui-icon {
+  flex: none;
   width: var(--icon-size, var(--icon-width, 1rem));
   height: var(--icon-size, var(--icon-height, 1rem));
   fill: var(--icon-color);
