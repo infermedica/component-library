@@ -50,7 +50,7 @@ export default {
 
 .ui-heading {
   margin: var(--heading-margin, 0);
-  color: var(--heading-color, var(--color-text-body));
+  color: var(--heading-color, var(--color-text-heading));
   text-decoration: var(--heading-text-decoration);
   text-transform: var(--heading-text-transform);
 
