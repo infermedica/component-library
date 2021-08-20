@@ -146,12 +146,16 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../../styles/mixins/_mixins.scss';
+
 .ui-rating {
   $this: &;
 
   display: inline-flex;
 
   &__option {
+    @include no-highlight;
+
     padding: var(--rating-option, 0 var(--space-24) 0 0);
 
     [dir=rtl] & {
