@@ -32,8 +32,9 @@ export const IconAsImport = (args) => ({
   setup() {
     // todo: broken render on Docs view
     const icon = defineAsyncComponent(() => import(
-      /* WebpackChunkName: "[request]" */
-      /* WebpackMode: "lazy-once" */
+      /* webpackChunkName: "icons" */
+      /* webpackMode: "eager" */
+      /* webpackPreload: true */
       '../../../assets/svg/ce.svg'
     ));
     return {

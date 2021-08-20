@@ -25,7 +25,14 @@
       </component>
     </slot>
     <!-- @slot Use this slot to put loaded content.-->
-    <slot v-else />
+    <slot v-else-if="!eagerLoadComponent" />
+    <div
+
+      v-if="eagerLoadComponent"
+      v-show="!isLoading"
+    >
+      <slot />
+    </div>
   </transition-group>
 </template>
 
@@ -74,10 +81,17 @@ export default {
       default: 'div',
     },
     /**
-     * use this ptops to pas transition name
+     * use this props to pas transition name
      */
     transition: {
       type: [String, Boolean],
+      default: false,
+    },
+    /**
+     * use this props to start rendering final component before loading stops, so it's completely rendered
+     */
+    eagerLoadComponent: {
+      type: Boolean,
       default: false,
     },
   },
