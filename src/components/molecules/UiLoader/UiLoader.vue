@@ -27,9 +27,9 @@
     <!-- @slot Use this slot to put loaded content.-->
     <slot v-else-if="!eagerLoadComponent" />
     <div
-
       v-if="eagerLoadComponent"
       v-show="!isLoading"
+      class="ui-loader__component-wrapper"
     >
       <slot />
     </div>
@@ -108,6 +108,10 @@ export default {
 
 <style lang="scss">
 .ui-loader {
+  &__component-wrapper {
+    display: contents;
+  }
+
   .fade {
     &-enter-active,
     &-leave-active {
