@@ -83,11 +83,13 @@ export default {
     box-shadow: var(--box-shadow-outline);
   }
 
-  &:hover {
-    --textarea-border-color: var(--textarea-hover-border-color, var(--color-border-hover));
+  @media (hover: hover) {
+    &:hover {
+      --textarea-border-color: var(--textarea-hover-border-color, var(--color-border-hover));
 
-    &:focus-within {
-      --textarea-hover-border-color: var(--textarea-focus-border-color);
+      &:focus-within {
+        --textarea-hover-border-color: var(--textarea-focus-border-color);
+      }
     }
   }
 

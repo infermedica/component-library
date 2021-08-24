@@ -112,8 +112,10 @@ export default {
   display: inline-flex;
   cursor: pointer;
 
-  &:hover {
-    --radio-border: solid var(--color-border-hover);
+  @media (hover: hover) {
+    &:hover {
+      --radio-border: solid var(--color-border-hover);
+    }
   }
 
   &:active {
@@ -150,9 +152,11 @@ export default {
         --radio-mark-background: var(--color-radio-checkbox-selected-enabled);
       }
 
-      &:hover + #{$this}__radiobutton {
-        --radio-border: solid var(--color-radio-checkbox-selected-hover);
-        --radio-mark-background: var(--color-radio-checkbox-selected-hover);
+      @media (hover: hover) {
+        &:hover + #{$this}__radiobutton {
+          --radio-border: solid var(--color-radio-checkbox-selected-hover);
+          --radio-mark-background: var(--color-radio-checkbox-selected-hover);
+        }
       }
 
       &:active + #{$this}__radiobutton {
@@ -183,8 +187,10 @@ export default {
 
     cursor: not-allowed;
 
-    &:hover {
-      --radio-border: solid var(--color-border-subtle);
+    @media (hover: hover) {
+      &:hover {
+        --radio-border: solid var(--color-border-subtle);
+      }
     }
 
     &:active {
@@ -193,10 +199,16 @@ export default {
 
     input:checked {
       & + #{$this}__radiobutton,
-      &:hover + #{$this}__radiobutton,
       &:active + #{$this}__radiobutton {
         --radio-border: solid var(--color-border-subtle);
         --radio-mark-background: var(--color-border-subtle);
+      }
+
+      @media (hover: hover) {
+        &:hover + #{$this}__radiobutton {
+          --radio-border: solid var(--color-border-subtle);
+          --radio-mark-background: var(--color-border-subtle);
+        }
       }
     }
   }
@@ -204,8 +216,10 @@ export default {
   &--has-error {
     --radio-border: solid var(--color-border-alert-error-accessible);
 
-    &:hover {
-      --radio-border: solid var(--color-border-alert-error-accessible);
+    @media (hover: hover) {
+      &:hover {
+        --radio-border: solid var(--color-border-alert-error-accessible);
+      }
     }
 
     &:active {
@@ -214,10 +228,16 @@ export default {
 
     input:checked {
       & + #{$this}__radiobutton,
-      &:hover + #{$this}__radiobutton,
       &:active + #{$this}__radiobutton {
         --radio-border: solid var(--color-border-alert-error-accessible);
         --radio-mark-background: var(--color-border-alert-error-accessible);
+      }
+
+      @media (hover: hover) {
+        &:hover + #{$this}__radiobutton {
+          --radio-border: solid var(--color-border-alert-error-accessible);
+          --radio-mark-background: var(--color-border-alert-error-accessible);
+        }
       }
     }
   }

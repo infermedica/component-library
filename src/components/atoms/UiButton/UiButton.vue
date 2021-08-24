@@ -83,12 +83,14 @@ export default {
   border-radius: var(--button-border-radius, var(--border-radius-form));
   transition: var(--button-transition, background-color 150ms ease-in-out);
 
-  &:hover {
-    color: var(--button-hover-color, var(--color-button-contained-text));
-    background: var(--button-hover-background, var(--color-button-contained-background-hover));
+  @media (hover: hover) {
+    &:hover {
+      color: var(--button-hover-color, var(--color-button-contained-text));
+      background: var(--button-hover-background, var(--color-button-contained-background-hover));
 
-    &#{$this}--has-icon {
-      --icon-color: var(--button-icon-color-hover, var(--color-icon-primary-hover));
+      &#{$this}--has-icon {
+        --icon-color: var(--button-icon-color-hover, var(--color-icon-primary-hover));
+      }
     }
   }
 

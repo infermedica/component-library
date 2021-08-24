@@ -228,11 +228,13 @@ export default {
       border-width: var(--multiple-answer-list-item-border-width, 1px 0);
     }
 
-    &:hover {
-      background: var(--multiple-answer-list-item-hover-background);
+    @media (hover: hover) {
+      &:hover {
+        background: var(--multiple-answer-list-item-hover-background);
 
-      @media (min-width: 768px) {
-        background: var(--multiple-answer-list-item-tablet-hover-background, var(--color-gray-50));
+        @media (min-width: 768px) {
+          background: var(--multiple-answer-list-item-tablet-hover-background, var(--color-gray-50));
+        }
       }
     }
 

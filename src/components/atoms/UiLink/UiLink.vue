@@ -61,11 +61,13 @@ export default {
   color: var(--link-color, var(--color-text-link-primary));
   text-decoration: var(--link-text-decoration, none);
 
-  &:hover {
-    color: var(--link-hover-color, var(--color-text-link-primary-hover));
+  @media (hover: hover) {
+    &:hover {
+      color: var(--link-hover-color, var(--color-text-link-primary-hover));
 
-    &#{$this}--has-icon {
-      --icon-color: var(--link-icon-hover-color, var(--color-icon-primary-hover));
+      &#{$this}--has-icon {
+        --icon-color: var(--link-icon-hover-color, var(--color-icon-primary-hover));
+      }
     }
   }
 

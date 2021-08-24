@@ -112,11 +112,13 @@ export default {
     box-shadow: var(--box-shadow-outline);
   }
 
-  &:hover {
-    --input-border-color: var(--input-hover-border-color, var(--color-border-hover));
+  @media (hover: hover) {
+    &:hover {
+      --input-border-color: var(--input-hover-border-color, var(--color-border-hover));
 
-    &:focus-within {
-      --input-hover-border-color: var(--input-focus-border-color);
+      &:focus-within {
+        --input-hover-border-color: var(--input-focus-border-color);
+      }
     }
   }
 

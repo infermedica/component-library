@@ -128,8 +128,10 @@ export default {
   display: inline-flex;
   cursor: pointer;
 
-  &:hover {
-    --checkbox-border: solid var(--color-border-hover);
+  @media (hover: hover) {
+    &:hover {
+      --checkbox-border: solid var(--color-border-hover);
+    }
   }
 
   &:active {
@@ -162,9 +164,11 @@ export default {
         --checkbox-background: var(--color-radio-checkbox-selected-enabled);
       }
 
-      &:hover + #{$this}__checkbutton {
-        --checkbox-background: var(--color-radio-checkbox-selected-hover);
-        --checkbox-border: solid var(--color-radio-checkbox-selected-hover);
+      @media (hover: hover) {
+        &:hover + #{$this}__checkbutton {
+          --checkbox-background: var(--color-radio-checkbox-selected-hover);
+          --checkbox-border: solid var(--color-radio-checkbox-selected-hover);
+        }
       }
 
       &:active + #{$this}__checkbutton {
@@ -193,8 +197,10 @@ export default {
 
     cursor: not-allowed;
 
-    &:hover {
-      --checkbox-border: solid var(--color-border-subtle);
+    @media (hover: hover) {
+      &:hover {
+        --checkbox-border: solid var(--color-border-subtle);
+      }
     }
 
     &:active {
@@ -203,10 +209,16 @@ export default {
 
     input:checked {
       & + #{$this}__checkbutton,
-      &:hover + #{$this}__checkbutton,
       &:active + #{$this}__checkbutton {
         --checkbox-border: solid var(--color-border-subtle);
         --checkbox-background: var(--color-border-subtle);
+      }
+
+      @media (hover: hover) {
+        &:hover + #{$this}__checkbutton {
+          --checkbox-border: solid var(--color-border-subtle);
+          --checkbox-background: var(--color-border-subtle);
+        }
       }
     }
   }
@@ -214,8 +226,10 @@ export default {
   &--has-error {
     --checkbox-border: solid var(--color-border-alert-error-accessible);
 
-    &:hover {
-      --checkbox-border: solid var(--color-border-alert-error-accessible);
+    @media (hover: hover) {
+      &:hover {
+        --checkbox-border: solid var(--color-border-alert-error-accessible);
+      }
     }
 
     &:active {
@@ -224,10 +238,16 @@ export default {
 
     input:checked {
       & + #{$this}__checkbutton,
-      &:hover + #{$this}__checkbutton,
       &:active + #{$this}__checkbutton {
         --checkbox-border: solid var(--color-border-alert-error-accessible);
         --checkbox-background: var(--color-border-alert-error-accessible);
+      }
+
+      @media (hover: hover) {
+        &:hover + #{$this}__checkbutton {
+          --checkbox-border: solid var(--color-border-alert-error-accessible);
+          --checkbox-background: var(--color-border-alert-error-accessible);
+        }
       }
     }
   }

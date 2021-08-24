@@ -178,11 +178,13 @@ export default {
       border-width: var(--multiple-choices-list-item-border-width, 1px 0);
     }
 
-    &:hover {
-      background: var(--multiple-choices-list-item-hover-background);
+    @media (hover: hover) {
+      &:hover {
+        background: var(--multiple-choices-list-item-hover-background);
 
-      @media (min-width: 768px) {
-        background: var(--multiple-choices-list-item-hover-background, var(--color-gray-50));
+        @media (min-width: 768px) {
+          background: var(--multiple-choices-list-item-hover-background, var(--color-gray-50));
+        }
       }
     }
   }

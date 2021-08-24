@@ -172,19 +172,21 @@ export default {
     flex-wrap: nowrap;
   }
 
-  &:hover {
-    --range-thumb-background-color:
-      var(
-        --range-thumb-hover-background-color,
-        var(--color-range-slider-thumb-background-hover)
-      );
-
-    &:active {
+  @media (hover: hover) {
+    &:hover {
       --range-thumb-background-color:
         var(
-          --range-thumb-active-background-color,
-          var(--color-range-slider-thumb-background-active)
+          --range-thumb-hover-background-color,
+          var(--color-range-slider-thumb-background-hover)
         );
+
+      &:active {
+        --range-thumb-background-color:
+          var(
+            --range-thumb-active-background-color,
+            var(--color-range-slider-thumb-background-active)
+          );
+      }
     }
   }
 
