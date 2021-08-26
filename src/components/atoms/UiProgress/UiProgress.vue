@@ -1,40 +1,79 @@
 <template>
-  <progress class="ui-progress" />
+  <div
+    class="ui-progress"
+    :style="{'--progress-value': progressValue}"
+  >
+    <div class="ui-progress__inner" />
+  </div>
 </template>
 
 <script>
+import { computed } from 'vue';
+
 export default {
   name: 'UiProgress',
+  props: {
+    value: {
+      type: Number,
+      default: 0,
+    },
+    min: {
+      type: Number,
+      default: 0,
+    },
+    max: {
+      type: Number,
+      default: 100,
+    },
+  },
+  setup(props) {
+    const progressValue = computed(() => ((props.value - props.min) / (props.max - props.min)));
+    return { progressValue };
+  },
 };
 </script>
 
 <style lang="scss">
 .ui-progress {
+  --height: var(--progress-height, 0.5rem);
+  --bar-padding: var(--progress-bar-padding, calc(var(--height) * 0.5));
+  --radius-pill: var(--progress-radius-pill, calc(var(--height) * 0.5));
+
+  position: relative;
   width: var(--progress-width, 100%);
-  height: var(--progress-height, 0.25rem);
-  padding: var(--progress-padding, 0);
+  height: var(--height);
+  padding: var(--progress-padding, 0 var(--bar-padding));
+  overflow: hidden;
+  background-color: var(--progress-background, var(--color-bar-track));
+  border: var(--progress-border, 0);
+  border-radius: var(--radius-pill);
 
-  &[value] {
-    background-color: var(--progress-background, var(--color-bar-track));
-    border: var(--progress-border, 0);
-    border-radius: var(--progress-border-radius, var(--border-radius-pill));
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
+  &__inner {
+    position: relative;
+    width: calc(var(--progress-value) * 100%);
+    height: 100%;
+    background-color: var(--progress-value-background, var(--color-bar-indicator));
 
-    &::-webkit-progress-bar {
-      background-color: var(--progress-background, var(--color-bar-track));
-      border-radius: var(--progress-border-radius, var(--border-radius-pill));
+    &::before,
+    &::after {
+      position: absolute;
+      display: block;
+      width: var(--bar-padding);
+      height: 100%;
+      content: '';
+      background-color: var(--progress-value-background, var(--color-bar-indicator));
     }
 
-    &::-webkit-progress-value {
-      background-color: var(--progress-value-background, var(--color-bar-indicator));
-      border-radius: var(--progress-border-radius, var(--border-radius-pill));
+    &::before {
+      right: 100%;
+      border-top-left-radius: var(--radius-pill);
+      border-bottom-left-radius: var(--radius-pill);
     }
 
-    &::-moz-progress-bar {
-      background-color: var(--progress-value-background, var(--color-bar-indicator));
-      border-radius: var(--progress-border-radius, var(--border-radius-pill));
+    &::after {
+      left: 100%;
+      border-top-right-radius: var(--radius-pill);
+      border-bottom-right-radius: var(--radius-pill);
     }
   }
 }
