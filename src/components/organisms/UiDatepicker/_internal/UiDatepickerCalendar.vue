@@ -114,6 +114,7 @@ export default {
     }
 
     function openCalendar(open) {
+      // TODO: if no empty Tabs try to focus first tab with error
       currentTab.value = firstEmptyTab.value ? firstEmptyTab.value : props.lastFocused;
       open();
     }

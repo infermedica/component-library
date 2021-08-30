@@ -45,6 +45,7 @@ export default {
   setup(props, { emit }) {
     const monthNames = inject('monthNames');
     const isDisabled = inject('checkMonthAvailability');
+    const unfulfilledMonthError = inject('unfulfilledMonth');
 
     const month = computed({
       get: () => (`${props.modelValue}`),
@@ -53,6 +54,7 @@ export default {
 
     function select(value) {
       month.value = value.length === 1 ? `0${value}` : value;
+      unfulfilledMonthError.value = false;
     }
 
     return {

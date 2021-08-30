@@ -44,6 +44,7 @@ export default {
   emits: ['update:modelValue', 'change'],
   setup(props, { emit }) {
     const isDisabled = inject('checkDayAvailability');
+    const unfulfilledDayError = inject('unfulfilledDay');
 
     const day = computed({
       get: () => (`${props.modelValue}`),
@@ -56,6 +57,7 @@ export default {
 
     function select(value) {
       day.value = formatDay(value);
+      unfulfilledDayError.value = false;
     }
 
     return {

@@ -45,6 +45,7 @@ export default {
   setup(props, { emit }) {
     const yearsList = inject('yearsList');
     const isDisabled = inject('checkYearAvailability');
+    const unfulfilledYearError = inject('unfulfilledYear');
 
     const year = computed({
       get: () => (`${props.modelValue}`),
@@ -53,6 +54,7 @@ export default {
 
     function select(value) {
       year.value = value;
+      unfulfilledYearError.value = false;
     }
 
     return {
