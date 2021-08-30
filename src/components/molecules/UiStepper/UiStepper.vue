@@ -25,8 +25,8 @@
         >
           <UiProgress
             v-bind="progressAttrs"
-            min="0"
-            max="100"
+            :min="0"
+            :max="100"
             :value="stepsProgress"
           />
         </slot>
