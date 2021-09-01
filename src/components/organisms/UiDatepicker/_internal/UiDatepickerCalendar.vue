@@ -149,6 +149,7 @@ export default {
 <style lang="scss">
 .ui-datepicker-calender {
   --dropdown-popover-left: var(--datepicker-dropdown-popover-left, 0);
+  --dropdown-popover-max-width: var(--datepicker-dropdown-popover-max-width, 100%);
   --popover-content-padding: var(--datepicker-popover-content-padding, 0);
 
   position: unset;
