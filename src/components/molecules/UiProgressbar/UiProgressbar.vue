@@ -92,6 +92,9 @@ export default {
   }
 
   &__progress {
+    --progress-bar-padding: 0;
+    --progress-value-radius: 0.5rem;
+
     position: absolute;
   }
 }

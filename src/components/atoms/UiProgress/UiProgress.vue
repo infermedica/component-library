@@ -3,7 +3,10 @@
     class="ui-progress"
     :style="{'--progress-value': progressValue}"
   >
-    <div class="ui-progress__inner" />
+    <div
+      v-if="progressValue"
+      class="ui-progress__inner"
+    />
   </div>
 </template>
 
@@ -53,6 +56,7 @@ export default {
     width: calc(var(--progress-value) * 100%);
     height: 100%;
     background-color: var(--progress-value-background, var(--color-bar-indicator));
+    border-radius: var(--progress-value-radius, 0);
 
     &::before,
     &::after {
