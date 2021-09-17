@@ -130,12 +130,12 @@ export default {
 
   @media (hover: hover) {
     &:hover {
-      --checkbox-border: solid var(--color-border-hover);
+      --checkbox-border: solid var(--color-border-strong-hover);
     }
   }
 
   &:active {
-    --checkbox-border: solid var(--color-border-active);
+    --checkbox-border: solid var(--color-border-strong-active);
   }
 
   &__checkbutton {
@@ -151,7 +151,7 @@ export default {
     margin: var(--checkbox-margin, 0.125rem);
     overflow: hidden;
     background: var(--checkbox-background, var(--color-background-white));
-    border: var(--checkbox-border, solid var(--color-border-accessible));
+    border: var(--checkbox-border, solid var(--color-border-strong));
     border-width: var(--checkbox-border-width, 2px);
     border-radius: var(--checkbox-border-radius, var(--border-radius-form));
   }
@@ -160,20 +160,20 @@ export default {
     &:checked {
       & + #{$this}__checkbutton {
         --icon-color: var(--color-icon-negative);
-        --checkbox-border: solid var(--color-radio-checkbox-selected-enabled);
-        --checkbox-background: var(--color-radio-checkbox-selected-enabled);
+        --checkbox-border: solid var(--color-selectioncontrols-selection);
+        --checkbox-background: var(--color-selectioncontrols-selection);
       }
 
       @media (hover: hover) {
         &:hover + #{$this}__checkbutton {
-          --checkbox-background: var(--color-radio-checkbox-selected-hover);
-          --checkbox-border: solid var(--color-radio-checkbox-selected-hover);
+          --checkbox-background: var(--color-selectioncontrols-selection-hover);
+          --checkbox-border: solid var(--color-selectioncontrols-selection-hover);
         }
       }
 
       &:active + #{$this}__checkbutton {
-        --checkbox-background: var(--color-radio-checkbox-selected-active);
-        --checkbox-border: solid var(--color-radio-checkbox-selected-active);
+        --checkbox-background: var(--color-selectioncontrols-selection-active);
+        --checkbox-border: solid var(--color-selectioncontrols-selection-active);
       }
     }
 
@@ -224,29 +224,29 @@ export default {
   }
 
   &--has-error {
-    --checkbox-border: solid var(--color-border-alert-error-accessible);
+    --checkbox-border: solid var(--color-border-error-strong);
 
     @media (hover: hover) {
       &:hover {
-        --checkbox-border: solid var(--color-border-alert-error-accessible);
+        --checkbox-border: solid var(--color-border-error-strong);
       }
     }
 
     &:active {
-      --checkbox-border: solid var(--color-border-alert-error-accessible);
+      --checkbox-border: solid var(--color-border-error-strong);
     }
 
     input:checked {
       & + #{$this}__checkbutton,
       &:active + #{$this}__checkbutton {
-        --checkbox-border: solid var(--color-border-alert-error-accessible);
-        --checkbox-background: var(--color-border-alert-error-accessible);
+        --checkbox-border: solid var(--color-border-error-strong);
+        --checkbox-background: var(--color-border-error-strong);
       }
 
       @media (hover: hover) {
         &:hover + #{$this}__checkbutton {
-          --checkbox-border: solid var(--color-border-alert-error-accessible);
-          --checkbox-background: var(--color-border-alert-error-accessible);
+          --checkbox-border: solid var(--color-border-error-strong);
+          --checkbox-background: var(--color-border-error-strong);
         }
       }
     }

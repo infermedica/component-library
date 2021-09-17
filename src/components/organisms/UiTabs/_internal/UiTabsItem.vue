@@ -119,7 +119,7 @@ export default {
   }
 
   &__tab-button {
-    --button-color: var(--tabs-item-tab-button-color, var(--color-text-action-primary-enabled));
+    --button-color: var(--tabs-item-tab-button-color, var(--color-text-action-primary));
     --button-hover-color: var(--tabs-item-tab-button-hover-color, var(--color-text-action-secondary-hover));
     --button-active-color: var(--tabs-item-tab-button-active-color, var(--color-text-action-secondary-active));
 

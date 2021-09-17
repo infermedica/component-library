@@ -58,12 +58,12 @@ export default {
 
   display: inline-flex;
   align-items: center;
-  color: var(--link-color, var(--color-text-link-primary));
+  color: var(--link-color, var(--color-text-action-primary));
   text-decoration: var(--link-text-decoration, none);
 
   @media (hover: hover) {
     &:hover {
-      color: var(--link-hover-color, var(--color-text-link-primary-hover));
+      color: var(--link-hover-color, var(--color-text-action-primary-hover));
 
       &#{$this}--has-icon {
         --icon-color: var(--link-icon-hover-color, var(--color-icon-primary-hover));
@@ -72,10 +72,10 @@ export default {
   }
 
   &:active {
-    color: var(--link-active-color, var(--color-text-link-primary-active));
+    color: var(--link-active-color, var(--color-text-action-primary-active));
 
     &#{$this}--has-icon {
-      --icon-color: var(--link-icon-active-color, var(--color-text-link-primary-active));
+      --icon-color: var(--link-icon-active-color, var(--color-text-action-primary-active));
     }
   }
 
@@ -115,7 +115,7 @@ export default {
   }
 
   &--secondary {
-    --link-color: var(--color-text-action-secondary-enabled);
+    --link-color: var(--color-text-action-secondary);
     --link-hover-color: var(--color-text-action-secondary-hover);
     --link-active-color: var(--color-text-action-secondary-active);
     --link-icon-color: var(--color-icon-secondary);

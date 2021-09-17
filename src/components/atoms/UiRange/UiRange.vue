@@ -177,14 +177,14 @@ export default {
       --range-thumb-background-color:
         var(
           --range-thumb-hover-background-color,
-          var(--color-range-slider-thumb-background-hover)
+          var(--color-range-thumb-hover)
         );
 
       &:active {
         --range-thumb-background-color:
           var(
             --range-thumb-active-background-color,
-            var(--color-range-slider-thumb-background-active)
+            var(--color-range-thumb-active)
           );
       }
     }
@@ -237,12 +237,12 @@ export default {
 
     &::after {
       width: calc(var(--range-selected-track-width) - var(--space-24));
-      background: var(--range-selected-track-background, var(--color-range-slider-bar-indicator));
+      background: var(--range-selected-track-background, var(--color-range-progress-indicator));
     }
 
     &::before {
       width: calc(100% - (2 * var(--space-24)));
-      background: var(--range-track-background, var(--color-range-slider-bar-track));
+      background: var(--range-track-background, var(--color-progress-track));
     }
 
     &::before,
@@ -278,7 +278,7 @@ export default {
     @mixin range-thumb {
       width: var(--range-thumb-size, 3rem);
       height: var(--range-thumb-size, 3rem);
-      background-color: var(--range-thumb-background-color, var(--color-range-slider-thumb-background-enabled));
+      background-color: var(--range-thumb-background-color, var(--color-range-thumb));
       background-image:
         var(
           --range-thumb-background-image,

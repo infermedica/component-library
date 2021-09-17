@@ -68,7 +68,7 @@ export default {
   padding: var(--textarea-padding, var(--space-12) var(--space-16));
   color: var(--textarea-color, var(--color-text-body));
   background-color: var(--textarea-background-color, var(--color-background-white));
-  border: var(--textarea-border, solid var(--textarea-border-color, var(--color-border-accessible)));
+  border: var(--textarea-border, solid var(--textarea-border-color, var(--color-border-strong)));
   border-width: var(--textarea-border-width, 1px);
   border-radius: var(--textarea-border-radius, var(--border-radius-form));
 
@@ -85,7 +85,7 @@ export default {
 
   @media (hover: hover) {
     &:hover {
-      --textarea-border-color: var(--textarea-hover-border-color, var(--color-border-hover));
+      --textarea-border-color: var(--textarea-hover-border-color, var(--color-border-strong-hover));
 
       &:focus-within {
         --textarea-hover-border-color: var(--textarea-focus-border-color);
@@ -95,9 +95,9 @@ export default {
 
   &--has-error {
     --textarea-placeholder-color: var(--textarea-error-placeholder-color, var(--color-text-body));
-    --textarea-border-color: var(--textarea-error-border-color, var(--color-border-alert-error-accessible));
-    --textarea-hover-border-color: var(--textarea-error-hover-border-color, var(--color-border-alert-error-accessible));
-    --textarea-focus-border-color: var(--color-border-alert-error-accessible);
+    --textarea-border-color: var(--textarea-error-border-color, var(--color-border-error-strong));
+    --textarea-hover-border-color: var(--textarea-error-hover-border-color, var(--color-border-error-strong));
+    --textarea-focus-border-color: var(--color-border-error-strong);
   }
 
   &--is-disabled {

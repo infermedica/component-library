@@ -75,7 +75,7 @@ export default {
 
   &__icon {
     --icon-size: var(--alert-icon-size, 1.5rem);
-    --icon-color: var(--alert-icon-color, var(--color-alert-error-icon));
+    --icon-color: var(--alert-icon-color, var(--color-icon-error));
 
     flex: none;
     margin: var(--alert-icon-margin, 0 var(--space-4) 0 0);
@@ -92,23 +92,23 @@ export default {
   }
 
   &--success {
-    --alert-icon-color: var(--color-alert-success-icon);
-    --alert-color: var(--color-alert-success-text);
+    --alert-icon-color: var(--color-icon-success);
+    --alert-color: var(--color-text-success);
   }
 
   &--info {
-    --alert-icon-color: var(--color-alert-info-icon);
-    --alert-color: var(--color-alert-info-text);
+    --alert-icon-color: var(--color-icon-info);
+    --alert-color: var(--color-text-info);
   }
 
   &--warning {
-    --alert-icon-color: var(--color-alert-warning-icon);
-    --alert-color: var(--color-alert-warning-text);
+    --alert-icon-color: var(--color-icon-warning);
+    --alert-color: var(--color-text-warning);
   }
 
   &--error {
-    --alert-icon-color: var(--color-alert-error-icon);
-    --alert-color: var(--color-alert-error-text);
+    --alert-icon-color: var(--color-icon-error);
+    --alert-color: var(--color-text-error);
   }
 
   &--secondary {

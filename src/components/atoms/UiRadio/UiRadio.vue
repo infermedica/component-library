@@ -114,12 +114,12 @@ export default {
 
   @media (hover: hover) {
     &:hover {
-      --radio-border: solid var(--color-border-hover);
+      --radio-border: solid var(--color-border-strong-hover);
     }
   }
 
   &:active {
-    --radio-border: solid var(--color-border-active);
+    --radio-border: solid var(--color-border-strong-active);
   }
 
   &__radiobutton {
@@ -132,7 +132,7 @@ export default {
     margin: var(--radio-margin, 0.125rem);
     overflow: hidden;
     background: var(--radio-background, var(--color-background-white));
-    border: var(--radio-border, solid var(--color-border-accessible));
+    border: var(--radio-border, solid var(--color-border-strong));
     border-width: var(--radio-border-width, 2px);
     border-radius: var(--border-radius-circle);
   }
@@ -148,20 +148,20 @@ export default {
   input {
     &:checked {
       & + #{$this}__radiobutton {
-        --radio-border: solid var(--color-radio-checkbox-selected-enabled);
-        --radio-mark-background: var(--color-radio-checkbox-selected-enabled);
+        --radio-border: solid var(--color-selectioncontrols-selection);
+        --radio-mark-background: var(--color-selectioncontrols-selection);
       }
 
       @media (hover: hover) {
         &:hover + #{$this}__radiobutton {
-          --radio-border: solid var(--color-radio-checkbox-selected-hover);
-          --radio-mark-background: var(--color-radio-checkbox-selected-hover);
+          --radio-border: solid var(--color-selectioncontrols-selection-hover);
+          --radio-mark-background: var(--color-selectioncontrols-selection-hover);
         }
       }
 
       &:active + #{$this}__radiobutton {
-        --radio-border: solid var(--color-radio-checkbox-selected-active);
-        --radio-mark-background: var(--color-radio-checkbox-selected-active);
+        --radio-border: solid var(--color-selectioncontrols-selection-active);
+        --radio-mark-background: var(--color-selectioncontrols-selection-active);
       }
     }
 
@@ -214,29 +214,29 @@ export default {
   }
 
   &--has-error {
-    --radio-border: solid var(--color-border-alert-error-accessible);
+    --radio-border: solid var(--color-border-error-strong);
 
     @media (hover: hover) {
       &:hover {
-        --radio-border: solid var(--color-border-alert-error-accessible);
+        --radio-border: solid var(--color-border-error-strong);
       }
     }
 
     &:active {
-      --radio-border: solid var(--color-border-alert-error-accessible);
+      --radio-border: solid var(--color-border-error-strong);
     }
 
     input:checked {
       & + #{$this}__radiobutton,
       &:active + #{$this}__radiobutton {
-        --radio-border: solid var(--color-border-alert-error-accessible);
-        --radio-mark-background: var(--color-border-alert-error-accessible);
+        --radio-border: solid var(--color-border-error-strong);
+        --radio-mark-background: var(--color-border-error-strong);
       }
 
       @media (hover: hover) {
         &:hover + #{$this}__radiobutton {
-          --radio-border: solid var(--color-border-alert-error-accessible);
-          --radio-mark-background: var(--color-border-alert-error-accessible);
+          --radio-border: solid var(--color-border-error-strong);
+          --radio-mark-background: var(--color-border-error-strong);
         }
       }
     }

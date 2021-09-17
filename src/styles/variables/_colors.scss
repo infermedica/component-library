@@ -86,23 +86,25 @@ html {
   // Text
   --color-text-body: var(--color-gray-900);
   --color-text-heading: var(--color-gray-900);
-  --color-text-link-primary: var(--color-blue-600);
-  --color-text-link-primary-hover: var(--color-blue-700);
-  --color-text-link-primary-active: var(--color-blue-800);
-  --color-text-link-secondary: var(--color-gray-600);
-  --color-text-link-secondary-hover: var(--color-gray-700);
-  --color-text-link-secondary-active: var(--color-gray-800);
-  --color-text-placeholder: var(--color-gray-600);
-  --color-text-negative: var(--color-white);
-  --color-text-action-primary-enabled: var(--color-blue-600);
+  --color-text-action-primary: var(--color-blue-600);
   --color-text-action-primary-hover: var(--color-blue-700);
   --color-text-action-primary-active: var(--color-blue-800);
-  --color-text-action-secondary-enabled: var(--color-gray-600);
+  --color-text-action-secondary: var(--color-gray-600);
   --color-text-action-secondary-hover: var(--color-gray-700);
   --color-text-action-secondary-active: var(--color-gray-800);
   --color-text-dimmed: var(--color-gray-600);
   --color-text-disabled: var(--color-gray-400);
   --color-text-on-dark: var(--color-white);
+  --color-text-error: var(--color-red-600);
+  --color-text-warning: var(--color-yellow-600);
+  --color-text-success: var(--color-green-600);
+  --color-text-info: var(--color-blue-600);
+  --color-text-on-action: var(--color-white);
+  --color-text-on-selection: var(--color-white);
+  --color-text-on-brand: var(--color-white);
+  --color-text-on-brand-hover: var(--color-blue-50);
+  --color-text-on-brand-active: var(--color-blue-100);
+  --color-text-on-brand-disabled: var(--color-blue-400);
 
   // Icons
   --color-icon-primary: var(--color-blue-600);
@@ -113,100 +115,93 @@ html {
   --color-icon-secondary-active: var(--color-gray-800);
   --color-icon-negative: var(--color-white);
   --color-icon-disabled: var(--color-gray-300);
-  --color-icon-on-dark-enabled: var(--color-white);
+  --color-icon-on-action: var(--color-white);
+  --color-icon-on-selection: var(--color-white);
+  --color-icon-on-brand: var(--color-white);
+  --color-icon-on-brand-hover: var(--color-blue-50);
+  --color-icon-on-brand-active: var(--color-blue-100);
+  --color-icon-on-brand-disabled: var(--color-blue-400);
 
   // UI (colors shared by graphic UI elements)
-  --color-ui-bg-light: var(--color-gray-50);
-  --color-ui-element-lighter: var(--color-gray-100);
-  --color-ui-element-light: var(--color-gray-200);
-  --color-ui-element-accessible: var(--color-gray-500);
-  --color-ui-backdrop: var(--color-gray-800);
+  --color-backdrop: var(--color-gray-800);
   --color-background-white: var(--color-white);
   --color-background-white-hover: var(--color-gray-50);
   --color-background-white-active: var(--color-gray-100);
   --color-background-subtle: var(--color-gray-50);
-  --color-background-alert-error: var(--color-red-50);
-  --color-ui-focus: var(--color-blue-500);
-  --color-ui-disabled: var(--color-gray-200);
-  --color-background-dark: var(--color-blue-600);
+  --color-background-error: var(--color-red-50);
+  --color-background-warning: var(--color-yellow-50);
+  --color-background-success: var(--color-green-50);
+  --color-background-info: var(--color-blue-50);
+  --color-background-action: var(--color-green-600);
+  --color-background-action-hover: var(--color-green-700);
+  --color-background-action-active: var(--color-green-800);
+  --color-background-disabled: var(--color-gray-200);
+  --color-background-brand: var(--color-blue-600);
+  --color-background-selection: var(--color-blue-600);
+  --color-background-selection-hover: var(--color-blue-700);
+  --color-background-selection-active: var(--color-blue-800);
+  --color-shadow: var(--color-gray-800);
+  --color-skeleton-loader-base: var(--color-gray-100);
+  --color-skeleton-loader-wave: var(--color-gray-200);
 
   // Messages
-  --color-alert-error-text: var(--color-red-600);
-  --color-alert-error-icon: var(--color-red-500);
-  --color-alert-error-border: var(--color-red-300);
-  --color-alert-error-bg: var(--color-red-50);
-  --color-alert-warning-text: var(--color-yellow-600);
-  --color-alert-warning-icon: var(--color-yellow-500);
-  --color-alert-warning-border: var(--color-yellow-300);
-  --color-alert-warning-bg: var(--color-yellow-50);
-  --color-alert-success-text: var(--color-green-600);
-  --color-alert-success-icon: var(--color-green-500);
-  --color-alert-success-border: var(--color-green-300);
-  --color-alert-success-bg: var(--color-green-50);
-  --color-alert-info-text: var(--color-blue-600);
-  --color-alert-info-icon: var(--color-blue-500);
-  --color-alert-info-border: var(--color-blue-300);
-  --color-alert-info-bg: var(--color-blue-50);
+  --color-icon-error: var(--color-red-500);
+  --color-icon-warning: var(--color-yellow-500);
+  --color-icon-success: var(--color-green-500);
+  --color-icon-info: var(--color-blue-500);
 
   // Component-specific - selection controls
-  --color-selection: var(--color-green-500);
-  --color-selection-hover: var(--color-green-600);
-  --color-selection-active: var(--color-green-700);
+  --color-selectioncontrols-selection: var(--color-green-500);
+  --color-selectioncontrols-selection-hover: var(--color-green-600);
+  --color-selectioncontrols-selection-active: var(--color-green-700);
 
   // Component-specific - triage hero colors
+  --color-triage-emergency: var(--color-yellow-300);
   --color-triage-emergency-ambulance: var(--color-red-500);
   --color-triage-emergency-department: var(--color-white);
   --color-triage-consultation: var(--color-blue-500);
+  --color-triage-consultation-24: var(--color-blue-500);
   --color-triage-self-care: var(--color-green-500);
 
-  // Component-specific - button colors
-  --color-button-contained-background-enabled: var(--color-green-600);
-  --color-button-contained-background-hover: var(--color-green-700);
-  --color-button-contained-background-active: var(--color-green-800);
-  --color-button-contained-text: var(--color-white);
-
-  // Component-specific - Checkbox and Radio
-  --color-radio-checkbox-selected-enabled: var(--color-green-500);
-  --color-radio-checkbox-selected-hover: var(--color-green-600);
-  --color-radio-checkbox-selected-active: var(--color-green-700);
-
   // Component-specific - Range
-  --color-range-slider-thumb-background-enabled: var(--color-green-600);
-  --color-range-slider-thumb-background-hover: var(--color-green-700);
-  --color-range-slider-thumb-background-active: var(--color-green-800);
-  --color-range-slider-bar-indicator: var(--color-green-600);
-  --color-range-slider-bar-track: var(--color-gray-200);
+  --color-range-thumb: var(--color-green-600);
+  --color-range-thumb-hover: var(--color-green-700);
+  --color-range-thumb-active: var(--color-green-800);
+  --color-range-progress-indicator: var(--color-green-600);
 
-  // Component-specific - Stepper
-  --color-bar-indicator: var(--color-green-600);
-  --color-bar-track: var(--color-gray-200);
+  // Component-specific - Progress
+  --color-progress-indicator: var(--color-green-600);
+  --color-progress-track: var(--color-gray-200);
 
   // Component-specific - Border
   --color-border-divider: var(--color-gray-100);
   --color-border-subtle: var(--color-gray-200);
-  --color-border-accessible: var(--color-gray-500);
-  --color-border-focus: var(--color-blue-500);
-  --color-border-hover: var(--color-gray-700);
-  --color-border-active: var(--color-gray-900);
-  --color-border-alert-error-accessible: var(--color-red-500);
+  --color-border-strong: var(--color-gray-500);
+  --color-border-strong-hover: var(--color-gray-700);
+  --color-border-strong-active: var(--color-gray-900);
+  --color-border-focus-dark: var(--color-blue-500);
+  --color-border-focus-light: var(--color-white);
+  --color-border-warning-subtle: var(--color-yellow-300);
+  --color-border-success-subtle: var(--color-green-300);
+  --color-border-info-subtle: var(--color-blue-300);
+  --color-border-error-subtle: var(--color-red-300);
+  --color-border-error-strong: var(--color-red-500);
+  --color-border-error-strong-hover: var(--color-red-600);
+  --color-border-error-strong-active: var(--color-red-700);
+  --color-border-selection: var(--color-blue-600);
 
   // Component-specific - Chips
   --color-chip-text: var(--color-white);
-  --color-chip-backgroud: var(--color-blue-600);
-  --color-chip-icon-on-dark-enabled: var(--color-white);
-  --color-chip-icon-backgroud-enabled: var(--color-blue-700);
-  --color-chip-icon-backgroud-hover: var(--color-blue-800);
-  --color-chip-icon-backgroud-active: var(--color-blue-900);
+  --color-chip-background: var(--color-blue-600);
+  --color-chip-icon: var(--color-white);
+  --color-chip-icon-background: var(--color-blue-700);
+  --color-chip-icon-background-hover: var(--color-blue-800);
+  --color-chip-icon-background-active: var(--color-blue-900);
 
-  // Component-specific - Card
-  --color-triage-background-emergency-ambulance: var(--color-red-500);
-  --color-triage-background-emergency-department: var(--color-yellow-300);
-  --color-triage-background-consultation-24: var(--color-blue-500);
-  --color-triage-background-consultation: var(--color-blue-500);
-  --color-triage-background-self-care: var(--color-green-500);
-
-  // Component-specific - Scale
-  --color-pain-scale-unselected: var(--color-gray-100);
-  --color-pain-scale-low-end: var(--color-yellow-300);
-  --color-pain-scale-high-end: var(--color-red-500);
+  // Data visualizations
+  --color-dataviz-diverging-track: var(--color-gray-100);
+  --color-dataviz-diverging-moderately-negative: var(--color-yellow-300);
+  --color-dataviz-diverging-strongly-negative: var(--color-red-500);
+  --color-dataviz-sequential-weak: var(--color-gray-600);
+  --color-dataviz-sequential-strong: var(--color-blue-600);
 }

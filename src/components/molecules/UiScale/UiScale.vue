@@ -258,7 +258,7 @@ export default {
     flex: 1;
 
     &--is-active {
-      --scale-square-base-background: var(--color-pain-scale-low-end);
+      --scale-square-base-background: var(--color-dataviz-diverging-moderately-negative);
     }
   }
 
@@ -266,7 +266,7 @@ export default {
     position: relative;
     height: 40px;
     overflow: hidden;
-    background: var(--scale-square-base-background, var(--color-pain-scale-unselected));
+    background: var(--scale-square-base-background, var(--color-dataviz-diverging-track));
     border: solid var(--color-white);
     border-width: 0;
     transition: background 200ms ease;
@@ -278,7 +278,7 @@ export default {
       bottom: 0;
       left: 0;
       content: '';
-      background: var(--scale-square-overlay-background, var(--color-pain-scale-high-end));
+      background: var(--scale-square-overlay-background, var(--color-dataviz-diverging-strongly-negative));
       opacity: var(--scale-square-overlay-opacity, 0);
       transition: opacity 200ms ease;
     }
@@ -297,7 +297,7 @@ export default {
     &--is-checked {
       --text-color: var(--color-white);
 
-      background: var(--scale-label-background, var(--color-background-dark));
+      background: var(--scale-label-background, var(--color-background-selection));
 
       &::after {
         position: absolute;

@@ -239,7 +239,7 @@ export default {
     }
 
     &--has-error {
-      --multiple-answer-list-item-background: var(--color-background-alert-error);
+      --multiple-answer-list-item-background: var(--color-background-error);
     }
   }
 

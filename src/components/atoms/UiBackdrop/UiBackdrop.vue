@@ -15,7 +15,7 @@ export default {
   right: 0;
   bottom: 0;
   left: 0;
-  background: var(--backdrop-background, var(--color-ui-backdrop));
+  background: var(--backdrop-background, var(--color-backdrop));
   opacity: var(--backdrop-opacity, var(--opacity-medium));
 }
 </style>

@@ -50,23 +50,23 @@ export default {
   }
 
   &--success {
-    --notification-background: var(--notification-success-backgroud-color, var(--color-alert-success-bg));
-    --notification-border: solid var(--notification-success-border-color, var(--color-alert-success-border));
+    --notification-background: var(--notification-success-background-color, var(--color-background-success));
+    --notification-border: solid var(--notification-success-border-color, var(--color-border-success-subtle));
   }
 
   &--info {
-    --notification-background: var(--notification-info-backgroud-color, var(--color-alert-info-bg));
-    --notification-border: solid var(--notification-info-border-color, var(--color-alert-info-border));
+    --notification-background: var(--notification-info-background-color, var(--color-background-info));
+    --notification-border: solid var(--notification-info-border-color, var(--color-border-info-subtle));
   }
 
   &--warning {
-    --notification-background: var(--notification-warning-backgroud-color, var(--color-alert-warning-bg));
-    --notification-border: solid var(--notification-warning-border-color, var(--color-alert-warning-border));
+    --notification-background: var(--notification-warning-background-color, var(--color-background-warning));
+    --notification-border: solid var(--notification-warning-border-color, var(--color-border-warning-subtle));
   }
 
   &--error {
-    --notification-background: var(--notification-error-backgroud-color, var(--color-alert-error-bg));
-    --notification-border: solid var(--notification-error-border-color, var(--color-alert-error-border));
+    --notification-background: var(--notification-error-background-color, var(--color-background-error));
+    --notification-border: solid var(--notification-error-border-color, var(--color-border-error-subtle));
   }
 }
 </style>

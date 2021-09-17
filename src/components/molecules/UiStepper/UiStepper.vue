@@ -147,8 +147,8 @@ export default {
   // Variables for inner progress-bar customization
   $this: &;
 
-  --progress-background: var(--stepper-progress-background, var(--color-bar-track));
-  --progress-value-background: var(--stepper-progress-background, var(--color-bar-indicator));
+  --progress-background: var(--stepper-progress-background, var(--color-progress-track));
+  --progress-value-background: var(--stepper-progress-background, var(--color-progress-indicator));
   --progress-border-radius: var(--stepper-progress-border-radius, 2px);
 
   padding: var(--stepper-padding, var(--space-12) var(--space-20));
@@ -233,12 +233,12 @@ export default {
       }
 
       &::after {
-        @include progress-vertical(var(--color-bar-track), 0);
+        @include progress-vertical(var(--color-progress-track), 0);
       }
 
       &--visited {
         &::after {
-          @include progress-vertical(var(--color-bar-indicator), 1);
+          @include progress-vertical(var(--color-progress-indicator), 1);
         }
       }
 

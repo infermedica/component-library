@@ -62,7 +62,7 @@ export default {
   align-items: center;
   padding: var(--chips-padding, var(--space-4) var(--space-4) var(--space-4) var(--space-12));
   color: var(--chips-color, var(--color-chip-text));
-  background: var(--chips-backgorund, var(--color-chip-backgroud));
+  background: var(--chips-backgorund, var(--color-chip-background));
   border-radius: var(--chips-border-radius, var(--border-radius-pill));
 
   [dir=rtl] & {
@@ -72,11 +72,11 @@ export default {
   &__remove {
     --button-padding: 0;
     --button-border-width: 0;
-    --button-icon-color: var(--chips-remove-background, var(--color-chip-icon-backgroud-enabled));
-    --button-icon-color-hover: var(--chips-remove-hover-background, var(--color-chip-icon-backgroud-hover));
-    --button-icon-color-active: var(--chips-remove-active-background, var(--color-chip-icon-backgroud-active));
+    --button-icon-color: var(--chips-remove-background, var(--color-chip-icon-background));
+    --button-icon-color-hover: var(--chips-remove-hover-background, var(--color-chip-icon-background-hover));
+    --button-icon-color-active: var(--chips-remove-active-background, var(--color-chip-icon-background-active));
     --icon-size: var(--chips-remove-size, 1.5rem);
-    --remove-filled-close: var(--chips-remove-cross, var(--color-chip-icon-on-dark-enabled));
+    --remove-filled-close: var(--chips-remove-cross, var(--color-chip-icon));
 
     margin: var(--chips-remove-margin, 2px 2px 2px calc(var(--space-4) + 2px));
 

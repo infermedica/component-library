@@ -189,7 +189,7 @@ export default {
   }
 
   &--has-error {
-    --multiple-choices-item-background: var(--color-background-alert-error);
+    --multiple-choices-item-background: var(--color-background-error);
   }
 
   &__info {

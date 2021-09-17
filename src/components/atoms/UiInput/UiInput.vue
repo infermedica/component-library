@@ -101,12 +101,12 @@ export default {
   overflow: hidden;
   color: var(--input-color, var(--color-text-body));
   background-color: var(--input-background-color, var(--color-background-white));
-  border: var(--input-border, solid var(--input-border-color, var(--color-border-accessible)));
+  border: var(--input-border, solid var(--input-border-color, var(--color-border-strong)));
   border-width: var(--input-border-width, 1px);
   border-radius: var(--input-border-radius, var(--border-radius-form));
 
   &:focus-within {
-    --input-border-color: var(--input-focus-border-color, var(--color-border-accessible));
+    --input-border-color: var(--input-focus-border-color, var(--color-border-strong));
 
     outline: none;
     box-shadow: var(--box-shadow-outline);
@@ -114,7 +114,7 @@ export default {
 
   @media (hover: hover) {
     &:hover {
-      --input-border-color: var(--input-hover-border-color, var(--color-border-hover));
+      --input-border-color: var(--input-hover-border-color, var(--color-border-strong-hover));
 
       &:focus-within {
         --input-hover-border-color: var(--input-focus-border-color);
@@ -184,10 +184,10 @@ export default {
 
   &--has-error {
     --input-color: var(--input-error-color, var(--color-text-body));
-    --input-border-color: var(--input-error-border-color, var(--color-border-alert-error-accessible));
-    --input-hover-border-color: var(--input-error-hover-border-color, var(--color-border-alert-error-accessible));
-    --input-focus-border-color: var(--input-error-focus-border-color, var(--color-border-alert-error-accessible));
-    --input-caret-color: var(--input-error-caret-color, var(--color-border-alert-error-accessible));
+    --input-border-color: var(--input-error-border-color, var(--color-border-error-strong));
+    --input-hover-border-color: var(--input-error-hover-border-color, var(--color-border-error-strong));
+    --input-focus-border-color: var(--input-error-focus-border-color, var(--color-border-error-strong));
+    --input-caret-color: var(--input-error-caret-color, var(--color-border-error-strong));
   }
 
   &--is-disabled {

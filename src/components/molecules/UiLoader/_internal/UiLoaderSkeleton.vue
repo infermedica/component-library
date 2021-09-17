@@ -30,7 +30,7 @@ export default {
         linear-gradient(
           -60deg,
           var(--color-background-subtle) 20%,
-          var(--color-gray-100) 30%,
+          var(--color-skeleton-loader-base) 30%,
           var(--color-background-subtle) 40%
         )
       );
@@ -45,7 +45,7 @@ export default {
           linear-gradient(
             60deg,
             var(--color-background-subtle) 20%,
-            var(--color-gray-100) 30%,
+            var(--color-skeleton-loader-base) 30%,
             var(--color-background-subtle) 40%
           )
         );

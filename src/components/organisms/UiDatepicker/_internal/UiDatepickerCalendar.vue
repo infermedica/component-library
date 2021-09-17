@@ -167,7 +167,7 @@ export default {
     --tabs-item-tab-button-color:
       var(
         --datepicker-tabs-item-tab-button-color,
-        var(--color-text-action-secondary-enabled)
+        var(--color-text-action-secondary)
       );
     --tabs-item-tab-button-active-color: var(--datepicker-tabs-item-tab-button-active-color, var(--color-text-body));
     --tabs-item-tab-button-margin: var(--datepicker-tabs-item-tab-button-margin, var(--space-20) 0 var(--space-12));
@@ -177,7 +177,7 @@ export default {
         var(--space-20) 0 var(--space-12)
       );
     --tabs-item-tab-button-padding: var(--datepicker-tabs-item-tab-button-padding, 0);
-    --tabs-underline-color: var(--datepicker-tabs-underline-color, var(--color-border-focus));
+    --tabs-underline-color: var(--datepicker-tabs-underline-color, var(--color-border-focus-dark));
   }
 
   &__tab-content {

@@ -94,10 +94,10 @@ export default {
     }
 
     &--selected {
-      --button-background: var(--datepicker-date-label-selected-background, var(--color-background-dark));
+      --button-background: var(--datepicker-date-label-selected-background, var(--color-background-selection));
       --button-color: var(--datepicker-date-label-selected-color, var(--color-text-on-dark));
       --button-hover-color: var(--datepicker-date-label-selected-hover-color, var(--color-text-on-dark));
-      --button-hover-background: var(--datepicker-date-label-selected-hover-background, var(--color-background-dark));
+      --button-hover-background: var(--datepicker-date-label-selected-hover-background, var(--color-background-selection));
     }
   }
 }

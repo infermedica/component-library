@@ -163,7 +163,7 @@ export default {
 
   &--selected {
     &::before {
-      box-shadow: 0 0 0 2px var(--tile-border-color, var(--color-border-accessible));
+      box-shadow: 0 0 0 2px var(--tile-border-color, var(--color-border-strong));
     }
   }
 

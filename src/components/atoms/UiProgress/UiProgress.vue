@@ -47,7 +47,7 @@ export default {
   height: var(--height);
   padding: var(--progress-padding, 0 var(--bar-padding));
   overflow: hidden;
-  background-color: var(--progress-background, var(--color-bar-track));
+  background-color: var(--progress-background, var(--color-progress-track));
   border: var(--progress-border, 0);
   border-radius: var(--radius-pill);
 
@@ -55,7 +55,7 @@ export default {
     position: relative;
     width: calc(var(--progress-value) * 100%);
     height: 100%;
-    background-color: var(--progress-value-background, var(--color-bar-indicator));
+    background-color: var(--progress-value-background, var(--color-progress-indicator));
     border-radius: var(--progress-value-radius, 0);
 
     &::before,
@@ -65,7 +65,7 @@ export default {
       width: var(--bar-padding);
       height: 100%;
       content: '';
-      background-color: var(--progress-value-background, var(--color-bar-indicator));
+      background-color: var(--progress-value-background, var(--color-progress-indicator));
     }
 
     &::before {

@@ -61,7 +61,7 @@ export default {
 
   &--on-dark {
     --loader-spinner-loader-border: solid rgba(255, 255, 255, 0.3);
-    --loader-spinner-loader-highlighted-color: var(--color-icon-on-dark-enabled);
+    --loader-spinner-loader-highlighted-color: var(--color-icon-on-brand);
     --loader-spinner-label-color: var(--color-text-on-dark);
   }
 

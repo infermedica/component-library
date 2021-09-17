@@ -63,7 +63,7 @@ export default {
   width: var(--button-width);
   height: var(--button-height);
   padding: var(--button-padding, var(--space-12) var(--space-32));
-  color: var(--button-color, var(--color-button-contained-text));
+  color: var(--button-color, var(--color-text-on-action));
   text-align: var(--button-text-align, center);
   text-decoration: var(--button-text-decoration, none);
   text-transform: var(--button-text-transform);
@@ -72,7 +72,7 @@ export default {
   background:
     var(
       --button-background,
-      var(--color-button-contained-background-enabled)
+      var(--color-background-action)
     );
   border:
     var(
@@ -85,8 +85,8 @@ export default {
 
   @media (hover: hover) {
     &:hover {
-      color: var(--button-hover-color, var(--color-button-contained-text));
-      background: var(--button-hover-background, var(--color-button-contained-background-hover));
+      color: var(--button-hover-color, var(--color-text-on-action));
+      background: var(--button-hover-background, var(--color-background-action-hover));
 
       &#{$this}--has-icon {
         --icon-color: var(--button-icon-color-hover, var(--color-icon-primary-hover));
@@ -95,8 +95,8 @@ export default {
   }
 
   &:active {
-    color: var(--button-active-color, var(--color-button-contained-text));
-    background: var(--button-active-background, var(--color-button-contained-background-active));
+    color: var(--button-active-color, var(--color-text-on-action));
+    background: var(--button-active-background, var(--color-background-action-active));
 
     &#{$this}--has-icon {
       --icon-color: var(--button-icon-color-active, var(--color-icon-primary-active));
@@ -133,9 +133,9 @@ export default {
   }
 
   &--is-disabled {
-    --button-background: var(--color-ui-disabled);
-    --button-hover-background: var(--color-ui-disabled);
-    --button-active-background: var(--color-ui-disabled);
+    --button-background: var(--color-background-disabled);
+    --button-hover-background: var(--color-background-disabled);
+    --button-active-background: var(--color-background-disabled);
 
     cursor: not-allowed;
   }
@@ -146,7 +146,7 @@ export default {
   }
 
   &--outlined {
-    --button-color: var(--color-text-action-primary-enabled);
+    --button-color: var(--color-text-action-primary);
     --button-hover-color: var(--color-text-action-primary-hover);
     --button-active-color: var(--color-text-action-primary-active);
     --button-border-color: var(--color-gray-200);
@@ -174,7 +174,7 @@ export default {
   }
 
   &--text {
-    --button-color: var(--color-text-action-primary-enabled);
+    --button-color: var(--color-text-action-primary);
     --button-hover-color: var(--color-text-action-primary-hover);
     --button-active-color: var(--color-text-action-primary-active);
     --button-border-width: 0;
@@ -219,7 +219,7 @@ export default {
   }
 
   &--secondary {
-    --button-color: var(--color-text-action-secondary-enabled);
+    --button-color: var(--color-text-action-secondary);
     --button-hover-color: var(--color-text-action-secondary-hover);
     --button-active-color: var(--color-text-action-secondary-active);
 
