@@ -131,8 +131,8 @@ export default {
     --button-icon-color-hover: var(--color-icon-negative);
     --button-icon-color-active: var(--color-icon-negative);
     --button-background: var(--dropdown-item-button-selected-background, var(--color-background-selection));
-    --button-hover-background: var(--dropdown-item-button-selected-background, var(--color-background-selection));
-    --button-active-background: var(--dropdown-item-button-selected-background, var(--color-background-selection));
+    --button-hover-background: var(--dropdown-item-button-selected-background, var(--color-background-selection-hover));
+    --button-active-background: var(--dropdown-item-button-selected-background, var(--color-background-selection-active));
     --button-color: var(--color-text-on-dark);
     --button-hover-color: var(--color-text-on-dark);
     --button-active-color: var(--color-text-on-dark);
