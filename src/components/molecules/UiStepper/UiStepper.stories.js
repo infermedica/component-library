@@ -84,8 +84,8 @@ export const WithProgressSlot = (args) => ({
   >
     <template #progress="{stepsProgress}">
       <UiProgress
-        min="0"
-        max="100"
+        :min="0"
+        :max="100"
         :value="stepsProgress"
       />
     </template>
@@ -238,8 +238,8 @@ export const WithMobileSlot = (args) => ({
             {{ currentStepDisplayText }}
           </UiText>
           <UiProgress
-            min="0"
-            max="100"
+            :min="0"
+            :max="100"
             :value="stepsProgress"
           />
       </div>

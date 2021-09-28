@@ -3,7 +3,7 @@
     <UiProgress
       v-bind="progressAttrs"
       :value="value"
-      max="100"
+      :max="100"
       class="ui-progressbar__progress"
     />
     <div class="ui-progressbar__steps">
