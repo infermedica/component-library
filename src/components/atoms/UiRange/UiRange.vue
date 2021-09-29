@@ -166,7 +166,6 @@ export default {
       var(--range-thumb-size, 3rem)
       + var(--range-label-spacing-bottom, 0.5rem)
     ) 0 0 0;
-  touch-action: none;
 
   @media (min-width: 768px) {
     flex-wrap: nowrap;
@@ -229,6 +228,7 @@ export default {
     width: 100%;
     height: var(--range-thumb-size, 3rem);
     margin: var(--range-track-margin);
+    touch-action: none;
 
     @media (min-width: 768px) {
       flex: 0 1 auto;
