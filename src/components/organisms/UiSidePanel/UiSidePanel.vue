@@ -19,6 +19,7 @@
     >
       <transition
         :name="transition"
+        @enter="enterHandler"
         @after-enter="afterEnterHandler"
       >
         <dialog
@@ -105,7 +106,6 @@
 <script>
 import {
   ref,
-  watchEffect,
   nextTick,
   onMounted,
   onBeforeUnmount,
@@ -187,16 +187,17 @@ export default {
     function afterEnterHandler() {
       emit('after-enter');
     }
+
     function focus(element) {
-      if (element) { element.focus(); }
-    }
-    watchEffect(() => {
-      if (props.modelValue) {
-        nextTick(() => {
-          focus(button.value?.$el);
-        });
+      if (element) {
+        element.focus();
       }
-    });
+    }
+
+    async function enterHandler() {
+      await nextTick();
+      focus(button.value?.$el);
+    }
 
     function keydownHandler({ key }) {
       if (key !== 'Escape') return;
@@ -213,6 +214,7 @@ export default {
       button,
       closeHandler,
       afterEnterHandler,
+      enterHandler,
     };
   },
 };
