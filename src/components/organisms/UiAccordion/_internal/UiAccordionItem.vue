@@ -126,16 +126,21 @@ export default {
 
   &__toggler {
     --button-align-items: flex-start;
-    --button-justify-content: left;
+    --button-justify-content: flex-start;
     --button-padding: var(--accordion-item-toggler-padding, var(--space-12));
     --button-border-width: 0;
     --button-border-radius: 0;
     --button-white-space: wrap;
+    --button-text-align: left;
 
     &:focus {
       --button-border-radius: var(--border-radius-outline);
 
       z-index: 1;
+    }
+
+    [dir=rtl] & {
+      --button-text-align: right;
     }
   }
 
