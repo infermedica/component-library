@@ -42,7 +42,7 @@
             </template>
           </template>
           <template #label>
-            <span class="visual-hidden">{{ index }} {{ translation.stars }}</span>
+            <span class="visual-hidden">{{ translation.stars(index) }}</span>
           </template>
         </UiRadio>
       </slot>
@@ -107,7 +107,7 @@ export default {
     translation: {
       type: Object,
       default: () => ({
-        stars: 'stars',
+        stars: (index) => (`${index} stars`),
       }),
     },
   },
