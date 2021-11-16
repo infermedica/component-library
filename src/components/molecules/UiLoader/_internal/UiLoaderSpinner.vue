@@ -39,9 +39,9 @@ export default {
 <style lang="scss">
 .ui-loader-spinner {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  flex-direction: var(--loader-spinner-flex-direction, column);
+  align-items: var(--loader-spinner-align-items, center);
+  justify-content: var(--loader-spinner-justify-content, center);
 
   &__loader {
     width: var(--loader-spinner-loader-size, 4rem);
