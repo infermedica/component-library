@@ -41,7 +41,7 @@ export default {
       default: '',
     },
   },
-  emits: ['update:modelValue', 'change'],
+  emits: ['update:modelValue', 'change', 'select'],
   setup(props, { emit }) {
     const monthNames = inject('monthNames');
     const isDisabled = inject('checkMonthAvailability');
@@ -53,6 +53,7 @@ export default {
     });
 
     function select(value) {
+      emit('select', { type: 'month', value });
       month.value = value.length === 1 ? `0${value}` : value;
       unfulfilledMonthError.value = false;
     }

@@ -41,7 +41,7 @@ export default {
       default: '',
     },
   },
-  emits: ['update:modelValue', 'change'],
+  emits: ['update:modelValue', 'change', 'select'],
   setup(props, { emit }) {
     const yearsList = inject('yearsList');
     const isDisabled = inject('checkYearAvailability');
@@ -53,6 +53,7 @@ export default {
     });
 
     function select(value) {
+      emit('select', { type: 'year', value });
       year.value = value;
       unfulfilledYearError.value = false;
     }

@@ -1,5 +1,14 @@
 import UiDatepicker from '@/components/organisms/UiDatepicker/UiDatepicker.vue';
 import { ref } from 'vue';
+import { actions } from '@storybook/addon-actions';
+
+const events = actions({
+  onFieldFocus: 'field-focus',
+  onFieldInsert: 'field-insert',
+  onFieldError: 'field-error',
+  onCalendarSelect: 'calendar-select',
+  onCalendarOpen: 'calendar-open',
+});
 
 export default {
   title: 'Organisms/Datepicker',
@@ -31,9 +40,12 @@ const Template = (args) => ({
   setup() {
     const modelValue = ref('');
     const invalid = ref('');
-    return { ...args, modelValue, invalid };
+    return {
+      events, ...args, modelValue, invalid,
+    };
   },
   template: `<UiDatepicker
+      v-bind="{...events}"
       v-model="modelValue"
       :error="error"
       :order="order"

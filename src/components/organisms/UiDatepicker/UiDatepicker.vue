@@ -28,7 +28,7 @@
               'valid': isInputValid[datePart],
             }"
             @change-input="focusNextField"
-            @focus="synchronizeTab($event)"
+            @focus="handleFocus($event, datePart)"
           />
         </div>
       </div>
@@ -38,6 +38,8 @@
       :last-focused="lastFocusedDatePart"
       v-bind="datepickerCalendarAttrs"
       class="ui-datepicker__dropdown"
+      @open="$emit('calendar-open', $event)"
+      @select="$emit('calendar-select', $event)"
     />
   </div>
 </template>
@@ -183,7 +185,15 @@ export default {
       }),
     },
   },
-  emits: ['update:modelValue', 'update:invalid'],
+  emits: [
+    'update:modelValue',
+    'update:invalid',
+    'calendar-open',
+    'calendar-select',
+    'field-insert',
+    'field-error',
+    'field-focus',
+  ],
   setup(props, { emit }) {
     const dropdown = ref(null);
     const dayInput = ref(null);
@@ -360,7 +370,8 @@ export default {
 
     const lastFocusedDatePart = ref(`${props.order[0]}`);
 
-    function synchronizeTab(event) {
+    function handleFocus(event, datePart) {
+      emit('field-focus', { field: datePart });
       const fieldId = event.target.id;
       lastFocusedDatePart.value = `${fieldId}`;
     }
@@ -416,6 +427,15 @@ export default {
       return error;
     });
 
+    const handleFulfilledChange = (isFullfilled, field, value, isValid) => {
+      if (isFullfilled) emit('field-insert', { field, value });
+      if (isFullfilled && !isValid) emit('field-error', { field, error: errorDisplayHandler.value });
+    };
+
+    watch(isDayFulfilled, (fullfilled) => handleFulfilledChange(fullfilled, 'day', date.day, isDayValid.value));
+    watch(isMonthFulfilled, (fullfilled) => handleFulfilledChange(fullfilled, 'month', date.month, isMonthValid.value));
+    watch(isYearFulfilled, (fullfilled) => handleFulfilledChange(fullfilled, 'year', date.year, isYearValid.value));
+
     const localizeMonths = async (locale) => {
       let localeFile;
       try {
@@ -459,7 +479,7 @@ export default {
       isDateValid,
       isDateOutOfBounds,
       isInputValid,
-      synchronizeTab,
+      handleFocus,
       focusNextField,
       inputComponentSelector,
       errorDisplayHandler,

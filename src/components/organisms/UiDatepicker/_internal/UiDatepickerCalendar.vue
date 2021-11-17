@@ -31,6 +31,7 @@
           :title="capitalizeFirst(translation[datePart])"
           class="ui-datepicker-calender__tab-content"
           @update:modelValue="goToNextTab"
+          @select="$emit('select', $event)"
         />
       </UiTabs>
     </template>
@@ -79,8 +80,8 @@ export default {
       default: () => ({}),
     },
   },
-  emits: ['update:modelValue'],
-  setup(props) {
+  emits: ['update:modelValue', 'open', 'select'],
+  setup(props, { emit }) {
     const dropdown = ref(null);
     const translation = inject('translation');
     const order = inject('order');
@@ -114,6 +115,7 @@ export default {
     }
 
     function openCalendar(open) {
+      emit('open');
       // TODO: if no empty Tabs try to focus first tab with error
       currentTab.value = firstEmptyTab.value ? firstEmptyTab.value : props.lastFocused;
       open();

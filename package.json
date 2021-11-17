@@ -133,6 +133,14 @@
             "allowFirstLine": false
           }
         }
+      ],
+      "import/no-extraneous-dependencies": [
+        "error",
+        {
+          "devDependencies": [
+            "**/*.stories.js"
+          ]
+        }
       ]
     },
     "overrides": [

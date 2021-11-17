@@ -41,7 +41,7 @@ export default {
       default: '',
     },
   },
-  emits: ['update:modelValue', 'change'],
+  emits: ['update:modelValue', 'change', 'select'],
   setup(props, { emit }) {
     const isDisabled = inject('checkDayAvailability');
     const unfulfilledDayError = inject('unfulfilledDay');
@@ -56,6 +56,7 @@ export default {
     }
 
     function select(value) {
+      emit('select', { type: 'day', value });
       day.value = formatDay(value);
       unfulfilledDayError.value = false;
     }
