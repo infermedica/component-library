@@ -81,12 +81,24 @@ export default {
     );
   border-width: var(--button-border-width, 0);
   border-radius: var(--button-border-radius, var(--border-radius-form));
-  transition: var(--button-transition, background-color 150ms ease-in-out);
+  transition:
+    var(
+      --toggle-button-transition,
+      (background-color 0.15s ease-in-out,
+      border-color 0.15s ease-in-out,
+      color 0.15s ease-in-out)
+    );
 
   @media (hover: hover) {
     &:hover {
       color: var(--button-hover-color, var(--color-text-on-action));
       background: var(--button-hover-background, var(--color-background-action-hover));
+
+      --button-border:
+        var(
+          --button-hover-border,
+          #{var(--button-hover-border-style, solid) var(--button-hover-border-color, transparent)}
+        );
 
       &#{$this}--has-icon {
         --icon-color: var(--button-icon-color-hover, var(--color-icon-primary-hover));
@@ -98,12 +110,19 @@ export default {
     color: var(--button-active-color, var(--color-text-on-action));
     background: var(--button-active-background, var(--color-background-action-active));
 
+    --button-border:
+      var(
+        --button-active-border,
+        #{var(--button-active-border-style, solid) var(--button-active-border-color, transparent)}
+      );
+
     &#{$this}--has-icon {
       --icon-color: var(--button-icon-color-active, var(--color-icon-primary-active));
     }
   }
 
   &:focus {
+    z-index: var(--button-focus-z-index, 1);
     outline: none;
     box-shadow: var(--box-shadow-outline);
   }
@@ -150,6 +169,8 @@ export default {
     --button-hover-color: var(--color-text-action-primary-hover);
     --button-active-color: var(--color-text-action-primary-active);
     --button-border-color: var(--color-gray-200);
+    --button-hover-border-color: var(--color-gray-200);
+    --button-active-border-color: var(--color-gray-200);
     --button-border-width: 1px;
     --button-background: transparent;
     --button-hover-background: var(--color-background-white-hover);
@@ -159,6 +180,9 @@ export default {
       --button-color: var(--color-text-disabled);
       --button-hover-color: var(--color-text-disabled);
       --button-active-color: var(--color-text-disabled);
+      --button-border-color: var(--color-gray-200);
+      --button-hover-border-color: var(--color-gray-200);
+      --button-active-border-color: var(--color-gray-200);
       --button-background: var(--color-white);
       --button-hover-background: var(--color-white);
       --button-active-background: var(--color-white);
