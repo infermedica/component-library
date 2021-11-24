@@ -157,9 +157,6 @@ export default {
     const component = computed(() => (Array.isArray(props.modelValue) ? 'ui-checkbox' : 'ui-radio'));
     const isCheckbox = computed(() => (component.value === 'ui-checkbox'));
     const valid = computed(() => {
-      if (!props.invalid) {
-        return true;
-      }
       return isCheckbox.value
         ? props.modelValue.length > 0
         : props.modelValue.id;
