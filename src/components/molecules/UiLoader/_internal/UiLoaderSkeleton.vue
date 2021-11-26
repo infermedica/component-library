@@ -1,13 +1,54 @@
 <template>
   <div class="ui-loader-skeleton">
     <!-- @slot Use this slot to put skeleton blocks.-->
-    <slot />
+    <slot>
+      <template v-if="type === 'common'">
+        <!-- @slot Use this slot to put skeleton common blocks.-->
+        <slot name="common">
+          <div
+            class="ui-loader-skeleton__block"
+            style="--loader-skeleton-block-width: 75%;"
+          />
+          <div
+            class="ui-loader-skeleton__block"
+          />
+          <div
+            class="ui-loader-skeleton__block"
+            style="--loader-skeleton-block-width: 50%;"
+          />
+        </slot>
+      </template>
+
+      <template v-else-if="type === 'question'">
+        <!-- @slot Use this slot to put skeleton question blocks.-->
+        <slot name="question">
+          <div
+            class="ui-loader-skeleton__block"
+          />
+
+          <div
+            class="ui-loader-skeleton__block"
+            style="--loader-skeleton-block-width: 75%;"
+          />
+          <div
+            class="ui-loader-skeleton__block ui-loader-skeleton__block--large"
+          />
+        </slot>
+      </template>
+    </slot>
   </div>
 </template>
 
 <script>
 export default {
   name: 'UiLoaderSkeleton',
+  props: {
+    type: {
+      type: String,
+      default: 'common',
+      validator: (value) => ['common', 'question'].includes(value),
+    },
+  },
 };
 </script>
 
@@ -16,27 +57,29 @@ export default {
 .ui-loader-skeleton {
   $this: &;
 
-  width: var(--loader-skeleton-height, 100%);
-  height: var(--loader-skeleton-width, 100%);
+  display: var(--loader-skeleton-display, grid);
+  grid-gap: var(--loader-skeleton-grid-gap, var(--space-32));
+  width: var(--loader-skeleton-width, 100%);
+  height: var(--loader-skeleton-height, auto);
+  margin: var(--loader-skeleton-margin, var(--space-16) 0);
 
   &__block {
     position: relative;
     width: var(--loader-skeleton-block-width, 100%);
-    height: var(--loader-skeleton-block-height, 0.75rem);
-    margin: var(--loader-skeleton-block-margin, var(--space-12) 0 var(--space-16) 0);
+    height: var(--loader-skeleton-block-height, var(--space-8));
     background:
       var(
         --loader-skeleton-block-background,
         linear-gradient(
           -60deg,
-          var(--color-background-subtle) 20%,
-          var(--color-skeleton-loader-base) 30%,
-          var(--color-background-subtle) 40%
+          var(--color-skeleton-loader-base) 20%,
+          var(--color-skeleton-loader-wave) 30%,
+          var(--color-skeleton-loader-base) 40%
         )
       );
     background-size: 200% 100%;
     border-radius: var(--loader-skeleton-block-border-radius, var(--border-radius-card));
-    animation: skeleton-shine 1s linear infinite;
+    animation: var(--loader-skeleton-block-animation, skeleton-shine 1s linear infinite);
 
     [dir=rtl] & {
       background:
@@ -44,27 +87,16 @@ export default {
           --loader-skeleton-block-background,
           linear-gradient(
             60deg,
-            var(--color-background-subtle) 20%,
-            var(--color-skeleton-loader-base) 30%,
-            var(--color-background-subtle) 40%
+            var(--color-skeleton-loader-base) 20%,
+            var(--color-skeleton-loader-wave) 30%,
+            var(--color-skeleton-loader-base) 40%
           )
         );
       background-size: 200% 100%; // This needs to be repeated
     }
 
-    @media (min-width: 768px) {
-      height: var(--loader-skeleton-block-tablet-height, 1rem);
-      margin: var(--loader-skeleton-block-tablet-margin, var(--space-12) 0 var(--space-20) 0);
-    }
-
     &--large {
       height: var(--loader-skeleton-block-large-height, 7.5rem);
-      margin: var(--loader-skeleton-block-large-margin, var(--space-40) 0 var(--space-12) 0);
-
-      @media (min-width: 768px) {
-        height: var(--loader-skeleton-block-large-tablet-height, 7.5rem);
-        margin: var(--loader-skeleton-block-large-tablet-margin, var(--space-48) 0 0 0);
-      }
     }
   }
 

@@ -106,16 +106,8 @@ export const LoadingPopover = (args) => ({
       :type="type"
       :transition="transition"
       :tag="tag"
-      style="--loader-skeleton-block-tablet-height: 0.75rem; --loader-skeleton-block-tablet-margin: 0 0 var(--space-24); padding: var(--space-16)"
-    >
-      <template #loader-blocks>
-        <div class="ui-loader-skeleton__block"/>
-        <div class="ui-loader-skeleton__block" style="width: 50%;"/>
-        <div class="ui-loader-skeleton__block" style="width: 75%;"/>
-        <div class="ui-loader-skeleton__block" style="width: 50%;"/>
-      </template>
-      A custom Symptomate app that you can use anywhere.
-    </UiLoader>
+      style="padding: var(--space-16)"
+    />
   </UiPopover>`,
 });
 LoadingPopover.args = {
@@ -137,16 +129,7 @@ export const LoadingContainer = (args) => ({
       :type="type"
       :transition="transition"
       :tag="tag"
-      style="--loader-skeleton-block-tablet-margin: var(--space-12) 0 var(--space-20);"
-    >
-      <template #loader-blocks>
-        <div class="ui-loader-skeleton__block" style="width: 75%;"/>
-        <div class="ui-loader-skeleton__block" style="width: 50%;"/>
-        <div class="ui-loader-skeleton__block"/>
-        <div class="ui-loader-skeleton__block" style="width: 50%;"/>
-      </template>
-      A custom Symptomate app that you can use anywhere.
-    </UiLoader>
+    />
   </UiContainer>`,
 });
 LoadingContainer.args = {
@@ -168,16 +151,7 @@ export const LoadingSidePanel = (args) => ({
       :type="type"
       :transition="transition"
       :tag="tag"
-      style="--loader-skeleton-block-tablet-margin: var(--space-12) 0 var(--space-20);"
-    >
-      <template #loader-blocks>
-        <div class="ui-loader-skeleton__block" style="width: 75%;"/>
-        <div class="ui-loader-skeleton__block" style="width: 50%;"/>
-        <div class="ui-loader-skeleton__block"/>
-        <div class="ui-loader-skeleton__block" style="width: 50%;"/>
-      </template>
-      A custom Symptomate app that you can use anywhere.
-    </UiLoader>
+    />
   </UiSidePanel>`,
 });
 LoadingSidePanel.args = {
@@ -194,7 +168,7 @@ export const LoadingControls = (args) => ({
     to-next="#"
     to-back="#"
     :invalid="false"
-    class="max-w-195 min-h-135 w-full"
+    class="max-w-195 w-full"
   >
     <UiLoader
       :is-loading="isLoading"
@@ -202,18 +176,42 @@ export const LoadingControls = (args) => ({
       :type="type"
       :transition="transition"
       :tag="tag"
-      class="flex-1"
-      style="--loader-skeleton-block-tablet-margin: var(--space-12) 0 var(--space-20);"
-    >
-      <template #loader-blocks>
-        <div class="ui-loader-skeleton__block"/>
-        <div class="ui-loader-skeleton__block" style="width: 75%;"/>
-        <div class="ui-loader-skeleton__block ui-loader-skeleton__block--large"/>
-      </template>
-      A custom Symptomate app that you can use anywhere.
-    </UiLoader>
+      class="w-full"
+    />
   </UiControls>`,
 });
 LoadingControls.args = {
   type: 'skeleton',
+  loaderAttrs: { type: 'question' },
+};
+
+const Skeleton = (args) => ({
+  components: { UiLoader, UiContainer },
+  setup() {
+    return { ...args };
+  },
+  template: `<UiContainer
+    class="max-w-195 w-full"
+    style="--container-padding: var(--space-40) var(--space-48);"
+  >
+    <UiLoader
+      :is-loading="isLoading"
+      :loader-attrs="loaderAttrs"
+      :type="type"
+      :transition="transition"
+      :tag="tag"
+    />
+  </UiContainer>`,
+});
+
+export const SkeletonCommon = Skeleton.bind({});
+SkeletonCommon.args = {
+  type: 'skeleton',
+  loaderAttrs: { type: 'common' },
+};
+
+export const SkeletonQuestion = Skeleton.bind({});
+SkeletonQuestion.args = {
+  type: 'skeleton',
+  loaderAttrs: { type: 'question' },
 };
