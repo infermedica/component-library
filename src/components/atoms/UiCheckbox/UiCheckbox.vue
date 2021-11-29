@@ -89,7 +89,7 @@ export default {
     const isGroup = computed(() => (Array.isArray(props.modelValue)));
     const isChecked = computed(() => (isGroup.value
       ? props.modelValue
-        .find((option) => (equal(props.value, option)))
+        .find((option) => (equal(JSON.parse(JSON.stringify(props.value)), JSON.parse(JSON.stringify(option)))))
       : props.modelValue));
     const getChecked = (checked) => {
       if (isGroup.value) {

@@ -80,7 +80,7 @@ export default {
     const radioId = computed(() => (
       props.id || `radio-${uid()}`
     ));
-    const isChecked = computed(() => (equal(props.value, props.modelValue)));
+    const isChecked = computed(() => (equal(JSON.parse(JSON.stringify(props.value)), JSON.parse(JSON.stringify(props.modelValue)))));
     const { getRootAttrs, getInputAttrs } = useInput();
 
     function changeHandler(checked) {
