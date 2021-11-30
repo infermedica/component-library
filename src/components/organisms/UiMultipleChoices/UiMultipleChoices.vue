@@ -170,7 +170,7 @@ export default {
     border:
       var(
         --multiple-choices-list-item-border,
-        solid var(--color-border-subtle)
+        solid var(--color-border-divider)
       );
     border-width: var(--multiple-choices-list-item-border-width, 1px 0 0 0);
 

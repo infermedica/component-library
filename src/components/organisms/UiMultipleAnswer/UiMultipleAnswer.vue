@@ -218,7 +218,7 @@ export default {
     --list-item-padding: 0;
 
     background: var(--multiple-answer-list-item-background);
-    border: var(--multiple-answer-list-item-border, solid var(--color-border-subtle));
+    border: var(--multiple-answer-list-item-border, solid var(--color-border-divider));
     border-width: var(--multiple-answer-list-item-border-width, 1px 0 0 0);
 
     &:last-of-type {
