@@ -429,7 +429,7 @@ export default {
 
     const handleFulfilledChange = (isFullfilled, field, value, isValid) => {
       if (isFullfilled) emit('field-insert', { field, value });
-      if (isFullfilled && !isValid) emit('field-error', { field, error: errorDisplayHandler.value });
+      if (isFullfilled && (!isValid || errorDisplayHandler.value)) emit('field-error', { field, error: errorDisplayHandler.value });
     };
 
     watch(isDayFulfilled, (fullfilled) => handleFulfilledChange(fullfilled, 'day', date.day, isDayValid.value));
