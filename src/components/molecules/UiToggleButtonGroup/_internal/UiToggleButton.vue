@@ -19,7 +19,7 @@ import {
   computed, getCurrentInstance, inject, watch,
 } from 'vue';
 import equal from 'fast-deep-equal';
-import UiButton from '@/components/atoms/UiButton/UiButton.vue';
+import UiButton from '../../../atoms/UiButton/UiButton.vue';
 
 export default {
   name: 'UiToggleButton',
