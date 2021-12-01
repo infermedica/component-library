@@ -5,7 +5,10 @@
       :key="index"
     >
       <!-- @slot Use this slot to replace option template. -->
-      <slot name="option">
+      <slot
+        name="option"
+        v-bind="{index, rate, radioAttrs, ratingName, hoverHandler, finalScore, settings, translation}"
+      >
         <UiRadio
           v-model="rate"
           v-bind="radioAttrs"
