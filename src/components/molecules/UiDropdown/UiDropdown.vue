@@ -1,6 +1,6 @@
 <template>
   <div
-    v-click-outside="closeHandler.bind(this, true)"
+    v-click-outside:[closeOnClickOutside]="closeHandler.bind(this, true)"
     class="ui-dropdown"
     :class="{'is-active': isOpen}"
   >
@@ -71,6 +71,10 @@ export default {
     modelValue: {
       type: [String, Object],
       default: '',
+    },
+    closeOnClickOutside: {
+      type: Boolean,
+      default: true,
     },
     /**
      * Use this props to set toggle DOM element to back to it after close popover.

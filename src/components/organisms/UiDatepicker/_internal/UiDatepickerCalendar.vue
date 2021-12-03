@@ -1,7 +1,9 @@
 <template>
   <UiDropdown
     ref="dropdown"
+    v-click-outside="clickOutsideHandler"
     class="ui-datepicker-calender"
+    :close-on-click-outside="false"
   >
     <template #toggle="{toggleHandler}">
       <slot
@@ -44,6 +46,7 @@ import {
   inject,
   ref,
 } from 'vue';
+import { clickOutside } from '../../../../utilities/directives';
 import { capitalizeFirst } from '../../../../utilities/helpers';
 
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
@@ -64,6 +67,7 @@ export default {
     UiDatepickerMonthTab,
     UiDatepickerYearTab,
   },
+  directives: { clickOutside },
   props: {
     /**
      * Use this props to set current tab value.
@@ -133,6 +137,18 @@ export default {
       }
     }
 
+    const clickOutsideHandler = ({ target: { id, htmlFor } }) => {
+      const allowedIds = Object.keys(date);
+
+      if (allowedIds.includes(htmlFor)) return;
+      if (!allowedIds.includes(id)) {
+        dropdown.value.isOpen = false;
+        return;
+      }
+
+      currentTab.value = id;
+    };
+
     return {
       dropdown,
       translation,
@@ -143,6 +159,7 @@ export default {
       openCalendar,
       goToNextTab,
       capitalizeFirst,
+      clickOutsideHandler,
     };
   },
 };
