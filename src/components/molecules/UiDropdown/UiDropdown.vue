@@ -1,8 +1,10 @@
 <template>
   <div
+    ref="dropdown"
     v-click-outside:[closeOnClickOutside]="closeHandler.bind(this, true)"
     class="ui-dropdown"
     :class="{'is-active': isOpen}"
+    @keydown="dropdownKeydownHandler"
   >
     <!-- @slot Use this slot to place toggle template. -->
     <slot
@@ -46,8 +48,10 @@
 <script>
 import { uid } from 'uid/single';
 import {
-  ref, computed, provide,
+  ref, computed, provide, nextTick,
 } from 'vue';
+
+import useDropdownItems from './useDropdownItems';
 import { clickOutside } from '../../../utilities/directives';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiPopover from '../UiPopover/UiPopover.vue';
@@ -87,15 +91,39 @@ export default {
   emits: ['update:modelValue', 'open', 'close'],
   setup(props, { emit }) {
     const toggle = ref(null);
+    const dropdown = ref(null);
     const isOpen = ref(false);
-    const dropdowntoggle = computed(() => (props.toggleElement || toggle.value?.$el));
-    function openHandler() {
+    const dropdownToggle = computed(() => (props.toggleElement || toggle.value?.$el));
+
+    const {
+      dropdownItems,
+      activeDropdownItemIndex,
+      firstDropdownItem,
+      lastDropdownItem,
+      nextDropdownItem,
+      prevDropdownItem,
+      selectedDropdownItem,
+    } = useDropdownItems(dropdown);
+
+    async function openHandler({ focus = false, focusNext = false } = {}) {
       isOpen.value = true;
       emit('open');
+
+      await nextTick();
+
+      if (focus) {
+        if (selectedDropdownItem.value) selectedDropdownItem.value.focus();
+        else nextDropdownItem.value?.focus();
+      }
+
+      if (focusNext) {
+        nextDropdownItem.value?.focus();
+      }
     }
+
     function closeHandler(outside) {
-      if (dropdowntoggle.value && !outside) {
-        dropdowntoggle.value.focus();
+      if (dropdownToggle.value && !outside) {
+        (dropdownToggle.value?.$el || dropdownToggle.value)?.focus();
       }
       isOpen.value = false;
       emit('close');
@@ -107,6 +135,7 @@ export default {
         openHandler();
       }
     }
+
     const dropdownName = computed(() => (
       props.name || `dropdown-${uid()}`
     ));
@@ -118,12 +147,72 @@ export default {
       closeHandler();
     }
     provide('changeHandler', changeHandler);
+
+    const dropdownKeydownHandler = async ({ key }) => {
+      switch (key) {
+        case 'Tab':
+        case 'Escape':
+          closeHandler();
+          break;
+        case ' ':
+        case 'Enter':
+          if (!isOpen.value) {
+            await openHandler({ focus: true });
+          }
+          break;
+        case 'ArrowDown':
+          if (!isOpen.value) {
+            await openHandler({ focus: true, focusNext: true });
+          } else {
+            nextDropdownItem.value?.focus();
+          }
+          break;
+        case 'ArrowUp':
+          prevDropdownItem.value?.focus();
+          break;
+        case 'Home':
+        case 'PageUp':
+          firstDropdownItem.value?.focus();
+          break;
+        case 'End':
+        case 'PageDown':
+          lastDropdownItem.value?.focus();
+          break;
+        default: break;
+      }
+    };
+
+    const searchQuery = ref('');
+    const searchDebounce = ref(null);
+
+    const handleInputQuery = ({ key }) => {
+      searchQuery.value += key.toLowerCase();
+      const match = dropdownItems.value.findIndex(
+        (item) => item.innerText.toLowerCase().startsWith(searchQuery.value),
+      );
+
+      if (match !== -1 && match !== activeDropdownItemIndex.value) dropdownItems.value[match].focus();
+    };
+
+    const dropdownItemKeydownHandler = async (event) => {
+      const { key } = event;
+      if (searchDebounce.value) clearTimeout(searchDebounce.value);
+
+      if (key.length === 1) {
+        handleInputQuery(event);
+        searchDebounce.value = setTimeout(() => { searchQuery.value = ''; }, 500);
+      }
+    };
+    provide('dropdownItemKeydownHandler', dropdownItemKeydownHandler);
+
     return {
       isOpen,
       toggleHandler,
       openHandler,
       closeHandler,
       toggle,
+      dropdown,
+      dropdownKeydownHandler,
     };
   },
 };

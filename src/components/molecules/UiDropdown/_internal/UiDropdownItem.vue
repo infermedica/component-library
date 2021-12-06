@@ -5,7 +5,7 @@
     class="ui-dropdown-item ui-button--outlined ui-button--small ui-button--has-icon"
     :class="{'ui-dropdown-item--selected': isChecked}"
     v-bind="buttonAttrs"
-    @keydown="keypressHandler"
+    @keydown="dropdownItemKeydownHandler"
   >
     <slot />
     <UiIcon
@@ -37,6 +37,7 @@ export default {
     const dropdownitem = ref(null);
     const name = inject('name');
     const changeHandler = inject('changeHandler');
+    const dropdownItemKeydownHandler = inject('dropdownItemKeydownHandler');
     const modelValue = inject('modelValue');
     const isChecked = computed(() => {
       if (!modelValue.value) {
@@ -58,24 +59,7 @@ export default {
       }
       return !Object.keys(modelValue.value).length ? 0 : -1;
     });
-    function keypressHandler(event) {
-      const { key } = event;
-      const allowTagNames = ['BUTTON', 'A'];
-      switch (key) {
-        case 'Tab':
-          return event.preventDefault();
-        case 'ArrowDown':
-          if (!allowTagNames.includes(dropdownitem.value.$el.nextSibling.tagName)) return false;
-          dropdownitem.value.$el.nextSibling.focus();
-          return true;
-        case 'ArrowUp':
-          if (!allowTagNames.includes(dropdownitem.value.$el.previousSibling.tagName)) return false;
-          dropdownitem.value.$el.previousSibling.focus();
-          return true;
-        default:
-          return false;
-      }
-    }
+
     function optionChangeHandler(value) {
       if (isOption.value) {
         changeHandler(value);
@@ -92,9 +76,9 @@ export default {
       modelValue,
       isChecked,
       optionChangeHandler,
-      keypressHandler,
       tabindex,
       buttonAttrs,
+      dropdownItemKeydownHandler,
     };
   },
 };
