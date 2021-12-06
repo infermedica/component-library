@@ -1,6 +1,6 @@
 import { computed, ref } from 'vue';
-import useMutationObserver from '@/composable/useMutationObserver';
-import useActiveElement from '@/composable/useActiveElement';
+import useMutationObserver from '../../../composable/useMutationObserver';
+import useActiveElement from '../../../composable/useActiveElement';
 
 export default function useDropdownItems(dropdown) {
   const dropdownItems = ref([]);
