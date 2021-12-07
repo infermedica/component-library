@@ -99,6 +99,9 @@ export const LoadingPopover = (args) => ({
     title="Loading..."
     class="max-w-80 ui-popover--has-arrow"
     style="--popover-content-padding: 0"
+    :button-attrs="{
+      'aria-label': 'close',
+    }"
   >
     <UiLoader
       :is-loading="isLoading"
@@ -144,6 +147,9 @@ export const LoadingSidePanel = (args) => ({
   template: `<UiSidePanel
     :model-value="true"
     title="Loading..."
+    :button-close-attrs="{
+      'aria-label': 'close panel',
+    }"
   >
     <UiLoader
       :is-loading="isLoading"
