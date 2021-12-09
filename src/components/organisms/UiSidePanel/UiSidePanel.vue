@@ -293,7 +293,7 @@ export default {
   &__content {
     flex: 1;
     height: 100%;
-    padding: var(--side-panel-content-padding, var(--space-32) var(--space-20));
+    padding: var(--side-panel-content-padding, var(--space-24) var(--space-20));
     overflow: var(--side-panel-content-overflow, auto);
 
     @media (min-width: 768px) {
