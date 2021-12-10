@@ -1,6 +1,6 @@
 <template>
-  <transition-group
-    :name="transitionName"
+  <component
+    :is="outerComponent"
   >
     <!-- @slot Use this slot to replace loader. -->
     <slot
@@ -33,11 +33,14 @@
     >
       <slot />
     </div>
-  </transition-group>
+  </component>
 </template>
 
 <script>
-import { computed } from 'vue';
+
+import {
+  computed, h, TransitionGroup,
+} from 'vue';
 import UiLoaderSpinner from './_internal/UiLoaderSpinner.vue';
 import UiLoaderSkeleton from './_internal/UiLoaderSkeleton.vue';
 import UiLoaderEllipsis from './_internal/UiLoaderEllipsis.vue';
@@ -97,10 +100,15 @@ export default {
   },
   setup(props) {
     const component = computed(() => `ui-loader-${props.type}`);
-    const transitionName = computed(() => (props.transition ? props.transition : null));
+    const outerComponent = computed(() => (
+      props.transition
+        ? h(TransitionGroup, { name: props.transition })
+        : h((_, { slots }) => slots.default())
+    ));
+
     return {
       component,
-      transitionName,
+      outerComponent,
     };
   },
 };
