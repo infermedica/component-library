@@ -128,11 +128,12 @@ export default {
       isOpen.value = false;
       emit('close');
     }
-    function toggleHandler() {
+
+    async function toggleHandler() {
       if (isOpen.value) {
         closeHandler();
       } else {
-        openHandler();
+        await openHandler({ focus: true });
       }
     }
 
@@ -153,12 +154,6 @@ export default {
         case 'Tab':
         case 'Escape':
           closeHandler();
-          break;
-        case ' ':
-        case 'Enter':
-          if (!isOpen.value) {
-            await openHandler({ focus: true });
-          }
           break;
         case 'ArrowDown':
           if (!isOpen.value) {

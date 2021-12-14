@@ -125,5 +125,12 @@ export default {
   &--compact {
     --dropdown-item-button-padding: var(--space-4) var(--space-8);
   }
+
+  .focus-is-hidden & {
+    &:focus {
+      --button-background: var(--dropdown-item-button-focus-hidden-background, var(--button-hover-background));
+    }
+  }
+
 }
 </style>
