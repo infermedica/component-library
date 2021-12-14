@@ -45,6 +45,7 @@ import {
   computed,
   inject,
   ref,
+  watchEffect,
 } from 'vue';
 import { clickOutside } from '../../../../utilities/directives';
 import { capitalizeFirst } from '../../../../utilities/helpers';
@@ -124,6 +125,10 @@ export default {
       currentTab.value = firstEmptyTab.value ? firstEmptyTab.value : props.lastFocused;
       open();
     }
+
+    watchEffect(() => {
+      currentTab.value = props.lastFocused;
+    });
 
     function goToNextTab() {
       const currentTabIndex = order.indexOf(currentTab.value);
