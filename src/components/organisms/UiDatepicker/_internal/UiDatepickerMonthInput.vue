@@ -7,6 +7,7 @@
     maxlength="2"
     inputmode="numeric"
     pattern="[0-9]*"
+    autocomplete="off"
     @blur="standardizeMonthFormat"
     @input="checkMonth"
     @keydown="numbersOnly"

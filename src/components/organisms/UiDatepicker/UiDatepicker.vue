@@ -21,7 +21,7 @@
           <component
             :is="inputComponentSelector(`${datePart}`)"
             :id="datePart"
-            :ref="`${datePart}Input`"
+            :ref="el => datePartElements[datePart] = el"
             v-model="date[datePart]"
             v-bind="{
               'error': invalid && touched,
@@ -196,9 +196,11 @@ export default {
   ],
   setup(props, { emit }) {
     const dropdown = ref(null);
-    const dayInput = ref(null);
-    const monthInput = ref(null);
-    const yearInput = ref(null);
+    const datePartElements = {
+      day: null,
+      month: null,
+      year: null,
+    };
 
     const monthNames = ref([]);
     provide('monthNames', monthNames);
@@ -296,6 +298,7 @@ export default {
 
     // Date validations
     const isDateFulfilled = computed(() => isDayFulfilled.value && isMonthFulfilled.value && isYearFulfilled.value);
+    provide('isDateFulfilled', isDateFulfilled);
     const isDateEmpty = computed(() => !isDayFulfilled.value && !isMonthFulfilled.value && !isYearFulfilled.value);
     const isDateOutOfBounds = computed(() => {
       const startDate = new Date(firstAvailableYear.value, currentMonth - 1, currentDay, 0, 0, 0);
@@ -378,20 +381,20 @@ export default {
 
     const focus = async (inputElement) => {
       await nextTick();
-      const target = inputElement.value?.$el?.children[0];
+      const target = inputElement?.$el?.children[0];
       target.focus();
       if (target.value) target.select();
     };
     function focusInput(datePart) {
       switch (datePart) {
         case ('day'):
-          focus(dayInput);
+          focus(datePartElements.day);
           break;
         case ('month'):
-          focus(monthInput);
+          focus(datePartElements.month);
           break;
         case ('year'):
-          focus(yearInput);
+          focus(datePartElements.year);
           break;
         default:
           break;
@@ -471,9 +474,7 @@ export default {
 
     return {
       dropdown,
-      dayInput,
-      monthInput,
-      yearInput,
+      datePartElements,
       date,
       lastFocusedDatePart,
       isDateValid,

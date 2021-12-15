@@ -45,6 +45,7 @@ import {
   computed,
   inject,
   ref,
+  watch,
   watchEffect,
 } from 'vue';
 import { clickOutside } from '../../../../utilities/directives';
@@ -128,6 +129,12 @@ export default {
 
     watchEffect(() => {
       currentTab.value = props.lastFocused;
+    });
+
+    const isDateFulfilled = inject('isDateFulfilled');
+    watch(isDateFulfilled, (dateFulfilled) => {
+      const focusedLastInput = props.lastFocused === [...order].pop();
+      if (dateFulfilled && focusedLastInput) dropdown.value.isOpen = false;
     });
 
     function goToNextTab() {

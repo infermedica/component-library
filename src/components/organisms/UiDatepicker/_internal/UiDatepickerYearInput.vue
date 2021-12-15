@@ -7,6 +7,7 @@
     maxlength="4"
     inputmode="numeric"
     pattern="[0-9]*"
+    autocomplete="off"
     @blur="standardizeYearFormat"
     @input="checkYear"
     @keydown="numbersOnly"

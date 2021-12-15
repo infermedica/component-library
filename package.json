@@ -33,7 +33,7 @@
     "date-fns": "^2.24.0",
     "fast-deep-equal": "^3.1.3",
     "uid": "^2.0.0",
-    "vue": "^3.2.1",
+    "vue": "^3.2.26",
     "vue-router": "^4.0.11"
   },
   "devDependencies": {
@@ -54,7 +54,7 @@
     "@vue/cli-plugin-eslint": "^5.0.0-beta.3",
     "@vue/cli-plugin-unit-jest": "^5.0.0-beta.3",
     "@vue/cli-service": "^5.0.0-beta.3",
-    "@vue/compiler-sfc": "^3.2.1",
+    "@vue/compiler-sfc": "^3.2.26",
     "@vue/eslint-config-airbnb": "^5.3.0",
     "@vue/test-utils": "^2.0.0-rc.12",
     "autoprefixer": "^10.3.1",

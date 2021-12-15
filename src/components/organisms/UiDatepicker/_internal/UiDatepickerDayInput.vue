@@ -6,6 +6,7 @@
     maxlength="2"
     inputmode="numeric"
     pattern="[0-9]*"
+    autocomplete="off"
     @blur="standardizeDayFormat"
     @input="checkDay"
     @keydown="numbersOnly"
