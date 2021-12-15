@@ -105,7 +105,7 @@ export default {
       selectedDropdownItem,
     } = useDropdownItems(dropdown);
 
-    async function openHandler({ focus = false, focusNext = false } = {}) {
+    async function openHandler({ focus = false } = {}) {
       isOpen.value = true;
       emit('open');
 
@@ -114,10 +114,6 @@ export default {
       if (focus) {
         if (selectedDropdownItem.value) selectedDropdownItem.value.focus();
         else nextDropdownItem.value?.focus();
-      }
-
-      if (focusNext) {
-        nextDropdownItem.value?.focus();
       }
     }
 
@@ -157,7 +153,7 @@ export default {
           break;
         case 'ArrowDown':
           if (!isOpen.value) {
-            await openHandler({ focus: true, focusNext: true });
+            await openHandler({ focus: true });
           } else {
             nextDropdownItem.value?.focus();
           }
