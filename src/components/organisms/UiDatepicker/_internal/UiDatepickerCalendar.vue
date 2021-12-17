@@ -2,7 +2,7 @@
   <UiDropdown
     ref="dropdown"
     v-click-outside="clickOutsideHandler"
-    class="ui-datepicker-calender"
+    class="ui-datepicker-calendar"
     :close-on-click-outside="false"
   >
     <template #toggle="{toggleHandler}">
@@ -11,7 +11,7 @@
         v-bind="{toggle: toggleHandler}"
       >
         <UiButton
-          class="ui-button--outlined ui-button--circled ui-button--has-icon ui-datepicker-calender__toggler"
+          class="ui-button--outlined ui-button--circled ui-button--has-icon ui-datepicker-calendar__toggler"
           v-bind="buttonCalendarAttrs"
           @click="openCalendar(toggleHandler)"
         >
@@ -23,7 +23,7 @@
     <template #content>
       <UiTabs
         v-model="currentTab"
-        class="ui-tabs--fixed ui-datepicker-calender__tabs"
+        class="ui-tabs--fixed ui-datepicker-calendar__tabs"
       >
         <component
           :is="tabComponentSelector(datePart)"
@@ -31,7 +31,7 @@
           :key="key"
           v-model="date[datePart]"
           :title="capitalizeFirst(translation[datePart])"
-          class="ui-datepicker-calender__tab-content"
+          class="ui-datepicker-calendar__tab-content"
           @update:modelValue="goToNextTab"
           @select="$emit('select', $event)"
         />
@@ -120,10 +120,13 @@ export default {
       }
     }
 
+    const isDateFulfilled = inject('isDateFulfilled');
+
     function openCalendar(open) {
       emit('open');
       // TODO: if no empty Tabs try to focus first tab with error
-      currentTab.value = firstEmptyTab.value ? firstEmptyTab.value : props.lastFocused;
+      currentTab.value = isDateFulfilled.value ? order.at(0) : (firstEmptyTab.value || props.lastFocused);
+
       open();
     }
 
@@ -131,9 +134,8 @@ export default {
       currentTab.value = props.lastFocused;
     });
 
-    const isDateFulfilled = inject('isDateFulfilled');
     watch(isDateFulfilled, (dateFulfilled) => {
-      const focusedLastInput = props.lastFocused === [...order].pop();
+      const focusedLastInput = props.lastFocused === order.at(-1);
       if (dateFulfilled && focusedLastInput) dropdown.value.isOpen = false;
     });
 
@@ -178,7 +180,7 @@ export default {
 </script>
 
 <style lang="scss">
-.ui-datepicker-calender {
+.ui-datepicker-calendar {
   --dropdown-popover-left: var(--datepicker-dropdown-popover-left, 0);
   --dropdown-popover-max-width: var(--datepicker-dropdown-popover-max-width, 100%);
   --popover-content-padding: var(--datepicker-popover-content-padding, 0);
