@@ -56,12 +56,12 @@ html {
   --letter-spacing-h3: var(--letter-spacing-small);
   --letter-spacing-h4: var(--letter-spacing-medium);
   --letter-spacing-h5: var(--letter-spacing-medium);
-  --letter-spacing-font-body-1: var(--letter-spacing-medium);
-  --letter-spacing-font-body-1-thick: var(--letter-spacing-medium);
-  --letter-spacing-font-body-2-comfortable: var(--letter-spacing-medium);
-  --letter-spacing-font-body-2-comfortable-thick: var(--letter-spacing-medium);
-  --letter-spacing-font-body-2-compact: var(--letter-spacing-medium);
-  --letter-spacing-font-body-2-compact-thick: var(--letter-spacing-medium);
+  --letter-spacing-body-1: var(--letter-spacing-medium);
+  --letter-spacing-body-1-thick: var(--letter-spacing-medium);
+  --letter-spacing-body-2-comfortable: var(--letter-spacing-medium);
+  --letter-spacing-body-2-comfortable-thick: var(--letter-spacing-medium);
+  --letter-spacing-body-2-compact: var(--letter-spacing-medium);
+  --letter-spacing-body-2-compact-thick: var(--letter-spacing-medium);
 
   @media screen and (min-width: 768px) {
     --letter-spacing-h2: var(--letter-spacing-small);
