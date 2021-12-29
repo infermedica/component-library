@@ -146,7 +146,7 @@ export default {
     padding: var(--card-triage-padding, var(--space-20));
     margin: var(--card-triage-margin, 0 0 var(--space-20));
     background: var(--card-triage-background);
-    border-radius: var(--card-triage-border-radius, var(--border-radius-card));
+    border-radius: var(--card-triage-border-radius, var(--border-radius-container));
 
     @media (min-width: 768px) {
       padding: var(--card-triage-tablet-padding, var(--space-40) var(--space-32));

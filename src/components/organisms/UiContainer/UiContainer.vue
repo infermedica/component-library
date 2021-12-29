@@ -18,7 +18,7 @@ export default {
   box-shadow: var(--box-shadow-default);
 
   @media (min-width: 768px) {
-    border-radius: var(--container-tablet-border-radius, var(--border-radius-card));
+    border-radius: var(--container-tablet-border-radius, var(--border-radius-container));
   }
 }
 </style>

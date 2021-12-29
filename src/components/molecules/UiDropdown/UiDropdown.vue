@@ -223,8 +223,8 @@ export default {
     top: var(--dropdown-popover-top, 100%);
     left: var(--dropdown-popover-left, unset);
     width: var(--dropdown-popover-width, 100%);
-    min-height: var(--dropdown-popover-min-height, 0);
     max-width: var(--dropdown-popover-max-width, unset);
+    min-height: var(--dropdown-popover-min-height, 0);
     transform: var(--dropdown-popover-transform, translateY(var(--space-8)));
   }
 

@@ -15,9 +15,10 @@ html {
 
   // Border-radius
   --border-radius-sharp: 0;
-  --border-radius-card: 5px;
+  --border-radius-container: 5px;
+  --border-radius-button: 5px;
+  --border-radius-outline: 5px;
   --border-radius-form: 5px;
-  --border-radius-outline: var(--border-radius-form);
   --border-radius-pill: 20rem;
   --border-radius-circle: 50%;
 

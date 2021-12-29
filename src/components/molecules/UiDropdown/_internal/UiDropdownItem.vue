@@ -98,6 +98,7 @@ export default {
   --button-color: var(--color-text-body);
   --button-hover-color: var(--color-text-body);
   --button-active-color: var(--color-text-body);
+  --button-border-radius: var(--border-radius-form);
 
   width: 100%;
   margin: var(--dropdown-item-margin, 0 0 var(--space-8) 0);
@@ -131,6 +132,5 @@ export default {
       --button-background: var(--dropdown-item-button-focus-hidden-background, var(--button-hover-background));
     }
   }
-
 }
 </style>

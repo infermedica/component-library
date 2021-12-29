@@ -80,7 +80,7 @@ export default {
       var(--button-border-style, solid) var(--button-border-color, transparent)
     );
   border-width: var(--button-border-width, 0);
-  border-radius: var(--button-border-radius, var(--border-radius-form));
+  border-radius: var(--button-border-radius, var(--border-radius-button));
   transition:
     var(
       --toggle-button-transition,
@@ -208,6 +208,10 @@ export default {
     --button-padding: 0;
 
     @include font(body-1);
+
+    &:focus {
+      --button-border-radius: var(--border-radius-outline);
+    }
 
     #{$this}__icon {
       --button-icon-margin: 0 var(--space-4) 0 0;

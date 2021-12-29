@@ -78,7 +78,7 @@ export default {
         )
       );
     background-size: 200% 100%;
-    border-radius: var(--loader-skeleton-block-border-radius, var(--border-radius-card));
+    border-radius: var(--loader-skeleton-block-border-radius, 5px);
     animation: var(--loader-skeleton-block-animation, skeleton-shine 1s linear infinite);
 
     [dir=rtl] & {

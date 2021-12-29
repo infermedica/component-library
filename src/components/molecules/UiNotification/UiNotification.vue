@@ -43,7 +43,7 @@ export default {
   background: var(--notification-background);
   border: var(--notification-border);
   border-width: 1px;
-  border-radius: var(--notification-border-radius, var(--border-radius-card));
+  border-radius: var(--notification-border-radius, var(--border-radius-container));
 
   [dir=rtl] & {
     --alert-message-margin: 0 var(--space-12) 0 0;
