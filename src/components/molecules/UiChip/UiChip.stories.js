@@ -1,10 +1,10 @@
-import UiChips from '@/components/molecules/UiChips/UiChips.vue';
+import UiChip from '@/components/molecules/UiChip/UiChip.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 
 export default {
-  title: 'Molecules/Chips',
-  component: UiChips,
+  title: 'Molecules/Chip',
+  component: UiChip,
   subcomponents: { UiButton, UiIcon },
   args: {
     content: 'Chest pain',
@@ -23,37 +23,37 @@ export default {
 };
 
 const Template = (args) => ({
-  components: { UiChips },
+  components: { UiChip },
   setup() { return { ...args }; },
-  template: `<UiChips
+  template: `<UiChip
     :button-attrs="buttonAttrs"
     @remove="onRemove"
   >
     {{content}}
-  </UiChips>`,
+  </UiChip>`,
 });
 
 export const WithLabel = Template.bind({});
 
 export const WithRemoveSlot = (args) => ({
-  components: { UiChips, UiButton, UiIcon },
+  components: { UiChip, UiButton, UiIcon },
   setup() { return { ...args }; },
-  template: `<UiChips 
+  template: `<UiChip 
     :button-attrs="buttonAttrs" 
     @remove="onRemove"
   >
     <template #remove="{clickHandler, attrs}">
       <UiButton
         v-bind="attrs"
-        class="ui-chips__remove ui-button--has-icon ui-button--circled"
+        class="ui-chip__remove ui-button--has-icon ui-button--circled"
         @click="clickHandler"
       >
         <UiIcon
           icon="remove-filled"
-          class="ui-chips__icon"
+          class="ui-chip__icon"
         />
       </UiButton>
     </template>
     {{content}}
-  </UiChips>`,
+  </UiChip>`,
 });
