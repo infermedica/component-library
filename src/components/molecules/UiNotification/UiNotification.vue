@@ -35,7 +35,7 @@ export default {
 
 <style lang="scss">
 .ui-notification {
-  --alert-message-margin: 0 0 0 var(--space-12);
+  --alert-icon-margin: 0 var(--space-12) 0 0;
 
   display: flex;
   flex-direction: column;
@@ -46,7 +46,7 @@ export default {
   border-radius: var(--notification-border-radius, var(--border-radius-container));
 
   [dir=rtl] & {
-    --alert-message-margin: 0 var(--space-12) 0 0;
+    --alert-icon-margin: 0 0 0 var(--space-12);
   }
 
   &--success {
