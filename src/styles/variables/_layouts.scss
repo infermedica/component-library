@@ -22,10 +22,13 @@ html {
   --border-radius-pill: 20rem;
   --border-radius-circle: 50%;
 
-  // Box shadows
-  --box-shadow-default: 0 2px 6px 0 rgba(125, 143, 163, 0.2);
-  --box-shadow-outline: 0 0 0 2px var(--color-white), 0 0 0 4px var(--color-border-focus-dark);
-  --box-shadow-modal: 0 2px 6px rgba(51, 61, 72, 0.2), 0 2px 24px rgba(51, 61, 72, 0.2);
+  // Box shadow
+  --box-shadow-low: 0 2px 6px 0 rgba(51, 61, 72, 0.1);
+  --box-shadow-high: 0 2px 6px rgba(51, 61, 72, 0.2), 0 2px 24px rgba(51, 61, 72, 0.2);
+
+  // Focus
+  --focus-outer: 0 0 0 2px var(--color-border-focus-light), 0 0 0 4px var(--color-border-focus-dark);
+  --focus-inner: 0 0 0 2px var(--color-border-focus-light), 0 0 0 4px var(--color-border-focus-dark);
 
   // Opacity
   --opacity-medium: 0.5;

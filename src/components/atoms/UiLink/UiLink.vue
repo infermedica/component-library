@@ -82,7 +82,7 @@ export default {
   &:focus {
     border-radius: var(--border-radius-outline);
     outline: none;
-    box-shadow: var(--box-shadow-outline);
+    box-shadow: var(--focus-outer);
   }
 
   &__icon {

@@ -240,7 +240,7 @@ export default {
     padding: 0;
     background: var(--side-panel-background, var(--color-background-white));
     border-width: 0;
-    box-shadow: var(--side-panel-box-shadow, var(--box-shadow-modal));
+    box-shadow: var(--side-panel-box-shadow, var(--box-shadow-high));
 
     [dir=rtl] & {
       right: auto;
@@ -302,7 +302,7 @@ export default {
 
     &:focus {
       outline: none;
-      box-shadow: var(--box-shadow-outline);
+      box-shadow: var(--focus-outer);
     }
   }
 }

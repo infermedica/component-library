@@ -124,7 +124,7 @@ export default {
   &:focus {
     z-index: var(--button-focus-z-index, 1);
     outline: none;
-    box-shadow: var(--box-shadow-outline);
+    box-shadow: var(--focus-outer);
   }
 
   &__icon {

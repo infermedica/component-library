@@ -350,11 +350,13 @@ export default {
     &:focus + #{$this}__radiobutton {
       z-index: 1;
       border-radius: var(--border-radius-outline);
-      box-shadow: var(--box-shadow-outline);
+      box-shadow: var(--focus-outer);
+
       & #{$this}__label {
         width: 100%;
         border: 0;
       }
+
       & #{$this}__square {
         width: 100%;
         border: 0;

@@ -118,7 +118,7 @@ export default {
     margin: 1px;
     content: "";
     border-radius: var(--tile-border-radius, var(--border-radius-form));
-    box-shadow: 0 0 0 1px var(--tile-border-color, var(--color-border-subtle));
+    box-shadow: 0 0 0 1px var(--tile-border-color, var(--color-border-subtle)); // border
   }
 
   @media (min-width: 768px) {
@@ -163,7 +163,7 @@ export default {
 
   &--selected {
     &::before {
-      box-shadow: 0 0 0 2px var(--tile-border-color, var(--color-border-strong));
+      box-shadow: 0 0 0 2px var(--tile-border-color, var(--color-border-strong)); // border of selected tile
     }
   }
 

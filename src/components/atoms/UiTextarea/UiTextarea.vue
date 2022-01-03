@@ -80,7 +80,7 @@ export default {
 
   &:focus {
     outline: none;
-    box-shadow: var(--box-shadow-outline);
+    box-shadow: var(--focus-outer);
   }
 
   @media (hover: hover) {

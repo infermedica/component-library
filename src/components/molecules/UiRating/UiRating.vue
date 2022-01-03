@@ -221,7 +221,7 @@ export default {
   input {
     &:focus + #{$this}__icon {
       border-radius: var(--border-radius-outline);
-      box-shadow: var(--box-shadow-outline);
+      box-shadow: var(--focus-outer);
     }
 
     &:active + #{$this}__icon {

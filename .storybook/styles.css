@@ -1,7 +1,7 @@
 /* focus hidden */
 .focus-is-hidden {
-  --box-shadow-outline: none;
   --border-radius-outline: 0;
+  --focus-outer: none;
 }
 
 /* RTL overrides for stories */

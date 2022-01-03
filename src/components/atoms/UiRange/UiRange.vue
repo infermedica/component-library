@@ -289,12 +289,12 @@ export default {
       background-size: var(--range-thumb-background-size, 1.5rem);
       border: 0;
       border-radius: var(--range-thumb-border-radius, 50%);
-      box-shadow: 0 1px 3px 0 rgba(148, 164, 179, 0.2);
+      box-shadow: var(--range-thumb-box-shadow, var(--box-shadow-high));
     }
 
     @mixin range-thumb-focus {
       outline: none;
-      box-shadow: var(--box-shadow-outline);
+      box-shadow: var(--focus-outer);
     }
 
     &::-webkit-slider-thumb {

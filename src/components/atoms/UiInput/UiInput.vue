@@ -109,7 +109,7 @@ export default {
     --input-border-color: var(--input-focus-border-color, var(--color-border-strong));
 
     outline: none;
-    box-shadow: var(--box-shadow-outline);
+    box-shadow: var(--focus-outer);
   }
 
   @media (hover: hover) {

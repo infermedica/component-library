@@ -166,7 +166,7 @@ export default {
     }
 
     &:focus + #{$this}__radiobutton {
-      box-shadow: var(--box-shadow-outline);
+      box-shadow: var(--focus-outer);
     }
   }
 

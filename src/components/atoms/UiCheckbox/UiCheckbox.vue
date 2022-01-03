@@ -178,7 +178,7 @@ export default {
     }
 
     &:focus + #{$this}__checkbutton {
-      box-shadow: var(--box-shadow-outline);
+      box-shadow: var(--focus-outer);
     }
   }
 
