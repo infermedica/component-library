@@ -17,7 +17,7 @@ export default {
       iconActive: 'star-filled',
     },
     translation: {
-      stars: 'stars',
+      stars: (index) => (`${index} stars`),
     },
   },
   argTypes: {
