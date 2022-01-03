@@ -8,25 +8,85 @@ import { Meta } from '@storybook/addon-docs';
   }
 `}</style>
 
-# v0.2.0 (, 2021)
-v0.2.0 has a breaking changes
+# v0.2.0 (January 3 , 2022)
+v0.2.0 contains CSS custom properties breaking changes and change names of some components.
 
-## 🚀 Features
-- SC-764: Accessible scrolled content in side panels
+## ⛔️ Breaking Changes
+- box-shadow and focus CSS variables [4415aab](https://bitbucket.org/infermedica/symptom-checker-ui-kit/commits/4415aabe4c7562c175fa68c70fd8bd3172a12177)
+- UiChips is UiChip now [fb578e5](https://bitbucket.org/infermedica/symptom-checker-ui-kit/commits/fd578e5b17ff46d7d283952c404cc2a1572496a7)
+- border-radius CSS variables [8cac61d](https://bitbucket.org/infermedica/symptom-checker-ui-kit/commits/8cac61d78ff7764e4810e4b877fdcefb30234c2b)
+- SC-1196: Add new tokens for dropdown item selected - hover/active [dfc1c8c](https://bitbucket.org/infermedica/symptom-checker-ui-kit/commits/dfc1c8c5882a22c0795a5cb0b32b451598aecbb4)
+- SC-1113: Remove unnecessary token [af1097d](https://bitbucket.org/infermedica/symptom-checker-ui-kit/commits/af1097db26b5317732493a375d6a9a1869631a00)
+- SC-1113: Unify style tokens [5f0e864](https://bitbucket.org/infermedica/symptom-checker-ui-kit/commits/5f0e864fee8558e06f0641124133b1064cf31649)
+- UiTextArea is UiTextarea now [18fcbd6](https://bitbucket.org/infermedica/symptom-checker-ui-kit/commits/18fcbd6d240d2d232bd441a0fc8c73590bae91b0)
 - SC-532: focus is visible only for keyboard navigation
-  - to handle focus visible in your app use `.focus-is-hidden` class, added by ui-kit components to body
+  - to handle focus visible in your app use `.focus-is-hidden` class, added by ui-kit components to body e.g.
   ```css
   .focus-is-hidden {
     --border-radius-outline: 0;
     --focus-outer: none;
   }
   ```
-- extended [UiMessage](?path=/story/templates-message--as-introduction&globals=measureEnabled:false) template
+- SC-945: use vue-svg-loader instead icons.js file [f320627](https://bitbucket.org/infermedica/symptom-checker-ui-kit/commits/f320627520ce19b08877dc43f041b7d7f58a4dc7)
+ - to handle this change you should install vue-svg-loader and setup vue.config.js e.g.
+  ```js
+module.exports = {
+  chainWebpack: (config) => {
+    const svgRule = config.module.rule('svg');
+
+    svgRule.uses.clear();
+
+    svgRule
+      .use('vue-loader')
+      .loader('vue-loader')
+      .end()
+      .use('vue-svg-loader')
+      .loader('vue-svg-loader')
+      .options({
+        svgo: {
+          plugins: [
+            { removeDimensions: true },
+            { removeUselessStrokeAndFill: true },
+            { convertStyleToAttrs: true },
+          ],
+        },
+      });
+    }
+}
+  ```
+## 🚀 Features
+- Use `html` instead `root:` for global CSS custom properties
+- SC-842: Dropdown improve keyboard navigation
+- SC-1145: Define two types of skeletons for [UiLoader](/?path=/docs/molecules-loader--skeleton-common)
+- SC-1010: Create [UiToggleButtonGroup](/?path=/docs/molecules-togglebuttongroup--default) component
+- SC-943: Add new events (field-focus, field-insert, field-error, calendar-select, calendar-open) for [UiDatepicker](/?path=/docs/organisms-datepicker--common)
+- Hover styles only on desktops
+- SC-532: focus hidden improvements
+- SC-765: [UiSidePanel](/?path=/docs/organisms-sidepanel--terms-of-service) has custom focus on content
+- SC-994: create capitalize helper and use it instead
+- SC-764: Accessible scrolled content in [UiSidePanels](/?path=/docs/organisms-sidepanel--terms-of-service)
 - Use html instead root
 
-## 🧹 Chores
-- [UiCard](?path=/story/organisms-card--ambulance&globals=measureEnabled:false) stories for all types
+## 🐛 Fixes
+- Body letter spacing CSS variables names
+- SC-1461: Open [UiDatepicker](/?path=/docs/organisms-datepicker--common) with first tab when all fields are filled
+- SC-1461: Fix focus on filing [UiDatepicker](/?path=/docs/organisms-datepicker--common) date inputs
+- SC-842: Focus selected item on arrow down instead of next one in [UiDatepicker](/?path=/docs/organisms-datepicker--common)
+- SC-842: Fix open [UiDropdown](/?path=/docs/molecules-dropdown--with-toggle-slot) by enter on firefox
+- SC-1461: Change current tab on each field focus in [UiDatepicker](/?path=/docs/organisms-datepicker--common)
+- SC-1459: Use fragment instead of TransitionGroup when no transition passed in props for [UiLoader](/?path=/docs/molecules-loader--spinner)
+- SC-670: Prevent close datepicker when outside click target is any of [UiDatepicker](/?path=/docs/organisms-datepicker--common) inputs
+- Required data bound to UiRating option slot
+- SC-1415: [UiDatepicker](/?path=/docs/organisms-datepicker--common) emit error even is not strictly connected to one field
+- SC-1400: [UiCheckbox](/?path=/docs/atoms-checkbox--with-label) and [UiRadio](/?path=/docs/atoms-radio--with-label) equal object without functions
+- SC-1380: [UiMultipleAnswer](/?path=/docs/organisms-multipleanswer--with-multiple-choices) without bad condition on valid property
+- SC-1304: remove background on no internet illustration
+- SC-1282: use function to translate rating label instead of static text in [UiRating](/?path=/docs/molecules-rating--common)
+- SC-1241: X in [UiSidePanel](/?path=/docs/organisms-sidepanel--terms-of-service) is focused on transition enter event
+- SC-1155: Adjust [UiDatepicker](/?path=/docs/organisms-datepicker--common) calendar size (width) on smaller displays (<360px)
+- [UiHeading](/?path=/docs/atoms-heading--common) use --color-text-heading
+- SC-939: Prefetch icons
 
-## ⛔️ Breaking Changes
-- UiTextArea rename to [UiTextarea](?path=/story/atoms-textarea--with-placeholder&globals=measureEnabled:false)
-- SC-945: [UiIcon](?path=/story/atoms-icon--icon-as-name&globals=measureEnabled:false) use vue-svg-loader
+## 🧹 Chores
+- SC-1445: Accessibility errors for LoadingPopover and LoadingSidePanel stories
+- SC-1118: refactor [UiProgress](/?path=/docs/atoms-progress--common)
