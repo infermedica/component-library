@@ -1,12 +1,14 @@
 ---
 steps:
   - id: 'install-dependencies'
-    name: 'gcr.io/cloud-builders/npm'
+    name: 'node:14.17.5'
+    entrypoint: "npm"
     args: [ 'ci' ]
     waitFor: [ '-' ]
 
   - id: 'build'
-    name: 'gcr.io/cloud-builders/npm'
+    name: 'node:14.17.5'
+    entrypoint: "npm"
     args: [ 'run', 'build-storybook' ]
     waitFor: [ 'install-dependencies' ]
 
@@ -39,7 +41,7 @@ steps:
   - id: 'mark-deployed-artifacts'
     name: 'gcr.io/cloud-builders/gsutil'
     args: [ 'cp', './$BUILD_ID.tar.bz2', 'gs://${_BUCKET_NAME}-artifacts${_BUCKET_PATH}/currently-deployed.tar.bz2' ]
-    waitFor: [ 'deploy' ]
+    waitFor: [ 'deploy', 'archive-build' ]
 
 tags:
   - 'bucket-deploy'
