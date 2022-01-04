@@ -1,5 +1,5 @@
 module.exports = {
-  purge: [
+  content: [
     './src/**/*.stories.js',
     './src/**/*.stories.mdx',
   ],
