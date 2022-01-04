@@ -128,6 +128,7 @@ export default {
     width: 100%;
     padding: var(--input-padding, var(--space-12) var(--space-16));
     color: var(--input-color);
+    background-color: transparent; // override iOS default
     border: 0;
     outline: none;
     caret-color: var(--input-caret-color, var(--color-blue-500));
