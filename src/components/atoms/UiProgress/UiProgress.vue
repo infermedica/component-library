@@ -30,7 +30,17 @@ export default {
     },
   },
   setup(props) {
-    const progressValue = computed(() => ((props.value - props.min) / (props.max - props.min)));
+    const progressValue = computed(() => {
+      const progress = (props.value - props.min) / (props.max - props.min);
+      if (isNaN(progress)) {
+        if (process.env.NODE_ENV !== 'production') {
+          console.error('[UiProgress error]: The result of progress calculation is NaN');
+        }
+        return 0;
+      }
+      return progress;
+    });
+
     return { progressValue };
   },
 };

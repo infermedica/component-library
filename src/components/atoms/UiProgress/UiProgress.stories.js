@@ -78,3 +78,15 @@ export const WithDifferentMinimum = (args) => ({
     />
   </div>`,
 });
+
+export const WithSameValueMinAndMax = (args) => ({
+  components: { UiProgress },
+  setup() { return { ...args }; },
+  template: `<div class="max-w-32">
+    <UiProgress
+      :value="0"
+      :min="0"
+      :max="0"
+    />
+  </div>`,
+});
