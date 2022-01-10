@@ -23,8 +23,8 @@ html {
   --border-radius-circle: 50%;
 
   // Box shadow
-  --box-shadow-low: 0 2px 6px 0 rgba(51, 61, 72, 0.1);
-  --box-shadow-high: 0 2px 6px rgba(51, 61, 72, 0.2), 0 2px 24px rgba(51, 61, 72, 0.2);
+  --box-shadow-low: 0 2px 6px rgba(51, 61, 72, 0.1);
+  --box-shadow-high: 0 2px 16px rgba(51, 61, 72, 0.1), 0 2px 6px rgba(51, 61, 72, 0.1);
 
   // Focus
   --focus-outer: 0 0 0 2px var(--color-border-focus-light), 0 0 0 4px var(--color-border-focus-dark);
