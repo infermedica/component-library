@@ -440,17 +440,17 @@ export default {
     watch(isYearFulfilled, (fullfilled) => handleFulfilledChange(fullfilled, 'year', date.year, isYearValid.value));
 
     const localizeMonths = async (locale) => {
-      let localeFile;
+      let localize;
       try {
-        localeFile = await import(`date-fns/locale/${locale}/index`);
+        localize = await import(/* webpackChunkName: "date-fns-localize-[request]" */ `date-fns/locale/${locale}/_lib/localize`);
       } catch (error) {
-        localeFile = await import('date-fns/locale/en-US/index');
+        localize = await import('date-fns/locale/en-US/_lib/localize');
         if (process.env.NODE_ENV !== 'production') {
           console.error('Unrecognized language props value, default \'en-US\' language loaded'); // eslint-disable-line no-console
         }
       }
       for (let i = 0; i < 12; i += 1) {
-        monthNames.value.push(localeFile.localize.month(i, { width: 'wide' }));
+        monthNames.value.push(localize.month(i, { width: 'wide' }));
       }
     };
 
