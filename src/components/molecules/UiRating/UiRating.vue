@@ -19,30 +19,32 @@
           @mouseleave="hoverHandler($event, index)"
         >
           <template #radiobutton>
-            <template v-if="index <= finalScore">
-              <!-- @slot Use this slot to replace positive rating icon. -->
-              <slot
-                name="icon-active"
-                v-bind="{icon: settings.iconActive}"
-              >
-                <UiIcon
-                  :icon="settings.iconActive"
-                  class="ui-rating__icon ui-rating__icon--active"
-                />
-              </slot>
-            </template>
-            <template v-else>
-              <!-- @slot Use this slot to replace rating icon. -->
-              <slot
-                name="icon"
-                v-bind="{icon: settings.icon}"
-              >
-                <UiIcon
-                  :icon="settings.icon"
-                  class="ui-rating__icon"
-                />
-              </slot>
-            </template>
+            <div class="ui-radio__radiobutton">
+              <template v-if="index <= finalScore">
+                <!-- @slot Use this slot to replace positive rating icon. -->
+                <slot
+                  name="icon-active"
+                  v-bind="{icon: settings.iconActive}"
+                >
+                  <UiIcon
+                    :icon="settings.iconActive"
+                    class="ui-rating__icon ui-rating__icon--active"
+                  />
+                </slot>
+              </template>
+              <template v-else>
+                <!-- @slot Use this slot to replace rating icon. -->
+                <slot
+                  name="icon"
+                  v-bind="{icon: settings.icon}"
+                >
+                  <UiIcon
+                    :icon="settings.icon"
+                    class="ui-rating__icon"
+                  />
+                </slot>
+              </template>
+            </div>
           </template>
           <template #label>
             <span class="visual-hidden">{{ translation.stars(index) }}</span>
@@ -154,6 +156,11 @@ export default {
 .ui-rating {
   $this: &;
 
+  --radio-margin: 0;
+  --radio-border-radius: 0;
+  --radio-border-width: 0;
+  --radio-size: var(--rating-icon-size, 1.5rem);
+
   display: inline-flex;
 
   &__option {
@@ -218,19 +225,8 @@ export default {
     }
   }
 
-  input {
-    &:focus + #{$this}__icon {
-      border-radius: var(--border-radius-outline);
-      box-shadow: var(--focus-outer);
-    }
-
-    &:active + #{$this}__icon {
-      --icon-color: var(--rating-icon-active-icon-color, var(--color-icon-secondary-active));
-
-      &--active {
-        --icon-color: var(--rating-icon-positive-active-icon-color, var(--color-icon-primary-active));
-      }
-    }
+  input:focus + * {
+    --radio-border-radius: var(--border-radius-outline);
   }
 }
 </style>

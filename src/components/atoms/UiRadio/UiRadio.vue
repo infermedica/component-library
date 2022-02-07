@@ -134,7 +134,7 @@ export default {
     background: var(--radio-background, var(--color-background-white));
     border: var(--radio-border, solid var(--color-border-strong));
     border-width: var(--radio-border-width, 2px);
-    border-radius: var(--border-radius-circle);
+    border-radius: var(--radio-border-radius, var(--border-radius-circle));
   }
 
   &__mark {
