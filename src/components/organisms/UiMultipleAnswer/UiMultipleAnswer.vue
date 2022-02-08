@@ -1,5 +1,5 @@
 <template>
-  <UiList class="ui-multiple-answer">
+  <div class="ui-miltiple-answer">
     <!-- @slot Use this slot to replace hint template. -->
     <slot
       name="hint"
@@ -14,68 +14,73 @@
         {{ hint }}
       </UiAlert>
     </slot>
-    <template
-      v-for="choice in choices"
-      :key="choice.id"
+    <UiList
+      class="ui-multiple-answer__list"
+      v-bind="$attrs"
     >
-      <!-- @slot Use this slot to replace list-item template.-->
-      <slot
-        name="list-item"
-        v-bind="{choice, modelValue, updateHandler, errorClass, name, component}"
+      <template
+        v-for="choice in choices"
+        :key="choice.id"
       >
-        <UiListItem
-          class="ui-multiple-answer__list-item"
-          :class="{'ui-multiple-answer__list-item--has-error': hasError}"
+        <!-- @slot Use this slot to replace list-item template.-->
+        <slot
+          name="list-item"
+          v-bind="{choice, modelValue, updateHandler, errorClass, name, component}"
         >
-          <!-- @slot Use this slot to replace choice-item template.-->
-          <slot
-            name="choice-item"
-            v-bind="{choice, modelValue, updateHandler, errorClass, name, component}"
+          <UiListItem
+            class="ui-multiple-answer__list-item"
+            :class="{'ui-multiple-answer__list-item--has-error': hasError}"
           >
-            <component
-              :is="component"
-              :id="choice.id"
-              :value="choice"
-              :model-value="modelValue"
-              :name="name"
-              class="ui-multiple-answer__choice"
-              :class="errorClass"
-              @update:modelValue="updateHandler(choice)"
-              @keydown="focusExplication"
+            <!-- @slot Use this slot to replace choice-item template.-->
+            <slot
+              name="choice-item"
+              v-bind="{choice, modelValue, updateHandler, errorClass, name, component}"
             >
-              <template #label>
-                <!-- @slot Use this slot to replace choice-label template for specific item.-->
-                <slot
-                  :name="`label-${choice.id}`"
-                  v-bind="{choice, component}"
-                >
-                  <div
-                    class="ui-multiple-answer__label"
-                    :class="`${component}__label`"
+              <component
+                :is="component"
+                :id="choice.id"
+                :value="choice"
+                :model-value="modelValue"
+                :name="name"
+                class="ui-multiple-answer__choice"
+                :class="errorClass"
+                @update:modelValue="updateHandler(choice)"
+                @keydown="focusExplication"
+              >
+                <template #label>
+                  <!-- @slot Use this slot to replace choice-label template for specific item.-->
+                  <slot
+                    :name="`label-${choice.id}`"
+                    v-bind="{choice, component}"
                   >
-                    <UiText
-                      tag="span"
+                    <div
+                      class="ui-multiple-answer__label"
+                      :class="`${component}__label`"
                     >
-                      {{ choice.name }}
-                    </UiText>
-                    <UiButton
-                      v-if="choice.buttonInfoAttrs"
-                      v-bind="choice.buttonInfoAttrs"
-                      tabindex="-1"
-                      class="ui-multiple-answer__explication ui-button--text ui-button--has-icon"
-                      @keydown="unfocusExplication"
-                    >
-                      <UiIcon icon="info" />
-                    </UiButton>
-                  </div>
-                </slot>
-              </template>
-            </component>
-          </slot>
-        </UiListItem>
-      </slot>
-    </template>
-  </UiList>
+                      <UiText
+                        tag="span"
+                      >
+                        {{ choice.name }}
+                      </UiText>
+                      <UiButton
+                        v-if="choice.buttonInfoAttrs"
+                        v-bind="choice.buttonInfoAttrs"
+                        tabindex="-1"
+                        class="ui-multiple-answer__explication ui-button--text ui-button--has-icon"
+                        @keydown="unfocusExplication"
+                      >
+                        <UiIcon icon="info" />
+                      </UiButton>
+                    </div>
+                  </slot>
+                </template>
+              </component>
+            </slot>
+          </UiListItem>
+        </slot>
+      </template>
+    </UiList>
+  </div>
 </template>
 
 <script>
@@ -101,6 +106,7 @@ export default {
     UiIcon,
     UiAlert,
   },
+  inheritAttrs: false,
   props: {
     /**
      *  Use this props or v-model to set checked.

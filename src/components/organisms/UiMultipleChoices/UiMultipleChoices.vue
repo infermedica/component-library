@@ -1,5 +1,5 @@
 <template>
-  <UiList class="ui-multiple-choices">
+  <div class="ui-multiple-choices">
     <!-- @slot Use this slot to replace hint template. -->
     <slot
       name="hint"
@@ -14,34 +14,39 @@
         {{ hint }}
       </UiAlert>
     </slot>
-    <template
-      v-for="choice in choicesToUse"
-      :key="choice.id"
+    <UiList
+      class="ui-multiple-choices__list"
+      v-bind="$attrs"
     >
-      <!-- @slot Use this slot to replace list-item template.-->
-      <slot
-        name="list-item"
-        v-bind="{choice, options, evidences, updateHandler, hasError}"
+      <template
+        v-for="choice in choicesToUse"
+        :key="choice.id"
       >
-        <UiListItem class="ui-multiple-choices__list-item">
-          <!-- @slot Use this slot to replace choice-item template.-->
-          <slot
-            name="choice-item"
-            v-bind="{choice, options, evidences, hasError, updateHandler}"
-          >
-            <UiMultipleChoicesItem
-              :choice="choice"
-              :options="options"
-              :model-value="evidences"
-              :invalid="hasError(choice.id)"
-              class="ui-multiple-choices__choice"
-              @update:modelValue="updateHandler($event)"
-            />
-          </slot>
-        </UiListItem>
-      </slot>
-    </template>
-  </UiList>
+        <!-- @slot Use this slot to replace list-item template.-->
+        <slot
+          name="list-item"
+          v-bind="{choice, options, evidences, updateHandler, hasError}"
+        >
+          <UiListItem class="ui-multiple-choices__list-item">
+            <!-- @slot Use this slot to replace choice-item template.-->
+            <slot
+              name="choice-item"
+              v-bind="{choice, options, evidences, hasError, updateHandler}"
+            >
+              <UiMultipleChoicesItem
+                :choice="choice"
+                :options="options"
+                :model-value="evidences"
+                :invalid="hasError(choice.id)"
+                class="ui-multiple-choices__choice"
+                @update:modelValue="updateHandler($event)"
+              />
+            </slot>
+          </UiListItem>
+        </slot>
+      </template>
+    </UiList>
+  </div>
 </template>
 
 <script>
@@ -56,6 +61,7 @@ export default {
   components: {
     UiMultipleChoicesItem, UiList, UiListItem, UiAlert,
   },
+  inheritAttrs: false,
   props: {
     /**
      *  Use this props to set source of evidences.
@@ -164,7 +170,9 @@ export default {
 @import '../../../styles/mixins/_mixins.scss';
 
 .ui-multiple-choices {
-  --list-item-padding: 0;
+  &__list{
+    --list-item-padding: 0;
+  }
 
   &__list-item {
     border:
