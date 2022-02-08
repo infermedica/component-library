@@ -156,11 +156,9 @@ export default {
   setup(props, { emit }) {
     const component = computed(() => (Array.isArray(props.modelValue) ? 'ui-checkbox' : 'ui-radio'));
     const isCheckbox = computed(() => (component.value === 'ui-checkbox'));
-    const valid = computed(() => {
-      return isCheckbox.value
-        ? props.modelValue.length > 0
-        : props.modelValue.id;
-    });
+    const valid = computed(() => (isCheckbox.value
+      ? props.modelValue.length > 0
+      : props.modelValue.id));
     const hasError = computed(() => (props.touched && !valid.value));
     const hintType = computed(() => (props.touched && props.invalid ? 'error' : 'default'));
     const errorClass = computed(() => (hasError.value ? `${component.value}--has-error` : ''));
