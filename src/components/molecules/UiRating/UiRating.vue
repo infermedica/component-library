@@ -19,7 +19,7 @@
           @mouseleave="hoverHandler($event, index)"
         >
           <template #radiobutton>
-            <div class="ui-radio__radiobutton">
+            <div class="ui-radio__radiobutton ui-rating__radiobutton">
               <template v-if="index <= finalScore">
                 <!-- @slot Use this slot to replace positive rating icon. -->
                 <slot
@@ -128,9 +128,9 @@ export default {
     });
     const maxScore = computed(() => (parseInt(props.max, 10)));
 
-    const hoverScore = ref('0');
+    const hoverScore = ref(0);
     function hoverHandler({ type }, value) {
-      hoverScore.value = type === 'mouseover' ? value : '0';
+      hoverScore.value = type === 'mouseover' ? value : 0;
     }
 
     const finalScore = computed(() => (
@@ -177,6 +177,10 @@ export default {
         padding: var(--rating-option, 0);
       }
     }
+  }
+
+  &__radiobutton {
+    pointer-events: none;
   }
 
   &__icon {
