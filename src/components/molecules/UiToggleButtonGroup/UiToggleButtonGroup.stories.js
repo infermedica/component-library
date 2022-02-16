@@ -25,6 +25,15 @@ export default {
     initialValue: null,
     deselectable: false,
   },
+  parameters: {
+    cssprops: {
+      'toggle-button-group-display': {
+        value: 'flex',
+        control: 'text',
+        description: '',
+      },
+    },
+  },
 };
 
 export const Default = (args) => ({

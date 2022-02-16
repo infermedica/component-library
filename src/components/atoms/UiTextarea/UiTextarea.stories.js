@@ -32,6 +32,95 @@ export default {
       },
     },
   },
+  parameters: {
+    cssprops: {
+      'textarea-padding': {
+        value: 'var(--space-12) var(--space-16)',
+        control: 'text',
+        description: '',
+      },
+      'textarea-color': {
+        value: 'var(--color-text-body)',
+        control: 'text',
+        description: '',
+      },
+      'textarea-background-color': {
+        value: 'var(--color-background-white)',
+        control: 'text',
+        description: '',
+      },
+      'textarea-border': {
+        value: 'solid var(--textarea-border-color, var(--color-border-strong))',
+        control: 'text',
+        description: '',
+      },
+      'textarea-border-width': {
+        value: '1px',
+        control: 'text',
+        description: '',
+      },
+      'textarea-border-radius': {
+        value: 'var(--border-radius-form)',
+        control: 'text',
+        description: '',
+      },
+      'textarea-placeholder-color': {
+        value: 'var(--color-text-dimmed)',
+        control: 'text',
+        description: '',
+      },
+      'textarea-hover-border-color': {
+        value: 'var(--color-border-strong-hover)',
+        control: 'text',
+        description: '',
+      },
+      'textarea-focus-border-color': {
+        value: undefined,
+        control: 'text',
+        description: '',
+      },
+      'textarea-error-placeholder-color': {
+        value: 'var(--color-text-body)',
+        control: 'text',
+        description: '',
+      },
+      'textarea-error-border-color': {
+        value: 'var(--color-border-error-strong)',
+        control: 'text',
+        description: '',
+      },
+      'textarea-error-hover-border-color': {
+        value: 'var(--color-border-error-strong)',
+        control: 'text',
+        description: '',
+      },
+      'textarea-disabled-color': {
+        value: 'var(--color-text-disabled)',
+        control: 'text',
+        description: '',
+      },
+      'textarea-disabled-placeholder-color': {
+        value: 'var(--color-text-disabled)',
+        control: 'text',
+        description: '',
+      },
+      'textarea-disabled-border-color': {
+        value: 'var(--color-border-subtle)',
+        control: 'text',
+        description: '',
+      },
+      'textarea-disabled-hover-border-color': {
+        value: 'var(--color-border-subtle)',
+        control: 'text',
+        description: '',
+      },
+      'textarea-disabled-caret-color': {
+        value: 'var(--color-border-subtle)',
+        control: 'text',
+        description: '',
+      },
+    },
+  },
 };
 
 const Template = (args) => ({

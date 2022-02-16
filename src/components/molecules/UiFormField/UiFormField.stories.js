@@ -20,6 +20,35 @@ export default {
     id: { control: 'text' },
     errorMessage: { control: 'text' },
   },
+  parameters: {
+    cssprops: {
+      'form-field-label-text-margin': {
+        value: '0 0 var(--space-8) 0',
+        control: 'text',
+        description: '',
+      },
+      'form-field-label-text-color': {
+        value: 'var(--color-text-body)',
+        control: 'text',
+        description: '',
+      },
+      'form-field-label-tag-margin': {
+        value: '0 var(--space-8) 0 0',
+        control: 'text',
+        description: '',
+      },
+      'form-field-label-tag-color': {
+        value: 'var(--color-text-dimmed)',
+        control: 'text',
+        description: '',
+      },
+      'form-field-alert-margin': {
+        value: 'var(--space-8) 0 0 0',
+        control: 'text',
+        description: '',
+      },
+    },
+  },
 };
 
 const Template = (args) => ({

@@ -46,6 +46,60 @@ export default {
     },
   },
   decorators: [() => ({ template: '<div class="tablet:flex tablet:max-w-171 tablet:min-h-115"><story /></div>' })],
+  parameters: {
+    cssprops: {
+      'message-flex-direction': {
+        value: 'column-reverse',
+        control: 'text',
+        description: '',
+      },
+      'message-tablet-flex-direction': {
+        value: 'row',
+        control: 'text',
+        description: '',
+      },
+      'message-content-align-slef': {
+        value: 'flex-end',
+        control: 'text',
+        description: '',
+      },
+      'message-content-margin': {
+        value: '0',
+        control: 'text',
+        description: '',
+      },
+      'message-content-tablet-margin': {
+        value: 'var(--space-16) 0 0 0',
+        control: 'text',
+        description: '',
+      },
+      'message-title-margin': {
+        value: '0 0 var(--space-8) 0',
+        control: 'text',
+        description: '',
+      },
+      'message-title-tablet-margin': {
+        value: '0 0 var(--space-4) 0',
+        control: 'text',
+        description: '',
+      },
+      'message-aside-margin': {
+        value: '0 auto var(--space-24) auto',
+        control: 'text',
+        description: '',
+      },
+      'message-aside-tablet-margin': {
+        value: '0 var(--space-40) 0 0',
+        control: 'text',
+        description: '',
+      },
+      'message-illustration-size': {
+        value: 'var(--message-illustration-height, 15rem)',
+        control: 'text',
+        description: '',
+      },
+    },
+  },
 };
 
 const Template = (args) => ({

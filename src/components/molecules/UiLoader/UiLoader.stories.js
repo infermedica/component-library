@@ -19,6 +19,9 @@ export default {
     tag: { control: 'text' },
     transition: { control: 'text' },
   },
+  parameters: {
+    cssprops: [],
+  },
 };
 const Template = (args) => ({
   components: { UiLoader },

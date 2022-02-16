@@ -6,6 +6,9 @@ export default {
   title: 'Organisms/List',
   component: UiList,
   subcomponents: { UiListItem },
+  parameters: {
+    cssprops: [],
+  },
 };
 
 const Template = (args) => ({

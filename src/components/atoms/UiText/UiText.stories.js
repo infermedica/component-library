@@ -17,6 +17,20 @@ export default {
       },
     },
   },
+  parameters: {
+    cssprops: {
+      'text-margin': {
+        value: '0',
+        control: 'text',
+        description: '',
+      },
+      'text-color': {
+        value: 'var(--color-text-body)',
+        control: 'text',
+        description: '',
+      },
+    },
+  },
 };
 
 const Template = (args) => ({

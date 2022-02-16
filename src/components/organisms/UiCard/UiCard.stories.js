@@ -48,6 +48,85 @@ export default {
       },
     },
   },
+  parameters: {
+    cssprops: {
+      'card-padding': {
+        value: 'var(--space-20) var(--space-20) var(--space-32)',
+        control: 'text',
+        description: '',
+      },
+      'card-tablet-padding': {
+        value: '0',
+        control: 'text',
+        description: '',
+      },
+      'card-triage-padding': {
+        value: 'var(--space-20)',
+        control: 'text',
+        description: '',
+      },
+      'card-triage-margin': {
+        value: '0 0 var(--space-20)',
+        control: 'text',
+        description: '',
+      },
+      'card-triage-background': {
+        value: undefined,
+        control: 'text',
+        description: '',
+      },
+      'card-triage-border-radius': {
+        value: 'var(--border-radius-container)',
+        control: 'text',
+        description: '',
+      },
+      'card-triage-tablet-padding': {
+        value: 'var(--space-40) var(--space-32)',
+        control: 'text',
+        description: '',
+      },
+      'card-triage-tablet-margin': {
+        value: '0',
+        control: 'text',
+        description: '',
+      },
+      'card-triage-tablet-border-radius': {
+        value: '0',
+        control: 'text',
+        description: '',
+      },
+      'card-triage-icon-size': {
+        value: '4rem',
+        control: 'text',
+        description: '',
+      },
+      'card-subtitle-margin': {
+        value: '0 0 var(--space-4)',
+        control: 'text',
+        description: '',
+      },
+      'card-subtitle-color': {
+        value: 'var(--color-text-dimmed)',
+        control: 'text',
+        description: '',
+      },
+      'card-title-margin': {
+        value: '0 0 var(--space-16)',
+        control: 'text',
+        description: '',
+      },
+      'card-content-padding': {
+        value: undefined,
+        control: 'text',
+        description: '',
+      },
+      'card-content-tablet-padding': {
+        value: 'var(--space-40) var(--space-40) var(--space-48) var(--space-48)',
+        control: 'text',
+        description: '',
+      },
+    },
+  },
 };
 
 const Template = (args) => ({

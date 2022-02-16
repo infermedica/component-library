@@ -31,6 +31,95 @@ export default {
       },
     },
   },
+  parameters: {
+    cssprops: {
+      'range-thumb-hover-background-color': {
+        value: 'var(--color-range-thumb-hover)',
+        control: 'text',
+        description: '',
+      },
+      'range-thumb-active-background-color': {
+        value: 'var(--color-range-thumb-active)',
+        control: 'text',
+        description: '',
+      },
+      'range-mobile-increment-margin': {
+        value: 'var(--space-24) 0 0 var(--space-12)',
+        control: 'text',
+        description: '',
+      },
+      'range-mobile-decrement-margin': {
+        value: 'var(--space-24) var(--space-12) 0 0',
+        control: 'text',
+        description: '',
+      },
+      'range-thumb-size': {
+        value: '3rem',
+        control: 'text',
+        description: '',
+      },
+      'range-track-margin': {
+        value: undefined,
+        control: 'text',
+        description: '',
+      },
+      'range-selected-track-background': {
+        value: 'var(--color-range-progress-indicator)',
+        control: 'text',
+        description: '',
+      },
+      'range-track-background': {
+        value: 'var(--color-progress-track)',
+        control: 'text',
+        description: '',
+      },
+      'range-track-height': {
+        value: '4px',
+        control: 'text',
+        description: '',
+      },
+      'range-track-border-radius': {
+        value: '4px',
+        control: 'text',
+        description: '',
+      },
+      'range-thumb-background-color': {
+        value: 'var(--color-range-thumb)',
+        control: 'text',
+        description: '',
+      },
+      'range-thumb-background-image': {
+        value: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 48 48\'%3E%3Cpath d=\'M34 12l-2.828 2.828L40.344 24l-9.172 9.172L34 36l12-12zm0 0M14 12l2.828 2.828L7.656 24l9.172 9.172L14 36 2 24zm0 0\' fill-rule=\'evenodd\' fill=\'%23fff\'/%3E%3C/svg%3E%0A")',
+        control: 'text',
+        description: '',
+      },
+      'range-thumb-background-size': {
+        value: '1.5rem',
+        control: 'text',
+        description: '',
+      },
+      'range-thumb-border-radius': {
+        value: '50%',
+        control: 'text',
+        description: '',
+      },
+      'range-thumb-box-shadow': {
+        value: 'var(--box-shadow-high)',
+        control: 'text',
+        description: '',
+      },
+      'range-selected-track-width': {
+        value: undefined,
+        control: 'text',
+        description: '',
+      },
+      'range-value-color': {
+        value: 'var(--color-text-body)',
+        control: 'text',
+        description: '',
+      },
+    },
+  },
 };
 
 export const Common = (args) => ({

@@ -30,6 +30,45 @@ export default {
       },
     },
   },
+  parameters: {
+    cssprops: {
+      'tabs-padding': {
+        value: '0',
+        control: 'text',
+        description: '',
+      },
+      'tabs-divider-gap-y': {
+        value: '55px',
+        control: 'text',
+        description: '',
+      },
+      'tabs-underline-border': {
+        value: 'var(--color-border-divider)',
+        control: 'text',
+        description: '',
+      },
+      'tabs-underline-width': {
+        value: '100%',
+        control: 'text',
+        description: '',
+      },
+      'tabs-underline-color': {
+        value: 'var(--color-border-selection)',
+        control: 'text',
+        description: '',
+      },
+      'tabs-item-tab-fixed-margin': {
+        value: '0',
+        control: 'text',
+        description: '',
+      },
+      'tabs-item-tab-fixed-padding': {
+        value: 'var(--space-16) var(--space-8)',
+        control: 'text',
+        description: '',
+      },
+    },
+  },
 };
 
 const Template = (args) => ({

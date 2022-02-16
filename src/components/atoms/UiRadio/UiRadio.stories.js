@@ -33,6 +33,65 @@ export default {
       },
     },
   },
+  parameters: {
+    cssprops: {
+      'radio-size': {
+        value: '1.25rem',
+        control: 'text',
+        description: '',
+      },
+      'radio-margin': {
+        value: '0.125rem',
+        control: 'text',
+        description: '',
+      },
+      'radio-background': {
+        value: 'var(--color-background-white)',
+        control: 'text',
+        description: '',
+      },
+      'radio-border': {
+        value: 'solid var(--color-border-strong)',
+        control: 'text',
+        description: '',
+      },
+      'radio-border-width': {
+        value: '2px',
+        control: 'text',
+        description: '',
+      },
+      'radio-border-radius': {
+        value: 'var(--border-radius-circle)',
+        control: 'text',
+        description: '',
+      },
+      'radio-mark-size': {
+        value: '0.625rem',
+        control: 'text',
+        description: '',
+      },
+      'radio-mark-background': {
+        value: 'transparent',
+        control: 'text',
+        description: '',
+      },
+      'radio-label-flex': {
+        value: '1',
+        control: 'text',
+        description: '',
+      },
+      'radio-label-margin': {
+        value: '0 var(--space-12) 0 0',
+        control: 'text',
+        description: '',
+      },
+      'radio-label-color': {
+        value: 'var(--color-text-body)',
+        control: 'text',
+        description: '',
+      },
+    },
+  },
 };
 
 const Template = (args) => ({

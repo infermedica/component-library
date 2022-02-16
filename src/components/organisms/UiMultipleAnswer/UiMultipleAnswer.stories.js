@@ -112,6 +112,65 @@ export default {
       },
     },
   },
+  parameters: {
+    cssprops: {
+      'multiple-answer-list-item-background': {
+        value: undefined,
+        control: 'text',
+        description: '',
+      },
+      'multiple-answer-list-item-border': {
+        value: 'solid var(--color-border-divider)',
+        control: 'text',
+        description: '',
+      },
+      'multiple-answer-list-item-border-width': {
+        value: '1px 0',
+        control: 'text',
+        description: '',
+      },
+      'multiple-answer-list-item-hover-background': {
+        value: undefined,
+        control: 'text',
+        description: '',
+      },
+      'multiple-answer-list-item-tablet-hover-background': {
+        value: 'var(--color-gray-50)',
+        control: 'text',
+        description: '',
+      },
+      'multiple-answer-mobile-hint-margin': {
+        value: '0 var(--space-20) var(--space-12) var(--space-20)',
+        control: 'text',
+        description: '',
+      },
+      'multiple-answer-hint-color': {
+        value: 'var(--color-text-dimmed)',
+        control: 'text',
+        description: '',
+      },
+      'multiple-answer-tablet-hint-margin': {
+        value: '0 0 var(--space-12) 0',
+        control: 'text',
+        description: '',
+      },
+      'multiple-answer-choice-padding': {
+        value: 'var(--space-12) var(--space-20)',
+        control: 'text',
+        description: '',
+      },
+      'multiple-answer-tablet-choice-padding': {
+        value: 'var(--space-12)',
+        control: 'text',
+        description: '',
+      },
+      'multiple-answer-margin': {
+        value: '0 var(--space-12) 0 0',
+        control: 'text',
+        description: '',
+      },
+    },
+  },
 };
 
 const Template = (args) => ({

@@ -28,6 +28,80 @@ export default {
       control: 'text',
     },
   },
+  parameters: {
+    cssprops: {
+      'rating-icon-size': {
+        value: '1.5rem',
+        control: 'text',
+        description: '',
+      },
+      'rating-option': {
+        value: '0',
+        control: 'text',
+        description: '',
+      },
+      'rating-icon-icon-color': {
+        value: 'var(--color-icon-secondary)',
+        control: 'text',
+        description: '',
+      },
+      'rating-icon-active-icon-color': {
+        value: 'var(--color-icon-secondary-active)',
+        control: 'text',
+        description: '',
+      },
+      'rating-icon-positive-icon-color': {
+        value: 'var(--color-icon-primary)',
+        control: 'text',
+        description: '',
+      },
+      'rating-icon-positive-active-icon-color': {
+        value: 'var(--color-icon-primary-active)',
+        control: 'text',
+        description: '',
+      },
+      'rating-icon-hover-icon-color': {
+        value: 'var(--color-icon-secondary-hover)',
+        control: 'text',
+        description: '',
+      },
+      'rating-icon-positive-hover-icon-color': {
+        value: 'var(--color-icon-primary-hover)',
+        control: 'text',
+        description: '',
+      },
+      'rating-icon-disabled-icon-color': {
+        value: 'var(--color-icon-disabled)',
+        control: 'text',
+        description: '',
+      },
+      'rating-icon-disabled-hover-icon-color': {
+        value: 'var(--color-icon-disabled)',
+        control: 'text',
+        description: '',
+      },
+      'rating-icon-disabled-active-icon-color': {
+        value: 'var(--color-icon-disabled)',
+        control: 'text',
+        description: '',
+      },
+      'rating-icon-disabled-positive-icon-color': {
+        value: 'var(--color-icon-disabled)',
+        control: 'text',
+        description: '',
+      },
+      'rating-icon-disabled-positive-hover-icon-color': {
+        value: 'var(--color-icon-disabled)',
+        control: 'text',
+        description: '',
+      },
+      'rating-icon-disabled-positive-active-icon-color': {
+        value: 'var(--color-icon-disabled)',
+        control: 'text',
+        description: '',
+      },
+    },
+  },
 };
 
 const Template = (args) => ({

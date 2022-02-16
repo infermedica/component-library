@@ -12,6 +12,30 @@ export default {
     content: { control: 'text' },
     level: { control: { type: 'range', min: 1, max: 6 } },
   },
+  parameters: {
+    cssprops: {
+      'heading-margin': {
+        value: '0',
+        control: 'text',
+        description: '',
+      },
+      'heading-color': {
+        value: 'var(--color-text-heading)',
+        control: 'text',
+        description: '',
+      },
+      'heading-text-decoration': {
+        value: undefined,
+        control: 'text',
+        description: '',
+      },
+      'heading-text-transform': {
+        value: undefined,
+        control: 'text',
+        description: '',
+      },
+    },
+  },
 };
 
 const Template = (args) => ({

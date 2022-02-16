@@ -25,6 +25,60 @@ export default {
       },
     },
   },
+  parameters: {
+    cssprops: {
+      'tile-padding': {
+        value: 'var(--space-24) var(--space-16)',
+        control: 'text',
+        description: '',
+      },
+      'tile-border-radius': {
+        value: 'var(--border-radius-form)',
+        control: 'text',
+        description: '',
+      },
+      'tile-active-transform': {
+        value: 'scale(0.96)',
+        control: 'text',
+        description: '',
+      },
+      'tile-icon-size': {
+        value: '4rem',
+        control: 'text',
+        description: '',
+      },
+      'tile-icon-color': {
+        value: 'var(--color-icon-primary)',
+        control: 'text',
+        description: '',
+      },
+      'tile-label-padding': {
+        value: '0',
+        control: 'text',
+        description: '',
+      },
+      'tile-label-margin': {
+        value: '0 var(--space-16) 0 0',
+        control: 'text',
+        description: '',
+      },
+      'tile-label-text-align': {
+        value: 'left',
+        control: 'text',
+        description: '',
+      },
+      'tile-label-tablet-text-align': {
+        value: 'center',
+        control: 'text',
+        description: '',
+      },
+      'tile-label-tablet-margin': {
+        value: 'var(--space-16) 0 0 0',
+        control: 'text',
+        description: '',
+      },
+    },
+  },
 };
 
 const Template = (args) => ({

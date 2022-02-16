@@ -32,6 +32,55 @@ export default {
       },
     },
   },
+  parameters: {
+    cssprops: {
+      'checkbox-size': {
+        value: '1.25rem',
+        control: 'text',
+        description: '',
+      },
+      'checkbox-margin': {
+        value: '0.125rem',
+        control: 'text',
+        description: '',
+      },
+      'checkbox-background': {
+        value: 'var(--color-background-white)',
+        control: 'text',
+        description: '',
+      },
+      'checkbox-border': {
+        value: 'solid var(--color-border-strong)',
+        control: 'text',
+        description: '',
+      },
+      'checkbox-border-width': {
+        value: '2px',
+        control: 'text',
+        description: '',
+      },
+      'checkbox-border-radius': {
+        value: 'var(--border-radius-form)',
+        control: 'text',
+        description: '',
+      },
+      'checkbox-label-flex': {
+        value: '1',
+        control: 'text',
+        description: '',
+      },
+      'checkbox-label-margin': {
+        value: '0 var(--space-12) 0 0',
+        control: 'text',
+        description: '',
+      },
+      'checkbox-label-color': {
+        value: 'var(--color-text-body)',
+        control: 'text',
+        description: '',
+      },
+    },
+  },
 };
 
 const Template = (args) => ({

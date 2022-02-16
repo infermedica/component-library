@@ -22,6 +22,45 @@ export default {
   },
   argTypes: {
   },
+  parameters: {
+    cssprops: {
+      'dropdown-toggle-width': {
+        value: '100%',
+        control: 'text',
+        description: '',
+      },
+      'dropdown-popover-top': {
+        value: '100%',
+        control: 'text',
+        description: '',
+      },
+      'dropdown-popover-left': {
+        value: 'unset',
+        control: 'text',
+        description: '',
+      },
+      'dropdown-popover-width': {
+        value: '100%',
+        control: 'text',
+        description: '',
+      },
+      'dropdown-popover-max-width': {
+        value: 'unset',
+        control: 'text',
+        description: '',
+      },
+      'dropdown-popover-min-height': {
+        value: '0',
+        control: 'text',
+        description: '',
+      },
+      'dropdown-popover-transform': {
+        value: 'translateY(var(--space-8))',
+        control: 'text',
+        description: '',
+      },
+    },
+  },
 };
 
 export const WithToggleSlot = (args) => ({

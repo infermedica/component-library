@@ -97,7 +97,7 @@ export default {
       --button-border:
         var(
           --button-hover-border,
-          #{var(--button-hover-border-style, solid) var(--button-hover-border-color, transparent)}
+          var(--button-hover-border-style, solid) var(--button-hover-border-color, transparent)
         );
 
       &#{$this}--has-icon {
@@ -113,7 +113,7 @@ export default {
     --button-border:
       var(
         --button-active-border,
-        #{var(--button-active-border-style, solid) var(--button-active-border-color, transparent)}
+        var(--button-active-border-style, solid) var(--button-active-border-color, transparent)
       );
 
     &#{$this}--has-icon {

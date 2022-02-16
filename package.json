@@ -12,7 +12,8 @@
     "create-index": "node scripts/create-index.js",
     "create-component": "node scripts/create-component.js",
     "postinstall": "node scripts/create-index.js",
-    "create-icons-list": "node scripts/create-icons-list.js"
+    "create-icons-list": "node scripts/create-icons-list.js",
+    "update-docs": "node scripts/update-components-docs.mjs && vue-cli-service lint --fix"
   },
   "main": "index.js",
   "module": "index.js",
@@ -40,6 +41,7 @@
     "@babel/core": "^7.16.7",
     "@babel/eslint-parser": "^7.16.5",
     "@babel/preset-env": "^7.16.7",
+    "@ljcl/storybook-addon-cssprops": "^1.0.0",
     "@pxblue/storybook-rtl-addon": "^1.1.0",
     "@storybook/addon-a11y": "^6.4.9",
     "@storybook/addon-actions": "^6.4.9",
@@ -71,6 +73,7 @@
     "sass": "^1.45.2",
     "sass-loader": "^12.4.0",
     "storybook-addon-outline": "^1.4.2",
+    "stringify-object": "^4.0.0",
     "stylelint": "^14.2.0",
     "stylelint-config-recess-order": "^3.0.0",
     "stylelint-config-scss": "^1.0.0-security",

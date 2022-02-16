@@ -9,6 +9,20 @@ export default {
     steps: 6,
     currentStep: 1,
   },
+  parameters: {
+    cssprops: {
+      'progressbar-step-left': {
+        value: undefined,
+        control: 'text',
+        description: '',
+      },
+      'progressbar-step-size': {
+        value: '0.625rem',
+        control: 'text',
+        description: '',
+      },
+    },
+  },
 };
 
 const Template = (args) => ({

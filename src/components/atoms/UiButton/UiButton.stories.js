@@ -34,6 +34,150 @@ export default {
       },
     },
   },
+  parameters: {
+    cssprops: {
+      'button-display': {
+        value: 'inline-flex',
+        control: 'text',
+        description: '',
+      },
+      'button-align-items': {
+        value: 'center',
+        control: 'text',
+        description: '',
+      },
+      'button-justify-content': {
+        value: 'center',
+        control: 'text',
+        description: '',
+      },
+      'button-width': {
+        value: undefined,
+        control: 'text',
+        description: '',
+      },
+      'button-height': {
+        value: undefined,
+        control: 'text',
+        description: '',
+      },
+      'button-padding': {
+        value: 'var(--space-12) var(--space-32)',
+        control: 'text',
+        description: '',
+      },
+      'button-color': {
+        value: 'var(--color-text-on-action)',
+        control: 'text',
+        description: '',
+      },
+      'button-text-align': {
+        value: 'center',
+        control: 'text',
+        description: '',
+      },
+      'button-text-decoration': {
+        value: 'none',
+        control: 'text',
+        description: '',
+      },
+      'button-text-transform': {
+        value: undefined,
+        control: 'text',
+        description: '',
+      },
+      'button-white-space': {
+        value: 'nowrap',
+        control: 'text',
+        description: '',
+      },
+      'button-cursor': {
+        value: 'pointer',
+        control: 'text',
+        description: '',
+      },
+      'button-background': {
+        value: 'var(--color-background-action)',
+        control: 'text',
+        description: '',
+      },
+      'button-border': {
+        value: 'var(--button-border-style, solid) var(--button-border-color, transparent)',
+        control: 'text',
+        description: '',
+      },
+      'button-border-width': {
+        value: '0',
+        control: 'text',
+        description: '',
+      },
+      'button-border-radius': {
+        value: 'var(--border-radius-button)',
+        control: 'text',
+        description: '',
+      },
+      'button-hover-color': {
+        value: 'var(--color-text-on-action)',
+        control: 'text',
+        description: '',
+      },
+      'button-hover-background': {
+        value: 'var(--color-background-action-hover)',
+        control: 'text',
+        description: '',
+      },
+      'button-hover-border': {
+        value: 'var(--button-hover-border-style, solid) var(--button-hover-border-color, transparent)',
+        control: 'text',
+        description: '',
+      },
+      'button-icon-color-hover': {
+        value: 'var(--color-icon-primary-hover)',
+        control: 'text',
+        description: '',
+      },
+      'button-active-color': {
+        value: 'var(--color-text-on-action)',
+        control: 'text',
+        description: '',
+      },
+      'button-active-background': {
+        value: 'var(--color-background-action-active)',
+        control: 'text',
+        description: '',
+      },
+      'button-active-border': {
+        value: 'var(--button-active-border-style, solid) var(--button-active-border-color, transparent)',
+        control: 'text',
+        description: '',
+      },
+      'button-icon-color-active': {
+        value: 'var(--color-icon-primary-active)',
+        control: 'text',
+        description: '',
+      },
+      'button-focus-z-index': {
+        value: '1',
+        control: 'text',
+        description: '',
+      },
+      'button-icon-size': {
+        value: '1.5rem',
+        control: 'text',
+        description: '',
+      },
+      'button-icon-margin': {
+        value: '0 calc(var(--space-8) * -1) 0 var(--space-4)',
+        control: 'text',
+        description: '',
+      },
+      'button-icon-color': {
+        value: 'var(--color-icon-primary)',
+        control: 'text',
+        description: '',
+      },
+    },
+  },
 };
 
 const Template = (args) => ({

@@ -90,6 +90,45 @@ export default {
       },
     },
   },
+  parameters: {
+    cssprops: {
+      'multiple-choices-list-item-border': {
+        value: 'solid var(--color-border-divider)',
+        control: 'text',
+        description: '',
+      },
+      'multiple-choices-list-item-border-width': {
+        value: '1px 0',
+        control: 'text',
+        description: '',
+      },
+      'multiple-choices-list-item-hover-background': {
+        value: 'var(--color-gray-50)',
+        control: 'text',
+        description: '',
+      },
+      'multiple-choices-mobile-hint-margin': {
+        value: '0 var(--space-20) var(--space-12) var(--space-20)',
+        control: 'text',
+        description: '',
+      },
+      'multiple-choices-hint-color': {
+        value: 'var(--color-text-dimmed)',
+        control: 'text',
+        description: '',
+      },
+      'multiple-choices-tablet-hint-margin': {
+        value: '0 0 var(--space-12) 0',
+        control: 'text',
+        description: '',
+      },
+      'multiple-choices-choice-padding': {
+        value: 'var(--space-12)',
+        control: 'text',
+        description: '',
+      },
+    },
+  },
 };
 
 const Template = (args) => ({

@@ -30,6 +30,35 @@ export default {
       control: 'text',
     },
   },
+  parameters: {
+    cssprops: {
+      'scale-option-active-transform': {
+        value: 'scale(0.96)',
+        control: 'text',
+        description: '',
+      },
+      'scale-square-base-background': {
+        value: 'var(--color-dataviz-diverging-track)',
+        control: 'text',
+        description: '',
+      },
+      'scale-square-overlay-background': {
+        value: 'var(--color-dataviz-diverging-strongly-negative)',
+        control: 'text',
+        description: '',
+      },
+      'scale-square-overlay-opacity': {
+        value: '0',
+        control: 'text',
+        description: '',
+      },
+      'scale-label-background': {
+        value: 'var(--color-background-selection)',
+        control: 'text',
+        description: '',
+      },
+    },
+  },
 };
 
 const Template = (args) => ({

@@ -25,6 +25,55 @@ export default {
       },
     },
   },
+  parameters: {
+    cssprops: {
+      'link-color': {
+        value: 'var(--color-text-action-primary)',
+        control: 'text',
+        description: '',
+      },
+      'link-text-decoration': {
+        value: 'none',
+        control: 'text',
+        description: '',
+      },
+      'link-hover-color': {
+        value: 'var(--color-text-action-primary-hover)',
+        control: 'text',
+        description: '',
+      },
+      'link-icon-hover-color': {
+        value: 'var(--color-icon-primary-hover)',
+        control: 'text',
+        description: '',
+      },
+      'link-active-color': {
+        value: 'var(--color-text-action-primary-active)',
+        control: 'text',
+        description: '',
+      },
+      'link-icon-active-color': {
+        value: 'var(--color-text-action-primary-active)',
+        control: 'text',
+        description: '',
+      },
+      'link-icon-size': {
+        value: 'var(--space-24)',
+        control: 'text',
+        description: '',
+      },
+      'link-icon-margin': {
+        value: '0 0 0 var(--space-4)',
+        control: 'text',
+        description: '',
+      },
+      'link-icon-color': {
+        value: 'var(--color-icon-primary)',
+        control: 'text',
+        description: '',
+      },
+    },
+  },
 };
 
 const Template = (args) => ({

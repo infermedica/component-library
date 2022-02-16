@@ -51,7 +51,7 @@ module.exports = {
     '@storybook/addon-essentials',
     '@storybook/addon-a11y',
     'storybook-addon-outline',
-    "@storybook/addon-measure",
+    '@storybook/addon-measure',
     {
       name: '@storybook/addon-postcss',
       options: {
@@ -59,7 +59,8 @@ module.exports = {
           implementation: require('postcss'),
         }
       }
-    }
+    },
+    '@ljcl/storybook-addon-cssprops'
   ],
   core: {
     'builder': 'webpack5'

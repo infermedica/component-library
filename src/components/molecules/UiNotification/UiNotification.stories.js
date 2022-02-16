@@ -15,6 +15,50 @@ export default {
     content: { control: 'text' },
     type: { control: { type: 'select', options: ['success', 'info', 'warning', 'error'] } },
   },
+  parameters: {
+    cssprops: {
+      'notification-padding': {
+        value: 'var(--space-12)',
+        control: 'text',
+        description: '',
+      },
+      'notification-background': {
+        value: undefined,
+        control: 'text',
+        description: '',
+      },
+      'notification-border': {
+        value: undefined,
+        control: 'text',
+        description: '',
+      },
+      'notification-border-radius': {
+        value: 'var(--border-radius-container)',
+        control: 'text',
+        description: '',
+      },
+      'notification-success-background-color': {
+        value: 'var(--color-background-success)',
+        control: 'text',
+        description: '',
+      },
+      'notification-info-background-color': {
+        value: 'var(--color-background-info)',
+        control: 'text',
+        description: '',
+      },
+      'notification-warning-background-color': {
+        value: 'var(--color-background-warning)',
+        control: 'text',
+        description: '',
+      },
+      'notification-error-background-color': {
+        value: 'var(--color-background-error)',
+        control: 'text',
+        description: '',
+      },
+    },
+  },
 };
 
 const Template = (args) => ({

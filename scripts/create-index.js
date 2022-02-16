@@ -18,8 +18,8 @@ function generateContent() {
     exports.push(exportLine);
   }
   const contentIndexJs = `// Auto-generated file by create-index.js. Do not edit manually\n${
-      imports.join('\n')
-    }\n\n`
+    imports.join('\n')
+  }\n\n`
     + `export {\n${
       exports.join(',\n')
     },\n};\n`;
@@ -27,13 +27,13 @@ function generateContent() {
     contentIndexJs,
   };
 }
+function saveIndexJs(contentIndex) {
+  fs.writeFileSync(pathIndexJs, contentIndex);
+}
 function createIndexJs() {
   const filesContent = generateContent();
   saveIndexJs(filesContent.contentIndexJs);
   console.log('🚀 index.js created successfully');
-}
-function saveIndexJs(contentIndex) {
-  fs.writeFileSync(pathIndexJs, contentIndex);
 }
 module.exports = {
   createIndexJs,

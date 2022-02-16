@@ -20,6 +20,65 @@ export default {
       table: { category: 'Events' },
     },
   },
+  parameters: {
+    cssprops: {
+      'chip-padding': {
+        value: 'var(--space-4) var(--space-12) var(--space-4) var(--space-4)',
+        control: 'text',
+        description: '',
+      },
+      'chip-color': {
+        value: 'var(--color-chip-text)',
+        control: 'text',
+        description: '',
+      },
+      'chip-background': {
+        value: 'var(--color-chip-background)',
+        control: 'text',
+        description: '',
+      },
+      'chip-border-radius': {
+        value: 'var(--border-radius-pill)',
+        control: 'text',
+        description: '',
+      },
+      'chip-remove-background': {
+        value: 'var(--color-chip-icon-background)',
+        control: 'text',
+        description: '',
+      },
+      'chip-remove-hover-background': {
+        value: 'var(--color-chip-icon-background-hover)',
+        control: 'text',
+        description: '',
+      },
+      'chip-remove-active-background': {
+        value: 'var(--color-chip-icon-background-active)',
+        control: 'text',
+        description: '',
+      },
+      'chip-remove-size': {
+        value: '1.5rem',
+        control: 'text',
+        description: '',
+      },
+      'chip-remove-cross': {
+        value: 'var(--color-chip-icon)',
+        control: 'text',
+        description: '',
+      },
+      'chip-remove-margin': {
+        value: '2px calc(var(--space-4) + 2px) 2px 2px',
+        control: 'text',
+        description: '',
+      },
+      'chip-icon-margin': {
+        value: '-2px',
+        control: 'text',
+        description: '',
+      },
+    },
+  },
 };
 
 const Template = (args) => ({

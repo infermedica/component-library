@@ -23,6 +23,70 @@ export default {
       },
     },
   },
+  parameters: {
+    cssprops: {
+      'popover-background': {
+        value: 'var(--color-background-white)',
+        control: 'text',
+        description: '',
+      },
+      'popover-border': {
+        value: 'solid var(--color-border-subtle)',
+        control: 'text',
+        description: '',
+      },
+      'popover-border-width': {
+        value: '1px',
+        control: 'text',
+        description: '',
+      },
+      'popover-border-radius': {
+        value: 'var(--border-radius-form)',
+        control: 'text',
+        description: '',
+      },
+      'popover-box-shadow': {
+        value: 'var(--box-shadow-high)',
+        control: 'text',
+        description: '',
+      },
+      'popover-transform': {
+        value: '0',
+        control: 'text',
+        description: '',
+      },
+      'popover-header-padding': {
+        value: 'var(--space-12) var(--space-16)',
+        control: 'text',
+        description: '',
+      },
+      'popover-header-background': {
+        value: 'var(--color-background-subtle)',
+        control: 'text',
+        description: '',
+      },
+      'popover-header-border-radius': {
+        value: 'var(--border-radius-form) var(--border-radius-form) 0 0',
+        control: 'text',
+        description: '',
+      },
+      'popover-content-padding': {
+        value: 'var(--space-8)',
+        control: 'text',
+        description: '',
+      },
+      'popover-arrow-border-width': {
+        value: '0 0 1px 1px',
+        control: 'text',
+        description: '',
+      },
+      'popover-has-mobile-height': {
+        value: '50%',
+        control: 'text',
+        description: '',
+      },
+    },
+  },
 };
 
 const Template = (args) => ({

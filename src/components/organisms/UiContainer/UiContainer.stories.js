@@ -12,6 +12,25 @@ export default {
       control: { type: 'text' },
     },
   },
+  parameters: {
+    cssprops: {
+      'container-padding': {
+        value: 'var(--space-40) var(--space-32)',
+        control: 'text',
+        description: '',
+      },
+      'container-border-radius': {
+        value: '0',
+        control: 'text',
+        description: '',
+      },
+      'container-tablet-border-radius': {
+        value: 'var(--border-radius-container)',
+        control: 'text',
+        description: '',
+      },
+    },
+  },
 };
 
 const Template = (args) => ({

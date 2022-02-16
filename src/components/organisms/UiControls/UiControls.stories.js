@@ -25,6 +25,65 @@ export default {
     toBack: { control: { type: 'text' } },
     toNext: { control: { type: 'text' } },
   },
+  parameters: {
+    cssprops: {
+      'controls-container-padding': {
+        value: 'var(--space-32) var(--space-20)',
+        control: 'text',
+        description: '',
+      },
+      'controls-container-tablet-padding': {
+        value: 'var(--space-48) var(--space-48) var(--space-40)',
+        control: 'text',
+        description: '',
+      },
+      'controls-bottom-align-items': {
+        value: 'center',
+        control: 'text',
+        description: '',
+      },
+      'controls-bottom-justify-content': {
+        value: 'space-between',
+        control: 'text',
+        description: '',
+      },
+      'controls-bottom': {
+        value: '5rem',
+        control: 'text',
+        description: '',
+      },
+      'controls-bottom-padding': {
+        value: 'var(--space-12) var(--space-20)',
+        control: 'text',
+        description: '',
+      },
+      'controls-bottom-border': {
+        value: 'solid var(--color-border-divider)',
+        control: 'text',
+        description: '',
+      },
+      'controls-bottom-border-width': {
+        value: '1px 0 0 0',
+        control: 'text',
+        description: '',
+      },
+      'controls-tablet-bottom-padding': {
+        value: 'var(--space-16) var(--space-32)',
+        control: 'text',
+        description: '',
+      },
+      'controls-next-margin': {
+        value: '0 auto 0 0',
+        control: 'text',
+        description: '',
+      },
+      'controls-back-margin': {
+        value: '0 0 0 auto',
+        control: 'text',
+        description: '',
+      },
+    },
+  },
 };
 
 const Template = (args) => ({

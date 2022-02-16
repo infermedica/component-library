@@ -39,6 +39,65 @@ export default {
       },
     },
   },
+  parameters: {
+    cssprops: {
+      'question-padding': {
+        value: '0 var(--space-20)',
+        control: 'text',
+        description: '',
+      },
+      'question-tablet-padding': {
+        value: 'var(--space-16) var(--space-48)',
+        control: 'text',
+        description: '',
+      },
+      'question-actions-top-margin': {
+        value: 'var(--space-12) 0 0 0',
+        control: 'text',
+        description: '',
+      },
+      'question-actions-bottom-margin': {
+        value: 'var(--space-32) 0 0 0',
+        control: 'text',
+        description: '',
+      },
+      'question-tablet-actions-bottom-margin': {
+        value: 'var(--space-32) 0 0 0',
+        control: 'text',
+        description: '',
+      },
+      'question-content-margin': {
+        value: 'var(--space-32) 0 0 0',
+        control: 'text',
+        description: '',
+      },
+      'question-tablet-content-margin': {
+        value: 'var(--space-32) 0 0 0',
+        control: 'text',
+        description: '',
+      },
+      'question-action-margin': {
+        value: 'var(--space-20) 0 0 0',
+        control: 'text',
+        description: '',
+      },
+      'question-tablet-action-margin': {
+        value: '0',
+        control: 'text',
+        description: '',
+      },
+      'question-action-before-margin': {
+        value: '0 var(--space-12)',
+        control: 'text',
+        description: '',
+      },
+      'question-action-before-background': {
+        value: 'var(--color-border-divider)',
+        control: 'text',
+        description: '',
+      },
+    },
+  },
 };
 
 // const Template = (args) => ({

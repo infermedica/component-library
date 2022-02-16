@@ -42,6 +42,20 @@ export default {
     },
   },
   decorators: [() => ({ template: '<div class="max-w-147"><story /></div>' })],
+  parameters: {
+    cssprops: {
+      'simple-question-option-margin': {
+        value: '0 0 var(--space-12) 0',
+        control: 'text',
+        description: '',
+      },
+      'simple-question-option-tablet-margin': {
+        value: '0 0 0 var(--space-24)',
+        control: 'text',
+        description: '',
+      },
+    },
+  },
 };
 
 const Template = (args) => ({

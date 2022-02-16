@@ -23,6 +23,9 @@ export default {
   argTypes: {
     modelValue: { control: false },
   },
+  parameters: {
+    cssprops: [],
+  },
 };
 
 const Template = (args) => ({

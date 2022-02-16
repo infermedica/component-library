@@ -20,6 +20,45 @@ export default {
       },
     },
   },
+  parameters: {
+    cssprops: {
+      'alert-background': {
+        value: undefined,
+        control: 'text',
+        description: '',
+      },
+      'alert-border': {
+        value: undefined,
+        control: 'text',
+        description: '',
+      },
+      'alert-border-width': {
+        value: undefined,
+        control: 'text',
+        description: '',
+      },
+      'alert-icon-size': {
+        value: '1.5rem',
+        control: 'text',
+        description: '',
+      },
+      'alert-icon-color': {
+        value: 'var(--color-icon-error)',
+        control: 'text',
+        description: '',
+      },
+      'alert-icon-margin': {
+        value: '0 0 0 var(--space-4)',
+        control: 'text',
+        description: '',
+      },
+      'alert-color': {
+        value: 'var(--color-text-body)',
+        control: 'text',
+        description: '',
+      },
+    },
+  },
 };
 
 const Template = (args) => ({

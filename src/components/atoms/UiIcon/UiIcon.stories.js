@@ -17,6 +17,20 @@ export default {
       },
     },
   },
+  parameters: {
+    cssprops: {
+      'icon-size': {
+        value: 'var(--icon-height, 1rem)',
+        control: 'text',
+        description: '',
+      },
+      'icon-color': {
+        value: undefined,
+        control: 'text',
+        description: '',
+      },
+    },
+  },
 };
 
 const Template = (args) => ({

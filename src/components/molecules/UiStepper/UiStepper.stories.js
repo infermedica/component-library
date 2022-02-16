@@ -33,6 +33,40 @@ export default {
       },
     },
   },
+  parameters: {
+    cssprops: {
+      'stepper-progress-background': {
+        value: 'var(--color-progress-indicator)',
+        control: 'text',
+        description: '',
+      },
+      'stepper-progress-border-radius': {
+        value: '2px',
+        control: 'text',
+        description: '',
+      },
+      'stepper-padding': {
+        value: 'var(--space-12) var(--space-20)',
+        control: 'text',
+        description: '',
+      },
+      'stepper-background': {
+        value: 'var(--color-background-subtle)',
+        control: 'text',
+        description: '',
+      },
+      'stepper-progress-radius': {
+        value: undefined,
+        control: 'text',
+        description: '',
+      },
+      'stepper-link-active-color': {
+        value: 'var(--color-text-body)',
+        control: 'text',
+        description: '',
+      },
+    },
+  },
 };
 
 const Template = (args) => ({

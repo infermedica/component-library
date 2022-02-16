@@ -38,6 +38,125 @@ export default {
       },
     },
   },
+  parameters: {
+    cssprops: {
+      'input-color': {
+        value: undefined,
+        control: 'text',
+        description: '',
+      },
+      'input-background-color': {
+        value: 'var(--color-background-white)',
+        control: 'text',
+        description: '',
+      },
+      'input-border': {
+        value: 'solid var(--input-border-color, var(--color-border-strong))',
+        control: 'text',
+        description: '',
+      },
+      'input-border-width': {
+        value: '1px',
+        control: 'text',
+        description: '',
+      },
+      'input-border-radius': {
+        value: 'var(--border-radius-form)',
+        control: 'text',
+        description: '',
+      },
+      'input-focus-border-color': {
+        value: undefined,
+        control: 'text',
+        description: '',
+      },
+      'input-hover-border-color': {
+        value: 'var(--color-border-strong-hover)',
+        control: 'text',
+        description: '',
+      },
+      'input-padding': {
+        value: 'var(--space-12) var(--space-16)',
+        control: 'text',
+        description: '',
+      },
+      'input-caret-color': {
+        value: 'var(--color-blue-500)',
+        control: 'text',
+        description: '',
+      },
+      'input-placeholder-color': {
+        value: 'var(--color-text-dimmed)',
+        control: 'text',
+        description: '',
+      },
+      'input-aside-margin': {
+        value: '0 0 0 var(--space-12)',
+        control: 'text',
+        description: '',
+      },
+      'input-suffix-color': {
+        value: 'var(--input-color), var(--color-text-body)',
+        control: 'text',
+        description: '',
+      },
+      'input-icon-size': {
+        value: '1.5rem',
+        control: 'text',
+        description: '',
+      },
+      'input-error-color': {
+        value: 'var(--color-text-body)',
+        control: 'text',
+        description: '',
+      },
+      'input-error-border-color': {
+        value: 'var(--color-border-error-strong)',
+        control: 'text',
+        description: '',
+      },
+      'input-error-hover-border-color': {
+        value: 'var(--color-border-error-strong)',
+        control: 'text',
+        description: '',
+      },
+      'input-error-focus-border-color': {
+        value: 'var(--color-border-error-strong)',
+        control: 'text',
+        description: '',
+      },
+      'input-error-caret-color': {
+        value: 'var(--color-border-error-strong)',
+        control: 'text',
+        description: '',
+      },
+      'input-disabled-color': {
+        value: 'var(--color-text-disabled)',
+        control: 'text',
+        description: '',
+      },
+      'input-disabled-border-color': {
+        value: 'var(--color-border-subtle)',
+        control: 'text',
+        description: '',
+      },
+      'input-disabled-hover-border-color': {
+        value: 'var(--color-border-subtle)',
+        control: 'text',
+        description: '',
+      },
+      'input-disabled-focus-border-color': {
+        value: 'var(--color-border-subtle)',
+        control: 'text',
+        description: '',
+      },
+      'input-disabled-caret-color': {
+        value: 'var(--color-border-subtle)',
+        control: 'text',
+        description: '',
+      },
+    },
+  },
 };
 
 const Template = (args) => ({

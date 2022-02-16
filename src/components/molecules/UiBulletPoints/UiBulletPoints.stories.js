@@ -26,6 +26,9 @@ export default {
       },
     },
   },
+  parameters: {
+    cssprops: [],
+  },
 };
 
 const Template = (args) => ({

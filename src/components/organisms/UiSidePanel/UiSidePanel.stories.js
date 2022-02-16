@@ -48,6 +48,95 @@ export default {
     },
   },
   decorators: [() => ({ template: '<div class="max-w-32" style="--backdrop-position: absolute; --side-panel-position: absolute; --side-panel-z-index: 0; min-height: 320px;"><story /></div>' })],
+  parameters: {
+    cssprops: {
+      'side-panel-position': {
+        value: 'fixed',
+        control: 'text',
+        description: '',
+      },
+      'side-panel-z-index': {
+        value: '1000',
+        control: 'text',
+        description: '',
+      },
+      'side-panel-background': {
+        value: 'var(--color-background-white)',
+        control: 'text',
+        description: '',
+      },
+      'side-panel-box-shadow': {
+        value: 'var(--box-shadow-high)',
+        control: 'text',
+        description: '',
+      },
+      'side-panel-container-tablet-max-width': {
+        value: '40rem',
+        control: 'text',
+        description: '',
+      },
+      'side-panel-header-padding': {
+        value: 'var(--space-20) var(--space-20) var(--space-24)',
+        control: 'text',
+        description: '',
+      },
+      'side-panel-header-background': {
+        value: 'var(--color-background-subtle)',
+        control: 'text',
+        description: '',
+      },
+      'side-panel-header-tablet-padding': {
+        value: 'var(--space-40) var(--space-40) var(--space-32)',
+        control: 'text',
+        description: '',
+      },
+      'side-panel-close-icon-size': {
+        value: '1.5rem',
+        control: 'text',
+        description: '',
+      },
+      'side-panel-close-margin': {
+        value: '0 auto 0 0',
+        control: 'text',
+        description: '',
+      },
+      'side-panel-label-padding': {
+        value: '0',
+        control: 'text',
+        description: '',
+      },
+      'side-panel-label-margin': {
+        value: 'var(--space-32) 0 0 0',
+        control: 'text',
+        description: '',
+      },
+      'side-panel-tablet-label-padding': {
+        value: '0 var(--space-8)',
+        control: 'text',
+        description: '',
+      },
+      'side-panel-subtitle-margin': {
+        value: 'var(--space-8) 0 0 0',
+        control: 'text',
+        description: '',
+      },
+      'side-panel-content-padding': {
+        value: 'var(--space-24) var(--space-20)',
+        control: 'text',
+        description: '',
+      },
+      'side-panel-content-overflow': {
+        value: 'auto',
+        control: 'text',
+        description: '',
+      },
+      'side-panel-content-tablet-padding': {
+        value: 'var(--space-32) var(--space-48)',
+        control: 'text',
+        description: '',
+      },
+    },
+  },
 };
 
 const Template = (args) => ({
