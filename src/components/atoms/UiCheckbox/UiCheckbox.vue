@@ -41,78 +41,65 @@
 </template>
 
 <script>
+export default {
+  inheritAttrs: false,
+};
+</script>
+
+<script setup>
+import { computed, useSlots } from 'vue';
 import equal from 'fast-deep-equal';
 import { uid } from 'uid/single';
-import { computed } from 'vue';
 import UiIcon from '../UiIcon/UiIcon.vue';
 import useInput from '../../../composable/useInput';
-import { keyboardFocus } from '../../../utilities/directives';
+import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 
-export default {
-  name: 'UiCheckbox',
-  components: {
-    UiIcon,
-  },
-  directives: {
-    keyboardFocus,
-  },
-  inheritAttrs: false,
-  props: {
-    /**
+const props = defineProps({
+  /**
      * Use this props to set checkbox id.
      */
-    id: {
-      type: String,
-      default: '',
-    },
-    /**
+  id: {
+    type: String,
+    default: '',
+  },
+  /**
      * Use this props to set value of checkbox.
      * Required for multiple checkboxes.
      */
-    value: {
-      type: [String, Object],
-      default: '',
-    },
-    /**
+  value: {
+    type: [String, Object],
+    default: '',
+  },
+  /**
      *  Use this props or v-model to set checked.
      */
-    modelValue: {
-      type: [Boolean, Array],
-      default: false,
-    },
+  modelValue: {
+    type: [Boolean, Array],
+    default: false,
   },
-  emits: ['update:modelValue'],
-  setup(props, { emit, slots }) {
-    const { getRootAttrs, getInputAttrs } = useInput();
-    const hasLabel = computed(() => (slots.default));
-    const checkboxId = computed(() => (props.id || `checkbox-${uid()}`));
-    const isGroup = computed(() => (Array.isArray(props.modelValue)));
-    const isChecked = computed(() => (isGroup.value
-      ? props.modelValue
-        .find((option) => (equal(JSON.parse(JSON.stringify(props.value)), JSON.parse(JSON.stringify(option)))))
-      : props.modelValue));
-    const getChecked = (checked) => {
-      if (isGroup.value) {
-        return checked
-          ? [...props.modelValue, JSON.parse(JSON.stringify(props.value))]
-          : props.modelValue
-            .filter((option) => (!equal(props.value, option)));
-      }
-      return checked;
-    };
-    function changeHandler(checked) {
-      emit('update:modelValue', getChecked(checked));
-    }
-    return {
-      getRootAttrs,
-      getInputAttrs,
-      hasLabel,
-      checkboxId,
-      isChecked,
-      changeHandler,
-    };
-  },
+});
+const emit = defineEmits(['update:modelValue']);
+const slots = useSlots();
+const { getRootAttrs, getInputAttrs } = useInput();
+const hasLabel = computed(() => (slots.default));
+const checkboxId = computed(() => (props.id || `checkbox-${uid()}`));
+const isGroup = computed(() => (Array.isArray(props.modelValue)));
+const isChecked = computed(() => (isGroup.value
+  ? props.modelValue
+    .find((option) => (equal(JSON.parse(JSON.stringify(props.value)), JSON.parse(JSON.stringify(option)))))
+  : props.modelValue));
+const getChecked = (checked) => {
+  if (isGroup.value) {
+    return checked
+      ? [...props.modelValue, JSON.parse(JSON.stringify(props.value))]
+      : props.modelValue
+        .filter((option) => (!equal(props.value, option)));
+  }
+  return checked;
 };
+function changeHandler(checked) {
+  emit('update:modelValue', getChecked(checked));
+}
 </script>
 
 <style lang="scss">

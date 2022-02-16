@@ -7,16 +7,13 @@
   </component>
 </template>
 
-<script>
-export default {
-  name: 'UiText',
-  props: {
-    tag: {
-      type: String,
-      default: 'p',
-    },
+<script setup>
+defineProps({
+  tag: {
+    type: String,
+    default: 'p',
   },
-};
+});
 </script>
 
 <style lang="scss">

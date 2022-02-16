@@ -70,88 +70,74 @@
 </template>
 
 <script>
+export default {
+  inheritAttrs: false,
+};
+</script>
+
+<script setup>
 import { computed } from 'vue';
 import UiButton from '../UiButton/UiButton.vue';
 import UiIcon from '../UiIcon/UiIcon.vue';
 import useInput from '../../../composable/useInput';
-import { keyboardFocus } from '../../../utilities/directives';
+import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 
-export default {
-  name: 'UiRange',
-  components: {
-    UiButton,
-    UiIcon,
+const props = defineProps({
+  /**
+   * Use this props or v-model to set value.
+   */
+  modelValue: {
+    type: [String, Number],
+    default: '',
   },
-  directives: {
-    keyboardFocus,
+  /**
+   * Use this props to set min value.
+   */
+  min: {
+    type: [String, Number],
+    default: '0',
   },
-  inheritAttrs: false,
-  props: {
-    /**
-     * Use this props or v-model to set value.
-     */
-    modelValue: {
-      type: [String, Number],
-      default: '',
-    },
-    /**
-     * Use this props to set min value.
-     */
-    min: {
-      type: [String, Number],
-      default: '0',
-    },
-    /**
-     * Use this props to set max value.
-     */
-    max: {
-      type: [String, Number],
-      default: '1',
-    },
-    /**
-     * Use this props to pass attrs for decrement UiButton
-     */
-    buttonDecrementAttrs: {
-      type: Object,
-      default: () => ({}),
-    },
-    /**
-     * Use this props to pass attrs for increment UiButton
-     */
-    buttonIncrementAttrs: {
-      type: Object,
-      default: () => ({}),
-    },
+  /**
+   * Use this props to set max value.
+   */
+  max: {
+    type: [String, Number],
+    default: '1',
   },
-  emits: ['update:modelValue'],
-  setup(props, { emit }) {
-    const { getRootAttrs, getInputAttrs } = useInput();
-    const trackWidth = computed(() => {
-      const value = parseInt(props.modelValue, 10);
-      const min = parseInt(props.min, 10);
-      const max = parseInt(props.max, 10);
-      const scope = max - min;
-      const position = value - min;
-      return `${(position / scope) * 100}%`;
-    });
-    function valueValidation(value) {
-      return value >= parseInt(props.min, 10) && value <= parseInt(props.max, 10);
-    }
-    function changeHandler(value, modifier = 0) {
-      const newValue = parseInt(value, 10) + modifier;
-      if (valueValidation(newValue)) {
-        emit('update:modelValue', `${newValue}`);
-      }
-    }
-
-    return {
-      getInputAttrs,
-      getRootAttrs,
-      trackWidth,
-      changeHandler,
-    };
+  /**
+   * Use this props to pass attrs for decrement UiButton
+   */
+  buttonDecrementAttrs: {
+    type: Object,
+    default: () => ({}),
   },
-};
+  /**
+   * Use this props to pass attrs for increment UiButton
+   */
+  buttonIncrementAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+});
+const emit = defineEmits(['update:modelValue']);
+const { getRootAttrs, getInputAttrs } = useInput();
+const trackWidth = computed(() => {
+  const value = parseInt(props.modelValue, 10);
+  const min = parseInt(props.min, 10);
+  const max = parseInt(props.max, 10);
+  const scope = max - min;
+  const position = value - min;
+  return `${(position / scope) * 100}%`;
+});
+function valueValidation(value) {
+  return value >= parseInt(props.min, 10) && value <= parseInt(props.max, 10);
+}
+function changeHandler(value, modifier = 0) {
+  const newValue = parseInt(value, 10) + modifier;
+  if (valueValidation(newValue)) {
+    emit('update:modelValue', `${newValue}`);
+  }
+}
 </script>
 
 <style lang="scss">

@@ -39,66 +39,54 @@
 </template>
 
 <script>
+export default {
+  inheritAttrs: false,
+};
+</script>
+
+<script setup>
+import { computed, useSlots } from 'vue';
 import equal from 'fast-deep-equal';
 import { uid } from 'uid/single';
-import { computed } from 'vue';
 import useInput from '../../../composable/useInput';
-import { keyboardFocus } from '../../../utilities/directives';
+import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 
-export default {
-  name: 'UiRadio',
-  directives: {
-    keyboardFocus,
+const props = defineProps({
+  /**
+   * Use this props to set radio id
+   */
+  id: {
+    type: String,
+    default: '',
   },
-  inheritAttrs: false,
-  props: {
-    /**
-     * Use this props to set radio id
-     */
-    id: {
-      type: String,
-      default: '',
-    },
-    /**
-     * Use this props to set value of radio.
-     */
-    value: {
-      type: [Number, String, Object],
-      default: '',
-    },
-    /**
-     * Use this props or v-model to set checked.
-     */
-    modelValue: {
-      type: [Number, String, Object],
-      default: '',
-    },
+  /**
+   * Use this props to set value of radio.
+   */
+  value: {
+    type: [Number, String, Object],
+    default: '',
   },
-  emits: ['update:modelValue'],
-  setup(props, { emit, slots }) {
-    const hasLabel = computed(() => (slots.default));
-    const radioId = computed(() => (
-      props.id || `radio-${uid()}`
-    ));
-    const isChecked = computed(() => (equal(JSON.parse(JSON.stringify(props.value)), JSON.parse(JSON.stringify(props.modelValue)))));
-    const { getRootAttrs, getInputAttrs } = useInput();
-
-    function changeHandler(checked) {
-      if (checked) {
-        emit('update:modelValue', JSON.parse(JSON.stringify(props.value)));
-      }
-    }
-
-    return {
-      hasLabel,
-      radioId,
-      isChecked,
-      getRootAttrs,
-      getInputAttrs,
-      changeHandler,
-    };
+  /**
+   * Use this props or v-model to set checked.
+   */
+  modelValue: {
+    type: [Number, String, Object],
+    default: '',
   },
-};
+});
+const emit = defineEmits(['update:modelValue']);
+const slots = useSlots();
+const hasLabel = computed(() => (slots.default));
+const radioId = computed(() => (
+  props.id || `radio-${uid()}`
+));
+const isChecked = computed(() => (equal(JSON.parse(JSON.stringify(props.value)), JSON.parse(JSON.stringify(props.modelValue)))));
+const { getRootAttrs, getInputAttrs } = useInput();
+function changeHandler(checked) {
+  if (checked) {
+    emit('update:modelValue', JSON.parse(JSON.stringify(props.value)));
+  }
+}
 </script>
 
 <style lang="scss">

@@ -5,31 +5,23 @@
   />
 </template>
 
-<script>
+<script setup>
 import { defineAsyncComponent } from 'vue';
 
-export default {
-  name: 'UiIcon',
-  props: {
-    icon: {
-      type: [String, Object],
-      default: '',
-    },
+const props = defineProps({
+  icon: {
+    type: [String, Object],
+    default: '',
   },
-  setup(props) {
-    const file = typeof props.icon === 'string'
-      ? defineAsyncComponent(() => import(
-        /* webpackChunkName: "icons" */
-        /* webpackMode: "eager" */
-        /* webpackPreload: true */
-        `../../../assets/svg/${props.icon}.svg`
-      ))
-      : props.icon;
-    return {
-      file,
-    };
-  },
-};
+});
+const file = typeof props.icon === 'string'
+  ? defineAsyncComponent(() => import(
+    /* webpackChunkName: "icons" */
+    /* webpackMode: "eager" */
+    /* webpackPreload: true */
+    `../../../assets/svg/${props.icon}.svg`
+  ))
+  : props.icon;
 </script>
 
 <style lang="scss">

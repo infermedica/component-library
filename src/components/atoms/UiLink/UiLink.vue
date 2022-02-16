@@ -10,43 +10,34 @@
   </component>
 </template>
 
-<script>
+<script setup>
 import useLink from '../../../composable/useLink';
-import { keyboardFocus } from '../../../utilities/directives';
+import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 
-export default {
-  name: 'UiLink',
-  directives: {
-    keyboardFocus,
-  },
-  props: {
-    /**
+const props = defineProps({
+  /**
      * Use this props to set tag when a component shouldn't be a link.
      */
-    tag: {
-      type: [String, Object],
-      default: 'span',
-    },
-    /**
+  tag: {
+    type: [String, Object],
+    default: 'span',
+  },
+  /**
      * Use this props to set route for internal link.
      */
-    to: {
-      type: [String, Object],
-      default: '',
-    },
-    /**
+  to: {
+    type: [String, Object],
+    default: '',
+  },
+  /**
      * Use this props to set route for external link.
      */
-    href: {
-      type: String,
-      default: '',
-    },
+  href: {
+    type: String,
+    default: '',
   },
-  setup(props) {
-    const { componentTag, routeAttrs } = useLink(props);
-    return { componentTag, routeAttrs };
-  },
-};
+});
+const { componentTag, routeAttrs } = useLink(props);
 </script>
 
 <style lang="scss">

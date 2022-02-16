@@ -10,40 +10,33 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { computed } from 'vue';
 
-export default {
-  name: 'UiProgress',
-  props: {
-    value: {
-      type: Number,
-      default: 0,
-    },
-    min: {
-      type: Number,
-      default: 0,
-    },
-    max: {
-      type: Number,
-      default: 100,
-    },
+const props = defineProps({
+  value: {
+    type: Number,
+    default: 0,
   },
-  setup(props) {
-    const progressValue = computed(() => {
-      const progress = (props.value - props.min) / (props.max - props.min);
-      if (isNaN(progress)) {
-        if (process.env.NODE_ENV !== 'production') {
-          console.error('[UiProgress error]: The result of progress calculation is NaN');
-        }
-        return 0;
-      }
-      return progress;
-    });
-
-    return { progressValue };
+  min: {
+    type: Number,
+    default: 0,
   },
-};
+  max: {
+    type: Number,
+    default: 100,
+  },
+});
+const progressValue = computed(() => {
+  const progress = (props.value - props.min) / (props.max - props.min);
+  if (isNaN(progress)) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('[UiProgress error]: The result of progress calculation is NaN');
+    }
+    return 0;
+  }
+  return progress;
+});
 </script>
 
 <style lang="scss">

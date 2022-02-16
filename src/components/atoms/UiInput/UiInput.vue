@@ -33,61 +33,49 @@
 </template>
 
 <script>
+export default {
+  inheritAttrs: false,
+};
+</script>
+
+<script setup>
+import { useAttrs } from 'vue';
 import UiText from '../UiText/UiText.vue';
 import useInput from '../../../composable/useInput';
 import useKeyValidation from '../../../composable/useKeyValidation';
-import { keyboardFocus } from '../../../utilities/directives';
+import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 
-export default {
-  name: 'UiInput',
-  components: {
-    UiText,
-  },
-  directives: {
-    keyboardFocus,
-  },
-  inheritAttrs: false,
-  props: {
-    /**
+defineProps({
+  /**
      * Use this props to set suffix.
      */
-    suffix: {
-      type: String,
-      default: '',
-    },
-    /**
+  suffix: {
+    type: String,
+    default: '',
+  },
+  /**
      * Use this props or v-model to set value.
      */
-    modelValue: {
-      type: String,
-      default: '',
-    },
+  modelValue: {
+    type: String,
+    default: '',
   },
-  emits: ['update:modelValue'],
-  setup(props, { attrs, emit }) {
-    const { getRootAttrs, getInputAttrs } = useInput();
-    const { numbersOnly } = useKeyValidation();
-
-    function keyValidation(event) {
-      switch (attrs.type) {
-        case 'number':
-          numbersOnly(event);
-          break;
-        default:
-      }
-    }
-    function inputHandler(value) {
-      emit('update:modelValue', value);
-    }
-
-    return {
-      getInputAttrs,
-      getRootAttrs,
-      keyValidation,
-      inputHandler,
-    };
-  },
-};
+});
+const emit = defineEmits(['update:modelValue']);
+const attrs = useAttrs();
+const { getRootAttrs, getInputAttrs } = useInput();
+const { numbersOnly } = useKeyValidation();
+function keyValidation(event) {
+  switch (attrs.type) {
+    case 'number':
+      numbersOnly(event);
+      break;
+    default:
+  }
+}
+function inputHandler(value) {
+  emit('update:modelValue', value);
+}
 </script>
 
 <style lang="scss">

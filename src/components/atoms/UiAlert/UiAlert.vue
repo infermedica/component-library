@@ -22,43 +22,29 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { computed } from 'vue';
 import UiIcon from '../UiIcon/UiIcon.vue';
 import UiText from '../UiText/UiText.vue';
 
-export default {
-  name: 'UiAlert',
-  components: {
-    UiIcon,
-    UiText,
+const props = defineProps({
+  /**
+   * Use this props to set alert type.
+   */
+  type: {
+    type: String,
+    required: false,
+    default: 'error',
+    validator: (value) => ['default', 'success', 'info', 'warning', 'error'].includes(value),
   },
-  props: {
-    /**
-     * Use this props to set alert type.
-     */
-    type: {
-      type: String,
-      required: false,
-      default: 'error',
-      validator: (value) => ['default', 'success', 'info', 'warning', 'error'].includes(value),
-    },
-  },
-  setup(props) {
-    const rootClassModifier = computed(() => `ui-alert--${props.type}`);
-    const icon = computed(() => {
-      if (props.type === 'default') return '';
-      if (props.type === 'success' || props.type === 'info') return `${props.type}-filled`;
-      if (props.type === 'warning') return `${props.type}-filled`;
-      return 'error-filled';
-    });
-
-    return {
-      rootClassModifier,
-      icon,
-    };
-  },
-};
+});
+const rootClassModifier = computed(() => `ui-alert--${props.type}`);
+const icon = computed(() => {
+  if (props.type === 'default') return '';
+  if (props.type === 'success' || props.type === 'info') return `${props.type}-filled`;
+  if (props.type === 'warning') return `${props.type}-filled`;
+  return 'error-filled';
+});
 </script>
 
 <style lang="scss">

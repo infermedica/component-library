@@ -8,53 +8,39 @@
   />
 </template>
 
-<script>
+<script setup>
 import { computed } from 'vue';
-import { keyboardFocus } from '../../../utilities/directives';
+import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 
-export default {
-  name: 'UiTextarea',
-  directives: {
-    keyboardFocus,
+const props = defineProps({
+  /**
+   * Use this props or v-model to set value.
+   */
+  modelValue: {
+    type: String,
+    default: '',
   },
-  props: {
-    /**
-     * Use this props or v-model to set value.
-     */
-    modelValue: {
-      type: String,
-      default: '',
-    },
-    /**
-     * Use this props to enable resizing on textarea.
-     * true - both direction resizing, false - disable resizing,
-     * 'horizontal' - horizontal resizing only, 'vertical' - vertical resizing only
-     */
-    resize: {
-      type: [Boolean, String],
-      optional: true,
-      default: false,
-    },
+  /**
+   * Use this props to enable resizing on textarea.
+   * true - both direction resizing, false - disable resizing,
+   * 'horizontal' - horizontal resizing only, 'vertical' - vertical resizing only
+   */
+  resize: {
+    type: [Boolean, String],
+    optional: true,
+    default: false,
   },
-  emits: ['update:modelValue'],
-  setup(props, { emit }) {
-    function inputHandler(value) {
-      emit('update:modelValue', value);
-    }
-
-    const resizeValue = computed(() => {
-      if (props.resize) {
-        return typeof variable === 'boolean' ? 'both' : props.resize;
-      }
-      return 'none';
-    });
-
-    return {
-      resizeValue,
-      inputHandler,
-    };
-  },
-};
+});
+const emit = defineEmits(['update:modelValue']);
+function inputHandler(value) {
+  emit('update:modelValue', value);
+}
+const resizeValue = computed(() => {
+  if (props.resize) {
+    return typeof variable === 'boolean' ? 'both' : props.resize;
+  }
+  return 'none';
+});
 </script>
 
 <style lang="scss">
