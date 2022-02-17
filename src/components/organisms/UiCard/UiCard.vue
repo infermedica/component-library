@@ -53,7 +53,7 @@
             {{ description }}
           </UiText>
         </slot>
-        <slot name="symptoms" />
+        <slot name="details" />
       </div>
     </slot>
   </UiContainer>
@@ -108,7 +108,7 @@ export default {
     },
   },
   setup(props) {
-    const rootClassModifier = computed(() => `ui-card--${props.type}`);
+    const rootClassModifier = computed(() => (`ui-card--${props.type}`));
     const icon = computed(() => {
       const icons = {
         emergency_ambulance: 'emergency-ambulance',
@@ -129,6 +129,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../../styles/mixins/_mixins.scss';
+
 .ui-card {
   --container-padding: var(--card-padding, var(--space-20) var(--space-20) var(--space-32));
 
@@ -202,4 +204,50 @@ export default {
   }
 }
 
+.ui-card.ui-card--modern {
+  $this: '.ui-card';
+  --container-padding: var(--card-padding, 0);
+
+  flex-direction: row-reverse;
+
+  #{$this}__triage {
+    padding: var(--card-triage-padding, var(--space-16) var(--space-20));
+
+    @media (max-width: 767px) {
+      margin: var(--card-triage-margin, 0);
+      border-radius: var(--card-triage-border-radius, 0);
+    }
+
+    @media (min-width: 768px) {
+      padding: var(--card-triage-tablet-padding, var(--space-32) var(--space-32) var(--space-40));
+    }
+  }
+
+  #{$this}__icon {
+    @media (max-width: 767px) {
+      --icon-size: var(--card-triage-icon-size, 3rem);
+    }
+  }
+
+  #{$this}__subtitle {
+    display: none;
+  }
+
+  #{$this}__title {
+    @include font(h1);
+
+    @media (min-width: 768px) {
+      margin: var(--card-title-margin, 0 0 var(--space-12));
+    }
+  }
+
+  #{$this}__content {
+    flex: 1;
+    padding: var(--card-content-padding, var(--space-24) var(--space-20) var(--space-32));
+
+    @media (min-width: 768px) {
+      padding: var(--card-content-tablet-padding, var(--space-32) var(--space-48) var(--space-48));
+    }
+  }
+}
 </style>

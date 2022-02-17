@@ -15,7 +15,7 @@ export default {
   args: {
     title: 'Call an ambulance',
     subtitle: 'Recommendation',
-    description: 'Your symptoms are very serious, and you may require emergency care.',
+    description: 'Your symptoms are very serious, and you may require emergency care. Do not delay. Call an ambulance right now.',
   },
   argTypes: {
     title: {
@@ -45,6 +45,18 @@ export default {
       },
       table: {
         category: 'props',
+      },
+    },
+    theme: {
+      control: {
+        type: 'select',
+        options: [
+          'ui-card--classic',
+          'ui-card--modern',
+        ],
+      },
+      table: {
+        category: 'HTML attributes',
       },
     },
   },
@@ -135,6 +147,7 @@ const Template = (args) => ({
     return { ...args };
   },
   template: `<UiCard
+    :class="theme"
     :title="title"
     :subtitle="subtitle"
     :description="description"
@@ -167,7 +180,7 @@ SelfCare.args = {
   type: 'self_care',
 };
 
-export const WithSymptomsSlot = (args) => ({
+export const WithDetailsSlot = (args) => ({
   components: {
     UiCard, UiText, UiHeading, UiBulletPoints, UiBulletPointsItem,
   },
@@ -176,16 +189,19 @@ export const WithSymptomsSlot = (args) => ({
   },
   template: `
     <UiCard
+      :class="theme"
       :title="title"
       :subtitle="subtitle"
       :description="description"
       :type="type"
     >
-    <template #symptoms>
+    <template #details>
       <UiHeading 
         :level="4" 
         style="margin: var(--space-24) 0 var(--space-8) 0"
-      >Alarming symptoms:</UiHeading>
+      >
+        Alarming symptoms:
+      </UiHeading>
       <UiBulletPoints>
         <template
           v-for="(symptom, key) in ['Vomiting', 'Abdominal pain, lasting 2 to 7 days']"
@@ -206,6 +222,7 @@ export const WithTriageSlot = (args) => ({
     return { ...args };
   },
   template: `<UiCard
+    :class="theme"
     :title="title"
     :subtitle="subtitle"
     :description="description"
@@ -231,6 +248,7 @@ export const WithContentSlot = (args) => ({
     return { ...args };
   },
   template: `<UiCard
+    :class="theme"
     :title="title"
     :subtitle="subtitle"
     :description="description"
@@ -267,6 +285,7 @@ export const WithSubtitleSlot = (args) => ({
     return { ...args };
   },
   template: `<UiCard
+    :class="theme"
     :title="title"
     :subtitle="subtitle"
     :description="description"
@@ -289,6 +308,7 @@ export const WithTitleSlot = (args) => ({
     return { ...args };
   },
   template: `<UiCard
+    :class="theme"
     :title="title"
     :subtitle="subtitle"
     :description="description"
@@ -311,6 +331,7 @@ export const WithDescriptionSlot = (args) => ({
     return { ...args };
   },
   template: `<UiCard
+    :class="theme"
     :title="title"
     :subtitle="subtitle"
     :description="description"
