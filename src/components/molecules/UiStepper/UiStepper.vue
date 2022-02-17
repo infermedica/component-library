@@ -80,7 +80,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { computed } from 'vue';
 import UiLink from '../../atoms/UiLink/UiLink.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
@@ -88,56 +88,36 @@ import UiProgress from '../../atoms/UiProgress/UiProgress.vue';
 import UiList from '../../organisms/UiList/UiList.vue';
 import UiListItem from '../../organisms/UiList/_internal/UiListItem.vue';
 
-export default {
-  name: 'UiStepper',
-  components: {
-    UiText,
-    UiLink,
-    UiProgress,
-    UiList,
-    UiListItem,
+const props = defineProps({
+  steps: {
+    type: Array,
+    default: () => [
+      {
+        name: '',
+        route: '',
+      },
+    ],
   },
-  props: {
-    steps: {
-      type: Array,
-      default: () => [
-        {
-          name: '',
-          route: '',
-        },
-      ],
-    },
-    currentStep: {
-      type: String,
-      default: '',
-    },
-    progressAttrs: {
-      type: Object,
-      default: () => ({}),
-    },
+  currentStep: {
+    type: String,
+    default: '',
   },
-  setup(props) {
-    const stepsLength = computed(() => props.steps.length);
-    const indexOfActiveStep = computed(() => props.steps.findIndex((step) => step.name === props.currentStep));
-    const currentStepDisplayNumber = computed(() => indexOfActiveStep.value + 1);
-    const currentStepDisplayText = computed(() => `
+  progressAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+});
+const stepsLength = computed(() => props.steps.length);
+const indexOfActiveStep = computed(() => props.steps.findIndex((step) => step.name === props.currentStep));
+const currentStepDisplayNumber = computed(() => indexOfActiveStep.value + 1);
+const currentStepDisplayText = computed(() => `
       ${currentStepDisplayNumber.value}/${props.steps.length} ${props.currentStep}
     `);
-    const stepsProgress = computed(() => (currentStepDisplayNumber.value / stepsLength.value) * 100);
-    const determineStep = (itemIndex, route) => ({
-      to: itemIndex < indexOfActiveStep.value ? route : null,
-      class: itemIndex <= indexOfActiveStep.value ? null : 'ui-link--is-disabled',
-    });
-
-    return {
-      stepsLength,
-      stepsProgress,
-      indexOfActiveStep,
-      currentStepDisplayText,
-      determineStep,
-    };
-  },
-};
+const stepsProgress = computed(() => (currentStepDisplayNumber.value / stepsLength.value) * 100);
+const determineStep = (itemIndex, route) => ({
+  to: itemIndex < indexOfActiveStep.value ? route : null,
+  class: itemIndex <= indexOfActiveStep.value ? null : 'ui-link--is-disabled',
+});
 </script>
 
 <style lang="scss">

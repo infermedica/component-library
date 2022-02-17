@@ -30,72 +30,57 @@
   </UiButton>
 </template>
 
-<script>
+<script setup>
 import { uid } from 'uid/single';
 import { computed } from 'vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 
-export default {
-  name: 'UiTile',
-  components: {
-    UiButton,
-    UiText,
-    UiIcon,
-  },
-  props: {
-    /**
+const props = defineProps({
+  /**
      * Use this props to pass attrs for UiIcon
      */
-    iconAttrs: {
-      type: Object,
-      default: () => ({}),
-    },
-    /**
+  iconAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
      * Use this props to set radio id
      */
-    id: {
-      type: String,
-      default: '',
-    },
-    /**
+  id: {
+    type: String,
+    default: '',
+  },
+  /**
      * Use this props to set value of radio.
      */
-    value: {
-      type: [String, Object],
-      default: '',
-    },
-    /**
+  value: {
+    type: [String, Object],
+    default: '',
+  },
+  /**
      * Use this props or v-model to set checked.
      */
-    modelValue: {
-      type: [String, Object],
-      default: '',
-    },
+  modelValue: {
+    type: [String, Object],
+    default: '',
   },
-  emits: ['update:modelValue'],
-  setup(props, { emit }) {
-    const tileId = computed(() => (
-      props.id || `tile-${uid()}`
-    ));
-    const isChecked = computed(() => {
-      if (typeof props.modelValue === 'string') {
-        return props.value === props.modelValue;
-      }
-      return Object.keys(props.modelValue)
-        .every((key) => (props.modelValue[key] === props.value[key]));
-    });
-    function selectHandler() {
-      emit('update:modelValue', JSON.parse(JSON.stringify(props.value)));
-    }
-    return {
-      tileId,
-      isChecked,
-      selectHandler,
-    };
-  },
-};
+});
+const emit = defineEmits(['update:modelValue']);
+const tileId = computed(() => (
+  props.id || `tile-${uid()}`
+));
+const isChecked = computed(() => {
+  if (typeof props.modelValue === 'string') {
+    return props.value === props.modelValue;
+  }
+  return Object.keys(props.modelValue)
+    .every((key) => (props.modelValue[key] === props.value[key]));
+});
+function selectHandler() {
+  emit('update:modelValue', JSON.parse(JSON.stringify(props.value)));
+}
 </script>
 
 <style lang="scss">

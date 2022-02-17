@@ -35,87 +35,75 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 
-export default {
-  name: 'UiNumberStepper',
-  components: { UiButton, UiIcon },
-  props: {
-    /**
+const props = defineProps({
+  /**
      * Use this props or v-model to set value.
      */
-    modelValue: {
-      type: Number,
-      default: 0,
-    },
-    /**
+  modelValue: {
+    type: Number,
+    default: 0,
+  },
+  /**
      * Use this props to set min value.
      */
-    min: {
-      type: Number,
-      default: 0,
-    },
-    /**
+  min: {
+    type: Number,
+    default: 0,
+  },
+  /**
      * Use this props to set max value.
      */
-    max: {
-      type: Number,
-      default: 1,
-    },
-    /**
+  max: {
+    type: Number,
+    default: 1,
+  },
+  /**
      * Use this props to set step value.
      */
-    step: {
-      type: Number,
-      default: 1,
-    },
-    /**
+  step: {
+    type: Number,
+    default: 1,
+  },
+  /**
      * Use this props to hide controls.
      */
-    hasControls: {
-      type: Boolean,
-      default: true,
-    },
-    /**
+  hasControls: {
+    type: Boolean,
+    default: true,
+  },
+  /**
      * Use this props to pass attrs for decrement UiButton
      */
-    buttonDecrementAttrs: {
-      type: Object,
-      default: () => ({}),
-    },
-    /**
+  buttonDecrementAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
      * Use this props to pass attrs for increment UiButton
      */
-    buttonIncrementAttrs: {
-      type: Object,
-      default: () => ({}),
-    },
+  buttonIncrementAttrs: {
+    type: Object,
+    default: () => ({}),
   },
-  emits: ['update:modelValue'],
-  setup(props, { emit }) {
-    const validate = (value) => (value >= props.min && value <= props.max);
-    function change(value, modifier = 0) {
-      const newValue = value + modifier;
-      if (validate(newValue)) {
-        emit('update:modelValue', newValue);
-      }
-    }
-    function decrement() {
-      change(props.modelValue, props.step * -1);
-    }
-    function increment() {
-      change(props.modelValue, props.step);
-    }
-
-    return {
-      change,
-      decrement,
-      increment,
-    };
-  },
-};
+});
+const emit = defineEmits(['update:modelValue']);
+const validate = (value) => (value >= props.min && value <= props.max);
+function change(value, modifier = 0) {
+  const newValue = value + modifier;
+  if (validate(newValue)) {
+    emit('update:modelValue', newValue);
+  }
+}
+function decrement() {
+  change(props.modelValue, props.step * -1);
+}
+function increment() {
+  change(props.modelValue, props.step);
+}
 </script>
 
 <style lang="scss">

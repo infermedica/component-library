@@ -22,47 +22,35 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { computed } from 'vue';
 import UiProgress from '../../atoms/UiProgress/UiProgress.vue';
 
-export default {
-  name: 'UiProgressbar',
-  components: {
-    UiProgress,
-  },
-  props: {
-    /**
+const props = defineProps({
+  /**
      * Use this props to set steps.
      */
-    steps: {
-      type: Number,
-      default: 0,
-    },
-    /**
+  steps: {
+    type: Number,
+    default: 0,
+  },
+  /**
      * Use this props to set current step.
      */
-    currentStep: {
-      type: Number,
-      default: 0,
-    },
-    /**
+  currentStep: {
+    type: Number,
+    default: 0,
+  },
+  /**
      * Use this props to pass attrs for UiProgress
      */
-    progressAttrs: {
-      type: Object,
-      default: () => ({}),
-    },
+  progressAttrs: {
+    type: Object,
+    default: () => ({}),
   },
-  setup(props) {
-    const value = computed(() => ((100 / props.steps) * props.currentStep));
-    const stepsDots = computed(() => (props.steps - 1));
-    return {
-      value,
-      stepsDots,
-    };
-  },
-};
+});
+const value = computed(() => ((100 / props.steps) * props.currentStep));
+const stepsDots = computed(() => (props.steps - 1));
 </script>
 
 <style lang="scss">

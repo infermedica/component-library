@@ -55,99 +55,78 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { computed, ref } from 'vue';
 import { uid } from 'uid/single';
 import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 
-export default {
-  name: 'UiRating',
-  components: {
-    UiRadio,
-    UiIcon,
-  },
-  props: {
-    /**
+const props = defineProps({
+  /**
     * Use this props to set current rate.
     */
-    modelValue: {
-      type: [String, Number],
-      default: '0',
-    },
-    /**
+  modelValue: {
+    type: [String, Number],
+    default: '0',
+  },
+  /**
      * Use this props to set max rate
      */
-    max: {
-      type: String,
-      default: '1',
-    },
-    /**
+  max: {
+    type: String,
+    default: '1',
+  },
+  /**
      * Use this props to set radio name.
      */
-    name: {
-      type: String,
-      default: '',
-    },
-    /**
+  name: {
+    type: String,
+    default: '',
+  },
+  /**
      * Use this props to pass attrs for UiRadio
      */
-    radioAttrs: {
-      type: Object,
-      default: () => ({}),
-    },
-    /**
+  radioAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
      * Use this props to setup item component.
      */
-    settings: {
-      type: Object,
-      default: () => ({
-        icon: 'star-outlined',
-        iconActive: 'star-filled',
-      }),
-    },
-    /**
+  settings: {
+    type: Object,
+    default: () => ({
+      icon: 'star-outlined',
+      iconActive: 'star-filled',
+    }),
+  },
+  /**
      * Use this props to override labels inside component translation.
      */
-    translation: {
-      type: Object,
-      default: () => ({
-        stars: (index) => (`${index} stars`),
-      }),
-    },
+  translation: {
+    type: Object,
+    default: () => ({
+      stars: (index) => (`${index} stars`),
+    }),
   },
-  emits: ['update:modelValue'],
-  setup(props, { emit }) {
-    const ratingName = computed(() => (
-      props.name || `radio-${uid()}`
-    ));
-
-    const rate = computed({
-      get: () => (`${props.modelValue}`),
-      set: (value) => { emit('update:modelValue', value); },
-    });
-    const maxScore = computed(() => (parseInt(props.max, 10)));
-
-    const hoverScore = ref(0);
-    function hoverHandler({ type }, value) {
-      hoverScore.value = type === 'mouseover' ? value : 0;
-    }
-
-    const finalScore = computed(() => (
-      parseInt(hoverScore.value, 10)
-        ? parseInt(hoverScore.value, 10)
-        : parseInt(rate.value, 10)));
-
-    return {
-      rate,
-      ratingName,
-      maxScore,
-      finalScore,
-      hoverScore,
-      hoverHandler,
-    };
-  },
-};
+});
+const emit = defineEmits(['update:modelValue']);
+const ratingName = computed(() => (
+  props.name || `radio-${uid()}`
+));
+const rate = computed({
+  get: () => (`${props.modelValue}`),
+  set: (value) => { emit('update:modelValue', value); },
+});
+const maxScore = computed(() => (parseInt(props.max, 10)));
+const hoverScore = ref(0);
+function hoverHandler({ type }, value) {
+  hoverScore.value = type === 'mouseover' ? value : 0;
+}
+const finalScore = computed(() => (
+  parseInt(hoverScore.value, 10)
+    ? parseInt(hoverScore.value, 10)
+    : parseInt(rate.value, 10)));
 </script>
 
 <style lang="scss">

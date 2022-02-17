@@ -16,72 +16,54 @@
   </UiButton>
 </template>
 
-<script>
-import { computed, ref, inject } from 'vue';
+<script setup>
+import {
+  computed, ref, inject, useAttrs,
+} from 'vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 
-export default {
-  name: 'UiDropdownItem',
-  components: {
-    UiButton,
-    UiIcon,
+const props = defineProps({
+  value: {
+    type: [String, Object],
+    default: '',
   },
-  props: {
-    value: {
-      type: [String, Object],
-      default: '',
-    },
-  },
-  setup(props, { attrs }) {
-    const dropdownitem = ref(null);
-    const name = inject('name');
-    const changeHandler = inject('changeHandler');
-    const dropdownItemKeydownHandler = inject('dropdownItemKeydownHandler');
-    const modelValue = inject('modelValue');
-    const isChecked = computed(() => {
-      if (!modelValue.value) {
-        return false;
-      }
-      if (typeof modelValue.value === 'string') {
-        return props.value === modelValue.value;
-      }
-      return Object.keys(props.value)
-        .every((key) => (modelValue.value[key] === props.value[key]));
-    });
-    const isOption = computed(() => !!props.value);
-    const tabindex = computed(() => {
-      if (isChecked.value) {
-        return 0;
-      }
-      if (typeof modelValue.value === 'string') {
-        return !modelValue.value ? 0 : -1;
-      }
-      return !Object.keys(modelValue.value).length ? 0 : -1;
-    });
-
-    function optionChangeHandler(value) {
-      if (isOption.value) {
-        changeHandler(value);
-      }
-    }
-    const buttonAttrs = computed(() => ({
-      role: isOption.value ? 'radio' : undefined,
-      'aria-checked': isOption.value ? `${isChecked.value}` : undefined,
-      onClick: attrs.to ? undefined : optionChangeHandler.bind(this, props.value),
-    }));
-    return {
-      dropdownitem,
-      name,
-      modelValue,
-      isChecked,
-      optionChangeHandler,
-      tabindex,
-      buttonAttrs,
-      dropdownItemKeydownHandler,
-    };
-  },
-};
+});
+const attrs = useAttrs();
+const dropdownitem = ref(null);
+const changeHandler = inject('changeHandler');
+const dropdownItemKeydownHandler = inject('dropdownItemKeydownHandler');
+const modelValue = inject('modelValue');
+const isChecked = computed(() => {
+  if (!modelValue.value) {
+    return false;
+  }
+  if (typeof modelValue.value === 'string') {
+    return props.value === modelValue.value;
+  }
+  return Object.keys(props.value)
+    .every((key) => (modelValue.value[key] === props.value[key]));
+});
+const isOption = computed(() => !!props.value);
+const tabindex = computed(() => {
+  if (isChecked.value) {
+    return 0;
+  }
+  if (typeof modelValue.value === 'string') {
+    return !modelValue.value ? 0 : -1;
+  }
+  return !Object.keys(modelValue.value).length ? 0 : -1;
+});
+function optionChangeHandler(value) {
+  if (isOption.value) {
+    changeHandler(value);
+  }
+}
+const buttonAttrs = computed(() => ({
+  role: isOption.value ? 'radio' : undefined,
+  'aria-checked': isOption.value ? `${isChecked.value}` : undefined,
+  onClick: attrs.to ? undefined : optionChangeHandler.bind(this, props.value),
+}));
 </script>
 
 <style lang="scss">

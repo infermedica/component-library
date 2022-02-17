@@ -19,21 +19,15 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import UiText from '../../../atoms/UiText/UiText.vue';
 
-export default {
-  name: 'UiLoaderSpinner',
-  components: {
-    UiText,
+defineProps({
+  label: {
+    type: String,
+    default: 'Loading...',
   },
-  props: {
-    label: {
-      type: String,
-      default: 'Loading...',
-    },
-  },
-};
+});
 </script>
 
 <style lang="scss">

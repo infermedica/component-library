@@ -37,81 +37,76 @@
 </template>
 
 <script>
+export default {
+  inheritAttrs: false,
+};
+</script>
 
-import {
-  computed, h, TransitionGroup,
-} from 'vue';
+<script setup>
+import { computed, h, TransitionGroup } from 'vue';
 import UiLoaderSpinner from './_internal/UiLoaderSpinner.vue';
 import UiLoaderSkeleton from './_internal/UiLoaderSkeleton.vue';
 import UiLoaderEllipsis from './_internal/UiLoaderEllipsis.vue';
 
-export default {
-  name: 'UiLoader',
-  components: {
-    UiLoaderSpinner,
-    UiLoaderSkeleton,
-    UiLoaderEllipsis,
-  },
-  inheritAttrs: false,
-  props: {
-    /**
+const props = defineProps({
+  /**
      * use this props to show UiLoader component
      */
-    isLoading: {
-      type: Boolean,
-      default: true,
-    },
-    /**
+  isLoading: {
+    type: Boolean,
+    default: true,
+  },
+  /**
      * use this props to select UiLoader variant
      */
-    type: {
-      type: String,
-      default: 'spinner',
-      validator: (value) => ['spinner', 'ellipsis', 'skeleton'].includes(value),
-    },
-    /**
+  type: {
+    type: String,
+    default: 'spinner',
+    validator: (value) => ['spinner', 'ellipsis', 'skeleton'].includes(value),
+  },
+  /**
      * use this props to pass attributes to internal child components
      */
-    loaderAttrs: {
-      type: Object,
-      default: () => ({}),
-    },
-    /**
+  loaderAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
      * use this props to pass tag of loader
      */
-    tag: {
-      type: [String, Object],
-      default: 'div',
-    },
-    /**
+  tag: {
+    type: [String, Object],
+    default: 'div',
+  },
+  /**
      * use this props to pas transition name
      */
-    transition: {
-      type: [String, Boolean],
-      default: false,
-    },
-    /**
+  transition: {
+    type: [String, Boolean],
+    default: false,
+  },
+  /**
      * use this props to start rendering final component before loading stops, so it's completely rendered
      */
-    eagerLoadComponent: {
-      type: Boolean,
-      default: false,
-    },
+  eagerLoadComponent: {
+    type: Boolean,
+    default: false,
   },
-  setup(props) {
-    const component = computed(() => `ui-loader-${props.type}`);
-    const outerComponent = computed(() => (
-      props.transition
-        ? h(TransitionGroup, { name: props.transition })
-        : h((_, { slots }) => slots.default())
-    ));
-
-    return {
-      component,
-      outerComponent,
-    };
-  },
-};
+});
+const component = computed(() => {
+  if (props.type === 'spinner') {
+    return UiLoaderSpinner;
+  }
+  if (props.type === 'ellipsis') {
+    return UiLoaderEllipsis;
+  }
+  return UiLoaderSkeleton;
+});
+const outerComponent = computed(() => (
+  props.transition
+    ? h(TransitionGroup, { name: props.transition })
+    : h((_, { slots }) => slots.default())
+));
 </script>
 
 <style lang="scss">

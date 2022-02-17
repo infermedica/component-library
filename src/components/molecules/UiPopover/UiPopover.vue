@@ -39,49 +39,36 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { onMounted, onBeforeUnmount } from 'vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 
-export default {
-  name: 'UiPopover',
-  components: {
-    UiHeading,
-    UiButton,
-    UiIcon,
+defineProps({
+  title: {
+    type: String,
+    default: '',
   },
-  props: {
-    title: {
-      type: String,
-      default: '',
-    },
-    buttonAttrs: {
-      type: Object,
-      default: () => ({}),
-    },
+  buttonAttrs: {
+    type: Object,
+    default: () => ({}),
   },
-  emits: ['close'],
-  setup(props, { emit }) {
-    function clickHandler() {
-      emit('close');
-    }
-    function keydownHandler({ key }) {
-      if (key !== 'Escape') return;
-      emit('close');
-    }
-    onMounted(() => {
-      window.addEventListener('keydown', keydownHandler);
-    });
-    onBeforeUnmount(() => {
-      window.removeEventListener('keydown', keydownHandler);
-    });
-    return {
-      clickHandler,
-    };
-  },
-};
+});
+const emit = defineEmits(['close']);
+function clickHandler() {
+  emit('close');
+}
+function keydownHandler({ key }) {
+  if (key !== 'Escape') return;
+  emit('close');
+}
+onMounted(() => {
+  window.addEventListener('keydown', keydownHandler);
+});
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', keydownHandler);
+});
 </script>
 
 <style lang="scss">

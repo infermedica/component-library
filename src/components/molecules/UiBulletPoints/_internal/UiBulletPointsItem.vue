@@ -26,29 +26,19 @@
   </li>
 </template>
 
-<script>
+<script setup>
 import { computed, inject } from 'vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import UiText from '../../../atoms/UiText/UiText.vue';
 
-export default {
-  name: 'UiBulletPointsItem',
-  components: { UiText, UiIcon },
-  props: {
-    icon: {
-      type: String,
-      default: 'bullet-common',
-    },
+defineProps({
+  icon: {
+    type: String,
+    default: 'bullet-common',
   },
-  setup() {
-    const tag = inject('tag');
-    const isUnordered = computed(() => (tag.value === 'ul'));
-
-    return {
-      isUnordered,
-    };
-  },
-};
+});
+const tag = inject('tag');
+const isUnordered = computed(() => (tag.value === 'ul'));
 </script>
 
 <style lang="scss">

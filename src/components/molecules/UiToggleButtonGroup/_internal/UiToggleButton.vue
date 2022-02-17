@@ -14,56 +14,40 @@
   </UiButton>
 </template>
 
-<script>
+<script setup>
 import {
-  computed, getCurrentInstance, inject, watch,
+  computed, getCurrentInstance, inject, watch, useAttrs,
 } from 'vue';
 import equal from 'fast-deep-equal';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 
-export default {
-  name: 'UiToggleButton',
-  components: { UiButton },
-  props: {
-    /**
+const props = defineProps({
+  /**
      * Use this props to set value of toggle button.
      */
-    value: {
-      type: [Number, String, Object],
-      required: true,
-    },
+  value: {
+    type: [Number, String, Object],
+    required: true,
   },
-  emits: ['check', 'uncheck'],
-  setup(props, { emit, attrs }) {
-    const parentComponent = getCurrentInstance().parent;
-    if (!parentComponent || parentComponent.type.name !== 'UiToggleButtonGroup') {
-      if (process.env.NODE_ENV !== 'production') {
-        throw new Error('UiToggleButton has to be child of UiToggleButtonGroup');
-      }
-    }
-
-    const modelValue = inject('modelValue');
-    const isChecked = computed(() => (modelValue && equal(modelValue.value, props.value)));
-
-    const clickHandler = () => {
-      modelValue.value = props.value;
-    };
-
-    watch(isChecked, () => {
-      emit(isChecked.value ? 'check' : 'uncheck');
-    });
-
-    const isDisabled = computed(() => attrs.class?.includes('ui-toggle-button--is-disabled'));
-    const hasIcon = computed(() => attrs.class?.includes('ui-toggle-button--has-icon'));
-
-    return {
-      isChecked,
-      clickHandler,
-      isDisabled,
-      hasIcon,
-    };
-  },
+});
+const emit = defineEmits(['check', 'uncheck']);
+const attrs = useAttrs();
+const parentComponent = getCurrentInstance().parent;
+if (!parentComponent || parentComponent.type.name !== 'UiToggleButtonGroup') {
+  if (process.env.NODE_ENV !== 'production') {
+    throw new Error('UiToggleButton has to be child of UiToggleButtonGroup');
+  }
+}
+const modelValue = inject('modelValue');
+const isChecked = computed(() => (modelValue && equal(modelValue.value, props.value)));
+const clickHandler = () => {
+  modelValue.value = props.value;
 };
+watch(isChecked, () => {
+  emit(isChecked.value ? 'check' : 'uncheck');
+});
+const isDisabled = computed(() => attrs.class?.includes('ui-toggle-button--is-disabled'));
+const hasIcon = computed(() => attrs.class?.includes('ui-toggle-button--has-icon'));
 </script>
 
 <style lang="scss">

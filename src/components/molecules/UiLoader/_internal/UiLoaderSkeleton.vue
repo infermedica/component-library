@@ -39,17 +39,14 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'UiLoaderSkeleton',
-  props: {
-    type: {
-      type: String,
-      default: 'common',
-      validator: (value) => ['common', 'question'].includes(value),
-    },
+<script setup>
+defineProps({
+  type: {
+    type: String,
+    default: 'common',
+    validator: (value) => ['common', 'question'].includes(value),
   },
-};
+});
 </script>
 
 <style lang="scss">

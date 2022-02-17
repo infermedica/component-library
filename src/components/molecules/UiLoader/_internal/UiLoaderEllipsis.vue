@@ -5,9 +5,6 @@
 </template>
 
 <script>
-export default {
-  name: 'UiLoaderEllipsis',
-};
 </script>
 
 <style lang="scss">

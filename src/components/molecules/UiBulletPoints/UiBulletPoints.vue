@@ -9,55 +9,46 @@
   </component>
 </template>
 
-<script>
+<script setup>
 import { computed, provide } from 'vue';
 
-export default {
-  name: 'UiBulletPointsItem',
-  props: {
-    /**
+const props = defineProps({
+  /**
      * Use this props to set list tag.
      */
-    tag: {
-      type: String,
-      default: 'ul',
-    },
-    /**
+  tag: {
+    type: String,
+    default: 'ul',
+  },
+  /**
      * Use this props to set list type.
      */
-    type: {
-      type: String,
-      default: '1',
-    },
+  type: {
+    type: String,
+    default: '1',
   },
-  setup(props) {
-    const tag = computed(() => (props.tag));
-    provide('tag', tag);
+});
+const tag = computed(() => (props.tag));
+provide('tag', tag);
 
-    const listStyleType = computed(() => {
-      const type = {
-        a: { style: 'lower-latin', suffix: ')' },
-        A: { style: 'upper-latin', suffix: ')' },
-        i: { style: 'lower-roman', suffix: '.' },
-        I: { style: 'upper-roman', suffix: '.' },
-        1: { style: 'decimal', suffix: '.' },
-        ar: { style: 'arabic-indic', suffix: '.' },
-      };
+const listStyleType = computed(() => {
+  const type = {
+    a: { style: 'lower-latin', suffix: ')' },
+    A: { style: 'upper-latin', suffix: ')' },
+    i: { style: 'lower-roman', suffix: '.' },
+    I: { style: 'upper-roman', suffix: '.' },
+    1: { style: 'decimal', suffix: '.' },
+    ar: { style: 'arabic-indic', suffix: '.' },
+  };
 
-      // TODO: decide how to handle latin/roman styles
-      // Decimal appears to be perfectly fine for most of Arabic variants
+  // TODO: decide how to handle latin/roman styles
+  // Decimal appears to be perfectly fine for most of Arabic variants
 
-      return {
-        '--list-style-type': type[props.type]?.style,
-        '--list-item-suffix': `"${type[props.type]?.suffix}"`,
-      };
-    });
-
-    return {
-      listStyleType,
-    };
-  },
-};
+  return {
+    '--list-style-type': type[props.type]?.style,
+    '--list-item-suffix': `"${type[props.type]?.suffix}"`,
+  };
+});
 </script>
 
 <style lang="scss">

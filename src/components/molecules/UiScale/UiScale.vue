@@ -80,7 +80,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { computed, ref } from 'vue';
 import { uid } from 'uid/single';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
@@ -88,122 +88,93 @@ import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 
-export default {
-  name: 'UiScale',
-  components: {
-    UiButton,
-    UiIcon,
-    UiRadio,
-    UiText,
-  },
-  props: {
-    /**
+const props = defineProps({
+  /**
      * Use this props or v-model to set value.
      */
-    modelValue: {
-      type: Number,
-      default: null,
-    },
-    /**
+  modelValue: {
+    type: Number,
+    default: null,
+  },
+  /**
      * Use this props to set radio name.
      */
-    name: {
-      type: String,
-      default: '',
-    },
-    /**
+  name: {
+    type: String,
+    default: '',
+  },
+  /**
      * Use this props to set max value
      */
-    steps: {
-      type: Number,
-      default: 10,
-      validator: (value) => value > 0,
-    },
-    /**
+  steps: {
+    type: Number,
+    default: 10,
+    validator: (value) => value > 0,
+  },
+  /**
      * Use this props to override labels inside component translation.
      */
-    translation: {
-      type: Object,
-      default: () => ({
-        mild: 'Mild',
-        unbearable: 'Unbearable',
-      }),
-    },
-    /**
+  translation: {
+    type: Object,
+    default: () => ({
+      mild: 'Mild',
+      unbearable: 'Unbearable',
+    }),
+  },
+  /**
      * Use this props to pass attrs for decrement UiButton
      */
-    buttonDecrementAttrs: {
-      type: Object,
-      default: () => ({}),
-    },
-    /**
+  buttonDecrementAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
      * Use this props to pass attrs for increment UiButton
      */
-    buttonIncrementAttrs: {
-      type: Object,
-      default: () => ({}),
-    },
+  buttonIncrementAttrs: {
+    type: Object,
+    default: () => ({}),
   },
-  emits: ['update:modelValue'],
-  setup(props, { emit }) {
-    const scaleName = computed(() => (
-      props.name || `scale-${uid()}`
-    ));
-
-    const maxSteps = computed(() => props.steps);
-
-    function valueValidation(value) {
-      return value >= 0 && value < maxSteps.value;
-    }
-    function changeHandler(value, modifier = 0) {
-      const newValue = value + modifier;
-      if (valueValidation(newValue)) {
-        emit('update:modelValue', newValue);
-      }
-    }
-
-    const scaleValue = computed({
-      get: () => props.modelValue,
-      set: (value) => {
-        changeHandler(value);
-      },
-    });
-
-    const hoverValue = ref(-1);
-    function hoverHandler({ type }, value) {
-      hoverValue.value = type === 'mouseover' ? value : -1;
-    }
-
-    const finalValue = computed(() => (parseInt(hoverValue.value, 10) >= 0 ? hoverValue.value : scaleValue.value));
-
-    function decrement() {
-      changeHandler(props.modelValue, -1);
-    }
-    function increment() {
-      changeHandler(props.modelValue, 1);
-    }
-
-    function calcActiveElementOpacity(index) {
-      const opacityStepValue = 1 / (maxSteps.value - 1);
-      const isActive = index <= finalValue.value;
-
-      return isActive ? {
-        '--scale-square-overlay-opacity': (index * opacityStepValue).toFixed(3),
-      } : {};
-    }
-
-    return {
-      maxSteps,
-      scaleValue,
-      scaleName,
-      finalValue,
-      hoverHandler,
-      increment,
-      decrement,
-      calcActiveElementOpacity,
-    };
+});
+const emit = defineEmits(['update:modelValue']);
+const scaleName = computed(() => (
+  props.name || `scale-${uid()}`
+));
+const maxSteps = computed(() => props.steps);
+function valueValidation(value) {
+  return value >= 0 && value < maxSteps.value;
+}
+function changeHandler(value, modifier = 0) {
+  const newValue = value + modifier;
+  if (valueValidation(newValue)) {
+    emit('update:modelValue', newValue);
+  }
+}
+const scaleValue = computed({
+  get: () => props.modelValue,
+  set: (value) => {
+    changeHandler(value);
   },
-};
+});
+const hoverValue = ref(-1);
+function hoverHandler({ type }, value) {
+  hoverValue.value = type === 'mouseover' ? value : -1;
+}
+const finalValue = computed(() => (parseInt(hoverValue.value, 10) >= 0 ? hoverValue.value : scaleValue.value));
+function decrement() {
+  changeHandler(props.modelValue, -1);
+}
+function increment() {
+  changeHandler(props.modelValue, 1);
+}
+function calcActiveElementOpacity(index) {
+  const opacityStepValue = 1 / (maxSteps.value - 1);
+  const isActive = index <= finalValue.value;
+
+  return isActive ? {
+    '--scale-square-overlay-opacity': (index * opacityStepValue).toFixed(3),
+  } : {};
+}
 </script>
 
 <style lang="scss">

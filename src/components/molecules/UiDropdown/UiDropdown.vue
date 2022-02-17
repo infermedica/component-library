@@ -45,168 +45,141 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { uid } from 'uid/single';
 import {
   ref, computed, provide, nextTick,
 } from 'vue';
-
 import useDropdownItems from './useDropdownItems';
-import { clickOutside } from '../../../utilities/directives';
+import { clickOutside as vClickOutside } from '../../../utilities/directives';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiPopover from '../UiPopover/UiPopover.vue';
 
-export default {
-  name: 'UiDropdown',
-  components: { UiButton, UiPopover },
-  directives: { clickOutside },
-  props: {
-    /**
+const props = defineProps({
+  /**
      * Use this props to set text on toggle button.
      */
-    text: {
-      type: String,
-      default: '',
-    },
-    name: {
-      type: String,
-      default: '',
-    },
-    modelValue: {
-      type: [String, Object],
-      default: '',
-    },
-    closeOnClickOutside: {
-      type: Boolean,
-      default: true,
-    },
-    /**
+  text: {
+    type: String,
+    default: '',
+  },
+  name: {
+    type: String,
+    default: '',
+  },
+  modelValue: {
+    type: [String, Object],
+    default: '',
+  },
+  closeOnClickOutside: {
+    type: Boolean,
+    default: true,
+  },
+  /**
      * Use this props to set toggle DOM element to back to it after close popover.
      */
-    toggleElement: {
-      type: Object,
-      default: undefined,
-    },
+  toggleElement: {
+    type: Object,
+    default: undefined,
   },
-  emits: ['update:modelValue', 'open', 'close'],
-  setup(props, { emit }) {
-    const toggle = ref(null);
-    const dropdown = ref(null);
-    const isOpen = ref(false);
-    const dropdownToggle = computed(() => (props.toggleElement || toggle.value?.$el));
+});
+const emit = defineEmits(['update:modelValue', 'open', 'close']);
+const toggle = ref(null);
+const dropdown = ref(null);
+const isOpen = ref(false);
+const dropdownToggle = computed(() => (props.toggleElement || toggle.value?.$el));
+const {
+  dropdownItems,
+  activeDropdownItemIndex,
+  firstDropdownItem,
+  lastDropdownItem,
+  nextDropdownItem,
+  prevDropdownItem,
+  selectedDropdownItem,
+} = useDropdownItems(dropdown);
+async function openHandler({ focus = false } = {}) {
+  isOpen.value = true;
+  emit('open');
 
-    const {
-      dropdownItems,
-      activeDropdownItemIndex,
-      firstDropdownItem,
-      lastDropdownItem,
-      nextDropdownItem,
-      prevDropdownItem,
-      selectedDropdownItem,
-    } = useDropdownItems(dropdown);
+  await nextTick();
 
-    async function openHandler({ focus = false } = {}) {
-      isOpen.value = true;
-      emit('open');
-
-      await nextTick();
-
-      if (focus) {
-        if (selectedDropdownItem.value) selectedDropdownItem.value.focus();
-        else nextDropdownItem.value?.focus();
-      }
-    }
-
-    function closeHandler(outside) {
-      if (dropdownToggle.value && !outside) {
-        (dropdownToggle.value?.$el || dropdownToggle.value)?.focus();
-      }
-      isOpen.value = false;
-      emit('close');
-    }
-
-    async function toggleHandler() {
-      if (isOpen.value) {
-        closeHandler();
-      } else {
-        await openHandler({ focus: true });
-      }
-    }
-
-    const dropdownName = computed(() => (
-      props.name || `dropdown-${uid()}`
-    ));
-    provide('name', dropdownName);
-    const modelValue = computed(() => (props.modelValue));
-    provide('modelValue', modelValue);
-    function changeHandler(value) {
-      emit('update:modelValue', value);
+  if (focus) {
+    if (selectedDropdownItem.value) selectedDropdownItem.value.focus();
+    else nextDropdownItem.value.focus();
+  }
+}
+function closeHandler(outside) {
+  if (dropdownToggle.value && !outside) {
+    (dropdownToggle.value?.$el || dropdownToggle.value).focus();
+  }
+  isOpen.value = false;
+  emit('close');
+}
+async function toggleHandler() {
+  if (isOpen.value) {
+    closeHandler();
+  } else {
+    await openHandler({ focus: true });
+  }
+}
+const dropdownName = computed(() => (
+  props.name || `dropdown-${uid()}`
+));
+provide('name', dropdownName);
+const modelValue = computed(() => (props.modelValue));
+provide('modelValue', modelValue);
+function changeHandler(value) {
+  emit('update:modelValue', value);
+  closeHandler();
+}
+provide('changeHandler', changeHandler);
+const dropdownKeydownHandler = async ({ key }) => {
+  switch (key) {
+    case 'Tab':
+    case 'Escape':
       closeHandler();
-    }
-    provide('changeHandler', changeHandler);
-
-    const dropdownKeydownHandler = async ({ key }) => {
-      switch (key) {
-        case 'Tab':
-        case 'Escape':
-          closeHandler();
-          break;
-        case 'ArrowDown':
-          if (!isOpen.value) {
-            await openHandler({ focus: true });
-          } else {
-            nextDropdownItem.value?.focus();
-          }
-          break;
-        case 'ArrowUp':
-          prevDropdownItem.value?.focus();
-          break;
-        case 'Home':
-        case 'PageUp':
-          firstDropdownItem.value?.focus();
-          break;
-        case 'End':
-        case 'PageDown':
-          lastDropdownItem.value?.focus();
-          break;
-        default: break;
+      break;
+    case 'ArrowDown':
+      if (!isOpen.value) {
+        await openHandler({ focus: true });
+      } else {
+        nextDropdownItem.value.focus();
       }
-    };
-
-    const searchQuery = ref('');
-    const searchDebounce = ref(null);
-
-    const handleInputQuery = ({ key }) => {
-      searchQuery.value += key.toLowerCase();
-      const match = dropdownItems.value.findIndex(
-        (item) => item.innerText.toLowerCase().startsWith(searchQuery.value),
-      );
-
-      if (match !== -1 && match !== activeDropdownItemIndex.value) dropdownItems.value[match].focus();
-    };
-
-    const dropdownItemKeydownHandler = async (event) => {
-      const { key } = event;
-      if (searchDebounce.value) clearTimeout(searchDebounce.value);
-
-      if (key.length === 1) {
-        handleInputQuery(event);
-        searchDebounce.value = setTimeout(() => { searchQuery.value = ''; }, 500);
-      }
-    };
-    provide('dropdownItemKeydownHandler', dropdownItemKeydownHandler);
-
-    return {
-      isOpen,
-      toggleHandler,
-      openHandler,
-      closeHandler,
-      toggle,
-      dropdown,
-      dropdownKeydownHandler,
-    };
-  },
+      break;
+    case 'ArrowUp':
+      prevDropdownItem.value.focus();
+      break;
+    case 'Home':
+    case 'PageUp':
+      firstDropdownItem.value.focus();
+      break;
+    case 'End':
+    case 'PageDown':
+      lastDropdownItem.value.focus();
+      break;
+    default: break;
+  }
 };
+const searchQuery = ref('');
+const searchDebounce = ref(null);
+const handleInputQuery = ({ key }) => {
+  searchQuery.value += key.toLowerCase();
+  const match = dropdownItems.value.findIndex(
+    (item) => item.innerText.toLowerCase().startsWith(searchQuery.value),
+  );
+
+  if (match !== -1 && match !== activeDropdownItemIndex.value) dropdownItems.value[match].focus();
+};
+const dropdownItemKeydownHandler = async (event) => {
+  const { key } = event;
+  if (searchDebounce.value) clearTimeout(searchDebounce.value);
+
+  if (key.length === 1) {
+    handleInputQuery(event);
+    searchDebounce.value = setTimeout(() => { searchQuery.value = ''; }, 500);
+  }
+};
+provide('dropdownItemKeydownHandler', dropdownItemKeydownHandler);
 </script>
 
 <style lang="scss">

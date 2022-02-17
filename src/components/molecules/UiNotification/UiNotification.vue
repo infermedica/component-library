@@ -7,30 +7,21 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { computed } from 'vue';
 
-export default {
-  name: 'UiNotification',
-  props: {
-    /**
+const props = defineProps({
+  /**
      * Use this props to set notification type.
      */
-    type: {
-      type: String,
-      required: false,
-      default: 'error',
-      validator: (value) => ['success', 'info', 'warning', 'error'].includes(value),
-    },
+  type: {
+    type: String,
+    required: false,
+    default: 'error',
+    validator: (value) => ['success', 'info', 'warning', 'error'].includes(value),
   },
-  setup(props) {
-    const rootClassModifier = computed(() => `ui-notification--${props.type}`);
-
-    return {
-      rootClassModifier,
-    };
-  },
-};
+});
+const rootClassModifier = computed(() => `ui-notification--${props.type}`);
 </script>
 
 <style lang="scss">

@@ -44,72 +44,59 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { uid } from 'uid/single';
 import { computed } from 'vue';
 import UiAlert from '../../atoms/UiAlert/UiAlert.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 
-export default {
-  name: 'UiFormField',
-  components: {
-    UiAlert,
-    UiText,
-  },
-  props: {
-    /**
+const props = defineProps({
+  /**
      * Use this props to set label $attrs
      */
-    labelAttrs: {
-      type: Object,
-      default: () => ({}),
-    },
-    /**
+  labelAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
      * Use this props to set label text
      */
-    label: {
-      type: [Boolean, String],
-      default: false,
-    },
-    /**
+  label: {
+    type: [Boolean, String],
+    default: false,
+  },
+  /**
      * Use this props to set input id and label for
      */
-    id: {
-      type: String,
-      default: '',
-    },
-    /**
+  id: {
+    type: String,
+    default: '',
+  },
+  /**
      * Use this props to set label hint like "Required" or "Optional"
      */
-    hint: {
-      type: String,
-      default: '',
-    },
-    /**
+  hint: {
+    type: String,
+    default: '',
+  },
+  /**
      * Use this props to set alert $attrs
      */
-    alertAttrs: {
-      type: Object,
-      default: () => ({}),
-    },
-    /**
+  alertAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
      * Use this props to set alert message
      */
-    errorMessage: {
-      type: [Boolean, String],
-      default: '',
-    },
+  errorMessage: {
+    type: [Boolean, String],
+    default: '',
   },
-  setup(props) {
-    const inputId = computed(() => (
-      props.id || `input-${uid()}`
-    ));
-
-    return {
-      inputId,
-    };
-  },
-};
+});
+const inputId = computed(() => (
+  props.id || `input-${uid()}`
+));
 </script>
 
 <style lang="scss">
