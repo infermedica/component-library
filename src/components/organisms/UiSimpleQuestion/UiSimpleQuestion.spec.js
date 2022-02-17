@@ -14,21 +14,21 @@ describe('UiSimpleQuestion.vue', () => {
         name: 'yes-no-dontknow',
         label: 'Yes',
         value: 'present',
-        iconAttrs: { icon: 'check' },
+        iconAttrs: { icon: 'checkmark' },
       },
       {
         id: 'absent-id',
         name: 'yes-no-dontknow',
         label: 'No',
         value: 'absent',
-        iconAttrs: { icon: 'cross' },
+        iconAttrs: { icon: 'close' },
       },
       {
         id: 'unknown-id',
         name: 'yes-no-dontknow',
         label: 'Dont know sometimes is long',
         value: 'unknown',
-        iconAttrs: { icon: 'arrowRight' },
+        iconAttrs: { icon: 'arrow-right' },
       },
     ];
     const optionsLength = options.length;

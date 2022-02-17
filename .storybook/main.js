@@ -52,6 +52,7 @@ module.exports = {
     '@storybook/addon-a11y',
     'storybook-addon-outline',
     '@storybook/addon-measure',
+    '@storybook/addon-jest',
     {
       name: '@storybook/addon-postcss',
       options: {

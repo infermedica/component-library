@@ -4,20 +4,29 @@ import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 
 describe('UiTile.vue', () => {
   test('renders a component', () => {
-    const wrapper = mount(UiTile);
+    const icon = 'close';
+    const wrapper = mount(UiTile, {
+      props: {
+        iconAttrs: { icon },
+      },
+    });
     expect(wrapper.classes('ui-tile')).toBe(true);
   });
   test('renders a content via default slot', () => {
+    const icon = 'close';
     const wrapper = mount(UiTile, {
       slots: {
         default: '<div class="symptom-checker"></div>',
+      },
+      props: {
+        iconAttrs: { icon },
       },
     });
     const slot = wrapper.find('.symptom-checker');
     expect(slot.exists()).toBe(true);
   });
   test('a possible to pass icon by iconAttrs property', () => {
-    const icon = 'cross';
+    const icon = 'close';
     const wrapper = mount(UiTile, {
       props: {
         iconAttrs: { icon },

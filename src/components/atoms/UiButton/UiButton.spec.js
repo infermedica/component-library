@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils';
 import UiButton from './UiButton.vue';
 
-describe('UiButton', () => {
+describe('UiButton.vue', () => {
   test('render a component', () => {
     const wrapper = mount(UiButton);
     expect(wrapper.classes('ui-button')).toBe(true);

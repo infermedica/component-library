@@ -3,11 +3,14 @@
   "version": "0.2.4",
   "private": true,
   "scripts": {
-    "test:unit": "vue-cli-service test:unit",
-    "test:verbose": "vue-cli-service test:unit --verbose",
+    "test:generate-output": "jest src --json --outputFile=.jest-test-results.json || true ",
+    "test:unit": "jest",
+    "test:watch": "jest --watch --onlyChanged",
     "lint": "vue-cli-service lint --fix",
     "stylelint": "stylelint src/**/*.{vue,scss} --fix",
+    "prebuild-storybook": "npm run test:generate-output",
     "build-storybook": "node scripts/create-icons-list.js && build-storybook -s ./public",
+    "prestorybook": "npm run test:generate-output",
     "storybook": "node scripts/create-icons-list.js && start-storybook -s ./public -p 6006",
     "create-index": "node scripts/create-index.js",
     "create-component": "node scripts/create-component.js",
@@ -54,11 +57,11 @@
     "@storybook/vue3": "^6.4.19",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-plugin-unit-jest": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0",
     "@vue/eslint-config-airbnb": "^5.3.0",
     "@vue/test-utils": "^2.0.0-rc.12",
+    "@vue/vue3-jest": "27.0.0-alpha.4",
     "autoprefixer": "^10.4.1",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^27.4.5",
@@ -68,6 +71,8 @@
     "file-save": "^0.2.0",
     "glob": "^7.2.0",
     "husky": "^7.0.4",
+    "jest": "^27.5.1",
+    "jest-transform-stub": "^2.0.0",
     "postcss": "^8.4.5",
     "prompt": "^1.2.0",
     "sass": "^1.45.2",
@@ -82,7 +87,6 @@
     "tailwindcss": "^3.0.9",
     "typescript": "^4.5.4",
     "uppercamelcase": "^3.0.0",
-    "vue-jest": "^5.0.0-alpha.10",
     "vue-loader": "^16.5.0",
     "vue-svg-loader": "^0.17.0-beta.2"
   },
@@ -214,9 +218,11 @@
       "^@/(.*)$": "<rootDir>/src/$1"
     },
     "transform": {
+      ".+\\.(css|styl|less|sass|scss|svg|png|jpg|ttf|woff|woff2)$": "jest-transform-stub",
       "^.+\\.js$": "babel-jest",
-      ".*\\.(vue)$": "vue-jest"
+      ".*\\.(vue)$": "@vue/vue3-jest"
     },
+    "testEnvironment": "jsdom",
     "collectCoverage": false,
     "collectCoverageFrom": [
       "**/*.{js,vue}",
@@ -224,16 +230,14 @@
     ],
     "testPathIgnorePatterns": [
       "<rootDir>/node_modules/",
-      "<rootDir>/scripts/"
+      "<rootDir>/scripts/",
+      "<rootDit>/jest-test-results.json"
     ]
   },
   "babel": {
     "presets": [
       [
-        "@vue/cli-plugin-babel/preset",
-        {
-          "loose": true
-        }
+        "@vue/cli-plugin-babel/preset"
       ]
     ]
   },
