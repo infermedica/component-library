@@ -160,6 +160,7 @@ export default {
   --radio-border-radius: 0;
   --radio-border-width: 0;
   --radio-size: var(--rating-icon-size, 1.5rem);
+  --radio-background: transparent;
 
   display: inline-flex;
 
