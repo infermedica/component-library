@@ -3,6 +3,7 @@
     class="ui-card"
     :class="rootClassModifier"
   >
+    <!-- @slot Use this slot to replace triage template. -->
     <slot
       name="triage"
       v-bind="{icon}"
@@ -20,6 +21,7 @@
       v-bind="{subtitle, title, description}"
     >
       <div class="ui-card__content">
+        <!-- @slot Use this slot to replace subtitle template. -->
         <slot
           name="subtitle"
           v-bind="{subtitle}"
@@ -31,6 +33,7 @@
             {{ subtitle }}
           </UiText>
         </slot>
+        <!-- @slot Use this slot to replace title template. -->
         <slot
           name="title"
           v-bind="{title}"
@@ -42,6 +45,7 @@
             {{ title }}
           </UiHeading>
         </slot>
+        <!-- @slot Use this slot to replace description template. -->
         <slot
           name="description"
           v-bind="{description}"
@@ -53,7 +57,10 @@
             {{ description }}
           </UiText>
         </slot>
+        <!-- @slot Use this slot to place content bottom of card. -->
         <slot name="details" />
+        <!-- @slot [deprecated] Use this slot to place content bottom of card. -->
+        <slot name="symptoms" />
       </div>
     </slot>
   </UiContainer>
@@ -107,7 +114,7 @@ export default {
       ].includes(value),
     },
   },
-  setup(props) {
+  setup(props, { slots }) {
     const rootClassModifier = computed(() => (`ui-card--${props.type}`));
     const icon = computed(() => {
       const icons = {
@@ -119,6 +126,14 @@ export default {
       };
       return icons[props.type];
     });
+
+    // deprecated warning
+    if (process.env.NODE_ENV === 'development') {
+      const { symptoms } = slots;
+      if (symptoms) {
+        console.warn('[@symptom-checker/ui-kit warn]: The "symptoms" slot is deprecated and will be removed in @symptom-checker/ui-kit 0.4.0. Please use "details" slot instead.');
+      }
+    }
 
     return {
       rootClassModifier,

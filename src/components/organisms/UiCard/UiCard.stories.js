@@ -47,11 +47,10 @@ export default {
         category: 'props',
       },
     },
-    theme: {
+    modifiers: {
       control: {
-        type: 'select',
+        type: 'multi-select',
         options: [
-          'ui-card--classic',
           'ui-card--modern',
         ],
       },
@@ -147,7 +146,7 @@ const Template = (args) => ({
     return { ...args };
   },
   template: `<UiCard
-    :class="theme"
+    :class="modifiers"
     :title="title"
     :subtitle="subtitle"
     :description="description"
@@ -180,6 +179,36 @@ SelfCare.args = {
   type: 'self_care',
 };
 
+export const ModernAmbulance = Template.bind({});
+ModernAmbulance.args = {
+  type: 'emergency_ambulance',
+  modifiers: ['ui-card--modern'],
+};
+
+export const ModernEmergency = Template.bind({});
+ModernEmergency.args = {
+  type: 'emergency',
+  modifiers: ['ui-card--modern'],
+};
+
+export const ModernConsultation24 = Template.bind({});
+ModernConsultation24.args = {
+  type: 'consultation_24',
+  modifiers: ['ui-card--modern'],
+};
+
+export const ModernConsultation = Template.bind({});
+ModernConsultation.args = {
+  type: 'consultation',
+  modifiers: ['ui-card--modern'],
+};
+
+export const ModernSelfCare = Template.bind({});
+ModernSelfCare.args = {
+  type: 'self_care',
+  modifiers: ['ui-card--modern'],
+};
+
 export const WithDetailsSlot = (args) => ({
   components: {
     UiCard, UiText, UiHeading, UiBulletPoints, UiBulletPointsItem,
@@ -189,7 +218,7 @@ export const WithDetailsSlot = (args) => ({
   },
   template: `
     <UiCard
-      :class="theme"
+      :class="modifiers"
       :title="title"
       :subtitle="subtitle"
       :description="description"
@@ -222,7 +251,7 @@ export const WithTriageSlot = (args) => ({
     return { ...args };
   },
   template: `<UiCard
-    :class="theme"
+    :class="modifiers"
     :title="title"
     :subtitle="subtitle"
     :description="description"
@@ -248,7 +277,7 @@ export const WithContentSlot = (args) => ({
     return { ...args };
   },
   template: `<UiCard
-    :class="theme"
+    :class="modifiers"
     :title="title"
     :subtitle="subtitle"
     :description="description"
@@ -285,7 +314,7 @@ export const WithSubtitleSlot = (args) => ({
     return { ...args };
   },
   template: `<UiCard
-    :class="theme"
+    :class="modifiers"
     :title="title"
     :subtitle="subtitle"
     :description="description"
@@ -308,7 +337,7 @@ export const WithTitleSlot = (args) => ({
     return { ...args };
   },
   template: `<UiCard
-    :class="theme"
+    :class="modifiers"
     :title="title"
     :subtitle="subtitle"
     :description="description"
@@ -331,7 +360,7 @@ export const WithDescriptionSlot = (args) => ({
     return { ...args };
   },
   template: `<UiCard
-    :class="theme"
+    :class="modifiers"
     :title="title"
     :subtitle="subtitle"
     :description="description"
@@ -347,3 +376,40 @@ export const WithDescriptionSlot = (args) => ({
     </template>
   </UiCard>`,
 });
+
+export const WithSymptomsSlot = (args) => ({
+  components: {
+    UiCard, UiText, UiHeading, UiBulletPoints, UiBulletPointsItem,
+  },
+  setup() {
+    return { ...args };
+  },
+  template: `
+    <UiCard
+      :class="modifiers"
+      :title="title"
+      :subtitle="subtitle"
+      :description="description"
+      :type="type"
+    >
+    <template #symptoms>
+      <UiHeading 
+        :level="4" 
+        style="margin: var(--space-24) 0 var(--space-8) 0"
+      >
+        Alarming symptoms:
+      </UiHeading>
+      <UiBulletPoints>
+        <template
+          v-for="(symptom, key) in ['Vomiting', 'Abdominal pain, lasting 2 to 7 days']"
+          :key="key"
+        >
+          <UiBulletPointsItem icon="bullet-alarming" class="ui-bullet-points-item--primary">
+            <UiText>{{ symptom }}</UiText>
+          </UiBulletPointsItem>
+        </template>
+      </UiBulletPoints>
+    </template>
+    </UiCard>`,
+});
+WithSymptomsSlot.storyName = '[deprecated] With symptoms slot';

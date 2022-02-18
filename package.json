@@ -49,6 +49,7 @@
     "@storybook/addon-a11y": "^6.4.19",
     "@storybook/addon-actions": "^6.4.19",
     "@storybook/addon-essentials": "^6.4.19",
+    "@storybook/addon-jest": "^6.4.19",
     "@storybook/addon-links": "^6.4.19",
     "@storybook/addon-measure": "^6.4.19",
     "@storybook/addon-postcss": "^2.0.0",
