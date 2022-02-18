@@ -29,7 +29,7 @@ const props = defineProps({
 });
 const progressValue = computed(() => {
   const progress = (props.value - props.min) / (props.max - props.min);
-  if (isNaN(progress)) {
+  if (Number.isNaN(progress)) {
     if (process.env.NODE_ENV !== 'production') {
       console.error('[UiProgress error]: The result of progress calculation is NaN');
     }
