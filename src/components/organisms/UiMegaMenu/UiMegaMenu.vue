@@ -5,29 +5,24 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { computed, provide } from 'vue';
 
-export default {
-  name: 'UiMegaMenu',
-  props: {
-    modelValue: {
-      type: String,
-      default: '',
-    },
+const props = defineProps({
+  modelValue: {
+    type: String,
+    default: '',
   },
-  emits: ['update:modelValue'],
-  setup(props, { emit }) {
-    const open = computed(() => (props.modelValue));
-    const hasOpen = computed(() => (!!props.modelValue));
-    function openHandler(name) {
-      emit('update:modelValue', name);
-    }
-    provide('open', open);
-    provide('hasOpen', hasOpen);
-    provide('openHandler', openHandler);
-  },
-};
+});
+const emit = defineEmits(['update:modelValue']);
+const open = computed(() => (props.modelValue));
+const hasOpen = computed(() => (!!props.modelValue));
+function openHandler(name) {
+  emit('update:modelValue', name);
+}
+provide('open', open);
+provide('hasOpen', hasOpen);
+provide('openHandler', openHandler);
 </script>
 
 <style lang="scss">

@@ -14,7 +14,7 @@
   />
 </template>
 
-<script>
+<script setup>
 import {
   computed,
   inject,
@@ -23,74 +23,58 @@ import {
 import UiInput from '../../../atoms/UiInput/UiInput.vue';
 import useKeyValidation from '../../../../composable/useKeyValidation';
 
-export default {
-  components: {
-    UiInput,
-  },
-  props: {
-    /**
+const props = defineProps({
+  /**
      * Use this props or v-model to set value.
      */
-    modelValue: {
-      type: String,
-      default: '',
-    },
-    /**
+  modelValue: {
+    type: String,
+    default: '',
+  },
+  /**
      * Use this props to set input in error state manually
      */
-    error: {
-      type: Boolean,
-      default: false,
-    },
-    /**
+  error: {
+    type: Boolean,
+    default: false,
+  },
+  /**
      * Use this props to set input value validation status
      */
-    valid: {
-      type: Boolean,
-      default: false,
-    },
+  valid: {
+    type: Boolean,
+    default: false,
   },
-  emits: ['update:modelValue', 'change-input'],
-  setup(props, { emit }) {
-    const translation = inject('translation');
-    const unfulfilledMonthError = inject('unfulfilledMonth');
-    const { numbersOnly } = useKeyValidation();
+});
+const emit = defineEmits(['update:modelValue', 'change-input']);
+const translation = inject('translation');
+const unfulfilledMonthError = inject('unfulfilledMonth');
+const { numbersOnly } = useKeyValidation();
 
-    const month = computed({
-      get: () => (`${props.modelValue}`),
-      set: (value) => { emit('update:modelValue', value); },
-    });
+const month = computed({
+  get: () => (`${props.modelValue}`),
+  set: (value) => { emit('update:modelValue', value); },
+});
 
-    const validationError = computed(() => (month.value.length === 2 && !props.valid));
-    const hasError = computed(() => (validationError.value || unfulfilledMonthError.value || props.error));
+const validationError = computed(() => (month.value.length === 2 && !props.valid));
+const hasError = computed(() => (validationError.value || unfulfilledMonthError.value || props.error));
 
-    async function checkMonth(event) {
-      unfulfilledMonthError.value = false;
-      const inputValue = event.data;
-      await nextTick();
-      if (inputValue && (!['0', '1'].includes(inputValue) || month.value.length === 2) && props.valid) {
-        emit('change-input', 'month');
-      }
+async function checkMonth(event) {
+  unfulfilledMonthError.value = false;
+  const inputValue = event.data;
+  await nextTick();
+  if (inputValue && (!['0', '1'].includes(inputValue) || month.value.length === 2) && props.valid) {
+    emit('change-input', 'month');
+  }
+}
+
+function standardizeMonthFormat() {
+  if (month.value.length === 1) {
+    if (month.value !== '0') {
+      month.value = `0${month.value}`;
+    } else {
+      unfulfilledMonthError.value = true;
     }
-
-    function standardizeMonthFormat() {
-      if (month.value.length === 1) {
-        if (month.value !== '0') {
-          month.value = `0${month.value}`;
-        } else {
-          unfulfilledMonthError.value = true;
-        }
-      }
-    }
-
-    return {
-      translation,
-      month,
-      checkMonth,
-      hasError,
-      numbersOnly,
-      standardizeMonthFormat,
-    };
-  },
-};
+  }
+}
 </script>

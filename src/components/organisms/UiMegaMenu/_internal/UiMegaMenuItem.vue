@@ -10,46 +10,34 @@
     v-bind="{back}"
   />
 </template>
-<script>
+<script setup>
 import { computed, inject } from 'vue';
 
-export default {
-  name: 'UiMegaMenuItem',
-  props: {
-    /**
+const props = defineProps({
+  /**
      * Use this props to set item name.
      */
-    name: {
-      type: String,
-      default: '',
-    },
-    /**
+  name: {
+    type: String,
+    default: '',
+  },
+  /**
      * Use this props to set item title.
      */
-    title: {
-      type: String,
-      default: '',
-    },
+  title: {
+    type: String,
+    default: '',
   },
-  setup(props) {
-    const open = inject('open');
-    const hasOpen = inject('hasOpen');
-    const hasControls = computed(() => (!hasOpen.value));
-    const openHandler = inject('openHandler');
-    const isOpen = computed(() => (open.value === props.name));
-    function back() {
-      openHandler('');
-    }
-    function to() {
-      openHandler(props.name);
-    }
-    return {
-      hasControls,
-      openHandler,
-      isOpen,
-      back,
-      to,
-    };
-  },
-};
+});
+const open = inject('open');
+const hasOpen = inject('hasOpen');
+const hasControls = computed(() => (!hasOpen.value));
+const openHandler = inject('openHandler');
+const isOpen = computed(() => (open.value === props.name));
+function back() {
+  openHandler('');
+}
+function to() {
+  openHandler(props.name);
+}
 </script>

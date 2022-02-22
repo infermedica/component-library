@@ -51,62 +51,47 @@
   </UiListItem>
 </template>
 
-<script>
+<script setup>
 import { computed, inject } from 'vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import UiListItem from '../../UiList/_internal/UiListItem.vue';
 
-export default {
-  components: {
-    UiButton,
-    UiIcon,
-    UiListItem,
-  },
-  props: {
-    /**
+const props = defineProps({
+  /**
      * Use this props to set item title.
      */
-    title: {
-      type: String,
-      default: '',
-    },
-    /**
+  title: {
+    type: String,
+    default: '',
+  },
+  /**
      * Use this props to set item name, it used to toggle.
      */
-    name: {
-      type: String,
-      default: '',
-    },
-    /**
+  name: {
+    type: String,
+    default: '',
+  },
+  /**
      * Use this props to setup item component.
      */
-    settings: {
-      type: Object,
-      default: () => ({
-        iconOpen: 'chevron-up',
-        iconClose: 'chevron-down',
-      }),
-    },
+  settings: {
+    type: Object,
+    default: () => ({
+      iconOpen: 'chevron-up',
+      iconClose: 'chevron-down',
+    }),
   },
-  setup(props) {
-    const opened = inject('opened');
-    const toggle = inject('toggle');
-    const isOpen = computed(() => {
-      if (opened.value === 'string') {
-        return props.name === opened.value;
-      }
-      return opened.value.includes(props.name);
-    });
-    const icon = computed(() => (isOpen.value ? props.settings.iconOpen : props.settings.iconClose));
-
-    return {
-      toggle,
-      isOpen,
-      icon,
-    };
-  },
-};
+});
+const opened = inject('opened');
+const toggle = inject('toggle');
+const isOpen = computed(() => {
+  if (opened.value === 'string') {
+    return props.name === opened.value;
+  }
+  return opened.value.includes(props.name);
+});
+const icon = computed(() => (isOpen.value ? props.settings.iconOpen : props.settings.iconClose));
 </script>
 
 <style lang="scss">

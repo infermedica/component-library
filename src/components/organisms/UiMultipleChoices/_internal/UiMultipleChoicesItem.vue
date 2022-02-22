@@ -57,69 +57,55 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import UiRadio from '../../../atoms/UiRadio/UiRadio.vue';
 import UiText from '../../../atoms/UiText/UiText.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 
-export default {
-  name: 'UiMultipleChoicesItem',
-  components: {
-    UiRadio, UiText, UiButton, UiIcon,
-  },
-  props: {
-    /**
+const props = defineProps({
+  /**
      *  Use this props or v-model to set checked.
      */
-    modelValue: {
-      type: Object,
-      default: () => ({}),
-    },
-    /**
+  modelValue: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
      * Use this props to set value of choices item.
      */
-    choice: {
-      type: Object,
-      default: () => ({}),
-    },
-    /**
+  choice: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
      *  Use this props to override default options.
      */
-    options: {
-      type: Array,
-      default: () => ([]),
-    },
-    /**
+  options: {
+    type: Array,
+    default: () => ([]),
+  },
+  /**
      * Use this props to set invalid state of choice item.
      */
-    invalid: {
-      type: Boolean,
-      default: true,
-    },
+  invalid: {
+    type: Boolean,
+    default: true,
   },
-  emits: ['update:modelValue'],
-  setup(props, { emit }) {
-    function getModelValue(choice) {
-      return props.modelValue[choice.id];
-    }
-    function getRadioValue(choice, option) {
-      return {
-        ...choice,
-        choice_id: option.value,
-      };
-    }
-    function updateHandler(value) {
-      emit('update:modelValue', { ...props.modelValue, [value.id]: value });
-    }
-
-    return {
-      getModelValue,
-      getRadioValue,
-      updateHandler,
-    };
-  },
-};
+});
+const emit = defineEmits(['update:modelValue']);
+function getModelValue(choice) {
+  return props.modelValue[choice.id];
+}
+function getRadioValue(choice, option) {
+  return {
+    ...choice,
+    choice_id: option.value,
+  };
+}
+function updateHandler(value) {
+  emit('update:modelValue', { ...props.modelValue, [value.id]: value });
+}
 </script>
 
 <style lang="scss">

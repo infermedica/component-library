@@ -37,64 +37,51 @@
   </slot>
 </template>
 
-<script>
+<script setup>
 import {
   computed, ref, inject, watchEffect, nextTick, onMounted,
 } from 'vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 
-export default {
-  components: {
-    UiButton,
-  },
-  props: {
-    /**
+const props = defineProps({
+  /**
      * Use this props to set item title.
      */
-    title: {
-      type: String,
-      default: '',
-    },
-    /**
+  title: {
+    type: String,
+    default: '',
+  },
+  /**
      * Use this props to set item name, it used to toggle.
      */
-    name: {
-      type: String,
-      default: '',
-    },
+  name: {
+    type: String,
+    default: '',
   },
-  setup(props) {
-    const tab = ref(null);
+});
+const tab = ref(null);
 
-    const opened = inject('opened');
-    const toggle = inject('toggle');
-    const isOpen = computed(() => {
-      if (opened.value === 'string') {
-        return props.name === opened.value;
-      }
-      return opened.value.includes(props.name);
-    });
+const opened = inject('opened');
+const toggle = inject('toggle');
+const isOpen = computed(() => {
+  if (opened.value === 'string') {
+    return props.name === opened.value;
+  }
+  return opened.value.includes(props.name);
+});
 
-    const underline = inject('underline');
-    watchEffect(async () => {
-      if (isOpen.value) {
-        await nextTick();
-        underline(tab.value);
-      }
-    });
-    const gap = inject('gap');
-    onMounted(async () => {
-      await nextTick();
-      gap(tab.value);
-    });
-
-    return {
-      tab,
-      toggle,
-      isOpen,
-    };
-  },
-};
+const underline = inject('underline');
+watchEffect(async () => {
+  if (isOpen.value) {
+    await nextTick();
+    underline(tab.value);
+  }
+});
+const gap = inject('gap');
+onMounted(async () => {
+  await nextTick();
+  gap(tab.value);
+});
 </script>
 
 <style lang="scss">

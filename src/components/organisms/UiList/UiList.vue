@@ -8,19 +8,16 @@
   </component>
 </template>
 
-<script>
-export default {
-  name: 'UiList',
-  props: {
-    /**
+<script setup>
+defineProps({
+  /**
      * Use this props to set list tag.
      */
-    tag: {
-      type: String,
-      default: 'ul',
-    },
+  tag: {
+    type: String,
+    default: 'ul',
   },
-};
+});
 </script>
 
 <style lang="scss">

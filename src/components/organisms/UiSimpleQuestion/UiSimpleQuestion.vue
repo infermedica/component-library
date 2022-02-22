@@ -27,54 +27,42 @@
   </div>
 </template>
 
-<script>
-import { computed } from 'vue';
+<script setup>
+import { computed, useAttrs } from 'vue';
 import UiTile from '../../molecules/UiTile/UiTile.vue';
 
-export default {
-  name: 'UiSimpleQuestion',
-  components: {
-    UiTile,
-  },
-  props: {
-    /**
+defineProps({
+  /**
     * Use v-model to bind value to the component, example: <UiSimpleQuestion v-model="selected" />
     */
-    modelValue: {
-      type: [Object, String],
-      default: () => ({}),
-    },
-    /**
+  modelValue: {
+    type: [Object, String],
+    default: () => ({}),
+  },
+  /**
     * Use this props to pass options for question
     * example option:
     * { id: 'id', name: 'option', label: 'label', value: 'value', iconAttrs: { icon: 'icon' }},
     */
-    options: {
-      type: Array,
-      default: () => [],
-    },
-    /**
+  options: {
+    type: Array,
+    default: () => [],
+  },
+  /**
     * Use this props to pass native attributes to all UiTiles
     */
-    tileAttrs: {
-      type: Object,
-      default: () => ({}),
-    },
+  tileAttrs: {
+    type: Object,
+    default: () => ({}),
   },
-  emits: ['update:modelValue'],
-  setup(props, { attrs, emit }) {
-    const isTileSmall = computed(() => attrs.class?.includes('ui-simple-question--small'));
+});
+const emit = defineEmits(['update:modelValue']);
+const attrs = useAttrs();
+const isTileSmall = computed(() => attrs.class?.includes('ui-simple-question--small'));
 
-    function updateHandler(value) {
-      emit('update:modelValue', value);
-    }
-
-    return {
-      isTileSmall,
-      updateHandler,
-    };
-  },
-};
+function updateHandler(value) {
+  emit('update:modelValue', value);
+}
 </script>
 
 <style lang="scss">

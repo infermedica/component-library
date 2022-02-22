@@ -19,7 +19,7 @@
   </UiTabsItem>
 </template>
 
-<script>
+<script setup>
 import {
   computed,
   inject,
@@ -27,45 +27,30 @@ import {
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiTabsItem from '../../UiTabs/_internal/UiTabsItem.vue';
 
-export default {
-  components: {
-    UiButton,
-    UiTabsItem,
-  },
-  props: {
-    /**
+const props = defineProps({
+  /**
      * Use this props or v-model to set value.
      */
-    modelValue: {
-      type: String,
-      default: '',
-    },
+  modelValue: {
+    type: String,
+    default: '',
   },
-  emits: ['update:modelValue', 'change', 'select'],
-  setup(props, { emit }) {
-    const yearsList = inject('yearsList');
-    const isDisabled = inject('checkYearAvailability');
-    const unfulfilledYearError = inject('unfulfilledYear');
+});
+const emit = defineEmits(['update:modelValue', 'change', 'select']);
+const yearsList = inject('yearsList');
+const isDisabled = inject('checkYearAvailability');
+const unfulfilledYearError = inject('unfulfilledYear');
 
-    const year = computed({
-      get: () => (`${props.modelValue}`),
-      set: (value) => { emit('update:modelValue', value); },
-    });
+const year = computed({
+  get: () => (`${props.modelValue}`),
+  set: (value) => { emit('update:modelValue', value); },
+});
 
-    function select(value) {
-      emit('select', { type: 'year', value });
-      year.value = value;
-      unfulfilledYearError.value = false;
-    }
-
-    return {
-      year,
-      yearsList,
-      isDisabled,
-      select,
-    };
-  },
-};
+function select(value) {
+  emit('select', { type: 'year', value });
+  year.value = value;
+  unfulfilledYearError.value = false;
+}
 </script>
 
 <style lang="scss">

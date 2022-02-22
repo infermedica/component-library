@@ -40,7 +40,7 @@
   </UiDropdown>
 </template>
 
-<script>
+<script setup>
 import {
   computed,
   inject,
@@ -48,9 +48,8 @@ import {
   watch,
   watchEffect,
 } from 'vue';
-import { clickOutside } from '../../../../utilities/directives';
+import { clickOutside as vClickOutside } from '../../../../utilities/directives';
 import { capitalizeFirst } from '../../../../utilities/helpers';
-
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiDropdown from '../../../molecules/UiDropdown/UiDropdown.vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
@@ -59,123 +58,96 @@ import UiDatepickerDayTab from './UiDatepickerDayTab.vue';
 import UiDatepickerMonthTab from './UiDatepickerMonthTab.vue';
 import UiDatepickerYearTab from './UiDatepickerYearTab.vue';
 
-export default {
-  components: {
-    UiButton,
-    UiDropdown,
-    UiIcon,
-    UiTabs,
-    UiDatepickerDayTab,
-    UiDatepickerMonthTab,
-    UiDatepickerYearTab,
-  },
-  directives: { clickOutside },
-  props: {
-    /**
+const props = defineProps({
+  /**
      * Use this props to set current tab value.
      */
-    lastFocused: {
-      type: String,
-      default: '',
-    },
-    /**
+  lastFocused: {
+    type: String,
+    default: '',
+  },
+  /**
      * Use this props to pass attrs for calendar UiButton
      */
-    buttonCalendarAttrs: {
-      type: Object,
-      default: () => ({}),
-    },
+  buttonCalendarAttrs: {
+    type: Object,
+    default: () => ({}),
   },
-  emits: ['update:modelValue', 'open', 'select'],
-  setup(props, { emit }) {
-    const dropdown = ref(null);
-    const translation = inject('translation');
-    const order = inject('order');
+});
+const emit = defineEmits(['update:modelValue', 'open', 'select']);
+const dropdown = ref(null);
+const translation = inject('translation');
+const order = inject('order');
 
-    const date = inject('date');
+const date = inject('date');
 
-    const currentTab = ref(`${order[0]}`);
-    const firstEmptyTab = computed(() => {
-      let firstEmpty = '';
-      // eslint-disable-next-line
+const currentTab = ref(`${order[0]}`);
+const firstEmptyTab = computed(() => {
+  let firstEmpty = '';
+  // eslint-disable-next-line
       for (const [key, value] of Object.entries(date)) {
-        if (!value) {
-          firstEmpty = key;
-          break;
-        }
-      }
-      return firstEmpty;
-    });
-
-    function tabComponentSelector(datePart) {
-      switch (datePart) {
-        case ('day'):
-          return 'UiDatepickerDayTab';
-        case ('month'):
-          return 'UiDatepickerMonthTab';
-        case ('year'):
-          return 'UiDatepickerYearTab';
-        default:
-          return '';
-      }
+    if (!value) {
+      firstEmpty = key;
+      break;
     }
+  }
+  return firstEmpty;
+});
 
-    const isDateFulfilled = inject('isDateFulfilled');
+function tabComponentSelector(datePart) {
+  switch (datePart) {
+    case ('day'):
+      return UiDatepickerDayTab;
+    case ('month'):
+      return UiDatepickerMonthTab;
+    case ('year'):
+      return UiDatepickerYearTab;
+    default:
+      return '';
+  }
+}
 
-    function openCalendar(open) {
-      emit('open');
-      // TODO: if no empty Tabs try to focus first tab with error
-      currentTab.value = isDateFulfilled.value ? order.at(0) : (firstEmptyTab.value || props.lastFocused);
+const isDateFulfilled = inject('isDateFulfilled');
 
-      open();
-    }
+function openCalendar(open) {
+  emit('open');
+  // TODO: if no empty Tabs try to focus first tab with error
+  currentTab.value = isDateFulfilled.value ? order.at(0) : (firstEmptyTab.value || props.lastFocused);
 
-    watchEffect(() => {
-      currentTab.value = props.lastFocused;
-    });
+  open();
+}
 
-    watch(isDateFulfilled, (dateFulfilled) => {
-      const focusedLastInput = props.lastFocused === order.at(-1);
-      if (dateFulfilled && focusedLastInput) dropdown.value.isOpen = false;
-    });
+watchEffect(() => {
+  currentTab.value = props.lastFocused;
+});
 
-    function goToNextTab() {
-      const currentTabIndex = order.indexOf(currentTab.value);
-      if (currentTabIndex < order.length - 1) {
-        currentTab.value = order[currentTabIndex + 1];
-      } else if (firstEmptyTab.value) {
-        const firstEmptyTabIndex = order.indexOf(firstEmptyTab.value);
-        currentTab.value = order[firstEmptyTabIndex];
-      } else {
-        dropdown.value.isOpen = false;
-      }
-    }
+watch(isDateFulfilled, (dateFulfilled) => {
+  const focusedLastInput = props.lastFocused === order.at(-1);
+  if (dateFulfilled && focusedLastInput) dropdown.value.isOpen = false;
+});
 
-    const clickOutsideHandler = ({ target: { id, htmlFor } }) => {
-      const allowedIds = Object.keys(date);
+function goToNextTab() {
+  const currentTabIndex = order.indexOf(currentTab.value);
+  if (currentTabIndex < order.length - 1) {
+    currentTab.value = order[currentTabIndex + 1];
+  } else if (firstEmptyTab.value) {
+    const firstEmptyTabIndex = order.indexOf(firstEmptyTab.value);
+    currentTab.value = order[firstEmptyTabIndex];
+  } else {
+    dropdown.value.isOpen = false;
+  }
+}
 
-      if (allowedIds.includes(htmlFor)) return;
-      if (!allowedIds.includes(id)) {
-        dropdown.value.isOpen = false;
-        return;
-      }
+const clickOutsideHandler = ({ target: { id, htmlFor } }) => {
+  const allowedIds = Object.keys(date);
 
-      currentTab.value = id;
-    };
+  if (allowedIds.includes(htmlFor)) return;
+  if (!allowedIds.includes(id)) {
+    dropdown.value.isOpen = false;
+    return;
+  }
 
-    return {
-      dropdown,
-      translation,
-      order,
-      date,
-      currentTab,
-      tabComponentSelector,
-      openCalendar,
-      goToNextTab,
-      capitalizeFirst,
-      clickOutsideHandler,
-    };
-  },
+  currentTab.value = id;
 };
 </script>
 

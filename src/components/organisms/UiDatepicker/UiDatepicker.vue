@@ -44,7 +44,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import {
   computed,
   nextTick,
@@ -60,434 +60,390 @@ import {
   lightFormat,
 } from 'date-fns';
 import { capitalizeFirst } from '../../../utilities/helpers';
-
-import UiButton from '../../atoms/UiButton/UiButton.vue';
-import UiDropdown from '../../molecules/UiDropdown/UiDropdown.vue';
 import UiFormField from '../../molecules/UiFormField/UiFormField.vue';
-import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
-import UiTabs from '../UiTabs/UiTabs.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import UiDatepickerDayInput from './_internal/UiDatepickerDayInput.vue';
 import UiDatepickerMonthInput from './_internal/UiDatepickerMonthInput.vue';
 import UiDatepickerYearInput from './_internal/UiDatepickerYearInput.vue';
 import UiDatepickerCalendar from './_internal/UiDatepickerCalendar.vue';
-import UiDatepickerDayTab from './_internal/UiDatepickerDayTab.vue';
-import UiDatepickerMonthTab from './_internal/UiDatepickerMonthTab.vue';
-import UiDatepickerYearTab from './_internal/UiDatepickerYearTab.vue';
 
-export default {
-  name: 'UiDatepicker',
-  components: {
-    UiButton,
-    UiDropdown,
-    UiFormField,
-    UiIcon,
-    UiTabs,
-    UiText,
-    UiDatepickerDayInput,
-    UiDatepickerMonthInput,
-    UiDatepickerYearInput,
-    UiDatepickerCalendar,
-    UiDatepickerDayTab,
-    UiDatepickerMonthTab,
-    UiDatepickerYearTab,
-  },
-  props: {
-    /**
+const props = defineProps({
+  /**
      * Use this props or v-model to set value.
      */
-    modelValue: {
-      type: String,
-      default: null,
-      validator: (value) => isMatch(value, 'yyyy-MM-dd') || value === '',
-    },
-    /**
+  modelValue: {
+    type: String,
+    default: null,
+    validator: (value) => isMatch(value, 'yyyy-MM-dd') || value === '',
+  },
+  /**
      * Use this props to set custom error message
      */
-    error: {
-      type: [Boolean, String],
-      default: '',
-    },
-    /**
+  error: {
+    type: [Boolean, String],
+    default: '',
+  },
+  /**
      * Use this props to set input fields order
      */
-    order: {
-      type: Array,
-      default: () => (['day', 'month', 'year']),
-      validator: (value) => value.length === 3
+  order: {
+    type: Array,
+    default: () => (['day', 'month', 'year']),
+    validator: (value) => value.length === 3
         && value.includes('day')
         && value.includes('month')
         && value.includes('year'),
-    },
-    /**
+  },
+  /**
      * Use this props to set invalid state of component.
      */
-    invalid: {
-      type: Boolean,
-      default: true,
-    },
-    /**
+  invalid: {
+    type: Boolean,
+    default: true,
+  },
+  /**
      * Use this props to touch component and show validation errors.
      */
-    touched: {
-      type: Boolean,
-      default: true,
-    },
-    /**
+  touched: {
+    type: Boolean,
+    default: true,
+  },
+  /**
      * Use this props to set months language - default en-US
      */
-    lang: {
-      type: String,
-      default: 'en-US',
-    },
-    /**
+  lang: {
+    type: String,
+    default: 'en-US',
+  },
+  /**
      * Use this props to override labels inside component translation.
      */
-    translation: {
-      type: Object,
-      default: () => ({
-        day: 'day',
-        month: 'month',
-        year: 'year',
-        placeholderDay: 'DD',
-        placeholderMonth: 'MM',
-        placeholderYear: 'YYYY',
-        errorWrongDate: 'Please enter a valid date, e.g. 05/11/1990',
-        errorDateInFuture: 'Sorry, the date of birth cannot be a future date',
-        errorOutOfBounds: 'Sorry, our checkup only covers people between 0 and 120 years old',
-      }),
-    },
-    /**
+  translation: {
+    type: Object,
+    default: () => ({
+      day: 'day',
+      month: 'month',
+      year: 'year',
+      placeholderDay: 'DD',
+      placeholderMonth: 'MM',
+      placeholderYear: 'YYYY',
+      errorWrongDate: 'Please enter a valid date, e.g. 05/11/1990',
+      errorDateInFuture: 'Sorry, the date of birth cannot be a future date',
+      errorOutOfBounds: 'Sorry, our checkup only covers people between 0 and 120 years old',
+    }),
+  },
+  /**
      * Use this props to set minimum age limit
      */
-    minLimit: {
-      type: Number,
-      default: 0,
-      validator: (value) => value >= 0,
-    },
-    /**
+  minLimit: {
+    type: Number,
+    default: 0,
+    validator: (value) => value >= 0,
+  },
+  /**
      *  Use this props to set maximum age limit
      */
-    maxLimit: {
-      type: Number,
-      default: 120,
-      validator: (value) => value > 0,
-    },
-    /**
+  maxLimit: {
+    type: Number,
+    default: 120,
+    validator: (value) => value > 0,
+  },
+  /**
      *  Use this props to pass attrs to UiDatepickerCalendar
      */
-    datepickerCalendarAttrs: {
-      type: Object,
-      default: () => ({
-        buttonCalendarAttrs: {
-          'aria-label': 'Calendar',
-        },
-      }),
-    },
-  },
-  emits: [
-    'update:modelValue',
-    'update:invalid',
-    'calendar-open',
-    'calendar-select',
-    'field-insert',
-    'field-error',
-    'field-focus',
-  ],
-  setup(props, { emit }) {
-    const dropdown = ref(null);
-    const datePartElements = {
-      day: null,
-      month: null,
-      year: null,
-    };
-
-    const monthNames = ref([]);
-    provide('monthNames', monthNames);
-
-    const date = reactive(
-      {
-        day: '',
-        month: '',
-        year: '',
+  datepickerCalendarAttrs: {
+    type: Object,
+    default: () => ({
+      buttonCalendarAttrs: {
+        'aria-label': 'Calendar',
       },
-    );
-    provide('date', date);
+    }),
+  },
+});
+const emit = defineEmits([
+  'update:modelValue',
+  'update:invalid',
+  'calendar-open',
+  'calendar-select',
+  'field-insert',
+  'field-error',
+  'field-focus',
+]);
+const datePartElements = {
+  day: null,
+  month: null,
+  year: null,
+};
 
-    const currentDate = new Date();
-    const currentDay = lightFormat(currentDate, 'dd');
-    const currentMonth = lightFormat(currentDate, 'MM');
-    const currentYear = lightFormat(currentDate, 'yyyy');
+const monthNames = ref([]);
+provide('monthNames', monthNames);
 
-    const yearsList = computed(() => {
-      const firstYear = currentDate.getUTCFullYear() - props.minLimit;
-      const yearsNumber = props.maxLimit - props.minLimit + 2;
-      const years = Array(yearsNumber).fill('').map((_, i) => firstYear - i);
-      return years;
-    });
-    const firstAvailableYear = computed(() => parseInt(yearsList.value[0], 10));
-    const lastAvailableYear = computed(() => parseInt(yearsList.value[yearsList.value.length - 1], 10));
-    provide('yearsList', yearsList);
+const date = reactive(
+  {
+    day: '',
+    month: '',
+    year: '',
+  },
+);
+provide('date', date);
 
-    function checkDayMonthLimit(day = date.day, month = date.month) {
-      let daysLimit = new Date(date.year, month, 0, 0, 0, 0).getDate();
-      if (day === '29' && !date.year.length) daysLimit += 1;
-      return parseInt(day, 10) > daysLimit;
-    }
+const currentDate = new Date();
+const currentDay = lightFormat(currentDate, 'dd');
+const currentMonth = lightFormat(currentDate, 'MM');
+const currentYear = lightFormat(currentDate, 'yyyy');
 
-    // Day validations
-    function checkDayAvailability(day) {
-      const isMonthDaysLimitExceeded = checkDayMonthLimit(day, undefined);
-      const isDayAboveLimit = (parseInt(date.year, 10) === firstAvailableYear.value)
+const yearsList = computed(() => {
+  const firstYear = currentDate.getUTCFullYear() - props.minLimit;
+  const yearsNumber = props.maxLimit - props.minLimit + 2;
+  const years = Array(yearsNumber).fill('').map((_, i) => firstYear - i);
+  return years;
+});
+const firstAvailableYear = computed(() => parseInt(yearsList.value[0], 10));
+const lastAvailableYear = computed(() => parseInt(yearsList.value[yearsList.value.length - 1], 10));
+provide('yearsList', yearsList);
+
+function checkDayMonthLimit(day = date.day, month = date.month) {
+  let daysLimit = new Date(date.year, month, 0, 0, 0, 0).getDate();
+  if (day === '29' && !date.year.length) daysLimit += 1;
+  return parseInt(day, 10) > daysLimit;
+}
+
+// Day validations
+function checkDayAvailability(day) {
+  const isMonthDaysLimitExceeded = checkDayMonthLimit(day, undefined);
+  const isDayAboveLimit = (parseInt(date.year, 10) === firstAvailableYear.value)
         && (date.month === currentMonth) && (day > parseInt(currentDay, 10));
-      const isDayBelowLimit = (parseInt(date.year, 10) === lastAvailableYear.value)
+  const isDayBelowLimit = (parseInt(date.year, 10) === lastAvailableYear.value)
         && (date.month === currentMonth) && (day <= parseInt(currentDay, 10));
-      return isDayAboveLimit || isDayBelowLimit || isMonthDaysLimitExceeded;
-    }
-    const isDayValid = computed(() => {
-      const selectedDay = parseInt(date.day, 10);
-      return selectedDay > 0 && selectedDay <= 31 && !checkDayMonthLimit(date.day, undefined);
-    });
-    const isDayFulfilled = computed(() => (date.day.length === 2));
-    const hasDayError = computed(() => (isDayFulfilled.value && !isDayValid.value));
-    provide('checkDayAvailability', checkDayAvailability);
+  return isDayAboveLimit || isDayBelowLimit || isMonthDaysLimitExceeded;
+}
+const isDayValid = computed(() => {
+  const selectedDay = parseInt(date.day, 10);
+  return selectedDay > 0 && selectedDay <= 31 && !checkDayMonthLimit(date.day, undefined);
+});
+const isDayFulfilled = computed(() => (date.day.length === 2));
+const hasDayError = computed(() => (isDayFulfilled.value && !isDayValid.value));
+provide('checkDayAvailability', checkDayAvailability);
 
-    // Month validations
-    function checkMonthAvailability(month) {
-      const isMonthDaysLimitExceeded = checkDayMonthLimit(undefined, month);
-      const isMonthAboveLimit = (parseInt(date.year, 10) === firstAvailableYear.value
+// Month validations
+function checkMonthAvailability(month) {
+  const isMonthDaysLimitExceeded = checkDayMonthLimit(undefined, month);
+  const isMonthAboveLimit = (parseInt(date.year, 10) === firstAvailableYear.value
         && (month > parseInt(currentMonth, 10)
           || (month >= parseInt(currentMonth, 10) && currentDay < date.day))
-      );
-      const isMonthBelowLimit = (parseInt(date.year, 10) === lastAvailableYear.value
+  );
+  const isMonthBelowLimit = (parseInt(date.year, 10) === lastAvailableYear.value
         && (month < parseInt(currentMonth, 10)
           || (date.day && month <= parseInt(currentMonth, 10) && currentDay > date.day))
-      );
-      const isCurrentLastDayOfMonth = new Date(currentYear, currentMonth, 0, 0, 0, 0).getDate()
+  );
+  const isCurrentLastDayOfMonth = new Date(currentYear, currentMonth, 0, 0, 0, 0).getDate()
         === parseInt(currentDay, 10);
-      const monthWithoutAvailableDays = parseInt(date.year, 10) === lastAvailableYear.value
+  const monthWithoutAvailableDays = parseInt(date.year, 10) === lastAvailableYear.value
         && month === parseInt(currentMonth, 10) && isCurrentLastDayOfMonth;
-      return isMonthAboveLimit || isMonthBelowLimit || isMonthDaysLimitExceeded || monthWithoutAvailableDays;
-    }
-    const isMonthValid = computed(() => {
-      const selectedMonth = parseInt(date.month, 10);
-      return selectedMonth > 0 && selectedMonth <= 12 && !checkDayMonthLimit(undefined, date.month);
-    });
-    const isMonthFulfilled = computed(() => (date.month.length === 2));
-    const hasMonthError = computed(() => (isMonthFulfilled.value && !isMonthValid.value));
-    provide('checkMonthAvailability', checkMonthAvailability);
+  return isMonthAboveLimit || isMonthBelowLimit || isMonthDaysLimitExceeded || monthWithoutAvailableDays;
+}
+const isMonthValid = computed(() => {
+  const selectedMonth = parseInt(date.month, 10);
+  return selectedMonth > 0 && selectedMonth <= 12 && !checkDayMonthLimit(undefined, date.month);
+});
+const isMonthFulfilled = computed(() => (date.month.length === 2));
+const hasMonthError = computed(() => (isMonthFulfilled.value && !isMonthValid.value));
+provide('checkMonthAvailability', checkMonthAvailability);
 
-    // Year validations
-    function checkYearAvailability(year) {
-      const isLeapYearLimit = ((year % 4) || (!(year % 25) && (year % 16)))
+// Year validations
+function checkYearAvailability(year) {
+  const isLeapYearLimit = ((year % 4) || (!(year % 25) && (year % 16)))
         && (parseInt(date.day, 10) === 29 && parseInt(date.month, 10) === 2);
-      const isYearAboveLimit = (year === firstAvailableYear.value)
+  const isYearAboveLimit = (year === firstAvailableYear.value)
         && (currentMonth < date.month || (currentMonth <= date.month && currentDay < date.day));
-      const isYearBelowLimit = (year === lastAvailableYear.value) && date.month
+  const isYearBelowLimit = (year === lastAvailableYear.value) && date.month
         && (currentMonth > date.month || (date.day && currentMonth === date.month && currentDay >= date.day));
-      return isYearAboveLimit || isYearBelowLimit || isLeapYearLimit;
-    }
-    const isYearValid = computed(() => {
-      const selectedYear = parseInt(date.year, 10);
-      return yearsList.value.includes(selectedYear) && !checkYearAvailability(date.year);
-    });
-    const isYearFulfilled = computed(() => (date.year.length === 4));
-    const hasYearError = computed(() => (isYearFulfilled.value && !isYearValid.value)
+  return isYearAboveLimit || isYearBelowLimit || isLeapYearLimit;
+}
+const isYearValid = computed(() => {
+  const selectedYear = parseInt(date.year, 10);
+  return yearsList.value.includes(selectedYear) && !checkYearAvailability(date.year);
+});
+const isYearFulfilled = computed(() => (date.year.length === 4));
+const hasYearError = computed(() => (isYearFulfilled.value && !isYearValid.value)
       || date.year[0] === '0');
-    provide('checkYearAvailability', checkYearAvailability);
+provide('checkYearAvailability', checkYearAvailability);
 
-    // Date validations
-    const isDateFulfilled = computed(() => isDayFulfilled.value && isMonthFulfilled.value && isYearFulfilled.value);
-    provide('isDateFulfilled', isDateFulfilled);
-    const isDateEmpty = computed(() => !isDayFulfilled.value && !isMonthFulfilled.value && !isYearFulfilled.value);
-    const isDateOutOfBounds = computed(() => {
-      const startDate = new Date(firstAvailableYear.value, currentMonth - 1, currentDay, 0, 0, 0);
-      const limitDate = new Date(lastAvailableYear.value, currentMonth - 1, currentDay, 0, 0, 0);
-      if (isDateFulfilled.value) {
-        const selectedDate = new Date(date.year, parseInt(date.month, 10) - 1, date.day, 0, 0, 0);
-        return selectedDate > startDate || selectedDate <= limitDate;
-      } if (isMonthFulfilled.value && isYearFulfilled.value) {
-        const selectedDate = new Date(date.year, parseInt(date.month, 10) - 1, currentDay);
-        return selectedDate > startDate || selectedDate < limitDate;
-      }
-      return isYearFulfilled.value && (parseInt(date.year, 10) > firstAvailableYear.value
+// Date validations
+const isDateFulfilled = computed(() => isDayFulfilled.value && isMonthFulfilled.value && isYearFulfilled.value);
+provide('isDateFulfilled', isDateFulfilled);
+const isDateEmpty = computed(() => !isDayFulfilled.value && !isMonthFulfilled.value && !isYearFulfilled.value);
+const isDateOutOfBounds = computed(() => {
+  const startDate = new Date(firstAvailableYear.value, currentMonth - 1, currentDay, 0, 0, 0);
+  const limitDate = new Date(lastAvailableYear.value, currentMonth - 1, currentDay, 0, 0, 0);
+  if (isDateFulfilled.value) {
+    const selectedDate = new Date(date.year, parseInt(date.month, 10) - 1, date.day, 0, 0, 0);
+    return selectedDate > startDate || selectedDate <= limitDate;
+  } if (isMonthFulfilled.value && isYearFulfilled.value) {
+    const selectedDate = new Date(date.year, parseInt(date.month, 10) - 1, currentDay);
+    return selectedDate > startDate || selectedDate < limitDate;
+  }
+  return isYearFulfilled.value && (parseInt(date.year, 10) > firstAvailableYear.value
         || parseInt(date.year, 10) < lastAvailableYear.value);
-    });
-    const isDateInFuture = computed(() => {
-      if (isMonthValid.value && isYearFulfilled.value) {
-        const selectedDate = new Date(date.year, date.month - 1, date.day);
-        return selectedDate > currentDate;
-      }
-      return isYearFulfilled.value && parseInt(date.year, 10) > currentYear;
-    });
-    const isDateValid = computed(() => isDayValid.value && isMonthValid.value
+});
+const isDateInFuture = computed(() => {
+  if (isMonthValid.value && isYearFulfilled.value) {
+    const selectedDate = new Date(date.year, date.month - 1, date.day);
+    return selectedDate > currentDate;
+  }
+  return isYearFulfilled.value && parseInt(date.year, 10) > currentYear;
+});
+const isDateValid = computed(() => isDayValid.value && isMonthValid.value
       && isYearValid.value && !isDateOutOfBounds.value);
 
-    const isInputValid = computed(() => ({
-      day: isDayValid.value,
-      month: isMonthValid.value,
-      year: isYearValid.value,
-    }));
+const isInputValid = computed(() => ({
+  day: isDayValid.value,
+  month: isMonthValid.value,
+  year: isYearValid.value,
+}));
 
-    function assignDateParts() {
-      const plainDate = new Date(`${props.modelValue}T00:00:00`);
-      date.day = lightFormat(plainDate, 'dd');
-      date.month = lightFormat(plainDate, 'MM');
-      date.year = lightFormat(plainDate, 'yyyy');
+function assignDateParts() {
+  const plainDate = new Date(`${props.modelValue}T00:00:00`);
+  date.day = lightFormat(plainDate, 'dd');
+  date.month = lightFormat(plainDate, 'MM');
+  date.year = lightFormat(plainDate, 'yyyy');
+}
+
+const formattedDate = computed({
+  get: () => {
+    if (isMatch(props.modelValue, 'yyyy-MM-dd')) {
+      assignDateParts();
     }
-
-    const formattedDate = computed({
-      get: () => {
-        if (isMatch(props.modelValue, 'yyyy-MM-dd')) {
-          assignDateParts();
-        }
-        return props.modelValue;
-      },
-      set: (value) => {
-        emit('update:modelValue', value);
-      },
-    });
-
-    function setDate() {
-      if (isDateFulfilled.value && isDateValid.value) {
-        const newDate = format(new Date(date.year, date.month - 1, date.day, 0, 0, 0), 'yyyy-MM-dd');
-        formattedDate.value = newDate;
-      }
-      if (isDateEmpty.value) {
-        formattedDate.value = '';
-      }
-    }
-
-    function inputComponentSelector(datePart) {
-      switch (datePart) {
-        case ('day'):
-          return 'UiDatepickerDayInput';
-        case ('month'):
-          return 'UiDatepickerMonthInput';
-        case ('year'):
-          return 'UiDatepickerYearInput';
-        default:
-          return '';
-      }
-    }
-
-    const lastFocusedDatePart = ref(`${props.order[0]}`);
-
-    function handleFocus(event, datePart) {
-      emit('field-focus', { field: datePart });
-      const fieldId = event.target.id;
-      lastFocusedDatePart.value = `${fieldId}`;
-    }
-
-    const focus = async (inputElement) => {
-      await nextTick();
-      const target = inputElement?.$el?.children[0];
-      target.focus();
-      if (target.value) target.select();
-    };
-    function focusInput(datePart) {
-      switch (datePart) {
-        case ('day'):
-          focus(datePartElements.day);
-          break;
-        case ('month'):
-          focus(datePartElements.month);
-          break;
-        case ('year'):
-          focus(datePartElements.year);
-          break;
-        default:
-          break;
-      }
-    }
-    function focusNextField(currentField) {
-      const currentInputIndex = props.order.indexOf(currentField);
-      if (currentInputIndex < props.order.length - 1) focusInput(props.order[currentInputIndex + 1]);
-    }
-
-    // TODO - refactor, for test only
-    const unfulfilledDay = ref(false);
-    const unfulfilledMonth = ref(false);
-    const unfulfilledYear = ref(false);
-    provide('unfulfilledDay', unfulfilledDay);
-    provide('unfulfilledMonth', unfulfilledMonth);
-    provide('unfulfilledYear', unfulfilledYear);
-
-    const errorDisplayHandler = computed(() => {
-      let error = false;
-
-      if (isDateInFuture.value) {
-        error = props.translation.errorDateInFuture;
-      } else if (isDateOutOfBounds.value) {
-        error = props.translation.errorOutOfBounds;
-      } else if (hasDayError.value || hasMonthError.value || hasYearError.value) {
-        error = props.translation.errorWrongDate;
-      } else if (unfulfilledDay.value || unfulfilledMonth.value || unfulfilledYear.value) {
-        error = props.translation.errorWrongDate;
-      } else if (props.touched && props.error) {
-        error = props.error;
-      }
-      return error;
-    });
-
-    const handleFulfilledChange = (isFullfilled, field, value, isValid) => {
-      if (isFullfilled) emit('field-insert', { field, value });
-      if (isFullfilled && (!isValid || errorDisplayHandler.value)) emit('field-error', { field, error: errorDisplayHandler.value });
-    };
-
-    watch(isDayFulfilled, (fullfilled) => handleFulfilledChange(fullfilled, 'day', date.day, isDayValid.value));
-    watch(isMonthFulfilled, (fullfilled) => handleFulfilledChange(fullfilled, 'month', date.month, isMonthValid.value));
-    watch(isYearFulfilled, (fullfilled) => handleFulfilledChange(fullfilled, 'year', date.year, isYearValid.value));
-
-    const localizeMonths = async (locale) => {
-      let localize;
-      try {
-        localize = await import(/* webpackChunkName: "date-fns-localize-[request]" */ `date-fns/locale/${locale}/_lib/localize`);
-      } catch (error) {
-        localize = await import('date-fns/locale/en-US/_lib/localize');
-        if (process.env.NODE_ENV !== 'production') {
-          console.error('Unrecognized language props value, default \'en-US\' language loaded'); // eslint-disable-line no-console
-        }
-      }
-      for (let i = 0; i < 12; i += 1) {
-        monthNames.value.push(localize.month(i, { width: 'wide' }));
-      }
-    };
-
-    onMounted(() => {
-      localizeMonths(props.lang);
-      if (props.modelValue) {
-        assignDateParts();
-      }
-    });
-
-    watch([() => date.day, () => date.month, () => date.year], () => {
-      setDate();
-    });
-
-    watch(isDateValid, (isValid) => {
-      emit('update:invalid', !isValid);
-    });
-
-    provide('translation', props.translation);
-    provide('order', props.order);
-
-    return {
-      dropdown,
-      datePartElements,
-      date,
-      lastFocusedDatePart,
-      isDateValid,
-      isDateOutOfBounds,
-      isInputValid,
-      handleFocus,
-      focusNextField,
-      inputComponentSelector,
-      errorDisplayHandler,
-      capitalizeFirst,
-    };
+    return props.modelValue;
   },
+  set: (value) => {
+    emit('update:modelValue', value);
+  },
+});
+
+function setDate() {
+  if (isDateFulfilled.value && isDateValid.value) {
+    const newDate = format(new Date(date.year, date.month - 1, date.day, 0, 0, 0), 'yyyy-MM-dd');
+    formattedDate.value = newDate;
+  }
+  if (isDateEmpty.value) {
+    formattedDate.value = '';
+  }
+}
+
+function inputComponentSelector(datePart) {
+  switch (datePart) {
+    case ('day'):
+      return UiDatepickerDayInput;
+    case ('month'):
+      return UiDatepickerMonthInput;
+    case ('year'):
+      return UiDatepickerYearInput;
+    default:
+      return '';
+  }
+}
+
+const lastFocusedDatePart = ref(`${props.order[0]}`);
+
+function handleFocus(event, datePart) {
+  emit('field-focus', { field: datePart });
+  const fieldId = event.target.id;
+  lastFocusedDatePart.value = `${fieldId}`;
+}
+
+const focus = async (inputElement) => {
+  await nextTick();
+  const target = inputElement?.$el?.children[0];
+  target.focus();
+  if (target.value) target.select();
 };
+function focusInput(datePart) {
+  switch (datePart) {
+    case ('day'):
+      focus(datePartElements.day);
+      break;
+    case ('month'):
+      focus(datePartElements.month);
+      break;
+    case ('year'):
+      focus(datePartElements.year);
+      break;
+    default:
+      break;
+  }
+}
+function focusNextField(currentField) {
+  const currentInputIndex = props.order.indexOf(currentField);
+  if (currentInputIndex < props.order.length - 1) focusInput(props.order[currentInputIndex + 1]);
+}
+
+// TODO - refactor, for test only
+const unfulfilledDay = ref(false);
+const unfulfilledMonth = ref(false);
+const unfulfilledYear = ref(false);
+provide('unfulfilledDay', unfulfilledDay);
+provide('unfulfilledMonth', unfulfilledMonth);
+provide('unfulfilledYear', unfulfilledYear);
+
+const errorDisplayHandler = computed(() => {
+  let error = false;
+
+  if (isDateInFuture.value) {
+    error = props.translation.errorDateInFuture;
+  } else if (isDateOutOfBounds.value) {
+    error = props.translation.errorOutOfBounds;
+  } else if (hasDayError.value || hasMonthError.value || hasYearError.value) {
+    error = props.translation.errorWrongDate;
+  } else if (unfulfilledDay.value || unfulfilledMonth.value || unfulfilledYear.value) {
+    error = props.translation.errorWrongDate;
+  } else if (props.touched && props.error) {
+    error = props.error;
+  }
+  return error;
+});
+
+const handleFulfilledChange = (isFullfilled, field, value, isValid) => {
+  if (isFullfilled) emit('field-insert', { field, value });
+  if (isFullfilled && (!isValid || errorDisplayHandler.value)) emit('field-error', { field, error: errorDisplayHandler.value });
+};
+
+watch(isDayFulfilled, (fullfilled) => handleFulfilledChange(fullfilled, 'day', date.day, isDayValid.value));
+watch(isMonthFulfilled, (fullfilled) => handleFulfilledChange(fullfilled, 'month', date.month, isMonthValid.value));
+watch(isYearFulfilled, (fullfilled) => handleFulfilledChange(fullfilled, 'year', date.year, isYearValid.value));
+
+const localizeMonths = async (locale) => {
+  let localize;
+  try {
+    localize = await import(/* webpackChunkName: "date-fns-localize-[request]" */ `date-fns/locale/${locale}/_lib/localize`);
+  } catch (error) {
+    localize = await import('date-fns/locale/en-US/_lib/localize');
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Unrecognized language props value, default \'en-US\' language loaded'); // eslint-disable-line no-console
+    }
+  }
+  for (let i = 0; i < 12; i += 1) {
+    monthNames.value.push(localize.month(i, { width: 'wide' }));
+  }
+};
+
+onMounted(() => {
+  localizeMonths(props.lang);
+  if (props.modelValue) {
+    assignDateParts();
+  }
+});
+
+watch([() => date.day, () => date.month, () => date.year], () => {
+  setDate();
+});
+
+watch(isDateValid, (isValid) => {
+  emit('update:invalid', !isValid);
+});
+
+provide('translation', props.translation);
+provide('order', props.order);
 </script>
 
 <style lang="scss">

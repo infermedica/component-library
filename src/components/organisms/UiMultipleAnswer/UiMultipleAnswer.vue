@@ -37,7 +37,7 @@
               v-bind="{choice, modelValue, updateHandler, errorClass, name, component}"
             >
               <component
-                :is="component"
+                :is="isCheckbox ? UiCheckbox : UiRadio"
                 :id="choice.id"
                 :value="choice"
                 :model-value="modelValue"
@@ -84,6 +84,12 @@
 </template>
 
 <script>
+export default {
+  inheritAttrs: false,
+};
+</script>
+
+<script setup>
 import { computed, watchEffect } from 'vue';
 import UiList from '../UiList/UiList.vue';
 import UiListItem from '../UiList/_internal/UiListItem.vue';
@@ -94,124 +100,98 @@ import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiAlert from '../../atoms/UiAlert/UiAlert.vue';
 
-export default {
-  name: 'UiMultipleAnswer',
-  components: {
-    UiRadio,
-    UiCheckbox,
-    UiListItem,
-    UiList,
-    UiText,
-    UiButton,
-    UiIcon,
-    UiAlert,
-  },
-  inheritAttrs: false,
-  props: {
-    /**
+const props = defineProps({
+  /**
      *  Use this props or v-model to set checked.
      */
-    modelValue: {
-      type: [String, Object, Array],
-      default: () => ([]),
-    },
-    /**
+  modelValue: {
+    type: [String, Object, Array],
+    default: () => ([]),
+  },
+  /**
      *  Use this props to set possible choices.
      */
-    choices: {
-      type: Array,
-      default: () => ([]),
-    },
-    /**
+  choices: {
+    type: Array,
+    default: () => ([]),
+  },
+  /**
      *  Use this props to group inputs with name attribute
      */
-    name: {
-      type: String,
-      default: '',
-    },
-    /**
+  name: {
+    type: String,
+    default: '',
+  },
+  /**
      * Use this props to set invalid state of component.
      */
-    invalid: {
-      type: Boolean,
-      default: true,
-    },
-    /**
+  invalid: {
+    type: Boolean,
+    default: true,
+  },
+  /**
      * Use this props to set hint for question.
      */
-    hint: {
-      type: String,
-      default: '',
-    },
-    /**
+  hint: {
+    type: String,
+    default: '',
+  },
+  /**
      * Use this props to touch component and show validation errors.
      */
-    touched: {
-      type: Boolean,
-      default: false,
-    },
-    /**
+  touched: {
+    type: Boolean,
+    default: false,
+  },
+  /**
      * Use this props to pass attrs for hint UiAlert
      */
-    alertHintAttrs: {
-      type: Object,
-      default: () => ({}),
-    },
+  alertHintAttrs: {
+    type: Object,
+    default: () => ({}),
   },
-  emits: ['update:modelValue', 'update:invalid'],
-  setup(props, { emit }) {
-    const component = computed(() => (Array.isArray(props.modelValue) ? 'ui-checkbox' : 'ui-radio'));
-    const isCheckbox = computed(() => (component.value === 'ui-checkbox'));
-    const valid = computed(() => (isCheckbox.value
-      ? props.modelValue.length > 0
-      : props.modelValue.id));
-    const hasError = computed(() => (props.touched && !valid.value));
-    const hintType = computed(() => (props.touched && props.invalid ? 'error' : 'default'));
-    const errorClass = computed(() => (hasError.value ? `${component.value}--has-error` : ''));
+});
+const emit = defineEmits(['update:modelValue', 'update:invalid']);
+const component = computed(() => (Array.isArray(props.modelValue) ? 'ui-checkbox' : 'ui-radio'));
+const isCheckbox = computed(() => (component.value === 'ui-checkbox'));
+const valid = computed(() => (isCheckbox.value
+  ? props.modelValue.length > 0
+  : props.modelValue.id));
+const hasError = computed(() => (props.touched && !valid.value));
+const hintType = computed(() => (props.touched && props.invalid ? 'error' : 'default'));
+const errorClass = computed(() => (hasError.value ? `${component.value}--has-error` : ''));
 
-    watchEffect(() => {
-      if (!valid.value !== props.invalid) {
-        emit('update:invalid', !valid.value);
-      }
-    });
+watchEffect(() => {
+  if (!valid.value !== props.invalid) {
+    emit('update:invalid', !valid.value);
+  }
+});
 
-    function updateHandler(value) {
-      if (!isCheckbox.value) {
-        emit('update:modelValue', value);
-        return;
-      }
-      if (props.modelValue.some((evidence) => evidence.id === value.id)) {
-        emit('update:modelValue', props.modelValue.filter((evidence) => evidence.id !== value.id));
-      } else {
-        emit('update:modelValue', [...props.modelValue, value]);
-      }
-    }
+function updateHandler(value) {
+  if (!isCheckbox.value) {
+    emit('update:modelValue', value);
+    return;
+  }
+  if (props.modelValue.some((evidence) => evidence.id === value.id)) {
+    emit('update:modelValue', props.modelValue.filter((evidence) => evidence.id !== value.id));
+  } else {
+    emit('update:modelValue', [...props.modelValue, value]);
+  }
+}
 
-    function focusExplication(event) {
-      const explicationButton = event.target.closest(`.${component.value}`).querySelector('.ui-multiple-answer__explication');
-      if (explicationButton && event.key === 'ArrowRight') {
-        event.preventDefault();
-        explicationButton.focus();
-      }
-    }
-    function unfocusExplication(event) {
-      const answerInput = event.target.closest(`.${component.value}`).querySelector('input');
-      if (answerInput && event.key === 'ArrowLeft') {
-        answerInput.focus();
-      }
-    }
-
-    return {
-      hintType,
-      component,
-      hasError,
-      errorClass,
-      updateHandler,
-      focusExplication,
-      unfocusExplication,
-    };
-  },
-};
+function focusExplication(event) {
+  const explicationButton = event.target.closest(`.${component.value}`).querySelector('.ui-multiple-answer__explication');
+  if (explicationButton && event.key === 'ArrowRight') {
+    event.preventDefault();
+    explicationButton.focus();
+  }
+}
+function unfocusExplication(event) {
+  const answerInput = event.target.closest(`.${component.value}`).querySelector('input');
+  if (answerInput && event.key === 'ArrowLeft') {
+    answerInput.focus();
+  }
+}
 </script>
 
 <style lang="scss">

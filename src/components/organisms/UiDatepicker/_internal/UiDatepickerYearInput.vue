@@ -14,7 +14,7 @@
   />
 </template>
 
-<script>
+<script setup>
 import {
   computed,
   inject,
@@ -23,68 +23,52 @@ import {
 import UiInput from '../../../atoms/UiInput/UiInput.vue';
 import useKeyValidation from '../../../../composable/useKeyValidation';
 
-export default {
-  components: {
-    UiInput,
-  },
-  props: {
-    /**
+const props = defineProps({
+  /**
      * Use this props or v-model to set value.
      */
-    modelValue: {
-      type: String,
-      default: '',
-    },
-    /**
+  modelValue: {
+    type: String,
+    default: '',
+  },
+  /**
      * Use this props to set input in error state manually
      */
-    error: {
-      type: Boolean,
-      default: false,
-    },
-    /**
+  error: {
+    type: Boolean,
+    default: false,
+  },
+  /**
      * Use this props to set input value validation status
      */
-    valid: {
-      type: Boolean,
-      default: false,
-    },
+  valid: {
+    type: Boolean,
+    default: false,
   },
-  emits: ['update:modelValue', 'change-input'],
-  setup(props, { emit }) {
-    const translation = inject('translation');
-    const unfulfilledYearError = inject('unfulfilledYear');
-    const { numbersOnly } = useKeyValidation();
+});
+const emit = defineEmits(['update:modelValue', 'change-input']);
+const translation = inject('translation');
+const unfulfilledYearError = inject('unfulfilledYear');
+const { numbersOnly } = useKeyValidation();
 
-    const year = computed({
-      get: () => (`${props.modelValue}`),
-      set: (value) => { emit('update:modelValue', value); },
-    });
+const year = computed({
+  get: () => (`${props.modelValue}`),
+  set: (value) => { emit('update:modelValue', value); },
+});
 
-    const validationError = computed(() => (year.value.length === 4 && !props.valid));
-    const hasError = computed(() => (validationError.value || unfulfilledYearError.value || props.error));
+const validationError = computed(() => (year.value.length === 4 && !props.valid));
+const hasError = computed(() => (validationError.value || unfulfilledYearError.value || props.error));
 
-    async function checkYear(event) {
-      unfulfilledYearError.value = false;
-      const inputValue = event.data;
-      await nextTick();
-      if (inputValue && year.value.length === 4 && props.valid) {
-        emit('change-input', 'year');
-      }
-    }
+async function checkYear(event) {
+  unfulfilledYearError.value = false;
+  const inputValue = event.data;
+  await nextTick();
+  if (inputValue && year.value.length === 4 && props.valid) {
+    emit('change-input', 'year');
+  }
+}
 
-    function standardizeYearFormat() {
-      if (year.value.length > 0 && year.value.length < 4) unfulfilledYearError.value = true;
-    }
-
-    return {
-      translation,
-      year,
-      checkYear,
-      hasError,
-      numbersOnly,
-      standardizeYearFormat,
-    };
-  },
-};
+function standardizeYearFormat() {
+  if (year.value.length > 0 && year.value.length < 4) unfulfilledYearError.value = true;
+}
 </script>

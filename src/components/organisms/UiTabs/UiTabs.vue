@@ -12,64 +12,53 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { computed, ref, provide } from 'vue';
 
-export default {
-  props: {
-    /**
+const props = defineProps({
+  /**
      * Use this props or v-model to set opened items.
      */
-    modelValue: {
-      type: String,
-      default: '',
-    },
+  modelValue: {
+    type: String,
+    default: '',
   },
-  emits: ['update:modelValue'],
-  setup(props, { emit }) {
-    const opened = computed(() => (props.modelValue));
-    provide('opened', opened);
+});
+const emit = defineEmits(['update:modelValue']);
+const opened = computed(() => (props.modelValue));
+provide('opened', opened);
 
-    function toggle(name) {
-      emit('update:modelValue', name);
-    }
-    provide('toggle', toggle);
+function toggle(name) {
+  emit('update:modelValue', name);
+}
+provide('toggle', toggle);
 
-    const preventTransition = ref(true);
-    const tabs = ref(null);
-    const dividerGapY = ref(0);
-    const underlineWidth = ref(0);
-    const underlineX = ref(0);
-    const style = computed(() => ({
-      '--tabs-divider-gap-y': `${dividerGapY.value}px`,
-      '--tabs-underline-width': `${underlineWidth.value}px`,
-      '--tabs-underline-x': underlineX.value && `${underlineX.value}px`,
-    }));
-    const underline = (element) => {
-      const { x: tabsX } = tabs.value.getBoundingClientRect();
-      const { x: elementX, width: elementWidth } = element.getBoundingClientRect();
-      underlineWidth.value = elementWidth;
-      // FIXME: potential bug with calculation in RTL
-      // elementX might be broken depending how RTL property is implemented
-      // maybe it should somehow force a recalculate on direction change
-      underlineX.value = elementX - tabsX;
-    };
-    function gap(element) {
-      if (dividerGapY.value) return;
-      dividerGapY.value = element.getBoundingClientRect()?.height - 1;
-      preventTransition.value = false;
-    }
-    provide('underline', underline);
-    provide('gap', gap);
-
-    return {
-      style,
-      tabs,
-      dividerGapY,
-      preventTransition,
-    };
-  },
+const preventTransition = ref(true);
+const tabs = ref(null);
+const dividerGapY = ref(0);
+const underlineWidth = ref(0);
+const underlineX = ref(0);
+const style = computed(() => ({
+  '--tabs-divider-gap-y': `${dividerGapY.value}px`,
+  '--tabs-underline-width': `${underlineWidth.value}px`,
+  '--tabs-underline-x': underlineX.value && `${underlineX.value}px`,
+}));
+const underline = (element) => {
+  const { x: tabsX } = tabs.value.getBoundingClientRect();
+  const { x: elementX, width: elementWidth } = element.getBoundingClientRect();
+  underlineWidth.value = elementWidth;
+  // FIXME: potential bug with calculation in RTL
+  // elementX might be broken depending how RTL property is implemented
+  // maybe it should somehow force a recalculate on direction change
+  underlineX.value = elementX - tabsX;
 };
+function gap(element) {
+  if (dividerGapY.value) return;
+  dividerGapY.value = element.getBoundingClientRect()?.height - 1;
+  preventTransition.value = false;
+}
+provide('underline', underline);
+provide('gap', gap);
 </script>
 
 <style lang="scss">

@@ -19,7 +19,7 @@
   </UiTabsItem>
 </template>
 
-<script>
+<script setup>
 import {
   computed,
   inject,
@@ -27,48 +27,33 @@ import {
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiTabsItem from '../../UiTabs/_internal/UiTabsItem.vue';
 
-export default {
-  components: {
-    UiButton,
-    UiTabsItem,
-  },
-  props: {
-    /**
+const props = defineProps({
+  /**
      * Use this props or v-model to set value.
      */
-    modelValue: {
-      type: String,
-      default: '',
-    },
+  modelValue: {
+    type: String,
+    default: '',
   },
-  emits: ['update:modelValue', 'change', 'select'],
-  setup(props, { emit }) {
-    const isDisabled = inject('checkDayAvailability');
-    const unfulfilledDayError = inject('unfulfilledDay');
+});
+const emit = defineEmits(['update:modelValue', 'change', 'select']);
+const isDisabled = inject('checkDayAvailability');
+const unfulfilledDayError = inject('unfulfilledDay');
 
-    const day = computed({
-      get: () => (`${props.modelValue}`),
-      set: (value) => { emit('update:modelValue', value); },
-    });
+const day = computed({
+  get: () => (`${props.modelValue}`),
+  set: (value) => { emit('update:modelValue', value); },
+});
 
-    function formatDay(value) {
-      return `${value}`.padStart(2, '0');
-    }
+function formatDay(value) {
+  return `${value}`.padStart(2, '0');
+}
 
-    function select(value) {
-      emit('select', { type: 'day', value });
-      day.value = formatDay(value);
-      unfulfilledDayError.value = false;
-    }
-
-    return {
-      day,
-      isDisabled,
-      formatDay,
-      select,
-    };
-  },
-};
+function select(value) {
+  emit('select', { type: 'day', value });
+  day.value = formatDay(value);
+  unfulfilledDayError.value = false;
+}
 </script>
 
 <style lang="scss">

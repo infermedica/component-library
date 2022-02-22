@@ -49,75 +49,63 @@
   </UiContainer>
 </template>
 
-<script>
+<script setup>
 import { computed } from 'vue';
-
 import UiContainer from '../UiContainer/UiContainer.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 
-export default {
-  name: 'UiControls',
-  components: {
-    UiContainer,
-    UiButton,
-    UiIcon,
-  },
-  props: {
-    /**
+const props = defineProps({
+  /**
      * Use this props to move the responsibility to move to the next screen to question content.
      */
-    hideNextButton: {
-      type: Boolean,
-      default: false,
-    },
-    /**
+  hideNextButton: {
+    type: Boolean,
+    default: false,
+  },
+  /**
      * Use this props to set route to back screen.
      */
-    toBack: {
-      type: [String, Object, Boolean],
-      default: '',
-    },
-    /**
+  toBack: {
+    type: [String, Object, Boolean],
+    default: '',
+  },
+  /**
      * Use this props to set route to next screen.
      */
-    toNext: {
-      type: [String, Object, Boolean],
-      default: '',
-    },
-    /**
+  toNext: {
+    type: [String, Object, Boolean],
+    default: '',
+  },
+  /**
      * Use this props to set invalid state of the question.
      */
-    invalid: {
-      type: Boolean,
-      default: true,
-    },
-    /**
+  invalid: {
+    type: Boolean,
+    default: true,
+  },
+  /**
      * Use this props to override labels inside component translation.
      */
-    translation: {
-      type: Object,
-      default: () => ({
-        back: 'Back',
-        next: 'Next',
-      }),
-    },
+  translation: {
+    type: Object,
+    default: () => ({
+      back: 'Back',
+      next: 'Next',
+    }),
   },
-  emits: ['has-error'],
-  setup(props, { emit }) {
-    function hasError() {
-      emit('has-error');
+});
+const emit = defineEmits(['has-error']);
+function hasError() {
+  emit('has-error');
+}
+const validNext = computed(() => (
+  props.invalid
+    ? {
+      onClick: hasError,
     }
-    const validNext = computed(() => (
-      props.invalid
-        ? {
-          onClick: hasError,
-        }
-        : { to: props.toNext }
-    ));
-    return { validNext };
-  },
-};
+    : { to: props.toNext }
+));
 </script>
 
 <style lang="scss">

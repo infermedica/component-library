@@ -103,14 +103,14 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import {
   ref,
   nextTick,
   onMounted,
   onBeforeUnmount,
 } from 'vue';
-import { focusTrap, bodyScrollLock, scrollTabindex } from '../../../utilities/directives';
+import { focusTrap as vFocusTrap, bodyScrollLock as vBodyScrollLock, scrollTabindex as vScrollTabindex } from '../../../utilities/directives';
 
 import UiBackdrop from '../../atoms/UiBackdrop/UiBackdrop.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
@@ -118,106 +118,82 @@ import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 
-export default {
-  name: 'UiSidePanel',
-  components: {
-    UiBackdrop,
-    UiHeading,
-    UiButton,
-    UiIcon,
-    UiText,
+defineProps({
+  modelValue: {
+    type: Boolean,
+    default: false,
   },
-  directives: {
-    focusTrap,
-    bodyScrollLock,
-    scrollTabindex,
-  },
-  props: {
-    modelValue: {
-      type: Boolean,
-      default: false,
-    },
-    /**
+  /**
      * Use this props to set side panel title.
      */
-    title: {
-      type: String,
-      default: '',
-    },
-    /**
+  title: {
+    type: String,
+    default: '',
+  },
+  /**
      * Use this props to set side panel subtitle.
      */
-    subtitle: {
-      type: String,
-      default: '',
-    },
-    /**
+  subtitle: {
+    type: String,
+    default: '',
+  },
+  /**
      * Use this props to pass attrs for close UiButton
      */
-    buttonCloseAttrs: {
-      type: Object,
-      default: () => ({}),
-    },
-    /**
+  buttonCloseAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
      * Use this props to pass attrs for title UiHeading
      */
-    headingTitleAttrs: {
-      type: Object,
-      default: () => ({}),
-    },
-    /**
+  headingTitleAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
      * Use this props to pass attrs for subtitle UiText
      */
-    textSubtitleAttrs: {
-      type: Object,
-      default: () => ({}),
-    },
-    transition: {
-      type: String,
-      default: 'slide',
-    },
+  textSubtitleAttrs: {
+    type: Object,
+    default: () => ({}),
   },
-  emits: ['update:modelValue', 'after-enter'],
-  setup(props, { emit }) {
-    const button = ref(null);
-    function closeHandler() {
-      emit('update:modelValue', false);
-    }
-
-    function afterEnterHandler() {
-      emit('after-enter');
-    }
-
-    function focus(element) {
-      if (element) {
-        element.focus();
-      }
-    }
-
-    async function enterHandler() {
-      await nextTick();
-      focus(button.value?.$el);
-    }
-
-    function keydownHandler({ key }) {
-      if (key !== 'Escape') return;
-      emit('update:modelValue', false);
-    }
-    onMounted(() => {
-      window.addEventListener('keydown', keydownHandler);
-    });
-    onBeforeUnmount(() => {
-      window.removeEventListener('keydown', keydownHandler);
-    });
-
-    return {
-      button,
-      closeHandler,
-      afterEnterHandler,
-      enterHandler,
-    };
+  transition: {
+    type: String,
+    default: 'slide',
   },
-};
+});
+const emit = defineEmits(['update:modelValue', 'after-enter']);
+const button = ref(null);
+function closeHandler() {
+  emit('update:modelValue', false);
+}
+
+function afterEnterHandler() {
+  emit('after-enter');
+}
+
+function focus(element) {
+  if (element) {
+    element.focus();
+  }
+}
+
+async function enterHandler() {
+  await nextTick();
+  focus(button.value?.$el);
+}
+
+function keydownHandler({ key }) {
+  if (key !== 'Escape') return;
+  emit('update:modelValue', false);
+}
+onMounted(() => {
+  window.addEventListener('keydown', keydownHandler);
+});
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', keydownHandler);
+});
 </script>
 
 <style lang="scss">

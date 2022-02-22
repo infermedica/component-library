@@ -66,81 +66,66 @@
   </UiContainer>
 </template>
 
-<script>
-import { computed } from 'vue';
+<script setup>
+import { computed, useSlots } from 'vue';
 import UiContainer from '../UiContainer/UiContainer.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 
-export default {
-  name: 'UiCard',
-  components: {
-    UiContainer,
-    UiIcon,
-    UiHeading,
-    UiText,
-  },
-  props: {
-    /**
+const props = defineProps({
+  /**
      * Use this props to set title for card.
      */
-    title: {
-      type: String,
-      default: '',
-    },
-    /**
+  title: {
+    type: String,
+    default: '',
+  },
+  /**
      * Use this props to set subtitle for card.
      */
-    subtitle: {
-      type: String,
-      default: '',
-    },
-    /**
+  subtitle: {
+    type: String,
+    default: '',
+  },
+  /**
      * Use this props to set description for card.
      */
-    description: {
-      type: String,
-      default: '',
-    },
-    /**
+  description: {
+    type: String,
+    default: '',
+  },
+  /**
      * Use this props to set icon type.
      */
-    type: {
-      type: String,
-      default: 'emergency_ambulance',
-      validator: (value) => [
-        'emergency_ambulance', 'emergency', 'consultation_24', 'consultation', 'self_care',
-      ].includes(value),
-    },
+  type: {
+    type: String,
+    default: 'emergency_ambulance',
+    validator: (value) => [
+      'emergency_ambulance', 'emergency', 'consultation_24', 'consultation', 'self_care',
+    ].includes(value),
   },
-  setup(props, { slots }) {
-    const rootClassModifier = computed(() => (`ui-card--${props.type}`));
-    const icon = computed(() => {
-      const icons = {
-        emergency_ambulance: 'emergency-ambulance',
-        emergency: 'emergency',
-        consultation_24: 'consultation-24',
-        consultation: 'consultation',
-        self_care: 'self-care',
-      };
-      return icons[props.type];
-    });
+});
+const slots = useSlots();
+const rootClassModifier = computed(() => (`ui-card--${props.type}`));
+const icon = computed(() => {
+  const icons = {
+    emergency_ambulance: 'emergency-ambulance',
+    emergency: 'emergency',
+    consultation_24: 'consultation-24',
+    consultation: 'consultation',
+    self_care: 'self-care',
+  };
+  return icons[props.type];
+});
 
-    // deprecated warning
-    if (process.env.NODE_ENV === 'development') {
-      const { symptoms } = slots;
-      if (symptoms) {
-        console.warn('[@symptom-checker/ui-kit warn]: The "symptoms" slot is deprecated and will be removed in @symptom-checker/ui-kit 0.4.0. Please use "details" slot instead.');
-      }
-    }
-
-    return {
-      rootClassModifier,
-      icon,
-    };
-  },
-};
+// deprecated warning
+if (process.env.NODE_ENV === 'development') {
+  const { symptoms } = slots;
+  if (symptoms) {
+    console.warn('[@symptom-checker/ui-kit warn]: The "symptoms" slot is deprecated and will be removed in @symptom-checker/ui-kit 0.4.0. Please use "details" slot instead.');
+  }
+}
 </script>
 
 <style lang="scss">

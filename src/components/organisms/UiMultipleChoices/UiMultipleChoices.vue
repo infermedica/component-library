@@ -50,120 +50,108 @@
 </template>
 
 <script>
+export default {
+  inheritAttrs: false,
+};
+</script>
+
+<script setup>
 import { watchEffect, computed } from 'vue';
 import UiMultipleChoicesItem from './_internal/UiMultipleChoicesItem.vue';
 import UiList from '../UiList/UiList.vue';
 import UiListItem from '../UiList/_internal/UiListItem.vue';
 import UiAlert from '../../atoms/UiAlert/UiAlert.vue';
 
-export default {
-  name: 'UiMultipleChoices',
-  components: {
-    UiMultipleChoicesItem, UiList, UiListItem, UiAlert,
-  },
-  inheritAttrs: false,
-  props: {
-    /**
+const props = defineProps({
+  /**
      *  Use this props to set source of evidences.
      */
-    source: {
-      type: String,
-      default: '',
-    },
-    /**
+  source: {
+    type: String,
+    default: '',
+  },
+  /**
      *  Use this props to override default options.
      */
-    options: {
-      type: Array,
-      default: () => ([
-        { name: 'Yes', value: 'present' },
-        { name: 'No', value: 'absent' },
-        { name: 'Don\'t know', value: 'unknown' },
-      ]),
-    },
-    /**
+  options: {
+    type: Array,
+    default: () => ([
+      { name: 'Yes', value: 'present' },
+      { name: 'No', value: 'absent' },
+      { name: 'Don\'t know', value: 'unknown' },
+    ]),
+  },
+  /**
      * Use this props to set hint for question.
      */
-    hint: {
-      type: String,
-      default: '',
-    },
-    /**
+  hint: {
+    type: String,
+    default: '',
+  },
+  /**
      *  Use this props to set possible choices.
      */
-    choices: {
-      type: Array,
-      default: () => ([]),
-    },
-    /**
+  choices: {
+    type: Array,
+    default: () => ([]),
+  },
+  /**
      *  Use this props or v-model to set checked.
      */
-    modelValue: {
-      type: Array,
-      default: () => ([]),
-    },
-    /**
+  modelValue: {
+    type: Array,
+    default: () => ([]),
+  },
+  /**
      * Use this props to set invalid state of component.
      */
-    invalid: {
-      type: Boolean,
-      default: true,
-    },
-    /**
+  invalid: {
+    type: Boolean,
+    default: true,
+  },
+  /**
      * Use this props to touch component and show validation errors.
      */
-    touched: {
-      type: Boolean,
-      default: false,
-    },
-    /**
+  touched: {
+    type: Boolean,
+    default: false,
+  },
+  /**
      * Use this props to pass attrs for hint UiAlert
      */
-    alertHintAttrs: {
-      type: Object,
-      default: () => ({}),
-    },
+  alertHintAttrs: {
+    type: Object,
+    default: () => ({}),
   },
-  emits: ['update:modelValue', 'update:invalid'],
-  setup(props, { emit }) {
-    const hintType = computed(() => (props.touched && props.invalid ? 'error' : 'default'));
-    const evidences = computed(() => (
-      props.modelValue.reduce(
-        (object, evidence) => {
-          // eslint-disable-next-line camelcase
-          const { id } = evidence;
-          return { ...object, [id]: { ...evidence } };
-        }, {},
-      )
-    ));
-    const valid = computed(() => (
-      props.choices.every((choice) => (evidences.value[choice.id]))
-    ));
-    watchEffect(() => {
-      if (!valid.value !== props.invalid) {
-        emit('update:invalid', !valid.value);
-      }
-    });
-    function hasError(id) {
-      return props.touched && !evidences.value[id];
-    }
-    function updateHandler(value) {
-      emit('update:modelValue', Object.values(value));
-    }
-    const choicesToUse = computed(() => (
-      props.choices.map((evidence) => (props.source ? { ...evidence, source: props.source } : { ...evidence }))
-    ));
-
-    return {
-      hintType,
-      evidences,
-      valid,
-      hasError,
-      updateHandler,
-      choicesToUse,
-    };
-  },
-};
+});
+const emit = defineEmits(['update:modelValue', 'update:invalid']);
+const hintType = computed(() => (props.touched && props.invalid ? 'error' : 'default'));
+const evidences = computed(() => (
+  props.modelValue.reduce(
+    (object, evidence) => {
+      // eslint-disable-next-line camelcase
+      const { id } = evidence;
+      return { ...object, [id]: { ...evidence } };
+    }, {},
+  )
+));
+const valid = computed(() => (
+  props.choices.every((choice) => (evidences.value[choice.id]))
+));
+watchEffect(() => {
+  if (!valid.value !== props.invalid) {
+    emit('update:invalid', !valid.value);
+  }
+});
+function hasError(id) {
+  return props.touched && !evidences.value[id];
+}
+function updateHandler(value) {
+  emit('update:modelValue', Object.values(value));
+}
+const choicesToUse = computed(() => (
+  props.choices.map((evidence) => (props.source ? { ...evidence, source: props.source } : { ...evidence }))
+));
 </script>
 
 <style lang="scss">
