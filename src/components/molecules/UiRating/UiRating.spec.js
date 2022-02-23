@@ -1,3 +1,4 @@
+import { h } from 'vue';
 import { mount } from '@vue/test-utils';
 import UiRating from './UiRating.vue';
 import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
@@ -21,7 +22,10 @@ describe('UiRating.vue', () => {
         max: '5',
         modelValue: '3',
       },
+      slots: {
+        'icon-active': h('div', { class: 'activeIcon' }),
+      },
     });
-    expect(wrapper.findAll('.ui-rating__icon--active').length).toBe(3);
+    expect(wrapper.findAll('.activeIcon').length).toBe(3);
   });
 });

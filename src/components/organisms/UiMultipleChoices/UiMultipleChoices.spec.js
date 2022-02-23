@@ -19,7 +19,7 @@ describe('UiMultipleChoices.vue', () => {
     const emitted = [{
       choice_id: 'present', id: 'p_8', name: 'I have diabetes',
     }];
-    await wrapper.find('input[type="radio"]').trigger('click');
+    await wrapper.find('input[type="radio"]').setChecked();
     expect(wrapper.emitted('update:modelValue')[0][0]).toStrictEqual(emitted);
   });
   test('a possible to pass custom choices by options property', () => {

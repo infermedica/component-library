@@ -37,8 +37,7 @@ describe('UiRadio.vue', () => {
         value,
       },
     });
-    const input = wrapper.find('input[type="radio"]');
-    await input.trigger('click');
+    await wrapper.find('input[type="radio"]').setChecked();
     expect(wrapper.emitted('update:modelValue')[0][0]).toBe(value);
   });
   test('a component pass Object as value', () => {

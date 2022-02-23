@@ -105,7 +105,7 @@ async function openHandler({ focus = false } = {}) {
 
   if (focus) {
     if (selectedDropdownItem.value) selectedDropdownItem.value.focus();
-    else nextDropdownItem.value.focus();
+    else if (nextDropdownItem.value) nextDropdownItem.value.focus();
   }
 }
 function closeHandler(outside) {

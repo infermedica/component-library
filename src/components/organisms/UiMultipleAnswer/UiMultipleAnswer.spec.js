@@ -54,8 +54,8 @@ describe('UiMultipleAnswer.vue', () => {
       expect(wrapper.findAllComponents(UiRadio).length).toBe(choices.length);
     });
     test('renders a component and radioses with error styles when invalid and touched prop is true', () => {
-      const checkboxErrorClass = '.ui-checkbox--has-error';
-      const selected = [];
+      const radioErrorClass = '.ui-radio--has-error';
+      const selected = {};
       const wrapper = mount(UiMultipleAnswer, {
         props: {
           modelValue: selected,
@@ -65,13 +65,13 @@ describe('UiMultipleAnswer.vue', () => {
         },
       });
       expect(wrapper.find(listItemErrorClass).exists()).toBe(true);
-      expect(wrapper.find(checkboxErrorClass).exists()).toBe(true);
+      expect(wrapper.find(radioErrorClass).exists()).toBe(true);
       expect(wrapper.findAll(listItemErrorClass).length).toBe(choices.length);
-      expect(wrapper.findAll(checkboxErrorClass).length).toBe(choices.length);
+      expect(wrapper.findAll(radioErrorClass).length).toBe(choices.length);
     });
     test('renders a component and radioses with error styles when invalid prop is false and touched prop is true', () => {
-      const checkboxErrorClass = '.ui-checkbox--has-error';
-      const selected = [];
+      const radioErrorClass = '.ui-radio--has-error';
+      const selected = {};
       const wrapper = mount(UiMultipleAnswer, {
         props: {
           modelValue: selected,
@@ -80,10 +80,10 @@ describe('UiMultipleAnswer.vue', () => {
           choices,
         },
       });
-      expect(wrapper.find(listItemErrorClass).exists()).toBe(false);
-      expect(wrapper.find(checkboxErrorClass).exists()).toBe(false);
-      expect(wrapper.findAll(listItemErrorClass).length).toBe(0);
-      expect(wrapper.findAll(checkboxErrorClass).length).toBe(0);
+      expect(wrapper.find(listItemErrorClass).exists()).toBe(true);
+      expect(wrapper.find(radioErrorClass).exists()).toBe(true);
+      expect(wrapper.findAll(listItemErrorClass).length).toBe(choices.length);
+      expect(wrapper.findAll(radioErrorClass).length).toBe(choices.length);
     });
   });
   describe('Component with Checkboxes', () => {
@@ -124,8 +124,8 @@ describe('UiMultipleAnswer.vue', () => {
       expect(wrapper.findAll(radioErrorClass).length).toBe(choices.length);
     });
     test('renders a component and checkboxes with error styles when invalid prop is false and touched prop is true', () => {
-      const radioErrorClass = '.ui-radio--has-error';
-      const selected = {};
+      const checkboxErrorClass = '.ui-checkbox--has-error';
+      const selected = [];
       const wrapper = mount(UiMultipleAnswer, {
         props: {
           modelValue: selected,
@@ -134,10 +134,10 @@ describe('UiMultipleAnswer.vue', () => {
           choices,
         },
       });
-      expect(wrapper.find(listItemErrorClass).exists()).toBe(false);
-      expect(wrapper.find(radioErrorClass).exists()).toBe(false);
-      expect(wrapper.findAll(listItemErrorClass).length).toBe(0);
-      expect(wrapper.findAll(radioErrorClass).length).toBe(0);
+      expect(wrapper.find(listItemErrorClass).exists()).toBe(true);
+      expect(wrapper.find(checkboxErrorClass).exists()).toBe(true);
+      expect(wrapper.findAll(listItemErrorClass).length).toBe(choices.length);
+      expect(wrapper.findAll(checkboxErrorClass).length).toBe(choices.length);
     });
   });
 });

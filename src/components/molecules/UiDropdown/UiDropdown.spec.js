@@ -39,12 +39,14 @@ describe('UiDropdown.vue', () => {
     const slot = wrapper.find('.symptom-checker');
     expect(slot.exists()).toBe(true);
   });
-  test('render a content via content slot', () => {
+  test('render a content via content slot', async () => {
     const wrapper = mount(UiDropdown, {
       slots: {
         content: '<div class="symptom-checker"></div>',
       },
     });
+    const toggle = wrapper.find('.ui-dropdown__toggle');
+    await toggle.trigger('click');
     const slot = wrapper.find('.symptom-checker');
     expect(slot.exists()).toBe(true);
   });

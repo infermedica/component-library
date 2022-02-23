@@ -42,7 +42,7 @@ describe('UiRange.vue', () => {
         max: '122',
       },
     });
-    expect(wrapper.vm.trackWidth).toBe('50%');
+    expect(wrapper.element.style.getPropertyValue('--range-selected-track-width')).toBe('50%');
   });
   test('pass percent position of thumb to component style', () => {
     const wrapper = mount(UiRange, {
@@ -99,10 +99,10 @@ describe('UiRange.vue', () => {
 
     await incrementButton.trigger('click');
     expect(wrapper.emitted()['update:modelValue']).not.toBeTruthy();
-    expect(wrapper.vm.modelValue).toBe(initialModelValue);
+    expect(wrapper.props().modelValue).toBe(initialModelValue);
 
     await decrementButton.trigger('click');
     expect(wrapper.emitted()['update:modelValue']).not.toBeTruthy();
-    expect(wrapper.vm.modelValue).toBe(initialModelValue);
+    expect(wrapper.props().modelValue).toBe(initialModelValue);
   });
 });

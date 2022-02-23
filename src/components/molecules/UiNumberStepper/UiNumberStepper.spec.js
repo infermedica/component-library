@@ -5,7 +5,7 @@ import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 describe('UiNumberStepper.vue', () => {
   test('renders a component', () => {
     const wrapper = mount(UiNumberStepper);
-    expect(wrapper.classes('ui-quantity-selector')).toBe(true);
+    expect(wrapper.classes('ui-number-stepper')).toBe(true);
   });
   test('clicking decrement button decrement the value', async () => {
     const wrapper = mount(UiNumberStepper, {

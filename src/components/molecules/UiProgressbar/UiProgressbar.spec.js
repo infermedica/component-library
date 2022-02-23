@@ -3,7 +3,7 @@ import UiProgressbar from '@/components/molecules/UiProgressbar/UiProgressbar.vu
 
 describe('UiProgressbar.vue', () => {
   test('renders a component', () => {
-    const wrapper = mount(UiProgressbar);
+    const wrapper = mount(UiProgressbar, { props: { steps: 5 } });
     expect(wrapper.classes('ui-progressbar')).toBe(true);
   });
 });

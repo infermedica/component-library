@@ -219,9 +219,10 @@
       "^@/(.*)$": "<rootDir>/src/$1"
     },
     "transform": {
-      ".+\\.(css|styl|less|sass|scss|svg|png|jpg|ttf|woff|woff2)$": "jest-transform-stub",
+      ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "jest-transform-stub",
       "^.+\\.js$": "babel-jest",
-      ".*\\.(vue)$": "@vue/vue3-jest"
+      ".*\\.(vue)$": "@vue/vue3-jest",
+      "^.+\\.svg$": "<rootDir>/tests/transform/svgTransform.js"
     },
     "testEnvironment": "jsdom",
     "collectCoverage": false,

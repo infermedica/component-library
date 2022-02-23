@@ -9,14 +9,14 @@ describe('UiMegaMenu.vue', () => {
     expect(wrapper.classes('ui-mega-menu')).toBe(true);
   });
   test('component emit item to open', async () => {
+    const name = 'test';
     const wrapper = mount(UiMegaMenu, {
       slots: {
-        default: h(UiMegaMenuItem, { name: 'sc', title: 'sc' }),
+        default: h(UiMegaMenuItem, { name }),
       },
     });
     const item = wrapper.findComponent(UiMegaMenuItem);
-    const toggler = item.find('button');
-    await toggler.trigger('click');
-    expect(typeof wrapper.emitted('update:modelValue')[0][0] === 'object').toBeTruthy();
+    item.vm.to();
+    expect(wrapper.emitted('update:modelValue')[0][0]).toBe(name);
   });
 });

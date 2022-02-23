@@ -94,7 +94,7 @@ const Template = (args) => ({
               class="ui-button--text ui-button--has-icon"
               @click="back"
             >
-              <UiIcon icon="chevronLeft"/>
+              <UiIcon icon="chevron-left"/>
               Back to menu
             </UiButton>
             <UiText tag="p">{{content}}</UiText>

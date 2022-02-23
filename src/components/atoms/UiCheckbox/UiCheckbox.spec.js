@@ -35,8 +35,7 @@ describe('UiCheckbox.vue', () => {
         modelValue: false,
       },
     });
-    const input = wrapper.find('input[type="checkbox"]');
-    await input.trigger('click');
+    await wrapper.find('input[type="checkbox"]').setChecked();
     expect(wrapper.emitted('update:modelValue')[0][0]).toBe(true);
   });
   test('a component pass Object as value', async () => {
@@ -64,8 +63,7 @@ describe('UiCheckbox.vue', () => {
         $t: () => {},
       },
     });
-    const input = wrapper.find('input[type="checkbox"]');
-    await input.trigger('click');
+    await wrapper.find('input[type="checkbox"]').setChecked();
     expect(JSON.stringify(wrapper.emitted('update:modelValue')[0][0])).toBe(JSON.stringify(['symptom checker', value]));
   });
 });

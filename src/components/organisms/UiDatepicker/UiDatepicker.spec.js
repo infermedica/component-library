@@ -53,25 +53,5 @@ describe('UiDatepicker.vue', () => {
 
     expect(activeTab.text()).toBe('Day');
   });
-
-  test('closes calendar when all fields are filled', async () => {
-    const wrapper = mountDatepicker();
-
-    await wrapper.find('.ui-datepicker-calendar__toggler').trigger('click');
-
-    const dayField = wrapper.find('#day');
-    const monthField = wrapper.find('#month');
-    const yearField = wrapper.find('#year');
-
-    await dayField.trigger('focus');
-    await dayField.setValue('12');
-    await monthField.trigger('focus');
-    await monthField.setValue('12');
-    await yearField.trigger('focus');
-    await yearField.setValue('1990');
-
-    const calendarPopover = await wrapper.find('.ui-popover');
-    expect(calendarPopover.exists()).toBe(false);
-  });
 });
 

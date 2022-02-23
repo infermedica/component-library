@@ -12,7 +12,7 @@ describe('UiSidePanel.vue', () => {
         modelValue: true,
       },
     });
-    const container = wrapper.find('.ui-side-panel__container');
+    const container = wrapper.find('.ui-side-panel__dialog');
     expect(container.exists()).toBe(true);
   });
   test('render a content via default slot', () => {
