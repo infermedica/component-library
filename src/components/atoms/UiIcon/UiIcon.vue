@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import { defineAsyncComponent } from 'vue';
+import { computed, defineAsyncComponent } from 'vue';
 
 const props = defineProps({
   icon: {
@@ -14,14 +14,14 @@ const props = defineProps({
     default: '',
   },
 });
-const file = typeof props.icon === 'string'
+const file = computed(() => (typeof props.icon === 'string'
   ? defineAsyncComponent(() => import(
     /* webpackChunkName: "icons" */
     /* webpackMode: "eager" */
     /* webpackPreload: true */
     `../../../assets/svg/${props.icon}.svg`
   ))
-  : props.icon;
+  : props.icon));
 </script>
 
 <style lang="scss">
