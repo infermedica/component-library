@@ -100,6 +100,8 @@ const inputId = computed(() => (
 </script>
 
 <style lang="scss">
+@import '../../../styles/mixins/_mixins.scss';
+
 .ui-form-field {
   display: flex;
   flex-direction: column;
@@ -110,11 +112,15 @@ const inputId = computed(() => (
   }
 
   &__label-text {
+    @include font(body-2-comfortable);
+
     margin: var(--form-field-label-text-margin, 0 0 var(--space-8) 0);
     color: var(--form-field-label-text-color, var(--color-text-body));
   }
 
   &__label-tag {
+    @include font(body-2-comfortable);
+
     margin: var(--form-field-label-tag-margin, 0 0 0 var(--space-8));
     color: var(--form-field-label-tag-color, var(--color-text-dimmed));
 
