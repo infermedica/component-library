@@ -1,6 +1,6 @@
 {
   "name": "@symptom-checker/ui-kit",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "private": true,
   "scripts": {
     "test:generate-output": "jest src --json --outputFile=.jest-test-results.json || true ",
