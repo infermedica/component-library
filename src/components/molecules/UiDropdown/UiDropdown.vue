@@ -180,6 +180,8 @@ const dropdownItemKeydownHandler = async (event) => {
   }
 };
 provide('dropdownItemKeydownHandler', dropdownItemKeydownHandler);
+
+defineExpose({ isOpen });
 </script>
 
 <style lang="scss">
