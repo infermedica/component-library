@@ -197,7 +197,7 @@ onBeforeUnmount(() => {
 </script>
 
 <style lang="scss">
-@import '../../../styles/mixins/_mixins.scss';
+@import "../../../styles/mixins/mixins";
 
 .ui-side-panel {
   z-index: 1;
@@ -218,7 +218,7 @@ onBeforeUnmount(() => {
     border-width: 0;
     box-shadow: var(--side-panel-box-shadow, var(--box-shadow-high));
 
-    [dir=rtl] & {
+    [dir="rtl"] & {
       right: auto;
       left: 0;
     }
@@ -246,7 +246,7 @@ onBeforeUnmount(() => {
 
     margin: var(--side-panel-close-margin, 0 0 0 auto);
 
-    [dir=rtl] & {
+    [dir="rtl"] & {
       margin: var(--side-panel-close-margin, 0 auto 0 0);
     }
   }
@@ -306,7 +306,7 @@ onBeforeUnmount(() => {
     transition: transform 0.5s ease-in;
     transform: translate3d(100%, 0, 0);
 
-    [dir=rtl] & {
+    [dir="rtl"] & {
       transform: translate3d(-100%, 0, 0);
     }
   }

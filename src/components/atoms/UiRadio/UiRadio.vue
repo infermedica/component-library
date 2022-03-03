@@ -93,7 +93,7 @@ function changeHandler(checked) {
 </script>
 
 <style lang="scss">
-@import '../../../styles/mixins/_mixins.scss';
+@import "../../../styles/mixins/mixins";
 // use .ui-radio--is-disabled class for disabling checkbox visually
 // use .ui-radio--has-error class indicating validation error visually
 
@@ -168,7 +168,7 @@ function changeHandler(checked) {
     margin: var(--radio-label-margin, 0 0 0 var(--space-12));
     color: var(--radio-label-color, var(--color-text-body));
 
-    [dir=rtl] & {
+    [dir="rtl"] & {
       margin: var(--radio-label-margin, 0 var(--space-12) 0 0);
     }
   }

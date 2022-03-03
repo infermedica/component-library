@@ -29,7 +29,7 @@
       position: absolute;
       top: 0;
       display: inline-block;
-      content: '';
+      content: "";
     }
 
     &::before {
@@ -37,7 +37,7 @@
 
       left: -0.75rem;
 
-      [dir=rtl] & {
+      [dir="rtl"] & {
         right: -0.75rem;
         left: auto;
       }
@@ -48,7 +48,7 @@
 
       left: 0.75rem;
 
-      [dir=rtl] & {
+      [dir="rtl"] & {
         right: 0.75rem;
         left: auto;
       }

@@ -54,7 +54,7 @@ const isUnordered = computed(() => (tag.value === 'ul'));
     flex: none;
     margin: var(--bullet-points-item-marker-padding, 0 var(--space-12) 0 0);
 
-    [dir=rtl] & {
+    [dir="rtl"] & {
       margin: var(--bullet-points-item-marker-padding, 0 0 0 var(--space-12));
     }
 

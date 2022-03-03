@@ -41,7 +41,7 @@ function clickHandler() {
 </script>
 
 <style lang="scss">
-@import '../../../styles/mixins/_mixins.scss';
+@import "../../../styles/mixins/mixins";
 
 .ui-chip {
   @include font(body-2-comfortable);
@@ -53,7 +53,7 @@ function clickHandler() {
   background: var(--chip-background, var(--color-chip-background));
   border-radius: var(--chip-border-radius, var(--border-radius-pill));
 
-  [dir=rtl] & {
+  [dir="rtl"] & {
     padding: var(--chip-padding, var(--space-4) var(--space-12) var(--space-4) var(--space-4));
   }
 
@@ -68,7 +68,7 @@ function clickHandler() {
 
     margin: var(--chip-remove-margin, 2px 2px 2px calc(var(--space-4) + 2px));
 
-    [dir=rtl] & {
+    [dir="rtl"] & {
       margin: var(--chip-remove-margin, 2px calc(var(--space-4) + 2px) 2px 2px);
     }
   }

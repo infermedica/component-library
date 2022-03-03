@@ -143,7 +143,7 @@ const validNext = computed(() => (
   &__next {
     margin: var(--controls-next-margin, 0 0 0 auto);
 
-    [dir=rtl] & {
+    [dir="rtl"] & {
       margin: var(--controls-next-margin, 0 auto 0 0);
     }
   }
@@ -151,7 +151,7 @@ const validNext = computed(() => (
   &__back {
     margin: var(--controls-back-margin, 0 auto 0 0);
 
-    [dir=rtl] & {
+    [dir="rtl"] & {
       margin: var(--controls-back-margin, 0 0 0 auto);
     }
   }

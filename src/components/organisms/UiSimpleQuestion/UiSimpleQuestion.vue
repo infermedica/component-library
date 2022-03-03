@@ -82,7 +82,7 @@ function updateHandler(value) {
       width: 100%;
       margin: var(--simple-question-option-tablet-margin, 0 var(--space-24) 0 0);
 
-      [dir=rtl] & {
+      [dir="rtl"] & {
         margin: var(--simple-question-option-tablet-margin, 0 0 0 var(--space-24));
       }
     }

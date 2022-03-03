@@ -456,7 +456,7 @@ provide('order', props.order);
   &__dropdown {
     margin: var(--datepicker-dropdown-margin, 0 0 0 var(--space-24));
 
-    [dir=rtl] & {
+    [dir="rtl"] & {
       margin: var(--datepicker-dropdown-margin, 0 var(--space-24) 0 0);
     }
   }
@@ -480,7 +480,7 @@ provide('order', props.order);
       flex: calc(6.5 / 4) 1 6.5rem;
     }
 
-    [dir=rtl] & {
+    [dir="rtl"] & {
       margin: var(--datepicker-group-field-margin, 0 0 0 var(--space-8));
     }
 

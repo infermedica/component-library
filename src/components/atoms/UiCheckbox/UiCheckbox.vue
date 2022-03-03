@@ -103,7 +103,7 @@ function changeHandler(checked) {
 </script>
 
 <style lang="scss">
-@import '../../../styles/mixins/_mixins.scss';
+@import "../../../styles/mixins/mixins";
 // use .ui-checkbox--is-disabled class for disabling checkbox visually
 // use .ui-checkbox--has-error class indicating validation error visually
 
@@ -174,7 +174,7 @@ function changeHandler(checked) {
     margin: var(--checkbox-label-margin, 0 0 0 var(--space-12));
     color: var(--checkbox-label-color, var(--color-text-body));
 
-    [dir=rtl] & {
+    [dir="rtl"] & {
       margin: var(--checkbox-label-margin, 0 var(--space-12) 0 0);
     }
   }

@@ -124,7 +124,7 @@ const icon = computed(() => (isOpen.value ? props.settings.iconOpen : props.sett
       z-index: 1;
     }
 
-    [dir=rtl] & {
+    [dir="rtl"] & {
       --button-text-align: right;
     }
   }
@@ -135,7 +135,7 @@ const icon = computed(() => (isOpen.value ? props.settings.iconOpen : props.sett
     flex: none;
     margin: var(--accordion-item-chevron-margin, 0 var(--space-12) 0 0);
 
-    [dir=rtl] & {
+    [dir="rtl"] & {
       margin: var(--accordion-item-chevron-margin, 0 0 0 var(--space-12));
     }
   }
@@ -143,7 +143,7 @@ const icon = computed(() => (isOpen.value ? props.settings.iconOpen : props.sett
   &__content {
     padding: var(--accordion-item-content-padding, var(--space-12) var(--space-12) var(--space-12) var(--space-48));
 
-    [dir=rtl] & {
+    [dir="rtl"] & {
       padding: var(--accordion-item-content-padding, var(--space-12) var(--space-48) var(--space-12) var(--space-12));
     }
   }

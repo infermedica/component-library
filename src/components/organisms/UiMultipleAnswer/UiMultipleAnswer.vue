@@ -195,7 +195,7 @@ function unfocusExplication(event) {
 </script>
 
 <style lang="scss">
-@import '../../../styles/mixins/_mixins.scss';
+@import "../../../styles/mixins/mixins";
 
 .ui-multiple-answer {
   &__list-item {
@@ -254,7 +254,7 @@ function unfocusExplication(event) {
   &__explication {
     margin: var(--multiple-answer-margin, 0 0 0 var(--space-12));
 
-    [dir=rtl] & {
+    [dir="rtl"] & {
       margin: var(--multiple-answer-margin, 0 var(--space-12) 0 0);
     }
   }

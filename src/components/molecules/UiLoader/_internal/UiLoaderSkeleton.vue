@@ -7,14 +7,18 @@
         <slot name="common">
           <div
             class="ui-loader-skeleton__block"
-            style="--loader-skeleton-block-width: 75%;"
+            style="
+
+  --loader-skeleton-block-width: 75%;"
           />
           <div
             class="ui-loader-skeleton__block"
           />
           <div
             class="ui-loader-skeleton__block"
-            style="--loader-skeleton-block-width: 50%;"
+            style="
+
+  --loader-skeleton-block-width: 50%;"
           />
         </slot>
       </template>
@@ -28,7 +32,9 @@
 
           <div
             class="ui-loader-skeleton__block"
-            style="--loader-skeleton-block-width: 75%;"
+            style="
+
+  --loader-skeleton-block-width: 75%;"
           />
           <div
             class="ui-loader-skeleton__block ui-loader-skeleton__block--large"
@@ -78,7 +84,7 @@ defineProps({
     border-radius: var(--loader-skeleton-block-border-radius, 5px);
     animation: var(--loader-skeleton-block-animation, skeleton-shine 1s linear infinite);
 
-    [dir=rtl] & {
+    [dir="rtl"] & {
       background:
         var(
           --loader-skeleton-block-background,
@@ -107,7 +113,7 @@ defineProps({
     }
   }
 
-  [dir=rtl] & {
+  [dir="rtl"] & {
     @keyframes skeleton-shine {
       0% {
         background-position: -100% 0;

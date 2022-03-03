@@ -17,10 +17,10 @@ defineProps({
 </script>
 
 <style lang="scss">
-@import '../../../styles/mixins/_mixins.scss';
+@import "../../../styles/mixins/mixins";
 
 .ui-text {
-  $styles: '1-thick', '2-comfortable', '2-compact', '2-comfortable-thick', '2-compact-thick';
+  $styles: "1-thick", "2-comfortable", "2-compact", "2-comfortable-thick", "2-compact-thick";
 
   @include font(body-1);
 

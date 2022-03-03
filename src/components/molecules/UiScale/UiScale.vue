@@ -194,7 +194,7 @@ function calcActiveElementOpacity(index) {
     border: solid transparent;
     border-width: 0 1px 0 0;
 
-    [dir=rtl] & {
+    [dir="rtl"] & {
       border-width: 0 0 0 1px;
     }
 
@@ -202,7 +202,7 @@ function calcActiveElementOpacity(index) {
       #{$this}__square {
         border-radius: var(--border-radius-form) 0 0 var(--border-radius-form);
 
-        [dir=rtl] & {
+        [dir="rtl"] & {
           border-radius: 0 var(--border-radius-form) var(--border-radius-form) 0;
         }
       }
@@ -214,7 +214,7 @@ function calcActiveElementOpacity(index) {
       #{$this}__square {
         border-radius: 0 var(--border-radius-form) var(--border-radius-form) 0;
 
-        [dir=rtl] & {
+        [dir="rtl"] & {
           border-radius: var(--border-radius-form) 0 0 var(--border-radius-form);
         }
       }
@@ -248,7 +248,7 @@ function calcActiveElementOpacity(index) {
       right: 0;
       bottom: 0;
       left: 0;
-      content: '';
+      content: "";
       background: var(--scale-square-overlay-background, var(--color-dataviz-diverging-strongly-negative));
       opacity: var(--scale-square-overlay-opacity, 0);
       transition: opacity 200ms ease;
@@ -276,7 +276,7 @@ function calcActiveElementOpacity(index) {
         left: calc(50% - 4px);
         width: 8px;
         height: 8px;
-        content: '';
+        content: "";
         background: inherit;
         transform: rotate(45deg);
       }
@@ -304,7 +304,7 @@ function calcActiveElementOpacity(index) {
   &__decrement {
     margin: 0 var(--space-12) 0 0;
 
-    [dir=rtl] & {
+    [dir="rtl"] & {
       margin: 0 0 0 var(--space-12);
     }
   }
@@ -312,7 +312,7 @@ function calcActiveElementOpacity(index) {
   &__increment {
     margin: 0 0 0 var(--space-12);
 
-    [dir=rtl] & {
+    [dir="rtl"] & {
       margin: 0 var(--space-12) 0 0;
     }
   }

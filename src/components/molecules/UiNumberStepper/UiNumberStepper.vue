@@ -120,7 +120,7 @@ function increment() {
   &__decrement {
     margin: var(--quantity-selector-decrement-margin, 0 var(--space-12) 0 0);
 
-    &[dir=rtl] {
+    &[dir="rtl"] {
       margin: var(--quantity-selector-decrement-margin, 0 0 0 var(--space-12));
     }
 
@@ -128,7 +128,7 @@ function increment() {
       order: -1;
       margin: var(--quantity-selector-decrement-margin, 0 var(--space-4) 0 0);
 
-      &[dir=rtl] {
+      &[dir="rtl"] {
         margin: var(--quantity-selector-decrement-margin, 0 0 0 var(--space-4));
       }
     }
@@ -137,14 +137,14 @@ function increment() {
   &__increment {
     margin: var(--quantity-selector-decrement-increment, 0 0 0 var(--space-12));
 
-    &[dir=rtl] {
+    &[dir="rtl"] {
       margin: var(--quantity-selector-decrement-increment, 0 var(--space-12) 0 0);
     }
 
     @media (min-width: 768px) {
       margin: var(--quantity-selector-decrement-increment, 0 0 0 var(--space-4));
 
-      &[dir=rtl] {
+      &[dir="rtl"] {
         margin: var(--quantity-selector-decrement-increment, 0 var(--space-4) 0 0);
       }
     }

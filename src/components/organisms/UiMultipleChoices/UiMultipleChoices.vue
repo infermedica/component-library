@@ -153,10 +153,10 @@ const choicesToUse = computed(() => (
 </script>
 
 <style lang="scss">
-@import '../../../styles/mixins/_mixins.scss';
+@import "../../../styles/mixins/mixins";
 
 .ui-multiple-choices {
-  &__list{
+  &__list {
     --list-item-padding: 0;
   }
 

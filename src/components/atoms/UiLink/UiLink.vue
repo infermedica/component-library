@@ -41,7 +41,7 @@ const { componentTag, routeAttrs } = useLink(props);
 </script>
 
 <style lang="scss">
-@import '../../../styles/mixins/_mixins.scss';
+@import "../../../styles/mixins/mixins";
 
 .ui-link {
   @include font(body-1);
@@ -82,7 +82,7 @@ const { componentTag, routeAttrs } = useLink(props);
     // adds negative left margin to position icon within link and avoid changing padding
     margin: var(--link-icon-margin, 0 var(--space-4) 0 0);
 
-    [dir=rtl] & {
+    [dir="rtl"] & {
       margin: var(--link-icon-margin, 0 0 0 var(--space-4));
     }
 
@@ -90,7 +90,7 @@ const { componentTag, routeAttrs } = useLink(props);
       // adds negative right margin to position icon within link and avoid changing padding
       --link-icon-margin: 0 0 0 var(--space-4);
 
-      [dir=rtl] & {
+      [dir="rtl"] & {
         --link-icon-margin: 0 var(--space-4) 0 0;
       }
     }

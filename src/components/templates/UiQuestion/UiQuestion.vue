@@ -274,7 +274,7 @@ export default {
     align-items: flex-start;
     margin: var(--space-24) 0 0 0;
 
-    [dir=rtl] & {
+    [dir="rtl"] & {
       --alert-icon-margin: 0 0 0 var(--space-12);
     }
   }
@@ -282,7 +282,7 @@ export default {
   &__skip {
     margin: var(--space-4) 0 0 var(--space-36);
 
-    [dir=rtl] & {
+    [dir="rtl"] & {
       margin: var(--space-4) var(--space-36) 0 0;
     }
   }

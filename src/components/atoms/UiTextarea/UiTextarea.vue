@@ -44,7 +44,7 @@ const resizeValue = computed(() => {
 </script>
 
 <style lang="scss">
-@import '../../../styles/mixins/_mixins.scss';
+@import "../../../styles/mixins/mixins";
 
 .ui-textarea {
   @include font(body-1);

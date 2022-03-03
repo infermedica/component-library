@@ -40,7 +40,7 @@ defineProps({
   &__loader {
     width: var(--loader-spinner-loader-size, 4rem);
     height: var(--loader-spinner-loader-size, 4rem);
-    border: var(--loader-spinner-loader-border, solid rgba(95, 114, 133, 0.3));
+    border: var(--loader-spinner-loader-border, solid rgb(95 114 133 / 30%));
     border-width: var(--loader-spinner-loader-border-width, 2px);
     border-top-color: var(--loader-spinner-loader-highlighted-color, var(--color-icon-secondary));
     border-radius: var(--loader-spinner-loader-border-radius, var(--border-radius-circle));
@@ -54,7 +54,7 @@ defineProps({
   }
 
   &--on-dark {
-    --loader-spinner-loader-border: solid rgba(255, 255, 255, 0.3);
+    --loader-spinner-loader-border: solid rgb(255 255 255 / 30%);
     --loader-spinner-loader-highlighted-color: var(--color-icon-on-brand);
     --loader-spinner-label-color: var(--color-text-on-brand);
   }

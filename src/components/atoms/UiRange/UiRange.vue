@@ -141,17 +141,13 @@ function changeHandler(value, modifier = 0) {
 </script>
 
 <style lang="scss">
-@import '../../../styles/mixins/_mixins.scss';
+@import "../../../styles/mixins/mixins";
 
 .ui-range {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding:
-    calc(
-      var(--range-thumb-size, 3rem)
-      + var(--range-label-spacing-bottom, 0.5rem)
-    ) 0 0 0;
+  padding: calc(var(--range-thumb-size, 3rem) + var(--range-label-spacing-bottom, 0.5rem)) 0 0 0;
 
   @media (min-width: 768px) {
     flex-wrap: nowrap;
@@ -178,14 +174,14 @@ function changeHandler(value, modifier = 0) {
   &__increment {
     margin: var(--range-mobile-increment-margin, var(--space-24) 0 0 var(--space-12));
 
-    [dir=rtl] & {
+    [dir="rtl"] & {
       margin: var(--range-mobile-increment-margin, var(--space-24) var(--space-12) 0 0);
     }
 
     @media (min-width: 768px) {
       --range-mobile-increment-margin: 0 0 0 var(--space-4);
 
-      [dir=rtl] & {
+      [dir="rtl"] & {
         --range-mobile-increment-margin: 0 var(--space-4) 0 0;
       }
     }
@@ -194,14 +190,14 @@ function changeHandler(value, modifier = 0) {
   &__decrement {
     margin: var(--range-mobile-decrement-margin, var(--space-24) var(--space-12) 0 0);
 
-    [dir=rtl] & {
+    [dir="rtl"] & {
       margin: var(--range-mobile-increment-margin, var(--space-24) 0 0 var(--space-12));
     }
 
     @media (min-width: 768px) {
       --range-mobile-decrement-margin: 0 var(--space-4) 0 0;
 
-      [dir=rtl] & {
+      [dir="rtl"] & {
         --range-mobile-increment-margin: 0 0 0 var(--space-4);
       }
     }
@@ -241,7 +237,7 @@ function changeHandler(value, modifier = 0) {
       border-radius: var(--range-track-border-radius, 4px);
       transform: translateX(var(--space-24)) translateY(-50%);
 
-      [dir=rtl] & {
+      [dir="rtl"] & {
         right: 0;
         left: auto;
         transform: translateX(calc(var(--space-24) * -1)) translateY(-50%);
@@ -259,7 +255,7 @@ function changeHandler(value, modifier = 0) {
     background: transparent;
     outline: none;
     transform: translateY(-50%);
-    -webkit-appearance: none;
+    appearance: none;
 
     @mixin range-thumb {
       width: var(--range-thumb-size, 3rem);
@@ -286,7 +282,7 @@ function changeHandler(value, modifier = 0) {
     &::-webkit-slider-thumb {
       @include range-thumb;
 
-      -webkit-appearance: none;
+      appearance: none;
     }
 
     &:focus::-webkit-slider-thumb {
@@ -320,7 +316,7 @@ function changeHandler(value, modifier = 0) {
       );
     transform-origin: center;
 
-    [dir=rtl] & {
+    [dir="rtl"] & {
       right: var(--range-selected-track-width);
       left: auto;
       transform:

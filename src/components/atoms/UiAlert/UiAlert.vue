@@ -48,7 +48,7 @@ const icon = computed(() => {
 </script>
 
 <style lang="scss">
-@import '../../../styles/mixins/_mixins.scss';
+@import "../../../styles/mixins/mixins";
 
 .ui-alert {
   $this: &;
@@ -66,7 +66,7 @@ const icon = computed(() => {
     flex: none;
     margin: var(--alert-icon-margin, 0 var(--space-4) 0 0);
 
-    [dir=rtl] & {
+    [dir="rtl"] & {
       margin: var(--alert-icon-margin, 0 0 0 var(--space-4));
     }
   }

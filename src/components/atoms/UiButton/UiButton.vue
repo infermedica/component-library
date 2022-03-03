@@ -41,7 +41,7 @@ const { componentTag, routeAttrs } = useLink(props);
 </script>
 
 <style lang="scss">
-@import '../../../styles/mixins/_mixins.scss';
+@import "../../../styles/mixins/mixins";
 
 .ui-button {
   @include font(body-1-thick);
@@ -59,8 +59,8 @@ const { componentTag, routeAttrs } = useLink(props);
   text-decoration: var(--button-text-decoration, none);
   text-transform: var(--button-text-transform);
   white-space: var(--button-white-space, nowrap);
-  cursor: var(--button-cursor, pointer);
   vertical-align: var(--button-vertical-align, middle);
+  cursor: var(--button-cursor, pointer);
   background:
     var(
       --button-background,
@@ -125,7 +125,7 @@ const { componentTag, routeAttrs } = useLink(props);
     // adds negative left margin to position icon within button and avoid changing padding
     margin: var(--button-icon-margin, 0 var(--space-4) 0 calc(var(--space-8) * -1));
 
-    [dir=rtl] & {
+    [dir="rtl"] & {
       margin: var(--button-icon-margin, 0 calc(var(--space-8) * -1) 0 var(--space-4));
     }
 
@@ -133,7 +133,7 @@ const { componentTag, routeAttrs } = useLink(props);
       // adds negative right margin to position icon within button and avoid changing padding
       --button-icon-margin: 0 calc(var(--space-8) * -1) 0 var(--space-4);
 
-      [dir=rtl] & {
+      [dir="rtl"] & {
         --button-icon-margin: 0 var(--space-4) 0 calc(var(--space-8) * -1);
       }
     }
@@ -208,14 +208,14 @@ const { componentTag, routeAttrs } = useLink(props);
     #{$this}__icon {
       --button-icon-margin: 0 var(--space-4) 0 0;
 
-      [dir=rtl] & {
+      [dir="rtl"] & {
         --button-icon-margin: 0 0 0 var(--space-4);
       }
 
       &--right {
         --button-icon-margin: 0 0 0 var(--space-4);
 
-        [dir=rtl] & {
+        [dir="rtl"] & {
           --button-icon-margin: 0 var(--space-4) 0 0;
         }
       }

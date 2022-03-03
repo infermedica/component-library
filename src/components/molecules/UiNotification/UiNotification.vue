@@ -36,7 +36,7 @@ const rootClassModifier = computed(() => `ui-notification--${props.type}`);
   border-width: 1px;
   border-radius: var(--notification-border-radius, var(--border-radius-container));
 
-  [dir=rtl] & {
+  [dir="rtl"] & {
     --alert-icon-margin: 0 0 0 var(--space-12);
   }
 

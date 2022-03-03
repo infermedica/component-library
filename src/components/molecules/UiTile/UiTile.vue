@@ -133,7 +133,7 @@ function selectHandler() {
     margin: var(--tile-label-margin, 0 0 0 var(--space-16));
     text-align: var(--tile-label-text-align, left);
 
-    [dir=rtl] & {
+    [dir="rtl"] & {
       margin: var(--tile-label-margin, 0 var(--space-16) 0 0);
     }
 

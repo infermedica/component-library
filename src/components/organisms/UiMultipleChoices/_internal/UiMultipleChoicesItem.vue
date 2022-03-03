@@ -109,7 +109,7 @@ function updateHandler(value) {
 </script>
 
 <style lang="scss">
-@import '../../../../styles/mixins/_mixins.scss';
+@import "../../../../styles/mixins/mixins";
 
 .ui-multiple-choices-item {
   display: flex;
@@ -142,7 +142,7 @@ function updateHandler(value) {
       margin: 0 auto 0 0;
       background: var(--multiple-choices-item-name-background);
 
-      [dir=rtl] & {
+      [dir="rtl"] & {
         margin: 0 0 0 auto;
       }
     }
@@ -168,7 +168,7 @@ function updateHandler(value) {
       margin: var(--multiple-choices-item-option-margin, 0 0 0 var(--space-24));
       border-width: var(--multiple-choices-item-option-border-width, 0);
 
-      [dir=rtl] & {
+      [dir="rtl"] & {
         margin: var(--multiple-choices-item-option-margin, 0 var(--space-24) 0 0);
       }
     }

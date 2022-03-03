@@ -67,7 +67,7 @@ const buttonAttrs = computed(() => ({
 </script>
 
 <style lang="scss">
-@import '../../../../styles/mixins/_mixins.scss';
+@import "../../../../styles/mixins/mixins";
 
 .ui-dropdown-item {
   $this: &;

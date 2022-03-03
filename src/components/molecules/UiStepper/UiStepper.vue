@@ -121,7 +121,7 @@ const determineStep = (itemIndex, route) => ({
 </script>
 
 <style lang="scss">
-@import '../../../styles/mixins/_mixins.scss';
+@import "../../../styles/mixins/mixins";
 
 .ui-stepper {
   // Variables for inner progress-bar customization
@@ -186,7 +186,7 @@ const determineStep = (itemIndex, route) => ({
         calc(var(--space-20) * 0.5)
         var(--space-16);
 
-      [dir=rtl] & {
+      [dir="rtl"] & {
         --list-item-padding:
           calc(var(--space-20) * 0.5)
           var(--space-16)
@@ -206,7 +206,7 @@ const determineStep = (itemIndex, route) => ({
         background-color: $background;
         border-radius: var(--stepper-progress-radius);
 
-        [dir=rtl] & {
+        [dir="rtl"] & {
           right: 0;
           left: auto;
         }

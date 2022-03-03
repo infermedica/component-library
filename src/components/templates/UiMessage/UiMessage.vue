@@ -144,7 +144,7 @@ export default {
       order: 0;
       margin: var(--message-aside-tablet-margin, 0 0 0 var(--space-40));
 
-      [dir=rtl] & {
+      [dir="rtl"] & {
         margin: var(--message-aside-tablet-margin, 0 var(--space-40) 0 0);
       }
     }

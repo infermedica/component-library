@@ -129,7 +129,7 @@ if (process.env.NODE_ENV === 'development') {
 </script>
 
 <style lang="scss">
-@import '../../../styles/mixins/_mixins.scss';
+@import "../../../styles/mixins/mixins";
 
 .ui-card {
   --container-padding: var(--card-padding, var(--space-20) var(--space-20) var(--space-32));
@@ -177,7 +177,7 @@ if (process.env.NODE_ENV === 'development') {
     @media (min-width: 768px) {
       padding: var(--card-content-tablet-padding, var(--space-40) var(--space-48) var(--space-48) var(--space-40));
 
-      [dir=rtl] & {
+      [dir="rtl"] & {
         padding: var(--card-content-tablet-padding, var(--space-40) var(--space-40) var(--space-48) var(--space-48));
       }
     }
@@ -205,7 +205,8 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 .ui-card.ui-card--modern {
-  $this: '.ui-card';
+  $this: ".ui-card";
+
   --container-padding: var(--card-padding, 0);
 
   flex-direction: row-reverse;

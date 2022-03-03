@@ -85,7 +85,7 @@ onMounted(async () => {
 </script>
 
 <style lang="scss">
-@import '../../../../styles/mixins/_mixins.scss';
+@import "../../../../styles/mixins/mixins";
 
 .ui-tabs-item {
   $this: &;
@@ -100,7 +100,7 @@ onMounted(async () => {
       margin: var(--tabs-item-tab-last-margin, 0);
     }
 
-    [dir=rtl] & {
+    [dir="rtl"] & {
       margin: var(--tabs-item-tab-margin, 0 0 0 var(--space-24));
     }
   }

@@ -130,7 +130,7 @@ const finalScore = computed(() => (
 </script>
 
 <style lang="scss">
-@import '../../../styles/mixins/_mixins.scss';
+@import "../../../styles/mixins/mixins";
 
 .ui-rating {
   $this: &;
@@ -148,7 +148,7 @@ const finalScore = computed(() => (
 
     padding: var(--rating-option, 0 var(--space-24) 0 0);
 
-    [dir=rtl] & {
+    [dir="rtl"] & {
       padding: var(--rating-option, 0 0 0 var(--space-24));
     }
 

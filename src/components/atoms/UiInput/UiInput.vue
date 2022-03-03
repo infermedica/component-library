@@ -79,7 +79,7 @@ function inputHandler(value) {
 </script>
 
 <style lang="scss">
-@import '../../../styles/mixins/_mixins.scss';
+@import "../../../styles/mixins/mixins";
 
 .ui-input {
   $this: &;
@@ -141,10 +141,10 @@ function inputHandler(value) {
       &::-webkit-inner-spin-button,
       &::-webkit-outer-spin-button {
         margin: 0;
-        -webkit-appearance: none;
+        appearance: none;
       }
 
-      -moz-appearance: none;
+      appearance: none;
     }
   }
 
@@ -155,7 +155,7 @@ function inputHandler(value) {
     margin: var(--input-aside-margin, 0 var(--space-16) 0 0);
     color: var(--input-suffix-color, var(--input-color), var(--color-text-body));
 
-    [dir=rtl] & {
+    [dir="rtl"] & {
       margin: var(--input-aside-margin, 0 0 0 var(--space-16));
     }
   }
@@ -165,7 +165,7 @@ function inputHandler(value) {
     #{$this}__aside {
       --input-aside-margin: var(--input-aside-margin, 0 var(--space-12) 0 0);
 
-      [dir=rtl] & {
+      [dir="rtl"] & {
         --input-aside-margin: var(--input-aside-margin, 0 0 0 var(--space-12));
       }
     }

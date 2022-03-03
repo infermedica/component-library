@@ -37,7 +37,7 @@ const headingClass = computed(() => `ui-heading--h${props.level}`);
 </script>
 
 <style lang="scss">
-@import '../../../styles/mixins/_mixins.scss';
+@import "../../../styles/mixins/mixins";
 
 .ui-heading {
   margin: var(--heading-margin, 0);

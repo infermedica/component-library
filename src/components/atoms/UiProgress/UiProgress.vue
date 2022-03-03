@@ -67,7 +67,7 @@ const progressValue = computed(() => {
       display: block;
       width: var(--bar-padding);
       height: 100%;
-      content: '';
+      content: "";
       background-color: var(--progress-value-background, var(--color-progress-indicator));
     }
 
