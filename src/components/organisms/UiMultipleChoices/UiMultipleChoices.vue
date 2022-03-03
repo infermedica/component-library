@@ -127,13 +127,11 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue', 'update:invalid']);
 const hintType = computed(() => (props.touched && props.invalid ? 'error' : 'default'));
 const evidences = computed(() => (
-  props.modelValue.reduce(
-    (object, evidence) => {
-      // eslint-disable-next-line camelcase
-      const { id } = evidence;
-      return { ...object, [id]: { ...evidence } };
-    }, {},
-  )
+  props.modelValue.reduce((object, evidence) => {
+    // eslint-disable-next-line camelcase
+    const { id } = evidence;
+    return { ...object, [id]: { ...evidence } };
+  }, {})
 ));
 const valid = computed(() => (
   props.choices.every((choice) => (evidences.value[choice.id]))

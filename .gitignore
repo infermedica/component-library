@@ -2,10 +2,16 @@
 node_modules
 /storybook-static
 
+/tests/e2e/videos/
+/tests/e2e/screenshots/
+.jest-test-results.json
+/coverage
+
+
 # auto-generated file
 /index.js
 icons.js
-.jest-test-results.json
+
 
 # local env files
 .env.local

@@ -9,12 +9,21 @@ export default {
   args: {
     type: 'error',
     content: 'Select one answer',
+    modifiers: [],
   },
   argTypes: {
-    type: { control: { type: 'select', options: ['default', 'success', 'info', 'warning', 'error'] } },
-    content: { control: 'text' },
+    type: {
+      control: {
+        type: 'select',
+      },
+      options: ['default', 'success', 'info', 'warning', 'error'],
+    },
+    content: {
+      control: 'text',
+    },
     modifiers: {
-      control: { type: 'multi-select', options: ['ui-alert--secondary'] },
+      control: { type: 'multi-select' },
+      options: ['ui-alert--secondary'],
       table: {
         category: 'HTML attributes',
       },

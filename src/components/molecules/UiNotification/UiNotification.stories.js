@@ -12,8 +12,15 @@ export default {
     type: 'error',
   },
   argTypes: {
-    content: { control: 'text' },
-    type: { control: { type: 'select', options: ['success', 'info', 'warning', 'error'] } },
+    content: {
+      control: 'text',
+    },
+    type: {
+      control: {
+        type: 'select',
+      },
+      options: ['success', 'info', 'warning', 'error'],
+    },
   },
   parameters: {
     cssprops: {

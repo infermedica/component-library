@@ -19,6 +19,7 @@ export default {
     buttonIncrementAttrs: {
       'aria-label': 'increment number',
     },
+    hasControls: true,
   },
   argTypes: {
     modelValue: { control: false },

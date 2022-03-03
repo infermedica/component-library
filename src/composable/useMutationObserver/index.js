@@ -1,5 +1,8 @@
 import {
-  getCurrentScope, onScopeDispose, unref, watch,
+  unref,
+  watch,
+  getCurrentScope,
+  onScopeDispose,
 } from 'vue';
 
 function tryOnScopeDispose(fn) {
@@ -15,11 +18,7 @@ function unrefElement(elRef) {
   return plain?.$el ?? plain;
 }
 
-export default function useMutationObserver(
-  target,
-  callback,
-  options,
-) {
+export default function useMutationObserver(target, callback, options) {
   let observer;
   const isSupported = window && 'IntersectionObserver' in window;
 

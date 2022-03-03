@@ -12,18 +12,21 @@ const mountToggleButtonGroupWithButtons = ({
     { value: 3, label: '3' },
   ],
 }) => {
-  const wrapper = mount(h(UiToggleButtonGroup, {
-    modelValue: modelValue.value,
-    'onUpdate:modelValue': (val) => {
+  const wrapper = mount(h(
+    UiToggleButtonGroup,
+    {
+      modelValue: modelValue.value,
+      'onUpdate:modelValue': (val) => {
       // eslint-disable-next-line no-param-reassign
-      modelValue.value = val;
-      wrapper.setProps({ modelValue: val });
+        modelValue.value = val;
+        wrapper.setProps({ modelValue: val });
+      },
+      deselectable,
     },
-    deselectable,
-  },
-  {
-    default: () => items.map(({ value, label }) => h(UiToggleButton, { value }, { default: () => label })),
-  }));
+    {
+      default: () => items.map(({ value, label }) => h(UiToggleButton, { value }, { default: () => label })),
+    },
+  ));
 
   return wrapper;
 };

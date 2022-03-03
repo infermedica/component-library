@@ -14,6 +14,8 @@ export default {
       back: 'Back',
       next: 'Next',
     },
+    hideNextButton: false,
+    invalid: true,
   },
   argTypes: {
     invalid: {

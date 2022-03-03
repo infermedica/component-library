@@ -7,83 +7,71 @@
 html {
   --color-white: #fff;
 
-  @include color(
-    $name: "gray",
-    $colors: (
-      "50": #f3f5f7,
-      "100": #e7ebef,
-      "200": #d6dde3,
-      "300": #c1cbd5,
-      "400": #a4b1bf,
-      "500": #7d8fa3,
-      "600": #5f7285,
-      "700": #475463,
-      "800": #333d48,
-      "900": #1f262c,
-    )
-  );
-  @include color(
-    $name: "green",
-    $colors: (
-      "50": #e6f9f2,
-      "100": #c2f5e2,
-      "200": #92eece,
-      "300": #6ddeb6,
-      "400": #2dc692,
-      "500": #1aa175,
-      "600": #127f5b,
-      "700": #0b5f43,
-      "800": #064530,
-      "900": #033021,
-    )
-  );
-  @include color(
-    $name: "blue",
-    $colors: (
-      "50": #edf6fd,
-      "100": #daedfb,
-      "200": #c2e0f8,
-      "300": #a2cff5,
-      "400": #71b5f0,
-      "500": #2f91ea,
-      "600": #1471c9,
-      "700": #0f5496,
-      "800": #0b3d6d,
-      "900": #082c4d,
-    )
-  );
-  @include color(
-    $name: "red",
-    $colors: (
-      "50": #fff1f1,
-      "100": #ffe4e4,
-      "200": #ffd2d2,
-      "300": #ffb8b8,
-      "400": #ff8f8e,
-      "500": #fa514f,
-      "600": #d42e2e,
-      "700": #a12020,
-      "800": #781515,
-      "900": #580d0d,
-    )
-  );
-  @include color(
-    $name: "yellow",
-    $colors: (
-      "50": #fff4db,
-      "100": #ffe8b8,
-      "200": #ffd882,
-      "300": #ffc037,
-      "400": #eba100,
-      "500": #be8200,
-      "600": #976700,
-      "700": #704c00,
-      "800": #513800,
-      "900": #3a2700,
-    )
-  );
+  @include color($name: "gray", $colors: (
+    "50": #f3f5f7,
+    "100": #e7ebef,
+    "200": #d6dde3,
+    "300": #c1cbd5,
+    "400": #a4b1bf,
+    "500": #7d8fa3,
+    "600": #5f7285,
+    "700": #475463,
+    "800": #333d48,
+    "900": #1f262c,
+  ));
 
-  // Text
+  @include color($name: "green", $colors: (
+    "50": #e6f9f2,
+    "100": #c2f5e2,
+    "200": #92eece,
+    "300": #6ddeb6,
+    "400": #2dc692,
+    "500": #1aa175,
+    "600": #127f5b,
+    "700": #0b5f43,
+    "800": #064530,
+    "900": #033021,
+  ));
+
+  @include color($name: "blue", $colors: (
+    "50": #edf6fd,
+    "100": #daedfb,
+    "200": #c2e0f8,
+    "300": #a2cff5,
+    "400": #71b5f0,
+    "500": #2f91ea,
+    "600": #1471c9,
+    "700": #0f5496,
+    "800": #0b3d6d,
+    "900": #082c4d,
+  ));
+
+  @include color($name: "red", $colors: (
+    "50": #fff1f1,
+    "100": #ffe4e4,
+    "200": #ffd2d2,
+    "300": #ffb8b8,
+    "400": #ff8f8e,
+    "500": #fa514f,
+    "600": #d42e2e,
+    "700": #a12020,
+    "800": #781515,
+    "900": #580d0d,
+  ));
+
+  @include color($name: "yellow", $colors: (
+    "50": #fff4db,
+    "100": #ffe8b8,
+    "200": #ffd882,
+    "300": #ffc037,
+    "400": #eba100,
+    "500": #be8200,
+    "600": #976700,
+    "700": #704c00,
+    "800": #513800,
+    "900": #3a2700,
+  ));
+
   --color-text-body: var(--color-gray-900);
   --color-text-heading: var(--color-gray-900);
   --color-text-action-primary: var(--color-blue-600);
@@ -105,7 +93,6 @@ html {
   --color-text-on-brand-active: var(--color-blue-100);
   --color-text-on-brand-disabled: var(--color-blue-400);
 
-  // Icons
   --color-icon-primary: var(--color-blue-600);
   --color-icon-primary-hover: var(--color-blue-700);
   --color-icon-primary-active: var(--color-blue-800);
@@ -121,7 +108,6 @@ html {
   --color-icon-on-brand-active: var(--color-blue-100);
   --color-icon-on-brand-disabled: var(--color-blue-400);
 
-  // UI (colors shared by graphic UI elements)
   --color-backdrop: var(--color-gray-800);
   --color-background-white: var(--color-white);
   --color-background-white-hover: var(--color-gray-50);
@@ -142,35 +128,29 @@ html {
   --color-skeleton-loader-base: var(--color-gray-100);
   --color-skeleton-loader-wave: var(--color-gray-200);
 
-  // Messages
   --color-icon-error: var(--color-red-500);
   --color-icon-warning: var(--color-yellow-500);
   --color-icon-success: var(--color-green-500);
   --color-icon-info: var(--color-blue-500);
 
-  // Component-specific - selection controls
   --color-selectioncontrols-selection: var(--color-green-500);
   --color-selectioncontrols-selection-hover: var(--color-green-600);
   --color-selectioncontrols-selection-active: var(--color-green-700);
 
-  // Component-specific - triage hero colors
   --color-triage-emergency: var(--color-yellow-300);
   --color-triage-emergency-ambulance: var(--color-red-500);
   --color-triage-consultation: var(--color-blue-500);
   --color-triage-consultation-24: var(--color-blue-500);
   --color-triage-self-care: var(--color-green-500);
 
-  // Component-specific - Range
   --color-range-thumb: var(--color-green-600);
   --color-range-thumb-hover: var(--color-green-700);
   --color-range-thumb-active: var(--color-green-800);
   --color-range-progress-indicator: var(--color-green-600);
 
-  // Component-specific - Progress
   --color-progress-indicator: var(--color-green-600);
   --color-progress-track: var(--color-gray-200);
 
-  // Component-specific - Border
   --color-border-divider: var(--color-gray-100);
   --color-border-subtle: var(--color-gray-200);
   --color-border-strong: var(--color-gray-500);
@@ -187,7 +167,6 @@ html {
   --color-border-error-strong-active: var(--color-red-700);
   --color-border-selection: var(--color-blue-600);
 
-  // Component-specific - Chip
   --color-chip-text: var(--color-white);
   --color-chip-background: var(--color-blue-600);
   --color-chip-icon: var(--color-white);
@@ -195,7 +174,6 @@ html {
   --color-chip-icon-background-hover: var(--color-blue-800);
   --color-chip-icon-background-active: var(--color-blue-900);
 
-  // Data visualizations
   --color-dataviz-diverging-track: var(--color-gray-100);
   --color-dataviz-diverging-moderately-negative: var(--color-yellow-300);
   --color-dataviz-diverging-strongly-negative: var(--color-red-500);

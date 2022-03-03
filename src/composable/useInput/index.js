@@ -1,27 +1,30 @@
-/**
- * Used to distinguish attributes for input and its root element
- * @param {Object} attrs - Vue Component $attrs desctructured from context, { $args }
- * @returns
- * Returns two helper functions to get root and input attributes
- */
+const attrsRegex = /class|style|^on(?!Blur$|Focus$).*/gi;
+
 export default function useInput() {
   function getInputAttrs(attrs) {
     return Object.keys(attrs)
-      .filter((key) => !key.match(/class|style|^on(?!Blur$|Focus$).*/gi))
-      .reduce((obj, key) => (
-        { ...obj, [key]: attrs[key] }
+      .filter((key) => (!key.match(attrsRegex)))
+      .reduce((object, key) => (
+        {
+          ...object,
+          [key]: attrs[key],
+        }
       ), {});
   }
+
   function getRootAttrs(attrs) {
     return Object.keys(attrs)
-      .filter((key) => key.match(/class|style|^on(?!Blur$|Focus$).*/gi))
-      .reduce((obj, key) => (
-        { ...obj, [key]: attrs[key] }
+      .filter((key) => (key.match(attrsRegex)))
+      .reduce((object, key) => (
+        {
+          ...object,
+          [key]: attrs[key],
+        }
       ), {});
   }
 
   return {
-    getRootAttrs,
     getInputAttrs,
+    getRootAttrs,
   };
 }

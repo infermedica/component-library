@@ -5,7 +5,8 @@ import { getFocusableElements } from '../focus-trap/helpers';
 export const focusFirst = {
   async beforeMount(el) {
     await nextTick();
-    const firsFocusable = getFocusableElements(el).shift();
-    firsFocusable.focus();
+    getFocusableElements(el)
+      .at(0)
+      .focus();
   },
 };

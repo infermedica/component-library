@@ -15,11 +15,15 @@ export default {
     iconAttrs: {
       icon: 'yes',
     },
+    modifiers: [],
   },
   argTypes: {
     content: { control: 'text' },
     modifiers: {
-      control: { type: 'multi-select', options: ['ui-tile--small'] },
+      control: {
+        type: 'multi-select',
+      },
+      options: ['ui-tile--small'],
       table: {
         category: 'HTML attributes',
       },

@@ -7,19 +7,21 @@ export default {
   args: {
     content: 'Back',
     href: '#',
+    disabled: false,
+    modifiers: [],
   },
   argTypes: {
     content: { control: 'text' },
     modifiers: {
       control: {
         type: 'multi-select',
-        options: [
-          'ui-link--small',
-          'ui-link--is-disabled',
-          'ui-link--has-icon',
-          'ui-link--secondary',
-        ],
       },
+      options: [
+        'ui-link--small',
+        'ui-link--is-disabled',
+        'ui-link--has-icon',
+        'ui-link--secondary',
+      ],
       table: {
         category: 'HTML attributes',
       },

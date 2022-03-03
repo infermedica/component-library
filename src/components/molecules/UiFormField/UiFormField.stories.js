@@ -14,6 +14,7 @@ export default {
     hint: 'Required',
     alertAttrs: {},
     errorMessage: 'Please enter a valid height',
+    id: null,
   },
   argTypes: {
     label: { control: 'text' },

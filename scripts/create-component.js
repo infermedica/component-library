@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const path = require('path');
 const fs = require('fs');
 const fileSave = require('file-save');
@@ -23,7 +24,6 @@ const glob = require('glob');
   const component = ATOMIC_TYPE[response.component];
   const { name } = response;
   const fwFolder = './scripts/component-template/';
-  createComponent(component, name);
   function createComponent(componentFolder, componentName) {
     const ComponentType = upperCamelCase(componentFolder);
     const ComponentName = upperCamelCase(componentName);
@@ -50,6 +50,8 @@ const glob = require('glob');
         .write(content, 'utf8');
     });
   }
+
+  createComponent(component, name);
 })();
 
 process.on('exit', (code) => {

@@ -14,6 +14,8 @@ export default {
     id: 'agreement',
     value: '',
     modelValue: true,
+    disabled: false,
+    modifiers: [],
   },
   argTypes: {
     content: { control: 'text' },
@@ -26,7 +28,8 @@ export default {
       },
     },
     modifiers: {
-      control: { type: 'multi-select', options: ['ui-checkbox--has-error', 'ui-checkbox--is-disabled'] },
+      control: { type: 'multi-select' },
+      options: ['ui-checkbox--has-error', 'ui-checkbox--is-disabled'],
       table: {
         category: 'HTML attributes',
       },

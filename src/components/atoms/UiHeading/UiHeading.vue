@@ -17,7 +17,7 @@ const props = defineProps({
    * Use this props to set heading level from 1-6
    */
   level: {
-    type: String,
+    type: [Number, String],
     default: '2',
     validator: (value) => {
       const level = parseInt(value, 10);

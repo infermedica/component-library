@@ -72,6 +72,8 @@ export default {
     alertHintAttrs: {
       id: 'hint',
     },
+    invalid: true,
+    touched: false,
   },
   argTypes: {
     modelValue: {

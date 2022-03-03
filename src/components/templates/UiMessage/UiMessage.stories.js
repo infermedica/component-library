@@ -38,8 +38,8 @@ export default {
     illustration: {
       control: {
         type: 'select',
-        options: ['agreement', 'boy', 'no-internet-illustration', 'podium', 'lock', 'agreement-rtl', 'boy-rtl', 'no-internet-illustration-rtl', 'podium-rtl'],
       },
+      options: ['agreement', 'boy', 'no-internet-illustration', 'podium', 'lock', 'agreement-rtl', 'boy-rtl', 'no-internet-illustration-rtl', 'podium-rtl'],
       table: {
         category: 'props',
       },

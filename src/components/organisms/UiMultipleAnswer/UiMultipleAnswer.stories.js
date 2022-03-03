@@ -100,6 +100,8 @@ export default {
         ],
       },
     ],
+    invalid: true,
+    touched: false,
   },
   argTypes: {
     modelValue: {

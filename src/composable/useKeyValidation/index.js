@@ -1,9 +1,3 @@
-/**
- * Used to input key validation
- * @param {Object} event - Event object
- * @returns
- * Returns function to prevent from input chars different then numbers
- */
 export default function useKeyValidation() {
   function numbersOnly(event) {
     const { key } = event;
@@ -11,7 +5,6 @@ export default function useKeyValidation() {
       event.preventDefault();
     }
   }
-
   return {
     numbersOnly,
   };

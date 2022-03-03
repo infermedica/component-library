@@ -1,7 +1,7 @@
 module.exports = {
   content: [
-    './src/**/*.stories.js',
-    './src/**/*.stories.mdx',
+    './docs/**/*.stories.@(js|jsx|ts|tsx|mdx)',
+    './src/**/*.stories.@(js|jsx|ts|tsx|mdx)',
   ],
   theme: {
     screens: {
@@ -31,4 +31,5 @@ module.exports = {
       },
     },
   },
+  plugins: [],
 };

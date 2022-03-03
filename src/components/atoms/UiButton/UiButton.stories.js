@@ -7,6 +7,7 @@ export default {
   args: {
     content: 'Next',
     disabled: false,
+    modifiers: [],
   },
   argTypes: {
     content: { control: 'text' },
@@ -19,16 +20,16 @@ export default {
     modifiers: {
       control: {
         type: 'multi-select',
-        options: [
-          'ui-button--small',
-          'ui-button--is-disabled',
-          'ui-button--has-icon',
-          'ui-button--outlined',
-          'ui-button--circled',
-          'ui-button--text',
-          'ui-button--secondary',
-        ],
       },
+      options: [
+        'ui-button--small',
+        'ui-button--is-disabled',
+        'ui-button--has-icon',
+        'ui-button--outlined',
+        'ui-button--circled',
+        'ui-button--text',
+        'ui-button--secondary',
+      ],
       table: {
         category: 'HTML attributes',
       },

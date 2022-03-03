@@ -52,43 +52,43 @@ import UiText from '../../atoms/UiText/UiText.vue';
 
 const props = defineProps({
   /**
-     * Use this props to set label $attrs
-     */
+   * Use this props to set label $attrs
+   */
   labelAttrs: {
     type: Object,
     default: () => ({}),
   },
   /**
-     * Use this props to set label text
-     */
+   * Use this props to set label text
+   */
   label: {
     type: [Boolean, String],
     default: false,
   },
   /**
-     * Use this props to set input id and label for
-     */
+   * Use this props to set input id and label for
+   */
   id: {
     type: String,
     default: '',
   },
   /**
-     * Use this props to set label hint like "Required" or "Optional"
-     */
+   * Use this props to set label hint like "Required" or "Optional"
+   */
   hint: {
     type: String,
     default: '',
   },
   /**
-     * Use this props to set alert $attrs
-     */
+   * Use this props to set alert $attrs
+   */
   alertAttrs: {
     type: Object,
     default: () => ({}),
   },
   /**
-     * Use this props to set alert message
-     */
+   * Use this props to set alert message
+   */
   errorMessage: {
     type: [Boolean, String],
     default: '',

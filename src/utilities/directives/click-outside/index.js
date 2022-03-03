@@ -6,15 +6,16 @@ function isDisabled({ arg }) {
 export const clickOutside = {
   beforeMount(el, binding) {
     if (isDisabled(binding)) return;
-    el.__vueClickOutsideHandler__ = (event) => {
-      if (!el.contains(event.target) && el !== event.target) {
+    el.__vueClickOutsideHandler = (event) => {
+      const { target } = event;
+      if (!el.contains(target) && el !== target) {
         binding.value(event);
       }
     };
-    document.addEventListener('click', el.__vueClickOutsideHandler__);
+    document.addEventListener('click', el.__vueClickOutsideHandler);
   },
   beforeUnmount(el, binding) {
     if (isDisabled(binding)) return;
-    document.removeEventListener('click', el.__vueClickOutsideHandler__);
+    document.removeEventListener('click', el.__vueClickOutsideHandler);
   },
 };

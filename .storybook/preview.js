@@ -1,23 +1,22 @@
-import './tailwindcss.css';
-import './styles.css';
-import '@/styles/styles.scss';
-import { createRouter, createWebHistory } from 'vue-router';
-import { addDecorator, app } from '@storybook/vue3';
 import { withTests } from '@storybook/addon-jest';
+import { addDecorator } from '@storybook/vue3';
 import results from '../.jest-test-results.json';
 
-const routes = []
-const router = createRouter({
-  history: createWebHistory(),
-  routes,
-})
-app.use(router);
-document.body.onload = function() {
-  document.body.setAttribute('dir', 'ltr')
-};
+import './tailwindcss.scss';
+import '@/styles/styles.scss';
+import './styles.scss';
+
+export const parameters = {
+  actions: { argTypesRegex: "^on[A-Z].*" },
+}
 
 addDecorator(
   withTests({
     results,
   })
-)
+);
+
+document.body.onload = function() {
+  // Set LTR as default directionality.
+  document.body.setAttribute('dir', 'ltr')
+}

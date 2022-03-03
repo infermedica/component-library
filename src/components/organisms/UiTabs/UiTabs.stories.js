@@ -21,10 +21,12 @@ export default {
         content: '1. Erythrocyte Sedimentation Rate',
       },
     ],
+    modifiers: [],
   },
   argTypes: {
     modifiers: {
-      control: { type: 'multi-select', options: ['ui-tabs--fixed'] },
+      control: { type: 'multi-select' },
+      options: ['ui-tabs--fixed'],
       table: {
         category: 'HTML attributes',
       },

@@ -13,6 +13,8 @@ export default {
     value: 'p_7',
     modelValue: true,
     name: 'answer',
+    disabled: false,
+    modifiers: [],
   },
   argTypes: {
     content: { control: 'text' },
@@ -27,7 +29,8 @@ export default {
       },
     },
     modifiers: {
-      control: { type: 'multi-select', options: ['ui-radio--has-error', 'ui-radio--is-disabled'] },
+      control: { type: 'multi-select' },
+      options: ['ui-radio--has-error', 'ui-radio--is-disabled'],
       table: {
         category: 'HTML attributes',
       },

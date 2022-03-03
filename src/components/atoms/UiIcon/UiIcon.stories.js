@@ -13,8 +13,8 @@ export default {
     icon: {
       control: {
         type: 'select',
-        options: icons,
       },
+      options: icons,
     },
   },
   parameters: {
@@ -49,7 +49,7 @@ export const IconAsImport = (args) => ({
       /* webpackChunkName: "icons" */
       /* webpackMode: "eager" */
       /* webpackPreload: true */
-      '../../../assets/svg/ce.svg'
+      '../../../assets/icons/ce.svg'
     ));
     return {
       ...args,
@@ -75,8 +75,8 @@ IconAsIllustration.argTypes = {
   icon: {
     control: {
       type: 'select',
-      options: ['agreement', 'boy', 'no-internet-illustration', 'podium'],
     },
+    options: ['agreement', 'boy', 'no-internet-illustration', 'podium'],
   },
 };
 

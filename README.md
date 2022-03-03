@@ -18,7 +18,7 @@ Use `create-component` to create a new component, run
 ``` bash
 npm run create-component
 ```
-and select it level (`atoms`, `molecules` or `organisms`). 
+and select it level (`atoms`, `molecules` or `organisms`).
 It created a new component directory in `src/components/{level}`.
 
 Use `create-index` to create package index.js with components exports.

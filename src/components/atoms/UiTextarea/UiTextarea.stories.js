@@ -9,6 +9,8 @@ export default {
     placeholder: 'I still don’t know what should I do',
     resize: true,
     modelValue: '',
+    disabled: false,
+    modifiers: [],
   },
   argTypes: {
     placeholder: { control: 'text' },
@@ -18,15 +20,16 @@ export default {
         category: 'HTML attributes',
       },
     },
-    resize: { control: { type: 'select', options: [true, false, 'horizontal', 'vertical'] } },
+    resize: { control: { type: 'select' } },
+    options: [true, false, 'horizontal', 'vertical'],
     modifiers: {
       control: {
         type: 'multi-select',
-        options: [
-          'ui-textarea--is-disabled',
-          'ui-textarea--has-error',
-        ],
       },
+      options: [
+        'ui-textarea--is-disabled',
+        'ui-textarea--has-error',
+      ],
       table: {
         category: 'HTML attributes',
       },

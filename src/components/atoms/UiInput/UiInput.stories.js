@@ -13,6 +13,8 @@ export default {
     modelValue: '',
     suffix: '',
     placeholder: 'Put your height',
+    disabled: false,
+    modifiers: [],
   },
   argTypes: {
     modelValue: {
@@ -27,12 +29,12 @@ export default {
     modifiers: {
       control: {
         type: 'multi-select',
-        options: [
-          'ui-input--is-disabled',
-          'ui-input--has-error',
-          'ui-input--has-icon',
-        ],
       },
+      options: [
+        'ui-input--is-disabled',
+        'ui-input--has-error',
+        'ui-input--has-icon',
+      ],
       table: {
         category: 'HTML attributes',
       },

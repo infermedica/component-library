@@ -1,5 +1,4 @@
 html {
-  // Space
   --space-2: 0.125rem;
   --space-4: 0.25rem;
   --space-8: 0.5rem;
@@ -13,7 +12,6 @@ html {
   --space-48: 3rem;
   --space-64: 4rem;
 
-  // Border-radius
   --border-radius-sharp: 0;
   --border-radius-container: 5px;
   --border-radius-button: 5px;
@@ -22,14 +20,11 @@ html {
   --border-radius-pill: 20rem;
   --border-radius-circle: 50%;
 
-  // Box shadow
   --box-shadow-low: 0 2px 6px rgba(51, 61, 72, 0.1);
   --box-shadow-high: 0 2px 16px rgba(51, 61, 72, 0.1), 0 2px 6px rgba(51, 61, 72, 0.1);
 
-  // Focus
   --focus-outer: 0 0 0 2px var(--color-border-focus-light), 0 0 0 4px var(--color-border-focus-dark);
   --focus-inner: 0 0 0 2px var(--color-border-focus-light), 0 0 0 4px var(--color-border-focus-dark);
 
-  // Opacity
   --opacity-medium: 0.5;
 }

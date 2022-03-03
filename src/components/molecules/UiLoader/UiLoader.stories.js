@@ -14,6 +14,8 @@ export default {
     tag: 'div',
     transition: 'fade',
     loaderAttrs: {},
+    isLoading: true,
+    type: 'spinner',
   },
   argTypes: {
     tag: { control: 'text' },

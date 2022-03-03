@@ -19,7 +19,7 @@ const file = computed(() => (typeof props.icon === 'string'
     /* webpackChunkName: "icons" */
     /* webpackMode: "eager" */
     /* webpackPreload: true */
-    `../../../assets/svg/${props.icon}.svg`
+    `../../../assets/icons/${props.icon}.svg`
   ))
   : props.icon));
 </script>

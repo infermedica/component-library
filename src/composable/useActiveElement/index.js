@@ -1,5 +1,8 @@
 import {
-  onMounted, onUnmounted, readonly, ref,
+  ref,
+  readonly,
+  onMounted,
+  onUnmounted,
 } from 'vue';
 
 export default function useActiveElement() {
@@ -8,18 +11,19 @@ export default function useActiveElement() {
   const handleBlur = () => {
     activeElement.value = null;
   };
+
   const handleFocus = () => {
     activeElement.value = window.document.activeElement;
   };
 
   onMounted(() => {
-    window.addEventListener('blur', handleBlur, true);
-    window.addEventListener('focus', handleFocus, true);
+    window.document.addEventListener('blur', handleBlur, true);
+    window.document.addEventListener('focus', handleFocus, true);
   });
 
   onUnmounted(() => {
-    window.removeEventListener('blur', handleBlur);
-    window.removeEventListener('focus', handleFocus);
+    window.document.removeEventListener('blur', handleBlur);
+    window.document.removeEventListener('focus', handleFocus);
   });
 
   return readonly(activeElement);

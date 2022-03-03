@@ -16,6 +16,7 @@ export default {
     title: 'Call an ambulance',
     subtitle: 'Recommendation',
     description: 'Your symptoms are very serious, and you may require emergency care. Do not delay. Call an ambulance right now.',
+    modifiers: [],
   },
   argTypes: {
     title: {
@@ -39,10 +40,10 @@ export default {
     type: {
       control: {
         type: 'select',
-        options: [
-          'emergency_ambulance', 'emergency', 'consultation_24', 'consultation', 'self_care',
-        ],
       },
+      options: [
+        'emergency_ambulance', 'emergency', 'consultation_24', 'consultation', 'self_care',
+      ],
       table: {
         category: 'props',
       },
@@ -50,10 +51,10 @@ export default {
     modifiers: {
       control: {
         type: 'multi-select',
-        options: [
-          'ui-card--modern',
-        ],
       },
+      options: [
+        'ui-card--modern',
+      ],
       table: {
         category: 'HTML attributes',
       },

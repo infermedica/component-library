@@ -19,6 +19,8 @@ export default {
       'aria-label': 'decrement age',
     },
     ariaLabel: 'patient age',
+    disabled: false,
+    modifiers: [],
   },
   argTypes: {
     modelValue: { control: false },

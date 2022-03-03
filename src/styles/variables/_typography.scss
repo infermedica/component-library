@@ -1,14 +1,7 @@
 html {
-  // Font family
   --font-family-heading: "Roboto", sans-serif;
   --font-family-body: "Roboto", sans-serif;
 
-  &[dir=rtl] {
-    --font-family-heading: "IBM Plex Sans Arabic", sans-serif;
-    --font-family-body: "IBM Plex Sans Arabic", sans-serif;
-  }
-
-  // Font size
   --font-size-1: 0.875rem;
   --font-size-2: 1rem;
   --font-size-3: 1.125rem;
@@ -17,21 +10,17 @@ html {
   --font-size-6: 1.75rem;
   --font-size-7: 2rem;
 
-  // Font weight
   --font-weight-default: 400;
   --font-weight-thick: 500;
 
-  // Line height
   --line-height-default: 1.5;
   --line-height-1: 1.25rem;
   --line-height-2: 1.5rem;
 
-  // Letter spacing
   --letter-spacing-none: 0;
   --letter-spacing-small: 0.01em;
   --letter-spacing-medium: 0.02em;
 
-  // Font
   --font-h1: var(--font-weight-default) var(--font-size-6) / var(--line-height-default) var(--font-family-heading);
   --font-h2: var(--font-weight-default) var(--font-size-4) / var(--line-height-default) var(--font-family-heading);
   --font-h3: var(--font-weight-default) var(--font-size-3) / var(--line-height-default) var(--font-family-heading);
@@ -50,7 +39,6 @@ html {
     --font-h3: var(--font-weight-default) var(--font-size-4) / var(--line-height-default) var(--font-family-heading);
   }
 
-  // Font letter spacing
   --letter-spacing-h1: var(--letter-spacing-none);
   --letter-spacing-h2: var(--letter-spacing-none);
   --letter-spacing-h3: var(--letter-spacing-small);
@@ -67,4 +55,10 @@ html {
     --letter-spacing-h2: var(--letter-spacing-small);
     --letter-spacing-h3: var(--letter-spacing-small);
   }
+}
+
+
+html[dir=rtl] {
+  --font-family-heading: "IBM Plex Sans Arabic", sans-serif;
+  --font-family-body: "IBM Plex Sans Arabic", sans-serif;
 }

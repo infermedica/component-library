@@ -1,0 +1,31 @@
+// todo: handle .focus-is-hidden
+//.focus-is-hidden {
+//  --border-radius-outline: 0;
+//  --focus-outer: none;
+//}
+
+// todo: handle --message-aside-tablet-margin
+//[dir=rtl] {
+//  .ui-message--error-rtl {
+//    --message-aside-tablet-margin: 0 0 0 var(--space-40);
+//  }
+//
+//  .ui-message--error-condensed-rtl {
+//    --message-aside-tablet-margin: 0 0 0 var(--space-12) !important;
+//  }
+//}
+
+// reset
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  box-sizing: border-box;
+}

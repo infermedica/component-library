@@ -8,7 +8,9 @@ export default {
   },
   argTypes: {
     content: {
-      control: 'text',
+      control: {
+        type: 'text',
+      },
     },
   },
 };
@@ -18,12 +20,14 @@ const Template = (args) => ({
   setup() {
     return { ...args };
   },
-  template: `<ComponentNameCamelCase :common="common">
-    {{ content }}
+  template: `<ComponentNameCamelCase
+    :content="content"
+  >
+  {{ content }}
   </ComponentNameCamelCase>`,
 });
 
 export const Common = Template.bind({});
 Common.args = {
-  common: 'common',
+  content: 'common',
 };

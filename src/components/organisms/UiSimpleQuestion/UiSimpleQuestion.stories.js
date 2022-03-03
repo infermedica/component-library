@@ -28,14 +28,15 @@ export default {
       },
     ],
     tileAttrs: {},
+    modifiers: [],
   },
   argTypes: {
     modelValue: { control: false },
     modifiers: {
       control: {
         type: 'multi-select',
-        options: ['ui-simple-question--small'],
       },
+      options: ['ui-simple-question--small'],
       table: {
         category: 'HTML attributes',
       },

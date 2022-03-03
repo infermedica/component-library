@@ -17,7 +17,8 @@ export default {
   argTypes: {
     content: { control: 'text' },
     modifiers: {
-      control: { type: 'multi-select', options: ['ui-popover--has-arrow', 'ui-popover--has-left-arrow', 'ui-popover--unrounded', 'ui-popover--has-mobile'] },
+      control: { type: 'multi-select' },
+      options: ['ui-popover--has-arrow', 'ui-popover--has-left-arrow', 'ui-popover--unrounded', 'ui-popover--has-mobile'],
       table: {
         category: 'HTML attributes',
       },
