@@ -60,6 +60,7 @@ const { componentTag, routeAttrs } = useLink(props);
   text-transform: var(--button-text-transform);
   white-space: var(--button-white-space, nowrap);
   cursor: var(--button-cursor, pointer);
+  vertical-align: var(--button-vertical-align, middle);
   background:
     var(
       --button-background,
