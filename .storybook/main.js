@@ -51,16 +51,17 @@ module.exports = {
 
     return config;
   },
-  'stories': [
+  stories: [
     '../docs/**/*.stories.@(js|jsx|ts|tsx|mdx)',
     '../src/**/*.stories.@(js|jsx|ts|tsx|mdx)'
   ],
-  'addons': [
+  addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-a11y',
     '@brightlayer-ui/storybook-rtl-addon/register',
     '@storybook/addon-jest',
+    '@storybook/addon-interactions',
     '@ljcl/storybook-addon-cssprops',
     {
       name: '@storybook/addon-postcss',
@@ -71,8 +72,11 @@ module.exports = {
       }
     }
   ],
-  'framework': '@storybook/vue3',
-  'core': {
+  framework: '@storybook/vue3',
+  core: {
     'builder': 'webpack5'
+  },
+  features: {
+    interactionsDebugger: true,
   }
 }

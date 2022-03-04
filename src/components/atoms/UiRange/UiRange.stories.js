@@ -1,8 +1,10 @@
+import { within, userEvent } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
+import { ref } from 'vue';
+
 import UiRange from '@/components/atoms/UiRange/UiRange.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
-
-import { ref } from 'vue';
 
 export default {
   title: 'Atoms/Range',
@@ -14,9 +16,11 @@ export default {
     max: 122,
     buttonIncrementAttrs: {
       'aria-label': 'increment age',
+      'data-testid': 'increment-age',
     },
     buttonDecrementAttrs: {
       'aria-label': 'decrement age',
+      'data-testid': 'decrement-age',
     },
     ariaLabel: 'patient age',
     disabled: false,
@@ -139,6 +143,50 @@ export const Common = (args) => ({
     :aria-label="ariaLabel"
   />`,
 });
+Common.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await userEvent.click(canvas.getByTestId('increment-age'));
+  expect(canvas.getByText('51')).toBeInTheDocument();
+  await userEvent.click(canvas.getByTestId('decrement-age'));
+  expect(canvas.getByText('50')).toBeInTheDocument();
+};
+
+export const CommonWithFailInteractionTest = (args) => ({
+  components: { UiRange, UiButton, UiIcon },
+  setup() {
+    const modelValue = ref(50);
+    return { ...args, modelValue };
+  },
+  template: `<UiRange 
+    v-model="modelValue"
+    :min="min"
+    :max="max"
+    :button-increment-attrs="buttonIncrementAttrs"
+    :button-decrement-attrs="buttonDecrementAttrs"
+    :aria-label="ariaLabel"
+  >
+  <template #decrement="{attrs, change, value}">
+    <UiButton
+        class="ui-range__decrement ui-button--outlined ui-button--circled ui-button--has-icon"
+        tabindex="-1"
+        v-bind="attrs"
+        @click="change(value, -5)"
+    >
+      <UiIcon
+          icon="minus"
+      />
+    </UiButton>
+  </template>
+  </UiRange>
+  `,
+});
+CommonWithFailInteractionTest.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await userEvent.click(canvas.getByTestId('increment-age'));
+  expect(canvas.getByText('51')).toBeInTheDocument();
+  await userEvent.click(canvas.getByTestId('decrement-age'));
+  expect(canvas.getByText('50')).toBeInTheDocument();
+};
 
 export const WithDecrementSlot = (args) => ({
   components: { UiRange, UiButton, UiIcon },
