@@ -63,7 +63,7 @@ export default {
   parameters: {
     cssprops: {
       'card-padding': {
-        value: 'var(--space-20) var(--space-20) var(--space-32)',
+        value: '0',
         control: 'text',
         description: '',
       },
@@ -73,12 +73,12 @@ export default {
         description: '',
       },
       'card-triage-padding': {
-        value: 'var(--space-20)',
+        value: 'var(--space-16) var(--space-20)',
         control: 'text',
         description: '',
       },
       'card-triage-margin': {
-        value: '0 0 var(--space-20)',
+        value: '0',
         control: 'text',
         description: '',
       },
@@ -88,12 +88,12 @@ export default {
         description: '',
       },
       'card-triage-border-radius': {
-        value: 'var(--border-radius-container)',
+        value: '0',
         control: 'text',
         description: '',
       },
       'card-triage-tablet-padding': {
-        value: 'var(--space-40) var(--space-32)',
+        value: 'var(--space-32) var(--space-32) var(--space-40)',
         control: 'text',
         description: '',
       },
@@ -108,7 +108,7 @@ export default {
         description: '',
       },
       'card-triage-icon-size': {
-        value: '4rem',
+        value: '3rem',
         control: 'text',
         description: '',
       },
@@ -123,17 +123,17 @@ export default {
         description: '',
       },
       'card-title-margin': {
-        value: '0 0 var(--space-16)',
+        value: '0 0 var(--space-12)',
         control: 'text',
         description: '',
       },
       'card-content-padding': {
-        value: undefined,
+        value: 'var(--space-24) var(--space-20) var(--space-32)',
         control: 'text',
         description: '',
       },
       'card-content-tablet-padding': {
-        value: 'var(--space-40) var(--space-40) var(--space-48) var(--space-48)',
+        value: 'var(--space-32) var(--space-48) var(--space-48)',
         control: 'text',
         description: '',
       },

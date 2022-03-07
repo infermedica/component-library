@@ -47,7 +47,7 @@ const { componentTag, routeAttrs } = useLink(props);
   @include font(body-1-thick);
   $this: &;
 
-  box-sizing: border-box;
+  position: relative;
   display: var(--button-display, inline-flex);
   align-items: var(--button-align-items, center);
   justify-content: var(--button-justify-content, center);
@@ -66,12 +66,7 @@ const { componentTag, routeAttrs } = useLink(props);
       --button-background,
       var(--color-background-action)
     );
-  border:
-    var(
-      --button-border,
-      var(--button-border-style, solid) var(--button-border-color, transparent)
-    );
-  border-width: var(--button-border-width, 0);
+  border: none;
   border-radius: var(--button-border-radius, var(--border-radius-button));
   transition:
     var(
@@ -80,6 +75,18 @@ const { componentTag, routeAttrs } = useLink(props);
       border-color 0.15s ease-in-out,
       color 0.15s ease-in-out)
     );
+
+  &::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    content: "";
+    border: var(--button-border, var(--button-border-style, solid) var(--button-border-color, transparent));
+    border-width: var(--button-border-width, 0);
+    border-radius: inherit;
+  }
 
   @media (hover: hover) {
     &:hover {
@@ -160,9 +167,9 @@ const { componentTag, routeAttrs } = useLink(props);
     --button-color: var(--color-text-action-primary);
     --button-hover-color: var(--color-text-action-primary-hover);
     --button-active-color: var(--color-text-action-primary-active);
-    --button-border-color: var(--color-gray-200);
-    --button-hover-border-color: var(--color-gray-200);
-    --button-active-border-color: var(--color-gray-200);
+    --button-border-color: var(--color-border-subtle);
+    --button-hover-border-color: var(--color-border-subtle);
+    --button-active-border-color: var(--color-border-subtle);
     --button-border-width: 1px;
     --button-background: transparent;
     --button-hover-background: var(--color-background-white-hover);
@@ -172,9 +179,9 @@ const { componentTag, routeAttrs } = useLink(props);
       --button-color: var(--color-text-disabled);
       --button-hover-color: var(--color-text-disabled);
       --button-active-color: var(--color-text-disabled);
-      --button-border-color: var(--color-gray-200);
-      --button-hover-border-color: var(--color-gray-200);
-      --button-active-border-color: var(--color-gray-200);
+      --button-border-color: var(--color-border-subtle);
+      --button-hover-border-color: var(--color-border-subtle);
+      --button-active-border-color: var(--color-border-subtle);
       --button-background: var(--color-white);
       --button-hover-background: var(--color-white);
       --button-active-background: var(--color-white);

@@ -17,7 +17,8 @@
     "create:component": "node scripts/create-component.js",
     "create:icons-list": "node scripts/create-icons-list.js",
     "update:docs": "node scripts/update-components-docs.mjs && npm run lint",
-    "postinstall": "npm run create:index"
+    "postinstall": "npm run create:index",
+    "chromatic": "npx chromatic --project-token=df87eb661233"
   },
   "main": "index.js",
   "module": "index.js",

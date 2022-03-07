@@ -85,26 +85,12 @@ function selectHandler() {
 
 <style lang="scss">
 .ui-tile {
-  --button-border-width: 0;
   --button-padding: var(--tile-padding, var(--space-16));
   --button-white-space: wrap;
 
-  position: relative;
   align-items: center;
   justify-content: flex-start;
   transition: transform 200ms ease;
-
-  &::before {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    margin: 1px;
-    content: "";
-    border-radius: var(--tile-border-radius, var(--border-radius-form));
-    box-shadow: 0 0 0 1px var(--tile-border-color, var(--color-border-subtle)); // border
-  }
 
   @media (min-width: 768px) {
     flex-direction: column;

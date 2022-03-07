@@ -36,11 +36,6 @@ export default {
         control: 'text',
         description: '',
       },
-      'tile-border-radius': {
-        value: 'var(--border-radius-form)',
-        control: 'text',
-        description: '',
-      },
       'tile-active-transform': {
         value: 'scale(0.96)',
         control: 'text',
