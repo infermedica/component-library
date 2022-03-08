@@ -1,13 +1,13 @@
 ---
 steps:
   - id: 'install-dependencies'
-    name: 'node:14.17.5'
+    name: 'node:16.13.2'
     entrypoint: "npm"
     args: [ 'ci' ]
     waitFor: [ '-' ]
 
   - id: 'build'
-    name: 'node:14.17.5'
+    name: 'node:16.13.2'
     entrypoint: "npm"
     args: [ 'run', 'build-storybook' ]
     waitFor: [ 'install-dependencies' ]
