@@ -147,6 +147,8 @@ const { componentTag, routeAttrs } = useLink(props);
   }
 
   &--small {
+    @include font(body-2-comfortable);
+
     --button-padding: var(--space-8) var(--space-20);
   }
 
