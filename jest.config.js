@@ -3,7 +3,7 @@ module.exports = {
   testMatch: ['<rootDir>/src/**/*.spec.{j,t}s?(x)'],
   collectCoverage: false,
   transform: {
-    '^.+\\.svg$': '<rootDir>/tests/unit/transform/vue-svg-loader.js',
+    '^.+\\.svg$': '<rootDir>/tests/unit/transform/vueSvgLoader.js',
   },
 };
 
