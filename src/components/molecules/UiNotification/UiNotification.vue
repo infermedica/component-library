@@ -28,13 +28,24 @@ const rootClassModifier = computed(() => `ui-notification--${props.type}`);
 .ui-notification {
   --alert-icon-margin: 0 var(--space-12) 0 0;
 
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: var(--notification-padding, var(--space-12));
   background: var(--notification-background);
-  border: var(--notification-border);
-  border-width: 1px;
   border-radius: var(--notification-border-radius, var(--border-radius-container));
+
+  &::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    content: "";
+    border: var(--notification-border);
+    border-width: var(--notification-border-width, 1px);
+    border-radius: inherit;
+  }
 
   [dir="rtl"] & {
     --alert-icon-margin: 0 0 0 var(--space-12);
