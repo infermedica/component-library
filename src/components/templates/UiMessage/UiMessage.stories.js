@@ -3,6 +3,7 @@ import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
+import './UiMessage.stories.scss';
 
 export default {
   title: 'Templates/Message',
