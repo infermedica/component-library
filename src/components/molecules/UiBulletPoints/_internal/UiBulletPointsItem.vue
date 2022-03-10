@@ -47,6 +47,10 @@ const isUnordered = computed(() => (tag.value === 'ul'));
   align-items: var(--bullet-points-item-align-items, flex-start);
   margin: var(--bullet-points-item-margin, var(--space-4) 0);
 
+  &:last-child {
+    margin: var(--bullet-points-item-last-margin, 0);
+  }
+
   &__marker {
     --icon-size: var(--bullet-points-item-marker-icon-size, 1.5rem);
     --icon-color: var(--bullet-points-item-marker-icon-color, var(--color-text-body));
