@@ -51,6 +51,7 @@ const { componentTag, routeAttrs } = useLink(props);
   align-items: center;
   color: var(--link-color, var(--color-text-action-primary));
   text-decoration: var(--link-text-decoration, none);
+  vertical-align: var(--link-vertical-align, middle);
 
   @media (hover: hover) {
     &:hover {
