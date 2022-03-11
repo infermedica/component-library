@@ -56,7 +56,7 @@ export default {
 </script>
 
 <script setup>
-import { watchEffect, computed } from 'vue';
+import { computed, watch } from 'vue';
 import UiMultipleChoicesItem from './_internal/UiMultipleChoicesItem.vue';
 import UiList from '../UiList/UiList.vue';
 import UiListItem from '../UiList/_internal/UiListItem.vue';
@@ -134,13 +134,12 @@ const evidences = computed(() => (
   }, {})
 ));
 const valid = computed(() => (
-  props.choices.every((choice) => (evidences.value[choice.id]))
-));
-watchEffect(() => {
-  if (!valid.value !== props.invalid) {
-    emit('update:invalid', !valid.value);
-  }
-});
+    props.choices.every((choice) => (evidences.value[choice.id]))
+))
+watch(valid, (value) => {
+  console.log('update:invalid', value);
+  emit('update:invalid', !value);
+}, { immediate: true });
 function hasError(id) {
   return props.touched && !evidences.value[id];
 }

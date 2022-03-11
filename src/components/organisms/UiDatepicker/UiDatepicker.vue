@@ -393,9 +393,7 @@ const errorDisplayHandler = computed(() => {
     error = props.translation.errorDateInFuture;
   } else if (isDateOutOfBounds.value) {
     error = props.translation.errorOutOfBounds;
-  } else if (hasDayError.value || hasMonthError.value || hasYearError.value) {
-    error = props.translation.errorWrongDate;
-  } else if (unfulfilledDay.value || unfulfilledMonth.value || unfulfilledYear.value) {
+  } else if (hasDayError.value || hasMonthError.value || hasYearError.value || unfulfilledDay.value || unfulfilledMonth.value || unfulfilledYear.value) {
     error = props.translation.errorWrongDate;
   } else if (props.touched && props.error) {
     error = props.error;

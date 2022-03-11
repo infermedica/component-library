@@ -90,7 +90,7 @@ export default {
 </script>
 
 <script setup>
-import { computed, watchEffect } from 'vue';
+import { computed, watch } from 'vue';
 import UiList from '../UiList/UiList.vue';
 import UiListItem from '../UiList/_internal/UiListItem.vue';
 import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
@@ -161,11 +161,9 @@ const hasError = computed(() => (props.touched && !valid.value));
 const hintType = computed(() => (props.touched && props.invalid ? 'error' : 'default'));
 const errorClass = computed(() => (hasError.value ? `${component.value}--has-error` : ''));
 
-watchEffect(() => {
-  if (!valid.value !== props.invalid) {
-    emit('update:invalid', !valid.value);
-  }
-});
+watch(valid, (value) => {
+  emit('update:invalid', !value);
+}, { immediate: true });
 
 function updateHandler(value) {
   if (!isCheckbox.value) {

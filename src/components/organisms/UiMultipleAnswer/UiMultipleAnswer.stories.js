@@ -178,14 +178,15 @@ export default {
 const Template = (args) => ({
   components: { UiMultipleAnswer },
   setup() {
-    const modelValue = ref([]);
-    return { ...args, modelValue };
+    const refModelValue = ref([]);
+    const refInvalid = ref(args.invalid);
+    return { ...args, refModelValue, refInvalid };
   },
   template: `<UiMultipleAnswer
-    v-model="modelValue"
+    v-model="refModelValue"
+    v-model:invalid="refInvalid"
     :choices="choices"
     :name="name"
-    :invalid="invalid"
     :hint="hint"
     :touched="touched"
   />`,
@@ -290,14 +291,15 @@ WithButtonInfo.args = {
 export const WithSingleChoice = (args) => ({
   components: { UiMultipleAnswer },
   setup() {
-    const modelValue = ref({});
-    return { ...args, modelValue };
+    const refModelValue = ref([]);
+    const refInvalid = ref(args.invalid);
+    return { ...args, refModelValue, refInvalid };
   },
   template: `<UiMultipleAnswer
-    v-model="modelValue"
+    v-model="refModelValue"
+    v-model:invalid="refInvalid"
     :choices="choices"
     :name="name"
-    :invalid="invalid"
     :hint="hint"
     :touched="touched"
   />`,
@@ -306,14 +308,15 @@ export const WithSingleChoice = (args) => ({
 export const WithHintSlot = (args) => ({
   components: { UiMultipleAnswer, UiAlert },
   setup() {
-    const modelValue = ref({});
-    return { ...args, modelValue };
+    const refModelValue = ref([]);
+    const refInvalid = ref(args.invalid);
+    return { ...args, refModelValue, refInvalid };
   },
   template: `<UiMultipleAnswer
-    v-model="modelValue"
+    v-model="refModelValue"
+    v-model:invalid="refInvalid"
     :choices="choices"
     :name="name"
-    :invalid="invalid"
     :hint="hint"
     :touched="touched"
   >
@@ -331,17 +334,18 @@ export const WithHintSlot = (args) => ({
 
 export const WithListItemSlot = (args) => ({
   components: {
-    UiMultipleAnswer, UiListItem, UiRadio, UiText, UiButton, UiIcon,
+    UiMultipleAnswer, UiListItem, UiCheckbox, UiRadio, UiText, UiButton, UiIcon,
   },
   setup() {
-    const modelValue = ref({});
-    return { ...args, modelValue };
+    const refModelValue = ref([]);
+    const refInvalid = ref(args.invalid);
+    return { ...args, refModelValue, refInvalid };
   },
   template: `<UiMultipleAnswer
-    v-model="modelValue"
+    v-model="refModelValue"
+    v-model:invalid="refInvalid"
     :choices="choices"
     :name="name"
-    :invalid="invalid"
     :hint="hint"
     :touched="touched"
   >
@@ -390,14 +394,15 @@ export const WithChoiceItemSlot = (args) => ({
     UiMultipleAnswer, UiRadio, UiText, UiButton, UiIcon,
   },
   setup() {
-    const modelValue = ref({});
-    return { ...args, modelValue };
+    const refModelValue = ref([]);
+    const refInvalid = ref(args.invalid);
+    return { ...args, refModelValue, refInvalid };
   },
   template: `<UiMultipleAnswer
-    v-model="modelValue"
+    v-model="refModelValue"
+    v-model:invalid="refInvalid"
     :choices="choices"
     :name="name"
-    :invalid="invalid"
     :hint="hint"
     :touched="touched"
   >
@@ -441,14 +446,15 @@ export const WithLabelChoiceIdSlot = (args) => ({
     UiMultipleAnswer, UiText, UiButton, UiIcon,
   },
   setup() {
-    const modelValue = ref({});
-    return { ...args, modelValue };
+    const refModelValue = ref([]);
+    const refInvalid = ref(args.invalid);
+    return { ...args, refModelValue, refInvalid };
   },
   template: `<UiMultipleAnswer
-    v-model="modelValue"
+    v-model="refModelValue"
+    v-model:invalid="refInvalid"
     :choices="choices"
     :name="name"
-    :invalid="invalid"
     :hint="hint"
     :touched="touched"
   >

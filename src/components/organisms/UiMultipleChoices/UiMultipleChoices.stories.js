@@ -136,16 +136,17 @@ export default {
 const Template = (args) => ({
   components: { UiMultipleChoices },
   setup() {
-    const modelValue = ref([]);
-    return { ...args, modelValue };
+    const refModelValue = ref([]);
+    const refInvalid = ref(args.invalid);
+    return { ...args, refModelValue, refInvalid };
   },
   template: `<UiMultipleChoices
-    v-model="modelValue"
+    v-model="refModelValue"
+    v-model:invalid="refInvalid"
     :source="source"
     :options="options"
     :choices="choices"
     :hint="hint"
-    :invalid="invalid"
     :touched="touched"
     :alert-hint-attrs="alertHintAttrs"
   />`,
@@ -218,16 +219,17 @@ WithButtonInfo.args = {
 export const WithHintSlot = (args) => ({
   components: { UiMultipleChoices, UiAlert },
   setup() {
-    const modelValue = ref([]);
-    return { ...args, modelValue };
+    const refModelValue = ref([]);
+    const refInvalid = ref(args.invalid);
+    return { ...args, refModelValue, refInvalid };
   },
   template: `<UiMultipleChoices
-    v-model="modelValue"
+    v-model="refModelValue"
+    v-model:invalid="refInvalid"
     :source="source"
     :options="options"
     :choices="choices"
     :hint="hint"
-    :invalid="invalid"
     :touched="touched"
     :alert-hint-attrs="alertHintAttrs"
   >
@@ -246,16 +248,17 @@ export const WithHintSlot = (args) => ({
 export const WithListItemSlot = (args) => ({
   components: { UiMultipleChoices, UiListItem, UiMultipleChoicesItem },
   setup() {
-    const modelValue = ref([]);
-    return { ...args, modelValue };
+    const refModelValue = ref([]);
+    const refInvalid = ref(args.invalid);
+    return { ...args, refModelValue, refInvalid };
   },
   template: `<UiMultipleChoices
-    v-model="modelValue"
+    v-model="refModelValue"
+    v-model:invalid="refInvalid"
     :source="source"
     :options="options"
     :choices="choices"
     :hint="hint"
-    :invalid="invalid"
     :touched="touched"
     :alert-hint-attrs="alertHintAttrs"
   >
@@ -277,16 +280,17 @@ export const WithListItemSlot = (args) => ({
 export const WithChoiceItem = (args) => ({
   components: { UiMultipleChoices, UiMultipleChoicesItem },
   setup() {
-    const modelValue = ref([]);
-    return { ...args, modelValue };
+    const refModelValue = ref([]);
+    const refInvalid = ref(args.invalid);
+    return { ...args, refModelValue, refInvalid };
   },
   template: `<UiMultipleChoices
-    v-model="modelValue"
+    v-model="refModelValue"
+    v-model:invalid="refInvalid"
     :source="source"
     :options="options"
     :choices="choices"
     :hint="hint"
-    :invalid="invalid"
     :touched="touched"
     :alert-hint-attrs="alertHintAttrs"
   >

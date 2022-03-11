@@ -16,7 +16,7 @@ const mountDatepicker = () => {
 
 describe('UiDatepicker.vue', () => {
   test('renders a component', () => {
-    const wrapper = mountDatepicker(UiDatepicker);
+    const wrapper = mountDatepicker();
     expect(wrapper.classes('ui-datepicker')).toBe(true);
   });
 
