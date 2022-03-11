@@ -1,0 +1,36 @@
+import { Canvas, Story } from "@storybook/addon-docs";
+
+# Scroll tabindex
+This directive add tabindex attribute to element only when content can be scrolled. Now element is focusable and you can control scrolling with keyboard
+
+## How to use
+* `v-scroll-tabindex` - add tabindex attribute
+```html
+  <div 
+    class="wrapper"
+    v-scroll-tabindex
+  >
+    <div class="wrapper__scrollable-content">
+      ...
+    </div>
+  </div>
+```
+
+## Used
+* [SidePanel](/?path=/docs/organisms-sidepanel--terms-of-service)
+
+## Stories
+### With directive
+<Canvas>
+  <Story id="utilities-directives-scroll-tabindex--with-directive"/>
+</Canvas>
+
+### With directive and scrollable content
+<Canvas>
+  <Story id="utilities-directives-scroll-tabindex--with-directive-and-scrollable-content"/>
+</Canvas>
+
+### Without directive
+<Canvas>
+  <Story id="utilities-directives-scroll-tabindex--without-directive"/>
+</Canvas>

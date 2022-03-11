@@ -1,0 +1,41 @@
+import { Canvas, Story } from "@storybook/addon-docs";
+
+# Keyboard focus
+After adding this directive focus state of element is visible only for keyboard navigation
+
+## How to use
+* `v-keyboard-focus` - set scope
+* `.focus-is-hidden` - add this class to body
+```html
+  .focus-is-hidden {
+    --border-radius-outline: 0;
+    --focus-outer: none;
+  }
+
+  <body class="focus-is-hidden">
+    ...
+    <button v-keyboard-focus>
+      ...
+    </button>
+  </body>  
+```
+
+## Used
+* [Button](/?path=/docs/atoms-button--circled)
+* [Checkbox](/?path=/docs/atoms-checkbox--as-group)
+* [Input](/?path=/docs/atoms-input--has-error)
+* [Link](/?path=/docs/atoms-link--large)
+* [Radio](/?path=/docs/atoms-radio--as-group)
+* [Range](/?path=/docs/atoms-range--common)
+* [Textarea](/?path=/docs/atoms-textarea--has-error)
+
+## Stories
+### With directive
+<Canvas>
+  <Story id="utilities-directives-keyboard-focus--without-directive"/>
+</Canvas>
+
+### Without directive
+<Canvas>
+  <Story id="utilities-directives-keyboard-focus--without-directive"/>
+</Canvas>

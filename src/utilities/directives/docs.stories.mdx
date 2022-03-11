@@ -1,0 +1,29 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Utilities/Directives/Docs" />
+
+# Directives
+Directives are mainly intended for reusing logic that involves low-level DOM access on plain elements.
+Directive is defined as an object containing lifecycle hooks similar to those of a component.
+The hooks receive the element the directive is bound to.
+
+## Available directives
+There are 7 available directives:
+- [Body scroll lock](/?path=/docs/utilities-directives-body-scroll-lock--with-directive)
+- [Click outside](/?path=/docs/utilities-directives-click-outside--with-directive)
+- [Focus first](/?path=/docs/utilities-directives-focus-first--with-directive)
+- [Focus trap](/?path=/docs/utilities-directives-focus-trap--with-directive)
+- [Highlight](/?path=/docs/utilities-directives-highlight--with-directive)
+- [Keyboard focus](/?path=/docs/utilities-directives-keyboard-focus--with-directive)
+- [Scroll tabindex](/?path=/docs/utilities-directives-scroll-tabindex--with-directive)
+
+## How to use
+To use our directives, just add the directive name to the element
+```html
+ <div v-body-scroll-lock></div>
+```
+Directives arguments can be dynamic.
+```html
+ <div v-click-outside:[arg]="handler"></div>
+```
+For all of our directives, we have separate story where you can see how it works

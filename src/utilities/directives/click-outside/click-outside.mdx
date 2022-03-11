@@ -1,0 +1,38 @@
+import { Canvas, Story } from "@storybook/addon-docs"
+
+# Click outside
+After adding this directive you can call some function by clicking outside of element
+
+## How to use
+* `v-click-outside="functionName"` - bind function
+* `v-click-outside:[boolean]="functionName"` - switch on/off directive
+* `.stop` - must be added to outer element to stop propagation events
+```html
+  <UiButton @click.stop="toggleVisibility"></UiButton>
+  <UiPopover 
+    v-if="visibility"
+    v-click-outside:[boolean]="toggleVisibility"
+  >
+    ...
+  </UiPopover>
+```
+
+## Used
+* [Datepicker](/?path=/docs/organisms-datepicker--common)
+* [Dropdown](/?path=/docs/molecules-dropdown--with-content-slot)
+
+## Stories
+### With directive
+<Canvas>
+  <Story id="utilities-directives-click-outside--with-directive"/>
+</Canvas>
+
+### With directive switcher
+<Canvas>
+  <Story id="utilities-directives-click-outside--with-directive-switcher"/>
+</Canvas>
+
+### Without directive
+<Canvas>
+  <Story id="utilities-directives-click-outside--without-directive"/>
+</Canvas>

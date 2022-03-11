@@ -146,9 +146,9 @@ export const Common = (args) => ({
 Common.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
   await userEvent.click(canvas.getByTestId('increment-age'));
-  expect(canvas.getByText('51')).toBeInTheDocument();
+  await expect(canvas.getByText('51')).toBeInTheDocument();
   await userEvent.click(canvas.getByTestId('decrement-age'));
-  expect(canvas.getByText('50')).toBeInTheDocument();
+  await expect(canvas.getByText('50')).toBeInTheDocument();
 };
 
 export const CommonWithFailInteractionTest = (args) => ({
@@ -183,9 +183,9 @@ export const CommonWithFailInteractionTest = (args) => ({
 CommonWithFailInteractionTest.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
   await userEvent.click(canvas.getByTestId('increment-age'));
-  expect(canvas.getByText('51')).toBeInTheDocument();
+  await expect(canvas.getByText('51')).toBeInTheDocument();
   await userEvent.click(canvas.getByTestId('decrement-age'));
-  expect(canvas.getByText('50')).toBeInTheDocument();
+  await expect(canvas.getByText('50')).toBeInTheDocument();
 };
 
 export const WithDecrementSlot = (args) => ({

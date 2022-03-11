@@ -4,7 +4,7 @@ export const highlight = {
     el.__highlightHandler__ = function (element, { value }) {
       const content = element.innerHTML.replace(/<\/?mark>/gi, '');
       const marked = content.replace(
-        new RegExp(value, 'gi'),
+        new RegExp(value.replace(/([.?*+^$[\]\\(){}|-])/g, '\\$1'), 'gi'),
         (match) => `<mark>${match}</mark>`,
       );
       element.innerHTML = marked;

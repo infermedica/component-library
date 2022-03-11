@@ -1,6 +1,6 @@
 /**
  * Inject Tailwind's base styles reset margins, headings, blockquotes, paragraphs, etc.
  */
-// @tailwind base;
+/* @tailwind base; */
 @tailwind components;
 @tailwind utilities;

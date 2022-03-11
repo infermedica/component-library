@@ -1,0 +1,26 @@
+import { Canvas, Story } from "@storybook/addon-docs";
+
+# Focus trap
+This directive will keep from moving to other focusable elements
+
+## How to use
+* `v-focus-trap` - set scope
+```html
+  <dialog v-focus-trap>
+    ...
+  </dialog>
+```
+
+## Used
+* [SidePanel](/?path=/docs/organisms-sidepanel--terms-of-service)
+
+## Stories
+### With directive
+<Canvas>
+  <Story id="utilities-directives-focus-trap--with-directive"/>
+</Canvas>
+
+### Without directive
+<Canvas>
+  <Story id="utilities-directives-focus-trap--without-directive"/>
+</Canvas>
