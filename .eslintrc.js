@@ -5,7 +5,7 @@ module.exports = {
     es6: true,
   },
   extends: [
-    'plugin:vue/vue3-essential',
+    'plugin:vue/vue3-recommended',
     '@vue/airbnb',
     '@vue/typescript/recommended',
     'plugin:storybook/recommended',
@@ -41,14 +41,6 @@ module.exports = {
       ignoreRegExpLiterals: true,
       ignoreHTMLAttributeValues: true,
       ignoreHTMLTextContents: true,
-    }],
-    'vue/max-attributes-per-line': ['error', {
-      singleline: {
-        max: 1,
-      },
-      multiline: {
-        max: 1,
-      },
     }],
     'import/no-extraneous-dependencies': ['error', {
       devDependencies: ['**/*.stories.@(js|jsx|ts|tsx|mdx)', '**/*.spec.{j,t}s?(x)'],
