@@ -1,0 +1,172 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Getting Started/Development Guide/CSS Customization"/>
+
+<style>{`
+  .page-outline {
+    margin: 16px 0;
+  }
+  .page-outline__title {
+    font-family: "Nunito Sans",-apple-system,".SFNSText-Regular","San Francisco",BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif;
+    display: block;
+    margin-block-start: 1.33em;
+    margin-block-end: 1.33em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    margin: 20px 0 8px;
+    padding: 0;
+    cursor: text;
+    position: relative;
+    color: #333333;
+    font-size: 16px;
+  }
+  .page-outline__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .page-outline__list--nested {
+    margin: 0 1rem;
+  }
+`}
+</style>
+
+# CSS Customization
+
+Symptom Checker UI Kit is a highly customizable UI components library. We provide our default design system that will allow adjusting to almost every design.
+To customize Symptom Checker UI Kit to your needs, you can use a lot of CSS variables and adjust styles to your requirements.
+Below you can read how you can customize different aspects of its styles and components.
+
+<div class="page-outline">
+    <span class="page-outline__title">On this page</span>
+    <ul class="page-outline__list">
+      <li>
+        <a href="#css-custom-properties----css-variables">CSS Custom Properties (--*): CSS variables</a>
+      </li>
+      <li>
+        <a href="#customizing-the-css">Customizing the CSS</a>
+        <ul class="page-outline__list page-outline__list--nested">
+            <li>
+              <a href="#global-custom-properties">Global custom properties</a>
+            </li>
+            <li>
+              <a href="#component-specific-custom-properties">Component-specific custom properties</a>
+            </li>
+            <ul class="page-outline__list page-outline__list--nested">
+              <li>
+                <a href="#bem-and-css-custom-properties">BEM and CSS Custom Properties</a>
+              </li>
+            </ul>
+            <li>
+              <a href="#per-instance-custom-properties">Per-instance custom properties</a>
+            </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#atomic-design-and-css-custom-properties">Atomic Design and CSS Custom Properties</a>
+      </li>
+    </ul>
+</div>
+
+## CSS Custom Properties (--*): CSS variables
+
+CSS Custom properties or CSS variables allow creating custom properties to contain a value that can be used in other declarations using the `var()`.
+CSS Variables is similar to SASS and LESS variables but it's a native CSS feature. It doesn't need to be compiled like SASS or LESS.
+It can be overridden by inline styles and js part. e.g. We can calculate some values in the `computed` function and use them in inline styles.
+
+##  Customizing the CSS
+CSS is a powerful tool to customize the look and feel of your project. It usually covers things like colors, fonts, and other visual elements.
+Symptom Checker UI Kit uses a few levels to customize the CSS of your project.
+
+### Global custom properties
+Global variables representing project style guide. They base on the Figma project where we keep Style Library with tokens for color, font, font styles, space, border-radius and more.
+Our tokens used `html` scope to setup default values e.g.
+
+```css
+html {
+  --space-2: 0.125rem;
+  --space-4: 0.25rem;
+  --border-radius-container: 5px;
+  --border-radius-button: 5px;
+  --border-radius-form: 5px;
+}
+```
+`html` has lower priority than `:root` scope. So, you can override the default values by adding your own custom properties to `:root` scope e.g.
+```css
+:root {
+  --border-radius-container: 5px;
+  --border-radius-button: 5px;
+  --border-radius-form: 5px;
+}
+```
+RTL is supported by adding `:root` scope with `dir: rtl` property e.g.
+<!-- todo:  check if it works -->
+```css
+:root {
+  --font-family-heading: "Roboto", sans-serif;
+  --font-family-body: "Roboto", sans-serif;
+}
+
+:root[dir="rtl"] {
+  --font-family-heading: "IBM Plex Sans Arabic", sans-serif;
+  --font-family-body: "IBM Plex Sans Arabic", sans-serif;
+}
+```
+
+### Component-specific custom properties
+Global variables cover many cases. But sometimes you need to customize the CSS of specific components like buttons, icons (e.g. icon sizes), ...
+For example, you may want to change the background color of a every `UiButton` component.
+```css
+.ui-button {
+  --button-background: #1471C9;
+  --button-hover-background: #0F5496;
+  --button-active-background: #0B3D6D;
+}
+```
+
+or size of the icon
+```css
+.ui-icon {
+  --icon-size: 1.5rem;
+}
+```
+Names of CSS variables for the component you can be found on the Canvas mode of Storybook in CSS Custom Properties tab.
+In this tab, you can see the names and default values of all the CSS variables used in the component.
+
+#### BEM and CSS Custom Properties
+We use BEM naming convention for CSS variables `--<block>-<element>-<state>-<property>` e.g.
+```css
+.ui-dropdown {
+  &__content {
+   width: var(--dropdown-content-width, 100%);
+   padding: var(--dropdown-content-padding, 250px);
+   border-radius: var(--dropdown-content-border-radius, 5px);
+  }
+}
+```
+
+### Per-instance custom properties
+Sometimes you may need to customize the CSS of a specific instance of a component.
+For example, you may want to change the background color of a specific `UiButton` component.
+In this case you can add new CSS class to set the CSS variables e.g.
+```css
+.my-awesome-button {
+  --button-background: #1471C9;
+  &:hover {
+   --button-background: #1471C9;
+  }
+  &:active {
+    --button-active-background: #0B3D6D;
+  }
+}
+```
+
+## Atomic Design and CSS Custom Properties
+To customize nested components you should use it CSS Custom Properties. e.g.
+```css
+.ui-range {
+  --button-border-radius: 0;
+}
+```
+
