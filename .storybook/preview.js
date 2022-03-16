@@ -11,8 +11,8 @@ export const parameters = {
   options: {
     storySort: {
       order: [
-        'Releases',
         'Getting Started',
+        'Releases',
         ['v0.2.x', 'v0.1.x', 'v0.0.x'],
         'Atoms',
         'Molecules',
