@@ -134,8 +134,8 @@ const evidences = computed(() => (
   }, {})
 ));
 const valid = computed(() => (
-    props.choices.every((choice) => (evidences.value[choice.id]))
-))
+  props.choices.every((choice) => (evidences.value[choice.id]))
+));
 watch(valid, (value) => {
   console.log('update:invalid', value);
   emit('update:invalid', !value);
