@@ -13,7 +13,7 @@ export const parameters = {
       order: [
         'Getting Started',
         'Releases',
-        ['v0.2.x', 'v0.1.x', 'v0.0.x'],
+        ['v0.3.x', 'v0.2.x', 'v0.1.x', 'v0.0.x'],
         'Atoms',
         'Molecules',
         'Organisms',
