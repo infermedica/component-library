@@ -70,7 +70,6 @@ Below you can read how you can customize different aspects of its styles and com
 </div>
 
 ## CSS Custom Properties (--*): CSS variables
-
 CSS Custom properties or CSS variables allow creating custom properties to contain a value that can be used in other declarations using the `var()`.
 CSS Variables is similar to SASS and LESS variables but it's a native CSS feature. It doesn't need to be compiled like SASS or LESS.
 It can be overridden by inline styles and js part. e.g. We can calculate some values in the `computed` function and use them in inline styles.
@@ -92,7 +91,9 @@ html {
   --border-radius-form: 5px;
 }
 ```
+
 `html` has lower priority than `:root` scope. So, you can override the default values by adding your own custom properties to `:root` scope e.g.
+
 ```css
 :root {
   --border-radius-container: 5px;
@@ -100,8 +101,9 @@ html {
   --border-radius-form: 5px;
 }
 ```
+
 RTL is supported by adding `:root` scope with `dir: rtl` property e.g.
-<!-- todo:  check if it works -->
+
 ```css
 :root {
   --font-family-heading: "Roboto", sans-serif;
@@ -117,6 +119,7 @@ RTL is supported by adding `:root` scope with `dir: rtl` property e.g.
 ### Component-specific custom properties
 Global variables cover many cases. But sometimes you need to customize the CSS of specific components like buttons, icons (e.g. icon sizes), ...
 For example, you may want to change the background color of a every `UiButton` component.
+
 ```css
 .ui-button {
   --button-background: #1471C9;
@@ -126,16 +129,19 @@ For example, you may want to change the background color of a every `UiButton` c
 ```
 
 or size of the icon
+
 ```css
 .ui-icon {
   --icon-size: 1.5rem;
 }
 ```
+
 Names of CSS variables for the component you can be found on the Canvas mode of Storybook in CSS Custom Properties tab.
 In this tab, you can see the names and default values of all the CSS variables used in the component.
 
 #### BEM and CSS Custom Properties
 We use BEM naming convention for CSS variables `--<block>-<element>-<state>-<property>` e.g.
+
 ```css
 .ui-dropdown {
   &__content {
@@ -150,6 +156,7 @@ We use BEM naming convention for CSS variables `--<block>-<element>-<state>-<pro
 Sometimes you may need to customize the CSS of a specific instance of a component.
 For example, you may want to change the background color of a specific `UiButton` component.
 In this case you can add new CSS class to set the CSS variables e.g.
+
 ```css
 .my-awesome-button {
   --button-background: #1471C9;
@@ -164,9 +171,9 @@ In this case you can add new CSS class to set the CSS variables e.g.
 
 ## Atomic Design and CSS Custom Properties
 To customize nested components you should use it CSS Custom Properties. e.g.
+
 ```css
 .ui-range {
   --button-border-radius: 0;
 }
 ```
-

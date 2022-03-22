@@ -1,0 +1,172 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Getting Started/Development Guide/Template Customization" />
+
+<style>{`
+  .page-outline {
+    margin: 16px 0;
+  }
+  .page-outline__title {
+    font-family: "Nunito Sans",-apple-system,".SFNSText-Regular","San Francisco",BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif;
+    display: block;
+    margin-block-start: 1.33em;
+    margin-block-end: 1.33em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    margin: 20px 0 8px;
+    padding: 0;
+    cursor: text;
+    position: relative;
+    color: #333333;
+    font-size: 16px;
+  }
+  .page-outline__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .page-outline__list--nested {
+    margin: 0 1rem;
+  }
+`}
+</style>
+
+# Template Customization
+
+Symptom Checker Ui Kit is a highly customizable UI components library.
+You can adjust default style of the components to your design but it is not enough.
+Below you can read about props and how you can customize template of components.
+
+<div class="page-outline">
+  <span class="page-outline__title">On this page</span>
+  <ul class="page-outline__list">
+    <li>
+      <a href="#props">Props</a>
+      <ul class="page-outline__list page-outline__list--nested">
+        <li>
+          <a href="#attrs-props">Attrs props</a>
+        </li>
+        <li>
+          <a href="#translation-props">Translation props</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href="#slots">Slots</a>
+      <ul class="page-outline__list page-outline__list--nested">
+        <li>
+          <a href="#data-binding">Data binding</a>
+        </li>
+        <li>
+          <a href="#internal-components">Internal components</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+## Props
+Prop allows to customize component behavior and put some data to it. Generally, props are used to set component behavior, translations, and attributes for nested components (in Molecules and Organisms).
+For content in Atoms we used slots. For example, `UiButton` hasn't content props, but it uses `default` slot to set content. More complex components allow setting content by using props like `title`, `description`, etc.
+All props you can find on the component docs page.
+
+
+## Attrs props
+Some components like `UiProgressBar`, `UiRange`, etc. provide props like `buttonIncrementAttrs`, `buttonDecrementAttrs`, etc. this props is use to set props for nested components, in this case for `UiButton` component in `UiRange` component.
+This prop binds to the component's entire object. e.g.
+
+```html
+<UiButton v-bind="buttonDecrementAttrs">...</UiButton>
+```
+
+You can set any props, `html` attributes, and events. e.g.
+
+```js
+  const buttonDecrementAttrs = {
+    aria-label: 'Decrement age',
+    data-testid: 'decrement-button',
+    onClick: () => {
+      console.log('decrement');
+    },
+  }
+```
+
+Generally to name this props we used `<name-of-component-without-prefix>Attrs` e.g. `buttonAttrs` but in some cases we need to use `<name-of-component-without-prefix><function>Attrs` e.g. `buttonIncrementAttrs` or `closeButton`
+
+## Translation props
+More complex components like `UiDatepicker` contain some labels like `day`, `month`, `year`, etc. To set these labels we use `translation` props. Generally, this prop is an object with keys and values. e.g.
+
+```js
+const translation = {
+  day: "day",
+  month: "month",
+  year: "year",
+  placeholderDay: "DD",
+  placeholderMonth: "MM",
+  placeholderYear: "YYYY",
+  errorWrongDate: "Please enter a valid date, e.g. 05/11/1990",
+  errorDateInFuture: "Sorry, the date of birth cannot be a future date",
+  errorOutOfBounds: "Sorry, our checkup only covers people between 0 and 120 years old"
+}
+```
+
+All possible translations keys you can find on the component docs page as the default value of props. By default, components provide labels in English.
+
+## Slots
+Slots is a way to handle whole edge cases that a user would like cover well. Slots are especially useful for markup changes.
+Every component in Symptom Checker Ui Kit has a slots. To name it we use BEM convention e.g `<UiButton class="ui-range__decrement"...` is placed in `decrement` slot
+Each of elements is wrapped into a Vue slot to let you replace parts or HTML markup.
+
+```html
+<UiCheckbox>
+ <template #checkbutton>
+   <!-- your HTML markup -->
+ </template>
+</UiCheckbox>
+```
+
+### Data binding
+We are binding all required data (mostly data from default template) to the slot. List of bound data is in code of stories with name `With ... Slot`.
+Below you can find examples of binding data to `checkbutton` slot in `UiCheckbox`.
+
+```html
+<UiCheckbox>
+ <template #checkbutton="{ checked }">
+    <template v-if="checked">
+      <!-- your HTML markup -->
+    </template>
+    <template v-else>
+     <!-- your HTML markup -->
+    </template>
+ </template>
+</UiCheckbox>
+```
+
+The same way you can customize any components in Symptom Checker Ui Kit.
+
+### Internal components
+Some components like `UiAccordion`, `UiMegaMenu`, `UiDropdown`, etc. have internal components. e.g. `UiDropdown` use `UiDropdownItem` to work like select.
+```html
+<UiDropdown
+  v-model="someValue"
+  ...
+>
+  <template
+    v-for="(item, key) in items"
+    :key="key"
+  >
+    <UiDropdownItem :value="item">
+      <!-- your HTML markup -->
+    </UiDropdownItem>
+  </template>
+</UiDropdown>
+```
+In this cases we use `provide/inject` to "connect" `UiDropdown` component with `UiDropdownItem` component and use `v-model` to set value
+
+<!-- fixme: allow to use internal components in the easiest way -->
+Unfortunately to use internal components like `UiDropdownItem` you must import it directly from package.
+```js
+import { UiDropdownItem } from '@symptom-checker/ui-kit';
+import UiDropdownItem from '@symptom-checker/ui-kit/src/components/molecules/UiDropdown/_internal/UiDropdownItem.vue';
+```
