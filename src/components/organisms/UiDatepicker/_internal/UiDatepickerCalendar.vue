@@ -4,6 +4,7 @@
     v-click-outside="clickOutsideHandler"
     class="ui-datepicker-calendar"
     :close-on-click-outside="false"
+    :enable-keyboard-navigation="false"
   >
     <template #toggle="{toggleHandler}">
       <slot

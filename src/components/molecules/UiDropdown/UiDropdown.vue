@@ -82,6 +82,10 @@ const props = defineProps({
     type: Object,
     default: undefined,
   },
+  enableKeyboardNavigation: {
+    type: Boolean,
+    default: true,
+  },
 });
 const emit = defineEmits(['update:modelValue', 'open', 'close']);
 const toggle = ref(null);
@@ -134,6 +138,8 @@ function changeHandler(value) {
 }
 provide('changeHandler', changeHandler);
 const dropdownKeydownHandler = async ({ key }) => {
+  if (!props.enableKeyboardNavigation) return;
+
   switch (key) {
     case 'Tab':
     case 'Escape':
