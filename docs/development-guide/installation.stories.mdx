@@ -1,0 +1,133 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Getting Started/Development Guide/Installation"/>
+
+<style>{`
+  .page-outline {
+    margin: 16px 0;
+  }
+  .page-outline__title {
+    font-family: "Nunito Sans",-apple-system,".SFNSText-Regular","San Francisco",BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif;
+    display: block;
+    margin-block-start: 1.33em;
+    margin-block-end: 1.33em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    margin: 20px 0 8px;
+    padding: 0;
+    cursor: text;
+    position: relative;
+    color: #333333;
+    font-size: 16px;
+  }
+  .page-outline__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .page-outline__list--nested {
+    margin: 0 1rem;
+  }
+`}
+</style>
+
+# Installation
+Symptom Checker UI Kit provides a beautiful, customizable and accessible library of basic and advanced components for faster system design and application development.
+Below you can read how you can add it to your project.
+
+<div class="page-outline">
+    <span class="page-outline__title">On this page</span>
+    <ul class="page-outline__list">
+      <li>
+        <a href="#how-to-install">How to install</a>
+      </li>
+      <li>
+        <a href="#usage-default-styles">Usage default styles</a>
+      </li>
+      <li>
+        <a href="#usage-components-in-sfc">Usage components in SFC</a>
+        <ul class="page-outline__list page-outline__list--nested">
+          <li>
+            <a href="#script-syntax">Script syntax</a>
+          </li>
+          <li>
+            <a href="#script-setup-syntax">Script setup syntax</a>
+          </li>
+          <li>
+            <a href="#internal-components">Internal components</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+</div>
+
+## How to install
+You can create a new project or integrate Symptom Checker UI Kit into an existing application. The installation process is mostly
+the same for both cases. Choose the installation that best suits to your project.
+
+```bash
+npm i @symptom-checker/ui-kit
+# or
+pnpm add @symptom-checker/ui-kit
+```
+
+## Usage default styles
+Symptom Checker UI Kit is a highly customizable UI components library. To customize components to your needs, you can use a lot of global
+CSS variables and adjust styles to your requirements. For more details please <a href="/docs/getting-started-development-guide-css-customization--page">click here</a>.
+
+We provide our default design if you want use it inside your project, you need to import them into the `main.js` file.
+
+```js
+import '@symptom-checker/ui-kit/src/styles/styles.scss'
+```
+
+## Usage components in SFC
+You can directly import components from the Symptom Checker UI Kit and use them in a template.
+
+### Script syntax
+
+```html
+<template>
+  <UiComponentName>
+</template>
+
+<script>
+import { UiComponentName } from '@symptom-checker/ui-kit'
+
+export default {
+  components: {
+    UiComponentName
+  }
+}
+</script>
+```
+
+### Script setup syntax
+
+```html
+<template>
+  <UiComponentName/>
+</template>
+
+<script setup>
+import { UiComponentName } from '@symptom-checker/ui-kit'
+</script>
+```
+
+### Internal components
+Some components includes smaller internal components, you must import them using the full path, e.g `UiToggleButtonGroup` uses `UiToggleButton`
+
+```html
+<template>
+  <UiToggleButtonGroup>
+    <UiToggleButton/>
+  </UiToggleButtonGroup>
+</template>
+<script>
+
+<script setup>
+import { UiToggleButtonGroup } from '@symptom-checker/ui-kit'
+import UiToggleButton from '@symptom-checker/ui-kit/src/components/molecules/UiToggleButtonGroup/_internal/UiToggleButton.vue';
+</script>
+```
