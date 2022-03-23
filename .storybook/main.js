@@ -70,7 +70,8 @@ module.exports = {
           implementation: require('postcss'),
         }
       }
-    }
+    },
+    'storybook-addon-designs',
   ],
   framework: '@storybook/vue3',
   core: {

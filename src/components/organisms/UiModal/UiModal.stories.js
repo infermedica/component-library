@@ -56,6 +56,10 @@ export default {
   },
   decorators: [() => ({ template: '<div style="--backdrop-position: absolute; --modal-position: absolute; minHeight: 350px"><story /></div>' })],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/file/54rgvRJfBBagt4F34rrp1s/Core-Component-Library?node-id=1080%3A44305',
+    },
     cssprops: {
       'modal-position': {
         value: 'fixed',
@@ -166,6 +170,12 @@ WithoutTitle.args = {
   title: '',
   description: 'Delete this file?',
   translation: { confirm: 'Yes, delete', cancel: 'Cancel' },
+};
+WithoutTitle.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/54rgvRJfBBagt4F34rrp1s/Core-Component-Library?node-id=1085%3A44053',
+  },
 };
 
 export const WithBackdropSlot = (args) => ({
@@ -546,6 +556,12 @@ WithoutTitleWithDescriptionSlot.args = {
   title: '',
   description: 'Delete this file?',
   translation: { confirm: 'Yes, delete', cancel: 'Cancel' },
+};
+WithoutTitleWithDescriptionSlot.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/54rgvRJfBBagt4F34rrp1s/Core-Component-Library?node-id=1085%3A44053',
+  },
 };
 
 export const WithActionsSlot = (args) => ({
