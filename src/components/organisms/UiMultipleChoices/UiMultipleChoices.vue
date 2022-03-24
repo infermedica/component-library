@@ -137,7 +137,6 @@ const valid = computed(() => (
   props.choices.every((choice) => (evidences.value[choice.id]))
 ));
 watch(valid, (value) => {
-  console.log('update:invalid', value);
   emit('update:invalid', !value);
 }, { immediate: true });
 function hasError(id) {

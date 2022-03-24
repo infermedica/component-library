@@ -258,7 +258,6 @@ function focus(element) {
   }
 }
 async function enterHandler() {
-  console.log(button.value);
   await nextTick();
   focus(button.value?.$el);
 }
