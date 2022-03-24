@@ -38,6 +38,8 @@
   "devDependencies": {
     "@babel/core": "^7.17.5",
     "@brightlayer-ui/storybook-rtl-addon": "^1.1.0",
+    "@commitlint/cli": "^16.2.3",
+    "@commitlint/config-conventional": "^16.2.1",
     "@ljcl/storybook-addon-cssprops": "^1.0.1",
     "@storybook/addon-a11y": "^6.4.19",
     "@storybook/addon-actions": "^6.4.19",
