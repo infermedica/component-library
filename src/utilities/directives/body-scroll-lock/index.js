@@ -10,7 +10,7 @@ export const bodyScrollLock = {
     disableBodyScroll(el, {
       allowTouchMove: (el) => {
         while (el && el !== document.body) {
-          if (el.getAttibute('body-scroll-lock-ignore') !== 'false') {
+          if (el.getAttribute('body-scroll-lock-ignore') !== 'false') {
             return true;
           }
           el = el.parentElement;
