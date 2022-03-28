@@ -76,12 +76,13 @@ export default {
 </script>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, useAttrs } from 'vue';
 import UiButton from '../UiButton/UiButton.vue';
 import UiIcon from '../UiIcon/UiIcon.vue';
 import useInput from '../../../composable/useInput';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 
+const attrs = useAttrs();
 const props = defineProps({
   /**
    * Use this props or v-model to set value.
@@ -133,6 +134,9 @@ function valueValidation(value) {
   return value >= parseInt(props.min, 10) && value <= parseInt(props.max, 10);
 }
 function changeHandler(value, modifier = 0) {
+  if (attrs.disabled) {
+    return;
+  }
   const newValue = parseInt(value, 10) + modifier;
   if (valueValidation(newValue)) {
     emit('update:modelValue', `${newValue}`);
