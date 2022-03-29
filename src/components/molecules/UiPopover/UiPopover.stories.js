@@ -31,28 +31,13 @@ export default {
         control: 'text',
         description: '',
       },
-      'popover-border': {
-        value: 'solid var(--color-border-subtle)',
-        control: 'text',
-        description: '',
-      },
-      'popover-border-width': {
-        value: '1px',
-        control: 'text',
-        description: '',
-      },
-      'popover-border-radius': {
-        value: 'var(--border-radius-form)',
-        control: 'text',
-        description: '',
-      },
       'popover-box-shadow': {
         value: 'var(--box-shadow-high)',
         control: 'text',
         description: '',
       },
       'popover-transform': {
-        value: '0',
+        value: undefined,
         control: 'text',
         description: '',
       },
@@ -66,13 +51,13 @@ export default {
         control: 'text',
         description: '',
       },
-      'popover-header-border-radius': {
-        value: 'var(--border-radius-form) var(--border-radius-form) 0 0',
+      'popover-content-padding': {
+        value: 'var(--space-8)',
         control: 'text',
         description: '',
       },
-      'popover-content-padding': {
-        value: 'var(--space-8)',
+      'popover-border': {
+        value: 'solid var(--color-border-subtle)',
         control: 'text',
         description: '',
       },

@@ -107,21 +107,6 @@ export default {
         control: 'text',
         description: '',
       },
-      'button-border-radius': {
-        value: 'var(--border-radius-button)',
-        control: 'text',
-        description: '',
-      },
-      'button-border': {
-        value: 'var(--button-border-style, solid) var(--button-border-color, transparent)',
-        control: 'text',
-        description: '',
-      },
-      'button-border-width': {
-        value: '0',
-        control: 'text',
-        description: '',
-      },
       'button-hover-color': {
         value: 'var(--color-text-on-action)',
         control: 'text',

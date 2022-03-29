@@ -72,22 +72,7 @@ export default {
         description: '',
       },
       'modal-max-width': {
-        value: '320px',
-        control: 'text',
-        description: '',
-      },
-      'modal-margin': {
-        value: '20px',
-        control: 'text',
-        description: '',
-      },
-      'modal-background': {
-        value: 'var(--color-background-white)',
-        control: 'text',
-        description: '',
-      },
-      'modal-box-shadow': {
-        value: 'var(--box-shadow-high)',
+        value: '480px',
         control: 'text',
         description: '',
       },
@@ -96,8 +81,28 @@ export default {
         control: 'text',
         description: '',
       },
+      'modal-background': {
+        value: 'var(--color-background-white)',
+        control: 'text',
+        description: '',
+      },
+      'modal-border': {
+        value: 'none',
+        control: 'text',
+        description: '',
+      },
+      'modal-border-radius': {
+        value: 'var(--border-radius-container)',
+        control: 'text',
+        description: '',
+      },
+      'modal-box-shadow': {
+        value: 'var(--box-shadow-high)',
+        control: 'text',
+        description: '',
+      },
       'modal-title-margin': {
-        value: '0 0 var(--space-24) 0',
+        value: '0 0 var(--space-12) 0',
         control: 'text',
         description: '',
       },
@@ -107,7 +112,7 @@ export default {
         description: '',
       },
       'modal-close-margin': {
-        value: '5px 5px 5px 17px',
+        value: '5px 17px 5px 5px',
         control: 'text',
         description: '',
       },
@@ -122,7 +127,7 @@ export default {
         description: '',
       },
       'modal-confirm-tablet-margin': {
-        value: '0 0 0 var(--space-12)',
+        value: '0 var(--space-12) 0 0',
         control: 'text',
         description: '',
       },

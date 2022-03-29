@@ -43,27 +43,12 @@ export default {
   parameters: {
     cssprops: {
       'input-color': {
-        value: undefined,
+        value: 'var(--color-text-body)',
         control: 'text',
         description: '',
       },
       'input-background-color': {
         value: 'var(--color-background-white)',
-        control: 'text',
-        description: '',
-      },
-      'input-border': {
-        value: 'solid var(--input-border-color, var(--color-border-strong))',
-        control: 'text',
-        description: '',
-      },
-      'input-border-width': {
-        value: '1px',
-        control: 'text',
-        description: '',
-      },
-      'input-border-radius': {
-        value: 'var(--border-radius-form)',
         control: 'text',
         description: '',
       },

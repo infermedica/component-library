@@ -95,18 +95,20 @@ const icon = computed(() => (isOpen.value ? props.settings.iconOpen : props.sett
 </script>
 
 <style lang="scss">
+@import "../../../../styles/mixins/mixins";
+
 .ui-accordion-item {
+  @include inner-border($element: accordion-item, $color: var(--color-border-divider), $width: 1px 0 0 0);
+
   $this: &;
 
   --list-item-padding: 0;
 
   display: flex;
   flex-direction: column;
-  border: var(--accordion-item-border, solid var(--color-border-divider));
-  border-width: var(--accordion-item-border-width, 1px 0 0 0);
 
   &:last-of-type {
-    border-width: var(--accordion-item-border-width, 1px 0);
+    --accordion-item-border-width: var(--accordion-item-last-border-width, 1px 0);
   }
 
   &__toggler {

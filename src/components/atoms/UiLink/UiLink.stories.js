@@ -39,6 +39,11 @@ export default {
         control: 'text',
         description: '',
       },
+      'link-vertical-align': {
+        value: 'middle',
+        control: 'text',
+        description: '',
+      },
       'link-hover-color': {
         value: 'var(--color-text-action-primary-hover)',
         control: 'text',

@@ -94,8 +94,6 @@ function changeHandler(checked) {
 
 <style lang="scss">
 @import "../../../styles/mixins/mixins";
-// use .ui-radio--is-disabled class for disabling checkbox visually
-// use .ui-radio--has-error class indicating validation error visually
 
 .ui-radio {
   $this: &;
@@ -114,6 +112,8 @@ function changeHandler(checked) {
   }
 
   &__radiobutton {
+    @include inner-border($element: radio, $width: 2px, $radius: var(--border-radius-circle));
+
     display: flex;
     flex: none;
     align-items: center;
@@ -123,9 +123,6 @@ function changeHandler(checked) {
     margin: var(--radio-margin, 0.125rem);
     overflow: hidden;
     background: var(--radio-background, var(--color-background-white));
-    border: var(--radio-border, solid var(--color-border-strong));
-    border-width: var(--radio-border-width, 2px);
-    border-radius: var(--radio-border-radius, var(--border-radius-circle));
   }
 
   &__mark {

@@ -94,16 +94,6 @@ export default {
   },
   parameters: {
     cssprops: {
-      'multiple-choices-list-item-border': {
-        value: 'solid var(--color-border-divider)',
-        control: 'text',
-        description: '',
-      },
-      'multiple-choices-list-item-border-width': {
-        value: '1px 0',
-        control: 'text',
-        description: '',
-      },
       'multiple-choices-list-item-hover-background': {
         value: 'var(--color-gray-50)',
         control: 'text',

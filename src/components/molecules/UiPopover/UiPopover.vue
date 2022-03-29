@@ -72,16 +72,17 @@ onBeforeUnmount(() => {
 </script>
 
 <style lang="scss">
+@import "../../../styles/mixins/mixins";
+
 .ui-popover {
+  @include inner-border($element: popover, $color: var(--color-border-subtle), $radius: var(--border-radius-form));
+
   $this: &;
 
   z-index: 1;
   background: var(--popover-background, var(--color-background-white));
-  border: var(--popover-border, solid var(--color-border-subtle));
-  border-width: var(--popover-border-width, 1px);
-  border-radius: var(--popover-border-radius, var(--border-radius-form));
   box-shadow: var(--popover-box-shadow, var(--box-shadow-high));
-  transform: var(--popover-transform, 0);
+  transform: var(--popover-transform);
 
   &__header {
     position: relative;
@@ -90,7 +91,11 @@ onBeforeUnmount(() => {
     justify-content: space-between;
     padding: var(--popover-header-padding, var(--space-12) var(--space-16));
     background: var(--popover-header-background, var(--color-background-subtle));
-    border-radius: var(--popover-header-border-radius, var(--border-radius-form) var(--border-radius-form) 0 0);
+
+    &::after {
+      z-index: 1;
+      pointer-events: none;
+    }
   }
 
   &__content {

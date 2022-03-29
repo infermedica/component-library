@@ -53,21 +53,6 @@ export default {
         control: 'text',
         description: '',
       },
-      'radio-border': {
-        value: 'solid var(--color-border-strong)',
-        control: 'text',
-        description: '',
-      },
-      'radio-border-width': {
-        value: '2px',
-        control: 'text',
-        description: '',
-      },
-      'radio-border-radius': {
-        value: 'var(--border-radius-circle)',
-        control: 'text',
-        description: '',
-      },
       'radio-mark-size': {
         value: '0.625rem',
         control: 'text',

@@ -109,6 +109,8 @@ const validNext = computed(() => (
 </script>
 
 <style lang="scss">
+@import "../../../styles/mixins/mixins";
+
 .ui-controls {
   --container-padding: 0;
 
@@ -126,14 +128,14 @@ const validNext = computed(() => (
   }
 
   &__bottom {
+    @include inner-border($element: controls-bottom, $color:  var(--color-border-divider), $width: 1px 0 0 0);
+
     display: flex;
     flex-direction: row-reverse;
     align-items: var(--controls-bottom-align-items, center);
     justify-content: var(--controls-bottom-justify-content, space-between);
     height: var(--controls-bottom, 5rem);
     padding: var(--controls-bottom-padding, var(--space-12) var(--space-20));
-    border: var(--controls-bottom-border, solid var(--color-border-divider));
-    border-width: var(--controls-bottom-border-width, 1px 0 0 0);
 
     @media (min-width: 768px) {
       padding: var(--controls-tablet-bottom-padding, var(--space-16) var(--space-32));

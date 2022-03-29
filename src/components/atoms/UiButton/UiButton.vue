@@ -44,7 +44,9 @@ const { componentTag, routeAttrs } = useLink(props);
 @import "../../../styles/mixins/mixins";
 
 .ui-button {
+  @include inner-border($element: button, $color: transpatent, $width: 0, $radius: var(--border-radius-button));
   @include font(body-1-thick);
+
   $this: &;
 
   position: relative;
@@ -66,8 +68,6 @@ const { componentTag, routeAttrs } = useLink(props);
       --button-background,
       var(--color-background-action)
     );
-  border: none;
-  border-radius: var(--button-border-radius, var(--border-radius-button));
   transition:
     var(
       --toggle-button-transition,
@@ -75,18 +75,6 @@ const { componentTag, routeAttrs } = useLink(props);
       border-color 0.15s ease-in-out,
       color 0.15s ease-in-out)
     );
-
-  &::before {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    content: "";
-    border: var(--button-border, var(--button-border-style, solid) var(--button-border-color, transparent));
-    border-width: var(--button-border-width, 0);
-    border-radius: inherit;
-  }
 
   @media (hover: hover) {
     &:hover {

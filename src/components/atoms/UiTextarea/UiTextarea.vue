@@ -1,15 +1,28 @@
 <template>
-  <textarea
-    v-keyboard-focus
-    :value="modelValue"
+  <div
     class="ui-textarea"
-    :style="{resize: resizeValue}"
-    @input="inputHandler($event.target.value)"
-  />
+    v-bind="getRootAttrs($attrs)"
+  >
+    <textarea
+      v-keyboard-focus
+      v-bind="getInputAttrs($attrs)"
+      :value="modelValue"
+      :style="{resize: resizeValue}"
+      class="ui-textarea__element"
+      @input="inputHandler($event.target.value)"
+    />
+  </div>
 </template>
+
+<script>
+export default {
+  inheritAttrs: false,
+};
+</script>
 
 <script setup>
 import { computed } from 'vue';
+import useInput from '../../../composable/useInput';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 
 const props = defineProps({
@@ -32,6 +45,7 @@ const props = defineProps({
   },
 });
 const emit = defineEmits(['update:modelValue']);
+const { getRootAttrs, getInputAttrs } = useInput();
 function inputHandler(value) {
   emit('update:modelValue', value);
 }
@@ -47,24 +61,18 @@ const resizeValue = computed(() => {
 @import "../../../styles/mixins/mixins";
 
 .ui-textarea {
-  @include font(body-1);
+  @include inner-border($element: textarea, $radius: var(--border-radius-form));
+
+  $this: &;
 
   display: inline-flex;
   align-items: center;
-  padding: var(--textarea-padding, var(--space-12) var(--space-16));
-  color: var(--textarea-color, var(--color-text-body));
-  background-color: var(--textarea-background-color, var(--color-background-white));
-  border: var(--textarea-border, solid var(--textarea-border-color, var(--color-border-strong)));
-  border-width: var(--textarea-border-width, 1px);
-  border-radius: var(--textarea-border-radius, var(--border-radius-form));
+  overflow: hidden;
+  color: var(--textarea-color, var(--color-background-white));
 
-  &::placeholder {
-    @include font(body-1);
+  &:focus-within {
+    --input-border-color: var(--input-focus-border-color, var(--color-border-strong));
 
-    color: var(--textarea-placeholder-color, var(--color-text-dimmed));
-  }
-
-  &:focus {
     outline: none;
     box-shadow: var(--focus-outer);
   }
@@ -76,6 +84,24 @@ const resizeValue = computed(() => {
       &:focus-within {
         --textarea-hover-border-color: var(--textarea-focus-border-color);
       }
+    }
+  }
+
+  &__element {
+    @include font(body-1);
+
+    width: 100%;
+    padding: var(--textarea-padding, var(--space-12) var(--space-16));
+    color: var(--textarea-color, var(--color-text-body));
+    background-color: transparent; // override iOS default
+    border: 0;
+    outline: none;
+    caret-color: var(--textarea-caret-color, var(--color-blue-500));
+
+    &::placeholder {
+      @include font(body-1);
+
+      color: var(--texatarea-placeholder-color, var(--color-text-dimmed));
     }
   }
 

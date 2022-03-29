@@ -37,38 +37,8 @@ export default {
   },
   parameters: {
     cssprops: {
-      'textarea-padding': {
-        value: 'var(--space-12) var(--space-16)',
-        control: 'text',
-        description: '',
-      },
       'textarea-color': {
         value: 'var(--color-text-body)',
-        control: 'text',
-        description: '',
-      },
-      'textarea-background-color': {
-        value: 'var(--color-background-white)',
-        control: 'text',
-        description: '',
-      },
-      'textarea-border': {
-        value: 'solid var(--textarea-border-color, var(--color-border-strong))',
-        control: 'text',
-        description: '',
-      },
-      'textarea-border-width': {
-        value: '1px',
-        control: 'text',
-        description: '',
-      },
-      'textarea-border-radius': {
-        value: 'var(--border-radius-form)',
-        control: 'text',
-        description: '',
-      },
-      'textarea-placeholder-color': {
-        value: 'var(--color-text-dimmed)',
         control: 'text',
         description: '',
       },
@@ -79,6 +49,16 @@ export default {
       },
       'textarea-focus-border-color': {
         value: undefined,
+        control: 'text',
+        description: '',
+      },
+      'textarea-padding': {
+        value: 'var(--space-12) var(--space-16)',
+        control: 'text',
+        description: '',
+      },
+      'textarea-caret-color': {
+        value: 'var(--color-blue-500)',
         control: 'text',
         description: '',
       },

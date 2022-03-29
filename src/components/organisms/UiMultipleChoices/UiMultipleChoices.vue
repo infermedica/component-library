@@ -159,15 +159,10 @@ const choicesToUse = computed(() => (
   }
 
   &__list-item {
-    border:
-      var(
-        --multiple-choices-list-item-border,
-        solid var(--color-border-divider)
-      );
-    border-width: var(--multiple-choices-list-item-border-width, 1px 0 0 0);
+    @include inner-border($element: multiple-choice-list-item, $color: var(--color-border-divider), $width: 1px 0 0 0);
 
     &:last-of-type {
-      border-width: var(--multiple-choices-list-item-border-width, 1px 0);
+      --multiple-choice-list-item-border-width: var(--multiple-choice-list-item-last-border-width, 1px 0);
     }
 
     @media (hover: hover) {

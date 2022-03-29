@@ -59,16 +59,6 @@ export default {
         control: 'text',
         description: '',
       },
-      'controls-bottom-border': {
-        value: 'solid var(--color-border-divider)',
-        control: 'text',
-        description: '',
-      },
-      'controls-bottom-border-width': {
-        value: '1px 0 0 0',
-        control: 'text',
-        description: '',
-      },
       'controls-tablet-bottom-padding': {
         value: 'var(--space-16) var(--space-32)',
         control: 'text',

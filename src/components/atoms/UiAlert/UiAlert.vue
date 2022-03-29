@@ -51,13 +51,12 @@ const icon = computed(() => {
 @import "../../../styles/mixins/mixins";
 
 .ui-alert {
+  @include inner-border($element: alert, $color: transparent, $width: 0);
   $this: &;
 
   display: inline-flex;
   align-items: flex-start;
   background: var(--alert-background);
-  border: var(--alert-border);
-  border-width: var(--alert-border-width);
 
   &__icon {
     --icon-size: var(--alert-icon-size, 1.5rem);

@@ -4,8 +4,7 @@ import UiTextarea from './UiTextarea.vue';
 describe('UiTextarea.vue', () => {
   test('renders a component', () => {
     const wrapper = mount(UiTextarea);
-    const textarea = wrapper.find('textarea');
-    expect(textarea.classes('ui-textarea')).toBe(true);
+    expect(wrapper.classes('ui-textarea')).toBe(true);
   });
   test('render a native attributes on input element', () => {
     const placeholder = 'symptom checker';

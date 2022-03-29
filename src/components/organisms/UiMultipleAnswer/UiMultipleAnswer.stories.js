@@ -121,12 +121,7 @@ export default {
         control: 'text',
         description: '',
       },
-      'multiple-answer-list-item-border': {
-        value: 'solid var(--color-border-divider)',
-        control: 'text',
-        description: '',
-      },
-      'multiple-answer-list-item-border-width': {
+      'multiple-answer-list-item-last-border-width': {
         value: '1px 0',
         control: 'text',
         description: '',

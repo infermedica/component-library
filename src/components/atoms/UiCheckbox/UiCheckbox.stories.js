@@ -52,21 +52,6 @@ export default {
         control: 'text',
         description: '',
       },
-      'checkbox-border': {
-        value: 'solid var(--color-border-strong)',
-        control: 'text',
-        description: '',
-      },
-      'checkbox-border-width': {
-        value: '2px',
-        control: 'text',
-        description: '',
-      },
-      'checkbox-border-radius': {
-        value: 'var(--border-radius-form)',
-        control: 'text',
-        description: '',
-      },
       'checkbox-label-flex': {
         value: '1',
         control: 'text',

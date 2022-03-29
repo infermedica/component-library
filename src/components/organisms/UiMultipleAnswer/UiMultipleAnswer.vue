@@ -197,14 +197,14 @@ function unfocusExplication(event) {
 
 .ui-multiple-answer {
   &__list-item {
+    @include inner-border($element: multiple-answer-list-item, $color: var(--color-border-divider), $width: 1px 0 0 0);
+
     --list-item-padding: 0;
 
     background: var(--multiple-answer-list-item-background);
-    border: var(--multiple-answer-list-item-border, solid var(--color-border-divider));
-    border-width: var(--multiple-answer-list-item-border-width, 1px 0 0 0);
 
     &:last-of-type {
-      border-width: var(--multiple-answer-list-item-border-width, 1px 0);
+      --multiple-answer-list-item-border-width: var(--multiple-answer-list-item-last-border-width, 1px 0);
     }
 
     @media (hover: hover) {

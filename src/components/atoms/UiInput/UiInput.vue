@@ -82,6 +82,8 @@ function inputHandler(value) {
 @import "../../../styles/mixins/mixins";
 
 .ui-input {
+  @include inner-border($element: input, $width: 1px, $radius: var(--border-radius-form));
+
   $this: &;
 
   display: inline-flex;
@@ -89,9 +91,6 @@ function inputHandler(value) {
   overflow: hidden;
   color: var(--input-color, var(--color-text-body));
   background-color: var(--input-background-color, var(--color-background-white));
-  border: var(--input-border, solid var(--input-border-color, var(--color-border-strong)));
-  border-width: var(--input-border-width, 1px);
-  border-radius: var(--input-border-radius, var(--border-radius-form));
 
   &:focus-within {
     --input-border-color: var(--input-focus-border-color, var(--color-border-strong));
@@ -115,13 +114,15 @@ function inputHandler(value) {
 
     width: 100%;
     padding: var(--input-padding, var(--space-12) var(--space-16));
-    color: var(--input-color);
+    color: var(--input-color, var(--color-text-body));
     background-color: transparent; // override iOS default
     border: 0;
     outline: none;
     caret-color: var(--input-caret-color, var(--color-blue-500));
 
     &::placeholder {
+      @include font(body-1);
+
       color: var(--input-placeholder-color, var(--color-text-dimmed));
     }
 

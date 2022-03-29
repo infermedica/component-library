@@ -104,8 +104,6 @@ function changeHandler(checked) {
 
 <style lang="scss">
 @import "../../../styles/mixins/mixins";
-// use .ui-checkbox--is-disabled class for disabling checkbox visually
-// use .ui-checkbox--has-error class indicating validation error visually
 
 .ui-checkbox {
   @include font(body-1);
@@ -138,9 +136,8 @@ function changeHandler(checked) {
     margin: var(--checkbox-margin, 0.125rem);
     overflow: hidden;
     background: var(--checkbox-background, var(--color-background-white));
-    border: var(--checkbox-border, solid var(--color-border-strong));
-    border-width: var(--checkbox-border-width, 2px);
-    border-radius: var(--checkbox-border-radius, var(--border-radius-form));
+
+    @include inner-border($element: checkbox, $color: var(--color-border-strong), $width: 2px, $radius: var(--border-radius-form));
   }
 
   input {

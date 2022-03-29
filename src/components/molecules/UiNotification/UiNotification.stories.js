@@ -34,16 +34,6 @@ export default {
         control: 'text',
         description: '',
       },
-      'notification-border': {
-        value: undefined,
-        control: 'text',
-        description: '',
-      },
-      'notification-border-radius': {
-        value: 'var(--border-radius-container)',
-        control: 'text',
-        description: '',
-      },
       'notification-success-background-color': {
         value: 'var(--color-background-success)',
         control: 'text',

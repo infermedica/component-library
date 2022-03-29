@@ -36,16 +36,6 @@ export default {
         control: 'text',
         description: '',
       },
-      'alert-border': {
-        value: undefined,
-        control: 'text',
-        description: '',
-      },
-      'alert-border-width': {
-        value: undefined,
-        control: 'text',
-        description: '',
-      },
       'alert-icon-size': {
         value: '1.5rem',
         control: 'text',
