@@ -15,7 +15,7 @@
         ref="toggle"
         class="ui-dropdown__toggle"
         :aria-expanded="`${isOpen}`"
-        @click="toggleHandler"
+        @click.stop="toggleHandler"
       >
         {{ text }}
       </UiButton>
