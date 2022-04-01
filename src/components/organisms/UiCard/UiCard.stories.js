@@ -5,6 +5,7 @@ import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiContainer from '@/components/organisms/UiContainer/UiContainer.vue';
 import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints.vue';
 import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue';
+import { modifiers } from '@sb/helpers/argTypes';
 
 export default {
   title: 'Organisms/Card',
@@ -13,29 +14,64 @@ export default {
     UiIcon, UiText, UiHeading, UiContainer,
   },
   args: {
+    modifiers: [],
     title: 'Call an ambulance',
     subtitle: 'Recommendation',
     description: 'Your symptoms are very serious, and you may require emergency care. Do not delay. Call an ambulance right now.',
-    modifiers: [],
+    type: 'emergency_ambulance',
   },
   argTypes: {
+    modifiers: modifiers({ options: ['ui-card--modern'] }),
     title: {
-      control: { type: 'text' },
+      description: 'Use this props to set title for card.',
       table: {
         category: 'props',
+        type: { summary: 'string' },
       },
+      control: 'text',
+    },
+    titleSlot: {
+      name: 'title',
+      description: 'Use this slot to replace title template.',
+      table: {
+        category: 'slots',
+        type: { summary: 'unknown' },
+      },
+      control: { type: 'object' },
     },
     subtitle: {
-      control: { type: 'text' },
+      description: 'Use this props to set subtitle for card.',
       table: {
         category: 'props',
+        type: { summary: 'string' },
       },
+      control: `text`,
+    },
+    subtitleSlot: {
+      name: 'subtitle',
+      description: 'Use this slot to replace subtitle template.',
+      table: {
+        category: 'slots',
+        type: { summary: 'unknown' },
+      },
+      control: 'object',
     },
     description: {
-      control: { type: 'text' },
+      description: 'Use this props to set description for card.',
       table: {
         category: 'props',
+        type: { summary: 'string' },
       },
+      control: 'text',
+    },
+    descriptionSlot: {
+      name: 'description',
+      description: 'Use this slot to replace description template.',
+      table: {
+        category: 'slots',
+        type: { summary: 'unknown' },
+      },
+      control: { type: 'object' },
     },
     type: {
       control: {
@@ -44,20 +80,14 @@ export default {
       options: [
         'emergency_ambulance', 'emergency', 'consultation_24', 'consultation', 'self_care',
       ],
-      table: {
-        category: 'props',
-      },
     },
-    modifiers: {
-      control: {
-        type: 'multi-select',
-      },
-      options: [
-        'ui-card--modern',
-      ],
+    symptoms: {
+      name: 'symptoms',
       table: {
-        category: 'HTML attributes',
+        category: 'slots',
+        type: { summary: 'deprecated' },
       },
+      control: false,
     },
   },
   parameters: {
@@ -156,9 +186,6 @@ const Template = (args) => ({
 });
 
 export const Ambulance = Template.bind({});
-Ambulance.args = {
-  type: 'emergency_ambulance',
-};
 
 export const Emergency = Template.bind({});
 Emergency.args = {
@@ -226,8 +253,8 @@ export const WithDetailsSlot = (args) => ({
       :type="type"
     >
     <template #details>
-      <UiHeading 
-        :level="4" 
+      <UiHeading
+        :level="4"
         style="margin: var(--space-24) 0 var(--space-8) 0"
       >
         Alarming symptoms:
@@ -394,8 +421,8 @@ export const WithSymptomsSlot = (args) => ({
       :type="type"
     >
     <template #symptoms>
-      <UiHeading 
-        :level="4" 
+      <UiHeading
+        :level="4"
         style="margin: var(--space-24) 0 var(--space-8) 0"
       >
         Alarming symptoms:

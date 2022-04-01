@@ -20,6 +20,7 @@
         v-if="options.info"
         class="ui-question__actions-top"
       >
+        <!-- @slot Use this slot to replace info template. -->
         <slot
           name="info"
           v-bind="{buttonInfoAttrs, options, translation}"
@@ -118,88 +119,78 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import UiAlert from '../../atoms/UiAlert/UiAlert.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiNotification from '../../molecules/UiNotification/UiNotification.vue';
 
-export default {
-  name: 'UiQuestion',
-  components: {
-    UiAlert,
-    UiButton,
-    UiHeading,
-    UiIcon,
-    UiNotification,
+defineProps({
+  /**
+   * Use this props to set question title.
+   */
+  title: {
+    type: String,
+    default: '',
   },
-  props: {
-    /**
-     * Use this props to set question title.
-     */
-    title: {
-      type: String,
-      default: '',
-    },
-    /**
-     * Use this props to set valid state of the question.
-     */
-    translation: {
-      type: Object,
-      default: () => ({
-        info: 'What does it mean?',
-        why: 'Why am I being asked this?',
-        issue: {
-          action: 'Report an issue with this question',
-          feedback: 'Thank you. We’ll review this question as soon as possible.',
-          skip: 'Skip this question',
-        },
-      }),
-    },
-    /**
-     * Use this props to setup question.
-     */
-    options: {
-      type: Object,
-      default: () => ({
-        info: true,
-        why: true,
-        issue: {
-          feedback: true,
-        },
-      }),
-    },
-    /**
-     * Use this props to pass attrs for question skip UiButton
-     */
-    buttonSkipAttrs: {
-      type: Object,
-      default: () => ({}),
-    },
-    /**
-     * Use this props to pass attrs for info UiButton
-     */
-    buttonInfoAttrs: {
-      type: Object,
-      default: () => ({}),
-    },
-    /**
-     * Use this props to pass attrs for why UiButton
-     */
-    buttonWhyAttrs: {
-      type: Object,
-      default: () => ({}),
-    },
-    /**
-     * Use this props to pass attrs for issue UiButton
-     */
-    buttonIssueAttrs: {
-      type: Object,
-      default: () => ({}),
-    },
+  /**
+   * Use this props to set valid state of the question.
+   */
+  translation: {
+    type: Object,
+    default: () => ({
+      info: 'What does it mean?',
+      why: 'Why am I being asked this?',
+      issue: {
+        action: 'Report an issue with this question',
+        feedback: 'Thank you. We’ll review this question as soon as possible.',
+        skip: 'Skip this question',
+      },
+    }),
   },
-};
+  /**
+   * Use this props to setup question.
+   */
+  options: {
+    type: Object,
+    default: () => ({
+      info: true,
+      why: true,
+      issue: {
+        feedback: true,
+      },
+    }),
+  },
+  /**
+   * Use this props to pass attrs for question skip UiButton
+   */
+  buttonSkipAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for info UiButton
+   */
+  buttonInfoAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for why UiButton
+   */
+  buttonWhyAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for issue UiButton
+   */
+  buttonIssueAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+});
 </script>
 
 <style lang="scss">

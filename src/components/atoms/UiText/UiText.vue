@@ -9,6 +9,9 @@
 
 <script setup>
 defineProps({
+  /**
+   * Use this to set text tag.
+   */
   tag: {
     type: String,
     default: 'p',

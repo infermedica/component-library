@@ -3,7 +3,12 @@ import UiMultipleChoicesItem from '@/components/organisms/UiMultipleChoices/_int
 import UiAlert from '@/components/atoms/UiAlert/UiAlert.vue';
 import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
+import { actions } from '@storybook/addon-actions';
 import { ref } from 'vue';
+
+const events = actions({
+  onUpdateInvalid: 'update:invalid',
+});
 
 export default {
   title: 'Organisms/MultipleChoices',
@@ -12,6 +17,15 @@ export default {
     UiMultipleChoicesItem, UiAlert, UiList, UiListItem,
   },
   args: {
+    initModelValue: [],
+    initInvalid: true,
+    source: 'predefined',
+    options: [
+      { name: 'Yes', value: 'present' },
+      { name: 'No', value: 'absent' },
+      { name: 'Don\'t know', value: 'unknown' },
+    ],
+    hint: 'Select one answer in each row',
     choices: [
       {
         id: 9,
@@ -31,65 +45,51 @@ export default {
         name: 'I have high cholesterol',
         linked_observation: 'p_10',
       },
-      {
-        id: 6,
-        question: 37,
-        name: 'I’ve been recently injured',
-        linked_observation: 'p_264',
-      },
-      {
-        id: 5,
-        question: 37,
-        name: 'I smoke cigarettes',
-        linked_observation: 'p_28',
-      },
-      {
-        id: 4,
-        question: 37,
-        name: "I'm overweight or obese",
-        linked_observation: 'p_7',
-      },
-      {
-        id: 3,
-        question: 37,
-        name: "I'm pregnant",
-        linked_observation: 'p_42',
-      },
-      {
-        id: 2,
-        question: 37,
-        name: "I'm postmenopausal",
-        linked_observation: 'p_11',
-      },
     ],
-    options: [
-      { name: 'Yes', value: 'present' },
-      { name: 'No', value: 'absent' },
-      { name: 'Don\'t know', value: 'unknown' },
-    ],
-    hint: 'Select one answer in each row',
-    source: 'predefined',
-    alertHintAttrs: {
-      id: 'hint',
-    },
-    invalid: true,
     touched: false,
+    alertHintAttrs: {},
   },
   argTypes: {
+    initModelValue: {
+      description: 'Use this control to set initial state.',
+      table: {
+        category: 'stories controls',
+      },
+      control: 'array',
+    },
+    initInvalid: {
+      name: 'invalid',
+      description: 'Use this control to set initial state of invalid props.',
+      table: {
+        category: 'stories controls',
+      },
+      control: 'boolean',
+    },
+    hint: {
+      description: 'Use this props to set hint for question.',
+      table: {
+        category: 'props',
+        type: {
+          summary: 'string',
+        },
+      },
+      control: 'text',
+    },
+    hintSlot: {
+      name: 'hint',
+      description: 'Use this slot to replace hint template.',
+      table: {
+        category: 'slots',
+        type: {
+          summary: 'unknown',
+        },
+      },
+    },
     modelValue: {
       control: false,
     },
-    source: {
-      control: {
-        type: 'text',
-      },
-      description: 'Is deprecated and will be removed',
-    },
-    hint: {
-      control: { type: 'text' },
-      table: {
-        category: 'props',
-      },
+    invalid: {
+      control: false,
     },
   },
   parameters: {
@@ -126,19 +126,25 @@ export default {
 const Template = (args) => ({
   components: { UiMultipleChoices },
   setup() {
-    const refModelValue = ref([]);
-    const refInvalid = ref(args.invalid);
-    return { ...args, refModelValue, refInvalid };
+    const modelValue = ref(args.initModelValue);
+    const invalid = ref(args.initInvalid);
+    return {
+      ...args,
+      ...events,
+      modelValue,
+      invalid,
+    };
   },
   template: `<UiMultipleChoices
-    v-model="refModelValue"
-    v-model:invalid="refInvalid"
+    v-model="modelValue"
+    v-model:invalid="invalid"
     :source="source"
     :options="options"
     :choices="choices"
     :hint="hint"
     :touched="touched"
     :alert-hint-attrs="alertHintAttrs"
+    @update:invalid="onUpdateInvalid"
   />`,
 });
 
@@ -168,40 +174,10 @@ WithButtonInfo.args = {
       question: 37,
       name: 'I have high cholesterol',
       linked_observation: 'p_10',
-    },
-    {
-      id: 6,
-      question: 37,
-      name: 'I’ve been recently injured',
-      linked_observation: 'p_264',
-    },
-    {
-      id: 5,
-      question: 37,
-      name: 'I smoke cigarettes',
-      linked_observation: 'p_28',
-    },
-    {
-      id: 4,
-      question: 37,
-      name: "I'm overweight or obese",
-      linked_observation: 'p_7',
-    },
-    {
-      id: 3,
-      question: 37,
-      name: "I'm pregnant",
-      linked_observation: 'p_42',
       translation: { info: 'How to check it?' },
       buttonInfoAttrs: {
         to: { path: '/' },
       },
-    },
-    {
-      id: 2,
-      question: 37,
-      name: "I'm postmenopausal",
-      linked_observation: 'p_11',
     },
   ],
 };
@@ -209,13 +185,17 @@ WithButtonInfo.args = {
 export const WithHintSlot = (args) => ({
   components: { UiMultipleChoices, UiAlert },
   setup() {
-    const refModelValue = ref([]);
-    const refInvalid = ref(args.invalid);
-    return { ...args, refModelValue, refInvalid };
+    const modelValue = ref(args.initModelValue);
+    const invalid = ref(args.initInvalid);
+    return {
+      ...args,
+      modelValue,
+      invalid,
+    };
   },
   template: `<UiMultipleChoices
-    v-model="refModelValue"
-    v-model:invalid="refInvalid"
+    v-model="modelValue"
+    v-model:invalid="invalid"
     :source="source"
     :options="options"
     :choices="choices"
@@ -238,13 +218,17 @@ export const WithHintSlot = (args) => ({
 export const WithListItemSlot = (args) => ({
   components: { UiMultipleChoices, UiListItem, UiMultipleChoicesItem },
   setup() {
-    const refModelValue = ref([]);
-    const refInvalid = ref(args.invalid);
-    return { ...args, refModelValue, refInvalid };
+    const modelValue = ref(args.initModelValue);
+    const invalid = ref(args.initInvalid);
+    return {
+      ...args,
+      modelValue,
+      invalid,
+    };
   },
   template: `<UiMultipleChoices
-    v-model="refModelValue"
-    v-model:invalid="refInvalid"
+    v-model="modelValue"
+    v-model:invalid="invalid"
     :source="source"
     :options="options"
     :choices="choices"
@@ -270,13 +254,17 @@ export const WithListItemSlot = (args) => ({
 export const WithChoiceItem = (args) => ({
   components: { UiMultipleChoices, UiMultipleChoicesItem },
   setup() {
-    const refModelValue = ref([]);
-    const refInvalid = ref(args.invalid);
-    return { ...args, refModelValue, refInvalid };
+    const modelValue = ref(args.initModelValue);
+    const invalid = ref(args.initInvalid);
+    return {
+      ...args,
+      modelValue,
+      invalid,
+    };
   },
   template: `<UiMultipleChoices
-    v-model="refModelValue"
-    v-model:invalid="refInvalid"
+    v-model="modelValue"
+    v-model:invalid="invalid"
     :source="source"
     :options="options"
     :choices="choices"

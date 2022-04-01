@@ -3,6 +3,7 @@
     class="ui-notification"
     :class="rootClassModifier"
   >
+    <!-- @slot Use this slot to place content inside alert. -->
     <slot />
   </div>
 </template>
@@ -12,8 +13,8 @@ import { computed } from 'vue';
 
 const props = defineProps({
   /**
-     * Use this props to set notification type.
-     */
+   * Use this props to set notification type.
+   */
   type: {
     type: String,
     required: false,

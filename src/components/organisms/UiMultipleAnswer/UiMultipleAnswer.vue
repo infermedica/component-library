@@ -116,36 +116,36 @@ const props = defineProps({
     default: () => ([]),
   },
   /**
-     *  Use this props to group inputs with name attribute
-     */
+   *  Use this props to group inputs with name attribute
+   */
   name: {
     type: String,
     default: '',
   },
   /**
-     * Use this props to set invalid state of component.
-     */
+   * Use this props to set invalid state of component.
+   */
   invalid: {
     type: Boolean,
     default: true,
   },
   /**
-     * Use this props to set hint for question.
-     */
+   * Use this props to set hint for question.
+   */
   hint: {
     type: String,
     default: '',
   },
   /**
-     * Use this props to touch component and show validation errors.
-     */
+   * Use this props to touch component and show validation errors.
+   */
   touched: {
     type: Boolean,
     default: false,
   },
   /**
-     * Use this props to pass attrs for hint UiAlert
-     */
+   * Use this props to pass attrs for hint UiAlert
+   */
   alertHintAttrs: {
     type: Object,
     default: () => ({}),

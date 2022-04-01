@@ -32,6 +32,9 @@ import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import UiText from '../../../atoms/UiText/UiText.vue';
 
 defineProps({
+  /**
+   * Use this props to set the bullet point icon.
+   */
   icon: {
     type: String,
     default: 'bullet-common',

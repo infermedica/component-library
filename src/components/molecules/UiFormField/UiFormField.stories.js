@@ -9,17 +9,29 @@ export default {
   component: UiFormField,
   subcomponents: { UiAlert, UiText },
   args: {
-    labelAttrs: {},
+    errorMessage: 'Please enter a valid height',
     label: 'What is your height?',
     hint: 'Required',
-    alertAttrs: {},
-    errorMessage: 'Please enter a valid height',
-    id: null,
+    id: '',
   },
   argTypes: {
-    label: { control: 'text' },
     id: { control: 'text' },
-    errorMessage: { control: 'text' },
+    label: {
+      description: 'Use this props to set label text',
+      table: {
+        category: 'props',
+        type: { summary: 'boolean|string' },
+      },
+    },
+    labelSlot: {
+      name: 'label',
+      description: 'Use this slot to replace label template.',
+      table: {
+        category: 'slots',
+        type: { summary: 'unknown' },
+      },
+      control: 'object',
+    },
   },
   parameters: {
     cssprops: {
@@ -61,7 +73,7 @@ const Template = (args) => ({
     :id="id"
     :hint="hint"
     :alert-attrs="alertAttrs"
-    :error-message="hasError && errorMessage"
+    :error-message="errorMessage"
   >
     <template #default="{id}">
       <UiInput
@@ -69,7 +81,7 @@ const Template = (args) => ({
         style="width: 100%"
         suffix="cm"
         :class="{
-          'ui-input--has-error': hasError
+          'ui-input--has-error': errorMessage
         }"
       />
     </template>
@@ -77,14 +89,6 @@ const Template = (args) => ({
 });
 
 export const WithInput = Template.bind({});
-WithInput.args = {
-  hasError: true,
-};
-WithInput.argTypes = {
-  hasError: {
-    control: 'boolean',
-  },
-};
 
 export const WithCheckbox = (args) => ({
   components: { UiFormField, UiCheckbox },
@@ -98,7 +102,7 @@ export const WithCheckbox = (args) => ({
     :error-message="hasError && errorMessage"
   >
     <template #default="{id}">
-      <UiCheckbox 
+      <UiCheckbox
         :id="id"
         style="width: 100%"
         suffix="cm"
@@ -115,15 +119,6 @@ WithCheckbox.args = {
   errorMessage: 'Please agree to Terms of Service and Privacy Policy.',
   label: false,
   hint: false,
-  hasError: true,
-};
-WithCheckbox.argTypes = {
-  hasError: {
-    control: 'boolean',
-  },
-  label: {
-    control: false,
-  },
 };
 
 export const WithLabelSlot = (args) => ({
@@ -172,14 +167,6 @@ export const WithLabelSlot = (args) => ({
     </template>
   </UiFormField>`,
 });
-WithLabelSlot.args = {
-  hasError: false,
-};
-WithLabelSlot.argTypes = {
-  hasError: {
-    control: 'boolean',
-  },
-};
 
 export const WithAlertSlot = (args) => ({
   components: {
@@ -215,11 +202,3 @@ export const WithAlertSlot = (args) => ({
     </template>
   </UiFormField>`,
 });
-WithAlertSlot.args = {
-  hasError: true,
-};
-WithAlertSlot.argTypes = {
-  hasError: {
-    control: 'boolean',
-  },
-};

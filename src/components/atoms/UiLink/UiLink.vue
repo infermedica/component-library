@@ -16,22 +16,22 @@ import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 
 const props = defineProps({
   /**
-     * Use this props to set tag when a component shouldn't be a link.
-     */
+   * Use this props to set tag when a component shouldn't be a link.
+   */
   tag: {
     type: [String, Object],
     default: 'span',
   },
   /**
-     * Use this props to set route for internal link.
-     */
+   * Use this props to set route for internal link.
+   */
   to: {
     type: [String, Object],
     default: '',
   },
   /**
-     * Use this props to set route for external link.
-     */
+   * Use this props to set route for external link.
+   */
   href: {
     type: String,
     default: '',

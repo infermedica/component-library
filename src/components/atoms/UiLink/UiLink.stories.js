@@ -1,31 +1,27 @@
 import UiLink from '@/components/atoms/UiLink/UiLink.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
+import { content, modifiers } from '@sb/helpers/argTypes';
 
 export default {
   title: 'Atoms/Link',
   component: UiLink,
   args: {
     content: 'Back',
-    href: '#',
-    disabled: false,
     modifiers: [],
+    href: '#',
+    tag: 'span',
+    to: '',
   },
   argTypes: {
-    content: { control: 'text' },
-    modifiers: {
-      control: {
-        type: 'multi-select',
-      },
+    content,
+    modifiers: modifiers({
       options: [
         'ui-link--small',
         'ui-link--is-disabled',
         'ui-link--has-icon',
         'ui-link--secondary',
       ],
-      table: {
-        category: 'HTML attributes',
-      },
-    },
+    }),
   },
   parameters: {
     cssprops: {

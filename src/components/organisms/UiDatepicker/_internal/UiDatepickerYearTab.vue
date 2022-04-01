@@ -29,8 +29,8 @@ import UiTabsItem from '../../UiTabs/_internal/UiTabsItem.vue';
 
 const props = defineProps({
   /**
-     * Use this props or v-model to set value.
-     */
+   * Use this props or v-model to set value.
+   */
   modelValue: {
     type: String,
     default: '',

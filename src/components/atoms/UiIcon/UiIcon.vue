@@ -6,22 +6,29 @@
 </template>
 
 <script setup>
-import { computed, defineAsyncComponent } from 'vue';
+import { computed, defineAsyncComponent, h } from 'vue';
 
 const props = defineProps({
+  /**
+   * Use this prop to set the icon.
+   */
   icon: {
     type: [String, Object],
     default: '',
   },
 });
-const file = computed(() => (typeof props.icon === 'string'
-  ? defineAsyncComponent(() => import(
-    /* webpackChunkName: "icons" */
-    /* webpackMode: "eager" */
-    /* webpackPreload: true */
-    `../../../assets/icons/${props.icon}.svg`
-  ))
-  : props.icon));
+const file = computed(() => {
+  if (!props.icon) return h('svg');
+  if (typeof props.icon === 'string') {
+    return defineAsyncComponent(() => import(
+      /* webpackChunkName: "icons" */
+      /* webpackMode: "eager" */
+      /* webpackPreload: true */
+      `../../../assets/icons/${props.icon}.svg`
+    ));
+  }
+  return props.icon;
+});
 </script>
 
 <style lang="scss">

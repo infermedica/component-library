@@ -14,15 +14,15 @@ import { computed, provide } from 'vue';
 
 const props = defineProps({
   /**
-     * Use this props to set list tag.
-     */
+   * Use this props to set list tag.
+   */
   tag: {
     type: String,
     default: 'ul',
   },
   /**
-     * Use this props to set list type.
-     */
+   * Use this props to set list type.
+   */
   type: {
     type: String,
     default: '1',

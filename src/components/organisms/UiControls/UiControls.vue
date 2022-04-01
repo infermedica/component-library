@@ -57,36 +57,36 @@ import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 
 const props = defineProps({
   /**
-     * Use this props to move the responsibility to move to the next screen to question content.
-     */
+   * Use this props to move the responsibility to move to the next screen to question content.
+   */
   hideNextButton: {
     type: Boolean,
     default: false,
   },
   /**
-     * Use this props to set route to back screen.
-     */
+   * Use this props to set route to back screen.
+   */
   toBack: {
     type: [String, Object, Boolean],
     default: '',
   },
   /**
-     * Use this props to set route to next screen.
-     */
+   * Use this props to set route to next screen.
+   */
   toNext: {
     type: [String, Object, Boolean],
     default: '',
   },
   /**
-     * Use this props to set invalid state of the question.
-     */
+   * Use this props to set invalid state of the question.
+   */
   invalid: {
     type: Boolean,
     default: true,
   },
   /**
-     * Use this props to override labels inside component translation.
-     */
+   * Use this props to override labels inside component translation.
+   */
   translation: {
     type: Object,
     default: () => ({

@@ -11,8 +11,8 @@ export default {
   component: UiQuestion,
   subcomponents: { UiButton, UiIcon, UiHeading },
   args: {
+    items: [],
     title: 'Do you have a sore throat?',
-    buttonInfoAttrs: { to: '/' },
     translation: {
       info: 'What does it mean?',
       why: 'Why am I being asked this?',
@@ -29,14 +29,43 @@ export default {
         feedback: true,
       },
     },
+    buttonSkipAttrs: {
+      to: { path: '/' },
+    },
+    buttonInfoAttrs: {
+      to: { path: '/' },
+    },
+    buttonWhyAttrs: {
+      to: { path: '/' },
+    },
+    buttonIssueAttrs: {
+      to: { path: '/' },
+    },
+    titleSlot: null,
   },
   argTypes: {
+    items: {
+      description: 'Use this control to set the items.',
+      table: {
+        category: 'stories controls',
+      },
+      control: 'array',
+    },
     title: {
-      control: { type: 'text' },
       description: 'Use this props to set question title.',
       table: {
         category: 'props',
       },
+      control: 'text',
+    },
+    titleSlot: {
+      name: 'title',
+      description: 'Use this slot to replace title template.',
+      table: {
+        category: 'slots',
+        type: { summary: 'unknown' },
+      },
+      control: 'object',
     },
   },
   parameters: {
@@ -100,130 +129,103 @@ export default {
   },
 };
 
-// const Template = (args) => ({
-//   components: { UiQuestion, UiSimpleQuestion },
-//   setup() {
-//     const modelValue = ref('');
-//     return { ...args, modelValue };
-//   },
-//   template: `<UiQuestion
-//     :title="title"
-//     :translation="translation"
-//     :options="options"
-//   >
-//     <UiSimpleQuestion
-//       v-model="modelValue"
-//       :options="[
-//       {
-//         value: 'present',
-//         label: 'Yes',
-//         iconAttrs: {
-//           icon: 'check',
-//         },
-//       },
-//       {
-//         value: 'absent',
-//         label: 'Male',
-//         iconAttrs: {
-//           icon: 'cross',
-//         },
-//       },
-//       {
-//         value: 'unknown',
-//         label: 'Don\\'t know',
-//         iconAttrs: {
-//           icon: 'arrowRight',
-//         },
-//       },
-//     ]"
-//     />
-//   </UiQuestion>`,
-// });
-
 export const AsMultipleAnswer = (args) => ({
   components: { UiQuestion, UiMultipleAnswer },
   setup() {
     const modelValue = ref('');
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue
+    };
   },
   template: `<UiQuestion
     :title="title"
     :translation="translation"
     :options="options"
+    :buttons-skip-attrs="buttonSkipAttrs"
     :button-info-attrs="buttonInfoAttrs"
+    :button-why-attrs="buttonWhyAttrs"
+    :button-issue-attrs="buttonIssueAttrs"
   >
     <UiMultipleAnswer
       v-model="modelValue"
       name="group-single"
-      :choices="[
-        {
-          id: 's_1907',
-          name: 'Seconds to minutes',
-          buttonInfoAttrs: null,
-        },
-        {
-          id: 's_1868',
-          name: 'A few minutes to 4 hours',
-          buttonInfoAttrs: {
-            'aria-label': 'What does it mean?',
-          },
-        },
-        {
-          id: 's_1870',
-          name: '4 hours to 3 days',
-          buttonInfoAttrs: null,
-        },
-        {
-          id: 's_1901',
-          name: 'Over 3 days',
-          buttonInfoAttrs: null,
-        },
-      ]"
+      :choices="items"
     />
   </UiQuestion>`,
 });
+AsMultipleAnswer.args = {
+  items: [
+    {
+      id: 's_1907',
+      name: 'Seconds to minutes',
+      buttonInfoAttrs: null,
+    },
+    {
+      id: 's_1868',
+      name: 'A few minutes to 4 hours',
+      buttonInfoAttrs: {
+        'aria-label': 'What does it mean?',
+      },
+    },
+    {
+      id: 's_1870',
+      name: '4 hours to 3 days',
+      buttonInfoAttrs: null,
+    },
+  ],
+};
 
 export const AsSimpleQuestion = (args) => ({
   components: { UiQuestion, UiSimpleQuestion },
   setup() {
     const modelValue = ref('');
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiQuestion
     :title="title"
     :translation="translation"
     :options="options"
+    :buttons-skip-attrs="buttonSkipAttrs"
     :button-info-attrs="buttonInfoAttrs"
+    :button-why-attrs="buttonWhyAttrs"
+    :button-issue-attrs="buttonIssueAttrs"
     style="--question-tablet-content-margin: var(--space-48) 0 0 0; --question-tablet-actions-margin: var(--space-48) 0 0 0;"
   >
     <UiSimpleQuestion
       v-model="modelValue"
-      :options="[
-      {
-        value: 'present',
-        label: 'Yes',
-        iconAttrs: {
-          icon: 'yes',
-        },
-      },
-      {
-        value: 'absent',
-        label: 'Male',
-        iconAttrs: {
-          icon: 'no',
-        },
-      },
-      {
-        value: 'unknown',
-        label: 'Don\\'t know',
-        iconAttrs: {
-          icon: 'dont-know',
-        },
-      },
-    ]"
+      :options="items"
     />
   </UiQuestion>`,
 });
+AsSimpleQuestion.args = {
+  items: [
+    {
+      value: 'present',
+      label: 'Yes',
+      iconAttrs: {
+        icon: 'yes',
+      },
+    },
+    {
+      value: 'absent',
+      label: 'Male',
+      iconAttrs: {
+        icon: 'no',
+      },
+    },
+    {
+      value: 'unknown',
+      label: 'Don\'t know',
+      iconAttrs: {
+        icon: 'dont-know',
+      },
+    },
+  ],
+};
 
 export const WithTitleSlot = (args) => ({
   components: { UiQuestion, UiHeading },
@@ -234,6 +236,10 @@ export const WithTitleSlot = (args) => ({
     :title="title"
     :translation="translation"
     :options="options"
+    :buttons-skip-attrs="buttonSkipAttrs"
+    :button-info-attrs="buttonInfoAttrs"
+    :button-why-attrs="buttonWhyAttrs"
+    :button-issue-attrs="buttonIssueAttrs"
   >
     <template #titl="{title}">
       <UiHeading
@@ -255,6 +261,10 @@ export const WithInfoSlot = (args) => ({
     :title="title"
     :translation="translation"
     :options="options"
+    :buttons-skip-attrs="buttonSkipAttrs"
+    :button-info-attrs="buttonInfoAttrs"
+    :button-why-attrs="buttonWhyAttrs"
+    :button-issue-attrs="buttonIssueAttrs"
   >
     <template #info="{options, translation}">
       <UiButton

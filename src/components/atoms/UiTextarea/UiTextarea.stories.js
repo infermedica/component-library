@@ -1,4 +1,7 @@
 import UiTextarea from '@/components/atoms/UiTextarea/UiTextarea.vue';
+import {
+  content, modifiers, placeholder, disabled,
+} from '@sb/helpers/argTypes';
 
 import { ref } from 'vue';
 
@@ -6,33 +9,33 @@ export default {
   title: 'Atoms/Textarea',
   component: UiTextarea,
   args: {
-    placeholder: 'I still don’t know what should I do',
-    resize: true,
-    modelValue: '',
-    disabled: false,
+    initModelValue: '',
     modifiers: [],
+    placeholder: 'I still don’t know what should I do',
+    disabled: false,
+    resize: true,
   },
   argTypes: {
-    placeholder: { control: 'text' },
-    disabled: {
-      control: { type: 'boolean' },
+    initModelValue: {
+      description: 'Use this control to set initial state.',
       table: {
-        category: 'HTML attributes',
+        category: 'stories controls',
+      },
+      control: {
+        type: 'text',
       },
     },
-    resize: { control: { type: 'select' } },
-    options: [true, false, 'horizontal', 'vertical'],
-    modifiers: {
-      control: {
-        type: 'multi-select',
-      },
+    modifiers: modifiers({
       options: [
         'ui-textarea--is-disabled',
         'ui-textarea--has-error',
       ],
-      table: {
-        category: 'HTML attributes',
-      },
+    }),
+    placeholder,
+    disabled,
+    resize: {
+      control: 'select',
+      options: [true, false, 'horizontal', 'vertical'],
     },
   },
   parameters: {
@@ -109,7 +112,7 @@ export default {
 const Template = (args) => ({
   components: { UiTextarea },
   setup() {
-    const modelValue = ref('');
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiTextarea

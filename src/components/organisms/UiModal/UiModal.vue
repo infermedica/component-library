@@ -173,63 +173,63 @@ import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 
 const props = defineProps({
-  /*
+  /**
    * Use this props to set dialog visibility.
    */
   modelValue: {
     type: Boolean,
     default: false,
   },
-  /*
+  /**
    * Use this props to set dialog title.
    */
   title: {
     type: String,
     default: '',
   },
-  /*
+  /**
    * Use this props to set dialog description.
    */
   description: {
     type: String,
     default: '',
   },
-  /*
+  /**
    * Use this props to pass attrs for confirm UiButton.
    */
   buttonConfirmAttrs: {
     type: Object,
     default: () => ({}),
   },
-  /*
+  /**
    * Use this props to pass attrs for cancel UiButton
    */
   buttonCancelAttrs: {
     type: Object,
     default: () => ({}),
   },
-  /*
+  /**
    * Use this props to pass attrs for close UiButton
    */
   buttonCloseAttrs: {
     type: Object,
     default: () => ({}),
   },
-  /*
+  /**
    * Use this props to hide close icon.
    */
   isClosable: {
     type: Boolean,
     default: true,
   },
-  /*
+  /**
    * Use this props to hide cancel UiButton.
    */
   hasCancel: {
     type: Boolean,
     default: true,
   },
-  /*
+  /**
    * Use this props to hide confirm UiButton.
    */
   hasConfirm: {
@@ -300,6 +300,7 @@ onBeforeUnmount(() => {
     width: calc(100% - 2 * var(--modal-margin-horizontal, 20px));
     max-width: var(--modal-max-width, 480px);
     padding: var(--modal-padding, var(--space-24));
+    margin: 0;
     background: var(--modal-background, var(--color-background-white));
     border: var(--modal-border, none);
     border-radius: var(--modal-border-radius, var(--border-radius-container));

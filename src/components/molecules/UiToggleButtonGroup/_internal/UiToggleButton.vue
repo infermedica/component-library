@@ -23,8 +23,8 @@ import UiButton from '../../../atoms/UiButton/UiButton.vue';
 
 const props = defineProps({
   /**
-     * Use this props to set value of toggle button.
-     */
+   * Use this props to set value of toggle button.
+   */
   value: {
     type: [Number, String, Object],
     required: true,

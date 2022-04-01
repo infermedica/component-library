@@ -1,5 +1,6 @@
 <template>
   <div class="ui-container">
+    <!-- @slot Use this slot to place content inside container. -->
     <slot />
   </div>
 </template>

@@ -2,9 +2,9 @@
   <div
     className="ui-number-stepper"
   >
-    <!-- @slot Use this slot to place selector template -->
+    <!-- @slot Use this slot to place content inside number stepper. -->
     <slot v-bind="{change, value: modelValue, min, max, step}" />
-    <!-- @slot Use this slot to replace decrement template -->
+    <!-- @slot Use this slot to replace decrement template. -->
     <slot
       name="decrement"
       v-bind="{decrement, hasControls, attrs: buttonDecrementAttrs}"
@@ -18,7 +18,7 @@
         <UiIcon icon="minus" />
       </UiButton>
     </slot>
-    <!-- @slot Use this slot to replace increment template -->
+    <!-- @slot Use this slot to replace increment template. -->
     <slot
       name="increment"
       v-bind="{increment, hasControls, attrs: buttonIncrementAttrs}"
@@ -41,50 +41,50 @@ import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 
 const props = defineProps({
   /**
-     * Use this props or v-model to set value.
-     */
+   * Use this props or v-model to set value.
+   */
   modelValue: {
     type: Number,
     default: 0,
   },
   /**
-     * Use this props to set min value.
-     */
+   * Use this props to set min value.
+   */
   min: {
     type: Number,
     default: 0,
   },
   /**
-     * Use this props to set max value.
-     */
+   * Use this props to set max value.
+   */
   max: {
     type: Number,
     default: 1,
   },
   /**
-     * Use this props to set step value.
-     */
+   * Use this props to set step value.
+   */
   step: {
     type: Number,
     default: 1,
   },
   /**
-     * Use this props to hide controls.
-     */
+   * Use this props to hide controls.
+   */
   hasControls: {
     type: Boolean,
     default: true,
   },
   /**
-     * Use this props to pass attrs for decrement UiButton
-     */
+   * Use this props to pass attrs for decrement UiButton
+   */
   buttonDecrementAttrs: {
     type: Object,
     default: () => ({}),
   },
   /**
-     * Use this props to pass attrs for increment UiButton
-     */
+   * Use this props to pass attrs for increment UiButton
+   */
   buttonIncrementAttrs: {
     type: Object,
     default: () => ({}),

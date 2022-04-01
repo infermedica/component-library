@@ -11,8 +11,8 @@
 <script setup>
 defineProps({
   /**
-     * Use this props to set list tag.
-     */
+   * Use this props to set list tag.
+   */
   tag: {
     type: String,
     default: 'ul',

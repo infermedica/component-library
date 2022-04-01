@@ -8,9 +8,9 @@ export default {
   component: UiRating,
   subcomponents: { UiRadio, UiIcon },
   args: {
-    name: 'feedback',
-    modelValue: '3',
-    max: '5',
+    initModelValue: 3,
+    max: 5,
+    name: '',
     radioAttrs: {},
     settings: {
       icon: 'star-outlined',
@@ -21,12 +21,14 @@ export default {
     },
   },
   argTypes: {
-    modelValue: {
-      control: false,
+    initModelValue: {
+      description: 'Use this control to set initial state. Starting from 0.',
+      table: {
+        category: 'stories controls',
+      },
+      control: 'number',
     },
-    name: {
-      control: 'text',
-    },
+    modelValue: { control: false },
   },
   parameters: {
     cssprops: {
@@ -107,7 +109,7 @@ export default {
 const Template = (args) => ({
   components: { UiRating },
   setup() {
-    const modelValue = ref('3');
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiRating
@@ -121,39 +123,39 @@ const Template = (args) => ({
 export const Common = Template.bind({});
 
 // TODO: rewrite this slot and bind required values
-export const WithOptionSlot = () => ({
-  template: 'Oops! Not found!',
-});
-WithOptionSlot.parameters = {
-  controls: { hideNoControlsWarning: true },
-};
-
-export const WithIconActiveSlot = (args) => ({
-  components: { UiRating, UiIcon },
-  setup() {
-    const modelValue = ref('3');
-    return { ...args, modelValue };
-  },
-  template: `<UiRating
-    v-model="modelValue"
-    :max="max"
-    :name="name"
-    :radio-attrs="radioAttrs"
-  >
-    <template #icon-active="{translation, icon}">
-      <UiIcon
-        :aria-label="translation"
-        :icon="icon"
-        class="ui-rating__icon ui-rating__icon--active"
-      />
-    </template>
-  </UiRating>`,
-});
+// export const WithOptionSlot = () => ({
+//   template: 'Oops! Not found!',
+// });
+// WithOptionSlot.parameters = {
+//   controls: { hideNoControlsWarning: true },
+// };
+//
+// export const WithIconActiveSlot = (args) => ({
+//   components: { UiRating, UiIcon },
+//   setup() {
+//     const modelValue = ref('3');
+//     return { ...args, modelValue };
+//   },
+//   template: `<UiRating
+//     v-model="modelValue"
+//     :max="max"
+//     :name="name"
+//     :radio-attrs="radioAttrs"
+//   >
+//     <template #icon-active="{translation, icon}">
+//       <UiIcon
+//         :aria-label="translation"
+//         :icon="icon"
+//         class="ui-rating__icon ui-rating__icon--active"
+//       />
+//     </template>
+//   </UiRating>`,
+// });
 
 export const WithIconSlot = (args) => ({
   components: { UiRating, UiIcon },
   setup() {
-    const modelValue = ref('3');
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiRating

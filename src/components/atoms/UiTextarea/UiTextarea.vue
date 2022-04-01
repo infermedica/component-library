@@ -106,7 +106,6 @@ const resizeValue = computed(() => {
   }
 
   &--has-error {
-    --textarea-placeholder-color: var(--textarea-error-placeholder-color, var(--color-text-body));
     --textarea-border-color: var(--textarea-error-border-color, var(--color-border-error-strong));
     --textarea-hover-border-color: var(--textarea-error-hover-border-color, var(--color-border-error-strong));
     --textarea-focus-border-color: var(--color-border-error-strong);

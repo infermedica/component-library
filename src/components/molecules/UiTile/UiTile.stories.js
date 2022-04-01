@@ -1,33 +1,38 @@
+import { content, modifiers } from '@sb/helpers/argTypes';
+import { ref } from 'vue';
+
 import UiTile from '@/components/molecules/UiTile/UiTile.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
-import { ref, computed } from 'vue';
 
 export default {
   title: 'Molecules/Tile',
   component: UiTile,
   subcomponents: { UiButton, UiText, UiIcon },
   args: {
+    initModelValue: '',
     content: 'Yes',
-    value: 'present',
-    id: 'present',
+    modifiers: [],
     iconAttrs: {
       icon: 'yes',
     },
-    modifiers: [],
+    id: '',
+    value: 'present',
+
   },
   argTypes: {
-    content: { control: 'text' },
-    modifiers: {
-      control: {
-        type: 'multi-select',
-      },
-      options: ['ui-tile--small'],
+    content,
+    initModelValue: {
+      description: 'Use this control to set initial state.',
       table: {
-        category: 'HTML attributes',
+        category: 'stories controls',
       },
+      control: 'string',
     },
+    modifiers: modifiers({ options: ['ui-tile--small'] }),
+    value: { control: 'text' },
+    modelValue: { control: false },
   },
   parameters: {
     cssprops: {
@@ -83,7 +88,7 @@ export default {
 const Template = (args) => ({
   components: { UiTile },
   setup() {
-    const modelValue = computed(() => (args.selected ? args.value : ''));
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiTile
@@ -100,24 +105,16 @@ const Template = (args) => ({
 });
 
 export const Large = Template.bind({});
-Large.argTypes = {
-  value: { control: 'text' },
-  selected: { control: 'boolean' },
-};
 
 export const Small = Template.bind({});
 Small.args = {
   modifiers: ['ui-tile--small'],
 };
-Small.argTypes = {
-  value: { control: 'text' },
-  selected: { control: 'boolean' },
-};
 
 export const WithIconSlot = (args) => ({
   components: { UiTile, UiIcon },
   setup() {
-    const modelValue = computed(() => (args.selected ? args.value : ''));
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiTile
@@ -138,15 +135,11 @@ export const WithIconSlot = (args) => ({
     {{content}}
   </UiTile>`,
 });
-WithIconSlot.argTypes = {
-  value: { control: 'text' },
-  selected: { control: 'boolean' },
-};
 
 export const WithLabelSlot = (args) => ({
   components: { UiTile, UiText },
   setup() {
-    const modelValue = computed(() => (args.selected ? args.value : ''));
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiTile
@@ -168,50 +161,15 @@ export const WithLabelSlot = (args) => ({
     </template>
   </UiTile>`,
 });
-WithLabelSlot.argTypes = {
-  value: { control: 'text' },
-  selected: { control: 'boolean' },
-};
 
 export const AsGroup = (args) => ({
   components: { UiTile },
   setup() {
-    const modelValue = ref('');
-    const options = [
-      {
-        name: 'answer',
-        value: { choice_id: 'present' },
-        id: 'present',
-        iconAttrs: {
-          icon: 'yes',
-        },
-        label: 'Yes',
-        class: ['mb-3', 'tablet:mr-6', 'tablet:mb-0'],
-      },
-      {
-        name: 'answer',
-        value: { choice_id: 'absent' },
-        id: 'absent',
-        iconAttrs: {
-          icon: 'no',
-        },
-        label: 'No',
-        class: ['mb-3', 'tablet:mr-6', 'tablet:mb-0'],
-      },
-      {
-        name: 'answer',
-        value: { choice_id: 'unknown' },
-        id: 'unknown',
-        iconAttrs: {
-          icon: 'dont-know',
-        },
-        label: 'Don\'t know',
-      },
-    ];
-    return { ...args, modelValue, options };
+    const modelValue = ref(args.initModelValue);
+    return { ...args, modelValue };
   },
   template: `<div class="flex flex-col tablet:flex-row max-w-147">
-    <template v-for="(option, key) in options" :key="key">
+    <template v-for="(option, key) in values" :key="key">
       <UiTile
         v-model="modelValue"
         :id="option.id"
@@ -225,10 +183,53 @@ export const AsGroup = (args) => ({
     </template>
   </div>`,
 });
+AsGroup.args = {
+  initModelValue: { choice_id: 'present' },
+  values: [
+    {
+      name: 'answer',
+      value: { choice_id: 'present' },
+      id: 'present',
+      iconAttrs: {
+        icon: 'yes',
+      },
+      label: 'Yes',
+      class: ['mb-3', 'tablet:mr-6', 'tablet:mb-0'],
+    },
+    {
+      name: 'answer',
+      value: { choice_id: 'absent' },
+      id: 'absent',
+      iconAttrs: {
+        icon: 'no',
+      },
+      label: 'No',
+      class: ['mb-3', 'tablet:mr-6', 'tablet:mb-0'],
+    },
+    {
+      name: 'answer',
+      value: { choice_id: 'unknown' },
+      id: 'unknown',
+      iconAttrs: {
+        icon: 'dont-know',
+      },
+      label: 'Don\'t know',
+    },
+  ],
+};
 AsGroup.argTypes = {
-  content: { control: false },
-  value: { control: false },
-  id: { control: false },
-  iconAttrs: { control: false },
-  modelValue: { control: false },
+  initModelValue: {
+    description: 'Use this control to set initial state.',
+    table: {
+      category: 'stories controls',
+    },
+    control: 'object',
+  },
+  values: {
+    description: 'Use this control to set the values of the tile group.',
+    table: {
+      category: 'stories controls',
+    },
+    control: 'array',
+  },
 };

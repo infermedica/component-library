@@ -23,6 +23,9 @@
 import UiText from '../../../atoms/UiText/UiText.vue';
 
 defineProps({
+  /**
+   * Use this prop to set the label text.
+   */
   label: {
     type: String,
     default: 'Loading...',

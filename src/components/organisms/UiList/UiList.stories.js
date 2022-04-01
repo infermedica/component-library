@@ -6,6 +6,23 @@ export default {
   title: 'Organisms/List',
   component: UiList,
   subcomponents: { UiListItem },
+  args: {
+    items: ['Painful swallowing', 'Stuffy nose', 'Sneeze', 'Muscle pain', 'Runny nose'],
+    tag: 'ul',
+  },
+  argTypes: {
+    items: {
+      description: 'Use this control to set the items.',
+      table: {
+        category: 'stories controls',
+      },
+      control: 'array',
+    },
+    tag: {
+      options: ['ul', 'ol'],
+      control: 'select',
+    },
+  },
   parameters: {
     cssprops: [],
   },
@@ -16,9 +33,9 @@ const Template = (args) => ({
   setup() {
     return { ...args };
   },
-  template: `<UiList>
+  template: `<UiList :tag="tag">
   <template 
-    v-for="(item, key) in ['Painful swallowing', 'Stuffy nose', 'Sneeze', 'Muscle pain', 'Runny nose']" 
+    v-for="(item, key) in items" 
     :key="key"
   >
     <UiListItem>

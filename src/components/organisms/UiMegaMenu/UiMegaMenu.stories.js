@@ -8,7 +8,7 @@ import { ref } from 'vue';
 export default {
   title: 'Organisms/MegaMenu',
   component: UiMegaMenu,
-  subcomponents: { UiMegaMenu, UiMegaMenuItem },
+  subcomponents: { UiMegaMenuItem },
   args: {
     items: [
       {
@@ -26,22 +26,25 @@ export default {
         name: 'instruction',
         href: 'https://infermedica.com/',
       },
-      {
-        title: 'Terms of Service',
-        name: 'terms',
-        content: '§1. General Provisions',
-      },
-      {
-        title: 'Privacy Policy',
-        name: 'privacy',
-        content: 'Who we are',
-      },
     ],
+    initModelValue: '',
   },
   argTypes: {
-    modelValue: {
-      control: false,
+    items: {
+      description: 'Use this control to set the items.',
+      table: {
+        category: 'stories controls',
+      },
+      control: 'array',
     },
+    initModelValue: {
+      description: 'Use this control to set initial state.',
+      table: {
+        category: 'stories controls',
+      },
+      control: 'text',
+    },
+    modelValue: { control: false },
   },
   parameters: {
     cssprops: [],
@@ -53,8 +56,11 @@ const Template = (args) => ({
     UiMegaMenu, UiMegaMenuItem, UiButton, UiIcon, UiText,
   },
   setup() {
-    const modelValue = ref('');
-    return { ...args, modelValue };
+    const modelValue = ref(args.initModelValue);
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiMegaMenu v-model="modelValue">
     <template v-for="({title, name, href, content}, key) in items" :key="key">

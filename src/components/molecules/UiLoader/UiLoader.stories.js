@@ -1,4 +1,3 @@
-
 import UiLoader from '@/components/molecules/UiLoader/UiLoader.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
@@ -11,15 +10,25 @@ export default {
   component: UiLoader,
   subcomponents: {},
   args: {
-    tag: 'div',
-    transition: 'fade',
-    loaderAttrs: {},
     isLoading: true,
     type: 'spinner',
+    loaderAttrs: {
+      type: 'question',
+    },
+    tag: 'div',
+    transition: 'fade',
+    eagerLoadComponent: true,
   },
   argTypes: {
-    tag: { control: 'text' },
-    transition: { control: 'text' },
+    type: {
+      control: false,
+    },
+    tag: {
+      control: 'text',
+    },
+    transition: {
+      control: 'text',
+    },
   },
   parameters: {
     cssprops: [],
@@ -67,10 +76,10 @@ SpinnerOnDark.args = {
     class: 'ui-loader-spinner--on-dark',
   },
 };
+SpinnerOnDark.decorators = [() => ({ template: '<div style="min-height: 320px;"><story /></div>' })];
 SpinnerOnDark.parameters = {
   layout: 'fullscreen',
 };
-SpinnerOnDark.decorators = [() => ({ template: '<div style="min-height: 320px;"><story /></div>' })];
 
 export const LoadingButton = (args) => ({
   components: { UiLoader, UiButton },

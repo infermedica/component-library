@@ -1,5 +1,6 @@
 import UiContainer from '@/components/organisms/UiContainer/UiContainer.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
+import { content } from '@sb/helpers/argTypes';
 
 export default {
   title: 'Organisms/Container',
@@ -8,9 +9,7 @@ export default {
     content: 'Please note that the information provided by this tool is provided solely for educational purposes and is not a qualified medical opinion. This information should not be considered advice or an opinion of a doctor or other health professional about your actual medical state, and you should see a doctor for any symptoms you may have. If you are experiencing a health emergency, you should call your local emergency number immediately to request emergency medical assistance.',
   },
   argTypes: {
-    content: {
-      control: { type: 'text' },
-    },
+    content,
   },
   parameters: {
     cssprops: {

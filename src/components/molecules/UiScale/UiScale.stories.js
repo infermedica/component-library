@@ -12,8 +12,8 @@ export default {
     UiButton, UiIcon, UiText, UiRadio,
   },
   args: {
-    modelValue: 5,
-    name: 'scale',
+    initModelValue: 4,
+    name: '',
     steps: 10,
     translation: {
       mild: 'Mild',
@@ -23,11 +23,15 @@ export default {
     buttonIncrementAttrs: { 'aria-label': 'increment pain' },
   },
   argTypes: {
+    initModelValue: {
+      description: 'Use this control to set initial state. Starting from 0.',
+      table: {
+        category: 'stories controls',
+      },
+      control: 'number',
+    },
     modelValue: {
       control: false,
-    },
-    name: {
-      control: 'text',
     },
   },
   parameters: {
@@ -59,12 +63,12 @@ export default {
       },
     },
   },
-};
+}
 
 const Template = (args) => ({
   components: { UiScale },
   setup() {
-    const modelValue = ref(5);
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiScale
@@ -82,7 +86,7 @@ export const Common = Template.bind({});
 export const WithDecrementSlot = (args) => ({
   components: { UiScale, UiButton, UiIcon },
   setup() {
-    const modelValue = ref(5);
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiScale
@@ -110,7 +114,7 @@ export const WithDecrementSlot = (args) => ({
 export const WithIncrementSlot = (args) => ({
   components: { UiScale, UiButton, UiIcon },
   setup() {
-    const modelValue = ref(5);
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiScale

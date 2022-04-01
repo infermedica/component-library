@@ -2,42 +2,39 @@ import UiInput from '@/components/atoms/UiInput/UiInput.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import icons from '@/components/atoms/UiIcon/icons';
-
 import { ref } from 'vue';
+import { modifiers, placeholder, disabled } from '@sb/helpers/argTypes';
 
 export default {
   title: 'Atoms/Input',
   component: UiInput,
   subcomponents: { UiText },
   args: {
-    modelValue: '',
-    suffix: '',
+    initModelValue: '',
+    modifiers: [],
     placeholder: 'Put your height',
     disabled: false,
-    modifiers: [],
+    suffix: '',
   },
   argTypes: {
-    modelValue: {
-      control: false,
-    },
-    disabled: {
-      control: { type: 'boolean' },
+    initModelValue: {
+      description: 'Use this control to set initial state.',
       table: {
-        category: 'HTML attributes',
+        category: 'stories controls',
       },
+      control: 'text',
     },
-    modifiers: {
-      control: {
-        type: 'multi-select',
-      },
+    modifiers: modifiers({
       options: [
         'ui-input--is-disabled',
         'ui-input--has-error',
         'ui-input--has-icon',
       ],
-      table: {
-        category: 'HTML attributes',
-      },
+    }),
+    disabled,
+    placeholder,
+    modelValue: {
+      control: false,
     },
   },
   parameters: {
@@ -149,7 +146,7 @@ export default {
 const Template = (args) => ({
   components: { UiInput },
   setup() {
-    const modelValue = ref('');
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiInput
@@ -171,6 +168,7 @@ HasError.args = {
 export const IsDisabled = Template.bind({});
 IsDisabled.args = {
   modifiers: ['ui-input--is-disabled'],
+  disabled: true,
 };
 
 export const WithSuffix = Template.bind({});
@@ -181,7 +179,7 @@ WithSuffix.args = {
 export const WithIconAsSuffix = (args) => ({
   components: { UiInput, UiIcon },
   setup() {
-    const modelValue = ref('');
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiInput
@@ -206,15 +204,15 @@ WithIconAsSuffix.argTypes = {
   icon: {
     control: {
       type: 'select',
-      options: icons,
     },
+    options: icons,
   },
 };
 
 export const WithInputSlot = (args) => ({
   components: { UiInput, UiIcon },
   setup() {
-    const modelValue = ref('');
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiInput
@@ -238,7 +236,7 @@ export const WithInputSlot = (args) => ({
 export const WithAsideSlot = (args) => ({
   components: { UiInput, UiIcon },
   setup() {
-    const modelValue = ref('');
+    const modelValue = ref(args.initial);
     return { ...args, modelValue };
   },
   template: `<UiInput

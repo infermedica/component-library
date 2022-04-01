@@ -4,36 +4,34 @@ import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 
 import { ref } from 'vue';
+import { content, modifiers, disabled } from '@sb/helpers/argTypes';
 
 export default {
   title: 'Atoms/Checkbox',
   component: UiCheckbox,
   subcomponents: { UiIcon },
   args: {
+    initModelValue: false,
     content: 'I read and accept Terms of Service and Privacy Policy.',
-    id: 'agreement',
-    value: '',
-    modelValue: true,
-    disabled: false,
     modifiers: [],
+    disabled: false,
+    id: '',
+    value: '',
   },
   argTypes: {
-    content: { control: 'text' },
-    id: { control: 'text' },
-    modelValue: { control: false },
-    disabled: {
+    content,
+    initModelValue: {
+      description: 'Use this control to set initial state.',
+      table: {
+        category: 'stories controls',
+      },
       control: 'boolean',
-      table: {
-        category: 'HTML attributes',
-      },
     },
-    modifiers: {
-      control: { type: 'multi-select' },
-      options: ['ui-checkbox--has-error', 'ui-checkbox--is-disabled'],
-      table: {
-        category: 'HTML attributes',
-      },
-    },
+    modifiers: modifiers({ options: ['ui-checkbox--has-error', 'ui-checkbox--is-disabled'] }),
+    disabled,
+    modelValue: { control: false },
+    id: { control: 'text' },
+    value: { control: 'text' },
   },
   parameters: {
     cssprops: {
@@ -74,7 +72,7 @@ export default {
 const Template = (args) => ({
   components: { UiCheckbox },
   setup() {
-    const modelValue = ref(true);
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiCheckbox
@@ -92,6 +90,7 @@ export const WithLabel = Template.bind({});
 export const IsDisabled = Template.bind({});
 IsDisabled.args = {
   modifiers: ['ui-checkbox--is-disabled'],
+  disabled: true,
 };
 
 export const HasError = Template.bind({});
@@ -102,7 +101,7 @@ HasError.args = {
 export const WithCheckbuttonSlot = (args) => ({
   components: { UiCheckbox, UiIcon },
   setup() {
-    const modelValue = ref(true);
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiCheckbox
@@ -126,7 +125,7 @@ export const WithCheckbuttonSlot = (args) => ({
 export const WithLabelSlot = (args) => ({
   components: { UiCheckbox },
   setup() {
-    const modelValue = ref(true);
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiCheckbox
@@ -146,7 +145,7 @@ export const WithLabelSlot = (args) => ({
 export const ValueAsObject = (args) => ({
   components: { UiCheckbox },
   setup() {
-    const modelValue = ref([]);
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiCheckbox
@@ -160,28 +159,34 @@ export const ValueAsObject = (args) => ({
   </UiCheckbox>`,
 });
 ValueAsObject.args = {
+  initModelValue: [{
+    id: 1,
+    question: 34,
+  }],
   value: {
     id: 1,
     question: 34,
   },
 };
 ValueAsObject.argTypes = {
+  initModelValue: {
+    description: 'Use this control to set initial state.',
+    table: {
+      category: 'stories controls',
+    },
+    control: 'object',
+  },
   modelValue: { control: false },
 };
 
 export const AsGroup = (args) => ({
   components: { UiCheckbox, UiList, UiListItem },
   setup() {
-    const modelValue = ref([{
-      label: 'Europe',
-      id: 'p_15',
-      choice_id: 'present',
-      source: 'predefined',
-    }]);
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiList style="--list-item-padding: var(--space-12) 0;">
-    <UiListItem 
+    <UiListItem
       v-for="(value, key) in values"
       :key="key"
     >
@@ -195,6 +200,14 @@ export const AsGroup = (args) => ({
   </UiList>`,
 });
 AsGroup.args = {
+  initModelValue: [
+    {
+      label: 'Europe',
+      id: 'p_15',
+      choice_id: 'present',
+      source: 'predefined',
+    },
+  ],
   values: [
     {
       label: 'Russia, Kazakhstan or Mongolia',
@@ -217,8 +230,19 @@ AsGroup.args = {
   ],
 };
 AsGroup.argTypes = {
+  initial: {
+    description: 'Use this control to set initial state.',
+    table: {
+      category: 'stories controls',
+    },
+    control: 'array',
+  },
   values: {
-    control: 'object',
+    description: 'Use this control to set the values of checkbox group.',
+    table: {
+      category: 'stories controls',
+    },
+    control: 'array',
   },
   id: { control: false },
   value: { control: false },
@@ -230,19 +254,11 @@ AsGroup.argTypes = {
 export const AsGroupWithNestedObject = (args) => ({
   components: { UiCheckbox, UiList, UiListItem },
   setup() {
-    const modelValue = ref([{
-      label: 'Europe',
-      id: 'p_15',
-      choice_id: 'present',
-      source: 'predefined',
-      checkboxAttrs: {
-        ariaLabel: 'Europe',
-      },
-    }]);
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiList style="--list-item-padding: var(--space-12) 0;">
-    <UiListItem 
+    <UiListItem
       v-for="(value, key) in values"
       :key="key"
     >
@@ -257,6 +273,17 @@ export const AsGroupWithNestedObject = (args) => ({
   </UiList>`,
 });
 AsGroupWithNestedObject.args = {
+  initModelValue: [
+    {
+      label: 'Europe',
+      id: 'p_15',
+      choice_id: 'present',
+      source: 'predefined',
+      checkboxAttrs: {
+        ariaLabel: 'Europe',
+      },
+    },
+  ],
   values: [
     {
       label: 'Russia, Kazakhstan or Mongolia',
@@ -288,7 +315,18 @@ AsGroupWithNestedObject.args = {
   ],
 };
 AsGroupWithNestedObject.argTypes = {
+  initModelValue: {
+    description: 'Use this control to set initial state.',
+    table: {
+      category: 'stories controls',
+    },
+    control: 'object',
+  },
   values: {
+    description: 'Values of the checkbox group.',
+    table: {
+      category: 'stories controls',
+    },
     control: 'object',
   },
   id: { control: false },
@@ -301,11 +339,11 @@ AsGroupWithNestedObject.argTypes = {
 export const AsGroupWithPrimitiveTypes = (args) => ({
   components: { UiCheckbox, UiList, UiListItem },
   setup() {
-    const modelValue = ref(['Europe']);
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiList style="--list-item-padding: var(--space-12) 0;">
-    <UiListItem 
+    <UiListItem
       v-for="(value, key) in values"
       :key="key"
     >
@@ -319,6 +357,7 @@ export const AsGroupWithPrimitiveTypes = (args) => ({
   </UiList>`,
 });
 AsGroupWithPrimitiveTypes.args = {
+  initModelValue: ['Europe'],
   values: [
     'Russia, Kazakhstan or Mongolia',
     'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
@@ -326,7 +365,18 @@ AsGroupWithPrimitiveTypes.args = {
   ],
 };
 AsGroupWithPrimitiveTypes.argTypes = {
+  initModelValue: {
+    description: 'Use this control to set initial state.',
+    table: {
+      category: 'stories controls',
+    },
+    control: 'array',
+  },
   values: {
+    description: 'Values of the checkbox group.',
+    table: {
+      category: 'stories controls',
+    },
     control: 'object',
   },
   id: { control: false },

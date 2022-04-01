@@ -7,7 +7,8 @@ export default {
   subcomponents: { UiProgress },
   args: {
     steps: 6,
-    currentStep: 1,
+    currentStep: 3,
+    progressAttrs: { id: 'stepper-progress' },
   },
   parameters: {
     cssprops: {

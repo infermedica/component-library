@@ -9,9 +9,33 @@ export default {
     max: 100,
   },
   argTypes: {
-    value: { control: 'number' },
-    min: { control: 'number' },
-    max: { control: 'number' },
+    value: {
+      table: {
+        category: 'Props',
+      },
+      control:
+        {
+          type: 'number',
+        },
+    },
+    min: {
+      table: {
+        category: 'Props',
+      },
+      control:
+        {
+          type: 'number',
+        },
+    },
+    max: {
+      table: {
+        category: 'Props',
+      },
+      control:
+        {
+          type: 'number',
+        },
+    },
   },
   parameters: {
     cssprops: {

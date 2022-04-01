@@ -1,26 +1,18 @@
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
+import { content, modifiers, disabled } from '@sb/helpers/argTypes';
 
 export default {
   title: 'Atoms/Button',
-  component: { UiButton },
+  component: UiButton,
   args: {
     content: 'Next',
-    disabled: false,
     modifiers: [],
+    disabled: false,
   },
   argTypes: {
-    content: { control: 'text' },
-    disabled: {
-      control: { type: 'boolean' },
-      table: {
-        category: 'HTML attributes',
-      },
-    },
-    modifiers: {
-      control: {
-        type: 'multi-select',
-      },
+    content,
+    modifiers: modifiers({
       options: [
         'ui-button--small',
         'ui-button--is-disabled',
@@ -30,10 +22,8 @@ export default {
         'ui-button--text',
         'ui-button--secondary',
       ],
-      table: {
-        category: 'HTML attributes',
-      },
-    },
+    }),
+    disabled,
   },
   parameters: {
     cssprops: {

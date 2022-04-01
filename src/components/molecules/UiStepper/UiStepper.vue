@@ -89,6 +89,9 @@ import UiList from '../../organisms/UiList/UiList.vue';
 import UiListItem from '../../organisms/UiList/_internal/UiListItem.vue';
 
 const props = defineProps({
+  /**
+   * Use this props to set the steps in the stepper.
+   */
   steps: {
     type: Array,
     default: () => [
@@ -98,10 +101,16 @@ const props = defineProps({
       },
     ],
   },
+  /**
+   * Use this props to set the current step in the stepper.
+   */
   currentStep: {
     type: String,
     default: '',
   },
+  /**
+   * Use this props to pass attrs for UiProgress.
+   */
   progressAttrs: {
     type: Object,
     default: () => ({}),

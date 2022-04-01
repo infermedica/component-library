@@ -59,7 +59,7 @@
         </slot>
         <!-- @slot Use this slot to place content bottom of card. -->
         <slot name="details" />
-        <!-- @slot [deprecated] Use this slot to place content bottom of card. -->
+        <!-- @slot ~~Use this slot to place content bottom of card.~~ Will be removed in v0.4.0-->
         <slot name="symptoms" />
       </div>
     </slot>
@@ -75,29 +75,29 @@ import UiText from '../../atoms/UiText/UiText.vue';
 
 const props = defineProps({
   /**
-     * Use this props to set title for card.
-     */
+    * Use this props to set title for card.
+    */
   title: {
     type: String,
     default: '',
   },
   /**
-     * Use this props to set subtitle for card.
-     */
+   * Use this props to set subtitle for card.
+   */
   subtitle: {
     type: String,
     default: '',
   },
   /**
-     * Use this props to set description for card.
-     */
+   * Use this props to set description for card.
+   */
   description: {
     type: String,
     default: '',
   },
   /**
-     * Use this props to set icon type.
-     */
+   * Use this props to set icon type.
+   */
   type: {
     type: String,
     default: 'emergency_ambulance',
@@ -123,7 +123,7 @@ const icon = computed(() => {
 if (process.env.NODE_ENV === 'development') {
   const { symptoms } = slots;
   if (symptoms) {
-    console.warn('[@symptom-checker/ui-kit warn]: The "symptoms" slot is deprecated and will be removed in @symptom-checker/ui-kit 0.4.0. Please use "details" slot instead.');
+    console.warn('[@symptom-checker/ui-kit warn]: The "symptoms" slot is deprecated and will be removed in v0.4.0. Please use "details" slot instead.');
   }
 }
 </script>

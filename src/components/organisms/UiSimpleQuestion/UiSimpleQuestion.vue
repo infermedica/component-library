@@ -4,7 +4,7 @@
     role="radiogroup"
   >
     <template v-for="option in options">
-      <!-- Use this slot to replace tile template -->
+      <!-- @slot Use this slot to replace tile template -->
       <slot
         name="tile"
         v-bind="{option, tileAttrs, modelValue, isTileSmall, updateHandler}"
@@ -33,24 +33,30 @@ import UiTile from '../../molecules/UiTile/UiTile.vue';
 
 defineProps({
   /**
-    * Use v-model to bind value to the component, example: <UiSimpleQuestion v-model="selected" />
-    */
+   * Use this props or v-model to set value.
+   */
   modelValue: {
     type: [Object, String],
     default: () => ({}),
   },
   /**
-    * Use this props to pass options for question
-    * example option:
-    * { id: 'id', name: 'option', label: 'label', value: 'value', iconAttrs: { icon: 'icon' }},
-    */
+   * Use this props to pass options for question
+   */
   options: {
     type: Array,
-    default: () => [],
+    default: () => [{
+      id: '',
+      name: '',
+      label: '',
+      value: '',
+      iconAttrs: {
+        icon: '',
+      },
+    }],
   },
   /**
-    * Use this props to pass native attributes to all UiTiles
-    */
+   * Use this props to pass native attributes to all UiTiles.
+   */
   tileAttrs: {
     type: Object,
     default: () => ({}),

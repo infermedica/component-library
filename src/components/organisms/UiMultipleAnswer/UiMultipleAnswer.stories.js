@@ -7,7 +7,12 @@ import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiAlert from '@/components/atoms/UiAlert/UiAlert.vue';
+import { actions } from '@storybook/addon-actions';
 import { ref } from 'vue';
+
+const events = actions({
+  onUpdateInvalid: 'update:invalid',
+});
 
 export default {
   title: 'Organisms/MultipleAnswer',
@@ -16,8 +21,8 @@ export default {
     UiList, UiListItem, UiRadio, UiCheckbox, UiText, UiButton, UiIcon, UiAlert,
   },
   args: {
-    name: 'diagnosis',
-    hint: 'Select one answer',
+    initModelValue: [],
+    initInvalid: true,
     choices: [
       {
         id: 's_1907',
@@ -79,39 +84,53 @@ export default {
           },
         ],
       },
-      {
-        id: 's_1901',
-        name: 'Over 3 days',
-        explication: null,
-        instruction: null,
-        choices: [
-          {
-            id: 'present',
-            label: 'Yes',
-          },
-          {
-            id: 'absent',
-            label: 'No',
-          },
-          {
-            id: 'unknown',
-            label: "Don't know",
-          },
-        ],
-      },
     ],
-    invalid: true,
+    name: 'diagnosis',
+    hint: 'Select one answer',
     touched: false,
+    alertHintAttrs: {},
   },
   argTypes: {
+    initModelValue: {
+      description: 'Use this control to set initial state.',
+      table: {
+        category: 'stories controls',
+      },
+      control: 'array',
+    },
+    initInvalid: {
+      name: 'invalid',
+      description: 'Use this control to set initial state of invalid props.',
+      table: {
+        category: 'stories controls',
+      },
+      control: 'boolean',
+    },
+    hint: {
+      description: 'Use this props to set hint for question.',
+      table: {
+        category: 'props',
+        type: {
+          summary: 'string',
+        },
+      },
+      control: 'text',
+    },
+    hintSlot: {
+      name: 'hint',
+      description: 'Use this slot to replace hint template.',
+      table: {
+        category: 'slots',
+        type: {
+          summary: 'unknown',
+        },
+      },
+    },
     modelValue: {
       control: false,
     },
-    hint: {
-      control: { type: 'text' },
-      table: {
-        category: 'props',
-      },
+    invalid: {
+      control: false,
     },
   },
   parameters: {
@@ -173,17 +192,23 @@ export default {
 const Template = (args) => ({
   components: { UiMultipleAnswer },
   setup() {
-    const refModelValue = ref([]);
-    const refInvalid = ref(args.invalid);
-    return { ...args, refModelValue, refInvalid };
+    const modelValue = ref(args.initModelValue);
+    const invalid = ref(args.initInvalid);
+    return {
+      ...args,
+      ...events,
+      modelValue,
+      invalid,
+    };
   },
   template: `<UiMultipleAnswer
-    v-model="refModelValue"
-    v-model:invalid="refInvalid"
+    v-model="modelValue"
+    v-model:invalid="invalid"
     :choices="choices"
     :name="name"
     :hint="hint"
     :touched="touched"
+    @update:invalid="onUpdateInvalid"
   />`,
 });
 
@@ -208,24 +233,6 @@ WithMultipleChoices.args = {
       id: 's_156',
       name: 'Nausea',
       common_name: 'Feeling sick',
-      source: 'suggest',
-    },
-    {
-      id: 's_305',
-      name: 'Vomiting',
-      common_name: 'Vomiting',
-      source: 'suggest',
-    },
-    {
-      id: 's_81',
-      name: 'Chills',
-      common_name: 'Chills',
-      source: 'suggest',
-    },
-    {
-      id: 's_370',
-      name: 'Dizziness',
-      common_name: 'Dizzy',
       source: 'suggest',
     },
   ],
@@ -253,18 +260,6 @@ WithButtonInfo.args = {
       source: 'suggest',
     },
     {
-      id: 's_156',
-      name: 'Nausea',
-      common_name: 'Feeling sick',
-      source: 'suggest',
-    },
-    {
-      id: 's_305',
-      name: 'Vomiting',
-      common_name: 'Vomiting',
-      source: 'suggest',
-    },
-    {
       id: 's_81',
       name: 'Illusion of surrounding objects being bigger or smaller than they actually are',
       common_name: 'Illusion',
@@ -274,46 +269,52 @@ WithButtonInfo.args = {
         to: { path: '/' },
       },
     },
-    {
-      id: 's_370',
-      name: 'Dizziness',
-      common_name: 'Dizzy',
-      source: 'suggest',
-    },
   ],
 };
 
 export const WithSingleChoice = (args) => ({
   components: { UiMultipleAnswer },
   setup() {
-    const refModelValue = ref([]);
-    const refInvalid = ref(args.invalid);
-    return { ...args, refModelValue, refInvalid };
+    const modelValue = ref(args.initModelValue);
+    const invalid = ref(args.initInvalid);
+    return {
+      ...args,
+      ...events,
+      modelValue,
+      invalid,
+    };
   },
   template: `<UiMultipleAnswer
-    v-model="refModelValue"
-    v-model:invalid="refInvalid"
+    v-model="modelValue"
+    v-model:invalid="invalid"
     :choices="choices"
     :name="name"
     :hint="hint"
     :touched="touched"
+    @update:invalid="onUpdateInvalid"
   />`,
 });
 
 export const WithHintSlot = (args) => ({
   components: { UiMultipleAnswer, UiAlert },
   setup() {
-    const refModelValue = ref([]);
-    const refInvalid = ref(args.invalid);
-    return { ...args, refModelValue, refInvalid };
+    const modelValue = ref(args.initModelValue);
+    const invalid = ref(args.initInvalid);
+    return {
+      ...args,
+      ...events,
+      modelValue,
+      invalid,
+    };
   },
   template: `<UiMultipleAnswer
-    v-model="refModelValue"
-    v-model:invalid="refInvalid"
+    v-model="modelValue"
+    v-model:invalid="invalid"
     :choices="choices"
     :name="name"
     :hint="hint"
     :touched="touched"
+    @update:invalid="onUpdateInvalid"
   >
     <template #hint="{hint, hintType}">
       <UiAlert
@@ -332,17 +333,23 @@ export const WithListItemSlot = (args) => ({
     UiMultipleAnswer, UiListItem, UiCheckbox, UiRadio, UiText, UiButton, UiIcon,
   },
   setup() {
-    const refModelValue = ref([]);
-    const refInvalid = ref(args.invalid);
-    return { ...args, refModelValue, refInvalid };
+    const modelValue = ref(args.initModelValue);
+    const invalid = ref(args.initInvalid);
+    return {
+      ...args,
+      ...events,
+      modelValue,
+      invalid,
+    };
   },
   template: `<UiMultipleAnswer
-    v-model="refModelValue"
-    v-model:invalid="refInvalid"
+    v-model="modelValue"
+    v-model:invalid="invalid"
     :choices="choices"
     :name="name"
     :hint="hint"
     :touched="touched"
+    @update:invalid="onUpdateInvalid"
   >
     <template #list-item="{choice, modelValue, updateHandler, errorClass, name, component}">
       <UiListItem
@@ -386,20 +393,26 @@ export const WithListItemSlot = (args) => ({
 
 export const WithChoiceItemSlot = (args) => ({
   components: {
-    UiMultipleAnswer, UiRadio, UiText, UiButton, UiIcon,
+    UiMultipleAnswer, UiCheckbox, UiRadio, UiText, UiButton, UiIcon,
   },
   setup() {
-    const refModelValue = ref([]);
-    const refInvalid = ref(args.invalid);
-    return { ...args, refModelValue, refInvalid };
+    const modelValue = ref(args.initModelValue);
+    const invalid = ref(args.initInvalid);
+    return {
+      ...args,
+      ...events,
+      modelValue,
+      invalid,
+    };
   },
   template: `<UiMultipleAnswer
-    v-model="refModelValue"
-    v-model:invalid="refInvalid"
+    v-model="modelValue"
+    v-model:invalid="invalid"
     :choices="choices"
     :name="name"
     :hint="hint"
     :touched="touched"
+    @update:invalid="onUpdateInvalid"
   >
     <template #choice-item="{choice, modelValue, updateHandler, errorClass, name, component}">
       <component
@@ -441,17 +454,23 @@ export const WithLabelChoiceIdSlot = (args) => ({
     UiMultipleAnswer, UiText, UiButton, UiIcon,
   },
   setup() {
-    const refModelValue = ref([]);
-    const refInvalid = ref(args.invalid);
-    return { ...args, refModelValue, refInvalid };
+    const modelValue = ref(args.initModelValue);
+    const invalid = ref(args.initInvalid);
+    return {
+      ...args,
+      ...events,
+      modelValue,
+      invalid,
+    };
   },
   template: `<UiMultipleAnswer
-    v-model="refModelValue"
-    v-model:invalid="refInvalid"
+    v-model="modelValue"
+    v-model:invalid="invalid"
     :choices="choices"
     :name="name"
     :hint="hint"
     :touched="touched"
+    @update:invalid="onUpdateInvalid"
   >
     <template #label-s_1907="{choice, component}">
       <div

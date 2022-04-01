@@ -64,15 +64,15 @@ import UiAlert from '../../atoms/UiAlert/UiAlert.vue';
 
 const props = defineProps({
   /**
-     *  Use this props to set source of evidences.
-     */
+   *  Use this props to set source of evidences.
+   */
   source: {
     type: String,
     default: '',
   },
   /**
-     *  Use this props to override default options.
-     */
+   *  Use this props to override default options.
+   */
   options: {
     type: Array,
     default: () => ([
@@ -82,43 +82,43 @@ const props = defineProps({
     ]),
   },
   /**
-     * Use this props to set hint for question.
-     */
+   * Use this props to set hint for question.
+   */
   hint: {
     type: String,
     default: '',
   },
   /**
-     *  Use this props to set possible choices.
-     */
+   *  Use this props to set possible choices.
+   */
   choices: {
     type: Array,
     default: () => ([]),
   },
   /**
-     *  Use this props or v-model to set checked.
-     */
+   *  Use this props or v-model to set checked.
+   */
   modelValue: {
     type: Array,
     default: () => ([]),
   },
   /**
-     * Use this props to set invalid state of component.
-     */
+   * Use this props to set invalid state of component.
+   */
   invalid: {
     type: Boolean,
     default: true,
   },
   /**
-     * Use this props to touch component and show validation errors.
-     */
+   * Use this props to touch component and show validation errors.
+   */
   touched: {
     type: Boolean,
     default: false,
   },
   /**
-     * Use this props to pass attrs for hint UiAlert
-     */
+   * Use this props to pass attrs for hint UiAlert
+   */
   alertHintAttrs: {
     type: Object,
     default: () => ({}),

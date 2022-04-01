@@ -2,6 +2,7 @@ import UiNotification from '@/components/molecules/UiNotification/UiNotification
 import UiAlert from '@/components/atoms/UiAlert/UiAlert.vue';
 import UiLink from '@/components/atoms/UiLink/UiLink.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
+import { content } from '@sb/helpers/argTypes';
 
 export default {
   title: 'Molecules/Notification',
@@ -12,13 +13,9 @@ export default {
     type: 'error',
   },
   argTypes: {
-    content: {
-      control: 'text',
-    },
+    content,
     type: {
-      control: {
-        type: 'select',
-      },
+      control: 'select',
       options: ['success', 'info', 'warning', 'error'],
     },
   },

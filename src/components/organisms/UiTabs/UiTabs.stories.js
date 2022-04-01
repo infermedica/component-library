@@ -3,13 +3,14 @@ import UiTabsItem from '@/components/organisms/UiTabs/_internal/UiTabsItem.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import { ref } from 'vue';
+import { modifiers } from '@sb/helpers/argTypes';
 
 export default {
   title: 'Organisms/Tabs',
   component: UiTabs,
-  subcomponents: { UiTabs, UiTabsItem, UiButton },
+  subcomponents: { UiTabsItem, UiButton },
   args: {
-    items: [
+    tabs: [
       {
         title: 'Search',
         name: 'search',
@@ -21,17 +22,30 @@ export default {
         content: '1. Erythrocyte Sedimentation Rate',
       },
     ],
+    initModelValue: 'search',
     modifiers: [],
   },
   argTypes: {
-    modifiers: {
-      control: { type: 'multi-select' },
-      options: ['ui-tabs--fixed'],
+    tabs: {
+      description: 'Use this control to set tabs.',
       table: {
-        category: 'HTML attributes',
+        category: 'stories controls',
       },
+      control: 'array',
+    },
+    initModelValue: {
+      description: 'Use this control to set initial state.',
+      table: {
+        category: 'stories controls',
+      },
+      control: 'text',
+    },
+    modifiers: modifiers({ options: ['ui-tabs--fixed'] }),
+    modelValue: {
+      control: false,
     },
   },
+  decorators: [() => ({ template: '<div style="min-height: 120px"><story /></div>' })],
   parameters: {
     cssprops: {
       'tabs-padding': {
@@ -76,14 +90,14 @@ export default {
 const Template = (args) => ({
   components: { UiTabs, UiTabsItem, UiText },
   setup() {
-    const modelValue = ref('search');
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiTabs 
     v-model="modelValue"
     :class="modifiers"
   >
-    <template v-for="({name, title, content}, key) in items" :key="key">
+    <template v-for="({name, title, content}, key) in tabs" :key="key">
       <UiTabsItem 
         :name="name" 
         :title="title"
@@ -95,28 +109,26 @@ const Template = (args) => ({
 });
 
 export const Common = Template.bind({});
-Common.decorators = [() => ({ template: '<div style="min-height: 120px"><story /></div>' })];
 
 export const Fixed = Template.bind({});
 Fixed.args = {
   modifiers: ['ui-tabs--fixed'],
 };
-Fixed.decorators = [() => ({ template: '<div style="min-height: 120px"><story /></div>' })];
 
 export const AsInTheDesign = (args) => ({
   components: { UiTabs, UiTabsItem, UiText },
   setup() {
-    const modelValue = ref('search');
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
-  template: `<UiTabs 
+  template: `<UiTabs
     v-model="modelValue"
     :class="modifiers"
     style="--tabs-padding: 0 var(--space-20); --tabs-underline-x-default: var(--space-20);"
   >
-    <template v-for="({name, title, content}, key) in items" :key="key">
-      <UiTabsItem 
-        :name="name" 
+    <template v-for="({name, title, content}, key) in tabs" :key="key">
+      <UiTabsItem
+        :name="name"
         :title="title"
       >
         <UiText>{{content}}</UiText>
@@ -127,14 +139,13 @@ export const AsInTheDesign = (args) => ({
 AsInTheDesign.parameters = {
   layout: 'fullscreen',
 };
-AsInTheDesign.decorators = [() => ({ template: '<div style="min-height: 120px"><story /></div>' })];
 
 export const WithTogglerSlot = (args) => ({
   components: {
     UiTabs, UiTabsItem, UiText, UiButton,
   },
   setup() {
-    const modelValue = ref('search');
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: 'Oops! Not found!',
@@ -143,7 +154,7 @@ export const WithTogglerSlot = (args) => ({
   //   :class="modifiers"
   // >
   //   <template
-  //     v-for="({name, title, content}, key) in items"
+  //     v-for="({name, title, content}, key) in tabs"
   //     :key="key"
   //   >
   //     <UiTabsItem
@@ -179,7 +190,7 @@ export const WithContentSlot = (args) => ({
     UiTabs, UiTabsItem, UiText, UiButton,
   },
   setup() {
-    const modelValue = ref('search');
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiTabs
@@ -187,7 +198,7 @@ export const WithContentSlot = (args) => ({
     :class="modifiers"
   >
     <template
-      v-for="({name, title, content}, key) in items"
+      v-for="({name, title, content}, key) in tabs"
       :key="key"
     >
       <UiTabsItem
@@ -210,4 +221,3 @@ export const WithContentSlot = (args) => ({
     </template>
   </UiTabs>`,
 });
-WithContentSlot.decorators = [() => ({ template: '<div style="min-height: 120px"><story /></div>' })];

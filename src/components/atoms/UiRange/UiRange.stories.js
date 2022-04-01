@@ -1,17 +1,18 @@
-import { within, userEvent } from '@storybook/testing-library';
-import { expect } from '@storybook/jest';
-import { ref } from 'vue';
-
 import UiRange from '@/components/atoms/UiRange/UiRange.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
+import { within, userEvent } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
+import { ref } from 'vue';
+import { disabled } from '@sb/helpers/argTypes';
 
 export default {
   title: 'Atoms/Range',
   component: UiRange,
   subcomponents: { UiButton, UiIcon },
   args: {
-    modelValue: 50,
+    initModelValue: 50,
+    disabled: false,
     min: 18,
     max: 122,
     buttonIncrementAttrs: {
@@ -23,19 +24,29 @@ export default {
       'data-testid': 'decrement-age',
     },
     ariaLabel: 'patient age',
-    disabled: false,
-    modifiers: [],
   },
   argTypes: {
-    modelValue: { control: false },
-    min: { control: 'number' },
-    max: { control: 'number' },
-    ariaLabel: {
-      control: 'text',
+    initModelValue: {
+      description: 'Use this control to set initial state.',
       table: {
-        category: 'HTML attributes',
+        category: 'stories controls',
+      },
+      control: {
+        type: 'number',
       },
     },
+    disabled,
+    ariaLabel: {
+      name: 'aria-label',
+      description: 'Use this control to set aria-label attribute.',
+      control: 'text',
+      table: {
+        category: 'html attributes',
+      },
+    },
+    min: { control: 'number' },
+    max: { control: 'number' },
+    modelValue: { control: false },
   },
   parameters: {
     cssprops: {
@@ -131,7 +142,7 @@ export default {
 export const Common = (args) => ({
   components: { UiRange },
   setup() {
-    const modelValue = ref(50);
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiRange 
@@ -154,7 +165,7 @@ Common.play = async ({ canvasElement }) => {
 export const CommonWithFailInteractionTest = (args) => ({
   components: { UiRange, UiButton, UiIcon },
   setup() {
-    const modelValue = ref(50);
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiRange 
@@ -191,7 +202,7 @@ CommonWithFailInteractionTest.play = async ({ canvasElement }) => {
 export const WithDecrementSlot = (args) => ({
   components: { UiRange, UiButton, UiIcon },
   setup() {
-    const modelValue = ref(50);
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiRange 
@@ -218,7 +229,7 @@ export const WithDecrementSlot = (args) => ({
 export const WithIncrementSlot = (args) => ({
   components: { UiRange, UiButton, UiIcon },
   setup() {
-    const modelValue = ref(50);
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiRange 
@@ -245,7 +256,7 @@ export const WithIncrementSlot = (args) => ({
 export const WithValueSlot = (args) => ({
   components: { UiRange, UiButton, UiIcon },
   setup() {
-    const modelValue = ref(50);
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiRange 
@@ -267,7 +278,7 @@ export const WithValueSlot = (args) => ({
 export const WithRangeSlot = (args) => ({
   components: { UiRange, UiButton, UiIcon },
   setup() {
-    const modelValue = ref(50);
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiRange 

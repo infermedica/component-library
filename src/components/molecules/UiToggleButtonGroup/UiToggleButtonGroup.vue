@@ -19,10 +19,16 @@ import { computed, provide } from 'vue';
 import equal from 'fast-deep-equal';
 
 const props = defineProps({
+  /**
+   * Use this props or v-model to set value.
+   */
   modelValue: {
     type: [Number, String, Object],
     default: '',
   },
+  /**
+   * Use this prop to set to allow deselecting selected value.
+   */
   deselectable: {
     type: Boolean,
     default: false,

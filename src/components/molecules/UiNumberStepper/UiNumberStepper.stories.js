@@ -9,19 +9,26 @@ export default {
   component: UiNumberStepper,
   subcomponents: { UiButton, UiIcon },
   args: {
+    initModelValue: 1,
     min: 0,
     max: 10,
     step: 1,
-    modelValue: 1,
+    hasControls: true,
     buttonDecrementAttrs: {
       'aria-label': 'decrement number',
     },
     buttonIncrementAttrs: {
       'aria-label': 'increment number',
     },
-    hasControls: true,
   },
   argTypes: {
+    initModelValue: {
+      description: 'Use this control to set initial state.',
+      table: {
+        category: 'stories controls',
+      },
+      control: 'number',
+    },
     modelValue: { control: false },
   },
   parameters: {
@@ -32,7 +39,7 @@ export default {
 const Template = (args) => ({
   components: { UiNumberStepper, UiText },
   setup() {
-    const modelValue = ref(1);
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiNumberStepper 
@@ -57,7 +64,7 @@ export const WithTextValue = Template.bind({});
 export const WithControlsOnMobile = (args) => ({
   components: { UiNumberStepper, UiText },
   setup() {
-    const modelValue = ref(1);
+    const modelValue = ref(args.initModelValue);
     const isMobile = ref(false);
     onMounted(() => {
       isMobile.value = matchMedia('(max-width: 767px)').matches;
@@ -66,9 +73,9 @@ export const WithControlsOnMobile = (args) => ({
     });
     return { ...args, modelValue, isMobile };
   },
-  template: `<UiNumberStepper 
-    v-model="modelValue" 
-    :min="min" 
+  template: `<UiNumberStepper
+    v-model="modelValue"
+    :min="min"
     :max="max"
     :step="step"
     :has-controls="isMobile"
@@ -111,12 +118,12 @@ export const WithDecrementSlot = (args) => ({
     UiNumberStepper, UiText, UiButton, UiIcon,
   },
   setup() {
-    const modelValue = ref(1);
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
-  template: `<UiNumberStepper 
-    v-model="modelValue" 
-    :min="min" 
+  template: `<UiNumberStepper
+    v-model="modelValue"
+    :min="min"
     :max="max"
     :step="step"
     :has-controls="hasControls"
@@ -131,7 +138,7 @@ export const WithDecrementSlot = (args) => ({
         @click="decrement"
       >
         <UiIcon icon="minus" />
-      </UiButton>    
+      </UiButton>
     </template>
     <template #default="{value}">
       <UiText class="flex items-center justify-center h-12 flex-full tablet:flex-none w-12">
@@ -146,12 +153,12 @@ export const WithIncrementSlot = (args) => ({
     UiNumberStepper, UiText, UiButton, UiIcon,
   },
   setup() {
-    const modelValue = ref(1);
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
-  template: `<UiNumberStepper 
-    v-model="modelValue" 
-    :min="min" 
+  template: `<UiNumberStepper
+    v-model="modelValue"
+    :min="min"
     :max="max"
     :step="step"
     :has-controls="hasControls"
@@ -166,7 +173,7 @@ export const WithIncrementSlot = (args) => ({
         @click="increment"
       >
         <UiIcon icon="plus" />
-      </UiButton>    
+      </UiButton>
     </template>
     <template #default="{value}">
       <UiText class="flex items-center justify-center h-12 flex-full tablet:flex-none w-12">
@@ -179,12 +186,12 @@ export const WithIncrementSlot = (args) => ({
 export const WithRange = (args) => ({
   components: { UiNumberStepper, UiText },
   setup() {
-    const modelValue = ref(1);
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
-  template: `<UiNumberStepper 
-    v-model="modelValue" 
-    :min="min" 
+  template: `<UiNumberStepper
+    v-model="modelValue"
+    :min="min"
     :max="max"
     :step="step"
     :has-controls="hasControls"
@@ -192,10 +199,10 @@ export const WithRange = (args) => ({
     :button-increment-attrs="buttonIncrementAttrs"
   >
     <template #default="{change, value, min, max}">
-      <input 
-        type="range" 
-        :value="value" 
-        :min="min" 
+      <input
+        type="range"
+        :value="value"
+        :min="min"
         :max="max"
         class="m-0 mb-6 tablet:m-0 flex-full tablet:flex-1"
         @input="change(parseInt($event.target.value, 10))"

@@ -69,7 +69,6 @@ export const IconAsIllustration = (args) => ({
 });
 IconAsIllustration.args = {
   icon: 'agreement',
-  isIllustration: true,
 };
 IconAsIllustration.argTypes = {
   icon: {

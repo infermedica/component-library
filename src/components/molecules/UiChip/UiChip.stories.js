@@ -1,6 +1,12 @@
 import UiChip from '@/components/molecules/UiChip/UiChip.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
+import { actions } from '@storybook/addon-actions';
+import { content } from '@sb/helpers/argTypes';
+
+const events = actions({
+  onRemove: 'remove',
+});
 
 export default {
   title: 'Molecules/Chip',
@@ -11,13 +17,14 @@ export default {
     buttonAttrs: {
       'aria-label': 'remove Chest pain from symptoms',
     },
+    removeAction: null,
   },
   argTypes: {
-    content: { control: 'text' },
-    remove: {
-      action: 'removed',
-      description: 'Use this event to detect interaction with remove button',
-      table: { category: 'Events' },
+    content,
+    removeAction: {
+      name: 'remove',
+      description: 'Use this event to detect click on remove button.',
+      table: { category: 'events' },
     },
   },
   parameters: {
@@ -83,7 +90,12 @@ export default {
 
 const Template = (args) => ({
   components: { UiChip },
-  setup() { return { ...args }; },
+  setup() {
+    return {
+      ...args,
+      ...events,
+    };
+  },
   template: `<UiChip
     :button-attrs="buttonAttrs"
     @remove="onRemove"
@@ -96,9 +108,9 @@ export const WithLabel = Template.bind({});
 
 export const WithRemoveSlot = (args) => ({
   components: { UiChip, UiButton, UiIcon },
-  setup() { return { ...args }; },
-  template: `<UiChip 
-    :button-attrs="buttonAttrs" 
+  setup() { return { ...args, events }; },
+  template: `<UiChip
+    v-bind="events" 
     @remove="onRemove"
   >
     <template #remove="{clickHandler, attrs}">

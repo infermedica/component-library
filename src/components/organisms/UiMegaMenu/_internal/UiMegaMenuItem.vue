@@ -15,15 +15,15 @@ import { computed, inject } from 'vue';
 
 const props = defineProps({
   /**
-     * Use this props to set item name.
-     */
+   * Use this props to set item name.
+   */
   name: {
     type: String,
     default: '',
   },
   /**
-     * Use this props to set item title.
-     */
+   * Use this props to set item title.
+   */
   title: {
     type: String,
     default: '',

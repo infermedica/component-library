@@ -55,4 +55,11 @@ module.exports = {
       jest: true,
     },
   }],
+  settings: {
+    'import/resolver': {
+      alias: [
+        ['@sb', './.storybook'],
+      ],
+    },
+  },
 };

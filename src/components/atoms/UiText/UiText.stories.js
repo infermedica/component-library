@@ -1,32 +1,17 @@
 import UiText from '@/components/atoms/UiText/UiText.vue';
+import { content, modifiers } from '@sb/helpers/argTypes';
 
 export default {
   title: 'Atoms/Text',
-  components: { UiText },
+  component: UiText,
   args: {
     content: 'It looks like you are using an outdated browser that is having trouble viewing modern web pages. To proceed, download and install the latest version of your favorite browser:',
-    tag: 'p',
     modifiers: [],
+    tag: 'p',
   },
   argTypes: {
-    content: {
-      control: 'text',
-    },
-    tag: {
-      control: 'text',
-      table: {
-        category: 'HTML Attributes',
-      },
-    },
-    modifiers: {
-      control: {
-        type: 'select',
-      },
-      options: ['1-thick', '2-comfortable', '2-compact', '2-comfortable-thick', '2-compact-thick'].map((modifier) => (`ui-text--${modifier}`)),
-      table: {
-        category: 'HTML attributes',
-      },
-    },
+    content,
+    modifiers: modifiers({ options: ['1-thick', '2-comfortable', '2-compact', '2-comfortable-thick', '2-compact-thick'].map((modifier) => (`ui-text--${modifier}`)) }),
   },
   parameters: {
     cssprops: {

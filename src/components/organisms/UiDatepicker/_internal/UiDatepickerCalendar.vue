@@ -111,10 +111,10 @@ function tabComponentSelector(datePart) {
 const isDateFulfilled = inject('isDateFulfilled');
 
 function openCalendar(open) {
+  if (dropdown.value.isOpen) return;
   emit('open');
   // TODO: if no empty Tabs try to focus first tab with error
   currentTab.value = isDateFulfilled.value ? order.at(0) : (firstEmptyTab.value || props.lastFocused);
-
   open();
 }
 

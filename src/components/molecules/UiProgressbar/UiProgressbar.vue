@@ -28,22 +28,22 @@ import UiProgress from '../../atoms/UiProgress/UiProgress.vue';
 
 const props = defineProps({
   /**
-     * Use this props to set steps.
-     */
+   * Use this props to set steps.
+   */
   steps: {
     type: Number,
     default: 0,
   },
   /**
-     * Use this props to set current step.
-     */
+   * Use this props to set current step.
+   */
   currentStep: {
     type: Number,
     default: 0,
   },
   /**
-     * Use this props to pass attrs for UiProgress
-     */
+   * Use this props to pass attrs for UiProgress
+   */
   progressAttrs: {
     type: Object,
     default: () => ({}),

@@ -47,6 +47,9 @@
 
 <script setup>
 defineProps({
+  /**
+   * Use this props to set skeleton type.
+   */
   type: {
     type: String,
     default: 'common',

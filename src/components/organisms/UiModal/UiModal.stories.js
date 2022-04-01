@@ -1,12 +1,12 @@
-import { ref } from 'vue';
+import UiModal from '@/components/organisms/UiModal/UiModal.vue';
+import UiBackdrop from '@/components/atoms/UiBackdrop/UiBackdrop.vue';
+import UiButton from '@/components/atoms/UiButton/UiButton.vue';
+import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
+import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
+import UiText from '@/components/atoms/UiText/UiText.vue';
+import { bodyScrollLock, focusTrap } from '@/utilities/directives/index';
 import { actions } from '@storybook/addon-actions';
-import UiModal from './UiModal.vue';
-import UiBackdrop from '../../atoms/UiBackdrop/UiBackdrop.vue';
-import UiButton from '../../atoms/UiButton/UiButton.vue';
-import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
-import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
-import UiText from '../../atoms/UiText/UiText.vue';
-import { bodyScrollLock, focusTrap } from '../../../utilities/directives/index.js';
+import { ref } from 'vue';
 
 const events = actions({
   onConfirm: 'confirm',
@@ -17,42 +17,78 @@ export default {
   title: 'Organisms/Modal',
   component: UiModal,
   args: {
-    modelValue: true,
+    initModelValue: true,
     title: 'Start new checkup?',
-    description: 'You will have to answear the question again.',
-    translation: { confirm: 'Yes, start new checkup', cancel: 'Cancel' },
-    isClosable: true,
-    hasConfirm: true,
-    hasCancel: true,
-    buttonCancelAttrs: {
-      id: 'cancel',
-      'aria-label': 'Cancel',
-    },
+    description: 'You will have to answer the question again.',
     buttonConfirmAttrs: {
       id: 'confirm',
       'aria-label': 'Yes, start new checkup',
+    },
+    buttonCancelAttrs: {
+      id: 'cancel',
+      'aria-label': 'Cancel',
     },
     buttonCloseAttrs: {
       id: 'close',
       'aria-label': 'close panel',
     },
+    isClosable: true,
+    hasCancel: true,
+    hasConfirm: true,
+    translation: {
+      confirm: 'Yes, start new checkup',
+      cancel: 'Cancel',
+    },
+    'update:modelValue': null,
   },
   argTypes: {
-    modelValue: { control: { type: 'boolean' } },
+    initModelValue: {
+      description: 'Use this control to set initial state.',
+      table: {
+        category: 'stories controls',
+      },
+      control: 'boolean',
+    },
     title: {
       description: 'Use this props to set dialog title.',
-      control: { type: 'text' },
       table: {
         category: 'props',
       },
+      control: 'text',
+    },
+    titleSlot: {
+      name: 'title',
+      description: 'Use this slot to replace title template.',
+      table: {
+        category: 'slots',
+        type: {
+          summary: 'unknown',
+        },
+      },
+      control: 'object',
     },
     description: {
       description: 'Use this props to set dialog description.',
-      control: { type: 'text' },
       table: {
         category: 'props',
+        type: {
+          summary: 'string',
+        },
       },
+      control: 'text',
     },
+    descriptionSlot: {
+      name: 'description',
+      description: 'Use this slot to replace description template.',
+      table: {
+        category: 'slots',
+        type: {
+          summary: 'unknown',
+        },
+      },
+      control: 'object',
+    },
+    modelValue: { control: false },
   },
   decorators: [() => ({ template: '<div style="--backdrop-position: absolute; --modal-position: absolute; minHeight: 350px"><story /></div>' })],
   parameters: {
@@ -138,13 +174,15 @@ export default {
 const Template = (args) => ({
   components: { UiButton, UiModal },
   setup() {
-    const { modelValue } = args;
-    const refModelValue = ref(modelValue);
+    const modelValue = ref(args.initModelValue);
     const toggleModal = () => {
-      refModelValue.value = !refModelValue.value;
+      modelValue.value = !modelValue.value;
     };
     return {
-      ...args, events, refModelValue, toggleModal,
+      ...args,
+      ...events,
+      modelValue,
+      toggleModal,
     };
   },
   template: `<UiButton 
@@ -154,8 +192,7 @@ const Template = (args) => ({
     Show modal
   </UiButton>
   <UiModal
-    v-bind="{...events}"
-    v-model="refModelValue"
+    v-model="modelValue"
     :title='title'
     :description='description'
     :translation="translation"
@@ -165,6 +202,8 @@ const Template = (args) => ({
     :buttonConfirmAttrs="buttonConfirmAttrs"
     :buttonCancelAttrs="buttonCancelAttrs"
     :buttonCloseAttrs="buttonCloseAttrs"
+    @confirm="onConfirm"
+    @cancel="onCancel"
   />`,
 });
 
@@ -174,7 +213,10 @@ export const WithoutTitle = Template.bind({});
 WithoutTitle.args = {
   title: '',
   description: 'Delete this file?',
-  translation: { confirm: 'Yes, delete', cancel: 'Cancel' },
+  translation: {
+    confirm: 'Yes, delete',
+    cancel: 'Cancel',
+  },
 };
 WithoutTitle.parameters = {
   design: {
@@ -184,17 +226,17 @@ WithoutTitle.parameters = {
 };
 
 export const WithBackdropSlot = (args) => ({
-  components: {
-    UiBackdrop, UiButton, UiModal,
-  },
+  components: { UiBackdrop, UiButton, UiModal },
   setup() {
-    const { modelValue } = args;
-    const refModelValue = ref(modelValue);
+    const modelValue = ref(args.initModelValue);
     const toggleModal = () => {
-      refModelValue.value = !refModelValue.value;
+      modelValue.value = !modelValue.value;
     };
     return {
-      ...args, events, refModelValue, toggleModal,
+      ...args,
+      ...events,
+      modelValue,
+      toggleModal,
     };
   },
   template: `<UiButton
@@ -204,7 +246,6 @@ export const WithBackdropSlot = (args) => ({
     Show modal
   </UiButton>
   <UiModal
-    v-bind="{...events}"
     v-model="refModelValue"
     :title='title'
     :description='description'
@@ -215,6 +256,8 @@ export const WithBackdropSlot = (args) => ({
     :buttonConfirmAttrs="buttonConfirmAttrs"
     :buttonCancelAttrs="buttonCancelAttrs"
     :buttonCloseAttrs="buttonCloseAttrs"
+    @confirm="onConfirm"
+    @cancel="onCancel"
   >
     <template #backdrop="{closeHandler, modelValue}">
       <transition name="fade">
@@ -236,13 +279,15 @@ export const WithContainerSlot = (args) => ({
     bodyScrollLock,
   },
   setup() {
-    const { modelValue } = args;
-    const refModelValue = ref(modelValue);
+    const modelValue = ref(args.initModelValue);
     const toggleModal = () => {
-      refModelValue.value = !refModelValue.value;
+      modelValue.value = !modelValue.value;
     };
     return {
-      ...args, events, refModelValue, toggleModal,
+      ...args,
+      ...events,
+      modelValue,
+      toggleModal,
     };
   },
   template: `<UiButton
@@ -252,8 +297,7 @@ export const WithContainerSlot = (args) => ({
     Show modal
   </UiButton>
   <UiModal
-    v-bind="{...events}"
-    v-model="refModelValue"
+    v-model="modelValue"
     :title='title'
     :description='description'
     :translation="translation"
@@ -263,6 +307,8 @@ export const WithContainerSlot = (args) => ({
     :buttonConfirmAttrs="buttonConfirmAttrs"
     :buttonCancelAttrs="buttonCancelAttrs"
     :buttonCloseAttrs="buttonCloseAttrs"
+    @confirm="onConfirm"
+    @cancel="onCancel"
   >
     <template #container="{ confirmHandler, cancelHandler, closeHandler, isClosable, modelValue}">
       <transition
@@ -351,13 +397,15 @@ export const WithHeaderSlot = (args) => ({
     bodyScrollLock,
   },
   setup() {
-    const { modelValue } = args;
-    const refModelValue = ref(modelValue);
+    const modelValue = ref(args.initModelValue);
     const toggleModal = () => {
-      refModelValue.value = !refModelValue.value;
+      modelValue.value = !modelValue.value;
     };
     return {
-      ...args, events, refModelValue, toggleModal,
+      ...args,
+      ...events,
+      modelValue,
+      toggleModal,
     };
   },
   template: `<UiButton
@@ -367,8 +415,7 @@ export const WithHeaderSlot = (args) => ({
     Show modal
   </UiButton>
   <UiModal
-    v-bind="{...events}"
-    v-model="refModelValue"
+    v-model="modelValue"
     :title='title'
     :description='description'
     :translation="translation"
@@ -378,6 +425,8 @@ export const WithHeaderSlot = (args) => ({
     :buttonConfirmAttrs="buttonConfirmAttrs"
     :buttonCancelAttrs="buttonCancelAttrs"
     :buttonCloseAttrs="buttonCloseAttrs"
+    @confirm="onConfirm"
+    @cancel="onCancel"
   >
     <template
       #header="{ closeHandler, description, hasDescription, hasHeader, isClosable, titleTag, titleText }"
@@ -420,13 +469,15 @@ export const WithTitleSlot = (args) => ({
     bodyScrollLock,
   },
   setup() {
-    const { modelValue } = args;
-    const refModelValue = ref(modelValue);
+    const modelValue = ref(args.initModelValue);
     const toggleModal = () => {
-      refModelValue.value = !refModelValue.value;
+      modelValue.value = !modelValue.value;
     };
     return {
-      ...args, events, refModelValue, toggleModal,
+      ...args,
+      ...events,
+      modelValue,
+      toggleModal,
     };
   },
   template: `<UiButton
@@ -436,8 +487,7 @@ export const WithTitleSlot = (args) => ({
     Show modal
   </UiButton>
   <UiModal
-    v-bind="{...events}"
-    v-model="refModelValue"
+    v-model="modelValue"
     :title='title'
     :description='description'
     :translation="translation"
@@ -447,6 +497,8 @@ export const WithTitleSlot = (args) => ({
     :buttonConfirmAttrs="buttonConfirmAttrs"
     :buttonCancelAttrs="buttonCancelAttrs"
     :buttonCloseAttrs="buttonCloseAttrs"
+    @confirm="onConfirm"
+    @cancel="onCancel"
   >
     <template #title>
       <UiHeading
@@ -467,13 +519,15 @@ export const WithCloseSlot = (args) => ({
     bodyScrollLock,
   },
   setup() {
-    const { modelValue } = args;
-    const refModelValue = ref(modelValue);
+    const modelValue = ref(args.initModelValue);
     const toggleModal = () => {
-      refModelValue.value = !refModelValue.value;
+      modelValue.value = !modelValue.value;
     };
     return {
-      ...args, events, refModelValue, toggleModal,
+      ...args,
+      ...events,
+      modelValue,
+      toggleModal,
     };
   },
   template: `<UiButton
@@ -483,8 +537,7 @@ export const WithCloseSlot = (args) => ({
     Show modal
   </UiButton>
   <UiModal
-    v-bind="{...events}"
-    v-model="refModelValue"
+    v-model="modalValue"
     :title='title'
     :description='description'
     :translation="translation"
@@ -494,6 +547,8 @@ export const WithCloseSlot = (args) => ({
     :buttonConfirmAttrs="buttonConfirmAttrs"
     :buttonCancelAttrs="buttonCancelAttrs"
     :buttonCloseAttrs="buttonCloseAttrs"
+    @confirm="onConfirm"
+    @cancel="onCancel"
   >
     <template #close="{ closeHandler, isClosable}">
       <UiButton
@@ -517,13 +572,15 @@ export const WithDescriptionSlot = (args) => ({
     bodyScrollLock,
   },
   setup() {
-    const { modelValue } = args;
-    const refModelValue = ref(modelValue);
+    const modelValue = ref(args.initModelValue);
     const toggleModal = () => {
-      refModelValue.value = !refModelValue.value;
+      modelValue.value = !modelValue.value;
     };
     return {
-      ...args, events, refModelValue, toggleModal,
+      ...args,
+      ...events,
+      modelValue,
+      toggleModal,
     };
   },
   template: `<UiButton
@@ -533,8 +590,7 @@ export const WithDescriptionSlot = (args) => ({
     Show modal
   </UiButton>
   <UiModal
-    v-bind="{...events}"
-    v-model="refModelValue"
+    v-model="modelValue"
     :title='title'
     :description='description'
     :translation="translation"
@@ -544,6 +600,8 @@ export const WithDescriptionSlot = (args) => ({
     :buttonConfirmAttrs="buttonConfirmAttrs"
     :buttonCancelAttrs="buttonCancelAttrs"
     :buttonCloseAttrs="buttonCloseAttrs"
+    @confirm="onConfirm"
+    @cancel="onCancel"
   >
     <template #description="{ hasDescription, description }">
       <UiText
@@ -560,7 +618,10 @@ export const WithoutTitleWithDescriptionSlot = WithDescriptionSlot.bind({});
 WithoutTitleWithDescriptionSlot.args = {
   title: '',
   description: 'Delete this file?',
-  translation: { confirm: 'Yes, delete', cancel: 'Cancel' },
+  translation: {
+    confirm: 'Yes, delete',
+    cancel: 'Cancel',
+  },
 };
 WithoutTitleWithDescriptionSlot.parameters = {
   design: {
@@ -578,13 +639,15 @@ export const WithActionsSlot = (args) => ({
     bodyScrollLock,
   },
   setup() {
-    const { modelValue } = args;
-    const refModelValue = ref(modelValue);
+    const modelValue = ref(args.initModelValue);
     const toggleModal = () => {
-      refModelValue.value = !refModelValue.value;
+      modelValue.value = !modelValue.value;
     };
     return {
-      ...args, events, refModelValue, toggleModal,
+      ...args,
+      ...events,
+      modelValue,
+      toggleModal,
     };
   },
   template: `<UiButton
@@ -594,8 +657,7 @@ export const WithActionsSlot = (args) => ({
     Show modal
   </UiButton>
   <UiModal
-    v-bind="{...events}"
-    v-model="refModelValue"
+    v-model="modelValue"
     :title='title'
     :description='description'
     :translation="translation"
@@ -605,6 +667,8 @@ export const WithActionsSlot = (args) => ({
     :buttonConfirmAttrs="buttonConfirmAttrs"
     :buttonCancelAttrs="buttonCancelAttrs"
     :buttonCloseAttrs="buttonCloseAttrs"
+    @confirm="onConfirm"
+    @cancel="onCancel"
   >
     <template #actions="{ confirmHandler, cancelHandler, hasActions, hasCancel, hasConfirm, isClosable, translation }">
       <div
@@ -661,13 +725,15 @@ export const WithConfirmSlot = (args) => ({
     bodyScrollLock,
   },
   setup() {
-    const { modelValue } = args;
-    const refModelValue = ref(modelValue);
+    const modelValue = ref(args.initModelValue);
     const toggleModal = () => {
-      refModelValue.value = !refModelValue.value;
+      modelValue.value = !modelValue.value;
     };
     return {
-      ...args, events, refModelValue, toggleModal,
+      ...args,
+      ...events,
+      modelValue,
+      toggleModal,
     };
   },
   template: `<UiButton
@@ -677,8 +743,7 @@ export const WithConfirmSlot = (args) => ({
     Show modal
   </UiButton>
   <UiModal
-    v-bind="{...events}"
-    v-model="refModelValue"
+    v-model="modelValue"
     :title='title'
     :description='description'
     :translation="translation"
@@ -688,6 +753,8 @@ export const WithConfirmSlot = (args) => ({
     :buttonConfirmAttrs="buttonConfirmAttrs"
     :buttonCancelAttrs="buttonCancelAttrs"
     :buttonCloseAttrs="buttonCloseAttrs"
+    @confirm="onConfirm"
+    @cancel="onCancel"
   >
     <template #confirm="{ confirmHandler, hasConfirm, translation }">
       <UiButton
@@ -711,13 +778,15 @@ export const WithCancelSlot = (args) => ({
     bodyScrollLock,
   },
   setup() {
-    const { modelValue } = args;
-    const refModelValue = ref(modelValue);
+    const modelValue = ref(args.initModelValue);
     const toggleModal = () => {
-      refModelValue.value = !refModelValue.value;
+      modelValue.value = !modelValue.value;
     };
     return {
-      ...args, events, refModelValue, toggleModal,
+      ...args,
+      ...events,
+      modelValue,
+      toggleModal,
     };
   },
   template: `<UiButton
@@ -727,8 +796,7 @@ export const WithCancelSlot = (args) => ({
     Show modal
   </UiButton>
   <UiModal
-    v-bind="{...events}"
-    v-model="refModelValue"
+    v-model="modelValue"
     :title='title'
     :description='description'
     :translation="translation"
@@ -738,6 +806,8 @@ export const WithCancelSlot = (args) => ({
     :buttonConfirmAttrs="buttonConfirmAttrs"
     :buttonCancelAttrs="buttonCancelAttrs"
     :buttonCloseAttrs="buttonCloseAttrs"
+    @confirm="onConfirm"
+    @cancel="onCancel"
   >
     <template #cancel="{ cancelHandler, hasCancel, translation, }">
       <UiButton

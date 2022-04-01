@@ -1,12 +1,15 @@
 import UiSimpleQuestion from '@/components/organisms/UiSimpleQuestion/UiSimpleQuestion.vue';
 import UiTile from '@/components/molecules/UiTile/UiTile.vue';
 import { ref } from 'vue';
+import { modifiers } from '@sb/helpers/argTypes';
 
 export default {
   title: 'Organisms/SimpleQuestion',
   component: UiSimpleQuestion,
   subcomponents: { UiTile },
   args: {
+    initModelValue: 'female',
+    modifiers: [],
     options: [
       {
         id: 'female',
@@ -28,19 +31,17 @@ export default {
       },
     ],
     tileAttrs: {},
-    modifiers: [],
   },
   argTypes: {
-    modelValue: { control: false },
-    modifiers: {
-      control: {
-        type: 'multi-select',
-      },
-      options: ['ui-simple-question--small'],
+    initModelValue: {
+      description: 'Use this control to set the initial value.',
       table: {
-        category: 'HTML attributes',
+        category: 'stories controls',
       },
+      control: 'string',
     },
+    modifiers: modifiers({ options: ['ui-simple-question--small'] }),
+    modelValue: { control: false },
   },
   decorators: [() => ({ template: '<div class="max-w-147"><story /></div>' })],
   parameters: {
@@ -62,7 +63,7 @@ export default {
 const Template = (args) => ({
   components: { UiSimpleQuestion },
   setup() {
-    const modelValue = ref('');
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiSimpleQuestion
@@ -82,7 +83,7 @@ AsPatientSexSmall.args = {
 export const WithTileSlot = (args) => ({
   components: { UiSimpleQuestion, UiTile },
   setup() {
-    const modelValue = ref('');
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiSimpleQuestion

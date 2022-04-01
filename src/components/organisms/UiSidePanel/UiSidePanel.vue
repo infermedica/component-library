@@ -119,45 +119,51 @@ import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 
 defineProps({
+  /**
+   * Use this props or v-model to set value.
+   */
   modelValue: {
     type: Boolean,
     default: false,
   },
   /**
-     * Use this props to set side panel title.
-     */
+   * Use this props to set side panel title.
+   */
   title: {
     type: String,
     default: '',
   },
   /**
-     * Use this props to set side panel subtitle.
-     */
+   * Use this props to set side panel subtitle.
+   */
   subtitle: {
     type: String,
     default: '',
   },
   /**
-     * Use this props to pass attrs for close UiButton
-     */
+   * Use this props to pass attrs for close UiButton
+   */
   buttonCloseAttrs: {
     type: Object,
     default: () => ({}),
   },
   /**
-     * Use this props to pass attrs for title UiHeading
-     */
+   * Use this props to pass attrs for title UiHeading
+   */
   headingTitleAttrs: {
     type: Object,
     default: () => ({}),
   },
   /**
-     * Use this props to pass attrs for subtitle UiText
-     */
+   * Use this props to pass attrs for subtitle UiText
+   */
   textSubtitleAttrs: {
     type: Object,
     default: () => ({}),
   },
+  /**
+   * Use this props to override labels inside component translation.
+   */
   transition: {
     type: String,
     default: 'slide',
@@ -214,6 +220,7 @@ onBeforeUnmount(() => {
     width: 100%;
     height: 100%;
     padding: 0;
+    margin: 0;
     background: var(--side-panel-background, var(--color-background-white));
     border-width: 0;
     box-shadow: var(--side-panel-box-shadow, var(--box-shadow-high));

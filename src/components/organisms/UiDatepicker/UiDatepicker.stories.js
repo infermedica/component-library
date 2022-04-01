@@ -8,13 +8,16 @@ const events = actions({
   onFieldError: 'field-error',
   onCalendarSelect: 'calendar-select',
   onCalendarOpen: 'calendar-open',
+  onUpdateInvalid: 'update:invalid',
 });
 
 export default {
   title: 'Organisms/Datepicker',
   component: UiDatepicker,
   args: {
-    error: false,
+    initModelValue: '2077-11-27',
+    initInvalid: true,
+    error: 'Sorry, the date of birth cannot be a future date',
     order: ['day', 'month', 'year'],
     touched: false,
     lang: 'en-US',
@@ -31,6 +34,60 @@ export default {
     },
     minLimit: 0,
     maxLimit: 120,
+    datepickerCalendarAttrs: {
+      'aria-label': 'Calendar',
+    },
+    'update:modelValue': null,
+    'update:invalid': null,
+  },
+  argTypes: {
+    initModelValue: {
+      description: 'Use this control to set initial state.',
+      table: {
+        category: 'stories controls',
+      },
+      control: 'text',
+    },
+    initInvalid: {
+      name: 'invalid',
+      description: 'Use this control to set initial state of invalid props.',
+      table: {
+        category: 'stories controls',
+      },
+      control: 'boolean',
+    },
+    modelValue: { control: false },
+    invalid: { control: false },
+    'calendar-open': {
+      description: 'Use this event to detect when calendar is open.',
+      table: {
+        category: 'events',
+      },
+    },
+    'calendar-select': {
+      description: 'Use this event to detect when user selects value on calendar tab.',
+      table: {
+        category: 'events',
+      },
+    },
+    'field-insert': {
+      description: 'Use this event to detect when user put value to input.',
+      table: {
+        category: 'events',
+      },
+    },
+    'field-error': {
+      description: 'Use this event to detect when datepicker has error.',
+      table: {
+        category: 'events',
+      },
+    },
+    'field-focus': {
+      description: 'Use this event to detect when some field is focused.',
+      table: {
+        category: 'events',
+      },
+    },
   },
   decorators: [() => ({ template: '<div style="min-height: 430px" class="max-w-80"><story /></div>' })],
   parameters: {
@@ -77,23 +134,32 @@ export default {
 const Template = (args) => ({
   components: { UiDatepicker },
   setup() {
-    const modelValue = ref('');
-    const invalid = ref('');
+    const modelValue = ref(args.initModelValue);
+    const invalid = ref(args.initInvalid);
     return {
-      events, ...args, modelValue, invalid,
+      ...args,
+      ...events,
+      modelValue,
+      invalid,
     };
   },
   template: `<UiDatepicker
-      v-bind="{...events}"
       v-model="modelValue"
+      v-model:invalid="invalid"
       :error="error"
       :order="order"
-      v-model:invalid="invalid"
       :touched="touched"
       :lang="lang"
       :translation="translation"
       :min-limit="minLimit"
       :max-limit="maxLimit"
+      :datepicker-calendar-attrs="datepickerCalendarAttrs"
+      @calendar-open="onCalendarOpen"
+      @calendar-select="onCalendarSelect"
+      @update:invalid="onUpdateInvalid"
+      @field-insert="onFieldInsert"
+      @field-error="onFieldError"
+      @field-focus="onFieldFocus"
   />`,
 });
 

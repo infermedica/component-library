@@ -8,7 +8,7 @@ export default {
   title: 'Molecules/BulletPoints',
   component: UiBulletPoints,
   subcomponents: {
-    UiBulletPointsItem, UiBulletPoints, UiIcon, UiText,
+    UiBulletPointsItem, UiIcon, UiText,
   },
   args: {
     items: ['Painful swallowing', 'Stuffy nose', 'Sneeze', 'Muscle pain', 'Runny nose'],
@@ -17,13 +17,28 @@ export default {
     icon: 'bullet-common',
   },
   argTypes: {
-    tag: { control: { type: 'select' }, options: ['ul', 'ol'] },
-    type: { control: { type: 'select' }, options: ['a', 'A', 'i', 'I', '1', 'ar'] },
-    icon: {
-      control: {
-        type: 'select',
-        options: icons,
+    items: {
+      description: 'Use this control to set the items.',
+      table: {
+        category: 'stories controls',
       },
+      control: 'array',
+    },
+    icon: {
+      description: 'Use this control to set the icon.',
+      table: {
+        category: 'stories controls',
+      },
+      control: 'select',
+      options: icons,
+    },
+    tag: {
+      control: 'select',
+      options: ['ul', 'ol'],
+    },
+    type: {
+      control: 'select',
+      options: ['a', 'A', 'i', 'I', '1', 'ar'],
     },
   },
   parameters: {
@@ -92,17 +107,9 @@ export const NestingAList = (args) => ({
 });
 NestingAList.args = {
   tag: 'ol',
-  type: '1',
-  items: ['Painful swallowing', 'Stuffy nose', 'Sneeze'],
 };
 NestingAList.argTypes = {
-  items: { control: false },
   icon: { control: false },
-  tag: { control: false },
-  type: { control: false },
-};
-NestingAList.parameters = {
-  controls: { hideNoControlsWarning: true },
 };
 
 export const WithMarkerSlot = (args) => ({

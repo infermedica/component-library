@@ -47,15 +47,15 @@ import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 
 defineProps({
   /**
-     * Use this props to set suffix.
-     */
+   * Use this props to set suffix.
+   */
   suffix: {
     type: String,
     default: '',
   },
   /**
-     * Use this props or v-model to set value.
-     */
+   * Use this props or v-model to set value.
+   */
   modelValue: {
     type: String,
     default: '',

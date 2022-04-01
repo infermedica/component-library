@@ -45,15 +45,15 @@ import UiButton from '../../../atoms/UiButton/UiButton.vue';
 
 const props = defineProps({
   /**
-     * Use this props to set item title.
-     */
+   * Use this props to set item title.
+   */
   title: {
     type: String,
     default: '',
   },
   /**
-     * Use this props to set item name, it used to toggle.
-     */
+   * Use this props to set item name, it used to toggle.
+   */
   name: {
     type: String,
     default: '',

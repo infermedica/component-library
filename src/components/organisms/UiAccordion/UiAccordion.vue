@@ -11,8 +11,8 @@ import UiList from '../UiList/UiList.vue';
 
 const props = defineProps({
   /**
-     * Use this props or v-model to set opened items.
-     */
+   * Use this props or v-model to set opened items.
+   */
   modelValue: {
     type: [String, Array],
     default: '',

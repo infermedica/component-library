@@ -1,32 +1,23 @@
 import UiAlert from '@/components/atoms/UiAlert/UiAlert.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
+import { content, modifiers } from '@sb/helpers/argTypes';
 
 export default {
   title: 'Atoms/Alert',
   component: UiAlert,
   subcomponents: { UiIcon, UiText },
   args: {
-    type: 'error',
     content: 'Select one answer',
     modifiers: [],
+    type: 'error',
   },
   argTypes: {
+    content,
+    modifiers: modifiers({ options: ['ui-alert--secondary'], control: 'select' }),
     type: {
-      control: {
-        type: 'select',
-      },
+      control: 'select',
       options: ['default', 'success', 'info', 'warning', 'error'],
-    },
-    content: {
-      control: 'text',
-    },
-    modifiers: {
-      control: { type: 'multi-select' },
-      options: ['ui-alert--secondary'],
-      table: {
-        category: 'HTML attributes',
-      },
     },
   },
   parameters: {

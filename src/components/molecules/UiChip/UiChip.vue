@@ -27,8 +27,8 @@ import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 
 defineProps({
   /**
-     * Use this props to pass attrs for UiButton
-     */
+   * Use this props to pass attrs for UiButton
+   */
   buttonAttrs: {
     type: Object,
     default: () => ({}),
@@ -36,7 +36,7 @@ defineProps({
 });
 const emit = defineEmits(['remove']);
 function clickHandler() {
-  emit('remove', true);
+  emit('remove');
 }
 </script>
 

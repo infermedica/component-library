@@ -11,8 +11,8 @@
 <script setup>
 defineProps({
   /**
-     * Use this props to set list item tag.
-     */
+   * Use this props to set list item tag.
+   */
   tag: {
     type: String,
     default: 'li',

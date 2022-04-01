@@ -1,5 +1,6 @@
 <template>
   <div class="ui-popover">
+    <!-- @slot Use this slot to replace header template. -->
     <slot
       name="header"
       v-bind="{title, attrs: buttonAttrs, clickHandler}"
@@ -8,6 +9,7 @@
         v-if="title"
         class="ui-popover__header"
       >
+        <!-- @slot Use this slot to replace title template. -->
         <slot
           name="title"
           v-bind="{title}"
@@ -19,6 +21,7 @@
             {{ title }}
           </UiHeading>
         </slot>
+        <!-- @slot Use this slot to replace close template. -->
         <slot
           name="close"
           v-bind="{attrs: buttonAttrs, clickHandler}"
@@ -34,6 +37,7 @@
       </div>
     </slot>
     <div class="ui-popover__content">
+      <!-- @slot Use this to put content inside component. -->
       <slot />
     </div>
   </div>
@@ -46,10 +50,16 @@ import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 
 defineProps({
+  /**
+   * Use this props to pass title for popover.
+   */
   title: {
     type: String,
     default: '',
   },
+  /**
+   * Use this props to pass attrs to close UiButton.
+   */
   buttonAttrs: {
     type: Object,
     default: () => ({}),

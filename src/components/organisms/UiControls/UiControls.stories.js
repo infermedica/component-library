@@ -2,30 +2,63 @@ import UiControls from '@/components/organisms/UiControls/UiControls.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
+import { actions } from '@storybook/addon-actions';
+
+const events = actions({
+  onHasError: 'has-error',
+});
 
 export default {
   title: 'Organisms/Controls',
   component: UiControls,
   subcomponents: { UiText, UiButton, UiIcon },
   args: {
-    toBack: '#toBack',
-    toNext: '#toNext',
+    hideNextButton: false,
+    toBack: {
+      path: '/back',
+    },
+    toNext: {
+      path: '/next',
+    },
+    invalid: true,
     translation: {
       back: 'Back',
       next: 'Next',
     },
-    hideNextButton: false,
-    invalid: true,
+    buttonBackAttrs: {
+      id: 'controls-back',
+    },
+    buttonNextAttrs: {
+      id: 'controls-next',
+    },
   },
   argTypes: {
-    invalid: {
-      control: { type: 'boolean' },
+    toBack: { control: 'object' },
+    toNext: { control: 'object' },
+    'has-error': {
+      description: 'Use this event to detect when control has error and toNext is blocked.',
+      table: {
+        category: 'events',
+      },
     },
-    hideNextButton: {
-      control: { type: 'boolean' },
+    buttonBackAttrs: {
+      name: '[WIP]buttonBackAttrs',
+      description: 'Use this props to pass attrs for back UiButton',
+      table: {
+        category: 'props',
+        type: { summary: 'object' },
+      },
+      control: 'object',
     },
-    toBack: { control: { type: 'text' } },
-    toNext: { control: { type: 'text' } },
+    buttonNextAttrs: {
+      name: '[WIP]buttonNextAttrs',
+      description: 'Use this props to pass attrs for next UiButton',
+      table: {
+        category: 'props',
+        type: { summary: 'object' },
+      },
+      control: 'object',
+    },
   },
   parameters: {
     cssprops: {
@@ -81,7 +114,10 @@ export default {
 const Template = (args) => ({
   components: { UiControls },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+      ...events,
+    };
   },
   template: `<UiControls
     :hide-next-button="hideNextButton"
@@ -89,6 +125,9 @@ const Template = (args) => ({
     :to-next="toNext"
     :invalid="invalid"
     :translation="translation"
+    :button-back-attrs="buttonBackAttrs"
+    :button-next-attrs="buttonNextAttrs"
+    @has-error="onHasError"
   />`,
 });
 
@@ -97,7 +136,10 @@ export const Common = Template.bind({});
 export const WithContainerSlot = (args) => ({
   components: { UiControls },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+      ...events,
+    };
   },
   template: `<UiControls
     :hide-next-button="hideNextButton"
@@ -105,7 +147,9 @@ export const WithContainerSlot = (args) => ({
     :to-next="toNext"
     :invalid="invalid"
     :translation="translation"
-    @has-error="hasError"
+    :button-back-attrs="buttonBackAttrs"
+    :button-next-attrs="buttonNextAttrs"
+    @has-error="onHasError"
   >
     <template #container>
       <div class="ui-controls__container"/>
@@ -118,7 +162,10 @@ export const WithBottomSlot = (args) => ({
     UiControls, UiText, UiButton, UiIcon,
   },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+      ...events,
+    };
   },
   template: `<UiControls
     :hide-next-button="hideNextButton"
@@ -126,7 +173,9 @@ export const WithBottomSlot = (args) => ({
     :to-next="toNext"
     :invalid="invalid"
     :translation="translation"
-    @has-error="hasError"
+    :button-back-attrs="buttonBackAttrs"
+    :button-next-attrs="buttonNextAttrs"
+    @has-error="onHasError"
   >
     <template #bottom="{toBack, toNext, hideNextButton, invalid, translation}">
       <div class="ui-controls__bottom">
@@ -156,7 +205,10 @@ export const WithBottomSlot = (args) => ({
 export const WithNextSlot = (args) => ({
   components: { UiControls, UiButton },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+      ...events,
+    };
   },
   template: `<UiControls
     :hide-next-button="hideNextButton"
@@ -164,7 +216,9 @@ export const WithNextSlot = (args) => ({
     :to-next="toNext"
     :invalid="invalid"
     :translation="translation"
-    @has-error="hasError"
+    :button-back-attrs="buttonBackAttrs"
+    :button-next-attrs="buttonNextAttrs"
+    @has-error="onHasError"
   >
     <template #next="{hideNextButton, validNext, invalid, translation}">
       <UiButton
@@ -182,7 +236,10 @@ export const WithNextSlot = (args) => ({
 export const WithBackSlot = (args) => ({
   components: { UiControls, UiButton },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+      ...events,
+    };
   },
   template: `<UiControls
     :hide-next-button="hideNextButton"
@@ -190,7 +247,9 @@ export const WithBackSlot = (args) => ({
     :to-next="toNext"
     :invalid="invalid"
     :translation="translation"
-    @has-error="hasError"
+    :button-back-attrs="buttonBackAttrs"
+    :button-next-attrs="buttonNextAttrs"
+    @has-error="onHasError"
   >
     <template #next="{toBack, translation}">
       <UiButton

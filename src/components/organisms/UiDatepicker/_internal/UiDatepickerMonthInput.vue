@@ -25,22 +25,22 @@ import useKeyValidation from '../../../../composable/useKeyValidation';
 
 const props = defineProps({
   /**
-     * Use this props or v-model to set value.
-     */
+   * Use this props or v-model to set value.
+   */
   modelValue: {
     type: String,
     default: '',
   },
   /**
-     * Use this props to set input in error state manually
-     */
+   * Use this props to set input in error state manually
+   */
   error: {
     type: Boolean,
     default: false,
   },
   /**
-     * Use this props to set input value validation status
-     */
+   * Use this props to set input value validation status
+   */
   valid: {
     type: Boolean,
     default: false,

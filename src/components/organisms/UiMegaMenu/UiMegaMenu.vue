@@ -9,6 +9,9 @@
 import { computed, provide } from 'vue';
 
 const props = defineProps({
+  /**
+   * Use this props or v-model to set value.
+   */
   modelValue: {
     type: String,
     default: '',

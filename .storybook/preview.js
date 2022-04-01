@@ -1,5 +1,5 @@
 import { withTests } from '@storybook/addon-jest';
-import { addDecorator } from '@storybook/vue3';
+import { app, addDecorator } from '@storybook/vue3';
 import results from '../.jest-test-results.json';
 
 import './tailwindcss.css';
@@ -7,8 +7,8 @@ import '@/styles/styles.scss';
 import './styles.scss';
 
 export const parameters = {
-  actions: { argTypesRegex: "^on[A-Z].*" },
   options: {
+    // FIXME: storySort broken order of stories in component story
     storySort: {
       order: [
         'Getting Started',
@@ -22,7 +22,7 @@ export const parameters = {
         'Utilities',
         ['Directives', ['Docs', '*']],
       ]
-    }
+    },
   },
   previewTabs: {
     'storybook/docs/panel': {
@@ -42,3 +42,13 @@ document.body.onload = function() {
   // Set LTR as default directionality.
   document.body.setAttribute('dir', 'ltr')
 }
+
+// Mock of router-link component
+app.component('router-link', {
+  props: ['to'],
+  setup(props) {
+    const href = props.to.path;
+    return { href }
+  },
+  template: `<a :href="href" data-component-name="router-link"><slot /></a>`, // Add data-component-name to distinguish from a native  <a> element
+})

@@ -69,23 +69,30 @@ import UiDatepickerCalendar from './_internal/UiDatepickerCalendar.vue';
 
 const props = defineProps({
   /**
-     * Use this props or v-model to set value.
-     */
+   * Use this props or v-model to set value.
+   */
   modelValue: {
     type: String,
     default: null,
     validator: (value) => isMatch(value, 'yyyy-MM-dd') || value === '',
   },
   /**
-     * Use this props to set custom error message
-     */
+   * Use this props to set invalid state of component.
+   */
+  invalid: {
+    type: Boolean,
+    default: true,
+  },
+  /**
+   * Use this props to set custom error message
+   */
   error: {
     type: [Boolean, String],
     default: '',
   },
   /**
-     * Use this props to set input fields order
-     */
+   * Use this props to set input fields order
+   */
   order: {
     type: Array,
     default: () => (['day', 'month', 'year']),
@@ -95,29 +102,22 @@ const props = defineProps({
         && value.includes('year'),
   },
   /**
-     * Use this props to set invalid state of component.
-     */
-  invalid: {
-    type: Boolean,
-    default: true,
-  },
-  /**
-     * Use this props to touch component and show validation errors.
-     */
+   * Use this props to touch component and show validation errors.
+   */
   touched: {
     type: Boolean,
     default: true,
   },
   /**
-     * Use this props to set months language - default en-US
-     */
+   * Use this props to set months language - default en-US
+   */
   lang: {
     type: String,
     default: 'en-US',
   },
   /**
-     * Use this props to override labels inside component translation.
-     */
+   * Use this props to override labels inside component translation.
+   */
   translation: {
     type: Object,
     default: () => ({
@@ -133,24 +133,24 @@ const props = defineProps({
     }),
   },
   /**
-     * Use this props to set minimum age limit
-     */
+   * Use this props to set minimum age limit
+   */
   minLimit: {
     type: Number,
     default: 0,
     validator: (value) => value >= 0,
   },
   /**
-     *  Use this props to set maximum age limit
-     */
+   *  Use this props to set maximum age limit
+   */
   maxLimit: {
     type: Number,
     default: 120,
     validator: (value) => value > 0,
   },
   /**
-     *  Use this props to pass attrs to UiDatepickerCalendar
-     */
+   *  Use this props to pass attrs to UiDatepickerCalendar
+   */
   datepickerCalendarAttrs: {
     type: Object,
     default: () => ({

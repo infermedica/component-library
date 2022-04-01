@@ -59,49 +59,41 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import UiText from '../../atoms/UiText/UiText.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
 
-export default {
-  name: 'UiMessage',
-  components: {
-    UiText,
-    UiIcon,
-    UiHeading,
+defineProps({
+  /**
+   * Use this props to set message title.
+   */
+  title: {
+    type: String,
+    default: '',
   },
-  props: {
-    /**
-     * Use this props to set message title.
-     */
-    title: {
-      type: String,
-      default: '',
-    },
-    /**
-     * Use this props to set message subtitle.
-     */
-    subtitle: {
-      type: String,
-      default: '',
-    },
-    /**
-     * Use this props to set message illustration.
-     */
-    illustration: {
-      type: [String, Boolean],
-      default: '',
-    },
-    /**
-     * Use this props to pass attrs for title UiHeading
-     */
-    headingTitleAttrs: {
-      type: Object,
-      default: () => ({}),
-    },
+  /**
+   * Use this props to set message subtitle.
+   */
+  subtitle: {
+    type: String,
+    default: '',
   },
-};
+  /**
+   * Use this props to set message illustration.
+   */
+  illustration: {
+    type: [String, Boolean],
+    default: '',
+  },
+  /**
+   * Use this props to pass attrs for title UiHeading
+   */
+  headingTitleAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+});
 </script>
 
 <style lang="scss">

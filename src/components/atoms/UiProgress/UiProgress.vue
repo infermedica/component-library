@@ -14,14 +14,23 @@
 import { computed } from 'vue';
 
 const props = defineProps({
+  /**
+   * Use this props to set the progress value.
+   */
   value: {
     type: Number,
     default: 0,
   },
+  /**
+   * Use this props to set the minimum value.
+   */
   min: {
     type: Number,
     default: 0,
   },
+  /**
+   * Use this props to set the maximum value.
+   */
   max: {
     type: Number,
     default: 100,

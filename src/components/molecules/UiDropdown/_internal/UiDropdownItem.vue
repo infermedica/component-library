@@ -24,6 +24,9 @@ import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 
 const props = defineProps({
+  /**
+   * Use this props to set the value of the dropdown item.
+   */
   value: {
     type: [String, Object],
     default: '',

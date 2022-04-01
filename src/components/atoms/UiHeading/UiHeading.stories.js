@@ -1,4 +1,5 @@
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
+import { content } from '@sb/helpers/argTypes';
 
 export default {
   title: 'Atoms/Heading',
@@ -9,8 +10,14 @@ export default {
     tag: '',
   },
   argTypes: {
-    content: { control: 'text' },
-    level: { control: { type: 'range', min: 1, max: 6 } },
+    content,
+    level: {
+      control: {
+        type: 'range',
+        min: 1,
+        max: 6,
+      },
+    },
   },
   parameters: {
     cssprops: {

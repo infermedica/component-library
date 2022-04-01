@@ -65,29 +65,29 @@ import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 
 const props = defineProps({
   /**
-     *  Use this props or v-model to set checked.
-     */
+   *  Use this props or v-model to set checked.
+   */
   modelValue: {
     type: Object,
     default: () => ({}),
   },
   /**
-     * Use this props to set value of choices item.
-     */
+   * Use this props to set value of choices item.
+   */
   choice: {
     type: Object,
     default: () => ({}),
   },
   /**
-     *  Use this props to override default options.
-     */
+   *  Use this props to override default options.
+   */
   options: {
     type: Array,
     default: () => ([]),
   },
   /**
-     * Use this props to set invalid state of choice item.
-     */
+   * Use this props to set invalid state of choice item.
+   */
   invalid: {
     type: Boolean,
     default: true,

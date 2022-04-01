@@ -3,25 +3,64 @@ import UiDropdownItem from '@/components/molecules/UiDropdown/_internal/UiDropdo
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiInput from '@/components/atoms/UiInput/UiInput.vue';
 import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
-import {
-  computed, ref, watch,
-} from 'vue';
+import { actions } from '@storybook/addon-actions';
+import { computed, ref, watch } from 'vue';
+
+const events = actions({
+  onOpen: 'open',
+  onClose: 'close',
+});
 
 export default {
   title: 'Molecules/Dropdown',
   component: UiDropdown,
-  subcomponents: { UiDropdown, UiDropdownItem, UiPopover },
+  subcomponents: { UiDropdownItem, UiPopover },
   args: {
-    modelValue: { label: 'English' },
     items: [
       { label: 'English' },
       { label: 'Deutsch' },
       { label: 'Italiano' },
       { label: 'Polski' },
     ],
+    initModelValue: { label: 'English' },
+    closeOnClickOutside: true,
+    enableKeyboardNavigation: true,
+    text: 'English',
+    name: 'locale',
   },
   argTypes: {
+    items: {
+      description: 'Use this control to set the items.',
+      table: {
+        category: 'stories controls',
+      },
+      control: 'object',
+    },
+    initModelValue: {
+      description: 'Use this control to set the initial value.',
+      table: {
+        category: 'stories controls',
+      },
+      control: 'object',
+    },
+    modelValue: {
+      control: false,
+    },
+    toggleElement: {
+      control: false,
+    },
+    open: {
+      name: 'open',
+      description: 'Use this event to detect when dropdown is opening.',
+      table: { category: 'events' },
+    },
+    close: {
+      name: 'close',
+      description: 'Use this event to detect when dropdown is closing.',
+      table: { category: 'events' },
+    },
   },
+  decorators: [() => ({ template: '<div style="min-height: 220px"><story /></div>' })],
   parameters: {
     cssprops: {
       'dropdown-toggle-width': {
@@ -66,16 +105,25 @@ export default {
 export const WithToggleSlot = (args) => ({
   components: { UiDropdown, UiDropdownItem, UiButton },
   setup() {
+    const modelValue = ref(args.initModelValue);
     const toggleElement = ref(null);
-    const modelValue = ref({ label: 'English' });
-    return { ...args, toggleElement, modelValue };
+    return {
+      ...args,
+      ...events,
+      toggleElement,
+      modelValue,
+    };
   },
   template: `<UiDropdown
     v-model="modelValue"
     :text="modelValue.label"
     :name="name"
     :toggle-element="toggleElement"
+    :close-on-click-outside="closeOnClickOutside"
+    :enable-keyboard-navigation="enableKeyboardNavigation"
     style="--dropdown-popover-width: 15rem;"
+    @open="onOpen"
+    @close="onClose"
   >
     <template #toggle="{toggleHandler, openHandler, closeHandler, isOpen, text}">
       <UiButton
@@ -92,27 +140,35 @@ export const WithToggleSlot = (args) => ({
     </template>
   </UiDropdown>`,
 });
-WithToggleSlot.args = {
-  text: 'English',
-  name: 'locale',
+WithToggleSlot.argTypes = {
+  text: { control: false },
+  name: { control: false },
 };
-WithToggleSlot.decorators = [() => ({ template: '<div style="min-height: 220px"><story /></div>' })];
 
 export const WithPopoverSlot = (args) => ({
   components: {
     UiDropdown, UiDropdownItem, UiButton, UiPopover,
   },
   setup() {
+    const modelValue = ref(args.initModelValue);
     const toggleElement = ref(null);
-    const modelValue = ref({ label: 'English' });
-    return { ...args, toggleElement, modelValue };
+    return {
+      ...args,
+      ...events,
+      toggleElement,
+      modelValue,
+    };
   },
   template: `<UiDropdown
     v-model="modelValue"
     :text="modelValue.label"
     :name="name"
     :toggle-element="toggleElement"
+    :close-on-click-outside="closeOnClickOutside"
+    :enable-keyboard-navigation="enableKeyboardNavigation"
     style="--dropdown-popover-width: 15rem;"
+    @open="onOpen"
+    @close="onClose"
   >
     <template #toggle="{toggleHandler, openHandler, closeHandler, isOpen, text}">
       <UiButton
@@ -139,27 +195,31 @@ export const WithPopoverSlot = (args) => ({
     </template>
   </UiDropdown>`,
 });
-WithPopoverSlot.args = {
-  text: 'English',
-  name: 'locale',
-};
-WithPopoverSlot.decorators = [() => ({ template: '<div style="min-height: 220px"><story /></div>' })];
 
 export const WithContentSlot = (args) => ({
   components: {
     UiDropdown, UiDropdownItem, UiButton,
   },
   setup() {
+    const modelValue = ref(args.initModelValue);
     const toggleElement = ref(null);
-    const modelValue = ref({ label: 'English' });
-    return { ...args, toggleElement, modelValue };
+    return {
+      ...args,
+      ...events,
+      toggleElement,
+      modelValue,
+    };
   },
   template: `<UiDropdown
     v-model="modelValue"
     :text="modelValue.label"
     :name="name"
     :toggle-element="toggleElement"
+    :close-on-click-outside="closeOnClickOutside"
+    :enable-keyboard-navigation="enableKeyboardNavigation"
     style="--dropdown-popover-width: 15rem;"
+    @open="onOpen"
+    @close="onClose"
   >
     <template #toggle="{toggleHandler, openHandler, closeHandler, isOpen, text}">
       <UiButton
@@ -180,11 +240,6 @@ export const WithContentSlot = (args) => ({
     </template>
   </UiDropdown>`,
 });
-WithContentSlot.args = {
-  text: 'English',
-  name: 'locale',
-};
-WithContentSlot.decorators = [() => ({ template: '<div style="min-height: 220px"><story /></div>' })];
 
 export const WithInputToggle = (args) => ({
   components: {
@@ -193,8 +248,8 @@ export const WithInputToggle = (args) => ({
     UiInput,
   },
   setup() {
+    const modelValue = ref(args.initModelValue);
     const toggleElement = ref(null);
-    const modelValue = ref({ label: 'English' });
     const searchQuery = ref('');
 
     watch(() => modelValue.value, () => {
@@ -219,6 +274,7 @@ export const WithInputToggle = (args) => ({
 
     return {
       ...args,
+      ...events,
       toggleElement,
       modelValue,
       searchQuery,
@@ -232,7 +288,8 @@ export const WithInputToggle = (args) => ({
         :text="modelValue.label"
         :toggle-element="toggleElement"
         style="--dropdown-popover-width: 15rem;"
-
+        @open="onOpen"
+        @close="onClose"
     >
     <template #toggle="provideData">
       <UiInput
@@ -255,8 +312,7 @@ export const WithInputToggle = (args) => ({
     </template>
     </UiDropdown>`,
 });
-WithContentSlot.args = {
-  text: 'English',
-  name: 'locale',
+WithInputToggle.args = {};
+WithInputToggle.argTypes = {
+  initModelValue: { control: false },
 };
-WithContentSlot.decorators = [() => ({ template: '<div style="min-height: 220px"><story /></div>' })];

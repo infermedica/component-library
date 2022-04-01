@@ -10,20 +10,41 @@ export default {
     UiToggleButton,
   },
   args: {
-    items: [{
-      value: 1,
-      label: 'First',
-    },
-    {
-      value: 2,
-      label: 'Second',
-    },
-    {
-      value: 3,
-      label: 'Third',
-    }],
-    initialValue: null,
+    items: [
+      {
+        value: 'first',
+        label: 'First',
+      },
+      {
+        value: 'second',
+        label: 'Second',
+      },
+      {
+        value: 'third',
+        label: 'Third',
+      },
+    ],
+    initModelValue: '',
     deselectable: false,
+  },
+  argTypes: {
+    items: {
+      description: 'Use this control to set the items.',
+      table: {
+        category: 'stories controls',
+      },
+      control: 'object',
+    },
+    initModelValue: {
+      description: 'Use this control to set the initial value.',
+      table: {
+        category: 'stories controls',
+      },
+      control: 'text',
+    },
+    modelValue: {
+      control: false,
+    },
   },
   parameters: {
     cssprops: {
@@ -42,77 +63,82 @@ export const Default = (args) => ({
     UiToggleButtonGroup,
   },
   setup() {
-    const modelValue = ref(args.initialValue);
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `
-    <UiToggleButtonGroup v-model="modelValue" :deselectable="deselectable">
-    <template
-        v-for="({value, label, modifiers}, key) in items"
-        :key="key"
+    <UiToggleButtonGroup 
+        v-model="modelValue" 
+        :deselectable="deselectable"
     >
-      <UiToggleButton :value="value" :class="modifiers">
-        {{label}}
-      </UiToggleButton>
-    </template>
+      <template
+          v-for="({value, label, modifiers}, key) in items"
+          :key="key"
+      >
+        <UiToggleButton :value="value" :class="modifiers">
+          {{label}}
+        </UiToggleButton>
+      </template>
     </UiToggleButtonGroup>
   `,
 });
 
 export const Pressed = Default.bind({});
-Pressed.args = { initialValue: 1 };
+Pressed.args = { initModelValue: 'first' };
 
 export const Disabled = Default.bind({});
 Disabled.args = {
   items: [{
-    value: 1,
+    value: 'first',
     label: 'First',
     modifiers: 'ui-toggle-button--is-disabled',
   },
   {
-    value: 2,
+    value: 'second',
     label: 'Second',
   },
   {
-    value: 3,
+    value: 'third',
     label: 'Third',
   }],
 };
 
 export const PressedDisabled = Default.bind({});
 PressedDisabled.args = {
-  initialValue: 1,
+  initModelValue: 'first',
   items: [{
-    value: 1,
+    value: 'first',
     label: 'First',
     modifiers: 'ui-toggle-button--is-disabled',
   },
   {
-    value: 2,
+    value: 'second',
     label: 'Second',
   },
   {
-    value: 3,
+    value: 'third',
     label: 'Third',
   }],
 };
 
 export const Deselectable = Default.bind({});
-Deselectable.args = { deselectable: true };
+Deselectable.args = {
+  deselectable: true,
+};
 
-export const WithStringValues = Default.bind({});
-WithStringValues.args = {
+export const WithNumberValues = Default.bind({});
+WithNumberValues.args = {
   items: [
     {
-      value: 'first',
+      value: 1,
       label: 'First',
     },
     {
-      value: 'second',
+      value: 2,
       label: 'Second',
     },
     {
-      value: 'third',
+      value: 3,
       label: 'Third',
     },
   ],
@@ -165,14 +191,14 @@ export const WithIcon = (args) => ({
 WithIcon.args = {
   items: [
     {
-      value: 1,
+      value: 'first',
       label: 'First',
       modifiers: 'ui-toggle-button--has-icon',
       icon: 'dots',
       iconPosition: 'left',
     },
     {
-      value: 2,
+      value: 'second',
       label: 'Second',
       modifiers: 'ui-toggle-button--has-icon',
       icon: 'plus',

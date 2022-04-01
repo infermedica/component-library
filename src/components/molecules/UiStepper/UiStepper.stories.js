@@ -22,17 +22,16 @@ export default {
   },
   args: {
     steps,
-    currentStep: steps[0].name,
+    currentStep: steps.at(0).name,
     progressAttrs: { id: 'progress' },
   },
   argTypes: {
     currentStep: {
-      control: {
-        type: 'select',
-        options: steps.map((option) => (option.name)),
-      },
+      control: 'select',
+      options: steps.map((step) => step.name),
     },
   },
+  decorators: [() => ({ template: '<div class="desktop:max-w-35"><story /></div>' })],
   parameters: {
     cssprops: {
       'stepper-progress-background': {
@@ -82,7 +81,6 @@ const Template = (args) => ({
 });
 
 export const WithCurrentStep = Template.bind({});
-WithCurrentStep.decorators = [() => ({ template: '<div class="desktop:max-w-35"><story /></div>' })];
 
 export const WithCurrentStepSlot = (args) => ({
   components: { UiStepper, UiText },
@@ -104,7 +102,6 @@ export const WithCurrentStepSlot = (args) => ({
     </template>
   </UiStepper>`,
 });
-WithCurrentStepSlot.decorators = [() => ({ template: '<div class="desktop:max-w-35"><story /></div>' })];
 
 export const WithProgressSlot = (args) => ({
   components: { UiStepper, UiProgress },
@@ -125,7 +122,6 @@ export const WithProgressSlot = (args) => ({
     </template>
   </UiStepper>`,
 });
-WithProgressSlot.decorators = [() => ({ template: '<div class="desktop:max-w-35"><story /></div>' })];
 
 export const WithDesktopSlot = (args) => ({
   components: {
@@ -164,7 +160,6 @@ export const WithDesktopSlot = (args) => ({
     </template>
   </UiStepper>`,
 });
-WithDesktopSlot.decorators = [() => ({ template: '<div class="desktop:max-w-35"><story /></div>' })];
 
 export const WithItemsSlot = (args) => ({
   components: { UiStepper, UiListItem, UiLink },
@@ -199,7 +194,6 @@ export const WithItemsSlot = (args) => ({
     </template>
   </UiStepper>`,
 });
-WithItemsSlot.decorators = [() => ({ template: '<div class="desktop:max-w-35"><story /></div>' })];
 
 export const WithItemSlot = (args) => ({
   components: { UiStepper, UiListItem, UiLink },
@@ -229,7 +223,6 @@ export const WithItemSlot = (args) => ({
     </template>
   </UiStepper>`,
 });
-WithItemSlot.decorators = [() => ({ template: '<div class="desktop:max-w-35"><story /></div>' })];
 
 export const WithItemLinkSlot = (args) => ({
   components: { UiStepper, UiListItem, UiLink },
@@ -251,7 +244,6 @@ export const WithItemLinkSlot = (args) => ({
     </template>
   </UiStepper>`,
 });
-WithItemLinkSlot.decorators = [() => ({ template: '<div class="desktop:max-w-35"><story /></div>' })];
 
 export const WithMobileSlot = (args) => ({
   components: { UiStepper, UiText, UiProgress },
@@ -285,4 +277,3 @@ WithMobileSlot.parameters = {
     defaultViewport: 'mobile2',
   },
 };
-WithMobileSlot.decorators = [() => ({ template: '<div class="desktop:max-w-35"><story /></div>' })];

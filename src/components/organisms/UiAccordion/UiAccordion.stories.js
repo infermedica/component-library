@@ -8,7 +8,7 @@ import { ref } from 'vue';
 export default {
   title: 'Organisms/Accordion',
   component: UiAccordion,
-  subcomponents: { UiAccordion, UiAccordionItem },
+  subcomponents: { UiAccordionItem },
   args: {
     items: [
       {
@@ -27,6 +27,24 @@ export default {
         content: 'Rheumatoid factor',
       },
     ],
+    initModelValue: '',
+  },
+  argTypes: {
+    items: {
+      description: 'Use this control to set the items.',
+      table: {
+        category: 'stories controls',
+      },
+      control: 'array',
+    },
+    initModelValue: {
+      description: 'Use this control to set the initial value.',
+      table: {
+        category: 'stories controls',
+      },
+      control: 'text',
+    },
+    modelValue: { control: false },
   },
   parameters: {
     cssprops: [],
@@ -36,8 +54,11 @@ export default {
 const Template = (args) => ({
   components: { UiAccordion, UiAccordionItem, UiText },
   setup() {
-    const modelValue = ref('');
-    return { ...args, modelValue };
+    const modelValue = ref(args.initModelValue);
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiAccordion v-model="modelValue">
     <template 
@@ -68,16 +89,16 @@ SingleItem.args = {
 export const MultipleItemsOpened = (args) => ({
   components: { UiAccordion, UiAccordionItem, UiText },
   setup() {
-    const modelValue = ref([]);
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiAccordion v-model="modelValue">
-    <template 
-      v-for="({name, title, content}, key) in items" 
+    <template
+      v-for="({name, title, content}, key) in items"
       :key="key"
     >
-      <UiAccordionItem 
-        :name="name" 
+      <UiAccordionItem
+        :name="name"
         :title="title"
       >
         <UiText>{{content}}</UiText>
@@ -85,22 +106,30 @@ export const MultipleItemsOpened = (args) => ({
     </template>
   </UiAccordion>`,
 });
+MultipleItemsOpened.args = {
+  initModelValue: [],
+};
+MultipleItemsOpened.argTypes = {
+  initModelValue: {
+    control: 'array',
+  },
+};
 
 export const WithTogglerSlot = (args) => ({
   components: {
     UiAccordion, UiAccordionItem, UiText, UiButton, UiIcon,
   },
   setup() {
-    const modelValue = ref([]);
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiAccordion v-model="modelValue">
-    <template 
-      v-for="({name, title, content}, key) in items" 
+    <template
+      v-for="({name, title, content}, key) in items"
       :key="key"
     >
-      <UiAccordionItem 
-        :name="name" 
+      <UiAccordionItem
+        :name="name"
         :title="title"
       >
         <template #toggler="{toggle, name, icon, title, isOpen, iconOpen, iconClose}">
@@ -137,16 +166,16 @@ export const WithChevronSlot = (args) => ({
     UiAccordion, UiAccordionItem, UiText, UiIcon,
   },
   setup() {
-    const modelValue = ref([]);
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiAccordion v-model="modelValue">
-    <template 
-      v-for="({name, title, content}, key) in items" 
+    <template
+      v-for="({name, title, content}, key) in items"
       :key="key"
     >
-      <UiAccordionItem 
-        :name="name" 
+      <UiAccordionItem
+        :name="name"
         :title="title"
       >
         <template #chevron="{isOpen, iconOpen, iconClose}">
@@ -174,16 +203,16 @@ export const WithContentSlot = (args) => ({
     UiAccordion, UiAccordionItem, UiText,
   },
   setup() {
-    const modelValue = ref([]);
+    const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiAccordion v-model="modelValue">
-    <template 
-      v-for="({name, title, content}, key) in items" 
+    <template
+      v-for="({name, title, content}, key) in items"
       :key="key"
     >
-      <UiAccordionItem 
-        :name="name" 
+      <UiAccordionItem
+        :name="name"
         :title="title"
       >
         <template #content="{isOpen, name}">
