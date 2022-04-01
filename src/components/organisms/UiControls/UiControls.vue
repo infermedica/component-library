@@ -10,18 +10,18 @@
     <!-- @slot Use this slot to replace bottom template. -->
     <slot
       name="bottom"
-      v-bind="{toBack, toNext, hideNextButton, invalid, translation}"
+      v-bind="{buttonNextAttrs: nextAttrs, buttonBackAttrs: backAttrs, toBack, toNext, hideNextButton, invalid, translation}"
     >
       <div class="ui-controls__bottom">
         <!-- @slot Use this slot to replace next template. -->
         <slot
           v-if="toNext"
-          v-bind="{hideNextButton, validNext, invalid, translation}"
+          v-bind="{hideNextButton, attrs: nextAttrs, invalid, translation}"
           name="next"
         >
           <UiButton
             v-if="!hideNextButton"
-            v-bind="validNext"
+            v-bind="nextAttrs"
             class="ui-controls__next"
             :class="{'ui-button--is-disabled': invalid}"
           >
@@ -31,11 +31,11 @@
         <!-- @slot Use this slot to replace back template. -->
         <slot
           name="back"
-          v-bind="{toBack, translation}"
+          v-bind="{toBack, attrs: backAttrs, translation}"
         >
           <UiButton
             v-if="toBack"
-            :to="toBack"
+            v-bind="backAttrs"
             class="ui-controls__back ui-button--text ui-button--has-icon"
           >
             <UiIcon
@@ -50,7 +50,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, useSlots } from 'vue';
 import UiContainer from '../UiContainer/UiContainer.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
@@ -85,6 +85,20 @@ const props = defineProps({
     default: true,
   },
   /**
+   * Use this props to pass attrs for next UiButton.
+   */
+  buttonNextAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for back UiButton.
+   */
+  buttonBackAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
    * Use this props to override labels inside component translation.
    */
   translation: {
@@ -96,16 +110,34 @@ const props = defineProps({
   },
 });
 const emit = defineEmits(['has-error']);
+const slots = useSlots();
 function hasError() {
   emit('has-error');
 }
-const validNext = computed(() => (
+const nextAttrs = computed(() => (
   props.invalid
     ? {
       onClick: hasError,
+      ...props.buttonNextAttrs,
     }
-    : { to: props.toNext }
+    : {
+      to: props.toNext,
+      ...props.buttonNextAttrs,
+    }
 ));
+const backAttrs = computed(() => (
+  {
+    to: props.toBack,
+    ...props.buttonBackAttrs,
+  }
+));
+// deprecated warning
+if (process.env.NODE_ENV === 'development') {
+  const { next } = slots;
+  if (next) {
+    console.warn('[@symptom-checker/ui-kit warn]: The "validNext" props bounded to "next" slot is deprecated and will be removed in v0.4.0. Please use "attrs" properties instead.');
+  }
+}
 </script>
 
 <style lang="scss">
