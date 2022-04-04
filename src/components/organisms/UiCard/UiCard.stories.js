@@ -45,7 +45,7 @@ export default {
         category: 'props',
         type: { summary: 'string' },
       },
-      control: `text`,
+      control: 'text',
     },
     subtitleSlot: {
       name: 'subtitle',

@@ -1,6 +1,6 @@
 {
   "name": "@symptom-checker/ui-kit",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "private": true,
   "scripts": {
     "test:generate-output": "vue-cli-service test:unit --json --outputFile=.jest-test-results.json",

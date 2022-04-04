@@ -3,7 +3,7 @@ import {
   content, modifiers, placeholder, disabled,
 } from '@sb/helpers/argTypes';
 
-import { ref } from 'vue';
+import { nextTick, onMounted, ref } from 'vue';
 
 export default {
   title: 'Atoms/Textarea',
@@ -113,9 +113,16 @@ const Template = (args) => ({
   components: { UiTextarea },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    const element = ref(null);
+    onMounted(async () => {
+      await nextTick();
+      console.log(element.value?.$el);
+      element.value?.$el.querySelector('textarea').focus();
+    });
+    return { ...args, modelValue, element };
   },
   template: `<UiTextarea
+    ref="element"
     v-model="modelValue"
     :resize="resize"
     :placeholder="placeholder"

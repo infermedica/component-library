@@ -63,7 +63,7 @@ export default {
       },
     },
   },
-}
+};
 
 const Template = (args) => ({
   components: { UiScale },

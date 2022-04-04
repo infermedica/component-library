@@ -135,7 +135,7 @@ export const AsMultipleAnswer = (args) => ({
     const modelValue = ref('');
     return {
       ...args,
-      modelValue
+      modelValue,
     };
   },
   template: `<UiQuestion
