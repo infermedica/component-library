@@ -43,7 +43,7 @@
               <!-- @slot Use this slot to replace title template. -->
               <slot
                 :name="titleSlotName"
-                v-bind="{ titleTag, titleText }"
+                v-bind="{ titleTag, titleText, description}"
               >
                 <component
                   :is="titleTag"
