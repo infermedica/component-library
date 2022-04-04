@@ -83,9 +83,10 @@ export default {
     },
     symptoms: {
       name: 'symptoms',
+      description: '@deprecated Will be removed in 0.4.0 use `details` slots instead',
       table: {
         category: 'slots',
-        type: { summary: 'deprecated' },
+        type: { summary: 'unknown' },
       },
       control: false,
     },
@@ -404,40 +405,3 @@ export const WithDescriptionSlot = (args) => ({
     </template>
   </UiCard>`,
 });
-
-export const WithSymptomsSlot = (args) => ({
-  components: {
-    UiCard, UiText, UiHeading, UiBulletPoints, UiBulletPointsItem,
-  },
-  setup() {
-    return { ...args };
-  },
-  template: `
-    <UiCard
-      :class="modifiers"
-      :title="title"
-      :subtitle="subtitle"
-      :description="description"
-      :type="type"
-    >
-    <template #symptoms>
-      <UiHeading
-        :level="4"
-        style="margin: var(--space-24) 0 var(--space-8) 0"
-      >
-        Alarming symptoms:
-      </UiHeading>
-      <UiBulletPoints>
-        <template
-          v-for="(symptom, key) in ['Vomiting', 'Abdominal pain, lasting 2 to 7 days']"
-          :key="key"
-        >
-          <UiBulletPointsItem icon="bullet-alarming" class="ui-bullet-points-item--primary">
-            <UiText>{{ symptom }}</UiText>
-          </UiBulletPointsItem>
-        </template>
-      </UiBulletPoints>
-    </template>
-    </UiCard>`,
-});
-WithSymptomsSlot.storyName = '[deprecated] With symptoms slot';

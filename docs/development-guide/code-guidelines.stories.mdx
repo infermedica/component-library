@@ -32,47 +32,49 @@ import { Meta } from '@storybook/addon-docs';
 `}
 </style>
 
-# Code Guidelines 
-The Symptom Checker Uikit development team has rules to keep the code clean and easy to understand - for all team members. 
-These rules ensure that the code can be read and improved by a developer other than its original author. Following these rules 
+# Code Guidelines
+The Symptom Checker Uikit development team has rules to keep the code clean and easy to understand - for all team members.
+These rules ensure that the code can be read and improved by a developer other than its original author. Following these rules
 will help maintain readability, changeability, extensibility and maintainability. You can read these rules below
 
-<!-- TODO Deprecation guidelines -->
 <div class="page-outline">
-    <span class="page-outline__title">On this page</span>
-    <ul class="page-outline__list">
-      <li>
-        <a href="#components-rules">Components rules</a>
-         <ul class="page-outline__list page-outline__list--nested">
-            <li>
-              <a href="#naming">Naming</a>
-            </li>
-            <li>
-              <a href="#files-structure">File structure</a>
-            </li>
-            <li>
-              <a href="#creating">Creating</a>
-            </li>
-        </ul>
-      </li>
-      <li>
-        <a href="#css">CSS</a>
-        <ul class="page-outline__list page-outline__list--nested">
-            <li>
-              <a href="#naming-rules">Naming</a>
-            </li>
-        </ul>
-      </li>
-      <li>
-        <a href="#template-rules">Template rules</a>
-      </li>
-      <li>
-        <a href="#unit-tests">Unit tests</a>
-      </li>
-      <li>
-        <a href="#stories-for-storybook">Stories for Storybook</a>
-      </li>
-    </ul>
+  <span class="page-outline__title">On this page</span>
+  <ul class="page-outline__list">
+    <li>
+      <a href="#components-rules">Components rules</a>
+      <ul class="page-outline__list page-outline__list--nested">
+        <li>
+          <a href="#naming">Naming</a>
+        </li>
+        <li>
+          <a href="#files-structure">File structure</a>
+        </li>
+        <li>
+          <a href="#creating">Creating</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href="#css">CSS</a>
+      <ul class="page-outline__list page-outline__list--nested">
+        <li>
+          <a href="#naming-rules">Naming</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href="#template-rules">Template rules</a>
+    </li>
+    <li>
+      <a href="#deprecation-guidelines">Deprecation guidelines</a>
+    </li>
+    <li>
+      <a href="#unit-tests">Unit tests</a>
+    </li>
+    <li>
+      <a href="#stories-for-storybook">Stories for Storybook</a>
+    </li>
+  </ul>
 </div>
 
 ## Components rules
@@ -86,7 +88,7 @@ Ui<ComponentName>
 We want to follow [atomic design](https://atomicdesign.bradfrost.com/chapter-2/) methodology. Components are divided into three
 levels depending on their complexity (`atoms`, `molecules`, or `organisms`). File structure should look like below.
 ```
-./<atoms | molecules | organisms> 
+./<atoms | molecules | organisms>
   |__Ui<ComponentName>
     |__Ui<ComponentName>.vue
     |__Ui<ComponentName>.spec.js
@@ -107,7 +109,7 @@ npm run create:component
 
 ## CSS
 ### Naming rules
-We want to follow [BEM](http://getbem.com/introduction/) methodology for naming SCSS modifiers and CSS classes.  
+We want to follow [BEM](http://getbem.com/introduction/) methodology for naming SCSS modifiers and CSS classes.
 ```
  <block>__<element>--<modifiers>
 ```
@@ -121,26 +123,54 @@ More details you can find in [CSS Customization](/docs/getting-started-developme
     - provide a slot's to allow template replacement
 ``` html
 <slot name="header">
-    <UiHeading 
-        :level="1" 
-        :title="title" 
+    <UiHeading
+        :level="1"
+        :title="title"
         :subtitle="subtitle"
     />
 </slot>
 ```
+<!-- TODO: Add custom patterns and filter TODO items https://www.jetbrains.com/help/idea/using-todo.html#add_pattern_filter_todo -->
+## Deprecation guidelines
+We are trying to keep the code clean and easy to understand. Sometimes this leads to changes to the APIs. To avoid breaking changes and make migration process easier,
+we are support deprecation to next major version and adding information about deprecations to console log.
 
-<!-- TODO Deprecation guidelines -->
+**Deprecation process:**
+* Add note next to deprecated APIs `@deprecated will be removed in 0.4.0 use ... instead`
+* Add note next to deprecated code that should be removed
+```js
+// TODO: will be removed in 0.4.0 / Begin
+<code/>
+// END
+```
+<!-- TODO: Add helper for deprecation warn. -->
+* Add console.warn only in development mode
+```js
+if(process.env.NODE_ENV === 'development') {
+    console.warn('[@symptom-checker/ui-kit warn]: <deprecated> will be removed in <version>. Please use <new> instead.');
+}
+```
+Here is a example for slot deprecation:
+```js
+if (process.env.NODE_ENV === 'development') {
+  const { symptoms } = slots;
+  if (symptoms) {
+    console.warn('[@symptom-checker/ui-kit warn]: The "symptoms" slot is deprecated and will be removed in v0.4.0. Please use "details" slot instead.');
+  }
+}
+```
+As you can see, we are using `console.warn` only when deprecated API is used.
 
 ## Unit tests
 Unit tests allow you to test individual units of code in isolation. The purpose of unit testing is to provide developers with confidence in their code. By writing thorough,
 meaningful tests, you achieve the confidence that as new features are built or your code is refactored your application will remain functional and stable.
 
-We should test the output of the components, not his internal parts. Minimum set of test should be contained components: external API (`props`, `slots`, `emits` and `$events`), 
-internal API (`methods`). For example, you should check if emit was called, or if the class was added to the element. If you want to test some element, you should get it by 
+We should test the output of the components, not his internal parts. Minimum set of test should be contained components: external API (`props`, `slots`, `emits` and `$events`),
+internal API (`methods`). For example, you should check if emit was called, or if the class was added to the element. If you want to test some element, you should get it by
 adding attribute `data-testid` to him.
 
 ## Stories for Storybook
-[Storybook](https://storybook.js.org/) makes development faster and easier by isolating components. This allows you to work on one component at a time. When creating stories, we should: 
+[Storybook](https://storybook.js.org/) makes development faster and easier by isolating components. This allows you to work on one component at a time. When creating stories, we should:
 - make sure everything is working fine. All component functionality should be supported. For example, we can close and open modal component.
 - add examples of how to use each slot in a component
 - add examples when a component differs significantly in some cases

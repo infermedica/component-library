@@ -16,7 +16,7 @@
         <!-- @slot Use this slot to replace next template. -->
         <slot
           v-if="toNext"
-          v-bind="{hideNextButton, attrs: nextAttrs, invalid, translation}"
+          v-bind="{hideNextButton, attrs: nextAttrs, invalid, translation, validNext}"
           name="next"
         >
           <UiButton
@@ -114,6 +114,24 @@ const slots = useSlots();
 function hasError() {
   emit('has-error');
 }
+// @deprecated will be removed in 0.4.0 use attrs props instead.
+// TODO: remove in 0.4.0 / BEGIN
+const validNext = computed(() => (
+  props.invalid
+    ? {
+      onClick: hasError,
+    }
+    : {
+      to: props.toNext,
+    }
+));
+// END
+if (process.env.NODE_ENV === 'development') {
+  const { next } = slots;
+  if (next) {
+    console.warn('[@symptom-checker/ui-kit warn]: The "validNext" props bounded to "next" slot is deprecated and will be removed in v0.4.0. Please use "attrs" properties instead.');
+  }
+}
 const nextAttrs = computed(() => (
   props.invalid
     ? {
@@ -131,13 +149,6 @@ const backAttrs = computed(() => (
     ...props.buttonBackAttrs,
   }
 ));
-// deprecated warning
-if (process.env.NODE_ENV === 'development') {
-  const { next } = slots;
-  if (next) {
-    console.warn('[@symptom-checker/ui-kit warn]: The "validNext" props bounded to "next" slot is deprecated and will be removed in v0.4.0. Please use "attrs" properties instead.');
-  }
-}
 </script>
 
 <style lang="scss">
