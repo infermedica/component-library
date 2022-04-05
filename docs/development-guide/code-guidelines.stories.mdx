@@ -1,50 +1,23 @@
+<!-- TODO: Add custom patterns and filter TODO items https://www.jetbrains.com/help/idea/using-todo.html#add_pattern_filter_todo -->
+<!-- TODO: Add helper for deprecation warn. -->
 import { Meta } from '@storybook/addon-docs';
+import { PageOutline, PageOutlineTitle, PageOutlineList, PageOutlineListNested }  from '../styled/page-outline.js';
 
 <Meta title="Getting Started/Development Guide/Code Guidelines"/>
-
-<style>{`
-  .page-outline {
-    margin: 16px 0;
-  }
-  .page-outline__title {
-    font-family: "Nunito Sans",-apple-system,".SFNSText-Regular","San Francisco",BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif;
-    display: block;
-    margin-block-start: 1.33em;
-    margin-block-end: 1.33em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
-    margin: 20px 0 8px;
-    padding: 0;
-    cursor: text;
-    position: relative;
-    color: #333333;
-    font-size: 16px;
-  }
-  .page-outline__list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  .page-outline__list--nested {
-    margin: 0 1rem;
-  }
-`}
-</style>
 
 # Code Guidelines
 The Symptom Checker Uikit development team has rules to keep the code clean and easy to understand - for all team members.
 These rules ensure that the code can be read and improved by a developer other than its original author. Following these rules
 will help maintain readability, changeability, extensibility and maintainability. You can read these rules below
 
-<div class="page-outline">
-  <span class="page-outline__title">On this page</span>
-  <ul class="page-outline__list">
+<PageOutline>
+  <PageOutlineTitle>On this page</PageOutlineTitle>
+  <PageOutlineList>
     <li>
       <a href="#components-rules">Components rules</a>
-      <ul class="page-outline__list page-outline__list--nested">
+      <PageOutlineListNested>
         <li>
-          <a href="#naming">Naming</a>
+         <a href="#naming">Naming</a>
         </li>
         <li>
           <a href="#files-structure">File structure</a>
@@ -52,15 +25,15 @@ will help maintain readability, changeability, extensibility and maintainability
         <li>
           <a href="#creating">Creating</a>
         </li>
-      </ul>
+      </PageOutlineListNested>
     </li>
     <li>
       <a href="#css">CSS</a>
-      <ul class="page-outline__list page-outline__list--nested">
+      <PageOutlineListNested>
         <li>
           <a href="#naming-rules">Naming</a>
         </li>
-      </ul>
+      </PageOutlineListNested>
     </li>
     <li>
       <a href="#template-rules">Template rules</a>
@@ -74,8 +47,8 @@ will help maintain readability, changeability, extensibility and maintainability
     <li>
       <a href="#stories-for-storybook">Stories for Storybook</a>
     </li>
-  </ul>
-</div>
+  </PageOutlineList>
+</PageOutline>
 
 ## Components rules
 ### Naming
@@ -130,7 +103,7 @@ More details you can find in [CSS Customization](/docs/getting-started-developme
     />
 </slot>
 ```
-<!-- TODO: Add custom patterns and filter TODO items https://www.jetbrains.com/help/idea/using-todo.html#add_pattern_filter_todo -->
+
 ## Deprecation guidelines
 We are trying to keep the code clean and easy to understand. Sometimes this leads to changes to the APIs. To avoid breaking changes and make migration process easier,
 we are support deprecation to next major version and adding information about deprecations to console log.
@@ -138,12 +111,12 @@ we are support deprecation to next major version and adding information about de
 **Deprecation process:**
 * Add note next to deprecated APIs `@deprecated will be removed in 0.4.0 use ... instead`
 * Add note next to deprecated code that should be removed
+
 ```js
 // TODO: will be removed in 0.4.0 / Begin
 <code/>
 // END
 ```
-<!-- TODO: Add helper for deprecation warn. -->
 * Add console.warn only in development mode
 ```js
 if(process.env.NODE_ENV === 'development') {

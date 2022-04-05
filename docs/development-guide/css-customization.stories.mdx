@@ -1,36 +1,7 @@
 import { Meta } from '@storybook/addon-docs';
+import { PageOutline, PageOutlineTitle, PageOutlineList, PageOutlineListNested }  from '../styled/page-outline.js';
 
 <Meta title="Getting Started/Development Guide/CSS Customization"/>
-
-<style>{`
-  .page-outline {
-    margin: 16px 0;
-  }
-  .page-outline__title {
-    font-family: "Nunito Sans",-apple-system,".SFNSText-Regular","San Francisco",BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif;
-    display: block;
-    margin-block-start: 1.33em;
-    margin-block-end: 1.33em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
-    margin: 20px 0 8px;
-    padding: 0;
-    cursor: text;
-    position: relative;
-    color: #333333;
-    font-size: 16px;
-  }
-  .page-outline__list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  .page-outline__list--nested {
-    margin: 0 1rem;
-  }
-`}
-</style>
 
 # CSS Customization
 
@@ -38,36 +9,36 @@ Symptom Checker UI Kit is a highly customizable UI components library. We provid
 To customize Symptom Checker UI Kit to your needs, you can use a lot of CSS variables and adjust styles to your requirements.
 Below you can read how you can customize different aspects of its styles and components.
 
-<div class="page-outline">
-    <span class="page-outline__title">On this page</span>
-    <ul class="page-outline__list">
-      <li>
-        <a href="#css-custom-properties----css-variables">CSS Custom Properties (--*): CSS variables</a>
-      </li>
-      <li>
-        <a href="#customizing-the-css">Customizing the CSS</a>
-        <ul class="page-outline__list page-outline__list--nested">
+<PageOutline>
+  <PageOutlineTitle>On this page</PageOutlineTitle>
+  <PageOutlineList>
+    <li>
+      <a href="#css-custom-properties----css-variables">CSS Custom Properties (--*): CSS variables</a>
+    </li>
+    <li>
+      <a href="#customizing-the-css">Customizing the CSS</a>
+      <PageOutlineListNested>
+        <li>
+          <a href="#global-custom-properties">Global custom properties</a>
+        </li>
+        <li>
+          <a href="#component-specific-custom-properties">Component-specific custom properties</a>
+          <PageOutlineListNested>
             <li>
-              <a href="#global-custom-properties">Global custom properties</a>
+              <a href="#bem-and-css-custom-properties">BEM and CSS Custom Properties</a>
             </li>
-            <li>
-              <a href="#component-specific-custom-properties">Component-specific custom properties</a>
-            </li>
-            <ul class="page-outline__list page-outline__list--nested">
-              <li>
-                <a href="#bem-and-css-custom-properties">BEM and CSS Custom Properties</a>
-              </li>
-            </ul>
-            <li>
-              <a href="#per-instance-custom-properties">Per-instance custom properties</a>
-            </li>
-        </ul>
-      </li>
-      <li>
-        <a href="#atomic-design-and-css-custom-properties">Atomic Design and CSS Custom Properties</a>
-      </li>
-    </ul>
-</div>
+          </PageOutlineListNested>
+        </li>
+        <li>
+          <a href="#per-instance-custom-properties">Per-instance custom properties</a>
+        </li>
+      </PageOutlineListNested>
+    </li>
+    <li>
+      <a href="#atomic-design-and-css-custom-properties">Atomic Design and CSS Custom Properties</a>
+    </li>
+  </PageOutlineList>
+</PageOutline>
 
 ## CSS Custom Properties (--*): CSS variables
 CSS Custom properties or CSS variables allow creating custom properties to contain a value that can be used in other declarations using the `var()`.
