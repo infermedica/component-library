@@ -230,7 +230,7 @@ onBeforeUnmount(() => {
       left: 0;
     }
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       max-width: var(--side-panel-container-tablet-max-width, 40rem);
     }
   }
@@ -242,7 +242,7 @@ onBeforeUnmount(() => {
     padding: var(--side-panel-header-padding, var(--space-20) var(--space-20) var(--space-24));
     background: var(--side-panel-header-background, var(--color-background-subtle));
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       padding: var(--side-panel-header-tablet-padding, var(--space-40) var(--space-40) var(--space-32));
     }
   }
@@ -262,7 +262,7 @@ onBeforeUnmount(() => {
     padding: var(--side-panel-label-padding, 0);
     margin: var(--side-panel-label-margin, var(--space-32) 0 0 0);
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       padding: var(--side-panel-tablet-label-padding, 0 var(--space-8));
     }
   }
@@ -279,7 +279,7 @@ onBeforeUnmount(() => {
     padding: var(--side-panel-content-padding, var(--space-24) var(--space-20));
     overflow: var(--side-panel-content-overflow, auto);
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       padding: var(--side-panel-content-tablet-padding, var(--space-32) var(--space-48));
     }
 

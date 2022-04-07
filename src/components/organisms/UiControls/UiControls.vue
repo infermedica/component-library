@@ -165,7 +165,7 @@ const backAttrs = computed(() => (
     flex: 1;
     padding: var(--controls-container-padding, var(--space-32) var(--space-20));
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       padding: var(--controls-container-tablet-padding, var(--space-48) var(--space-48) var(--space-40));
     }
   }
@@ -180,7 +180,7 @@ const backAttrs = computed(() => (
     height: var(--controls-bottom, 5rem);
     padding: var(--controls-bottom-padding, var(--space-12) var(--space-20));
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       padding: var(--controls-tablet-bottom-padding, var(--space-16) var(--space-32));
     }
   }

@@ -132,6 +132,24 @@ const determineStep = (itemIndex, route) => ({
 <style lang="scss">
 @import "../../../styles/mixins/mixins";
 
+@mixin progress-vertical($background, $z-index) {
+  position: absolute;
+  top: -2px;
+  left: 0;
+  z-index: $z-index;
+  display: block;
+  width: 0.25rem;
+  height: 100%;
+  content: "";
+  background-color: $background;
+  border-radius: var(--stepper-progress-radius);
+
+  [dir="rtl"] & {
+    right: 0;
+    left: auto;
+  }
+}
+
 .ui-stepper {
   // Variables for inner progress-bar customization
   $this: &;
@@ -143,7 +161,7 @@ const determineStep = (itemIndex, route) => ({
   padding: var(--stepper-padding, var(--space-12) var(--space-20));
   background: var(--stepper-background, var(--color-background-subtle));
 
-  @media (min-width: 992px) {
+  @include from-desktop {
     --stepper-padding: 0;
     --stepper-background: transparent;
 
@@ -157,11 +175,11 @@ const determineStep = (itemIndex, route) => ({
     align-items: center;
     justify-content: space-between;
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       --progress-width: 11.25rem;
     }
 
-    @media (min-width: 992px) {
+    @include from-desktop {
       display: none;
     }
   }
@@ -169,7 +187,7 @@ const determineStep = (itemIndex, route) => ({
   &__desktop {
     display: none;
 
-    @media (min-width: 992px) {
+    @include from-desktop {
       display: flex;
       flex-direction: column;
     }
@@ -178,13 +196,13 @@ const determineStep = (itemIndex, route) => ({
   &__text {
     @include font(body-2-compact);
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       @include font(body-1);
     }
   }
 
   &__item {
-    @media (min-width: 992px) {
+    @include from-desktop {
       @include font(body-1);
 
       position: relative;
@@ -201,24 +219,6 @@ const determineStep = (itemIndex, route) => ({
           var(--space-16)
           calc(var(--space-20) * 0.5)
           var(--space-12);
-      }
-
-      @mixin progress-vertical($background, $z-index) {
-        position: absolute;
-        top: -2px;
-        left: 0;
-        z-index: $z-index;
-        display: block;
-        width: 0.25rem;
-        height: 100%;
-        content: "";
-        background-color: $background;
-        border-radius: var(--stepper-progress-radius);
-
-        [dir="rtl"] & {
-          right: 0;
-          left: auto;
-        }
       }
 
       &::after {
@@ -244,7 +244,7 @@ const determineStep = (itemIndex, route) => ({
   }
 
   &__item-link {
-    @media (min-width: 992px) {
+    @include from-desktop {
       @include font(body-1);
 
       width: 100%;

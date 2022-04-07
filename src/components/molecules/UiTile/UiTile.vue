@@ -85,6 +85,8 @@ function selectHandler() {
 </script>
 
 <style lang="scss">
+@import "../../../styles/mixins/mixins";
+
 .ui-tile {
   --button-padding: var(--tile-padding, var(--space-16));
   --button-white-space: wrap;
@@ -93,7 +95,7 @@ function selectHandler() {
   justify-content: flex-start;
   transition: transform 200ms ease;
 
-  @media (min-width: 768px) {
+  @include from-tablet {
     flex-direction: column;
     justify-content: center;
 
@@ -110,7 +112,7 @@ function selectHandler() {
 
     flex: none;
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       --icon-size: var(--tile-icon-size, 4rem);
     }
   }
@@ -124,7 +126,7 @@ function selectHandler() {
       margin: var(--tile-label-margin, 0 var(--space-16) 0 0);
     }
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       text-align: var(--tile-label-tablet-text-align, center);
 
       [dir] & {

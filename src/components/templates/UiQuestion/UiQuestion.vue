@@ -194,10 +194,12 @@ defineProps({
 </script>
 
 <style lang="scss">
+@import "../../../styles/mixins/mixins";
+
 .ui-question {
   padding: var(--question-padding, 0 var(--space-20));
 
-  @media (min-width: 768px) {
+  @include from-tablet {
     padding: var(--question-tablet-padding, var(--space-16) var(--space-48));
   }
 
@@ -215,7 +217,7 @@ defineProps({
     flex-direction: column;
     margin: var(--question-actions-bottom-margin, var(--space-32) 0 0 0);
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       flex-direction: row;
       align-items: center;
       margin: var(--question-tablet-actions-bottom-margin, var(--space-32) 0 0 0);
@@ -225,7 +227,7 @@ defineProps({
   &__content {
     margin: var(--question-content-margin, var(--space-32) 0 0 0);
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       margin: var(--question-tablet-content-margin, var(--space-32) 0 0 0);
     }
   }
@@ -235,12 +237,12 @@ defineProps({
     align-items: center;
     margin: var(--question-action-margin, var(--space-20) 0 0 0);
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       margin: var(--question-tablet-action-margin, 0);
     }
 
     &::before {
-      @media (min-width: 768px) {
+      @include from-tablet {
         flex: none;
         align-self: stretch;
         width: 1px;

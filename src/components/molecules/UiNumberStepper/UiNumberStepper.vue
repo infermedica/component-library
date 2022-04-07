@@ -107,13 +107,15 @@ function increment() {
 </script>
 
 <style lang="scss">
+@import "../../../styles/mixins/mixins";
+
 .ui-number-stepper {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
 
-  @media (min-width: 768px) {
+  @include from-tablet {
     justify-content: flex-start;
   }
 
@@ -124,7 +126,7 @@ function increment() {
       margin: var(--quantity-selector-decrement-margin, 0 0 0 var(--space-12));
     }
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       order: -1;
       margin: var(--quantity-selector-decrement-margin, 0 var(--space-4) 0 0);
 
@@ -141,7 +143,7 @@ function increment() {
       margin: var(--quantity-selector-decrement-increment, 0 var(--space-12) 0 0);
     }
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       margin: var(--quantity-selector-decrement-increment, 0 0 0 var(--space-4));
 
       &[dir="rtl"] {

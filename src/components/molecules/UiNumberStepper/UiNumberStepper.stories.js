@@ -3,6 +3,7 @@ import UiNumberStepper from '@/components/molecules/UiNumberStepper/UiNumberStep
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
+import { toMobile } from '@/styles/exports/breakpoints.scss';
 
 export default {
   title: 'Molecules/NumberStepper',
@@ -67,8 +68,8 @@ export const WithControlsOnMobile = (args) => ({
     const modelValue = ref(args.initModelValue);
     const isMobile = ref(false);
     onMounted(() => {
-      isMobile.value = matchMedia('(max-width: 767px)').matches;
-      matchMedia('(max-width: 767px)')
+      isMobile.value = matchMedia(toMobile).matches;
+      matchMedia(toMobile)
         .addListener(({ matches }) => { isMobile.value = matches; });
     });
     return { ...args, modelValue, isMobile };

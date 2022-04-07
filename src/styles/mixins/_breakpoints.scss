@@ -1,0 +1,40 @@
+$mobile-max-width: 767px;
+$tablet-min-width: 768px;
+$tablet-max-width: 991px;
+$desktop-min-width: 992px;
+
+@mixin from($width) {
+  @media (min-width: $width) {
+    @content;
+  }
+}
+
+@mixin to($width) {
+  @media (max-width: $width) {
+    @content;
+  }
+}
+
+@mixin between($min, $max) {
+  @media (min-width: $min) and (max-width: $max) {
+    @content;
+  }
+}
+
+@mixin to-mobile {
+  @include to($mobile-max-width) {
+    @content;
+  }
+}
+
+@mixin from-tablet {
+  @include from($tablet-min-width) {
+    @content;
+  }
+}
+
+@mixin from-desktop {
+  @include from($desktop-min-width) {
+    @content;
+  }
+}

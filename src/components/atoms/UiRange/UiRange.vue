@@ -153,7 +153,7 @@ function changeHandler(value, modifier = 0) {
   justify-content: center;
   padding: calc(var(--range-thumb-size, 3rem) + var(--range-label-spacing-bottom, 0.5rem)) 0 0 0;
 
-  @media (min-width: 768px) {
+  @include from-tablet {
     flex-wrap: nowrap;
   }
 
@@ -182,7 +182,7 @@ function changeHandler(value, modifier = 0) {
       margin: var(--range-mobile-increment-margin, var(--space-24) var(--space-12) 0 0);
     }
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       --range-mobile-increment-margin: 0 0 0 var(--space-4);
 
       [dir="rtl"] & {
@@ -198,7 +198,7 @@ function changeHandler(value, modifier = 0) {
       margin: var(--range-mobile-increment-margin, var(--space-24) 0 0 var(--space-12));
     }
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       --range-mobile-decrement-margin: 0 var(--space-4) 0 0;
 
       [dir="rtl"] & {
@@ -216,7 +216,7 @@ function changeHandler(value, modifier = 0) {
     margin: var(--range-track-margin);
     touch-action: none;
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       flex: 0 1 auto;
       order: 0;
     }

@@ -1,3 +1,5 @@
+import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
+import scss from 'react-syntax-highlighter/dist/esm/languages/prism/scss';
 import { withTests } from '@storybook/addon-jest';
 import { app, addDecorator } from '@storybook/vue3';
 import results from '../.jest-test-results.json';
@@ -52,3 +54,5 @@ app.component('router-link', {
   },
   template: `<a :href="href" data-component-name="router-link"><slot /></a>`, // Add data-component-name to distinguish from a native  <a> element
 })
+// Registers and enables scss language support
+SyntaxHighlighter.registerLanguage('scss', scss);

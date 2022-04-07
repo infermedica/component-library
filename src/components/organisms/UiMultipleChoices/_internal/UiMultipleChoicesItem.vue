@@ -117,7 +117,7 @@ function updateHandler(value) {
   align-items: var(--multiple-choices-item-align-items, stretch);
   background: var(--multiple-choices-item-background);
 
-  @media (min-width: 768px) {
+  @include from-tablet {
     flex-direction: var(--multiple-choices-item-flex-direction, row);
     align-items: var(--multiple-choices-item-align-items, flex-start);
   }
@@ -136,7 +136,7 @@ function updateHandler(value) {
       );
     background: var(--multiple-choices-item-name-background, var(--color-background-white));
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       flex-direction: column;
       padding: var(--multiple-choices-item-name-padding, 0);
       margin: 0 auto 0 0;
@@ -163,7 +163,7 @@ function updateHandler(value) {
       );
     border-width: var(--multiple-choices-item-option-border-width, 1px 0 0 0);
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       padding: var(--multiple-choices-item-option-padding, 0);
       margin: var(--multiple-choices-item-option-margin, 0 0 0 var(--space-24));
       border-width: var(--multiple-choices-item-option-border-width, 0);
@@ -179,13 +179,13 @@ function updateHandler(value) {
   }
 
   &__info {
-    @media (min-width: 768px) {
+    @include from-tablet {
       margin: var(--multiple-choices-item-info-margin, var(--space-8) 0 0 0);
     }
   }
 
   &__info-message {
-    @media (max-width: 767px) {
+    @include to-mobile {
       position: absolute;
       width: 1px;
       height: 1px;

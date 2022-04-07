@@ -211,7 +211,7 @@ function unfocusExplication(event) {
       &:hover {
         background: var(--multiple-answer-list-item-hover-background);
 
-        @media (min-width: 768px) {
+        @include from-tablet {
           background: var(--multiple-answer-list-item-tablet-hover-background, var(--color-gray-50));
         }
       }
@@ -228,7 +228,7 @@ function unfocusExplication(event) {
     margin: var(--multiple-answer-mobile-hint-margin, 0 var(--space-20) var(--space-12) var(--space-20));
     color: var(--multiple-answer-hint-color, var(--color-text-dimmed));
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       margin: var(--multiple-answer-tablet-hint-margin, 0 0 var(--space-12) 0);
     }
   }
@@ -237,7 +237,7 @@ function unfocusExplication(event) {
     width: 100%;
     padding: var(--multiple-answer-choice-padding, var(--space-12) var(--space-20));
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       padding: var(--multiple-answer-tablet-choice-padding, var(--space-12));
     }
   }

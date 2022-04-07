@@ -179,6 +179,8 @@ function calcActiveElementOpacity(index) {
 </script>
 
 <style lang="scss">
+@import "../../../styles/mixins/mixins";
+
 .ui-scale {
   $this: &;
 
@@ -297,7 +299,7 @@ function calcActiveElementOpacity(index) {
     justify-content: center;
     margin: var(--space-32) 0 0 0;
 
-    @media (min-width: 992px) {
+    @include from-desktop {
       display: none;
     }
   }

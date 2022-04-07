@@ -72,19 +72,21 @@ function updateHandler(value) {
 </script>
 
 <style lang="scss">
+@import "../../../styles/mixins/mixins";
+
 .ui-simple-question {
   // ui-simple-question--small - utility class for small Tile variant
   display: flex;
   flex-direction: column;
 
-  @media (min-width: 768px) {
+  @include from-tablet {
     flex-direction: row;
   }
 
   &__option {
     margin: var(--simple-question-option-margin, 0 0 var(--space-12) 0);
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       width: 100%;
       margin: var(--simple-question-option-tablet-margin, 0 var(--space-24) 0 0);
 

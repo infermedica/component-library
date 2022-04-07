@@ -97,11 +97,13 @@ defineProps({
 </script>
 
 <style lang="scss">
+@import "../../../styles/mixins/mixins";
+
 .ui-message {
   display: flex;
   flex-direction: var(--message-flex-direction, column-reverse);
 
-  @media (min-width: 768px) {
+  @include from-tablet {
     flex-direction: var(--message-tablet-flex-direction, row);
   }
 
@@ -110,7 +112,7 @@ defineProps({
     align-self: var(--message-content-align-slef, flex-end);
     margin: var(--message-content-margin, 0);
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       margin: var(--message-content-tablet-margin, var(--space-16) 0 0 0);
     }
   }
@@ -119,7 +121,7 @@ defineProps({
     margin: var(--message-title-margin, 0 0 var(--space-8) 0);
     color: var(--color-text-dimmed);
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       margin: var(--message-title-tablet-margin, 0 0 var(--space-4) 0);
     }
   }
@@ -132,7 +134,7 @@ defineProps({
     flex: none;
     margin: var(--message-aside-margin, 0 auto var(--space-24) auto);
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       order: 0;
       margin: var(--message-aside-tablet-margin, 0 0 0 var(--space-40));
 

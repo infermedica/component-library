@@ -152,7 +152,7 @@ onBeforeUnmount(() => {
   }
 
   &--has-mobile {
-    @media (max-width: 767px) {
+    @include to-mobile {
       --popover-border-radius: 0;
 
       position: fixed;
@@ -166,7 +166,7 @@ onBeforeUnmount(() => {
     &#{$this}--has-arrow {
       #{$this}__header {
         &::after {
-          @media (max-width: 767px) {
+          @include to-mobile {
             content: none;
           }
         }

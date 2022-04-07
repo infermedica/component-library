@@ -137,7 +137,7 @@ if (process.env.NODE_ENV === 'development') {
 
   overflow: hidden;
 
-  @media (min-width: 768px) {
+  @include from-tablet {
     --container-padding: var(--card-tablet-padding, 0);
 
     display: flex;
@@ -151,7 +151,7 @@ if (process.env.NODE_ENV === 'development') {
     background: var(--card-triage-background);
     border-radius: var(--card-triage-border-radius, var(--border-radius-container));
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       padding: var(--card-triage-tablet-padding, var(--space-40) var(--space-32));
       margin: var(--card-triage-tablet-margin, 0);
       border-radius: var(--card-triage-tablet-border-radius, 0);
@@ -175,7 +175,7 @@ if (process.env.NODE_ENV === 'development') {
   &__content {
     padding: var(--card-content-padding);
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       padding: var(--card-content-tablet-padding, var(--space-40) var(--space-48) var(--space-48) var(--space-40));
 
       [dir="rtl"] & {
@@ -215,18 +215,18 @@ if (process.env.NODE_ENV === 'development') {
   #{$this}__triage {
     padding: var(--card-triage-padding, var(--space-16) var(--space-20));
 
-    @media (max-width: 767px) {
+    @include to-mobile {
       margin: var(--card-triage-margin, 0);
       border-radius: var(--card-triage-border-radius, 0);
     }
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       padding: var(--card-triage-tablet-padding, var(--space-32) var(--space-32) var(--space-40));
     }
   }
 
   #{$this}__icon {
-    @media (max-width: 767px) {
+    @include to-mobile {
       --icon-size: var(--card-triage-icon-size, 3rem);
     }
   }
@@ -238,7 +238,7 @@ if (process.env.NODE_ENV === 'development') {
   #{$this}__title {
     @include font(h1);
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       margin: var(--card-title-margin, 0 0 var(--space-12));
     }
   }
@@ -247,7 +247,7 @@ if (process.env.NODE_ENV === 'development') {
     flex: 1;
     padding: var(--card-content-padding, var(--space-24) var(--space-20) var(--space-32));
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       padding: var(--card-content-tablet-padding, var(--space-32) var(--space-48) var(--space-48));
     }
   }

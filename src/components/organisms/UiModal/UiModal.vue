@@ -287,6 +287,8 @@ onBeforeUnmount(() => {
 </script>
 
 <style lang="scss">
+@import "../../../styles/mixins/mixins";
+
 .ui-modal {
   z-index: 1;
 
@@ -313,7 +315,7 @@ onBeforeUnmount(() => {
       transform: translate(50%, -50%);
     }
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       --modal-margin-horizontal: 64px;
     }
 
@@ -351,7 +353,7 @@ onBeforeUnmount(() => {
     flex-direction: column;
     margin: var(--modal-action-margin, var(--space-32) 0 0);
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       flex-direction: row;
       justify-content: flex-end;
     }
@@ -364,7 +366,7 @@ onBeforeUnmount(() => {
       order: -1;
     }
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       margin: var(--modal-confirm-tablet-margin, 0 0 0 var(--space-12));
 
       [dir="rtl"] & {
@@ -374,7 +376,7 @@ onBeforeUnmount(() => {
   }
 
   &__cancel {
-    @media (min-width: 768px) {
+    @include from-tablet {
       order: -1;
     }
   }

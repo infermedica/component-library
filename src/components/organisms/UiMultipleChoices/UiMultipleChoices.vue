@@ -169,7 +169,7 @@ const choicesToUse = computed(() => (
       &:hover {
         background: var(--multiple-choices-list-item-hover-background);
 
-        @media (min-width: 768px) {
+        @include from-tablet {
           background: var(--multiple-choices-list-item-hover-background, var(--color-gray-50));
         }
       }
@@ -182,7 +182,7 @@ const choicesToUse = computed(() => (
     margin: var(--multiple-choices-mobile-hint-margin, 0 var(--space-20) var(--space-12) var(--space-20));
     color: var(--multiple-choices-hint-color, var(--color-text-dimmed));
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       margin: var(--multiple-choices-tablet-hint-margin, 0 0 var(--space-12) 0);
     }
   }
@@ -190,7 +190,7 @@ const choicesToUse = computed(() => (
   &__choice {
     padding: var(--multiple-choices-choice-padding);
 
-    @media (min-width: 768px) {
+    @include from-tablet {
       padding: var(--multiple-choices-choice-padding, var(--space-12));
     }
   }

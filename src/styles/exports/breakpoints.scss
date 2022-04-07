@@ -1,0 +1,12 @@
+@import "../mixins/breakpoints";
+
+:export{
+    mobileMaxWidth: $mobile-max-width;
+    tabletMinWidth: $tablet-min-width;
+    tabletMaxWidth: $tablet-max-width;
+    desktopMinWidth: $desktop-min-width;
+    toMobile: unquote('(max-width: #{$mobile-max-width})');
+    toTablet: unquote('(max-width: #{$tablet-max-width})');
+    fromTablet: unquote('(min-width: #{$tablet-min-width})');
+    fromDesktop: unquote('(min-width: #{$desktop-min-width})');
+}
