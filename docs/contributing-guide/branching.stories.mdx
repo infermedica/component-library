@@ -1,6 +1,6 @@
 <!-- TODO: How to support older version of the project and fix bugs? Related to /release and /hotfix branches. -->
 import { Meta } from '@storybook/addon-docs';
-import { PageOutline, PageOutlineTitle, PageOutlineList, PageOutlineListNested }  from '../styled/page-outline.js';
+import { PageOutline } from '../components/PageOutline';
 
 <Meta title="Contribute/Branching"/>
 
@@ -8,25 +8,7 @@ import { PageOutline, PageOutlineTitle, PageOutlineList, PageOutlineListNested }
 
 By default we use a variation of the Gitflow workflow.
 
-<PageOutline>
-  <PageOutlineTitle>On this page</PageOutlineTitle>
-  <PageOutlineList>
-    <li>
-      <a href="#gitflow-workflow">Gitflow Workflow</a>
-      <PageOutlineListNested>
-        <li>
-          <a href="#daily-development">Daily Development</a>
-        </li>
-        <li>
-          <a href="#releases">Releases</a>
-        </li>
-      </PageOutlineListNested>
-    </li>
-    <li>
-      <a href="#conventional-commits">Conventional Commits</a>
-    </li>
-  </PageOutlineList>
-</PageOutline>
+<PageOutline/>
 
 ## Gitflow Workflow
 As a contributor, you will need to follow the ["Daily Development"](#daily-development) section and to ensure that your commits are well-organized and follow the ["Conventional Commits"](#conventional-commits) section.

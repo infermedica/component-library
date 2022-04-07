@@ -1,7 +1,7 @@
 <!-- TODO: Add custom patterns and filter TODO items https://www.jetbrains.com/help/idea/using-todo.html#add_pattern_filter_todo -->
 <!-- TODO: Add helper for deprecation warn. -->
 import { Meta } from '@storybook/addon-docs';
-import { PageOutline, PageOutlineTitle, PageOutlineList, PageOutlineListNested }  from '../styled/page-outline.js';
+import { PageOutline } from '../components/PageOutline';
 
 <Meta title="Getting Started/Development Guide/Code Guidelines"/>
 
@@ -10,45 +10,7 @@ The Symptom Checker Uikit development team has rules to keep the code clean and 
 These rules ensure that the code can be read and improved by a developer other than its original author. Following these rules
 will help maintain readability, changeability, extensibility and maintainability. You can read these rules below
 
-<PageOutline>
-  <PageOutlineTitle>On this page</PageOutlineTitle>
-  <PageOutlineList>
-    <li>
-      <a href="#components-rules">Components rules</a>
-      <PageOutlineListNested>
-        <li>
-         <a href="#naming">Naming</a>
-        </li>
-        <li>
-          <a href="#files-structure">File structure</a>
-        </li>
-        <li>
-          <a href="#creating">Creating</a>
-        </li>
-      </PageOutlineListNested>
-    </li>
-    <li>
-      <a href="#css">CSS</a>
-      <PageOutlineListNested>
-        <li>
-          <a href="#naming-rules">Naming</a>
-        </li>
-      </PageOutlineListNested>
-    </li>
-    <li>
-      <a href="#template-rules">Template rules</a>
-    </li>
-    <li>
-      <a href="#deprecation-guidelines">Deprecation guidelines</a>
-    </li>
-    <li>
-      <a href="#unit-tests">Unit tests</a>
-    </li>
-    <li>
-      <a href="#stories-for-storybook">Stories for Storybook</a>
-    </li>
-  </PageOutlineList>
-</PageOutline>
+<PageOutline/>
 
 ## Components rules
 ### Naming

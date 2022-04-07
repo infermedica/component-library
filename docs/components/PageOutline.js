@@ -1,0 +1,97 @@
+import React, { useState, useEffect } from 'react';
+import { styled, css } from '@storybook/theming';
+
+// https://emotion.sh/docs/introduction
+const Container = styled.div`
+  margin: 16px 0;
+`;
+const Title = styled.span`
+  display: block;
+  margin: 20px 0 8px;
+  color: #333333;
+  font-family: "Nunito Sans",-apple-system,".SFNSText-Regular","San Francisco",BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-weight: bold;
+  font-size: 16px;
+`;
+const List = styled.ul`
+  padding: 0;
+  ${(props) => (props.nested ? css`margin: 0 16px;` : css`margin: 0;`)}
+  list-style: none;
+`;
+const Link = styled.a`
+  color: rgb(30, 167, 253);
+  font-family: "Nunito Sans",-apple-system,".SFNSText-Regular","San Francisco",BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+  text-decoration: none;
+`;
+
+const getHeadingLevel = (node) => parseInt(node?.tagName.substring(1), 10);
+const getNodes = (elements) => {
+  let headings = [...elements];
+  const nodes = [];
+
+  while (headings.length) {
+    const currentHeading = headings.shift();
+    const nextHeading = headings.at(0);
+    if (getHeadingLevel(currentHeading) > getHeadingLevel(nextHeading)) { // h3 > h2
+      nodes.push(<li key={currentHeading.id}>
+        <Link
+          href={`#${currentHeading.id}`}
+          target="_self"
+        >
+          {currentHeading.textContent}
+        </Link>
+      </li>);
+    } else if (getHeadingLevel(currentHeading) < getHeadingLevel(nextHeading)) { // h2 < h3
+      const { nodes: children, headings: restHeadings } = getNodes(headings);
+      headings = restHeadings;
+      nodes.push(<li key={currentHeading.id}>
+        <Link
+          href={`#${currentHeading.id}`}
+          target="_self"
+        >
+          {currentHeading.textContent}
+        </Link>
+        <List nested>
+          {children}
+        </List>
+      </li>);
+    } else if (getHeadingLevel(currentHeading) === getHeadingLevel(nextHeading)) { // h2 === h2
+      nodes.push(<li key={currentHeading.id}>
+        <Link
+          href={`#${currentHeading.id}`}
+          target="_self"
+        >
+          {currentHeading.textContent}
+        </Link>
+      </li>);
+    }
+  }
+
+  return {
+    nodes,
+    headings,
+  };
+};
+
+/**
+ * Generate a list of links to the sections based on the page's outline.
+ */
+export const PageOutline = () => {
+  const [pageOutline, setPageOutline] = useState();
+  const el = document.getElementById('docs-root');
+  useEffect(() => {
+    if (pageOutline) return;
+    const headings = [...el.querySelectorAll('h2, h3, h4, h5, h6')];
+    const nodes = getNodes(headings).nodes;
+    setPageOutline(nodes);
+  });
+  return <Container>
+    <Title>On this page:</Title>
+    <List>
+      {pageOutline}
+    </List>
+  </Container>;
+};

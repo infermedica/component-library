@@ -1,5 +1,5 @@
 import { Meta } from '@storybook/addon-docs';
-import { PageOutline, PageOutlineTitle, PageOutlineList, PageOutlineListNested }  from '../styled/page-outline.js';
+import { PageOutline } from '../components/PageOutline';
 
 <Meta title="Getting Started/Development Guide/Template Customization" />
 
@@ -9,33 +9,7 @@ Symptom Checker Ui Kit is a highly customizable UI components library.
 You can adjust default style of the components to your design but it is not enough.
 Below you can read about props and how you can customize template of components.
 
-<PageOutline>
-  <PageOutlineTitle>On this page</PageOutlineTitle>
-  <PageOutlineList>
-    <li>
-      <a href="#props">Props</a>
-      <PageOutlineListNested>
-        <li>
-          <a href="#attrs-props">Attrs props</a>
-        </li>
-        <li>
-          <a href="#translation-props">Translation props</a>
-        </li>
-      </PageOutlineListNested>
-    </li>
-    <li>
-      <a href="#slots">Slots</a>
-      <PageOutlineListNested>
-        <li>
-          <a href="#data-binding">Data binding</a>
-        </li>
-        <li>
-          <a href="#internal-components">Internal components</a>
-        </li>
-      </PageOutlineListNested>
-    </li>
-  </PageOutlineList>
-</PageOutline>
+<PageOutline/>
 
 ## Props
 Prop allows to customize component behavior and put some data to it. Generally, props are used to set component behavior, translations, and attributes for nested components (in Molecules and Organisms).
