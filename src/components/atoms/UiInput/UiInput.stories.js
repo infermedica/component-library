@@ -234,7 +234,7 @@ export const WithInputSlot = (args) => ({
 });
 
 export const WithAsideSlot = (args) => ({
-  components: { UiInput, UiIcon },
+  components: { UiInput, UiIcon, UiText },
   setup() {
     const modelValue = ref(args.initial);
     return { ...args, modelValue };
