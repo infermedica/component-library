@@ -11,7 +11,10 @@ export default {
   },
   argTypes: {
     content,
-    modifiers: modifiers({ options: ['1-thick', '2-comfortable', '2-compact', '2-comfortable-thick', '2-compact-thick'].map((modifier) => (`ui-text--${modifier}`)) }),
+    modifiers: modifiers({
+      options: ['1-thick', '2-comfortable', '2-compact', '2-comfortable-thick', '2-compact-thick', 'caption']
+        .map((modifier) => (`ui-text--${modifier}`))
+    }),
   },
   parameters: {
     cssprops: {
@@ -65,4 +68,9 @@ TextBody2ComfortableThick.args = {
 export const TextBody2CompactThick = Template.bind({});
 TextBody2CompactThick.args = {
   modifiers: 'ui-text--2-compact-thick',
+};
+
+export const TextCaption = Template.bind({});
+TextCaption.args = {
+  modifiers: 'ui-text--caption',
 };

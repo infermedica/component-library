@@ -35,5 +35,9 @@ defineProps({
       @include font(body-#{$style});
     }
   }
+
+  &--caption {
+    @include font(caption);
+  }
 }
 </style>
