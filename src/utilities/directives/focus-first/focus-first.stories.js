@@ -1,8 +1,8 @@
 import { ref } from 'vue';
-import UiButton from '../../../components/atoms/UiButton/UiButton.vue';
-import UiFormField from '../../../components/molecules/UiFormField/UiFormField.vue';
-import UiHeading from '../../../components/atoms/UiHeading/UiHeading.vue';
-import UiTextarea from '../../../components/atoms/UiTextarea/UiTextarea.vue';
+import UiButton from '@/components/atoms/UiButton/UiButton.vue';
+import UiFormField from '@/components/molecules/UiFormField/UiFormField.vue';
+import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
+import UiTextarea from '@/components/atoms/UiTextarea/UiTextarea.vue';
 import docs from './focus-first.mdx';
 import { focusFirst } from '../index';
 

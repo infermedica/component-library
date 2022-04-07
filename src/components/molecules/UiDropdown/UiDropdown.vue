@@ -1,7 +1,7 @@
 <template>
   <div
     ref="dropdown"
-    v-click-outside:[closeOnClickOutside]="closeHandler.bind(this, true)"
+    v-click-outside:[isActiveClickOutside]="closeHandler.bind(this, true)"
     class="ui-dropdown"
     :class="{'is-active': isOpen}"
     @keydown="dropdownKeydownHandler"
@@ -15,7 +15,7 @@
         ref="toggle"
         class="ui-dropdown__toggle"
         :aria-expanded="`${isOpen}`"
-        @click.stop="toggleHandler"
+        @click="toggleHandler"
       >
         {{ text }}
       </UiButton>
@@ -51,7 +51,6 @@ import {
   ref, computed, provide, nextTick,
 } from 'vue';
 import useDropdownItems from './useDropdownItems';
-// FIXME: #CL-53: Dropdown click-outside is trigger on mount and  causes a memory leak.
 import { clickOutside as vClickOutside } from '../../../utilities/directives';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiPopover from '../UiPopover/UiPopover.vue';
@@ -140,6 +139,7 @@ async function toggleHandler() {
     await openHandler({ focus: true });
   }
 }
+const isActiveClickOutside = computed(() => (props.closeOnClickOutside && isOpen.value));
 const dropdownName = computed(() => (
   props.name || `dropdown-${uid()}`
 ));

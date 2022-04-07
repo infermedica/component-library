@@ -5,17 +5,24 @@ function isDisabled({ arg }) {
 
 export const clickOutside = {
   beforeMount(el, binding) {
-    if (isDisabled(binding)) return;
     el.__vueClickOutsideHandler = (event) => {
       const { target } = event;
       if (!el.contains(target) && el !== target) {
         binding.value(event);
       }
     };
-    document.addEventListener('click', el.__vueClickOutsideHandler);
+    if (isDisabled(binding)) return;
+    document.addEventListener('click', el.__vueClickOutsideHandler, true);
+  },
+  updated(el, binding) {
+    if (isDisabled(binding)) {
+      document.removeEventListener('click', el.__vueClickOutsideHandler, true);
+    } else {
+      document.addEventListener('click', el.__vueClickOutsideHandler, true);
+    }
   },
   beforeUnmount(el, binding) {
     if (isDisabled(binding)) return;
-    document.removeEventListener('click', el.__vueClickOutsideHandler);
+    document.removeEventListener('click', el.__vueClickOutsideHandler, true);
   },
 };

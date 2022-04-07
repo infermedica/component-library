@@ -1,14 +1,14 @@
 import { ref } from 'vue';
-import UiAlert from '../../../components/atoms/UiAlert/UiAlert.vue';
-import UiBulletPoints from '../../../components/molecules/UiBulletPoints/UiBulletPoints.vue';
-import UiBulletPointsItem from '../../../components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue';
-import UiButton from '../../../components/atoms/UiButton/UiButton.vue';
-import UiHeading from '../../../components/atoms/UiHeading/UiHeading.vue';
-import UiIcon from '../../../components/atoms/UiIcon/UiIcon.vue';
-import UiLink from '../../../components/atoms/UiLink/UiLink.vue';
-import UiNotification from '../../../components/molecules/UiNotification/UiNotification.vue';
-import UiSidePanel from '../../../components/organisms/UiSidePanel/UiSidePanel.vue';
-import UiText from '../../../components/atoms/UiText/UiText.vue';
+import UiAlert from '@/components/atoms/UiAlert/UiAlert.vue';
+import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints.vue';
+import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue';
+import UiButton from '@/components/atoms/UiButton/UiButton.vue';
+import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
+import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
+import UiLink from '@/components/atoms/UiLink/UiLink.vue';
+import UiNotification from '@/components/molecules/UiNotification/UiNotification.vue';
+import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
+import UiText from '@/components/atoms/UiText/UiText.vue';
 import docs from './body-scroll-lock.mdx';
 import { bodyScrollLock } from '../index';
 

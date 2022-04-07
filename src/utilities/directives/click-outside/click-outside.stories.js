@@ -1,8 +1,9 @@
 import { ref } from 'vue';
-import UiButton from '../../../components/atoms/UiButton/UiButton.vue';
-import UiIcon from '../../../components/atoms/UiIcon/UiIcon.vue';
-import UiPopover from '../../../components/molecules/UiPopover/UiPopover.vue';
-import UiText from '../../../components/atoms/UiText/UiText.vue';
+import UiButton from '@/components/atoms/UiButton/UiButton.vue';
+import UiCheckbox from '@/components/atoms/UiCheckbox/UiCheckbox.vue';
+import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
+import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
+import UiText from '@/components/atoms/UiText/UiText.vue';
 import { clickOutside } from '../index';
 import docs from './click-outside.mdx';
 
@@ -32,11 +33,10 @@ export const WithDirective = () => ({
       isOpen, toggleHandler,
     };
   },
-  template: `
-  <UiButton
+  template: `<UiButton
     v-if="!isOpen"
     class="ui-button--secondary ui-button--text"
-    @click.stop="toggleHandler"
+    @click="toggleHandler"
   >
     Open popover
   </UiButton>
@@ -56,13 +56,16 @@ export const WithDirective = () => ({
       </UiButton>
     </template>
     <UiText>Popover content</UiText>
-  </UiPopover>
-  `,
+  </UiPopover>`,
 });
 
 export const WithDirectiveSwitcher = () => ({
   components: {
-    UiButton, UiIcon, UiPopover, UiText,
+    UiButton,
+    UiCheckbox,
+    UiIcon,
+    UiPopover,
+    UiText,
   },
   directives: {
     clickOutside,
@@ -73,26 +76,21 @@ export const WithDirectiveSwitcher = () => ({
     const toggleHandler = () => {
       isOpen.value = !isOpen.value;
     };
-    const toggleDirective = () => {
-      isOpen.value = false;
-      isDirective.value = !isDirective.value;
-    };
     return {
-      isDirective, isOpen, toggleDirective, toggleHandler,
+      isDirective, isOpen, toggleHandler,
     };
   },
-  template: `
-  <UiButton
-    style="display: block; marginBottom: 10px"
-    class="ui-button--secondary ui-button--text"
-    @click.stop="toggleDirective"
+  template: `<UiCheckbox 
+    v-model="isDirective" 
+    class="mb-4" 
+    style="display:flex"
   >
-    Switch directive - {{isDirective ? 'on' : 'off'}}
-  </UiButton>
+    Outside click event listener is added.
+  </UiCheckbox> <!-- TODO: Add UiSwitch component and use it here instead UiCheckbox -->
   <UiButton
-    v-if="!isOpen"
-    class="ui-button--secondary ui-button--text"
-    @click.stop="toggleHandler"
+      v-if="!isOpen"
+      class="ui-button--secondary ui-button--text"
+      @click="toggleHandler"
   >
     Open popover
   </UiButton>
@@ -104,16 +102,15 @@ export const WithDirectiveSwitcher = () => ({
   >
     <template #close>
       <UiButton
-        v-bind="attrs"
-        class="ui-button--has-icon ui-button--secondary ui-button--text ui-popover__close"
-        @click="toggleHandler"
+          v-bind="attrs"
+          class="ui-button--has-icon ui-button--secondary ui-button--text ui-popover__close"
+          @click="toggleHandler"
       >
-        <UiIcon icon="clear" />
+        <UiIcon icon="clear"/>
       </UiButton>
     </template>
     <UiText>Popover content</UiText>
-  </UiPopover>
-  `,
+  </UiPopover>`,
 });
 
 export const WithoutDirective = () => ({

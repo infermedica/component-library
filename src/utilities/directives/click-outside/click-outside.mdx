@@ -1,15 +1,22 @@
 import { Canvas, Story } from "@storybook/addon-docs"
+import { Alert } from "../../../../docs/components/Alert"
 
 # Click outside
 After adding this directive you can call some function by clicking outside of element
 
 ## How to use
 * `v-click-outside="functionName"` - bind function
-* `v-click-outside:[boolean]="functionName"` - switch on/off directive
-* `.stop` - must be added to outer element to stop propagation events
+* `v-click-outside:[boolean]="functionName"` - add / remove click outside listener
+
+<Alert>
+  <p>Click outside directive use <code>beforeMount</code> hook to <code>addEventListener</code> with callback.
+  But in some case e.g. <code>UiDropdown</code> you want to <code>addEventListener</code> only when is open (to close Dropdown).
+  For that you can use <code>v-click-outside:[boolean]="functionName"</code>.</p>
+</Alert>
+
 ```html
-  <UiButton @click.stop="toggleVisibility"></UiButton>
-  <UiPopover 
+  <UiButton @click="toggleVisibility"></UiButton>
+  <UiPopover
     v-if="visibility"
     v-click-outside:[boolean]="toggleVisibility"
   >
@@ -27,7 +34,7 @@ After adding this directive you can call some function by clicking outside of el
   <Story id="utilities-directives-click-outside--with-directive"/>
 </Canvas>
 
-### With directive switcher
+### With event listener switcher
 <Canvas>
   <Story id="utilities-directives-click-outside--with-directive-switcher"/>
 </Canvas>

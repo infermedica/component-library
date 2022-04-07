@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { clickOutside } from './index.js';
+import { clickOutside } from './index';
 
 let handler;
 let options;
@@ -40,18 +40,38 @@ describe('directive/clickOutside', () => {
     await button.trigger('click');
     expect(handler).not.toHaveBeenCalled();
   });
-  test('handler function is not called when outer element have .stop modifier', async () => {
-    Component.template = '<div v-click-outside="handler"><button></button></div><button data-testid="outside-button" @click.stop="()=>{}"></button>';
-    const wrapper = mount(Component, options);
-    const button = wrapper.find('[data-testid="outside-button"]');
-    await button.trigger('click');
-    expect(handler).not.toHaveBeenCalled();
-  });
   test('adding false argument disables the directive', async () => {
     Component.template = '<div v-click-outside:[false]="handler"></div><button data-testid="outside-button"></button>';
     const wrapper = mount(Component, options);
     const button = wrapper.find('[data-testid="outside-button"]');
     await button.trigger('click');
     expect(handler).not.toHaveBeenCalled();
+  });
+  test('handler function is called when argument is undefined', async () => {
+    Component.template = '<div v-click-outside:[undefined]="handler"></div><button data-testid="outside-button"></button>';
+    const wrapper = mount(Component, options);
+    const button = wrapper.find('[data-testid="outside-button"]');
+    await button.trigger('click');
+    expect(handler).toHaveBeenCalled();
+  });
+  test('reactivity of argument', async () => {
+    Component.template = '<div v-click-outside:[isActive]="handler"></div><button data-testid="outside-button"></button>';
+    const wrapper = mount(Component, {
+      ...options,
+      data() {
+        return {
+          isActive: false,
+        };
+      },
+    });
+    const button = wrapper.find('[data-testid="outside-button"]');
+    await button.trigger('click');
+    expect(handler).not.toHaveBeenCalled();
+    await wrapper.setData({ isActive: true });
+    await button.trigger('click');
+    expect(handler).toHaveBeenCalled();
+    await wrapper.setData({ isActive: false });
+    await button.trigger('click');
+    expect(handler).toHaveBeenCalledTimes(1);
   });
 });

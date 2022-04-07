@@ -1,6 +1,6 @@
 import { ref } from 'vue';
-import UiInput from '../../../components/atoms/UiInput/UiInput.vue';
-import UiText from '../../../components/atoms/UiText/UiText.vue';
+import UiInput from '@/components/atoms/UiInput/UiInput.vue';
+import UiText from '@/components/atoms/UiText/UiText.vue';
 import docs from './highlight.mdx';
 import { highlight } from '../index';
 

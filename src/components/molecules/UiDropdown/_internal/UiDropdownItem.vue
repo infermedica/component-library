@@ -57,8 +57,7 @@ const tabindex = computed(() => {
   }
   return !Object.keys(modelValue.value).length ? 0 : -1;
 });
-function optionChangeHandler(value, event) {
-  event.stopPropagation();
+function optionChangeHandler(value) {
   if (isOption.value) {
     changeHandler(value);
   }

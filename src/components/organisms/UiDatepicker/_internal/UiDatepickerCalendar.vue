@@ -1,9 +1,8 @@
 <template>
   <UiDropdown
     ref="dropdown"
-    v-click-outside="clickOutsideHandler"
+    v-click-outside:[isActiveClickOutside]="clickOutsideHandler"
     class="ui-datepicker-calendar"
-    :close-on-click-outside="false"
     :enable-keyboard-navigation="false"
   >
     <template #toggle="{toggleHandler}">
@@ -108,6 +107,7 @@ function tabComponentSelector(datePart) {
   }
 }
 
+const isActiveClickOutside = computed(() => dropdown.value?.isOpen || false);
 const isDateFulfilled = inject('isDateFulfilled');
 
 function openCalendar(open) {

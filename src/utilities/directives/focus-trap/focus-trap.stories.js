@@ -1,12 +1,12 @@
 import { ref } from 'vue';
-import UiButton from '../../../components/atoms/UiButton/UiButton.vue';
-import UiFormField from '../../../components/molecules/UiFormField/UiFormField.vue';
-import UiHeading from '../../../components/atoms/UiHeading/UiHeading.vue';
-import UiIcon from '../../../components/atoms/UiIcon/UiIcon.vue';
-import UiRating from '../../../components/molecules/UiRating/UiRating.vue';
-import UiSidePanel from '../../../components/organisms/UiSidePanel/UiSidePanel.vue';
-import UiText from '../../../components/atoms/UiText/UiText.vue';
-import UiTextarea from '../../../components/atoms/UiTextarea/UiTextarea.vue';
+import UiButton from '@/components/atoms/UiButton/UiButton.vue';
+import UiFormField from '@/components/molecules/UiFormField/UiFormField.vue';
+import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
+import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
+import UiRating from '@/components/molecules/UiRating/UiRating.vue';
+import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
+import UiText from '@/components/atoms/UiText/UiText.vue';
+import UiTextarea from '@/components/atoms/UiTextarea/UiTextarea.vue';
 import { focusTrap } from '../index';
 import docs from './focus-trap.mdx';
 
