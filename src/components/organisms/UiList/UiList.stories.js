@@ -23,9 +23,6 @@ export default {
       control: 'select',
     },
   },
-  parameters: {
-    cssprops: [],
-  },
 };
 
 const Template = (args) => ({

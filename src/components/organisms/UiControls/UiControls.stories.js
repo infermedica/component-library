@@ -70,6 +70,11 @@ export default {
         control: 'text',
         description: '',
       },
+      'controls-bottom-border-radius': {
+        value: '0',
+        control: 'text',
+        description: '',
+      },
       'controls-bottom-align-items': {
         value: 'center',
         control: 'text',
@@ -87,6 +92,16 @@ export default {
       },
       'controls-bottom-padding': {
         value: 'var(--space-12) var(--space-20)',
+        control: 'text',
+        description: '',
+      },
+      'controls-bottom-border': {
+        value: 'var(--controls-bottom-border-style, solid) var(--controls-bottom-border-color, var(--color-border-divider))',
+        control: 'text',
+        description: '',
+      },
+      'controls-bottom-border-width': {
+        value: '1px 0 0 0',
         control: 'text',
         description: '',
       },

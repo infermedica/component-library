@@ -22,8 +22,23 @@ export default {
   },
   parameters: {
     cssprops: {
+      'alert-border-radius': {
+        value: '0',
+        control: 'text',
+        description: '',
+      },
       'alert-background': {
         value: undefined,
+        control: 'text',
+        description: '',
+      },
+      'alert-border': {
+        value: 'var(--alert-border-style, solid) var(--alert-border-color, transparent)',
+        control: 'text',
+        description: '',
+      },
+      'alert-border-width': {
+        value: '0',
         control: 'text',
         description: '',
       },

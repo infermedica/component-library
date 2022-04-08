@@ -40,8 +40,23 @@ export default {
   },
   parameters: {
     cssprops: {
+      'textarea-border-radius': {
+        value: 'var(--border-radius-form)',
+        control: 'text',
+        description: '',
+      },
       'textarea-color': {
         value: 'var(--color-text-body)',
+        control: 'text',
+        description: '',
+      },
+      'textarea-border': {
+        value: 'var(--textarea-border-style, solid) var(--textarea-border-color, var(--color-border-strong))',
+        control: 'text',
+        description: '',
+      },
+      'textarea-border-width': {
+        value: '1px',
         control: 'text',
         description: '',
       },
@@ -62,11 +77,6 @@ export default {
       },
       'textarea-caret-color': {
         value: 'var(--color-blue-500)',
-        control: 'text',
-        description: '',
-      },
-      'textarea-error-placeholder-color': {
-        value: 'var(--color-text-body)',
         control: 'text',
         description: '',
       },

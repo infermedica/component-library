@@ -30,9 +30,6 @@ export default {
       control: 'text',
     },
   },
-  parameters: {
-    cssprops: [],
-  },
 };
 const Template = (args) => ({
   components: { UiLoader },

@@ -135,8 +135,23 @@ export default {
   },
   parameters: {
     cssprops: {
+      'multiple-answer-list-item-border-radius': {
+        value: '0',
+        control: 'text',
+        description: '',
+      },
       'multiple-answer-list-item-background': {
         value: undefined,
+        control: 'text',
+        description: '',
+      },
+      'multiple-answer-list-item-border': {
+        value: 'var(--multiple-answer-list-item-border-style, solid) var(--multiple-answer-list-item-border-color, var(--color-border-divider))',
+        control: 'text',
+        description: '',
+      },
+      'multiple-answer-list-item-border-width': {
+        value: '1px 0 0 0',
         control: 'text',
         description: '',
       },

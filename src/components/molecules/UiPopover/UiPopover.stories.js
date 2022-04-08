@@ -51,6 +51,11 @@ export default {
   },
   parameters: {
     cssprops: {
+      'popover-border-radius': {
+        value: 'var(--border-radius-form)',
+        control: 'text',
+        description: '',
+      },
       'popover-background': {
         value: 'var(--color-background-white)',
         control: 'text',
@@ -66,6 +71,16 @@ export default {
         control: 'text',
         description: '',
       },
+      'popover-border': {
+        value: 'solid var(--color-border-subtle)',
+        control: 'text',
+        description: '',
+      },
+      'popover-border-width': {
+        value: '1px',
+        control: 'text',
+        description: '',
+      },
       'popover-header-padding': {
         value: 'var(--space-12) var(--space-16)',
         control: 'text',
@@ -78,11 +93,6 @@ export default {
       },
       'popover-content-padding': {
         value: 'var(--space-8)',
-        control: 'text',
-        description: '',
-      },
-      'popover-border': {
-        value: 'solid var(--color-border-subtle)',
         control: 'text',
         description: '',
       },

@@ -41,6 +41,11 @@ export default {
   },
   parameters: {
     cssprops: {
+      'radio-border-radius': {
+        value: 'var(--border-radius-circle)',
+        control: 'text',
+        description: '',
+      },
       'radio-size': {
         value: '1.25rem',
         control: 'text',
@@ -53,6 +58,16 @@ export default {
       },
       'radio-background': {
         value: 'var(--color-background-white)',
+        control: 'text',
+        description: '',
+      },
+      'radio-border': {
+        value: 'var(--radio-border-style, solid) var(--radio-border-color, var(--color-border-strong))',
+        control: 'text',
+        description: '',
+      },
+      'radio-border-width': {
+        value: '2px',
         control: 'text',
         description: '',
       },

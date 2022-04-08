@@ -27,6 +27,11 @@ export default {
   },
   parameters: {
     cssprops: {
+      'button-border-radius': {
+        value: 'var(--border-radius-button)',
+        control: 'text',
+        description: '',
+      },
       'button-display': {
         value: 'inline-flex',
         control: 'text',
@@ -94,6 +99,16 @@ export default {
       },
       'button-background': {
         value: 'var(--color-background-action)',
+        control: 'text',
+        description: '',
+      },
+      'button-border': {
+        value: 'var(--button-border-style, solid) var(--button-border-color, transpatent)',
+        control: 'text',
+        description: '',
+      },
+      'button-border-width': {
+        value: '0',
         control: 'text',
         description: '',
       },

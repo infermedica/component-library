@@ -21,6 +21,11 @@ export default {
   },
   parameters: {
     cssprops: {
+      'notification-border-radius': {
+        value: 'var(--border-radius-container)',
+        control: 'text',
+        description: '',
+      },
       'notification-padding': {
         value: 'var(--space-12)',
         control: 'text',
@@ -28,6 +33,16 @@ export default {
       },
       'notification-background': {
         value: undefined,
+        control: 'text',
+        description: '',
+      },
+      'notification-border': {
+        value: 'var(--notification-border-style, solid) var(--notification-border-color, transparent)',
+        control: 'text',
+        description: '',
+      },
+      'notification-border-width': {
+        value: '1px',
         control: 'text',
         description: '',
       },

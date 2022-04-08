@@ -41,9 +41,6 @@ export default {
       options: ['a', 'A', 'i', 'I', '1', 'ar'],
     },
   },
-  parameters: {
-    cssprops: [],
-  },
 };
 
 const Template = (args) => ({
