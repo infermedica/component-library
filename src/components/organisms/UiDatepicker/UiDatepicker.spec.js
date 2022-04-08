@@ -3,6 +3,7 @@ import UiDatepicker from './UiDatepicker.vue';
 
 const mountDatepicker = () => {
   const wrapper = mount(UiDatepicker, {
+    attachTo: document.body,
     global: {
       // TODO handle it globally, without stub jest throws error on svg mounting
       stubs: {
@@ -89,6 +90,26 @@ describe('UiDatepicker.vue', () => {
 
     const calendarPopover = await wrapper.find('.ui-popover');
     expect(calendarPopover.exists()).toBe(true);
+  });
+
+  test('focuses toggle button after select date on calendar', async () => {
+    const wrapper = mountDatepicker();
+
+    const toggleButton = wrapper.find('.ui-datepicker-calendar__toggler');
+    await toggleButton.trigger('click');
+
+    const calendarPopover = await wrapper.find('.ui-popover');
+    const firstDayButton = calendarPopover.find('.ui-datepicker-day-tab button');
+    await firstDayButton.trigger('click');
+
+    const firstMonthButton = calendarPopover.find('.ui-datepicker-month-tab button');
+    await firstMonthButton.trigger('click');
+
+    const firstYearButton = calendarPopover.find('.ui-datepicker-year-tab button');
+    await firstYearButton.trigger('click');
+
+    expect(wrapper.find('.ui-popover').exists()).toBe(false);
+    expect(toggleButton.element).toBe(document.activeElement);
   });
 });
 

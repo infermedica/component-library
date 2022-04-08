@@ -1,7 +1,7 @@
 <template>
   <div
     ref="dropdown"
-    v-click-outside:[isActiveClickOutside]="closeHandler.bind(this, true)"
+    v-click-outside:[isActiveClickOutside]="closeHandler.bind(this, { focusToggle: false })"
     class="ui-dropdown"
     :class="{'is-active': isOpen}"
     @keydown="dropdownKeydownHandler"
@@ -125,13 +125,15 @@ async function openHandler({ focus = false } = {}) {
     else if (nextDropdownItem.value) nextDropdownItem.value.focus();
   }
 }
-function closeHandler(outside) {
-  if (dropdownToggle.value && !outside) {
+
+function closeHandler({ focusToggle } = { focusToggle: true }) {
+  if (dropdownToggle.value && focusToggle) {
     (dropdownToggle.value?.$el || dropdownToggle.value).focus();
   }
   isOpen.value = false;
   emit('close');
 }
+
 async function toggleHandler() {
   if (isOpen.value) {
     closeHandler();
@@ -201,7 +203,7 @@ const dropdownItemKeydownHandler = async (event) => {
 };
 provide('dropdownItemKeydownHandler', dropdownItemKeydownHandler);
 
-defineExpose({ isOpen });
+defineExpose({ isOpen, closeHandler });
 </script>
 
 <style lang="scss">

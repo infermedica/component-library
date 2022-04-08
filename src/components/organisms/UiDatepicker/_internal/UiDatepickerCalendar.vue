@@ -4,6 +4,7 @@
     v-click-outside:[isActiveClickOutside]="clickOutsideHandler"
     class="ui-datepicker-calendar"
     :enable-keyboard-navigation="false"
+    :toggle-element="toggleElement"
   >
     <template #toggle="{toggleHandler}">
       <slot
@@ -11,6 +12,7 @@
         v-bind="{toggle: toggleHandler}"
       >
         <UiButton
+          ref="toggleElement"
           class="ui-button--outlined ui-button--circled ui-button--has-icon ui-datepicker-calendar__toggler"
           v-bind="buttonCalendarAttrs"
           @click="openCalendar(toggleHandler)"
@@ -76,6 +78,7 @@ const props = defineProps({
 });
 const emit = defineEmits(['update:modelValue', 'open', 'select']);
 const dropdown = ref(null);
+const toggleElement = ref(null);
 const translation = inject('translation');
 const order = inject('order');
 
@@ -124,7 +127,7 @@ watchEffect(() => {
 
 watch(isDateFulfilled, (dateFulfilled) => {
   const focusedLastInput = props.lastFocused === order.at(-1);
-  if (dateFulfilled && focusedLastInput) dropdown.value.isOpen = false;
+  if (dateFulfilled && focusedLastInput) dropdown.value.closeHandler({ focusToggle: false });
 });
 
 function goToNextTab() {
@@ -135,7 +138,7 @@ function goToNextTab() {
     const firstEmptyTabIndex = order.indexOf(firstEmptyTab.value);
     currentTab.value = order[firstEmptyTabIndex];
   } else {
-    dropdown.value.isOpen = false;
+    dropdown.value.closeHandler({ focusToggle: true });
   }
 }
 
@@ -144,7 +147,7 @@ const clickOutsideHandler = ({ target: { id, htmlFor } }) => {
 
   if (allowedIds.includes(htmlFor)) return;
   if (!allowedIds.includes(id)) {
-    dropdown.value.isOpen = false;
+    dropdown.value.closeHandler({ focusToggle: false });
     return;
   }
 
