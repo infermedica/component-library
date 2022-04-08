@@ -25,6 +25,7 @@ const Link = styled.a`
   -webkit-font-smoothing: antialiased;
   font-size: 14px;
   text-decoration: none;
+  line-height: 24px;
 `;
 
 const getHeadingLevel = (node) => parseInt(node?.tagName.substring(1), 10);
@@ -44,7 +45,9 @@ const getNodes = (elements) => {
           {currentHeading.textContent}
         </Link>
       </li>);
-    } else if (getHeadingLevel(currentHeading) < getHeadingLevel(nextHeading)) { // h2 < h3
+      return { nodes, headings };
+    }
+    if (getHeadingLevel(currentHeading) < getHeadingLevel(nextHeading)) { // h2 < h3
       const { nodes: children, headings: restHeadings } = getNodes(headings);
       headings = restHeadings;
       nodes.push(<li key={currentHeading.id}>
@@ -58,7 +61,7 @@ const getNodes = (elements) => {
           {children}
         </List>
       </li>);
-    } else if (getHeadingLevel(currentHeading) === getHeadingLevel(nextHeading)) { // h2 === h2
+    } else { // h2 === h2
       nodes.push(<li key={currentHeading.id}>
         <Link
           href={`#${currentHeading.id}`}
@@ -80,16 +83,15 @@ const getNodes = (elements) => {
  * Generate a list of links to the sections based on the page's outline.
  */
 export const PageOutline = () => {
-  const [pageOutline, setPageOutline] = useState();
-  const el = document.getElementById('docs-root');
+  const [pageOutline, setPageOutline] = useState(<li>loading...</li>);
   useEffect(() => {
-    if (pageOutline) return;
+    const el = document.getElementById('docs-root');
     const headings = [...el.querySelectorAll('h2, h3, h4, h5, h6')];
     const nodes = getNodes(headings).nodes;
     setPageOutline(nodes);
-  });
+  }, []);
   return <Container>
-    <Title>On this page:</Title>
+    <Title>On this page</Title>
     <List>
       {pageOutline}
     </List>
