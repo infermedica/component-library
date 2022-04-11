@@ -1,5 +1,6 @@
 import { Meta } from '@storybook/addon-docs';
 import { PageOutline } from '../components/PageOutline';
+import { Alert } from '../components/Alert';
 
 <Meta title="Getting Started/Development Guide/Working with breakpoints"/>
 
@@ -13,15 +14,37 @@ Symptom Checker UI Kit has a predefined breakpoints but it is possible to define
 Predefined breakpoints in Symptom Checker UI Kit are:
 
 ```scss
-$mobile-max-width: 767px;
-$tablet-min-width: 768px;
-$tablet-max-width: 991px;
-$desktop-min-width: 992px;
+$mobile-max-width: 767px !default;
+$tablet-min-width: 768px !default;
+$tablet-max-width: 991px !default;
+$desktop-min-width: 992px !default;
 ```
 
+<Alert>
+  <p>Predefined breakpoints are stored in <code>src/styles/variables/_breakpoints.scss</code>.
+  They are probably the only ones sass variables in our project because we can use CSS Custom Properties in media queries.</p>
+</Alert>
+
 ## How to change breakpoints
-To change predefined breakpoints you can use Webpack and [string-replace-loader](https://www.npmjs.com/package/string-replace-loader).
-When you use Vue CLI you can use fallowing code:
+Predefined breakpoints has `!default` flag. It means you can use your own breakpoints.
+
+### sass-loader
+To define your own breakpoints you need to use on of sass-loader option. `additionalData` allow to add custom data before the actual entry file.
+
+```js
+//vue.config.js
+module.exports = {
+  css: {
+    loaderOptions: {
+      sass: {
+        additionalData: `@import "<path-to-new-breakpoints>";`
+      }
+    }
+  }}
+```
+
+### string-replace-loader
+Alternatively you can use [string-replace-loader](https://www.npmjs.com/package/string-replace-loader) to replace import.
 
 ```js
 //vue.config.js
@@ -34,7 +57,7 @@ module.exports = {
     .loader('string-replace-loader')
     .options({
       search: '@import "../variables/breakpoints";',
-      replace: '@import "../../../../../../_breakpoints.scss";', // _breakpoints.scss in root directory
+      replace: '@import "../../../../../../breakpoints";', // breakpoints.scss in root directory
       flags: 'g'
     })
   }
