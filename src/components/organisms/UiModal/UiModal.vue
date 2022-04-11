@@ -161,7 +161,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import {
   ref, computed, nextTick, onBeforeUnmount, onMounted,
 } from 'vue';
