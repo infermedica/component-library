@@ -20,7 +20,26 @@ $desktop-min-width: 992px;
 ```
 
 ## How to change breakpoints
-To change breakpoints you can. You can't change predefined breakpoints for now.
+To change predefined breakpoints you can use Webpack and [string-replace-loader](https://www.npmjs.com/package/string-replace-loader).
+When you use Vue CLI you can use fallowing code:
+
+```js
+//vue.config.js
+module.exports = {
+  chainWebpack: config => {
+    const scssRule = config.module.rule('scss');
+    scssRule
+    .onOf('normal')
+    .use('string-replace-loader')
+    .loader('string-replace-loader')
+    .options({
+      search: '@import "../variables/breakpoints";',
+      replace: '@import "../../../../../../_breakpoints.scss";', // _breakpoints.scss in root directory
+      flags: 'g'
+    })
+  }
+}
+```
 
 ## Mixins
 To use breakpoints you can use the following mixins:
@@ -97,3 +116,22 @@ fromDesktop: '(min-width: #{$desktop-min-width})';
 ```
 
 Special thanks to @Matteo Fogli and his article [How to share SASS variables with JavaScript code in VueJS](https://dev.to/pecus/how-to-share-sass-variables-with-javascript-code-in-vuejs-55p3).
+
+### Troubleshooting
+SASS variables with JavaScript code use CSS modules and it can be a problem. To solve it you can use fallowing code:
+
+```js
+//vue.config.js
+module.exports = {
+  css: {
+    loaderOptions: {
+      css: {
+        modules: {
+          auto: /exports/ // enable CSS module for files from exports directory
+        }
+      }
+  },
+  },
+}
+```
+

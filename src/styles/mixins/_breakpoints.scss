@@ -1,7 +1,4 @@
-$mobile-max-width: 767px;
-$tablet-min-width: 768px;
-$tablet-max-width: 991px;
-$desktop-min-width: 992px;
+@import "../variables/breakpoints";
 
 @mixin from($width) {
   @media (min-width: $width) {

@@ -29,6 +29,42 @@ We provide our default design if you want use it inside your project, you need t
 import '@symptom-checker/ui-kit/src/styles/styles.scss'
 ```
 
+## Webpack loaders
+To load svg files in UiIcon component we use [vue-svg-loader](https://www.npmjs.com/package/vue-svg-loader).
+For Vue 3 you should use next version of this loader `npm i vue-svg-loader@next`.
+
+```js
+// vue.config.js
+module.exports = {
+  chainWebpack: (config) => {
+    const svgRule = config.module.rule('svg');
+
+    // clear all existing loaders.
+    // if you don't do this, the loader below will be appended to
+    // existing loaders of the rule.
+    svgRule.uses.clear();
+
+    // add replacement loader(s)
+    svgRule
+      .use('vue-loader')
+      .loader('vue-loader')
+      .end()
+      .use('vue-svg-loader')
+      .loader('vue-svg-loader')
+      // options is optional, below you can find our svgo settings
+      .options({
+        svgo: {
+          plugins: [
+            { removeDimensions: true },
+            { removeUselessStrokeAndFill: true },
+            { convertStyleToAttrs: true },
+          ]
+        }
+      )
+  },
+};
+```
+
 ## Usage components in SFC
 You can directly import components from the Symptom Checker UI Kit and use them in a template.
 
