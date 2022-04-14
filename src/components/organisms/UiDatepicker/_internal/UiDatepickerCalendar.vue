@@ -191,9 +191,9 @@ const clickOutsideHandler = ({ target: { id, htmlFor } }) => {
 
   &__tab-content {
     display: flex;
+    height: var(--datepicker-tab-content-height, 15.5rem);
     flex-wrap: wrap;
     justify-content: flex-start;
-    height: var(--datepicker-tab-content-height, 15.5rem);
     padding: var(--datepicker-tab-content-padding, var(--space-16) var(--space-20));
     overflow-y: auto;
   }

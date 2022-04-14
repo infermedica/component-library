@@ -86,9 +86,9 @@ provide('gap', gap);
     width: var(--tabs-underline-width, 100%);
     height: 2px;
     background: var(--tabs-underline-color, var(--color-border-selection));
-    transition: transform 150ms ease-in-out;
     // No RTL necessary due to being JS generated
     transform: translateX(var(--tabs-underline-x, var(--tabs-underline-x-default, 0))) translateY(-1px);
+    transition: transform 150ms ease-in-out;
   }
 
   &--fixed {

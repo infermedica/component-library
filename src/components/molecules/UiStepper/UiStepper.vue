@@ -134,15 +134,15 @@ const determineStep = (itemIndex, route) => ({
 
 @mixin progress-vertical($background, $z-index) {
   position: absolute;
+  z-index: $z-index;
   top: -2px;
   left: 0;
-  z-index: $z-index;
   display: block;
   width: 0.25rem;
   height: 100%;
-  content: "";
   background-color: $background;
   border-radius: var(--stepper-progress-radius);
+  content: "";
 
   [dir="rtl"] & {
     right: 0;

@@ -294,17 +294,17 @@ onBeforeUnmount(() => {
 
   &__dialog {
     position: var(--modal-position, fixed);
+    z-index: var(--modal-z-index, 1000);
     top: 50%;
     left: 50%;
-    z-index: var(--modal-z-index, 1000);
     display: flex;
-    flex-direction: column;
     width: calc(100% - 2 * var(--modal-margin-horizontal, 20px));
     max-width: var(--modal-max-width, 480px);
+    flex-direction: column;
     padding: var(--modal-padding, var(--space-24));
+    border: var(--modal-border, none);
     margin: 0;
     background: var(--modal-background, var(--color-background-white));
-    border: var(--modal-border, none);
     border-radius: var(--modal-border-radius, var(--border-radius-container));
     box-shadow: var(--modal-box-shadow, var(--box-shadow-high));
     transform: translate(-50%, -50%);

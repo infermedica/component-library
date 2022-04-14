@@ -64,8 +64,8 @@ const stepsDots = computed(() => (props.steps - 1));
     position: absolute;
     top: 50%;
     display: flex;
-    align-items: center;
     width: 100%;
+    align-items: center;
     transform: translate(0, -50%);
   }
 

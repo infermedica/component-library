@@ -64,15 +64,16 @@ defineProps({
   $this: &;
 
   display: var(--loader-skeleton-display, grid);
-  grid-gap: var(--loader-skeleton-grid-gap, var(--space-32));
   width: var(--loader-skeleton-width, 100%);
   height: var(--loader-skeleton-height, auto);
   margin: var(--loader-skeleton-margin, var(--space-16) 0);
+  grid-gap: var(--loader-skeleton-grid-gap, var(--space-32));
 
   &__block {
     position: relative;
     width: var(--loader-skeleton-block-width, 100%);
     height: var(--loader-skeleton-block-height, var(--space-8));
+    animation: var(--loader-skeleton-block-animation, skeleton-shine 1s linear infinite);
     background:
       var(
         --loader-skeleton-block-background,
@@ -85,7 +86,6 @@ defineProps({
       );
     background-size: 200% 100%;
     border-radius: var(--loader-skeleton-block-border-radius, 5px);
-    animation: var(--loader-skeleton-block-animation, skeleton-shine 1s linear infinite);
 
     [dir="rtl"] & {
       background:

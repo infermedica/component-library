@@ -12,10 +12,10 @@
   @mixin dot($animation-delay) {
     width: var(--loader-ellipsis-dot-size, 0.375rem);
     height: var(--loader-ellipsis-dot-size, 0.375rem);
-    background: var(--loader-ellipsis-dot-background, var(--color-icon-on-brand));
-    border-radius: var(--loader-ellipsis-dot-border-radius, var(--border-radius-circle));
     animation: dotFlashing 1s infinite linear alternate;
     animation-delay: $animation-delay;
+    background: var(--loader-ellipsis-dot-background, var(--color-icon-on-brand));
+    border-radius: var(--loader-ellipsis-dot-border-radius, var(--border-radius-circle));
   }
 
   &__dot {

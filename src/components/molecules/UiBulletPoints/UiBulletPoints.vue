@@ -55,7 +55,7 @@ const listStyleType = computed(() => {
 .ui-bullet-points {
   padding: 0;
   margin: 0;
-  list-style-type: none;
   counter-reset: counter;
+  list-style-type: none;
 }
 </style>

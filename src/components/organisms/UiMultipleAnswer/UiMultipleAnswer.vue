@@ -244,9 +244,9 @@ function unfocusExplication(event) {
 
   &__label {
     display: flex;
+    width: 100%;
     align-items: flex-start;
     justify-content: space-between;
-    width: 100%;
   }
 
   &__explication {

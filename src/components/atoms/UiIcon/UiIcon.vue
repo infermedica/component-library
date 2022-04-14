@@ -33,9 +33,9 @@ const file = computed(() => {
 
 <style lang="scss">
 .ui-icon {
-  flex: none;
   width: var(--icon-size, var(--icon-width, 1rem));
   height: var(--icon-size, var(--icon-height, 1rem));
+  flex: none;
   fill: var(--icon-color);
 }
 

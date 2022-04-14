@@ -73,8 +73,8 @@ const { componentTag, routeAttrs } = useLink(props);
 
   &:focus {
     border-radius: var(--border-radius-outline);
-    outline: none;
     box-shadow: var(--focus-outer);
+    outline: none;
   }
 
   &__icon {

@@ -154,19 +154,19 @@ function updateHandler(value) {
         --multiple-choices-item-option-padding,
         var(--space-12) var(--space-20)
       );
-    margin: var(--multiple-choices-item-option-margin, 0);
-    white-space: nowrap;
     border:
       var(
         --multiple-choices-item-option-border,
         solid var(--color-border-subtle)
       );
     border-width: var(--multiple-choices-item-option-border-width, 1px 0 0 0);
+    margin: var(--multiple-choices-item-option-margin, 0);
+    white-space: nowrap;
 
     @include from-tablet {
       padding: var(--multiple-choices-item-option-padding, 0);
-      margin: var(--multiple-choices-item-option-margin, 0 0 0 var(--space-24));
       border-width: var(--multiple-choices-item-option-border-width, 0);
+      margin: var(--multiple-choices-item-option-margin, 0 0 0 var(--space-24));
 
       [dir="rtl"] & {
         margin: var(--multiple-choices-item-option-margin, 0 var(--space-24) 0 0);
@@ -187,9 +187,9 @@ function updateHandler(value) {
   &__info-message {
     @include to-mobile {
       position: absolute;
+      overflow: hidden;
       width: 1px;
       height: 1px;
-      overflow: hidden;
       clip: rect(0 0 0 0);
       clip-path: inset(50%);
       white-space: nowrap;

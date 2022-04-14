@@ -116,20 +116,20 @@ function changeHandler(checked) {
     @include inner-border($element: radio, $width: 2px, $radius: var(--border-radius-circle));
 
     display: flex;
+    overflow: hidden;
+    width: var(--radio-size, 1.25rem);
+    height: var(--radio-size, 1.25rem);
     flex: none;
     align-items: center;
     justify-content: center;
-    width: var(--radio-size, 1.25rem);
-    height: var(--radio-size, 1.25rem);
     margin: var(--radio-margin, 0.125rem);
-    overflow: hidden;
     background: var(--radio-background, var(--color-background-white));
   }
 
   &__mark {
-    flex: none;
     width: var(--radio-mark-size, 0.625rem);
     height: var(--radio-mark-size, 0.625rem);
+    flex: none;
     background: var(--radio-mark-background, transparent);
     border-radius: var(--border-radius-circle);
   }

@@ -209,10 +209,10 @@ function changeHandler(value, modifier = 0) {
 
   &__input {
     position: relative;
-    flex: 0 0 100%;
-    order: -1;
     width: 100%;
     height: var(--range-thumb-size, 3rem);
+    flex: 0 0 100%;
+    order: -1;
     margin: var(--range-track-margin);
     touch-action: none;
 
@@ -237,8 +237,8 @@ function changeHandler(value, modifier = 0) {
       top: 50%;
       left: 0;
       height: var(--range-track-height, 4px);
-      content: "";
       border-radius: var(--range-track-border-radius, 4px);
+      content: "";
       transform: translateX(var(--space-24)) translateY(-50%);
 
       [dir="rtl"] & {
@@ -251,36 +251,36 @@ function changeHandler(value, modifier = 0) {
 
   &__track {
     position: absolute;
-    top: 50%;
     z-index: 1;
+    top: 50%;
     width: 100%;
     margin: 0;
-    cursor: pointer;
+    appearance: none;
     background: transparent;
+    cursor: pointer;
     outline: none;
     transform: translateY(-50%);
-    appearance: none;
 
     @mixin range-thumb {
       width: var(--range-thumb-size, 3rem);
       height: var(--range-thumb-size, 3rem);
+      border: 0;
       background-color: var(--range-thumb-background-color, var(--color-range-thumb));
       background-image:
         var(
           --range-thumb-background-image,
           url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M34 12l-2.828 2.828L40.344 24l-9.172 9.172L34 36l12-12zm0 0M14 12l2.828 2.828L7.656 24l9.172 9.172L14 36 2 24zm0 0' fill-rule='evenodd' fill='%23fff'/%3E%3C/svg%3E%0A")
         );
-      background-repeat: no-repeat;
       background-position: center;
+      background-repeat: no-repeat;
       background-size: var(--range-thumb-background-size, 1.5rem);
-      border: 0;
       border-radius: var(--range-thumb-border-radius, 50%);
       box-shadow: var(--range-thumb-box-shadow, var(--box-shadow-high));
     }
 
     @mixin range-thumb-focus {
-      outline: none;
       box-shadow: var(--focus-outer);
+      outline: none;
     }
 
     &::-webkit-slider-thumb {
@@ -308,9 +308,9 @@ function changeHandler(value, modifier = 0) {
     position: absolute;
     left: var(--range-selected-track-width);
     display: flex;
+    width: var(--range-thumb-size, 3rem);
     align-items: center;
     justify-content: center;
-    width: var(--range-thumb-size, 3rem);
     color: var(--range-value-color, var(--color-text-body));
     transform:
       translate3d(

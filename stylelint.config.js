@@ -3,7 +3,7 @@ module.exports = {
     'stylelint-config-recommended-scss',
     'stylelint-config-recommended-vue/scss',
     'stylelint-config-standard',
-    'stylelint-config-recess-order',
+    'stylelint-config-idiomatic-order',
   ],
   rules: {
     'selector-max-id': 0,

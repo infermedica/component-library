@@ -49,9 +49,9 @@ function clickHandler() {
   display: inline-flex;
   align-items: center;
   padding: var(--chip-padding, var(--space-4) var(--space-4) var(--space-4) var(--space-12));
-  color: var(--chip-color, var(--color-chip-text));
   background: var(--chip-background, var(--color-chip-background));
   border-radius: var(--chip-border-radius, var(--border-radius-pill));
+  color: var(--chip-color, var(--color-chip-text));
 
   [dir="rtl"] & {
     padding: var(--chip-padding, var(--space-4) var(--space-12) var(--space-4) var(--space-4));

@@ -210,19 +210,19 @@ onBeforeUnmount(() => {
 
   &__dialog {
     position: var(--side-panel-position, fixed);
+    z-index: var(--side-panel-z-index, 1000);
     top: 0;
     right: 0;
     bottom: 0;
     left: auto;
-    z-index: var(--side-panel-z-index, 1000);
     display: flex;
-    flex-direction: column;
     width: 100%;
     height: 100%;
+    flex-direction: column;
     padding: 0;
+    border-width: 0;
     margin: 0;
     background: var(--side-panel-background, var(--color-background-white));
-    border-width: 0;
     box-shadow: var(--side-panel-box-shadow, var(--box-shadow-high));
 
     [dir="rtl"] & {
@@ -274,18 +274,18 @@ onBeforeUnmount(() => {
   }
 
   &__content {
-    flex: 1;
-    height: 100%;
-    padding: var(--side-panel-content-padding, var(--space-24) var(--space-20));
     overflow: var(--side-panel-content-overflow, auto);
+    height: 100%;
+    flex: 1;
+    padding: var(--side-panel-content-padding, var(--space-24) var(--space-20));
 
     @include from-tablet {
       padding: var(--side-panel-content-tablet-padding, var(--space-32) var(--space-48));
     }
 
     &:focus {
-      outline: none;
       box-shadow: var(--focus-outer);
+      outline: none;
     }
   }
 }
@@ -310,8 +310,8 @@ onBeforeUnmount(() => {
 
   &-enter-from,
   &-leave-to {
-    transition: transform 0.5s ease-in;
     transform: translate3d(100%, 0, 0);
+    transition: transform 0.5s ease-in;
 
     [dir="rtl"] & {
       transform: translate3d(-100%, 0, 0);

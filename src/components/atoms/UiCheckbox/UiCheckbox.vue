@@ -129,13 +129,13 @@ function changeHandler(checked) {
     --icon-color: transparent;
 
     display: flex;
+    overflow: hidden;
+    width: var(--checkbox-size, 1.25rem);
+    height: var(--checkbox-size, 1.25rem);
     flex: none;
     align-items: center;
     justify-content: center;
-    width: var(--checkbox-size, 1.25rem);
-    height: var(--checkbox-size, 1.25rem);
     margin: var(--checkbox-margin, 0.125rem);
-    overflow: hidden;
     background: var(--checkbox-background, var(--color-background-white));
 
     @include inner-border($element: checkbox, $color: var(--color-border-strong), $width: 2px, $radius: var(--border-radius-form));

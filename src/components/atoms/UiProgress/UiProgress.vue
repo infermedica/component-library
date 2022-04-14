@@ -55,12 +55,12 @@ const progressValue = computed(() => {
   --radius-pill: var(--progress-radius-pill, calc(var(--height) * 0.5));
 
   position: relative;
+  overflow: hidden;
   width: var(--progress-width, 100%);
   height: var(--height);
   padding: var(--progress-padding, 0 var(--bar-padding));
-  overflow: hidden;
-  background-color: var(--progress-background, var(--color-progress-track));
   border: var(--progress-border, 0);
+  background-color: var(--progress-background, var(--color-progress-track));
   border-radius: var(--radius-pill);
 
   &__inner {
@@ -76,20 +76,20 @@ const progressValue = computed(() => {
       display: block;
       width: var(--bar-padding);
       height: 100%;
-      content: "";
       background-color: var(--progress-value-background, var(--color-progress-indicator));
+      content: "";
     }
 
     &::before {
       right: 100%;
-      border-top-left-radius: var(--radius-pill);
       border-bottom-left-radius: var(--radius-pill);
+      border-top-left-radius: var(--radius-pill);
     }
 
     &::after {
       left: 100%;
-      border-top-right-radius: var(--radius-pill);
       border-bottom-right-radius: var(--radius-pill);
+      border-top-right-radius: var(--radius-pill);
     }
   }
 }

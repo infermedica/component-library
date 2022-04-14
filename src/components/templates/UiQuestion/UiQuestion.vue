@@ -243,12 +243,12 @@ defineProps({
 
     &::before {
       @include from-tablet {
+        width: 1px;
         flex: none;
         align-self: stretch;
-        width: 1px;
         margin: var(--question-action-before-margin, 0 var(--space-12));
-        content: "";
         background: var(--question-action-before-background, var(--color-border-divider));
+        content: "";
       }
     }
 

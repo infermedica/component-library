@@ -46,8 +46,8 @@ defineProps({
     border: var(--loader-spinner-loader-border, solid rgb(95 114 133 / 30%));
     border-width: var(--loader-spinner-loader-border-width, 2px);
     border-top-color: var(--loader-spinner-loader-highlighted-color, var(--color-icon-secondary));
-    border-radius: var(--loader-spinner-loader-border-radius, var(--border-radius-circle));
     animation: rotate 0.8s cubic-bezier(0.8, 0.4, 0.4, 0.8) infinite;
+    border-radius: var(--loader-spinner-loader-border-radius, var(--border-radius-circle));
   }
 
   &__label {

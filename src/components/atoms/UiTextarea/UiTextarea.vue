@@ -66,15 +66,15 @@ const resizeValue = computed(() => {
   $this: &;
 
   display: inline-flex;
-  align-items: center;
   overflow: hidden;
+  align-items: center;
   color: var(--textarea-color, var(--color-background-white));
 
   &:focus-within {
     --input-border-color: var(--input-focus-border-color, var(--color-border-strong));
 
-    outline: none;
     box-shadow: var(--focus-outer);
+    outline: none;
   }
 
   @media (hover: hover) {
@@ -92,11 +92,11 @@ const resizeValue = computed(() => {
 
     width: 100%;
     padding: var(--textarea-padding, var(--space-12) var(--space-16));
-    color: var(--textarea-color, var(--color-text-body));
-    background-color: transparent; // override iOS default
     border: 0;
-    outline: none;
+    background-color: transparent; // override iOS default
     caret-color: var(--textarea-caret-color, var(--color-blue-500));
+    color: var(--textarea-color, var(--color-text-body));
+    outline: none;
 
     &::placeholder {
       @include font(body-1);

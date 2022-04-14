@@ -124,9 +124,9 @@ onBeforeUnmount(() => {
         top: 50%;
         width: var(--popver-arrow-size, 0.75rem);
         height: var(--popver-arrow-size, 0.75rem);
-        content: "";
-        background: var(--popover-header-background, var(--color-background-subtle));
         border: var(--popover-border, solid var(--color-border-subtle));
+        background: var(--popover-header-background, var(--color-background-subtle));
+        content: "";
       }
     }
   }

@@ -238,11 +238,11 @@ function calcActiveElementOpacity(index) {
 
   &__square {
     position: relative;
-    height: 40px;
     overflow: hidden;
-    background: var(--scale-square-base-background, var(--color-dataviz-diverging-track));
+    height: 40px;
     border: solid var(--color-white);
     border-width: 0;
+    background: var(--scale-square-base-background, var(--color-dataviz-diverging-track));
     transition: background 200ms ease;
 
     &::before {
@@ -251,8 +251,8 @@ function calcActiveElementOpacity(index) {
       right: 0;
       bottom: 0;
       left: 0;
-      content: "";
       background: var(--scale-square-overlay-background, var(--color-dataviz-diverging-strongly-negative));
+      content: "";
       opacity: var(--scale-square-overlay-opacity, 0);
       transition: opacity 200ms ease;
     }
@@ -262,11 +262,11 @@ function calcActiveElementOpacity(index) {
     position: relative;
     width: calc(100% - 1px);
     padding: var(--space-8) 0;
-    margin: 0 0 var(--space-8) 0;
-    text-align: center;
     border: solid var(--color-white);
     border-width: 0;
+    margin: 0 0 var(--space-8) 0;
     border-radius: var(--border-radius-form);
+    text-align: center;
 
     &--is-checked {
       --text-color: var(--color-white);
@@ -279,8 +279,8 @@ function calcActiveElementOpacity(index) {
         left: calc(50% - 4px);
         width: 8px;
         height: 8px;
-        content: "";
         background: inherit;
+        content: "";
         transform: rotate(45deg);
       }
     }
@@ -334,8 +334,8 @@ function calcActiveElementOpacity(index) {
       & #{$this}__square {
         width: 100%;
         border: 0;
-        border-bottom-right-radius: var(--border-radius-outline);
         border-bottom-left-radius: var(--border-radius-outline);
+        border-bottom-right-radius: var(--border-radius-outline);
       }
     }
   }

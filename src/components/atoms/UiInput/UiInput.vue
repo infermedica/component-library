@@ -87,16 +87,16 @@ function inputHandler(value) {
   $this: &;
 
   display: inline-flex;
-  align-items: center;
   overflow: hidden;
-  color: var(--input-color, var(--color-text-body));
+  align-items: center;
   background-color: var(--input-background-color, var(--color-background-white));
+  color: var(--input-color, var(--color-text-body));
 
   &:focus-within {
     --input-border-color: var(--input-focus-border-color, var(--color-border-strong));
 
-    outline: none;
     box-shadow: var(--focus-outer);
+    outline: none;
   }
 
   @media (hover: hover) {
@@ -114,11 +114,11 @@ function inputHandler(value) {
 
     width: 100%;
     padding: var(--input-padding, var(--space-12) var(--space-16));
-    color: var(--input-color, var(--color-text-body));
-    background-color: transparent; // override iOS default
     border: 0;
-    outline: none;
+    background-color: transparent; // override iOS default
     caret-color: var(--input-caret-color, var(--color-blue-500));
+    color: var(--input-color, var(--color-text-body));
+    outline: none;
 
     &::placeholder {
       @include font(body-1);
@@ -134,8 +134,8 @@ function inputHandler(value) {
     }
 
     &:disabled {
-      cursor: not-allowed;
       background: var(--input-background-color, var(--color-background-white));
+      cursor: not-allowed;
     }
 
     &[type="number"] {

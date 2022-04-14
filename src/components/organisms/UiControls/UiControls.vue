@@ -174,10 +174,10 @@ const backAttrs = computed(() => (
     @include inner-border($element: controls-bottom, $color:  var(--color-border-divider), $width: 1px 0 0 0);
 
     display: flex;
+    height: var(--controls-bottom, 5rem);
     flex-direction: row-reverse;
     align-items: var(--controls-bottom-align-items, center);
     justify-content: var(--controls-bottom-justify-content, space-between);
-    height: var(--controls-bottom, 5rem);
     padding: var(--controls-bottom-padding, var(--space-12) var(--space-20));
 
     @include from-tablet {

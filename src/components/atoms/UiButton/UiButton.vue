@@ -51,23 +51,21 @@ const { componentTag, routeAttrs } = useLink(props);
 
   position: relative;
   display: var(--button-display, inline-flex);
-  align-items: var(--button-align-items, center);
-  justify-content: var(--button-justify-content, center);
   width: var(--button-width);
   height: var(--button-height);
+  align-items: var(--button-align-items, center);
+  justify-content: var(--button-justify-content, center);
   padding: var(--button-padding, var(--space-12) var(--space-32));
-  color: var(--button-color, var(--color-text-on-action));
-  text-align: var(--button-text-align, center);
-  text-decoration: var(--button-text-decoration, none);
-  text-transform: var(--button-text-transform);
-  white-space: var(--button-white-space, nowrap);
-  vertical-align: var(--button-vertical-align, middle);
-  cursor: var(--button-cursor, pointer);
   background:
     var(
       --button-background,
       var(--color-background-action)
     );
+  color: var(--button-color, var(--color-text-on-action));
+  cursor: var(--button-cursor, pointer);
+  text-align: var(--button-text-align, center);
+  text-decoration: var(--button-text-decoration, none);
+  text-transform: var(--button-text-transform);
   transition:
     var(
       --toggle-button-transition,
@@ -75,11 +73,13 @@ const { componentTag, routeAttrs } = useLink(props);
       border-color 0.15s ease-in-out,
       color 0.15s ease-in-out)
     );
+  vertical-align: var(--button-vertical-align, middle);
+  white-space: var(--button-white-space, nowrap);
 
   @media (hover: hover) {
     &:hover {
-      color: var(--button-hover-color, var(--color-text-on-action));
       background: var(--button-hover-background, var(--color-background-action-hover));
+      color: var(--button-hover-color, var(--color-text-on-action));
 
       --button-border:
         var(
@@ -94,8 +94,8 @@ const { componentTag, routeAttrs } = useLink(props);
   }
 
   &:active {
-    color: var(--button-active-color, var(--color-text-on-action));
     background: var(--button-active-background, var(--color-background-action-active));
+    color: var(--button-active-color, var(--color-text-on-action));
 
     --button-border:
       var(
@@ -110,8 +110,8 @@ const { componentTag, routeAttrs } = useLink(props);
 
   &:focus {
     z-index: var(--button-focus-z-index, 1);
-    outline: none;
     box-shadow: var(--focus-outer);
+    outline: none;
   }
 
   &__icon {
