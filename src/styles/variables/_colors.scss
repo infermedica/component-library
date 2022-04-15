@@ -148,6 +148,15 @@ html {
   --color-range-thumb-active: var(--color-green-800);
   --color-range-progress-indicator: var(--color-green-600);
 
+  --color-switch-disabled: var(--color-gray-300);
+  --color-switch-track: var(--color-gray-600);
+  --color-switch-track-hover: var(--color-gray-700);
+  --color-switch-track-active: var(--color-gray-800);
+  --color-switch-track-checked: var(--color-blue-600);
+  --color-switch-track-checked-hover: var(--color-blue-700);
+  --color-switch-track-checked-active: var(--color-blue-800);
+  --color-switch-thumb: var(--color-white);
+
   --color-progress-indicator: var(--color-green-600);
   --color-progress-track: var(--color-gray-200);
 
