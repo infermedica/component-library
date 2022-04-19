@@ -34,13 +34,13 @@ const props = defineProps({
    *  Use this props or v-model to set checked.
    */
   modelValue: {
-    type: Boolean,
+    type: [Boolean, Array],
     default: false,
   },
 });
 const emit = defineEmits(['update:modelValue']);
-const updateHandler = () => {
-  emit('update:modelValue', !props.modelValue);
+const updateHandler = (value) => {
+  emit('update:modelValue', value);
 };
 </script>
 
