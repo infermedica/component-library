@@ -18,17 +18,17 @@
   align-items: center;
   border: var(--switch-control-border, solid  var(--switch-control-border-color, var(--switch-control-track-color)));
   border-width: var(--switch-control-border-width, 2px);
-  border-radius: var(--switch-control-border-radius, var(--border-radius-pill));
   background: var(--switch-control-background, var(--switch-control-track-color));
+  border-radius: var(--switch-control-border-radius, var(--border-radius-pill));
   cursor: pointer;
   transition: var(--switch-control-transition);
 
   &:hover {
-    --switch-control-track-color: var(--switch-control-track-hover-color, var( --color-switch-track-hover));
+    --switch-control-track-color: var(--switch-control-track-hover-color, var(--color-switch-track-hover));
   }
 
   &:active {
-    --switch-control-track-color: var(--switch-control-track-active-color, var( --color-switch-track-active));
+    --switch-control-track-color: var(--switch-control-track-active-color, var(--color-switch-track-active));
   }
 
   &__wrapper {
@@ -73,6 +73,7 @@
 
   input:disabled ~ & {
     --switch-control-track-color: var(--color-switch-disabled);
+
     cursor: not-allowed;
 
     &:hover {

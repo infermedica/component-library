@@ -211,8 +211,7 @@ export const OutlinedLargeWithIcon = (args) => ({
     <UiIcon 
       icon="plus-circled-filled" 
       class="ui-button__icon"
-    />
-      {{ content }}
+    />{{ content }}
   </UiButton>`,
 });
 OutlinedLargeWithIcon.args = {
@@ -255,8 +254,7 @@ export const OutlinedLargeWithIconOnRight = (args) => ({
     :class="modifiers"
     :disabled="disabled"
   >
-    {{ content }}
-    <UiIcon
+    {{ content }}<UiIcon
       icon="plus-circled-filled"
       class="ui-button__icon ui-button__icon--right"
     />

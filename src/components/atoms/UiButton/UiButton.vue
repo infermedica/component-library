@@ -73,7 +73,7 @@ const { componentTag, routeAttrs } = useLink(props);
       border-color 0.15s ease-in-out,
       color 0.15s ease-in-out)
     );
-  vertical-align: var(--button-vertical-align, middle);
+  vertical-align: var(--button-vertical-align, top);
   white-space: var(--button-white-space, nowrap);
 
   @media (hover: hover) {
@@ -117,7 +117,6 @@ const { componentTag, routeAttrs } = useLink(props);
   &__icon {
     --icon-size: var(--button-icon-size, 1.5rem);
 
-    // adds negative left margin to position icon within button and avoid changing padding
     margin: var(--button-icon-margin, 0 var(--space-4) 0 calc(var(--space-8) * -1));
 
     [dir="rtl"] & {

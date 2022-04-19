@@ -106,8 +106,7 @@ export const LargeWithIcon = (args) => ({
     <UiIcon
       icon="plus-circled-filled"
       class="ui-link__icon"
-    />
-    {{content}}  
+    />{{content}}  
   </UiLink>`,
 });
 LargeWithIcon.args = {

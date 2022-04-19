@@ -13,7 +13,7 @@ export default {
     content,
     modifiers: modifiers({
       options: ['1-thick', '2-comfortable', '2-compact', '2-comfortable-thick', '2-compact-thick', 'caption']
-        .map((modifier) => (`ui-text--${modifier}`))
+        .map((modifier) => (`ui-text--${modifier}`)),
     }),
   },
   parameters: {

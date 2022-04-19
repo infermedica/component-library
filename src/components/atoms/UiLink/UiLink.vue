@@ -45,13 +45,13 @@ const { componentTag, routeAttrs } = useLink(props);
 
 .ui-link {
   @include font(body-1);
+
   $this: &;
 
-  display: inline-flex;
-  align-items: center;
+  display: var(--link-display, inline);
   color: var(--link-color, var(--color-text-action-primary));
   text-decoration: var(--link-text-decoration, none);
-  vertical-align: var(--link-vertical-align, middle);
+  vertical-align: var(--link-vertical-align, top);
 
   @media (hover: hover) {
     &:hover {
@@ -80,8 +80,8 @@ const { componentTag, routeAttrs } = useLink(props);
   &__icon {
     --icon-size: var(--link-icon-size, var(--space-24));
 
-    // adds negative left margin to position icon within link and avoid changing padding
     margin: var(--link-icon-margin, 0 var(--space-4) 0 0);
+    vertical-align: var(--link-icon-vertical-align, top);
 
     [dir="rtl"] & {
       margin: var(--link-icon-margin, 0 0 0 var(--space-4));

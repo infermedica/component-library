@@ -179,9 +179,7 @@ export const WithIcon = (args) => ({
         :key="key"
     >
       <UiToggleButton :value="value" :class="modifiers">
-        <UiIcon v-if="icon && iconPosition === 'left'" :icon="icon" class="ui-button__icon" />
-        {{label}}
-        <UiIcon v-if="icon && iconPosition === 'right'" :icon="icon" class="ui-button__icon ui-button__icon--right" />
+        <UiIcon v-if="icon && iconPosition === 'left'" :icon="icon" class="ui-button__icon" />{{label}}<UiIcon v-if="icon && iconPosition === 'right'" :icon="icon" class="ui-button__icon ui-button__icon--right" />
       </UiToggleButton>
     </template>
     </UiToggleButtonGroup>
