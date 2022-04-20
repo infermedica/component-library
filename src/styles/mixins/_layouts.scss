@@ -6,14 +6,13 @@
  * <element>-border-style
  * <element>-border-color
  */
-@mixin inner-border($element, $style: solid, $color: var(--color-border-strong), $width: 1px, $radius: 0) {
+@mixin inner-border($element, $style: solid, $color: var(--color-border-strong), $width: 1px, $radius: 0, $pseudo-element: 'after') {
   position: relative;
   border: none;
   border-radius: var(--#{$element}-border-radius, #{$radius});
 
-  &::before {
+  &::#{$pseudo-element} {
     position: absolute;
-    z-index: 1;
     top: 0;
     right: 0;
     bottom: 0;

@@ -125,6 +125,8 @@ function changeHandler(checked) {
   }
 
   &__checkbutton {
+    @include inner-border($element: checkbox, $color: var(--color-border-strong), $width: 2px, $radius: var(--border-radius-form));
+
     --icon-size: 1rem;
     --icon-color: transparent;
 
@@ -137,8 +139,6 @@ function changeHandler(checked) {
     justify-content: center;
     margin: var(--checkbox-margin, 0.125rem);
     background: var(--checkbox-background, var(--color-background-white));
-
-    @include inner-border($element: checkbox, $color: var(--color-border-strong), $width: 2px, $radius: var(--border-radius-form));
   }
 
   input {
