@@ -162,43 +162,6 @@ Common.play = async ({ canvasElement }) => {
   await expect(canvas.getByText('50')).toBeInTheDocument();
 };
 
-export const CommonWithFailInteractionTest = (args) => ({
-  components: { UiRange, UiButton, UiIcon },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
-  },
-  template: `<UiRange 
-    v-model="modelValue"
-    :min="min"
-    :max="max"
-    :button-increment-attrs="buttonIncrementAttrs"
-    :button-decrement-attrs="buttonDecrementAttrs"
-    :aria-label="ariaLabel"
-  >
-  <template #decrement="{attrs, change, value}">
-    <UiButton
-        class="ui-range__decrement ui-button--outlined ui-button--circled ui-button--has-icon"
-        tabindex="-1"
-        v-bind="attrs"
-        @click="change(value, -5)"
-    >
-      <UiIcon
-          icon="minus"
-      />
-    </UiButton>
-  </template>
-  </UiRange>
-  `,
-});
-CommonWithFailInteractionTest.play = async ({ canvasElement }) => {
-  const canvas = within(canvasElement);
-  await userEvent.click(canvas.getByTestId('increment-age'));
-  await expect(canvas.getByText('51')).toBeInTheDocument();
-  await userEvent.click(canvas.getByTestId('decrement-age'));
-  await expect(canvas.getByText('50')).toBeInTheDocument();
-};
-
 export const WithDecrementSlot = (args) => ({
   components: { UiRange, UiButton, UiIcon },
   setup() {
