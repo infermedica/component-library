@@ -96,10 +96,11 @@ function selectHandler() {
   transition: transform 200ms ease;
 
   @include from-tablet {
+    --button-padding: var(--tile-padding, var(--space-24) var(--space-16));
+
     flex-direction: column;
     justify-content: center;
 
-    --button-padding: var(--tile-padding, var(--space-24) var(--space-16));
   }
 
   &:active {
@@ -136,9 +137,8 @@ function selectHandler() {
   }
 
   &--selected {
-    &::before {
-      box-shadow: 0 0 0 2px var(--tile-border-color, var(--color-border-strong)); // border of selected tile
-    }
+    --button-border-width: 2px;
+    --button-border-color: var(--color-border-strong);
   }
 
   &--small {
