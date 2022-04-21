@@ -210,7 +210,7 @@ export const WithContentSlot = (args) => ({
             v-show="isOpen"
             :id="name"
             role="region"
-            :aria-labelledby="'toggler' + name"
+            :aria-labelledby="'toggler-' + name"
             class="ui-tabs-item__content"
             v-bind="attrs"
           >

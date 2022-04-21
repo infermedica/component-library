@@ -24,9 +24,9 @@ describe('UiDatepicker.vue', () => {
   test('opens calendar with day tab when all fields are filled', async () => {
     const wrapper = mountDatepicker();
 
-    await wrapper.find('#day').setValue('12');
-    await wrapper.find('#month').setValue('12');
-    await wrapper.find('#year').setValue('1990');
+    await wrapper.find('#datepicker-input-day').setValue('12');
+    await wrapper.find('#datepicker-input-month').setValue('12');
+    await wrapper.find('#datepicker-input-year').setValue('1990');
 
     await wrapper.find('.ui-datepicker-calendar__toggler').trigger('click');
     const activeTab = wrapper.find('.ui-tabs-item__tab-button--active');
@@ -37,8 +37,8 @@ describe('UiDatepicker.vue', () => {
   test('opens calendar with month tab when day and year fields are filled', async () => {
     const wrapper = mountDatepicker();
 
-    await wrapper.find('#day').setValue('12');
-    await wrapper.find('#year').setValue('1990');
+    await wrapper.find('#datepicker-input-day').setValue('12');
+    await wrapper.find('#datepicker-input-year').setValue('1990');
 
     await wrapper.find('.ui-datepicker-calendar__toggler').trigger('click');
     const activeTab = wrapper.find('.ui-tabs-item__tab-button--active');
@@ -60,9 +60,9 @@ describe('UiDatepicker.vue', () => {
 
     await wrapper.find('.ui-datepicker-calendar__toggler').trigger('click');
 
-    const dayField = wrapper.find('#day');
-    const monthField = wrapper.find('#month');
-    const yearField = wrapper.find('#year');
+    const dayField = wrapper.find('#datepicker-input-day');
+    const monthField = wrapper.find('#datepicker-input-month');
+    const yearField = wrapper.find('#datepicker-input-year');
 
     await dayField.trigger('focus');
     await dayField.setValue('12');
@@ -80,9 +80,9 @@ describe('UiDatepicker.vue', () => {
 
     await wrapper.find('.ui-datepicker-calendar__toggler').trigger('click');
 
-    const dayField = wrapper.find('#day');
-    const monthField = wrapper.find('#month');
-    const yearField = wrapper.find('#year');
+    const dayField = wrapper.find('#datepicker-input-day');
+    const monthField = wrapper.find('#datepicker-input-month');
+    const yearField = wrapper.find('#datepicker-input-year');
 
     await dayField.trigger('focus');
     await monthField.trigger('focus');

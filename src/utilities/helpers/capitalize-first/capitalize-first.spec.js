@@ -29,12 +29,12 @@ describe('helpers/capitalizeFirst', () => {
     expect(string).toBe('');
   });
   it('thrown type error when parameter is undefined', () => {
-    expect(() => capitalizeFirst(undefined)).toThrow(TypeError);
+    expect(capitalizeFirst(undefined)).toBeUndefined();
   });
   it('thrown type error when parameter is null', () => {
-    expect(() => capitalizeFirst(null)).toThrow(TypeError);
+    expect(capitalizeFirst(null)).toBeNull();
   });
   it('thrown type error when parameter is type number', () => {
-    expect(() => capitalizeFirst(9)).toThrow(TypeError);
+    expect(capitalizeFirst(9)).toBe(9);
   });
 });

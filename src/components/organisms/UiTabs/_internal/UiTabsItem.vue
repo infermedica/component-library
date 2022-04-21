@@ -1,19 +1,20 @@
 <template>
   <slot
     name="toggler"
-    v-bind="{ toggle, name, title, isOpen }"
+    v-bind="{ toggle, name: id, title, isOpen, attrs: buttonAttrs }"
   >
     <div
       ref="tab"
       class="ui-tabs-item__tab"
     >
       <UiButton
-        :id="`toggler${name}`"
+        :id="`toggler-${id}`"
         :aria-expanded="`${isOpen}`"
-        :aria-controls="name"
+        :aria-controls="id"
         class="ui-tabs-item__tab-button ui-button--text"
         :class="{'ui-tabs-item__tab-button--active': isOpen}"
-        @click="toggle(name)"
+        v-bind="buttonAttrs"
+        @click="toggle(id)"
       >
         {{ title }}
       </UiButton>
@@ -21,14 +22,14 @@
   </slot>
   <slot
     name="content"
-    v-bind="{ isOpen, name, attrs: $attrs }"
+    v-bind="{ isOpen, name: id, attrs: $attrs }"
   >
     <!-- @slot Use this slot to replace content template. -->
     <div
       v-show="isOpen"
-      :id="name"
+      :id="id"
       role="region"
-      :aria-labelledby="`toggler${name}`"
+      :aria-labelledby="`toggler-${id}`"
       class="ui-tabs-item__content"
       v-bind="$attrs"
     >
@@ -36,11 +37,11 @@
     </div>
   </slot>
 </template>
-
 <script setup>
 import {
-  computed, ref, inject, watchEffect, nextTick, onMounted,
+  computed, ref, inject, watchEffect, nextTick, onMounted, useAttrs,
 } from 'vue';
+import { uid } from 'uid/single';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 
 const props = defineProps({
@@ -58,16 +59,25 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  /**
+   * Use this props to pass attrs for toggle UiButton.
+   */
+  buttonAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
 });
+const attrs = useAttrs();
 const tab = ref(null);
 
 const opened = inject('opened');
 const toggle = inject('toggle');
+const id = computed(() => (props.name || attrs.id || `tab-${uid()}`));
 const isOpen = computed(() => {
   if (opened.value === 'string') {
-    return props.name === opened.value;
+    return id.value === opened.value;
   }
-  return opened.value.includes(props.name);
+  return opened.value.includes(id.value);
 });
 
 const underline = inject('underline');

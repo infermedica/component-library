@@ -9,9 +9,10 @@
     <!-- @slot Use this slot to place toggle template. -->
     <slot
       name="toggle"
-      v-bind="{toggleHandler, openHandler, closeHandler, isOpen, text}"
+      v-bind="{toggleHandler, openHandler, closeHandler, isOpen, text, attrs: buttonAttrs}"
     >
       <UiButton
+        v-bind="buttonAttrs"
         ref="toggle"
         class="ui-dropdown__toggle"
         :aria-expanded="`${isOpen}`"
@@ -23,10 +24,11 @@
     <!-- @slot Use this slot to replace popover template. -->
     <slot
       name="popover"
-      v-bind="{closeHandler, isOpen}"
+      v-bind="{closeHandler, isOpen, attrs: popoverAttrs}"
     >
       <UiPopover
         v-if="isOpen"
+        v-bind="popoverAttrs"
         class="ui-dropdown__popover"
         @close="closeHandler"
       >
@@ -98,6 +100,20 @@ const props = defineProps({
   enableKeyboardNavigation: {
     type: Boolean,
     default: true,
+  },
+  /**
+   *  Use this props to pass attrs to UiButton.
+   */
+  buttonAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
+   *  Use this props to pass attrs to UiPopover.
+   */
+  popoverAttrs: {
+    type: Object,
+    default: () => ({}),
   },
 });
 const emit = defineEmits(['update:modelValue', 'open', 'close']);

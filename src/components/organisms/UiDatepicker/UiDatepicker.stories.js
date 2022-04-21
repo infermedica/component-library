@@ -34,8 +34,32 @@ export default {
     },
     minLimit: 0,
     maxLimit: 120,
+    inputDayAttrs: {
+      id: 'datepicker-input-day',
+    },
+    inputMonthAttrs: {
+      id: 'datepicker-input-month',
+    },
+    inputYearAttrs: {
+      id: 'datepicker-input-year',
+    },
     datepickerCalendarAttrs: {
-      'aria-label': 'Calendar',
+      buttonAttrs: {
+        id: 'datepicker-calendar-button',
+        'aria-label': 'calendar',
+      },
+      popoverAttrs: {
+        id: 'datepicker-popover',
+      },
+      tabsItemDayAttrs: {
+        id: 'datepicker-calendar-day',
+      },
+      tabsItemMonthAttrs: {
+        id: 'datepicker-calendar-month',
+      },
+      tabsItemYearAttrs: {
+        id: 'datepicker-calendar-year',
+      },
     },
     'update:modelValue': null,
     'update:invalid': null,
@@ -131,7 +155,7 @@ export default {
   },
 };
 
-const Template = (args) => ({
+export const FullConfiguration = (args) => ({
   components: { UiDatepicker },
   setup() {
     const modelValue = ref(args.initModelValue);
@@ -153,6 +177,9 @@ const Template = (args) => ({
       :translation="translation"
       :min-limit="minLimit"
       :max-limit="maxLimit"
+      :input-day-attrs="inputDayAttrs"
+      :input-month-attrs="inputMonthAttrs"
+      :input-year-attrs="inputYearAttrs"
       :datepicker-calendar-attrs="datepickerCalendarAttrs"
       @calendar-open="onCalendarOpen"
       @calendar-select="onCalendarSelect"
@@ -163,5 +190,19 @@ const Template = (args) => ({
   />`,
 });
 
-export const Common = Template.bind({});
-
+export const NoConfiguration = () => ({
+  components: { UiDatepicker },
+  setup() {
+    const modelValue = ref('');
+    const invalid = ref(true);
+    return {
+      modelValue,
+      invalid,
+    };
+  },
+  template: `<UiDatepicker
+      v-model="modelValue"
+      v-model:invalid="invalid"
+      error="Sorry, the date of birth cannot be a future date"
+  />`,
+});

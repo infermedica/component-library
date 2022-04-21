@@ -1,6 +1,5 @@
 <template>
   <UiTabsItem
-    name="month"
     class="ui-datepicker-month-tab"
   >
     <UiButton

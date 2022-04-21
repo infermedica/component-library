@@ -27,6 +27,12 @@ export default {
     enableKeyboardNavigation: true,
     text: 'English',
     name: 'locale',
+    buttonAttrs: {
+      id: 'language-button',
+    },
+    popoverAttrs: {
+      id: 'language-popover',
+    },
   },
   argTypes: {
     items: {
@@ -121,12 +127,15 @@ export const WithToggleSlot = (args) => ({
     :toggle-element="toggleElement"
     :close-on-click-outside="closeOnClickOutside"
     :enable-keyboard-navigation="enableKeyboardNavigation"
+    :button-attrs="buttonAttrs"
+    :popover-attrs="popoverAttrs"
     style="--dropdown-popover-width: 15rem;"
     @open="onOpen"
     @close="onClose"
   >
-    <template #toggle="{toggleHandler, openHandler, closeHandler, isOpen, text}">
+    <template #toggle="{toggleHandler, openHandler, closeHandler, isOpen, text, attrs}">
       <UiButton
+        v-bind="attrs"
         ref="toggleElement"
         class="ui-dropdown__toggle ui-button--text"
         :aria-expanded="isOpen.toString()"
@@ -166,12 +175,15 @@ export const WithPopoverSlot = (args) => ({
     :toggle-element="toggleElement"
     :close-on-click-outside="closeOnClickOutside"
     :enable-keyboard-navigation="enableKeyboardNavigation"
+    :button-attrs="buttonAttrs"
+    :popover-attrs="popoverAttrs"
     style="--dropdown-popover-width: 15rem;"
     @open="onOpen"
     @close="onClose"
   >
-    <template #toggle="{toggleHandler, openHandler, closeHandler, isOpen, text}">
+    <template #toggle="{toggleHandler, openHandler, closeHandler, isOpen, text, attrs}">
       <UiButton
+        v-bind="attrs"
         ref="toggleElement"
         class="ui-dropdown__toggle ui-button--text"
         :aria-expanded="isOpen.toString()"
@@ -180,9 +192,10 @@ export const WithPopoverSlot = (args) => ({
         {{ text }}
       </UiButton>
     </template>
-    <template #popover="{closeHandler, isOpen}">
+    <template #popover="{closeHandler, isOpen, attrs}">
       <UiPopover
         v-if="isOpen"
+        v-bind="attrs"
         class="ui-dropdown__popover"
         @close="closeHandler"
       >
@@ -217,12 +230,15 @@ export const WithContentSlot = (args) => ({
     :toggle-element="toggleElement"
     :close-on-click-outside="closeOnClickOutside"
     :enable-keyboard-navigation="enableKeyboardNavigation"
+    :button-attrs="buttonAttrs"
+    :popover-attrs="popoverAttrs"
     style="--dropdown-popover-width: 15rem;"
     @open="onOpen"
     @close="onClose"
   >
-    <template #toggle="{toggleHandler, openHandler, closeHandler, isOpen, text}">
+    <template #toggle="{toggleHandler, openHandler, closeHandler, isOpen, text, attrs}">
       <UiButton
+        v-bind="attrs"
         ref="toggleElement"
         class="ui-dropdown__toggle ui-button--text"
         :aria-expanded="isOpen.toString()"
@@ -282,21 +298,25 @@ export const WithInputToggle = (args) => ({
       filteredItems,
     };
   },
-  template: `
-    <UiDropdown
-        v-model="modelValue"
-        :text="modelValue.label"
-        :toggle-element="toggleElement"
-        style="--dropdown-popover-width: 15rem;"
-        @open="onOpen"
-        @close="onClose"
+  template: `<UiDropdown
+      v-model="modelValue"
+      :text="modelValue.label"
+      :toggle-element="toggleElement"
+      :close-on-click-outside="closeOnClickOutside"
+      :enable-keyboard-navigation="enableKeyboardNavigation"
+      :button-attrs="buttonAttrs"
+      :popover-attrs="popoverAttrs"
+      style="--dropdown-popover-width: 15rem;"
+      @open="onOpen"
+      @close="onClose"
     >
-    <template #toggle="provideData">
+    <template #toggle="{toggleHandler, openHandler, closeHandler, isOpen, text, attrs}">
       <UiInput
-          ref="toggleElement"
-          :model-value="searchQuery"
-          type="search"
-          @update:model-value="inputHandler($event, provideData.openHandler, provideData.closeHandler)"
+        v-bind="attrs"
+        ref="toggleElement"
+        :model-value="searchQuery"
+        type="search"
+        @update:model-value="inputHandler($event, openHandler, closeHandler)"
       >
       </UiInput>
     </template>
@@ -310,7 +330,7 @@ export const WithInputToggle = (args) => ({
         </template>
       </div>
     </template>
-    </UiDropdown>`,
+  </UiDropdown>`,
 });
 WithInputToggle.args = {};
 WithInputToggle.argTypes = {

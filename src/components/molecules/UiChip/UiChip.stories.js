@@ -15,7 +15,7 @@ export default {
   args: {
     content: 'Chest pain',
     buttonAttrs: {
-      'aria-label': 'remove Chest pain from symptoms',
+      'aria-label': 'remove chest pain from symptoms',
     },
     removeAction: null,
   },

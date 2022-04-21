@@ -6,7 +6,7 @@
     :enable-keyboard-navigation="false"
     :toggle-element="toggleElement"
   >
-    <template #toggle="{toggleHandler}">
+    <template #toggle="{toggleHandler, attrs}">
       <slot
         name="toggler"
         v-bind="{toggle: toggleHandler}"
@@ -14,17 +14,16 @@
         <UiButton
           ref="toggleElement"
           class="ui-button--outlined ui-button--circled ui-button--has-icon ui-datepicker-calendar__toggler"
-          v-bind="buttonCalendarAttrs"
+          v-bind="attrs"
           @click="openCalendar(toggleHandler)"
         >
           <UiIcon icon="calendar" />
         </UiButton>
       </slot>
     </template>
-
     <template #content>
       <UiTabs
-        v-model="currentTab"
+        v-model="currentTabId"
         class="ui-tabs--fixed ui-datepicker-calendar__tabs"
       >
         <component
@@ -32,6 +31,7 @@
           v-for="(datePart, key) in order"
           :key="key"
           v-model="date[datePart]"
+          v-bind="defaultProps[`tabsItem${capitalizeFirst(datePart)}Attrs`]"
           :title="capitalizeFirst(translation[datePart])"
           class="ui-datepicker-calendar__tab-content"
           @update:modelValue="goToNextTab"
@@ -49,6 +49,7 @@ import {
   ref,
   watch,
   watchEffect,
+  reactive,
 } from 'vue';
 import { clickOutside as vClickOutside } from '../../../../utilities/directives';
 import { capitalizeFirst } from '../../../../utilities/helpers';
@@ -62,33 +63,67 @@ import UiDatepickerYearTab from './UiDatepickerYearTab.vue';
 
 const props = defineProps({
   /**
-     * Use this props to set current tab value.
-     */
+   * Use this props to set current tab value.
+   */
   lastFocused: {
     type: String,
     default: '',
   },
   /**
-     * Use this props to pass attrs for calendar UiButton
-     */
-  buttonCalendarAttrs: {
+   * Use this props to pass attrs for day UiTabsItem
+   */
+  tabsItemDayAttrs: {
     type: Object,
     default: () => ({}),
   },
+  /**
+   * Use this props to pass attrs for month UiTabsItem
+   */
+  tabsItemMonthAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for year UiTabsItem
+   */
+  tabsItemYearAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+});
+const getDefaultProps = (datePart) => ({
+  id: `datepicker-calendar-${datePart.toLowerCase()}`,
+  ...props[`tabItem${datePart}Attrs`],
+});
+const defaultProps = reactive({
+  tabsItemDayAttrs: getDefaultProps('Day'),
+  tabsItemMonthAttrs: getDefaultProps('Month'),
+  tabsItemYearAttrs: getDefaultProps('Year'),
 });
 const emit = defineEmits(['update:modelValue', 'open', 'select']);
 const dropdown = ref(null);
 const toggleElement = ref(null);
 const translation = inject('translation');
 const order = inject('order');
-
 const date = inject('date');
 
-const currentTab = ref(`${order[0]}`);
+const currentTab = ref(order.at(0));
+const dateParts = computed(() => (Object.keys(defaultProps).reduce((parts, key) => {
+  const match = key.match(/tabsItem(.+)Attrs/);
+  if (match) {
+    // eslint-disable-next-line no-param-reassign
+    parts[defaultProps[key]?.id] = match[1].toLowerCase();
+  }
+  return parts;
+}, {})));
+const currentTabId = computed({
+  get: () => (defaultProps[`tabsItem${capitalizeFirst(currentTab.value)}Attrs`]?.id),
+  set: (id) => { currentTab.value = dateParts.value[id]; },
+});
 const firstEmptyTab = computed(() => {
   let firstEmpty = '';
   // eslint-disable-next-line
-      for (const [key, value] of Object.entries(date)) {
+  for (const [key, value] of Object.entries(date)) {
     if (!value) {
       firstEmpty = key;
       break;
@@ -117,7 +152,9 @@ function openCalendar(open) {
   if (dropdown.value.isOpen) return;
   emit('open');
   // TODO: if no empty Tabs try to focus first tab with error
-  currentTab.value = isDateFulfilled.value ? order.at(0) : (firstEmptyTab.value || props.lastFocused);
+  currentTab.value = isDateFulfilled.value
+    ? order.at(0)
+    : (firstEmptyTab.value || props.lastFocused);
   open();
 }
 
@@ -142,16 +179,15 @@ function goToNextTab() {
   }
 }
 
+const inputsIds = inject('inputsIds');
 const clickOutsideHandler = ({ target: { id, htmlFor } }) => {
-  const allowedIds = Object.keys(date);
+  const allowedIds = Object.keys(inputsIds.value);
 
   if (allowedIds.includes(htmlFor)) return;
   if (!allowedIds.includes(id)) {
     dropdown.value.closeHandler({ focusToggle: false });
-    return;
   }
-
-  currentTab.value = id;
+  currentTab.value = inputsIds.value[id];
 };
 </script>
 

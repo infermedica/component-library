@@ -13,19 +13,19 @@
         >
           <UiText
             tag="label"
-            :for="datePart"
+            :for="defaultProps[`input${capitalizeFirst(datePart)}Attrs`].id"
             class="ui-datepicker__label"
           >
             {{ capitalizeFirst(translation[datePart]) }}
           </UiText>
           <component
             :is="inputComponentSelector(`${datePart}`)"
-            :id="datePart"
             :ref="el => datePartElements[datePart] = el"
             v-model="date[datePart]"
             v-bind="{
               'error': invalid && touched,
               'valid': isInputValid[datePart],
+              ...defaultProps[`input${capitalizeFirst(datePart)}Attrs`],
             }"
             @change-input="focusNextField"
             @focus="handleFocus($event, datePart)"
@@ -33,7 +33,6 @@
         </div>
       </div>
     </UiFormField>
-
     <UiDatepickerCalendar
       :last-focused="lastFocusedDatePart"
       v-bind="datepickerCalendarAttrs"
@@ -149,16 +148,42 @@ const props = defineProps({
     validator: (value) => value > 0,
   },
   /**
+   *  Use this props to pass attrs to day UiInput.
+   */
+  inputDayAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
+   *  Use this props to pass attrs to month UiInput.
+   */
+  inputMonthAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
+   *  Use this props to pass attrs to year UiInput.
+   */
+  inputYearAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
    *  Use this props to pass attrs to UiDatepickerCalendar
    */
   datepickerCalendarAttrs: {
     type: Object,
-    default: () => ({
-      buttonCalendarAttrs: {
-        'aria-label': 'Calendar',
-      },
-    }),
+    default: () => ({}),
   },
+});
+const getDefaultProps = (datePart) => ({
+  id: `datepicker-input-${datePart.toLowerCase()}`,
+  ...props[`input${datePart}Attrs`],
+});
+const defaultProps = reactive({
+  inputDayAttrs: getDefaultProps('Day'),
+  inputMonthAttrs: getDefaultProps('Month'),
+  inputYearAttrs: getDefaultProps('Year'),
 });
 const emit = defineEmits([
   'update:modelValue',
@@ -348,8 +373,7 @@ const lastFocusedDatePart = ref(`${props.order[0]}`);
 
 function handleFocus(event, datePart) {
   emit('field-focus', { field: datePart });
-  const fieldId = event.target.id;
-  lastFocusedDatePart.value = `${fieldId}`;
+  lastFocusedDatePart.value = datePart;
 }
 
 const focus = async (inputElement) => {
@@ -442,6 +466,15 @@ watch(isDateValid, (isValid) => {
 
 provide('translation', props.translation);
 provide('order', props.order);
+const inputsIds = computed(() => (Object.keys(defaultProps).reduce((ids, key) => {
+  const match = key.match(/input(.+)Attrs/);
+  if (match) {
+    // eslint-disable-next-line no-param-reassign
+    ids[defaultProps[key]?.id] = match[1].toLowerCase();
+  }
+  return ids;
+}, {})));
+provide('inputsIds', inputsIds);
 </script>
 
 <style lang="scss">

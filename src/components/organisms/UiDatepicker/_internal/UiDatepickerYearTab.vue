@@ -1,6 +1,5 @@
 <template>
   <UiTabsItem
-    name="year"
     class="ui-datepicker-year-tab"
   >
     <UiButton

@@ -264,7 +264,7 @@ WithButtonInfo.args = {
       common_name: 'Fatigue',
       source: 'suggest',
       buttonInfoAttrs: {
-        'aria-label': 'How to check it?',
+        'aria-label': 'how to check it?',
         to: { path: '/' },
       },
     },
@@ -280,7 +280,7 @@ WithButtonInfo.args = {
       common_name: 'Illusion',
       source: 'suggest',
       buttonInfoAttrs: {
-        'aria-label': 'What does it mean?',
+        'aria-label': 'what does it mean?',
         to: { path: '/' },
       },
     },

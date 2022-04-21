@@ -22,11 +22,11 @@ export default {
     description: 'You will have to answer the question again.',
     buttonConfirmAttrs: {
       id: 'confirm',
-      'aria-label': 'Yes, start new checkup',
+      'aria-label': 'yes, start new checkup',
     },
     buttonCancelAttrs: {
       id: 'cancel',
-      'aria-label': 'Cancel',
+      'aria-label': 'cancel',
     },
     buttonCloseAttrs: {
       id: 'close',

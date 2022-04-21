@@ -165,7 +165,7 @@ AsMultipleAnswer.args = {
       id: 's_1868',
       name: 'A few minutes to 4 hours',
       buttonInfoAttrs: {
-        'aria-label': 'What does it mean?',
+        'aria-label': 'what does it mean?',
       },
     },
     {

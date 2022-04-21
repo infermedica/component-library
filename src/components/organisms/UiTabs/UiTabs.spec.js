@@ -19,4 +19,15 @@ describe('UiTabs.vue', () => {
     await toggler.trigger('click');
     expect(typeof wrapper.emitted('update:modelValue')[0][0] === 'string').toBeTruthy();
   });
+  test('component emit update for UiTabsItem with id instead name', async () => {
+    const wrapper = mount(UiTabs, {
+      slots: {
+        default: h(UiTabsItem, { id: 'sc', title: 'sc' }),
+      },
+    });
+    const item = wrapper.findComponent(UiTabsItem);
+    const toggler = item.find('button');
+    await toggler.trigger('click');
+    expect(typeof wrapper.emitted('update:modelValue')[0][0] === 'string').toBeTruthy();
+  });
 });
