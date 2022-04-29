@@ -12,7 +12,7 @@
 
   $this: &;
 
-  display: var(--stirch-control-display, inline-flex);
+  display: var(--switch-control-display, inline-flex);
   width: var(--switch-control-width, 2.4rem);
   height: var(--switch-control-height, auto);
   align-items: center;
