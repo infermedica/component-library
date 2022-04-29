@@ -1,0 +1,10 @@
+image: node:16.15.0
+
+pipelines:
+  pull-requests:
+    release/*:
+      - step:
+         name: 'Publish to Chromatic'
+         script:
+           - npm ci
+           - npm run chromatic

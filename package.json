@@ -18,7 +18,7 @@
     "create:icons-list": "node scripts/create-icons-list.js",
     "update:docs": "node scripts/update-components-docs.mjs && npm run lint",
     "postinstall": "npm run create:index",
-    "chromatic": "npx chromatic --project-token=df87eb661233"
+    "chromatic": "chromatic"
   },
   "main": "index.js",
   "module": "index.js",
@@ -70,6 +70,7 @@
     "autoprefixer": "^10.4.2",
     "babel-jest": "^27.0.6",
     "babel-loader": "^8.2.3",
+    "chromatic": "^6.5.4",
     "cypress": "^8.3.0",
     "eslint": "^7.32.0",
     "eslint-import-resolver-alias": "^1.1.2",
