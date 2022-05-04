@@ -13,6 +13,7 @@ export const parameters = {
     // FIXME: storySort broken order of stories in component story
     storySort: {
       order: [
+        'Welcome',
         'Getting Started',
         ['Development Guide', ['Installation', ['*']]],
         'Releases',

@@ -1,18 +1,18 @@
 import { Meta } from '@storybook/addon-docs';
 import { PageOutline } from '../components/PageOutline';
 
-<Meta title="Getting Started/Development Guide/Template Customization" />
+<Meta title="Getting Started/Development Guide/Template Configuration" />
 
-# Template Customization
+# Template Configuration
 
-Symptom Checker Ui Kit is a highly customizable UI components library.
+Infermedica Component Library is a highly configurable UI components library.
 You can adjust default style of the components to your design but it is not enough.
-Below you can read about props and how you can customize template of components.
+Below you can read about props and how you can configure template of components.
 
 <PageOutline/>
 
 ## Props
-Prop allows to customize component behavior and put some data to it. Generally, props are used to set component behavior, translations, and attributes for nested components (in Molecules and Organisms).
+Prop allows to configure component behavior and put some data to it. Generally, props are used to set component behavior, translations, and attributes for nested components (in Molecules and Organisms).
 For content in Atoms we used slots. For example, `UiButton` hasn't content props, but it uses `default` slot to set content. More complex components allow setting content by using props like `title`, `description`, etc.
 All props you can find on the component docs page.
 
@@ -88,7 +88,7 @@ Below you can find examples of binding data to `checkbutton` slot in `UiCheckbox
 </UiCheckbox>
 ```
 
-The same way you can customize any components in Symptom Checker Ui Kit.
+The same way you can configure any components in Symptom Checker Ui Kit.
 
 ### Internal components
 Some components like `UiAccordion`, `UiMegaMenu`, `UiDropdown`, etc. have internal components. e.g. `UiDropdown` use `UiDropdownItem` to work like select.
