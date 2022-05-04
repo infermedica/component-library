@@ -124,7 +124,7 @@ const icon = computed(() => {
 if (process.env.NODE_ENV === 'development') {
   const { symptoms } = slots;
   if (symptoms) {
-    console.warn('[@symptom-checker/ui-kit warn]: The "symptoms" slot is deprecated and will be removed in v0.4.0. Please use "details" slot instead.');
+    console.warn('[@infermedica/component-library warn]: The "symptoms" slot is deprecated and will be removed in v0.4.0. Please use "details" slot instead.');
   }
 }
 </script>

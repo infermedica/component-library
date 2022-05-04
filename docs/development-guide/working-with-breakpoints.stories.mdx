@@ -6,12 +6,12 @@ import { Alert } from '../components/Alert';
 
 # Working with breakpoints
 We want to make sure that our components work well on all devices. Than we use breakpoints to make sure that our components are responsive.
-Symptom Checker UI Kit has a predefined breakpoints but it is possible to define your own breakpoints.
+Infermedica Component Library has a predefined breakpoints but it is possible to define your own breakpoints.
 
 <PageOutline/>
 
 ## Predefined breakpoints
-Predefined breakpoints in Symptom Checker UI Kit are:
+Predefined breakpoints in Infermedica Component Library are:
 
 ```scss
 $mobile-max-width: 767px !default;
@@ -115,7 +115,7 @@ To use breakpoints mixins you should import them in your stylesheet:
 A huge problem in breakpoints is a possibility of using SASS variables in JavaScript code.
 It's important to keep consistency between SASS and JavaScript breakpoints.
 
-In Symptom Checker UI Kit we solve this problem and export breakpoints and media queries. i.e.
+In Infermedica Component Library we solve this problem and export breakpoints and media queries. i.e.
 
 ```js
 import breakpoints from "@symptom-checker/src/styles/exports/breakpoints.scss";

@@ -129,7 +129,7 @@ const validNext = computed(() => (
 if (process.env.NODE_ENV === 'development') {
   const { next } = slots;
   if (next) {
-    console.warn('[@symptom-checker/ui-kit warn]: The "validNext" props bounded to "next" slot is deprecated and will be removed in v0.4.0. Please use "attrs" properties instead.');
+    console.warn('[@infermedica/component-library warn]: The "validNext" props bounded to "next" slot is deprecated and will be removed in v0.4.0. Please use "attrs" properties instead.');
   }
 }
 const nextAttrs = computed(() => (

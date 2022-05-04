@@ -10,13 +10,13 @@ Below you can read how you can add it to your project.
 <PageOutline/>
 
 ## How to install
-You can create a new project or integrate Symptom Checker UI Kit into an existing application. The installation process is mostly
+You can create a new project or integrate Infermedica Component Library into an existing application. The installation process is mostly
 the same for both cases. Choose the installation that best suits to your project.
 
 ```bash
-npm i @symptom-checker/ui-kit
+npm i @infermedica/component-library
 # or
-pnpm add @symptom-checker/ui-kit
+pnpm add @infermedica/component-library
 ```
 
 ## Usage default styles
@@ -26,7 +26,7 @@ CSS variables and adjust styles to your requirements. More details you can find 
 We provide our default design if you want use it inside your project, you need to import them into the `main.js` file.
 
 ```js
-import '@symptom-checker/ui-kit/src/styles/styles.scss'
+import '@infermedica/component-library/src/styles/styles.scss'
 ```
 
 ## Webpack loaders
@@ -66,7 +66,7 @@ module.exports = {
 ```
 
 ## Usage components in SFC
-You can directly import components from the Symptom Checker UI Kit and use them in a template.
+You can directly import components from the Infermedica Component Library and use them in a template.
 
 ### Script syntax
 
@@ -76,7 +76,7 @@ You can directly import components from the Symptom Checker UI Kit and use them 
 </template>
 
 <script>
-import { UiComponentName } from '@symptom-checker/ui-kit'
+import { UiComponentName } from '@infermedica/component-library'
 
 export default {
   components: {
@@ -94,7 +94,7 @@ export default {
 </template>
 
 <script setup>
-  import { UiComponentName } from '@symptom-checker/ui-kit'
+  import { UiComponentName } from '@infermedica/component-library'
 </script>
 ```
 
@@ -108,7 +108,7 @@ Some components includes smaller internal components, you must import them using
   </UiToggleButtonGroup>
 </template>
 <script setup>
-  import { UiToggleButtonGroup } from '@symptom-checker/ui-kit'
-  import UiToggleButton from '@symptom-checker/ui-kit/src/components/molecules/UiToggleButtonGroup/_internal/UiToggleButton.vue';
+  import { UiToggleButtonGroup } from '@infermedica/component-library'
+  import UiToggleButton from '@infermedica/component-library/src/components/molecules/UiToggleButtonGroup/_internal/UiToggleButton.vue';
 </script>
 ```

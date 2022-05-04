@@ -60,7 +60,7 @@ All possible translations keys you can find on the component docs page as the de
 
 ## Slots
 Slots is a way to handle whole edge cases that a user would like cover well. Slots are especially useful for markup changes.
-Every component in Symptom Checker Ui Kit has a slots. To name it we use BEM convention e.g `<UiButton class="ui-range__decrement"...` is placed in `decrement` slot
+Every component in Infermedica Component Library has a slots. To name it we use BEM convention e.g `<UiButton class="ui-range__decrement"...` is placed in `decrement` slot
 Each of elements is wrapped into a Vue slot to let you replace parts or HTML markup.
 
 ```html
@@ -88,7 +88,7 @@ Below you can find examples of binding data to `checkbutton` slot in `UiCheckbox
 </UiCheckbox>
 ```
 
-The same way you can configure any components in Symptom Checker Ui Kit.
+The same way you can configure any components in Infermedica Component Library Kit.
 
 ### Internal components
 Some components like `UiAccordion`, `UiMegaMenu`, `UiDropdown`, etc. have internal components. e.g. `UiDropdown` use `UiDropdownItem` to work like select.
@@ -112,6 +112,6 @@ In this cases we use `provide/inject` to "connect" `UiDropdown` component with `
 <!-- fixme: allow to use internal components in the easiest way -->
 Unfortunately to use internal components like `UiDropdownItem` you must import it directly from package.
 ```js
-import { UiDropdownItem } from '@symptom-checker/ui-kit';
-import UiDropdownItem from '@symptom-checker/ui-kit/src/components/molecules/UiDropdown/_internal/UiDropdownItem.vue';
+import { UiDropdownItem } from '@infermedica/component-library';
+import UiDropdownItem from '@infermedica/component-library/src/components/molecules/UiDropdown/_internal/UiDropdownItem.vue';
 ```

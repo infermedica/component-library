@@ -6,7 +6,7 @@ import { PageOutline } from '../components/PageOutline';
 <Meta title="Getting Started/Development Guide/Code Guidelines"/>
 
 # Code Guidelines
-The Symptom Checker Uikit development team has rules to keep the code clean and easy to understand - for all team members.
+The Infermedica Component Library development team has rules to keep the code clean and easy to understand - for all team members.
 These rules ensure that the code can be read and improved by a developer other than its original author. Following these rules
 will help maintain readability, changeability, extensibility and maintainability. You can read these rules below
 
@@ -82,7 +82,7 @@ we are support deprecation to next major version and adding information about de
 * Add console.warn only in development mode
 ```js
 if(process.env.NODE_ENV === 'development') {
-    console.warn('[@symptom-checker/ui-kit warn]: <deprecated> will be removed in <version>. Please use <new> instead.');
+    console.warn('[@infermedica/component-library warn]: <deprecated> will be removed in <version>. Please use <new> instead.');
 }
 ```
 Here is a example for slot deprecation:
@@ -90,7 +90,7 @@ Here is a example for slot deprecation:
 if (process.env.NODE_ENV === 'development') {
   const { symptoms } = slots;
   if (symptoms) {
-    console.warn('[@symptom-checker/ui-kit warn]: The "symptoms" slot is deprecated and will be removed in v0.4.0. Please use "details" slot instead.');
+    console.warn('[@infermedica/component-library warn]: The "symptoms" slot is deprecated and will be removed in v0.4.0. Please use "details" slot instead.');
   }
 }
 ```
