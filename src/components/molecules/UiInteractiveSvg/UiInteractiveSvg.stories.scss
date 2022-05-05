@@ -1,0 +1,28 @@
+.ui-interactive-svg {
+  width: 150px;
+  height: 260px;
+
+  &-element {
+    --interactive-svg-element-subtle-highlight: var(--color-blue-200);
+    --interactive-svg-element-strong-highlight: var(--color-blue-400);
+    --interactive-svg-element-transition: fill 0.15s ease-in-out,
+      stroke 0.15s ease-in-out;
+
+    fill: transparent;
+    transition: var(--interactive-svg-element-transition);
+
+    &:hover {
+      cursor: pointer;
+      fill: var(--interactive-svg-element-strong-highlight);
+    }
+
+    &:focus {
+      fill: var(--interactive-svg-element-strong-highlight);
+      outline: none;
+    }
+
+    &--selected {
+      fill: var(--interactive-svg-element-subtle-highlight);
+    }
+  }
+}
