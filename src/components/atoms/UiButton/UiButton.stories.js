@@ -37,16 +37,6 @@ export default {
         control: 'text',
         description: '',
       },
-      'button-align-items': {
-        value: 'center',
-        control: 'text',
-        description: '',
-      },
-      'button-justify-content': {
-        value: 'center',
-        control: 'text',
-        description: '',
-      },
       'button-width': {
         value: undefined,
         control: 'text',
@@ -57,13 +47,33 @@ export default {
         control: 'text',
         description: '',
       },
+      'button-align-items': {
+        value: 'center',
+        control: 'text',
+        description: '',
+      },
+      'button-justify-content': {
+        value: 'center',
+        control: 'text',
+        description: '',
+      },
       'button-padding': {
         value: 'var(--space-12) var(--space-32)',
         control: 'text',
         description: '',
       },
+      'button-background': {
+        value: 'var(--color-background-action)',
+        control: 'text',
+        description: '',
+      },
       'button-color': {
         value: 'var(--color-text-on-action)',
+        control: 'text',
+        description: '',
+      },
+      'button-cursor': {
+        value: 'pointer',
         control: 'text',
         description: '',
       },
@@ -82,23 +92,13 @@ export default {
         control: 'text',
         description: '',
       },
+      'button-vertical-align': {
+        value: 'top',
+        control: 'text',
+        description: '',
+      },
       'button-white-space': {
         value: 'nowrap',
-        control: 'text',
-        description: '',
-      },
-      'button-vertical-align': {
-        value: 'middle',
-        control: 'text',
-        description: '',
-      },
-      'button-cursor': {
-        value: 'pointer',
-        control: 'text',
-        description: '',
-      },
-      'button-background': {
-        value: 'var(--color-background-action)',
         control: 'text',
         description: '',
       },
@@ -112,13 +112,13 @@ export default {
         control: 'text',
         description: '',
       },
-      'button-hover-color': {
-        value: 'var(--color-text-on-action)',
+      'button-hover-background': {
+        value: 'var(--color-background-action-hover)',
         control: 'text',
         description: '',
       },
-      'button-hover-background': {
-        value: 'var(--color-background-action-hover)',
+      'button-hover-color': {
+        value: 'var(--color-text-on-action)',
         control: 'text',
         description: '',
       },
@@ -132,13 +132,13 @@ export default {
         control: 'text',
         description: '',
       },
-      'button-active-color': {
-        value: 'var(--color-text-on-action)',
+      'button-active-background': {
+        value: 'var(--color-background-action-active)',
         control: 'text',
         description: '',
       },
-      'button-active-background': {
-        value: 'var(--color-background-action-active)',
+      'button-active-color': {
+        value: 'var(--color-text-on-action)',
         control: 'text',
         description: '',
       },

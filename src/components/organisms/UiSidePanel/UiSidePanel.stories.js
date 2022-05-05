@@ -166,13 +166,13 @@ export default {
         control: 'text',
         description: '',
       },
-      'side-panel-content-padding': {
-        value: 'var(--space-24) var(--space-20)',
+      'side-panel-content-overflow': {
+        value: 'auto',
         control: 'text',
         description: '',
       },
-      'side-panel-content-overflow': {
-        value: 'auto',
+      'side-panel-content-padding': {
+        value: 'var(--space-24) var(--space-20)',
         control: 'text',
         description: '',
       },

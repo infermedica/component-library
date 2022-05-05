@@ -59,10 +59,6 @@
         </slot>
         <!-- @slot Use this slot to place content bottom of card. -->
         <slot name="details" />
-        <!-- @slot @deprecated will be removed in 0.4.0 use details slots instead -->
-        <!-- TODO: remove in 0.4.0 / BEGIN-->
-        <slot name="symptoms" />
-        <!-- END  -->
       </div>
     </slot>
   </UiContainer>
@@ -120,13 +116,6 @@ const icon = computed(() => {
   };
   return icons[props.type];
 });
-
-if (process.env.NODE_ENV === 'development') {
-  const { symptoms } = slots;
-  if (symptoms) {
-    console.warn('[@infermedica/component-library warn]: The "symptoms" slot is deprecated and will be removed in v0.4.0. Please use "details" slot instead.');
-  }
-}
 </script>
 
 <style lang="scss">

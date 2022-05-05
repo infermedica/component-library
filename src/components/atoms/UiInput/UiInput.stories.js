@@ -44,13 +44,13 @@ export default {
         control: 'text',
         description: '',
       },
-      'input-color': {
-        value: 'var(--color-text-body)',
+      'input-background-color': {
+        value: 'var(--color-background-white)',
         control: 'text',
         description: '',
       },
-      'input-background-color': {
-        value: 'var(--color-background-white)',
+      'input-color': {
+        value: 'var(--color-text-body)',
         control: 'text',
         description: '',
       },

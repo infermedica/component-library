@@ -64,13 +64,13 @@ export default {
         control: 'text',
         description: '',
       },
-      'progress-background': {
-        value: 'var(--color-progress-track)',
+      'progress-border': {
+        value: '0',
         control: 'text',
         description: '',
       },
-      'progress-border': {
-        value: '0',
+      'progress-background': {
+        value: 'var(--color-progress-track)',
         control: 'text',
         description: '',
       },

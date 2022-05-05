@@ -117,13 +117,13 @@ export default {
         control: 'text',
         description: '',
       },
-      'modal-background': {
-        value: 'var(--color-background-white)',
+      'modal-border': {
+        value: 'none',
         control: 'text',
         description: '',
       },
-      'modal-border': {
-        value: 'none',
+      'modal-background': {
+        value: 'var(--color-background-white)',
         control: 'text',
         description: '',
       },

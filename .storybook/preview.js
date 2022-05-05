@@ -17,7 +17,7 @@ export const parameters = {
         'Getting Started',
         ['Development Guide', ['Installation', ['*']]],
         'Releases',
-        ['v0.3.x', 'v0.2.x', 'v0.1.x', 'v0.0.x'],
+        ['v0.4.x', 'v0.3.x', 'v0.2.x', 'v0.1.x', 'v0.0.x'],
         'Atoms',
         'Molecules',
         'Organisms',

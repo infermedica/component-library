@@ -34,6 +34,11 @@ export default {
   },
   parameters: {
     cssprops: {
+      'checkbox-border-radius': {
+        value: 'var(--border-radius-form)',
+        control: 'text',
+        description: '',
+      },
       'checkbox-size': {
         value: '1.25rem',
         control: 'text',
@@ -46,11 +51,6 @@ export default {
       },
       'checkbox-background': {
         value: 'var(--color-background-white)',
-        control: 'text',
-        description: '',
-      },
-      'checkbox-border-radius': {
-        value: 'var(--border-radius-form)',
         control: 'text',
         description: '',
       },

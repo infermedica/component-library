@@ -25,6 +25,11 @@ export default {
   },
   parameters: {
     cssprops: {
+      'link-display': {
+        value: 'inline',
+        control: 'text',
+        description: '',
+      },
       'link-color': {
         value: 'var(--color-text-action-primary)',
         control: 'text',
@@ -36,7 +41,7 @@ export default {
         description: '',
       },
       'link-vertical-align': {
-        value: 'middle',
+        value: 'top',
         control: 'text',
         description: '',
       },
@@ -67,6 +72,11 @@ export default {
       },
       'link-icon-margin': {
         value: '0 0 0 var(--space-4)',
+        control: 'text',
+        description: '',
+      },
+      'link-icon-vertical-align': {
+        value: 'top',
         control: 'text',
         description: '',
       },

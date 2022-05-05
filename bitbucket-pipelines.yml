@@ -5,6 +5,8 @@ pipelines:
     release/*:
       - step:
          name: 'Publish to Chromatic'
+         caches:
+           - node
          script:
            - npm ci
-           - npm run chromatic
+           - npm run chromatic --patch-build=$your-branch...master

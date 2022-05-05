@@ -75,6 +75,11 @@ export default {
         control: 'text',
         description: '',
       },
+      'controls-bottom': {
+        value: '5rem',
+        control: 'text',
+        description: '',
+      },
       'controls-bottom-align-items': {
         value: 'center',
         control: 'text',
@@ -82,11 +87,6 @@ export default {
       },
       'controls-bottom-justify-content': {
         value: 'space-between',
-        control: 'text',
-        description: '',
-      },
-      'controls-bottom': {
-        value: '5rem',
         control: 'text',
         description: '',
       },

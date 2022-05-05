@@ -34,11 +34,6 @@ export default {
         control: 'text',
         description: '',
       },
-      'chip-color': {
-        value: 'var(--color-chip-text)',
-        control: 'text',
-        description: '',
-      },
       'chip-background': {
         value: 'var(--color-chip-background)',
         control: 'text',
@@ -46,6 +41,11 @@ export default {
       },
       'chip-border-radius': {
         value: 'var(--border-radius-pill)',
+        control: 'text',
+        description: '',
+      },
+      'chip-color': {
+        value: 'var(--color-chip-text)',
         control: 'text',
         description: '',
       },
