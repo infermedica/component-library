@@ -100,7 +100,6 @@ function selectHandler() {
 
     flex-direction: column;
     justify-content: center;
-
   }
 
   &:active {

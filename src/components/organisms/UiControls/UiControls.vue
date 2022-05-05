@@ -16,7 +16,7 @@
         <!-- @slot Use this slot to replace next template. -->
         <slot
           v-if="toNext"
-          v-bind="{hideNextButton, attrs: nextAttrs, invalid, translation, validNext}"
+          v-bind="{hideNextButton, attrs: nextAttrs, invalid, translation}"
           name="next"
         >
           <UiButton
@@ -113,24 +113,6 @@ const emit = defineEmits(['has-error']);
 const slots = useSlots();
 function hasError() {
   emit('has-error');
-}
-// @deprecated will be removed in 0.4.0 use attrs props instead.
-// TODO: remove in 0.4.0 / BEGIN
-const validNext = computed(() => (
-  props.invalid
-    ? {
-      onClick: hasError,
-    }
-    : {
-      to: props.toNext,
-    }
-));
-// END
-if (process.env.NODE_ENV === 'development') {
-  const { next } = slots;
-  if (next) {
-    console.warn('[@infermedica/component-library warn]: The "validNext" props bounded to "next" slot is deprecated and will be removed in v0.4.0. Please use "attrs" properties instead.');
-  }
 }
 const nextAttrs = computed(() => (
   props.invalid
