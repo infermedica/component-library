@@ -54,6 +54,14 @@ module.exports = {
     env: {
       jest: true,
     },
+  },
+  {
+    files: ['**/*.vue'],
+    rules: {
+      'no-restricted-imports': ['error', {
+        patterns: ['@/*'],
+      }],
+    },
   }],
   settings: {
     'import/resolver': {

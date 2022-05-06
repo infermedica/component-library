@@ -19,7 +19,7 @@ import {
   inject,
   nextTick,
 } from 'vue';
-import { removeNonDigits } from '@/utilities/helpers/remove-non-digits';
+import { removeNonDigits } from '../../../../utilities/helpers/remove-non-digits';
 import UiInput from '../../../atoms/UiInput/UiInput.vue';
 import useKeyValidation from '../../../../composable/useKeyValidation';
 
