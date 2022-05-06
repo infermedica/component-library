@@ -21,7 +21,7 @@
           <component
             :is="inputComponentSelector(`${datePart}`)"
             :ref="el => datePartElements[datePart] = el"
-            v-model="date[datePart]"
+            :model-value="date[datePart]"
             v-bind="{
               'error': invalid && touched,
               'valid': isInputValid[datePart],
@@ -29,6 +29,7 @@
             }"
             @change-input="focusNextField"
             @focus="handleFocus($event, datePart)"
+            @update:model-value="(value) => handleDateUpdate(datePart, value)"
           />
         </div>
       </div>
@@ -210,6 +211,9 @@ const date = reactive(
     year: '',
   },
 );
+const handleDateUpdate = (datePart, value) => {
+  date[datePart] = ref(value);
+};
 provide('date', date);
 
 const currentDate = new Date();

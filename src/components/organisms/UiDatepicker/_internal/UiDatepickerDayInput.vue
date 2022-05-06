@@ -19,6 +19,7 @@ import {
   inject,
   nextTick,
 } from 'vue';
+import { removeNonDigits } from '@/utilities/helpers/remove-non-digits';
 import UiInput from '../../../atoms/UiInput/UiInput.vue';
 import useKeyValidation from '../../../../composable/useKeyValidation';
 
@@ -52,7 +53,7 @@ const { numbersOnly } = useKeyValidation();
 
 const day = computed({
   get: () => (`${props.modelValue}`),
-  set: (value) => { emit('update:modelValue', value); },
+  set: (value) => { emit('update:modelValue', removeNonDigits(value)); },
 });
 
 const validationError = computed(() => (day.value.length === 2 && !props.valid));
