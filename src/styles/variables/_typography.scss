@@ -44,7 +44,7 @@ html {
   }
 
   --letter-spacing-h1: var(--letter-spacing-none);
-  --letter-spacing-h2: var(--letter-spacing-none);
+  --letter-spacing-h2: var(--letter-spacing-small);
   --letter-spacing-h3: var(--letter-spacing-small);
   --letter-spacing-h4: var(--letter-spacing-medium);
   --letter-spacing-h5: var(--letter-spacing-medium);
@@ -57,8 +57,7 @@ html {
   --letter-spacing-caption: var(--letter-spacing-medium);
 
   @media screen and (min-width: 768px) {
-    --letter-spacing-h2: var(--letter-spacing-small);
-    --letter-spacing-h3: var(--letter-spacing-small);
+    --letter-spacing-h2: var(--letter-spacing-none);
   }
 }
 
