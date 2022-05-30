@@ -120,17 +120,7 @@ const currentTabId = computed({
   get: () => (defaultProps[`tabsItem${capitalizeFirst(currentTab.value)}Attrs`]?.id),
   set: (id) => { currentTab.value = dateParts.value[id]; },
 });
-const firstEmptyTab = computed(() => {
-  let firstEmpty = '';
-  // eslint-disable-next-line
-  for (const [key, value] of Object.entries(date)) {
-    if (!value) {
-      firstEmpty = key;
-      break;
-    }
-  }
-  return firstEmpty;
-});
+const firstEmptyTab = computed(() => (order.find((key) => !date[key])));
 
 function tabComponentSelector(datePart) {
   switch (datePart) {
