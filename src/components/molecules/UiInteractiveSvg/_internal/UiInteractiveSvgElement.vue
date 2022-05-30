@@ -33,9 +33,11 @@ defineProps({
 const setAttrs = inject('setElementsAttrs');
 const elementAttrs = (attrs) => {
   const setElementAttrs = setAttrs.value || setAttrs;
-  const { setElementsAttrs, ...rest } = setElementAttrs(attrs);
-  if (setElementsAttrs) {
-    nestedSetElementsAttrs.value = setElementsAttrs;
+  const { setElementsAttrs: setElementAttrsForNested, ...rest } = setElementAttrs(attrs);
+  if (setElementAttrsForNested) {
+    nestedSetElementsAttrs.value = setElementAttrsForNested;
+  } else {
+    nestedSetElementsAttrs.value = setElementAttrs;
   }
   return {
     ...attrs,
