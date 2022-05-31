@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { scrollTabindex } from './index.js';
+import { scrollTabindex } from './index';
 
 // scrollHeight isn't available in test environment
 Object.defineProperty(HTMLElement.prototype, 'scrollHeight', {

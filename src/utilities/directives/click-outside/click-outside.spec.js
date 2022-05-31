@@ -1,22 +1,23 @@
 import { mount } from '@vue/test-utils';
 import { clickOutside } from './index';
 
-let handler;
 let options;
-const Component = {
-  template: '<div data-testid="root-element" v-click-outside="handler"><button data-testid="inside-button"></button></div><button data-testid="outside-button"></button>',
-};
+let handler;
+let Component;
 beforeEach(() => {
   handler = jest.fn();
+  Component = {
+    template: '<div data-testid="root-element" v-click-outside="handler"><button data-testid="inside-button"></button></div><button data-testid="outside-button"></button>',
+    methods: {
+      handler,
+    },
+  };
   options = {
     attachTo: 'body',
     global: {
       directives: {
         clickOutside,
       },
-    },
-    methods: {
-      handler,
     },
   };
 });

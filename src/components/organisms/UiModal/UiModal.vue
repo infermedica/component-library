@@ -165,7 +165,7 @@
 import {
   ref, computed, nextTick, onBeforeUnmount, onMounted,
 } from 'vue';
-import { bodyScrollLock as vBodyScrollLock, focusTrap as vFocusTrap } from '../../../utilities/directives/index.js';
+import { bodyScrollLock as vBodyScrollLock, focusTrap as vFocusTrap } from '../../../utilities/directives/index';
 import UiBackdrop from '../../atoms/UiBackdrop/UiBackdrop.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';

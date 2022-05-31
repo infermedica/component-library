@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { focusTrap } from './index.js';
+import { focusTrap } from './index';
 
 // allows to skip checking if the element is hidden in getFocusableElements.js because offsetParent isn't available in test environment
 Object.defineProperty(HTMLElement.prototype, 'offsetParent', {

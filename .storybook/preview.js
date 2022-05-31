@@ -10,7 +10,6 @@ import './styles.scss';
 
 export const parameters = {
   options: {
-    // FIXME: storySort broken order of stories in component story
     storySort: {
       order: [
         'Welcome',

@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { keyboardFocus } from './index.js';
+import { keyboardFocus } from './index';
 
 let wrapper;
 let button;

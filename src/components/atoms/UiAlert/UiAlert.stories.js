@@ -120,7 +120,7 @@ export const WithIconSlot = (args) => ({
 });
 
 export const WithMessageSlot = (args) => ({
-  components: { UiAlert },
+  components: { UiAlert, UiText },
   setup() { return { ...args }; },
   template: `<UiAlert 
     :type="type" 

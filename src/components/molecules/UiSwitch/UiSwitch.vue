@@ -29,7 +29,7 @@
 import UiCheckbox from '../../atoms/UiCheckbox/UiCheckbox.vue';
 import UiSwitchControl from './_internal/UiSwitchControl.vue';
 
-const props = defineProps({
+defineProps({
   /**
    *  Use this props or v-model to set checked.
    */

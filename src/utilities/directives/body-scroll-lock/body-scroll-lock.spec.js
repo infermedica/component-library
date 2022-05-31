@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { bodyScrollLock } from './index.js';
+import { bodyScrollLock } from './index';
 
 const Component = {
   template: '<dialog v-body-scroll-lock></dialog>',

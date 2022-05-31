@@ -48,7 +48,6 @@ export const WithDirective = () => ({
   >
     <template #close>
       <UiButton
-        v-bind="attrs"
         class="ui-button--has-icon ui-button--secondary ui-button--text ui-popover__close"
         @click="toggleHandler"
       >
@@ -102,7 +101,6 @@ export const WithDirectiveSwitcher = () => ({
   >
     <template #close>
       <UiButton
-          v-bind="attrs"
           class="ui-button--has-icon ui-button--secondary ui-button--text ui-popover__close"
           @click="toggleHandler"
       >
@@ -141,7 +139,6 @@ export const WithoutDirective = () => ({
   >
     <template #close>
       <UiButton
-        v-bind="attrs"
         class="ui-button--has-icon ui-button--secondary ui-button--text ui-popover__close"
         @click="toggleHandler"
       >

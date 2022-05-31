@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { highlight } from './index.js';
+import { highlight } from './index';
 
 let wrapper;
 const elementP = document.createElement('p');

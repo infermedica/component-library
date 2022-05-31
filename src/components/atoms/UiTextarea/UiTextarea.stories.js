@@ -1,6 +1,6 @@
 import UiTextarea from '@/components/atoms/UiTextarea/UiTextarea.vue';
 import {
-  content, modifiers, placeholder, disabled,
+  modifiers, placeholder, disabled,
 } from '@sb/helpers/argTypes';
 
 import { nextTick, onMounted, ref } from 'vue';
