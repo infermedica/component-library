@@ -441,7 +441,9 @@ watch(isYearFulfilled, (fullfilled) => handleFulfilledChange(fullfilled, 'year',
 const localizeMonths = async (locale) => {
   let localize;
   try {
-    localize = await import(/* webpackChunkName: "date-fns-localize-[request]" */ `date-fns/locale/${locale}/_lib/localize`);
+    localize = await import(
+      /* @vite-ignore */ /* webpackChunkName: "date-fns-localize-[request]" */ `date-fns/locale/${locale}/_lib/localize`
+    );
   } catch (error) {
     localize = await import('date-fns/locale/en-US/_lib/localize');
     if (process.env.NODE_ENV !== 'production') {
