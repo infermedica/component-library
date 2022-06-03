@@ -74,7 +74,13 @@ const { componentTag, routeAttrs } = useLink(props);
       color 0.15s ease-in-out)
     );
   vertical-align: var(--button-vertical-align, top);
-  white-space: var(--button-white-space, nowrap);
+  white-space: var(--button-white-space, normal);
+  word-break: var(--button-word-break, break-all);
+
+  @supports (overflow-wrap: anywhere) {
+    word-break: normal;
+    overflow-wrap: var(--button-overflow-wrap, anywhere);
+  }
 
   @media (hover: hover) {
     &:hover {
