@@ -17,25 +17,24 @@ const options = {
 beforeEach(() => {
   wrapper = mount(Component, options);
   button = wrapper.findComponent(Component);
-  document.body.classList = 'focus-is-hidden';
+  document.body.classList = [];
 });
 
 describe('directive/keyboardFocus', () => {
-  test('remove class focus-is-hidden from body when press tab', async () => {
+  test('remove class focus-hidden from body when press tab', async () => {
     await button.trigger('keyup', { code: 'Tab' });
-    expect(document.body.classList.contains('focus-is-hidden')).toBe(false);
+    expect(document.body.classList.contains('focus-hidden')).toBe(false);
   });
-  test('does not remove class focus-is-hidden from body when press other key than tab', async () => {
+  test('does not remove class focus-hidden from body when press other key than tab', async () => {
     await button.trigger('keyup', { code: 'Slash' });
-    expect(document.body.classList.contains('focus-is-hidden')).toBe(true);
+    expect(document.body.classList.contains('focus-hidden')).toBe(false);
   });
   test('focus element when press tab', async () => {
     await button.trigger('keyup', { code: 'Tab' });
     expect(document.activeElement).toBe(button.element);
   });
-  test('add class focus-is-hidden to body on mouse click', async () => {
-    document.body.classList = '';
+  test('add class focus-hidden to body on mouse click', async () => {
     await button.trigger('mousedown');
-    expect(document.body.classList.contains('focus-is-hidden')).toBe(true);
+    expect(document.body.classList.contains('focus-hidden')).toBe(true);
   });
 });

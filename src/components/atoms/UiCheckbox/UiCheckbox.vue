@@ -162,8 +162,10 @@ function changeHandler(checked) {
       }
     }
 
-    &:focus + #{$this}__checkbutton {
-      box-shadow: var(--focus-outer);
+    @include focus {
+      & + #{$this}__checkbutton {
+        box-shadow: var(--focus-outer);
+      }
     }
   }
 

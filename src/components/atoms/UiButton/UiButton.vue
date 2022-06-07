@@ -115,9 +115,12 @@ const { componentTag, routeAttrs } = useLink(props);
   }
 
   &:focus {
+    outline: none;
+  }
+
+  @include focus {
     z-index: var(--button-focus-z-index, 1);
     box-shadow: var(--focus-outer);
-    outline: none;
   }
 
   &__icon {
@@ -195,17 +198,12 @@ const { componentTag, routeAttrs } = useLink(props);
     --button-color: var(--color-text-action-primary);
     --button-hover-color: var(--color-text-action-primary-hover);
     --button-active-color: var(--color-text-action-primary-active);
-    --button-border-width: 0;
     --button-background: transparent;
     --button-hover-background: transparent;
     --button-active-background: transparent;
     --button-padding: 0;
     --button-font: var(--body-1);
     --button-letter-spacing: var(--letter-spacing-body-1);
-
-    &:focus {
-      --button-border-radius: var(--border-radius-outline);
-    }
 
     #{$this}__icon {
       --button-icon-margin: 0 var(--space-4) 0 0;

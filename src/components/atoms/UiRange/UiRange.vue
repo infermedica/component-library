@@ -240,27 +240,26 @@ function changeHandler(value) {
       box-shadow: var(--range-thumb-box-shadow, var(--box-shadow-high));
     }
 
-    @mixin range-thumb-focus {
-      box-shadow: var(--focus-outer);
-      outline: none;
-    }
-
     &::-webkit-slider-thumb {
       @include range-thumb;
 
       appearance: none;
     }
 
-    &:focus::-webkit-slider-thumb {
-      @include range-thumb-focus;
-    }
-
     &::-moz-range-thumb {
       @include range-thumb;
     }
 
-    &:focus::-moz-range-thumb {
-      @include range-thumb-focus;
+    @include focus {
+      &::-webkit-slider-thumb {
+        outline: none;
+        box-shadow: var(--focus-outer);
+      }
+
+      &::-moz-range-thumb {
+        outline: none;
+        box-shadow: var(--focus-outer);
+      }
     }
   }
 

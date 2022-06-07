@@ -156,8 +156,10 @@ function changeHandler(checked) {
       }
     }
 
-    &:focus + #{$this}__radiobutton {
-      box-shadow: var(--focus-outer);
+    @include focus {
+      & + #{$this}__radiobutton {
+        box-shadow: var(--focus-outer);
+      }
     }
   }
 

@@ -59,7 +59,7 @@ import {
   isMatch,
   lightFormat,
 } from 'date-fns';
-import { capitalizeFirst } from '../../../utilities/helpers';
+import { capitalizeFirst, focusElement } from '../../../utilities/helpers';
 import UiFormField from '../../molecules/UiFormField/UiFormField.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import UiDatepickerDayInput from './_internal/UiDatepickerDayInput.vue';
@@ -383,7 +383,7 @@ function handleFocus(event, datePart) {
 const focus = async (inputElement) => {
   await nextTick();
   const target = inputElement?.$el?.children[0];
-  target.focus();
+  focusElement(target);
   if (target.value) target.select();
 };
 function focusInput(datePart) {

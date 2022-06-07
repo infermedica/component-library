@@ -153,11 +153,6 @@ LargeSecondaryWithIcon.args = {
   modifiers: ['ui-link--has-icon', 'ui-link--secondary'],
 };
 
-// todo: add LargeOnDark
-export const LargeOnDark = () => ({
-  template: 'Oops! Not found!',
-});
-
 export const Small = Large.bind({});
 Small.args = {
   modifiers: ['ui-link--small'],

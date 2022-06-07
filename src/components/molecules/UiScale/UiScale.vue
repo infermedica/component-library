@@ -229,6 +229,8 @@ function calcActiveElementOpacity(index) {
   }
 
   &__radiobutton {
+    --radio-border-radius: var(--border-radius-button);
+
     flex: 1;
 
     &--is-active {
@@ -321,21 +323,23 @@ function calcActiveElementOpacity(index) {
   }
 
   input {
-    &:focus + #{$this}__radiobutton {
-      z-index: 1;
-      border-radius: var(--border-radius-outline);
-      box-shadow: var(--focus-outer);
+    @include focus {
+      & + #{$this}__radiobutton {
+        z-index: 1;
+        border-radius: var(--border-radius-form);
+        box-shadow: var(--focus-outer);
 
-      & #{$this}__label {
-        width: 100%;
-        border: 0;
-      }
+        & #{$this}__label {
+          width: 100%;
+          border: 0;
+        }
 
-      & #{$this}__square {
-        width: 100%;
-        border: 0;
-        border-bottom-left-radius: var(--border-radius-outline);
-        border-bottom-right-radius: var(--border-radius-outline);
+        & #{$this}__square {
+          width: 100%;
+          border: 0;
+          border-bottom-left-radius: var(--border-radius-form);
+          border-bottom-right-radius: var(--border-radius-form);
+        }
       }
     }
   }

@@ -7,3 +7,11 @@
   -ms-user-select: none;
   user-select: none;
 }
+
+@mixin focus {
+  body:not(.focus-hidden) & {
+    &:focus {
+      @content
+    }
+  }
+}

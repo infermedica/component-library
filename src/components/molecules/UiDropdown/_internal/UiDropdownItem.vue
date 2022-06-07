@@ -111,10 +111,8 @@ const buttonAttrs = computed(() => ({
     --dropdown-item-button-padding: var(--space-4) var(--space-8);
   }
 
-  .focus-is-hidden & {
-    &:focus {
-      --button-background: var(--dropdown-item-button-focus-hidden-background, var(--button-hover-background));
-    }
+  &:focus {
+    --button-background: var(--dropdown-item-button-focus-hidden-background, var(--button-hover-background));
   }
 }
 </style>

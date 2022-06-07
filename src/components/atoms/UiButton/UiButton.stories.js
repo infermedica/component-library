@@ -294,11 +294,6 @@ TextLargeSecondaryWithIcon.args = {
   modifiers: ['ui-button--text', 'ui-button--has-icon', 'ui-button--secondary'],
 };
 
-// todo: add TextLargeOnDark
-export const TextLargeOnDark = () => ({
-  template: 'Oops! Not found!',
-});
-
 export const TextSmall = Template.bind({});
 TextSmall.args = {
   modifiers: ['ui-button--text', 'ui-button--small'],

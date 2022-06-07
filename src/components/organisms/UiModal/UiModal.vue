@@ -7,7 +7,10 @@
       name="backdrop"
       v-bind="{ closeHandler, modelValue }"
     >
-      <transition name="fade">
+      <transition
+        appear
+        name="fade"
+      >
         <UiBackdrop
           v-if="modelValue"
           class="ui-modal__background"
@@ -21,6 +24,7 @@
       v-bind="{ confirmHandler, cancelHandler, closeHandler, isClosable, modelValue }"
     >
       <transition
+        appear
         name="fade"
         @enter="enterHandler"
       >
@@ -166,6 +170,7 @@ import {
   ref, computed, nextTick, onBeforeUnmount, onMounted,
 } from 'vue';
 import { bodyScrollLock as vBodyScrollLock, focusTrap as vFocusTrap } from '../../../utilities/directives/index';
+import { focusElement } from '../../../utilities/helpers';
 import UiBackdrop from '../../atoms/UiBackdrop/UiBackdrop.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
@@ -252,14 +257,10 @@ const hasHeader = computed(() => props.title || props.description || props.isClo
 const titleSlotName = computed(() => (props.title ? 'title' : 'description'));
 const titleTag = computed(() => (props.title ? UiHeading : UiText));
 const titleText = computed(() => props.title || props.description);
-function focus(element) {
-  if (element) {
-    element.focus();
-  }
-}
+
 async function enterHandler() {
   await nextTick();
-  focus(button.value?.$el);
+  focusElement(button.value?.$el, true);
 }
 function closeHandler() {
   if (!props.isClosable) return;

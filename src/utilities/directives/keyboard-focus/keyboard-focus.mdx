@@ -1,41 +1,44 @@
 import { Canvas, Story } from "@storybook/addon-docs";
 
 # Keyboard focus
-After adding this directive focus state of element is visible only for keyboard navigation
+Focus state in Infermedica Component Library is hidden for mouse users. To hide focus we ass to `body` element class `focus-hidden`.
+After adding this directive to the component you can handle `focus-hidden` on the `body` and show hide focus for mouse navigation.
 
 ## How to use
-* `v-keyboard-focus` - set scope
-* `.focus-is-hidden` - add this class to body
+* `v-keyboard-focus` - detect mouse / keyboard navigation
 ```html
-  .focus-is-hidden {
-    --border-radius-outline: 0;
-    --focus-outer: none;
-  }
-
-  <body class="focus-is-hidden">
-    ...
-    <button v-keyboard-focus>
-      ...
-    </button>
-  </body>  
+<button v-keyboard-focus>...</button>
 ```
 
+### focusElement helper
+In some cases you need to set focus to element. This focus should be always visible. To do this you can use `focusElement` helper.
+
+```js
+import { focusElement } from '@infermedica/component-library/helpers';
+
+const closeButton = ref(null);
+const handleModalOpen = () => {
+  focusElement(closeButton.value?.$el);
+};
+```
+
+#### Used
+* [Modal](/docs/organisms-modal--start-new-checkup)
+* [SidePanel](/docs/organisms-sidepanel--terms-of-service)
+
 ## Used
-* [Button](/docs/atoms-button--circled)
-* [Checkbox](/docs/atoms-checkbox--as-group)
-* [Input](/docs/atoms-input--has-error)
+* [Button](/docs/atoms-button--contained-large)
 * [Link](/docs/atoms-link--large)
-* [Radio](/docs/atoms-radio--as-group)
+* [Checkbox](/docs/atoms-checkbox--with-label)
+* [Radio](/docs/atoms-radio--with-label)
 * [Range](/docs/atoms-range--common)
-* [Textarea](/docs/atoms-textarea--has-error)
+
+Some components will be shown always keyboard focus.
+* [Input](/docs/atoms-input--with-placeholder)
+* [Textarea](/docs/atoms-textarea--with-placeholder)
 
 ## Stories
 ### With directive
 <Canvas>
-  <Story id="utilities-directives-keyboard-focus--without-directive"/>
-</Canvas>
-
-### Without directive
-<Canvas>
-  <Story id="utilities-directives-keyboard-focus--without-directive"/>
+  <Story id="utilities-directives-keyboard-focus--with-directive"/>
 </Canvas>

@@ -2,11 +2,11 @@
 export const keyboardFocus = {
   beforeMount(el) {
     el.__vueMouseHandler__ = function () {
-      document.body.classList.add('focus-is-hidden');
+      document.body.classList.add('focus-hidden');
     };
     el.__vueKeyHandler__ = function (event) {
       if (event.code === 'Tab') {
-        document.body.classList.remove('focus-is-hidden');
+        document.body.classList.remove('focus-hidden');
         el.focus();
       }
     };
