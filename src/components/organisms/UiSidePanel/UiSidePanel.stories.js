@@ -94,13 +94,8 @@ export default {
       description: 'Use this event to detect when side panel enter transition is finishing.',
     },
   },
-  decorators: [() => ({ template: '<div style="min-height: 320px;"><story /></div>' })],
+  decorators: [() => ({ template: '<div class="max-w-32" style="min-height: 320px;"><story /></div>' })],
   parameters: {
-    docs: {
-      description: {
-        component: 'SidePanel use `v-body-scroll-lock`. Only works on Canvas mode.',
-      },
-    },
     cssprops: {
       'side-panel-position': {
         value: 'fixed',
@@ -382,6 +377,7 @@ export const WithContainerSlot = (args) => ({
           </div>
           <div
             class="ui-side-panel__content"
+            :body-scroll-lock-ignore="true"
           >
             <UiText>Symptomate is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
           </div>
@@ -631,6 +627,7 @@ export const WithContentSlot = (args) => ({
       <div
         v-scroll-tabindex
         class="ui-side-panel__content"
+        :body-scroll-lock-ignore="true"
       >
         <UiText>Symptomate is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
       </div>

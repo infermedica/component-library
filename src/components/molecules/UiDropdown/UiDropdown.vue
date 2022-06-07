@@ -69,6 +69,7 @@ import {
 } from 'vue';
 import useDropdownItems from './useDropdownItems';
 import { clickOutside as vClickOutside } from '../../../utilities/directives';
+import { focusElement } from '../../../utilities/helpers';
 import UiDropdownItem from './_internal/UiDropdownItem.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiPopover from '../UiPopover/UiPopover.vue';
@@ -160,14 +161,14 @@ async function openHandler({ focus = false } = {}) {
   await nextTick();
 
   if (focus) {
-    if (selectedDropdownItem.value) selectedDropdownItem.value.focus();
-    else if (nextDropdownItem.value) nextDropdownItem.value.focus();
+    if (selectedDropdownItem.value) focusElement(selectedDropdownItem.value);
+    else if (nextDropdownItem.value) focusElement(nextDropdownItem.value);
   }
 }
 
 function closeHandler({ focusToggle } = { focusToggle: true }) {
   if (dropdownToggle.value && focusToggle) {
-    (dropdownToggle.value?.$el || dropdownToggle.value).focus();
+    focusElement(dropdownToggle.value?.$el || dropdownToggle.value, true);
   }
   isOpen.value = false;
   emit('close');
@@ -204,19 +205,19 @@ const dropdownKeydownHandler = async ({ key }) => {
       if (!isOpen.value) {
         await openHandler({ focus: true });
       } else {
-        nextDropdownItem.value.focus();
+        focusElement(nextDropdownItem.value);
       }
       break;
     case 'ArrowUp':
-      prevDropdownItem.value.focus();
+      focusElement(prevDropdownItem.value);
       break;
     case 'Home':
     case 'PageUp':
-      firstDropdownItem.value.focus();
+      focusElement(firstDropdownItem.value);
       break;
     case 'End':
     case 'PageDown':
-      lastDropdownItem.value.focus();
+      focusElement(lastDropdownItem.value);
       break;
     default: break;
   }
@@ -229,7 +230,7 @@ const handleInputQuery = ({ key }) => {
     (item) => item.innerText.toLowerCase().startsWith(searchQuery.value),
   );
 
-  if (match !== -1 && match !== activeDropdownItemIndex.value) dropdownItems.value[match].focus();
+  if (match !== -1 && match !== activeDropdownItemIndex.value) focusElement(dropdownItems.value[match]);
 };
 const dropdownItemKeydownHandler = async (event) => {
   const { key } = event;

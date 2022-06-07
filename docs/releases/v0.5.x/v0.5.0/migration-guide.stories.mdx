@@ -4,6 +4,33 @@ import { Meta } from '@storybook/addon-docs';
 
 # v0.5.0 Migration Guide
 
+## .focus-hidden
+From v0.5.0 move responsibility for focus visibility handling to the library. You can remove definition of `.focus-is-hidden` from CSS.focus
+
+From v0.5.0 we use class `focus-hidden` to hide focus for mouse users.
+```scss
+.element {
+  &:focus {
+    outline: none
+  }
+
+  body:not(.focus-hidden) & {
+    &:focus {
+      box-shadow: var(--focus-outer);
+    }
+  }
+}
+```
+
+From v0.5.0 we use `focusElement` helper to focus elements and allow to show focus
+```js
+import { focusElement } from '@infermedica/component-library/helpers';
+
+const focus(element) {
+  const focusVisible = true;
+  focusElement(element, focusVisible)
+}
+
 ## UiNotification
 From v0.5.0, default slot in UiNotification contain text for UiAlert.
 ```html

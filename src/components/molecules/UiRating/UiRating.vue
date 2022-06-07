@@ -34,7 +34,7 @@
           @mouseleave="hoverHandler($event, index)"
         >
           <template #radiobutton>
-            <div class="ui-radio__radiobutton ui-rating__radiobutton">
+            <div class="ui-rating__radiobutton">
               <template v-if="index <= finalScore">
                 <!-- @slot Use this slot to replace positive rating icon. -->
                 <slot
@@ -165,9 +165,6 @@ const finalScore = computed(() => (
 .ui-rating {
   $this: &;
 
-  --radio-margin: 0;
-  --radio-border-radius: 0;
-  --radio-border-width: 0;
   --radio-size: var(--rating-icon-size, 1.5rem);
   --radio-background: transparent;
 
@@ -196,7 +193,17 @@ const finalScore = computed(() => (
   }
 
   &__radiobutton {
+    display: flex;
+    border-radius: var(--border-radius-button);
     pointer-events: none;
+  }
+
+  input {
+    @include focus {
+      & + #{$this}__radiobutton {
+        box-shadow: var(--focus-outer);
+      }
+    }
   }
 
   &__icon {
@@ -243,10 +250,6 @@ const finalScore = computed(() => (
           var(--color-icon-disabled)
         );
     }
-  }
-
-  input:focus + * {
-    --radio-border-radius: var(--border-radius-outline);
   }
 }
 </style>

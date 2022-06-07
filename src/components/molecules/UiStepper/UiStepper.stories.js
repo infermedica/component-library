@@ -6,12 +6,12 @@ import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import UiLink from '@/components/atoms/UiLink/UiLink.vue';
 
 const steps = [
-  { name: 'Introduction', route: '#' },
-  { name: 'A multiline step', route: '#' },
-  { name: 'Symptoms', route: '#' },
-  { name: 'Regions', route: '#' },
-  { name: 'Interview', route: '#' },
-  { name: 'Results', route: '#' },
+  { name: 'Introduction', route: { path: '#' } },
+  { name: 'A multiline step', route: { path: '#' } },
+  { name: 'Symptoms', route: { path: '#' } },
+  { name: 'Regions', route: { path: '#' } },
+  { name: 'Interview', route: { path: '#' } },
+  { name: 'Results', route: { path: '#' } },
 ];
 
 export default {

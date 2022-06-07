@@ -94,7 +94,9 @@
           <slot name="content">
             <div
               v-scroll-tabindex
+              v-keyboard-focus
               class="ui-side-panel__content"
+              :body-scroll-lock-ignore="true"
             >
               <!-- @slot Use this slot to place side panel content. -->
               <slot />
@@ -113,7 +115,10 @@ import {
   onMounted,
   onBeforeUnmount,
 } from 'vue';
-import { focusTrap as vFocusTrap, bodyScrollLock as vBodyScrollLock, scrollTabindex as vScrollTabindex } from '../../../utilities/directives';
+import {
+  focusTrap as vFocusTrap, bodyScrollLock as vBodyScrollLock, scrollTabindex as vScrollTabindex, keyboardFocus as vKeyboardFocus,
+} from '../../../utilities/directives';
+import { focusElement } from '../../../utilities/helpers';
 
 import UiBackdrop from '../../atoms/UiBackdrop/UiBackdrop.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
@@ -182,16 +187,9 @@ function afterEnterHandler() {
   emit('after-enter');
 }
 
-function focus(element) {
-  if (element) {
-    setTimeout(() => {
-      element.focus();
-    }, 0);
-  }
-}
-
 async function enterHandler() {
-  focus(button.value?.$el);
+  await nextTick();
+  focusElement(button.value?.$el, true);
 }
 
 function keydownHandler({ key }) {
@@ -288,8 +286,11 @@ onBeforeUnmount(() => {
     }
 
     &:focus {
+      outline: none
+    }
+
+    @include focus {
       box-shadow: var(--focus-outer);
-      outline: none;
     }
   }
 }

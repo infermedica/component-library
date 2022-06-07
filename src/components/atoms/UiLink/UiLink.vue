@@ -49,6 +49,7 @@ const { componentTag, routeAttrs } = useLink(props);
   $this: &;
 
   display: var(--link-display, inline);
+  border-radius: var(--link-border-radius, var(--border-radius-button));
   color: var(--link-color, var(--color-text-action-primary));
   text-decoration: var(--link-text-decoration, none);
   vertical-align: var(--link-vertical-align, top);
@@ -78,9 +79,11 @@ const { componentTag, routeAttrs } = useLink(props);
   }
 
   &:focus {
-    border-radius: var(--border-radius-outline);
-    box-shadow: var(--focus-outer);
     outline: none;
+  }
+
+  @include focus {
+    box-shadow: var(--focus-outer);
   }
 
   &__icon {

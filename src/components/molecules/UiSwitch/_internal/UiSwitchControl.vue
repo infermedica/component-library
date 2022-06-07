@@ -5,6 +5,8 @@
 </template>
 
 <style lang="scss">
+@import "../../../../styles/mixins/mixins";
+
 .ui-switch-control {
   --switch-control-track-color: var(--color-switch-track);
   --switch-control-transition: background-color 0.15s, border-color 0.15s;
@@ -46,8 +48,12 @@
     }
   }
 
-  input:focus ~ & {
-    box-shadow: var(--focus-outer);
+  @at-root input {
+    @include focus {
+       & ~ #{$this} {
+        box-shadow: var(--focus-outer);
+      }
+    }
   }
 
   input:checked ~ & {

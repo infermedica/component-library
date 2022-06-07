@@ -114,6 +114,7 @@ import UiCheckbox from '../../atoms/UiCheckbox/UiCheckbox.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiAlert from '../../atoms/UiAlert/UiAlert.vue';
+import { focusElement } from '../../../utilities/helpers';
 
 const props = defineProps({
   /**
@@ -210,13 +211,13 @@ function focusExplication(event) {
   const explicationButton = event.target.closest(`.${component.value}`).querySelector('.ui-multiple-answer__explication');
   if (explicationButton && event.key === 'ArrowRight') {
     event.preventDefault();
-    explicationButton.focus();
+    focusElement(explicationButton);
   }
 }
 function unfocusExplication(event) {
   const answerInput = event.target.closest(`.${component.value}`).querySelector('input');
   if (answerInput && event.key === 'ArrowLeft') {
-    answerInput.focus();
+    focusElement(answerInput);
   }
 }
 </script>
