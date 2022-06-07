@@ -96,31 +96,19 @@
       <UiNotification
         v-if="options.issue?.feedback"
         type="success"
+        :translation="{
+          action: translation.issue.skip
+        }"
+        :button-action-attrs="buttonSkipAttrs"
         class="ui-question__feedback"
       >
-        <UiAlert
-          type="success"
-          class="ui-alert--secondary"
-        >
-          {{ translation.issue.feedback }}
-        </UiAlert>
-        <UiButton
-          v-bind="buttonSkipAttrs"
-          class="ui-question__skip ui-button--text ui-button--has-icon"
-        >
-          {{ translation.issue.skip }}
-          <UiIcon
-            icon="chevron-right"
-            class="ui-button__icon ui-button__icon--right"
-          />
-        </UiButton>
+        {{ translation.issue.feedback }}
       </UiNotification>
     </slot>
   </div>
 </template>
 
 <script setup>
-import UiAlert from '../../atoms/UiAlert/UiAlert.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
@@ -269,14 +257,6 @@ defineProps({
 
     [dir="rtl"] & {
       --alert-icon-margin: 0 0 0 var(--space-12);
-    }
-  }
-
-  &__skip {
-    margin: var(--space-4) 0 0 var(--space-36);
-
-    [dir="rtl"] & {
-      margin: var(--space-4) var(--space-36) 0 0;
     }
   }
 }

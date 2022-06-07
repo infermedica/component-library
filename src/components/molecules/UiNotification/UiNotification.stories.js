@@ -1,23 +1,35 @@
 import UiNotification from '@/components/molecules/UiNotification/UiNotification.vue';
 import UiAlert from '@/components/atoms/UiAlert/UiAlert.vue';
-import UiLink from '@/components/atoms/UiLink/UiLink.vue';
+import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import { content } from '@sb/helpers/argTypes';
+import { actions } from '@storybook/addon-actions';
+
+const events = actions({
+  onClick: 'action',
+});
 
 export default {
   title: 'Molecules/Notification',
   component: UiNotification,
   subcomponents: { UiAlert },
   args: {
-    content: 'Please try to add more than one symptom.',
+    content: 'Thank you. We’ll review this question as soon as possible.',
     type: 'error',
+    hasIcon: true,
+    translation: {
+      action: 'Action',
+    },
+    buttonActionAttrs: {
+      onClick: () => (events.onClick()),
+    },
   },
   argTypes: {
     content,
     type: {
       control: 'select',
       options: ['success', 'info', 'warning', 'error'],
-    },
+    }
   },
   parameters: {
     cssprops: {
@@ -68,36 +80,21 @@ export default {
       },
     },
   },
+  decorators: [() => ({ template: '<div style="max-width: 320px;"><story /></div>' })],
 };
 
 const Template = (args) => ({
   components: { UiNotification, UiAlert },
   setup() { return { ...args }; },
-  template: `<UiNotification :type="type">
-    <UiAlert 
-      :type="type" 
-      class="ui-alert--secondary"
-    >
-      {{ content }}
-    </UiAlert>
+  template: `<UiNotification 
+    :type="type"
+    :has-icon="hasIcon"
+    :translation="translation"
+    :button-action-attrs="buttonActionAttrs"
+  >
+    {{ content }}
   </UiNotification>`,
 });
-
-export const WarningWithDefaultAlert = (args) => ({
-  components: { UiNotification, UiAlert },
-  setup() { return { ...args }; },
-  template: `<UiNotification :type="type">
-    <UiAlert 
-      type="default" 
-      class="ui-alert--secondary"
-    >
-      {{ content }}
-    </UiAlert>
-  </UiNotification>`,
-});
-WarningWithDefaultAlert.args = {
-  type: 'warning',
-};
 
 export const Error = Template.bind({});
 Error.args = {
@@ -119,39 +116,27 @@ Warning.args = {
   type: 'warning',
 };
 
-export const WithLink = (args) => ({
-  components: {
-    UiNotification, UiAlert, UiIcon, UiLink,
-  },
+export const WithActionSlot = (args) => ({
+  components: { UiNotification, UiButton, UiIcon },
   setup() { return { ...args }; },
-  template: `<UiNotification :type="type">
-    <UiAlert 
-      :type="type" 
-      class="ui-alert--secondary"
-    >
-      {{ content }}
-    </UiAlert>
-    <UiLink 
-      :href="href" 
-      target="_blank"
-      class="ui-link--has-icon"
-      style="display: inline-flex; margin: var(--space-4) 0 0 var(--space-36);"
-    >
-      Skip this question
-      <UiIcon 
-        icon="chevron-right"
-        class="ui-link__icon ui-link__icon--right"
+  template: `<UiNotification 
+    :type="type"
+    :has-icon="hasIcon"
+    :translation="translation"
+    :button-action-attrs="buttonActionAttrs"
+  >
+    {{ content }}
+    <template #action="{attrs, translation, hasAction}">
+      <UiButton
+        v-if="hasAction"
+        v-bind="attrs"
+        class="ui-button--text ui-button--has-icon ui-notification__action"
+      >
+        {{ translation.action }} <UiIcon
+          icon="chevron-right"
+          class="ui-button__icon ui-button__icon--right"
       />
-    </UiLink>
+      </UiButton>
+    </template>
   </UiNotification>`,
 });
-WithLink.args = {
-  content: 'Thank you. We’ll review this question as soon as possible',
-  type: 'success',
-  href: 'https://infermedica.com/',
-};
-WithLink.argTypes = {
-  href: {
-    control: 'text',
-  },
-};

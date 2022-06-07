@@ -1,0 +1,26 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Releases/v0.5.x/v0.5.0/Migration Guide" />
+
+# v0.5.0 Migration Guide
+
+## UiNotification
+From v0.5.0, default slot in UiNotification contain text for UiAlert.
+```html
+<UiNotification>
+  Thank you. We’ll review this question as soon as possible.
+</UiNotification>
+```
+From v0.5.0, action button in UiNotification is setuped by props.
+```html
+<UiNotification
+  :translation="{
+   action: 'Skip this question'
+  }"
+  :buttonActionAttrs="{
+    onClick: ()=> ()
+  }"
+>
+  Thank you. We’ll review this question as soon as possible.
+</UiNotification>
+```
