@@ -33,14 +33,20 @@ const props = defineProps({
    */
   type: {
     type: String,
-    required: false,
     default: 'error',
-    validator: (value) => ['default', 'success', 'info', 'warning', 'error'].includes(value),
+    validator: (value) => ['success', 'info', 'warning', 'error'].includes(value),
+  },
+  /**
+   * Use this props to hide icon.
+   */
+  hasIcon: {
+    type: Boolean,
+    default: true,
   },
 });
 const rootClassModifier = computed(() => `ui-alert--${props.type}`);
 const icon = computed(() => {
-  if (props.type === 'default') return '';
+  if (!props.hasIcon) return '';
   if (props.type === 'success' || props.type === 'info') return `${props.type}-filled`;
   if (props.type === 'warning') return `${props.type}-filled`;
   return 'error-filled';

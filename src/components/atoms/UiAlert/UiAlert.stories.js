@@ -92,11 +92,6 @@ Error.args = {
   type: 'error',
 };
 
-export const Default = Template.bind({});
-Default.args = {
-  type: 'default',
-};
-
 export const Success = Template.bind({});
 Success.args = {
   type: 'success',
