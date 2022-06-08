@@ -1,4 +1,5 @@
 <template>
+  <!-- @slot Use this slot to replace toggler template. -->
   <slot
     name="toggler"
     v-bind="{ toggle, name: id, title, isOpen, attrs: buttonAttrs }"
@@ -20,11 +21,11 @@
       </UiButton>
     </div>
   </slot>
+  <!-- @slot Use this slot to replace content template. -->
   <slot
     name="content"
     v-bind="{ isOpen, name: id, attrs: $attrs }"
   >
-    <!-- @slot Use this slot to replace content template. -->
     <div
       v-show="isOpen"
       :id="id"
@@ -33,6 +34,7 @@
       class="ui-tabs-item__content"
       v-bind="$attrs"
     >
+      <!-- @slot Use this slot to place content inside tabs. -->
       <slot />
     </div>
   </slot>

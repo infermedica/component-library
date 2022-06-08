@@ -1,7 +1,8 @@
 {
   "name": "@symptom-checker/ui-kit",
-  "version": "0.4.1",
-  "private": true,
+  "description": "Vue 3 UI library for healthcare and not only.",
+  "version": "0.4.2",
+  "license": "MIT",
   "scripts": {
     "test:generate-output": "vue-cli-service test:unit --json --outputFile=.jest-test-results.json || true",
     "test:unit": "vue-cli-service test:unit",
@@ -22,6 +23,20 @@
   },
   "main": "index.js",
   "module": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./src/": "./src/",
+    "./styles/": "./src/styles/",
+    "./breakpoints": "./src/styles/exports/breakingpoints.scss",
+    "./atoms/": "./src/components/atoms/",
+    "./molecules/": "./src/components/molecules/",
+    "./organisms/": "./src/components/organisms/",
+    "./templates/": "./src/components/templates/",
+    "./directives/": "./src/utilities/directives/",
+    "./helpers/": "./src/utilities/helpers/",
+    "./composable/": "./src/composable/",
+    "./icons/": "./src/assets/icons/"
+  },
   "files": [
     "src/*",
     "index.js",

@@ -10,29 +10,24 @@ export default {
   component: UiTabs,
   subcomponents: { UiTabsItem, UiButton },
   args: {
-    tabs: [
+    items: [
       {
-        title: 'Search',
         name: 'search',
-        content: 'Serum uric acid concentration',
+        title: 'Search',
       },
       {
-        title: 'Point on the body',
         name: 'point',
-        content: '1. Erythrocyte Sedimentation Rate',
+        title: 'Point on the body',
       },
     ],
+    content: {
+      search: 'Serum uric acid concentration',
+      point: '1. Erythrocyte Sedimentation Rate',
+    },
     initModelValue: 'search',
     modifiers: [],
   },
   argTypes: {
-    tabs: {
-      description: 'Use this control to set tabs.',
-      table: {
-        category: 'stories controls',
-      },
-      control: 'array',
-    },
     initModelValue: {
       description: 'Use this control to set initial state.',
       table: {
@@ -43,6 +38,14 @@ export default {
     modifiers: modifiers({ options: ['ui-tabs--fixed'] }),
     modelValue: {
       control: false,
+    },
+    tabsItem: {
+      name: '<name>',
+      description: 'Use this slot to replace tabs item content. Require `name` in item object.',
+      table: {
+        category: 'slots',
+        type: { summary: 'unknown' },
+      },
     },
   },
   decorators: [() => ({ template: '<div style="min-height: 120px"><story /></div>' })],
@@ -88,22 +91,22 @@ export default {
 };
 
 const Template = (args) => ({
-  components: { UiTabs, UiTabsItem, UiText },
+  components: { UiTabs, UiText },
   setup() {
     const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
   template: `<UiTabs 
     v-model="modelValue"
+    :items="items"
     :class="modifiers"
   >
-    <template v-for="({name, title, content}, key) in tabs" :key="key">
-      <UiTabsItem 
-        :name="name" 
-        :title="title"
-      >
-        <UiText>{{content}}</UiText>
-      </UiTabsItem>
+    <template 
+      v-for="(item, key) in items"
+      #[item.name]="{item}"
+      :key="key"
+    >
+      <UiText>{{content[item.name]}}</UiText>
     </template>
   </UiTabs>`,
 });
@@ -121,69 +124,24 @@ export const AsInTheDesign = (args) => ({
     const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
-  template: `<UiTabs
+  template: `<UiTabs 
     v-model="modelValue"
+    :items="items"
     :class="modifiers"
     style="--tabs-padding: 0 var(--space-20); --tabs-underline-x-default: var(--space-20);"
   >
-    <template v-for="({name, title, content}, key) in tabs" :key="key">
-      <UiTabsItem
-        :name="name"
-        :title="title"
-      >
-        <UiText>{{content}}</UiText>
-      </UiTabsItem>
+    <template 
+      v-for="(item, key) in items"
+      #[item.name]="{item}"
+      :key="key"
+    >
+      <UiText>{{content[item.name]}}</UiText>
     </template>
   </UiTabs>`,
 });
 AsInTheDesign.parameters = {
   layout: 'fullscreen',
 };
-
-export const WithTogglerSlot = (args) => ({
-  components: {
-    UiTabs, UiTabsItem, UiText, UiButton,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
-  },
-  template: 'Oops! Not found!',
-  // template: `<UiTabs
-  //   v-model="modelValue"
-  //   :class="modifiers"
-  // >
-  //   <template
-  //     v-for="({name, title, content}, key) in tabs"
-  //     :key="key"
-  //   >
-  //     <UiTabsItem
-  //       :name="name"
-  //       :title="title"
-  //     >
-  //       <template #toggler="{toggle, name, title, isOpen}">
-  //         <!-- fixme: how to handle ref in slots -->
-  //         <div
-  //           ref="tab"
-  //           class="ui-tabs-item__tab"
-  //         >
-  //           <UiButton
-  //             :id="'toggler' + name"
-  //             :aria-expanded="isOpen.toString()"
-  //             :aria-controls="name"
-  //             class="ui-tabs-item__tab-button ui-button--text"
-  //             :class="{'ui-tabs-item__tab-button--active': isOpen}"
-  //             @click="toggle(name)"
-  //           >
-  //             {{ title }}
-  //           </UiButton>
-  //         </div>
-  //       </template>
-  //       <UiText>{{content}}</UiText>
-  //     </UiTabsItem>
-  //   </template>
-  // </UiTabs>`,
-});
 
 export const WithContentSlot = (args) => ({
   components: {
@@ -198,12 +156,12 @@ export const WithContentSlot = (args) => ({
     :class="modifiers"
   >
     <template
-      v-for="({name, title, content}, key) in tabs"
+      v-for="(item, key) in items"
       :key="key"
     >
       <UiTabsItem
-        :name="name"
-        :title="title"
+        :name="item.name"
+        :title="item.title"
       >
         <template #content="{isOpen, name, attrs}">
           <div
@@ -214,7 +172,7 @@ export const WithContentSlot = (args) => ({
             class="ui-tabs-item__content"
             v-bind="attrs"
           >
-            <UiText>{{content}}</UiText>
+            <UiText>{{content[name]}}</UiText>
           </div>
         </template>
       </UiTabsItem>

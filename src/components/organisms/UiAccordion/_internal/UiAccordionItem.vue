@@ -15,20 +15,12 @@
         <!-- @slot Use this slot to replace chevron template. -->
         <slot
           name="chevron"
-          v-bind="{ isOpen, iconOpen: settings.iconOpen, iconClose: settings.iconClose }"
+          v-bind="{ isOpen, icon, iconOpen: settings.iconOpen, iconClose: settings.iconClose }"
         >
-          <template v-if="isOpen">
-            <UiIcon
-              :icon="settings.iconOpen"
-              class="ui-accordion-item__chevron"
-            />
-          </template>
-          <template v-else>
-            <UiIcon
-              :icon="settings.iconClose"
-              class="ui-accordion-item__chevron"
-            />
-          </template>
+          <UiIcon
+            :icon="icon"
+            class="ui-accordion-item__chevron"
+          />
         </slot>
         {{ title }}
       </UiButton>
@@ -45,6 +37,7 @@
         :aria-labelledby="`toggler${name}`"
         class="ui-accordion-item__content"
       >
+        <!-- @slot Use this slot to place content inside accordion. -->
         <slot />
       </div>
     </slot>

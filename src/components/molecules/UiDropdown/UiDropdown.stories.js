@@ -1,3 +1,4 @@
+// TODO: Divide into two components. UiDropdown and UiSelect.
 import UiDropdown from '@/components/molecules/UiDropdown/UiDropdown.vue';
 import UiDropdownItem from '@/components/molecules/UiDropdown/_internal/UiDropdownItem.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
@@ -16,19 +17,15 @@ export default {
   component: UiDropdown,
   subcomponents: { UiDropdownItem, UiPopover },
   args: {
-    items: [
-      { label: 'English' },
-      { label: 'Deutsch' },
-      { label: 'Italiano' },
-      { label: 'Polski' },
-    ],
-    initModelValue: { label: 'English' },
+    items: ['English', 'Deutsch', 'Italiano', 'Polski'],
+    initModelValue: 'English',
     closeOnClickOutside: true,
     enableKeyboardNavigation: true,
     text: 'English',
     name: 'locale',
     buttonAttrs: {
       id: 'language-button',
+      class: ['ui-button--text'],
     },
     popoverAttrs: {
       id: 'language-popover',
@@ -64,6 +61,14 @@ export default {
       name: 'close',
       description: 'Use this event to detect when dropdown is closing.',
       table: { category: 'events' },
+    },
+    dropdownItem: {
+      name: '<name>',
+      description: 'Use this slot to replace dropdown item content. Require `name` in item object.',
+      table: {
+        category: 'slots',
+        type: { summary: 'unknown' },
+      },
     },
   },
   decorators: [() => ({ template: '<div style="min-height: 220px"><story /></div>' })],
@@ -108,8 +113,71 @@ export default {
   },
 };
 
+export const AsSelect = (args) => ({
+  components: { UiDropdown },
+  setup() {
+    const modelValue = ref(args.initModelValue);
+    return {
+      ...args,
+      ...events,
+      modelValue,
+    };
+  },
+  template: `<UiDropdown
+      v-model="modelValue"
+      :text="modelValue"
+      :name="name"
+      :close-on-click-outside="closeOnClickOutside"
+      :enable-keyboard-navigation="enableKeyboardNavigation"
+      :button-attrs="buttonAttrs"
+      :popover-attrs="popoverAttrs"
+      :items="items"
+      style="--dropdown-popover-width: 15rem;"
+      @open="onOpen"
+      @close="onClose"
+  />`,
+});
+
+export const WithDropdownItemSlot = (args) => ({
+  components: { UiDropdown },
+  setup() {
+    const modelValue = ref(args.initModelValue);
+    return {
+      ...args,
+      ...events,
+      modelValue,
+    };
+  },
+  template: `<UiDropdown
+      v-model="modelValue"
+      :text="modelValue.text"
+      :name="name"
+      :close-on-click-outside="closeOnClickOutside"
+      :enable-keyboard-navigation="enableKeyboardNavigation"
+      :button-attrs="buttonAttrs"
+      :popover-attrs="popoverAttrs"
+      :items="items"
+      style="--dropdown-popover-width: 15rem;"
+      @open="onOpen"
+      @close="onClose"
+  >
+    <template #english="{item}">
+      {{item.text}}
+    </template>
+  </UiDropdown>`,
+});
+WithDropdownItemSlot.args = {
+  initModelValue: { name: 'english', text: 'English' },
+  items: [
+    { name: 'english', text: 'English' },
+    { name: 'deutsch', text: 'Deutsch' },
+    { name: 'italiano', text: 'Italiano' },
+    { name: 'polski', text: 'Polski' },
+  ],
+};
+
 export const WithToggleSlot = (args) => ({
-  components: { UiDropdown, UiDropdownItem, UiButton },
+  components: { UiDropdown, UiButton },
   setup() {
     const modelValue = ref(args.initModelValue);
     const toggleElement = ref(null);
@@ -122,13 +190,14 @@ export const WithToggleSlot = (args) => ({
   },
   template: `<UiDropdown
     v-model="modelValue"
-    :text="modelValue.label"
+    :text="modelValue"
     :name="name"
     :toggle-element="toggleElement"
     :close-on-click-outside="closeOnClickOutside"
     :enable-keyboard-navigation="enableKeyboardNavigation"
     :button-attrs="buttonAttrs"
     :popover-attrs="popoverAttrs"
+    :items="items"
     style="--dropdown-popover-width: 15rem;"
     @open="onOpen"
     @close="onClose"
@@ -137,15 +206,12 @@ export const WithToggleSlot = (args) => ({
       <UiButton
         v-bind="attrs"
         ref="toggleElement"
-        class="ui-dropdown__toggle ui-button--text"
+        class="ui-dropdown__toggle"
         :aria-expanded="isOpen.toString()"
         @click="toggleHandler"
       >
         {{ text }}
       </UiButton>
-    </template>
-    <template v-for="(item, key) in items" :key="key">
-      <UiDropdownItem :value="item">{{item.label}}</UiDropdownItem>
     </template>
   </UiDropdown>`,
 });
@@ -160,19 +226,16 @@ export const WithPopoverSlot = (args) => ({
   },
   setup() {
     const modelValue = ref(args.initModelValue);
-    const toggleElement = ref(null);
     return {
       ...args,
       ...events,
-      toggleElement,
       modelValue,
     };
   },
   template: `<UiDropdown
     v-model="modelValue"
-    :text="modelValue.label"
+    :text="modelValue"
     :name="name"
-    :toggle-element="toggleElement"
     :close-on-click-outside="closeOnClickOutside"
     :enable-keyboard-navigation="enableKeyboardNavigation"
     :button-attrs="buttonAttrs"
@@ -181,17 +244,6 @@ export const WithPopoverSlot = (args) => ({
     @open="onOpen"
     @close="onClose"
   >
-    <template #toggle="{toggleHandler, openHandler, closeHandler, isOpen, text, attrs}">
-      <UiButton
-        v-bind="attrs"
-        ref="toggleElement"
-        class="ui-dropdown__toggle ui-button--text"
-        :aria-expanded="isOpen.toString()"
-        @click="toggleHandler"
-      >
-        {{ text }}
-      </UiButton>
-    </template>
     <template #popover="{closeHandler, isOpen, attrs}">
       <UiPopover
         v-if="isOpen"
@@ -201,7 +253,7 @@ export const WithPopoverSlot = (args) => ({
       >
         <div role="radiogroup">
           <template v-for="(item, key) in items" :key="key">
-            <UiDropdownItem :value="item">{{item.label}}</UiDropdownItem>
+            <UiDropdownItem :value="item">{{item}}</UiDropdownItem>
           </template>
         </div>
       </UiPopover>
@@ -215,19 +267,16 @@ export const WithContentSlot = (args) => ({
   },
   setup() {
     const modelValue = ref(args.initModelValue);
-    const toggleElement = ref(null);
     return {
       ...args,
       ...events,
-      toggleElement,
       modelValue,
     };
   },
   template: `<UiDropdown
     v-model="modelValue"
-    :text="modelValue.label"
+    :text="modelValue"
     :name="name"
-    :toggle-element="toggleElement"
     :close-on-click-outside="closeOnClickOutside"
     :enable-keyboard-navigation="enableKeyboardNavigation"
     :button-attrs="buttonAttrs"
@@ -236,21 +285,10 @@ export const WithContentSlot = (args) => ({
     @open="onOpen"
     @close="onClose"
   >
-    <template #toggle="{toggleHandler, openHandler, closeHandler, isOpen, text, attrs}">
-      <UiButton
-        v-bind="attrs"
-        ref="toggleElement"
-        class="ui-dropdown__toggle ui-button--text"
-        :aria-expanded="isOpen.toString()"
-        @click="toggleHandler"
-      >
-        {{ text }}
-      </UiButton>
-    </template>
     <template #content="{closeHandler, isOpen}">
       <div role="radiogroup">
         <template v-for="(item, key) in items" :key="key">
-          <UiDropdownItem :value="item">{{item.label}}</UiDropdownItem>
+          <UiDropdownItem :value="item">{{item}}</UiDropdownItem>
         </template>
       </div>
     </template>
@@ -260,27 +298,26 @@ export const WithContentSlot = (args) => ({
 export const WithInputToggle = (args) => ({
   components: {
     UiDropdown,
-    UiDropdownItem,
     UiInput,
   },
   setup() {
     const modelValue = ref(args.initModelValue);
     const toggleElement = ref(null);
-    const searchQuery = ref('');
+    const search = ref('');
 
     watch(() => modelValue.value, () => {
-      searchQuery.value = modelValue.value.label;
+      search.value = modelValue.value;
     });
 
     const filteredItems = computed(
       () => args.items.filter(
-        (item) => item.label.toLocaleLowerCase()
-          .includes(searchQuery.value.toLocaleLowerCase()),
+        (item) => item.toLocaleLowerCase()
+          .includes(search.value.toLocaleLowerCase()),
       ),
     );
 
     const inputHandler = (value, open, close) => {
-      searchQuery.value = value;
+      search.value = value;
       if (value.length > 0) {
         open();
       } else if (value.length < 1) {
@@ -293,19 +330,20 @@ export const WithInputToggle = (args) => ({
       ...events,
       toggleElement,
       modelValue,
-      searchQuery,
+      search,
       inputHandler,
       filteredItems,
     };
   },
   template: `<UiDropdown
       v-model="modelValue"
-      :text="modelValue.label"
+      :text="modelValue"
       :toggle-element="toggleElement"
       :close-on-click-outside="closeOnClickOutside"
       :enable-keyboard-navigation="enableKeyboardNavigation"
       :button-attrs="buttonAttrs"
       :popover-attrs="popoverAttrs"
+      :items="filteredItems"
       style="--dropdown-popover-width: 15rem;"
       @open="onOpen"
       @close="onClose"
@@ -314,21 +352,11 @@ export const WithInputToggle = (args) => ({
       <UiInput
         v-bind="attrs"
         ref="toggleElement"
-        :model-value="searchQuery"
+        :model-value="search"
         type="search"
         @update:model-value="inputHandler($event, openHandler, closeHandler)"
       >
       </UiInput>
-    </template>
-    <template #content="{closeHandler, isOpen}">
-      <div role="radiogroup">
-        <template v-for="(item, key) in filteredItems" :key="key">
-          <UiDropdownItem :value="item">{{ item.label }}</UiDropdownItem>
-        </template>
-        <template v-if="filteredItems.length === 0">
-          no elements matching criteria
-        </template>
-      </div>
     </template>
   </UiDropdown>`,
 });

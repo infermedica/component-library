@@ -1,12 +1,30 @@
 <template>
   <UiList class="ui-accordion">
     <!-- @slot Use this slot to place accordion items. -->
-    <slot />
+    <slot>
+      <template
+        v-for="(item, key) in itemsToRender"
+        :key="key"
+      >
+        <UiAccordionItem
+          :title="item.title"
+          :name="item.name"
+          :settings="item.settings"
+        >
+          <!-- @slot Use this slot to replace accordion item content. -->
+          <slot
+            :name="item.name"
+            v-bind="{item}"
+          />
+        </UiAccordionItem>
+      </template>
+    </slot>
   </UiList>
 </template>
 
 <script setup>
 import { computed, provide } from 'vue';
+import UiAccordionItem from './_internal/UiAccordionItem.vue';
 import UiList from '../UiList/UiList.vue';
 
 const props = defineProps({
@@ -16,6 +34,13 @@ const props = defineProps({
   modelValue: {
     type: [String, Array],
     default: '',
+  },
+  /**
+   * Use this props to pass accordion items.
+   */
+  items: {
+    type: Array,
+    default: () => ([]),
   },
 });
 const emit = defineEmits(['update:modelValue']);
@@ -35,4 +60,16 @@ function toggle(name) {
   }
 }
 provide('toggle', toggle);
+const itemsToRender = computed(() => (props.items.map((item, key) => {
+  if (typeof item === 'string') {
+    return {
+      name: `accordion-item-${key}`,
+      text: item,
+    };
+  }
+  return {
+    name: item.name || `accordion-item-${key}`,
+    ...item,
+  };
+})));
 </script>

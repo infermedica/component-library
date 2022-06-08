@@ -8,12 +8,30 @@
     :style="style"
   >
     <!-- @slot Use this slot to place accordion items. -->
-    <slot />
+    <slot>
+      <template
+        v-for="(item, key) in itemsToRender"
+        :key="key"
+      >
+        <UiTabsItem
+          :name="item.name"
+          :title="item.title"
+          :button-attrs="item.buttonAttrs"
+        >
+          <!-- @slot Use this slot to replace tab item content. -->
+          <slot
+            :name="item.name"
+            v-bind="{item}"
+          />
+        </UiTabsItem>
+      </template>
+    </slot>
   </div>
 </template>
 
 <script setup>
 import { computed, ref, provide } from 'vue';
+import UiTabsItem from './_internal/UiTabsItem.vue';
 
 const props = defineProps({
   /**
@@ -22,6 +40,13 @@ const props = defineProps({
   modelValue: {
     type: String,
     default: '',
+  },
+  /**
+   * Use this props to pass tabs items.
+   */
+  items: {
+    type: Array,
+    default: () => ([]),
   },
 });
 const emit = defineEmits(['update:modelValue']);
@@ -59,6 +84,19 @@ function gap(element) {
 }
 provide('underline', underline);
 provide('gap', gap);
+
+const itemsToRender = computed(() => (props.items.map((item, key) => {
+  if (typeof item === 'string') {
+    return {
+      name: `tabs-item-${key}`,
+      text: item,
+    };
+  }
+  return {
+    name: item.name || `tabs-item-${key}`,
+    ...item,
+  };
+})));
 </script>
 
 <style lang="scss">

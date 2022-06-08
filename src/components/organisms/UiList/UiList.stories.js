@@ -1,6 +1,7 @@
 import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
+import { NestingList } from '@/components/molecules/UiBulletPoints/UiBulletPoints.stories';
 
 export default {
   title: 'Organisms/List',
@@ -11,35 +12,54 @@ export default {
     tag: 'ul',
   },
   argTypes: {
-    items: {
-      description: 'Use this control to set the items.',
-      table: {
-        category: 'stories controls',
-      },
-      control: 'array',
-    },
     tag: {
       options: ['ul', 'ol'],
       control: 'select',
+    },
+    listItem: {
+      name: '<name>',
+      description: 'Use this slot to replace list item content. Require `name` in item object.',
+      table: {
+        category: 'slots',
+        type: { summary: 'unknown' },
+      },
     },
   },
 };
 
 const Template = (args) => ({
-  components: { UiList, UiListItem, UiText },
+  components: { UiList },
   setup() {
     return { ...args };
   },
-  template: `<UiList :tag="tag">
-  <template 
-    v-for="(item, key) in items" 
-    :key="key"
-  >
-    <UiListItem>
-      <UiText>{{item}}</UiText>
-    </UiListItem>
-  </template>
-  </UiList>`,
+  template: `<UiList 
+      :tag="tag"
+      :items="items"
+  />`,
 });
 
-export const Common = Template.bind({});
+export const UnorderedList = Template.bind({});
+
+export const WithListItemSlot = (args) => ({
+  components: { UiList, UiText },
+  setup() {
+    return { ...args };
+  },
+  template: `<UiList 
+      :tag="tag"
+      :items="items"
+  >
+    <template #painful-swallowing="{ item }">
+      <UiText>{{ item.text }}</UiText>
+    </template>
+  </UiList>`,
+});
+WithListItemSlot.args = {
+  items: [
+    { name: 'painful-swallowing', text: 'Painful swallowing' },
+    { name: 'stuffy-nose', text: 'Stuffy nose' },
+    { name: 'sneeze', text: 'Sneeze' },
+    { name: 'muscle-pain', text: 'Muscle pain' },
+    { name: 'runny-nose', text: 'Runny nose' },
+  ],
+};

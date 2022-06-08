@@ -4,13 +4,36 @@
     :style="listStyleType"
     class="ui-bullet-points"
   >
-    <!-- @slot Use this slot to place bullet points items-->
-    <slot />
+    <!-- @slot Use this slot to place bullet points items -->
+    <slot>
+      <template
+        v-for="(item, key) in itemsToRender"
+        :key="key"
+      >
+        <UiBulletPointsItem :icon="icon">
+          <!-- @slot Use this slot to replace bullet point item content. -->
+          <slot
+            :name="item.name"
+            v-bind="{item}"
+          >
+            <UiText>{{ item.text }}</UiText>
+            <template v-if="item.children?.items">
+              <component
+                is="ui-bullet-points"
+                v-bind="item.children"
+              />
+            </template>
+          </slot>
+        </UiBulletPointsItem>
+      </template>
+    </slot>
   </component>
 </template>
 
 <script setup>
 import { computed, provide } from 'vue';
+import UiBulletPointsItem from './_internal/UiBulletPointsItem.vue';
+import UiText from '../../atoms/UiText/UiText.vue';
 
 const props = defineProps({
   /**
@@ -26,6 +49,20 @@ const props = defineProps({
   type: {
     type: String,
     default: '1',
+  },
+  /**
+   * Use this props to set list of bullet points.
+   */
+  items: {
+    type: Array,
+    default: () => ([]),
+  },
+  /**
+   * Use this props to set the bullet point icon.
+   */
+  icon: {
+    type: String,
+    default: 'bullet-common',
   },
 });
 const tag = computed(() => (props.tag));
@@ -49,6 +86,34 @@ const listStyleType = computed(() => {
     '--list-item-suffix': `"${type[props.type]?.suffix}"`,
   };
 });
+
+const itemsToRender = computed(() => (props.items.map((item, index) => {
+  if (typeof item === 'string') {
+    return {
+      name: `bullet-point-${index}`,
+      text: item,
+    };
+  }
+  return {
+    name: item.name || `bullet-point-${index}`,
+    ...item,
+    children: Array.isArray(item.children)
+      ? {
+        tag: props.tag,
+        type: props.type,
+        items: item.children,
+        icon: props.icon,
+      }
+      : {
+        items: item.children?.items,
+        ...(item.children?.itemsAttrs || {
+          tag: props.tag,
+          type: props.type,
+          icon: props.icon,
+        }),
+      },
+  };
+})));
 </script>
 
 <style lang="scss">

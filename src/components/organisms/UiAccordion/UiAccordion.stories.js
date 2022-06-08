@@ -10,33 +10,28 @@ export default {
   component: UiAccordion,
   subcomponents: { UiAccordionItem },
   args: {
+    content: {
+      mortphology: 'Serum uric acid concentration',
+      rheumatology: '1. Erythrocyte Sedimentation Rate',
+      inflammation: 'Rheumatoid factor',
+    },
+    initModelValue: '',
     items: [
       {
-        title: 'Mortphology',
         name: 'mortphology',
-        content: 'Serum uric acid concentration',
+        title: 'Mortphology',
       },
       {
-        title: 'Rheumatology blood tests panel',
         name: 'rheumatology',
-        content: '1. Erythrocyte Sedimentation Rate',
+        title: 'Rheumatology blood tests panel',
       },
       {
-        title: 'Inflammation panel',
         name: 'inflammation',
-        content: 'Rheumatoid factor',
+        title: 'Inflammation panel',
       },
     ],
-    initModelValue: '',
   },
   argTypes: {
-    items: {
-      description: 'Use this control to set the items.',
-      table: {
-        category: 'stories controls',
-      },
-      control: 'array',
-    },
     initModelValue: {
       description: 'Use this control to set the initial value.',
       table: {
@@ -44,12 +39,26 @@ export default {
       },
       control: 'text',
     },
+    content: {
+      description: 'Use this control to set the content of the accordion items.',
+      table: {
+        category: 'stories controls',
+      },
+    },
     modelValue: { control: false },
+    accordionItem: {
+      name: '<name>',
+      description: 'Use this slot to replace accordion item content. Require `name` in item object.',
+      table: {
+        category: 'slots',
+        type: { summary: 'unknown' },
+      },
+    },
   },
 };
 
 const Template = (args) => ({
-  components: { UiAccordion, UiAccordionItem, UiText },
+  components: { UiAccordion, UiText },
   setup() {
     const modelValue = ref(args.initModelValue);
     return {
@@ -57,17 +66,16 @@ const Template = (args) => ({
       modelValue,
     };
   },
-  template: `<UiAccordion v-model="modelValue">
-    <template 
-      v-for="({name, title, content}, key) in items" 
+  template: `<UiAccordion
+    v-model="modelValue"
+    :items="items"
+  >
+    <template
+      v-for="({name}, key) in items"
+      #[name]="{item}"
       :key="key"
     >
-      <UiAccordionItem 
-        :name="name" 
-        :title="title"
-      >
-        <UiText>{{content}}</UiText>
-      </UiAccordionItem>
+      <UiText>{{content[item.name]}}</UiText>
     </template>
   </UiAccordion>`,
 });
@@ -77,32 +85,15 @@ export const MultipleItems = Template.bind({});
 export const SingleItem = Template.bind({});
 SingleItem.args = {
   items: [{
-    title: 'Less likely conditions',
     name: 'less',
-    content: 'Serum uric acid concentration',
+    title: 'Less likely conditions',
   }],
+  content: {
+    less: 'Serum uric acid concentration',
+  },
 };
 
-export const MultipleItemsOpened = (args) => ({
-  components: { UiAccordion, UiAccordionItem, UiText },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
-  },
-  template: `<UiAccordion v-model="modelValue">
-    <template
-      v-for="({name, title, content}, key) in items"
-      :key="key"
-    >
-      <UiAccordionItem
-        :name="name"
-        :title="title"
-      >
-        <UiText>{{content}}</UiText>
-      </UiAccordionItem>
-    </template>
-  </UiAccordion>`,
-});
+export const MultipleItemsOpened = Template.bind({});
 MultipleItemsOpened.args = {
   initModelValue: [],
 };
@@ -112,47 +103,74 @@ MultipleItemsOpened.argTypes = {
   },
 };
 
-export const WithTogglerSlot = (args) => ({
+export const WithDefaultSlot = (args) => ({
   components: {
-    UiAccordion, UiAccordionItem, UiText, UiButton, UiIcon,
+    UiAccordion, UiAccordionItem, UiText,
   },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
-  template: `<UiAccordion v-model="modelValue">
+  template: `<UiAccordion 
+    v-model="modelValue"
+  >
     <template
-      v-for="({name, title, content}, key) in items"
+      v-for="(item, key) in items"
       :key="key"
     >
       <UiAccordionItem
-        :name="name"
-        :title="title"
+        :name="item.name"
+        :title="item.title"
+        :settings="item.setting"
       >
+        <UiText>{{content[item.name]}}</UiText>
+      </UiAccordionItem>
+    </template>
+  </UiAccordion>`,
+});
+
+export const WithTogglerSlot = (args) => ({
+  components: {
+    UiAccordion, UiAccordionItem, UiButton, UiIcon, UiText,
+  },
+  setup() {
+    const modelValue = ref(args.initModelValue);
+    return {
+      ...args,
+      modelValue,
+    };
+  },
+  template: `<UiAccordion 
+    v-model="modelValue"
+  >
+    <template
+      v-for="(item, key) in items"
+      :key="key"
+    >
+      <UiAccordionItem
+        :name="item.name"
+        :title="item.title"
+        :settings="item.setting"
+      >
+        <UiText>{{content[item.name]}}</UiText>
         <template #toggler="{toggle, name, icon, title, isOpen, iconOpen, iconClose}">
           <UiButton
-            :id="'toggler' + name"
-            :aria-expanded="isOpen.toString()"
-            :aria-controls="name"
-            class="ui-accordion-item__toggler ui-button--outlined ui-button--has-icon"
-            @click="toggle(name)"
+              :id="'toggler' + name"
+              :aria-expanded="isOpen.toString()"
+              :aria-controls="name"
+              class="ui-accordion-item__toggler ui-button--outlined ui-button--has-icon"
+              @click="toggle(name)"
           >
-            <template v-if="isOpen">
-              <UiIcon
-                :icon="iconOpen"
+            <UiIcon
+                :icon="icon"
                 class="ui-accordion-item__chevron"
-              />
-            </template>
-            <template v-else>
-              <UiIcon
-                :icon="iconClose"
-                class="ui-accordion-item__chevron"
-              />
-            </template>
+            />
             {{ title }}
           </UiButton>
         </template>
-        <UiText>{{content}}</UiText>
       </UiAccordionItem>
     </template>
   </UiAccordion>`,
@@ -168,28 +186,20 @@ export const WithChevronSlot = (args) => ({
   },
   template: `<UiAccordion v-model="modelValue">
     <template
-      v-for="({name, title, content}, key) in items"
+      v-for="(item, key) in items"
       :key="key"
     >
       <UiAccordionItem
-        :name="name"
-        :title="title"
+        :name="item.name"
+        :title="item.title"
       >
-        <template #chevron="{isOpen, iconOpen, iconClose}">
-          <template v-if="isOpen">
-            <UiIcon
-              :icon="iconOpen"
+        <UiText>{{content[item.name]}}</UiText>
+        <template #chevron="{isOpen, icon, iconOpen, iconClose}">
+          <UiIcon
+              :icon="icon"
               class="ui-accordion-item__chevron"
-            />
-          </template>
-          <template v-else>
-            <UiIcon
-              :icon="iconClose"
-              class="ui-accordion-item__chevron"
-            />
-          </template>
+          />
         </template>
-        <UiText>{{content}}</UiText>
       </UiAccordionItem>
     </template>
   </UiAccordion>`,
@@ -205,12 +215,12 @@ export const WithContentSlot = (args) => ({
   },
   template: `<UiAccordion v-model="modelValue">
     <template
-      v-for="({name, title, content}, key) in items"
+      v-for="(item, key) in items"
       :key="key"
     >
       <UiAccordionItem
-        :name="name"
-        :title="title"
+        :name="item.name"
+        :title="item.title"
       >
         <template #content="{isOpen, name}">
           <div
@@ -220,7 +230,7 @@ export const WithContentSlot = (args) => ({
             :aria-labelledby="'toggler' + name"
             class="ui-accordion-item__content"
           >
-            <UiText>{{content}}</UiText>
+            <UiText>{{content[item.name]}}</UiText>
           </div>
         </template>
       </UiAccordionItem>

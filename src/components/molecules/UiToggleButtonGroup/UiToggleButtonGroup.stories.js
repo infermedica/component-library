@@ -1,7 +1,7 @@
 import UiToggleButtonGroup from '@/components/molecules/UiToggleButtonGroup/UiToggleButtonGroup.vue';
 import UiToggleButton from '@/components/molecules/UiToggleButtonGroup/_internal/UiToggleButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 export default {
   title: 'Molecules/ToggleButtonGroup',
@@ -10,31 +10,11 @@ export default {
     UiToggleButton,
   },
   args: {
-    items: [
-      {
-        value: 'first',
-        label: 'First',
-      },
-      {
-        value: 'second',
-        label: 'Second',
-      },
-      {
-        value: 'third',
-        label: 'Third',
-      },
-    ],
+    items: ['First', 'Second', 'Third'],
     initModelValue: '',
     deselectable: false,
   },
   argTypes: {
-    items: {
-      description: 'Use this control to set the items.',
-      table: {
-        category: 'stories controls',
-      },
-      control: 'object',
-    },
     initModelValue: {
       description: 'Use this control to set the initial value.',
       table: {
@@ -44,6 +24,14 @@ export default {
     },
     modelValue: {
       control: false,
+    },
+    toggleButton: {
+      name: '<name>',
+      description: 'Use this slot to replace toggle button content. Require `name` in item object.',
+      table: {
+        category: 'slots',
+        type: { summary: 'unknown' },
+      },
     },
   },
   parameters: {
@@ -57,150 +45,159 @@ export default {
   },
 };
 
-export const Default = (args) => ({
-  components: {
-    UiToggleButton,
-    UiToggleButtonGroup,
-  },
+export const Common = (args) => ({
+  components: { UiToggleButtonGroup },
   setup() {
     const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
-  template: `
-    <UiToggleButtonGroup 
-        v-model="modelValue" 
-        :deselectable="deselectable"
-    >
-      <template
-          v-for="({value, label, modifiers}, key) in items"
-          :key="key"
-      >
-        <UiToggleButton :value="value" :class="modifiers">
-          {{label}}
-        </UiToggleButton>
-      </template>
-    </UiToggleButtonGroup>
-  `,
+  template: `<UiToggleButtonGroup 
+    v-model="modelValue"
+    :items="items"
+  />`,
 });
 
-export const Pressed = Default.bind({});
-Pressed.args = { initModelValue: 'first' };
-
-export const Disabled = Default.bind({});
-Disabled.args = {
-  items: [{
-    value: 'first',
-    label: 'First',
-    modifiers: 'ui-toggle-button--is-disabled',
+export const WithToggleButtonSlot = (args) => ({
+  components: { UiToggleButtonGroup },
+  setup() {
+    const modelValue = ref(args.initModelValue);
+    return { ...args, modelValue };
   },
-  {
-    value: 'second',
-    label: 'Second',
-  },
-  {
-    value: 'third',
-    label: 'Third',
-  }],
+  template: `<UiToggleButtonGroup 
+    v-model="modelValue"
+    :items="items"
+  >
+    <template #first="{item}">
+      {{item.text}}
+    </template>
+  </UiToggleButtonGroup>`,
+});
+WithToggleButtonSlot.args = {
+  items: [
+    { name: 'first', text: 'First', value: 'first' },
+    { name: 'second', text: 'Second', value: 'second' },
+    { name: 'third', text: 'Third', value: 'third' },
+  ],
 };
 
-export const PressedDisabled = Default.bind({});
+export const Pressed = Common.bind({});
+Pressed.args = { initModelValue: 'First' };
+
+export const Disabled = Common.bind({});
+Disabled.args = {
+  items: [
+    { text: 'First', value: 'first', toggleButtonAttrs: { class: 'ui-toggle-button--is-disabled', disabled: true } },
+    { text: 'Second', value: 'second' },
+    { text: 'Third', value: 'third' },
+  ],
+};
+
+export const PressedDisabled = Common.bind({});
 PressedDisabled.args = {
   initModelValue: 'first',
-  items: [{
-    value: 'first',
-    label: 'First',
-    modifiers: 'ui-toggle-button--is-disabled',
-  },
-  {
-    value: 'second',
-    label: 'Second',
-  },
-  {
-    value: 'third',
-    label: 'Third',
-  }],
+  items: [
+    { text: 'First', value: 'first', toggleButtonAttrs: { class: 'ui-toggle-button--is-disabled', disabled: true } },
+    { text: 'Second', value: 'second' },
+    { text: 'Third', value: 'third' },
+  ],
 };
 
-export const Deselectable = Default.bind({});
+export const Deselectable = Common.bind({});
 Deselectable.args = {
   deselectable: true,
 };
 
-export const WithNumberValues = Default.bind({});
+export const WithNumberValues = Common.bind({});
 WithNumberValues.args = {
   items: [
     {
       value: 1,
-      label: 'First',
+      text: 'First',
     },
     {
       value: 2,
-      label: 'Second',
+      text: 'Second',
     },
     {
       value: 3,
-      label: 'Third',
+      text: 'Third',
     },
   ],
 };
 
-export const WithObjectValues = Default.bind({});
+export const WithObjectValues = Common.bind({});
 WithObjectValues.args = {
   items: [
     {
       value: { id: 1 },
-      label: 'First',
+      text: 'First',
     },
     {
       value: { id: 2 },
-      label: 'Second',
+      text: 'Second',
     },
     {
       value: { id: 3 },
-      label: 'Third',
+      text: 'Third',
     },
   ],
 };
 
 export const WithIcon = (args) => ({
   components: {
-    UiToggleButton,
     UiToggleButtonGroup,
     UiIcon,
   },
   setup() {
     const modelValue = ref(args.initialValue);
-    return { ...args, modelValue };
+    const slots = computed(() => (args.items.map((item, key) => (`toggle-button-${key}`))));
+    return { ...args, modelValue, slots };
   },
-  template: `
-    <UiToggleButtonGroup v-model="modelValue" :deselectable="deselectable">
-    <template
-        v-for="({value, label, modifiers, icon, iconPosition}, key) in items"
-        :key="key"
+  template: `<UiToggleButtonGroup 
+    v-model="modelValue" 
+    :deselectable="deselectable"
+    :items="items"
+  >
+    <template 
+      v-for="(slot, key) in slots"
+      key="key" 
+      #[slot]="{item}"
     >
-      <UiToggleButton :value="value" :class="modifiers">
-        <UiIcon v-if="icon && iconPosition === 'left'" :icon="icon" class="ui-button__icon" />{{label}}<UiIcon v-if="icon && iconPosition === 'right'" :icon="icon" class="ui-button__icon ui-button__icon--right" />
-      </UiToggleButton>
+      <UiIcon 
+        :icon="item.icon" 
+        class="ui-button__icon"
+      />{{item.text}}
     </template>
-    </UiToggleButtonGroup>
-  `,
+  </UiToggleButtonGroup>`,
 });
-
 WithIcon.args = {
   items: [
     {
-      value: 'first',
-      label: 'First',
-      modifiers: 'ui-toggle-button--has-icon',
-      icon: 'dots',
-      iconPosition: 'left',
+      text: 'First', value: 'first', toggleButtonAttrs: { class: 'ui-toggle-button--has-icon' }, icon: 'dots',
     },
     {
-      value: 'second',
-      label: 'Second',
-      modifiers: 'ui-toggle-button--has-icon',
-      icon: 'plus',
-      iconPosition: 'right',
+      text: 'Second', value: 'second', toggleButtonAttrs: { class: 'ui-toggle-button--has-icon' }, icon: 'plus',
     },
   ],
 };
+
+export const WithDefaultSlot = (args) => ({
+  components: { UiToggleButtonGroup, UiToggleButton },
+  setup() {
+    const modelValue = ref(args.initModelValue);
+    return { ...args, modelValue };
+  },
+  template: `<UiToggleButtonGroup
+        v-model="modelValue"
+        :deselectable="deselectable"
+    >
+      <template
+          v-for="(item, key) in items"
+          :key="key"
+      >
+        <UiToggleButton :value="item">
+          {{item}}
+        </UiToggleButton>
+      </template>
+    </UiToggleButtonGroup>`,
+});

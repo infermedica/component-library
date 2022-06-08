@@ -39,7 +39,22 @@
         >
           <div role="radiogroup">
             <!-- @slot Use this slot to place dropdown content inside dropdown. -->
-            <slot v-bind="{closeHandler, isOpen}" />
+            <slot v-bind="{closeHandler, isOpen}">
+              <template
+                v-for="(item, key) in itemsToRender"
+                :key="key"
+              >
+                <UiDropdownItem :value="item.value">
+                  <!-- @slot Use this slot to replace dropdown item content. -->
+                  <slot
+                    :name="item.name"
+                    v-bind="{item}"
+                  >
+                    {{ item.text }}
+                  </slot>
+                </UiDropdownItem>
+              </template>
+            </slot>
           </div>
         </slot>
       </UiPopover>
@@ -54,6 +69,7 @@ import {
 } from 'vue';
 import useDropdownItems from './useDropdownItems';
 import { clickOutside as vClickOutside } from '../../../utilities/directives';
+import UiDropdownItem from './_internal/UiDropdownItem.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiPopover from '../UiPopover/UiPopover.vue';
 
@@ -114,6 +130,13 @@ const props = defineProps({
   popoverAttrs: {
     type: Object,
     default: () => ({}),
+  },
+  /**
+   * Use this props to pass list of dropdown items.
+   */
+  items: {
+    type: Array,
+    default: () => [],
   },
 });
 const emit = defineEmits(['update:modelValue', 'open', 'close']);
@@ -220,6 +243,21 @@ const dropdownItemKeydownHandler = async (event) => {
 provide('dropdownItemKeydownHandler', dropdownItemKeydownHandler);
 
 defineExpose({ isOpen, closeHandler });
+
+const itemsToRender = computed(() => (props.items.map((item, key) => {
+  if (typeof item === 'string') {
+    return {
+      name: `dropdown-item-${key}`,
+      text: item,
+      value: item,
+    };
+  }
+  return {
+    name: item.name || `dropdown-item-${key}`,
+    ...item,
+    value: item.value || item,
+  };
+})));
 </script>
 
 <style lang="scss">

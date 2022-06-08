@@ -4,7 +4,24 @@
     role="radiogroup"
   >
     <!-- @slot Use this slot to place content inside component.-->
-    <slot />
+    <slot>
+      <template
+        v-for="(item, key) in itemsToRender"
+        :key="key"
+      >
+        <UiToggleButton
+          :value="item.value"
+          v-bind="item.toggleButtonAttrs"
+        >
+          <slot
+            :name="item.name"
+            v-bind="{item}"
+          >
+            {{ item.text }}
+          </slot>
+        </UiToggleButton>
+      </template>
+    </slot>
   </div>
 </template>
 
@@ -17,6 +34,7 @@ export default {
 <script setup>
 import { computed, provide } from 'vue';
 import equal from 'fast-deep-equal';
+import UiToggleButton from './_internal/UiToggleButton.vue';
 
 const props = defineProps({
   /**
@@ -33,6 +51,13 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  /**
+   * Use this props to pass list of toggle buttons.
+   */
+  items: {
+    type: Array,
+    default: () => ([]),
+  },
 });
 const emit = defineEmits(['update:modelValue']);
 const innerValue = computed({
@@ -48,6 +73,21 @@ const innerValue = computed({
 });
 
 provide('modelValue', innerValue);
+
+const itemsToRender = computed(() => (props.items.map((item, key) => {
+  if (typeof item === 'string') {
+    return {
+      name: `toggle-button-${key}`,
+      text: item,
+      value: item,
+    };
+  }
+  return {
+    name: item.name || `toggle-button-${key}`,
+    ...item,
+    value: item.value || item,
+  };
+})));
 </script>
 
 <style lang="scss">
