@@ -98,7 +98,12 @@ export default {
         description: '',
       },
       'button-white-space': {
-        value: 'nowrap',
+        value: 'normal',
+        control: 'text',
+        description: '',
+      },
+      'button-word-break': {
+        value: 'break-all',
         control: 'text',
         description: '',
       },
@@ -109,6 +114,11 @@ export default {
       },
       'button-border-width': {
         value: '0',
+        control: 'text',
+        description: '',
+      },
+      'button-overflow-wrap': {
+        value: 'anywhere',
         control: 'text',
         description: '',
       },
