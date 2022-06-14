@@ -1,0 +1,9 @@
+[class$="--theme-on-brand"] {
+  .ui-button {
+    &--text {
+      --button-color: var(--color-text-on-brand);
+      --button-hover-color: var(--color-text-on-brand-hover);
+      --button-action-color: var(--color-text-on-brand-action);
+    }
+  }
+}

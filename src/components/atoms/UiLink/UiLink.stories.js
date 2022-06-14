@@ -45,6 +45,16 @@ export default {
         control: 'text',
         description: '',
       },
+      'link-word-break': {
+        value: 'break-all',
+        control: 'text',
+        description: '',
+      },
+      'link-overflow-wrap': {
+        value: 'anywhere',
+        control: 'text',
+        description: '',
+      },
       'link-hover-color': {
         value: 'var(--color-text-action-primary-hover)',
         control: 'text',

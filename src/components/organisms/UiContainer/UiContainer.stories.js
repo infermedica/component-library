@@ -18,6 +18,11 @@ export default {
         control: 'text',
         description: '',
       },
+      'container-background': {
+        value: 'var(--color-white)',
+        control: 'text',
+        description: '',
+      },
       'container-border-radius': {
         value: '0',
         control: 'text',

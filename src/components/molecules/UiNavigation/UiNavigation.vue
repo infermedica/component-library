@@ -80,9 +80,7 @@ onBeforeUnmount(() => {
 
   &--is-multiline {
     --navigation-margin: var(--navigation-multiline-margin, 0 calc(var(--space-8) * -1) calc(var(--space-12) * -1));
-    --navigation-item-margin:
-      var(--navigation-item-multiline-margin, 0 var(--space-8) var(--space-12))
-  ;
+    --navigation-item-margin: var(--navigation-item-multiline-margin, 0 var(--space-8) var(--space-12));
   }
 }
 </style>
