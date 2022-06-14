@@ -2,12 +2,9 @@
   <div
     ref="tabs"
     class="ui-tabs"
-    :class="{
-      'ui-tabs--prevent-transition': preventTransition
-    }"
     :style="style"
   >
-    <!-- @slot Use this slot to place accordion items. -->
+    <!-- @slot Use this slot to place tabs. -->
     <slot>
       <template
         v-for="(item, key) in itemsToRender"
@@ -18,7 +15,7 @@
           :title="item.title"
           :button-attrs="item.buttonAttrs"
         >
-          <!-- @slot Use this slot to replace tab item content. -->
+          <!-- @slot Use this slot to place tab item content. -->
           <slot
             :name="item.name"
             v-bind="{item}"
@@ -30,7 +27,9 @@
 </template>
 
 <script setup>
-import { computed, ref, provide } from 'vue';
+import {
+  ref, watch, computed, provide,
+} from 'vue';
 import UiTabsItem from './_internal/UiTabsItem.vue';
 
 const props = defineProps({
@@ -49,47 +48,18 @@ const props = defineProps({
     default: () => ([]),
   },
 });
+const activeTab = ref(props.modelValue);
+provide('activeTab', activeTab);
+
 const emit = defineEmits(['update:modelValue']);
-const opened = computed(() => (props.modelValue));
-provide('opened', opened);
-
-function toggle(name) {
+watch(activeTab, (name) => {
   emit('update:modelValue', name);
-}
-provide('toggle', toggle);
-
-const preventTransition = ref(true);
-const tabs = ref(null);
-const dividerGapY = ref(0);
-const underlineWidth = ref(0);
-const underlineX = ref(0);
-const style = computed(() => ({
-  '--tabs-divider-gap-y': `${dividerGapY.value}px`,
-  '--tabs-underline-width': `${underlineWidth.value}px`,
-  '--tabs-underline-x': underlineX.value && `${underlineX.value}px`,
-}));
-const underline = (element) => {
-  const { x: tabsX } = tabs.value.getBoundingClientRect();
-  const { x: elementX, width: elementWidth } = element.getBoundingClientRect();
-  underlineWidth.value = elementWidth;
-  // FIXME: potential bug with calculation in RTL
-  // elementX might be broken depending how RTL property is implemented
-  // maybe it should somehow force a recalculate on direction change
-  underlineX.value = elementX - tabsX;
-};
-function gap(element) {
-  if (dividerGapY.value) return;
-  dividerGapY.value = element.getBoundingClientRect()?.height - 1;
-  preventTransition.value = false;
-}
-provide('underline', underline);
-provide('gap', gap);
-
+});
 const itemsToRender = computed(() => (props.items.map((item, key) => {
   if (typeof item === 'string') {
     return {
       name: `tabs-item-${key}`,
-      text: item,
+      title: item,
     };
   }
   return {
@@ -97,6 +67,43 @@ const itemsToRender = computed(() => (props.items.map((item, key) => {
     ...item,
   };
 })));
+
+const tabs = ref(null);
+const activeTabHTMLElement = ref(null);
+const offsetX = computed(() => {
+  if (activeTabHTMLElement.value === null) return 0;
+  const firstTab = tabs.value.children[0].children[0];
+  const activeTabRect = activeTabHTMLElement.value.getBoundingClientRect();
+  const tabsRect = tabs.value.getBoundingClientRect();
+  if (Math.ceil((firstTab.getBoundingClientRect().right / tabsRect.right) * 100) > 50) {
+    return ((activeTabRect.x + activeTabRect.width) - firstTab.getBoundingClientRect().right);
+  }
+  return activeTabRect.x - firstTab.getBoundingClientRect().x;
+});
+const scale = computed(() => {
+  if (activeTabHTMLElement.value === null) return 1;
+  const firstTabRect = tabs.value.children[0].children[0].getBoundingClientRect();
+  const activeTabRect = activeTabHTMLElement.value.getBoundingClientRect();
+  return activeTabRect.width / firstTabRect.width;
+});
+const width = computed(() => {
+  if (activeTabHTMLElement.value === null) return 0;
+  const { width: activeTabWidth } = activeTabHTMLElement.value.getBoundingClientRect();
+  return activeTabWidth;
+});
+const style = computed(() => ({
+  '--tabs-underline-offset-x': `${offsetX.value}px`,
+  '--tabs-underline-scale': scale.value,
+}));
+const setActiveHTMLElement = (element) => {
+  activeTabHTMLElement.value = element;
+};
+provide('setActiveHTMLElement', setActiveHTMLElement);
+const handleTabActive = ({ target }, name) => {
+  setActiveHTMLElement(target.parentElement);
+  activeTab.value = name;
+};
+provide('handleTabActive', handleTabActive);
 </script>
 
 <style lang="scss">
@@ -104,41 +111,12 @@ const itemsToRender = computed(() => (props.items.map((item, key) => {
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  padding: var(--tabs-padding, 0);
-
-  &::before,
-  &::after {
-    position: absolute;
-    top: var(--tabs-divider-gap-y, 55px);
-    left: 0;
-    content: "";
-  }
-
-  &::before {
-    width: 100%;
-    height: 1px;
-    background: var(--tabs-underline-border, var(--color-border-divider));
-  }
-
-  &::after {
-    width: var(--tabs-underline-width, 100%);
-    height: 2px;
-    background: var(--tabs-underline-color, var(--color-border-selection));
-    // No RTL necessary due to being JS generated
-    transform: translateX(var(--tabs-underline-x, var(--tabs-underline-x-default, 0))) translateY(-1px);
-    transition: transform 150ms ease-in-out;
-  }
+  padding: var(--tabs-padding, 0 var(--space-20));
 
   &--fixed {
-    --tabs-item-tab-margin: var(--tabs-item-tab-fixed-margin, 0);
-    --tabs-item-tab-padding: var(--tabs-item-tab-fixed-padding, var(--space-16) var(--space-8));
+    --tabs-padding: 0;
     --tabs-item-tab-flex: 1;
-  }
-
-  &--prevent-transition {
-    &::after {
-      transition: none;
-    }
+    --tabs-item-content-margin: 0;
   }
 }
 </style>

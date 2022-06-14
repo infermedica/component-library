@@ -1,47 +1,56 @@
 <template>
-  <!-- @slot Use this slot to replace toggler template. -->
-  <slot
-    name="toggler"
-    v-bind="{ toggle, name: id, title, isOpen, attrs: buttonAttrs }"
+  <div
+    class="ui-tabs-item"
+    :class="{'ui-tabs-item--is-active': isActive}"
   >
-    <div
-      ref="tab"
-      class="ui-tabs-item__tab"
+    <!-- @slot Use this slot to replace tab template. -->
+    <slot
+      name="tab"
+      v-bind="{id, isActive, buttonAttrs, handleTabActive, title}"
     >
-      <UiButton
-        :id="`toggler-${id}`"
-        :aria-expanded="`${isOpen}`"
-        :aria-controls="id"
-        class="ui-tabs-item__tab-button ui-button--text"
-        :class="{'ui-tabs-item__tab-button--active': isOpen}"
-        v-bind="buttonAttrs"
-        @click="toggle(id)"
+      <div
+        ref="tab"
+        class="ui-tabs-item__tab"
       >
-        {{ title }}
-      </UiButton>
-    </div>
-  </slot>
-  <!-- @slot Use this slot to replace content template. -->
-  <slot
-    name="content"
-    v-bind="{ isOpen, name: id, attrs: $attrs }"
-  >
-    <div
-      v-show="isOpen"
-      :id="id"
-      role="region"
-      :aria-labelledby="`toggler-${id}`"
-      class="ui-tabs-item__content"
-      v-bind="$attrs"
+        <!-- @slot Use this slot to replace tab-button template. -->
+        <slot
+          name="tab-button"
+          v-bind="{id, isActive, attrs:buttonAttrs, handleTabActive, title}"
+        >
+          <UiButton
+            :id="`button-${id}`"
+            :aria-expanded="`${isActive}`"
+            :aria-controls="id"
+            class="ui-button--text ui-tabs-item__tab-button"
+            v-bind="buttonAttrs"
+            @click="handleTabActive($event, id)"
+          >
+            {{ title }}
+          </UiButton>
+        </slot>
+      </div>
+    </slot>
+    <!-- @slot Use this slot to replace content template. -->
+    <slot
+      name="content"
+      v-bind="{isActive}"
     >
-      <!-- @slot Use this slot to place content inside tabs. -->
-      <slot />
-    </div>
-  </slot>
+      <div
+        v-show="isActive"
+        :id="id"
+        role="region"
+        :aria-labelledby="`button-${id}`"
+        class="ui-tabs-item__content"
+      >
+        <slot />
+      </div>
+    </slot>
+  </div>
 </template>
+
 <script setup>
 import {
-  computed, ref, inject, watchEffect, nextTick, onMounted, useAttrs,
+  ref, computed, onMounted, inject, useAttrs,
 } from 'vue';
 import { uid } from 'uid/single';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
@@ -70,29 +79,25 @@ const props = defineProps({
   },
 });
 const attrs = useAttrs();
-const tab = ref(null);
+const activeTab = inject('activeTab');
+const hasActiveTab = computed(() => (activeTab.value));
 
-const opened = inject('opened');
-const toggle = inject('toggle');
 const id = computed(() => (props.name || attrs.id || `tab-${uid()}`));
-const isOpen = computed(() => {
-  if (opened.value === 'string') {
-    return id.value === opened.value;
-  }
-  return opened.value.includes(id.value);
-});
+const isActive = computed(() => (id.value === activeTab.value));
+const handleTabActive = inject('handleTabActive');
 
-const underline = inject('underline');
-watchEffect(async () => {
-  if (isOpen.value) {
-    await nextTick();
-    underline(tab.value);
-  }
-});
-const gap = inject('gap');
+const tab = ref(null);
+const item = ref(null);
+const setActiveHTMLElement = inject('setActiveHTMLElement');
 onMounted(async () => {
-  await nextTick();
-  gap(tab.value);
+  if (isActive.value) {
+    setActiveHTMLElement(tab.value);
+    return;
+  }
+  if (hasActiveTab.value) {
+    return;
+  }
+  activeTab.value = props.name;
 });
 </script>
 
@@ -102,15 +107,12 @@ onMounted(async () => {
 .ui-tabs-item {
   $this: &;
 
+  display: contents;
+
   &__tab {
-    position: relative;
-    flex: var(--tabs-item-tab-flex, unset);
+    flex: var(--tabs-item-tab-flex, 0 0 auto);
     padding: var(--tabs-item-tab-padding, var(--space-16) 0);
     margin: var(--tabs-item-tab-margin, 0 var(--space-24) 0 0);
-
-    &:nth-last-child(2) {
-      margin: var(--tabs-item-tab-last-margin, 0);
-    }
 
     [dir="rtl"] & {
       margin: var(--tabs-item-tab-margin, 0 0 0 var(--space-24));
@@ -123,21 +125,67 @@ onMounted(async () => {
     --button-active-color: var(--tabs-item-tab-button-active-color, var(--color-text-action-secondary-active));
 
     width: 100%;
-
-    &--active {
-      @include font(body-1-thick);
-
-      --button-color: var(--tabs-item-tab-button-active-color, var(--color-text-body));
-      --button-hover-color: var(--tabs-item-tab-button-active-hover-color, var(--color-text-body));
-      --button-active-color: var(--tabs-item-tab-button-active-active-color, var(--color-text-body));
-    }
   }
 
   &__content {
     position: relative;
     flex: 0 0 100%;
     order: 1;
-    padding: var(--tabs-item-content-padding, var(--space-16) 0);
+    padding: var(--tabs-item-content-padding, var(--space-16) var(--space-20));
+    margin: var(--tabs-item-content-margin, 0 calc(var(--space-20) * -1));
+
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      border: solid #e7ebef;
+      border-width: 1px 0 0;
+      content: "";
+    }
+  }
+
+  &:first-of-type {
+    #{$this} {
+      &__tab {
+        position: relative;
+
+        &::after {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          background: var(--tabs-underline-color, var(--color-border-selection));
+          content: "";
+          transform: translateX(var(--tabs-underline-offset-x, 0)) scaleX(var(--tabs-underline-scale));
+          transform-origin: left;
+          transition: transform 150ms ease-in-out;
+
+          [dir="rtl"] & {
+            transform-origin: right;
+          }
+        }
+      }
+    }
+  }
+
+  &:last-of-type {
+    #{$this} {
+      &__tab {
+        margin: var(--tabs-item-tab-last-margin, 0);
+      }
+    }
+  }
+
+  &--is-active {
+    #{$this}__tab-button {
+      @include font(body-1-thick);
+
+      --button-color: var(--tabs-item-tab-button-active-color, var(--color-text-body));
+      --button-hover-color: var(--tabs-item-tab-button-active-hover-color, var(--color-text-body));
+      --button-active-color: var(--tabs-item-tab-button-active-active-color, var(--color-text-body));
+    }
   }
 }
 </style>
