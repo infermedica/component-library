@@ -19,12 +19,16 @@ export default {
         name: 'point',
         title: 'Point on the body',
       },
+      {
+        name: 'drop',
+        title: 'Drop body point',
+      },
     ],
     content: {
       search: 'Serum uric acid concentration',
       point: '1. Erythrocyte Sedimentation Rate',
     },
-    initModelValue: 'search',
+    initModelValue: 'point',
     modifiers: [],
   },
   argTypes: {
@@ -41,7 +45,7 @@ export default {
     },
     tabsItem: {
       name: '<name>',
-      description: 'Use this slot to replace tabs item content. Require `name` in item object.',
+      description: 'Use this slot to place tabs item content. Require `name` in item object.',
       table: {
         category: 'slots',
         type: { summary: 'unknown' },
@@ -52,37 +56,7 @@ export default {
   parameters: {
     cssprops: {
       'tabs-padding': {
-        value: '0',
-        control: 'text',
-        description: '',
-      },
-      'tabs-divider-gap-y': {
-        value: '55px',
-        control: 'text',
-        description: '',
-      },
-      'tabs-underline-border': {
-        value: 'var(--color-border-divider)',
-        control: 'text',
-        description: '',
-      },
-      'tabs-underline-width': {
-        value: '100%',
-        control: 'text',
-        description: '',
-      },
-      'tabs-underline-color': {
-        value: 'var(--color-border-selection)',
-        control: 'text',
-        description: '',
-      },
-      'tabs-item-tab-fixed-margin': {
-        value: '0',
-        control: 'text',
-        description: '',
-      },
-      'tabs-item-tab-fixed-padding': {
-        value: 'var(--space-16) var(--space-8)',
+        value: '0 var(--space-20)',
         control: 'text',
         description: '',
       },
@@ -118,7 +92,7 @@ Fixed.args = {
   modifiers: ['ui-tabs--fixed'],
 };
 
-export const AsInTheDesign = (args) => ({
+export const WithDefaultSlot = (args) => ({
   components: { UiTabs, UiTabsItem, UiText },
   setup() {
     const modelValue = ref(args.initModelValue);
@@ -126,55 +100,17 @@ export const AsInTheDesign = (args) => ({
   },
   template: `<UiTabs 
     v-model="modelValue"
-    :items="items"
     :class="modifiers"
-    style="--tabs-padding: 0 var(--space-20); --tabs-underline-x-default: var(--space-20);"
   >
     <template 
       v-for="(item, key) in items"
-      #[item.name]="{item}"
       :key="key"
     >
-      <UiText>{{content[item.name]}}</UiText>
-    </template>
-  </UiTabs>`,
-});
-AsInTheDesign.parameters = {
-  layout: 'fullscreen',
-};
-
-export const WithContentSlot = (args) => ({
-  components: {
-    UiTabs, UiTabsItem, UiText, UiButton,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
-  },
-  template: `<UiTabs
-    v-model="modelValue"
-    :class="modifiers"
-  >
-    <template
-      v-for="(item, key) in items"
-      :key="key"
-    >
-      <UiTabsItem
-        :name="item.name"
-        :title="item.title"
+      <UiTabsItem 
+          :title="item.title" 
+          :name="item.name"
       >
-        <template #content="{isOpen, name, attrs}">
-          <div
-            v-show="isOpen"
-            :id="name"
-            role="region"
-            :aria-labelledby="'toggler-' + name"
-            class="ui-tabs-item__content"
-            v-bind="attrs"
-          >
-            <UiText>{{content[name]}}</UiText>
-          </div>
-        </template>
+        <UiText>{{content[item.name]}}</UiText>
       </UiTabsItem>
     </template>
   </UiTabs>`,
