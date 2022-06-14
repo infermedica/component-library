@@ -55,8 +55,8 @@ const { componentTag, routeAttrs } = useLink(props);
   word-break: var(--link-word-break, break-all);
 
   @supports (overflow-wrap: anywhere) {
-    word-break: normal;
     overflow-wrap: var(--link-overflow-wrap, anywhere);
+    word-break: normal;
   }
 
   @media (hover: hover) {
