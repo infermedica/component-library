@@ -56,7 +56,7 @@ export const WithListItemSlot = (args) => ({
 });
 WithListItemSlot.args = {
   items: [
-    { name: 'painful-swallowing', text: 'Painful swallowing' },
+    { name: 'painful-swallowing', text: 'Painful swallowing', listItemAttrs: { 'data-testid': 'painful' } },
     { name: 'stuffy-nose', text: 'Stuffy nose' },
     { name: 'sneeze', text: 'Sneeze' },
     { name: 'muscle-pain', text: 'Muscle pain' },

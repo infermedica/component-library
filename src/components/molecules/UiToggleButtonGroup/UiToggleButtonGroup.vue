@@ -75,6 +75,7 @@ const innerValue = computed({
 provide('modelValue', innerValue);
 
 const itemsToRender = computed(() => (props.items.map((item, key) => {
+  const { name, value } = item;
   if (typeof item === 'string') {
     return {
       name: `toggle-button-${key}`,
@@ -83,9 +84,9 @@ const itemsToRender = computed(() => (props.items.map((item, key) => {
     };
   }
   return {
-    name: item.name || `toggle-button-${key}`,
+    name: name || `toggle-button-${key}`,
     ...item,
-    value: item.value || item,
+    value: value || item,
   };
 })));
 </script>

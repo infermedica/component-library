@@ -12,7 +12,7 @@
       >
         <UiNavigationItem
           class=" ui-navigation__item"
-          v-bind="item.attrs"
+          v-bind="item.navigationItemAttrs"
         >
           <!-- @slot Use this slot to replace navigation item content. -->
           <slot
@@ -48,11 +48,11 @@ const isMultiline = ref(false);
 const modifiers = computed(() => (attrs?.class || ''));
 provide('modifiers', modifiers);
 const itemsToRender = computed(() => (props.items.map((item, key) => {
-  const { name, text, ...attrs } = item;
+  const { name, text } = item;
   return {
     name: name || `navigation-item-${key}`,
     text,
-    attrs,
+    ...item,
   };
 })));
 const resizeObserver = new ResizeObserver((entries) => {

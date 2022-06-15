@@ -14,6 +14,7 @@
           :name="item.name"
           :title="item.title"
           :button-attrs="item.buttonAttrs"
+          v-bind="item.tabsItemAttrs"
         >
           <!-- @slot Use this slot to place tab item content. -->
           <slot
@@ -56,6 +57,7 @@ watch(activeTab, (name) => {
   emit('update:modelValue', name);
 });
 const itemsToRender = computed(() => (props.items.map((item, key) => {
+  const { name } = item;
   if (typeof item === 'string') {
     return {
       name: `tabs-item-${key}`,
@@ -63,7 +65,7 @@ const itemsToRender = computed(() => (props.items.map((item, key) => {
     };
   }
   return {
-    name: item.name || `tabs-item-${key}`,
+    name: name || `tabs-item-${key}`,
     ...item,
   };
 })));

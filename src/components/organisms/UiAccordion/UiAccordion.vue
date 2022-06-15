@@ -10,6 +10,7 @@
           :title="item.title"
           :name="item.name"
           :settings="item.settings"
+          v-bind="item.accordionItemAttrs"
         >
           <!-- @slot Use this slot to replace accordion item content. -->
           <slot
@@ -61,6 +62,7 @@ function toggle(name) {
 }
 provide('toggle', toggle);
 const itemsToRender = computed(() => (props.items.map((item, key) => {
+  const { name } = item;
   if (typeof item === 'string') {
     return {
       name: `accordion-item-${key}`,
@@ -68,7 +70,7 @@ const itemsToRender = computed(() => (props.items.map((item, key) => {
     };
   }
   return {
-    name: item.name || `accordion-item-${key}`,
+    name: name || `accordion-item-${key}`,
     ...item,
   };
 })));

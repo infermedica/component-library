@@ -61,7 +61,7 @@ OrderedList.args = {
 export const NestingList = Template.bind({});
 NestingList.args = {
   items: [
-    { name: 'painful-swallowing', text: 'Painful swallowing' },
+    { name: 'painful-swallowing', text: 'Painful swallowing', bulletPointsItemAttrs: { 'data-testid': 'painful', icon: 'bullet-common' } },
     {
       name: 'stuffy-nose',
       text: 'Stuffy nose',
@@ -76,7 +76,7 @@ NestingList.args = {
       name: 'runny-nose',
       text: 'Runny nose',
       children: {
-        itemsAttrs: {
+        bulletPointAttrs: {
           tag: 'ol',
         },
         items: [
