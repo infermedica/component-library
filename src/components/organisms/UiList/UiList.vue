@@ -9,7 +9,7 @@
         v-for="(item, key) in itemsToRender"
         :key="key"
       >
-        <UiListItem>
+        <UiListItem v-bind="item.listItemAttrs">
           <!-- @slot Use this slot to replace list item content -->
           <slot
             :name="item.name"
@@ -51,6 +51,7 @@ const props = defineProps({
   },
 });
 const itemsToRender = computed(() => (props.items.map((item, key) => {
+  const { name, children } = item;
   if (typeof item === 'string') {
     return {
       name: `list-item-${key}`,
@@ -58,16 +59,16 @@ const itemsToRender = computed(() => (props.items.map((item, key) => {
     };
   }
   return {
-    name: item.name || `list-item-${key}`,
+    name: name || `list-item-${key}`,
     ...item,
-    children: Array.isArray(item.children)
+    children: Array.isArray(children)
       ? {
         tag: props.tag,
-        items: item.children,
+        items: children,
       }
       : {
-        items: item.children?.items,
-        ...(item.children?.itemsAttrs || {
+        items: children?.items,
+        ...(children?.listAttrs || {
           tag: props.tag,
         }),
       },

@@ -87,6 +87,7 @@ SingleItem.args = {
   items: [{
     name: 'less',
     title: 'Less likely conditions',
+    accordionItemAttrs: { 'data-testid': 'less' },
   }],
   content: {
     less: 'Serum uric acid concentration',

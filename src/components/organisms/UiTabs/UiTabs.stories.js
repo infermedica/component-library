@@ -14,6 +14,9 @@ export default {
       {
         name: 'search',
         title: 'Search',
+        tabsItemAttrs: {
+          'data-testid': 'search',
+        },
       },
       {
         name: 'point',

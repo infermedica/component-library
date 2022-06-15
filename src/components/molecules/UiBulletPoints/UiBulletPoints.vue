@@ -10,7 +10,7 @@
         v-for="(item, key) in itemsToRender"
         :key="key"
       >
-        <UiBulletPointsItem :icon="icon">
+        <UiBulletPointsItem v-bind="item.bulletPointsItemAttrs">
           <!-- @slot Use this slot to replace bullet point item content. -->
           <slot
             :name="item.name"
@@ -88,6 +88,7 @@ const listStyleType = computed(() => {
 });
 
 const itemsToRender = computed(() => (props.items.map((item, index) => {
+  const { name, children } = item;
   if (typeof item === 'string') {
     return {
       name: `bullet-point-${index}`,
@@ -95,18 +96,18 @@ const itemsToRender = computed(() => (props.items.map((item, index) => {
     };
   }
   return {
-    name: item.name || `bullet-point-${index}`,
+    name: name || `bullet-point-${index}`,
     ...item,
-    children: Array.isArray(item.children)
+    children: Array.isArray(children)
       ? {
         tag: props.tag,
         type: props.type,
-        items: item.children,
+        items: children,
         icon: props.icon,
       }
       : {
-        items: item.children?.items,
-        ...(item.children?.itemsAttrs || {
+        items: children?.items,
+        ...(children?.bulletPointAttrs || {
           tag: props.tag,
           type: props.type,
           icon: props.icon,

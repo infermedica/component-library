@@ -170,7 +170,7 @@ export const WithIconInNavigationItemSlot = (args) => ({
 WithIconInNavigationItemSlot.args = {
   items: [
     {
-      name: 'medical-certification', text: 'Medical Certification', href: '#', class: 'ui-button--has-icon',
+      name: 'medical-certification', text: 'Medical Certification', href: '#', navigationItemAttrs: { class: 'ui-button--has-icon' },
     },
     { name: 'instruction-for-use', text: 'Instruction for Use', href: '#' },
     { name: 'terms-of-service', text: 'Terms of Service', href: '#' },
