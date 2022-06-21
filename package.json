@@ -1,12 +1,13 @@
 {
-  "name": "@symptom-checker/ui-kit",
+  "name": "@infermedica/component-library",
   "description": "Vue 3 UI library for healthcare and not only.",
-  "version": "0.4.3",
+  "version": "0.5.0",
   "license": "MIT",
   "scripts": {
     "test:generate-output": "vue-cli-service test:unit --json --outputFile=.jest-test-results.json || true",
     "test:unit": "vue-cli-service test:unit",
     "test:watch": "vue-cli-service test:unit --watch --onlyChanged",
+    "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
     "stylelint": "stylelint src/**/*.{vue,scss,css} --fix",
     "prestorybook": "npm run create:icons-list && npm run test:generate-output",
