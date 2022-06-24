@@ -60,8 +60,13 @@ export default {
         control: 'text',
         description: '',
       },
-      'navigation-item-multiline-margin': {
+      'navigation-multiline-margin': {
         value: '0 calc(var(--space-8) * -1) calc(var(--space-12) * -1)',
+        control: 'text',
+        description: '',
+      },
+      'navigation-item-multiline-margin': {
+        value: '0 var(--space-8) var(--space-12)',
         control: 'text',
         description: '',
       },

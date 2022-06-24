@@ -177,8 +177,6 @@ const choicesToUse = computed(() => (
   }
 
   &__hint {
-    @include font(body-2-comfortable-thick);
-
     margin: var(--multiple-choices-mobile-hint-margin, 0 var(--space-20) var(--space-12) var(--space-20));
     color: var(--multiple-choices-hint-color, var(--color-text-dimmed));
 

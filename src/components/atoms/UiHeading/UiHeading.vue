@@ -40,6 +40,8 @@ const headingClass = computed(() => `ui-heading--h${props.level}`);
 @import "../../../styles/mixins/mixins";
 
 .ui-heading {
+  @include font(heading, body-1);
+
   margin: var(--heading-margin, 0);
   color: var(--heading-color, var(--color-text-heading));
   text-decoration: var(--heading-text-decoration);
@@ -47,7 +49,8 @@ const headingClass = computed(() => `ui-heading--h${props.level}`);
 
   @for $i from 1 through 6 {
     &--h#{$i} {
-      @include font(h#{$i});
+      --heading-font: var(--font-h#{$i});
+      --heading-letter-spacing: var(--letter-spacing-h#{$i});
     }
   }
 }

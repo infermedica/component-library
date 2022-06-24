@@ -25,6 +25,16 @@ export default {
   },
   parameters: {
     cssprops: {
+      'link-font': {
+        value: 'var(--font-body-1)',
+        control: 'text',
+        description: '',
+      },
+      'link-letter-spacing': {
+        value: 'var(--letter-spacing-body-1)',
+        control: 'text',
+        description: '',
+      },
       'link-display': {
         value: 'inline',
         control: 'text',

@@ -153,6 +153,16 @@ export default {
         control: 'text',
         description: '',
       },
+      'card-title-font': {
+        value: 'var(--font-h2)',
+        control: 'text',
+        description: '',
+      },
+      'card-title-letter-spacing': {
+        value: 'var(--letter-spacing-h2)',
+        control: 'text',
+        description: '',
+      },
       'card-title-margin': {
         value: '0 0 var(--space-12)',
         control: 'text',

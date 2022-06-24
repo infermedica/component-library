@@ -89,6 +89,16 @@ export default {
         control: 'text',
         description: '',
       },
+      'input-aside-font': {
+        value: 'var(--font-body-1)',
+        control: 'text',
+        description: '',
+      },
+      'input-aside-letter-spacing': {
+        value: 'var(--letter-spacing-body-1)',
+        control: 'text',
+        description: '',
+      },
       'input-aside-margin': {
         value: '0 0 0 var(--space-12)',
         control: 'text',
@@ -262,7 +272,10 @@ export const WithAsideSlot = (args) => ({
     :class="modifiers"
   >
     <template #aside="{suffix}">
-      <UiText class="ui-input__aside">
+      <UiText
+        tag="span"
+        class="ui-input__aside"
+      >
         {{ suffix }}
       </UiText>
     </template>

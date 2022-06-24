@@ -1,20 +1,10 @@
 <template>
-  <component
-    :is="tag"
+  <div
     class="ui-multiple-choices-item"
-    role="radiogroup"
+    role="group"
     :class="{'ui-multiple-choices-item--has-error': invalid}"
-    :aria-labelledby="choiceLabelId"
+    :aria-labelledby="choice.linked_observation"
   >
-    <!-- @slot Use this slot to replace legend template. -->
-    <slot
-      name="legend"
-      v-bind="{choice}"
-    >
-      <legend class="visual-hidden">
-        {{ choice.name }}
-      </legend>
-    </slot>
     <!-- @slot Use this slot to replace name template.-->
     <slot
       name="name"
@@ -22,9 +12,9 @@
     >
       <div class="ui-multiple-choices-item__header">
         <UiText
-          :id="choiceLabelId"
-          class="ui-multiple-choices-item__name"
+          :id="choice.linked_observation"
           tag="span"
+          class="ui-multiple-choices-item__name"
         >
           {{ choice.name }}
         </UiText>
@@ -64,12 +54,10 @@
         </UiRadio>
       </slot>
     </template>
-  </component>
+  </div>
 </template>
 
 <script setup>
-import { computed } from 'vue';
-import { uid } from 'uid/single';
 import UiRadio from '../../../atoms/UiRadio/UiRadio.vue';
 import UiText from '../../../atoms/UiText/UiText.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
@@ -104,16 +92,8 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-  /**
-   * Use this props to set multiple choices item tag.
-   */
-  tag: {
-    type: String,
-    default: 'fieldset',
-  },
 });
 const emit = defineEmits(['update:modelValue']);
-const choiceLabelId = computed(() => (`choice-label-${props.choice?.id || uid()}`));
 function getModelValue(choice) {
   return props.modelValue[choice.id];
 }
@@ -132,11 +112,6 @@ function updateHandler(value) {
 @import "../../../../styles/mixins/mixins";
 
 .ui-multiple-choices-item {
-  @at-root fieldset#{&} {
-    border: none;
-    margin: 0;
-  }
-
   display: flex;
   flex-direction: var(--multiple-choices-item-flex-direction, column);
   align-items: var(--multiple-choices-item-align-items, stretch);
@@ -148,8 +123,6 @@ function updateHandler(value) {
   }
 
   &__header {
-    @include font(body-1);
-
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -171,6 +144,10 @@ function updateHandler(value) {
         margin: 0 0 0 auto;
       }
     }
+  }
+
+  &__name {
+    @include font(multiple-choices-item-name, body-1, text);
   }
 
   &__option {

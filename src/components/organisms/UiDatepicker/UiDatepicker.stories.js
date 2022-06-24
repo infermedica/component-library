@@ -136,6 +136,16 @@ export default {
         control: 'text',
         description: '',
       },
+      'datepicker-field-label-font': {
+        value: 'var(--font-body-2-comfortable)',
+        control: 'text',
+        description: '',
+      },
+      'datepicker-field-label-letter-spacing': {
+        value: 'var(--letter-spacing-body-2-comfortable)',
+        control: 'text',
+        description: '',
+      },
       'datepicker-field-label-display': {
         value: 'inline-block',
         control: 'text',
@@ -143,11 +153,6 @@ export default {
       },
       'datepicker-field-label-margin': {
         value: '0 0 var(--space-8) 0',
-        control: 'text',
-        description: '',
-      },
-      'datepicker-field-label-font': {
-        value: 'var(--font-body-2-comfortable)',
         control: 'text',
         description: '',
       },

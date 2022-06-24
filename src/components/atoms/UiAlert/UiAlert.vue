@@ -71,7 +71,7 @@ const icon = computed(() => {
   }
 
   &__message {
-    @include font(body-2-comfortable);
+    @include font(alert-message, body-2-comfortable, text);
 
     color: var(--alert-color, var(--color-text-body));
   }
@@ -98,10 +98,8 @@ const icon = computed(() => {
 
   &--secondary {
     --alert-color: var(--color-text-body);
-
-    #{$this}__message {
-      @include font(body-1);
-    }
+    --alert-message-font: var(--font-body-1);
+    --alert-message-letter-spacing: var(--letter-spacing-body-1);
   }
 }
 </style>

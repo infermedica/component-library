@@ -27,9 +27,12 @@
         name="value"
         v-bind="{value: modelValue}"
       >
-        <div class="ui-range__value">
+        <UiText
+          tag="span"
+          class="ui-range__value"
+        >
           {{ modelValue }}
-        </div>
+        </UiText>
       </slot>
       <!-- @slot Use this slot to replace range template. -->
       <slot
@@ -81,6 +84,7 @@ export default {
 import { computed, useAttrs } from 'vue';
 import UiButton from '../UiButton/UiButton.vue';
 import UiIcon from '../UiIcon/UiIcon.vue';
+import UiText from '../UiText/UiText.vue';
 import useInput from '../../../composable/useInput';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 
@@ -305,7 +309,7 @@ function changeHandler(value, modifier = 0) {
   }
 
   &__value {
-    @include font(h1);
+    @include font(range-value, h1, text);
 
     position: absolute;
     left: var(--range-selected-track-width);

@@ -36,6 +36,7 @@ html {
   --font-body-2-comfortable-thick: var(--font-weight-thick) var(--font-size-1) / var(--line-height-2) var(--font-family-body);
   --font-body-2-compact-thick: var(--font-weight-thick) var(--font-size-1) / var(--line-height-1) var(--font-family-body);
   --font-caption: var(--font-weight-default) var(--font-size-0) / var(--line-height-1) var(--font-family-body);
+  --font-button-1: var(--font-weight-thick) var(--font-size-1) / var(--line-height-default) var(--font-family-body);
 
   @media screen and (min-width: 768px) {
     --font-h1: var(--font-weight-default) var(--font-size-7) / var(--line-height-default) var(--font-family-heading);
@@ -55,6 +56,7 @@ html {
   --letter-spacing-body-2-compact: var(--letter-spacing-medium);
   --letter-spacing-body-2-compact-thick: var(--letter-spacing-medium);
   --letter-spacing-caption: var(--letter-spacing-medium);
+  --letter-spacing-button-1: var(--letter-spacing-medium);
 
   @media screen and (min-width: 768px) {
     --letter-spacing-h2: var(--letter-spacing-none);

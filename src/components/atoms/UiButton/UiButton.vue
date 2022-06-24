@@ -45,7 +45,7 @@ const { componentTag, routeAttrs } = useLink(props);
 
 .ui-button {
   @include inner-border($element: button, $color: transpatent, $width: 0, $radius: var(--border-radius-button));
-  @include font(body-1-thick);
+  @include font(button, button-1);
 
   $this: &;
 
@@ -140,9 +140,9 @@ const { componentTag, routeAttrs } = useLink(props);
   }
 
   &--small {
-    @include font(body-2-comfortable);
-
     --button-padding: var(--space-8) var(--space-20);
+    --button-font: var(--body-2-comfortable);
+    --button-letter-spacing: var(--letter-spacing-body-2-comfortable);
   }
 
   &--is-disabled {
@@ -200,8 +200,8 @@ const { componentTag, routeAttrs } = useLink(props);
     --button-hover-background: transparent;
     --button-active-background: transparent;
     --button-padding: 0;
-
-    @include font(body-1);
+    --button-font: var(--body-1);
+    --button-letter-spacing: var(--letter-spacing-body-1);
 
     &:focus {
       --button-border-radius: var(--border-radius-outline);
@@ -224,7 +224,8 @@ const { componentTag, routeAttrs } = useLink(props);
     }
 
     &#{$this}--small {
-      @include font(body-2-comfortable);
+      --button-font: var(--body-2-comfortable);
+      --button-letter-spacing: var(--letter-spacing-body-2-comfortable);
     }
 
     &#{$this}--is-disabled {

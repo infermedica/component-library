@@ -23,21 +23,18 @@ defineProps({
 @import "../../../styles/mixins/mixins";
 
 .ui-text {
-  $styles: "1-thick", "2-comfortable", "2-compact", "2-comfortable-thick", "2-compact-thick";
+  $styles: "body-1-thick", "body-2-comfortable", "body-2-compact", "body-2-comfortable-thick", "body-2-compact-thick", "caption", "button-1";
 
-  @include font(body-1);
+  @include font(text, body-1);
 
   margin: var(--text-margin, 0);
   color: var(--text-color, var(--color-text-body));
 
   @each $style in $styles {
     &--#{$style} {
-      @include font(body-#{$style});
+      --text-font: var(--font-#{$style});
+      --text-letter-spacing: var(--letter-spacing-#{$style});
     }
-  }
-
-  &--caption {
-    @include font(caption);
   }
 }
 </style>

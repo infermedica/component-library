@@ -57,6 +57,16 @@ export default {
         control: 'text',
         description: '',
       },
+      'alert-message-font': {
+        value: 'var(--font-body-2-comfortable)',
+        control: 'text',
+        description: '',
+      },
+      'alert-message-letter-spacing': {
+        value: 'var(--letter-spacing-body-2-comfortable)',
+        control: 'text',
+        description: '',
+      },
       'alert-color': {
         value: 'var(--color-text-body)',
         control: 'text',

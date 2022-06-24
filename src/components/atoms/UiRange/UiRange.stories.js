@@ -1,6 +1,7 @@
 import UiRange from '@/components/atoms/UiRange/UiRange.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
+import UiText from '@/components/atoms/UiText/UiText.vue';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { ref } from 'vue';
@@ -9,7 +10,7 @@ import { disabled } from '@sb/helpers/argTypes';
 export default {
   title: 'Atoms/Range',
   component: UiRange,
-  subcomponents: { UiButton, UiIcon },
+  subcomponents: { UiButton, UiIcon, UiText },
   args: {
     initModelValue: 50,
     disabled: false,
@@ -125,6 +126,16 @@ export default {
         control: 'text',
         description: '',
       },
+      'range-value-font': {
+        value: 'var(--font-h1)',
+        control: 'text',
+        description: '',
+      },
+      'range-value-letter-spacing': {
+        value: 'var(--letter-spacing-h1)',
+        control: 'text',
+        description: '',
+      },
       'range-selected-track-width': {
         value: undefined,
         control: 'text',
@@ -217,7 +228,9 @@ export const WithIncrementSlot = (args) => ({
 });
 
 export const WithValueSlot = (args) => ({
-  components: { UiRange, UiButton, UiIcon },
+  components: {
+    UiRange, UiButton, UiIcon, UiText,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
@@ -231,9 +244,12 @@ export const WithValueSlot = (args) => ({
     :aria-label="ariaLabel"
   >
     <template #value="{value}">
-      <div class="ui-range__value">
+      <UiText
+        tag="span"
+        class="ui-range__value"
+      >
         {{ value }}
-      </div>
+      </UiText>
     </template>
   </UiRange>`,
 });

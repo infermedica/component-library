@@ -44,7 +44,7 @@ function clickHandler() {
 @import "../../../styles/mixins/mixins";
 
 .ui-chip {
-  @include font(body-2-comfortable);
+  @include font(chip, body-2-comfortable);
 
   display: inline-flex;
   align-items: center;
@@ -59,17 +59,18 @@ function clickHandler() {
 
   &__remove {
     --button-padding: 0;
+    --button-margin: -2px;
     --button-border-width: 0;
     --button-icon-color: var(--chip-remove-background, var(--color-chip-icon-background));
     --button-icon-color-hover: var(--chip-remove-hover-background, var(--color-chip-icon-background-hover));
     --button-icon-color-active: var(--chip-remove-active-background, var(--color-chip-icon-background-active));
     --icon-size: var(--chip-remove-size, 1.5rem);
-    --remove-filled-close: var(--chip-remove-cross, var(--color-chip-icon));
+    --remove-filled-close: var(--chip-remove-cross, var(--color-chip-icon)); //assets/icons/remove-filled.svg
 
-    margin: var(--chip-remove-margin, 2px 2px 2px calc(var(--space-4) + 2px));
+    margin: var(--chip-remove-margin, var(--space-2) var(--space-2) var(--space-2) var(--space-4));
 
     [dir="rtl"] & {
-      margin: var(--chip-remove-margin, 2px calc(var(--space-4) + 2px) 2px 2px);
+      margin: var(--chip-remove-margin, var(--space-2) var(--space-4) var(--space-2) var(--space-2));
     }
   }
 

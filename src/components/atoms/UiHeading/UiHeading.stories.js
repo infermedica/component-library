@@ -21,6 +21,16 @@ export default {
   },
   parameters: {
     cssprops: {
+      'heading-font': {
+        value: 'var(--font-body-1)',
+        control: 'text',
+        description: '',
+      },
+      'heading-letter-spacing': {
+        value: 'var(--letter-spacing-body-1)',
+        control: 'text',
+        description: '',
+      },
       'heading-margin': {
         value: '0',
         control: 'text',
