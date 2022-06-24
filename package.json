@@ -19,7 +19,9 @@
     "create:icons-list": "node scripts/create-icons-list.js",
     "update:docs": "node scripts/update-components-docs.mjs && npm run lint",
     "postinstall": "npm run create:index",
-    "chromatic": "chromatic --exit-zero-on-changes"
+    "chromatic": "chromatic --exit-zero-on-changes",
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
   },
   "main": "index.js",
   "module": "index.js",
