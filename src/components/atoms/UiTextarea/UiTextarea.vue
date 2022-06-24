@@ -88,7 +88,7 @@ const resizeValue = computed(() => {
   }
 
   &__element {
-    @include font(body-1);
+    @include font(textarea-element, body-1);
 
     width: 100%;
     padding: var(--textarea-padding, var(--space-12) var(--space-16));
@@ -99,9 +99,9 @@ const resizeValue = computed(() => {
     outline: none;
 
     &::placeholder {
-      @include font(body-1);
-
       color: var(--texatarea-placeholder-color, var(--color-text-dimmed));
+      font: inherit;
+      letter-spacing: inherit;
     }
   }
 

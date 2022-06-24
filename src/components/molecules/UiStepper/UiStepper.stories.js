@@ -54,6 +54,16 @@ export default {
         control: 'text',
         description: '',
       },
+      'stepper-text-font-font': {
+        value: 'var(--font-body-2-compact)',
+        control: 'text',
+        description: '',
+      },
+      'stepper-text-font-letter-spacing': {
+        value: 'var(--letter-spacing-body-2-compact)',
+        control: 'text',
+        description: '',
+      },
       'stepper-progress-radius': {
         value: undefined,
         control: 'text',
@@ -61,6 +71,16 @@ export default {
       },
       'stepper-link-active-color': {
         value: 'var(--color-text-body)',
+        control: 'text',
+        description: '',
+      },
+      'stepper-item-link-font': {
+        value: 'var(--font-body-1)',
+        control: 'text',
+        description: '',
+      },
+      'stepper-item-link-letter-spacing': {
+        value: 'var(--letter-spacing-body-1)',
         control: 'text',
         description: '',
       },

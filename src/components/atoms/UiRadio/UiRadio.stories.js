@@ -1,4 +1,5 @@
 import UiRadio from '@/components/atoms/UiRadio/UiRadio.vue';
+import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import UiList from '@/components/organisms/UiList/UiList.vue';
 import { ref } from 'vue';
@@ -7,6 +8,7 @@ import { content, modifiers, disabled } from '@sb/helpers/argTypes';
 export default {
   title: 'Atoms/Radio',
   component: UiRadio,
+  subcomponents: { UiText },
   args: {
     initModelValue: '',
     content: '98.6–100.4 °F or 37–38 °C',
@@ -78,6 +80,16 @@ export default {
       },
       'radio-mark-background': {
         value: 'transparent',
+        control: 'text',
+        description: '',
+      },
+      'radio-label-font': {
+        value: 'var(--font-body-1)',
+        control: 'text',
+        description: '',
+      },
+      'radio-label-letter-spacing': {
+        value: 'var(--letter-spacing-body-1)',
         control: 'text',
         description: '',
       },
@@ -153,7 +165,7 @@ export const WithRadiobuttonSlot = (args) => ({
 });
 
 export const WithLabelSlot = (args) => ({
-  components: { UiRadio },
+  components: { UiRadio, UiText },
   setup() {
     const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
@@ -166,9 +178,12 @@ export const WithLabelSlot = (args) => ({
     :class="modifiers"
   >
     <template #label>
-      <div class="ui-radio__label">
+      <UiText
+        tag="span"
+        class="ui-radio__label"
+      >
         {{content}}
-      </div>
+      </UiText>
     </template>
   </UiRadio>`,
 });

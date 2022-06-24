@@ -1,4 +1,5 @@
 import UiCheckbox from '@/components/atoms/UiCheckbox/UiCheckbox.vue';
+import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
@@ -8,7 +9,7 @@ import { content, modifiers, disabled } from '@sb/helpers/argTypes';
 export default {
   title: 'Atoms/Checkbox',
   component: UiCheckbox,
-  subcomponents: { UiIcon },
+  subcomponents: { UiIcon, UiText },
   args: {
     initModelValue: false,
     content: 'I read and accept Terms of Service and Privacy Policy.',
@@ -61,6 +62,16 @@ export default {
       },
       'checkbox-border-width': {
         value: '2px',
+        control: 'text',
+        description: '',
+      },
+      'checkbox-label-font': {
+        value: 'var(--font-body-1)',
+        control: 'text',
+        description: '',
+      },
+      'checkbox-label-letter-spacing': {
+        value: 'var(--letter-spacing-body-1)',
         control: 'text',
         description: '',
       },
@@ -137,7 +148,7 @@ export const WithCheckbuttonSlot = (args) => ({
 });
 
 export const WithLabelSlot = (args) => ({
-  components: { UiCheckbox },
+  components: { UiCheckbox, UiText },
   setup() {
     const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
@@ -149,9 +160,12 @@ export const WithLabelSlot = (args) => ({
       :class="modifiers"
     >
       <template #label>
-        <div class="ui-checkbox__label">
+        <UiText
+          tag="span"
+          class="ui-checkbox__label"
+        >
           {{ content }}
-        </div>
+        </UiText>
       </template>
     </UiCheckbox>`,
 });

@@ -76,23 +76,18 @@ export default {
   parameters: {
     layout: 'fullscreen',
     cssprops: {
-      'header-width': {
-        value: undefined,
-        control: 'text',
-        description: '',
-      },
       'header-background': {
         value: 'var(--color-background-brand)',
         control: 'text',
         description: '',
       },
-      'header-justify-content': {
-        value: 'space-between',
+      'header-max-width': {
+        value: '61.25rem',
         control: 'text',
         description: '',
       },
-      'header-max-width': {
-        value: '61.25rem',
+      'header-justify-content': {
+        value: 'space-between',
         control: 'text',
         description: '',
       },

@@ -158,6 +158,8 @@ const icon = computed(() => {
   }
 
   &__title {
+    @include font(card-title, h2, heading);
+
     margin: var(--card-title-margin, 0 0 var(--space-16));
   }
 
@@ -225,7 +227,8 @@ const icon = computed(() => {
   }
 
   #{$this}__title {
-    @include font(h1);
+    --card-title-font: var(--font-h1);
+    --card-letter-spacing: var(--letter-spacing-h1);
 
     @include from-tablet {
       margin: var(--card-title-margin, 0 0 var(--space-12));

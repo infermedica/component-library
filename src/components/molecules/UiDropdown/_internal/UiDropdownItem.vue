@@ -73,9 +73,8 @@ const buttonAttrs = computed(() => ({
 @import "../../../../styles/mixins/mixins";
 
 .ui-dropdown-item {
+  @include font(dropdown-item, body-1, button);
   $this: &;
-
-  @include font(body-1);
 
   --button-padding: var(--dropdown-item-button-padding, var(--space-8));
   --button-border-width: 0;

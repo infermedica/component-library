@@ -161,6 +161,16 @@ export default {
         control: 'text',
         description: '',
       },
+      'side-panel-subtitle-font': {
+        value: 'var(--font-body-2-comfortable)',
+        control: 'text',
+        description: '',
+      },
+      'side-panel-subtitle-letter-spacing': {
+        value: 'var(--letter-spacing-body-2-comfortable)',
+        control: 'text',
+        description: '',
+      },
       'side-panel-subtitle-margin': {
         value: 'var(--space-8) 0 0 0',
         control: 'text',

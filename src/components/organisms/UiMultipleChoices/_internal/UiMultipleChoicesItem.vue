@@ -13,8 +13,8 @@
       <div class="ui-multiple-choices-item__header">
         <UiText
           :id="choice.linked_observation"
-          class="ui-multiple-choices-item__name"
           tag="span"
+          class="ui-multiple-choices-item__name"
         >
           {{ choice.name }}
         </UiText>
@@ -123,8 +123,6 @@ function updateHandler(value) {
   }
 
   &__header {
-    @include font(body-1);
-
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -146,6 +144,10 @@ function updateHandler(value) {
         margin: 0 0 0 auto;
       }
     }
+  }
+
+  &__name {
+    @include font(multiple-choices-item-name, body-1, text);
   }
 
   &__option {

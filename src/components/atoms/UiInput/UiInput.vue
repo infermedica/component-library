@@ -24,6 +24,7 @@
     >
       <UiText
         v-if="suffix"
+        tag="span"
         class="ui-input__aside"
       >
         {{ suffix }}
@@ -110,7 +111,7 @@ function inputHandler(value) {
   }
 
   &__element {
-    @include font(body-1);
+    @include font(input-element, body-1);
 
     width: 100%;
     padding: var(--input-padding, var(--space-12) var(--space-16));
@@ -121,9 +122,9 @@ function inputHandler(value) {
     outline: none;
 
     &::placeholder {
-      @include font(body-1);
-
       color: var(--input-placeholder-color, var(--color-text-dimmed));
+      font: inherit;
+      letter-spacing: inherit;
     }
 
     &::-webkit-search-decoration,
@@ -150,7 +151,7 @@ function inputHandler(value) {
   }
 
   &__aside {
-    @include font(body-1);
+    @include font(input-aside, body-1, text);
 
     flex: none;
     margin: var(--input-aside-margin, 0 var(--space-16) 0 0);
@@ -163,6 +164,7 @@ function inputHandler(value) {
 
   &--has-icon {
     --icon-size: var(--input-icon-size, 1.5rem);
+
     #{$this}__aside {
       --input-aside-margin: var(--input-aside-margin, 0 var(--space-12) 0 0);
 

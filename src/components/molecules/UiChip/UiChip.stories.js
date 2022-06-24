@@ -29,6 +29,16 @@ export default {
   },
   parameters: {
     cssprops: {
+      'chip-font': {
+        value: 'var(--font-body-2-comfortable)',
+        control: 'text',
+        description: '',
+      },
+      'chip-letter-spacing': {
+        value: 'var(--letter-spacing-body-2-comfortable)',
+        control: 'text',
+        description: '',
+      },
       'chip-padding': {
         value: 'var(--space-4) var(--space-12) var(--space-4) var(--space-4)',
         control: 'text',
@@ -75,7 +85,7 @@ export default {
         description: '',
       },
       'chip-remove-margin': {
-        value: '2px calc(var(--space-4) + 2px) 2px 2px',
+        value: 'var(--space-2) var(--space-4) var(--space-2) var(--space-2)',
         control: 'text',
         description: '',
       },

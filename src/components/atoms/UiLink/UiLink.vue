@@ -44,7 +44,7 @@ const { componentTag, routeAttrs } = useLink(props);
 @import "../../../styles/mixins/mixins";
 
 .ui-link {
-  @include font(body-1);
+  @include font(link, body-1);
 
   $this: &;
 
@@ -109,7 +109,8 @@ const { componentTag, routeAttrs } = useLink(props);
   }
 
   &--small {
-    @include font(body-2-comfortable);
+    --link-font: var(--font-body-2-comfortable);
+    --link-letter-spacing: var(--letter-spacing-body-2-comfortable);
   }
 
   &--secondary {

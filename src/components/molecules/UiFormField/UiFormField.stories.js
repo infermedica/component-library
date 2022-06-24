@@ -35,6 +35,16 @@ export default {
   },
   parameters: {
     cssprops: {
+      'form-field-label-text-font': {
+        value: 'var(--font-body-2-comfortable)',
+        control: 'text',
+        description: '',
+      },
+      'form-field-label-text-letter-spacing': {
+        value: 'var(--letter-spacing-body-2-comfortable)',
+        control: 'text',
+        description: '',
+      },
       'form-field-label-text-margin': {
         value: '0 0 var(--space-8) 0',
         control: 'text',
@@ -42,6 +52,16 @@ export default {
       },
       'form-field-label-text-color': {
         value: 'var(--color-text-body)',
+        control: 'text',
+        description: '',
+      },
+      'form-field-label-tag-font': {
+        value: 'var(--font-body-2-comfortable)',
+        control: 'text',
+        description: '',
+      },
+      'form-field-label-tag-letter-spacing': {
+        value: 'var(--letter-spacing-body-2-comfortable)',
         control: 'text',
         description: '',
       },

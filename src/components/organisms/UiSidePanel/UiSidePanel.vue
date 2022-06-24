@@ -268,7 +268,7 @@ onBeforeUnmount(() => {
   }
 
   &__subtitle {
-    @include font(body-2-comfortable);
+    @include font(side-panel-subtitle, body-2-comfortable, text);
 
     margin: var(--side-panel-subtitle-margin, var(--space-8) 0 0 0);
   }

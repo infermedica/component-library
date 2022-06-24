@@ -27,13 +27,14 @@
     </slot>
     <!-- @slot Use this slot to replace label template. -->
     <slot name="label">
-      <div
+      <UiText
         v-if="hasLabel"
+        tag="span"
         class="ui-radio__label"
       >
         <!-- @slot Use this slot to place content inside label. -->
         <slot />
-      </div>
+      </UiText>
     </slot>
   </label>
 </template>
@@ -48,6 +49,7 @@ export default {
 import { computed, useSlots } from 'vue';
 import equal from 'fast-deep-equal';
 import { uid } from 'uid/single';
+import UiText from '../UiText/UiText.vue';
 import useInput from '../../../composable/useInput';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 
@@ -160,7 +162,7 @@ function changeHandler(checked) {
   }
 
   &__label {
-    @include font(body-1);
+    @include font(radio-label, body-1, text);
 
     flex: var(--radio-label-flex, 1);
     margin: var(--radio-label-margin, 0 0 0 var(--space-12));

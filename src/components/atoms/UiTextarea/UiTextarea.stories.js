@@ -70,6 +70,16 @@ export default {
         control: 'text',
         description: '',
       },
+      'textarea-element-font': {
+        value: 'var(--font-body-1)',
+        control: 'text',
+        description: '',
+      },
+      'textarea-element-letter-spacing': {
+        value: 'var(--letter-spacing-body-1)',
+        control: 'text',
+        description: '',
+      },
       'textarea-padding': {
         value: 'var(--space-12) var(--space-16)',
         control: 'text',

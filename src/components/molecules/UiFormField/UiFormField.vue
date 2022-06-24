@@ -117,14 +117,14 @@ const inputId = computed(() => (
   }
 
   &__label-text {
-    @include font(body-2-comfortable);
+    @include font(form-field-label-text, body-2-comfortable, text);
 
     margin: var(--form-field-label-text-margin, 0 0 var(--space-8) 0);
     color: var(--form-field-label-text-color, var(--color-text-body));
   }
 
   &__label-tag {
-    @include font(body-2-comfortable);
+    @include font(form-field-label-tag, body-2-comfortable, text);
 
     margin: var(--form-field-label-tag-margin, 0 0 0 var(--space-8));
     color: var(--form-field-label-tag-color, var(--color-text-dimmed));

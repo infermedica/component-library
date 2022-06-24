@@ -1,4 +1,12 @@
-@mixin font($font-token) {
-  font: var(--font-#{$font-token});
-  letter-spacing: var(--letter-spacing-#{$font-token});
+@mixin font ($element, $font-token, $to-extend: optional) {
+  $font: font!default;
+  $letter-spacing: letter-spacing!default;
+
+  @if ($to-extend != optional) {
+    $font: --#{$to-extend}-font;
+    $letter-spacing: --#{$to-extend}-letter-spacing;
+  }
+
+  #{$font}: var(--#{$element}-font, var(--font-#{$font-token}));
+  #{$letter-spacing}: var(--#{$element}-letter-spacing, var(--letter-spacing-#{$font-token}));
 }

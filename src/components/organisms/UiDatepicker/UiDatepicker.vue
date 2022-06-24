@@ -484,6 +484,8 @@ provide('inputsIds', inputsIds);
 </script>
 
 <style lang="scss">
+@import "../../../styles/mixins/mixins";
+
 .ui-datepicker {
   --dropdown-popover-width: var(--datepicker-dropdown-popover-width, 20rem);
 
@@ -527,9 +529,10 @@ provide('inputsIds', inputsIds);
   }
 
   &__label {
+    @include font(datepicker-field-label, body-2-comfortable, text);
+
     display: var(--datepicker-field-label-display, inline-block);
     margin: var(--datepicker-field-label-margin, 0 0 var(--space-8) 0);
-    font: var(--datepicker-field-label-font, var(--font-body-2-comfortable));
   }
 }
 </style>

@@ -29,13 +29,14 @@
     </slot>
     <!-- @slot Use this slot to replace label template. -->
     <slot name="label">
-      <div
+      <UiText
         v-if="hasLabel"
+        tag="span"
         class="ui-checkbox__label"
       >
         <!-- @slot Use this slot to place content inside label. -->
         <slot />
-      </div>
+      </UiText>
     </slot>
   </label>
 </template>
@@ -51,6 +52,7 @@ import { computed, useSlots } from 'vue';
 import equal from 'fast-deep-equal';
 import { uid } from 'uid/single';
 import UiIcon from '../UiIcon/UiIcon.vue';
+import UiText from '../UiText/UiText.vue';
 import useInput from '../../../composable/useInput';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 
@@ -107,8 +109,6 @@ function changeHandler(checked) {
 @import "../../../styles/mixins/mixins";
 
 .ui-checkbox {
-  @include font(body-1);
-
   $this: &;
 
   display: inline-flex;
@@ -168,6 +168,8 @@ function changeHandler(checked) {
   }
 
   &__label {
+    @include font(checkbox-label, body-1, text);
+
     flex: var(--checkbox-label-flex, 1);
     margin: var(--checkbox-label-margin, 0 0 0 var(--space-12));
     color: var(--checkbox-label-color, var(--color-text-body));

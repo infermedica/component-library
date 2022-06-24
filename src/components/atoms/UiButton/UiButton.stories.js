@@ -32,6 +32,16 @@ export default {
         control: 'text',
         description: '',
       },
+      'button-font': {
+        value: 'var(--font-button-1)',
+        control: 'text',
+        description: '',
+      },
+      'button-letter-spacing': {
+        value: 'var(--letter-spacing-button-1)',
+        control: 'text',
+        description: '',
+      },
       'button-display': {
         value: 'inline-flex',
         control: 'text',

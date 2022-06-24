@@ -194,17 +194,16 @@ const determineStep = (itemIndex, route) => ({
   }
 
   &__text {
-    @include font(body-2-compact);
+    @include font(stepper-text-font, body-2-compact);
 
     @include from-tablet {
-      @include font(body-1);
+      --stepper-text-font: var(--font-body-1);
+      --stepper-text-letter-spacing: var(--font-body-1);
     }
   }
 
   &__item {
     @include from-desktop {
-      @include font(body-1);
-
       position: relative;
 
       --list-item-padding:
@@ -233,8 +232,8 @@ const determineStep = (itemIndex, route) => ({
 
       &--active {
         #{$this}__item-link {
-          @include font(body-1-thick);
-
+          --stepper-item-link-font: var(--font-body-1-thick);
+          --stepper-letter-spacing: var(--letter-spacing-body-1-thick);
           --link-color: var(--stepper-link-active-color, var(--color-text-body));
           --link-hover-color: var(--stepper-link-active-color, var(--color-text-body));
           --link-active-color: var(--stepper-link-active-color, var(--color-text-body));
@@ -245,7 +244,7 @@ const determineStep = (itemIndex, route) => ({
 
   &__item-link {
     @include from-desktop {
-      @include font(body-1);
+      @include font(stepper-item-link, body-1, link);
 
       width: 100%;
     }

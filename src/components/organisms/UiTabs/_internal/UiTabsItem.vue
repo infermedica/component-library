@@ -120,6 +120,8 @@ onMounted(async () => {
   }
 
   &__tab-button {
+    @include font(tabs-item-tab-button, body-1, button);
+
     --button-color: var(--tabs-item-tab-button-color, var(--color-text-action-primary));
     --button-hover-color: var(--tabs-item-tab-button-hover-color, var(--color-text-action-secondary-hover));
     --button-active-color: var(--tabs-item-tab-button-active-color, var(--color-text-action-secondary-active));
@@ -180,11 +182,11 @@ onMounted(async () => {
 
   &--is-active {
     #{$this}__tab-button {
-      @include font(body-1-thick);
-
       --button-color: var(--tabs-item-tab-button-active-color, var(--color-text-body));
       --button-hover-color: var(--tabs-item-tab-button-active-hover-color, var(--color-text-body));
       --button-active-color: var(--tabs-item-tab-button-active-active-color, var(--color-text-body));
+      --tabs-item-tab-button-font: var(--font-body-1-thick);
+      --tabs-item-tab-button-letter-spacing: var(--letter-spacing-body-1-thick);
     }
   }
 }
