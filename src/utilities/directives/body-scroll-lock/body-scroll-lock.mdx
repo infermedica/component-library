@@ -1,28 +1,28 @@
 import { Canvas, Story } from "@storybook/addon-docs";
+import { Alert } from "../../../../docs/components/Alert"
 
 # Body scroll lock
-This directive doesn't work well inside storybook.<br/>
+<Alert>
+  <p>This directive is disabled on the Docs page. To check how it work go to the Canvas page.</p>
+</Alert>
+
 After adding this directive and when element is visible body can't be scrolled and scrollbar is hidden.
 
-## How to use 
-* `v-body-scroll-lock` - set scope
-* `:body-scroll-lock-ignore='true'` - allow to scroll element inside scope
+## How to use
+* `v-body-scroll-lock` - adds styles to the body and blocks the scrollbar.
+
 ```html
-  <dialog 
+  <dialog
     class="wrapper"
-    v-clock-scroll-lock
+    v-body-scroll-lock
   >
-    <div 
-      class="wrapper__scrollable-content"
-      :body-scroll-lock-ignore="true"
-    >
-      ...
-    </div>
+    ...
   </dialog>
 ```
 
 ## Used
 * [SidePanel](/docs/organisms-sidepanel--terms-of-service)
+* [Modal](/docs/organisms-modal--start-new-checkup)
 
 ## Stories
 ### With directive

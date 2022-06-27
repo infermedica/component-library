@@ -5,7 +5,10 @@
       name="backdrop"
       v-bind="{closeHandler, modelValue}"
     >
-      <transition name="fade">
+      <transition
+        appear
+        name="fade"
+      >
         <UiBackdrop
           v-if="modelValue"
           @click="closeHandler"
@@ -18,6 +21,7 @@
       v-bind="{transition, afterEnterHandler, modelValue, buttonCloseAttrs, closeHandler, title, subtitle}"
     >
       <transition
+        appear
         :name="transition"
         @enter="enterHandler"
         @after-enter="afterEnterHandler"
@@ -91,7 +95,6 @@
             <div
               v-scroll-tabindex
               class="ui-side-panel__content"
-              :body-scroll-lock-ignore="true"
             >
               <!-- @slot Use this slot to place side panel content. -->
               <slot />
@@ -316,6 +319,10 @@ onBeforeUnmount(() => {
     [dir="rtl"] & {
       transform: translate3d(-100%, 0, 0);
     }
+  }
+
+  &-enter-from {
+    position: fixed;
   }
 }
 </style>

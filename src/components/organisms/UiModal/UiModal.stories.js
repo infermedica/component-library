@@ -7,6 +7,7 @@ import UiText from '@/components/atoms/UiText/UiText.vue';
 import { bodyScrollLock, focusTrap } from '@/utilities/directives/index';
 import { actions } from '@storybook/addon-actions';
 import { ref } from 'vue';
+import './UiModal.stories.scss';
 
 const events = actions({
   onConfirm: 'confirm',
@@ -90,11 +91,12 @@ export default {
     },
     modelValue: { control: false },
   },
-  decorators: [() => ({ template: '<div style="--backdrop-position: absolute; --modal-position: absolute; minHeight: 350px"><story /></div>' })],
+  decorators: [() => ({ template: '<div style="minHeight: 320px"><story /></div>' })],
   parameters: {
-    design: {
-      type: 'figma',
-      url: 'https://www.figma.com/file/54rgvRJfBBagt4F34rrp1s/Core-Component-Library?node-id=1080%3A44305',
+    docs: {
+      description: {
+        component: 'Modal use `v-body-scroll-lock`. Only works on Canvas mode.',
+      },
     },
     cssprops: {
       'modal-position': {
