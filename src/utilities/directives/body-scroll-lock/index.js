@@ -1,28 +1,36 @@
 /* eslint-disable import/prefer-default-export, no-underscore-dangle, no-param-reassign, no-shadow, consistent-return */
 import { nextTick } from 'vue';
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
+
+function disableBodyScroll() {
+  const scrollWidth = window.innerWidth - document.body.clientWidth;
+  const x = window.pageXOffset;
+  const y = window.pageYOffset;
+  document.body.__vueScrollPosition = [x, y];
+  document.body.style.overflow = 'hidden';
+  document.body.style.position = 'fixed';
+  document.body.style.top = `-${y}px`;
+  document.body.style.width = '100%';
+  document.body.style.paddingRight = `${scrollWidth}px`;
+}
+
+function enableBodyScroll() {
+  const { style } = document.body;
+  style.removeProperty('overflow');
+  style.removeProperty('position');
+  style.removeProperty('top');
+  style.removeProperty('width');
+  style.removeProperty('padding-right');
+  window.scrollTo(...document.body.__vueScrollPosition);
+}
 
 export const bodyScrollLock = {
-  async beforeMount(el) {
-    // Prevent body scroll when modal is open in Storybook
-    if (window.__STORYBOOK_ADDONS) return;
+  async beforeMount() {
     await nextTick();
-    disableBodyScroll(el, {
-      allowTouchMove: (el) => {
-        while (el && el !== document.body) {
-          if (el.getAttribute('body-scroll-lock-ignore') !== 'false') {
-            return true;
-          }
-          el = el.parentElement;
-        }
-      },
-    });
-    document.body.style.overflow = 'hidden';
+    if (window.IS_STORYBOOK && window.location.search.includes('viewMode=doc')) return;
+    disableBodyScroll();
   },
-  beforeUnmount(el) {
-    // Prevent body scroll when modal is open in Storybook
-    if (window.__STORYBOOK_ADDONS) return;
-    enableBodyScroll(el);
-    document.body.style.overflow = '';
+  beforeUnmount() {
+    if (window.IS_STORYBOOK && window.location.search.includes('viewMode=doc')) return;
+    enableBodyScroll();
   },
 };
