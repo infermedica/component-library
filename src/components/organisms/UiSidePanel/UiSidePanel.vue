@@ -184,12 +184,13 @@ function afterEnterHandler() {
 
 function focus(element) {
   if (element) {
-    element.focus();
+    setTimeout(() => {
+      element.focus();
+    }, 0);
   }
 }
 
 async function enterHandler() {
-  await nextTick();
   focus(button.value?.$el);
 }
 
