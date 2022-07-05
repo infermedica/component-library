@@ -51,7 +51,7 @@
 <script setup>
 import { uid } from 'uid/single';
 import { computed } from 'vue';
-import UiAlert from '../../atoms/UiAlert/UiAlert.vue';
+import UiAlert from '../UiAlert/UiAlert.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 
 const props = defineProps({

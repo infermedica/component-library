@@ -6,7 +6,7 @@ import UiCheckbox from '@/components/atoms/UiCheckbox/UiCheckbox.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
-import UiAlert from '@/components/atoms/UiAlert/UiAlert.vue';
+import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
 import { actions } from '@storybook/addon-actions';
 import { ref } from 'vue';
 

@@ -60,7 +60,7 @@ import { computed, watch } from 'vue';
 import UiMultipleChoicesItem from './_internal/UiMultipleChoicesItem.vue';
 import UiList from '../UiList/UiList.vue';
 import UiListItem from '../UiList/_internal/UiListItem.vue';
-import UiAlert from '../../atoms/UiAlert/UiAlert.vue';
+import UiAlert from '../../molecules/UiAlert/UiAlert.vue';
 
 const props = defineProps({
   /**

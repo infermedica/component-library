@@ -24,8 +24,8 @@
 
 <script setup>
 import { computed } from 'vue';
-import UiIcon from '../UiIcon/UiIcon.vue';
-import UiText from '../UiText/UiText.vue';
+import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
+import UiText from '../../atoms/UiText/UiText.vue';
 
 const props = defineProps({
   /**

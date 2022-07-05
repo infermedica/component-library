@@ -1,10 +1,10 @@
-import UiAlert from '@/components/atoms/UiAlert/UiAlert.vue';
+import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import { content, modifiers } from '@sb/helpers/argTypes';
 
 export default {
-  title: 'Atoms/Alert',
+  title: 'Molecules/Alert',
   component: UiAlert,
   subcomponents: { UiIcon, UiText },
   args: {

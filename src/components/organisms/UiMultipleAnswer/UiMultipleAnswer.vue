@@ -98,7 +98,7 @@ import UiText from '../../atoms/UiText/UiText.vue';
 import UiCheckbox from '../../atoms/UiCheckbox/UiCheckbox.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
-import UiAlert from '../../atoms/UiAlert/UiAlert.vue';
+import UiAlert from '../../molecules/UiAlert/UiAlert.vue';
 import { focusElement } from '../../../utilities/helpers';
 
 const props = defineProps({
