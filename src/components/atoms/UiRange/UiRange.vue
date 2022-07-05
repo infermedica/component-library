@@ -1,75 +1,61 @@
 <template>
-  <div
+  <UiNumberStepper
+    v-bind="getRootAttrs($attrs)"
+    :model-value="modelValue"
     class="ui-range"
     :style="{'--range-selected-track-width': trackWidth}"
-    v-bind="getRootAttrs($attrs)"
+    :min="min"
+    :max="max"
+    :step="step"
+    :button-decrement-attrs="buttonDecrementAttrsExtended"
+    :button-increment-attrs="buttonIncrementAttrsExtended"
+    @update:modelValue="changeHandler"
   >
-    <!-- @slot Use this slot to replace decrement template. -->
-    <slot
-      name="decrement"
-      v-bind="{attrs: buttonDecrementAttrs, change: changeHandler, value: modelValue}"
+    <template
+      v-for="(_, name) in $slots"
+      #[name]="slotData"
     >
-      <UiButton
-        class="ui-range__decrement ui-button--outlined ui-button--circled ui-button--has-icon"
-        tabindex="-1"
-        v-bind="buttonDecrementAttrs"
-        @click="changeHandler(modelValue, -1)"
-      >
-        <UiIcon
-          icon="minus"
-        />
-      </UiButton>
-    </slot>
-    <div class="ui-range__input">
-      <!-- @slot Use this slot to replace value template. -->
       <slot
-        name="value"
-        v-bind="{value: modelValue}"
-      >
-        <UiText
-          tag="span"
-          class="ui-range__value"
+        :name="name"
+        v-bind="slotData"
+      />
+    </template>
+    <template #default="{change, value}">
+      <div class="ui-range__input">
+        <!-- @slot Use this slot to replace value template. -->
+        <slot
+          name="value"
+          v-bind="{value}"
         >
-          {{ modelValue }}
-        </UiText>
-      </slot>
-      <!-- @slot Use this slot to replace range template. -->
-      <slot
-        name="range"
-        v-bind="{attrs: getInputAttrs($attrs), min, max, value: modelValue, change: changeHandler}"
-      >
-        <input
-          v-keyboard-focus
-          v-bind="getInputAttrs($attrs)"
-          type="range"
-          :min="min"
-          :max="max"
-          :value="modelValue"
-          :aria-valuemin="min"
-          :aria-valuemax="max"
-          :aria-valuenow="modelValue"
-          class="ui-range__track"
-          @input="changeHandler($event.target.value)"
+          <UiText
+            tag="span"
+            class="ui-range__value"
+          >
+            {{ value }}
+          </UiText>
+        </slot>
+        <!-- @slot Use this slot to replace range template. --->
+        <slot
+          name="range"
+          v-bind="{attrs: getInputAttrs($attrs), min, max, change, value}"
         >
-      </slot>
-    </div>
-    <!-- @slot Use this slot to replace increment template.-->
-    <slot
-      name="increment"
-      v-bind="{attrs: buttonIncrementAttrs, change: changeHandler, value: modelValue}"
-    >
-      <UiButton
-        class="ui-range__increment ui-button--outlined ui-button--circled ui-button--has-icon"
-        tabindex="-1"
-        v-bind="buttonIncrementAttrs"
-        @click="changeHandler(modelValue, 1)"
-      >
-        <UiIcon
-          icon="plus"
-        />
-      </UiButton>
-    </slot>
-  </div>
+          <input
+            v-keyboard-focus
+            v-bind="getInputAttrs($attrs)"
+            type="range"
+            :min="min"
+            :max="max"
+            :value="value"
+            :aria-valuemin="min"
+            :aria-valuemax="max"
+            :aria-valuenow="value"
+            class="ui-range__track"
+            @input="change($event.target.valueAsNumber)"
+          >
+        </slot>
+      </div>
+    </template>
+  </UiNumberStepper>
 </template>
 
 <script>
@@ -80,8 +66,7 @@ export default {
 
 <script setup>
 import { computed, useAttrs } from 'vue';
-import UiButton from '../UiButton/UiButton.vue';
-import UiIcon from '../UiIcon/UiIcon.vue';
+import UiNumberStepper from '../../molecules/UiNumberStepper/UiNumberStepper.vue';
 import UiText from '../UiText/UiText.vue';
 import useInput from '../../../composable/useInput';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
@@ -92,22 +77,29 @@ const props = defineProps({
    * Use this props or v-model to set value.
    */
   modelValue: {
-    type: [String, Number],
-    default: '',
+    type: Number,
+    default: 0,
   },
   /**
    * Use this props to set min value.
    */
   min: {
-    type: [String, Number],
-    default: '0',
+    type: Number,
+    default: 0,
   },
   /**
    * Use this props to set max value.
    */
   max: {
-    type: [String, Number],
-    default: '1',
+    type: Number,
+    default: 1,
+  },
+  /**
+   * Use this props to set step value.
+   */
+  step: {
+    type: Number,
+    default: 1,
   },
   /**
    * Use this props to pass attrs for decrement UiButton
@@ -124,27 +116,24 @@ const props = defineProps({
     default: () => ({}),
   },
 });
+const buttonDecrementAttrsExtended = computed(() => ({
+  tabindex: -1,
+  ...props.buttonDecrementAttrs,
+}));
+const buttonIncrementAttrsExtended = computed(() => ({
+  tabindex: -1,
+  ...props.buttonIncrementAttrs,
+}));
 const emit = defineEmits(['update:modelValue']);
 const { getRootAttrs, getInputAttrs } = useInput();
 const trackWidth = computed(() => {
-  const value = parseInt(props.modelValue, 10);
-  const min = parseInt(props.min, 10);
-  const max = parseInt(props.max, 10);
-  const scope = max - min;
-  const position = value - min;
+  const scope = props.max - props.min;
+  const position = props.modelValue - props.min;
   return `${(position / scope) * 100}%`;
 });
-function valueValidation(value) {
-  return value >= parseInt(props.min, 10) && value <= parseInt(props.max, 10);
-}
-function changeHandler(value, modifier = 0) {
-  if (attrs.disabled) {
-    return;
-  }
-  const newValue = parseInt(value, 10) + modifier;
-  if (valueValidation(newValue)) {
-    emit('update:modelValue', `${newValue}`);
-  }
+function changeHandler(value) {
+  if (attrs.disabled) return;
+  emit('update:modelValue', value);
 }
 </script>
 
@@ -179,50 +168,19 @@ function changeHandler(value, modifier = 0) {
     }
   }
 
-  &__increment {
-    margin: var(--range-mobile-increment-margin, var(--space-24) 0 0 var(--space-12));
-
-    [dir="rtl"] & {
-      margin: var(--range-mobile-increment-margin, var(--space-24) var(--space-12) 0 0);
-    }
-
-    @include from-tablet {
-      --range-mobile-increment-margin: 0 0 0 var(--space-4);
-
-      [dir="rtl"] & {
-        --range-mobile-increment-margin: 0 var(--space-4) 0 0;
-      }
-    }
-  }
-
-  &__decrement {
-    margin: var(--range-mobile-decrement-margin, var(--space-24) var(--space-12) 0 0);
-
-    [dir="rtl"] & {
-      margin: var(--range-mobile-increment-margin, var(--space-24) 0 0 var(--space-12));
-    }
-
-    @include from-tablet {
-      --range-mobile-decrement-margin: 0 var(--space-4) 0 0;
-
-      [dir="rtl"] & {
-        --range-mobile-increment-margin: 0 0 0 var(--space-4);
-      }
-    }
-  }
-
   &__input {
     position: relative;
     width: 100%;
     height: var(--range-thumb-size, 3rem);
     flex: 0 0 100%;
+    margin: var(--range-mobile-track-margin, 0 0 var(--space-24) 0);
     order: -1;
-    margin: var(--range-track-margin);
     touch-action: none;
 
     @include from-tablet {
       flex: 0 1 auto;
       order: 0;
+      margin: var(--range-track-margin);
     }
 
     &::after {
