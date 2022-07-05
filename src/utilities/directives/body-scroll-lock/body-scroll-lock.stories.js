@@ -1,5 +1,5 @@
 import { ref } from 'vue';
-import UiAlert from '@/components/atoms/UiAlert/UiAlert.vue';
+import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
 import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints.vue';
 import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';

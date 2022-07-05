@@ -1,7 +1,7 @@
 import UiFormField from '@/components/molecules/UiFormField/UiFormField.vue';
 import UiInput from '@/components/atoms/UiInput/UiInput.vue';
 import UiCheckbox from '@/components/atoms/UiCheckbox/UiCheckbox.vue';
-import UiAlert from '@/components/atoms/UiAlert/UiAlert.vue';
+import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 
 export default {

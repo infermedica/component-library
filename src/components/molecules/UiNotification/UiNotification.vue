@@ -48,7 +48,7 @@
 
 <script setup>
 import { computed } from 'vue';
-import UiAlert from '../../atoms/UiAlert/UiAlert.vue';
+import UiAlert from '../UiAlert/UiAlert.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
