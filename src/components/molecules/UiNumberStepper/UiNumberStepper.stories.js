@@ -4,6 +4,12 @@ import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import { toMobile } from '@/styles/exports/breakpoints.scss';
+import { actions } from '@storybook/addon-actions';
+
+const events = actions({
+  onUpdateModelValue: 'update:modelValue',
+  onError: 'error',
+});
 
 export default {
   title: 'Molecules/NumberStepper',
@@ -38,7 +44,7 @@ const Template = (args) => ({
   components: { UiNumberStepper, UiText },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return { ...args, ...events, modelValue };
   },
   template: `<UiNumberStepper 
     v-model="modelValue" 
@@ -48,6 +54,8 @@ const Template = (args) => ({
     :has-controls="hasControls"
     :button-decrement-attrs="buttonDecrementAttrs"
     :button-increment-attrs="buttonIncrementAttrs"
+    @update:modelValue="onUpdateModelValue"
+    @error="onError"
   >
     <template #default="{value}">
       <UiText class="flex items-center justify-center h-12 flex-full tablet:flex-none w-12">

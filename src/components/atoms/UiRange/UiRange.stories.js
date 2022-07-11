@@ -10,7 +10,8 @@ import { disabled } from '@sb/helpers/argTypes';
 import { actions } from '@storybook/addon-actions';
 
 const events = actions({
-  update: 'update:modelValue',
+  onUpdateModelValue: 'update:modelValue',
+  onError: 'error',
 });
 
 export default {
@@ -30,6 +31,7 @@ export default {
     buttonDecrementAttrs: {
       'aria-label': 'decrement age',
       'data-testid': 'decrement-age',
+      class: 'unicorn',
     },
     ariaLabel: 'patient age',
   },
@@ -171,7 +173,8 @@ export const Common = (args) => ({
   :button-increment-attrs="buttonIncrementAttrs"
   :button-decrement-attrs="buttonDecrementAttrs"
   :aria-label="ariaLabel"
-  @update:modelValue="update"
+  @update:modelValue="onUpdateModelValue"
+  @error="onError"
 />`,
 });
 Common.play = async ({ canvasElement }) => {
@@ -196,7 +199,8 @@ export const WithDecrementSlot = (args) => ({
   :button-increment-attrs="buttonIncrementAttrs"
   :button-decrement-attrs="buttonDecrementAttrs"
   :aria-label="ariaLabel"
-  @update:modelValue="update"
+  @update:modelValue="onUpdateModelValue"
+  @error="onError"
 >
   <template #decrement="{decrement, attrs}">
     <UiButton
@@ -224,7 +228,8 @@ export const WithIncrementSlot = (args) => ({
   :button-increment-attrs="buttonIncrementAttrs"
   :button-decrement-attrs="buttonDecrementAttrs"
   :aria-label="ariaLabel"
-  @update:modelValue="update"
+  @update:modelValue="onUpdateModelValue"
+  @error="onError"
 >
   <template #increment="{increment, attrs}">
     <UiButton
@@ -252,7 +257,8 @@ export const WithValueSlot = (args) => ({
   :button-increment-attrs="buttonIncrementAttrs"
   :button-decrement-attrs="buttonDecrementAttrs"
   :aria-label="ariaLabel"
-  @update:modelValue="update"
+  @update:modelValue="onUpdateModelValue"
+  @error="onError"
 >
   <template #value="{value}">
     <UiText
@@ -279,7 +285,8 @@ export const WithRangeSlot = (args) => ({
   :button-increment-attrs="buttonIncrementAttrs"
   :button-decrement-attrs="buttonDecrementAttrs"
   :aria-label="ariaLabel"
-  @update:modelValue="update"
+  @update:modelValue="onUpdateModelValue"
+  @error="onError"
 >
   <template #range="{attrs, min, max, value, change}">
     <input

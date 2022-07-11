@@ -7,12 +7,13 @@
     <!-- @slot Use this slot to replace decrement template. -->
     <slot
       name="decrement"
-      v-bind="{decrement, hasControls, attrs: buttonDecrementAttrs}"
+      v-bind="{decrement, hasControls, isMin, attrs: buttonDecrementAttrs}"
     >
       <UiButton
         v-if="hasControls"
         v-bind="buttonDecrementAttrs"
         class="ui-button--circled ui-button--outlined ui-button--has-icon ui-number-stepper__decrement"
+        :class="{'ui-button--is-disabled': isMin}"
         @click="decrement"
       >
         <UiIcon icon="minus" />
@@ -21,12 +22,13 @@
     <!-- @slot Use this slot to replace increment template. -->
     <slot
       name="increment"
-      v-bind="{increment, hasControls, attrs: buttonIncrementAttrs}"
+      v-bind="{increment, hasControls, isMax, attrs: buttonIncrementAttrs}"
     >
       <UiButton
         v-if="hasControls"
         v-bind="buttonIncrementAttrs"
         class="ui-button--circled ui-button--outlined ui-button--has-icon ui-number-stepper__increment"
+        :class="{'ui-button--is-disabled': isMax}"
         @click="increment"
       >
         <UiIcon icon="plus" />
@@ -36,6 +38,7 @@
 </template>
 
 <script setup>
+import { computed } from 'vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 
@@ -90,13 +93,17 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'error']);
 const validate = (value) => (value >= props.min && value <= props.max);
+const isMin = computed(() => props.modelValue === props.min);
+const isMax = computed(() => props.modelValue === props.max);
 function change(value, modifier = 0) {
   const newValue = value + modifier;
   if (validate(newValue)) {
     emit('update:modelValue', newValue);
+    return;
   }
+  emit('error', { isMin: isMin.value, isMax: isMax.value });
 }
 function decrement() {
   change(props.modelValue, props.step * -1);
