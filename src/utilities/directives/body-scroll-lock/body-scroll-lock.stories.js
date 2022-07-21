@@ -9,7 +9,6 @@ import UiLink from '@/components/atoms/UiLink/UiLink.vue';
 import UiNotification from '@/components/molecules/UiNotification/UiNotification.vue';
 import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
-import UiSwitch from '@/components/molecules/UiSwitch/UiSwitch.vue';
 import docs from './body-scroll-lock.mdx';
 import { bodyScrollLock } from '../index';
 import './body-scroll-lock.stories.scss';

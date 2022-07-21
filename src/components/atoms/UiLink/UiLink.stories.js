@@ -1,6 +1,6 @@
+import { content, modifiers } from '@sb/helpers/argTypes';
 import UiLink from '@/components/atoms/UiLink/UiLink.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
-import { content, modifiers } from '@sb/helpers/argTypes';
 
 export default {
   title: 'Atoms/Link',

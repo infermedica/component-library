@@ -1,57 +1,35 @@
 const path = require('path');
+const { mergeConfig } = require('vite');
+const svgLoader = require('vite-svg-loader');
 
 module.exports = {
-  webpackFinal: async (config) => {
-    // Setup aliases
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      '@': path.resolve('src'),
-      '@sb': path.resolve('.storybook'),
-    };
-
-
-    // Setup vue-svg-loader
-    config.module.rules = config.module.rules.map((rule) => {
-      if (rule.type !== 'asset/resource') {
-        return rule;
-      }
-      rule.test = /\.(ico|jpg|jpeg|png|apng|gif|eot|otf|webp|ttf|woff|woff2|cur|ani|pdf)(\?.*)?$/;
-      return rule;
-    });
-    config.module.rules.push({
-      test: /\.svg$/,
-      use: [
-        'vue-loader',
-        {
-          loader: 'vue-svg-loader',
-          options: {
-            svgo: {
-              plugins: [
-                { removeDimensions: true },
-                { removeUselessStrokeAndFill: true },
-                { convertStyleToAttrs: true }
-              ],
-            }
-          }
-        }
-      ]
-    });
-
-
-    // Setup sass-loader
-    config.module.rules.push({
-      test: /\.scss$/,
-      use: [
-        'style-loader',
-        'css-loader',
-        'sass-loader'
+  async viteFinal(config, { configType }) {
+    // return the customized config
+    return mergeConfig(config, {
+      // customize the Vite config here
+      resolve: {
+        alias: {
+          '@': path.resolve(__dirname, '../src'),
+          '@sb': path.resolve(__dirname),
+        },
+      },
+      plugins: [
+        svgLoader({
+          svgoConfig: {
+            plugins: ['removeDimensions', 'removeUselessStrokeAndFill', 'convertStyleToAttrs'],
+          },
+        }),
       ],
-      include: path.resolve(__dirname, '../'),
-    })
-
-
-    return config;
+      optimizeDeps: {
+        include: [
+          'react-syntax-highlighter',
+          'react-syntax-highlighter/dist/esm/languages/prism/scss',
+          '@storybook/theming'
+        ]
+      }
+    });
   },
+  staticDirs: ['../public'],
   stories: [
     '../docs/**/*.stories.@(js|jsx|ts|tsx|mdx)',
     '../src/**/*.stories.@(js|jsx|ts|tsx|mdx)'
@@ -61,7 +39,6 @@ module.exports = {
     '@storybook/addon-essentials',
     '@storybook/addon-a11y',
     '@brightlayer-ui/storybook-rtl-addon/register',
-    '@storybook/addon-jest',
     '@storybook/addon-interactions',
     '@ljcl/storybook-addon-cssprops',
     {
@@ -73,12 +50,15 @@ module.exports = {
       }
     },
     'storybook-addon-designs',
+    // TODO write global decorator for vitest results
+    // 'storybook_vitest_addon'
   ],
   framework: '@storybook/vue3',
   core: {
-    'builder': 'webpack5'
+    builder: '@storybook/builder-vite',
+    disableTelemetry: true,
   },
   features: {
-    interactionsDebugger: true,
-  }
+    storyStoreV7: true,
+  },
 }

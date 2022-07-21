@@ -1,5 +1,5 @@
-import UiNavigation from '@/components/molecules/UiNavigation/UiNavigation.vue';
 import { modifiers } from '@sb/helpers/argTypes';
+import UiNavigation from '@/components/molecules/UiNavigation/UiNavigation.vue';
 import UiNavigationItem from './_internal/UiNavigationItem.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';

@@ -1,9 +1,9 @@
+import { ref } from 'vue';
 import UiScale from '@/components/molecules/UiScale/UiScale.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiRadio from '@/components/atoms/UiRadio/UiRadio.vue';
-import { ref } from 'vue';
 
 export default {
   title: 'Molecules/Scale',

@@ -1,11 +1,13 @@
 // TODO: Divide into two components. UiDropdown and UiSelect.
+import { actions } from '@storybook/addon-actions';
+import {
+  computed, ref, watch,
+} from 'vue';
 import UiDropdown from '@/components/molecules/UiDropdown/UiDropdown.vue';
 import UiDropdownItem from '@/components/molecules/UiDropdown/_internal/UiDropdownItem.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiInput from '@/components/atoms/UiInput/UiInput.vue';
 import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
-import { actions } from '@storybook/addon-actions';
-import { computed, ref, watch } from 'vue';
 
 const events = actions({
   onOpen: 'open',

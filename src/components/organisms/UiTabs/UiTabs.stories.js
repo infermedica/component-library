@@ -1,9 +1,9 @@
+import { ref } from 'vue';
+import { modifiers } from '@sb/helpers/argTypes';
 import UiTabs from '@/components/organisms/UiTabs/UiTabs.vue';
 import UiTabsItem from '@/components/organisms/UiTabs/_internal/UiTabsItem.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
-import { ref } from 'vue';
-import { modifiers } from '@sb/helpers/argTypes';
 
 export default {
   title: 'Organisms/Tabs',

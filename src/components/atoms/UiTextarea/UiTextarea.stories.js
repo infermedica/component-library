@@ -1,9 +1,8 @@
-import UiTextarea from '@/components/atoms/UiTextarea/UiTextarea.vue';
 import {
   modifiers, placeholder, disabled,
 } from '@sb/helpers/argTypes';
-
 import { nextTick, onMounted, ref } from 'vue';
+import UiTextarea from '@/components/atoms/UiTextarea/UiTextarea.vue';
 
 export default {
   title: 'Atoms/Textarea',
@@ -136,7 +135,6 @@ const Template = (args) => ({
     const element = ref(null);
     onMounted(async () => {
       await nextTick();
-      console.log(element.value?.$el);
       element.value?.$el.querySelector('textarea').focus();
     });
     return { ...args, modelValue, element };

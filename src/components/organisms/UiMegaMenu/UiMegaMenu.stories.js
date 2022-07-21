@@ -1,9 +1,9 @@
+import { ref } from 'vue';
 import UiMegaMenu from '@/components/organisms/UiMegaMenu/UiMegaMenu.vue';
 import UiMegaMenuItem from '@/components/organisms/UiMegaMenu/_internal/UiMegaMenuItem.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
-import { ref } from 'vue';
 
 export default {
   title: 'Organisms/MegaMenu',

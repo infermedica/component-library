@@ -1,7 +1,7 @@
+import { ref, computed } from 'vue';
 import UiToggleButtonGroup from '@/components/molecules/UiToggleButtonGroup/UiToggleButtonGroup.vue';
 import UiToggleButton from '@/components/molecules/UiToggleButtonGroup/_internal/UiToggleButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
-import { ref, computed } from 'vue';
 
 export default {
   title: 'Molecules/ToggleButtonGroup',

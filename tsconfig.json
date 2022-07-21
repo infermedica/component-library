@@ -3,6 +3,7 @@
     "target": "esnext",
     "module": "esnext",
     "strict": true,
+    "allowJs": true,
     "jsx": "preserve",
     "moduleResolution": "node",
     "skipLibCheck": true,
@@ -14,7 +15,7 @@
     "baseUrl": ".",
     "types": [
       "webpack-env",
-      "jest"
+      "vitest/globals"
     ],
     "paths": {
       "@/*": [

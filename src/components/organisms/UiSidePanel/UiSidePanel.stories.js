@@ -1,3 +1,5 @@
+import { actions } from '@storybook/addon-actions';
+import { onMounted, ref } from 'vue';
 import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import UiBackdrop from '@/components/atoms/UiBackdrop/UiBackdrop.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
@@ -8,8 +10,6 @@ import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints
 import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue';
 import UiLink from '@/components/atoms/UiLink/UiLink.vue';
 import { focusTrap, bodyScrollLock, scrollTabindex } from '@/utilities/directives';
-import { actions } from '@storybook/addon-actions';
-import { onMounted, ref, computed } from 'vue';
 import './UiSidePanel.stories.scss';
 
 const events = actions({
@@ -96,6 +96,11 @@ export default {
   },
   decorators: [() => ({ template: '<div class="max-w-32" style="min-height: 320px;"><story /></div>' })],
   parameters: {
+    docs: {
+      description: {
+        component: 'SidePanel use `v-body-scroll-lock`. Only works on Canvas mode.',
+      },
+    },
     cssprops: {
       'side-panel-position': {
         value: 'fixed',

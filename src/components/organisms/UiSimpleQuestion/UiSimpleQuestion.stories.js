@@ -1,7 +1,7 @@
-import UiSimpleQuestion from '@/components/organisms/UiSimpleQuestion/UiSimpleQuestion.vue';
-import UiTile from '@/components/molecules/UiTile/UiTile.vue';
 import { ref } from 'vue';
 import { modifiers } from '@sb/helpers/argTypes';
+import UiSimpleQuestion from '@/components/organisms/UiSimpleQuestion/UiSimpleQuestion.vue';
+import UiTile from '@/components/molecules/UiTile/UiTile.vue';
 
 export default {
   title: 'Organisms/SimpleQuestion',

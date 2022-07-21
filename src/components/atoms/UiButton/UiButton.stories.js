@@ -1,6 +1,6 @@
+import { content, modifiers, disabled } from '@sb/helpers/argTypes';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
-import { content, modifiers, disabled } from '@sb/helpers/argTypes';
 
 export default {
   title: 'Atoms/Button',

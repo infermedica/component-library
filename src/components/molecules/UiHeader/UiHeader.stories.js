@@ -1,10 +1,10 @@
+import { actions } from '@storybook/addon-actions';
+import { defineAsyncComponent } from 'vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiHeader from '@/components/molecules/UiHeader/UiHeader.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiNavigation from '@/components/molecules/UiNavigation/UiNavigation.vue';
-import { actions } from '@storybook/addon-actions';
-import { defineAsyncComponent } from 'vue';
-import { toMobile } from '../../../styles/exports/breakpoints.scss';
+import { toMobile } from '../../../styles/exports/breakpoints.module.scss';
 import './UiHeader.stories.scss';
 
 const events = actions({
@@ -123,13 +123,7 @@ export default {
 const Template = (args) => ({
   components: { UiHeader, UiNavigation },
   setup() {
-    const logo = defineAsyncComponent(() => import(
-      /* webpackChunkName: "header" */
-      /* webpackMode: "eager" */
-      /* webpackPreload: true */
-      '../../../assets/logo.svg'
-    ));
-
+    const logo = defineAsyncComponent(() => import('../../../assets/logo.svg'));
     return {
       ...args,
       logo,
@@ -165,13 +159,7 @@ WithoutHamburgerMenu.args = {
 export const WithBrandSlot = (args) => ({
   components: { UiHeader, UiButton, UiIcon },
   setup() {
-    const logo = defineAsyncComponent(() => import(
-      /* webpackChunkName: "header" */
-      /* webpackMode: "eager" */
-      /* webpackPreload: true */
-      '../../../assets/logo.svg'
-    ));
-
+    const logo = defineAsyncComponent(() => import('../../../assets/logo.svg'));
     return {
       ...args,
       logo,
@@ -205,13 +193,7 @@ export const WithBrandSlot = (args) => ({
 export const WithLogoSlot = (args) => ({
   components: { UiHeader, UiIcon },
   setup() {
-    const logo = defineAsyncComponent(() => import(
-      /* webpackChunkName: "header" */
-      /* webpackMode: "eager" */
-      /* webpackPreload: true */
-      '../../../assets/logo.svg'
-    ));
-
+    const logo = defineAsyncComponent(() => import('../../../assets/logo.svg'));
     return {
       ...args,
       logo,
@@ -242,13 +224,7 @@ export const WithLogoSlot = (args) => ({
 export const WithHamburgerSlot = (args) => ({
   components: { UiHeader, UiButton, UiIcon },
   setup() {
-    const logo = defineAsyncComponent(() => import(
-      /* webpackChunkName: "header" */
-      /* webpackMode: "eager" */
-      /* webpackPreload: true */
-      '../../../assets/logo.svg'
-    ));
-
+    const logo = defineAsyncComponent(() => import('../../../assets/logo.svg'));
     return {
       ...args,
       logo,
@@ -282,13 +258,7 @@ export const WithHamburgerSlot = (args) => ({
 export const WithNavigationSlot = (args) => ({
   components: { UiHeader, UiNavigation },
   setup() {
-    const logo = defineAsyncComponent(() => import(
-      /* webpackChunkName: "header" */
-      /* webpackMode: "eager" */
-      /* webpackPreload: true */
-      '../../../assets/logo.svg'
-    ));
-
+    const logo = defineAsyncComponent(() => import('../../../assets/logo.svg'));
     return {
       ...args,
       logo,

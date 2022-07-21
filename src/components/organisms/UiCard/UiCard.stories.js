@@ -1,3 +1,4 @@
+import { modifiers } from '@sb/helpers/argTypes';
 import UiCard from '@/components/organisms/UiCard/UiCard.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
@@ -5,7 +6,6 @@ import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiContainer from '@/components/organisms/UiContainer/UiContainer.vue';
 import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints.vue';
 import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue';
-import { modifiers } from '@sb/helpers/argTypes';
 
 export default {
   title: 'Organisms/Card',

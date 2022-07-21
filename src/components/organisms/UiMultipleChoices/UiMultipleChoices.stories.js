@@ -1,10 +1,10 @@
+import { actions } from '@storybook/addon-actions';
+import { ref } from 'vue';
 import UiMultipleChoices from '@/components/organisms/UiMultipleChoices/UiMultipleChoices.vue';
 import UiMultipleChoicesItem from '@/components/organisms/UiMultipleChoices/_internal/UiMultipleChoicesItem.vue';
 import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
 import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
-import { actions } from '@storybook/addon-actions';
-import { ref } from 'vue';
 
 const events = actions({
   onUpdateInvalid: 'update:invalid',
