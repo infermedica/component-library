@@ -1,13 +1,13 @@
-import UiRange from '@/components/atoms/UiRange/UiRange.vue';
-import UiButton from '@/components/atoms/UiButton/UiButton.vue';
-import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
-import UiText from '@/components/atoms/UiText/UiText.vue';
-import UiNumberStepper from '@/components/molecules/UiNumberStepper/UiNumberStepper.vue';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { ref } from 'vue';
 import { disabled } from '@sb/helpers/argTypes';
 import { actions } from '@storybook/addon-actions';
+import UiRange from '@/components/atoms/UiRange/UiRange.vue';
+import UiButton from '@/components/atoms/UiButton/UiButton.vue';
+import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
+import UiText from '@/components/atoms/UiText/UiText.vue';
+import UiNumberStepper from '@/components/molecules/UiNumberStepper/UiNumberStepper.vue';
 
 const events = actions({
   onUpdateModelValue: 'update:modelValue',

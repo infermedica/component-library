@@ -1,7 +1,7 @@
+import { defineAsyncComponent } from 'vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import icons from '@/components/atoms/UiIcon/icons';
-import { defineAsyncComponent } from 'vue';
 
 export default {
   title: 'Atoms/Icon',
@@ -44,13 +44,7 @@ export const IconAsName = Template.bind({});
 export const IconAsImport = (args) => ({
   components: { UiIcon },
   setup() {
-    // todo: broken render on Docs view
-    const icon = defineAsyncComponent(() => import(
-      /* webpackChunkName: "icons" */
-      /* webpackMode: "eager" */
-      /* webpackPreload: true */
-      '../../../assets/icons/ce.svg'
-    ));
+    const icon = defineAsyncComponent(() => import('../../../assets/icons/ce.svg'));
     return {
       ...args,
       icon,

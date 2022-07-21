@@ -5,7 +5,7 @@ let options;
 let handler;
 let Component;
 beforeEach(() => {
-  handler = jest.fn();
+  handler = vi.fn();
   Component = {
     template: '<div data-testid="root-element" v-click-outside="handler"><button data-testid="inside-button"></button></div><button data-testid="outside-button"></button>',
     methods: {

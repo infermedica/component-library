@@ -1,3 +1,5 @@
+import { actions } from '@storybook/addon-actions';
+import { ref } from 'vue';
 import UiModal from '@/components/organisms/UiModal/UiModal.vue';
 import UiBackdrop from '@/components/atoms/UiBackdrop/UiBackdrop.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
@@ -5,8 +7,6 @@ import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import { bodyScrollLock, focusTrap } from '@/utilities/directives/index';
-import { actions } from '@storybook/addon-actions';
-import { ref } from 'vue';
 import './UiModal.stories.scss';
 
 const events = actions({

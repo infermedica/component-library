@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { styled, css } from '@storybook/theming';
+import React from 'react';
+import { styled } from '@storybook/theming';
 
 const success = {
   background: '#E6F9F2',

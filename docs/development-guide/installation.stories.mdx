@@ -29,10 +29,11 @@ We provide our default design if you want use it inside your project, you need t
 import '@infermedica/component-library/src/styles/styles.scss'
 ```
 
-## Webpack loaders
+## Project config and loaders
 To load svg files in UiIcon component we use [vue-svg-loader](https://www.npmjs.com/package/vue-svg-loader).
 For Vue 3 you should use next version of this loader `npm i vue-svg-loader@next`.
 
+### Webpack
 ```js
 // vue.config.js
 module.exports = {
@@ -63,6 +64,32 @@ module.exports = {
       )
   },
 };
+```
+### Vite
+```js
+// vue.config.js
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import svgLoader from 'vite-svg-loader';
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    vue(),      
+    svgLoader({
+    svgoConfig: {
+      plugins: [
+        'removeDimensions',
+        'removeUselessStrokeAndFill',
+        'convertStyleToAttrs',
+      ],
+    },
+  }),],
+  //Use this option to force a 'fast-deep-equal' to be pre-bundled.
+  optimizeDeps: {
+    include: ['fast-deep-equal'],
+  },
+})
 ```
 
 ## Usage components in SFC

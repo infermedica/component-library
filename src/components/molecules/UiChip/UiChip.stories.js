@@ -1,8 +1,8 @@
+import { actions } from '@storybook/addon-actions';
+import { content } from '@sb/helpers/argTypes';
 import UiChip from '@/components/molecules/UiChip/UiChip.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
-import { actions } from '@storybook/addon-actions';
-import { content } from '@sb/helpers/argTypes';
 
 const events = actions({
   onRemove: 'remove',

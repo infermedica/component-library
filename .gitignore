@@ -5,7 +5,7 @@ build-storybook.log
 
 /tests/e2e/videos/
 /tests/e2e/screenshots/
-.jest-test-results.json
+.unit-test-results.json
 /coverage
 
 

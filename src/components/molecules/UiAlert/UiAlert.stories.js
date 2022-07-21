@@ -1,7 +1,7 @@
+import { content, modifiers } from '@sb/helpers/argTypes';
 import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
-import { content, modifiers } from '@sb/helpers/argTypes';
 
 export default {
   title: 'Molecules/Alert',

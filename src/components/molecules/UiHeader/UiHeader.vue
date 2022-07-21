@@ -60,7 +60,7 @@ import {
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiNavigation from '../UiNavigation/UiNavigation.vue';
-import { toMobile } from '../../../styles/exports/breakpoints.scss';
+import { toMobile } from '../../../styles/exports/breakpoints.module.scss';
 
 const props = defineProps({
   /**

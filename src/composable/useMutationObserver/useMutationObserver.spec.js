@@ -6,24 +6,24 @@ describe('composable/useMutationObserver', () => {
     expect(isSupported).toBe(false);
   });
   test('no mutation observer added when not supported', () => {
-    const mutationObserverMock = jest.fn(() => ({
-      observe: jest.fn(),
-      disconnect: jest.fn(),
+    const mutationObserverMock = vi.fn(() => ({
+      observe: vi.fn(),
+      disconnect: vi.fn(),
     }));
     window.MutationObserver = mutationObserverMock;
     useMutationObserver('<div></div>');
     expect(mutationObserverMock).not.toHaveBeenCalled();
   });
   test('supported when window have property IntersectionObserver', () => {
-    window.IntersectionObserver = jest.fn();
+    window.IntersectionObserver = vi.fn();
     const { isSupported } = useMutationObserver();
     expect(isSupported).toBe(true);
   });
   test('mutation observer added when supported', () => {
-    window.IntersectionObserver = jest.fn();
-    const mutationObserverMock = jest.fn(() => ({
-      observe: jest.fn(),
-      disconnect: jest.fn(),
+    window.IntersectionObserver = vi.fn();
+    const mutationObserverMock = vi.fn(() => ({
+      observe: vi.fn(),
+      disconnect: vi.fn(),
     }));
     window.MutationObserver = mutationObserverMock;
     useMutationObserver('<div></div>');

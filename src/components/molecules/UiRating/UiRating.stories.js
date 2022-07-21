@@ -1,7 +1,7 @@
+import { ref } from 'vue';
 import UiRating from '@/components/molecules/UiRating/UiRating.vue';
 import UiRadio from '@/components/atoms/UiRadio/UiRadio.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
-import { ref } from 'vue';
 
 export default {
   title: 'Molecules/Rating',

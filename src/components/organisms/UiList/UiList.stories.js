@@ -1,7 +1,6 @@
 import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
-import { NestingList } from '@/components/molecules/UiBulletPoints/UiBulletPoints.stories';
 
 export default {
   title: 'Organisms/List',

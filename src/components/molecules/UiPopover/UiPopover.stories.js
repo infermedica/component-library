@@ -1,9 +1,9 @@
+import { actions } from '@storybook/addon-actions';
+import { content, modifiers } from '@sb/helpers/argTypes';
 import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
-import { actions } from '@storybook/addon-actions';
-import { content, modifiers } from '@sb/helpers/argTypes';
 
 const events = actions({
   onClose: 'close',

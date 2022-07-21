@@ -1,8 +1,8 @@
+import { actions } from '@storybook/addon-actions';
 import UiControls from '@/components/organisms/UiControls/UiControls.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
-import { actions } from '@storybook/addon-actions';
 
 const events = actions({
   onHasError: 'has-error',

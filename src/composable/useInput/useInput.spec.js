@@ -5,8 +5,8 @@ const { getInputAttrs, getRootAttrs } = useInput();
 const attrs = {
   class: 'class',
   style: { background: 'red' },
-  onBlur: jest.fn,
-  onFocus: jest.fn,
+  onBlur: vi.fn,
+  onFocus: vi.fn,
   type: 'number',
   max: 6,
   name: 'name',
@@ -15,8 +15,8 @@ const attrs = {
 describe('composable/useInput', () => {
   test('return correct attrs for input element', () => {
     const output = {
-      onBlur: jest.fn,
-      onFocus: jest.fn,
+      onBlur: vi.fn,
+      onFocus: vi.fn,
       type: 'number',
       max: 6,
       name: 'name',

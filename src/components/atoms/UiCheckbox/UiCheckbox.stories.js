@@ -1,10 +1,10 @@
+import { ref } from 'vue';
+import { content, modifiers, disabled } from '@sb/helpers/argTypes';
 import UiCheckbox from '@/components/atoms/UiCheckbox/UiCheckbox.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
-import { ref } from 'vue';
-import { content, modifiers, disabled } from '@sb/helpers/argTypes';
 
 export default {
   title: 'Atoms/Checkbox',

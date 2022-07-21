@@ -1,10 +1,10 @@
 import { onMounted, ref } from 'vue';
+import { actions } from '@storybook/addon-actions';
 import UiNumberStepper from '@/components/molecules/UiNumberStepper/UiNumberStepper.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
-import { toMobile } from '@/styles/exports/breakpoints.scss';
-import { actions } from '@storybook/addon-actions';
+import { toMobile } from '@/styles/exports/breakpoints.module.scss';
 
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
@@ -74,8 +74,7 @@ export const WithControlsOnMobile = (args) => ({
     const isMobile = ref(false);
     onMounted(() => {
       isMobile.value = matchMedia(toMobile).matches;
-      matchMedia(toMobile)
-        .addListener(({ matches }) => { isMobile.value = matches; });
+      matchMedia(toMobile).addListener(({ matches }) => { isMobile.value = matches; });
     });
     return { ...args, modelValue, isMobile };
   },

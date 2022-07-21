@@ -9,6 +9,7 @@ module.exports = {
     '@vue/airbnb',
     '@vue/typescript/recommended',
     'plugin:storybook/recommended',
+    'plugin:vitest-globals/recommended',
   ],
   parserOptions: {
     ecmaVersion: 2020,
@@ -52,7 +53,7 @@ module.exports = {
   overrides: [{
     files: ['**/*.spec.{j,t}s?(x)'],
     env: {
-      jest: true,
+      'vitest-globals/env': true,
     },
   },
   {
@@ -67,6 +68,7 @@ module.exports = {
     'import/resolver': {
       alias: [
         ['@sb', './.storybook'],
+        ['@', './src'],
       ],
     },
   },

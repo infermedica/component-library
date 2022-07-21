@@ -14,12 +14,6 @@ import {
 const mountDatepicker = (options) => {
   const wrapper = mount(UiDatepicker, {
     attachTo: document.body,
-    global: {
-      // TODO handle it globally, without stub jest throws error on svg mounting
-      stubs: {
-        UiIcon: { template: '<svg />' },
-      },
-    },
     ...options,
   });
 

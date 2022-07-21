@@ -20,17 +20,11 @@ const props = defineProps({
 const file = computed(() => {
   if (!props.icon) return h('svg');
   if (typeof props.icon === 'string') {
-    return defineAsyncComponent(() => import(
-      /* webpackChunkName: "icons" */
-      /* webpackMode: "eager" */
-      /* webpackPreload: true */
-      `../../../assets/icons/${props.icon}.svg`
-    ));
+    return defineAsyncComponent(() => import(`../../../assets/icons/${props.icon}.svg`));
   }
   return props.icon;
 });
 </script>
-
 <style lang="scss">
 .ui-icon {
   width: var(--icon-size, var(--icon-width, 1rem));
@@ -38,7 +32,6 @@ const file = computed(() => {
   flex: none;
   fill: var(--icon-color);
 }
-
 .rtl-supported {
   [dir="rtl"] & {
     transform: scaleX(-1);

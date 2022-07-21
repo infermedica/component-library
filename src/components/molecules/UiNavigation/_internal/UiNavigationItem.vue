@@ -15,7 +15,7 @@ const modifiers = inject('modifiers');
 const isSecondary = computed(() => modifiers.value.includes('ui-navigation--secondary'));
 const isSmall = computed(() => modifiers.value.includes('ui-navigation--small'));
 const parentComponent = getCurrentInstance().parent;
-if (!parentComponent || parentComponent.type.name !== 'UiNavigation') {
+if (!parentComponent || parentComponent.type.__name !== 'UiNavigation') {
   if (process.env.NODE_ENV !== 'production') {
     throw new Error('UiNavigationItem has to be child of UiNavigation');
   }

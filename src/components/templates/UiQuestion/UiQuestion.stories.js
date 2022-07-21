@@ -1,10 +1,10 @@
+import { ref } from 'vue';
 import UiQuestion from '@/components/templates/UiQuestion/UiQuestion.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiSimpleQuestion from '@/components/organisms/UiSimpleQuestion/UiSimpleQuestion.vue';
 import UiMultipleAnswer from '@/components/organisms/UiMultipleAnswer/UiMultipleAnswer.vue';
-import { ref } from 'vue';
 
 export default {
   title: 'Templates/Question',

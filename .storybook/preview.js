@@ -1,8 +1,6 @@
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import scss from 'react-syntax-highlighter/dist/esm/languages/prism/scss';
-import { withTests } from '@storybook/addon-jest';
-import { app, addDecorator } from '@storybook/vue3';
-import results from '../.jest-test-results.json';
+import { app } from '@storybook/vue3';
 
 import './tailwindcss.css';
 import '@/styles/styles.scss';
@@ -26,19 +24,8 @@ export const parameters = {
       ]
     },
   },
-  previewTabs: {
-    'storybook/docs/panel': {
-      index: -1
-    }
-  },
   viewMode: 'docs',
 }
-
-addDecorator(
-  withTests({
-    results,
-  })
-);
 
 document.body.onload = function() {
   // Set LTR as default directionality.

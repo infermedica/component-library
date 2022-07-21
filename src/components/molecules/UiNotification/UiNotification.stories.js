@@ -1,9 +1,9 @@
+import { content } from '@sb/helpers/argTypes';
+import { actions } from '@storybook/addon-actions';
 import UiNotification from '@/components/molecules/UiNotification/UiNotification.vue';
 import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
-import { content } from '@sb/helpers/argTypes';
-import { actions } from '@storybook/addon-actions';
 
 const events = actions({
   onClick: 'action',
@@ -29,7 +29,7 @@ export default {
     type: {
       control: 'select',
       options: ['success', 'info', 'warning', 'error'],
-    }
+    },
   },
   parameters: {
     cssprops: {

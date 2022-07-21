@@ -3,7 +3,7 @@ import UiModal from '@/components/organisms/UiModal/UiModal.vue';
 import UiBackdrop from '@/components/atoms/UiBackdrop/UiBackdrop.vue';
 
 const description = 'description text';
-const descripitonSlot = {
+const descriptionSlot = {
   slots: {
     description: `<template #description="{description}">
       <p data-testid="description">{{description}}</p>
@@ -87,7 +87,7 @@ describe('UiModal.vue', () => {
         title,
         description,
       },
-      ...descripitonSlot,
+      ...descriptionSlot,
     });
     const descriptionContent = wrapper.find('[data-testid="description"]').element.innerHTML;
     expect(descriptionContent).toBe(description);
@@ -98,7 +98,7 @@ describe('UiModal.vue', () => {
         modelValue: true,
         description,
       },
-      ...descripitonSlot,
+      ...descriptionSlot,
     });
     const descriptionContent = wrapper.find('[data-testid="description"]').element.innerHTML;
     expect(descriptionContent).toBe(description);
@@ -109,7 +109,7 @@ describe('UiModal.vue', () => {
         modelValue: true,
         description,
       },
-      ...descripitonSlot,
+      ...descriptionSlot,
     });
     const descriptionContents = wrapper.findAll('[data-testid="description"]');
     expect(descriptionContents.length).toBe(1);

@@ -31,6 +31,7 @@ Predefined breakpoints has `!default` flag. It means you can use your own breakp
 ### sass-loader
 To define your own breakpoints you need to use on of sass-loader option. `additionalData` allow to add custom data before the actual entry file.
 
+#### Webpack
 ```js
 //vue.config.js
 module.exports = {
@@ -40,10 +41,10 @@ module.exports = {
         additionalData: `@import "<path-to-new-breakpoints>";`
       }
     }
-  }}
+  }
+}
 ```
 
-### string-replace-loader
 Alternatively you can use [string-replace-loader](https://www.npmjs.com/package/string-replace-loader) to replace import.
 
 ```js
@@ -62,6 +63,22 @@ module.exports = {
     })
   }
 }
+```
+
+#### Vite
+Preprocessor options in [vite](https://vitejs.dev/config/#css-preprocessoroptions).
+
+```js
+//vite.config.js
+export default defineConfig({
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "<path-to-new-breakpoints>";`
+      },
+    }
+  }
+})
 ```
 
 ## Mixins
@@ -108,7 +125,7 @@ To use breakpoints you can use the following mixins:
 To use breakpoints mixins you should import them in your stylesheet:
 
 ```scss
-@import "@symptom-checker/src/styles/mixins/breakpoints";
+@import "@symptom-checker/ui-kit/mixins/_breakpoints.scss";
 ```
 
 ## SASS variables with JavaScript code
@@ -118,16 +135,16 @@ It's important to keep consistency between SASS and JavaScript breakpoints.
 In Infermedica Component Library we solve this problem and export breakpoints and media queries. i.e.
 
 ```js
-import breakpoints from "@symptom-checker/src/styles/exports/breakpoints.scss";
+import breakpoints from "@symptom-checker/ui-kit/breakpoints";
 // or
-import { toMobile } from "@symptom-checker/src/styles/exports/breakpoints.scss";
+import { toMobile } from "@symptom-checker/ui-kit/breakpoints";
 
 const isMobile = matchMedia(toMobile).matches;
 ```
 
 ### Exported breakpoints
 
-```js
+```scss
 mobileMaxWidth: $mobile-max-width;
 tabletMinWidth: $tablet-min-width;
 tabletMaxWidth: $tablet-max-width;

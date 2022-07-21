@@ -1,6 +1,6 @@
-import UiDatepicker from '@/components/organisms/UiDatepicker/UiDatepicker.vue';
 import { ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
+import UiDatepicker from '@/components/organisms/UiDatepicker/UiDatepicker.vue';
 
 const events = actions({
   onFieldFocus: 'field-focus',
@@ -20,7 +20,7 @@ export default {
     error: 'Sorry, the date of birth cannot be a future date',
     order: ['day', 'month', 'year'],
     touched: false,
-    lang: 'en-US',
+    lang: 'enUS',
     translation: {
       day: 'day',
       month: 'month',

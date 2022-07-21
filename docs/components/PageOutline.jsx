@@ -35,9 +35,10 @@ const getNodes = (elements) => {
 
   while (headings.length) {
     const currentHeading = headings.shift();
+    const key = currentHeading.textContent.replace(' ', '_');
     const nextHeading = headings.at(0);
     if (getHeadingLevel(currentHeading) > getHeadingLevel(nextHeading)) { // h3 > h2
-      nodes.push(<li key={currentHeading.id}>
+      nodes.push(<li key={key}>
         <Link
           href={`#${currentHeading.id}`}
           target="_self"
@@ -50,7 +51,7 @@ const getNodes = (elements) => {
     if (getHeadingLevel(currentHeading) < getHeadingLevel(nextHeading)) { // h2 < h3
       const { nodes: children, headings: restHeadings } = getNodes(headings);
       headings = restHeadings;
-      nodes.push(<li key={currentHeading.id}>
+      nodes.push(<li key={key}>
         <Link
           href={`#${currentHeading.id}`}
           target="_self"
@@ -62,7 +63,7 @@ const getNodes = (elements) => {
         </List>
       </li>);
     } else { // h2 === h2
-      nodes.push(<li key={currentHeading.id}>
+      nodes.push(<li key={key}>
         <Link
           href={`#${currentHeading.id}`}
           target="_self"

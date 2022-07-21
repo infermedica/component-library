@@ -1,5 +1,5 @@
-import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import { content } from '@sb/helpers/argTypes';
+import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 
 export default {
   title: 'Atoms/Heading',

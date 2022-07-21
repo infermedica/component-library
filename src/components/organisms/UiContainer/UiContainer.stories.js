@@ -1,6 +1,6 @@
+import { content } from '@sb/helpers/argTypes';
 import UiContainer from '@/components/organisms/UiContainer/UiContainer.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
-import { content } from '@sb/helpers/argTypes';
 
 export default {
   title: 'Organisms/Container',
