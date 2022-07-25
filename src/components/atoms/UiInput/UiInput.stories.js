@@ -3,7 +3,7 @@ import { modifiers, placeholder, disabled } from '@sb/helpers/argTypes';
 import UiInput from '@/components/atoms/UiInput/UiInput.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
-import icons from '@/components/atoms/UiIcon/icons';
+import icons from '@/components/atoms/UiIcon/icons.ts';
 
 export default {
   title: 'Atoms/Input',

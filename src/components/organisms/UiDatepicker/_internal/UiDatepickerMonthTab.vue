@@ -7,7 +7,7 @@
       :key="i"
       class="ui-button--text ui-datepicker-month-tab__label"
       :class="{
-        'ui-datepicker-month-tab__label--selected': month == i,
+        'ui-datepicker-month-tab__label--selected': parseInt(month, 10) === i,
         'ui-button--is-disabled': isDisabled(i),
       }"
       :disabled="isDisabled(i)"
@@ -18,11 +18,12 @@
   </UiTabsItem>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {
   computed,
   inject,
 } from 'vue';
+import type { Ref } from 'vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiTabsItem from '../../UiTabs/_internal/UiTabsItem.vue';
 
@@ -35,17 +36,17 @@ const props = defineProps({
     default: '',
   },
 });
-const emit = defineEmits(['update:modelValue', 'change', 'select']);
-const monthNames = inject('monthNames');
-const isDisabled = inject('checkMonthAvailability');
-const unfulfilledMonthError = inject('unfulfilledMonth');
+const emit = defineEmits<{(e: 'update:modelValue', value: string): void, (e: 'select', value: {type: 'month', value: string}): void}>();
+const monthNames = inject('monthNames') as string[];
+const isDisabled = inject('checkMonthAvailability') as (month: number) => boolean;
+const unfulfilledMonthError = inject('unfulfilledMonth') as Ref<boolean>;
 
 const month = computed({
   get: () => (`${props.modelValue}`),
   set: (value) => { emit('update:modelValue', value); },
 });
 
-function select(value) {
+function select(value: string): void {
   emit('select', { type: 'month', value });
   month.value = value.length === 1 ? `0${value}` : value;
   unfulfilledMonthError.value = false;

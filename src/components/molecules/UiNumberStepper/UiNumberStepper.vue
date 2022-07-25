@@ -37,8 +37,9 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue';
+import type { PropsAttrs } from '../../../types/attrs';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 
@@ -82,22 +83,23 @@ const props = defineProps({
    * Use this props to pass attrs for decrement UiButton
    */
   buttonDecrementAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
   /**
    * Use this props to pass attrs for increment UiButton
    */
   buttonIncrementAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
 });
-const emit = defineEmits(['update:modelValue', 'error']);
-const validate = (value) => (value >= props.min && value <= props.max);
+const emit = defineEmits<{(e:'update:modelValue', value: number): void,
+  (e: 'error', value: {isMin: boolean, isMax: boolean}): void}>();
+const validate = (value: number) => (value >= props.min && value <= props.max);
 const isMin = computed(() => props.modelValue === props.min);
 const isMax = computed(() => props.modelValue === props.max);
-function change(value, modifier = 0) {
+function change(value: number, modifier = 0) {
   const newValue = value + modifier;
   if (validate(newValue)) {
     emit('update:modelValue', newValue);
@@ -105,10 +107,10 @@ function change(value, modifier = 0) {
   }
   emit('error', { isMin: isMin.value, isMax: isMax.value });
 }
-function decrement() {
+function decrement(): void {
   change(props.modelValue, props.step * -1);
 }
-function increment() {
+function increment(): void {
   change(props.modelValue, props.step);
 }
 </script>

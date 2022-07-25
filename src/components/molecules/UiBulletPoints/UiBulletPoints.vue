@@ -19,7 +19,7 @@
             <UiText>{{ item.text }}</UiText>
             <template v-if="item.children?.items">
               <component
-                is="ui-bullet-points"
+                :is="'ui-bullet-points'"
                 v-bind="item.children"
               />
             </template>
@@ -30,45 +30,70 @@
   </component>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed, provide } from 'vue';
-import UiBulletPointsItem from './_internal/UiBulletPointsItem.vue';
+import type { CSSProperties, PropType } from 'vue';
 import UiText from '../../atoms/UiText/UiText.vue';
+import UiBulletPointsItem from './_internal/UiBulletPointsItem.vue';
+import type { ListTag } from '../../../types/tag';
+import type { IconAsString } from '../../../types/icon';
 
+export type BulletPointsType = 'a' | 'A' | 'i' | 'I' | '1' | 'ar';
+export interface BulletPointsRenderItem {
+  name: string;
+  text: string;
+  children?: {
+    tag: ListTag;
+    type: BulletPointsType;
+    items: Record<string, unknown>[];
+    icon: IconAsString;
+    [key: string]: string | Record<string, unknown>[];
+  } | Record<string, unknown>;
+  bulletPointsItemAttrs?: Record<string, unknown>
+}
+export interface BulletPointsItemAsObj {
+  name: string,
+  text: string,
+  items?: Record<string, unknown>[];
+  children?: {
+    items?: Record<string, unknown>[]
+    bulletPointAttrs?: Record<string, unknown>
+  }
+}
+export type BulletPointsItem = string | BulletPointsItemAsObj;
 const props = defineProps({
   /**
    * Use this props to set list tag.
    */
   tag: {
-    type: String,
+    type: String as PropType<ListTag>,
     default: 'ul',
   },
   /**
    * Use this props to set list type.
    */
   type: {
-    type: String,
+    type: String as PropType<BulletPointsType>,
     default: '1',
   },
   /**
    * Use this props to set list of bullet points.
    */
   items: {
-    type: Array,
+    type: Array as PropType<BulletPointsItem[]>,
     default: () => ([]),
   },
   /**
    * Use this props to set the bullet point icon.
    */
   icon: {
-    type: String,
+    type: String as PropType<IconAsString>,
     default: 'bullet-common',
   },
 });
-const tag = computed(() => (props.tag));
+const tag = computed<ListTag>(() => (props.tag));
 provide('tag', tag);
-
-const listStyleType = computed(() => {
+const listStyleType = computed<CSSProperties>(() => {
   const type = {
     a: { style: 'lower-latin', suffix: ')' },
     A: { style: 'upper-latin', suffix: ')' },
@@ -77,44 +102,41 @@ const listStyleType = computed(() => {
     1: { style: 'decimal', suffix: '.' },
     ar: { style: 'arabic-indic', suffix: '.' },
   };
-
   // TODO: decide how to handle latin/roman styles
   // Decimal appears to be perfectly fine for most of Arabic variants
-
   return {
-    '--list-style-type': type[props.type]?.style,
-    '--list-item-suffix': `"${type[props.type]?.suffix}"`,
+    '--list-style-type': type[props.type].style,
+    '--list-item-suffix': `"${type[props.type].suffix}"`,
   };
 });
-
-const itemsToRender = computed(() => (props.items.map((item, index) => {
-  const { name, children } = item;
-  if (typeof item === 'string') {
+const itemsToRender = computed<BulletPointsRenderItem[]>(() => (
+  props.items.map((item: BulletPointsItem, index: number) => {
+    if (typeof item === 'string') {
+      return {
+        name: `bullet-point-${index}`,
+        text: item,
+      };
+    }
     return {
-      name: `bullet-point-${index}`,
-      text: item,
-    };
-  }
-  return {
-    name: name || `bullet-point-${index}`,
-    ...item,
-    children: Array.isArray(children)
-      ? {
-        tag: props.tag,
-        type: props.type,
-        items: children,
-        icon: props.icon,
-      }
-      : {
-        items: children?.items,
-        ...(children?.bulletPointAttrs || {
+      ...item,
+      name: item.name || `bullet-point-${index}`,
+      children: Array.isArray(item.children)
+        ? {
           tag: props.tag,
           type: props.type,
+          items: item.children,
           icon: props.icon,
-        }),
-      },
-  };
-})));
+        }
+        : {
+          items: item.children?.items,
+          ...(item.children?.bulletPointAttrs || {
+            tag: props.tag,
+            type: props.type,
+            icon: props.icon,
+          }),
+        },
+    };
+  })));
 </script>
 
 <style lang="scss">

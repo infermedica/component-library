@@ -49,19 +49,42 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   inheritAttrs: false,
 };
 </script>
 
-<script setup>
+<script setup lang="ts">
 import { computed, watch } from 'vue';
+import type { PropType } from 'vue';
+import type { PropsAttrs } from '../../../types/attrs';
 import UiMultipleChoicesItem from './_internal/UiMultipleChoicesItem.vue';
 import UiList from '../UiList/UiList.vue';
 import UiListItem from '../UiList/_internal/UiListItem.vue';
 import UiAlert from '../../molecules/UiAlert/UiAlert.vue';
 
+export type MultipleChoiceValue = 'present' | 'absent' | 'unknown';
+export interface MultipleChoiceEvidence {
+  id: number;
+  question?: number;
+  name?: string;
+  'choice_id'?: MultipleChoiceValue;
+  source?: string;
+  [key: string]: unknown
+}
+export type MultipleChoiceModelValue = Record<number, MultipleChoiceEvidence>
+export interface MultipleChoiceOption {
+  name?: 'Yes' | 'No' | 'Don\'t know';
+  value?: MultipleChoiceValue;
+  [key: string]: unknown
+}
+export interface MultipleChoice extends MultipleChoiceEvidence {
+  'linked_observation'?: 'p_8',
+  translation?: {info: string; [key:string]: unknown};
+  buttonInfoAttrs?: Record<string, unknown>;
+  [key: string]: unknown;
+}
 const props = defineProps({
   /**
    *  Use this props to set source of evidences.
@@ -74,7 +97,7 @@ const props = defineProps({
    *  Use this props to override default options.
    */
   options: {
-    type: Array,
+    type: Array as PropType<MultipleChoiceOption[]>,
     default: () => ([
       { name: 'Yes', value: 'present' },
       { name: 'No', value: 'absent' },
@@ -92,14 +115,14 @@ const props = defineProps({
    *  Use this props to set possible choices.
    */
   choices: {
-    type: Array,
+    type: Array as PropType<MultipleChoice[]>,
     default: () => ([]),
   },
   /**
    *  Use this props or v-model to set checked.
    */
   modelValue: {
-    type: Array,
+    type: Array as PropType<MultipleChoiceEvidence[]>,
     default: () => ([]),
   },
   /**
@@ -120,14 +143,14 @@ const props = defineProps({
    * Use this props to pass attrs for hint UiAlert
    */
   alertHintAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
 });
-const emit = defineEmits(['update:modelValue', 'update:invalid']);
-const hintType = computed(() => (props.touched && props.invalid ? 'error' : 'default'));
+const emit = defineEmits<{(e: 'update:modelValue', value: MultipleChoiceEvidence[]): void, (e: 'update:invalid', value: boolean): void}>();
+const hintType = computed<'error'| 'default'>(() => (props.touched && props.invalid ? 'error' : 'default'));
 const evidences = computed(() => (
-  props.modelValue.reduce((object, evidence) => {
+  props.modelValue.reduce((object: MultipleChoiceModelValue, evidence: MultipleChoiceEvidence) => {
     // eslint-disable-next-line camelcase
     const { id } = evidence;
     return { ...object, [id]: { ...evidence } };
@@ -139,13 +162,13 @@ const valid = computed(() => (
 watch(valid, (value) => {
   emit('update:invalid', !value);
 }, { immediate: true });
-function hasError(id) {
+function hasError(id: number): boolean {
   return props.touched && !evidences.value[id];
 }
-function updateHandler(value) {
+function updateHandler(value: MultipleChoiceModelValue): void {
   emit('update:modelValue', Object.values(value));
 }
-const choicesToUse = computed(() => (
+const choicesToUse = computed<MultipleChoiceEvidence[]>(() => (
   props.choices.map((evidence) => (props.source ? { ...evidence, source: props.source } : { ...evidence }))
 ));
 </script>

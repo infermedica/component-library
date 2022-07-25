@@ -48,7 +48,7 @@
           :name="choice.id"
           class="ui-multiple-choices-item__option"
           :class="{'ui-radio--has-error': invalid}"
-          @update:model-value="updateHandler"
+          @update:modelValue="updateHandler"
         >
           {{ option.name }}
         </UiRadio>
@@ -57,32 +57,37 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import type { PropType } from 'vue';
 import UiRadio from '../../../atoms/UiRadio/UiRadio.vue';
+import type { RadioValue } from '../../../atoms/UiRadio/UiRadio.vue';
 import UiText from '../../../atoms/UiText/UiText.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
+import type {
+  MultipleChoice, MultipleChoiceEvidence, MultipleChoiceModelValue, MultipleChoiceOption,
+} from '../UiMultipleChoices.vue';
 
 const props = defineProps({
   /**
    *  Use this props or v-model to set checked.
    */
   modelValue: {
-    type: Object,
+    type: Object as PropType<MultipleChoiceModelValue>,
     default: () => ({}),
   },
   /**
    * Use this props to set value of choices item.
    */
   choice: {
-    type: Object,
+    type: Object as PropType<MultipleChoice>,
     default: () => ({}),
   },
   /**
    *  Use this props to override default options.
    */
   options: {
-    type: Array,
+    type: Array as PropType<MultipleChoiceOption[]>,
     default: () => ([]),
   },
   /**
@@ -93,18 +98,19 @@ const props = defineProps({
     default: true,
   },
 });
-const emit = defineEmits(['update:modelValue']);
-function getModelValue(choice) {
+const emit = defineEmits<{(e: 'update:modelValue', value: MultipleChoiceModelValue): void}>();
+function getModelValue(choice: MultipleChoiceEvidence): MultipleChoiceEvidence {
   return props.modelValue[choice.id];
 }
-function getRadioValue(choice, option) {
+function getRadioValue(choice: MultipleChoiceEvidence, option: MultipleChoiceOption): MultipleChoiceEvidence {
   return {
     ...choice,
     choice_id: option.value,
   };
 }
-function updateHandler(value) {
-  emit('update:modelValue', { ...props.modelValue, [value.id]: value });
+function updateHandler(value: RadioValue): void {
+  const evidence = value as MultipleChoiceEvidence;
+  emit('update:modelValue', { ...props.modelValue, [evidence.id]: evidence });
 }
 </script>
 

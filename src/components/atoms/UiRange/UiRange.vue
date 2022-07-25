@@ -58,20 +58,21 @@
   </UiNumberStepper>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   inheritAttrs: false,
 };
 </script>
 
-<script setup>
+<script setup lang="ts">
 import { computed, useAttrs } from 'vue';
 import UiNumberStepper from '../../molecules/UiNumberStepper/UiNumberStepper.vue';
 import UiText from '../UiText/UiText.vue';
 import useInput from '../../../composable/useInput';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
+import type { PropsAttrs } from '../../../types/attrs';
 
-const attrs = useAttrs();
+export type RangeValue = string | number;
 const props = defineProps({
   /**
    * Use this props or v-model to set value.
@@ -105,17 +106,20 @@ const props = defineProps({
    * Use this props to pass attrs for decrement UiButton
    */
   buttonDecrementAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
   /**
    * Use this props to pass attrs for increment UiButton
    */
   buttonIncrementAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
 });
+const attrs = useAttrs();
+const emit = defineEmits<{(e:'update:modelValue', value: number): void}>();
+const { getRootAttrs, getInputAttrs } = useInput();
 const buttonDecrementAttrsExtended = computed(() => ({
   tabindex: -1,
   ...props.buttonDecrementAttrs,
@@ -124,14 +128,12 @@ const buttonIncrementAttrsExtended = computed(() => ({
   tabindex: -1,
   ...props.buttonIncrementAttrs,
 }));
-const emit = defineEmits(['update:modelValue']);
-const { getRootAttrs, getInputAttrs } = useInput();
 const trackWidth = computed(() => {
   const scope = props.max - props.min;
   const position = props.modelValue - props.min;
   return `${(position / scope) * 100}%`;
 });
-function changeHandler(value) {
+function changeHandler(value: number) {
   if (attrs.disabled) return;
   emit('update:modelValue', value);
 }

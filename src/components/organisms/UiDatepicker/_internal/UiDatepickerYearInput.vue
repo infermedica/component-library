@@ -14,15 +14,17 @@
   />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {
   computed,
   inject,
   nextTick,
 } from 'vue';
+import type { Ref } from 'vue';
 import { removeNonDigits } from '../../../../utilities/helpers/remove-non-digits';
 import UiInput from '../../../atoms/UiInput/UiInput.vue';
 import useKeyValidation from '../../../../composable/useKeyValidation';
+import type { DatepickerTranslation } from '../UiDatepicker.vue';
 
 const props = defineProps({
   /**
@@ -47,20 +49,17 @@ const props = defineProps({
     default: false,
   },
 });
-const emit = defineEmits(['update:modelValue', 'change-input']);
-const translation = inject('translation');
-const unfulfilledYearError = inject('unfulfilledYear');
+const emit = defineEmits<{(e: 'update:modelValue', value: string): void, (e: 'change-input', value: 'year'): void }>();
+const translation = inject('translation') as DatepickerTranslation;
+const unfulfilledYearError = inject('unfulfilledYear') as Ref<boolean>;
 const { numbersOnly } = useKeyValidation();
-
 const year = computed({
   get: () => (`${props.modelValue}`),
   set: (value) => { emit('update:modelValue', removeNonDigits(value)); },
 });
-
 const validationError = computed(() => (year.value.length === 4 && !props.valid));
 const hasError = computed(() => (validationError.value || unfulfilledYearError.value || props.error));
-
-async function checkYear(event) {
+async function checkYear(event: InputEvent): Promise<void> {
   unfulfilledYearError.value = false;
   const inputValue = event.data;
   await nextTick();
@@ -68,8 +67,7 @@ async function checkYear(event) {
     emit('change-input', 'year');
   }
 }
-
-function standardizeYearFormat() {
+function standardizeYearFormat(): void {
   if (year.value.length > 0 && year.value.length < 4) unfulfilledYearError.value = true;
 }
 </script>

@@ -22,35 +22,27 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue';
+import type { PropType } from 'vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 
+export type BasicAlertIcon = 'success' | 'info' | 'warning' | 'error';
+export type AlertType = BasicAlertIcon | 'default';
+export type AlertIcon = `${BasicAlertIcon}-filled` | '';
 const props = defineProps({
   /**
    * Use this props to set alert type.
    */
   type: {
-    type: String,
+    type: String as PropType<AlertType>,
+    required: false,
     default: 'error',
-    validator: (value) => ['success', 'info', 'warning', 'error'].includes(value),
-  },
-  /**
-   * Use this props to hide icon.
-   */
-  hasIcon: {
-    type: Boolean,
-    default: true,
   },
 });
-const rootClassModifier = computed(() => `ui-alert--${props.type}`);
-const icon = computed(() => {
-  if (!props.hasIcon) return '';
-  if (props.type === 'success' || props.type === 'info') return `${props.type}-filled`;
-  if (props.type === 'warning') return `${props.type}-filled`;
-  return 'error-filled';
-});
+const rootClassModifier = computed<`ui-alert--${AlertType}`>(() => `ui-alert--${props.type}`);
+const icon = computed<AlertIcon>(() => (props.type === 'default' ? '' : `${props.type}-filled`));
 </script>
 
 <style lang="scss">

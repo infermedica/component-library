@@ -11,7 +11,7 @@
       :checked="isChecked"
       type="checkbox"
       class="visual-hidden"
-      @change="changeHandler($event.target.checked)"
+      @change="changeHandler($event)"
     >
     <!-- @slot Use this slot to replace checkbutton template.-->
     <slot
@@ -41,14 +41,15 @@
   </label>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   inheritAttrs: false,
 };
 </script>
 
-<script setup>
+<script setup lang="ts">
 import { computed, useSlots } from 'vue';
+import type { PropType } from 'vue';
 import equal from 'fast-deep-equal';
 import { uid } from 'uid/single';
 import UiIcon from '../UiIcon/UiIcon.vue';
@@ -56,6 +57,16 @@ import UiText from '../UiText/UiText.vue';
 import useInput from '../../../composable/useInput';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 
+export interface CheckboxValueAsObj {
+  'choice_id': string;
+  id: string;
+  label: string;
+  source?: string;
+  question?: number;
+  [key: string]: unknown;
+}
+export type CheckboxValue = string | CheckboxValueAsObj;
+export type CheckboxModelValue = boolean | CheckboxValueAsObj[];
 const props = defineProps({
   /**
    * Use this props to set checkbox id.
@@ -70,38 +81,41 @@ const props = defineProps({
    * Required for multiple checkboxes.
    */
   value: {
-    type: [String, Object],
+    type: [String, Object] as PropType<CheckboxValue>,
     default: '',
   },
   /**
    *  Use this props or v-model to set checked.
    */
   modelValue: {
-    type: [Boolean, Array],
+    type: [Boolean, Array] as PropType<CheckboxModelValue>,
     default: false,
   },
 });
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits<{(e: 'update:modelValue', value: boolean | CheckboxValueAsObj[]): void
+}>();
 const slots = useSlots();
 const { getRootAttrs, getInputAttrs } = useInput();
-const hasLabel = computed(() => (slots.default));
+const hasLabel = computed(() => (!!slots.default));
 const checkboxId = computed(() => (props.id || `checkbox-${uid()}`));
-const isGroup = computed(() => (Array.isArray(props.modelValue)));
-const isChecked = computed(() => (isGroup.value
-  ? props.modelValue
-    .find((option) => (equal(JSON.parse(JSON.stringify(props.value)), JSON.parse(JSON.stringify(option)))))
-  : props.modelValue));
-const getChecked = (checked) => {
-  if (isGroup.value) {
+const isChecked = computed(() => {
+  if (Array.isArray(props.modelValue)) {
+    return !!props.modelValue.find((option: CheckboxValueAsObj) => (
+      equal(JSON.parse(JSON.stringify(props.value)), JSON.parse(JSON.stringify(option)))));
+  }
+  return props.modelValue;
+});
+const getChecked = (checked: boolean): CheckboxModelValue => {
+  if (Array.isArray(props.modelValue)) {
     return checked
       ? [...props.modelValue, JSON.parse(JSON.stringify(props.value))]
-      : props.modelValue
-        .filter((option) => (!equal(props.value, option)));
+      : props.modelValue.filter((option: CheckboxValueAsObj) => (!equal(props.value, option)));
   }
   return checked;
 };
-function changeHandler(checked) {
-  emit('update:modelValue', getChecked(checked));
+function changeHandler(event: Event): void {
+  const el = event.target as HTMLInputElement;
+  emit('update:modelValue', getChecked(el.checked));
 }
 </script>
 

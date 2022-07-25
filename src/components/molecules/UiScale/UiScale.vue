@@ -1,31 +1,11 @@
 <template>
-  <div
-    class="ui-scale"
-    role="radiogroup"
-    :aria-label="translation.label"
-  >
-    <component
-      :is="tag"
-      class="ui-scale__controls"
-    >
-      <!-- @slot Use this slot to replace legend template. -->
-      <slot
-        name="legend"
-        v-bind="{legend}"
-      >
-        <legend
-          v-if="legend"
-          class="visual-hidden"
-        >
-          {{ legend }}
-        </legend>
-      </slot>
+  <div class="ui-scale">
+    <div class="ui-scale__controls">
       <template
         v-for="(_, index) in maxSteps"
         :key="index"
       >
         <UiRadio
-          ref="optionsRefs"
           v-model="scaleValue"
           :value="index"
           :name="scaleName"
@@ -34,7 +14,6 @@
             'ui-scale__option--first': index === 0,
             'ui-scale__option--last': index === maxSteps - 1,
           }"
-          :aria-labelledby="`scale-label-${index}`"
           @mouseover="hoverHandler($event, index)"
           @mouseleave="hoverHandler($event, index)"
         >
@@ -48,10 +27,7 @@
                 class="ui-scale__label"
                 :class="{ 'ui-scale__label--is-checked': index == scaleValue }"
               >
-                <UiText
-                  :id="`scale-label-${index}`"
-                  tag="span"
-                >
+                <UiText tag="span">
                   {{ index + 1 }}
                 </UiText>
               </div>
@@ -60,7 +36,7 @@
           </template>
         </UiRadio>
       </template>
-    </component>
+    </div>
     <div class="ui-scale__description">
       <UiText>
         {{ translation.mild }}
@@ -76,8 +52,6 @@
         v-bind="{attrs: buttonDecrementAttrs, decrement }"
       >
         <UiButton
-          tabindex="-1"
-          aria-hidden="true"
           class="ui-scale__decrement ui-button--outlined ui-button--circled ui-button--has-icon"
           v-bind="buttonDecrementAttrs"
           @click="decrement"
@@ -93,8 +67,6 @@
         v-bind="{attrs: buttonIncrementAttrs, increment }"
       >
         <UiButton
-          tabindex="-1"
-          aria-hidden="true"
           class="ui-scale__increment ui-button--outlined ui-button--circled ui-button--has-icon"
           v-bind="buttonIncrementAttrs"
           @click="increment"
@@ -108,14 +80,21 @@
   </div>
 </template>
 
-<script setup>
-import { computed, ref, watch } from 'vue';
+<script setup lang="ts">
+import { computed, ref } from 'vue';
+import type { CSSProperties, PropType } from 'vue';
 import { uid } from 'uid/single';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
+import type { PropsAttrs } from '../../../types/attrs';
 
+export interface ScaleTranslation {
+  mild: string;
+  unbearable: string;
+  [key: string]: string
+}
 const props = defineProps({
   /**
    * Use this props or v-model to set value.
@@ -138,15 +117,14 @@ const props = defineProps({
   steps: {
     type: Number,
     default: 10,
-    validator: (value) => value > 0,
+    validator: (value: number) => value > 0,
   },
   /**
    * Use this props to override labels inside component translation.
    */
   translation: {
-    type: Object,
+    type: Object as PropType<ScaleTranslation>,
     default: () => ({
-      label: 'Pain scale',
       mild: 'Mild',
       unbearable: 'Unbearable',
     }),
@@ -155,68 +133,49 @@ const props = defineProps({
    * Use this props to pass attrs for decrement UiButton
    */
   buttonDecrementAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
   /**
    * Use this props to pass attrs for increment UiButton
    */
   buttonIncrementAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
-  /**
-   * Use this props to set scale tag.
-   */
-  tag: {
-    type: String,
-    default: 'fieldset',
-  },
-  /**
-   * Use this props to set legend.
-   */
-  legend: {
-    type: String,
-    default: '',
-  },
 });
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits<{(e: 'update:modelValue', value: number): void}>();
 const scaleName = computed(() => (
   props.name || `scale-${uid()}`
 ));
-const optionsRefs = ref([]);
 const maxSteps = computed(() => props.steps);
-function valueValidation(value) {
+function valueValidation(value: number): boolean {
   return value >= 0 && value < maxSteps.value;
 }
-function changeHandler(value, modifier = 0) {
+function changeHandler(value: number, modifier = 0): void {
   const newValue = value + modifier;
   if (valueValidation(newValue)) {
     emit('update:modelValue', newValue);
   }
 }
 const scaleValue = computed({
-  get: () => props.modelValue,
-  set: (value) => {
+  get: (): number => props.modelValue,
+  set: (value: number): void => {
     changeHandler(value);
   },
 });
 const hoverValue = ref(-1);
-function hoverHandler({ type }, value) {
+function hoverHandler({ type }: {type: string}, value: number): void {
   hoverValue.value = type === 'mouseover' ? value : -1;
 }
-const finalValue = computed(() => (parseInt(hoverValue.value, 10) >= 0 ? hoverValue.value : scaleValue.value));
-watch(finalValue, (value) => {
-  document.body.classList.remove('focus-is-hidden');
-  optionsRefs.value[value]?.$el?.focus();
-});
-function decrement() {
+const finalValue = computed(() => (hoverValue.value >= 0 ? hoverValue.value : scaleValue.value));
+function decrement(): void {
   changeHandler(props.modelValue, -1);
 }
-function increment() {
+function increment(): void {
   changeHandler(props.modelValue, 1);
 }
-function calcActiveElementOpacity(index) {
+function calcActiveElementOpacity(index: number): CSSProperties {
   const opacityStepValue = 1 / (maxSteps.value - 1);
   const isActive = index <= finalValue.value;
 
@@ -233,12 +192,6 @@ function calcActiveElementOpacity(index) {
   $this: &;
 
   &__controls {
-    @at-root fieldset#{&} {
-      border: none;
-      padding: 0;
-      margin: 0;
-    }
-
     display: flex;
   }
 

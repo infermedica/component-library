@@ -16,6 +16,7 @@ export default {
       { text: 'Terms of Service', href: '#' },
       { text: 'Privacy Policy', href: '#' },
     ],
+    navigationItemsAttrs: {},
   },
   argTypes: {
     navigationItem: {
@@ -80,8 +81,9 @@ const Template = (args) => ({
     return { ...args };
   },
   template: `<UiNavigation
-    :items="items"
     :class="modifiers"
+    :items="items"
+    :navigationItemsAttrs="navigationItemsAttrs"
   >
   </UiNavigation>`,
 });
@@ -104,75 +106,56 @@ export const Vertical = (args) => ({
     return { ...args };
   },
   template: `<UiNavigation
-    :items="items"
     :class="modifiers"
     style="--navigation-flow: column wrap; --navigation-align-items: flex-start"
+    :items="items"
+    :navigationItemsAttrs="navigationItemsAttrs"
   />`,
 });
 
-export const WithNavigationItemSlot = (args) => ({
-  components: { UiNavigation },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiNavigation
-    :items="items"
-    :class="modifiers"
-  >
-    <template #medical-certification="{item}">
-      {{ item.text }}
-    </template>
-  </UiNavigation>`,
-});
-WithNavigationItemSlot.args = {
-  items: [
-    { name: 'medical-certification', text: 'Medical Certification', href: '#' },
-    { name: 'instruction-for-use', text: 'Instruction for Use', href: '#' },
-    { name: 'terms-of-service', text: 'Terms of Service', href: '#' },
-    { name: 'privacy-policy', text: 'Privacy Policy', href: '#' },
-  ],
-};
-
 export const WithDefaultSlot = (args) => ({
-  components: { UiNavigation, UiNavigationItem },
+  components: { UiNavigation, UiNavigationItem, UiIcon },
   setup() {
     return { ...args };
   },
   template: `<UiNavigation
     :class="modifiers"
+    :navigationItemsAttrs="navigationItemsAttrs"
   >
-    <template
-      v-for="(item, key) in items"
-      :key="key"
-    >
-      <UiNavigationItem
-        class=" ui-navigation__item"
-        v-bind="item.navigationItemAttrs"
+    <template #default="{isSecondary, isSmall}">
+      <template 
+        v-for="(item, key) in items" 
+        :key="key"
       >
-        {{ item.text }}
-      </UiNavigationItem>
+        <UiNavigationItem
+          class=" ui-navigation__item"
+          :class="{'ui-button--secondary': isSecondary, 'ui-button--small': isSmall}"
+          v-bind="item.navigationItemAttrs"
+        >
+          {{item.text}}
+        </UiNavigationItem>
+      </template>
+    </template>  
+  </UiNavigation>`,
+});
+
+export const WithCustomItemContent = (args) => ({
+  components: { UiNavigation, UiNavigationItem, UiIcon },
+  setup() {
+    return { ...args };
+  },
+  template: `<UiNavigation
+    :class="modifiers"
+    :items="items"
+    :navigationItemsAttrs="navigationItemsAttrs"
+  >
+    <template #medicalCertification="{item}">
+      <UiIcon icon="emergency" style="--icon-color: var(--color-text-action-primary); --icon-size: 18px;"/>
     </template>
   </UiNavigation>`,
 });
 
-export const WithIconInNavigationItemSlot = (args) => ({
-  components: { UiNavigation, UiIcon },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiNavigation
-    :items="items"
-    :class="modifiers"
-  >
-    <template #medical-certification="{item}">
-      <UiIcon 
-        icon="emergency" 
-        class="ui-button__icon"
-      /> {{ item.text }}
-    </template>
-  </UiNavigation>`,
-});
-WithIconInNavigationItemSlot.args = {
+WithCustomItemContent.args = {
   items: [
     {
       name: 'medical-certification', text: 'Medical Certification', href: '#', navigationItemAttrs: { class: 'ui-button--has-icon' },
@@ -181,4 +164,6 @@ WithIconInNavigationItemSlot.args = {
     { name: 'terms-of-service', text: 'Terms of Service', href: '#' },
     { name: 'privacy-policy', text: 'Privacy Policy', href: '#' },
   ],
+  modifiers: [],
+  navigationItemsAttrs: {},
 };

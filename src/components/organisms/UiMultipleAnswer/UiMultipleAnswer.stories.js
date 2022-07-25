@@ -371,7 +371,7 @@ export const WithListItemSlot = (args) => ({
     :touched="touched"
     @update:invalid="onUpdateInvalid"
   >
-    <template #list-item="{choice, modelValue, updateHandler, errorClass, name, component}">
+    <template #list-item="{choice, modelValue, updateHandler, errorClass, name, component, componentName}">
       <UiListItem
         class="ui-multiple-answer__list-item"
         :class="{'ui-multiple-answer__list-item--has-error': hasError}"
@@ -390,7 +390,7 @@ export const WithListItemSlot = (args) => ({
           <template #label>
             <div
               class="ui-multiple-answer__label"
-              :class="component + '__label'"
+              :class="componentName + '__label'"
             >
               <UiText
                 tag="span"
@@ -436,7 +436,7 @@ export const WithChoiceItemSlot = (args) => ({
     :touched="touched"
     @update:invalid="onUpdateInvalid"
   >
-    <template #choice-item="{choice, modelValue, updateHandler, errorClass, name, component}">
+    <template #choice-item="{choice, modelValue, updateHandler, errorClass, name, component, componentName}">
       <component
         :is="component"
         :id="choice.id"
@@ -451,7 +451,7 @@ export const WithChoiceItemSlot = (args) => ({
         <template #label>
           <div
             class="ui-multiple-answer__label"
-            :class="component + '__label'"
+            :class="componentName + '__label'"
           >
             <UiText
               tag="span"
@@ -496,10 +496,10 @@ export const WithLabelChoiceIdSlot = (args) => ({
     :touched="touched"
     @update:invalid="onUpdateInvalid"
   >
-    <template #label-s_1907="{choice, component}">
+    <template #label-s_1907="{choice, component, componentName}">
       <div
         class="ui-multiple-answer__label"
-        :class="component + '__label'"
+        :class="componentName + '__label'"
       >
         <UiText
           tag="span"

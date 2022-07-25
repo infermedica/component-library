@@ -46,21 +46,22 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue';
+import type { PropType } from 'vue';
 import UiAlert from '../UiAlert/UiAlert.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 
+export type NotificationType = 'success' | 'info' | 'warning' | 'error';
 const props = defineProps({
   /**
    * Use this props to set notification type.
    */
   type: {
-    type: String,
+    type: String as PropType<NotificationType>,
     default: 'error',
-    validator: (value) => ['success', 'info', 'warning', 'error'].includes(value),
   },
   /**
    * Use this props to hide icon.
@@ -86,7 +87,7 @@ const props = defineProps({
     }),
   },
 });
-const modifier = computed(() => `ui-notification--${props.type}`);
+const modifier = computed<`ui-notification--${NotificationType}`>(() => `ui-notification--${props.type}`);
 const hasAction = computed(() => (Object.keys(props.buttonActionAttrs).length > 0));
 </script>
 

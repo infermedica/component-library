@@ -7,18 +7,14 @@
         <slot name="common">
           <div
             class="ui-loader-skeleton__block"
-            style="
-
-  --loader-skeleton-block-width: 75%;"
+            style="--loader-skeleton-block-width: 75%;"
           />
           <div
             class="ui-loader-skeleton__block"
           />
           <div
             class="ui-loader-skeleton__block"
-            style="
-
-  --loader-skeleton-block-width: 50%;"
+            style="--loader-skeleton-block-width: 50%;"
           />
         </slot>
       </template>
@@ -32,9 +28,7 @@
 
           <div
             class="ui-loader-skeleton__block"
-            style="
-
-  --loader-skeleton-block-width: 75%;"
+            style="--loader-skeleton-block-width: 75%;"
           />
           <div
             class="ui-loader-skeleton__block ui-loader-skeleton__block--large"
@@ -45,15 +39,17 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import type { PropType } from 'vue';
+
+export type LoaderSkeletonType = 'common' | 'question'
 defineProps({
   /**
    * Use this props to set skeleton type.
    */
   type: {
-    type: String,
+    type: String as PropType<LoaderSkeletonType>,
     default: 'common',
-    validator: (value) => ['common', 'question'].includes(value),
   },
 });
 </script>

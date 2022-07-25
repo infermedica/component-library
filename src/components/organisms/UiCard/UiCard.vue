@@ -64,13 +64,19 @@
   </UiContainer>
 </template>
 
-<script setup>
-import { computed, useSlots } from 'vue';
+<script setup lang="ts">
+import { computed } from 'vue';
+import type { PropType } from 'vue';
 import UiContainer from '../UiContainer/UiContainer.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 
+export type CardType = 'emergency_ambulance'
+  | 'emergency'
+  | 'consultation_24'
+  | 'consultation'
+  | 'self_care';
 const props = defineProps({
   /**
     * Use this props to set title for card.
@@ -97,25 +103,12 @@ const props = defineProps({
    * Use this props to set icon type.
    */
   type: {
-    type: String,
+    type: String as PropType<CardType>,
     default: 'emergency_ambulance',
-    validator: (value) => [
-      'emergency_ambulance', 'emergency', 'consultation_24', 'consultation', 'self_care',
-    ].includes(value),
   },
 });
-const slots = useSlots();
-const rootClassModifier = computed(() => (`ui-card--${props.type}`));
-const icon = computed(() => {
-  const icons = {
-    emergency_ambulance: 'emergency-ambulance',
-    emergency: 'emergency',
-    consultation_24: 'consultation-24',
-    consultation: 'consultation',
-    self_care: 'self-care',
-  };
-  return icons[props.type];
-});
+const rootClassModifier = computed<`ui-card--${CardType}`>(() => `ui-card--${props.type}`);
+const icon = computed(() => props.type.replace(/_/g, '-'));
 </script>
 
 <style lang="scss">

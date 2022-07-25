@@ -59,10 +59,13 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import type { PropType } from 'vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
+import type { Icon } from '../../../types/icon';
+import type { PropsAttrs } from '../../../types/attrs';
 
 defineProps({
   /**
@@ -83,14 +86,14 @@ defineProps({
    * Use this props to set message illustration.
    */
   illustration: {
-    type: [String, Boolean],
+    type: [String, false] as PropType<Icon | false>,
     default: '',
   },
   /**
    * Use this props to pass attrs for title UiHeading
    */
   headingTitleAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
 });

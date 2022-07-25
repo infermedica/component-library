@@ -26,10 +26,10 @@
     "preview": "vite preview --open --port 8080",
     "build": "vite build --out-dir dist"
   },
-  "main": "index.js",
-  "module": "index.js",
+  "main": "index.ts",
+  "module": "index.ts",
   "exports": {
-    ".": "./index.js",
+    ".": "./index.ts",
     "./src/": "./src/",
     "./styles/": "./src/styles/",
     "./breakpoints": "./src/styles/exports/breakpoints.module.scss",
@@ -45,7 +45,7 @@
   },
   "files": [
     "src/*",
-    "index.js",
+    "index.ts",
     "scripts/create-index.js"
   ],
   "dependencies": {

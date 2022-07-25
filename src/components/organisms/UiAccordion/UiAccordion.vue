@@ -23,37 +23,48 @@
   </UiList>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed, provide } from 'vue';
+import type { PropType } from 'vue';
 import UiAccordionItem from './_internal/UiAccordionItem.vue';
 import UiList from '../UiList/UiList.vue';
 
+export type AccordionValue = string | string[];
+export interface AccordionItemSettings {
+  iconOpen: string;
+  iconClose: string;
+  [key: string]: unknown
+}
+export interface AccordionItemAsObj {
+  title: string;
+  name: string;
+  accordionItemAttrs?: Record<string, unknown>;
+  settings?: AccordionItemSettings;
+  [key: string]: unknown;
+}
+export type AccordionItem = string | AccordionItemAsObj;
 const props = defineProps({
   /**
    * Use this props or v-model to set opened items.
    */
   modelValue: {
-    type: [String, Array],
+    type: [String, Array] as PropType<AccordionValue>,
     default: '',
   },
   /**
    * Use this props to pass accordion items.
    */
   items: {
-    type: Array,
+    type: Array as PropType<AccordionItem[]>,
     default: () => ([]),
   },
 });
-const emit = defineEmits(['update:modelValue']);
-const opened = computed(() => (props.modelValue));
+const emit = defineEmits<{(e: 'update:modelValue', value:AccordionValue): void}>();
+const opened = computed<AccordionValue>(() => (props.modelValue));
 provide('opened', opened);
-function toggle(name) {
+function toggle(name: string): void {
   if (typeof opened.value === 'string') {
-    if (opened.value === name) {
-      emit('update:modelValue', '');
-    } else {
-      emit('update:modelValue', name);
-    }
+    emit('update:modelValue', opened.value === name ? '' : name);
   } else if (opened.value.includes(name)) {
     emit('update:modelValue', opened.value.filter((item) => (item !== name)));
   } else {
@@ -61,17 +72,17 @@ function toggle(name) {
   }
 }
 provide('toggle', toggle);
-const itemsToRender = computed(() => (props.items.map((item, key) => {
-  const { name } = item;
+const itemsToRender = computed<AccordionItemAsObj[]>(() => (props.items.map((item: AccordionItem, key: number) => {
   if (typeof item === 'string') {
     return {
       name: `accordion-item-${key}`,
-      text: item,
+      title: item,
     };
   }
+  const { name } = item;
   return {
-    name: name || `accordion-item-${key}`,
     ...item,
+    name: name || `accordion-item-${key}`,
   };
 })));
 </script>

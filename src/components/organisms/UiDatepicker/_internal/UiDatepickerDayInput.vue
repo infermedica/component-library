@@ -8,20 +8,22 @@
     pattern="[0-9]*"
     autocomplete="off"
     @blur="standardizeDayFormat"
-    @input="checkDay"
+    @input="checkDay($event as InputEvent)"
     @keydown="numbersOnly"
   />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {
   computed,
   inject,
   nextTick,
 } from 'vue';
+import type { Ref } from 'vue';
 import { removeNonDigits } from '../../../../utilities/helpers/remove-non-digits';
 import UiInput from '../../../atoms/UiInput/UiInput.vue';
 import useKeyValidation from '../../../../composable/useKeyValidation';
+import type { DatepickerTranslation } from '../UiDatepicker.vue';
 
 const props = defineProps({
   /**
@@ -46,20 +48,17 @@ const props = defineProps({
     default: false,
   },
 });
-const emit = defineEmits(['update:modelValue', 'change-input']);
-const translation = inject('translation');
-const unfulfilledDayError = inject('unfulfilledDay');
+const emit = defineEmits<{(e:'update:modelValue', value: string):void, (e:'change-input', value: 'day'): void}>();
+const translation = inject('translation') as DatepickerTranslation;
+const unfulfilledDayError = inject('unfulfilledDay') as Ref<boolean>;
 const { numbersOnly } = useKeyValidation();
-
 const day = computed({
   get: () => (`${props.modelValue}`),
-  set: (value) => { emit('update:modelValue', removeNonDigits(value)); },
+  set: (value: string) => { emit('update:modelValue', removeNonDigits(value)); },
 });
-
 const validationError = computed(() => (day.value.length === 2 && !props.valid));
 const hasError = computed(() => (validationError.value || unfulfilledDayError.value || props.error));
-
-async function checkDay(event) {
+async function checkDay(event: InputEvent): Promise<void> {
   unfulfilledDayError.value = false;
   const inputValue = event.data;
   await nextTick();
@@ -67,8 +66,7 @@ async function checkDay(event) {
     emit('change-input', 'day');
   }
 }
-
-function standardizeDayFormat() {
+function standardizeDayFormat(): void {
   if (day.value.length === 1) {
     if (day.value !== '0') {
       day.value = `0${day.value}`;

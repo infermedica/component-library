@@ -15,7 +15,7 @@
           ref="toggleElement"
           class="ui-button--outlined ui-button--circled ui-button--has-icon ui-datepicker-calendar__toggler"
           v-bind="attrs"
-          @click="openCalendar(toggleHandler)"
+          @click="openCalendar(toggleHandler, $event)"
         >
           <UiIcon icon="calendar" />
         </UiButton>
@@ -31,7 +31,7 @@
           v-for="(datePart, key) in order"
           :key="key"
           v-model="date[datePart]"
-          v-bind="defaultProps[`tabsItem${capitalizeFirst(datePart)}Attrs`]"
+          v-bind="getDefaultProp(datePart)"
           :title="capitalizeFirst(translation[datePart])"
           class="ui-datepicker-calendar__tab-content"
           @update:modelValue="goToNextTab"
@@ -42,7 +42,7 @@
   </UiDropdown>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {
   computed,
   inject,
@@ -51,6 +51,7 @@ import {
   watchEffect,
   reactive,
 } from 'vue';
+import type { PropType, ComputedRef } from 'vue';
 import { clickOutside as vClickOutside } from '../../../../utilities/directives';
 import { capitalizeFirst } from '../../../../utilities/helpers';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
@@ -60,69 +61,83 @@ import UiTabs from '../../UiTabs/UiTabs.vue';
 import UiDatepickerDayTab from './UiDatepickerDayTab.vue';
 import UiDatepickerMonthTab from './UiDatepickerMonthTab.vue';
 import UiDatepickerYearTab from './UiDatepickerYearTab.vue';
+import type { PropsAttrs } from '../../../../types/attrs';
+import type {
+  DatePart, DatepickerDate, DatepickerTranslation, DefaultInputProps,
+} from '../UiDatepicker.vue';
 
+export type DatepickerTab = InstanceType<typeof UiDatepickerDayTab
+  | typeof UiDatepickerMonthTab
+  | typeof UiDatepickerYearTab
+>;
+export type DatepickerTabAttrName = `tabsItem${Capitalize<DatePart>}Attrs`;
+export type DatepickerTabID = `datepicker-calendar-${DatePart}`;
 const props = defineProps({
   /**
    * Use this props to set current tab value.
    */
   lastFocused: {
-    type: String,
+    type: String as PropType<DatePart>,
     default: '',
   },
   /**
    * Use this props to pass attrs for day UiTabsItem
    */
   tabsItemDayAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
   /**
    * Use this props to pass attrs for month UiTabsItem
    */
   tabsItemMonthAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
   /**
    * Use this props to pass attrs for year UiTabsItem
    */
   tabsItemYearAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
 });
-const getDefaultProps = (datePart) => ({
-  id: `datepicker-calendar-${datePart.toLowerCase()}`,
-  ...props[`tabItem${datePart}Attrs`],
+const getDefaultProps = (datePart: DatePart): DefaultInputProps<DatepickerTabID> => ({
+  id: `datepicker-calendar-${datePart}`,
+  ...props[`tabsItem${capitalizeFirst(datePart) as Capitalize<DatePart>}Attrs`],
 });
-const defaultProps = reactive({
-  tabsItemDayAttrs: getDefaultProps('Day'),
-  tabsItemMonthAttrs: getDefaultProps('Month'),
-  tabsItemYearAttrs: getDefaultProps('Year'),
-});
-const emit = defineEmits(['update:modelValue', 'open', 'select']);
-const dropdown = ref(null);
-const toggleElement = ref(null);
-const translation = inject('translation');
-const order = inject('order');
-const date = inject('date');
-
-const currentTab = ref(order.at(0));
-const dateParts = computed(() => (Object.keys(defaultProps).reduce((parts, key) => {
+const defaultProps = reactive<{
+  [key in DatepickerTabAttrName]: DefaultInputProps<DatepickerTabID>
+  }>({
+    tabsItemDayAttrs: getDefaultProps('day'),
+    tabsItemMonthAttrs: getDefaultProps('month'),
+    tabsItemYearAttrs: getDefaultProps('year'),
+  });
+const getDefaultProp = (item: DatePart | DatepickerTabAttrName): DefaultInputProps<DatepickerTabID> => (
+  item.includes('Attrs') ? defaultProps[item as DatepickerTabAttrName] : defaultProps[`tabsItem${capitalizeFirst(item) as Capitalize<DatePart>}Attrs`]);
+const emit = defineEmits<{(e:'open', value: Event): void, (e: 'select', value: Event): void}>();
+const dropdown = ref<InstanceType<typeof UiDropdown> | null>(null);
+const toggleElement = ref<HTMLElement | null>(null);
+const translation = inject('translation') as DatepickerTranslation;
+const order = inject('order') as DatePart[];
+const date = inject('date') as DatepickerDate<string>;
+const currentTab = ref<DatePart>(order[0]);
+const dateParts = computed(() => (Object.keys(defaultProps).reduce((parts: Record<string, string>, key: string) => {
   const match = key.match(/tabsItem(.+)Attrs/);
   if (match) {
     // eslint-disable-next-line no-param-reassign
-    parts[defaultProps[key]?.id] = match[1].toLowerCase();
+    parts[getDefaultProp(key as DatePart).id] = match[1].toLowerCase();
   }
   return parts;
 }, {})));
-const currentTabId = computed({
-  get: () => (defaultProps[`tabsItem${capitalizeFirst(currentTab.value)}Attrs`]?.id),
-  set: (id) => { currentTab.value = dateParts.value[id]; },
+const currentTabId = computed<DatepickerTabID>({
+  get: () => (getDefaultProp(currentTab.value).id),
+  set: (id) => {
+    currentTab.value = dateParts.value[id] as DatePart;
+  },
 });
-const firstEmptyTab = computed(() => (order.find((key) => !date[key])));
-
-function tabComponentSelector(datePart) {
+const firstEmptyTab = computed<DatePart | undefined>(() => (order.find((key) => !date[key])));
+function tabComponentSelector(datePart: DatePart) {
   switch (datePart) {
     case ('day'):
       return UiDatepickerDayTab;
@@ -134,30 +149,25 @@ function tabComponentSelector(datePart) {
       return '';
   }
 }
-
 const isActiveClickOutside = computed(() => dropdown.value?.isOpen || false);
-const isDateFulfilled = inject('isDateFulfilled');
-
-function openCalendar(open) {
-  if (dropdown.value.isOpen) return;
-  emit('open');
+const isDateFulfilled = inject('isDateFulfilled') as ComputedRef<boolean>;
+function openCalendar(open: () => Promise<void>, event: Event): void {
+  if (dropdown.value?.isOpen) return;
+  emit('open', event);
   // TODO: if no empty Tabs try to focus first tab with error
   currentTab.value = isDateFulfilled.value
-    ? order.at(0)
+    ? order[0]
     : (firstEmptyTab.value || props.lastFocused);
   open();
 }
-
 watchEffect(() => {
   currentTab.value = props.lastFocused;
 });
-
 watch(isDateFulfilled, (dateFulfilled) => {
   const focusedLastInput = props.lastFocused === order.at(-1);
-  if (dateFulfilled && focusedLastInput) dropdown.value.closeHandler({ focusToggle: false });
+  if (dateFulfilled && focusedLastInput) dropdown.value?.closeHandler({ focusToggle: false });
 });
-
-function goToNextTab() {
+function goToNextTab(): void {
   const currentTabIndex = order.indexOf(currentTab.value);
   if (currentTabIndex < order.length - 1) {
     currentTab.value = order[currentTabIndex + 1];
@@ -165,19 +175,21 @@ function goToNextTab() {
     const firstEmptyTabIndex = order.indexOf(firstEmptyTab.value);
     currentTab.value = order[firstEmptyTabIndex];
   } else {
-    dropdown.value.closeHandler({ focusToggle: true });
+    dropdown.value?.closeHandler({ focusToggle: true });
   }
 }
-
-const inputsIds = inject('inputsIds');
-const clickOutsideHandler = ({ target: { id, htmlFor } }) => {
+const inputsIds = inject('inputsIds') as ComputedRef<Record<string, string>>;
+const clickOutsideHandler = (event: InputEvent) => {
+  const target = event.target as HTMLLabelElement;
+  const id = target.id as DatepickerTabID;
+  const htmlFor = target.htmlFor as DatepickerTabID;
   const allowedIds = Object.keys(inputsIds.value);
 
   if (allowedIds.includes(htmlFor)) return;
   if (!allowedIds.includes(id)) {
-    dropdown.value.closeHandler({ focusToggle: false });
+    dropdown.value?.closeHandler({ focusToggle: false });
   }
-  currentTab.value = inputsIds.value[id];
+  currentTab.value = inputsIds.value[id] as DatePart;
 };
 </script>
 

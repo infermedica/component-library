@@ -5,19 +5,21 @@
   />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed, defineAsyncComponent, h } from 'vue';
+import type { PropType } from 'vue';
+import type { Icon } from '../../../types/icon';
 
 const props = defineProps({
   /**
    * Use this prop to set the icon.
    */
   icon: {
-    type: [String, Object],
+    type: [String, Object] as PropType<Icon>,
     default: '',
   },
 });
-const file = computed(() => {
+const file = computed<SVGElement>(() => {
   if (!props.icon) return h('svg');
   if (typeof props.icon === 'string') {
     return defineAsyncComponent(() => import(`../../../assets/icons/${props.icon}.svg`));

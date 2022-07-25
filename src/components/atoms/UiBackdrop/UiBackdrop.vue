@@ -2,7 +2,7 @@
   <div class="ui-backdrop" />
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: 'UiBackdrop',
 };

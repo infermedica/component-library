@@ -7,14 +7,18 @@
     <slot />
   </UiButton>
 </template>
-<script setup>
-import { computed, inject, getCurrentInstance } from 'vue';
+<script setup lang="ts">
+import {
+  computed, inject, getCurrentInstance,
+} from 'vue';
+import type { ComputedRef } from 'vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 
-const modifiers = inject('modifiers');
+const modifiers = inject('modifiers') as ComputedRef<string>;
 const isSecondary = computed(() => modifiers.value.includes('ui-navigation--secondary'));
 const isSmall = computed(() => modifiers.value.includes('ui-navigation--small'));
-const parentComponent = getCurrentInstance().parent;
+const parentComponent = getCurrentInstance()?.parent;
+// eslint-disable-next-line no-underscore-dangle
 if (!parentComponent || parentComponent.type.__name !== 'UiNavigation') {
   if (process.env.NODE_ENV !== 'production') {
     throw new Error('UiNavigationItem has to be child of UiNavigation');

@@ -25,21 +25,23 @@
   </UiCheckbox>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import type { PropType } from 'vue';
 import UiCheckbox from '../../atoms/UiCheckbox/UiCheckbox.vue';
 import UiSwitchControl from './_internal/UiSwitchControl.vue';
+import type { CheckboxModelValue } from '../../atoms/UiCheckbox/UiCheckbox.vue';
 
 defineProps({
   /**
    *  Use this props or v-model to set checked.
    */
   modelValue: {
-    type: [Boolean, Array],
+    type: [Boolean, Array] as PropType<CheckboxModelValue>,
     default: false,
   },
 });
-const emit = defineEmits(['update:modelValue']);
-const updateHandler = (value) => {
+const emit = defineEmits<{(e: 'update:modelValue', value: CheckboxModelValue): void}>();
+const updateHandler = (value: CheckboxModelValue): void => {
   emit('update:modelValue', value);
 };
 </script>

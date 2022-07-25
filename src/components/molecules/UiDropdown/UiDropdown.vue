@@ -62,18 +62,35 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { uid } from 'uid/single';
 import {
   ref, computed, provide, nextTick,
 } from 'vue';
-import useDropdownItems from './useDropdownItems';
+import type { PropType, VNode } from 'vue';
+import useDropdownItems from './useDropdownItems.js';
 import { clickOutside as vClickOutside } from '../../../utilities/directives';
 import { focusElement } from '../../../utilities/helpers';
 import UiDropdownItem from './_internal/UiDropdownItem.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiPopover from '../UiPopover/UiPopover.vue';
+import type { PropsAttrs } from '../../../types/attrs.js';
 
+export type DropdownValue = string | Record<string, unknown>
+export interface DropdownItemAsObj {
+  text?: string;
+  name: string;
+  value: DropdownValue;
+  [key: string]: DropdownValue | undefined;
+}
+export type DropdownItem = string | DropdownItemAsObj;
+export type ButtonEl = InstanceType<typeof UiButton>;
+export interface openOptions {
+  focus?: boolean
+}
+export interface closeOptions {
+  focusToggle?: boolean
+}
 const props = defineProps({
   /**
    * Use this props to set text on toggle button.
@@ -94,7 +111,7 @@ const props = defineProps({
    * Use this props or v-model to set value.
    */
   modelValue: {
-    type: [String, Object],
+    type: [String, Object] as PropType<DropdownValue>,
     default: '',
   },
   /**
@@ -105,10 +122,10 @@ const props = defineProps({
     default: true,
   },
   /**
-     * Use this props to set toggle DOM element to back to it after close popover.
-     */
+   * Use this props to set toggle DOM element to back to it after close popover.
+   */
   toggleElement: {
-    type: Object,
+    type: Object as PropType<null | HTMLElement>,
     default: undefined,
   },
   /**
@@ -122,29 +139,34 @@ const props = defineProps({
    *  Use this props to pass attrs to UiButton.
    */
   buttonAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
   /**
    *  Use this props to pass attrs to UiPopover.
    */
   popoverAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
   /**
    * Use this props to pass list of dropdown items.
    */
   items: {
-    type: Array,
+    type: Array as PropType<DropdownItem[]>,
     default: () => [],
   },
 });
-const emit = defineEmits(['update:modelValue', 'open', 'close']);
-const toggle = ref(null);
-const dropdown = ref(null);
+const emit = defineEmits<{(e: 'update:modelValue', value: DropdownValue):void;
+  (e: 'open'): void;
+  (e: 'close'): void;
+}>();
+const toggle = ref<ButtonEl|null>(null);
+const dropdown = ref<null | HTMLDivElement>(null);
 const isOpen = ref(false);
-const dropdownToggle = computed(() => (props.toggleElement || toggle.value?.$el));
+const dropdownToggle = computed<VNode | ButtonEl>(
+  () => props.toggleElement || toggle.value?.$el,
+);
 const {
   dropdownItems,
   activeDropdownItemIndex,
@@ -154,7 +176,7 @@ const {
   prevDropdownItem,
   selectedDropdownItem,
 } = useDropdownItems(dropdown);
-async function openHandler({ focus = false } = {}) {
+async function openHandler({ focus = false }: openOptions = {}): Promise<void> {
   isOpen.value = true;
   emit('open');
 
@@ -166,15 +188,15 @@ async function openHandler({ focus = false } = {}) {
   }
 }
 
-function closeHandler({ focusToggle } = { focusToggle: true }) {
+function closeHandler({ focusToggle }: closeOptions = { focusToggle: true }): void {
   if (dropdownToggle.value && focusToggle) {
-    focusElement(dropdownToggle.value?.$el || dropdownToggle.value, true);
+    ((dropdownToggle.value as ButtonEl).$el || dropdownToggle.value).focus();
   }
   isOpen.value = false;
   emit('close');
 }
 
-async function toggleHandler() {
+async function toggleHandler(): Promise<void> {
   if (isOpen.value) {
     closeHandler();
   } else {
@@ -186,14 +208,14 @@ const dropdownName = computed(() => (
   props.name || `dropdown-${uid()}`
 ));
 provide('name', dropdownName);
-const modelValue = computed(() => (props.modelValue));
+const modelValue = computed<DropdownValue>(() => (props.modelValue));
 provide('modelValue', modelValue);
-function changeHandler(value) {
+function changeHandler(value: DropdownValue):void {
   emit('update:modelValue', value);
   closeHandler();
 }
 provide('changeHandler', changeHandler);
-const dropdownKeydownHandler = async ({ key }) => {
+async function dropdownKeydownHandler({ key }: {key: string}): Promise<void> {
   if (!props.enableKeyboardNavigation) return;
 
   switch (key) {
@@ -221,18 +243,17 @@ const dropdownKeydownHandler = async ({ key }) => {
       break;
     default: break;
   }
-};
+}
 const searchQuery = ref('');
-const searchDebounce = ref(null);
-const handleInputQuery = ({ key }) => {
+const searchDebounce = ref<ReturnType<typeof setTimeout> | null>(null);
+function handleInputQuery({ key }: {key: string}): void {
   searchQuery.value += key.toLowerCase();
-  const match = dropdownItems.value.findIndex(
-    (item) => item.innerText.toLowerCase().startsWith(searchQuery.value),
+  const match: number = dropdownItems.value.findIndex(
+    (item: HTMLElement) => item.innerText.toLowerCase().startsWith(searchQuery.value),
   );
-
   if (match !== -1 && match !== activeDropdownItemIndex.value) focusElement(dropdownItems.value[match]);
-};
-const dropdownItemKeydownHandler = async (event) => {
+}
+async function dropdownItemKeydownHandler(event: KeyboardEvent): Promise<void> {
   const { key } = event;
   if (searchDebounce.value) clearTimeout(searchDebounce.value);
 
@@ -240,13 +261,13 @@ const dropdownItemKeydownHandler = async (event) => {
     handleInputQuery(event);
     searchDebounce.value = setTimeout(() => { searchQuery.value = ''; }, 500);
   }
-};
+}
 provide('dropdownItemKeydownHandler', dropdownItemKeydownHandler);
 
 defineExpose({ isOpen, closeHandler });
 
-const itemsToRender = computed(() => (props.items.map((item, key) => {
-  if (typeof item === 'string') {
+const itemsToRender = computed<DropdownItemAsObj[]>(() => (props.items.map((item: DropdownItem, key) => {
+  if (typeof item === 'string' || typeof item === 'number') {
     return {
       name: `dropdown-item-${key}`,
       text: item,
@@ -254,9 +275,9 @@ const itemsToRender = computed(() => (props.items.map((item, key) => {
     };
   }
   return {
-    name: item.name || `dropdown-item-${key}`,
     ...item,
-    value: item.value || item,
+    name: item.name || `dropdown-item-${key}`,
+    value: item.value,
   };
 })));
 </script>

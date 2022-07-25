@@ -101,7 +101,7 @@ export const WithDecrementSlot = (args) => ({
     :button-decrement-attrs="buttonDecrementAttrs"
     :button-increment-attrs="buttonIncrementAttrs"
   >
-    <template #decrement="attrs, decrement">
+    <template #decrement="{attrs, decrement}">
       <UiButton
         class="ui-scale__decrement ui-button--outlined ui-button--circled ui-button--has-icon"
         v-bind="attrs"
@@ -130,11 +130,11 @@ export const WithIncrementSlot = (args) => ({
     :button-decrement-attrs="buttonDecrementAttrs"
     :button-increment-attrs="buttonIncrementAttrs"
   >
-    <template #increment="attrs, increment">
+    <template #increment="{attrs, increment}">
       <UiButton
         class="ui-scale__increment ui-button--outlined ui-button--circled ui-button--has-icon"
         v-bind="attrs"
-        @click="decrement"
+        @click="increment"
       >
         <UiIcon
           icon="plus"

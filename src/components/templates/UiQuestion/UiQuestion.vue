@@ -108,12 +108,32 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import type { PropType } from 'vue';
+import type { PropsAttrs } from '../../../types/attrs';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiNotification from '../../molecules/UiNotification/UiNotification.vue';
 
+export interface QuestionTranslation {
+  info: string;
+  why: string;
+  issue: {
+    action: string;
+    feedback: string;
+    skip: string;
+  };
+  [key: string] : unknown;
+}
+export interface QuestionOptions {
+  info: boolean;
+  why: boolean;
+  issue: {
+    feedback: boolean;
+  };
+  [key: string]: unknown;
+}
 defineProps({
   /**
    * Use this props to set question title.
@@ -126,7 +146,7 @@ defineProps({
    * Use this props to set valid state of the question.
    */
   translation: {
-    type: Object,
+    type: Object as PropType<QuestionTranslation>,
     default: () => ({
       info: 'What does it mean?',
       why: 'Why am I being asked this?',
@@ -141,7 +161,7 @@ defineProps({
    * Use this props to setup question.
    */
   options: {
-    type: Object,
+    type: Object as PropType<QuestionOptions>,
     default: () => ({
       info: true,
       why: true,
@@ -154,28 +174,28 @@ defineProps({
    * Use this props to pass attrs for question skip UiButton
    */
   buttonSkipAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
   /**
    * Use this props to pass attrs for info UiButton
    */
   buttonInfoAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
   /**
    * Use this props to pass attrs for why UiButton
    */
   buttonWhyAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
   /**
    * Use this props to pass attrs for issue UiButton
    */
   buttonIssueAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
 });

@@ -71,29 +71,40 @@
                     {{ step.name }}
                   </UiLink>
                 </slot>
-              </Uilistitem>
+              </UiListitem>
             </slot>
           </template>
         </slot>
-      </Uilist>
+      </UiList>
     </slot>
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue';
+import type { PropType } from 'vue';
 import UiLink from '../../atoms/UiLink/UiLink.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import UiProgress from '../../atoms/UiProgress/UiProgress.vue';
 import UiList from '../../organisms/UiList/UiList.vue';
 import UiListItem from '../../organisms/UiList/_internal/UiListItem.vue';
+import type { PropsAttrs } from '../../../types/attrs';
 
+export interface Step {
+  name: string;
+  route: string
+  [key: string]: unknown;
+}
+export interface DetermineStep {
+  to: string;
+  class: string;
+}
 const props = defineProps({
   /**
    * Use this props to set the steps in the stepper.
    */
   steps: {
-    type: Array,
+    type: Array as PropType<Step[]>,
     default: () => [
       {
         name: '',
@@ -112,7 +123,7 @@ const props = defineProps({
    * Use this props to pass attrs for UiProgress.
    */
   progressAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
 });
@@ -123,9 +134,9 @@ const currentStepDisplayText = computed(() => `
       ${currentStepDisplayNumber.value}/${props.steps.length} ${props.currentStep}
     `);
 const stepsProgress = computed(() => (currentStepDisplayNumber.value / stepsLength.value) * 100);
-const determineStep = (itemIndex, route) => ({
-  to: itemIndex < indexOfActiveStep.value ? route : null,
-  class: itemIndex <= indexOfActiveStep.value ? null : 'ui-link--is-disabled',
+const determineStep = (itemIndex: number, route: string): DetermineStep => ({
+  to: itemIndex < indexOfActiveStep.value ? route : '',
+  class: itemIndex <= indexOfActiveStep.value ? '' : 'ui-link--is-disabled',
 });
 </script>
 
@@ -251,4 +262,3 @@ const determineStep = (itemIndex, route) => ({
   }
 }
 </style>
-

@@ -11,10 +11,14 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "useDefineForClassFields": true,
+    "resolveJsonModule": true,
+    "preserveValueImports": true,
+    "importsNotUsedAsValues": "error",
+    "importHelpers": true,
+    "experimentalDecorators": true,
     "sourceMap": true,
     "baseUrl": ".",
     "types": [
-      "webpack-env",
       "vitest/globals"
     ],
     "paths": {
@@ -32,7 +36,7 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/**/*.vue",
+    "src/**/*.vue"
   ],
   "exclude": [
     "node_modules"
