@@ -25,23 +25,32 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: 'UiToggleButtonGroup',
 };
 </script>
 
-<script setup>
+<script setup lang="ts">
 import { computed, provide } from 'vue';
+import type { PropType } from 'vue';
 import equal from 'fast-deep-equal';
 import UiToggleButton from './_internal/UiToggleButton.vue';
 
+export type ToggleButtonValue = number | string | Record<string, unknown> | undefined | null;
+export interface ToggleButtonItemAsObj{
+  name: string;
+  text?: string | number;
+  value: ToggleButtonValue;
+  [key: string]: ToggleButtonValue | undefined;
+}
+export type ToggleButtonItem = number | string | ToggleButtonItemAsObj;
 const props = defineProps({
   /**
    * Use this props or v-model to set value.
    */
   modelValue: {
-    type: [Number, String, Object],
+    type: [Number, String, Object] as PropType<ToggleButtonValue>,
     default: '',
   },
   /**
@@ -55,40 +64,38 @@ const props = defineProps({
    * Use this props to pass list of toggle buttons.
    */
   items: {
-    type: Array,
+    type: Array as PropType<ToggleButtonItem[]>,
     default: () => ([]),
   },
 });
-const emit = defineEmits(['update:modelValue']);
-const innerValue = computed({
-  get: () => (props.modelValue),
-  set: (newValue) => {
+const emit = defineEmits<{(e: 'update:modelValue', value: ToggleButtonValue): void}>();
+const innerValue = computed<ToggleButtonValue>({
+  get: (): ToggleButtonValue => (props.modelValue),
+  set: (newValue: ToggleButtonValue): void => {
     const isEquals = equal(props.modelValue, newValue);
     if (props.deselectable) {
-      emit('update:modelValue', (!isEquals && props.deselectable) ? newValue : null);
+      emit('update:modelValue', !isEquals ? newValue : null);
     } else if (!isEquals) {
       emit('update:modelValue', newValue);
     }
   },
 });
-
 provide('modelValue', innerValue);
-
-const itemsToRender = computed(() => (props.items.map((item, key) => {
-  const { name, value } = item;
-  if (typeof item === 'string') {
+const itemsToRender = computed<ToggleButtonItemAsObj[]>(() => (
+  props.items.map((item: ToggleButtonItem, key: number) => {
+    if (typeof item === 'string' || typeof item === 'number') {
+      return {
+        name: `toggle-button-${key}`,
+        text: item,
+        value: item,
+      };
+    }
     return {
-      name: `toggle-button-${key}`,
-      text: item,
-      value: item,
+      ...item,
+      name: item.name || `toggle-button-${key}`,
+      value: item.value,
     };
-  }
-  return {
-    name: name || `toggle-button-${key}`,
-    ...item,
-    value: value || item,
-  };
-})));
+  })));
 </script>
 
 <style lang="scss">

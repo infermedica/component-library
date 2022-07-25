@@ -25,7 +25,7 @@
         <!-- @slot Use this slot to replace list-item template.-->
         <slot
           name="list-item"
-          v-bind="{choice, modelValue, updateHandler, errorClass, name, component}"
+          v-bind="{choice, modelValue, updateHandler, errorClass, name, component, componentName}"
         >
           <UiListItem
             class="ui-multiple-answer__list-item"
@@ -34,10 +34,10 @@
             <!-- @slot Use this slot to replace choice-item template.-->
             <slot
               name="choice-item"
-              v-bind="{choice, modelValue, updateHandler, errorClass, name, component}"
+              v-bind="{choice, modelValue, updateHandler, errorClass, name, component, componentName}"
             >
               <component
-                :is="isCheckbox ? UiCheckbox : UiRadio"
+                :is="component"
                 :id="choice.id"
                 :value="choice"
                 :model-value="modelValue"
@@ -51,11 +51,11 @@
                   <!-- @slot Use this slot to replace choice-label template for specific item.-->
                   <slot
                     :name="`label-${choice.id}`"
-                    v-bind="{choice, component}"
+                    v-bind="{choice, componentName}"
                   >
                     <div
                       class="ui-multiple-answer__label"
-                      :class="`${component}__label`"
+                      :class="`${componentName}__label`"
                     >
                       <UiText
                         tag="span"
@@ -83,37 +83,50 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   inheritAttrs: false,
 };
 </script>
 
-<script setup>
+<script setup lang="ts">
 import { computed, watch } from 'vue';
+import type { PropType } from 'vue';
 import UiList from '../UiList/UiList.vue';
 import UiListItem from '../UiList/_internal/UiListItem.vue';
 import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
+import type { RadioValue } from '../../atoms/UiRadio/UiRadio.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import UiCheckbox from '../../atoms/UiCheckbox/UiCheckbox.vue';
+import type { CheckboxValue, CheckboxValueAsObj } from '../../atoms/UiCheckbox/UiCheckbox.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
+import type { PropsAttrs } from '../../../types/attrs';
 import UiAlert from '../../molecules/UiAlert/UiAlert.vue';
 import { focusElement } from '../../../utilities/helpers';
 
+export interface MultipleAnswerChoice extends CheckboxValueAsObj {
+  name: string;
+  'common_name'?: string;
+  source?: string;
+  choices?: { id: string; label: string; }
+  buttonInfoAttrs?: Record<string, unknown>;
+}
+export type MultipleAnswerValue = RadioValue | CheckboxValue[];
+export type ComponentName = 'ui-checkbox' | 'ui-radio';
 const props = defineProps({
   /**
      *  Use this props or v-model to set checked.
      */
   modelValue: {
-    type: [String, Object, Array],
+    type: [String, Object, Array] as PropType<MultipleAnswerValue>,
     default: () => ([]),
   },
   /**
      *  Use this props to set possible choices.
      */
   choices: {
-    type: Array,
+    type: Array as PropType<MultipleAnswerChoice[]>,
     default: () => ([]),
   },
   /**
@@ -148,48 +161,51 @@ const props = defineProps({
    * Use this props to pass attrs for hint UiAlert
    */
   alertHintAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
 });
-const emit = defineEmits(['update:modelValue', 'update:invalid']);
-const component = computed(() => (Array.isArray(props.modelValue) ? 'ui-checkbox' : 'ui-radio'));
-const isCheckbox = computed(() => (component.value === 'ui-checkbox'));
+const emit = defineEmits<{(e:'update:modelValue', value: MultipleAnswerChoice | CheckboxValueAsObj[]): void,
+  (e: 'update:invalid', value: boolean): void
+}>();
+const isCheckbox = computed(() => (Array.isArray(props.modelValue)));
+const component = computed(() => (isCheckbox.value ? UiCheckbox : UiRadio));
+const componentName = computed<ComponentName>(() => (isCheckbox.value ? 'ui-checkbox' : 'ui-radio'));
 const valid = computed(() => (isCheckbox.value
-  ? props.modelValue.length > 0
-  : props.modelValue.id));
+  ? (props.modelValue as string).length > 0
+  : !!(props.modelValue as CheckboxValueAsObj).id));
 const hasError = computed(() => (props.touched && !valid.value));
-const hintType = computed(() => (props.touched && props.invalid ? 'error' : 'default'));
-const errorClass = computed(() => (hasError.value ? `${component.value}--has-error` : ''));
-
+const hintType = computed<'error'|'default'>(() => (props.touched && props.invalid ? 'error' : 'default'));
+const errorClass = computed<`${ComponentName}--has-error` | ''>(() => (hasError.value ? `${componentName.value}--has-error` : ''));
 watch(valid, (value) => {
   emit('update:invalid', !value);
 }, { immediate: true });
-
-function updateHandler(value) {
+function updateHandler(value: MultipleAnswerChoice): void {
   if (!isCheckbox.value) {
     emit('update:modelValue', value);
     return;
   }
-  if (props.modelValue.some((evidence) => evidence.id === value.id)) {
-    emit('update:modelValue', props.modelValue.filter((evidence) => evidence.id !== value.id));
+  const modelValue = props.modelValue as CheckboxValueAsObj[];
+  if (modelValue.some((evidence) => evidence.id === value.id)) {
+    emit('update:modelValue', modelValue.filter((evidence) => evidence.id !== value.id));
   } else {
-    emit('update:modelValue', [...props.modelValue, value]);
+    emit('update:modelValue', [...modelValue, value]);
   }
 }
-
-function focusExplication(event) {
-  const explicationButton = event.target.closest(`.${component.value}`).querySelector('.ui-multiple-answer__explication');
-  if (explicationButton && event.key === 'ArrowRight') {
+function focusExplication(event: KeyboardEvent) {
+  if (event.key !== 'ArrowRight') return;
+  const el = event.target as HTMLInputElement;
+  const explicationButton: HTMLInputElement | null | undefined = el.closest(`.${componentName.value}`)?.querySelector('.ui-multiple-answer__explication');
+  if (explicationButton) {
     event.preventDefault();
     focusElement(explicationButton);
   }
 }
-function unfocusExplication(event) {
-  const answerInput = event.target.closest(`.${component.value}`).querySelector('input');
-  if (answerInput && event.key === 'ArrowLeft') {
-    focusElement(answerInput);
-  }
+function unfocusExplication(event: KeyboardEvent) {
+  if (event.key !== 'ArrowLeft') return;
+  const el = event.target as HTMLInputElement;
+  const answerInput: HTMLInputElement | null | undefined = el.closest(`.${componentName.value}`)?.querySelector('input');
+  answerInput?.focus();
 }
 </script>
 

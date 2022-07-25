@@ -55,25 +55,38 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed, ref } from 'vue';
+import type { PropType } from 'vue';
 import { uid } from 'uid/single';
 import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
+import type { PropsAttrs } from '../../../types/attrs';
+import type { Icon } from '../../../types/icon';
 
+export type RatingValue = string | number;
+export interface RatingSettings {
+  icon: Icon;
+  iconActive: Icon;
+  [key: string]: unknown
+}
+export interface RatingTranslation {
+  stars: (index: number) => string;
+  [key: string]: unknown;
+}
 const props = defineProps({
   /**
    * Use this props to set current rate.
    */
   modelValue: {
-    type: [String, Number],
+    type: [String, Number] as PropType<RatingValue>,
     default: 0,
   },
   /**
    * Use this props to set max rate
    */
   max: {
-    type: [String, Number],
+    type: [String, Number] as PropType<RatingValue>,
     default: 1,
   },
   /**
@@ -88,14 +101,14 @@ const props = defineProps({
    * Use this props to pass attrs for UiRadio
    */
   radioAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
   /**
    * Use this props to setup item component.
    */
   settings: {
-    type: Object,
+    type: Object as PropType<RatingSettings>,
     default: () => ({
       icon: 'star-outlined',
       iconActive: 'star-filled',
@@ -105,28 +118,29 @@ const props = defineProps({
    * Use this props to override labels inside component translation.
    */
   translation: {
-    type: Object,
+    type: Object as PropType<RatingTranslation>,
     default: () => ({
-      stars: (index) => (`${index} stars`),
+      stars: (index: number) => (`${index} stars`),
     }),
   },
 });
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits<{(e:'update:modelValue', value: string): void}>();
 const ratingName = computed(() => (
   props.name || `rating-${uid()}`
 ));
 const rate = computed({
-  get: () => (`${props.modelValue}`),
-  set: (value) => { emit('update:modelValue', value); },
+  get: (): string => (`${props.modelValue}`),
+  set: (value: string): void => { emit('update:modelValue', value); },
 });
-const maxScore = computed(() => (parseInt(props.max, 10)));
+const maxScore = computed(() => (typeof props.max === 'number' ? props.max : parseInt(props.max, 10)));
 const hoverScore = ref(0);
-function hoverHandler({ type }, value) {
+function hoverHandler(event: Event, value: number) {
+  const { type } = event;
   hoverScore.value = type === 'mouseover' ? value : 0;
 }
 const finalScore = computed(() => (
-  parseInt(hoverScore.value, 10)
-    ? parseInt(hoverScore.value, 10)
+  hoverScore.value
+    ? hoverScore.value
     : parseInt(rate.value, 10)));
 </script>
 

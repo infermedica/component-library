@@ -5,7 +5,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed, provide } from 'vue';
 
 const props = defineProps({
@@ -17,10 +17,10 @@ const props = defineProps({
     default: '',
   },
 });
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits<{(e: 'update:modelValue', value: string): void}>();
 const open = computed(() => (props.modelValue));
 const hasOpen = computed(() => (!!props.modelValue));
-function openHandler(name) {
+function openHandler(name: string): void {
   emit('update:modelValue', name);
 }
 provide('open', open);

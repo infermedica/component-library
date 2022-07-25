@@ -44,11 +44,13 @@
   </UiListItem>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed, inject } from 'vue';
+import type { ComputedRef, PropType } from 'vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import UiListItem from '../../UiList/_internal/UiListItem.vue';
+import type { AccordionValue, AccordionItemSettings } from '../UiAccordion.vue';
 
 const props = defineProps({
   /**
@@ -69,15 +71,15 @@ const props = defineProps({
     * Use this props to setup item component.
     */
   settings: {
-    type: Object,
+    type: Object as PropType<AccordionItemSettings>,
     default: () => ({
       iconOpen: 'chevron-up',
       iconClose: 'chevron-down',
     }),
   },
 });
-const opened = inject('opened');
-const toggle = inject('toggle');
+const opened = inject('opened') as ComputedRef<AccordionValue>;
+const toggle = inject('toggle') as (name: string) => void;
 const isOpen = computed(() => {
   if (opened.value === 'string') {
     return props.name === opened.value;

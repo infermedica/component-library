@@ -14,7 +14,7 @@ export default {
   },
   argTypes: {
     content,
-    modifiers: modifiers({ options: ['ui-alert--secondary'], control: 'select' }),
+    modifiers: modifiers({ options: ['ui-alert', 'ui-alert--secondary'], control: 'select' }),
     type: {
       control: 'select',
       options: ['default', 'success', 'info', 'warning', 'error'],

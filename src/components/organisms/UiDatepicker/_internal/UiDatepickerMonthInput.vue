@@ -14,15 +14,17 @@
   />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {
   computed,
   inject,
   nextTick,
 } from 'vue';
+import type { Ref } from 'vue';
 import { removeNonDigits } from '../../../../utilities/helpers/remove-non-digits';
 import UiInput from '../../../atoms/UiInput/UiInput.vue';
 import useKeyValidation from '../../../../composable/useKeyValidation';
+import type { DatepickerTranslation } from '../UiDatepicker.vue';
 
 const props = defineProps({
   /**
@@ -47,29 +49,25 @@ const props = defineProps({
     default: false,
   },
 });
-const emit = defineEmits(['update:modelValue', 'change-input']);
-const translation = inject('translation');
-const unfulfilledMonthError = inject('unfulfilledMonth');
+const emit = defineEmits<{(e: 'update:modelValue', value: string): void, (e: 'change-input', value: 'month'): void}>();
+const translation = inject('translation') as DatepickerTranslation;
+const unfulfilledMonthError = inject('unfulfilledMonth') as Ref<boolean>;
 const { numbersOnly } = useKeyValidation();
-
 const month = computed({
   get: () => (`${props.modelValue}`),
   set: (value) => { emit('update:modelValue', removeNonDigits(value)); },
 });
-
 const validationError = computed(() => (month.value.length === 2 && !props.valid));
 const hasError = computed(() => (validationError.value || unfulfilledMonthError.value || props.error));
-
-async function checkMonth(event) {
+async function checkMonth(event: Event): Promise<void> {
   unfulfilledMonthError.value = false;
-  const inputValue = event.data;
+  const inputValue = (event as InputEvent).data;
   await nextTick();
   if (inputValue && (!['0', '1'].includes(inputValue) || month.value.length === 2) && props.valid) {
     emit('change-input', 'month');
   }
 }
-
-function standardizeMonthFormat() {
+function standardizeMonthFormat(): void {
   if (month.value.length === 1) {
     if (month.value !== '0') {
       month.value = `0${month.value}`;

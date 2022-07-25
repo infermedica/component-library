@@ -48,12 +48,14 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {
   ref, computed, onMounted, inject, useAttrs,
 } from 'vue';
+import type { Ref } from 'vue';
 import { uid } from 'uid/single';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
+import type { PropsAttrs } from '../../../../types/attrs';
 
 const props = defineProps({
   /**
@@ -74,21 +76,20 @@ const props = defineProps({
    * Use this props to pass attrs for toggle UiButton.
    */
   buttonAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
 });
-const attrs = useAttrs();
-const activeTab = inject('activeTab');
-const hasActiveTab = computed(() => (activeTab.value));
+const attrs = useAttrs() as {id: string};
+const activeTab = inject('activeTab') as Ref<string>;
+const hasActiveTab = computed(() => (!!activeTab.value));
 
 const id = computed(() => (props.name || attrs.id || `tab-${uid()}`));
 const isActive = computed(() => (id.value === activeTab.value));
-const handleTabActive = inject('handleTabActive');
+const handleTabActive = inject('handleTabActive') as (event: Event, name: string) => void;
 
-const tab = ref(null);
-const item = ref(null);
-const setActiveHTMLElement = inject('setActiveHTMLElement');
+const tab = ref<HTMLElement | null>(null);
+const setActiveHTMLElement = inject('setActiveHTMLElement') as (element: HTMLElement | null) => void;
 onMounted(async () => {
   if (isActive.value) {
     setActiveHTMLElement(tab.value);

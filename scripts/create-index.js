@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const glob = require('glob');
 
-const pathIndexJs = path.resolve(__dirname, '..', 'index.js');
+const pathIndexTs = path.resolve(__dirname, '..', 'index.ts');
 const pathComponentsRoot = path.resolve(__dirname, '..', 'src/components');
 const pathsVueComponents = glob.sync('*/*/Ui*.vue', {
   cwd: pathComponentsRoot,
@@ -18,27 +18,27 @@ function generateContent() {
     const exportLine = `  ${componentName}`;
     exports.push(exportLine);
   }
-  const contentIndexJs = `// Auto-generated file by create-index.js. Do not edit manually\n${
+  const contentIndexTs = `// Auto-generated file by create-index.js. Do not edit manually\n${
     imports.join('\n')
   }\n\n`
     + `export {\n${
       exports.join(',\n')
     },\n};\n`;
   return {
-    contentIndexJs,
+    contentIndexTs,
   };
 }
-function saveIndexJs(contentIndex) {
-  fs.writeFileSync(pathIndexJs, contentIndex);
+function saveIndexTs(contentIndex) {
+  fs.writeFileSync(pathIndexTs, contentIndex);
 }
-function createIndexJs() {
+function createIndexTs() {
   const filesContent = generateContent();
-  saveIndexJs(filesContent.contentIndexJs);
-  console.log('🚀 index.js created successfully');
+  saveIndexTs(filesContent.contentIndexTs);
+  console.log('🚀 index.ts created successfully');
 }
 module.exports = {
-  createIndexJs,
+  createIndexTs,
 };
 if (require.main === module) {
-  createIndexJs();
+  createIndexTs();
 }

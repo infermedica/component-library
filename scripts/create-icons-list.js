@@ -5,7 +5,7 @@ const glob = require('glob');
 
 const pathIconComponent = path.resolve(__dirname, '..', 'src/components/atoms/UiIcon');
 const pathAssets = path.resolve(__dirname, '..', 'src/assets');
-const pathIconsJS = path.resolve(__dirname, '..', pathIconComponent, 'icons.js');
+const pathIconsTS = path.resolve(__dirname, '..', pathIconComponent, 'icons.ts');
 const pathIconsRoot = path.resolve(__dirname, '..', pathAssets, 'icons');
 const pathsIcons = glob.sync('*.svg', {
   cwd: pathIconsRoot,
@@ -17,7 +17,7 @@ function generateContent() {
     const iconName = `'${pathIcon.replace(/\.svg/gm, '')}'`;
     icons.push(iconName);
   }
-  const contentIconsJs = `// Auto-generated file by create-index.js. Do not edit manually\nexport default [\n  ${icons.join(',\n  ')},\n];\n`;
+  const contentIconsJs = `// Auto-generated file by create-index.js. Do not edit manually\nexport default [\n  ${icons.join(',\n  ')},\n] as const;\n`;
 
   return {
     contentIconsJs,
@@ -25,7 +25,7 @@ function generateContent() {
 }
 
 function saveIconsJs(contentIcons) {
-  fs.writeFileSync(pathIconsJS, contentIcons);
+  fs.writeFileSync(pathIconsTS, contentIcons);
 }
 
 function createIconsJS() {

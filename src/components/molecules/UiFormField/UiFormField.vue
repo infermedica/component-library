@@ -48,25 +48,27 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { uid } from 'uid/single';
 import { computed } from 'vue';
+import type { PropType } from 'vue';
 import UiAlert from '../UiAlert/UiAlert.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
+import type { PropsAttrs } from '../../../types/attrs';
 
 const props = defineProps({
   /**
    * Use this props to set label $attrs
    */
   labelAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
   /**
    * Use this props to set label text
    */
   label: {
-    type: [Boolean, String],
+    type: [Boolean, String] as PropType<boolean | string>,
     default: false,
   },
   /**
@@ -88,14 +90,14 @@ const props = defineProps({
    * Use this props to set alert $attrs
    */
   alertAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
   /**
    * Use this props to set alert message
    */
   errorMessage: {
-    type: [Boolean, String],
+    type: [Boolean, String] as PropType<boolean | string>,
     default: '',
   },
 });

@@ -47,7 +47,7 @@ describe('UiNavigation.vue', () => {
   test('component pass attributes to the one item', async () => {
     const wrapper = mount(UiNavigation, {
       props: {
-        items: [...items, { ...items[0], navigationItemAttrs: { style: 'color: red' } }],
+        items: [...items, { ...items[0], style: 'color: red' }],
       },
     });
     const itemList = wrapper.findAllComponents(UiNavigationItem);
@@ -56,6 +56,34 @@ describe('UiNavigation.vue', () => {
         expect(item.element.style.color).toBe('red');
       } else {
         expect(item.element.style.color).not.toBe('red');
+      }
+    });
+  });
+  test('component correct pass attributes to all items', async () => {
+    const wrapper = mount(UiNavigation, {
+      props: {
+        items,
+        navigationItemsAttrs: { style: 'color: red' },
+      },
+    });
+    const itemList = wrapper.findAllComponents(UiNavigationItem);
+    itemList.forEach((item) => {
+      expect(item.element.style.color).toBe('red');
+    });
+  });
+  test('attributes in items props are more important than attributes in navigationItemsAttrs props', async () => {
+    const wrapper = mount(UiNavigation, {
+      props: {
+        items: [...items, { ...items[0], style: 'color: red' }],
+        navigationItemsAttrs: { style: 'color: green' },
+      },
+    });
+    const itemList = wrapper.findAllComponents(UiNavigationItem);
+    itemList.forEach((item, i) => {
+      if (i === 3) {
+        expect(item.element.style.color).toBe('red');
+      } else {
+        expect(item.element.style.color).toBe('green');
       }
     });
   });

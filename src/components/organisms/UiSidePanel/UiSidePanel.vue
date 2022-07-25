@@ -108,7 +108,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {
   ref,
   nextTick,
@@ -116,15 +116,18 @@ import {
   onBeforeUnmount,
 } from 'vue';
 import {
-  focusTrap as vFocusTrap, bodyScrollLock as vBodyScrollLock, scrollTabindex as vScrollTabindex, keyboardFocus as vKeyboardFocus,
+  focusTrap as vFocusTrap,
+  bodyScrollLock as vBodyScrollLock,
+  scrollTabindex as vScrollTabindex,
+  keyboardFocus as vKeyboardFocus,
 } from '../../../utilities/directives';
 import { focusElement } from '../../../utilities/helpers';
-
 import UiBackdrop from '../../atoms/UiBackdrop/UiBackdrop.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
+import type { PropsAttrs } from '../../../types/attrs';
 
 defineProps({
   /**
@@ -152,21 +155,21 @@ defineProps({
    * Use this props to pass attrs for close UiButton
    */
   buttonCloseAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
   /**
    * Use this props to pass attrs for title UiHeading
    */
   headingTitleAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
   /**
    * Use this props to pass attrs for subtitle UiText
    */
   textSubtitleAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
   /**
@@ -177,22 +180,22 @@ defineProps({
     default: 'slide',
   },
 });
-const emit = defineEmits(['update:modelValue', 'after-enter']);
-const button = ref(null);
-function closeHandler() {
+const emit = defineEmits<{(e: 'update:modelValue', value: boolean): void,
+  (e: 'after-enter'): void
+}>();
+const button = ref<InstanceType<typeof UiButton>| null>(null);
+function closeHandler(): void {
   emit('update:modelValue', false);
 }
-
-function afterEnterHandler() {
+function afterEnterHandler(): void {
   emit('after-enter');
 }
-
-async function enterHandler() {
+async function enterHandler(): Promise<void> {
   await nextTick();
   focusElement(button.value?.$el, true);
 }
-
-function keydownHandler({ key }) {
+function keydownHandler(event: Event) {
+  const { key } = event as KeyboardEvent;
   if (key !== 'Escape') return;
   emit('update:modelValue', false);
 }

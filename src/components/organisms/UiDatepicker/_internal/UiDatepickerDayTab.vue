@@ -7,7 +7,7 @@
       :key="i"
       class="ui-button--text ui-datepicker-day-tab__label"
       :class="{
-        'ui-datepicker-day-tab__label--selected': day == i,
+        'ui-datepicker-day-tab__label--selected': day === `${i}`,
         'ui-button--is-disabled': isDisabled(i),
       }"
       :disabled="isDisabled(i)"
@@ -18,11 +18,12 @@
   </UiTabsItem>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {
   computed,
   inject,
 } from 'vue';
+import type { Ref } from 'vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiTabsItem from '../../UiTabs/_internal/UiTabsItem.vue';
 
@@ -35,20 +36,20 @@ const props = defineProps({
     default: '',
   },
 });
-const emit = defineEmits(['update:modelValue', 'change', 'select']);
-const isDisabled = inject('checkDayAvailability');
-const unfulfilledDayError = inject('unfulfilledDay');
+const emit = defineEmits<{(e:'update:modelValue', value: string): void, (e: 'select', value: {type: 'day'; value: number}): void }>();
+const isDisabled = inject('checkDayAvailability') as (day: number) => boolean;
+const unfulfilledDayError = inject('unfulfilledDay') as Ref<boolean>;
 
 const day = computed({
   get: () => (`${props.modelValue}`),
   set: (value) => { emit('update:modelValue', value); },
 });
 
-function formatDay(value) {
+function formatDay(value: number): string {
   return `${value}`.padStart(2, '0');
 }
 
-function select(value) {
+function select(value: number): void {
   emit('select', { type: 'day', value });
   day.value = formatDay(value);
   unfulfilledDayError.value = false;

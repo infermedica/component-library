@@ -14,7 +14,7 @@
         :value="modelValue"
         class="ui-input__element"
         @keydown="keyValidation"
-        @input="inputHandler($event.target.value)"
+        @input="inputHandler($event)"
       >
     </slot>
     <!-- @slot Use this slot to place aside element. -->
@@ -33,13 +33,13 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   inheritAttrs: false,
 };
 </script>
 
-<script setup>
+<script setup lang="ts">
 import { useAttrs } from 'vue';
 import UiText from '../UiText/UiText.vue';
 import useInput from '../../../composable/useInput';
@@ -62,11 +62,12 @@ defineProps({
     default: '',
   },
 });
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits<{(e: 'update:modelValue', value: string): void
+}>();
 const attrs = useAttrs();
 const { getRootAttrs, getInputAttrs } = useInput();
 const { numbersOnly } = useKeyValidation();
-function keyValidation(event) {
+function keyValidation(event: Event): void {
   switch (attrs.type) {
     case 'number':
       numbersOnly(event);
@@ -74,8 +75,9 @@ function keyValidation(event) {
     default:
   }
 }
-function inputHandler(value) {
-  emit('update:modelValue', value);
+function inputHandler(event: Event): void {
+  const el = event.target as HTMLInputElement;
+  emit('update:modelValue', el.value);
 }
 </script>
 

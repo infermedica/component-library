@@ -22,8 +22,9 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue';
+import type { PropsAttrs } from '../../../types/attrs';
 import UiProgress from '../../atoms/UiProgress/UiProgress.vue';
 
 const props = defineProps({
@@ -45,7 +46,7 @@ const props = defineProps({
    * Use this props to pass attrs for UiProgress
    */
   progressAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
 });

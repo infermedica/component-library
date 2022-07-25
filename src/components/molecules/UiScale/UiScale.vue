@@ -80,14 +80,21 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed, ref } from 'vue';
+import type { CSSProperties, PropType } from 'vue';
 import { uid } from 'uid/single';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
+import type { PropsAttrs } from '../../../types/attrs';
 
+export interface ScaleTranslation {
+  mild: string;
+  unbearable: string;
+  [key: string]: string
+}
 const props = defineProps({
   /**
    * Use this props or v-model to set value.
@@ -110,13 +117,13 @@ const props = defineProps({
   steps: {
     type: Number,
     default: 10,
-    validator: (value) => value > 0,
+    validator: (value: number) => value > 0,
   },
   /**
    * Use this props to override labels inside component translation.
    */
   translation: {
-    type: Object,
+    type: Object as PropType<ScaleTranslation>,
     default: () => ({
       mild: 'Mild',
       unbearable: 'Unbearable',
@@ -126,49 +133,49 @@ const props = defineProps({
    * Use this props to pass attrs for decrement UiButton
    */
   buttonDecrementAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
   /**
    * Use this props to pass attrs for increment UiButton
    */
   buttonIncrementAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
 });
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits<{(e: 'update:modelValue', value: number): void}>();
 const scaleName = computed(() => (
   props.name || `scale-${uid()}`
 ));
 const maxSteps = computed(() => props.steps);
-function valueValidation(value) {
+function valueValidation(value: number): boolean {
   return value >= 0 && value < maxSteps.value;
 }
-function changeHandler(value, modifier = 0) {
+function changeHandler(value: number, modifier = 0): void {
   const newValue = value + modifier;
   if (valueValidation(newValue)) {
     emit('update:modelValue', newValue);
   }
 }
 const scaleValue = computed({
-  get: () => props.modelValue,
-  set: (value) => {
+  get: (): number => props.modelValue,
+  set: (value: number): void => {
     changeHandler(value);
   },
 });
 const hoverValue = ref(-1);
-function hoverHandler({ type }, value) {
+function hoverHandler({ type }: {type: string}, value: number): void {
   hoverValue.value = type === 'mouseover' ? value : -1;
 }
-const finalValue = computed(() => (parseInt(hoverValue.value, 10) >= 0 ? hoverValue.value : scaleValue.value));
-function decrement() {
+const finalValue = computed(() => (hoverValue.value >= 0 ? hoverValue.value : scaleValue.value));
+function decrement(): void {
   changeHandler(props.modelValue, -1);
 }
-function increment() {
+function increment(): void {
   changeHandler(props.modelValue, 1);
 }
-function calcActiveElementOpacity(index) {
+function calcActiveElementOpacity(index: number): CSSProperties {
   const opacityStepValue = 1 / (maxSteps.value - 1);
   const isActive = index <= finalValue.value;
 

@@ -53,15 +53,24 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {
   computed, ref, onMounted, onUnmounted, watch,
 } from 'vue';
+import type { PropType } from 'vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiNavigation from '../UiNavigation/UiNavigation.vue';
+import type { NavigationItem } from '../UiNavigation/UiNavigation.vue';
+import type { PropsAttrs } from '../../../types/attrs';
+import type { Icon } from '../../../types/icon';
 import { toMobile } from '../../../styles/exports/breakpoints.module.scss';
 
+export interface LogoAttrs {
+  icon: Icon;
+  title: string;
+  [key: string]: unknown;
+}
 const props = defineProps({
   /**
    * Use this props to pass attrs for logo button
@@ -74,28 +83,28 @@ const props = defineProps({
    * Use this prop to set the logo.
    */
   logo: {
-    type: [Object, String],
+    type: [Object, String] as PropType<Icon>,
     default: '',
   },
   /**
    * Use this props to pass attrs for brand button
    */
   buttonBrandAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
   /**
    * Use this props to pass attrs for logo icon
    */
   iconLogoAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
   /**
    * Use this props to pass attrs for hamburger button
    */
   buttonHamburgerAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
   /**
@@ -103,37 +112,37 @@ const props = defineProps({
    */
   hamburgerMatchMedia: {
     type: String,
-    default: toMobile,
+    default: toMobile as string,
   },
   /**
    * Use this props to pass list of navigation items.
    */
   navigation: {
-    type: Array,
+    type: Array as PropType<NavigationItem[]>,
     default: () => ([]),
   },
   /**
    * Use this props to pass attrs for navigation
    */
   navigationAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
 });
-const emit = defineEmits(['hamburger:open', 'hamburger:close']);
-const matchMediaObject = matchMedia(props.hamburgerMatchMedia);
+
+const emit = defineEmits<{(e: 'hamburger:open' | 'hamburger:close'): void}>();
+const matchMediaObject: MediaQueryList = matchMedia(props.hamburgerMatchMedia);
 const isMobile = ref(matchMediaObject.matches);
 const isOpen = ref(false);
-const logoAttrs = computed(() => ({ icon: props.logo, title: props.title, ...props.iconLogoAttrs }));
-watch(isOpen, (value) => {
+const logoAttrs = computed<LogoAttrs>(() => ({ icon: props.logo, title: props.title, ...props.iconLogoAttrs }));
+watch(isOpen, (value: boolean) => {
   emit(value ? 'hamburger:open' : 'hamburger:close');
 });
-const handleHamburger = () => {
+const handleHamburger = (): void => {
   isOpen.value = !isOpen.value;
 };
-function handleMedia({ matches }) {
+function handleMedia({ matches }: {matches: boolean}) {
   isMobile.value = matches;
-
   if (isOpen.value && !matches) {
     isOpen.value = false;
   }

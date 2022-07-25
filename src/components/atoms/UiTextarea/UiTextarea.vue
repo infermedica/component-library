@@ -9,19 +9,20 @@
       :value="modelValue"
       :style="{resize: resizeValue}"
       class="ui-textarea__element"
-      @input="inputHandler($event.target.value)"
+      @input="inputHandler($event)"
     />
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   inheritAttrs: false,
 };
 </script>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue';
+import type { PropType } from 'vue';
 import useInput from '../../../composable/useInput';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 
@@ -39,21 +40,22 @@ const props = defineProps({
    * 'horizontal' - horizontal resizing only, 'vertical' - vertical resizing only
    */
   resize: {
-    type: [Boolean, String],
+    type: [Boolean, String] as PropType<boolean | 'horizontal' | 'vertical'>,
     optional: true,
     default: false,
   },
 });
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits<{(e:'update:modelValue', value:string):void}>();
 const { getRootAttrs, getInputAttrs } = useInput();
-function inputHandler(value) {
-  emit('update:modelValue', value);
+function inputHandler(event: Event) {
+  const el = event.target as HTMLInputElement;
+  emit('update:modelValue', el.value);
 }
-const resizeValue = computed(() => {
-  if (props.resize) {
-    return typeof variable === 'boolean' ? 'both' : props.resize;
+const resizeValue = computed<'both' | 'none' | 'vertical' | 'horizontal'>(() => {
+  if (typeof props.resize !== 'boolean') {
+    return props.resize;
   }
-  return 'none';
+  return props.resize ? 'both' : 'none';
 });
 </script>
 

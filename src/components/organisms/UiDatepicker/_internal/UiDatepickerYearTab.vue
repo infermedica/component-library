@@ -7,7 +7,7 @@
       :key="key"
       class="ui-button--text ui-datepicker-year-tab__label"
       :class="{
-        'ui-datepicker-year-tab__label--selected': year == yearItem,
+        'ui-datepicker-year-tab__label--selected': parseInt(year, 10) === yearItem,
         'ui-button--is-disabled': isDisabled(yearItem),
       }"
       :disabled="isDisabled(yearItem)"
@@ -18,11 +18,9 @@
   </UiTabsItem>
 </template>
 
-<script setup>
-import {
-  computed,
-  inject,
-} from 'vue';
+<script setup lang="ts">
+import { computed, inject } from 'vue';
+import type { ComputedRef, Ref } from 'vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiTabsItem from '../../UiTabs/_internal/UiTabsItem.vue';
 
@@ -35,17 +33,17 @@ const props = defineProps({
     default: '',
   },
 });
-const emit = defineEmits(['update:modelValue', 'change', 'select']);
-const yearsList = inject('yearsList');
-const isDisabled = inject('checkYearAvailability');
-const unfulfilledYearError = inject('unfulfilledYear');
+const emit = defineEmits<{(e: 'update:modelValue', value: string): void, (e: 'select', value: {type: 'year', value: string}): void}>();
+const yearsList = inject('yearsList') as ComputedRef<number[]>;
+const isDisabled = inject('checkYearAvailability') as (year: number) => boolean;
+const unfulfilledYearError = inject('unfulfilledYear') as Ref<boolean>;
 
 const year = computed({
   get: () => (`${props.modelValue}`),
   set: (value) => { emit('update:modelValue', value); },
 });
 
-function select(value) {
+function select(value: string): void {
   emit('select', { type: 'year', value });
   year.value = value;
   unfulfilledYearError.value = false;

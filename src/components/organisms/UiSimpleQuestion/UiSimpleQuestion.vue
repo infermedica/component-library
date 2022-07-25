@@ -27,23 +27,37 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed, useAttrs } from 'vue';
+import type { PropType } from 'vue';
 import UiTile from '../../molecules/UiTile/UiTile.vue';
+import type { TileValue } from '../../molecules/UiTile/UiTile.vue';
+import type { PropsAttrs } from '../../../types/attrs';
+import type { Icon } from '../../../types/icon';
 
+export interface SimpleQuestionOptions {
+  id: string;
+  value: TileValue;
+  name: string;
+  label: string;
+  iconAttrs: {
+    icon: Icon;
+    [key: string]: unknown;
+  },
+}
 defineProps({
   /**
    * Use this props or v-model to set value.
    */
   modelValue: {
-    type: [Object, String],
+    type: [Object, String] as PropType<TileValue>,
     default: () => ({}),
   },
   /**
    * Use this props to pass options for question
    */
   options: {
-    type: Array,
+    type: Array as PropType<SimpleQuestionOptions[]>,
     default: () => [{
       id: '',
       name: '',
@@ -58,15 +72,14 @@ defineProps({
    * Use this props to pass native attributes to all UiTiles.
    */
   tileAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
 });
-const emit = defineEmits(['update:modelValue']);
-const attrs = useAttrs();
+const emit = defineEmits<{(e: 'update:modelValue', value: TileValue): void}>();
+const attrs = useAttrs() as {class: string[]};
 const isTileSmall = computed(() => attrs.class?.includes('ui-simple-question--small'));
-
-function updateHandler(value) {
+function updateHandler(value: TileValue) {
   emit('update:modelValue', value);
 }
 </script>

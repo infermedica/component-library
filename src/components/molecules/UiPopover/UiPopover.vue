@@ -43,11 +43,12 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { onMounted, onBeforeUnmount } from 'vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
+import type { PropsAttrs } from '../../../types/attrs';
 
 defineProps({
   /**
@@ -61,15 +62,15 @@ defineProps({
    * Use this props to pass attrs to close UiButton.
    */
   buttonAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
 });
-const emit = defineEmits(['close']);
-function clickHandler() {
+const emit = defineEmits<{(e: 'close'): void}>();
+function clickHandler(): void {
   emit('close');
 }
-function keydownHandler({ key }) {
+function keydownHandler({ key }: {key: string}): void {
   if (key !== 'Escape') return;
   emit('close');
 }

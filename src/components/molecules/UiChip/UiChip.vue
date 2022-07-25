@@ -21,21 +21,22 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
+import type { PropsAttrs } from '../../../types/attrs';
 
 defineProps({
   /**
    * Use this props to pass attrs for UiButton
    */
   buttonAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
 });
-const emit = defineEmits(['remove']);
-function clickHandler() {
+const emit = defineEmits<{(e:'remove'): void}>();
+function clickHandler(): void {
   emit('remove');
 }
 </script>

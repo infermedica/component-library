@@ -10,8 +10,9 @@
     v-bind="{back}"
   />
 </template>
-<script setup>
+<script setup lang="ts">
 import { computed, inject } from 'vue';
+import type { ComputedRef } from 'vue';
 
 const props = defineProps({
   /**
@@ -29,15 +30,15 @@ const props = defineProps({
     default: '',
   },
 });
-const open = inject('open');
-const hasOpen = inject('hasOpen');
+const open = inject('open') as ComputedRef<string>;
+const hasOpen = inject('hasOpen') as ComputedRef<boolean>;
 const hasControls = computed(() => (!hasOpen.value));
-const openHandler = inject('openHandler');
+const openHandler = inject('openHandler') as (value: string) => void;
 const isOpen = computed(() => (open.value === props.name));
-function back() {
+function back():void {
   openHandler('');
 }
-function to() {
+function to():void {
   openHandler(props.name);
 }
 </script>

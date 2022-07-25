@@ -7,13 +7,16 @@
   </component>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import type { PropType } from 'vue';
+import type { HTMLTag } from '../../../types/tag';
+
 defineProps({
   /**
    * Use this to set text tag.
    */
   tag: {
-    type: String,
+    type: String as PropType<HTMLTag>,
     default: 'p',
   },
 });

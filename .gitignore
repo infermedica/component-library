@@ -10,8 +10,8 @@ build-storybook.log
 
 
 # auto-generated file
-/index.js
-icons.js
+/index.ts
+icons.ts
 
 
 # local env files

@@ -10,7 +10,15 @@
     <!-- @slot Use this slot to replace bottom template. -->
     <slot
       name="bottom"
-      v-bind="{buttonNextAttrs: nextAttrs, buttonBackAttrs: backAttrs, toBack, toNext, hideNextButton, invalid, translation}"
+      v-bind="{
+        buttonNextAttrs: nextAttrs,
+        buttonBackAttrs: backAttrs,
+        toBack,
+        toNext,
+        hideNextButton,
+        invalid,
+        translation
+      }"
     >
       <div class="ui-controls__bottom">
         <!-- @slot Use this slot to replace next template. -->
@@ -49,12 +57,20 @@
   </UiContainer>
 </template>
 
-<script setup>
-import { computed, useSlots } from 'vue';
+<script setup lang="ts">
+import { computed } from 'vue';
+import type { PropType } from 'vue';
 import UiContainer from '../UiContainer/UiContainer.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
+import type { PropsAttrs } from '../../../types/attrs';
 
+export interface ControlsTranslation {
+  back: string,
+  next: string,
+  [key: string]: string
+}
+export type ControlsNavigation = string | Record<string, unknown> | boolean;
 const props = defineProps({
   /**
    * Use this props to move the responsibility to move to the next screen to question content.
@@ -67,14 +83,14 @@ const props = defineProps({
    * Use this props to set route to back screen.
    */
   toBack: {
-    type: [String, Object, Boolean],
+    type: [String, Object, Boolean] as PropType<ControlsNavigation>,
     default: '',
   },
   /**
    * Use this props to set route to next screen.
    */
   toNext: {
-    type: [String, Object, Boolean],
+    type: [String, Object, Boolean] as PropType<ControlsNavigation>,
     default: '',
   },
   /**
@@ -88,33 +104,32 @@ const props = defineProps({
    * Use this props to pass attrs for next UiButton.
    */
   buttonNextAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
   /**
    * Use this props to pass attrs for back UiButton.
    */
   buttonBackAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
   /**
    * Use this props to override labels inside component translation.
    */
   translation: {
-    type: Object,
+    type: Object as PropType<ControlsTranslation>,
     default: () => ({
       back: 'Back',
       next: 'Next',
     }),
   },
 });
-const emit = defineEmits(['has-error']);
-const slots = useSlots();
-function hasError() {
+const emit = defineEmits<{(e: 'has-error'): void}>();
+function hasError(): void {
   emit('has-error');
 }
-const nextAttrs = computed(() => (
+const nextAttrs = computed<Record<string, unknown>>(() => (
   props.invalid
     ? {
       onClick: hasError,
@@ -125,7 +140,7 @@ const nextAttrs = computed(() => (
       ...props.buttonNextAttrs,
     }
 ));
-const backAttrs = computed(() => (
+const backAttrs = computed<Record<string, unknown>>(() => (
   {
     to: props.toBack,
     ...props.buttonBackAttrs,

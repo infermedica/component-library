@@ -26,8 +26,11 @@
   </li>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed, inject } from 'vue';
+import type { PropType, ComputedRef } from 'vue';
+import type { IconAsString } from '../../../../types/icon';
+import type { ListTag } from '../../../../types/tag';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import UiText from '../../../atoms/UiText/UiText.vue';
 
@@ -36,12 +39,12 @@ defineProps({
    * Use this props to set the bullet point icon.
    */
   icon: {
-    type: String,
+    type: String as PropType<IconAsString>,
     default: 'bullet-common',
   },
 });
-const tag = inject('tag');
-const isUnordered = computed(() => (tag.value === 'ul'));
+const tag = inject('tag') as ComputedRef<ListTag>;
+const isUnordered = computed(() => tag.value === 'ul');
 </script>
 
 <style lang="scss">

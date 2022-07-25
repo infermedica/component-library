@@ -10,7 +10,9 @@
   </component>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import type { PropType } from 'vue';
+import type { HTMLTag } from '../../../types/tag';
 import useLink from '../../../composable/useLink';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 
@@ -19,14 +21,14 @@ const props = defineProps({
    * Use this props to set tag when a component shouldn't be a link.
    */
   tag: {
-    type: [String, Object],
+    type: [String, Object] as PropType<HTMLTag | Record<string, unknown>>,
     default: 'span',
   },
   /**
    * Use this props to set route for internal link.
    */
   to: {
-    type: [String, Object],
+    type: [String, Object] as PropType<string | Record<string, unknown>>,
     default: '',
   },
   /**

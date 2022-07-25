@@ -30,19 +30,22 @@
   </UiButton>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { uid } from 'uid/single';
 import { computed } from 'vue';
+import type { PropType } from 'vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
+import type { IconAttrs } from '../../../types/icon';
 
+export type TileValue = string | Record<string, unknown>;
 const props = defineProps({
   /**
    * Use this props to pass attrs for UiIcon
    */
   iconAttrs: {
-    type: Object,
+    type: Object as PropType<IconAttrs>,
     default: () => ({}),
   },
   /**
@@ -57,18 +60,18 @@ const props = defineProps({
    * Use this props to set value of radio.
    */
   value: {
-    type: [String, Object],
+    type: [String, Object] as PropType<TileValue>,
     default: '',
   },
   /**
    * Use this props or v-model to set checked.
    */
   modelValue: {
-    type: [String, Object],
+    type: [String, Object] as PropType<TileValue>,
     default: '',
   },
 });
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits<{(e: 'update:modelValue', value: TileValue): void}>();
 const tileId = computed(() => (
   props.id || `tile-${uid()}`
 ));
@@ -77,9 +80,10 @@ const isChecked = computed(() => {
     return props.value === props.modelValue;
   }
   return Object.keys(props.modelValue)
-    .every((key) => (props.modelValue[key] === props.value[key]));
+    .every((key: string) => (
+      (props.modelValue as Record<string, unknown>)[key] === (props.value as Record<string, unknown>)[key]));
 });
-function selectHandler() {
+function selectHandler(): void {
   emit('update:modelValue', JSON.parse(JSON.stringify(props.value)));
 }
 </script>

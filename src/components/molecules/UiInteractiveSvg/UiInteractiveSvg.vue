@@ -7,22 +7,24 @@
   </svg>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: 'UiInteractiveSvg',
 };
 </script>
 
-<script setup>
+<script setup lang="ts">
 import { provide } from 'vue';
+import type { PropType } from 'vue';
 
+export type AttrsFunc = (attrs: Record<string, unknown>) => Record<string, unknown>;
 const props = defineProps({
   /**
   * Use this props to pass function that returns attrs for UiInteractiveSvgElements
   */
   setElementsAttrs: {
-    type: Function,
-    default: (attrs) => ({}),
+    type: Function as PropType<AttrsFunc>,
+    default: (attrs: Record<string, unknown>) => ({}),
   },
 });
 provide('setElementsAttrs', props.setElementsAttrs);

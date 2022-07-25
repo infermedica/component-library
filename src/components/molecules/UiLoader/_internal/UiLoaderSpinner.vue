@@ -19,7 +19,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import UiText from '../../../atoms/UiText/UiText.vue';
 
 defineProps({

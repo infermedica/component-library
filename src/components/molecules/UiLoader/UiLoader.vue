@@ -37,19 +37,28 @@
   </component>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   inheritAttrs: false,
 };
 </script>
 
-<script setup>
+<script setup lang="ts">
 // FIXME: reveal content with v-if, v-show, visibility: hidden, check Symptom Checker use cases
-import { computed, h, TransitionGroup } from 'vue';
+import {
+  computed, h, TransitionGroup,
+} from 'vue';
+import type { Slot, PropType, VNode } from 'vue';
+import type { HTMLTag } from '../../../types/tag';
 import UiLoaderSpinner from './_internal/UiLoaderSpinner.vue';
 import UiLoaderSkeleton from './_internal/UiLoaderSkeleton.vue';
 import UiLoaderEllipsis from './_internal/UiLoaderEllipsis.vue';
+import type { PropsAttrs } from '../../../types/attrs';
 
+export type LoaderType = 'spinner' | 'ellipsis' | 'skeleton';
+export type LoaderComponent = InstanceType<(typeof UiLoaderSpinner
+  | typeof UiLoaderEllipsis
+  | typeof UiLoaderSkeleton)>;
 const props = defineProps({
   /**
    * Use this props to show UiLoader component
@@ -62,29 +71,28 @@ const props = defineProps({
    * Use this props to select UiLoader variant
    */
   type: {
-    type: String,
+    type: String as PropType<LoaderType>,
     default: 'spinner',
-    validator: (value) => ['spinner', 'ellipsis', 'skeleton'].includes(value),
   },
   /**
    * Use this props to pass attributes to internal child components
    */
   loaderAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
   /**
    * Use this props to pass tag of loader
    */
   tag: {
-    type: [String, Object],
+    type: [String, Object] as PropType<HTMLTag | Record<string, unknown>>,
     default: 'div',
   },
   /**
    * Use this props to pas transition name
    */
   transition: {
-    type: [String, Boolean],
+    type: [String, Boolean] as PropType<string | boolean>,
     default: false,
   },
   /**
@@ -95,19 +103,18 @@ const props = defineProps({
     default: false,
   },
 });
-const component = computed(() => {
-  if (props.type === 'spinner') {
-    return UiLoaderSpinner;
-  }
-  if (props.type === 'ellipsis') {
-    return UiLoaderEllipsis;
-  }
-  return UiLoaderSkeleton;
+const component = computed<LoaderComponent>(() => {
+  const components: Record<LoaderType, LoaderComponent> = {
+    spinner: UiLoaderSpinner,
+    ellipsis: UiLoaderEllipsis,
+    skeleton: UiLoaderSkeleton,
+  };
+  return components[props.type];
 });
-const outerComponent = computed(() => (
+const outerComponent = computed<VNode>(() => (
   props.transition
-    ? h(TransitionGroup, { name: props.transition })
-    : h((_, { slots }) => slots.default())
+    ? h(TransitionGroup, { name: props.transition as string })
+    : h((_, { slots }) => (slots.default as Slot)())
 ));
 </script>
 

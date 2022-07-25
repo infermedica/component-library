@@ -1,7 +1,7 @@
 import { defineAsyncComponent } from 'vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
-import icons from '@/components/atoms/UiIcon/icons';
+import icons from '@/components/atoms/UiIcon/icons.ts';
 
 export default {
   title: 'Atoms/Icon',
