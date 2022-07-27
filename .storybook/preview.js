@@ -1,7 +1,7 @@
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import scss from 'react-syntax-highlighter/dist/esm/languages/prism/scss';
 import { app } from '@storybook/vue3';
-
+import withTest from './decorators/withTest';
 import './tailwindcss.css';
 import '@/styles/styles.scss';
 import './styles.scss';
@@ -25,7 +25,11 @@ export const parameters = {
     },
   },
   viewMode: 'docs',
-}
+};
+
+export const decorators = [
+  withTest
+]
 
 document.body.onload = function() {
   // Set LTR as default directionality.

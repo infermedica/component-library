@@ -50,8 +50,8 @@ module.exports = {
       }
     },
     'storybook-addon-designs',
-    // TODO write global decorator for vitest results
-    // 'storybook_vitest_addon'
+    // @storybook/addon-jest is used to display vitest results
+    '@storybook/addon-jest',
   ],
   framework: '@storybook/vue3',
   core: {
