@@ -60,7 +60,6 @@ import {
   isMatch,
   lightFormat,
 } from 'date-fns';
-import * as langList from 'date-fns/esm/locale';
 import { capitalizeFirst, focusElement } from '../../../utilities/helpers';
 import UiFormField from '../../molecules/UiFormField/UiFormField.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
@@ -139,7 +138,7 @@ const props = defineProps({
    */
   lang: {
     type: String,
-    default: 'enUS',
+    default: 'en-us',
   },
   /**
    * Use this props to override labels inside component translation.
@@ -449,22 +448,22 @@ watch(isDayFulfilled, (fulfilled) => handleFulfilledChange(fulfilled, 'day', dat
 watch(isMonthFulfilled, (fulfilled) => handleFulfilledChange(fulfilled, 'month', date.month, isMonthValid.value));
 watch(isYearFulfilled, (fulfilled) => handleFulfilledChange(fulfilled, 'year', date.year, isYearValid.value));
 
-const localizeMonths = (locale: string): void => {
-  // TODO fix this dynamic import
-  let localize = langList[locale].localize;
-  if (!localize) {
-    localize = langList.enUS.localize;
-    if (process.env.NODE_ENV !== 'production') {
-      console.error('Unrecognized language props value, default \'enUS\' language loaded'); // eslint-disable-line no-console
-    }
+function monthList(locale: string): string[] {
+  const getMonth = new Intl.DateTimeFormat(locale, { month: 'long' }).format;
+  return [...Array(12).keys()].map((m) => getMonth(new Date(2022, m)));
+}
+
+function localizeMonths() {
+  try {
+    monthNames.value = monthList(props.lang);
+  } catch {
+    monthNames.value = monthList('en-US');
+    console.error('Unrecognized language props value, default \'en-us\' language loaded'); // eslint-disable-line no-console
   }
-  for (let i = 0; i < 12; i += 1) {
-    monthNames.value.push(localize.month(i, { width: 'wide' }));
-  }
-};
+}
 
 onMounted(() => {
-  localizeMonths(props.lang);
+  localizeMonths();
   if (props.modelValue) {
     assignDateParts();
   }
