@@ -20,7 +20,7 @@ export default {
     error: 'Sorry, the date of birth cannot be a future date',
     order: ['day', 'month', 'year'],
     touched: false,
-    lang: 'enUS',
+    lang: 'en-us',
     translation: {
       day: 'day',
       month: 'month',
@@ -79,6 +79,10 @@ export default {
         category: 'stories controls',
       },
       control: 'boolean',
+    },
+    lang: {
+      control: 'select',
+      options: ['ar', 'ar-sa', 'cs', 'de', 'en', 'en-us', 'es', 'fr', 'it', 'nl', 'pl', 'pt-br', 'ro', 'ru', 'sk', 'tr', 'zh-cn', 'zh-hans'],
     },
     modelValue: { control: false },
     invalid: { control: false },
