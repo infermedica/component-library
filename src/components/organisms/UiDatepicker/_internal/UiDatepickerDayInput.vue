@@ -20,7 +20,7 @@ import {
   nextTick,
 } from 'vue';
 import type { Ref } from 'vue';
-import { removeNonDigits } from '../../../../utilities/helpers/remove-non-digits';
+import { removeNonDigits } from '../../../../utilities/helpers/index.ts';
 import UiInput from '../../../atoms/UiInput/UiInput.vue';
 import useKeyValidation from '../../../../composable/useKeyValidation';
 import type { DatepickerTranslation } from '../UiDatepicker.vue';

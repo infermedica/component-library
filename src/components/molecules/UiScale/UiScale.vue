@@ -1,6 +1,8 @@
 <template>
   <div class="ui-scale">
-    <div class="ui-scale__controls">
+    <div
+      class="ui-scale__controls"
+    >
       <template
         v-for="(_, index) in maxSteps"
         :key="index"
@@ -10,73 +12,59 @@
           :value="index"
           :name="scaleName"
           class="ui-scale__option"
-          :class="{
-            'ui-scale__option--first': index === 0,
-            'ui-scale__option--last': index === maxSteps - 1,
-          }"
           @mouseover="hoverHandler($event, index)"
           @mouseleave="hoverHandler($event, index)"
         >
-          <template #radiobutton>
+          <template #radio>
             <div
-              class="ui-scale__radiobutton"
-              :class="{ 'ui-scale__radiobutton--is-active': index <= finalValue }"
               :style="calcActiveElementOpacity(index)"
+              class="ui-scale__square"
+              :class="{
+                'ui-scale__square--is-checked': index <= finalValue,
+              }"
+            />
+          </template>
+          <template #label>
+            <UiText
+              tag="div"
+              class="ui-scale__label"
+              :class="{
+                'ui-scale__label--is-checked': index === scaleValue,
+              }"
             >
-              <div
-                class="ui-scale__label"
-                :class="{ 'ui-scale__label--is-checked': index == scaleValue }"
-              >
-                <UiText tag="span">
-                  {{ index + 1 }}
-                </UiText>
-              </div>
-              <div class="ui-scale__square" />
-            </div>
+              {{ index + 1 }}
+            </UiText>
           </template>
         </UiRadio>
       </template>
     </div>
     <div class="ui-scale__description">
-      <UiText>
+      <UiText class="ui-scale__mild">
         {{ translation.mild }}
       </UiText>
-      <UiText>
+      <UiText class="ui-scale__unbearable">
         {{ translation.unbearable }}
       </UiText>
     </div>
-    <div class="ui-scale__mobile-controls">
-      <!-- @slot Use this slot to replace decrement template. -->
-      <slot
-        name="decrement"
-        v-bind="{attrs: buttonDecrementAttrs, decrement }"
+    <UiNumberStepper
+      class="ui-scale__mobile-controls"
+      :model-value="scaleValue"
+      :min="0"
+      :max="steps - 1"
+      :button-decrement-attrs="buttonDecrementAttrs"
+      :button-increment-attrs="buttonIncrementAttrs"
+      @update:model-value="changeHandler"
+    >
+      <template
+        v-for="(_, slotName) in $slots"
+        #[slotName]="slotData"
       >
-        <UiButton
-          class="ui-scale__decrement ui-button--outlined ui-button--circled ui-button--has-icon"
-          v-bind="buttonDecrementAttrs"
-          @click="decrement"
-        >
-          <UiIcon
-            icon="minus"
-          />
-        </UiButton>
-      </slot>
-      <!-- @slot Use this slot to replace increment template. -->
-      <slot
-        name="increment"
-        v-bind="{attrs: buttonIncrementAttrs, increment }"
-      >
-        <UiButton
-          class="ui-scale__increment ui-button--outlined ui-button--circled ui-button--has-icon"
-          v-bind="buttonIncrementAttrs"
-          @click="increment"
-        >
-          <UiIcon
-            icon="plus"
-          />
-        </UiButton>
-      </slot>
-    </div>
+        <slot
+          :name="slotName"
+          v-bind="slotData"
+        />
+      </template>
+    </UiNumberStepper>
   </div>
 </template>
 
@@ -84,10 +72,9 @@
 import { computed, ref } from 'vue';
 import type { CSSProperties, PropType } from 'vue';
 import { uid } from 'uid/single';
-import UiButton from '../../atoms/UiButton/UiButton.vue';
-import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
+import UiNumberStepper from '../UiNumberStepper/UiNumberStepper.vue';
 import type { PropsAttrs } from '../../../types/attrs';
 
 export interface ScaleTranslation {
@@ -169,186 +156,181 @@ function hoverHandler({ type }: {type: string}, value: number): void {
   hoverValue.value = type === 'mouseover' ? value : -1;
 }
 const finalValue = computed(() => (hoverValue.value >= 0 ? hoverValue.value : scaleValue.value));
-function decrement(): void {
-  changeHandler(props.modelValue, -1);
-}
-function increment(): void {
-  changeHandler(props.modelValue, 1);
-}
 function calcActiveElementOpacity(index: number): CSSProperties {
   const opacityStepValue = 1 / (maxSteps.value - 1);
   const isActive = index <= finalValue.value;
 
   return isActive ? {
-    '--scale-square-overlay-opacity': (index * opacityStepValue).toFixed(3),
+    '--_scale-square-overlay-opacity': (index * opacityStepValue).toFixed(3),
   } : {};
 }
 </script>
 
 <style lang="scss">
 @import "../../../styles/mixins/mixins";
+@import "../../../styles/functions/functions";
 
 .ui-scale {
   $this: &;
+  $element: scale;
 
   &__controls {
     display: flex;
   }
 
-  &__option {
-    --radio-label-margin: 0;
+  &__mobile-controls {
+    margin: css-var($element + "-mobile-controls", margin, var(--space-32) 0 0 0);
 
-    position: relative;
-    flex: 1;
-    justify-content: center;
-    border: solid transparent;
-    border-width: 0 1px 0 0;
-
-    [dir="rtl"] & {
-      border-width: 0 0 0 1px;
-    }
-
-    &--first {
-      #{$this}__square {
-        border-radius: var(--border-radius-form) 0 0 var(--border-radius-form);
-
-        [dir="rtl"] & {
-          border-radius: 0 var(--border-radius-form) var(--border-radius-form) 0;
-        }
-      }
-    }
-
-    &--last {
-      border-width: 0;
-
-      #{$this}__square {
-        border-radius: 0 var(--border-radius-form) var(--border-radius-form) 0;
-
-        [dir="rtl"] & {
-          border-radius: var(--border-radius-form) 0 0 var(--border-radius-form);
-        }
-      }
-    }
-
-    &:active {
-      transform: var(--scale-option-active-transform, scale(0.96));
+    @include from-tablet {
+      display: none;
     }
   }
 
-  &__radiobutton {
-    --radio-border-radius: var(--border-radius-button);
+  &__option {
+    --_scale-option-gap: #{css-var($element + "-option", gap, 1px)};
 
+    position: relative;
     flex: 1;
+    flex-direction: column-reverse;
+    align-items: center;
+    border: solid transparent;
+    border-width: 0 var(--_scale-option-gap) 0 0;
+    border-radius: css-var($element + "-option", border-radius, var(--border-radius-form));
 
-    &--is-active {
-      --scale-square-base-background: var(--color-dataviz-diverging-moderately-negative);
+    [dir="rtl"] & {
+      border-width: 0 0 0 var(--_scale-option-gap);
+    }
+
+    &:first-of-type {
+      #{$this}__square {
+        border-radius: inherit;
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+
+        [dir="rtl"] & {
+          border-radius: inherit;
+          border-bottom-left-radius: 0;
+          border-top-left-radius: 0;
+        }
+      }
+    }
+
+    &:last-of-type {
+      --scale-option-gap: 0;
+
+      #{$this}__square {
+        border-radius: inherit;
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+
+        [dir="rtl"] & {
+          border-radius: inherit;
+          border-bottom-right-radius: 0;
+          border-top-right-radius: 0;
+        }
+      }
+    }
+
+    &::after {
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      border-radius: inherit;
+      box-shadow: var(--focus-outer);
+      content: "";
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    @include with-focus {
+      &:focus-within {
+        &::after {
+          opacity: 1;
+        }
+      }
     }
   }
 
   &__square {
     position: relative;
-    overflow: hidden;
-    height: 40px;
-    border: solid var(--color-white);
-    border-width: 0;
-    background: var(--scale-square-base-background, var(--color-dataviz-diverging-track));
-    transition: background 200ms ease;
+    width: 100%;
+    flex: 1 1 css-var($element + "-square", height, 2.5rem);
+    background: css-var($element + "-square", background, var(--color-dataviz-diverging-track));
 
-    &::before {
+    &::after {
       position: absolute;
       top: 0;
       right: 0;
       bottom: 0;
       left: 0;
-      background: var(--scale-square-overlay-background, var(--color-dataviz-diverging-strongly-negative));
+      background:
+        css-var(
+          $element + "-square-overlay",
+          background,
+          var(--color-dataviz-diverging-strongly-negative)
+        );
+      border-radius: inherit;
       content: "";
-      opacity: var(--scale-square-overlay-opacity, 0);
-      transition: opacity 200ms ease;
+      opacity: var(--_scale-square-overlay-opacity, 0);
+      transition: opacity 150ms ease-in-out;
+    }
+
+    &--is-checked {
+      background:
+        css-var(
+          $element + "-square",
+          background,
+          var(--color-dataviz-diverging-moderately-negative)
+        );
     }
   }
 
   &__label {
+    --text-color: #{css-var($element + "-label", color, var(--color-text-body))};
+
     position: relative;
-    width: calc(100% - 1px);
-    padding: var(--space-8) 0;
-    border: solid var(--color-white);
-    border-width: 0;
-    margin: 0 0 var(--space-8) 0;
-    border-radius: var(--border-radius-form);
+    width: 100%;
+    padding: css-var($element + "-label", padding, var(--space-8) 0);
+    margin: css-var($element + "-label", margin, 0 0 var(--space-8) 0);
+    border-radius: inherit;
     text-align: center;
 
+    &::after {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: css-var($element + "-label-arrow", size, 8px);
+      height: css-var($element + "-label-arrow", size, 8px);
+      background: inherit;
+      content: "";
+      transform: translate(-50%, 50%) rotate(45deg) scale(#{"calc(8 / 11.31)"});
+    }
+
     &--is-checked {
-      --text-color: var(--color-white);
+      --text-color: #{css-var($element + "-label", color, var(--color-text-on-selection))};
 
-      background: var(--scale-label-background, var(--color-background-selection));
-
-      &::after {
-        position: absolute;
-        bottom: -2px;
-        left: calc(50% - 4px);
-        width: 8px;
-        height: 8px;
-        background: inherit;
-        content: "";
-        transform: rotate(45deg);
-      }
+      background: css-var($element + "-checked-label", background, var(--color-background-selection));
     }
   }
 
   &__description {
-    --text-color: var(--color-text-dimmed);
+    --_scale-description-color: #{css-var($element + "-description", color, var(--color-text-dimmed))};
 
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    margin: var(--space-16) 0 0 0;
+    margin: css-var($element + "-description", margin, var(--space-16) 0 0 0);
   }
 
-  &__mobile-controls {
-    display: flex;
-    justify-content: center;
-    margin: var(--space-32) 0 0 0;
-
-    @include from-desktop {
-      display: none;
-    }
+  &__mild {
+    --text-color: #{css-var($element + "-mild", color, var(--_scale-description-color))};
   }
 
-  &__decrement {
-    margin: 0 var(--space-12) 0 0;
-
-    [dir="rtl"] & {
-      margin: 0 0 0 var(--space-12);
-    }
-  }
-
-  &__increment {
-    margin: 0 0 0 var(--space-12);
-
-    [dir="rtl"] & {
-      margin: 0 var(--space-12) 0 0;
-    }
-  }
-
-  input {
-    @include focus {
-      & + #{$this}__radiobutton {
-        z-index: 1;
-        border-radius: var(--border-radius-form);
-        box-shadow: var(--focus-outer);
-
-        & #{$this}__label {
-          width: 100%;
-          border: 0;
-        }
-
-        & #{$this}__square {
-          width: 100%;
-          border: 0;
-          border-bottom-left-radius: var(--border-radius-form);
-          border-bottom-right-radius: var(--border-radius-form);
-        }
-      }
-    }
+  &__unbearable {
+    --text-color: #{css-var($element + "-unredable", color, var(--_scale-description-color))};
   }
 }
 </style>

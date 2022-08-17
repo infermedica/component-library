@@ -1,10 +1,10 @@
-import { ref } from 'vue';
+import { clickOutside } from '@/utilities/directives/index';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
-import UiCheckbox from '@/components/atoms/UiCheckbox/UiCheckbox.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
-import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
-import { clickOutside } from '../index';
+import UiSwitch from '@/components/molecules/UiSwitch/UiSwitch.vue';
+import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
+import { ref } from 'vue';
 import docs from './click-outside.mdx';
 
 export default {
@@ -19,7 +19,7 @@ export default {
 
 export const WithDirective = () => ({
   components: {
-    UiButton, UiIcon, UiPopover, UiText,
+    UiButton, UiIcon, UiText, UiPopover,
   },
   directives: {
     clickOutside,
@@ -35,7 +35,7 @@ export const WithDirective = () => ({
   },
   template: `<UiButton
     v-if="!isOpen"
-    class="ui-button--secondary ui-button--text"
+    class="ui-button--theme-secondary ui-button--text"
     @click="toggleHandler"
   >
     Open popover
@@ -48,7 +48,7 @@ export const WithDirective = () => ({
   >
     <template #close>
       <UiButton
-        class="ui-button--has-icon ui-button--secondary ui-button--text ui-popover__close"
+        class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-popover__close"
         @click="toggleHandler"
       >
         <UiIcon icon="clear" />
@@ -61,10 +61,10 @@ export const WithDirective = () => ({
 export const WithDirectiveSwitcher = () => ({
   components: {
     UiButton,
-    UiCheckbox,
     UiIcon,
-    UiPopover,
     UiText,
+    UiSwitch,
+    UiPopover,
   },
   directives: {
     clickOutside,
@@ -79,16 +79,16 @@ export const WithDirectiveSwitcher = () => ({
       isDirective, isOpen, toggleHandler,
     };
   },
-  template: `<UiCheckbox 
+  template: `<UiSwitch 
     v-model="isDirective" 
     class="mb-4" 
     style="display:flex"
   >
-    Outside click event listener is added.
-  </UiCheckbox> <!-- TODO: Add UiSwitch component and use it here instead UiCheckbox -->
+    Outside click event listener is {{isDirective ? 'enabled' : 'disabled'}}.
+  </UiSwitch>
   <UiButton
       v-if="!isOpen"
-      class="ui-button--secondary ui-button--text"
+      class="ui-button--theme-secondary ui-button--text"
       @click="toggleHandler"
   >
     Open popover
@@ -101,7 +101,7 @@ export const WithDirectiveSwitcher = () => ({
   >
     <template #close>
       <UiButton
-          class="ui-button--has-icon ui-button--secondary ui-button--text ui-popover__close"
+          class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-popover__close"
           @click="toggleHandler"
       >
         <UiIcon icon="clear"/>
@@ -127,7 +127,7 @@ export const WithoutDirective = () => ({
   template: `
   <UiButton
     v-if="!isOpen"
-    class="ui-button--secondary ui-button--text"
+    class="ui-button--theme-secondary ui-button--text"
     @click="toggleHandler"
   >
     Open popover
@@ -139,7 +139,7 @@ export const WithoutDirective = () => ({
   >
     <template #close>
       <UiButton
-        class="ui-button--has-icon ui-button--secondary ui-button--text ui-popover__close"
+        class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-popover__close"
         @click="toggleHandler"
       >
         <UiIcon icon="clear" />

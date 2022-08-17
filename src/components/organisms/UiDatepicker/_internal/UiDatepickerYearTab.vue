@@ -1,28 +1,28 @@
 <template>
-  <UiTabsItem
+  <UiDatepickerTab
     class="ui-datepicker-year-tab"
   >
-    <UiButton
+    <UiDatepickerTabItem
       v-for="(yearItem, key) in yearsList"
       :key="key"
-      class="ui-button--text ui-datepicker-year-tab__label"
+      class="ui-datepicker-year-tab__item"
       :class="{
-        'ui-datepicker-year-tab__label--selected': parseInt(year, 10) === yearItem,
+        'ui-button--is-selected': parseInt(year, 10) == yearItem,
         'ui-button--is-disabled': isDisabled(yearItem),
       }"
       :disabled="isDisabled(yearItem)"
       @click="select(`${yearItem}`)"
     >
       {{ yearItem }}
-    </UiButton>
-  </UiTabsItem>
+    </UiDatepickerTabItem>
+  </UiDatepickerTab>
 </template>
 
 <script setup lang="ts">
 import { computed, inject } from 'vue';
 import type { ComputedRef, Ref } from 'vue';
-import UiButton from '../../../atoms/UiButton/UiButton.vue';
-import UiTabsItem from '../../UiTabs/_internal/UiTabsItem.vue';
+import UiDatepickerTab from './UiDatepickerTab.vue';
+import UiDatepickerTabItem from './UiDatepickerTabItem.vue';
 
 const props = defineProps({
   /**
@@ -51,33 +51,18 @@ function select(value: string): void {
 </script>
 
 <style lang="scss">
+@import "../../../../styles/mixins/mixins";
+@import "../../../../styles/functions/functions";
+
 .ui-datepicker-year-tab {
-  --datepicker-tab-content-padding:
-    var(
-      --datepicker-year-tab-content-padding,
-      var(--space-16) var(--space-20) var(--space-12)
-    );
+  $this: &;
+  $element: datepicker-year-tab;
 
-  &__label {
-    --button-color: var(--datepicker-date-label-color, var(--color-text-body));
-    --button-hover-color: var(--datepicker-date-label-hover-color, var(--color-text-body));
-    --button-active-color: var(--datepicker-date-label-active-color, var(--color-text-body));
-    --button-hover-background: var(--datepicker-date-label-hover-background, var(--color-background-white-active));
-    --button-active-background: var(--datepicker-date-label-background, var(--color-background-white-active));
+  &__item {
+    --datepicker-tab-item-width: calc(100% / 5);
 
-    width: var(--datepicker-year-tab-label-width, calc(100% / 5));
-    height: var(--datepicker-year-tab-label-heigh, 2.5rem);
-    margin: var(--datepicker-year-tab-label-margin, 0 0 var(--space-4) 0);
-
-    &:focus {
-      z-index: 1;
-    }
-
-    &--selected {
-      --button-background: var(--datepicker-date-label-selected-background, var(--color-background-selection));
-      --button-color: var(--datepicker-date-label-selected-color, var(--color-text-on-selection));
-      --button-hover-color: var(--datepicker-date-label-selected-hover-color, var(--color-text-on-selection));
-      --button-hover-background: var(--datepicker-date-label-selected-hover-background, var(--color-background-selection));
+    &:nth-of-type(-n+5) {
+      margin: 0;
     }
   }
 }

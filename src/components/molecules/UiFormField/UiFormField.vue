@@ -5,7 +5,7 @@
     <!-- @slot Use this slot to replace label template.-->
     <slot
       name="label"
-      v-bind="{labelAttrs, label, hint, id: inputId}"
+      v-bind="{attrs: labelAttrs, label, hint, id: inputId}"
     >
       <UiText
         v-if="label"
@@ -15,14 +15,14 @@
         v-bind="labelAttrs"
       >
         <UiText
-          class="ui-form-field__label-text"
+          class="ui-text--body-2-comfortable ui-form-field__message"
           tag="span"
         >
           {{ label }}
         </UiText>
         <UiText
           v-if="hint"
-          class="ui-form-field__label-tag"
+          class="ui-text--body-2-comfortable ui-text--theme-secondary ui-form-field__hint"
           tag="span"
         >
           {{ hint }}
@@ -34,7 +34,7 @@
     <!-- @slot Use this slot to replace alert template. -->
     <slot
       name="alert"
-      v-bind="{alert: alertAttrs, errorMessage}"
+      v-bind="{attrs: alertAttrs, errorMessage}"
       :alert="alertAttrs"
     >
       <UiAlert
@@ -108,36 +108,28 @@ const inputId = computed(() => (
 
 <style lang="scss">
 @import "../../../styles/mixins/mixins";
+@import "../../../styles/functions/functions";
 
 .ui-form-field {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  $element: form-field;
 
   &__label {
     display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: css-var($element + "-label", margin, 0 0 var(--space-8) 0);
   }
 
-  &__label-text {
-    @include font(form-field-label-text, body-2-comfortable, text);
-
-    margin: var(--form-field-label-text-margin, 0 0 var(--space-8) 0);
-    color: var(--form-field-label-text-color, var(--color-text-body));
-  }
-
-  &__label-tag {
-    @include font(form-field-label-tag, body-2-comfortable, text);
-
-    margin: var(--form-field-label-tag-margin, 0 0 0 var(--space-8));
-    color: var(--form-field-label-tag-color, var(--color-text-dimmed));
+  &__hint {
+    margin: css-var($element + "-hint", margin, 0 0 0 var(--space-8));
 
     [dir="rtl"] & {
-      margin: var(--form-field-label-tag-margin, 0 var(--space-8) 0 0);
+      margin: css-var($element + "-rtl-hint", margin, 0 var(--space-8) 0 0);
     }
   }
 
   &__alert {
-    margin: var(--form-field-alert-margin, var(--space-8) 0 0 0);
+    margin: css-var($element + "-alert", margin, var(--space-8) 0 0 0);
   }
 }
 </style>

@@ -13,17 +13,20 @@
       class="visual-hidden"
       @change="changeHandler($event)"
     >
-    <!-- @slot Use this slot to replace checkbutton template.-->
+    <!-- @slot Use this slot to replace checkbox template.-->
     <slot
-      name="checkbutton"
+      name="checkbox"
       v-bind="{checked: isChecked}"
     >
       <div
-        class="ui-checkbox__checkbutton"
+        class="ui-checkbox__checkbox"
+        :class="{
+          'ui-checkbox__checkbox--is-checked': isChecked,
+        }"
       >
         <UiIcon
           icon="checkmark"
-          class="ui-checkbox__mark"
+          class="ui-checkbox__checkmark"
         />
       </div>
     </slot>
@@ -117,139 +120,235 @@ function changeHandler(event: Event): void {
   const el = event.target as HTMLInputElement;
   emit('update:modelValue', getChecked(el.checked));
 }
+
+// TODO: remove in 0.6.0
+const { checkbutton } = slots;
+if (checkbutton) {
+  throw new Error('[@infermedica/component-library error][UiCheckbox]: The `checkbotton` slot is deprecated and removed. Please use `checkbox` slot instead.');
+}
+// END
 </script>
 
 <style lang="scss">
 @import "../../../styles/mixins/mixins";
+@import "../../../styles/functions/functions";
 
 .ui-checkbox {
   $this: &;
+  $element: checkbox;
 
-  display: inline-flex;
-  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
 
-  @media (hover: hover) {
-    &:hover {
-      --checkbox-border: solid var(--color-border-strong-hover);
+  @include with-hover {
+    cursor: pointer;
+  }
+
+  @include hover {
+    #{$this}__checkbox {
+      &::after {
+        border-color: css-var($element + "-hover", border-color, var(--color-border-strong-hover));
+      }
+
+      &--is-checked {
+        background: css-var($element + "-checked-hover", background, var(--color-selectioncontrols-selection-hover));
+
+        &::after {
+          border-color:
+            css-var(
+              $element + "-checked-hover",
+              border-color,
+              var(--color-selectioncontrols-selection-hover)
+            );
+        }
+      }
     }
   }
 
   &:active {
-    --checkbox-border: solid var(--color-border-strong-active);
-  }
-
-  &__checkbutton {
-    @include inner-border($element: checkbox, $color: var(--color-border-strong), $width: 2px, $radius: var(--border-radius-form));
-
-    --icon-size: 1rem;
-    --icon-color: transparent;
-
-    display: flex;
-    overflow: hidden;
-    width: var(--checkbox-size, 1.25rem);
-    height: var(--checkbox-size, 1.25rem);
-    flex: none;
-    align-items: center;
-    justify-content: center;
-    margin: var(--checkbox-margin, 0.125rem);
-    background: var(--checkbox-background, var(--color-background-white));
-  }
-
-  input {
-    &:checked {
-      & + #{$this}__checkbutton {
-        --icon-color: var(--color-icon-negative);
-        --checkbox-border: solid var(--color-selectioncontrols-selection);
-        --checkbox-background: var(--color-selectioncontrols-selection);
+    #{$this}__checkbox {
+      &::after {
+        border-color: css-var($element + "-active", border-color, var(--color-border-strong-active));
       }
 
-      @media (hover: hover) {
-        &:hover + #{$this}__checkbutton {
-          --checkbox-background: var(--color-selectioncontrols-selection-hover);
-          --checkbox-border: solid var(--color-selectioncontrols-selection-hover);
+      &--is-checked {
+        background:
+          css-var(
+            $element + "-checked-active",
+            background,
+            var(--color-selectioncontrols-selection-active)
+          );
+
+        &::after {
+          border-color:
+            css-var(
+              $element + "-checked-active",
+              border-color,
+              var(--color-selectioncontrols-selection-active)
+            );
         }
       }
-
-      &:active + #{$this}__checkbutton {
-        --checkbox-background: var(--color-selectioncontrols-selection-active);
-        --checkbox-border: solid var(--color-selectioncontrols-selection-active);
-      }
     }
+  }
 
-    @include focus {
-      & + #{$this}__checkbutton {
+  @include with-focus {
+    &:focus-within {
+      #{$this}__checkbox {
         box-shadow: var(--focus-outer);
       }
     }
   }
 
-  &__label {
-    @include font(checkbox-label, body-1, text);
+  &__checkbox {
+    @include inner-border(
+      $element,
+      $color: var(--color-border-strong),
+      $width: 2px,
+      $radius: var(--border-radius-form),
+      $transition: (
+        border-color 150ms ease-in-out,
+        background-color 150ms ease-in-out
+      )
+    );
 
-    flex: var(--checkbox-label-flex, 1);
-    margin: var(--checkbox-label-margin, 0 0 0 var(--space-12));
-    color: var(--checkbox-label-color, var(--color-text-body));
+    display: flex;
+    width: css-var($element, size, 1.25rem);
+    height: css-var($element, size, 1.25rem);
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    margin: 2px;
+    background: css-var($element, background, var(--color-background-white));
+
+    &--is-checked {
+      background: css-var($element + "-checked", background, var(--color-selectioncontrols-selection));
+
+      &::after {
+        border-color: css-var($element + "-checked", border-color, var(--color-selectioncontrols-selection));
+      }
+
+      #{$this}__checkmark {
+        --icon-color: #{css-var($element + "-checked-checkmark", color, var(--color-text-on-selection))};
+      }
+    }
+  }
+
+  &__checkmark {
+    --icon-size: #{css-var($element + "-checkmark", size, 1rem)};
+    --icon-color: #{css-var($element + "-checkmark", color, transparent)};
+
+    flex: none;
+  }
+
+  &__label {
+    --text-color: #{css-var($element + "-label", color, var(--color-text-body))};
+
+    flex: 1;
+    margin: css-var($element + "-label", margin, 0 0 0 var(--space-12));
 
     [dir="rtl"] & {
-      margin: var(--checkbox-label-margin, 0 var(--space-12) 0 0);
+      margin: css-var($element + "-rtl-label", margin, 0 var(--space-12) 0 0);
     }
   }
 
   &--is-disabled {
-    --checkbox-border: solid var(--color-border-subtle);
-
     cursor: not-allowed;
 
-    @media (hover: hover) {
-      &:hover {
-        --checkbox-border: solid var(--color-border-subtle);
+    @include hover {
+      #{$this}__checkbox {
+        &::after {
+          border-color: css-var($element + "-hover", border-color, var(--color-icon-disabled));
+        }
+
+        &--is-checked {
+          background: css-var($element + "-checked-hover", background, var(--color-icon-disabled));
+
+          &::after {
+            border-color: css-var($element + "-checked-hover", border-color, var(--color-icon-disabled));
+          }
+        }
       }
     }
 
     &:active {
-      --checkbox-border: solid var(--color-border-subtle);
-    }
+      #{$this}__checkbox {
+        &::after {
+          border-color: css-var($element + "-hover", border-color, var(--color-icon-disabled));
+        }
 
-    input:checked {
-      & + #{$this}__checkbutton,
-      &:active + #{$this}__checkbutton {
-        --checkbox-border: solid var(--color-border-subtle);
-        --checkbox-background: var(--color-border-subtle);
-      }
+        &--is-checked {
+          background: css-var($element + "-checked-active", background, var(--color-icon-disabled));
 
-      @media (hover: hover) {
-        &:hover + #{$this}__checkbutton {
-          --checkbox-border: solid var(--color-border-subtle);
-          --checkbox-background: var(--color-border-subtle);
+          &::after {
+            border-color: css-var($element + "-checked-active", border-color, var(--color-icon-disabled));
+          }
         }
       }
+    }
+
+    #{$this}__checkbox {
+      &::after {
+        border-color: css-var($element, border-color, var(--color-icon-disabled));
+      }
+
+      &--is-checked {
+        background: css-var($element + "-checked", background, var(--color-icon-disabled));
+
+        &::after {
+          border-color: css-var($element + "-checked", border-color, var(--color-icon-disabled));
+        }
+      }
+    }
+
+    #{$this}__label {
+      --text-color: #{css-var($element + "-label", color, var(--color-text-disabled))};
     }
   }
 
   &--has-error {
-    --checkbox-border: solid var(--color-border-error-strong);
+    @include hover {
+      #{$this}__checkbox {
+        &::after {
+          border-color: css-var($element + "-hover", border-color, var(--color-border-error-strong-hover));
+        }
 
-    @media (hover: hover) {
-      &:hover {
-        --checkbox-border: solid var(--color-border-error-strong);
+        &--is-checked {
+          background: css-var($element + "-checked-hover", background, var(--color-border-error-strong-hover));
+
+          &::after {
+            border-color: css-var($element + "-checked-hover", border-color, var(--color-border-error-strong-hover));
+          }
+        }
       }
     }
 
     &:active {
-      --checkbox-border: solid var(--color-border-error-strong);
+      #{$this}__checkbox {
+        &::after {
+          border-color: css-var($element + "-hover", border-color, var(--color-border-error-strong-hover));
+        }
+
+        &--is-checked {
+          background: css-var($element + "-checked-active", background, var(--color-border-error-strong-active));
+
+          &::after {
+            border-color: css-var($element + "-checked-active", border-color, var(--color-border-error-strong-active));
+          }
+        }
+      }
     }
 
-    input:checked {
-      & + #{$this}__checkbutton,
-      &:active + #{$this}__checkbutton {
-        --checkbox-border: solid var(--color-border-error-strong);
-        --checkbox-background: var(--color-border-error-strong);
+    #{$this}__checkbox {
+      &::after {
+        border-color: css-var($element, border-color, var(--color-border-error-strong));
       }
 
-      @media (hover: hover) {
-        &:hover + #{$this}__checkbutton {
-          --checkbox-border: solid var(--color-border-error-strong);
-          --checkbox-background: var(--color-border-error-strong);
+      &--is-checked {
+        background: css-var($element + "-checked", background, var(--color-border-error-strong));
+
+        &::after {
+          border-color: css-var($element + "-checked", border-color, var(--color-border-error-strong));
         }
       }
     }

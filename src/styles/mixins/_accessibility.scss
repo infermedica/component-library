@@ -8,10 +8,17 @@
   user-select: none;
 }
 
-@mixin focus {
+@mixin with-focus {
   body:not(.focus-hidden) & {
+    @content
+  }
+}
+
+@mixin focus {
+  @include with-focus {
     &:focus {
       @content
     }
   }
 }
+

@@ -14,7 +14,7 @@
     </slot>
     <!-- @slot Use this slot to replace message template. -->
     <slot name="message">
-      <UiText class="ui-alert__message">
+      <UiText class="ui-text--body-2-comfortable ui-alert__message">
         <!-- @slot Use this slot to place message inside alert. -->
         <slot />
       </UiText>
@@ -40,64 +40,57 @@ const props = defineProps({
     required: false,
     default: 'error',
   },
+  /**
+   * Use this props to hide icon.
+   */
+  hasIcon: {
+    type: Boolean,
+    default: true,
+  },
 });
 const rootClassModifier = computed<`ui-alert--${AlertType}`>(() => `ui-alert--${props.type}`);
-const icon = computed<AlertIcon>(() => (props.type === 'default' ? '' : `${props.type}-filled`));
+const icon = computed<AlertIcon>(() => ((!props.hasIcon || props.type === 'default') ? '' : `${props.type}-filled`));
 </script>
 
 <style lang="scss">
 @import "../../../styles/mixins/mixins";
+@import "../../../styles/functions/functions";
 
 .ui-alert {
-  @include inner-border($element: alert, $color: transparent, $width: 0);
   $this: &;
+  $element: alert;
+  $types: "success", "info", "warning", "error";
 
-  display: inline-flex;
+  display: flex;
   align-items: flex-start;
-  background: var(--alert-background);
+  justify-content: flex-start;
+  vertical-align: css-var($element, vertical-align, top);
 
   &__icon {
-    --icon-size: var(--alert-icon-size, 1.5rem);
-    --icon-color: var(--alert-icon-color, var(--color-icon-error));
+    --icon-color: #{css-var($element + "-icon", color)};
 
     flex: none;
-    margin: var(--alert-icon-margin, 0 var(--space-4) 0 0);
+    margin: css-var($element + "-icon", margin, 0 var(--space-4) 0 0);
 
     [dir="rtl"] & {
-      margin: var(--alert-icon-margin, 0 0 0 var(--space-4));
+      margin: css-var($element + "-rtl-icon", margin, 0 0 0 var(--space-4));
     }
   }
 
   &__message {
-    @include font(alert-message, body-2-comfortable, text);
-
-    color: var(--alert-color, var(--color-text-body));
+    --text-color: #{css-var($element + "-message", text-color, var(--color-text-body))};
   }
 
-  &--success {
-    --alert-icon-color: var(--color-icon-success);
-    --alert-color: var(--color-text-success);
-  }
+  @each $type in $types {
+    &--#{$type} {
+      #{$this}__icon {
+        --icon-color: #{css-var($element + "-icon", color, var(--color-icon-#{$type}))};
+      }
 
-  &--info {
-    --alert-icon-color: var(--color-icon-info);
-    --alert-color: var(--color-text-info);
-  }
-
-  &--warning {
-    --alert-icon-color: var(--color-icon-warning);
-    --alert-color: var(--color-text-warning);
-  }
-
-  &--error {
-    --alert-icon-color: var(--color-icon-error);
-    --alert-color: var(--color-text-error);
-  }
-
-  &--secondary {
-    --alert-color: var(--color-text-body);
-    --alert-message-font: var(--font-body-1);
-    --alert-message-letter-spacing: var(--letter-spacing-body-1);
+      #{$this}__message {
+        --text-color: #{css-var($element + "-message", text-color, var(--color-text-#{$type}))};
+      }
+    }
   }
 }
 </style>

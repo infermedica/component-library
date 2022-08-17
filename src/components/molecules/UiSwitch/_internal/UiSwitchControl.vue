@@ -6,88 +6,47 @@
 
 <style lang="scss">
 @import "../../../../styles/mixins/mixins";
+@import "../../../../styles/functions/functions";
 
 .ui-switch-control {
-  --switch-control-track-color: var(--color-switch-track);
-  --switch-control-transition: background-color 0.15s, border-color 0.15s;
-  --switch-control-thumb-transition: transform 0.15s ease-in-out;
-
   $this: &;
+  $element: switch-control;
 
-  display: var(--switch-control-display, inline-flex);
-  width: var(--switch-control-width, 2.4rem);
-  height: var(--switch-control-height, auto);
-  align-items: center;
-  border: var(--switch-control-border, solid  var(--switch-control-border-color, var(--switch-control-track-color)));
-  border-width: var(--switch-control-border-width, 2px);
-  background: var(--switch-control-background, var(--switch-control-track-color));
-  border-radius: var(--switch-control-border-radius, var(--border-radius-pill));
-  cursor: pointer;
-  transition: var(--switch-control-transition);
+  --_switch-control-color: #{css-var($element, color, var(--color-switch-track))};
 
-  &:hover {
-    --switch-control-track-color: var(--switch-control-track-hover-color, var(--color-switch-track-hover));
-  }
-
-  &:active {
-    --switch-control-track-color: var(--switch-control-track-active-color, var(--color-switch-track-active));
-  }
+  display: inline-flex;
+  width: css-var($element, width, 2.4rem);
+  border-width: css-var($element, border-width, 2px);
+  border-style: solid;
+  border-color: css-var($element, border-color, var(--_switch-control-color));
+  background: css-var($element, background, var(--_switch-control-color));
+  border-radius: css-var($element, border-radius, var(--border-radius-pill));
+  transition: (background-color 105ms ease-in-out, border-color 105ms ease-in-out);
 
   &__wrapper {
-    width: 100%;
-    transition: var(--switch-control-thumb-transition);
+    flex: 1;
+    transition: transform 150ms ease-in-out;
 
     &::after {
       display: block;
-      width: var(--switch-control-thumb-size, 1rem);
-      height: var(--switch-control-thumb-size, 1rem);
-      background: var(--switch-control-thumb-background, var(--color-switch-thumb));
-      border-radius: var(--switch-control-thumb-border-radius, var(--border-radius-pill));
+      width: css-var($element + "-thumb", size, 1rem);
+      height: css-var($element + "-thumb", size, 1rem);
+      background: css-var($element + "-thumb", background, var(--color-switch-thumb));
+      border-radius: css-var($element + "-thumb", border-radius, var(--border-radius-circle));
       content: "";
-      transition: var(--switch-control-thumb-transition);
+      transition: inherit;
     }
   }
 
-  @at-root input {
-    @include focus {
-       & ~ #{$this} {
-        box-shadow: var(--focus-outer);
-      }
-    }
-  }
-
-  input:checked ~ & {
-    --switch-control-track-color: var(--switch-control-track-checked-color, var(--color-switch-track-checked));
+  &--is-checked {
+    --_switch-control-color: #{css-var($element + "-checked", color, var(--color-switch-track-checked))};
 
     #{$this}__wrapper {
-      pointer-events: none;
-      transform: translateX(100%);
+      transform: translate3d(100%, 0, 0);
 
       &::after {
-        transform: translateX(-100%);
+        transform: translate3d(-100%, 0, 0);
       }
-    }
-
-    &:hover {
-      --switch-control-track-color: var(--switch-control-track-checked-hover-color, var(--color-switch-track-checked-hover));
-    }
-
-    &:active {
-      --switch-control-track-color: var(--switch-control-track-checked-active-color, var(--color-switch-track-checked-active));
-    }
-  }
-
-  input:disabled ~ & {
-    --switch-control-track-color: var(--color-switch-disabled);
-
-    cursor: not-allowed;
-
-    &:hover {
-      --switch-control-track-color: var(--color-switch-disabled);
-    }
-
-    &:active {
-      --switch-control-track-color: var(--color-switch-disabled);
     }
   }
 }

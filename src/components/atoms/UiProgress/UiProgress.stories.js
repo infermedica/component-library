@@ -37,55 +37,6 @@ export default {
         },
     },
   },
-  parameters: {
-    cssprops: {
-      'progress-height': {
-        value: '0.5rem',
-        control: 'text',
-        description: '',
-      },
-      'progress-bar-padding': {
-        value: 'calc(var(--height) * 0.5)',
-        control: 'text',
-        description: '',
-      },
-      'progress-radius-pill': {
-        value: 'calc(var(--height) * 0.5)',
-        control: 'text',
-        description: '',
-      },
-      'progress-width': {
-        value: '100%',
-        control: 'text',
-        description: '',
-      },
-      'progress-padding': {
-        value: '0 var(--bar-padding)',
-        control: 'text',
-        description: '',
-      },
-      'progress-border': {
-        value: '0',
-        control: 'text',
-        description: '',
-      },
-      'progress-background': {
-        value: 'var(--color-progress-track)',
-        control: 'text',
-        description: '',
-      },
-      'progress-value-background': {
-        value: 'var(--color-progress-indicator)',
-        control: 'text',
-        description: '',
-      },
-      'progress-value-radius': {
-        value: '0',
-        control: 'text',
-        description: '',
-      },
-    },
-  },
 };
 
 export const Common = (args) => ({
@@ -123,7 +74,7 @@ export const LowRealValue = (args) => ({
 export const LowValueNoRadius = (args) => ({
   components: { UiProgress },
   setup() { return { ...args }; },
-  template: `<div class="max-w-32"  style="--progress-bar-padding: 0; --progress-radius-pill: 0;">
+  template: `<div class="max-w-32" style="--progress-border-radius: 0;">
     <UiProgress
       :value="3"
     />

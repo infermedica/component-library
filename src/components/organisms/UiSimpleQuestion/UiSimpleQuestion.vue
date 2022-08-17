@@ -18,7 +18,7 @@
           :name="option.name"
           :class="{'ui-tile--small': isTileSmall}"
           class="ui-simple-question__option ui-tile"
-          @update:modelValue="updateHandler(option.value)"
+          @update:model-value="updateHandler(option.value)"
         >
           {{ option.label }}
         </UiTile>
@@ -86,9 +86,12 @@ function updateHandler(value: TileValue) {
 
 <style lang="scss">
 @import "../../../styles/mixins/mixins";
+@import "../../../styles/functions/functions";
 
 .ui-simple-question {
-  // ui-simple-question--small - utility class for small Tile variant
+  $this: &;
+  $element: simple-question;
+
   display: flex;
   flex-direction: column;
 
@@ -97,20 +100,27 @@ function updateHandler(value: TileValue) {
   }
 
   &__option {
-    margin: var(--simple-question-option-margin, 0 0 var(--space-12) 0);
+    margin: css-var($element + "-option", margin, 0 0 var(--space-12) 0);
 
-    @include from-tablet {
-      width: 100%;
-      margin: var(--simple-question-option-tablet-margin, 0 var(--space-24) 0 0);
-
-      [dir="rtl"] & {
-        margin: var(--simple-question-option-tablet-margin, 0 0 0 var(--space-24));
-      }
+    &:last-of-type {
+      margin: 0;
     }
 
-    &:last-child {
-      --simple-question-option-margin: 0;
-      --simple-question-option-tablet-margin: 0;
+    @include from-tablet {
+      flex: 1;
+      margin: css-var($element + "-option", margin, 0 var(--space-24) 0 0);
+
+      &:last-of-type {
+        margin: 0;
+      }
+
+      [dir="rtl"] & {
+        margin: css-var($element + "-rtl-option", margin, 0 0 0 var(--space-24));
+
+        &:last-of-type {
+          margin: 0;
+        }
+      }
     }
   }
 }

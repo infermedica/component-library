@@ -4,8 +4,9 @@ export const focusElement = (el, focusVisible = false) => {
     if (focusVisible) {
       document.body.classList.remove('focus-hidden');
     }
-    setTimeout(() => {
+    return new Promise((resolve) => setTimeout(() => {
       el.focus();
-    }, 0);
+      resolve();
+    }, 0));
   }
 };

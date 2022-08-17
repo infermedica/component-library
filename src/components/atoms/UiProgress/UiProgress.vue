@@ -1,7 +1,7 @@
 <template>
   <div
     class="ui-progress"
-    :style="{'--progress-value': progressValue}"
+    :style="{'--_progress-value': progressValue}"
   >
     <div
       v-if="progressValue"
@@ -49,47 +49,49 @@ const progressValue = computed(() => {
 </script>
 
 <style lang="scss">
-.ui-progress {
-  --height: var(--progress-height, 0.5rem);
-  --bar-padding: var(--progress-bar-padding, calc(var(--height) * 0.5));
-  --radius-pill: var(--progress-radius-pill, calc(var(--height) * 0.5));
+@import "../../../styles/mixins/mixins";
+@import "../../../styles/functions/functions";
 
-  position: relative;
+.ui-progress {
+  $element: progress;
+
+  --_progress-height: #{css-var($element, height, 0.5rem)};
+  --_progress-padding: #{css-var($element, padding, calc(var(--_progress-height) * 0.5))};
+  --_progress-border-radius: #{css-var($element, border-radius, calc(var(--_progress-height) * 0.5))};
+
   overflow: hidden;
-  width: var(--progress-width, 100%);
-  height: var(--height);
-  padding: var(--progress-padding, 0 var(--bar-padding));
-  border: var(--progress-border, 0);
-  background-color: var(--progress-background, var(--color-progress-track));
-  border-radius: var(--radius-pill);
+  width: 100%;
+  height: var(--_progress-height);
+  background: css-var($element, track, var(--color-progress-track));
+  border-radius: var(--_progress-border-radius);
 
   &__inner {
     position: relative;
-    width: calc(var(--progress-value) * 100%);
+    width: calc(var(--_progress-value) * 100%);
     height: 100%;
-    background-color: var(--progress-value-background, var(--color-progress-indicator));
-    border-radius: var(--progress-value-radius, 0);
+    background: css-var($element, indicator, var(--color-progress-indicator));
+    border-radius: 0;
 
     &::before,
     &::after {
       position: absolute;
       display: block;
-      width: var(--bar-padding);
+      width: var(--_progress-padding);
       height: 100%;
-      background-color: var(--progress-value-background, var(--color-progress-indicator));
+      background: css-var($element, indicator, var(--color-progress-indicator));
       content: "";
     }
 
     &::before {
       right: 100%;
-      border-bottom-left-radius: var(--radius-pill);
-      border-top-left-radius: var(--radius-pill);
+      border-bottom-left-radius: var(--_progress-border-radius);
+      border-top-left-radius: var(--_progress-border-radius);
     }
 
     &::after {
       left: 100%;
-      border-bottom-right-radius: var(--radius-pill);
-      border-top-right-radius: var(--radius-pill);
+      border-bottom-right-radius: var(--_progress-border-radius);
+      border-top-right-radius: var(--_progress-border-radius);
     }
   }
 }

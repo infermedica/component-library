@@ -2,17 +2,8 @@
   <UiCheckbox
     class="ui-switch"
     :model-value="modelValue"
-    @update:modelValue="updateHandler"
+    @update:model-value="updateHandler"
   >
-    <template #checkbutton="{checked}">
-      <!-- @slot Use this slot to replace switch control template. -->
-      <slot
-        name="switchcontrol"
-        v-bind="{checked}"
-      >
-        <UiSwitchControl />
-      </slot>
-    </template>
     <template
       v-for="slot in Object.keys($slots)"
       #[slot]="data"
@@ -21,6 +12,21 @@
         :name="slot"
         v-bind="data"
       />
+    </template>
+    <template #checkbox="{checked}">
+      <!-- @slot Use this slot to replace switch control template. -->
+      <slot
+        name="switchcontrol"
+        v-bind="{checked}"
+      >
+        <UiSwitchControl
+          class="ui-switch__control"
+          :class="{
+            'ui-switch-control--is-checked': checked,
+            'ui-switch__control--is-checked': checked,
+          }"
+        />
+      </slot>
     </template>
   </UiCheckbox>
 </template>
@@ -47,8 +53,68 @@ const updateHandler = (value: CheckboxModelValue): void => {
 </script>
 
 <style lang="scss">
+@import "../../../styles/mixins/mixins";
+@import "../../../styles/functions/functions";
+
 .ui-switch {
-  width: fit-content;
-  align-items: center;
+  $this: &;
+  $element: switch;
+
+  &__control {
+    --switch-control-color: #{css-var($element + "-hover", color, var(--color-switch-track))};
+    --switch-control-checked-color: #{css-var($element + "-checked-hover", color, var(--color-switch-track-checked))};
+  }
+
+  @include hover {
+    #{$this}__control {
+      --switch-control-color: #{css-var($element + "-hover", color, var(--color-switch-track-hover))};
+      --switch-control-checked-color:
+        #{css-var(
+          $element + "-checked-hover",
+          color,
+          var(--color-switch-track-checked-hover))};
+    }
+  }
+
+  &:active {
+    #{$this}__control {
+      --switch-control-color: #{css-var($element + "-hover", color, var(--color-switch-track-active))};
+      --switch-control-checked-color:
+        #{css-var(
+          $element + "-checked-hover",
+          color,
+          var(--color-switch-track-checked-active)
+        )};
+    }
+  }
+
+  @include with-focus {
+    &:focus-within {
+      #{$this}__control {
+        box-shadow: var(--focus-outer);
+      }
+    }
+  }
+
+  &--is-disabled {
+    cursor: not-allowed;
+
+    --switch-control-color: #{css-var($element, color, var(--color-switch-disabled))};
+    --switch-control-checked-color: #{css-var($element, color, var(--color-switch-disabled))};
+
+    @include hover {
+      #{$this}__control {
+        --switch-control-color: #{css-var($element + "-hover", color, var(--color-switch-disabled))};
+        --switch-control-checked-color: #{css-var($element + "-checked-hover", color, var(--color-switch-disabled))};
+      }
+    }
+
+    &:active {
+      #{$this}__control {
+        --switch-control-color: #{css-var($element + "-hover", color, var(--color-switch-disabled))};
+        --switch-control-checked-color: #{css-var($element + "-checked-hover", color, var(--color-switch-disabled))};
+      }
+    }
+  }
 }
 </style>

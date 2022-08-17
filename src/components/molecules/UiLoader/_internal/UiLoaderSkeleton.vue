@@ -2,48 +2,21 @@
   <div class="ui-loader-skeleton">
     <!-- @slot Use this slot to put skeleton blocks.-->
     <slot>
-      <template v-if="type === 'common'">
-        <!-- @slot Use this slot to put skeleton common blocks.-->
-        <slot name="common">
-          <div
-            class="ui-loader-skeleton__block"
-            style="--loader-skeleton-block-width: 75%;"
-          />
-          <div
-            class="ui-loader-skeleton__block"
-          />
-          <div
-            class="ui-loader-skeleton__block"
-            style="--loader-skeleton-block-width: 50%;"
-          />
-        </slot>
-      </template>
-
-      <template v-else-if="type === 'question'">
-        <!-- @slot Use this slot to put skeleton question blocks.-->
-        <slot name="question">
-          <div
-            class="ui-loader-skeleton__block"
-          />
-
-          <div
-            class="ui-loader-skeleton__block"
-            style="--loader-skeleton-block-width: 75%;"
-          />
-          <div
-            class="ui-loader-skeleton__block ui-loader-skeleton__block--large"
-          />
-        </slot>
-      </template>
+      <component
+        :is="skeleton"
+      />
     </slot>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { PropType } from 'vue';
+import { computed, defineAsyncComponent } from 'vue';
+import { capitalizeFirst } from '../../../../utilities/helpers/index.ts';
 
 export type LoaderSkeletonType = 'common' | 'question'
-defineProps({
+
+const props = defineProps({
   /**
    * Use this props to set skeleton type.
    */
@@ -52,27 +25,30 @@ defineProps({
     default: 'common',
   },
 });
+const skeleton = computed(() => (defineAsyncComponent(() => import(`./UiLoaderSkeletons/UiLoaderSkeleton${capitalizeFirst(props.type)}.vue`))));
 </script>
 
 <style lang="scss">
-// TODO add animation on skeleton
-.ui-loader-skeleton {
-  $this: &;
+@import "../../../../styles/functions/functions";
 
-  display: var(--loader-skeleton-display, grid);
-  width: var(--loader-skeleton-width, 100%);
-  height: var(--loader-skeleton-height, auto);
-  margin: var(--loader-skeleton-margin, var(--space-16) 0);
-  grid-gap: var(--loader-skeleton-grid-gap, var(--space-32));
+.ui-loader-skeleton {
+  $element: loader-skeleton;
+
+  display: flex;
+  width: 100%;
+  height: auto;
+  flex-direction: column;
+  margin: css-var($element, margin, var(--space-16) 0);
 
   &__block {
-    position: relative;
-    width: var(--loader-skeleton-block-width, 100%);
-    height: var(--loader-skeleton-block-height, var(--space-8));
-    animation: var(--loader-skeleton-block-animation, skeleton-shine 1s linear infinite);
+    width: css-var($element + "-block", width, 100%);
+    flex: 1 1  css-var($element + "-block", height, 0.5rem);
+    margin: css-var($element + "-block", margin, 0 0 var(--space-32) 0);
+    animation: block 1s linear infinite;
     background:
-      var(
-        --loader-skeleton-block-background,
+      css-var(
+        $element + "-block",
+        background,
         linear-gradient(
           -60deg,
           var(--color-skeleton-loader-base) 20%,
@@ -80,47 +56,25 @@ defineProps({
           var(--color-skeleton-loader-base) 40%
         )
       );
-    background-size: 200% 100%;
-    border-radius: var(--loader-skeleton-block-border-radius, 5px);
+    background-size: css-var($element + "-block", background-size, 200% 100%);
+    border-radius: css-var($element + "-block", border-radius, 0.3125rem); //pixel perfect hack
 
-    [dir="rtl"] & {
-      background:
-        var(
-          --loader-skeleton-block-background,
-          linear-gradient(
-            60deg,
-            var(--color-skeleton-loader-base) 20%,
-            var(--color-skeleton-loader-wave) 30%,
-            var(--color-skeleton-loader-base) 40%
-          )
-        );
-      background-size: 200% 100%; // This needs to be repeated
+    &:last-of-type {
+      margin: 0;
     }
 
     &--large {
-      height: var(--loader-skeleton-block-large-height, 7.5rem);
+      flex: 1 1  css-var($element + "-block", height, 7.5rem);
     }
   }
 
-  @keyframes skeleton-shine {
+  @keyframes block {
     0% {
-      background-position: 100% 0;
+      background-position: -100% 0;
     }
 
     100% {
-      background-position: -100% 0;
-    }
-  }
-
-  [dir="rtl"] & {
-    @keyframes skeleton-shine {
-      0% {
-        background-position: -100% 0;
-      }
-
-      100% {
-        background-position: 100% 0;
-      }
+      background-position: 100% 0;
     }
   }
 }

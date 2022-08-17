@@ -2,14 +2,44 @@ import { Meta } from '@storybook/addon-docs';
 
 <Meta title="Releases/v0.5.x/v0.5.0/Changelog" />
 
-# v0.5.0 (June , 2022)
+# v0.5.0 (August ,2022)
 
-## ⛔️ Breaking Change
-* Handle focus visibility in Infermedica Component Library. Rename class on `body` to `focus-hidden`.
-Add helper `useFocus` to allow to focus element and force removing `focus-hidden`.
-* Add action button as a native feature to [UiNotification](/docs/molecules-notification--error) component. Default slot place text inside alert.
-To enable action use buttonActionAttrs and pass onClick on other listener.
+## ⛔️ Breaking Changes
+* New approach to component styles
+  * A lot of changes in the css variables
+* Use TypeScript in components (atoms, molecules, organisms, templates and helpers)
+* Move UiAlert to molecules
+* New focus-visible approach
+  * Handle focus visibility on Component Library side
+  * Rename class on `body` to `focus-hidden`
+  * Add helper `useFocus` to focus elements and force removing 'focus-hidden'
+* Add action button to notification component
+  * `hasIcon` props in UiAlert component
+  * `hasIcon`, `buttonActionAtts` and `translation` props in UiNotification
+  * New template. UiNotification has action button with icon
+* Changes in [UiTabs](/docs/organisms-tabs--common) component
+  * New template. UiTabsItem has root element with class `ui-tabs-item`
 
-# 🚀 Features
-* New focus visible approach
-* Add action button to [UiNotification](/docs/molecules-notification--error) component.
+## 🚀 Features
+* Use Internalization API for months in [UiDatepicker](docs/organisms-datepicker--full-configuration)
+* Add global decorator for Vitest results
+* Use Vite as native bundler
+* Use pnpm instead npm
+* Scope validation in [UiNumberStepper](docs/molecules-numberstepper--with-text-value)
+* Use UiNumberStepper in [UiRange](docs/atoms-range--common)
+* CSS Variables for fonts in components
+* Pass attrs to internal components in components with item props
+* [UiHeader](/docs/molecules-header--common) component
+* [UiNavigation](/docs/molecules-navigation--common) component
+
+## 🐛 Fixes
+* UiTabs in UiDatepicker is displayed one by one
+* Button icon has no transition time for fill
+* Scroll to top doesn't work correctly on chrome > 101
+* Body scroll lock without external package
+
+## 🔍 Tests
+* Remove e2e tests from project
+
+## 🧹 Chores
+* Playground to use components out of the Storybook

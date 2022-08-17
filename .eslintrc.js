@@ -26,7 +26,6 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'import/first': 'off',
-    // scrip setup related
     'no-multiple-empty-lines': ['error', {
       max: 1,
       maxEOF: 1,
@@ -50,6 +49,9 @@ module.exports = {
     }],
     'prefer-destructuring': ['error', {
       array: false,
+    }],
+    'vue/v-on-event-hyphenation': ['error', 'always', {
+      autofix: true,
     }],
   },
   overrides: [{

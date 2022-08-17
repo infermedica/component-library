@@ -1,8 +1,8 @@
-import { actions } from '@storybook/addon-actions';
 import UiControls from '@/components/organisms/UiControls/UiControls.vue';
-import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
+import UiText from '@/components/atoms/UiText/UiText.vue';
+import { actions } from '@storybook/addon-actions';
 
 const events = actions({
   onHasError: 'has-error',
@@ -56,70 +56,6 @@ export default {
         type: { summary: 'object' },
       },
       control: 'object',
-    },
-  },
-  parameters: {
-    cssprops: {
-      'controls-container-padding': {
-        value: 'var(--space-32) var(--space-20)',
-        control: 'text',
-        description: '',
-      },
-      'controls-container-tablet-padding': {
-        value: 'var(--space-48) var(--space-48) var(--space-40)',
-        control: 'text',
-        description: '',
-      },
-      'controls-bottom-border-radius': {
-        value: '0',
-        control: 'text',
-        description: '',
-      },
-      'controls-bottom': {
-        value: '5rem',
-        control: 'text',
-        description: '',
-      },
-      'controls-bottom-align-items': {
-        value: 'center',
-        control: 'text',
-        description: '',
-      },
-      'controls-bottom-justify-content': {
-        value: 'space-between',
-        control: 'text',
-        description: '',
-      },
-      'controls-bottom-padding': {
-        value: 'var(--space-12) var(--space-20)',
-        control: 'text',
-        description: '',
-      },
-      'controls-bottom-border': {
-        value: 'var(--controls-bottom-border-style, solid) var(--controls-bottom-border-color, var(--color-border-divider))',
-        control: 'text',
-        description: '',
-      },
-      'controls-bottom-border-width': {
-        value: '1px 0 0 0',
-        control: 'text',
-        description: '',
-      },
-      'controls-tablet-bottom-padding': {
-        value: 'var(--space-16) var(--space-32)',
-        control: 'text',
-        description: '',
-      },
-      'controls-next-margin': {
-        value: '0 auto 0 0',
-        control: 'text',
-        description: '',
-      },
-      'controls-back-margin': {
-        value: '0 0 0 auto',
-        control: 'text',
-        description: '',
-      },
     },
   },
 };
@@ -203,7 +139,7 @@ export const WithBottomSlot = (args) => ({
         <UiButton
           v-if="toBack"
           v-bind="backButtonAttrs"
-          class="ui-controls__back ui-button--text ui-button--has-icon"
+          class="ui-button--text ui-controls__back"
         >
           <UiIcon
             icon="chevron-left"
@@ -268,7 +204,7 @@ export const WithBackSlot = (args) => ({
       <UiButton
         v-if="toBack"
         v-bind="attrs"
-        class="ui-controls__back ui-button--text ui-button--has-icon"
+        class="ui-button--text ui-controls__back"
       >
         <UiIcon
           icon="chevron-left"

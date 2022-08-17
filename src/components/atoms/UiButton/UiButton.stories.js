@@ -1,351 +1,337 @@
-import { content, modifiers, disabled } from '@sb/helpers/argTypes';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
+import UiText from '@/components/atoms/UiText/UiText.vue';
+import icons from '@/components/atoms/UiIcon/icons.ts';
+import { content, modifiers } from '@sb/helpers/argTypes';
 
 export default {
   title: 'Atoms/Button',
   component: UiButton,
   args: {
     content: 'Next',
+    icon: 'plus-circled-filled',
     modifiers: [],
-    disabled: false,
   },
   argTypes: {
     content,
+    icon: {
+      description: 'Use this control to set the icon.',
+      table: {
+        category: 'stories controls',
+      },
+      control: 'select',
+      options: icons,
+    },
     modifiers: modifiers({
       options: [
         'ui-button--small',
-        'ui-button--is-disabled',
-        'ui-button--has-icon',
         'ui-button--outlined',
-        'ui-button--circled',
         'ui-button--text',
-        'ui-button--secondary',
+        'ui-button--circled',
+        'ui-button--icon',
+        'ui-button--is-disabled',
+        'ui-button--theme-secondary',
+        'ui-button--theme-brand',
       ],
     }),
-    disabled,
   },
-  parameters: {
-    cssprops: {
-      'button-border-radius': {
-        value: 'var(--border-radius-button)',
-        control: 'text',
-        description: '',
-      },
-      'button-font': {
-        value: 'var(--font-button-1)',
-        control: 'text',
-        description: '',
-      },
-      'button-letter-spacing': {
-        value: 'var(--letter-spacing-button-1)',
-        control: 'text',
-        description: '',
-      },
-      'button-display': {
-        value: 'inline-flex',
-        control: 'text',
-        description: '',
-      },
-      'button-width': {
-        value: undefined,
-        control: 'text',
-        description: '',
-      },
-      'button-height': {
-        value: undefined,
-        control: 'text',
-        description: '',
-      },
-      'button-align-items': {
-        value: 'center',
-        control: 'text',
-        description: '',
-      },
-      'button-justify-content': {
-        value: 'center',
-        control: 'text',
-        description: '',
-      },
-      'button-padding': {
-        value: 'var(--space-12) var(--space-32)',
-        control: 'text',
-        description: '',
-      },
-      'button-background': {
-        value: 'var(--color-background-action)',
-        control: 'text',
-        description: '',
-      },
-      'button-color': {
-        value: 'var(--color-text-on-action)',
-        control: 'text',
-        description: '',
-      },
-      'button-cursor': {
-        value: 'pointer',
-        control: 'text',
-        description: '',
-      },
-      'button-text-align': {
-        value: 'center',
-        control: 'text',
-        description: '',
-      },
-      'button-text-decoration': {
-        value: 'none',
-        control: 'text',
-        description: '',
-      },
-      'button-text-transform': {
-        value: undefined,
-        control: 'text',
-        description: '',
-      },
-      'button-vertical-align': {
-        value: 'top',
-        control: 'text',
-        description: '',
-      },
-      'button-white-space': {
-        value: 'normal',
-        control: 'text',
-        description: '',
-      },
-      'button-word-break': {
-        value: 'break-all',
-        control: 'text',
-        description: '',
-      },
-      'button-border': {
-        value: 'var(--button-border-style, solid) var(--button-border-color, transpatent)',
-        control: 'text',
-        description: '',
-      },
-      'button-border-width': {
-        value: '0',
-        control: 'text',
-        description: '',
-      },
-      'button-overflow-wrap': {
-        value: 'anywhere',
-        control: 'text',
-        description: '',
-      },
-      'button-hover-background': {
-        value: 'var(--color-background-action-hover)',
-        control: 'text',
-        description: '',
-      },
-      'button-hover-color': {
-        value: 'var(--color-text-on-action)',
-        control: 'text',
-        description: '',
-      },
-      'button-hover-border': {
-        value: 'var(--button-hover-border-style, solid) var(--button-hover-border-color, transparent)',
-        control: 'text',
-        description: '',
-      },
-      'button-icon-color-hover': {
-        value: 'var(--color-icon-primary-hover)',
-        control: 'text',
-        description: '',
-      },
-      'button-active-background': {
-        value: 'var(--color-background-action-active)',
-        control: 'text',
-        description: '',
-      },
-      'button-active-color': {
-        value: 'var(--color-text-on-action)',
-        control: 'text',
-        description: '',
-      },
-      'button-active-border': {
-        value: 'var(--button-active-border-style, solid) var(--button-active-border-color, transparent)',
-        control: 'text',
-        description: '',
-      },
-      'button-icon-color-active': {
-        value: 'var(--color-icon-primary-active)',
-        control: 'text',
-        description: '',
-      },
-      'button-focus-z-index': {
-        value: '1',
-        control: 'text',
-        description: '',
-      },
-      'button-icon-size': {
-        value: '1.5rem',
-        control: 'text',
-        description: '',
-      },
-      'button-icon-margin': {
-        value: '0 calc(var(--space-8) * -1) 0 var(--space-4)',
-        control: 'text',
-        description: '',
-      },
-      'button-icon-color': {
-        value: 'var(--color-icon-primary)',
-        control: 'text',
-        description: '',
-      },
-    },
-  },
+  decorators: [() => ({ template: '<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 2.5rem"><story /></div>' })],
 };
 
+export const Common = (args) => ({
+  components: { UiButton, UiIcon, UiText },
+  setup() {
+    return { ...args };
+  },
+  template: `<UiButton :class="modifiers">
+    {{content}}
+  </UiButton>`,
+});
+
 const Template = (args) => ({
-  components: { UiButton },
+  components: { UiButton, UiIcon, UiText },
+  setup() {
+    return { ...args };
+  },
+  template: `<UiText tag="span">Large:</UiText>
+    <UiButton :class="modifiers">
+      {{content}}
+    </UiButton>
+    <UiButton :class="modifiers">
+      <UiIcon 
+        :icon="icon" 
+        class="ui-button__icon"
+      />{{content}}
+    </UiButton>
+    <UiButton :class="modifiers">
+      {{content}}<UiIcon
+        :icon="icon"
+        class="ui-button__icon ui-button__icon--right"
+      />
+    </UiButton>
+    <UiText tag="span">Small:</UiText>
+    <UiButton
+      :class="modifiers"
+      class="ui-button--small"
+    >
+      {{content}}
+    </UiButton>
+    <UiButton 
+      class="ui-button--small"
+      :class="modifiers"
+    >
+      <UiIcon 
+        :icon="icon" 
+        class="ui-button__icon"
+      />{{content}}
+    </UiButton>
+    <UiButton
+      :class="modifiers"
+      class="ui-button--small"
+    >
+      {{content}}<UiIcon
+        :icon="icon"
+        class="ui-button__icon ui-button__icon--right"
+      />
+    </UiButton>
+    <UiText tag="span">Disable:</UiText>
+    <UiButton
+      :class="modifiers"
+      class="ui-button--is-disabled"
+    >
+      {{content}}
+    </UiButton>
+    <UiButton
+      :class="modifiers"
+      class="ui-button--is-disabled"
+    >
+      <UiIcon 
+        :icon="icon" 
+        class="ui-button__icon"
+      />{{content}}
+    </UiButton>
+    <UiButton
+      :class="modifiers"
+      class="ui-button--is-disabled"
+    >
+      {{content}}<UiIcon
+        :icon="icon"
+        class="ui-button__icon ui-button__icon--right"
+      />
+    </UiButton>`,
+});
+
+export const Contained = Template.bind({});
+
+export const Outlined = (args) => ({
+  components: { UiButton, UiIcon, UiText },
+  setup() {
+    return { ...args };
+  },
+  template: `<UiText tag="span">Large:</UiText>
+    <UiButton
+      :class="modifiers"
+    >
+      {{content}}
+    </UiButton>
+    <UiButton :class="modifiers">
+      <UiIcon 
+        :icon="icon" 
+        class="ui-button__icon"
+      />{{content}}
+    </UiButton>
+    <UiButton :class="modifiers">
+      {{content}}<UiIcon
+        :icon="icon"
+        class="ui-button__icon ui-button__icon--right"
+      />
+    </UiButton>
+    <UiText tag="span">Small:</UiText>
+    <UiButton
+      :class="modifiers"
+      class="ui-button--small"
+    >
+      {{content}}
+    </UiButton>
+    <UiButton 
+      class="ui-button--small"
+      :class="modifiers"
+    >
+      <UiIcon 
+        :icon="icon" 
+        class="ui-button__icon"
+      />{{content}}
+    </UiButton>
+    <UiButton
+      :class="modifiers"
+      class="ui-button--small"
+    >
+      {{content}}<UiIcon
+        :icon="icon"
+        class="ui-button__icon ui-button__icon--right"
+      />
+    </UiButton>
+    <UiText tag="span">Selected:</UiText>
+    <UiButton
+      :class="modifiers"
+      class="ui-button--is-selected"
+    >
+    {{content}}
+    </UiButton>
+    <UiButton
+      :class="modifiers"
+      class="ui-button--is-selected"
+    >
+    <UiIcon
+        :icon="icon"
+        class="ui-button__icon"
+    />{{content}}
+    </UiButton>
+    <UiButton
+      :class="modifiers"
+      class="ui-button--is-selected"
+    >
+    {{content}}<UiIcon
+      :icon="icon"
+      class="ui-button__icon ui-button__icon--right"
+    />
+    </UiButton>
+    <UiText tag="span">Disable:</UiText>
+    <UiButton
+      :class="modifiers"
+      class="ui-button--is-disabled"
+    >
+      {{content}}
+    </UiButton>
+    <UiButton
+      :class="modifiers"
+      class="ui-button--is-disabled"
+    >
+      <UiIcon 
+        :icon="icon" 
+        class="ui-button__icon"
+      />{{content}}
+    </UiButton>
+    <UiButton
+      :class="modifiers"
+      class="ui-button--is-disabled"
+    >
+      {{content}}<UiIcon
+        :icon="icon"
+        class="ui-button__icon ui-button__icon--right"
+      />
+    </UiButton>`,
+});
+Outlined.args = {
+  modifiers: ['ui-button--outlined'],
+};
+
+export const Text = Template.bind({});
+Text.args = {
+  modifiers: ['ui-button--text'],
+};
+
+export const Circled = (args) => ({
+  components: { UiButton, UiIcon, UiText },
+  setup() {
+    return { ...args };
+  },
+  template: `<UiText tag="span">Icon: </UiText>
+  <UiButton :class="modifiers">
+    <UiIcon
+        :icon="icon"
+        class="ui-button__icon"
+    />
+  </UiButton>
+  <UiText tag="span">Text: </UiText>
+  <UiButton :class="modifiers">
+    <UiText tag="span">1</UiText>
+  </UiButton>
+  <UiText tag="span">Selected: </UiText>
+  <UiButton 
+    :class="modifiers"
+    class="ui-button--is-selected"
+  >
+  <UiIcon
+      :icon="icon"
+      class="ui-button__icon"
+  />
+  </UiButton>
+  <UiButton 
+    :class="modifiers"
+    class="ui-button--is-selected"
+  >
+    <UiText tag="span">1</UiText>
+  </UiButton>
+  `,
+});
+Circled.args = {
+  modifiers: ['ui-button--outlined', 'ui-button--circled'],
+};
+
+export const Icon = (args) => ({
+  components: { UiButton, UiIcon, UiText },
+  setup() {
+    return { ...args };
+  },
+  template: `<UiButton class="ui-button--icon">
+    <UiIcon
+      :icon="icon"
+      class="ui-button__icon"
+    />
+  </UiButton>`,
+});
+
+export const TextSecondary = Template.bind({});
+TextSecondary.args = {
+  modifiers: ['ui-button--text', 'ui-button--theme-secondary'],
+};
+
+export const IconSecondary = (args) => ({
+  components: { UiButton, UiIcon, UiText },
   setup() {
     return { ...args };
   },
   template: `<UiButton
     :class="modifiers"
-    :disabled="disabled"
+    class="ui-button--icon"
   >
-    {{content}}  
-  </UiButton>`,
-});
-
-export const ContainedLarge = Template.bind({});
-
-export const ContainedSmall = Template.bind({});
-ContainedSmall.args = {
-  modifiers: ['ui-button--small'],
-};
-
-export const OutlinedLarge = Template.bind({});
-OutlinedLarge.args = {
-  modifiers: ['ui-button--outlined'],
-};
-
-export const OutlinedLargeWithIcon = (args) => ({
-  components: { UiButton, UiIcon },
-  setup() { return { ...args }; },
-  template: `<UiButton 
-    :class="modifiers"
-    :disabled="disabled"
-  >
-    <UiIcon 
-      icon="plus-circled-filled" 
+    <UiIcon
+      :icon="icon"
       class="ui-button__icon"
-    />{{ content }}
-  </UiButton>`,
-});
-OutlinedLargeWithIcon.args = {
-  modifiers: ['ui-button--outlined', 'ui-button--has-icon'],
-};
-
-export const OutlinedSmall = Template.bind({});
-OutlinedSmall.args = {
-  modifiers: ['ui-button--outlined', 'ui-button--small'],
-};
-
-export const Circled = (args) => ({
-  components: { UiButton, UiIcon },
-  setup() { return { ...args }; },
-  template: `<UiButton 
-    :class="modifiers"
-    :disabled="disabled"
-  >
-    <UiIcon icon="plus"/>
-  </UiButton>`,
-});
-Circled.args = {
-  modifiers: ['ui-button--circled', 'ui-button--outlined', 'ui-button--has-icon'],
-};
-
-export const TextLarge = Template.bind({});
-TextLarge.args = {
-  modifiers: ['ui-button--text'],
-};
-
-export const TextLargeWithIcon = OutlinedLargeWithIcon.bind({});
-TextLargeWithIcon.args = {
-  modifiers: ['ui-button--text', 'ui-button--has-icon'],
-};
-
-export const OutlinedLargeWithIconOnRight = (args) => ({
-  components: { UiButton, UiIcon },
-  setup() { return { ...args }; },
-  template: `<UiButton 
-    :class="modifiers"
-    :disabled="disabled"
-  >
-    {{ content }}<UiIcon
-      icon="plus-circled-filled"
-      class="ui-button__icon ui-button__icon--right"
     />
   </UiButton>`,
 });
-OutlinedLargeWithIconOnRight.args = {
-  modifiers: ['ui-button--outlined', 'ui-button--has-icon'],
+IconSecondary.args = {
+  modifiers: ['ui-button--theme-secondary'],
 };
 
-export const TextLargeSecondary = Template.bind({});
-TextLargeSecondary.args = {
-  modifiers: ['ui-button--text', 'ui-button--secondary'],
+export const TextOnBrand = Template.bind({});
+TextOnBrand.args = {
+  modifiers: ['ui-button--text', 'ui-button--theme-brand'],
+};
+TextOnBrand.parameters = {
+  backgrounds: { default: 'brand' },
 };
 
-export const TextLargeSecondaryWithIcon = OutlinedLargeWithIcon.bind({});
-TextLargeSecondaryWithIcon.args = {
-  modifiers: ['ui-button--text', 'ui-button--has-icon', 'ui-button--secondary'],
-};
-
-export const TextSmall = Template.bind({});
-TextSmall.args = {
-  modifiers: ['ui-button--text', 'ui-button--small'],
-};
-
-export const TextSmallWithIcon = OutlinedLargeWithIcon.bind({});
-TextSmallWithIcon.args = {
-  modifiers: ['ui-button--text', 'ui-button--has-icon', 'ui-button--small'],
-};
-
-export const TextSmallSecondary = Template.bind({});
-TextSmallSecondary.args = {
-  modifiers: ['ui-button--text', 'ui-button--secondary', 'ui-button--small'],
-};
-
-export const TextSmallSecondaryWithIcon = OutlinedLargeWithIcon.bind({});
-TextSmallSecondaryWithIcon.args = {
-  modifiers: ['ui-button--text', 'ui-button--has-icon', 'ui-button--small', 'ui-button--secondary'],
-};
-
-export const ContainedLargeAsRouterLink = (args) => ({
-  components: { UiButton },
-  setup() { return { ...args }; },
-  template: `<UiButton 
+export const IconOnBrand = (args) => ({
+  components: { UiButton, UiIcon, UiText },
+  setup() {
+    return { ...args };
+  },
+  template: `<UiButton
     :class="modifiers"
-    :disabled="disabled"
-    :to="to"
+    class="ui-button--icon"
   >
-    {{content}}  
+    <UiIcon
+      :icon="icon"
+      class="ui-button__icon"
+    />
   </UiButton>`,
 });
-ContainedLargeAsRouterLink.args = {
-  to: '/privacy-policy',
+IconOnBrand.args = {
+  modifiers: ['ui-button--text', 'ui-button--theme-brand'],
 };
-ContainedLargeAsRouterLink.argTypes = {
-  to: { control: 'text' },
-};
-
-export const ContainedLargeAsLink = (args) => ({
-  components: { UiButton },
-  setup() { return { ...args }; },
-  template: `<UiButton 
-    :class="modifiers"
-    :disabled="disabled"
-    :href="href"
-  >
-    {{content}}  
-  </UiButton>`,
-});
-ContainedLargeAsLink.args = {
-  href: 'https://infermedica.com/',
-};
-ContainedLargeAsRouterLink.argTypes = {
-  href: { control: 'text' },
+IconOnBrand.parameters = {
+  backgrounds: { default: 'brand' },
 };

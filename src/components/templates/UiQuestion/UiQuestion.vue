@@ -203,81 +203,68 @@ defineProps({
 
 <style lang="scss">
 @import "../../../styles/mixins/mixins";
+@import "../../../styles/functions/functions";
 
 .ui-question {
-  padding: var(--question-padding, 0 var(--space-20));
-
-  @include from-tablet {
-    padding: var(--question-tablet-padding, var(--space-16) var(--space-48));
-  }
-
-  &__title {
-    background: inherit;
-  }
+  $this: &;
+  $element: question;
 
   &__actions-top {
-    display: flex;
-    margin: var(--question-actions-top-margin, var(--space-12) 0 0 0);
+    margin: css-var($element + "-actions-top", margin, var(--space-12) 0 0 0);
+  }
+
+  &__content {
+    margin: css-var($element + "-content", margin, var(--space-32) 0 0 0);
+
+    @include from-tablet {
+      margin: css-var($element + "-tablet-content", margin, var(--space-48) 0 0 0);
+    }
   }
 
   &__actions-bottom {
     display: flex;
     flex-direction: column;
-    margin: var(--question-actions-bottom-margin, var(--space-32) 0 0 0);
+    align-items: flex-start;
+    margin: css-var($element + "-actions-bottom", margin, var(--space-32) 0 0 0);
 
     @include from-tablet {
       flex-direction: row;
-      align-items: center;
-      margin: var(--question-tablet-actions-bottom-margin, var(--space-32) 0 0 0);
-    }
-  }
-
-  &__content {
-    margin: var(--question-content-margin, var(--space-32) 0 0 0);
-
-    @include from-tablet {
-      margin: var(--question-tablet-content-margin, var(--space-32) 0 0 0);
+      align-items: flex-start;
+      margin: css-var($element + "-tablet-actions-bottom", margin, var(--space-48) 0 0 0);
     }
   }
 
   &__action {
     display: flex;
     align-items: center;
-    margin: var(--question-action-margin, var(--space-20) 0 0 0);
+    justify-content: flex-start;
+    margin: css-var($element + "-action", margin, var(--space-20) 0 0 0);
 
     @include from-tablet {
-      margin: var(--question-tablet-action-margin, 0);
-    }
+      margin: css-var($element + "-tablet-action", margin, 0);
 
-    &::before {
-      @include from-tablet {
-        width: 1px;
-        flex: none;
+      &::before {
+        width: css-var($element + "-action-indicator", width, 1px);
         align-self: stretch;
-        margin: var(--question-action-before-margin, 0 var(--space-12));
-        background: var(--question-action-before-background, var(--color-border-divider));
+        margin: css-var($element + "-action-indicator", margin, 0 var(--space-16));
+        background: css-var($element + "-action-indicator", background, var(--color-border-divider));
         content: "";
       }
     }
 
-    &:first-child {
+    &:first-of-type {
       margin: 0;
 
-      &::before {
-        content: none;
+      @include from-tablet {
+        &::before {
+          content: unset;
+        }
       }
     }
   }
 
   &__feedback {
-    --alert-icon-margin: 0 var(--space-12) 0 0;
-
-    align-items: flex-start;
-    margin: var(--space-24) 0 0 0;
-
-    [dir="rtl"] & {
-      --alert-icon-margin: 0 0 0 var(--space-12);
-    }
+    margin: css-var($element + "-acitons-top", margin, var(--space-24) 0 0 0);
   }
 }
 </style>

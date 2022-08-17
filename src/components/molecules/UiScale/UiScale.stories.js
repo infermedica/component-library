@@ -2,8 +2,8 @@ import { ref } from 'vue';
 import UiScale from '@/components/molecules/UiScale/UiScale.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
-import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiRadio from '@/components/atoms/UiRadio/UiRadio.vue';
+import UiText from '@/components/atoms/UiText/UiText.vue';
 
 export default {
   title: 'Molecules/Scale',
@@ -32,35 +32,6 @@ export default {
     },
     modelValue: {
       control: false,
-    },
-  },
-  parameters: {
-    cssprops: {
-      'scale-option-active-transform': {
-        value: 'scale(0.96)',
-        control: 'text',
-        description: '',
-      },
-      'scale-square-base-background': {
-        value: 'var(--color-dataviz-diverging-track)',
-        control: 'text',
-        description: '',
-      },
-      'scale-square-overlay-background': {
-        value: 'var(--color-dataviz-diverging-strongly-negative)',
-        control: 'text',
-        description: '',
-      },
-      'scale-square-overlay-opacity': {
-        value: '0',
-        control: 'text',
-        description: '',
-      },
-      'scale-label-background': {
-        value: 'var(--color-background-selection)',
-        control: 'text',
-        description: '',
-      },
     },
   },
 };
@@ -97,13 +68,16 @@ export const WithDecrementSlot = (args) => ({
     :button-decrement-attrs="buttonDecrementAttrs"
     :button-increment-attrs="buttonIncrementAttrs"
   >
-    <template #decrement="{attrs, decrement}">
+    <template #decrement="{decrement, hasControls, isMin, attrs}">
       <UiButton
-        class="ui-scale__decrement ui-button--outlined ui-button--circled ui-button--has-icon"
+        v-if="hasControls"
         v-bind="attrs"
+        class="ui-button--outlined ui-button--circled ui-number-stepper__decrement"
+        :class="{'ui-button--is-disabled': isMin}"
         @click="decrement"
       >
         <UiIcon
+          class="ui-button__icon"
           icon="minus"
         />
       </UiButton>
@@ -125,13 +99,16 @@ export const WithIncrementSlot = (args) => ({
     :button-decrement-attrs="buttonDecrementAttrs"
     :button-increment-attrs="buttonIncrementAttrs"
   >
-    <template #increment="{attrs, increment}">
+    <template #increment="{increment, hasControls, isMax, attrs}">
       <UiButton
-        class="ui-scale__increment ui-button--outlined ui-button--circled ui-button--has-icon"
+        v-if="hasControls"
         v-bind="attrs"
+        class="ui-button--outlined ui-button--circled ui-number-stepper__increment"
+        :class="{'ui-button--is-disabled': isMax}"
         @click="increment"
       >
         <UiIcon
+          class="ui-button__icon"
           icon="plus"
         />
       </UiButton>

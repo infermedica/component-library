@@ -1,0 +1,6 @@
+@function css-var($element, $property, $default: undefined ) {
+  @if($default != undefined) {
+    @return var(--#{$element}-#{$property}, #{$default});
+  }
+  @return var(--#{$element}-#{$property});
+}

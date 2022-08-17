@@ -1,13 +1,12 @@
-import { actions } from '@storybook/addon-actions';
-import { ref } from 'vue';
 import UiModal from '@/components/organisms/UiModal/UiModal.vue';
 import UiBackdrop from '@/components/atoms/UiBackdrop/UiBackdrop.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
+import { ref } from 'vue';
+import { actions } from '@storybook/addon-actions';
 import { bodyScrollLock, focusTrap } from '@/utilities/directives/index';
-import './UiModal.stories.scss';
 
 const events = actions({
   onConfirm: 'confirm',
@@ -98,78 +97,6 @@ export default {
         component: 'Modal use `v-body-scroll-lock`. Only works on Canvas mode.',
       },
     },
-    cssprops: {
-      'modal-position': {
-        value: 'fixed',
-        control: 'text',
-        description: '',
-      },
-      'modal-z-index': {
-        value: '1000',
-        control: 'text',
-        description: '',
-      },
-      'modal-max-width': {
-        value: '480px',
-        control: 'text',
-        description: '',
-      },
-      'modal-padding': {
-        value: 'var(--space-24)',
-        control: 'text',
-        description: '',
-      },
-      'modal-border': {
-        value: 'none',
-        control: 'text',
-        description: '',
-      },
-      'modal-background': {
-        value: 'var(--color-background-white)',
-        control: 'text',
-        description: '',
-      },
-      'modal-border-radius': {
-        value: 'var(--border-radius-container)',
-        control: 'text',
-        description: '',
-      },
-      'modal-box-shadow': {
-        value: 'var(--box-shadow-high)',
-        control: 'text',
-        description: '',
-      },
-      'modal-title-margin': {
-        value: '0 0 var(--space-12) 0',
-        control: 'text',
-        description: '',
-      },
-      'modal-close-icon-size': {
-        value: '14px',
-        control: 'text',
-        description: '',
-      },
-      'modal-close-margin': {
-        value: '5px 17px 5px 5px',
-        control: 'text',
-        description: '',
-      },
-      'modal-action-margin': {
-        value: 'var(--space-32) 0 0',
-        control: 'text',
-        description: '',
-      },
-      'modal-confirm-margin': {
-        value: '0 0 var(--space-12)',
-        control: 'text',
-        description: '',
-      },
-      'modal-confirm-tablet-margin': {
-        value: '0 var(--space-12) 0 0',
-        control: 'text',
-        description: '',
-      },
-    },
   },
 };
 
@@ -188,7 +115,7 @@ const Template = (args) => ({
     };
   },
   template: `<UiButton 
-    class="ui-button--secondary ui-button--text"
+    class="ui-button--theme-secondary ui-button--text"
     @click='toggleModal'
   >
     Show modal
@@ -242,7 +169,7 @@ export const WithBackdropSlot = (args) => ({
     };
   },
   template: `<UiButton
-    class="ui-button--secondary ui-button--text"
+    class="ui-button--theme-secondary ui-button--text"
     @click="toggleModal"
   >
     Show modal
@@ -293,7 +220,7 @@ export const WithContainerSlot = (args) => ({
     };
   },
   template: `<UiButton
-    class="ui-button--secondary ui-button--text"
+    class="ui-button--theme-secondary ui-button--text"
     @click="toggleModal"
   >
     Show modal
@@ -332,11 +259,14 @@ export const WithContainerSlot = (args) => ({
               {{ title }}
             </UiHeading>
             <UiButton
-              class="ui-button--has-icon ui-button--secondary ui-button--text ui-modal__close"
+              class="ui-button--icon ui-button--theme-secondary ui-modal__close"
               v-bind="{ buttonCloseAttrs }"
               @click="closeHandler()"
             >
-              <UiIcon icon="close" />
+              <UiIcon 
+                icon="close"
+                class="ui-button__icon"
+              />
             </UiButton>
           </div>
           <UiText
@@ -411,7 +341,7 @@ export const WithHeaderSlot = (args) => ({
     };
   },
   template: `<UiButton
-    class="ui-button--secondary ui-button--text"
+    class="ui-button--theme-secondary ui-button--text"
     @click="toggleModal"
   >
     Show modal
@@ -444,11 +374,14 @@ export const WithHeaderSlot = (args) => ({
         </UiHeading>
         <UiButton
           v-if="isClosable"
-          class="ui-button--has-icon ui-button--secondary ui-button--text ui-modal__close"
+          class="ui-button--icon ui-button--theme-secondary ui-modal__close"
           v-bind="buttonCloseAttrs"
           @click="closeHandler()"
         >
-          <UiIcon icon="close" />
+          <UiIcon 
+            icon="close"
+            class="ui-button__icon"
+          />
         </UiButton>
       </div>
 
@@ -483,7 +416,7 @@ export const WithTitleSlot = (args) => ({
     };
   },
   template: `<UiButton
-    class="ui-button--secondary ui-button--text"
+    class="ui-button--theme-secondary ui-button--text"
     @click="toggleModal"
   >
     Show modal
@@ -533,7 +466,7 @@ export const WithCloseSlot = (args) => ({
     };
   },
   template: `<UiButton
-    class="ui-button--secondary ui-button--text"
+    class="ui-button--theme-secondary ui-button--text"
     @click="toggleModal"
   >
     Show modal
@@ -555,11 +488,14 @@ export const WithCloseSlot = (args) => ({
     <template #close="{ closeHandler, isClosable}">
       <UiButton
         v-if="isClosable"
-        class="ui-button--has-icon ui-button--secondary ui-button--text ui-modal__close"
+        class="ui-button--icon ui-button--theme-secondary ui-modal__close"
         v-bind="buttonCloseAttrs"
         @click="closeHandler()"
       >
-        <UiIcon icon="close" />
+        <UiIcon 
+          icon="close"
+          class="ui-button__icon"
+        />
       </UiButton>
     </template>
   </UiModal>`,
@@ -586,7 +522,7 @@ export const WithDescriptionSlot = (args) => ({
     };
   },
   template: `<UiButton
-    class="ui-button--secondary ui-button--text"
+    class="ui-button--theme-secondary ui-button--text"
     @click="toggleModal"
   >
     Show modal
@@ -653,7 +589,7 @@ export const WithActionsSlot = (args) => ({
     };
   },
   template: `<UiButton
-    class="ui-button--secondary ui-button--text"
+    class="ui-button--theme-secondary ui-button--text"
     @click="toggleModal"
   >
     Show modal
@@ -739,7 +675,7 @@ export const WithConfirmSlot = (args) => ({
     };
   },
   template: `<UiButton
-    class="ui-button--secondary ui-button--text"
+    class="ui-button--theme-secondary ui-button--text"
     @click="toggleModal"
   >
     Show modal
@@ -792,7 +728,7 @@ export const WithCancelSlot = (args) => ({
     };
   },
   template: `<UiButton
-    class="ui-button--secondary ui-button--text"
+    class="ui-button--theme-secondary ui-button--text"
     @click="toggleModal"
   >
     Show modal

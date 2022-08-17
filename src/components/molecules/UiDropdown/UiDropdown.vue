@@ -37,7 +37,10 @@
           name="content"
           v-bind="{closeHandler, isOpen}"
         >
-          <div role="radiogroup">
+          <div
+            role="radiogroup"
+            class="ui-dropdown__items"
+          >
             <!-- @slot Use this slot to place dropdown content inside dropdown. -->
             <slot v-bind="{closeHandler, isOpen}">
               <template
@@ -68,13 +71,13 @@ import {
   ref, computed, provide, nextTick,
 } from 'vue';
 import type { PropType, VNode } from 'vue';
-import useDropdownItems from './useDropdownItems.js';
+import useDropdownItems from './useDropdownItems';
 import { clickOutside as vClickOutside } from '../../../utilities/directives';
-import { focusElement } from '../../../utilities/helpers';
+import { focusElement } from '../../../utilities/helpers/index.ts';
 import UiDropdownItem from './_internal/UiDropdownItem.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiPopover from '../UiPopover/UiPopover.vue';
-import type { PropsAttrs } from '../../../types/attrs.js';
+import type { PropsAttrs } from '../../../types/attrs';
 
 export type DropdownValue = string | Record<string, unknown>
 export interface DropdownItemAsObj {
@@ -176,9 +179,15 @@ const {
   prevDropdownItem,
   selectedDropdownItem,
 } = useDropdownItems(dropdown);
+function disableArrows(event) {
+  if (['ArrowUp', 'ArrowDown'].indexOf(event.code) > -1) {
+    event.preventDefault();
+  }
+}
 async function openHandler({ focus = false }: openOptions = {}): Promise<void> {
   isOpen.value = true;
   emit('open');
+  window.addEventListener('keydown', disableArrows, false);
 
   await nextTick();
 
@@ -194,6 +203,7 @@ function closeHandler({ focusToggle }: closeOptions = { focusToggle: true }): vo
   }
   isOpen.value = false;
   emit('close');
+  window.removeEventListener('keydown', disableArrows, false);
 }
 
 async function toggleHandler(): Promise<void> {
@@ -244,6 +254,7 @@ async function dropdownKeydownHandler({ key }: {key: string}): Promise<void> {
     default: break;
   }
 }
+// todo: why this component handle searchQuery and searchDebounce?
 const searchQuery = ref('');
 const searchDebounce = ref<ReturnType<typeof setTimeout> | null>(null);
 function handleInputQuery({ key }: {key: string}): void {
@@ -275,34 +286,42 @@ const itemsToRender = computed<DropdownItemAsObj[]>(() => (props.items.map((item
     };
   }
   return {
-    ...item,
     name: item.name || `dropdown-item-${key}`,
+    ...item,
     value: item.value,
   };
 })));
 </script>
 
 <style lang="scss">
-.ui-dropdown {
-  position: relative;
-  display: inline-block;
+@import "../../../styles/mixins/mixins";
+@import "../../../styles/functions/functions";
 
-  &__toggle {
-    width: var(--dropdown-toggle-width, 100%);
-  }
+.ui-dropdown {
+  $element: dropdown;
+
+  position: relative;
+  display: inline-flex;
 
   &__popover {
+    --popover-content-padding: #{css-var($element + "-popover", padding, var(--space-8))};
+
     position: absolute;
-    top: var(--dropdown-popover-top, 100%);
-    left: var(--dropdown-popover-left, unset);
-    width: var(--dropdown-popover-width, 100%);
-    max-width: var(--dropdown-popover-max-width, unset);
-    min-height: var(--dropdown-popover-min-height, 0);
-    transform: var(--dropdown-popover-transform, translateY(var(--space-8)));
+    top: 100%;
+    left: 0;
+    width: css-var($element + "-popover", width, 15rem);
+    min-height: css-var($element + "-popover", min-height, 0);
+    margin: css-var($element + "-popover", margin, var(--space-8) 0 0 0);
+  }
+
+  &__items {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
   }
 
   &--compact {
-    --dropdown-item-button-padding: var(--space-4) var(--space-8);
+    --dropdown-item-padding: var(--space-4) var(--space-8);
   }
 }
 </style>

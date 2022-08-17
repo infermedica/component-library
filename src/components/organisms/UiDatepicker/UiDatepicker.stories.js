@@ -1,6 +1,6 @@
+import UiDatepicker from '@/components/organisms/UiDatepicker/UiDatepicker.vue';
 import { ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
-import UiDatepicker from '@/components/organisms/UiDatepicker/UiDatepicker.vue';
 
 const events = actions({
   onFieldFocus: 'field-focus',
@@ -118,50 +118,6 @@ export default {
     },
   },
   decorators: [() => ({ template: '<div style="min-height: 430px" class="max-w-80"><story /></div>' })],
-  parameters: {
-    cssprops: {
-      'datepicker-dropdown-popover-width': {
-        value: '20rem',
-        control: 'text',
-        description: '',
-      },
-      'datepicker-dropdown-margin': {
-        value: '0 var(--space-24) 0 0',
-        control: 'text',
-        description: '',
-      },
-      'datepicker-group-field-margin': {
-        value: '0 0 0 var(--space-8)',
-        control: 'text',
-        description: '',
-      },
-      'datepicker-group-field-last-margin': {
-        value: '0',
-        control: 'text',
-        description: '',
-      },
-      'datepicker-field-label-font': {
-        value: 'var(--font-body-2-comfortable)',
-        control: 'text',
-        description: '',
-      },
-      'datepicker-field-label-letter-spacing': {
-        value: 'var(--letter-spacing-body-2-comfortable)',
-        control: 'text',
-        description: '',
-      },
-      'datepicker-field-label-display': {
-        value: 'inline-block',
-        control: 'text',
-        description: '',
-      },
-      'datepicker-field-label-margin': {
-        value: '0 0 var(--space-8) 0',
-        control: 'text',
-        description: '',
-      },
-    },
-  },
 };
 
 export const FullConfiguration = (args) => ({

@@ -12,3 +12,29 @@ html {
 body {
   box-sizing: border-box;
 }
+
+// themes
+.docs-story {
+  &.theme-brand {
+    background: var(--color-background-brand);
+  }
+}
+
+// stories hacks
+.docs-story {
+  .ui-backdrop {
+    position: absolute;
+  }
+
+  .ui-popover--has-mobile {
+    position: absolute;
+  }
+
+  .ui-side-panel__dialog:not(.slide-enter-from) {
+    position: absolute;
+  }
+
+  .ui-modal__dialog {
+    position: absolute;
+  }
+}

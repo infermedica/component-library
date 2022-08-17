@@ -1,8 +1,8 @@
 <template>
   <UiButton
     :id="tileId"
-    class="ui-tile ui-button--outlined"
-    :class="{'ui-tile--selected': isChecked}"
+    class="ui-button--outlined ui-tile"
+    :class="{'ui-tile--is-checked': isChecked}"
     role="radio"
     :aria-checked="`${isChecked}`"
     @click="selectHandler"
@@ -14,7 +14,7 @@
     >
       <UiIcon
         v-bind="iconAttrs"
-        class="ui-tile__icon"
+        class="ui-button__icon ui-tile__icon"
       />
     </slot>
     <!-- @slot Use this slot to replace label template. -->
@@ -90,62 +90,75 @@ function selectHandler(): void {
 
 <style lang="scss">
 @import "../../../styles/mixins/mixins";
+@import "../../../styles/functions/functions";
 
 .ui-tile {
-  --button-padding: var(--tile-padding, var(--space-16));
-  --button-white-space: wrap;
+  $this: &;
+  $element: tile;
+
+  --button-padding: #{css-var($element, padding, var(--space-16))};
 
   align-items: center;
   justify-content: flex-start;
-  transition: transform 200ms ease;
-
-  @include from-tablet {
-    --button-padding: var(--tile-padding, var(--space-24) var(--space-16));
-
-    flex-direction: column;
-    justify-content: center;
-  }
+  transition:
+    (
+      background-color 150ms ease-in-out,
+      border-color 150ms ease-in-out,
+      color 150ms ease-in-out,
+      transform 200ms ease,
+    );
 
   &:active {
-    transform: var(--tile-active-transform, scale(0.96));
+    transform: scale(0.95);
+  }
+
+  @include from-tablet {
+    --button-padding: #{css-var($element + "-tablet", padding, var(--space-24) var(--space-16))};
+
+    flex-direction: column;
   }
 
   &__icon {
-    --icon-size: var(--tile-icon-size, 3rem);
-    --icon-color: var(--tile-icon-color, var(--color-icon-primary));
-
-    flex: none;
+    --icon-size: #{css-var($element + "-icon", size, 3rem)};
+    --button-icon-margin: 0;
+    --button-rtl-icon-margin: 0;
 
     @include from-tablet {
-      --icon-size: var(--tile-icon-size, 4rem);
+      --icon-size: #{css-var($element + "-tablet-icon", size, 4rem)};
     }
   }
 
   &__label {
-    padding: var(--tile-label-padding, 0);
-    margin: var(--tile-label-margin, 0 0 0 var(--space-16));
-    text-align: var(--tile-label-text-align, left);
+    margin: css-var($element + "-label", margin, 0 0 0 var(--space-16));
 
     [dir="rtl"] & {
-      margin: var(--tile-label-margin, 0 var(--space-16) 0 0);
+      margin: css-var($element + "-rtl-label", margin, 0 var(--space-16) 0 0);
     }
 
     @include from-tablet {
-      text-align: var(--tile-label-tablet-text-align, center);
+      margin: css-var($element + "-tablet-label", margin, var(--space-16) 0 0 0);
 
-      [dir] & {
-        margin: var(--tile-label-tablet-margin, var(--space-16) 0 0 0);
+      [dir="rtl"] & {
+        margin: css-var($element + "-rtl-tablet-label", margin, var(--space-16) 0 0 0);
       }
     }
   }
 
-  &--selected {
-    --button-border-width: 2px;
-    --button-border-color: var(--color-border-strong);
+  &--small {
+    #{$this}__icon {
+      --icon-size: #{css-var($element + "-icon", size, 2rem)};
+    }
   }
 
-  &--small {
-    --tile-icon-size: 2rem;
+  &--is-checked {
+    --button-border-width: #{css-var($element + "-checked", width, 2px)};
+    --button-border-color: #{css-var($element + "-checked", color-border, var(--color-border-strong))};
+    --button-hover-border-color: #{css-var($element + "-hover-checked", color-border, var(--color-border-strong))};
+    --button-active-border-color: #{css-var($element + "-active-checked", color-border, var(--color-border-strong))};
+  }
+
+  &--has-error {
+    --button-border-color: var(--color-border-error-strong);
   }
 }
 </style>

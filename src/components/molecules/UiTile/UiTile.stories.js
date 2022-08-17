@@ -1,10 +1,9 @@
-import { content, modifiers } from '@sb/helpers/argTypes';
-import { ref } from 'vue';
-
 import UiTile from '@/components/molecules/UiTile/UiTile.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
-import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
+import UiText from '@/components/atoms/UiText/UiText.vue';
+import { ref } from 'vue';
+import { content, modifiers } from '@sb/helpers/argTypes';
 
 export default {
   title: 'Molecules/Tile',
@@ -96,9 +95,8 @@ const Template = (args) => ({
     :id="id"
     :value="value"
     :icon-attrs="iconAttrs"
-    class="max-w-80 tablet:max-w-68"
     :class="modifiers"
-    style="--button-width: 100%"
+    style="width: 100%; max-width: 320px;"
   >
     {{content}}
   </UiTile>`,
@@ -109,6 +107,11 @@ export const Large = Template.bind({});
 export const Small = Template.bind({});
 Small.args = {
   modifiers: ['ui-tile--small'],
+};
+
+export const HasError = Template.bind({});
+HasError.args = {
+  modifiers: ['ui-tile--has-error'],
 };
 
 export const WithIconSlot = (args) => ({
@@ -122,14 +125,13 @@ export const WithIconSlot = (args) => ({
     :id="id"
     :value="value"
     :icon-attrs="iconAttrs"
-    class="max-w-80 tablet:max-w-68"
     :class="modifiers"
-    style="--button-width: 100%"
+    style="width: 100%; max-width: 320px;"
   >
     <template #icon="{iconAttrs}">
       <UiIcon
         v-bind="iconAttrs"
-        class="ui-tile__icon"
+        class="ui-button__icon ui-tile__icon"
       />
     </template>
     {{content}}
@@ -147,9 +149,8 @@ export const WithLabelSlot = (args) => ({
     :id="id"
     :value="value"
     :icon-attrs="iconAttrs"
-    class="max-w-80 tablet:max-w-68"
     :class="modifiers"
-    style="--button-width: 100%"
+    style="width: 100%; max-width: 320px;"
   >
     <template #label>
       <UiText
@@ -168,14 +169,17 @@ export const AsGroup = (args) => ({
     const modelValue = ref(args.initModelValue);
     return { ...args, modelValue };
   },
-  template: `<div class="flex flex-col tablet:flex-row max-w-147">
+  template: `<div 
+    class="flex flex-col tablet:flex-row"
+    style="width: 100%; max-width: 1008px;"
+  >
     <template v-for="(option, key) in values" :key="key">
       <UiTile
         v-model="modelValue"
         :id="option.id"
         :value="option.value"
         :icon-attrs="option.iconAttrs"
-        style="--button-width: 100%"
+        style="flex: 1;"
         :class="[...option.class || [], ...modifiers || [] ]"
       >
         {{option.label}}

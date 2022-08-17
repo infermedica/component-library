@@ -1,9 +1,10 @@
+import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
+import UiButton from '@/components/atoms/UiButton/UiButton.vue';
+import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
+import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
+import UiText from '@/components/atoms/UiText/UiText.vue';
 import { actions } from '@storybook/addon-actions';
 import { content, modifiers } from '@sb/helpers/argTypes';
-import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
-import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
-import UiButton from '@/components/atoms/UiButton/UiButton.vue';
-import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 
 const events = actions({
   onClose: 'close',
@@ -49,69 +50,10 @@ export default {
       action: 'closed',
     },
   },
-  parameters: {
-    cssprops: {
-      'popover-border-radius': {
-        value: 'var(--border-radius-form)',
-        control: 'text',
-        description: '',
-      },
-      'popover-background': {
-        value: 'var(--color-background-white)',
-        control: 'text',
-        description: '',
-      },
-      'popover-box-shadow': {
-        value: 'var(--box-shadow-high)',
-        control: 'text',
-        description: '',
-      },
-      'popover-transform': {
-        value: undefined,
-        control: 'text',
-        description: '',
-      },
-      'popover-border': {
-        value: 'solid var(--color-border-subtle)',
-        control: 'text',
-        description: '',
-      },
-      'popover-border-width': {
-        value: '1px',
-        control: 'text',
-        description: '',
-      },
-      'popover-header-padding': {
-        value: 'var(--space-12) var(--space-16)',
-        control: 'text',
-        description: '',
-      },
-      'popover-header-background': {
-        value: 'var(--color-background-subtle)',
-        control: 'text',
-        description: '',
-      },
-      'popover-content-padding': {
-        value: 'var(--space-8)',
-        control: 'text',
-        description: '',
-      },
-      'popover-arrow-border-width': {
-        value: '0 0 1px 1px',
-        control: 'text',
-        description: '',
-      },
-      'popover-has-mobile-height': {
-        value: '50%',
-        control: 'text',
-        description: '',
-      },
-    },
-  },
 };
 
 const Template = (args) => ({
-  components: { UiPopover },
+  components: { UiPopover, UiText },
   setup() {
     return {
       ...args,
@@ -125,7 +67,7 @@ const Template = (args) => ({
     :class="modifiers"
     @close="onClose"
   >
-    {{content}}
+    <UiText>{{content}}</UiText>
   </UiPopover>`,
 });
 
@@ -146,8 +88,8 @@ Unrounded.args = {
   modifiers: ['ui-popover--unrounded'],
 };
 
-export const BottomPanel = (args) => ({
-  components: { UiPopover },
+export const AsBottomPanelOnMobile = (args) => ({
+  components: { UiPopover, UiText },
   setup() {
     return {
       ...args,
@@ -161,18 +103,18 @@ export const BottomPanel = (args) => ({
     :class="modifiers"
     @close="onClose"
   >
-    {{content}}
+    <UiText>{{content}}</UiText>
   </UiPopover>`,
 });
-BottomPanel.args = {
-  modifiers: ['ui-popover--has-mobile'],
+AsBottomPanelOnMobile.args = {
+  modifiers: ['ui-popover--has-mobile', 'ui-popover--has-arrow'],
 };
-
-BottomPanel.parameters = {
+AsBottomPanelOnMobile.parameters = {
   viewport: {
     defaultViewport: 'mobile2',
   },
 };
+AsBottomPanelOnMobile.decorators = [() => ({ template: '<div style="min-height: 568px"><story /></div>' })];
 
 export const AsDropdown = Template.bind({});
 AsDropdown.args = {
@@ -180,7 +122,7 @@ AsDropdown.args = {
 };
 
 export const WithTitleSlot = (args) => ({
-  components: { UiPopover, UiHeading },
+  components: { UiPopover, UiHeading, UiText },
   setup() {
     return {
       ...args,
@@ -202,12 +144,14 @@ export const WithTitleSlot = (args) => ({
         {{ title }}
       </UiHeading>
     </template>
-    {{content}}
+    <UiText>{{content}}</UiText>
   </UiPopover>`,
 });
 
 export const WithCloseSlot = (args) => ({
-  components: { UiPopover, UiButton, UiIcon },
+  components: {
+    UiPopover, UiButton, UiIcon, UiText,
+  },
   setup() {
     return {
       ...args,
@@ -224,12 +168,15 @@ export const WithCloseSlot = (args) => ({
     <template #close="{attrs, clickHandler}">
       <UiButton
         v-bind="attrs"
-        class="ui-button--has-icon ui-button--secondary ui-button--text ui-popover__close"
+        class="ui-button--icon ui-button--theme-secondary ui-popover__close"
         @click="clickHandler"
       >
-        <UiIcon icon="clear" />
+        <UiIcon 
+          class="ui-button__icon" 
+          icon="clear" 
+        />
       </UiButton>
     </template>
-    {{content}}
+    <UiText>{{content}}</UiText>
   </UiPopover>`,
 });

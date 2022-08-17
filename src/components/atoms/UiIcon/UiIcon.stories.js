@@ -1,6 +1,6 @@
-import { defineAsyncComponent } from 'vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
+import { defineAsyncComponent } from 'vue';
 import icons from '@/components/atoms/UiIcon/icons.ts';
 
 export default {
@@ -15,20 +15,6 @@ export default {
         type: 'select',
       },
       options: icons,
-    },
-  },
-  parameters: {
-    cssprops: {
-      'icon-size': {
-        value: 'var(--icon-height, 1rem)',
-        control: 'text',
-        description: '',
-      },
-      'icon-color': {
-        value: undefined,
-        control: 'text',
-        description: '',
-      },
     },
   },
 };

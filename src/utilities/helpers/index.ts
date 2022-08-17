@@ -1,3 +1,3 @@
-export * from './capitalize-first';
-export * from './remove-non-digits';
-export * from './focus-element';
+export * from './capitalize-first/index.ts';
+export * from './remove-non-digits/index.ts';
+export * from './focus-element/index.ts';

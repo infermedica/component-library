@@ -1,14 +1,14 @@
-import { actions } from '@storybook/addon-actions';
-import { ref } from 'vue';
 import UiMultipleAnswer from '@/components/organisms/UiMultipleAnswer/UiMultipleAnswer.vue';
+import UiButton from '@/components/atoms/UiButton/UiButton.vue';
+import UiCheckbox from '@/components/atoms/UiCheckbox/UiCheckbox.vue';
+import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
+import UiRadio from '@/components/atoms/UiRadio/UiRadio.vue';
+import UiText from '@/components/atoms/UiText/UiText.vue';
+import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
 import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
-import UiRadio from '@/components/atoms/UiRadio/UiRadio.vue';
-import UiCheckbox from '@/components/atoms/UiCheckbox/UiCheckbox.vue';
-import UiText from '@/components/atoms/UiText/UiText.vue';
-import UiButton from '@/components/atoms/UiButton/UiButton.vue';
-import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
-import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
+import { ref } from 'vue';
+import { actions } from '@storybook/addon-actions';
 
 const events = actions({
   onUpdateInvalid: 'update:invalid',
@@ -131,75 +131,6 @@ export default {
     },
     invalid: {
       control: false,
-    },
-  },
-  parameters: {
-    cssprops: {
-      'multiple-answer-list-item-border-radius': {
-        value: '0',
-        control: 'text',
-        description: '',
-      },
-      'multiple-answer-list-item-background': {
-        value: undefined,
-        control: 'text',
-        description: '',
-      },
-      'multiple-answer-list-item-border': {
-        value: 'var(--multiple-answer-list-item-border-style, solid) var(--multiple-answer-list-item-border-color, var(--color-border-divider))',
-        control: 'text',
-        description: '',
-      },
-      'multiple-answer-list-item-border-width': {
-        value: '1px 0 0 0',
-        control: 'text',
-        description: '',
-      },
-      'multiple-answer-list-item-last-border-width': {
-        value: '1px 0',
-        control: 'text',
-        description: '',
-      },
-      'multiple-answer-list-item-hover-background': {
-        value: undefined,
-        control: 'text',
-        description: '',
-      },
-      'multiple-answer-list-item-tablet-hover-background': {
-        value: 'var(--color-gray-50)',
-        control: 'text',
-        description: '',
-      },
-      'multiple-answer-mobile-hint-margin': {
-        value: '0 var(--space-20) var(--space-12) var(--space-20)',
-        control: 'text',
-        description: '',
-      },
-      'multiple-answer-hint-color': {
-        value: 'var(--color-text-dimmed)',
-        control: 'text',
-        description: '',
-      },
-      'multiple-answer-tablet-hint-margin': {
-        value: '0 0 var(--space-12) 0',
-        control: 'text',
-        description: '',
-      },
-      'multiple-answer-choice-padding': {
-        value: 'var(--space-12) var(--space-20)',
-        control: 'text',
-        description: '',
-      },
-      'multiple-answer-tablet-choice-padding': {
-        value: 'var(--space-12)',
-        control: 'text',
-        description: '',
-      },
-      'multiple-answer-margin': {
-        value: '0 var(--space-12) 0 0',
-        control: 'text',
-        description: '',
-      },
     },
   },
 };

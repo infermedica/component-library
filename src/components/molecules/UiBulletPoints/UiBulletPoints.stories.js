@@ -1,7 +1,7 @@
 import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints.vue';
 import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue';
-import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
+import UiText from '@/components/atoms/UiText/UiText.vue';
 import icons from '@/components/atoms/UiIcon/icons.ts';
 
 export default {
@@ -46,11 +46,12 @@ const Template = (args) => ({
     return { ...args };
   },
   template: `<UiBulletPoints 
-      :tag="tag"
-      :type="type"
-      :items="items"
+    :tag="tag"
+    :type="type"
+    :items="items"
   />`,
 });
+
 export const UnorderedList = Template.bind({});
 
 export const OrderedList = Template.bind({});
@@ -185,3 +186,28 @@ export const WithContentSlot = (args) => ({
   </template>
   </UiBulletPoints>`,
 });
+
+export const WithCustomMarker = (args) => ({
+  components: { UiBulletPoints },
+  setup() {
+    return { ...args };
+  },
+  template: `<UiBulletPoints 
+    :tag="tag"
+    :type="type"
+    :items="items"
+    style="--bullet-points-item-marker-color: var(--color-icon-primary);"
+  />`,
+});
+WithCustomMarker.args = {
+  items: [
+    { name: 'painful-swallowing', text: 'Painful swallowing', bulletPointsItemAttrs: { icon: 'arrow-thin-up' } },
+    {
+      name: 'stuffy-nose',
+      text: 'Stuffy nose',
+      bulletPointsItemAttrs: { icon: 'arrow-thin-up' },
+    },
+    { name: 'sneeze', text: 'Sneeze', bulletPointsItemAttrs: { icon: 'arrow-thin-up' } },
+    { name: 'muscle-pain', text: 'Muscle pain', bulletPointsItemAttrs: { icon: 'arrow-thin-up' } },
+  ],
+};

@@ -1,10 +1,10 @@
-import { ref } from 'vue';
+import { keyboardFocus } from '@/utilities/directives/index';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
-import UiFormField from '@/components/molecules/UiFormField/UiFormField.vue';
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiTextarea from '@/components/atoms/UiTextarea/UiTextarea.vue';
+import UiFormField from '@/components/molecules/UiFormField/UiFormField.vue';
+import { ref } from 'vue';
 import docs from './keyboard-focus.mdx';
-import { keyboardFocus } from '../index';
 
 export default {
   title: 'Utilities/Directives/Keyboard Focus',
@@ -17,7 +17,7 @@ export default {
 
 export const WithDirective = () => ({
   components: {
-    UiButton, UiFormField, UiHeading, UiTextarea,
+    UiButton, UiHeading, UiTextarea, UiFormField,
   },
   directives: {
     keyboardFocus,

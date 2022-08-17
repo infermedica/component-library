@@ -1,7 +1,7 @@
-import { content, modifiers } from '@sb/helpers/argTypes';
 import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
+import { content, modifiers } from '@sb/helpers/argTypes';
 
 export default {
   title: 'Molecules/Alert',
@@ -18,60 +18,6 @@ export default {
     type: {
       control: 'select',
       options: ['default', 'success', 'info', 'warning', 'error'],
-    },
-  },
-  parameters: {
-    cssprops: {
-      'alert-border-radius': {
-        value: '0',
-        control: 'text',
-        description: '',
-      },
-      'alert-background': {
-        value: undefined,
-        control: 'text',
-        description: '',
-      },
-      'alert-border': {
-        value: 'var(--alert-border-style, solid) var(--alert-border-color, transparent)',
-        control: 'text',
-        description: '',
-      },
-      'alert-border-width': {
-        value: '0',
-        control: 'text',
-        description: '',
-      },
-      'alert-icon-size': {
-        value: '1.5rem',
-        control: 'text',
-        description: '',
-      },
-      'alert-icon-color': {
-        value: 'var(--color-icon-error)',
-        control: 'text',
-        description: '',
-      },
-      'alert-icon-margin': {
-        value: '0 0 0 var(--space-4)',
-        control: 'text',
-        description: '',
-      },
-      'alert-message-font': {
-        value: 'var(--font-body-2-comfortable)',
-        control: 'text',
-        description: '',
-      },
-      'alert-message-letter-spacing': {
-        value: 'var(--letter-spacing-body-2-comfortable)',
-        control: 'text',
-        description: '',
-      },
-      'alert-color': {
-        value: 'var(--color-text-body)',
-        control: 'text',
-        description: '',
-      },
     },
   },
 };
@@ -132,7 +78,7 @@ export const WithMessageSlot = (args) => ({
     :class="modifiers"
   >
     <template #message>
-      <UiText class="ui-alert__message">
+      <UiText class="ui-text--body-2-comfortable ui-alert__message">
         How to check it?
       </UiText>
     </template>

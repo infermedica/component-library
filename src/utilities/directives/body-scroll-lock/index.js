@@ -13,20 +13,25 @@ function disableBodyScroll() {
   document.body.style.paddingRight = `${scrollWidth}px`;
 }
 
-function enableBodyScroll() {
+function enableBodyScroll(preventScroll = false) {
   const { style } = document.body;
   style.removeProperty('overflow');
   style.removeProperty('position');
   style.removeProperty('top');
   style.removeProperty('width');
   style.removeProperty('padding-right');
+  if (preventScroll) { return; }
   window.scrollTo(...document.body.__vueScrollPosition);
 }
 
 export const bodyScrollLock = {
   async beforeMount() {
     await nextTick();
-    if (window.IS_STORYBOOK && window.location.search.includes('viewMode=doc')) return;
+    if (window.IS_STORYBOOK && window.location.search.includes('viewMode=doc')) {
+      // required to fix back from story to docs mode and unlock body scroll
+      enableBodyScroll(true);
+      return;
+    }
     disableBodyScroll();
   },
   beforeUnmount() {

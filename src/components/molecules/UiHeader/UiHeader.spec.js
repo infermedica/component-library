@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this, @typescript-eslint/no-empty-function */
 import { mount } from '@vue/test-utils';
 import UiHeader from '@/components/molecules/UiHeader/UiHeader.vue';
 

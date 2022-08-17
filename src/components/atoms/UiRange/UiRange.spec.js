@@ -42,11 +42,11 @@ describe('UiRange.vue', () => {
   });
   test('percent position of thumb is right', () => {
     const wrapper = mount(UiRange, { props });
-    expect(wrapper.element.style.getPropertyValue('--range-selected-track-width')).toBe('50%');
+    expect(wrapper.element.style.getPropertyValue('--_range-runnable-track-width')).toBe('50%');
   });
   test('pass percent position of thumb to component style', () => {
     const wrapper = mount(UiRange, { props });
-    expect(wrapper.element.style.getPropertyValue('--range-selected-track-width')).toBe('50%');
+    expect(wrapper.element.style.getPropertyValue('--_range-runnable-track-width')).toBe('50%');
   });
   test('clicking increment button increments the value', async () => {
     const wrapper = mount(UiRange, { props });

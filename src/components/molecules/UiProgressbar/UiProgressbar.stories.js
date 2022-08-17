@@ -10,23 +10,9 @@ export default {
     currentStep: 3,
     progressAttrs: { id: 'stepper-progress' },
   },
-  parameters: {
-    cssprops: {
-      'progressbar-step-left': {
-        value: undefined,
-        control: 'text',
-        description: '',
-      },
-      'progressbar-step-size': {
-        value: '0.625rem',
-        control: 'text',
-        description: '',
-      },
-    },
-  },
 };
 
-const Template = (args) => ({
+export const WithDots = (args) => ({
   components: { UiProgressbar },
   setup() {
     return { ...args };
@@ -37,4 +23,15 @@ const Template = (args) => ({
   />`,
 });
 
-export const Common = Template.bind({});
+export const WithoutDots = (args) => ({
+  components: { UiProgressbar },
+  setup() {
+    return { ...args };
+  },
+  template: `<UiProgressbar 
+    :steps="steps" 
+    :current-step="currentStep" 
+    style="--progressbar-step-size: 0;"
+  />`,
+});
+

@@ -16,9 +16,13 @@ module.exports = {
       plugins: [
         svgLoader({
           svgoConfig: {
-            plugins: ['removeDimensions', 'removeUselessStrokeAndFill', 'convertStyleToAttrs'],
-          },
-        }),
+            plugins: [
+              'removeDimensions',
+              'removeUselessStrokeAndFill',
+              'convertStyleToAttrs',
+            ],
+          }
+        })
       ],
       optimizeDeps: {
         include: [
@@ -40,7 +44,6 @@ module.exports = {
     '@storybook/addon-a11y',
     '@brightlayer-ui/storybook-rtl-addon/register',
     '@storybook/addon-interactions',
-    '@ljcl/storybook-addon-cssprops',
     {
       name: '@storybook/addon-postcss',
       options: {
@@ -59,6 +62,6 @@ module.exports = {
     disableTelemetry: true,
   },
   features: {
-    storyStoreV7: true,
+    storyStoreV7: true
   },
 }

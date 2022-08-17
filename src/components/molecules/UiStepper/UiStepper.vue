@@ -13,7 +13,7 @@
         >
           <UiText
             tag="span"
-            class="ui-stepper__text"
+            class="ui-text--body-2-comfortable ui-stepper__text"
           >
             {{ currentStepDisplayText }}
           </UiText>
@@ -28,6 +28,7 @@
             :min="0"
             :max="100"
             :value="stepsProgress"
+            class="ui-stepper__progress"
           />
         </slot>
       </div>
@@ -53,10 +54,10 @@
               v-bind="{step, index, indexOfActiveStep, determineStep}"
             >
               <UiListItem
-                class="ui-stepper__item"
+                class="ui-stepper__step"
                 :class="{
-                  'ui-stepper__item--visited': indexOfActiveStep >= index,
-                  'ui-stepper__item--active': indexOfActiveStep === index,
+                  'ui-stepper__step--visited': indexOfActiveStep >= index,
+                  'ui-stepper__step--active': indexOfActiveStep === index,
                 }"
               >
                 <!-- @slot Use this slot to replace items-link in the desktop list -->
@@ -64,12 +65,12 @@
                   name="item-link"
                   v-bind="{step, index, indexOfActiveStep, determineStep}"
                 >
-                  <UiLink
-                    v-bind="determineStep(index, step.route)"
-                    class="ui-link--secondary ui-stepper__item-link"
+                  <UiButton
+                    v-bind="determineStep(index, step)"
+                    class="ui-button--text ui-button--theme-secondary ui-stepper__item"
                   >
                     {{ step.name }}
-                  </UiLink>
+                  </UiButton>
                 </slot>
               </UiListitem>
             </slot>
@@ -83,7 +84,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { PropType } from 'vue';
-import UiLink from '../../atoms/UiLink/UiLink.vue';
+import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import UiProgress from '../../atoms/UiProgress/UiProgress.vue';
 import UiList from '../../organisms/UiList/UiList.vue';
@@ -92,7 +93,8 @@ import type { PropsAttrs } from '../../../types/attrs';
 
 export interface Step {
   name: string;
-  route: string
+  to: string;
+  href: string;
   [key: string]: unknown;
 }
 export interface DetermineStep {
@@ -134,64 +136,46 @@ const currentStepDisplayText = computed(() => `
       ${currentStepDisplayNumber.value}/${props.steps.length} ${props.currentStep}
     `);
 const stepsProgress = computed(() => (currentStepDisplayNumber.value / stepsLength.value) * 100);
-const determineStep = (itemIndex: number, route: string): DetermineStep => ({
-  to: itemIndex < indexOfActiveStep.value ? route : '',
-  class: itemIndex <= indexOfActiveStep.value ? '' : 'ui-link--is-disabled',
+const determineStep = (itemIndex: number, step: Step): DetermineStep => ({
+  tag: itemIndex >= indexOfActiveStep.value ? 'span' : undefined,
+  class: itemIndex <= indexOfActiveStep.value ? undefined : 'ui-button--is-disabled',
+  ...step,
 });
 </script>
 
 <style lang="scss">
 @import "../../../styles/mixins/mixins";
-
-@mixin progress-vertical($background, $z-index) {
-  position: absolute;
-  z-index: $z-index;
-  top: -2px;
-  left: 0;
-  display: block;
-  width: 0.25rem;
-  height: 100%;
-  background-color: $background;
-  border-radius: var(--stepper-progress-radius);
-  content: "";
-
-  [dir="rtl"] & {
-    right: 0;
-    left: auto;
-  }
-}
+@import "../../../styles/functions/functions";
 
 .ui-stepper {
-  // Variables for inner progress-bar customization
   $this: &;
+  $element: stepper;
 
-  --progress-background: var(--stepper-progress-background, var(--color-progress-track));
-  --progress-value-background: var(--stepper-progress-background, var(--color-progress-indicator));
-  --progress-border-radius: var(--stepper-progress-border-radius, 2px);
+  --space-10: calc(var(--space-20) / 2); //pixel perfect hack
 
-  padding: var(--stepper-padding, var(--space-12) var(--space-20));
-  background: var(--stepper-background, var(--color-background-subtle));
+  padding: css-var($element, padding, var(--space-12) var(--space-20));
+  background: css-var($element, background, var(--color-background-subtle));
 
   @include from-desktop {
-    --stepper-padding: 0;
-    --stepper-background: transparent;
-
-    justify-content: flex-start;
+    padding: css-var($element, padding, 0);
+    background: css-var($element + "-desktop", background, transparent);
   }
 
   &__mobile {
-    --progress-width: 6rem;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    @include from-tablet {
-      --progress-width: 11.25rem;
-    }
-
     @include from-desktop {
       display: none;
+    }
+  }
+
+  &__progress {
+    width: css-var($element + "-progress", width, 6rem);
+
+    @include from-tablet {
+      width: css-var($element + "-tablet-progress", width, 11.25rem);
     }
   }
 
@@ -204,60 +188,67 @@ const determineStep = (itemIndex: number, route: string): DetermineStep => ({
     }
   }
 
-  &__text {
-    @include font(stepper-text-font, body-2-compact);
+  &__step {
+    --_stepper-step-indicator-width: #{css-var($element + "-step-indicator", width, 4px)};
+    --list-item-padding:
+      #{css-var(
+        $element + "-step",
+        padding,
+        var(--space-10) var(--space-8) var(--space-10) calc(var(--space-12) + var(--_stepper-step-indicator-width))
+      )};
 
-    @include from-tablet {
-      --stepper-text-font: var(--font-body-1);
-      --stepper-text-letter-spacing: var(--font-body-1);
+    position: relative;
+
+    [dir="rtl"] & {
+      --list-item-padding:
+        #{css-var(
+          $element + "-step",
+          padding,
+          var(--space-10) calc(var(--space-12) + var(--_stepper-step-indicator-width)) var(--space-10) var(--space-8)
+        )};
+    }
+
+    &::after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: var(--_stepper-step-indicator-width);
+      height: 100%;
+      background: css-var($element + "-step-indicator", background, var(--color-progress-track));
+      content: "";
+
+      [dir="rtl"] & {
+        right: 0;
+        left: auto;
+      }
+    }
+
+    &--visited {
+      &::after {
+        background: css-var($element + "-step-indicator", background, var(--color-progress-indicator));
+      }
+    }
+
+    &--active {
+      #{$this}__item {
+        --button-color: #{css-var($element + "-item", color, var(--color-text-body))};
+        --button-font: #{css-var($element + "-item", font, var(--font-body-1-thick))};
+        --button-letter-spacing: #{css-var($element + "-item", letter-spacing, var(--letter-spacing-body-1-thick))};
+
+        cursor: auto;
+      }
     }
   }
 
   &__item {
-    @include from-desktop {
-      position: relative;
+    --button-color: #{css-var($element + "-item", color, var(--color-text-action-secondary))};
+    --button-font: #{css-var($element + "-item", font, var(--font-body-1))};
+    --button-letter-spacing: #{css-var($element + "-item", letter-spacing, var(--letter-spacing-body-1))};
 
-      --list-item-padding:
-        calc(var(--space-20) * 0.5)
-        var(--space-12)
-        calc(var(--space-20) * 0.5)
-        var(--space-16);
+    text-align: left;
 
-      [dir="rtl"] & {
-        --list-item-padding:
-          calc(var(--space-20) * 0.5)
-          var(--space-16)
-          calc(var(--space-20) * 0.5)
-          var(--space-12);
-      }
-
-      &::after {
-        @include progress-vertical(var(--color-progress-track), 0);
-      }
-
-      &--visited {
-        &::after {
-          @include progress-vertical(var(--color-progress-indicator), 1);
-        }
-      }
-
-      &--active {
-        #{$this}__item-link {
-          --stepper-item-link-font: var(--font-body-1-thick);
-          --stepper-letter-spacing: var(--letter-spacing-body-1-thick);
-          --link-color: var(--stepper-link-active-color, var(--color-text-body));
-          --link-hover-color: var(--stepper-link-active-color, var(--color-text-body));
-          --link-active-color: var(--stepper-link-active-color, var(--color-text-body));
-        }
-      }
-    }
-  }
-
-  &__item-link {
-    @include from-desktop {
-      @include font(stepper-item-link, body-1, link);
-
-      width: 100%;
+    [dir="rtl"] & {
+      text-align: right;
     }
   }
 }

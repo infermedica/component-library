@@ -27,12 +27,17 @@
   </nav>
 </template>
 
+<script lang="ts">
+export default {
+  name: 'UiNavigation',
+};
+</script>
+
 <script setup lang="ts">
 import {
   computed, ref, onMounted, onBeforeUnmount, nextTick, useAttrs, provide,
 } from 'vue';
 import type { PropType } from 'vue';
-import type { PropsAttrs } from '../../../types/attrs';
 import UiNavigationItem from './_internal/UiNavigationItem.vue';
 
 export interface NavigationItem {
@@ -55,13 +60,6 @@ const props = defineProps({
     type: Array as PropType<NavigationItem[]>,
     default: () => ([]),
   },
-  /**
-   * Use this props to pass attrs for all navigation items.
-   */
-  navigationItemsAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
 });
 const attrs = useAttrs() as {class: string};
 const nav = ref<HTMLElement | null>(null);
@@ -69,11 +67,11 @@ const isMultiline = ref(false);
 const modifiers = computed(() => (attrs?.class || ''));
 provide('modifiers', modifiers);
 const itemsToRender = computed<NavigationRenderItem[]>(() => (props.items.map((item: NavigationItem, key: number) => {
-  const { name, text, ...itemAttrs } = item;
+  const { name, text } = item;
   return {
     name: name || `navigation-item-${key}`,
     text,
-    navigationItemAttrs: { ...props.navigationItemsAttrs, ...itemAttrs },
+    ...item,
   };
 })));
 const resizeObserver = new ResizeObserver((entries) => {
@@ -90,18 +88,20 @@ onBeforeUnmount(() => {
 </script>
 
 <style lang="scss">
+@import "../../../styles/functions/functions";
+
 .ui-navigation {
   $this: &;
+  $element: navigation;
 
-  display: var(--navigation-display, inline-flex);
-  flex-flow: var(--navigation-flow, row wrap);
-  align-items: var(--navigation-align-items, center);
-  justify-content: var(--navigation-justify-content, center);
-  margin: var(--navigation-margin, 0 calc(var(--space-8) * -1));
+  display: flex;
+  flex-flow: css-var($element, flex-flow, css-var($element, flex-direction, row) css-var($element, flex-wrap, wrap));
+  align-items: css-var($element, align-items, center);
+  justify-content: css-var($element, justify-content, flex-start);
+  margin: css-var($element, margin, 0 calc(var(--space-8) * -1));
 
   &--is-multiline {
-    --navigation-margin: var(--navigation-multiline-margin, 0 calc(var(--space-8) * -1) calc(var(--space-12) * -1));
-    --navigation-item-margin: var(--navigation-item-multiline-margin, 0 var(--space-8) var(--space-12));
+    margin: css-var($element, margin, 0 calc(var(--space-8) * -1) calc(var(--space-12) * -1));
   }
 }
 </style>

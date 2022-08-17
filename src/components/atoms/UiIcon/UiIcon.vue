@@ -22,21 +22,31 @@ const props = defineProps({
 const file = computed<SVGElement>(() => {
   if (!props.icon) return h('svg');
   if (typeof props.icon === 'string') {
-    return defineAsyncComponent(() => import(`../../../assets/icons/${props.icon}.svg`));
+    return defineAsyncComponent({
+      loader: () => import(`../../../assets/icons/${props.icon}.svg`),
+      loadingComponent: () => h('svg', { class: 'ui-icon' }),
+      delay: 0,
+    });
   }
   return props.icon;
 });
 </script>
+
 <style lang="scss">
+@import "../../../styles/functions/functions";
+
 .ui-icon {
-  width: var(--icon-size, var(--icon-width, 1rem));
-  height: var(--icon-size, var(--icon-height, 1rem));
-  flex: none;
-  fill: var(--icon-color);
-}
-.rtl-supported {
-  [dir="rtl"] & {
-    transform: scaleX(-1);
+  $this: &;
+  $element: icon;
+
+  width: css-var($element, size, css-var($element, width, 1.5rem));
+  height: css-var($element, size, css-var($element, height, 1.5rem));
+  fill: css-var($element, color);
+
+  &.rtl-supported {
+    [dir="rtl"] & {
+      transform: scaleX(-1);
+    }
   }
 }
 </style>

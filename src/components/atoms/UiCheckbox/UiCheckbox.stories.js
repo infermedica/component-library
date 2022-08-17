@@ -1,10 +1,10 @@
-import { ref } from 'vue';
-import { content, modifiers, disabled } from '@sb/helpers/argTypes';
 import UiCheckbox from '@/components/atoms/UiCheckbox/UiCheckbox.vue';
-import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
+import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
+import { ref } from 'vue';
+import { content, modifiers, disabled } from '@sb/helpers/argTypes';
 
 export default {
   title: 'Atoms/Checkbox',
@@ -33,65 +33,6 @@ export default {
     id: { control: 'text' },
     value: { control: 'text' },
   },
-  parameters: {
-    cssprops: {
-      'checkbox-border-radius': {
-        value: 'var(--border-radius-form)',
-        control: 'text',
-        description: '',
-      },
-      'checkbox-size': {
-        value: '1.25rem',
-        control: 'text',
-        description: '',
-      },
-      'checkbox-margin': {
-        value: '0.125rem',
-        control: 'text',
-        description: '',
-      },
-      'checkbox-background': {
-        value: 'var(--color-background-white)',
-        control: 'text',
-        description: '',
-      },
-      'checkbox-border': {
-        value: 'var(--checkbox-border-style, solid) var(--checkbox-border-color, var(--color-border-strong))',
-        control: 'text',
-        description: '',
-      },
-      'checkbox-border-width': {
-        value: '2px',
-        control: 'text',
-        description: '',
-      },
-      'checkbox-label-font': {
-        value: 'var(--font-body-1)',
-        control: 'text',
-        description: '',
-      },
-      'checkbox-label-letter-spacing': {
-        value: 'var(--letter-spacing-body-1)',
-        control: 'text',
-        description: '',
-      },
-      'checkbox-label-flex': {
-        value: '1',
-        control: 'text',
-        description: '',
-      },
-      'checkbox-label-margin': {
-        value: '0 var(--space-12) 0 0',
-        control: 'text',
-        description: '',
-      },
-      'checkbox-label-color': {
-        value: 'var(--color-text-body)',
-        control: 'text',
-        description: '',
-      },
-    },
-  },
 };
 
 const Template = (args) => ({
@@ -105,6 +46,7 @@ const Template = (args) => ({
     :id="id"
     :disabled="disabled"
     :class="modifiers"
+    class="custom-checkbox"
   >
     {{content}}
   </UiCheckbox>`,
@@ -115,7 +57,6 @@ export const WithLabel = Template.bind({});
 export const IsDisabled = Template.bind({});
 IsDisabled.args = {
   modifiers: ['ui-checkbox--is-disabled'],
-  disabled: true,
 };
 
 export const HasError = Template.bind({});
@@ -123,7 +64,7 @@ HasError.args = {
   modifiers: ['ui-checkbox--has-error'],
 };
 
-export const WithCheckbuttonSlot = (args) => ({
+export const WithCheckboxSlot = (args) => ({
   components: { UiCheckbox, UiIcon },
   setup() {
     const modelValue = ref(args.initModelValue);
@@ -135,11 +76,16 @@ export const WithCheckbuttonSlot = (args) => ({
       :disabled="disabled"
       :class="modifiers"
     >
-      <template #checkbutton="{checked}">
-        <div class="ui-checkbox__checkbutton">
+      <template #checkbox="{checked}">
+        <div 
+          class="ui-checkbox__checkbox"
+          :class="{
+            'ui-checkbox__checkbox--is-checked': checked,
+         }"
+        >
           <UiIcon
             icon="checkmark"
-            class="ui-checkbox__mark"
+            class="ui-checkbox__checkmark"
           />
         </div>
       </template>

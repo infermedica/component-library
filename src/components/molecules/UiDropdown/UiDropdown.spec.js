@@ -32,9 +32,6 @@ describe('UiDropdown.vue', () => {
       slots: {
         toggle: '<div class="symptom-checker"></div>',
       },
-      mocks: {
-        $t: () => {},
-      },
     });
     const slot = wrapper.find('.symptom-checker');
     expect(slot.exists()).toBe(true);

@@ -7,9 +7,9 @@ import UiDatepickerYearInput from './_internal/UiDatepickerYearInput.vue';
 import UiDatepickerDayTab from './_internal/UiDatepickerDayTab.vue';
 import UiDatepickerMonthTab from './_internal/UiDatepickerMonthTab.vue';
 import UiDatepickerYearTab from './_internal/UiDatepickerYearTab.vue';
-import {
-  UiButton, UiTabs, UiPopover,
-} from '../../../../index.ts';
+import UiButton from '../../atoms/UiButton/UiButton.vue';
+import UiPopover from '../../molecules/UiPopover/UiPopover.vue';
+import UiTabs from '../UiTabs/UiTabs.vue';
 
 const mountDatepicker = (options) => {
   const wrapper = mount(UiDatepicker, {

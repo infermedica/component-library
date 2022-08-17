@@ -30,7 +30,7 @@ levels depending on their complexity (`atoms`, `molecules`, or `organisms`). Fil
     |__Ui<ComponentName>.stories.js
 ```
 - `*.vue` - Vue.js component file. In this file you can find `template`, `script`, `styles` by scss.
-- `*.spec.js` - Jest test file. By default you can find `render test` on it. Read more about [Vue Test Utils](https://vue-test-utils.vuejs.org/) and [Jest](https://jestjs.io/).
+- `*.spec.js` - Vitest test file. By default you can find `render test` on it.
 - `*.stories.js` - Storybook stories file. By default you can find `common` stories. Read more about [Storybook](https://storybook.js.org/).
 
 ### Creating
@@ -56,6 +56,8 @@ More details you can find in [Theme Configuration](/docs/getting-started-develop
     - `props` should be used only for common case
     - **DO NOT** use `props` for properties that can be set by css
     - provide a slot's to allow template replacement
+    - name slots with BEM
+    - bind data to slots with `v-bind`
 ``` html
 <slot name="header">
     <UiHeading
@@ -75,7 +77,7 @@ we are support deprecation to next major version and adding information about de
 * Add note next to deprecated code that should be removed
 
 ```js
-// TODO: will be removed in 0.4.0 / Begin
+// TODO: will be removed in 0.4.0 / BEGIN
 <code/>
 // END
 ```
@@ -95,6 +97,18 @@ if (process.env.NODE_ENV === 'development') {
 }
 ```
 As you can see, we are using `console.warn` only when deprecated API is used.
+
+### Exceptions
+In some case we need deprecated APIs in next major version. In this case we will add information to Migration Guide and throw error if deprecated API is used (for all environments).
+
+```js
+//TODO: remove in 0.6.0 / BEGIN
+const { checkbutton } = slots;
+if (checkbutton) {
+  throw new Error('[@infermedica/component-library error]: The `checkbotton` slot is deprecated and removed. Please use `checkbox` slot instead.');
+}
+//END
+```
 
 ## Unit tests
 Unit tests allow you to test individual units of code in isolation. The purpose of unit testing is to provide developers with confidence in their code. By writing thorough,

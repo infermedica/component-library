@@ -44,7 +44,7 @@
           <UiButton
             v-if="toBack"
             v-bind="backAttrs"
-            class="ui-controls__back ui-button--text ui-button--has-icon"
+            class="ui-button--text ui-controls__back"
           >
             <UiIcon
               icon="chevron-left"
@@ -150,51 +150,39 @@ const backAttrs = computed<Record<string, unknown>>(() => (
 
 <style lang="scss">
 @import "../../../styles/mixins/mixins";
+@import "../../../styles/functions/functions";
 
 .ui-controls {
+  $element: controls;
+
   --container-padding: 0;
+  --container-tablet-padding: 0;
+  --container-desktop-padding: 0;
 
   display: flex;
   flex-direction: column;
 
   &__container {
-    display: flex;
     flex: 1;
-    padding: var(--controls-container-padding, var(--space-32) var(--space-20));
+    padding: css-var($element + "-container", padding, var(--space-32) var(--space-20));
 
     @include from-tablet {
-      padding: var(--controls-container-tablet-padding, var(--space-48) var(--space-48) var(--space-40));
+      padding: css-var($element + "-tablet-container", padding, var(--space-48) var(--space-64));
     }
   }
 
   &__bottom {
-    @include inner-border($element: controls-bottom, $color:  var(--color-border-divider), $width: 1px 0 0 0);
+    @include inner-border($element: $element + "-bottom", $color:  var(--color-border-divider), $width: 1px 0 0 0);
 
     display: flex;
-    height: var(--controls-bottom, 5rem);
+    height: css-var($element + "-bottom", height, 5rem);
     flex-direction: row-reverse;
-    align-items: var(--controls-bottom-align-items, center);
-    justify-content: var(--controls-bottom-justify-content, space-between);
-    padding: var(--controls-bottom-padding, var(--space-12) var(--space-20));
+    align-items: center;
+    justify-content: space-between;
+    padding: css-var($element + "-bottom", padding, var(--space-12) var(--space-20));
 
     @include from-tablet {
-      padding: var(--controls-tablet-bottom-padding, var(--space-16) var(--space-32));
-    }
-  }
-
-  &__next {
-    margin: var(--controls-next-margin, 0 0 0 auto);
-
-    [dir="rtl"] & {
-      margin: var(--controls-next-margin, 0 auto 0 0);
-    }
-  }
-
-  &__back {
-    margin: var(--controls-back-margin, 0 auto 0 0);
-
-    [dir="rtl"] & {
-      margin: var(--controls-back-margin, 0 0 0 auto);
+      padding: css-var($element + "-tablet-bottom", padding, var(--space-16) var(--space-32));
     }
   }
 }

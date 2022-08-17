@@ -99,8 +99,8 @@ const scale = computed(() => {
   return activeTabRect.width / firstTabRect.width;
 });
 const style = computed<CSSProperties>(() => ({
-  '--tabs-underline-offset-x': `${offsetX.value}px`,
-  '--tabs-underline-scale': scale.value,
+  '--_tabs-indicator-offset-x': `${offsetX.value}px`,
+  '--_tabs-indicator-scale-x': scale.value,
 }));
 const setActiveHTMLElement = (element: HTMLElement | null): void => {
   activeTabHTMLElement.value = element;
@@ -115,16 +115,22 @@ provide('handleTabActive', handleTabActive);
 </script>
 
 <style lang="scss">
+@import "../../../styles/mixins/mixins";
+@import "../../../styles/functions/functions";
+
 .ui-tabs {
+  $element: tabs;
+
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  padding: var(--tabs-padding, 0 var(--space-20));
+  padding: css-var($element, padding, 0 var(--space-20));
 
   &--fixed {
-    --tabs-padding: 0;
     --tabs-item-tab-flex: 1;
     --tabs-item-content-margin: 0;
+
+    padding: css-var($element, padding, 0);
   }
 }
 </style>

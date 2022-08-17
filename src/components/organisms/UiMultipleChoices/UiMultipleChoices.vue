@@ -39,7 +39,7 @@
                 :model-value="evidences"
                 :invalid="hasError(choice.id)"
                 class="ui-multiple-choices__choice"
-                @update:modelValue="updateHandler($event)"
+                @update:model-value="updateHandler($event)"
               />
             </slot>
           </UiListItem>
@@ -175,44 +175,29 @@ const choicesToUse = computed<MultipleChoiceEvidence[]>(() => (
 
 <style lang="scss">
 @import "../../../styles/mixins/mixins";
+@import "../../../styles/functions/functions";
 
 .ui-multiple-choices {
-  &__list {
-    --list-item-padding: 0;
+  $this: &;
+  $element: multiple-choices;
+
+  &__hint {
+    padding: css-var($element + "-hint", padding, 0 var(--space-20) var(--space-12));
+
+    @include from-tablet {
+      padding: css-var($element + "-tablet-hint", padding, 0 0 var(--space-12) 0);
+    }
   }
 
   &__list-item {
-    @include inner-border($element: multiple-choice-list-item, $color: var(--color-border-divider), $width: 1px 0 0 0);
+    --list-item-padding: 0;
+
+    @include inner-border($element: multiple-answer-list-item, $color: var(--color-border-divider), $width: 1px 0 0 0);
 
     &:last-of-type {
-      --multiple-choice-list-item-border-width: var(--multiple-choice-list-item-last-border-width, 1px 0);
-    }
-
-    @media (hover: hover) {
-      &:hover {
-        background: var(--multiple-choices-list-item-hover-background);
-
-        @include from-tablet {
-          background: var(--multiple-choices-list-item-hover-background, var(--color-gray-50));
-        }
+      &::after {
+        border-width: css-var($element, border-width, 1px 0);
       }
-    }
-  }
-
-  &__hint {
-    margin: var(--multiple-choices-mobile-hint-margin, 0 var(--space-20) var(--space-12) var(--space-20));
-    color: var(--multiple-choices-hint-color, var(--color-text-dimmed));
-
-    @include from-tablet {
-      margin: var(--multiple-choices-tablet-hint-margin, 0 0 var(--space-12) 0);
-    }
-  }
-
-  &__choice {
-    padding: var(--multiple-choices-choice-padding);
-
-    @include from-tablet {
-      padding: var(--multiple-choices-choice-padding, var(--space-12));
     }
   }
 }

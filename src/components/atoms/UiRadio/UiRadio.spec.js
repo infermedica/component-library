@@ -15,10 +15,10 @@ describe('UiRadio.vue', () => {
     const slot = wrapper.find('.symptom-checker');
     expect(slot.exists()).toBe(true);
   });
-  test('render a content via radiobutton slot', () => {
+  test('render a content via radio slot', () => {
     const wrapper = mount(UiRadio, {
       slots: {
-        radiobutton: '<div class="symptom-checker"></div>',
+        radio: '<div class="symptom-checker"></div>',
       },
     });
     const slot = wrapper.find('.symptom-checker');

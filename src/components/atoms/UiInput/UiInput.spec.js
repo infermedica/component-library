@@ -22,11 +22,8 @@ describe('UiInput.vue', () => {
       props: {
         placeholder,
       },
-      mocks: {
-        $t: () => {},
-      },
     });
-    const input = wrapper.find('.ui-input__element');
+    const input = wrapper.find('.ui-input__input');
     expect(input.attributes('placeholder')).toBe(placeholder);
   });
   test('render a content via aside slot', () => {
@@ -41,7 +38,7 @@ describe('UiInput.vue', () => {
   test('a component emits input event', async () => {
     const content = 'symptom checker';
     const wrapper = mount(UiInput);
-    wrapper.find('.ui-input__element').setValue(content);
+    wrapper.find('.ui-input__input').setValue(content);
     await wrapper.trigger('input');
     expect(wrapper.emitted('update:modelValue')[0][0]).toBe(content);
   });
