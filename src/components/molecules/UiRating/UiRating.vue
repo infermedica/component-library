@@ -1,20 +1,5 @@
 <template>
-  <component
-    :is="tag"
-    class="ui-rating"
-  >
-    <!-- @slot Use this slot to replace legend template. -->
-    <slot
-      name="legend"
-      v-bind="{legend}"
-    >
-      <legend
-        v-if="legend"
-        class="visual-hidden"
-      >
-        {{ legend }}
-      </legend>
-    </slot>
+  <div class="ui-rating">
     <template
       v-for="index in maxScore"
       :key="index"
@@ -33,8 +18,12 @@
           @mouseover="hoverHandler($event, index)"
           @mouseleave="hoverHandler($event, index)"
         >
-          <template #radiobutton>
-            <div class="ui-rating__radiobutton">
+          <template #radio>
+            <div
+              class="ui-rating__radio"
+              :class="{'ui-rating__radio--is-checked': index <= finalScore}"
+            >
+              <!-- fixme: performance -->
               <template v-if="index <= finalScore">
                 <!-- @slot Use this slot to replace positive rating icon. -->
                 <slot
@@ -43,7 +32,7 @@
                 >
                   <UiIcon
                     :icon="settings.iconActive"
-                    class="ui-rating__icon ui-rating__icon--active"
+                    class="ui-rating__icon"
                   />
                 </slot>
               </template>
@@ -67,7 +56,7 @@
         </UiRadio>
       </slot>
     </template>
-  </component>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -138,20 +127,6 @@ const props = defineProps({
       stars: (index: number) => (`${index} stars`),
     }),
   },
-  /**
-   * Use this props to set rating tag.
-   */
-  tag: {
-    type: String,
-    default: 'fieldset',
-  },
-  /**
-   * Use this props to set legend.
-   */
-  legend: {
-    type: String,
-    default: '',
-  },
 });
 const emit = defineEmits<{(e:'update:modelValue', value: string): void}>();
 const ratingName = computed(() => (
@@ -175,94 +150,123 @@ const finalScore = computed(() => (
 
 <style lang="scss">
 @import "../../../styles/mixins/mixins";
+@import "../../../styles/functions/functions";
 
 .ui-rating {
   $this: &;
+  $element: rating;
 
-  --radio-size: var(--rating-icon-size, 1.5rem);
-  --radio-background: transparent;
-
-  @at-root fieldset#{&} {
-    border: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  display: inline-flex;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 
   &__option {
-    @include no-highlight;
+    --_rating-option-gap: #{css-var($element + "-option", gap, var(--space-24))};
 
-    padding: var(--rating-option, 0 var(--space-24) 0 0);
+    position: relative;
+    border: solid transparent;
+    border-width: 0 var(--_rating-option-gap) 0 0;
+
+    @include hover {
+      #{$this}__icon {
+        --icon-color: #{css-var($element + "-hover-icon", color, var(--color-icon-secondary-hover))};
+      }
+
+      #{$this}__radio {
+        &--is-checked {
+          #{$this}__icon {
+            --icon-color: #{css-var($element + "-checked-hover-icon", color, var(--color-icon-primary-hover))};
+          }
+        }
+      }
+    }
+
+    &:active {
+      #{$this}__icon {
+        --icon-color: #{css-var($element + "-icon", color, var(--color-icon-secondary-active))};
+      }
+
+      #{$this}__radio {
+        &--is-checked {
+          #{$this}__icon {
+            --icon-color: #{css-var($element + "-checked-active-icon", color, var(--color-icon-primary-active))};
+          }
+        }
+      }
+    }
 
     [dir="rtl"] & {
-      padding: var(--rating-option, 0 0 0 var(--space-24));
+      border-width: 0 0 0 var(--_rating-option-gap);
     }
 
     &:last-of-type {
-      [dir] & {
-        padding: var(--rating-option, 0);
+      border-width: 0;
+
+      [dir="rtl"] & {
+        border-width: 0;
       }
     }
   }
 
-  &__radiobutton {
+  &__radio {
     display: flex;
-    border-radius: var(--border-radius-button);
-    pointer-events: none;
-  }
+    align-items: center;
+    justify-content: center;
 
-  input {
-    @include focus {
-      & + #{$this}__radiobutton {
-        box-shadow: var(--focus-outer);
+    &--is-checked {
+      #{$this}__icon {
+        --icon-color: #{css-var($element + "-checked-icon", color, var(--color-icon-primary))};
       }
     }
   }
 
   &__icon {
-    --icon-size: var(--rating-icon-size, 1.5rem);
-    --icon-color: var(--rating-icon-icon-color, var(--color-icon-secondary));
-
-    &:active {
-      --icon-color: var(--rating-icon-active-icon-color, var(--color-icon-secondary-active));
-    }
-
-    &--active {
-      --icon-color: var(--rating-icon-positive-icon-color, var(--color-icon-primary));
-
-      &:active {
-        --icon-color: var(--rating-icon-positive-active-icon-color, var(--color-icon-primary-active));
-      }
-    }
-
-    @media (hover: hover) {
-      &:hover {
-        --icon-color: var(--rating-icon-hover-icon-color, var(--color-icon-secondary-hover));
-      }
-
-      &--active:hover {
-        --icon-color: var(--rating-icon-positive-hover-icon-color, var(--color-icon-primary-hover));
-      }
-    }
+    --icon-color: #{css-var($element + "-icon", color, var(--color-icon-secondary))};
   }
 
   &--is-disabled {
+    #{$this}__option {
+      cursor: not-allowed;
+
+      @include hover {
+        #{$this}__icon {
+          --icon-color: #{css-var($element + "-hover-icon", color, var(--color-icon-disabled))};
+        }
+
+        #{$this}__radio {
+          &--is-checked {
+            #{$this}__icon {
+              --icon-color: #{css-var($element + "-checked-hover-icon", color, var(--color-icon-disabled))};
+            }
+          }
+        }
+      }
+
+      &:active {
+        #{$this}__icon {
+          --icon-color: #{css-var($element + "-icon", color, var(--color-icon-disabled))};
+        }
+
+        #{$this}__radio {
+          &--is-checked {
+            #{$this}__icon {
+              --icon-color: #{css-var($element + "-checked-active-icon", color, var(--color-icon-disabled))};
+            }
+          }
+        }
+      }
+    }
+
+    #{$this}__radio {
+      &--is-checked {
+        #{$this}__icon {
+          --icon-color: #{css-var($element + "-checked-icon", color, var(--color-icon-disabled))};
+        }
+      }
+    }
+
     #{$this}__icon {
-      --rating-icon-icon-color: var(--rating-icon-disabled-icon-color, var(--color-icon-disabled));
-      --rating-icon-hover-icon-color: var(--rating-icon-disabled-hover-icon-color, var(--color-icon-disabled));
-      --rating-icon-active-icon-color: var(--rating-icon-disabled-active-icon-color, var(--color-icon-disabled));
-      --rating-icon-positive-icon-color: var(--rating-icon-disabled-positive-icon-color, var(--color-icon-disabled));
-      --rating-icon-positive-hover-icon-color:
-        var(
-          --rating-icon-disabled-positive-hover-icon-color,
-          var(--color-icon-disabled)
-        );
-      --rating-icon-positive-active-icon-color:
-        var(
-          --rating-icon-disabled-positive-active-icon-color,
-          var(--color-icon-disabled)
-        );
+      --icon-color: #{css-var($element + "-icon", color, var(--color-icon-disabled))};
     }
   }
 }

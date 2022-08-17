@@ -1,9 +1,9 @@
-import { ref } from 'vue';
 import UiAccordion from '@/components/organisms/UiAccordion/UiAccordion.vue';
 import UiAccordionItem from '@/components/organisms/UiAccordion/_internal/UiAccordionItem.vue';
-import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
+import UiText from '@/components/atoms/UiText/UiText.vue';
+import { ref } from 'vue';
 
 export default {
   title: 'Organisms/Accordion',

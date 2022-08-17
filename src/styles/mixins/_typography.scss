@@ -1,8 +1,8 @@
-@mixin font ($element, $font-token, $to-extend: optional) {
+@mixin font ($element, $font-token, $to-extend: undefined) {
   $font: font!default;
   $letter-spacing: letter-spacing!default;
 
-  @if ($to-extend != optional) {
+  @if ($to-extend != undefined) {
     $font: --#{$to-extend}-font;
     $letter-spacing: --#{$to-extend}-letter-spacing;
   }

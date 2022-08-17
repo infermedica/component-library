@@ -1,11 +1,11 @@
 import { modifiers } from '@sb/helpers/argTypes';
 import UiCard from '@/components/organisms/UiCard/UiCard.vue';
+import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
-import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
-import UiContainer from '@/components/organisms/UiContainer/UiContainer.vue';
 import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints.vue';
 import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue';
+import UiContainer from '@/components/organisms/UiContainer/UiContainer.vue';
 
 export default {
   title: 'Organisms/Card',
@@ -91,95 +91,6 @@ export default {
       control: false,
     },
   },
-  parameters: {
-    cssprops: {
-      'card-padding': {
-        value: '0',
-        control: 'text',
-        description: '',
-      },
-      'card-tablet-padding': {
-        value: '0',
-        control: 'text',
-        description: '',
-      },
-      'card-triage-padding': {
-        value: 'var(--space-16) var(--space-20)',
-        control: 'text',
-        description: '',
-      },
-      'card-triage-margin': {
-        value: '0',
-        control: 'text',
-        description: '',
-      },
-      'card-triage-background': {
-        value: undefined,
-        control: 'text',
-        description: '',
-      },
-      'card-triage-border-radius': {
-        value: '0',
-        control: 'text',
-        description: '',
-      },
-      'card-triage-tablet-padding': {
-        value: 'var(--space-32) var(--space-32) var(--space-40)',
-        control: 'text',
-        description: '',
-      },
-      'card-triage-tablet-margin': {
-        value: '0',
-        control: 'text',
-        description: '',
-      },
-      'card-triage-tablet-border-radius': {
-        value: '0',
-        control: 'text',
-        description: '',
-      },
-      'card-triage-icon-size': {
-        value: '3rem',
-        control: 'text',
-        description: '',
-      },
-      'card-subtitle-margin': {
-        value: '0 0 var(--space-4)',
-        control: 'text',
-        description: '',
-      },
-      'card-subtitle-color': {
-        value: 'var(--color-text-dimmed)',
-        control: 'text',
-        description: '',
-      },
-      'card-title-font': {
-        value: 'var(--font-h2)',
-        control: 'text',
-        description: '',
-      },
-      'card-title-letter-spacing': {
-        value: 'var(--letter-spacing-h2)',
-        control: 'text',
-        description: '',
-      },
-      'card-title-margin': {
-        value: '0 0 var(--space-12)',
-        control: 'text',
-        description: '',
-      },
-      'card-content-padding': {
-        value: 'var(--space-24) var(--space-20) var(--space-32)',
-        control: 'text',
-        description: '',
-      },
-      'card-content-tablet-padding': {
-        value: 'var(--space-32) var(--space-48) var(--space-48)',
-        control: 'text',
-        description: '',
-      },
-    },
-  },
 };
 
 const Template = (args) => ({
@@ -221,30 +132,35 @@ SelfCare.args = {
 export const ModernAmbulance = Template.bind({});
 ModernAmbulance.args = {
   type: 'emergency_ambulance',
+  subtitle: '',
   modifiers: ['ui-card--modern'],
 };
 
 export const ModernEmergency = Template.bind({});
 ModernEmergency.args = {
   type: 'emergency',
+  subtitle: '',
   modifiers: ['ui-card--modern'],
 };
 
 export const ModernConsultation24 = Template.bind({});
 ModernConsultation24.args = {
   type: 'consultation_24',
+  subtitle: '',
   modifiers: ['ui-card--modern'],
 };
 
 export const ModernConsultation = Template.bind({});
 ModernConsultation.args = {
   type: 'consultation',
+  subtitle: '',
   modifiers: ['ui-card--modern'],
 };
 
 export const ModernSelfCare = Template.bind({});
 ModernSelfCare.args = {
   type: 'self_care',
+  subtitle: '',
   modifiers: ['ui-card--modern'],
 };
 

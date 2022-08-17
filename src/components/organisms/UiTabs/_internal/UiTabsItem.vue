@@ -37,6 +37,7 @@
     >
       <div
         v-show="isActive"
+        v-bind="contentAttrs"
         :id="id"
         role="region"
         :aria-labelledby="`button-${id}`"
@@ -79,6 +80,13 @@ const props = defineProps({
     type: Object as PropsAttrs,
     default: () => ({}),
   },
+  /**
+   * Use this props to pass attrs for content element.
+   */
+  contentAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
 });
 const attrs = useAttrs() as {id: string};
 const activeTab = inject('activeTab') as Ref<string>;
@@ -104,28 +112,55 @@ onMounted(async () => {
 
 <style lang="scss">
 @import "../../../../styles/mixins/mixins";
+@import "../../../../styles/functions/functions";
 
 .ui-tabs-item {
   $this: &;
+  $element: tabs-item;
 
   display: contents;
 
   &__tab {
-    flex: var(--tabs-item-tab-flex, 0 0 auto);
-    padding: var(--tabs-item-tab-padding, var(--space-16) 0);
-    margin: var(--tabs-item-tab-margin, 0 var(--space-24) 0 0);
+    flex: css-var($element + "-tab", flex, 0 0 auto);
+    padding: css-var($element + "-tab", padding, var(--space-16) 0);
+    margin: css-var($element + "-tab", margin, 0 var(--space-24) 0 0);
 
     [dir="rtl"] & {
-      margin: var(--tabs-item-tab-margin, 0 0 0 var(--space-24));
+      margin: css-var($element + "-rtl-tab", margin, 0 0 0 var(--space-24));
+    }
+
+    #{$this}:first-of-type & {
+      position: relative;
+
+      &::after {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: css-var($element + "-indicator", height, 2px);
+        background: css-var($element + "-indicator", background, var(--color-border-selection));
+        content: "";
+        transform: translate3d(var(--_tabs-indicator-offset-x), 0, 0) scale3d(var(--_tabs-indicator-scale-x), 1, 1);
+        transform-origin: left;
+        transition: transform 150ms ease-in-out;
+
+        [dir="rtl"] & {
+          transform-origin: right;
+        }
+      }
+    }
+
+    #{$this}:last-of-type & {
+      margin: css-var($element + "-tab", margin, 0);
     }
   }
 
   &__tab-button {
-    @include font(tabs-item-tab-button, body-1, button);
-
-    --button-color: var(--tabs-item-tab-button-color, var(--color-text-action-primary));
-    --button-hover-color: var(--tabs-item-tab-button-hover-color, var(--color-text-action-secondary-hover));
-    --button-active-color: var(--tabs-item-tab-button-active-color, var(--color-text-action-secondary-active));
+    --button-color: #{css-var($element + "-tab-button", color, var(--color-text-action-primary))};
+    --button-hover-color: #{css-var($element + "-tab-button-hover", color, var(--color-text-action-primary-hover))};
+    --button-active-color: #{css-var($element + "-tab-button-active", color, var(--color-text-action-primary-active))};
+    --button-font: #{css-var($element + "-tab-button", font, var(--font-body-1))};
+    --button-letter-spacing: #{css-var($element + "-tab-button", letter-spacing, var(--letter-spacing-body-1))};
 
     width: 100%;
   }
@@ -134,60 +169,32 @@ onMounted(async () => {
     position: relative;
     flex: 0 0 100%;
     order: 1;
-    padding: var(--tabs-item-content-padding, var(--space-16) var(--space-20));
-    margin: var(--tabs-item-content-margin, 0 calc(var(--space-20) * -1));
+    padding: css-var($element + "-content", padding, var(--space-16) var(--space-20));
+    margin: css-var($element + "-content", margin, 0 calc(var(--space-20) * -1));
 
     &::before {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
-      border: solid #e7ebef;
-      border-width: 1px 0 0;
+      border: solid css-var($element + "-content", border-color, var(--color-border-divider));
+      border-width: css-var($element + "-content", border-width, 1px 0 0);
       content: "";
-    }
-  }
-
-  &:first-of-type {
-    #{$this} {
-      &__tab {
-        position: relative;
-
-        &::after {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 100%;
-          height: 2px;
-          background: var(--tabs-underline-color, var(--color-border-selection));
-          content: "";
-          transform: translateX(var(--tabs-underline-offset-x, 0)) scaleX(var(--tabs-underline-scale));
-          transform-origin: left;
-          transition: transform 150ms ease-in-out;
-
-          [dir="rtl"] & {
-            transform-origin: right;
-          }
-        }
-      }
-    }
-  }
-
-  &:last-of-type {
-    #{$this} {
-      &__tab {
-        margin: var(--tabs-item-tab-last-margin, 0);
-      }
     }
   }
 
   &--is-active {
     #{$this}__tab-button {
-      --button-color: var(--tabs-item-tab-button-active-color, var(--color-text-body));
-      --button-hover-color: var(--tabs-item-tab-button-active-hover-color, var(--color-text-body));
-      --button-active-color: var(--tabs-item-tab-button-active-active-color, var(--color-text-body));
-      --tabs-item-tab-button-font: var(--font-body-1-thick);
-      --tabs-item-tab-button-letter-spacing: var(--letter-spacing-body-1-thick);
+      --button-color: #{css-var($element + "-active-tab-button", color, var(--color-text-body))};
+      --button-hover-color: #{css-var($element + "-active-tab-button-hover", color, var(--color-text-body))};
+      --button-active-color: #{css-var($element + "-active-tab-button-active", color, var(--color-text-body))};
+      --button-font: #{css-var($element + "-active-tab-button", font, var(--font-body-1-thick))};
+      --button-letter-spacing:
+        #{css-var(
+          $element + "-active-tab-button",
+          letter-spacing,
+          var(--letter-spacing-body-1-thick)
+        )};
     }
   }
 }

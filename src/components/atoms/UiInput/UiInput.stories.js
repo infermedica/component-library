@@ -1,9 +1,16 @@
-import { ref } from 'vue';
-import { modifiers, placeholder, disabled } from '@sb/helpers/argTypes';
 import UiInput from '@/components/atoms/UiInput/UiInput.vue';
-import UiText from '@/components/atoms/UiText/UiText.vue';
+import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
+import UiText from '@/components/atoms/UiText/UiText.vue';
+import { ref } from 'vue';
+import { actions } from '@storybook/addon-actions';
+import { modifiers, placeholder } from '@sb/helpers/argTypes';
 import icons from '@/components/atoms/UiIcon/icons.ts';
+
+const events = actions({
+  onClick: 'onClick',
+  onUpdateModelValue: 'update:modelValue',
+});
 
 export default {
   title: 'Atoms/Input',
@@ -13,8 +20,8 @@ export default {
     initModelValue: '',
     modifiers: [],
     placeholder: 'Put your height',
-    disabled: false,
     suffix: '',
+    type: 'text',
   },
   argTypes: {
     initModelValue: {
@@ -31,139 +38,17 @@ export default {
         'ui-input--has-icon',
       ],
     }),
-    disabled,
     placeholder,
+    type: {
+      description: 'Use this control to set input type.',
+      table: {
+        category: 'stories controls',
+      },
+      control: 'select',
+      options: ['email', 'number', 'password', 'search', 'tel', 'text', 'url'],
+    },
     modelValue: {
       control: false,
-    },
-  },
-  parameters: {
-    cssprops: {
-      'input-border-radius': {
-        value: 'var(--border-radius-form)',
-        control: 'text',
-        description: '',
-      },
-      'input-background-color': {
-        value: 'var(--color-background-white)',
-        control: 'text',
-        description: '',
-      },
-      'input-color': {
-        value: 'var(--color-text-body)',
-        control: 'text',
-        description: '',
-      },
-      'input-border': {
-        value: 'var(--input-border-style, solid) var(--input-border-color, var(--color-border-strong))',
-        control: 'text',
-        description: '',
-      },
-      'input-border-width': {
-        value: '1px',
-        control: 'text',
-        description: '',
-      },
-      'input-focus-border-color': {
-        value: undefined,
-        control: 'text',
-        description: '',
-      },
-      'input-hover-border-color': {
-        value: 'var(--color-border-strong-hover)',
-        control: 'text',
-        description: '',
-      },
-      'input-padding': {
-        value: 'var(--space-12) var(--space-16)',
-        control: 'text',
-        description: '',
-      },
-      'input-caret-color': {
-        value: 'var(--color-blue-500)',
-        control: 'text',
-        description: '',
-      },
-      'input-placeholder-color': {
-        value: 'var(--color-text-dimmed)',
-        control: 'text',
-        description: '',
-      },
-      'input-aside-font': {
-        value: 'var(--font-body-1)',
-        control: 'text',
-        description: '',
-      },
-      'input-aside-letter-spacing': {
-        value: 'var(--letter-spacing-body-1)',
-        control: 'text',
-        description: '',
-      },
-      'input-aside-margin': {
-        value: '0 0 0 var(--space-12)',
-        control: 'text',
-        description: '',
-      },
-      'input-suffix-color': {
-        value: 'var(--input-color), var(--color-text-body)',
-        control: 'text',
-        description: '',
-      },
-      'input-icon-size': {
-        value: '1.5rem',
-        control: 'text',
-        description: '',
-      },
-      'input-error-color': {
-        value: 'var(--color-text-body)',
-        control: 'text',
-        description: '',
-      },
-      'input-error-border-color': {
-        value: 'var(--color-border-error-strong)',
-        control: 'text',
-        description: '',
-      },
-      'input-error-hover-border-color': {
-        value: 'var(--color-border-error-strong)',
-        control: 'text',
-        description: '',
-      },
-      'input-error-focus-border-color': {
-        value: 'var(--color-border-error-strong)',
-        control: 'text',
-        description: '',
-      },
-      'input-error-caret-color': {
-        value: 'var(--color-border-error-strong)',
-        control: 'text',
-        description: '',
-      },
-      'input-disabled-color': {
-        value: 'var(--color-text-disabled)',
-        control: 'text',
-        description: '',
-      },
-      'input-disabled-border-color': {
-        value: 'var(--color-border-subtle)',
-        control: 'text',
-        description: '',
-      },
-      'input-disabled-hover-border-color': {
-        value: 'var(--color-border-subtle)',
-        control: 'text',
-        description: '',
-      },
-      'input-disabled-focus-border-color': {
-        value: 'var(--color-border-subtle)',
-        control: 'text',
-        description: '',
-      },
-      'input-disabled-caret-color': {
-        value: 'var(--color-border-subtle)',
-        control: 'text',
-        description: '',
-      },
     },
   },
 };
@@ -172,18 +57,24 @@ const Template = (args) => ({
   components: { UiInput },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return { ...args, ...events, modelValue };
   },
   template: `<UiInput
     v-model="modelValue"
-    :disabled="disabled"
     :placeholder="placeholder"
     :suffix="suffix"
     :class="modifiers"
+    :type="type"
+    @update:modelValue="onUpdateModelValue"
   />`,
 });
 
 export const WithPlaceholder = Template.bind({});
+
+export const WithValue = Template.bind({});
+WithValue.args = {
+  initModelValue: 'Input text',
+};
 
 export const HasError = Template.bind({});
 HasError.args = {
@@ -193,39 +84,43 @@ HasError.args = {
 export const IsDisabled = Template.bind({});
 IsDisabled.args = {
   modifiers: ['ui-input--is-disabled'],
-  disabled: true,
 };
 
 export const WithSuffix = Template.bind({});
 WithSuffix.args = {
-  suffix: 'cm',
+  suffix: 'Suffix',
 };
 
-export const WithIconAsSuffix = (args) => ({
-  components: { UiInput, UiIcon },
+export const WithAButtonInSuffix = (args) => ({
+  components: { UiInput, UiButton, UiIcon },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return { ...args, ...events, modelValue };
   },
   template: `<UiInput
     v-model="modelValue"
-    :disabled="disabled"
     :placeholder="placeholder"
     :class="modifiers"
+    @update:modelValue="onUpdateModelValue"
   >
     <template #aside>
-      <UiIcon 
-        :icon="icon" 
-        class="ui-input__aside"
-      />
+      <UiButton 
+        class="ui-button--icon ui-input__aside"
+        @click="onClick"
+      >
+        <UiIcon
+            :icon="icon"
+            class="ui-button__icon"
+        />
+      </UiButton>
     </template>
   </UiInput>`,
 });
-WithIconAsSuffix.args = {
+WithAButtonInSuffix.args = {
   icon: 'search',
   modifiers: ['ui-input--has-icon'],
 };
-WithIconAsSuffix.argTypes = {
+WithAButtonInSuffix.argTypes = {
   icon: {
     control: {
       type: 'select',
@@ -238,19 +133,19 @@ export const WithInputSlot = (args) => ({
   components: { UiInput, UiIcon },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return { ...args, ...events, modelValue };
   },
   template: `<UiInput
     v-model="modelValue"
-    :disabled="disabled"
     :placeholder="placeholder"
     :class="modifiers"
+    @update:modelValue="onUpdateModelValue"
   >
     <template #input="{attrs, input, value, validation}">
       <input
         v-bind="attrs"
         :value="value"
-        class="ui-input__element"
+        class="ui-input__input"
         @keydown="validation"
         @input="input($event.target.value)"
       >
@@ -262,14 +157,14 @@ export const WithAsideSlot = (args) => ({
   components: { UiInput, UiIcon, UiText },
   setup() {
     const modelValue = ref(args.initial);
-    return { ...args, modelValue };
+    return { ...args, ...events, modelValue };
   },
   template: `<UiInput
     v-model="modelValue"
-    :disabled="disabled"
     :placeholder="placeholder"
     :suffix="suffix"
     :class="modifiers"
+    @update:modelValue="onUpdateModelValue"
   >
     <template #aside="{suffix}">
       <UiText

@@ -8,7 +8,7 @@
       v-bind="getInputAttrs($attrs)"
       :value="modelValue"
       :style="{resize: resizeValue}"
-      class="ui-textarea__element"
+      class="ui-textarea__textarea"
       @input="inputHandler($event)"
     />
   </div>
@@ -61,67 +61,80 @@ const resizeValue = computed<'both' | 'none' | 'vertical' | 'horizontal'>(() => 
 
 <style lang="scss">
 @import "../../../styles/mixins/mixins";
+@import "../../../styles/functions/functions";
 
 .ui-textarea {
-  @include inner-border($element: textarea, $radius: var(--border-radius-form));
-
   $this: &;
+  $element: textarea;
 
-  display: inline-flex;
-  overflow: hidden;
+  @include inner-border($element, $radius: var(--border-radius-form));
+
+  display: flex;
   align-items: center;
-  color: var(--textarea-color, var(--color-background-white));
+  justify-content: center;
+  transition: border-color 150ms ease-in-out;
 
-  &:focus-within {
-    --input-border-color: var(--input-focus-border-color, var(--color-border-strong));
-
-    box-shadow: var(--focus-outer);
-    outline: none;
-  }
-
-  @media (hover: hover) {
-    &:hover {
-      --textarea-border-color: var(--textarea-hover-border-color, var(--color-border-strong-hover));
-
-      &:focus-within {
-        --textarea-hover-border-color: var(--textarea-focus-border-color);
-      }
+  @include hover {
+    &::after {
+      border-color: css-var($element + "-hover", border-color, var(--color-border-strong-hover));
     }
   }
 
-  &__element {
-    @include font(textarea-element, body-1);
+  &:focus-within {
+    box-shadow: var(--focus-outer);
+  }
 
-    width: 100%;
-    padding: var(--textarea-padding, var(--space-12) var(--space-16));
+  &__textarea {
+    @include font($element, body-1);
+
+    flex: 1;
+    padding: css-var($element, padding, var(--space-12) var(--space-16));
     border: 0;
-    background-color: transparent; // override iOS default
-    caret-color: var(--textarea-caret-color, var(--color-blue-500));
-    color: var(--textarea-color, var(--color-text-body));
+    background: transparent;
+    border-radius: inherit;
+    caret-color: css-var($element, caret-color, var(--color-blue-500));
+    color: css-var($element, color, var(--color-text-body));
     outline: none;
 
     &::placeholder {
-      color: var(--texatarea-placeholder-color, var(--color-text-dimmed));
+      color: css-var($element + "-placeholder", color, var(--color-text-dimmed));
       font: inherit;
       letter-spacing: inherit;
     }
   }
 
-  &--has-error {
-    --textarea-border-color: var(--textarea-error-border-color, var(--color-border-error-strong));
-    --textarea-hover-border-color: var(--textarea-error-hover-border-color, var(--color-border-error-strong));
-    --textarea-focus-border-color: var(--color-border-error-strong);
+  &--is-disabled {
+    &::after {
+      border-color: css-var($element, border-color, var(--color-border-subtle));
+    }
+
+    @include hover {
+      &::after {
+        border-color: css-var($element, border-color, var(--color-border-subtle));
+      }
+    }
+
+    #{$this}__textarea {
+      caret-color: css-var($element, caret-color, var(--color-gray-400));
+      color: css-var($element, color, var(--color-text-disabled));
+      cursor: not-allowed;
+
+      &::placeholder {
+        color: css-var($element + "-placeholder", color, var(--color-text-disabled));
+      }
+    }
   }
 
-  &--is-disabled {
-    --textarea-color: var(--textarea-disabled-color, var(--color-text-disabled));
-    --textarea-placeholder-color: var(--textarea-disabled-placeholder-color, var(--color-text-disabled));
-    --textarea-border-color: var(--textarea-disabled-border-color, var(--color-border-subtle));
-    --textarea-hover-border-color: var(--textarea-disabled-hover-border-color, var(--color-border-subtle));
-    --textarea-focus-border-color: var(--color-border-subtle);
-    --textarea-caret-color: var(--textarea-disabled-caret-color, var(--color-border-subtle));
+  &--has-error {
+    &::after {
+      border-color: css-var($element, border-color, var(--color-border-error-strong));
+    }
 
-    cursor: not-allowed;
+    @include hover {
+      &::after {
+        border-color: css-var($element + "-hover", border-color, var(--color-border-error-strong-hover));
+      }
+    }
   }
 }
 </style>

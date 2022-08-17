@@ -120,10 +120,15 @@ const outerComponent = computed<VNode>(() => (
 
 <style lang="scss">
 .ui-loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   &__component-wrapper {
     display: contents;
   }
 
+  /* todo: move to utilities */
   .fade {
     &-enter-active,
     &-leave-active {

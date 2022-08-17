@@ -1,5 +1,5 @@
-import { content, modifiers } from '@sb/helpers/argTypes';
 import UiText from '@/components/atoms/UiText/UiText.vue';
+import { content, modifiers } from '@sb/helpers/argTypes';
 
 export default {
   title: 'Atoms/Text',
@@ -12,33 +12,9 @@ export default {
   argTypes: {
     content,
     modifiers: modifiers({
-      options: ['body-1-thick', 'body-2-comfortable', 'body-2-compact', 'body-2-comfortable-thick', 'body-2-compact-thick', 'caption', 'button-1']
-        .map((modifier) => (`ui-text--${modifier}`)),
+      options: [...['body-1-thick', 'body-2-comfortable', 'body-2-compact', 'body-2-comfortable-thick', 'body-2-compact-thick', 'caption', 'button-1']
+        .map((modifier) => (`ui-text--${modifier}`)), 'ui-text--theme-secondary', 'ui-text--theme-brand'],
     }),
-  },
-  parameters: {
-    cssprops: {
-      'text-font': {
-        value: 'var(--font-body-1)',
-        control: 'text',
-        description: '',
-      },
-      'text-letter-spacing': {
-        value: 'var(--letter-spacing-body-1)',
-        control: 'text',
-        description: '',
-      },
-      'text-margin': {
-        value: '0',
-        control: 'text',
-        description: '',
-      },
-      'text-color': {
-        value: 'var(--color-text-body)',
-        control: 'text',
-        description: '',
-      },
-    },
   },
 };
 

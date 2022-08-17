@@ -1,5 +1,6 @@
 import { createApp } from 'vue';
 import '@/styles/styles.scss';
-import Playground from './Playground.vue';
+import App from './App.vue';
 
-createApp(Playground).mount('#app');
+const app = createApp(App);
+app.mount('#app');

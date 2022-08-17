@@ -39,19 +39,35 @@ const headingClass = computed<HeadingClass>(() => `ui-heading--h${props.level}`)
 
 <style lang="scss">
 @import "../../../styles/mixins/mixins";
+@import "../../../styles/functions/functions";
 
 .ui-heading {
-  @include font(heading, body-1);
+  $this: &;
+  $element: heading;
 
-  margin: var(--heading-margin, 0);
-  color: var(--heading-color, var(--color-text-heading));
-  text-decoration: var(--heading-text-decoration);
-  text-transform: var(--heading-text-transform);
+  @include font($element, body-1);
+
+  margin: css-var($element, margin, 0);
+  color: css-var($element, color, var(--color-text-heading));
 
   @for $i from 1 through 6 {
     &--h#{$i} {
-      --heading-font: var(--font-h#{$i});
-      --heading-letter-spacing: var(--letter-spacing-h#{$i});
+      font: css-var($element, font, var(--font-h#{$i}));
+      letter-spacing: css-var($element, letter-spacing, var(--letter-spacing-h#{$i}));
+    }
+  }
+
+  @at-root [class*="-secondary"] {
+    #{$this},
+    &#{$this} {
+      --color-text-heading: var(--color-text-dimmed);
+    }
+  }
+
+  @at-root [class*="-brand"] {
+    #{$this},
+    &#{$this} {
+      --color-text-heading: var(--color-text-on-brand);
     }
   }
 }

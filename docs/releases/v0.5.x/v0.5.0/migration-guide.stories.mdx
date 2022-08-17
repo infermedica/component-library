@@ -1,53 +1,212 @@
 import { Meta } from '@storybook/addon-docs';
+import { PageOutline } from '../../../components/PageOutline';
 
 <Meta title="Releases/v0.5.x/v0.5.0/Migration Guide" />
 
-# v0.5.0 Migration Guide
+# Migration Guide
 
-## .focus-hidden
-From v0.5.0 move responsibility for focus visibility handling to the library. You can remove definition of `.focus-is-hidden` from CSS.focus
+v0.5.0 is a major release that has a lot of breaking changes and a new approach to styles.
 
-From v0.5.0 we use class `focus-hidden` to hide focus for mouse users.
-```scss
-.element {
-  &:focus {
-    outline: none
+<style>{`
+  .table {
+    width: 100%
   }
+  .tr,
+  .td,
+  .th {
+    border: 0!important;
+  }
+  .tr{
+    border-bottom: 1px solid rgba(0,0,0,.1)!important;
+    background-color: transparent!important;
+  }
+  .th {
+    text-align: left;
+    color: #333333;
+  }
+`}</style>
 
-  body:not(.focus-hidden) & {
-    &:focus {
-      box-shadow: var(--focus-outer);
+<PageOutline/>
+
+## Themes
+From v0.5.0 we are start to use BEM themes.
+
+**Before**
+
+We are changing props by props from single component.
+
+```scss
+.ui-button {
+   &--secondary {
+    --button-color: var(--color-text-action-secondary);
+    --button-hover-color: var(--color-text-action-secondary-hover);
+    --button-active-color: var(--color-text-action-secondary-active);
+
+    &.ui-button--has-icon {
+      --button-icon-color: var(--color-icon-secondary);
+      --button-icon-color-hover: var(--color-icon-secondary-hover);
+      --button-icon-color-active: var(--color-icon-secondary-active);
+    }
+   }
+}
+```
+
+**After**
+
+We are changing values of global variables used in component. You can use them in old way, but it is not recommended.
+
+```scss
+.ui-button {
+  @at-root [className*="-secondary"] {
+    #{$this},
+    &#{$this} {
+      --color-text-action-primary: var(--color-text-action-secondary);
+      --color-text-action-primary-hover: var(--color-text-action-secondary-hover);
+      --color-text-action-primary-active: var(--color-text-action-secondary-active);
+      --color-icon-primary: var(--color-icon-secondary);
+      --color-icon-primary-hover: var(--color-icon-secondary-hover);
+      --color-icon-primary-active: var(--color-icon-secondary-active);
     }
   }
 }
 ```
 
-From v0.5.0 we use `focusElement` helper to focus elements and allow to show focus
-```js
-import { focusElement } from '@infermedica/component-library/helpers';
+## "Private" CSS Variables
+From v0.5.0 some components has "private" CSS variables. "Private" CSS variables has `_` prefix. This variables shouldn't be used in your project.
+We are set it by Vue or use to share it between properties.
 
-const focus(element) {
-  const focusVisible = true;
-  focusElement(element, focusVisible)
-}
+## UiButton
+From v0.5.0 `ui-button--has-icon` is no longer supported.
+
+**Before**
+
+```html
+<template>
+    <UiButton className="ui-button--has-icon">
+        <UiIcon :icon="icon"/> Label
+    </UiButton>
+</template>
+```
+
+**After**
+```html
+<template>
+    <UiButton>
+        <UiIcon
+          :icon="icon"
+          className="ui-button__icon"
+        /> Label
+    </UiButton>
+</template>
+```
+
+## UiCheckbox
+From v0.5.0, UiCheckbox use `ui-checkbox__checkbox--is-checked` instead `input:checked` to set checked styles.
+
+### Slots changes
+<table className="table">
+  <thead>
+    <tr className="tr">
+    <th className="th">Slot</th>
+    <th className="th">Status</th>
+    <th className="th">Changes</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr className="tr">
+    <td className="td">
+      <code>checkbutton</code>
+    </td>
+    <td className="td">Deprecated</td>
+    <td className="td">Use `checkbox` instead.</td>
+  </tr>
+  </tbody>
+</table>
+
+## UiInput
+From v0.5.0 `input` in UiInput will be wrapped to `ui-input__outline` to handle the focus styles on input and button in suffix.
+
+## UiRadio
+From v0.5.0, UiRadio use `ui-radio-radio--is-checked` instead `input:checked` to set checked styles.
+
+### Slots changes
+<table className="table">
+  <thead>
+    <tr className="tr">
+    <th className="th">Slot</th>
+    <th className="th">Status</th>
+    <th className="th">Changes</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr className="tr">
+    <td className="td">
+      <code>checkbutton</code>
+    </td>
+    <td className="td">Deprecated</td>
+    <td className="td">Use `checkbox` instead.</td>
+  </tr>
+  </tbody>
+</table>
+
+## UiChip
+From v0.5.0, `default` in UiChip is wrapped by `UiText` component. To override label template use `label` slot.
+
+### Slots changes
+<table className="table">
+  <thead>
+    <tr className="tr">
+    <th className="th">Slot</th>
+    <th className="th">Status</th>
+    <th className="th">Changes</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr className="tr">
+    <td className="td">
+      <code>default</code>
+    </td>
+    <td className="td">Change</td>
+    <td className="td"><code>default</code> is wrapped by <code>UiText</code> component.</td>
+  </tr>
+  <tr className="tr">
+    <td className="td">
+      <code>label</code>
+    </td>
+    <td className="td">New</td>
+    <td className="td">Use to replace label template.</td>
+  </tr>
+  </tbody>
+</table>
+
+## UiLoader
+From v0.5.0, UiLoaderSkeleton templates has moved to separate files.
 
 ## UiNotification
-From v0.5.0, default slot in UiNotification contain text for UiAlert.
-```html
-<UiNotification>
-  Thank you. We’ll review this question as soon as possible.
-</UiNotification>
-```
-From v0.5.0, action button in UiNotification is setuped by props.
-```html
-<UiNotification
-  :translation="{
-   action: 'Skip this question'
-  }"
-  :buttonActionAttrs="{
-    onClick: ()=> ()
-  }"
->
-  Thank you. We’ll review this question as soon as possible.
-</UiNotification>
-```
+From v0.5.0, UiNotification has `UiAlert` component as a root element.
+
+## UiStepper
+From v0.5.0, UiStepper use `UiButton` for steps.
+
+### Prop changes
+<table className="table">
+  <thead>
+    <tr className="tr">
+    <th className="th">Props</th>
+    <th className="th">Status</th>
+    <th className="th">Changes</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr className="tr">
+    <td className="td">
+      <code>steps</code>
+    </td>
+    <td className="td">Change</td>
+    <td className="td">Pass <code>to</code> to use vue-router or <code>href</code> to use external link.</td>
+  </tr>
+  </tbody>
+</table>
+
+## UiDatepicker
+From v0.5.0, UiDatepicker has small refactor to make Datepicker tabs more clear. Add `UiDatepickerTab` and `UiDatepickerTabItem` internal components.

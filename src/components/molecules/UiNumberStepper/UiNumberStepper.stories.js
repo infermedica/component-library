@@ -1,9 +1,9 @@
-import { onMounted, ref } from 'vue';
-import { actions } from '@storybook/addon-actions';
 import UiNumberStepper from '@/components/molecules/UiNumberStepper/UiNumberStepper.vue';
-import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
+import UiText from '@/components/atoms/UiText/UiText.vue';
+import { onMounted, ref } from 'vue';
+import { actions } from '@storybook/addon-actions';
 import { toMobile } from '@/styles/exports/breakpoints.module.scss';
 
 const events = actions({
@@ -40,7 +40,7 @@ export default {
   },
 };
 
-const Template = (args) => ({
+export const WithTextValue = (args) => ({
   components: { UiNumberStepper, UiText },
   setup() {
     const modelValue = ref(args.initModelValue);
@@ -64,8 +64,6 @@ const Template = (args) => ({
     </template>
   </UiNumberStepper>`,
 });
-
-export const WithTextValue = Template.bind({});
 
 export const WithControlsOnMobile = (args) => ({
   components: { UiNumberStepper, UiText },
@@ -139,10 +137,13 @@ export const WithDecrementSlot = (args) => ({
       <UiButton
         v-if="hasControls"
         v-bind="attrs"
-        class="ui-button--circled ui-button--outlined ui-button--has-icon ui-number-stepper__decrement"
+        class="ui-button--outlined ui-button--circled ui-number-stepper__decrement"
         @click="decrement"
       >
-        <UiIcon icon="minus" />
+        <UiIcon 
+          icon="minus"
+          class="ui-button__icon"
+        />
       </UiButton>
     </template>
     <template #default="{value}">
@@ -174,10 +175,13 @@ export const WithIncrementSlot = (args) => ({
       <UiButton
         v-if="hasControls"
         v-bind="attrs"
-        class="ui-button--circled ui-button--outlined ui-button--has-icon ui-number-stepper__increment"
+        class="ui-button--outlined ui-button--circled ui-number-stepper__increment"
         @click="increment"
       >
-        <UiIcon icon="plus" />
+        <UiIcon 
+          icon="plus"
+          class="ui-button__icon"
+        />
       </UiButton>
     </template>
     <template #default="{value}">

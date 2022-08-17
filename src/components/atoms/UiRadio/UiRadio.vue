@@ -15,10 +15,12 @@
     >
     <!-- @slot Use this slot to replace radiobutton template. -->
     <slot
-      name="radiobutton"
+      name="radio"
+      v-bind="{checked: isChecked}"
     >
       <div
-        class="ui-radio__radiobutton"
+        class="ui-radio__radio"
+        :class="{'ui-radio__radio--is-checked': isChecked}"
       >
         <div
           class="ui-radio__mark"
@@ -97,143 +99,254 @@ function changeHandler(event: Event) {
     emit('update:modelValue', JSON.parse(JSON.stringify(props.value)));
   }
 }
+
+// TODO: remove in 0.6.0
+const { radiobutton } = slots;
+if (radiobutton) {
+  throw new Error('[@infermedica/component-library error][UiRadio]: The `radiobutton` slot is deprecated and removed. Please use `radio` slot instead.');
+}
+// END
 </script>
 
 <style lang="scss">
 @import "../../../styles/mixins/mixins";
+@import "../../../styles/functions/functions";
 
 .ui-radio {
   $this: &;
+  $element: radio;
 
-  display: inline-flex;
-  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
 
-  @media (hover: hover) {
-    &:hover {
-      --radio-border: solid var(--color-border-strong-hover);
+  @include with-hover {
+    cursor: pointer;
+  }
+
+  @include hover {
+    #{$this}__radio {
+      &::after {
+        border-color: css-var($element + "-hover", border-color, var(--color-border-strong-hover));
+      }
+
+      &--is-checked {
+        &::after {
+          border-color:
+            css-var(
+              $element + "-checked-hover",
+              border-color,
+              var(--color-selectioncontrols-selection-hover)
+            );
+        }
+
+        #{$this}__mark {
+          background: css-var($element + "-checked-hover-mark", color, var(--color-selectioncontrols-selection-hover));
+        }
+      }
     }
   }
 
   &:active {
-    --radio-border: solid var(--color-border-strong-active);
-  }
-
-  &__radiobutton {
-    @include inner-border($element: radio, $width: 2px, $radius: var(--border-radius-circle));
-
-    display: flex;
-    overflow: hidden;
-    width: var(--radio-size, 1.25rem);
-    height: var(--radio-size, 1.25rem);
-    flex: none;
-    align-items: center;
-    justify-content: center;
-    margin: var(--radio-margin, 0.125rem);
-    background: var(--radio-background, var(--color-background-white));
-  }
-
-  &__mark {
-    width: var(--radio-mark-size, 0.625rem);
-    height: var(--radio-mark-size, 0.625rem);
-    flex: none;
-    background: var(--radio-mark-background, transparent);
-    border-radius: var(--border-radius-circle);
-  }
-
-  input {
-    &:checked {
-      & + #{$this}__radiobutton {
-        --radio-border: solid var(--color-selectioncontrols-selection);
-        --radio-mark-background: var(--color-selectioncontrols-selection);
+    #{$this}__radio {
+      &::after {
+        border-color: css-var($element + "-active", border-color, var(--color-border-strong-active));
       }
 
-      @media (hover: hover) {
-        &:hover + #{$this}__radiobutton {
-          --radio-border: solid var(--color-selectioncontrols-selection-hover);
-          --radio-mark-background: var(--color-selectioncontrols-selection-hover);
+      &--is-checked {
+        &::after {
+          border-color:
+            css-var(
+              $element + "-checked-active",
+              border-color,
+              var(--color-selectioncontrols-selection-active)
+            );
+        }
+
+        #{$this}__mark {
+          background:
+            css-var(
+              $element + "-checked-active-mark",
+              color,
+              var(--color-selectioncontrols-selection-active)
+            );
         }
       }
-
-      &:active + #{$this}__radiobutton {
-        --radio-border: solid var(--color-selectioncontrols-selection-active);
-        --radio-mark-background: var(--color-selectioncontrols-selection-active);
-      }
     }
+  }
 
-    @include focus {
-      & + #{$this}__radiobutton {
+  @include with-focus {
+    &:focus-within {
+      #{$this}__radio {
         box-shadow: var(--focus-outer);
       }
     }
   }
 
-  &__label {
-    @include font(radio-label, body-1, text);
+  &__radio {
+    @include inner-border(
+      $element,
+      $color: var(--color-border-strong),
+      $width: 2px,
+      $radius: var(--border-radius-circle),
+      $transition: (
+        border-color 150ms ease-in-out,
+        background-color 150ms ease-in-out
+      )
+    );
 
-    flex: var(--radio-label-flex, 1);
-    margin: var(--radio-label-margin, 0 0 0 var(--space-12));
-    color: var(--radio-label-color, var(--color-text-body));
+    position: relative;
+    display: flex;
+    width: css-var($element, size, 1.25rem);
+    height: css-var($element, size, 1.25rem);
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    margin: 2px;
+    background: css-var($element, background, var(--color-background-white));
+
+    &--is-checked {
+      &::after {
+        border-color: css-var($element + "-checked", border-color, var(--color-selectioncontrols-selection));
+      }
+
+      #{$this}__mark {
+        background: css-var($element + "-checked-mark", color, var(--color-selectioncontrols-selection));
+      }
+    }
+  }
+
+  &__mark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: css-var($element + "-mark", size, 0.625rem);
+    height: css-var($element + "-mark", size, 0.625rem);
+    background: css-var($element + "-mark", color, transparent);
+    border-radius: inherit;
+    transform: translate(-50%, -50%);
+  }
+
+  &__label {
+    --text-color: #{css-var($element + "-label", color, var(--color-text-body))};
+
+    flex: 1;
+    margin: css-var($element + "-label", margin, 0 0 0 var(--space-12));
 
     [dir="rtl"] & {
-      margin: var(--radio-label-margin, 0 var(--space-12) 0 0);
+      margin: css-var($element + "-rtl-label", margin, 0 var(--space-12) 0 0);
     }
   }
 
   &--is-disabled {
-    --radio-border: solid var(--color-border-subtle);
-
     cursor: not-allowed;
 
-    @media (hover: hover) {
-      &:hover {
-        --radio-border: solid var(--color-border-subtle);
+    @include hover {
+      #{$this}__radio {
+        &::after {
+          border-color: css-var($element + "-checked", border-color, var(--color-icon-disabled));
+        }
+
+        &--is-checked {
+          &::after {
+            border-color: css-var($element + "-checked", border-color, var(--color-icon-disabled));
+          }
+
+          #{$this}__mark {
+            background: css-var($element + "-checked-mark", color, var(--color-icon-disabled));
+          }
+        }
       }
     }
 
     &:active {
-      --radio-border: solid var(--color-border-subtle);
-    }
+      #{$this}__radio {
+        &::after {
+          border-color: css-var($element + "-checked", border-color, var(--color-icon-disabled));
+        }
 
-    input:checked {
-      & + #{$this}__radiobutton,
-      &:active + #{$this}__radiobutton {
-        --radio-border: solid var(--color-border-subtle);
-        --radio-mark-background: var(--color-border-subtle);
-      }
+        &--is-checked {
+          &::after {
+            border-color: css-var($element + "-checked", border-color, var(--color-icon-disabled));
+          }
 
-      @media (hover: hover) {
-        &:hover + #{$this}__radiobutton {
-          --radio-border: solid var(--color-border-subtle);
-          --radio-mark-background: var(--color-border-subtle);
+          #{$this}__mark {
+            background: css-var($element + "-checked-mark", color, var(--color-icon-disabled));
+          }
         }
       }
+    }
+
+    #{$this}__radio {
+      &::after {
+        border-color: css-var($element + "-checked", border-color, var(--color-icon-disabled));
+      }
+
+      &--is-checked {
+        &::after {
+          border-color: css-var($element + "-checked", border-color, var(--color-icon-disabled));
+        }
+
+        #{$this}__mark {
+          background: css-var($element + "-checked-mark", color, var(--color-icon-disabled));
+        }
+      }
+    }
+
+    #{$this}__label {
+      --text-color: #{css-var($element + "-label", color, var(--color-text-disabled))};
     }
   }
 
   &--has-error {
-    --radio-border: solid var(--color-border-error-strong);
+    @include hover {
+      #{$this}__radio {
+        &::after {
+          border-color: css-var($element + "-checked", border-color, var(--color-border-error-strong-hover));
+        }
 
-    @media (hover: hover) {
-      &:hover {
-        --radio-border: solid var(--color-border-error-strong);
+        &--is-checked {
+          &::after {
+            border-color: css-var($element + "-checked", border-color, var(--color-border-error-strong-hover));
+          }
+
+          #{$this}__mark {
+            background: css-var($element + "-checked-mark", color, var(--color-border-error-strong-hover));
+          }
+        }
       }
     }
 
     &:active {
-      --radio-border: solid var(--color-border-error-strong);
+      #{$this}__radio {
+        &::after {
+          border-color: css-var($element + "-checked", border-color, var(--color-border-error-strong-active));
+        }
+
+        &--is-checked {
+          &::after {
+            border-color: css-var($element + "-checked", border-color, var(--color-border-error-strong-active));
+          }
+
+          #{$this}__mark {
+            background: css-var($element + "-checked-mark", color, var(--color-border-error-strong-active));
+          }
+        }
+      }
     }
 
-    input:checked {
-      & + #{$this}__radiobutton,
-      &:active + #{$this}__radiobutton {
-        --radio-border: solid var(--color-border-error-strong);
-        --radio-mark-background: var(--color-border-error-strong);
+    #{$this}__radio {
+      &::after {
+        border-color: css-var($element + "-checked", border-color, var(--color-border-error-strong));
       }
 
-      @media (hover: hover) {
-        &:hover + #{$this}__radiobutton {
-          --radio-border: solid var(--color-border-error-strong);
-          --radio-mark-background: var(--color-border-error-strong);
+      &--is-checked {
+        &::after {
+          border-color: css-var($element + "-checked", border-color, var(--color-border-error-strong));
+        }
+
+        #{$this}__mark {
+          background: css-var($element + "-checked-mark", color, var(--color-border-error-strong));
         }
       }
     }

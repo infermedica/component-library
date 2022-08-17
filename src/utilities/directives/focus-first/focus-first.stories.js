@@ -1,10 +1,10 @@
-import { ref } from 'vue';
+import { focusFirst } from '@/utilities/directives/index';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
-import UiFormField from '@/components/molecules/UiFormField/UiFormField.vue';
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiTextarea from '@/components/atoms/UiTextarea/UiTextarea.vue';
+import UiFormField from '@/components/molecules/UiFormField/UiFormField.vue';
+import { ref } from 'vue';
 import docs from './focus-first.mdx';
-import { focusFirst } from '../index';
 
 export default {
   title: 'Utilities/Directives/Focus First',
@@ -17,7 +17,7 @@ export default {
 
 export const WithDirective = () => ({
   components: {
-    UiButton, UiFormField, UiHeading, UiTextarea,
+    UiButton, UiHeading, UiTextarea, UiFormField,
   },
   directives: {
     focusFirst,
@@ -56,7 +56,7 @@ export const WithDirective = () => ({
 
 export const WithoutDirective = () => ({
   components: {
-    UiButton, UiFormField, UiHeading, UiTextarea,
+    UiButton, UiHeading, UiTextarea, UiFormField,
   },
   setup() {
     const feedback = ref('');

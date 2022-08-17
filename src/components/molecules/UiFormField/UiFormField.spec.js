@@ -58,7 +58,7 @@ describe('UiFormField.vue', () => {
       },
     });
 
-    const hint = wrapper.find('.ui-form-field__label-tag');
+    const hint = wrapper.find('.ui-form-field__hint');
     expect(hint.text()).toContain(hintText);
   });
   test('does not render a hint alert when passed hint prop without label', () => {

@@ -1,16 +1,15 @@
-import { actions } from '@storybook/addon-actions';
-import { onMounted, ref } from 'vue';
 import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import UiBackdrop from '@/components/atoms/UiBackdrop/UiBackdrop.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
+import UiLink from '@/components/atoms/UiLink/UiLink.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints.vue';
 import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue';
-import UiLink from '@/components/atoms/UiLink/UiLink.vue';
+import { onMounted, ref } from 'vue';
+import { actions } from '@storybook/addon-actions';
 import { focusTrap, bodyScrollLock, scrollTabindex } from '@/utilities/directives';
-import './UiSidePanel.stories.scss';
 
 const events = actions({
   onAfterEnter: 'after-enter',
@@ -101,103 +100,6 @@ export default {
         component: 'SidePanel use `v-body-scroll-lock`. Only works on Canvas mode.',
       },
     },
-    cssprops: {
-      'side-panel-position': {
-        value: 'fixed',
-        control: 'text',
-        description: '',
-      },
-      'side-panel-z-index': {
-        value: '1000',
-        control: 'text',
-        description: '',
-      },
-      'side-panel-background': {
-        value: 'var(--color-background-white)',
-        control: 'text',
-        description: '',
-      },
-      'side-panel-box-shadow': {
-        value: 'var(--box-shadow-high)',
-        control: 'text',
-        description: '',
-      },
-      'side-panel-container-tablet-max-width': {
-        value: '40rem',
-        control: 'text',
-        description: '',
-      },
-      'side-panel-header-padding': {
-        value: 'var(--space-20) var(--space-20) var(--space-24)',
-        control: 'text',
-        description: '',
-      },
-      'side-panel-header-background': {
-        value: 'var(--color-background-subtle)',
-        control: 'text',
-        description: '',
-      },
-      'side-panel-header-tablet-padding': {
-        value: 'var(--space-40) var(--space-40) var(--space-32)',
-        control: 'text',
-        description: '',
-      },
-      'side-panel-close-icon-size': {
-        value: '1.5rem',
-        control: 'text',
-        description: '',
-      },
-      'side-panel-close-margin': {
-        value: '0 auto 0 0',
-        control: 'text',
-        description: '',
-      },
-      'side-panel-label-padding': {
-        value: '0',
-        control: 'text',
-        description: '',
-      },
-      'side-panel-label-margin': {
-        value: 'var(--space-32) 0 0 0',
-        control: 'text',
-        description: '',
-      },
-      'side-panel-tablet-label-padding': {
-        value: '0 var(--space-8)',
-        control: 'text',
-        description: '',
-      },
-      'side-panel-subtitle-font': {
-        value: 'var(--font-body-2-comfortable)',
-        control: 'text',
-        description: '',
-      },
-      'side-panel-subtitle-letter-spacing': {
-        value: 'var(--letter-spacing-body-2-comfortable)',
-        control: 'text',
-        description: '',
-      },
-      'side-panel-subtitle-margin': {
-        value: 'var(--space-8) 0 0 0',
-        control: 'text',
-        description: '',
-      },
-      'side-panel-content-overflow': {
-        value: 'auto',
-        control: 'text',
-        description: '',
-      },
-      'side-panel-content-padding': {
-        value: 'var(--space-24) var(--space-20)',
-        control: 'text',
-        description: '',
-      },
-      'side-panel-content-tablet-padding': {
-        value: 'var(--space-32) var(--space-48)',
-        control: 'text',
-        description: '',
-      },
-    },
   },
 };
 
@@ -214,7 +116,7 @@ const Template = (args) => ({
     };
   },
   template: `<UiButton
-      class="ui-button--text ui-button--secondary"
+      class="ui-button--text ui-button--theme-secondary"
       @click="modelValue = true;"
   >{{ title }}</UiButton>
   <UiSidePanel 
@@ -292,7 +194,7 @@ export const WithBackdropSlot = (args) => ({
     };
   },
   template: `<UiButton
-      class="ui-button--text ui-button--secondary"
+      class="ui-button--text ui-button--theme-secondary"
       @click="modelValue = true;"
   >{{ title }}</UiButton>
   <UiSidePanel
@@ -333,7 +235,7 @@ export const WithContainerSlot = (args) => ({
     };
   },
   template: `<UiButton
-      class="ui-button--text ui-button--secondary"
+      class="ui-button--text ui-button--theme-secondary"
       @click="modelValue = true;"
   >{{ title }}</UiButton>
   <UiSidePanel
@@ -359,7 +261,7 @@ export const WithContainerSlot = (args) => ({
             <!-- @slot Use this slot to replace close template. -->
             <UiButton
               ref="button"
-              class="ui-button--has-icon ui-button--secondary ui-button--text ui-side-panel__close"
+              class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
               v-bind="buttonCloseAttrs"
               @click="closeHandler"
             >
@@ -405,7 +307,7 @@ export const WithHeaderSlot = (args) => ({
     };
   },
   template: `<UiButton
-      class="ui-button--text ui-button--secondary"
+      class="ui-button--text ui-button--theme-secondary"
       @click="modelValue = true;"
   >{{ title }}</UiButton>
   <UiSidePanel
@@ -421,7 +323,7 @@ export const WithHeaderSlot = (args) => ({
       <div class="ui-side-panel__header">
         <UiButton
           ref="button"
-          class="ui-button--has-icon ui-button--secondary ui-button--text ui-side-panel__close"
+          class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
           v-bind="attrs"
           @click="closeHandler"
         >
@@ -460,7 +362,7 @@ export const WithCloseSlot = (args) => ({
     };
   },
   template: `<UiButton
-      class="ui-button--text ui-button--secondary"
+      class="ui-button--text ui-button--theme-secondary"
       @click="modelValue = true;"
   >{{ title }}</UiButton>
   <UiSidePanel
@@ -475,7 +377,7 @@ export const WithCloseSlot = (args) => ({
     <template #close="{attrs, closeHandler}">
       <UiButton
         ref="button"
-        class="ui-button--has-icon ui-button--secondary ui-button--text ui-side-panel__close"
+        class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
         v-bind="attrs"
         @click="closeHandler"
       >
@@ -499,7 +401,7 @@ export const WithLabelSlot = (args) => ({
     };
   },
   template: `<UiButton
-      class="ui-button--text ui-button--secondary"
+      class="ui-button--text ui-button--theme-secondary"
       @click="modelValue = true;"
   >{{ title }}</UiButton>
   <UiSidePanel
@@ -544,7 +446,7 @@ export const WithTitleSlot = (args) => ({
     };
   },
   template: `<UiButton
-      class="ui-button--text ui-button--secondary"
+      class="ui-button--text ui-button--theme-secondary"
       @click="modelValue = true;"
   >{{ title }}</UiButton>
   <UiSidePanel
@@ -578,7 +480,7 @@ export const WithSubtitleSlot = (args) => ({
     };
   },
   template: `<UiButton
-      class="ui-button--text ui-button--secondary"
+      class="ui-button--text ui-button--theme-secondary"
       @click="modelValue = true;"
   >{{ title }}</UiButton>
   <UiSidePanel
@@ -616,7 +518,7 @@ export const WithContentSlot = (args) => ({
     };
   },
   template: `<UiButton
-      class="ui-button--text ui-button--secondary"
+      class="ui-button--text ui-button--theme-secondary"
       @click="modelValue = true;"
   >{{ title }}</UiButton>
   <UiSidePanel
@@ -660,7 +562,7 @@ export const WithAsynContent = (args) => ({
     };
   },
   template: `<UiButton
-      class="ui-button--text ui-button--secondary"
+      class="ui-button--text ui-button--theme-secondary"
       @click="modelValue = true;"
   >{{ title }}</UiButton>
   <UiSidePanel

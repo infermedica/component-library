@@ -24,7 +24,11 @@ defineProps({
 </script>
 
 <style lang="scss">
+@import "../../../../styles/functions/functions";
+
 .ui-list-item {
-  padding: var(--list-item-padding, var(--space-12));
+  $element: list-item;
+
+  padding: css-var($element, padding, var(--space-12));
 }
 </style>

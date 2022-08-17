@@ -39,7 +39,7 @@ describe('UiScale.vue', () => {
         modelValue: 7,
       },
     });
-    expect(wrapper.findAll('.ui-scale__radiobutton--is-active').length).toBe(8);
+    expect(wrapper.findAll('.ui-scale__square--is-checked').length).toBe(8);
   });
   test('clicking increment button increments scale value', async () => {
     const wrapper = mount(UiScale, {
@@ -47,7 +47,7 @@ describe('UiScale.vue', () => {
         modelValue: 7,
       },
     });
-    const incrementButton = wrapper.find('.ui-scale__increment');
+    const incrementButton = wrapper.find('.ui-number-stepper__increment');
     await incrementButton.trigger('click');
     expect(parseInt(wrapper.emitted('update:modelValue')[0][0], 10)).toBe(8);
   });
@@ -57,7 +57,7 @@ describe('UiScale.vue', () => {
         modelValue: 7,
       },
     });
-    const decrementButton = wrapper.find('.ui-scale__decrement');
+    const decrementButton = wrapper.find('.ui-number-stepper__decrement');
     await decrementButton.trigger('click');
     expect(parseInt(wrapper.emitted('update:modelValue')[0][0], 10)).toBe(6);
   });
@@ -67,7 +67,7 @@ describe('UiScale.vue', () => {
         modelValue: 9,
       },
     });
-    const incrementButton = wrapper.find('.ui-scale__increment');
+    const incrementButton = wrapper.find('.ui-number-stepper__increment');
     await incrementButton.trigger('click');
     expect(wrapper.emitted()['update:modelValue']).not.toBeTruthy();
   });
@@ -77,7 +77,7 @@ describe('UiScale.vue', () => {
         modelValue: 0,
       },
     });
-    const decrementButton = wrapper.find('.ui-scale__decrement');
+    const decrementButton = wrapper.find('.ui-number-stepper__decrement');
     await decrementButton.trigger('click');
     expect(wrapper.emitted()['update:modelValue']).not.toBeTruthy();
   });

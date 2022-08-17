@@ -45,11 +45,14 @@
               >
                 <UiButton
                   ref="button"
-                  class="ui-button--has-icon ui-button--secondary ui-button--text ui-side-panel__close"
+                  class="ui-button--icon ui-button--theme-secondary ui-side-panel__close"
                   v-bind="buttonCloseAttrs"
                   @click="closeHandler"
                 >
-                  <UiIcon icon="close" />
+                  <UiIcon
+                    icon="close"
+                    class="ui-button__icon"
+                  />
                 </UiButton>
               </slot>
               <!-- @slot Use this slot to replace label template. -->
@@ -81,7 +84,7 @@
                     <UiText
                       v-if="subtitle"
                       v-bind="textSubtitleAttrs"
-                      class="ui-side-panel__subtitle"
+                      class="ui-text--body-2-comfortable ui-side-panel__subtitle"
                     >
                       {{ subtitle }}
                     </UiText>
@@ -121,7 +124,7 @@ import {
   scrollTabindex as vScrollTabindex,
   keyboardFocus as vKeyboardFocus,
 } from '../../../utilities/directives';
-import { focusElement } from '../../../utilities/helpers';
+import { focusElement } from '../../../utilities/helpers/index.ts';
 import UiBackdrop from '../../atoms/UiBackdrop/UiBackdrop.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
@@ -209,26 +212,31 @@ onBeforeUnmount(() => {
 
 <style lang="scss">
 @import "../../../styles/mixins/mixins";
+@import "../../../styles/functions/functions";
 
 .ui-side-panel {
+  $this: &;
+  $element: modal;
+
   z-index: 1;
 
   &__dialog {
-    position: var(--side-panel-position, fixed);
-    z-index: var(--side-panel-z-index, 1000);
+    position: fixed;
+    z-index: 1000;
     top: 0;
     right: 0;
     bottom: 0;
     left: auto;
     display: flex;
     width: 100%;
+    max-width: css-var($element, max-width, 100%);
     height: 100%;
     flex-direction: column;
     padding: 0;
     border-width: 0;
     margin: 0;
-    background: var(--side-panel-background, var(--color-background-white));
-    box-shadow: var(--side-panel-box-shadow, var(--box-shadow-high));
+    background: css-var($element, background, var(--color-background-white));
+    box-shadow: css-var($element, box-shadow, var(--box-shadow-high));
 
     [dir="rtl"] & {
       right: auto;
@@ -236,7 +244,7 @@ onBeforeUnmount(() => {
     }
 
     @include from-tablet {
-      max-width: var(--side-panel-container-tablet-max-width, 40rem);
+      max-width: css-var($element + "-tablet", max-width, 40rem);
     }
   }
 
@@ -244,52 +252,43 @@ onBeforeUnmount(() => {
     display: flex;
     flex: none;
     flex-direction: column;
-    padding: var(--side-panel-header-padding, var(--space-20) var(--space-20) var(--space-24));
-    background: var(--side-panel-header-background, var(--color-background-subtle));
+    padding: css-var($element + "-header", padding, var(--space-20) var(--space-20) var(--space-24));
+    background: css-var($element + "-header", background, var(--color-background-subtle));
 
     @include from-tablet {
-      padding: var(--side-panel-header-tablet-padding, var(--space-40) var(--space-40) var(--space-32));
+      padding: css-var($element + "-tablet-header", padding, var(--space-40) var(--space-40) var(--space-32));
     }
   }
 
   &__close {
-    --icon-size: var(--side-panel-close-icon-size, 1.5rem);
-    --button-padding: 0;
-
-    margin: var(--side-panel-close-margin, 0 0 0 auto);
-
-    [dir="rtl"] & {
-      margin: var(--side-panel-close-margin, 0 auto 0 0);
-    }
+    align-self: flex-end;
   }
 
   &__label {
-    padding: var(--side-panel-label-padding, 0);
-    margin: var(--side-panel-label-margin, var(--space-32) 0 0 0);
+    padding: css-var($element + "-label", padding, 0);
+    margin: css-var($element + "-label", margin, var(--space-32) 0 0 0);
 
     @include from-tablet {
-      padding: var(--side-panel-tablet-label-padding, 0 var(--space-8));
+      padding: css-var($element + "-tablet-label", padding, 0 var(--space-8));
     }
   }
 
   &__subtitle {
-    @include font(side-panel-subtitle, body-2-comfortable, text);
-
-    margin: var(--side-panel-subtitle-margin, var(--space-8) 0 0 0);
+    margin: css-var($element + "-subtitle", margin, var(--space-8) 0 0 0);
   }
 
   &__content {
-    overflow: var(--side-panel-content-overflow, auto);
+    overflow: auto;
     height: 100%;
     flex: 1;
-    padding: var(--side-panel-content-padding, var(--space-24) var(--space-20));
+    padding: css-var($element + "-content", padding, var(--space-24) var(--space-20));
 
     @include from-tablet {
-      padding: var(--side-panel-content-tablet-padding, var(--space-32) var(--space-48));
+      padding: css-var($element + "-tablet-content", padding, var(--space-32) var(--space-48));
     }
 
     &:focus {
-      outline: none
+      outline: none;
     }
 
     @include focus {
@@ -298,6 +297,7 @@ onBeforeUnmount(() => {
   }
 }
 
+/* todo: move to utilities */
 .fade {
   &-enter-active,
   &-leave-active {
@@ -310,10 +310,15 @@ onBeforeUnmount(() => {
   }
 }
 
+/* todo: move to utilities */
 .slide {
   &-enter-active,
   &-leave-active {
     transition: transform 0.5s ease;
+  }
+
+  &-enter-from {
+    position: fixed;
   }
 
   &-enter-from,
@@ -324,10 +329,6 @@ onBeforeUnmount(() => {
     [dir="rtl"] & {
       transform: translate3d(-100%, 0, 0);
     }
-  }
-
-  &-enter-from {
-    position: fixed;
   }
 }
 </style>

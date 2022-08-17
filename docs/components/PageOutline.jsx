@@ -28,13 +28,21 @@ const Link = styled.a`
   line-height: 24px;
 `;
 
+const makeAnchor = (node) => {
+  const id = encodeURI(node.textContent)
+    .replace('%20', '-')
+    .replace('%22', '')
+    .toLocaleLowerCase();
+  node.setAttribute('id', id);
+  return node;
+};
 const getHeadingLevel = (node) => parseInt(node?.tagName.substring(1), 10);
 const getNodes = (elements) => {
   let headings = [...elements];
   const nodes = [];
 
   while (headings.length) {
-    const currentHeading = headings.shift();
+    const currentHeading = makeAnchor(headings.shift());
     const key = currentHeading.textContent.replace(' ', '_');
     const nextHeading = headings.at(0);
     if (getHeadingLevel(currentHeading) > getHeadingLevel(nextHeading)) { // h3 > h2

@@ -28,10 +28,13 @@
         >
           <UiButton
             v-bind="buttonAttrs"
-            class="ui-button--has-icon ui-button--secondary ui-button--text ui-popover__close"
+            class="ui-button--icon ui-button--theme-secondary ui-popover__close"
             @click="clickHandler"
           >
-            <UiIcon icon="clear" />
+            <UiIcon
+              icon="clear"
+              class="ui-button__icon"
+            />
           </UiButton>
         </slot>
       </div>
@@ -84,50 +87,54 @@ onBeforeUnmount(() => {
 
 <style lang="scss">
 @import "../../../styles/mixins/mixins";
+@import "../../../styles/functions/functions";
 
 .ui-popover {
-  @include inner-border($element: popover, $color: var(--color-border-subtle), $radius: var(--border-radius-form));
-
   $this: &;
+  $element: popover;
 
-  z-index: 1;
-  background: var(--popover-background, var(--color-background-white));
-  box-shadow: var(--popover-box-shadow, var(--box-shadow-high));
-  transform: var(--popover-transform);
+  @include inner-border($element, $color: var(--color-border-subtle), $radius: var(--border-radius-form));
+
+  background: css-var($element, background, var(--color-background-white));
+  box-shadow: css-var($element, box-shadow, var(--box-shadow-high));
 
   &__header {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: var(--popover-header-padding, var(--space-12) var(--space-16));
-    background: var(--popover-header-background, var(--color-background-subtle));
-
-    &::after {
-      z-index: 1;
-      pointer-events: none;
-    }
+    padding: css-var($element + "-header", padding, var(--space-12) var(--space-16));
+    background: css-var($element, background, var(--color-background-subtle));
+    border-radius: inherit;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
   }
 
   &__content {
-    padding: var(--popover-content-padding, var(--space-8));
-  }
-
-  &--unrounded {
-    --popover-border-radius: 0;
+    padding: css-var($element + "-content", padding, var(--space-16));
+    border-radius: inherit;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
   }
 
   &--has-arrow,
   &--has-left-arrow {
+    --_poover-arrow-size: #{css-var($element + "-arrow", size, 0.75rem)};
+    --_popover-arrow-border-width: #{css-var($element + "-arrow", border-width, 1px)};
+
     #{$this}__header {
       &::after {
         position: absolute;
+        z-index: 1;
         top: 50%;
-        width: var(--popver-arrow-size, 0.75rem);
-        height: var(--popver-arrow-size, 0.75rem);
-        border: var(--popover-border, solid var(--color-border-subtle));
+        width: var(--_poover-arrow-size);
+        height: var(--_poover-arrow-size);
+        border-width: var(--_popover-arrow-border-width);
+        border-style: solid;
+        border-color: css-var($element, border-color, var(--color-border-subtle));
         background: var(--popover-header-background, var(--color-background-subtle));
         content: "";
+        pointer-events: none;
       }
     }
   }
@@ -136,7 +143,8 @@ onBeforeUnmount(() => {
     #{$this}__header {
       &::after {
         right: 0;
-        border-width: var(--popover-arrow-border-width, 1px 1px 0 0);
+        border-bottom-width: 0;
+        border-left-width: 0;
         transform: translate(50%, -50%) rotate(45deg);
       }
     }
@@ -146,7 +154,8 @@ onBeforeUnmount(() => {
     #{$this}__header {
       &::after {
         left: 0;
-        border-width: var(--popover-arrow-border-width, 0 0 1px 1px);
+        border-top-width: 0;
+        border-right-width: 0;
         transform: translate(-50%, -50%) rotate(45deg);
       }
     }
@@ -154,25 +163,25 @@ onBeforeUnmount(() => {
 
   &--has-mobile {
     @include to-mobile {
-      --popover-border-radius: 0;
-
       position: fixed;
       right: 0;
       bottom: 0;
       left: 0;
-      width: 100%;
-      height: var(--popover-has-mobile-height, 50%);
+      height: 50%;
+      border-radius: css-var($element + "-mobile", border-radius, 0);
     }
 
-    &#{$this}--has-arrow {
-      #{$this}__header {
-        &::after {
-          @include to-mobile {
-            content: none;
-          }
-        }
+    &#{$this}--has-arrow,
+    &#{$this}--has-left-arrow {
+      @include to-mobile {
+        --_popover-arrow-size: 0;
+        --_popover-arrow-border-width: 0;
       }
     }
+  }
+
+  &--unrounded {
+    border-radius: 0;
   }
 }
 </style>

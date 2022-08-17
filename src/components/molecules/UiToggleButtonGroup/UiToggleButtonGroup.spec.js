@@ -55,8 +55,8 @@ describe('UiToggleButtonGroup.vue', () => {
     const thirdToggleButton = wrapper.find('.ui-toggle-button:nth-child(3)');
     await thirdToggleButton.trigger('click');
 
-    expect(firstToggleButton.classes()).not.toContain('ui-toggle-button--is-checked');
-    expect(thirdToggleButton.classes()).toContain('ui-toggle-button--is-checked');
+    expect(firstToggleButton.classes()).not.toContain('ui-button--is-selected');
+    expect(thirdToggleButton.classes()).toContain('ui-button--is-selected');
 
     expect(modelValue.value).toBe(3);
   });
@@ -79,7 +79,7 @@ describe('UiToggleButtonGroup.vue', () => {
     const firstToggleButton = wrapper.find('.ui-toggle-button:first-child');
     await firstToggleButton.trigger('click');
 
-    expect(firstToggleButton.classes()).toContain('ui-toggle-button--is-checked');
+    expect(firstToggleButton.classes()).toContain('ui-button--is-selected');
     expect(modelValue.value).toBe(1);
   });
 
@@ -97,7 +97,7 @@ describe('UiToggleButtonGroup.vue', () => {
     const firstToggleButton = wrapper.find('.ui-toggle-button:first-child');
     await firstToggleButton.trigger('click');
 
-    expect(firstToggleButton.classes()).toContain('ui-toggle-button--is-checked');
+    expect(firstToggleButton.classes()).toContain('ui-button--is-selected');
     expect(modelValue.value).toEqual({ id: 1 });
   });
 });

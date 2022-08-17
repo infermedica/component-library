@@ -101,48 +101,41 @@ defineProps({
 
 <style lang="scss">
 @import "../../../styles/mixins/mixins";
+@import "../../../styles/functions/functions";
 
 .ui-message {
+  $this: &;
+  $element: message;
+
   display: flex;
-  flex-direction: var(--message-flex-direction, column-reverse);
+  flex-direction: css-var($element, flex-direction, column-reverse);
 
   @include from-tablet {
-    flex-direction: var(--message-tablet-flex-direction, row);
+    flex-direction: css-var($element + "-tablet", flex-direction, row);
   }
 
   &__content {
     flex: 1;
-    align-self: var(--message-content-align-slef, flex-end);
-    margin: var(--message-content-margin, 0);
-
-    @include from-tablet {
-      margin: var(--message-content-tablet-margin, var(--space-16) 0 0 0);
-    }
-  }
-
-  &__subtitle {
-    margin: var(--message-title-margin, 0 0 var(--space-8) 0);
-    color: var(--color-text-dimmed);
-
-    @include from-tablet {
-      margin: var(--message-title-tablet-margin, 0 0 var(--space-4) 0);
-    }
+    align-self: css-var($element + "-content", align-self, flex-end);
   }
 
   &__title {
-    margin: var(--message-title-margin, 0 0 var(--space-8) 0);
+    margin: css-var($element + "-title", margin, 0 0 var(--space-8) 0);
   }
 
   &__aside {
-    flex: none;
-    margin: var(--message-aside-margin, 0 auto var(--space-24) auto);
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    margin: css-var($element + "-aside", margin, 0 0 var(--space-24) 0);
 
     @include from-tablet {
-      order: 0;
-      margin: var(--message-aside-tablet-margin, 0 0 0 var(--space-40));
+      align-items: flex-start;
+      margin: css-var($element + "-tablet-aside", margin, 0 0 0 var(--space-40));
 
       [dir="rtl"] & {
-        margin: var(--message-aside-tablet-margin, 0 var(--space-40) 0 0);
+        margin: css-var($element + "-rtl-tablet-aside", margin, 0 var(--space-40) 0 0);
       }
     }
   }
@@ -150,8 +143,8 @@ defineProps({
   &__illustration {
     --icon-size: 100%;
 
-    max-width: var(--message-illustration-size, var(--message-illustration-width, 15rem));
-    max-height: var(--message-illustration-size, var(--message-illustration-height, 15rem));
+    max-width: css-var($element + "-illustration", size, 15rem);
+    max-height: css-var($element + "-illustration", size, 15rem);
   }
 }
 </style>

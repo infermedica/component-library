@@ -1,4 +1,5 @@
 import { Meta } from '@storybook/addon-docs';
+import {Alert} from "../components/Alert";
 import { PageOutline } from '../components/PageOutline';
 
 <Meta title="Getting Started/Development Guide/Installation"/>
@@ -14,8 +15,6 @@ You can create a new project or integrate Infermedica Component Library into an 
 the same for both cases. Choose the installation that best suits to your project.
 
 ```bash
-npm i @infermedica/component-library
-# or
 pnpm add @infermedica/component-library
 ```
 
@@ -26,14 +25,24 @@ CSS variables and adjust styles to your requirements. More details you can find 
 We provide our default design if you want use it inside your project, you need to import them into the `main.js` file.
 
 ```js
-import '@infermedica/component-library/src/styles/styles.scss'
+import '@infermedica/component-library/styles/styles.scss'
 ```
 
 ## Project config and loaders
-To load svg files in UiIcon component we use [vue-svg-loader](https://www.npmjs.com/package/vue-svg-loader).
-For Vue 3 you should use next version of this loader `npm i vue-svg-loader@next`.
 
-### Webpack
+### SVG Loader
+To load SVG files for UiIcon component we use custom loader for that.
+
+#### Webpack
+For Webpack use [vue-svg-loader](https://www.npmjs.com/package/vue-svg-loader).
+For Vue 3 you should use next version of vue-svg-loader
+
+```bash
+pnpm i vue-svg-loader@next
+````
+
+To use `vue-svg-loader` you should add it to webpack config. e.g. for vue-cli project.
+
 ```js
 // vue.config.js
 module.exports = {
@@ -47,48 +56,49 @@ module.exports = {
 
     // add replacement loader(s)
     svgRule
-      .use('vue-loader')
-      .loader('vue-loader')
-      .end()
-      .use('vue-svg-loader')
-      .loader('vue-svg-loader')
-      // options is optional, below you can find our svgo settings
-      .options({
-        svgo: {
-          plugins: [
-            { removeDimensions: true },
-            { removeUselessStrokeAndFill: true },
-            { convertStyleToAttrs: true },
-          ]
-        }
-      )
-  },
-};
+    .use('vue-loader')
+    .loader('vue-loader')
+    .end()
+    .use('vue-svg-loader')
+    .loader('vue-svg-loader')
+    // options is optional, below you can find our svgo settings
+    .options({
+      svgo: {
+        plugins: [
+          { removeDimensions: true },
+          { removeUselessStrokeAndFill: true },
+          { convertStyleToAttrs: true },
+        ]
+      }
+    })
+  }
+}
 ```
-### Vite
-```js
-// vue.config.js
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import svgLoader from 'vite-svg-loader';
 
-// https://vitejs.dev/config/
+### Vite
+For Vite use [vite-svg-loader](https://www.npmjs.com/package/vite-svg-loader).
+
+```bash
+pnpm i vite-svg-loader@next
+````
+
+To use `vite-svg-loader` you should add it to vite config. e.g.
+
+```js
+// vite.config.loader
 export default defineConfig({
   plugins: [
-    vue(),      
+    vue(),
     svgLoader({
-    svgoConfig: {
-      plugins: [
-        'removeDimensions',
-        'removeUselessStrokeAndFill',
-        'convertStyleToAttrs',
-      ],
-    },
-  }),],
-  //Use this option to force a 'fast-deep-equal' to be pre-bundled.
-  optimizeDeps: {
-    include: ['fast-deep-equal'],
-  },
+      svgoConfig: {
+        plugins: [
+          'removeDimensions',
+          'removeUselessStrokeAndFill',
+          'convertStyleToAttrs',
+        ],
+      },
+    }),
+  ]
 })
 ```
 
@@ -126,7 +136,8 @@ export default {
 ```
 
 ### Internal components
-Some components includes smaller internal components, you must import them using the full path, e.g `UiToggleButtonGroup` uses `UiToggleButton`
+Some components like UiBulletPoints, UiTabs, etc. use `_internal` items component e.g. `UiBulletPoints` use `UiBulletPointsItem`.
+To use it in template you should import it with fully path. e.g.
 
 ```html
 <template>
@@ -134,8 +145,19 @@ Some components includes smaller internal components, you must import them using
     <UiToggleButton/>
   </UiToggleButtonGroup>
 </template>
+
 <script setup>
   import { UiToggleButtonGroup } from '@infermedica/component-library'
   import UiToggleButton from '@infermedica/component-library/src/components/molecules/UiToggleButtonGroup/_internal/UiToggleButton.vue';
 </script>
 ```
+
+You can use custom export and skip `src/components` from import.
+
+```html
+<script setup>
+  import UiToggleButton from '@infermedica/component-library/molecules/UiToggleButtonGroup/_internal/UiToggleButton.vue';
+</script>
+```
+
+For common cases you should use `items` props from mentioned components.

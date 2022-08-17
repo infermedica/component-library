@@ -1,7 +1,7 @@
 <template>
   <UiButton
     class="ui-button--text ui-navigation-item"
-    :class="{'ui-button--secondary': isSecondary, 'ui-button--small': isSmall}"
+    :class="{'ui-button--small': isSmall}"
   >
     <!-- @slot Use this slot to place navigation item content. -->
     <slot />
@@ -15,18 +15,25 @@ import type { ComputedRef } from 'vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 
 const modifiers = inject('modifiers') as ComputedRef<string>;
-const isSecondary = computed(() => modifiers.value.includes('ui-navigation--secondary'));
 const isSmall = computed(() => modifiers.value.includes('ui-navigation--small'));
 const parentComponent = getCurrentInstance()?.parent;
-// eslint-disable-next-line no-underscore-dangle
-if (!parentComponent || parentComponent.type.__name !== 'UiNavigation') {
+if (!parentComponent || parentComponent.type.name !== 'UiNavigation') {
   if (process.env.NODE_ENV !== 'production') {
     throw new Error('UiNavigationItem has to be child of UiNavigation');
   }
 }
 </script>
 <style lang="scss">
+@import "../../../../styles/functions/functions";
+
 .ui-navigation-item {
-  margin: var(--navigation-item-margin, 0 var(--space-8));
+  $element: navigation-item;
+  $parent: #{".ui-navigation"};
+
+  margin: css-var($element, margin, 0 var(--space-8));
+
+  #{$parent}--is-multiline & {
+    margin: css-var($element, margin, 0 var(--space-8) var(--space-12));
+  }
 }
 </style>

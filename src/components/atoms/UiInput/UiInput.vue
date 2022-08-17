@@ -3,20 +3,22 @@
     class="ui-input"
     v-bind="getRootAttrs($attrs)"
   >
-    <!-- @slot Use this slot to replace input template. -->
-    <slot
-      name="input"
-      v-bind="{attrs: getInputAttrs($attrs), input: inputHandler, value: modelValue, validation: keyValidation}"
-    >
-      <input
-        v-keyboard-focus
-        v-bind="getInputAttrs($attrs)"
-        :value="modelValue"
-        class="ui-input__element"
-        @keydown="keyValidation"
-        @input="inputHandler($event)"
+    <div class="ui-input__outline">
+      <!-- @slot Use this slot to replace input template. -->
+      <slot
+        name="input"
+        v-bind="{attrs: getInputAttrs($attrs), input: inputHandler, value: modelValue, validation: keyValidation}"
       >
-    </slot>
+        <input
+          v-keyboard-focus
+          v-bind="getInputAttrs($attrs)"
+          :value="modelValue"
+          class="ui-input__input"
+          @keydown="keyValidation"
+          @input="inputHandler($event)"
+        >
+      </slot>
+    </div>
     <!-- @slot Use this slot to place aside element. -->
     <slot
       name="aside"
@@ -83,120 +85,140 @@ function inputHandler(event: Event): void {
 
 <style lang="scss">
 @import "../../../styles/mixins/mixins";
+@import "../../../styles/functions/functions";
 
 .ui-input {
-  @include inner-border($element: input, $width: 1px, $radius: var(--border-radius-form));
-
   $this: &;
+  $element: input;
+
+  @include inner-border($element, $width: 1px, $radius: var(--border-radius-form));
 
   display: inline-flex;
-  overflow: hidden;
   align-items: center;
-  background-color: var(--input-background-color, var(--color-background-white));
-  color: var(--input-color, var(--color-text-body));
+  justify-content: center;
+  transition: border-color 150ms ease-in-out;
 
-  &:focus-within {
-    --input-border-color: var(--input-focus-border-color, var(--color-border-strong));
-
-    box-shadow: var(--focus-outer);
-    outline: none;
+  @include hover {
+    &::after {
+      border-color: css-var($element + "-hover", border-color, var(--color-border-strong-hover));
+    }
   }
 
-  @media (hover: hover) {
-    &:hover {
-      --input-border-color: var(--input-hover-border-color, var(--color-border-strong-hover));
+  &__outline {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    border-radius: inherit;
 
-      &:focus-within {
-        --input-hover-border-color: var(--input-focus-border-color);
+    &::after {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      border-radius: inherit;
+      box-shadow: var(--focus-outer);
+      content: "";
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    &:focus-within {
+      &::after {
+        opacity: 1;
       }
     }
   }
 
-  &__element {
-    @include font(input-element, body-1);
+  &__input {
+    @include font($element, body-1);
 
     width: 100%;
-    padding: var(--input-padding, var(--space-12) var(--space-16));
+    padding: css-var($element, padding, var(--space-12) var(--space-16));
     border: 0;
-    background-color: transparent; // override iOS default
-    caret-color: var(--input-caret-color, var(--color-blue-500));
-    color: var(--input-color, var(--color-text-body));
+    background: transparent;
+    border-radius: inherit;
+    caret-color: css-var($element, caret-color, var(--color-blue-500));
+    color: css-var($element, color, var(--color-text-body));
     outline: none;
 
     &::placeholder {
-      color: var(--input-placeholder-color, var(--color-text-dimmed));
+      color: css-var($element + "-placeholder", color, var(--color-text-dimmed));
       font: inherit;
       letter-spacing: inherit;
     }
 
-    &::-webkit-search-decoration,
-    &::-webkit-search-cancel-button,
-    &::-webkit-search-results-button,
-    &::-webkit-search-results-decoration {
-      display: none;
-    }
+    @at-root {
+      input::-webkit-search-decoration,
+      input::-webkit-search-cancel-button,
+      input::-webkit-search-results-button,
+      input::-webkit-search-results-decoration {
+        display: none;
+      }
 
-    &:disabled {
-      background: var(--input-background-color, var(--color-background-white));
-      cursor: not-allowed;
-    }
-
-    &[type="number"] {
-      &::-webkit-inner-spin-button,
-      &::-webkit-outer-spin-button {
-        margin: 0;
+      input::-webkit-inner-spin-button,
+      input::-webkit-outer-spin-button {
         appearance: none;
       }
 
-      appearance: none;
+      input[type="number"] {
+        appearance: textfield;
+      }
     }
   }
 
   &__aside {
-    @include font(input-aside, body-1, text);
-
-    flex: none;
-    margin: var(--input-aside-margin, 0 var(--space-16) 0 0);
-    color: var(--input-suffix-color, var(--input-color), var(--color-text-body));
+    margin: css-var($element + "-aside", margin, 0 var(--space-16) 0 calc(var(--space-4) * -1));
 
     [dir="rtl"] & {
-      margin: var(--input-aside-margin, 0 0 0 var(--space-16));
+      margin: css-var($element + "-rtl-aside", margin, 0 calc(var(--space-4) * -1) 0 var(--space-16));
     }
-  }
 
-  &--has-icon {
-    --icon-size: var(--input-icon-size, 1.5rem);
-
-    #{$this}__aside {
-      --input-aside-margin: var(--input-aside-margin, 0 var(--space-12) 0 0);
+    &.ui-button {
+      margin: css-var($element + "-aside", margin, 0 var(--space-12) 0 calc(var(--space-4) * -1));
 
       [dir="rtl"] & {
-        --input-aside-margin: var(--input-aside-margin, 0 0 0 var(--space-12));
+        margin: css-var($element + "-rtl-aside", margin, 0 calc(var(--space-4) * -1) 0 var(--space-12));
       }
     }
   }
 
-  &--has-error {
-    --input-color: var(--input-error-color, var(--color-text-body));
-    --input-border-color: var(--input-error-border-color, var(--color-border-error-strong));
-    --input-hover-border-color: var(--input-error-hover-border-color, var(--color-border-error-strong));
-    --input-focus-border-color: var(--input-error-focus-border-color, var(--color-border-error-strong));
-    --input-caret-color: var(--input-error-caret-color, var(--color-border-error-strong));
+  &--is-disabled {
+    &::after {
+      border-color: css-var($element, border-color, var(--color-border-subtle));
+    }
+
+    @include hover {
+      &::after {
+        border-color: css-var($element, border-color, var(--color-border-subtle));
+      }
+    }
+
+    #{$this}__input {
+      caret-color: css-var($element, caret-color, var(--color-gray-400));
+      color: css-var($element, color, var(--color-text-disabled));
+      cursor: not-allowed;
+
+      &::placeholder {
+        color: css-var($element + "-placeholder", color, var(--color-text-disabled));
+      }
+    }
+
+    #{$this}__aside {
+      color: css-var($element + "-aside", color, var(--color-text-disabled));
+    }
   }
 
-  &--is-disabled {
-    --input-placeholder-color: var(--color-text-disabled);
-    --input-color: var(--input-disabled-color, var(--color-text-disabled));
-    --input-border-color: var(--input-disabled-border-color, var(--color-border-subtle));
-    --input-hover-border-color: var(--input-disabled-hover-border-color, var(--color-border-subtle));
-    --input-focus-border-color: var(--input-disabled-focus-border-color, var(--color-border-subtle));
-    --input-caret-color: var(--input-disabled-caret-color, var(--color-border-subtle));
-    --icon-color: var(--color-icon-disabled);
+  &--has-error {
+    &::after {
+      border-color: css-var($element, border-color, var(--color-border-error-strong));
+    }
 
-    cursor: not-allowed;
-
-    #{$this}__element {
-      cursor: not-allowed;
+    @include hover {
+      &::after {
+        border-color: css-var($element + "-hover", border-color, var(--color-border-error-strong-hover));
+      }
     }
   }
 }

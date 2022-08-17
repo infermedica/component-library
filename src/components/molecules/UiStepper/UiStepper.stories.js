@@ -1,28 +1,28 @@
 import UiStepper from '@/components/molecules/UiStepper/UiStepper.vue';
-import UiText from '@/components/atoms/UiText/UiText.vue';
+import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiProgress from '@/components/atoms/UiProgress/UiProgress.vue';
+import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
-import UiLink from '@/components/atoms/UiLink/UiLink.vue';
 
 const steps = [
-  { name: 'Introduction', route: { path: '#' } },
-  { name: 'A multiline step', route: { path: '#' } },
-  { name: 'Symptoms', route: { path: '#' } },
-  { name: 'Regions', route: { path: '#' } },
-  { name: 'Interview', route: { path: '#' } },
-  { name: 'Results', route: { path: '#' } },
+  { name: 'Introduction', href: '#' },
+  { name: 'A really long step name', href: '#' },
+  { name: 'Symptoms', href: '#' },
+  { name: 'Regions', href: '#' },
+  { name: 'Interview', href: '#' },
+  { name: 'Results', href: '#' },
 ];
 
 export default {
   title: 'Molecules/Stepper',
   component: UiStepper,
   subcomponents: {
-    UiText, UiProgress, UiList, UiListItem, UiLink,
+    UiText, UiProgress, UiList, UiListItem, UiButton,
   },
   args: {
     steps,
-    currentStep: steps.at(0).name,
+    currentStep: steps.at(2).name,
     progressAttrs: { id: 'progress' },
   },
   argTypes: {
@@ -32,60 +32,6 @@ export default {
     },
   },
   decorators: [() => ({ template: '<div class="desktop:max-w-35"><story /></div>' })],
-  parameters: {
-    cssprops: {
-      'stepper-progress-background': {
-        value: 'var(--color-progress-indicator)',
-        control: 'text',
-        description: '',
-      },
-      'stepper-progress-border-radius': {
-        value: '2px',
-        control: 'text',
-        description: '',
-      },
-      'stepper-padding': {
-        value: 'var(--space-12) var(--space-20)',
-        control: 'text',
-        description: '',
-      },
-      'stepper-background': {
-        value: 'var(--color-background-subtle)',
-        control: 'text',
-        description: '',
-      },
-      'stepper-text-font-font': {
-        value: 'var(--font-body-2-compact)',
-        control: 'text',
-        description: '',
-      },
-      'stepper-text-font-letter-spacing': {
-        value: 'var(--letter-spacing-body-2-compact)',
-        control: 'text',
-        description: '',
-      },
-      'stepper-progress-radius': {
-        value: undefined,
-        control: 'text',
-        description: '',
-      },
-      'stepper-link-active-color': {
-        value: 'var(--color-text-body)',
-        control: 'text',
-        description: '',
-      },
-      'stepper-item-link-font': {
-        value: 'var(--font-body-1)',
-        control: 'text',
-        description: '',
-      },
-      'stepper-item-link-letter-spacing': {
-        value: 'var(--letter-spacing-body-1)',
-        control: 'text',
-        description: '',
-      },
-    },
-  },
 };
 
 const Template = (args) => ({
@@ -145,7 +91,7 @@ export const WithProgressSlot = (args) => ({
 
 export const WithDesktopSlot = (args) => ({
   components: {
-    UiStepper, UiList, UiListItem, UiLink,
+    UiStepper, UiList, UiListItem, UiButton,
   },
   setup() {
     return { ...args };
@@ -162,27 +108,27 @@ export const WithDesktopSlot = (args) => ({
           :key="index"
         >
           <UiListItem
-            class="ui-stepper__item"
+            class="ui-stepper__step"
             :class="{
-              'ui-stepper__item--visited': indexOfActiveStep >= index,
-              'ui-stepper__item--active': indexOfActiveStep === index,
+              'ui-stepper__step--visited': indexOfActiveStep >= index,
+              'ui-stepper__step--active': indexOfActiveStep === index,
             }"
           >
-            <UiLink
-              v-bind="determineStep(index, step.route)"
-              class="ui-link--secondary ui-stepper__item-link"
+            <UiButton
+              v-bind="determineStep(index, step)"
+              class="ui-button--text ui-button--theme-secondary ui-stepper__item"
             >
               {{ step.name }}
-            </UiLink>
-          </UiListItem>
+            </UiButton>
+          </Uilistitem>
         </template>
-      </UiList>
+      </Uilist>
     </template>
   </UiStepper>`,
 });
 
 export const WithItemsSlot = (args) => ({
-  components: { UiStepper, UiListItem, UiLink },
+  components: { UiStepper, UiListItem, UiButton },
   setup() {
     return { ...args };
   },
@@ -197,26 +143,26 @@ export const WithItemsSlot = (args) => ({
         :key="index"
       >
         <UiListItem
-          class="ui-stepper__item"
+          class="ui-stepper__step"
           :class="{
-                'ui-stepper__item--visited': indexOfActiveStep >= index,
-                'ui-stepper__item--active': indexOfActiveStep === index,
+                'ui-stepper__step--visited': indexOfActiveStep >= index,
+                'ui-stepper__step--active': indexOfActiveStep === index,
               }"
         >
-          <UiLink
-            v-bind="determineStep(index, step.route)"
-            class="ui-link--secondary ui-stepper__item-link"
+          <UiButton
+            v-bind="determineStep(index, step)"
+            class="ui-button--text ui-button--theme-secondary ui-stepper__item"
           >
             {{ step.name }}
-          </UiLink>
-        </UiListItem>
+          </UiButton>
+        </Uilistitem>
       </template>
     </template>
   </UiStepper>`,
 });
 
 export const WithItemSlot = (args) => ({
-  components: { UiStepper, UiListItem, UiLink },
+  components: { UiStepper, UiListItem, UiButton },
   setup() {
     return { ...args };
   },
@@ -227,25 +173,25 @@ export const WithItemSlot = (args) => ({
   >
     <template #item="{step, index, indexOfActiveStep, determineStep}">
       <UiListItem
-        class="ui-stepper__item"
+        class="ui-stepper__step"
         :class="{
-          'ui-stepper__item--visited': indexOfActiveStep >= index,
-          'ui-stepper__item--active': indexOfActiveStep === index,
+          'ui-stepper__step--visited': indexOfActiveStep >= index,
+          'ui-stepper__step--active': indexOfActiveStep === index,
         }"
       >
-        <UiLink
-          v-bind="determineStep(index, step.route)"
-          class="ui-link--secondary ui-stepper__item-link"
+        <UiButton
+          v-bind="determineStep(index, step)"
+          class="ui-button--text ui-button--theme-secondary ui-stepper__item"
         >
           {{ step.name }}
-        </UiLink>
-      </UiListItem>
+        </UiButton>
+      </Uilistitem>
     </template>
   </UiStepper>`,
 });
 
 export const WithItemLinkSlot = (args) => ({
-  components: { UiStepper, UiListItem, UiLink },
+  components: { UiStepper, UiListItem, UiButton },
   setup() {
     return { ...args };
   },
@@ -255,12 +201,12 @@ export const WithItemLinkSlot = (args) => ({
     :progress-attrs="progressAttrs"
   >
     <template #item-link="{index, step, determineStep}">
-      <UiLink
-        v-bind="determineStep(index, step.route)"
-        class="ui-link--secondary ui-stepper__item-link"
+      <UiButton
+        v-bind="determineStep(index, step)"
+        class="ui-button--text ui-button--theme-secondary ui-stepper__item-link"
       >
         {{ step.name }}
-      </UiLink>
+      </UiButton>
     </template>
   </UiStepper>`,
 });

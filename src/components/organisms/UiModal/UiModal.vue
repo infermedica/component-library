@@ -64,11 +64,14 @@
                 <UiButton
                   v-if="isClosable"
                   ref="button"
-                  class="ui-button--has-icon ui-button--secondary ui-button--text ui-modal__close"
+                  class="ui-button--theme-secondary ui-button--icon ui-modal__close"
                   v-bind="buttonCloseAttrs"
                   @click="closeHandler()"
                 >
-                  <UiIcon icon="close" />
+                  <UiIcon
+                    icon="close"
+                    class="ui-button__icon"
+                  />
                 </UiButton>
               </slot>
             </div>
@@ -172,7 +175,7 @@ import {
 import type { PropType } from 'vue';
 import type { PropsAttrs } from '../../../types/attrs';
 import { bodyScrollLock as vBodyScrollLock, focusTrap as vFocusTrap } from '../../../utilities/directives';
-import { focusElement } from '../../../utilities/helpers';
+import { focusElement } from '../../../utilities/helpers/index.ts';
 import UiBackdrop from '../../atoms/UiBackdrop/UiBackdrop.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
@@ -297,25 +300,29 @@ onBeforeUnmount(() => {
 
 <style lang="scss">
 @import "../../../styles/mixins/mixins";
+@import "../../../styles/functions/functions";
 
 .ui-modal {
+  $this: &;
+  $element: modal;
+
   z-index: 1;
 
   &__dialog {
-    position: var(--modal-position, fixed);
-    z-index: var(--modal-z-index, 1000);
+    position: fixed;
+    z-index: 1000;
     top: 50%;
     left: 50%;
     display: flex;
-    width: calc(100% - 2 * var(--modal-margin-horizontal, 20px));
-    max-width: var(--modal-max-width, 480px);
+    width: calc(100% - css-var($element, padding-horizontal, var(--space-20)));
+    max-width: css-var($element, max-width, 30rem);
     flex-direction: column;
-    padding: var(--modal-padding, var(--space-24));
-    border: var(--modal-border, none);
+    padding: css-var($element, padding, var(--space-24));
+    border: none;
     margin: 0;
-    background: var(--modal-background, var(--color-background-white));
-    border-radius: var(--modal-border-radius, var(--border-radius-container));
-    box-shadow: var(--modal-box-shadow, var(--box-shadow-high));
+    background: css-var($element, background, var(--color-background-white));
+    border-radius: css-var($element, border-radius, var(--border-radius-container));
+    box-shadow: css-var($element, box-shadow, var(--box-shadow-high));
     transform: translate(-50%, -50%);
 
     [dir="rtl"] & {
@@ -325,11 +332,11 @@ onBeforeUnmount(() => {
     }
 
     @include from-tablet {
-      --modal-margin-horizontal: 64px;
+      width: calc(100% - css-var($element, padding-horizontal, var(--space-64)));
     }
 
     &--has-title {
-      --modal-max-width: 640px;
+      max-width: css-var($element, max-width, 40rem);
     }
   }
 
@@ -339,28 +346,18 @@ onBeforeUnmount(() => {
   }
 
   &__title {
-    flex-grow: 1;
-    margin: var(--modal-title-margin, 0 0 var(--space-12) 0);
+    flex: 1;
+    margin: css-var($element + "-title", margin, 0 0 var(--space-12) 0);
   }
 
   &__description {
-    flex-grow: 1;
-  }
-
-  &__close {
-    --icon-size: var(--modal-close-icon-size, 14px);
-
-    margin: var(--modal-close-margin, 5px 5px 5px 17px);
-
-    [dir="rtl"] & {
-      margin: var(--modal-close-margin, 5px 17px 5px 5px);
-    }
+    flex: 1;
   }
 
   &__actions {
     display: flex;
     flex-direction: column;
-    margin: var(--modal-action-margin, var(--space-32) 0 0);
+    margin: css-var($element + "-actions", margin, var(--space-32) 0 0 0);
 
     @include from-tablet {
       flex-direction: row;
@@ -369,17 +366,17 @@ onBeforeUnmount(() => {
   }
 
   &__confirm {
-    margin: var(--modal-confirm-margin, 0 0 var(--space-12));
+    margin: css-var($element + "-confirm", margin, 0 0 var(--space-12) 0);
 
     &--order {
       order: -1;
     }
 
     @include from-tablet {
-      margin: var(--modal-confirm-tablet-margin, 0 0 0 var(--space-12));
+      margin: css-var($element + "-tablet-confirm", margin, 0 0 0 var(--space-12));
 
       [dir="rtl"] & {
-        margin: var(--modal-confirm-tablet-margin, 0 var(--space-12) 0 0);
+        margin: css-var($element + "-rtl-tablet-confirm", margin, 0 var(--space-12) 0 0);
       }
     }
   }
@@ -391,6 +388,7 @@ onBeforeUnmount(() => {
   }
 }
 
+/* todo: move to utilities */
 .fade {
   &-enter-active,
   &-leave-active {

@@ -44,76 +44,40 @@ const { componentTag, routeAttrs } = useLink(props);
 
 <style lang="scss">
 @import "../../../styles/mixins/mixins";
+@import "../../../styles/functions/functions";
 
 .ui-button {
-  @include inner-border($element: button, $color: transpatent, $width: 0, $radius: var(--border-radius-button));
-  @include font(button, button-1);
-
   $this: &;
+  $element: button;
 
-  position: relative;
-  display: var(--button-display, inline-flex);
-  width: var(--button-width);
-  height: var(--button-height);
-  align-items: var(--button-align-items, center);
-  justify-content: var(--button-justify-content, center);
-  padding: var(--button-padding, var(--space-12) var(--space-32));
-  background:
-    var(
-      --button-background,
-      var(--color-background-action)
-    );
-  color: var(--button-color, var(--color-text-on-action));
-  cursor: var(--button-cursor, pointer);
-  text-align: var(--button-text-align, center);
-  text-decoration: var(--button-text-decoration, none);
-  text-transform: var(--button-text-transform);
+  @include inner-border($element, $color: var(--color-border-subtle), $width: 0, $radius: var(--border-radius-button));
+  @include font($element, button-1);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: css-var($element, padding, var(--space-12) var(--space-32));
+  background: css-var($element, background, var(--color-background-action));
+  color: css-var($element, color, var(--color-text-on-action));
+  text-align: center;
+  text-decoration: none;
   transition:
-    var(
-      --toggle-button-transition,
-      (background-color 0.15s ease-in-out,
-      border-color 0.15s ease-in-out,
-      color 0.15s ease-in-out)
+    (
+      background-color 150ms ease-in-out,
+      border-color 150ms ease-in-out,
+      color 150ms ease-in-out,
     );
-  vertical-align: var(--button-vertical-align, top);
-  white-space: var(--button-white-space, normal);
-  word-break: var(--button-word-break, break-all);
+  vertical-align: top;
+  white-space: normal;
+  word-break: break-all;
 
   @supports (overflow-wrap: anywhere) {
-    overflow-wrap: var(--button-overflow-wrap, anywhere);
+    overflow-wrap: anywhere;
     word-break: normal;
   }
 
-  @media (hover: hover) {
-    &:hover {
-      background: var(--button-hover-background, var(--color-background-action-hover));
-      color: var(--button-hover-color, var(--color-text-on-action));
-
-      --button-border:
-        var(
-          --button-hover-border,
-          var(--button-hover-border-style, solid) var(--button-hover-border-color, transparent)
-        );
-
-      &#{$this}--has-icon {
-        --icon-color: var(--button-icon-color-hover, var(--color-icon-primary-hover));
-      }
-    }
-  }
-
-  &:active {
-    background: var(--button-active-background, var(--color-background-action-active));
-    color: var(--button-active-color, var(--color-text-on-action));
-
-    --button-border:
-      var(
-        --button-active-border,
-        var(--button-active-border-style, solid) var(--button-active-border-color, transparent)
-      );
-
-    &#{$this}--has-icon {
-      --icon-color: var(--button-icon-color-active, var(--color-icon-primary-active));
-    }
+  @include with-hover {
+    cursor: pointer;
   }
 
   &:focus {
@@ -121,141 +85,284 @@ const { componentTag, routeAttrs } = useLink(props);
   }
 
   @include focus {
-    z-index: var(--button-focus-z-index, 1);
     box-shadow: var(--focus-outer);
   }
 
-  &__icon {
-    --icon-size: var(--button-icon-size, 1.5rem);
+  @include hover {
+    background: css-var($element + -hover, background, var(--color-background-action-hover));
+    color: css-var($element + -hover, color, var(--color-text-on-action));
 
-    margin: var(--button-icon-margin, 0 var(--space-4) 0 calc(var(--space-8) * -1));
+    &::after {
+      border-color: css-var($element + -hover, border-color, var(--color-border-subtle));
+    }
+
+    #{$this}__icon {
+      --icon-color: #{css-var($element + "-hover-icon", color, var(--color-icon-on-action))};
+    }
+  }
+
+  &:active {
+    background: css-var($element + "-active", background, var(--color-background-action-active));
+    color: css-var($element + "-active", color, var(--color-text-on-action));
+
+    &::after {
+      border-color: css-var($element + "-active", border-color, var(--color-border-subtle));
+    }
+
+    #{$this}__icon {
+      --icon-color: #{css-var($element + "-active-icon", color, var(--color-icon-on-action))};
+    }
+  }
+
+  &__icon {
+    --icon-color: #{css-var($element + "-icon", color, var(--color-icon-on-action))};
+
+    flex: none;
+    margin: css-var($element + "-icon", margin, 0 var(--space-4) 0 calc(var(--space-8) * -1));
+    transition: fill 150ms ease-in-out;
 
     [dir="rtl"] & {
-      margin: var(--button-icon-margin, 0 calc(var(--space-8) * -1) 0 var(--space-4));
+      margin: css-var($element + "-rtl-icon", margin, 0 calc(var(--space-8) * -1) 0 var(--space-4));
     }
 
     &--right {
-      // adds negative right margin to position icon within button and avoid changing padding
-      --button-icon-margin: 0 calc(var(--space-8) * -1) 0 var(--space-4);
+      margin: css-var($element + "-icon", margin, 0 calc(var(--space-8) * -1) 0 var(--space-4));
 
       [dir="rtl"] & {
-        --button-icon-margin: 0 var(--space-4) 0 calc(var(--space-8) * -1);
+        margin: css-var($element + "-rtl-icon", margin, 0 var(--space-4) 0 calc(var(--space-8) * -1));
       }
+    }
+  }
+
+  &--is-disabled {
+    background: css-var($element, background, var(--color-background-disabled));
+    cursor: not-allowed;
+
+    @include hover {
+      background: css-var($element + "-hover", background, var(--color-background-disabled));
+    }
+
+    &:active {
+      background: css-var($element + "-hover", background, var(--color-background-disabled));
     }
   }
 
   &--small {
-    --button-padding: var(--space-8) var(--space-20);
-    --button-font: var(--body-2-comfortable);
-    --button-letter-spacing: var(--letter-spacing-body-2-comfortable);
-  }
-
-  &--is-disabled {
-    --button-background: var(--color-background-disabled);
-    --button-hover-background: var(--color-background-disabled);
-    --button-active-background: var(--color-background-disabled);
-
-    cursor: not-allowed;
-  }
-
-  &--has-icon {
-    --icon-color: var(--button-icon-color, var(--color-icon-primary));
-    --icon-size: var(--button-icon-size, 1.5rem);
+    padding: css-var($element, padding, var(--space-8) var(--space-20));
+    font: css-var($element, font, var(--font-body-1));
+    letter-spacing: css-var($element, letter-spacing, var(--letter-spacing-body-1));
   }
 
   &--outlined {
-    --button-color: var(--color-text-action-primary);
-    --button-hover-color: var(--color-text-action-primary-hover);
-    --button-active-color: var(--color-text-action-primary-active);
-    --button-border-color: var(--color-border-subtle);
-    --button-hover-border-color: var(--color-border-subtle);
-    --button-active-border-color: var(--color-border-subtle);
-    --button-border-width: 1px;
-    --button-background: transparent;
-    --button-hover-background: var(--color-background-white-hover);
-    --button-active-background: var(--color-gray-100);
+    background: css-var($element, background, transparent);
+    color: css-var($element, color, var(--color-text-action-primary));
+
+    &::after {
+      border-width: css-var($element, border-width, 1px);
+    }
+
+    #{$this}__icon {
+      --icon-color: #{css-var($element + "-icon", color, var(--color-icon-primary))};
+    }
+
+    @include hover {
+      background: css-var($element + "-hover", background, var(--color-background-white-hover));
+      color: css-var($element + "-hover", color, var(--color-text-action-primary-hover));
+
+      #{$this}__icon {
+        --icon-color: #{css-var($element + "-hover-icon", color, var(--color-icon-primary-hover))};
+      }
+    }
+
+    &:active {
+      background: css-var($element + "-active", background, var(--color-background-white-active));
+      color: css-var($element + "-active", color, var(--color-text-action-primary-active));
+
+      #{$this}__icon {
+        --icon-color: #{css-var($element + "-active-icon", color, var(--color-icon-primary-active))};
+      }
+    }
+
+    &#{$this}--is-selected {
+      background: css-var($element, background, var(--color-background-selection));
+      color: css-var($element, color, var(--color-text-on-selection));
+
+      &::after {
+        border-color: css-var($element, border-color, var(--color-background-selection));
+      }
+
+      #{$this}__icon {
+        --icon-color: #{css-var($element + "-icon", color, var(--color-icon-on-selection))};
+      }
+
+      @include hover {
+        background: css-var($element + "-hover", background, var(--color-background-selection-hover));
+        color: css-var($element + "-hover", color, var(--color-text-on-selection));
+
+        &::after {
+          border-color: css-var($element + "-hover", border-color, var(--color-background-selection-hover));
+        }
+
+        #{$this}__icon {
+          --icon-color: #{css-var($element + "-icon", color, var(--color-icon-on-selection))};
+        }
+      }
+
+      &:active {
+        background: css-var($element + "-active", background, var(--color-background-selection-active));
+        color: css-var($element + "-active", color, var(--color-text-on-selection));
+
+        &::after {
+          border-color: css-var($element + "-active", border-color, var(--color-background-selection-active));
+        }
+
+        #{$this}__icon {
+          --icon-color: #{css-var($element + "-icon", color, var(--color-icon-on-selection))};
+        }
+      }
+
+      &#{$this}--is-disabled {
+        background: css-var($element, background, var(--color-background-disabled));
+        color: css-var($element, color, var(--color-text-on-action));
+
+        &::after {
+          border-color: css-var($element, border-color, var(--color-border-subtle));
+        }
+
+        #{$this}__icon {
+          --icon-color: #{css-var($element + "-icon", color, var(--color-icon-on-action))};
+        }
+
+        @include hover {
+          background: css-var($element + "-hover", background, var(--color-background-disabled));
+          color: css-var($element + "-hover", color, var(--color-text-on-action));
+
+          #{$this}__icon {
+            --icon-color: #{css-var($element + "-hover-icon", color, var(--color-icon-on-action))};
+          }
+        }
+
+        &:active {
+          background: css-var($element + "-hover", background, var(--color-background-disabled));
+          color: css-var($element + "-active", color, var(--color-text-on-action));
+
+          #{$this}__icon {
+            --icon-color: #{css-var($element + "-active-icon", color, var(--color-icon-on-action))};
+          }
+        }
+      }
+    }
 
     &#{$this}--is-disabled {
-      --button-color: var(--color-text-disabled);
-      --button-hover-color: var(--color-text-disabled);
-      --button-active-color: var(--color-text-disabled);
-      --button-border-color: var(--color-border-subtle);
-      --button-hover-border-color: var(--color-border-subtle);
-      --button-active-border-color: var(--color-border-subtle);
-      --button-background: var(--color-white);
-      --button-hover-background: var(--color-white);
-      --button-active-background: var(--color-white);
-      --button-icon-color: var(--color-icon-disabled);
-      --button-icon-color-hover: var(--color-icon-disabled);
-      --button-icon-color-active: var(--color-icon-disabled);
+      color: css-var($element, color, var(--color-text-disabled));
+
+      #{$this}__icon {
+        --icon-color: #{css-var($element + "-icon", color, var(--color-icon-disabled))};
+      }
+
+      @include hover {
+        background: css-var($element + "-hover", background, transparent);
+        color: css-var($element + "-hover", color, var(--color-text-disabled));
+
+        #{$this}__icon {
+          --icon-color: #{css-var($element + "-hover-icon", color, var(--color-icon-disabled))};
+        }
+      }
+
+      &:active {
+        background: css-var($element + "-hover", background, transparent);
+        color: css-var($element + "-active", color, var(--color-text-disabled));
+
+        #{$this}__icon {
+          --icon-color: #{css-var($element + "-active-icon", color, var(--color-icon-disabled))};
+        }
+      }
     }
   }
 
-  &--circled {
-    --button-border-radius: var(--border-radius-circle);
-    --button-padding: var(--space-12);
-  }
-
   &--text {
-    --button-color: var(--color-text-action-primary);
-    --button-hover-color: var(--color-text-action-primary-hover);
-    --button-active-color: var(--color-text-action-primary-active);
-    --button-background: transparent;
-    --button-hover-background: transparent;
-    --button-active-background: transparent;
-    --button-padding: 0;
-    --button-font: var(--body-1);
-    --button-letter-spacing: var(--letter-spacing-body-1);
+    @extend #{$this}--outlined;
+
+    --#{$element}-border-width: 0;
+    --#{$element}-padding: 0;
+    --#{$element}-hover-background: transparent;
+    --#{$element}-active-background: transparent;
+
+    font: css-var($element, font, var(--font-body-1));
+    letter-spacing: css-var($element, letter-spacing, var(--letter-spacing-body-1));
 
     #{$this}__icon {
-      --button-icon-margin: 0 var(--space-4) 0 0;
+      margin: css-var($element + "-icon", margin, 0 var(--space-4) 0 0);
 
       [dir="rtl"] & {
-        --button-icon-margin: 0 0 0 var(--space-4);
+        margin: css-var($element + "-rtl-icon", margin, 0 0 0 var(--space-4));
       }
 
       &--right {
-        --button-icon-margin: 0 0 0 var(--space-4);
+        margin: css-var($element + "-icon", margin, 0 0 0 var(--space-4));
 
         [dir="rtl"] & {
-          --button-icon-margin: 0 var(--space-4) 0 0;
+          margin: css-var($element + "-rtl-icon", margin, 0 var(--space-4) 0 0);
         }
       }
     }
 
     &#{$this}--small {
-      --button-font: var(--body-2-comfortable);
-      --button-letter-spacing: var(--letter-spacing-body-2-comfortable);
-    }
-
-    &#{$this}--is-disabled {
-      --button-color: var(--color-text-disabled);
-      --button-hover-color: var(--color-text-disabled);
-      --button-active-color: var(--color-text-disabled);
-      --button-background: transparent;
-      --button-hover-background: transparent;
-      --button-active-background: var(--color-white);
-      --button-icon-color: var(--color-icon-disabled);
-      --button-icon-color-hover: var(--color-icon-disabled);
-      --button-icon-color-active: var(--color-icon-disabled);
+      font: css-var($element, font, var(--font-body-2-comfortable));
+      letter-spacing: css-var($element, letter-spacing, var(--letter-spacing-2-comfortable));
     }
   }
 
-  &--secondary {
-    --button-color: var(--color-text-action-secondary);
-    --button-hover-color: var(--color-text-action-secondary-hover);
-    --button-active-color: var(--color-text-action-secondary-active);
+  &--circled {
+    @extend #{$this}--outlined;
 
-    &#{$this}--has-icon {
-      --button-icon-color: var(--color-icon-secondary);
-      --button-icon-color-hover: var(--color-icon-secondary-hover);
-      --button-icon-color-active: var(--color-icon-secondary-active);
+    --#{$element}-border-radius: var(--border-radius-circle);
+    --#{$element}-icon-margin: 0;
+    --#{$element}-rtl-icon-margin: 0;
+
+    padding: css-var($element, padding, var(--space-12));
+
+    .ui-text {
+      --text-color: currentcolor;
+
+      width: 1.5rem;
     }
+  }
 
-    &#{$this}--is-disabled {
-      --button-icon-color: var(--color-icon-disabled);
-      --button-icon-color-hover: var(--color-icon-disabled);
-      --button-icon-color-active: var(--color-icon-disabled);
+  &--icon {
+    @extend #{$this}--outlined;
+
+    --#{$element}-padding: 0;
+    --#{$element}-border-width: 0;
+    --#{$element}-icon-margin: 0;
+    --#{$element}-rtl-icon-margin: 0;
+    --#{$element}-hover-background: transparent;
+    --#{$element}-active-background: transparent;
+  }
+
+  @at-root [class*="-secondary"] {
+    #{$this},
+    &#{$this} {
+      --color-text-action-primary: var(--color-text-action-secondary);
+      --color-text-action-primary-hover: var(--color-text-action-secondary-hover);
+      --color-text-action-primary-active: var(--color-text-action-secondary-active);
+      --color-icon-primary: var(--color-icon-secondary);
+      --color-icon-primary-hover: var(--color-icon-secondary-hover);
+      --color-icon-primary-active: var(--color-icon-secondary-active);
+    }
+  }
+
+  @at-root [class*="-brand"] {
+    #{$this},
+    &#{$this} {
+      --color-text-action-primary: var(--color-text-on-brand);
+      --color-text-action-primary-hover: var(--color-text-on-brand-hover);
+      --color-text-action-primary-active: var(--color-text-on-brand-active);
+      --color-icon-primary: var(--color-icon-on-brand);
+      --color-icon-primary-hover: var(--color-icon-on-brand-hover);
+      --color-icon-primary-active: var(--color-icon-on-brand-active);
+      --color-text-disabled: var(--color-text-on-brand-disabled);
+      --color-icon-disabled: var(--color-icon-on-brand-disabled);
     }
   }
 }

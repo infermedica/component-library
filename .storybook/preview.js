@@ -2,9 +2,13 @@ import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import scss from 'react-syntax-highlighter/dist/esm/languages/prism/scss';
 import { app } from '@storybook/vue3';
 import withTest from './decorators/withTest';
+import withTheme from "./decorators/withTheme";
 import './tailwindcss.css';
 import '@/styles/styles.scss';
 import './styles.scss';
+
+// Registers and enables scss language support
+SyntaxHighlighter.registerLanguage('scss', scss);
 
 export const parameters = {
   options: {
@@ -25,11 +29,34 @@ export const parameters = {
     },
   },
   viewMode: 'docs',
-};
+  backgrounds: {
+    values: [
+      {
+        name: 'brand',
+        value: 'var(--color-background-brand)'
+      }
+    ]
+  },
+}
 
-export const decorators = [
-  withTest
-]
+export const globalTypes = {
+  theme: {
+    name: 'Theme',
+    description: 'Global theme for components',
+    defaultValue: 'default',
+    toolbar: {
+      icon: 'browser',
+      items: [
+        {value: 'default', title: 'Default'},
+        {value: 'secondary', title: 'Secondary'},
+        {value: 'brand', title: 'Brand'},
+      ],
+      dynamicTitle: true,
+      showName: true,
+    }
+  }
+}
+export const decorators = [withTest, withTheme]
 
 document.body.onload = function() {
   // Set LTR as default directionality.
@@ -43,7 +70,9 @@ app.component('router-link', {
     const href = props.to.path;
     return { href }
   },
-  template: `<a :href="href" data-component-name="router-link"><slot /></a>`, // Add data-component-name to distinguish from a native  <a> element
+  template: `<a 
+    :href="href" 
+    data-component-name="router-link">
+    <slot />
+  </a>`,
 })
-// Registers and enables scss language support
-SyntaxHighlighter.registerLanguage('scss', scss);

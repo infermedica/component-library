@@ -1,8 +1,5 @@
 <template>
-  <component
-    :is="tag"
-    class="ui-multiple-answer"
-  >
+  <div class="ui-miltiple-answer">
     <!-- @slot Use this slot to replace hint template. -->
     <slot
       name="hint"
@@ -16,18 +13,6 @@
       >
         {{ hint }}
       </UiAlert>
-    </slot>
-    <!-- @slot Use this slot to replace legend template. -->
-    <slot
-      name="legend"
-      v-bind="{legend}"
-    >
-      <legend
-        v-if="legend"
-        class="visual-hidden"
-      >
-        {{ legend }}
-      </legend>
     </slot>
     <UiList
       class="ui-multiple-answer__list"
@@ -44,7 +29,6 @@
         >
           <UiListItem
             class="ui-multiple-answer__list-item"
-            :class="{'ui-multiple-answer__list-item--has-error': hasError}"
           >
             <!-- @slot Use this slot to replace choice-item template.-->
             <slot
@@ -59,7 +43,7 @@
                 :name="name"
                 class="ui-multiple-answer__choice"
                 :class="errorClass"
-                @update:modelValue="updateHandler(choice)"
+                @update:model-value="updateHandler(choice)"
                 @keydown="focusExplication"
               >
                 <template #label>
@@ -81,10 +65,13 @@
                         v-if="choice.buttonInfoAttrs"
                         v-bind="choice.buttonInfoAttrs"
                         tabindex="-1"
-                        class="ui-multiple-answer__explication ui-button--text ui-button--has-icon"
+                        class="ui-button--icon ui-multiple-answer__explication"
                         @keydown="unfocusExplication"
                       >
-                        <UiIcon icon="info" />
+                        <UiIcon
+                          icon="info"
+                          class="ui-button__icon"
+                        />
                       </UiButton>
                     </div>
                   </slot>
@@ -95,7 +82,7 @@
         </slot>
       </template>
     </UiList>
-  </component>
+  </div>
 </template>
 
 <script lang="ts">
@@ -118,7 +105,7 @@ import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import type { PropsAttrs } from '../../../types/attrs';
 import UiAlert from '../../molecules/UiAlert/UiAlert.vue';
-import { focusElement } from '../../../utilities/helpers';
+import { focusElement } from '../../../utilities/helpers/index.ts';
 
 export interface MultipleAnswerChoice extends CheckboxValueAsObj {
   name: string;
@@ -131,15 +118,15 @@ export type MultipleAnswerValue = RadioValue | CheckboxValue[];
 export type ComponentName = 'ui-checkbox' | 'ui-radio';
 const props = defineProps({
   /**
-   *  Use this props or v-model to set checked.
-   */
+     *  Use this props or v-model to set checked.
+     */
   modelValue: {
     type: [String, Object, Array] as PropType<MultipleAnswerValue>,
     default: () => ([]),
   },
   /**
-   *  Use this props to set possible choices.
-   */
+     *  Use this props to set possible choices.
+     */
   choices: {
     type: Array as PropType<MultipleAnswerChoice[]>,
     default: () => ([]),
@@ -179,20 +166,6 @@ const props = defineProps({
     type: Object as PropsAttrs,
     default: () => ({}),
   },
-  /**
-   * Use this props to set multiple answer tag.
-   */
-  tag: {
-    type: String,
-    default: 'fieldset',
-  },
-  /**
-   * Use this props to set legend.
-   */
-  legend: {
-    type: String,
-    default: '',
-  },
 });
 const emit = defineEmits<{(e:'update:modelValue', value: MultipleAnswerChoice | CheckboxValueAsObj[]): void,
   (e: 'update:invalid', value: boolean): void
@@ -205,7 +178,7 @@ const valid = computed(() => (isCheckbox.value
   : !!(props.modelValue as CheckboxValueAsObj).id));
 const hasError = computed(() => (props.touched && !valid.value));
 const hintType = computed<'error'|'default'>(() => (props.touched && props.invalid ? 'error' : 'default'));
-const errorClass = computed<`${ComponentName}--has-error` | ''>(() => (hasError.value ? `${componentName.value}--has-error` : ''));
+const errorClass = computed<`${ComponentName}--has-error` | ''>(() => ([hasError.value ? `${componentName.value}--has-error` : '', { 'ui-multiple-answer__choice--has-error': hasError.value }]));
 watch(valid, (value) => {
   emit('update:invalid', !value);
 }, { immediate: true });
@@ -240,12 +213,18 @@ function unfocusExplication(event: KeyboardEvent) {
 
 <style lang="scss">
 @import "../../../styles/mixins/mixins";
+@import "../../../styles/functions/functions";
 
 .ui-multiple-answer {
-  @at-root fieldset#{&} {
-    border: none;
-    padding: 0;
-    margin: 0;
+  $this: &;
+  $element: multiple-answer;
+
+  &__hint {
+    padding: css-var($element + "-hint", padding, 0 var(--space-20) var(--space-12));
+
+    @include from-tablet {
+      padding: css-var($element + "-tablet-hint", padding, 0 0 var(--space-12) 0);
+    }
   }
 
   &__list-item {
@@ -253,58 +232,44 @@ function unfocusExplication(event: KeyboardEvent) {
 
     --list-item-padding: 0;
 
-    background: var(--multiple-answer-list-item-background);
-
     &:last-of-type {
-      --multiple-answer-list-item-border-width: var(--multiple-answer-list-item-last-border-width, 1px 0);
-    }
-
-    @media (hover: hover) {
-      &:hover {
-        background: var(--multiple-answer-list-item-hover-background);
-
-        @include from-tablet {
-          background: var(--multiple-answer-list-item-tablet-hover-background, var(--color-gray-50));
-        }
+      &::after {
+        border-width: css-var($element, border-width, 1px 0);
       }
-    }
-
-    &--has-error {
-      --multiple-answer-list-item-background: var(--color-background-error);
-    }
-  }
-
-  &__hint {
-    margin: var(--multiple-answer-mobile-hint-margin, 0 var(--space-20) var(--space-12) var(--space-20));
-    color: var(--multiple-answer-hint-color, var(--color-text-dimmed));
-
-    @include from-tablet {
-      margin: var(--multiple-answer-tablet-hint-margin, 0 0 var(--space-12) 0);
-    }
-  }
-
-  &__choice {
-    width: 100%;
-    padding: var(--multiple-answer-choice-padding, var(--space-12) var(--space-20));
-
-    @include from-tablet {
-      padding: var(--multiple-answer-tablet-choice-padding, var(--space-12));
     }
   }
 
   &__label {
     display: flex;
-    width: 100%;
     align-items: flex-start;
     justify-content: space-between;
   }
 
-  &__explication {
-    margin: var(--multiple-answer-margin, 0 0 0 var(--space-12));
+  &__choice {
+    padding: css-var($element + "-choice", padding, var(--space-12) var(--space-20));
+    background: css-var($element + "-choice", background, transparent);
 
-    [dir="rtl"] & {
-      margin: var(--multiple-answer-margin, 0 var(--space-12) 0 0);
+    @include from-tablet {
+      padding: css-var($element + "-tablet-choice", padding, var(--space-12));
+
+      @include hover {
+        background: css-var($element + "-tablet-hover", background, var(--color-background-white-hover));
+      }
     }
+
+    &--has-error {
+      @include from-tablet {
+        background: css-var($element + "-tablet-option", background, var(--color-background-error));
+
+        @include hover {
+          background: css-var($element + "-tablet-option-hover", background, var(--color-background-error));
+        }
+      }
+    }
+  }
+
+  &__explication {
+    margin: css-var($element + "-explication", margin, 0 0 0 var(--space-12));
   }
 }
 </style>

@@ -1,14 +1,14 @@
-import { ref } from 'vue';
-import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints.vue';
-import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue';
+import { scrollTabindex } from '@/utilities/directives/index';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiLink from '@/components/atoms/UiLink/UiLink.vue';
-import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
+import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints.vue';
+import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue';
+import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
+import { ref } from 'vue';
 import docs from './scroll-tabindex.mdx';
-import { scrollTabindex } from '../index';
 
 export default {
   title: 'Utilities/Directives/Scroll Tabindex',
@@ -32,7 +32,7 @@ export const WithDirective = () => ({
     return { modelValue };
   },
   template: `
-  <UiButton class="ui-button--text ui-button--secondary" @click="modelValue = true;">
+  <UiButton class="ui-button--text ui-button--theme-secondary" @click="modelValue = true;">
     Show side panel
   </UiButton>
   <UiSidePanel v-model="modelValue">
@@ -41,7 +41,7 @@ export const WithDirective = () => ({
         <!-- scope where body-scroll-lock will be look elements to ignore -->
         <dialog v-if='modelValue' class="ui-side-panel__dialog">
           <div class="ui-side-panel__header">
-            <UiButton ref="button" class="ui-button--has-icon ui-button--secondary ui-button--text ui-side-panel__close"
+            <UiButton ref="button" class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
               v-bind="buttonCloseAttrs" @click="closeHandler">
               <UiIcon icon="close" />
             </UiButton>
@@ -74,7 +74,7 @@ export const WithDirectiveAndScrollableContent = () => ({
     return { modelValue };
   },
   template: `
-  <UiButton class="ui-button--text ui-button--secondary" @click="modelValue = true;">
+  <UiButton class="ui-button--text ui-button--theme-secondary" @click="modelValue = true;">
     Show side panel
   </UiButton>
   <UiSidePanel v-model="modelValue">
@@ -83,7 +83,7 @@ export const WithDirectiveAndScrollableContent = () => ({
         <!-- scope where body-scroll-lock will be look elements to ignore -->
         <dialog v-if='modelValue' class="ui-side-panel__dialog">
           <div class="ui-side-panel__header">
-            <UiButton ref="button" class="ui-button--has-icon ui-button--secondary ui-button--text ui-side-panel__close"
+            <UiButton ref="button" class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
               v-bind="buttonCloseAttrs" @click="closeHandler">
               <UiIcon icon="close" />
             </UiButton>
@@ -162,7 +162,7 @@ export const WithoutDirective = () => ({
     return { modelValue };
   },
   template: `
-  <UiButton class="ui-button--text ui-button--secondary" @click="modelValue = true;">
+  <UiButton class="ui-button--text ui-button--theme-secondary" @click="modelValue = true;">
     Show side panel
   </UiButton>
   <UiSidePanel v-model="modelValue">
@@ -171,7 +171,7 @@ export const WithoutDirective = () => ({
         <!-- scope where body-scroll-lock will be look elements to ignore -->
         <dialog v-if='modelValue' class="ui-side-panel__dialog">
           <div class="ui-side-panel__header">
-            <UiButton ref="button" class="ui-button--has-icon ui-button--secondary ui-button--text ui-side-panel__close"
+            <UiButton ref="button" class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
               v-bind="buttonCloseAttrs" @click="closeHandler">
               <UiIcon icon="close" />
             </UiButton>

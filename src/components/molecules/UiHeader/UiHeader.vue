@@ -7,7 +7,7 @@
         v-bind="{attrs: buttonBrandAttrs, logoAttrs}"
       >
         <UiButton
-          class="ui-button--text ui-header__brand"
+          class="ui-button--icon ui-header__brand"
           v-bind="buttonBrandAttrs"
         >
           <!-- @slot Use this slot to replace logo template.-->
@@ -29,11 +29,14 @@
           v-bind="{attrs: buttonHamburgerAttrs, handleHamburger}"
         >
           <UiButton
-            class="ui-button--text ui-button--has-icon ui-header__hamburger"
+            class="ui-button--icon ui-button--theme-brand ui-header__hamburger"
             v-bind="buttonHamburgerAttrs"
             @click="handleHamburger"
           >
-            <UiIcon icon="menu" />
+            <UiIcon
+              icon="menu"
+              class="ui-button__icon"
+            />
           </UiButton>
         </slot>
       </template>
@@ -44,8 +47,9 @@
           v-bind="{attrs: navigationAttrs, navigation}"
         >
           <UiNavigation
-            :items="navigation"
             v-bind="navigationAttrs"
+            :items="navigation"
+            class="ui-navigation--theme-brand ui-header__navigation"
           />
         </slot>
       </template>
@@ -156,32 +160,29 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss">
+@import "../../../styles/functions/functions";
+
 .ui-header {
-  background: var(--header-background, var(--color-background-brand));
+  $element: header;
+
+  background: css-var($element, background, var(--color-background-brand));
 
   &__header {
     display: flex;
     width: 100%;
-    max-width: var(--header-max-width, 61.25rem);
+    max-width: css-var($element, max-width, 61.25rem);
     align-items: center;
-    justify-content: var(--header-justify-content, space-between);
-    padding: var(--header-padding, 0 var(--space-20));
-    margin: var(--header-margin, auto);
+    justify-content: space-between;
+    padding: css-var($element, padding, 0 var(--space-20));
   }
 
   &__brand {
-    margin: var(--header-brand-margin, var(--space-20) 0);
+    margin: css-var($element + "-brand", margin, var(--space-20) 0);
   }
 
   &__logo {
-    --icon-width: var(--header-logo-width, fit-content);
-    --icon-height: var(--header-logo-height, 1.5rem);
-  }
-
-  &__hamburger {
-    --button-icon-color: var(--color-icon-negative);
-    --button-icon-color-hover: var(--color-icon-negative);
-    --button-icon-color-active: var(--color-icon-negative);
+    --icon-width: #{css-var($element + "-logo", width, fit-content)};
+    --icon-height: #{css-var($element + "-logo", height, 1.5rem)};
   }
 
   &--full-width {

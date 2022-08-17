@@ -1,13 +1,11 @@
 // TODO: Divide into two components. UiDropdown and UiSelect.
-import { actions } from '@storybook/addon-actions';
-import {
-  computed, ref, watch,
-} from 'vue';
 import UiDropdown from '@/components/molecules/UiDropdown/UiDropdown.vue';
 import UiDropdownItem from '@/components/molecules/UiDropdown/_internal/UiDropdownItem.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiInput from '@/components/atoms/UiInput/UiInput.vue';
 import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
+import { computed, ref, watch } from 'vue';
+import { actions } from '@storybook/addon-actions';
 
 const events = actions({
   onOpen: 'open',
@@ -74,45 +72,6 @@ export default {
     },
   },
   decorators: [() => ({ template: '<div style="min-height: 220px"><story /></div>' })],
-  parameters: {
-    cssprops: {
-      'dropdown-toggle-width': {
-        value: '100%',
-        control: 'text',
-        description: '',
-      },
-      'dropdown-popover-top': {
-        value: '100%',
-        control: 'text',
-        description: '',
-      },
-      'dropdown-popover-left': {
-        value: 'unset',
-        control: 'text',
-        description: '',
-      },
-      'dropdown-popover-width': {
-        value: '100%',
-        control: 'text',
-        description: '',
-      },
-      'dropdown-popover-max-width': {
-        value: 'unset',
-        control: 'text',
-        description: '',
-      },
-      'dropdown-popover-min-height': {
-        value: '0',
-        control: 'text',
-        description: '',
-      },
-      'dropdown-popover-transform': {
-        value: 'translateY(var(--space-8))',
-        control: 'text',
-        description: '',
-      },
-    },
-  },
 };
 
 export const AsSelect = (args) => ({

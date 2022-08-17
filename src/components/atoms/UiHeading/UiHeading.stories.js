@@ -1,11 +1,12 @@
-import { content } from '@sb/helpers/argTypes';
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
+import { content, modifiers } from '@sb/helpers/argTypes';
 
 export default {
   title: 'Atoms/Heading',
   component: UiHeading,
   args: {
     content: 'Do you have any of the following symptoms?',
+    modifiers: [],
     level: 2,
     tag: '',
   },
@@ -18,40 +19,12 @@ export default {
         max: 6,
       },
     },
-  },
-  parameters: {
-    cssprops: {
-      'heading-font': {
-        value: 'var(--font-body-1)',
-        control: 'text',
-        description: '',
-      },
-      'heading-letter-spacing': {
-        value: 'var(--letter-spacing-body-1)',
-        control: 'text',
-        description: '',
-      },
-      'heading-margin': {
-        value: '0',
-        control: 'text',
-        description: '',
-      },
-      'heading-color': {
-        value: 'var(--color-text-heading)',
-        control: 'text',
-        description: '',
-      },
-      'heading-text-decoration': {
-        value: undefined,
-        control: 'text',
-        description: '',
-      },
-      'heading-text-transform': {
-        value: undefined,
-        control: 'text',
-        description: '',
-      },
-    },
+    modifiers: modifiers({
+      options: [
+        'ui-heading--theme-secondary',
+        'ui-heading--theme-brand',
+      ],
+    }),
   },
 };
 
@@ -60,6 +33,7 @@ const Template = (args) => ({
   setup() { return { ...args }; },
   template: `<UiHeading
     :level="level"
+    :class="modifiers"
   >
   {{content}}
   </UiHeading>`,

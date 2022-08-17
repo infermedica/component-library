@@ -1,160 +1,159 @@
 import UiLoader from '@/components/molecules/UiLoader/UiLoader.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
+import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
 import UiContainer from '@/components/organisms/UiContainer/UiContainer.vue';
-import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import UiControls from '@/components/organisms/UiControls/UiControls.vue';
+import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 
 export default {
   title: 'Molecules/Loader',
   component: UiLoader,
   subcomponents: {},
-  args: {
-    isLoading: true,
-    type: 'spinner',
-    loaderAttrs: {
-      type: 'question',
-    },
-    tag: 'div',
-    transition: 'fade',
-    eagerLoadComponent: true,
-  },
-  argTypes: {
-    type: {
-      control: false,
-    },
-    tag: {
-      control: 'text',
-    },
-    transition: {
-      control: 'text',
-    },
-  },
+  args: {},
+  argTypes: {},
+  decorators: [() => ({ template: '<div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 2.5rem"><story /></div>' })],
 };
-const Template = (args) => ({
-  components: { UiLoader },
+
+const SpinnerTemplate = (args) => ({
+  components: { UiLoader, UiText },
   setup() {
     return { ...args };
   },
-  template: `<UiLoader
-    :is-loading="isLoading"
-    :loader-attrs="loaderAttrs"
-    :type="type"
-    :transition="transition"
-    class="absolute w-full h-full flex justify-center items-center"
-  >It seems you’re offline right now. Please check your connection and try again.</UiLoader>`,
-});
-
-export const Spinner = Template.bind({});
-Spinner.parameters = {
-  layout: 'fullscreen',
-};
-Spinner.decorators = [() => ({ template: '<div style="min-height: 320px;"><story /></div>' })];
-
-export const SpinnerOnDark = (args) => ({
-  components: { UiLoader },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiLoader
-    :is-loading="isLoading"
-    :loader-attrs="loaderAttrs"
-    :type="type"
-    :transition="transition"
-    :tag="tag"
-    class="absolute w-full h-full flex justify-center items-center"
-    style="background: var(--color-blue-600)"
+  template: `<UiText tag="span">Large:</UiText>
+  <UiLoader
+    :is-loading="true"
+    type="spinner"
+    transition="fade"
   >
-    It seems you’re offline right now. Please check your connection and try again.
+    {{"content"}}
+  </UiLoader>
+  <UiLoader
+    :is-loading="true"
+    type="spinner"
+    transition="fade"
+    :loader-attrs="{ label: 'Label' }"
+  >
+    {{"content"}}
+  </UiLoader>
+  <UiText tag="span">Small:</UiText>
+  <UiLoader
+    :is-loading="true"
+    type="spinner"
+    transition="fade"
+    :loader-attrs="{ class: 'ui-loader-spinner--small'}"
+  >
+    {{"content"}}
+  </UiLoader>
+  <UiLoader
+    :is-loading="true"
+    type="spinner"
+    transition="fade"
+    :loader-attrs="{ class: 'ui-loader-spinner--small', label: 'Label' }"
+  >
+    {{"content"}}
   </UiLoader>`,
 });
-SpinnerOnDark.args = {
-  loaderAttrs: {
-    class: 'ui-loader-spinner--on-dark',
-  },
-};
-SpinnerOnDark.decorators = [() => ({ template: '<div style="min-height: 320px;"><story /></div>' })];
-SpinnerOnDark.parameters = {
-  layout: 'fullscreen',
-};
+export const SpinnerLoader = SpinnerTemplate.bind({});
 
-export const LoadingButton = (args) => ({
-  components: { UiLoader, UiButton },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiButton class="relative">
+export const SpinnerLoaderOnBrand = SpinnerTemplate.bind({});
+SpinnerLoaderOnBrand.parameters = {
+  backgrounds: { default: 'brand' },
+};
+SpinnerLoaderOnBrand.decorators = [() => ({ template: '<div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 2.5rem" class="--theme-brand"><story /></div>' })];
+
+export const SkeletonLoader = () => ({
+  components: { UiLoader, UiButton, UiText },
+  template: `<UiText tag="span">Common:</UiText>
+  <div style="min-width: 320px">
     <UiLoader
-      :is-loading="isLoading"
-      :loader-attrs="loaderAttrs"
-      :type="type"
-      :transition="transition"
-      :tag="tag"
-      class="absolute"
-    />
-    <span :class="{ 'opacity-0': isLoading }">
-      Next
-    </span>
+      :is-loading="true"
+      type="skeleton"
+      transition="fade"
+    >
+      {{"content"}}
+    </UiLoader>
+  </div>
+  <UiText tag="span">Question:</UiText>
+  <div style="min-width: 320px">
+    <UiLoader
+      :is-loading="true"
+      type="skeleton"
+      transition="fade"
+      :loader-attrs="{ type: 'question'}"
+    >
+      {{"content"}}
+    </UiLoader>
+  </div>`,
+});
+
+export const LoadingButton = () => ({
+  components: { UiLoader, UiButton, UiText },
+  template: `<UiText tag="span">Contained:</UiText>
+  <UiButton>
+    <UiLoader
+      :is-loading="true"
+      type="ellipsis"
+      style="position: absolute;"
+    /><span style="opacity: 0;">{{"Label"}}</span>
+  </UiButton>
+  <UiText tag="span">Outlined:</UiText>
+  <UiButton 
+    class="ui-button--outlined" 
+    style="--loader-ellipsis-dot-background: var(--color-icon-primary);"
+  >
+    <UiLoader
+      :is-loading="true"
+      type="ellipsis"
+      style="position: absolute;"
+    /><span style="opacity: 0;">{{"Label"}}</span>
   </UiButton>`,
 });
-LoadingButton.args = {
-  type: 'ellipsis',
-};
+LoadingButton.decorators = [() => ({ template: '<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 2.5rem"><story /></div>' })];
 
-export const LoadingPopover = (args) => ({
+export const LoadingPopover = () => ({
   components: { UiLoader, UiPopover },
-  setup() {
-    return { ...args };
-  },
   template: `<UiPopover
     title="Loading..."
-    class="max-w-80 ui-popover--has-arrow"
-    style="--popover-content-padding: 0"
+    class="ui-popover--has-arrow"
+    style="--popover-content-padding: 0; max-width: 20rem;"
     :button-attrs="{
       'aria-label': 'close',
     }"
   >
     <UiLoader
-      :is-loading="isLoading"
-      :loader-attrs="loaderAttrs"
-      :type="type"
-      :transition="transition"
-      :tag="tag"
-      style="padding: var(--space-16)"
-    />
+      :is-loading="true"
+      type="skeleton"
+      transition="fade"
+      :loader-attrs="{ type: 'common'}"
+      style="padding: 0 var(--space-16) var(--space-16);"
+    >
+      {{"content"}}
+    </UiLoader>
   </UiPopover>`,
 });
-LoadingPopover.args = {
-  type: 'skeleton',
-};
+LoadingPopover.decorators = [() => ({ template: '<div style="flex: 1;"><story /></div>' })];
 
-export const LoadingContainer = (args) => ({
+export const LoadingContainer = () => ({
   components: { UiLoader, UiContainer },
-  setup() {
-    return { ...args };
-  },
   template: `<UiContainer
-    class="max-w-195 w-full"
-    style="--container-padding: var(--space-40) var(--space-48);"
+    style="max-width: 48.75rem; width: 100%; --container-padding: var(--space-40) var(--space-48)"
   >
     <UiLoader
-      :is-loading="isLoading"
-      :loader-attrs="loaderAttrs"
-      :type="type"
-      :transition="transition"
-      :tag="tag"
-    />
+      :is-loading="true"
+      type="skeleton"
+      transition="fade"
+      :loader-attrs="{ type: 'question'}"
+      style="padding: var(--space-16);"
+    >
+      {{"content"}}
+    </UiLoader>
   </UiContainer>`,
 });
-LoadingContainer.args = {
-  type: 'skeleton',
-};
+LoadingContainer.decorators = [() => ({ template: '<div style="flex: 1;"><story /></div>' })];
 
-export const LoadingSidePanel = (args) => ({
+export const LoadingSidePanel = () => ({
   components: { UiLoader, UiSidePanel },
-  setup() {
-    return { ...args };
-  },
   template: `<UiSidePanel
     :model-value="true"
     title="Loading..."
@@ -163,72 +162,52 @@ export const LoadingSidePanel = (args) => ({
     }"
   >
     <UiLoader
-      :is-loading="isLoading"
-      :loader-attrs="loaderAttrs"
-      :type="type"
-      :transition="transition"
-      :tag="tag"
-    />
+      :is-loading="true"
+      type="skeleton"
+      transition="fade"
+      :loader-attrs="{ type: 'common'}"
+      style="padding: var(--space-16);"
+    >
+      {{"content"}}
+    </UiLoader>
   </UiSidePanel>`,
 });
-LoadingSidePanel.args = {
-  type: 'skeleton',
-};
-LoadingSidePanel.decorators = [() => ({ template: '<div style="--backdrop-position: absolute; --side-panel-position: absolute; --side-panel-z-index: 0; min-height: 320px;"><story /></div>' })];
+LoadingSidePanel.decorators = [() => ({ template: '<div style="flex: 1; min-height: 320px;"><story /></div>' })];
 
-export const LoadingControls = (args) => ({
+export const LoadingControls = () => ({
   components: { UiLoader, UiControls },
-  setup() {
-    return { ...args };
-  },
   template: `<UiControls
     to-next="#"
     to-back="#"
     :invalid="false"
-    class="max-w-195 w-full"
+    style="max-width: 48.75rem; width: 100%;"
   >
     <UiLoader
-      :is-loading="isLoading"
-      :loader-attrs="loaderAttrs"
-      :type="type"
-      :transition="transition"
-      :tag="tag"
-      class="w-full"
-    />
+      :is-loading="true"
+      type="skeleton"
+      transition="fade"
+      :loader-attrs="{ type: 'question'}"
+      style="width: 100%;"
+    >
+      {{"content"}}
+    </UiLoader>
   </UiControls>`,
 });
-LoadingControls.args = {
-  type: 'skeleton',
-  loaderAttrs: { type: 'question' },
-};
+LoadingControls.decorators = [() => ({ template: '<div style="flex: 1; min-height: 320px;"><story /></div>' })];
 
-const Skeleton = (args) => ({
-  components: { UiLoader, UiContainer },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiContainer
-    class="max-w-195 w-full"
-    style="--container-padding: var(--space-40) var(--space-48);"
+export const LoadingFullOnBrand = () => ({
+  components: { UiLoader },
+  template: `<div 
+    style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; display: flex; align-items: center; justify-content: center; background: var(--color-background-brand);"
   >
-    <UiLoader
-      :is-loading="isLoading"
-      :loader-attrs="loaderAttrs"
-      :type="type"
-      :transition="transition"
-      :tag="tag"
-    />
-  </UiContainer>`,
+   <UiLoader
+     :is-loading="true"
+     :type="spinner"
+     :loader-attrs="{ label: 'Loading...' }"
+     class="ui-loader--theme-brand"
+   >
+     {{"content"}}
+   </UiLoader>
+  </div>`,
 });
-
-export const SkeletonCommon = Skeleton.bind({});
-SkeletonCommon.args = {
-  type: 'skeleton',
-  loaderAttrs: { type: 'common' },
-};
-
-export const SkeletonQuestion = Skeleton.bind({});
-SkeletonQuestion.args = {
-  type: 'skeleton',
-  loaderAttrs: { type: 'question' },
-};
+LoadingFullOnBrand.decorators = [() => ({ template: '<div style="flex: 1; min-height: 480px;"><story /></div>' })];

@@ -1,9 +1,9 @@
-import { content } from '@sb/helpers/argTypes';
-import { actions } from '@storybook/addon-actions';
 import UiNotification from '@/components/molecules/UiNotification/UiNotification.vue';
-import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
+import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
+import { actions } from '@storybook/addon-actions';
+import { content } from '@sb/helpers/argTypes';
 
 const events = actions({
   onClick: 'action',
@@ -29,55 +29,6 @@ export default {
     type: {
       control: 'select',
       options: ['success', 'info', 'warning', 'error'],
-    },
-  },
-  parameters: {
-    cssprops: {
-      'notification-border-radius': {
-        value: 'var(--border-radius-container)',
-        control: 'text',
-        description: '',
-      },
-      'notification-padding': {
-        value: 'var(--space-12)',
-        control: 'text',
-        description: '',
-      },
-      'notification-background': {
-        value: undefined,
-        control: 'text',
-        description: '',
-      },
-      'notification-border': {
-        value: 'var(--notification-border-style, solid) var(--notification-border-color, transparent)',
-        control: 'text',
-        description: '',
-      },
-      'notification-border-width': {
-        value: '1px',
-        control: 'text',
-        description: '',
-      },
-      'notification-success-background-color': {
-        value: 'var(--color-background-success)',
-        control: 'text',
-        description: '',
-      },
-      'notification-info-background-color': {
-        value: 'var(--color-background-info)',
-        control: 'text',
-        description: '',
-      },
-      'notification-warning-background-color': {
-        value: 'var(--color-background-warning)',
-        control: 'text',
-        description: '',
-      },
-      'notification-error-background-color': {
-        value: 'var(--color-background-error)',
-        control: 'text',
-        description: '',
-      },
     },
   },
   decorators: [() => ({ template: '<div style="max-width: 320px;"><story /></div>' })],

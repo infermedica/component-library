@@ -24,19 +24,43 @@ defineProps({
 
 <style lang="scss">
 @import "../../../styles/mixins/mixins";
+@import "../../../styles/functions/functions";
 
 .ui-text {
-  $styles: "body-1-thick", "body-2-comfortable", "body-2-compact", "body-2-comfortable-thick", "body-2-compact-thick", "caption", "button-1";
+  $this: &;
+  $element: text;
 
   @include font(text, body-1);
 
-  margin: var(--text-margin, 0);
-  color: var(--text-color, var(--color-text-body));
+  margin: css-var($element, margin, 0);
+  color: css-var($element, color, var(--color-text-body));
+
+  $styles: "body-1-thick", "body-2-comfortable", "body-2-compact",
+    "body-2-comfortable-thick", "body-2-compact-thick", "caption", "button-1";
 
   @each $style in $styles {
     &--#{$style} {
-      --text-font: var(--font-#{$style});
-      --text-letter-spacing: var(--letter-spacing-#{$style});
+      font: css-var($element, font, var(--font-#{$style}));
+      letter-spacing:
+        css-var(
+          $element,
+          letter-spacing,
+          var(--letter-spacing-#{$style})
+        );
+    }
+  }
+
+  @at-root [class*="-secondary"] {
+    #{$this},
+    &#{$this} {
+      --color-text-body: var(--color-text-dimmed);
+    }
+  }
+
+  @at-root [class*="-brand"] {
+    #{$this},
+    &#{$this} {
+      --color-text-body: var(--color-text-on-brand);
     }
   }
 }

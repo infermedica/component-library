@@ -60,7 +60,7 @@ import {
   isMatch,
   lightFormat,
 } from 'date-fns';
-import { capitalizeFirst, focusElement } from '../../../utilities/helpers';
+import { capitalizeFirst, focusElement } from '../../../utilities/helpers/index.ts';
 import UiFormField from '../../molecules/UiFormField/UiFormField.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import UiDatepickerDayInput from './_internal/UiDatepickerDayInput.vue';
@@ -494,23 +494,26 @@ provide('inputsIds', inputsIds);
 
 <style lang="scss">
 @import "../../../styles/mixins/mixins";
+@import "../../../styles/functions/functions";
 
 .ui-datepicker {
-  --dropdown-popover-width: var(--datepicker-dropdown-popover-width, 20rem);
+  $this: &;
+  $element: datepicker;
 
   position: relative;
   display: flex;
+  align-items: flex-start;
 
   &__dropdown {
-    margin: var(--datepicker-dropdown-margin, 0 0 0 var(--space-24));
+    margin: css-var($element + "-dropdown", margin, var(--space-32) 0 0 var(--space-24));
 
     [dir="rtl"] & {
-      margin: var(--datepicker-dropdown-margin, 0 var(--space-24) 0 0);
+      margin: css-var($element + "-dropdown", margin, var(--space-32) var(--space-24) 0 0);
     }
   }
 
   &__form-fields {
-    flex-grow: 1;
+    flex: 1;
     align-items: normal;
   }
 
@@ -522,26 +525,24 @@ provide('inputsIds', inputsIds);
     display: flex;
     flex: 1 1 4rem;
     flex-direction: column;
-    margin: var(--datepicker-group-field-margin, 0 var(--space-8) 0 0);
+    margin: css-var($element + "-group-field", margin, 0 var(--space-8) 0 0);
+
+    [dir="rtl"] & {
+      margin: css-var($element + "-rtl-group-field", margin, 0 0 0 var(--space-8));
+    }
+
+    &:last-of-type {
+      margin: css-var($element + "-group-field", margin, 0);
+    }
 
     &--long {
       flex: calc(6.5 / 4) 1 6.5rem;
     }
-
-    [dir="rtl"] & {
-      margin: var(--datepicker-group-field-margin, 0 0 0 var(--space-8));
-    }
-
-    &:last-child {
-      margin: var(--datepicker-group-field-last-margin, 0);
-    }
   }
 
   &__label {
-    @include font(datepicker-field-label, body-2-comfortable, text);
-
-    display: var(--datepicker-field-label-display, inline-block);
-    margin: var(--datepicker-field-label-margin, 0 0 var(--space-8) 0);
+    display: block;
+    margin: css-var($element + "-label", margin, 0 0 var(--space-8) 0);
   }
 }
 </style>

@@ -2,8 +2,10 @@
   <UiButton
     ref="dropdownItem"
     :tabindex="tabindex"
-    class="ui-dropdown-item ui-button--outlined ui-button--small ui-button--has-icon"
-    :class="{'ui-dropdown-item--selected': isChecked}"
+    class="ui-button--outlined ui-dropdown-item"
+    :class="{
+      'ui-button--is-selected': isChecked,
+    }"
     v-bind="buttonAttrs"
     @keydown="dropdownItemKeydownHandler"
   >
@@ -11,7 +13,7 @@
     <UiIcon
       v-if="isChecked"
       icon="present"
-      class="ui-dropdown-item__icon"
+      class="ui-button__icon ui-dropdown-item__icon"
     />
   </UiButton>
 </template>
@@ -80,48 +82,32 @@ const buttonAttrs = computed<ButtonAttrs>(() => ({
 
 <style lang="scss">
 @import "../../../../styles/mixins/mixins";
+@import "../../../../styles/functions/functions";
 
 .ui-dropdown-item {
-  @include font(dropdown-item, body-1, button);
-  $this: &;
+  $element: dropdown-item;
 
-  --button-padding: var(--dropdown-item-button-padding, var(--space-8));
-  --button-border-width: 0;
-  --button-justify-content: space-between;
-  --button-color: var(--color-text-body);
-  --button-hover-color: var(--color-text-body);
-  --button-active-color: var(--color-text-body);
-  --button-border-radius: var(--border-radius-form);
+  --button-padding: #{css-var($element, padding, var(--space-8))};
+  --button-border-width: #{css-var($element, border-width, 0)};
+  --button-color: #{css-var($element, color, var(--color-text-body))};
+  --button-hover-color: #{css-var($element + "-hover", color, var(--color-text-body))};
+  --button-active-color: #{css-var($element + "-active", color, var(--color-text-body))};
+  --button-font: #{css-var($element, font, var(--font-body-1))};
+  --button-letter-spacing: #{css-var($element, letter-spacing, var(--letter-spacing-body-1))};
 
-  width: 100%;
-  margin: var(--dropdown-item-margin, 0 0 var(--space-8) 0);
+  justify-content: space-between;
+  margin: css-var($element, margin, var(--space-8) 0 0 0);
 
-  &:last-of-type {
-    margin: var(--dropdown-item-margin, 0);
+  &:first-of-type {
+    margin-top: 0;
   }
 
-  &__icon {
-    flex: none;
-  }
-
-  &--selected {
-    --button-icon-color: var(--color-icon-negative);
-    --button-icon-color-hover: var(--color-icon-negative);
-    --button-icon-color-active: var(--color-icon-negative);
-    --button-background: var(--dropdown-item-button-selected-background, var(--color-background-selection));
-    --button-hover-background: var(--dropdown-item-button-selected-background, var(--color-background-selection-hover));
-    --button-active-background: var(--dropdown-item-button-selected-background, var(--color-background-selection-active));
-    --button-color: var(--color-text-on-selection);
-    --button-hover-color: var(--color-text-on-selection);
-    --button-active-color: var(--color-text-on-selection);
-  }
-
-  &--compact {
-    --dropdown-item-button-padding: var(--space-4) var(--space-8);
-  }
-
-  &:focus {
-    --button-background: var(--dropdown-item-button-focus-hidden-background, var(--button-hover-background));
+  /* fixme: do something to remove this hack */
+  /* stylelint-disable-next-line selector-class-pattern */
+  &.ui-button--is-selected {
+    --button-color: #{css-var($element + "-selected", color, var(--color-text-on-selection))};
+    --button-hover-color: #{css-var($element + "-selected-hover", color, var(--color-text-on-selection))};
+    --button-active-color: #{css-var($element + "-selected-active", color, var(--color-text-on-selection))};
   }
 }
 </style>

@@ -1,8 +1,8 @@
-import { modifiers } from '@sb/helpers/argTypes';
 import UiNavigation from '@/components/molecules/UiNavigation/UiNavigation.vue';
-import UiNavigationItem from './_internal/UiNavigationItem.vue';
-import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
-import UiButton from '../../atoms/UiButton/UiButton.vue';
+import UiNavigationItem from '@/components/molecules/UiNavigation/_internal/UiNavigationItem.vue';
+import UiButton from '@/components/atoms/UiButton/UiButton.vue';
+import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
+import { modifiers } from '@sb/helpers/argTypes';
 
 export default {
   title: 'Molecules/Navigation',
@@ -16,7 +16,6 @@ export default {
       { text: 'Terms of Service', href: '#' },
       { text: 'Privacy Policy', href: '#' },
     ],
-    navigationItemsAttrs: {},
   },
   argTypes: {
     navigationItem: {
@@ -29,49 +28,11 @@ export default {
     },
     modifiers: modifiers({
       options: [
-        'ui-navigation--secondary',
         'ui-navigation--small',
+        'ui-navigation--theme-secondary',
+        'ui-navigation--theme-brand',
       ],
     }),
-  },
-  parameters: {
-    cssprops: {
-      'navigation-display': {
-        value: 'inline-flex',
-        control: 'text',
-        description: '',
-      },
-      'navigation-flow': {
-        value: 'row wrap',
-        control: 'text',
-        description: '',
-      },
-      'navigation-align-items': {
-        value: 'center',
-        control: 'text',
-        description: '',
-      },
-      'navigation-justify-content': {
-        value: 'center',
-        control: 'text',
-        description: '',
-      },
-      'navigation-margin': {
-        value: '0 calc(var(--space-8) * -1)',
-        control: 'text',
-        description: '',
-      },
-      'navigation-multiline-margin': {
-        value: '0 calc(var(--space-8) * -1) calc(var(--space-12) * -1)',
-        control: 'text',
-        description: '',
-      },
-      'navigation-item-multiline-margin': {
-        value: '0 var(--space-8) var(--space-12)',
-        control: 'text',
-        description: '',
-      },
-    },
   },
 };
 
@@ -81,18 +42,28 @@ const Template = (args) => ({
     return { ...args };
   },
   template: `<UiNavigation
-    :class="modifiers"
     :items="items"
-    :navigationItemsAttrs="navigationItemsAttrs"
+    :class="modifiers"
   >
   </UiNavigation>`,
 });
 
 export const Common = Template.bind({});
 
+export const Multiline = Template.bind({});
+Multiline.decorators = [() => ({ template: '<div style="max-width: 480px;"><story /></div>' })];
+
 export const Secondary = Template.bind({});
 Secondary.args = {
-  modifiers: 'ui-navigation--secondary',
+  modifiers: ['ui-navigation--theme-secondary'],
+};
+
+export const OnBrand = Template.bind({});
+OnBrand.args = {
+  modifiers: ['ui-navigation--theme-brand'],
+};
+OnBrand.parameters = {
+  backgrounds: { default: 'brand' },
 };
 
 export const Small = Template.bind({});
@@ -106,64 +77,81 @@ export const Vertical = (args) => ({
     return { ...args };
   },
   template: `<UiNavigation
-    :class="modifiers"
-    style="--navigation-flow: column wrap; --navigation-align-items: flex-start"
     :items="items"
-    :navigationItemsAttrs="navigationItemsAttrs"
+    :class="modifiers"
+    style="--navigation-flex-direction: column; --navigation-align-items: flex-start;"
   />`,
 });
 
-export const WithDefaultSlot = (args) => ({
-  components: { UiNavigation, UiNavigationItem, UiIcon },
+export const WithNavigationItemSlot = (args) => ({
+  components: { UiNavigation },
   setup() {
     return { ...args };
   },
   template: `<UiNavigation
+    :items="items"
     :class="modifiers"
-    :navigationItemsAttrs="navigationItemsAttrs"
   >
-    <template #default="{isSecondary, isSmall}">
-      <template 
-        v-for="(item, key) in items" 
-        :key="key"
-      >
-        <UiNavigationItem
-          class=" ui-navigation__item"
-          :class="{'ui-button--secondary': isSecondary, 'ui-button--small': isSmall}"
-          v-bind="item.navigationItemAttrs"
-        >
-          {{item.text}}
-        </UiNavigationItem>
-      </template>
-    </template>  
+    <template #medical-certification="{item}">
+      {{ item.text }}
+    </template>
   </UiNavigation>`,
 });
+WithNavigationItemSlot.args = {
+  items: [
+    { name: 'medical-certification', text: 'Medical Certification', href: '#' },
+    { name: 'instruction-for-use', text: 'Instruction for Use', href: '#' },
+    { name: 'terms-of-service', text: 'Terms of Service', href: '#' },
+    { name: 'privacy-policy', text: 'Privacy Policy', href: '#' },
+  ],
+};
 
-export const WithCustomItemContent = (args) => ({
-  components: { UiNavigation, UiNavigationItem, UiIcon },
+export const WithDefaultSlot = (args) => ({
+  components: { UiNavigation, UiNavigationItem },
   setup() {
     return { ...args };
   },
   template: `<UiNavigation
     :class="modifiers"
-    :items="items"
-    :navigationItemsAttrs="navigationItemsAttrs"
   >
-    <template #medicalCertification="{item}">
-      <UiIcon icon="emergency" style="--icon-color: var(--color-text-action-primary); --icon-size: 18px;"/>
+    <template
+      v-for="(item, key) in items"
+      :key="key"
+    >
+      <UiNavigationItem
+        class=" ui-navigation__item"
+        v-bind="item.navigationItemAttrs"
+      >
+        {{ item.text }}
+      </UiNavigationItem>
     </template>
   </UiNavigation>`,
 });
 
-WithCustomItemContent.args = {
+export const WithIconInNavigationItemSlot = (args) => ({
+  components: { UiNavigation, UiIcon },
+  setup() {
+    return { ...args };
+  },
+  template: `<UiNavigation
+    :items="items"
+    :class="modifiers"
+  >
+    <template #medical-certification="{item}">
+      <UiIcon 
+        icon="info-filled" 
+        class="ui-button__icon"
+      /> {{ item.text }}
+    </template>
+  </UiNavigation>`,
+});
+WithIconInNavigationItemSlot.args = {
   items: [
     {
-      name: 'medical-certification', text: 'Medical Certification', href: '#', navigationItemAttrs: { class: 'ui-button--has-icon' },
+      name: 'medical-certification', text: 'Medical Certification', href: '#',
     },
     { name: 'instruction-for-use', text: 'Instruction for Use', href: '#' },
     { name: 'terms-of-service', text: 'Terms of Service', href: '#' },
     { name: 'privacy-policy', text: 'Privacy Policy', href: '#' },
   ],
-  modifiers: [],
-  navigationItemsAttrs: {},
 };

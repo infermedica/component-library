@@ -15,10 +15,10 @@ describe('UiCheckbox.vue', () => {
     const slot = wrapper.find('.symptom-checker');
     expect(slot.exists()).toBe(true);
   });
-  test('render a content via checkbutton slot', () => {
+  test('render a content via checkbox slot', () => {
     const wrapper = mount(UiCheckbox, {
       slots: {
-        checkbutton: '<div class="symptom-checker"></div>',
+        checkbox: '<div class="symptom-checker"></div>',
       },
     });
     const slot = wrapper.find('.symptom-checker');
@@ -45,9 +45,6 @@ describe('UiCheckbox.vue', () => {
         modelValue: [value],
         value,
       },
-      mocks: {
-        $t: () => {},
-      },
     });
     const input = wrapper.find('input[type="checkbox"]');
     expect(input.element.checked).toBe(true);
@@ -58,9 +55,6 @@ describe('UiCheckbox.vue', () => {
       props: {
         modelValue: ['symptom checker'],
         value,
-      },
-      mocks: {
-        $t: () => {},
       },
     });
     await wrapper.find('input[type="checkbox"]').setChecked();

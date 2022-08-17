@@ -1,8 +1,8 @@
-import { ref } from 'vue';
+import { highlight } from '@/utilities/directives/index';
 import UiInput from '@/components/atoms/UiInput/UiInput.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
+import { ref } from 'vue';
 import docs from './highlight.mdx';
-import { highlight } from '../index';
 
 export default {
   title: 'Utilities/Directives/Highlight',

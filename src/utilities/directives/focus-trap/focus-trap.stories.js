@@ -1,13 +1,13 @@
-import { ref } from 'vue';
+import { focusTrap } from '@/utilities/directives/index';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
-import UiFormField from '@/components/molecules/UiFormField/UiFormField.vue';
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
-import UiRating from '@/components/molecules/UiRating/UiRating.vue';
-import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiTextarea from '@/components/atoms/UiTextarea/UiTextarea.vue';
-import { focusTrap } from '../index';
+import UiFormField from '@/components/molecules/UiFormField/UiFormField.vue';
+import UiRating from '@/components/molecules/UiRating/UiRating.vue';
+import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
+import { ref } from 'vue';
 import docs from './focus-trap.mdx';
 
 export default {
@@ -22,7 +22,7 @@ export default {
 
 export const WithDirective = () => ({
   components: {
-    UiButton, UiFormField, UiHeading, UiIcon, UiRating, UiSidePanel, UiText, UiTextarea,
+    UiButton, UiHeading, UiIcon, UiText, UiTextarea, UiFormField, UiRating, UiSidePanel,
   },
   directives: {
     focusTrap,
@@ -66,7 +66,7 @@ export const WithDirective = () => ({
           <div class="ui-side-panel__header">
             <UiButton
               ref="button"
-              class="ui-button--has-icon ui-button--secondary ui-button--text ui-side-panel__close"
+              class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
               v-bind="buttonCloseAttrs"
               @click="closeHandler"
             >
@@ -93,7 +93,7 @@ export const WithDirective = () => ({
     </template>
   </UiSidePanel>
   <div style="padding: 5px">
-    <UiButton class="ui-button--text ui-button--secondary" @click="modelValue = true">
+    <UiButton class="ui-button--text ui-button--theme-secondary" @click="modelValue = true">
       Show side panel
     </UiButton>
     <UiHeading style="margin-top: 25px"> Feedback </UiHeading>
@@ -147,7 +147,7 @@ export const WithoutDirective = () => ({
           <div class="ui-side-panel__header">
             <UiButton
               ref="button"
-              class="ui-button--has-icon ui-button--secondary ui-button--text ui-side-panel__close"
+              class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
               v-bind="buttonCloseAttrs"
               @click="closeHandler"
             >
@@ -174,7 +174,7 @@ export const WithoutDirective = () => ({
     </template>
   </UiSidePanel>
   <div style="padding: 5px">
-    <UiButton class="ui-button--text ui-button--secondary" @click="modelValue = true">
+    <UiButton class="ui-button--text ui-button--theme-secondary" @click="modelValue = true">
       Show side panel
     </UiButton>
     <UiHeading style="margin-top: 25px"> Feedback </UiHeading>

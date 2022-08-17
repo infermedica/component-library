@@ -28,38 +28,82 @@ defineProps({
    */
   label: {
     type: String,
-    default: 'Loading...',
+    default: '',
   },
 });
 </script>
 
 <style lang="scss">
+@import "../../../../styles/functions/functions";
+
 .ui-loader-spinner {
+  $this: &;
+  $element: loader-spinner;
+
   display: flex;
-  flex-direction: var(--loader-spinner-flex-direction, column);
-  align-items: var(--loader-spinner-align-items, center);
-  justify-content: var(--loader-spinner-justify-content, center);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
   &__loader {
-    width: var(--loader-spinner-loader-size, 4rem);
-    height: var(--loader-spinner-loader-size, 4rem);
-    border: var(--loader-spinner-loader-border, solid rgb(95 114 133 / 30%));
-    border-width: var(--loader-spinner-loader-border-width, 2px);
-    border-top-color: var(--loader-spinner-loader-highlighted-color, var(--color-icon-secondary));
+    --_loader-spinner-loader-size: #{css-var($element + "-loader", size, 4rem)};
+
+    position: relative;
+    width: var(--_loader-spinner-loader-size);
+    height: var(--_loader-spinner-loader-size);
     animation: rotate 0.8s cubic-bezier(0.8, 0.4, 0.4, 0.8) infinite;
-    border-radius: var(--loader-spinner-loader-border-radius, var(--border-radius-circle));
+    border-radius: var(--border-radius-circle);
+
+    &::before,
+    &::after {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-width: css-var($element + "-loader", border-width, 2px);
+      border-style: solid;
+      border-color: css-var($element + "-loader", border-color, var(--color-icon-secondary));
+      border-radius: inherit;
+      content: "";
+    }
+
+    &::before {
+      border-right-color: transparent;
+      border-bottom-color: transparent;
+      border-left-color: transparent;
+    }
+
+    &::after {
+      opacity: css-var($element + "-loader", opacity, 0.3);
+    }
   }
 
   &__label {
-    --text-color: var(--loader-spinner-label-color, var(--color-text-body));
-
-    margin: var(--loader-spinner-label-margin, var(--space-24) 0 0 0);
+    margin: css-var($element + "-label", margin, var(--space-24) 0 0 0);
   }
 
-  &--on-dark {
-    --loader-spinner-loader-border: solid rgb(255 255 255 / 30%);
-    --loader-spinner-loader-highlighted-color: var(--color-icon-on-brand);
-    --loader-spinner-label-color: var(--color-text-on-brand);
+  &--small {
+    flex-direction: row;
+
+    #{$this}__loader {
+      --_loader-spinner-loader-size: #{css-var($element + "-loader", size, 1.125rem)};
+
+      margin: 3px; //pixel perfect hack
+    }
+
+    #{$this}__label {
+      margin: css-var($element + "-label", margin, 0 0 0 var(--space-8));
+
+      [dir="rtl"] & {
+        margin: css-var($element + "-rtl-label", margin, 0 var(--space-8) 0 0);
+      }
+    }
+  }
+
+  @at-root [class*="-brand"] {
+    #{$this},
+    &#{$this} {
+      --color-icon-secondary: var(--color-icon-on-brand);
+    }
   }
 
   @keyframes rotate {

@@ -1,28 +1,28 @@
-.ui-interactive-svg {
-  width: 150px;
-  height: 260px;
+@import "../../../styles/mixins/mixins";
 
-  &-element {
-    --interactive-svg-element-subtle-highlight: var(--color-blue-200);
-    --interactive-svg-element-strong-highlight: var(--color-blue-400);
-    --interactive-svg-element-transition: fill 0.15s ease-in-out,
-      stroke 0.15s ease-in-out;
+.ui-body-model {
+  width: 9.375rem;
 
-    fill: transparent;
-    transition: var(--interactive-svg-element-transition);
+  &__body-part {
+    fill: var(--body-model-body-part-fill, transparent);
+    transition: fill 150ms ease-in-out;
 
-    &:hover {
+    @include with-hover {
       cursor: pointer;
-      fill: var(--interactive-svg-element-strong-highlight);
+    }
+
+    @include hover {
+      fill: var(--body-model-body-part-hover-fill, var(--color-blue-400));
     }
 
     &:focus {
-      fill: var(--interactive-svg-element-strong-highlight);
+      fill: var(--body-model-body-part-focus-fill, var(--color-blue-400));
+
       outline: none;
     }
 
     &--selected {
-      fill: var(--interactive-svg-element-subtle-highlight);
+      fill: var(--body-model-body-part-fill, var(--color-blue-400));
     }
   }
 }

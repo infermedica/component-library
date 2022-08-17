@@ -48,40 +48,36 @@ const isUnordered = computed(() => tag.value === 'ul');
 </script>
 
 <style lang="scss">
+@import "../../../../styles/functions/functions";
+
 .ui-bullet-points-item {
+  $element: bullet-points-item;
+
   display: flex;
-  align-items: var(--bullet-points-item-align-items, flex-start);
-  margin: var(--bullet-points-item-margin, var(--space-4) 0);
+  align-items: css-var($element, align-items, flex-start);
+  justify-content: css-var($element, justify-content, flex-start);
+  margin: css-var($element, margin, var(--space-4) 0);
 
   &:last-child {
-    margin: var(--bullet-points-item-last-margin, 0);
+    margin: 0;
   }
 
   &__marker {
-    --icon-size: var(--bullet-points-item-marker-icon-size, 1.5rem);
-    --icon-color: var(--bullet-points-item-marker-icon-color, var(--color-text-body));
+    --icon-color: #{css-var($element + "-marker", color, var(--color-text-body))};
 
     flex: none;
-    margin: var(--bullet-points-item-marker-padding, 0 var(--space-12) 0 0);
+    margin: css-var($element + "-marker", padding, 0 var(--space-12) 0 0);
 
     [dir="rtl"] & {
-      margin: var(--bullet-points-item-marker-padding, 0 0 0 var(--space-12));
+      margin: css-var($element + "-rtl-marker", padding, 0 0 0 var(--space-12));
     }
 
     &::before {
       display: block;
-      width: var(--bullet-points-item-marker-before-width, 1.5rem);
-      content: counter(counter, var(--list-style-type)) var(--list-item-suffix);
+      width: css-var(icon, size, 1.5rem);
+      content: counter(counter, var(--_list-style-type)) var(--_list-item-suffix);
       counter-increment: counter;
     }
-  }
-
-  &--primary {
-    --bullet-points-item-marker-icon-color: var(--color-icon-primary);
-  }
-
-  &--secondary {
-    --bullet-points-item-marker-icon-color: var(--color-icon-secondary);
   }
 }
 </style>

@@ -8,26 +8,32 @@
 </script>
 
 <style lang="scss">
+@import "../../../../styles/functions/functions";
+
 .ui-loader-ellipsis {
+  $element: loader-ellipsis;
+
   @mixin dot($animation-delay) {
-    width: var(--loader-ellipsis-dot-size, 0.375rem);
-    height: var(--loader-ellipsis-dot-size, 0.375rem);
-    animation: dotFlashing 1s infinite linear alternate;
+    width: var(--_loader-ellipsis-dot-size);
+    height: var(--_loader-ellipsis-dot-size);
+    animation: dot 1s infinite linear alternate;
     animation-delay: $animation-delay;
-    background: var(--loader-ellipsis-dot-background, var(--color-icon-on-brand));
-    border-radius: var(--loader-ellipsis-dot-border-radius, var(--border-radius-circle));
+    background: css-var($element + "-dot", background, var(--color-icon-on-action));
+    border-radius: css-var($element + "-dot", border-radius, var(--border-radius-circle));
   }
+
+  --_loader-ellipsis-dot-size: #{css-var($element + "-dot", size, 0.375rem)};
 
   &__dot {
     @include dot(0.5s);
 
     position: relative;
-    margin: var(--space-8) 0;
 
-    &::after,
-    &::before {
+    &::before,
+    &::after {
       position: absolute;
       top: 0;
+      left: 0;
       display: inline-block;
       content: "";
     }
@@ -35,34 +41,27 @@
     &::before {
       @include dot(0s);
 
-      left: -0.75rem;
-
-      [dir="rtl"] & {
-        right: -0.75rem;
-        left: auto;
-      }
+      transform: translateX(calc(-100% - var(--_loader-ellipsis-dot-size)));
     }
 
     &::after {
       @include dot(1s);
 
-      left: 0.75rem;
-
-      [dir="rtl"] & {
-        right: 0.75rem;
-        left: auto;
-      }
+      transform: translateX(calc(100% + var(--_loader-ellipsis-dot-size)));
     }
   }
 
-  @keyframes dotFlashing {
+  @keyframes dot {
     0% {
-      background: var(--loader-ellipsis-dot-animation-background, var(--color-gray-400));
+      opacity: 0.5;
     }
 
-    50%,
+    50% {
+      opacity: 0.75;
+    }
+
     100% {
-      background: var(--loader-ellipsis-dot-background, var(--color-icon-on-brand));
+      opacity: 1;
     }
   }
 }

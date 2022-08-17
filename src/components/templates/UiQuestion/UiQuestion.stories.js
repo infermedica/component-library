@@ -1,10 +1,11 @@
 import { ref } from 'vue';
 import UiQuestion from '@/components/templates/UiQuestion/UiQuestion.vue';
-import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
+import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
-import UiSimpleQuestion from '@/components/organisms/UiSimpleQuestion/UiSimpleQuestion.vue';
+import UiControls from '@/components/organisms/UiControls/UiControls.vue';
 import UiMultipleAnswer from '@/components/organisms/UiMultipleAnswer/UiMultipleAnswer.vue';
+import UiSimpleQuestion from '@/components/organisms/UiSimpleQuestion/UiSimpleQuestion.vue';
 
 export default {
   title: 'Templates/Question',
@@ -31,6 +32,9 @@ export default {
     },
     buttonSkipAttrs: {
       to: { path: '/' },
+      translation: {
+        action: 'Skip this question',
+      },
     },
     buttonInfoAttrs: {
       to: { path: '/' },
@@ -68,65 +72,6 @@ export default {
       control: 'object',
     },
   },
-  parameters: {
-    cssprops: {
-      'question-padding': {
-        value: '0 var(--space-20)',
-        control: 'text',
-        description: '',
-      },
-      'question-tablet-padding': {
-        value: 'var(--space-16) var(--space-48)',
-        control: 'text',
-        description: '',
-      },
-      'question-actions-top-margin': {
-        value: 'var(--space-12) 0 0 0',
-        control: 'text',
-        description: '',
-      },
-      'question-actions-bottom-margin': {
-        value: 'var(--space-32) 0 0 0',
-        control: 'text',
-        description: '',
-      },
-      'question-tablet-actions-bottom-margin': {
-        value: 'var(--space-32) 0 0 0',
-        control: 'text',
-        description: '',
-      },
-      'question-content-margin': {
-        value: 'var(--space-32) 0 0 0',
-        control: 'text',
-        description: '',
-      },
-      'question-tablet-content-margin': {
-        value: 'var(--space-32) 0 0 0',
-        control: 'text',
-        description: '',
-      },
-      'question-action-margin': {
-        value: 'var(--space-20) 0 0 0',
-        control: 'text',
-        description: '',
-      },
-      'question-tablet-action-margin': {
-        value: '0',
-        control: 'text',
-        description: '',
-      },
-      'question-action-before-margin': {
-        value: '0 var(--space-12)',
-        control: 'text',
-        description: '',
-      },
-      'question-action-before-background': {
-        value: 'var(--color-border-divider)',
-        control: 'text',
-        description: '',
-      },
-    },
-  },
 };
 
 export const AsMultipleAnswer = (args) => ({
@@ -142,10 +87,14 @@ export const AsMultipleAnswer = (args) => ({
     :title="title"
     :translation="translation"
     :options="options"
-    :buttons-skip-attrs="buttonSkipAttrs"
+    :button-skip-attrs="buttonSkipAttrs"
     :button-info-attrs="buttonInfoAttrs"
     :button-why-attrs="buttonWhyAttrs"
     :button-issue-attrs="buttonIssueAttrs"
+    :style="{
+      '--question-tablet-content-margin': 'var(--space-32) 0 0 0',
+      '--question-tablet-actions-bottom-margin': 'var(--space-32) 0 0 0',
+    }"
   >
     <UiMultipleAnswer
       v-model="modelValue"
@@ -174,7 +123,32 @@ AsMultipleAnswer.args = {
       buttonInfoAttrs: null,
     },
   ],
+  translation: {
+    info: 'What does it mean?',
+    why: 'Why am I being asked this?',
+    issue: {
+      action: 'Report an issue with this question',
+      feedback: 'Thank you. We’ll review this question as soon as possible.',
+      skip: 'Skip this question',
+    },
+    back: 'Back',
+    next: 'Next',
+  },
 };
+AsMultipleAnswer.decorators = [(story) => ({
+  components: { story, UiControls },
+  template: `<UiControls
+      :to-next="{path: '/next'}"
+      :to-back="{path: '/back'}"
+      :style="{
+      width: '100%',
+      'max-width': '780px',
+      height: '540px',
+    }"
+  >
+    <story/>
+  </UiControls>`,
+})];
 
 export const AsSimpleQuestion = (args) => ({
   components: { UiQuestion, UiSimpleQuestion },
@@ -189,11 +163,10 @@ export const AsSimpleQuestion = (args) => ({
     :title="title"
     :translation="translation"
     :options="options"
-    :buttons-skip-attrs="buttonSkipAttrs"
+    :button-skip-attrs="buttonSkipAttrs"
     :button-info-attrs="buttonInfoAttrs"
     :button-why-attrs="buttonWhyAttrs"
     :button-issue-attrs="buttonIssueAttrs"
-    style="--question-tablet-content-margin: var(--space-48) 0 0 0; --question-tablet-actions-margin: var(--space-48) 0 0 0;"
   >
     <UiSimpleQuestion
       v-model="modelValue"
@@ -225,7 +198,33 @@ AsSimpleQuestion.args = {
       },
     },
   ],
+  translation: {
+    info: 'What does it mean?',
+    why: 'Why am I being asked this?',
+    issue: {
+      action: 'Report an issue with this question',
+      feedback: 'Thank you. We’ll review this question as soon as possible.',
+      skip: 'Skip this question',
+    },
+    back: 'Back',
+    next: 'Next',
+    action: 'Skip this question',
+  },
 };
+AsSimpleQuestion.decorators = [(story) => ({
+  components: { story, UiControls },
+  template: `<UiControls
+      :to-next="{path: '/next'}"
+      :to-back="{path: '/back'}"
+      :style="{
+      width: '100%',
+      'max-width': '780px',
+      height: '540px',
+    }"
+  >
+    <story/>
+  </UiControls>`,
+})];
 
 export const WithTitleSlot = (args) => ({
   components: { UiQuestion, UiHeading },

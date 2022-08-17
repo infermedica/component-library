@@ -1,6 +1,6 @@
-import { content } from '@sb/helpers/argTypes';
 import UiContainer from '@/components/organisms/UiContainer/UiContainer.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
+import { content } from '@sb/helpers/argTypes';
 
 export default {
   title: 'Organisms/Container',
@@ -10,30 +10,6 @@ export default {
   },
   argTypes: {
     content,
-  },
-  parameters: {
-    cssprops: {
-      'container-padding': {
-        value: 'var(--space-40) var(--space-32)',
-        control: 'text',
-        description: '',
-      },
-      'container-background': {
-        value: 'var(--color-white)',
-        control: 'text',
-        description: '',
-      },
-      'container-border-radius': {
-        value: '0',
-        control: 'text',
-        description: '',
-      },
-      'container-tablet-border-radius': {
-        value: 'var(--border-radius-container)',
-        control: 'text',
-        description: '',
-      },
-    },
   },
 };
 

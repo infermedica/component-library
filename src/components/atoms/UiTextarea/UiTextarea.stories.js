@@ -1,8 +1,6 @@
-import {
-  modifiers, placeholder, disabled,
-} from '@sb/helpers/argTypes';
-import { nextTick, onMounted, ref } from 'vue';
 import UiTextarea from '@/components/atoms/UiTextarea/UiTextarea.vue';
+import { nextTick, onMounted, ref } from 'vue';
+import { modifiers, placeholder } from '@sb/helpers/argTypes';
 
 export default {
   title: 'Atoms/Textarea',
@@ -11,7 +9,6 @@ export default {
     initModelValue: '',
     modifiers: [],
     placeholder: 'I still don’t know what should I do',
-    disabled: false,
     resize: true,
   },
   argTypes: {
@@ -31,99 +28,9 @@ export default {
       ],
     }),
     placeholder,
-    disabled,
     resize: {
       control: 'select',
       options: [true, false, 'horizontal', 'vertical'],
-    },
-  },
-  parameters: {
-    cssprops: {
-      'textarea-border-radius': {
-        value: 'var(--border-radius-form)',
-        control: 'text',
-        description: '',
-      },
-      'textarea-color': {
-        value: 'var(--color-text-body)',
-        control: 'text',
-        description: '',
-      },
-      'textarea-border': {
-        value: 'var(--textarea-border-style, solid) var(--textarea-border-color, var(--color-border-strong))',
-        control: 'text',
-        description: '',
-      },
-      'textarea-border-width': {
-        value: '1px',
-        control: 'text',
-        description: '',
-      },
-      'textarea-hover-border-color': {
-        value: 'var(--color-border-strong-hover)',
-        control: 'text',
-        description: '',
-      },
-      'textarea-focus-border-color': {
-        value: undefined,
-        control: 'text',
-        description: '',
-      },
-      'textarea-element-font': {
-        value: 'var(--font-body-1)',
-        control: 'text',
-        description: '',
-      },
-      'textarea-element-letter-spacing': {
-        value: 'var(--letter-spacing-body-1)',
-        control: 'text',
-        description: '',
-      },
-      'textarea-padding': {
-        value: 'var(--space-12) var(--space-16)',
-        control: 'text',
-        description: '',
-      },
-      'textarea-caret-color': {
-        value: 'var(--color-blue-500)',
-        control: 'text',
-        description: '',
-      },
-      'textarea-error-border-color': {
-        value: 'var(--color-border-error-strong)',
-        control: 'text',
-        description: '',
-      },
-      'textarea-error-hover-border-color': {
-        value: 'var(--color-border-error-strong)',
-        control: 'text',
-        description: '',
-      },
-      'textarea-disabled-color': {
-        value: 'var(--color-text-disabled)',
-        control: 'text',
-        description: '',
-      },
-      'textarea-disabled-placeholder-color': {
-        value: 'var(--color-text-disabled)',
-        control: 'text',
-        description: '',
-      },
-      'textarea-disabled-border-color': {
-        value: 'var(--color-border-subtle)',
-        control: 'text',
-        description: '',
-      },
-      'textarea-disabled-hover-border-color': {
-        value: 'var(--color-border-subtle)',
-        control: 'text',
-        description: '',
-      },
-      'textarea-disabled-caret-color': {
-        value: 'var(--color-border-subtle)',
-        control: 'text',
-        description: '',
-      },
     },
   },
 };
@@ -144,7 +51,6 @@ const Template = (args) => ({
     v-model="modelValue"
     :resize="resize"
     :placeholder="placeholder"
-    :disabled="disabled"
     :class="modifiers"
   />`,
 });

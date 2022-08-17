@@ -1,8 +1,8 @@
 import UiFormField from '@/components/molecules/UiFormField/UiFormField.vue';
-import UiInput from '@/components/atoms/UiInput/UiInput.vue';
 import UiCheckbox from '@/components/atoms/UiCheckbox/UiCheckbox.vue';
-import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
+import UiInput from '@/components/atoms/UiInput/UiInput.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
+import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
 
 export default {
   title: 'Molecules/FormField',
@@ -33,58 +33,9 @@ export default {
       control: 'object',
     },
   },
-  parameters: {
-    cssprops: {
-      'form-field-label-text-font': {
-        value: 'var(--font-body-2-comfortable)',
-        control: 'text',
-        description: '',
-      },
-      'form-field-label-text-letter-spacing': {
-        value: 'var(--letter-spacing-body-2-comfortable)',
-        control: 'text',
-        description: '',
-      },
-      'form-field-label-text-margin': {
-        value: '0 0 var(--space-8) 0',
-        control: 'text',
-        description: '',
-      },
-      'form-field-label-text-color': {
-        value: 'var(--color-text-body)',
-        control: 'text',
-        description: '',
-      },
-      'form-field-label-tag-font': {
-        value: 'var(--font-body-2-comfortable)',
-        control: 'text',
-        description: '',
-      },
-      'form-field-label-tag-letter-spacing': {
-        value: 'var(--letter-spacing-body-2-comfortable)',
-        control: 'text',
-        description: '',
-      },
-      'form-field-label-tag-margin': {
-        value: '0 var(--space-8) 0 0',
-        control: 'text',
-        description: '',
-      },
-      'form-field-label-tag-color': {
-        value: 'var(--color-text-dimmed)',
-        control: 'text',
-        description: '',
-      },
-      'form-field-alert-margin': {
-        value: 'var(--space-8) 0 0 0',
-        control: 'text',
-        description: '',
-      },
-    },
-  },
 };
 
-const Template = (args) => ({
+export const WithInput = (args) => ({
   components: { UiFormField, UiInput },
   setup() { return { ...args }; },
   template: `<UiFormField
@@ -98,8 +49,9 @@ const Template = (args) => ({
     <template #default="{id}">
       <UiInput
         :id="id"
-        style="width: 100%"
         suffix="cm"
+        type="number"
+        style="width: 100%"
         :class="{
           'ui-input--has-error': errorMessage
         }"
@@ -108,35 +60,39 @@ const Template = (args) => ({
   </UiFormField>`,
 });
 
-export const WithInput = Template.bind({});
-
-export const WithCheckbox = (args) => ({
-  components: { UiFormField, UiCheckbox },
+export const WithCheckboxes = (args) => ({
+  components: { UiFormField, UiCheckbox, UiText },
   setup() { return { ...args }; },
-  template: `<UiFormField
+  template: `<UiText style="margin: 0 0 var(--space-24) 0;">What’s wrong with this question?</UiText>
+  <UiFormField
     :label-attrs="labelAttrs"
     :label="label"
     :id="id"
     :hint="hint"
     :alert-attrs="alertAttrs"
-    :error-message="hasError && errorMessage"
+    :error-message="errorMessage"
+    style="--form-field-alert-margin: 0;"
   >
-    <template #default="{id}">
-      <UiCheckbox
-        :id="id"
-        style="width: 100%"
-        suffix="cm"
-        :class="{
-          'ui-checkbox--has-error': hasError
-        }"
-      >
-        I read and accept Terms of Service and Privacy Policy.
-      </UiCheckbox>
-    </template>
+    <UiCheckbox
+      style="margin: 0 0 var(--space-24) 0;"
+      :class="{
+        'ui-checkbox--has-error': errorMessage
+      }"
+    >
+      I found a typo
+    </UiCheckbox>
+    <UiCheckbox
+      style="margin: 0 0 var(--space-24) 0;"
+      :class="{
+        'ui-checkbox--has-error': errorMessage
+      }"
+    >
+      Other (please comment below) 
+    </UiCheckbox>
   </UiFormField>`,
 });
-WithCheckbox.args = {
-  errorMessage: 'Please agree to Terms of Service and Privacy Policy.',
+WithCheckboxes.args = {
+  errorMessage: 'Please select at least one issue.',
   label: false,
   hint: false,
 };
@@ -152,23 +108,23 @@ export const WithLabelSlot = (args) => ({
     :alert-attrs="alertAttrs"
     :error-message="hasError && errorMessage"
   >
-    <template #label="{labelAttrs, label, hint, id}">
+    <template #label="{attrs, label, hint, id}">
       <UiText
         v-if="label"
         tag="label"
         :for="id"
         class="ui-form-field__label"
-        v-bind="labelAttrs"
+        v-bind="attrs"
       >
         <UiText
-          class="ui-form-field__label-text"
+          class="ui-text--body-2-comfortable ui-form-field__label-text"
           tag="span"
         >
           {{ label }}
         </UiText>
         <UiText
           v-if="hint"
-          class="ui-form-field__label-tag"
+          class="ui-text--body-2-comfortable ui-text--theme-secondary ui-form-field__label-hint"
           tag="span"
         >
           {{ hint }}
@@ -178,10 +134,11 @@ export const WithLabelSlot = (args) => ({
     <template #default="{id}">
       <UiInput
         :id="id"
-        style="width: 100%"
         suffix="cm"
+        type="number"
+        style="width: 100%"
         :class="{
-          'ui-input--has-error': hasError
+        'ui-input--has-error': errorMessage
         }"
       />
     </template>
@@ -201,10 +158,10 @@ export const WithAlertSlot = (args) => ({
     :alert-attrs="alertAttrs"
     :error-message="hasError && errorMessage"
   >
-    <template #alert="{alert, errorMessage}">
+    <template #alert="{attrs, errorMessage}">
       <UiAlert
         v-if="errorMessage"
-        v-bind="alert"
+        v-bind="attrs"
         class="ui-form-field__alert"
       >
         {{ errorMessage }}
@@ -213,10 +170,11 @@ export const WithAlertSlot = (args) => ({
     <template #default="{id}">
       <UiInput
         :id="id"
-        style="width: 100%"
         suffix="cm"
+        type="number"
+        style="width: 100%"
         :class="{
-          'ui-input--has-error': hasError
+        'ui-input--has-error': errorMessage
         }"
       />
     </template>

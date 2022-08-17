@@ -1,210 +1,131 @@
-import { content, modifiers } from '@sb/helpers/argTypes';
 import UiLink from '@/components/atoms/UiLink/UiLink.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
+import UiText from '@/components/atoms/UiText/UiText.vue';
+import { content, modifiers } from '@sb/helpers/argTypes';
+import icons from '@/components/atoms/UiIcon/icons.ts';
 
 export default {
   title: 'Atoms/Link',
   component: UiLink,
   args: {
     content: 'Back',
+    icon: 'plus-circled-filled',
     modifiers: [],
-    href: '#',
     tag: 'span',
     to: '',
+    href: '#',
   },
   argTypes: {
     content,
+    icon: {
+      description: 'Use this control to set the icon.',
+      table: {
+        category: 'stories controls',
+      },
+      control: 'select',
+      options: icons,
+    },
     modifiers: modifiers({
       options: [
         'ui-link--small',
         'ui-link--is-disabled',
-        'ui-link--has-icon',
-        'ui-link--secondary',
+        'ui-link--theme-secondary',
+        'ui-link--theme-brand',
       ],
     }),
   },
-  parameters: {
-    cssprops: {
-      'link-font': {
-        value: 'var(--font-body-1)',
-        control: 'text',
-        description: '',
-      },
-      'link-letter-spacing': {
-        value: 'var(--letter-spacing-body-1)',
-        control: 'text',
-        description: '',
-      },
-      'link-display': {
-        value: 'inline',
-        control: 'text',
-        description: '',
-      },
-      'link-color': {
-        value: 'var(--color-text-action-primary)',
-        control: 'text',
-        description: '',
-      },
-      'link-text-decoration': {
-        value: 'none',
-        control: 'text',
-        description: '',
-      },
-      'link-vertical-align': {
-        value: 'top',
-        control: 'text',
-        description: '',
-      },
-      'link-word-break': {
-        value: 'break-all',
-        control: 'text',
-        description: '',
-      },
-      'link-overflow-wrap': {
-        value: 'anywhere',
-        control: 'text',
-        description: '',
-      },
-      'link-hover-color': {
-        value: 'var(--color-text-action-primary-hover)',
-        control: 'text',
-        description: '',
-      },
-      'link-icon-hover-color': {
-        value: 'var(--color-icon-primary-hover)',
-        control: 'text',
-        description: '',
-      },
-      'link-active-color': {
-        value: 'var(--color-text-action-primary-active)',
-        control: 'text',
-        description: '',
-      },
-      'link-icon-active-color': {
-        value: 'var(--color-text-action-primary-active)',
-        control: 'text',
-        description: '',
-      },
-      'link-icon-size': {
-        value: 'var(--space-24)',
-        control: 'text',
-        description: '',
-      },
-      'link-icon-margin': {
-        value: '0 0 0 var(--space-4)',
-        control: 'text',
-        description: '',
-      },
-      'link-icon-vertical-align': {
-        value: 'top',
-        control: 'text',
-        description: '',
-      },
-      'link-icon-color': {
-        value: 'var(--color-icon-primary)',
-        control: 'text',
-        description: '',
-      },
-    },
-  },
+  decorators: [() => ({ template: '<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 2.5rem"><story /></div>' })],
 };
 
-const Template = (args) => ({
-  components: { UiLink },
-  setup() { return { ...args }; },
-  template: `<UiLink
-    :href="href"
-    :class="modifiers"
-    :disabled="disabled"
-    @click="onClick"
-  >
-    {{content}}  
-  </UiLink>`,
-});
-
-export const Large = Template.bind({});
-
-export const LargeWithIcon = (args) => ({
-  components: { UiLink, UiIcon },
-  setup() { return { ...args }; },
-  template: `<UiLink
-    :href="href"
-    :class="modifiers"
-    :disabled="disabled"
-    @click="onClick"
-  >
-    <UiIcon
-      icon="plus-circled-filled"
-      class="ui-link__icon"
-    />{{content}}  
-  </UiLink>`,
-});
-LargeWithIcon.args = {
-  modifiers: ['ui-link--has-icon'],
-};
-
-export const LargeSecondary = Template.bind({});
-LargeSecondary.args = {
-  modifiers: ['ui-link--secondary'],
-};
-
-export const LargeSecondaryWithIcon = LargeWithIcon.bind({});
-LargeSecondaryWithIcon.args = {
-  modifiers: ['ui-link--has-icon', 'ui-link--secondary'],
-};
-
-export const Small = Large.bind({});
-Small.args = {
-  modifiers: ['ui-link--small'],
-};
-
-export const SmallWithIcon = LargeWithIcon.bind({});
-SmallWithIcon.args = {
-  modifiers: ['ui-link--has-icon', 'ui-link--small'],
-};
-
-export const SmallSecondary = Large.bind({});
-SmallSecondary.args = {
-  modifiers: ['ui-link--small', 'ui-link--secondary'],
-};
-
-export const SmallSecondaryWithIcon = LargeWithIcon.bind({});
-SmallSecondaryWithIcon.args = {
-  modifiers: ['ui-link--has-icon', 'ui-link--small', 'ui-link--secondary'],
-};
-
-export const LargeAsRouterLink = (args) => ({
+export const Common = (args) => ({
   components: { UiLink },
   setup() { return { ...args }; },
   template: `<UiLink
     :to="to"
-    :class="modifiers"
-    :disabled="disabled"
-  >
-    {{content}}  
-  </UiLink>`,
-});
-LargeAsRouterLink.args = {
-  to: '/back',
-};
-LargeAsRouterLink.argTypes = {
-  to: { control: 'text' },
-};
-
-export const LargeAsLink = (args) => ({
-  components: { UiLink },
-  setup() { return { ...args }; },
-  template: `<UiLink
     :href="href"
     :class="modifiers"
-    :disabled="disabled"
   >
     {{content}}  
   </UiLink>`,
 });
-LargeAsLink.args = {
-  href: 'https://infermedica.com/',
+
+const Template = (args) => ({
+  components: { UiLink, UiIcon, UiText },
+  setup() {
+    return { ...args };
+  },
+  template: `<UiText tag="span">Large: </UiText>
+  <UiLink
+    :to="to"
+    :href="href"
+    :class="modifiers"
+  >
+  {{content}}
+  </UiLink>
+  <UiLink
+    :to="to"
+    :href="href"
+    :class="modifiers"
+  >
+    <UiIcon
+      :icon="icon"
+      class="ui-link__icon"
+    />{{content}}
+  </UiLink>
+  <UiLink
+    :to="to"
+    :href="href"
+    :class="modifiers"
+  >
+    {{content}}<UiIcon
+        :icon="icon"
+        class="ui-link__icon ui-link__icon--right"
+    />
+  </UiLink>
+  <UiText tag="span">Small: </UiText>
+  <UiLink
+    :to="to"
+    :href="href"
+    :class="modifiers"
+    class="ui-link--small"
+  >
+    {{content}}
+  </UiLink>
+  <UiLink
+    :to="to"
+    :href="href"
+    :class="modifiers"
+    class="ui-link--small"
+  >
+    <UiIcon
+      :icon="icon"
+      class="ui-link__icon"
+    />{{content}}
+  </UiLink>
+  <UiLink
+    :to="to"
+    :href="href"
+    :class="modifiers"
+    class="ui-link--small"
+  >
+    {{content}}<UiIcon
+      :icon="icon"
+      class="ui-link__icon ui-link__icon--right"
+  />
+  </UiLink>`,
+});
+
+export const Link = Template.bind({});
+
+export const LinkSecondary = Template.bind({});
+LinkSecondary.args = {
+  modifiers: ['ui-button--theme-secondary'],
 };
-LargeAsLink.argTypes = {
-  href: { control: 'text' },
+
+export const LinkOnBrand = Template.bind({});
+LinkOnBrand.args = {
+  modifiers: ['ui-button--theme-brand'],
+};
+LinkOnBrand.parameters = {
+  backgrounds: { default: 'brand' },
 };

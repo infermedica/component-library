@@ -113,127 +113,174 @@ const icon = computed(() => props.type.replace(/_/g, '-'));
 
 <style lang="scss">
 @import "../../../styles/mixins/mixins";
+@import "../../../styles/functions/functions";
 
 .ui-card {
-  --container-padding: var(--card-padding, var(--space-20) var(--space-20) var(--space-32));
+  $this: &;
+  $element: card;
+  $types: "emergency_ambulance", "emergency", "consultation_24", "consultation", "self_care";
 
-  overflow: hidden;
+  --container-padding: #{css-var($element, padding, var(--space-20) var(--space-20) var(--space-32))};
+  --container-tablet-padding: #{css-var($element + "-tablet", padding, 0)};
+  --container-desktop-padding: #{css-var($element + "-desktop", padding, 0)};
+
+  display: flex;
+  flex-direction: column;
 
   @include from-tablet {
-    --container-padding: var(--card-tablet-padding, 0);
-
-    display: flex;
+    flex-direction: row;
   }
 
   &__triage {
     display: flex;
+    align-items: center;
     justify-content: center;
-    padding: var(--card-triage-padding, var(--space-20));
-    margin: var(--card-triage-margin, 0 0 var(--space-20));
-    background: var(--card-triage-background);
-    border-radius: var(--card-triage-border-radius, var(--border-radius-container));
+    padding: css-var($element + "-triage", padding, var(--space-20));
+    margin: css-var($element + "-subtitle", margin, 0 0 var(--space-20));
+    background: css-var($element + "-triage", background, var(--color-triage-emergency-ambulance));
+    border-radius: css-var($element + "-triage", border-radius, var(--border-radius-container));
 
     @include from-tablet {
-      padding: var(--card-triage-tablet-padding, var(--space-40) var(--space-32));
-      margin: var(--card-triage-tablet-margin, 0);
-      border-radius: var(--card-triage-tablet-border-radius, 0);
-    }
-  }
-
-  &__icon {
-    --icon-size: var(--card-triage-icon-size, 4rem);
-    --icon-color: var(--cart-triage-icon-color, var(--color-icon-negative));
-  }
-
-  &__subtitle {
-    margin: var(--card-subtitle-margin, 0 0 var(--space-4));
-    color: var(--card-subtitle-color, var(--color-text-dimmed));
-  }
-
-  &__title {
-    @include font(card-title, h2, heading);
-
-    margin: var(--card-title-margin, 0 0 var(--space-16));
-  }
-
-  &__content {
-    padding: var(--card-content-padding);
-
-    @include from-tablet {
-      padding: var(--card-content-tablet-padding, var(--space-40) var(--space-48) var(--space-48) var(--space-40));
+      padding: css-var($element + "-tablet-triage", padding, var(--space-40) var(--space-32));
+      margin: css-var($element + "-tablet-triage", margin, 0);
+      border-radius:
+        css-var(
+          $element + "-tablet-triage",
+          border-radius,
+          var(--border-radius-container) 0 0 var(--border-radius-container)
+        );
 
       [dir="rtl"] & {
-        padding: var(--card-content-tablet-padding, var(--space-40) var(--space-40) var(--space-48) var(--space-48));
+        border-radius:
+          css-var(
+            $element + "-rtl-tablet-triage",
+            border-radius,
+            0 var(--border-radius-container) var(--border-radius-container) 0
+          );
       }
     }
   }
 
-  &--emergency_ambulance {
-    --card-triage-background: var(--color-triage-emergency-ambulance);
+  &__icon {
+    --icon-size: #{css-var($element + "-icon", size, 4rem)};
+    --icon-color: #{css-var($element + "-icon", color, var(--color-icon-negative))};
   }
 
-  &--emergency {
-    --card-triage-background: var(--color-triage-emergency);
+  &__subtitle {
+    --text-color: #{css-var($element + "-subtitle", color, var(--color-text-dimmed))};
+
+    margin: css-var($element + "-subtitle", margin, 0 0 var(--space-4));
   }
 
-  &--consultation_24 {
-    --card-triage-background: var(--color-triage-consultation-24);
+  &__title {
+    margin: css-var($element + "-title", margin, 0 0 var(--space-16));
   }
 
-  &--consultation {
-    --card-triage-background: var(--color-triage-consultation);
-  }
-
-  &--self_care {
-    --card-triage-background: var(--color-triage-self-care);
-  }
-}
-
-.ui-card.ui-card--modern {
-  $this: ".ui-card";
-
-  --container-padding: var(--card-padding, 0);
-
-  flex-direction: row-reverse;
-
-  #{$this}__triage {
-    padding: var(--card-triage-padding, var(--space-16) var(--space-20));
-
-    @include to-mobile {
-      margin: var(--card-triage-margin, 0);
-      border-radius: var(--card-triage-border-radius, 0);
-    }
+  &__content {
+    padding: css-var($element + "-content", padding, 0);
 
     @include from-tablet {
-      padding: var(--card-triage-tablet-padding, var(--space-32) var(--space-32) var(--space-40));
+      padding:
+        css-var(
+          $element + "-tablet-content",
+          padding,
+          var(--space-40) var(--space-48) var(--space-48) var(--space-40)
+        );
+
+      [dir="rtl"] &__content {
+        padding:
+          css-var(
+            $element + "-rtl-tablet-content",
+            padding,
+            var(--space-40) var(--space-40) var(--space-48) var(--space-48)
+          );
+      }
     }
   }
 
-  #{$this}__icon {
-    @include to-mobile {
-      --icon-size: var(--card-triage-icon-size, 3rem);
+  @function str-replace($string, $search, $replace: "") {
+    /* stylelint-disable-next-line scss/no-global-function-names */
+    $index: str-index($string, $search);
+
+    @if $index {
+      /* stylelint-disable-next-line max-line-length */
+      @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+    }
+
+    @return $string;
+  }
+
+  @each $type in $types {
+    &--#{$type} {
+      #{$this}__triage {
+        background: css-var($element + "-triage", background, var(--color-triage-#{str-replace($type, "_", "-")}));
+      }
     }
   }
 
-  #{$this}__subtitle {
-    display: none;
-  }
-
-  #{$this}__title {
-    --card-title-font: var(--font-h1);
-    --card-letter-spacing: var(--letter-spacing-h1);
+  &--modern {
+    --container-padding: #{css-var($element, padding, 0)};
 
     @include from-tablet {
-      margin: var(--card-title-margin, 0 0 var(--space-12));
+      flex-direction: row-reverse;
     }
-  }
 
-  #{$this}__content {
-    flex: 1;
-    padding: var(--card-content-padding, var(--space-24) var(--space-20) var(--space-32));
+    #{$this}__triage {
+      margin: css-var($element + "-subtitle", margin, 0);
+      border-radius: css-var($element + "-triage", border-radius, 0);
 
-    @include from-tablet {
-      padding: var(--card-content-tablet-padding, var(--space-32) var(--space-48) var(--space-48));
+      @include from-tablet {
+        border-radius:
+          css-var(
+            $element + "-tablet-triage",
+            border-radius,
+            0 var(--border-radius-container) var(--border-radius-container) 0
+          );
+
+        [dir="rtl"] & {
+          border-radius:
+            css-var(
+              $element + "-rtl-tablet-triage",
+              border-radius,
+              var(--border-radius-container) 0 0 var(--border-radius-container)
+            );
+        }
+      }
+    }
+
+    #{$this}__icon {
+      @include to-mobile {
+        --icon-size: #{css-var($element + "-mobile-icon", size, 3rem)};
+      }
+    }
+
+    #{$this}__title {
+      --heading-font: #{css-var($element + "-title", font, var(--font-h1))};
+      --heading-letter-spacing: #{css-var($element + "-title", letter-spacing, var(--letter-spacing-h1))};
+
+      margin: css-var($element + "-subtitle", margin, 0 0 var(--space-12));
+    }
+
+    #{$this}__content {
+      padding: css-var($element + "-content", padding, var(--space-24) var(--space-20) var(--space-32));
+
+      @include from-tablet {
+        padding:
+          css-var(
+            $element + "-tablet-content",
+            padding,
+            var(--space-40) var(--space-40) var(--space-48) var(--space-48)
+          );
+
+        [dir="rtl"] &__content {
+          padding:
+            css-var(
+              $element + "-rtl-tablet-content",
+              padding,
+              var(--space-40) var(--space-48) var(--space-48) var(--space-40)
+            );
+        }
+      }
     }
   }
 }

@@ -1,9 +1,10 @@
 import UiMessage from '@/components/templates/UiMessage/UiMessage.vue';
+import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
-import UiButton from '@/components/atoms/UiButton/UiButton.vue';
-import './UiMessage.stories.scss';
+import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
+import UiControls from '@/components/organisms/UiControls/UiControls.vue';
 import { content } from '@sb/helpers/argTypes';
 
 export default {
@@ -73,61 +74,6 @@ export default {
         type: { summary: 'unknown' },
       },
       control: 'object',
-    },
-  },
-  decorators: [() => ({ template: '<div class="tablet:flex tablet:max-w-171 tablet:min-h-115"><story /></div>' })],
-  parameters: {
-    cssprops: {
-      'message-flex-direction': {
-        value: 'column-reverse',
-        control: 'text',
-        description: '',
-      },
-      'message-tablet-flex-direction': {
-        value: 'row',
-        control: 'text',
-        description: '',
-      },
-      'message-content-align-slef': {
-        value: 'flex-end',
-        control: 'text',
-        description: '',
-      },
-      'message-content-margin': {
-        value: '0',
-        control: 'text',
-        description: '',
-      },
-      'message-content-tablet-margin': {
-        value: 'var(--space-16) 0 0 0',
-        control: 'text',
-        description: '',
-      },
-      'message-title-margin': {
-        value: '0 0 var(--space-8) 0',
-        control: 'text',
-        description: '',
-      },
-      'message-title-tablet-margin': {
-        value: '0 0 var(--space-4) 0',
-        control: 'text',
-        description: '',
-      },
-      'message-aside-margin': {
-        value: '0 auto var(--space-24) auto',
-        control: 'text',
-        description: '',
-      },
-      'message-aside-tablet-margin': {
-        value: '0 var(--space-40) 0 0',
-        control: 'text',
-        description: '',
-      },
-      'message-illustration-size': {
-        value: 'var(--message-illustration-height, 15rem)',
-        control: 'text',
-        description: '',
-      },
     },
   },
 };
@@ -227,15 +173,14 @@ export const AsNotAuthorized = (args) => ({
     return { ...args };
   },
   template: `<UiMessage
-    class="ui-message--error-rtl"
     :title="title"
     :subtitle="subtitle"
     :illustration="illustration"
     :heading-title-attrs="headingTitleAttrs"
     :style="{
       '--message-tablet-flex-direction': 'row-reverse',
-      '--message-aside-tablet-margin': '0 var(--space-40) 0 0',
-      '--message-content-align-slef': 'flex-start',
+      '--message-tablet-aside-margin': '0 var(--space-40) 0 0',
+      '--message-content-align-self': 'flex-start',
       '--message-illustration-size': '10rem',
     }"
   >
@@ -247,6 +192,20 @@ AsNotAuthorized.args = {
   title: 'Sorry, you are not allowed to see this page',
   illustration: 'lock',
 };
+AsNotAuthorized.decorators = [(story) => ({
+  components: { story, UiControls },
+  template: `<UiControls
+    :to-next="{path: '/next'}"
+    :to-back="{path: '/back'}"
+    :style="{
+      width: '100%',
+      'max-width': '780px',
+      height: '540px',
+    }"
+  >
+    <story/>
+  </UiControls>`,
+})];
 
 export const AsOffline = (args) => ({
   components: { UiMessage, UiText, UiButton },
@@ -254,15 +213,14 @@ export const AsOffline = (args) => ({
     return { ...args };
   },
   template: `<UiMessage
-    class="ui-message--error-rtl"
     :title="title"
     :subtitle="subtitle"
     :illustration="illustration"
     :heading-title-attrs="headingTitleAttrs"
     :style="{
       '--message-tablet-flex-direction': 'row-reverse',
-      '--message-aside-tablet-margin': '0 var(--space-40) 0 0',
-      '--message-content-align-slef': 'flex-start',
+      '--message-tablet-aside-margin': '0 var(--space-40) 0 0',
+      '--message-content-align-self': 'flex-start',
       '--message-illustration-size': '10rem',
     }"
   >
@@ -277,6 +235,20 @@ AsOffline.args = {
   title: 'No internet connection',
   illustration: 'no-internet-illustration',
 };
+AsOffline.decorators = [(story) => ({
+  components: { story, UiControls },
+  template: `<UiControls
+    :to-next="{path: '/next'}"
+    :to-back="{path: '/back'}"
+    :style="{
+      width: '100%',
+      'max-width': '780px',
+      height: '540px',
+    }"
+  >
+    <story/>
+  </UiControls>`,
+})];
 
 export const AsOfflinePopover = (args) => ({
   components: { UiMessage, UiText, UiButton },
@@ -284,20 +256,20 @@ export const AsOfflinePopover = (args) => ({
     return { ...args };
   },
   template: `<UiMessage
-    class="ui-message--error-condensed-rtl"
-    :title="title"
+    title="No internet connection"
     :subtitle="subtitle"
     :illustration="illustration"
     :heading-title-attrs="headingTitleAttrs"
     :style="{
+      '--message-flex-direction': 'row-reverse',
       '--message-tablet-flex-direction': 'row-reverse',
-      '--message-content-tablet-margin': '0',
-      '--message-aside-tablet-margin': '0 var(--space-12) 0 0',
-      '--message-content-align-slef': 'flex-start',
+      '--message-aside-margin': '0 var(--space-12) 0 0',
+      '--message-tablet-aside-margin': '0 var(--space-12) 0 0',
+      '--message-content-align-self': 'flex-start',
       '--message-illustration-size': '1.5rem',
     }"
   >
-  <UiText>If you are an administrator of this website, then check your integration settings.</UiText>
+  <UiText>It seems you’re offline right now. Please check your connection and try again.</UiText>
   <UiButton
     class="ui-button--text"
     style="margin: var(--space-16) 0 0 0;"
@@ -305,9 +277,21 @@ export const AsOfflinePopover = (args) => ({
   </UiMessage>`,
 });
 AsOfflinePopover.args = {
-  title: 'No internet connection',
+  title: '', // hack: prevent to provide title to popover
   illustration: 'no-internet',
   headingTitleAttrs: {
     level: '4',
   },
 };
+AsOfflinePopover.decorators = [(story) => ({
+  components: { story, UiPopover },
+  template: `<UiPopover
+    :style="{
+      '--popover-padding': 'var(--space-24) var(--space-16)',
+      width: '320px',
+      height: '192px',
+    }"
+  >
+    <story/>
+  </UiPopover>`,
+})];

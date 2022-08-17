@@ -21,6 +21,6 @@ describe('UiBulletPoints.vue', () => {
         type: 'a',
       },
     });
-    expect(getComputedStyle(wrapper.find('ol').element).getPropertyValue('--list-style-type')).toBe('lower-latin');
+    expect(getComputedStyle(wrapper.find('ol').element).getPropertyValue('--_list-style-type')).toBe('lower-latin');
   });
 });

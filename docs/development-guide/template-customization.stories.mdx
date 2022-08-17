@@ -37,7 +37,7 @@ You can set any props, `html` attributes, and events. e.g.
   }
 ```
 
-Generally to name this props we used `<name-of-component-without-prefix>Attrs` e.g. `buttonAttrs` but in some cases we need to use `<name-of-component-without-prefix><function>Attrs` e.g. `buttonIncrementAttrs` or `closeButton`
+Generally to name this props we used `<name-of-component-without-prefix>Attrs` e.g. `buttonAttrs` but in some cases we need to use `<name-of-component-without-prefix><function>Attrs` e.g. `buttonIncrementAttrs` or `closeButtonAttrs`
 
 ## Translation props
 More complex components like `UiDatepicker` contain some labels like `day`, `month`, `year`, etc. To set these labels we use `translation` props. Generally, this prop is an object with keys and values. e.g.
@@ -115,3 +115,69 @@ Unfortunately to use internal components like `UiDropdownItem` you must import i
 import { UiDropdownItem } from '@infermedica/component-library';
 import UiDropdownItem from '@infermedica/component-library/src/components/molecules/UiDropdown/_internal/UiDropdownItem.vue';
 ```
+
+## Proxy components
+In some case when you add custom template to component or override styles you may need a proxy component.
+Proxy component it's a wrapper for Infermedica Component Library with some changes or improvements. e.g.
+
+```html
+<template>
+  <UiCard class="triage-card">
+    <template #details>
+      <UiHeading
+        :level="4"
+        style="margin: var(--space-24) 0 var(--space-8) 0"
+      >
+        Symptoms:
+      </UiHeading>
+      <UiBulletPoints :items="symptoms"/>
+    </template>
+  </UiCard>
+</template>
+
+<script setup>
+import {UiCard, UiHeading, UiBulletPoints} from '@infermedica/component-library';
+
+defineProps({
+  symptoms: {
+    type: Object,
+    default: () => ({})
+  }
+})
+</script>
+```
+
+### Props
+When component from library is root of proxy component you can use it props directly. In case when library component is deeper
+than you can use Attrs props pattern and add props to allow to pass data to it.
+
+### Slots
+When you create Proxy component probably you want to use library component with slots. Unfortunately it wasn't work out of the box.
+No worry. We have a solution for this issue.
+
+```html
+<template>
+  <UiCard class="triage-card">
+    <template
+      v-for="(_, name) in $slots"
+      #[name]="data"
+    >
+      <slot
+        :name="name"
+        v-bind="data"
+      />
+    </template>
+    <template #details>
+      <UiHeading
+        :level="4"
+        style="margin: var(--space-24) 0 var(--space-8) 0"
+      >
+        Symptoms:
+      </UiHeading>
+      <UiBulletPoints :items="symptoms"/>
+    </template>
+  </UiCard>
+</template>
+```
+
+As you see, you can use all `UiCard` slots and override `details` slot with custom content.

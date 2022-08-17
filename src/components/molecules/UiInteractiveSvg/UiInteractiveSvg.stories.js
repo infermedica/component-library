@@ -1,9 +1,8 @@
 /* eslint-disable no-shadow */
-// TODO: replace SVG before publish to GitHub
-import { onMounted, ref } from 'vue';
 import UiInteractiveSvg from '@/components/molecules/UiInteractiveSvg/UiInteractiveSvg.vue';
-import UiInteractiveSvgElement from '@/components/molecules/UiInteractiveSvg/_internal/UiInteractiveSvgElement.vue';
 import './UiInteractiveSvg.stories.scss';
+import UiInteractiveSvgElement from '@/components/molecules/UiInteractiveSvg/_internal/UiInteractiveSvgElement.vue';
+import { onMounted, ref } from 'vue';
 
 export default {
   title: 'Molecules/InteractiveSvg',
@@ -18,9 +17,9 @@ export const AsSelectedPaths = (args) => ({
   setup() {
     const selected = ref(null);
     const setElementsAttrs = (attrs) => ({
-      class: {
-        'ui-interactive-svg-element--selected': selected.value === attrs['body-part'],
-      },
+      class: ['ui-body-model__body-part', {
+        'ui-body-model__body-part--selected': selected.value === attrs['body-part'],
+      }],
       onClick:
         attrs['body-part']
           ? () => {
@@ -41,6 +40,7 @@ export const AsSelectedPaths = (args) => ({
     stroke-linecap="round"
     stroke-linejoin="round"
     stroke-miterlimit="1.5"
+    class="ui-body-model"
   > 
     <UiInteractiveSvgElement
       body-part="head"
@@ -123,8 +123,8 @@ export const WithFocusOnMouted = (args) => ({
         }
       },
       class: {
-        'ui-interactive-svg-element': attrs['body-part'],
-        'ui-interactive-svg-element--selected': selected.value === attrs['body-part'],
+        'ui-body-model__body-part': attrs['body-part'],
+        'ui-body-model__body-part--selected': selected.value === attrs['body-part'],
       },
       tabindex:
         attrs['body-part']
@@ -153,6 +153,7 @@ export const WithFocusOnMouted = (args) => ({
     stroke-linecap="round"
     stroke-linejoin="round"
     stroke-miterlimit="1.5"
+    class="ui-body-model"
   > 
     <UiInteractiveSvgElement
       body-part="head"
@@ -228,9 +229,9 @@ export const WithGroupedHeadElement = (args) => ({
   setup() {
     const selected = ref(null);
     const setElementsAttrs = (attrs) => ({
-      class: {
-        'ui-interactive-svg-element--selected': selected.value === attrs['body-part'],
-      },
+      class: ['ui-body-model__body-part', {
+        'ui-body-model__body-part--selected': selected.value === attrs['body-part'],
+      }],
       onClick:
           attrs['body-part']
             ? () => {
@@ -239,9 +240,9 @@ export const WithGroupedHeadElement = (args) => ({
             : null,
       // set the attributes for the deeper setInteractiveSvgItemsAttrs
       setElementsAttrs: (attrs) => ({
-        class: {
-          'ui-interactive-svg-element--selected': selected.value === attrs['body-part'],
-        },
+        class: ['ui-body-model__body-part', {
+          'ui-body-model__body-part--selected': selected.value === attrs['body-part'],
+        }],
         onClick:
           attrs['body-part']
             ? () => {
@@ -264,6 +265,7 @@ export const WithGroupedHeadElement = (args) => ({
     stroke-linecap="round"
     stroke-linejoin="round"
     stroke-miterlimit="1.5"
+    class="ui-body-model"
   >   
     <UiInteractiveSvgElement 
       tag="g"

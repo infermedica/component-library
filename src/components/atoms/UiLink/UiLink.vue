@@ -11,6 +11,7 @@
 </template>
 
 <script setup lang="ts">
+// https://www.figma.com/file/54rgvRJfBBagt4F34rrp1s/Core-Component-Library?node-id=2%3A3027
 import type { PropType } from 'vue';
 import type { HTMLTag } from '../../../types/tag';
 import useLink from '../../../composable/useLink';
@@ -44,40 +45,30 @@ const { componentTag, routeAttrs } = useLink(props);
 
 <style lang="scss">
 @import "../../../styles/mixins/mixins";
+@import "../../../styles/functions/functions";
 
 .ui-link {
-  @include font(link, body-1);
-
   $this: &;
+  $element: link;
 
-  display: var(--link-display, inline);
-  border-radius: var(--link-border-radius, var(--border-radius-button));
-  color: var(--link-color, var(--color-text-action-primary));
-  text-decoration: var(--link-text-decoration, none);
-  vertical-align: var(--link-vertical-align, top);
-  word-break: var(--link-word-break, break-all);
+  @include inner-border($element, $color: transparent, $width: 0, $radius: var(--border-radius-button));
+  @include font($element, body-1);
+
+  display: inline;
+  color: css-var($element, color, var(--color-text-action-primary));
+  text-decoration: none;
+  transition: color 150ms ease-in-out;
+  vertical-align: top;
+  white-space: normal;
+  word-break: break-all;
 
   @supports (overflow-wrap: anywhere) {
-    overflow-wrap: var(--link-overflow-wrap, anywhere);
+    overflow-wrap: anywhere;
     word-break: normal;
   }
 
-  @media (hover: hover) {
-    &:hover {
-      color: var(--link-hover-color, var(--color-text-action-primary-hover));
-
-      &#{$this}--has-icon {
-        --icon-color: var(--link-icon-hover-color, var(--color-icon-primary-hover));
-      }
-    }
-  }
-
-  &:active {
-    color: var(--link-active-color, var(--color-text-action-primary-active));
-
-    &#{$this}--has-icon {
-      --icon-color: var(--link-icon-active-color, var(--color-text-action-primary-active));
-    }
+  @include with-hover {
+    cursor: pointer;
   }
 
   &:focus {
@@ -88,54 +79,65 @@ const { componentTag, routeAttrs } = useLink(props);
     box-shadow: var(--focus-outer);
   }
 
-  &__icon {
-    --icon-size: var(--link-icon-size, var(--space-24));
+  @include hover {
+    color: css-var($element + "-hover", color, var(--color-text-action-primary-hover));
 
-    margin: var(--link-icon-margin, 0 var(--space-4) 0 0);
-    vertical-align: var(--link-icon-vertical-align, top);
+    #{$this}__icon {
+      --icon-color: #{css-var($element + "-hover-icon", color, var(--color-icon-primary-hover))};
+    }
+  }
+
+  &:active {
+    color: css-var($element + "-active", color, var(--color-text-action-primary-active));
+
+    #{$this}__icon {
+      --icon-color: #{css-var($element + "-active-icon", color, var(--color-icon-primary-active))};
+    }
+  }
+
+  &__icon {
+    --icon-color: #{css-var($element + "-icon", color, var(--color-icon-primary))};
+
+    flex: none;
+    margin: css-var($element + "-icon", margin, 0 var(--space-4) 0 0);
+    transition: fill 150ms ease-in-out;
+    vertical-align: top;
 
     [dir="rtl"] & {
-      margin: var(--link-icon-margin, 0 0 0 var(--space-4));
+      margin: css-var($element + "-rtl-icon", margin, 0 0 0 var(--space-4));
     }
 
     &--right {
-      // adds negative right margin to position icon within link and avoid changing padding
-      --link-icon-margin: 0 0 0 var(--space-4);
+      margin: css-var($element + "-icon", margin, 0 0 0 var(--space-4));
 
       [dir="rtl"] & {
-        --link-icon-margin: 0 var(--space-4) 0 0;
+        margin: css-var($element + "-rtl-icon", margin, 0 var(--space-4) 0 0);
       }
     }
   }
 
-  &--has-icon {
-    --icon-color: var(--link-icon-color, var(--color-icon-primary));
-    --icon-size: var(--link-icon-size, var(--space-24));
+  @at-root [class*="-secondary"] {
+    #{$this},
+    &#{$this} {
+      --color-text-action-primary: var(--color-text-action-secondary);
+      --color-text-action-primary-hover: var(--color-text-action-secondary-hover);
+      --color-text-action-primary-active: var(--color-text-action-secondary-active);
+      --color-icon-primary: var(--color-icon-secondary);
+      --color-icon-primary-hover: var(--color-icon-secondary-hover);
+      --color-icon-primary-active: var(--color-icon-secondary-active);
+    }
   }
 
-  &--small {
-    --link-font: var(--font-body-2-comfortable);
-    --link-letter-spacing: var(--letter-spacing-body-2-comfortable);
-  }
-
-  &--secondary {
-    --link-color: var(--color-text-action-secondary);
-    --link-hover-color: var(--color-text-action-secondary-hover);
-    --link-active-color: var(--color-text-action-secondary-active);
-    --link-icon-color: var(--color-icon-secondary);
-    --link-icon-hover-color: var(--color-icon-secondary-hover);
-    --link-icon-active-color: var(--color-icon-secondary-active);
-  }
-
-  &--is-disabled {
-    --link-color: var(--color-text-disabled);
-    --link-hover-color: var(--color-text-disabled);
-    --link-active-color: var(--color-text-disabled);
-    --link-icon-color: var(--color-icon-disabled);
-    --link-icon-hover-color: var(--color-icon-disabled);
-    --link-icon-active-color: var(--color-icon-disabled);
-
-    cursor: not-allowed;
+  @at-root [class*="-brand"] {
+    #{$this},
+    &#{$this} {
+      --color-text-action-primary: var(--color-text-on-brand);
+      --color-text-action-primary-hover: var(--color-text-on-brand-hover);
+      --color-text-action-primary-active: var(--color-text-on-brand-active);
+      --color-icon-primary: var(--color-icon-on-brand);
+      --color-icon-primary-hover: var(--color-icon-on-brand-hover);
+      --color-icon-primary-active: var(--color-icon-on-brand-active);
+    }
   }
 }
 </style>

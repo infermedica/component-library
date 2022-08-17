@@ -13,11 +13,14 @@
       >
         <UiButton
           ref="toggleElement"
-          class="ui-button--outlined ui-button--circled ui-button--has-icon ui-datepicker-calendar__toggler"
+          class="ui-button--circled"
           v-bind="attrs"
           @click="openCalendar(toggleHandler, $event)"
         >
-          <UiIcon icon="calendar" />
+          <UiIcon
+            icon="calendar"
+            class="ui-button__icon"
+          />
         </UiButton>
       </slot>
     </template>
@@ -33,8 +36,7 @@
           v-model="date[datePart]"
           v-bind="getDefaultProp(datePart)"
           :title="capitalizeFirst(translation[datePart])"
-          class="ui-datepicker-calendar__tab-content"
-          @update:modelValue="goToNextTab"
+          @update:model-value="goToNextTab"
           @select="$emit('select', $event)"
         />
       </UiTabs>
@@ -53,7 +55,7 @@ import {
 } from 'vue';
 import type { PropType, ComputedRef } from 'vue';
 import { clickOutside as vClickOutside } from '../../../../utilities/directives';
-import { capitalizeFirst } from '../../../../utilities/helpers';
+import { capitalizeFirst } from '../../../../utilities/helpers/index.ts';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiDropdown from '../../../molecules/UiDropdown/UiDropdown.vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
@@ -194,46 +196,16 @@ const clickOutsideHandler = (event: InputEvent) => {
 </script>
 
 <style lang="scss">
+@import "../../../../styles/mixins/mixins";
+@import "../../../../styles/functions/functions";
+
 .ui-datepicker-calendar {
-  --dropdown-popover-left: var(--datepicker-dropdown-popover-left, 0);
-  --dropdown-popover-max-width: var(--datepicker-dropdown-popover-max-width, 100%);
-  --popover-content-padding: var(--datepicker-popover-content-padding, 0);
+  $this: &;
+  $element: datepicker-calendar;
+
+  --dropdown-popover-width: #{css-var($element + "-popover", width, 100% )};
+  --popover-content-padding: #{css-var($element + "-popover-content", padding, 0 )};
 
   position: unset;
-
-  &__toggler {
-    --icon-size: var(--datepicker-toggler-icon-size, 1.125rem);
-    --button-height: var(--datepicker-toggler-height, 3rem);
-    --button-width: var(--datepicker-toggler-width, 3rem);
-
-    margin: var(--datepicker-toggler-margin, var(--space-32) 0 0 0);
-  }
-
-  &__tabs {
-    --tabs-item-tab-padding: var(--datepicker-tabs-item-tab-padding, var(--space-20) var(--space-4) var(--space-12));
-    --tabs-item-tab-button-color:
-      var(
-        --datepicker-tabs-item-tab-button-color,
-        var(--color-text-action-secondary)
-      );
-    --tabs-item-tab-button-active-color: var(--datepicker-tabs-item-tab-button-active-color, var(--color-text-body));
-    --tabs-item-tab-button-margin: var(--datepicker-tabs-item-tab-button-margin, var(--space-20) 0 var(--space-12));
-    --tabs-item-tab-button-last-margin:
-      var(
-        --datepicker-tabs-item-tab-button-last-margin,
-        var(--space-20) 0 var(--space-12)
-      );
-    --tabs-item-tab-button-padding: var(--datepicker-tabs-item-tab-button-padding, 0);
-    --tabs-underline-color: var(--datepicker-tabs-underline-color, var(--color-border-focus-dark));
-  }
-
-  &__tab-content {
-    display: flex;
-    height: var(--datepicker-tab-content-height, 15.5rem);
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    padding: var(--datepicker-tab-content-padding, var(--space-16) var(--space-20));
-    overflow-y: auto;
-  }
 }
 </style>

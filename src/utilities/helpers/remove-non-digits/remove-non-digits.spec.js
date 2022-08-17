@@ -1,4 +1,4 @@
-import { removeNonDigits } from './index';
+import { removeNonDigits } from './index.ts';
 
 const cases = [
   ['', ''],

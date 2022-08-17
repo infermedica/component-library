@@ -99,7 +99,14 @@ const itemsToRender = computed<ToggleButtonItemAsObj[]>(() => (
 </script>
 
 <style lang="scss">
+@import "../../../styles/mixins/mixins";
+@import "../../../styles/functions/functions";
+
 .ui-toggle-button-group {
-  display: var(--toggle-button-group-display, flex);
+  $element: toggle-button-group;
+
+  position: relative;
+  z-index: 0;
+  display: flex;
 }
 </style>

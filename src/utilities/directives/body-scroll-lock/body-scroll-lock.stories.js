@@ -1,17 +1,16 @@
-import { ref } from 'vue';
-import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
-import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints.vue';
-import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue';
+import { bodyScrollLock } from '@/utilities/directives/index';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiLink from '@/components/atoms/UiLink/UiLink.vue';
+import UiText from '@/components/atoms/UiText/UiText.vue';
+import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
+import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints.vue';
+import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue';
 import UiNotification from '@/components/molecules/UiNotification/UiNotification.vue';
 import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
-import UiText from '@/components/atoms/UiText/UiText.vue';
+import { ref } from 'vue';
 import docs from './body-scroll-lock.mdx';
-import { bodyScrollLock } from '../index';
-import './body-scroll-lock.stories.scss';
 
 export default {
   title: 'Utilities/Directives/Body Scroll Lock',
@@ -25,15 +24,15 @@ export default {
 
 export const WithDirective = () => ({
   components: {
-    UiAlert,
-    UiBulletPoints,
-    UiBulletPointsItem,
     UiButton,
     UiHeading,
     UiIcon,
     UiLink,
-    UiNotification,
     UiText,
+    UiAlert,
+    UiBulletPoints,
+    UiBulletPointsItem,
+    UiNotification,
     UiSidePanel,
   },
   directives: {
@@ -45,7 +44,7 @@ export const WithDirective = () => ({
       modelValue,
     };
   },
-  template: `<UiButton class="ui-button--text ui-button--secondary" @click="modelValue = true">
+  template: `<UiButton class="ui-button--text ui-button--theme-secondary" @click="modelValue = true">
   Show side panel
   </UiButton>
   <UiNotification type="info" style="margin-top: 105vh">
@@ -68,7 +67,7 @@ export const WithDirective = () => ({
           <div class="ui-side-panel__header">
             <UiButton
                 ref="button"
-                class="ui-button--has-icon ui-button--secondary ui-button--text ui-side-panel__close"
+                class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
                 v-bind="buttonCloseAttrs"
                 @click="closeHandler"
             >
@@ -175,7 +174,7 @@ export const WithoutDirective = () => ({
       modelValue,
     };
   },
-  template: `<UiButton class="ui-button--text ui-button--secondary" @click="modelValue = true">
+  template: `<UiButton class="ui-button--text ui-button--theme-secondary" @click="modelValue = true">
     Show side panel
   </UiButton>
   <UiNotification type="info" style="margin-top: 105vh">
@@ -198,7 +197,7 @@ export const WithoutDirective = () => ({
           <div class="ui-side-panel__header">
             <UiButton
               ref="button"
-              class="ui-button--has-icon ui-button--secondary ui-button--text ui-side-panel__close"
+              class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
               v-bind="buttonCloseAttrs"
               @click="closeHandler"
             >

@@ -1,7 +1,12 @@
 <template>
   <div class="ui-chip">
-    <!-- @slot Use this slot to place content inside chip. -->
-    <slot />
+    <!-- @slot Use this slot to replace label template. -->
+    <slot name="label">
+      <!-- @slot Use this slot to place content inside chip. -->
+      <UiText class="body-2-comfortable ui-chip__label">
+        <slot />
+      </UiText>
+    </slot>
     <!-- @slot Use this slot to replace remove template. -->
     <slot
       name="remove"
@@ -9,12 +14,12 @@
     >
       <UiButton
         v-bind="buttonAttrs"
-        class="ui-chip__remove ui-button--has-icon ui-button--circled"
+        class="ui-button--icon ui-button--circled ui-chip__remove"
         @click="clickHandler"
       >
         <UiIcon
           icon="remove-filled"
-          class="ui-chip__icon"
+          class=" ui-button__icon ui-chip__icon"
         />
       </UiButton>
     </slot>
@@ -24,6 +29,7 @@
 <script setup lang="ts">
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
+import UiText from '../../atoms/UiText/UiText.vue';
 import type { PropsAttrs } from '../../../types/attrs';
 
 defineProps({
@@ -43,40 +49,42 @@ function clickHandler(): void {
 
 <style lang="scss">
 @import "../../../styles/mixins/mixins";
+@import "../../../styles/functions/functions";
 
 .ui-chip {
-  @include font(chip, body-2-comfortable);
+  $this: &;
+  $element: chip;
 
   display: inline-flex;
   align-items: center;
-  padding: var(--chip-padding, var(--space-4) var(--space-4) var(--space-4) var(--space-12));
-  background: var(--chip-background, var(--color-chip-background));
-  border-radius: var(--chip-border-radius, var(--border-radius-pill));
-  color: var(--chip-color, var(--color-chip-text));
+  justify-content: center;
+  padding: css-var($element, padding, var(--space-4) var(--space-4) var(--space-4) var(--space-12));
+  background: css-var($element, background, var(--color-chip-background));
+  border-radius: css-var($element, border-radius, var(--border-radius-pill));
 
   [dir="rtl"] & {
-    padding: var(--chip-padding, var(--space-4) var(--space-12) var(--space-4) var(--space-4));
+    padding: css-var($element + "-rtl", padding, var(--space-4) var(--space-12) var(--space-4) var(--space-4));
   }
 
-  &__remove {
-    --button-padding: 0;
-    --button-margin: -2px;
-    --button-border-width: 0;
-    --button-icon-color: var(--chip-remove-background, var(--color-chip-icon-background));
-    --button-icon-color-hover: var(--chip-remove-hover-background, var(--color-chip-icon-background-hover));
-    --button-icon-color-active: var(--chip-remove-active-background, var(--color-chip-icon-background-active));
-    --icon-size: var(--chip-remove-size, 1.5rem);
-    --remove-filled-close: var(--chip-remove-cross, var(--color-chip-icon)); //assets/icons/remove-filled.svg
-
-    margin: var(--chip-remove-margin, var(--space-2) var(--space-2) var(--space-2) var(--space-4));
-
-    [dir="rtl"] & {
-      margin: var(--chip-remove-margin, var(--space-2) var(--space-4) var(--space-2) var(--space-2));
-    }
+  &__label {
+    --text-color: #{css-var($element + "-label", color, var(--color-chip-text))};
   }
 
   &__icon {
-    margin: var(--chip-icon-margin, -2px);
+    --_remove-filled-close: #{css-var($element + "-remove-filled-close", color, var(--color-chip-icon))};
+    --button-icon-color: #{css-var($element + "-icon", color, var(--color-chip-icon-background))};
+    --button-hover-icon-color: #{css-var($element + "-icon-hover", color, var(--color-chip-icon-background-hover))};
+    --button-active-icon-color: #{css-var($element + "-icon-active", color, var(--color-chip-icon-background-active))};
+
+    margin: css-var($element + "-icon", margin, -2px);
+  }
+
+  &__remove {
+    margin: css-var($element + "-remove", margin, var(--space-2) var(--space-2) var(--space-2) var(--space-4));
+
+    [dir="rtl"] & {
+      margin: css-var($element + "-rtl-remove", margin, var(--space-2) var(--space-4) var(--space-2) var(--space-2));
+    }
   }
 }
 </style>

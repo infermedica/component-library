@@ -1,6 +1,6 @@
 <template>
   <div
-    className="ui-number-stepper"
+    class="ui-number-stepper"
   >
     <!-- @slot Use this slot to place content inside number stepper. -->
     <slot v-bind="{change, value: modelValue, min, max, step}" />
@@ -12,11 +12,14 @@
       <UiButton
         v-if="hasControls"
         v-bind="buttonDecrementAttrs"
-        class="ui-button--circled ui-button--outlined ui-button--has-icon ui-number-stepper__decrement"
+        class="ui-button--outlined ui-button--circled ui-number-stepper__decrement"
         :class="{'ui-button--is-disabled': isMin}"
         @click="decrement"
       >
-        <UiIcon icon="minus" />
+        <UiIcon
+          class="ui-button__icon"
+          icon="minus"
+        />
       </UiButton>
     </slot>
     <!-- @slot Use this slot to replace increment template. -->
@@ -27,11 +30,14 @@
       <UiButton
         v-if="hasControls"
         v-bind="buttonIncrementAttrs"
-        class="ui-button--circled ui-button--outlined ui-button--has-icon ui-number-stepper__increment"
+        class="ui-button--outlined ui-button--circled ui-number-stepper__increment"
         :class="{'ui-button--is-disabled': isMax}"
         @click="increment"
       >
-        <UiIcon icon="plus" />
+        <UiIcon
+          class="ui-button__icon"
+          icon="plus"
+        />
       </UiButton>
     </slot>
   </div>
@@ -117,8 +123,11 @@ function increment(): void {
 
 <style lang="scss">
 @import "../../../styles/mixins/mixins";
+@import "../../../styles/functions/functions";
 
 .ui-number-stepper {
+  $element: number-stepper;
+
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -129,34 +138,34 @@ function increment(): void {
   }
 
   &__decrement {
-    margin: var(--quantity-selector-decrement-margin, 0 var(--space-12) 0 0);
+    margin: css-var($element + "-decrement", margin, 0 var(--space-12) 0 0);
 
     &[dir="rtl"] {
-      margin: var(--quantity-selector-decrement-margin, 0 0 0 var(--space-12));
+      margin: css-var($element + "-rtl-decrement", margin, 0 0 0 var(--space-12));
     }
 
     @include from-tablet {
       order: -1;
-      margin: var(--quantity-selector-decrement-margin, 0 var(--space-4) 0 0);
+      margin: css-var($element + "-tablet-decrement", margin, 0 var(--space-4) 0 0);
 
       &[dir="rtl"] {
-        margin: var(--quantity-selector-decrement-margin, 0 0 0 var(--space-4));
+        margin: css-var($element + "-rtl-tablet-decrement", margin, 0 0 0 var(--space-4));
       }
     }
   }
 
   &__increment {
-    margin: var(--quantity-selector-decrement-increment, 0 0 0 var(--space-12));
+    margin: css-var($element + "-increment", margin, 0 0 0 var(--space-12));
 
     &[dir="rtl"] {
-      margin: var(--quantity-selector-decrement-increment, 0 var(--space-12) 0 0);
+      margin: css-var($element + "-rtl-increment", margin, 0 var(--space-12) 0 0);
     }
 
     @include from-tablet {
-      margin: var(--quantity-selector-decrement-increment, 0 0 0 var(--space-4));
+      margin: css-var($element + "-tablet-increment", margin, 0 0 0 var(--space-4));
 
       &[dir="rtl"] {
-        margin: var(--quantity-selector-decrement-increment, 0 var(--space-4) 0 0);
+        margin: css-var($element + "-rtl-tablet-increment", margin, 0 var(--space-4) 0 0);
       }
     }
   }

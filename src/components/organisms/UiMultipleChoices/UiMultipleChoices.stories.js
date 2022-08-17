@@ -1,10 +1,10 @@
-import { actions } from '@storybook/addon-actions';
-import { ref } from 'vue';
 import UiMultipleChoices from '@/components/organisms/UiMultipleChoices/UiMultipleChoices.vue';
 import UiMultipleChoicesItem from '@/components/organisms/UiMultipleChoices/_internal/UiMultipleChoicesItem.vue';
 import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
 import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
+import { ref } from 'vue';
+import { actions } from '@storybook/addon-actions';
 
 const events = actions({
   onUpdateInvalid: 'update:invalid',
@@ -90,35 +90,6 @@ export default {
     },
     invalid: {
       control: false,
-    },
-  },
-  parameters: {
-    cssprops: {
-      'multiple-choices-list-item-hover-background': {
-        value: 'var(--color-gray-50)',
-        control: 'text',
-        description: '',
-      },
-      'multiple-choices-mobile-hint-margin': {
-        value: '0 var(--space-20) var(--space-12) var(--space-20)',
-        control: 'text',
-        description: '',
-      },
-      'multiple-choices-hint-color': {
-        value: 'var(--color-text-dimmed)',
-        control: 'text',
-        description: '',
-      },
-      'multiple-choices-tablet-hint-margin': {
-        value: '0 0 var(--space-12) 0',
-        control: 'text',
-        description: '',
-      },
-      'multiple-choices-choice-padding': {
-        value: 'var(--space-12)',
-        control: 'text',
-        description: '',
-      },
     },
   },
 };

@@ -1,7 +1,7 @@
-import { ref } from 'vue';
-import { modifiers } from '@sb/helpers/argTypes';
 import UiSimpleQuestion from '@/components/organisms/UiSimpleQuestion/UiSimpleQuestion.vue';
 import UiTile from '@/components/molecules/UiTile/UiTile.vue';
+import { ref } from 'vue';
+import { modifiers } from '@sb/helpers/argTypes';
 
 export default {
   title: 'Organisms/SimpleQuestion',
@@ -44,20 +44,6 @@ export default {
     modelValue: { control: false },
   },
   decorators: [() => ({ template: '<div class="max-w-147"><story /></div>' })],
-  parameters: {
-    cssprops: {
-      'simple-question-option-margin': {
-        value: '0 0 var(--space-12) 0',
-        control: 'text',
-        description: '',
-      },
-      'simple-question-option-tablet-margin': {
-        value: '0 0 0 var(--space-24)',
-        control: 'text',
-        description: '',
-      },
-    },
-  },
 };
 
 const Template = (args) => ({

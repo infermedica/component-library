@@ -8,6 +8,16 @@ module.exports = {
   rules: {
     'selector-max-id': 0,
     'max-line-length': 120,
+    'custom-property-pattern': '_?-.+',
+    'function-no-unknown': [
+      true,
+      {
+        ignoreFunctions: [
+          'css-var',
+          'str-index',
+        ],
+      },
+    ],
     'at-rule-no-unknown': [
       true,
       {

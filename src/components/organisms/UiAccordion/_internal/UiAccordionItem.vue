@@ -9,7 +9,7 @@
         :id="`toggler${name}`"
         :aria-expanded="`${isOpen}`"
         :aria-controls="name"
-        class="ui-accordion-item__toggler ui-button--text ui-button--has-icon"
+        class="ui-button--outlined ui-accordion-item__toggler"
         @click="toggle(name)"
       >
         <!-- @slot Use this slot to replace chevron template. -->
@@ -19,7 +19,7 @@
         >
           <UiIcon
             :icon="icon"
-            class="ui-accordion-item__chevron"
+            class="ui-button__icon ui-accordion-item__chevron"
           />
         </slot>
         {{ title }}
@@ -91,54 +91,66 @@ const icon = computed(() => (isOpen.value ? props.settings.iconOpen : props.sett
 
 <style lang="scss">
 @import "../../../../styles/mixins/mixins";
+@import "../../../../styles/functions/functions";
 
 .ui-accordion-item {
+  $this: &;
+  $element: accordion-item;
+
   @include inner-border($element: accordion-item, $color: var(--color-border-divider), $width: 1px 0 0 0);
 
-  $this: &;
-
-  --list-item-padding: 0;
+  --list-item-padding: #{css-var($element, padding, 0)};
 
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
 
   &:last-of-type {
-    --accordion-item-border-width: var(--accordion-item-last-border-width, 1px 0);
+    &::after {
+      border-width: css-var($element, border-width, 1px 0);
+    }
   }
 
   &__toggler {
-    --button-align-items: flex-start;
-    --button-justify-content: flex-start;
-    --button-padding: var(--accordion-item-toggler-padding, var(--space-12));
-    --button-border-width: 0;
-    --button-white-space: wrap;
-    --button-text-align: left;
+    --button-padding: #{css-var($element + "-toggler", padding, var(--space-12))};
+    --button-border-width: #{css-var($element + "-toggler", border-width, 0)};
+    --button-border-radius: #{css-var($element + "-toggler", border-radius, 0)};
+    --button-font: #{css-var($element, font, var(--font-body-1))};
+    --button-letter-spacing: #{css-var($element, letter-spacing, var(--letter-spacing-body-1))};
+    --button-icon-margin: #{css-var($element + "-toggler", icon-margin,  0 var(--space-12) 0 0)};
+    --button-rtl-icon-margin: #{css-var($element + "-rtl-toggler", icon-margin,  0 0 0 var(--space-12))};
 
-    &:focus {
-      z-index: 1;
+    width: 100%;
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: left;
+
+    @include focus {
+      box-shadow: var(--focus-inner);
     }
 
     [dir="rtl"] & {
-      --button-text-align: right;
-    }
-  }
-
-  &__chevron {
-    --icon-size: var(--accordion-item-chevron-icon-size, 1.5rem);
-
-    flex: none;
-    margin: var(--accordion-item-chevron-margin, 0 var(--space-12) 0 0);
-
-    [dir="rtl"] & {
-      margin: var(--accordion-item-chevron-margin, 0 0 0 var(--space-12));
+      text-align: right;
     }
   }
 
   &__content {
-    padding: var(--accordion-item-content-padding, var(--space-12) var(--space-12) var(--space-12) var(--space-48));
+    width: 100%;
+    padding:
+      css-var(
+        $element + "-content",
+        padding,
+        var(--space-12) var(--space-12) var(--space-12) var(--space-48)
+      );
 
     [dir="rtl"] & {
-      padding: var(--accordion-item-content-padding, var(--space-12) var(--space-48) var(--space-12) var(--space-12));
+      padding:
+        css-var(
+          $element + "-rtl-content",
+          padding,
+          var(--space-12) var(--space-48) var(--space-12) var(--space-12)
+        );
     }
   }
 }

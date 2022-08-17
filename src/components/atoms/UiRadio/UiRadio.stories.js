@@ -1,9 +1,9 @@
-import { ref } from 'vue';
-import { content, modifiers, disabled } from '@sb/helpers/argTypes';
 import UiRadio from '@/components/atoms/UiRadio/UiRadio.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
-import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import UiList from '@/components/organisms/UiList/UiList.vue';
+import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
+import { ref } from 'vue';
+import { content, modifiers, disabled } from '@sb/helpers/argTypes';
 
 export default {
   title: 'Atoms/Radio',
@@ -41,75 +41,6 @@ export default {
     id: { control: 'text' },
     value: { control: 'text' },
   },
-  parameters: {
-    cssprops: {
-      'radio-border-radius': {
-        value: 'var(--border-radius-circle)',
-        control: 'text',
-        description: '',
-      },
-      'radio-size': {
-        value: '1.25rem',
-        control: 'text',
-        description: '',
-      },
-      'radio-margin': {
-        value: '0.125rem',
-        control: 'text',
-        description: '',
-      },
-      'radio-background': {
-        value: 'var(--color-background-white)',
-        control: 'text',
-        description: '',
-      },
-      'radio-border': {
-        value: 'var(--radio-border-style, solid) var(--radio-border-color, var(--color-border-strong))',
-        control: 'text',
-        description: '',
-      },
-      'radio-border-width': {
-        value: '2px',
-        control: 'text',
-        description: '',
-      },
-      'radio-mark-size': {
-        value: '0.625rem',
-        control: 'text',
-        description: '',
-      },
-      'radio-mark-background': {
-        value: 'transparent',
-        control: 'text',
-        description: '',
-      },
-      'radio-label-font': {
-        value: 'var(--font-body-1)',
-        control: 'text',
-        description: '',
-      },
-      'radio-label-letter-spacing': {
-        value: 'var(--letter-spacing-body-1)',
-        control: 'text',
-        description: '',
-      },
-      'radio-label-flex': {
-        value: '1',
-        control: 'text',
-        description: '',
-      },
-      'radio-label-margin': {
-        value: '0 var(--space-12) 0 0',
-        control: 'text',
-        description: '',
-      },
-      'radio-label-color': {
-        value: 'var(--color-text-body)',
-        control: 'text',
-        description: '',
-      },
-    },
-  },
 };
 
 const Template = (args) => ({
@@ -134,7 +65,6 @@ export const WithLabel = Template.bind({});
 export const IsDisabled = Template.bind({});
 IsDisabled.args = {
   modifiers: ['ui-radio--is-disabled'],
-  disabled: true,
 };
 
 export const HasError = Template.bind({});
@@ -142,7 +72,7 @@ HasError.args = {
   modifiers: ['ui-radio--has-error'],
 };
 
-export const WithRadiobuttonSlot = (args) => ({
+export const WithRadioSlot = (args) => ({
   components: { UiRadio },
   setup() {
     const modelValue = ref(args.initModelValue);
@@ -155,8 +85,11 @@ export const WithRadiobuttonSlot = (args) => ({
     :disabled="disabled"
     :class="modifiers"
   >
-    <template #radiobutton>
-      <div class="ui-radio__radiobutton">
+    <template #radio="{checked}">
+      <div 
+        class="ui-radio__radio"
+        :class="{'ui-radio__radio--is-checked': checked}"
+      >
         <div class="ui-radio__mark" />
       </div>
     </template>

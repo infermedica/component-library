@@ -10,6 +10,7 @@
     v-bind="{back}"
   />
 </template>
+
 <script setup lang="ts">
 import { computed, inject } from 'vue';
 import type { ComputedRef } from 'vue';
