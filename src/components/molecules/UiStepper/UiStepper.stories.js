@@ -111,7 +111,7 @@ export const WithDesktopSlot = (args) => ({
             class="ui-stepper__step"
             :class="{
               'ui-stepper__step--visited': indexOfActiveStep >= index,
-              'ui-stepper__step--active': indexOfActiveStep === index,
+              'ui-stepper__step--current': indexOfActiveStep === index,
             }"
           >
             <UiButton
@@ -146,7 +146,7 @@ export const WithItemsSlot = (args) => ({
           class="ui-stepper__step"
           :class="{
                 'ui-stepper__step--visited': indexOfActiveStep >= index,
-                'ui-stepper__step--active': indexOfActiveStep === index,
+                'ui-stepper__step--current': indexOfActiveStep === index,
               }"
         >
           <UiButton
@@ -176,7 +176,7 @@ export const WithItemSlot = (args) => ({
         class="ui-stepper__step"
         :class="{
           'ui-stepper__step--visited': indexOfActiveStep >= index,
-          'ui-stepper__step--active': indexOfActiveStep === index,
+          'ui-stepper__step--current': indexOfActiveStep === index,
         }"
       >
         <UiButton

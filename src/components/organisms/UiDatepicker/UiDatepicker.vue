@@ -508,7 +508,7 @@ provide('inputsIds', inputsIds);
     margin: css-var($element + "-dropdown", margin, var(--space-32) 0 0 var(--space-24));
 
     [dir="rtl"] & {
-      margin: css-var($element + "-dropdown", margin, var(--space-32) var(--space-24) 0 0);
+      margin: css-var($element + "-rtl-dropdown", margin, var(--space-32) var(--space-24) 0 0);
     }
   }
 

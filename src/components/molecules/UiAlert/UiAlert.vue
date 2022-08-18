@@ -78,7 +78,7 @@ const icon = computed<AlertIcon>(() => ((!props.hasIcon || props.type === 'defau
   }
 
   &__message {
-    --text-color: #{css-var($element + "-message", text-color, var(--color-text-body))};
+    --text-color: #{css-var($element, color, var(--color-text-body))};
   }
 
   @each $type in $types {
@@ -88,7 +88,7 @@ const icon = computed<AlertIcon>(() => ((!props.hasIcon || props.type === 'defau
       }
 
       #{$this}__message {
-        --text-color: #{css-var($element + "-message", text-color, var(--color-text-#{$type}))};
+        --text-color: #{css-var($element, color, var(--color-text-#{$type}))};
       }
     }
   }

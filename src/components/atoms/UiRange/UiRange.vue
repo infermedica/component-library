@@ -171,7 +171,7 @@ function changeHandler(value: number) {
     touch-action: none;
 
     @include from-tablet {
-      --range-input-margin: 0;
+      margin: css-var($element + "-tablet-input", margin, 0);
 
       flex: 0 1 100%;
       order: 0;

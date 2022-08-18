@@ -1,7 +1,7 @@
 <template>
   <component
     :is="tag"
-    class="ui-miltiple-answer"
+    class="ui-multiple-answer"
   >
     <!-- @slot Use this slot to replace hint template. -->
     <slot
@@ -249,7 +249,11 @@ function unfocusExplication(event: KeyboardEvent) {
   $this: &;
   $element: multiple-answer;
 
-  border: none;
+  @at-root fieldset#{&} {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
 
   &__hint {
     padding: css-var($element + "-hint", padding, 0 var(--space-20) var(--space-12));
@@ -285,7 +289,7 @@ function unfocusExplication(event: KeyboardEvent) {
       padding: css-var($element + "-tablet-choice", padding, var(--space-12));
 
       @include hover {
-        background: css-var($element + "-tablet-hover", background, var(--color-background-white-hover));
+        background: css-var($element + "-tablet-choice-hover", background, var(--color-background-white-hover));
       }
     }
 

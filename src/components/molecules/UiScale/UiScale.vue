@@ -227,8 +227,13 @@ const buttonIncrementAttrsExtended = computed(() => ({
   $element: scale;
 
   &__controls {
+    @at-root fieldset#{&} {
+      border: none;
+      padding: 0;
+      margin: 0;
+    }
+
     display: flex;
-    border: none;
   }
 
   &__mobile-controls {

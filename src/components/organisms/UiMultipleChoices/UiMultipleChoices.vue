@@ -192,7 +192,7 @@ const choicesToUse = computed<MultipleChoiceEvidence[]>(() => (
   &__list-item {
     --list-item-padding: 0;
 
-    @include inner-border($element: multiple-answer-list-item, $color: var(--color-border-divider), $width: 1px 0 0 0);
+    @include inner-border($element: multiple-choices-list-item, $color: var(--color-border-divider), $width: 1px 0 0 0);
 
     &:last-of-type {
       &::after {

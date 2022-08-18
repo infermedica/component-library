@@ -31,9 +31,9 @@ import UiButton from '../../../atoms/UiButton/UiButton.vue';
   /* fixme: do something to remove this hack */
   /* stylelint-disable-next-line selector-class-pattern */
   &.ui-button--is-selected {
-    --button-color: #{css-var($element + "-selected", color, var(--color-text-on-selection))};
-    --button-hover-color: #{css-var($element + "-selected-hover", color, var(--color-text-on-selection))};
-    --button-active-color: #{css-var($element + "-selected-active", color, var(--color-text-on-selection))};
+    --button-color: unset;
+    --button-hover-color: unset;
+    --button-active-color: unset;
   }
 
   /* fixme: do something to remove this hack */

@@ -91,11 +91,11 @@ const getNodes = (elements) => {
 /**
  * Generate a list of links to the sections based on the page's outline.
  */
-export const PageOutline = () => {
+export const PageOutline = ({ selectors = 'h2, h3, h4, h5, h6' }) => {
   const [pageOutline, setPageOutline] = useState(<li>loading...</li>);
   useEffect(() => {
     const el = document.getElementById('docs-root');
-    const headings = [...el.querySelectorAll('h2, h3, h4, h5, h6')];
+    const headings = [...el.querySelectorAll(selectors)];
     const nodes = getNodes(headings).nodes;
     setPageOutline(nodes);
   }, []);

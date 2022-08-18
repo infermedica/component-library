@@ -143,7 +143,7 @@ AsMultipleAnswer.decorators = [(story) => ({
       :style="{
       width: '100%',
       'max-width': '780px',
-      height: '540px',
+      'min-height': '540px',
     }"
   >
     <story/>
@@ -219,7 +219,7 @@ AsSimpleQuestion.decorators = [(story) => ({
       :style="{
       width: '100%',
       'max-width': '780px',
-      height: '540px',
+      'min-height': '540px',
     }"
   >
     <story/>

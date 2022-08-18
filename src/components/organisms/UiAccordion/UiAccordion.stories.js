@@ -162,12 +162,12 @@ export const WithTogglerSlot = (args) => ({
               :id="'toggler' + name"
               :aria-expanded="isOpen.toString()"
               :aria-controls="name"
-              class="ui-accordion-item__toggler ui-button--outlined ui-button--has-icon"
+              class="ui-button--outlined ui-accordion-item__toggler"
               @click="toggle(name)"
           >
             <UiIcon
                 :icon="icon"
-                class="ui-accordion-item__chevron"
+                class="ui-button__icon ui-accordion-item__chevron"
             />
             {{ title }}
           </UiButton>
@@ -198,7 +198,7 @@ export const WithChevronSlot = (args) => ({
         <template #chevron="{isOpen, icon, iconOpen, iconClose}">
           <UiIcon
               :icon="icon"
-              class="ui-accordion-item__chevron"
+              class="ui-button__icon ui-accordion-item__chevron"
           />
         </template>
       </UiAccordionItem>

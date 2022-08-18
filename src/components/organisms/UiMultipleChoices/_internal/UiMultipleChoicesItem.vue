@@ -148,10 +148,14 @@ function updateHandler(value: RadioValue): void {
   $this: &;
   $element: multiple-choices-item;
 
+  @at-root fieldset#{&} {
+    border: none;
+    margin: 0;
+  }
+
   display: flex;
   flex-direction: column;
   padding: css-var($element, padding, var(--space-20) 0 0 0);
-  border: none;
   background: css-var($element, background, transparent);
 
   @include from-tablet {

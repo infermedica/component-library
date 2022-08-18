@@ -57,7 +57,7 @@
                 class="ui-stepper__step"
                 :class="{
                   'ui-stepper__step--visited': indexOfActiveStep >= index,
-                  'ui-stepper__step--active': indexOfActiveStep === index,
+                  'ui-stepper__step--current': indexOfActiveStep === index,
                 }"
               >
                 <!-- @slot Use this slot to replace items-link in the desktop list -->
@@ -229,7 +229,7 @@ const determineStep = (itemIndex: number, step: Step): DetermineStep => ({
       }
     }
 
-    &--active {
+    &--current {
       #{$this}__item {
         --button-color: #{css-var($element + "-item", color, var(--color-text-body))};
         --button-font: #{css-var($element + "-item", font, var(--font-body-1-thick))};

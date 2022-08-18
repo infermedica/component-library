@@ -59,6 +59,7 @@ specifiers:
   prompts: ^2.4.2
   react: 16.14.0
   react-dom: 16.14.0
+  react-string-replace: ^1.1.0
   react-syntax-highlighter: ^15.5.0
   sass: ^1.32.7
   sass-loader: ^13.0.2
@@ -145,6 +146,7 @@ devDependencies:
   prompts: 2.4.2
   react: 16.14.0
   react-dom: 16.14.0_react@16.14.0
+  react-string-replace: 1.1.0
   react-syntax-highlighter: 15.5.0_react@16.14.0
   sass: 1.54.0
   sass-loader: 13.0.2_sass@1.54.0+webpack@5.74.0
@@ -13343,6 +13345,11 @@ packages:
       invariant: 2.2.4
       shallowequal: 1.1.0
       throttle-debounce: 3.0.1
+    dev: true
+
+  /react-string-replace/1.1.0:
+    resolution: {integrity: sha512-N6RalSDFGbOHs0IJi1H611WbZsvk3ZT47Jl2JEXFbiS3kTwsdCYij70Keo/tWtLy7sfhDsYm7CwNM/WmjXIaMw==}
+    engines: {node: '>=0.12.0'}
     dev: true
 
   /react-syntax-highlighter/15.5.0_react@16.14.0:

@@ -61,7 +61,7 @@ defineProps({
       height: 100%;
       border-width: css-var($element + "-loader", border-width, 2px);
       border-style: solid;
-      border-color: css-var($element + "-loader", border-color, var(--color-icon-secondary));
+      border-color: css-var($element + "-indicator", color, var(--color-icon-secondary));
       border-radius: inherit;
       content: "";
     }

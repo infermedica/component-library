@@ -309,7 +309,8 @@ const itemsToRender = computed<DropdownItemAsObj[]>(() => (props.items.map((item
     position: absolute;
     top: 100%;
     left: 0;
-    width: css-var($element + "-popover", width, 15rem);
+    width: css-var($element + "-popover", width, 100%);
+    max-width: css-var($element + "-popover", max-width, 15rem);
     min-height: css-var($element + "-popover", min-height, 0);
     margin: css-var($element + "-popover", margin, var(--space-8) 0 0 0);
   }

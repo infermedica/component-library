@@ -88,7 +88,7 @@ const buttonAttrs = computed<ButtonAttrs>(() => ({
   $element: dropdown-item;
 
   --button-padding: #{css-var($element, padding, var(--space-8))};
-  --button-border-width: #{css-var($element, border-width, 0)};
+  --button-border-width: 0;
   --button-color: #{css-var($element, color, var(--color-text-body))};
   --button-hover-color: #{css-var($element + "-hover", color, var(--color-text-body))};
   --button-active-color: #{css-var($element + "-active", color, var(--color-text-body))};
@@ -105,9 +105,9 @@ const buttonAttrs = computed<ButtonAttrs>(() => ({
   /* fixme: do something to remove this hack */
   /* stylelint-disable-next-line selector-class-pattern */
   &.ui-button--is-selected {
-    --button-color: #{css-var($element + "-selected", color, var(--color-text-on-selection))};
-    --button-hover-color: #{css-var($element + "-selected-hover", color, var(--color-text-on-selection))};
-    --button-active-color: #{css-var($element + "-selected-active", color, var(--color-text-on-selection))};
+    --button-color: unset;
+    --button-hover-color: unset;
+    --button-active-color: unset;
   }
 }
 </style>

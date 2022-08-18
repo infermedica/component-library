@@ -186,10 +186,15 @@ const finalScore = computed(() => (
   $this: &;
   $element: rating;
 
+  @at-root fieldset#{&} {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  border: none;
 
   &__option {
     --_rating-option-gap: #{css-var($element + "-option", gap, var(--space-24))};
@@ -214,7 +219,7 @@ const finalScore = computed(() => (
 
     &:active {
       #{$this}__icon {
-        --icon-color: #{css-var($element + "-icon", color, var(--color-icon-secondary-active))};
+        --icon-color: #{css-var($element + "-active-icon", color, var(--color-icon-secondary-active))};
       }
 
       #{$this}__radio {

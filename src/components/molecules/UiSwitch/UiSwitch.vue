@@ -78,10 +78,10 @@ const updateHandler = (value: CheckboxModelValue): void => {
 
   &:active {
     #{$this}__control {
-      --switch-control-color: #{css-var($element + "-hover", color, var(--color-switch-track-active))};
+      --switch-control-color: #{css-var($element + "-active", color, var(--color-switch-track-active))};
       --switch-control-checked-color:
         #{css-var(
-          $element + "-checked-hover",
+          $element + "-checked-active",
           color,
           var(--color-switch-track-checked-active)
         )};
@@ -111,8 +111,8 @@ const updateHandler = (value: CheckboxModelValue): void => {
 
     &:active {
       #{$this}__control {
-        --switch-control-color: #{css-var($element + "-hover", color, var(--color-switch-disabled))};
-        --switch-control-checked-color: #{css-var($element + "-checked-hover", color, var(--color-switch-disabled))};
+        --switch-control-color: #{css-var($element + "-active", color, var(--color-switch-disabled))};
+        --switch-control-checked-color: #{css-var($element + "-checked-active", color, var(--color-switch-disabled))};
       }
     }
   }

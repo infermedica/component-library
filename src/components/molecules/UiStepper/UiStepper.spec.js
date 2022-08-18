@@ -90,7 +90,7 @@ describe('UiStepper.vue', () => {
 
       const listItems = wrapper.findAllComponents(UiListItem);
       const activeListItem = listItems[currentStepIndex];
-      expect(activeListItem.classes()).toContain('ui-stepper__step--active');
+      expect(activeListItem.classes()).toContain('ui-stepper__step--current');
     });
     test('renders a component with visited class on the visited elements', () => {
       const wrapper = mount(UiStepper, {

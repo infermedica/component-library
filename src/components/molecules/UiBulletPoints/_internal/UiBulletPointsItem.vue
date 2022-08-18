@@ -74,7 +74,7 @@ const isUnordered = computed(() => tag.value === 'ul');
 
     &::before {
       display: block;
-      width: css-var(icon, size, 1.5rem);
+      width: var(--icon-size, 1.5rem);
       content: counter(counter, var(--_list-style-type)) var(--_list-item-suffix);
       counter-increment: counter;
     }

@@ -62,14 +62,14 @@ const progressValue = computed(() => {
   overflow: hidden;
   width: 100%;
   height: var(--_progress-height);
-  background: css-var($element, track, var(--color-progress-track));
+  background: css-var($element + "track", background, var(--color-progress-track));
   border-radius: var(--_progress-border-radius);
 
   &__inner {
     position: relative;
     width: calc(var(--_progress-value) * 100%);
     height: 100%;
-    background: css-var($element, indicator, var(--color-progress-indicator));
+    background: css-var($element + "indicator", background, var(--color-progress-indicator));
     border-radius: 0;
 
     &::before,
@@ -78,7 +78,7 @@ const progressValue = computed(() => {
       display: block;
       width: var(--_progress-padding);
       height: 100%;
-      background: css-var($element, indicator, var(--color-progress-indicator));
+      background: css-var($element + "indicator", background,arg var(--color-progress-indicator));
       content: "";
     }
 

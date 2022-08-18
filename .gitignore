@@ -5,13 +5,11 @@ build-storybook.log
 
 /tests/e2e/videos/
 /tests/e2e/screenshots/
-.unit-test-results.json
 /coverage
 
 
 # auto-generated file
 /index.ts
-icons.ts
 
 
 # local env files

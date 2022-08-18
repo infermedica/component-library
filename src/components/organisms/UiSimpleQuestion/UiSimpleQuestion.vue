@@ -108,14 +108,14 @@ function updateHandler(value: TileValue) {
 
     @include from-tablet {
       flex: 1;
-      margin: css-var($element + "-option", margin, 0 var(--space-24) 0 0);
+      margin: css-var($element + "-tablet-option", margin, 0 var(--space-24) 0 0);
 
       &:last-of-type {
         margin: 0;
       }
 
       [dir="rtl"] & {
-        margin: css-var($element + "-rtl-option", margin, 0 0 0 var(--space-24));
+        margin: css-var($element + "-rtl-tablet-option", margin, 0 0 0 var(--space-24));
 
         &:last-of-type {
           margin: 0;
