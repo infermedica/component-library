@@ -1,9 +1,9 @@
 <template>
   <div
     class="ui-multiple-choices-item"
-    role="group"
+    role="radiogroup"
     :class="{'ui-multiple-choices-item--has-error': invalid}"
-    :aria-labelledby="choice.linked_observation"
+    :aria-labelledby="choiceLabelId"
   >
     <!-- @slot Use this slot to replace name template.-->
     <slot
@@ -12,7 +12,7 @@
     >
       <div class="ui-multiple-choices-item__header">
         <UiText
-          :id="choice.linked_observation"
+          :id="choiceLabelId"
           tag="span"
           class="ui-multiple-choices-item__name"
         >
@@ -63,6 +63,8 @@
 
 <script setup lang="ts">
 import type { PropType } from 'vue';
+import { computed } from 'vue';
+import { uid } from 'uid/single';
 import UiRadio from '../../../atoms/UiRadio/UiRadio.vue';
 import type { RadioValue } from '../../../atoms/UiRadio/UiRadio.vue';
 import UiText from '../../../atoms/UiText/UiText.vue';
@@ -103,6 +105,8 @@ const props = defineProps({
   },
 });
 const emit = defineEmits<{(e: 'update:modelValue', value: MultipleChoiceModelValue): void}>();
+const choiceLabelId = computed(() => (`choice-label-${props.choice?.id || uid()}`));
+
 function getModelValue(choice: MultipleChoiceEvidence): MultipleChoiceEvidence {
   return props.modelValue[choice.id];
 }
