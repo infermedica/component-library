@@ -22,6 +22,7 @@ export default {
     translation: {
       stars: (index) => (`${index} stars`),
     },
+    legend: 'How helpful was this checkup for you?',
   },
   argTypes: {
     initModelValue: {

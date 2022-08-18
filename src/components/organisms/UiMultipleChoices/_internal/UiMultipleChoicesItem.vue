@@ -1,10 +1,20 @@
 <template>
-  <div
+  <component
+    :is="tag"
     class="ui-multiple-choices-item"
     role="radiogroup"
     :class="{'ui-multiple-choices-item--has-error': invalid}"
     :aria-labelledby="choiceLabelId"
   >
+    <!-- @slot Use this slot to replace legend template. -->
+    <slot
+      name="legend"
+      v-bind="{choice}"
+    >
+      <legend class="visual-hidden">
+        {{ choice.name }}
+      </legend>
+    </slot>
     <!-- @slot Use this slot to replace name template.-->
     <slot
       name="name"
@@ -58,7 +68,7 @@
         </slot>
       </template>
     </div>
-  </div>
+  </component>
 </template>
 
 <script setup lang="ts">
@@ -73,6 +83,7 @@ import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import type {
   MultipleChoice, MultipleChoiceEvidence, MultipleChoiceModelValue, MultipleChoiceOption,
 } from '../UiMultipleChoices.vue';
+import type { HTMLTag } from '../../../../types/tag';
 
 const props = defineProps({
   /**
@@ -102,6 +113,13 @@ const props = defineProps({
   invalid: {
     type: Boolean,
     default: true,
+  },
+  /**
+   * Use this props to set multiple choices item tag.
+   */
+  tag: {
+    type: String as PropType<HTMLTag>,
+    default: 'fieldset',
   },
 });
 const emit = defineEmits<{(e: 'update:modelValue', value: MultipleChoiceModelValue): void}>();
@@ -133,6 +151,7 @@ function updateHandler(value: RadioValue): void {
   display: flex;
   flex-direction: column;
   padding: css-var($element, padding, var(--space-20) 0 0 0);
+  border: none;
   background: css-var($element, background, transparent);
 
   @include from-tablet {

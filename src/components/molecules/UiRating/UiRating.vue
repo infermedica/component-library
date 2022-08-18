@@ -1,5 +1,20 @@
 <template>
-  <div class="ui-rating">
+  <component
+    :is="tag"
+    class="ui-rating"
+  >
+    <!-- @slot Use this slot to replace legend template. -->
+    <slot
+      name="legend"
+      v-bind="{legend}"
+    >
+      <legend
+        v-if="legend"
+        class="visual-hidden"
+      >
+        {{ legend }}
+      </legend>
+    </slot>
     <template
       v-for="index in maxScore"
       :key="index"
@@ -56,7 +71,7 @@
         </UiRadio>
       </slot>
     </template>
-  </div>
+  </component>
 </template>
 
 <script setup lang="ts">
@@ -67,6 +82,7 @@ import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import type { PropsAttrs } from '../../../types/attrs';
 import type { Icon } from '../../../types/icon';
+import type { HTMLTag } from '../../../types/tag';
 
 export type RatingValue = string | number;
 export interface RatingSettings {
@@ -127,6 +143,20 @@ const props = defineProps({
       stars: (index: number) => (`${index} stars`),
     }),
   },
+  /**
+   * Use this props to set rating tag.
+   */
+  tag: {
+    type: String as PropType<HTMLTag>,
+    default: 'fieldset',
+  },
+  /**
+   * Use this props to set legend.
+   */
+  legend: {
+    type: String,
+    default: '',
+  },
 });
 const emit = defineEmits<{(e:'update:modelValue', value: string): void}>();
 const ratingName = computed(() => (
@@ -159,6 +189,7 @@ const finalScore = computed(() => (
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  border: none;
 
   &__option {
     --_rating-option-gap: #{css-var($element + "-option", gap, var(--space-24))};

@@ -4,9 +4,22 @@
     role="radiogroup"
     :aria-label="translation.label"
   >
-    <div
+    <component
+      :is="tag"
       class="ui-scale__controls"
     >
+      <!-- @slot Use this slot to replace legend template. -->
+      <slot
+        name="legend"
+        v-bind="{legend}"
+      >
+        <legend
+          v-if="legend"
+          class="visual-hidden"
+        >
+          {{ legend }}
+        </legend>
+      </slot>
       <template
         v-for="(_, index) in maxSteps"
         :key="index"
@@ -44,7 +57,7 @@
           </template>
         </UiRadio>
       </template>
-    </div>
+    </component>
     <div class="ui-scale__description">
       <UiText class="ui-scale__mild">
         {{ translation.mild }}
@@ -84,6 +97,7 @@ import UiText from '../../atoms/UiText/UiText.vue';
 import UiNumberStepper from '../UiNumberStepper/UiNumberStepper.vue';
 import type { PropsAttrs } from '../../../types/attrs';
 import { focusElement } from '../../../utilities/helpers/index.ts';
+import type { HTMLTag } from '../../../types/tag';
 
 export interface ScaleTranslation {
   label: string;
@@ -139,6 +153,20 @@ const props = defineProps({
   buttonIncrementAttrs: {
     type: Object as PropsAttrs,
     default: () => ({}),
+  },
+  /**
+   * Use this props to set scale tag.
+   */
+  tag: {
+    type: String as PropType<HTMLTag>,
+    default: 'fieldset',
+  },
+  /**
+   * Use this props to set legend.
+   */
+  legend: {
+    type: String,
+    default: '',
   },
 });
 const emit = defineEmits<{(e: 'update:modelValue', value: number): void}>();
@@ -200,6 +228,7 @@ const buttonIncrementAttrsExtended = computed(() => ({
 
   &__controls {
     display: flex;
+    border: none;
   }
 
   &__mobile-controls {
