@@ -122,10 +122,12 @@ const attrs = useAttrs();
 const emit = defineEmits<{(e:'update:modelValue', value: number): void}>();
 const { getRootAttrs, getInputAttrs } = useInput();
 const buttonDecrementAttrsExtended = computed(() => ({
+  'aria-hidden': true,
   tabindex: -1,
   ...props.buttonDecrementAttrs,
 }));
 const buttonIncrementAttrsExtended = computed(() => ({
+  'aria-hidden': true,
   tabindex: -1,
   ...props.buttonIncrementAttrs,
 }));

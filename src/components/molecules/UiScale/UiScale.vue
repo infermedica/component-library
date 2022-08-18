@@ -1,5 +1,9 @@
 <template>
-  <div class="ui-scale">
+  <div
+    class="ui-scale"
+    role="radiogroup"
+    :aria-label="translation.label"
+  >
     <div
       class="ui-scale__controls"
     >
@@ -8,10 +12,12 @@
         :key="index"
       >
         <UiRadio
+          ref="optionRefs"
           v-model="scaleValue"
           :value="index"
           :name="scaleName"
           class="ui-scale__option"
+          :aria-labelledby="`scale-label-${index}`"
           @mouseover="hoverHandler($event, index)"
           @mouseleave="hoverHandler($event, index)"
         >
@@ -26,6 +32,7 @@
           </template>
           <template #label>
             <UiText
+              :id="`scale-label-${index}`"
               tag="div"
               class="ui-scale__label"
               :class="{
@@ -51,8 +58,8 @@
       :model-value="scaleValue"
       :min="0"
       :max="steps - 1"
-      :button-decrement-attrs="buttonDecrementAttrs"
-      :button-increment-attrs="buttonIncrementAttrs"
+      :button-decrement-attrs="buttonDecrementAttrsExtended"
+      :button-increment-attrs="buttonIncrementAttrsExtended"
       @update:model-value="changeHandler"
     >
       <template
@@ -69,15 +76,17 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import type { CSSProperties, PropType } from 'vue';
+import { computed, ref, watch } from 'vue';
+import type { CSSProperties, PropType, ComponentPublicInstance } from 'vue';
 import { uid } from 'uid/single';
 import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import UiNumberStepper from '../UiNumberStepper/UiNumberStepper.vue';
 import type { PropsAttrs } from '../../../types/attrs';
+import { focusElement } from '../../../utilities/helpers/index.ts';
 
 export interface ScaleTranslation {
+  label: string;
   mild: string;
   unbearable: string;
   [key: string]: string
@@ -112,6 +121,7 @@ const props = defineProps({
   translation: {
     type: Object as PropType<ScaleTranslation>,
     default: () => ({
+      label: 'Pain scale',
       mild: 'Mild',
       unbearable: 'Unbearable',
     }),
@@ -135,6 +145,7 @@ const emit = defineEmits<{(e: 'update:modelValue', value: number): void}>();
 const scaleName = computed(() => (
   props.name || `scale-${uid()}`
 ));
+const optionRefs = ref<ComponentPublicInstance[]>([]);
 const maxSteps = computed(() => props.steps);
 function valueValidation(value: number): boolean {
   return value >= 0 && value < maxSteps.value;
@@ -156,6 +167,9 @@ function hoverHandler({ type }: {type: string}, value: number): void {
   hoverValue.value = type === 'mouseover' ? value : -1;
 }
 const finalValue = computed(() => (hoverValue.value >= 0 ? hoverValue.value : scaleValue.value));
+watch(finalValue, (value: number) => {
+  focusElement(optionRefs.value[value]?.$el, true);
+});
 function calcActiveElementOpacity(index: number): CSSProperties {
   const opacityStepValue = 1 / (maxSteps.value - 1);
   const isActive = index <= finalValue.value;
@@ -164,6 +178,16 @@ function calcActiveElementOpacity(index: number): CSSProperties {
     '--_scale-square-overlay-opacity': (index * opacityStepValue).toFixed(3),
   } : {};
 }
+const buttonDecrementAttrsExtended = computed(() => ({
+  'aria-hidden': true,
+  tabindex: -1,
+  ...props.buttonDecrementAttrs,
+}));
+const buttonIncrementAttrsExtended = computed(() => ({
+  'aria-hidden': true,
+  tabindex: -1,
+  ...props.buttonIncrementAttrs,
+}));
 </script>
 
 <style lang="scss">
