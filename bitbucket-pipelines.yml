@@ -1,12 +1,17 @@
-image: node:16.15.0
+image: node:16-alpine
 
 pipelines:
   pull-requests:
     release/*:
       - step:
-         name: 'Publish to Chromatic'
-         caches:
-           - node
-         script:
-           - npm ci
-           - npm run chromatic --patch-build=$your-branch...master
+        name: 'Publish to Chromatic'
+        script:
+          - apk --no-cache add git
+          - npm i pnpm@6.32 -g
+          - pnpm install --frozen-lockfile
+          - pnpm chromatic --patch-build=$your-branch...master
+        caches:
+          - pnpm
+        artifacts:
+          - node_modules/**
+
