@@ -12,6 +12,7 @@
       <UiButton
         class="ui-range__decrement ui-button--outlined ui-button--circled ui-button--has-icon"
         tabindex="-1"
+        aria-hidden="true"
         v-bind="buttonDecrementAttrs"
         @click="changeHandler(modelValue, -1)"
       >
@@ -58,6 +59,7 @@
       <UiButton
         class="ui-range__increment ui-button--outlined ui-button--circled ui-button--has-icon"
         tabindex="-1"
+        aria-hidden="true"
         v-bind="buttonIncrementAttrs"
         @click="changeHandler(modelValue, 1)"
       >

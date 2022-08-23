@@ -14,8 +14,10 @@ export default {
   args: {
     initModelValue: 4,
     name: '',
+    legend: 'How strong is the headache?',
     steps: 10,
     translation: {
+      label: 'Pain scale',
       mild: 'Mild',
       unbearable: 'Unbearable',
     },
@@ -74,6 +76,7 @@ const Template = (args) => ({
   template: `<UiScale
     v-model="modelValue"
     :name="name"
+    :legend="legend"
     :steps="steps"
     :translation="translation"
     :button-decrement-attrs="buttonDecrementAttrs"
@@ -92,6 +95,7 @@ export const WithDecrementSlot = (args) => ({
   template: `<UiScale
     v-model="modelValue"
     :name="name"
+    :legend="legend"
     :steps="steps"
     :translation="translation"
     :button-decrement-attrs="buttonDecrementAttrs"
@@ -120,6 +124,7 @@ export const WithIncrementSlot = (args) => ({
   template: `<UiScale
     v-model="modelValue"
     :name="name"
+    :legend="legend"
     :steps="steps"
     :translation="translation"
     :button-decrement-attrs="buttonDecrementAttrs"

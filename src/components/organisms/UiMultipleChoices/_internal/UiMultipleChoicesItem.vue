@@ -1,10 +1,20 @@
 <template>
-  <div
+  <component
+    :is="tag"
     class="ui-multiple-choices-item"
-    role="group"
+    role="radiogroup"
     :class="{'ui-multiple-choices-item--has-error': invalid}"
-    :aria-labelledby="choice.linked_observation"
+    :aria-labelledby="choiceLabelId"
   >
+    <!-- @slot Use this slot to replace legend template. -->
+    <slot
+      name="legend"
+      v-bind="{choice}"
+    >
+      <legend class="visual-hidden">
+        {{ choice.name }}
+      </legend>
+    </slot>
     <!-- @slot Use this slot to replace name template.-->
     <slot
       name="name"
@@ -12,7 +22,7 @@
     >
       <div class="ui-multiple-choices-item__header">
         <UiText
-          :id="choice.linked_observation"
+          :id="choiceLabelId"
           class="ui-multiple-choices-item__name"
           tag="span"
         >
@@ -54,10 +64,12 @@
         </UiRadio>
       </slot>
     </template>
-  </div>
+  </component>
 </template>
 
 <script setup>
+import { computed } from 'vue';
+import { uid } from 'uid/single';
 import UiRadio from '../../../atoms/UiRadio/UiRadio.vue';
 import UiText from '../../../atoms/UiText/UiText.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
@@ -92,8 +104,16 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  /**
+   * Use this props to set multiple choices item tag.
+   */
+  tag: {
+    type: String,
+    default: 'fieldset',
+  },
 });
 const emit = defineEmits(['update:modelValue']);
+const choiceLabelId = computed(() => (`choice-label-${props.choice?.id || uid()}`));
 function getModelValue(choice) {
   return props.modelValue[choice.id];
 }
@@ -112,6 +132,11 @@ function updateHandler(value) {
 @import "../../../../styles/mixins/mixins";
 
 .ui-multiple-choices-item {
+  @at-root fieldset#{&} {
+    border: none;
+    margin: 0;
+  }
+
   display: flex;
   flex-direction: var(--multiple-choices-item-flex-direction, column);
   align-items: var(--multiple-choices-item-align-items, stretch);

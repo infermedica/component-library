@@ -1,5 +1,8 @@
 <template>
-  <div class="ui-miltiple-answer">
+  <component
+    :is="tag"
+    class="ui-multiple-answer"
+  >
     <!-- @slot Use this slot to replace hint template. -->
     <slot
       name="hint"
@@ -13,6 +16,18 @@
       >
         {{ hint }}
       </UiAlert>
+    </slot>
+    <!-- @slot Use this slot to replace legend template. -->
+    <slot
+      name="legend"
+      v-bind="{legend}"
+    >
+      <legend
+        v-if="legend"
+        class="visual-hidden"
+      >
+        {{ legend }}
+      </legend>
     </slot>
     <UiList
       class="ui-multiple-answer__list"
@@ -80,7 +95,7 @@
         </slot>
       </template>
     </UiList>
-  </div>
+  </component>
 </template>
 
 <script>
@@ -102,15 +117,15 @@ import UiAlert from '../../atoms/UiAlert/UiAlert.vue';
 
 const props = defineProps({
   /**
-     *  Use this props or v-model to set checked.
-     */
+   *  Use this props or v-model to set checked.
+   */
   modelValue: {
     type: [String, Object, Array],
     default: () => ([]),
   },
   /**
-     *  Use this props to set possible choices.
-     */
+   *  Use this props to set possible choices.
+   */
   choices: {
     type: Array,
     default: () => ([]),
@@ -149,6 +164,20 @@ const props = defineProps({
   alertHintAttrs: {
     type: Object,
     default: () => ({}),
+  },
+  /**
+   * Use this props to set multiple answer tag.
+   */
+  tag: {
+    type: String,
+    default: 'fieldset',
+  },
+  /**
+   * Use this props to set legend.
+   */
+  legend: {
+    type: String,
+    default: '',
   },
 });
 const emit = defineEmits(['update:modelValue', 'update:invalid']);
@@ -196,6 +225,12 @@ function unfocusExplication(event) {
 @import "../../../styles/mixins/mixins";
 
 .ui-multiple-answer {
+  @at-root fieldset#{&} {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
   &__list-item {
     @include inner-border($element: multiple-answer-list-item, $color: var(--color-border-divider), $width: 1px 0 0 0);
 

@@ -1,5 +1,20 @@
 <template>
-  <div class="ui-rating">
+  <component
+    :is="tag"
+    class="ui-rating"
+  >
+    <!-- @slot Use this slot to replace legend template. -->
+    <slot
+      name="legend"
+      v-bind="{legend}"
+    >
+      <legend
+        v-if="legend"
+        class="visual-hidden"
+      >
+        {{ legend }}
+      </legend>
+    </slot>
     <template
       v-for="index in maxScore"
       :key="index"
@@ -52,7 +67,7 @@
         </UiRadio>
       </slot>
     </template>
-  </div>
+  </component>
 </template>
 
 <script setup>
@@ -110,6 +125,20 @@ const props = defineProps({
       stars: (index) => (`${index} stars`),
     }),
   },
+  /**
+   * Use this props to set rating tag.
+   */
+  tag: {
+    type: String,
+    default: 'fieldset',
+  },
+  /**
+   * Use this props to set legend.
+   */
+  legend: {
+    type: String,
+    default: '',
+  },
 });
 const emit = defineEmits(['update:modelValue']);
 const ratingName = computed(() => (
@@ -141,6 +170,12 @@ const finalScore = computed(() => (
   --radio-border-width: 0;
   --radio-size: var(--rating-icon-size, 1.5rem);
   --radio-background: transparent;
+
+  @at-root fieldset#{&} {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
 
   display: inline-flex;
 

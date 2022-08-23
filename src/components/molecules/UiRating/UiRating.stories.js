@@ -11,6 +11,7 @@ export default {
     initModelValue: 3,
     max: 5,
     name: '',
+    legend: 'How helpful was this checkup for you?',
     radioAttrs: {},
     settings: {
       icon: 'star-outlined',
@@ -116,6 +117,7 @@ const Template = (args) => ({
     v-model="modelValue"
     :max="max"
     :name="name"
+    :legend="legend"
     :radio-attrs="radioAttrs"
   />`,
 });
@@ -162,6 +164,7 @@ export const WithIconSlot = (args) => ({
     v-model="modelValue"
     :max="max"
     :name="name"
+    :legend="legend"
     :radio-attrs="radioAttrs"
   >
     <template #icon="{translation, icon}">

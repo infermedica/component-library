@@ -86,6 +86,7 @@ export default {
       },
     ],
     name: 'diagnosis',
+    legend: 'How long have you had a fever?',
     hint: 'Select one answer',
     touched: false,
     alertHintAttrs: {},
@@ -221,6 +222,7 @@ const Template = (args) => ({
     v-model:invalid="invalid"
     :choices="choices"
     :name="name"
+    :legend="legend"
     :hint="hint"
     :touched="touched"
     @update:invalid="onUpdateInvalid"
@@ -304,6 +306,7 @@ export const WithSingleChoice = (args) => ({
     v-model:invalid="invalid"
     :choices="choices"
     :name="name"
+    :legend="legend"
     :hint="hint"
     :touched="touched"
     @update:invalid="onUpdateInvalid"
@@ -327,6 +330,7 @@ export const WithHintSlot = (args) => ({
     v-model:invalid="invalid"
     :choices="choices"
     :name="name"
+    :legend="legend"
     :hint="hint"
     :touched="touched"
     @update:invalid="onUpdateInvalid"
@@ -362,6 +366,7 @@ export const WithListItemSlot = (args) => ({
     v-model:invalid="invalid"
     :choices="choices"
     :name="name"
+    :legend="legend"
     :hint="hint"
     :touched="touched"
     @update:invalid="onUpdateInvalid"
@@ -377,6 +382,7 @@ export const WithListItemSlot = (args) => ({
           :value="choice"
           :model-value="modelValue"
           :name="name"
+          :legend="legend"
           class="ui-multiple-answer__choice"
           :class="errorClass"
           @update:modelValue="updateHandler(choice)"
@@ -425,6 +431,7 @@ export const WithChoiceItemSlot = (args) => ({
     v-model:invalid="invalid"
     :choices="choices"
     :name="name"
+    :legend="legend"
     :hint="hint"
     :touched="touched"
     @update:invalid="onUpdateInvalid"
@@ -436,6 +443,7 @@ export const WithChoiceItemSlot = (args) => ({
         :value="choice"
         :model-value="modelValue"
         :name="name"
+        :legend="legend"
         class="ui-multiple-answer__choice"
         :class="errorClass"
         @update:modelValue="updateHandler(choice)"
@@ -483,6 +491,7 @@ export const WithLabelChoiceIdSlot = (args) => ({
     v-model:invalid="invalid"
     :choices="choices"
     :name="name"
+    :legend="legend"
     :hint="hint"
     :touched="touched"
     @update:invalid="onUpdateInvalid"

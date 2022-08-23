@@ -1,11 +1,31 @@
 <template>
-  <div class="ui-scale">
-    <div class="ui-scale__controls">
+  <div
+    class="ui-scale"
+    role="radiogroup"
+    :aria-label="translation.label"
+  >
+    <component
+      :is="tag"
+      class="ui-scale__controls"
+    >
+      <!-- @slot Use this slot to replace legend template. -->
+      <slot
+        name="legend"
+        v-bind="{legend}"
+      >
+        <legend
+          v-if="legend"
+          class="visual-hidden"
+        >
+          {{ legend }}
+        </legend>
+      </slot>
       <template
         v-for="(_, index) in maxSteps"
         :key="index"
       >
         <UiRadio
+          ref="optionsRefs"
           v-model="scaleValue"
           :value="index"
           :name="scaleName"
@@ -14,6 +34,7 @@
             'ui-scale__option--first': index === 0,
             'ui-scale__option--last': index === maxSteps - 1,
           }"
+          :aria-labelledby="`scale-label-${index}`"
           @mouseover="hoverHandler($event, index)"
           @mouseleave="hoverHandler($event, index)"
         >
@@ -27,7 +48,10 @@
                 class="ui-scale__label"
                 :class="{ 'ui-scale__label--is-checked': index == scaleValue }"
               >
-                <UiText tag="span">
+                <UiText
+                  :id="`scale-label-${index}`"
+                  tag="span"
+                >
                   {{ index + 1 }}
                 </UiText>
               </div>
@@ -36,7 +60,7 @@
           </template>
         </UiRadio>
       </template>
-    </div>
+    </component>
     <div class="ui-scale__description">
       <UiText>
         {{ translation.mild }}
@@ -52,6 +76,8 @@
         v-bind="{attrs: buttonDecrementAttrs, decrement }"
       >
         <UiButton
+          tabindex="-1"
+          aria-hidden="true"
           class="ui-scale__decrement ui-button--outlined ui-button--circled ui-button--has-icon"
           v-bind="buttonDecrementAttrs"
           @click="decrement"
@@ -67,6 +93,8 @@
         v-bind="{attrs: buttonIncrementAttrs, increment }"
       >
         <UiButton
+          tabindex="-1"
+          aria-hidden="true"
           class="ui-scale__increment ui-button--outlined ui-button--circled ui-button--has-icon"
           v-bind="buttonIncrementAttrs"
           @click="increment"
@@ -81,7 +109,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { uid } from 'uid/single';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
@@ -118,6 +146,7 @@ const props = defineProps({
   translation: {
     type: Object,
     default: () => ({
+      label: 'Pain scale',
       mild: 'Mild',
       unbearable: 'Unbearable',
     }),
@@ -136,11 +165,26 @@ const props = defineProps({
     type: Object,
     default: () => ({}),
   },
+  /**
+   * Use this props to set scale tag.
+   */
+  tag: {
+    type: String,
+    default: 'fieldset',
+  },
+  /**
+   * Use this props to set legend.
+   */
+  legend: {
+    type: String,
+    default: '',
+  },
 });
 const emit = defineEmits(['update:modelValue']);
 const scaleName = computed(() => (
   props.name || `scale-${uid()}`
 ));
+const optionsRefs = ref([]);
 const maxSteps = computed(() => props.steps);
 function valueValidation(value) {
   return value >= 0 && value < maxSteps.value;
@@ -162,6 +206,10 @@ function hoverHandler({ type }, value) {
   hoverValue.value = type === 'mouseover' ? value : -1;
 }
 const finalValue = computed(() => (parseInt(hoverValue.value, 10) >= 0 ? hoverValue.value : scaleValue.value));
+watch(finalValue, (value) => {
+  document.body.classList.remove('focus-is-hidden');
+  optionsRefs.value[value]?.$el?.focus();
+});
 function decrement() {
   changeHandler(props.modelValue, -1);
 }
@@ -185,6 +233,12 @@ function calcActiveElementOpacity(index) {
   $this: &;
 
   &__controls {
+    @at-root fieldset#{&} {
+      border: none;
+      padding: 0;
+      margin: 0;
+    }
+
     display: flex;
   }
 
