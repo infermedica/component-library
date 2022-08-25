@@ -34,7 +34,7 @@ defineProps({
 </script>
 
 <style lang="scss">
-@import "../../../../styles/functions/functions";
+@use "../../../../styles/functions";
 
 .ui-loader-spinner {
   $this: &;
@@ -46,7 +46,7 @@ defineProps({
   justify-content: center;
 
   &__loader {
-    --_loader-spinner-loader-size: #{css-var($element + "-loader", size, 4rem)};
+    --_loader-spinner-loader-size: #{functions.var($element + "-loader", size, 4rem)};
 
     position: relative;
     width: var(--_loader-spinner-loader-size);
@@ -59,9 +59,9 @@ defineProps({
       position: absolute;
       width: 100%;
       height: 100%;
-      border-width: css-var($element + "-loader", border-width, 2px);
+      border-width: functions.var($element + "-loader", border-width, 2px);
       border-style: solid;
-      border-color: css-var($element + "-indicator", color, var(--color-icon-secondary));
+      border-color: functions.var($element + "-indicator", color, var(--color-icon-secondary));
       border-radius: inherit;
       content: "";
     }
@@ -73,28 +73,28 @@ defineProps({
     }
 
     &::after {
-      opacity: css-var($element + "-loader", opacity, 0.3);
+      opacity: functions.var($element + "-loader", opacity, 0.3);
     }
   }
 
   &__label {
-    margin: css-var($element + "-label", margin, var(--space-24) 0 0 0);
+    margin: functions.var($element + "-label", margin, var(--space-24) 0 0 0);
   }
 
   &--small {
     flex-direction: row;
 
     #{$this}__loader {
-      --_loader-spinner-loader-size: #{css-var($element + "-loader", size, 1.125rem)};
+      --_loader-spinner-loader-size: #{functions.var($element + "-loader", size, 1.125rem)};
 
       margin: 3px; //pixel perfect hack
     }
 
     #{$this}__label {
-      margin: css-var($element + "-label", margin, 0 0 0 var(--space-8));
+      margin: functions.var($element + "-label", margin, 0 0 0 var(--space-8));
 
       [dir="rtl"] & {
-        margin: css-var($element + "-rtl-label", margin, 0 var(--space-8) 0 0);
+        margin: functions.var($element + "-rtl-label", margin, 0 var(--space-8) 0 0);
       }
     }
   }

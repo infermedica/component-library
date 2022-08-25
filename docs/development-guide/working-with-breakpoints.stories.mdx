@@ -21,7 +21,7 @@ $desktop-min-width: 992px !default;
 ```
 
 <Alert>
-  <p>Predefined breakpoints are stored in <code>src/styles/variables/_breakpoints.scss</code>.
+  <p>Predefined breakpoints are stored in <code>src/styles/variables/breakpoints.scss</code>.
   They are probably the only ones sass variables in our project because we can use CSS Custom Properties in media queries.</p>
 </Alert>
 
@@ -38,7 +38,7 @@ module.exports = {
   css: {
     loaderOptions: {
       sass: {
-        additionalData: `@import "<path-to-new-breakpoints>";`
+        additionalData: `@use "<path-to-new-breakpoints>";`
       }
     }
   }
@@ -57,8 +57,8 @@ module.exports = {
     .use('string-replace-loader')
     .loader('string-replace-loader')
     .options({
-      search: '@import "../variables/breakpoints";',
-      replace: '@import "../../../../../../breakpoints";', // breakpoints.scss in root directory
+      search: '@use "../variables/breakpoints";',
+      replace: '@use "../../../../../../breakpoints";', // breakpoints.scss in root directory
       flags: 'g'
     })
   }
@@ -74,7 +74,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@import "<path-to-new-breakpoints>";`
+        additionalData: `@use "<path-to-new-breakpoints>";`
       },
     }
   }
@@ -104,19 +104,19 @@ To use breakpoints you can use the following mixins:
 }
 
 @mixin to-mobile {
-  @include to($mobile-max-width) {
+  @include mixins.to($mobile-max-width) {
     @content;
   }
 }
 
 @mixin from-tablet {
-  @include from($tablet-min-width) {
+  @include mixins.from($tablet-min-width) {
     @content;
   }
 }
 
 @mixin from-desktop {
-  @include from($desktop-min-width) {
+  @include mixins.from($desktop-min-width) {
     @content;
   }
 }
@@ -125,7 +125,7 @@ To use breakpoints you can use the following mixins:
 To use breakpoints mixins you should import them in your stylesheet:
 
 ```scss
-@import "@symptom-checker/ui-kit/mixins/_breakpoints.scss";
+@use "@symptom-checker/ui-kit/mixins/breakpoints.scss";
 ```
 
 ## SASS variables with JavaScript code

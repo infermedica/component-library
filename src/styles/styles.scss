@@ -1,2 +1,2 @@
-@import "variables/variables";
-@import "helpers/helpers";
+@forward "helpers";
+@forward "variables";

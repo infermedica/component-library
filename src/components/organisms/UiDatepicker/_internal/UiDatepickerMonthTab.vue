@@ -54,9 +54,6 @@ function select(value: string): void {
 </script>
 
 <style lang="scss">
-@import "../../../../styles/mixins/mixins";
-@import "../../../../styles/functions/functions";
-
 .ui-datepicker-month-tab {
   $this: &;
   $element: datepicker-month-tab;

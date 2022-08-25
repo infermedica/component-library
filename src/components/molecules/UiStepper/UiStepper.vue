@@ -144,8 +144,8 @@ const determineStep = (itemIndex: number, step: Step): DetermineStep => ({
 </script>
 
 <style lang="scss">
-@import "../../../styles/mixins/mixins";
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-stepper {
   $this: &;
@@ -153,12 +153,12 @@ const determineStep = (itemIndex: number, step: Step): DetermineStep => ({
 
   --space-10: calc(var(--space-20) / 2); //pixel perfect hack
 
-  padding: css-var($element, padding, var(--space-12) var(--space-20));
-  background: css-var($element, background, var(--color-background-subtle));
+  padding: functions.var($element, padding, var(--space-12) var(--space-20));
+  background: functions.var($element, background, var(--color-background-subtle));
 
-  @include from-desktop {
-    padding: css-var($element, padding, 0);
-    background: css-var($element + "-desktop", background, transparent);
+  @include mixins.from-desktop {
+    padding: functions.var($element, padding, 0);
+    background: functions.var($element + "-desktop", background, transparent);
   }
 
   &__mobile {
@@ -166,32 +166,32 @@ const determineStep = (itemIndex: number, step: Step): DetermineStep => ({
     align-items: center;
     justify-content: space-between;
 
-    @include from-desktop {
+    @include mixins.from-desktop {
       display: none;
     }
   }
 
   &__progress {
-    width: css-var($element + "-progress", width, 6rem);
+    width: functions.var($element + "-progress", width, 6rem);
 
-    @include from-tablet {
-      width: css-var($element + "-tablet-progress", width, 11.25rem);
+    @include mixins.from-tablet {
+      width: functions.var($element + "-tablet-progress", width, 11.25rem);
     }
   }
 
   &__desktop {
     display: none;
 
-    @include from-desktop {
+    @include mixins.from-desktop {
       display: flex;
       flex-direction: column;
     }
   }
 
   &__step {
-    --_stepper-step-indicator-width: #{css-var($element + "-step-indicator", width, 4px)};
+    --_stepper-step-indicator-width: #{functions.var($element + "-step-indicator", width, 4px)};
     --list-item-padding:
-      #{css-var(
+      #{functions.var(
         $element + "-step",
         padding,
         var(--space-10) var(--space-8) var(--space-10) calc(var(--space-12) + var(--_stepper-step-indicator-width))
@@ -201,7 +201,7 @@ const determineStep = (itemIndex: number, step: Step): DetermineStep => ({
 
     [dir="rtl"] & {
       --list-item-padding:
-        #{css-var(
+        #{functions.var(
           $element + "-step",
           padding,
           var(--space-10) calc(var(--space-12) + var(--_stepper-step-indicator-width)) var(--space-10) var(--space-8)
@@ -214,7 +214,7 @@ const determineStep = (itemIndex: number, step: Step): DetermineStep => ({
       left: 0;
       width: var(--_stepper-step-indicator-width);
       height: 100%;
-      background: css-var($element + "-step-indicator", background, var(--color-progress-track));
+      background: functions.var($element + "-step-indicator", background, var(--color-progress-track));
       content: "";
 
       [dir="rtl"] & {
@@ -225,15 +225,15 @@ const determineStep = (itemIndex: number, step: Step): DetermineStep => ({
 
     &--visited {
       &::after {
-        background: css-var($element + "-step-indicator", background, var(--color-progress-indicator));
+        background: functions.var($element + "-step-indicator", background, var(--color-progress-indicator));
       }
     }
 
     &--current {
       #{$this}__item {
-        --button-color: #{css-var($element + "-item", color, var(--color-text-body))};
-        --button-font: #{css-var($element + "-item", font, var(--font-body-1-thick))};
-        --button-letter-spacing: #{css-var($element + "-item", letter-spacing, var(--letter-spacing-body-1-thick))};
+        --button-color: #{functions.var($element + "-item", color, var(--color-text-body))};
+        --button-font: #{functions.var($element + "-item", font, var(--font-body-1-thick))};
+        --button-letter-spacing: #{functions.var($element + "-item", letter-spacing, var(--letter-spacing-body-1-thick))};
 
         cursor: auto;
       }
@@ -241,9 +241,9 @@ const determineStep = (itemIndex: number, step: Step): DetermineStep => ({
   }
 
   &__item {
-    --button-color: #{css-var($element + "-item", color, var(--color-text-action-secondary))};
-    --button-font: #{css-var($element + "-item", font, var(--font-body-1))};
-    --button-letter-spacing: #{css-var($element + "-item", letter-spacing, var(--letter-spacing-body-1))};
+    --button-color: #{functions.var($element + "-item", color, var(--color-text-action-secondary))};
+    --button-font: #{functions.var($element + "-item", font, var(--font-body-1))};
+    --button-letter-spacing: #{functions.var($element + "-item", letter-spacing, var(--letter-spacing-body-1))};
 
     text-align: left;
 

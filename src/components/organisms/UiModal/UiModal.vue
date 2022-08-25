@@ -299,8 +299,8 @@ onBeforeUnmount(() => {
 </script>
 
 <style lang="scss">
-@import "../../../styles/mixins/mixins";
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-modal {
   $this: &;
@@ -314,15 +314,15 @@ onBeforeUnmount(() => {
     top: 50%;
     left: 50%;
     display: flex;
-    width: calc(100% - css-var($element, padding-horizontal, var(--space-20)));
-    max-width: css-var($element, max-width, 30rem);
+    width: calc(100% - functions.var($element, padding-horizontal, var(--space-20)));
+    max-width: functions.var($element, max-width, 30rem);
     flex-direction: column;
-    padding: css-var($element, padding, var(--space-24));
+    padding: functions.var($element, padding, var(--space-24));
     border: none;
     margin: 0;
-    background: css-var($element, background, var(--color-background-white));
-    border-radius: css-var($element, border-radius, var(--border-radius-container));
-    box-shadow: css-var($element, box-shadow, var(--box-shadow-high));
+    background: functions.var($element, background, var(--color-background-white));
+    border-radius: functions.var($element, border-radius, var(--border-radius-container));
+    box-shadow: functions.var($element, box-shadow, var(--box-shadow-high));
     transform: translate(-50%, -50%);
 
     [dir="rtl"] & {
@@ -331,12 +331,12 @@ onBeforeUnmount(() => {
       transform: translate(50%, -50%);
     }
 
-    @include from-tablet {
-      width: calc(100% - css-var($element, padding-horizontal, var(--space-64)));
+    @include mixins.from-tablet {
+      width: calc(100% - functions.var($element, padding-horizontal, var(--space-64)));
     }
 
     &--has-title {
-      max-width: css-var($element, max-width, 40rem);
+      max-width: functions.var($element, max-width, 40rem);
     }
   }
 
@@ -347,7 +347,7 @@ onBeforeUnmount(() => {
 
   &__title {
     flex: 1;
-    margin: css-var($element + "-title", margin, 0 0 var(--space-12) 0);
+    margin: functions.var($element + "-title", margin, 0 0 var(--space-12) 0);
   }
 
   &__description {
@@ -357,32 +357,32 @@ onBeforeUnmount(() => {
   &__actions {
     display: flex;
     flex-direction: column;
-    margin: css-var($element + "-actions", margin, var(--space-32) 0 0 0);
+    margin: functions.var($element + "-actions", margin, var(--space-32) 0 0 0);
 
-    @include from-tablet {
+    @include mixins.from-tablet {
       flex-direction: row;
       justify-content: flex-end;
     }
   }
 
   &__confirm {
-    margin: css-var($element + "-confirm", margin, 0 0 var(--space-12) 0);
+    margin: functions.var($element + "-confirm", margin, 0 0 var(--space-12) 0);
 
     &--order {
       order: -1;
     }
 
-    @include from-tablet {
-      margin: css-var($element + "-tablet-confirm", margin, 0 0 0 var(--space-12));
+    @include mixins.from-tablet {
+      margin: functions.var($element + "-tablet-confirm", margin, 0 0 0 var(--space-12));
 
       [dir="rtl"] & {
-        margin: css-var($element + "-rtl-tablet-confirm", margin, 0 var(--space-12) 0 0);
+        margin: functions.var($element + "-rtl-tablet-confirm", margin, 0 var(--space-12) 0 0);
       }
     }
   }
 
   &__cancel {
-    @include from-tablet {
+    @include mixins.from-tablet {
       order: -1;
     }
   }

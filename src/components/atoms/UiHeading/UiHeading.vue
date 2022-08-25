@@ -38,22 +38,22 @@ const headingClass = computed<HeadingClass>(() => `ui-heading--h${props.level}`)
 </script>
 
 <style lang="scss">
-@import "../../../styles/mixins/mixins";
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-heading {
   $this: &;
   $element: heading;
 
-  @include font($element, body-1);
+  @include mixins.font($element, body-1);
 
-  margin: css-var($element, margin, 0);
-  color: css-var($element, color, var(--color-text-heading));
+  margin: functions.var($element, margin, 0);
+  color: functions.var($element, color, var(--color-text-heading));
 
   @for $i from 1 through 6 {
     &--h#{$i} {
-      font: css-var($element, font, var(--font-h#{$i}));
-      letter-spacing: css-var($element, letter-spacing, var(--letter-spacing-h#{$i}));
+      font: functions.var($element, font, var(--font-h#{$i}));
+      letter-spacing: functions.var($element, letter-spacing, var(--letter-spacing-h#{$i}));
     }
   }
 

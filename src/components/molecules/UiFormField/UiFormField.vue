@@ -107,8 +107,7 @@ const inputId = computed(() => (
 </script>
 
 <style lang="scss">
-@import "../../../styles/mixins/mixins";
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
 
 .ui-form-field {
   $element: form-field;
@@ -117,19 +116,19 @@ const inputId = computed(() => (
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    margin: css-var($element + "-label", margin, 0 0 var(--space-8) 0);
+    margin: functions.var($element + "-label", margin, 0 0 var(--space-8) 0);
   }
 
   &__hint {
-    margin: css-var($element + "-hint", margin, 0 0 0 var(--space-8));
+    margin: functions.var($element + "-hint", margin, 0 0 0 var(--space-8));
 
     [dir="rtl"] & {
-      margin: css-var($element + "-rtl-hint", margin, 0 var(--space-8) 0 0);
+      margin: functions.var($element + "-rtl-hint", margin, 0 var(--space-8) 0 0);
     }
   }
 
   &__alert {
-    margin: css-var($element + "-alert", margin, var(--space-8) 0 0 0);
+    margin: functions.var($element + "-alert", margin, var(--space-8) 0 0 0);
   }
 }
 </style>

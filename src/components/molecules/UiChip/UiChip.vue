@@ -48,8 +48,7 @@ function clickHandler(): void {
 </script>
 
 <style lang="scss">
-@import "../../../styles/mixins/mixins";
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
 
 .ui-chip {
   $this: &;
@@ -58,32 +57,32 @@ function clickHandler(): void {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: css-var($element, padding, var(--space-4) var(--space-4) var(--space-4) var(--space-12));
-  background: css-var($element, background, var(--color-chip-background));
-  border-radius: css-var($element, border-radius, var(--border-radius-pill));
+  padding: functions.var($element, padding, var(--space-4) var(--space-4) var(--space-4) var(--space-12));
+  background: functions.var($element, background, var(--color-chip-background));
+  border-radius: functions.var($element, border-radius, var(--border-radius-pill));
 
   [dir="rtl"] & {
-    padding: css-var($element + "-rtl", padding, var(--space-4) var(--space-12) var(--space-4) var(--space-4));
+    padding: functions.var($element + "-rtl", padding, var(--space-4) var(--space-12) var(--space-4) var(--space-4));
   }
 
   &__label {
-    --text-color: #{css-var($element + "-label", color, var(--color-chip-text))};
+    --text-color: #{functions.var($element + "-label", color, var(--color-chip-text))};
   }
 
   &__icon {
-    --_remove-filled-close: #{css-var($element + "-remove-filled-close", color, var(--color-chip-icon))};
-    --button-icon-color: #{css-var($element + "-icon", color, var(--color-chip-icon-background))};
-    --button-hover-icon-color: #{css-var($element + "-icon-hover", color, var(--color-chip-icon-background-hover))};
-    --button-active-icon-color: #{css-var($element + "-icon-active", color, var(--color-chip-icon-background-active))};
+    --_remove-filled-close: #{functions.var($element + "-remove-filled-close", color, var(--color-chip-icon))};
+    --button-icon-color: #{functions.var($element + "-icon", color, var(--color-chip-icon-background))};
+    --button-hover-icon-color: #{functions.var($element + "-icon-hover", color, var(--color-chip-icon-background-hover))};
+    --button-active-icon-color: #{functions.var($element + "-icon-active", color, var(--color-chip-icon-background-active))};
 
-    margin: css-var($element + "-icon", margin, -2px);
+    margin: functions.var($element + "-icon", margin, -2px);
   }
 
   &__remove {
-    margin: css-var($element + "-remove", margin, var(--space-2) var(--space-2) var(--space-2) var(--space-4));
+    margin: functions.var($element + "-remove", margin, var(--space-2) var(--space-2) var(--space-2) var(--space-4));
 
     [dir="rtl"] & {
-      margin: css-var($element + "-rtl-remove", margin, var(--space-2) var(--space-4) var(--space-2) var(--space-2));
+      margin: functions.var($element + "-rtl-remove", margin, var(--space-2) var(--space-4) var(--space-2) var(--space-2));
     }
   }
 }

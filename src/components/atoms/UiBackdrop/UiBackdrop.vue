@@ -9,7 +9,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
 
 .ui-backdrop {
   $element: backdrop;
@@ -19,7 +19,7 @@ export default {
   right: 0;
   bottom: 0;
   left: 0;
-  background: css-var($element, background, var(--color-backdrop));
-  opacity: css-var($element, opacity, var(--opacity-medium));
+  background: functions.var($element, background, var(--color-backdrop));
+  opacity: functions.var($element, opacity, var(--opacity-medium));
 }
 </style>

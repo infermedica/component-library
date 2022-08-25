@@ -23,26 +23,26 @@ defineProps({
 </script>
 
 <style lang="scss">
-@import "../../../styles/mixins/mixins";
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-text {
   $this: &;
   $element: text;
 
-  @include font(text, body-1);
+  @include mixins.font(text, body-1);
 
-  margin: css-var($element, margin, 0);
-  color: css-var($element, color, var(--color-text-body));
+  margin: functions.var($element, margin, 0);
+  color: functions.var($element, color, var(--color-text-body));
 
   $styles: "body-1-thick", "body-2-comfortable", "body-2-compact",
     "body-2-comfortable-thick", "body-2-compact-thick", "caption", "button-1";
 
   @each $style in $styles {
     &--#{$style} {
-      font: css-var($element, font, var(--font-#{$style}));
+      font: functions.var($element, font, var(--font-#{$style}));
       letter-spacing:
-        css-var(
+        functions.var(
           $element,
           letter-spacing,
           var(--letter-spacing-#{$style})

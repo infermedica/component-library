@@ -493,8 +493,7 @@ provide('inputsIds', inputsIds);
 </script>
 
 <style lang="scss">
-@import "../../../styles/mixins/mixins";
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
 
 .ui-datepicker {
   $this: &;
@@ -505,10 +504,10 @@ provide('inputsIds', inputsIds);
   align-items: flex-start;
 
   &__dropdown {
-    margin: css-var($element + "-dropdown", margin, var(--space-32) 0 0 var(--space-24));
+    margin: functions.var($element + "-dropdown", margin, var(--space-32) 0 0 var(--space-24));
 
     [dir="rtl"] & {
-      margin: css-var($element + "-rtl-dropdown", margin, var(--space-32) var(--space-24) 0 0);
+      margin: functions.var($element + "-rtl-dropdown", margin, var(--space-32) var(--space-24) 0 0);
     }
   }
 
@@ -525,14 +524,14 @@ provide('inputsIds', inputsIds);
     display: flex;
     flex: 1 1 4rem;
     flex-direction: column;
-    margin: css-var($element + "-group-field", margin, 0 var(--space-8) 0 0);
+    margin: functions.var($element + "-group-field", margin, 0 var(--space-8) 0 0);
 
     [dir="rtl"] & {
-      margin: css-var($element + "-rtl-group-field", margin, 0 0 0 var(--space-8));
+      margin: functions.var($element + "-rtl-group-field", margin, 0 0 0 var(--space-8));
     }
 
     &:last-of-type {
-      margin: css-var($element + "-group-field", margin, 0);
+      margin: functions.var($element + "-group-field", margin, 0);
     }
 
     &--long {
@@ -542,7 +541,7 @@ provide('inputsIds', inputsIds);
 
   &__label {
     display: block;
-    margin: css-var($element + "-label", margin, 0 0 var(--space-8) 0);
+    margin: functions.var($element + "-label", margin, 0 0 var(--space-8) 0);
   }
 }
 </style>

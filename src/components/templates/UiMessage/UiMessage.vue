@@ -100,27 +100,27 @@ defineProps({
 </script>
 
 <style lang="scss">
-@import "../../../styles/mixins/mixins";
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-message {
   $this: &;
   $element: message;
 
   display: flex;
-  flex-direction: css-var($element, flex-direction, column-reverse);
+  flex-direction: functions.var($element, flex-direction, column-reverse);
 
-  @include from-tablet {
-    flex-direction: css-var($element + "-tablet", flex-direction, row);
+  @include mixins.from-tablet {
+    flex-direction: functions.var($element + "-tablet", flex-direction, row);
   }
 
   &__content {
     flex: 1;
-    align-self: css-var($element + "-content", align-self, flex-end);
+    align-self: functions.var($element + "-content", align-self, flex-end);
   }
 
   &__title {
-    margin: css-var($element + "-title", margin, 0 0 var(--space-8) 0);
+    margin: functions.var($element + "-title", margin, 0 0 var(--space-8) 0);
   }
 
   &__aside {
@@ -128,14 +128,14 @@ defineProps({
     flex: 0 0 auto;
     align-items: center;
     justify-content: center;
-    margin: css-var($element + "-aside", margin, 0 0 var(--space-24) 0);
+    margin: functions.var($element + "-aside", margin, 0 0 var(--space-24) 0);
 
-    @include from-tablet {
+    @include mixins.from-tablet {
       align-items: flex-start;
-      margin: css-var($element + "-tablet-aside", margin, 0 0 0 var(--space-40));
+      margin: functions.var($element + "-tablet-aside", margin, 0 0 0 var(--space-40));
 
       [dir="rtl"] & {
-        margin: css-var($element + "-rtl-tablet-aside", margin, 0 var(--space-40) 0 0);
+        margin: functions.var($element + "-rtl-tablet-aside", margin, 0 var(--space-40) 0 0);
       }
     }
   }
@@ -143,8 +143,8 @@ defineProps({
   &__illustration {
     --icon-size: 100%;
 
-    max-width: css-var($element + "-illustration", size, 15rem);
-    max-height: css-var($element + "-illustration", size, 15rem);
+    max-width: functions.var($element + "-illustration", size, 15rem);
+    max-height: functions.var($element + "-illustration", size, 15rem);
   }
 }
 </style>

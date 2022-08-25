@@ -115,8 +115,7 @@ provide('handleTabActive', handleTabActive);
 </script>
 
 <style lang="scss">
-@import "../../../styles/mixins/mixins";
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
 
 .ui-tabs {
   $element: tabs;
@@ -124,13 +123,13 @@ provide('handleTabActive', handleTabActive);
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  padding: css-var($element, padding, 0 var(--space-20));
+  padding: functions.var($element, padding, 0 var(--space-20));
 
   &--fixed {
     --tabs-item-tab-flex: 1;
     --tabs-item-content-margin: 0;
 
-    padding: css-var($element, padding, 0);
+    padding: functions.var($element, padding, 0);
   }
 }
 </style>

@@ -60,23 +60,23 @@ const resizeValue = computed<'both' | 'none' | 'vertical' | 'horizontal'>(() => 
 </script>
 
 <style lang="scss">
-@import "../../../styles/mixins/mixins";
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-textarea {
   $this: &;
   $element: textarea;
 
-  @include inner-border($element, $radius: var(--border-radius-form));
+  @include mixins.inner-border($element, $radius: var(--border-radius-form));
 
   display: flex;
   align-items: center;
   justify-content: center;
   transition: border-color 150ms ease-in-out;
 
-  @include hover {
+  @include mixins.hover {
     &::after {
-      border-color: css-var($element + "-hover", border-color, var(--color-border-strong-hover));
+      border-color: functions.var($element + "-hover", border-color, var(--color-border-strong-hover));
     }
   }
 
@@ -85,19 +85,19 @@ const resizeValue = computed<'both' | 'none' | 'vertical' | 'horizontal'>(() => 
   }
 
   &__textarea {
-    @include font($element, body-1);
+    @include mixins.font($element, body-1);
 
     flex: 1;
-    padding: css-var($element, padding, var(--space-12) var(--space-16));
+    padding: functions.var($element, padding, var(--space-12) var(--space-16));
     border: 0;
     background: transparent;
     border-radius: inherit;
-    caret-color: css-var($element, caret-color, var(--color-blue-500));
-    color: css-var($element, color, var(--color-text-body));
+    caret-color: functions.var($element, caret-color, var(--color-blue-500));
+    color: functions.var($element, color, var(--color-text-body));
     outline: none;
 
     &::placeholder {
-      color: css-var($element + "-placeholder", color, var(--color-text-dimmed));
+      color: functions.var($element + "-placeholder", color, var(--color-text-dimmed));
       font: inherit;
       letter-spacing: inherit;
     }
@@ -105,34 +105,34 @@ const resizeValue = computed<'both' | 'none' | 'vertical' | 'horizontal'>(() => 
 
   &--is-disabled {
     &::after {
-      border-color: css-var($element, border-color, var(--color-border-subtle));
+      border-color: functions.var($element, border-color, var(--color-border-subtle));
     }
 
-    @include hover {
+    @include mixins.hover {
       &::after {
-        border-color: css-var($element, border-color, var(--color-border-subtle));
+        border-color: functions.var($element, border-color, var(--color-border-subtle));
       }
     }
 
     #{$this}__textarea {
-      caret-color: css-var($element, caret-color, var(--color-gray-400));
-      color: css-var($element, color, var(--color-text-disabled));
+      caret-color: functions.var($element, caret-color, var(--color-gray-400));
+      color: functions.var($element, color, var(--color-text-disabled));
       cursor: not-allowed;
 
       &::placeholder {
-        color: css-var($element + "-placeholder", color, var(--color-text-disabled));
+        color: functions.var($element + "-placeholder", color, var(--color-text-disabled));
       }
     }
   }
 
   &--has-error {
     &::after {
-      border-color: css-var($element, border-color, var(--color-border-error-strong));
+      border-color: functions.var($element, border-color, var(--color-border-error-strong));
     }
 
-    @include hover {
+    @include mixins.hover {
       &::after {
-        border-color: css-var($element + "-hover", border-color, var(--color-border-error-strong-hover));
+        border-color: functions.var($element + "-hover", border-color, var(--color-border-error-strong-hover));
       }
     }
   }

@@ -1,4 +1,4 @@
-@import "../variables/breakpoints";
+@use "../variables/breakpoints";
 
 @mixin from($width) {
   @media (min-width: $width) {
@@ -19,19 +19,19 @@
 }
 
 @mixin to-mobile {
-  @include to($mobile-max-width) {
+  @include to(breakpoints.$mobile-max-width) {
     @content;
   }
 }
 
 @mixin from-tablet {
-  @include from($tablet-min-width) {
+  @include from(breakpoints.$tablet-min-width) {
     @content;
   }
 }
 
 @mixin from-desktop {
-  @include from($desktop-min-width) {
+  @include from(breakpoints.$desktop-min-width) {
     @content;
   }
 }

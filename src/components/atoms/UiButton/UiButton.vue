@@ -43,22 +43,22 @@ const { componentTag, routeAttrs } = useLink(props);
 </script>
 
 <style lang="scss">
-@import "../../../styles/mixins/mixins";
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-button {
   $this: &;
   $element: button;
 
-  @include inner-border($element, $color: var(--color-border-subtle), $width: 0, $radius: var(--border-radius-button));
-  @include font($element, button-1);
+  @include mixins.inner-border($element, $color: var(--color-border-subtle), $width: 0, $radius: var(--border-radius-button));
+  @include mixins.font($element, button-1);
 
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: css-var($element, padding, var(--space-12) var(--space-32));
-  background: css-var($element, background, var(--color-background-action));
-  color: css-var($element, color, var(--color-text-on-action));
+  padding: functions.var($element, padding, var(--space-12) var(--space-32));
+  background: functions.var($element, background, var(--color-background-action));
+  color: functions.var($element, color, var(--color-text-on-action));
   text-align: center;
   text-decoration: none;
   transition:
@@ -76,7 +76,7 @@ const { componentTag, routeAttrs } = useLink(props);
     word-break: normal;
   }
 
-  @include with-hover {
+  @include mixins.with-hover {
     cursor: pointer;
   }
 
@@ -84,197 +84,197 @@ const { componentTag, routeAttrs } = useLink(props);
     outline: none;
   }
 
-  @include focus {
+  @include mixins.focus {
     box-shadow: var(--focus-outer);
   }
 
-  @include hover {
-    background: css-var($element + -hover, background, var(--color-background-action-hover));
-    color: css-var($element + -hover, color, var(--color-text-on-action));
+  @include mixins.hover {
+    background: functions.var($element + -hover, background, var(--color-background-action-hover));
+    color: functions.var($element + -hover, color, var(--color-text-on-action));
 
     &::after {
-      border-color: css-var($element + -hover, border-color, var(--color-border-subtle));
+      border-color: functions.var($element + -hover, border-color, var(--color-border-subtle));
     }
 
     #{$this}__icon {
-      --icon-color: #{css-var($element + "-hover-icon", color, var(--color-icon-on-action))};
+      --icon-color: #{functions.var($element + "-hover-icon", color, var(--color-icon-on-action))};
     }
   }
 
   &:active {
-    background: css-var($element + "-active", background, var(--color-background-action-active));
-    color: css-var($element + "-active", color, var(--color-text-on-action));
+    background: functions.var($element + "-active", background, var(--color-background-action-active));
+    color: functions.var($element + "-active", color, var(--color-text-on-action));
 
     &::after {
-      border-color: css-var($element + "-active", border-color, var(--color-border-subtle));
+      border-color: functions.var($element + "-active", border-color, var(--color-border-subtle));
     }
 
     #{$this}__icon {
-      --icon-color: #{css-var($element + "-active-icon", color, var(--color-icon-on-action))};
+      --icon-color: #{functions.var($element + "-active-icon", color, var(--color-icon-on-action))};
     }
   }
 
   &__icon {
-    --icon-color: #{css-var($element + "-icon", color, var(--color-icon-on-action))};
+    --icon-color: #{functions.var($element + "-icon", color, var(--color-icon-on-action))};
 
     flex: none;
-    margin: css-var($element + "-icon", margin, 0 var(--space-4) 0 calc(var(--space-8) * -1));
+    margin: functions.var($element + "-icon", margin, 0 var(--space-4) 0 calc(var(--space-8) * -1));
     transition: fill 150ms ease-in-out;
 
     [dir="rtl"] & {
-      margin: css-var($element + "-rtl-icon", margin, 0 calc(var(--space-8) * -1) 0 var(--space-4));
+      margin: functions.var($element + "-rtl-icon", margin, 0 calc(var(--space-8) * -1) 0 var(--space-4));
     }
 
     &--right {
-      margin: css-var($element + "-icon", margin, 0 calc(var(--space-8) * -1) 0 var(--space-4));
+      margin: functions.var($element + "-icon", margin, 0 calc(var(--space-8) * -1) 0 var(--space-4));
 
       [dir="rtl"] & {
-        margin: css-var($element + "-rtl-icon", margin, 0 var(--space-4) 0 calc(var(--space-8) * -1));
+        margin: functions.var($element + "-rtl-icon", margin, 0 var(--space-4) 0 calc(var(--space-8) * -1));
       }
     }
   }
 
   &--is-disabled {
-    background: css-var($element, background, var(--color-background-disabled));
+    background: functions.var($element, background, var(--color-background-disabled));
     cursor: not-allowed;
 
-    @include hover {
-      background: css-var($element + "-hover", background, var(--color-background-disabled));
+    @include mixins.hover {
+      background: functions.var($element + "-hover", background, var(--color-background-disabled));
     }
 
     &:active {
-      background: css-var($element + "-hover", background, var(--color-background-disabled));
+      background: functions.var($element + "-hover", background, var(--color-background-disabled));
     }
   }
 
   &--small {
-    padding: css-var($element, padding, var(--space-8) var(--space-20));
-    font: css-var($element, font, var(--font-body-1));
-    letter-spacing: css-var($element, letter-spacing, var(--letter-spacing-body-1));
+    padding: functions.var($element, padding, var(--space-8) var(--space-20));
+    font: functions.var($element, font, var(--font-body-1));
+    letter-spacing: functions.var($element, letter-spacing, var(--letter-spacing-body-1));
   }
 
   &--outlined {
-    background: css-var($element, background, transparent);
-    color: css-var($element, color, var(--color-text-action-primary));
+    background: functions.var($element, background, transparent);
+    color: functions.var($element, color, var(--color-text-action-primary));
 
     &::after {
-      border-width: css-var($element, border-width, 1px);
+      border-width: functions.var($element, border-width, 1px);
     }
 
     #{$this}__icon {
-      --icon-color: #{css-var($element + "-icon", color, var(--color-icon-primary))};
+      --icon-color: #{functions.var($element + "-icon", color, var(--color-icon-primary))};
     }
 
-    @include hover {
-      background: css-var($element + "-hover", background, var(--color-background-white-hover));
-      color: css-var($element + "-hover", color, var(--color-text-action-primary-hover));
+    @include mixins.hover {
+      background: functions.var($element + "-hover", background, var(--color-background-white-hover));
+      color: functions.var($element + "-hover", color, var(--color-text-action-primary-hover));
 
       #{$this}__icon {
-        --icon-color: #{css-var($element + "-hover-icon", color, var(--color-icon-primary-hover))};
+        --icon-color: #{functions.var($element + "-hover-icon", color, var(--color-icon-primary-hover))};
       }
     }
 
     &:active {
-      background: css-var($element + "-active", background, var(--color-background-white-active));
-      color: css-var($element + "-active", color, var(--color-text-action-primary-active));
+      background: functions.var($element + "-active", background, var(--color-background-white-active));
+      color: functions.var($element + "-active", color, var(--color-text-action-primary-active));
 
       #{$this}__icon {
-        --icon-color: #{css-var($element + "-active-icon", color, var(--color-icon-primary-active))};
+        --icon-color: #{functions.var($element + "-active-icon", color, var(--color-icon-primary-active))};
       }
     }
 
     &#{$this}--is-selected {
-      background: css-var($element, background, var(--color-background-selection));
-      color: css-var($element, color, var(--color-text-on-selection));
+      background: functions.var($element, background, var(--color-background-selection));
+      color: functions.var($element, color, var(--color-text-on-selection));
 
       &::after {
-        border-color: css-var($element, border-color, var(--color-background-selection));
+        border-color: functions.var($element, border-color, var(--color-background-selection));
       }
 
       #{$this}__icon {
-        --icon-color: #{css-var($element + "-icon", color, var(--color-icon-on-selection))};
+        --icon-color: #{functions.var($element + "-icon", color, var(--color-icon-on-selection))};
       }
 
-      @include hover {
-        background: css-var($element + "-hover", background, var(--color-background-selection-hover));
-        color: css-var($element + "-hover", color, var(--color-text-on-selection));
+      @include mixins.hover {
+        background: functions.var($element + "-hover", background, var(--color-background-selection-hover));
+        color: functions.var($element + "-hover", color, var(--color-text-on-selection));
 
         &::after {
-          border-color: css-var($element + "-hover", border-color, var(--color-background-selection-hover));
+          border-color: functions.var($element + "-hover", border-color, var(--color-background-selection-hover));
         }
 
         #{$this}__icon {
-          --icon-color: #{css-var($element + "-icon", color, var(--color-icon-on-selection))};
+          --icon-color: #{functions.var($element + "-icon", color, var(--color-icon-on-selection))};
         }
       }
 
       &:active {
-        background: css-var($element + "-active", background, var(--color-background-selection-active));
-        color: css-var($element + "-active", color, var(--color-text-on-selection));
+        background: functions.var($element + "-active", background, var(--color-background-selection-active));
+        color: functions.var($element + "-active", color, var(--color-text-on-selection));
 
         &::after {
-          border-color: css-var($element + "-active", border-color, var(--color-background-selection-active));
+          border-color: functions.var($element + "-active", border-color, var(--color-background-selection-active));
         }
 
         #{$this}__icon {
-          --icon-color: #{css-var($element + "-icon", color, var(--color-icon-on-selection))};
+          --icon-color: #{functions.var($element + "-icon", color, var(--color-icon-on-selection))};
         }
       }
 
       &#{$this}--is-disabled {
-        background: css-var($element, background, var(--color-background-disabled));
-        color: css-var($element, color, var(--color-text-on-action));
+        background: functions.var($element, background, var(--color-background-disabled));
+        color: functions.var($element, color, var(--color-text-on-action));
 
         &::after {
-          border-color: css-var($element, border-color, var(--color-border-subtle));
+          border-color: functions.var($element, border-color, var(--color-border-subtle));
         }
 
         #{$this}__icon {
-          --icon-color: #{css-var($element + "-icon", color, var(--color-icon-on-action))};
+          --icon-color: #{functions.var($element + "-icon", color, var(--color-icon-on-action))};
         }
 
-        @include hover {
-          background: css-var($element + "-hover", background, var(--color-background-disabled));
-          color: css-var($element + "-hover", color, var(--color-text-on-action));
+        @include mixins.hover {
+          background: functions.var($element + "-hover", background, var(--color-background-disabled));
+          color: functions.var($element + "-hover", color, var(--color-text-on-action));
 
           #{$this}__icon {
-            --icon-color: #{css-var($element + "-hover-icon", color, var(--color-icon-on-action))};
+            --icon-color: #{functions.var($element + "-hover-icon", color, var(--color-icon-on-action))};
           }
         }
 
         &:active {
-          background: css-var($element + "-hover", background, var(--color-background-disabled));
-          color: css-var($element + "-active", color, var(--color-text-on-action));
+          background: functions.var($element + "-hover", background, var(--color-background-disabled));
+          color: functions.var($element + "-active", color, var(--color-text-on-action));
 
           #{$this}__icon {
-            --icon-color: #{css-var($element + "-active-icon", color, var(--color-icon-on-action))};
+            --icon-color: #{functions.var($element + "-active-icon", color, var(--color-icon-on-action))};
           }
         }
       }
     }
 
     &#{$this}--is-disabled {
-      color: css-var($element, color, var(--color-text-disabled));
+      color: functions.var($element, color, var(--color-text-disabled));
 
       #{$this}__icon {
-        --icon-color: #{css-var($element + "-icon", color, var(--color-icon-disabled))};
+        --icon-color: #{functions.var($element + "-icon", color, var(--color-icon-disabled))};
       }
 
-      @include hover {
-        background: css-var($element + "-hover", background, transparent);
-        color: css-var($element + "-hover", color, var(--color-text-disabled));
+      @include mixins.hover {
+        background: functions.var($element + "-hover", background, transparent);
+        color: functions.var($element + "-hover", color, var(--color-text-disabled));
 
         #{$this}__icon {
-          --icon-color: #{css-var($element + "-hover-icon", color, var(--color-icon-disabled))};
+          --icon-color: #{functions.var($element + "-hover-icon", color, var(--color-icon-disabled))};
         }
       }
 
       &:active {
-        background: css-var($element + "-hover", background, transparent);
-        color: css-var($element + "-active", color, var(--color-text-disabled));
+        background: functions.var($element + "-hover", background, transparent);
+        color: functions.var($element + "-active", color, var(--color-text-disabled));
 
         #{$this}__icon {
-          --icon-color: #{css-var($element + "-active-icon", color, var(--color-icon-disabled))};
+          --icon-color: #{functions.var($element + "-active-icon", color, var(--color-icon-disabled))};
         }
       }
     }
@@ -288,28 +288,28 @@ const { componentTag, routeAttrs } = useLink(props);
     --#{$element}-hover-background: transparent;
     --#{$element}-active-background: transparent;
 
-    font: css-var($element, font, var(--font-body-1));
-    letter-spacing: css-var($element, letter-spacing, var(--letter-spacing-body-1));
+    font: functions.var($element, font, var(--font-body-1));
+    letter-spacing: functions.var($element, letter-spacing, var(--letter-spacing-body-1));
 
     #{$this}__icon {
-      margin: css-var($element + "-icon", margin, 0 var(--space-4) 0 0);
+      margin: functions.var($element + "-icon", margin, 0 var(--space-4) 0 0);
 
       [dir="rtl"] & {
-        margin: css-var($element + "-rtl-icon", margin, 0 0 0 var(--space-4));
+        margin: functions.var($element + "-rtl-icon", margin, 0 0 0 var(--space-4));
       }
 
       &--right {
-        margin: css-var($element + "-icon", margin, 0 0 0 var(--space-4));
+        margin: functions.var($element + "-icon", margin, 0 0 0 var(--space-4));
 
         [dir="rtl"] & {
-          margin: css-var($element + "-rtl-icon", margin, 0 var(--space-4) 0 0);
+          margin: functions.var($element + "-rtl-icon", margin, 0 var(--space-4) 0 0);
         }
       }
     }
 
     &#{$this}--small {
-      font: css-var($element, font, var(--font-body-2-comfortable));
-      letter-spacing: css-var($element, letter-spacing, var(--letter-spacing-2-comfortable));
+      font: functions.var($element, font, var(--font-body-2-comfortable));
+      letter-spacing: functions.var($element, letter-spacing, var(--letter-spacing-2-comfortable));
     }
   }
 
@@ -320,7 +320,7 @@ const { componentTag, routeAttrs } = useLink(props);
     --#{$element}-icon-margin: 0;
     --#{$element}-rtl-icon-margin: 0;
 
-    padding: css-var($element, padding, var(--space-12));
+    padding: functions.var($element, padding, var(--space-12));
 
     .ui-text {
       --text-color: currentcolor;

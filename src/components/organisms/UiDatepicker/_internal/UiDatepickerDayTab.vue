@@ -57,9 +57,6 @@ function select(value: number): void {
 </script>
 
 <style lang="scss">
-@import "../../../../styles/mixins/mixins";
-@import "../../../../styles/functions/functions";
-
 .ui-datepicker-day-tab {
   $this: &;
   $element: datepicker-day-tab;

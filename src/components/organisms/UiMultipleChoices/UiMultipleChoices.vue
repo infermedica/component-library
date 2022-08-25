@@ -174,29 +174,29 @@ const choicesToUse = computed<MultipleChoiceEvidence[]>(() => (
 </script>
 
 <style lang="scss">
-@import "../../../styles/mixins/mixins";
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-multiple-choices {
   $this: &;
   $element: multiple-choices;
 
   &__hint {
-    padding: css-var($element + "-hint", padding, 0 var(--space-20) var(--space-12));
+    padding: functions.var($element + "-hint", padding, 0 var(--space-20) var(--space-12));
 
-    @include from-tablet {
-      padding: css-var($element + "-tablet-hint", padding, 0 0 var(--space-12) 0);
+    @include mixins.from-tablet {
+      padding: functions.var($element + "-tablet-hint", padding, 0 0 var(--space-12) 0);
     }
   }
 
   &__list-item {
     --list-item-padding: 0;
 
-    @include inner-border($element: multiple-choices-list-item, $color: var(--color-border-divider), $width: 1px 0 0 0);
+    @include mixins.inner-border($element: multiple-choices-list-item, $color: var(--color-border-divider), $width: 1px 0 0 0);
 
     &:last-of-type {
       &::after {
-        border-width: css-var($element, border-width, 1px 0);
+        border-width: functions.var($element, border-width, 1px 0);
       }
     }
   }

@@ -8,7 +8,7 @@
 </script>
 
 <style lang="scss">
-@import "../../../../styles/functions/functions";
+@use "../../../../styles/functions";
 
 .ui-loader-ellipsis {
   $element: loader-ellipsis;
@@ -18,11 +18,11 @@
     height: var(--_loader-ellipsis-dot-size);
     animation: dot 1s infinite linear alternate;
     animation-delay: $animation-delay;
-    background: css-var($element + "-dot", background, var(--color-icon-on-action));
-    border-radius: css-var($element + "-dot", border-radius, var(--border-radius-circle));
+    background: functions.var($element + "-dot", background, var(--color-icon-on-action));
+    border-radius: functions.var($element + "-dot", border-radius, var(--border-radius-circle));
   }
 
-  --_loader-ellipsis-dot-size: #{css-var($element + "-dot", size, 0.375rem)};
+  --_loader-ellipsis-dot-size: #{functions.var($element + "-dot", size, 0.375rem)};
 
   &__dot {
     @include dot(0.5s);

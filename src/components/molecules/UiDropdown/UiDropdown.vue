@@ -294,8 +294,7 @@ const itemsToRender = computed<DropdownItemAsObj[]>(() => (props.items.map((item
 </script>
 
 <style lang="scss">
-@import "../../../styles/mixins/mixins";
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
 
 .ui-dropdown {
   $element: dropdown;
@@ -304,15 +303,15 @@ const itemsToRender = computed<DropdownItemAsObj[]>(() => (props.items.map((item
   display: inline-flex;
 
   &__popover {
-    --popover-content-padding: #{css-var($element + "-popover", padding, var(--space-8))};
+    --popover-content-padding: #{functions.var($element + "-popover", padding, var(--space-8))};
 
     position: absolute;
     top: 100%;
     left: 0;
-    width: css-var($element + "-popover", width, 100%);
-    max-width: css-var($element + "-popover", max-width, 15rem);
-    min-height: css-var($element + "-popover", min-height, 0);
-    margin: css-var($element + "-popover", margin, var(--space-8) 0 0 0);
+    width: functions.var($element + "-popover", width, 100%);
+    max-width: functions.var($element + "-popover", max-width, 15rem);
+    min-height: functions.var($element + "-popover", min-height, 0);
+    margin: functions.var($element + "-popover", margin, var(--space-8) 0 0 0);
   }
 
   &__items {

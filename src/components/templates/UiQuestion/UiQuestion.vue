@@ -202,22 +202,22 @@ defineProps({
 </script>
 
 <style lang="scss">
-@import "../../../styles/mixins/mixins";
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-question {
   $this: &;
   $element: question;
 
   &__actions-top {
-    margin: css-var($element + "-actions-top", margin, var(--space-12) 0 0 0);
+    margin: functions.var($element + "-actions-top", margin, var(--space-12) 0 0 0);
   }
 
   &__content {
-    margin: css-var($element + "-content", margin, var(--space-32) 0 0 0);
+    margin: functions.var($element + "-content", margin, var(--space-32) 0 0 0);
 
-    @include from-tablet {
-      margin: css-var($element + "-tablet-content", margin, var(--space-48) 0 0 0);
+    @include mixins.from-tablet {
+      margin: functions.var($element + "-tablet-content", margin, var(--space-48) 0 0 0);
     }
   }
 
@@ -225,12 +225,12 @@ defineProps({
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin: css-var($element + "-actions-bottom", margin, var(--space-32) 0 0 0);
+    margin: functions.var($element + "-actions-bottom", margin, var(--space-32) 0 0 0);
 
-    @include from-tablet {
+    @include mixins.from-tablet {
       flex-direction: row;
       align-items: flex-start;
-      margin: css-var($element + "-tablet-actions-bottom", margin, var(--space-48) 0 0 0);
+      margin: functions.var($element + "-tablet-actions-bottom", margin, var(--space-48) 0 0 0);
     }
   }
 
@@ -238,16 +238,16 @@ defineProps({
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    margin: css-var($element + "-action", margin, var(--space-20) 0 0 0);
+    margin: functions.var($element + "-action", margin, var(--space-20) 0 0 0);
 
-    @include from-tablet {
-      margin: css-var($element + "-tablet-action", margin, 0);
+    @include mixins.from-tablet {
+      margin: functions.var($element + "-tablet-action", margin, 0);
 
       &::before {
-        width: css-var($element + "-action-indicator", width, 1px);
+        width: functions.var($element + "-action-indicator", width, 1px);
         align-self: stretch;
-        margin: css-var($element + "-action-indicator", margin, 0 var(--space-16));
-        background: css-var($element + "-action-indicator", background, var(--color-border-divider));
+        margin: functions.var($element + "-action-indicator", margin, 0 var(--space-16));
+        background: functions.var($element + "-action-indicator", background, var(--color-border-divider));
         content: "";
       }
     }
@@ -255,7 +255,7 @@ defineProps({
     &:first-of-type {
       margin: 0;
 
-      @include from-tablet {
+      @include mixins.from-tablet {
         &::before {
           content: unset;
         }
@@ -264,7 +264,7 @@ defineProps({
   }
 
   &__feedback {
-    margin: css-var($element + "-acitons-top", margin, var(--space-24) 0 0 0);
+    margin: functions.var($element + "-actions-top", margin, var(--space-24) 0 0 0);
   }
 }
 </style>

@@ -24,7 +24,7 @@ To name CSS variables we base on BEM. `--<block>-<element>-<property>` e.g.
 But we have a few additional cases to handle.
 
 ### RTL
-Infermedica Component Library support LTR and RTL languages. Styles base on LTR direction. To handle RTL laguages we use `dir="rtl"` e.g.
+Infermedica Component Library support LTR and RTL languages. Styles base on LTR direction. To handle RTL languages we use `dir="rtl"` e.g.
 
 ```scss
 .ui-button {
@@ -49,15 +49,15 @@ Our component library has mobile first styles. In some case we want to change so
   &__icon {
     --icon-size: var(--tile-icon-size, 3rem);
 
-    @include from-tablet {
+    @include mixins.from-tablet {
       --icon-size: var(--tile-tablet-icon-size, 4rem);
     }
   }
 }
 ```
 
-As you can see on example we add `-tablet` to variable name. `-<breakpint-name>` will be added only to block.
-If `-rtl` is exists then `-<breakpint-name>` will be added after it.
+As you can see on example we add `-tablet` to variable name. `-<breakpoint-name>` will be added only to block.
+If `-rtl` is exists then `-<breakpoint-name>` will be added after it.
 
 ### hover and active
 
@@ -114,10 +114,10 @@ Component like UiRadio, UiCheckbox and UiTile has `-checked` modifier in variabl
 ```scss
 .ui-checkbox {
   &__checkbox {
-    background: var(--chekcbox-background, var(--color-background-white));
+    background: var(--checkbox-background, var(--color-background-white));
 
     &--is-checked {
-      background: var(--chekcbox-checked-background, var(--color-selectioncontrols-selection));
+      background: var(--checkbox-checked-background, var(--color-selectioncontrols-selection));
     }
   }
 }
@@ -177,9 +177,9 @@ That's we use variables only for visual properties like colors, backgrounds, bor
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: css-var($element, padding, var(--space-12) var(--space-32));
-  background: css-var($element, background, var(--color-background-action));
-  color: css-var($element, color, var(--color-text-on-action));
+  padding: functions.var($element, padding, var(--space-12) var(--space-32));
+  background: functions.var($element, background, var(--color-background-action));
+  color: functions.var($element, color, var(--color-text-on-action));
 }
 ```
 
@@ -218,7 +218,7 @@ We build solution resistant to this case and override properties in component.
   &--outlined {
     background: var(--button-background, transparent);
 
-    @include hover {
+    @include mixins.hover {
       background: var(--button-element-hover-background, var(--color-background-white-hover))
     }
   }

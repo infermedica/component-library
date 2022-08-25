@@ -150,24 +150,24 @@ But in some case it's not enough.
 
 //checked state
 --checkbox-checked-background: var(--color-selectioncontrols-selection);
---chekckbox-checked-hover-background: var(--color-selectioncontrols-selection-hover); // some components has checked state, it will be added before <state> because checked is more static than temporary states like hover.
+--checkbox-checked-hover-background: var(--color-selectioncontrols-selection-hover); // some components has checked state, it will be added before <state> because checked is more static than temporary states like hover.
 ```
 
 CSS Variable cover only design cases i.e. breakpoints, rtl, states is added to required components. When you need to cover new case e.g. new breakpoint you can do it.
 
 ``` scss
-@import "@infermedica/component-library/styles/mixins/mixins";
+@use "@infermedica/component-library/styles/mixins";
 
 .ui-checkbox {
   &__checkmark {
-    @inlcude for-desktop {
+    @include mixins.for-desktop {
       --icon-size: var(--checkbox-desktop-checkmark-size, 1.5rem);
     }
   }
 }
 ```
 
-More about our CSS Variable and our approach to it you can find in [CSS Variables Deep Deving](docs/contributing-guide-css-var-deep-dive--page).
+More about our CSS Variable and our approach to it you can find in [CSS Variables Deep Diving](docs/contributing-guide-css-var-deep-dive--page).
 
 ### Per-instance custom properties
 Sometimes you may need to configure the CSS of a specific instance of a component.
@@ -175,11 +175,11 @@ For example, you may want to change the background color of a specific `UiButton
 
 This is a recommended approach to configure the CSS of a specific component. It's easier to maintain.
 Instead, overriding the property of e.g. `.ui-button` you will create new class and add it in required places. E.g. You can create
-your own component `MyAwesomeButton` with class `my-awsome-button` on it and use it instead `UiButton` directly.
+your own component `MyAwesomeButton` with class `my-awesome-button` on it and use it instead `UiButton` directly.
 
 ```html
 <template>
-  <UiButton class="my-awsome-button">
+  <UiButton class="my-awesome-button">
     <slot/>
   <UiButton>
 </template>
@@ -189,7 +189,7 @@ import { UiButton } from '@infermedica/component-library';
 </script>
 
 <style lang="scss">
-.my-awsome-button {
+.my-awesome-button {
   --button-background: #1471C9;
   --button-hover-background: #0F5496;
   --button-active-background: #0B3D6D;

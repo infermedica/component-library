@@ -49,27 +49,26 @@ const progressValue = computed(() => {
 </script>
 
 <style lang="scss">
-@import "../../../styles/mixins/mixins";
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
 
 .ui-progress {
   $element: progress;
 
-  --_progress-height: #{css-var($element, height, 0.5rem)};
-  --_progress-padding: #{css-var($element, padding, calc(var(--_progress-height) * 0.5))};
-  --_progress-border-radius: #{css-var($element, border-radius, calc(var(--_progress-height) * 0.5))};
+  --_progress-height: #{functions.var($element, height, 0.5rem)};
+  --_progress-padding: #{functions.var($element, padding, calc(var(--_progress-height) * 0.5))};
+  --_progress-border-radius: #{functions.var($element, border-radius, calc(var(--_progress-height) * 0.5))};
 
   overflow: hidden;
   width: 100%;
   height: var(--_progress-height);
-  background: css-var($element + "track", background, var(--color-progress-track));
+  background: functions.var($element + "track", background, var(--color-progress-track));
   border-radius: var(--_progress-border-radius);
 
   &__inner {
     position: relative;
     width: calc(var(--_progress-value) * 100%);
     height: 100%;
-    background: css-var($element + "indicator", background, var(--color-progress-indicator));
+    background: functions.var($element + "indicator", background, var(--color-progress-indicator));
     border-radius: 0;
 
     &::before,
@@ -78,7 +77,7 @@ const progressValue = computed(() => {
       display: block;
       width: var(--_progress-padding);
       height: 100%;
-      background: css-var($element + "indicator", background,arg var(--color-progress-indicator));
+      background: functions.var($element + "indicator", background,arg var(--color-progress-indicator));
       content: "";
     }
 

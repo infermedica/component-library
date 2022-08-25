@@ -11,8 +11,7 @@ import UiTabsItem from '../../UiTabs/_internal/UiTabsItem.vue';
 </script>
 
 <style lang="scss">
-@import "../../../../styles/mixins/mixins";
-@import "../../../../styles/functions/functions";
+@use "../../../../styles/functions";
 
 .ui-datepicker-tab {
   $this: &;
@@ -22,7 +21,7 @@ import UiTabsItem from '../../UiTabs/_internal/UiTabsItem.vue';
 
   &__content {
     height: 15.5rem;
-    padding: css-var($element + "-content", padding, var(--space-16) var(--space-20));
+    padding: functions.var($element + "-content", padding, var(--space-16) var(--space-20));
     overflow-y: auto;
   }
 }

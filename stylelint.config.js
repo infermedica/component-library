@@ -13,7 +13,7 @@ module.exports = {
       true,
       {
         ignoreFunctions: [
-          'css-var',
+          'var',
           'str-index',
         ],
       },

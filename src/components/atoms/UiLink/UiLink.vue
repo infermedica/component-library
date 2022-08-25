@@ -44,18 +44,18 @@ const { componentTag, routeAttrs } = useLink(props);
 </script>
 
 <style lang="scss">
-@import "../../../styles/mixins/mixins";
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-link {
   $this: &;
   $element: link;
 
-  @include inner-border($element, $color: transparent, $width: 0, $radius: var(--border-radius-button));
-  @include font($element, body-1);
+  @include mixins.inner-border($element, $color: transparent, $width: 0, $radius: var(--border-radius-button));
+  @include mixins.font($element, body-1);
 
   display: inline;
-  color: css-var($element, color, var(--color-text-action-primary));
+  color: functions.var($element, color, var(--color-text-action-primary));
   text-decoration: none;
   transition: color 150ms ease-in-out;
   vertical-align: top;
@@ -67,7 +67,7 @@ const { componentTag, routeAttrs } = useLink(props);
     word-break: normal;
   }
 
-  @include with-hover {
+  @include mixins.with-hover {
     cursor: pointer;
   }
 
@@ -75,43 +75,43 @@ const { componentTag, routeAttrs } = useLink(props);
     outline: none;
   }
 
-  @include focus {
+  @include mixins.focus {
     box-shadow: var(--focus-outer);
   }
 
-  @include hover {
-    color: css-var($element + "-hover", color, var(--color-text-action-primary-hover));
+  @include mixins.hover {
+    color: functions.var($element + "-hover", color, var(--color-text-action-primary-hover));
 
     #{$this}__icon {
-      --icon-color: #{css-var($element + "-hover-icon", color, var(--color-icon-primary-hover))};
+      --icon-color: #{functions.var($element + "-hover-icon", color, var(--color-icon-primary-hover))};
     }
   }
 
   &:active {
-    color: css-var($element + "-active", color, var(--color-text-action-primary-active));
+    color: functions.var($element + "-active", color, var(--color-text-action-primary-active));
 
     #{$this}__icon {
-      --icon-color: #{css-var($element + "-active-icon", color, var(--color-icon-primary-active))};
+      --icon-color: #{functions.var($element + "-active-icon", color, var(--color-icon-primary-active))};
     }
   }
 
   &__icon {
-    --icon-color: #{css-var($element + "-icon", color, var(--color-icon-primary))};
+    --icon-color: #{functions.var($element + "-icon", color, var(--color-icon-primary))};
 
     flex: none;
-    margin: css-var($element + "-icon", margin, 0 var(--space-4) 0 0);
+    margin: functions.var($element + "-icon", margin, 0 var(--space-4) 0 0);
     transition: fill 150ms ease-in-out;
     vertical-align: top;
 
     [dir="rtl"] & {
-      margin: css-var($element + "-rtl-icon", margin, 0 0 0 var(--space-4));
+      margin: functions.var($element + "-rtl-icon", margin, 0 0 0 var(--space-4));
     }
 
     &--right {
-      margin: css-var($element + "-icon", margin, 0 0 0 var(--space-4));
+      margin: functions.var($element + "-icon", margin, 0 0 0 var(--space-4));
 
       [dir="rtl"] & {
-        margin: css-var($element + "-rtl-icon", margin, 0 var(--space-4) 0 0);
+        margin: functions.var($element + "-rtl-icon", margin, 0 var(--space-4) 0 0);
       }
     }
   }

@@ -130,8 +130,8 @@ if (checkbutton) {
 </script>
 
 <style lang="scss">
-@import "../../../styles/mixins/mixins";
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-checkbox {
   $this: &;
@@ -141,22 +141,22 @@ if (checkbutton) {
   align-items: flex-start;
   justify-content: flex-start;
 
-  @include with-hover {
+  @include mixins.with-hover {
     cursor: pointer;
   }
 
-  @include hover {
+  @include mixins.hover {
     #{$this}__checkbox {
       &::after {
-        border-color: css-var($element + "-hover", border-color, var(--color-border-strong-hover));
+        border-color: functions.var($element + "-hover", border-color, var(--color-border-strong-hover));
       }
 
       &--is-checked {
-        background: css-var($element + "-checked-hover", background, var(--color-selectioncontrols-selection-hover));
+        background: functions.var($element + "-checked-hover", background, var(--color-selectioncontrols-selection-hover));
 
         &::after {
           border-color:
-            css-var(
+            functions.var(
               $element + "-checked-hover",
               border-color,
               var(--color-selectioncontrols-selection-hover)
@@ -169,12 +169,12 @@ if (checkbutton) {
   &:active {
     #{$this}__checkbox {
       &::after {
-        border-color: css-var($element + "-active", border-color, var(--color-border-strong-active));
+        border-color: functions.var($element + "-active", border-color, var(--color-border-strong-active));
       }
 
       &--is-checked {
         background:
-          css-var(
+          functions.var(
             $element + "-checked-active",
             background,
             var(--color-selectioncontrols-selection-active)
@@ -182,7 +182,7 @@ if (checkbutton) {
 
         &::after {
           border-color:
-            css-var(
+            functions.var(
               $element + "-checked-active",
               border-color,
               var(--color-selectioncontrols-selection-active)
@@ -192,7 +192,7 @@ if (checkbutton) {
     }
   }
 
-  @include with-focus {
+  @include mixins.with-focus {
     &:focus-within {
       #{$this}__checkbox {
         box-shadow: var(--focus-outer);
@@ -201,7 +201,7 @@ if (checkbutton) {
   }
 
   &__checkbox {
-    @include inner-border(
+    @include mixins.inner-border(
       $element,
       $color: var(--color-border-strong),
       $width: 2px,
@@ -213,59 +213,59 @@ if (checkbutton) {
     );
 
     display: flex;
-    width: css-var($element, size, 1.25rem);
-    height: css-var($element, size, 1.25rem);
+    width: functions.var($element, size, 1.25rem);
+    height: functions.var($element, size, 1.25rem);
     flex: none;
     align-items: center;
     justify-content: center;
     margin: 2px;
-    background: css-var($element, background, var(--color-background-white));
+    background: functions.var($element, background, var(--color-background-white));
 
     &--is-checked {
-      background: css-var($element + "-checked", background, var(--color-selectioncontrols-selection));
+      background: functions.var($element + "-checked", background, var(--color-selectioncontrols-selection));
 
       &::after {
-        border-color: css-var($element + "-checked", border-color, var(--color-selectioncontrols-selection));
+        border-color: functions.var($element + "-checked", border-color, var(--color-selectioncontrols-selection));
       }
 
       #{$this}__checkmark {
-        --icon-color: #{css-var($element + "-checked-checkmark", color, var(--color-text-on-selection))};
+        --icon-color: #{functions.var($element + "-checked-checkmark", color, var(--color-text-on-selection))};
       }
     }
   }
 
   &__checkmark {
-    --icon-size: #{css-var($element + "-checkmark", size, 1rem)};
-    --icon-color: #{css-var($element + "-checkmark", color, transparent)};
+    --icon-size: #{functions.var($element + "-checkmark", size, 1rem)};
+    --icon-color: #{functions.var($element + "-checkmark", color, transparent)};
 
     flex: none;
   }
 
   &__label {
-    --text-color: #{css-var($element + "-label", color, var(--color-text-body))};
+    --text-color: #{functions.var($element + "-label", color, var(--color-text-body))};
 
     flex: 1;
-    margin: css-var($element + "-label", margin, 0 0 0 var(--space-12));
+    margin: functions.var($element + "-label", margin, 0 0 0 var(--space-12));
 
     [dir="rtl"] & {
-      margin: css-var($element + "-rtl-label", margin, 0 var(--space-12) 0 0);
+      margin: functions.var($element + "-rtl-label", margin, 0 var(--space-12) 0 0);
     }
   }
 
   &--is-disabled {
     cursor: not-allowed;
 
-    @include hover {
+    @include mixins.hover {
       #{$this}__checkbox {
         &::after {
-          border-color: css-var($element + "-hover", border-color, var(--color-icon-disabled));
+          border-color: functions.var($element + "-hover", border-color, var(--color-icon-disabled));
         }
 
         &--is-checked {
-          background: css-var($element + "-checked-hover", background, var(--color-icon-disabled));
+          background: functions.var($element + "-checked-hover", background, var(--color-icon-disabled));
 
           &::after {
-            border-color: css-var($element + "-checked-hover", border-color, var(--color-icon-disabled));
+            border-color: functions.var($element + "-checked-hover", border-color, var(--color-icon-disabled));
           }
         }
       }
@@ -274,14 +274,14 @@ if (checkbutton) {
     &:active {
       #{$this}__checkbox {
         &::after {
-          border-color: css-var($element + "-hover", border-color, var(--color-icon-disabled));
+          border-color: functions.var($element + "-hover", border-color, var(--color-icon-disabled));
         }
 
         &--is-checked {
-          background: css-var($element + "-checked-active", background, var(--color-icon-disabled));
+          background: functions.var($element + "-checked-active", background, var(--color-icon-disabled));
 
           &::after {
-            border-color: css-var($element + "-checked-active", border-color, var(--color-icon-disabled));
+            border-color: functions.var($element + "-checked-active", border-color, var(--color-icon-disabled));
           }
         }
       }
@@ -289,35 +289,35 @@ if (checkbutton) {
 
     #{$this}__checkbox {
       &::after {
-        border-color: css-var($element, border-color, var(--color-icon-disabled));
+        border-color: functions.var($element, border-color, var(--color-icon-disabled));
       }
 
       &--is-checked {
-        background: css-var($element + "-checked", background, var(--color-icon-disabled));
+        background: functions.var($element + "-checked", background, var(--color-icon-disabled));
 
         &::after {
-          border-color: css-var($element + "-checked", border-color, var(--color-icon-disabled));
+          border-color: functions.var($element + "-checked", border-color, var(--color-icon-disabled));
         }
       }
     }
 
     #{$this}__label {
-      --text-color: #{css-var($element + "-label", color, var(--color-text-disabled))};
+      --text-color: #{functions.var($element + "-label", color, var(--color-text-disabled))};
     }
   }
 
   &--has-error {
-    @include hover {
+    @include mixins.hover {
       #{$this}__checkbox {
         &::after {
-          border-color: css-var($element + "-hover", border-color, var(--color-border-error-strong-hover));
+          border-color: functions.var($element + "-hover", border-color, var(--color-border-error-strong-hover));
         }
 
         &--is-checked {
-          background: css-var($element + "-checked-hover", background, var(--color-border-error-strong-hover));
+          background: functions.var($element + "-checked-hover", background, var(--color-border-error-strong-hover));
 
           &::after {
-            border-color: css-var($element + "-checked-hover", border-color, var(--color-border-error-strong-hover));
+            border-color: functions.var($element + "-checked-hover", border-color, var(--color-border-error-strong-hover));
           }
         }
       }
@@ -326,14 +326,14 @@ if (checkbutton) {
     &:active {
       #{$this}__checkbox {
         &::after {
-          border-color: css-var($element + "-hover", border-color, var(--color-border-error-strong-hover));
+          border-color: functions.var($element + "-hover", border-color, var(--color-border-error-strong-hover));
         }
 
         &--is-checked {
-          background: css-var($element + "-checked-active", background, var(--color-border-error-strong-active));
+          background: functions.var($element + "-checked-active", background, var(--color-border-error-strong-active));
 
           &::after {
-            border-color: css-var($element + "-checked-active", border-color, var(--color-border-error-strong-active));
+            border-color: functions.var($element + "-checked-active", border-color, var(--color-border-error-strong-active));
           }
         }
       }
@@ -341,14 +341,14 @@ if (checkbutton) {
 
     #{$this}__checkbox {
       &::after {
-        border-color: css-var($element, border-color, var(--color-border-error-strong));
+        border-color: functions.var($element, border-color, var(--color-border-error-strong));
       }
 
       &--is-checked {
-        background: css-var($element + "-checked", background, var(--color-border-error-strong));
+        background: functions.var($element + "-checked", background, var(--color-border-error-strong));
 
         &::after {
-          border-color: css-var($element + "-checked", border-color, var(--color-border-error-strong));
+          border-color: functions.var($element + "-checked", border-color, var(--color-border-error-strong));
         }
       }
     }

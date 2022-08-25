@@ -89,14 +89,14 @@ function selectHandler(): void {
 </script>
 
 <style lang="scss">
-@import "../../../styles/mixins/mixins";
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-tile {
   $this: &;
   $element: tile;
 
-  --button-padding: #{css-var($element, padding, var(--space-16))};
+  --button-padding: #{functions.var($element, padding, var(--space-16))};
 
   align-items: center;
   justify-content: flex-start;
@@ -112,49 +112,49 @@ function selectHandler(): void {
     transform: scale(0.95);
   }
 
-  @include from-tablet {
-    --button-padding: #{css-var($element + "-tablet", padding, var(--space-24) var(--space-16))};
+  @include mixins.from-tablet {
+    --button-padding: #{functions.var($element + "-tablet", padding, var(--space-24) var(--space-16))};
 
     flex-direction: column;
   }
 
   &__icon {
-    --icon-size: #{css-var($element + "-icon", size, 3rem)};
+    --icon-size: #{functions.var($element + "-icon", size, 3rem)};
     --button-icon-margin: 0;
     --button-rtl-icon-margin: 0;
 
-    @include from-tablet {
-      --icon-size: #{css-var($element + "-tablet-icon", size, 4rem)};
+    @include mixins.from-tablet {
+      --icon-size: #{functions.var($element + "-tablet-icon", size, 4rem)};
     }
   }
 
   &__label {
-    margin: css-var($element + "-label", margin, 0 0 0 var(--space-16));
+    margin: functions.var($element + "-label", margin, 0 0 0 var(--space-16));
 
     [dir="rtl"] & {
-      margin: css-var($element + "-rtl-label", margin, 0 var(--space-16) 0 0);
+      margin: functions.var($element + "-rtl-label", margin, 0 var(--space-16) 0 0);
     }
 
-    @include from-tablet {
-      margin: css-var($element + "-tablet-label", margin, var(--space-16) 0 0 0);
+    @include mixins.from-tablet {
+      margin: functions.var($element + "-tablet-label", margin, var(--space-16) 0 0 0);
 
       [dir="rtl"] & {
-        margin: css-var($element + "-rtl-tablet-label", margin, var(--space-16) 0 0 0);
+        margin: functions.var($element + "-rtl-tablet-label", margin, var(--space-16) 0 0 0);
       }
     }
   }
 
   &--small {
     #{$this}__icon {
-      --icon-size: #{css-var($element + "-icon", size, 2rem)};
+      --icon-size: #{functions.var($element + "-icon", size, 2rem)};
     }
   }
 
   &--is-checked {
-    --button-border-width: #{css-var($element + "-checked", width, 2px)};
-    --button-border-color: #{css-var($element + "-checked", color-border, var(--color-border-strong))};
-    --button-hover-border-color: #{css-var($element + "-hover-checked", color-border, var(--color-border-strong))};
-    --button-active-border-color: #{css-var($element + "-active-checked", color-border, var(--color-border-strong))};
+    --button-border-width: #{functions.var($element + "-checked", width, 2px)};
+    --button-border-color: #{functions.var($element + "-checked", color-border, var(--color-border-strong))};
+    --button-hover-border-color: #{functions.var($element + "-hover-checked", color-border, var(--color-border-strong))};
+    --button-active-border-color: #{functions.var($element + "-active-checked", color-border, var(--color-border-strong))};
   }
 
   &--has-error {

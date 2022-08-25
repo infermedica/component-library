@@ -24,11 +24,11 @@ defineProps({
 </script>
 
 <style lang="scss">
-@import "../../../../styles/functions/functions";
+@use "../../../../styles/functions";
 
 .ui-list-item {
   $element: list-item;
 
-  padding: css-var($element, padding, var(--space-12));
+  padding: functions.var($element, padding, var(--space-12));
 }
 </style>

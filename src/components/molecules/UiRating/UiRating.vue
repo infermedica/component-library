@@ -179,8 +179,8 @@ const finalScore = computed(() => (
 </script>
 
 <style lang="scss">
-@import "../../../styles/mixins/mixins";
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-rating {
   $this: &;
@@ -197,21 +197,21 @@ const finalScore = computed(() => (
   justify-content: flex-start;
 
   &__option {
-    --_rating-option-gap: #{css-var($element + "-option", gap, var(--space-24))};
+    --_rating-option-gap: #{functions.var($element + "-option", gap, var(--space-24))};
 
     position: relative;
     border: solid transparent;
     border-width: 0 var(--_rating-option-gap) 0 0;
 
-    @include hover {
+    @include mixins.hover {
       #{$this}__icon {
-        --icon-color: #{css-var($element + "-hover-icon", color, var(--color-icon-secondary-hover))};
+        --icon-color: #{functions.var($element + "-hover-icon", color, var(--color-icon-secondary-hover))};
       }
 
       #{$this}__radio {
         &--is-checked {
           #{$this}__icon {
-            --icon-color: #{css-var($element + "-checked-hover-icon", color, var(--color-icon-primary-hover))};
+            --icon-color: #{functions.var($element + "-checked-hover-icon", color, var(--color-icon-primary-hover))};
           }
         }
       }
@@ -219,13 +219,13 @@ const finalScore = computed(() => (
 
     &:active {
       #{$this}__icon {
-        --icon-color: #{css-var($element + "-active-icon", color, var(--color-icon-secondary-active))};
+        --icon-color: #{functions.var($element + "-active-icon", color, var(--color-icon-secondary-active))};
       }
 
       #{$this}__radio {
         &--is-checked {
           #{$this}__icon {
-            --icon-color: #{css-var($element + "-checked-active-icon", color, var(--color-icon-primary-active))};
+            --icon-color: #{functions.var($element + "-checked-active-icon", color, var(--color-icon-primary-active))};
           }
         }
       }
@@ -251,28 +251,28 @@ const finalScore = computed(() => (
 
     &--is-checked {
       #{$this}__icon {
-        --icon-color: #{css-var($element + "-checked-icon", color, var(--color-icon-primary))};
+        --icon-color: #{functions.var($element + "-checked-icon", color, var(--color-icon-primary))};
       }
     }
   }
 
   &__icon {
-    --icon-color: #{css-var($element + "-icon", color, var(--color-icon-secondary))};
+    --icon-color: #{functions.var($element + "-icon", color, var(--color-icon-secondary))};
   }
 
   &--is-disabled {
     #{$this}__option {
       cursor: not-allowed;
 
-      @include hover {
+      @include mixins.hover {
         #{$this}__icon {
-          --icon-color: #{css-var($element + "-hover-icon", color, var(--color-icon-disabled))};
+          --icon-color: #{functions.var($element + "-hover-icon", color, var(--color-icon-disabled))};
         }
 
         #{$this}__radio {
           &--is-checked {
             #{$this}__icon {
-              --icon-color: #{css-var($element + "-checked-hover-icon", color, var(--color-icon-disabled))};
+              --icon-color: #{functions.var($element + "-checked-hover-icon", color, var(--color-icon-disabled))};
             }
           }
         }
@@ -280,13 +280,13 @@ const finalScore = computed(() => (
 
       &:active {
         #{$this}__icon {
-          --icon-color: #{css-var($element + "-icon", color, var(--color-icon-disabled))};
+          --icon-color: #{functions.var($element + "-icon", color, var(--color-icon-disabled))};
         }
 
         #{$this}__radio {
           &--is-checked {
             #{$this}__icon {
-              --icon-color: #{css-var($element + "-checked-active-icon", color, var(--color-icon-disabled))};
+              --icon-color: #{functions.var($element + "-checked-active-icon", color, var(--color-icon-disabled))};
             }
           }
         }
@@ -296,13 +296,13 @@ const finalScore = computed(() => (
     #{$this}__radio {
       &--is-checked {
         #{$this}__icon {
-          --icon-color: #{css-var($element + "-checked-icon", color, var(--color-icon-disabled))};
+          --icon-color: #{functions.var($element + "-checked-icon", color, var(--color-icon-disabled))};
         }
       }
     }
 
     #{$this}__icon {
-      --icon-color: #{css-var($element + "-icon", color, var(--color-icon-disabled))};
+      --icon-color: #{functions.var($element + "-icon", color, var(--color-icon-disabled))};
     }
   }
 }

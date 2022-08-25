@@ -196,15 +196,14 @@ const clickOutsideHandler = (event: InputEvent) => {
 </script>
 
 <style lang="scss">
-@import "../../../../styles/mixins/mixins";
-@import "../../../../styles/functions/functions";
+@use "../../../../styles/functions";
 
 .ui-datepicker-calendar {
   $this: &;
   $element: datepicker-calendar;
 
-  --dropdown-popover-max-width: #{css-var($element + "-popover", max-width, 100% )};
-  --dropdown-popover-padding: #{css-var($element + "-popover", padding, 0 )};
+  --dropdown-popover-max-width: #{functions.var($element + "-popover", max-width, 100% )};
+  --dropdown-popover-padding: #{functions.var($element + "-popover", padding, 0 )};
 
   position: unset;
 }

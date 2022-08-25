@@ -55,8 +55,7 @@ const hasIcon = computed(() => !!attrs.class && attrs.class.includes('ui-toggle-
 </script>
 
 <style lang="scss">
-@import "../../../../styles/mixins/mixins";
-@import "../../../../styles/functions/functions";
+@use "../../../../styles/mixins";
 
 .ui-toggle-button {
   $this: &;
@@ -64,7 +63,7 @@ const hasIcon = computed(() => !!attrs.class && attrs.class.includes('ui-toggle-
 
   flex: 1;
 
-  @include focus {
+  @include mixins.focus {
     z-index: 1;
   }
 

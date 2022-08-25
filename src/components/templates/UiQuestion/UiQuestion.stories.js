@@ -240,7 +240,7 @@ export const WithTitleSlot = (args) => ({
     :button-why-attrs="buttonWhyAttrs"
     :button-issue-attrs="buttonIssueAttrs"
   >
-    <template #titl="{title}">
+    <template #title="{title}">
       <UiHeading
         v-if="title"
         class="ui-question__title"

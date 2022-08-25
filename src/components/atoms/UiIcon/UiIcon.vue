@@ -33,15 +33,15 @@ const file = computed<SVGElement>(() => {
 </script>
 
 <style lang="scss">
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
 
 .ui-icon {
   $this: &;
   $element: icon;
 
-  width: css-var($element, size, css-var($element, width, 1.5rem));
-  height: css-var($element, size, css-var($element, height, 1.5rem));
-  fill: css-var($element, color);
+  width: functions.var($element, size, functions.var($element, width, 1.5rem));
+  height: functions.var($element, size, functions.var($element, height, 1.5rem));
+  fill: functions.var($element, color);
 
   &.rtl-supported {
     [dir="rtl"] & {

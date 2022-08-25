@@ -89,32 +89,32 @@ const hasAction = computed(() => (Object.keys(props.buttonActionAttrs).length > 
 </script>
 
 <style lang="scss">
-@import "../../../styles/mixins/mixins";
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-notification {
   $element: notification;
   $types: "success", "info", "warning", "error";
 
-  @include inner-border($element, $radius: var(--border-radius-container), $color: var(--color-border-strong));
+  @include mixins.inner-border($element, $radius: var(--border-radius-container), $color: var(--color-border-strong));
 
-  --alert-icon-margin: #{css-var($element + "-icon", margin, 0 var(--space-12) 0 0)};
-  --alert-rtl-icon-margin: #{css-var($element + "-rtl-icon", margin, 0 0 0 var(--space-12))};
+  --alert-icon-margin: #{functions.var($element + "-icon", margin, 0 var(--space-12) 0 0)};
+  --alert-rtl-icon-margin: #{functions.var($element + "-rtl-icon", margin, 0 0 0 var(--space-12))};
 
   display: flex;
-  padding: css-var($element, padding, var(--space-12));
-  background: css-var($element, background);
+  padding: functions.var($element, padding, var(--space-12));
+  background: functions.var($element, background);
 
   &__action {
-    margin: css-var($element + "-action", margin, var(--space-4) 0 0 0);
+    margin: functions.var($element + "-action", margin, var(--space-4) 0 0 0);
   }
 
   @each $type in $types {
     &--#{$type} {
-      background: css-var($element, background, var(--color-background-#{$type}));
+      background: functions.var($element, background, var(--color-background-#{$type}));
 
       &::after {
-        border-color: css-var($element, border-color, var(--color-border-#{$type}-subtle));
+        border-color: functions.var($element, border-color, var(--color-border-#{$type}-subtle));
       }
     }
   }

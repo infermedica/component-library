@@ -53,8 +53,7 @@ const icon = computed<AlertIcon>(() => ((!props.hasIcon || props.type === 'defau
 </script>
 
 <style lang="scss">
-@import "../../../styles/mixins/mixins";
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
 
 .ui-alert {
   $this: &;
@@ -64,31 +63,31 @@ const icon = computed<AlertIcon>(() => ((!props.hasIcon || props.type === 'defau
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  vertical-align: css-var($element, vertical-align, top);
+  vertical-align: functions.var($element, vertical-align, top);
 
   &__icon {
-    --icon-color: #{css-var($element + "-icon", color)};
+    --icon-color: #{functions.var($element + "-icon", color)};
 
     flex: none;
-    margin: css-var($element + "-icon", margin, 0 var(--space-4) 0 0);
+    margin: functions.var($element + "-icon", margin, 0 var(--space-4) 0 0);
 
     [dir="rtl"] & {
-      margin: css-var($element + "-rtl-icon", margin, 0 0 0 var(--space-4));
+      margin: functions.var($element + "-rtl-icon", margin, 0 0 0 var(--space-4));
     }
   }
 
   &__message {
-    --text-color: #{css-var($element, color, var(--color-text-body))};
+    --text-color: #{functions.var($element, color, var(--color-text-body))};
   }
 
   @each $type in $types {
     &--#{$type} {
       #{$this}__icon {
-        --icon-color: #{css-var($element + "-icon", color, var(--color-icon-#{$type}))};
+        --icon-color: #{functions.var($element + "-icon", color, var(--color-icon-#{$type}))};
       }
 
       #{$this}__message {
-        --text-color: #{css-var($element, color, var(--color-text-#{$type}))};
+        --text-color: #{functions.var($element, color, var(--color-text-#{$type}))};
       }
     }
   }

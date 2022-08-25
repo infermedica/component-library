@@ -88,20 +88,20 @@ onBeforeUnmount(() => {
 </script>
 
 <style lang="scss">
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
 
 .ui-navigation {
   $this: &;
   $element: navigation;
 
   display: flex;
-  flex-flow: css-var($element, flex-flow, css-var($element, flex-direction, row) css-var($element, flex-wrap, wrap));
-  align-items: css-var($element, align-items, center);
-  justify-content: css-var($element, justify-content, flex-start);
-  margin: css-var($element, margin, 0 calc(var(--space-8) * -1));
+  flex-flow: functions.var($element, flex-flow, functions.var($element, flex-direction, row) functions.var($element, flex-wrap, wrap));
+  align-items: functions.var($element, align-items, center);
+  justify-content: functions.var($element, justify-content, flex-start);
+  margin: functions.var($element, margin, 0 calc(var(--space-8) * -1));
 
   &--is-multiline {
-    margin: css-var($element, margin, 0 calc(var(--space-8) * -1) calc(var(--space-12) * -1));
+    margin: functions.var($element, margin, 0 calc(var(--space-8) * -1) calc(var(--space-12) * -1));
   }
 }
 </style>

@@ -81,22 +81,21 @@ const buttonAttrs = computed<ButtonAttrs>(() => ({
 </script>
 
 <style lang="scss">
-@import "../../../../styles/mixins/mixins";
-@import "../../../../styles/functions/functions";
+@use "../../../../styles/functions";
 
 .ui-dropdown-item {
   $element: dropdown-item;
 
-  --button-padding: #{css-var($element, padding, var(--space-8))};
+  --button-padding: #{functions.var($element, padding, var(--space-8))};
   --button-border-width: 0;
-  --button-color: #{css-var($element, color, var(--color-text-body))};
-  --button-hover-color: #{css-var($element + "-hover", color, var(--color-text-body))};
+  --button-color: #{functions.var($element, color, var(--color-text-body))};
+  --button-hover-color: #{functions.var($element + "-hover", color, var(--color-text-body))};
   --button-active-color: #{css-var($element + "-active", color, var(--color-text-body))};
-  --button-font: #{css-var($element, font, var(--font-body-1))};
-  --button-letter-spacing: #{css-var($element, letter-spacing, var(--letter-spacing-body-1))};
+  --button-font: #{functions.var($element, font, var(--font-body-1))};
+  --button-letter-spacing: #{functions.var($element, letter-spacing, var(--letter-spacing-body-1))};
 
   justify-content: space-between;
-  margin: css-var($element, margin, var(--space-8) 0 0 0);
+  margin: functions.var($element, margin, var(--space-8) 0 0 0);
 
   &:first-of-type {
     margin-top: 0;

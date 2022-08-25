@@ -112,22 +112,22 @@ const icon = computed(() => props.type.replace(/_/g, '-'));
 </script>
 
 <style lang="scss">
-@import "../../../styles/mixins/mixins";
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-card {
   $this: &;
   $element: card;
   $types: "emergency_ambulance", "emergency", "consultation_24", "consultation", "self_care";
 
-  --container-padding: #{css-var($element, padding, var(--space-20) var(--space-20) var(--space-32))};
-  --container-tablet-padding: #{css-var($element + "-tablet", padding, 0)};
-  --container-desktop-padding: #{css-var($element + "-desktop", padding, 0)};
+  --container-padding: #{functions.var($element, padding, var(--space-20) var(--space-20) var(--space-32))};
+  --container-tablet-padding: #{functions.var($element + "-tablet", padding, 0)};
+  --container-desktop-padding: #{functions.var($element + "-desktop", padding, 0)};
 
   display: flex;
   flex-direction: column;
 
-  @include from-tablet {
+  @include mixins.from-tablet {
     flex-direction: row;
   }
 
@@ -135,16 +135,16 @@ const icon = computed(() => props.type.replace(/_/g, '-'));
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: css-var($element + "-triage", padding, var(--space-20));
-    margin: css-var($element + "-subtitle", margin, 0 0 var(--space-20));
-    background: css-var($element + "-triage", background, var(--color-triage-emergency-ambulance));
-    border-radius: css-var($element + "-triage", border-radius, var(--border-radius-container));
+    padding: functions.var($element + "-triage", padding, var(--space-20));
+    margin: functions.var($element + "-subtitle", margin, 0 0 var(--space-20));
+    background: functions.var($element + "-triage", background, var(--color-triage-emergency-ambulance));
+    border-radius: functions.var($element + "-triage", border-radius, var(--border-radius-container));
 
-    @include from-tablet {
-      padding: css-var($element + "-tablet-triage", padding, var(--space-40) var(--space-32));
-      margin: css-var($element + "-tablet-triage", margin, 0);
+    @include mixins.from-tablet {
+      padding: functions.var($element + "-tablet-triage", padding, var(--space-40) var(--space-32));
+      margin: functions.var($element + "-tablet-triage", margin, 0);
       border-radius:
-        css-var(
+        functions.var(
           $element + "-tablet-triage",
           border-radius,
           var(--border-radius-container) 0 0 var(--border-radius-container)
@@ -152,7 +152,7 @@ const icon = computed(() => props.type.replace(/_/g, '-'));
 
       [dir="rtl"] & {
         border-radius:
-          css-var(
+          functions.var(
             $element + "-rtl-tablet-triage",
             border-radius,
             0 var(--border-radius-container) var(--border-radius-container) 0
@@ -162,26 +162,26 @@ const icon = computed(() => props.type.replace(/_/g, '-'));
   }
 
   &__icon {
-    --icon-size: #{css-var($element + "-icon", size, 4rem)};
-    --icon-color: #{css-var($element + "-icon", color, var(--color-icon-negative))};
+    --icon-size: #{functions.var($element + "-icon", size, 4rem)};
+    --icon-color: #{functions.var($element + "-icon", color, var(--color-icon-negative))};
   }
 
   &__subtitle {
-    --text-color: #{css-var($element + "-subtitle", color, var(--color-text-dimmed))};
+    --text-color: #{functions.var($element + "-subtitle", color, var(--color-text-dimmed))};
 
-    margin: css-var($element + "-subtitle", margin, 0 0 var(--space-4));
+    margin: functions.var($element + "-subtitle", margin, 0 0 var(--space-4));
   }
 
   &__title {
-    margin: css-var($element + "-title", margin, 0 0 var(--space-16));
+    margin: functions.var($element + "-title", margin, 0 0 var(--space-16));
   }
 
   &__content {
-    padding: css-var($element + "-content", padding, 0);
+    padding: functions.var($element + "-content", padding, 0);
 
-    @include from-tablet {
+    @include mixins.from-tablet {
       padding:
-        css-var(
+        functions.var(
           $element + "-tablet-content",
           padding,
           var(--space-40) var(--space-48) var(--space-48) var(--space-40)
@@ -189,7 +189,7 @@ const icon = computed(() => props.type.replace(/_/g, '-'));
 
       [dir="rtl"] &__content {
         padding:
-          css-var(
+          functions.var(
             $element + "-rtl-tablet-content",
             padding,
             var(--space-40) var(--space-40) var(--space-48) var(--space-48)
@@ -213,25 +213,25 @@ const icon = computed(() => props.type.replace(/_/g, '-'));
   @each $type in $types {
     &--#{$type} {
       #{$this}__triage {
-        background: css-var($element + "-triage", background, var(--color-triage-#{str-replace($type, "_", "-")}));
+        background: functions.var($element + "-triage", background, var(--color-triage-#{str-replace($type, "_", "-")}));
       }
     }
   }
 
   &--modern {
-    --container-padding: #{css-var($element, padding, 0)};
+    --container-padding: #{functions.var($element, padding, 0)};
 
-    @include from-tablet {
+    @include mixins.from-tablet {
       flex-direction: row-reverse;
     }
 
     #{$this}__triage {
-      margin: css-var($element + "-subtitle", margin, 0);
-      border-radius: css-var($element + "-triage", border-radius, 0);
+      margin: functions.var($element + "-subtitle", margin, 0);
+      border-radius: functions.var($element + "-triage", border-radius, 0);
 
-      @include from-tablet {
+      @include mixins.from-tablet {
         border-radius:
-          css-var(
+          functions.var(
             $element + "-tablet-triage",
             border-radius,
             0 var(--border-radius-container) var(--border-radius-container) 0
@@ -239,7 +239,7 @@ const icon = computed(() => props.type.replace(/_/g, '-'));
 
         [dir="rtl"] & {
           border-radius:
-            css-var(
+            functions.var(
               $element + "-rtl-tablet-triage",
               border-radius,
               var(--border-radius-container) 0 0 var(--border-radius-container)
@@ -249,24 +249,24 @@ const icon = computed(() => props.type.replace(/_/g, '-'));
     }
 
     #{$this}__icon {
-      @include to-mobile {
-        --icon-size: #{css-var($element + "-mobile-icon", size, 3rem)};
+      @include mixins.to-mobile {
+        --icon-size: #{functions.var($element + "-mobile-icon", size, 3rem)};
       }
     }
 
     #{$this}__title {
-      --heading-font: #{css-var($element + "-title", font, var(--font-h1))};
-      --heading-letter-spacing: #{css-var($element + "-title", letter-spacing, var(--letter-spacing-h1))};
+      --heading-font: #{functions.var($element + "-title", font, var(--font-h1))};
+      --heading-letter-spacing: #{functions.var($element + "-title", letter-spacing, var(--letter-spacing-h1))};
 
-      margin: css-var($element + "-subtitle", margin, 0 0 var(--space-12));
+      margin: functions.var($element + "-subtitle", margin, 0 0 var(--space-12));
     }
 
     #{$this}__content {
-      padding: css-var($element + "-content", padding, var(--space-24) var(--space-20) var(--space-32));
+      padding: functions.var($element + "-content", padding, var(--space-24) var(--space-20) var(--space-32));
 
-      @include from-tablet {
+      @include mixins.from-tablet {
         padding:
-          css-var(
+          functions.var(
             $element + "-tablet-content",
             padding,
             var(--space-40) var(--space-40) var(--space-48) var(--space-48)
@@ -274,7 +274,7 @@ const icon = computed(() => props.type.replace(/_/g, '-'));
 
         [dir="rtl"] &__content {
           padding:
-            css-var(
+            functions.var(
               $element + "-rtl-tablet-content",
               padding,
               var(--space-40) var(--space-48) var(--space-48) var(--space-40)

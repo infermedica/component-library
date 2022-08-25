@@ -29,7 +29,7 @@ const skeleton = computed(() => (defineAsyncComponent(() => import(`./UiLoaderSk
 </script>
 
 <style lang="scss">
-@import "../../../../styles/functions/functions";
+@use "../../../../styles/functions";
 
 .ui-loader-skeleton {
   $element: loader-skeleton;
@@ -38,15 +38,15 @@ const skeleton = computed(() => (defineAsyncComponent(() => import(`./UiLoaderSk
   width: 100%;
   height: auto;
   flex-direction: column;
-  margin: css-var($element, margin, var(--space-16) 0);
+  margin: functions.var($element, margin, var(--space-16) 0);
 
   &__block {
-    width: css-var($element + "-block", width, 100%);
-    flex: 1 1  css-var($element + "-block", height, 0.5rem);
-    margin: css-var($element + "-block", margin, 0 0 var(--space-32) 0);
+    width: functions.var($element + "-block", width, 100%);
+    flex: 1 1  functions.var($element + "-block", height, 0.5rem);
+    margin: functions.var($element + "-block", margin, 0 0 var(--space-32) 0);
     animation: block 1s linear infinite;
     background:
-      css-var(
+      functions.var(
         $element + "-block",
         background,
         linear-gradient(
@@ -56,15 +56,15 @@ const skeleton = computed(() => (defineAsyncComponent(() => import(`./UiLoaderSk
           var(--color-skeleton-loader-base) 40%
         )
       );
-    background-size: css-var($element + "-block", background-size, 200% 100%);
-    border-radius: css-var($element + "-block", border-radius, 0.3125rem); //pixel perfect hack
+    background-size: functions.var($element + "-block", background-size, 200% 100%);
+    border-radius: functions.var($element + "-block", border-radius, 0.3125rem); //pixel perfect hack
 
     &:last-of-type {
       margin: 0;
     }
 
     &--large {
-      flex: 1 1  css-var($element + "-block", height, 7.5rem);
+      flex: 1 1  functions.var($element + "-block", height, 7.5rem);
     }
   }
 

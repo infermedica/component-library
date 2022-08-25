@@ -48,28 +48,28 @@ const isUnordered = computed(() => tag.value === 'ul');
 </script>
 
 <style lang="scss">
-@import "../../../../styles/functions/functions";
+@use "../../../../styles/functions";
 
 .ui-bullet-points-item {
   $element: bullet-points-item;
 
   display: flex;
-  align-items: css-var($element, align-items, flex-start);
-  justify-content: css-var($element, justify-content, flex-start);
-  margin: css-var($element, margin, var(--space-4) 0);
+  align-items: functions.var($element, align-items, flex-start);
+  justify-content: functions.var($element, justify-content, flex-start);
+  margin: functions.var($element, margin, var(--space-4) 0);
 
   &:last-child {
     margin: 0;
   }
 
   &__marker {
-    --icon-color: #{css-var($element + "-marker", color, var(--color-text-body))};
+    --icon-color: #{functions.var($element + "-marker", color, var(--color-text-body))};
 
     flex: none;
-    margin: css-var($element + "-marker", padding, 0 var(--space-12) 0 0);
+    margin: functions.var($element + "-marker", padding, 0 var(--space-12) 0 0);
 
     [dir="rtl"] & {
-      margin: css-var($element + "-rtl-marker", padding, 0 0 0 var(--space-12));
+      margin: functions.var($element + "-rtl-marker", padding, 0 0 0 var(--space-12));
     }
 
     &::before {

@@ -219,8 +219,8 @@ const buttonIncrementAttrsExtended = computed(() => ({
 </script>
 
 <style lang="scss">
-@import "../../../styles/mixins/mixins";
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-scale {
   $this: &;
@@ -237,15 +237,15 @@ const buttonIncrementAttrsExtended = computed(() => ({
   }
 
   &__mobile-controls {
-    margin: css-var($element + "-mobile-controls", margin, var(--space-32) 0 0 0);
+    margin: functions.var($element + "-mobile-controls", margin, var(--space-32) 0 0 0);
 
-    @include from-tablet {
+    @include mixins.from-tablet {
       display: none;
     }
   }
 
   &__option {
-    --_scale-option-gap: #{css-var($element + "-option", gap, 1px)};
+    --_scale-option-gap: #{functions.var($element + "-option", gap, 1px)};
 
     position: relative;
     flex: 1;
@@ -253,7 +253,7 @@ const buttonIncrementAttrsExtended = computed(() => ({
     align-items: center;
     border: solid transparent;
     border-width: 0 var(--_scale-option-gap) 0 0;
-    border-radius: css-var($element + "-option", border-radius, var(--border-radius-form));
+    border-radius: functions.var($element + "-option", border-radius, var(--border-radius-form));
 
     [dir="rtl"] & {
       border-width: 0 0 0 var(--_scale-option-gap);
@@ -303,7 +303,7 @@ const buttonIncrementAttrsExtended = computed(() => ({
       pointer-events: none;
     }
 
-    @include with-focus {
+    @include mixins.with-focus {
       &:focus-within {
         &::after {
           opacity: 1;
@@ -315,8 +315,8 @@ const buttonIncrementAttrsExtended = computed(() => ({
   &__square {
     position: relative;
     width: 100%;
-    flex: 1 1 css-var($element + "-square", height, 2.5rem);
-    background: css-var($element + "-square", background, var(--color-dataviz-diverging-track));
+    flex: 1 1 functions.var($element + "-square", height, 2.5rem);
+    background: functions.var($element + "-square", background, var(--color-dataviz-diverging-track));
 
     &::after {
       position: absolute;
@@ -325,7 +325,7 @@ const buttonIncrementAttrsExtended = computed(() => ({
       bottom: 0;
       left: 0;
       background:
-        css-var(
+        functions.var(
           $element + "-square-overlay",
           background,
           var(--color-dataviz-diverging-strongly-negative)
@@ -338,7 +338,7 @@ const buttonIncrementAttrsExtended = computed(() => ({
 
     &--is-checked {
       background:
-        css-var(
+        functions.var(
           $element + "-square",
           background,
           var(--color-dataviz-diverging-moderately-negative)
@@ -347,12 +347,12 @@ const buttonIncrementAttrsExtended = computed(() => ({
   }
 
   &__label {
-    --text-color: #{css-var($element + "-label", color, var(--color-text-body))};
+    --text-color: #{functions.var($element + "-label", color, var(--color-text-body))};
 
     position: relative;
     width: 100%;
-    padding: css-var($element + "-label", padding, var(--space-8) 0);
-    margin: css-var($element + "-label", margin, 0 0 var(--space-8) 0);
+    padding: functions.var($element + "-label", padding, var(--space-8) 0);
+    margin: functions.var($element + "-label", margin, 0 0 var(--space-8) 0);
     border-radius: inherit;
     text-align: center;
 
@@ -360,35 +360,35 @@ const buttonIncrementAttrsExtended = computed(() => ({
       position: absolute;
       bottom: 0;
       left: 50%;
-      width: css-var($element + "-label-arrow", size, 8px);
-      height: css-var($element + "-label-arrow", size, 8px);
+      width: functions.var($element + "-label-arrow", size, 8px);
+      height: functions.var($element + "-label-arrow", size, 8px);
       background: inherit;
       content: "";
       transform: translate(-50%, 50%) rotate(45deg) scale(#{"calc(8 / 11.31)"});
     }
 
     &--is-checked {
-      --text-color: #{css-var($element + "-label", color, var(--color-text-on-selection))};
+      --text-color: #{functions.var($element + "-label", color, var(--color-text-on-selection))};
 
-      background: css-var($element + "-checked-label", background, var(--color-background-selection));
+      background: functions.var($element + "-checked-label", background, var(--color-background-selection));
     }
   }
 
   &__description {
-    --_scale-description-color: #{css-var($element + "-description", color, var(--color-text-dimmed))};
+    --_scale-description-color: #{functions.var($element + "-description", color, var(--color-text-dimmed))};
 
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: css-var($element + "-description", margin, var(--space-16) 0 0 0);
+    margin: functions.var($element + "-description", margin, var(--space-16) 0 0 0);
   }
 
   &__mild {
-    --text-color: #{css-var($element + "-mild", color, var(--_scale-description-color))};
+    --text-color: #{functions.var($element + "-mild", color, var(--_scale-description-color))};
   }
 
   &__unbearable {
-    --text-color: #{css-var($element + "-unredable", color, var(--_scale-description-color))};
+    --text-color: #{functions.var($element + "-unredable", color, var(--_scale-description-color))};
   }
 }
 </style>

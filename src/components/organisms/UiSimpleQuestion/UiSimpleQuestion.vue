@@ -85,8 +85,8 @@ function updateHandler(value: TileValue) {
 </script>
 
 <style lang="scss">
-@import "../../../styles/mixins/mixins";
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-simple-question {
   $this: &;
@@ -95,27 +95,27 @@ function updateHandler(value: TileValue) {
   display: flex;
   flex-direction: column;
 
-  @include from-tablet {
+  @include mixins.from-tablet {
     flex-direction: row;
   }
 
   &__option {
-    margin: css-var($element + "-option", margin, 0 0 var(--space-12) 0);
+    margin: functions.var($element + "-option", margin, 0 0 var(--space-12) 0);
 
     &:last-of-type {
       margin: 0;
     }
 
-    @include from-tablet {
+    @include mixins.from-tablet {
       flex: 1;
-      margin: css-var($element + "-tablet-option", margin, 0 var(--space-24) 0 0);
+      margin: functions.var($element + "-tablet-option", margin, 0 var(--space-24) 0 0);
 
       &:last-of-type {
         margin: 0;
       }
 
       [dir="rtl"] & {
-        margin: css-var($element + "-rtl-tablet-option", margin, 0 0 0 var(--space-24));
+        margin: functions.var($element + "-rtl-tablet-option", margin, 0 0 0 var(--space-24));
 
         &:last-of-type {
           margin: 0;

@@ -242,8 +242,8 @@ function unfocusExplication(event: KeyboardEvent) {
 </script>
 
 <style lang="scss">
-@import "../../../styles/mixins/mixins";
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-multiple-answer {
   $this: &;
@@ -256,21 +256,21 @@ function unfocusExplication(event: KeyboardEvent) {
   }
 
   &__hint {
-    padding: css-var($element + "-hint", padding, 0 var(--space-20) var(--space-12));
+    padding: functions.var($element + "-hint", padding, 0 var(--space-20) var(--space-12));
 
-    @include from-tablet {
-      padding: css-var($element + "-tablet-hint", padding, 0 0 var(--space-12) 0);
+    @include mixins.from-tablet {
+      padding: functions.var($element + "-tablet-hint", padding, 0 0 var(--space-12) 0);
     }
   }
 
   &__list-item {
-    @include inner-border($element: multiple-answer-list-item, $color: var(--color-border-divider), $width: 1px 0 0 0);
+    @include mixins.inner-border($element: multiple-answer-list-item, $color: var(--color-border-divider), $width: 1px 0 0 0);
 
     --list-item-padding: 0;
 
     &:last-of-type {
       &::after {
-        border-width: css-var($element, border-width, 1px 0);
+        border-width: functions.var($element, border-width, 1px 0);
       }
     }
   }
@@ -282,30 +282,30 @@ function unfocusExplication(event: KeyboardEvent) {
   }
 
   &__choice {
-    padding: css-var($element + "-choice", padding, var(--space-12) var(--space-20));
-    background: css-var($element + "-choice", background, transparent);
+    padding: functions.var($element + "-choice", padding, var(--space-12) var(--space-20));
+    background: functions.var($element + "-choice", background, transparent);
 
-    @include from-tablet {
-      padding: css-var($element + "-tablet-choice", padding, var(--space-12));
+    @include mixins.from-tablet {
+      padding: functions.var($element + "-tablet-choice", padding, var(--space-12));
 
-      @include hover {
-        background: css-var($element + "-tablet-choice-hover", background, var(--color-background-white-hover));
+      @include mixins.hover {
+        background: functions.var($element + "-tablet-choice-hover", background, var(--color-background-white-hover));
       }
     }
 
     &--has-error {
-      @include from-tablet {
-        background: css-var($element + "-tablet-option", background, var(--color-background-error));
+      @include mixins.from-tablet {
+        background: functions.var($element + "-tablet-option", background, var(--color-background-error));
 
-        @include hover {
-          background: css-var($element + "-tablet-option-hover", background, var(--color-background-error));
+        @include mixins.hover {
+          background: functions.var($element + "-tablet-option-hover", background, var(--color-background-error));
         }
       }
     }
   }
 
   &__explication {
-    margin: css-var($element + "-explication", margin, 0 0 0 var(--space-12));
+    margin: functions.var($element + "-explication", margin, 0 0 0 var(--space-12));
   }
 }
 </style>

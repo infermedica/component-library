@@ -120,9 +120,9 @@ export const WithDesktopSlot = (args) => ({
             >
               {{ step.name }}
             </UiButton>
-          </Uilistitem>
+          </UiListItem>
         </template>
-      </Uilist>
+      </UiList>
     </template>
   </UiStepper>`,
 });
@@ -155,7 +155,7 @@ export const WithItemsSlot = (args) => ({
           >
             {{ step.name }}
           </UiButton>
-        </Uilistitem>
+        </UiListItem>
       </template>
     </template>
   </UiStepper>`,
@@ -185,7 +185,7 @@ export const WithItemSlot = (args) => ({
         >
           {{ step.name }}
         </UiButton>
-      </Uilistitem>
+      </UiListItem>
     </template>
   </UiStepper>`,
 });

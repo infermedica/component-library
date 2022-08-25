@@ -143,13 +143,13 @@ function changeHandler(value: number) {
 </script>
 
 <style lang="scss">
-@import "../../../styles/mixins/mixins";
-@import "../../../styles/functions/functions";
+@use "../../../styles/mixins";
+@use "../../../styles/functions";
 
 .ui-range {
   $element: range;
 
-  --_range-thumb-size: #{css-var($element + "-thumb", size, 3rem)};
+  --_range-thumb-size: #{functions.var($element + "-thumb", size, 3rem)};
   --_range-thumb-half-of-size: calc(var(--_range-thumb-size) / 2);
 
   display: flex;
@@ -158,7 +158,7 @@ function changeHandler(value: number) {
   justify-content: center;
   padding: calc(var(--_range-thumb-size) + 0.5rem) 0 0 0;
 
-  @include from-tablet {
+  @include mixins.from-tablet {
     flex-flow: row nowrap;
   }
 
@@ -167,11 +167,11 @@ function changeHandler(value: number) {
     height: var(--_range-thumb-size);
     flex: 0 0 100%;
     order: -1;
-    margin: css-var($element + "-input", margin, 0 0 var(--space-24) 0);
+    margin: functions.var($element + "-input", margin, 0 0 var(--space-24) 0);
     touch-action: none;
 
-    @include from-tablet {
-      margin: css-var($element + "-tablet-input", margin, 0);
+    @include mixins.from-tablet {
+      margin: functions.var($element + "-tablet-input", margin, 0);
 
       flex: 0 1 100%;
       order: 0;
@@ -179,17 +179,17 @@ function changeHandler(value: number) {
 
     &::before {
       width: calc((100% - (var(--_range-thumb-half-of-size)) * 2));
-      background: css-var($element + "-track", background, var(--color-progress-track));
+      background: functions.var($element + "-track", background, var(--color-progress-track));
     }
 
     &::after {
       width: calc(var(--_range-runnable-track-width) - var(--_range-thumb-half-of-size));
-      background: css-var($element + "-runnable-track", background, var(--color-range-progress-indicator));
+      background: functions.var($element + "-runnable-track", background, var(--color-range-progress-indicator));
     }
 
     &::before,
     &::after {
-      --_range-track-height: #{css-var($element + "-track", height, 4px)};
+      --_range-track-height: #{functions.var($element + "-track", height, 4px)};
 
       position: absolute;
       top: 50%;
@@ -208,12 +208,12 @@ function changeHandler(value: number) {
   }
 
   &__value {
-    --_range-value-margin-bottom: #{css-var($element + "-value", margin-bottom, var(--space-8))};
+    --_range-value-margin-bottom: #{functions.var($element + "-value", margin-bottom, var(--space-8))};
 
     position: absolute;
     left: var(--_range-runnable-track-width);
     display: flex;
-    width: css-var($element + "-thumb", size, 3rem);
+    width: functions.var($element + "-thumb", size, 3rem);
     align-items: center;
     justify-content: center;
     transform:
@@ -237,7 +237,7 @@ function changeHandler(value: number) {
   }
 
   &__track {
-    --_range-thumb-background: #{ css-var($element + "-thumb", background-color, var(--color-range-thumb))};
+    --_range-thumb-background: #{ functions.var($element + "-thumb", background-color, var(--color-range-thumb))};
 
     position: absolute;
     z-index: 1;
@@ -249,23 +249,23 @@ function changeHandler(value: number) {
     outline: none;
     transform: translateY(-50%);
 
-    @include with-hover {
+    @include mixins.with-hover {
       cursor: pointer;
     }
 
     @mixin thumb {
-      width: css-var($element + "-thumb", size, 3rem);
-      height: css-var($element + "-thumb", size, 3rem);
+      width: functions.var($element + "-thumb", size, 3rem);
+      height: functions.var($element + "-thumb", size, 3rem);
       border: 0;
       background-color: var(--_range-thumb-background);
-      background-image: css-var($element + "-thumb", background-image, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M34 12l-2.828 2.828L40.344 24l-9.172 9.172L34 36l12-12zm0 0M14 12l2.828 2.828L7.656 24l9.172 9.172L14 36 2 24zm0 0' fill-rule='evenodd' fill='%23fff'/%3E%3C/svg%3E%0A"));
+      background-image: functions.var($element + "-thumb", background-image, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M34 12l-2.828 2.828L40.344 24l-9.172 9.172L34 36l12-12zm0 0M14 12l2.828 2.828L7.656 24l9.172 9.172L14 36 2 24zm0 0' fill-rule='evenodd' fill='%23fff'/%3E%3C/svg%3E%0A"));
       background-position: center;
       background-repeat: no-repeat;
-      background-size: css-var($element + "-thumb-icon", size, 1.5rem);
-      border-radius: css-var($element + "-thumb", border-radius, var(--border-radius-circle));
-      box-shadow: css-var($element + "-thumb", box-shadow, var(--box-shadow-high));
+      background-size: functions.var($element + "-thumb-icon", size, 1.5rem);
+      border-radius: functions.var($element + "-thumb", border-radius, var(--border-radius-circle));
+      box-shadow: functions.var($element + "-thumb", box-shadow, var(--box-shadow-high));
       transition:
-        css-var(
+        functions.var(
           $element + "-thumb",
           transition,
           background-color 150ms ease-in-out
@@ -282,9 +282,9 @@ function changeHandler(value: number) {
       @include thumb;
     }
 
-    @include hover {
+    @include mixins.hover {
       --_range-thumb-background:
-        #{ css-var(
+        #{ functions.var(
           $element + "-thumb-hover",
           background-color,
           var(--color-range-thumb-hover)
@@ -293,14 +293,14 @@ function changeHandler(value: number) {
 
     &:active {
       --_range-thumb-background:
-        #{ css-var(
+        #{ functions.var(
           $element + "-thumb-active",
           background-color,
           var(--color-range-thumb-active)
         )};
     }
 
-    @include focus {
+    @include mixins.focus {
       &::-webkit-slider-thumb {
         box-shadow: var(--focus-outer);
       }

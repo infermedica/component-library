@@ -122,8 +122,8 @@ function increment(): void {
 </script>
 
 <style lang="scss">
-@import "../../../styles/mixins/mixins";
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-number-stepper {
   $element: number-stepper;
@@ -133,39 +133,39 @@ function increment(): void {
   align-items: center;
   justify-content: center;
 
-  @include from-tablet {
+  @include mixins.from-tablet {
     justify-content: flex-start;
   }
 
   &__decrement {
-    margin: css-var($element + "-decrement", margin, 0 var(--space-12) 0 0);
+    margin: functions.var($element + "-decrement", margin, 0 var(--space-12) 0 0);
 
     &[dir="rtl"] {
-      margin: css-var($element + "-rtl-decrement", margin, 0 0 0 var(--space-12));
+      margin: functions.var($element + "-rtl-decrement", margin, 0 0 0 var(--space-12));
     }
 
-    @include from-tablet {
+    @include mixins.from-tablet {
       order: -1;
-      margin: css-var($element + "-tablet-decrement", margin, 0 var(--space-4) 0 0);
+      margin: functions.var($element + "-tablet-decrement", margin, 0 var(--space-4) 0 0);
 
       &[dir="rtl"] {
-        margin: css-var($element + "-rtl-tablet-decrement", margin, 0 0 0 var(--space-4));
+        margin: functions.var($element + "-rtl-tablet-decrement", margin, 0 0 0 var(--space-4));
       }
     }
   }
 
   &__increment {
-    margin: css-var($element + "-increment", margin, 0 0 0 var(--space-12));
+    margin: functions.var($element + "-increment", margin, 0 0 0 var(--space-12));
 
     &[dir="rtl"] {
-      margin: css-var($element + "-rtl-increment", margin, 0 var(--space-12) 0 0);
+      margin: functions.var($element + "-rtl-increment", margin, 0 var(--space-12) 0 0);
     }
 
-    @include from-tablet {
-      margin: css-var($element + "-tablet-increment", margin, 0 0 0 var(--space-4));
+    @include mixins.from-tablet {
+      margin: functions.var($element + "-tablet-increment", margin, 0 0 0 var(--space-4));
 
       &[dir="rtl"] {
-        margin: css-var($element + "-rtl-tablet-increment", margin, 0 var(--space-4) 0 0);
+        margin: functions.var($element + "-rtl-tablet-increment", margin, 0 var(--space-4) 0 0);
       }
     }
   }

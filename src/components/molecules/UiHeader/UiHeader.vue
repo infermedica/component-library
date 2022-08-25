@@ -160,29 +160,29 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss">
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
 
 .ui-header {
   $element: header;
 
-  background: css-var($element, background, var(--color-background-brand));
+  background: functions.var($element, background, var(--color-background-brand));
 
   &__header {
     display: flex;
     width: 100%;
-    max-width: css-var($element, max-width, 61.25rem);
+    max-width: functions.var($element, max-width, 61.25rem);
     align-items: center;
     justify-content: space-between;
-    padding: css-var($element, padding, 0 var(--space-20));
+    padding: functions.var($element, padding, 0 var(--space-20));
   }
 
   &__brand {
-    margin: css-var($element + "-brand", margin, var(--space-20) 0);
+    margin: functions.var($element + "-brand", margin, var(--space-20) 0);
   }
 
   &__logo {
-    --icon-width: #{css-var($element + "-logo", width, fit-content)};
-    --icon-height: #{css-var($element + "-logo", height, 1.5rem)};
+    --icon-width: #{functions.var($element + "-logo", width, fit-content)};
+    --icon-height: #{functions.var($element + "-logo", height, 1.5rem)};
   }
 
   &--full-width {

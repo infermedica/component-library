@@ -84,23 +84,23 @@ function inputHandler(event: Event): void {
 </script>
 
 <style lang="scss">
-@import "../../../styles/mixins/mixins";
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-input {
   $this: &;
   $element: input;
 
-  @include inner-border($element, $width: 1px, $radius: var(--border-radius-form));
+  @include mixins.inner-border($element, $width: 1px, $radius: var(--border-radius-form));
 
   display: inline-flex;
   align-items: center;
   justify-content: center;
   transition: border-color 150ms ease-in-out;
 
-  @include hover {
+  @include mixins.hover {
     &::after {
-      border-color: css-var($element + "-hover", border-color, var(--color-border-strong-hover));
+      border-color: functions.var($element + "-hover", border-color, var(--color-border-strong-hover));
     }
   }
 
@@ -132,19 +132,19 @@ function inputHandler(event: Event): void {
   }
 
   &__input {
-    @include font($element, body-1);
+    @include mixins.font($element, body-1);
 
     width: 100%;
-    padding: css-var($element, padding, var(--space-12) var(--space-16));
+    padding: functions.var($element, padding, var(--space-12) var(--space-16));
     border: 0;
     background: transparent;
     border-radius: inherit;
-    caret-color: css-var($element, caret-color, var(--color-blue-500));
-    color: css-var($element, color, var(--color-text-body));
+    caret-color: functions.var($element, caret-color, var(--color-blue-500));
+    color: functions.var($element, color, var(--color-text-body));
     outline: none;
 
     &::placeholder {
-      color: css-var($element + "-placeholder", color, var(--color-text-dimmed));
+      color: functions.var($element + "-placeholder", color, var(--color-text-dimmed));
       font: inherit;
       letter-spacing: inherit;
     }
@@ -169,55 +169,55 @@ function inputHandler(event: Event): void {
   }
 
   &__aside {
-    margin: css-var($element + "-aside", margin, 0 var(--space-16) 0 calc(var(--space-4) * -1));
+    margin: functions.var($element + "-aside", margin, 0 var(--space-16) 0 calc(var(--space-4) * -1));
 
     [dir="rtl"] & {
-      margin: css-var($element + "-rtl-aside", margin, 0 calc(var(--space-4) * -1) 0 var(--space-16));
+      margin: functions.var($element + "-rtl-aside", margin, 0 calc(var(--space-4) * -1) 0 var(--space-16));
     }
 
     &.ui-button {
-      margin: css-var($element + "-aside", margin, 0 var(--space-12) 0 calc(var(--space-4) * -1));
+      margin: functions.var($element + "-aside", margin, 0 var(--space-12) 0 calc(var(--space-4) * -1));
 
       [dir="rtl"] & {
-        margin: css-var($element + "-rtl-aside", margin, 0 calc(var(--space-4) * -1) 0 var(--space-12));
+        margin: functions.var($element + "-rtl-aside", margin, 0 calc(var(--space-4) * -1) 0 var(--space-12));
       }
     }
   }
 
   &--is-disabled {
     &::after {
-      border-color: css-var($element, border-color, var(--color-border-subtle));
+      border-color: functions.var($element, border-color, var(--color-border-subtle));
     }
 
-    @include hover {
+    @include mixins.hover {
       &::after {
-        border-color: css-var($element, border-color, var(--color-border-subtle));
+        border-color: functions.var($element, border-color, var(--color-border-subtle));
       }
     }
 
     #{$this}__input {
-      caret-color: css-var($element, caret-color, var(--color-gray-400));
-      color: css-var($element, color, var(--color-text-disabled));
+      caret-color: functions.var($element, caret-color, var(--color-gray-400));
+      color: functions.var($element, color, var(--color-text-disabled));
       cursor: not-allowed;
 
       &::placeholder {
-        color: css-var($element + "-placeholder", color, var(--color-text-disabled));
+        color: functions.var($element + "-placeholder", color, var(--color-text-disabled));
       }
     }
 
     #{$this}__aside {
-      color: css-var($element + "-aside", color, var(--color-text-disabled));
+      color: functions.var($element + "-aside", color, var(--color-text-disabled));
     }
   }
 
   &--has-error {
     &::after {
-      border-color: css-var($element, border-color, var(--color-border-error-strong));
+      border-color: functions.var($element, border-color, var(--color-border-error-strong));
     }
 
-    @include hover {
+    @include mixins.hover {
       &::after {
-        border-color: css-var($element + "-hover", border-color, var(--color-border-error-strong-hover));
+        border-color: functions.var($element + "-hover", border-color, var(--color-border-error-strong-hover));
       }
     }
   }

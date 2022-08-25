@@ -86,32 +86,31 @@ onBeforeUnmount(() => {
 </script>
 
 <style lang="scss">
-@import "../../../styles/mixins/mixins";
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-popover {
   $this: &;
   $element: popover;
 
-  @include inner-border($element, $color: var(--color-border-subtle), $radius: var(--border-radius-form));
+  @include mixins.inner-border($element, $color: var(--color-border-subtle), $radius: var(--border-radius-form));
 
-  background: css-var($element, background, var(--color-background-white));
-  box-shadow: css-var($element, box-shadow, var(--box-shadow-high));
+  background: functions.var($element, background, var(--color-background-white));
+  box-shadow: functions.var($element, box-shadow, var(--box-shadow-high));
 
   &__header {
     position: relative;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: css-var($element + "-header", padding, var(--space-12) var(--space-16));
-    background: css-var($element, background, var(--color-background-subtle));
+    padding: functions.var($element + "-header", padding, var(--space-12) var(--space-16));
+    background: functions.var($element, background, var(--color-background-subtle));
     border-radius: inherit;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
   }
 
   &__content {
-    padding: css-var($element + "-content", padding, var(--space-16));
+    padding: functions.var($element + "-content", padding, var(--space-16));
     border-radius: inherit;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -119,19 +118,19 @@ onBeforeUnmount(() => {
 
   &--has-arrow,
   &--has-left-arrow {
-    --_poover-arrow-size: #{css-var($element + "-arrow", size, 0.75rem)};
-    --_popover-arrow-border-width: #{css-var($element + "-arrow", border-width, 1px)};
+    --_popover-arrow-size: #{functions.var($element + "-arrow", size, 0.75rem)};
+    --_popover-arrow-border-width: #{functions.var($element + "-arrow", border-width, 1px)};
 
     #{$this}__header {
       &::after {
         position: absolute;
         z-index: 1;
         top: 50%;
-        width: var(--_poover-arrow-size);
-        height: var(--_poover-arrow-size);
+        width: var(--_popover-arrow-size);
+        height: var(--_popover-arrow-size);
         border-width: var(--_popover-arrow-border-width);
         border-style: solid;
-        border-color: css-var($element, border-color, var(--color-border-subtle));
+        border-color: functions.var($element, border-color, var(--color-border-subtle));
         background: var(--popover-header-background, var(--color-background-subtle));
         content: "";
         pointer-events: none;
@@ -162,18 +161,18 @@ onBeforeUnmount(() => {
   }
 
   &--has-mobile {
-    @include to-mobile {
+    @include mixins.to-mobile {
       position: fixed;
       right: 0;
       bottom: 0;
       left: 0;
       height: 50%;
-      border-radius: css-var($element + "-mobile", border-radius, 0);
+      border-radius: functions.var($element + "-mobile", border-radius, 0);
     }
 
     &#{$this}--has-arrow,
     &#{$this}--has-left-arrow {
-      @include to-mobile {
+      @include mixins.to-mobile {
         --_popover-arrow-size: 0;
         --_popover-arrow-border-width: 0;
       }

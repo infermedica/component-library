@@ -141,8 +141,8 @@ function updateHandler(value: RadioValue): void {
 </script>
 
 <style lang="scss">
-@import "../../../../styles/mixins/mixins";
-@import "../../../../styles/functions/functions";
+@use "../../../../styles/functions";
+@use "../../../../styles/mixins";
 
 .ui-multiple-choices-item {
   $this: &;
@@ -155,16 +155,16 @@ function updateHandler(value: RadioValue): void {
 
   display: flex;
   flex-direction: column;
-  padding: css-var($element, padding, var(--space-20) 0 0 0);
-  background: css-var($element, background, transparent);
+  padding: functions.var($element, padding, var(--space-20) 0 0 0);
+  background: functions.var($element, background, transparent);
 
-  @include from-tablet {
+  @include mixins.from-tablet {
     flex-direction: row;
     justify-content: space-between;
-    padding: css-var($element + "-tablet-choice", padding, var(--space-12));
+    padding: functions.var($element + "-tablet-choice", padding, var(--space-12));
 
-    @include hover {
-      background: css-var($element + "-tablet-hover", background, var(--color-background-white-hover));
+    @include mixins.hover {
+      background: functions.var($element + "-tablet-hover", background, var(--color-background-white-hover));
     }
   }
 
@@ -172,13 +172,13 @@ function updateHandler(value: RadioValue): void {
     display: flex;
     flex: 1;
     justify-content: space-between;
-    padding: css-var($element + "-header", padding, var(--space-12) var(--space-20));
+    padding: functions.var($element + "-header", padding, var(--space-12) var(--space-20));
 
-    @include from-tablet {
+    @include mixins.from-tablet {
       flex-direction: column;
       align-items: flex-start;
       justify-content: flex-start;
-      padding: css-var($element + "-tablet-header", padding, 0);
+      padding: functions.var($element + "-tablet-header", padding, 0);
     }
   }
 
@@ -186,23 +186,23 @@ function updateHandler(value: RadioValue): void {
     display: flex;
     flex-direction: column;
 
-    @include from-tablet {
+    @include mixins.from-tablet {
       flex-direction: row;
     }
   }
 
   &__option {
-    @include inner-border($element: multiple-answer-list-item, $color: var(--color-border-divider), $width: 1px 0 0 0);
+    @include mixins.inner-border($element: multiple-answer-list-item, $color: var(--color-border-divider), $width: 1px 0 0 0);
 
-    padding: css-var($element + "-option", padding, var(--space-12) var(--space-20));
-    margin: css-var($element + "-option", margin, 0);
+    padding: functions.var($element + "-option", padding, var(--space-12) var(--space-20));
+    margin: functions.var($element + "-option", margin, 0);
 
-    @include from-tablet {
-      padding: css-var($element + "-tablet-option", padding, 0);
-      margin: css-var($element + "-tablet-option", margin, 0 0 0 var(--space-24));
+    @include mixins.from-tablet {
+      padding: functions.var($element + "-tablet-option", padding, 0);
+      margin: functions.var($element + "-tablet-option", margin, 0 0 0 var(--space-24));
 
       [dir="rtl"] & {
-        margin: css-var($element + "-rtl-tablet-option", margin, 0 var(--space-24) 0 0);
+        margin: functions.var($element + "-rtl-tablet-option", margin, 0 var(--space-24) 0 0);
       }
 
       &::after {
@@ -212,15 +212,15 @@ function updateHandler(value: RadioValue): void {
   }
 
   &__info {
-    margin: css-var($element + "-info", margin, 0);
+    margin: functions.var($element + "-info", margin, 0);
 
-    @include from-tablet {
-      margin: css-var($element + "-tablet-info", margin, var(--space-8) 0 0 0);
+    @include mixins.from-tablet {
+      margin: functions.var($element + "-tablet-info", margin, var(--space-8) 0 0 0);
     }
   }
 
   &__info-message {
-    @include to-mobile {
+    @include mixins.to-mobile {
       position: absolute;
       overflow: hidden;
       width: 1px;
@@ -232,27 +232,27 @@ function updateHandler(value: RadioValue): void {
   }
 
   &__info-icon {
-    --button-icon-margin: #{css-var($element + "-info-icon", margin, 0)};
-    --button-rtl-icon-margin: #{css-var($element + "-rtl-info-icon", margin, 0)};
+    --button-icon-margin: #{functions.var($element + "-info-icon", margin, 0)};
+    --button-rtl-icon-margin: #{functions.var($element + "-rtl-info-icon", margin, 0)};
 
-    @include from-tablet {
-      --button-icon-margin: #{css-var($element + "-tablet-info-icon", margin, 0 var(--space-4) 0 0)};
-      --button-rtl-icon-margin: #{css-var($element + "-rtl-tablet-info-icon", margin, 0 0 0 var(--space-4))};
+    @include mixins.from-tablet {
+      --button-icon-margin: #{functions.var($element + "-tablet-info-icon", margin, 0 var(--space-4) 0 0)};
+      --button-rtl-icon-margin: #{functions.var($element + "-rtl-tablet-info-icon", margin, 0 0 0 var(--space-4))};
     }
   }
 
   &--has-error {
-    @include from-tablet {
-      background: css-var($element + "-tablet", background, var(--color-background-error));
+    @include mixins.from-tablet {
+      background: functions.var($element + "-tablet", background, var(--color-background-error));
 
-      @include hover {
-        background: css-var($element + "-tablet-hover", background, var(--color-background-error));
+      @include mixins.hover {
+        background: functions.var($element + "-tablet-hover", background, var(--color-background-error));
       }
     }
 
     #{$this}__option {
-      @include to-mobile {
-        background: css-var($element + "-option", background, var(--color-background-error));
+      @include mixins.to-mobile {
+        background: functions.var($element + "-option", background, var(--color-background-error));
       }
     }
   }

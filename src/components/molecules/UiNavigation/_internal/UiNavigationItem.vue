@@ -24,16 +24,16 @@ if (!parentComponent || parentComponent.type.name !== 'UiNavigation') {
 }
 </script>
 <style lang="scss">
-@import "../../../../styles/functions/functions";
+@use "../../../../styles/functions";
 
 .ui-navigation-item {
   $element: navigation-item;
   $parent: #{".ui-navigation"};
 
-  margin: css-var($element, margin, 0 var(--space-8));
+  margin: functions.var($element, margin, 0 var(--space-8));
 
   #{$parent}--is-multiline & {
-    margin: css-var($element, margin, 0 var(--space-8) var(--space-12));
+    margin: functions.var($element, margin, 0 var(--space-8) var(--space-12));
   }
 }
 </style>

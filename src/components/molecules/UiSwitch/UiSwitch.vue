@@ -53,23 +53,23 @@ const updateHandler = (value: CheckboxModelValue): void => {
 </script>
 
 <style lang="scss">
-@import "../../../styles/mixins/mixins";
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-switch {
   $this: &;
   $element: switch;
 
   &__control {
-    --switch-control-color: #{css-var($element + "-hover", color, var(--color-switch-track))};
-    --switch-control-checked-color: #{css-var($element + "-checked-hover", color, var(--color-switch-track-checked))};
+    --switch-control-color: #{functions.var($element + "-hover", color, var(--color-switch-track))};
+    --switch-control-checked-color: #{functions.var($element + "-checked-hover", color, var(--color-switch-track-checked))};
   }
 
-  @include hover {
+  @include mixins.hover {
     #{$this}__control {
-      --switch-control-color: #{css-var($element + "-hover", color, var(--color-switch-track-hover))};
+      --switch-control-color: #{functions.var($element + "-hover", color, var(--color-switch-track-hover))};
       --switch-control-checked-color:
-        #{css-var(
+        #{functions.var(
           $element + "-checked-hover",
           color,
           var(--color-switch-track-checked-hover))};
@@ -78,9 +78,9 @@ const updateHandler = (value: CheckboxModelValue): void => {
 
   &:active {
     #{$this}__control {
-      --switch-control-color: #{css-var($element + "-active", color, var(--color-switch-track-active))};
+      --switch-control-color: #{functions.var($element + "-active", color, var(--color-switch-track-active))};
       --switch-control-checked-color:
-        #{css-var(
+        #{functions.var(
           $element + "-checked-active",
           color,
           var(--color-switch-track-checked-active)
@@ -88,7 +88,7 @@ const updateHandler = (value: CheckboxModelValue): void => {
     }
   }
 
-  @include with-focus {
+  @include mixins.with-focus {
     &:focus-within {
       #{$this}__control {
         box-shadow: var(--focus-outer);
@@ -99,20 +99,20 @@ const updateHandler = (value: CheckboxModelValue): void => {
   &--is-disabled {
     cursor: not-allowed;
 
-    --switch-control-color: #{css-var($element, color, var(--color-switch-disabled))};
-    --switch-control-checked-color: #{css-var($element, color, var(--color-switch-disabled))};
+    --switch-control-color: #{functions.var($element, color, var(--color-switch-disabled))};
+    --switch-control-checked-color: #{functions.var($element, color, var(--color-switch-disabled))};
 
-    @include hover {
+    @include mixins.hover {
       #{$this}__control {
-        --switch-control-color: #{css-var($element + "-hover", color, var(--color-switch-disabled))};
-        --switch-control-checked-color: #{css-var($element + "-checked-hover", color, var(--color-switch-disabled))};
+        --switch-control-color: #{functions.var($element + "-hover", color, var(--color-switch-disabled))};
+        --switch-control-checked-color: #{functions.var($element + "-checked-hover", color, var(--color-switch-disabled))};
       }
     }
 
     &:active {
       #{$this}__control {
-        --switch-control-color: #{css-var($element + "-active", color, var(--color-switch-disabled))};
-        --switch-control-checked-color: #{css-var($element + "-checked-active", color, var(--color-switch-disabled))};
+        --switch-control-color: #{functions.var($element + "-active", color, var(--color-switch-disabled))};
+        --switch-control-checked-color: #{functions.var($element + "-checked-active", color, var(--color-switch-disabled))};
       }
     }
   }

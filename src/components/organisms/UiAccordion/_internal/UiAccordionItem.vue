@@ -90,16 +90,16 @@ const icon = computed(() => (isOpen.value ? props.settings.iconOpen : props.sett
 </script>
 
 <style lang="scss">
-@import "../../../../styles/mixins/mixins";
-@import "../../../../styles/functions/functions";
+@use "../../../../styles/functions";
+@use "../../../../styles/mixins";
 
 .ui-accordion-item {
   $this: &;
   $element: accordion-item;
 
-  @include inner-border($element: accordion-item, $color: var(--color-border-divider), $width: 1px 0 0 0);
+  @include mixins.inner-border($element: accordion-item, $color: var(--color-border-divider), $width: 1px 0 0 0);
 
-  --list-item-padding: #{css-var($element, padding, 0)};
+  --list-item-padding: #{functions.var($element, padding, 0)};
 
   display: flex;
   flex-direction: column;
@@ -108,25 +108,25 @@ const icon = computed(() => (isOpen.value ? props.settings.iconOpen : props.sett
 
   &:last-of-type {
     &::after {
-      border-width: css-var($element, border-width, 1px 0);
+      border-width: functions.var($element, border-width, 1px 0);
     }
   }
 
   &__toggler {
-    --button-padding: #{css-var($element + "-toggler", padding, var(--space-12))};
-    --button-border-width: #{css-var($element + "-toggler", border-width, 0)};
-    --button-border-radius: #{css-var($element + "-toggler", border-radius, 0)};
-    --button-font: #{css-var($element, font, var(--font-body-1))};
-    --button-letter-spacing: #{css-var($element, letter-spacing, var(--letter-spacing-body-1))};
-    --button-icon-margin: #{css-var($element + "-toggler", icon-margin,  0 var(--space-12) 0 0)};
-    --button-rtl-icon-margin: #{css-var($element + "-rtl-toggler", icon-margin,  0 0 0 var(--space-12))};
+    --button-padding: #{functions.var($element + "-toggler", padding, var(--space-12))};
+    --button-border-width: #{functions.var($element + "-toggler", border-width, 0)};
+    --button-border-radius: #{functions.var($element + "-toggler", border-radius, 0)};
+    --button-font: #{functions.var($element, font, var(--font-body-1))};
+    --button-letter-spacing: #{functions.var($element, letter-spacing, var(--letter-spacing-body-1))};
+    --button-icon-margin: #{functions.var($element + "-toggler", icon-margin,  0 var(--space-12) 0 0)};
+    --button-rtl-icon-margin: #{functions.var($element + "-rtl-toggler", icon-margin,  0 0 0 var(--space-12))};
 
     width: 100%;
     align-items: flex-start;
     justify-content: flex-start;
     text-align: left;
 
-    @include focus {
+    @include mixins.focus {
       box-shadow: var(--focus-inner);
     }
 
@@ -138,7 +138,7 @@ const icon = computed(() => (isOpen.value ? props.settings.iconOpen : props.sett
   &__content {
     width: 100%;
     padding:
-      css-var(
+      functions.var(
         $element + "-content",
         padding,
         var(--space-12) var(--space-12) var(--space-12) var(--space-48)
@@ -146,7 +146,7 @@ const icon = computed(() => (isOpen.value ? props.settings.iconOpen : props.sett
 
     [dir="rtl"] & {
       padding:
-        css-var(
+        functions.var(
           $element + "-rtl-content",
           padding,
           var(--space-12) var(--space-48) var(--space-12) var(--space-12)

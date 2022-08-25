@@ -111,8 +111,7 @@ onMounted(async () => {
 </script>
 
 <style lang="scss">
-@import "../../../../styles/mixins/mixins";
-@import "../../../../styles/functions/functions";
+@use "../../../../styles/functions";
 
 .ui-tabs-item {
   $this: &;
@@ -121,12 +120,12 @@ onMounted(async () => {
   display: contents;
 
   &__tab {
-    flex: css-var($element + "-tab", flex, 0 0 auto);
-    padding: css-var($element + "-tab", padding, var(--space-16) 0);
-    margin: css-var($element + "-tab", margin, 0 var(--space-24) 0 0);
+    flex: functions.var($element + "-tab", flex, 0 0 auto);
+    padding: functions.var($element + "-tab", padding, var(--space-16) 0);
+    margin: functions.var($element + "-tab", margin, 0 var(--space-24) 0 0);
 
     [dir="rtl"] & {
-      margin: css-var($element + "-rtl-tab", margin, 0 0 0 var(--space-24));
+      margin: functions.var($element + "-rtl-tab", margin, 0 0 0 var(--space-24));
     }
 
     #{$this}:first-of-type & {
@@ -137,8 +136,8 @@ onMounted(async () => {
         bottom: 0;
         left: 0;
         width: 100%;
-        height: css-var($element + "-indicator", height, 2px);
-        background: css-var($element + "-indicator", background, var(--color-border-selection));
+        height: functions.var($element + "-indicator", height, 2px);
+        background: functions.var($element + "-indicator", background, var(--color-border-selection));
         content: "";
         transform: translate3d(var(--_tabs-indicator-offset-x), 0, 0) scale3d(var(--_tabs-indicator-scale-x), 1, 1);
         transform-origin: left;
@@ -151,16 +150,16 @@ onMounted(async () => {
     }
 
     #{$this}:last-of-type & {
-      margin: css-var($element + "-tab", margin, 0);
+      margin: functions.var($element + "-tab", margin, 0);
     }
   }
 
   &__tab-button {
-    --button-color: #{css-var($element + "-tab-button", color, var(--color-text-action-primary))};
-    --button-hover-color: #{css-var($element + "-tab-button-hover", color, var(--color-text-action-primary-hover))};
-    --button-active-color: #{css-var($element + "-tab-button-active", color, var(--color-text-action-primary-active))};
-    --button-font: #{css-var($element + "-tab-button", font, var(--font-body-1))};
-    --button-letter-spacing: #{css-var($element + "-tab-button", letter-spacing, var(--letter-spacing-body-1))};
+    --button-color: #{functions.var($element + "-tab-button", color, var(--color-text-action-primary))};
+    --button-hover-color: #{functions.var($element + "-tab-button-hover", color, var(--color-text-action-primary-hover))};
+    --button-active-color: #{functions.var($element + "-tab-button-active", color, var(--color-text-action-primary-active))};
+    --button-font: #{functions.var($element + "-tab-button", font, var(--font-body-1))};
+    --button-letter-spacing: #{functions.var($element + "-tab-button", letter-spacing, var(--letter-spacing-body-1))};
 
     width: 100%;
   }
@@ -169,28 +168,28 @@ onMounted(async () => {
     position: relative;
     flex: 0 0 100%;
     order: 1;
-    padding: css-var($element + "-content", padding, var(--space-16) var(--space-20));
-    margin: css-var($element + "-content", margin, 0 calc(var(--space-20) * -1));
+    padding: functions.var($element + "-content", padding, var(--space-16) var(--space-20));
+    margin: functions.var($element + "-content", margin, 0 calc(var(--space-20) * -1));
 
     &::before {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
-      border: solid css-var($element + "-content", border-color, var(--color-border-divider));
-      border-width: css-var($element + "-content", border-width, 1px 0 0);
+      border: solid functions.var($element + "-content", border-color, var(--color-border-divider));
+      border-width: functions.var($element + "-content", border-width, 1px 0 0);
       content: "";
     }
   }
 
   &--is-active {
     #{$this}__tab-button {
-      --button-color: #{css-var($element + "-active-tab-button", color, var(--color-text-body))};
-      --button-hover-color: #{css-var($element + "-active-tab-button-hover", color, var(--color-text-body))};
-      --button-active-color: #{css-var($element + "-active-tab-button-active", color, var(--color-text-body))};
-      --button-font: #{css-var($element + "-active-tab-button", font, var(--font-body-1-thick))};
+      --button-color: #{functions.var($element + "-active-tab-button", color, var(--color-text-body))};
+      --button-hover-color: #{functions.var($element + "-active-tab-button-hover", color, var(--color-text-body))};
+      --button-active-color: #{functions.var($element + "-active-tab-button-active", color, var(--color-text-body))};
+      --button-font: #{functions.var($element + "-active-tab-button", font, var(--font-body-1-thick))};
       --button-letter-spacing:
-        #{css-var(
+        #{functions.var(
           $element + "-active-tab-button",
           letter-spacing,
           var(--letter-spacing-body-1-thick)

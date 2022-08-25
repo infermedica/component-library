@@ -149,8 +149,8 @@ const backAttrs = computed<Record<string, unknown>>(() => (
 </script>
 
 <style lang="scss">
-@import "../../../styles/mixins/mixins";
-@import "../../../styles/functions/functions";
+@use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-controls {
   $element: controls;
@@ -164,25 +164,25 @@ const backAttrs = computed<Record<string, unknown>>(() => (
 
   &__container {
     flex: 1;
-    padding: css-var($element + "-container", padding, var(--space-32) var(--space-20));
+    padding: functions.var($element + "-container", padding, var(--space-32) var(--space-20));
 
-    @include from-tablet {
-      padding: css-var($element + "-tablet-container", padding, var(--space-48) var(--space-64));
+    @include mixins.from-tablet {
+      padding: functions.var($element + "-tablet-container", padding, var(--space-48) var(--space-64));
     }
   }
 
   &__bottom {
-    @include inner-border($element: $element + "-bottom", $color:  var(--color-border-divider), $width: 1px 0 0 0);
+    @include mixins.inner-border($element: $element + "-bottom", $color:  var(--color-border-divider), $width: 1px 0 0 0);
 
     display: flex;
-    height: css-var($element + "-bottom", height, 5rem);
+    height: functions.var($element + "-bottom", height, 5rem);
     flex-direction: row-reverse;
     align-items: center;
     justify-content: space-between;
-    padding: css-var($element + "-bottom", padding, var(--space-12) var(--space-20));
+    padding: functions.var($element + "-bottom", padding, var(--space-12) var(--space-20));
 
-    @include from-tablet {
-      padding: css-var($element + "-tablet-bottom", padding, var(--space-16) var(--space-32));
+    @include mixins.from-tablet {
+      padding: functions.var($element + "-tablet-bottom", padding, var(--space-16) var(--space-32));
     }
   }
 }
