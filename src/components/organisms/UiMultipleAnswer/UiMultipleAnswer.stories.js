@@ -90,7 +90,6 @@ export default {
     hint: 'Select one answer',
     touched: false,
     alertHintAttrs: {},
-    legend: 'How long have you had a fever?',
   },
   argTypes: {
     initModelValue: {

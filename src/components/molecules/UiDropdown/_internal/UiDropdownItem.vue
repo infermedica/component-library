@@ -90,7 +90,7 @@ const buttonAttrs = computed<ButtonAttrs>(() => ({
   --button-border-width: 0;
   --button-color: #{functions.var($element, color, var(--color-text-body))};
   --button-hover-color: #{functions.var($element + "-hover", color, var(--color-text-body))};
-  --button-active-color: #{css-var($element + "-active", color, var(--color-text-body))};
+  --button-active-color: #{functions.var($element + "-active", color, var(--color-text-body))};
   --button-font: #{functions.var($element, font, var(--font-body-1))};
   --button-letter-spacing: #{functions.var($element, letter-spacing, var(--letter-spacing-body-1))};
 

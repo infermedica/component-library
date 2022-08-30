@@ -3,7 +3,7 @@
     <!-- @slot Use this slot to replace toggler template. -->
     <slot
       name="toggler"
-      v-bind="{ toggle, name, icon, title, isOpen, iconOpen: settings.iconOpen, iconClose: settings.iconClose }"
+      v-bind="{ toggle, name, icon, title, isOpen, iconOpen: defaultProps.settings.iconOpen, iconClose: settings.iconClose }"
     >
       <UiButton
         :id="`toggler${name}`"
@@ -15,7 +15,7 @@
         <!-- @slot Use this slot to replace chevron template. -->
         <slot
           name="chevron"
-          v-bind="{ isOpen, icon, iconOpen: settings.iconOpen, iconClose: settings.iconClose }"
+          v-bind="{ isOpen, icon, iconOpen: defaultProps.settings.iconOpen, iconClose: settings.iconClose }"
         >
           <UiIcon
             :icon="icon"
@@ -78,6 +78,13 @@ const props = defineProps({
     }),
   },
 });
+const defaultProps = computed(() => ({
+  settings: {
+    iconOpen: 'chevron-up',
+    iconClose: 'chevron-down',
+    ...props.settings,
+  },
+}));
 const opened = inject('opened') as ComputedRef<AccordionValue>;
 const toggle = inject('toggle') as (name: string) => void;
 const isOpen = computed(() => {
@@ -86,7 +93,11 @@ const isOpen = computed(() => {
   }
   return opened.value.includes(props.name);
 });
-const icon = computed(() => (isOpen.value ? props.settings.iconOpen : props.settings.iconClose));
+const icon = computed(() => (
+  isOpen.value
+    ? defaultProps.value.settings.iconOpen
+    : defaultProps.value.settings.iconClose
+));
 </script>
 
 <style lang="scss">

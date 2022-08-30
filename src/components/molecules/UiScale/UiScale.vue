@@ -2,7 +2,7 @@
   <div
     class="ui-scale"
     role="radiogroup"
-    :aria-label="translation.label"
+    :aria-label="defaultProps.translation.label"
   >
     <component
       :is="tag"
@@ -60,10 +60,10 @@
     </component>
     <div class="ui-scale__description">
       <UiText class="ui-scale__mild">
-        {{ translation.mild }}
+        {{ defaultProps.translation.mild }}
       </UiText>
       <UiText class="ui-scale__unbearable">
-        {{ translation.unbearable }}
+        {{ defaultProps.translation.unbearable }}
       </UiText>
     </div>
     <UiNumberStepper
@@ -71,8 +71,8 @@
       :model-value="scaleValue"
       :min="0"
       :max="steps - 1"
-      :button-decrement-attrs="buttonDecrementAttrsExtended"
-      :button-increment-attrs="buttonIncrementAttrsExtended"
+      :button-decrement-attrs="defaultProps.buttonDecrementAttrs"
+      :button-increment-attrs="defaultProps.buttonIncrementAttrs"
       @update:model-value="changeHandler"
     >
       <template
@@ -169,6 +169,24 @@ const props = defineProps({
     default: '',
   },
 });
+const defaultProps = computed(() => ({
+  translation: {
+    label: 'Pain scale',
+    mild: 'Mild',
+    unbearable: 'Unbearable',
+    ...props.translation,
+  },
+  buttonDecrementAttrs: {
+    'aria-hidden': true,
+    tabindex: -1,
+    ...props.buttonDecrementAttrs,
+  },
+  buttonIncrementAttrs: {
+    'aria-hidden': true,
+    tabindex: -1,
+    ...props.buttonIncrementAttrs,
+  },
+}));
 const emit = defineEmits<{(e: 'update:modelValue', value: number): void}>();
 const scaleName = computed(() => (
   props.name || `scale-${uid()}`
@@ -206,16 +224,6 @@ function calcActiveElementOpacity(index: number): CSSProperties {
     '--_scale-square-overlay-opacity': (index * opacityStepValue).toFixed(3),
   } : {};
 }
-const buttonDecrementAttrsExtended = computed(() => ({
-  'aria-hidden': true,
-  tabindex: -1,
-  ...props.buttonDecrementAttrs,
-}));
-const buttonIncrementAttrsExtended = computed(() => ({
-  'aria-hidden': true,
-  tabindex: -1,
-  ...props.buttonIncrementAttrs,
-}));
 </script>
 
 <style lang="scss">

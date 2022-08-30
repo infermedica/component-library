@@ -17,14 +17,14 @@
         toNext,
         hideNextButton,
         invalid,
-        translation
+        translation: defaultProps.translation
       }"
     >
       <div class="ui-controls__bottom">
         <!-- @slot Use this slot to replace next template. -->
         <slot
           v-if="toNext"
-          v-bind="{hideNextButton, attrs: nextAttrs, invalid, translation}"
+          v-bind="{hideNextButton, attrs: nextAttrs, invalid, translation: defaultProps.translation}"
           name="next"
         >
           <UiButton
@@ -33,13 +33,13 @@
             class="ui-controls__next"
             :class="{'ui-button--is-disabled': invalid}"
           >
-            {{ translation.next }}
+            {{ defaultProps.translation.next }}
           </UiButton>
         </slot>
         <!-- @slot Use this slot to replace back template. -->
         <slot
           name="back"
-          v-bind="{toBack, attrs: backAttrs, translation}"
+          v-bind="{toBack, attrs: backAttrs, translation: defaultProps.translation}"
         >
           <UiButton
             v-if="toBack"
@@ -49,7 +49,7 @@
             <UiIcon
               icon="chevron-left"
               class="ui-button__icon"
-            /> {{ translation.back }}
+            /> {{ defaultProps.translation.back }}
           </UiButton>
         </slot>
       </div>
@@ -125,6 +125,13 @@ const props = defineProps({
     }),
   },
 });
+const defaultProps = computed(() => ({
+  translation: {
+    back: 'Back',
+    next: 'Next',
+    ...props.translation,
+  },
+}));
 const emit = defineEmits<{(e: 'has-error'): void}>();
 function hasError(): void {
   emit('has-error');

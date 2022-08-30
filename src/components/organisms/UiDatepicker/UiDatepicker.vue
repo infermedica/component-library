@@ -16,7 +16,7 @@
             :for="getDefaultProp(datePart).id"
             class="ui-datepicker__label"
           >
-            {{ capitalizeFirst(translation[datePart]) }}
+            {{ capitalizeFirst(defaultProps.translation[datePart]) }}
           </UiText>
           <component
             :is="inputComponentSelector(datePart)"
@@ -206,15 +206,29 @@ const getDefaultProps = (datePart: DatePart): DefaultInputProps<DatepickerInputI
   id: `datepicker-input-${datePart}`,
   ...props[`input${capitalizeFirst(datePart) as Capitalize<DatePart>}Attrs`],
 });
-const defaultProps = reactive<{
-  [key in DefaultAttrName]: DefaultInputProps<DatepickerInputID>;
-  }>({
+const defaultProps = computed(() => (
+  {
+    translation: {
+      day: 'day',
+      month: 'month',
+      year: 'year',
+      placeholderDay: 'DD',
+      placeholderMonth: 'MM',
+      placeholderYear: 'YYYY',
+      errorWrongDate: 'Please enter a valid date, e.g. 05/11/1990',
+      errorDateInFuture: 'Sorry, the date of birth cannot be a future date',
+      errorOutOfBounds: 'Sorry, our checkup only covers people between 0 and 120 years old',
+      ...props.translation,
+    },
     inputDayAttrs: getDefaultProps('day'),
     inputMonthAttrs: getDefaultProps('month'),
     inputYearAttrs: getDefaultProps('year'),
-  });
+  }
+));
 const getDefaultProp = (item: DatePart | DefaultAttrName): DefaultInputProps<DatepickerInputID> => (
-  item.includes('Attrs') ? defaultProps[item as DefaultAttrName] : defaultProps[`input${capitalizeFirst(item as DatePart) as Capitalize<DatePart>}Attrs`]);
+  item.includes('Attrs')
+    ? defaultProps.value[item as DefaultAttrName]
+    : defaultProps.value[`input${capitalizeFirst(item as DatePart) as Capitalize<DatePart>}Attrs`]);
 provide('getDefaultProp', getDefaultProp);
 
 const emit = defineEmits<{(e: 'update:modelValue', value: string | null): void,
@@ -477,7 +491,7 @@ watch(isDateValid, (isValid) => {
   emit('update:invalid', !isValid);
 });
 
-provide('translation', props.translation);
+provide('translation', defaultProps.value.translation);
 provide('order', props.order);
 const inputsIds = computed<Record<string, string>>(() => (
   Object.keys(defaultProps).reduce((ids: Record<string, string>, key: string) => {
