@@ -224,11 +224,13 @@ export const AsOffline = (args) => ({
       '--message-illustration-size': '10rem',
     }"
   >
-  <UiText>If you are an administrator of this website, then check your integration settings.</UiText>
-  <UiButton
-    class="ui-button--text"
-    style="margin: var(--space-16) 0 0 0;"
-  >Try again</UiButton>
+    <UiText>If you are an administrator of this website, then check your integration settings.</UiText>
+    <UiButton
+      class="ui-button--text"
+      style="margin: var(--space-16) 0 0 0;"
+    >
+      Try again
+    </UiButton>
   </UiMessage>`,
 });
 AsOffline.args = {

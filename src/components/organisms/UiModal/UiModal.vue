@@ -93,7 +93,7 @@
           <!-- @slot Use this slot to replace actions template. -->
           <slot
             name="actions"
-            v-bind="{ confirmHandler, cancelHandler, hasActions, hasCancel, hasConfirm, isClosable, translation }"
+            v-bind="{ confirmHandler, cancelHandler, hasActions, hasCancel, hasConfirm, isClosable, translation: defaultProps.translation }"
           >
             <div
               v-if="hasActions"
@@ -103,7 +103,7 @@
                 <!-- @slot Use this slot to replace confirm button template. -->
                 <slot
                   name="confirm"
-                  v-bind="{ attrs: buttonConfirmAttrs, confirmHandler, hasConfirm, translation }"
+                  v-bind="{ attrs: buttonConfirmAttrs, confirmHandler, hasConfirm, translation: defaultProps.translation }"
                 >
                   <UiButton
                     v-if="hasConfirm"
@@ -111,13 +111,13 @@
                     v-bind="buttonConfirmAttrs"
                     @click="confirmHandler"
                   >
-                    {{ translation.confirm }}
+                    {{ defaultProps.translation.confirm }}
                   </UiButton>
                 </slot>
                 <!-- @slot Use this slot to replace cancel button template. -->
                 <slot
                   name="cancel"
-                  v-bind="{ attrs: buttonCancelAttrs, cancelHandler, hasCancel, translation }"
+                  v-bind="{ attrs: buttonCancelAttrs, cancelHandler, hasCancel, translation: defaultProps.translation }"
                 >
                   <UiButton
                     v-if="hasCancel"
@@ -125,7 +125,7 @@
                     v-bind="buttonCancelAttrs"
                     @click="cancelHandler"
                   >
-                    {{ translation.cancel }}
+                    {{ defaultProps.translation.cancel }}
                   </UiButton>
                 </slot>
               </template>
@@ -133,7 +133,7 @@
                 <!-- @slot Use this slot to replace cancel button template. -->
                 <slot
                   name="cancel"
-                  v-bind="{ attrs: buttonCancelAttrs, cancelHandler, hasCancel, translation }"
+                  v-bind="{ attrs: buttonCancelAttrs, cancelHandler, hasCancel, translation: defaultProps.translation }"
                 >
                   <UiButton
                     v-if="hasCancel"
@@ -142,13 +142,13 @@
                     v-bind="buttonCancelAttrs"
                     @click="cancelHandler"
                   >
-                    {{ translation.cancel }}
+                    {{ defaultProps.translation.cancel }}
                   </UiButton>
                 </slot>
                 <!-- @slot Use this slot to replace confirm button template. -->
                 <slot
                   name="confirm"
-                  v-bind="{ attrs: buttonConfirmAttrs, confirmHandler, hasConfirm, translation, }"
+                  v-bind="{ attrs: buttonConfirmAttrs, confirmHandler, hasConfirm, translation: defaultProps.translation }"
                 >
                   <UiButton
                     v-if="hasConfirm"
@@ -156,7 +156,7 @@
                     v-bind="buttonConfirmAttrs"
                     @click="confirmHandler"
                   >
-                    {{ translation.confirm }}
+                    {{ defaultProps.translation.confirm }}
                   </UiButton>
                 </slot>
               </template>
@@ -259,6 +259,13 @@ const props = defineProps({
     default: () => ({ confirm: 'Ok', cancel: 'Cancel' }),
   },
 });
+const defaultProps = computed(() => ({
+  translation: {
+    confirm: 'Ok',
+    cancel: 'Cancel',
+    ...props.translation,
+  },
+}));
 const emit = defineEmits<{(e: 'cancel'): void, (e:'confirm'): void, (e:'update:modelValue', value: boolean): void}>();
 const button = ref<InstanceType<typeof UiButton>|null>(null);
 const hasActions = computed(() => props.hasCancel || props.hasConfirm);

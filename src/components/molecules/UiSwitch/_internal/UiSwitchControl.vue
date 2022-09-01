@@ -15,7 +15,7 @@
 
   display: inline-flex;
   width: functions.var($element, width, 2.4rem);
-  border-width: css-var($element, border-width, 2px);
+  border-width: functions.var($element, border-width, 2px);
   border-style: solid;
   border-color: functions.var($element, border-color, var(--_switch-control-color));
   background: functions.var($element, background, var(--_switch-control-color));
