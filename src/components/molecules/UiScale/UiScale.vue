@@ -59,10 +59,16 @@
       </template>
     </component>
     <div class="ui-scale__description">
-      <UiText class="ui-scale__mild">
+      <UiText
+        class="ui-scale__mild"
+        aria-hidden="true"
+      >
         {{ defaultProps.translation.mild }}
       </UiText>
-      <UiText class="ui-scale__unbearable">
+      <UiText
+        class="ui-scale__unbearable"
+        aria-hidden="true"
+      >
         {{ defaultProps.translation.unbearable }}
       </UiText>
     </div>
