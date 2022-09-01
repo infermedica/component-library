@@ -23,7 +23,6 @@ export default {
     },
     buttonDecrementAttrs: { 'aria-label': 'decrement pain' },
     buttonIncrementAttrs: { 'aria-label': 'increment pain' },
-    legend: 'How strong is the headache?',
   },
   argTypes: {
     initModelValue: {
@@ -51,7 +50,6 @@ const Template = (args) => ({
     :legend="legend"
     :steps="steps"
     :translation="translation"
-    :legend="legend"
     :button-decrement-attrs="buttonDecrementAttrs"
     :button-increment-attrs="buttonIncrementAttrs"
   />`,
@@ -70,7 +68,6 @@ export const WithDecrementSlot = (args) => ({
     :name="name"
     :legend="legend"
     :steps="steps"
-    :legend="legend"
     :translation="translation"
     :button-decrement-attrs="buttonDecrementAttrs"
     :button-increment-attrs="buttonIncrementAttrs"
@@ -104,7 +101,6 @@ export const WithIncrementSlot = (args) => ({
     :legend="legend"
     :steps="steps"
     :translation="translation"
-    :legend="legend"
     :button-decrement-attrs="buttonDecrementAttrs"
     :button-increment-attrs="buttonIncrementAttrs"
   >

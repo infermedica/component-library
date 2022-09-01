@@ -22,7 +22,7 @@
       <!-- @slot Use this slot to replace option template. -->
       <slot
         name="option"
-        v-bind="{index, rate, radioAttrs, ratingName, hoverHandler, finalScore, settings, translation}"
+        v-bind="{index, rate, radioAttrs, ratingName, hoverHandler, finalScore, settings, translation: defaultProps.translation}"
       >
         <UiRadio
           v-model="rate"
@@ -66,7 +66,7 @@
             </div>
           </template>
           <template #label>
-            <span class="visual-hidden">{{ translation.stars(index) }}</span>
+            <span class="visual-hidden">{{ defaultProps.translation.stars(index) }}</span>
           </template>
         </UiRadio>
       </slot>
@@ -158,6 +158,11 @@ const props = defineProps({
     default: '',
   },
 });
+const defaultProps = computed(() => ({
+  translation: {
+    stars: (index: number) => (`${index} stars`),
+  },
+}));
 const emit = defineEmits<{(e:'update:modelValue', value: string): void}>();
 const ratingName = computed(() => (
   props.name || `rating-${uid()}`

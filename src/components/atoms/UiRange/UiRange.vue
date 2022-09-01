@@ -6,8 +6,8 @@
     :min="min"
     :max="max"
     :step="step"
-    :button-decrement-attrs="buttonDecrementAttrsExtended"
-    :button-increment-attrs="buttonIncrementAttrsExtended"
+    :button-decrement-attrs="defaultProps.buttonDecrementAttrs"
+    :button-increment-attrs="defaultProps.buttonIncrementAttrs"
     class="ui-range"
     @update:model-value="changeHandler"
   >
@@ -118,19 +118,21 @@ const props = defineProps({
     default: () => ({}),
   },
 });
+const defaultProps = computed(() => ({
+  buttonDecrementAttrs: {
+    'aria-hidden': true,
+    tabindex: -1,
+    ...props.buttonDecrementAttrs,
+  },
+  buttonIncrementAttrs: {
+    'aria-hidden': true,
+    tabindex: -1,
+    ...props.buttonIncrementAttrs,
+  },
+}));
 const attrs = useAttrs();
 const emit = defineEmits<{(e:'update:modelValue', value: number): void}>();
 const { getRootAttrs, getInputAttrs } = useInput();
-const buttonDecrementAttrsExtended = computed(() => ({
-  'aria-hidden': true,
-  tabindex: -1,
-  ...props.buttonDecrementAttrs,
-}));
-const buttonIncrementAttrsExtended = computed(() => ({
-  'aria-hidden': true,
-  tabindex: -1,
-  ...props.buttonIncrementAttrs,
-}));
 const trackWidth = computed(() => {
   const scope = props.max - props.min;
   const position = props.modelValue - props.min;
