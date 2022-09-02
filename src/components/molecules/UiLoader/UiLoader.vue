@@ -1,40 +1,35 @@
 <template>
-  <component
-    :is="outerComponent"
+  <!-- @slot Use this slot to replace loader. -->
+  <slot
+    name="loader"
   >
-    <!-- @slot Use this slot to replace loader. -->
-    <slot
-      v-if="isLoading"
-      name="loader"
+    <component
+      :is="tag"
+      ref="loaderEl"
+      class="ui-loader"
+      :class="loaderClass"
+      :style="loaderStyle"
+      aria-live="polite"
+      :aria-busy="`${isLoaderAnimate}`"
+      v-bind="$attrs"
     >
       <component
-        :is="tag"
-        v-bind="$attrs"
-        key="loading"
-        class="ui-loader"
-        aria-live="polite"
-        :aria-busy="`${isLoading}`"
+        :is="loaderComponent"
+        v-bind="loaderAttrs"
       >
-        <component
-          :is="component"
-          v-bind="loaderAttrs"
-        >
-          <!-- @slot Use this slot to place loader blocks. -->
-          <slot name="loader-blocks" />
-        </component>
+        <!-- @slot Use this slot to place loader blocks. -->
+        <slot name="loader-blocks" />
       </component>
-    </slot>
-    <!-- @slot Use this slot to put loaded content.-->
-    <slot v-else-if="!eagerLoadComponent" />
-    <div
-      v-if="eagerLoadComponent"
-      v-show="!isLoading"
-      class="ui-loader__component-wrapper"
-    >
-      <!-- @slot Use this slot to place loaded content.-->
-      <slot />
-    </div>
-  </component>
+    </component>
+  </slot>
+  <div
+    ref="contentEl"
+    class="ui-loader__content"
+    :class="contentClass"
+    :style="contentStyle"
+  >
+    <slot />
+  </div>
 </template>
 
 <script lang="ts">
@@ -44,21 +39,27 @@ export default {
 </script>
 
 <script setup lang="ts">
-// FIXME: reveal content with v-if, v-show, visibility: hidden, check Symptom Checker use cases
 import {
-  computed, h, TransitionGroup,
+  ref,
+  computed,
+  watch,
+  reactive,
+  onMounted,
 } from 'vue';
-import type { Slot, PropType, VNode } from 'vue';
-import type { HTMLTag } from '../../../types/tag';
+import type {
+  PropType,
+  CSSProperties,
+} from 'vue';
 import UiLoaderSpinner from './_internal/UiLoaderSpinner.vue';
 import UiLoaderSkeleton from './_internal/UiLoaderSkeleton.vue';
 import UiLoaderEllipsis from './_internal/UiLoaderEllipsis.vue';
+import type { HTMLTag } from '../../../types/tag';
 import type { PropsAttrs } from '../../../types/attrs';
 
 export type LoaderType = 'spinner' | 'ellipsis' | 'skeleton';
-export type LoaderComponent = InstanceType<(typeof UiLoaderSpinner
+export type LoaderComponent = typeof UiLoaderSpinner
   | typeof UiLoaderEllipsis
-  | typeof UiLoaderSkeleton)>;
+  | typeof UiLoaderSkeleton;
 const props = defineProps({
   /**
    * Use this props to show UiLoader component
@@ -89,21 +90,23 @@ const props = defineProps({
     default: 'div',
   },
   /**
-   * Use this props to pas transition name
+   * Use this props to set transition name
    */
-  transition: {
-    type: [String, Boolean] as PropType<string | boolean>,
-    default: false,
+  name: {
+    type: String,
+    default: 'v',
   },
   /**
-   * Use this props to start rendering final component before loading stops, so it's completely rendered
+   * Use this props to apply a transition on the initial render
    */
-  eagerLoadComponent: {
+  appear: {
     type: Boolean,
-    default: false,
+    default: true,
   },
 });
-const component = computed<LoaderComponent>(() => {
+const loaderEl = ref<HTMLElement | null>(null);
+const contentEl = ref<HTMLElement | null>(null);
+const loaderComponent = computed<LoaderComponent>(() => {
   const components: Record<LoaderType, LoaderComponent> = {
     spinner: UiLoaderSpinner,
     ellipsis: UiLoaderEllipsis,
@@ -111,11 +114,65 @@ const component = computed<LoaderComponent>(() => {
   };
   return components[props.type];
 });
-const outerComponent = computed<VNode>(() => (
-  props.transition
-    ? h(TransitionGroup, { name: props.transition as string })
-    : h((_, { slots }) => (slots.default as Slot)())
-));
+const animateEl = ref<'loader' | 'content'>(props.isLoading ? 'loader' : 'content');
+const isLoaderAnimate = computed(() => animateEl.value === 'loader');
+const isContentAnimate = computed(() => animateEl.value === 'content');
+const transitionState = reactive({
+  from: false,
+  to: false,
+});
+const loaderClass = computed(() => {
+  const { from, to } = transitionState;
+  const move = props.isLoading ? 'enter' : 'leave';
+  return {
+    [`${props.name}-${move}-from`]: from && isLoaderAnimate.value,
+    [`${props.name}-${move}-active`]: to && isLoaderAnimate.value,
+    [`${props.name}-${move}-to`]: to && isLoaderAnimate.value,
+  };
+});
+const contentClass = computed(() => {
+  const { from, to } = transitionState;
+  const move = !props.isLoading ? 'enter' : 'leave';
+  return {
+    [`${props.name}-${move}-from`]: from && isContentAnimate.value,
+    [`${props.name}-${move}-active`]: to && isContentAnimate.value,
+    [`${props.name}-${move}-to`]: to && isContentAnimate.value,
+  };
+});
+const loaderStyle = computed<CSSProperties>(() => ({
+  visibility: isLoaderAnimate.value ? undefined : 'hidden',
+  position: isLoaderAnimate.value && props.type !== 'ellipsis' ? undefined : 'absolute',
+}));
+const contentStyle = computed<CSSProperties>(() => ({
+  visibility: isContentAnimate.value ? undefined : 'hidden',
+  position: isContentAnimate.value || props.type === 'ellipsis' ? undefined : 'absolute',
+}));
+const initTransition = () => {
+  transitionState.from = true;
+  setTimeout(() => {
+    transitionState.to = true;
+    transitionState.from = false;
+  });
+};
+const onTransitionEnd = () => {
+  transitionState.to = false;
+  animateEl.value = props.isLoading ? 'loader' : 'content';
+};
+onMounted(() => {
+  if (props.appear) {
+    initTransition();
+  }
+  if (loaderEl.value && contentEl.value) {
+    loaderEl.value.addEventListener('transitionend', onTransitionEnd);
+    contentEl.value.addEventListener('transitionend', onTransitionEnd);
+  }
+});
+watch(
+  () => [props.isLoading, animateEl.value],
+  () => {
+    initTransition();
+  },
+);
 </script>
 
 <style lang="scss">
@@ -123,22 +180,18 @@ const outerComponent = computed<VNode>(() => (
   display: flex;
   align-items: center;
   justify-content: center;
+}
 
-  &__component-wrapper {
-    display: contents;
+.v {
+  &-enter-active,
+  &-leave-active {
+    transition: opacity 2000ms ease;
   }
-
-  /* todo: move to utilities */
-  .fade {
-    &-enter-active,
-    &-leave-active {
-      transition: opacity 300ms ease;
-    }
-
-    &-enter-from,
-    &-leave-to {
-      opacity: 0;
-    }
+  &-leave-to {
+    opacity: 0;
+  }
+  &-enter-from {
+    opacity: 0;
   }
 }
 </style>
