@@ -1,8 +1,7 @@
 <template>
   <component
     :is="outerComponent"
-    :is-loading="isLoading"
-    v-bind="transitionAttrs"
+    v-bind="outerComponentAttrs"
   >
     <template #loader>
       <!-- @slot Use this slot to replace loader. -->
@@ -87,11 +86,7 @@ const props = defineProps({
    */
   transitionAttrs: {
     type: Object as PropType<Record<string, unknown>>,
-    default: () => ({
-      name: 'v',
-      appear: true,
-      mode: 'out-in',
-    }),
+    default: () => ({}),
   },
   /**
    * Use this props to set transition mode
@@ -101,6 +96,7 @@ const props = defineProps({
     default: 'if',
   },
 });
+const isIfMode = computed(() => props.mode === 'if');
 const component = computed<LoaderComponent>(() => {
   const components: Record<LoaderType, LoaderComponent> = {
     spinner: UiLoaderSpinner,
@@ -109,7 +105,16 @@ const component = computed<LoaderComponent>(() => {
   };
   return components[props.type];
 });
-const outerComponent = computed(() => (props.mode === 'if' ? UiLoaderNativeTransition : UiLoaderTransition));
+const outerComponentAttrs = computed(() => {
+  const attrs = { ...props.transitionAttrs, isLoading: props.isLoading };
+  return isIfMode.value
+    ? attrs
+    : { ...attrs, isOpacityMode: props.mode === 'opacity' };
+});
+const outerComponent = computed(() => (isIfMode.value
+  ? UiLoaderNativeTransition
+  : UiLoaderTransition
+));
 </script>
 
 <style lang="scss">
@@ -117,16 +122,5 @@ const outerComponent = computed(() => (props.mode === 'if' ? UiLoaderNativeTrans
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.v {
-  &-enter-active,
-  &-leave-active {
-    transition: opacity 400ms linear;
-  }
-
-  &-enter-from,
-  &-leave-to {
-    opacity: 0;
-  }
 }
 </style>

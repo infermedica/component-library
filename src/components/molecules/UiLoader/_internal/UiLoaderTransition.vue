@@ -25,6 +25,11 @@ import type {
 } from 'vue';
 
 export type TransitionState = 'from' | 'active' | 'to';
+export type Move = 'leave' | 'enter';
+export type TransitionHook = `before-${Move}`
+  | `${Move}`
+  | `after-${Move}`
+  | `${Move}-cancelled`;
 const props = defineProps({
   /**
    * Use this props to show UiLoader component
@@ -38,7 +43,7 @@ const props = defineProps({
    */
   name: {
     type: String,
-    default: 'v',
+    default: '',
   },
   /**
    * Use this props to apply a transition on the initial render
@@ -47,57 +52,80 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  isOpacityMode: {
+    type: Boolean,
+    default: false,
+  },
 });
 const loaderEl = ref<HTMLElement | null>(null);
 const contentEl = ref<HTMLElement | null>(null);
 const isLoaderVisible = ref(props.isLoading);
 const transitionEl = computed(() => (isLoaderVisible.value ? loaderEl.value : contentEl.value) as HTMLElement);
-const useTransitionStyle = (arg: boolean): CSSProperties => ({
-  visibility: arg ? undefined : 'hidden',
-  position: arg ? undefined : 'absolute',
+const move = computed(() => (isLoaderVisible.value === props.isLoading ? 'enter' : 'leave'));
+const emit = defineEmits<{(e: TransitionHook, el: HTMLElement): void}>();
+const useTransitionStyle = (isVisible: boolean, isAbsolute: boolean): CSSProperties => ({
+  visibility: isVisible ? undefined : 'hidden',
+  position: isAbsolute ? 'absolute' : undefined,
 });
-const loaderStyle = computed(() => useTransitionStyle(isLoaderVisible.value));
-const contentStyle = computed(() => useTransitionStyle(!isLoaderVisible.value));
+const loaderStyle = computed(() => (
+  useTransitionStyle(isLoaderVisible.value, !isLoaderVisible.value || props.isOpacityMode)
+));
+const contentStyle = computed(() => (
+  useTransitionStyle(!isLoaderVisible.value, isLoaderVisible.value && !props.isOpacityMode)
+));
 const nextFrame = (callback: () => void) => {
   requestAnimationFrame(() => {
     requestAnimationFrame(callback);
   });
 };
-const handleTransitionClass = (state: TransitionState | TransitionState[]) => {
-  const move = isLoaderVisible.value === props.isLoading ? 'enter' : 'leave';
+const toggleTransitionClass = (state: TransitionState | TransitionState[]) => {
   const stateList = Array.isArray(state) ? state : [state];
   stateList.forEach((stateEl) => {
-    transitionEl.value?.classList.toggle(`${props.name}-${move}-${stateEl}`);
+    transitionEl.value?.classList.toggle(`${props.name}-${move.value}-${stateEl}`);
   });
 };
 const onTransitionEnd = () => {
-  handleTransitionClass(['active', 'to']);
+  toggleTransitionClass(['active', 'to']);
   transitionEl.value.removeEventListener('transitionend', onTransitionEnd);
+  emit(`after-${move.value}`, transitionEl.value);
   isLoaderVisible.value = props.isLoading;
 };
 const onTransitionCancel = () => {
   [loaderEl.value, contentEl.value].forEach((el) => (el as HTMLElement).removeAttribute('class'));
   transitionEl.value.removeEventListener('transitionend', onTransitionEnd);
 };
-const initTransition = () => {
-  if (transitionEl.value?.className.includes('active')) {
-    onTransitionCancel();
-  }
-  handleTransitionClass('from');
+const onTransitionActive = () => {
   nextFrame(() => {
-    handleTransitionClass(['from', 'active', 'to']);
+    emit(`${move.value}`, transitionEl.value);
+    toggleTransitionClass(['from', 'active', 'to']);
   });
   transitionEl.value.addEventListener('transitionend', onTransitionEnd);
 };
+const onTransitionBeforeActive = () => {
+  emit(`before-${move.value}`, transitionEl.value);
+  toggleTransitionClass('from');
+  onTransitionActive();
+};
+const startTransition = () => {
+  if (transitionEl.value?.className.includes('active')) {
+    onTransitionCancel();
+    emit(`${move.value}-cancelled`, transitionEl.value);
+  }
+  onTransitionBeforeActive();
+};
 onMounted(() => {
   if (props.appear) {
-    initTransition();
+    startTransition();
   }
 });
 watch(
   () => [props.isLoading, isLoaderVisible.value],
   () => {
-    initTransition();
+    if (props.name) {
+      startTransition();
+      return;
+    }
+    isLoaderVisible.value = props.isLoading;
   },
 );
 </script>

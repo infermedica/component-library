@@ -27,6 +27,11 @@ export default {
   },
   args: {
     isLoading: true,
+    transitionAttrs: {
+      name: 'v',
+      appear: true,
+      mode: 'out-in',
+    },
   },
   decorators: [() => ({ template: '<div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 2.5rem"><story /></div>' })],
 };
@@ -104,13 +109,19 @@ export const SkeletonLoader = () => ({
   </div>`,
 });
 
-export const LoadingButton = () => ({
+export const LoadingButton = (args) => ({
   components: { UiLoader, UiButton, UiText },
+  setup() {
+    const isLoading = inject('isLoading');
+    return { ...args, isLoading };
+  },
   template: `<UiText tag="span">Contained:</UiText>
   <UiButton>
     <UiLoader
-      :isLoading="true"
+      :isLoading="isLoading"
       type="ellipsis"
+      mode="opacity"
+      :transitionAttrs="transitionAttrs"
     >
       <span>Label</span>
     </UiLoader>
@@ -121,22 +132,60 @@ export const LoadingButton = () => ({
     style="--loader-ellipsis-dot-background: var(--color-icon-primary);"
   >
     <UiLoader
-      :isLoading="true"
+      :isLoading="isLoading"
       type="ellipsis"
+      mode="opacity"
+      :transitionAttrs="transitionAttrs"
+    >
+      <span>Label</span>
+    </UiLoader>
+  </UiButton>
+  <UiText tag="span">Without transition:</UiText>
+  <UiButton 
+    class="ui-button--outlined" 
+    style="--loader-ellipsis-dot-background: var(--color-icon-primary);"
+  >
+    <UiLoader
+      :isLoading="isLoading"
+      type="ellipsis"
+      mode="opacity"
     >
       <span>Label</span>
     </UiLoader>
   </UiButton>`,
 });
-LoadingButton.decorators = [() => ({ template: '<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 2.5rem"><story /></div>' })];
+LoadingButton.decorators = [
+  (story) => ({
+    components: { story, UiSwitch },
+    setup() {
+      const isLoading = ref(true);
+      provide('isLoading', isLoading);
 
-export const LoadingPopover = () => ({
+      return { isLoading };
+    },
+    template: `
+      <div style="flex: 1">
+        <UiSwitch 
+          v-model="isLoading" 
+          style="margin: 0 0 1rem 0;"
+        >
+          {{ isLoading ? 'on' : 'off' }}
+        </UiSwitch>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 2.5rem">
+          <story   v-bind="{ isLoading }" />
+        </div>
+      </div>
+    `,
+  }),
+];
+
+export const LoadingPopover = (args) => ({
   components: {
     UiLoader, UiPopover, UiText, UiMessage, UiButton,
   },
   setup() {
     const isLoading = inject('isLoading');
-    return { isLoading };
+    return { ...args, isLoading };
   },
   template: `
     <UiPopover
@@ -152,6 +201,7 @@ export const LoadingPopover = () => ({
       :loaderAttrs="{ 
         type: 'common'
       }"
+      :transitionAttrs="transitionAttrs"
     >
       <UiMessage
         title="No internet connection"
@@ -200,13 +250,13 @@ LoadingPopover.decorators = [
   }),
 ];
 
-export const LoadingContainer = () => ({
+export const LoadingContainer = (args) => ({
   components: {
     UiLoader, UiContainer, UiText, UiHeading, UiAccordion,
   },
   setup() {
     const isLoading = inject('isLoading');
-    return { isLoading };
+    return { ...args, isLoading };
   },
   template: `
     <UiContainer
@@ -216,6 +266,7 @@ export const LoadingContainer = () => ({
         :isLoading="isLoading"
         type="skeleton"
         :loaderAttrs="{ type: 'common'}"
+        :transitionAttrs="transitionAttrs"
     >
       <UiHeading level="2">Lab tests</UiHeading>
       <UiHeading level="4" style="margin: var(--space-16) 0 0 0">Recommended</UiHeading>
@@ -318,7 +369,7 @@ LoadingSidePanel.decorators = [
   }),
 ];
 
-export const LoadingControls = () => ({
+export const LoadingControls = (args) => ({
   components: {
     UiLoader, UiQuestion, UiSimpleQuestion, UiControls, UiButton,
   },
@@ -347,7 +398,7 @@ export const LoadingControls = () => ({
         },
       },
     ];
-    return { isLoading, options };
+    return { ...args, isLoading, options };
   },
   template: `<UiControls
       to-next="#"
@@ -360,6 +411,7 @@ export const LoadingControls = () => ({
       type="skeleton"
       :loader-attrs="{ type: 'question'}"
       style="width: 100%"
+      :transitionAttrs="transitionAttrs"
     >
       <UiQuestion
         title="Do you have a sore throat?"
