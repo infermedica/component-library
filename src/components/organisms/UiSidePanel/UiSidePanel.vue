@@ -5,15 +5,17 @@
       name="backdrop"
       v-bind="{
         closeHandler,
-        modelValue
+        modelValue,
+        backdropAttrs,
+        backdropTransitionAttrs: defaultProps.backdropTransitionAttrs
       }"
     >
       <transition
-        appear
-        name="fade"
+        v-bind="defaultProps.backdropTransitionAttrs"
       >
         <UiBackdrop
           v-if="modelValue"
+          v-bind="backdropAttrs"
           @click="closeHandler"
         />
       </transition>
@@ -22,20 +24,16 @@
     <slot
       name="container"
       v-bind="{
-        transition,
         afterEnterHandler,
         modelValue,
-        buttonCloseAttrs,
+        closeButtonAttrs,
         closeHandler,
         title,
         subtitle
       }"
     >
       <transition
-        appear
-        :name="transition"
-        @enter="enterHandler"
-        @after-enter="afterEnterHandler"
+        v-bind="defaultProps.dialogTransitionAttrs"
       >
         <dialog
           v-if="modelValue"
@@ -47,7 +45,7 @@
           <slot
             name="header"
             v-bind="{
-              attrs: buttonCloseAttrs,
+              attrs: closeButtonAttrs,
               closeHandler,
               title,
               subtitle
@@ -58,18 +56,19 @@
               <slot
                 name="close"
                 v-bind="{
-                  attrs: buttonCloseAttrs,
-                  closeHandler
+                  attrs: closeButtonAttrs,
+                  closeHandler,
+                  iconAttrs: defaultProps.iconAttrs
                 }"
               >
                 <UiButton
                   ref="button"
                   class="ui-button--icon ui-button--theme-secondary ui-side-panel__close"
-                  v-bind="buttonCloseAttrs"
+                  v-bind="closeButtonAttrs"
                   @click="closeHandler"
                 >
                   <UiIcon
-                    icon="close"
+                    v-bind="defaultProps.iconAttrs"
                     class="ui-button__icon"
                   />
                 </UiButton>
@@ -91,12 +90,12 @@
                     name="title"
                     v-bind="{
                       title,
-                      headingTitleAttrs
+                      attrs: defaultProps.titleHeadingAttrs
                     }"
                   >
                     <UiHeading
                       v-if="title"
-                      v-bind="headingTitleAttrs"
+                      v-bind="defaultProps.titleHeadingAttrs"
                     >
                       {{ title }}
                     </UiHeading>
@@ -105,12 +104,13 @@
                   <slot
                     name="subtitle"
                     v-bind="{
-                      subtitle
+                      subtitle,
+                      attrs: subtitleTextAttrs
                     }"
                   >
                     <UiText
                       v-if="subtitle"
-                      v-bind="textSubtitleAttrs"
+                      v-bind="subtitleTextAttrs"
                       class="ui-text--body-2-comfortable ui-side-panel__subtitle"
                     >
                       {{ subtitle }}
@@ -126,7 +126,6 @@
               v-scroll-tabindex
               v-keyboard-focus
               class="ui-side-panel__content"
-              :body-scroll-lock-ignore="true"
             >
               <!-- @slot Use this slot to place side panel content. -->
               <slot />
@@ -141,9 +140,11 @@
 <script setup lang="ts">
 import {
   ref,
+  computed,
   nextTick,
   onMounted,
   onBeforeUnmount,
+  useAttrs,
 } from 'vue';
 import {
   focusTrap as vFocusTrap,
@@ -159,7 +160,7 @@ import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import type { PropsAttrs } from '../../../types/attrs';
 
-defineProps({
+const props = defineProps({
   /**
    * Use this props or v-model to set value.
    */
@@ -182,50 +183,112 @@ defineProps({
     default: '',
   },
   /**
-   * Use this props to pass attrs for close UiButton
+   * Use this props to pass attrs for UiButton
    */
-  buttonCloseAttrs: {
+  closeButtonAttrs: {
     type: Object as PropsAttrs,
     default: () => ({
     }),
   },
   /**
-   * Use this props to pass attrs for title UiHeading
+   * Use this props to pass attrs for UiHeading
    */
-  headingTitleAttrs: {
+  titleHeadingAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({
+      level: 2,
+    }),
+  },
+  /**
+   * Use this props to pass attrs for UiText
+   */
+  subtitleTextAttrs: {
     type: Object as PropsAttrs,
     default: () => ({
     }),
   },
   /**
-   * Use this props to pass attrs for subtitle UiText
+   * Use this props to pass attrs for UiBackdrop
    */
-  textSubtitleAttrs: {
-    type: Object as PropsAttrs,
+  backdropAttrs: {
+    type: Object,
     default: () => ({
     }),
   },
   /**
-   * Use this props to override labels inside component translation.
+   * Use this props to pass attrs for Transition
    */
-  transition: {
-    type: String,
-    default: 'slide',
+  backdropTransitionAttrs: {
+    type: Object,
+    default: () => ({
+      appear: true,
+      name: 'fade',
+    }),
+  },
+  /**
+   * Use this props to pass attrs for UiIcon
+   */
+  iconAttrs: {
+    type: Object,
+    default: () => ({
+      icon: 'close',
+    }),
+  },
+  /**
+   * Use this props to pass attrs for Transition
+   */
+  dialogTransitionAttrs: {
+    type: Object,
+    default: () => ({
+      appear: true,
+      name: 'slide',
+    }),
   },
 });
 const emit = defineEmits<{(e: 'update:modelValue', value: boolean): void,
   (e: 'after-enter'): void
 }>();
 const button = ref<InstanceType<typeof UiButton>| null>(null);
-function closeHandler(): void {
-  emit('update:modelValue', false);
+async function enterHandler(): Promise<void> {
+  await nextTick();
+  focusElement(button.value?.$el, true);
 }
 function afterEnterHandler(): void {
   emit('after-enter');
 }
-async function enterHandler(): Promise<void> {
-  await nextTick();
-  focusElement(button.value?.$el, true);
+// TODO: remove in 0.6.0 / BEGIN
+const attrs = useAttrs();
+const transition = computed(() => attrs.transition);
+if (transition.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiSidePanel]: transition will be removed in 0.6.0. Please use dialogTransitionAttrs instead.');
+  }
+}
+// END
+const defaultProps = computed(() => ({
+  backdropTransitionAttrs: {
+    appear: true,
+    name: 'fade',
+    ...props.backdropTransitionAttrs,
+  },
+  dialogTransitionAttrs: {
+    appear: true,
+    name: transition.value || 'slide',
+    onEnter: enterHandler,
+    onAfterEnter: afterEnterHandler,
+    ...props.dialogTransitionAttrs,
+  },
+  iconAttrs: {
+    icon: 'close',
+    ...props.iconAttrs,
+  },
+  titleHeadingAttrs: {
+    level: 2,
+    ...props.titleHeadingAttrs,
+  },
+}));
+function closeHandler(): void {
+  emit('update:modelValue', false);
 }
 function keydownHandler(event: Event) {
   const { key } = event as KeyboardEvent;

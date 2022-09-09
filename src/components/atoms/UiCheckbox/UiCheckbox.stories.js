@@ -4,11 +4,15 @@ import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import { ref } from 'vue';
+import { actions } from '@storybook/addon-actions';
 import {
   content,
   modifiers,
-  disabled,
 } from '@sb/helpers/argTypes';
+
+const events = actions({
+  onUpdateModelValue: 'update:modelValue',
+});
 
 export default {
   title: 'Atoms/Checkbox',
@@ -21,11 +25,20 @@ export default {
     initModelValue: false,
     content: 'I read and accept Terms of Service and Privacy Policy.',
     modifiers: [],
-    disabled: false,
-    id: '',
+    modelValue: false,
     value: '',
+    id: '',
+    iconCheckmarkAttrs: {
+      'data-testid': 'icon-checkmark',
+    },
+    textLabelAttrs: {
+      'data-testid': 'text-label',
+    },
   },
   argTypes: {
+    modelValue: {
+      control: false,
+    },
     content,
     initModelValue: {
       description: 'Use this control to set initial state.',
@@ -37,10 +50,6 @@ export default {
     modifiers: modifiers({
       options: ['ui-checkbox--has-error', 'ui-checkbox--is-disabled'],
     }),
-    disabled,
-    modelValue: {
-      control: false,
-    },
     id: {
       control: 'text',
     },
@@ -58,17 +67,20 @@ const Template = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
   template: `<UiCheckbox
     v-model="modelValue"
+    :value="value"
     :id="id"
-    :disabled="disabled"
+    :icon-checkmark-attrs="iconCheckmarkAttrs"
+    :text-label-attrs="textLabelAttrs"
     :class="modifiers"
-    class="custom-checkbox"
+    @update:modelValue="onUpdateModelValue"
   >
-    {{content}}
+    {{ content }}
   </UiCheckbox>`,
 });
 
@@ -96,16 +108,23 @@ export const WithCheckboxSlot = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
   template: `<UiCheckbox
       v-model="modelValue"
+      :value="value"
       :id="id"
-      :disabled="disabled"
+      :icon-checkmark-attrs="iconCheckmarkAttrs"
+      :text-label-attrs="textLabelAttrs"
       :class="modifiers"
+      @update:modelValue="onUpdateModelValue"
     >
-      <template #checkbox="{checked}">
+      <template #checkbox="{
+        checked, 
+        iconCheckmarkAttrs
+      }">
         <div 
           class="ui-checkbox__checkbox"
           :class="{
@@ -113,7 +132,7 @@ export const WithCheckboxSlot = (args) => ({
          }"
         >
           <UiIcon
-            icon="checkmark"
+            v-bind="iconCheckmarkAttrs"
             class="ui-checkbox__checkmark"
           />
         </div>
@@ -131,18 +150,26 @@ export const WithLabelSlot = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
   template: `<UiCheckbox
       v-model="modelValue"
+      :value="value"
       :id="id"
-      :disabled="disabled"
+      :icon-checkmark-attrs="iconCheckmarkAttrs"
+      :text-label-attrs="textLabelAttrs"
       :class="modifiers"
+      @update:modelValue="onUpdateModelValue"
     >
-      <template #label>
+      <template #label="{
+        hasLabel, 
+        attrs
+      }">
         <UiText
-          tag="span"
+          v-if="hasLabel"
+          v-bind="attrs"
           class="ui-checkbox__label"
         >
           {{ content }}
@@ -159,15 +186,18 @@ export const ValueAsObject = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
   template: `<UiCheckbox
-    v-model="modelValue"
-    :id="id"
-    :value="value"
-    :disabled="disabled"
-    :class="modifiers"
+      v-model="modelValue"
+      :value="value"
+      :id="id"
+      :icon-checkmark-attrs="iconCheckmarkAttrs"
+      :text-label-attrs="textLabelAttrs"
+      :class="modifiers"
+      @update:modelValue="onUpdateModelValue"
   >
     {{content}}
   </UiCheckbox>`,
@@ -205,6 +235,7 @@ export const AsGroup = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
@@ -216,6 +247,9 @@ export const AsGroup = (args) => ({
       <UiCheckbox
         v-model="modelValue"
         :value="value"
+        :id="value.id"
+        :class="modifiers"
+        @update:modelValue="onUpdateModelValue"
       >
         {{value.label}}
       </UiCheckbox>
@@ -294,6 +328,7 @@ export const AsGroupWithNestedObject = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
@@ -306,6 +341,9 @@ export const AsGroupWithNestedObject = (args) => ({
         v-model="modelValue"
         v-bind="value.checkboxAttrs"
         :value="value"
+        :id="value.id"
+        :class="modifiers"
+        @update:modelValue="onUpdateModelValue"
       >
         {{value.label}}
       </UiCheckbox>
@@ -396,6 +434,7 @@ export const AsGroupWithPrimitiveTypes = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
@@ -407,6 +446,8 @@ export const AsGroupWithPrimitiveTypes = (args) => ({
       <UiCheckbox
         v-model="modelValue"
         :value="value"
+        :class="modifiers"
+        @update:modelValue="onUpdateModelValue"
       >
         {{value}}
       </UiCheckbox>

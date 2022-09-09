@@ -7,10 +7,7 @@
         :key="key"
       >
         <UiAccordionItem
-          :title="item.title"
-          :name="item.name"
-          :settings="item.settings"
-          v-bind="item.accordionItemAttrs"
+          v-bind="item"
         >
           <!-- @slot Use this slot to replace accordion item content. -->
           <slot

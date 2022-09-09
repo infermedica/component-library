@@ -36,14 +36,14 @@ export default {
     initModelValue: true,
     title: 'For business',
     subtitle: '',
-    buttonCloseAttrs: {
+    closeButtonAttrs: {
       id: 'close',
       'aria-label': 'close panel',
     },
-    headingTitleAttrs: {
+    titleHeadingAttrs: {
       id: 'title',
     },
-    textSubtitleAttrs: {
+    subtitleTextAttrs: {
       id: 'subtitle',
     },
     transition: 'slide',
@@ -144,9 +144,9 @@ const Template = (args) => ({
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :button-close-attrs="buttonCloseAttrs"
-    :heading-title-attrs="headingTitleAttrs"
-    :text-subtitle-attrs="textSubtitleAttrs"
+    :close-button-attrs="closeButtonAttrs"
+    :title-heading-attrs="titleHeadingAttrs"
+    :subtitle-text-attrs="subtitleTextAttrs"
     :transition="transition"
     @after-enter="onAfterEnter"
   >
@@ -226,9 +226,9 @@ export const WithBackdropSlot = (args) => ({
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :button-close-attrs="buttonCloseAttrs"
-    :heading-title-attrs="headingTitleAttrs"
-    :text-subtitle-attrs="textSubtitleAttrs"
+    :close-button-attrs="closeButtonAttrs"
+    :title-heading-attrs="titleHeadingAttrs"
+    :subtitle-text-attrs="subtitleTextAttrs"
     @after-enter="onAfterEnter"
   >
     <template #backdrop="{closeHandler, modelValue}">
@@ -271,11 +271,11 @@ export const WithContainerSlot = (args) => ({
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :button-close-attrs="buttonCloseAttrs"
-    :heading-title-attrs="headingTitleAttrs"
-    :text-subtitle-attrs="textSubtitleAttrs"
+    :close-button-attrs="closeButtonAttrs"
+    :title-heading-attrs="titleHeadingAttrs"
+    :subtitle-text-attrs="subtitleTextAttrs"
   >
-    <template #container="{transition, afterEnterHandler, modelValue, buttonCloseAttrs, closeHandler, title, subtitle}">
+    <template #container="{transition, afterEnterHandler, modelValue, closeButtonAttrs, closeHandler, title, subtitle}">
       <transition
         :name="transition"
         @after-enter="afterEnterHandler"
@@ -291,7 +291,7 @@ export const WithContainerSlot = (args) => ({
             <UiButton
               ref="button"
               class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
-              v-bind="buttonCloseAttrs"
+              v-bind="closeButtonAttrs"
               @click="closeHandler"
             >
               <UiIcon icon="close" />
@@ -313,7 +313,6 @@ export const WithContainerSlot = (args) => ({
           </div>
           <div
             class="ui-side-panel__content"
-            :body-scroll-lock-ignore="true"
           >
             <UiText>Symptomate is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
           </div>
@@ -347,9 +346,9 @@ export const WithHeaderSlot = (args) => ({
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :button-close-attrs="buttonCloseAttrs"
-    :heading-title-attrs="headingTitleAttrs"
-    :text-subtitle-attrs="textSubtitleAttrs"
+    :close-button-attrs="closeButtonAttrs"
+    :title-heading-attrs="titleHeadingAttrs"
+    :subtitle-text-attrs="subtitleTextAttrs"
     @after-enter="onAfterEnter"
   >
     <template #header="{attrs, closeHandler, title, subtitle}">
@@ -406,9 +405,9 @@ export const WithCloseSlot = (args) => ({
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :button-close-attrs="buttonCloseAttrs"
-    :heading-title-attrs="headingTitleAttrs"
-    :text-subtitle-attrs="textSubtitleAttrs"
+    :close-button-attrs="closeButtonAttrs"
+    :title-heading-attrs="titleHeadingAttrs"
+    :subtitle-text-attrs="subtitleTextAttrs"
     @after-enter="onAfterEnter"
   >
     <template #close="{attrs, closeHandler}">
@@ -448,9 +447,9 @@ export const WithLabelSlot = (args) => ({
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :button-close-attrs="buttonCloseAttrs"
-    :heading-title-attrs="headingTitleAttrs"
-    :text-subtitle-attrs="textSubtitleAttrs"
+    :close-button-attrs="closeButtonAttrs"
+    :title-heading-attrs="titleHeadingAttrs"
+    :subtitle-text-attrs="subtitleTextAttrs"
     @after-enter="onAfterEnter"
   >
     <template #label="{title, subtitle}">
@@ -496,9 +495,9 @@ export const WithTitleSlot = (args) => ({
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :button-close-attrs="buttonCloseAttrs"
-    :heading-title-attrs="headingTitleAttrs"
-    :text-subtitle-attrs="textSubtitleAttrs"
+    :close-button-attrs="closeButtonAttrs"
+    :title-heading-attrs="titleHeadingAttrs"
+    :subtitle-text-attrs="subtitleTextAttrs"
     @after-enter="onAfterEnter"
   >
     <template #title="{title}">
@@ -532,9 +531,9 @@ export const WithSubtitleSlot = (args) => ({
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :button-close-attrs="buttonCloseAttrs"
-    :heading-title-attrs="headingTitleAttrs"
-    :text-subtitle-attrs="textSubtitleAttrs"
+    :close-button-attrs="closeButtonAttrs"
+    :title-heading-attrs="titleHeadingAttrs"
+    :subtitle-text-attrs="subtitleTextAttrs"
     @after-enter="onAfterEnter"
   >
     <template #subtitle="{subtitle}">
@@ -574,16 +573,15 @@ export const WithContentSlot = (args) => ({
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :button-close-attrs="buttonCloseAttrs"
-    :heading-title-attrs="headingTitleAttrs"
-    :text-subtitle-attrs="textSubtitleAttrs"
+    :close-button-attrs="closeButtonAttrs"
+    :title-heading-attrs="titleHeadingAttrs"
+    :subtitle-text-attrs="subtitleTextAttrs"
     @after-enter="onAfterEnter"
   >
     <template #content>
       <div
         v-scroll-tabindex
         class="ui-side-panel__content"
-        :body-scroll-lock-ignore="true"
       >
         <UiText>Symptomate is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
       </div>
@@ -624,9 +622,9 @@ export const WithAsynContent = (args) => ({
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :button-close-attrs="buttonCloseAttrs"
-    :heading-title-attrs="headingTitleAttrs"
-    :text-subtitle-attrs="textSubtitleAttrs"
+    :close-button-attrs="closeButtonAttrs"
+    :title-heading-attrs="titleHeadingAttrs"
+    :subtitle-text-attrs="subtitleTextAttrs"
     @after-enter="onAfterEnter"
   >
     <template v-if="isLoaded">

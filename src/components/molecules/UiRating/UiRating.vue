@@ -37,7 +37,6 @@
       >
         <UiRadio
           v-model="rate"
-          v-bind="radioAttrs"
           :value="`${index}`"
           :name="ratingName"
           class="ui-rating__option"
@@ -95,6 +94,7 @@
 import {
   computed,
   ref,
+  useAttrs,
 } from 'vue';
 import type { PropType } from 'vue';
 import { uid } from 'uid/single';
@@ -137,6 +137,7 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  // TODO: remove in 0.6.0 / BEGIN
   /**
    * Use this props to pass attrs for UiRadio
    */
@@ -145,6 +146,7 @@ const props = defineProps({
     default: () => ({
     }),
   },
+  // END
   /**
    * Use this props to setup item component.
    */
@@ -202,6 +204,14 @@ const finalScore = computed(() => (
   hoverScore.value
     ? hoverScore.value
     : parseInt(rate.value, 10)));
+// TODO: remove in 0.6.0 / BEGIN
+const attrs = useAttrs();
+if (Object.keys(props.radioAttrs).length > 0) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiPopover]: radioAttrs will be removed in 0.6.0.');
+  }
+}
+// END
 </script>
 
 <style lang="scss">

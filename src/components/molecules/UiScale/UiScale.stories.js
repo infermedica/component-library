@@ -24,11 +24,13 @@ export default {
       mild: 'Mild',
       unbearable: 'Unbearable',
     },
-    buttonDecrementAttrs: {
-      'aria-label': 'decrement pain',
-    },
-    buttonIncrementAttrs: {
-      'aria-label': 'increment pain',
+    numberStepperAttrs: {
+      buttonDecrementAttrs: {
+        'aria-label': 'decrement pain',
+      },
+      buttonIncrementAttrs: {
+        'aria-label': 'increment pain',
+      },
     },
   },
   argTypes: {
@@ -62,8 +64,7 @@ const Template = (args) => ({
     :legend="legend"
     :steps="steps"
     :translation="translation"
-    :button-decrement-attrs="buttonDecrementAttrs"
-    :button-increment-attrs="buttonIncrementAttrs"
+    :number-stepper-attrs="numberStepperAttrs"
   />`,
 });
 
@@ -89,8 +90,7 @@ export const WithDecrementSlot = (args) => ({
     :legend="legend"
     :steps="steps"
     :translation="translation"
-    :button-decrement-attrs="buttonDecrementAttrs"
-    :button-increment-attrs="buttonIncrementAttrs"
+    :number-stepper-attrs="numberStepperAttrs"
   >
     <template #decrement="{decrement, hasControls, isMin, attrs}">
       <UiButton
@@ -128,8 +128,7 @@ export const WithIncrementSlot = (args) => ({
     :legend="legend"
     :steps="steps"
     :translation="translation"
-    :button-decrement-attrs="buttonDecrementAttrs"
-    :button-increment-attrs="buttonIncrementAttrs"
+    :number-stepper-attrs="numberStepperAttrs"
   >
     <template #increment="{increment, hasControls, isMax, attrs}">
       <UiButton

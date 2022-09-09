@@ -98,8 +98,9 @@ SingleItem.args = {
   items: [{
     name: 'less',
     title: 'Less likely conditions',
-    accordionItemAttrs: {
-      'data-testid': 'less',
+    'data-testid': 'less',
+    contentAttrs: {
+      'data-testid': 'less-content',
     },
   }],
   content: {

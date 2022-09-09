@@ -22,10 +22,12 @@
       <slot
         name="switchcontrol"
         v-bind="{
-          checked
+          checked,
+          attrs: controlAttrs
         }"
       >
         <UiSwitchControl
+          v-bind="controlAttrs"
           class="ui-switch__control"
           :class="{
             'ui-switch-control--is-checked': checked,
@@ -50,6 +52,14 @@ defineProps({
   modelValue: {
     type: [Boolean, Array] as PropType<CheckboxModelValue>,
     default: false,
+  },
+  /**
+   *  Use this props to set pass attrs for UiSwitchControl.
+   */
+  controlAttrs: {
+    type: Object,
+    default: () => ({
+    }),
   },
 });
 const emit = defineEmits<{(e: 'update:modelValue', value: CheckboxModelValue): void}>();

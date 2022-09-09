@@ -29,14 +29,11 @@ export default {
     min: 18,
     max: 122,
     step: 1,
-    buttonIncrementAttrs: {
-      'aria-label': 'increment age',
-      'data-testid': 'increment-age',
-    },
-    buttonDecrementAttrs: {
-      'aria-label': 'decrement age',
-      'data-testid': 'decrement-age',
-      class: 'unicorn',
+    numberStepperAttrs: {
+      buttonDecrementAttrs: {
+        'aria-label': 'decrement age',
+        'data-testid': 'decrement-age',
+      },
     },
     ariaLabel: 'patient age',
   },
@@ -88,8 +85,7 @@ export const Common = (args) => ({
   :min="min"
   :max="max"
   :step="step"
-  :button-increment-attrs="buttonIncrementAttrs"
-  :button-decrement-attrs="buttonDecrementAttrs"
+  :number-stepper-attrs="numberStepperAttrs"
   :aria-label="ariaLabel"
   @update:modelValue="onUpdateModelValue"
   @error="onError"
@@ -123,8 +119,7 @@ export const WithDecrementSlot = (args) => ({
   :min="min"
   :max="max"
   :step="step"
-  :button-increment-attrs="buttonIncrementAttrs"
-  :button-decrement-attrs="buttonDecrementAttrs"
+  :number-stepper-attrs="numberStepperAttrs"
   :aria-label="ariaLabel"
   @update:modelValue="onUpdateModelValue"
   @error="onError"
@@ -196,8 +191,7 @@ export const WithValueSlot = (args) => ({
   :min="min"
   :max="max"
   :step="step"
-  :button-increment-attrs="buttonIncrementAttrs"
-  :button-decrement-attrs="buttonDecrementAttrs"
+  :number-stepper-attrs="numberStepperAttrs"
   :aria-label="ariaLabel"
   @update:modelValue="onUpdateModelValue"
   @error="onError"
@@ -230,8 +224,7 @@ export const WithRangeSlot = (args) => ({
   :min="min"
   :max="max"
   :step="step"
-  :button-increment-attrs="buttonIncrementAttrs"
-  :button-decrement-attrs="buttonDecrementAttrs"
+  :number-stepper-attrs="numberStepperAttrs"
   :aria-label="ariaLabel"
   @update:modelValue="onUpdateModelValue"
   @error="onError"

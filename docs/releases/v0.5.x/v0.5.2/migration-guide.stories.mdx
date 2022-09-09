@@ -1,0 +1,109 @@
+import { Meta } from '@storybook/addon-docs';
+import { PageOutline } from '../../../components/PageOutline';
+import { Table } from '../../../components/Table';
+
+<Meta title="Releases/v0.5.x/v0.5.2/Migration Guide" />
+
+# Migration Guide
+
+<PageOutline selectors="h2, h3"/>
+
+## Changes in the API of components
+
+### UiCheckbox
+#### Props changes
+<Table
+  headers={['Props', 'Status', 'Changes']}
+  rows={[
+    ['`textLabelAttrs`', 'Added', ''],
+    ['`iconCheckmarkAttrs`', 'Added', ''],
+  ]}
+/>
+
+### UiInput
+#### Props changes
+<Table
+  headers={['Props', 'Status', 'Changes']}
+  rows={[
+    ['`suffixTextAttrs`', 'Added', ''],
+  ]}
+/>
+
+### UiRadio
+#### Props changes
+<Table
+  headers={['Props', 'Status', 'Changes']}
+  rows={[
+    ['`textLabelAttrs`', 'Added', ''],
+  ]}
+/>
+
+### UiRange
+#### Props changes
+<Table
+  headers={['Props', 'Status', 'Changes']}
+  rows={[
+    ['`buttonDecrementAttrs`', 'Deprecated', 'Use `numberStepperAttrs`'],
+    ['`buttonIncrementAttrs`', 'Deprecated', 'Use `numberStepperAttrs`'],
+  ]}
+/>
+
+### UiAlert
+#### Props changes
+<Table
+  headers={['Props', 'Status', 'Changes']}
+  rows={[
+    ['`iconAttrs`', 'Added', ''],
+    ['`textMessageAttrs`', 'Added', '']
+  ]}
+/>
+
+### UiChip
+#### Props changes
+<Table
+  headers={['Props', 'Status', 'Changes']}
+  rows={[
+    ['`buttonAttrs`', 'Name changed', 'Use `removeButtonAttrs`']
+    ['`iconAttrs`', 'Added', '']
+  ]}
+/>
+
+### UiDropdown
+#### Props changes
+<Table
+  headers={['Props', 'Status', 'Changes']}
+  rows={[
+    ['`buttonAttrs`', 'Name changed', 'Use `buttonToggleAttrs`']
+    ['`popoverAttrs`', 'Added', '']
+  ]}
+/>
+
+### UiDropdownItem
+#### Props changes
+<Table
+  headers={['Props', 'Status', 'Changes']}
+  rows={[
+    ['`iconAttrs`', 'Added', '']
+  ]}
+/>
+
+### UiFormField
+#### Props changes
+<Table
+  headers={['Props', 'Status', 'Changes']}
+  rows={[
+    ['`label`', 'Name changed', 'Use `message`'],
+    ['`labelAttrs`', 'Deprecated', ''],
+    ['`messageTextAttrs`', 'Added', ''],
+    ['`hintTextAttrs`', 'Added', '']
+  ]}
+/>
+
+### UiHeader
+#### Props changes
+<Table
+  headers={['Props', 'Status', 'Changes']}
+  rows={[
+    ['`logoAttrs`', 'Name changed', 'Use `iconLogoAttrs`'],
+  ]}
+/>

@@ -50,6 +50,9 @@ export default {
             label: "Don't know",
           },
         ],
+        choiceAttrs: {
+          'data-testid': 'seconds-to-minutes',
+        },
       },
       {
         id: 's_1868',
@@ -70,6 +73,9 @@ export default {
             label: "Don't know",
           },
         ],
+        choiceAttrs: {
+          'data-testid': 'a-few-minutes-to-4-hours',
+        },
       },
       {
         id: 's_1870',
@@ -96,7 +102,11 @@ export default {
     legend: 'How long have you had a fever?',
     hint: 'Select one answer',
     touched: false,
-    alertHintAttrs: {
+    hintAlertAttrs: {
+      id: 'hint',
+      iconAttrs: {
+        'data-testid': 'hint-alert-icon',
+      },
     },
   },
   argTypes: {
@@ -166,6 +176,7 @@ const Template = (args) => ({
     :legend="legend"
     :hint="hint"
     :touched="touched"
+    :hint-alert-attrs="hintAlertAttrs"
     @update:invalid="onUpdateInvalid"
   />`,
 });
@@ -462,7 +473,7 @@ export const WithLabelChoiceIdSlot = (args) => ({
     :touched="touched"
     @update:invalid="onUpdateInvalid"
   >
-    <template #label-s_1907="{choice, component, componentName}">
+    <template #label-s_1907="{choice, componentName}">
       <div
         class="ui-multiple-answer__label"
         :class="componentName + '__label'"
@@ -470,7 +481,7 @@ export const WithLabelChoiceIdSlot = (args) => ({
         <UiText
           tag="span"
         >
-          {{ choice.name }}
+          custom label for {{ choice.name }}
         </UiText>
         <UiButton
           v-if="choice.explication"

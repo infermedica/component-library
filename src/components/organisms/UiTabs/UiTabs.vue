@@ -11,10 +11,7 @@
         :key="key"
       >
         <UiTabsItem
-          :name="item.name"
-          :title="item.title"
-          :button-attrs="item.buttonAttrs"
-          v-bind="item.tabsItemAttrs"
+          v-bind="item"
         >
           <!-- @slot Use this slot to place tab item content. -->
           <slot
@@ -45,8 +42,6 @@ import UiTabsItem from './_internal/UiTabsItem.vue';
 export interface TabsItem {
     name: string;
     title?: string;
-    buttonAttrs?: Record<string, unknown>;
-    tabsItemAttrs?: Record<string, unknown>;
     [key: string]: unknown;
 }
 const props = defineProps({
@@ -81,8 +76,8 @@ const itemsToRender = computed<TabsItem[]>(() => (props.items.map((item: TabsIte
   }
   const { name } = item;
   return {
-    ...item,
     name: name || `tabs-item-${key}`,
+    ...item,
   };
 })));
 

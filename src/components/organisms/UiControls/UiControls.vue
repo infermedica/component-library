@@ -11,30 +11,31 @@
     <slot
       name="bottom"
       v-bind="{
-        buttonNextAttrs: nextAttrs,
-        buttonBackAttrs: backAttrs,
-        toBack,
         toNext,
         hideNextButton,
+        buttonNextAttrs: defaultProps.buttonNextAttrs,
         invalid,
-        translation: defaultProps.translation
+        toBack,
+        iconBackAttrs: defaultProps.iconBackAttrs,
+        buttonBackAttrs: defaultProps.buttonBackAttrs,
+        translation: defaultProps.translation,
       }"
     >
       <div class="ui-controls__bottom">
         <!-- @slot Use this slot to replace next template. -->
         <slot
-          v-if="toNext"
+          name="next"
           v-bind="{
+            toNext,
             hideNextButton,
-            attrs: nextAttrs,
+            attrs: defaultProps.buttonNextAttrs,
             invalid,
             translation: defaultProps.translation
           }"
-          name="next"
         >
           <UiButton
-            v-if="!hideNextButton"
-            v-bind="nextAttrs"
+            v-if="toNext && !hideNextButton"
+            v-bind="defaultProps.buttonNextAttrs"
             class="ui-controls__next"
             :class="{
               'ui-button--is-disabled': invalid
@@ -42,23 +43,27 @@
           >
             {{ defaultProps.translation.next }}
           </UiButton>
+          <span
+            v-else
+          />
         </slot>
         <!-- @slot Use this slot to replace back template. -->
         <slot
           name="back"
           v-bind="{
             toBack,
-            attrs: backAttrs,
+            attrs: defaultProps.buttonBackAttrs,
+            iconBackAttrs: defaultProps.iconBackAttrs,
             translation: defaultProps.translation
           }"
         >
           <UiButton
             v-if="toBack"
-            v-bind="backAttrs"
+            v-bind="defaultProps.buttonBackAttrs"
             class="ui-button--text ui-controls__back"
           >
             <UiIcon
-              icon="chevron-left"
+              v-bind="defaultProps.iconBackAttrs"
               class="ui-button__icon"
             /> {{ defaultProps.translation.back }}
           </UiButton>
@@ -112,6 +117,16 @@ const props = defineProps({
     default: true,
   },
   /**
+   * Use this props to override labels inside component translation.
+   */
+  translation: {
+    type: Object as PropType<ControlsTranslation>,
+    default: () => ({
+      back: 'Back',
+      next: 'Next',
+    }),
+  },
+  /**
    * Use this props to pass attrs for next UiButton.
    */
   buttonNextAttrs: {
@@ -128,44 +143,43 @@ const props = defineProps({
     }),
   },
   /**
-   * Use this props to override labels inside component translation.
+   * Use this props to pass attrs for back UiIcon.
    */
-  translation: {
-    type: Object as PropType<ControlsTranslation>,
+  iconBackAttrs: {
+    type: Object as PropsAttrs,
     default: () => ({
-      back: 'Back',
-      next: 'Next',
+      icon: 'chevron-left',
     }),
   },
 });
+const emit = defineEmits<{(e: 'has-error'): void}>();
+function hasError(): void {
+  emit('has-error');
+}
 const defaultProps = computed(() => ({
+  buttonBackAttrs: {
+    to: props.toBack,
+    ...props.buttonBackAttrs,
+  },
+  iconBackAttrs: {
+    icon: 'chevron-left',
+    ...props.iconBackAttrs,
+  },
+  buttonNextAttrs: {
+    onClick: props.invalid
+      ? hasError
+      : undefined,
+    to: props.invalid
+      ? undefined
+      : props.toNext,
+    ...props.buttonNextAttrs,
+  },
   translation: {
     back: 'Back',
     next: 'Next',
     ...props.translation,
   },
 }));
-const emit = defineEmits<{(e: 'has-error'): void}>();
-function hasError(): void {
-  emit('has-error');
-}
-const nextAttrs = computed<Record<string, unknown>>(() => (
-  props.invalid
-    ? {
-      onClick: hasError,
-      ...props.buttonNextAttrs,
-    }
-    : {
-      to: props.toNext,
-      ...props.buttonNextAttrs,
-    }
-));
-const backAttrs = computed<Record<string, unknown>>(() => (
-  {
-    to: props.toBack,
-    ...props.buttonBackAttrs,
-  }
-));
 </script>
 
 <style lang="scss">

@@ -25,8 +25,14 @@ export default {
     content: 'A custom Symptomate app that you can use anywhere.',
     modifiers: [],
     title: 'Symptom Checker',
-    buttonAttrs: {
+    headingTitleAttrs: {
+      'data-testid': 'heading-title',
+    },
+    buttonCloseAttrs: {
       'aria-label': 'close',
+    },
+    iconCloseAttrs: {
+      'data-testid': 'close-icon',
     },
     closeAction: null,
   },
@@ -80,7 +86,9 @@ const Template = (args) => ({
   },
   template: `<UiPopover
     :title="title"
-    :button-attrs="buttonAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
     class="max-w-80"
     :class="modifiers"
     @close="onClose"
@@ -123,7 +131,9 @@ export const AsBottomPanelOnMobile = (args) => ({
   },
   template: `<UiPopover
     :title="title"
-    :button-attrs="buttonAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
     class="tablet:max-w-80"
     :class="modifiers"
     @close="onClose"
@@ -163,15 +173,19 @@ export const WithTitleSlot = (args) => ({
   },
   template: `<UiPopover
     :title="title"
-    :button-attrs="buttonAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
     class="tablet:max-w-80"
     :class="modifiers"
     @close="onClose"
   >
-    <template #title="{title}">
+    <template #title="{
+      attrs,
+      title
+    }">
       <UiHeading
-        level="4"
-        tag="span"
+        v-bind="attrs"
       >
         {{ title }}
       </UiHeading>
@@ -194,21 +208,27 @@ export const WithCloseSlot = (args) => ({
     };
   },
   template: `<UiPopover
-    :title="title"
-    :button-attrs="buttonAttrs"
-    class="tablet:max-w-80"
-    :class="modifiers"
-    @close="onClose"
+      :title="title"
+      :heading-title-attrs="headingTitleAttrs"
+      :button-close-attrs="buttonCloseAttrs"
+      :icon-close-attrs="iconCloseAttrs"
+      class="tablet:max-w-80"
+      :class="modifiers"
+      @close="onClose"
   >
-    <template #close="{attrs, clickHandler}">
+    <template #close="{
+      attrs, 
+      clickHandler,
+      iconCloseAttrs,
+    }">
       <UiButton
         v-bind="attrs"
         class="ui-button--icon ui-button--theme-secondary ui-popover__close"
         @click="clickHandler"
       >
         <UiIcon 
-          class="ui-button__icon" 
-          icon="clear" 
+          v-bind="iconCloseAttrs"
+          class="ui-button__icon"
         />
       </UiButton>
     </template>

@@ -20,8 +20,13 @@ export default {
   },
   args: {
     initModelValue: false,
-    slotName: '',
     content: 'I agree to the processing of my health information for the purpose of performing the interview.',
+    controlAttrs: {
+      'data-testid': 'switch-control',
+    },
+    textLabelAttrs: {
+      'data-testid': 'text-label',
+    },
   },
   argTypes: {
     content,
@@ -32,17 +37,19 @@ export default {
       },
       control: 'boolean',
     },
-    slotName: {
-      name: 'slot',
-      description: 'Use this control to set slot to override.',
-      table: {
-        category: 'stories controls',
-      },
-      control: 'select',
-      options: ['switchcontrol', 'checkbutton', 'label'],
-    },
     modelValue: {
       control: false,
+    },
+    textLabelAttrs: {
+      description: 'Use this props to pass attrs for label UiText',
+      table: {
+        category: 'props',
+        subcategory: 'UiCheckbox',
+        type: {
+          summary: 'object',
+        },
+      },
+      control: 'object',
     },
   },
 };
@@ -61,6 +68,8 @@ export const WithoutLabel = (args) => ({
   },
   template: `<UiSwitch
     v-model="modelValue"
+    :control-attrs="controlAttrs"
+    :text-label-attrs="textLabelAttrs"
     @update:modelValue="onUpdateModelValue"
   />`,
 });
@@ -79,6 +88,8 @@ export const IsDisabled = (args) => ({
   },
   template: `<UiSwitch
     v-model="modelValue"
+    :control-attrs="controlAttrs"
+    :text-label-attrs="textLabelAttrs"
     class="ui-switch--is-disabled"
     @update:modelValue="onUpdateModelValue"
   />`,
@@ -99,6 +110,8 @@ export const WithLabel = (args) => ({
   },
   template: `<UiSwitch
     v-model="modelValue"
+    :control-attrs="controlAttrs"
+    :text-label-attrs="textLabelAttrs"
     @update:modelValue="onUpdateModelValue"
   >
     {{ content }}
@@ -120,34 +133,22 @@ export const WithSwitchControlSlot = (args) => ({
   },
   template: `<UiSwitch
     v-model="modelValue"
+    :control-attrs="controlAttrs"
+    :text-label-attrs="textLabelAttrs"
     @update:modelValue="onUpdateModelValue"
   >
-    <template #switchcontrol="{isChecked}">
-      <UiSwitchControl/>
+    <template #switchcontrol="{
+      isChecked,
+      attrs,
+    }">
+      <UiSwitchControl
+        v-bind="attrs"
+        :class="{
+          'ui-switch-control--is-checked': isChecked,
+          'ui-switch__control--is-checked': isChecked,
+        }"
+      />
     </template>
-  </UiSwitch>`,
-});
-
-export const SlotsInSwitch = (args) => ({
-  components: {
-    UiSwitch,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiSwitch
-    v-model="modelValue"
-    @update:modelValue="onUpdateModelValue"
-  >
-    <template #[slotName]="data">
-      {{ slotName }}-{{ data }}
-    </template>
-    {{ content }}
   </UiSwitch>`,
 });
 
@@ -161,6 +162,7 @@ export const AsGroup = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
@@ -172,6 +174,8 @@ export const AsGroup = (args) => ({
       <UiSwitch
         v-model="modelValue"
         :value="value"
+        :control-attrs="value.controlAttrs"
+        @update:modelValue="onUpdateModelValue"
       >
         {{value.label}}
       </UiSwitch>
@@ -182,19 +186,31 @@ AsGroup.args = {
   initModelValue: [{
     label: 'Necessary',
     id: 'necessary',
+    controlAttrs: {
+      'data-testid': 'necessary',
+    },
   }],
   values: [
     {
       label: 'Necessary',
       id: 'necessary',
+      controlAttrs: {
+        'data-testid': 'necessary',
+      },
     },
     {
       label: 'Functional',
       id: 'functional',
+      controlAttrs: {
+        'data-testid': 'functional',
+      },
     },
     {
       label: 'Analytics',
       id: 'analytics',
+      controlAttrs: {
+        'data-testid': 'analytics',
+      },
     },
   ],
 };

@@ -11,44 +11,80 @@
     <slot
       name="remove"
       v-bind="{
+        attrs: buttonAttrs || buttonRemoveAttrs,
         clickHandler,
-        attrs: buttonAttrs
+        iconRemoveAttrs: defaultProps.iconRemoveAttrs
       }"
     >
       <UiButton
-        v-bind="buttonAttrs"
+        v-bind="buttonAttrs || buttonRemoveAttrs"
         class="ui-button--icon ui-button--circled ui-chip__remove"
         @click="clickHandler"
       >
-        <UiIcon
-          icon="remove-filled"
-          class=" ui-button__icon ui-chip__icon"
-        />
+        <slot
+          name="icon"
+          v-bind="{
+            attrs: defaultProps.iconRemoveAttrs
+          }"
+        >
+          <UiIcon
+            v-bind="defaultProps.iconRemoveAttrs"
+            class=" ui-button__icon ui-chip__icon"
+          />
+        </slot>
       </UiButton>
     </slot>
   </div>
 </template>
 
 <script setup lang="ts">
+import {
+  computed,
+  useAttrs,
+} from 'vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import type { PropsAttrs } from '../../../types/attrs';
 
-defineProps({
+const props = defineProps({
   /**
-   * Use this props to pass attrs for UiButton
+   * Use this props to pass attrs for remove UiButton
    */
-  buttonAttrs: {
+  buttonRemoveAttrs: {
     type: Object as PropsAttrs,
     default: () => ({
     }),
   },
+  /**
+   * Use this props to pass attrs for remove UiIcon
+   */
+  iconRemoveAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({
+      icon: 'remove-filled',
+    }),
+  },
 });
+const defaultProps = computed(() => ({
+  iconRemoveAttrs: {
+    icon: 'remove-filled',
+    ...props.iconRemoveAttrs,
+  },
+}));
 const emit = defineEmits<{(e:'remove'): void}>();
 function clickHandler(): void {
   emit('remove');
 }
+// TODO: remove in 0.6.0 / BEGIN
+const attrs = useAttrs();
+const buttonAttrs = computed(() => attrs.buttonAttrs || attrs['button-attrs']);
+if (buttonAttrs.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiChip]: buttonAttrs will be removed in 0.6.0. Please use buttonRemoveAttrs instead.');
+  }
+}
+// END
 </script>
 
 <style lang="scss">

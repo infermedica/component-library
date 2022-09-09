@@ -8,21 +8,30 @@ export default {
   title: 'Molecules/FormField',
   component: UiFormField,
   subcomponents: {
-    UiAlert,
     UiText,
+    UiAlert,
   },
   args: {
-    errorMessage: 'Please enter a valid height',
-    label: 'What is your height?',
-    hint: 'Required',
+    message: 'What is your height?',
     id: '',
+    hint: 'Required',
+    errorMessage: 'Please enter a valid height',
+    textMessageAttrs: {
+      'data-testid': 'text-message',
+    },
+    textHintAttrs: {
+      'data-testid': 'text-hint',
+    },
+    alertAttrs: {
+      'data-testid': 'alert',
+    },
   },
   argTypes: {
     id: {
       control: 'text',
     },
-    label: {
-      description: 'Use this props to set label text',
+    message: {
+      description: 'Use this props to set message text',
       table: {
         category: 'props',
         type: {
@@ -30,9 +39,29 @@ export default {
         },
       },
     },
-    labelSlot: {
-      name: 'label',
-      description: 'Use this slot to replace label template.',
+    messageSlot: {
+      name: 'message',
+      description: 'Use this slot to replace message template.',
+      table: {
+        category: 'slots',
+        type: {
+          summary: 'unknown',
+        },
+      },
+      control: 'object',
+    },
+    hint: {
+      description: 'Use this props to set hint text',
+      table: {
+        category: 'props',
+        type: {
+          summary: 'boolean|string',
+        },
+      },
+    },
+    hintSlot: {
+      name: 'hint',
+      description: 'Use this slot to replace hint template.',
       table: {
         category: 'slots',
         type: {
@@ -55,14 +84,15 @@ export const WithInput = (args) => ({
     };
   },
   template: `<UiFormField
-    :label-attrs="labelAttrs"
-    :label="label"
+    :message="message"
     :id="id"
     :hint="hint"
-    :alert-attrs="alertAttrs"
     :error-message="errorMessage"
+    :text-message-attrs="textMessageAttrs"
+    :text-hint-attrs="textHintAttrs"
+    :alert-attrs="alertAttrs"
   >
-    <template #default="{id}">
+    <template #default="{ id }">
       <UiInput
         :id="id"
         suffix="cm"
@@ -87,29 +117,34 @@ export const WithCheckboxes = (args) => ({
       ...args,
     };
   },
-  template: `<UiText style="margin: 0 0 var(--space-24) 0;">What’s wrong with this question?</UiText>
+  template: `<UiText 
+    style="margin: 0 0 var(--space-24) 0;"
+  >
+    What’s wrong with this question?
+  </UiText>
   <UiFormField
-    :label-attrs="labelAttrs"
-    :label="label"
+    :message="message"
     :id="id"
     :hint="hint"
-    :alert-attrs="alertAttrs"
     :error-message="errorMessage"
+    :text-message-attrs="textMessageAttrs"
+    :text-hint-attrs="textHintAttrs"
+    :alert-attrs="alertAttrs"
     style="--form-field-alert-margin: 0;"
   >
     <UiCheckbox
-      style="margin: 0 0 var(--space-24) 0;"
       :class="{
         'ui-checkbox--has-error': errorMessage
       }"
+      style="margin: 0 0 var(--space-24) 0;"
     >
       I found a typo
     </UiCheckbox>
     <UiCheckbox
-      style="margin: 0 0 var(--space-24) 0;"
       :class="{
         'ui-checkbox--has-error': errorMessage
       }"
+      style="margin: 0 0 var(--space-24) 0;"
     >
       Other (please comment below) 
     </UiCheckbox>
@@ -133,45 +168,51 @@ export const WithLabelSlot = (args) => ({
     };
   },
   template: `<UiFormField
-    :label-attrs="labelAttrs"
-    :label="label"
+    :message="message"
     :id="id"
     :hint="hint"
+    :error-message="errorMessage"
+    :text-message-attrs="textMessageAttrs"
+    :text-hint-attrs="textHintAttrs"
     :alert-attrs="alertAttrs"
-    :error-message="hasError && errorMessage"
+    style="--form-field-alert-margin: 0;"
   >
-    <template #label="{attrs, label, hint, id}">
-      <UiText
-        v-if="label"
-        tag="label"
+    <template #label="{
+      message, 
+      hint, 
+      id,
+      textMessageAttrs,
+      textHintAttrs,
+    }">
+      <label
+        v-if="message"
         :for="id"
         class="ui-form-field__label"
-        v-bind="attrs"
       >
         <UiText
+          v-bind="textMessageAttrs"
           class="ui-text--body-2-comfortable ui-form-field__label-text"
-          tag="span"
         >
-          {{ label }}
+          {{ message }}
         </UiText>
         <UiText
           v-if="hint"
-          class="ui-text--body-2-comfortable ui-text--theme-secondary ui-form-field__label-hint"
-          tag="span"
+          v-bind="textHintAttrs"
+          class="ui-text--body-2-comfortable ui-text--theme-secondary ui-form-field__hint"
         >
           {{ hint }}
         </UiText>
-      </UiText>
+      </label>
     </template>
-    <template #default="{id}">
+    <template #default="{ id }">
       <UiInput
         :id="id"
         suffix="cm"
         type="number"
-        style="width: 100%"
         :class="{
-        'ui-input--has-error': errorMessage
+          'ui-input--has-error': errorMessage
         }"
+        style="width: 100%"
       />
     </template>
   </UiFormField>`,
@@ -190,14 +231,16 @@ export const WithAlertSlot = (args) => ({
     };
   },
   template: `<UiFormField
-    :label-attrs="labelAttrs"
-    :label="label"
+    :message="message"
     :id="id"
     :hint="hint"
     :alert-attrs="alertAttrs"
     :error-message="hasError && errorMessage"
   >
-    <template #alert="{attrs, errorMessage}">
+    <template #alert="{
+      attrs, 
+      errorMessage
+    }">
       <UiAlert
         v-if="errorMessage"
         v-bind="attrs"
@@ -206,15 +249,15 @@ export const WithAlertSlot = (args) => ({
         {{ errorMessage }}
       </UiAlert>
     </template>
-    <template #default="{id}">
+    <template #default="{ id }">
       <UiInput
         :id="id"
         suffix="cm"
         type="number"
-        style="width: 100%"
         :class="{
-        'ui-input--has-error': errorMessage
+          'ui-input--has-error': errorMessage
         }"
+        style="width: 100%"
       />
     </template>
   </UiFormField>`,

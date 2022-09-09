@@ -28,19 +28,19 @@
     >
       <div class="ui-multiple-choices-item__header">
         <UiText
+          v-bind="textNameAttrs"
           :id="choiceLabelId"
-          tag="span"
           class="ui-multiple-choices-item__name"
         >
           {{ choice.name }}
         </UiText>
         <UiButton
-          v-if="choice.buttonInfoAttrs"
-          v-bind="choice.buttonInfoAttrs"
+          v-if="buttonInfoAttrs"
+          v-bind="buttonInfoAttrs"
           class="ui-button--text ui-button--small ui-multiple-choices-item__info"
         >
           <UiIcon
-            icon="info"
+            v-bind="defaultProps.iconInfoAttrs"
             class="ui-button__icon ui-multiple-choices-item__info-icon"
           />
           <span class="ui-multiple-choices-item__info-message">
@@ -140,7 +140,33 @@ const props = defineProps({
     type: String as PropType<HTMLTag>,
     default: 'fieldset',
   },
+  buttonInfoAttrs: {
+    type: Object,
+    default: null,
+  },
+  textNameAttrs: {
+    type: Object,
+    default: () => ({
+      tag: 'span',
+    }),
+  },
+  iconInfoAttrs: {
+    type: Object,
+    default: () => ({
+      icon: 'info',
+    }),
+  },
 });
+const defaultProps = computed(() => ({
+  textNameAttrs: {
+    tag: 'span',
+    ...props.textNameAttrs,
+  },
+  iconInfoAttrs: {
+    icon: 'info',
+    ...props.iconInfoAttrs,
+  },
+}));
 const emit = defineEmits<{(e: 'update:modelValue', value: MultipleChoiceModelValue): void}>();
 const choiceLabelId = computed(() => (`choice-label-${props.choice?.id || uid()}`));
 

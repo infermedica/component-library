@@ -28,12 +28,13 @@
     <slot
       name="aside"
       v-bind="{
-        suffix
+        suffix,
+        attrs: defaultProps.textSuffixAttrs
       }"
     >
       <UiText
         v-if="suffix"
-        tag="span"
+        v-bind="defaultProps.textSuffixAttrs"
         class="ui-input__aside"
       >
         {{ suffix }}
@@ -49,13 +50,23 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { useAttrs } from 'vue';
+import {
+  computed,
+  useAttrs,
+} from 'vue';
 import UiText from '../UiText/UiText.vue';
 import useInput from '../../../composable/useInput';
 import useKeyValidation from '../../../composable/useKeyValidation';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 
-defineProps({
+const props = defineProps({
+  /**
+   * Use this props or v-model to set value.
+   */
+  modelValue: {
+    type: String,
+    default: '',
+  },
   /**
    * Use this props to set suffix.
    */
@@ -64,13 +75,21 @@ defineProps({
     default: '',
   },
   /**
-   * Use this props or v-model to set value.
+   * Use this props to pass attrs for suffix UiText
    */
-  modelValue: {
-    type: String,
-    default: '',
+  textSuffixAttrs: {
+    type: Object,
+    default: () => ({
+      tag: 'span',
+    }),
   },
 });
+const defaultProps = computed(() => ({
+  textSuffixAttrs: {
+    tag: 'span',
+    ...props.textSuffixAttrs,
+  },
+}));
 const emit = defineEmits<{(e: 'update:modelValue', value: string): void
 }>();
 const attrs = useAttrs();

@@ -7,15 +7,17 @@
       name="backdrop"
       v-bind="{
         closeHandler,
-        modelValue
+        modelValue,
+        backdropAttrs,
+        backdropTransitionAttrs: defaultProps.backdropTransitionAttrs
       }"
     >
       <transition
-        appear
-        name="fade"
+        v-bind="defaultProps.backdropTransitionAttrs"
       >
         <UiBackdrop
           v-if="modelValue"
+          v-bind="backdropAttrs"
           class="ui-modal__background"
           @click="closeHandler"
         />
@@ -29,13 +31,12 @@
         cancelHandler,
         closeHandler,
         isClosable,
-        modelValue
+        modelValue,
+        modalTransitionAttrs: defaultProps.modalTransitionAttrs
       }"
     >
       <transition
-        appear
-        name="fade"
-        @enter="enterHandler"
+        v-bind="defaultProps.modalTransitionAttrs"
       >
         <dialog
           v-if="modelValue"
@@ -56,7 +57,8 @@
               hasHeader,
               isClosable,
               titleTag,
-              titleText
+              titleText,
+              closeIconAttrs: defaultProps.closeIconAttrs
             }"
           >
             <div
@@ -69,11 +71,13 @@
                 v-bind="{
                   titleTag,
                   titleText,
-                  description
+                  description,
                 }"
               >
+                <!-- TODO: UiHeading:title; UiText:description -->
                 <component
                   :is="titleTag"
+                  v-bind="titleAttrs"
                   class="ui-modal__title"
                 >
                   {{ titleText }}
@@ -83,22 +87,30 @@
               <slot
                 name="close"
                 v-bind="{
-                  attrs: buttonCloseAttrs,
+                  attrs: closeButtonAttrs,
                   closeHandler,
-                  isClosable
+                  isClosable,
+                  closeIconAttrs: defaultProps.closeIconAttrs
                 }"
               >
                 <UiButton
                   v-if="isClosable"
                   ref="button"
                   class="ui-button--theme-secondary ui-button--icon ui-modal__close"
-                  v-bind="buttonCloseAttrs"
+                  v-bind="closeButtonAttrs"
                   @click="closeHandler()"
                 >
-                  <UiIcon
-                    icon="close"
-                    class="ui-button__icon"
-                  />
+                  <slot
+                    name="icon"
+                    v-bind="{
+                      attrs: defaultProps.closeIconAttrs
+                    }"
+                  >
+                    <UiIcon
+                      v-bind="defaultProps.closeIconAttrs"
+                      class="ui-button__icon"
+                    />
+                  </slot>
                 </UiButton>
               </slot>
             </div>
@@ -109,11 +121,13 @@
               name="description"
               v-bind="{
                 hasDescription,
-                description
+                description,
+                attrs: descriptionTextAttrs
               }"
             >
               <UiText
                 v-if="hasDescription"
+                v-bind="descriptionTextAttrs"
                 class="ui-modal__description"
               >
                 {{ description }}
@@ -142,7 +156,7 @@
                 <slot
                   name="confirm"
                   v-bind="{
-                    attrs: buttonConfirmAttrs,
+                    attrs: confirmButtonAttrs,
                     confirmHandler,
                     hasConfirm,
                     translation: defaultProps.translation
@@ -151,7 +165,7 @@
                   <UiButton
                     v-if="hasConfirm"
                     class="ui-modal__confirm"
-                    v-bind="buttonConfirmAttrs"
+                    v-bind="confirmButtonAttrs"
                     @click="confirmHandler"
                   >
                     {{ defaultProps.translation.confirm }}
@@ -161,7 +175,7 @@
                 <slot
                   name="cancel"
                   v-bind="{
-                    attrs: buttonCancelAttrs,
+                    attrs: cancelButtonAttrs,
                     cancelHandler,
                     hasCancel,
                     translation: defaultProps.translation
@@ -170,7 +184,7 @@
                   <UiButton
                     v-if="hasCancel"
                     class="ui-button--outlined ui-modal__cancel"
-                    v-bind="buttonCancelAttrs"
+                    v-bind="cancelButtonAttrs"
                     @click="cancelHandler"
                   >
                     {{ defaultProps.translation.cancel }}
@@ -182,7 +196,7 @@
                 <slot
                   name="cancel"
                   v-bind="{
-                    attrs: buttonCancelAttrs,
+                    attrs: cancelButtonAttrs,
                     cancelHandler,
                     hasCancel,
                     translation: defaultProps.translation
@@ -192,7 +206,7 @@
                     v-if="hasCancel"
                     ref="button"
                     class="ui-button--outlined ui-modal__cancel"
-                    v-bind="buttonCancelAttrs"
+                    v-bind="cancelButtonAttrs"
                     @click="cancelHandler"
                   >
                     {{ defaultProps.translation.cancel }}
@@ -202,7 +216,7 @@
                 <slot
                   name="confirm"
                   v-bind="{
-                    attrs: buttonConfirmAttrs,
+                    attrs: confirmButtonAttrs,
                     confirmHandler,
                     hasConfirm,
                     translation: defaultProps.translation
@@ -211,7 +225,7 @@
                   <UiButton
                     v-if="hasConfirm"
                     class="ui-modal__confirm ui-modal__confirm--order"
-                    v-bind="buttonConfirmAttrs"
+                    v-bind="confirmButtonAttrs"
                     @click="confirmHandler"
                   >
                     {{ defaultProps.translation.confirm }}
@@ -275,25 +289,25 @@ const props = defineProps({
     default: '',
   },
   /**
-   * Use this props to pass attrs for confirm UiButton.
+   * Use this props to pass attrs for UiButton.
    */
-  buttonConfirmAttrs: {
+  confirmButtonAttrs: {
     type: Object as PropsAttrs,
     default: () => ({
     }),
   },
   /**
-   * Use this props to pass attrs for cancel UiButton
+   * Use this props to pass attrs for UiButton
    */
-  buttonCancelAttrs: {
+  cancelButtonAttrs: {
     type: Object as PropsAttrs,
     default: () => ({
     }),
   },
   /**
-   * Use this props to pass attrs for close UiButton
+   * Use this props to pass attrs for UiButton
    */
-  buttonCloseAttrs: {
+  closeButtonAttrs: {
     type: Object as PropsAttrs,
     default: () => ({
     }),
@@ -329,27 +343,101 @@ const props = defineProps({
       cancel: 'Cancel',
     }),
   },
+  /**
+   * Use this props to pass attrs for UiIcon
+   */
+  closeIconAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({
+      icon: 'close',
+    }),
+  },
+  /**
+   * Use this props to pass attrs for UiBackdrop
+   */
+  backdropAttrs: {
+    type: Object,
+    default: () => ({
+    }),
+  },
+  /**
+   * Use this props to pass attrs for UiText
+   */
+  descriptionTextAttrs: {
+    type: Object,
+    default: () => ({
+    }),
+  },
+  /**
+   * Use this props to pass attrs for UiHeading
+   */
+  titleHeadingAttrs: {
+    type: Object,
+    default: () => ({
+      level: 2,
+    }),
+  },
+  /**
+   * Use this props to pass attrs for Transition
+   */
+  backdropTransitionAttrs: {
+    type: Object,
+    default: () => ({
+      appear: true,
+      name: 'fade',
+    }),
+  },
+  /**
+   * Use this props to pass attrs for Transition
+   */
+  modalTransitionAttrs: {
+    type: Object,
+    default: () => ({
+      appear: true,
+      name: 'fade',
+    }),
+  },
 });
+const button = ref<InstanceType<typeof UiButton>|null>(null);
+async function enterHandler() {
+  await nextTick();
+  focusElement(button.value?.$el, true);
+}
 const defaultProps = computed(() => ({
   translation: {
     confirm: 'Ok',
     cancel: 'Cancel',
     ...props.translation,
   },
+  closeIconAttrs: {
+    icon: 'close',
+    ...props.closeIconAttrs,
+  },
+  titleHeadingAttrs: {
+    level: 2,
+    ...props.titleHeadingAttrs,
+  },
+  backdropTransitionAttrs: {
+    appear: true,
+    name: 'fade',
+    ...props.backdropTransitionAttrs,
+  },
+  modalTransitionAttrs: {
+    appear: true,
+    name: 'fade',
+    onEnter: enterHandler,
+    ...props.modalTransitionAttrs,
+  },
 }));
 const emit = defineEmits<{(e: 'cancel'): void, (e:'confirm'): void, (e:'update:modelValue', value: boolean): void}>();
-const button = ref<InstanceType<typeof UiButton>|null>(null);
 const hasActions = computed(() => props.hasCancel || props.hasConfirm);
 const hasDescription = computed(() => !!props.title && !!props.description);
 const hasHeader = computed(() => !!props.title || !!props.description || !!props.isClosable);
 const titleSlotName = computed<'title'|'description'>(() => (props.title ? 'title' : 'description'));
 const titleTag = computed(() => (props.title ? UiHeading : UiText));
 const titleText = computed(() => props.title || props.description);
+const titleAttrs = computed(() => (props.title ? defaultProps.value.titleHeadingAttrs : props.descriptionTextAttrs));
 
-async function enterHandler() {
-  await nextTick();
-  focusElement(button.value?.$el, true);
-}
 function closeHandler(): void {
   if (!props.isClosable) return;
   emit('update:modelValue', false);

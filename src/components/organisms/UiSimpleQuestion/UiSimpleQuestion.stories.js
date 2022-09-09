@@ -16,24 +16,29 @@ export default {
       {
         id: 'female',
         value: 'female',
-        name: 'sex',
         label: 'Female',
+        icon: 'female',
+        'data-testid': 'female',
         iconAttrs: {
-          icon: 'female',
+          'data-testid': 'female-icon',
+        },
+        textLabelAttrs: {
+          'data-testid': 'female-label',
         },
       },
       {
         id: 'male',
         value: 'male',
-        name: 'sex',
         label: 'Male',
+        icon: 'male',
         iconAttrs: {
-          icon: 'male',
+          'data-testid': 'male-icon',
+        },
+        textLabelAttrs: {
+          'data-testid': 'male-label',
         },
       },
     ],
-    tileAttrs: {
-    },
   },
   argTypes: {
     initModelValue: {
@@ -99,14 +104,22 @@ export const WithTileSlot = (args) => ({
     :options="options"
     :class="modifiers"
   >
-  <template #tile="{option, tileAttrs, modelValue, isTileSmall, updateHandler}">
+  <template #tile="{
+    option, 
+    modelValue, 
+    isTileSmall, 
+    updateHandler
+  }">
     <UiTile
-      :id="option.id"
-      v-bind="tileAttrs"
       :model-value="modelValue"
       :value="option.value"
+      :id="option.id"
+      :icon="option.icon"
       :icon-attrs="option.iconAttrs"
-      :name="option.name"
+      :text-label-attrs="option.textLabelAttrs"
+      v-bind="{
+        'data-testid': option['data-testid'],
+      }"
       :class="{'ui-tile--small': isTileSmall}"
       class="ui-simple-question__option ui-tile"
       @update:modelValue="updateHandler(option.value)"

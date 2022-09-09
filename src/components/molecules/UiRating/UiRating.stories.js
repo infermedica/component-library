@@ -17,8 +17,6 @@ export default {
     max: 5,
     name: '',
     legend: 'How helpful was this checkup for you?',
-    radioAttrs: {
-    },
     settings: {
       icon: 'star-outlined',
       iconActive: 'star-filled',
@@ -62,7 +60,6 @@ const Template = (args) => ({
     :max="max"
     :name="name"
     :legend="legend"
-    :radio-attrs="radioAttrs"
     :class="modifiers"
   />`,
 });
@@ -93,7 +90,6 @@ export const WithIconSlot = (args) => ({
     :max="max"
     :name="name"
     :legend="legend"
-    :radio-attrs="radioAttrs"
     :class="modifiers"
   >
     <template #icon="{translation, icon}">

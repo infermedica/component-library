@@ -14,7 +14,8 @@
       }"
     >
       <UiButton
-        :id="`toggler${name}`"
+        v-bind="buttonTogglerAttrs"
+        :id="`toggler-${name}`"
         :aria-expanded="`${isOpen}`"
         :aria-controls="name"
         class="ui-button--outlined ui-accordion-item__toggler"
@@ -48,9 +49,10 @@
     >
       <div
         v-show="isOpen"
+        v-bind="contentAttrs"
         :id="name"
         role="region"
-        :aria-labelledby="`toggler${name}`"
+        :aria-labelledby="`toggler-${name}`"
         class="ui-accordion-item__content"
       >
         <!-- @slot Use this slot to place content inside accordion. -->
@@ -100,6 +102,16 @@ const props = defineProps({
     default: () => ({
       iconOpen: 'chevron-up',
       iconClose: 'chevron-down',
+    }),
+  },
+  buttonTogglerAttrs: {
+    type: Object,
+    default: () => ({
+    }),
+  },
+  contentAttrs: {
+    type: Object,
+    default: () => ({
     }),
   },
 });

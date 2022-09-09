@@ -17,8 +17,11 @@ export default {
   },
   args: {
     content: 'Label',
-    buttonAttrs: {
-      'aria-label': 'remove chest pain from symptoms',
+    buttonRemoveAttrs: {
+      ariaLabel: 'remove label',
+    },
+    iconRemoveAttrs: {
+      'data-testid': 'icon-remove',
     },
     removeAction: null,
   },
@@ -45,7 +48,8 @@ export const WithLabel = (args) => ({
     };
   },
   template: `<UiChip
-    :button-attrs="buttonAttrs"
+    :button-remove-attrs="buttonRemoveAttrs"
+    :icon-remove-attrs="iconRemoveAttrs"
     @remove="onRemove"
   >
     {{content}}
@@ -68,14 +72,18 @@ export const WithRemoveSlot = (args) => ({
     v-bind="events" 
     @remove="onRemove"
   >
-    <template #remove="{clickHandler, attrs}">
+    <template #remove="{
+      attrs,
+      clickHandler,
+      iconRemoveAttrs, 
+    }">
       <UiButton
         v-bind="attrs"
         class="ui-button--icon ui-button--circled ui-chip__remove"
         @click="clickHandler"
       >
         <UiIcon
-          icon="remove-filled"
+          v-bind="iconRemoveAttrs"
           class="ui-button__icon ui-chip__icon"
         />
       </UiButton>

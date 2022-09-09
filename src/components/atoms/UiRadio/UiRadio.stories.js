@@ -3,11 +3,15 @@ import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import { ref } from 'vue';
+import { actions } from '@storybook/addon-actions';
 import {
   content,
   modifiers,
-  disabled,
 } from '@sb/helpers/argTypes';
+
+const events = actions({
+  onUpdateModelValue: 'update:modelValue',
+});
 
 export default {
   title: 'Atoms/Radio',
@@ -20,12 +24,13 @@ export default {
     content: '98.6–100.4 °F or 37–38 °C',
     modifiers: [],
     name: '',
-    disabled: false,
-    id: '',
     value: 'p_7',
+    id: '',
+    textLabelAttrs: {
+      'data-testid': 'text-label',
+    },
   },
   argTypes: {
-    content,
     initModelValue: {
       description: 'Use this control to set initial state.',
       table: {
@@ -33,10 +38,10 @@ export default {
       },
       control: 'text',
     },
+    content,
     modifiers: modifiers({
       options: ['ui-radio--has-error', 'ui-radio--is-disabled'],
     }),
-    disabled,
     name: {
       description: 'Use this control to set name attribute.',
       table: {
@@ -46,10 +51,10 @@ export default {
         type: 'text',
       },
     },
-    id: {
+    value: {
       control: 'text',
     },
-    value: {
+    id: {
       control: 'text',
     },
   },
@@ -63,6 +68,7 @@ const Template = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
@@ -70,8 +76,9 @@ const Template = (args) => ({
     v-model="modelValue"
     :value="value"
     :id="id"
-    :disabled="disabled"
-    :class="modifiers"       
+    :text-label-attrs="textLabelAttrs"
+    :class="modifiers"
+    @update:modelValue="onUpdateModelValue"
   >
     {{content}}
   </UiRadio>`,
@@ -100,6 +107,7 @@ export const WithRadioSlot = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
@@ -107,13 +115,16 @@ export const WithRadioSlot = (args) => ({
     v-model="modelValue"
     :value="value"
     :id="id"
-    :disabled="disabled"
+    :text-label-attrs="textLabelAttrs"
     :class="modifiers"
+    @update:modelValue="onUpdateModelValue"
   >
-    <template #radio="{checked}">
+    <template #radio="{ checked }">
       <div 
         class="ui-radio__radio"
-        :class="{'ui-radio__radio--is-checked': checked}"
+        :class="{
+          'ui-radio__radio--is-checked': checked
+        }"
       >
         <div class="ui-radio__mark" />
       </div>
@@ -131,19 +142,25 @@ export const WithLabelSlot = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
   template: `<UiRadio
-    v-model="modelValue"
-    :value="value"
-    :id="id"
-    :disabled="disabled"
-    :class="modifiers"
+      v-model="modelValue"
+      :value="value"
+      :id="id"
+      :text-label-attrs="textLabelAttrs"
+      :class="modifiers"
+      @update:modelValue="onUpdateModelValue"
   >
-    <template #label>
+    <template #label="{
+      hasLabel,
+      attrs,
+    }">
       <UiText
-        tag="span"
+        v-if="hasLabel"
+        v-bind="attrs"
         class="ui-radio__label"
       >
         {{content}}
@@ -162,6 +179,7 @@ export const AsGroup = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
@@ -173,7 +191,10 @@ export const AsGroup = (args) => ({
       <UiRadio
         v-model="modelValue"
         :value="value"
-        name="name"
+        :id="value.id"
+        :name="name"
+        :class="modifiers"
+        @update:modelValue="onUpdateModelValue"
       >
         {{value.label}}
       </UiRadio>
@@ -249,6 +270,7 @@ export const AsGroupWithNestedObject = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
@@ -258,10 +280,13 @@ export const AsGroupWithNestedObject = (args) => ({
       :key="key"
     >
       <UiRadio
-        v-model="modelValue"
-        v-bind="value.radioAttrs"
-        :value="value"
-        :name="name"
+          v-model="modelValue"
+          v-bind="value.radioAttrs"
+          :value="value"
+          :id="value.id"
+          :name="name"
+          :class="modifiers"
+          @update:modelValue="onUpdateModelValue"
       >
         {{value.label}}
       </UiRadio>
@@ -349,6 +374,7 @@ export const AsGroupWithPrimitiveTypes = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
@@ -361,6 +387,8 @@ export const AsGroupWithPrimitiveTypes = (args) => ({
         v-model="modelValue"
         :value="value"
         :name="name"
+        :class="modifiers"
+        @update:modelValue="onUpdateModelValue"
       >
         {{ value }}
       </UiRadio>

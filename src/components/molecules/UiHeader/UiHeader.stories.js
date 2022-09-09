@@ -9,25 +9,22 @@ import { modifiers } from '@sb/helpers/argTypes';
 import { toMobile } from '../../../styles/exports/breakpoints.module.scss';
 
 const events = actions({
-  handleClose: 'hamburger:close',
-  handleOpen: 'hamburger:open',
+  onHamburgerOpen: 'hamburger:open',
+  onHamburgerClose: 'hamburger:close',
 });
 
 export default {
   title: 'Molecules/Header',
   component: UiHeader,
   subcomponents: {
-    UiButton,
     UiIcon,
+    UiButton,
     UiNavigation,
   },
   args: {
     modifiers: [],
     title: 'Infermedica',
-    buttonBrandAttrs: {
-      id: 'brand-button',
-      href: '#',
-    },
+    hamburgerMatchMedia: toMobile,
     navigation: [
       {
         text: 'Terms of Service',
@@ -38,18 +35,25 @@ export default {
         href: '#',
       },
     ],
-    navigationAttrs: {
-    },
-    iconLogoAttrs: {
-      id: 'logo-icon',
-      style: {
-        '--icon-color': 'var(--color-icon-on-brand)',
-      },
+    buttonBrandAttrs: {
+      id: 'brand-button',
+      href: '#',
     },
     buttonHamburgerAttrs: {
       id: 'hamburger-button',
     },
-    hamburgerMatchMedia: toMobile,
+    iconHamburgerAttrs: {
+      'data-testid': 'hamburger-icon',
+    },
+    iconLogoAttrs: {
+      'data-testid': 'logo-icon',
+      style: {
+        '--icon-color': 'var(--color-icon-on-brand)',
+      },
+    },
+    navigationAttrs: {
+      'data-testid': 'navigation',
+    },
   },
   argTypes: {
     modifiers: modifiers({
@@ -108,22 +112,23 @@ const Template = (args) => ({
     const logo = defineAsyncComponent(() => import('../../../assets/logo.svg'));
     return {
       ...args,
-      logo,
       ...events,
+      logo,
     };
   },
   template: `<UiHeader
     :title="title"
     :logo="logo"
-    :navigation="navigation"
-    :navigation-attrs="navigationAttrs"
-    :buttonBrandAttrs="buttonBrandAttrs"
-    :iconLogoAttrs="iconLogoAttrs"
-    :buttonHamburgerAttrs="buttonHamburgerAttrs"
     :hamburgerMatchMedia="hamburgerMatchMedia"
+    :navigation="navigation"
+    :button-brand-Attrs="buttonBrandAttrs"
+    :button-hamburger-attrs="buttonHamburgerAttrs"
+    :icon-hamburger-attrs="iconHamburgerAttrs"
+    :icon-logo-attrs="iconLogoAttrs"
+    :navigation-attrs="navigationAttrs"
     :class="modifiers"
-    @hamburger:close="handleClose"
-    @hamburger:open="handleOpen"
+    @hamburger:close="onHamburgerClose"
+    @hamburger:open="onHamburgerOpen"
   />`,
 });
 
@@ -152,29 +157,35 @@ export const WithBrandSlot = (args) => ({
     const logo = defineAsyncComponent(() => import('../../../assets/logo.svg'));
     return {
       ...args,
-      logo,
       ...events,
+      logo,
     };
   },
   template: `<UiHeader
-    :logo="logo"
     :title="title"
-    :iconLogoAttrs="iconLogoAttrs"
-    :buttonBrandAttrs="buttonBrandAttrs"
-    :buttonHamburgerAttrs="buttonHamburgerAttrs"
+    :logo="logo"
     :hamburgerMatchMedia="hamburgerMatchMedia"
+    :navigation="navigation"
+    :button-brand-Attrs="buttonBrandAttrs"
+    :button-hamburger-attrs="buttonHamburgerAttrs"
+    :icon-hamburger-attrs="iconHamburgerAttrs"
+    :icon-logo-attrs="iconLogoAttrs"
+    :navigation-attrs="navigationAttrs"
     :class="modifiers"
-    @hamburger:close="handleClose"
-    @hamburger:open="handleOpen"
+    @hamburger:close="onHamburgerClose"
+    @hamburger:open="onHamburgerOpen"
   >
-    <template #brand="{ attrs, logoAttrs }">
+    <template #brand="{ 
+      attrs, 
+      iconLogoAttrs 
+    }">
       <UiButton
-        class="ui-button--icon ui-header__brand"
         v-bind="attrs"
+        class="ui-button--icon ui-header__brand"
       >
         <UiIcon
+          v-bind="iconLogoAttrs"
           class="ui-icon--theme-brand ui-header__logo"
-          v-bind="logoAttrs"
         />
       </UiButton>
     </template>
@@ -190,27 +201,28 @@ export const WithLogoSlot = (args) => ({
     const logo = defineAsyncComponent(() => import('../../../assets/logo.svg'));
     return {
       ...args,
-      logo,
       ...events,
+      logo,
     };
   },
   template: `<UiHeader
-    :logo="logo"
     :title="title"
-    :navigation="navigation"
-    :navigation-attrs="navigationAttrs"
-    :iconLogoAttrs="iconLogoAttrs"
-    :buttonBrandAttrs="buttonBrandAttrs"
-    :buttonHamburgerAttrs="buttonHamburgerAttrs"
+    :logo="logo"
     :hamburgerMatchMedia="hamburgerMatchMedia"
+    :navigation="navigation"
+    :button-brand-Attrs="buttonBrandAttrs"
+    :button-hamburger-attrs="buttonHamburgerAttrs"
+    :icon-hamburger-attrs="iconHamburgerAttrs"
+    :icon-logo-attrs="iconLogoAttrs"
+    :navigation-attrs="navigationAttrs"
     :class="modifiers"
-    @hamburger:close="handleClose"
-    @hamburger:open="handleOpen"
+    @hamburger:close="onHamburgerClose"
+    @hamburger:open="onHamburgerOpen"
   >
     <template #logo="{ attrs }">
       <UiIcon
-        class="ui-icon--theme-brand ui-header__logo"
         v-bind="attrs"
+        class="ui-header__logo"
       />
     </template>
   </UiHeader>`,
@@ -226,31 +238,36 @@ export const WithHamburgerSlot = (args) => ({
     const logo = defineAsyncComponent(() => import('../../../assets/logo.svg'));
     return {
       ...args,
-      logo,
       ...events,
+      logo,
     };
   },
   template: `<UiHeader
-    :logo="logo"
     :title="title"
-    :navigation="navigation"
-    :navigation-attrs="navigationAttrs"
-    :iconLogoAttrs="iconLogoAttrs"
-    :buttonBrandAttrs="buttonBrandAttrs"
-    :buttonHamburgerAttrs="buttonHamburgerAttrs"
+    :logo="logo"
     :hamburgerMatchMedia="hamburgerMatchMedia"
+    :navigation="navigation"
+    :button-brand-Attrs="buttonBrandAttrs"
+    :button-hamburger-attrs="buttonHamburgerAttrs"
+    :icon-hamburger-attrs="iconHamburgerAttrs"
+    :icon-logo-attrs="iconLogoAttrs"
+    :navigation-attrs="navigationAttrs"
     :class="modifiers"
-    @hamburger:close="handleClose"
-    @hamburger:open="handleOpen"
+    @hamburger:close="onHamburgerClose"
+    @hamburger:open="onHamburgerOpen"
   >
-    <template #hamburger="{ attrs, hamburgerHandler }">
+    <template #hamburger="{ 
+      attrs,
+      iconHamburgerAttrs, 
+      handleHamburger 
+    }">
       <UiButton
-          class="ui-button--icon ui-button--theme-brand ui-header__hamburger"
         v-bind="attrs"
+        class="ui-button--icon ui-button--theme-brand ui-header__hamburger"
         @click="handleHamburger"
       >
         <UiIcon
-          icon="menu"
+          v-bind="iconHamburgerAttrs"
           class="ui-button__icon"
         />
       </UiButton>
@@ -267,24 +284,28 @@ export const WithNavigationSlot = (args) => ({
     const logo = defineAsyncComponent(() => import('../../../assets/logo.svg'));
     return {
       ...args,
-      logo,
       ...events,
+      logo,
     };
   },
   template: `<UiHeader
-    :logo="logo"
     :title="title"
-    :navigation="navigation"
-    :navigation-attrs="navigationAttrs"
-    :iconLogoAttrs="iconLogoAttrs"
-    :buttonBrandAttrs="buttonBrandAttrs"
-    :buttonHamburgerAttrs="buttonHamburgerAttrs"
+    :logo="logo"
     :hamburgerMatchMedia="hamburgerMatchMedia"
+    :navigation="navigation"
+    :button-brand-Attrs="buttonBrandAttrs"
+    :button-hamburger-attrs="buttonHamburgerAttrs"
+    :icon-hamburger-attrs="iconHamburgerAttrs"
+    :icon-logo-attrs="iconLogoAttrs"
+    :navigation-attrs="navigationAttrs"
     :class="modifiers"
-    @hamburger:close="handleClose"
-    @hamburger:open="handleOpen"
+    @hamburger:close="onHamburgerClose"
+    @hamburger:open="onHamburgerOpen"
   >
-    <template #navigation="{ attrs, navigation }">
+    <template #navigation="{ 
+      attrs, 
+      navigation
+    }">
       <UiNavigation
         v-bind="attrs"
         :items="navigation"
@@ -309,8 +330,8 @@ export const WithCustomBrand = (args) => ({
 
     return {
       ...args,
-      logo,
       ...events,
+      logo,
     };
   },
   template: `<div :style="{
@@ -325,15 +346,16 @@ export const WithCustomBrand = (args) => ({
     <UiHeader
       :title="title"
       :logo="logo"
-      :navigation="navigation"
-      :navigation-attrs="navigationAttrs"
-      :buttonBrandAttrs="buttonBrandAttrs"
-      :iconLogoAttrs="iconLogoAttrs"
-      :buttonHamburgerAttrs="buttonHamburgerAttrs"
       :hamburgerMatchMedia="hamburgerMatchMedia"
+      :navigation="navigation"
+      :button-brand-Attrs="buttonBrandAttrs"
+      :button-hamburger-attrs="buttonHamburgerAttrs"
+      :icon-hamburger-attrs="iconHamburgerAttrs"
+      :icon-logo-attrs="iconLogoAttrs"
+      :navigation-attrs="navigationAttrs"
       :class="modifiers"
-      @hamburger:close="handleClose"
-      @hamburger:open="handleOpen"
+      @hamburger:close="onHamburgerClose"
+      @hamburger:open="onHamburgerOpen"
     />
   </div>`,
 });

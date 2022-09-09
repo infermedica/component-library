@@ -2,8 +2,13 @@ import UiTabs from '@/components/organisms/UiTabs/UiTabs.vue';
 import UiTabsItem from '@/components/organisms/UiTabs/_internal/UiTabsItem.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
+import { actions } from '@storybook/addon-actions';
 import { ref } from 'vue';
 import { modifiers } from '@sb/helpers/argTypes';
+
+const events = actions({
+  onUpdateModelValue: 'update:modelValue',
+});
 
 export default {
   title: 'Organisms/Tabs',
@@ -17,8 +22,12 @@ export default {
       {
         name: 'search',
         title: 'Search',
-        tabsItemAttrs: {
-          'data-testid': 'search',
+        'data-testid': 'search',
+        buttonAttrs: {
+          'data-testid': 'search-button',
+        },
+        contentAttrs: {
+          'data-testid': 'search-content',
         },
       },
       {
@@ -76,6 +85,7 @@ const Template = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
@@ -83,13 +93,14 @@ const Template = (args) => ({
     v-model="modelValue"
     :items="items"
     :class="modifiers"
+    @update:modelValue="onUpdateModelValue"
   >
     <template 
       v-for="(item, key) in items"
       #[item.name]="{item}"
       :key="key"
     >
-      <UiText>{{content[item.name]}}</UiText>
+      <UiText>{{ content[item.name] }}</UiText>
     </template>
   </UiTabs>`,
 });
@@ -125,10 +136,15 @@ export const WithDefaultSlot = (args) => ({
       :key="key"
     >
       <UiTabsItem 
-          :title="item.title" 
-          :name="item.name"
+        :title="item.title" 
+        :name="item.name"
+        :button-attrs="item.buttonAttrs"
+        :content-attrs="item.contentAttrs"
+        v-bind="{
+          'data-testid': item['data-testid'],
+        }"
       >
-        <UiText>{{content[item.name]}}</UiText>
+        <UiText>{{ content[item.name] }}</UiText>
       </UiTabsItem>
     </template>
   </UiTabs>`,

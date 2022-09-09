@@ -6,33 +6,50 @@
     <slot
       name="label"
       v-bind="{
-        attrs: labelAttrs,
-        label,
+        message: label || message,
         hint,
-        id: inputId
+        id: inputId,
+        textMessageAttrs: defaultProps.textMessageAttrs,
+        textHintAttrs: defaultProps.textHintAttrs,
       }"
     >
-      <UiText
-        v-if="label"
-        tag="label"
+      <label
+        v-if="label || message"
         :for="inputId"
         class="ui-form-field__label"
-        v-bind="labelAttrs"
       >
-        <UiText
-          class="ui-text--body-2-comfortable ui-form-field__message"
-          tag="span"
+        <!-- @slot Use this slot to replace message template.-->
+        <slot
+          name="message"
+          v-bind="{
+            message: label || message,
+            attrs: defaultProps.textMessageAttrs
+          }"
         >
-          {{ label }}
-        </UiText>
-        <UiText
-          v-if="hint"
-          class="ui-text--body-2-comfortable ui-text--theme-secondary ui-form-field__hint"
-          tag="span"
+          <UiText
+            v-bind="defaultProps.textMessageAttrs"
+            class="ui-text--body-2-comfortable ui-form-field__message"
+          >
+            {{ label || message }}
+          </UiText>
+        </slot>
+        <!-- @slot Use this slot to replace hint template.-->
+        <slot
+          name="hint"
+          v-bind="{
+            hint,
+            attrs: defaultProps.textHintAttrs
+          }"
         >
-          {{ hint }}
-        </UiText>
-      </UiText>
+          <UiText
+            v-if="hint"
+            v-bind="defaultProps.textHintAttrs"
+            class="ui-text--body-2-comfortable ui-text--theme-secondary ui-form-field__hint"
+          >
+            {{ hint }}
+          </UiText>
+        </slot>
+      </label>
     </slot>
     <!-- @slot Use this slot to place input.-->
     <slot
@@ -47,7 +64,6 @@
         attrs: alertAttrs,
         errorMessage
       }"
-      :alert="alertAttrs"
     >
       <UiAlert
         v-if="errorMessage"
@@ -62,7 +78,10 @@
 
 <script setup lang="ts">
 import { uid } from 'uid/single';
-import { computed } from 'vue';
+import {
+  computed,
+  useAttrs,
+} from 'vue';
 import type { PropType } from 'vue';
 import UiAlert from '../UiAlert/UiAlert.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
@@ -70,17 +89,9 @@ import type { PropsAttrs } from '../../../types/attrs';
 
 const props = defineProps({
   /**
-   * Use this props to set label $attrs
-   */
-  labelAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({
-    }),
-  },
-  /**
    * Use this props to set label text
    */
-  label: {
+  message: {
     type: [Boolean, String] as PropType<boolean | string>,
     default: false,
   },
@@ -100,24 +111,67 @@ const props = defineProps({
     default: '',
   },
   /**
-   * Use this props to set alert $attrs
-   */
-  alertAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({
-    }),
-  },
-  /**
    * Use this props to set alert message
    */
   errorMessage: {
     type: [Boolean, String] as PropType<boolean | string>,
     default: '',
   },
+  /**
+   * Use this props to pass attrs to message UiText.
+   */
+  textMessageAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({
+      tag: 'span',
+    }),
+  },
+  /**
+   * Use this props to pass attrs to hint UiText.
+   */
+  textHintAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({
+      tag: 'span',
+    }),
+  },
+  /**
+   * Use this props to pass attrs to UiAlert.
+   */
+  alertAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({
+    }),
+  },
 });
+const defaultProps = computed(() => ({
+  textMessageAttrs: {
+    tag: 'span',
+    ...props.textMessageAttrs,
+  },
+  textHintAttrs: {
+    tag: 'span',
+    ...props.textHintAttrs,
+  },
+}));
 const inputId = computed(() => (
   props.id || `input-${uid()}`
 ));
+// TODO: remove in 0.6.0 / BEGIN
+const attrs = useAttrs();
+const labelAttrs = computed(() => attrs.labelAttrs || attrs['label-attrs']);
+if (labelAttrs.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiFormField]: labelAttrs will be removed in 0.6.0.');
+  }
+}
+const label = computed(() => attrs.label);
+if (label.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiFormField]: label will be removed in 0.6.0. Please use message instead.');
+  }
+}
+// END
 </script>
 
 <style lang="scss">

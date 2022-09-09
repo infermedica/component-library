@@ -3,10 +3,15 @@ import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import { ref } from 'vue';
+import { actions } from '@storybook/addon-actions';
 import {
   content,
   modifiers,
 } from '@sb/helpers/argTypes';
+
+const events = actions({
+  onUpdateModelValue: 'update:modelValue',
+});
 
 export default {
   title: 'Molecules/Tile',
@@ -20,12 +25,15 @@ export default {
     initModelValue: '',
     content: 'Yes',
     modifiers: [],
-    iconAttrs: {
-      icon: 'yes',
-    },
-    id: '',
     value: 'present',
-
+    id: '',
+    icon: 'yes',
+    iconAttrs: {
+      'data-testid': 'icon',
+    },
+    textLabelAttrs: {
+      'date-testid': 'text-label',
+    },
   },
   argTypes: {
     content,
@@ -45,54 +53,25 @@ export default {
     modelValue: {
       control: false,
     },
-  },
-  parameters: {
-    cssprops: {
-      'tile-padding': {
-        value: 'var(--space-24) var(--space-16)',
-        control: 'text',
-        description: '',
+    icon: {
+      description: 'Use this props to set icon.',
+      table: {
+        category: 'props',
+        type: {
+          summary: 'string|object',
+        },
       },
-      'tile-active-transform': {
-        value: 'scale(0.96)',
-        control: 'text',
-        description: '',
+    },
+    iconSlot: {
+      name: 'icon',
+      description: 'Use this slot to replace icon template.',
+      table: {
+        category: 'slots',
+        type: {
+          summary: 'unknown',
+        },
       },
-      'tile-icon-size': {
-        value: '4rem',
-        control: 'text',
-        description: '',
-      },
-      'tile-icon-color': {
-        value: 'var(--color-icon-primary)',
-        control: 'text',
-        description: '',
-      },
-      'tile-label-padding': {
-        value: '0',
-        control: 'text',
-        description: '',
-      },
-      'tile-label-margin': {
-        value: '0 var(--space-16) 0 0',
-        control: 'text',
-        description: '',
-      },
-      'tile-label-text-align': {
-        value: 'left',
-        control: 'text',
-        description: '',
-      },
-      'tile-label-tablet-text-align': {
-        value: 'center',
-        control: 'text',
-        description: '',
-      },
-      'tile-label-tablet-margin': {
-        value: 'var(--space-16) 0 0 0',
-        control: 'text',
-        description: '',
-      },
+      control: 'object',
     },
   },
 };
@@ -105,16 +84,20 @@ const Template = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
   template: `<UiTile
     v-model="modelValue"
-    :id="id"
     :value="value"
+    :id="id"
+    :icon="icon"
     :icon-attrs="iconAttrs"
+    :text-label-attrs="textLabelAttrs"
     :class="modifiers"
     style="width: 100%; max-width: 320px;"
+    @update:modelValue="onUpdateModelValue"
   >
     {{content}}
   </UiTile>`,
@@ -144,20 +127,24 @@ export const WithIconSlot = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
   template: `<UiTile
     v-model="modelValue"
-    :id="id"
     :value="value"
+    :id="id"
+    :icon="icon"
     :icon-attrs="iconAttrs"
+    :text-label-attrs="textLabelAttrs"
     :class="modifiers"
     style="width: 100%; max-width: 320px;"
+    @update:modelValue="onUpdateModelValue"
   >
-    <template #icon="{iconAttrs}">
+    <template #icon="{ attrs }">
       <UiIcon
-        v-bind="iconAttrs"
+        v-bind="attrs"
         class="ui-button__icon ui-tile__icon"
       />
     </template>
@@ -174,20 +161,23 @@ export const WithLabelSlot = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
   template: `<UiTile
     v-model="modelValue"
-    :id="id"
     :value="value"
+    :id="id"
     :icon-attrs="iconAttrs"
+    :text-label-attrs="textLabelAttrs"
     :class="modifiers"
     style="width: 100%; max-width: 320px;"
+    @update:modelValue="onUpdateModelValue"
   >
-    <template #label>
+    <template #label="{ attrs }">
       <UiText
-        tag="span"
+        v-bind="attrs"
         class="ui-tile__label"
       >
         {{ content }}
@@ -204,6 +194,7 @@ export const AsGroup = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
@@ -211,14 +202,20 @@ export const AsGroup = (args) => ({
     class="flex flex-col tablet:flex-row"
     style="width: 100%; max-width: 1008px;"
   >
-    <template v-for="(option, key) in values" :key="key">
+    <template 
+      v-for="(option, key) in values" 
+      :key="key"
+    >
       <UiTile
         v-model="modelValue"
         :id="option.id"
         :value="option.value"
+        :icon="option.icon"
         :icon-attrs="option.iconAttrs"
-        style="flex: 1;"
+        :text-label-attrs="option.textLabelAttrs"
         :class="[...option.class || [], ...modifiers || [] ]"
+        style="flex: 1;"
+        @update:modelValue="onUpdateModelValue"
       >
         {{option.label}}
       </UiTile>
@@ -236,8 +233,12 @@ AsGroup.args = {
         choice_id: 'present',
       },
       id: 'present',
+      icon: 'yes',
       iconAttrs: {
-        icon: 'yes',
+        'data-testid': 'present',
+      },
+      textLabelAttrs: {
+        'data-testid': 'present',
       },
       label: 'Yes',
       class: ['mb-3', 'tablet:mr-6', 'tablet:mb-0'],
@@ -248,8 +249,12 @@ AsGroup.args = {
         choice_id: 'absent',
       },
       id: 'absent',
+      icon: 'no',
       iconAttrs: {
-        icon: 'no',
+        'data-testid': 'no',
+      },
+      textLabelAttrs: {
+        'data-testid': 'no',
       },
       label: 'No',
       class: ['mb-3', 'tablet:mr-6', 'tablet:mb-0'],
@@ -260,8 +265,12 @@ AsGroup.args = {
         choice_id: 'unknown',
       },
       id: 'unknown',
+      icon: 'dont-know',
       iconAttrs: {
-        icon: 'dont-know',
+        'data-testid': 'unknown',
+      },
+      textLabelAttrs: {
+        'data-testid': 'unknown',
       },
       label: 'Don\'t know',
     },

@@ -55,6 +55,9 @@
                 :model-value="evidences"
                 :invalid="hasError(choice.id)"
                 class="ui-multiple-choices__choice"
+                :button-info-attrs="choice.buttonInfoAttrs"
+                :text-name-attrs="choice.textNameAttrs"
+                :icon-info-attrs="choice.iconInfoAttrs"
                 @update:model-value="updateHandler($event)"
               />
             </slot>

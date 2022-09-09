@@ -1,6 +1,9 @@
 <template>
   <UiNumberStepper
-    v-bind="getRootAttrs($attrs)"
+    v-bind="{
+      ...getRootAttrs($attrs),
+      ...proxyNumberStepperAttrs
+    }"
     :model-value="modelValue"
     :style="{
       '--_range-runnable-track-width': trackWidth
@@ -8,8 +11,6 @@
     :min="min"
     :max="max"
     :step="step"
-    :button-decrement-attrs="defaultProps.buttonDecrementAttrs"
-    :button-increment-attrs="defaultProps.buttonIncrementAttrs"
     class="ui-range"
     @update:model-value="changeHandler"
   >
@@ -121,34 +122,14 @@ const props = defineProps({
     default: 1,
   },
   /**
-   * Use this props to pass attrs for decrement UiButton
+   * USe this props to pass attrs for UiNumberStepper
    */
-  buttonDecrementAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({
-    }),
-  },
-  /**
-   * Use this props to pass attrs for increment UiButton
-   */
-  buttonIncrementAttrs: {
+  numberStepperAttrs: {
     type: Object as PropsAttrs,
     default: () => ({
     }),
   },
 });
-const defaultProps = computed(() => ({
-  buttonDecrementAttrs: {
-    'aria-hidden': true,
-    tabindex: -1,
-    ...props.buttonDecrementAttrs,
-  },
-  buttonIncrementAttrs: {
-    'aria-hidden': true,
-    tabindex: -1,
-    ...props.buttonIncrementAttrs,
-  },
-}));
 const attrs = useAttrs();
 const emit = defineEmits<{(e:'update:modelValue', value: number): void}>();
 const { getRootAttrs, getInputAttrs } = useInput();
@@ -161,6 +142,25 @@ function changeHandler(value: number) {
   if (attrs.disabled) return;
   emit('update:modelValue', value);
 }
+// TODO: remove in 0.6.0 / BEGIN
+const buttonDecrementAttrs = computed(() => attrs.buttonDecrementAttrs || attrs['button-decrement-attrs']);
+if (buttonDecrementAttrs.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiRange]: buttonDecrementAttrs will be removed in 0.6.0. Please use numberStepperAttrs instead.');
+  }
+}
+const buttonIncrementAttrs = computed(() => attrs.buttonIncrementAttrs || attrs['button-increment-attrs']);
+if (buttonIncrementAttrs.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiRange]: buttonIncrementAttrs will be removed in 0.6.0. Please use numberStepperAttrs instead.');
+  }
+}
+const proxyNumberStepperAttrs = computed(() => ({
+  buttonDecrementAttrs: buttonDecrementAttrs.value,
+  buttonIncrementAttrs: buttonIncrementAttrs.value,
+  ...props.numberStepperAttrs,
+}));
+// END
 </script>
 
 <style lang="scss">

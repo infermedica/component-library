@@ -12,6 +12,7 @@
         id,
         isActive,
         buttonAttrs,
+        contentAttrs,
         handleTabActive,
         title
       }"
@@ -48,7 +49,9 @@
     <slot
       name="content"
       v-bind="{
-        isActive
+        isActive,
+        attrs: contentAttrs,
+        id,
       }"
     >
       <div

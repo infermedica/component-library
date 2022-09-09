@@ -75,12 +75,11 @@
       </UiText>
     </div>
     <UiNumberStepper
+      v-bind="proxyNumberStepperAttrs"
       class="ui-scale__mobile-controls"
       :model-value="scaleValue"
       :min="0"
       :max="steps - 1"
-      :button-decrement-attrs="defaultProps.buttonDecrementAttrs"
-      :button-increment-attrs="defaultProps.buttonIncrementAttrs"
       @update:model-value="changeHandler"
     >
       <template
@@ -100,6 +99,7 @@
 import {
   computed,
   ref,
+  useAttrs,
   watch,
 } from 'vue';
 import type {
@@ -157,22 +157,6 @@ const props = defineProps({
     }),
   },
   /**
-   * Use this props to pass attrs for decrement UiButton
-   */
-  buttonDecrementAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({
-    }),
-  },
-  /**
-   * Use this props to pass attrs for increment UiButton
-   */
-  buttonIncrementAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({
-    }),
-  },
-  /**
    * Use this props to set scale tag.
    */
   tag: {
@@ -186,6 +170,14 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  /**
+   * USe this props to pass attrs for UiNumberStepper
+   */
+  numberStepperAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({
+    }),
+  },
 });
 const defaultProps = computed(() => ({
   translation: {
@@ -193,16 +185,6 @@ const defaultProps = computed(() => ({
     mild: 'Mild',
     unbearable: 'Unbearable',
     ...props.translation,
-  },
-  buttonDecrementAttrs: {
-    'aria-hidden': true,
-    tabindex: -1,
-    ...props.buttonDecrementAttrs,
-  },
-  buttonIncrementAttrs: {
-    'aria-hidden': true,
-    tabindex: -1,
-    ...props.buttonIncrementAttrs,
   },
 }));
 const emit = defineEmits<{(e: 'update:modelValue', value: number): void}>();
@@ -243,6 +225,26 @@ function calcActiveElementOpacity(index: number): CSSProperties {
   } : {
   };
 }
+// TODO: remove in 0.6.0 / BEGIN
+const attrs = useAttrs();
+const buttonDecrementAttrs = computed(() => attrs.buttonDecrementAttrs || attrs['button-decrement-attrs']);
+if (buttonDecrementAttrs.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiScale]: buttonDecrementAttrs will be removed in 0.6.0. Please use numberStepperAttrs instead.');
+  }
+}
+const buttonIncrementAttrs = computed(() => attrs.buttonIncrementAttrs || attrs['button-increment-attrs']);
+if (buttonIncrementAttrs.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiScale]: buttonIncrementAttrs will be removed in 0.6.0. Please use numberStepperAttrs instead.');
+  }
+}
+const proxyNumberStepperAttrs = computed(() => ({
+  buttonDecrementAttrs: buttonDecrementAttrs.value,
+  buttonIncrementAttrs: buttonIncrementAttrs.value,
+  ...props.numberStepperAttrs,
+}));
+// END
 </script>
 
 <style lang="scss">

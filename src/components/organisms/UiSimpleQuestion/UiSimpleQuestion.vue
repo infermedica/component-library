@@ -9,19 +9,16 @@
         name="tile"
         v-bind="{
           option,
-          tileAttrs,
           modelValue,
           isTileSmall,
           updateHandler
         }"
       >
         <UiTile
-          :id="option.id"
-          v-bind="tileAttrs"
+          v-bind="(()=>{const {
+            label, ...rest
+          } = option; return rest;})()"
           :model-value="modelValue"
-          :value="option.value"
-          :icon-attrs="option.iconAttrs"
-          :name="option.name"
           :class="{
             'ui-tile--small': isTileSmall
           }"
@@ -49,12 +46,14 @@ import type { Icon } from '../../../types/icon';
 export interface SimpleQuestionOptions {
   id: string;
   value: TileValue;
-  name: string;
   label: string;
-  iconAttrs: {
-    icon: Icon;
+  tileAttrs: {
+    iconAttrs: {
+      icon: Icon;
+      [key: string]: unknown;
+    },
     [key: string]: unknown;
-  },
+  }
 }
 defineProps({
   /**
@@ -72,21 +71,14 @@ defineProps({
     type: Array as PropType<SimpleQuestionOptions[]>,
     default: () => [{
       id: '',
-      name: '',
       label: '',
       value: '',
-      iconAttrs: {
-        icon: '',
+      tileAttrs: {
+        iconAttrs: {
+          icon: '',
+        },
       },
     }],
-  },
-  /**
-   * Use this props to pass native attributes to all UiTiles.
-   */
-  tileAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({
-    }),
   },
 });
 const emit = defineEmits<{(e: 'update:modelValue', value: TileValue): void}>();

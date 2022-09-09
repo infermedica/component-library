@@ -19,11 +19,11 @@
         closeHandler,
         isOpen,
         text,
-        attrs: buttonAttrs
+        attrs: buttonAttrs || buttonToggleAttrs
       }"
     >
       <UiButton
-        v-bind="buttonAttrs"
+        v-bind="buttonAttrs || buttonToggleAttrs"
         ref="toggle"
         class="ui-dropdown__toggle"
         :aria-expanded="`${isOpen}`"
@@ -70,7 +70,11 @@
                 v-for="(item, key) in itemsToRender"
                 :key="key"
               >
-                <UiDropdownItem :value="item.value">
+                <UiDropdownItem
+                  v-bind="(()=>{const {
+                    name, text, ...rest
+                  } = item; return rest;})()"
+                >
                   <!-- @slot Use this slot to replace dropdown item content. -->
                   <slot
                     :name="item.name"
@@ -97,6 +101,7 @@ import {
   computed,
   provide,
   nextTick,
+  useAttrs,
 } from 'vue';
 import type {
   PropType,
@@ -170,9 +175,16 @@ const props = defineProps({
     default: true,
   },
   /**
-   *  Use this props to pass attrs to UiButton.
+   * Use this props to pass list of dropdown items.
    */
-  buttonAttrs: {
+  items: {
+    type: Array as PropType<DropdownItem[]>,
+    default: () => [],
+  },
+  /**
+   *  Use this props to pass attrs to toggle UiButton.
+   */
+  buttonToggleAttrs: {
     type: Object as PropsAttrs,
     default: () => ({
     }),
@@ -184,13 +196,6 @@ const props = defineProps({
     type: Object as PropsAttrs,
     default: () => ({
     }),
-  },
-  /**
-   * Use this props to pass list of dropdown items.
-   */
-  items: {
-    type: Array as PropType<DropdownItem[]>,
-    default: () => [],
   },
 });
 const emit = defineEmits<{(e: 'update:modelValue', value: DropdownValue):void;
@@ -330,10 +335,20 @@ const itemsToRender = computed<DropdownItemAsObj[]>(() => (props.items.map((item
   }
   return {
     name: item.name || `dropdown-item-${key}`,
+    value: item.value || item,
     ...item,
-    value: item.value,
   };
 })));
+
+// TODO: remove in 0.6.0 / BEGIN
+const attrs = useAttrs();
+const buttonAttrs = computed(() => attrs.buttonAttrs || attrs['button-attrs']);
+if (buttonAttrs.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiDropdown]: buttonAttrs will be removed in 0.6.0. Please use buttonToggleAttrs instead.');
+  }
+}
+// END
 </script>
 
 <style lang="scss">

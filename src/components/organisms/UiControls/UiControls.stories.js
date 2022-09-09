@@ -29,11 +29,14 @@ export default {
       back: 'Back',
       next: 'Next',
     },
-    buttonBackAttrs: {
-      id: 'controls-back',
-    },
     buttonNextAttrs: {
-      id: 'controls-next',
+      'data-testid': 'button-next',
+    },
+    buttonBackAttrs: {
+      'data-testid': 'button-back',
+    },
+    iconBackAttrs: {
+      'data-testid': 'icon-back',
     },
   },
   argTypes: {
@@ -49,7 +52,7 @@ export default {
         category: 'events',
       },
     },
-    buttonBackAttrs: {
+    backButtonAttrs: {
       description: 'Use this props to pass attrs for back UiButton',
       table: {
         category: 'props',
@@ -59,7 +62,7 @@ export default {
       },
       control: 'object',
     },
-    buttonNextAttrs: {
+    nextButtonAttrs: {
       description: 'Use this props to pass attrs for next UiButton',
       table: {
         category: 'props',
@@ -88,39 +91,14 @@ const Template = (args) => ({
     :to-next="toNext"
     :invalid="invalid"
     :translation="translation"
-    :button-back-attrs="buttonBackAttrs"
     :button-next-attrs="buttonNextAttrs"
+    :button-back-attrs="buttonBackAttrs"
+    :icon-back-attrs="iconBackAttrs"
     @has-error="onHasError"
   />`,
 });
 
 export const Common = Template.bind({
-});
-
-export const WithContainerSlot = (args) => ({
-  components: {
-    UiControls,
-  },
-  setup() {
-    return {
-      ...args,
-      ...events,
-    };
-  },
-  template: `<UiControls
-    :hide-next-button="hideNextButton"
-    :to-back="toBack"
-    :to-next="toNext"
-    :invalid="invalid"
-    :translation="translation"
-    :button-back-attrs="buttonBackAttrs"
-    :button-next-attrs="buttonNextAttrs"
-    @has-error="onHasError"
-  >
-    <template #container>
-      <div class="ui-controls__container"/>
-    </template>
-  </UiControls>`,
 });
 
 export const WithBottomSlot = (args) => ({
@@ -142,27 +120,40 @@ export const WithBottomSlot = (args) => ({
     :to-next="toNext"
     :invalid="invalid"
     :translation="translation"
-    :button-back-attrs="buttonBackAttrs"
     :button-next-attrs="buttonNextAttrs"
+    :button-back-attrs="buttonBackAttrs"
+    :icon-back-attrs="iconBackAttrs"
     @has-error="onHasError"
   >
-    <template #bottom="{toBack, backButtonAttrs, toNext, nextButtonAttrs, hideNextButton, invalid, translation}">
+    <template #bottom="{
+      toNext,
+      hideNextButton,
+      buttonNextAttrs,
+      invalid,
+      toBack,
+      iconBackAttrs,
+      buttonBackAttrs,
+      translation,
+    }">
       <div class="ui-controls__bottom">
         <UiButton
-          v-if="!hideNextButton"
-          v-bind="nextButtonAttrs"
+          v-if="toNext && !hideNextButton"
+          v-bind="buttonNextAttrs"
           class="ui-controls__next"
-          :class="{'ui-button--is-disabled': invalid}"
+          :class="{
+            'ui-button--is-disabled': invalid
+          }"
         >
           {{ translation.next }}
         </UiButton>
+        <span v-else />
         <UiButton
           v-if="toBack"
-          v-bind="backButtonAttrs"
+          v-bind="buttonBackAttrs"
           class="ui-button--text ui-controls__back"
         >
           <UiIcon
-            icon="chevron-left"
+            v-bind="iconBackAttrs"
             class="ui-button__icon"
           /> {{ translation.back }}
         </UiButton>
@@ -188,19 +179,29 @@ export const WithNextSlot = (args) => ({
     :to-next="toNext"
     :invalid="invalid"
     :translation="translation"
-    :button-back-attrs="buttonBackAttrs"
     :button-next-attrs="buttonNextAttrs"
+    :button-back-attrs="buttonBackAttrs"
+    :icon-back-attrs="iconBackAttrs"
     @has-error="onHasError"
   >
-    <template #next="{hideNextButton, attrs, invalid, translation}">
+    <template #next="{
+      toNext,
+      hideNextButton, 
+      attrs, 
+      invalid, 
+      translation
+    }">
       <UiButton
-        v-if="!hideNextButton"
+        v-if="toNext && !hideNextButton"
         v-bind="attrs"
         class="ui-controls__next"
-        :class="{'ui-button--is-disabled': invalid}"
+        :class="{
+          'ui-button--is-disabled': invalid
+        }"
       >
         {{ translation.next }}
       </UiButton>
+      <span v-else/>
     </template>
   </UiControls>`,
 });
@@ -223,18 +224,24 @@ export const WithBackSlot = (args) => ({
     :to-next="toNext"
     :invalid="invalid"
     :translation="translation"
-    :button-back-attrs="buttonBackAttrs"
     :button-next-attrs="buttonNextAttrs"
+    :button-back-attrs="buttonBackAttrs"
+    :icon-back-attrs="iconBackAttrs"
     @has-error="onHasError"
   >
-    <template #next="{toBack, attrs, translation}">
+    <template #next="{
+      toBack, 
+      attrs,
+      iconBackAttrs, 
+      translation
+    }">
       <UiButton
         v-if="toBack"
         v-bind="attrs"
         class="ui-button--text ui-controls__back"
       >
         <UiIcon
-          icon="chevron-left"
+          v-bind="iconBackAttrs"
           class="ui-button__icon"
         /> {{ translation.back }}
       </UiButton>

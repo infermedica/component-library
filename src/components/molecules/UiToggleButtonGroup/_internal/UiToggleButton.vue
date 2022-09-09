@@ -38,7 +38,7 @@ const props = defineProps({
    */
   value: {
     type: [Number, String, Object] as PropType<ToggleButtonValue>,
-    required: true,
+    default: '',
   },
 });
 const emit = defineEmits<{(e:'check'|'uncheck'):void;}>();

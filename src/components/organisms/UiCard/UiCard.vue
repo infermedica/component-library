@@ -7,13 +7,13 @@
     <slot
       name="triage"
       v-bind="{
-        icon
+        attrs: defaultProps.iconAttrs
       }"
     >
       <div class="ui-card__triage">
         <UiIcon
-          v-if="icon"
-          :icon="icon"
+          v-if="defaultProps.iconAttrs.icon"
+          v-bind="defaultProps.iconAttrs"
           class="ui-card__icon"
         />
       </div>
@@ -22,8 +22,11 @@
       name="content"
       v-bind="{
         subtitle,
+        textSubtitleAttrs,
         title,
-        description
+        headingTitleAttrs,
+        description,
+        textDescriptionAttrs
       }"
     >
       <div class="ui-card__content">
@@ -31,11 +34,13 @@
         <slot
           name="subtitle"
           v-bind="{
-            subtitle
+            subtitle,
+            attrs: textSubtitleAttrs
           }"
         >
           <UiText
             v-if="subtitle"
+            v-bind="textSubtitleAttrs"
             class="ui-card__subtitle"
           >
             {{ subtitle }}
@@ -45,11 +50,13 @@
         <slot
           name="title"
           v-bind="{
-            title
+            title,
+            attrs: headingTitleAttrs
           }"
         >
           <UiHeading
             v-if="title"
+            v-bind="headingTitleAttrs"
             class="ui-card__title"
           >
             {{ title }}
@@ -59,11 +66,13 @@
         <slot
           name="description"
           v-bind="{
-            description
+            description,
+            attrs: textDescriptionAttrs
           }"
         >
           <UiText
             v-if="description"
+            v-bind="textDescriptionAttrs"
             class="ui-card__description"
           >
             {{ description }}
@@ -118,9 +127,47 @@ const props = defineProps({
     type: String as PropType<CardType>,
     default: 'emergency_ambulance',
   },
+  /**
+   * Use this props to pass attrs for UiIcon
+   */
+  iconAttrs: {
+    type: Object,
+    default: () => ({
+    }),
+  },
+  /**
+   * Use this props to pass attrs for subtitle UiText
+   */
+  textSubtitleAttrs: {
+    type: Object,
+    default: () => ({
+    }),
+  },
+  /**
+   * Use this props to pass attrs for title UiHeading.
+   */
+  headingTitleAttrs: {
+    type: Object,
+    default: () => ({
+    }),
+  },
+  /**
+   * Use this props to pass attrs for description UiText.
+   */
+  textDescriptionAttrs: {
+    type: Object,
+    default: () => ({
+    }),
+  },
 });
 const rootClassModifier = computed<`ui-card--${CardType}`>(() => `ui-card--${props.type}`);
 const icon = computed(() => props.type.replace(/_/g, '-'));
+const defaultProps = computed(() => ({
+  iconAttrs: {
+    icon: icon.value,
+    ...props.iconAttrs,
+  },
+}));
 </script>
 
 <style lang="scss">

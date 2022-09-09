@@ -12,7 +12,7 @@
     <slot />
     <UiIcon
       v-if="isChecked"
-      icon="present"
+      v-bind="defaultProps.iconAttrs"
       class="ui-button__icon ui-dropdown-item__icon"
     />
   </UiButton>
@@ -29,6 +29,7 @@ import type {
   PropType,
   ComputedRef,
 } from 'vue';
+import equal from 'fast-deep-equal';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import type { DropdownValue } from '../UiDropdown.vue';
@@ -47,7 +48,22 @@ const props = defineProps({
     type: [String, Object] as PropType<DropdownValue>,
     default: '',
   },
+  /**
+   *  Use this props to pass attrs to UiIcon.
+   */
+  iconAttrs: {
+    type: Object,
+    default: () => ({
+      icon: 'present',
+    }),
+  },
 });
+const defaultProps = computed(() => ({
+  iconAttrs: {
+    icon: 'present',
+    ...props.iconAttrs,
+  },
+}));
 const attrs = useAttrs();
 const dropdownItem = ref<null|HTMLButtonElement>(null);
 const changeHandler = inject('changeHandler') as (value: DropdownValue) => void;
@@ -60,9 +76,7 @@ const isChecked = computed(() => {
   if (typeof modelValue.value === 'string') {
     return props.value === modelValue.value;
   }
-  return Object.keys(props.value)
-    .every((key: string) => (
-      modelValue.value as Record<string, unknown>)[key] === (props.value as Record<string, unknown>)[key]);
+  return equal(JSON.parse(JSON.stringify(modelValue.value)), JSON.parse(JSON.stringify(props.value)));
 });
 const isOption = computed(() => !!props.value);
 const tabindex = computed(() => {

@@ -19,12 +19,13 @@
         decrement,
         hasControls,
         isMin,
-        attrs: buttonDecrementAttrs
+        attrs: defaultProps.buttonDecrementAttrs,
+        iconDecrementAttrs: defaultProps.iconDecrementAttrs,
       }"
     >
       <UiButton
         v-if="hasControls"
-        v-bind="buttonDecrementAttrs"
+        v-bind="defaultProps.buttonDecrementAttrs"
         class="ui-button--outlined ui-button--circled ui-number-stepper__decrement"
         :class="{
           'ui-button--is-disabled': isMin
@@ -32,8 +33,8 @@
         @click="decrement"
       >
         <UiIcon
+          v-bind="defaultProps.iconDecrementAttrs"
           class="ui-button__icon"
-          icon="minus"
         />
       </UiButton>
     </slot>
@@ -44,12 +45,13 @@
         increment,
         hasControls,
         isMax,
-        attrs: buttonIncrementAttrs
+        attrs: defaultProps.buttonIncrementAttrs,
+        iconIncrementAttrs: defaultProps.iconIncrementAttrs,
       }"
     >
       <UiButton
         v-if="hasControls"
-        v-bind="buttonIncrementAttrs"
+        v-bind="defaultProps.buttonIncrementAttrs"
         class="ui-button--outlined ui-button--circled ui-number-stepper__increment"
         :class="{
           'ui-button--is-disabled': isMax
@@ -57,8 +59,8 @@
         @click="increment"
       >
         <UiIcon
+          v-bind="defaultProps.iconIncrementAttrs"
           class="ui-button__icon"
-          icon="plus"
         />
       </UiButton>
     </slot>
@@ -113,6 +115,14 @@ const props = defineProps({
   buttonDecrementAttrs: {
     type: Object as PropsAttrs,
     default: () => ({
+      'aria-hidden': true,
+      tabindex: -1,
+    }),
+  },
+  iconDecrementAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({
+      icon: 'minus',
     }),
   },
   /**
@@ -121,9 +131,37 @@ const props = defineProps({
   buttonIncrementAttrs: {
     type: Object as PropsAttrs,
     default: () => ({
+      'aria-hidden': true,
+      tabindex: -1,
+    }),
+  },
+  iconIncrementAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({
+      icon: 'plus',
     }),
   },
 });
+const defaultProps = computed(() => ({
+  buttonDecrementAttrs: {
+    'aria-hidden': true,
+    tabindex: -1,
+    ...props.buttonDecrementAttrs,
+  },
+  iconDecrementAttrs: {
+    icon: 'minus',
+    ...props.iconDecrementAttrs,
+  },
+  buttonIncrementAttrs: {
+    'aria-hidden': true,
+    tabindex: -1,
+    ...props.buttonIncrementAttrs,
+  },
+  iconIncrementAttrs: {
+    icon: 'plus',
+    ...props.iconIncrementAttrs,
+  },
+}));
 const emit = defineEmits<{(e:'update:modelValue', value: number): void,
   (e: 'error', value: {isMin: boolean, isMax: boolean}): void}>();
 const validate = (value: number) => (value >= props.min && value <= props.max);

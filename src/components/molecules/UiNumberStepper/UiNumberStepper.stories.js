@@ -28,10 +28,16 @@ export default {
     step: 1,
     hasControls: true,
     buttonDecrementAttrs: {
-      'aria-label': 'decrement number',
+      ariaLabel: 'decrement number',
+    },
+    iconDecrementAttrs: {
+      'data-testid': 'icon-decrement',
     },
     buttonIncrementAttrs: {
-      'aria-label': 'increment number',
+      ariaLabel: 'increment number',
+    },
+    iconIncrementAttrs: {
+      'data-testid': 'icon-icrement',
     },
   },
   argTypes: {
@@ -68,11 +74,19 @@ export const WithTextValue = (args) => ({
     :step="step"
     :has-controls="hasControls"
     :button-decrement-attrs="buttonDecrementAttrs"
+    :icon-decrement-attrs="iconDecrementAttrs"
     :button-increment-attrs="buttonIncrementAttrs"
-    @update:modelValue="onUpdateModelValue"
+    :icon-increment-attrs="iconIncrementAttrs"
     @error="onError"
+    @update:modelValue="onUpdateModelValue"
   >
-    <template #default="{value}">
+    <template #default="{
+      change,
+      value,
+      min,
+      max,
+      step,
+    }">
       <UiText class="flex items-center justify-center h-12 flex-full tablet:flex-none w-12">
         {{ value }}
       </UiText>
@@ -94,6 +108,7 @@ export const WithControlsOnMobile = (args) => ({
     });
     return {
       ...args,
+      ...events,
       modelValue,
       isMobile,
     };
@@ -103,11 +118,21 @@ export const WithControlsOnMobile = (args) => ({
     :min="min"
     :max="max"
     :step="step"
-    :has-controls="isMobile"
+    :has-controls="hasControls"
     :button-decrement-attrs="buttonDecrementAttrs"
+    :icon-decrement-attrs="iconDecrementAttrs"
     :button-increment-attrs="buttonIncrementAttrs"
+    :icon-increment-attrs="iconIncrementAttrs"
+    @error="onError"
+    @update:modelValue="onUpdateModelValue"
   >
-  <template #default="{change, value, min, max}">
+  <template #default="{
+    change,
+    value,
+    min,
+    max,
+    step,
+  }">
     <input
       type="range"
       :value="value"
@@ -151,6 +176,7 @@ export const WithDecrementSlot = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
@@ -161,22 +187,41 @@ export const WithDecrementSlot = (args) => ({
     :step="step"
     :has-controls="hasControls"
     :button-decrement-attrs="buttonDecrementAttrs"
+    :icon-decrement-attrs="iconDecrementAttrs"
     :button-increment-attrs="buttonIncrementAttrs"
+    :icon-increment-attrs="iconIncrementAttrs"
+    @error="onError"
+    @update:modelValue="onUpdateModelValue"
   >
-    <template #decrement="{decrement, hasControls, attrs }">
+    <template #decrement="{
+      decrement, 
+      hasControls,
+      isMin,
+      attrs,
+      iconDecrementAttrs, 
+    }">
       <UiButton
         v-if="hasControls"
         v-bind="attrs"
         class="ui-button--outlined ui-button--circled ui-number-stepper__decrement"
+        :class="{
+          'ui-button--is-disabled': isMin
+        }"
         @click="decrement"
       >
         <UiIcon 
-          icon="minus"
+          v-bind="iconDecrementAttrs"
           class="ui-button__icon"
         />
       </UiButton>
     </template>
-    <template #default="{value}">
+    <template #default="{
+      change,
+      value,
+      min,
+      max,
+      step,
+    }">
       <UiText class="flex items-center justify-center h-12 flex-full tablet:flex-none w-12">
         {{ value }}
       </UiText>
@@ -205,22 +250,41 @@ export const WithIncrementSlot = (args) => ({
     :step="step"
     :has-controls="hasControls"
     :button-decrement-attrs="buttonDecrementAttrs"
+    :icon-decrement-attrs="iconDecrementAttrs"
     :button-increment-attrs="buttonIncrementAttrs"
+    :icon-increment-attrs="iconIncrementAttrs"
+    @error="onError"
+    @update:modelValue="onUpdateModelValue"
   >
-    <template #increment="{increment, hasControls, attrs }">
+    <template #increment="{
+      increment, 
+      hasControls,
+      isMax, 
+      attrs,
+      iconIncrementAttrs
+    }">
       <UiButton
         v-if="hasControls"
         v-bind="attrs"
         class="ui-button--outlined ui-button--circled ui-number-stepper__increment"
+        :class="{
+          'ui-button--is-disabled': isMax
+        }"
         @click="increment"
       >
         <UiIcon 
-          icon="plus"
+          v-bind="iconIncrementAttrs"
           class="ui-button__icon"
         />
       </UiButton>
     </template>
-    <template #default="{value}">
+    <template #default="{
+      change,
+      value,
+      min,
+      max,
+      step,
+    }">
       <UiText class="flex items-center justify-center h-12 flex-full tablet:flex-none w-12">
         {{ value }}
       </UiText>
@@ -247,9 +311,19 @@ export const WithRange = (args) => ({
     :step="step"
     :has-controls="hasControls"
     :button-decrement-attrs="buttonDecrementAttrs"
+    :icon-decrement-attrs="iconDecrementAttrs"
     :button-increment-attrs="buttonIncrementAttrs"
+    :icon-increment-attrs="iconIncrementAttrs"
+    @error="onError"
+    @update:modelValue="onUpdateModelValue"
   >
-    <template #default="{change, value, min, max}">
+  <template #default="{
+    change,
+    value,
+    min,
+    max,
+    step,
+  }">
       <input
         type="range"
         :value="value"

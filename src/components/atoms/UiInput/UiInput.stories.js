@@ -9,6 +9,7 @@ import {
   placeholder,
 } from '@sb/helpers/argTypes';
 import icons from '@/components/atoms/UiIcon/icons.ts';
+import { keyboardFocus } from '../../../utilities/directives';
 
 const events = actions({
   onClick: 'onClick',
@@ -23,10 +24,13 @@ export default {
   },
   args: {
     initModelValue: '',
+    type: 'text',
     modifiers: [],
     placeholder: 'Put your height',
     suffix: '',
-    type: 'text',
+    textSuffixAttrs: {
+      'data-testid': 'text-suffix',
+    },
   },
   argTypes: {
     initModelValue: {
@@ -36,14 +40,6 @@ export default {
       },
       control: 'text',
     },
-    modifiers: modifiers({
-      options: [
-        'ui-input--is-disabled',
-        'ui-input--has-error',
-        'ui-input--has-icon',
-      ],
-    }),
-    placeholder,
     type: {
       description: 'Use this control to set input type.',
       table: {
@@ -52,6 +48,14 @@ export default {
       control: 'select',
       options: ['email', 'number', 'password', 'search', 'tel', 'text', 'url'],
     },
+    modifiers: modifiers({
+      options: [
+        'ui-input--is-disabled',
+        'ui-input--has-error',
+        'ui-input--has-icon',
+      ],
+    }),
+    placeholder,
     modelValue: {
       control: false,
     },
@@ -72,10 +76,11 @@ const Template = (args) => ({
   },
   template: `<UiInput
     v-model="modelValue"
-    :placeholder="placeholder"
     :suffix="suffix"
-    :class="modifiers"
+    :text-suffix-attrs="textSuffixAttrs"
     :type="type"
+    :class="modifiers"
+    :placeholder="placeholder"
     @update:modelValue="onUpdateModelValue"
   />`,
 });
@@ -123,18 +128,24 @@ export const WithAButtonInSuffix = (args) => ({
   },
   template: `<UiInput
     v-model="modelValue"
-    :placeholder="placeholder"
+    :suffix="suffix"
+    :text-suffix-attrs="textSuffixAttrs"
+    :type="type"
     :class="modifiers"
+    :placeholder="placeholder"
     @update:modelValue="onUpdateModelValue"
   >
-    <template #aside>
+    <template #aside="{
+      suffix, 
+      attrs
+    }">
       <UiButton 
         class="ui-button--icon ui-input__aside"
         @click="onClick"
       >
         <UiIcon
-            :icon="icon"
-            class="ui-button__icon"
+          :icon="icon"
+          class="ui-button__icon"
         />
       </UiButton>
     </template>
@@ -158,6 +169,9 @@ export const WithInputSlot = (args) => ({
     UiInput,
     UiIcon,
   },
+  directives: {
+    keyboardFocus,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
     return {
@@ -168,12 +182,21 @@ export const WithInputSlot = (args) => ({
   },
   template: `<UiInput
     v-model="modelValue"
-    :placeholder="placeholder"
+    :suffix="suffix"
+    :text-suffix-attrs="textSuffixAttrs"
+    :type="type"
     :class="modifiers"
+    :placeholder="placeholder"
     @update:modelValue="onUpdateModelValue"
   >
-    <template #input="{attrs, input, value, validation}">
+    <template #input="{
+      attrs, 
+      input, 
+      value, 
+      validation
+    }">
       <input
+        v-keyboard-focus
         v-bind="attrs"
         :value="value"
         class="ui-input__input"
@@ -199,15 +222,20 @@ export const WithAsideSlot = (args) => ({
     };
   },
   template: `<UiInput
-    v-model="modelValue"
-    :placeholder="placeholder"
-    :suffix="suffix"
-    :class="modifiers"
-    @update:modelValue="onUpdateModelValue"
+      v-model="modelValue"
+      :suffix="suffix"
+      :text-suffix-attrs="textSuffixAttrs"
+      :type="type"
+      :class="modifiers"
+      :placeholder="placeholder"
+      @update:modelValue="onUpdateModelValue"
   >
-    <template #aside="{suffix}">
+    <template #aside="{
+      suffix,
+      attrs
+    }">
       <UiText
-        tag="span"
+        v-bind="attrs"
         class="ui-input__aside"
       >
         {{ suffix }}
@@ -216,5 +244,5 @@ export const WithAsideSlot = (args) => ({
   </UiInput>`,
 });
 WithAsideSlot.args = {
-  suffix: 'cm',
+  suffix: 'Suffix',
 };
