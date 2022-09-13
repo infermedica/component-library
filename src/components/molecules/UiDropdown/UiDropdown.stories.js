@@ -4,7 +4,11 @@ import UiDropdownItem from '@/components/molecules/UiDropdown/_internal/UiDropdo
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiInput from '@/components/atoms/UiInput/UiInput.vue';
 import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
-import { computed, ref, watch } from 'vue';
+import {
+  computed,
+  ref,
+  watch,
+} from 'vue';
 import { actions } from '@storybook/addon-actions';
 
 const events = actions({
@@ -15,7 +19,10 @@ const events = actions({
 export default {
   title: 'Molecules/Dropdown',
   component: UiDropdown,
-  subcomponents: { UiDropdownItem, UiPopover },
+  subcomponents: {
+    UiDropdownItem,
+    UiPopover,
+  },
   args: {
     items: ['English', 'Deutsch', 'Italiano', 'Polski'],
     initModelValue: 'English',
@@ -55,27 +62,37 @@ export default {
     open: {
       name: 'open',
       description: 'Use this event to detect when dropdown is opening.',
-      table: { category: 'events' },
+      table: {
+        category: 'events',
+      },
     },
     close: {
       name: 'close',
       description: 'Use this event to detect when dropdown is closing.',
-      table: { category: 'events' },
+      table: {
+        category: 'events',
+      },
     },
     dropdownItem: {
       name: '<name>',
       description: 'Use this slot to replace dropdown item content. Require `name` in item object.',
       table: {
         category: 'slots',
-        type: { summary: 'unknown' },
+        type: {
+          summary: 'unknown',
+        },
       },
     },
   },
-  decorators: [() => ({ template: '<div style="min-height: 220px"><story /></div>' })],
+  decorators: [() => ({
+    template: '<div style="min-height: 220px"><story /></div>',
+  })],
 };
 
 export const AsSelect = (args) => ({
-  components: { UiDropdown },
+  components: {
+    UiDropdown,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
     return {
@@ -100,7 +117,9 @@ export const AsSelect = (args) => ({
 });
 
 export const WithDropdownItemSlot = (args) => ({
-  components: { UiDropdown },
+  components: {
+    UiDropdown,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
     return {
@@ -128,17 +147,35 @@ export const WithDropdownItemSlot = (args) => ({
   </UiDropdown>`,
 });
 WithDropdownItemSlot.args = {
-  initModelValue: { name: 'english', text: 'English' },
+  initModelValue: {
+    name: 'english',
+    text: 'English',
+  },
   items: [
-    { name: 'english', text: 'English' },
-    { name: 'deutsch', text: 'Deutsch' },
-    { name: 'italiano', text: 'Italiano' },
-    { name: 'polski', text: 'Polski' },
+    {
+      name: 'english',
+      text: 'English',
+    },
+    {
+      name: 'deutsch',
+      text: 'Deutsch',
+    },
+    {
+      name: 'italiano',
+      text: 'Italiano',
+    },
+    {
+      name: 'polski',
+      text: 'Polski',
+    },
   ],
 };
 
 export const WithToggleSlot = (args) => ({
-  components: { UiDropdown, UiButton },
+  components: {
+    UiDropdown,
+    UiButton,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
     const toggleElement = ref(null);
@@ -177,13 +214,20 @@ export const WithToggleSlot = (args) => ({
   </UiDropdown>`,
 });
 WithToggleSlot.argTypes = {
-  text: { control: false },
-  name: { control: false },
+  text: {
+    control: false,
+  },
+  name: {
+    control: false,
+  },
 };
 
 export const WithPopoverSlot = (args) => ({
   components: {
-    UiDropdown, UiDropdownItem, UiButton, UiPopover,
+    UiDropdown,
+    UiDropdownItem,
+    UiButton,
+    UiPopover,
   },
   setup() {
     const modelValue = ref(args.initModelValue);
@@ -224,7 +268,9 @@ export const WithPopoverSlot = (args) => ({
 
 export const WithContentSlot = (args) => ({
   components: {
-    UiDropdown, UiDropdownItem, UiButton,
+    UiDropdown,
+    UiDropdownItem,
+    UiButton,
   },
   setup() {
     const modelValue = ref(args.initModelValue);
@@ -321,7 +367,10 @@ export const WithInputToggle = (args) => ({
     </template>
   </UiDropdown>`,
 });
-WithInputToggle.args = {};
+WithInputToggle.args = {
+};
 WithInputToggle.argTypes = {
-  initModelValue: { control: false },
+  initModelValue: {
+    control: false,
+  },
 };

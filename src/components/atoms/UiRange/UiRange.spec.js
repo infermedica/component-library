@@ -41,21 +41,29 @@ describe('UiRange.vue', () => {
     expect(slot.exists()).toBe(true);
   });
   test('percent position of thumb is right', () => {
-    const wrapper = mount(UiRange, { props });
+    const wrapper = mount(UiRange, {
+      props,
+    });
     expect(wrapper.element.style.getPropertyValue('--_range-runnable-track-width')).toBe('50%');
   });
   test('pass percent position of thumb to component style', () => {
-    const wrapper = mount(UiRange, { props });
+    const wrapper = mount(UiRange, {
+      props,
+    });
     expect(wrapper.element.style.getPropertyValue('--_range-runnable-track-width')).toBe('50%');
   });
   test('clicking increment button increments the value', async () => {
-    const wrapper = mount(UiRange, { props });
+    const wrapper = mount(UiRange, {
+      props,
+    });
     const incrementButton = wrapper.findAllComponents(UiButton)[1];
     await incrementButton.trigger('click');
     expect(wrapper.emitted('update:modelValue')[0][0]).toBe(71);
   });
   test('clicking decrement button decrements the value', async () => {
-    const wrapper = mount(UiRange, { props });
+    const wrapper = mount(UiRange, {
+      props,
+    });
     const decrementButton = wrapper.findAllComponents(UiButton)[0];
     await decrementButton.trigger('click');
     expect(wrapper.emitted('update:modelValue')[0][0]).toBe(69);

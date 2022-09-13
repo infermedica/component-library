@@ -84,8 +84,12 @@ export default {
       control: 'select',
       options: ['ar', 'ar-sa', 'cs', 'de', 'en', 'en-us', 'es', 'fr', 'it', 'nl', 'pl', 'pt-br', 'ro', 'ru', 'sk', 'tr', 'zh-cn', 'zh-hans'],
     },
-    modelValue: { control: false },
-    invalid: { control: false },
+    modelValue: {
+      control: false,
+    },
+    invalid: {
+      control: false,
+    },
     'calendar-open': {
       description: 'Use this event to detect when calendar is open.',
       table: {
@@ -117,11 +121,15 @@ export default {
       },
     },
   },
-  decorators: [() => ({ template: '<div style="min-height: 430px" class="max-w-80"><story /></div>' })],
+  decorators: [() => ({
+    template: '<div style="min-height: 430px" class="max-w-80"><story /></div>',
+  })],
 };
 
 export const FullConfiguration = (args) => ({
-  components: { UiDatepicker },
+  components: {
+    UiDatepicker,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
     const invalid = ref(args.initInvalid);
@@ -156,7 +164,9 @@ export const FullConfiguration = (args) => ({
 });
 
 export const NoConfiguration = () => ({
-  components: { UiDatepicker },
+  components: {
+    UiDatepicker,
+  },
   setup() {
     const modelValue = ref('');
     const invalid = ref(true);

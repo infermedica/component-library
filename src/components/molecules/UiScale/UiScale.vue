@@ -11,7 +11,9 @@
       <!-- @slot Use this slot to replace legend template. -->
       <slot
         name="legend"
-        v-bind="{legend}"
+        v-bind="{
+          legend
+        }"
       >
         <legend
           v-if="legend"
@@ -95,8 +97,16 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
-import type { CSSProperties, PropType, ComponentPublicInstance } from 'vue';
+import {
+  computed,
+  ref,
+  watch,
+} from 'vue';
+import type {
+  CSSProperties,
+  PropType,
+  ComponentPublicInstance,
+} from 'vue';
 import { uid } from 'uid/single';
 import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
@@ -151,14 +161,16 @@ const props = defineProps({
    */
   buttonDecrementAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to pass attrs for increment UiButton
    */
   buttonIncrementAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to set scale tag.
@@ -228,7 +240,8 @@ function calcActiveElementOpacity(index: number): CSSProperties {
 
   return isActive ? {
     '--_scale-square-overlay-opacity': (index * opacityStepValue).toFixed(3),
-  } : {};
+  } : {
+  };
 }
 </script>
 

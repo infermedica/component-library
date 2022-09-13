@@ -11,7 +11,10 @@ const events = actions({
 export default {
   title: 'Molecules/Chip',
   component: UiChip,
-  subcomponents: { UiButton, UiIcon },
+  subcomponents: {
+    UiButton,
+    UiIcon,
+  },
   args: {
     content: 'Label',
     buttonAttrs: {
@@ -24,13 +27,17 @@ export default {
     removeAction: {
       name: 'remove',
       description: 'Use this event to detect click on remove button.',
-      table: { category: 'events' },
+      table: {
+        category: 'events',
+      },
     },
   },
 };
 
 export const WithLabel = (args) => ({
-  components: { UiChip },
+  components: {
+    UiChip,
+  },
   setup() {
     return {
       ...args,
@@ -46,8 +53,17 @@ export const WithLabel = (args) => ({
 });
 
 export const WithRemoveSlot = (args) => ({
-  components: { UiChip, UiButton, UiIcon },
-  setup() { return { ...args, events }; },
+  components: {
+    UiChip,
+    UiButton,
+    UiIcon,
+  },
+  setup() {
+    return {
+      ...args,
+      events,
+    };
+  },
   template: `<UiChip
     v-bind="events" 
     @remove="onRemove"

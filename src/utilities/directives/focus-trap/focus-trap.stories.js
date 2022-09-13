@@ -12,7 +12,9 @@ import docs from './focus-trap.mdx';
 
 export default {
   title: 'Utilities/Directives/Focus Trap',
-  decorators: [() => ({ template: '<div style="--backdrop-position: absolute; --side-panel-position: absolute; --side-panel-z-index: 0; min-height: 320px;"><story /></div>' })],
+  decorators: [() => ({
+    template: '<div style="--backdrop-position: absolute; --side-panel-position: absolute; --side-panel-z-index: 0; min-height: 320px;"><story /></div>',
+  })],
   parameters: {
     docs: {
       page: docs,
@@ -22,7 +24,14 @@ export default {
 
 export const WithDirective = () => ({
   components: {
-    UiButton, UiHeading, UiIcon, UiText, UiTextarea, UiFormField, UiRating, UiSidePanel,
+    UiButton,
+    UiHeading,
+    UiIcon,
+    UiText,
+    UiTextarea,
+    UiFormField,
+    UiRating,
+    UiSidePanel,
   },
   directives: {
     focusTrap,
@@ -105,7 +114,14 @@ export const WithDirective = () => ({
 
 export const WithoutDirective = () => ({
   components: {
-    UiButton, UiFormField, UiHeading, UiIcon, UiRating, UiSidePanel, UiText, UiTextarea,
+    UiButton,
+    UiFormField,
+    UiHeading,
+    UiIcon,
+    UiRating,
+    UiSidePanel,
+    UiText,
+    UiTextarea,
   },
   setup() {
     const modelValue = ref(true);

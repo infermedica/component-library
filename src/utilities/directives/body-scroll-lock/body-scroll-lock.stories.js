@@ -14,7 +14,9 @@ import docs from './body-scroll-lock.mdx';
 
 export default {
   title: 'Utilities/Directives/Body Scroll Lock',
-  decorators: [() => ({ template: '<div style="height: 320px;"><story /></div>' })],
+  decorators: [() => ({
+    template: '<div style="height: 320px;"><story /></div>',
+  })],
   parameters: {
     docs: {
       page: docs,

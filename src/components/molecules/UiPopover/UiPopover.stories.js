@@ -4,7 +4,10 @@ import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import { actions } from '@storybook/addon-actions';
-import { content, modifiers } from '@sb/helpers/argTypes';
+import {
+  content,
+  modifiers,
+} from '@sb/helpers/argTypes';
 
 const events = actions({
   onClose: 'close',
@@ -13,7 +16,11 @@ const events = actions({
 export default {
   title: 'Molecules/Popover',
   component: UiPopover,
-  subcomponents: { UiHeading, UiButton, UiIcon },
+  subcomponents: {
+    UiHeading,
+    UiButton,
+    UiIcon,
+  },
   args: {
     content: 'A custom Symptomate app that you can use anywhere.',
     modifiers: [],
@@ -25,10 +32,14 @@ export default {
   },
   argTypes: {
     content,
-    modifiers: modifiers({ options: ['ui-popover--has-arrow', 'ui-popover--has-left-arrow', 'ui-popover--unrounded', 'ui-popover--has-mobile'] }),
+    modifiers: modifiers({
+      options: ['ui-popover--has-arrow', 'ui-popover--has-left-arrow', 'ui-popover--unrounded', 'ui-popover--has-mobile'],
+    }),
     title: {
       table: {
-        type: { summary: 'string' },
+        type: {
+          summary: 'string',
+        },
         category: 'props',
       },
       control: {
@@ -39,21 +50,28 @@ export default {
       name: 'title',
       description: 'Use this slot to replace title template.',
       table: {
-        type: { summary: 'unknown' },
+        type: {
+          summary: 'unknown',
+        },
         category: 'slots',
       },
     },
     closeAction: {
       name: 'close',
       description: 'Use this event to detect when popover is closing.',
-      table: { category: 'events' },
+      table: {
+        category: 'events',
+      },
       action: 'closed',
     },
   },
 };
 
 const Template = (args) => ({
-  components: { UiPopover, UiText },
+  components: {
+    UiPopover,
+    UiText,
+  },
   setup() {
     return {
       ...args,
@@ -71,25 +89,32 @@ const Template = (args) => ({
   </UiPopover>`,
 });
 
-export const Common = Template.bind({});
+export const Common = Template.bind({
+});
 
-export const HasArrow = Template.bind({});
+export const HasArrow = Template.bind({
+});
 HasArrow.args = {
   modifiers: ['ui-popover--has-arrow'],
 };
 
-export const HasLeftArrow = Template.bind({});
+export const HasLeftArrow = Template.bind({
+});
 HasLeftArrow.args = {
   modifiers: ['ui-popover--has-left-arrow'],
 };
 
-export const Unrounded = Template.bind({});
+export const Unrounded = Template.bind({
+});
 Unrounded.args = {
   modifiers: ['ui-popover--unrounded'],
 };
 
 export const AsBottomPanelOnMobile = (args) => ({
-  components: { UiPopover, UiText },
+  components: {
+    UiPopover,
+    UiText,
+  },
   setup() {
     return {
       ...args,
@@ -114,15 +139,22 @@ AsBottomPanelOnMobile.parameters = {
     defaultViewport: 'mobile2',
   },
 };
-AsBottomPanelOnMobile.decorators = [() => ({ template: '<div style="min-height: 568px"><story /></div>' })];
+AsBottomPanelOnMobile.decorators = [() => ({
+  template: '<div style="min-height: 568px"><story /></div>',
+})];
 
-export const AsDropdown = Template.bind({});
+export const AsDropdown = Template.bind({
+});
 AsDropdown.args = {
   title: '',
 };
 
 export const WithTitleSlot = (args) => ({
-  components: { UiPopover, UiHeading, UiText },
+  components: {
+    UiPopover,
+    UiHeading,
+    UiText,
+  },
   setup() {
     return {
       ...args,
@@ -150,7 +182,10 @@ export const WithTitleSlot = (args) => ({
 
 export const WithCloseSlot = (args) => ({
   components: {
-    UiPopover, UiButton, UiIcon, UiText,
+    UiPopover,
+    UiButton,
+    UiIcon,
+    UiText,
   },
   setup() {
     return {

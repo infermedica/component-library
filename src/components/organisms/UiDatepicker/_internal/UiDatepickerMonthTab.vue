@@ -47,7 +47,10 @@ const month = computed({
 });
 
 function select(value: string): void {
-  emit('select', { type: 'month', value });
+  emit('select', {
+    type: 'month',
+    value,
+  });
   month.value = value.length === 1 ? `0${value}` : value;
   unfulfilledMonthError.value = false;
 }

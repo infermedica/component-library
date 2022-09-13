@@ -2,7 +2,9 @@
   <UiNumberStepper
     v-bind="getRootAttrs($attrs)"
     :model-value="modelValue"
-    :style="{'--_range-runnable-track-width': trackWidth}"
+    :style="{
+      '--_range-runnable-track-width': trackWidth
+    }"
     :min="min"
     :max="max"
     :step="step"
@@ -20,12 +22,18 @@
         v-bind="slotData"
       />
     </template>
-    <template #default="{change, value}">
+    <template
+      #default="{
+        change, value
+      }"
+    >
       <div class="ui-range__input">
         <!-- @slot Use this slot to replace value template. -->
         <slot
           name="value"
-          v-bind="{value}"
+          v-bind="{
+            value
+          }"
         >
           <UiHeading
             :level="1"
@@ -38,7 +46,13 @@
         <!-- @slot Use this slot to replace range template. --->
         <slot
           name="range"
-          v-bind="{attrs: getInputAttrs($attrs), min, max, change, value}"
+          v-bind="{
+            attrs: getInputAttrs($attrs),
+            min,
+            max,
+            change,
+            value
+          }"
         >
           <input
             v-keyboard-focus
@@ -66,7 +80,10 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { computed, useAttrs } from 'vue';
+import {
+  computed,
+  useAttrs,
+} from 'vue';
 import UiHeading from '../UiHeading/UiHeading.vue';
 import UiNumberStepper from '../../molecules/UiNumberStepper/UiNumberStepper.vue';
 import useInput from '../../../composable/useInput';
@@ -108,14 +125,16 @@ const props = defineProps({
    */
   buttonDecrementAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to pass attrs for increment UiButton
    */
   buttonIncrementAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
 });
 const defaultProps = computed(() => ({

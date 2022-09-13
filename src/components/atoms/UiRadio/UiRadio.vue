@@ -16,11 +16,15 @@
     <!-- @slot Use this slot to replace radiobutton template. -->
     <slot
       name="radio"
-      v-bind="{checked: isChecked}"
+      v-bind="{
+        checked: isChecked
+      }"
     >
       <div
         class="ui-radio__radio"
-        :class="{'ui-radio__radio--is-checked': isChecked}"
+        :class="{
+          'ui-radio__radio--is-checked': isChecked
+        }"
       >
         <div
           class="ui-radio__mark"
@@ -48,7 +52,10 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { computed, useSlots } from 'vue';
+import {
+  computed,
+  useSlots,
+} from 'vue';
 import type { PropType } from 'vue';
 import equal from 'fast-deep-equal';
 import { uid } from 'uid/single';

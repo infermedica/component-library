@@ -11,7 +11,10 @@ describe('UiTabs.vue', () => {
   test('component emit single item for String v-model', async () => {
     const wrapper = mount(UiTabs, {
       slots: {
-        default: h(UiTabsItem, { name: 'sc', title: 'sc' }),
+        default: h(UiTabsItem, {
+          name: 'sc',
+          title: 'sc',
+        }),
       },
     });
     const item = wrapper.findComponent(UiTabsItem);
@@ -22,7 +25,10 @@ describe('UiTabs.vue', () => {
   test('component emit update for UiTabsItem with id instead name', async () => {
     const wrapper = mount(UiTabs, {
       slots: {
-        default: h(UiTabsItem, { id: 'sc', title: 'sc' }),
+        default: h(UiTabsItem, {
+          id: 'sc',
+          title: 'sc',
+        }),
       },
     });
     const item = wrapper.findComponent(UiTabsItem);

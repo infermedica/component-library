@@ -1,4 +1,7 @@
-import { shallowMount, mount } from '@vue/test-utils';
+import {
+  shallowMount,
+  mount,
+} from '@vue/test-utils';
 import UiStepper from './UiStepper.vue';
 import UiListItem from '../../organisms/UiList/_internal/UiListItem.vue';
 import UiText from '../../atoms/UiText/UiText.vue';

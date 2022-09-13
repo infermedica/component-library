@@ -5,7 +5,12 @@
     <!-- @slot Use this slot to replace label template.-->
     <slot
       name="label"
-      v-bind="{attrs: labelAttrs, label, hint, id: inputId}"
+      v-bind="{
+        attrs: labelAttrs,
+        label,
+        hint,
+        id: inputId
+      }"
     >
       <UiText
         v-if="label"
@@ -30,11 +35,18 @@
       </UiText>
     </slot>
     <!-- @slot Use this slot to place input.-->
-    <slot v-bind="{id: inputId}" />
+    <slot
+      v-bind="{
+        id: inputId
+      }"
+    />
     <!-- @slot Use this slot to replace alert template. -->
     <slot
       name="alert"
-      v-bind="{attrs: alertAttrs, errorMessage}"
+      v-bind="{
+        attrs: alertAttrs,
+        errorMessage
+      }"
       :alert="alertAttrs"
     >
       <UiAlert
@@ -62,7 +74,8 @@ const props = defineProps({
    */
   labelAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to set label text
@@ -91,7 +104,8 @@ const props = defineProps({
    */
   alertAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to set alert message

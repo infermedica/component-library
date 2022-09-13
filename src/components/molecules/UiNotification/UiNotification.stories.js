@@ -12,7 +12,9 @@ const events = actions({
 export default {
   title: 'Molecules/Notification',
   component: UiNotification,
-  subcomponents: { UiAlert },
+  subcomponents: {
+    UiAlert,
+  },
   args: {
     content: 'Thank you. We’ll review this question as soon as possible.',
     type: 'error',
@@ -31,12 +33,21 @@ export default {
       options: ['success', 'info', 'warning', 'error'],
     },
   },
-  decorators: [() => ({ template: '<div style="max-width: 320px;"><story /></div>' })],
+  decorators: [() => ({
+    template: '<div style="max-width: 320px;"><story /></div>',
+  })],
 };
 
 const Template = (args) => ({
-  components: { UiNotification, UiAlert },
-  setup() { return { ...args }; },
+  components: {
+    UiNotification,
+    UiAlert,
+  },
+  setup() {
+    return {
+      ...args,
+    };
+  },
   template: `<UiNotification 
     :type="type"
     :has-icon="hasIcon"
@@ -47,29 +58,41 @@ const Template = (args) => ({
   </UiNotification>`,
 });
 
-export const Error = Template.bind({});
+export const Error = Template.bind({
+});
 Error.args = {
   type: 'error',
 };
 
-export const Success = Template.bind({});
+export const Success = Template.bind({
+});
 Success.args = {
   type: 'success',
 };
 
-export const Info = Template.bind({});
+export const Info = Template.bind({
+});
 Info.args = {
   type: 'info',
 };
 
-export const Warning = Template.bind({});
+export const Warning = Template.bind({
+});
 Warning.args = {
   type: 'warning',
 };
 
 export const WithActionSlot = (args) => ({
-  components: { UiNotification, UiButton, UiIcon },
-  setup() { return { ...args }; },
+  components: {
+    UiNotification,
+    UiButton,
+    UiIcon,
+  },
+  setup() {
+    return {
+      ...args,
+    };
+  },
   template: `<UiNotification 
     :type="type"
     :has-icon="hasIcon"

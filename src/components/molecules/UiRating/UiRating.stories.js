@@ -7,14 +7,18 @@ import { modifiers } from '@sb/helpers/argTypes';
 export default {
   title: 'Molecules/Rating',
   component: UiRating,
-  subcomponents: { UiRadio, UiIcon },
+  subcomponents: {
+    UiRadio,
+    UiIcon,
+  },
   args: {
     initModelValue: 3,
     modifiers: [],
     max: 5,
     name: '',
     legend: 'How helpful was this checkup for you?',
-    radioAttrs: {},
+    radioAttrs: {
+    },
     settings: {
       icon: 'star-outlined',
       iconActive: 'star-filled',
@@ -36,15 +40,22 @@ export default {
         'ui-rating--is-disabled',
       ],
     }),
-    modelValue: { control: false },
+    modelValue: {
+      control: false,
+    },
   },
 };
 
 const Template = (args) => ({
-  components: { UiRating },
+  components: {
+    UiRating,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiRating
     v-model="modelValue"
@@ -56,18 +67,26 @@ const Template = (args) => ({
   />`,
 });
 
-export const Common = Template.bind({});
+export const Common = Template.bind({
+});
 
-export const IsDisabled = Template.bind({});
+export const IsDisabled = Template.bind({
+});
 IsDisabled.args = {
   modifiers: ['ui-rating--is-disabled'],
 };
 
 export const WithIconSlot = (args) => ({
-  components: { UiRating, UiIcon },
+  components: {
+    UiRating,
+    UiIcon,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiRating
     v-model="modelValue"

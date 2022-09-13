@@ -2,7 +2,10 @@ import UiNumberStepper from '@/components/molecules/UiNumberStepper/UiNumberStep
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
-import { onMounted, ref } from 'vue';
+import {
+  onMounted,
+  ref,
+} from 'vue';
 import { actions } from '@storybook/addon-actions';
 import { toMobile } from '@/styles/exports/breakpoints.module.scss';
 
@@ -14,7 +17,10 @@ const events = actions({
 export default {
   title: 'Molecules/NumberStepper',
   component: UiNumberStepper,
-  subcomponents: { UiButton, UiIcon },
+  subcomponents: {
+    UiButton,
+    UiIcon,
+  },
   args: {
     initModelValue: 1,
     min: 0,
@@ -36,15 +42,24 @@ export default {
       },
       control: 'number',
     },
-    modelValue: { control: false },
+    modelValue: {
+      control: false,
+    },
   },
 };
 
 export const WithTextValue = (args) => ({
-  components: { UiNumberStepper, UiText },
+  components: {
+    UiNumberStepper,
+    UiText,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, ...events, modelValue };
+    return {
+      ...args,
+      ...events,
+      modelValue,
+    };
   },
   template: `<UiNumberStepper 
     v-model="modelValue" 
@@ -66,7 +81,10 @@ export const WithTextValue = (args) => ({
 });
 
 export const WithControlsOnMobile = (args) => ({
-  components: { UiNumberStepper, UiText },
+  components: {
+    UiNumberStepper,
+    UiText,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
     const isMobile = ref(false);
@@ -74,7 +92,11 @@ export const WithControlsOnMobile = (args) => ({
       isMobile.value = matchMedia(toMobile).matches;
       matchMedia(toMobile).addListener(({ matches }) => { isMobile.value = matches; });
     });
-    return { ...args, modelValue, isMobile };
+    return {
+      ...args,
+      modelValue,
+      isMobile,
+    };
   },
   template: `<UiNumberStepper
     v-model="modelValue"
@@ -108,7 +130,9 @@ WithControlsOnMobile.args = {
   },
 };
 WithControlsOnMobile.argTypes = {
-  hasControls: { control: false },
+  hasControls: {
+    control: false,
+  },
 };
 WithControlsOnMobile.parameters = {
   viewport: {
@@ -118,11 +142,17 @@ WithControlsOnMobile.parameters = {
 
 export const WithDecrementSlot = (args) => ({
   components: {
-    UiNumberStepper, UiText, UiButton, UiIcon,
+    UiNumberStepper,
+    UiText,
+    UiButton,
+    UiIcon,
   },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiNumberStepper
     v-model="modelValue"
@@ -156,11 +186,17 @@ export const WithDecrementSlot = (args) => ({
 
 export const WithIncrementSlot = (args) => ({
   components: {
-    UiNumberStepper, UiText, UiButton, UiIcon,
+    UiNumberStepper,
+    UiText,
+    UiButton,
+    UiIcon,
   },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiNumberStepper
     v-model="modelValue"
@@ -193,10 +229,16 @@ export const WithIncrementSlot = (args) => ({
 });
 
 export const WithRange = (args) => ({
-  components: { UiNumberStepper, UiText },
+  components: {
+    UiNumberStepper,
+    UiText,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiNumberStepper
     v-model="modelValue"

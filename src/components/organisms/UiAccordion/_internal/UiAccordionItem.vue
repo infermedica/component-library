@@ -3,7 +3,15 @@
     <!-- @slot Use this slot to replace toggler template. -->
     <slot
       name="toggler"
-      v-bind="{ toggle, name, icon, title, isOpen, iconOpen: defaultProps.settings.iconOpen, iconClose: settings.iconClose }"
+      v-bind="{
+        toggle,
+        name,
+        icon,
+        title,
+        isOpen,
+        iconOpen: defaultProps.settings.iconOpen,
+        iconClose: settings.iconClose
+      }"
     >
       <UiButton
         :id="`toggler${name}`"
@@ -15,7 +23,12 @@
         <!-- @slot Use this slot to replace chevron template. -->
         <slot
           name="chevron"
-          v-bind="{ isOpen, icon, iconOpen: defaultProps.settings.iconOpen, iconClose: settings.iconClose }"
+          v-bind="{
+            isOpen,
+            icon,
+            iconOpen: defaultProps.settings.iconOpen,
+            iconClose: settings.iconClose
+          }"
         >
           <UiIcon
             :icon="icon"
@@ -28,7 +41,10 @@
     <!-- @slot Use this slot to replace content template. -->
     <slot
       name="content"
-      v-bind="{ isOpen, name }"
+      v-bind="{
+        isOpen,
+        name
+      }"
     >
       <div
         v-show="isOpen"
@@ -45,12 +61,21 @@
 </template>
 
 <script setup lang="ts">
-import { computed, inject } from 'vue';
-import type { ComputedRef, PropType } from 'vue';
+import {
+  computed,
+  inject,
+} from 'vue';
+import type {
+  ComputedRef,
+  PropType,
+} from 'vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import UiListItem from '../../UiList/_internal/UiListItem.vue';
-import type { AccordionValue, AccordionItemSettings } from '../UiAccordion.vue';
+import type {
+  AccordionValue,
+  AccordionItemSettings,
+} from '../UiAccordion.vue';
 
 const props = defineProps({
   /**

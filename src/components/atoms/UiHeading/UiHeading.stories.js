@@ -1,5 +1,8 @@
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
-import { content, modifiers } from '@sb/helpers/argTypes';
+import {
+  content,
+  modifiers,
+} from '@sb/helpers/argTypes';
 
 export default {
   title: 'Atoms/Heading',
@@ -29,8 +32,14 @@ export default {
 };
 
 const Template = (args) => ({
-  components: { UiHeading },
-  setup() { return { ...args }; },
+  components: {
+    UiHeading,
+  },
+  setup() {
+    return {
+      ...args,
+    };
+  },
   template: `<UiHeading
     :level="level"
     :class="modifiers"
@@ -39,9 +48,11 @@ const Template = (args) => ({
   </UiHeading>`,
 });
 
-export const Common = Template.bind({});
+export const Common = Template.bind({
+});
 
-export const AsSpan = Template.bind({});
+export const AsSpan = Template.bind({
+});
 AsSpan.args = {
   tag: 'span',
 };

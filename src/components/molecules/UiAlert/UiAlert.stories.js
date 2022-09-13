@@ -1,12 +1,18 @@
 import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
-import { content, modifiers } from '@sb/helpers/argTypes';
+import {
+  content,
+  modifiers,
+} from '@sb/helpers/argTypes';
 
 export default {
   title: 'Molecules/Alert',
   component: UiAlert,
-  subcomponents: { UiIcon, UiText },
+  subcomponents: {
+    UiIcon,
+    UiText,
+  },
   args: {
     content: 'Select one answer',
     modifiers: [],
@@ -14,7 +20,10 @@ export default {
   },
   argTypes: {
     content,
-    modifiers: modifiers({ options: ['ui-alert', 'ui-alert--secondary'], control: 'select' }),
+    modifiers: modifiers({
+      options: ['ui-alert', 'ui-alert--secondary'],
+      control: 'select',
+    }),
     type: {
       control: 'select',
       options: ['default', 'success', 'info', 'warning', 'error'],
@@ -23,8 +32,14 @@ export default {
 };
 
 const Template = (args) => ({
-  components: { UiAlert },
-  setup() { return { ...args }; },
+  components: {
+    UiAlert,
+  },
+  setup() {
+    return {
+      ...args,
+    };
+  },
   template: `<UiAlert 
     :type="type" 
     :class="modifiers"
@@ -33,29 +48,40 @@ const Template = (args) => ({
   </UiAlert>`,
 });
 
-export const Error = Template.bind({});
+export const Error = Template.bind({
+});
 Error.args = {
   type: 'error',
 };
 
-export const Success = Template.bind({});
+export const Success = Template.bind({
+});
 Success.args = {
   type: 'success',
 };
 
-export const Info = Template.bind({});
+export const Info = Template.bind({
+});
 Info.args = {
   type: 'info',
 };
 
-export const Warning = Template.bind({});
+export const Warning = Template.bind({
+});
 Warning.args = {
   type: 'warning',
 };
 
 export const WithIconSlot = (args) => ({
-  components: { UiAlert, UiIcon },
-  setup() { return { ...args }; },
+  components: {
+    UiAlert,
+    UiIcon,
+  },
+  setup() {
+    return {
+      ...args,
+    };
+  },
   template: `<UiAlert 
     :type="type" 
     :class="modifiers"
@@ -71,8 +97,15 @@ export const WithIconSlot = (args) => ({
 });
 
 export const WithMessageSlot = (args) => ({
-  components: { UiAlert, UiText },
-  setup() { return { ...args }; },
+  components: {
+    UiAlert,
+    UiText,
+  },
+  setup() {
+    return {
+      ...args,
+    };
+  },
   template: `<UiAlert 
     :type="type" 
     :class="modifiers"

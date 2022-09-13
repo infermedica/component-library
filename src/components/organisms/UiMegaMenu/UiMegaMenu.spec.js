@@ -12,7 +12,9 @@ describe('UiMegaMenu.vue', () => {
     const name = 'test';
     const wrapper = mount(UiMegaMenu, {
       slots: {
-        default: h(UiMegaMenuItem, { name }),
+        default: h(UiMegaMenuItem, {
+          name,
+        }),
       },
     });
     const item = wrapper.findComponent(UiMegaMenuItem);

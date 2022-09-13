@@ -16,7 +16,11 @@ const events = actions({
 export default {
   title: 'Molecules/Header',
   component: UiHeader,
-  subcomponents: { UiButton, UiIcon, UiNavigation },
+  subcomponents: {
+    UiButton,
+    UiIcon,
+    UiNavigation,
+  },
   args: {
     modifiers: [],
     title: 'Infermedica',
@@ -25,10 +29,17 @@ export default {
       href: '#',
     },
     navigation: [
-      { text: 'Terms of Service', href: '#' },
-      { text: 'Privacy Policy', href: '#' },
+      {
+        text: 'Terms of Service',
+        href: '#',
+      },
+      {
+        text: 'Privacy Policy',
+        href: '#',
+      },
     ],
-    navigationAttrs: {},
+    navigationAttrs: {
+    },
     iconLogoAttrs: {
       id: 'logo-icon',
       style: {
@@ -58,12 +69,16 @@ export default {
       description: 'Use this slot to replace logo template.',
       table: {
         category: 'slots',
-        type: { summary: 'unknown' },
+        type: {
+          summary: 'unknown',
+        },
       },
     },
     hamburgerMatchMedia: {
       table: {
-        defaultValue: { summary: toMobile },
+        defaultValue: {
+          summary: toMobile,
+        },
       },
     },
     navigation: {
@@ -77,14 +92,18 @@ export default {
       description: 'Use this slot to replace navigation template.',
       table: {
         category: 'slots',
-        type: { summary: 'unknown' },
+        type: {
+          summary: 'unknown',
+        },
       },
     },
   },
 };
 
 const Template = (args) => ({
-  components: { UiHeader },
+  components: {
+    UiHeader,
+  },
   setup() {
     const logo = defineAsyncComponent(() => import('../../../assets/logo.svg'));
     return {
@@ -108,20 +127,27 @@ const Template = (args) => ({
   />`,
 });
 
-export const Common = Template.bind({});
+export const Common = Template.bind({
+});
 
-export const HamburgerMenuAlwaysDisplay = Template.bind({});
+export const HamburgerMenuAlwaysDisplay = Template.bind({
+});
 HamburgerMenuAlwaysDisplay.args = {
   hamburgerMatchMedia: '(min-width: 0px)',
 };
 
-export const WithoutHamburgerMenu = Template.bind({});
+export const WithoutHamburgerMenu = Template.bind({
+});
 WithoutHamburgerMenu.args = {
   hamburgerMatchMedia: '(max-width: 0px)',
 };
 
 export const WithBrandSlot = (args) => ({
-  components: { UiHeader, UiButton, UiIcon },
+  components: {
+    UiHeader,
+    UiButton,
+    UiIcon,
+  },
   setup() {
     const logo = defineAsyncComponent(() => import('../../../assets/logo.svg'));
     return {
@@ -156,7 +182,10 @@ export const WithBrandSlot = (args) => ({
 });
 
 export const WithLogoSlot = (args) => ({
-  components: { UiHeader, UiIcon },
+  components: {
+    UiHeader,
+    UiIcon,
+  },
   setup() {
     const logo = defineAsyncComponent(() => import('../../../assets/logo.svg'));
     return {
@@ -188,7 +217,11 @@ export const WithLogoSlot = (args) => ({
 });
 
 export const WithHamburgerSlot = (args) => ({
-  components: { UiHeader, UiButton, UiIcon },
+  components: {
+    UiHeader,
+    UiButton,
+    UiIcon,
+  },
   setup() {
     const logo = defineAsyncComponent(() => import('../../../assets/logo.svg'));
     return {
@@ -226,7 +259,10 @@ export const WithHamburgerSlot = (args) => ({
 });
 
 export const WithNavigationSlot = (args) => ({
-  components: { UiHeader, UiNavigation },
+  components: {
+    UiHeader,
+    UiNavigation,
+  },
   setup() {
     const logo = defineAsyncComponent(() => import('../../../assets/logo.svg'));
     return {
@@ -259,7 +295,10 @@ export const WithNavigationSlot = (args) => ({
 });
 
 export const WithCustomBrand = (args) => ({
-  components: { UiHeader, UiNavigation },
+  components: {
+    UiHeader,
+    UiNavigation,
+  },
   setup() {
     const logo = defineAsyncComponent(() => import(
       /* webpackChunkName: "header" */

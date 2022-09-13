@@ -3,13 +3,19 @@
     <!-- @slot Use this slot to replace the mobile stepper -->
     <slot
       name="mobile"
-      v-bind="{currentStep, currentStepDisplayText, stepsProgress}"
+      v-bind="{
+        currentStep,
+        currentStepDisplayText,
+        stepsProgress
+      }"
     >
       <div class="ui-stepper__mobile">
         <!-- @slot Use this slot to replace text in the mobile stepper -->
         <slot
           name="current-step"
-          v-bind="{currentStepDisplayText}"
+          v-bind="{
+            currentStepDisplayText
+          }"
         >
           <UiText
             tag="span"
@@ -21,7 +27,9 @@
         <!-- @slot Use this slot to replace progress in the stepper -->
         <slot
           name="progress"
-          v-bind="{stepsProgress}"
+          v-bind="{
+            stepsProgress
+          }"
         >
           <UiProgress
             v-bind="progressAttrs"
@@ -36,13 +44,22 @@
     <!-- @slot Use this slot to replace desktop version of the stepper -->
     <slot
       name="desktop"
-      v-bind="{steps, currentStep, indexOfActiveStep, determineStep}"
+      v-bind="{
+        steps,
+        currentStep,
+        indexOfActiveStep,
+        determineStep
+      }"
     >
       <UiList class="ui-stepper__desktop">
         <!-- @slot Use this slot to replace items in the desktop list -->
         <slot
           name="items"
-          v-bind="{steps, indexOfActiveStep, determineStep}"
+          v-bind="{
+            steps,
+            indexOfActiveStep,
+            determineStep
+          }"
         >
           <template
             v-for="(step, index) in steps"
@@ -51,7 +68,12 @@
             <!-- @slot Use this slot to replace item in the desktop list -->
             <slot
               name="item"
-              v-bind="{step, index, indexOfActiveStep, determineStep}"
+              v-bind="{
+                step,
+                index,
+                indexOfActiveStep,
+                determineStep
+              }"
             >
               <UiListItem
                 class="ui-stepper__step"
@@ -63,7 +85,12 @@
                 <!-- @slot Use this slot to replace items-link in the desktop list -->
                 <slot
                   name="item-link"
-                  v-bind="{step, index, indexOfActiveStep, determineStep}"
+                  v-bind="{
+                    step,
+                    index,
+                    indexOfActiveStep,
+                    determineStep
+                  }"
                 >
                   <UiButton
                     v-bind="determineStep(index, step)"
@@ -126,7 +153,8 @@ const props = defineProps({
    */
   progressAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
 });
 const stepsLength = computed(() => props.steps.length);
