@@ -17,13 +17,18 @@ describe('UiMultipleChoices.vue', () => {
       },
     });
     const emitted = [{
-      choice_id: 'present', id: 'p_8', name: 'I have diabetes',
+      choice_id: 'present',
+      id: 'p_8',
+      name: 'I have diabetes',
     }];
     await wrapper.find('input[type="radio"]').setChecked();
     expect(wrapper.emitted('update:modelValue')[0][0]).toStrictEqual(emitted);
   });
   test('a possible to pass custom choices by options property', () => {
-    const options = [{ name: 'I think so', value: 'present' }];
+    const options = [{
+      name: 'I think so',
+      value: 'present',
+    }];
     const wrapper = mount(UiMultipleChoices, {
       props: {
         choices: [{
@@ -48,7 +53,13 @@ describe('UiMultipleChoices.vue', () => {
         }],
       },
     });
-    wrapper.setProps({ modelValue: [{ choice_id: 'absent', id: 'p_8', source: 'initial' }] });
+    wrapper.setProps({
+      modelValue: [{
+        choice_id: 'absent',
+        id: 'p_8',
+        source: 'initial',
+      }],
+    });
     await wrapper.vm.$nextTick();
     expect(wrapper.emitted('update:invalid')).toBeTruthy();
   });

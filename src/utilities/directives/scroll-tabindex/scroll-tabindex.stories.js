@@ -12,7 +12,9 @@ import docs from './scroll-tabindex.mdx';
 
 export default {
   title: 'Utilities/Directives/Scroll Tabindex',
-  decorators: [() => ({ template: '<div style="--backdrop-position: absolute; --side-panel-position: absolute; --side-panel-z-index: 0; min-height: 320px;"><story /></div>' })],
+  decorators: [() => ({
+    template: '<div style="--backdrop-position: absolute; --side-panel-position: absolute; --side-panel-z-index: 0; min-height: 320px;"><story /></div>',
+  })],
   parameters: {
     docs: {
       page: docs,
@@ -22,14 +24,20 @@ export default {
 
 export const WithDirective = () => ({
   components: {
-    UiButton, UiHeading, UiIcon, UiSidePanel, UiText,
+    UiButton,
+    UiHeading,
+    UiIcon,
+    UiSidePanel,
+    UiText,
   },
   directives: {
     scrollTabindex,
   },
   setup() {
     const modelValue = ref(true);
-    return { modelValue };
+    return {
+      modelValue,
+    };
   },
   template: `
   <UiButton class="ui-button--text ui-button--theme-secondary" @click="modelValue = true;">
@@ -64,14 +72,23 @@ export const WithDirective = () => ({
 
 export const WithDirectiveAndScrollableContent = () => ({
   components: {
-    UiBulletPoints, UiBulletPointsItem, UiButton, UiHeading, UiIcon, UiLink, UiSidePanel, UiText,
+    UiBulletPoints,
+    UiBulletPointsItem,
+    UiButton,
+    UiHeading,
+    UiIcon,
+    UiLink,
+    UiSidePanel,
+    UiText,
   },
   directives: {
     scrollTabindex,
   },
   setup() {
     const modelValue = ref(true);
-    return { modelValue };
+    return {
+      modelValue,
+    };
   },
   template: `
   <UiButton class="ui-button--text ui-button--theme-secondary" @click="modelValue = true;">
@@ -155,11 +172,20 @@ export const WithDirectiveAndScrollableContent = () => ({
 
 export const WithoutDirective = () => ({
   components: {
-    UiBulletPoints, UiBulletPointsItem, UiButton, UiHeading, UiIcon, UiLink, UiSidePanel, UiText,
+    UiBulletPoints,
+    UiBulletPointsItem,
+    UiButton,
+    UiHeading,
+    UiIcon,
+    UiLink,
+    UiSidePanel,
+    UiText,
   },
   setup() {
     const modelValue = ref(true);
-    return { modelValue };
+    return {
+      modelValue,
+    };
   },
   template: `
   <UiButton class="ui-button--text ui-button--theme-secondary" @click="modelValue = true;">

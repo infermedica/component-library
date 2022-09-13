@@ -1,6 +1,10 @@
 /* eslint-disable import/prefer-default-export, no-underscore-dangle, no-param-reassign, func-names */
 import { nextTick } from 'vue';
-import { getFocusableElements, isFocusable, moveFocus } from './helpers';
+import {
+  getFocusableElements,
+  isFocusable,
+  moveFocus,
+} from './helpers';
 
 export const focusTrap = {
   async beforeMount(el) {

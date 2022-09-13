@@ -6,10 +6,16 @@
     :enable-keyboard-navigation="false"
     :toggle-element="toggleElement"
   >
-    <template #toggle="{toggleHandler, attrs}">
+    <template
+      #toggle="{
+        toggleHandler, attrs
+      }"
+    >
       <slot
         name="toggler"
-        v-bind="{toggle: toggleHandler}"
+        v-bind="{
+          toggle: toggleHandler
+        }"
       >
         <UiButton
           ref="toggleElement"
@@ -53,7 +59,10 @@ import {
   watchEffect,
   reactive,
 } from 'vue';
-import type { PropType, ComputedRef } from 'vue';
+import type {
+  PropType,
+  ComputedRef,
+} from 'vue';
 import { clickOutside as vClickOutside } from '../../../../utilities/directives';
 import { capitalizeFirst } from '../../../../utilities/helpers/index.ts';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
@@ -65,7 +74,10 @@ import UiDatepickerMonthTab from './UiDatepickerMonthTab.vue';
 import UiDatepickerYearTab from './UiDatepickerYearTab.vue';
 import type { PropsAttrs } from '../../../../types/attrs';
 import type {
-  DatePart, DatepickerDate, DatepickerTranslation, DefaultInputProps,
+  DatePart,
+  DatepickerDate,
+  DatepickerTranslation,
+  DefaultInputProps,
 } from '../UiDatepicker.vue';
 
 export type DatepickerTab = InstanceType<typeof UiDatepickerDayTab
@@ -87,21 +99,24 @@ const props = defineProps({
    */
   tabsItemDayAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to pass attrs for month UiTabsItem
    */
   tabsItemMonthAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to pass attrs for year UiTabsItem
    */
   tabsItemYearAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
 });
 const getDefaultProps = (datePart: DatePart): DefaultInputProps<DatepickerTabID> => ({
@@ -131,7 +146,8 @@ const dateParts = computed(() => (Object.keys(defaultProps).reduce((parts: Recor
     parts[getDefaultProp(key as DatePart).id] = match[1].toLowerCase();
   }
   return parts;
-}, {})));
+}, {
+})));
 const currentTabId = computed<DatepickerTabID>({
   get: () => (getDefaultProp(currentTab.value).id),
   set: (id) => {
@@ -167,7 +183,11 @@ watchEffect(() => {
 });
 watch(isDateFulfilled, (dateFulfilled) => {
   const focusedLastInput = props.lastFocused === order.at(-1);
-  if (dateFulfilled && focusedLastInput) dropdown.value?.closeHandler({ focusToggle: false });
+  if (dateFulfilled && focusedLastInput) {
+    dropdown.value?.closeHandler({
+      focusToggle: false,
+    });
+  }
 });
 function goToNextTab(): void {
   const currentTabIndex = order.indexOf(currentTab.value);
@@ -177,7 +197,9 @@ function goToNextTab(): void {
     const firstEmptyTabIndex = order.indexOf(firstEmptyTab.value);
     currentTab.value = order[firstEmptyTabIndex];
   } else {
-    dropdown.value?.closeHandler({ focusToggle: true });
+    dropdown.value?.closeHandler({
+      focusToggle: true,
+    });
   }
 }
 const inputsIds = inject('inputsIds') as ComputedRef<Record<string, string>>;
@@ -189,7 +211,9 @@ const clickOutsideHandler = (event: InputEvent) => {
 
   if (allowedIds.includes(htmlFor)) return;
   if (!allowedIds.includes(id)) {
-    dropdown.value?.closeHandler({ focusToggle: false });
+    dropdown.value?.closeHandler({
+      focusToggle: false,
+    });
   }
   currentTab.value = inputsIds.value[id] as DatePart;
 };

@@ -1,4 +1,7 @@
-import { mount, flushPromises } from '@vue/test-utils';
+import {
+  mount,
+  flushPromises,
+} from '@vue/test-utils';
 import UiIcon from './UiIcon.vue';
 
 describe('UiIcon.vue', () => {

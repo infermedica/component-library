@@ -4,7 +4,10 @@
       <!-- @slot Use this slot to replace brand template.-->
       <slot
         name="brand"
-        v-bind="{attrs: buttonBrandAttrs, logoAttrs}"
+        v-bind="{
+          attrs: buttonBrandAttrs,
+          logoAttrs
+        }"
       >
         <UiButton
           class="ui-button--icon ui-header__brand"
@@ -13,7 +16,9 @@
           <!-- @slot Use this slot to replace logo template.-->
           <slot
             name="logo"
-            v-bind="{attrs: logoAttrs}"
+            v-bind="{
+              attrs: logoAttrs
+            }"
           >
             <UiIcon
               class="ui-header__logo"
@@ -26,7 +31,10 @@
         <!-- @slot Use this slot to replace hamburger template.-->
         <slot
           name="hamburger"
-          v-bind="{attrs: buttonHamburgerAttrs, handleHamburger}"
+          v-bind="{
+            attrs: buttonHamburgerAttrs,
+            handleHamburger
+          }"
         >
           <UiButton
             class="ui-button--icon ui-button--theme-brand ui-header__hamburger"
@@ -44,7 +52,10 @@
         <!-- @slot Use this slot to replace navigation template.-->
         <slot
           name="navigation"
-          v-bind="{attrs: navigationAttrs, navigation}"
+          v-bind="{
+            attrs: navigationAttrs,
+            navigation
+          }"
         >
           <UiNavigation
             v-bind="navigationAttrs"
@@ -59,7 +70,11 @@
 
 <script setup lang="ts">
 import {
-  computed, ref, onMounted, onUnmounted, watch,
+  computed,
+  ref,
+  onMounted,
+  onUnmounted,
+  watch,
 } from 'vue';
 import type { PropType } from 'vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
@@ -95,21 +110,24 @@ const props = defineProps({
    */
   buttonBrandAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to pass attrs for logo icon
    */
   iconLogoAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to pass attrs for hamburger button
    */
   buttonHamburgerAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to pass media query for hamburger display
@@ -130,7 +148,8 @@ const props = defineProps({
    */
   navigationAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
 });
 
@@ -138,7 +157,11 @@ const emit = defineEmits<{(e: 'hamburger:open' | 'hamburger:close'): void}>();
 const matchMediaObject: MediaQueryList = matchMedia(props.hamburgerMatchMedia);
 const isMobile = ref(matchMediaObject.matches);
 const isOpen = ref(false);
-const logoAttrs = computed<LogoAttrs>(() => ({ icon: props.logo, title: props.title, ...props.iconLogoAttrs }));
+const logoAttrs = computed<LogoAttrs>(() => ({
+  icon: props.logo,
+  title: props.title,
+  ...props.iconLogoAttrs,
+}));
 watch(isOpen, (value: boolean) => {
   emit(value ? 'hamburger:open' : 'hamburger:close');
 });

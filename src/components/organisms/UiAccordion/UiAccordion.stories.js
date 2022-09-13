@@ -8,7 +8,9 @@ import { ref } from 'vue';
 export default {
   title: 'Organisms/Accordion',
   component: UiAccordion,
-  subcomponents: { UiAccordionItem },
+  subcomponents: {
+    UiAccordionItem,
+  },
   args: {
     content: {
       mortphology: 'Serum uric acid concentration',
@@ -45,20 +47,27 @@ export default {
         category: 'stories controls',
       },
     },
-    modelValue: { control: false },
+    modelValue: {
+      control: false,
+    },
     accordionItem: {
       name: '<name>',
       description: 'Use this slot to replace accordion item content. Require `name` in item object.',
       table: {
         category: 'slots',
-        type: { summary: 'unknown' },
+        type: {
+          summary: 'unknown',
+        },
       },
     },
   },
 };
 
 const Template = (args) => ({
-  components: { UiAccordion, UiText },
+  components: {
+    UiAccordion,
+    UiText,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
     return {
@@ -80,21 +89,26 @@ const Template = (args) => ({
   </UiAccordion>`,
 });
 
-export const MultipleItems = Template.bind({});
+export const MultipleItems = Template.bind({
+});
 
-export const SingleItem = Template.bind({});
+export const SingleItem = Template.bind({
+});
 SingleItem.args = {
   items: [{
     name: 'less',
     title: 'Less likely conditions',
-    accordionItemAttrs: { 'data-testid': 'less' },
+    accordionItemAttrs: {
+      'data-testid': 'less',
+    },
   }],
   content: {
     less: 'Serum uric acid concentration',
   },
 };
 
-export const MultipleItemsOpened = Template.bind({});
+export const MultipleItemsOpened = Template.bind({
+});
 MultipleItemsOpened.args = {
   initModelValue: [],
 };
@@ -106,7 +120,9 @@ MultipleItemsOpened.argTypes = {
 
 export const WithDefaultSlot = (args) => ({
   components: {
-    UiAccordion, UiAccordionItem, UiText,
+    UiAccordion,
+    UiAccordionItem,
+    UiText,
   },
   setup() {
     const modelValue = ref(args.initModelValue);
@@ -135,7 +151,11 @@ export const WithDefaultSlot = (args) => ({
 
 export const WithTogglerSlot = (args) => ({
   components: {
-    UiAccordion, UiAccordionItem, UiButton, UiIcon, UiText,
+    UiAccordion,
+    UiAccordionItem,
+    UiButton,
+    UiIcon,
+    UiText,
   },
   setup() {
     const modelValue = ref(args.initModelValue);
@@ -179,11 +199,17 @@ export const WithTogglerSlot = (args) => ({
 
 export const WithChevronSlot = (args) => ({
   components: {
-    UiAccordion, UiAccordionItem, UiText, UiIcon,
+    UiAccordion,
+    UiAccordionItem,
+    UiText,
+    UiIcon,
   },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiAccordion v-model="modelValue">
     <template
@@ -208,11 +234,16 @@ export const WithChevronSlot = (args) => ({
 
 export const WithContentSlot = (args) => ({
   components: {
-    UiAccordion, UiAccordionItem, UiText,
+    UiAccordion,
+    UiAccordionItem,
+    UiText,
   },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiAccordion v-model="modelValue">
     <template

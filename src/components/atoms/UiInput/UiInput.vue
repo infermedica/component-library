@@ -7,7 +7,12 @@
       <!-- @slot Use this slot to replace input template. -->
       <slot
         name="input"
-        v-bind="{attrs: getInputAttrs($attrs), input: inputHandler, value: modelValue, validation: keyValidation}"
+        v-bind="{
+          attrs: getInputAttrs($attrs),
+          input: inputHandler,
+          value: modelValue,
+          validation: keyValidation
+        }"
       >
         <input
           v-keyboard-focus
@@ -22,7 +27,9 @@
     <!-- @slot Use this slot to place aside element. -->
     <slot
       name="aside"
-      v-bind="{suffix}"
+      v-bind="{
+        suffix
+      }"
     >
       <UiText
         v-if="suffix"

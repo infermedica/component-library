@@ -6,7 +6,11 @@
     <!-- @slot Use this slot to replace hint template. -->
     <slot
       name="hint"
-      v-bind="{hint, hintType, alertHintAttrs}"
+      v-bind="{
+        hint,
+        hintType,
+        alertHintAttrs
+      }"
     >
       <UiAlert
         v-if="hint"
@@ -20,7 +24,9 @@
     <!-- @slot Use this slot to replace legend template. -->
     <slot
       name="legend"
-      v-bind="{legend}"
+      v-bind="{
+        legend
+      }"
     >
       <legend
         v-if="legend"
@@ -40,7 +46,15 @@
         <!-- @slot Use this slot to replace list-item template.-->
         <slot
           name="list-item"
-          v-bind="{choice, modelValue, updateHandler, errorClass, name, component, componentName}"
+          v-bind="{
+            choice,
+            modelValue,
+            updateHandler,
+            errorClass,
+            name,
+            component,
+            componentName
+          }"
         >
           <UiListItem
             class="ui-multiple-answer__list-item"
@@ -48,7 +62,15 @@
             <!-- @slot Use this slot to replace choice-item template.-->
             <slot
               name="choice-item"
-              v-bind="{choice, modelValue, updateHandler, errorClass, name, component, componentName}"
+              v-bind="{
+                choice,
+                modelValue,
+                updateHandler,
+                errorClass,
+                name,
+                component,
+                componentName
+              }"
             >
               <component
                 :is="component"
@@ -65,7 +87,10 @@
                   <!-- @slot Use this slot to replace choice-label template for specific item.-->
                   <slot
                     :name="`label-${choice.id}`"
-                    v-bind="{choice, componentName}"
+                    v-bind="{
+                      choice,
+                      componentName
+                    }"
                   >
                     <div
                       class="ui-multiple-answer__label"
@@ -107,7 +132,10 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { computed, watch } from 'vue';
+import {
+  computed,
+  watch,
+} from 'vue';
 import type { PropType } from 'vue';
 import UiList from '../UiList/UiList.vue';
 import UiListItem from '../UiList/_internal/UiListItem.vue';
@@ -115,7 +143,10 @@ import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
 import type { RadioValue } from '../../atoms/UiRadio/UiRadio.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import UiCheckbox from '../../atoms/UiCheckbox/UiCheckbox.vue';
-import type { CheckboxValue, CheckboxValueAsObj } from '../../atoms/UiCheckbox/UiCheckbox.vue';
+import type {
+  CheckboxValue,
+  CheckboxValueAsObj,
+} from '../../atoms/UiCheckbox/UiCheckbox.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import type { PropsAttrs } from '../../../types/attrs';
@@ -180,7 +211,8 @@ const props = defineProps({
    */
   alertHintAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to set multiple answer tag.
@@ -208,10 +240,14 @@ const valid = computed(() => (isCheckbox.value
   : !!(props.modelValue as CheckboxValueAsObj).id));
 const hasError = computed(() => (props.touched && !valid.value));
 const hintType = computed<'error'|'default'>(() => (props.touched && props.invalid ? 'error' : 'default'));
-const errorClass = computed<`${ComponentName}--has-error` | ''>(() => ([hasError.value ? `${componentName.value}--has-error` : '', { 'ui-multiple-answer__choice--has-error': hasError.value }]));
+const errorClass = computed<`${ComponentName}--has-error` | ''>(() => ([hasError.value ? `${componentName.value}--has-error` : '', {
+  'ui-multiple-answer__choice--has-error': hasError.value,
+}]));
 watch(valid, (value) => {
   emit('update:invalid', !value);
-}, { immediate: true });
+}, {
+  immediate: true,
+});
 function updateHandler(value: MultipleAnswerChoice): void {
   if (!isCheckbox.value) {
     emit('update:modelValue', value);

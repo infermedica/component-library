@@ -1,4 +1,7 @@
-import { computed, ref } from 'vue';
+import {
+  computed,
+  ref,
+} from 'vue';
 import useMutationObserver from '../../../composable/useMutationObserver';
 import useActiveElement from '../../../composable/useActiveElement';
 
@@ -6,7 +9,10 @@ export default function useDropdownItems(dropdown) {
   const dropdownItems = ref([]);
   useMutationObserver(dropdown, () => {
     dropdownItems.value = [...dropdown.value.querySelectorAll('.ui-dropdown-item')];
-  }, { subtree: true, childList: true });
+  }, {
+    subtree: true,
+    childList: true,
+  });
 
   const activeElement = useActiveElement();
   const focusedDropdownItem = computed(

@@ -1,4 +1,7 @@
-import { onMounted, ref } from 'vue';
+import {
+  onMounted,
+  ref,
+} from 'vue';
 import UiInteractiveSvg from '@/components/molecules/UiInteractiveSvg/UiInteractiveSvg.vue';
 import UiInteractiveSvgElement from '@/components/molecules/UiInteractiveSvg/_internal/UiInteractiveSvgElement.vue';
 import './UiInteractiveSvg.stories.scss';
@@ -18,7 +21,10 @@ export default {
 };
 
 export const WithFocusOnMounted = () => ({
-  components: { UiInteractiveSvg, UiInteractiveSvgElement },
+  components: {
+    UiInteractiveSvg,
+    UiInteractiveSvgElement,
+  },
   setup() {
     const checkedRegions = ref([]);
     const handleRegionCheck = ({ region }, { code }) => {
@@ -35,7 +41,8 @@ export const WithFocusOnMounted = () => ({
     const handleRegionFocus = ({ region }) => {
       focusedRegion.value = region;
     };
-    const regions = ref({});
+    const regions = ref({
+    });
     const setElementsAttrs = (attrs) => {
       const { region } = attrs;
       const focusFor = attrs['focus-for'];
@@ -46,25 +53,32 @@ export const WithFocusOnMounted = () => ({
           ref: (el) => {
             regions.value[region] = el; // assign DOM node to region key in regions object
           },
-          class: ['map__region', { 'map__region--is-checked': isChecked }],
+          class: ['map__region', {
+            'map__region--is-checked': isChecked,
+          }],
           'aria-label': region.replace(/-/gm, ' '),
           'aria-checked': `${isChecked}`,
           tabindex: 0,
           onClick: handleRegionCheck.bind(null, attrs),
           onKeypress: handleRegionCheck.bind(this, attrs),
           onFocus: handleRegionFocus.bind(this, attrs),
-          onBlur: handleRegionFocus.bind(this, { region: '' }),
+          onBlur: handleRegionFocus.bind(this, {
+            region: '',
+          }),
         };
       }
 
       if (focusFor) {
         const isFocused = focusedRegion.value === focusFor;
         return {
-          class: ['map__focus-for-region', { 'map__focus-for-region--is-focused': isFocused }],
+          class: ['map__focus-for-region', {
+            'map__focus-for-region--is-focused': isFocused,
+          }],
         };
       }
 
-      return {};
+      return {
+      };
     };
     onMounted(() => {
       regions.value.europe.focus();
@@ -268,7 +282,10 @@ export const WithFocusOnMounted = () => ({
 });
 
 export const Map = () => ({
-  components: { UiInteractiveSvg, UiInteractiveSvgElement },
+  components: {
+    UiInteractiveSvg,
+    UiInteractiveSvgElement,
+  },
   setup() {
     const checkedRegions = ref([]);
     const handleRegionCheck = ({ region }, { code }) => {
@@ -292,25 +309,32 @@ export const Map = () => ({
       if (region) {
         const isChecked = checkedRegions.value.includes(region);
         return {
-          class: ['map__region', { 'map__region--is-checked': isChecked }],
+          class: ['map__region', {
+            'map__region--is-checked': isChecked,
+          }],
           'aria-label': region.replace(/-/gm, ' '),
           'aria-checked': `${isChecked}`,
           tabindex: 0,
           onClick: handleRegionCheck.bind(null, attrs),
           onKeypress: handleRegionCheck.bind(this, attrs),
           onFocus: handleRegionFocus.bind(this, attrs),
-          onBlur: handleRegionFocus.bind(this, { region: '' }),
+          onBlur: handleRegionFocus.bind(this, {
+            region: '',
+          }),
         };
       }
 
       if (focusFor) {
         const isFocused = focusedRegion.value === focusFor;
         return {
-          class: ['map__focus-for-region', { 'map__focus-for-region--is-focused': isFocused }],
+          class: ['map__focus-for-region', {
+            'map__focus-for-region--is-focused': isFocused,
+          }],
         };
       }
 
-      return {};
+      return {
+      };
     };
     return {
       setElementsAttrs,
@@ -511,7 +535,10 @@ export const Map = () => ({
 });
 
 export const AbdominalPainMale = () => ({
-  components: { UiInteractiveSvg, UiInteractiveSvgElement },
+  components: {
+    UiInteractiveSvg,
+    UiInteractiveSvgElement,
+  },
   setup() {
     const checkedParts = ref([]);
     const handlePartCheck = ({ part }, { code }) => {
@@ -535,25 +562,32 @@ export const AbdominalPainMale = () => ({
       if (part) {
         const isChecked = checkedParts.value.includes(part);
         return {
-          class: ['abdominal-pain__part', { 'abdominal-pain__part--is-checked': isChecked }],
+          class: ['abdominal-pain__part', {
+            'abdominal-pain__part--is-checked': isChecked,
+          }],
           'aria-label': part.replace(/-/gm, ' '),
           'aria-checked': `${isChecked}`,
           tabindex: 0,
           onClick: handlePartCheck.bind(null, attrs),
           onKeypress: handlePartCheck.bind(this, attrs),
           onFocus: handlePartFocus.bind(this, attrs),
-          onBlur: handlePartFocus.bind(this, { part: '' }),
+          onBlur: handlePartFocus.bind(this, {
+            part: '',
+          }),
         };
       }
 
       if (focusFor) {
         const isFocused = focusedPart.value === focusFor;
         return {
-          class: ['abdominal-pain__focus-for-part', { 'abdominal-pain__focus-for-part--is-focused': isFocused }],
+          class: ['abdominal-pain__focus-for-part', {
+            'abdominal-pain__focus-for-part--is-focused': isFocused,
+          }],
         };
       }
 
-      return {};
+      return {
+      };
     };
     return {
       setElementsAttrs,
@@ -630,7 +664,10 @@ export const AbdominalPainMale = () => ({
 });
 
 export const AbdominalPainFemale = () => ({
-  components: { UiInteractiveSvg, UiInteractiveSvgElement },
+  components: {
+    UiInteractiveSvg,
+    UiInteractiveSvgElement,
+  },
   setup() {
     const checkedParts = ref([]);
     const handlePartCheck = ({ part }, { code }) => {
@@ -654,25 +691,32 @@ export const AbdominalPainFemale = () => ({
       if (part) {
         const isChecked = checkedParts.value.includes(part);
         return {
-          class: ['abdominal-pain__part', { 'abdominal-pain__part--is-checked': isChecked }],
+          class: ['abdominal-pain__part', {
+            'abdominal-pain__part--is-checked': isChecked,
+          }],
           'aria-label': part.replace(/-/gm, ' '),
           'aria-checked': `${isChecked}`,
           tabindex: 0,
           onClick: handlePartCheck.bind(null, attrs),
           onKeypress: handlePartCheck.bind(this, attrs),
           onFocus: handlePartFocus.bind(this, attrs),
-          onBlur: handlePartFocus.bind(this, { part: '' }),
+          onBlur: handlePartFocus.bind(this, {
+            part: '',
+          }),
         };
       }
 
       if (focusFor) {
         const isFocused = focusedPart.value === focusFor;
         return {
-          class: ['abdominal-pain__focus-for-part', { 'abdominal-pain__focus-for-part--is-focused': isFocused }],
+          class: ['abdominal-pain__focus-for-part', {
+            'abdominal-pain__focus-for-part--is-focused': isFocused,
+          }],
         };
       }
 
-      return {};
+      return {
+      };
     };
     return {
       setElementsAttrs,
@@ -749,7 +793,10 @@ export const AbdominalPainFemale = () => ({
 });
 
 export const InfantUnisexFront = (args) => ({
-  components: { UiInteractiveSvg, UiInteractiveSvgElement },
+  components: {
+    UiInteractiveSvg,
+    UiInteractiveSvgElement,
+  },
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
@@ -776,7 +823,8 @@ export const InfantUnisexFront = (args) => ({
         };
       }
 
-      return {};
+      return {
+      };
     };
     return {
       ...args,
@@ -874,7 +922,10 @@ InfantUnisexFront.argTypes = {
 };
 
 export const InfantUnisexBack = () => ({
-  components: { UiInteractiveSvg, UiInteractiveSvgElement },
+  components: {
+    UiInteractiveSvg,
+    UiInteractiveSvgElement,
+  },
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
@@ -901,7 +952,8 @@ export const InfantUnisexBack = () => ({
         };
       }
 
-      return {};
+      return {
+      };
     };
     return {
       setElementsAttrs,
@@ -968,7 +1020,10 @@ export const InfantUnisexBack = () => ({
 });
 
 export const ToddlerMaleFront = (args) => ({
-  components: { UiInteractiveSvg, UiInteractiveSvgElement },
+  components: {
+    UiInteractiveSvg,
+    UiInteractiveSvgElement,
+  },
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
@@ -995,7 +1050,8 @@ export const ToddlerMaleFront = (args) => ({
         };
       }
 
-      return {};
+      return {
+      };
     };
     return {
       ...args,
@@ -1121,7 +1177,10 @@ ToddlerMaleFront.argTypes = {
 };
 
 export const ToddlerMaleBack = () => ({
-  components: { UiInteractiveSvg, UiInteractiveSvgElement },
+  components: {
+    UiInteractiveSvg,
+    UiInteractiveSvgElement,
+  },
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
@@ -1148,7 +1207,8 @@ export const ToddlerMaleBack = () => ({
         };
       }
 
-      return {};
+      return {
+      };
     };
     return {
       setElementsAttrs,
@@ -1235,7 +1295,10 @@ export const ToddlerMaleBack = () => ({
 });
 
 export const ToddlerFemaleFront = (args) => ({
-  components: { UiInteractiveSvg, UiInteractiveSvgElement },
+  components: {
+    UiInteractiveSvg,
+    UiInteractiveSvgElement,
+  },
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
@@ -1262,7 +1325,8 @@ export const ToddlerFemaleFront = (args) => ({
         };
       }
 
-      return {};
+      return {
+      };
     };
     return {
       ...args,
@@ -1388,7 +1452,10 @@ ToddlerFemaleFront.argTypes = {
 };
 
 export const ToddlerFemaleBack = () => ({
-  components: { UiInteractiveSvg, UiInteractiveSvgElement },
+  components: {
+    UiInteractiveSvg,
+    UiInteractiveSvgElement,
+  },
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
@@ -1415,7 +1482,8 @@ export const ToddlerFemaleBack = () => ({
         };
       }
 
-      return {};
+      return {
+      };
     };
     return {
       setElementsAttrs,
@@ -1502,7 +1570,10 @@ export const ToddlerFemaleBack = () => ({
 });
 
 export const ChildMaleFront = (args) => ({
-  components: { UiInteractiveSvg, UiInteractiveSvgElement },
+  components: {
+    UiInteractiveSvg,
+    UiInteractiveSvgElement,
+  },
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
@@ -1529,7 +1600,8 @@ export const ChildMaleFront = (args) => ({
         };
       }
 
-      return {};
+      return {
+      };
     };
     return {
       ...args,
@@ -1655,7 +1727,10 @@ ToddlerFemaleFront.argTypes = {
 };
 
 export const ChildMaleBack = () => ({
-  components: { UiInteractiveSvg, UiInteractiveSvgElement },
+  components: {
+    UiInteractiveSvg,
+    UiInteractiveSvgElement,
+  },
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
@@ -1682,7 +1757,8 @@ export const ChildMaleBack = () => ({
         };
       }
 
-      return {};
+      return {
+      };
     };
     return {
       setElementsAttrs,
@@ -1765,7 +1841,10 @@ export const ChildMaleBack = () => ({
 });
 
 export const ChildFemaleFront = (args) => ({
-  components: { UiInteractiveSvg, UiInteractiveSvgElement },
+  components: {
+    UiInteractiveSvg,
+    UiInteractiveSvgElement,
+  },
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
@@ -1792,7 +1871,8 @@ export const ChildFemaleFront = (args) => ({
         };
       }
 
-      return {};
+      return {
+      };
     };
     return {
       ...args,
@@ -1918,7 +1998,10 @@ ChildFemaleFront.argTypes = {
 };
 
 export const ChildFemaleBack = () => ({
-  components: { UiInteractiveSvg, UiInteractiveSvgElement },
+  components: {
+    UiInteractiveSvg,
+    UiInteractiveSvgElement,
+  },
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
@@ -1945,7 +2028,8 @@ export const ChildFemaleBack = () => ({
         };
       }
 
-      return {};
+      return {
+      };
     };
     return {
       setElementsAttrs,
@@ -2028,7 +2112,10 @@ export const ChildFemaleBack = () => ({
 });
 
 export const AdultMaleFront = (args) => ({
-  components: { UiInteractiveSvg, UiInteractiveSvgElement },
+  components: {
+    UiInteractiveSvg,
+    UiInteractiveSvgElement,
+  },
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
@@ -2055,7 +2142,8 @@ export const AdultMaleFront = (args) => ({
         };
       }
 
-      return {};
+      return {
+      };
     };
     return {
       ...args,
@@ -2181,7 +2269,10 @@ AdultMaleFront.argTypes = {
 };
 
 export const AdultMaleBack = () => ({
-  components: { UiInteractiveSvg, UiInteractiveSvgElement },
+  components: {
+    UiInteractiveSvg,
+    UiInteractiveSvgElement,
+  },
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
@@ -2208,7 +2299,8 @@ export const AdultMaleBack = () => ({
         };
       }
 
-      return {};
+      return {
+      };
     };
     return {
       setElementsAttrs,
@@ -2295,7 +2387,10 @@ export const AdultMaleBack = () => ({
 });
 
 export const AdultFemaleFront = (args) => ({
-  components: { UiInteractiveSvg, UiInteractiveSvgElement },
+  components: {
+    UiInteractiveSvg,
+    UiInteractiveSvgElement,
+  },
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
@@ -2322,7 +2417,8 @@ export const AdultFemaleFront = (args) => ({
         };
       }
 
-      return {};
+      return {
+      };
     };
     return {
       ...args,
@@ -2452,7 +2548,10 @@ AdultFemaleFront.argTypes = {
 };
 
 export const AdultFemaleBack = () => ({
-  components: { UiInteractiveSvg, UiInteractiveSvgElement },
+  components: {
+    UiInteractiveSvg,
+    UiInteractiveSvgElement,
+  },
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
@@ -2479,7 +2578,8 @@ export const AdultFemaleBack = () => ({
         };
       }
 
-      return {};
+      return {
+      };
     };
     return {
       setElementsAttrs,

@@ -7,9 +7,16 @@ import UiLink from '@/components/atoms/UiLink/UiLink.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints.vue';
 import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue';
-import { onMounted, ref } from 'vue';
+import {
+  onMounted,
+  ref,
+} from 'vue';
 import { actions } from '@storybook/addon-actions';
-import { focusTrap, bodyScrollLock, scrollTabindex } from '@/utilities/directives';
+import {
+  focusTrap,
+  bodyScrollLock,
+  scrollTabindex,
+} from '@/utilities/directives';
 
 const events = actions({
   onAfterEnter: 'after-enter',
@@ -19,7 +26,11 @@ export default {
   title: 'Organisms/SidePanel',
   component: UiSidePanel,
   subcomponents: {
-    UiBackdrop, UiButton, UiIcon, UiHeading, UiText,
+    UiBackdrop,
+    UiButton,
+    UiIcon,
+    UiHeading,
+    UiText,
   },
   args: {
     initModelValue: true,
@@ -88,12 +99,16 @@ export default {
       control: 'select',
       options: ['fade', 'slide'],
     },
-    modelValue: { control: false },
+    modelValue: {
+      control: false,
+    },
     'after-enter': {
       description: 'Use this event to detect when side panel enter transition is finishing.',
     },
   },
-  decorators: [() => ({ template: '<div class="max-w-32" style="min-height: 320px;"><story /></div>' })],
+  decorators: [() => ({
+    template: '<div class="max-w-32" style="min-height: 320px;"><story /></div>',
+  })],
   parameters: {
     docs: {
       description: {
@@ -105,7 +120,13 @@ export default {
 
 const Template = (args) => ({
   components: {
-    UiSidePanel, UiButton, UiHeading, UiBulletPoints, UiBulletPointsItem, UiText, UiLink,
+    UiSidePanel,
+    UiButton,
+    UiHeading,
+    UiBulletPoints,
+    UiBulletPointsItem,
+    UiText,
+    UiLink,
   },
   setup() {
     const modelValue = ref(args.initModelValue);
@@ -175,7 +196,8 @@ const Template = (args) => ({
   </UiSidePanel>`,
 });
 
-export const TermsOfService = Template.bind({});
+export const TermsOfService = Template.bind({
+});
 TermsOfService.args = {
   title: 'Terms of Service',
   subtitle: 'Last updated: Nov 26th, 2020',
@@ -183,7 +205,10 @@ TermsOfService.args = {
 
 export const WithBackdropSlot = (args) => ({
   components: {
-    UiSidePanel, UiButton, UiText, UiBackdrop,
+    UiSidePanel,
+    UiButton,
+    UiText,
+    UiBackdrop,
   },
   setup() {
     const modelValue = ref(args.initModelValue);
@@ -220,7 +245,11 @@ export const WithBackdropSlot = (args) => ({
 
 export const WithContainerSlot = (args) => ({
   components: {
-    UiSidePanel, UiButton, UiText, UiHeading, UiIcon,
+    UiSidePanel,
+    UiButton,
+    UiText,
+    UiHeading,
+    UiIcon,
   },
   directives: {
     focusTrap,
@@ -296,7 +325,11 @@ export const WithContainerSlot = (args) => ({
 
 export const WithHeaderSlot = (args) => ({
   components: {
-    UiSidePanel, UiButton, UiText, UiHeading, UiIcon,
+    UiSidePanel,
+    UiButton,
+    UiText,
+    UiHeading,
+    UiIcon,
   },
   setup() {
     const modelValue = ref(args.initModelValue);
@@ -351,7 +384,11 @@ export const WithHeaderSlot = (args) => ({
 
 export const WithCloseSlot = (args) => ({
   components: {
-    UiSidePanel, UiButton, UiText, UiHeading, UiIcon,
+    UiSidePanel,
+    UiButton,
+    UiText,
+    UiHeading,
+    UiIcon,
   },
   setup() {
     const modelValue = ref(args.initModelValue);
@@ -390,7 +427,10 @@ export const WithCloseSlot = (args) => ({
 
 export const WithLabelSlot = (args) => ({
   components: {
-    UiSidePanel, UiButton, UiText, UiHeading,
+    UiSidePanel,
+    UiButton,
+    UiText,
+    UiHeading,
   },
   setup() {
     const modelValue = ref(args.initModelValue);
@@ -435,7 +475,10 @@ export const WithLabelSlot = (args) => ({
 
 export const WithTitleSlot = (args) => ({
   components: {
-    UiSidePanel, UiButton, UiText, UiHeading,
+    UiSidePanel,
+    UiButton,
+    UiText,
+    UiHeading,
   },
   setup() {
     const modelValue = ref(args.initModelValue);
@@ -469,7 +512,9 @@ export const WithTitleSlot = (args) => ({
 
 export const WithSubtitleSlot = (args) => ({
   components: {
-    UiSidePanel, UiButton, UiText,
+    UiSidePanel,
+    UiButton,
+    UiText,
   },
   setup() {
     const modelValue = ref(args.initModelValue);
@@ -506,9 +551,13 @@ export const WithSubtitleSlot = (args) => ({
 
 export const WithContentSlot = (args) => ({
   components: {
-    UiSidePanel, UiButton, UiText,
+    UiSidePanel,
+    UiButton,
+    UiText,
   },
-  directives: { scrollTabindex },
+  directives: {
+    scrollTabindex,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
     return {
@@ -544,7 +593,13 @@ export const WithContentSlot = (args) => ({
 
 export const WithAsynContent = (args) => ({
   components: {
-    UiSidePanel, UiButton, UiHeading, UiBulletPoints, UiBulletPointsItem, UiText, UiLink,
+    UiSidePanel,
+    UiButton,
+    UiHeading,
+    UiBulletPoints,
+    UiBulletPointsItem,
+    UiText,
+    UiLink,
   },
   setup() {
     const modelValue = ref(args.initModelValue);

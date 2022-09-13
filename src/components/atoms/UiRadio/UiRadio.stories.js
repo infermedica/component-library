@@ -3,12 +3,18 @@ import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import { ref } from 'vue';
-import { content, modifiers, disabled } from '@sb/helpers/argTypes';
+import {
+  content,
+  modifiers,
+  disabled,
+} from '@sb/helpers/argTypes';
 
 export default {
   title: 'Atoms/Radio',
   component: UiRadio,
-  subcomponents: { UiText },
+  subcomponents: {
+    UiText,
+  },
   args: {
     initModelValue: '',
     content: '98.6–100.4 °F or 37–38 °C',
@@ -27,7 +33,9 @@ export default {
       },
       control: 'text',
     },
-    modifiers: modifiers({ options: ['ui-radio--has-error', 'ui-radio--is-disabled'] }),
+    modifiers: modifiers({
+      options: ['ui-radio--has-error', 'ui-radio--is-disabled'],
+    }),
     disabled,
     name: {
       description: 'Use this control to set name attribute.',
@@ -38,16 +46,25 @@ export default {
         type: 'text',
       },
     },
-    id: { control: 'text' },
-    value: { control: 'text' },
+    id: {
+      control: 'text',
+    },
+    value: {
+      control: 'text',
+    },
   },
 };
 
 const Template = (args) => ({
-  components: { UiRadio },
+  components: {
+    UiRadio,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiRadio
     v-model="modelValue"
@@ -60,23 +77,31 @@ const Template = (args) => ({
   </UiRadio>`,
 });
 
-export const WithLabel = Template.bind({});
+export const WithLabel = Template.bind({
+});
 
-export const IsDisabled = Template.bind({});
+export const IsDisabled = Template.bind({
+});
 IsDisabled.args = {
   modifiers: ['ui-radio--is-disabled'],
 };
 
-export const HasError = Template.bind({});
+export const HasError = Template.bind({
+});
 HasError.args = {
   modifiers: ['ui-radio--has-error'],
 };
 
 export const WithRadioSlot = (args) => ({
-  components: { UiRadio },
+  components: {
+    UiRadio,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiRadio
     v-model="modelValue"
@@ -98,10 +123,16 @@ export const WithRadioSlot = (args) => ({
 });
 
 export const WithLabelSlot = (args) => ({
-  components: { UiRadio, UiText },
+  components: {
+    UiRadio,
+    UiText,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiRadio
     v-model="modelValue"
@@ -122,10 +153,17 @@ export const WithLabelSlot = (args) => ({
 });
 
 export const AsGroup = (args) => ({
-  components: { UiRadio, UiList, UiListItem },
+  components: {
+    UiRadio,
+    UiList,
+    UiListItem,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiList style="--list-item-padding: var(--space-12) 0;">
     <UiListItem
@@ -184,18 +222,35 @@ AsGroup.argTypes = {
       type: 'object',
     },
   },
-  id: { control: false },
-  value: { control: false },
-  modifiers: { control: false },
-  disabled: { control: false },
-  content: { control: false },
+  id: {
+    control: false,
+  },
+  value: {
+    control: false,
+  },
+  modifiers: {
+    control: false,
+  },
+  disabled: {
+    control: false,
+  },
+  content: {
+    control: false,
+  },
 };
 
 export const AsGroupWithNestedObject = (args) => ({
-  components: { UiRadio, UiList, UiListItem },
+  components: {
+    UiRadio,
+    UiList,
+    UiListItem,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiList style="--list-item-padding: var(--space-12) 0;">
     <UiListItem
@@ -267,18 +322,35 @@ AsGroupWithNestedObject.argTypes = {
       type: 'object',
     },
   },
-  id: { control: false },
-  value: { control: false },
-  modifiers: { control: false },
-  disabled: { control: false },
-  content: { control: false },
+  id: {
+    control: false,
+  },
+  value: {
+    control: false,
+  },
+  modifiers: {
+    control: false,
+  },
+  disabled: {
+    control: false,
+  },
+  content: {
+    control: false,
+  },
 };
 
 export const AsGroupWithPrimitiveTypes = (args) => ({
-  components: { UiRadio, UiList, UiListItem },
+  components: {
+    UiRadio,
+    UiList,
+    UiListItem,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiList style="--list-item-padding: var(--space-12) 0;">
     <UiListItem
@@ -321,9 +393,19 @@ AsGroupWithPrimitiveTypes.argTypes = {
       type: 'object',
     },
   },
-  id: { control: false },
-  value: { control: false },
-  modifiers: { control: false },
-  disabled: { control: false },
-  content: { control: false },
+  id: {
+    control: false,
+  },
+  value: {
+    control: false,
+  },
+  modifiers: {
+    control: false,
+  },
+  disabled: {
+    control: false,
+  },
+  content: {
+    control: false,
+  },
 };

@@ -3,7 +3,9 @@
     <!-- @slot Use this slot to replace title template. -->
     <slot
       name="title"
-      v-bind="{title}"
+      v-bind="{
+        title
+      }"
     >
       <UiHeading
         v-if="title"
@@ -14,7 +16,11 @@
     </slot>
     <slot
       name="actions-top"
-      v-bind="{buttonInfoAttrs, options, translation}"
+      v-bind="{
+        buttonInfoAttrs,
+        options,
+        translation
+      }"
     >
       <div
         v-if="options.info"
@@ -23,7 +29,11 @@
         <!-- @slot Use this slot to replace info template. -->
         <slot
           name="info"
-          v-bind="{buttonInfoAttrs, options, translation}"
+          v-bind="{
+            buttonInfoAttrs,
+            options,
+            translation
+          }"
         >
           <UiButton
             v-if="options.info"
@@ -46,7 +56,12 @@
     <!-- @slot Use this slot to replace actions template. -->
     <slot
       name="actions-bottom"
-      v-bind="{buttonWhyAttrs, buttonIssueAttrs, options, translation}"
+      v-bind="{
+        buttonWhyAttrs,
+        buttonIssueAttrs,
+        options,
+        translation
+      }"
     >
       <div
         v-if="options.why || options.issue"
@@ -55,7 +70,10 @@
         <!-- @slot Use this slot to replace why template. -->
         <slot
           name="why"
-          v-bind="{options, translation}"
+          v-bind="{
+            options,
+            translation
+          }"
         >
           <div
             v-if="options.why"
@@ -72,7 +90,11 @@
         <!-- @slot Use this slot to replace issue template. -->
         <slot
           name="issue"
-          v-bind="{buttonIssueAttrs, options, translation}"
+          v-bind="{
+            buttonIssueAttrs,
+            options,
+            translation
+          }"
         >
           <div
             v-if="options.issue"
@@ -91,7 +113,11 @@
     <!-- @slot Use this slot to replace feedback template. -->
     <slot
       name="feedback"
-      v-bind="{options, translation, buttonSkipAttrs}"
+      v-bind="{
+        options,
+        translation,
+        buttonSkipAttrs
+      }"
     >
       <UiNotification
         v-if="options.issue?.feedback"
@@ -175,28 +201,32 @@ defineProps({
    */
   buttonSkipAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to pass attrs for info UiButton
    */
   buttonInfoAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to pass attrs for why UiButton
    */
   buttonWhyAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to pass attrs for issue UiButton
    */
   buttonIssueAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
 });
 </script>

@@ -46,9 +46,15 @@ export default {
 <script setup lang="ts">
 // FIXME: reveal content with v-if, v-show, visibility: hidden, check Symptom Checker use cases
 import {
-  computed, h, TransitionGroup,
+  computed,
+  h,
+  TransitionGroup,
 } from 'vue';
-import type { Slot, PropType, VNode } from 'vue';
+import type {
+  Slot,
+  PropType,
+  VNode,
+} from 'vue';
 import type { HTMLTag } from '../../../types/tag';
 import UiLoaderSpinner from './_internal/UiLoaderSpinner.vue';
 import UiLoaderSkeleton from './_internal/UiLoaderSkeleton.vue';
@@ -79,7 +85,8 @@ const props = defineProps({
    */
   loaderAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to pass tag of loader
@@ -113,7 +120,9 @@ const component = computed<LoaderComponent>(() => {
 });
 const outerComponent = computed<VNode>(() => (
   props.transition
-    ? h(TransitionGroup, { name: props.transition as string })
+    ? h(TransitionGroup, {
+      name: props.transition as string,
+    })
     : h((_, { slots }) => (slots.default as Slot)())
 ));
 </script>

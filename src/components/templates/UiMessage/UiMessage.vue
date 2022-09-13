@@ -3,13 +3,19 @@
     <!-- @slot Use this slot to replace content template. -->
     <slot
       name="content"
-      v-bind="{subtitle, title, headingTitleAttrs}"
+      v-bind="{
+        subtitle,
+        title,
+        headingTitleAttrs
+      }"
     >
       <div class="ui-message__content">
         <!-- @slot Use this slot to replace subtitle template. -->
         <slot
           name="subtitle"
-          v-bind="{subtitle}"
+          v-bind="{
+            subtitle
+          }"
         >
           <UiText
             v-if="subtitle"
@@ -21,7 +27,10 @@
         <!-- @slot Use this slot to replace title template. -->
         <slot
           name="title"
-          v-bind="{title, headingTitleAttrs}"
+          v-bind="{
+            title,
+            headingTitleAttrs
+          }"
         >
           <UiHeading
             v-if="title"
@@ -38,7 +47,9 @@
     <!-- @slot Use this slot to replace aside template. -->
     <slot
       name="aside"
-      v-bind="{illustration}"
+      v-bind="{
+        illustration
+      }"
     >
       <div
         v-if="illustration"
@@ -47,7 +58,9 @@
         <!-- @slot Use this slot to replace illustration template. -->
         <slot
           name="illustration"
-          v-bind="{illustration}"
+          v-bind="{
+            illustration
+          }"
         >
           <UiIcon
             :icon="illustration"
@@ -94,7 +107,8 @@ defineProps({
    */
   headingTitleAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
 });
 </script>

@@ -1,12 +1,20 @@
 <template>
   <div
     class="ui-tabs-item"
-    :class="{'ui-tabs-item--is-active': isActive}"
+    :class="{
+      'ui-tabs-item--is-active': isActive
+    }"
   >
     <!-- @slot Use this slot to replace tab template. -->
     <slot
       name="tab"
-      v-bind="{id, isActive, buttonAttrs, handleTabActive, title}"
+      v-bind="{
+        id,
+        isActive,
+        buttonAttrs,
+        handleTabActive,
+        title
+      }"
     >
       <div
         ref="tab"
@@ -15,7 +23,13 @@
         <!-- @slot Use this slot to replace tab-button template. -->
         <slot
           name="tab-button"
-          v-bind="{id, isActive, attrs:buttonAttrs, handleTabActive, title}"
+          v-bind="{
+            id,
+            isActive,
+            attrs:buttonAttrs,
+            handleTabActive,
+            title
+          }"
         >
           <UiButton
             :id="`button-${id}`"
@@ -33,7 +47,9 @@
     <!-- @slot Use this slot to replace content template. -->
     <slot
       name="content"
-      v-bind="{isActive}"
+      v-bind="{
+        isActive
+      }"
     >
       <div
         v-show="isActive"
@@ -51,7 +67,11 @@
 
 <script setup lang="ts">
 import {
-  ref, computed, onMounted, inject, useAttrs,
+  ref,
+  computed,
+  onMounted,
+  inject,
+  useAttrs,
 } from 'vue';
 import type { Ref } from 'vue';
 import { uid } from 'uid/single';
@@ -78,14 +98,16 @@ const props = defineProps({
    */
   buttonAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to pass attrs for content element.
    */
   contentAttrs: {
     type: Object,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
 });
 const attrs = useAttrs() as {id: string};

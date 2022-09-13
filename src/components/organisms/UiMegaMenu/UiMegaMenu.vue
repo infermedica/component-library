@@ -6,7 +6,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, provide } from 'vue';
+import {
+  computed,
+  provide,
+} from 'vue';
 
 const props = defineProps({
   /**

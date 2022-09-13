@@ -6,7 +6,9 @@
     <!-- @slot Use this slot to replace triage template. -->
     <slot
       name="triage"
-      v-bind="{icon}"
+      v-bind="{
+        icon
+      }"
     >
       <div class="ui-card__triage">
         <UiIcon
@@ -18,13 +20,19 @@
     </slot>
     <slot
       name="content"
-      v-bind="{subtitle, title, description}"
+      v-bind="{
+        subtitle,
+        title,
+        description
+      }"
     >
       <div class="ui-card__content">
         <!-- @slot Use this slot to replace subtitle template. -->
         <slot
           name="subtitle"
-          v-bind="{subtitle}"
+          v-bind="{
+            subtitle
+          }"
         >
           <UiText
             v-if="subtitle"
@@ -36,7 +44,9 @@
         <!-- @slot Use this slot to replace title template. -->
         <slot
           name="title"
-          v-bind="{title}"
+          v-bind="{
+            title
+          }"
         >
           <UiHeading
             v-if="title"
@@ -48,7 +58,9 @@
         <!-- @slot Use this slot to replace description template. -->
         <slot
           name="description"
-          v-bind="{description}"
+          v-bind="{
+            description
+          }"
         >
           <UiText
             v-if="description"

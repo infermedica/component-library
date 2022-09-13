@@ -3,12 +3,19 @@ import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import { ref } from 'vue';
-import { content, modifiers } from '@sb/helpers/argTypes';
+import {
+  content,
+  modifiers,
+} from '@sb/helpers/argTypes';
 
 export default {
   title: 'Molecules/Tile',
   component: UiTile,
-  subcomponents: { UiButton, UiText, UiIcon },
+  subcomponents: {
+    UiButton,
+    UiText,
+    UiIcon,
+  },
   args: {
     initModelValue: '',
     content: 'Yes',
@@ -29,9 +36,15 @@ export default {
       },
       control: 'string',
     },
-    modifiers: modifiers({ options: ['ui-tile--small'] }),
-    value: { control: 'text' },
-    modelValue: { control: false },
+    modifiers: modifiers({
+      options: ['ui-tile--small'],
+    }),
+    value: {
+      control: 'text',
+    },
+    modelValue: {
+      control: false,
+    },
   },
   parameters: {
     cssprops: {
@@ -85,10 +98,15 @@ export default {
 };
 
 const Template = (args) => ({
-  components: { UiTile },
+  components: {
+    UiTile,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiTile
     v-model="modelValue"
@@ -102,23 +120,32 @@ const Template = (args) => ({
   </UiTile>`,
 });
 
-export const Large = Template.bind({});
+export const Large = Template.bind({
+});
 
-export const Small = Template.bind({});
+export const Small = Template.bind({
+});
 Small.args = {
   modifiers: ['ui-tile--small'],
 };
 
-export const HasError = Template.bind({});
+export const HasError = Template.bind({
+});
 HasError.args = {
   modifiers: ['ui-tile--has-error'],
 };
 
 export const WithIconSlot = (args) => ({
-  components: { UiTile, UiIcon },
+  components: {
+    UiTile,
+    UiIcon,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiTile
     v-model="modelValue"
@@ -139,10 +166,16 @@ export const WithIconSlot = (args) => ({
 });
 
 export const WithLabelSlot = (args) => ({
-  components: { UiTile, UiText },
+  components: {
+    UiTile,
+    UiText,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiTile
     v-model="modelValue"
@@ -164,10 +197,15 @@ export const WithLabelSlot = (args) => ({
 });
 
 export const AsGroup = (args) => ({
-  components: { UiTile },
+  components: {
+    UiTile,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<div 
     class="flex flex-col tablet:flex-row"
@@ -188,11 +226,15 @@ export const AsGroup = (args) => ({
   </div>`,
 });
 AsGroup.args = {
-  initModelValue: { choice_id: 'present' },
+  initModelValue: {
+    choice_id: 'present',
+  },
   values: [
     {
       name: 'answer',
-      value: { choice_id: 'present' },
+      value: {
+        choice_id: 'present',
+      },
       id: 'present',
       iconAttrs: {
         icon: 'yes',
@@ -202,7 +244,9 @@ AsGroup.args = {
     },
     {
       name: 'answer',
-      value: { choice_id: 'absent' },
+      value: {
+        choice_id: 'absent',
+      },
       id: 'absent',
       iconAttrs: {
         icon: 'no',
@@ -212,7 +256,9 @@ AsGroup.args = {
     },
     {
       name: 'answer',
-      value: { choice_id: 'unknown' },
+      value: {
+        choice_id: 'unknown',
+      },
       id: 'unknown',
       iconAttrs: {
         icon: 'dont-know',

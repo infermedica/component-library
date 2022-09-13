@@ -9,7 +9,10 @@ export default {
   title: 'Molecules/Scale',
   component: UiScale,
   subcomponents: {
-    UiButton, UiIcon, UiText, UiRadio,
+    UiButton,
+    UiIcon,
+    UiText,
+    UiRadio,
   },
   args: {
     initModelValue: 4,
@@ -21,8 +24,12 @@ export default {
       mild: 'Mild',
       unbearable: 'Unbearable',
     },
-    buttonDecrementAttrs: { 'aria-label': 'decrement pain' },
-    buttonIncrementAttrs: { 'aria-label': 'increment pain' },
+    buttonDecrementAttrs: {
+      'aria-label': 'decrement pain',
+    },
+    buttonIncrementAttrs: {
+      'aria-label': 'increment pain',
+    },
   },
   argTypes: {
     initModelValue: {
@@ -39,10 +46,15 @@ export default {
 };
 
 const Template = (args) => ({
-  components: { UiScale },
+  components: {
+    UiScale,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiScale
     v-model="modelValue"
@@ -55,13 +67,21 @@ const Template = (args) => ({
   />`,
 });
 
-export const Common = Template.bind({});
+export const Common = Template.bind({
+});
 
 export const WithDecrementSlot = (args) => ({
-  components: { UiScale, UiButton, UiIcon },
+  components: {
+    UiScale,
+    UiButton,
+    UiIcon,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiScale
     v-model="modelValue"
@@ -90,10 +110,17 @@ export const WithDecrementSlot = (args) => ({
 });
 
 export const WithIncrementSlot = (args) => ({
-  components: { UiScale, UiButton, UiIcon },
+  components: {
+    UiScale,
+    UiButton,
+    UiIcon,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiScale
     v-model="modelValue"

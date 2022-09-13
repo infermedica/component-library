@@ -18,7 +18,8 @@ export default {
 
 export const WithDirective = () => ({
   components: {
-    UiInput, UiText,
+    UiInput,
+    UiText,
   },
   directives: {
     highlight,
@@ -29,7 +30,8 @@ export const WithDirective = () => ({
       searchQuery.value = value;
     };
     return {
-      searchQuery, inputHandler,
+      searchQuery,
+      inputHandler,
     };
   },
   template: `

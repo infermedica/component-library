@@ -24,14 +24,21 @@
         <!-- @slot Use this slot to replace next template. -->
         <slot
           v-if="toNext"
-          v-bind="{hideNextButton, attrs: nextAttrs, invalid, translation: defaultProps.translation}"
+          v-bind="{
+            hideNextButton,
+            attrs: nextAttrs,
+            invalid,
+            translation: defaultProps.translation
+          }"
           name="next"
         >
           <UiButton
             v-if="!hideNextButton"
             v-bind="nextAttrs"
             class="ui-controls__next"
-            :class="{'ui-button--is-disabled': invalid}"
+            :class="{
+              'ui-button--is-disabled': invalid
+            }"
           >
             {{ defaultProps.translation.next }}
           </UiButton>
@@ -39,7 +46,11 @@
         <!-- @slot Use this slot to replace back template. -->
         <slot
           name="back"
-          v-bind="{toBack, attrs: backAttrs, translation: defaultProps.translation}"
+          v-bind="{
+            toBack,
+            attrs: backAttrs,
+            translation: defaultProps.translation
+          }"
         >
           <UiButton
             v-if="toBack"
@@ -105,14 +116,16 @@ const props = defineProps({
    */
   buttonNextAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to pass attrs for back UiButton.
    */
   buttonBackAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to override labels inside component translation.

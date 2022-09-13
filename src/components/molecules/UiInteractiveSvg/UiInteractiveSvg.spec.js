@@ -13,7 +13,9 @@ describe('UiInteractiveSvg.vue', () => {
   test('renders UiInteractiveSvgElement tag provided by tag prop', async () => {
     const wrapper = mount(UiInteractiveSvg, {
       slots: {
-        default: h(UiInteractiveSvgElement, { tag: 'g' }),
+        default: h(UiInteractiveSvgElement, {
+          tag: 'g',
+        }),
       },
     });
     const interactiveSvgElement = wrapper.findComponent(UiInteractiveSvgElement);
@@ -44,7 +46,9 @@ describe('UiInteractiveSvg.vue', () => {
         }),
       },
       slots: {
-        default: h(UiInteractiveSvgElement, { id: testStr }),
+        default: h(UiInteractiveSvgElement, {
+          id: testStr,
+        }),
       },
     });
     await wrapper.findComponent(UiInteractiveSvgElement).trigger('click');
@@ -60,7 +64,11 @@ describe('UiInteractiveSvg.vue', () => {
         }),
       },
       slots: {
-        default: h(UiInteractiveSvgElement, null, { default: () => h(UiInteractiveSvgElement, { 'data-testid': 'secondLvlEl' }) }),
+        default: h(UiInteractiveSvgElement, null, {
+          default: () => h(UiInteractiveSvgElement, {
+            'data-testid': 'secondLvlEl',
+          }),
+        }),
       },
     });
     const secondLvlEl = await wrapper.find('[data-testid="secondLvlEl"]');
@@ -76,7 +84,11 @@ describe('UiInteractiveSvg.vue', () => {
         }),
       },
       slots: {
-        default: h(UiInteractiveSvgElement, { 'data-testid': 'firstLvlEl' }, { default: () => h(UiInteractiveSvgElement) }),
+        default: h(UiInteractiveSvgElement, {
+          'data-testid': 'firstLvlEl',
+        }, {
+          default: () => h(UiInteractiveSvgElement),
+        }),
       },
     });
     const firstLvlEl = await wrapper.find('[data-testid="firstLvlEl"]');
@@ -87,11 +99,17 @@ describe('UiInteractiveSvg.vue', () => {
       props: {
         setElementsAttrs: () => ({
           class: testStr,
-          setElementsAttrs: () => ({}),
+          setElementsAttrs: () => ({
+          }),
         }),
       },
       slots: {
-        default: h(UiInteractiveSvgElement, null, { default: () => h(UiInteractiveSvgElement, { 'data-testid': 'secondLvlEl', id: testStr }) }),
+        default: h(UiInteractiveSvgElement, null, {
+          default: () => h(UiInteractiveSvgElement, {
+            'data-testid': 'secondLvlEl',
+            id: testStr,
+          }),
+        }),
       },
     });
     const secondLvlEl = await wrapper.find('[data-testid="secondLvlEl"]');
@@ -110,7 +128,12 @@ describe('UiInteractiveSvg.vue', () => {
         }),
       },
       slots: {
-        default: h(UiInteractiveSvgElement, null, { default: () => h(UiInteractiveSvgElement, { 'data-testid': 'secondLvlEl', id: testStr }) }),
+        default: h(UiInteractiveSvgElement, null, {
+          default: () => h(UiInteractiveSvgElement, {
+            'data-testid': 'secondLvlEl',
+            id: testStr,
+          }),
+        }),
       },
     });
     await wrapper.find('[data-testid="secondLvlEl"]').trigger('click');
@@ -127,7 +150,12 @@ describe('UiInteractiveSvg.vue', () => {
         }),
       },
       slots: {
-        default: h(UiInteractiveSvgElement, null, { default: () => h(UiInteractiveSvgElement, { 'data-testid': 'secondLvlEl', id: testStr }) }),
+        default: h(UiInteractiveSvgElement, null, {
+          default: () => h(UiInteractiveSvgElement, {
+            'data-testid': 'secondLvlEl',
+            id: testStr,
+          }),
+        }),
       },
     });
     await wrapper.find('[data-testid="secondLvlEl"]').trigger('click');
@@ -146,7 +174,13 @@ describe('UiInteractiveSvg.vue', () => {
         }),
       },
       slots: {
-        default: h(UiInteractiveSvgElement, { 'data-testid': 'firstLvlEl' }, { default: () => h(UiInteractiveSvgElement, { id: testStr }) }),
+        default: h(UiInteractiveSvgElement, {
+          'data-testid': 'firstLvlEl',
+        }, {
+          default: () => h(UiInteractiveSvgElement, {
+            id: testStr,
+          }),
+        }),
       },
     });
     await wrapper.find('[data-testid="firstLvlEl"]').trigger('click');

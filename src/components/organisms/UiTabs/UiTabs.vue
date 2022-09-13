@@ -19,7 +19,9 @@
           <!-- @slot Use this slot to place tab item content. -->
           <slot
             :name="item.name"
-            v-bind="{item}"
+            v-bind="{
+              item
+            }"
           />
         </UiTabsItem>
       </template>
@@ -29,9 +31,15 @@
 
 <script setup lang="ts">
 import {
-  ref, watch, computed, provide,
+  ref,
+  watch,
+  computed,
+  provide,
 } from 'vue';
-import type { PropType, CSSProperties } from 'vue';
+import type {
+  PropType,
+  CSSProperties,
+} from 'vue';
 import UiTabsItem from './_internal/UiTabsItem.vue';
 
 export interface TabsItem {

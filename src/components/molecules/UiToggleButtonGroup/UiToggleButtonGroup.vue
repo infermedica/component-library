@@ -15,7 +15,9 @@
         >
           <slot
             :name="item.name"
-            v-bind="{item}"
+            v-bind="{
+              item
+            }"
           >
             {{ item.text }}
           </slot>
@@ -32,7 +34,10 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { computed, provide } from 'vue';
+import {
+  computed,
+  provide,
+} from 'vue';
 import type { PropType } from 'vue';
 import equal from 'fast-deep-equal';
 import UiToggleButton from './_internal/UiToggleButton.vue';

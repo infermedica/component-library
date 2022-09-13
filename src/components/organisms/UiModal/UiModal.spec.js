@@ -36,13 +36,17 @@ describe('UiModal.vue', () => {
     expect(dialog.exists()).toBe(true);
   });
   test('component can be closed by clicking outside when is closable', async () => {
-    await wrapper.setProps({ isClosable: true });
+    await wrapper.setProps({
+      isClosable: true,
+    });
     const background = wrapper.findComponent(UiBackdrop);
     await background.trigger('click');
     expect(wrapper.emitted('update:modelValue')[0][0]).toBe(false);
   });
   test("component can't be closed by clicking outside when is unclosable", async () => {
-    await wrapper.setProps({ isClosable: false });
+    await wrapper.setProps({
+      isClosable: false,
+    });
     const background = wrapper.findComponent(UiBackdrop);
     await background.trigger('click');
     expect(wrapper.emitted('update:modelValue')).toBeFalsy();

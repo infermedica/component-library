@@ -17,7 +17,10 @@ export default {
 
 export const WithDirective = () => ({
   components: {
-    UiButton, UiHeading, UiTextarea, UiFormField,
+    UiButton,
+    UiHeading,
+    UiTextarea,
+    UiFormField,
   },
   directives: {
     focusFirst,
@@ -33,7 +36,10 @@ export const WithDirective = () => ({
       alert.value = null;
     };
     return {
-      alert, feedback, sendMessage, reset,
+      alert,
+      feedback,
+      sendMessage,
+      reset,
     };
   },
   template: `
@@ -56,7 +62,10 @@ export const WithDirective = () => ({
 
 export const WithoutDirective = () => ({
   components: {
-    UiButton, UiHeading, UiTextarea, UiFormField,
+    UiButton,
+    UiHeading,
+    UiTextarea,
+    UiFormField,
   },
   setup() {
     const feedback = ref('');
@@ -69,7 +78,10 @@ export const WithoutDirective = () => ({
       alert.value = null;
     };
     return {
-      alert, feedback, sendMessage, reset,
+      alert,
+      feedback,
+      sendMessage,
+      reset,
     };
   },
   template: `

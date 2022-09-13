@@ -3,13 +3,17 @@
     :is="tag"
     class="ui-multiple-choices-item"
     role="radiogroup"
-    :class="{'ui-multiple-choices-item--has-error': invalid}"
+    :class="{
+      'ui-multiple-choices-item--has-error': invalid
+    }"
     :aria-labelledby="choiceLabelId"
   >
     <!-- @slot Use this slot to replace legend template. -->
     <slot
       name="legend"
-      v-bind="{choice}"
+      v-bind="{
+        choice
+      }"
     >
       <legend class="visual-hidden">
         {{ choice.name }}
@@ -18,7 +22,9 @@
     <!-- @slot Use this slot to replace name template.-->
     <slot
       name="name"
-      v-bind="{choice}"
+      v-bind="{
+        choice
+      }"
     >
       <div class="ui-multiple-choices-item__header">
         <UiText
@@ -53,14 +59,22 @@
         <!-- @slot Use this slot to replace option template.-->
         <slot
           name="option"
-          v-bind="{option, choice, invalid, getRadioValue, getModelValue}"
+          v-bind="{
+            option,
+            choice,
+            invalid,
+            getRadioValue,
+            getModelValue
+          }"
         >
           <UiRadio
             :model-value="getModelValue(choice)"
             :value="getRadioValue(choice, option)"
             :name="choice.id"
             class="ui-multiple-choices-item__option"
-            :class="{'ui-radio--has-error': invalid}"
+            :class="{
+              'ui-radio--has-error': invalid
+            }"
             @update:model-value="updateHandler"
           >
             {{ option.name }}
@@ -81,7 +95,10 @@ import UiText from '../../../atoms/UiText/UiText.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import type {
-  MultipleChoice, MultipleChoiceEvidence, MultipleChoiceModelValue, MultipleChoiceOption,
+  MultipleChoice,
+  MultipleChoiceEvidence,
+  MultipleChoiceModelValue,
+  MultipleChoiceOption,
 } from '../UiMultipleChoices.vue';
 import type { HTMLTag } from '../../../../types/tag';
 
@@ -91,14 +108,16 @@ const props = defineProps({
    */
   modelValue: {
     type: Object as PropType<MultipleChoiceModelValue>,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to set value of choices item.
    */
   choice: {
     type: Object as PropType<MultipleChoice>,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    *  Use this props to override default options.
@@ -136,7 +155,10 @@ function getRadioValue(choice: MultipleChoiceEvidence, option: MultipleChoiceOpt
 }
 function updateHandler(value: RadioValue): void {
   const evidence = value as MultipleChoiceEvidence;
-  emit('update:modelValue', { ...props.modelValue, [evidence.id]: evidence });
+  emit('update:modelValue', {
+    ...props.modelValue,
+    [evidence.id]: evidence,
+  });
 }
 </script>
 

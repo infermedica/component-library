@@ -14,7 +14,9 @@
           <!-- @slot Use this slot to replace bullet point item content. -->
           <slot
             :name="item.name"
-            v-bind="{item}"
+            v-bind="{
+              item
+            }"
           >
             <UiText>{{ item.text }}</UiText>
             <template v-if="item.children?.items">
@@ -31,8 +33,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed, provide } from 'vue';
-import type { CSSProperties, PropType } from 'vue';
+import {
+  computed,
+  provide,
+} from 'vue';
+import type {
+  CSSProperties,
+  PropType,
+} from 'vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import UiBulletPointsItem from './_internal/UiBulletPointsItem.vue';
 import type { ListTag } from '../../../types/tag';
@@ -95,12 +103,30 @@ const tag = computed<ListTag>(() => (props.tag));
 provide('tag', tag);
 const listStyleType = computed<CSSProperties>(() => {
   const type = {
-    a: { style: 'lower-latin', suffix: ')' },
-    A: { style: 'upper-latin', suffix: ')' },
-    i: { style: 'lower-roman', suffix: '.' },
-    I: { style: 'upper-roman', suffix: '.' },
-    1: { style: 'decimal', suffix: '.' },
-    ar: { style: 'arabic-indic', suffix: '.' },
+    a: {
+      style: 'lower-latin',
+      suffix: ')',
+    },
+    A: {
+      style: 'upper-latin',
+      suffix: ')',
+    },
+    i: {
+      style: 'lower-roman',
+      suffix: '.',
+    },
+    I: {
+      style: 'upper-roman',
+      suffix: '.',
+    },
+    1: {
+      style: 'decimal',
+      suffix: '.',
+    },
+    ar: {
+      style: 'arabic-indic',
+      suffix: '.',
+    },
   };
   // TODO: decide how to handle latin/roman styles
   // Decimal appears to be perfectly fine for most of Arabic variants

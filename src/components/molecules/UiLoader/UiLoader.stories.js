@@ -9,16 +9,26 @@ import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 export default {
   title: 'Molecules/Loader',
   component: UiLoader,
-  subcomponents: {},
-  args: {},
-  argTypes: {},
-  decorators: [() => ({ template: '<div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 2.5rem"><story /></div>' })],
+  subcomponents: {
+  },
+  args: {
+  },
+  argTypes: {
+  },
+  decorators: [() => ({
+    template: '<div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 2.5rem"><story /></div>',
+  })],
 };
 
 const SpinnerTemplate = (args) => ({
-  components: { UiLoader, UiText },
+  components: {
+    UiLoader,
+    UiText,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiText tag="span">Large:</UiText>
   <UiLoader
@@ -54,16 +64,26 @@ const SpinnerTemplate = (args) => ({
     {{"content"}}
   </UiLoader>`,
 });
-export const SpinnerLoader = SpinnerTemplate.bind({});
+export const SpinnerLoader = SpinnerTemplate.bind({
+});
 
-export const SpinnerLoaderOnBrand = SpinnerTemplate.bind({});
+export const SpinnerLoaderOnBrand = SpinnerTemplate.bind({
+});
 SpinnerLoaderOnBrand.parameters = {
-  backgrounds: { default: 'brand' },
+  backgrounds: {
+    default: 'brand',
+  },
 };
-SpinnerLoaderOnBrand.decorators = [() => ({ template: '<div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 2.5rem" class="--theme-brand"><story /></div>' })];
+SpinnerLoaderOnBrand.decorators = [() => ({
+  template: '<div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 2.5rem" class="--theme-brand"><story /></div>',
+})];
 
 export const SkeletonLoader = () => ({
-  components: { UiLoader, UiButton, UiText },
+  components: {
+    UiLoader,
+    UiButton,
+    UiText,
+  },
   template: `<UiText tag="span">Common:</UiText>
   <div style="min-width: 320px">
     <UiLoader
@@ -88,7 +108,11 @@ export const SkeletonLoader = () => ({
 });
 
 export const LoadingButton = () => ({
-  components: { UiLoader, UiButton, UiText },
+  components: {
+    UiLoader,
+    UiButton,
+    UiText,
+  },
   template: `<UiText tag="span">Contained:</UiText>
   <UiButton>
     <UiLoader
@@ -109,10 +133,15 @@ export const LoadingButton = () => ({
     /><span style="opacity: 0;">{{"Label"}}</span>
   </UiButton>`,
 });
-LoadingButton.decorators = [() => ({ template: '<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 2.5rem"><story /></div>' })];
+LoadingButton.decorators = [() => ({
+  template: '<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 2.5rem"><story /></div>',
+})];
 
 export const LoadingPopover = () => ({
-  components: { UiLoader, UiPopover },
+  components: {
+    UiLoader,
+    UiPopover,
+  },
   template: `<UiPopover
     title="Loading..."
     class="ui-popover--has-arrow"
@@ -132,10 +161,15 @@ export const LoadingPopover = () => ({
     </UiLoader>
   </UiPopover>`,
 });
-LoadingPopover.decorators = [() => ({ template: '<div style="flex: 1;"><story /></div>' })];
+LoadingPopover.decorators = [() => ({
+  template: '<div style="flex: 1;"><story /></div>',
+})];
 
 export const LoadingContainer = () => ({
-  components: { UiLoader, UiContainer },
+  components: {
+    UiLoader,
+    UiContainer,
+  },
   template: `<UiContainer
     style="max-width: 48.75rem; width: 100%; --container-padding: var(--space-40) var(--space-48)"
   >
@@ -150,10 +184,15 @@ export const LoadingContainer = () => ({
     </UiLoader>
   </UiContainer>`,
 });
-LoadingContainer.decorators = [() => ({ template: '<div style="flex: 1;"><story /></div>' })];
+LoadingContainer.decorators = [() => ({
+  template: '<div style="flex: 1;"><story /></div>',
+})];
 
 export const LoadingSidePanel = () => ({
-  components: { UiLoader, UiSidePanel },
+  components: {
+    UiLoader,
+    UiSidePanel,
+  },
   template: `<UiSidePanel
     :model-value="true"
     title="Loading..."
@@ -172,10 +211,15 @@ export const LoadingSidePanel = () => ({
     </UiLoader>
   </UiSidePanel>`,
 });
-LoadingSidePanel.decorators = [() => ({ template: '<div style="flex: 1; min-height: 320px;"><story /></div>' })];
+LoadingSidePanel.decorators = [() => ({
+  template: '<div style="flex: 1; min-height: 320px;"><story /></div>',
+})];
 
 export const LoadingControls = () => ({
-  components: { UiLoader, UiControls },
+  components: {
+    UiLoader,
+    UiControls,
+  },
   template: `<UiControls
     to-next="#"
     to-back="#"
@@ -193,10 +237,14 @@ export const LoadingControls = () => ({
     </UiLoader>
   </UiControls>`,
 });
-LoadingControls.decorators = [() => ({ template: '<div style="flex: 1; min-height: 320px;"><story /></div>' })];
+LoadingControls.decorators = [() => ({
+  template: '<div style="flex: 1; min-height: 320px;"><story /></div>',
+})];
 
 export const LoadingFullOnBrand = () => ({
-  components: { UiLoader },
+  components: {
+    UiLoader,
+  },
   template: `<div 
     style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; display: flex; align-items: center; justify-content: center; background: var(--color-background-brand);"
   >
@@ -210,4 +258,6 @@ export const LoadingFullOnBrand = () => ({
    </UiLoader>
   </div>`,
 });
-LoadingFullOnBrand.decorators = [() => ({ template: '<div style="flex: 1; min-height: 480px;"><story /></div>' })];
+LoadingFullOnBrand.decorators = [() => ({
+  template: '<div style="flex: 1; min-height: 480px;"><story /></div>',
+})];

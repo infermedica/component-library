@@ -2,7 +2,9 @@
   <nav
     ref="nav"
     class="ui-navigation"
-    :class="{'ui-navigation--is-multiline': isMultiline}"
+    :class="{
+      'ui-navigation--is-multiline': isMultiline
+    }"
   >
     <!-- @slot Use this slot to place content inside component.-->
     <slot>
@@ -17,7 +19,9 @@
           <!-- @slot Use this slot to replace navigation item content. -->
           <slot
             :name="item.name"
-            v-bind="{item}"
+            v-bind="{
+              item
+            }"
           >
             {{ item.text }}
           </slot>
@@ -35,7 +39,13 @@ export default {
 
 <script setup lang="ts">
 import {
-  computed, ref, onMounted, onBeforeUnmount, nextTick, useAttrs, provide,
+  computed,
+  ref,
+  onMounted,
+  onBeforeUnmount,
+  nextTick,
+  useAttrs,
+  provide,
 } from 'vue';
 import type { PropType } from 'vue';
 import UiNavigationItem from './_internal/UiNavigationItem.vue';

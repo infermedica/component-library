@@ -1,7 +1,10 @@
 import UiLink from '@/components/atoms/UiLink/UiLink.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
-import { content, modifiers } from '@sb/helpers/argTypes';
+import {
+  content,
+  modifiers,
+} from '@sb/helpers/argTypes';
 import icons from '@/components/atoms/UiIcon/icons.ts';
 
 export default {
@@ -34,12 +37,20 @@ export default {
       ],
     }),
   },
-  decorators: [() => ({ template: '<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 2.5rem"><story /></div>' })],
+  decorators: [() => ({
+    template: '<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 2.5rem"><story /></div>',
+  })],
 };
 
 export const Common = (args) => ({
-  components: { UiLink },
-  setup() { return { ...args }; },
+  components: {
+    UiLink,
+  },
+  setup() {
+    return {
+      ...args,
+    };
+  },
   template: `<UiLink
     :to="to"
     :href="href"
@@ -50,9 +61,15 @@ export const Common = (args) => ({
 });
 
 const Template = (args) => ({
-  components: { UiLink, UiIcon, UiText },
+  components: {
+    UiLink,
+    UiIcon,
+    UiText,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiText tag="span">Large: </UiText>
   <UiLink
@@ -115,17 +132,22 @@ const Template = (args) => ({
   </UiLink>`,
 });
 
-export const Link = Template.bind({});
+export const Link = Template.bind({
+});
 
-export const LinkSecondary = Template.bind({});
+export const LinkSecondary = Template.bind({
+});
 LinkSecondary.args = {
   modifiers: ['ui-button--theme-secondary'],
 };
 
-export const LinkOnBrand = Template.bind({});
+export const LinkOnBrand = Template.bind({
+});
 LinkOnBrand.args = {
   modifiers: ['ui-button--theme-brand'],
 };
 LinkOnBrand.parameters = {
-  backgrounds: { default: 'brand' },
+  backgrounds: {
+    default: 'brand',
+  },
 };

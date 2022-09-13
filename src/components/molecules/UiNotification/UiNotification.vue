@@ -23,7 +23,11 @@
           <!-- @slot Use this slot to replace action template.-->
           <slot
             name="action"
-            v-bind="{attrs: buttonActionAttrs, translation: defaultProps.translation, hasAction}"
+            v-bind="{
+              attrs: buttonActionAttrs,
+              translation: defaultProps.translation,
+              hasAction
+            }"
           >
             <UiButton
               v-if="hasAction"
@@ -72,7 +76,8 @@ const props = defineProps({
    */
   buttonActionAttrs: {
     type: Object,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to pass labels inside component translation.

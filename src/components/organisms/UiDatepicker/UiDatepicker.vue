@@ -9,7 +9,9 @@
           v-for="(datePart, key) in order"
           :key="key"
           class="ui-datepicker__group-field"
-          :class="{ 'ui-datepicker__group-field--long': datePart === 'year'}"
+          :class="{
+            'ui-datepicker__group-field--long': datePart === 'year'
+          }"
         >
           <UiText
             tag="label"
@@ -60,7 +62,10 @@ import {
   isMatch,
   lightFormat,
 } from 'date-fns';
-import { capitalizeFirst, focusElement } from '../../../utilities/helpers/index.ts';
+import {
+  capitalizeFirst,
+  focusElement,
+} from '../../../utilities/helpers/index.ts';
 import UiFormField from '../../molecules/UiFormField/UiFormField.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import UiDatepickerDayInput from './_internal/UiDatepickerDayInput.vue';
@@ -178,28 +183,32 @@ const props = defineProps({
    */
   inputDayAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    *  Use this props to pass attrs to month UiInput.
    */
   inputMonthAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    *  Use this props to pass attrs to year UiInput.
    */
   inputYearAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    *  Use this props to pass attrs to UiDatepickerCalendar
    */
   datepickerCalendarAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
 });
 const getDefaultProps = (datePart: DatePart): DefaultInputProps<DatepickerInputID> => ({
@@ -257,7 +266,14 @@ const date = reactive<DatepickerDate<string>>(
   },
 );
 const dateAsInt = computed<DatepickerDate<number>>(() => Object.keys(date).reduce((result, key) => (
-  { ...result, [key]: parseInt(date[key as DatePart], 10) }), { day: 0, month: 0, year: 0 }));
+  {
+    ...result,
+    [key]: parseInt(date[key as DatePart], 10),
+  }), {
+  day: 0,
+  month: 0,
+  year: 0,
+}));
 const handleDateUpdate = (datePart: DatePart, value: string): void => {
   date[datePart] = value;
 };
@@ -411,7 +427,9 @@ function inputComponentSelector(datePart: DatePart): DatepickerInput | '' {
 const lastFocusedDatePart = ref<DatePart>(props.order[0]);
 
 function handleFocus(event: Event, datePart: DatePart) {
-  emit('field-focus', { field: datePart });
+  emit('field-focus', {
+    field: datePart,
+  });
   lastFocusedDatePart.value = datePart;
 }
 
@@ -454,8 +472,18 @@ const errorDisplayHandler = computed<boolean | string>(() => {
 });
 
 const handleFulfilledChange = (isFulfilled: boolean, field: DatePart, value: string, isValid: boolean): void => {
-  if (isFulfilled) emit('field-insert', { field, value });
-  if (isFulfilled && (!isValid || errorDisplayHandler.value)) emit('field-error', { field, error: errorDisplayHandler.value });
+  if (isFulfilled) {
+    emit('field-insert', {
+      field,
+      value,
+    });
+  }
+  if (isFulfilled && (!isValid || errorDisplayHandler.value)) {
+    emit('field-error', {
+      field,
+      error: errorDisplayHandler.value,
+    });
+  }
 };
 
 watch(isDayFulfilled, (fulfilled) => handleFulfilledChange(fulfilled, 'day', date.day, isDayValid.value));
@@ -463,7 +491,9 @@ watch(isMonthFulfilled, (fulfilled) => handleFulfilledChange(fulfilled, 'month',
 watch(isYearFulfilled, (fulfilled) => handleFulfilledChange(fulfilled, 'year', date.year, isYearValid.value));
 
 function monthList(locale: string): string[] {
-  const getMonth = new Intl.DateTimeFormat(locale, { month: 'long' }).format;
+  const getMonth = new Intl.DateTimeFormat(locale, {
+    month: 'long',
+  }).format;
   return [...Array(12).keys()].map((m) => getMonth(new Date(2022, m)));
 }
 
@@ -502,7 +532,8 @@ const inputsIds = computed<Record<string, string>>(() => (
       ids[getDefaultProp(key as DatePart).id] = datePart;
     }
     return ids;
-  }, {})));
+  }, {
+  })));
 provide('inputsIds', inputsIds);
 </script>
 

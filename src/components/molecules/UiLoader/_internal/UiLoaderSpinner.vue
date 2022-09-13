@@ -7,7 +7,9 @@
     <!-- @slot Use this slot to replace label template.-->
     <slot
       name="label"
-      v-bind="{label}"
+      v-bind="{
+        label
+      }"
     >
       <UiText
         v-if="label"
