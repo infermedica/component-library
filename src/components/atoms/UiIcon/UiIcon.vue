@@ -6,7 +6,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineAsyncComponent, h } from 'vue';
+import {
+  computed,
+  defineAsyncComponent,
+  h,
+} from 'vue';
 import type { PropType } from 'vue';
 import type { Icon } from '../../../types/icon';
 
@@ -24,7 +28,9 @@ const file = computed<SVGElement>(() => {
   if (typeof props.icon === 'string') {
     return defineAsyncComponent({
       loader: () => import(`../../../assets/icons/${props.icon}.svg`),
-      loadingComponent: () => h('svg', { class: 'ui-icon' }),
+      loadingComponent: () => h('svg', {
+        class: 'ui-icon',
+      }),
       delay: 0,
     });
   }

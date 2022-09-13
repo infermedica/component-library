@@ -13,11 +13,17 @@
         v-bind="data"
       />
     </template>
-    <template #checkbox="{checked}">
+    <template
+      #checkbox="{
+        checked
+      }"
+    >
       <!-- @slot Use this slot to replace switch control template. -->
       <slot
         name="switchcontrol"
-        v-bind="{checked}"
+        v-bind="{
+          checked
+        }"
       >
         <UiSwitchControl
           class="ui-switch__control"

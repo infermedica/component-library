@@ -10,7 +10,10 @@
     <!-- @slot Use this slot to replace remove template. -->
     <slot
       name="remove"
-      v-bind="{clickHandler, attrs: buttonAttrs}"
+      v-bind="{
+        clickHandler,
+        attrs: buttonAttrs
+      }"
     >
       <UiButton
         v-bind="buttonAttrs"
@@ -38,7 +41,8 @@ defineProps({
    */
   buttonAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
 });
 const emit = defineEmits<{(e:'remove'): void}>();

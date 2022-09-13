@@ -8,7 +8,9 @@ export default {
   title: 'Molecules/BulletPoints',
   component: UiBulletPoints,
   subcomponents: {
-    UiBulletPointsItem, UiIcon, UiText,
+    UiBulletPointsItem,
+    UiIcon,
+    UiText,
   },
   args: {
     items: ['Painful swallowing', 'Stuffy nose', 'Sneeze', 'Muscle pain', 'Runny nose'],
@@ -34,16 +36,22 @@ export default {
       description: 'Use this slot to replace bullet point item content. Require `name` in item object.',
       table: {
         category: 'slots',
-        type: { summary: 'unknown' },
+        type: {
+          summary: 'unknown',
+        },
       },
     },
   },
 };
 
 const Template = (args) => ({
-  components: { UiBulletPoints },
+  components: {
+    UiBulletPoints,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiBulletPoints 
     :tag="tag"
@@ -52,27 +60,49 @@ const Template = (args) => ({
   />`,
 });
 
-export const UnorderedList = Template.bind({});
+export const UnorderedList = Template.bind({
+});
 
-export const OrderedList = Template.bind({});
+export const OrderedList = Template.bind({
+});
 OrderedList.args = {
   tag: 'ol',
 };
 
-export const NestingList = Template.bind({});
+export const NestingList = Template.bind({
+});
 NestingList.args = {
   items: [
-    { name: 'painful-swallowing', text: 'Painful swallowing', bulletPointsItemAttrs: { 'data-testid': 'painful', icon: 'bullet-common' } },
+    {
+      name: 'painful-swallowing',
+      text: 'Painful swallowing',
+      bulletPointsItemAttrs: {
+        'data-testid': 'painful',
+        icon: 'bullet-common',
+      },
+    },
     {
       name: 'stuffy-nose',
       text: 'Stuffy nose',
       children: [
-        { name: 'painful-swallowing', text: 'Painful swallowing' },
-        { name: 'stuffy-nose', text: 'Stuffy nose' },
+        {
+          name: 'painful-swallowing',
+          text: 'Painful swallowing',
+        },
+        {
+          name: 'stuffy-nose',
+          text: 'Stuffy nose',
+        },
       ],
     },
-    { name: 'sneeze', text: 'Sneeze' },
-    { name: 'muscle-pain', text: 'Muscle pain' },
+    {
+      name: 'sneeze',
+      text: 'Sneeze',
+    },
+    {
+      name: 'muscle-pain',
+      text: 'Muscle pain',
+    },
     {
       name: 'runny-nose',
       text: 'Runny nose',
@@ -81,8 +111,14 @@ NestingList.args = {
           tag: 'ol',
         },
         items: [
-          { name: 'painful-swallowing', text: 'Painful swallowing' },
-          { name: 'stuffy-nose', text: 'Stuffy nose' },
+          {
+            name: 'painful-swallowing',
+            text: 'Painful swallowing',
+          },
+          {
+            name: 'stuffy-nose',
+            text: 'Stuffy nose',
+          },
         ],
       },
     },
@@ -90,9 +126,14 @@ NestingList.args = {
 };
 
 export const WithBulletPointItemSlot = (args) => ({
-  components: { UiBulletPoints, UiText },
+  components: {
+    UiBulletPoints,
+    UiText,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiBulletPoints
       :tag="tag"
@@ -106,18 +147,39 @@ export const WithBulletPointItemSlot = (args) => ({
 });
 WithBulletPointItemSlot.args = {
   items: [
-    { name: 'painful-swallowing', text: 'Painful swallowing' },
-    { name: 'stuffy-nose', text: 'Stuffy nose' },
-    { name: 'sneeze', text: 'Sneeze' },
-    { name: 'muscle-pain', text: 'Muscle pain' },
-    { name: 'runny-nose', text: 'Runny nose' },
+    {
+      name: 'painful-swallowing',
+      text: 'Painful swallowing',
+    },
+    {
+      name: 'stuffy-nose',
+      text: 'Stuffy nose',
+    },
+    {
+      name: 'sneeze',
+      text: 'Sneeze',
+    },
+    {
+      name: 'muscle-pain',
+      text: 'Muscle pain',
+    },
+    {
+      name: 'runny-nose',
+      text: 'Runny nose',
+    },
   ],
 };
 
 export const WithDefaultSlot = (args) => ({
-  components: { UiBulletPoints, UiBulletPointsItem, UiText },
+  components: {
+    UiBulletPoints,
+    UiBulletPointsItem,
+    UiText,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiBulletPoints
     :tag="tag"
@@ -133,10 +195,15 @@ export const WithDefaultSlot = (args) => ({
 
 export const WithMarkerSlot = (args) => ({
   components: {
-    UiBulletPoints, UiBulletPointsItem, UiText, UiIcon,
+    UiBulletPoints,
+    UiBulletPointsItem,
+    UiText,
+    UiIcon,
   },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiBulletPoints
     :tag="tag"
@@ -165,10 +232,14 @@ export const WithMarkerSlot = (args) => ({
 
 export const WithContentSlot = (args) => ({
   components: {
-    UiBulletPoints, UiBulletPointsItem, UiText,
+    UiBulletPoints,
+    UiBulletPointsItem,
+    UiText,
   },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiBulletPoints
     :tag="tag"
@@ -188,9 +259,13 @@ export const WithContentSlot = (args) => ({
 });
 
 export const WithCustomMarker = (args) => ({
-  components: { UiBulletPoints },
+  components: {
+    UiBulletPoints,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiBulletPoints 
     :tag="tag"
@@ -201,13 +276,33 @@ export const WithCustomMarker = (args) => ({
 });
 WithCustomMarker.args = {
   items: [
-    { name: 'painful-swallowing', text: 'Painful swallowing', bulletPointsItemAttrs: { icon: 'arrow-thin-up' } },
+    {
+      name: 'painful-swallowing',
+      text: 'Painful swallowing',
+      bulletPointsItemAttrs: {
+        icon: 'arrow-thin-up',
+      },
+    },
     {
       name: 'stuffy-nose',
       text: 'Stuffy nose',
-      bulletPointsItemAttrs: { icon: 'arrow-thin-up' },
+      bulletPointsItemAttrs: {
+        icon: 'arrow-thin-up',
+      },
     },
-    { name: 'sneeze', text: 'Sneeze', bulletPointsItemAttrs: { icon: 'arrow-thin-up' } },
-    { name: 'muscle-pain', text: 'Muscle pain', bulletPointsItemAttrs: { icon: 'arrow-thin-up' } },
+    {
+      name: 'sneeze',
+      text: 'Sneeze',
+      bulletPointsItemAttrs: {
+        icon: 'arrow-thin-up',
+      },
+    },
+    {
+      name: 'muscle-pain',
+      text: 'Muscle pain',
+      bulletPointsItemAttrs: {
+        icon: 'arrow-thin-up',
+      },
+    },
   ],
 };

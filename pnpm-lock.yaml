@@ -45,6 +45,7 @@ specifiers:
   eslint: ^8.0.0
   eslint-import-resolver-alias: ^1.1.2
   eslint-plugin-import: ^2.25.4
+  eslint-plugin-import-newlines: ^1.2.3
   eslint-plugin-storybook: ^0.6.4
   eslint-plugin-vitest-globals: ^1.1.0
   eslint-plugin-vue: ^9.2.0
@@ -133,6 +134,7 @@ devDependencies:
   eslint: 8.20.0
   eslint-import-resolver-alias: 1.1.2_fkfqfehjtk7sk2efaqbgxsuasa
   eslint-plugin-import: 2.26.0_ficupzxy3q6nk56ibvavehtzue
+  eslint-plugin-import-newlines: 1.2.3_eslint@8.20.0
   eslint-plugin-storybook: 0.6.4_he2ccbldppg44uulnyq4rwocfa
   eslint-plugin-vitest-globals: 1.1.0
   eslint-plugin-vue: 9.3.0_eslint@8.20.0
@@ -7929,6 +7931,16 @@ packages:
       find-up: 2.1.0
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /eslint-plugin-import-newlines/1.2.3_eslint@8.20.0:
+    resolution: {integrity: sha512-UQBhG7dcIoBjaPjbcudqqcKYQVhYXnu9NBB7d8pBnDFZP4GTNPdszpeUbvSxcp/JyBE4TsUZt5u/UtEVioxh9g==}
+    engines: {node: '>=10.0.0'}
+    hasBin: true
+    peerDependencies:
+      eslint: '>=6.0.0'
+    dependencies:
+      eslint: 8.20.0
     dev: true
 
   /eslint-plugin-import/2.26.0_ficupzxy3q6nk56ibvavehtzue:

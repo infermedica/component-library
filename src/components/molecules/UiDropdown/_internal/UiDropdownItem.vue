@@ -20,9 +20,15 @@
 
 <script setup lang="ts">
 import {
-  computed, ref, inject, useAttrs,
+  computed,
+  ref,
+  inject,
+  useAttrs,
 } from 'vue';
-import type { PropType, ComputedRef } from 'vue';
+import type {
+  PropType,
+  ComputedRef,
+} from 'vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import type { DropdownValue } from '../UiDropdown.vue';

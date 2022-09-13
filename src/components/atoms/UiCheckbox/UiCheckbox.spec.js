@@ -39,7 +39,9 @@ describe('UiCheckbox.vue', () => {
     expect(wrapper.emitted('update:modelValue')[0][0]).toBe(true);
   });
   test('a component pass Object as value', async () => {
-    const value = { value: 'symptom checker' };
+    const value = {
+      value: 'symptom checker',
+    };
     const wrapper = mount(UiCheckbox, {
       props: {
         modelValue: [value],
@@ -50,7 +52,9 @@ describe('UiCheckbox.vue', () => {
     expect(input.element.checked).toBe(true);
   });
   test('a component emits array for multiple checkboxes with object', async () => {
-    const value = { value: 'symptom checker' };
+    const value = {
+      value: 'symptom checker',
+    };
     const wrapper = mount(UiCheckbox, {
       props: {
         modelValue: ['symptom checker'],

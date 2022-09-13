@@ -48,7 +48,12 @@ describe('UiNavigation.vue', () => {
   test('component pass attributes to the one item', async () => {
     const wrapper = mount(UiNavigation, {
       props: {
-        items: [...items, { ...items[0], navigationItemAttrs: { style: 'color: red' } }],
+        items: [...items, {
+          ...items[0],
+          navigationItemAttrs: {
+            style: 'color: red',
+          },
+        }],
       },
     });
     const itemList = wrapper.findAllComponents(UiNavigationItem);

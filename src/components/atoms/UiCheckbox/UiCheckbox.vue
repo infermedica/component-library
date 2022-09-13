@@ -16,7 +16,9 @@
     <!-- @slot Use this slot to replace checkbox template.-->
     <slot
       name="checkbox"
-      v-bind="{checked: isChecked}"
+      v-bind="{
+        checked: isChecked
+      }"
     >
       <div
         class="ui-checkbox__checkbox"
@@ -51,7 +53,10 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { computed, useSlots } from 'vue';
+import {
+  computed,
+  useSlots,
+} from 'vue';
 import type { PropType } from 'vue';
 import equal from 'fast-deep-equal';
 import { uid } from 'uid/single';

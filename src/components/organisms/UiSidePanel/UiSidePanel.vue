@@ -3,7 +3,10 @@
     <!-- @slot Use this slot to replace backdrop template. -->
     <slot
       name="backdrop"
-      v-bind="{closeHandler, modelValue}"
+      v-bind="{
+        closeHandler,
+        modelValue
+      }"
     >
       <transition
         appear
@@ -18,7 +21,15 @@
     <!-- @slot Use this slot to replace container template. -->
     <slot
       name="container"
-      v-bind="{transition, afterEnterHandler, modelValue, buttonCloseAttrs, closeHandler, title, subtitle}"
+      v-bind="{
+        transition,
+        afterEnterHandler,
+        modelValue,
+        buttonCloseAttrs,
+        closeHandler,
+        title,
+        subtitle
+      }"
     >
       <transition
         appear
@@ -35,13 +46,21 @@
           <!-- @slot Use this slot to replace header template. -->
           <slot
             name="header"
-            v-bind="{attrs: buttonCloseAttrs, closeHandler, title, subtitle}"
+            v-bind="{
+              attrs: buttonCloseAttrs,
+              closeHandler,
+              title,
+              subtitle
+            }"
           >
             <div class="ui-side-panel__header">
               <!-- @slot Use this slot to replace close template. -->
               <slot
                 name="close"
-                v-bind="{attrs: buttonCloseAttrs, closeHandler}"
+                v-bind="{
+                  attrs: buttonCloseAttrs,
+                  closeHandler
+                }"
               >
                 <UiButton
                   ref="button"
@@ -58,7 +77,10 @@
               <!-- @slot Use this slot to replace label template. -->
               <slot
                 name="label"
-                v-bind="{title, subtitle}"
+                v-bind="{
+                  title,
+                  subtitle
+                }"
               >
                 <div
                   v-if="title || subtitle"
@@ -67,7 +89,10 @@
                   <!-- @slot Use this slot to replace title template. -->
                   <slot
                     name="title"
-                    v-bind="{title, headingTitleAttrs}"
+                    v-bind="{
+                      title,
+                      headingTitleAttrs
+                    }"
                   >
                     <UiHeading
                       v-if="title"
@@ -79,7 +104,9 @@
                   <!-- @slot Use this slot to replace subtitle template. -->
                   <slot
                     name="subtitle"
-                    v-bind="{subtitle}"
+                    v-bind="{
+                      subtitle
+                    }"
                   >
                     <UiText
                       v-if="subtitle"
@@ -159,21 +186,24 @@ defineProps({
    */
   buttonCloseAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to pass attrs for title UiHeading
    */
   headingTitleAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to pass attrs for subtitle UiText
    */
   textSubtitleAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to override labels inside component translation.

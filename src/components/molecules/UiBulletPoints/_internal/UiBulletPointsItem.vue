@@ -3,7 +3,10 @@
     <!-- @slot Use this slot to replace bullet points item marker -->
     <slot
       name="marker"
-      v-bind="{isUnordered, icon}"
+      v-bind="{
+        isUnordered,
+        icon
+      }"
     >
       <UiIcon
         v-if="isUnordered"
@@ -27,8 +30,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed, inject } from 'vue';
-import type { PropType, ComputedRef } from 'vue';
+import {
+  computed,
+  inject,
+} from 'vue';
+import type {
+  PropType,
+  ComputedRef,
+} from 'vue';
 import type { IconAsString } from '../../../../types/icon';
 import type { ListTag } from '../../../../types/tag';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';

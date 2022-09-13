@@ -20,15 +20,24 @@ export default {
 };
 
 const Template = (args) => ({
-  components: { UiIcon },
-  setup() { return { ...args }; },
+  components: {
+    UiIcon,
+  },
+  setup() {
+    return {
+      ...args,
+    };
+  },
   template: '<UiIcon :icon="icon"/>',
 });
 
-export const IconAsName = Template.bind({});
+export const IconAsName = Template.bind({
+});
 
 export const IconAsImport = (args) => ({
-  components: { UiIcon },
+  components: {
+    UiIcon,
+  },
   setup() {
     const icon = defineAsyncComponent(() => import('../../../assets/icons/ce.svg'));
     return {
@@ -40,8 +49,14 @@ export const IconAsImport = (args) => ({
 });
 
 export const IconAsIllustration = (args) => ({
-  components: { UiIcon },
-  setup() { return { ...args }; },
+  components: {
+    UiIcon,
+  },
+  setup() {
+    return {
+      ...args,
+    };
+  },
   template: `<UiIcon
       :icon="icon"
       style="--icon-size: 15rem;"
@@ -60,8 +75,15 @@ IconAsIllustration.argTypes = {
 };
 
 export const ListOfIcons = () => ({
-  components: { UiIcon, UiText },
-  setup() { return { icons }; },
+  components: {
+    UiIcon,
+    UiText,
+  },
+  setup() {
+    return {
+      icons,
+    };
+  },
   template: `<div class="grid grid-cols-icon gap-2">
     <div
       v-for="icon in icons"
@@ -81,9 +103,15 @@ export const ListOfIcons = () => ({
   </div>`,
 });
 ListOfIcons.argTypes = {
-  icon: { control: false },
-  viewBox: { control: false },
+  icon: {
+    control: false,
+  },
+  viewBox: {
+    control: false,
+  },
 };
 ListOfIcons.parameters = {
-  controls: { hideNoControlsWarning: true },
+  controls: {
+    hideNoControlsWarning: true,
+  },
 };

@@ -6,7 +6,10 @@ import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import { ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
-import { bodyScrollLock, focusTrap } from '@/utilities/directives/index';
+import {
+  bodyScrollLock,
+  focusTrap,
+} from '@/utilities/directives/index';
 
 const events = actions({
   onConfirm: 'confirm',
@@ -88,9 +91,13 @@ export default {
       },
       control: 'object',
     },
-    modelValue: { control: false },
+    modelValue: {
+      control: false,
+    },
   },
-  decorators: [() => ({ template: '<div style="minHeight: 320px"><story /></div>' })],
+  decorators: [() => ({
+    template: '<div style="minHeight: 320px"><story /></div>',
+  })],
   parameters: {
     docs: {
       description: {
@@ -101,7 +108,10 @@ export default {
 };
 
 const Template = (args) => ({
-  components: { UiButton, UiModal },
+  components: {
+    UiButton,
+    UiModal,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
     const toggleModal = () => {
@@ -136,9 +146,11 @@ const Template = (args) => ({
   />`,
 });
 
-export const StartNewCheckup = Template.bind({});
+export const StartNewCheckup = Template.bind({
+});
 
-export const WithoutTitle = Template.bind({});
+export const WithoutTitle = Template.bind({
+});
 WithoutTitle.args = {
   title: '',
   description: 'Delete this file?',
@@ -155,7 +167,11 @@ WithoutTitle.parameters = {
 };
 
 export const WithBackdropSlot = (args) => ({
-  components: { UiBackdrop, UiButton, UiModal },
+  components: {
+    UiBackdrop,
+    UiButton,
+    UiModal,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
     const toggleModal = () => {
@@ -201,7 +217,11 @@ export const WithBackdropSlot = (args) => ({
 
 export const WithContainerSlot = (args) => ({
   components: {
-    UiModal, UiButton, UiText, UiHeading, UiIcon,
+    UiModal,
+    UiButton,
+    UiText,
+    UiHeading,
+    UiIcon,
   },
   directives: {
     focusTrap,
@@ -322,7 +342,11 @@ export const WithContainerSlot = (args) => ({
 
 export const WithHeaderSlot = (args) => ({
   components: {
-    UiModal, UiButton, UiText, UiHeading, UiIcon,
+    UiModal,
+    UiButton,
+    UiText,
+    UiHeading,
+    UiIcon,
   },
   directives: {
     focusTrap,
@@ -397,7 +421,9 @@ export const WithHeaderSlot = (args) => ({
 
 export const WithTitleSlot = (args) => ({
   components: {
-    UiModal, UiButton, UiHeading,
+    UiModal,
+    UiButton,
+    UiHeading,
   },
   directives: {
     focusTrap,
@@ -447,7 +473,9 @@ export const WithTitleSlot = (args) => ({
 
 export const WithCloseSlot = (args) => ({
   components: {
-    UiModal, UiButton, UiIcon,
+    UiModal,
+    UiButton,
+    UiIcon,
   },
   directives: {
     focusTrap,
@@ -503,7 +531,9 @@ export const WithCloseSlot = (args) => ({
 
 export const WithDescriptionSlot = (args) => ({
   components: {
-    UiModal, UiButton, UiText,
+    UiModal,
+    UiButton,
+    UiText,
   },
   directives: {
     focusTrap,
@@ -552,7 +582,8 @@ export const WithDescriptionSlot = (args) => ({
   </UiModal>`,
 });
 
-export const WithoutTitleWithDescriptionSlot = WithDescriptionSlot.bind({});
+export const WithoutTitleWithDescriptionSlot = WithDescriptionSlot.bind({
+});
 WithoutTitleWithDescriptionSlot.args = {
   title: '',
   description: 'Delete this file?',
@@ -570,7 +601,8 @@ WithoutTitleWithDescriptionSlot.parameters = {
 
 export const WithActionsSlot = (args) => ({
   components: {
-    UiModal, UiButton,
+    UiModal,
+    UiButton,
   },
   directives: {
     focusTrap,
@@ -656,7 +688,8 @@ export const WithActionsSlot = (args) => ({
 
 export const WithConfirmSlot = (args) => ({
   components: {
-    UiModal, UiButton,
+    UiModal,
+    UiButton,
   },
   directives: {
     focusTrap,
@@ -709,7 +742,8 @@ export const WithConfirmSlot = (args) => ({
 
 export const WithCancelSlot = (args) => ({
   components: {
-    UiModal, UiButton,
+    UiModal,
+    UiButton,
   },
   directives: {
     focusTrap,

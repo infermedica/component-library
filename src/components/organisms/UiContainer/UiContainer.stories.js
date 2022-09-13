@@ -14,9 +14,14 @@ export default {
 };
 
 const Template = (args) => ({
-  components: { UiContainer, UiText },
+  components: {
+    UiContainer,
+    UiText,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiContainer 
     class="max-w-195"
@@ -27,5 +32,6 @@ const Template = (args) => ({
   </UiContainer>`,
 });
 
-export const WithDisclaimer = Template.bind({});
+export const WithDisclaimer = Template.bind({
+});
 

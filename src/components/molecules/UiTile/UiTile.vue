@@ -2,7 +2,9 @@
   <UiButton
     :id="tileId"
     class="ui-button--outlined ui-tile"
-    :class="{'ui-tile--is-checked': isChecked}"
+    :class="{
+      'ui-tile--is-checked': isChecked
+    }"
     role="radio"
     :aria-checked="`${isChecked}`"
     @click="selectHandler"
@@ -10,7 +12,9 @@
     <!-- @slot Use this slot to replace icon template. -->
     <slot
       name="icon"
-      v-bind="{iconAttrs}"
+      v-bind="{
+        iconAttrs
+      }"
     >
       <UiIcon
         v-bind="iconAttrs"
@@ -46,7 +50,8 @@ const props = defineProps({
    */
   iconAttrs: {
     type: Object as PropType<IconAttrs>,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to set tile id

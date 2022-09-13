@@ -4,12 +4,19 @@ import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import { ref } from 'vue';
-import { content, modifiers, disabled } from '@sb/helpers/argTypes';
+import {
+  content,
+  modifiers,
+  disabled,
+} from '@sb/helpers/argTypes';
 
 export default {
   title: 'Atoms/Checkbox',
   component: UiCheckbox,
-  subcomponents: { UiIcon, UiText },
+  subcomponents: {
+    UiIcon,
+    UiText,
+  },
   args: {
     initModelValue: false,
     content: 'I read and accept Terms of Service and Privacy Policy.',
@@ -27,19 +34,32 @@ export default {
       },
       control: 'boolean',
     },
-    modifiers: modifiers({ options: ['ui-checkbox--has-error', 'ui-checkbox--is-disabled'] }),
+    modifiers: modifiers({
+      options: ['ui-checkbox--has-error', 'ui-checkbox--is-disabled'],
+    }),
     disabled,
-    modelValue: { control: false },
-    id: { control: 'text' },
-    value: { control: 'text' },
+    modelValue: {
+      control: false,
+    },
+    id: {
+      control: 'text',
+    },
+    value: {
+      control: 'text',
+    },
   },
 };
 
 const Template = (args) => ({
-  components: { UiCheckbox },
+  components: {
+    UiCheckbox,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiCheckbox
     v-model="modelValue"
@@ -52,23 +72,32 @@ const Template = (args) => ({
   </UiCheckbox>`,
 });
 
-export const WithLabel = Template.bind({});
+export const WithLabel = Template.bind({
+});
 
-export const IsDisabled = Template.bind({});
+export const IsDisabled = Template.bind({
+});
 IsDisabled.args = {
   modifiers: ['ui-checkbox--is-disabled'],
 };
 
-export const HasError = Template.bind({});
+export const HasError = Template.bind({
+});
 HasError.args = {
   modifiers: ['ui-checkbox--has-error'],
 };
 
 export const WithCheckboxSlot = (args) => ({
-  components: { UiCheckbox, UiIcon },
+  components: {
+    UiCheckbox,
+    UiIcon,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiCheckbox
       v-model="modelValue"
@@ -94,10 +123,16 @@ export const WithCheckboxSlot = (args) => ({
 });
 
 export const WithLabelSlot = (args) => ({
-  components: { UiCheckbox, UiText },
+  components: {
+    UiCheckbox,
+    UiText,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiCheckbox
       v-model="modelValue"
@@ -117,10 +152,15 @@ export const WithLabelSlot = (args) => ({
 });
 
 export const ValueAsObject = (args) => ({
-  components: { UiCheckbox },
+  components: {
+    UiCheckbox,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiCheckbox
     v-model="modelValue"
@@ -150,14 +190,23 @@ ValueAsObject.argTypes = {
     },
     control: 'object',
   },
-  modelValue: { control: false },
+  modelValue: {
+    control: false,
+  },
 };
 
 export const AsGroup = (args) => ({
-  components: { UiCheckbox, UiList, UiListItem },
+  components: {
+    UiCheckbox,
+    UiList,
+    UiListItem,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiList style="--list-item-padding: var(--space-12) 0;">
     <UiListItem
@@ -218,18 +267,35 @@ AsGroup.argTypes = {
     },
     control: 'array',
   },
-  id: { control: false },
-  value: { control: false },
-  modifiers: { control: false },
-  disabled: { control: false },
-  content: { control: false },
+  id: {
+    control: false,
+  },
+  value: {
+    control: false,
+  },
+  modifiers: {
+    control: false,
+  },
+  disabled: {
+    control: false,
+  },
+  content: {
+    control: false,
+  },
 };
 
 export const AsGroupWithNestedObject = (args) => ({
-  components: { UiCheckbox, UiList, UiListItem },
+  components: {
+    UiCheckbox,
+    UiList,
+    UiListItem,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiList style="--list-item-padding: var(--space-12) 0;">
     <UiListItem
@@ -303,18 +369,35 @@ AsGroupWithNestedObject.argTypes = {
     },
     control: 'object',
   },
-  id: { control: false },
-  value: { control: false },
-  modifiers: { control: false },
-  disabled: { control: false },
-  content: { control: false },
+  id: {
+    control: false,
+  },
+  value: {
+    control: false,
+  },
+  modifiers: {
+    control: false,
+  },
+  disabled: {
+    control: false,
+  },
+  content: {
+    control: false,
+  },
 };
 
 export const AsGroupWithPrimitiveTypes = (args) => ({
-  components: { UiCheckbox, UiList, UiListItem },
+  components: {
+    UiCheckbox,
+    UiList,
+    UiListItem,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiList style="--list-item-padding: var(--space-12) 0;">
     <UiListItem
@@ -353,9 +436,19 @@ AsGroupWithPrimitiveTypes.argTypes = {
     },
     control: 'object',
   },
-  id: { control: false },
-  value: { control: false },
-  modifiers: { control: false },
-  disabled: { control: false },
-  content: { control: false },
+  id: {
+    control: false,
+  },
+  value: {
+    control: false,
+  },
+  modifiers: {
+    control: false,
+  },
+  disabled: {
+    control: false,
+  },
+  content: {
+    control: false,
+  },
 };

@@ -23,7 +23,9 @@ describe('UiRating.vue', () => {
         modelValue: '3',
       },
       slots: {
-        'icon-active': h('div', { class: 'activeIcon' }),
+        'icon-active': h('div', {
+          class: 'activeIcon',
+        }),
       },
     });
     expect(wrapper.findAll('.activeIcon').length).toBe(3);

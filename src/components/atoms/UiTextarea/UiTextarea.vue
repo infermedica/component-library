@@ -7,7 +7,9 @@
       v-keyboard-focus
       v-bind="getInputAttrs($attrs)"
       :value="modelValue"
-      :style="{resize: resizeValue}"
+      :style="{
+        resize: resizeValue
+      }"
       class="ui-textarea__textarea"
       @input="inputHandler($event)"
     />

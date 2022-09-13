@@ -4,7 +4,10 @@ import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import { ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
-import { modifiers, placeholder } from '@sb/helpers/argTypes';
+import {
+  modifiers,
+  placeholder,
+} from '@sb/helpers/argTypes';
 import icons from '@/components/atoms/UiIcon/icons.ts';
 
 const events = actions({
@@ -15,7 +18,9 @@ const events = actions({
 export default {
   title: 'Atoms/Input',
   component: UiInput,
-  subcomponents: { UiText },
+  subcomponents: {
+    UiText,
+  },
   args: {
     initModelValue: '',
     modifiers: [],
@@ -54,10 +59,16 @@ export default {
 };
 
 const Template = (args) => ({
-  components: { UiInput },
+  components: {
+    UiInput,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, ...events, modelValue };
+    return {
+      ...args,
+      ...events,
+      modelValue,
+    };
   },
   template: `<UiInput
     v-model="modelValue"
@@ -69,33 +80,46 @@ const Template = (args) => ({
   />`,
 });
 
-export const WithPlaceholder = Template.bind({});
+export const WithPlaceholder = Template.bind({
+});
 
-export const WithValue = Template.bind({});
+export const WithValue = Template.bind({
+});
 WithValue.args = {
   initModelValue: 'Input text',
 };
 
-export const HasError = Template.bind({});
+export const HasError = Template.bind({
+});
 HasError.args = {
   modifiers: ['ui-input--has-error'],
 };
 
-export const IsDisabled = Template.bind({});
+export const IsDisabled = Template.bind({
+});
 IsDisabled.args = {
   modifiers: ['ui-input--is-disabled'],
 };
 
-export const WithSuffix = Template.bind({});
+export const WithSuffix = Template.bind({
+});
 WithSuffix.args = {
   suffix: 'Suffix',
 };
 
 export const WithAButtonInSuffix = (args) => ({
-  components: { UiInput, UiButton, UiIcon },
+  components: {
+    UiInput,
+    UiButton,
+    UiIcon,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, ...events, modelValue };
+    return {
+      ...args,
+      ...events,
+      modelValue,
+    };
   },
   template: `<UiInput
     v-model="modelValue"
@@ -130,10 +154,17 @@ WithAButtonInSuffix.argTypes = {
 };
 
 export const WithInputSlot = (args) => ({
-  components: { UiInput, UiIcon },
+  components: {
+    UiInput,
+    UiIcon,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, ...events, modelValue };
+    return {
+      ...args,
+      ...events,
+      modelValue,
+    };
   },
   template: `<UiInput
     v-model="modelValue"
@@ -154,10 +185,18 @@ export const WithInputSlot = (args) => ({
 });
 
 export const WithAsideSlot = (args) => ({
-  components: { UiInput, UiIcon, UiText },
+  components: {
+    UiInput,
+    UiIcon,
+    UiText,
+  },
   setup() {
     const modelValue = ref(args.initial);
-    return { ...args, ...events, modelValue };
+    return {
+      ...args,
+      ...events,
+      modelValue,
+    };
   },
   template: `<UiInput
     v-model="modelValue"

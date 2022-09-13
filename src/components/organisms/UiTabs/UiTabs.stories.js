@@ -8,7 +8,10 @@ import { modifiers } from '@sb/helpers/argTypes';
 export default {
   title: 'Organisms/Tabs',
   component: UiTabs,
-  subcomponents: { UiTabsItem, UiButton },
+  subcomponents: {
+    UiTabsItem,
+    UiButton,
+  },
   args: {
     items: [
       {
@@ -42,7 +45,9 @@ export default {
       },
       control: 'text',
     },
-    modifiers: modifiers({ options: ['ui-tabs--fixed'] }),
+    modifiers: modifiers({
+      options: ['ui-tabs--fixed'],
+    }),
     modelValue: {
       control: false,
     },
@@ -51,18 +56,28 @@ export default {
       description: 'Use this slot to place tabs item content. Require `name` in item object.',
       table: {
         category: 'slots',
-        type: { summary: 'unknown' },
+        type: {
+          summary: 'unknown',
+        },
       },
     },
   },
-  decorators: [() => ({ template: '<div style="min-height: 120px"><story /></div>' })],
+  decorators: [() => ({
+    template: '<div style="min-height: 120px"><story /></div>',
+  })],
 };
 
 const Template = (args) => ({
-  components: { UiTabs, UiText },
+  components: {
+    UiTabs,
+    UiText,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiTabs 
     v-model="modelValue"
@@ -79,18 +94,27 @@ const Template = (args) => ({
   </UiTabs>`,
 });
 
-export const Common = Template.bind({});
+export const Common = Template.bind({
+});
 
-export const Fixed = Template.bind({});
+export const Fixed = Template.bind({
+});
 Fixed.args = {
   modifiers: ['ui-tabs--fixed'],
 };
 
 export const WithDefaultSlot = (args) => ({
-  components: { UiTabs, UiTabsItem, UiText },
+  components: {
+    UiTabs,
+    UiTabsItem,
+    UiText,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiTabs 
     v-model="modelValue"

@@ -14,16 +14,28 @@ export default {
   title: 'Organisms/MultipleChoices',
   component: UiMultipleChoices,
   subcomponents: {
-    UiMultipleChoicesItem, UiAlert, UiList, UiListItem,
+    UiMultipleChoicesItem,
+    UiAlert,
+    UiList,
+    UiListItem,
   },
   args: {
     initModelValue: [],
     initInvalid: true,
     source: 'predefined',
     options: [
-      { name: 'Yes', value: 'present' },
-      { name: 'No', value: 'absent' },
-      { name: 'Don\'t know', value: 'unknown' },
+      {
+        name: 'Yes',
+        value: 'present',
+      },
+      {
+        name: 'No',
+        value: 'absent',
+      },
+      {
+        name: 'Don\'t know',
+        value: 'unknown',
+      },
     ],
     hint: 'Select one answer in each row',
     choices: [
@@ -47,7 +59,8 @@ export default {
       },
     ],
     touched: false,
-    alertHintAttrs: {},
+    alertHintAttrs: {
+    },
   },
   argTypes: {
     initModelValue: {
@@ -95,7 +108,9 @@ export default {
 };
 
 const Template = (args) => ({
-  components: { UiMultipleChoices },
+  components: {
+    UiMultipleChoices,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
     const invalid = ref(args.initInvalid);
@@ -119,9 +134,11 @@ const Template = (args) => ({
   />`,
 });
 
-export const Common = Template.bind({});
+export const Common = Template.bind({
+});
 
-export const WithButtonInfo = Template.bind({});
+export const WithButtonInfo = Template.bind({
+});
 WithButtonInfo.args = {
   choices: [
     {
@@ -129,9 +146,13 @@ WithButtonInfo.args = {
       question: 37,
       name: 'I have diabetes',
       linked_observation: 'p_8',
-      translation: { info: 'What does it mean?' },
+      translation: {
+        info: 'What does it mean?',
+      },
       buttonInfoAttrs: {
-        to: { path: '/' },
+        to: {
+          path: '/',
+        },
       },
     },
     {
@@ -145,16 +166,23 @@ WithButtonInfo.args = {
       question: 37,
       name: 'I have high cholesterol',
       linked_observation: 'p_10',
-      translation: { info: 'How to check it?' },
+      translation: {
+        info: 'How to check it?',
+      },
       buttonInfoAttrs: {
-        to: { path: '/' },
+        to: {
+          path: '/',
+        },
       },
     },
   ],
 };
 
 export const WithHintSlot = (args) => ({
-  components: { UiMultipleChoices, UiAlert },
+  components: {
+    UiMultipleChoices,
+    UiAlert,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
     const invalid = ref(args.initInvalid);
@@ -187,7 +215,11 @@ export const WithHintSlot = (args) => ({
 });
 
 export const WithListItemSlot = (args) => ({
-  components: { UiMultipleChoices, UiListItem, UiMultipleChoicesItem },
+  components: {
+    UiMultipleChoices,
+    UiListItem,
+    UiMultipleChoicesItem,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
     const invalid = ref(args.initInvalid);
@@ -223,7 +255,10 @@ export const WithListItemSlot = (args) => ({
 });
 
 export const WithChoiceItem = (args) => ({
-  components: { UiMultipleChoices, UiMultipleChoicesItem },
+  components: {
+    UiMultipleChoices,
+    UiMultipleChoicesItem,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
     const invalid = ref(args.initInvalid);

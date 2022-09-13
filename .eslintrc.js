@@ -53,6 +53,30 @@ module.exports = {
     'vue/v-on-event-hyphenation': ['error', 'always', {
       autofix: true,
     }],
+    'object-property-newline': ['error', {
+      allowAllPropertiesOnSameLine: false,
+    }],
+    'vue/object-property-newline': ['error', {
+      allowAllPropertiesOnSameLine: false,
+    }],
+    'object-curly-newline': ['error',
+      {
+        ObjectExpression: 'always',
+        ObjectPattern: {
+          multiline: true,
+        },
+        ImportDeclaration: {
+          multiline: true,
+        },
+        ExportDeclaration: {
+          multiline: true,
+        },
+      },
+    ],
+    'object-curly-spacing': ['error', 'always'],
+    'vue/object-curly-spacing': ['error', 'always'],
+    'vue/object-curly-newline': ['error', 'always'],
+    'import-newlines/enforce': ['error', 1],
   },
   overrides: [{
     files: ['**/*.spec.{j,t}s?(x)'],
@@ -76,4 +100,7 @@ module.exports = {
       ],
     },
   },
+  plugins: [
+    'import-newlines',
+  ],
 };

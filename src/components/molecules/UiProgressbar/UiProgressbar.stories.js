@@ -4,18 +4,26 @@ import UiProgress from '@/components/atoms/UiProgress/UiProgress.vue';
 export default {
   title: 'Molecules/Progressbar',
   component: UiProgressbar,
-  subcomponents: { UiProgress },
+  subcomponents: {
+    UiProgress,
+  },
   args: {
     steps: 6,
     currentStep: 3,
-    progressAttrs: { id: 'stepper-progress' },
+    progressAttrs: {
+      id: 'stepper-progress',
+    },
   },
 };
 
 export const WithDots = (args) => ({
-  components: { UiProgressbar },
+  components: {
+    UiProgressbar,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiProgressbar 
     :steps="steps" 
@@ -24,9 +32,13 @@ export const WithDots = (args) => ({
 });
 
 export const WithoutDots = (args) => ({
-  components: { UiProgressbar },
+  components: {
+    UiProgressbar,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiProgressbar 
     :steps="steps" 

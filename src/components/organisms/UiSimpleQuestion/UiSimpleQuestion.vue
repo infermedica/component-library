@@ -7,7 +7,13 @@
       <!-- @slot Use this slot to replace tile template -->
       <slot
         name="tile"
-        v-bind="{option, tileAttrs, modelValue, isTileSmall, updateHandler}"
+        v-bind="{
+          option,
+          tileAttrs,
+          modelValue,
+          isTileSmall,
+          updateHandler
+        }"
       >
         <UiTile
           :id="option.id"
@@ -16,7 +22,9 @@
           :value="option.value"
           :icon-attrs="option.iconAttrs"
           :name="option.name"
-          :class="{'ui-tile--small': isTileSmall}"
+          :class="{
+            'ui-tile--small': isTileSmall
+          }"
           class="ui-simple-question__option ui-tile"
           @update:model-value="updateHandler(option.value)"
         >
@@ -28,7 +36,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, useAttrs } from 'vue';
+import {
+  computed,
+  useAttrs,
+} from 'vue';
 import type { PropType } from 'vue';
 import UiTile from '../../molecules/UiTile/UiTile.vue';
 import type { TileValue } from '../../molecules/UiTile/UiTile.vue';
@@ -51,7 +62,8 @@ defineProps({
    */
   modelValue: {
     type: [Object, String] as PropType<TileValue>,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to pass options for question
@@ -73,7 +85,8 @@ defineProps({
    */
   tileAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
 });
 const emit = defineEmits<{(e: 'update:modelValue', value: TileValue): void}>();
