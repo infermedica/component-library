@@ -20,9 +20,7 @@ import {
   watch,
   onMounted,
 } from 'vue';
-import type {
-  CSSProperties,
-} from 'vue';
+import type { CSSProperties } from 'vue';
 
 export type TransitionState = 'from' | 'active' | 'to';
 export type Move = 'leave' | 'enter';
@@ -32,27 +30,30 @@ export type TransitionHook = `before-${Move}`
   | `${Move}-cancelled`;
 const props = defineProps({
   /**
-   * Use this props to show UiLoader component
+   * Use this props to show UiLoader component.
    */
   isLoading: {
     type: Boolean,
     default: true,
   },
   /**
-   * Use this props to set transition name
+   * Use this props to set transition name.
    */
   name: {
     type: String,
     default: '',
   },
   /**
-   * Use this props to apply a transition on the initial render
+   * Use this props to apply a transition on the initial render.
    */
   appear: {
     type: Boolean,
     default: true,
   },
-  isOpacityMode: {
+  /**
+   * Use this props to use opacity transition type.
+   */
+  isOpacityTransitionType: {
     type: Boolean,
     default: false,
   },
@@ -68,10 +69,10 @@ const useTransitionStyle = (isVisible: boolean, isAbsolute: boolean): CSSPropert
   position: isAbsolute ? 'absolute' : undefined,
 });
 const loaderStyle = computed(() => (
-  useTransitionStyle(isLoaderVisible.value, !isLoaderVisible.value || props.isOpacityMode)
+  useTransitionStyle(isLoaderVisible.value, !isLoaderVisible.value || props.isOpacityTransitionType)
 ));
 const contentStyle = computed(() => (
-  useTransitionStyle(!isLoaderVisible.value, isLoaderVisible.value && !props.isOpacityMode)
+  useTransitionStyle(!isLoaderVisible.value, isLoaderVisible.value && !props.isOpacityTransitionType)
 ));
 const nextFrame = (callback: () => void) => {
   requestAnimationFrame(() => {

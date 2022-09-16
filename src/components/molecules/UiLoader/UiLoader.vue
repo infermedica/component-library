@@ -1,7 +1,7 @@
 <template>
   <component
-    :is="outerComponent"
-    v-bind="outerComponentAttrs"
+    :is="transitionComponent"
+    v-bind="transitionComponentAttrs"
   >
     <template #loader>
       <!-- @slot Use this slot to replace loader. -->
@@ -9,7 +9,6 @@
         <component
           :is="tag"
           v-bind="$attrs"
-          key="loading"
           class="ui-loader"
           aria-live="polite"
           :aria-busy="`${isLoading}`"
@@ -51,7 +50,7 @@ export type LoaderType = 'spinner' | 'ellipsis' | 'skeleton';
 export type LoaderComponent = typeof UiLoaderSpinner
   | typeof UiLoaderEllipsis
   | typeof UiLoaderSkeleton;
-export type LoaderMode = 'if' | 'show' | 'opacity';
+export type LoaderTransitionType = 'if' | 'show' | 'opacity';
 const props = defineProps({
   /**
    * Use this props to show UiLoader component
@@ -68,11 +67,18 @@ const props = defineProps({
     default: 'spinner',
   },
   /**
-   * Use this props to pass attributes to internal child components
+   * Use this props to set transition type.
    */
-  loaderAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
+  transitionType: {
+    type: String as PropType<LoaderTransitionType>,
+    default: 'if',
+  },
+  /**
+   * Use this props to set transition name.
+   */
+  name: {
+    type: String,
+    default: 'fade',
   },
   /**
    * Use this props to pass tag of loader
@@ -82,21 +88,23 @@ const props = defineProps({
     default: 'div',
   },
   /**
+   * Use this props to pass attributes to internal child components
+   */
+  loaderAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({
+    }),
+  },
+  /**
    * Use this props to pas transition name
    */
   transitionAttrs: {
     type: Object as PropType<Record<string, unknown>>,
-    default: () => ({}),
-  },
-  /**
-   * Use this props to set transition mode
-   */
-  mode: {
-    type: String as PropType<LoaderMode>,
-    default: 'if',
+    default: () => ({
+    }),
   },
 });
-const isIfMode = computed(() => props.mode === 'if');
+const isIfTransitionType = computed(() => props.transitionType === 'if');
 const component = computed<LoaderComponent>(() => {
   const components: Record<LoaderType, LoaderComponent> = {
     spinner: UiLoaderSpinner,
@@ -105,16 +113,24 @@ const component = computed<LoaderComponent>(() => {
   };
   return components[props.type];
 });
-const outerComponentAttrs = computed(() => {
-  const attrs = { ...props.transitionAttrs, isLoading: props.isLoading };
-  return isIfMode.value
-    ? attrs
-    : { ...attrs, isOpacityMode: props.mode === 'opacity' };
-});
-const outerComponent = computed(() => (isIfMode.value
+const transitionComponent = computed(() => (isIfTransitionType.value
   ? UiLoaderNativeTransition
   : UiLoaderTransition
 ));
+const transitionComponentAttrs = computed(() => {
+  const attrs = {
+    name: props.name,
+    mode: 'out-in',
+    ...props.transitionAttrs,
+    isLoading: props.isLoading,
+  };
+  return isIfTransitionType.value
+    ? attrs
+    : {
+      ...attrs,
+      isOpacityTransitionType: props.transitionType === 'opacity',
+    };
+});
 </script>
 
 <style lang="scss">
