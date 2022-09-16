@@ -2,7 +2,10 @@ import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import icons from '@/components/atoms/UiIcon/icons.ts';
-import { content, modifiers } from '@sb/helpers/argTypes';
+import {
+  content,
+  modifiers,
+} from '@sb/helpers/argTypes';
 
 export default {
   title: 'Atoms/Button',
@@ -35,13 +38,21 @@ export default {
       ],
     }),
   },
-  decorators: [() => ({ template: '<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 2.5rem"><story /></div>' })],
+  decorators: [() => ({
+    template: '<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 2.5rem"><story /></div>',
+  })],
 };
 
 export const Common = (args) => ({
-  components: { UiButton, UiIcon, UiText },
+  components: {
+    UiButton,
+    UiIcon,
+    UiText,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiButton :class="modifiers">
     {{content}}
@@ -49,9 +60,15 @@ export const Common = (args) => ({
 });
 
 const Template = (args) => ({
-  components: { UiButton, UiIcon, UiText },
+  components: {
+    UiButton,
+    UiIcon,
+    UiText,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiText tag="span">Large:</UiText>
     <UiButton :class="modifiers">
@@ -121,12 +138,19 @@ const Template = (args) => ({
     </UiButton>`,
 });
 
-export const Contained = Template.bind({});
+export const Contained = Template.bind({
+});
 
 export const Outlined = (args) => ({
-  components: { UiButton, UiIcon, UiText },
+  components: {
+    UiButton,
+    UiIcon,
+    UiText,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiText tag="span">Large:</UiText>
     <UiButton
@@ -226,15 +250,22 @@ Outlined.args = {
   modifiers: ['ui-button--outlined'],
 };
 
-export const Text = Template.bind({});
+export const Text = Template.bind({
+});
 Text.args = {
   modifiers: ['ui-button--text'],
 };
 
 export const Circled = (args) => ({
-  components: { UiButton, UiIcon, UiText },
+  components: {
+    UiButton,
+    UiIcon,
+    UiText,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiText tag="span">Icon: </UiText>
   <UiButton :class="modifiers">
@@ -270,9 +301,15 @@ Circled.args = {
 };
 
 export const Icon = (args) => ({
-  components: { UiButton, UiIcon, UiText },
+  components: {
+    UiButton,
+    UiIcon,
+    UiText,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiButton class="ui-button--icon">
     <UiIcon
@@ -282,15 +319,22 @@ export const Icon = (args) => ({
   </UiButton>`,
 });
 
-export const TextSecondary = Template.bind({});
+export const TextSecondary = Template.bind({
+});
 TextSecondary.args = {
   modifiers: ['ui-button--text', 'ui-button--theme-secondary'],
 };
 
 export const IconSecondary = (args) => ({
-  components: { UiButton, UiIcon, UiText },
+  components: {
+    UiButton,
+    UiIcon,
+    UiText,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiButton
     :class="modifiers"
@@ -306,18 +350,27 @@ IconSecondary.args = {
   modifiers: ['ui-button--theme-secondary'],
 };
 
-export const TextOnBrand = Template.bind({});
+export const TextOnBrand = Template.bind({
+});
 TextOnBrand.args = {
   modifiers: ['ui-button--text', 'ui-button--theme-brand'],
 };
 TextOnBrand.parameters = {
-  backgrounds: { default: 'brand' },
+  backgrounds: {
+    default: 'brand',
+  },
 };
 
 export const IconOnBrand = (args) => ({
-  components: { UiButton, UiIcon, UiText },
+  components: {
+    UiButton,
+    UiIcon,
+    UiText,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiButton
     :class="modifiers"
@@ -333,5 +386,7 @@ IconOnBrand.args = {
   modifiers: ['ui-button--text', 'ui-button--theme-brand'],
 };
 IconOnBrand.parameters = {
-  backgrounds: { default: 'brand' },
+  backgrounds: {
+    default: 'brand',
+  },
 };

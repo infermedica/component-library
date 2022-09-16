@@ -12,12 +12,17 @@ export default function useLink(props) {
   });
   const routeAttrs = computed(() => {
     if (props.href) {
-      return { href: props.href };
+      return {
+        href: props.href,
+      };
     }
     if (props.to) {
-      return { to: props.to };
+      return {
+        to: props.to,
+      };
     }
-    return {};
+    return {
+    };
   });
 
   return {

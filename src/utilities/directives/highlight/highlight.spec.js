@@ -32,27 +32,39 @@ describe('directive/highlight', () => {
     expect(markElements.length).toBe(0);
   });
   test('marking searched query', async () => {
-    await wrapper.setData({ searchQuery: 'dolor' });
+    await wrapper.setData({
+      searchQuery: 'dolor',
+    });
     const markElements = wrapper.findAll('mark');
     expect(markElements.length).toBe(4);
   });
   test('correct update markings searched query', async () => {
-    await wrapper.setData({ searchQuery: 'dolor' });
+    await wrapper.setData({
+      searchQuery: 'dolor',
+    });
     let markElements = wrapper.findAll('mark');
     expect(markElements.length).toBe(4);
-    await wrapper.setData({ searchQuery: 'Lorem' });
+    await wrapper.setData({
+      searchQuery: 'Lorem',
+    });
     markElements = wrapper.findAll('mark');
     expect(markElements.length).toBe(1);
   });
   test('no markings if text does not contain searched query', async () => {
-    await wrapper.setData({ searchQuery: 'test' });
+    await wrapper.setData({
+      searchQuery: 'test',
+    });
     const markElements = wrapper.findAll('mark');
     expect(markElements.length).toBe(0);
   });
   test('thrown error when search query is null', async () => {
-    expect(() => highlight.beforeMount(elementP, { value: null })).toThrow("Cannot read properties of null (reading 'replace')");
+    expect(() => highlight.beforeMount(elementP, {
+      value: null,
+    })).toThrow("Cannot read properties of null (reading 'replace')");
   });
   test('thrown error when search query is undefined', async () => {
-    expect(() => highlight.beforeMount(elementP, { value: undefined })).toThrow("Cannot read properties of undefined (reading 'replace')");
+    expect(() => highlight.beforeMount(elementP, {
+      value: undefined,
+    })).toThrow("Cannot read properties of undefined (reading 'replace')");
   });
 });

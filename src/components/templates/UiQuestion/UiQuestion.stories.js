@@ -10,7 +10,11 @@ import UiSimpleQuestion from '@/components/organisms/UiSimpleQuestion/UiSimpleQu
 export default {
   title: 'Templates/Question',
   component: UiQuestion,
-  subcomponents: { UiButton, UiIcon, UiHeading },
+  subcomponents: {
+    UiButton,
+    UiIcon,
+    UiHeading,
+  },
   args: {
     items: [],
     title: 'Do you have a sore throat?',
@@ -31,19 +35,27 @@ export default {
       },
     },
     buttonSkipAttrs: {
-      to: { path: '/' },
+      to: {
+        path: '/',
+      },
       translation: {
         action: 'Skip this question',
       },
     },
     buttonInfoAttrs: {
-      to: { path: '/' },
+      to: {
+        path: '/',
+      },
     },
     buttonWhyAttrs: {
-      to: { path: '/' },
+      to: {
+        path: '/',
+      },
     },
     buttonIssueAttrs: {
-      to: { path: '/' },
+      to: {
+        path: '/',
+      },
     },
     titleSlot: null,
   },
@@ -67,7 +79,9 @@ export default {
       description: 'Use this slot to replace title template.',
       table: {
         category: 'slots',
-        type: { summary: 'unknown' },
+        type: {
+          summary: 'unknown',
+        },
       },
       control: 'object',
     },
@@ -75,7 +89,10 @@ export default {
 };
 
 export const AsMultipleAnswer = (args) => ({
-  components: { UiQuestion, UiMultipleAnswer },
+  components: {
+    UiQuestion,
+    UiMultipleAnswer,
+  },
   setup() {
     const modelValue = ref('');
     return {
@@ -136,7 +153,10 @@ AsMultipleAnswer.args = {
   },
 };
 AsMultipleAnswer.decorators = [(story) => ({
-  components: { story, UiControls },
+  components: {
+    story,
+    UiControls,
+  },
   template: `<UiControls
       :to-next="{path: '/next'}"
       :to-back="{path: '/back'}"
@@ -151,7 +171,10 @@ AsMultipleAnswer.decorators = [(story) => ({
 })];
 
 export const AsSimpleQuestion = (args) => ({
-  components: { UiQuestion, UiSimpleQuestion },
+  components: {
+    UiQuestion,
+    UiSimpleQuestion,
+  },
   setup() {
     const modelValue = ref('');
     return {
@@ -212,7 +235,10 @@ AsSimpleQuestion.args = {
   },
 };
 AsSimpleQuestion.decorators = [(story) => ({
-  components: { story, UiControls },
+  components: {
+    story,
+    UiControls,
+  },
   template: `<UiControls
       :to-next="{path: '/next'}"
       :to-back="{path: '/back'}"
@@ -227,9 +253,14 @@ AsSimpleQuestion.decorators = [(story) => ({
 })];
 
 export const WithTitleSlot = (args) => ({
-  components: { UiQuestion, UiHeading },
+  components: {
+    UiQuestion,
+    UiHeading,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiQuestion
     :title="title"
@@ -252,9 +283,15 @@ export const WithTitleSlot = (args) => ({
 });
 
 export const WithInfoSlot = (args) => ({
-  components: { UiQuestion, UiButton, UiIcon },
+  components: {
+    UiQuestion,
+    UiButton,
+    UiIcon,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiQuestion
     :title="title"
@@ -282,9 +319,14 @@ export const WithInfoSlot = (args) => ({
 });
 
 export const WithActionsBottomSlot = (args) => ({
-  components: { UiQuestion, UiButton },
+  components: {
+    UiQuestion,
+    UiButton,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiQuestion
     :title="title"
@@ -318,9 +360,14 @@ export const WithActionsBottomSlot = (args) => ({
 });
 
 export const WithWhySlot = (args) => ({
-  components: { UiQuestion, UiButton },
+  components: {
+    UiQuestion,
+    UiButton,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiQuestion
     :title="title"
@@ -341,9 +388,14 @@ export const WithWhySlot = (args) => ({
 });
 
 export const WithIssueSlot = (args) => ({
-  components: { UiQuestion, UiButton },
+  components: {
+    UiQuestion,
+    UiButton,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiQuestion
     :title="title"

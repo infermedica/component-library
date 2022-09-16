@@ -6,24 +6,48 @@ import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 
 const steps = [
-  { name: 'Introduction', href: '#' },
-  { name: 'A really long step name', href: '#' },
-  { name: 'Symptoms', href: '#' },
-  { name: 'Regions', href: '#' },
-  { name: 'Interview', href: '#' },
-  { name: 'Results', href: '#' },
+  {
+    name: 'Introduction',
+    href: '#',
+  },
+  {
+    name: 'A really long step name',
+    href: '#',
+  },
+  {
+    name: 'Symptoms',
+    href: '#',
+  },
+  {
+    name: 'Regions',
+    href: '#',
+  },
+  {
+    name: 'Interview',
+    href: '#',
+  },
+  {
+    name: 'Results',
+    href: '#',
+  },
 ];
 
 export default {
   title: 'Molecules/Stepper',
   component: UiStepper,
   subcomponents: {
-    UiText, UiProgress, UiList, UiListItem, UiButton,
+    UiText,
+    UiProgress,
+    UiList,
+    UiListItem,
+    UiButton,
   },
   args: {
     steps,
     currentStep: steps.at(2).name,
-    progressAttrs: { id: 'progress' },
+    progressAttrs: {
+      id: 'progress',
+    },
   },
   argTypes: {
     currentStep: {
@@ -31,13 +55,19 @@ export default {
       options: steps.map((step) => step.name),
     },
   },
-  decorators: [() => ({ template: '<div class="desktop:max-w-35"><story /></div>' })],
+  decorators: [() => ({
+    template: '<div class="desktop:max-w-35"><story /></div>',
+  })],
 };
 
 const Template = (args) => ({
-  components: { UiStepper },
+  components: {
+    UiStepper,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiStepper
     :steps="steps"
@@ -46,12 +76,18 @@ const Template = (args) => ({
   />`,
 });
 
-export const WithCurrentStep = Template.bind({});
+export const WithCurrentStep = Template.bind({
+});
 
 export const WithCurrentStepSlot = (args) => ({
-  components: { UiStepper, UiText },
+  components: {
+    UiStepper,
+    UiText,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiStepper
     :steps="steps"
@@ -70,9 +106,14 @@ export const WithCurrentStepSlot = (args) => ({
 });
 
 export const WithProgressSlot = (args) => ({
-  components: { UiStepper, UiProgress },
+  components: {
+    UiStepper,
+    UiProgress,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiStepper
     :steps="steps"
@@ -91,10 +132,15 @@ export const WithProgressSlot = (args) => ({
 
 export const WithDesktopSlot = (args) => ({
   components: {
-    UiStepper, UiList, UiListItem, UiButton,
+    UiStepper,
+    UiList,
+    UiListItem,
+    UiButton,
   },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiStepper
     :steps="steps"
@@ -128,9 +174,15 @@ export const WithDesktopSlot = (args) => ({
 });
 
 export const WithItemsSlot = (args) => ({
-  components: { UiStepper, UiListItem, UiButton },
+  components: {
+    UiStepper,
+    UiListItem,
+    UiButton,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiStepper
     :steps="steps"
@@ -162,9 +214,15 @@ export const WithItemsSlot = (args) => ({
 });
 
 export const WithItemSlot = (args) => ({
-  components: { UiStepper, UiListItem, UiButton },
+  components: {
+    UiStepper,
+    UiListItem,
+    UiButton,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiStepper
     :steps="steps"
@@ -191,9 +249,15 @@ export const WithItemSlot = (args) => ({
 });
 
 export const WithItemLinkSlot = (args) => ({
-  components: { UiStepper, UiListItem, UiButton },
+  components: {
+    UiStepper,
+    UiListItem,
+    UiButton,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiStepper
     :steps="steps"
@@ -212,9 +276,15 @@ export const WithItemLinkSlot = (args) => ({
 });
 
 export const WithMobileSlot = (args) => ({
-  components: { UiStepper, UiText, UiProgress },
+  components: {
+    UiStepper,
+    UiText,
+    UiProgress,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiStepper
     :steps="steps"

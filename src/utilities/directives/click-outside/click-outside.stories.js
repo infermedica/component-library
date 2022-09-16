@@ -9,7 +9,9 @@ import docs from './click-outside.mdx';
 
 export default {
   title: 'Utilities/Directives/Click Outside',
-  decorators: [() => ({ template: '<div style="height: 200px;"><story /></div>' })],
+  decorators: [() => ({
+    template: '<div style="height: 200px;"><story /></div>',
+  })],
   parameters: {
     docs: {
       page: docs,
@@ -19,7 +21,10 @@ export default {
 
 export const WithDirective = () => ({
   components: {
-    UiButton, UiIcon, UiText, UiPopover,
+    UiButton,
+    UiIcon,
+    UiText,
+    UiPopover,
   },
   directives: {
     clickOutside,
@@ -30,7 +35,8 @@ export const WithDirective = () => ({
       isOpen.value = !isOpen.value;
     };
     return {
-      isOpen, toggleHandler,
+      isOpen,
+      toggleHandler,
     };
   },
   template: `<UiButton
@@ -76,7 +82,9 @@ export const WithDirectiveSwitcher = () => ({
       isOpen.value = !isOpen.value;
     };
     return {
-      isDirective, isOpen, toggleHandler,
+      isDirective,
+      isOpen,
+      toggleHandler,
     };
   },
   template: `<UiSwitch 
@@ -113,7 +121,10 @@ export const WithDirectiveSwitcher = () => ({
 
 export const WithoutDirective = () => ({
   components: {
-    UiButton, UiIcon, UiPopover, UiText,
+    UiButton,
+    UiIcon,
+    UiPopover,
+    UiText,
   },
   setup() {
     const isOpen = ref(true);
@@ -121,7 +132,8 @@ export const WithoutDirective = () => ({
       isOpen.value = !isOpen.value;
     };
     return {
-      isOpen, toggleHandler,
+      isOpen,
+      toggleHandler,
     };
   },
   template: `

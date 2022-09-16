@@ -2,7 +2,9 @@
   <UiInput
     id="month"
     v-model="month"
-    :class="{ 'ui-input--has-error': hasError }"
+    :class="{
+      'ui-input--has-error': hasError
+    }"
     :placeholder="translation.placeholderMonth"
     maxlength="2"
     inputmode="numeric"

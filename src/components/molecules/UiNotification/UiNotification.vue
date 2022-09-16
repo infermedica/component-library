@@ -23,14 +23,18 @@
           <!-- @slot Use this slot to replace action template.-->
           <slot
             name="action"
-            v-bind="{attrs: buttonActionAttrs, translation, hasAction}"
+            v-bind="{
+              attrs: buttonActionAttrs,
+              translation: defaultProps.translation,
+              hasAction
+            }"
           >
             <UiButton
               v-if="hasAction"
               v-bind="buttonActionAttrs"
               class="ui-button--text ui-button--has-icon ui-notification__action"
             >
-              {{ translation.action }}
+              {{ defaultProps.translation.action }}
               <UiIcon
                 icon="chevron-right"
                 class="ui-button__icon ui-button__icon--right"
@@ -72,7 +76,8 @@ const props = defineProps({
    */
   buttonActionAttrs: {
     type: Object,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to pass labels inside component translation.
@@ -84,6 +89,12 @@ const props = defineProps({
     }),
   },
 });
+const defaultProps = computed(() => ({
+  translation: {
+    action: 'Action',
+    ...props.translation,
+  },
+}));
 const modifier = computed<`ui-notification--${NotificationType}`>(() => `ui-notification--${props.type}`);
 const hasAction = computed(() => (Object.keys(props.buttonActionAttrs).length > 0));
 </script>

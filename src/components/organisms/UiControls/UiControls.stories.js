@@ -11,7 +11,11 @@ const events = actions({
 export default {
   title: 'Organisms/Controls',
   component: UiControls,
-  subcomponents: { UiText, UiButton, UiIcon },
+  subcomponents: {
+    UiText,
+    UiButton,
+    UiIcon,
+  },
   args: {
     hideNextButton: false,
     toBack: {
@@ -33,8 +37,12 @@ export default {
     },
   },
   argTypes: {
-    toBack: { control: 'object' },
-    toNext: { control: 'object' },
+    toBack: {
+      control: 'object',
+    },
+    toNext: {
+      control: 'object',
+    },
     'has-error': {
       description: 'Use this event to detect when control has error and toNext is blocked.',
       table: {
@@ -45,7 +53,9 @@ export default {
       description: 'Use this props to pass attrs for back UiButton',
       table: {
         category: 'props',
-        type: { summary: 'object' },
+        type: {
+          summary: 'object',
+        },
       },
       control: 'object',
     },
@@ -53,7 +63,9 @@ export default {
       description: 'Use this props to pass attrs for next UiButton',
       table: {
         category: 'props',
-        type: { summary: 'object' },
+        type: {
+          summary: 'object',
+        },
       },
       control: 'object',
     },
@@ -61,7 +73,9 @@ export default {
 };
 
 const Template = (args) => ({
-  components: { UiControls },
+  components: {
+    UiControls,
+  },
   setup() {
     return {
       ...args,
@@ -80,10 +94,13 @@ const Template = (args) => ({
   />`,
 });
 
-export const Common = Template.bind({});
+export const Common = Template.bind({
+});
 
 export const WithContainerSlot = (args) => ({
-  components: { UiControls },
+  components: {
+    UiControls,
+  },
   setup() {
     return {
       ...args,
@@ -108,7 +125,10 @@ export const WithContainerSlot = (args) => ({
 
 export const WithBottomSlot = (args) => ({
   components: {
-    UiControls, UiText, UiButton, UiIcon,
+    UiControls,
+    UiText,
+    UiButton,
+    UiIcon,
   },
   setup() {
     return {
@@ -152,7 +172,10 @@ export const WithBottomSlot = (args) => ({
 });
 
 export const WithNextSlot = (args) => ({
-  components: { UiControls, UiButton },
+  components: {
+    UiControls,
+    UiButton,
+  },
   setup() {
     return {
       ...args,
@@ -183,7 +206,11 @@ export const WithNextSlot = (args) => ({
 });
 
 export const WithBackSlot = (args) => ({
-  components: { UiControls, UiButton, UiIcon },
+  components: {
+    UiControls,
+    UiButton,
+    UiIcon,
+  },
   setup() {
     return {
       ...args,

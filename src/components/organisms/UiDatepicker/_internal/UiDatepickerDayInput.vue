@@ -1,7 +1,9 @@
 <template>
   <UiInput
     v-model="day"
-    :class="{ 'ui-input--has-error': hasError }"
+    :class="{
+      'ui-input--has-error': hasError
+    }"
     :placeholder="translation.placeholderDay"
     maxlength="2"
     inputmode="numeric"

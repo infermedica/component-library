@@ -50,7 +50,10 @@ function formatDay(value: number): string {
 }
 
 function select(value: number): void {
-  emit('select', { type: 'day', value });
+  emit('select', {
+    type: 'day',
+    value,
+  });
   day.value = formatDay(value);
   unfulfilledDayError.value = false;
 }

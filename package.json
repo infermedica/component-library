@@ -100,6 +100,7 @@
     "eslint": "^8.0.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-import-newlines": "^1.2.3",
     "eslint-plugin-storybook": "^0.6.4",
     "eslint-plugin-vitest-globals": "^1.1.0",
     "eslint-plugin-vue": "^9.2.0",

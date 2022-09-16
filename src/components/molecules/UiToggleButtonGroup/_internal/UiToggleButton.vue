@@ -18,9 +18,16 @@
 
 <script setup lang="ts">
 import {
-  computed, getCurrentInstance, inject, watch, useAttrs,
+  computed,
+  getCurrentInstance,
+  inject,
+  watch,
+  useAttrs,
 } from 'vue';
-import type { PropType, WritableComputedRef } from 'vue';
+import type {
+  PropType,
+  WritableComputedRef,
+} from 'vue';
 import equal from 'fast-deep-equal';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import type { ToggleButtonValue } from '../UiToggleButtonGroup.vue';

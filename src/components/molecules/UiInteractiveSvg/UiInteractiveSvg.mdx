@@ -1,0 +1,236 @@
+import { Canvas, Meta, Story, Primary, ArgsTable, Source } from "@storybook/addon-docs";
+import UiInteractiveSvg from "./UiInteractiveSvg.vue";
+
+<Meta title="Molecules/UiInteractiveSvg" component={UiInteractiveSvg} />
+
+# UiInteractiveSvg
+<Primary />
+<ArgsTable />
+
+## Stories
+### Map
+<Canvas>
+  <Story id="molecules-interactivesvg--map"/>
+</Canvas>
+
+Some groups have `focus-for` attribute. We use it to show an outline for the focused element.
+
+To style the map, you can use the following SCSS.
+
+```scss
+@use "@infermedica/component-library/mixins";
+
+.map {
+  &__region {
+    cursor: pointer;
+    fill: #2f91ea;
+    stroke: #1471c9;
+
+    &:focus {
+      outline: none;
+      stroke: white;
+    }
+
+    @include mixins.hover {
+      fill: #a2cff5;
+    }
+
+    &--is-checked {
+      fill: #0b3d6d;
+      stroke: #2f91ea;
+
+      @include mixins.hover {
+        fill: #082c4d;
+      }
+
+    }
+  }
+
+  &__focus-for-region {
+    pointer-events: none;
+    visibility: hidden;
+    fill: transparent;
+    stroke-linejoin: round;
+
+    path:first-of-type {
+      stroke: white;
+      stroke-width: 6px;
+    }
+
+    path:last-of-type {
+      stroke: #2f91ea;
+      stroke-width: 2px;
+    }
+
+    &--is-focused {
+      visibility: visible;
+    }
+  }
+
+  &__outline {
+    fill: white;
+  }
+}
+```
+
+### Abdominal Pain Male
+<Canvas>
+  <Story id="molecules-interactivesvg--abdominal-pain-male"/>
+</Canvas>
+
+Some groups have `focus-for` attribute. We use it to show an outline for the focused element.
+
+To style the abdominal pain, you can use the following SCSS.
+
+```scss
+@use "@infermedica/component-library/mixins";
+
+.abdominal-pain {
+  &__part {
+    cursor: pointer;
+    fill: #2f91ea;
+
+    &:focus {
+      outline: none;
+    }
+
+    @include mixins.hover {
+      fill: #1471c9;
+    }
+
+    &--is-checked {
+      fill: #0b3d6d;
+
+      @include mixins.hover {
+        fill: #082c4d;
+      }
+    }
+  }
+
+  &__focus-for-part {
+    pointer-events: none;
+    visibility: hidden;
+    fill: transparent;
+    stroke: white;
+    stroke-width: 2px;
+
+    &--is-focused {
+      visibility: visible;
+    }
+  }
+
+  &__outline {
+    pointer-events: none;
+    fill: #0f5496;
+  }
+}
+```
+
+### Abdominal Pain Female
+<Canvas>
+  <Story id="molecules-interactivesvg--abdominal-pain-female"/>
+</Canvas>
+
+### Infant Unisex Front
+<Canvas>
+  <Story id="molecules-interactivesvg--infant-unisex-front"/>
+</Canvas>
+
+To style the body model, you can use the following SCSS.
+
+```scss
+@use "@infermedica/component-library/mixins";
+
+.body-model {
+  &__part {
+    cursor: pointer;
+    fill: #c2e0f8;
+
+    @include mixins.from-tablet {
+      fill: transparent;
+    }
+
+    @include mixins.hover {
+      fill: #71b5f0;
+    }
+
+    &--is-selected {
+      fill: #c2e0f8;
+    }
+
+    &--is-highlighted {
+      fill: #71b5f0;
+    }
+  }
+
+  &__outline {
+    pointer-events: none;
+    fill: #1471c9;
+  }
+}
+```
+
+### Infant Unisex Back
+<Canvas>
+  <Story id="molecules-interactivesvg--infant-unisex-back"/>
+</Canvas>
+
+### Toddler Male Front
+<Canvas>
+  <Story id="molecules-interactivesvg--toddler-male-front"/>
+</Canvas>
+
+### Toddler Male Back
+<Canvas>
+  <Story id="molecules-interactivesvg--toddler-male-back"/>
+</Canvas>
+
+### Toddler Female Front
+<Canvas>
+  <Story id="molecules-interactivesvg--toddler-female-front"/>
+</Canvas>
+
+### Toddler Female Back
+<Canvas>
+  <Story id="molecules-interactivesvg--toddler-female-back"/>
+</Canvas>
+
+### Child Male Front
+<Canvas>
+  <Story id="molecules-interactivesvg--child-male-front"/>
+</Canvas>
+
+### Child Male Back
+<Canvas>
+  <Story id="molecules-interactivesvg--child-male-back"/>
+</Canvas>
+
+### Child Female Front
+<Canvas>
+  <Story id="molecules-interactivesvg--child-female-front"/>
+</Canvas>
+
+### Child Female Back
+<Canvas>
+  <Story id="molecules-interactivesvg--child-female-back"/>
+</Canvas>
+
+###  Adult Male Front
+<Canvas>
+  <Story id="molecules-interactivesvg--adult-male-front"/>
+</Canvas>
+
+### Adult Male Back
+<Canvas>
+  <Story id="molecules-interactivesvg--adult-male-back"/>
+</Canvas>
+
+### Adult Female Front
+<Canvas>
+  <Story id="molecules-interactivesvg--adult-female-front"/>
+</Canvas>
+
+### Adult Female Back
+<Canvas>
+  <Story id="molecules-interactivesvg--adult-female-back"/>
+</Canvas>

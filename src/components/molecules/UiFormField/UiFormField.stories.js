@@ -7,7 +7,10 @@ import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
 export default {
   title: 'Molecules/FormField',
   component: UiFormField,
-  subcomponents: { UiAlert, UiText },
+  subcomponents: {
+    UiAlert,
+    UiText,
+  },
   args: {
     errorMessage: 'Please enter a valid height',
     label: 'What is your height?',
@@ -15,12 +18,16 @@ export default {
     id: '',
   },
   argTypes: {
-    id: { control: 'text' },
+    id: {
+      control: 'text',
+    },
     label: {
       description: 'Use this props to set label text',
       table: {
         category: 'props',
-        type: { summary: 'boolean|string' },
+        type: {
+          summary: 'boolean|string',
+        },
       },
     },
     labelSlot: {
@@ -28,7 +35,9 @@ export default {
       description: 'Use this slot to replace label template.',
       table: {
         category: 'slots',
-        type: { summary: 'unknown' },
+        type: {
+          summary: 'unknown',
+        },
       },
       control: 'object',
     },
@@ -36,8 +45,15 @@ export default {
 };
 
 export const WithInput = (args) => ({
-  components: { UiFormField, UiInput },
-  setup() { return { ...args }; },
+  components: {
+    UiFormField,
+    UiInput,
+  },
+  setup() {
+    return {
+      ...args,
+    };
+  },
   template: `<UiFormField
     :label-attrs="labelAttrs"
     :label="label"
@@ -61,8 +77,16 @@ export const WithInput = (args) => ({
 });
 
 export const WithCheckboxes = (args) => ({
-  components: { UiFormField, UiCheckbox, UiText },
-  setup() { return { ...args }; },
+  components: {
+    UiFormField,
+    UiCheckbox,
+    UiText,
+  },
+  setup() {
+    return {
+      ...args,
+    };
+  },
   template: `<UiText style="margin: 0 0 var(--space-24) 0;">What’s wrong with this question?</UiText>
   <UiFormField
     :label-attrs="labelAttrs"
@@ -98,8 +122,16 @@ WithCheckboxes.args = {
 };
 
 export const WithLabelSlot = (args) => ({
-  components: { UiFormField, UiInput, UiText },
-  setup() { return { ...args }; },
+  components: {
+    UiFormField,
+    UiInput,
+    UiText,
+  },
+  setup() {
+    return {
+      ...args,
+    };
+  },
   template: `<UiFormField
     :label-attrs="labelAttrs"
     :label="label"
@@ -147,9 +179,16 @@ export const WithLabelSlot = (args) => ({
 
 export const WithAlertSlot = (args) => ({
   components: {
-    UiFormField, UiInput, UiText, UiAlert,
+    UiFormField,
+    UiInput,
+    UiText,
+    UiAlert,
   },
-  setup() { return { ...args }; },
+  setup() {
+    return {
+      ...args,
+    };
+  },
   template: `<UiFormField
     :label-attrs="labelAttrs"
     :label="label"

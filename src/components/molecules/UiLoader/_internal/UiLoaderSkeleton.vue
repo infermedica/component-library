@@ -11,7 +11,10 @@
 
 <script setup lang="ts">
 import type { PropType } from 'vue';
-import { computed, defineAsyncComponent } from 'vue';
+import {
+  computed,
+  defineAsyncComponent,
+} from 'vue';
 import { capitalizeFirst } from '../../../../utilities/helpers/index.ts';
 
 export type LoaderSkeletonType = 'common' | 'question'

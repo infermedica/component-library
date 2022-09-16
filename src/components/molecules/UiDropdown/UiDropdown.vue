@@ -1,15 +1,26 @@
 <template>
   <div
     ref="dropdown"
-    v-click-outside:[isActiveClickOutside]="closeHandler.bind(this, { focusToggle: false })"
+    v-click-outside:[isActiveClickOutside]="closeHandler.bind(this, {
+      focusToggle: false
+    })"
     class="ui-dropdown"
-    :class="{'is-active': isOpen}"
+    :class="{
+      'is-active': isOpen
+    }"
     @keydown="dropdownKeydownHandler"
   >
     <!-- @slot Use this slot to place toggle template. -->
     <slot
       name="toggle"
-      v-bind="{toggleHandler, openHandler, closeHandler, isOpen, text, attrs: buttonAttrs}"
+      v-bind="{
+        toggleHandler,
+        openHandler,
+        closeHandler,
+        isOpen,
+        text,
+        attrs: buttonAttrs
+      }"
     >
       <UiButton
         v-bind="buttonAttrs"
@@ -24,7 +35,11 @@
     <!-- @slot Use this slot to replace popover template. -->
     <slot
       name="popover"
-      v-bind="{closeHandler, isOpen, attrs: popoverAttrs}"
+      v-bind="{
+        closeHandler,
+        isOpen,
+        attrs: popoverAttrs
+      }"
     >
       <UiPopover
         v-if="isOpen"
@@ -35,14 +50,22 @@
         <!-- @slot Use this slot to replace content template. -->
         <slot
           name="content"
-          v-bind="{closeHandler, isOpen}"
+          v-bind="{
+            closeHandler,
+            isOpen
+          }"
         >
           <div
             role="radiogroup"
             class="ui-dropdown__items"
           >
             <!-- @slot Use this slot to place dropdown content inside dropdown. -->
-            <slot v-bind="{closeHandler, isOpen}">
+            <slot
+              v-bind="{
+                closeHandler,
+                isOpen
+              }"
+            >
               <template
                 v-for="(item, key) in itemsToRender"
                 :key="key"
@@ -51,7 +74,9 @@
                   <!-- @slot Use this slot to replace dropdown item content. -->
                   <slot
                     :name="item.name"
-                    v-bind="{item}"
+                    v-bind="{
+                      item
+                    }"
                   >
                     {{ item.text }}
                   </slot>
@@ -68,9 +93,15 @@
 <script setup lang="ts">
 import { uid } from 'uid/single';
 import {
-  ref, computed, provide, nextTick,
+  ref,
+  computed,
+  provide,
+  nextTick,
 } from 'vue';
-import type { PropType, VNode } from 'vue';
+import type {
+  PropType,
+  VNode,
+} from 'vue';
 import useDropdownItems from './useDropdownItems';
 import { clickOutside as vClickOutside } from '../../../utilities/directives';
 import { focusElement } from '../../../utilities/helpers/index.ts';
@@ -143,14 +174,16 @@ const props = defineProps({
    */
   buttonAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    *  Use this props to pass attrs to UiPopover.
    */
   popoverAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to pass list of dropdown items.
@@ -184,7 +217,8 @@ function disableArrows(event) {
     event.preventDefault();
   }
 }
-async function openHandler({ focus = false }: openOptions = {}): Promise<void> {
+async function openHandler({ focus = false }: openOptions = {
+}): Promise<void> {
   isOpen.value = true;
   emit('open');
   window.addEventListener('keydown', disableArrows, false);
@@ -197,7 +231,9 @@ async function openHandler({ focus = false }: openOptions = {}): Promise<void> {
   }
 }
 
-function closeHandler({ focusToggle }: closeOptions = { focusToggle: true }): void {
+function closeHandler({ focusToggle }: closeOptions = {
+  focusToggle: true,
+}): void {
   if (dropdownToggle.value && focusToggle) {
     ((dropdownToggle.value as ButtonEl).$el || dropdownToggle.value).focus();
   }
@@ -210,7 +246,9 @@ async function toggleHandler(): Promise<void> {
   if (isOpen.value) {
     closeHandler();
   } else {
-    await openHandler({ focus: true });
+    await openHandler({
+      focus: true,
+    });
   }
 }
 const isActiveClickOutside = computed(() => (props.closeOnClickOutside && isOpen.value));
@@ -235,7 +273,9 @@ async function dropdownKeydownHandler({ key }: {key: string}): Promise<void> {
       break;
     case 'ArrowDown':
       if (!isOpen.value) {
-        await openHandler({ focus: true });
+        await openHandler({
+          focus: true,
+        });
       } else {
         focusElement(nextDropdownItem.value);
       }
@@ -275,7 +315,10 @@ async function dropdownItemKeydownHandler(event: KeyboardEvent): Promise<void> {
 }
 provide('dropdownItemKeydownHandler', dropdownItemKeydownHandler);
 
-defineExpose({ isOpen, closeHandler });
+defineExpose({
+  isOpen,
+  closeHandler,
+});
 
 const itemsToRender = computed<DropdownItemAsObj[]>(() => (props.items.map((item: DropdownItem, key) => {
   if (typeof item === 'string' || typeof item === 'number') {

@@ -8,7 +8,9 @@ import UiText from '@/components/atoms/UiText/UiText.vue';
 export default {
   title: 'Organisms/MegaMenu',
   component: UiMegaMenu,
-  subcomponents: { UiMegaMenuItem },
+  subcomponents: {
+    UiMegaMenuItem,
+  },
   args: {
     items: [
       {
@@ -44,13 +46,19 @@ export default {
       },
       control: 'text',
     },
-    modelValue: { control: false },
+    modelValue: {
+      control: false,
+    },
   },
 };
 
 const Template = (args) => ({
   components: {
-    UiMegaMenu, UiMegaMenuItem, UiButton, UiIcon, UiText,
+    UiMegaMenu,
+    UiMegaMenuItem,
+    UiButton,
+    UiIcon,
+    UiText,
   },
   setup() {
     const modelValue = ref(args.initModelValue);
@@ -105,7 +113,8 @@ const Template = (args) => ({
   </UiMegaMenu>`,
 });
 
-export const Common = Template.bind({});
+export const Common = Template.bind({
+});
 Common.parameters = {
   layout: 'fullscreen',
 };

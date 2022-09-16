@@ -3,7 +3,11 @@
     <!-- @slot Use this slot to replace header template. -->
     <slot
       name="header"
-      v-bind="{title, attrs: buttonAttrs, clickHandler}"
+      v-bind="{
+        title,
+        attrs: buttonAttrs,
+        clickHandler
+      }"
     >
       <div
         v-if="title"
@@ -12,7 +16,9 @@
         <!-- @slot Use this slot to replace title template. -->
         <slot
           name="title"
-          v-bind="{title}"
+          v-bind="{
+            title
+          }"
         >
           <UiHeading
             level="4"
@@ -24,7 +30,10 @@
         <!-- @slot Use this slot to replace close template. -->
         <slot
           name="close"
-          v-bind="{attrs: buttonAttrs, clickHandler}"
+          v-bind="{
+            attrs: buttonAttrs,
+            clickHandler
+          }"
         >
           <UiButton
             v-bind="buttonAttrs"
@@ -47,7 +56,10 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount } from 'vue';
+import {
+  onMounted,
+  onBeforeUnmount,
+} from 'vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
@@ -66,7 +78,8 @@ defineProps({
    */
   buttonAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
 });
 const emit = defineEmits<{(e: 'close'): void}>();

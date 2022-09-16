@@ -68,10 +68,14 @@ describe('directive/clickOutside', () => {
     const button = wrapper.find('[data-testid="outside-button"]');
     await button.trigger('click');
     expect(handler).not.toHaveBeenCalled();
-    await wrapper.setData({ isActive: true });
+    await wrapper.setData({
+      isActive: true,
+    });
     await button.trigger('click');
     expect(handler).toHaveBeenCalled();
-    await wrapper.setData({ isActive: false });
+    await wrapper.setData({
+      isActive: false,
+    });
     await button.trigger('click');
     expect(handler).toHaveBeenCalledTimes(1);
   });

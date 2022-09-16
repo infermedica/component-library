@@ -2,17 +2,26 @@
   <!-- @slot Use this slot to place trigger template. -->
   <slot
     name="trigger"
-    v-bind="{title, to, hasControls}"
+    v-bind="{
+      title,
+      to,
+      hasControls
+    }"
   />
   <!-- @slot Use this slot to place content inside MegaMenuItem. -->
   <slot
     v-if="isOpen"
-    v-bind="{back}"
+    v-bind="{
+      back
+    }"
   />
 </template>
 
 <script setup lang="ts">
-import { computed, inject } from 'vue';
+import {
+  computed,
+  inject,
+} from 'vue';
 import type { ComputedRef } from 'vue';
 
 const props = defineProps({

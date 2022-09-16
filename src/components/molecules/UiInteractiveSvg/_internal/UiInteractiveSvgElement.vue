@@ -18,7 +18,10 @@ export default {
 
 <script setup lang="ts">
 import {
-  getCurrentInstance, inject, provide, ref,
+  getCurrentInstance,
+  inject,
+  provide,
+  ref,
 } from 'vue';
 import type { Ref } from 'vue';
 import type { AttrsFunc } from '../UiInteractiveSvg.vue';
@@ -46,7 +49,8 @@ const elementAttrs = (attrs: Record<string, unknown>): Record<string, unknown> =
     ...rest,
   };
 };
-const nestedSetElementsAttrs = ref<AttrsFunc>(() => ({}));
+const nestedSetElementsAttrs = ref<AttrsFunc>(() => ({
+}));
 const parentComponent = getCurrentInstance()?.parent;
 if (!parentComponent || (parentComponent.type.name !== 'UiInteractiveSvg' && parentComponent.type.name !== 'UiInteractiveSvgElement')) {
   if (process.env.NODE_ENV !== 'production') {

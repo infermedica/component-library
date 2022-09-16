@@ -19,8 +19,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed, inject } from 'vue';
-import type { ComputedRef, Ref } from 'vue';
+import {
+  computed,
+  inject,
+} from 'vue';
+import type {
+  ComputedRef,
+  Ref,
+} from 'vue';
 import UiDatepickerTab from './UiDatepickerTab.vue';
 import UiDatepickerTabItem from './UiDatepickerTabItem.vue';
 
@@ -44,7 +50,10 @@ const year = computed({
 });
 
 function select(value: string): void {
-  emit('select', { type: 'year', value });
+  emit('select', {
+    type: 'year',
+    value,
+  });
   year.value = value;
   unfulfilledYearError.value = false;
 }

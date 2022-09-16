@@ -15,7 +15,9 @@ const events = actions({
 export default {
   title: 'Molecules/Switch',
   component: UiSwitch,
-  subcomponents: { UiCheckbox },
+  subcomponents: {
+    UiCheckbox,
+  },
   args: {
     initModelValue: false,
     slotName: '',
@@ -39,15 +41,23 @@ export default {
       control: 'select',
       options: ['switchcontrol', 'checkbutton', 'label'],
     },
-    modelValue: { control: false },
+    modelValue: {
+      control: false,
+    },
   },
 };
 
 export const WithoutLabel = (args) => ({
-  components: { UiSwitch },
+  components: {
+    UiSwitch,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, ...events, modelValue };
+    return {
+      ...args,
+      ...events,
+      modelValue,
+    };
   },
   template: `<UiSwitch
     v-model="modelValue"
@@ -56,10 +66,16 @@ export const WithoutLabel = (args) => ({
 });
 
 export const IsDisabled = (args) => ({
-  components: { UiSwitch },
+  components: {
+    UiSwitch,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, ...events, modelValue };
+    return {
+      ...args,
+      ...events,
+      modelValue,
+    };
   },
   template: `<UiSwitch
     v-model="modelValue"
@@ -69,7 +85,10 @@ export const IsDisabled = (args) => ({
 });
 
 export const WithLabel = (args) => ({
-  components: { UiSwitch, UiText },
+  components: {
+    UiSwitch,
+    UiText,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
     return {
@@ -87,7 +106,10 @@ export const WithLabel = (args) => ({
 });
 
 export const WithSwitchControlSlot = (args) => ({
-  components: { UiSwitch, UiSwitchControl },
+  components: {
+    UiSwitch,
+    UiSwitchControl,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
     return {
@@ -107,7 +129,9 @@ export const WithSwitchControlSlot = (args) => ({
 });
 
 export const SlotsInSwitch = (args) => ({
-  components: { UiSwitch },
+  components: {
+    UiSwitch,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
     return {
@@ -128,10 +152,17 @@ export const SlotsInSwitch = (args) => ({
 });
 
 export const AsGroup = (args) => ({
-  components: { UiSwitch, UiList, UiListItem },
+  components: {
+    UiSwitch,
+    UiList,
+    UiListItem,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiList style="--list-item-padding: var(--space-12) 0;">
     <UiListItem
@@ -185,10 +216,17 @@ AsGroup.argTypes = {
 };
 
 export const AsGroupWithPrimitiveTypes = (args) => ({
-  components: { UiSwitch, UiList, UiListItem },
+  components: {
+    UiSwitch,
+    UiList,
+    UiListItem,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiList style="--list-item-padding: var(--space-12) 0;">
     <UiListItem
