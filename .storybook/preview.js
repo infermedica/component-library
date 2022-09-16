@@ -52,7 +52,6 @@ export const globalTypes = {
         {value: 'brand', title: 'Brand'},
       ],
       dynamicTitle: true,
-      showName: true,
     }
   }
 }
