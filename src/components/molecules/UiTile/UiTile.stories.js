@@ -103,17 +103,14 @@ const Template = (args) => ({
   </UiTile>`,
 });
 
-export const Large = Template.bind({
-});
+export const Large = Template.bind({});
 
-export const Small = Template.bind({
-});
+export const Small = Template.bind({});
 Small.args = {
   modifiers: ['ui-tile--small'],
 };
 
-export const HasError = Template.bind({
-});
+export const HasError = Template.bind({});
 HasError.args = {
   modifiers: ['ui-tile--has-error'],
 };

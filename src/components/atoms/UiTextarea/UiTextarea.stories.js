@@ -68,17 +68,14 @@ const Template = (args) => ({
   />`,
 });
 
-export const WithPlaceholder = Template.bind({
-});
+export const WithPlaceholder = Template.bind({});
 
-export const IsDisabled = Template.bind({
-});
+export const IsDisabled = Template.bind({});
 IsDisabled.args = {
   modifiers: 'ui-textarea--is-disabled',
 };
 
-export const HasError = Template.bind({
-});
+export const HasError = Template.bind({});
 HasError.args = {
   modifiers: 'ui-textarea--has-error',
 };

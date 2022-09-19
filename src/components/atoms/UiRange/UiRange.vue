@@ -126,13 +126,14 @@ const props = defineProps({
    */
   numberStepperAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
 });
 const attrs = useAttrs();
 const emit = defineEmits<{(e:'update:modelValue', value: number): void}>();
-const { getRootAttrs, getInputAttrs } = useInput();
+const {
+  getRootAttrs, getInputAttrs,
+} = useInput();
 const trackWidth = computed(() => {
   const scope = props.max - props.min;
   const position = props.modelValue - props.min;

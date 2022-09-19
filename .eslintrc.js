@@ -59,24 +59,31 @@ module.exports = {
     'vue/object-property-newline': ['error', {
       allowAllPropertiesOnSameLine: false,
     }],
-    'object-curly-newline': ['error',
-      {
-        ObjectExpression: 'always',
-        ObjectPattern: {
-          multiline: true,
-        },
-        ImportDeclaration: {
-          multiline: true,
-        },
-        ExportDeclaration: {
-          multiline: true,
-        },
+    'object-curly-newline': ['error', {
+      ObjectExpression: {
+        minProperties: 1,
+        multiline: true,
       },
-    ],
+      ObjectPattern: {
+        minProperties: 1,
+        multiline: true,
+      },
+      ImportDeclaration: {
+        multiline: true,
+        minProperties: 2,
+      },
+      ExportDeclaration: {
+        multiline: true,
+        minProperties: 2,
+      },
+    }],
+    'import-newlines/enforce': ['error', {
+      items: 1,
+      semi: true,
+    }],
     'object-curly-spacing': ['error', 'always'],
     'vue/object-curly-spacing': ['error', 'always'],
     'vue/object-curly-newline': ['error', 'always'],
-    'import-newlines/enforce': ['error', 1],
   },
   overrides: [{
     files: ['**/*.spec.{j,t}s?(x)'],

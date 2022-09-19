@@ -101,16 +101,14 @@ const props = defineProps({
    */
   buttonAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   /**
    * Use this props to pass attrs for content element.
    */
   contentAttrs: {
     type: Object,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
 });
 const attrs = useAttrs() as {id: string};

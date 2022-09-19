@@ -132,17 +132,14 @@ const Template = (args) => ({
   </UiLink>`,
 });
 
-export const Link = Template.bind({
-});
+export const Link = Template.bind({});
 
-export const LinkSecondary = Template.bind({
-});
+export const LinkSecondary = Template.bind({});
 LinkSecondary.args = {
   modifiers: ['ui-button--theme-secondary'],
 };
 
-export const LinkOnBrand = Template.bind({
-});
+export const LinkOnBrand = Template.bind({});
 LinkOnBrand.args = {
   modifiers: ['ui-button--theme-brand'],
 };

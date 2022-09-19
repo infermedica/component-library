@@ -66,8 +66,7 @@ const props = defineProps({
   },
   choice: {
     type: Object,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   invalid: {
     type: Boolean,

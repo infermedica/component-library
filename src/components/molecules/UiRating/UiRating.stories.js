@@ -64,11 +64,9 @@ const Template = (args) => ({
   />`,
 });
 
-export const Common = Template.bind({
-});
+export const Common = Template.bind({});
 
-export const IsDisabled = Template.bind({
-});
+export const IsDisabled = Template.bind({});
 IsDisabled.args = {
   modifiers: ['ui-rating--is-disabled'],
 };

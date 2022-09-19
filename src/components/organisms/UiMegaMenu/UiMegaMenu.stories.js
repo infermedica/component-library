@@ -16,12 +16,12 @@ export default {
       {
         title: 'For business',
         name: 'for-business',
-        content: 'Symptomate is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:',
+        content: 'Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:',
       },
       {
         title: 'CE Marking',
         name: 'ce-marking',
-        content: 'Symptomate',
+        content: 'Triage',
       },
       {
         title: 'Instruction fo Use',
@@ -113,8 +113,7 @@ const Template = (args) => ({
   </UiMegaMenu>`,
 });
 
-export const Common = Template.bind({
-});
+export const Common = Template.bind({});
 Common.parameters = {
   layout: 'fullscreen',
 };

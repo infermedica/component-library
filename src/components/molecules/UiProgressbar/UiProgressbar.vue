@@ -47,8 +47,7 @@ const props = defineProps({
    */
   progressAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
 });
 const value = computed(() => ((100 / props.steps) * props.currentStep));

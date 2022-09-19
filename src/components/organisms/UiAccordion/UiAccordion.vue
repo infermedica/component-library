@@ -81,7 +81,9 @@ const itemsToRender = computed<AccordionItemAsObj[]>(() => (props.items.map((ite
       title: item,
     };
   }
-  const { name } = item;
+  const {
+    name,
+  } = item;
   return {
     ...item,
     name: name || `accordion-item-${key}`,

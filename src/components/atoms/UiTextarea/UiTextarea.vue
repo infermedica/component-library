@@ -48,7 +48,9 @@ const props = defineProps({
   },
 });
 const emit = defineEmits<{(e:'update:modelValue', value:string):void}>();
-const { getRootAttrs, getInputAttrs } = useInput();
+const {
+  getRootAttrs, getInputAttrs,
+} = useInput();
 function inputHandler(event: Event) {
   const el = event.target as HTMLInputElement;
   emit('update:modelValue', el.value);

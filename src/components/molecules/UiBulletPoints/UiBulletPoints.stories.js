@@ -60,17 +60,14 @@ const Template = (args) => ({
   />`,
 });
 
-export const UnorderedList = Template.bind({
-});
+export const UnorderedList = Template.bind({});
 
-export const OrderedList = Template.bind({
-});
+export const OrderedList = Template.bind({});
 OrderedList.args = {
   tag: 'ol',
 };
 
-export const NestingList = Template.bind({
-});
+export const NestingList = Template.bind({});
 NestingList.args = {
   items: [
     {

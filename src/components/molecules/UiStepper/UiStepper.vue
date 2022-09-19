@@ -153,8 +153,7 @@ const props = defineProps({
    */
   progressAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
 });
 const stepsLength = computed(() => props.steps.length);

@@ -69,23 +69,19 @@ const Template = (args) => ({
   </UiNavigation>`,
 });
 
-export const Common = Template.bind({
-});
+export const Common = Template.bind({});
 
-export const Multiline = Template.bind({
-});
+export const Multiline = Template.bind({});
 Multiline.decorators = [() => ({
   template: '<div style="max-width: 480px;"><story /></div>',
 })];
 
-export const Secondary = Template.bind({
-});
+export const Secondary = Template.bind({});
 Secondary.args = {
   modifiers: ['ui-navigation--theme-secondary'],
 };
 
-export const OnBrand = Template.bind({
-});
+export const OnBrand = Template.bind({});
 OnBrand.args = {
   modifiers: ['ui-navigation--theme-brand'],
 };
@@ -95,8 +91,7 @@ OnBrand.parameters = {
   },
 };
 
-export const Small = Template.bind({
-});
+export const Small = Template.bind({});
 Small.args = {
   modifiers: 'ui-navigation--small',
 };

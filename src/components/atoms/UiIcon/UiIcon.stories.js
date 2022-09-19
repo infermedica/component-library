@@ -31,8 +31,7 @@ const Template = (args) => ({
   template: '<UiIcon :icon="icon"/>',
 });
 
-export const IconAsName = Template.bind({
-});
+export const IconAsName = Template.bind({});
 
 export const IconAsImport = (args) => ({
   components: {

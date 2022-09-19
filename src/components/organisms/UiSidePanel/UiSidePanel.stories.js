@@ -16,9 +16,11 @@ import {
   focusTrap,
   bodyScrollLock,
   scrollTabindex,
+  keyboardFocus,
 } from '@/utilities/directives';
 
 const events = actions({
+  onUpdateModelValue: 'update:modelValue',
   onAfterEnter: 'after-enter',
 });
 
@@ -36,17 +38,28 @@ export default {
     initModelValue: true,
     title: 'For business',
     subtitle: '',
-    closeButtonAttrs: {
-      id: 'close',
-      'aria-label': 'close panel',
+    transitionBackdropAttrs: {
+      'data-testid': 'backdrop-transition',
     },
-    titleHeadingAttrs: {
-      id: 'title',
+    backdropAttrs: {
+      'data-testid': 'backdrop',
     },
-    subtitleTextAttrs: {
-      id: 'subtitle',
+    transitionDialogAttrs: {
+      'data-testid': 'dialog-transition',
     },
-    transition: 'slide',
+    headingTitleAttrs: {
+      'data-testid': 'title-heading',
+    },
+    textSubtitleAttrs: {
+      'data-testid': 'subtitle-text',
+    },
+    buttonCloseAttrs: {
+      'data-testid': 'close-button',
+      ariaLabel: 'close modal',
+    },
+    iconCloseAttrs: {
+      'data-testid': 'close-icon',
+    },
   },
   argTypes: {
     initModelValue: {
@@ -95,10 +108,6 @@ export default {
         },
       },
     },
-    transition: {
-      control: 'select',
-      options: ['fade', 'slide'],
-    },
     modelValue: {
       control: false,
     },
@@ -107,7 +116,9 @@ export default {
     },
   },
   decorators: [() => ({
-    template: '<div class="max-w-32" style="min-height: 320px;"><story /></div>',
+    template: `<div class="max-w-32" style="min-height: 320px;">
+        <story />
+    </div>`,
   })],
   parameters: {
     docs: {
@@ -144,10 +155,14 @@ const Template = (args) => ({
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :close-button-attrs="closeButtonAttrs"
-    :title-heading-attrs="titleHeadingAttrs"
-    :subtitle-text-attrs="subtitleTextAttrs"
-    :transition="transition"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    @update:modelValue="onUpdateModelValue"
     @after-enter="onAfterEnter"
   >
     <UiHeading>§1. General Provisions</UiHeading>
@@ -159,7 +174,7 @@ const Template = (args) => ({
           type="a"
         >
           <UiBulletPointsItem>
-            <UiText>principles of operation of the website and the mobile application "<UiLink href="#">Symptomate.com</UiLink>",</UiText>
+            <UiText>principles of operation of the website and the mobile application "<UiLink href="#">Triage.com</UiLink>",</UiText>
           </UiBulletPointsItem>
           <UiBulletPointsItem>
             <UiText>rules on the provision of services by electronic means,</UiText>
@@ -196,8 +211,7 @@ const Template = (args) => ({
   </UiSidePanel>`,
 });
 
-export const TermsOfService = Template.bind({
-});
+export const TermsOfService = Template.bind({});
 TermsOfService.args = {
   title: 'Terms of Service',
   subtitle: 'Last updated: Nov 26th, 2020',
@@ -226,20 +240,33 @@ export const WithBackdropSlot = (args) => ({
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :close-button-attrs="closeButtonAttrs"
-    :title-heading-attrs="titleHeadingAttrs"
-    :subtitle-text-attrs="subtitleTextAttrs"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    @update:modelValue="onUpdateModelValue"
     @after-enter="onAfterEnter"
   >
-    <template #backdrop="{closeHandler, modelValue}">
-      <transition name="fade">
+    <template 
+      #backdrop="{
+        attrs,
+        modelValue,
+        backdropAttrs,
+        closeHandler,
+      }"
+    >
+      <transition v-bind="attrs">
         <UiBackdrop
           v-if="modelValue"
+          v-bind="backdropAttrs"
           @click="closeHandler"
         />
       </transition>
     </template>
-    <UiText>Symptomate is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
+    <UiText>Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
   </UiSidePanel>`,
 });
 
@@ -271,14 +298,32 @@ export const WithContainerSlot = (args) => ({
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :close-button-attrs="closeButtonAttrs"
-    :title-heading-attrs="titleHeadingAttrs"
-    :subtitle-text-attrs="subtitleTextAttrs"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    @update:modelValue="onUpdateModelValue"
+    @after-enter="onAfterEnter"
   >
-    <template #container="{transition, afterEnterHandler, modelValue, closeButtonAttrs, closeHandler, title, subtitle}">
+    <template 
+      #container="{
+        attrs,
+        modelValue,
+        afterEnterHandler,
+        buttonCloseAttrs,
+        closeHandler,
+        title,
+        subtitle,
+        iconCloseAttrs,
+        headingTitleAttrs,
+        textSubtitleAttrs,
+      }"
+    >
       <transition
-        :name="transition"
-        @after-enter="afterEnterHandler"
+        v-bind="attrs"
       >
         <dialog
           v-if="modelValue"
@@ -289,23 +334,30 @@ export const WithContainerSlot = (args) => ({
           <div class="ui-side-panel__header">
             <!-- @slot Use this slot to replace close template. -->
             <UiButton
+              v-bind="buttonCloseAttrs"
               ref="button"
               class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
-              v-bind="closeButtonAttrs"
               @click="closeHandler"
             >
-              <UiIcon icon="close" />
+              <UiIcon
+                v-bind="iconCloseAttrs"
+                class="ui-button__icon"
+              />
             </UiButton>
             <div
               v-if="title || subtitle"
               class="ui-side-panel__label"
             >
-              <UiHeading v-if="title">
+              <UiHeading 
+                v-if="title"
+                v-bind="headingTitleAttrs"
+              >
                 {{ title }}
               </UiHeading>
               <UiText
                 v-if="subtitle"
-                class="ui-side-panel__subtitle"
+                v-bind="textSubtitleAttrs"
+                class="ui-text--body-2-comfortable ui-side-panel__subtitle"
               >
                 {{ subtitle }}
               </UiText>
@@ -314,7 +366,7 @@ export const WithContainerSlot = (args) => ({
           <div
             class="ui-side-panel__content"
           >
-            <UiText>Symptomate is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
+            <UiText>Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
           </div>
         </dialog>
       </transition>
@@ -346,38 +398,60 @@ export const WithHeaderSlot = (args) => ({
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :close-button-attrs="closeButtonAttrs"
-    :title-heading-attrs="titleHeadingAttrs"
-    :subtitle-text-attrs="subtitleTextAttrs"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    @update:modelValue="onUpdateModelValue"
     @after-enter="onAfterEnter"
   >
-    <template #header="{attrs, closeHandler, title, subtitle}">
+    <template 
+      #header="{
+        buttonCloseAttrs,
+        closeHandler,
+        title,
+        subtitle,
+        headingTitleAttrs,
+        textSubtitleAttrs,
+        iconCloseAttrs,
+      }"
+    >
       <div class="ui-side-panel__header">
         <UiButton
+          v-bind="buttonCloseAttrs"
           ref="button"
           class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
-          v-bind="attrs"
           @click="closeHandler"
         >
-          <UiIcon icon="close" />
+          <UiIcon
+            v-bind="iconCloseAttrs"
+            class="ui-button__icon"
+          />
         </UiButton>
         <div
           v-if="title || subtitle"
           class="ui-side-panel__label"
         >
-          <UiHeading v-if="title">
+          <UiHeading 
+            v-if="title"
+            v-bind="headingTitleAttrs"
+          >
             {{ title }}
           </UiHeading>
           <UiText
             v-if="subtitle"
-            class="ui-side-panel__subtitle"
+            v-bind="textSubtitleAttrs"
+            class="ui-text--body-2-comfortable ui-side-panel__subtitle"
           >
             {{ subtitle }}
           </UiText>
         </div>
       </div>
     </template>
-    <UiText>Symptomate is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
+    <UiText>Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
   </UiSidePanel>`,
 });
 
@@ -405,22 +479,36 @@ export const WithCloseSlot = (args) => ({
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :close-button-attrs="closeButtonAttrs"
-    :title-heading-attrs="titleHeadingAttrs"
-    :subtitle-text-attrs="subtitleTextAttrs"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    @update:modelValue="onUpdateModelValue"
     @after-enter="onAfterEnter"
   >
-    <template #close="{attrs, closeHandler}">
+    <template 
+      #close="{
+        attrs,
+        closeHandler,
+        iconCloseAttrs,
+      }"
+    >
       <UiButton
+        v-bind="attrs"
         ref="button"
         class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
-        v-bind="attrs"
         @click="closeHandler"
       >
-        <UiIcon icon="close" />
+        <UiIcon
+          v-bind="iconCloseAttrs"
+          class="ui-button__icon"
+        />
       </UiButton>
     </template>
-    <UiText>Symptomate is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
+    <UiText>Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
   </UiSidePanel>`,
 });
 
@@ -447,28 +535,44 @@ export const WithLabelSlot = (args) => ({
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :close-button-attrs="closeButtonAttrs"
-    :title-heading-attrs="titleHeadingAttrs"
-    :subtitle-text-attrs="subtitleTextAttrs"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    @update:modelValue="onUpdateModelValue"
     @after-enter="onAfterEnter"
   >
-    <template #label="{title, subtitle}">
+    <template 
+      #label="{
+        title,
+        subtitle,
+        headingTitleAttrs,
+        textSubtitleAttrs,
+      }"
+    >
       <div
         v-if="title || subtitle"
         class="ui-side-panel__label"
       >
-        <UiHeading v-if="title">
+        <UiHeading 
+          v-if="title"
+          v-bind="headingTitleAttrs"
+        >
           {{ title }}
         </UiHeading>
         <UiText
           v-if="subtitle"
-          class="ui-side-panel__subtitle"
+          v-bind="textSubtitleAttrs"
+          class="ui-text--body-2-comfortable ui-side-panel__subtitle"
         >
           {{ subtitle }}
         </UiText>
       </div>
     </template>
-    <UiText>Symptomate is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
+    <UiText>Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
   </UiSidePanel>`,
 });
 
@@ -495,17 +599,30 @@ export const WithTitleSlot = (args) => ({
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :close-button-attrs="closeButtonAttrs"
-    :title-heading-attrs="titleHeadingAttrs"
-    :subtitle-text-attrs="subtitleTextAttrs"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    @update:modelValue="onUpdateModelValue"
     @after-enter="onAfterEnter"
   >
-    <template #title="{title}">
-      <UiHeading v-if="title">
+    <template 
+      #title="{
+        title,
+        attrs,
+      }"
+    >
+      <UiHeading 
+        v-if="title"
+        v-bind="attrs"
+      >
         {{ title }}
       </UiHeading>
     </template>
-    <UiText>Symptomate is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
+    <UiText>Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
   </UiSidePanel>`,
 });
 
@@ -531,20 +648,31 @@ export const WithSubtitleSlot = (args) => ({
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :close-button-attrs="closeButtonAttrs"
-    :title-heading-attrs="titleHeadingAttrs"
-    :subtitle-text-attrs="subtitleTextAttrs"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    @update:modelValue="onUpdateModelValue"
     @after-enter="onAfterEnter"
   >
-    <template #subtitle="{subtitle}">
+    <template 
+      #subtitle="{
+        subtitle,
+        attrs,
+      }"
+    >
       <UiText
         v-if="subtitle"
-        class="ui-side-panel__subtitle"
+        v-bind="attrs"
+        class="ui-text--body-2-comfortable ui-side-panel__subtitle"
       >
         {{ subtitle }}
       </UiText>
     </template>
-    <UiText>Symptomate is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
+    <UiText>Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
   </UiSidePanel>`,
 });
 
@@ -556,6 +684,7 @@ export const WithContentSlot = (args) => ({
   },
   directives: {
     scrollTabindex,
+    keyboardFocus,
   },
   setup() {
     const modelValue = ref(args.initModelValue);
@@ -573,23 +702,29 @@ export const WithContentSlot = (args) => ({
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :close-button-attrs="closeButtonAttrs"
-    :title-heading-attrs="titleHeadingAttrs"
-    :subtitle-text-attrs="subtitleTextAttrs"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    @update:modelValue="onUpdateModelValue"
     @after-enter="onAfterEnter"
   >
     <template #content>
       <div
         v-scroll-tabindex
+        v-keyboard-focus
         class="ui-side-panel__content"
       >
-        <UiText>Symptomate is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
+        <UiText>Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
       </div>
     </template>
   </UiSidePanel>`,
 });
 
-export const WithAsynContent = (args) => ({
+export const WithAsyncContent = (args) => ({
   components: {
     UiSidePanel,
     UiButton,
@@ -622,9 +757,14 @@ export const WithAsynContent = (args) => ({
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :close-button-attrs="closeButtonAttrs"
-    :title-heading-attrs="titleHeadingAttrs"
-    :subtitle-text-attrs="subtitleTextAttrs"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    @update:modelValue="onUpdateModelValue"
     @after-enter="onAfterEnter"
   >
     <template v-if="isLoaded">
@@ -637,7 +777,7 @@ export const WithAsynContent = (args) => ({
             type="a"
           >
             <UiBulletPointsItem>
-              <UiText>principles of operation of the website and the mobile application "<UiLink href="#">Symptomate.com</UiLink>",</UiText>
+              <UiText>principles of operation of the website and the mobile application "<UiLink href="#">Triage.com</UiLink>",</UiText>
             </UiBulletPointsItem>
             <UiBulletPointsItem>
               <UiText>rules on the provision of services by electronic means,</UiText>

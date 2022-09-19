@@ -104,7 +104,9 @@ export const WithControlsOnMobile = (args) => ({
     const isMobile = ref(false);
     onMounted(() => {
       isMobile.value = matchMedia(toMobile).matches;
-      matchMedia(toMobile).addListener(({ matches }) => { isMobile.value = matches; });
+      matchMedia(toMobile).addListener(({
+        matches,
+      }) => { isMobile.value = matches; });
     });
     return {
       ...args,

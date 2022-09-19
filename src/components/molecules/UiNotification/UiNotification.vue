@@ -99,8 +99,7 @@ const props = defineProps({
    */
   buttonActionAttrs: {
     type: Object,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   /**
    * Use this props to pass attrs for action UiIcon.

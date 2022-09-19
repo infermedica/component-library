@@ -78,11 +78,9 @@ const Template = (args) => ({
   />`,
 });
 
-export const AsPatientSex = Template.bind({
-});
+export const AsPatientSex = Template.bind({});
 
-export const AsPatientSexSmall = Template.bind({
-});
+export const AsPatientSexSmall = Template.bind({});
 AsPatientSexSmall.args = {
   modifiers: ['ui-simple-question--small'],
 };

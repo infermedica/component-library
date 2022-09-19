@@ -48,11 +48,9 @@ const Template = (args) => ({
   </UiHeading>`,
 });
 
-export const Common = Template.bind({
-});
+export const Common = Template.bind({});
 
-export const AsSpan = Template.bind({
-});
+export const AsSpan = Template.bind({});
 AsSpan.args = {
   tag: 'span',
 };

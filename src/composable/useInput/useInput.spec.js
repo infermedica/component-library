@@ -1,6 +1,8 @@
 import useInput from './index';
 
-const { getInputAttrs, getRootAttrs } = useInput();
+const {
+  getInputAttrs, getRootAttrs,
+} = useInput();
 
 const attrs = {
   class: 'class',
@@ -37,16 +39,12 @@ describe('composable/useInput', () => {
     expect(inputAttrs).toStrictEqual(output);
   });
   test('return empty attrs for input element when parameter is empty', () => {
-    const inputAttrs = getInputAttrs({
-    });
-    expect(inputAttrs).toStrictEqual({
-    });
+    const inputAttrs = getInputAttrs({});
+    expect(inputAttrs).toStrictEqual({});
   });
   test('return empty attrs for root element when parameter is empty', () => {
-    const rootAttrs = getRootAttrs({
-    });
-    expect(rootAttrs).toStrictEqual({
-    });
+    const rootAttrs = getRootAttrs({});
+    expect(rootAttrs).toStrictEqual({});
   });
   test('thrown error when parameter for input element is null', () => {
     expect(() => getInputAttrs(null)).toThrow(Error);

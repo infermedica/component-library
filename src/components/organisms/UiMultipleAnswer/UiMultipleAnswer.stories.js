@@ -181,8 +181,7 @@ const Template = (args) => ({
   />`,
 });
 
-export const WithMultipleChoices = Template.bind({
-});
+export const WithMultipleChoices = Template.bind({});
 WithMultipleChoices.args = {
   name: 'suggest',
   hint: 'Select all answers that apply',
@@ -208,8 +207,7 @@ WithMultipleChoices.args = {
   ],
 };
 
-export const WithButtonInfo = Template.bind({
-});
+export const WithButtonInfo = Template.bind({});
 WithButtonInfo.args = {
   name: 'suggest',
   hint: 'Select all answers that apply',

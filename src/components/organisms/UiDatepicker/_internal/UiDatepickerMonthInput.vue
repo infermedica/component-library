@@ -54,7 +54,9 @@ const props = defineProps({
 const emit = defineEmits<{(e: 'update:modelValue', value: string): void, (e: 'change-input', value: 'month'): void}>();
 const translation = inject('translation') as DatepickerTranslation;
 const unfulfilledMonthError = inject('unfulfilledMonth') as Ref<boolean>;
-const { numbersOnly } = useKeyValidation();
+const {
+  numbersOnly,
+} = useKeyValidation();
 const month = computed({
   get: () => (`${props.modelValue}`),
   set: (value) => { emit('update:modelValue', removeNonDigits(value)); },

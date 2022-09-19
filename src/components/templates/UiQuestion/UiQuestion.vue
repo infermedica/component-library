@@ -201,32 +201,28 @@ defineProps({
    */
   buttonSkipAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   /**
    * Use this props to pass attrs for info UiButton
    */
   buttonInfoAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   /**
    * Use this props to pass attrs for why UiButton
    */
   buttonWhyAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   /**
    * Use this props to pass attrs for issue UiButton
    */
   buttonIssueAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
 });
 </script>

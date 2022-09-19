@@ -3,8 +3,7 @@ import UiFormField from './UiFormField.vue';
 
 describe('UiFormField.vue', () => {
   test('renders a component', () => {
-    const wrapper = mount(UiFormField, {
-    });
+    const wrapper = mount(UiFormField, {});
     expect(wrapper.classes('ui-form-field')).toBe(true);
   });
   test('renders component with custom label from slot', () => {

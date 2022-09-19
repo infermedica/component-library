@@ -27,7 +27,11 @@ export const WithFocusOnMounted = () => ({
   },
   setup() {
     const checkedRegions = ref([]);
-    const handleRegionCheck = ({ region }, { code }) => {
+    const handleRegionCheck = ({
+      region,
+    }, {
+      code,
+    }) => {
       const codes = ['Space', 'Enter'];
 
       if (code && !codes.includes(code)) return;
@@ -38,13 +42,16 @@ export const WithFocusOnMounted = () => ({
       }
     };
     const focusedRegion = ref('');
-    const handleRegionFocus = ({ region }) => {
+    const handleRegionFocus = ({
+      region,
+    }) => {
       focusedRegion.value = region;
     };
-    const regions = ref({
-    });
+    const regions = ref({});
     const setElementsAttrs = (attrs) => {
-      const { region } = attrs;
+      const {
+        region,
+      } = attrs;
       const focusFor = attrs['focus-for'];
 
       if (region) {
@@ -77,8 +84,7 @@ export const WithFocusOnMounted = () => ({
         };
       }
 
-      return {
-      };
+      return {};
     };
     onMounted(() => {
       regions.value.europe.focus();
@@ -288,7 +294,11 @@ export const Map = () => ({
   },
   setup() {
     const checkedRegions = ref([]);
-    const handleRegionCheck = ({ region }, { code }) => {
+    const handleRegionCheck = ({
+      region,
+    }, {
+      code,
+    }) => {
       const codes = ['Space', 'Enter'];
 
       if (code && !codes.includes(code)) return;
@@ -299,11 +309,15 @@ export const Map = () => ({
       }
     };
     const focusedRegion = ref('');
-    const handleRegionFocus = ({ region }) => {
+    const handleRegionFocus = ({
+      region,
+    }) => {
       focusedRegion.value = region;
     };
     const setElementsAttrs = (attrs) => {
-      const { region } = attrs;
+      const {
+        region,
+      } = attrs;
       const focusFor = attrs['focus-for'];
 
       if (region) {
@@ -333,8 +347,7 @@ export const Map = () => ({
         };
       }
 
-      return {
-      };
+      return {};
     };
     return {
       setElementsAttrs,
@@ -541,7 +554,11 @@ export const AbdominalPainMale = () => ({
   },
   setup() {
     const checkedParts = ref([]);
-    const handlePartCheck = ({ part }, { code }) => {
+    const handlePartCheck = ({
+      part,
+    }, {
+      code,
+    }) => {
       const codes = ['Space', 'Enter'];
 
       if (code && !codes.includes(code)) return;
@@ -552,11 +569,15 @@ export const AbdominalPainMale = () => ({
       }
     };
     const focusedPart = ref('');
-    const handlePartFocus = ({ part }) => {
+    const handlePartFocus = ({
+      part,
+    }) => {
       focusedPart.value = part;
     };
     const setElementsAttrs = (attrs) => {
-      const { part } = attrs;
+      const {
+        part,
+      } = attrs;
       const focusFor = attrs['focus-for'];
 
       if (part) {
@@ -586,8 +607,7 @@ export const AbdominalPainMale = () => ({
         };
       }
 
-      return {
-      };
+      return {};
     };
     return {
       setElementsAttrs,
@@ -670,7 +690,11 @@ export const AbdominalPainFemale = () => ({
   },
   setup() {
     const checkedParts = ref([]);
-    const handlePartCheck = ({ part }, { code }) => {
+    const handlePartCheck = ({
+      part,
+    }, {
+      code,
+    }) => {
       const codes = ['Space', 'Enter'];
 
       if (code && !codes.includes(code)) return;
@@ -681,11 +705,15 @@ export const AbdominalPainFemale = () => ({
       }
     };
     const focusedPart = ref('');
-    const handlePartFocus = ({ part }) => {
+    const handlePartFocus = ({
+      part,
+    }) => {
       focusedPart.value = part;
     };
     const setElementsAttrs = (attrs) => {
-      const { part } = attrs;
+      const {
+        part,
+      } = attrs;
       const focusFor = attrs['focus-for'];
 
       if (part) {
@@ -715,8 +743,7 @@ export const AbdominalPainFemale = () => ({
         };
       }
 
-      return {
-      };
+      return {};
     };
     return {
       setElementsAttrs,
@@ -800,7 +827,11 @@ export const InfantUnisexFront = (args) => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({ part }, { target }) => {
+    const handleBodyPartClick = ({
+      part,
+    }, {
+      target,
+    }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -808,7 +839,9 @@ export const InfantUnisexFront = (args) => ({
       highlightedPart.value = '';
     };
     const setElementsAttrs = (attrs) => {
-      const { part } = attrs;
+      const {
+        part,
+      } = attrs;
 
       if (part) {
         const isHighlighted = part === highlightedPart.value;
@@ -823,8 +856,7 @@ export const InfantUnisexFront = (args) => ({
         };
       }
 
-      return {
-      };
+      return {};
     };
     return {
       ...args,
@@ -929,7 +961,11 @@ export const InfantUnisexBack = () => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({ part }, { target }) => {
+    const handleBodyPartClick = ({
+      part,
+    }, {
+      target,
+    }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -937,7 +973,9 @@ export const InfantUnisexBack = () => ({
       highlightedPart.value = '';
     };
     const setElementsAttrs = (attrs) => {
-      const { part } = attrs;
+      const {
+        part,
+      } = attrs;
 
       if (part) {
         const isHighlighted = part === highlightedPart.value;
@@ -952,8 +990,7 @@ export const InfantUnisexBack = () => ({
         };
       }
 
-      return {
-      };
+      return {};
     };
     return {
       setElementsAttrs,
@@ -1027,7 +1064,11 @@ export const ToddlerMaleFront = (args) => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({ part }, { target }) => {
+    const handleBodyPartClick = ({
+      part,
+    }, {
+      target,
+    }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -1035,7 +1076,9 @@ export const ToddlerMaleFront = (args) => ({
       highlightedPart.value = '';
     };
     const setElementsAttrs = (attrs) => {
-      const { part } = attrs;
+      const {
+        part,
+      } = attrs;
 
       if (part) {
         const isHighlighted = part === highlightedPart.value;
@@ -1050,8 +1093,7 @@ export const ToddlerMaleFront = (args) => ({
         };
       }
 
-      return {
-      };
+      return {};
     };
     return {
       ...args,
@@ -1184,7 +1226,11 @@ export const ToddlerMaleBack = () => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({ part }, { target }) => {
+    const handleBodyPartClick = ({
+      part,
+    }, {
+      target,
+    }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -1192,7 +1238,9 @@ export const ToddlerMaleBack = () => ({
       highlightedPart.value = '';
     };
     const setElementsAttrs = (attrs) => {
-      const { part } = attrs;
+      const {
+        part,
+      } = attrs;
 
       if (part) {
         const isHighlighted = part === highlightedPart.value;
@@ -1207,8 +1255,7 @@ export const ToddlerMaleBack = () => ({
         };
       }
 
-      return {
-      };
+      return {};
     };
     return {
       setElementsAttrs,
@@ -1302,7 +1349,11 @@ export const ToddlerFemaleFront = (args) => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({ part }, { target }) => {
+    const handleBodyPartClick = ({
+      part,
+    }, {
+      target,
+    }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -1310,7 +1361,9 @@ export const ToddlerFemaleFront = (args) => ({
       highlightedPart.value = '';
     };
     const setElementsAttrs = (attrs) => {
-      const { part } = attrs;
+      const {
+        part,
+      } = attrs;
 
       if (part) {
         const isHighlighted = part === highlightedPart.value;
@@ -1325,8 +1378,7 @@ export const ToddlerFemaleFront = (args) => ({
         };
       }
 
-      return {
-      };
+      return {};
     };
     return {
       ...args,
@@ -1459,7 +1511,11 @@ export const ToddlerFemaleBack = () => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({ part }, { target }) => {
+    const handleBodyPartClick = ({
+      part,
+    }, {
+      target,
+    }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -1467,7 +1523,9 @@ export const ToddlerFemaleBack = () => ({
       highlightedPart.value = '';
     };
     const setElementsAttrs = (attrs) => {
-      const { part } = attrs;
+      const {
+        part,
+      } = attrs;
 
       if (part) {
         const isHighlighted = part === highlightedPart.value;
@@ -1482,8 +1540,7 @@ export const ToddlerFemaleBack = () => ({
         };
       }
 
-      return {
-      };
+      return {};
     };
     return {
       setElementsAttrs,
@@ -1577,7 +1634,11 @@ export const ChildMaleFront = (args) => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({ part }, { target }) => {
+    const handleBodyPartClick = ({
+      part,
+    }, {
+      target,
+    }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -1585,7 +1646,9 @@ export const ChildMaleFront = (args) => ({
       highlightedPart.value = '';
     };
     const setElementsAttrs = (attrs) => {
-      const { part } = attrs;
+      const {
+        part,
+      } = attrs;
 
       if (part) {
         const isHighlighted = part === highlightedPart.value;
@@ -1600,8 +1663,7 @@ export const ChildMaleFront = (args) => ({
         };
       }
 
-      return {
-      };
+      return {};
     };
     return {
       ...args,
@@ -1734,7 +1796,11 @@ export const ChildMaleBack = () => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({ part }, { target }) => {
+    const handleBodyPartClick = ({
+      part,
+    }, {
+      target,
+    }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -1742,7 +1808,9 @@ export const ChildMaleBack = () => ({
       highlightedPart.value = '';
     };
     const setElementsAttrs = (attrs) => {
-      const { part } = attrs;
+      const {
+        part,
+      } = attrs;
 
       if (part) {
         const isHighlighted = part === highlightedPart.value;
@@ -1757,8 +1825,7 @@ export const ChildMaleBack = () => ({
         };
       }
 
-      return {
-      };
+      return {};
     };
     return {
       setElementsAttrs,
@@ -1848,7 +1915,11 @@ export const ChildFemaleFront = (args) => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({ part }, { target }) => {
+    const handleBodyPartClick = ({
+      part,
+    }, {
+      target,
+    }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -1856,7 +1927,9 @@ export const ChildFemaleFront = (args) => ({
       highlightedPart.value = '';
     };
     const setElementsAttrs = (attrs) => {
-      const { part } = attrs;
+      const {
+        part,
+      } = attrs;
 
       if (part) {
         const isHighlighted = part === highlightedPart.value;
@@ -1871,8 +1944,7 @@ export const ChildFemaleFront = (args) => ({
         };
       }
 
-      return {
-      };
+      return {};
     };
     return {
       ...args,
@@ -2005,7 +2077,11 @@ export const ChildFemaleBack = () => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({ part }, { target }) => {
+    const handleBodyPartClick = ({
+      part,
+    }, {
+      target,
+    }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -2013,7 +2089,9 @@ export const ChildFemaleBack = () => ({
       highlightedPart.value = '';
     };
     const setElementsAttrs = (attrs) => {
-      const { part } = attrs;
+      const {
+        part,
+      } = attrs;
 
       if (part) {
         const isHighlighted = part === highlightedPart.value;
@@ -2028,8 +2106,7 @@ export const ChildFemaleBack = () => ({
         };
       }
 
-      return {
-      };
+      return {};
     };
     return {
       setElementsAttrs,
@@ -2119,7 +2196,11 @@ export const AdultMaleFront = (args) => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({ part }, { target }) => {
+    const handleBodyPartClick = ({
+      part,
+    }, {
+      target,
+    }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -2127,7 +2208,9 @@ export const AdultMaleFront = (args) => ({
       highlightedPart.value = '';
     };
     const setElementsAttrs = (attrs) => {
-      const { part } = attrs;
+      const {
+        part,
+      } = attrs;
 
       if (part) {
         const isHighlighted = part === highlightedPart.value;
@@ -2142,8 +2225,7 @@ export const AdultMaleFront = (args) => ({
         };
       }
 
-      return {
-      };
+      return {};
     };
     return {
       ...args,
@@ -2276,7 +2358,11 @@ export const AdultMaleBack = () => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({ part }, { target }) => {
+    const handleBodyPartClick = ({
+      part,
+    }, {
+      target,
+    }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -2284,7 +2370,9 @@ export const AdultMaleBack = () => ({
       highlightedPart.value = '';
     };
     const setElementsAttrs = (attrs) => {
-      const { part } = attrs;
+      const {
+        part,
+      } = attrs;
 
       if (part) {
         const isHighlighted = part === highlightedPart.value;
@@ -2299,8 +2387,7 @@ export const AdultMaleBack = () => ({
         };
       }
 
-      return {
-      };
+      return {};
     };
     return {
       setElementsAttrs,
@@ -2394,7 +2481,11 @@ export const AdultFemaleFront = (args) => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({ part }, { target }) => {
+    const handleBodyPartClick = ({
+      part,
+    }, {
+      target,
+    }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -2402,7 +2493,9 @@ export const AdultFemaleFront = (args) => ({
       highlightedPart.value = '';
     };
     const setElementsAttrs = (attrs) => {
-      const { part } = attrs;
+      const {
+        part,
+      } = attrs;
 
       if (part) {
         const isHighlighted = part === highlightedPart.value;
@@ -2417,8 +2510,7 @@ export const AdultFemaleFront = (args) => ({
         };
       }
 
-      return {
-      };
+      return {};
     };
     return {
       ...args,
@@ -2555,7 +2647,11 @@ export const AdultFemaleBack = () => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({ part }, { target }) => {
+    const handleBodyPartClick = ({
+      part,
+    }, {
+      target,
+    }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -2563,7 +2659,9 @@ export const AdultFemaleBack = () => ({
       highlightedPart.value = '';
     };
     const setElementsAttrs = (attrs) => {
-      const { part } = attrs;
+      const {
+        part,
+      } = attrs;
 
       if (part) {
         const isHighlighted = part === highlightedPart.value;
@@ -2578,8 +2676,7 @@ export const AdultFemaleBack = () => ({
         };
       }
 
-      return {
-      };
+      return {};
     };
     return {
       setElementsAttrs,

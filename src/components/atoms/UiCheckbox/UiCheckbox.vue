@@ -146,7 +146,9 @@ const defaultProps = computed(() => ({
 const emit = defineEmits<{(e: 'update:modelValue', value: boolean | CheckboxValueAsObj[]): void
 }>();
 const slots = useSlots();
-const { getRootAttrs, getInputAttrs } = useInput();
+const {
+  getRootAttrs, getInputAttrs,
+} = useInput();
 const hasLabel = computed(() => (!!slots.default));
 const checkboxId = computed(() => (props.id || `checkbox-${uid()}`));
 const isChecked = computed(() => {
@@ -170,7 +172,9 @@ function changeHandler(event: Event): void {
 }
 
 // TODO: remove in 0.6.0 / BEGIN
-const { checkbutton } = slots;
+const {
+  checkbutton,
+} = slots;
 if (checkbutton) {
   throw new Error('[@infermedica/component-library error][UiCheckbox]: The `checkbotton` slot is deprecated and removed. Please use `checkbox` slot instead.');
 }

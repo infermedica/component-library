@@ -24,7 +24,7 @@ For example from `UiNumberStepper` component:
 ```html
 <template>
   <UiButton
-    v-bind="decrementButtonAttrs"
+    v-bind="buttonDecrementAttrs"
   >
     ...
   </UiButton>
@@ -33,7 +33,7 @@ For example from `UiNumberStepper` component:
 
 You can pass props, `html` attributes and events e.g.
 ```js
- const decrementButtonAttrs = {
+ const buttonDecrementAttrs = {
   'aria-label': 'decrement age',
   'data-testid': 'decrement-button',
   onClick: () => {
@@ -43,7 +43,8 @@ You can pass props, `html` attributes and events e.g.
 ```
 Our implementation of Attrs props allows you to change "default" values of nested components i.e. You can change heading level by props or change the default icon without changing the template by using slot.
 
-Generally the name this props we used `<element-name><name-of-component-without-prefix>Attrs` e.g. `closeButtonAttrs` or `decrementButtonAttrs`.
+Generally the name this props we used `<name-of-component-without-prefix><element-name>Attrs` e.g. `closeButtonAttrs` or `decrementButtonAttrs`.
+Please don't use generic names even if it is only one element in the component e.g. `iconAttrs` is not a good name, use `iconRemoveAttrs` instead.
 
 
 ## Translation props

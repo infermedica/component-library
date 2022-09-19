@@ -4,13 +4,14 @@
     <slot
       name="toggler"
       v-bind="{
-        toggle,
+        attrs: buttonTogglerAttrs,
         name,
-        icon,
-        title,
         isOpen,
+        toggle,
+        title,
         iconOpen: defaultProps.settings.iconOpen,
-        iconClose: settings.iconClose
+        iconClose: settings.iconClose,
+        iconTogglerAttrs: defaultProps.iconTogglerAttrs,
       }"
     >
       <UiButton
@@ -25,14 +26,14 @@
         <slot
           name="chevron"
           v-bind="{
+            attrs: defaultProps.iconTogglerAttrs,
             isOpen,
-            icon,
             iconOpen: defaultProps.settings.iconOpen,
             iconClose: settings.iconClose
           }"
         >
           <UiIcon
-            :icon="icon"
+            v-bind="defaultProps.iconTogglerAttrs"
             class="ui-button__icon ui-accordion-item__chevron"
           />
         </slot>
@@ -44,6 +45,7 @@
       name="content"
       v-bind="{
         isOpen,
+        attrs: contentAttrs,
         name
       }"
     >
@@ -104,24 +106,28 @@ const props = defineProps({
       iconClose: 'chevron-down',
     }),
   },
+  /**
+   *  Use this props to pass attrs to toggler UiButton.
+   */
   buttonTogglerAttrs: {
     type: Object,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
+  /**
+   *  Use this props to pass attrs to toggler UiIcon.
+   */
+  iconTogglerAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
+   *  Use this props to pass attrs to content.
+   */
   contentAttrs: {
     type: Object,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
 });
-const defaultProps = computed(() => ({
-  settings: {
-    iconOpen: 'chevron-up',
-    iconClose: 'chevron-down',
-    ...props.settings,
-  },
-}));
 const opened = inject('opened') as ComputedRef<AccordionValue>;
 const toggle = inject('toggle') as (name: string) => void;
 const isOpen = computed(() => {
@@ -130,11 +136,19 @@ const isOpen = computed(() => {
   }
   return opened.value.includes(props.name);
 });
-const icon = computed(() => (
-  isOpen.value
-    ? defaultProps.value.settings.iconOpen
-    : defaultProps.value.settings.iconClose
-));
+const defaultProps = computed(() => ({
+  settings: {
+    iconOpen: 'chevron-up',
+    iconClose: 'chevron-down',
+    ...props.settings,
+  },
+  iconTogglerAttrs: {
+    icon: isOpen.value
+      ? props.settings?.iconOpen || 'chevron-up'
+      : props.settings?.iconClose || 'chevron-down',
+    ...props.iconTogglerAttrs,
+  },
+}));
 </script>
 
 <style lang="scss">

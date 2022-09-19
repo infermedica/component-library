@@ -19,8 +19,7 @@ export default {
     title: 'Hello!',
     subtitle: '',
     illustration: 'boy',
-    headingTitleAttrs: {
-    },
+    headingTitleAttrs: {},
   },
   argTypes: {
     content,
@@ -110,8 +109,7 @@ const Template = (args) => ({
   </UiMessage>`,
 });
 
-export const AsIntroduction = Template.bind({
-});
+export const AsIntroduction = Template.bind({});
 
 export const WithContentSlot = (args) => ({
   components: {

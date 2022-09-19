@@ -125,16 +125,14 @@ const props = defineProps({
    */
   buttonBrandAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   /**
    * Use this props to pass attrs for hamburger UiButton
    */
   buttonHamburgerAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   /**
    * Use this props to pass attrs for hamburger UiIcon
@@ -150,16 +148,14 @@ const props = defineProps({
    */
   iconLogoAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   /**
    * Use this props to pass attrs for UiNavigation.
    */
   navigationAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
 });
 const defaultProps = computed(() => ({
@@ -183,7 +179,9 @@ watch(isOpen, (value: boolean) => {
 const handleHamburger = (): void => {
   isOpen.value = !isOpen.value;
 };
-function handleMedia({ matches }: {matches: boolean}) {
+function handleMedia({
+  matches,
+}: {matches: boolean}) {
   isMobile.value = matches;
   if (isOpen.value && !matches) {
     isOpen.value = false;

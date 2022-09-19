@@ -77,7 +77,9 @@ const isMultiline = ref(false);
 const modifiers = computed(() => (attrs?.class || ''));
 provide('modifiers', modifiers);
 const itemsToRender = computed<NavigationRenderItem[]>(() => (props.items.map((item: NavigationItem, key: number) => {
-  const { name, text } = item;
+  const {
+    name, text,
+  } = item;
   return {
     name: name || `navigation-item-${key}`,
     text,
@@ -85,7 +87,9 @@ const itemsToRender = computed<NavigationRenderItem[]>(() => (props.items.map((i
   };
 })));
 const resizeObserver = new ResizeObserver((entries) => {
-  const { target } = entries[0];
+  const {
+    target,
+  } = entries[0];
   isMultiline.value = ([...target.children].at(-1) as HTMLElement).offsetTop > (target as HTMLElement).offsetTop;
 });
 onMounted(async () => {

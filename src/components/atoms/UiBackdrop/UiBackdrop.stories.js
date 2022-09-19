@@ -17,8 +17,7 @@ const Template = (args) => ({
   template: '<UiBackdrop style="position: absolute"/>',
 });
 
-export const Common = Template.bind({
-});
+export const Common = Template.bind({});
 Common.parameters = {
   controls: {
     hideNoControlsWarning: true,

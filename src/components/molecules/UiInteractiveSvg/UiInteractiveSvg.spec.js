@@ -99,8 +99,7 @@ describe('UiInteractiveSvg.vue', () => {
       props: {
         setElementsAttrs: () => ({
           class: testStr,
-          setElementsAttrs: () => ({
-          }),
+          setElementsAttrs: () => ({}),
         }),
       },
       slots: {
@@ -120,7 +119,9 @@ describe('UiInteractiveSvg.vue', () => {
     const wrapper = mount(UiInteractiveSvg, {
       props: {
         setElementsAttrs: () => ({
-          setElementsAttrs: ({ id }) => ({
+          setElementsAttrs: ({
+            id,
+          }) => ({
             onClick: () => {
               selected = id;
             },
@@ -143,7 +144,9 @@ describe('UiInteractiveSvg.vue', () => {
     let selected;
     const wrapper = mount(UiInteractiveSvg, {
       props: {
-        setElementsAttrs: ({ id }) => ({
+        setElementsAttrs: ({
+          id,
+        }) => ({
           onClick: () => {
             selected = id;
           },
@@ -166,7 +169,9 @@ describe('UiInteractiveSvg.vue', () => {
     const wrapper = mount(UiInteractiveSvg, {
       props: {
         setElementsAttrs: () => ({
-          setElementsAttrs: ({ id }) => ({
+          setElementsAttrs: ({
+            id,
+          }) => ({
             onClick: () => {
               selected = id;
             },

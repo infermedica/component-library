@@ -84,17 +84,14 @@ const Template = (args) => ({
   </UiRadio>`,
 });
 
-export const WithLabel = Template.bind({
-});
+export const WithLabel = Template.bind({});
 
-export const IsDisabled = Template.bind({
-});
+export const IsDisabled = Template.bind({});
 IsDisabled.args = {
   modifiers: ['ui-radio--is-disabled'],
 };
 
-export const HasError = Template.bind({
-});
+export const HasError = Template.bind({});
 HasError.args = {
   modifiers: ['ui-radio--has-error'],
 };

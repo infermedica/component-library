@@ -93,8 +93,12 @@ const defaultProps = computed(() => ({
 const emit = defineEmits<{(e: 'update:modelValue', value: string): void
 }>();
 const attrs = useAttrs();
-const { getRootAttrs, getInputAttrs } = useInput();
-const { numbersOnly } = useKeyValidation();
+const {
+  getRootAttrs, getInputAttrs,
+} = useInput();
+const {
+  numbersOnly,
+} = useKeyValidation();
 function keyValidation(event: Event): void {
   switch (attrs.type) {
     case 'number':

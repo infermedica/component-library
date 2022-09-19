@@ -107,8 +107,7 @@ defineProps({
    */
   headingTitleAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
 });
 </script>

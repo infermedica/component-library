@@ -175,8 +175,7 @@ const props = defineProps({
    */
   alertHintAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
 });
 const emit = defineEmits<{(e: 'update:modelValue', value: MultipleChoiceEvidence[]): void, (e: 'update:invalid', value: boolean): void}>();
@@ -184,15 +183,16 @@ const hintType = computed<'error'| 'default'>(() => (props.touched && props.inva
 const evidences = computed(() => (
   props.modelValue.reduce((object: MultipleChoiceModelValue, evidence: MultipleChoiceEvidence) => {
     // eslint-disable-next-line camelcase
-    const { id } = evidence;
+    const {
+      id,
+    } = evidence;
     return {
       ...object,
       [id]: {
         ...evidence,
       },
     };
-  }, {
-  })
+  }, {})
 ));
 const valid = computed(() => (
   props.choices.every((choice) => (evidences.value[choice.id]))

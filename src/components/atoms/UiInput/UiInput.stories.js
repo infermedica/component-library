@@ -85,29 +85,24 @@ const Template = (args) => ({
   />`,
 });
 
-export const WithPlaceholder = Template.bind({
-});
+export const WithPlaceholder = Template.bind({});
 
-export const WithValue = Template.bind({
-});
+export const WithValue = Template.bind({});
 WithValue.args = {
   initModelValue: 'Input text',
 };
 
-export const HasError = Template.bind({
-});
+export const HasError = Template.bind({});
 HasError.args = {
   modifiers: ['ui-input--has-error'],
 };
 
-export const IsDisabled = Template.bind({
-});
+export const IsDisabled = Template.bind({});
 IsDisabled.args = {
   modifiers: ['ui-input--is-disabled'],
 };
 
-export const WithSuffix = Template.bind({
-});
+export const WithSuffix = Template.bind({});
 WithSuffix.args = {
   suffix: 'Suffix',
 };

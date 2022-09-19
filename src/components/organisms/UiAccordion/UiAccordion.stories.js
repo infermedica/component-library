@@ -4,6 +4,11 @@ import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import { ref } from 'vue';
+import { actions } from '@storybook/addon-actions';
+
+const events = actions({
+  onUpdateModelValue: 'update:modelValue',
+});
 
 export default {
   title: 'Organisms/Accordion',
@@ -72,44 +77,53 @@ const Template = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
   template: `<UiAccordion
     v-model="modelValue"
     :items="items"
+    @update:modelValue="onUpdateModelValue"
   >
     <template
-      v-for="({name}, key) in items"
-      #[name]="{item}"
+      v-for="({ name }, key) in items"
+      #[name]="{ item }"
       :key="key"
     >
-      <UiText>{{content[item.name]}}</UiText>
+      <UiText>{{ content[item.name] }}</UiText>
     </template>
   </UiAccordion>`,
 });
 
-export const MultipleItems = Template.bind({
-});
+export const MultipleItems = Template.bind({});
 
-export const SingleItem = Template.bind({
-});
+export const SingleItem = Template.bind({});
 SingleItem.args = {
   items: [{
-    name: 'less',
     title: 'Less likely conditions',
-    'data-testid': 'less',
-    contentAttrs: {
-      'data-testid': 'less-content',
+    name: 'less',
+    settings: {
+      iconOpen: 'chevron-up',
+      iconClose: 'chevron-down',
     },
+    buttonToggleAttrs: {
+      'data-testid': 'less-likely-conditions-button',
+    },
+    iconTogglerAttrs: {
+      'data-testid': 'less-likely-conditions-icon',
+    },
+    contentAttrs: {
+      'data-testid': 'less-likely-conditions-content',
+    },
+    'data-testid': 'less-likely-conditions',
   }],
   content: {
     less: 'Serum uric acid concentration',
   },
 };
 
-export const MultipleItemsOpened = Template.bind({
-});
+export const MultipleItemsOpened = Template.bind({});
 MultipleItemsOpened.args = {
   initModelValue: [],
 };
@@ -129,11 +143,13 @@ export const WithDefaultSlot = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
   template: `<UiAccordion 
     v-model="modelValue"
+    @onUpdateModelValue="onUpdateModelValue"
   >
     <template
       v-for="(item, key) in items"
@@ -143,8 +159,11 @@ export const WithDefaultSlot = (args) => ({
         :name="item.name"
         :title="item.title"
         :settings="item.setting"
+        :button-toggler-attrs="item.buttonToggleAttrs"
+        :icon-toggler-attrs="item.iconTogglerAttrs"
+        :content-attrs="item.contentAttrs"
       >
-        <UiText>{{content[item.name]}}</UiText>
+        <UiText>{{ content[item.name] }}</UiText>
       </UiAccordionItem>
     </template>
   </UiAccordion>`,
@@ -162,11 +181,13 @@ export const WithTogglerSlot = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
   template: `<UiAccordion 
     v-model="modelValue"
+    @onUpdateModelValue="onUpdateModelValue"
   >
     <template
       v-for="(item, key) in items"
@@ -176,23 +197,38 @@ export const WithTogglerSlot = (args) => ({
         :name="item.name"
         :title="item.title"
         :settings="item.setting"
+        :button-toggler-attrs="item.buttonToggleAttrs"
+        :icon-toggler-attrs="item.iconTogglerAttrs"
+        :content-attrs="item.contentAttrs"
       >
-        <UiText>{{content[item.name]}}</UiText>
-        <template #toggler="{toggle, name, icon, title, isOpen, iconOpen, iconClose}">
+        <template 
+          #toggler="{
+            attrs,
+            name,
+            isOpen,
+            toggle,
+            title,
+            iconOpen,
+            iconClose,
+            iconTogglerAttrs,
+          }"
+        >
           <UiButton
-              :id="'toggler' + name"
-              :aria-expanded="isOpen.toString()"
-              :aria-controls="name"
-              class="ui-button--outlined ui-accordion-item__toggler"
-              @click="toggle(name)"
+            v-bind="attrs"
+            :id="'toggler-' + name"
+            :aria-expanded="isOpen.toString()"
+            :aria-controls="name"
+            class="ui-button--outlined ui-accordion-item__toggler"
+            @click="toggle(name)"
           >
             <UiIcon
-                :icon="icon"
-                class="ui-button__icon ui-accordion-item__chevron"
+              v-bind="iconTogglerAttrs"
+              class="ui-button__icon ui-accordion-item__chevron"
             />
             {{ title }}
           </UiButton>
         </template>
+        <UiText>{{ content[item.name] }}</UiText>
       </UiAccordionItem>
     </template>
   </UiAccordion>`,
@@ -209,10 +245,14 @@ export const WithChevronSlot = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
-  template: `<UiAccordion v-model="modelValue">
+  template: `<UiAccordion 
+    v-model="modelValue"
+    @onUpdateModelValue="onUpdateModelValue"
+  >
     <template
       v-for="(item, key) in items"
       :key="key"
@@ -220,14 +260,25 @@ export const WithChevronSlot = (args) => ({
       <UiAccordionItem
         :name="item.name"
         :title="item.title"
+        :settings="item.setting"
+        :button-toggler-attrs="item.buttonToggleAttrs"
+        :icon-toggler-attrs="item.iconTogglerAttrs"
+        :content-attrs="item.contentAttrs"
       >
-        <UiText>{{content[item.name]}}</UiText>
-        <template #chevron="{isOpen, icon, iconOpen, iconClose}">
+        <template 
+          #chevron="{
+            attrs,
+            isOpen,
+            iconOpen,
+            iconClose,
+          }"
+        >
           <UiIcon
-              :icon="icon"
-              class="ui-button__icon ui-accordion-item__chevron"
+            v-bind="attrs"
+            class="ui-button__icon ui-accordion-item__chevron"
           />
         </template>
+        <UiText>{{ content[item.name] }}</UiText>
       </UiAccordionItem>
     </template>
   </UiAccordion>`,
@@ -243,10 +294,14 @@ export const WithContentSlot = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
-  template: `<UiAccordion v-model="modelValue">
+  template: `<UiAccordion 
+    v-model="modelValue"
+    @onUpdateModelValue="onUpdateModelValue"
+  >
     <template
       v-for="(item, key) in items"
       :key="key"
@@ -254,16 +309,27 @@ export const WithContentSlot = (args) => ({
       <UiAccordionItem
         :name="item.name"
         :title="item.title"
+        :settings="item.setting"
+        :button-toggler-attrs="item.buttonToggleAttrs"
+        :icon-toggler-attrs="item.iconTogglerAttrs"
+        :content-attrs="item.contentAttrs"
       >
-        <template #content="{isOpen, name}">
+        <template 
+          #content="{
+            isOpen,
+            attrs,
+            name,
+          }"
+        >
           <div
             v-show="isOpen"
+            v-bind="attrs"
             :id="name"
             role="region"
-            :aria-labelledby="'toggler' + name"
+            :aria-labelledby="'toggler-' + name"
             class="ui-accordion-item__content"
           >
-            <UiText>{{content[item.name]}}</UiText>
+            <UiText>{{ content[item.name] }}</UiText>
           </div>
         </template>
       </UiAccordionItem>

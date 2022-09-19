@@ -22,7 +22,7 @@ export default {
     UiIcon,
   },
   args: {
-    content: 'A custom Symptomate app that you can use anywhere.',
+    content: 'A custom Triage app that you can use anywhere.',
     modifiers: [],
     title: 'Symptom Checker',
     headingTitleAttrs: {
@@ -97,23 +97,19 @@ const Template = (args) => ({
   </UiPopover>`,
 });
 
-export const Common = Template.bind({
-});
+export const Common = Template.bind({});
 
-export const HasArrow = Template.bind({
-});
+export const HasArrow = Template.bind({});
 HasArrow.args = {
   modifiers: ['ui-popover--has-arrow'],
 };
 
-export const HasLeftArrow = Template.bind({
-});
+export const HasLeftArrow = Template.bind({});
 HasLeftArrow.args = {
   modifiers: ['ui-popover--has-left-arrow'],
 };
 
-export const Unrounded = Template.bind({
-});
+export const Unrounded = Template.bind({});
 Unrounded.args = {
   modifiers: ['ui-popover--unrounded'],
 };
@@ -153,8 +149,7 @@ AsBottomPanelOnMobile.decorators = [() => ({
   template: '<div style="min-height: 568px"><story /></div>',
 })];
 
-export const AsDropdown = Template.bind({
-});
+export const AsDropdown = Template.bind({});
 AsDropdown.args = {
   title: '',
 };

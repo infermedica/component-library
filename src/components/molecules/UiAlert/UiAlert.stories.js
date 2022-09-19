@@ -58,26 +58,22 @@ const Template = (args) => ({
   </UiAlert>`,
 });
 
-export const Error = Template.bind({
-});
+export const Error = Template.bind({});
 Error.args = {
   type: 'error',
 };
 
-export const Success = Template.bind({
-});
+export const Success = Template.bind({});
 Success.args = {
   type: 'success',
 };
 
-export const Info = Template.bind({
-});
+export const Info = Template.bind({});
 Info.args = {
   type: 'info',
 };
 
-export const Warning = Template.bind({
-});
+export const Warning = Template.bind({});
 Warning.args = {
   type: 'warning',
 };

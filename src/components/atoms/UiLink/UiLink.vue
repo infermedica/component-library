@@ -40,7 +40,9 @@ const props = defineProps({
     default: '',
   },
 });
-const { componentTag, routeAttrs } = useLink(props);
+const {
+  componentTag, routeAttrs,
+} = useLink(props);
 </script>
 
 <style lang="scss">

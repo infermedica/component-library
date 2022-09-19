@@ -132,17 +132,14 @@ const Template = (args) => ({
   />`,
 });
 
-export const Common = Template.bind({
-});
+export const Common = Template.bind({});
 
-export const HamburgerMenuAlwaysDisplay = Template.bind({
-});
+export const HamburgerMenuAlwaysDisplay = Template.bind({});
 HamburgerMenuAlwaysDisplay.args = {
   hamburgerMatchMedia: '(min-width: 0px)',
 };
 
-export const WithoutHamburgerMenu = Template.bind({
-});
+export const WithoutHamburgerMenu = Template.bind({});
 WithoutHamburgerMenu.args = {
   hamburgerMatchMedia: '(max-width: 0px)',
 };

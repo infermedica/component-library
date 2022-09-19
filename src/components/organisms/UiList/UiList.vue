@@ -81,7 +81,9 @@ const itemsToRender = computed<ListRender[]>(() => (props.items.map((item: ListI
       text: item,
     };
   }
-  const { name, children } = item;
+  const {
+    name, children,
+  } = item;
   return {
     ...item,
     name: name || `list-item-${key}`,

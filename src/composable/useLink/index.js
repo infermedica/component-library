@@ -21,8 +21,7 @@ export default function useLink(props) {
         to: props.to,
       };
     }
-    return {
-    };
+    return {};
   });
 
   return {

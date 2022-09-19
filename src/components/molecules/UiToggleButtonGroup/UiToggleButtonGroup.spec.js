@@ -38,7 +38,9 @@ const mountToggleButtonGroupWithButtons = ({
       deselectable,
     },
     {
-      default: () => items.map(({ value, label }) => h(UiToggleButton, {
+      default: () => items.map(({
+        value, label,
+      }) => h(UiToggleButton, {
         value,
       }, {
         default: () => label,

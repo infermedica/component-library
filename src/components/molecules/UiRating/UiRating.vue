@@ -143,8 +143,7 @@ const props = defineProps({
    */
   radioAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   // END
   /**
@@ -197,7 +196,9 @@ const rate = computed({
 const maxScore = computed(() => (typeof props.max === 'number' ? props.max : parseInt(props.max, 10)));
 const hoverScore = ref(0);
 function hoverHandler(event: Event, value: number) {
-  const { type } = event;
+  const {
+    type,
+  } = event;
   hoverScore.value = type === 'mouseover' ? value : 0;
 }
 const finalScore = computed(() => (

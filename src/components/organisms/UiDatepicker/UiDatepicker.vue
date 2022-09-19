@@ -183,32 +183,28 @@ const props = defineProps({
    */
   inputDayAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   /**
    *  Use this props to pass attrs to month UiInput.
    */
   inputMonthAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   /**
    *  Use this props to pass attrs to year UiInput.
    */
   inputYearAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   /**
    *  Use this props to pass attrs to UiDatepickerCalendar
    */
   datepickerCalendarAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
 });
 const getDefaultProps = (datePart: DatePart): DefaultInputProps<DatepickerInputID> => ({
@@ -532,8 +528,7 @@ const inputsIds = computed<Record<string, string>>(() => (
       ids[getDefaultProp(key as DatePart).id] = datePart;
     }
     return ids;
-  }, {
-  })));
+  }, {})));
 provide('inputsIds', inputsIds);
 </script>
 

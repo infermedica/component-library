@@ -121,7 +121,7 @@ export const WithDirectiveAndScrollableContent = () => ({
                 <UiBulletPoints tag="ol" type="a">
                   <UiBulletPointsItem>
                     <UiText>principles of operation of the website and the mobile application "
-                      <UiLink href="#">Symptomate.com</UiLink>",
+                      <UiLink href="#">Triage.com</UiLink>",
                     </UiText>
                   </UiBulletPointsItem>
                   <UiBulletPointsItem>
@@ -218,7 +218,7 @@ export const WithoutDirective = () => ({
                 <UiBulletPoints tag="ol" type="a">
                   <UiBulletPointsItem>
                     <UiText>principles of operation of the website and the mobile application "
-                      <UiLink href="#">Symptomate.com</UiLink>",
+                      <UiLink href="#">Triage.com</UiLink>",
                     </UiText>
                   </UiBulletPointsItem>
                   <UiBulletPointsItem>

@@ -87,8 +87,7 @@ const props = defineProps({
    */
   iconAttrs: {
     type: Object as PropType<IconAttrs>,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   /**
    * Use this props to pass attrs for label UiText.

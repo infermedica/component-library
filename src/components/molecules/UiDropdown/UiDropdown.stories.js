@@ -116,11 +116,9 @@ const Template = (args) => ({
   />`,
 });
 
-export const AsSelect = Template.bind({
-});
+export const AsSelect = Template.bind({});
 
-export const WithItemsAsObjects = Template.bind({
-});
+export const WithItemsAsObjects = Template.bind({});
 WithItemsAsObjects.args = {
   initModelValue: 'English',
   items: [
@@ -563,8 +561,7 @@ export const WithInputToggle = (args) => ({
       </template>
     </UiDropdown>`,
 });
-WithInputToggle.args = {
-};
+WithInputToggle.args = {};
 WithInputToggle.argTypes = {
   initModelValue: {
     control: false,

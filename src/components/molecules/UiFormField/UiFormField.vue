@@ -140,8 +140,7 @@ const props = defineProps({
    */
   alertAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
 });
 const defaultProps = computed(() => ({

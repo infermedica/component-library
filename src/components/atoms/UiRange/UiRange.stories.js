@@ -92,7 +92,9 @@ export const Common = (args) => ({
   class="custom"
 />`,
 });
-Common.play = async ({ canvasElement }) => {
+Common.play = async ({
+  canvasElement,
+}) => {
   const canvas = within(canvasElement);
   await userEvent.click(canvas.getByTestId('increment-age'));
   await expect(canvas.getByText('51')).toBeInTheDocument();

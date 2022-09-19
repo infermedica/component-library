@@ -131,16 +131,14 @@ const props = defineProps({
    */
   buttonNextAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   /**
    * Use this props to pass attrs for back UiButton.
    */
   buttonBackAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   /**
    * Use this props to pass attrs for back UiIcon.

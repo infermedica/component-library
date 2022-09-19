@@ -45,8 +45,7 @@ const Template = (args) => ({
   />`,
 });
 
-export const UnorderedList = Template.bind({
-});
+export const UnorderedList = Template.bind({});
 
 export const WithListItemSlot = (args) => ({
   components: {

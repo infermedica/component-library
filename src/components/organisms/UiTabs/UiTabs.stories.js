@@ -105,11 +105,9 @@ const Template = (args) => ({
   </UiTabs>`,
 });
 
-export const Common = Template.bind({
-});
+export const Common = Template.bind({});
 
-export const Fixed = Template.bind({
-});
+export const Fixed = Template.bind({});
 Fixed.args = {
   modifiers: ['ui-tabs--fixed'],
 };

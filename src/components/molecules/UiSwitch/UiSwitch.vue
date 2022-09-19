@@ -58,8 +58,7 @@ defineProps({
    */
   controlAttrs: {
     type: Object,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
 });
 const emit = defineEmits<{(e: 'update:modelValue', value: CheckboxModelValue): void}>();

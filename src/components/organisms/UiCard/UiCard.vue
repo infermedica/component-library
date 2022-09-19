@@ -132,32 +132,28 @@ const props = defineProps({
    */
   iconAttrs: {
     type: Object,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   /**
    * Use this props to pass attrs for subtitle UiText
    */
   textSubtitleAttrs: {
     type: Object,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   /**
    * Use this props to pass attrs for title UiHeading.
    */
   headingTitleAttrs: {
     type: Object,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   /**
    * Use this props to pass attrs for description UiText.
    */
   textDescriptionAttrs: {
     type: Object,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
 });
 const rootClassModifier = computed<`ui-card--${CardType}`>(() => `ui-card--${props.type}`);

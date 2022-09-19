@@ -76,8 +76,7 @@ const Template = (args) => ({
   />`,
 });
 
-export const WithCurrentStep = Template.bind({
-});
+export const WithCurrentStep = Template.bind({});
 
 export const WithCurrentStepSlot = (args) => ({
   components: {

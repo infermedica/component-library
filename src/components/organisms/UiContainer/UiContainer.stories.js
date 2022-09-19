@@ -32,6 +32,5 @@ const Template = (args) => ({
   </UiContainer>`,
 });
 
-export const WithDisclaimer = Template.bind({
-});
+export const WithDisclaimer = Template.bind({});
 

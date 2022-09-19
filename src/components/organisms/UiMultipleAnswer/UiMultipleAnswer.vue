@@ -176,8 +176,7 @@ const props = defineProps({
    */
   hintAlertAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   /**
    * Use this props to set multiple answer tag.

@@ -59,8 +59,7 @@ export default {
       },
     ],
     touched: false,
-    alertHintAttrs: {
-    },
+    alertHintAttrs: {},
   },
   argTypes: {
     initModelValue: {
@@ -134,11 +133,9 @@ const Template = (args) => ({
   />`,
 });
 
-export const Common = Template.bind({
-});
+export const Common = Template.bind({});
 
-export const WithButtonInfo = Template.bind({
-});
+export const WithButtonInfo = Template.bind({});
 WithButtonInfo.args = {
   choices: [
     {

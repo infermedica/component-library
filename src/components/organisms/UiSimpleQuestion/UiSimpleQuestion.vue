@@ -61,8 +61,7 @@ defineProps({
    */
   modelValue: {
     type: [Object, String] as PropType<TileValue>,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   /**
    * Use this props to pass options for question

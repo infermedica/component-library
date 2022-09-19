@@ -101,8 +101,7 @@ const props = defineProps({
    */
   buttonCloseAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   /**
    * Use this props to pass attrs to close UiIcon.
@@ -129,7 +128,9 @@ const emit = defineEmits<{(e: 'close'): void}>();
 function clickHandler(): void {
   emit('close');
 }
-function keydownHandler({ key }: {key: string}): void {
+function keydownHandler({
+  key,
+}: {key: string}): void {
   if (key !== 'Escape') return;
   emit('close');
 }

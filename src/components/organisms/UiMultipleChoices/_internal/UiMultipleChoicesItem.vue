@@ -108,16 +108,14 @@ const props = defineProps({
    */
   modelValue: {
     type: Object as PropType<MultipleChoiceModelValue>,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   /**
    * Use this props to set value of choices item.
    */
   choice: {
     type: Object as PropType<MultipleChoice>,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   /**
    *  Use this props to override default options.

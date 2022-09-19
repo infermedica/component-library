@@ -84,17 +84,14 @@ const Template = (args) => ({
   </UiCheckbox>`,
 });
 
-export const WithLabel = Template.bind({
-});
+export const WithLabel = Template.bind({});
 
-export const IsDisabled = Template.bind({
-});
+export const IsDisabled = Template.bind({});
 IsDisabled.args = {
   modifiers: ['ui-checkbox--is-disabled'],
 };
 
-export const HasError = Template.bind({
-});
+export const HasError = Template.bind({});
 HasError.args = {
   modifiers: ['ui-checkbox--has-error'],
 };

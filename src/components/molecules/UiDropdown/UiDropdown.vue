@@ -186,16 +186,14 @@ const props = defineProps({
    */
   buttonToggleAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   /**
    *  Use this props to pass attrs to UiPopover.
    */
   popoverAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
 });
 const emit = defineEmits<{(e: 'update:modelValue', value: DropdownValue):void;
@@ -222,8 +220,9 @@ function disableArrows(event) {
     event.preventDefault();
   }
 }
-async function openHandler({ focus = false }: openOptions = {
-}): Promise<void> {
+async function openHandler({
+  focus = false,
+}: openOptions = {}): Promise<void> {
   isOpen.value = true;
   emit('open');
   window.addEventListener('keydown', disableArrows, false);
@@ -236,7 +235,9 @@ async function openHandler({ focus = false }: openOptions = {
   }
 }
 
-function closeHandler({ focusToggle }: closeOptions = {
+function closeHandler({
+  focusToggle,
+}: closeOptions = {
   focusToggle: true,
 }): void {
   if (dropdownToggle.value && focusToggle) {
@@ -268,7 +269,9 @@ function changeHandler(value: DropdownValue):void {
   closeHandler();
 }
 provide('changeHandler', changeHandler);
-async function dropdownKeydownHandler({ key }: {key: string}): Promise<void> {
+async function dropdownKeydownHandler({
+  key,
+}: {key: string}): Promise<void> {
   if (!props.enableKeyboardNavigation) return;
 
   switch (key) {
@@ -302,7 +305,9 @@ async function dropdownKeydownHandler({ key }: {key: string}): Promise<void> {
 // todo: why this component handle searchQuery and searchDebounce?
 const searchQuery = ref('');
 const searchDebounce = ref<ReturnType<typeof setTimeout> | null>(null);
-function handleInputQuery({ key }: {key: string}): void {
+function handleInputQuery({
+  key,
+}: {key: string}): void {
   searchQuery.value += key.toLowerCase();
   const match: number = dropdownItems.value.findIndex(
     (item: HTMLElement) => item.innerText.toLowerCase().startsWith(searchQuery.value),
@@ -310,7 +315,9 @@ function handleInputQuery({ key }: {key: string}): void {
   if (match !== -1 && match !== activeDropdownItemIndex.value) focusElement(dropdownItems.value[match]);
 }
 async function dropdownItemKeydownHandler(event: KeyboardEvent): Promise<void> {
-  const { key } = event;
+  const {
+    key,
+  } = event;
   if (searchDebounce.value) clearTimeout(searchDebounce.value);
 
   if (key.length === 1) {

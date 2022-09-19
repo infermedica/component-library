@@ -99,24 +99,21 @@ const props = defineProps({
    */
   tabsItemDayAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   /**
    * Use this props to pass attrs for month UiTabsItem
    */
   tabsItemMonthAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   /**
    * Use this props to pass attrs for year UiTabsItem
    */
   tabsItemYearAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
 });
 const getDefaultProps = (datePart: DatePart): DefaultInputProps<DatepickerTabID> => ({
@@ -146,8 +143,7 @@ const dateParts = computed(() => (Object.keys(defaultProps).reduce((parts: Recor
     parts[getDefaultProp(key as DatePart).id] = match[1].toLowerCase();
   }
   return parts;
-}, {
-})));
+}, {})));
 const currentTabId = computed<DatepickerTabID>({
   get: () => (getDefaultProp(currentTab.value).id),
   set: (id) => {

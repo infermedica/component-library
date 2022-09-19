@@ -101,14 +101,12 @@ WithToggleButtonSlot.args = {
   ],
 };
 
-export const Pressed = Common.bind({
-});
+export const Pressed = Common.bind({});
 Pressed.args = {
   initModelValue: 'First',
 };
 
-export const Disabled = Common.bind({
-});
+export const Disabled = Common.bind({});
 Disabled.args = {
   items: [
     {
@@ -129,8 +127,7 @@ Disabled.args = {
   ],
 };
 
-export const PressedDisabled = Common.bind({
-});
+export const PressedDisabled = Common.bind({});
 PressedDisabled.args = {
   initModelValue: 'second',
   items: [
@@ -152,14 +149,12 @@ PressedDisabled.args = {
   ],
 };
 
-export const Deselectable = Common.bind({
-});
+export const Deselectable = Common.bind({});
 Deselectable.args = {
   deselectable: true,
 };
 
-export const WithNumberValues = Common.bind({
-});
+export const WithNumberValues = Common.bind({});
 WithNumberValues.args = {
   items: [
     {
@@ -177,8 +172,7 @@ WithNumberValues.args = {
   ],
 };
 
-export const WithObjectValues = Common.bind({
-});
+export const WithObjectValues = Common.bind({});
 WithObjectValues.args = {
   items: [
     {

@@ -138,8 +138,7 @@ const Template = (args) => ({
     </UiButton>`,
 });
 
-export const Contained = Template.bind({
-});
+export const Contained = Template.bind({});
 
 export const Outlined = (args) => ({
   components: {
@@ -250,8 +249,7 @@ Outlined.args = {
   modifiers: ['ui-button--outlined'],
 };
 
-export const Text = Template.bind({
-});
+export const Text = Template.bind({});
 Text.args = {
   modifiers: ['ui-button--text'],
 };
@@ -319,8 +317,7 @@ export const Icon = (args) => ({
   </UiButton>`,
 });
 
-export const TextSecondary = Template.bind({
-});
+export const TextSecondary = Template.bind({});
 TextSecondary.args = {
   modifiers: ['ui-button--text', 'ui-button--theme-secondary'],
 };
@@ -350,8 +347,7 @@ IconSecondary.args = {
   modifiers: ['ui-button--theme-secondary'],
 };
 
-export const TextOnBrand = Template.bind({
-});
+export const TextOnBrand = Template.bind({});
 TextOnBrand.args = {
   modifiers: ['ui-button--text', 'ui-button--theme-brand'],
 };
