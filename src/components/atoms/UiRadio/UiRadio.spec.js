@@ -41,7 +41,9 @@ describe('UiRadio.vue', () => {
     expect(wrapper.emitted('update:modelValue')[0][0]).toBe(value);
   });
   test('a component pass Object as value', () => {
-    const value = { value: 'symptom checker' };
+    const value = {
+      value: 'symptom checker',
+    };
     const wrapper = mount(UiRadio, {
       props: {
         modelValue: value,

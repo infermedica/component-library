@@ -17,7 +17,10 @@ export default {
 
 export const WithDirective = () => ({
   components: {
-    UiButton, UiHeading, UiTextarea, UiFormField,
+    UiButton,
+    UiHeading,
+    UiTextarea,
+    UiFormField,
   },
   directives: {
     keyboardFocus,
@@ -33,7 +36,10 @@ export const WithDirective = () => ({
       alert.value = null;
     };
     return {
-      alert, feedback, sendMessage, reset,
+      alert,
+      feedback,
+      sendMessage,
+      reset,
     };
   },
   template: `

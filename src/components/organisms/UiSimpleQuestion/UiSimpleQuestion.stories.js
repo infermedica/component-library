@@ -6,7 +6,9 @@ import { modifiers } from '@sb/helpers/argTypes';
 export default {
   title: 'Organisms/SimpleQuestion',
   component: UiSimpleQuestion,
-  subcomponents: { UiTile },
+  subcomponents: {
+    UiTile,
+  },
   args: {
     initModelValue: 'female',
     modifiers: [],
@@ -30,7 +32,8 @@ export default {
         },
       },
     ],
-    tileAttrs: {},
+    tileAttrs: {
+    },
   },
   argTypes: {
     initModelValue: {
@@ -40,17 +43,28 @@ export default {
       },
       control: 'string',
     },
-    modifiers: modifiers({ options: ['ui-simple-question--small'] }),
-    modelValue: { control: false },
+    modifiers: modifiers({
+      options: ['ui-simple-question--small'],
+    }),
+    modelValue: {
+      control: false,
+    },
   },
-  decorators: [() => ({ template: '<div class="max-w-147"><story /></div>' })],
+  decorators: [() => ({
+    template: '<div class="max-w-147"><story /></div>',
+  })],
 };
 
 const Template = (args) => ({
-  components: { UiSimpleQuestion },
+  components: {
+    UiSimpleQuestion,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiSimpleQuestion
     v-model="modelValue"
@@ -59,18 +73,26 @@ const Template = (args) => ({
   />`,
 });
 
-export const AsPatientSex = Template.bind({});
+export const AsPatientSex = Template.bind({
+});
 
-export const AsPatientSexSmall = Template.bind({});
+export const AsPatientSexSmall = Template.bind({
+});
 AsPatientSexSmall.args = {
   modifiers: ['ui-simple-question--small'],
 };
 
 export const WithTileSlot = (args) => ({
-  components: { UiSimpleQuestion, UiTile },
+  components: {
+    UiSimpleQuestion,
+    UiTile,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
-    return { ...args, modelValue };
+    return {
+      ...args,
+      modelValue,
+    };
   },
   template: `<UiSimpleQuestion
     v-model="modelValue"

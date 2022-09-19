@@ -1,6 +1,13 @@
 import UiTextarea from '@/components/atoms/UiTextarea/UiTextarea.vue';
-import { nextTick, onMounted, ref } from 'vue';
-import { modifiers, placeholder } from '@sb/helpers/argTypes';
+import {
+  nextTick,
+  onMounted,
+  ref,
+} from 'vue';
+import {
+  modifiers,
+  placeholder,
+} from '@sb/helpers/argTypes';
 
 export default {
   title: 'Atoms/Textarea',
@@ -36,7 +43,9 @@ export default {
 };
 
 const Template = (args) => ({
-  components: { UiTextarea },
+  components: {
+    UiTextarea,
+  },
   setup() {
     const modelValue = ref(args.initModelValue);
     const element = ref(null);
@@ -44,7 +53,11 @@ const Template = (args) => ({
       await nextTick();
       element.value?.$el.querySelector('textarea').focus();
     });
-    return { ...args, modelValue, element };
+    return {
+      ...args,
+      modelValue,
+      element,
+    };
   },
   template: `<UiTextarea
     ref="element"
@@ -55,14 +68,17 @@ const Template = (args) => ({
   />`,
 });
 
-export const WithPlaceholder = Template.bind({});
+export const WithPlaceholder = Template.bind({
+});
 
-export const IsDisabled = Template.bind({});
+export const IsDisabled = Template.bind({
+});
 IsDisabled.args = {
   modifiers: 'ui-textarea--is-disabled',
 };
 
-export const HasError = Template.bind({});
+export const HasError = Template.bind({
+});
 HasError.args = {
   modifiers: 'ui-textarea--has-error',
 };

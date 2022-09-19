@@ -15,7 +15,9 @@
           <!-- @slot Use this slot to replace accordion item content. -->
           <slot
             :name="item.name"
-            v-bind="{item}"
+            v-bind="{
+              item
+            }"
           />
         </UiAccordionItem>
       </template>
@@ -24,7 +26,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, provide } from 'vue';
+import {
+  computed,
+  provide,
+} from 'vue';
 import type { PropType } from 'vue';
 import UiAccordionItem from './_internal/UiAccordionItem.vue';
 import UiList from '../UiList/UiList.vue';

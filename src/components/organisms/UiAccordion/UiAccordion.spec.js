@@ -11,7 +11,10 @@ describe('UiAccordion.vue', () => {
   test('component emit single item for String v-model', async () => {
     const wrapper = mount(UiAccordion, {
       slots: {
-        default: h(UiAccordionItem, { name: 'sc', title: 'sc' }),
+        default: h(UiAccordionItem, {
+          name: 'sc',
+          title: 'sc',
+        }),
       },
     });
     const item = wrapper.findComponent(UiAccordionItem);
@@ -22,7 +25,10 @@ describe('UiAccordion.vue', () => {
   test('component emit multiple items for Array v-model', async () => {
     const wrapper = mount(UiAccordion, {
       slots: {
-        default: h(UiAccordionItem, { name: 'sc', title: 'sc' }),
+        default: h(UiAccordionItem, {
+          name: 'sc',
+          title: 'sc',
+        }),
       },
       props: {
         modelValue: [],

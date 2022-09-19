@@ -3,7 +3,11 @@
     <!-- @slot Use this slot to replace hint template. -->
     <slot
       name="hint"
-      v-bind="{hint, hintType, alertHintAttrs}"
+      v-bind="{
+        hint,
+        hintType,
+        alertHintAttrs
+      }"
     >
       <UiAlert
         v-if="hint"
@@ -25,13 +29,25 @@
         <!-- @slot Use this slot to replace list-item template.-->
         <slot
           name="list-item"
-          v-bind="{choice, options, evidences, updateHandler, hasError}"
+          v-bind="{
+            choice,
+            options,
+            evidences,
+            updateHandler,
+            hasError
+          }"
         >
           <UiListItem class="ui-multiple-choices__list-item">
             <!-- @slot Use this slot to replace choice-item template.-->
             <slot
               name="choice-item"
-              v-bind="{choice, options, evidences, hasError, updateHandler}"
+              v-bind="{
+                choice,
+                options,
+                evidences,
+                hasError,
+                updateHandler
+              }"
             >
               <UiMultipleChoicesItem
                 :choice="choice"
@@ -56,7 +72,10 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { computed, watch } from 'vue';
+import {
+  computed,
+  watch,
+} from 'vue';
 import type { PropType } from 'vue';
 import type { PropsAttrs } from '../../../types/attrs';
 import UiMultipleChoicesItem from './_internal/UiMultipleChoicesItem.vue';
@@ -99,9 +118,18 @@ const props = defineProps({
   options: {
     type: Array as PropType<MultipleChoiceOption[]>,
     default: () => ([
-      { name: 'Yes', value: 'present' },
-      { name: 'No', value: 'absent' },
-      { name: 'Don\'t know', value: 'unknown' },
+      {
+        name: 'Yes',
+        value: 'present',
+      },
+      {
+        name: 'No',
+        value: 'absent',
+      },
+      {
+        name: 'Don\'t know',
+        value: 'unknown',
+      },
     ]),
   },
   /**
@@ -144,7 +172,8 @@ const props = defineProps({
    */
   alertHintAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
 });
 const emit = defineEmits<{(e: 'update:modelValue', value: MultipleChoiceEvidence[]): void, (e: 'update:invalid', value: boolean): void}>();
@@ -153,15 +182,23 @@ const evidences = computed(() => (
   props.modelValue.reduce((object: MultipleChoiceModelValue, evidence: MultipleChoiceEvidence) => {
     // eslint-disable-next-line camelcase
     const { id } = evidence;
-    return { ...object, [id]: { ...evidence } };
-  }, {})
+    return {
+      ...object,
+      [id]: {
+        ...evidence,
+      },
+    };
+  }, {
+  })
 ));
 const valid = computed(() => (
   props.choices.every((choice) => (evidences.value[choice.id]))
 ));
 watch(valid, (value) => {
   emit('update:invalid', !value);
-}, { immediate: true });
+}, {
+  immediate: true,
+});
 function hasError(id: number): boolean {
   return props.touched && !evidences.value[id];
 }
@@ -169,7 +206,12 @@ function updateHandler(value: MultipleChoiceModelValue): void {
   emit('update:modelValue', Object.values(value));
 }
 const choicesToUse = computed<MultipleChoiceEvidence[]>(() => (
-  props.choices.map((evidence) => (props.source ? { ...evidence, source: props.source } : { ...evidence }))
+  props.choices.map((evidence) => (props.source ? {
+    ...evidence,
+    source: props.source,
+  } : {
+    ...evidence,
+  }))
 ));
 </script>
 

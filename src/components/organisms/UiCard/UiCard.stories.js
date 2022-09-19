@@ -11,7 +11,10 @@ export default {
   title: 'Organisms/Card',
   component: UiCard,
   subcomponents: {
-    UiIcon, UiText, UiHeading, UiContainer,
+    UiIcon,
+    UiText,
+    UiHeading,
+    UiContainer,
   },
   args: {
     modifiers: [],
@@ -21,12 +24,16 @@ export default {
     type: 'emergency_ambulance',
   },
   argTypes: {
-    modifiers: modifiers({ options: ['ui-card--modern'] }),
+    modifiers: modifiers({
+      options: ['ui-card--modern'],
+    }),
     title: {
       description: 'Use this props to set title for card.',
       table: {
         category: 'props',
-        type: { summary: 'string' },
+        type: {
+          summary: 'string',
+        },
       },
       control: 'text',
     },
@@ -35,15 +42,21 @@ export default {
       description: 'Use this slot to replace title template.',
       table: {
         category: 'slots',
-        type: { summary: 'unknown' },
+        type: {
+          summary: 'unknown',
+        },
       },
-      control: { type: 'object' },
+      control: {
+        type: 'object',
+      },
     },
     subtitle: {
       description: 'Use this props to set subtitle for card.',
       table: {
         category: 'props',
-        type: { summary: 'string' },
+        type: {
+          summary: 'string',
+        },
       },
       control: 'text',
     },
@@ -52,7 +65,9 @@ export default {
       description: 'Use this slot to replace subtitle template.',
       table: {
         category: 'slots',
-        type: { summary: 'unknown' },
+        type: {
+          summary: 'unknown',
+        },
       },
       control: 'object',
     },
@@ -60,7 +75,9 @@ export default {
       description: 'Use this props to set description for card.',
       table: {
         category: 'props',
-        type: { summary: 'string' },
+        type: {
+          summary: 'string',
+        },
       },
       control: 'text',
     },
@@ -69,9 +86,13 @@ export default {
       description: 'Use this slot to replace description template.',
       table: {
         category: 'slots',
-        type: { summary: 'unknown' },
+        type: {
+          summary: 'unknown',
+        },
       },
-      control: { type: 'object' },
+      control: {
+        type: 'object',
+      },
     },
     type: {
       control: {
@@ -86,7 +107,9 @@ export default {
       description: '@deprecated Will be removed in 0.4.0 use `details` slots instead',
       table: {
         category: 'slots',
-        type: { summary: 'unknown' },
+        type: {
+          summary: 'unknown',
+        },
       },
       control: false,
     },
@@ -94,9 +117,13 @@ export default {
 };
 
 const Template = (args) => ({
-  components: { UiCard },
+  components: {
+    UiCard,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiCard
     :class="modifiers"
@@ -107,57 +134,67 @@ const Template = (args) => ({
   />`,
 });
 
-export const Ambulance = Template.bind({});
+export const Ambulance = Template.bind({
+});
 
-export const Emergency = Template.bind({});
+export const Emergency = Template.bind({
+});
 Emergency.args = {
   type: 'emergency',
 };
 
-export const Consultation24 = Template.bind({});
+export const Consultation24 = Template.bind({
+});
 Consultation24.args = {
   type: 'consultation_24',
 };
 
-export const Consultation = Template.bind({});
+export const Consultation = Template.bind({
+});
 Consultation.args = {
   type: 'consultation',
 };
 
-export const SelfCare = Template.bind({});
+export const SelfCare = Template.bind({
+});
 SelfCare.args = {
   type: 'self_care',
 };
 
-export const ModernAmbulance = Template.bind({});
+export const ModernAmbulance = Template.bind({
+});
 ModernAmbulance.args = {
   type: 'emergency_ambulance',
   subtitle: '',
   modifiers: ['ui-card--modern'],
 };
 
-export const ModernEmergency = Template.bind({});
+export const ModernEmergency = Template.bind({
+});
 ModernEmergency.args = {
   type: 'emergency',
   subtitle: '',
   modifiers: ['ui-card--modern'],
 };
 
-export const ModernConsultation24 = Template.bind({});
+export const ModernConsultation24 = Template.bind({
+});
 ModernConsultation24.args = {
   type: 'consultation_24',
   subtitle: '',
   modifiers: ['ui-card--modern'],
 };
 
-export const ModernConsultation = Template.bind({});
+export const ModernConsultation = Template.bind({
+});
 ModernConsultation.args = {
   type: 'consultation',
   subtitle: '',
   modifiers: ['ui-card--modern'],
 };
 
-export const ModernSelfCare = Template.bind({});
+export const ModernSelfCare = Template.bind({
+});
 ModernSelfCare.args = {
   type: 'self_care',
   subtitle: '',
@@ -166,10 +203,16 @@ ModernSelfCare.args = {
 
 export const WithDetailsSlot = (args) => ({
   components: {
-    UiCard, UiText, UiHeading, UiBulletPoints, UiBulletPointsItem,
+    UiCard,
+    UiText,
+    UiHeading,
+    UiBulletPoints,
+    UiBulletPointsItem,
   },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `
     <UiCard
@@ -201,9 +244,14 @@ export const WithDetailsSlot = (args) => ({
 });
 
 export const WithTriageSlot = (args) => ({
-  components: { UiCard, UiIcon },
+  components: {
+    UiCard,
+    UiIcon,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiCard
     :class="modifiers"
@@ -226,10 +274,14 @@ export const WithTriageSlot = (args) => ({
 
 export const WithContentSlot = (args) => ({
   components: {
-    UiCard, UiText, UiHeading,
+    UiCard,
+    UiText,
+    UiHeading,
   },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiCard
     :class="modifiers"
@@ -264,9 +316,14 @@ export const WithContentSlot = (args) => ({
 });
 
 export const WithSubtitleSlot = (args) => ({
-  components: { UiCard, UiText },
+  components: {
+    UiCard,
+    UiText,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiCard
     :class="modifiers"
@@ -287,9 +344,14 @@ export const WithSubtitleSlot = (args) => ({
 });
 
 export const WithTitleSlot = (args) => ({
-  components: { UiCard, UiHeading },
+  components: {
+    UiCard,
+    UiHeading,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiCard
     :class="modifiers"
@@ -310,9 +372,14 @@ export const WithTitleSlot = (args) => ({
 });
 
 export const WithDescriptionSlot = (args) => ({
-  components: { UiCard, UiText },
+  components: {
+    UiCard,
+    UiText,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiCard
     :class="modifiers"

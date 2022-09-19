@@ -2,7 +2,9 @@ import UiProgress from '@/components/atoms/UiProgress/UiProgress.vue';
 
 export default {
   title: 'Atoms/Progress',
-  components: { UiProgress },
+  components: {
+    UiProgress,
+  },
   args: {
     value: 75,
     min: 0,
@@ -40,8 +42,14 @@ export default {
 };
 
 export const Common = (args) => ({
-  components: { UiProgress },
-  setup() { return { ...args }; },
+  components: {
+    UiProgress,
+  },
+  setup() {
+    return {
+      ...args,
+    };
+  },
   template: `<div class="max-w-32">
     <UiProgress
       :value="value"
@@ -52,8 +60,14 @@ export const Common = (args) => ({
 });
 
 export const LowValue = (args) => ({
-  components: { UiProgress },
-  setup() { return { ...args }; },
+  components: {
+    UiProgress,
+  },
+  setup() {
+    return {
+      ...args,
+    };
+  },
   template: `<div class="max-w-32">
     <UiProgress
       :value="3"
@@ -62,8 +76,14 @@ export const LowValue = (args) => ({
 });
 
 export const LowRealValue = (args) => ({
-  components: { UiProgress },
-  setup() { return { ...args }; },
+  components: {
+    UiProgress,
+  },
+  setup() {
+    return {
+      ...args,
+    };
+  },
   template: `<div class="max-w-32" style="--progress-bar-padding: 0;">
     <UiProgress
       :value="3"
@@ -72,8 +92,14 @@ export const LowRealValue = (args) => ({
 });
 
 export const LowValueNoRadius = (args) => ({
-  components: { UiProgress },
-  setup() { return { ...args }; },
+  components: {
+    UiProgress,
+  },
+  setup() {
+    return {
+      ...args,
+    };
+  },
   template: `<div class="max-w-32" style="--progress-border-radius: 0;">
     <UiProgress
       :value="3"
@@ -82,8 +108,14 @@ export const LowValueNoRadius = (args) => ({
 });
 
 export const LowValueButHigh = (args) => ({
-  components: { UiProgress },
-  setup() { return { ...args }; },
+  components: {
+    UiProgress,
+  },
+  setup() {
+    return {
+      ...args,
+    };
+  },
   template: `<div class="max-w-32" style="--progress-height: 3rem;">
     <UiProgress
       :value="4"
@@ -92,8 +124,14 @@ export const LowValueButHigh = (args) => ({
 });
 
 export const WithDifferentMinimum = (args) => ({
-  components: { UiProgress },
-  setup() { return { ...args }; },
+  components: {
+    UiProgress,
+  },
+  setup() {
+    return {
+      ...args,
+    };
+  },
   template: `<div class="max-w-32">
     <UiProgress
       :value="4"
@@ -104,8 +142,14 @@ export const WithDifferentMinimum = (args) => ({
 });
 
 export const WithSameValueMinAndMax = (args) => ({
-  components: { UiProgress },
-  setup() { return { ...args }; },
+  components: {
+    UiProgress,
+  },
+  setup() {
+    return {
+      ...args,
+    };
+  },
   template: `<div class="max-w-32">
     <UiProgress
       :value="0"

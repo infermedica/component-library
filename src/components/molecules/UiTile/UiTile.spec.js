@@ -7,7 +7,9 @@ describe('UiTile.vue', () => {
     const icon = 'close';
     const wrapper = mount(UiTile, {
       props: {
-        iconAttrs: { icon },
+        iconAttrs: {
+          icon,
+        },
       },
     });
     expect(wrapper.classes('ui-tile')).toBe(true);
@@ -19,7 +21,9 @@ describe('UiTile.vue', () => {
         default: '<div class="symptom-checker"></div>',
       },
       props: {
-        iconAttrs: { icon },
+        iconAttrs: {
+          icon,
+        },
       },
     });
     const slot = wrapper.find('.symptom-checker');
@@ -29,7 +33,9 @@ describe('UiTile.vue', () => {
     const icon = 'close';
     const wrapper = mount(UiTile, {
       props: {
-        iconAttrs: { icon },
+        iconAttrs: {
+          icon,
+        },
       },
     });
     const tileIcon = wrapper.findComponent(UiIcon).vm.icon;

@@ -3,17 +3,32 @@
     class="ui-number-stepper"
   >
     <!-- @slot Use this slot to place content inside number stepper. -->
-    <slot v-bind="{change, value: modelValue, min, max, step}" />
+    <slot
+      v-bind="{
+        change,
+        value: modelValue,
+        min,
+        max,
+        step
+      }"
+    />
     <!-- @slot Use this slot to replace decrement template. -->
     <slot
       name="decrement"
-      v-bind="{decrement, hasControls, isMin, attrs: buttonDecrementAttrs}"
+      v-bind="{
+        decrement,
+        hasControls,
+        isMin,
+        attrs: buttonDecrementAttrs
+      }"
     >
       <UiButton
         v-if="hasControls"
         v-bind="buttonDecrementAttrs"
         class="ui-button--outlined ui-button--circled ui-number-stepper__decrement"
-        :class="{'ui-button--is-disabled': isMin}"
+        :class="{
+          'ui-button--is-disabled': isMin
+        }"
         @click="decrement"
       >
         <UiIcon
@@ -25,13 +40,20 @@
     <!-- @slot Use this slot to replace increment template. -->
     <slot
       name="increment"
-      v-bind="{increment, hasControls, isMax, attrs: buttonIncrementAttrs}"
+      v-bind="{
+        increment,
+        hasControls,
+        isMax,
+        attrs: buttonIncrementAttrs
+      }"
     >
       <UiButton
         v-if="hasControls"
         v-bind="buttonIncrementAttrs"
         class="ui-button--outlined ui-button--circled ui-number-stepper__increment"
-        :class="{'ui-button--is-disabled': isMax}"
+        :class="{
+          'ui-button--is-disabled': isMax
+        }"
         @click="increment"
       >
         <UiIcon
@@ -90,14 +112,16 @@ const props = defineProps({
    */
   buttonDecrementAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to pass attrs for increment UiButton
    */
   buttonIncrementAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
 });
 const emit = defineEmits<{(e:'update:modelValue', value: number): void,
@@ -111,7 +135,10 @@ function change(value: number, modifier = 0) {
     emit('update:modelValue', newValue);
     return;
   }
-  emit('error', { isMin: isMin.value, isMax: isMax.value });
+  emit('error', {
+    isMin: isMin.value,
+    isMax: isMax.value,
+  });
 }
 function decrement(): void {
   change(props.modelValue, props.step * -1);

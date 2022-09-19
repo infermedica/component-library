@@ -2,7 +2,7 @@
   <div
     class="ui-scale"
     role="radiogroup"
-    :aria-label="translation.label"
+    :aria-label="defaultProps.translation.label"
   >
     <component
       :is="tag"
@@ -11,7 +11,9 @@
       <!-- @slot Use this slot to replace legend template. -->
       <slot
         name="legend"
-        v-bind="{legend}"
+        v-bind="{
+          legend
+        }"
       >
         <legend
           v-if="legend"
@@ -59,11 +61,17 @@
       </template>
     </component>
     <div class="ui-scale__description">
-      <UiText class="ui-scale__mild">
-        {{ translation.mild }}
+      <UiText
+        class="ui-scale__mild"
+        aria-hidden="true"
+      >
+        {{ defaultProps.translation.mild }}
       </UiText>
-      <UiText class="ui-scale__unbearable">
-        {{ translation.unbearable }}
+      <UiText
+        class="ui-scale__unbearable"
+        aria-hidden="true"
+      >
+        {{ defaultProps.translation.unbearable }}
       </UiText>
     </div>
     <UiNumberStepper
@@ -71,8 +79,8 @@
       :model-value="scaleValue"
       :min="0"
       :max="steps - 1"
-      :button-decrement-attrs="buttonDecrementAttrsExtended"
-      :button-increment-attrs="buttonIncrementAttrsExtended"
+      :button-decrement-attrs="defaultProps.buttonDecrementAttrs"
+      :button-increment-attrs="defaultProps.buttonIncrementAttrs"
       @update:model-value="changeHandler"
     >
       <template
@@ -89,8 +97,16 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
-import type { CSSProperties, PropType, ComponentPublicInstance } from 'vue';
+import {
+  computed,
+  ref,
+  watch,
+} from 'vue';
+import type {
+  CSSProperties,
+  PropType,
+  ComponentPublicInstance,
+} from 'vue';
 import { uid } from 'uid/single';
 import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
@@ -145,14 +161,16 @@ const props = defineProps({
    */
   buttonDecrementAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to pass attrs for increment UiButton
    */
   buttonIncrementAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to set scale tag.
@@ -169,6 +187,24 @@ const props = defineProps({
     default: '',
   },
 });
+const defaultProps = computed(() => ({
+  translation: {
+    label: 'Pain scale',
+    mild: 'Mild',
+    unbearable: 'Unbearable',
+    ...props.translation,
+  },
+  buttonDecrementAttrs: {
+    'aria-hidden': true,
+    tabindex: -1,
+    ...props.buttonDecrementAttrs,
+  },
+  buttonIncrementAttrs: {
+    'aria-hidden': true,
+    tabindex: -1,
+    ...props.buttonIncrementAttrs,
+  },
+}));
 const emit = defineEmits<{(e: 'update:modelValue', value: number): void}>();
 const scaleName = computed(() => (
   props.name || `scale-${uid()}`
@@ -204,18 +240,9 @@ function calcActiveElementOpacity(index: number): CSSProperties {
 
   return isActive ? {
     '--_scale-square-overlay-opacity': (index * opacityStepValue).toFixed(3),
-  } : {};
+  } : {
+  };
 }
-const buttonDecrementAttrsExtended = computed(() => ({
-  'aria-hidden': true,
-  tabindex: -1,
-  ...props.buttonDecrementAttrs,
-}));
-const buttonIncrementAttrsExtended = computed(() => ({
-  'aria-hidden': true,
-  tabindex: -1,
-  ...props.buttonIncrementAttrs,
-}));
 </script>
 
 <style lang="scss">

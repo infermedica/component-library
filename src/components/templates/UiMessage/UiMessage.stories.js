@@ -10,13 +10,17 @@ import { content } from '@sb/helpers/argTypes';
 export default {
   title: 'Templates/Message',
   component: UiMessage,
-  subcomponents: { UiHeading, UiIcon },
+  subcomponents: {
+    UiHeading,
+    UiIcon,
+  },
   args: {
     content: 'You’re about to use a short (3 min), safe and anonymous health checkup. Your answers will be carefully analyzed and you’ll learn about possible causes of your symptoms.',
     title: 'Hello!',
     subtitle: '',
     illustration: 'boy',
-    headingTitleAttrs: {},
+    headingTitleAttrs: {
+    },
   },
   argTypes: {
     content,
@@ -25,7 +29,9 @@ export default {
       description: 'Use this slot to replace content template.',
       table: {
         category: 'slots',
-        type: { summary: 'unknown' },
+        type: {
+          summary: 'unknown',
+        },
       },
       control: 'object',
     },
@@ -40,7 +46,9 @@ export default {
       description: 'Use this slot to replace title template.',
       table: {
         category: 'slots',
-        type: { summary: 'unknown' },
+        type: {
+          summary: 'unknown',
+        },
       },
       control: 'object',
     },
@@ -55,7 +63,9 @@ export default {
       description: 'Use this slot to replace subtitle template.',
       table: {
         category: 'slots',
-        type: { summary: 'unknown' },
+        type: {
+          summary: 'unknown',
+        },
       },
       control: 'object',
     },
@@ -71,7 +81,9 @@ export default {
       name: 'illustration',
       table: {
         category: 'slots',
-        type: { summary: 'unknown' },
+        type: {
+          summary: 'unknown',
+        },
       },
       control: 'object',
     },
@@ -79,9 +91,14 @@ export default {
 };
 
 const Template = (args) => ({
-  components: { UiMessage, UiText },
+  components: {
+    UiMessage,
+    UiText,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiMessage
     :title="title"
@@ -93,12 +110,19 @@ const Template = (args) => ({
   </UiMessage>`,
 });
 
-export const AsIntroduction = Template.bind({});
+export const AsIntroduction = Template.bind({
+});
 
 export const WithContentSlot = (args) => ({
-  components: { UiMessage, UiText, UiHeading },
+  components: {
+    UiMessage,
+    UiText,
+    UiHeading,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiMessage
     :title="title"
@@ -121,9 +145,15 @@ export const WithContentSlot = (args) => ({
 });
 
 export const WithAsideSlot = (args) => ({
-  components: { UiMessage, UiText, UiIcon },
+  components: {
+    UiMessage,
+    UiText,
+    UiIcon,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiMessage
     :title="title"
@@ -147,9 +177,15 @@ export const WithAsideSlot = (args) => ({
 });
 
 export const WithIllustrationSlot = (args) => ({
-  components: { UiMessage, UiText, UiIcon },
+  components: {
+    UiMessage,
+    UiText,
+    UiIcon,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiMessage
     :title="title"
@@ -168,9 +204,14 @@ export const WithIllustrationSlot = (args) => ({
 });
 
 export const AsNotAuthorized = (args) => ({
-  components: { UiMessage, UiText },
+  components: {
+    UiMessage,
+    UiText,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiMessage
     :title="title"
@@ -193,7 +234,10 @@ AsNotAuthorized.args = {
   illustration: 'lock',
 };
 AsNotAuthorized.decorators = [(story) => ({
-  components: { story, UiControls },
+  components: {
+    story,
+    UiControls,
+  },
   template: `<UiControls
     :to-next="{path: '/next'}"
     :to-back="{path: '/back'}"
@@ -208,9 +252,15 @@ AsNotAuthorized.decorators = [(story) => ({
 })];
 
 export const AsOffline = (args) => ({
-  components: { UiMessage, UiText, UiButton },
+  components: {
+    UiMessage,
+    UiText,
+    UiButton,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiMessage
     :title="title"
@@ -224,11 +274,13 @@ export const AsOffline = (args) => ({
       '--message-illustration-size': '10rem',
     }"
   >
-  <UiText>If you are an administrator of this website, then check your integration settings.</UiText>
-  <UiButton
-    class="ui-button--text"
-    style="margin: var(--space-16) 0 0 0;"
-  >Try again</UiButton>
+    <UiText>If you are an administrator of this website, then check your integration settings.</UiText>
+    <UiButton
+      class="ui-button--text"
+      style="margin: var(--space-16) 0 0 0;"
+    >
+      Try again
+    </UiButton>
   </UiMessage>`,
 });
 AsOffline.args = {
@@ -236,7 +288,10 @@ AsOffline.args = {
   illustration: 'no-internet-illustration',
 };
 AsOffline.decorators = [(story) => ({
-  components: { story, UiControls },
+  components: {
+    story,
+    UiControls,
+  },
   template: `<UiControls
     :to-next="{path: '/next'}"
     :to-back="{path: '/back'}"
@@ -251,9 +306,15 @@ AsOffline.decorators = [(story) => ({
 })];
 
 export const AsOfflinePopover = (args) => ({
-  components: { UiMessage, UiText, UiButton },
+  components: {
+    UiMessage,
+    UiText,
+    UiButton,
+  },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+    };
   },
   template: `<UiMessage
     title="No internet connection"
@@ -284,7 +345,10 @@ AsOfflinePopover.args = {
   },
 };
 AsOfflinePopover.decorators = [(story) => ({
-  components: { story, UiPopover },
+  components: {
+    story,
+    UiPopover,
+  },
   template: `<UiPopover
     :style="{
       '--popover-padding': 'var(--space-24) var(--space-16)',

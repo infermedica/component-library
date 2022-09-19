@@ -1,39 +1,31 @@
 <template>
   <component
-    :is="outerComponent"
+    :is="transitionComponent"
+    v-bind="transitionComponentAttrs"
   >
-    <!-- @slot Use this slot to replace loader. -->
-    <slot
-      v-if="isLoading"
-      name="loader"
-    >
-      <component
-        :is="tag"
-        v-bind="$attrs"
-        key="loading"
-        class="ui-loader"
-        aria-live="polite"
-        :aria-busy="`${isLoading}`"
-      >
+    <template #loader>
+      <!-- @slot Use this slot to replace loader. -->
+      <slot name="loader">
         <component
-          :is="component"
-          v-bind="loaderAttrs"
+          :is="tag"
+          v-bind="$attrs"
+          class="ui-loader"
+          aria-live="polite"
+          :aria-busy="`${isLoading}`"
         >
-          <!-- @slot Use this slot to place loader blocks. -->
-          <slot name="loader-blocks" />
+          <component
+            :is="component"
+            v-bind="loaderAttrs"
+          >
+            <!-- @slot Use this slot to place loader blocks. -->
+            <slot name="loader-blocks" />
+          </component>
         </component>
-      </component>
-    </slot>
-    <!-- @slot Use this slot to put loaded content.-->
-    <slot v-else-if="!eagerLoadComponent" />
-    <div
-      v-if="eagerLoadComponent"
-      v-show="!isLoading"
-      class="ui-loader__component-wrapper"
-    >
-      <!-- @slot Use this slot to place loaded content.-->
-      <slot />
-    </div>
+      </slot>
+    </template>
+
+    <!-- @slot Use this slot to place loaded content.-->
+    <slot />
   </component>
 </template>
 
@@ -44,21 +36,21 @@ export default {
 </script>
 
 <script setup lang="ts">
-// FIXME: reveal content with v-if, v-show, visibility: hidden, check Symptom Checker use cases
-import {
-  computed, h, TransitionGroup,
-} from 'vue';
-import type { Slot, PropType, VNode } from 'vue';
+import { computed } from 'vue';
+import type { PropType } from 'vue';
 import type { HTMLTag } from '../../../types/tag';
 import UiLoaderSpinner from './_internal/UiLoaderSpinner.vue';
+import type { PropsAttrs } from '../../../types/attrs';
 import UiLoaderSkeleton from './_internal/UiLoaderSkeleton.vue';
 import UiLoaderEllipsis from './_internal/UiLoaderEllipsis.vue';
-import type { PropsAttrs } from '../../../types/attrs';
+import UiLoaderTransition from './_internal/UiLoaderTransition.vue';
+import UiLoaderNativeTransition from './_internal/UiLoaderNativeTransition.vue';
 
 export type LoaderType = 'spinner' | 'ellipsis' | 'skeleton';
-export type LoaderComponent = InstanceType<(typeof UiLoaderSpinner
+export type LoaderComponent = typeof UiLoaderSpinner
   | typeof UiLoaderEllipsis
-  | typeof UiLoaderSkeleton)>;
+  | typeof UiLoaderSkeleton;
+export type LoaderTransitionType = 'if' | 'show' | 'opacity';
 const props = defineProps({
   /**
    * Use this props to show UiLoader component
@@ -75,11 +67,18 @@ const props = defineProps({
     default: 'spinner',
   },
   /**
-   * Use this props to pass attributes to internal child components
+   * Use this props to set transition type.
    */
-  loaderAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
+  transitionType: {
+    type: String as PropType<LoaderTransitionType>,
+    default: 'if',
+  },
+  /**
+   * Use this props to set transition name.
+   */
+  name: {
+    type: String,
+    default: 'fade',
   },
   /**
    * Use this props to pass tag of loader
@@ -89,20 +88,23 @@ const props = defineProps({
     default: 'div',
   },
   /**
-   * Use this props to pas transition name
+   * Use this props to pass attributes to internal child components
    */
-  transition: {
-    type: [String, Boolean] as PropType<string | boolean>,
-    default: false,
+  loaderAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({
+    }),
   },
   /**
-   * Use this props to start rendering final component before loading stops, so it's completely rendered
+   * Use this props to pas transition name
    */
-  eagerLoadComponent: {
-    type: Boolean,
-    default: false,
+  transitionAttrs: {
+    type: Object as PropType<Record<string, unknown>>,
+    default: () => ({
+    }),
   },
 });
+const isIfTransitionType = computed(() => props.transitionType === 'if');
 const component = computed<LoaderComponent>(() => {
   const components: Record<LoaderType, LoaderComponent> = {
     spinner: UiLoaderSpinner,
@@ -111,11 +113,24 @@ const component = computed<LoaderComponent>(() => {
   };
   return components[props.type];
 });
-const outerComponent = computed<VNode>(() => (
-  props.transition
-    ? h(TransitionGroup, { name: props.transition as string })
-    : h((_, { slots }) => (slots.default as Slot)())
+const transitionComponent = computed(() => (isIfTransitionType.value
+  ? UiLoaderNativeTransition
+  : UiLoaderTransition
 ));
+const transitionComponentAttrs = computed(() => {
+  const attrs = {
+    name: props.name,
+    mode: 'out-in',
+    ...props.transitionAttrs,
+    isLoading: props.isLoading,
+  };
+  return isIfTransitionType.value
+    ? attrs
+    : {
+      ...attrs,
+      isOpacityTransitionType: props.transitionType === 'opacity',
+    };
+});
 </script>
 
 <style lang="scss">
@@ -123,22 +138,5 @@ const outerComponent = computed<VNode>(() => (
   display: flex;
   align-items: center;
   justify-content: center;
-
-  &__component-wrapper {
-    display: contents;
-  }
-
-  /* todo: move to utilities */
-  .fade {
-    &-enter-active,
-    &-leave-active {
-      transition: opacity 300ms ease;
-    }
-
-    &-enter-from,
-    &-leave-to {
-      opacity: 0;
-    }
-  }
 }
 </style>

@@ -4,7 +4,9 @@ const { getInputAttrs, getRootAttrs } = useInput();
 
 const attrs = {
   class: 'class',
-  style: { background: 'red' },
+  style: {
+    background: 'red',
+  },
   onBlur: vi.fn,
   onFocus: vi.fn,
   type: 'number',
@@ -27,18 +29,24 @@ describe('composable/useInput', () => {
   test('return correct attrs for root element', () => {
     const output = {
       class: 'class',
-      style: { background: 'red' },
+      style: {
+        background: 'red',
+      },
     };
     const inputAttrs = getRootAttrs(attrs);
     expect(inputAttrs).toStrictEqual(output);
   });
   test('return empty attrs for input element when parameter is empty', () => {
-    const inputAttrs = getInputAttrs({});
-    expect(inputAttrs).toStrictEqual({});
+    const inputAttrs = getInputAttrs({
+    });
+    expect(inputAttrs).toStrictEqual({
+    });
   });
   test('return empty attrs for root element when parameter is empty', () => {
-    const rootAttrs = getRootAttrs({});
-    expect(rootAttrs).toStrictEqual({});
+    const rootAttrs = getRootAttrs({
+    });
+    expect(rootAttrs).toStrictEqual({
+    });
   });
   test('thrown error when parameter for input element is null', () => {
     expect(() => getInputAttrs(null)).toThrow(Error);

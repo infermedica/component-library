@@ -5,7 +5,10 @@
     <!-- @slot Use this slot to replace backdrop template. -->
     <slot
       name="backdrop"
-      v-bind="{ closeHandler, modelValue }"
+      v-bind="{
+        closeHandler,
+        modelValue
+      }"
     >
       <transition
         appear
@@ -21,7 +24,13 @@
     <!-- @slot Use this slot to replace container template. -->
     <slot
       name="container"
-      v-bind="{ confirmHandler, cancelHandler, closeHandler, isClosable, modelValue }"
+      v-bind="{
+        confirmHandler,
+        cancelHandler,
+        closeHandler,
+        isClosable,
+        modelValue
+      }"
     >
       <transition
         appear
@@ -33,12 +42,22 @@
           v-focus-trap
           v-body-scroll-lock
           class="ui-modal__dialog"
-          :class="{'ui-modal__dialog--has-title': title}"
+          :class="{
+            'ui-modal__dialog--has-title': title
+          }"
         >
           <!-- @slot Use this slot to replace header template. -->
           <slot
             name="header"
-            v-bind="{ closeHandler, description, hasDescription, hasHeader, isClosable, titleTag, titleText }"
+            v-bind="{
+              closeHandler,
+              description,
+              hasDescription,
+              hasHeader,
+              isClosable,
+              titleTag,
+              titleText
+            }"
           >
             <div
               v-if="hasHeader"
@@ -47,7 +66,11 @@
               <!-- @slot Use this slot to replace title template. -->
               <slot
                 :name="titleSlotName"
-                v-bind="{ titleTag, titleText, description}"
+                v-bind="{
+                  titleTag,
+                  titleText,
+                  description
+                }"
               >
                 <component
                   :is="titleTag"
@@ -59,7 +82,11 @@
               <!-- @slot Use this slot to replace close template. -->
               <slot
                 name="close"
-                v-bind="{ attrs: buttonCloseAttrs, closeHandler, isClosable }"
+                v-bind="{
+                  attrs: buttonCloseAttrs,
+                  closeHandler,
+                  isClosable
+                }"
               >
                 <UiButton
                   v-if="isClosable"
@@ -80,7 +107,10 @@
             <slot
               v-if="title"
               name="description"
-              v-bind="{ hasDescription, description }"
+              v-bind="{
+                hasDescription,
+                description
+              }"
             >
               <UiText
                 v-if="hasDescription"
@@ -93,7 +123,15 @@
           <!-- @slot Use this slot to replace actions template. -->
           <slot
             name="actions"
-            v-bind="{ confirmHandler, cancelHandler, hasActions, hasCancel, hasConfirm, isClosable, translation }"
+            v-bind="{
+              confirmHandler,
+              cancelHandler,
+              hasActions,
+              hasCancel,
+              hasConfirm,
+              isClosable,
+              translation: defaultProps.translation
+            }"
           >
             <div
               v-if="hasActions"
@@ -103,7 +141,12 @@
                 <!-- @slot Use this slot to replace confirm button template. -->
                 <slot
                   name="confirm"
-                  v-bind="{ attrs: buttonConfirmAttrs, confirmHandler, hasConfirm, translation }"
+                  v-bind="{
+                    attrs: buttonConfirmAttrs,
+                    confirmHandler,
+                    hasConfirm,
+                    translation: defaultProps.translation
+                  }"
                 >
                   <UiButton
                     v-if="hasConfirm"
@@ -111,13 +154,18 @@
                     v-bind="buttonConfirmAttrs"
                     @click="confirmHandler"
                   >
-                    {{ translation.confirm }}
+                    {{ defaultProps.translation.confirm }}
                   </UiButton>
                 </slot>
                 <!-- @slot Use this slot to replace cancel button template. -->
                 <slot
                   name="cancel"
-                  v-bind="{ attrs: buttonCancelAttrs, cancelHandler, hasCancel, translation }"
+                  v-bind="{
+                    attrs: buttonCancelAttrs,
+                    cancelHandler,
+                    hasCancel,
+                    translation: defaultProps.translation
+                  }"
                 >
                   <UiButton
                     v-if="hasCancel"
@@ -125,7 +173,7 @@
                     v-bind="buttonCancelAttrs"
                     @click="cancelHandler"
                   >
-                    {{ translation.cancel }}
+                    {{ defaultProps.translation.cancel }}
                   </UiButton>
                 </slot>
               </template>
@@ -133,7 +181,12 @@
                 <!-- @slot Use this slot to replace cancel button template. -->
                 <slot
                   name="cancel"
-                  v-bind="{ attrs: buttonCancelAttrs, cancelHandler, hasCancel, translation }"
+                  v-bind="{
+                    attrs: buttonCancelAttrs,
+                    cancelHandler,
+                    hasCancel,
+                    translation: defaultProps.translation
+                  }"
                 >
                   <UiButton
                     v-if="hasCancel"
@@ -142,13 +195,18 @@
                     v-bind="buttonCancelAttrs"
                     @click="cancelHandler"
                   >
-                    {{ translation.cancel }}
+                    {{ defaultProps.translation.cancel }}
                   </UiButton>
                 </slot>
                 <!-- @slot Use this slot to replace confirm button template. -->
                 <slot
                   name="confirm"
-                  v-bind="{ attrs: buttonConfirmAttrs, confirmHandler, hasConfirm, translation, }"
+                  v-bind="{
+                    attrs: buttonConfirmAttrs,
+                    confirmHandler,
+                    hasConfirm,
+                    translation: defaultProps.translation
+                  }"
                 >
                   <UiButton
                     v-if="hasConfirm"
@@ -156,7 +214,7 @@
                     v-bind="buttonConfirmAttrs"
                     @click="confirmHandler"
                   >
-                    {{ translation.confirm }}
+                    {{ defaultProps.translation.confirm }}
                   </UiButton>
                 </slot>
               </template>
@@ -170,11 +228,18 @@
 
 <script setup lang="ts">
 import {
-  ref, computed, nextTick, onBeforeUnmount, onMounted,
+  ref,
+  computed,
+  nextTick,
+  onBeforeUnmount,
+  onMounted,
 } from 'vue';
 import type { PropType } from 'vue';
 import type { PropsAttrs } from '../../../types/attrs';
-import { bodyScrollLock as vBodyScrollLock, focusTrap as vFocusTrap } from '../../../utilities/directives';
+import {
+  bodyScrollLock as vBodyScrollLock,
+  focusTrap as vFocusTrap,
+} from '../../../utilities/directives';
 import { focusElement } from '../../../utilities/helpers/index.ts';
 import UiBackdrop from '../../atoms/UiBackdrop/UiBackdrop.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
@@ -214,21 +279,24 @@ const props = defineProps({
    */
   buttonConfirmAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to pass attrs for cancel UiButton
    */
   buttonCancelAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to pass attrs for close UiButton
    */
   buttonCloseAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to hide close icon.
@@ -256,9 +324,19 @@ const props = defineProps({
    */
   translation: {
     type: Object as PropType<ModalTranslation>,
-    default: () => ({ confirm: 'Ok', cancel: 'Cancel' }),
+    default: () => ({
+      confirm: 'Ok',
+      cancel: 'Cancel',
+    }),
   },
 });
+const defaultProps = computed(() => ({
+  translation: {
+    confirm: 'Ok',
+    cancel: 'Cancel',
+    ...props.translation,
+  },
+}));
 const emit = defineEmits<{(e: 'cancel'): void, (e:'confirm'): void, (e:'update:modelValue', value: boolean): void}>();
 const button = ref<InstanceType<typeof UiButton>|null>(null);
 const hasActions = computed(() => props.hasCancel || props.hasConfirm);

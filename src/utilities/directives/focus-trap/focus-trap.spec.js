@@ -28,11 +28,16 @@ beforeEach(async () => {
 
 describe('directive/focusTrap', () => {
   test('focus state goes from last child to first child when press Tab', async () => {
-    await lastChild.trigger('keydown', { key: 'Tab' });
+    await lastChild.trigger('keydown', {
+      key: 'Tab',
+    });
     expect(document.activeElement).toBe(firstChild.element);
   });
   test('focus state goes from first child to last child when press Tab + Shift', async () => {
-    await firstChild.trigger('keydown', { key: 'Tab', shiftKey: true });
+    await firstChild.trigger('keydown', {
+      key: 'Tab',
+      shiftKey: true,
+    });
     expect(document.activeElement).toBe(lastChild.element);
   });
 });

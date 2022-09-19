@@ -47,7 +47,8 @@ const props = defineProps({
    */
   progressAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
 });
 const value = computed(() => ((100 / props.steps) * props.currentStep));
@@ -78,10 +79,10 @@ const stepsDots = computed(() => (props.steps - 1));
     left: var(--_progressbar-step-left);
     width: var(--_progressbar-step-size);
     height: var(--_progressbar-step-size);
-    margin: functions.var($element + "-step", margin, 3px);
+    margin: functions.var($element + "-step", margin, 3px 0);
     background: functions.var($element + "-step", background, var(--color-icon-on-selection));
     border-radius: functions.var($element + "-step", border-radius, var(--border-radius-circle));
-    transform: translateX(-100%);
+    transform: translateX(-50%);
   }
 }
 </style>

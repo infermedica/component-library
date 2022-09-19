@@ -6,7 +6,9 @@
     <!-- @slot Use this slot to replace legend template. -->
     <slot
       name="legend"
-      v-bind="{legend}"
+      v-bind="{
+        legend
+      }"
     >
       <legend
         v-if="legend"
@@ -22,7 +24,16 @@
       <!-- @slot Use this slot to replace option template. -->
       <slot
         name="option"
-        v-bind="{index, rate, radioAttrs, ratingName, hoverHandler, finalScore, settings, translation}"
+        v-bind="{
+          index,
+          rate,
+          radioAttrs,
+          ratingName,
+          hoverHandler,
+          finalScore,
+          settings,
+          translation: defaultProps.translation
+        }"
       >
         <UiRadio
           v-model="rate"
@@ -36,14 +47,18 @@
           <template #radio>
             <div
               class="ui-rating__radio"
-              :class="{'ui-rating__radio--is-checked': index <= finalScore}"
+              :class="{
+                'ui-rating__radio--is-checked': index <= finalScore
+              }"
             >
               <!-- fixme: performance -->
               <template v-if="index <= finalScore">
                 <!-- @slot Use this slot to replace positive rating icon. -->
                 <slot
                   name="icon-active"
-                  v-bind="{icon: settings.iconActive}"
+                  v-bind="{
+                    icon: settings.iconActive
+                  }"
                 >
                   <UiIcon
                     :icon="settings.iconActive"
@@ -55,7 +70,9 @@
                 <!-- @slot Use this slot to replace rating icon. -->
                 <slot
                   name="icon"
-                  v-bind="{icon: settings.icon}"
+                  v-bind="{
+                    icon: settings.icon
+                  }"
                 >
                   <UiIcon
                     :icon="settings.icon"
@@ -66,7 +83,7 @@
             </div>
           </template>
           <template #label>
-            <span class="visual-hidden">{{ translation.stars(index) }}</span>
+            <span class="visual-hidden">{{ defaultProps.translation.stars(index) }}</span>
           </template>
         </UiRadio>
       </slot>
@@ -75,7 +92,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import {
+  computed,
+  ref,
+} from 'vue';
 import type { PropType } from 'vue';
 import { uid } from 'uid/single';
 import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
@@ -122,7 +142,8 @@ const props = defineProps({
    */
   radioAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({}),
+    default: () => ({
+    }),
   },
   /**
    * Use this props to setup item component.
@@ -158,6 +179,11 @@ const props = defineProps({
     default: '',
   },
 });
+const defaultProps = computed(() => ({
+  translation: {
+    stars: (index: number) => (`${index} stars`),
+  },
+}));
 const emit = defineEmits<{(e:'update:modelValue', value: string): void}>();
 const ratingName = computed(() => (
   props.name || `rating-${uid()}`

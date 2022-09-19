@@ -24,7 +24,8 @@ const props = defineProps({
   */
   setElementsAttrs: {
     type: Function as PropType<AttrsFunc>,
-    default: (attrs: Record<string, unknown>) => ({}),
+    default: (attrs: Record<string, unknown>) => ({
+    }),
   },
 });
 provide('setElementsAttrs', props.setElementsAttrs);
