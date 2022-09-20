@@ -23,31 +23,30 @@
       v-bind="$attrs"
       class="ui-multiple-choices__list"
     >
+      <!-- @slot Use this slot to replace list-item template.-->
+      <!--      <slot-->
+      <!--        name="list-item"-->
+      <!--        v-bind="{-->
+      <!--          item,-->
+      <!--          index,-->
+      <!--          options,-->
+      <!--          hasError,-->
+      <!--          updateHandler,-->
+      <!--        }"-->
+      <!--      />-->
       <template
         v-for="(item, index) in itemsToRender"
         :key="index"
         #[item.name]
       >
-        <!-- @slot Use this slot to replace list-item template.-->
-        <slot
-          name="list-item"
-          v-bind="{
-            item,
-            index,
-            options,
-            hasError,
-            updateHandler,
-          }"
-        >
-          <UiMultipleChoicesItem
-            :model-value="value[index]"
-            :item="item"
-            :options="options"
-            :invalid="hasError(index)"
-            class="ui-multiple-choices__choice"
-            @update:model-value="updateHandler($event, index)"
-          />
-        </slot>
+        <UiMultipleChoicesItem
+          :model-value="value[index]"
+          :item="item"
+          :options="options"
+          :invalid="hasError(index)"
+          class="ui-multiple-choices__choice"
+          @update:model-value="updateHandler($event, index)"
+        />
       </template>
     </UiList>
   </div>

@@ -31,7 +31,7 @@ export default {
   args: {
     initModelValue: [],
     initInvalid: true,
-    choices: [
+    items: [
       {
         name: 'Seconds to minutes',
       },
@@ -111,7 +111,7 @@ const Template = (args) => ({
   template: `<UiMultipleAnswer
     v-model="modelValue"
     v-model:invalid="invalid"
-    :choices="choices"
+    :items="items"
     :name="name"
     :legend="legend"
     :hint="hint"
@@ -126,7 +126,7 @@ export const WithMultipleChoices = Template.bind({
 WithMultipleChoices.args = {
   name: 'suggest',
   hint: 'Select all answers that apply',
-  choices: [
+  items: [
     {
       name: 'Fatigue',
     },
@@ -144,7 +144,7 @@ export const WithButtonInfo = Template.bind({
 WithButtonInfo.args = {
   name: 'suggest',
   hint: 'Select all answers that apply',
-  choices: [
+  items: [
     {
       name: 'Fatigue',
       buttonInfoAttrs: {
@@ -174,7 +174,7 @@ export const WithSingleChoice = Template.bind({
 WithSingleChoice.args = {
   initModelValue: {
   },
-  choices: [
+  items: [
     {
       name: 'Fatigue',
       buttonInfoAttrs: {
@@ -198,229 +198,3 @@ WithSingleChoice.args = {
     },
   ],
 };
-
-export const WithHintSlot = (args) => ({
-  components: {
-    UiMultipleAnswer,
-    UiAlert,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    const invalid = ref(args.initInvalid);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-      invalid,
-    };
-  },
-  template: `<UiMultipleAnswer
-    v-model="modelValue"
-    v-model:invalid="invalid"
-    :choices="choices"
-    :name="name"
-    :legend="legend"
-    :hint="hint"
-    :touched="touched"
-    @update:modelValue="onUpdateModelValue"
-    @update:invalid="onUpdateInvalid"
-  >
-    <template #hint="{hint, hintType}">
-      <UiAlert
-        v-if="hint"
-        :type="hintType"
-        class="ui-multiple-answer__hint"
-      >
-        {{ hint }}
-      </UiAlert>
-    </template>
-  </UiMultipleAnswer>`,
-});
-
-export const WithListItemSlot = (args) => ({
-  components: {
-    UiMultipleAnswer,
-    UiListItem,
-    UiCheckbox,
-    UiRadio,
-    UiText,
-    UiButton,
-    UiIcon,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    const invalid = ref(args.initInvalid);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-      invalid,
-    };
-  },
-  template: `<UiMultipleAnswer
-    v-model="modelValue"
-    v-model:invalid="invalid"
-    :choices="choices"
-    :name="name"
-    :legend="legend"
-    :hint="hint"
-    :touched="touched"
-    @update:modelValue="onUpdateModelValue"
-    @update:invalid="onUpdateInvalid"
-  >
-    <template #list-item="{choice, modelValue, updateHandler, errorClass, name, component, componentName}">
-      <UiListItem
-        class="ui-multiple-answer__list-item"
-        :class="{'ui-multiple-answer__list-item--has-error': hasError}"
-      >
-        <component
-          :is="component"
-          :id="choice.id"
-          :value="choice"
-          :model-value="modelValue"
-          :name="name"
-          :legend="legend"
-          class="ui-multiple-answer__choice"
-          :class="errorClass"
-          @update:modelValue="updateHandler(choice)"
-        >
-          <template #label>
-            <div
-              class="ui-multiple-answer__label"
-              :class="componentName + '__label'"
-            >
-              <UiText
-                tag="span"
-              >
-                {{ choice.name }}
-              </UiText>
-              <UiButton
-                v-if="choice.explication"
-                v-bind="choice.buttonInfoAttrs"
-                class="ui-multiple-answer__explication ui-button--text ui-button--has-icon"
-              >
-                <UiIcon icon="info"/>
-              </UiButton>
-            </div>
-          </template>
-        </component>
-      </UiListItem>
-    </template>
-  </UiMultipleAnswer>`,
-});
-
-export const WithChoiceItemSlot = (args) => ({
-  components: {
-    UiMultipleAnswer,
-    UiCheckbox,
-    UiRadio,
-    UiText,
-    UiButton,
-    UiIcon,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    const invalid = ref(args.initInvalid);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-      invalid,
-    };
-  },
-  template: `<UiMultipleAnswer
-    v-model="modelValue"
-    v-model:invalid="invalid"
-    :choices="choices"
-    :name="name"
-    :legend="legend"
-    :hint="hint"
-    :touched="touched"
-    @update:modelValue="onUpdateModelValue"
-    @update:invalid="onUpdateInvalid"
-  >
-    <template #choice-item="{choice, modelValue, updateHandler, errorClass, name, component, componentName}">
-      <component
-        :is="component"
-        :id="choice.id"
-        :value="choice"
-        :model-value="modelValue"
-        :name="name"
-        :legend="legend"
-        class="ui-multiple-answer__choice"
-        :class="errorClass"
-        @update:modelValue="updateHandler(choice)"
-      >
-        <template #label>
-          <div
-            class="ui-multiple-answer__label"
-            :class="componentName + '__label'"
-          >
-            <UiText
-              tag="span"
-            >
-              {{ choice.name }}
-            </UiText>
-            <UiButton
-              v-if="choice.explication"
-              v-bind="choice.buttonInfoAttrs"
-              class="ui-multiple-answer__explication ui-button--text ui-button--has-icon"
-            >
-              <UiIcon icon="info"/>
-            </UiButton>
-          </div>
-        </template>
-      </component>
-    </template>
-  </UiMultipleAnswer>`,
-});
-
-export const WithLabelChoiceIdSlot = (args) => ({
-  components: {
-    UiMultipleAnswer,
-    UiText,
-    UiButton,
-    UiIcon,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    const invalid = ref(args.initInvalid);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-      invalid,
-    };
-  },
-  template: `<UiMultipleAnswer
-    v-model="modelValue"
-    v-model:invalid="invalid"
-    :choices="choices"
-    :name="name"
-    :legend="legend"
-    :hint="hint"
-    :touched="touched"
-    @update:modelValue="onUpdateModelValue"
-    @update:invalid="onUpdateInvalid"
-  >
-    <template #label-s_1907="{choice, component, componentName}">
-      <div
-        class="ui-multiple-answer__label"
-        :class="componentName + '__label'"
-      >
-        <UiText
-          tag="span"
-        >
-          {{ choice.name }}
-        </UiText>
-        <UiButton
-          v-if="choice.explication"
-          v-bind="choice.buttonInfoAttrs"
-          class="ui-multiple-answer__explication ui-button--text ui-button--has-icon"
-        >
-          <UiIcon icon="info"/>
-        </UiButton>
-      </div>
-    </template>
-  </UiMultipleAnswer>`,
-});

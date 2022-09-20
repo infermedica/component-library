@@ -36,86 +36,59 @@
       </legend>
     </slot>
     <UiList
-      class="ui-multiple-answer__list"
+      :items="itemsToRender"
       v-bind="$attrs"
+      class="ui-multiple-answer__list"
     >
       <template
-        v-for="choice in choices"
-        :key="choice.id"
+        v-for="(item, index) in itemsToRender"
+        :key="index"
+        #[item.name]
       >
-        <!-- @slot Use this slot to replace list-item template.-->
-        <slot
-          name="list-item"
-          v-bind="{
-            choice,
-            modelValue,
-            errorClass,
-            name,
-            component,
-            componentName
-          }"
+        <component
+          :is="component"
+          :id="item.id"
+          v-model="value"
+          :value="item"
+          :name="name"
+          class="ui-multiple-answer__choice"
+          :class="errorClass"
+          @keydown="focusExplication"
         >
-          <UiListItem
-            class="ui-multiple-answer__list-item"
-          >
-            <!-- @slot Use this slot to replace choice-item template.-->
+          <template #label>
+            <!-- @slot Use this slot to replace choice-label template for specific item.-->
             <slot
-              name="choice-item"
+              :name="`label-${item.id}`"
               v-bind="{
-                choice,
-                errorClass,
-                name,
-                component,
+                item,
                 componentName
               }"
             >
-              <component
-                :is="component"
-                :id="choice.id"
-                v-model="value"
-                :value="choice"
-                :name="name"
-                class="ui-multiple-answer__choice"
-                :class="errorClass"
-                @keydown="focusExplication"
+              <div
+                class="ui-multiple-answer__label"
+                :class="`${componentName}__label`"
               >
-                <template #label>
-                  <!-- @slot Use this slot to replace choice-label template for specific item.-->
-                  <slot
-                    :name="`label-${choice.id}`"
-                    v-bind="{
-                      choice,
-                      componentName
-                    }"
-                  >
-                    <div
-                      class="ui-multiple-answer__label"
-                      :class="`${componentName}__label`"
-                    >
-                      <UiText
-                        tag="span"
-                      >
-                        {{ choice.name }}
-                      </UiText>
-                      <UiButton
-                        v-if="choice.buttonInfoAttrs"
-                        v-bind="choice.buttonInfoAttrs"
-                        tabindex="-1"
-                        class="ui-button--icon ui-multiple-answer__explication"
-                        @keydown="unfocusExplication"
-                      >
-                        <UiIcon
-                          icon="info"
-                          class="ui-button__icon"
-                        />
-                      </UiButton>
-                    </div>
-                  </slot>
-                </template>
-              </component>
+                <UiText
+                  tag="span"
+                >
+                  {{ item.name }}
+                </UiText>
+                <UiButton
+                  v-if="item.buttonInfoAttrs"
+                  v-bind="item.buttonInfoAttrs"
+                  tabindex="-1"
+                  class="ui-button--icon ui-multiple-answer__explication"
+                  @keydown="unfocusExplication"
+                >
+                  <UiIcon
+                    icon="info"
+                    class="ui-button__icon"
+                  />
+                </UiButton>
+              </div>
             </slot>
-          </UiListItem>
-        </slot>
+          </template>
+        </component>
       </template>
     </UiList>
   </component>
@@ -166,7 +139,7 @@ const props = defineProps({
   /**
    *  Use this props to set possible choices.
    */
-  choices: {
+  items: {
     type: Array,
     default: () => ([]),
   },
@@ -261,6 +234,12 @@ function unfocusExplication(event: KeyboardEvent) {
   const answerInput: HTMLInputElement | null | undefined = el.closest(`.${componentName.value}`)?.querySelector('input');
   answerInput?.focus();
 }
+const itemsToRender = computed(() => (props.items.map((item) => ({
+  ...item,
+  listItemAttrs: {
+    class: 'ui-multiple-answer__list-item',
+  },
+}))));
 </script>
 
 <style lang="scss">
