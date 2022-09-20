@@ -11,6 +11,7 @@ import { ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
 
 const events = actions({
+  onUpdateModelValue: 'update:modelValue',
   onUpdateInvalid: 'update:invalid',
 });
 
@@ -32,64 +33,13 @@ export default {
     initInvalid: true,
     choices: [
       {
-        id: 's_1907',
         name: 'Seconds to minutes',
-        explication: null,
-        instruction: null,
-        choices: [
-          {
-            id: 'present',
-            label: 'Yes',
-          },
-          {
-            id: 'absent',
-            label: 'No',
-          },
-          {
-            id: 'unknown',
-            label: "Don't know",
-          },
-        ],
       },
       {
-        id: 's_1868',
         name: 'A few minutes to 4 hours',
-        explication: null,
-        instruction: null,
-        choices: [
-          {
-            id: 'present',
-            label: 'Yes',
-          },
-          {
-            id: 'absent',
-            label: 'No',
-          },
-          {
-            id: 'unknown',
-            label: "Don't know",
-          },
-        ],
       },
       {
-        id: 's_1870',
         name: '4 hours to 3 days',
-        explication: null,
-        instruction: null,
-        choices: [
-          {
-            id: 'present',
-            label: 'Yes',
-          },
-          {
-            id: 'absent',
-            label: 'No',
-          },
-          {
-            id: 'unknown',
-            label: "Don't know",
-          },
-        ],
       },
     ],
     name: 'diagnosis',
@@ -166,6 +116,7 @@ const Template = (args) => ({
     :legend="legend"
     :hint="hint"
     :touched="touched"
+    @update:modelValue="onUpdateModelValue"
     @update:invalid="onUpdateInvalid"
   />`,
 });
@@ -177,22 +128,13 @@ WithMultipleChoices.args = {
   hint: 'Select all answers that apply',
   choices: [
     {
-      id: 's_2100',
       name: 'Fatigue',
-      common_name: 'Fatigue',
-      source: 'suggest',
     },
     {
-      id: 's_98',
       name: 'Fever',
-      common_name: 'Fever',
-      source: 'suggest',
     },
     {
-      id: 's_156',
       name: 'Nausea',
-      common_name: 'Feeling sick',
-      source: 'suggest',
     },
   ],
 };
@@ -204,10 +146,7 @@ WithButtonInfo.args = {
   hint: 'Select all answers that apply',
   choices: [
     {
-      id: 's_2100',
       name: 'Fatigue',
-      common_name: 'Fatigue',
-      source: 'suggest',
       buttonInfoAttrs: {
         'aria-label': 'how to check it?',
         to: {
@@ -216,16 +155,10 @@ WithButtonInfo.args = {
       },
     },
     {
-      id: 's_98',
       name: 'Fever',
-      common_name: 'Fever',
-      source: 'suggest',
     },
     {
-      id: 's_81',
       name: 'Illusion of surrounding objects being bigger or smaller than they actually are',
-      common_name: 'Illusion',
-      source: 'suggest',
       buttonInfoAttrs: {
         'aria-label': 'what does it mean?',
         to: {
@@ -236,31 +169,35 @@ WithButtonInfo.args = {
   ],
 };
 
-export const WithSingleChoice = (args) => ({
-  components: {
-    UiMultipleAnswer,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    const invalid = ref(args.initInvalid);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-      invalid,
-    };
-  },
-  template: `<UiMultipleAnswer
-    v-model="modelValue"
-    v-model:invalid="invalid"
-    :choices="choices"
-    :name="name"
-    :legend="legend"
-    :hint="hint"
-    :touched="touched"
-    @update:invalid="onUpdateInvalid"
-  />`,
+export const WithSingleChoice = Template.bind({
 });
+WithSingleChoice.args = {
+  initModelValue: {
+  },
+  choices: [
+    {
+      name: 'Fatigue',
+      buttonInfoAttrs: {
+        'aria-label': 'how to check it?',
+        to: {
+          path: '/',
+        },
+      },
+    },
+    {
+      name: 'Fever',
+    },
+    {
+      name: 'Illusion of surrounding objects being bigger or smaller than they actually are',
+      buttonInfoAttrs: {
+        'aria-label': 'what does it mean?',
+        to: {
+          path: '/',
+        },
+      },
+    },
+  ],
+};
 
 export const WithHintSlot = (args) => ({
   components: {
@@ -285,6 +222,7 @@ export const WithHintSlot = (args) => ({
     :legend="legend"
     :hint="hint"
     :touched="touched"
+    @update:modelValue="onUpdateModelValue"
     @update:invalid="onUpdateInvalid"
   >
     <template #hint="{hint, hintType}">
@@ -327,6 +265,7 @@ export const WithListItemSlot = (args) => ({
     :legend="legend"
     :hint="hint"
     :touched="touched"
+    @update:modelValue="onUpdateModelValue"
     @update:invalid="onUpdateInvalid"
   >
     <template #list-item="{choice, modelValue, updateHandler, errorClass, name, component, componentName}">
@@ -397,6 +336,7 @@ export const WithChoiceItemSlot = (args) => ({
     :legend="legend"
     :hint="hint"
     :touched="touched"
+    @update:modelValue="onUpdateModelValue"
     @update:invalid="onUpdateInvalid"
   >
     <template #choice-item="{choice, modelValue, updateHandler, errorClass, name, component, componentName}">
@@ -460,6 +400,7 @@ export const WithLabelChoiceIdSlot = (args) => ({
     :legend="legend"
     :hint="hint"
     :touched="touched"
+    @update:modelValue="onUpdateModelValue"
     @update:invalid="onUpdateInvalid"
   >
     <template #label-s_1907="{choice, component, componentName}">

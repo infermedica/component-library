@@ -49,7 +49,6 @@
           v-bind="{
             choice,
             modelValue,
-            updateHandler,
             errorClass,
             name,
             component,
@@ -64,8 +63,6 @@
               name="choice-item"
               v-bind="{
                 choice,
-                modelValue,
-                updateHandler,
                 errorClass,
                 name,
                 component,
@@ -75,12 +72,11 @@
               <component
                 :is="component"
                 :id="choice.id"
+                v-model="value"
                 :value="choice"
-                :model-value="modelValue"
                 :name="name"
                 class="ui-multiple-answer__choice"
                 :class="errorClass"
-                @update:model-value="updateHandler(choice)"
                 @keydown="focusExplication"
               >
                 <template #label>
@@ -156,10 +152,6 @@ import type { HTMLTag } from '../../../types/tag';
 
 export interface MultipleAnswerChoice extends CheckboxValueAsObj {
   name: string;
-  'common_name'?: string;
-  source?: string;
-  choices?: { id: string; label: string; }
-  buttonInfoAttrs?: Record<string, unknown>;
 }
 export type MultipleAnswerValue = RadioValue | CheckboxValue[];
 export type ComponentName = 'ui-checkbox' | 'ui-radio';
@@ -175,7 +167,7 @@ const props = defineProps({
    *  Use this props to set possible choices.
    */
   choices: {
-    type: Array as PropType<MultipleAnswerChoice[]>,
+    type: Array,
     default: () => ([]),
   },
   /**
@@ -248,18 +240,12 @@ watch(valid, (value) => {
 }, {
   immediate: true,
 });
-function updateHandler(value: MultipleAnswerChoice): void {
-  if (!isCheckbox.value) {
+const value = computed({
+  get: () => (props.modelValue),
+  set: (value: MultipleAnswerValue) => {
     emit('update:modelValue', value);
-    return;
-  }
-  const modelValue = props.modelValue as CheckboxValueAsObj[];
-  if (modelValue.some((evidence) => evidence.id === value.id)) {
-    emit('update:modelValue', modelValue.filter((evidence) => evidence.id !== value.id));
-  } else {
-    emit('update:modelValue', [...modelValue, value]);
-  }
-}
+  },
+});
 function focusExplication(event: KeyboardEvent) {
   if (event.key !== 'ArrowRight') return;
   const el = event.target as HTMLInputElement;
