@@ -13,7 +13,7 @@
     "test:watch": "vitest -w --changed",
     "lint": "eslint --fix --ext .js,.vue src",
     "stylelint": "stylelint src/**/*.{vue,scss,css} --fix",
-    "storybook": "pnpm create:icons-list && pnpm test:generate-output && start-storybook -p 6006",
+    "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "create:index": "node scripts/create-index.js",
     "create:component": "node scripts/create-component.js",
