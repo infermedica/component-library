@@ -24,7 +24,8 @@
     "chromatic": "chromatic --exit-zero-on-changes",
     "serve": "vite --open",
     "preview": "vite preview --open --port 8080",
-    "build": "vite build --out-dir dist"
+    "build": "vite build --out-dir dist",
+    "husky": "husky install && chmod ug+x .husky/*"
   },
   "main": "index.ts",
   "module": "index.ts",
