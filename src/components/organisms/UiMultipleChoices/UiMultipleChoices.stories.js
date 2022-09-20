@@ -7,6 +7,7 @@ import { ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
 
 const events = actions({
+  onUpdateModelValue: 'update:modelValue',
   onUpdateInvalid: 'update:invalid',
 });
 
@@ -17,12 +18,26 @@ export default {
     UiMultipleChoicesItem,
     UiAlert,
     UiList,
-    UiListItem,
   },
   args: {
     initModelValue: [],
+    hint: 'Select one answer in each row',
+    touched: false,
     initInvalid: true,
-    source: 'predefined',
+    items: [
+      {
+        id: 9,
+        name: 'I have diabetes',
+      },
+      {
+        id: 8,
+        name: 'I have hypertension',
+      },
+      {
+        id: 7,
+        name: 'I have high cholesterol',
+      },
+    ],
     options: [
       {
         name: 'Yes',
@@ -37,29 +52,8 @@ export default {
         value: 'unknown',
       },
     ],
-    hint: 'Select one answer in each row',
-    choices: [
-      {
-        id: 9,
-        question: 37,
-        name: 'I have diabetes',
-        linked_observation: 'p_8',
-      },
-      {
-        id: 8,
-        question: 37,
-        name: 'I have hypertension',
-        linked_observation: 'p_9',
-      },
-      {
-        id: 7,
-        question: 37,
-        name: 'I have high cholesterol',
-        linked_observation: 'p_10',
-      },
-    ],
-    touched: false,
     alertHintAttrs: {
+      'data-testid': 'alert-hint',
     },
   },
   argTypes: {
@@ -124,12 +118,11 @@ const Template = (args) => ({
   template: `<UiMultipleChoices
     v-model="modelValue"
     v-model:invalid="invalid"
-    :source="source"
-    :options="options"
-    :choices="choices"
     :hint="hint"
     :touched="touched"
-    :alert-hint-attrs="alertHintAttrs"
+    :items="items"
+    :options="options"
+    @update:modelValue="onUpdateModelValue"
     @update:invalid="onUpdateInvalid"
   />`,
 });
@@ -142,10 +135,8 @@ export const WithButtonInfo = Template.bind({
 WithButtonInfo.args = {
   choices: [
     {
-      id: 9,
-      question: 37,
+      id: 19,
       name: 'I have diabetes',
-      linked_observation: 'p_8',
       translation: {
         info: 'What does it mean?',
       },
@@ -156,16 +147,12 @@ WithButtonInfo.args = {
       },
     },
     {
-      id: 8,
-      question: 37,
+      id: 18,
       name: 'I have hypertension',
-      linked_observation: 'p_9',
     },
     {
-      id: 7,
-      question: 37,
+      id: 17,
       name: 'I have high cholesterol',
-      linked_observation: 'p_10',
       translation: {
         info: 'How to check it?',
       },
@@ -177,116 +164,3 @@ WithButtonInfo.args = {
     },
   ],
 };
-
-export const WithHintSlot = (args) => ({
-  components: {
-    UiMultipleChoices,
-    UiAlert,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    const invalid = ref(args.initInvalid);
-    return {
-      ...args,
-      modelValue,
-      invalid,
-    };
-  },
-  template: `<UiMultipleChoices
-    v-model="modelValue"
-    v-model:invalid="invalid"
-    :source="source"
-    :options="options"
-    :choices="choices"
-    :hint="hint"
-    :touched="touched"
-    :alert-hint-attrs="alertHintAttrs"
-  >
-    <template #hint="{hint, hintType}">
-      <UiAlert
-        v-if="hint"
-        :type="hintType"
-        class="ui-multiple-choices__hint"
-      >
-        {{ hint }}
-      </UiAlert>
-    </template>
-  </UiMultipleChoices>`,
-});
-
-export const WithListItemSlot = (args) => ({
-  components: {
-    UiMultipleChoices,
-    UiListItem,
-    UiMultipleChoicesItem,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    const invalid = ref(args.initInvalid);
-    return {
-      ...args,
-      modelValue,
-      invalid,
-    };
-  },
-  template: `<UiMultipleChoices
-    v-model="modelValue"
-    v-model:invalid="invalid"
-    :source="source"
-    :options="options"
-    :choices="choices"
-    :hint="hint"
-    :touched="touched"
-    :alert-hint-attrs="alertHintAttrs"
-  >
-    <template #list-type="{choice, options, evidences, updateHandler, hasError}">
-      <UiListItem class="ui-multiple-choices__list-item">
-        <UiMultipleChoicesItem
-          :choice="choice"
-          :options="options"
-          :model-value="evidences"
-          :invalid="hasError(choice.id)"
-          class="ui-multiple-choices__choice"
-          @update:modelValue="updateHandler($event)"
-        />
-      </UiListItem>
-    </template>
-  </UiMultipleChoices>`,
-});
-
-export const WithChoiceItem = (args) => ({
-  components: {
-    UiMultipleChoices,
-    UiMultipleChoicesItem,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    const invalid = ref(args.initInvalid);
-    return {
-      ...args,
-      modelValue,
-      invalid,
-    };
-  },
-  template: `<UiMultipleChoices
-    v-model="modelValue"
-    v-model:invalid="invalid"
-    :source="source"
-    :options="options"
-    :choices="choices"
-    :hint="hint"
-    :touched="touched"
-    :alert-hint-attrs="alertHintAttrs"
-  >
-    <template #choice-item="{choice, options, evidences, hasError, updateHandler}">
-      <UiMultipleChoicesItem
-        :choice="choice"
-        :options="options"
-        :model-value="evidences"
-        :invalid="hasError(choice.id)"
-        class="ui-multiple-choices__choice"
-        @update:modelValue="updateHandler($event)"
-      />
-    </template>
-  </UiMultipleChoices>`,
-});

@@ -1,42 +1,37 @@
 <template>
   <component
     :is="tag"
-    class="ui-multiple-choices-item"
     role="radiogroup"
-    :class="{
+    :aria-labelledby="ariaLabelledby"
+    :class="['ui-multiple-choices-item', {
       'ui-multiple-choices-item--has-error': invalid
-    }"
-    :aria-labelledby="choiceLabelId"
+    }]"
   >
     <!-- @slot Use this slot to replace legend template. -->
-    <slot
-      name="legend"
-      v-bind="{
-        choice
-      }"
-    >
+    <slot name="legend">
       <legend class="visual-hidden">
-        {{ choice.name }}
+        {{ item.name }}
       </legend>
     </slot>
     <!-- @slot Use this slot to replace name template.-->
     <slot
       name="name"
       v-bind="{
-        choice
+        id: ariaLabelledby,
+        item,
       }"
     >
       <div class="ui-multiple-choices-item__header">
         <UiText
-          :id="choiceLabelId"
+          :id="ariaLabelledby"
           tag="span"
           class="ui-multiple-choices-item__name"
         >
-          {{ choice.name }}
+          {{ item.name }}
         </UiText>
         <UiButton
-          v-if="choice.buttonInfoAttrs"
-          v-bind="choice.buttonInfoAttrs"
+          v-if="item.buttonInfoAttrs"
+          v-bind="item.buttonInfoAttrs"
           class="ui-button--text ui-button--small ui-multiple-choices-item__info"
         >
           <UiIcon
@@ -44,14 +39,12 @@
             class="ui-button__icon ui-multiple-choices-item__info-icon"
           />
           <span class="ui-multiple-choices-item__info-message">
-            {{ choice?.translation?.info }}
+            {{ item.translation.info }}
           </span>
         </UiButton>
       </div>
     </slot>
-    <div
-      class="ui-multiple-choices-item__options"
-    >
+    <div class="ui-multiple-choices-item__options">
       <template
         v-for="(option, key) in options"
         :key="key"
@@ -60,22 +53,18 @@
         <slot
           name="option"
           v-bind="{
+            value,
             option,
-            choice,
+            item,
             invalid,
-            getRadioValue,
-            getModelValue
           }"
         >
           <UiRadio
-            :model-value="getModelValue(choice)"
-            :value="getRadioValue(choice, option)"
-            :name="choice.id"
-            class="ui-multiple-choices-item__option"
-            :class="{
+            v-model="value"
+            v-bind="option"
+            :class="['ui-multiple-choices-item__option', {
               'ui-radio--has-error': invalid
-            }"
-            @update:model-value="updateHandler"
+            }]"
           >
             {{ option.name }}
           </UiRadio>
@@ -86,45 +75,23 @@
 </template>
 
 <script setup lang="ts">
-import type { PropType } from 'vue';
 import { computed } from 'vue';
 import { uid } from 'uid/single';
-import UiRadio from '../../../atoms/UiRadio/UiRadio.vue';
-import type { RadioValue } from '../../../atoms/UiRadio/UiRadio.vue';
+import type { PropType } from 'vue';
+import type { HTMLTag } from '../../../../types/tag';
 import UiText from '../../../atoms/UiText/UiText.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
-import type {
-  MultipleChoice,
-  MultipleChoiceEvidence,
-  MultipleChoiceModelValue,
-  MultipleChoiceOption,
-} from '../UiMultipleChoices.vue';
-import type { HTMLTag } from '../../../../types/tag';
+import UiRadio from '../../../atoms/UiRadio/UiRadio.vue';
+import type { RadioValue } from '../../../atoms/UiRadio/UiRadio.vue';
 
 const props = defineProps({
   /**
-   *  Use this props or v-model to set checked.
+   * Use this props to set multiple choices item tag.
    */
-  modelValue: {
-    type: Object as PropType<MultipleChoiceModelValue>,
-    default: () => ({
-    }),
-  },
-  /**
-   * Use this props to set value of choices item.
-   */
-  choice: {
-    type: Object as PropType<MultipleChoice>,
-    default: () => ({
-    }),
-  },
-  /**
-   *  Use this props to override default options.
-   */
-  options: {
-    type: Array as PropType<MultipleChoiceOption[]>,
-    default: () => ([]),
+  tag: {
+    type: String as PropType<HTMLTag>,
+    default: 'fieldset',
   },
   /**
    * Use this props to set invalid state of choice item.
@@ -134,32 +101,37 @@ const props = defineProps({
     default: true,
   },
   /**
-   * Use this props to set multiple choices item tag.
+   *  Use this props or v-model to set checked.
    */
-  tag: {
-    type: String as PropType<HTMLTag>,
-    default: 'fieldset',
+  modelValue: {
+    type: Object,
+    default: () => ({
+    }),
+  },
+  /**
+   * Use this props to set value of item.
+   */
+  item: {
+    type: Object,
+    default: () => ({
+    }),
+  },
+  /**
+   *  Use this props to override default options.
+   */
+  options: {
+    type: Array,
+    default: () => ([]),
   },
 });
-const emit = defineEmits<{(e: 'update:modelValue', value: MultipleChoiceModelValue): void}>();
-const choiceLabelId = computed(() => (`choice-label-${props.choice?.id || uid()}`));
-
-function getModelValue(choice: MultipleChoiceEvidence): MultipleChoiceEvidence {
-  return props.modelValue[choice.id];
-}
-function getRadioValue(choice: MultipleChoiceEvidence, option: MultipleChoiceOption): MultipleChoiceEvidence {
-  return {
-    ...choice,
-    choice_id: option.value,
-  };
-}
-function updateHandler(value: RadioValue): void {
-  const evidence = value as MultipleChoiceEvidence;
-  emit('update:modelValue', {
-    ...props.modelValue,
-    [evidence.id]: evidence,
-  });
-}
+const emit = defineEmits<{(e: 'update:modelValue', value: any): void}>();
+const ariaLabelledby = computed(() => (props.item.id || `multiple-choices-item-${uid()}`));
+const value = computed({
+  get: () => props.modelValue,
+  set: (value) => {
+    emit('update:modelValue', value);
+  },
+});
 </script>
 
 <style lang="scss">
