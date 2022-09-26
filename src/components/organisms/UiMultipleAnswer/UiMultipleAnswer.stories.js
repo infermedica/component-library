@@ -13,6 +13,7 @@ import { actions } from '@storybook/addon-actions';
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
   onUpdateInvalid: 'update:invalid',
+  onClickInfoButton: 'click:info-button',
 });
 
 export default {
@@ -148,10 +149,8 @@ WithButtonInfo.args = {
     {
       name: 'Fatigue',
       buttonInfoAttrs: {
-        'aria-label': 'how to check it?',
-        to: {
-          path: '/',
-        },
+        ariaLabel: 'how to check it?',
+        onClick: events.onClickInfoButton,
       },
     },
     {
@@ -160,10 +159,8 @@ WithButtonInfo.args = {
     {
       name: 'Illusion of surrounding objects being bigger or smaller than they actually are',
       buttonInfoAttrs: {
-        'aria-label': 'what does it mean?',
-        to: {
-          path: '/',
-        },
+        ariaLabel: 'what does it mean?',
+        onClick: events.onClickInfoButton,
       },
     },
   ],
@@ -198,3 +195,83 @@ WithSingleChoice.args = {
     },
   ],
 };
+
+export const WithListItemSlot = (args) => ({
+  components: {
+    UiMultipleAnswer,
+    UiListItem,
+    UiText,
+    UiButton,
+    UiIcon,
+  },
+  setup() {
+    const modelValue = ref(args.initModelValue);
+    const invalid = ref(args.initInvalid);
+    return {
+      ...args,
+      ...events,
+      modelValue,
+      invalid,
+    };
+  },
+  template: `<UiMultipleAnswer
+    v-model="modelValue"
+    v-model:invalid="invalid"
+    :items="items"
+    :name="name"
+    :legend="legend"
+    :hint="hint"
+    :touched="touched"
+    @update:modelValue="onUpdateModelValue"
+    @update:invalid="onUpdateInvalid"
+  >
+    <template 
+      #list-item="{
+        component,
+        item,
+        value,
+        name,
+        errorClass,
+        focusExplication,
+        componentName,
+        unfocusExplication
+      }"
+    >
+      <UiListItem class="ui-multiple-answer__list-item">
+        <component
+          :is="component"
+          :id="item.id"
+          v-model="value"
+          :value="item"
+          :name="name"
+          class="ui-multiple-answer__choice"
+          :class="errorClass"
+          @keydown="focusExplication"
+        >
+          <template #label>
+            <div
+              class="ui-multiple-answer__label"
+              :class="componentName+'__label'"
+            >
+              <UiText tag="span">
+                {{ item.name }}
+              </UiText>
+              <UiButton
+                v-if="item.buttonInfoAttrs"
+                v-bind="item.buttonInfoAttrs"
+                tabindex="-1"
+                class="ui-button--icon ui-multiple-answer__explication"
+                @keydown="unfocusExplication"
+              >
+                <UiIcon
+                  icon="info"
+                  class="ui-button__icon"
+                />
+              </UiButton>
+            </div>
+          </template>
+        </component>
+      </UiListItem>
+    </template>
+  </UiMultipleAnswer>`,
+});

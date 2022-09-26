@@ -40,6 +40,74 @@
       v-bind="$attrs"
       class="ui-multiple-answer__list"
     >
+      <template #default>
+        <template
+          v-for="(item, index) in items"
+          :key="index"
+        >
+          <!-- @slot Use this slot to replace list-item template. -->
+          <slot
+            name="list-item"
+            v-bind="{
+              component,
+              item,
+              value,
+              name,
+              errorClass,
+              focusExplication,
+              componentName,
+              unfocusExplication
+            }"
+          >
+            <UiListItem class="ui-multiple-answer__list-item">
+              <component
+                :is="component"
+                :id="item.id"
+                v-model="value"
+                :value="item"
+                :name="name"
+                class="ui-multiple-answer__choice"
+                :class="errorClass"
+                @keydown="focusExplication"
+              >
+                <template #label>
+                  <!-- @slot Use this slot to replace choice-label template for specific item.-->
+                  <slot
+                    :name="`label-${item.id}`"
+                    v-bind="{
+                      item,
+                      componentName
+                    }"
+                  >
+                    <div
+                      class="ui-multiple-answer__label"
+                      :class="`${componentName}__label`"
+                    >
+                      <UiText
+                        tag="span"
+                      >
+                        {{ item.name }}
+                      </UiText>
+                      <UiButton
+                        v-if="item.buttonInfoAttrs"
+                        v-bind="item.buttonInfoAttrs"
+                        tabindex="-1"
+                        class="ui-button--icon ui-multiple-answer__explication"
+                        @keydown="unfocusExplication"
+                      >
+                        <UiIcon
+                          icon="info"
+                          class="ui-button__icon"
+                        />
+                      </UiButton>
+                    </div>
+                  </slot>
+                </template>
+              </component>
+            </UiListItem>
+          </slot>
+        </template>
+      </template>
       <template
         v-for="(item, index) in itemsToRender"
         :key="index"

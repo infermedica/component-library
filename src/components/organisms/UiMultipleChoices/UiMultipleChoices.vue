@@ -23,17 +23,36 @@
       v-bind="$attrs"
       class="ui-multiple-choices__list"
     >
-      <!-- @slot Use this slot to replace list-item template.-->
-      <!--      <slot-->
-      <!--        name="list-item"-->
-      <!--        v-bind="{-->
-      <!--          item,-->
-      <!--          index,-->
-      <!--          options,-->
-      <!--          hasError,-->
-      <!--          updateHandler,-->
-      <!--        }"-->
-      <!--      />-->
+      <template #default>
+        <template
+          v-for="(item, index) in items"
+          :key="index"
+        >
+          <!-- @slot Use this slot to replace list-item template. -->
+          <slot
+            name="list-item"
+            v-bind="{
+              item,
+              index,
+              value,
+              options,
+              hasError,
+              updateHandler
+            }"
+          >
+            <UiListItem class="ui-multiple-choices__list-item">
+              <UiMultipleChoicesItem
+                :model-value="value[index]"
+                :item="item"
+                :options="options"
+                :invalid="hasError(index)"
+                class="ui-multiple-choices__choice"
+                @update:model-value="updateHandler($event, index)"
+              />
+            </UiListItem>
+          </slot>
+        </template>
+      </template>
       <template
         v-for="(item, index) in itemsToRender"
         :key="index"
@@ -67,6 +86,7 @@ import type { PropType } from 'vue';
 import type { PropsAttrs } from '../../../types/attrs';
 import UiAlert from '../../molecules/UiAlert/UiAlert.vue';
 import UiList from '../UiList/UiList.vue';
+import UiListItem from '../UiList/_internal/UiListItem.vue';
 import UiMultipleChoicesItem from './_internal/UiMultipleChoicesItem.vue';
 
 const props = defineProps({

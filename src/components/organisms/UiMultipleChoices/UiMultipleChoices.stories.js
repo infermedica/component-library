@@ -12,6 +12,7 @@ import { actions } from '@storybook/addon-actions';
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
   onUpdateInvalid: 'update:invalid',
+  onClickInfoButton: 'click:info-button',
 });
 
 export default {
@@ -136,7 +137,7 @@ export const Common = Template.bind({
 export const WithButtonInfo = Template.bind({
 });
 WithButtonInfo.args = {
-  choices: [
+  items: [
     {
       id: 'i-have-diabetes',
       name: 'I have diabetes',
@@ -144,9 +145,7 @@ WithButtonInfo.args = {
         info: 'What does it mean?',
       },
       buttonInfoAttrs: {
-        to: {
-          path: '/',
-        },
+        onClick: events.onClickInfoButton,
       },
     },
     {
@@ -160,15 +159,13 @@ WithButtonInfo.args = {
         info: 'How to check it?',
       },
       buttonInfoAttrs: {
-        to: {
-          path: '/',
-        },
+        onClick: events.onClickInfoButton,
       },
     },
   ],
 };
 
-export const MapToEvidence = (args) => ({
+export const WithEvidence = (args) => ({
   components: {
     UiMultipleChoices,
   },
@@ -200,7 +197,7 @@ export const MapToEvidence = (args) => ({
     @update:invalid="onUpdateInvalid"
   />`,
 });
-MapToEvidence.args = {
+WithEvidence.args = {
   items: [
     {
       id: 'p_7',
@@ -216,3 +213,53 @@ MapToEvidence.args = {
     },
   ],
 };
+
+export const WithListItemSlot = (args) => ({
+  components: {
+    UiMultipleChoices,
+    UiMultipleChoicesItem,
+    UiListItem,
+  },
+  setup() {
+    const modelValue = ref(args.initModelValue);
+    const invalid = ref(args.initInvalid);
+    return {
+      ...args,
+      ...events,
+      modelValue,
+      invalid,
+    };
+  },
+  template: `<UiMultipleChoices
+    v-model="modelValue"
+    v-model:invalid="invalid"
+    :hint="hint"
+    :touched="touched"
+    :items="items"
+    :options="options"
+    @update:modelValue="onUpdateModelValue"
+    @update:invalid="onUpdateInvalid"
+  >
+    <template 
+      #list-item="{
+        item,
+        index,
+        value,
+        options,
+        hasError,
+        updateHandler
+      }"
+    >
+      <UiListItem class="ui-multiple-choices__list-item">
+        <UiMultipleChoicesItem
+          :model-value="value[index]"
+          :item="item"
+          :options="options"
+          :invalid="hasError(index)"
+          class="ui-multiple-choices__choice"
+          @update:model-value="updateHandler($event, index)"
+        />
+      </UiListItem>
+    </template>
+  </UiMultipleChoices>`,
+});
