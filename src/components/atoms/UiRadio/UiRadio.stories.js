@@ -17,12 +17,12 @@ export default {
   },
   args: {
     initModelValue: '',
-    content: '98.6–100.4 °F or 37–38 °C',
+    content: 'I’m overweight or obese',
     modifiers: [],
     name: '',
     disabled: false,
     id: '',
-    value: 'p_7',
+    value: 'overweight-or-obese',
   },
   argTypes: {
     content,
@@ -70,10 +70,9 @@ const Template = (args) => ({
     v-model="modelValue"
     :value="value"
     :id="id"
-    :disabled="disabled"
     :class="modifiers"       
   >
-    {{content}}
+    {{ content }}
   </UiRadio>`,
 });
 
@@ -110,7 +109,7 @@ export const WithRadioSlot = (args) => ({
     :disabled="disabled"
     :class="modifiers"
   >
-    <template #radio="{checked}">
+    <template #radio="{ checked }">
       <div 
         class="ui-radio__radio"
         :class="{'ui-radio__radio--is-checked': checked}"
@@ -118,7 +117,7 @@ export const WithRadioSlot = (args) => ({
         <div class="ui-radio__mark" />
       </div>
     </template>
-    {{content}}
+    {{ content }}
   </UiRadio>`,
 });
 
@@ -141,18 +140,132 @@ export const WithLabelSlot = (args) => ({
     :disabled="disabled"
     :class="modifiers"
   >
-    <template #label>
+    <template #label="{ hasLabel }">
       <UiText
         tag="span"
         class="ui-radio__label"
       >
-        {{content}}
+        {{ content }}
       </UiText>
     </template>
   </UiRadio>`,
 });
 
-export const AsGroup = (args) => ({
+export const ValueAsObject = (args) => ({
+  components: {
+    UiRadio,
+  },
+  setup() {
+    const modelValue = ref(args.initModelValue);
+    return {
+      ...args,
+      modelValue,
+    };
+  },
+  template: `<UiRadio
+    v-model="modelValue"
+    :id="id"
+    :value="value"
+    :class="modifiers"
+  >
+    {{ value.label }}
+  </UiRadio>`,
+});
+ValueAsObject.args = {
+  initModelValue: {
+    label: 'I’m overweight or obese',
+    id: 'overweight-or-obese',
+  },
+  value: {
+    label: 'I’m overweight or obese',
+    id: 'overweight-or-obese',
+  },
+};
+ValueAsObject.argTypes = {
+  initModelValue: {
+    description: 'Use this control to set initial state.',
+    table: {
+      category: 'stories controls',
+    },
+    control: 'object',
+  },
+  modelValue: {
+    control: false,
+  },
+};
+
+export const AsGroupWithPrimitiveTypes = (args) => ({
+  components: {
+    UiRadio,
+    UiList,
+    UiListItem,
+  },
+  setup() {
+    const modelValue = ref(args.initModelValue);
+    return {
+      ...args,
+      modelValue,
+    };
+  },
+  template: `<UiList style="--list-item-padding: var(--space-12) 0;">
+    <UiListItem
+      v-for="(value, key) in values"
+      :key="key"
+    >
+      <UiRadio
+        v-model="modelValue"
+        :value="value"
+        :name="name"
+      >
+        {{ value }}
+      </UiRadio>
+    </UiListItem>
+  </UiList>`,
+});
+AsGroupWithPrimitiveTypes.args = {
+  initModelValue: 'I’m overweight or obese',
+  values: [
+    'I’m overweight or obese',
+    'I have hypertension',
+    'I have smoked cigarettes for at least 10 years',
+  ],
+  name: 'AsGroupWithPrimitiveTypes',
+};
+AsGroupWithPrimitiveTypes.argTypes = {
+  initModelValue: {
+    description: 'Use this control to set initial state.',
+    table: {
+      category: 'stories controls',
+    },
+    control: 'text',
+  },
+  values: {
+    description: 'Use this control to set the values of radio group.',
+    table: {
+      category: 'stories controls',
+    },
+    control: {
+      type: 'object',
+    },
+  },
+  id: {
+    control: false,
+  },
+  value: {
+    control: false,
+  },
+  modifiers: {
+    control: false,
+  },
+  disabled: {
+    control: false,
+  },
+  content: {
+    control: false,
+  },
+};
+
+export const AsGroupWithObject = (args) => ({
   components: {
     UiRadio,
     UiList,
@@ -180,32 +293,28 @@ export const AsGroup = (args) => ({
     </UiListItem>
   </UiList>`,
 });
-AsGroup.args = {
+AsGroupWithObject.args = {
   initModelValue: {
-    label: 'I haven’t checked my temperature',
-    id: 's_15',
-    choice_id: 'present',
+    label: 'I’m overweight or obese',
+    id: 'overweight-or-obese',
   },
   values: [
     {
-      label: '98.6–100.4 °F or 37–38 °C',
-      id: 's_20',
-      choice_id: 'present',
+      label: 'I’m overweight or obese',
+      id: 'overweight-or-obese',
     },
     {
-      label: '100.5–104 °F or 38.1–40 °C',
-      id: 's_236',
-      choice_id: 'present',
+      label: 'I have hypertension',
+      id: 'hypertension',
     },
     {
-      label: 'I haven’t checked my temperature',
-      id: 's_15',
-      choice_id: 'present',
+      label: 'I have smoked cigarettes for at least 10 years',
+      id: 'smoked-cigarettes',
     },
   ],
-  name: 'AsGroup',
+  name: 'AsGroupWithObject',
 };
-AsGroup.argTypes = {
+AsGroupWithObject.argTypes = {
   initModelValue: {
     description: 'Use this control to set initial state.',
     table: {
@@ -270,36 +379,32 @@ export const AsGroupWithNestedObject = (args) => ({
 });
 AsGroupWithNestedObject.args = {
   initModelValue: {
-    label: '98.6–100.4 °F or 37–38 °C',
-    id: 's_20',
-    choice_id: 'present',
+    label: 'I’m overweight or obese',
+    id: 'overweight-or-obese',
     radioAttrs: {
-      ariaLabel: '98.6–100.4 °F or 37–38 °C',
+      'data-testid': 'overweight-or-obese-radio',
     },
   },
   values: [
     {
-      label: '98.6–100.4 °F or 37–38 °C',
-      id: 's_20',
-      choice_id: 'present',
+      label: 'I’m overweight or obese',
+      id: 'overweight-or-obese',
       radioAttrs: {
-        ariaLabel: '98.6–100.4 °F or 37–38 °C',
+        'data-testid': 'overweight-or-obese-radio',
       },
     },
     {
-      label: '100.5–104 °F or 38.1–40 °C',
-      id: 's_236',
-      choice_id: 'present',
+      label: 'I have hypertension',
+      id: 'hypertension',
       radioAttrs: {
-        ariaLabel: '100.5–104 °F or 38.1–40 °C',
+        'data-testid': 'hypertension-radio',
       },
     },
     {
-      label: 'I haven’t checked my temperature',
-      id: 's_15',
-      choice_id: 'present',
+      label: 'I have smoked cigarettes for at least 10 years',
+      id: 'smoked-cigarettes',
       radioAttrs: {
-        ariaLabel: 'I haven’t checked my temperature',
+        'data-testid': 'smoked-cigarettes-radio',
       },
     },
   ],
@@ -315,77 +420,6 @@ AsGroupWithNestedObject.argTypes = {
   },
   values: {
     description: 'Values of the radios group.',
-    table: {
-      category: 'stories controls',
-    },
-    control: {
-      type: 'object',
-    },
-  },
-  id: {
-    control: false,
-  },
-  value: {
-    control: false,
-  },
-  modifiers: {
-    control: false,
-  },
-  disabled: {
-    control: false,
-  },
-  content: {
-    control: false,
-  },
-};
-
-export const AsGroupWithPrimitiveTypes = (args) => ({
-  components: {
-    UiRadio,
-    UiList,
-    UiListItem,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      modelValue,
-    };
-  },
-  template: `<UiList style="--list-item-padding: var(--space-12) 0;">
-    <UiListItem
-      v-for="(value, key) in values"
-      :key="key"
-    >
-      <UiRadio
-        v-model="modelValue"
-        :value="value"
-        :name="name"
-      >
-        {{ value }}
-      </UiRadio>
-    </UiListItem>
-  </UiList>`,
-});
-AsGroupWithPrimitiveTypes.args = {
-  initModelValue: 'Europe',
-  values: [
-    'Russia, Kazakhstan or Mongolia',
-    'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
-    'Europe',
-  ],
-  name: 'AsGroupWithPrimitiveTypes',
-};
-AsGroupWithPrimitiveTypes.argTypes = {
-  initModelValue: {
-    description: 'Use this control to set initial state.',
-    table: {
-      category: 'stories controls',
-    },
-    control: 'text',
-  },
-  values: {
-    description: 'Use this control to set the values of radio group.',
     table: {
       category: 'stories controls',
     },

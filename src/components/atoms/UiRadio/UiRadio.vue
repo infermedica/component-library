@@ -26,13 +26,16 @@
           'ui-radio__radio--is-checked': isChecked
         }"
       >
-        <div
-          class="ui-radio__mark"
-        />
+        <div class="ui-radio__mark" />
       </div>
     </slot>
     <!-- @slot Use this slot to replace label template. -->
-    <slot name="label">
+    <slot
+      name="label"
+      v-bind="{
+        hasLabel
+      }"
+    >
       <UiText
         v-if="hasLabel"
         tag="span"
