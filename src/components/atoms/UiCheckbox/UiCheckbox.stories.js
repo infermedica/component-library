@@ -7,7 +7,6 @@ import { ref } from 'vue';
 import {
   content,
   modifiers,
-  disabled,
 } from '@sb/helpers/argTypes';
 
 export default {
@@ -37,7 +36,6 @@ export default {
     modifiers: modifiers({
       options: ['ui-checkbox--has-error', 'ui-checkbox--is-disabled'],
     }),
-    disabled,
     modelValue: {
       control: false,
     },
@@ -64,11 +62,9 @@ const Template = (args) => ({
   template: `<UiCheckbox
     v-model="modelValue"
     :id="id"
-    :disabled="disabled"
     :class="modifiers"
-    class="custom-checkbox"
   >
-    {{content}}
+    {{ content }}
   </UiCheckbox>`,
 });
 
@@ -102,10 +98,9 @@ export const WithCheckboxSlot = (args) => ({
   template: `<UiCheckbox
       v-model="modelValue"
       :id="id"
-      :disabled="disabled"
       :class="modifiers"
     >
-      <template #checkbox="{checked}">
+      <template #checkbox="{ checked }">
         <div 
           class="ui-checkbox__checkbox"
           :class="{
@@ -137,10 +132,9 @@ export const WithLabelSlot = (args) => ({
   template: `<UiCheckbox
       v-model="modelValue"
       :id="id"
-      :disabled="disabled"
       :class="modifiers"
     >
-      <template #label>
+      <template #label="{ hasLabel }">
         <UiText
           tag="span"
           class="ui-checkbox__label"
@@ -166,20 +160,19 @@ export const ValueAsObject = (args) => ({
     v-model="modelValue"
     :id="id"
     :value="value"
-    :disabled="disabled"
     :class="modifiers"
   >
-    {{content}}
+    {{ value.label }}
   </UiCheckbox>`,
 });
 ValueAsObject.args = {
   initModelValue: [{
-    id: 1,
-    question: 34,
+    label: 'Europe',
+    id: 'europe',
   }],
   value: {
-    id: 1,
-    question: 34,
+    label: 'Europe',
+    id: 'europe',
   },
 };
 ValueAsObject.argTypes = {
@@ -195,7 +188,71 @@ ValueAsObject.argTypes = {
   },
 };
 
-export const AsGroup = (args) => ({
+export const AsGroupWithPrimitiveTypes = (args) => ({
+  components: {
+    UiCheckbox,
+    UiList,
+    UiListItem,
+  },
+  setup() {
+    const modelValue = ref(args.initModelValue);
+    return {
+      ...args,
+      modelValue,
+    };
+  },
+  template: `<UiList style="--list-item-padding: var(--space-12) 0;">
+    <UiListItem
+      v-for="(value, key) in values"
+      :key="key"
+    >
+      <UiCheckbox
+        v-model="modelValue"
+        :value="value"
+      >
+        {{ value }}
+      </UiCheckbox>
+    </UiListItem>
+  </UiList>`,
+});
+AsGroupWithPrimitiveTypes.args = {
+  initModelValue: ['Europe'],
+  values: [
+    'Russia, Kazakhstan or Mongolia',
+    'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
+    'Europe',
+  ],
+};
+AsGroupWithPrimitiveTypes.argTypes = {
+  initModelValue: {
+    description: 'Use this control to set initial state.',
+    table: {
+      category: 'stories controls',
+    },
+    control: 'array',
+  },
+  values: {
+    description: 'Values of the checkbox group.',
+    table: {
+      category: 'stories controls',
+    },
+    control: 'object',
+  },
+  id: {
+    control: false,
+  },
+  value: {
+    control: false,
+  },
+  modifiers: {
+    control: false,
+  },
+  content: {
+    control: false,
+  },
+};
+
+export const AsGroupWithObject = (args) => ({
   components: {
     UiCheckbox,
     UiList,
@@ -222,37 +279,29 @@ export const AsGroup = (args) => ({
     </UiListItem>
   </UiList>`,
 });
-AsGroup.args = {
+AsGroupWithObject.args = {
   initModelValue: [
     {
       label: 'Europe',
-      id: 'p_15',
-      choice_id: 'present',
-      source: 'predefined',
+      id: 'europe',
     },
   ],
   values: [
     {
       label: 'Russia, Kazakhstan or Mongolia',
-      id: 'p_20',
-      choice_id: 'present',
-      source: 'predefined',
+      id: 'russia-kazakhstan-mongolia',
     },
     {
       label: 'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
-      id: 'p_236',
-      choice_id: 'present',
-      source: 'predefined',
+      id: 'asia-excluding-middle-east-russia-mongolia-kazakhstan',
     },
     {
       label: 'Europe',
-      id: 'p_15',
-      choice_id: 'present',
-      source: 'predefined',
+      id: 'europe',
     },
   ],
 };
-AsGroup.argTypes = {
+AsGroupWithObject.argTypes = {
   initial: {
     description: 'Use this control to set initial state.',
     table: {
@@ -274,9 +323,6 @@ AsGroup.argTypes = {
     control: false,
   },
   modifiers: {
-    control: false,
-  },
-  disabled: {
     control: false,
   },
   content: {
@@ -316,40 +362,32 @@ AsGroupWithNestedObject.args = {
   initModelValue: [
     {
       label: 'Europe',
-      id: 'p_15',
-      choice_id: 'present',
-      source: 'predefined',
+      id: 'europe',
       checkboxAttrs: {
-        ariaLabel: 'Europe',
+        'data-testid': 'europe-checkbox',
       },
     },
   ],
   values: [
     {
       label: 'Russia, Kazakhstan or Mongolia',
-      id: 'p_20',
-      choice_id: 'present',
-      source: 'predefined',
+      id: 'russia-kazakhstan-mongolia',
       checkboxAttrs: {
-        ariaLabel: 'Russia, Kazakhstan or Mongolia',
+        'data-testid': 'russia-kazakhstan-mongolia-checkbox',
       },
     },
     {
       label: 'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
-      id: 'p_236',
-      choice_id: 'present',
-      source: 'predefined',
+      id: 'asia-excluding-middle-east-russia-mongolia-kazakhstan',
       checkboxAttrs: {
-        ariaLabel: 'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
+        'data-testid': 'asia-excluding-middle-east-russia-mongolia-kazakhstan-checkbox',
       },
     },
     {
       label: 'Europe',
-      id: 'p_15',
-      choice_id: 'present',
-      source: 'predefined',
+      id: 'europe',
       checkboxAttrs: {
-        ariaLabel: 'Europe',
+        'data-testid': 'europe-checkbox',
       },
     },
   ],
@@ -376,76 +414,6 @@ AsGroupWithNestedObject.argTypes = {
     control: false,
   },
   modifiers: {
-    control: false,
-  },
-  disabled: {
-    control: false,
-  },
-  content: {
-    control: false,
-  },
-};
-
-export const AsGroupWithPrimitiveTypes = (args) => ({
-  components: {
-    UiCheckbox,
-    UiList,
-    UiListItem,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      modelValue,
-    };
-  },
-  template: `<UiList style="--list-item-padding: var(--space-12) 0;">
-    <UiListItem
-      v-for="(value, key) in values"
-      :key="key"
-    >
-      <UiCheckbox
-        v-model="modelValue"
-        :value="value"
-      >
-        {{value}}
-      </UiCheckbox>
-    </UiListItem>
-  </UiList>`,
-});
-AsGroupWithPrimitiveTypes.args = {
-  initModelValue: ['Europe'],
-  values: [
-    'Russia, Kazakhstan or Mongolia',
-    'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
-    'Europe',
-  ],
-};
-AsGroupWithPrimitiveTypes.argTypes = {
-  initModelValue: {
-    description: 'Use this control to set initial state.',
-    table: {
-      category: 'stories controls',
-    },
-    control: 'array',
-  },
-  values: {
-    description: 'Values of the checkbox group.',
-    table: {
-      category: 'stories controls',
-    },
-    control: 'object',
-  },
-  id: {
-    control: false,
-  },
-  value: {
-    control: false,
-  },
-  modifiers: {
-    control: false,
-  },
-  disabled: {
     control: false,
   },
   content: {
