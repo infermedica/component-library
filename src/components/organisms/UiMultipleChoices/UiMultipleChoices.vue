@@ -25,7 +25,7 @@
     >
       <template #default>
         <template
-          v-for="(item, index) in items"
+          v-for="(item, index) in choices || items"
           :key="index"
         >
           <!-- @slot Use this slot to replace list-item template. -->
@@ -80,6 +80,7 @@ export default {
 <script setup lang="ts">
 import {
   computed,
+  useAttrs,
   watch,
 } from 'vue';
 import type { PropType } from 'vue';
@@ -166,12 +167,24 @@ const updateHandler = (newValue: any, index: number) => {
   value.value[index] = newValue;
   emit('update:modelValue', props.modelValue);
 };
-const itemsToRender = computed(() => (props.items.map((item) => ({
-  ...item,
-  listItemAttrs: {
-    class: 'ui-multiple-choices__list-item',
-  },
-}))));
+// TODO: remove in 0.6.0 / BEGIN
+const attrs = useAttrs();
+const choices = computed(() => (attrs.choices));
+if (choices.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiMultipleChoices]: choices will be removed in 0.6.0. Please use items instead.');
+  }
+}
+// END
+const itemsToRender = computed(() => {
+  const items = choices.value || props.items;
+  return items.map((item) => ({
+    ...item,
+    listItemAttrs: {
+      class: 'ui-multiple-choices__list-item',
+    },
+  }));
+});
 </script>
 
 <style lang="scss">
