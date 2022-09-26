@@ -104,9 +104,8 @@ const props = defineProps({
    *  Use this props or v-model to set checked.
    */
   modelValue: {
-    type: Object,
-    default: () => ({
-    }),
+    type: String,
+    default: '',
   },
   /**
    * Use this props to set value of item.
