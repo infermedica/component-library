@@ -3,7 +3,10 @@ import UiMultipleChoicesItem from '@/components/organisms/UiMultipleChoices/_int
 import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
 import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
-import { ref } from 'vue';
+import {
+  ref,
+  computed,
+} from 'vue';
 import { actions } from '@storybook/addon-actions';
 
 const events = actions({
@@ -26,15 +29,15 @@ export default {
     initInvalid: true,
     items: [
       {
-        id: 9,
+        id: 'diabetes',
         name: 'I have diabetes',
       },
       {
-        id: 8,
+        id: 'hypertension',
         name: 'I have hypertension',
       },
       {
-        id: 7,
+        id: 'cholesterol',
         name: 'I have high cholesterol',
       },
     ],
@@ -135,7 +138,7 @@ export const WithButtonInfo = Template.bind({
 WithButtonInfo.args = {
   choices: [
     {
-      id: 19,
+      id: 'i-have-diabetes',
       name: 'I have diabetes',
       translation: {
         info: 'What does it mean?',
@@ -147,11 +150,11 @@ WithButtonInfo.args = {
       },
     },
     {
-      id: 18,
+      id: 'i-have-hypertension',
       name: 'I have hypertension',
     },
     {
-      id: 17,
+      id: 'i-have-hypertension',
       name: 'I have high cholesterol',
       translation: {
         info: 'How to check it?',
@@ -161,6 +164,55 @@ WithButtonInfo.args = {
           path: '/',
         },
       },
+    },
+  ],
+};
+
+export const MapToEvidence = (args) => ({
+  components: {
+    UiMultipleChoices,
+  },
+  setup() {
+    const { items } = args;
+    const modelValue = ref(args.initModelValue);
+    const invalid = ref(args.initInvalid);
+    const evidence = computed(() => modelValue.value.map((item, index) => ({
+      choice_id: item,
+      id: items[index].id,
+      source: 'suggest',
+    })));
+    return {
+      ...args,
+      ...events,
+      modelValue,
+      invalid,
+      evidence,
+    };
+  },
+  template: `<UiMultipleChoices
+    v-model="modelValue"
+    v-model:invalid="invalid"
+    :hint="hint"
+    :touched="touched"
+    :items="items"
+    :options="options"
+    @update:modelValue="onUpdateModelValue"
+    @update:invalid="onUpdateInvalid"
+  />`,
+});
+MapToEvidence.args = {
+  items: [
+    {
+      id: 'p_7',
+      name: 'High BMI',
+    },
+    {
+      id: 'p_9',
+      name: 'I have hypertension',
+    },
+    {
+      id: 'p_28',
+      name: 'I have smoked cigarettes for at least 10 years',
     },
   ],
 };
