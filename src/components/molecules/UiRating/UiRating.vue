@@ -224,8 +224,8 @@ if (Object.keys(props.radioAttrs).length > 0) {
   $element: rating;
 
   @at-root fieldset#{&} {
-    border: none;
     padding: 0;
+    border: none;
     margin: 0;
   }
 

@@ -193,10 +193,9 @@ const proxyNumberStepperAttrs = computed(() => ({
     touch-action: none;
 
     @include mixins.from-tablet {
-      margin: functions.var($element + "-tablet-input", margin, 0);
-
       flex: 0 1 100%;
       order: 0;
+      margin: functions.var($element + "-tablet-input", margin, 0);
     }
 
     &::before {

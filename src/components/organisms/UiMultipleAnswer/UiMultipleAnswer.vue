@@ -231,8 +231,8 @@ function updateHandler(value: MultipleAnswerChoice): void {
   $element: multiple-answer;
 
   @at-root fieldset#{&} {
-    border: none;
     padding: 0;
+    border: none;
     margin: 0;
   }
 

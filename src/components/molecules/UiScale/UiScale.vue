@@ -257,8 +257,8 @@ const proxyNumberStepperAttrs = computed(() => ({
 
   &__controls {
     @at-root fieldset#{&} {
-      border: none;
       padding: 0;
+      border: none;
       margin: 0;
     }
 
