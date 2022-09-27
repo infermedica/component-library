@@ -19,8 +19,6 @@
     "create:component": "node scripts/create-component.js",
     "create:icons-list": "node scripts/create-icons-list.js",
     "update:docs": "node scripts/update-components-docs.mjs && pnpm lint",
-    "preinstall": "npx only-allow pnpm",
-    "postinstall": "pnpm  create:index",
     "chromatic": "chromatic --exit-zero-on-changes",
     "serve": "vite --open",
     "preview": "vite preview --open --port 8080",
