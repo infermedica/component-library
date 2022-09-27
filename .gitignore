@@ -7,9 +7,6 @@ build-storybook.log
 /tests/e2e/screenshots/
 /coverage
 
-# auto-generated file
-/index.ts
-
 # local env files
 .env.local
 .env.*.local
