@@ -41,7 +41,7 @@ import UiTabsItem from './_internal/UiTabsItem.vue';
 
 export interface TabsItem {
     name: string;
-    title?: string;
+    title: string;
     [key: string]: unknown;
 }
 const props = defineProps({

@@ -165,7 +165,6 @@ export const WithLabelSlot = (args) => ({
         attrs
       }">
         <UiText
-          v-if="hasLabel"
           v-bind="attrs"
           class="ui-checkbox__label"
         >
@@ -196,17 +195,17 @@ export const ValueAsObject = (args) => ({
       :class="modifiers"
       @update:modelValue="onUpdateModelValue"
   >
-    {{content}}
+    {{ value.label }}
   </UiCheckbox>`,
 });
 ValueAsObject.args = {
   initModelValue: [{
-    id: 1,
-    question: 34,
+    label: 'Europe',
+    id: 'value-as-object-europe',
   }],
   value: {
-    id: 1,
-    question: 34,
+    label: 'Europe',
+    id: 'value-as-object-europe',
   },
 };
 ValueAsObject.argTypes = {
@@ -218,205 +217,6 @@ ValueAsObject.argTypes = {
     control: 'object',
   },
   modelValue: {
-    control: false,
-  },
-};
-
-export const AsGroup = (args) => ({
-  components: {
-    UiCheckbox,
-    UiList,
-    UiListItem,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiList style="--list-item-padding: var(--space-12) 0;">
-    <UiListItem
-      v-for="(value, key) in values"
-      :key="key"
-    >
-      <UiCheckbox
-        v-model="modelValue"
-        :value="value"
-        :id="value.id"
-        :class="modifiers"
-        @update:modelValue="onUpdateModelValue"
-      >
-        {{value.label}}
-      </UiCheckbox>
-    </UiListItem>
-  </UiList>`,
-});
-AsGroup.args = {
-  initModelValue: [
-    {
-      label: 'Europe',
-      id: 'p_15',
-      choice_id: 'present',
-      source: 'predefined',
-    },
-  ],
-  values: [
-    {
-      label: 'Russia, Kazakhstan or Mongolia',
-      id: 'p_20',
-      choice_id: 'present',
-      source: 'predefined',
-    },
-    {
-      label: 'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
-      id: 'p_236',
-      choice_id: 'present',
-      source: 'predefined',
-    },
-    {
-      label: 'Europe',
-      id: 'p_15',
-      choice_id: 'present',
-      source: 'predefined',
-    },
-  ],
-};
-AsGroup.argTypes = {
-  initial: {
-    description: 'Use this control to set initial state.',
-    table: {
-      category: 'stories controls',
-    },
-    control: 'array',
-  },
-  values: {
-    description: 'Use this control to set the values of checkbox group.',
-    table: {
-      category: 'stories controls',
-    },
-    control: 'array',
-  },
-  id: {
-    control: false,
-  },
-  value: {
-    control: false,
-  },
-  modifiers: {
-    control: false,
-  },
-  disabled: {
-    control: false,
-  },
-  content: {
-    control: false,
-  },
-};
-
-export const AsGroupWithNestedObject = (args) => ({
-  components: {
-    UiCheckbox,
-    UiList,
-    UiListItem,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiList style="--list-item-padding: var(--space-12) 0;">
-    <UiListItem
-      v-for="(value, key) in values"
-      :key="key"
-    >
-      <UiCheckbox
-        v-model="modelValue"
-        v-bind="value.checkboxAttrs"
-        :value="value"
-        :id="value.id"
-        :class="modifiers"
-        @update:modelValue="onUpdateModelValue"
-      >
-        {{value.label}}
-      </UiCheckbox>
-    </UiListItem>
-  </UiList>`,
-});
-AsGroupWithNestedObject.args = {
-  initModelValue: [
-    {
-      label: 'Europe',
-      id: 'p_15',
-      choice_id: 'present',
-      source: 'predefined',
-      checkboxAttrs: {
-        ariaLabel: 'Europe',
-      },
-    },
-  ],
-  values: [
-    {
-      label: 'Russia, Kazakhstan or Mongolia',
-      id: 'p_20',
-      choice_id: 'present',
-      source: 'predefined',
-      checkboxAttrs: {
-        ariaLabel: 'Russia, Kazakhstan or Mongolia',
-      },
-    },
-    {
-      label: 'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
-      id: 'p_236',
-      choice_id: 'present',
-      source: 'predefined',
-      checkboxAttrs: {
-        ariaLabel: 'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
-      },
-    },
-    {
-      label: 'Europe',
-      id: 'p_15',
-      choice_id: 'present',
-      source: 'predefined',
-      checkboxAttrs: {
-        ariaLabel: 'Europe',
-      },
-    },
-  ],
-};
-AsGroupWithNestedObject.argTypes = {
-  initModelValue: {
-    description: 'Use this control to set initial state.',
-    table: {
-      category: 'stories controls',
-    },
-    control: 'object',
-  },
-  values: {
-    description: 'Values of the checkbox group.',
-    table: {
-      category: 'stories controls',
-    },
-    control: 'object',
-  },
-  id: {
-    control: false,
-  },
-  value: {
-    control: false,
-  },
-  modifiers: {
-    control: false,
-  },
-  disabled: {
-    control: false,
-  },
-  content: {
     control: false,
   },
 };
@@ -483,7 +283,181 @@ AsGroupWithPrimitiveTypes.argTypes = {
   modifiers: {
     control: false,
   },
-  disabled: {
+  content: {
+    control: false,
+  },
+};
+
+export const AsGroupWithObject = (args) => ({
+  components: {
+    UiCheckbox,
+    UiList,
+    UiListItem,
+  },
+  setup() {
+    const modelValue = ref(args.initModelValue);
+    return {
+      ...args,
+      ...events,
+      modelValue,
+    };
+  },
+  template: `<UiList style="--list-item-padding: var(--space-12) 0;">
+    <UiListItem
+      v-for="(value, key) in values"
+      :key="key"
+    >
+      <UiCheckbox
+        v-model="modelValue"
+        :value="value"
+        :id="value.id"
+        :class="modifiers"
+        @update:modelValue="onUpdateModelValue"
+      >
+        {{ value.label }}
+      </UiCheckbox>
+    </UiListItem>
+  </UiList>`,
+});
+AsGroupWithObject.args = {
+  initModelValue: [
+    {
+      label: 'Europe',
+      id: 'as-group-with-object-europe',
+    },
+  ],
+  values: [
+    {
+      label: 'Russia, Kazakhstan or Mongolia',
+      id: 'as-group-with-object-russia-kazakhstan-mongolia',
+    },
+    {
+      label: 'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
+      id: 'as-group-with-object-asia-excluding-middle-east-russia-mongolia-kazakhstan',
+    },
+    {
+      label: 'Europe',
+      id: 'as-group-with-object-europe',
+    },
+  ],
+};
+AsGroupWithObject.argTypes = {
+  initial: {
+    description: 'Use this control to set initial state.',
+    table: {
+      category: 'stories controls',
+    },
+    control: 'array',
+  },
+  values: {
+    description: 'Use this control to set the values of checkbox group.',
+    table: {
+      category: 'stories controls',
+    },
+    control: 'array',
+  },
+  id: {
+    control: false,
+  },
+  value: {
+    control: false,
+  },
+  modifiers: {
+    control: false,
+  },
+  content: {
+    control: false,
+  },
+};
+
+export const AsGroupWithNestedObject = (args) => ({
+  components: {
+    UiCheckbox,
+    UiList,
+    UiListItem,
+  },
+  setup() {
+    const modelValue = ref(args.initModelValue);
+    return {
+      ...args,
+      ...events,
+      modelValue,
+    };
+  },
+  template: `<UiList style="--list-item-padding: var(--space-12) 0;">
+    <UiListItem
+      v-for="(value, key) in values"
+      :key="key"
+    >
+      <UiCheckbox
+        v-model="modelValue"
+        v-bind="value.checkboxAttrs"
+        :value="value"
+        :id="value.id"
+        :class="modifiers"
+        @update:modelValue="onUpdateModelValue"
+      >
+        {{ value.label }}
+      </UiCheckbox>
+    </UiListItem>
+  </UiList>`,
+});
+AsGroupWithNestedObject.args = {
+  initModelValue: [
+    {
+      label: 'Europe',
+      id: 'as-group-with-nested-object-europe',
+      checkboxAttrs: {
+        'data-testid': 'europe-checkbox',
+      },
+    },
+  ],
+  values: [
+    {
+      label: 'Russia, Kazakhstan or Mongolia',
+      id: 'as-group-with-nested-object-russia-kazakhstan-mongolia',
+      checkboxAttrs: {
+        'data-testid': 'russia-kazakhstan-mongolia-checkbox',
+      },
+    },
+    {
+      label: 'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
+      id: 'as-group-with-nested-object-asia-excluding-middle-east-russia-mongolia-kazakhstan',
+      checkboxAttrs: {
+        'data-testid': 'asia-excluding-middle-east-russia-mongolia-kazakhstan-checkbox',
+      },
+    },
+    {
+      label: 'Europe',
+      id: 'as-group-with-nested-object-europe',
+      checkboxAttrs: {
+        'data-testid': 'europe-checkbox',
+      },
+    },
+  ],
+};
+AsGroupWithNestedObject.argTypes = {
+  initModelValue: {
+    description: 'Use this control to set initial state.',
+    table: {
+      category: 'stories controls',
+    },
+    control: 'object',
+  },
+  values: {
+    description: 'Values of the checkbox group.',
+    table: {
+      category: 'stories controls',
+    },
+    control: 'object',
+  },
+  id: {
+    control: false,
+  },
+  value: {
+    control: false,
+  },
+  modifiers: {
     control: false,
   },
   content: {

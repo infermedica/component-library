@@ -91,7 +91,6 @@ import useInput from '../../../composable/useInput';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 import type { PropsAttrs } from '../../../types/attrs';
 
-export type RangeValue = string | number;
 const props = defineProps({
   /**
    * Use this props or v-model to set value.

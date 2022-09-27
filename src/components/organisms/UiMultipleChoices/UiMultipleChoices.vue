@@ -5,8 +5,8 @@
       name="hint"
       v-bind="{
         hint,
-        hintType,
-        alertHintAttrs
+        attrs: alertHintAttrs,
+        hintType
       }"
     >
       <UiAlert
@@ -19,46 +19,44 @@
       </UiAlert>
     </slot>
     <UiList
-      class="ui-multiple-choices__list"
       v-bind="$attrs"
+      class="ui-multiple-choices__list"
     >
       <template
-        v-for="choice in choicesToUse"
-        :key="choice.id"
+        v-for="(item, index) in choices || items"
+        :key="index"
       >
-        <!-- @slot Use this slot to replace list-item template.-->
+        <!-- @slot Use this slot to replace list-item template. -->
         <slot
           name="list-item"
           v-bind="{
-            choice,
+            item,
+            index,
+            value,
             options,
-            evidences,
-            updateHandler,
-            hasError
+            hasError,
+            updateHandler
           }"
         >
           <UiListItem class="ui-multiple-choices__list-item">
-            <!-- @slot Use this slot to replace choice-item template.-->
             <slot
-              name="choice-item"
+              name="choice"
               v-bind="{
-                choice,
+                value,
+                index,
+                item,
                 options,
-                evidences,
                 hasError,
                 updateHandler
               }"
             >
               <UiMultipleChoicesItem
-                :choice="choice"
+                :model-value="value[index]"
+                v-bind="item"
                 :options="options"
-                :model-value="evidences"
-                :invalid="hasError(choice.id)"
+                :invalid="hasError(index)"
                 class="ui-multiple-choices__choice"
-                :button-info-attrs="choice.buttonInfoAttrs"
-                :text-name-attrs="choice.textNameAttrs"
-                :icon-info-attrs="choice.iconInfoAttrs"
-                @update:model-value="updateHandler($event)"
+                @update:model-value="updateHandler($event, index)"
               />
             </slot>
           </UiListItem>
@@ -77,91 +75,23 @@ export default {
 <script setup lang="ts">
 import {
   computed,
+  useAttrs,
   watch,
 } from 'vue';
 import type { PropType } from 'vue';
 import type { PropsAttrs } from '../../../types/attrs';
-import UiMultipleChoicesItem from './_internal/UiMultipleChoicesItem.vue';
+import UiAlert from '../../molecules/UiAlert/UiAlert.vue';
 import UiList from '../UiList/UiList.vue';
 import UiListItem from '../UiList/_internal/UiListItem.vue';
-import UiAlert from '../../molecules/UiAlert/UiAlert.vue';
+import UiMultipleChoicesItem from './_internal/UiMultipleChoicesItem.vue';
 
-export type MultipleChoiceValue = 'present' | 'absent' | 'unknown';
-export interface MultipleChoiceEvidence {
-  id: number;
-  question?: number;
-  name?: string;
-  'choice_id'?: MultipleChoiceValue;
-  source?: string;
-  [key: string]: unknown
-}
-export type MultipleChoiceModelValue = Record<number, MultipleChoiceEvidence>
-export interface MultipleChoiceOption {
-  name?: 'Yes' | 'No' | 'Don\'t know';
-  value?: MultipleChoiceValue;
-  [key: string]: unknown
-}
-export interface MultipleChoice extends MultipleChoiceEvidence {
-  'linked_observation'?: 'p_8',
-  translation?: {info: string; [key:string]: unknown};
-  buttonInfoAttrs?: Record<string, unknown>;
-  [key: string]: unknown;
-}
 const props = defineProps({
-  /**
-   *  Use this props to set source of evidences.
-   */
-  source: {
-    type: String,
-    default: '',
-  },
-  /**
-   *  Use this props to override default options.
-   */
-  options: {
-    type: Array as PropType<MultipleChoiceOption[]>,
-    default: () => ([
-      {
-        name: 'Yes',
-        value: 'present',
-      },
-      {
-        name: 'No',
-        value: 'absent',
-      },
-      {
-        name: 'Don\'t know',
-        value: 'unknown',
-      },
-    ]),
-  },
   /**
    * Use this props to set hint for question.
    */
   hint: {
     type: String,
     default: '',
-  },
-  /**
-   *  Use this props to set possible choices.
-   */
-  choices: {
-    type: Array as PropType<MultipleChoice[]>,
-    default: () => ([]),
-  },
-  /**
-   *  Use this props or v-model to set checked.
-   */
-  modelValue: {
-    type: Array as PropType<MultipleChoiceEvidence[]>,
-    default: () => ([]),
-  },
-  /**
-   * Use this props to set invalid state of component.
-   */
-  invalid: {
-    type: Boolean,
-    default: true,
   },
   /**
    * Use this props to touch component and show validation errors.
@@ -171,6 +101,34 @@ const props = defineProps({
     default: false,
   },
   /**
+   * Use this props to set invalid state of component.
+   */
+  invalid: {
+    type: Boolean,
+    default: true,
+  },
+  /**
+   *  Use this props to override default options.
+   */
+  /**
+   *  Use this props to set possible choices.
+   */
+  items: {
+    type: Array,
+    default: () => ([]),
+  },
+  options: {
+    type: Array,
+    default: () => ([]),
+  },
+  /**
+   *  Use this props or v-model to set checked.
+   */
+  modelValue: {
+    type: Array,
+    default: () => ([]),
+  },
+  /**
    * Use this props to pass attrs for hint UiAlert
    */
   alertHintAttrs: {
@@ -178,44 +136,29 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-const emit = defineEmits<{(e: 'update:modelValue', value: MultipleChoiceEvidence[]): void, (e: 'update:invalid', value: boolean): void}>();
-const hintType = computed<'error'| 'default'>(() => (props.touched && props.invalid ? 'error' : 'default'));
-const evidences = computed(() => (
-  props.modelValue.reduce((object: MultipleChoiceModelValue, evidence: MultipleChoiceEvidence) => {
-    // eslint-disable-next-line camelcase
-    const {
-      id,
-    } = evidence;
-    return {
-      ...object,
-      [id]: {
-        ...evidence,
-      },
-    };
-  }, {})
-));
-const valid = computed(() => (
-  props.choices.every((choice) => (evidences.value[choice.id]))
-));
+const emit = defineEmits<{(e: 'update:modelValue', value: string | object[]): void, (e: 'update:invalid', value: boolean): void}>();
+const value = computed(() => (props.modelValue));
+const valid = computed(() => (value.value.filter((item) => item).length === props.items.length));
 watch(valid, (value) => {
   emit('update:invalid', !value);
 }, {
   immediate: true,
 });
-function hasError(id: number): boolean {
-  return props.touched && !evidences.value[id];
+const hintType = computed<'error'| 'default'>(() => (props.touched && props.invalid ? 'error' : 'default'));
+const hasError = (index: number): boolean => (props.touched && !value.value[index]);
+function updateHandler(newValue: any, index: number): void {
+  value.value[index] = newValue;
+  emit('update:modelValue', value.value);
 }
-function updateHandler(value: MultipleChoiceModelValue): void {
-  emit('update:modelValue', Object.values(value));
+// TODO: remove in 0.6.0 / BEGIN
+const attrs = useAttrs();
+const choices = computed(() => (attrs.choices));
+if (choices.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiMultipleChoices]: choices will be removed in 0.6.0. Please use items instead.');
+  }
 }
-const choicesToUse = computed<MultipleChoiceEvidence[]>(() => (
-  props.choices.map((evidence) => (props.source ? {
-    ...evidence,
-    source: props.source,
-  } : {
-    ...evidence,
-  }))
-));
+// END
 </script>
 
 <style lang="scss">
