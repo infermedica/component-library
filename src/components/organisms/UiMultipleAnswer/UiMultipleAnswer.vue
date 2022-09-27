@@ -36,59 +36,46 @@
       </legend>
     </slot>
     <UiList
-      class="ui-multiple-answer__list"
+      :items="itemsToRender"
       v-bind="$attrs"
+      class="ui-multiple-answer__list"
     >
-      <template
-        v-for="choice in choices"
-        :key="choice.id"
-      >
-        <!-- @slot Use this slot to replace list-item template.-->
-        <slot
-          name="list-item"
-          v-bind="{
-            choice,
-            modelValue,
-            updateHandler,
-            errorClass,
-            name,
-            component,
-            componentName
-          }"
+      <template #default>
+        <template
+          v-for="(item, index) in choices || items"
+          :key="index"
         >
-          <UiListItem
-            class="ui-multiple-answer__list-item"
+          <!-- @slot Use this slot to replace list-item template. -->
+          <slot
+            name="list-item"
+            v-bind="{
+              component,
+              item,
+              value,
+              name,
+              errorClass,
+              focusExplication,
+              componentName,
+              unfocusExplication
+            }"
           >
-            <!-- @slot Use this slot to replace choice-item template.-->
-            <slot
-              name="choice-item"
-              v-bind="{
-                choice,
-                modelValue,
-                updateHandler,
-                errorClass,
-                name,
-                component,
-                componentName
-              }"
-            >
+            <UiListItem class="ui-multiple-answer__list-item">
               <component
                 :is="component"
-                :id="choice.id"
-                :value="choice"
-                :model-value="modelValue"
+                :id="item.id"
+                v-model="value"
+                :value="item"
                 :name="name"
                 class="ui-multiple-answer__choice"
                 :class="errorClass"
-                @update:model-value="updateHandler(choice)"
                 @keydown="focusExplication"
               >
                 <template #label>
                   <!-- @slot Use this slot to replace choice-label template for specific item.-->
                   <slot
-                    :name="`label-${choice.id}`"
+                    :name="`label-${item.id}`"
                     v-bind="{
-                      choice,
+                      item,
                       componentName
                     }"
                   >
@@ -99,11 +86,11 @@
                       <UiText
                         tag="span"
                       >
-                        {{ choice.name }}
+                        {{ item.name }}
                       </UiText>
                       <UiButton
-                        v-if="choice.buttonInfoAttrs"
-                        v-bind="choice.buttonInfoAttrs"
+                        v-if="item.buttonInfoAttrs"
+                        v-bind="item.buttonInfoAttrs"
                         tabindex="-1"
                         class="ui-button--icon ui-multiple-answer__explication"
                         @keydown="unfocusExplication"
@@ -117,9 +104,59 @@
                   </slot>
                 </template>
               </component>
+            </UiListItem>
+          </slot>
+        </template>
+      </template>
+      <template
+        v-for="(item, index) in itemsToRender"
+        :key="index"
+        #[item.name]
+      >
+        <component
+          :is="component"
+          :id="item.id"
+          v-model="value"
+          :value="item"
+          :name="name"
+          class="ui-multiple-answer__choice"
+          :class="errorClass"
+          @keydown="focusExplication"
+        >
+          <template #label>
+            <!-- @slot Use this slot to replace choice-label template for specific item.-->
+            <slot
+              :name="`label-${item.id}`"
+              v-bind="{
+                item,
+                componentName
+              }"
+            >
+              <div
+                class="ui-multiple-answer__label"
+                :class="`${componentName}__label`"
+              >
+                <UiText
+                  tag="span"
+                >
+                  {{ item.name }}
+                </UiText>
+                <UiButton
+                  v-if="item.buttonInfoAttrs"
+                  v-bind="item.buttonInfoAttrs"
+                  tabindex="-1"
+                  class="ui-button--icon ui-multiple-answer__explication"
+                  @keydown="unfocusExplication"
+                >
+                  <UiIcon
+                    icon="info"
+                    class="ui-button__icon"
+                  />
+                </UiButton>
+              </div>
             </slot>
-          </UiListItem>
-        </slot>
+          </template>
+        </component>
       </template>
     </UiList>
   </component>
@@ -134,6 +171,7 @@ export default {
 <script setup lang="ts">
 import {
   computed,
+  useAttrs,
   watch,
 } from 'vue';
 import type { PropType } from 'vue';
@@ -156,10 +194,6 @@ import type { HTMLTag } from '../../../types/tag';
 
 export interface MultipleAnswerChoice extends CheckboxValueAsObj {
   name: string;
-  'common_name'?: string;
-  source?: string;
-  choices?: { id: string; label: string; }
-  buttonInfoAttrs?: Record<string, unknown>;
 }
 export type MultipleAnswerValue = RadioValue | CheckboxValue[];
 export type ComponentName = 'ui-checkbox' | 'ui-radio';
@@ -174,8 +208,8 @@ const props = defineProps({
   /**
    *  Use this props to set possible choices.
    */
-  choices: {
-    type: Array as PropType<MultipleAnswerChoice[]>,
+  items: {
+    type: Array,
     default: () => ([]),
   },
   /**
@@ -248,18 +282,12 @@ watch(valid, (value) => {
 }, {
   immediate: true,
 });
-function updateHandler(value: MultipleAnswerChoice): void {
-  if (!isCheckbox.value) {
+const value = computed({
+  get: () => (props.modelValue),
+  set: (value: MultipleAnswerValue) => {
     emit('update:modelValue', value);
-    return;
-  }
-  const modelValue = props.modelValue as CheckboxValueAsObj[];
-  if (modelValue.some((evidence) => evidence.id === value.id)) {
-    emit('update:modelValue', modelValue.filter((evidence) => evidence.id !== value.id));
-  } else {
-    emit('update:modelValue', [...modelValue, value]);
-  }
-}
+  },
+});
 function focusExplication(event: KeyboardEvent) {
   if (event.key !== 'ArrowRight') return;
   const el = event.target as HTMLInputElement;
@@ -275,6 +303,24 @@ function unfocusExplication(event: KeyboardEvent) {
   const answerInput: HTMLInputElement | null | undefined = el.closest(`.${componentName.value}`)?.querySelector('input');
   answerInput?.focus();
 }
+// TODO: remove in 0.6.0 / BEGIN
+const attrs = useAttrs();
+const choices = computed(() => (attrs.choices));
+if (choices.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiMultipleAnswer]: choices will be removed in 0.6.0. Please use items instead.');
+  }
+}
+// END
+const itemsToRender = computed(() => {
+  const items = choices.value || props.items;
+  return items.map((item) => ({
+    ...item,
+    listItemAttrs: {
+      class: 'ui-multiple-answer__list-item',
+    },
+  }));
+});
 </script>
 
 <style lang="scss">

@@ -45,7 +45,7 @@ import UiToggleButton from './_internal/UiToggleButton.vue';
 export type ToggleButtonValue = number | string | Record<string, unknown> | undefined | null;
 export interface ToggleButtonItemAsObj{
   name: string;
-  text?: string | number;
+  text: string | number;
   value: ToggleButtonValue;
   [key: string]: ToggleButtonValue | undefined;
 }
