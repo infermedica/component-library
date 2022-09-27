@@ -1,4 +1,6 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npm run test:unit
+npm run test:generate-output && npm run create:icons-list && npm run create:index
+git add .unit-test-results.json index.ts ./src/components/atoms/UiIcon/icons.ts
+git commit -m "chore: update auto-generated files"
