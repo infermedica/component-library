@@ -44,7 +44,7 @@ import UiTabsItem from './_internal/UiTabsItem.vue';
 
 export interface TabsItem {
     name: string;
-    title?: string;
+    title: string;
     buttonAttrs?: Record<string, unknown>;
     tabsItemAttrs?: Record<string, unknown>;
     [key: string]: unknown;
