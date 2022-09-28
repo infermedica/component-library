@@ -10,9 +10,8 @@ export default {
   args: {
     initModelValue: 'female',
     modifiers: [],
-    options: [
+    items: [
       {
-        id: 'female',
         value: 'female',
         label: 'Female',
         icon: 'female',
@@ -21,7 +20,6 @@ export default {
         textLabelAttrs: { 'data-testid': 'female-label' },
       },
       {
-        id: 'male',
         value: 'male',
         label: 'Male',
         icon: 'male',
@@ -53,7 +51,7 @@ const Template = (args) => ({
   },
   template: `<UiSimpleQuestion
     v-model="modelValue"
-    :options="options"
+    :items="items"
     :class="modifiers"
   />`,
 });
@@ -77,30 +75,29 @@ export const WithTileSlot = (args) => ({
   },
   template: `<UiSimpleQuestion
     v-model="modelValue"
-    :options="options"
+    :items="items"
     :class="modifiers"
   >
   <template #tile="{
-    option, 
+    item, 
     modelValue, 
     isTileSmall, 
     updateHandler
   }">
     <UiTile
       :model-value="modelValue"
-      :value="option.value"
-      :id="option.id"
-      :icon="option.icon"
-      :icon-attrs="option.iconAttrs"
-      :text-label-attrs="option.textLabelAttrs"
+      :value="item.value"
+      :icon="item.icon"
+      :icon-attrs="item.iconAttrs"
+      :text-label-attrs="item.textLabelAttrs"
       v-bind="{
-        'data-testid': option['data-testid'],
+        'data-testid': item['data-testid'],
       }"
       :class="{'ui-tile--small': isTileSmall}"
-      class="ui-simple-question__option ui-tile"
-      @update:modelValue="updateHandler(option.value)"
+      class="ui-simple-question__item"
+      @update:modelValue="updateHandler(item.value)"
     >
-      {{ option.label }}
+      {{ item.label }}
     </UiTile>
   </template>
   </UiSimpleQuestion>`,

@@ -3,12 +3,16 @@
     class="ui-simple-question"
     role="radiogroup"
   >
-    <template v-for="option in options">
+    <template
+      v-for="(item, index) in options || items"
+      :key="index"
+    >
       <!-- @slot Use this slot to replace tile template -->
       <slot
         name="tile"
         v-bind="{
-          option,
+          option: item,
+          item,
           modelValue,
           isTileSmall,
           updateHandler
@@ -17,15 +21,15 @@
         <UiTile
           v-bind="(()=>{const {
             label, ...rest
-          } = option; return rest;})()"
+          } = item; return rest;})()"
           :model-value="modelValue"
           :class="{
             'ui-tile--small': isTileSmall
           }"
-          class="ui-simple-question__option ui-tile"
-          @update:model-value="updateHandler(option.value)"
+          class="ui-simple-question__item"
+          @update:model-value="updateHandler(item.value)"
         >
-          {{ option.label }}
+          {{ item.label }}
         </UiTile>
       </slot>
     </template>
@@ -43,7 +47,6 @@ import type { TileValue } from '../../molecules/UiTile/UiTile.vue';
 import type { Icon } from '../../../types/icon';
 
 export interface SimpleQuestionOptions {
-  id: string;
   value: TileValue;
   label: string;
   tileAttrs: {
@@ -63,9 +66,9 @@ defineProps({
     default: () => ({}),
   },
   /**
-   * Use this props to pass options for question
+   * Use this props to pass items for question
    */
-  options: {
+  items: {
     type: Array as PropType<SimpleQuestionOptions[]>,
     default: () => [{
       id: '',
@@ -81,6 +84,14 @@ const isTileSmall = computed(() => attrs.class?.includes('ui-simple-question--sm
 function updateHandler(value: TileValue) {
   emit('update:modelValue', value);
 }
+// TODO: remove in 0.6.0 / BEGIN
+const options = computed(() => (attrs?.options));
+if (options.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiSimpleQuestion]: options will be removed in 0.6.0. Please use items instead.');
+  }
+}
+// END
 </script>
 
 <style lang="scss">
@@ -98,8 +109,8 @@ function updateHandler(value: TileValue) {
     flex-direction: row;
   }
 
-  &__option {
-    margin: functions.var($element + "-option", margin, 0 0 var(--space-12) 0);
+  &__item {
+    margin: functions.var($element + "-item", margin, 0 0 var(--space-12) 0);
 
     &:last-of-type {
       margin: 0;
@@ -107,14 +118,14 @@ function updateHandler(value: TileValue) {
 
     @include mixins.from-tablet {
       flex: 1;
-      margin: functions.var($element + "-tablet-option", margin, 0 var(--space-24) 0 0);
+      margin: functions.var($element + "-tablet-item", margin, 0 var(--space-24) 0 0);
 
       &:last-of-type {
         margin: 0;
       }
 
       [dir="rtl"] & {
-        margin: functions.var($element + "-rtl-tablet-option", margin, 0 0 0 var(--space-24));
+        margin: functions.var($element + "-rtl-tablet-item", margin, 0 0 0 var(--space-24));
 
         &:last-of-type {
           margin: 0;

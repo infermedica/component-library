@@ -47,10 +47,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  computed,
-  useAttrs,
-} from 'vue';
+import { computed } from 'vue';
 import UiRadio from '../../../atoms/UiRadio/UiRadio.vue';
 import UiCheckbox from '../../../atoms/UiCheckbox/UiCheckbox.vue';
 import UiText from '../../../atoms/UiText/UiText.vue';
@@ -62,10 +59,6 @@ const props = defineProps({
   modelValue: {
     type: [String, Object, Array],
     default: () => ([]),
-  },
-  choice: {
-    type: Object,
-    default: () => ({}),
   },
   invalid: {
     type: Boolean,
@@ -123,9 +116,7 @@ function unfocusExplication(event: KeyboardEvent) {
   answerInput?.focus();
 }
 // TODO: remove in 0.6.0 / BEGIN
-const attrs = useAttrs();
-const name = computed(() => (attrs.name));
-if (name.value) {
+if (!props.label) {
   if (process.env.NODE_ENV === 'development') {
     console.warn('[@infermedica/component-library warn][UiMultipleAnswerItem]: name will be removed in 0.6.0. Please use label instead.');
   }
