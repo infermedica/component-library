@@ -41,7 +41,7 @@
           <UiListItem class="ui-multiple-choices__list-item">
             <!-- @slot Use this slot to replace choice template.-->
             <slot
-              name="choice"
+              :name="choiceItem && 'choice-item' || 'choice'"
               v-bind="{
                 value,
                 index,
@@ -77,6 +77,7 @@ export default {
 import {
   computed,
   useAttrs,
+  useSlots,
   watch,
 } from 'vue';
 import type { PropType } from 'vue';
@@ -138,7 +139,7 @@ const props = defineProps({
   },
 });
 const emit = defineEmits<{(e: 'update:modelValue', value: string | object[]): void, (e: 'update:invalid', value: boolean): void}>();
-const value = computed(() => (props.modelValue));
+const value = computed(() => (JSON.parse(JSON.stringify(props.modelValue))));
 const valid = computed(() => (value.value.filter((item) => item).length === props.items.length));
 watch(valid, (value) => {
   emit('update:invalid', !value);
@@ -157,6 +158,13 @@ const choices = computed(() => (attrs.choices));
 if (choices.value) {
   if (process.env.NODE_ENV === 'development') {
     console.warn('[@infermedica/component-library warn][UiMultipleChoices]: choices will be removed in 0.6.0. Please use items instead.');
+  }
+}
+const slots = useSlots();
+const choiceItem = computed(() => (slots['choice-item']));
+if (choiceItem.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiMultipleChoices]: choice-item will be removed in 0.6.0. Please use choice instead.');
   }
 }
 // END

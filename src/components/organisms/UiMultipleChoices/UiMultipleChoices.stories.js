@@ -31,18 +31,15 @@ export default {
     initInvalid: true,
     items: [
       {
-        id: 'diabetes',
         label: 'I have diabetes',
         textLabelAttrs: {
           'data-testid': 'label-text',
         },
       },
       {
-        id: 'hypertension',
         label: 'I have hypertension',
       },
       {
-        id: 'cholesterol',
         label: 'I have high cholesterol',
       },
     ],
@@ -200,7 +197,7 @@ export const WithHintSlot = (args) => ({
     @update:modelValue="onUpdateModelValue"
     @update:invalid="onUpdateInvalid"
   >
-    <template 
+    <template
       #hint="{
         hint,
         attrs,
@@ -214,7 +211,7 @@ export const WithHintSlot = (args) => ({
           class="ui-multiple-choices__hint"
       >
         {{ hint }}
-      </UiAlert> 
+      </UiAlert>
     </template>
   </UiMultipleChoices>`,
 });
@@ -246,7 +243,7 @@ export const WithListItemSlot = (args) => ({
     @update:modelValue="onUpdateModelValue"
     @update:invalid="onUpdateInvalid"
   >
-    <template 
+    <template
       #list-item="{
         item,
         index,
@@ -296,7 +293,7 @@ export const WithChoiceSlot = (args) => ({
       @update:modelValue="onUpdateModelValue"
       @update:invalid="onUpdateInvalid"
   >
-  <template
+    <template
       #choice="{
         value,
         index,
@@ -305,16 +302,16 @@ export const WithChoiceSlot = (args) => ({
         hasError,
         updateHandler
       }"
-  >
-    <UiMultipleChoicesItem
-      :model-value="value[index]"
-      v-bind="item"
-      :options="options"
-      :invalid="hasError(index)"
-      class="ui-multiple-choices__choice"
-      @update:model-value="updateHandler($event, index)"
-    />
-  </template>
+    >
+      <UiMultipleChoicesItem
+        :model-value="value[index]"
+        v-bind="item"
+        :options="options"
+        :invalid="hasError(index)"
+        class="ui-multiple-choices__choice"
+        @update:model-value="updateHandler($event, index)"
+      />
+    </template>
   </UiMultipleChoices>`,
 });
 
@@ -356,15 +353,15 @@ AsEvidence.args = {
   items: [
     {
       id: 'p_7',
-      name: 'High BMI',
+      label: 'High BMI',
     },
     {
       id: 'p_9',
-      name: 'I have hypertension',
+      label: 'I have hypertension',
     },
     {
       id: 'p_28',
-      name: 'I have smoked cigarettes for at least 10 years',
+      label: 'I have smoked cigarettes for at least 10 years',
     },
   ],
 };

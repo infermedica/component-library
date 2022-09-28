@@ -75,6 +75,7 @@
             :class="['ui-multiple-choices-item__option', {
               'ui-radio--has-error': invalid
             }]"
+            :name="ariaLabelledby"
           >
             {{ option.label }}
           </UiRadio>

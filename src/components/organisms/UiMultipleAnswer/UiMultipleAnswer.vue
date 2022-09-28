@@ -56,7 +56,7 @@
           <UiListItem class="ui-multiple-answer__list-item">
             <!-- @slot Use this slot to replace choice template.-->
             <slot
-              name="choice"
+              :name="choiceItem && 'choice-item' || 'choice'"
               v-bind="{
                 value,
                 item,
@@ -96,6 +96,7 @@ export default {
 import {
   computed,
   useAttrs,
+  useSlots,
   watch,
 } from 'vue';
 import type { PropType } from 'vue';
@@ -207,6 +208,13 @@ const choices = computed(() => (attrs.choices));
 if (choices.value) {
   if (process.env.NODE_ENV === 'development') {
     console.warn('[@infermedica/component-library warn][UiMultipleAnswer]: choices will be removed in 0.6.0. Please use items instead.');
+  }
+}
+const slots = useSlots();
+const choiceItem = computed(() => (slots['choice-item']));
+if (choiceItem.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiMultipleAnswer]: choice-item will be removed in 0.6.0. Please use choice instead.');
   }
 }
 // END
