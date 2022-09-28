@@ -65,7 +65,7 @@
             :aria-valuemax="max"
             :aria-valuenow="value"
             class="ui-range__track"
-            @input="change($event.target.valueAsNumber)"
+            @input="change(($event.target as HTMLInputElement).valueAsNumber)"
           >
         </slot>
       </div>

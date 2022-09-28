@@ -212,8 +212,8 @@ const {
   prevDropdownItem,
   selectedDropdownItem,
 } = useDropdownItems(dropdown);
-function disableArrows(event) {
-  if (['ArrowUp', 'ArrowDown'].indexOf(event.code) > -1) {
+function disableArrows(event: Event) {
+  if (['ArrowUp', 'ArrowDown'].indexOf((event as KeyboardEvent).code) > -1) {
     event.preventDefault();
   }
 }
