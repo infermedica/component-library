@@ -97,7 +97,6 @@ import {
   useSlots,
   watch,
 } from 'vue';
-import type { PropType } from 'vue';
 import UiMultipleAnswerItem from './_internal/UiMultipleAnswerItem.vue';
 import UiList from '../UiList/UiList.vue';
 import UiListItem from '../UiList/_internal/UiListItem.vue';

@@ -40,7 +40,6 @@ import {
 import type { PropType } from 'vue';
 import UiTile from '../../molecules/UiTile/UiTile.vue';
 import type { TileValue } from '../../molecules/UiTile/UiTile.vue';
-import type { PropsAttrs } from '../../../types/attrs';
 import type { Icon } from '../../../types/icon';
 
 export interface SimpleQuestionOptions {

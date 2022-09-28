@@ -94,7 +94,6 @@ import { uid } from 'uid/single';
 import type { PropType } from 'vue';
 import type { HTMLTag } from '../../../../types/tag';
 import UiRadio from '../../../atoms/UiRadio/UiRadio.vue';
-import type { RadioValue } from '../../../atoms/UiRadio/UiRadio.vue';
 import UiText from '../../../atoms/UiText/UiText.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
@@ -189,8 +188,8 @@ const emit = defineEmits<{(e: 'update:modelValue', value: object | string): void
 const ariaLabelledby = computed(() => (props.id || `multiple-choices-item-${uid()}`));
 const value = computed({
   get: () => props.modelValue,
-  set: (value) => {
-    emit('update:modelValue', value);
+  set: (newValue) => {
+    emit('update:modelValue', newValue);
   },
 });
 // TODO: remove in 0.6.0 / BEGIN

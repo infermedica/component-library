@@ -78,7 +78,6 @@ import {
   useSlots,
   watch,
 } from 'vue';
-import type { PropType } from 'vue';
 import type { PropsAttrs } from '../../../types/attrs';
 import UiAlert from '../../molecules/UiAlert/UiAlert.vue';
 import UiList from '../UiList/UiList.vue';

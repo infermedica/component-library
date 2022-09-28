@@ -137,15 +137,6 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  // TODO: remove in 0.6.0 / BEGIN
-  /**
-   * Use this props to pass attrs for UiRadio
-   */
-  radioAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
-  // END
   /**
    * Use this props to setup item component.
    */
@@ -199,7 +190,8 @@ const finalScore = computed(() => (
     : parseInt(rate.value, 10)));
 // TODO: remove in 0.6.0 / BEGIN
 const attrs = useAttrs();
-if (Object.keys(props.radioAttrs).length > 0) {
+const radioAttrs = computed(() => (attrs.radioAttrs || attrs['radio-attrs']));
+if (radioAttrs.value) {
   if (process.env.NODE_ENV === 'development') {
     console.warn('[@infermedica/component-library warn][UiPopover]: radioAttrs will be removed in 0.6.0.');
   }

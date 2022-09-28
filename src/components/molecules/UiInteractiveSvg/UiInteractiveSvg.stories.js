@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import {
   onMounted,
   ref,
@@ -749,7 +750,7 @@ export const InfantUnisexFront = (args) => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({ part }, { target }) => {
+    const handleBodyPartClick = ({ part }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -873,7 +874,7 @@ export const InfantUnisexBack = () => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({ part }, { target }) => {
+    const handleBodyPartClick = ({ part }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -968,7 +969,7 @@ export const ToddlerMaleFront = (args) => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({ part }, { target }) => {
+    const handleBodyPartClick = ({ part }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -1120,7 +1121,7 @@ export const ToddlerMaleBack = () => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({ part }, { target }) => {
+    const handleBodyPartClick = ({ part }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -1235,7 +1236,7 @@ export const ToddlerFemaleFront = (args) => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({ part }, { target }) => {
+    const handleBodyPartClick = ({ part }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -1387,7 +1388,7 @@ export const ToddlerFemaleBack = () => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({ part }, { target }) => {
+    const handleBodyPartClick = ({ part }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -1502,7 +1503,7 @@ export const ChildMaleFront = (args) => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({ part }, { target }) => {
+    const handleBodyPartClick = ({ part }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -1654,7 +1655,7 @@ export const ChildMaleBack = () => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({ part }, { target }) => {
+    const handleBodyPartClick = ({ part }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -1765,7 +1766,7 @@ export const ChildFemaleFront = (args) => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({ part }, { target }) => {
+    const handleBodyPartClick = ({ part }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -1917,7 +1918,7 @@ export const ChildFemaleBack = () => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({ part }, { target }) => {
+    const handleBodyPartClick = ({ part }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -2028,7 +2029,7 @@ export const AdultMaleFront = (args) => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({ part }, { target }) => {
+    const handleBodyPartClick = ({ part }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -2180,7 +2181,7 @@ export const AdultMaleBack = () => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({ part }, { target }) => {
+    const handleBodyPartClick = ({ part }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -2295,7 +2296,7 @@ export const AdultFemaleFront = (args) => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({ part }, { target }) => {
+    const handleBodyPartClick = ({ part }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -2451,7 +2452,7 @@ export const AdultFemaleBack = () => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({ part }, { target }) => {
+    const handleBodyPartClick = ({ part }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
