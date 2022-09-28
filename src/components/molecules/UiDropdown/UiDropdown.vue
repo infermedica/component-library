@@ -113,7 +113,7 @@ import type { PropsAttrs } from '../../../types/attrs';
 export type DropdownValue = string | Record<string, unknown>
 export interface DropdownItemAsObj {
   text?: string;
-  name: string;
+  name?: string;
   value: DropdownValue;
   [key: string]: DropdownValue | undefined;
 }
@@ -320,7 +320,7 @@ defineExpose({
   closeHandler,
 });
 
-const itemsToRender = computed<DropdownItemAsObj[]>(() => (props.items.map((item: DropdownItem, key) => {
+const itemsToRender = computed(() => (props.items.map((item: DropdownItem, key) => {
   if (typeof item === 'string' || typeof item === 'number') {
     return {
       name: `dropdown-item-${key}`,
@@ -329,9 +329,8 @@ const itemsToRender = computed<DropdownItemAsObj[]>(() => (props.items.map((item
     };
   }
   return {
-    name: item.name || `dropdown-item-${key}`,
+    name: `dropdown-item-${key}`,
     ...item,
-    value: item.value,
   };
 })));
 </script>

@@ -84,7 +84,7 @@ export interface DatepickerTranslation {
   errorWrongDate: string;
   errorDateInFuture: string;
   errorOutOfBounds: string;
-  [key: string]: string;
+  [key: string]: string | undefined;
 }
 export type DatePart = 'day' | 'month' | 'year';
 export type DatepickerDate<T> = {[key in DatePart]: T}
@@ -215,9 +215,9 @@ const getDefaultProps = (datePart: DatePart): DefaultInputProps<DatepickerInputI
   id: `datepicker-input-${datePart}`,
   ...props[`input${capitalizeFirst(datePart) as Capitalize<DatePart>}Attrs`],
 });
-const defaultProps = computed(() => (
-  {
-    translation: {
+const defaultProps = computed(() => ({
+  translation: {
+    ...{
       day: 'day',
       month: 'month',
       year: 'year',
@@ -227,13 +227,13 @@ const defaultProps = computed(() => (
       errorWrongDate: 'Please enter a valid date, e.g. 05/11/1990',
       errorDateInFuture: 'Sorry, the date of birth cannot be a future date',
       errorOutOfBounds: 'Sorry, our checkup only covers people between 0 and 120 years old',
-      ...props.translation,
     },
-    inputDayAttrs: getDefaultProps('day'),
-    inputMonthAttrs: getDefaultProps('month'),
-    inputYearAttrs: getDefaultProps('year'),
-  }
-));
+    ...props.translation,
+  },
+  inputDayAttrs: getDefaultProps('day'),
+  inputMonthAttrs: getDefaultProps('month'),
+  inputYearAttrs: getDefaultProps('year'),
+}));
 const getDefaultProp = (item: DatePart | DefaultAttrName): DefaultInputProps<DatepickerInputID> => (
   item.includes('Attrs')
     ? defaultProps.value[item as DefaultAttrName]

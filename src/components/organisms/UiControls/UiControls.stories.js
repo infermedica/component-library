@@ -18,6 +18,7 @@ export default {
   },
   args: {
     hideNextButton: false,
+    hideBackButton: false,
     toBack: {
       path: '/back',
     },

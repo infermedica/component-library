@@ -33,16 +33,17 @@ import {
 import type { PropType } from 'vue';
 import UiAccordionItem from './_internal/UiAccordionItem.vue';
 import UiList from '../UiList/UiList.vue';
+import type { IconAsString } from '../../../types/icon';
 
 export type AccordionValue = string | string[];
 export interface AccordionItemSettings {
-  iconOpen: string;
-  iconClose: string;
+  iconOpen?: IconAsString;
+  iconClose?: IconAsString;
   [key: string]: unknown
 }
 export interface AccordionItemAsObj {
   title: string;
-  name: string;
+  name?: string;
   accordionItemAttrs?: Record<string, unknown>;
   settings?: AccordionItemSettings;
   [key: string]: unknown;
@@ -77,17 +78,16 @@ function toggle(name: string): void {
   }
 }
 provide('toggle', toggle);
-const itemsToRender = computed<AccordionItemAsObj[]>(() => (props.items.map((item: AccordionItem, key: number) => {
+const itemsToRender = computed(() => (props.items.map((item: AccordionItem, key: number) => {
   if (typeof item === 'string') {
     return {
       name: `accordion-item-${key}`,
       title: item,
     };
   }
-  const { name } = item;
   return {
+    name: `accordion-item-${key}`,
     ...item,
-    name: name || `accordion-item-${key}`,
   };
 })));
 </script>

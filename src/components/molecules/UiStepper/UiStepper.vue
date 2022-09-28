@@ -117,16 +117,14 @@ import UiProgress from '../../atoms/UiProgress/UiProgress.vue';
 import UiList from '../../organisms/UiList/UiList.vue';
 import UiListItem from '../../organisms/UiList/_internal/UiListItem.vue';
 import type { PropsAttrs } from '../../../types/attrs';
+import type { HTMLTag } from '../../../types/tag';
 
 export interface Step {
   name: string;
-  to: string;
-  href: string;
+  to?: string;
+  href?: string;
+  route?: string;
   [key: string]: unknown;
-}
-export interface DetermineStep {
-  to: string;
-  class: string;
 }
 const props = defineProps({
   /**
@@ -164,8 +162,8 @@ const currentStepDisplayText = computed(() => `
       ${currentStepDisplayNumber.value}/${props.steps.length} ${props.currentStep}
     `);
 const stepsProgress = computed(() => (currentStepDisplayNumber.value / stepsLength.value) * 100);
-const determineStep = (itemIndex: number, step: Step): DetermineStep => ({
-  tag: itemIndex >= indexOfActiveStep.value ? 'span' : undefined,
+const determineStep = (itemIndex: number, step: Step) => ({
+  tag: itemIndex >= indexOfActiveStep.value ? 'span' as HTMLTag : undefined,
   class: itemIndex <= indexOfActiveStep.value ? undefined : 'ui-button--is-disabled',
   ...step,
 });

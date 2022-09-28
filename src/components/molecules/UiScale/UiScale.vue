@@ -116,10 +116,10 @@ import { focusElement } from '../../../utilities/helpers/index';
 import type { HTMLTag } from '../../../types/tag';
 
 export interface ScaleTranslation {
-  label: string;
-  mild: string;
-  unbearable: string;
-  [key: string]: string
+  label?: string;
+  mild?: string;
+  unbearable?: string;
+  [key: string]: string | undefined;
 }
 const props = defineProps({
   /**
@@ -255,8 +255,8 @@ function calcActiveElementOpacity(index: number): CSSProperties {
 
   &__controls {
     @at-root fieldset#{&} {
-      border: none;
       padding: 0;
+      border: none;
       margin: 0;
     }
 

@@ -41,7 +41,7 @@ import type { ListTag } from '../../../types/tag';
 export type ListChildren = {tag?: ListTag, items?: ListChildren, listAttrs: Record<string, unknown>}
 export interface ListItemAsObj {
   name: string;
-  children: ListChildren | ListChildren[];
+  children?: ListChildren | ListChildren[];
 }
 export type ListItem = string | ListItemAsObj;
 export interface ListRenderItem {
