@@ -208,9 +208,7 @@ const scaleValue = computed({
   },
 });
 const hoverValue = ref(-1);
-function hoverHandler({
-  type,
-}: {type: string}, value: number): void {
+function hoverHandler({ type }: {type: string}, value: number): void {
   hoverValue.value = type === 'mouseover' ? value : -1;
 }
 const finalValue = computed(() => (hoverValue.value >= 0 ? hoverValue.value : scaleValue.value));
@@ -221,9 +219,7 @@ function calcActiveElementOpacity(index: number): CSSProperties {
   const opacityStepValue = 1 / (maxSteps.value - 1);
   const isActive = index <= finalValue.value;
 
-  return isActive ? {
-    '--_scale-square-overlay-opacity': (index * opacityStepValue).toFixed(3),
-  } : {};
+  return isActive ? { '--_scale-square-overlay-opacity': (index * opacityStepValue).toFixed(3) } : {};
 }
 // TODO: remove in 0.6.0 / BEGIN
 const attrs = useAttrs();

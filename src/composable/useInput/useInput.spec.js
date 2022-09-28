@@ -6,9 +6,7 @@ const {
 
 const attrs = {
   class: 'class',
-  style: {
-    background: 'red',
-  },
+  style: { background: 'red' },
   onBlur: vi.fn,
   onFocus: vi.fn,
   type: 'number',
@@ -31,9 +29,7 @@ describe('composable/useInput', () => {
   test('return correct attrs for root element', () => {
     const output = {
       class: 'class',
-      style: {
-        background: 'red',
-      },
+      style: { background: 'red' },
     };
     const inputAttrs = getRootAttrs(attrs);
     expect(inputAttrs).toStrictEqual(output);

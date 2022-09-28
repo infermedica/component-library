@@ -1,8 +1,6 @@
 import useKeyValidation from './index';
 
-const {
-  numbersOnly,
-} = useKeyValidation();
+const { numbersOnly } = useKeyValidation();
 
 describe('composable/useKeyValidation', () => {
   test('pressed key is digit', () => {

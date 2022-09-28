@@ -68,9 +68,7 @@
 </template>
 
 <script lang="ts">
-export default {
-  inheritAttrs: false,
-};
+export default { inheritAttrs: false };
 </script>
 
 <script setup lang="ts">
@@ -143,9 +141,7 @@ const value = computed(() => (JSON.parse(JSON.stringify(props.modelValue))));
 const valid = computed(() => (value.value.filter((item) => item).length === props.items.length));
 watch(valid, (value) => {
   emit('update:invalid', !value);
-}, {
-  immediate: true,
-});
+}, { immediate: true });
 const hintType = computed<'error'| 'default'>(() => (props.touched && props.invalid ? 'error' : 'default'));
 const hasError = (index: number): boolean => (props.touched && !value.value[index]);
 function updateHandler(newValue: any, index: number): void {

@@ -16,27 +16,17 @@ export default {
     id: '',
     hint: 'Required',
     errorMessage: 'Please enter a valid height',
-    textMessageAttrs: {
-      'data-testid': 'text-message',
-    },
-    textHintAttrs: {
-      'data-testid': 'text-hint',
-    },
-    alertAttrs: {
-      'data-testid': 'alert',
-    },
+    textMessageAttrs: { 'data-testid': 'text-message' },
+    textHintAttrs: { 'data-testid': 'text-hint' },
+    alertAttrs: { 'data-testid': 'alert' },
   },
   argTypes: {
-    id: {
-      control: 'text',
-    },
+    id: { control: 'text' },
     message: {
       description: 'Use this props to set message text',
       table: {
         category: 'props',
-        type: {
-          summary: 'boolean|string',
-        },
+        type: { summary: 'boolean|string' },
       },
     },
     messageSlot: {
@@ -44,9 +34,7 @@ export default {
       description: 'Use this slot to replace message template.',
       table: {
         category: 'slots',
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
       },
       control: 'object',
     },
@@ -54,9 +42,7 @@ export default {
       description: 'Use this props to set hint text',
       table: {
         category: 'props',
-        type: {
-          summary: 'boolean|string',
-        },
+        type: { summary: 'boolean|string' },
       },
     },
     hintSlot: {
@@ -64,9 +50,7 @@ export default {
       description: 'Use this slot to replace hint template.',
       table: {
         category: 'slots',
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
       },
       control: 'object',
     },
@@ -79,9 +63,7 @@ export const WithInput = (args) => ({
     UiInput,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiFormField
     :message="message"
@@ -113,9 +95,7 @@ export const WithCheckboxes = (args) => ({
     UiText,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiText 
     style="margin: 0 0 var(--space-24) 0;"
@@ -163,9 +143,7 @@ export const WithLabelSlot = (args) => ({
     UiText,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiFormField
     :message="message"
@@ -226,9 +204,7 @@ export const WithAlertSlot = (args) => ({
     UiAlert,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiFormField
     :message="message"

@@ -50,9 +50,7 @@
 </template>
 
 <script lang="ts">
-export default {
-  inheritAttrs: false,
-};
+export default { inheritAttrs: false };
 </script>
 
 <script setup lang="ts">
@@ -96,9 +94,7 @@ const props = defineProps({
    */
   textLabelAttrs: {
     type: Object,
-    default: () => ({
-      tag: 'span',
-    }),
+    default: () => ({ tag: 'span' }),
   },
 });
 const defaultProps = computed(() => ({
@@ -129,9 +125,7 @@ function changeHandler(event: Event) {
 }
 
 // TODO: remove in 0.6.0 / BEGIN
-const {
-  radiobutton,
-} = slots;
+const { radiobutton } = slots;
 if (radiobutton) {
   throw new Error('[@infermedica/component-library error][UiRadio]: The `radiobutton` slot is deprecated and removed. Please use `radio` slot instead.');
 }

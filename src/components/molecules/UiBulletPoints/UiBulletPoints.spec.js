@@ -7,11 +7,7 @@ describe('UiBulletPoints.vue', () => {
     expect(wrapper.classes('ui-bullet-points')).toBe(true);
   });
   test('component pass tag props', () => {
-    const wrapper = mount(UiBulletPoints, {
-      props: {
-        tag: 'ol',
-      },
-    });
+    const wrapper = mount(UiBulletPoints, { props: { tag: 'ol' } });
     expect(wrapper.find('ol').exists()).toBe(true);
   });
   test('component pass type props', () => {

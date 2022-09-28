@@ -375,9 +375,7 @@ const props = defineProps({
    */
   headingTitleAttrs: {
     type: Object,
-    default: () => ({
-      level: 2,
-    }),
+    default: () => ({ level: 2 }),
   },
   /**
    * Use this props to pass attrs for description UiText
@@ -412,9 +410,7 @@ const props = defineProps({
    */
   iconCloseAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-      icon: 'close',
-    }),
+    default: () => ({ icon: 'close' }),
   },
 });
 const button = ref<InstanceType<typeof UiButton>|null>(null);
@@ -468,9 +464,7 @@ function closeHandler(): void {
   emit('update:modelValue', false);
 }
 function keydownHandler(event: Event) {
-  const {
-    key,
-  } = event as KeyboardEvent;
+  const { key } = event as KeyboardEvent;
   if (key !== 'Escape') return;
   closeHandler();
 }

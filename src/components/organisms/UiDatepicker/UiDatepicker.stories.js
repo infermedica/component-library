@@ -34,32 +34,18 @@ export default {
     },
     minLimit: 0,
     maxLimit: 120,
-    inputDayAttrs: {
-      id: 'datepicker-input-day',
-    },
-    inputMonthAttrs: {
-      id: 'datepicker-input-month',
-    },
-    inputYearAttrs: {
-      id: 'datepicker-input-year',
-    },
+    inputDayAttrs: { id: 'datepicker-input-day' },
+    inputMonthAttrs: { id: 'datepicker-input-month' },
+    inputYearAttrs: { id: 'datepicker-input-year' },
     datepickerCalendarAttrs: {
       buttonAttrs: {
         id: 'datepicker-calendar-button',
         'aria-label': 'calendar',
       },
-      popoverAttrs: {
-        id: 'datepicker-popover',
-      },
-      tabsItemDayAttrs: {
-        id: 'datepicker-calendar-day',
-      },
-      tabsItemMonthAttrs: {
-        id: 'datepicker-calendar-month',
-      },
-      tabsItemYearAttrs: {
-        id: 'datepicker-calendar-year',
-      },
+      popoverAttrs: { id: 'datepicker-popover' },
+      tabsItemDayAttrs: { id: 'datepicker-calendar-day' },
+      tabsItemMonthAttrs: { id: 'datepicker-calendar-month' },
+      tabsItemYearAttrs: { id: 'datepicker-calendar-year' },
     },
     'update:modelValue': null,
     'update:invalid': null,
@@ -67,69 +53,47 @@ export default {
   argTypes: {
     initModelValue: {
       description: 'Use this control to set initial state.',
-      table: {
-        category: 'stories controls',
-      },
+      table: { category: 'stories controls' },
       control: 'text',
     },
     initInvalid: {
       name: 'invalid',
       description: 'Use this control to set initial state of invalid props.',
-      table: {
-        category: 'stories controls',
-      },
+      table: { category: 'stories controls' },
       control: 'boolean',
     },
     lang: {
       control: 'select',
       options: ['ar', 'ar-sa', 'cs', 'de', 'en', 'en-us', 'es', 'fr', 'it', 'nl', 'pl', 'pt-br', 'ro', 'ru', 'sk', 'tr', 'zh-cn', 'zh-hans'],
     },
-    modelValue: {
-      control: false,
-    },
-    invalid: {
-      control: false,
-    },
+    modelValue: { control: false },
+    invalid: { control: false },
     'calendar-open': {
       description: 'Use this event to detect when calendar is open.',
-      table: {
-        category: 'events',
-      },
+      table: { category: 'events' },
     },
     'calendar-select': {
       description: 'Use this event to detect when user selects value on calendar tab.',
-      table: {
-        category: 'events',
-      },
+      table: { category: 'events' },
     },
     'field-insert': {
       description: 'Use this event to detect when user put value to input.',
-      table: {
-        category: 'events',
-      },
+      table: { category: 'events' },
     },
     'field-error': {
       description: 'Use this event to detect when datepicker has error.',
-      table: {
-        category: 'events',
-      },
+      table: { category: 'events' },
     },
     'field-focus': {
       description: 'Use this event to detect when some field is focused.',
-      table: {
-        category: 'events',
-      },
+      table: { category: 'events' },
     },
   },
-  decorators: [() => ({
-    template: '<div style="min-height: 430px" class="max-w-80"><story /></div>',
-  })],
+  decorators: [() => ({ template: '<div style="min-height: 430px" class="max-w-80"><story /></div>' })],
 };
 
 export const FullConfiguration = (args) => ({
-  components: {
-    UiDatepicker,
-  },
+  components: { UiDatepicker },
   setup() {
     const modelValue = ref(args.initModelValue);
     const invalid = ref(args.initInvalid);
@@ -164,9 +128,7 @@ export const FullConfiguration = (args) => ({
 });
 
 export const NoConfiguration = () => ({
-  components: {
-    UiDatepicker,
-  },
+  components: { UiDatepicker },
   setup() {
     const modelValue = ref('');
     const invalid = ref(true);

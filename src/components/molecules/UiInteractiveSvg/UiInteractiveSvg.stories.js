@@ -10,14 +10,8 @@ import docs from './UiInteractiveSvg.mdx';
 export default {
   title: 'Molecules/InteractiveSvg',
   component: UiInteractiveSvg,
-  subcomponents: {
-    UiInteractiveSvgElement,
-  },
-  parameters: {
-    docs: {
-      page: docs,
-    },
-  },
+  subcomponents: { UiInteractiveSvgElement },
+  parameters: { docs: { page: docs } },
 };
 
 export const WithFocusOnMounted = () => ({
@@ -27,11 +21,7 @@ export const WithFocusOnMounted = () => ({
   },
   setup() {
     const checkedRegions = ref([]);
-    const handleRegionCheck = ({
-      region,
-    }, {
-      code,
-    }) => {
+    const handleRegionCheck = ({ region }, { code }) => {
       const codes = ['Space', 'Enter'];
 
       if (code && !codes.includes(code)) return;
@@ -42,16 +32,12 @@ export const WithFocusOnMounted = () => ({
       }
     };
     const focusedRegion = ref('');
-    const handleRegionFocus = ({
-      region,
-    }) => {
+    const handleRegionFocus = ({ region }) => {
       focusedRegion.value = region;
     };
     const regions = ref({});
     const setElementsAttrs = (attrs) => {
-      const {
-        region,
-      } = attrs;
+      const { region } = attrs;
       const focusFor = attrs['focus-for'];
 
       if (region) {
@@ -60,28 +46,20 @@ export const WithFocusOnMounted = () => ({
           ref: (el) => {
             regions.value[region] = el; // assign DOM node to region key in regions object
           },
-          class: ['map__region', {
-            'map__region--is-checked': isChecked,
-          }],
+          class: ['map__region', { 'map__region--is-checked': isChecked }],
           'aria-label': region.replace(/-/gm, ' '),
           'aria-checked': `${isChecked}`,
           tabindex: 0,
           onClick: handleRegionCheck.bind(null, attrs),
           onKeypress: handleRegionCheck.bind(this, attrs),
           onFocus: handleRegionFocus.bind(this, attrs),
-          onBlur: handleRegionFocus.bind(this, {
-            region: '',
-          }),
+          onBlur: handleRegionFocus.bind(this, { region: '' }),
         };
       }
 
       if (focusFor) {
         const isFocused = focusedRegion.value === focusFor;
-        return {
-          class: ['map__focus-for-region', {
-            'map__focus-for-region--is-focused': isFocused,
-          }],
-        };
+        return { class: ['map__focus-for-region', { 'map__focus-for-region--is-focused': isFocused }] };
       }
 
       return {};
@@ -89,9 +67,7 @@ export const WithFocusOnMounted = () => ({
     onMounted(() => {
       regions.value.europe.focus();
     });
-    return {
-      setElementsAttrs,
-    };
+    return { setElementsAttrs };
   },
   template: `<UiInteractiveSvg
     :set-elements-attrs="setElementsAttrs"
@@ -294,11 +270,7 @@ export const Map = () => ({
   },
   setup() {
     const checkedRegions = ref([]);
-    const handleRegionCheck = ({
-      region,
-    }, {
-      code,
-    }) => {
+    const handleRegionCheck = ({ region }, { code }) => {
       const codes = ['Space', 'Enter'];
 
       if (code && !codes.includes(code)) return;
@@ -309,49 +281,35 @@ export const Map = () => ({
       }
     };
     const focusedRegion = ref('');
-    const handleRegionFocus = ({
-      region,
-    }) => {
+    const handleRegionFocus = ({ region }) => {
       focusedRegion.value = region;
     };
     const setElementsAttrs = (attrs) => {
-      const {
-        region,
-      } = attrs;
+      const { region } = attrs;
       const focusFor = attrs['focus-for'];
 
       if (region) {
         const isChecked = checkedRegions.value.includes(region);
         return {
-          class: ['map__region', {
-            'map__region--is-checked': isChecked,
-          }],
+          class: ['map__region', { 'map__region--is-checked': isChecked }],
           'aria-label': region.replace(/-/gm, ' '),
           'aria-checked': `${isChecked}`,
           tabindex: 0,
           onClick: handleRegionCheck.bind(null, attrs),
           onKeypress: handleRegionCheck.bind(this, attrs),
           onFocus: handleRegionFocus.bind(this, attrs),
-          onBlur: handleRegionFocus.bind(this, {
-            region: '',
-          }),
+          onBlur: handleRegionFocus.bind(this, { region: '' }),
         };
       }
 
       if (focusFor) {
         const isFocused = focusedRegion.value === focusFor;
-        return {
-          class: ['map__focus-for-region', {
-            'map__focus-for-region--is-focused': isFocused,
-          }],
-        };
+        return { class: ['map__focus-for-region', { 'map__focus-for-region--is-focused': isFocused }] };
       }
 
       return {};
     };
-    return {
-      setElementsAttrs,
-    };
+    return { setElementsAttrs };
   },
   template: `<UiInteractiveSvg
     :set-elements-attrs="setElementsAttrs"
@@ -554,11 +512,7 @@ export const AbdominalPainMale = () => ({
   },
   setup() {
     const checkedParts = ref([]);
-    const handlePartCheck = ({
-      part,
-    }, {
-      code,
-    }) => {
+    const handlePartCheck = ({ part }, { code }) => {
       const codes = ['Space', 'Enter'];
 
       if (code && !codes.includes(code)) return;
@@ -569,49 +523,35 @@ export const AbdominalPainMale = () => ({
       }
     };
     const focusedPart = ref('');
-    const handlePartFocus = ({
-      part,
-    }) => {
+    const handlePartFocus = ({ part }) => {
       focusedPart.value = part;
     };
     const setElementsAttrs = (attrs) => {
-      const {
-        part,
-      } = attrs;
+      const { part } = attrs;
       const focusFor = attrs['focus-for'];
 
       if (part) {
         const isChecked = checkedParts.value.includes(part);
         return {
-          class: ['abdominal-pain__part', {
-            'abdominal-pain__part--is-checked': isChecked,
-          }],
+          class: ['abdominal-pain__part', { 'abdominal-pain__part--is-checked': isChecked }],
           'aria-label': part.replace(/-/gm, ' '),
           'aria-checked': `${isChecked}`,
           tabindex: 0,
           onClick: handlePartCheck.bind(null, attrs),
           onKeypress: handlePartCheck.bind(this, attrs),
           onFocus: handlePartFocus.bind(this, attrs),
-          onBlur: handlePartFocus.bind(this, {
-            part: '',
-          }),
+          onBlur: handlePartFocus.bind(this, { part: '' }),
         };
       }
 
       if (focusFor) {
         const isFocused = focusedPart.value === focusFor;
-        return {
-          class: ['abdominal-pain__focus-for-part', {
-            'abdominal-pain__focus-for-part--is-focused': isFocused,
-          }],
-        };
+        return { class: ['abdominal-pain__focus-for-part', { 'abdominal-pain__focus-for-part--is-focused': isFocused }] };
       }
 
       return {};
     };
-    return {
-      setElementsAttrs,
-    };
+    return { setElementsAttrs };
   },
   template: `<UiInteractiveSvg
     :set-elements-attrs="setElementsAttrs"
@@ -690,11 +630,7 @@ export const AbdominalPainFemale = () => ({
   },
   setup() {
     const checkedParts = ref([]);
-    const handlePartCheck = ({
-      part,
-    }, {
-      code,
-    }) => {
+    const handlePartCheck = ({ part }, { code }) => {
       const codes = ['Space', 'Enter'];
 
       if (code && !codes.includes(code)) return;
@@ -705,49 +641,35 @@ export const AbdominalPainFemale = () => ({
       }
     };
     const focusedPart = ref('');
-    const handlePartFocus = ({
-      part,
-    }) => {
+    const handlePartFocus = ({ part }) => {
       focusedPart.value = part;
     };
     const setElementsAttrs = (attrs) => {
-      const {
-        part,
-      } = attrs;
+      const { part } = attrs;
       const focusFor = attrs['focus-for'];
 
       if (part) {
         const isChecked = checkedParts.value.includes(part);
         return {
-          class: ['abdominal-pain__part', {
-            'abdominal-pain__part--is-checked': isChecked,
-          }],
+          class: ['abdominal-pain__part', { 'abdominal-pain__part--is-checked': isChecked }],
           'aria-label': part.replace(/-/gm, ' '),
           'aria-checked': `${isChecked}`,
           tabindex: 0,
           onClick: handlePartCheck.bind(null, attrs),
           onKeypress: handlePartCheck.bind(this, attrs),
           onFocus: handlePartFocus.bind(this, attrs),
-          onBlur: handlePartFocus.bind(this, {
-            part: '',
-          }),
+          onBlur: handlePartFocus.bind(this, { part: '' }),
         };
       }
 
       if (focusFor) {
         const isFocused = focusedPart.value === focusFor;
-        return {
-          class: ['abdominal-pain__focus-for-part', {
-            'abdominal-pain__focus-for-part--is-focused': isFocused,
-          }],
-        };
+        return { class: ['abdominal-pain__focus-for-part', { 'abdominal-pain__focus-for-part--is-focused': isFocused }] };
       }
 
       return {};
     };
-    return {
-      setElementsAttrs,
-    };
+    return { setElementsAttrs };
   },
   template: `<UiInteractiveSvg
       :set-elements-attrs="setElementsAttrs"
@@ -827,11 +749,7 @@ export const InfantUnisexFront = (args) => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({
-      part,
-    }, {
-      target,
-    }) => {
+    const handleBodyPartClick = ({ part }, { target }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -839,9 +757,7 @@ export const InfantUnisexFront = (args) => ({
       highlightedPart.value = '';
     };
     const setElementsAttrs = (attrs) => {
-      const {
-        part,
-      } = attrs;
+      const { part } = attrs;
 
       if (part) {
         const isHighlighted = part === highlightedPart.value;
@@ -940,15 +856,11 @@ export const InfantUnisexFront = (args) => ({
     </UiInteractiveSvgElement>
   </UiInteractiveSvg>`,
 });
-InfantUnisexFront.args = {
-  hasMoreDetails: true,
-};
+InfantUnisexFront.args = { hasMoreDetails: true };
 InfantUnisexFront.argTypes = {
   hasMoreDetails: {
     description: 'Use this control to show a more detailed head parts.',
-    table: {
-      category: 'stories controls',
-    },
+    table: { category: 'stories controls' },
     control: 'boolean',
   },
 };
@@ -961,11 +873,7 @@ export const InfantUnisexBack = () => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({
-      part,
-    }, {
-      target,
-    }) => {
+    const handleBodyPartClick = ({ part }, { target }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -973,9 +881,7 @@ export const InfantUnisexBack = () => ({
       highlightedPart.value = '';
     };
     const setElementsAttrs = (attrs) => {
-      const {
-        part,
-      } = attrs;
+      const { part } = attrs;
 
       if (part) {
         const isHighlighted = part === highlightedPart.value;
@@ -992,9 +898,7 @@ export const InfantUnisexBack = () => ({
 
       return {};
     };
-    return {
-      setElementsAttrs,
-    };
+    return { setElementsAttrs };
   },
   template: `<UiInteractiveSvg
     :set-elements-attrs="setElementsAttrs"
@@ -1064,11 +968,7 @@ export const ToddlerMaleFront = (args) => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({
-      part,
-    }, {
-      target,
-    }) => {
+    const handleBodyPartClick = ({ part }, { target }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -1076,9 +976,7 @@ export const ToddlerMaleFront = (args) => ({
       highlightedPart.value = '';
     };
     const setElementsAttrs = (attrs) => {
-      const {
-        part,
-      } = attrs;
+      const { part } = attrs;
 
       if (part) {
         const isHighlighted = part === highlightedPart.value;
@@ -1205,15 +1103,11 @@ export const ToddlerMaleFront = (args) => ({
     </UiInteractiveSvgElement>
   </UiInteractiveSvg>`,
 });
-ToddlerMaleFront.args = {
-  hasMoreDetails: true,
-};
+ToddlerMaleFront.args = { hasMoreDetails: true };
 ToddlerMaleFront.argTypes = {
   hasMoreDetails: {
     description: 'Use this control to show a more detailed head parts.',
-    table: {
-      category: 'stories controls',
-    },
+    table: { category: 'stories controls' },
     control: 'boolean',
   },
 };
@@ -1226,11 +1120,7 @@ export const ToddlerMaleBack = () => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({
-      part,
-    }, {
-      target,
-    }) => {
+    const handleBodyPartClick = ({ part }, { target }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -1238,9 +1128,7 @@ export const ToddlerMaleBack = () => ({
       highlightedPart.value = '';
     };
     const setElementsAttrs = (attrs) => {
-      const {
-        part,
-      } = attrs;
+      const { part } = attrs;
 
       if (part) {
         const isHighlighted = part === highlightedPart.value;
@@ -1257,9 +1145,7 @@ export const ToddlerMaleBack = () => ({
 
       return {};
     };
-    return {
-      setElementsAttrs,
-    };
+    return { setElementsAttrs };
   },
   template: `<UiInteractiveSvg
     :set-elements-attrs="setElementsAttrs"
@@ -1349,11 +1235,7 @@ export const ToddlerFemaleFront = (args) => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({
-      part,
-    }, {
-      target,
-    }) => {
+    const handleBodyPartClick = ({ part }, { target }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -1361,9 +1243,7 @@ export const ToddlerFemaleFront = (args) => ({
       highlightedPart.value = '';
     };
     const setElementsAttrs = (attrs) => {
-      const {
-        part,
-      } = attrs;
+      const { part } = attrs;
 
       if (part) {
         const isHighlighted = part === highlightedPart.value;
@@ -1490,15 +1370,11 @@ export const ToddlerFemaleFront = (args) => ({
     </UiInteractiveSvgElement>
   </UiInteractiveSvg>`,
 });
-ToddlerFemaleFront.args = {
-  hasMoreDetails: true,
-};
+ToddlerFemaleFront.args = { hasMoreDetails: true };
 ToddlerFemaleFront.argTypes = {
   hasMoreDetails: {
     description: 'Use this control to show a more detailed head parts.',
-    table: {
-      category: 'stories controls',
-    },
+    table: { category: 'stories controls' },
     control: 'boolean',
   },
 };
@@ -1511,11 +1387,7 @@ export const ToddlerFemaleBack = () => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({
-      part,
-    }, {
-      target,
-    }) => {
+    const handleBodyPartClick = ({ part }, { target }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -1523,9 +1395,7 @@ export const ToddlerFemaleBack = () => ({
       highlightedPart.value = '';
     };
     const setElementsAttrs = (attrs) => {
-      const {
-        part,
-      } = attrs;
+      const { part } = attrs;
 
       if (part) {
         const isHighlighted = part === highlightedPart.value;
@@ -1542,9 +1412,7 @@ export const ToddlerFemaleBack = () => ({
 
       return {};
     };
-    return {
-      setElementsAttrs,
-    };
+    return { setElementsAttrs };
   },
   template: `<UiInteractiveSvg
     :set-elements-attrs="setElementsAttrs"
@@ -1634,11 +1502,7 @@ export const ChildMaleFront = (args) => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({
-      part,
-    }, {
-      target,
-    }) => {
+    const handleBodyPartClick = ({ part }, { target }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -1646,9 +1510,7 @@ export const ChildMaleFront = (args) => ({
       highlightedPart.value = '';
     };
     const setElementsAttrs = (attrs) => {
-      const {
-        part,
-      } = attrs;
+      const { part } = attrs;
 
       if (part) {
         const isHighlighted = part === highlightedPart.value;
@@ -1775,15 +1637,11 @@ export const ChildMaleFront = (args) => ({
     </UiInteractiveSvgElement>
   </UiInteractiveSvg>`,
 });
-ChildMaleFront.args = {
-  hasMoreDetails: true,
-};
+ChildMaleFront.args = { hasMoreDetails: true };
 ToddlerFemaleFront.argTypes = {
   hasMoreDetails: {
     description: 'Use this control to show a more detailed head parts.',
-    table: {
-      category: 'stories controls',
-    },
+    table: { category: 'stories controls' },
     control: 'boolean',
   },
 };
@@ -1796,11 +1654,7 @@ export const ChildMaleBack = () => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({
-      part,
-    }, {
-      target,
-    }) => {
+    const handleBodyPartClick = ({ part }, { target }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -1808,9 +1662,7 @@ export const ChildMaleBack = () => ({
       highlightedPart.value = '';
     };
     const setElementsAttrs = (attrs) => {
-      const {
-        part,
-      } = attrs;
+      const { part } = attrs;
 
       if (part) {
         const isHighlighted = part === highlightedPart.value;
@@ -1827,9 +1679,7 @@ export const ChildMaleBack = () => ({
 
       return {};
     };
-    return {
-      setElementsAttrs,
-    };
+    return { setElementsAttrs };
   },
   template: `<UiInteractiveSvg
     :set-elements-attrs="setElementsAttrs"
@@ -1915,11 +1765,7 @@ export const ChildFemaleFront = (args) => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({
-      part,
-    }, {
-      target,
-    }) => {
+    const handleBodyPartClick = ({ part }, { target }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -1927,9 +1773,7 @@ export const ChildFemaleFront = (args) => ({
       highlightedPart.value = '';
     };
     const setElementsAttrs = (attrs) => {
-      const {
-        part,
-      } = attrs;
+      const { part } = attrs;
 
       if (part) {
         const isHighlighted = part === highlightedPart.value;
@@ -2056,15 +1900,11 @@ export const ChildFemaleFront = (args) => ({
     </UiInteractiveSvgElement>
   </UiInteractiveSvg>`,
 });
-ChildFemaleFront.args = {
-  hasMoreDetails: true,
-};
+ChildFemaleFront.args = { hasMoreDetails: true };
 ChildFemaleFront.argTypes = {
   hasMoreDetails: {
     description: 'Use this control to show a more detailed head parts.',
-    table: {
-      category: 'stories controls',
-    },
+    table: { category: 'stories controls' },
     control: 'boolean',
   },
 };
@@ -2077,11 +1917,7 @@ export const ChildFemaleBack = () => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({
-      part,
-    }, {
-      target,
-    }) => {
+    const handleBodyPartClick = ({ part }, { target }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -2089,9 +1925,7 @@ export const ChildFemaleBack = () => ({
       highlightedPart.value = '';
     };
     const setElementsAttrs = (attrs) => {
-      const {
-        part,
-      } = attrs;
+      const { part } = attrs;
 
       if (part) {
         const isHighlighted = part === highlightedPart.value;
@@ -2108,9 +1942,7 @@ export const ChildFemaleBack = () => ({
 
       return {};
     };
-    return {
-      setElementsAttrs,
-    };
+    return { setElementsAttrs };
   },
   template: `<UiInteractiveSvg
     :set-elements-attrs="setElementsAttrs"
@@ -2196,11 +2028,7 @@ export const AdultMaleFront = (args) => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({
-      part,
-    }, {
-      target,
-    }) => {
+    const handleBodyPartClick = ({ part }, { target }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -2208,9 +2036,7 @@ export const AdultMaleFront = (args) => ({
       highlightedPart.value = '';
     };
     const setElementsAttrs = (attrs) => {
-      const {
-        part,
-      } = attrs;
+      const { part } = attrs;
 
       if (part) {
         const isHighlighted = part === highlightedPart.value;
@@ -2337,15 +2163,11 @@ export const AdultMaleFront = (args) => ({
     </UiInteractiveSvgElement>
   </UiInteractiveSvg>`,
 });
-AdultMaleFront.args = {
-  hasMoreDetails: true,
-};
+AdultMaleFront.args = { hasMoreDetails: true };
 AdultMaleFront.argTypes = {
   hasMoreDetails: {
     description: 'Use this control to show a more detailed head parts.',
-    table: {
-      category: 'stories controls',
-    },
+    table: { category: 'stories controls' },
     control: 'boolean',
   },
 };
@@ -2358,11 +2180,7 @@ export const AdultMaleBack = () => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({
-      part,
-    }, {
-      target,
-    }) => {
+    const handleBodyPartClick = ({ part }, { target }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -2370,9 +2188,7 @@ export const AdultMaleBack = () => ({
       highlightedPart.value = '';
     };
     const setElementsAttrs = (attrs) => {
-      const {
-        part,
-      } = attrs;
+      const { part } = attrs;
 
       if (part) {
         const isHighlighted = part === highlightedPart.value;
@@ -2389,9 +2205,7 @@ export const AdultMaleBack = () => ({
 
       return {};
     };
-    return {
-      setElementsAttrs,
-    };
+    return { setElementsAttrs };
   },
   template: `<UiInteractiveSvg
     :set-elements-attrs="setElementsAttrs"
@@ -2481,11 +2295,7 @@ export const AdultFemaleFront = (args) => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({
-      part,
-    }, {
-      target,
-    }) => {
+    const handleBodyPartClick = ({ part }, { target }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -2493,9 +2303,7 @@ export const AdultFemaleFront = (args) => ({
       highlightedPart.value = '';
     };
     const setElementsAttrs = (attrs) => {
-      const {
-        part,
-      } = attrs;
+      const { part } = attrs;
 
       if (part) {
         const isHighlighted = part === highlightedPart.value;
@@ -2626,15 +2434,11 @@ export const AdultFemaleFront = (args) => ({
     </UiInteractiveSvgElement>
   </UiInteractiveSvg>`,
 });
-AdultFemaleFront.args = {
-  hasMoreDetails: true,
-};
+AdultFemaleFront.args = { hasMoreDetails: true };
 AdultFemaleFront.argTypes = {
   hasMoreDetails: {
     description: 'Use this control to show a more detailed head parts.',
-    table: {
-      category: 'stories controls',
-    },
+    table: { category: 'stories controls' },
     control: 'boolean',
   },
 };
@@ -2647,11 +2451,7 @@ export const AdultFemaleBack = () => ({
   setup() {
     const highlightedPart = ref('');
     const selectedPart = ref('');
-    const handleBodyPartClick = ({
-      part,
-    }, {
-      target,
-    }) => {
+    const handleBodyPartClick = ({ part }, { target }) => {
       highlightedPart.value = part;
       if (window.confirm('Are you sure you want to select this part?')) {
         selectedPart.value = part;
@@ -2659,9 +2459,7 @@ export const AdultFemaleBack = () => ({
       highlightedPart.value = '';
     };
     const setElementsAttrs = (attrs) => {
-      const {
-        part,
-      } = attrs;
+      const { part } = attrs;
 
       if (part) {
         const isHighlighted = part === highlightedPart.value;
@@ -2678,9 +2476,7 @@ export const AdultFemaleBack = () => ({
 
       return {};
     };
-    return {
-      setElementsAttrs,
-    };
+    return { setElementsAttrs };
   },
   template: `<UiInteractiveSvg
     :set-elements-attrs="setElementsAttrs"

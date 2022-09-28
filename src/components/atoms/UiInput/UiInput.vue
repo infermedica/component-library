@@ -44,9 +44,7 @@
 </template>
 
 <script lang="ts">
-export default {
-  inheritAttrs: false,
-};
+export default { inheritAttrs: false };
 </script>
 
 <script setup lang="ts">
@@ -79,9 +77,7 @@ const props = defineProps({
    */
   textSuffixAttrs: {
     type: Object,
-    default: () => ({
-      tag: 'span',
-    }),
+    default: () => ({ tag: 'span' }),
   },
 });
 const defaultProps = computed(() => ({
@@ -96,9 +92,7 @@ const attrs = useAttrs();
 const {
   getRootAttrs, getInputAttrs,
 } = useInput();
-const {
-  numbersOnly,
-} = useKeyValidation();
+const { numbersOnly } = useKeyValidation();
 function keyValidation(event: Event): void {
   switch (attrs.type) {
     case 'number':

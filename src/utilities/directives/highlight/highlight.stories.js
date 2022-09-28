@@ -6,14 +6,8 @@ import docs from './highlight.mdx';
 
 export default {
   title: 'Utilities/Directives/Highlight',
-  components: {
-    UiText,
-  },
-  parameters: {
-    docs: {
-      page: docs,
-    },
-  },
+  components: { UiText },
+  parameters: { docs: { page: docs } },
 };
 
 export const WithDirective = () => ({
@@ -21,9 +15,7 @@ export const WithDirective = () => ({
     UiInput,
     UiText,
   },
-  directives: {
-    highlight,
-  },
+  directives: { highlight },
   setup() {
     const searchQuery = ref('ipsum');
     const inputHandler = (value) => {

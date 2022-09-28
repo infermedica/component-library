@@ -20,9 +20,7 @@ const events = actions({
 export default {
   title: 'Atoms/Range',
   component: UiRange,
-  subcomponents: {
-    UiNumberStepper,
-  },
+  subcomponents: { UiNumberStepper },
   args: {
     initModelValue: 50,
     disabled: false,
@@ -40,38 +38,24 @@ export default {
   argTypes: {
     initModelValue: {
       description: 'Use this control to set initial state.',
-      table: {
-        category: 'stories controls',
-      },
-      control: {
-        type: 'number',
-      },
+      table: { category: 'stories controls' },
+      control: { type: 'number' },
     },
     disabled,
     ariaLabel: {
       name: 'aria-label',
       description: 'Use this control to set aria-label attribute.',
       control: 'text',
-      table: {
-        category: 'html attributes',
-      },
+      table: { category: 'html attributes' },
     },
-    min: {
-      control: 'number',
-    },
-    max: {
-      control: 'number',
-    },
-    modelValue: {
-      control: false,
-    },
+    min: { control: 'number' },
+    max: { control: 'number' },
+    modelValue: { control: false },
   },
 };
 
 export const Common = (args) => ({
-  components: {
-    UiRange,
-  },
+  components: { UiRange },
   setup() {
     const modelValue = ref(args.initModelValue);
     return {
@@ -92,9 +76,7 @@ export const Common = (args) => ({
   class="custom"
 />`,
 });
-Common.play = async ({
-  canvasElement,
-}) => {
+Common.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
   await userEvent.click(canvas.getByTestId('increment-age'));
   await expect(canvas.getByText('51')).toBeInTheDocument();
@@ -210,9 +192,7 @@ export const WithValueSlot = (args) => ({
 });
 
 export const WithRangeSlot = (args) => ({
-  components: {
-    UiRange,
-  },
+  components: { UiRange },
   setup() {
     const modelValue = ref(args.initModelValue);
     return {

@@ -145,9 +145,7 @@ const props = defineProps({
    */
   iconBackAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-      icon: 'chevron-left',
-    }),
+    default: () => ({ icon: 'chevron-left' }),
   },
 });
 const emit = defineEmits<{(e: 'has-error'): void}>();

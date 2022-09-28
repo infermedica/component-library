@@ -9,14 +9,8 @@ import docs from './click-outside.mdx';
 
 export default {
   title: 'Utilities/Directives/Click Outside',
-  decorators: [() => ({
-    template: '<div style="height: 200px;"><story /></div>',
-  })],
-  parameters: {
-    docs: {
-      page: docs,
-    },
-  },
+  decorators: [() => ({ template: '<div style="height: 200px;"><story /></div>' })],
+  parameters: { docs: { page: docs } },
 };
 
 export const WithDirective = () => ({
@@ -26,9 +20,7 @@ export const WithDirective = () => ({
     UiText,
     UiPopover,
   },
-  directives: {
-    clickOutside,
-  },
+  directives: { clickOutside },
   setup() {
     const isOpen = ref(true);
     const toggleHandler = () => {
@@ -72,9 +64,7 @@ export const WithDirectiveSwitcher = () => ({
     UiSwitch,
     UiPopover,
   },
-  directives: {
-    clickOutside,
-  },
+  directives: { clickOutside },
   setup() {
     const isOpen = ref(true);
     const isDirective = ref(true);

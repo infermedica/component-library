@@ -77,15 +77,11 @@ const props = defineProps({
   },
   textLabelAttrs: {
     type: Object,
-    default: () => ({
-      tag: 'span',
-    }),
+    default: () => ({ tag: 'span' }),
   },
   iconInfoAttrs: {
     type: Object,
-    default: () => ({
-      icon: 'info',
-    }),
+    default: () => ({ icon: 'info' }),
   },
   id: {
     type: String,
@@ -110,9 +106,7 @@ const emit = defineEmits(['update:modelValue']);
 const isCheckbox = computed(() => (Array.isArray(props.modelValue)));
 const component = computed(() => (isCheckbox.value ? UiCheckbox : UiRadio));
 const componentName = computed(() => (isCheckbox.value ? 'ui-checkbox' : 'ui-radio'));
-const errorClass = computed(() => ([props.invalid ? `${componentName.value}--has-error` : '', {
-  'ui-multiple-answer-item--has-error': props.invalid,
-}]));
+const errorClass = computed(() => ([props.invalid ? `${componentName.value}--has-error` : '', { 'ui-multiple-answer-item--has-error': props.invalid }]));
 function focusExplication(event: KeyboardEvent) {
   if (event.key !== 'ArrowRight') return;
   const el = event.target as HTMLInputElement;

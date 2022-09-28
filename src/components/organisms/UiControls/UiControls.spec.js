@@ -7,11 +7,7 @@ describe('UiControls.vue', () => {
     expect(wrapper.classes('ui-controls')).toBe(true);
   });
   test('component does not show next button when "hideNextButton" is true', () => {
-    const wrapper = mount(UiControls, {
-      props: {
-        hideNextButton: true,
-      },
-    });
+    const wrapper = mount(UiControls, { props: { hideNextButton: true } });
     const button = wrapper.find('.ui-controls__next');
     expect(button.exists()).toBe(false);
   });

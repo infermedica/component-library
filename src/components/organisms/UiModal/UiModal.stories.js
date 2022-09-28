@@ -31,49 +31,29 @@ export default {
       confirm: 'Yes, start new checkup',
       cancel: 'Cancel',
     },
-    transitionBackdropAttrs: {
-      'data-testid': 'backdrop-transition',
-    },
-    backdropAttrs: {
-      'data-testid': 'backdrop',
-    },
-    transitionDialogAttrs: {
-      'data-testid': 'dialog-transition',
-    },
-    headingTitleAttrs: {
-      'data-testid': 'title-heading',
-    },
-    textDescriptionAttrs: {
-      'data-testid': 'description-text',
-    },
-    buttonConfirmAttrs: {
-      'data-testid': 'confirm',
-    },
-    buttonCancelAttrs: {
-      'data-testid': 'cancel',
-    },
+    transitionBackdropAttrs: { 'data-testid': 'backdrop-transition' },
+    backdropAttrs: { 'data-testid': 'backdrop' },
+    transitionDialogAttrs: { 'data-testid': 'dialog-transition' },
+    headingTitleAttrs: { 'data-testid': 'title-heading' },
+    textDescriptionAttrs: { 'data-testid': 'description-text' },
+    buttonConfirmAttrs: { 'data-testid': 'confirm' },
+    buttonCancelAttrs: { 'data-testid': 'cancel' },
     buttonCloseAttrs: {
       'data-testid': 'close-button',
       ariaLabel: 'close modal',
     },
-    iconCloseAttrs: {
-      'data-testid': 'close-icon',
-    },
+    iconCloseAttrs: { 'data-testid': 'close-icon' },
     'update:modelValue': null,
   },
   argTypes: {
     initModelValue: {
       description: 'Use this control to set initial state.',
-      table: {
-        category: 'stories controls',
-      },
+      table: { category: 'stories controls' },
       control: 'boolean',
     },
     title: {
       description: 'Use this props to set dialog title.',
-      table: {
-        category: 'props',
-      },
+      table: { category: 'props' },
       control: 'text',
     },
     titleSlot: {
@@ -81,9 +61,7 @@ export default {
       description: 'Use this slot to replace title template.',
       table: {
         category: 'slots',
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
       },
       control: 'object',
     },
@@ -91,9 +69,7 @@ export default {
       description: 'Use this props to set dialog description.',
       table: {
         category: 'props',
-        type: {
-          summary: 'string',
-        },
+        type: { summary: 'string' },
       },
       control: 'text',
     },
@@ -102,28 +78,18 @@ export default {
       description: 'Use this slot to replace description template.',
       table: {
         category: 'slots',
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
       },
       control: 'object',
     },
-    modelValue: {
-      control: false,
-    },
+    modelValue: { control: false },
   },
   decorators: [() => ({
     template: `<div style="minHeight: 320px">
       <story />
     </div>`,
   })],
-  parameters: {
-    docs: {
-      description: {
-        component: 'Modal use `v-body-scroll-lock`. Only works on Canvas mode.',
-      },
-    },
-  },
+  parameters: { docs: { description: { component: 'Modal use `v-body-scroll-lock`. Only works on Canvas mode.' } } },
 };
 
 const Template = (args) => ({
@@ -178,9 +144,7 @@ export const WithoutTitle = Template.bind({});
 WithoutTitle.args = {
   title: '',
   description: 'Delete this file?',
-  translation: {
-    confirm: 'Yes, delete',
-  },
+  translation: { confirm: 'Yes, delete' },
 };
 
 export const WithBackdropSlot = (args) => ({

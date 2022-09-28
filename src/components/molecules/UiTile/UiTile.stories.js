@@ -9,9 +9,7 @@ import {
   modifiers,
 } from '@sb/helpers/argTypes';
 
-const events = actions({
-  onUpdateModelValue: 'update:modelValue',
-});
+const events = actions({ onUpdateModelValue: 'update:modelValue' });
 
 export default {
   title: 'Molecules/Tile',
@@ -28,38 +26,24 @@ export default {
     value: 'present',
     id: '',
     icon: 'yes',
-    iconAttrs: {
-      'data-testid': 'icon',
-    },
-    textLabelAttrs: {
-      'date-testid': 'text-label',
-    },
+    iconAttrs: { 'data-testid': 'icon' },
+    textLabelAttrs: { 'date-testid': 'text-label' },
   },
   argTypes: {
     content,
     initModelValue: {
       description: 'Use this control to set initial state.',
-      table: {
-        category: 'stories controls',
-      },
+      table: { category: 'stories controls' },
       control: 'string',
     },
-    modifiers: modifiers({
-      options: ['ui-tile--small'],
-    }),
-    value: {
-      control: 'text',
-    },
-    modelValue: {
-      control: false,
-    },
+    modifiers: modifiers({ options: ['ui-tile--small'] }),
+    value: { control: 'text' },
+    modelValue: { control: false },
     icon: {
       description: 'Use this props to set icon.',
       table: {
         category: 'props',
-        type: {
-          summary: 'string|object',
-        },
+        type: { summary: 'string|object' },
       },
     },
     iconSlot: {
@@ -67,9 +51,7 @@ export default {
       description: 'Use this slot to replace icon template.',
       table: {
         category: 'slots',
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
       },
       control: 'object',
     },
@@ -77,9 +59,7 @@ export default {
 };
 
 const Template = (args) => ({
-  components: {
-    UiTile,
-  },
+  components: { UiTile },
   setup() {
     const modelValue = ref(args.initModelValue);
     return {
@@ -106,14 +86,10 @@ const Template = (args) => ({
 export const Large = Template.bind({});
 
 export const Small = Template.bind({});
-Small.args = {
-  modifiers: ['ui-tile--small'],
-};
+Small.args = { modifiers: ['ui-tile--small'] };
 
 export const HasError = Template.bind({});
-HasError.args = {
-  modifiers: ['ui-tile--has-error'],
-};
+HasError.args = { modifiers: ['ui-tile--has-error'] };
 
 export const WithIconSlot = (args) => ({
   components: {
@@ -184,9 +160,7 @@ export const WithLabelSlot = (args) => ({
 });
 
 export const AsGroup = (args) => ({
-  components: {
-    UiTile,
-  },
+  components: { UiTile },
   setup() {
     const modelValue = ref(args.initModelValue);
     return {
@@ -220,55 +194,35 @@ export const AsGroup = (args) => ({
   </div>`,
 });
 AsGroup.args = {
-  initModelValue: {
-    choice_id: 'present',
-  },
+  initModelValue: { choice_id: 'present' },
   values: [
     {
       name: 'answer',
-      value: {
-        choice_id: 'present',
-      },
+      value: { choice_id: 'present' },
       id: 'present',
       icon: 'yes',
-      iconAttrs: {
-        'data-testid': 'present',
-      },
-      textLabelAttrs: {
-        'data-testid': 'present',
-      },
+      iconAttrs: { 'data-testid': 'present' },
+      textLabelAttrs: { 'data-testid': 'present' },
       label: 'Yes',
       class: ['mb-3', 'tablet:mr-6', 'tablet:mb-0'],
     },
     {
       name: 'answer',
-      value: {
-        choice_id: 'absent',
-      },
+      value: { choice_id: 'absent' },
       id: 'absent',
       icon: 'no',
-      iconAttrs: {
-        'data-testid': 'no',
-      },
-      textLabelAttrs: {
-        'data-testid': 'no',
-      },
+      iconAttrs: { 'data-testid': 'no' },
+      textLabelAttrs: { 'data-testid': 'no' },
       label: 'No',
       class: ['mb-3', 'tablet:mr-6', 'tablet:mb-0'],
     },
     {
       name: 'answer',
-      value: {
-        choice_id: 'unknown',
-      },
+      value: { choice_id: 'unknown' },
       id: 'unknown',
       icon: 'dont-know',
-      iconAttrs: {
-        'data-testid': 'unknown',
-      },
-      textLabelAttrs: {
-        'data-testid': 'unknown',
-      },
+      iconAttrs: { 'data-testid': 'unknown' },
+      textLabelAttrs: { 'data-testid': 'unknown' },
       label: 'Don\'t know',
     },
   ],
@@ -276,16 +230,12 @@ AsGroup.args = {
 AsGroup.argTypes = {
   initModelValue: {
     description: 'Use this control to set initial state.',
-    table: {
-      category: 'stories controls',
-    },
+    table: { category: 'stories controls' },
     control: 'object',
   },
   values: {
     description: 'Use this control to set the values of the tile group.',
-    table: {
-      category: 'stories controls',
-    },
+    table: { category: 'stories controls' },
     control: 'array',
   },
 };

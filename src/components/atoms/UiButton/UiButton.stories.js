@@ -19,9 +19,7 @@ export default {
     content,
     icon: {
       description: 'Use this control to set the icon.',
-      table: {
-        category: 'stories controls',
-      },
+      table: { category: 'stories controls' },
       control: 'select',
       options: icons,
     },
@@ -38,9 +36,7 @@ export default {
       ],
     }),
   },
-  decorators: [() => ({
-    template: '<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 2.5rem"><story /></div>',
-  })],
+  decorators: [() => ({ template: '<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 2.5rem"><story /></div>' })],
 };
 
 export const Common = (args) => ({
@@ -50,9 +46,7 @@ export const Common = (args) => ({
     UiText,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiButton :class="modifiers">
     {{content}}
@@ -66,9 +60,7 @@ const Template = (args) => ({
     UiText,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiText tag="span">Large:</UiText>
     <UiButton :class="modifiers">
@@ -147,9 +139,7 @@ export const Outlined = (args) => ({
     UiText,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiText tag="span">Large:</UiText>
     <UiButton
@@ -245,14 +235,10 @@ export const Outlined = (args) => ({
       />
     </UiButton>`,
 });
-Outlined.args = {
-  modifiers: ['ui-button--outlined'],
-};
+Outlined.args = { modifiers: ['ui-button--outlined'] };
 
 export const Text = Template.bind({});
-Text.args = {
-  modifiers: ['ui-button--text'],
-};
+Text.args = { modifiers: ['ui-button--text'] };
 
 export const Circled = (args) => ({
   components: {
@@ -261,9 +247,7 @@ export const Circled = (args) => ({
     UiText,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiText tag="span">Icon: </UiText>
   <UiButton :class="modifiers">
@@ -294,9 +278,7 @@ export const Circled = (args) => ({
   </UiButton>
   `,
 });
-Circled.args = {
-  modifiers: ['ui-button--outlined', 'ui-button--circled'],
-};
+Circled.args = { modifiers: ['ui-button--outlined', 'ui-button--circled'] };
 
 export const Icon = (args) => ({
   components: {
@@ -305,9 +287,7 @@ export const Icon = (args) => ({
     UiText,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiButton class="ui-button--icon">
     <UiIcon
@@ -318,9 +298,7 @@ export const Icon = (args) => ({
 });
 
 export const TextSecondary = Template.bind({});
-TextSecondary.args = {
-  modifiers: ['ui-button--text', 'ui-button--theme-secondary'],
-};
+TextSecondary.args = { modifiers: ['ui-button--text', 'ui-button--theme-secondary'] };
 
 export const IconSecondary = (args) => ({
   components: {
@@ -329,9 +307,7 @@ export const IconSecondary = (args) => ({
     UiText,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiButton
     :class="modifiers"
@@ -343,19 +319,11 @@ export const IconSecondary = (args) => ({
     />
   </UiButton>`,
 });
-IconSecondary.args = {
-  modifiers: ['ui-button--theme-secondary'],
-};
+IconSecondary.args = { modifiers: ['ui-button--theme-secondary'] };
 
 export const TextOnBrand = Template.bind({});
-TextOnBrand.args = {
-  modifiers: ['ui-button--text', 'ui-button--theme-brand'],
-};
-TextOnBrand.parameters = {
-  backgrounds: {
-    default: 'brand',
-  },
-};
+TextOnBrand.args = { modifiers: ['ui-button--text', 'ui-button--theme-brand'] };
+TextOnBrand.parameters = { backgrounds: { default: 'brand' } };
 
 export const IconOnBrand = (args) => ({
   components: {
@@ -364,9 +332,7 @@ export const IconOnBrand = (args) => ({
     UiText,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiButton
     :class="modifiers"
@@ -378,11 +344,5 @@ export const IconOnBrand = (args) => ({
     />
   </UiButton>`,
 });
-IconOnBrand.args = {
-  modifiers: ['ui-button--text', 'ui-button--theme-brand'],
-};
-IconOnBrand.parameters = {
-  backgrounds: {
-    default: 'brand',
-  },
-};
+IconOnBrand.args = { modifiers: ['ui-button--text', 'ui-button--theme-brand'] };
+IconOnBrand.parameters = { backgrounds: { default: 'brand' } };

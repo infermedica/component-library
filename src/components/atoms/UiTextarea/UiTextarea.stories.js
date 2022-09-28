@@ -21,12 +21,8 @@ export default {
   argTypes: {
     initModelValue: {
       description: 'Use this control to set initial state.',
-      table: {
-        category: 'stories controls',
-      },
-      control: {
-        type: 'text',
-      },
+      table: { category: 'stories controls' },
+      control: { type: 'text' },
     },
     modifiers: modifiers({
       options: [
@@ -43,9 +39,7 @@ export default {
 };
 
 const Template = (args) => ({
-  components: {
-    UiTextarea,
-  },
+  components: { UiTextarea },
   setup() {
     const modelValue = ref(args.initModelValue);
     const element = ref(null);
@@ -71,11 +65,7 @@ const Template = (args) => ({
 export const WithPlaceholder = Template.bind({});
 
 export const IsDisabled = Template.bind({});
-IsDisabled.args = {
-  modifiers: 'ui-textarea--is-disabled',
-};
+IsDisabled.args = { modifiers: 'ui-textarea--is-disabled' };
 
 export const HasError = Template.bind({});
-HasError.args = {
-  modifiers: 'ui-textarea--has-error',
-};
+HasError.args = { modifiers: 'ui-textarea--has-error' };

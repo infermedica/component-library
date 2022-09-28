@@ -10,9 +10,7 @@ import {
   modifiers,
 } from '@sb/helpers/argTypes';
 
-const events = actions({
-  onUpdateModelValue: 'update:modelValue',
-});
+const events = actions({ onUpdateModelValue: 'update:modelValue' });
 
 export default {
   title: 'Atoms/Checkbox',
@@ -28,41 +26,25 @@ export default {
     modelValue: false,
     value: '',
     id: '',
-    iconCheckmarkAttrs: {
-      'data-testid': 'icon-checkmark',
-    },
-    textLabelAttrs: {
-      'data-testid': 'text-label',
-    },
+    iconCheckmarkAttrs: { 'data-testid': 'icon-checkmark' },
+    textLabelAttrs: { 'data-testid': 'text-label' },
   },
   argTypes: {
-    modelValue: {
-      control: false,
-    },
+    modelValue: { control: false },
     content,
     initModelValue: {
       description: 'Use this control to set initial state.',
-      table: {
-        category: 'stories controls',
-      },
+      table: { category: 'stories controls' },
       control: 'boolean',
     },
-    modifiers: modifiers({
-      options: ['ui-checkbox--has-error', 'ui-checkbox--is-disabled'],
-    }),
-    id: {
-      control: 'text',
-    },
-    value: {
-      control: 'text',
-    },
+    modifiers: modifiers({ options: ['ui-checkbox--has-error', 'ui-checkbox--is-disabled'] }),
+    id: { control: 'text' },
+    value: { control: 'text' },
   },
 };
 
 const Template = (args) => ({
-  components: {
-    UiCheckbox,
-  },
+  components: { UiCheckbox },
   setup() {
     const modelValue = ref(args.initModelValue);
     return {
@@ -87,14 +69,10 @@ const Template = (args) => ({
 export const WithLabel = Template.bind({});
 
 export const IsDisabled = Template.bind({});
-IsDisabled.args = {
-  modifiers: ['ui-checkbox--is-disabled'],
-};
+IsDisabled.args = { modifiers: ['ui-checkbox--is-disabled'] };
 
 export const HasError = Template.bind({});
-HasError.args = {
-  modifiers: ['ui-checkbox--has-error'],
-};
+HasError.args = { modifiers: ['ui-checkbox--has-error'] };
 
 export const WithCheckboxSlot = (args) => ({
   components: {
@@ -175,9 +153,7 @@ export const WithLabelSlot = (args) => ({
 });
 
 export const ValueAsObject = (args) => ({
-  components: {
-    UiCheckbox,
-  },
+  components: { UiCheckbox },
   setup() {
     const modelValue = ref(args.initModelValue);
     return {
@@ -211,14 +187,10 @@ ValueAsObject.args = {
 ValueAsObject.argTypes = {
   initModelValue: {
     description: 'Use this control to set initial state.',
-    table: {
-      category: 'stories controls',
-    },
+    table: { category: 'stories controls' },
     control: 'object',
   },
-  modelValue: {
-    control: false,
-  },
+  modelValue: { control: false },
 };
 
 export const AsGroupWithPrimitiveTypes = (args) => ({
@@ -262,30 +234,18 @@ AsGroupWithPrimitiveTypes.args = {
 AsGroupWithPrimitiveTypes.argTypes = {
   initModelValue: {
     description: 'Use this control to set initial state.',
-    table: {
-      category: 'stories controls',
-    },
+    table: { category: 'stories controls' },
     control: 'array',
   },
   values: {
     description: 'Values of the checkbox group.',
-    table: {
-      category: 'stories controls',
-    },
+    table: { category: 'stories controls' },
     control: 'object',
   },
-  id: {
-    control: false,
-  },
-  value: {
-    control: false,
-  },
-  modifiers: {
-    control: false,
-  },
-  content: {
-    control: false,
-  },
+  id: { control: false },
+  value: { control: false },
+  modifiers: { control: false },
+  content: { control: false },
 };
 
 export const AsGroupWithObject = (args) => ({
@@ -344,30 +304,18 @@ AsGroupWithObject.args = {
 AsGroupWithObject.argTypes = {
   initial: {
     description: 'Use this control to set initial state.',
-    table: {
-      category: 'stories controls',
-    },
+    table: { category: 'stories controls' },
     control: 'array',
   },
   values: {
     description: 'Use this control to set the values of checkbox group.',
-    table: {
-      category: 'stories controls',
-    },
+    table: { category: 'stories controls' },
     control: 'array',
   },
-  id: {
-    control: false,
-  },
-  value: {
-    control: false,
-  },
-  modifiers: {
-    control: false,
-  },
-  content: {
-    control: false,
-  },
+  id: { control: false },
+  value: { control: false },
+  modifiers: { control: false },
+  content: { control: false },
 };
 
 export const AsGroupWithNestedObject = (args) => ({
@@ -407,60 +355,40 @@ AsGroupWithNestedObject.args = {
     {
       label: 'Europe',
       id: 'as-group-with-nested-object-europe',
-      checkboxAttrs: {
-        'data-testid': 'europe-checkbox',
-      },
+      checkboxAttrs: { 'data-testid': 'europe-checkbox' },
     },
   ],
   values: [
     {
       label: 'Russia, Kazakhstan or Mongolia',
       id: 'as-group-with-nested-object-russia-kazakhstan-mongolia',
-      checkboxAttrs: {
-        'data-testid': 'russia-kazakhstan-mongolia-checkbox',
-      },
+      checkboxAttrs: { 'data-testid': 'russia-kazakhstan-mongolia-checkbox' },
     },
     {
       label: 'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
       id: 'as-group-with-nested-object-asia-excluding-middle-east-russia-mongolia-kazakhstan',
-      checkboxAttrs: {
-        'data-testid': 'asia-excluding-middle-east-russia-mongolia-kazakhstan-checkbox',
-      },
+      checkboxAttrs: { 'data-testid': 'asia-excluding-middle-east-russia-mongolia-kazakhstan-checkbox' },
     },
     {
       label: 'Europe',
       id: 'as-group-with-nested-object-europe',
-      checkboxAttrs: {
-        'data-testid': 'europe-checkbox',
-      },
+      checkboxAttrs: { 'data-testid': 'europe-checkbox' },
     },
   ],
 };
 AsGroupWithNestedObject.argTypes = {
   initModelValue: {
     description: 'Use this control to set initial state.',
-    table: {
-      category: 'stories controls',
-    },
+    table: { category: 'stories controls' },
     control: 'object',
   },
   values: {
     description: 'Values of the checkbox group.',
-    table: {
-      category: 'stories controls',
-    },
+    table: { category: 'stories controls' },
     control: 'object',
   },
-  id: {
-    control: false,
-  },
-  value: {
-    control: false,
-  },
-  modifiers: {
-    control: false,
-  },
-  content: {
-    control: false,
-  },
+  id: { control: false },
+  value: { control: false },
+  modifiers: { control: false },
+  content: { control: false },
 };

@@ -6,9 +6,7 @@ import { actions } from '@storybook/addon-actions';
 import { ref } from 'vue';
 import { modifiers } from '@sb/helpers/argTypes';
 
-const events = actions({
-  onUpdateModelValue: 'update:modelValue',
-});
+const events = actions({ onUpdateModelValue: 'update:modelValue' });
 
 export default {
   title: 'Organisms/Tabs',
@@ -23,12 +21,8 @@ export default {
         name: 'search',
         title: 'Search',
         'data-testid': 'search',
-        buttonAttrs: {
-          'data-testid': 'search-button',
-        },
-        contentAttrs: {
-          'data-testid': 'search-content',
-        },
+        buttonAttrs: { 'data-testid': 'search-button' },
+        contentAttrs: { 'data-testid': 'search-content' },
       },
       {
         name: 'point',
@@ -49,31 +43,21 @@ export default {
   argTypes: {
     initModelValue: {
       description: 'Use this control to set initial state.',
-      table: {
-        category: 'stories controls',
-      },
+      table: { category: 'stories controls' },
       control: 'text',
     },
-    modifiers: modifiers({
-      options: ['ui-tabs--fixed'],
-    }),
-    modelValue: {
-      control: false,
-    },
+    modifiers: modifiers({ options: ['ui-tabs--fixed'] }),
+    modelValue: { control: false },
     tabsItem: {
       name: '<name>',
       description: 'Use this slot to place tabs item content. Require `name` in item object.',
       table: {
         category: 'slots',
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
       },
     },
   },
-  decorators: [() => ({
-    template: '<div style="min-height: 120px"><story /></div>',
-  })],
+  decorators: [() => ({ template: '<div style="min-height: 120px"><story /></div>' })],
 };
 
 const Template = (args) => ({
@@ -108,9 +92,7 @@ const Template = (args) => ({
 export const Common = Template.bind({});
 
 export const Fixed = Template.bind({});
-Fixed.args = {
-  modifiers: ['ui-tabs--fixed'],
-};
+Fixed.args = { modifiers: ['ui-tabs--fixed'] };
 
 export const WithDefaultSlot = (args) => ({
   components: {

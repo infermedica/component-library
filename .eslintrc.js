@@ -11,9 +11,7 @@ module.exports = {
     'plugin:storybook/recommended',
     'plugin:vitest-globals/recommended',
   ],
-  parserOptions: {
-    ecmaVersion: 2020,
-  },
+  parserOptions: { ecmaVersion: 2020 },
   // scrip setup related
   globals: {
     defineProps: 'readonly',
@@ -44,28 +42,18 @@ module.exports = {
       ignoreHTMLAttributeValues: true,
       ignoreHTMLTextContents: true,
     }],
-    'import/no-extraneous-dependencies': ['error', {
-      devDependencies: ['**/*.stories.@(js|jsx|ts|tsx|mdx)', '**/*.spec.{j,t}s?(x)'],
-    }],
-    'prefer-destructuring': ['error', {
-      array: false,
-    }],
-    'vue/v-on-event-hyphenation': ['error', 'always', {
-      autofix: true,
-    }],
-    'object-property-newline': ['error', {
-      allowAllPropertiesOnSameLine: false,
-    }],
-    'vue/object-property-newline': ['error', {
-      allowAllPropertiesOnSameLine: false,
-    }],
+    'import/no-extraneous-dependencies': ['error', { devDependencies: ['**/*.stories.@(js|jsx|ts|tsx|mdx)', '**/*.spec.{j,t}s?(x)'] }],
+    'prefer-destructuring': ['error', { array: false }],
+    'vue/v-on-event-hyphenation': ['error', 'always', { autofix: true }],
+    'object-property-newline': ['error', { allowAllPropertiesOnSameLine: false }],
+    'vue/object-property-newline': ['error', { allowAllPropertiesOnSameLine: false }],
     'object-curly-newline': ['error', {
       ObjectExpression: {
-        minProperties: 1,
+        minProperties: 2,
         multiline: true,
       },
       ObjectPattern: {
-        minProperties: 1,
+        minProperties: 2,
         multiline: true,
       },
       ImportDeclaration: {
@@ -87,17 +75,11 @@ module.exports = {
   },
   overrides: [{
     files: ['**/*.spec.{j,t}s?(x)'],
-    env: {
-      'vitest-globals/env': true,
-    },
+    env: { 'vitest-globals/env': true },
   },
   {
     files: ['**/*.vue'],
-    rules: {
-      'no-restricted-imports': ['error', {
-        patterns: ['@/*'],
-      }],
-    },
+    rules: { 'no-restricted-imports': ['error', { patterns: ['@/*'] }] },
   }],
   settings: {
     'import/resolver': {

@@ -94,9 +94,7 @@ const itemsToRender = computed<ListRender[]>(() => (props.items.map((item: ListI
       }
       : {
         items: children?.items,
-        ...(children?.listAttrs || {
-          tag: props.tag,
-        }),
+        ...(children?.listAttrs || { tag: props.tag }),
       },
   };
 })));

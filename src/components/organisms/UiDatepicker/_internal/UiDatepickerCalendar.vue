@@ -180,9 +180,7 @@ watchEffect(() => {
 watch(isDateFulfilled, (dateFulfilled) => {
   const focusedLastInput = props.lastFocused === order.at(-1);
   if (dateFulfilled && focusedLastInput) {
-    dropdown.value?.closeHandler({
-      focusToggle: false,
-    });
+    dropdown.value?.closeHandler({ focusToggle: false });
   }
 });
 function goToNextTab(): void {
@@ -193,9 +191,7 @@ function goToNextTab(): void {
     const firstEmptyTabIndex = order.indexOf(firstEmptyTab.value);
     currentTab.value = order[firstEmptyTabIndex];
   } else {
-    dropdown.value?.closeHandler({
-      focusToggle: true,
-    });
+    dropdown.value?.closeHandler({ focusToggle: true });
   }
 }
 const inputsIds = inject('inputsIds') as ComputedRef<Record<string, string>>;
@@ -207,9 +203,7 @@ const clickOutsideHandler = (event: InputEvent) => {
 
   if (allowedIds.includes(htmlFor)) return;
   if (!allowedIds.includes(id)) {
-    dropdown.value?.closeHandler({
-      focusToggle: false,
-    });
+    dropdown.value?.closeHandler({ focusToggle: false });
   }
   currentTab.value = inputsIds.value[id] as DatePart;
 };

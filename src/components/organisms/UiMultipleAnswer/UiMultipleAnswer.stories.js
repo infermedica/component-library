@@ -39,33 +39,25 @@ export default {
     legend: 'How long have you had a fever?',
     hint: 'Select all answers that apply.',
     touched: false,
-    hintAlertAttrs: {
-      'data-testid': 'alert-hint',
-    },
+    hintAlertAttrs: { 'data-testid': 'alert-hint' },
   },
   argTypes: {
     initModelValue: {
       description: 'Use this control to set initial state.',
-      table: {
-        category: 'stories controls',
-      },
+      table: { category: 'stories controls' },
       control: 'array',
     },
     initInvalid: {
       name: 'invalid',
       description: 'Use this control to set initial state of invalid props.',
-      table: {
-        category: 'stories controls',
-      },
+      table: { category: 'stories controls' },
       control: 'boolean',
     },
     hint: {
       description: 'Use this props to set hint for question.',
       table: {
         category: 'props',
-        type: {
-          summary: 'string',
-        },
+        type: { summary: 'string' },
       },
       control: 'text',
     },
@@ -74,24 +66,16 @@ export default {
       description: 'Use this slot to replace hint template.',
       table: {
         category: 'slots',
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
       },
     },
-    modelValue: {
-      control: false,
-    },
-    invalid: {
-      control: false,
-    },
+    modelValue: { control: false },
+    invalid: { control: false },
   },
 };
 
 const Template = (args) => ({
-  components: {
-    UiMultipleAnswer,
-  },
+  components: { UiMultipleAnswer },
   setup() {
     const modelValue = ref(args.initModelValue);
     const invalid = ref(args.initInvalid);
@@ -129,12 +113,8 @@ WithButtonInfo.args = {
         ariaLabel: 'how to check it?',
         onClick: events.onClickInfoButton,
       },
-      iconInfoAttrs: {
-        'data-testid': 'info-icon',
-      },
-      textLabelAttrs: {
-        'data-testid': 'label-text',
-      },
+      iconInfoAttrs: { 'data-testid': 'info-icon' },
+      textLabelAttrs: { 'data-testid': 'label-text' },
     },
     {
       label: 'Fever',
@@ -147,12 +127,8 @@ WithButtonInfo.args = {
         ariaLabel: 'what does it mean?',
         onClick: events.onClickInfoButton,
       },
-      iconInfoAttrs: {
-        'data-testid': 'info-icon',
-      },
-      textLabelAttrs: {
-        'data-testid': 'label-text',
-      },
+      iconInfoAttrs: { 'data-testid': 'info-icon' },
+      textLabelAttrs: { 'data-testid': 'label-text' },
     },
   ],
 };

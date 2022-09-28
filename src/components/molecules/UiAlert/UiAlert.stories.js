@@ -18,12 +18,8 @@ export default {
     modifiers: [],
     type: 'error',
     hasIcon: true,
-    iconAttrs: {
-      'data-testid': 'icon',
-    },
-    textMessageAttrs: {
-      'data-testid': 'text-message',
-    },
+    iconAttrs: { 'data-testid': 'icon' },
+    textMessageAttrs: { 'data-testid': 'text-message' },
   },
   argTypes: {
     content,
@@ -39,13 +35,9 @@ export default {
 };
 
 const Template = (args) => ({
-  components: {
-    UiAlert,
-  },
+  components: { UiAlert },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiAlert 
     :type="type" 
@@ -59,24 +51,16 @@ const Template = (args) => ({
 });
 
 export const Error = Template.bind({});
-Error.args = {
-  type: 'error',
-};
+Error.args = { type: 'error' };
 
 export const Success = Template.bind({});
-Success.args = {
-  type: 'success',
-};
+Success.args = { type: 'success' };
 
 export const Info = Template.bind({});
-Info.args = {
-  type: 'info',
-};
+Info.args = { type: 'info' };
 
 export const Warning = Template.bind({});
-Warning.args = {
-  type: 'warning',
-};
+Warning.args = { type: 'warning' };
 
 export const WithIconSlot = (args) => ({
   components: {
@@ -84,9 +68,7 @@ export const WithIconSlot = (args) => ({
     UiIcon,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiAlert
     :type="type"
@@ -114,9 +96,7 @@ export const WithMessageSlot = (args) => ({
     UiText,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiAlert
       :type="type"

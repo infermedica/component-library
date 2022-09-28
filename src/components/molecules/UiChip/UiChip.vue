@@ -60,9 +60,7 @@ const props = defineProps({
    */
   iconRemoveAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-      icon: 'remove-filled',
-    }),
+    default: () => ({ icon: 'remove-filled' }),
   },
 });
 const defaultProps = computed(() => ({

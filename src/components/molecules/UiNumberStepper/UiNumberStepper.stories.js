@@ -27,30 +27,18 @@ export default {
     max: 10,
     step: 1,
     hasControls: true,
-    buttonDecrementAttrs: {
-      ariaLabel: 'decrement number',
-    },
-    iconDecrementAttrs: {
-      'data-testid': 'icon-decrement',
-    },
-    buttonIncrementAttrs: {
-      ariaLabel: 'increment number',
-    },
-    iconIncrementAttrs: {
-      'data-testid': 'icon-icrement',
-    },
+    buttonDecrementAttrs: { ariaLabel: 'decrement number' },
+    iconDecrementAttrs: { 'data-testid': 'icon-decrement' },
+    buttonIncrementAttrs: { ariaLabel: 'increment number' },
+    iconIncrementAttrs: { 'data-testid': 'icon-icrement' },
   },
   argTypes: {
     initModelValue: {
       description: 'Use this control to set initial state.',
-      table: {
-        category: 'stories controls',
-      },
+      table: { category: 'stories controls' },
       control: 'number',
     },
-    modelValue: {
-      control: false,
-    },
+    modelValue: { control: false },
   },
 };
 
@@ -104,9 +92,7 @@ export const WithControlsOnMobile = (args) => ({
     const isMobile = ref(false);
     onMounted(() => {
       isMobile.value = matchMedia(toMobile).matches;
-      matchMedia(toMobile).addListener(({
-        matches,
-      }) => { isMobile.value = matches; });
+      matchMedia(toMobile).addListener(({ matches }) => { isMobile.value = matches; });
     });
     return {
       ...args,
@@ -156,16 +142,8 @@ WithControlsOnMobile.args = {
     tabindex: -1,
   },
 };
-WithControlsOnMobile.argTypes = {
-  hasControls: {
-    control: false,
-  },
-};
-WithControlsOnMobile.parameters = {
-  viewport: {
-    defaultViewport: 'mobile2',
-  },
-};
+WithControlsOnMobile.argTypes = { hasControls: { control: false } };
+WithControlsOnMobile.parameters = { viewport: { defaultViewport: 'mobile2' } };
 
 export const WithDecrementSlot = (args) => ({
   components: {

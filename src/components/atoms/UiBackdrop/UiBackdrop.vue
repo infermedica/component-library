@@ -3,9 +3,7 @@
 </template>
 
 <script lang="ts">
-export default {
-  name: 'UiBackdrop',
-};
+export default { name: 'UiBackdrop' };
 </script>
 
 <style lang="scss">

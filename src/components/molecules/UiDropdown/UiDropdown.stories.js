@@ -39,58 +39,40 @@ export default {
       'data-testid': 'toggle-button',
       class: 'ui-button--text',
     },
-    popoverAttrs: {
-      'data-testid': 'popover',
-    },
+    popoverAttrs: { 'data-testid': 'popover' },
   },
   argTypes: {
     initModelValue: {
       description: 'Use this control to set the initial value.',
-      table: {
-        category: 'stories controls',
-      },
+      table: { category: 'stories controls' },
       control: 'object',
     },
-    modelValue: {
-      control: false,
-    },
-    toggleElement: {
-      control: false,
-    },
+    modelValue: { control: false },
+    toggleElement: { control: false },
     open: {
       name: 'open',
       description: 'Use this event to detect when dropdown is opening.',
-      table: {
-        category: 'events',
-      },
+      table: { category: 'events' },
     },
     close: {
       name: 'close',
       description: 'Use this event to detect when dropdown is closing.',
-      table: {
-        category: 'events',
-      },
+      table: { category: 'events' },
     },
     dropdownItem: {
       name: '<name>',
       description: 'Use this slot to replace dropdown item content. Require `name` in item object.',
       table: {
         category: 'slots',
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
       },
     },
   },
-  decorators: [() => ({
-    template: '<div style="min-height: 220px"><story /></div>',
-  })],
+  decorators: [() => ({ template: '<div style="min-height: 220px"><story /></div>' })],
 };
 
 const Template = (args) => ({
-  components: {
-    UiDropdown,
-  },
+  components: { UiDropdown },
   setup() {
     const modelValue = ref(args.initModelValue);
     return {
@@ -126,17 +108,13 @@ WithItemsAsObjects.args = {
       text: 'English',
       value: 'English',
       'data-testid': 'english-dropdown-item',
-      iconAttrs: {
-        'data-testid': 'english-dropdown-item-icon',
-      },
+      iconAttrs: { 'data-testid': 'english-dropdown-item-icon' },
     },
     {
       text: 'Deutsch',
       value: 'Deutsch',
       'data-testid': 'deutsch-dropdown-item',
-      iconAttrs: {
-        'data-testid': 'deutsch-dropdown-item-icon',
-      },
+      iconAttrs: { 'data-testid': 'deutsch-dropdown-item-icon' },
     },
   ],
 };
@@ -191,25 +169,19 @@ WithDefaultSlot.args = {
       text: 'English',
       value: 'English',
       'data-testid': 'english-dropdown-item',
-      iconAttrs: {
-        'data-testid': 'english-dropdown-item-icon',
-      },
+      iconAttrs: { 'data-testid': 'english-dropdown-item-icon' },
     },
     {
       text: 'Deutsch',
       value: 'Deutsch',
       'data-testid': 'deutsch-dropdown-item',
-      iconAttrs: {
-        'data-testid': 'deutsch-dropdown-item-icon',
-      },
+      iconAttrs: { 'data-testid': 'deutsch-dropdown-item-icon' },
     },
   ],
 };
 
 export const WithDropdownItemSlot = (args) => ({
-  components: {
-    UiDropdown,
-  },
+  components: { UiDropdown },
   setup() {
     const modelValue = ref(args.initModelValue);
     return {
@@ -311,12 +283,8 @@ export const WithToggleSlot = (args) => ({
   </UiDropdown>`,
 });
 WithToggleSlot.argTypes = {
-  text: {
-    control: false,
-  },
-  name: {
-    control: false,
-  },
+  text: { control: false },
+  name: { control: false },
 };
 
 export const WithPopoverSlot = (args) => ({
@@ -562,8 +530,4 @@ export const WithInputToggle = (args) => ({
     </UiDropdown>`,
 });
 WithInputToggle.args = {};
-WithInputToggle.argTypes = {
-  initModelValue: {
-    control: false,
-  },
-};
+WithInputToggle.argTypes = { initModelValue: { control: false } };

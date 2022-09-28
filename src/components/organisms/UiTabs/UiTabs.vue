@@ -74,9 +74,7 @@ const itemsToRender = computed<TabsItem[]>(() => (props.items.map((item: TabsIte
       title: item,
     };
   }
-  const {
-    name,
-  } = item;
+  const { name } = item;
   return {
     name: name || `tabs-item-${key}`,
     ...item,

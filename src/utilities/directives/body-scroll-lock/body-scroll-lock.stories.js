@@ -14,14 +14,8 @@ import docs from './body-scroll-lock.mdx';
 
 export default {
   title: 'Utilities/Directives/Body Scroll Lock',
-  decorators: [() => ({
-    template: '<div style="height: 320px;"><story /></div>',
-  })],
-  parameters: {
-    docs: {
-      page: docs,
-    },
-  },
+  decorators: [() => ({ template: '<div style="height: 320px;"><story /></div>' })],
+  parameters: { docs: { page: docs } },
 };
 
 export const WithDirective = () => ({
@@ -37,14 +31,10 @@ export const WithDirective = () => ({
     UiNotification,
     UiSidePanel,
   },
-  directives: {
-    bodyScrollLock,
-  },
+  directives: { bodyScrollLock },
   setup() {
     const modelValue = ref(true);
-    return {
-      modelValue,
-    };
+    return { modelValue };
   },
   template: `<UiButton class="ui-button--text ui-button--theme-secondary" @click="modelValue = true">
   Show side panel
@@ -167,14 +157,10 @@ export const WithoutDirective = () => ({
     UiText,
     UiSidePanel,
   },
-  directives: {
-    bodyScrollLock,
-  },
+  directives: { bodyScrollLock },
   setup() {
     const modelValue = ref(true);
-    return {
-      modelValue,
-    };
+    return { modelValue };
   },
   template: `<UiButton class="ui-button--text ui-button--theme-secondary" @click="modelValue = true">
     Show side panel

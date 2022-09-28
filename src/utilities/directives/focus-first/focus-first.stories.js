@@ -8,11 +8,7 @@ import docs from './focus-first.mdx';
 
 export default {
   title: 'Utilities/Directives/Focus First',
-  parameters: {
-    docs: {
-      page: docs,
-    },
-  },
+  parameters: { docs: { page: docs } },
 };
 
 export const WithDirective = () => ({
@@ -22,9 +18,7 @@ export const WithDirective = () => ({
     UiTextarea,
     UiFormField,
   },
-  directives: {
-    focusFirst,
-  },
+  directives: { focusFirst },
   setup() {
     const feedback = ref('');
     const alert = ref(null);

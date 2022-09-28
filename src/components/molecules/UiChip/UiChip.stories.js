@@ -4,9 +4,7 @@ import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import { actions } from '@storybook/addon-actions';
 import { content } from '@sb/helpers/argTypes';
 
-const events = actions({
-  onRemove: 'remove',
-});
+const events = actions({ onRemove: 'remove' });
 
 export default {
   title: 'Molecules/Chip',
@@ -17,12 +15,8 @@ export default {
   },
   args: {
     content: 'Label',
-    buttonRemoveAttrs: {
-      ariaLabel: 'remove label',
-    },
-    iconRemoveAttrs: {
-      'data-testid': 'icon-remove',
-    },
+    buttonRemoveAttrs: { ariaLabel: 'remove label' },
+    iconRemoveAttrs: { 'data-testid': 'icon-remove' },
     removeAction: null,
   },
   argTypes: {
@@ -30,17 +24,13 @@ export default {
     removeAction: {
       name: 'remove',
       description: 'Use this event to detect click on remove button.',
-      table: {
-        category: 'events',
-      },
+      table: { category: 'events' },
     },
   },
 };
 
 export const WithLabel = (args) => ({
-  components: {
-    UiChip,
-  },
+  components: { UiChip },
   setup() {
     return {
       ...args,

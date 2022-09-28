@@ -2,9 +2,7 @@ import UiProgress from '@/components/atoms/UiProgress/UiProgress.vue';
 
 export default {
   title: 'Atoms/Progress',
-  components: {
-    UiProgress,
-  },
+  components: { UiProgress },
   args: {
     value: 75,
     min: 0,
@@ -12,43 +10,27 @@ export default {
   },
   argTypes: {
     value: {
-      table: {
-        category: 'Props',
-      },
+      table: { category: 'Props' },
       control:
-        {
-          type: 'number',
-        },
+        { type: 'number' },
     },
     min: {
-      table: {
-        category: 'Props',
-      },
+      table: { category: 'Props' },
       control:
-        {
-          type: 'number',
-        },
+        { type: 'number' },
     },
     max: {
-      table: {
-        category: 'Props',
-      },
+      table: { category: 'Props' },
       control:
-        {
-          type: 'number',
-        },
+        { type: 'number' },
     },
   },
 };
 
 export const Common = (args) => ({
-  components: {
-    UiProgress,
-  },
+  components: { UiProgress },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<div class="max-w-32">
     <UiProgress
@@ -60,13 +42,9 @@ export const Common = (args) => ({
 });
 
 export const LowValue = (args) => ({
-  components: {
-    UiProgress,
-  },
+  components: { UiProgress },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<div class="max-w-32">
     <UiProgress
@@ -76,13 +54,9 @@ export const LowValue = (args) => ({
 });
 
 export const LowRealValue = (args) => ({
-  components: {
-    UiProgress,
-  },
+  components: { UiProgress },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<div class="max-w-32" style="--progress-bar-padding: 0;">
     <UiProgress
@@ -92,13 +66,9 @@ export const LowRealValue = (args) => ({
 });
 
 export const LowValueNoRadius = (args) => ({
-  components: {
-    UiProgress,
-  },
+  components: { UiProgress },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<div class="max-w-32" style="--progress-border-radius: 0;">
     <UiProgress
@@ -108,13 +78,9 @@ export const LowValueNoRadius = (args) => ({
 });
 
 export const LowValueButHigh = (args) => ({
-  components: {
-    UiProgress,
-  },
+  components: { UiProgress },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<div class="max-w-32" style="--progress-height: 3rem;">
     <UiProgress
@@ -124,13 +90,9 @@ export const LowValueButHigh = (args) => ({
 });
 
 export const WithDifferentMinimum = (args) => ({
-  components: {
-    UiProgress,
-  },
+  components: { UiProgress },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<div class="max-w-32">
     <UiProgress
@@ -142,13 +104,9 @@ export const WithDifferentMinimum = (args) => ({
 });
 
 export const WithSameValueMinAndMax = (args) => ({
-  components: {
-    UiProgress,
-  },
+  components: { UiProgress },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<div class="max-w-32">
     <UiProgress

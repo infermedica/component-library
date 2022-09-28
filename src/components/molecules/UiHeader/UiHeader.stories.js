@@ -39,21 +39,13 @@ export default {
       id: 'brand-button',
       href: '#',
     },
-    buttonHamburgerAttrs: {
-      id: 'hamburger-button',
-    },
-    iconHamburgerAttrs: {
-      'data-testid': 'hamburger-icon',
-    },
+    buttonHamburgerAttrs: { id: 'hamburger-button' },
+    iconHamburgerAttrs: { 'data-testid': 'hamburger-icon' },
     iconLogoAttrs: {
       'data-testid': 'logo-icon',
-      style: {
-        '--icon-color': 'var(--color-icon-on-brand)',
-      },
+      style: { '--icon-color': 'var(--color-icon-on-brand)' },
     },
-    navigationAttrs: {
-      'data-testid': 'navigation',
-    },
+    navigationAttrs: { 'data-testid': 'navigation' },
   },
   argTypes: {
     modifiers: modifiers({
@@ -64,50 +56,34 @@ export default {
     logo: {
       description: 'Use this prop to set the logo.',
       control: false,
-      table: {
-        category: 'props',
-      },
+      table: { category: 'props' },
     },
     slotLogo: {
       name: 'logo',
       description: 'Use this slot to replace logo template.',
       table: {
         category: 'slots',
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
       },
     },
-    hamburgerMatchMedia: {
-      table: {
-        defaultValue: {
-          summary: toMobile,
-        },
-      },
-    },
+    hamburgerMatchMedia: { table: { defaultValue: { summary: toMobile } } },
     navigation: {
       description: 'Use this props to pass list of navigation items.',
-      table: {
-        category: 'props',
-      },
+      table: { category: 'props' },
     },
     slotNavigation: {
       name: 'navigation',
       description: 'Use this slot to replace navigation template.',
       table: {
         category: 'slots',
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
       },
     },
   },
 };
 
 const Template = (args) => ({
-  components: {
-    UiHeader,
-  },
+  components: { UiHeader },
   setup() {
     const logo = defineAsyncComponent(() => import('../../../assets/logo.svg'));
     return {
@@ -135,14 +111,10 @@ const Template = (args) => ({
 export const Common = Template.bind({});
 
 export const HamburgerMenuAlwaysDisplay = Template.bind({});
-HamburgerMenuAlwaysDisplay.args = {
-  hamburgerMatchMedia: '(min-width: 0px)',
-};
+HamburgerMenuAlwaysDisplay.args = { hamburgerMatchMedia: '(min-width: 0px)' };
 
 export const WithoutHamburgerMenu = Template.bind({});
-WithoutHamburgerMenu.args = {
-  hamburgerMatchMedia: '(max-width: 0px)',
-};
+WithoutHamburgerMenu.args = { hamburgerMatchMedia: '(max-width: 0px)' };
 
 export const WithBrandSlot = (args) => ({
   components: {

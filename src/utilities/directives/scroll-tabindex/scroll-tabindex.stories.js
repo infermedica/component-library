@@ -12,14 +12,8 @@ import docs from './scroll-tabindex.mdx';
 
 export default {
   title: 'Utilities/Directives/Scroll Tabindex',
-  decorators: [() => ({
-    template: '<div style="--backdrop-position: absolute; --side-panel-position: absolute; --side-panel-z-index: 0; min-height: 320px;"><story /></div>',
-  })],
-  parameters: {
-    docs: {
-      page: docs,
-    },
-  },
+  decorators: [() => ({ template: '<div style="--backdrop-position: absolute; --side-panel-position: absolute; --side-panel-z-index: 0; min-height: 320px;"><story /></div>' })],
+  parameters: { docs: { page: docs } },
 };
 
 export const WithDirective = () => ({
@@ -30,14 +24,10 @@ export const WithDirective = () => ({
     UiSidePanel,
     UiText,
   },
-  directives: {
-    scrollTabindex,
-  },
+  directives: { scrollTabindex },
   setup() {
     const modelValue = ref(true);
-    return {
-      modelValue,
-    };
+    return { modelValue };
   },
   template: `
   <UiButton class="ui-button--text ui-button--theme-secondary" @click="modelValue = true;">
@@ -81,14 +71,10 @@ export const WithDirectiveAndScrollableContent = () => ({
     UiSidePanel,
     UiText,
   },
-  directives: {
-    scrollTabindex,
-  },
+  directives: { scrollTabindex },
   setup() {
     const modelValue = ref(true);
-    return {
-      modelValue,
-    };
+    return { modelValue };
   },
   template: `
   <UiButton class="ui-button--text ui-button--theme-secondary" @click="modelValue = true;">
@@ -183,9 +169,7 @@ export const WithoutDirective = () => ({
   },
   setup() {
     const modelValue = ref(true);
-    return {
-      modelValue,
-    };
+    return { modelValue };
   },
   template: `
   <UiButton class="ui-button--text ui-button--theme-secondary" @click="modelValue = true;">

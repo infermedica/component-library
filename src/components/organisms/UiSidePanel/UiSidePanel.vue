@@ -223,9 +223,7 @@ const props = defineProps({
    */
   headingTitleAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-      level: 2,
-    }),
+    default: () => ({ level: 2 }),
   },
   /**
    * Use this props to pass attrs for subtitle UiText.
@@ -246,9 +244,7 @@ const props = defineProps({
    */
   iconCloseAttrs: {
     type: Object,
-    default: () => ({
-      icon: 'close',
-    }),
+    default: () => ({ icon: 'close' }),
   },
 });
 const emit = defineEmits<{(e: 'update:modelValue', value: boolean): void,
@@ -297,9 +293,7 @@ function closeHandler(): void {
   emit('update:modelValue', false);
 }
 function keydownHandler(event: Event) {
-  const {
-    key,
-  } = event as KeyboardEvent;
+  const { key } = event as KeyboardEvent;
   if (key !== 'Escape') return;
   emit('update:modelValue', false);
 }

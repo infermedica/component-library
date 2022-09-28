@@ -32,9 +32,7 @@
 </template>
 
 <script lang="ts">
-export default {
-  name: 'UiNavigation',
-};
+export default { name: 'UiNavigation' };
 </script>
 
 <script setup lang="ts">
@@ -87,9 +85,7 @@ const itemsToRender = computed<NavigationRenderItem[]>(() => (props.items.map((i
   };
 })));
 const resizeObserver = new ResizeObserver((entries) => {
-  const {
-    target,
-  } = entries[0];
+  const { target } = entries[0];
   isMultiline.value = ([...target.children].at(-1) as HTMLElement).offsetTop > (target as HTMLElement).offsetTop;
 });
 onMounted(async () => {

@@ -1,16 +1,12 @@
 /* eslint-disable import/prefer-default-export, no-underscore-dangle, no-param-reassign */
-function isDisabled({
-  arg,
-}) {
+function isDisabled({ arg }) {
   return arg !== undefined && arg === false;
 }
 
 export const clickOutside = {
   beforeMount(el, binding) {
     el.__vueClickOutsideHandler = (event) => {
-      const {
-        target,
-      } = event;
+      const { target } = event;
       if (!el.contains(target) && el !== target) {
         binding.value(event);
       }

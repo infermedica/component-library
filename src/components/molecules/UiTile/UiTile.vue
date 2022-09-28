@@ -94,9 +94,7 @@ const props = defineProps({
    */
   textLabelAttrs: {
     type: Object,
-    default: () => ({
-      tag: 'span',
-    }),
+    default: () => ({ tag: 'span' }),
   },
 });
 const defaultProps = computed(() => ({

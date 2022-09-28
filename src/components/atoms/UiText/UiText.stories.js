@@ -22,13 +22,9 @@ export default {
 };
 
 const Template = (args) => ({
-  components: {
-    UiText,
-  },
+  components: { UiText },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiText 
     :tag="tag" 
@@ -41,36 +37,22 @@ const Template = (args) => ({
 export const TextBody1 = Template.bind({});
 
 export const TextBody1Thick = Template.bind({});
-TextBody1Thick.args = {
-  modifiers: 'ui-text--body-1-thick',
-};
+TextBody1Thick.args = { modifiers: 'ui-text--body-1-thick' };
 
 export const TextBody2Comfortable = Template.bind({});
-TextBody2Comfortable.args = {
-  modifiers: 'ui-text--body-2-comfortable',
-};
+TextBody2Comfortable.args = { modifiers: 'ui-text--body-2-comfortable' };
 
 export const TextBody2Compact = Template.bind({});
-TextBody2Compact.args = {
-  modifiers: 'ui-text--body-2-compact',
-};
+TextBody2Compact.args = { modifiers: 'ui-text--body-2-compact' };
 
 export const TextBody2ComfortableThick = Template.bind({});
-TextBody2ComfortableThick.args = {
-  modifiers: 'ui-text--body-2-comfortable-thick',
-};
+TextBody2ComfortableThick.args = { modifiers: 'ui-text--body-2-comfortable-thick' };
 
 export const TextBody2CompactThick = Template.bind({});
-TextBody2CompactThick.args = {
-  modifiers: 'ui-text--body-2-compact-thick',
-};
+TextBody2CompactThick.args = { modifiers: 'ui-text--body-2-compact-thick' };
 
 export const TextCaption = Template.bind({});
-TextCaption.args = {
-  modifiers: 'ui-text--caption',
-};
+TextCaption.args = { modifiers: 'ui-text--caption' };
 
 export const TextButton1 = Template.bind({});
-TextButton1.args = {
-  modifiers: 'ui-text--button-1',
-};
+TextButton1.args = { modifiers: 'ui-text--button-1' };

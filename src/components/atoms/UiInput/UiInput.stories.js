@@ -19,32 +19,24 @@ const events = actions({
 export default {
   title: 'Atoms/Input',
   component: UiInput,
-  subcomponents: {
-    UiText,
-  },
+  subcomponents: { UiText },
   args: {
     initModelValue: '',
     type: 'text',
     modifiers: [],
     placeholder: 'Put your height',
     suffix: '',
-    textSuffixAttrs: {
-      'data-testid': 'text-suffix',
-    },
+    textSuffixAttrs: { 'data-testid': 'text-suffix' },
   },
   argTypes: {
     initModelValue: {
       description: 'Use this control to set initial state.',
-      table: {
-        category: 'stories controls',
-      },
+      table: { category: 'stories controls' },
       control: 'text',
     },
     type: {
       description: 'Use this control to set input type.',
-      table: {
-        category: 'stories controls',
-      },
+      table: { category: 'stories controls' },
       control: 'select',
       options: ['email', 'number', 'password', 'search', 'tel', 'text', 'url'],
     },
@@ -56,16 +48,12 @@ export default {
       ],
     }),
     placeholder,
-    modelValue: {
-      control: false,
-    },
+    modelValue: { control: false },
   },
 };
 
 const Template = (args) => ({
-  components: {
-    UiInput,
-  },
+  components: { UiInput },
   setup() {
     const modelValue = ref(args.initModelValue);
     return {
@@ -88,24 +76,16 @@ const Template = (args) => ({
 export const WithPlaceholder = Template.bind({});
 
 export const WithValue = Template.bind({});
-WithValue.args = {
-  initModelValue: 'Input text',
-};
+WithValue.args = { initModelValue: 'Input text' };
 
 export const HasError = Template.bind({});
-HasError.args = {
-  modifiers: ['ui-input--has-error'],
-};
+HasError.args = { modifiers: ['ui-input--has-error'] };
 
 export const IsDisabled = Template.bind({});
-IsDisabled.args = {
-  modifiers: ['ui-input--is-disabled'],
-};
+IsDisabled.args = { modifiers: ['ui-input--is-disabled'] };
 
 export const WithSuffix = Template.bind({});
-WithSuffix.args = {
-  suffix: 'Suffix',
-};
+WithSuffix.args = { suffix: 'Suffix' };
 
 export const WithAButtonInSuffix = (args) => ({
   components: {
@@ -152,9 +132,7 @@ WithAButtonInSuffix.args = {
 };
 WithAButtonInSuffix.argTypes = {
   icon: {
-    control: {
-      type: 'select',
-    },
+    control: { type: 'select' },
     options: icons,
   },
 };
@@ -164,9 +142,7 @@ export const WithInputSlot = (args) => ({
     UiInput,
     UiIcon,
   },
-  directives: {
-    keyboardFocus,
-  },
+  directives: { keyboardFocus },
   setup() {
     const modelValue = ref(args.initModelValue);
     return {
@@ -238,6 +214,4 @@ export const WithAsideSlot = (args) => ({
     </template>
   </UiInput>`,
 });
-WithAsideSlot.args = {
-  suffix: 'Suffix',
-};
+WithAsideSlot.args = { suffix: 'Suffix' };

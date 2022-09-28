@@ -87,9 +87,7 @@
 </template>
 
 <script lang="ts">
-export default {
-  inheritAttrs: false,
-};
+export default { inheritAttrs: false };
 </script>
 
 <script setup lang="ts">
@@ -181,9 +179,7 @@ const hasError = computed(() => (props.touched && !valid.value));
 const hintType = computed<'error'|'default'>(() => (props.touched && props.invalid ? 'error' : 'default'));
 watch(valid, (value) => {
   emit('update:invalid', !value);
-}, {
-  immediate: true,
-});
+}, { immediate: true });
 const value = computed({
   get: () => (props.modelValue),
   set: (value) => {

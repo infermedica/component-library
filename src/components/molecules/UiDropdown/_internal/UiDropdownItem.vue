@@ -53,9 +53,7 @@ const props = defineProps({
    */
   iconAttrs: {
     type: Object,
-    default: () => ({
-      icon: 'present',
-    }),
+    default: () => ({ icon: 'present' }),
   },
 });
 const defaultProps = computed(() => ({

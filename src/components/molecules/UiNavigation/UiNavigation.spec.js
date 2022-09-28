@@ -28,20 +28,12 @@ describe('UiNavigation.vue', () => {
     expect(wrapper.classes('ui-navigation')).toBe(true);
   });
   test('component render item with the correct text', async () => {
-    const wrapper = mount(UiNavigation, {
-      props: {
-        items,
-      },
-    });
+    const wrapper = mount(UiNavigation, { props: { items } });
     const item = wrapper.findComponent(UiNavigationItem);
     expect(item.text()).toBe(items[0].text);
   });
   test('component render the correct number of items', async () => {
-    const wrapper = mount(UiNavigation, {
-      props: {
-        items,
-      },
-    });
+    const wrapper = mount(UiNavigation, { props: { items } });
     const itemList = wrapper.findAllComponents(UiNavigationItem);
     expect(itemList.length).toBe(3);
   });
@@ -50,9 +42,7 @@ describe('UiNavigation.vue', () => {
       props: {
         items: [...items, {
           ...items[0],
-          navigationItemAttrs: {
-            style: 'color: red',
-          },
+          navigationItemAttrs: { style: 'color: red' },
         }],
       },
     });

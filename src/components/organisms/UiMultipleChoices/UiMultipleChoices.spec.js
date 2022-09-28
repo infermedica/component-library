@@ -48,9 +48,7 @@ describe('UiMultipleChoices.vue', () => {
         }],
       },
     });
-    wrapper.setProps({
-      modelValue: ['present'],
-    });
+    wrapper.setProps({ modelValue: ['present'] });
     await wrapper.vm.$nextTick();
     expect(wrapper.emitted('update:invalid')).toBeTruthy();
   });

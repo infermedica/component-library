@@ -4,9 +4,7 @@ import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import { actions } from '@storybook/addon-actions';
 
-const events = actions({
-  onHasError: 'has-error',
-});
+const events = actions({ onHasError: 'has-error' });
 
 export default {
   title: 'Organisms/Controls',
@@ -18,47 +16,29 @@ export default {
   },
   args: {
     hideNextButton: false,
-    toBack: {
-      path: '/back',
-    },
-    toNext: {
-      path: '/next',
-    },
+    toBack: { path: '/back' },
+    toNext: { path: '/next' },
     invalid: true,
     translation: {
       back: 'Back',
       next: 'Next',
     },
-    buttonNextAttrs: {
-      'data-testid': 'button-next',
-    },
-    buttonBackAttrs: {
-      'data-testid': 'button-back',
-    },
-    iconBackAttrs: {
-      'data-testid': 'icon-back',
-    },
+    buttonNextAttrs: { 'data-testid': 'button-next' },
+    buttonBackAttrs: { 'data-testid': 'button-back' },
+    iconBackAttrs: { 'data-testid': 'icon-back' },
   },
   argTypes: {
-    toBack: {
-      control: 'object',
-    },
-    toNext: {
-      control: 'object',
-    },
+    toBack: { control: 'object' },
+    toNext: { control: 'object' },
     'has-error': {
       description: 'Use this event to detect when control has error and toNext is blocked.',
-      table: {
-        category: 'events',
-      },
+      table: { category: 'events' },
     },
     backButtonAttrs: {
       description: 'Use this props to pass attrs for back UiButton',
       table: {
         category: 'props',
-        type: {
-          summary: 'object',
-        },
+        type: { summary: 'object' },
       },
       control: 'object',
     },
@@ -66,9 +46,7 @@ export default {
       description: 'Use this props to pass attrs for next UiButton',
       table: {
         category: 'props',
-        type: {
-          summary: 'object',
-        },
+        type: { summary: 'object' },
       },
       control: 'object',
     },
@@ -76,9 +54,7 @@ export default {
 };
 
 const Template = (args) => ({
-  components: {
-    UiControls,
-  },
+  components: { UiControls },
   setup() {
     return {
       ...args,

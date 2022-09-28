@@ -30,48 +30,26 @@ export default {
     options: {
       info: true,
       why: true,
-      issue: {
-        feedback: true,
-      },
+      issue: { feedback: true },
     },
     buttonSkipAttrs: {
-      to: {
-        path: '/',
-      },
-      translation: {
-        action: 'Skip this question',
-      },
+      to: { path: '/' },
+      translation: { action: 'Skip this question' },
     },
-    buttonInfoAttrs: {
-      to: {
-        path: '/',
-      },
-    },
-    buttonWhyAttrs: {
-      to: {
-        path: '/',
-      },
-    },
-    buttonIssueAttrs: {
-      to: {
-        path: '/',
-      },
-    },
+    buttonInfoAttrs: { to: { path: '/' } },
+    buttonWhyAttrs: { to: { path: '/' } },
+    buttonIssueAttrs: { to: { path: '/' } },
     titleSlot: null,
   },
   argTypes: {
     items: {
       description: 'Use this control to set the items.',
-      table: {
-        category: 'stories controls',
-      },
+      table: { category: 'stories controls' },
       control: 'array',
     },
     title: {
       description: 'Use this props to set question title.',
-      table: {
-        category: 'props',
-      },
+      table: { category: 'props' },
       control: 'text',
     },
     titleSlot: {
@@ -79,9 +57,7 @@ export default {
       description: 'Use this slot to replace title template.',
       table: {
         category: 'slots',
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
       },
       control: 'object',
     },
@@ -130,9 +106,7 @@ AsMultipleAnswer.args = {
     {
       id: 's_1868',
       name: 'A few minutes to 4 hours',
-      buttonInfoAttrs: {
-        'aria-label': 'what does it mean?',
-      },
+      buttonInfoAttrs: { 'aria-label': 'what does it mean?' },
     },
     {
       id: 's_1870',
@@ -202,23 +176,17 @@ AsSimpleQuestion.args = {
     {
       value: 'present',
       label: 'Yes',
-      iconAttrs: {
-        icon: 'yes',
-      },
+      iconAttrs: { icon: 'yes' },
     },
     {
       value: 'absent',
       label: 'Male',
-      iconAttrs: {
-        icon: 'no',
-      },
+      iconAttrs: { icon: 'no' },
     },
     {
       value: 'unknown',
       label: 'Don\'t know',
-      iconAttrs: {
-        icon: 'dont-know',
-      },
+      iconAttrs: { icon: 'dont-know' },
     },
   ],
   translation: {
@@ -258,9 +226,7 @@ export const WithTitleSlot = (args) => ({
     UiHeading,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiQuestion
     :title="title"
@@ -289,9 +255,7 @@ export const WithInfoSlot = (args) => ({
     UiIcon,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiQuestion
     :title="title"
@@ -324,9 +288,7 @@ export const WithActionsBottomSlot = (args) => ({
     UiButton,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiQuestion
     :title="title"
@@ -365,9 +327,7 @@ export const WithWhySlot = (args) => ({
     UiButton,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiQuestion
     :title="title"
@@ -393,9 +353,7 @@ export const WithIssueSlot = (args) => ({
     UiButton,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiQuestion
     :title="title"

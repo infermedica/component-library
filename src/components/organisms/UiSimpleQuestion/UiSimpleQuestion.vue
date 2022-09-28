@@ -72,11 +72,7 @@ defineProps({
       id: '',
       label: '',
       value: '',
-      tileAttrs: {
-        iconAttrs: {
-          icon: '',
-        },
-      },
+      tileAttrs: { iconAttrs: { icon: '' } },
     }],
   },
 });

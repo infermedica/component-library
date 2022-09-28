@@ -32,16 +32,10 @@ export default {
     items: [
       {
         label: 'I have diabetes',
-        textLabelAttrs: {
-          'data-testid': 'label-text',
-        },
+        textLabelAttrs: { 'data-testid': 'label-text' },
       },
-      {
-        label: 'I have hypertension',
-      },
-      {
-        label: 'I have high cholesterol',
-      },
+      { label: 'I have hypertension' },
+      { label: 'I have high cholesterol' },
     ],
     options: [
       {
@@ -57,33 +51,25 @@ export default {
         value: 'unknown',
       },
     ],
-    alertHintAttrs: {
-      'data-testid': 'alert-hint',
-    },
+    alertHintAttrs: { 'data-testid': 'alert-hint' },
   },
   argTypes: {
     initModelValue: {
       description: 'Use this control to set initial state.',
-      table: {
-        category: 'stories controls',
-      },
+      table: { category: 'stories controls' },
       control: 'array',
     },
     initInvalid: {
       name: 'invalid',
       description: 'Use this control to set initial state of invalid props.',
-      table: {
-        category: 'stories controls',
-      },
+      table: { category: 'stories controls' },
       control: 'boolean',
     },
     hint: {
       description: 'Use this props to set hint for question.',
       table: {
         category: 'props',
-        type: {
-          summary: 'string',
-        },
+        type: { summary: 'string' },
       },
       control: 'text',
     },
@@ -92,24 +78,16 @@ export default {
       description: 'Use this slot to replace hint template.',
       table: {
         category: 'slots',
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
       },
     },
-    modelValue: {
-      control: false,
-    },
-    invalid: {
-      control: false,
-    },
+    modelValue: { control: false },
+    invalid: { control: false },
   },
 };
 
 const Template = (args) => ({
-  components: {
-    UiMultipleChoices,
-  },
+  components: { UiMultipleChoices },
   setup() {
     const modelValue = ref(args.initModelValue);
     const invalid = ref(args.initInvalid);
@@ -141,15 +119,9 @@ WithButtonInfo.args = {
     {
       id: 'i-have-diabetes',
       label: 'I have diabetes',
-      translation: {
-        info: 'What does it mean?',
-      },
-      buttonInfoAttrs: {
-        onClick: events.onClickInfoButton,
-      },
-      iconInfoAttrs: {
-        'data-testid': 'info-icon',
-      },
+      translation: { info: 'What does it mean?' },
+      buttonInfoAttrs: { onClick: events.onClickInfoButton },
+      iconInfoAttrs: { 'data-testid': 'info-icon' },
     },
     {
       id: 'i-have-hypertension',
@@ -158,15 +130,9 @@ WithButtonInfo.args = {
     {
       id: 'i-have-hypertension',
       label: 'I have high cholesterol',
-      translation: {
-        info: 'How to check it?',
-      },
-      buttonInfoAttrs: {
-        onClick: events.onClickInfoButton,
-      },
-      iconInfoAttrs: {
-        'data-testid': 'info-icon',
-      },
+      translation: { info: 'How to check it?' },
+      buttonInfoAttrs: { onClick: events.onClickInfoButton },
+      iconInfoAttrs: { 'data-testid': 'info-icon' },
     },
   ],
 };
@@ -316,13 +282,9 @@ export const WithChoiceSlot = (args) => ({
 });
 
 export const AsEvidence = (args) => ({
-  components: {
-    UiMultipleChoices,
-  },
+  components: { UiMultipleChoices },
   setup() {
-    const {
-      items,
-    } = args;
+    const { items } = args;
     const modelValue = ref(args.initModelValue);
     const invalid = ref(args.initInvalid);
     const evidence = computed(() => modelValue.value.map((item, index) => ({

@@ -39,9 +39,7 @@ export default function useMutationObserver(target, callback, options) {
         observer.observe(el, options);
       }
     },
-    {
-      immediate: true,
-    },
+    { immediate: true },
   );
 
   const stop = () => {

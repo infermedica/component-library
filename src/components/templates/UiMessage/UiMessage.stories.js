@@ -28,51 +28,39 @@ export default {
       description: 'Use this slot to replace content template.',
       table: {
         category: 'slots',
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
       },
       control: 'object',
     },
     title: {
       description: 'Use this props to set message title.',
-      table: {
-        category: 'props',
-      },
+      table: { category: 'props' },
     },
     titleSlot: {
       name: 'title',
       description: 'Use this slot to replace title template.',
       table: {
         category: 'slots',
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
       },
       control: 'object',
     },
     subtitle: {
       description: 'Use this props to set message subtitle.',
-      table: {
-        category: 'props',
-      },
+      table: { category: 'props' },
     },
     subtitleSlot: {
       name: 'subtitle',
       description: 'Use this slot to replace subtitle template.',
       table: {
         category: 'slots',
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
       },
       control: 'object',
     },
     illustration: {
       description: 'Use this props to set message illustration.',
-      table: {
-        category: 'props',
-      },
+      table: { category: 'props' },
       type: 'select',
       options: ['agreement', 'boy', 'no-internet-illustration', 'podium', 'lock', 'agreement-rtl', 'boy-rtl', 'no-internet-illustration-rtl', 'podium-rtl'],
     },
@@ -80,9 +68,7 @@ export default {
       name: 'illustration',
       table: {
         category: 'slots',
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
       },
       control: 'object',
     },
@@ -95,9 +81,7 @@ const Template = (args) => ({
     UiText,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiMessage
     :title="title"
@@ -118,9 +102,7 @@ export const WithContentSlot = (args) => ({
     UiHeading,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiMessage
     :title="title"
@@ -149,9 +131,7 @@ export const WithAsideSlot = (args) => ({
     UiIcon,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiMessage
     :title="title"
@@ -181,9 +161,7 @@ export const WithIllustrationSlot = (args) => ({
     UiIcon,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiMessage
     :title="title"
@@ -207,9 +185,7 @@ export const AsNotAuthorized = (args) => ({
     UiText,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiMessage
     :title="title"
@@ -256,9 +232,7 @@ export const AsOffline = (args) => ({
     UiButton,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiMessage
     :title="title"
@@ -310,9 +284,7 @@ export const AsOfflinePopover = (args) => ({
     UiButton,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiMessage
     title="No internet connection"
@@ -338,9 +310,7 @@ export const AsOfflinePopover = (args) => ({
 AsOfflinePopover.args = {
   title: '', // hack: prevent to provide title to popover
   illustration: 'no-internet',
-  headingTitleAttrs: {
-    level: '4',
-  },
+  headingTitleAttrs: { level: '4' },
 };
 AsOfflinePopover.decorators = [(story) => ({
   components: {

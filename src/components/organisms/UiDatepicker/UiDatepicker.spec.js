@@ -48,11 +48,7 @@ describe('UiDatepicker.vue', () => {
     ['month', ['month', 'day', 'year']],
     ['year', ['year', 'day', 'month']],
   ])('open calendar with %s tab when non fields are filled', async (expected, order) => {
-    const wrapper = mountDatepicker({
-      propsData: {
-        order,
-      },
-    });
+    const wrapper = mountDatepicker({ propsData: { order } });
 
     const calendar = wrapper.findComponent(UiDatepickerCalendar);
     await calendar

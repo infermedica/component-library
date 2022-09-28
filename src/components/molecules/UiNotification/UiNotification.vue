@@ -90,9 +90,7 @@ const props = defineProps({
    */
   translation: {
     type: Object,
-    default: () => ({
-      action: 'Action',
-    }),
+    default: () => ({ action: 'Action' }),
   },
   /**
    * Use this props to pass attrs for action UiButton.
@@ -106,9 +104,7 @@ const props = defineProps({
    */
   iconActionAttrs: {
     type: Object,
-    default: () => ({
-      icon: 'chevron-right',
-    }),
+    default: () => ({ icon: 'chevron-right' }),
   },
 });
 const defaultProps = computed(() => ({

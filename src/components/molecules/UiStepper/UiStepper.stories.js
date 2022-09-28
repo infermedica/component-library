@@ -45,9 +45,7 @@ export default {
   args: {
     steps,
     currentStep: steps.at(2).name,
-    progressAttrs: {
-      id: 'progress',
-    },
+    progressAttrs: { id: 'progress' },
   },
   argTypes: {
     currentStep: {
@@ -55,19 +53,13 @@ export default {
       options: steps.map((step) => step.name),
     },
   },
-  decorators: [() => ({
-    template: '<div class="desktop:max-w-35"><story /></div>',
-  })],
+  decorators: [() => ({ template: '<div class="desktop:max-w-35"><story /></div>' })],
 };
 
 const Template = (args) => ({
-  components: {
-    UiStepper,
-  },
+  components: { UiStepper },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiStepper
     :steps="steps"
@@ -84,9 +76,7 @@ export const WithCurrentStepSlot = (args) => ({
     UiText,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiStepper
     :steps="steps"
@@ -110,9 +100,7 @@ export const WithProgressSlot = (args) => ({
     UiProgress,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiStepper
     :steps="steps"
@@ -137,9 +125,7 @@ export const WithDesktopSlot = (args) => ({
     UiButton,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiStepper
     :steps="steps"
@@ -179,9 +165,7 @@ export const WithItemsSlot = (args) => ({
     UiButton,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiStepper
     :steps="steps"
@@ -219,9 +203,7 @@ export const WithItemSlot = (args) => ({
     UiButton,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiStepper
     :steps="steps"
@@ -254,9 +236,7 @@ export const WithItemLinkSlot = (args) => ({
     UiButton,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiStepper
     :steps="steps"
@@ -281,9 +261,7 @@ export const WithMobileSlot = (args) => ({
     UiProgress,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiStepper
     :steps="steps"
@@ -307,8 +285,4 @@ export const WithMobileSlot = (args) => ({
     </template>
   </UiStepper>`,
 });
-WithMobileSlot.parameters = {
-  viewport: {
-    defaultViewport: 'mobile2',
-  },
-};
+WithMobileSlot.parameters = { viewport: { defaultViewport: 'mobile2' } };

@@ -9,9 +9,7 @@ import {
   modifiers,
 } from '@sb/helpers/argTypes';
 
-const events = actions({
-  onClose: 'close',
-});
+const events = actions({ onClose: 'close' });
 
 export default {
   title: 'Molecules/Popover',
@@ -25,49 +23,33 @@ export default {
     content: 'A custom Triage app that you can use anywhere.',
     modifiers: [],
     title: 'Symptom Checker',
-    headingTitleAttrs: {
-      'data-testid': 'heading-title',
-    },
-    buttonCloseAttrs: {
-      'aria-label': 'close',
-    },
-    iconCloseAttrs: {
-      'data-testid': 'close-icon',
-    },
+    headingTitleAttrs: { 'data-testid': 'heading-title' },
+    buttonCloseAttrs: { 'aria-label': 'close' },
+    iconCloseAttrs: { 'data-testid': 'close-icon' },
     closeAction: null,
   },
   argTypes: {
     content,
-    modifiers: modifiers({
-      options: ['ui-popover--has-arrow', 'ui-popover--has-left-arrow', 'ui-popover--unrounded', 'ui-popover--has-mobile'],
-    }),
+    modifiers: modifiers({ options: ['ui-popover--has-arrow', 'ui-popover--has-left-arrow', 'ui-popover--unrounded', 'ui-popover--has-mobile'] }),
     title: {
       table: {
-        type: {
-          summary: 'string',
-        },
+        type: { summary: 'string' },
         category: 'props',
       },
-      control: {
-        type: 'text',
-      },
+      control: { type: 'text' },
     },
     titleSlot: {
       name: 'title',
       description: 'Use this slot to replace title template.',
       table: {
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
         category: 'slots',
       },
     },
     closeAction: {
       name: 'close',
       description: 'Use this event to detect when popover is closing.',
-      table: {
-        category: 'events',
-      },
+      table: { category: 'events' },
       action: 'closed',
     },
   },
@@ -100,19 +82,13 @@ const Template = (args) => ({
 export const Common = Template.bind({});
 
 export const HasArrow = Template.bind({});
-HasArrow.args = {
-  modifiers: ['ui-popover--has-arrow'],
-};
+HasArrow.args = { modifiers: ['ui-popover--has-arrow'] };
 
 export const HasLeftArrow = Template.bind({});
-HasLeftArrow.args = {
-  modifiers: ['ui-popover--has-left-arrow'],
-};
+HasLeftArrow.args = { modifiers: ['ui-popover--has-left-arrow'] };
 
 export const Unrounded = Template.bind({});
-Unrounded.args = {
-  modifiers: ['ui-popover--unrounded'],
-};
+Unrounded.args = { modifiers: ['ui-popover--unrounded'] };
 
 export const AsBottomPanelOnMobile = (args) => ({
   components: {
@@ -137,22 +113,12 @@ export const AsBottomPanelOnMobile = (args) => ({
     <UiText>{{content}}</UiText>
   </UiPopover>`,
 });
-AsBottomPanelOnMobile.args = {
-  modifiers: ['ui-popover--has-mobile', 'ui-popover--has-arrow'],
-};
-AsBottomPanelOnMobile.parameters = {
-  viewport: {
-    defaultViewport: 'mobile2',
-  },
-};
-AsBottomPanelOnMobile.decorators = [() => ({
-  template: '<div style="min-height: 568px"><story /></div>',
-})];
+AsBottomPanelOnMobile.args = { modifiers: ['ui-popover--has-mobile', 'ui-popover--has-arrow'] };
+AsBottomPanelOnMobile.parameters = { viewport: { defaultViewport: 'mobile2' } };
+AsBottomPanelOnMobile.decorators = [() => ({ template: '<div style="min-height: 568px"><story /></div>' })];
 
 export const AsDropdown = Template.bind({});
-AsDropdown.args = {
-  title: '',
-};
+AsDropdown.args = { title: '' };
 
 export const WithTitleSlot = (args) => ({
   components: {

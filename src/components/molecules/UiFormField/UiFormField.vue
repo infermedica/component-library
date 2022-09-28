@@ -122,18 +122,14 @@ const props = defineProps({
    */
   textMessageAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-      tag: 'span',
-    }),
+    default: () => ({ tag: 'span' }),
   },
   /**
    * Use this props to pass attrs to hint UiText.
    */
   textHintAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-      tag: 'span',
-    }),
+    default: () => ({ tag: 'span' }),
   },
   /**
    * Use this props to pass attrs to UiAlert.

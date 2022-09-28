@@ -5,9 +5,7 @@ import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
 import { actions } from '@storybook/addon-actions';
 import { content } from '@sb/helpers/argTypes';
 
-const events = actions({
-  onClick: 'action',
-});
+const events = actions({ onClick: 'action' });
 
 export default {
   title: 'Molecules/Notification',
@@ -21,21 +19,11 @@ export default {
     content: 'Thank you. We’ll review this question as soon as possible.',
     type: 'error',
     hasIcon: true,
-    translation: {
-      action: 'Action',
-    },
-    buttonActionAttrs: {
-      onClick: () => (events.onClick()),
-    },
-    iconActionAttrs: {
-      'data-test': 'icon-action',
-    },
-    iconAttrs: {
-      'data-testid': 'icon',
-    },
-    textMessageAttrs: {
-      'data-testid': 'message',
-    },
+    translation: { action: 'Action' },
+    buttonActionAttrs: { onClick: () => (events.onClick()) },
+    iconActionAttrs: { 'data-test': 'icon-action' },
+    iconAttrs: { 'data-testid': 'icon' },
+    textMessageAttrs: { 'data-testid': 'message' },
   },
   argTypes: {
     content,
@@ -48,9 +36,7 @@ export default {
       table: {
         category: 'props',
         subcategory: 'UiAlert',
-        type: {
-          summary: 'object',
-        },
+        type: { summary: 'object' },
       },
       control: 'object',
     },
@@ -59,16 +45,12 @@ export default {
       table: {
         category: 'props',
         subcategory: 'UiAlert',
-        type: {
-          summary: 'object',
-        },
+        type: { summary: 'object' },
       },
       control: 'object',
     },
   },
-  decorators: [() => ({
-    template: '<div style="max-width: 320px;"><story /></div>',
-  })],
+  decorators: [() => ({ template: '<div style="max-width: 320px;"><story /></div>' })],
 };
 
 const Template = (args) => ({
@@ -77,9 +59,7 @@ const Template = (args) => ({
     UiAlert,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiNotification 
     :type="type"
@@ -95,24 +75,16 @@ const Template = (args) => ({
 });
 
 export const Error = Template.bind({});
-Error.args = {
-  type: 'error',
-};
+Error.args = { type: 'error' };
 
 export const Success = Template.bind({});
-Success.args = {
-  type: 'success',
-};
+Success.args = { type: 'success' };
 
 export const Info = Template.bind({});
-Info.args = {
-  type: 'info',
-};
+Info.args = { type: 'info' };
 
 export const Warning = Template.bind({});
-Warning.args = {
-  type: 'warning',
-};
+Warning.args = { type: 'warning' };
 
 export const WithActionSlot = (args) => ({
   components: {
@@ -121,9 +93,7 @@ export const WithActionSlot = (args) => ({
     UiIcon,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiNotification
     :type="type"

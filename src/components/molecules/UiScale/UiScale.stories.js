@@ -25,32 +25,22 @@ export default {
       unbearable: 'Unbearable',
     },
     numberStepperAttrs: {
-      buttonDecrementAttrs: {
-        'aria-label': 'decrement pain',
-      },
-      buttonIncrementAttrs: {
-        'aria-label': 'increment pain',
-      },
+      buttonDecrementAttrs: { 'aria-label': 'decrement pain' },
+      buttonIncrementAttrs: { 'aria-label': 'increment pain' },
     },
   },
   argTypes: {
     initModelValue: {
       description: 'Use this control to set initial state. Starting from 0.',
-      table: {
-        category: 'stories controls',
-      },
+      table: { category: 'stories controls' },
       control: 'number',
     },
-    modelValue: {
-      control: false,
-    },
+    modelValue: { control: false },
   },
 };
 
 const Template = (args) => ({
-  components: {
-    UiScale,
-  },
+  components: { UiScale },
   setup() {
     const modelValue = ref(args.initModelValue);
     return {

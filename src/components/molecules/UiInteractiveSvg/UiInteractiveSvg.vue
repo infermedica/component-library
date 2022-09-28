@@ -8,9 +8,7 @@
 </template>
 
 <script lang="ts">
-export default {
-  name: 'UiInteractiveSvg',
-};
+export default { name: 'UiInteractiveSvg' };
 </script>
 
 <script setup lang="ts">

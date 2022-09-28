@@ -3,12 +3,8 @@ import { focusElement } from './index.ts';
 
 let wrapper;
 let button;
-const Component = {
-  template: '<button></button>',
-};
-const options = {
-  attachTo: 'body',
-};
+const Component = { template: '<button></button>' };
+const options = { attachTo: 'body' };
 beforeEach(() => {
   wrapper = mount(Component, options);
   button = wrapper.findComponent(Component);

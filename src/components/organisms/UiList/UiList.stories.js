@@ -5,9 +5,7 @@ import UiText from '@/components/atoms/UiText/UiText.vue';
 export default {
   title: 'Organisms/List',
   component: UiList,
-  subcomponents: {
-    UiListItem,
-  },
+  subcomponents: { UiListItem },
   args: {
     items: ['Painful swallowing', 'Stuffy nose', 'Sneeze', 'Muscle pain', 'Runny nose'],
     tag: 'ul',
@@ -22,22 +20,16 @@ export default {
       description: 'Use this slot to replace list item content. Require `name` in item object.',
       table: {
         category: 'slots',
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
       },
     },
   },
 };
 
 const Template = (args) => ({
-  components: {
-    UiList,
-  },
+  components: { UiList },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiList 
       :tag="tag"
@@ -53,9 +45,7 @@ export const WithListItemSlot = (args) => ({
     UiText,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiList 
       :tag="tag"
@@ -71,9 +61,7 @@ WithListItemSlot.args = {
     {
       name: 'painful-swallowing',
       text: 'Painful swallowing',
-      listItemAttrs: {
-        'data-testid': 'painful',
-      },
+      listItemAttrs: { 'data-testid': 'painful' },
     },
     {
       name: 'stuffy-nose',

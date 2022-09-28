@@ -62,9 +62,7 @@
 </template>
 
 <script lang="ts">
-export default {
-  inheritAttrs: false,
-};
+export default { inheritAttrs: false };
 </script>
 
 <script setup lang="ts">
@@ -111,18 +109,14 @@ const props = defineProps({
    */
   iconCheckmarkAttrs: {
     type: Object,
-    default: () => ({
-      icon: 'checkmark',
-    }),
+    default: () => ({ icon: 'checkmark' }),
   },
   /**
    * Use this props to pass attrs for label UiText
    */
   textLabelAttrs: {
     type: Object,
-    default: () => ({
-      tag: 'span',
-    }),
+    default: () => ({ tag: 'span' }),
   },
 });
 const defaultProps = computed(() => ({
@@ -164,9 +158,7 @@ function changeHandler(event: Event): void {
 }
 
 // TODO: remove in 0.6.0 / BEGIN
-const {
-  checkbutton,
-} = slots;
+const { checkbutton } = slots;
 if (checkbutton) {
   throw new Error('[@infermedica/component-library error][UiCheckbox]: The `checkbotton` slot is deprecated and removed. Please use `checkbox` slot instead.');
 }

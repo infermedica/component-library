@@ -8,17 +8,11 @@ beforeEach(() => {
   handler = vi.fn();
   Component = {
     template: '<div data-testid="root-element" v-click-outside="handler"><button data-testid="inside-button"></button></div><button data-testid="outside-button"></button>',
-    methods: {
-      handler,
-    },
+    methods: { handler },
   };
   options = {
     attachTo: 'body',
-    global: {
-      directives: {
-        clickOutside,
-      },
-    },
+    global: { directives: { clickOutside } },
   };
 });
 
@@ -60,22 +54,16 @@ describe('directive/clickOutside', () => {
     const wrapper = mount(Component, {
       ...options,
       data() {
-        return {
-          isActive: false,
-        };
+        return { isActive: false };
       },
     });
     const button = wrapper.find('[data-testid="outside-button"]');
     await button.trigger('click');
     expect(handler).not.toHaveBeenCalled();
-    await wrapper.setData({
-      isActive: true,
-    });
+    await wrapper.setData({ isActive: true });
     await button.trigger('click');
     expect(handler).toHaveBeenCalled();
-    await wrapper.setData({
-      isActive: false,
-    });
+    await wrapper.setData({ isActive: false });
     await button.trigger('click');
     expect(handler).toHaveBeenCalledTimes(1);
   });

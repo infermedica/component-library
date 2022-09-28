@@ -139,9 +139,7 @@ const props = defineProps({
    */
   iconHamburgerAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-      icon: 'menu',
-    }),
+    default: () => ({ icon: 'menu' }),
   },
   /**
    * Use this props to pass attrs for logo UiIcon
@@ -179,9 +177,7 @@ watch(isOpen, (value: boolean) => {
 const handleHamburger = (): void => {
   isOpen.value = !isOpen.value;
 };
-function handleMedia({
-  matches,
-}: {matches: boolean}) {
+function handleMedia({ matches }: {matches: boolean}) {
   isMobile.value = matches;
   if (isOpen.value && !matches) {
     isOpen.value = false;

@@ -28,9 +28,7 @@
 </template>
 
 <script lang="ts">
-export default {
-  name: 'UiToggleButtonGroup',
-};
+export default { name: 'UiToggleButtonGroup' };
 </script>
 
 <script setup lang="ts">

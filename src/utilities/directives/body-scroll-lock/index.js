@@ -14,9 +14,7 @@ function disableBodyScroll() {
 }
 
 function enableBodyScroll(preventScroll = false) {
-  const {
-    style,
-  } = document.body;
+  const { style } = document.body;
   style.removeProperty('overflow');
   style.removeProperty('position');
   style.removeProperty('top');

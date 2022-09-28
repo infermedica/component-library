@@ -6,9 +6,7 @@ import { modifiers } from '@sb/helpers/argTypes';
 export default {
   title: 'Organisms/SimpleQuestion',
   component: UiSimpleQuestion,
-  subcomponents: {
-    UiTile,
-  },
+  subcomponents: { UiTile },
   args: {
     initModelValue: 'female',
     modifiers: [],
@@ -19,51 +17,33 @@ export default {
         label: 'Female',
         icon: 'female',
         'data-testid': 'female',
-        iconAttrs: {
-          'data-testid': 'female-icon',
-        },
-        textLabelAttrs: {
-          'data-testid': 'female-label',
-        },
+        iconAttrs: { 'data-testid': 'female-icon' },
+        textLabelAttrs: { 'data-testid': 'female-label' },
       },
       {
         id: 'male',
         value: 'male',
         label: 'Male',
         icon: 'male',
-        iconAttrs: {
-          'data-testid': 'male-icon',
-        },
-        textLabelAttrs: {
-          'data-testid': 'male-label',
-        },
+        iconAttrs: { 'data-testid': 'male-icon' },
+        textLabelAttrs: { 'data-testid': 'male-label' },
       },
     ],
   },
   argTypes: {
     initModelValue: {
       description: 'Use this control to set the initial value.',
-      table: {
-        category: 'stories controls',
-      },
+      table: { category: 'stories controls' },
       control: 'string',
     },
-    modifiers: modifiers({
-      options: ['ui-simple-question--small'],
-    }),
-    modelValue: {
-      control: false,
-    },
+    modifiers: modifiers({ options: ['ui-simple-question--small'] }),
+    modelValue: { control: false },
   },
-  decorators: [() => ({
-    template: '<div class="max-w-147"><story /></div>',
-  })],
+  decorators: [() => ({ template: '<div class="max-w-147"><story /></div>' })],
 };
 
 const Template = (args) => ({
-  components: {
-    UiSimpleQuestion,
-  },
+  components: { UiSimpleQuestion },
   setup() {
     const modelValue = ref(args.initModelValue);
     return {
@@ -81,9 +61,7 @@ const Template = (args) => ({
 export const AsPatientSex = Template.bind({});
 
 export const AsPatientSexSmall = Template.bind({});
-AsPatientSexSmall.args = {
-  modifiers: ['ui-simple-question--small'],
-};
+AsPatientSexSmall.args = { modifiers: ['ui-simple-question--small'] };
 
 export const WithTileSlot = (args) => ({
   components: {

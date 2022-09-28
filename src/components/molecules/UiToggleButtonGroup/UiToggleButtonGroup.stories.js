@@ -10,9 +10,7 @@ import {
 export default {
   title: 'Molecules/ToggleButtonGroup',
   component: UiToggleButtonGroup,
-  subcomponents: {
-    UiToggleButton,
-  },
+  subcomponents: { UiToggleButton },
   args: {
     items: ['First', 'Second', 'Third'],
     initModelValue: 'Second',
@@ -21,22 +19,16 @@ export default {
   argTypes: {
     initModelValue: {
       description: 'Use this control to set the initial value.',
-      table: {
-        category: 'stories controls',
-      },
+      table: { category: 'stories controls' },
       control: 'text',
     },
-    modelValue: {
-      control: false,
-    },
+    modelValue: { control: false },
     toggleButton: {
       name: '<name>',
       description: 'Use this slot to replace toggle button content. Require `name` in item object.',
       table: {
         category: 'slots',
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
       },
     },
   },
@@ -62,9 +54,7 @@ export const Common = (args) => ({
 });
 
 export const WithToggleButtonSlot = (args) => ({
-  components: {
-    UiToggleButtonGroup,
-  },
+  components: { UiToggleButtonGroup },
   setup() {
     const modelValue = ref(args.initModelValue);
     return {
@@ -102,9 +92,7 @@ WithToggleButtonSlot.args = {
 };
 
 export const Pressed = Common.bind({});
-Pressed.args = {
-  initModelValue: 'First',
-};
+Pressed.args = { initModelValue: 'First' };
 
 export const Disabled = Common.bind({});
 Disabled.args = {
@@ -112,9 +100,7 @@ Disabled.args = {
     {
       text: 'First',
       value: 'first',
-      toggleButtonAttrs: {
-        class: 'ui-toggle-button--is-disabled',
-      },
+      toggleButtonAttrs: { class: 'ui-toggle-button--is-disabled' },
     },
     {
       text: 'Second',
@@ -138,9 +124,7 @@ PressedDisabled.args = {
     {
       text: 'Second',
       value: 'second',
-      toggleButtonAttrs: {
-        class: 'ui-toggle-button--is-disabled',
-      },
+      toggleButtonAttrs: { class: 'ui-toggle-button--is-disabled' },
     },
     {
       text: 'Third',
@@ -150,9 +134,7 @@ PressedDisabled.args = {
 };
 
 export const Deselectable = Common.bind({});
-Deselectable.args = {
-  deselectable: true,
-};
+Deselectable.args = { deselectable: true };
 
 export const WithNumberValues = Common.bind({});
 WithNumberValues.args = {
@@ -176,21 +158,15 @@ export const WithObjectValues = Common.bind({});
 WithObjectValues.args = {
   items: [
     {
-      value: {
-        id: 1,
-      },
+      value: { id: 1 },
       text: 'First',
     },
     {
-      value: {
-        id: 2,
-      },
+      value: { id: 2 },
       text: 'Second',
     },
     {
-      value: {
-        id: 3,
-      },
+      value: { id: 3 },
       text: 'Third',
     },
   ],
@@ -232,17 +208,13 @@ WithIcon.args = {
     {
       text: 'First',
       value: 'first',
-      toggleButtonAttrs: {
-        class: 'ui-toggle-button--has-icon',
-      },
+      toggleButtonAttrs: { class: 'ui-toggle-button--has-icon' },
       icon: 'dots',
     },
     {
       text: 'Second',
       value: 'second',
-      toggleButtonAttrs: {
-        class: 'ui-toggle-button--has-icon',
-      },
+      toggleButtonAttrs: { class: 'ui-toggle-button--has-icon' },
       icon: 'plus',
     },
   ],

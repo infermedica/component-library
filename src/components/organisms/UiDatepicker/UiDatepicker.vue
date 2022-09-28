@@ -423,9 +423,7 @@ function inputComponentSelector(datePart: DatePart): DatepickerInput | '' {
 const lastFocusedDatePart = ref<DatePart>(props.order[0]);
 
 function handleFocus(event: Event, datePart: DatePart) {
-  emit('field-focus', {
-    field: datePart,
-  });
+  emit('field-focus', { field: datePart });
   lastFocusedDatePart.value = datePart;
 }
 
@@ -487,9 +485,7 @@ watch(isMonthFulfilled, (fulfilled) => handleFulfilledChange(fulfilled, 'month',
 watch(isYearFulfilled, (fulfilled) => handleFulfilledChange(fulfilled, 'year', date.year, isYearValid.value));
 
 function monthList(locale: string): string[] {
-  const getMonth = new Intl.DateTimeFormat(locale, {
-    month: 'long',
-  }).format;
+  const getMonth = new Intl.DateTimeFormat(locale, { month: 'long' }).format;
   return [...Array(12).keys()].map((m) => getMonth(new Date(2022, m)));
 }
 

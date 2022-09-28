@@ -38,44 +38,28 @@ export default {
     initModelValue: true,
     title: 'For business',
     subtitle: '',
-    transitionBackdropAttrs: {
-      'data-testid': 'backdrop-transition',
-    },
-    backdropAttrs: {
-      'data-testid': 'backdrop',
-    },
-    transitionDialogAttrs: {
-      'data-testid': 'dialog-transition',
-    },
-    headingTitleAttrs: {
-      'data-testid': 'title-heading',
-    },
-    textSubtitleAttrs: {
-      'data-testid': 'subtitle-text',
-    },
+    transitionBackdropAttrs: { 'data-testid': 'backdrop-transition' },
+    backdropAttrs: { 'data-testid': 'backdrop' },
+    transitionDialogAttrs: { 'data-testid': 'dialog-transition' },
+    headingTitleAttrs: { 'data-testid': 'title-heading' },
+    textSubtitleAttrs: { 'data-testid': 'subtitle-text' },
     buttonCloseAttrs: {
       'data-testid': 'close-button',
       ariaLabel: 'close modal',
     },
-    iconCloseAttrs: {
-      'data-testid': 'close-icon',
-    },
+    iconCloseAttrs: { 'data-testid': 'close-icon' },
   },
   argTypes: {
     initModelValue: {
       description: 'Use this control to set initial state.',
-      table: {
-        category: 'stories controls',
-      },
+      table: { category: 'stories controls' },
       control: 'boolean',
     },
     title: {
       description: 'Use this props to set side panel title.',
       table: {
         category: 'props',
-        type: {
-          summary: 'string',
-        },
+        type: { summary: 'string' },
       },
       control: 'text',
     },
@@ -84,17 +68,13 @@ export default {
       description: 'Use this slot to replace title template.',
       table: {
         category: 'slots',
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
       },
     },
     subtitle: {
       table: {
         category: 'props',
-        type: {
-          summary: 'string',
-        },
+        type: { summary: 'string' },
       },
       control: 'text',
     },
@@ -103,30 +83,18 @@ export default {
       description: 'Use this slot to replace subtitle template.',
       table: {
         category: 'slots',
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
       },
     },
-    modelValue: {
-      control: false,
-    },
-    'after-enter': {
-      description: 'Use this event to detect when side panel enter transition is finishing.',
-    },
+    modelValue: { control: false },
+    'after-enter': { description: 'Use this event to detect when side panel enter transition is finishing.' },
   },
   decorators: [() => ({
     template: `<div class="max-w-32" style="min-height: 320px;">
         <story />
     </div>`,
   })],
-  parameters: {
-    docs: {
-      description: {
-        component: 'SidePanel use `v-body-scroll-lock`. Only works on Canvas mode.',
-      },
-    },
-  },
+  parameters: { docs: { description: { component: 'SidePanel use `v-body-scroll-lock`. Only works on Canvas mode.' } } },
 };
 
 const Template = (args) => ({

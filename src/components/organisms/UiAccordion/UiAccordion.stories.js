@@ -6,16 +6,12 @@ import UiText from '@/components/atoms/UiText/UiText.vue';
 import { ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
 
-const events = actions({
-  onUpdateModelValue: 'update:modelValue',
-});
+const events = actions({ onUpdateModelValue: 'update:modelValue' });
 
 export default {
   title: 'Organisms/Accordion',
   component: UiAccordion,
-  subcomponents: {
-    UiAccordionItem,
-  },
+  subcomponents: { UiAccordionItem },
   args: {
     content: {
       mortphology: 'Serum uric acid concentration',
@@ -41,28 +37,20 @@ export default {
   argTypes: {
     initModelValue: {
       description: 'Use this control to set the initial value.',
-      table: {
-        category: 'stories controls',
-      },
+      table: { category: 'stories controls' },
       control: 'text',
     },
     content: {
       description: 'Use this control to set the content of the accordion items.',
-      table: {
-        category: 'stories controls',
-      },
+      table: { category: 'stories controls' },
     },
-    modelValue: {
-      control: false,
-    },
+    modelValue: { control: false },
     accordionItem: {
       name: '<name>',
       description: 'Use this slot to replace accordion item content. Require `name` in item object.',
       table: {
         category: 'slots',
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
       },
     },
   },
@@ -107,31 +95,17 @@ SingleItem.args = {
       iconOpen: 'chevron-up',
       iconClose: 'chevron-down',
     },
-    buttonToggleAttrs: {
-      'data-testid': 'less-likely-conditions-button',
-    },
-    iconTogglerAttrs: {
-      'data-testid': 'less-likely-conditions-icon',
-    },
-    contentAttrs: {
-      'data-testid': 'less-likely-conditions-content',
-    },
+    buttonToggleAttrs: { 'data-testid': 'less-likely-conditions-button' },
+    iconTogglerAttrs: { 'data-testid': 'less-likely-conditions-icon' },
+    contentAttrs: { 'data-testid': 'less-likely-conditions-content' },
     'data-testid': 'less-likely-conditions',
   }],
-  content: {
-    less: 'Serum uric acid concentration',
-  },
+  content: { less: 'Serum uric acid concentration' },
 };
 
 export const MultipleItemsOpened = Template.bind({});
-MultipleItemsOpened.args = {
-  initModelValue: [],
-};
-MultipleItemsOpened.argTypes = {
-  initModelValue: {
-    control: 'array',
-  },
-};
+MultipleItemsOpened.args = { initModelValue: [] };
+MultipleItemsOpened.argTypes = { initModelValue: { control: 'array' } };
 
 export const WithDefaultSlot = (args) => ({
   components: {

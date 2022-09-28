@@ -191,9 +191,7 @@ defineProps({
     default: () => ({
       info: true,
       why: true,
-      issue: {
-        feedback: true,
-      },
+      issue: { feedback: true },
     }),
   },
   /**

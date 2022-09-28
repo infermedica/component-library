@@ -7,20 +7,12 @@ describe('UiCheckbox.vue', () => {
     expect(wrapper.classes('ui-checkbox')).toBe(true);
   });
   test('render a content via default slot', () => {
-    const wrapper = mount(UiCheckbox, {
-      slots: {
-        default: '<div class="symptom-checker"></div>',
-      },
-    });
+    const wrapper = mount(UiCheckbox, { slots: { default: '<div class="symptom-checker"></div>' } });
     const slot = wrapper.find('.symptom-checker');
     expect(slot.exists()).toBe(true);
   });
   test('render a content via checkbox slot', () => {
-    const wrapper = mount(UiCheckbox, {
-      slots: {
-        checkbox: '<div class="symptom-checker"></div>',
-      },
-    });
+    const wrapper = mount(UiCheckbox, { slots: { checkbox: '<div class="symptom-checker"></div>' } });
     const slot = wrapper.find('.symptom-checker');
     expect(slot.exists()).toBe(true);
   });
@@ -30,18 +22,12 @@ describe('UiCheckbox.vue', () => {
     expect(input.attributes('id')).toContain('checkbox-');
   });
   test('a checkbox click emits change event', async () => {
-    const wrapper = mount(UiCheckbox, {
-      props: {
-        modelValue: false,
-      },
-    });
+    const wrapper = mount(UiCheckbox, { props: { modelValue: false } });
     await wrapper.find('input[type="checkbox"]').setChecked();
     expect(wrapper.emitted('update:modelValue')[0][0]).toBe(true);
   });
   test('a component pass Object as value', async () => {
-    const value = {
-      value: 'symptom checker',
-    };
+    const value = { value: 'symptom checker' };
     const wrapper = mount(UiCheckbox, {
       props: {
         modelValue: [value],
@@ -52,9 +38,7 @@ describe('UiCheckbox.vue', () => {
     expect(input.element.checked).toBe(true);
   });
   test('a component emits array for multiple checkboxes with object', async () => {
-    const value = {
-      value: 'symptom checker',
-    };
+    const value = { value: 'symptom checker' };
     const wrapper = mount(UiCheckbox, {
       props: {
         modelValue: ['symptom checker'],

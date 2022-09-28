@@ -121,9 +121,7 @@ const props = defineProps({
   },
   iconDecrementAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-      icon: 'minus',
-    }),
+    default: () => ({ icon: 'minus' }),
   },
   /**
    * Use this props to pass attrs for increment UiButton
@@ -137,9 +135,7 @@ const props = defineProps({
   },
   iconIncrementAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-      icon: 'plus',
-    }),
+    default: () => ({ icon: 'plus' }),
   },
 });
 const defaultProps = computed(() => ({

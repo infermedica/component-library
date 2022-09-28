@@ -108,9 +108,7 @@ const props = defineProps({
    */
   iconCloseAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-      icon: 'clear',
-    }),
+    default: () => ({ icon: 'clear' }),
   },
 });
 const defaultProps = computed(() => ({
@@ -128,9 +126,7 @@ const emit = defineEmits<{(e: 'close'): void}>();
 function clickHandler(): void {
   emit('close');
 }
-function keydownHandler({
-  key,
-}: {key: string}): void {
+function keydownHandler({ key }: {key: string}): void {
   if (key !== 'Escape') return;
   emit('close');
 }

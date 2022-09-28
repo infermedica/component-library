@@ -38,9 +38,7 @@ export default {
       description: 'Use this slot to replace navigation item content. Require `name` in item object.',
       table: {
         category: 'slots',
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
       },
     },
     modifiers: modifiers({
@@ -54,13 +52,9 @@ export default {
 };
 
 const Template = (args) => ({
-  components: {
-    UiNavigation,
-  },
+  components: { UiNavigation },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiNavigation
     :items="items"
@@ -72,38 +66,22 @@ const Template = (args) => ({
 export const Common = Template.bind({});
 
 export const Multiline = Template.bind({});
-Multiline.decorators = [() => ({
-  template: '<div style="max-width: 480px;"><story /></div>',
-})];
+Multiline.decorators = [() => ({ template: '<div style="max-width: 480px;"><story /></div>' })];
 
 export const Secondary = Template.bind({});
-Secondary.args = {
-  modifiers: ['ui-navigation--theme-secondary'],
-};
+Secondary.args = { modifiers: ['ui-navigation--theme-secondary'] };
 
 export const OnBrand = Template.bind({});
-OnBrand.args = {
-  modifiers: ['ui-navigation--theme-brand'],
-};
-OnBrand.parameters = {
-  backgrounds: {
-    default: 'brand',
-  },
-};
+OnBrand.args = { modifiers: ['ui-navigation--theme-brand'] };
+OnBrand.parameters = { backgrounds: { default: 'brand' } };
 
 export const Small = Template.bind({});
-Small.args = {
-  modifiers: 'ui-navigation--small',
-};
+Small.args = { modifiers: 'ui-navigation--small' };
 
 export const Vertical = (args) => ({
-  components: {
-    UiNavigation,
-  },
+  components: { UiNavigation },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiNavigation
     :items="items"
@@ -113,13 +91,9 @@ export const Vertical = (args) => ({
 });
 
 export const WithNavigationItemSlot = (args) => ({
-  components: {
-    UiNavigation,
-  },
+  components: { UiNavigation },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiNavigation
     :items="items"
@@ -161,9 +135,7 @@ export const WithDefaultSlot = (args) => ({
     UiNavigationItem,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiNavigation
     :class="modifiers"
@@ -188,9 +160,7 @@ export const WithIconInNavigationItemSlot = (args) => ({
     UiIcon,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiNavigation
     :items="items"

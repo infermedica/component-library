@@ -8,46 +8,32 @@ import { ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
 import { content } from '@sb/helpers/argTypes';
 
-const events = actions({
-  onUpdateModelValue: 'update:modelValue',
-});
+const events = actions({ onUpdateModelValue: 'update:modelValue' });
 
 export default {
   title: 'Molecules/Switch',
   component: UiSwitch,
-  subcomponents: {
-    UiCheckbox,
-  },
+  subcomponents: { UiCheckbox },
   args: {
     initModelValue: false,
     content: 'I agree to the processing of my health information for the purpose of performing the interview.',
-    controlAttrs: {
-      'data-testid': 'switch-control',
-    },
-    textLabelAttrs: {
-      'data-testid': 'text-label',
-    },
+    controlAttrs: { 'data-testid': 'switch-control' },
+    textLabelAttrs: { 'data-testid': 'text-label' },
   },
   argTypes: {
     content,
     initModelValue: {
       description: 'Use this control to set initial state.',
-      table: {
-        category: 'stories controls',
-      },
+      table: { category: 'stories controls' },
       control: 'boolean',
     },
-    modelValue: {
-      control: false,
-    },
+    modelValue: { control: false },
     textLabelAttrs: {
       description: 'Use this props to pass attrs for label UiText',
       table: {
         category: 'props',
         subcategory: 'UiCheckbox',
-        type: {
-          summary: 'object',
-        },
+        type: { summary: 'object' },
       },
       control: 'object',
     },
@@ -55,9 +41,7 @@ export default {
 };
 
 export const WithoutLabel = (args) => ({
-  components: {
-    UiSwitch,
-  },
+  components: { UiSwitch },
   setup() {
     const modelValue = ref(args.initModelValue);
     return {
@@ -75,9 +59,7 @@ export const WithoutLabel = (args) => ({
 });
 
 export const IsDisabled = (args) => ({
-  components: {
-    UiSwitch,
-  },
+  components: { UiSwitch },
   setup() {
     const modelValue = ref(args.initModelValue);
     return {
@@ -186,47 +168,35 @@ AsGroup.args = {
   initModelValue: [{
     label: 'Necessary',
     id: 'necessary',
-    controlAttrs: {
-      'data-testid': 'necessary',
-    },
+    controlAttrs: { 'data-testid': 'necessary' },
   }],
   values: [
     {
       label: 'Necessary',
       id: 'necessary',
-      controlAttrs: {
-        'data-testid': 'necessary',
-      },
+      controlAttrs: { 'data-testid': 'necessary' },
     },
     {
       label: 'Functional',
       id: 'functional',
-      controlAttrs: {
-        'data-testid': 'functional',
-      },
+      controlAttrs: { 'data-testid': 'functional' },
     },
     {
       label: 'Analytics',
       id: 'analytics',
-      controlAttrs: {
-        'data-testid': 'analytics',
-      },
+      controlAttrs: { 'data-testid': 'analytics' },
     },
   ],
 };
 AsGroup.argTypes = {
   initial: {
     description: 'Use this control to set initial state.',
-    table: {
-      category: 'stories controls',
-    },
+    table: { category: 'stories controls' },
     control: 'array',
   },
   values: {
     description: 'Use this control to set the values of checkbox group.',
-    table: {
-      category: 'stories controls',
-    },
+    table: { category: 'stories controls' },
     control: 'array',
   },
 };
@@ -265,16 +235,12 @@ AsGroupWithPrimitiveTypes.args = {
 AsGroupWithPrimitiveTypes.argTypes = {
   initial: {
     description: 'Use this control to set initial state.',
-    table: {
-      category: 'stories controls',
-    },
+    table: { category: 'stories controls' },
     control: 'array',
   },
   values: {
     description: 'Use this control to set the values of checkbox group.',
-    table: {
-      category: 'stories controls',
-    },
+    table: { category: 'stories controls' },
     control: 'array',
   },
 };

@@ -140,9 +140,7 @@ const props = defineProps({
    */
   translation: {
     type: Object,
-    default: () => ({
-      info: 'What does it mean?',
-    }),
+    default: () => ({ info: 'What does it mean?' }),
   },
   /**
    *  Use this props to override default options.
@@ -163,18 +161,14 @@ const props = defineProps({
    */
   iconInfoAttrs: {
     type: Object,
-    default: () => ({
-      icon: 'info',
-    }),
+    default: () => ({ icon: 'info' }),
   },
   /**
    * Use this props to pass attrs for label UiText.
    */
   textLabelAttrs: {
     type: Object,
-    default: () => ({
-      tag: 'span',
-    }),
+    default: () => ({ tag: 'span' }),
   },
 });
 const defaultProps = computed(() => ({
