@@ -40,47 +40,40 @@
       v-bind="$attrs"
     >
       <template
-        v-for="choice in choices"
-        :key="choice.id"
+        v-for="(item, index) in itemsToRender"
+        :key="index"
       >
         <!-- @slot Use this slot to replace list-item template.-->
         <slot
           name="list-item"
           v-bind="{
-            choice,
-            modelValue,
-            updateHandler,
+            value,
+            item,
             name,
+            hasError,
           }"
         >
-          <UiListItem
-            class="ui-multiple-answer__list-item"
-          >
-            <!-- @slot Use this slot to replace choice-item template.-->
+          <UiListItem class="ui-multiple-answer__list-item">
+            <!-- @slot Use this slot to replace choice template.-->
             <slot
-              name="choice-item"
+              name="choice"
               v-bind="{
-                choice,
-                modelValue,
-                updateHandler,
+                value,
+                item,
                 name,
+                hasError,
               }"
             >
               <UiMultipleAnswerItem
-                :id="choice.id"
-                :model-value="modelValue"
-                :choice="choice"
-                :value="choice"
+                v-model="value"
+                v-bind="item"
                 :name="name"
                 :invalid="hasError"
-                :button-info-attrs="choice.buttonInfoAttrs"
-                :text-label-attrs="choice.textLabelAttrs"
-                :icon-info-attrs="choice.iconInfoAttrs"
-                @update:model-value="updateHandler(choice)"
+                class="ui-multiple-answer__choice"
               >
                 <template #label="slotData">
                   <slot
-                    :name="`label-${choice.id}`"
+                    :name="`label-${slotData.id}`"
                     v-bind="slotData"
                   />
                 </template>
@@ -102,45 +95,28 @@ export default {
 <script setup lang="ts">
 import {
   computed,
+  useAttrs,
   watch,
 } from 'vue';
 import type { PropType } from 'vue';
 import UiMultipleAnswerItem from './_internal/UiMultipleAnswerItem.vue';
 import UiList from '../UiList/UiList.vue';
 import UiListItem from '../UiList/_internal/UiListItem.vue';
-import type { RadioValue } from '../../atoms/UiRadio/UiRadio.vue';
-import UiText from '../../atoms/UiText/UiText.vue';
-import type {
-  CheckboxValue,
-  CheckboxValueAsObj,
-} from '../../atoms/UiCheckbox/UiCheckbox.vue';
-
-import type { PropsAttrs } from '../../../types/attrs';
 import UiAlert from '../../molecules/UiAlert/UiAlert.vue';
-import type { HTMLTag } from '../../../types/tag';
 
-export interface MultipleAnswerChoice extends CheckboxValueAsObj {
-  name: string;
-  'common_name'?: string;
-  source?: string;
-  choices?: { id: string; label: string; }
-  buttonInfoAttrs?: Record<string, unknown>;
-}
-export type MultipleAnswerValue = RadioValue | CheckboxValue[];
-export type ComponentName = 'ui-checkbox' | 'ui-radio';
 const props = defineProps({
   /**
    *  Use this props or v-model to set checked.
    */
   modelValue: {
-    type: [String, Object, Array] as PropType<MultipleAnswerValue>,
+    type: [String, Object, Array],
     default: () => ([]),
   },
   /**
    *  Use this props to set possible choices.
    */
-  choices: {
-    type: Array as PropType<MultipleAnswerChoice[]>,
+  items: {
+    type: Array,
     default: () => ([]),
   },
   /**
@@ -175,14 +151,14 @@ const props = defineProps({
    * Use this props to pass attrs for hint UiAlert
    */
   hintAlertAttrs: {
-    type: Object as PropsAttrs,
+    type: Object,
     default: () => ({}),
   },
   /**
    * Use this props to set multiple answer tag.
    */
   tag: {
-    type: String as PropType<HTMLTag>,
+    type: String,
     default: 'fieldset',
   },
   /**
@@ -193,33 +169,47 @@ const props = defineProps({
     default: '',
   },
 });
-const emit = defineEmits<{(e:'update:modelValue', value: MultipleAnswerChoice | CheckboxValueAsObj[]): void,
+const emit = defineEmits<{(e:'update:modelValue', value: any[]): void,
   (e: 'update:invalid', value: boolean): void
 }>();
 const isCheckbox = computed(() => (Array.isArray(props.modelValue)));
 const valid = computed(() => (isCheckbox.value
   ? (props.modelValue as string).length > 0
-  : !!(props.modelValue as CheckboxValueAsObj).id));
+  : Object.keys(props.modelValue).length > 0));
 const hasError = computed(() => (props.touched && !valid.value));
 const hintType = computed<'error'|'default'>(() => (props.touched && props.invalid ? 'error' : 'default'));
-
 watch(valid, (value) => {
   emit('update:invalid', !value);
 }, {
   immediate: true,
 });
-function updateHandler(value: MultipleAnswerChoice): void {
-  if (!isCheckbox.value) {
+const value = computed({
+  get: () => (props.modelValue),
+  set: (value) => {
     emit('update:modelValue', value);
-    return;
+  },
+});
+const itemsToRender = computed(() => (props.items.map((item) => {
+  if (typeof item === 'string' || typeof item === 'number') {
+    return {
+      label: item,
+      value: item,
+    };
   }
-  const modelValue = props.modelValue as CheckboxValueAsObj[];
-  if (modelValue.some((evidence) => evidence.id === value.id)) {
-    emit('update:modelValue', modelValue.filter((evidence) => evidence.id !== value.id));
-  } else {
-    emit('update:modelValue', [...modelValue, value]);
+  return {
+    value: item.value || JSON.parse(JSON.stringify(item)),
+    ...item,
+  };
+})));
+// TODO: remove in 0.6.0 / BEGIN
+const attrs = useAttrs();
+const choices = computed(() => (attrs.choices));
+if (choices.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiMultipleAnswer]: choices will be removed in 0.6.0. Please use items instead.');
   }
 }
+// END
 </script>
 
 <style lang="scss">

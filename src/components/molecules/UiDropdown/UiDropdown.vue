@@ -342,7 +342,7 @@ const itemsToRender = computed<DropdownItemAsObj[]>(() => (props.items.map((item
   }
   return {
     name: item.name || `dropdown-item-${key}`,
-    value: item.value || item,
+    value: item.value || JSON.parse(JSON.stringify(item)),
     ...item,
   };
 })));

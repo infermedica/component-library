@@ -1,29 +1,32 @@
 <template>
   <component
     :is="component"
-    class="ui-multiple-answer-item"
-    :class="errorClass"
+    :id="id"
+    :class="['ui-multiple-answer-item', errorClass]"
     :model-value="modelValue"
-    :value="choice"
-    @update:model-value="emit('update:model-value')"
+    @update:model-value="emit('update:model-value', $event)"
     @keydown="focusExplication"
   >
     <template #label>
       <slot
         name="label"
         v-bind="{
-          choice,
-          componentName
+          id,
+          componentName,
+          textLabelAttrs: defaultProps.textLabelAttrs,
+          label: label || name,
+          buttonInfoAttrs,
+          unfocusExplication,
+          iconInfoAttrs: defaultProps.iconInfoAttrs,
         }"
       >
         <div
-          class="ui-multiple-answer-item__label"
-          :class="`${componentName}__label`"
+          :class="['ui-multiple-answer-item__label',`${componentName}__label`]"
         >
           <UiText
             v-bind="defaultProps.textLabelAttrs"
           >
-            {{ choice.name }}
+            {{ label || name }}
           </UiText>
           <UiButton
             v-if="buttonInfoAttrs"
@@ -44,16 +47,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-
-import type { ComponentName } from '../UiMultipleAnswer.vue';
+import {
+  computed,
+  useAttrs,
+} from 'vue';
 import UiRadio from '../../../atoms/UiRadio/UiRadio.vue';
-import type { RadioValue } from '../../../atoms/UiRadio/UiRadio.vue';
 import UiCheckbox from '../../../atoms/UiCheckbox/UiCheckbox.vue';
-import type {
-  CheckboxValue,
-  CheckboxValueAsObj,
-} from '../../../atoms/UiCheckbox/UiCheckbox.vue';
 import UiText from '../../../atoms/UiText/UiText.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
@@ -88,6 +87,14 @@ const props = defineProps({
       icon: 'info',
     }),
   },
+  id: {
+    type: String,
+    default: '',
+  },
+  label: {
+    type: String,
+    default: '',
+  },
 });
 const defaultProps = computed(() => ({
   textLabelAttrs: {
@@ -102,8 +109,8 @@ const defaultProps = computed(() => ({
 const emit = defineEmits(['update:modelValue']);
 const isCheckbox = computed(() => (Array.isArray(props.modelValue)));
 const component = computed(() => (isCheckbox.value ? UiCheckbox : UiRadio));
-const componentName = computed<ComponentName>(() => (isCheckbox.value ? 'ui-checkbox' : 'ui-radio'));
-const errorClass = computed<`${ComponentName}--has-error` | ''>(() => ([props.invalid ? `${componentName.value}--has-error` : '', {
+const componentName = computed(() => (isCheckbox.value ? 'ui-checkbox' : 'ui-radio'));
+const errorClass = computed(() => ([props.invalid ? `${componentName.value}--has-error` : '', {
   'ui-multiple-answer-item--has-error': props.invalid,
 }]));
 function focusExplication(event: KeyboardEvent) {
@@ -121,6 +128,15 @@ function unfocusExplication(event: KeyboardEvent) {
   const answerInput: HTMLInputElement | null | undefined = el.closest(`.${componentName.value}`)?.querySelector('input');
   answerInput?.focus();
 }
+// TODO: remove in 0.6.0 / BEGIN
+const attrs = useAttrs();
+const name = computed(() => (attrs.name));
+if (name.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiMultipleAnswerItem]: name will be removed in 0.6.0. Please use label instead.');
+  }
+}
+// END
 </script>
 
 <style lang="scss">

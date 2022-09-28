@@ -39,6 +39,7 @@
           }"
         >
           <UiListItem class="ui-multiple-choices__list-item">
+            <!-- @slot Use this slot to replace choice template.-->
             <slot
               name="choice"
               v-bind="{

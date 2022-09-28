@@ -73,7 +73,7 @@ export default {
       control: 'array',
     },
     initInvalid: {
-      label: 'invalid',
+      name: 'invalid',
       description: 'Use this control to set initial state of invalid props.',
       table: {
         category: 'stories controls',
@@ -91,7 +91,7 @@ export default {
       control: 'text',
     },
     hintSlot: {
-      label: 'hint',
+      name: 'hint',
       description: 'Use this slot to replace hint template.',
       table: {
         category: 'slots',
