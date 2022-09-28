@@ -6,6 +6,7 @@
       v-bind="{
         subtitle,
         title,
+        textSubtitleAttrs,
         headingTitleAttrs
       }"
     >
@@ -14,11 +15,13 @@
         <slot
           name="subtitle"
           v-bind="{
-            subtitle
+            subtitle,
+            textSubtitleAttrs
           }"
         >
           <UiText
             v-if="subtitle"
+            v-bind="textSubtitleAttrs"
             class="ui-message__subtitle"
           >
             {{ subtitle }}
@@ -48,7 +51,8 @@
     <slot
       name="aside"
       v-bind="{
-        illustration
+        illustration,
+        iconIllustrationAttrs: defaultProps.iconIllustrationAttrs,
       }"
     >
       <div
@@ -59,11 +63,11 @@
         <slot
           name="illustration"
           v-bind="{
-            illustration
+            iconIllustrationAttrs: defaultProps.iconIllustrationAttrs
           }"
         >
           <UiIcon
-            :icon="illustration"
+            v-bind="defaultProps.iconIllustrationAttrs"
             class="ui-message__illustration"
           />
         </slot>
@@ -74,13 +78,14 @@
 
 <script setup lang="ts">
 import type { PropType } from 'vue';
+import { computed } from 'vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
 import type { Icon } from '../../../types/icon';
 import type { PropsAttrs } from '../../../types/attrs';
 
-defineProps({
+const props = defineProps({
   /**
    * Use this props to set message title.
    */
@@ -103,13 +108,33 @@ defineProps({
     default: '',
   },
   /**
-   * Use this props to pass attrs for title UiHeading
+   * Use this props to pass attrs for subtitle UiText.
+   */
+  textSubtitleAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for title UiHeading.
    */
   headingTitleAttrs: {
     type: Object as PropsAttrs,
     default: () => ({}),
   },
+  /**
+   * Use this props to pass attrs for illustration UiIcon.
+   */
+  iconIllustrationAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
 });
+const defaultProps = computed(() => ({
+  iconIllustrationAttrs: {
+    icon: props.illustration,
+    ...props.iconIllustrationAttrs,
+  },
+}));
 </script>
 
 <style lang="scss">
