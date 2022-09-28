@@ -65,7 +65,7 @@ import {
 import {
   capitalizeFirst,
   focusElement,
-} from '../../../utilities/helpers/index.ts';
+} from '../../../utilities/helpers/index';
 import UiFormField from '../../molecules/UiFormField/UiFormField.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import UiDatepickerDayInput from './_internal/UiDatepickerDayInput.vue';

@@ -112,7 +112,7 @@ import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import UiNumberStepper from '../UiNumberStepper/UiNumberStepper.vue';
 import type { PropsAttrs } from '../../../types/attrs';
-import { focusElement } from '../../../utilities/helpers/index.ts';
+import { focusElement } from '../../../utilities/helpers/index';
 import type { HTMLTag } from '../../../types/tag';
 
 export interface ScaleTranslation {

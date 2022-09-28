@@ -240,7 +240,7 @@ import {
   bodyScrollLock as vBodyScrollLock,
   focusTrap as vFocusTrap,
 } from '../../../utilities/directives';
-import { focusElement } from '../../../utilities/helpers/index.ts';
+import { focusElement } from '../../../utilities/helpers/index';
 import UiBackdrop from '../../atoms/UiBackdrop/UiBackdrop.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
@@ -248,9 +248,9 @@ import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 
 export interface ModalTranslation {
-  confirm: string;
-  cancel: string;
-  [key: string]: string;
+  confirm?: string;
+  cancel?: string;
+  [key: string]: string | undefined;
 }
 const props = defineProps({
   /**
