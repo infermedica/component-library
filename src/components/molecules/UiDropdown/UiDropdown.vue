@@ -19,7 +19,8 @@
         closeHandler,
         isOpen,
         text,
-        attrs: buttonAttrs || buttonToggleAttrs
+        buttonAttrs,
+        buttonToggleAttrs,
       }"
     >
       <UiButton
@@ -38,7 +39,7 @@
       v-bind="{
         closeHandler,
         isOpen,
-        attrs: popoverAttrs
+        popoverAttrs
       }"
     >
       <UiPopover

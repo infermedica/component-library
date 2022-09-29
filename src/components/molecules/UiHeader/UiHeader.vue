@@ -5,7 +5,7 @@
       <slot
         name="brand"
         v-bind="{
-          attrs: buttonBrandAttrs,
+          buttonBrandAttrs,
           iconLogoAttrs: defaultProps.iconLogoAttrs
         }"
       >
@@ -17,7 +17,7 @@
           <slot
             name="logo"
             v-bind="{
-              attrs: defaultProps.iconLogoAttrs
+              iconLogoAttrs: defaultProps.iconLogoAttrs
             }"
           >
             <UiIcon
@@ -32,7 +32,7 @@
         <slot
           name="hamburger"
           v-bind="{
-            attrs: buttonHamburgerAttrs,
+            buttonHamburgerAttrs,
             iconHamburgerAttrs: defaultProps.iconHamburgerAttrs,
             handleHamburger
           }"
@@ -54,7 +54,7 @@
         <slot
           name="navigation"
           v-bind="{
-            attrs: navigationAttrs,
+            navigationAttrs,
             navigation
           }"
         >
@@ -206,6 +206,7 @@ onUnmounted(() => {
     align-items: center;
     justify-content: space-between;
     padding: functions.var($element, padding, 0 var(--space-20));
+    margin: 0 auto;
   }
 
   &__brand {

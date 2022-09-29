@@ -37,7 +37,7 @@ export const WithFocusOnMounted = () => ({
       focusedRegion.value = region;
     };
     const regions = ref({});
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { region } = attrs;
       const focusFor = attrs['focus-for'];
 
@@ -68,10 +68,10 @@ export const WithFocusOnMounted = () => ({
     onMounted(() => {
       regions.value.europe.focus();
     });
-    return { setElementsAttrs };
+    return { elementsAttrs };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="map"
     viewBox="0 0 654 312"
     role="group"
@@ -285,7 +285,7 @@ export const Map = () => ({
     const handleRegionFocus = ({ region }) => {
       focusedRegion.value = region;
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { region } = attrs;
       const focusFor = attrs['focus-for'];
 
@@ -310,10 +310,10 @@ export const Map = () => ({
 
       return {};
     };
-    return { setElementsAttrs };
+    return { elementsAttrs };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="map"
     viewBox="0 0 654 312"
     role="group"
@@ -527,7 +527,7 @@ export const AbdominalPainMale = () => ({
     const handlePartFocus = ({ part }) => {
       focusedPart.value = part;
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { part } = attrs;
       const focusFor = attrs['focus-for'];
 
@@ -552,10 +552,10 @@ export const AbdominalPainMale = () => ({
 
       return {};
     };
-    return { setElementsAttrs };
+    return { elementsAttrs };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="abdominal-pain"
     viewBox="0 0 340 220"
     role="group"
@@ -645,7 +645,7 @@ export const AbdominalPainFemale = () => ({
     const handlePartFocus = ({ part }) => {
       focusedPart.value = part;
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { part } = attrs;
       const focusFor = attrs['focus-for'];
 
@@ -670,10 +670,10 @@ export const AbdominalPainFemale = () => ({
 
       return {};
     };
-    return { setElementsAttrs };
+    return { elementsAttrs };
   },
   template: `<UiInteractiveSvg
-      :set-elements-attrs="setElementsAttrs"
+      :elements-attrs="elementsAttrs"
       class="abdominal-pain"
       viewBox="0 0 340 220"
       role="group"
@@ -757,7 +757,7 @@ export const InfantUnisexFront = (args) => ({
       }
       highlightedPart.value = '';
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { part } = attrs;
 
       if (part) {
@@ -777,11 +777,11 @@ export const InfantUnisexFront = (args) => ({
     };
     return {
       ...args,
-      setElementsAttrs,
+      elementsAttrs,
     };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="body-model"
     viewBox="0 0 168 320"
     fill-rule="evenodd"
@@ -881,7 +881,7 @@ export const InfantUnisexBack = () => ({
       }
       highlightedPart.value = '';
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { part } = attrs;
 
       if (part) {
@@ -899,10 +899,10 @@ export const InfantUnisexBack = () => ({
 
       return {};
     };
-    return { setElementsAttrs };
+    return { elementsAttrs };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="body-model"
     viewBox="0 0 168 320"
     fill-rule="evenodd"
@@ -976,7 +976,7 @@ export const ToddlerMaleFront = (args) => ({
       }
       highlightedPart.value = '';
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { part } = attrs;
 
       if (part) {
@@ -996,11 +996,11 @@ export const ToddlerMaleFront = (args) => ({
     };
     return {
       ...args,
-      setElementsAttrs,
+      elementsAttrs,
     };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="body-model"
     viewBox="0 0 168 320"
     fill-rule="evenodd"
@@ -1128,7 +1128,7 @@ export const ToddlerMaleBack = () => ({
       }
       highlightedPart.value = '';
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { part } = attrs;
 
       if (part) {
@@ -1146,10 +1146,10 @@ export const ToddlerMaleBack = () => ({
 
       return {};
     };
-    return { setElementsAttrs };
+    return { elementsAttrs };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="body-model"
     viewBox="0 0 168 320"
     fill-rule="evenodd"
@@ -1243,7 +1243,7 @@ export const ToddlerFemaleFront = (args) => ({
       }
       highlightedPart.value = '';
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { part } = attrs;
 
       if (part) {
@@ -1263,11 +1263,11 @@ export const ToddlerFemaleFront = (args) => ({
     };
     return {
       ...args,
-      setElementsAttrs,
+      elementsAttrs,
     };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="body-model"
     viewBox="0 0 168 320"
     fill-rule="evenodd"
@@ -1278,7 +1278,7 @@ export const ToddlerFemaleFront = (args) => ({
     style="width:10.5rem"
   >
     <UiInteractiveSvgElement
-      v-if="hasMoreDetailed"
+      v-if="hasMoreDetails"
       tag="g"
     >
       <UiInteractiveSvgElement
@@ -1395,7 +1395,7 @@ export const ToddlerFemaleBack = () => ({
       }
       highlightedPart.value = '';
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { part } = attrs;
 
       if (part) {
@@ -1413,10 +1413,10 @@ export const ToddlerFemaleBack = () => ({
 
       return {};
     };
-    return { setElementsAttrs };
+    return { elementsAttrs };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="body-model"
     viewBox="0 0 168 320"
     fill-rule="evenodd"
@@ -1510,7 +1510,7 @@ export const ChildMaleFront = (args) => ({
       }
       highlightedPart.value = '';
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { part } = attrs;
 
       if (part) {
@@ -1530,11 +1530,11 @@ export const ChildMaleFront = (args) => ({
     };
     return {
       ...args,
-      setElementsAttrs,
+      elementsAttrs,
     };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="body-model"
     viewBox="0 0 168 320"
     fill-rule="evenodd"
@@ -1662,7 +1662,7 @@ export const ChildMaleBack = () => ({
       }
       highlightedPart.value = '';
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { part } = attrs;
 
       if (part) {
@@ -1680,10 +1680,10 @@ export const ChildMaleBack = () => ({
 
       return {};
     };
-    return { setElementsAttrs };
+    return { elementsAttrs };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="body-model"
     viewBox="0 0 168 320"
     fill-rule="evenodd"
@@ -1773,7 +1773,7 @@ export const ChildFemaleFront = (args) => ({
       }
       highlightedPart.value = '';
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { part } = attrs;
 
       if (part) {
@@ -1793,11 +1793,11 @@ export const ChildFemaleFront = (args) => ({
     };
     return {
       ...args,
-      setElementsAttrs,
+      elementsAttrs,
     };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="body-model"
     viewBox="0 0 168 320"
     fill-rule="evenodd"
@@ -1925,7 +1925,7 @@ export const ChildFemaleBack = () => ({
       }
       highlightedPart.value = '';
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { part } = attrs;
 
       if (part) {
@@ -1943,10 +1943,10 @@ export const ChildFemaleBack = () => ({
 
       return {};
     };
-    return { setElementsAttrs };
+    return { elementsAttrs };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="body-model"
     viewBox="0 0 168 320"
     fill-rule="evenodd"
@@ -2036,7 +2036,7 @@ export const AdultMaleFront = (args) => ({
       }
       highlightedPart.value = '';
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { part } = attrs;
 
       if (part) {
@@ -2056,11 +2056,11 @@ export const AdultMaleFront = (args) => ({
     };
     return {
       ...args,
-      setElementsAttrs,
+      elementsAttrs,
     };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="body-model"
     viewBox="0 0 168 320"
     fill-rule="evenodd"
@@ -2188,7 +2188,7 @@ export const AdultMaleBack = () => ({
       }
       highlightedPart.value = '';
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { part } = attrs;
 
       if (part) {
@@ -2206,10 +2206,10 @@ export const AdultMaleBack = () => ({
 
       return {};
     };
-    return { setElementsAttrs };
+    return { elementsAttrs };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="body-model"
     viewBox="0 0 168 320"
     fill-rule="evenodd"
@@ -2303,7 +2303,7 @@ export const AdultFemaleFront = (args) => ({
       }
       highlightedPart.value = '';
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { part } = attrs;
 
       if (part) {
@@ -2323,11 +2323,11 @@ export const AdultFemaleFront = (args) => ({
     };
     return {
       ...args,
-      setElementsAttrs,
+      elementsAttrs,
     };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="body-model"
     viewBox="0 0 168 320"
     fill-rule="evenodd"
@@ -2459,7 +2459,7 @@ export const AdultFemaleBack = () => ({
       }
       highlightedPart.value = '';
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { part } = attrs;
 
       if (part) {
@@ -2477,10 +2477,10 @@ export const AdultFemaleBack = () => ({
 
       return {};
     };
-    return { setElementsAttrs };
+    return { elementsAttrs };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="body-model"
     viewBox="0 0 168 320"
     fill-rule="evenodd"

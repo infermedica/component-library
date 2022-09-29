@@ -1,10 +1,9 @@
 <template>
   <UiButton
     :id="tileId"
-    class="ui-button--outlined ui-tile"
-    :class="{
+    :class="['ui-button--outlined ui-tile',{
       'ui-tile--is-checked': isChecked
-    }"
+    }]"
     role="radio"
     :aria-checked="`${isChecked}`"
     @click="selectHandler"
@@ -25,7 +24,7 @@
     <slot
       name="label"
       v-bind="{
-        attrs: defaultProps.textLabelAttrs
+        textLabelAttrs: defaultProps.textLabelAttrs
       }"
     >
       <UiText

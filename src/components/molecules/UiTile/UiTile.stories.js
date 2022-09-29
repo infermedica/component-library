@@ -55,6 +55,8 @@ export default {
       },
       control: 'object',
     },
+    iconAttrs: { table: { subcategory: 'Attrs props' } },
+    textLabelAttrs: { table: { subcategory: 'Attrs props' } },
   },
 };
 
@@ -115,13 +117,13 @@ export const WithIconSlot = (args) => ({
     style="width: 100%; max-width: 320px;"
     @update:modelValue="onUpdateModelValue"
   >
-    <template #icon="{ attrs }">
+    <template #icon="{ iconAttrs }">
       <UiIcon
-        v-bind="attrs"
+        v-bind="iconAttrs"
         class="ui-button__icon ui-tile__icon"
       />
     </template>
-    {{content}}
+    {{ content }}
   </UiTile>`,
 });
 
@@ -148,9 +150,9 @@ export const WithLabelSlot = (args) => ({
     style="width: 100%; max-width: 320px;"
     @update:modelValue="onUpdateModelValue"
   >
-    <template #label="{ attrs }">
+    <template #label="{ textLabelAttrs }">
       <UiText
-        v-bind="attrs"
+        v-bind="textLabelAttrs"
         class="ui-tile__label"
       >
         {{ content }}
@@ -174,56 +176,50 @@ export const AsGroup = (args) => ({
     style="width: 100%; max-width: 1008px;"
   >
     <template 
-      v-for="(option, key) in values" 
-      :key="key"
+      v-for="(item, index) in items" 
+      :key="index"
     >
       <UiTile
         v-model="modelValue"
-        :id="option.id"
-        :value="option.value"
-        :icon="option.icon"
-        :icon-attrs="option.iconAttrs"
-        :text-label-attrs="option.textLabelAttrs"
-        :class="[...option.class || [], ...modifiers || [] ]"
+        name="answer"
+        :value="item.value"
+        :icon="item.icon"
+        :icon-attrs="item.iconAttrs"
+        :text-label-attrs="item.textLabelAttrs"
+        :class="[item.class, modifiers]"
         style="flex: 1;"
         @update:modelValue="onUpdateModelValue"
       >
-        {{option.label}}
+        {{ item.label }}
       </UiTile>
     </template>
   </div>`,
 });
 AsGroup.args = {
   initModelValue: { choice_id: 'present' },
-  values: [
+  items: [
     {
-      name: 'answer',
-      value: { choice_id: 'present' },
-      id: 'present',
+      value: 'present',
+      label: 'Yes',
       icon: 'yes',
       iconAttrs: { 'data-testid': 'present' },
       textLabelAttrs: { 'data-testid': 'present' },
-      label: 'Yes',
       class: ['mb-3', 'tablet:mr-6', 'tablet:mb-0'],
     },
     {
-      name: 'answer',
-      value: { choice_id: 'absent' },
-      id: 'absent',
+      value: 'absent',
+      label: 'No',
       icon: 'no',
       iconAttrs: { 'data-testid': 'no' },
       textLabelAttrs: { 'data-testid': 'no' },
-      label: 'No',
       class: ['mb-3', 'tablet:mr-6', 'tablet:mb-0'],
     },
     {
-      name: 'answer',
-      value: { choice_id: 'unknown' },
-      id: 'unknown',
+      value: 'unknown',
+      label: 'Don\'t know',
       icon: 'dont-know',
       iconAttrs: { 'data-testid': 'unknown' },
       textLabelAttrs: { 'data-testid': 'unknown' },
-      label: 'Don\'t know',
     },
   ],
 };
@@ -233,7 +229,7 @@ AsGroup.argTypes = {
     table: { category: 'stories controls' },
     control: 'object',
   },
-  values: {
+  items: {
     description: 'Use this control to set the values of the tile group.',
     table: { category: 'stories controls' },
     control: 'array',

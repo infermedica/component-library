@@ -17,6 +17,7 @@ export default {
       {
         text: 'Medical Certification',
         href: '#',
+        'data-testid': 'medical-certification',
       },
       {
         text: 'Instruction for Use',
@@ -146,7 +147,9 @@ export const WithDefaultSlot = (args) => ({
     >
       <UiNavigationItem
         class=" ui-navigation__item"
-        v-bind="item.navigationItemAttrs"
+        v-bind="(()=>{const {
+            name, text, ...rest
+          } = item; return rest;})()"
       >
         {{ item.text }}
       </UiNavigationItem>

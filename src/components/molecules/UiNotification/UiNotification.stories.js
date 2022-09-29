@@ -21,9 +21,7 @@ export default {
     hasIcon: true,
     translation: { action: 'Action' },
     buttonActionAttrs: { onClick: () => (events.onClick()) },
-    iconActionAttrs: { 'data-test': 'icon-action' },
-    iconAttrs: { 'data-testid': 'icon' },
-    textMessageAttrs: { 'data-testid': 'message' },
+    iconActionAttrs: { 'data-test': 'action-icon' },
   },
   argTypes: {
     content,
@@ -31,24 +29,8 @@ export default {
       control: 'select',
       options: ['success', 'info', 'warning', 'error'],
     },
-    iconAttrs: {
-      description: 'Use this props to pass attrs for UiIcon',
-      table: {
-        category: 'props',
-        subcategory: 'UiAlert',
-        type: { summary: 'object' },
-      },
-      control: 'object',
-    },
-    textMessageAttrs: {
-      description: 'Use this props to pass attrs for message UiText',
-      table: {
-        category: 'props',
-        subcategory: 'UiAlert',
-        type: { summary: 'object' },
-      },
-      control: 'object',
-    },
+    buttonActionAttrs: { table: { subcategory: 'Attrs props' } },
+    iconActionAttrs: { table: { subcategory: 'Attrs props' } },
   },
   decorators: [() => ({ template: '<div style="max-width: 320px;"><story /></div>' })],
 };
@@ -67,8 +49,8 @@ const Template = (args) => ({
     :translation="translation"
     :button-action-attrs="buttonActionAttrs"
     :icon-action-attrs="iconActionAttrs"
-    :icon-attrs="iconAttrs"
-    :text-message-attrs="textMessageAttrs"
+    :icon-alert-attrs="{ 'data-test': 'alert-icon' }"
+    :text-message-attrs="{ 'data-testid': 'message-text' }"
   >
     {{ content }}
   </UiNotification>`,
@@ -100,19 +82,18 @@ export const WithActionSlot = (args) => ({
     :has-icon="hasIcon"
     :translation="translation"
     :button-action-attrs="buttonActionAttrs"
-    :icon-attrs="iconAttrs"
-    :text-message-attrs="textMessageAttrs"
+    :icon-alert-attrs="{ 'data-test': 'alert-icon' }"
+    :text-message-attrs="{ 'data-testid': 'message-text' }"
   >
-    {{ content }}
     <template #action="{
-      attrs, 
+      buttonActionAttrs,
       translation, 
       hasAction,
       iconActionAttrs,
     }">
       <UiButton
         v-if="hasAction"
-        v-bind="attrs"
+        v-bind="buttonActionAttrs"
         class="ui-button--text ui-button--has-icon ui-notification__action"
       >
         {{ translation.action }} <UiIcon
@@ -121,5 +102,6 @@ export const WithActionSlot = (args) => ({
       />
       </UiButton>
     </template>
+    {{ content }}
   </UiNotification>`,
 });

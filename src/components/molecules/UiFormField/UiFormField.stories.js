@@ -54,6 +54,9 @@ export default {
       },
       control: 'object',
     },
+    textMessageAttrs: { table: { subcategory: 'Attrs props' } },
+    textHintAttrs: { table: { subcategory: 'Attrs props' } },
+    alertAttrs: { table: { subcategory: 'Attrs props' } },
   },
 };
 
@@ -97,7 +100,7 @@ export const WithCheckboxes = (args) => ({
   setup() {
     return { ...args };
   },
-  template: `<UiText 
+  template: `<UiText
     style="margin: 0 0 var(--space-24) 0;"
   >
     What’s wrong with this question?
@@ -126,13 +129,13 @@ export const WithCheckboxes = (args) => ({
       }"
       style="margin: 0 0 var(--space-24) 0;"
     >
-      Other (please comment below) 
+      Other (please comment below)
     </UiCheckbox>
   </UiFormField>`,
 });
 WithCheckboxes.args = {
   errorMessage: 'Please select at least one issue.',
-  label: false,
+  message: false,
   hint: false,
 };
 
@@ -153,11 +156,10 @@ export const WithLabelSlot = (args) => ({
     :text-message-attrs="textMessageAttrs"
     :text-hint-attrs="textHintAttrs"
     :alert-attrs="alertAttrs"
-    style="--form-field-alert-margin: 0;"
   >
     <template #label="{
-      message, 
-      hint, 
+      message,
+      hint,
       id,
       textMessageAttrs,
       textHintAttrs,
@@ -211,15 +213,15 @@ export const WithAlertSlot = (args) => ({
     :id="id"
     :hint="hint"
     :alert-attrs="alertAttrs"
-    :error-message="hasError && errorMessage"
+    :error-message="errorMessage"
   >
     <template #alert="{
-      attrs, 
+      alertAttrs,
       errorMessage
     }">
       <UiAlert
         v-if="errorMessage"
-        v-bind="attrs"
+        v-bind="alertAttrs"
         class="ui-form-field__alert"
       >
         {{ errorMessage }}

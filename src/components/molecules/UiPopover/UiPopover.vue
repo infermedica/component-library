@@ -19,7 +19,7 @@
         <slot
           name="title"
           v-bind="{
-            attrs: headingTitleAttrs,
+            headingTitleAttrs,
             title
           }"
         >
@@ -33,7 +33,8 @@
         <slot
           name="close"
           v-bind="{
-            attrs: buttonAttrs || buttonCloseAttrs,
+            buttonAttrs,
+            buttonCloseAttrs,
             clickHandler,
             iconCloseAttrs: defaultProps.iconCloseAttrs
           }"
@@ -47,7 +48,7 @@
             <slot
               name="icon"
               v-bind="{
-                attrs: defaultProps.iconCloseAttrs
+                iconCloseAttrs: defaultProps.iconCloseAttrs
               }"
             >
               <UiIcon

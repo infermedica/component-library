@@ -18,7 +18,6 @@ export default {
     initModelValue: false,
     content: 'I agree to the processing of my health information for the purpose of performing the interview.',
     controlAttrs: { 'data-testid': 'switch-control' },
-    textLabelAttrs: { 'data-testid': 'text-label' },
   },
   argTypes: {
     content,
@@ -28,15 +27,7 @@ export default {
       control: 'boolean',
     },
     modelValue: { control: false },
-    textLabelAttrs: {
-      description: 'Use this props to pass attrs for label UiText',
-      table: {
-        category: 'props',
-        subcategory: 'UiCheckbox',
-        type: { summary: 'object' },
-      },
-      control: 'object',
-    },
+    controlAttrs: { table: { subcategory: 'Attrs props' } },
   },
 };
 
@@ -53,7 +44,7 @@ export const WithoutLabel = (args) => ({
   template: `<UiSwitch
     v-model="modelValue"
     :control-attrs="controlAttrs"
-    :text-label-attrs="textLabelAttrs"
+    :text-label-attrs="{ 'data-testid': 'label-text' }"
     @update:modelValue="onUpdateModelValue"
   />`,
 });
@@ -71,7 +62,7 @@ export const IsDisabled = (args) => ({
   template: `<UiSwitch
     v-model="modelValue"
     :control-attrs="controlAttrs"
-    :text-label-attrs="textLabelAttrs"
+    :text-label-attrs="{ 'data-testid': 'label-text' }"
     class="ui-switch--is-disabled"
     @update:modelValue="onUpdateModelValue"
   />`,
@@ -93,7 +84,7 @@ export const WithLabel = (args) => ({
   template: `<UiSwitch
     v-model="modelValue"
     :control-attrs="controlAttrs"
-    :text-label-attrs="textLabelAttrs"
+    :text-label-attrs="{ 'data-testid': 'label-text' }"
     @update:modelValue="onUpdateModelValue"
   >
     {{ content }}
@@ -116,18 +107,18 @@ export const WithSwitchControlSlot = (args) => ({
   template: `<UiSwitch
     v-model="modelValue"
     :control-attrs="controlAttrs"
-    :text-label-attrs="textLabelAttrs"
+    :text-label-attrs="{ 'data-testid': 'label-text' }"
     @update:modelValue="onUpdateModelValue"
   >
     <template #switchcontrol="{
-      isChecked,
-      attrs,
+      checked,
+      controlAttrs,
     }">
       <UiSwitchControl
-        v-bind="attrs"
+        v-bind="controlAttrs"
         :class="{
-          'ui-switch-control--is-checked': isChecked,
-          'ui-switch__control--is-checked': isChecked,
+          'ui-switch-control--is-checked': checked,
+          'ui-switch__control--is-checked': checked,
         }"
       />
     </template>
@@ -159,7 +150,7 @@ export const AsGroup = (args) => ({
         :control-attrs="value.controlAttrs"
         @update:modelValue="onUpdateModelValue"
       >
-        {{value.label}}
+        {{ value.label }}
       </UiSwitch>
     </UiListItem>
   </UiList>`,
@@ -223,7 +214,7 @@ export const AsGroupWithPrimitiveTypes = (args) => ({
         v-model="modelValue"
         :value="value"
       >
-        {{value}}
+        {{ value }}
       </UiSwitch>
     </UiListItem>
   </UiList>`,

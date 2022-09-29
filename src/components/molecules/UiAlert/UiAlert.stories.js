@@ -18,7 +18,7 @@ export default {
     modifiers: [],
     type: 'error',
     hasIcon: true,
-    iconAttrs: { 'data-testid': 'icon' },
+    iconAlertAttrs: { 'data-testid': 'icon' },
     textMessageAttrs: { 'data-testid': 'text-message' },
   },
   argTypes: {
@@ -31,6 +31,8 @@ export default {
       control: 'select',
       options: ['default', 'success', 'info', 'warning', 'error'],
     },
+    iconAlertAttrs: { table: { subcategory: 'Attrs props' } },
+    textMessageAttrs: { table: { subcategory: 'Attrs props' } },
   },
 };
 
@@ -42,7 +44,7 @@ const Template = (args) => ({
   template: `<UiAlert 
     :type="type" 
     :has-icon="hasIcon"
-    :icon-attrs="iconAttrs"
+    :icon-alert-attrs="iconAlertAttrs"
     :text-message-attrs="textMessageAttrs"
     :class="modifiers"
   >
@@ -73,16 +75,16 @@ export const WithIconSlot = (args) => ({
   template: `<UiAlert
     :type="type"
     :has-icon="hasIcon"
-    :icon-attrs="iconAttrs"
+    :icon-alert-attrs="iconAlertAttrs"
     :text-message-attrs="textMessageAttrs"
     :class="modifiers"
   >
     <template #icon="{ 
-      attrs
+      iconAlertAttrs
     }">
       <UiIcon 
-        v-if="attrs.icon"
-        v-bind="attrs"
+        v-if="iconAlertAttrs.icon"
+        v-bind="iconAlertAttrs"
         class="ui-alert__icon"
       />
     </template>
@@ -101,15 +103,15 @@ export const WithMessageSlot = (args) => ({
   template: `<UiAlert
       :type="type"
       :has-icon="hasIcon"
-      :icon-attrs="iconAttrs"
+      :icon-alert-attrs="iconAlertAttrs"
       :text-message-attrs="textMessageAttrs"
       :class="modifiers"
   >
     <template #message="{
-      attrs
+      textMessageAttrs
     }">
       <UiText
-        v-bind="attrs"
+        v-bind="textMessageAttrs"
         class="ui-text--body-2-comfortable ui-alert__message"
       >
         How to check it?

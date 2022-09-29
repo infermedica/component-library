@@ -66,7 +66,7 @@ export const WithToggleButtonSlot = (args) => ({
     v-model="modelValue"
     :items="items"
   >
-    <template #first="{item}">
+    <template #first="{ item }">
       {{item.text}}
     </template>
   </UiToggleButtonGroup>`,
@@ -77,6 +77,7 @@ WithToggleButtonSlot.args = {
       name: 'first',
       text: 'First',
       value: 'first',
+      'data-testid': 'first-toggle-button',
     },
     {
       name: 'second',
@@ -199,7 +200,7 @@ export const WithIcon = (args) => ({
       <UiIcon
         :icon="item.icon"
         class="ui-button__icon"
-      />{{item.text}}
+      />{{ item.text }}
     </template>
   </UiToggleButtonGroup>`,
 });
@@ -233,16 +234,16 @@ export const WithDefaultSlot = (args) => ({
     };
   },
   template: `<UiToggleButtonGroup
-        v-model="modelValue"
-        :deselectable="deselectable"
+    v-model="modelValue"
+    :deselectable="deselectable"
+  >
+    <template
+        v-for="(item, key) in items"
+        :key="key"
     >
-      <template
-          v-for="(item, key) in items"
-          :key="key"
-      >
-        <UiToggleButton :value="item">
-          {{item}}
-        </UiToggleButton>
-      </template>
-    </UiToggleButtonGroup>`,
+      <UiToggleButton :value="item">
+        {{ item }}
+      </UiToggleButton>
+    </template>
+  </UiToggleButtonGroup>`,
 });

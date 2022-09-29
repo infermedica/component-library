@@ -6,7 +6,8 @@
     <slot
       name="label"
       v-bind="{
-        message: label || message,
+        label,
+        message,
         hint,
         id: inputId,
         textMessageAttrs: defaultProps.textMessageAttrs,
@@ -22,8 +23,9 @@
         <slot
           name="message"
           v-bind="{
-            message: label || message,
-            attrs: defaultProps.textMessageAttrs
+            label,
+            message,
+            textMessageAttrs: defaultProps.textMessageAttrs
           }"
         >
           <UiText
@@ -38,7 +40,7 @@
           name="hint"
           v-bind="{
             hint,
-            attrs: defaultProps.textHintAttrs
+            textHintAttrs: defaultProps.textHintAttrs
           }"
         >
           <UiText
@@ -61,7 +63,7 @@
     <slot
       name="alert"
       v-bind="{
-        attrs: alertAttrs,
+        alertAttrs,
         errorMessage
       }"
     >
@@ -107,7 +109,7 @@ const props = defineProps({
    * Use this props to set label hint like "Required" or "Optional"
    */
   hint: {
-    type: String,
+    type: [Boolean, String] as PropType<boolean | string>,
     default: '',
   },
   /**

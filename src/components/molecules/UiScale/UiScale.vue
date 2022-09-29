@@ -84,11 +84,11 @@
     >
       <template
         v-for="(_, slotName) in $slots"
-        #[slotName]="slotData"
+        #[slotName]="data"
       >
         <slot
           :name="slotName"
-          v-bind="slotData"
+          v-bind="data"
         />
       </template>
     </UiNumberStepper>

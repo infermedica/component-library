@@ -21,10 +21,9 @@
       }"
     >
       <div
-        class="ui-radio__radio"
-        :class="{
+        :class="['ui-radio__radio',{
           'ui-radio__radio--is-checked': isChecked
-        }"
+        }]"
       >
         <div class="ui-radio__mark" />
       </div>

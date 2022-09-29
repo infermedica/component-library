@@ -22,9 +22,9 @@ export default {
   args: {
     content: 'A custom Triage app that you can use anywhere.',
     modifiers: [],
-    title: 'Symptom Checker',
+    title: 'Triage',
     headingTitleAttrs: { 'data-testid': 'heading-title' },
-    buttonCloseAttrs: { 'aria-label': 'close' },
+    buttonCloseAttrs: { 'aria-label': 'close triage popover' },
     iconCloseAttrs: { 'data-testid': 'close-icon' },
     closeAction: null,
   },
@@ -52,6 +52,9 @@ export default {
       table: { category: 'events' },
       action: 'closed',
     },
+    headingTitleAttrs: { table: { subcategory: 'Attrs props' } },
+    buttonCloseAttrs: { table: { subcategory: 'Attrs props' } },
+    iconCloseAttrs: { table: { subcategory: 'Attrs props' } },
   },
 };
 
@@ -71,11 +74,10 @@ const Template = (args) => ({
     :heading-title-attrs="headingTitleAttrs"
     :button-close-attrs="buttonCloseAttrs"
     :icon-close-attrs="iconCloseAttrs"
-    class="max-w-80"
-    :class="modifiers"
+    :class="['max-w-80', modifiers]"
     @close="onClose"
   >
-    <UiText>{{content}}</UiText>
+    <UiText>{{ content }}</UiText>
   </UiPopover>`,
 });
 
@@ -137,21 +139,20 @@ export const WithTitleSlot = (args) => ({
     :heading-title-attrs="headingTitleAttrs"
     :button-close-attrs="buttonCloseAttrs"
     :icon-close-attrs="iconCloseAttrs"
-    class="tablet:max-w-80"
-    :class="modifiers"
+    :class="['tablet:max-w-80', modifiers]"
     @close="onClose"
   >
     <template #title="{
-      attrs,
+      headingTitleAttrs,
       title
     }">
       <UiHeading
-        v-bind="attrs"
+        v-bind="headingTitleAttrs"
       >
         {{ title }}
       </UiHeading>
     </template>
-    <UiText>{{content}}</UiText>
+    <UiText>{{ content }}</UiText>
   </UiPopover>`,
 });
 
@@ -173,17 +174,16 @@ export const WithCloseSlot = (args) => ({
       :heading-title-attrs="headingTitleAttrs"
       :button-close-attrs="buttonCloseAttrs"
       :icon-close-attrs="iconCloseAttrs"
-      class="tablet:max-w-80"
-      :class="modifiers"
+      :class="['tablet:max-w-80', modifiers]"
       @close="onClose"
   >
     <template #close="{
-      attrs, 
+      buttonCloseAttrs,
       clickHandler,
       iconCloseAttrs,
     }">
       <UiButton
-        v-bind="attrs"
+        v-bind="buttonCloseAttrs"
         class="ui-button--icon ui-button--theme-secondary ui-popover__close"
         @click="clickHandler"
       >
@@ -193,6 +193,6 @@ export const WithCloseSlot = (args) => ({
         />
       </UiButton>
     </template>
-    <UiText>{{content}}</UiText>
+    <UiText>{{ content }}</UiText>
   </UiPopover>`,
 });

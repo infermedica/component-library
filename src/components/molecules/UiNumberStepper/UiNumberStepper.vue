@@ -16,10 +16,10 @@
     <slot
       name="decrement"
       v-bind="{
-        decrement,
         hasControls,
+        buttonDecrementAttrs: defaultProps.buttonDecrementAttrs,
         isMin,
-        attrs: defaultProps.buttonDecrementAttrs,
+        decrement,
         iconDecrementAttrs: defaultProps.iconDecrementAttrs,
       }"
     >
@@ -42,10 +42,10 @@
     <slot
       name="increment"
       v-bind="{
-        increment,
         hasControls,
+        buttonIncrementAttrs: defaultProps.buttonIncrementAttrs,
         isMax,
-        attrs: defaultProps.buttonIncrementAttrs,
+        increment,
         iconIncrementAttrs: defaultProps.iconIncrementAttrs,
       }"
     >
@@ -119,6 +119,9 @@ const props = defineProps({
       tabindex: -1,
     }),
   },
+  /**
+   * Use this props to pass attrs for decrement UiIcon
+   */
   iconDecrementAttrs: {
     type: Object as PropsAttrs,
     default: () => ({ icon: 'minus' }),
@@ -133,6 +136,9 @@ const props = defineProps({
       tabindex: -1,
     }),
   },
+  /**
+   * Use this props to pass attrs for increment UiIcon
+   */
   iconIncrementAttrs: {
     type: Object as PropsAttrs,
     default: () => ({ icon: 'plus' }),

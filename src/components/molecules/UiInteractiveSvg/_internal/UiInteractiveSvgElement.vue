@@ -35,29 +35,29 @@ defineProps({
     default: 'path',
   },
 });
-const setAttrs: AttrsFunc | Ref<AttrsFunc> | undefined = inject('setElementsAttrs');
+const setAttrs: AttrsFunc | Ref<AttrsFunc> | undefined = inject('elementsAttrs');
 const elementAttrs = (attrs: Record<string, unknown>): Record<string, unknown> => {
-  const setElementAttrs = (setAttrs as Ref<AttrsFunc>).value || setAttrs;
+  const elementAttrs = (setAttrs as Ref<AttrsFunc>).value || setAttrs;
   const {
-    setElementsAttrs: setElementAttrsForNested, ...rest
-  } = setElementAttrs(attrs);
-  if (setElementAttrsForNested) {
-    nestedSetElementsAttrs.value = setElementAttrsForNested as AttrsFunc;
+    elementAttrs: elementAttrsForNested, ...rest
+  } = elementAttrs(attrs);
+  if (elementAttrsForNested) {
+    nestedElementsAttrs.value = elementAttrsForNested as AttrsFunc;
   } else {
-    nestedSetElementsAttrs.value = setElementAttrs as AttrsFunc;
+    nestedElementsAttrs.value = elementAttrs as AttrsFunc;
   }
   return {
     ...attrs,
     ...rest,
   };
 };
-const nestedSetElementsAttrs = ref<AttrsFunc>(() => ({}));
+const nestedElementsAttrs = ref<AttrsFunc>(() => ({}));
 const parentComponent = getCurrentInstance()?.parent;
 if (!parentComponent || (parentComponent.type.name !== 'UiInteractiveSvg' && parentComponent.type.name !== 'UiInteractiveSvgElement')) {
   if (process.env.NODE_ENV !== 'production') {
     throw new Error('UiInteractiveSvgElement has to be child of UiInteractiveSvg or nested in another UiInteractiveSvgElement');
   }
 }
-provide('setElementsAttrs', nestedSetElementsAttrs);
+provide('elementsAttrs', nestedElementsAttrs);
 </script>
 

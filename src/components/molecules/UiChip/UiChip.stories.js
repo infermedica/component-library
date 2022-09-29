@@ -15,6 +15,7 @@ export default {
   },
   args: {
     content: 'Label',
+    textLabelAttrs: { 'data-testid': 'label-text' },
     buttonRemoveAttrs: { ariaLabel: 'remove label' },
     iconRemoveAttrs: { 'data-testid': 'icon-remove' },
     removeAction: null,
@@ -26,6 +27,9 @@ export default {
       description: 'Use this event to detect click on remove button.',
       table: { category: 'events' },
     },
+    textLabelAttrs: { table: { subcategory: 'Attrs props' } },
+    buttonRemoveAttrs: { table: { subcategory: 'Attrs props' } },
+    iconRemoveAttrs: { table: { subcategory: 'Attrs props' } },
   },
 };
 
@@ -38,11 +42,12 @@ export const WithLabel = (args) => ({
     };
   },
   template: `<UiChip
+    :text-label-attrs="textLabelAttrs"
     :button-remove-attrs="buttonRemoveAttrs"
     :icon-remove-attrs="iconRemoveAttrs"
     @remove="onRemove"
   >
-    {{content}}
+    {{ content }}
   </UiChip>`,
 });
 
@@ -59,16 +64,20 @@ export const WithRemoveSlot = (args) => ({
     };
   },
   template: `<UiChip
-    v-bind="events" 
+    :text-label-attrs="textLabelAttrs"
+    :button-remove-attrs="buttonRemoveAttrs"
+    :icon-remove-attrs="iconRemoveAttrs"
     @remove="onRemove"
   >
-    <template #remove="{
-      attrs,
-      clickHandler,
-      iconRemoveAttrs, 
-    }">
+    <template 
+      #remove="{
+        buttonRemoveAttrs,
+        clickHandler,
+        iconRemoveAttrs 
+      }"
+    >
       <UiButton
-        v-bind="attrs"
+        v-bind="buttonRemoveAttrs"
         class="ui-button--icon ui-button--circled ui-chip__remove"
         @click="clickHandler"
       >
@@ -78,6 +87,6 @@ export const WithRemoveSlot = (args) => ({
         />
       </UiButton>
     </template>
-    {{content}}
+    {{ content }}
   </UiChip>`,
 });

@@ -18,14 +18,21 @@
       <slot
         name="message"
         v-bind="{
-          attrs
+          textMessageAttrs
         }"
       >
         <div class="notification__message">
           <!-- @slot Use this slot to replace text template. -->
-          <slot name="text">
+          <slot
+            name="text"
+            v-bind="{
+              textMessageAttrs
+            }"
+          >
             <UiText
-              v-bind="attrs"
+              v-bind="{
+                textMessageAttrs
+              }"
               class="ui-notification__text"
             >
               <!-- @slot Use this slot to place text inside alert. -->
@@ -36,7 +43,7 @@
           <slot
             name="action"
             v-bind="{
-              attrs: buttonActionAttrs,
+              buttonActionAttrs,
               translation: defaultProps.translation,
               hasAction,
               iconActionAttrs: defaultProps.iconActionAttrs,

@@ -1,9 +1,17 @@
 <template>
   <div class="ui-chip">
     <!-- @slot Use this slot to replace label template. -->
-    <slot name="label">
+    <slot
+      name="label"
+      v-bind="{
+        textLabelAttrs
+      }"
+    >
       <!-- @slot Use this slot to place content inside chip. -->
-      <UiText class="body-2-comfortable ui-chip__label">
+      <UiText
+        v-bind="textLabelAttrs"
+        class="body-2-comfortable ui-chip__label"
+      >
         <slot />
       </UiText>
     </slot>
@@ -11,7 +19,8 @@
     <slot
       name="remove"
       v-bind="{
-        attrs: buttonAttrs || buttonRemoveAttrs,
+        buttonAttrs,
+        buttonRemoveAttrs,
         clickHandler,
         iconRemoveAttrs: defaultProps.iconRemoveAttrs
       }"
@@ -24,7 +33,7 @@
         <slot
           name="icon"
           v-bind="{
-            attrs: defaultProps.iconRemoveAttrs
+            iconRemoveAttrs: defaultProps.iconRemoveAttrs
           }"
         >
           <UiIcon
@@ -48,6 +57,13 @@ import UiText from '../../atoms/UiText/UiText.vue';
 import type { PropsAttrs } from '../../../types/attrs';
 
 const props = defineProps({
+  /**
+   * Use this props to pass attrs for remove UiButton
+   */
+  textLabelAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({}),
+  },
   /**
    * Use this props to pass attrs for remove UiButton
    */

@@ -10,8 +10,9 @@
         :key="key"
       >
         <UiToggleButton
-          :value="item.value"
-          v-bind="item.toggleButtonAttrs"
+          v-bind="(()=>{const {
+            name, text, ...rest
+          } = item; return rest;})()"
         >
           <slot
             :name="item.name"

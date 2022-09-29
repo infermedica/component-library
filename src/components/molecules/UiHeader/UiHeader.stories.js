@@ -9,6 +9,7 @@ import { modifiers } from '@sb/helpers/argTypes';
 import { toMobile } from '../../../styles/exports/breakpoints.module.scss';
 
 const events = actions({
+  onClickBrandButton: 'click:brand-button',
   onHamburgerOpen: 'hamburger:open',
   onHamburgerClose: 'hamburger:close',
 });
@@ -37,7 +38,7 @@ export default {
     ],
     buttonBrandAttrs: {
       id: 'brand-button',
-      href: '#',
+      onClick: events.onClickBrandButton,
     },
     buttonHamburgerAttrs: { id: 'hamburger-button' },
     iconHamburgerAttrs: { 'data-testid': 'hamburger-icon' },
@@ -79,6 +80,11 @@ export default {
         type: { summary: 'unknown' },
       },
     },
+    buttonBrandAttrs: { table: { subcategory: 'Attrs props' } },
+    buttonHamburgerAttrs: { table: { subcategory: 'Attrs props' } },
+    iconHamburgerAttrs: { table: { subcategory: 'Attrs props' } },
+    iconLogoAttrs: { table: { subcategory: 'Attrs props' } },
+    navigationAttrs: { table: { subcategory: 'Attrs props' } },
   },
 };
 
@@ -97,7 +103,7 @@ const Template = (args) => ({
     :logo="logo"
     :hamburgerMatchMedia="hamburgerMatchMedia"
     :navigation="navigation"
-    :button-brand-Attrs="buttonBrandAttrs"
+    :button-brand-attrs="buttonBrandAttrs"
     :button-hamburger-attrs="buttonHamburgerAttrs"
     :icon-hamburger-attrs="iconHamburgerAttrs"
     :icon-logo-attrs="iconLogoAttrs"
@@ -135,7 +141,7 @@ export const WithBrandSlot = (args) => ({
     :logo="logo"
     :hamburgerMatchMedia="hamburgerMatchMedia"
     :navigation="navigation"
-    :button-brand-Attrs="buttonBrandAttrs"
+    :button-brand-attrs="buttonBrandAttrs"
     :button-hamburger-attrs="buttonHamburgerAttrs"
     :icon-hamburger-attrs="iconHamburgerAttrs"
     :icon-logo-attrs="iconLogoAttrs"
@@ -145,11 +151,11 @@ export const WithBrandSlot = (args) => ({
     @hamburger:open="onHamburgerOpen"
   >
     <template #brand="{ 
-      attrs, 
+      buttonBrandAttrs, 
       iconLogoAttrs 
     }">
       <UiButton
-        v-bind="attrs"
+        v-bind="buttonBrandAttrs"
         class="ui-button--icon ui-header__brand"
       >
         <UiIcon
@@ -179,7 +185,7 @@ export const WithLogoSlot = (args) => ({
     :logo="logo"
     :hamburgerMatchMedia="hamburgerMatchMedia"
     :navigation="navigation"
-    :button-brand-Attrs="buttonBrandAttrs"
+    :button-brand-attrs="buttonBrandAttrs"
     :button-hamburger-attrs="buttonHamburgerAttrs"
     :icon-hamburger-attrs="iconHamburgerAttrs"
     :icon-logo-attrs="iconLogoAttrs"
@@ -188,9 +194,9 @@ export const WithLogoSlot = (args) => ({
     @hamburger:close="onHamburgerClose"
     @hamburger:open="onHamburgerOpen"
   >
-    <template #logo="{ attrs }">
+    <template #logo="{ iconLogoAttrs }">
       <UiIcon
-        v-bind="attrs"
+        v-bind="iconLogoAttrs"
         class="ui-header__logo"
       />
     </template>
@@ -216,7 +222,7 @@ export const WithHamburgerSlot = (args) => ({
     :logo="logo"
     :hamburgerMatchMedia="hamburgerMatchMedia"
     :navigation="navigation"
-    :button-brand-Attrs="buttonBrandAttrs"
+    :button-brand-attrs="buttonBrandAttrs"
     :button-hamburger-attrs="buttonHamburgerAttrs"
     :icon-hamburger-attrs="iconHamburgerAttrs"
     :icon-logo-attrs="iconLogoAttrs"
@@ -226,12 +232,12 @@ export const WithHamburgerSlot = (args) => ({
     @hamburger:open="onHamburgerOpen"
   >
     <template #hamburger="{ 
-      attrs,
+      buttonHamburgerAttrs,
       iconHamburgerAttrs, 
       handleHamburger 
     }">
       <UiButton
-        v-bind="attrs"
+        v-bind="buttonHamburgerAttrs"
         class="ui-button--icon ui-button--theme-brand ui-header__hamburger"
         @click="handleHamburger"
       >
@@ -262,7 +268,7 @@ export const WithNavigationSlot = (args) => ({
     :logo="logo"
     :hamburgerMatchMedia="hamburgerMatchMedia"
     :navigation="navigation"
-    :button-brand-Attrs="buttonBrandAttrs"
+    :button-brand-attrs="buttonBrandAttrs"
     :button-hamburger-attrs="buttonHamburgerAttrs"
     :icon-hamburger-attrs="iconHamburgerAttrs"
     :icon-logo-attrs="iconLogoAttrs"
@@ -272,11 +278,11 @@ export const WithNavigationSlot = (args) => ({
     @hamburger:open="onHamburgerOpen"
   >
     <template #navigation="{ 
-      attrs, 
+      navigationAttrs, 
       navigation
     }">
       <UiNavigation
-        v-bind="attrs"
+        v-bind="navigationAttrs"
         :items="navigation"
         class="ui-navigation--theme-brand ui-header__navigation"
       />
@@ -317,7 +323,7 @@ export const WithCustomBrand = (args) => ({
       :logo="logo"
       :hamburgerMatchMedia="hamburgerMatchMedia"
       :navigation="navigation"
-      :button-brand-Attrs="buttonBrandAttrs"
+      :button-brand-attrs="buttonBrandAttrs"
       :button-hamburger-attrs="buttonHamburgerAttrs"
       :icon-hamburger-attrs="iconHamburgerAttrs"
       :icon-logo-attrs="iconLogoAttrs"

@@ -71,10 +71,10 @@
                 :invalid="hasError"
                 class="ui-multiple-answer__choice"
               >
-                <template #label="slotData">
+                <template #label="data">
                   <slot
-                    :name="`label-${slotData.id}`"
-                    v-bind="slotData"
+                    :name="`label-${data.id}`"
+                    v-bind="data"
                   />
                 </template>
               </UiMultipleAnswerItem>

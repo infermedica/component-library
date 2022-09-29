@@ -39,6 +39,10 @@ export default {
       control: 'number',
     },
     modelValue: { control: false },
+    buttonDecrementAttrs: { table: { subcategory: 'Attrs props' } },
+    iconDecrementAttrs: { table: { subcategory: 'Attrs props' } },
+    buttonIncrementAttrs: { table: { subcategory: 'Attrs props' } },
+    iconIncrementAttrs: { table: { subcategory: 'Attrs props' } },
   },
 };
 

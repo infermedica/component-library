@@ -14,7 +14,9 @@
       >
         <UiNavigationItem
           class=" ui-navigation__item"
-          v-bind="item.navigationItemAttrs"
+          v-bind="(()=>{const {
+            name, text, ...rest
+          } = item; return rest;})()"
         >
           <!-- @slot Use this slot to replace navigation item content. -->
           <slot

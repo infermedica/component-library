@@ -67,6 +67,8 @@ export default {
         type: { summary: 'unknown' },
       },
     },
+    buttonToggleAttrs: { table: { subcategory: 'Attrs props' } },
+    popoverAttrs: { table: { subcategory: 'Attrs props' } },
   },
   decorators: [() => ({ template: '<div style="min-height: 220px"><story /></div>' })],
 };
@@ -108,13 +110,13 @@ WithItemsAsObjects.args = {
       text: 'English',
       value: 'English',
       'data-testid': 'english-dropdown-item',
-      iconAttrs: { 'data-testid': 'english-dropdown-item-icon' },
+      iconItemAttrs: { 'data-testid': 'english-dropdown-item-icon' },
     },
     {
       text: 'Deutsch',
       value: 'Deutsch',
       'data-testid': 'deutsch-dropdown-item',
-      iconAttrs: { 'data-testid': 'deutsch-dropdown-item-icon' },
+      iconItemAttrs: { 'data-testid': 'deutsch-dropdown-item-icon' },
     },
   ],
 };
@@ -152,7 +154,7 @@ export const WithDefaultSlot = (args) => ({
     >
       <UiDropdownItem
         :value="item.value"
-        :icon-attrs="item.iconAttrs"
+        :icon-attrs="item.iconItemAttrs"
         v-bind="{
           'data-testid': item['data-testid'],
         }"
@@ -169,13 +171,13 @@ WithDefaultSlot.args = {
       text: 'English',
       value: 'English',
       'data-testid': 'english-dropdown-item',
-      iconAttrs: { 'data-testid': 'english-dropdown-item-icon' },
+      iconItemAttrs: { 'data-testid': 'english-dropdown-item-icon' },
     },
     {
       text: 'Deutsch',
       value: 'Deutsch',
       'data-testid': 'deutsch-dropdown-item',
-      iconAttrs: { 'data-testid': 'deutsch-dropdown-item-icon' },
+      iconItemAttrs: { 'data-testid': 'deutsch-dropdown-item-icon' },
     },
   ],
 };
@@ -268,10 +270,10 @@ export const WithToggleSlot = (args) => ({
       closeHandler, 
       isOpen, 
       text, 
-      attrs
+      buttonToggleAttrs
     }">
       <UiButton
-        v-bind="attrs"
+        v-bind="buttonToggleAttrs"
         ref="toggleElement"
         class="ui-dropdown__toggle"
         :aria-expanded="isOpen.toString()"
@@ -335,11 +337,11 @@ export const WithPopoverSlot = (args) => ({
     <template #popover="{
       closeHandler, 
       isOpen, 
-      attrs
+      popoverAttrs
     }">
       <UiPopover
         v-if="isOpen"
-        v-bind="attrs"
+        v-bind="popoverAttrs"
         class="ui-dropdown__popover"
         @close="closeHandler"
       >
@@ -490,10 +492,10 @@ export const WithInputToggle = (args) => ({
         closeHandler, 
         isOpen, 
         text, 
-        attrs
+        buttonToggleAttrs
       }">
         <UiInput
-          v-bind="attrs"
+          v-bind="buttonToggleAttrs"
           ref="toggleElement"
           :model-value="search"
           type="search"

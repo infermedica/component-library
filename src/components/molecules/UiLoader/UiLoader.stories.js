@@ -40,8 +40,10 @@ export default {
     transitionType: 'if',
     tag: 'div',
     loaderAttrs: {
-      type: 'question',
-      label: 'Loading...',
+      type: 'question', // refers to UiLoaderSkeleton
+      label: 'Loading...', // refers to UiLoaderSpinner
+      textLabelAttrs: { 'data-testid': 'label-text' }, // refers to UiLoaderSpinner
+      loaderSpinnerAttrs: { 'data-testid': 'spinner-loader' }, // refers to UiLoaderSpinner
     },
     transitionAttrs: { appear: true },
   },
@@ -54,6 +56,8 @@ export default {
       control: 'select',
       options: ['skeleton', 'spinner', 'ellipsis'],
     },
+    loaderAttrs: { table: { subcategory: 'Attrs props' } },
+    transitionAttrs: { table: { subcategory: 'Attrs props' } },
   },
   decorators: [() => ({
     template: `<div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 2.5rem">
@@ -139,7 +143,6 @@ export const IfTransitionType = () => ({
     <ComponentWithOnMountedEvent />
   </UiLoader>`,
 });
-
 IfTransitionType.decorators = [
   (story) => ({
     components: {
@@ -153,8 +156,8 @@ IfTransitionType.decorators = [
       return { isLoading };
     },
     template: `<div style="flex: 1">
-      <UiSwitch 
-        v-model="isLoading" 
+      <UiSwitch
+        v-model="isLoading"
         style="margin: 0 0 1rem 0;"
       >
         {{ isLoading ? 'on' : 'off' }}
@@ -163,6 +166,7 @@ IfTransitionType.decorators = [
     </div>`,
   }),
 ];
+
 export const ShowTransitionType = () => ({
   components: {
     UiLoader,
@@ -195,8 +199,8 @@ ShowTransitionType.decorators = [
       return { isLoading };
     },
     template: `<div style="flex: 1">
-      <UiSwitch 
-        v-model="isLoading" 
+      <UiSwitch
+        v-model="isLoading"
         style="margin: 0 0 1rem 0;"
       >
         {{ isLoading ? 'on' : 'off' }}
@@ -241,8 +245,8 @@ OpacityTransitionType.decorators = [
       return { isLoading };
     },
     template: `<div style="flex: 1">
-      <UiSwitch 
-        v-model="isLoading" 
+      <UiSwitch
+        v-model="isLoading"
         style="margin: 0 0 1rem 0;"
       >
         {{ isLoading ? 'on' : 'off' }}
@@ -266,8 +270,8 @@ const SpinnerTemplate = () => ({
   </UiLoader>
   <UiLoader
     :isLoading="true"
-    :loaderAttrs="{ 
-      label: 'Label' 
+    :loaderAttrs="{
+      label: 'Label'
     }"
     type="spinner"
   >
@@ -277,7 +281,7 @@ const SpinnerTemplate = () => ({
   <UiLoader
     :isLoading="true"
     type="spinner"
-    :loader-attrs="{ 
+    :loader-attrs="{
       class: 'ui-loader-spinner--small'
     }"
   >
@@ -286,7 +290,7 @@ const SpinnerTemplate = () => ({
   <UiLoader
     :isLoading="true"
     type="spinner"
-    :loader-attrs="{ 
+    :loader-attrs="{
       class: 'ui-loader-spinner--small',
       label: 'Label'
     }"
@@ -324,7 +328,7 @@ export const SkeletonLoader = () => ({
     <UiLoader
       :isLoading="true"
       type="skeleton"
-      :loaderAttrs="{ 
+      :loaderAttrs="{
         type: 'question'
       }"
     >
@@ -357,8 +361,8 @@ export const LoadingButton = (args) => ({
     </UiLoader>
   </UiButton>
   <UiText tag="span">Outlined:</UiText>
-  <UiButton 
-    class="ui-button--outlined" 
+  <UiButton
+    class="ui-button--outlined"
     style="--loader-ellipsis-dot-background: var(--color-icon-primary);"
   >
     <UiLoader
@@ -370,8 +374,8 @@ export const LoadingButton = (args) => ({
     </UiLoader>
   </UiButton>
   <UiText tag="span">Without transition:</UiText>
-  <UiButton 
-    class="ui-button--outlined" 
+  <UiButton
+    class="ui-button--outlined"
     style="--loader-ellipsis-dot-background: var(--color-icon-primary);"
   >
     <UiLoader
@@ -400,14 +404,14 @@ export const LoadingPopover = () => ({
   template: `<UiPopover
     title="Upper arm"
     class="ui-popover--has-arrow loading-popover"
-    :button-attrs="{
-      'aria-label': 'close',
+    :button-close-attrs="{
+      ariaLabel: 'close',
     }"
   >
     <UiLoader
       :isLoading="isLoading"
       type="skeleton"
-      :loaderAttrs="{ 
+      :loaderAttrs="{
         type: 'common'
       }"
     >
@@ -448,8 +452,8 @@ LoadingPopover.decorators = [
       return { isLoading };
     },
     template: `<div style="flex: 1">
-      <UiSwitch 
-        v-model="isLoading" 
+      <UiSwitch
+        v-model="isLoading"
         style="margin: 0 0 1rem 0;"
       >
         {{ isLoading ? 'on' : 'off' }}
@@ -537,7 +541,7 @@ export const LoadingSidePanel = () => ({
     <UiLoader
       :isLoading="isLoading"
       type="skeleton"
-      :loaderAttrs="{ 
+      :loaderAttrs="{
         type: 'common'
       }"
       style="padding: var(--space-16);"
@@ -600,7 +604,7 @@ export const LoadingControls = () => ({
   },
   setup() {
     const isLoading = inject('isLoading');
-    const options = [
+    const items = [
       {
         value: 'present',
         label: 'Yes',
@@ -619,7 +623,7 @@ export const LoadingControls = () => ({
     ];
     return {
       isLoading,
-      options,
+      items,
     };
   },
   template: `<UiControls
@@ -636,7 +640,7 @@ export const LoadingControls = () => ({
     >
       <UiQuestion
         title="Do you have a sore throat?"
-        :options="{
+        :settings="{
           info: true,
           why: true,
           issue: {
@@ -646,13 +650,13 @@ export const LoadingControls = () => ({
       >
       <UiSimpleQuestion
         model-value=""
-        :options="options"
+        :items="items"
       />
       </UiQuestion>
     </UiLoader>
     <template #next>
       <UiButton>
-        <UiLoader 
+        <UiLoader
           :is-loading="isLoading"
           type="ellipsis"
           transition-type="opacity"
@@ -699,8 +703,8 @@ export const LoadingFullOnBrand = () => ({
   template: `<UiLoader
     :isLoading="true"
     type="spinner"
-    :loaderAttrs="{ 
-      label: 'Loading...', 
+    :loaderAttrs="{
+      label: 'Loading...',
       class: 'ui-loader-spinner--on-dark'
     }"
     class="ui-loader--theme-brand"

@@ -8,12 +8,12 @@
     <slot
       name="icon"
       v-bind="{
-        attrs: defaultProps.iconAttrs
+        iconAlertAttrs: defaultProps.iconAlertAttrs
       }"
     >
       <UiIcon
-        v-if="defaultProps.iconAttrs.icon"
-        v-bind="defaultProps.iconAttrs"
+        v-if="defaultProps.iconAlertAttrs.icon"
+        v-bind="defaultProps.iconAlertAttrs"
         class="ui-alert__icon"
       />
     </slot>
@@ -21,7 +21,7 @@
     <slot
       name="message"
       v-bind="{
-        attrs: textMessageAttrs
+        textMessageAttrs,
       }"
     >
       <UiText
@@ -63,7 +63,7 @@ const props = defineProps({
   /**
    * Use this props to pass attrs for UiIcon
    */
-  iconAttrs: {
+  iconAlertAttrs: {
     type: Object,
     default: () => ({}),
   },
@@ -78,9 +78,9 @@ const props = defineProps({
 const rootClassModifier = computed<`ui-alert--${AlertType}`>(() => `ui-alert--${props.type}`);
 const icon = computed<AlertIcon>(() => ((!props.hasIcon || props.type === 'default') ? '' : `${props.type}-filled`));
 const defaultProps = computed(() => ({
-  iconAttrs: {
+  iconAlertAttrs: {
     icon: icon.value,
-    ...props.iconAttrs,
+    ...props.iconAlertAttrs,
   },
 }));
 </script>

@@ -16,11 +16,11 @@
   >
     <template
       v-for="(_, name) in $slots"
-      #[name]="slotData"
+      #[name]="data"
     >
       <slot
         :name="name"
-        v-bind="slotData"
+        v-bind="data"
       />
     </template>
     <template

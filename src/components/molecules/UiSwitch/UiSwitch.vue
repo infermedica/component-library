@@ -23,16 +23,15 @@
         name="switchcontrol"
         v-bind="{
           checked,
-          attrs: controlAttrs
+          controlAttrs
         }"
       >
         <UiSwitchControl
           v-bind="controlAttrs"
-          class="ui-switch__control"
-          :class="{
+          :class="['ui-switch__control', {
             'ui-switch-control--is-checked': checked,
             'ui-switch__control--is-checked': checked,
-          }"
+          }]"
         />
       </slot>
     </template>
@@ -74,11 +73,6 @@ const updateHandler = (value: CheckboxModelValue): void => {
 .ui-switch {
   $this: &;
   $element: switch;
-
-  &__control {
-    --switch-control-color: #{functions.var($element + "-hover", color, var(--color-switch-track))};
-    --switch-control-checked-color: #{functions.var($element + "-checked-hover", color, var(--color-switch-track-checked))};
-  }
 
   @include mixins.hover {
     #{$this}__control {

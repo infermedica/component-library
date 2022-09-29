@@ -10,6 +10,7 @@ export default {
     currentStep: 3,
     progressAttrs: { id: 'stepper-progress' },
   },
+  argTypes: { progressAttrs: { table: { subcategory: 'Attrs props' } } },
 };
 
 export const WithDots = (args) => ({

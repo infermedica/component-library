@@ -6,13 +6,13 @@
     :class="{
       'ui-button--is-selected': isChecked,
     }"
-    v-bind="buttonAttrs"
+    v-bind="buttonItemAttrs"
     @keydown="dropdownItemKeydownHandler"
   >
     <slot />
     <UiIcon
       v-if="isChecked"
-      v-bind="defaultProps.iconAttrs"
+      v-bind="defaultProps.iconItemAttrs"
       class="ui-button__icon ui-dropdown-item__icon"
     />
   </UiButton>
@@ -34,7 +34,7 @@ import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import type { DropdownValue } from '../UiDropdown.vue';
 
-export interface ButtonAttrs {
+export interface ButtonItemAttrs {
   role?: 'radio';
   'aria-checked'?: string;
   onClick?: ((value: DropdownValue) => void);
@@ -51,15 +51,15 @@ const props = defineProps({
   /**
    *  Use this props to pass attrs to UiIcon.
    */
-  iconAttrs: {
+  iconItemAttrs: {
     type: Object,
     default: () => ({ icon: 'present' }),
   },
 });
 const defaultProps = computed(() => ({
-  iconAttrs: {
+  iconItemAttrs: {
     icon: 'present',
-    ...props.iconAttrs,
+    ...props.iconItemAttrs,
   },
 }));
 const attrs = useAttrs();
@@ -91,7 +91,7 @@ function optionChangeHandler(value: DropdownValue): void {
     changeHandler(value);
   }
 }
-const buttonAttrs = computed<ButtonAttrs>(() => ({
+const buttonItemAttrs = computed<ButtonItemAttrs>(() => ({
   role: isOption.value ? 'radio' : undefined,
   'aria-checked': isOption.value ? `${isChecked.value}` : undefined,
   onClick: attrs.to ? undefined : optionChangeHandler.bind(this, props.value),
