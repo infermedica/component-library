@@ -8,7 +8,7 @@
       <slot
         name="input"
         v-bind="{
-          attrs: getInputAttrs($attrs),
+          inputAttrs: getInputAttrs($attrs),
           input: inputHandler,
           value: modelValue,
           validation: keyValidation
@@ -29,7 +29,7 @@
       name="aside"
       v-bind="{
         suffix,
-        attrs: defaultProps.textSuffixAttrs
+        textSuffixAttrs: defaultProps.textSuffixAttrs
       }"
     >
       <UiText

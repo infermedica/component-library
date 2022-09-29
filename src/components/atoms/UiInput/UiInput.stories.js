@@ -49,6 +49,7 @@ export default {
     }),
     placeholder,
     modelValue: { control: false },
+    textSuffixAttrs: { table: { subcategory: 'Attrs props' } },
   },
 };
 
@@ -161,14 +162,14 @@ export const WithInputSlot = (args) => ({
     @update:modelValue="onUpdateModelValue"
   >
     <template #input="{
-      attrs, 
+      inputAttrs, 
       input, 
       value, 
       validation
     }">
       <input
         v-keyboard-focus
-        v-bind="attrs"
+        v-bind="inputAttrs"
         :value="value"
         class="ui-input__input"
         @keydown="validation"
@@ -203,10 +204,10 @@ export const WithAsideSlot = (args) => ({
   >
     <template #aside="{
       suffix,
-      attrs
+      textSuffixAttrs
     }">
       <UiText
-        v-bind="attrs"
+        v-bind="textSuffixAttrs"
         class="ui-input__aside"
       >
         {{ suffix }}

@@ -31,7 +31,7 @@
         <slot
           name="checkmark"
           v-bind="{
-            attrs: defaultProps.iconCheckmarkAttrs
+            iconCheckmarkAttrs: defaultProps.iconCheckmarkAttrs
           }"
         >
           <UiIcon
@@ -46,7 +46,7 @@
       name="label"
       v-bind="{
         hasLabel,
-        attrs: defaultProps.textLabelAttrs
+        textLabelAttrs: defaultProps.textLabelAttrs
       }"
     >
       <UiText

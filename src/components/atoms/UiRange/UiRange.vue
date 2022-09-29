@@ -25,7 +25,8 @@
     </template>
     <template
       #default="{
-        change, value
+        change,
+        value
       }"
     >
       <div class="ui-range__input">
@@ -33,12 +34,12 @@
         <slot
           name="value"
           v-bind="{
-            value
+            value,
+            headingValueAttrs: defaultProps.headingValueAttrs
           }"
         >
           <UiHeading
-            :level="1"
-            tag="span"
+            v-bind="defaultProps.headingValueAttrs"
             class="ui-range__value"
           >
             {{ value }}
@@ -48,7 +49,7 @@
         <slot
           name="range"
           v-bind="{
-            attrs: getInputAttrs($attrs),
+            inputAttrs: getInputAttrs($attrs),
             min,
             max,
             change,
@@ -119,13 +120,30 @@ const props = defineProps({
     default: 1,
   },
   /**
-   * USe this props to pass attrs for UiNumberStepper
+   * Use this props to pass attrs for UiNumberStepper
    */
   numberStepperAttrs: {
     type: Object as PropsAttrs,
     default: () => ({}),
   },
+  /**
+   * Use this props to pass attrs for value UiHeading
+   */
+  headingValueAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({
+      level: 1,
+      tag: 'span',
+    }),
+  },
 });
+const defaultProps = computed(() => ({
+  headingValueAttrs: {
+    level: 1,
+    tag: 'span',
+    ...props.headingValueAttrs,
+  },
+}));
 const attrs = useAttrs();
 const emit = defineEmits<{(e:'update:modelValue', value: number): void}>();
 const {

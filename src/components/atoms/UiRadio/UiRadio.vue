@@ -34,7 +34,7 @@
       name="label"
       v-bind="{
         hasLabel,
-        attrs: defaultProps.textLabelAttrs
+        textLabelAttrs: defaultProps.textLabelAttrs
       }"
     >
       <UiText

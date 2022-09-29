@@ -39,6 +39,7 @@ export default {
     },
     value: { control: 'text' },
     id: { control: 'text' },
+    textLabelAttrs: { table: { subcategory: 'Attrs props' } },
   },
 };
 
@@ -128,10 +129,10 @@ export const WithLabelSlot = (args) => ({
   >
     <template #label="{
       hasLabel,
-      attrs,
+      textLabelAttrs,
     }">
       <UiText
-        v-bind="attrs"
+        v-bind="textLabelAttrs"
         class="ui-radio__label"
       >
         {{ content }}

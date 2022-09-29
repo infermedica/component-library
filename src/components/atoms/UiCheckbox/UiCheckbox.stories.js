@@ -40,6 +40,8 @@ export default {
     modifiers: modifiers({ options: ['ui-checkbox--has-error', 'ui-checkbox--is-disabled'] }),
     id: { control: 'text' },
     value: { control: 'text' },
+    iconCheckmarkAttrs: { table: { subcategory: 'Attrs props' } },
+    textLabelAttrs: { table: { subcategory: 'Attrs props' } },
   },
 };
 
@@ -140,10 +142,10 @@ export const WithLabelSlot = (args) => ({
     >
       <template #label="{
         hasLabel, 
-        attrs
+        textLabelAttrs,
       }">
         <UiText
-          v-bind="attrs"
+          v-bind="textLabelAttrs"
           class="ui-checkbox__label"
         >
           {{ content }}
