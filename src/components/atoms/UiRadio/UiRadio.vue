@@ -15,7 +15,7 @@
     >
     <!-- @slot Use this slot to replace radiobutton template. -->
     <slot
-      name="radio"
+      :name="radiobutton && 'radiobutton' || 'radio'"
       v-bind="{
         checked: isChecked
       }"
@@ -125,9 +125,11 @@ function changeHandler(event: Event) {
 }
 
 // TODO: remove in 0.6.0 / BEGIN
-const { radiobutton } = slots;
-if (radiobutton) {
-  throw new Error('[@infermedica/component-library error][UiRadio]: The `radiobutton` slot is deprecated and removed. Please use `radio` slot instead.');
+const radiobutton = computed(() => (slots.radiobutton));
+if (radiobutton.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library error][UiRadio]: The `radiobutton` slot will be removed in 0.6.0. Please use `radio` slot instead.');
+  }
 }
 // END
 </script>

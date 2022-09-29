@@ -141,7 +141,7 @@ const attrs = useAttrs();
 const buttonAttrs = computed(() => attrs.buttonAttrs || attrs['button-attrs']);
 if (buttonAttrs.value) {
   if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiPopover]: buttonAttrs will be removed in 0.6.0. Please use buttonCloseAttrs instead.');
+    console.warn('[@infermedica/component-library warn][UiPopover]: The `buttonAttrs` props will be removed in 0.6.0. Please use `buttonCloseAttrs` props instead.');
   }
 }
 // END

@@ -152,14 +152,14 @@ const attrs = useAttrs();
 const choices = computed(() => (attrs.choices));
 if (choices.value) {
   if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiMultipleChoices]: choices will be removed in 0.6.0. Please use items instead.');
+    console.warn('[@infermedica/component-library warn][UiMultipleChoices]: The `choices` props will be removed in 0.6.0. Please use `items` props instead.');
   }
 }
 const slots = useSlots();
 const choiceItem = computed(() => (slots['choice-item']));
 if (choiceItem.value) {
   if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiMultipleChoices]: choice-item will be removed in 0.6.0. Please use choice instead.');
+    console.warn('[@infermedica/component-library warn][UiMultipleChoices]: The `choice-item` slot will be removed in 0.6.0. Please use `choice` slot instead.');
   }
 }
 // END

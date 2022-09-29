@@ -144,13 +144,13 @@ function changeHandler(value: number) {
 const buttonDecrementAttrs = computed(() => attrs.buttonDecrementAttrs || attrs['button-decrement-attrs']);
 if (buttonDecrementAttrs.value) {
   if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiRange]: buttonDecrementAttrs will be removed in 0.6.0. Please use numberStepperAttrs instead.');
+    console.warn('[@infermedica/component-library warn][UiRange]: The `buttonDecrementAttrs` props will be removed in 0.6.0. Please use `numberStepperAttrs` props instead.');
   }
 }
 const buttonIncrementAttrs = computed(() => attrs.buttonIncrementAttrs || attrs['button-increment-attrs']);
 if (buttonIncrementAttrs.value) {
   if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiRange]: buttonIncrementAttrs will be removed in 0.6.0. Please use numberStepperAttrs instead.');
+    console.warn('[@infermedica/component-library warn][UiRange]: The `buttonIncrementAttrs` props will be removed in 0.6.0. Please use `numberStepperAttrs` props instead.');
   }
 }
 const proxyNumberStepperAttrs = computed(() => ({

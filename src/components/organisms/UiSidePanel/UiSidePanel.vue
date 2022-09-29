@@ -263,7 +263,7 @@ const attrs = useAttrs();
 const transition = computed(() => attrs.transition);
 if (transition.value) {
   if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiSidePanel]: transition will be removed in 0.6.0. Please use transitionDialogAttrs instead.');
+    console.warn('[@infermedica/component-library warn][UiSidePanel]: The `transition` props will be removed in 0.6.0. Please use `transitionDialogAttrs` props instead.');
   }
 }
 // END

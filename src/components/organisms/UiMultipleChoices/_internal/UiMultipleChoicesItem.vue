@@ -197,12 +197,12 @@ const attrs = useAttrs();
 const name = computed(() => (attrs.name));
 if (name.value) {
   if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiMultipleChoicesItem]: name will be removed in 0.6.0. Please use label instead.');
+    console.warn('[@infermedica/component-library warn][UiMultipleChoicesItem]: The `name` props will be removed in 0.6.0. Please use `label` props instead.');
   }
 }
 if (props.options.some((option) => option.name)) {
   if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiMultipleChoicesItem]: option name will be removed in 0.6.0. Please use option label instead.');
+    console.warn('[@infermedica/component-library warn][UiMultipleChoicesItem]: The option `name` props will be removed in 0.6.0. Please use option `label` props instead.');
   }
 }
 const optionsToRender = computed(() => props.options.map((option) => ({

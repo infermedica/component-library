@@ -79,8 +79,8 @@ defineProps({
   },
 });
 const emit = defineEmits<{(e: 'update:modelValue', value: TileValue): void}>();
-const attrs = useAttrs() as {class: string[]};
-const isTileSmall = computed(() => attrs.class?.includes('ui-simple-question--small'));
+const attrs = useAttrs();
+const isTileSmall = computed(() => attrs?.class?.includes('ui-simple-question--small'));
 function updateHandler(value: TileValue) {
   emit('update:modelValue', value);
 }
@@ -88,7 +88,7 @@ function updateHandler(value: TileValue) {
 const options = computed(() => (attrs?.options));
 if (options.value) {
   if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiSimpleQuestion]: options will be removed in 0.6.0. Please use items instead.');
+    console.warn('[@infermedica/component-library warn][UiSimpleQuestion]: The `options` props will be removed in 0.6.0. Please use `items` props instead.');
   }
 }
 // END

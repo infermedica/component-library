@@ -193,7 +193,7 @@ const attrs = useAttrs();
 const radioAttrs = computed(() => (attrs.radioAttrs || attrs['radio-attrs']));
 if (radioAttrs.value) {
   if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiPopover]: radioAttrs will be removed in 0.6.0.');
+    console.warn('[@infermedica/component-library warn][UiPopover]: The `radioAttrs` will be removed in 0.6.0.');
   }
 }
 // END

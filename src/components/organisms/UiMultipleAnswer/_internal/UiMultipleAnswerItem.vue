@@ -118,7 +118,7 @@ function unfocusExplication(event: KeyboardEvent) {
 // TODO: remove in 0.6.0 / BEGIN
 if (!props.label) {
   if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiMultipleAnswerItem]: name will be removed in 0.6.0. Please use label instead.');
+    console.warn('[@infermedica/component-library warn][UiMultipleAnswerItem]: The `name` props will be removed in 0.6.0. Please use `label` props instead.');
   }
 }
 // END

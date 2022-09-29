@@ -15,7 +15,7 @@
     >
     <!-- @slot Use this slot to replace checkbox template.-->
     <slot
-      name="checkbox"
+      :name="checkbutton && 'checkbutton' || 'checkbox'"
       v-bind="{
         checked: isChecked,
         iconCheckmarkAttrs: defaultProps.iconCheckmarkAttrs
@@ -158,9 +158,11 @@ function changeHandler(event: Event): void {
 }
 
 // TODO: remove in 0.6.0 / BEGIN
-const { checkbutton } = slots;
-if (checkbutton) {
-  throw new Error('[@infermedica/component-library error][UiCheckbox]: The `checkbotton` slot is deprecated and removed. Please use `checkbox` slot instead.');
+const checkbutton = computed(() => (slots.checkbutton));
+if (checkbutton.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiCheckbox]: The `checkbutton` slot will be removed in 0.6.0. Please use `checkbox` slot instead.');
+  }
 }
 // END
 </script>

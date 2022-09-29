@@ -336,7 +336,7 @@ const attrs = useAttrs();
 const buttonAttrs = computed(() => attrs.buttonAttrs || attrs['button-attrs']);
 if (buttonAttrs.value) {
   if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiDropdown]: buttonAttrs will be removed in 0.6.0. Please use buttonToggleAttrs instead.');
+    console.warn('[@infermedica/component-library warn][UiDropdown]: The `buttonAttrs` props will be removed in 0.6.0. Please use `buttonToggleAttrs` props instead.');
   }
 }
 // END

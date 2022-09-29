@@ -157,13 +157,13 @@ const attrs = useAttrs();
 const labelAttrs = computed(() => attrs.labelAttrs || attrs['label-attrs']);
 if (labelAttrs.value) {
   if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiFormField]: labelAttrs will be removed in 0.6.0.');
+    console.warn('[@infermedica/component-library warn][UiFormField]: The `labelAttrs` will be removed in 0.6.0.');
   }
 }
 const label = computed(() => attrs.label);
 if (label.value) {
   if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiFormField]: label will be removed in 0.6.0. Please use message instead.');
+    console.warn('[@infermedica/component-library warn][UiFormField]: The `label` props will be removed in 0.6.0. Please use `message` props instead.');
   }
 }
 // END

@@ -90,7 +90,7 @@ export const WithRadioSlot = (args) => ({
     :class="modifiers"
     @update:modelValue="onUpdateModelValue"
   >
-    <template #radio="{ checked }">
+    <template #radiobutton="{ checked }">
       <div 
         class="ui-radio__radio"
         :class="{
@@ -100,6 +100,7 @@ export const WithRadioSlot = (args) => ({
         <div class="ui-radio__mark" />
       </div>
     </template>
+    ...
     {{ content }}
   </UiRadio>`,
 });
