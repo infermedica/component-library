@@ -4,11 +4,13 @@
     <slot
       name="title"
       v-bind="{
-        title
+        title,
+        headingTitleAttrs
       }"
     >
       <UiHeading
         v-if="title"
+        v-bind="headingTitleAttrs"
         class="ui-question__title"
       >
         {{ title }}
@@ -17,13 +19,14 @@
     <slot
       name="actions-top"
       v-bind="{
+        settings: defaultProps.settings,
+        translation: defaultProps.translation,
         buttonInfoAttrs,
-        options,
-        translation
+        iconInfoAttrs: defaultProps.iconInfoAttrs,
       }"
     >
       <div
-        v-if="options.info"
+        v-if="defaultProps.settings.info"
         class="ui-question__actions-top"
       >
         <!-- @slot Use this slot to replace info template. -->
@@ -31,20 +34,21 @@
           name="info"
           v-bind="{
             buttonInfoAttrs,
-            options,
-            translation
+            settings: defaultProps.settings,
+            translation: defaultProps.translation,
+            iconInfoAttrs: defaultProps.iconInfoAttrs,
           }"
         >
           <UiButton
-            v-if="options.info"
+            v-if="defaultProps.settings.info"
             v-bind="buttonInfoAttrs"
             class="ui-question__info ui-button--text ui-button--small ui-button--has-icon"
           >
             <UiIcon
-              icon="info"
+              v-bind="defaultProps.iconInfoAttrs"
               class="ui-button__icon"
             />
-            {{ translation.info }}
+            {{ defaultProps.translation.info }}
           </UiButton>
         </slot>
       </div>
@@ -57,33 +61,35 @@
     <slot
       name="actions-bottom"
       v-bind="{
+        hasActionsBottom,
         buttonWhyAttrs,
         buttonIssueAttrs,
-        options,
-        translation
+        settings: defaultProps.settings,
+        translation: defaultProps.translation,
       }"
     >
       <div
-        v-if="options.why || options.issue"
+        v-if="hasActionsBottom"
         class="ui-question__actions-bottom"
       >
         <!-- @slot Use this slot to replace why template. -->
         <slot
           name="why"
           v-bind="{
-            options,
-            translation
+            settings: defaultProps.settings,
+            translation: defaultProps.translation,
+            buttonWhyAttrs,
           }"
         >
           <div
-            v-if="options.why"
+            v-if="defaultProps.settings.why"
             class="ui-question__action"
           >
             <UiButton
               v-bind="buttonWhyAttrs"
               class="ui-button--small ui-button--text"
             >
-              {{ translation.why }}
+              {{ defaultProps.translation.why }}
             </UiButton>
           </div>
         </slot>
@@ -92,19 +98,19 @@
           name="issue"
           v-bind="{
             buttonIssueAttrs,
-            options,
-            translation
+            settings:defaultProps.settings,
+            translation: defaultProps.translation,
           }"
         >
           <div
-            v-if="options.issue"
+            v-if="defaultProps.settings.issue"
             class="ui-question__action"
           >
             <UiButton
               v-bind="buttonIssueAttrs"
               class="ui-button--small ui-button--text"
             >
-              {{ translation.issue.action }}
+              {{ defaultProps.translation.issue.action }}
             </UiButton>
           </div>
         </slot>
@@ -114,27 +120,27 @@
     <slot
       name="feedback"
       v-bind="{
-        options,
-        translation,
-        buttonSkipAttrs
+        settings: defaultProps.settings,
+        translation: defaultProps.translation,
       }"
     >
       <UiNotification
-        v-if="options.issue?.feedback"
+        v-if="defaultProps.settings.issue?.feedback"
+        v-bind="defaultProps.notificationFeedbackAttrs"
         type="success"
         :translation="{
-          action: translation.issue.skip
+          action: defaultProps.translation.issue.skip
         }"
-        :button-action-attrs="buttonSkipAttrs"
         class="ui-question__feedback"
       >
-        {{ translation.issue.feedback }}
+        {{ defaultProps.translation.issue.feedback }}
       </UiNotification>
     </slot>
   </div>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import type { PropType } from 'vue';
 import type { PropsAttrs } from '../../../types/attrs';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
@@ -152,7 +158,7 @@ export interface QuestionTranslation {
   };
   [key: string] : unknown;
 }
-export interface QuestionOptions {
+export interface Questionsettings {
   info: boolean;
   why: boolean;
   issue: {
@@ -160,7 +166,7 @@ export interface QuestionOptions {
   };
   [key: string]: unknown;
 }
-defineProps({
+const props = defineProps({
   /**
    * Use this props to set question title.
    */
@@ -186,19 +192,19 @@ defineProps({
   /**
    * Use this props to setup question.
    */
-  options: {
-    type: Object as PropType<QuestionOptions>,
+  settings: {
+    type: Object as PropType<Questionsettings>,
     default: () => ({
-      info: true,
-      why: true,
-      issue: { feedback: true },
+      info: false,
+      why: false,
+      issue: { feedback: false },
     }),
   },
   /**
-   * Use this props to pass attrs for question skip UiButton
+   * Use this props to pass attrs for title UiHeading
    */
-  buttonSkipAttrs: {
-    type: Object as PropsAttrs,
+  headingTitleAttrs: {
+    type: Object,
     default: () => ({}),
   },
   /**
@@ -208,6 +214,16 @@ defineProps({
     type: Object as PropsAttrs,
     default: () => ({}),
   },
+  /**
+   * Use this props to pass attrs for info UiIcon
+   */
+  iconInfoAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for why UiButton
+   */
   /**
    * Use this props to pass attrs for why UiButton
    */
@@ -219,10 +235,51 @@ defineProps({
    * Use this props to pass attrs for issue UiButton
    */
   buttonIssueAttrs: {
-    type: Object as PropsAttrs,
+    type: Object,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for feedback UiNotification
+   */
+  notificationFeedbackAttrs: {
+    type: Object,
     default: () => ({}),
   },
 });
+const defaultProps = computed(() => ({
+  translation: {
+    info: 'What does it mean?',
+    why: 'Why am I being asked this?',
+    ...props.translation,
+    issue: {
+      action: 'Report an issue with this question',
+      feedback: 'Thank you. We’ll review this question as soon as possible.',
+      skip: 'Skip this question',
+      ...props.translation?.issue,
+    },
+  },
+  settings: {
+    info: false,
+    why: false,
+    ...props.settings,
+    issue: {
+      feedback: false,
+      ...props.settings?.issue,
+    },
+  },
+  iconInfoAttrs: {
+    icon: 'info',
+    ...props.iconInfoAttrs,
+  },
+  notificationFeedbackAttrs: {
+    type: 'success',
+    ...props.notificationFeedbackAttrs,
+  },
+}));
+const hasActionsBottom = computed(() => (
+  defaultProps.value.settings.why
+    || defaultProps.value.settings.issue
+));
 </script>
 
 <style lang="scss">
