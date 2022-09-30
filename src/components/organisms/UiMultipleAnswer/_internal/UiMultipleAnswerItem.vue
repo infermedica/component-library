@@ -14,7 +14,8 @@
           id,
           componentName,
           textLabelAttrs: defaultProps.textLabelAttrs,
-          label: label || name,
+          name:label,
+          label,
           buttonInfoAttrs,
           unfocusExplication,
           iconInfoAttrs: defaultProps.iconInfoAttrs,
@@ -26,7 +27,7 @@
           <UiText
             v-bind="defaultProps.textLabelAttrs"
           >
-            {{ label || name }}
+            {{ label }}
           </UiText>
           <UiButton
             v-if="buttonInfoAttrs"
@@ -56,33 +57,54 @@ import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import { focusElement } from '../../../../utilities/helpers/index.ts';
 
 const props = defineProps({
-  modelValue: {
-    type: [String, Object, Array],
-    default: () => ([]),
-  },
+  /**
+   * Use this props to set invalid state of choice item.
+   */
   invalid: {
     type: Boolean,
     default: true,
   },
-  buttonInfoAttrs: {
-    type: Object,
-    default: null,
+  /**
+   *  Use this props or v-model to set checked.
+   */
+  modelValue: {
+    type: [String, Object, Array],
+    default: () => ([]),
   },
-  textLabelAttrs: {
-    type: Object,
-    default: () => ({ tag: 'span' }),
+  /**
+   * Use this props to set label of item.
+   */
+  label: {
+    type: String,
+    default: '',
   },
-  iconInfoAttrs: {
-    type: Object,
-    default: () => ({ icon: 'info' }),
-  },
+  /**
+   * Use this props to set item of item.
+   */
   id: {
     type: String,
     default: '',
   },
-  label: {
-    type: String,
-    default: '',
+  /**
+   * Use this props to pass attrs for info UiButton.
+   */
+  buttonInfoAttrs: {
+    type: Object,
+    default: null,
+  },
+  /**
+   * Use this props to pass attrs for label UiText.
+   */
+  textLabelAttrs: {
+    type: Object,
+    default: () => ({ tag: 'span' }),
+  },
+  /**
+   * Use this props to pass attrs for info UiIcon.
+   */
+  iconInfoAttrs: {
+    type: Object,
+    default: () => ({ icon: 'info' }),
   },
 });
 const defaultProps = computed(() => ({
@@ -115,13 +137,6 @@ function unfocusExplication(event: KeyboardEvent) {
   const answerInput: HTMLInputElement | null | undefined = el.closest(`.${componentName.value}`)?.querySelector('input');
   answerInput?.focus();
 }
-// TODO: remove in 0.6.0 / BEGIN
-if (!props.label) {
-  if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiMultipleAnswerItem]: The `name` props will be removed in 0.6.0. Please use `label` props instead.');
-  }
-}
-// END
 </script>
 
 <style lang="scss">

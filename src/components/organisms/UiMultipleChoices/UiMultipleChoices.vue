@@ -5,7 +5,7 @@
       name="hint"
       v-bind="{
         hint,
-        attrs: alertHintAttrs,
+        alertHintAttrs,
         hintType
       }"
     >

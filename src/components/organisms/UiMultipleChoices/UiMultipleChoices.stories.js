@@ -83,6 +83,7 @@ export default {
     },
     modelValue: { control: false },
     invalid: { control: false },
+    alertHintAttrs: { table: { subcategory: 'Attrs props' } },
   },
 };
 
@@ -166,13 +167,13 @@ export const WithHintSlot = (args) => ({
     <template
       #hint="{
         hint,
-        attrs,
+        alertHintAttrs,
         hintType
       }"
     >
       <UiAlert
           v-if="hint"
-          v-bind="attrs"
+          v-bind="alertHintAttrs"
           :type="hintType"
           class="ui-multiple-choices__hint"
       >

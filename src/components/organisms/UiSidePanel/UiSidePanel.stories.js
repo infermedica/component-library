@@ -10,6 +10,8 @@ import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/
 import {
   onMounted,
   ref,
+  provide,
+  inject,
 } from 'vue';
 import { actions } from '@storybook/addon-actions';
 import {
@@ -40,6 +42,7 @@ export default {
     subtitle: '',
     transitionBackdropAttrs: { 'data-testid': 'backdrop-transition' },
     backdropAttrs: { 'data-testid': 'backdrop' },
+    dialogAttrs: { 'data-testid': 'dialog-element' },
     transitionDialogAttrs: { 'data-testid': 'dialog-transition' },
     headingTitleAttrs: { 'data-testid': 'title-heading' },
     textSubtitleAttrs: { 'data-testid': 'subtitle-text' },
@@ -48,6 +51,7 @@ export default {
       ariaLabel: 'close modal',
     },
     iconCloseAttrs: { 'data-testid': 'close-icon' },
+    contentAttrs: { 'data-testid': 'content-element' },
   },
   argTypes: {
     initModelValue: {
@@ -88,10 +92,38 @@ export default {
     },
     modelValue: { control: false },
     'after-enter': { description: 'Use this event to detect when side panel enter transition is finishing.' },
+    transitionBackdropAttrs: { table: { subcategory: 'Attrs props' } },
+    backdropAttrs: { table: { subcategory: 'Attrs props' } },
+    dialogAttrs: { table: { subcategory: 'Attrs props' } },
+    transitionDialogAttrs: { table: { subcategory: 'Attrs props' } },
+    headingTitleAttrs: { table: { subcategory: 'Attrs props' } },
+    textSubtitleAttrs: { table: { subcategory: 'Attrs props' } },
+    buttonCloseAttrs: { table: { subcategory: 'Attrs props' } },
+    iconCloseAttrs: { table: { subcategory: 'Attrs props' } },
+    contentAttrs: { table: { subcategory: 'Attrs props' } },
   },
-  decorators: [() => ({
+  decorators: [(story, { args }) => ({
+    components: {
+      story,
+      UiButton,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      const toggleSidePanel = () => {
+        modelValue.value = !modelValue.value;
+      };
+      provide('modelValue', modelValue);
+      return {
+        toggleSidePanel,
+        title: args.title,
+      };
+    },
     template: `<div class="max-w-32" style="min-height: 320px;">
-        <story />
+      <UiButton
+        class="ui-button--text ui-button--theme-secondary"
+        @click="toggleSidePanel"
+      >{{ title }}</UiButton>
+      <story/>
     </div>`,
   })],
   parameters: { docs: { description: { component: 'SidePanel use `v-body-scroll-lock`. Only works on Canvas mode.' } } },
@@ -108,18 +140,14 @@ const Template = (args) => ({
     UiLink,
   },
   setup() {
-    const modelValue = ref(args.initModelValue);
+    const modelValue = inject('modelValue');
     return {
       ...args,
       ...events,
       modelValue,
     };
   },
-  template: `<UiButton
-      class="ui-button--text ui-button--theme-secondary"
-      @click="modelValue = true;"
-  >{{ title }}</UiButton>
-  <UiSidePanel 
+  template: `<UiSidePanel 
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
@@ -130,6 +158,8 @@ const Template = (args) => ({
     :text-subtitle-attrs="textSubtitleAttrs"
     :button-close-attrs="buttonCloseAttrs"
     :icon-close-attrs="iconCloseAttrs"
+    :dialog-attrs="dialogAttrs"
+    :content-attrs="contentAttrs"
     @update:modelValue="onUpdateModelValue"
     @after-enter="onAfterEnter"
   >
@@ -193,18 +223,14 @@ export const WithBackdropSlot = (args) => ({
     UiBackdrop,
   },
   setup() {
-    const modelValue = ref(args.initModelValue);
+    const modelValue = inject('modelValue');
     return {
       ...args,
       ...events,
       modelValue,
     };
   },
-  template: `<UiButton
-      class="ui-button--text ui-button--theme-secondary"
-      @click="modelValue = true;"
-  >{{ title }}</UiButton>
-  <UiSidePanel
+  template: `<UiSidePanel
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
@@ -215,18 +241,20 @@ export const WithBackdropSlot = (args) => ({
     :text-subtitle-attrs="textSubtitleAttrs"
     :button-close-attrs="buttonCloseAttrs"
     :icon-close-attrs="iconCloseAttrs"
+    :dialog-attrs="dialogAttrs"
+    :content-attrs="contentAttrs"
     @update:modelValue="onUpdateModelValue"
     @after-enter="onAfterEnter"
   >
-    <template 
+    <template
       #backdrop="{
-        attrs,
+        transitionBackdropAttrs,
         modelValue,
         backdropAttrs,
         closeHandler,
       }"
     >
-      <transition v-bind="attrs">
+      <transition v-bind="transitionBackdropAttrs">
         <UiBackdrop
           v-if="modelValue"
           v-bind="backdropAttrs"
@@ -251,18 +279,14 @@ export const WithContainerSlot = (args) => ({
     bodyScrollLock,
   },
   setup() {
-    const modelValue = ref(args.initModelValue);
+    const modelValue = inject('modelValue');
     return {
       ...args,
       ...events,
       modelValue,
     };
   },
-  template: `<UiButton
-      class="ui-button--text ui-button--theme-secondary"
-      @click="modelValue = true;"
-  >{{ title }}</UiButton>
-  <UiSidePanel
+  template: `<UiSidePanel
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
@@ -273,12 +297,14 @@ export const WithContainerSlot = (args) => ({
     :text-subtitle-attrs="textSubtitleAttrs"
     :button-close-attrs="buttonCloseAttrs"
     :icon-close-attrs="iconCloseAttrs"
+    :dialog-attrs="dialogAttrs"
+    :content-attrs="contentAttrs"
     @update:modelValue="onUpdateModelValue"
     @after-enter="onAfterEnter"
   >
-    <template 
+    <template
       #container="{
-        attrs,
+        transitionDialogAttrs,
         modelValue,
         afterEnterHandler,
         buttonCloseAttrs,
@@ -288,15 +314,17 @@ export const WithContainerSlot = (args) => ({
         iconCloseAttrs,
         headingTitleAttrs,
         textSubtitleAttrs,
+        dialogAttrs,
       }"
     >
       <transition
-        v-bind="attrs"
+        v-bind="transitionDialogAttrs"
       >
         <dialog
           v-if="modelValue"
           v-focus-trap
           v-body-scroll-lock
+          v-bind="dialogAttrs"
           class="ui-side-panel__dialog"
         >
           <div class="ui-side-panel__header">
@@ -316,7 +344,7 @@ export const WithContainerSlot = (args) => ({
               v-if="title || subtitle"
               class="ui-side-panel__label"
             >
-              <UiHeading 
+              <UiHeading
                 v-if="title"
                 v-bind="headingTitleAttrs"
               >
@@ -351,18 +379,14 @@ export const WithHeaderSlot = (args) => ({
     UiIcon,
   },
   setup() {
-    const modelValue = ref(args.initModelValue);
+    const modelValue = inject('modelValue');
     return {
       ...args,
       ...events,
       modelValue,
     };
   },
-  template: `<UiButton
-      class="ui-button--text ui-button--theme-secondary"
-      @click="modelValue = true;"
-  >{{ title }}</UiButton>
-  <UiSidePanel
+  template: `<UiSidePanel
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
@@ -373,10 +397,12 @@ export const WithHeaderSlot = (args) => ({
     :text-subtitle-attrs="textSubtitleAttrs"
     :button-close-attrs="buttonCloseAttrs"
     :icon-close-attrs="iconCloseAttrs"
+    :dialog-attrs="dialogAttrs"
+    :content-attrs="contentAttrs"
     @update:modelValue="onUpdateModelValue"
     @after-enter="onAfterEnter"
   >
-    <template 
+    <template
       #header="{
         buttonCloseAttrs,
         closeHandler,
@@ -403,7 +429,7 @@ export const WithHeaderSlot = (args) => ({
           v-if="title || subtitle"
           class="ui-side-panel__label"
         >
-          <UiHeading 
+          <UiHeading
             v-if="title"
             v-bind="headingTitleAttrs"
           >
@@ -432,18 +458,14 @@ export const WithCloseSlot = (args) => ({
     UiIcon,
   },
   setup() {
-    const modelValue = ref(args.initModelValue);
+    const modelValue = inject('modelValue');
     return {
       ...args,
       ...events,
       modelValue,
     };
   },
-  template: `<UiButton
-      class="ui-button--text ui-button--theme-secondary"
-      @click="modelValue = true;"
-  >{{ title }}</UiButton>
-  <UiSidePanel
+  template: `<UiSidePanel
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
@@ -454,18 +476,20 @@ export const WithCloseSlot = (args) => ({
     :text-subtitle-attrs="textSubtitleAttrs"
     :button-close-attrs="buttonCloseAttrs"
     :icon-close-attrs="iconCloseAttrs"
+    :dialog-attrs="dialogAttrs"
+    :content-attrs="contentAttrs"
     @update:modelValue="onUpdateModelValue"
     @after-enter="onAfterEnter"
   >
-    <template 
+    <template
       #close="{
-        attrs,
+        buttonCloseAttrs,
         closeHandler,
         iconCloseAttrs,
       }"
     >
       <UiButton
-        v-bind="attrs"
+        v-bind="buttonCloseAttrs"
         ref="button"
         class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
         @click="closeHandler"
@@ -488,18 +512,14 @@ export const WithLabelSlot = (args) => ({
     UiHeading,
   },
   setup() {
-    const modelValue = ref(args.initModelValue);
+    const modelValue = inject('modelValue');
     return {
       ...args,
       ...events,
       modelValue,
     };
   },
-  template: `<UiButton
-      class="ui-button--text ui-button--theme-secondary"
-      @click="modelValue = true;"
-  >{{ title }}</UiButton>
-  <UiSidePanel
+  template: `<UiSidePanel
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
@@ -510,10 +530,12 @@ export const WithLabelSlot = (args) => ({
     :text-subtitle-attrs="textSubtitleAttrs"
     :button-close-attrs="buttonCloseAttrs"
     :icon-close-attrs="iconCloseAttrs"
+    :dialog-attrs="dialogAttrs"
+    :content-attrs="contentAttrs"
     @update:modelValue="onUpdateModelValue"
     @after-enter="onAfterEnter"
   >
-    <template 
+    <template
       #label="{
         title,
         subtitle,
@@ -525,7 +547,7 @@ export const WithLabelSlot = (args) => ({
         v-if="title || subtitle"
         class="ui-side-panel__label"
       >
-        <UiHeading 
+        <UiHeading
           v-if="title"
           v-bind="headingTitleAttrs"
         >
@@ -552,18 +574,14 @@ export const WithTitleSlot = (args) => ({
     UiHeading,
   },
   setup() {
-    const modelValue = ref(args.initModelValue);
+    const modelValue = inject('modelValue');
     return {
       ...args,
       ...events,
       modelValue,
     };
   },
-  template: `<UiButton
-      class="ui-button--text ui-button--theme-secondary"
-      @click="modelValue = true;"
-  >{{ title }}</UiButton>
-  <UiSidePanel
+  template: `<UiSidePanel
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
@@ -574,18 +592,20 @@ export const WithTitleSlot = (args) => ({
     :text-subtitle-attrs="textSubtitleAttrs"
     :button-close-attrs="buttonCloseAttrs"
     :icon-close-attrs="iconCloseAttrs"
+    :dialog-attrs="dialogAttrs"
+    :content-attrs="contentAttrs"
     @update:modelValue="onUpdateModelValue"
     @after-enter="onAfterEnter"
   >
-    <template 
+    <template
       #title="{
         title,
-        attrs,
+        headingTitleAttrs,
       }"
     >
-      <UiHeading 
+      <UiHeading
         v-if="title"
-        v-bind="attrs"
+        v-bind="headingTitleAttrs"
       >
         {{ title }}
       </UiHeading>
@@ -601,18 +621,14 @@ export const WithSubtitleSlot = (args) => ({
     UiText,
   },
   setup() {
-    const modelValue = ref(args.initModelValue);
+    const modelValue = inject('modelValue');
     return {
       ...args,
       ...events,
       modelValue,
     };
   },
-  template: `<UiButton
-      class="ui-button--text ui-button--theme-secondary"
-      @click="modelValue = true;"
-  >{{ title }}</UiButton>
-  <UiSidePanel
+  template: `<UiSidePanel
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
@@ -626,15 +642,15 @@ export const WithSubtitleSlot = (args) => ({
     @update:modelValue="onUpdateModelValue"
     @after-enter="onAfterEnter"
   >
-    <template 
+    <template
       #subtitle="{
         subtitle,
-        attrs,
+        textSubtitleAttrs,
       }"
     >
       <UiText
         v-if="subtitle"
-        v-bind="attrs"
+        v-bind="textSubtitleAttrs"
         class="ui-text--body-2-comfortable ui-side-panel__subtitle"
       >
         {{ subtitle }}
@@ -655,18 +671,14 @@ export const WithContentSlot = (args) => ({
     keyboardFocus,
   },
   setup() {
-    const modelValue = ref(args.initModelValue);
+    const modelValue = inject('modelValue');
     return {
       ...args,
       ...events,
       modelValue,
     };
   },
-  template: `<UiButton
-      class="ui-button--text ui-button--theme-secondary"
-      @click="modelValue = true;"
-  >{{ title }}</UiButton>
-  <UiSidePanel
+  template: `<UiSidePanel
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
@@ -677,13 +689,16 @@ export const WithContentSlot = (args) => ({
     :text-subtitle-attrs="textSubtitleAttrs"
     :button-close-attrs="buttonCloseAttrs"
     :icon-close-attrs="iconCloseAttrs"
+    :dialog-attrs="dialogAttrs"
+    :content-attrs="contentAttrs"
     @update:modelValue="onUpdateModelValue"
     @after-enter="onAfterEnter"
   >
-    <template #content>
+    <template #content="{ contentAttrs }">
       <div
         v-scroll-tabindex
         v-keyboard-focus
+        v-bind="contentAttrs"
         class="ui-side-panel__content"
       >
         <UiText>Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
@@ -703,7 +718,7 @@ export const WithAsyncContent = (args) => ({
     UiLink,
   },
   setup() {
-    const modelValue = ref(args.initModelValue);
+    const modelValue = inject('modelValue');
     const isLoaded = ref(false);
     onMounted(() => (
       window.setTimeout(() => {
@@ -717,11 +732,7 @@ export const WithAsyncContent = (args) => ({
       isLoaded,
     };
   },
-  template: `<UiButton
-      class="ui-button--text ui-button--theme-secondary"
-      @click="modelValue = true;"
-  >{{ title }}</UiButton>
-  <UiSidePanel
+  template: `<UiSidePanel
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
@@ -732,6 +743,8 @@ export const WithAsyncContent = (args) => ({
     :text-subtitle-attrs="textSubtitleAttrs"
     :button-close-attrs="buttonCloseAttrs"
     :icon-close-attrs="iconCloseAttrs"
+    :dialog-attrs="dialogAttrs"
+    :content-attrs="contentAttrs"
     @update:modelValue="onUpdateModelValue"
     @after-enter="onAfterEnter"
   >

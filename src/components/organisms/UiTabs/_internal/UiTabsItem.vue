@@ -11,7 +11,7 @@
       v-bind="{
         id,
         isActive,
-        buttonAttrs,
+        buttonTabAttrs,
         contentAttrs,
         handleTabActive,
         title
@@ -27,7 +27,7 @@
           v-bind="{
             id,
             isActive,
-            attrs:buttonAttrs,
+            buttonTabAttrs,
             handleTabActive,
             title
           }"
@@ -36,8 +36,8 @@
             :id="`button-${id}`"
             :aria-expanded="`${isActive}`"
             :aria-controls="id"
+            v-bind="buttonTabAttrs"
             class="ui-button--text ui-tabs-item__tab-button"
-            v-bind="buttonAttrs"
             @click="handleTabActive($event, id)"
           >
             {{ title }}
@@ -50,7 +50,7 @@
       name="content"
       v-bind="{
         isActive,
-        attrs: contentAttrs,
+        contentAttrs,
         id,
       }"
     >
@@ -99,7 +99,7 @@ const props = defineProps({
   /**
    * Use this props to pass attrs for toggle UiButton.
    */
-  buttonAttrs: {
+  buttonTabAttrs: {
     type: Object as PropsAttrs,
     default: () => ({}),
   },

@@ -2,7 +2,10 @@
   <UiContainer class="ui-controls">
     <!-- @slot Use this slot to replace container content. -->
     <slot name="container">
-      <div class="ui-controls__container">
+      <div
+        v-bind="containerAttrs"
+        class="ui-controls__container"
+      >
         <!-- @slot Use this slot to place container content. -->
         <slot />
       </div>
@@ -28,7 +31,7 @@
           v-bind="{
             toNext,
             hideNextButton,
-            attrs: defaultProps.buttonNextAttrs,
+            buttonNextAttrs: defaultProps.buttonNextAttrs,
             invalid,
             translation: defaultProps.translation
           }"
@@ -52,7 +55,7 @@
           name="back"
           v-bind="{
             toBack,
-            attrs: defaultProps.buttonBackAttrs,
+            buttonBackAttrs: defaultProps.buttonBackAttrs,
             iconBackAttrs: defaultProps.iconBackAttrs,
             translation: defaultProps.translation
           }"
@@ -127,6 +130,13 @@ const props = defineProps({
     }),
   },
   /**
+   *  Use this props to pass attrs to container element.
+   */
+  containerAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
    * Use this props to pass attrs for next UiButton.
    */
   buttonNextAttrs: {
@@ -153,6 +163,11 @@ function hasError(): void {
   emit('has-error');
 }
 const defaultProps = computed(() => ({
+  translation: {
+    back: 'Back',
+    next: 'Next',
+    ...props.translation,
+  },
   buttonBackAttrs: {
     to: props.toBack,
     ...props.buttonBackAttrs,
@@ -169,11 +184,6 @@ const defaultProps = computed(() => ({
       ? undefined
       : props.toNext,
     ...props.buttonNextAttrs,
-  },
-  translation: {
-    back: 'Back',
-    next: 'Next',
-    ...props.translation,
   },
 }));
 </script>

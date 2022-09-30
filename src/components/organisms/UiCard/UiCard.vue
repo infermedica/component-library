@@ -7,17 +7,18 @@
     <slot
       name="triage"
       v-bind="{
-        attrs: defaultProps.iconAttrs
+        iconTriageAttrs: defaultProps.iconTriageAttrs
       }"
     >
       <div class="ui-card__triage">
         <UiIcon
-          v-if="defaultProps.iconAttrs.icon"
-          v-bind="defaultProps.iconAttrs"
+          v-if="defaultProps.iconTriageAttrs.icon"
+          v-bind="defaultProps.iconTriageAttrs"
           class="ui-card__icon"
         />
       </div>
     </slot>
+    <!-- @slot Use this slot to replace content template. -->
     <slot
       name="content"
       v-bind="{
@@ -35,7 +36,7 @@
           name="subtitle"
           v-bind="{
             subtitle,
-            attrs: textSubtitleAttrs
+            textSubtitleAttrs
           }"
         >
           <UiText
@@ -51,7 +52,7 @@
           name="title"
           v-bind="{
             title,
-            attrs: headingTitleAttrs
+            headingTitleAttrs
           }"
         >
           <UiHeading
@@ -67,7 +68,7 @@
           name="description"
           v-bind="{
             description,
-            attrs: textDescriptionAttrs
+            textDescriptionAttrs
           }"
         >
           <UiText
@@ -130,7 +131,7 @@ const props = defineProps({
   /**
    * Use this props to pass attrs for UiIcon
    */
-  iconAttrs: {
+  iconTriageAttrs: {
     type: Object,
     default: () => ({}),
   },
@@ -159,9 +160,9 @@ const props = defineProps({
 const rootClassModifier = computed<`ui-card--${CardType}`>(() => `ui-card--${props.type}`);
 const icon = computed(() => props.type.replace(/_/g, '-'));
 const defaultProps = computed(() => ({
-  iconAttrs: {
+  iconTriageAttrs: {
     icon: icon.value,
-    ...props.iconAttrs,
+    ...props.iconTriageAttrs,
   },
 }));
 </script>

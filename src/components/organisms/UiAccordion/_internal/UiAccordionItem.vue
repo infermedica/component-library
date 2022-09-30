@@ -4,7 +4,7 @@
     <slot
       name="toggler"
       v-bind="{
-        attrs: buttonTogglerAttrs,
+        buttonTogglerAttrs,
         name,
         isOpen,
         toggle,
@@ -26,7 +26,7 @@
         <slot
           name="chevron"
           v-bind="{
-            attrs: defaultProps.iconTogglerAttrs,
+            iconTogglerAttrs: defaultProps.iconTogglerAttrs,
             isOpen,
             iconOpen: defaultProps.settings.iconOpen,
             iconClose: settings.iconClose
@@ -45,7 +45,7 @@
       name="content"
       v-bind="{
         isOpen,
-        attrs: contentAttrs,
+        contentAttrs,
         name
       }"
     >
@@ -121,7 +121,7 @@ const props = defineProps({
     default: () => ({}),
   },
   /**
-   *  Use this props to pass attrs to content.
+   *  Use this props to pass attrs to content element.
    */
   contentAttrs: {
     type: Object,

@@ -21,7 +21,7 @@ export default {
         name: 'search',
         title: 'Search',
         'data-testid': 'search',
-        buttonAttrs: { 'data-testid': 'search-button' },
+        buttonTabAttrs: { 'data-testid': 'search-button' },
         contentAttrs: { 'data-testid': 'search-content' },
       },
       {
@@ -118,7 +118,7 @@ export const WithDefaultSlot = (args) => ({
       <UiTabsItem 
         :title="item.title" 
         :name="item.name"
-        :button-attrs="item.buttonAttrs"
+        :button-attrs="item.buttonTabAttrs"
         :content-attrs="item.contentAttrs"
         v-bind="{
           'data-testid': item['data-testid'],

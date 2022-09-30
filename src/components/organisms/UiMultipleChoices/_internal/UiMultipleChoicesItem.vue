@@ -2,7 +2,7 @@
   <component
     :is="tag"
     role="radiogroup"
-    :aria-labelledby="ariaLabelledby"
+    :aria-labelledby="multipleChoicesItemId"
     :class="['ui-multiple-choices-item', {
       'ui-multiple-choices-item--has-error': invalid
     }]"
@@ -11,7 +11,8 @@
     <slot
       name="legend"
       v-bind="{
-        label: label || name
+        label,
+        name,
       }"
     >
       <legend class="visual-hidden">
@@ -22,9 +23,10 @@
     <slot
       name="label"
       v-bind="{
-        id: ariaLabelledby,
+        id: multipleChoicesItemId,
         textLabelAttrs,
-        label: label || name,
+        name,
+        label,
         buttonInfoAttrs,
         iconInfoAttrs: defaultProps.iconInfoAttrs,
         translation,
@@ -32,7 +34,7 @@
     >
       <div class="ui-multiple-choices-item__header">
         <UiText
-          :id="ariaLabelledby"
+          :id="multipleChoicesItemId"
           v-bind="textLabelAttrs"
           class="ui-multiple-choices-item__label"
         >
@@ -75,7 +77,7 @@
             :class="['ui-multiple-choices-item__option', {
               'ui-radio--has-error': invalid
             }]"
-            :name="ariaLabelledby"
+            :name="multipleChoicesItemId"
           >
             {{ option.label }}
           </UiRadio>
@@ -142,7 +144,7 @@ const props = defineProps({
     default: () => ({ info: 'What does it mean?' }),
   },
   /**
-   *  Use this props to override default options.
+   *  Use this props to pass options.
    */
   options: {
     type: Array,
@@ -185,7 +187,7 @@ const defaultProps = computed(() => ({
   },
 }));
 const emit = defineEmits<{(e: 'update:modelValue', value: object | string): void}>();
-const ariaLabelledby = computed(() => (props.id || `multiple-choices-item-${uid()}`));
+const multipleChoicesItemId = computed(() => (props.id || `multiple-choices-item-${uid()}`));
 const value = computed({
   get: () => props.modelValue,
   set: (newValue) => {

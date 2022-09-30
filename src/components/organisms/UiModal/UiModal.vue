@@ -6,7 +6,7 @@
     <slot
       name="backdrop"
       v-bind="{
-        attrs: defaultProps.transitionBackdropAttrs,
+        transitionBackdropAttrs: defaultProps.transitionBackdropAttrs,
         modelValue,
         backdropAttrs,
         closeHandler
@@ -27,8 +27,9 @@
     <slot
       name="container"
       v-bind="{
-        attrs: defaultProps.transitionDialogAttrs,
+        transitionDialogAttrs: defaultProps.transitionDialogAttrs,
         modelValue,
+        dialogAttrs,
         title,
         hasHeader,
         titleSlotName,
@@ -59,6 +60,7 @@
           v-if="modelValue"
           v-focus-trap
           v-body-scroll-lock
+          v-bind="dialogAttrs"
           class="ui-modal__dialog"
           :class="{
             'ui-modal__dialog--has-title': title
@@ -92,7 +94,7 @@
                 :name="titleSlotName"
                 v-bind="{
                   titleTag,
-                  attrs: titleAttrs,
+                  titleAttrs: titleAttrs,
                   titleText,
                   description,
                 }"
@@ -110,7 +112,7 @@
                 name="close"
                 v-bind="{
                   isClosable,
-                  attrs: buttonCloseAttrs,
+                  buttonCloseAttrs,
                   closeHandler,
                   iconCloseAttrs: defaultProps.iconCloseAttrs
                 }"
@@ -125,7 +127,7 @@
                   <slot
                     name="icon"
                     v-bind="{
-                      attrs: defaultProps.iconCloseAttrs
+                      iconCloseAttrs: defaultProps.iconCloseAttrs
                     }"
                   >
                     <UiIcon
@@ -142,7 +144,7 @@
               name="description"
               v-bind="{
                 hasDescription,
-                attrs: textDescriptionAttrs,
+                textDescriptionAttrs,
                 description
               }"
             >
@@ -181,7 +183,7 @@
                   name="confirm"
                   v-bind="{
                     hasConfirm,
-                    attrs: buttonConfirmAttrs,
+                    buttonConfirmAttrs,
                     confirmHandler,
                     translation: defaultProps.translation
                   }"
@@ -200,7 +202,7 @@
                   name="cancel"
                   v-bind="{
                     hasCancel,
-                    attrs: buttonCancelAttrs,
+                    buttonCancelAttrs,
                     cancelHandler,
                     translation: defaultProps.translation
                   }"
@@ -357,6 +359,13 @@ const props = defineProps({
    * Use this props to pass attrs for UiBackdrop
    */
   backdropAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for dialog element
+   */
+  dialogAttrs: {
     type: Object,
     default: () => ({}),
   },

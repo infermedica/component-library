@@ -35,7 +35,7 @@ export default {
     initModelValue: [],
     initInvalid: true,
     items: ['Seconds to minutes', 'A few minutes to 4 hours', '4 hours to 3 days'],
-    name: '',
+    name: 'multiple-answer',
     legend: 'How long have you had a fever?',
     hint: 'Select all answers that apply.',
     touched: false,
@@ -71,6 +71,7 @@ export default {
     },
     modelValue: { control: false },
     invalid: { control: false },
+    hintAlertAttrs: { table: { subcategory: 'Attrs props' } },
   },
 };
 

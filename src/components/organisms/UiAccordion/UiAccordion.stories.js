@@ -177,7 +177,7 @@ export const WithTogglerSlot = (args) => ({
       >
         <template 
           #toggler="{
-            attrs,
+            buttonTogglerAttrs,
             name,
             isOpen,
             toggle,
@@ -188,7 +188,7 @@ export const WithTogglerSlot = (args) => ({
           }"
         >
           <UiButton
-            v-bind="attrs"
+            v-bind="buttonTogglerAttrs"
             :id="'toggler-' + name"
             :aria-expanded="isOpen.toString()"
             :aria-controls="name"
@@ -241,14 +241,14 @@ export const WithChevronSlot = (args) => ({
       >
         <template 
           #chevron="{
-            attrs,
+            iconToggleAttrs,
             isOpen,
             iconOpen,
             iconClose,
           }"
         >
           <UiIcon
-            v-bind="attrs"
+            v-bind="iconToggleAttrs"
             class="ui-button__icon ui-accordion-item__chevron"
           />
         </template>
@@ -291,13 +291,13 @@ export const WithContentSlot = (args) => ({
         <template 
           #content="{
             isOpen,
-            attrs,
+            contentAttrs,
             name,
           }"
         >
           <div
             v-show="isOpen"
-            v-bind="attrs"
+            v-bind="contentAttrs"
             :id="name"
             role="region"
             :aria-labelledby="'toggler-' + name"

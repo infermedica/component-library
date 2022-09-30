@@ -4,7 +4,7 @@
     <slot
       name="backdrop"
       v-bind="{
-        attrs: defaultProps.transitionBackdropAttrs,
+        transitionBackdropAttrs: defaultProps.transitionBackdropAttrs,
         modelValue,
         backdropAttrs,
         closeHandler,
@@ -24,7 +24,8 @@
     <slot
       name="container"
       v-bind="{
-        attrs: defaultProps.transitionDialogAttrs,
+        transitionDialogAttrs: defaultProps.transitionDialogAttrs,
+        dialogAttrs,
         modelValue,
         afterEnterHandler,
         buttonCloseAttrs,
@@ -43,6 +44,7 @@
           v-if="modelValue"
           v-focus-trap
           v-body-scroll-lock
+          v-bind="dialogAttrs"
           class="ui-side-panel__dialog"
         >
           <!-- @slot Use this slot to replace header template. -->
@@ -63,7 +65,7 @@
               <slot
                 name="close"
                 v-bind="{
-                  attrs: buttonCloseAttrs,
+                  buttonCloseAttrs,
                   closeHandler,
                   iconCloseAttrs: defaultProps.iconCloseAttrs
                 }"
@@ -99,7 +101,7 @@
                     name="title"
                     v-bind="{
                       title,
-                      attrs: defaultProps.headingTitleAttrs
+                      headingTitleAttrs: defaultProps.headingTitleAttrs
                     }"
                   >
                     <UiHeading
@@ -114,7 +116,7 @@
                     name="subtitle"
                     v-bind="{
                       subtitle,
-                      attrs: textSubtitleAttrs
+                      textSubtitleAttrs,
                     }"
                   >
                     <UiText
@@ -130,11 +132,17 @@
             </div>
           </slot>
           <!-- @slot Use this slot to replace content template. -->
-          <slot name="content">
+          <slot
+            name="content"
+            v-bind="{
+              contentAttrs
+            }"
+          >
             <div
               v-scroll-tabindex
               v-keyboard-focus
               class="ui-side-panel__content"
+              v-bind="contentAttrs"
             >
               <!-- @slot Use this slot to place side panel content. -->
               <slot />
@@ -209,6 +217,13 @@ const props = defineProps({
     default: () => ({}),
   },
   /**
+   * Use this props to pass attrs for dialog element
+   */
+  dialogAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
    * Use this props to pass attrs for dialog Transition.
    */
   transitionDialogAttrs: {
@@ -245,6 +260,13 @@ const props = defineProps({
   iconCloseAttrs: {
     type: Object,
     default: () => ({ icon: 'close' }),
+  },
+  /**
+   * Use this props to pass attrs for content element
+   */
+  contentAttrs: {
+    type: Object,
+    default: () => ({}),
   },
 });
 const emit = defineEmits<{(e: 'update:modelValue', value: boolean): void,
