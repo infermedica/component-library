@@ -2,7 +2,7 @@
   <UiNumberStepper
     v-bind="{
       ...getRootAttrs($attrs),
-      ...proxyNumberStepperAttrs
+      ...defaultProps.numberStepperAttrs,
     }"
     :model-value="modelValue"
     :style="{
@@ -137,13 +137,6 @@ const props = defineProps({
     }),
   },
 });
-const defaultProps = computed(() => ({
-  headingValueAttrs: {
-    level: 1,
-    tag: 'span',
-    ...props.headingValueAttrs,
-  },
-}));
 const attrs = useAttrs();
 const emit = defineEmits<{(e:'update:modelValue', value: number): void}>();
 const {
@@ -171,12 +164,19 @@ if (buttonIncrementAttrs.value) {
     console.warn('[@infermedica/component-library warn][UiRange]: The `buttonIncrementAttrs` props will be removed in 0.6.0. Please use `numberStepperAttrs` props instead.');
   }
 }
-const proxyNumberStepperAttrs = computed(() => ({
-  buttonDecrementAttrs: buttonDecrementAttrs.value,
-  buttonIncrementAttrs: buttonIncrementAttrs.value,
-  ...props.numberStepperAttrs,
-}));
 // END
+const defaultProps = computed(() => ({
+  headingValueAttrs: {
+    level: 1,
+    tag: 'span',
+    ...props.headingValueAttrs,
+  },
+  numberStepperAttrs: {
+    buttonDecrementAttrs: buttonDecrementAttrs.value,
+    buttonIncrementAttrs: buttonIncrementAttrs.value,
+    ...props.numberStepperAttrs,
+  },
+}));
 </script>
 
 <style lang="scss">
