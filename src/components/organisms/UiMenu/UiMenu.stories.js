@@ -1,6 +1,7 @@
 import { ref } from 'vue';
 import UiMenu from '@/components/organisms/UiMenu/UiMenu.vue';
 import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
+import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 
 export default {
   title: 'Organisms/Menu',
@@ -59,6 +60,16 @@ WithLabel.args = {
     iconLabel: 'more info',
     iconVisible: 'always',
   }, {
+    value: 'Body',
+    icon: 'chevron-right',
+    iconLabel: 'more info',
+    iconVisible: 'always',
+  }, {
+    value: 'Arm',
+    icon: 'chevron-right',
+    iconLabel: 'more info',
+    iconVisible: 'always',
+  }, {
     value: 'Leg',
     icon: 'chevron-right',
     iconLabel: 'more info',
@@ -69,6 +80,7 @@ WithLabel.args = {
 export const WithIconSlot = (args) => ({
   components: {
     UiMenu,
+    UiIcon,
   },
   setup() {
     const modelValue = ref(args.initModelValue);
@@ -78,10 +90,10 @@ export const WithIconSlot = (args) => ({
     };
   },
   template: `<UiMenu v-model="modelValue">
-    <template #icon="{isIcon}">
-      <UiIcon 
+    <template #icon="{isIcon, icon}">
+      <UiIcon
         v-if="isIcon"
-        icon="info-filled"
+        icon="icon"
         class="ui-button__icon"
       />
   </template>
@@ -91,9 +103,19 @@ WithIconSlot.args = {
   items: [{
     value: 'Head',
     iconVisible: 'always',
+    icon: 'info-filled',
+  }, {
+    value: 'Body',
+    iconVisible: 'always',
+    icon: 'info-filled',
+  }, {
+    value: 'Arm',
+    iconVisible: 'always',
+    icon: 'info-filled',
   }, {
     value: 'Leg',
     iconVisible: 'always',
+    icon: 'info-filled',
   }],
 };
 

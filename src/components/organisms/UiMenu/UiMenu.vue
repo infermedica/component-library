@@ -10,8 +10,14 @@
         :key="key"
       >
         <UiMenuItem v-bind="item">
-          <slot name="item-content">
-            {{ item.text || item.value }}
+          <!-- @slot Use this slot to place menu item content. -->
+          <slot
+            :name="item.name"
+            v-bind="{
+              item
+            }"
+          >
+            {{ item.name || item.value }}
           </slot>
         </UiMenuItem>
       </template>
@@ -35,7 +41,7 @@ export interface MenuItem {
   value: string;
   iconLabel?: string;
   iconVisible?: MenuIconVisible;
-  text?: string;
+  name?: string;
   [key: string]: unknown;
 }
 const props = defineProps({

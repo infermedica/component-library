@@ -6,29 +6,47 @@
       }]"
       @click="changeHandler(value)"
     >
-      <span
-        :class="['ui-menu-item__label']"
-      >
-        <slot />
-      </span>
-      <span
-        :class="['ui-menu-item__suffix']"
-      >
-        {{ iconLabel }}
-        <slot
-          name="icon"
-          v-bind="{
-            isIcon,
-            icon
-          }"
+      <!-- @slot Use this slot to replace label template -->
+
+      <slot name="label">
+        <span
+          :class="['ui-menu-item__label']"
         >
-          <UiIcon
-            v-if="isIcon"
-            :icon="icon"
-            :class="['ui-menu-item__icon', 'ui-button__icon']"
-          />
-        </slot>
-      </span>
+          <!-- @slot Use this slot to place label content inside menu-item -->
+          <slot />
+        </span>
+      </slot>
+      <!-- @slot Use this slot to replace suffix template -->
+      <slot
+        name="suffix"
+        v-bind="{
+          iconLabel,
+          isIcon,
+          icon
+        }"
+      >
+        <UiLink
+          :class="['ui-menu-item__suffix', {
+            'ui-button--theme-brand': isSelected
+          }]"
+        >
+          {{ iconLabel }}
+          <!-- @slot Use this slot to replace icon template  -->
+          <slot
+            name="icon"
+            v-bind="{
+              isIcon,
+              icon
+            }"
+          >
+            <UiIcon
+              v-if="isIcon"
+              :icon="icon"
+              :class="['ui-menu-item__icon', 'ui-link__icon', 'ui-link__icon--right']"
+            />
+          </slot>
+        </UiLink>
+      </slot>
     </UiButton>
   </UiListItem>
 </template>
@@ -50,20 +68,33 @@ import type {
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiListItem from '../../UiList/_internal/UiListItem.vue';
+import UiLink from '../../../atoms/UiLink/UiLink.vue';
 
 const props = defineProps({
+  /**
+   * Use this prop to set icon.
+   */
   icon: {
     type: [String, Object] as PropType<Icon>,
     default: 'checkmark',
   },
+  /**
+   * Use this prop to set suffix text.
+   */
   iconLabel: {
     type: String,
     default: '',
   },
+  /**
+   * Use this prop to control icon visibility.
+   */
   iconVisible: {
     type: String as PropType<MenuIconVisible>,
     default: 'default',
   },
+  /**
+   * Use this prop to set value of item.
+   */
   value: {
     type: [String, Object] as PropType<MenuValue>,
     default: '',
@@ -86,7 +117,7 @@ const isIcon = computed(() => (props.iconVisible === 'always' || (props.iconVisi
   --list-item-padding: 0;
 
   &__button {
-    --button-padding: 12px 16px;
+    --button-padding: 8px;
     --button-border-width: 0;
 
     width: functions.var($element + "-button", width, 100%);
@@ -94,14 +125,17 @@ const isIcon = computed(() => (props.iconVisible === 'always' || (props.iconVisi
   }
 
   &__label {
-    flex-grow: 1;
+    flex: 1;
     text-align: start;
   }
 
   &__suffix {
-
     display: flex;
     align-items: center;
+  }
+
+  &__icon {
+    margin-left: 4px;
   }
 }
 </style>
