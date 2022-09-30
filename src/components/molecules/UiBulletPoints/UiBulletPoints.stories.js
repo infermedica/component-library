@@ -65,10 +65,8 @@ NestingList.args = {
     {
       name: 'painful-swallowing',
       text: 'Painful swallowing',
-      bulletPointsItemAttrs: {
-        'data-testid': 'painful',
-        icon: 'bullet-common',
-      },
+      'data-testid': 'painful',
+      icon: 'bullet-common',
     },
     {
       name: 'stuffy-nose',
@@ -96,7 +94,7 @@ NestingList.args = {
       name: 'runny-nose',
       text: 'Runny nose',
       children: {
-        bulletPointAttrs: { tag: 'ol' },
+        tag: 'ol',
         items: [
           {
             name: 'painful-swallowing',
@@ -126,7 +124,7 @@ export const WithBulletPointItemSlot = (args) => ({
       :items="items"
   >
     <template #sneeze="{item}">
-      <UiText>{{item.text}}</UiText>
+      {{ item.text }}
     </template>
   </UiBulletPoints>`,
 });
@@ -168,11 +166,19 @@ export const WithDefaultSlot = (args) => ({
     :tag="tag"
     :type="type"
   >
-  <template v-for="(item, key) in items" :key="key">
-    <UiBulletPointsItem>
-      <UiText>{{item}}</UiText>
-    </UiBulletPointsItem>
-  </template>
+    <template 
+      v-for="(item, key) in items" 
+      :key="key"
+    >
+      <UiBulletPointsItem
+        :icon="item.icon"
+        :icon-marker-attrs="item.iconMarkerAttrs"
+        :text-marker-attrs="item.textMarkerAttrs"
+        :text-content-attrs="item.textContentAttrs"
+      >
+        {{item}}
+      </UiBulletPointsItem>
+    </template>
   </UiBulletPoints>`,
 });
 
@@ -191,23 +197,39 @@ export const WithMarkerSlot = (args) => ({
     :type="type"
     :items="items"
   >
-  <template v-for="(item, key) in items" :key="key">
-    <UiBulletPointsItem>
-      <UiText>{{item}}</UiText>
-      <template #marker="{isUnordered, icon}">
-        <UiIcon
-            v-if="isUnordered"
-            :icon="icon"
+    <template 
+      v-for="(item, key) in items" 
+      :key="key"
+    >
+      <UiBulletPointsItem
+        :icon="item.icon"
+        :icon-marker-attrs="item.iconMarkerAttrs"
+        :text-marker-attrs="item.textMarkerAttrs"
+        :text-content-attrs="item.textContentAttrs"
+      >
+        <template 
+          #marker="{
+            isUnordered,
+            icon,
+            iconMarkerAttrs,
+            textMarkerAttrs,
+          }"
+        >
+          <UiIcon
+              v-if="isUnordered"
+            v-bind="iconMarkerAttrs"
             class="ui-bullet-points-item__marker"
-        />
-        <UiText
+          />
+          <UiText
             v-else
+            v-bind="textMarkerAttrs"
             tag="span"
             class="ui-bullet-points-item__marker"
-        />
-      </template>
-    </UiBulletPointsItem>
-  </template>
+          />
+        </template>
+        {{ item }}
+      </UiBulletPointsItem>
+    </template>
   </UiBulletPoints>`,
 });
 
@@ -225,15 +247,20 @@ export const WithContentSlot = (args) => ({
     :type="type"
     :items="items"
   >
-  <template v-for="(item, key) in items" :key="key">
-    <UiBulletPointsItem>
-      <template #content>
-        <div class="ui-bullet-points-item__content">
-          <UiText>{{item}}</UiText>
-        </div>
-      </template>
-    </UiBulletPointsItem>
-  </template>
+    <template v-for="(item, key) in items" :key="key">
+      <UiBulletPointsItem
+        :icon="item.icon"
+        :icon-marker-attrs="item.iconMarkerAttrs"
+        :text-marker-attrs="item.textMarkerAttrs"
+        :text-content-attrs="item.textContentAttrs"
+      >
+        <template #content="{ textContentAttrs }">
+          <div class="ui-bullet-points-item__content">
+            <UiText v-bind="textContentAttrs">{{ item }}</UiText>
+          </div>
+        </template>
+      </UiBulletPointsItem>
+    </template>
   </UiBulletPoints>`,
 });
 

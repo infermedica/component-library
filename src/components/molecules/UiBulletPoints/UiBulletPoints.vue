@@ -10,7 +10,11 @@
         v-for="(item, key) in itemsToRender"
         :key="key"
       >
-        <UiBulletPointsItem v-bind="item.bulletPointsItemAttrs">
+        <UiBulletPointsItem
+          v-bind="(()=>{const {
+            name, text, children, ...rest
+          } = item; return rest;})()"
+        >
           <!-- @slot Use this slot to replace bullet point item content. -->
           <slot
             :name="item.name"
@@ -18,7 +22,7 @@
               item
             }"
           >
-            <UiText>{{ item.text }}</UiText>
+            {{ item.text }}
             <template v-if="item.children?.items">
               <component
                 :is="'ui-bullet-points'"
@@ -31,6 +35,10 @@
     </slot>
   </component>
 </template>
+
+<script lang="ts">
+export default { name: 'UiBulletPoints' };
+</script>
 
 <script setup lang="ts">
 import {
@@ -155,11 +163,10 @@ const itemsToRender = computed<BulletPointsRenderItem[]>(() => (
         }
         : {
           items: item.children?.items,
-          ...(item.children?.bulletPointAttrs || {
-            tag: props.tag,
-            type: props.type,
-            icon: props.icon,
-          }),
+          tag: props.tag,
+          type: props.type,
+          icon: props.icon,
+          ...item.children,
         },
     };
   })));
