@@ -18,7 +18,7 @@
       </legend>
     </slot>
     <template
-      v-for="index in maxScore"
+      v-for="(item, index) in itemsToRender"
       :key="index"
     >
       <!-- @slot Use this slot to replace option template. -->
@@ -37,52 +37,76 @@
       >
         <UiRadio
           v-model="rate"
+          v-bind="(()=>{const {
+            iconActiveAttrs, iconDefaultAttrs, ...rest
+          } = item; return rest;})()"
           :value="`${index}`"
           :name="ratingName"
           class="ui-rating__option"
           @mouseover="hoverHandler($event, index)"
           @mouseleave="hoverHandler($event, index)"
         >
-          <template #radio>
+          <template
+            #radio="{
+              radioAttrs
+            }"
+          >
             <div
-              class="ui-rating__radio"
-              :class="{
+              v-bind="radioAttrs"
+              :class="['ui-rating__radio',{
                 'ui-rating__radio--is-checked': index <= finalScore
-              }"
+              }]"
             >
-              <!-- fixme: performance -->
-              <template v-if="index <= finalScore">
-                <!-- @slot Use this slot to replace positive rating icon. -->
-                <slot
-                  name="icon-active"
-                  v-bind="{
-                    icon: settings.iconActive
-                  }"
-                >
-                  <UiIcon
-                    :icon="settings.iconActive"
-                    class="ui-rating__icon"
-                  />
-                </slot>
-              </template>
-              <template v-else>
-                <!-- @slot Use this slot to replace rating icon. -->
-                <slot
-                  name="icon"
-                  v-bind="{
-                    icon: settings.icon
-                  }"
-                >
-                  <UiIcon
-                    :icon="settings.icon"
-                    class="ui-rating__icon"
-                  />
-                </slot>
-              </template>
+              <!-- @slot Use this slot to replace rating icon. -->
+              <slot
+                name="icon"
+                v-bind="{
+                  index,
+                  finalScore,
+                  iconActiveAttrs: item.iconActiveAttrs,
+                  iconDefaultAttrs: item.iconDefaultAttrs,
+                }"
+              >
+                <template v-if="index <= finalScore">
+                  <!-- @slot Use this slot to replace active rating icon. -->
+                  <slot
+                    name="icon-active"
+                    v-bind="{
+                      iconActiveAttrs: item.iconActiveAttrs
+                    }"
+                  >
+                    <UiIcon
+                      v-bind="item.iconActiveAttrs"
+                      class="ui-rating__icon"
+                    />
+                  </slot>
+                </template>
+                <template v-else>
+                  <!-- @slot Use this slot to replace default rating icon. -->
+                  <slot
+                    name="icon-default"
+                    v-bind="{
+                      iconDefaultAttrs: item.iconDefaultAttrs
+                    }"
+                  >
+                    <UiIcon
+                      v-bind="item.iconDefaultAttrs"
+                      class="ui-rating__icon"
+                    />
+                  </slot>
+                </template>
+              </slot>
             </div>
           </template>
-          <template #label>
-            <span class="visual-hidden">{{ defaultProps.translation.stars(index) }}</span>
+          <template
+            #label="{
+              textLabelAttrs
+            }"
+          >
+            <span
+              v-bind="textLabelAttrs"
+              class="visual-hidden"
+            >{{ defaultProps.translation.stars(index) }}</span>
           </template>
         </UiRadio>
       </slot>
@@ -95,6 +119,7 @@ import {
   computed,
   ref,
   useAttrs,
+  useSlots,
 } from 'vue';
 import type { PropType } from 'vue';
 import { uid } from 'uid/single';
@@ -106,7 +131,7 @@ import type { HTMLTag } from '../../../types/tag';
 
 export type RatingValue = string | number;
 export interface RatingSettings {
-  icon: Icon;
+  iconDefault: Icon;
   iconActive: Icon;
   [key: string]: unknown
 }
@@ -143,7 +168,7 @@ const props = defineProps({
   settings: {
     type: Object as PropType<RatingSettings>,
     default: () => ({
-      icon: 'star-outlined',
+      iconDefault: 'star-outlined',
       iconActive: 'star-filled',
     }),
   },
@@ -168,8 +193,22 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  /**
+   * Use this props to pass attrs for option UiRadio.
+   */
+  radioOptionAttrs: {
+    type: [Object, Array],
+    default: () => ({}),
+  },
 });
-const defaultProps = computed(() => ({ translation: { stars: (index: number) => (`${index} stars`) } }));
+const defaultProps = computed(() => ({
+  translation: { stars: (index: number) => (`${index} stars`) },
+  settings: {
+    iconDefault: 'star-outlined',
+    iconActive: 'star-filled',
+    ...props.settings,
+  },
+}));
 const emit = defineEmits<{(e:'update:modelValue', value: string): void}>();
 const ratingName = computed(() => (
   props.name || `rating-${uid()}`
@@ -193,10 +232,44 @@ const attrs = useAttrs();
 const radioAttrs = computed(() => (attrs.radioAttrs || attrs['radio-attrs']));
 if (radioAttrs.value) {
   if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiPopover]: The `radioAttrs` will be removed in 0.6.0.');
+    console.warn('[@infermedica/component-library warn][UiRating]: The `radioAttrs` props will be removed in 0.6.0. Please use `radioOptionAttrs` props instead.');
+  }
+}
+const icon = computed(() => (props.settings.icon));
+if (icon.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiRating]: The `icon` property from `settings` props will be removed in 0.6.0. Please use `iconDefault` property instead.');
+  }
+}
+const slots = useSlots();
+const iconSlot = computed(() => (slots.icon));
+if (iconSlot.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library error][UiRating]: From 0.5.2 `icon` slot is use to replace template of rating icons. Please use `iconDefault` slot instead.');
   }
 }
 // END
+const itemsToRender = computed(() => (Array.from({ length: maxScore.value }, (_, index) => {
+  const proxyRadioAttrs = radioAttrs.value || props.radioOptionAttrs; // TODO: remove proxy in 0.6.0
+  const radioOptionAttrs = Array.isArray(proxyRadioAttrs)
+    ? proxyRadioAttrs[index]
+    : proxyRadioAttrs;
+  return {
+    ...radioOptionAttrs,
+    iconActiveAttrs: {
+      icon: defaultProps.value.settings.iconActive,
+      ...radioOptionAttrs?.iconActiveAttrs,
+    },
+    iconDefaultAttrs: {
+      icon: icon.value || defaultProps.value.settings.iconDefault, // TODO: remove icon.value in 0.6.0
+      ...radioOptionAttrs?.iconDefaultAttrs,
+    },
+    textLabelAttrs: {
+      tag: 'div',
+      ...radioOptionAttrs?.textLabelAttrs,
+    },
+  };
+})));
 </script>
 
 <style lang="scss">

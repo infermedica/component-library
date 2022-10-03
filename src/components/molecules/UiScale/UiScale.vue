@@ -221,7 +221,7 @@ const props = defineProps({
     default: '',
   },
   /**
-   * USe this props to pass attrs for option UiRadio.
+   * Use this props to pass attrs for option UiRadio.
    */
   radioOptionAttrs: {
     type: [Object, Array],

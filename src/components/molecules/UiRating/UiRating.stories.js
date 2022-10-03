@@ -16,12 +16,14 @@ export default {
     modifiers: [],
     max: 5,
     name: '',
+    tag: 'fieldset',
     legend: 'How helpful was this checkup for you?',
     settings: {
-      icon: 'star-outlined',
+      iconDefault: 'star-outlined',
       iconActive: 'star-filled',
     },
     translation: { stars: (index) => (`${index} stars`) },
+    radioOptionAttrs: { 'data-testid': 'option-radio-input' },
   },
   argTypes: {
     initModelValue: {
@@ -35,6 +37,7 @@ export default {
       ],
     }),
     modelValue: { control: false },
+    radioOptionAttrs: { table: { subcategory: 'Attrs props' } },
   },
 };
 
@@ -51,7 +54,11 @@ const Template = (args) => ({
     v-model="modelValue"
     :max="max"
     :name="name"
+    :tag="tag"
     :legend="legend"
+    :settings="settings"
+    :translation="translation"
+    :radio-option-attrs="radioOptionAttrs"
     :class="modifiers"
   />`,
 });
@@ -60,6 +67,25 @@ export const Common = Template.bind({});
 
 export const IsDisabled = Template.bind({});
 IsDisabled.args = { modifiers: ['ui-rating--is-disabled'] };
+
+export const WithRadioOptionsAttrsAsArray = Template.bind({});
+WithRadioOptionsAttrsAsArray.args = {
+  radioOptionAttrs: [
+    { 'data-testid': 'first-option-radio-input' },
+    undefined,
+    {
+      'data-testid': 'third-option-radio-input',
+      iconDefaultAttrs: {
+        icon: 'star-outlined',
+        'data-testid': 'third-option-icon-default',
+      },
+      iconActiveAttrs: {
+        icon: 'star-filled',
+        'data-testid': 'third-option-icon-active',
+      },
+    },
+  ],
+};
 
 export const WithIconSlot = (args) => ({
   components: {
@@ -74,18 +100,36 @@ export const WithIconSlot = (args) => ({
     };
   },
   template: `<UiRating
-    v-model="modelValue"
-    :max="max"
-    :name="name"
-    :legend="legend"
-    :class="modifiers"
+      v-model="modelValue"
+      :max="max"
+      :name="name"
+      :tag="tag"
+      :legend="legend"
+      :settings="settings"
+      :translation="translation"
+      :radio-option-attrs="radioOptionAttrs"
+      :class="modifiers"
   >
-    <template #icon="{translation, icon}">
-      <UiIcon
-        :aria-label="translation"
-        :icon="icon"
-        class="ui-rating__icon"
-      />
+    <template 
+      #icon="{
+        index,
+        finalScore,
+        iconActiveAttrs,
+        iconDefaultAttrs,
+      }"
+    >
+      <template v-if="index <= finalScore">
+        <UiIcon
+          v-bind="iconActiveAttrs"
+          class="ui-rating__icon"
+        />
+      </template>
+      <template v-else>
+        <UiIcon
+            v-bind="iconDefaultAttrs"
+            class="ui-rating__icon"
+        />
+      </template>
     </template>
   </UiRating>`,
 });

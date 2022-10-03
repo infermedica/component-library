@@ -24,9 +24,12 @@ export default {
       min: 'Mild',
       max: 'Unbearable',
     },
-    radioOptionAttrs: { radioAttrs: { 'data-testid': 'radio' } },
-    textMinAttrs: {},
-    textMaxAttrs: {},
+    radioOptionAttrs: {
+      'data-testid': 'option-radio-input',
+      radioAttrs: { 'data-testid': 'option-radio' },
+    },
+    textMinAttrs: { 'data-testid': 'min-text' },
+    textMaxAttrs: { 'data-testid': 'max-text' },
     numberStepperAttrs: {
       buttonDecrementAttrs: { 'aria-label': 'decrement pain' },
       buttonIncrementAttrs: { 'aria-label': 'increment pain' },
@@ -107,19 +110,29 @@ export const WithDecrementSlot = (args) => ({
     :legend="legend"
     :steps="steps"
     :translation="translation"
+    :radio-option-attrs="radioOptionAttrs"
+    :text-min-attrs="textMinAttrs"
+    :text-max-attrs="textMaxAttrs"
     :number-stepper-attrs="numberStepperAttrs"
   >
-    <template #decrement="{decrement, hasControls, isMin, attrs}">
+    <template 
+      #decrement="{
+        hasControls, 
+        buttonDecrementAttrs,
+        isMin, 
+        decrement, 
+        iconDecrementAttrs,
+      }"
+    >
       <UiButton
         v-if="hasControls"
-        v-bind="attrs"
-        class="ui-button--outlined ui-button--circled ui-number-stepper__decrement"
-        :class="{'ui-button--is-disabled': isMin}"
+        v-bind="buttonDecrementAttrs"
+        :class="['ui-button--outlined ui-button--circled ui-number-stepper__decrement', { 'ui-button--is-disabled': isMin }]"
         @click="decrement"
       >
         <UiIcon
+          v-bind="iconDecrementAttrs"
           class="ui-button__icon"
-          icon="minus"
         />
       </UiButton>
     </template>
@@ -145,14 +158,24 @@ export const WithIncrementSlot = (args) => ({
     :legend="legend"
     :steps="steps"
     :translation="translation"
+    :radio-option-attrs="radioOptionAttrs"
+    :text-min-attrs="textMinAttrs"
+    :text-max-attrs="textMaxAttrs"
     :number-stepper-attrs="numberStepperAttrs"
   >
-    <template #increment="{increment, hasControls, isMax, attrs}">
+    <template 
+      #increment="{
+        hasControls,
+        buttonIncrementAttrs,
+        isMax,
+        increment,
+        iconIncrementAttrs
+      }"
+    >
       <UiButton
         v-if="hasControls"
-        v-bind="attrs"
-        class="ui-button--outlined ui-button--circled ui-number-stepper__increment"
-        :class="{'ui-button--is-disabled': isMax}"
+        v-bind="buttonIncrementAttrs"
+        :class="['ui-button--outlined ui-button--circled ui-number-stepper__increment', { 'ui-button--is-disabled': isMax }]"
         @click="increment"
       >
         <UiIcon
