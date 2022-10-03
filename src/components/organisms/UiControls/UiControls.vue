@@ -157,7 +157,7 @@ const emit = defineEmits<{(e: 'has-error'): void}>();
 function hasError(): void {
   emit('has-error');
 }
-const nextAttrs = computed<Record<string, unknown>>(() => (
+const nextAttrs = computed(() => (
   props.invalid
     ? {
       onClick: hasError,

@@ -193,7 +193,7 @@ const props = defineProps({
     default: () => [],
   },
 });
-const emit = defineEmits<{(e: 'update:modelValue', value: DropdownValue):void;
+const emit = defineEmits<{(e: 'update:modelValue', value: DropdownValue): void;
   (e: 'open'): void;
   (e: 'close'): void;
 }>();
@@ -212,8 +212,8 @@ const {
   prevDropdownItem,
   selectedDropdownItem,
 } = useDropdownItems(dropdown);
-function disableArrows(event: Event) {
-  if (['ArrowUp', 'ArrowDown'].indexOf((event as KeyboardEvent).code) > -1) {
+function disableArrows(event: KeyboardEvent): void {
+  if (['ArrowUp', 'ArrowDown'].indexOf(event.code) > -1) {
     event.preventDefault();
   }
 }
@@ -256,14 +256,14 @@ const dropdownName = computed(() => (
   props.name || `dropdown-${uid()}`
 ));
 provide('name', dropdownName);
-const modelValue = computed<DropdownValue>(() => (props.modelValue));
+const modelValue = computed(() => props.modelValue);
 provide('modelValue', modelValue);
-function changeHandler(value: DropdownValue):void {
+function changeHandler(value: DropdownValue): void {
   emit('update:modelValue', value);
   closeHandler();
 }
 provide('changeHandler', changeHandler);
-async function dropdownKeydownHandler({ key }: {key: string}): Promise<void> {
+async function dropdownKeydownHandler({ key }: { key: string }): Promise<void> {
   if (!props.enableKeyboardNavigation) return;
 
   switch (key) {
@@ -297,7 +297,7 @@ async function dropdownKeydownHandler({ key }: {key: string}): Promise<void> {
 // todo: why this component handle searchQuery and searchDebounce?
 const searchQuery = ref('');
 const searchDebounce = ref<ReturnType<typeof setTimeout> | null>(null);
-function handleInputQuery({ key }: {key: string}): void {
+function handleInputQuery({ key }: { key: string }): void {
   searchQuery.value += key.toLowerCase();
   const match: number = dropdownItems.value.findIndex(
     (item: HTMLElement) => item.innerText.toLowerCase().startsWith(searchQuery.value),
@@ -320,19 +320,20 @@ defineExpose({
   closeHandler,
 });
 
-const itemsToRender = computed(() => (props.items.map((item: DropdownItem, key) => {
-  if (typeof item === 'string' || typeof item === 'number') {
+const itemsToRender = computed(() => (
+  props.items.map((item, key) => {
+    if (typeof item === 'string' || typeof item === 'number') {
+      return {
+        name: `dropdown-item-${key}`,
+        text: item,
+        value: item,
+      };
+    }
     return {
       name: `dropdown-item-${key}`,
-      text: item,
-      value: item,
+      ...item,
     };
-  }
-  return {
-    name: `dropdown-item-${key}`,
-    ...item,
-  };
-})));
+  })));
 </script>
 
 <style lang="scss">

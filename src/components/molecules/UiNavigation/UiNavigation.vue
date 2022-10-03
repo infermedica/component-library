@@ -71,10 +71,11 @@ const nav = ref<HTMLElement | null>(null);
 const isMultiline = ref(false);
 const modifiers = computed(() => (attrs?.class || ''));
 provide('modifiers', modifiers);
-const itemsToRender = computed(() => (props.items.map((item: NavigationItem, key: number) => ({
-  name: `navigation-item-${key}`,
-  ...item,
-}))));
+const itemsToRender = computed(() => (
+  props.items.map((item, key) => ({
+    name: `navigation-item-${key}`,
+    ...item,
+  }))));
 const resizeObserver = new ResizeObserver((entries) => {
   const { target } = entries[0];
   isMultiline.value = ([...target.children].at(-1) as HTMLElement).offsetTop > (target as HTMLElement).offsetTop;

@@ -47,6 +47,7 @@ export interface ToggleButtonItemAsObj{
   name: string;
   text: string | number;
   value: ToggleButtonValue;
+  toggleButtonAttrs?: Record<string, unknown>
   [key: string]: ToggleButtonValue | undefined;
 }
 export type ToggleButtonItem = number | string | ToggleButtonItemAsObj;
@@ -86,8 +87,8 @@ const innerValue = computed<ToggleButtonValue>({
   },
 });
 provide('modelValue', innerValue);
-const itemsToRender = computed<ToggleButtonItemAsObj[]>(() => (
-  props.items.map((item: ToggleButtonItem, key: number) => {
+const itemsToRender = computed(() => (
+  props.items.map((item, key) => {
     if (typeof item === 'string' || typeof item === 'number') {
       return {
         name: `toggle-button-${key}`,

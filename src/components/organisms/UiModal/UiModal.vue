@@ -342,7 +342,7 @@ const button = ref<InstanceType<typeof UiButton>|null>(null);
 const hasActions = computed(() => props.hasCancel || props.hasConfirm);
 const hasDescription = computed(() => !!props.title && !!props.description);
 const hasHeader = computed(() => !!props.title || !!props.description || !!props.isClosable);
-const titleSlotName = computed<'title'|'description'>(() => (props.title ? 'title' : 'description'));
+const titleSlotName = computed(() => (props.title ? 'title' : 'description'));
 const titleTag = computed(() => (props.title ? UiHeading : UiText));
 const titleText = computed(() => props.title || props.description);
 

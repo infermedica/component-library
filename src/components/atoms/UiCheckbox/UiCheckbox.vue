@@ -105,7 +105,7 @@ const hasLabel = computed(() => (!!slots.default));
 const checkboxId = computed(() => (props.id || `checkbox-${uid()}`));
 const isChecked = computed(() => {
   if (Array.isArray(props.modelValue)) {
-    return !!props.modelValue.find((option: Record<string, unknown>) => (
+    return !!props.modelValue.find((option) => (
       equal(JSON.parse(JSON.stringify(props.value)), JSON.parse(JSON.stringify(option)))));
   }
   return props.modelValue;

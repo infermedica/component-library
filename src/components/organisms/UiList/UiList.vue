@@ -74,30 +74,31 @@ const props = defineProps({
     default: () => ([]),
   },
 });
-const itemsToRender = computed<ListRender[]>(() => (props.items.map((item: ListItem, key: number) => {
-  if (typeof item === 'string') {
+const itemsToRender = computed<ListRender[]>(() => (
+  props.items.map((item, key) => {
+    if (typeof item === 'string') {
+      return {
+        name: `list-item-${key}`,
+        text: item,
+      };
+    }
+    const { name, children } = item;
     return {
-      name: `list-item-${key}`,
-      text: item,
-    };
-  }
-  const { name, children } = item;
-  return {
-    ...item,
-    name: name || `list-item-${key}`,
-    children: Array.isArray(children)
-      ? {
-        tag: props.tag,
-        items: children,
-      }
-      : {
-        items: children?.items,
-        ...(children?.listAttrs || {
+      ...item,
+      name: name || `list-item-${key}`,
+      children: Array.isArray(children)
+        ? {
           tag: props.tag,
-        }),
-      },
-  };
-})));
+          items: children,
+        }
+        : {
+          items: children?.items,
+          ...(children?.listAttrs || {
+            tag: props.tag,
+          }),
+        },
+    };
+  })));
 </script>
 
 <style lang="scss">

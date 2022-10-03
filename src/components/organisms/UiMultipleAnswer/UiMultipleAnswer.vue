@@ -270,7 +270,7 @@ const valid = computed(() => (isCheckbox.value
   ? (props.modelValue as string).length > 0
   : !!(props.modelValue as MultipleAnswerItem).id));
 const hasError = computed(() => (props.touched && !valid.value));
-const hintType = computed<'error'|'default'>(() => (props.touched && props.invalid ? 'error' : 'default'));
+const hintType = computed(() => (props.touched && props.invalid ? 'error' : 'default'));
 const errorClass = computed(() => ([hasError.value ? `${componentName.value}--has-error` : '', {
   'ui-multiple-answer__choice--has-error': hasError.value,
 }]));

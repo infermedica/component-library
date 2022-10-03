@@ -65,7 +65,7 @@ const props = defineProps({
     default: () => ([]),
   },
 });
-const emit = defineEmits<{(e: 'update:modelValue', value:AccordionValue): void}>();
+const emit = defineEmits<{(e: 'update:modelValue', value: AccordionValue): void}>();
 const opened = computed<AccordionValue>(() => (props.modelValue));
 provide('opened', opened);
 function toggle(name: string): void {
@@ -78,16 +78,17 @@ function toggle(name: string): void {
   }
 }
 provide('toggle', toggle);
-const itemsToRender = computed(() => (props.items.map((item: AccordionItem, key: number) => {
-  if (typeof item === 'string') {
+const itemsToRender = computed(() => (
+  props.items.map((item, key) => {
+    if (typeof item === 'string') {
+      return {
+        name: `accordion-item-${key}`,
+        title: item,
+      };
+    }
     return {
       name: `accordion-item-${key}`,
-      title: item,
+      ...item,
     };
-  }
-  return {
-    name: `accordion-item-${key}`,
-    ...item,
-  };
-})));
+  })));
 </script>

@@ -170,7 +170,7 @@ const valid = computed(() => (value.value.filter((item) => item).length === prop
 watch(valid, (value) => {
   emit('update:invalid', !value);
 });
-const hintType = computed<'error'| 'default'>(() => (props.touched && props.invalid ? 'error' : 'default'));
+const hintType = computed(() => (props.touched && props.invalid ? 'error' : 'default'));
 const hasError = (index: number) => (props.touched && !value.value[index]);
 const updateHandler = (newValue: string, index: number) => {
   value.value[index] = newValue;

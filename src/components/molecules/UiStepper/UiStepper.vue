@@ -126,6 +126,11 @@ export interface Step {
   route?: string;
   [key: string]: unknown;
 }
+export interface DetermineStep {
+  tag?: HTMLTag;
+  class?: string;
+  [key: string]: unknown;
+}
 const props = defineProps({
   /**
    * Use this props to set the steps in the stepper.
@@ -162,8 +167,8 @@ const currentStepDisplayText = computed(() => `
       ${currentStepDisplayNumber.value}/${props.steps.length} ${props.currentStep}
     `);
 const stepsProgress = computed(() => (currentStepDisplayNumber.value / stepsLength.value) * 100);
-const determineStep = (itemIndex: number, step: Step) => ({
-  tag: itemIndex >= indexOfActiveStep.value ? 'span' as HTMLTag : undefined,
+const determineStep = (itemIndex: number, step: Step): DetermineStep => ({
+  tag: itemIndex >= indexOfActiveStep.value ? 'span' : undefined,
   class: itemIndex <= indexOfActiveStep.value ? undefined : 'ui-button--is-disabled',
   ...step,
 });
