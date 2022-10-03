@@ -21,21 +21,37 @@ export default {
     steps: 10,
     translation: {
       label: 'Pain scale',
-      mild: 'Mild',
-      unbearable: 'Unbearable',
+      min: 'Mild',
+      max: 'Unbearable',
     },
+    radioOptionAttrs: { radioAttrs: { 'data-testid': 'radio' } },
+    textMinAttrs: {},
+    textMaxAttrs: {},
     numberStepperAttrs: {
       buttonDecrementAttrs: { 'aria-label': 'decrement pain' },
       buttonIncrementAttrs: { 'aria-label': 'increment pain' },
     },
   },
   argTypes: {
+    legend: {
+      table: { category: 'props' },
+      description: 'Use this props to set legend.',
+    },
+    legendSlot: {
+      name: 'Legend',
+      table: { category: 'slots' },
+      description: 'Use this props to set legend.',
+    },
     initModelValue: {
       description: 'Use this control to set initial state. Starting from 0.',
       table: { category: 'stories controls' },
       control: 'number',
     },
     modelValue: { control: false },
+    radioOptionAttrs: { table: { subcategory: 'Attrs props' } },
+    textMinAttrs: { table: { subcategory: 'Attrs props' } },
+    textMaxAttrs: { table: { subcategory: 'Attrs props' } },
+    numberStepperAttrs: { table: { subcategory: 'Attrs props' } },
   },
 };
 
@@ -54,11 +70,23 @@ const Template = (args) => ({
     :legend="legend"
     :steps="steps"
     :translation="translation"
+    :radio-option-attrs="radioOptionAttrs"
+    :text-min-attrs="textMinAttrs"
+    :text-max-attrs="textMaxAttrs"
     :number-stepper-attrs="numberStepperAttrs"
   />`,
 });
 
 export const Common = Template.bind({});
+
+export const WithRadioOptionAttrsAsArray = Template.bind({});
+WithRadioOptionAttrsAsArray.args = {
+  radioOptionAttrs: [undefined, undefined, {
+    'data-testid': 'third-radio-input-element',
+    radioAttrs: { 'data-testid': 'third-radio-element' },
+    textLabelAttrs: { 'data-testid': 'third-label-text' },
+  }],
+};
 
 export const WithDecrementSlot = (args) => ({
   components: {

@@ -17,10 +17,12 @@
     <slot
       :name="radiobutton && 'radiobutton' || 'radio'"
       v-bind="{
-        checked: isChecked
+        checked: isChecked,
+        radioAttrs,
       }"
     >
       <div
+        v-bind="radioAttrs"
         :class="['ui-radio__radio',{
           'ui-radio__radio--is-checked': isChecked
         }]"
@@ -87,6 +89,13 @@ const props = defineProps({
   id: {
     type: String,
     default: '',
+  },
+  /**
+   * Use this props to pass attrs for radio element.
+   */
+  radioAttrs: {
+    type: Object,
+    default: () => ({}),
   },
   /**
    * Use this props to pass attrs for label UiText

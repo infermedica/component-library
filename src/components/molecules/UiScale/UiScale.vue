@@ -23,11 +23,12 @@
         </legend>
       </slot>
       <template
-        v-for="(_, index) in maxSteps"
+        v-for="(item, index) in itemsToRender"
         :key="index"
       >
         <UiRadio
           ref="optionRefs"
+          v-bind="item"
           v-model="scaleValue"
           :value="index"
           :name="scaleName"
@@ -36,23 +37,30 @@
           @mouseover="hoverHandler($event, index)"
           @mouseleave="hoverHandler($event, index)"
         >
-          <template #radio>
+          <template
+            #radio="{
+              radioAttrs
+            }"
+          >
             <div
+              v-bind="radioAttrs"
               :style="calcActiveElementOpacity(index)"
-              class="ui-scale__square"
-              :class="{
+              :class="['ui-scale__square', {
                 'ui-scale__square--is-checked': index <= finalValue,
-              }"
+              }]"
             />
           </template>
-          <template #label>
+          <template
+            #label="{
+              textLabelAttrs
+            }"
+          >
             <UiText
               :id="`scale-label-${index}`"
-              tag="div"
-              class="ui-scale__label"
-              :class="{
+              v-bind="textLabelAttrs"
+              :class="['ui-scale__label', {
                 'ui-scale__label--is-checked': index === scaleValue,
-              }"
+              }]"
             >
               {{ index + 1 }}
             </UiText>
@@ -60,38 +68,80 @@
         </UiRadio>
       </template>
     </component>
-    <div class="ui-scale__description">
-      <UiText
-        class="ui-scale__mild"
-        aria-hidden="true"
-      >
-        {{ defaultProps.translation.mild }}
-      </UiText>
-      <UiText
-        class="ui-scale__unbearable"
-        aria-hidden="true"
-      >
-        {{ defaultProps.translation.unbearable }}
-      </UiText>
-    </div>
-    <UiNumberStepper
-      v-bind="proxyNumberStepperAttrs"
-      class="ui-scale__mobile-controls"
-      :model-value="scaleValue"
-      :min="0"
-      :max="steps - 1"
-      @update:model-value="changeHandler"
+    <!-- @slot Use this slot to replace description template. -->
+    <slot
+      name="description"
+      v-bind="{
+        translation: defaultProps.translation,
+        textMinAttrs,
+        textMaxAttrs
+      }"
     >
-      <template
-        v-for="(_, slotName) in $slots"
-        #[slotName]="data"
-      >
+      <div class="ui-scale__description">
+        <!-- @slot Use this slot to replace min template. -->
         <slot
-          :name="slotName"
-          v-bind="data"
-        />
-      </template>
-    </UiNumberStepper>
+          name="min"
+          v-bind="{
+            textMinAttrs,
+            translation: defaultProps.translation
+          }"
+        >
+          <UiText
+            v-bind="textMinAttrs"
+            class="ui-scale__min"
+            aria-hidden="true"
+          >
+            {{ defaultProps.translation.min }}
+          </UiText>
+        </slot>
+        <!-- @slot Use this slot to replace max template. -->
+        <slot
+          name="max"
+          v-bind="{
+            textMaxAttrs,
+            translation: defaultProps.translation
+          }"
+        >
+          <UiText
+            v-bind="textMaxAttrs"
+            class="ui-scale__max"
+            aria-hidden="true"
+          >
+            {{ defaultProps.translation.max }}
+          </UiText>
+        </slot>
+      </div>
+    </slot>
+    <!-- @slot Use this slot to replace mobile controls template. -->
+    <slot
+      name="mobile-controls"
+      v-bind="{
+        numberStepperAttrs: defaultProps.numberStepperAttrs,
+        scaleValue,
+        steps,
+        max: steps - 1,
+        changeHandler
+      }"
+    >
+      <UiNumberStepper
+        v-bind="defaultProps.numberStepperAttrs"
+        class="ui-scale__mobile-controls"
+        :model-value="scaleValue"
+        :min="0"
+        :max="steps - 1"
+        @update:model-value="changeHandler"
+      >
+        <template
+          v-for="(_, slotName) in $slots"
+          #[slotName]="data"
+        >
+          <slot
+            :name="slotName"
+            v-bind="data"
+          />
+        </template>
+      </UiNumberStepper>
+    </slot>
   </div>
 </template>
 
@@ -152,8 +202,8 @@ const props = defineProps({
     type: Object as PropType<ScaleTranslation>,
     default: () => ({
       label: 'Pain scale',
-      mild: 'Mild',
-      unbearable: 'Unbearable',
+      min: 'Mild',
+      max: 'Unbearable',
     }),
   },
   /**
@@ -171,21 +221,34 @@ const props = defineProps({
     default: '',
   },
   /**
-   * USe this props to pass attrs for UiNumberStepper
+   * USe this props to pass attrs for option UiRadio.
+   */
+  radioOptionAttrs: {
+    type: [Object, Array],
+    default: () => ({}),
+  },
+  /**
+   * USe this props to pass attrs for min UiText.
+   */
+  textMinAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({}),
+  },
+  /**
+   * USe this props to pass attrs for max UiText.
+   */
+  textMaxAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({}),
+  },
+  /**
+   * USe this props to pass attrs for UiNumberStepper.
    */
   numberStepperAttrs: {
     type: Object as PropsAttrs,
     default: () => ({}),
   },
 });
-const defaultProps = computed(() => ({
-  translation: {
-    label: 'Pain scale',
-    mild: 'Mild',
-    unbearable: 'Unbearable',
-    ...props.translation,
-  },
-}));
 const emit = defineEmits<{(e: 'update:modelValue', value: number): void}>();
 const scaleName = computed(() => (
   props.name || `scale-${uid()}`
@@ -235,12 +298,32 @@ if (buttonIncrementAttrs.value) {
     console.warn('[@infermedica/component-library warn][UiScale]: The `buttonIncrementAttrs` will be removed in 0.6.0. Please use `numberStepperAttrs` props instead.');
   }
 }
-const proxyNumberStepperAttrs = computed(() => ({
-  buttonDecrementAttrs: buttonDecrementAttrs.value,
-  buttonIncrementAttrs: buttonIncrementAttrs.value,
-  ...props.numberStepperAttrs,
-}));
 // END
+const defaultProps = computed(() => ({
+  translation: {
+    label: 'Pain scale',
+    min: 'Mild',
+    max: 'Unbearable',
+    ...props.translation,
+  },
+  numberStepperAttrs: {
+    buttonDecrementAttrs: buttonDecrementAttrs.value,
+    buttonIncrementAttrs: buttonIncrementAttrs.value,
+    ...props.numberStepperAttrs,
+  },
+}));
+const itemsToRender = computed(() => (Array.from({ length: maxSteps.value }, (_, index) => {
+  const radioOptionAttrs = Array.isArray(props.radioOptionAttrs)
+    ? props.radioOptionAttrs[index]
+    : props.radioOptionAttrs;
+  return {
+    ...radioOptionAttrs,
+    textLabelAttrs: {
+      tag: 'div',
+      ...radioOptionAttrs?.textLabelAttrs,
+    },
+  };
+})));
 </script>
 
 <style lang="scss">
@@ -408,11 +491,11 @@ const proxyNumberStepperAttrs = computed(() => ({
     margin: functions.var($element + "-description", margin, var(--space-16) 0 0 0);
   }
 
-  &__mild {
+  &__min {
     --text-color: #{functions.var($element + "-mild", color, var(--_scale-description-color))};
   }
 
-  &__unbearable {
+  &__max {
     --text-color: #{functions.var($element + "-unredable", color, var(--_scale-description-color))};
   }
 }

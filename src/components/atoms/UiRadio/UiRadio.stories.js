@@ -22,7 +22,8 @@ export default {
     name: '',
     value: 'overweight-or-obese',
     id: '',
-    textLabelAttrs: { 'data-testid': 'text-label' },
+    radioAttrs: { 'data-testid': 'radio-element' },
+    textLabelAttrs: { 'data-testid': 'label-text' },
   },
   argTypes: {
     initModelValue: {
@@ -39,6 +40,7 @@ export default {
     },
     value: { control: 'text' },
     id: { control: 'text' },
+    radioAttrs: { table: { subcategory: 'Attrs props' } },
     textLabelAttrs: { table: { subcategory: 'Attrs props' } },
   },
 };
@@ -57,6 +59,7 @@ const Template = (args) => ({
     v-model="modelValue"
     :value="value"
     :id="id"
+    :radio-attrs="radioAttrs"
     :text-label-attrs="textLabelAttrs"
     :class="modifiers"
     @update:modelValue="onUpdateModelValue"
@@ -87,16 +90,22 @@ export const WithRadioSlot = (args) => ({
     v-model="modelValue"
     :value="value"
     :id="id"
+    :radio-attrs="radioAttrs"
     :text-label-attrs="textLabelAttrs"
     :class="modifiers"
     @update:modelValue="onUpdateModelValue"
   >
-    <template #radiobutton="{ checked }">
+    <template 
+      #radiobutton="{ 
+        checked,
+        radioAttrs,
+      }"
+    >
       <div 
-        class="ui-radio__radio"
-        :class="{
+        v-bind="radioAttrs"
+        :class="['ui-radio__radio', {
           'ui-radio__radio--is-checked': checked
-        }"
+        }]"
       >
         <div class="ui-radio__mark" />
       </div>
@@ -123,6 +132,7 @@ export const WithLabelSlot = (args) => ({
       v-model="modelValue"
       :value="value"
       :id="id"
+      :radio-attrs="radioAttrs"
       :text-label-attrs="textLabelAttrs"
       :class="modifiers"
       @update:modelValue="onUpdateModelValue"
