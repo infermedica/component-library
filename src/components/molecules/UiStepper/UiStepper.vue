@@ -6,6 +6,7 @@
       v-bind="{
         currentStep,
         currentStepDisplayText,
+        progressAttrs,
         stepsProgress
       }"
     >
@@ -28,14 +29,12 @@
         <slot
           name="progress"
           v-bind="{
+            progressAttrs: defaultProps.progressAttrs,
             stepsProgress
           }"
         >
           <UiProgress
-            v-bind="progressAttrs"
-            :min="0"
-            :max="100"
-            :value="stepsProgress"
+            v-bind="defaultProps.progressAttrs"
             class="ui-stepper__progress"
           />
         </slot>
@@ -45,7 +44,7 @@
     <slot
       name="desktop"
       v-bind="{
-        steps,
+        steps: stepsToRender,
         currentStep,
         indexOfActiveStep,
         determineStep
@@ -56,13 +55,13 @@
         <slot
           name="items"
           v-bind="{
-            steps,
+            steps: stepsToRender,
             indexOfActiveStep,
             determineStep
           }"
         >
           <template
-            v-for="(step, index) in steps"
+            v-for="(step, index) in stepsToRender"
             :key="index"
           >
             <!-- @slot Use this slot to replace item in the desktop list -->
@@ -96,7 +95,7 @@
                     v-bind="determineStep(index, step)"
                     class="ui-button--text ui-button--theme-secondary ui-stepper__item"
                   >
-                    {{ step.name }}
+                    {{ step.label }}
                   </UiButton>
                 </slot>
               </UiListitem>
@@ -119,7 +118,7 @@ import UiListItem from '../../organisms/UiList/_internal/UiListItem.vue';
 import type { PropsAttrs } from '../../../types/attrs';
 
 export interface Step {
-  name: string;
+  label: string;
   to: string;
   href: string;
   [key: string]: unknown;
@@ -135,10 +134,7 @@ const props = defineProps({
   steps: {
     type: Array as PropType<Step[]>,
     default: () => [
-      {
-        name: '',
-        route: '',
-      },
+      { label: '' },
     ],
   },
   /**
@@ -157,7 +153,7 @@ const props = defineProps({
   },
 });
 const stepsLength = computed(() => props.steps.length);
-const indexOfActiveStep = computed(() => props.steps.findIndex((step) => step.name === props.currentStep));
+const indexOfActiveStep = computed(() => props.steps.findIndex((step) => step.label === props.currentStep));
 const currentStepDisplayNumber = computed(() => indexOfActiveStep.value + 1);
 const currentStepDisplayText = computed(() => `
       ${currentStepDisplayNumber.value}/${props.steps.length} ${props.currentStep}
@@ -168,6 +164,25 @@ const determineStep = (itemIndex: number, step: Step): DetermineStep => ({
   class: itemIndex <= indexOfActiveStep.value ? undefined : 'ui-button--is-disabled',
   ...step,
 });
+const defaultProps = computed(() => ({
+  progressAttrs: {
+    min: 0,
+    max: 100,
+    value: stepsProgress.value,
+    ...props.progressAttrs,
+  },
+}));
+// TODO: remove in 0.6.0 / BEGIN
+if (props.steps.some((step) => step.name)) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiStepper]: The step `name` props will be removed in 0.6.0. Please use step `label` props instead.');
+  }
+}
+const stepsToRender = computed(() => props.steps.map((step) => ({
+  label: step.name || step.label,
+  ...step,
+})));
+// END
 </script>
 
 <style lang="scss">
