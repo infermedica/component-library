@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/addon-docs';
+import { Canvas, Meta, Story } from "@storybook/addon-docs";
 import { PageOutline } from '../../../components/PageOutline';
 import { Table } from '../../../components/Table';
 
@@ -8,35 +8,98 @@ import { Table } from '../../../components/Table';
 
 <PageOutline selectors="h2, h3"/>
 
+## UiLoader with support for transition types
+From v0.5.2 UiLoader has new props `transitionType`. `transitionType` can be use to set `if | show | opacity`. New is `show` and `opacity`. You can find [How to use](/docs/molecules-loader--common) in `UiLoader` docs.
+
+**How to migrate**
+
+You can use `UiLoader` without changes because `if` is default value and we haven't changed anything for this `transitionType`. If you want to use `show` or `opacity` you need to set `transitionType` prop and make sure that `UiLoader` is working as expected.
+
+## UiMultipleChoices emit array with new data format
+From v0.5.2 UiMultipleChoices droped support for Triage application and now uses more generic data format.
+
+**Before**
+
+`UiMultipleChoices` put to array value of selected option with data required by Infermedica API.
+
+```js
+
+```html
+<UiMultipleChoices
+  :choices="[
+    {
+      "id": 9,
+      "question": 37,
+      "name": "I have diabetes",
+      "linked_observation": "p_8"
+    },
+    {
+      "id": 8,
+      "question": 37,
+      "name": "I have hypertension",
+      "linked_observation": "p_9"
+    },
+  ]"
+  :options="[
+    {
+      value: 'present',
+      label: 'Yes' },
+    {
+      value: 'absent',
+      label: 'No'
+    },
+    {
+      value: 'unknown',
+      label: 'Don't know'
+    },
+  ]"
+/>
+```
+With selected options "Yes" for "I have hypertension" will emit array with values:
+```js
+[
+  {
+    "id": 8,
+    "question": 37,
+    "name": "I have hypertension",
+    "linked_observation": "p_9",
+    "source": "predefined",
+    "choice_id": "present"
+  }
+]
+```
+
+**After**
+
+`UiMultipleChoices` put to array 1:1 value of selected option.
+
+```html
+<UiMultipleChoices
+  :items="[
+    { label: 'I have diabetes' },
+    { label: 'I have hypertension' },
+  ]"
+  :options="[
+    { value: 'present', label: 'Yes' },
+    { value: 'absent', label: 'No' },
+    { value: 'unknown', label: 'Don't know' },
+  ]"
+/>
+```
+With selected options "Yes" for "I have hypertension" will emit array with values:
+```js
+[undefined, 'present']
+```
+
+**How to migrate**
+
+To migrate to new format you need to map values from `UiMultipleChoices` to your data format e.g.:
+
+<Canvas>
+  <Story id="organisms-multiplechoices--as-evidence"/>
+</Canvas>
+
 ## Changes in the API of components
-
-### UiCheckbox
-#### Props changes
-<Table
-  headers={['Props', 'Status', 'Changes']}
-  rows={[
-    ['`textLabelAttrs`', 'Added', ''],
-    ['`iconCheckmarkAttrs`', 'Added', ''],
-  ]}
-/>
-
-### UiInput
-#### Props changes
-<Table
-  headers={['Props', 'Status', 'Changes']}
-  rows={[
-    ['`suffixTextAttrs`', 'Added', ''],
-  ]}
-/>
-
-### UiRadio
-#### Props changes
-<Table
-  headers={['Props', 'Status', 'Changes']}
-  rows={[
-    ['`textLabelAttrs`', 'Added', ''],
-  ]}
-/>
 
 ### UiRange
 #### Props changes
@@ -53,18 +116,7 @@ import { Table } from '../../../components/Table';
 <Table
   headers={['Props', 'Status', 'Changes']}
   rows={[
-    ['`iconAttrs`', 'Added', ''],
-    ['`textMessageAttrs`', 'Added', '']
-  ]}
-/>
-
-### UiChip
-#### Props changes
-<Table
-  headers={['Props', 'Status', 'Changes']}
-  rows={[
-    ['`buttonAttrs`', 'Name changed', 'Use `removeButtonAttrs`']
-    ['`iconAttrs`', 'Added', '']
+    ['`buttonAttrs`', 'Deprecated', 'Use `buttonRemoveAttrs`'],
   ]}
 />
 
@@ -73,17 +125,7 @@ import { Table } from '../../../components/Table';
 <Table
   headers={['Props', 'Status', 'Changes']}
   rows={[
-    ['`buttonAttrs`', 'Name changed', 'Use `buttonToggleAttrs`']
-    ['`popoverAttrs`', 'Added', '']
-  ]}
-/>
-
-### UiDropdownItem
-#### Props changes
-<Table
-  headers={['Props', 'Status', 'Changes']}
-  rows={[
-    ['`iconAttrs`', 'Added', '']
+    ['`buttonAttrs`', 'Deprecated', 'Use `buttonToggleAttrs`'],
   ]}
 />
 
@@ -92,18 +134,119 @@ import { Table } from '../../../components/Table';
 <Table
   headers={['Props', 'Status', 'Changes']}
   rows={[
-    ['`label`', 'Name changed', 'Use `message`'],
-    ['`labelAttrs`', 'Deprecated', ''],
-    ['`messageTextAttrs`', 'Added', ''],
-    ['`hintTextAttrs`', 'Added', '']
+    ['`labelAttrs`', 'Deprecated', 'Use `textHintAttrs` or `textMessageAttrs`'],
   ]}
 />
 
-### UiHeader
+### UiFormField
 #### Props changes
 <Table
   headers={['Props', 'Status', 'Changes']}
   rows={[
-    ['`logoAttrs`', 'Name changed', 'Use `iconLogoAttrs`'],
+    ['`setElementsAttrs`', 'Deprecated', 'Use `elementsAttrs`'],
+  ]}
+/>
+
+### UiPopover
+#### Props changes
+<Table
+  headers={['Props', 'Status', 'Changes']}
+  rows={[
+    ['`buttonAttrs`', 'Deprecated', 'Use `buttonCloseAttrs`'],
+  ]}
+/>
+
+### UiRating
+#### Props changes
+<Table
+  headers={['Props', 'Status', 'Changes']}
+  rows={[
+    ['`radioAttrs`', 'Deprecated', 'Use `radioOptionAttrs`'],
+    ['`settings.icon`', 'Deprecated', 'Use `settings.iconDefault`'],
+  ]}
+/>
+
+#### Slots changes
+<Table
+  headers={['Slot', 'Status', 'Changes']}
+  rows={[
+    ['`icon`', 'Deprecated', 'Use `iconDefault`'],
+  ]}
+/>
+
+
+### UiScale
+#### Props changes
+<Table
+  headers={['Props', 'Status', 'Changes']}
+  rows={[
+    ['`buttonDecrementAttrs`', 'Deprecated', 'Use `numberStepperAttrs`'],
+    ['`buttonIncrementAttrs`', 'Deprecated', 'Use `numberStepperAttrs`'],
+    ['`translation.mild`', 'Deprecated', 'Use `translation.min`'],
+    ['`translation.unbearable`', 'Deprecated', 'Use `translation.max`'],
+  ]}
+/>
+
+### UiSteps
+#### Props changes
+<Table
+  headers={['Props', 'Status', 'Changes']}
+  rows={[
+    ['`step.name`', 'Deprecated', 'Use `step.label`'],
+  ]}
+/>
+
+### UiMultipleAnswer
+#### Props changes
+<Table
+  headers={['Props', 'Status', 'Changes']}
+  rows={[
+    ['`choices`', 'Deprecated', 'Use `items`'],
+    ['`item.name`', 'Deprecated', 'Use `item.label`'],
+  ]}
+/>
+
+#### Slots changes
+<Table
+  headers={['Slot', 'Status', 'Changes']}
+  rows={[
+    ['`choiceItem`', 'Deprecated', 'Use `choice`']
+  ]}
+/>
+
+### UiMultipleChoices
+#### Props changes
+<Table
+  headers={['Props', 'Status', 'Changes']}
+  rows={[
+    ['`choices`', 'Deprecated', 'Use `items`'],
+    ['`item.name`', 'Deprecated', 'Use `item.label`'],
+    ['`option.name`', 'Deprecated', 'Use `option.label`'],
+  ]}
+/>
+
+#### Slots changes
+<Table
+  headers={['Slot', 'Status', 'Changes']}
+  rows={[
+    ['`choiceItem`', 'Deprecated', 'Use `choice`']
+  ]}
+/>
+
+### UiSidePanel
+#### Props changes
+<Table
+  headers={['Props', 'Status', 'Changes']}
+  rows={[
+    ['`transition`', 'Deprecated', 'Use `transitionDialogAttrs`'],
+  ]}
+/>
+
+### UiSimpleQuestion
+#### Props changes
+<Table
+  headers={['Props', 'Status', 'Changes']}
+  rows={[
+    ['`options`', 'Deprecated', 'Use `items`'],
   ]}
 />

@@ -290,7 +290,7 @@ export const AsEvidence = (args) => ({
     const invalid = ref(args.initInvalid);
     const evidence = computed(() => modelValue.value.map((item, index) => ({
       choice_id: item,
-      id: items[index].id,
+      id: items[index].linked_observation,
       source: 'suggest',
     })));
     return {
@@ -315,15 +315,15 @@ export const AsEvidence = (args) => ({
 AsEvidence.args = {
   items: [
     {
-      id: 'p_7',
+      linked_observation: 'p_7',
       label: 'High BMI',
     },
     {
-      id: 'p_9',
+      linked_observation: 'p_9',
       label: 'I have hypertension',
     },
     {
-      id: 'p_28',
+      linked_observation: 'p_28',
       label: 'I have smoked cigarettes for at least 10 years',
     },
   ],

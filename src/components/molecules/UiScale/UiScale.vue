@@ -298,12 +298,24 @@ if (buttonIncrementAttrs.value) {
     console.warn('[@infermedica/component-library warn][UiScale]: The `buttonIncrementAttrs` will be removed in 0.6.0. Please use `numberStepperAttrs` props instead.');
   }
 }
+const translationMild = computed(() => props.translation?.mild);
+if (translationMild.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiScale]: The translation `mild` will be removed in 0.6.0. Please use `min` translation property instead.');
+  }
+}
+const translationUnbearable = computed(() => props.translation?.mild);
+if (translationUnbearable.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiScale]: The translation `unbearable` will be removed in 0.6.0. Please use `max` translation property instead.');
+  }
+}
 // END
 const defaultProps = computed(() => ({
   translation: {
     label: 'Pain scale',
-    min: 'Mild',
-    max: 'Unbearable',
+    min: props.translation?.mild || 'Mild',
+    max: props.translation?.unbearable || 'Unbearable',
     ...props.translation,
   },
   numberStepperAttrs: {
