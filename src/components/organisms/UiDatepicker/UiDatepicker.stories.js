@@ -34,18 +34,28 @@ export default {
     },
     minLimit: 0,
     maxLimit: 120,
-    inputDayAttrs: { id: 'datepicker-input-day' },
-    inputMonthAttrs: { id: 'datepicker-input-month' },
-    inputYearAttrs: { id: 'datepicker-input-year' },
+    alertAttrs: { 'data-testid': 'alert' },
+    textDayAttrs: { 'data-testid': 'day-text' },
+    textMonthAttrs: { 'data-testid': 'month-text' },
+    textYearAttrs: { 'data-testid': 'year-text' },
+    inputDayAttrs: { 'data-testid': 'day-input' },
+    inputMonthAttrs: { 'data-testid': 'month-input' },
+    inputYearAttrs: { 'data-testid': 'year-input' },
     datepickerCalendarAttrs: {
-      buttonAttrs: {
-        id: 'datepicker-calendar-button',
-        'aria-label': 'calendar',
+      buttonToggleAttrs: {
+        ariaLabel: 'calendar',
+        'data-testid': 'calendar-toggle-button',
       },
-      popoverAttrs: { id: 'datepicker-popover' },
-      tabsItemDayAttrs: { id: 'datepicker-calendar-day' },
-      tabsItemMonthAttrs: { id: 'datepicker-calendar-month' },
-      tabsItemYearAttrs: { id: 'datepicker-calendar-year' },
+      iconToggleAttrs: { 'data-testid': 'calendar-toggle-icon' },
+      popoverAttrs: { 'data-testid': 'calendar-popover' },
+      tabsAttrs: { 'data-testid': 'calendar-tabs' },
+      tabsItemDayAttrs: {
+        'data-testid': 'day-tabs-item',
+        buttonTabAttrs: { 'data-testid': 'day-tabs-item-button' },
+        contentTabsAttrs: { 'data-testid': 'day-tabs-item-content' },
+      },
+      tabsItemMonthAttrs: { 'data-testid': 'month-tabs-item' },
+      tabsItemYearAttrs: { 'data-testid': 'year-tabs-item' },
     },
     'update:modelValue': null,
     'update:invalid': null,
@@ -88,6 +98,14 @@ export default {
       description: 'Use this event to detect when some field is focused.',
       table: { category: 'events' },
     },
+    alertAttrs: { table: { subcategory: 'Attrs props' } },
+    textDayAttrs: { table: { subcategory: 'Attrs props' } },
+    textMonthAttrs: { table: { subcategory: 'Attrs props' } },
+    textYearAttrs: { table: { subcategory: 'Attrs props' } },
+    inputDayAttrs: { table: { subcategory: 'Attrs props' } },
+    inputMonthAttrs: { table: { subcategory: 'Attrs props' } },
+    inputYearAttrs: { table: { subcategory: 'Attrs props' } },
+    datepickerCalendarAttrs: { table: { subcategory: 'Attrs props' } },
   },
   decorators: [() => ({ template: '<div style="min-height: 430px" class="max-w-80"><story /></div>' })],
 };
@@ -114,6 +132,10 @@ export const FullConfiguration = (args) => ({
       :translation="translation"
       :min-limit="minLimit"
       :max-limit="maxLimit"
+      :alert-attrs="alertAttrs"
+      :text-day-attrs="textDayAttrs"
+      :text-month-attrs="textMonthAttrs"
+      :text-year-attrs="textYearAttrs"
       :input-day-attrs="inputDayAttrs"
       :input-month-attrs="inputMonthAttrs"
       :input-year-attrs="inputYearAttrs"

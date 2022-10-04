@@ -8,23 +8,26 @@
   >
     <template
       #toggle="{
-        toggleHandler, attrs
+        toggleHandler,
+        buttonToggleAttrs,
       }"
     >
       <slot
-        name="toggler"
+        name="toggle"
         v-bind="{
-          toggle: toggleHandler
+          toggleHandler,
+          buttonToggleAttrs,
+          iconToggleAttrs: defaultProps.iconToggleAttrs,
         }"
       >
         <UiButton
           ref="toggleElement"
           class="ui-button--circled"
-          v-bind="attrs"
+          v-bind="buttonToggleAttrs"
           @click="openCalendar(toggleHandler, $event)"
         >
           <UiIcon
-            icon="calendar"
+            v-bind="defaultProps.iconToggleAttrs"
             class="ui-button__icon"
           />
         </UiButton>
@@ -33,6 +36,7 @@
     <template #content>
       <UiTabs
         v-model="currentTabId"
+        v-bind="tabsAttrs"
         class="ui-tabs--fixed ui-datepicker-calendar__tabs"
       >
         <component
@@ -94,6 +98,17 @@ const props = defineProps({
     type: String as PropType<DatePart>,
     default: '',
   },
+  iconToggleAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for UiTabs
+   */
+  tabsAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
   /**
    * Use this props to pass attrs for day UiTabsItem
    */
@@ -116,16 +131,30 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-const getDefaultProps = (datePart: DatePart): DefaultInputProps<DatepickerTabID> => ({
-  id: `datepicker-calendar-${datePart}`,
-  ...props[`tabsItem${capitalizeFirst(datePart) as Capitalize<DatePart>}Attrs`],
-});
+const defaultTabsIds = computed(() => ({
+  day: props.tabsItemDayAttrs?.id || 'datepicker-calendar-day',
+  month: props.tabsItemDayAttrs?.id || 'datepicker-calendar-month',
+  year: props.tabsItemDayAttrs?.id || 'datepicker-calendar-year',
+}));
 const defaultProps = reactive<{
   [key in DatepickerTabAttrName]: DefaultInputProps<DatepickerTabID>
   }>({
-    tabsItemDayAttrs: getDefaultProps('day'),
-    tabsItemMonthAttrs: getDefaultProps('month'),
-    tabsItemYearAttrs: getDefaultProps('year'),
+    iconToggleAttrs: {
+      icon: 'calendar',
+      ...props.iconToggleAttrs,
+    },
+    tabsItemDayAttrs: {
+      ...props.tabsItemDayAttrs,
+      id: defaultTabsIds.value.day,
+    },
+    tabsItemMonthAttrs: {
+      ...props.tabsItemMonthAttrs,
+      id: defaultTabsIds.value.month,
+    },
+    tabsItemYearAttrs: {
+      ...props.tabsItemYearAttrs,
+      id: defaultTabsIds.value.year,
+    },
   });
 const getDefaultProp = (item: DatePart | DatepickerTabAttrName): DefaultInputProps<DatepickerTabID> => (
   item.includes('Attrs') ? defaultProps[item as DatepickerTabAttrName] : defaultProps[`tabsItem${capitalizeFirst(item) as Capitalize<DatePart>}Attrs`]);

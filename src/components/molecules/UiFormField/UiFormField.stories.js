@@ -16,8 +16,8 @@ export default {
     id: '',
     hint: 'Required',
     errorMessage: 'Please enter a valid height',
-    textMessageAttrs: { 'data-testid': 'text-message' },
-    textHintAttrs: { 'data-testid': 'text-hint' },
+    textMessageAttrs: { 'data-testid': 'message-text' },
+    textHintAttrs: { 'data-testid': 'hint-text' },
     alertAttrs: { 'data-testid': 'alert' },
   },
   argTypes: {

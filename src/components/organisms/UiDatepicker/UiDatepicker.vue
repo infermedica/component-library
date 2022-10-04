@@ -2,6 +2,7 @@
   <div class="ui-datepicker">
     <UiFormField
       :error-message="errorDisplayHandler"
+      :alert-attrs="alertAttrs"
       class="ui-datepicker__form-fields"
     >
       <div class="ui-datepicker__fields">
@@ -14,8 +15,7 @@
           }"
         >
           <UiText
-            tag="label"
-            :for="getDefaultProp(datePart).id"
+            v-bind="getDefaultProp(`text${capitalizeFirst(datePart)}Attrs`)"
             class="ui-datepicker__label"
           >
             {{ capitalizeFirst(defaultProps.translation[datePart]) }}
@@ -179,6 +179,34 @@ const props = defineProps({
     validator: (value: number) => value > 0,
   },
   /**
+   * Use this props to pass attrs to UiAlert.
+   */
+  alertAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
+   *  Use this props to pass attrs to day UiText.
+   */
+  textDayAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
+   *  Use this props to pass attrs to month UiText.
+   */
+  textMonthAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
+   *  Use this props to pass attrs to year UiText.
+   */
+  textYearAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
    *  Use this props to pass attrs to day UiInput.
    */
   inputDayAttrs: {
@@ -207,10 +235,11 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-const getDefaultProps = (datePart: DatePart): DefaultInputProps<DatepickerInputID> => ({
-  id: `datepicker-input-${datePart}`,
-  ...props[`input${capitalizeFirst(datePart) as Capitalize<DatePart>}Attrs`],
-});
+const defaultInputsIds = computed(() => ({
+  day: props.inputDayAttrs?.id || 'datepicker-input-day',
+  month: props.inputDayAttrs?.id || 'datepicker-input-month',
+  year: props.inputDayAttrs?.id || 'datepicker-input-year',
+}));
 const defaultProps = computed(() => (
   {
     translation: {
@@ -225,9 +254,33 @@ const defaultProps = computed(() => (
       errorOutOfBounds: 'Sorry, our checkup only covers people between 0 and 120 years old',
       ...props.translation,
     },
-    inputDayAttrs: getDefaultProps('day'),
-    inputMonthAttrs: getDefaultProps('month'),
-    inputYearAttrs: getDefaultProps('year'),
+    inputDayAttrs: {
+      ...props.inputDayAttrs,
+      id: defaultInputsIds.value.day,
+    },
+    inputMonthAttrs: {
+      ...props.inputMonthAttrs,
+      id: defaultInputsIds.value.month,
+    },
+    inputYearAttrs: {
+      ...props.inputYearAttrs,
+      id: defaultInputsIds.value.year,
+    },
+    textDayAttrs: {
+      tag: 'label',
+      ...props.textDayAttrs,
+      for: defaultInputsIds.value.day,
+    },
+    textMonthAttrs: {
+      tag: 'label',
+      ...props.textMonthAttrs,
+      for: defaultInputsIds.value.month,
+    },
+    textYearAttrs: {
+      tag: 'label',
+      ...props.textYearAttrs,
+      for: defaultInputsIds.value.year,
+    },
   }
 ));
 const getDefaultProp = (item: DatePart | DefaultAttrName): DefaultInputProps<DatepickerInputID> => (
