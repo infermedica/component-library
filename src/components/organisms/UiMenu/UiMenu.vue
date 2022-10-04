@@ -6,10 +6,22 @@
     <!-- @slot Use this slot to place menu items -->
     <slot>
       <template
-        v-for="(item, key) in items"
+        v-for="(item, key) in itemsToRender"
         :key="key"
       >
-        <UiMenuItem v-bind="item">
+        <UiMenuItem
+          v-bind="item"
+        >
+          <template
+            v-for="(_, name) in $slots"
+            #[name]="slotData"
+          >
+            <slot
+              :name="name"
+              v-bind="slotData"
+            />
+          </template>
+
           <!-- @slot Use this slot to place menu item content. -->
           <slot
             :name="item.name"
@@ -17,7 +29,7 @@
               item
             }"
           >
-            {{ item.name || item.value }}
+            {{ item.label }}
           </slot>
         </UiMenuItem>
       </template>
@@ -26,29 +38,25 @@
 </template>
 
 <script setup lang="ts">
-import {
-  computed,
-  provide,
-} from 'vue';
+import { computed } from 'vue';
 import type { PropType } from 'vue';
 import type { HTMLTag } from '../../../types/tag';
 import UiMenuItem from './_internal/UiMenuItem.vue';
 import UiList from '../UiList/UiList.vue';
+import type { Icon } from '../../../types/icon';
 
-export type MenuValue = string | string[];
 export type MenuIconVisible = 'default' | 'always' | 'never';
 export interface MenuItem {
-  value: string;
+  label: string;
+  name?: string;
+  icon?: Icon;
   iconLabel?: string;
   iconVisible?: MenuIconVisible;
-  name?: string;
+  iconAttrs?: Record<string, unknown>;
+  listItemAttrs?: Record<string, unknown>;
   [key: string]: unknown;
 }
 const props = defineProps({
-  modelValue: {
-    type: [String, Object, Array] as PropType<MenuValue>,
-    default: '',
-  },
   tag: {
     type: [String, Object] as PropType<HTMLTag | Record<string, unknown>>,
     default: UiList,
@@ -58,11 +66,9 @@ const props = defineProps({
     default: () => ([]),
   },
 });
-const emit = defineEmits<{(e: 'update:modelValue', value: MenuValue):void;}>();
-const modelValue = computed(() => (props.modelValue));
-function changeHandler(value: MenuValue):void {
-  emit('update:modelValue', value);
-}
-provide('changeHandler', changeHandler);
-provide('modelValue', modelValue);
+const itemsToRender = computed(() => (
+  props.items.map((item, key) => ({
+    name: item.name || `menu-item-${key}`,
+    ...item,
+  }))));
 </script>

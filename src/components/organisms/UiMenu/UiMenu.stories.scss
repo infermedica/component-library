@@ -1,0 +1,23 @@
+.menu-side-panel {
+  --modal-content-padding: var(--space-16) 0;
+  --modal-tablet-content-padding: var(--space-16) 0;
+  --menu-item-padding: var(--space-8) var(--space-20);
+
+  &__list-item {
+    &--divider {
+      margin: 0 0 var(--space-16);
+      padding: 0 0 var(--space-16);
+      border: solid var(--color-border-divider);
+      border-width: 0 0 1px;
+    }
+  }
+}
+
+@at-root [class*="-brand"] {
+  --button-background: var(--color-background-selection);
+  --button-color: var(--color-text-on-selection);
+  --button-hover-background: var(--color-background-selection-hover);
+  --button-hover-color: var(--color-text-on-selection);
+  --button-active-background: var(--color-background-selection-active);
+  --button-active-color: var(--color-text-on-selection);
+}
