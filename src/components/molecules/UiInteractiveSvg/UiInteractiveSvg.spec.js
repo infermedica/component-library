@@ -17,7 +17,7 @@ describe('UiInteractiveSvg.vue', () => {
   });
   test('pass attributes to UiInteractiveSvgElement', () => {
     const wrapper = mount(UiInteractiveSvg, {
-      props: { setElementsAttrs: () => ({ class: testStr }) },
+      props: { elementsAttrs: () => ({ class: testStr }) },
       slots: { default: UiInteractiveSvgElement },
     });
     const interactiveSvgElement = wrapper.findComponent(UiInteractiveSvgElement);
@@ -27,7 +27,7 @@ describe('UiInteractiveSvg.vue', () => {
     let selected;
     const wrapper = mount(UiInteractiveSvg, {
       props: {
-        setElementsAttrs: (attrs) => ({
+        elementsAttrs: (attrs) => ({
           onClick() {
             selected = attrs.id;
           },
@@ -40,7 +40,7 @@ describe('UiInteractiveSvg.vue', () => {
   });
   test('pass attrs to nested UiInteractiveSvg elements', async () => {
     const wrapper = mount(UiInteractiveSvg, {
-      props: { setElementsAttrs: () => ({ setElementsAttrs: () => ({ class: 'secondLvlEl' }) }) },
+      props: { elementsAttrs: () => ({ elementsAttrs: () => ({ class: 'secondLvlEl' }) }) },
       slots: { default: h(UiInteractiveSvgElement, null, { default: () => h(UiInteractiveSvgElement, { 'data-testid': 'secondLvlEl' }) }) },
     });
     const secondLvlEl = await wrapper.find('[data-testid="secondLvlEl"]');
@@ -48,7 +48,7 @@ describe('UiInteractiveSvg.vue', () => {
   });
   test('do not pass nested attrs to higher levels of UiInteractiveSvg elements', async () => {
     const wrapper = mount(UiInteractiveSvg, {
-      props: { setElementsAttrs: () => ({ setElementsAttrs: () => ({ class: 'secondLvlEl' }) }) },
+      props: { elementsAttrs: () => ({ elementsAttrs: () => ({ class: 'secondLvlEl' }) }) },
       slots: { default: h(UiInteractiveSvgElement, { 'data-testid': 'firstLvlEl' }, { default: () => h(UiInteractiveSvgElement) }) },
     });
     const firstLvlEl = await wrapper.find('[data-testid="firstLvlEl"]');
@@ -57,9 +57,9 @@ describe('UiInteractiveSvg.vue', () => {
   test('do not pass attrs to deeper levels of UiInteractiveSvg elements', async () => {
     const wrapper = mount(UiInteractiveSvg, {
       props: {
-        setElementsAttrs: () => ({
+        elementsAttrs: () => ({
           class: testStr,
-          setElementsAttrs: () => ({}),
+          elementsAttrs: () => ({}),
         }),
       },
       slots: {
@@ -78,8 +78,8 @@ describe('UiInteractiveSvg.vue', () => {
     let selected;
     const wrapper = mount(UiInteractiveSvg, {
       props: {
-        setElementsAttrs: () => ({
-          setElementsAttrs: ({ id }) => ({
+        elementsAttrs: () => ({
+          elementsAttrs: ({ id }) => ({
             onClick: () => {
               selected = id;
             },
@@ -102,7 +102,7 @@ describe('UiInteractiveSvg.vue', () => {
     let selected;
     const wrapper = mount(UiInteractiveSvg, {
       props: {
-        setElementsAttrs: ({ id }) => ({
+        elementsAttrs: ({ id }) => ({
           onClick: () => {
             selected = id;
           },
@@ -124,8 +124,8 @@ describe('UiInteractiveSvg.vue', () => {
     let selected;
     const wrapper = mount(UiInteractiveSvg, {
       props: {
-        setElementsAttrs: () => ({
-          setElementsAttrs: ({ id }) => ({
+        elementsAttrs: () => ({
+          elementsAttrs: ({ id }) => ({
             onClick: () => {
               selected = id;
             },

@@ -159,12 +159,10 @@ function unfocusExplication(event: KeyboardEvent) {
   }
 
   &--has-error {
-    @include mixins.from-tablet {
-      background: functions.var($element + "-tablet-option", background, var(--color-background-error));
+    background: functions.var($element + "-option", background, var(--color-background-error));
 
-      @include mixins.hover {
-        background: functions.var($element + "-tablet-option-hover", background, var(--color-background-error));
-      }
+    @include mixins.hover {
+      background: functions.var($element + "-option-hover", background, var(--color-background-error));
     }
   }
 

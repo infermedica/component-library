@@ -42,7 +42,7 @@ describe('UiNavigation.vue', () => {
       props: {
         items: [...items, {
           ...items[0],
-          navigationItemAttrs: { style: 'color: red' },
+          style: 'color: red',
         }],
       },
     });

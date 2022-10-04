@@ -25,7 +25,7 @@
       <slot
         name="option"
         v-bind="{
-          index,
+          index: item.index,
           rate,
           radioAttrs,
           ratingName,
@@ -38,13 +38,13 @@
         <UiRadio
           v-model="rate"
           v-bind="(()=>{const {
-            iconActiveAttrs, iconDefaultAttrs, ...rest
+            iconActiveAttrs, iconDefaultAttrs, index, ...rest
           } = item; return rest;})()"
-          :value="`${index}`"
+          :value="`${item.index}`"
           :name="ratingName"
           class="ui-rating__option"
-          @mouseover="hoverHandler($event, index)"
-          @mouseleave="hoverHandler($event, index)"
+          @mouseover="hoverHandler($event, item.index)"
+          @mouseleave="hoverHandler($event, item.index)"
         >
           <template
             #radio="{
@@ -54,20 +54,20 @@
             <div
               v-bind="radioAttrs"
               :class="['ui-rating__radio',{
-                'ui-rating__radio--is-checked': index <= finalScore
+                'ui-rating__radio--is-checked': item.index <= finalScore
               }]"
             >
               <!-- @slot Use this slot to replace rating icon. -->
               <slot
                 name="icon"
                 v-bind="{
-                  index,
+                  index: item.index,
                   finalScore,
                   iconActiveAttrs: item.iconActiveAttrs,
                   iconDefaultAttrs: item.iconDefaultAttrs,
                 }"
               >
-                <template v-if="index <= finalScore">
+                <template v-if="item.index <= finalScore">
                   <!-- @slot Use this slot to replace active rating icon. -->
                   <slot
                     name="icon-active"
@@ -255,6 +255,7 @@ const itemsToRender = computed(() => (Array.from({ length: maxScore.value }, (_,
     ? proxyRadioAttrs[index]
     : proxyRadioAttrs;
   return {
+    index: index + 1,
     ...radioOptionAttrs,
     iconActiveAttrs: {
       icon: defaultProps.value.settings.iconActive,

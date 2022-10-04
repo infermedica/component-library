@@ -31,6 +31,7 @@ specifiers:
   '@typescript-eslint/eslint-plugin': ^5.4.0
   '@typescript-eslint/parser': ^5.4.0
   '@vitejs/plugin-vue': ^3.0.1
+  '@vitest/ui': ^0.23.4
   '@vue/compiler-sfc': ^3.0.11
   '@vue/eslint-config-airbnb': ^6.0.0
   '@vue/eslint-config-typescript': ^11.0.0
@@ -122,6 +123,7 @@ devDependencies:
   '@storybook/vue3': 6.5.10_4urzu4g6r5e457zbelbth775im
   '@typescript-eslint/eslint-plugin': 5.31.0_d5zwcxr4bwkhmuo464cb3a2puu
   '@typescript-eslint/parser': 5.31.0_he2ccbldppg44uulnyq4rwocfa
+  '@vitest/ui': 0.23.4
   '@vue/compiler-sfc': 3.2.37
   '@vue/eslint-config-airbnb': 6.0.0_dqysijnrzcnyotg3eykwimnk4y
   '@vue/eslint-config-typescript': 11.0.0_q5rilqo35fn7bz5lzyqkzahbb4
@@ -163,7 +165,7 @@ devDependencies:
   tailwindcss: 3.1.6
   typescript: 4.7.4
   uppercamelcase: 3.0.0
-  vitest: 0.18.1_jsdom@20.0.0+sass@1.54.0
+  vitest: 0.18.1_n6d5xnxdgz5wkcvb534vvaddlm
   vue-loader: 17.0.0_webpack@5.74.0
 
 packages:
@@ -2460,6 +2462,10 @@ packages:
       rimraf: 3.0.2
     dev: true
 
+  /@polka/url/1.0.0-next.21:
+    resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
+    dev: true
+
   /@rollup/pluginutils/4.2.1:
     resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
     engines: {node: '>= 8.0.0'}
@@ -4592,6 +4598,12 @@ packages:
       vite: 3.0.3_sass@1.54.0
       vue: 3.2.37
     dev: false
+
+  /@vitest/ui/0.23.4:
+    resolution: {integrity: sha512-lNZVTTrkHThGAwNQ1ah1qCNnm70r7OLB5LCUdSqboStve/1eKTrtt27QfDSSUTG8AVJQzU0eaN/j8UocH+CqfA==}
+    dependencies:
+      sirv: 2.0.2
+    dev: true
 
   /@vue/compiler-core/3.2.37:
     resolution: {integrity: sha512-81KhEjo7YAOh0vQJoSmAD68wLfYqJvoiD4ulyedzF+OEk/bk6/hx3fTNVfuzugIIaTrOx4PGx6pAiBRe5e9Zmg==}
@@ -11850,6 +11862,11 @@ packages:
       run-queue: 1.0.3
     dev: true
 
+  /mrmime/1.0.1:
+    resolution: {integrity: sha512-hzzEagAgDyoU1Q6yg5uI+AorQgdvMCur3FcKf7NhMKWsaYg+RnbTyHRa/9IlLF9rf455MOCtcqqrQQ83pPP7Uw==}
+    engines: {node: '>=10'}
+    dev: true
+
   /ms/2.0.0:
     resolution: {integrity: sha512-Tpp60P6IUJDTuOq/5Z8cdskzJujfwqfOTkrwIwj7IRISpnkJnT6SyJ4PCPnGMoFjC9ddhal5KVIYtAt97ix05A==}
     dev: true
@@ -14110,6 +14127,15 @@ packages:
     resolution: {integrity: sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==}
     dev: true
 
+  /sirv/2.0.2:
+    resolution: {integrity: sha512-4Qog6aE29nIjAOKe/wowFTxOdmbEZKb+3tsLljaBRzJwtqto0BChD2zzH0LhgCSXiI+V7X+Y45v14wBZQ1TK3w==}
+    engines: {node: '>= 10'}
+    dependencies:
+      '@polka/url': 1.0.0-next.21
+      mrmime: 1.0.1
+      totalist: 3.0.0
+    dev: true
+
   /sisteransi/1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
     dev: true
@@ -15105,6 +15131,11 @@ packages:
     resolution: {integrity: sha1-zCAOqyYT9BZtJ/+a/HylbUnfbrQ=}
     dev: true
 
+  /totalist/3.0.0:
+    resolution: {integrity: sha512-eM+pCBxXO/njtF7vdFsHuqb+ElbxqtI4r5EAvk6grfAFyJ6IvWlSkfZ5T9ozC6xWw3Fj1fGoSmrl0gUs46JVIw==}
+    engines: {node: '>=6'}
+    dev: true
+
   /tough-cookie/4.0.0:
     resolution: {integrity: sha512-tHdtEpQCMrc1YLrMaqXXcj6AxhYi/xgit6mZu1+EDWUn+qhUf8wMQoFIy9NXuq23zAwtcB0t/MjACGR18pcRbg==}
     engines: {node: '>=6'}
@@ -15712,7 +15743,7 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
 
-  /vitest/0.18.1_jsdom@20.0.0+sass@1.54.0:
+  /vitest/0.18.1_n6d5xnxdgz5wkcvb534vvaddlm:
     resolution: {integrity: sha512-4F/1K/Vn4AvJwe7i2YblR02PT5vMKcw9KN4unDq2KD0YcSxX0B/6D6Qu9PJaXwVuxXMFTQ5ovd4+CQaW3bwofA==}
     engines: {node: '>=v14.16.0'}
     hasBin: true
@@ -15737,6 +15768,7 @@ packages:
       '@types/chai': 4.3.1
       '@types/chai-subset': 1.3.3
       '@types/node': 18.6.1
+      '@vitest/ui': 0.23.4
       chai: 4.3.6
       debug: 4.3.4
       jsdom: 20.0.0

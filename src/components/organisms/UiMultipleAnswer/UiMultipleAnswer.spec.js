@@ -4,11 +4,11 @@ import UiCheckbox from '../../atoms/UiCheckbox/UiCheckbox.vue';
 import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
 
 describe('UiMultipleAnswer.vue', () => {
-  const choiceErrorClass = '.ui-multiple-answer__choice--has-error';
+  const choiceErrorClass = '.ui-multiple-answer-item--has-error';
   const items = [
-    { name: 'Fatigue' },
-    { name: 'Fever' },
-    { name: 'Nausea' },
+    { label: 'Fatigue' },
+    { label: 'Fever' },
+    { label: 'Nausea' },
   ];
   describe('Component with Radioses', () => {
     test('renders a component with radio buttons when modelValue is a string', () => {
