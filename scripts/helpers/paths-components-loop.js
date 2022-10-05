@@ -9,7 +9,7 @@ const pathsVueComponents = glob.sync('*/*/Ui*.vue', {
 const pathsVueInternalComponents = glob.sync('*/*/_internal/{Ui*.vue,*/Ui*.vue}', {
   cwd: pathComponentsRoot,
 });
-const componentLoop = (callbacks, withInternals = true) => {
+const pathsComponentsLoop = (callbacks, withInternals = true) => {
   const pathsComponents = withInternals ? [...pathsVueComponents, ...pathsVueInternalComponents] : pathsVueComponents;
   pathsComponents.forEach(((pathComponent) => {
     if (Array.isArray(callbacks)) {
@@ -22,8 +22,8 @@ const componentLoop = (callbacks, withInternals = true) => {
   }));
 };
 
-module.exports = componentLoop;
+module.exports = pathsComponentsLoop;
 
 if (require.main === module) {
-  componentLoop();
+  pathsComponentsLoop();
 }
