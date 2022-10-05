@@ -213,8 +213,8 @@ const finalScore = computed(() => (
   $element: rating;
 
   @at-root fieldset#{&} {
-    border: none;
     padding: 0;
+    border: none;
     margin: 0;
   }
 

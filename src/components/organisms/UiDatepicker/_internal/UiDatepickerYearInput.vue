@@ -23,7 +23,7 @@ import {
   nextTick,
 } from 'vue';
 import type { Ref } from 'vue';
-import { removeNonDigits } from '../../../../utilities/helpers/index.ts';
+import { removeNonDigits } from '../../../../utilities/helpers/index';
 import UiInput from '../../../atoms/UiInput/UiInput.vue';
 import useKeyValidation from '../../../../composable/useKeyValidation';
 import type { DatepickerTranslation } from '../UiDatepicker.vue';
@@ -61,9 +61,9 @@ const year = computed({
 });
 const validationError = computed(() => (year.value.length === 4 && !props.valid));
 const hasError = computed(() => (validationError.value || unfulfilledYearError.value || props.error));
-async function checkYear(event: InputEvent): Promise<void> {
+async function checkYear(event: Event) {
   unfulfilledYearError.value = false;
-  const inputValue = event.data;
+  const inputValue = (event as InputEvent).data;
   await nextTick();
   if (inputValue && year.value.length === 4 && props.valid) {
     emit('change-input', 'year');

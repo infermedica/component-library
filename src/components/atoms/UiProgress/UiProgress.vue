@@ -79,7 +79,7 @@ const progressValue = computed(() => {
       display: block;
       width: var(--_progress-padding);
       height: 100%;
-      background: functions.var($element + "indicator", background,arg var(--color-progress-indicator));
+      background: functions.var($element + "indicator", background, arg var(--color-progress-indicator));
       content: "";
     }
 

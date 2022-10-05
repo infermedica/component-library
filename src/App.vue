@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import { UiButton } from '../index.ts';
+import { UiButton } from '../index';
 </script>
 
 <style lang="scss">

@@ -33,12 +33,6 @@ import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import type { DropdownValue } from '../UiDropdown.vue';
 
-export interface ButtonAttrs {
-  role?: 'radio';
-  'aria-checked'?: string;
-  onClick?: ((value: DropdownValue) => void);
-  [key: string]: unknown;
-}
 const props = defineProps({
   /**
    * Use this props to set the value of the dropdown item.
@@ -49,7 +43,7 @@ const props = defineProps({
   },
 });
 const attrs = useAttrs();
-const dropdownItem = ref<null|HTMLButtonElement>(null);
+const dropdownItem = ref<null | HTMLButtonElement>(null);
 const changeHandler = inject('changeHandler') as (value: DropdownValue) => void;
 const dropdownItemKeydownHandler = inject('dropdownItemKeydownHandler') as (e: { key: string }) => Promise<void>;
 const modelValue = inject('modelValue') as ComputedRef<DropdownValue>;
@@ -79,7 +73,7 @@ function optionChangeHandler(value: DropdownValue): void {
     changeHandler(value);
   }
 }
-const buttonAttrs = computed<ButtonAttrs>(() => ({
+const buttonAttrs = computed(() => ({
   role: isOption.value ? 'radio' : undefined,
   'aria-checked': isOption.value ? `${isChecked.value}` : undefined,
   onClick: attrs.to ? undefined : optionChangeHandler.bind(this, props.value),
