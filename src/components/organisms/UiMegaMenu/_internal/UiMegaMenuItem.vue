@@ -45,10 +45,10 @@ const hasOpen = inject('hasOpen') as ComputedRef<boolean>;
 const hasControls = computed(() => (!hasOpen.value));
 const openHandler = inject('openHandler') as (value: string) => void;
 const isOpen = computed(() => (open.value === props.name));
-function back():void {
+function back(): void {
   openHandler('');
 }
-function to():void {
+function to(): void {
   openHandler(props.name);
 }
 </script>

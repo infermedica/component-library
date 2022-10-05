@@ -17,6 +17,7 @@
     "importHelpers": true,
     "experimentalDecorators": true,
     "sourceMap": true,
+    "noImplicitThis": false,
     "baseUrl": ".",
     "types": [
       "vitest/globals"
