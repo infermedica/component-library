@@ -99,7 +99,7 @@ export default {
     buttonCloseAttrs: { table: { subcategory: 'Attrs props' } },
     iconCloseAttrs: { table: { subcategory: 'Attrs props' } },
   },
-  decorators: [(story, { args }) => ({
+  decorators: [ (story, { args }) => ({
     components: {
       story,
       UiButton,
@@ -121,7 +121,7 @@ export default {
       </UiButton>
       <story/>
     </div>`,
-  })],
+  }) ],
   parameters: { docs: { description: { component: 'Modal use `v-body-scroll-lock`. Only works on Canvas mode.' } } },
 };
 

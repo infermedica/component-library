@@ -7,9 +7,7 @@
       v-keyboard-focus
       v-bind="getInputAttrs($attrs)"
       :value="modelValue"
-      :style="{
-        resize: resizeValue
-      }"
+      :style="{ resize: resizeValue }"
       class="ui-textarea__textarea"
       @input="inputHandler($event)"
     />
@@ -40,7 +38,10 @@ const props = defineProps({
    * 'horizontal' - horizontal resizing only, 'vertical' - vertical resizing only
    */
   resize: {
-    type: [Boolean, String] as PropType<boolean | 'horizontal' | 'vertical'>,
+    type: [
+      Boolean,
+      String,
+    ] as PropType<boolean | 'horizontal' | 'vertical'>,
     optional: true,
     default: false,
   },

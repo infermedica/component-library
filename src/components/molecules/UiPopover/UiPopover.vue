@@ -47,9 +47,7 @@
             <!-- @slot Use this slot to replace icon template. -->
             <slot
               name="icon"
-              v-bind="{
-                iconCloseAttrs: defaultProps.iconCloseAttrs
-              }"
+              v-bind="{ iconCloseAttrs: defaultProps.iconCloseAttrs }"
             >
               <UiIcon
                 v-bind="defaultProps.iconCloseAttrs"

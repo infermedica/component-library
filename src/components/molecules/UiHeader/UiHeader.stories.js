@@ -49,11 +49,7 @@ export default {
     navigationAttrs: { 'data-testid': 'navigation' },
   },
   argTypes: {
-    modifiers: modifiers({
-      options: [
-        'ui-header--full',
-      ],
-    }),
+    modifiers: modifiers({ options: [ 'ui-header--full' ] }),
     logo: {
       description: 'Use this prop to set the logo.',
       control: false,

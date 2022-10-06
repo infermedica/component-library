@@ -6,9 +6,7 @@
     <!-- @slot Use this slot to replace triage template. -->
     <slot
       name="triage"
-      v-bind="{
-        iconTriageAttrs: defaultProps.iconTriageAttrs
-      }"
+      v-bind="{ iconTriageAttrs: defaultProps.iconTriageAttrs }"
     >
       <div class="ui-card__triage">
         <UiIcon

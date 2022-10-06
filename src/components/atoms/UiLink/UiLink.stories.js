@@ -35,7 +35,7 @@ export default {
       ],
     }),
   },
-  decorators: [() => ({ template: '<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 2.5rem"><story /></div>' })],
+  decorators: [ () => ({ template: '<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 2.5rem"><story /></div>' }) ],
 };
 
 export const Common = (args) => ({
@@ -125,8 +125,8 @@ const Template = (args) => ({
 export const Link = Template.bind({});
 
 export const LinkSecondary = Template.bind({});
-LinkSecondary.args = { modifiers: ['ui-button--theme-secondary'] };
+LinkSecondary.args = { modifiers: [ 'ui-button--theme-secondary' ] };
 
 export const LinkOnBrand = Template.bind({});
-LinkOnBrand.args = { modifiers: ['ui-button--theme-brand'] };
+LinkOnBrand.args = { modifiers: [ 'ui-button--theme-brand' ] };
 LinkOnBrand.parameters = { backgrounds: { default: 'brand' } };

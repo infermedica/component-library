@@ -10,9 +10,7 @@
           v-for="(datePart, key) in order"
           :key="key"
           class="ui-datepicker__group-field"
-          :class="{
-            'ui-datepicker__group-field--long': datePart === 'year'
-          }"
+          :class="{ 'ui-datepicker__group-field--long': datePart === 'year' }"
         >
           <UiText
             v-bind="getDefaultProp(`text${capitalizeFirst(datePart)}Attrs`)"
@@ -117,7 +115,10 @@ const props = defineProps({
    * Use this props to set custom error message
    */
   error: {
-    type: [Boolean, String] as PropType<string | boolean>,
+    type: [
+      Boolean,
+      String,
+    ] as PropType<string | boolean>,
     default: '',
   },
   /**
@@ -125,7 +126,11 @@ const props = defineProps({
    */
   order: {
     type: Array as PropType<DatePart[]>,
-    default: () => (['day', 'month', 'year']),
+    default: () => ([
+      'day',
+      'month',
+      'year',
+    ]),
     validator: (value: DatePart[]) => value.length === 3
         && value.includes('day')
         && value.includes('month')
@@ -541,7 +546,7 @@ watch(isYearFulfilled, (fulfilled) => handleFulfilledChange(fulfilled, 'year', d
 
 function monthList(locale: string): string[] {
   const getMonth = new Intl.DateTimeFormat(locale, { month: 'long' }).format;
-  return [...Array(12).keys()].map((m) => getMonth(new Date(2022, m)));
+  return [ ...Array(12).keys() ].map((m) => getMonth(new Date(2022, m)));
 }
 
 function localizeMonths() {
@@ -560,7 +565,11 @@ onMounted(() => {
   }
 });
 
-watch([() => date.day, () => date.month, () => date.year], () => {
+watch([
+  () => date.day,
+  () => date.month,
+  () => date.year,
+], () => {
   setDate();
 });
 

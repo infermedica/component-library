@@ -10,29 +10,21 @@
       <slot name="icon" />
     </template>
     <template
-      #message="{
-        textMessageAttrs,
-      }"
+      #message="{ textMessageAttrs, }"
     >
       <!-- @slot Use this slot to replace message template. -->
       <slot
         name="message"
-        v-bind="{
-          textMessageAttrs
-        }"
+        v-bind="{ textMessageAttrs }"
       >
         <div class="notification__message">
           <!-- @slot Use this slot to replace text template. -->
           <slot
             name="text"
-            v-bind="{
-              textMessageAttrs
-            }"
+            v-bind="{ textMessageAttrs }"
           >
             <UiText
-              v-bind="{
-                textMessageAttrs
-              }"
+              v-bind="{ textMessageAttrs }"
               class="ui-notification__text"
             >
               <!-- @slot Use this slot to place text inside alert. -->

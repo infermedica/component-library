@@ -30,7 +30,7 @@ describe('UiCheckbox.vue', () => {
     const value = { value: 'symptom checker' };
     const wrapper = mount(UiCheckbox, {
       props: {
-        modelValue: [value],
+        modelValue: [ value ],
         value,
       },
     });
@@ -41,11 +41,14 @@ describe('UiCheckbox.vue', () => {
     const value = { value: 'symptom checker' };
     const wrapper = mount(UiCheckbox, {
       props: {
-        modelValue: ['symptom checker'],
+        modelValue: [ 'symptom checker' ],
         value,
       },
     });
     await wrapper.find('input[type="checkbox"]').setChecked();
-    expect(JSON.stringify(wrapper.emitted('update:modelValue')[0][0])).toBe(JSON.stringify(['symptom checker', value]));
+    expect(JSON.stringify(wrapper.emitted('update:modelValue')[0][0])).toBe(JSON.stringify([
+      'symptom checker',
+      value,
+    ]));
   });
 });

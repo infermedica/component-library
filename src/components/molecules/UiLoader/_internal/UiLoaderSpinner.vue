@@ -3,9 +3,7 @@
     <!-- @slot Use this slot to replace loader template.-->
     <slot
       name="loader"
-      v-bind="{
-        loaderSpinnerAttrs
-      }"
+      v-bind="{ loaderSpinnerAttrs }"
     >
       <div
         v-bind="loaderSpinnerAttrs"

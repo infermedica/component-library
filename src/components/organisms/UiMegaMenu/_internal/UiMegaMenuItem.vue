@@ -11,9 +11,7 @@
   <!-- @slot Use this slot to place content inside MegaMenuItem. -->
   <slot
     v-if="isOpen"
-    v-bind="{
-      back
-    }"
+    v-bind="{ back }"
   />
 </template>
 

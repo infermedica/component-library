@@ -51,7 +51,12 @@ IconAsIllustration.args = { icon: 'agreement' };
 IconAsIllustration.argTypes = {
   icon: {
     control: { type: 'select' },
-    options: ['agreement', 'boy', 'no-internet-illustration', 'podium'],
+    options: [
+      'agreement',
+      'boy',
+      'no-internet-illustration',
+      'podium',
+    ],
   },
 };
 

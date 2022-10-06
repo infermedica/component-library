@@ -11,9 +11,7 @@
       <!-- @slot Use this slot to replace legend template. -->
       <slot
         name="legend"
-        v-bind="{
-          legend
-        }"
+        v-bind="{ legend }"
       >
         <legend
           v-if="legend"
@@ -38,29 +36,25 @@
           @mouseleave="hoverHandler($event, index)"
         >
           <template
-            #radio="{
-              radioAttrs
-            }"
+            #radio="{ radioElementAttrs }"
           >
             <div
-              v-bind="radioAttrs"
+              v-bind="radioElementAttrs"
               :style="calcActiveElementOpacity(index)"
-              :class="['ui-scale__square', {
-                'ui-scale__square--is-checked': index <= finalValue,
-              }]"
+              :class="[
+                'ui-scale__square', { 'ui-scale__square--is-checked': index <= finalValue, }
+              ]"
             />
           </template>
           <template
-            #label="{
-              textLabelAttrs
-            }"
+            #label="{ textLabelAttrs }"
           >
             <UiText
               :id="`scale-label-${index}`"
               v-bind="textLabelAttrs"
-              :class="['ui-scale__label', {
-                'ui-scale__label--is-checked': index === scaleValue,
-              }]"
+              :class="[
+                'ui-scale__label', { 'ui-scale__label--is-checked': index === scaleValue, }
+              ]"
             >
               {{ index + 1 }}
             </UiText>
@@ -224,7 +218,10 @@ const props = defineProps({
    * Use this props to pass attrs for option UiRadio.
    */
   radioOptionAttrs: {
-    type: [Object, Array],
+    type: [
+      Object,
+      Array,
+    ],
     default: () => ({}),
   },
   /**

@@ -18,9 +18,7 @@
           <!-- @slot Use this slot to replace bullet point item content. -->
           <slot
             :name="item.name"
-            v-bind="{
-              item
-            }"
+            v-bind="{ item }"
           >
             {{ item.text }}
             <template v-if="item.children?.items">

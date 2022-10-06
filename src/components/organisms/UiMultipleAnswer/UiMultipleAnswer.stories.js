@@ -34,7 +34,11 @@ export default {
   args: {
     initModelValue: [],
     initInvalid: true,
-    items: ['Seconds to minutes', 'A few minutes to 4 hours', '4 hours to 3 days'],
+    items: [
+      'Seconds to minutes',
+      'A few minutes to 4 hours',
+      '4 hours to 3 days',
+    ],
     name: 'multiple-answer',
     legend: 'How long have you had a fever?',
     hint: 'Select all answers that apply.',

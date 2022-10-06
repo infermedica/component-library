@@ -30,7 +30,14 @@ export default {
   },
   argTypes: {
     content,
-    modifiers: modifiers({ options: ['ui-popover--has-arrow', 'ui-popover--has-left-arrow', 'ui-popover--unrounded', 'ui-popover--has-mobile'] }),
+    modifiers: modifiers({
+      options: [
+        'ui-popover--has-arrow',
+        'ui-popover--has-left-arrow',
+        'ui-popover--unrounded',
+        'ui-popover--has-mobile',
+      ],
+    }),
     title: {
       table: {
         type: { summary: 'string' },
@@ -84,13 +91,13 @@ const Template = (args) => ({
 export const Common = Template.bind({});
 
 export const HasArrow = Template.bind({});
-HasArrow.args = { modifiers: ['ui-popover--has-arrow'] };
+HasArrow.args = { modifiers: [ 'ui-popover--has-arrow' ] };
 
 export const HasLeftArrow = Template.bind({});
-HasLeftArrow.args = { modifiers: ['ui-popover--has-left-arrow'] };
+HasLeftArrow.args = { modifiers: [ 'ui-popover--has-left-arrow' ] };
 
 export const Unrounded = Template.bind({});
-Unrounded.args = { modifiers: ['ui-popover--unrounded'] };
+Unrounded.args = { modifiers: [ 'ui-popover--unrounded' ] };
 
 export const AsBottomPanelOnMobile = (args) => ({
   components: {
@@ -115,9 +122,14 @@ export const AsBottomPanelOnMobile = (args) => ({
     <UiText>{{content}}</UiText>
   </UiPopover>`,
 });
-AsBottomPanelOnMobile.args = { modifiers: ['ui-popover--has-mobile', 'ui-popover--has-arrow'] };
+AsBottomPanelOnMobile.args = {
+  modifiers: [
+    'ui-popover--has-mobile',
+    'ui-popover--has-arrow',
+  ],
+};
 AsBottomPanelOnMobile.parameters = { viewport: { defaultViewport: 'mobile2' } };
-AsBottomPanelOnMobile.decorators = [() => ({ template: '<div style="min-height: 568px"><story /></div>' })];
+AsBottomPanelOnMobile.decorators = [ () => ({ template: '<div style="min-height: 568px"><story /></div>' }) ];
 
 export const AsDropdown = Template.bind({});
 AsDropdown.args = { title: '' };

@@ -14,9 +14,7 @@
       />
     </template>
     <template
-      #checkbox="{
-        checked
-      }"
+      #checkbox="{ checked }"
     >
       <!-- @slot Use this slot to replace switch control template. -->
       <slot
@@ -28,10 +26,12 @@
       >
         <UiSwitchControl
           v-bind="controlAttrs"
-          :class="['ui-switch__control', {
-            'ui-switch-control--is-checked': checked,
-            'ui-switch__control--is-checked': checked,
-          }]"
+          :class="[
+            'ui-switch__control', {
+              'ui-switch-control--is-checked': checked,
+              'ui-switch__control--is-checked': checked,
+            }
+          ]"
         />
       </slot>
     </template>
@@ -49,7 +49,10 @@ defineProps({
    *  Use this props or v-model to set checked.
    */
   modelValue: {
-    type: [Boolean, Array] as PropType<CheckboxModelValue>,
+    type: [
+      Boolean,
+      Array,
+    ] as PropType<CheckboxModelValue>,
     default: false,
   },
   /**

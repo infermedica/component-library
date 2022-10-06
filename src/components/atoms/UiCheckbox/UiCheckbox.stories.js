@@ -37,7 +37,12 @@ export default {
       table: { category: 'stories controls' },
       control: 'boolean',
     },
-    modifiers: modifiers({ options: ['ui-checkbox--has-error', 'ui-checkbox--is-disabled'] }),
+    modifiers: modifiers({
+      options: [
+        'ui-checkbox--has-error',
+        'ui-checkbox--is-disabled',
+      ],
+    }),
     id: { control: 'text' },
     value: { control: 'text' },
     iconCheckmarkAttrs: { table: { subcategory: 'Attrs props' } },
@@ -71,10 +76,10 @@ const Template = (args) => ({
 export const WithLabel = Template.bind({});
 
 export const IsDisabled = Template.bind({});
-IsDisabled.args = { modifiers: ['ui-checkbox--is-disabled'] };
+IsDisabled.args = { modifiers: [ 'ui-checkbox--is-disabled' ] };
 
 export const HasError = Template.bind({});
-HasError.args = { modifiers: ['ui-checkbox--has-error'] };
+HasError.args = { modifiers: [ 'ui-checkbox--has-error' ] };
 
 export const WithCheckboxSlot = (args) => ({
   components: {
@@ -177,10 +182,10 @@ export const ValueAsObject = (args) => ({
   </UiCheckbox>`,
 });
 ValueAsObject.args = {
-  initModelValue: [{
+  initModelValue: [ {
     label: 'Europe',
     id: 'value-as-object-europe',
-  }],
+  } ],
   value: {
     label: 'Europe',
     id: 'value-as-object-europe',
@@ -226,7 +231,7 @@ export const AsGroupWithPrimitiveTypes = (args) => ({
   </UiList>`,
 });
 AsGroupWithPrimitiveTypes.args = {
-  initModelValue: ['Europe'],
+  initModelValue: [ 'Europe' ],
   values: [
     'Russia, Kazakhstan or Mongolia',
     'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
@@ -282,12 +287,10 @@ export const AsGroupWithObject = (args) => ({
   </UiList>`,
 });
 AsGroupWithObject.args = {
-  initModelValue: [
-    {
-      label: 'Europe',
-      id: 'as-group-with-object-europe',
-    },
-  ],
+  initModelValue: [ {
+    label: 'Europe',
+    id: 'as-group-with-object-europe',
+  } ],
   values: [
     {
       label: 'Russia, Kazakhstan or Mongolia',
@@ -353,13 +356,11 @@ export const AsGroupWithNestedObject = (args) => ({
   </UiList>`,
 });
 AsGroupWithNestedObject.args = {
-  initModelValue: [
-    {
-      label: 'Europe',
-      id: 'as-group-with-nested-object-europe',
-      checkboxAttrs: { 'data-testid': 'europe-checkbox' },
-    },
-  ],
+  initModelValue: [ {
+    label: 'Europe',
+    id: 'as-group-with-nested-object-europe',
+    checkboxAttrs: { 'data-testid': 'europe-checkbox' },
+  } ],
   values: [
     {
       label: 'Russia, Kazakhstan or Mongolia',

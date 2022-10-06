@@ -7,12 +7,21 @@ export default {
   component: UiList,
   subcomponents: { UiListItem },
   args: {
-    items: ['Painful swallowing', 'Stuffy nose', 'Sneeze', 'Muscle pain', 'Runny nose'],
+    items: [
+      'Painful swallowing',
+      'Stuffy nose',
+      'Sneeze',
+      'Muscle pain',
+      'Runny nose',
+    ],
     tag: 'ul',
   },
   argTypes: {
     tag: {
-      options: ['ul', 'ol'],
+      options: [
+        'ul',
+        'ol',
+      ],
       control: 'select',
     },
     listItem: {

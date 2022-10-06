@@ -3,9 +3,7 @@
     ref="dropdownItem"
     :tabindex="tabindex"
     class="ui-button--outlined ui-dropdown-item"
-    :class="{
-      'ui-button--is-selected': isChecked,
-    }"
+    :class="{ 'ui-button--is-selected': isChecked, }"
     v-bind="buttonItemAttrs"
     @keydown="dropdownItemKeydownHandler"
   >
@@ -39,7 +37,10 @@ const props = defineProps({
    * Use this props to set the value of the dropdown item.
    */
   value: {
-    type: [String, Object] as PropType<DropdownValue>,
+    type: [
+      String,
+      Object,
+    ] as PropType<DropdownValue>,
     default: '',
   },
   /**

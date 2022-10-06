@@ -26,7 +26,7 @@ export default {
     },
     radioOptionAttrs: {
       'data-testid': 'option-radio-input',
-      radioAttrs: { 'data-testid': 'option-radio' },
+      radioElementAttrs: { 'data-testid': 'option-radio' },
     },
     textMinAttrs: { 'data-testid': 'min-text' },
     textMaxAttrs: { 'data-testid': 'max-text' },
@@ -84,11 +84,15 @@ export const Common = Template.bind({});
 
 export const WithRadioOptionAttrsAsArray = Template.bind({});
 WithRadioOptionAttrsAsArray.args = {
-  radioOptionAttrs: [undefined, undefined, {
-    'data-testid': 'third-radio-input-element',
-    radioAttrs: { 'data-testid': 'third-radio-element' },
-    textLabelAttrs: { 'data-testid': 'third-label-text' },
-  }],
+  radioOptionAttrs: [
+    undefined,
+    undefined,
+    {
+      'data-testid': 'third-radio-input-element',
+      radioElementAttrs: { 'data-testid': 'third-radio-element' },
+      textLabelAttrs: { 'data-testid': 'third-label-text' },
+    },
+  ],
 };
 
 export const WithDecrementSlot = (args) => ({

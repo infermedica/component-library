@@ -33,7 +33,12 @@ export default {
     placeholder,
     resize: {
       control: 'select',
-      options: [true, false, 'horizontal', 'vertical'],
+      options: [
+        true,
+        false,
+        'horizontal',
+        'vertical',
+      ],
     },
   },
 };

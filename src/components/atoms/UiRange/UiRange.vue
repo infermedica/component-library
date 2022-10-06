@@ -5,9 +5,7 @@
       ...defaultProps.numberStepperAttrs,
     }"
     :model-value="modelValue"
-    :style="{
-      '--_range-runnable-track-width': trackWidth
-    }"
+    :style="{ '--_range-runnable-track-width': trackWidth }"
     :min="min"
     :max="max"
     :step="step"

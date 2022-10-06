@@ -24,9 +24,7 @@
     <!-- @slot Use this slot to replace legend template. -->
     <slot
       name="legend"
-      v-bind="{
-        legend
-      }"
+      v-bind="{ legend }"
     >
       <legend
         v-if="legend"
@@ -115,7 +113,11 @@ const props = defineProps({
    *  Use this props or v-model to set checked.
    */
   modelValue: {
-    type: [String, Object, Array],
+    type: [
+      String,
+      Object,
+      Array,
+    ],
     default: () => ([]),
   },
   /**

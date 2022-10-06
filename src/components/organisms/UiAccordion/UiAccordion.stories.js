@@ -88,7 +88,7 @@ export const MultipleItems = Template.bind({});
 
 export const SingleItem = Template.bind({});
 SingleItem.args = {
-  items: [{
+  items: [ {
     title: 'Less likely conditions',
     name: 'less',
     settings: {
@@ -99,7 +99,7 @@ SingleItem.args = {
     iconTogglerAttrs: { 'data-testid': 'less-likely-conditions-icon' },
     contentAttrs: { 'data-testid': 'less-likely-conditions-content' },
     'data-testid': 'less-likely-conditions',
-  }],
+  } ],
   content: { less: 'Serum uric acid concentration' },
 };
 

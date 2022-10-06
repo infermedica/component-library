@@ -23,9 +23,7 @@
             label, ...rest
           } = item; return rest;})()"
           :model-value="modelValue"
-          :class="{
-            'ui-tile--small': isTileSmall
-          }"
+          :class="{ 'ui-tile--small': isTileSmall }"
           class="ui-simple-question__item"
           @update:model-value="updateHandler(item.value)"
         >
@@ -62,7 +60,10 @@ defineProps({
    * Use this props or v-model to set value.
    */
   modelValue: {
-    type: [Object, String] as PropType<TileValue>,
+    type: [
+      Object,
+      String,
+    ] as PropType<TileValue>,
     default: () => ({}),
   },
   /**
@@ -70,12 +71,12 @@ defineProps({
    */
   items: {
     type: Array as PropType<SimpleQuestionOptions[]>,
-    default: () => [{
+    default: () => [ {
       id: '',
       label: '',
       value: '',
       tileAttrs: { iconAttrs: { icon: '' } },
-    }],
+    } ],
   },
 });
 const emit = defineEmits<{(e: 'update:modelValue', value: TileValue): void}>();

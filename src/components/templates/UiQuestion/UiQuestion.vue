@@ -128,9 +128,7 @@
         v-if="defaultProps.settings.issue?.feedback"
         v-bind="defaultProps.notificationFeedbackAttrs"
         type="success"
-        :translation="{
-          action: defaultProps.translation.issue.skip
-        }"
+        :translation="{ action: defaultProps.translation.issue.skip }"
         class="ui-question__feedback"
       >
         {{ defaultProps.translation.issue.feedback }}

@@ -14,9 +14,7 @@
         <!-- @slot Use this slot to replace text in the mobile stepper -->
         <slot
           name="current-step"
-          v-bind="{
-            currentStepDisplayText
-          }"
+          v-bind="{ currentStepDisplayText }"
         >
           <UiText
             tag="span"
@@ -136,9 +134,7 @@ const props = defineProps({
    */
   steps: {
     type: Array as PropType<Step[]>,
-    default: () => [
-      { label: '' },
-    ],
+    default: () => [ { label: '' } ],
   },
   /**
    * Use this props to set the current step in the stepper.

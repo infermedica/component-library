@@ -28,7 +28,7 @@ export default {
     textDescriptionAttrs: { 'data-testid': 'description-text' },
   },
   argTypes: {
-    modifiers: modifiers({ options: ['ui-card--modern'] }),
+    modifiers: modifiers({ options: [ 'ui-card--modern' ] }),
     title: {
       description: 'Use this props to set title for card.',
       table: {
@@ -83,7 +83,11 @@ export default {
     type: {
       control: { type: 'select' },
       options: [
-        'emergency_ambulance', 'emergency', 'consultation_24', 'consultation', 'self_care',
+        'emergency_ambulance',
+        'emergency',
+        'consultation_24',
+        'consultation',
+        'self_care',
       ],
     },
     iconTriageAttrs: { table: { subcategory: 'Attrs props' } },
@@ -129,35 +133,35 @@ export const ModernAmbulance = Template.bind({});
 ModernAmbulance.args = {
   type: 'emergency_ambulance',
   subtitle: '',
-  modifiers: ['ui-card--modern'],
+  modifiers: [ 'ui-card--modern' ],
 };
 
 export const ModernEmergency = Template.bind({});
 ModernEmergency.args = {
   type: 'emergency',
   subtitle: '',
-  modifiers: ['ui-card--modern'],
+  modifiers: [ 'ui-card--modern' ],
 };
 
 export const ModernConsultation24 = Template.bind({});
 ModernConsultation24.args = {
   type: 'consultation_24',
   subtitle: '',
-  modifiers: ['ui-card--modern'],
+  modifiers: [ 'ui-card--modern' ],
 };
 
 export const ModernConsultation = Template.bind({});
 ModernConsultation.args = {
   type: 'consultation',
   subtitle: '',
-  modifiers: ['ui-card--modern'],
+  modifiers: [ 'ui-card--modern' ],
 };
 
 export const ModernSelfCare = Template.bind({});
 ModernSelfCare.args = {
   type: 'self_care',
   subtitle: '',
-  modifiers: ['ui-card--modern'],
+  modifiers: [ 'ui-card--modern' ],
 };
 
 export const WithDetailsSlot = (args) => ({

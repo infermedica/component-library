@@ -7,9 +7,7 @@
     <!-- @slot Use this slot to replace icon template. -->
     <slot
       name="icon"
-      v-bind="{
-        iconAlertAttrs: defaultProps.iconAlertAttrs
-      }"
+      v-bind="{ iconAlertAttrs: defaultProps.iconAlertAttrs }"
     >
       <UiIcon
         v-if="defaultProps.iconAlertAttrs.icon"
@@ -20,9 +18,7 @@
     <!-- @slot Use this slot to replace message template. -->
     <slot
       name="message"
-      v-bind="{
-        textMessageAttrs,
-      }"
+      v-bind="{ textMessageAttrs, }"
     >
       <UiText
         v-bind="textMessageAttrs"

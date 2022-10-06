@@ -1,9 +1,9 @@
 <template>
   <UiButton
     :id="tileId"
-    :class="['ui-button--outlined ui-tile',{
-      'ui-tile--is-checked': isChecked
-    }]"
+    :class="[
+      'ui-button--outlined ui-tile',{ 'ui-tile--is-checked': isChecked }
+    ]"
     role="radio"
     :aria-checked="`${isChecked}`"
     @click="selectHandler"
@@ -11,9 +11,7 @@
     <!-- @slot Use this slot to replace icon template. -->
     <slot
       name="icon"
-      v-bind="{
-        iconAttrs: defaultProps.iconAttrs
-      }"
+      v-bind="{ iconAttrs: defaultProps.iconAttrs }"
     >
       <UiIcon
         v-bind="defaultProps.iconAttrs"
@@ -23,9 +21,7 @@
     <!-- @slot Use this slot to replace label template. -->
     <slot
       name="label"
-      v-bind="{
-        textLabelAttrs: defaultProps.textLabelAttrs
-      }"
+      v-bind="{ textLabelAttrs: defaultProps.textLabelAttrs }"
     >
       <UiText
         v-bind="defaultProps.textLabelAttrs"
@@ -56,14 +52,20 @@ const props = defineProps({
    * Use this props or v-model to set checked.
    */
   modelValue: {
-    type: [String, Object] as PropType<TileValue>,
+    type: [
+      String,
+      Object,
+    ] as PropType<TileValue>,
     default: '',
   },
   /**
    * Use this props to set value of radio.
    */
   value: {
-    type: [String, Object] as PropType<TileValue>,
+    type: [
+      String,
+      Object,
+    ] as PropType<TileValue>,
     default: '',
   },
   /**
@@ -78,7 +80,10 @@ const props = defineProps({
    * Use this props to set icon.
    */
   icon: {
-    type: [String, Object] as PropType<Icon>,
+    type: [
+      String,
+      Object,
+    ] as PropType<Icon>,
     default: '',
   },
   /**

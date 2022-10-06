@@ -19,7 +19,10 @@ const props = defineProps({
    * Use this prop to set the icon.
    */
   icon: {
-    type: [String, Object] as PropType<Icon>,
+    type: [
+      String,
+      Object,
+    ] as PropType<Icon>,
     default: '',
   },
 });

@@ -16,9 +16,7 @@
           <!-- @slot Use this slot to replace logo template.-->
           <slot
             name="logo"
-            v-bind="{
-              iconLogoAttrs: defaultProps.iconLogoAttrs
-            }"
+            v-bind="{ iconLogoAttrs: defaultProps.iconLogoAttrs }"
           >
             <UiIcon
               v-bind="defaultProps.iconLogoAttrs"
@@ -98,7 +96,10 @@ const props = defineProps({
    * Use this prop to set the logo.
    */
   logo: {
-    type: [Object, String] as PropType<Icon>,
+    type: [
+      Object,
+      String,
+    ] as PropType<Icon>,
     default: '',
   },
   /**

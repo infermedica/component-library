@@ -24,12 +24,21 @@ export default {
   argTypes: {
     content,
     modifiers: modifiers({
-      options: ['ui-alert', 'ui-alert--secondary'],
+      options: [
+        'ui-alert',
+        'ui-alert--secondary',
+      ],
       control: 'select',
     }),
     type: {
       control: 'select',
-      options: ['default', 'success', 'info', 'warning', 'error'],
+      options: [
+        'default',
+        'success',
+        'info',
+        'warning',
+        'error',
+      ],
     },
     iconAlertAttrs: { table: { subcategory: 'Attrs props' } },
     textMessageAttrs: { table: { subcategory: 'Attrs props' } },

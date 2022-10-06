@@ -27,12 +27,17 @@ export default {
     content,
     type: {
       control: 'select',
-      options: ['success', 'info', 'warning', 'error'],
+      options: [
+        'success',
+        'info',
+        'warning',
+        'error',
+      ],
     },
     buttonActionAttrs: { table: { subcategory: 'Attrs props' } },
     iconActionAttrs: { table: { subcategory: 'Attrs props' } },
   },
-  decorators: [() => ({ template: '<div style="max-width: 320px;"><story /></div>' })],
+  decorators: [ () => ({ template: '<div style="max-width: 320px;"><story /></div>' }) ],
 };
 
 const Template = (args) => ({

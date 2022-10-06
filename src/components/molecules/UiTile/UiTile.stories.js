@@ -36,7 +36,7 @@ export default {
       table: { category: 'stories controls' },
       control: 'string',
     },
-    modifiers: modifiers({ options: ['ui-tile--small'] }),
+    modifiers: modifiers({ options: [ 'ui-tile--small' ] }),
     value: { control: 'text' },
     modelValue: { control: false },
     icon: {
@@ -88,10 +88,10 @@ const Template = (args) => ({
 export const Large = Template.bind({});
 
 export const Small = Template.bind({});
-Small.args = { modifiers: ['ui-tile--small'] };
+Small.args = { modifiers: [ 'ui-tile--small' ] };
 
 export const HasError = Template.bind({});
-HasError.args = { modifiers: ['ui-tile--has-error'] };
+HasError.args = { modifiers: [ 'ui-tile--has-error' ] };
 
 export const WithIconSlot = (args) => ({
   components: {
@@ -204,7 +204,11 @@ AsGroup.args = {
       icon: 'yes',
       iconAttrs: { 'data-testid': 'present' },
       textLabelAttrs: { 'data-testid': 'present' },
-      class: ['mb-3', 'tablet:mr-6', 'tablet:mb-0'],
+      class: [
+        'mb-3',
+        'tablet:mr-6',
+        'tablet:mb-0',
+      ],
     },
     {
       value: 'absent',
@@ -212,7 +216,11 @@ AsGroup.args = {
       icon: 'no',
       iconAttrs: { 'data-testid': 'no' },
       textLabelAttrs: { 'data-testid': 'no' },
-      class: ['mb-3', 'tablet:mr-6', 'tablet:mb-0'],
+      class: [
+        'mb-3',
+        'tablet:mr-6',
+        'tablet:mb-0',
+      ],
     },
     {
       value: 'unknown',

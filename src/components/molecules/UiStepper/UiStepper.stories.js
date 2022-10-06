@@ -60,7 +60,7 @@ export default {
     },
     progressAttrs: { table: { subcategory: 'Attrs props' } },
   },
-  decorators: [() => ({ template: '<div class="desktop:max-w-35"><story /></div>' })],
+  decorators: [ () => ({ template: '<div class="desktop:max-w-35"><story /></div>' }) ],
 };
 
 const Template = (args) => ({

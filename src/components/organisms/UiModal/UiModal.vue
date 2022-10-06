@@ -62,9 +62,7 @@
           v-body-scroll-lock
           v-bind="dialogAttrs"
           class="ui-modal__dialog"
-          :class="{
-            'ui-modal__dialog--has-title': title
-          }"
+          :class="{ 'ui-modal__dialog--has-title': title }"
         >
           <!-- @slot Use this slot to replace header template. -->
           <slot
@@ -126,9 +124,7 @@
                 >
                   <slot
                     name="icon"
-                    v-bind="{
-                      iconCloseAttrs: defaultProps.iconCloseAttrs
-                    }"
+                    v-bind="{ iconCloseAttrs: defaultProps.iconCloseAttrs }"
                   >
                     <UiIcon
                       v-bind="defaultProps.iconCloseAttrs"

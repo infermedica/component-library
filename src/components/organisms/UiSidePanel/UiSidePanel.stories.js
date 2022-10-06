@@ -102,7 +102,7 @@ export default {
     iconCloseAttrs: { table: { subcategory: 'Attrs props' } },
     contentAttrs: { table: { subcategory: 'Attrs props' } },
   },
-  decorators: [(story, { args }) => ({
+  decorators: [ (story, { args }) => ({
     components: {
       story,
       UiButton,
@@ -125,7 +125,7 @@ export default {
       >{{ title }}</UiButton>
       <story/>
     </div>`,
-  })],
+  }) ],
   parameters: { docs: { description: { component: 'SidePanel use `v-body-scroll-lock`. Only works on Canvas mode.' } } },
 };
 

@@ -3,16 +3,20 @@ import { mount } from '@vue/test-utils';
 import UiNavigation from '@/components/molecules/UiNavigation/UiNavigation.vue';
 import UiNavigationItem from './_internal/UiNavigationItem.vue';
 
-const items = [{
-  to: '/',
-  text: 'title',
-}, {
-  to: '/',
-  text: 'title',
-}, {
-  to: '/',
-  text: 'title',
-}];
+const items = [
+  {
+    to: '/',
+    text: 'title',
+  },
+  {
+    to: '/',
+    text: 'title',
+  },
+  {
+    to: '/',
+    text: 'title',
+  },
+];
 
 class ResizeObserver {
   observe() {}
@@ -40,10 +44,13 @@ describe('UiNavigation.vue', () => {
   test('component pass attributes to the one item', async () => {
     const wrapper = mount(UiNavigation, {
       props: {
-        items: [...items, {
-          ...items[0],
-          style: 'color: red',
-        }],
+        items: [
+          ...items,
+          {
+            ...items[0],
+            style: 'color: red',
+          },
+        ],
       },
     });
     const itemList = wrapper.findAllComponents(UiNavigationItem);

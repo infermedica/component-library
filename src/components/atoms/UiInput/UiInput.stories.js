@@ -38,7 +38,15 @@ export default {
       description: 'Use this control to set input type.',
       table: { category: 'stories controls' },
       control: 'select',
-      options: ['email', 'number', 'password', 'search', 'tel', 'text', 'url'],
+      options: [
+        'email',
+        'number',
+        'password',
+        'search',
+        'tel',
+        'text',
+        'url',
+      ],
     },
     modifiers: modifiers({
       options: [
@@ -80,10 +88,10 @@ export const WithValue = Template.bind({});
 WithValue.args = { initModelValue: 'Input text' };
 
 export const HasError = Template.bind({});
-HasError.args = { modifiers: ['ui-input--has-error'] };
+HasError.args = { modifiers: [ 'ui-input--has-error' ] };
 
 export const IsDisabled = Template.bind({});
-IsDisabled.args = { modifiers: ['ui-input--is-disabled'] };
+IsDisabled.args = { modifiers: [ 'ui-input--is-disabled' ] };
 
 export const WithSuffix = Template.bind({});
 WithSuffix.args = { suffix: 'Suffix' };
@@ -129,7 +137,7 @@ export const WithAButtonInSuffix = (args) => ({
 });
 WithAButtonInSuffix.args = {
   icon: 'search',
-  modifiers: ['ui-input--has-icon'],
+  modifiers: [ 'ui-input--has-icon' ],
 };
 WithAButtonInSuffix.argTypes = {
   icon: {

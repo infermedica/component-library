@@ -23,16 +23,12 @@
     >
       <div
         class="ui-checkbox__checkbox"
-        :class="{
-          'ui-checkbox__checkbox--is-checked': isChecked,
-        }"
+        :class="{ 'ui-checkbox__checkbox--is-checked': isChecked, }"
       >
         <!-- @slot Use this slot to replace checkmark template.-->
         <slot
           name="checkmark"
-          v-bind="{
-            iconCheckmarkAttrs: defaultProps.iconCheckmarkAttrs
-          }"
+          v-bind="{ iconCheckmarkAttrs: defaultProps.iconCheckmarkAttrs }"
         >
           <UiIcon
             v-bind="defaultProps.iconCheckmarkAttrs"
@@ -85,7 +81,10 @@ const props = defineProps({
    *  Use this props or v-model to set checked.
    */
   modelValue: {
-    type: [Boolean, Array] as PropType<CheckboxModelValue>,
+    type: [
+      Boolean,
+      Array,
+    ] as PropType<CheckboxModelValue>,
     default: false,
   },
   /**
@@ -93,7 +92,10 @@ const props = defineProps({
    * Required for multiple checkboxes.
    */
   value: {
-    type: [String, Object] as PropType<CheckboxValue>,
+    type: [
+      String,
+      Object,
+    ] as PropType<CheckboxValue>,
     default: '',
   },
   /**
@@ -147,7 +149,10 @@ const isChecked = computed(() => {
 const getChecked = (checked: boolean): CheckboxModelValue => {
   if (Array.isArray(props.modelValue)) {
     return checked
-      ? [...props.modelValue, JSON.parse(JSON.stringify(props.value))]
+      ? [
+        ...props.modelValue,
+        JSON.parse(JSON.stringify(props.value)),
+      ]
       : props.modelValue.filter((option: Record<string, unknown>) => (!equal(props.value, option)));
   }
   return checked;

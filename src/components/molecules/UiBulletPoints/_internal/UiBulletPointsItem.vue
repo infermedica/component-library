@@ -25,9 +25,7 @@
     <!-- @slot Use this slot to replace bullet points item content -->
     <slot
       name="content"
-      v-bind="{
-        textContentAttrs
-      }"
+      v-bind="{ textContentAttrs }"
     >
       <div class="ui-bullet-points-item__content">
         <UiText v-bind="textContentAttrs">

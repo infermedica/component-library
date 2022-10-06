@@ -16,9 +16,7 @@
           <!-- @slot Use this slot to place tab item content. -->
           <slot
             :name="item.name"
-            v-bind="{
-              item
-            }"
+            v-bind="{ item }"
           />
         </UiTabsItem>
       </template>

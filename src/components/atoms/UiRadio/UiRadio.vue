@@ -18,14 +18,14 @@
       :name="radiobutton && 'radiobutton' || 'radio'"
       v-bind="{
         checked: isChecked,
-        radioAttrs,
+        radioElementAttrs,
       }"
     >
       <div
-        v-bind="radioAttrs"
-        :class="['ui-radio__radio',{
-          'ui-radio__radio--is-checked': isChecked
-        }]"
+        v-bind="radioElementAttrs"
+        :class="[
+          'ui-radio__radio',{ 'ui-radio__radio--is-checked': isChecked }
+        ]"
       >
         <div class="ui-radio__mark" />
       </div>
@@ -72,14 +72,22 @@ const props = defineProps({
    * Use this props or v-model to set checked.
    */
   modelValue: {
-    type: [Number, String, Object] as PropType<RadioValue>,
+    type: [
+      Number,
+      String,
+      Object,
+    ] as PropType<RadioValue>,
     default: '',
   },
   /**
    * Use this props to set value of radio.
    */
   value: {
-    type: [Number, String, Object] as PropType<RadioValue>,
+    type: [
+      Number,
+      String,
+      Object,
+    ] as PropType<RadioValue>,
     default: '',
   },
   /**
@@ -93,7 +101,7 @@ const props = defineProps({
   /**
    * Use this props to pass attrs for radio element.
    */
-  radioAttrs: {
+  radioElementAttrs: {
     type: Object,
     default: () => ({}),
   },

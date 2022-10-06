@@ -64,7 +64,17 @@ export default {
       description: 'Use this props to set message illustration.',
       table: { category: 'props' },
       type: 'select',
-      options: ['agreement', 'boy', 'no-internet-illustration', 'podium', 'lock', 'agreement-rtl', 'boy-rtl', 'no-internet-illustration-rtl', 'podium-rtl'],
+      options: [
+        'agreement',
+        'boy',
+        'no-internet-illustration',
+        'podium',
+        'lock',
+        'agreement-rtl',
+        'boy-rtl',
+        'no-internet-illustration-rtl',
+        'podium-rtl',
+      ],
     },
     illustrationSlot: {
       name: 'illustration',
@@ -242,7 +252,7 @@ AsNotAuthorized.args = {
   title: 'Sorry, you are not allowed to see this page',
   illustration: 'lock',
 };
-AsNotAuthorized.decorators = [(story) => ({
+AsNotAuthorized.decorators = [ (story) => ({
   components: {
     story,
     UiControls,
@@ -258,7 +268,7 @@ AsNotAuthorized.decorators = [(story) => ({
   >
     <story/>
   </UiControls>`,
-})];
+}) ];
 
 export const AsOffline = (args) => ({
   components: {
@@ -296,7 +306,7 @@ AsOffline.args = {
   title: 'No internet connection',
   illustration: 'no-internet-illustration',
 };
-AsOffline.decorators = [(story) => ({
+AsOffline.decorators = [ (story) => ({
   components: {
     story,
     UiControls,
@@ -312,7 +322,7 @@ AsOffline.decorators = [(story) => ({
   >
     <story/>
   </UiControls>`,
-})];
+}) ];
 
 export const AsOfflinePopover = (args) => ({
   components: {
@@ -351,7 +361,7 @@ AsOfflinePopover.args = {
   illustration: 'no-internet',
   headingTitleAttrs: { level: '4' },
 };
-AsOfflinePopover.decorators = [(story) => ({
+AsOfflinePopover.decorators = [ (story) => ({
   components: {
     story,
     UiPopover,
@@ -365,4 +375,4 @@ AsOfflinePopover.decorators = [(story) => ({
   >
     <story/>
   </UiPopover>`,
-})];
+}) ];

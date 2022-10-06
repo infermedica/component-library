@@ -62,9 +62,7 @@
         <!-- @slot Use this slot to replace illustration template. -->
         <slot
           name="illustration"
-          v-bind="{
-            iconIllustrationAttrs: defaultProps.iconIllustrationAttrs
-          }"
+          v-bind="{ iconIllustrationAttrs: defaultProps.iconIllustrationAttrs }"
         >
           <UiIcon
             v-bind="defaultProps.iconIllustrationAttrs"
@@ -104,7 +102,10 @@ const props = defineProps({
    * Use this props to set message illustration.
    */
   illustration: {
-    type: [String, false] as PropType<Icon | false>,
+    type: [
+      String,
+      false,
+    ] as PropType<Icon | false>,
     default: '',
   },
   /**

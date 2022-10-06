@@ -1,9 +1,7 @@
 <template>
   <UiInput
     v-model="day"
-    :class="{
-      'ui-input--has-error': hasError
-    }"
+    :class="{ 'ui-input--has-error': hasError }"
     :placeholder="translation.placeholderDay"
     maxlength="2"
     inputmode="numeric"
@@ -64,7 +62,12 @@ async function checkDay(event: InputEvent): Promise<void> {
   unfulfilledDayError.value = false;
   const inputValue = event.data;
   await nextTick();
-  if (inputValue && (!['0', '1', '2', '3'].includes(inputValue) || day.value.length === 2) && props.valid) {
+  if (inputValue && (![
+    '0',
+    '1',
+    '2',
+    '3',
+  ].includes(inputValue) || day.value.length === 2) && props.valid) {
     emit('change-input', 'day');
   }
 }

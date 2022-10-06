@@ -18,7 +18,11 @@ export default {
     initModelValue: '2077-11-27',
     initInvalid: true,
     error: 'Sorry, the date of birth cannot be a future date',
-    order: ['day', 'month', 'year'],
+    order: [
+      'day',
+      'month',
+      'year',
+    ],
     touched: false,
     lang: 'en-us',
     translation: {
@@ -74,7 +78,26 @@ export default {
     },
     lang: {
       control: 'select',
-      options: ['ar', 'ar-sa', 'cs', 'de', 'en', 'en-us', 'es', 'fr', 'it', 'nl', 'pl', 'pt-br', 'ro', 'ru', 'sk', 'tr', 'zh-cn', 'zh-hans'],
+      options: [
+        'ar',
+        'ar-sa',
+        'cs',
+        'de',
+        'en',
+        'en-us',
+        'es',
+        'fr',
+        'it',
+        'nl',
+        'pl',
+        'pt-br',
+        'ro',
+        'ru',
+        'sk',
+        'tr',
+        'zh-cn',
+        'zh-hans',
+      ],
     },
     modelValue: { control: false },
     invalid: { control: false },
@@ -107,7 +130,7 @@ export default {
     inputYearAttrs: { table: { subcategory: 'Attrs props' } },
     datepickerCalendarAttrs: { table: { subcategory: 'Attrs props' } },
   },
-  decorators: [() => ({ template: '<div style="min-height: 430px" class="max-w-80"><story /></div>' })],
+  decorators: [ () => ({ template: '<div style="min-height: 430px" class="max-w-80"><story /></div>' }) ],
 };
 
 export const FullConfiguration = (args) => ({

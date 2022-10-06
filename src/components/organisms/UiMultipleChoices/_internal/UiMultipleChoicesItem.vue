@@ -3,9 +3,9 @@
     :is="tag"
     role="radiogroup"
     :aria-labelledby="multipleChoicesItemId"
-    :class="['ui-multiple-choices-item', {
-      'ui-multiple-choices-item--has-error': invalid
-    }]"
+    :class="[
+      'ui-multiple-choices-item', { 'ui-multiple-choices-item--has-error': invalid }
+    ]"
   >
     <!-- @slot Use this slot to replace legend template. -->
     <slot
@@ -74,9 +74,9 @@
           <UiRadio
             v-model="value"
             v-bind="option"
-            :class="['ui-multiple-choices-item__option', {
-              'ui-radio--has-error': invalid
-            }]"
+            :class="[
+              'ui-multiple-choices-item__option', { 'ui-radio--has-error': invalid }
+            ]"
             :name="multipleChoicesItemId"
           >
             {{ option.label }}
@@ -127,7 +127,10 @@ const props = defineProps({
    *  Use this props or v-model to set checked.
    */
   modelValue: {
-    type: [String, Object] as PropType<string | Record<string, unknown>>,
+    type: [
+      String,
+      Object,
+    ] as PropType<string | Record<string, unknown>>,
     default: '',
   },
   /**

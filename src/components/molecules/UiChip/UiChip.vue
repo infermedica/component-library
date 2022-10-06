@@ -3,9 +3,7 @@
     <!-- @slot Use this slot to replace label template. -->
     <slot
       name="label"
-      v-bind="{
-        textLabelAttrs
-      }"
+      v-bind="{ textLabelAttrs }"
     >
       <!-- @slot Use this slot to place content inside chip. -->
       <UiText
@@ -32,9 +30,7 @@
       >
         <slot
           name="icon"
-          v-bind="{
-            iconRemoveAttrs: defaultProps.iconRemoveAttrs
-          }"
+          v-bind="{ iconRemoveAttrs: defaultProps.iconRemoveAttrs }"
         >
           <UiIcon
             v-bind="defaultProps.iconRemoveAttrs"

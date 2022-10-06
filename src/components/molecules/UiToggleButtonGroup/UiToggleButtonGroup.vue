@@ -16,9 +16,7 @@
         >
           <slot
             :name="item.name"
-            v-bind="{
-              item
-            }"
+            v-bind="{ item }"
           >
             {{ item.text }}
           </slot>
@@ -55,7 +53,11 @@ const props = defineProps({
    * Use this props or v-model to set value.
    */
   modelValue: {
-    type: [Number, String, Object] as PropType<ToggleButtonValue>,
+    type: [
+      Number,
+      String,
+      Object,
+    ] as PropType<ToggleButtonValue>,
     default: '',
   },
   /**

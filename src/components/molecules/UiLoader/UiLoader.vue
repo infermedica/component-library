@@ -82,7 +82,10 @@ const props = defineProps({
    * Use this props to pass tag of loader
    */
   tag: {
-    type: [String, Object] as PropType<HTMLTag | Record<string, unknown>>,
+    type: [
+      String,
+      Object,
+    ] as PropType<HTMLTag | Record<string, unknown>>,
     default: 'div',
   },
   /**

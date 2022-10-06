@@ -23,7 +23,10 @@ export const WithFocusOnMounted = () => ({
   setup() {
     const checkedRegions = ref([]);
     const handleRegionCheck = ({ region }, { code }) => {
-      const codes = ['Space', 'Enter'];
+      const codes = [
+        'Space',
+        'Enter',
+      ];
 
       if (code && !codes.includes(code)) return;
       if (checkedRegions.value.includes(region)) {
@@ -47,7 +50,10 @@ export const WithFocusOnMounted = () => ({
           ref: (el) => {
             regions.value[region] = el; // assign DOM node to region key in regions object
           },
-          class: ['map__region', { 'map__region--is-checked': isChecked }],
+          class: [
+            'map__region',
+            { 'map__region--is-checked': isChecked },
+          ],
           'aria-label': region.replace(/-/gm, ' '),
           'aria-checked': `${isChecked}`,
           tabindex: 0,
@@ -60,7 +66,12 @@ export const WithFocusOnMounted = () => ({
 
       if (focusFor) {
         const isFocused = focusedRegion.value === focusFor;
-        return { class: ['map__focus-for-region', { 'map__focus-for-region--is-focused': isFocused }] };
+        return {
+          class: [
+            'map__focus-for-region',
+            { 'map__focus-for-region--is-focused': isFocused },
+          ],
+        };
       }
 
       return {};
@@ -272,7 +283,10 @@ export const Map = () => ({
   setup() {
     const checkedRegions = ref([]);
     const handleRegionCheck = ({ region }, { code }) => {
-      const codes = ['Space', 'Enter'];
+      const codes = [
+        'Space',
+        'Enter',
+      ];
 
       if (code && !codes.includes(code)) return;
       if (checkedRegions.value.includes(region)) {
@@ -292,7 +306,10 @@ export const Map = () => ({
       if (region) {
         const isChecked = checkedRegions.value.includes(region);
         return {
-          class: ['map__region', { 'map__region--is-checked': isChecked }],
+          class: [
+            'map__region',
+            { 'map__region--is-checked': isChecked },
+          ],
           'aria-label': region.replace(/-/gm, ' '),
           'aria-checked': `${isChecked}`,
           tabindex: 0,
@@ -305,7 +322,12 @@ export const Map = () => ({
 
       if (focusFor) {
         const isFocused = focusedRegion.value === focusFor;
-        return { class: ['map__focus-for-region', { 'map__focus-for-region--is-focused': isFocused }] };
+        return {
+          class: [
+            'map__focus-for-region',
+            { 'map__focus-for-region--is-focused': isFocused },
+          ],
+        };
       }
 
       return {};
@@ -514,7 +536,10 @@ export const AbdominalPainMale = () => ({
   setup() {
     const checkedParts = ref([]);
     const handlePartCheck = ({ part }, { code }) => {
-      const codes = ['Space', 'Enter'];
+      const codes = [
+        'Space',
+        'Enter',
+      ];
 
       if (code && !codes.includes(code)) return;
       if (checkedParts.value.includes(part)) {
@@ -534,7 +559,10 @@ export const AbdominalPainMale = () => ({
       if (part) {
         const isChecked = checkedParts.value.includes(part);
         return {
-          class: ['abdominal-pain__part', { 'abdominal-pain__part--is-checked': isChecked }],
+          class: [
+            'abdominal-pain__part',
+            { 'abdominal-pain__part--is-checked': isChecked },
+          ],
           'aria-label': part.replace(/-/gm, ' '),
           'aria-checked': `${isChecked}`,
           tabindex: 0,
@@ -547,7 +575,12 @@ export const AbdominalPainMale = () => ({
 
       if (focusFor) {
         const isFocused = focusedPart.value === focusFor;
-        return { class: ['abdominal-pain__focus-for-part', { 'abdominal-pain__focus-for-part--is-focused': isFocused }] };
+        return {
+          class: [
+            'abdominal-pain__focus-for-part',
+            { 'abdominal-pain__focus-for-part--is-focused': isFocused },
+          ],
+        };
       }
 
       return {};
@@ -632,7 +665,10 @@ export const AbdominalPainFemale = () => ({
   setup() {
     const checkedParts = ref([]);
     const handlePartCheck = ({ part }, { code }) => {
-      const codes = ['Space', 'Enter'];
+      const codes = [
+        'Space',
+        'Enter',
+      ];
 
       if (code && !codes.includes(code)) return;
       if (checkedParts.value.includes(part)) {
@@ -652,7 +688,10 @@ export const AbdominalPainFemale = () => ({
       if (part) {
         const isChecked = checkedParts.value.includes(part);
         return {
-          class: ['abdominal-pain__part', { 'abdominal-pain__part--is-checked': isChecked }],
+          class: [
+            'abdominal-pain__part',
+            { 'abdominal-pain__part--is-checked': isChecked },
+          ],
           'aria-label': part.replace(/-/gm, ' '),
           'aria-checked': `${isChecked}`,
           tabindex: 0,
@@ -665,7 +704,12 @@ export const AbdominalPainFemale = () => ({
 
       if (focusFor) {
         const isFocused = focusedPart.value === focusFor;
-        return { class: ['abdominal-pain__focus-for-part', { 'abdominal-pain__focus-for-part--is-focused': isFocused }] };
+        return {
+          class: [
+            'abdominal-pain__focus-for-part',
+            { 'abdominal-pain__focus-for-part--is-focused': isFocused },
+          ],
+        };
       }
 
       return {};
@@ -765,10 +809,13 @@ export const InfantUnisexFront = (args) => ({
         const isSelected = part === selectedPart.value;
 
         return {
-          class: ['body-model__part', {
-            'body-model__part--is-highlighted': isHighlighted,
-            'body-model__part--is-selected': isSelected,
-          }],
+          class: [
+            'body-model__part',
+            {
+              'body-model__part--is-highlighted': isHighlighted,
+              'body-model__part--is-selected': isSelected,
+            },
+          ],
           onClick: handleBodyPartClick.bind(null, attrs),
         };
       }
@@ -889,10 +936,13 @@ export const InfantUnisexBack = () => ({
         const isSelected = part === selectedPart.value;
 
         return {
-          class: ['body-model__part', {
-            'body-model__part--is-highlighted': isHighlighted,
-            'body-model__part--is-selected': isSelected,
-          }],
+          class: [
+            'body-model__part',
+            {
+              'body-model__part--is-highlighted': isHighlighted,
+              'body-model__part--is-selected': isSelected,
+            },
+          ],
           onClick: handleBodyPartClick.bind(null, attrs),
         };
       }
@@ -984,10 +1034,13 @@ export const ToddlerMaleFront = (args) => ({
         const isSelected = part === selectedPart.value;
 
         return {
-          class: ['body-model__part', {
-            'body-model__part--is-highlighted': isHighlighted,
-            'body-model__part--is-selected': isSelected,
-          }],
+          class: [
+            'body-model__part',
+            {
+              'body-model__part--is-highlighted': isHighlighted,
+              'body-model__part--is-selected': isSelected,
+            },
+          ],
           onClick: handleBodyPartClick.bind(null, attrs),
         };
       }
@@ -1136,10 +1189,13 @@ export const ToddlerMaleBack = () => ({
         const isSelected = part === selectedPart.value;
 
         return {
-          class: ['body-model__part', {
-            'body-model__part--is-highlighted': isHighlighted,
-            'body-model__part--is-selected': isSelected,
-          }],
+          class: [
+            'body-model__part',
+            {
+              'body-model__part--is-highlighted': isHighlighted,
+              'body-model__part--is-selected': isSelected,
+            },
+          ],
           onClick: handleBodyPartClick.bind(null, attrs),
         };
       }
@@ -1251,10 +1307,13 @@ export const ToddlerFemaleFront = (args) => ({
         const isSelected = part === selectedPart.value;
 
         return {
-          class: ['body-model__part', {
-            'body-model__part--is-highlighted': isHighlighted,
-            'body-model__part--is-selected': isSelected,
-          }],
+          class: [
+            'body-model__part',
+            {
+              'body-model__part--is-highlighted': isHighlighted,
+              'body-model__part--is-selected': isSelected,
+            },
+          ],
           onClick: handleBodyPartClick.bind(null, attrs),
         };
       }
@@ -1403,10 +1462,13 @@ export const ToddlerFemaleBack = () => ({
         const isSelected = part === selectedPart.value;
 
         return {
-          class: ['body-model__part', {
-            'body-model__part--is-highlighted': isHighlighted,
-            'body-model__part--is-selected': isSelected,
-          }],
+          class: [
+            'body-model__part',
+            {
+              'body-model__part--is-highlighted': isHighlighted,
+              'body-model__part--is-selected': isSelected,
+            },
+          ],
           onClick: handleBodyPartClick.bind(null, attrs),
         };
       }
@@ -1518,10 +1580,13 @@ export const ChildMaleFront = (args) => ({
         const isSelected = part === selectedPart.value;
 
         return {
-          class: ['body-model__part', {
-            'body-model__part--is-highlighted': isHighlighted,
-            'body-model__part--is-selected': isSelected,
-          }],
+          class: [
+            'body-model__part',
+            {
+              'body-model__part--is-highlighted': isHighlighted,
+              'body-model__part--is-selected': isSelected,
+            },
+          ],
           onClick: handleBodyPartClick.bind(null, attrs),
         };
       }
@@ -1670,10 +1735,13 @@ export const ChildMaleBack = () => ({
         const isSelected = part === selectedPart.value;
 
         return {
-          class: ['body-model__part', {
-            'body-model__part--is-highlighted': isHighlighted,
-            'body-model__part--is-selected': isSelected,
-          }],
+          class: [
+            'body-model__part',
+            {
+              'body-model__part--is-highlighted': isHighlighted,
+              'body-model__part--is-selected': isSelected,
+            },
+          ],
           onClick: handleBodyPartClick.bind(null, attrs),
         };
       }
@@ -1781,10 +1849,13 @@ export const ChildFemaleFront = (args) => ({
         const isSelected = part === selectedPart.value;
 
         return {
-          class: ['body-model__part', {
-            'body-model__part--is-highlighted': isHighlighted,
-            'body-model__part--is-selected': isSelected,
-          }],
+          class: [
+            'body-model__part',
+            {
+              'body-model__part--is-highlighted': isHighlighted,
+              'body-model__part--is-selected': isSelected,
+            },
+          ],
           onClick: handleBodyPartClick.bind(null, attrs),
         };
       }
@@ -1933,10 +2004,13 @@ export const ChildFemaleBack = () => ({
         const isSelected = part === selectedPart.value;
 
         return {
-          class: ['body-model__part', {
-            'body-model__part--is-highlighted': isHighlighted,
-            'body-model__part--is-selected': isSelected,
-          }],
+          class: [
+            'body-model__part',
+            {
+              'body-model__part--is-highlighted': isHighlighted,
+              'body-model__part--is-selected': isSelected,
+            },
+          ],
           onClick: handleBodyPartClick.bind(null, attrs),
         };
       }
@@ -2044,10 +2118,13 @@ export const AdultMaleFront = (args) => ({
         const isSelected = part === selectedPart.value;
 
         return {
-          class: ['body-model__part', {
-            'body-model__part--is-highlighted': isHighlighted,
-            'body-model__part--is-selected': isSelected,
-          }],
+          class: [
+            'body-model__part',
+            {
+              'body-model__part--is-highlighted': isHighlighted,
+              'body-model__part--is-selected': isSelected,
+            },
+          ],
           onClick: handleBodyPartClick.bind(null, attrs),
         };
       }
@@ -2196,10 +2273,13 @@ export const AdultMaleBack = () => ({
         const isSelected = part === selectedPart.value;
 
         return {
-          class: ['body-model__part', {
-            'body-model__part--is-highlighted': isHighlighted,
-            'body-model__part--is-selected': isSelected,
-          }],
+          class: [
+            'body-model__part',
+            {
+              'body-model__part--is-highlighted': isHighlighted,
+              'body-model__part--is-selected': isSelected,
+            },
+          ],
           onClick: handleBodyPartClick.bind(null, attrs),
         };
       }
@@ -2311,10 +2391,13 @@ export const AdultFemaleFront = (args) => ({
         const isSelected = part === selectedPart.value;
 
         return {
-          class: ['body-model__part', {
-            'body-model__part--is-highlighted': isHighlighted,
-            'body-model__part--is-selected': isSelected,
-          }],
+          class: [
+            'body-model__part',
+            {
+              'body-model__part--is-highlighted': isHighlighted,
+              'body-model__part--is-selected': isSelected,
+            },
+          ],
           onClick: handleBodyPartClick.bind(null, attrs),
         };
       }
@@ -2467,10 +2550,13 @@ export const AdultFemaleBack = () => ({
         const isSelected = part === selectedPart.value;
 
         return {
-          class: ['body-model__part', {
-            'body-model__part--is-highlighted': isHighlighted,
-            'body-model__part--is-selected': isSelected,
-          }],
+          class: [
+            'body-model__part',
+            {
+              'body-model__part--is-highlighted': isHighlighted,
+              'body-model__part--is-selected': isSelected,
+            },
+          ],
           onClick: handleBodyPartClick.bind(null, attrs),
         };
       }

@@ -15,8 +15,20 @@ export default {
   argTypes: {
     content,
     modifiers: modifiers({
-      options: [...['body-1-thick', 'body-2-comfortable', 'body-2-compact', 'body-2-comfortable-thick', 'body-2-compact-thick', 'caption', 'button-1']
-        .map((modifier) => (`ui-text--${modifier}`)), 'ui-text--theme-secondary', 'ui-text--theme-brand'],
+      options: [
+        ...[
+          'body-1-thick',
+          'body-2-comfortable',
+          'body-2-compact',
+          'body-2-comfortable-thick',
+          'body-2-compact-thick',
+          'caption',
+          'button-1',
+        ]
+          .map((modifier) => (`ui-text--${modifier}`)),
+        'ui-text--theme-secondary',
+        'ui-text--theme-brand',
+      ],
     }),
   },
 };

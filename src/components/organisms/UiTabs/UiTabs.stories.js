@@ -46,7 +46,7 @@ export default {
       table: { category: 'stories controls' },
       control: 'text',
     },
-    modifiers: modifiers({ options: ['ui-tabs--fixed'] }),
+    modifiers: modifiers({ options: [ 'ui-tabs--fixed' ] }),
     modelValue: { control: false },
     tabsItem: {
       name: '<name>',
@@ -57,7 +57,7 @@ export default {
       },
     },
   },
-  decorators: [() => ({ template: '<div style="min-height: 120px"><story /></div>' })],
+  decorators: [ () => ({ template: '<div style="min-height: 120px"><story /></div>' }) ],
 };
 
 const Template = (args) => ({
@@ -92,7 +92,7 @@ const Template = (args) => ({
 export const Common = Template.bind({});
 
 export const Fixed = Template.bind({});
-Fixed.args = { modifiers: ['ui-tabs--fixed'] };
+Fixed.args = { modifiers: [ 'ui-tabs--fixed' ] };
 
 export const WithDefaultSlot = (args) => ({
   components: {

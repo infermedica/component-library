@@ -2,9 +2,7 @@
   <nav
     ref="nav"
     class="ui-navigation"
-    :class="{
-      'ui-navigation--is-multiline': isMultiline
-    }"
+    :class="{ 'ui-navigation--is-multiline': isMultiline }"
   >
     <!-- @slot Use this slot to place content inside component.-->
     <slot>
@@ -21,9 +19,7 @@
           <!-- @slot Use this slot to replace navigation item content. -->
           <slot
             :name="item.name"
-            v-bind="{
-              item
-            }"
+            v-bind="{ item }"
           >
             {{ item.text }}
           </slot>
@@ -83,7 +79,7 @@ const itemsToRender = computed(() => (props.items.map((item, key) => {
 })));
 const resizeObserver = new ResizeObserver((entries) => {
   const { target } = entries[0];
-  isMultiline.value = ([...target.children].at(-1) as HTMLElement).offsetTop > (target as HTMLElement).offsetTop;
+  isMultiline.value = ([ ...target.children ].at(-1) as HTMLElement).offsetTop > (target as HTMLElement).offsetTop;
 });
 onMounted(async () => {
   await nextTick();

@@ -27,9 +27,7 @@
         v-if="hasControls"
         v-bind="defaultProps.buttonDecrementAttrs"
         class="ui-button--outlined ui-button--circled ui-number-stepper__decrement"
-        :class="{
-          'ui-button--is-disabled': isMin
-        }"
+        :class="{ 'ui-button--is-disabled': isMin }"
         @click="decrement"
       >
         <UiIcon
@@ -53,9 +51,7 @@
         v-if="hasControls"
         v-bind="defaultProps.buttonIncrementAttrs"
         class="ui-button--outlined ui-button--circled ui-number-stepper__increment"
-        :class="{
-          'ui-button--is-disabled': isMax
-        }"
+        :class="{ 'ui-button--is-disabled': isMax }"
         @click="increment"
       >
         <UiIcon

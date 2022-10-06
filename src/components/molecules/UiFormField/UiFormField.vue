@@ -55,9 +55,7 @@
     </slot>
     <!-- @slot Use this slot to place input.-->
     <slot
-      v-bind="{
-        id: inputId
-      }"
+      v-bind="{ id: inputId }"
     />
     <!-- @slot Use this slot to replace alert template. -->
     <slot
@@ -94,7 +92,10 @@ const props = defineProps({
    * Use this props to set label text
    */
   message: {
-    type: [Boolean, String] as PropType<boolean | string>,
+    type: [
+      Boolean,
+      String,
+    ] as PropType<boolean | string>,
     default: false,
   },
   /**
@@ -109,14 +110,20 @@ const props = defineProps({
    * Use this props to set label hint like "Required" or "Optional"
    */
   hint: {
-    type: [Boolean, String] as PropType<boolean | string>,
+    type: [
+      Boolean,
+      String,
+    ] as PropType<boolean | string>,
     default: '',
   },
   /**
    * Use this props to set alert message
    */
   errorMessage: {
-    type: [Boolean, String] as PropType<boolean | string>,
+    type: [
+      Boolean,
+      String,
+    ] as PropType<boolean | string>,
     default: '',
   },
   /**

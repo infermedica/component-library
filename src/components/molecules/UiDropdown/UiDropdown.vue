@@ -1,13 +1,9 @@
 <template>
   <div
     ref="dropdown"
-    v-click-outside:[isActiveClickOutside]="closeHandler.bind(this, {
-      focusToggle: false
-    })"
+    v-click-outside:[isActiveClickOutside]="closeHandler.bind(this, { focusToggle: false })"
     class="ui-dropdown"
-    :class="{
-      'is-active': isOpen
-    }"
+    :class="{ 'is-active': isOpen }"
     @keydown="dropdownKeydownHandler"
   >
     <!-- @slot Use this slot to place toggle template. -->
@@ -79,9 +75,7 @@
                   <!-- @slot Use this slot to replace dropdown item content. -->
                   <slot
                     :name="item.name"
-                    v-bind="{
-                      item
-                    }"
+                    v-bind="{ item }"
                   >
                     {{ item.text }}
                   </slot>
@@ -151,7 +145,10 @@ const props = defineProps({
    * Use this props or v-model to set value.
    */
   modelValue: {
-    type: [String, Object] as PropType<DropdownValue>,
+    type: [
+      String,
+      Object,
+    ] as PropType<DropdownValue>,
     default: '',
   },
   /**
@@ -217,7 +214,10 @@ const {
   selectedDropdownItem,
 } = useDropdownItems(dropdown);
 function disableArrows(event: KeyboardEvent): void {
-  if (['ArrowUp', 'ArrowDown'].indexOf(event.code) > -1) {
+  if ([
+    'ArrowUp',
+    'ArrowDown',
+  ].indexOf(event.code) > -1) {
     event.preventDefault();
   }
 }

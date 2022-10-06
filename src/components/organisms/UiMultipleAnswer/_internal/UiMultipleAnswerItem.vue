@@ -2,7 +2,9 @@
   <component
     :is="component"
     :id="id"
-    :class="['ui-multiple-answer-item', errorClass]"
+    :class="[
+      'ui-multiple-answer-item', errorClass
+    ]"
     :model-value="modelValue"
     @update:model-value="emit('update:model-value', $event)"
     @keydown="focusExplication"
@@ -22,7 +24,9 @@
         }"
       >
         <div
-          :class="['ui-multiple-answer-item__label',`${componentName}__label`]"
+          :class="[
+            'ui-multiple-answer-item__label',`${componentName}__label`
+          ]"
         >
           <UiText
             v-bind="defaultProps.textLabelAttrs"
@@ -69,7 +73,11 @@ const props = defineProps({
    *  Use this props or v-model to set checked.
    */
   modelValue: {
-    type: [String, Object, Array],
+    type: [
+      String,
+      Object,
+      Array,
+    ],
     default: () => ([]),
   },
   /**
@@ -118,11 +126,14 @@ const defaultProps = computed(() => ({
     ...props.iconInfoAttrs,
   },
 }));
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits([ 'update:modelValue' ]);
 const isCheckbox = computed(() => (Array.isArray(props.modelValue)));
 const component = computed(() => (isCheckbox.value ? UiCheckbox : UiRadio));
 const componentName = computed<ComponentName>(() => (isCheckbox.value ? 'ui-checkbox' : 'ui-radio'));
-const errorClass = computed(() => ([props.invalid ? `${componentName.value}--has-error` : '', { 'ui-multiple-answer-item--has-error': props.invalid }]));
+const errorClass = computed(() => ([
+  props.invalid ? `${componentName.value}--has-error` : '',
+  { 'ui-multiple-answer-item--has-error': props.invalid },
+]));
 function focusExplication(event: KeyboardEvent) {
   if (event.key !== 'ArrowRight') return;
   const el = event.target as HTMLInputElement;

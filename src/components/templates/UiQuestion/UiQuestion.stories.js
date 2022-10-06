@@ -136,7 +136,7 @@ AsMultipleAnswer.args = {
     },
   ],
 };
-AsMultipleAnswer.decorators = [(story) => ({
+AsMultipleAnswer.decorators = [ (story) => ({
   components: {
     story,
     UiControls,
@@ -152,7 +152,7 @@ AsMultipleAnswer.decorators = [(story) => ({
   >
     <story/>
   </UiControls>`,
-})];
+}) ];
 
 export const AsSimpleQuestion = (args) => ({
   components: {
@@ -202,7 +202,7 @@ AsSimpleQuestion.args = {
     },
   ],
 };
-AsSimpleQuestion.decorators = [(story) => ({
+AsSimpleQuestion.decorators = [ (story) => ({
   components: {
     story,
     UiControls,
@@ -218,7 +218,7 @@ AsSimpleQuestion.decorators = [(story) => ({
   >
     <story/>
   </UiControls>`,
-})];
+}) ];
 
 export const WithTitleSlot = (args) => ({
   components: {

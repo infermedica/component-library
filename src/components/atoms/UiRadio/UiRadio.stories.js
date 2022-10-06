@@ -22,7 +22,7 @@ export default {
     name: '',
     value: 'overweight-or-obese',
     id: '',
-    radioAttrs: { 'data-testid': 'radio-element' },
+    radioElementAttrs: { 'data-testid': 'radio-element' },
     textLabelAttrs: { 'data-testid': 'label-text' },
   },
   argTypes: {
@@ -32,7 +32,12 @@ export default {
       control: 'text',
     },
     content,
-    modifiers: modifiers({ options: ['ui-radio--has-error', 'ui-radio--is-disabled'] }),
+    modifiers: modifiers({
+      options: [
+        'ui-radio--has-error',
+        'ui-radio--is-disabled',
+      ],
+    }),
     name: {
       description: 'Use this control to set name attribute.',
       table: { category: 'html attributes' },
@@ -40,7 +45,7 @@ export default {
     },
     value: { control: 'text' },
     id: { control: 'text' },
-    radioAttrs: { table: { subcategory: 'Attrs props' } },
+    radioElementAttrs: { table: { subcategory: 'Attrs props' } },
     textLabelAttrs: { table: { subcategory: 'Attrs props' } },
   },
 };
@@ -59,7 +64,7 @@ const Template = (args) => ({
     v-model="modelValue"
     :value="value"
     :id="id"
-    :radio-attrs="radioAttrs"
+    :radio-element-attrs="radioElementAttrs"
     :text-label-attrs="textLabelAttrs"
     :class="modifiers"
     @update:modelValue="onUpdateModelValue"
@@ -71,10 +76,10 @@ const Template = (args) => ({
 export const WithLabel = Template.bind({});
 
 export const IsDisabled = Template.bind({});
-IsDisabled.args = { modifiers: ['ui-radio--is-disabled'] };
+IsDisabled.args = { modifiers: [ 'ui-radio--is-disabled' ] };
 
 export const HasError = Template.bind({});
-HasError.args = { modifiers: ['ui-radio--has-error'] };
+HasError.args = { modifiers: [ 'ui-radio--has-error' ] };
 
 export const WithRadioSlot = (args) => ({
   components: { UiRadio },
@@ -90,7 +95,7 @@ export const WithRadioSlot = (args) => ({
     v-model="modelValue"
     :value="value"
     :id="id"
-    :radio-attrs="radioAttrs"
+    :radio-element-attrs="radioElementAttrs"
     :text-label-attrs="textLabelAttrs"
     :class="modifiers"
     @update:modelValue="onUpdateModelValue"
@@ -98,11 +103,11 @@ export const WithRadioSlot = (args) => ({
     <template 
       #radiobutton="{ 
         checked,
-        radioAttrs,
+        radioElementAttrs,
       }"
     >
       <div 
-        v-bind="radioAttrs"
+        v-bind="radioElementAttrs"
         :class="['ui-radio__radio', {
           'ui-radio__radio--is-checked': checked
         }]"
@@ -132,7 +137,7 @@ export const WithLabelSlot = (args) => ({
       v-model="modelValue"
       :value="value"
       :id="id"
-      :radio-attrs="radioAttrs"
+      :radio-element-attrs="radioElementAttrs"
       :text-label-attrs="textLabelAttrs"
       :class="modifiers"
       @update:modelValue="onUpdateModelValue"
@@ -338,7 +343,7 @@ export const AsGroupWithNestedObject = (args) => ({
     >
       <UiRadio
           v-model="modelValue"
-          v-bind="value.radioAttrs"
+          v-bind="value.radioElementAttrs"
           :value="value"
           :id="value.id"
           :name="name"
@@ -354,23 +359,23 @@ AsGroupWithNestedObject.args = {
   initModelValue: {
     label: 'I’m overweight or obese',
     id: 'as-group-with-nested-object-overweight-or-obese',
-    radioAttrs: { 'data-testid': 'overweight-or-obese-radio' },
+    radioElementAttrs: { 'data-testid': 'overweight-or-obese-radio' },
   },
   values: [
     {
       label: 'I’m overweight or obese',
       id: 'overweight-or-obese',
-      radioAttrs: { 'data-testid': 'overweight-or-obese-radio' },
+      radioElementAttrs: { 'data-testid': 'overweight-or-obese-radio' },
     },
     {
       label: 'I have hypertension',
       id: 'as-group-with-nested-object-hypertension',
-      radioAttrs: { 'data-testid': 'hypertension-radio' },
+      radioElementAttrs: { 'data-testid': 'hypertension-radio' },
     },
     {
       label: 'I have smoked cigarettes for at least 10 years',
       id: 'as-group-with-nested-object-smoked-cigarettes',
-      radioAttrs: { 'data-testid': 'smoked-cigarettes-radio' },
+      radioElementAttrs: { 'data-testid': 'smoked-cigarettes-radio' },
     },
   ],
   name: 'AsGroupWithNestedObject',

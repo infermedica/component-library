@@ -134,9 +134,7 @@
           <!-- @slot Use this slot to replace content template. -->
           <slot
             name="content"
-            v-bind="{
-              contentAttrs
-            }"
+            v-bind="{ contentAttrs }"
           >
             <div
               v-scroll-tabindex

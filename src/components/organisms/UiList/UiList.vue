@@ -13,9 +13,7 @@
           <!-- @slot Use this slot to replace list item content -->
           <slot
             :name="item.name"
-            v-bind="{
-              item
-            }"
+            v-bind="{ item }"
           >
             <UiText>{{ item.text }}</UiText>
             <template v-if="(item as ListRenderItemWithChildren).children?.items">

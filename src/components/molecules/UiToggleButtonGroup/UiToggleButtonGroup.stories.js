@@ -12,7 +12,11 @@ export default {
   component: UiToggleButtonGroup,
   subcomponents: { UiToggleButton },
   args: {
-    items: ['First', 'Second', 'Third'],
+    items: [
+      'First',
+      'Second',
+      'Third',
+    ],
     initModelValue: 'Second',
     deselectable: false,
   },

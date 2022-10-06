@@ -1,9 +1,7 @@
 <template>
   <div
     class="ui-tabs-item"
-    :class="{
-      'ui-tabs-item--is-active': isActive
-    }"
+    :class="{ 'ui-tabs-item--is-active': isActive }"
   >
     <!-- @slot Use this slot to replace tab template. -->
     <slot

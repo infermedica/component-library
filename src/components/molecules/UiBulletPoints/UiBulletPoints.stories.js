@@ -13,7 +13,13 @@ export default {
     UiText,
   },
   args: {
-    items: ['Painful swallowing', 'Stuffy nose', 'Sneeze', 'Muscle pain', 'Runny nose'],
+    items: [
+      'Painful swallowing',
+      'Stuffy nose',
+      'Sneeze',
+      'Muscle pain',
+      'Runny nose',
+    ],
     tag: 'ul',
     type: '1',
     icon: 'bullet-common',
@@ -21,11 +27,21 @@ export default {
   argTypes: {
     tag: {
       control: 'select',
-      options: ['ul', 'ol'],
+      options: [
+        'ul',
+        'ol',
+      ],
     },
     type: {
       control: 'select',
-      options: ['a', 'A', 'i', 'I', '1', 'ar'],
+      options: [
+        'a',
+        'A',
+        'i',
+        'I',
+        '1',
+        'ar',
+      ],
     },
     icon: {
       control: 'select',

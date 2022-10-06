@@ -34,7 +34,12 @@ export default {
     closeOnClickOutside: true,
     toggleElement: null,
     enableKeyboardNavigation: true,
-    items: ['English', 'Deutsch', 'Italiano', 'Polski'],
+    items: [
+      'English',
+      'Deutsch',
+      'Italiano',
+      'Polski',
+    ],
     buttonToggleAttrs: {
       'data-testid': 'toggle-button',
       class: 'ui-button--text',
@@ -70,7 +75,7 @@ export default {
     buttonToggleAttrs: { table: { subcategory: 'Attrs props' } },
     popoverAttrs: { table: { subcategory: 'Attrs props' } },
   },
-  decorators: [() => ({ template: '<div style="min-height: 220px"><story /></div>' })],
+  decorators: [ () => ({ template: '<div style="min-height: 220px"><story /></div>' }) ],
 };
 
 const Template = (args) => ({

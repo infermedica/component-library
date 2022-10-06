@@ -6,9 +6,7 @@
     <!-- @slot Use this slot to replace legend template. -->
     <slot
       name="legend"
-      v-bind="{
-        legend
-      }"
+      v-bind="{ legend }"
     >
       <legend
         v-if="legend"
@@ -47,15 +45,13 @@
           @mouseleave="hoverHandler($event, item.index)"
         >
           <template
-            #radio="{
-              radioAttrs
-            }"
+            #radio="{ radioElementAttrs }"
           >
             <div
-              v-bind="radioAttrs"
-              :class="['ui-rating__radio',{
-                'ui-rating__radio--is-checked': item.index <= finalScore
-              }]"
+              v-bind="radioElementAttrs"
+              :class="[
+                'ui-rating__radio',{ 'ui-rating__radio--is-checked': item.index <= finalScore }
+              ]"
             >
               <!-- @slot Use this slot to replace rating icon. -->
               <slot
@@ -71,9 +67,7 @@
                   <!-- @slot Use this slot to replace active rating icon. -->
                   <slot
                     name="icon-active"
-                    v-bind="{
-                      iconActiveAttrs: item.iconActiveAttrs
-                    }"
+                    v-bind="{ iconActiveAttrs: item.iconActiveAttrs }"
                   >
                     <UiIcon
                       v-bind="item.iconActiveAttrs"
@@ -85,9 +79,7 @@
                   <!-- @slot Use this slot to replace default rating icon. -->
                   <slot
                     name="icon-default"
-                    v-bind="{
-                      iconDefaultAttrs: item.iconDefaultAttrs
-                    }"
+                    v-bind="{ iconDefaultAttrs: item.iconDefaultAttrs }"
                   >
                     <UiIcon
                       v-bind="item.iconDefaultAttrs"
@@ -99,9 +91,7 @@
             </div>
           </template>
           <template
-            #label="{
-              textLabelAttrs
-            }"
+            #label="{ textLabelAttrs }"
           >
             <span
               v-bind="textLabelAttrs"
@@ -143,14 +133,20 @@ const props = defineProps({
    * Use this props to set current rate.
    */
   modelValue: {
-    type: [String, Number] as PropType<RatingValue>,
+    type: [
+      String,
+      Number,
+    ] as PropType<RatingValue>,
     default: 0,
   },
   /**
    * Use this props to set max rate
    */
   max: {
-    type: [String, Number] as PropType<RatingValue>,
+    type: [
+      String,
+      Number,
+    ] as PropType<RatingValue>,
     default: 1,
   },
   /**
@@ -196,7 +192,10 @@ const props = defineProps({
    * Use this props to pass attrs for option UiRadio.
    */
   radioOptionAttrs: {
-    type: [Object, Array],
+    type: [
+      Object,
+      Array,
+    ],
     default: () => ({}),
   },
 });

@@ -40,9 +40,7 @@
             v-if="toNext && !hideNextButton"
             v-bind="defaultProps.buttonNextAttrs"
             class="ui-controls__next"
-            :class="{
-              'ui-button--is-disabled': invalid
-            }"
+            :class="{ 'ui-button--is-disabled': invalid }"
           >
             {{ defaultProps.translation.next }}
           </UiButton>
@@ -110,14 +108,20 @@ const props = defineProps({
    * Use this props to set route to back screen.
    */
   toBack: {
-    type: [String, Object] as PropType<ControlsNavigation>,
+    type: [
+      String,
+      Object,
+    ] as PropType<ControlsNavigation>,
     default: '',
   },
   /**
    * Use this props to set route to next screen.
    */
   toNext: {
-    type: [String, Object] as PropType<ControlsNavigation>,
+    type: [
+      String,
+      Object,
+    ] as PropType<ControlsNavigation>,
     default: '',
   },
   /**
