@@ -97,10 +97,18 @@ import {
   useSlots,
   watch,
 } from 'vue';
+import type { PropType } from 'vue';
 import UiMultipleAnswerItem from './_internal/UiMultipleAnswerItem.vue';
 import UiList from '../UiList/UiList.vue';
 import UiListItem from '../UiList/_internal/UiListItem.vue';
 import UiAlert from '../../molecules/UiAlert/UiAlert.vue';
+
+export interface MultipleAnswerItem {
+  label: string;
+  id: string;
+  buttonInfoAttrs?: Record<string, unknown>
+}
+export type MultipleAnswerValue = string | MultipleAnswerItem | MultipleAnswerItem[]
 
 const props = defineProps({
   /**
@@ -114,7 +122,7 @@ const props = defineProps({
    *  Use this props to set possible choices.
    */
   items: {
-    type: Array,
+    type: Array as PropType<MultipleAnswerItem[]>,
     default: () => ([]),
   },
   /**
@@ -167,13 +175,13 @@ const props = defineProps({
     default: '',
   },
 });
-const emit = defineEmits<{(e:'update:modelValue', value: any[]): void,
+const emit = defineEmits<{(e:'update:modelValue', value: MultipleAnswerValue): void,
   (e: 'update:invalid', value: boolean): void
 }>();
 const isCheckbox = computed(() => (Array.isArray(props.modelValue)));
 const valid = computed(() => (isCheckbox.value
   ? (props.modelValue as string).length > 0
-  : Object.keys(props.modelValue).length > 0));
+  : Object.keys(props.modelValue as MultipleAnswerItem).length > 0));
 const hasError = computed(() => (props.touched && !valid.value));
 const hintType = computed<'error'|'default'>(() => (props.touched && props.invalid ? 'error' : 'default'));
 watch(valid, (value) => {
@@ -207,7 +215,7 @@ const itemsToRender = computed(() => (props.items.map((item) => {
 })));
 // TODO: remove in 0.6.0 / BEGIN
 const attrs = useAttrs();
-const choices = computed(() => (attrs.choices));
+const choices = computed(() => (attrs.choices as MultipleAnswerItem[]));
 if (choices.value) {
   if (process.env.NODE_ENV === 'development') {
     console.warn('[@infermedica/component-library warn][UiMultipleAnswer]: The `choices` props will be removed in 0.6.0. Please use `items` props instead.');

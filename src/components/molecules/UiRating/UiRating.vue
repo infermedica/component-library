@@ -125,7 +125,6 @@ import type { PropType } from 'vue';
 import { uid } from 'uid/single';
 import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
-import type { PropsAttrs } from '../../../types/attrs';
 import type { Icon } from '../../../types/icon';
 import type { HTMLTag } from '../../../types/tag';
 

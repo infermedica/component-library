@@ -17,12 +17,6 @@ export default {
   args: {
     hideNextButton: false,
     hideBackButton: false,
-    toBack: {
-      path: '/back',
-    },
-    toNext: {
-      path: '/next',
-    },
     toBack: { path: '/back' },
     toNext: { path: '/next' },
     invalid: true,

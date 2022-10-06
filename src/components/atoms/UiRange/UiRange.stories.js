@@ -4,11 +4,6 @@ import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiNumberStepper from '@/components/molecules/UiNumberStepper/UiNumberStepper.vue';
 import { ref } from 'vue';
-import { expect } from '@storybook/jest';
-import {
-  within,
-  userEvent,
-} from '@storybook/testing-library';
 import { actions } from '@storybook/addon-actions';
 import { keyboardFocus } from '@/utilities/directives';
 

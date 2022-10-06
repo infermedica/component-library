@@ -54,8 +54,9 @@ import UiCheckbox from '../../../atoms/UiCheckbox/UiCheckbox.vue';
 import UiText from '../../../atoms/UiText/UiText.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
-import { focusElement } from '../../../../utilities/helpers/index.ts';
+import { focusElement } from '../../../../utilities/helpers/index';
 
+export type ComponentName = 'ui-checkbox' | 'ui-radio';
 const props = defineProps({
   /**
    * Use this props to set invalid state of choice item.
@@ -120,7 +121,7 @@ const defaultProps = computed(() => ({
 const emit = defineEmits(['update:modelValue']);
 const isCheckbox = computed(() => (Array.isArray(props.modelValue)));
 const component = computed(() => (isCheckbox.value ? UiCheckbox : UiRadio));
-const componentName = computed(() => (isCheckbox.value ? 'ui-checkbox' : 'ui-radio'));
+const componentName = computed<ComponentName>(() => (isCheckbox.value ? 'ui-checkbox' : 'ui-radio'));
 const errorClass = computed(() => ([props.invalid ? `${componentName.value}--has-error` : '', { 'ui-multiple-answer-item--has-error': props.invalid }]));
 function focusExplication(event: KeyboardEvent) {
   if (event.key !== 'ArrowRight') return;

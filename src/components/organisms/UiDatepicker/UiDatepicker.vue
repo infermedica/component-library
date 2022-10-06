@@ -243,33 +243,17 @@ const defaultInputsIds = computed(() => ({
 const defaultProps = computed(() => (
   {
     translation: {
-...{
-  day: 'day',
-      month
-:
-  'month',
-      year
-:
-  'year',
-      placeholderDay
-:
-  'DD',
-      placeholderMonth
-:
-  'MM',
-      placeholderYear
-:
-  'YYYY',
-      errorWrongDate
-:
-  'Please enter a valid date, e.g. 05/11/1990',
-      errorDateInFuture
-:
-  'Sorry, the date of birth cannot be a future date',
-      errorOutOfBounds
-:
-  'Sorry, our checkup only covers people between 0 and 120 years old',
-}
+      ...{
+        day: 'day',
+        month: 'month',
+        year: 'year',
+        placeholderDay: 'DD',
+        placeholderMonth: 'MM',
+        placeholderYear: 'YYYY',
+        errorWrongDate: 'Please enter a valid date, e.g. 05/11/1990',
+        errorDateInFuture: 'Sorry, the date of birth cannot be a future date',
+        errorOutOfBounds: 'Sorry, our checkup only covers people between 0 and 120 years old',
+      },
       ...props.translation,
     },
     inputDayAttrs: {

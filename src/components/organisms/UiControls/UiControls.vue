@@ -54,7 +54,7 @@
         <slot
           name="back"
           v-bind="{
-            hideBackButton
+            hideBackButton,
             toBack,
             buttonBackAttrs: defaultProps.buttonBackAttrs,
             iconBackAttrs: defaultProps.iconBackAttrs,

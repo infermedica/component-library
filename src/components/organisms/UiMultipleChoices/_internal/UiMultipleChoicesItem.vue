@@ -16,7 +16,7 @@
       }"
     >
       <legend class="visual-hidden">
-        {{ label || name }}
+        {{ name || label }}
       </legend>
     </slot>
     <!-- @slot Use this slot to replace label template.-->
@@ -38,7 +38,7 @@
           v-bind="textLabelAttrs"
           class="ui-multiple-choices-item__label"
         >
-          {{ label || name }}
+          {{ name || label }}
         </UiText>
         <UiButton
           v-if="buttonInfoAttrs"
@@ -110,6 +110,13 @@ const props = defineProps({
     default: 'fieldset',
   },
   /**
+   * Use this props to set multiple choices item label.
+   */
+  label: {
+    type: String,
+    default: '',
+  },
+  /**
    * Use this props to set invalid state of choice item.
    */
   invalid: {
@@ -120,7 +127,7 @@ const props = defineProps({
    *  Use this props or v-model to set checked.
    */
   modelValue: {
-    type: String,
+    type: [String, Object] as PropType<string | Record<string, unknown>>,
     default: '',
   },
   /**

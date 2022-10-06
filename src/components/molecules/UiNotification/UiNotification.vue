@@ -11,7 +11,7 @@
     </template>
     <template
       #message="{
-        attrs
+        textMessageAttrs,
       }"
     >
       <!-- @slot Use this slot to replace message template. -->

@@ -49,7 +49,6 @@ import type {
   CSSProperties,
   PropType,
 } from 'vue';
-import UiText from '../../atoms/UiText/UiText.vue';
 import UiBulletPointsItem from './_internal/UiBulletPointsItem.vue';
 import type { ListTag } from '../../../types/tag';
 import type { IconAsString } from '../../../types/icon';
