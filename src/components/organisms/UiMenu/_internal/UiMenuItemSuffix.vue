@@ -38,7 +38,7 @@ const props = defineProps({
     default: '',
   },
   /**
-   * Use this prop to set icon attributes.
+   * Use this prop to set icon visibility.
    */
   hasIcon: {
     type: Boolean,

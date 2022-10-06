@@ -79,7 +79,7 @@ const props = defineProps({
     default: 'checkmark',
   },
   /**
-   * Use this prop to set suffix text.
+   * Use this prop to set suffix label.
    */
   iconLabel: {
     type: String,

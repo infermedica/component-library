@@ -10,9 +10,7 @@
         :key="key"
       >
         <UiMenuItem
-          v-bind="(() =>{const {
-            name, label, ...rest
-          } = item; return rest;})()"
+          v-bind="menuItemAttrs(item)"
         >
           <template
             v-for="(_, name) in $slots"
@@ -72,6 +70,10 @@ const props = defineProps({
     default: () => ([]),
   },
 });
+const menuItemAttrs = (item: MenuItem) => {
+  const { name, text, ...rest } = item;
+  return rest;
+};
 const itemsToRender = computed(() => (props.items.map((item, key) => {
   if (typeof item === 'string') {
     return {
