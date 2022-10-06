@@ -99,7 +99,7 @@ const props = defineProps({
     default: 'bullet-common',
   },
 });
-const tag = computed<ListTag>(() => (props.tag));
+const tag = computed(() => props.tag);
 provide('tag', tag);
 const listStyleType = computed<CSSProperties>(() => {
   const type = {
@@ -136,7 +136,7 @@ const listStyleType = computed<CSSProperties>(() => {
   };
 });
 const itemsToRender = computed<BulletPointsRenderItem[]>(() => (
-  props.items.map((item: BulletPointsItem, index: number) => {
+  props.items.map((item, index) => {
     if (typeof item === 'string') {
       return {
         name: `bullet-point-${index}`,

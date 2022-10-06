@@ -178,24 +178,21 @@ import type { PropType } from 'vue';
 import UiList from '../UiList/UiList.vue';
 import UiListItem from '../UiList/_internal/UiListItem.vue';
 import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
-import type { RadioValue } from '../../atoms/UiRadio/UiRadio.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import UiCheckbox from '../../atoms/UiCheckbox/UiCheckbox.vue';
-import type {
-  CheckboxValue,
-  CheckboxValueAsObj,
-} from '../../atoms/UiCheckbox/UiCheckbox.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import type { PropsAttrs } from '../../../types/attrs';
 import UiAlert from '../../molecules/UiAlert/UiAlert.vue';
-import { focusElement } from '../../../utilities/helpers/index.ts';
+import { focusElement } from '../../../utilities/helpers/index';
 import type { HTMLTag } from '../../../types/tag';
 
-export interface MultipleAnswerChoice extends CheckboxValueAsObj {
+export interface MultipleAnswerItem {
   name: string;
+  id?: string
+  buttonInfoAttrs?: Record<string, unknown>
 }
-export type MultipleAnswerValue = RadioValue | CheckboxValue[];
+export type MultipleAnswerValue = string | MultipleAnswerItem | MultipleAnswerItem[]
 export type ComponentName = 'ui-checkbox' | 'ui-radio';
 const props = defineProps({
   /**
@@ -209,7 +206,7 @@ const props = defineProps({
    *  Use this props to set possible choices.
    */
   items: {
-    type: Array,
+    type: Array as PropType<MultipleAnswerItem[]>,
     default: () => ([]),
   },
   /**
@@ -263,7 +260,7 @@ const props = defineProps({
     default: '',
   },
 });
-const emit = defineEmits<{(e:'update:modelValue', value: MultipleAnswerChoice | CheckboxValueAsObj[]): void,
+const emit = defineEmits<{(e:'update:modelValue', value: MultipleAnswerValue): void,
   (e: 'update:invalid', value: boolean): void
 }>();
 const isCheckbox = computed(() => (Array.isArray(props.modelValue)));
@@ -271,10 +268,10 @@ const component = computed(() => (isCheckbox.value ? UiCheckbox : UiRadio));
 const componentName = computed<ComponentName>(() => (isCheckbox.value ? 'ui-checkbox' : 'ui-radio'));
 const valid = computed(() => (isCheckbox.value
   ? (props.modelValue as string).length > 0
-  : !!(props.modelValue as CheckboxValueAsObj).id));
+  : !!(props.modelValue as MultipleAnswerItem).id));
 const hasError = computed(() => (props.touched && !valid.value));
-const hintType = computed<'error'|'default'>(() => (props.touched && props.invalid ? 'error' : 'default'));
-const errorClass = computed<`${ComponentName}--has-error` | ''>(() => ([hasError.value ? `${componentName.value}--has-error` : '', {
+const hintType = computed(() => (props.touched && props.invalid ? 'error' : 'default'));
+const errorClass = computed(() => ([hasError.value ? `${componentName.value}--has-error` : '', {
   'ui-multiple-answer__choice--has-error': hasError.value,
 }]));
 watch(valid, (value) => {
@@ -305,7 +302,7 @@ function unfocusExplication(event: KeyboardEvent) {
 }
 // TODO: remove in 0.6.0 / BEGIN
 const attrs = useAttrs();
-const choices = computed(() => (attrs.choices));
+const choices = computed(() => (attrs.choices as MultipleAnswerItem[]));
 if (choices.value) {
   if (process.env.NODE_ENV === 'development') {
     console.warn('[@infermedica/component-library warn][UiMultipleAnswer]: choices will be removed in 0.6.0. Please use items instead.');
@@ -314,7 +311,7 @@ if (choices.value) {
 // END
 const itemsToRender = computed(() => {
   const items = choices.value || props.items;
-  return items.map((item) => ({
+  return items.map((item: MultipleAnswerItem) => ({
     ...item,
     listItemAttrs: {
       class: 'ui-multiple-answer__list-item',
@@ -332,8 +329,8 @@ const itemsToRender = computed(() => {
   $element: multiple-answer;
 
   @at-root fieldset#{&} {
-    border: none;
     padding: 0;
+    border: none;
     margin: 0;
   }
 

@@ -15,7 +15,7 @@ import {
   computed,
   defineAsyncComponent,
 } from 'vue';
-import { capitalizeFirst } from '../../../../utilities/helpers/index.ts';
+import { capitalizeFirst } from '../../../../utilities/helpers/index';
 
 export type LoaderSkeletonType = 'common' | 'question'
 

@@ -64,7 +64,7 @@ import type {
   ComputedRef,
 } from 'vue';
 import { clickOutside as vClickOutside } from '../../../../utilities/directives';
-import { capitalizeFirst } from '../../../../utilities/helpers/index.ts';
+import { capitalizeFirst } from '../../../../utilities/helpers/index';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiDropdown from '../../../molecules/UiDropdown/UiDropdown.vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';

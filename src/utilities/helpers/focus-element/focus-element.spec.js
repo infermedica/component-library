@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { focusElement } from './index.ts';
+import { focusElement } from './index';
 
 let wrapper;
 let button;
