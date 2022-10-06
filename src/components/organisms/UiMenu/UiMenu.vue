@@ -10,24 +10,24 @@
         :key="key"
       >
         <UiMenuItem
-          v-bind="item"
+          v-bind="(() =>{const {
+            name, label, ...rest
+          } = item; return rest;})()"
         >
           <template
             v-for="(_, name) in $slots"
-            #[name]="slotData"
+            #[name]="data"
           >
             <slot
+              v-bind="data"
               :name="name"
-              v-bind="slotData"
             />
           </template>
 
           <!-- @slot Use this slot to place menu item content. -->
           <slot
+            v-bind="item"
             :name="item.name"
-            v-bind="{
-              item
-            }"
           >
             {{ item.label }}
           </slot>
@@ -57,18 +57,31 @@ export interface MenuItem {
   [key: string]: unknown;
 }
 const props = defineProps({
+  /**
+   * Use this to set menu tag.
+   */
   tag: {
     type: [String, Object] as PropType<HTMLTag | Record<string, unknown>>,
     default: UiList,
   },
+  /**
+   * Use this props to pass list of menu items.
+   */
   items: {
-    type: Array as PropType<MenuItem[]>,
+    type: Array as PropType<(string | MenuItem)[]>,
     default: () => ([]),
   },
 });
-const itemsToRender = computed(() => (
-  props.items.map((item, key) => ({
+const itemsToRender = computed(() => (props.items.map((item, key) => {
+  if (typeof item === 'string') {
+    return {
+      name: `menu-item-${key}`,
+      label: item,
+    };
+  }
+  return {
     name: item.name || `menu-item-${key}`,
     ...item,
-  }))));
+  };
+})));
 </script>

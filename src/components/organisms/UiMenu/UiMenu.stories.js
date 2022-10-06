@@ -1,11 +1,10 @@
 import { ref } from 'vue';
 import UiMenu from '@/components/organisms/UiMenu/UiMenu.vue';
-import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
-import { modifiers } from '@sb/helpers/argTypes';
 import UiMenuItem from '@/components/organisms/UiMenu/_internal/UiMenuItem.vue';
+import UiMenuItemSuffix from '@/components/organisms/UiMenu/_internal/UiMenuItemSuffix.vue';
 import { clickOutside } from '@/utilities/directives/index';
 import docs from './UiMenu.mdx';
 import './UiMenu.stories.scss';
@@ -15,9 +14,9 @@ export default {
   component: UiMenu,
   subcomponents: {
     UiMenuItem,
+    UiMenuItemSuffix,
   },
   args: {
-    modifiers: [],
     items: [{
       label: 'For business',
       iconVisible: 'never',
@@ -38,14 +37,6 @@ export default {
       iconVisible: 'never',
     }],
   },
-  argTypes: {
-    modifiers: modifiers({
-      options: [
-        'ui-menu--theme-secondary',
-        'ui-menu--on-brand',
-      ],
-    }),
-  },
   parameters: {
     docs: {
       page: docs,
@@ -62,27 +53,22 @@ const Template = (args) => ({
       ...args,
     };
   },
-  template: '<UiMenu :items="items" :class="modifiers"/>',
+  template: '<UiMenu :items="items"/>',
 });
 
 export const Common = Template.bind({
 });
 
-export const Secondary = Template.bind({
+export const WithItemsAsString = Template.bind({
 });
-Secondary.args = {
-  modifiers: ['ui-menu--theme-secondary'],
-};
-
-export const OnBrand = Template.bind({
-});
-OnBrand.parameters = {
-  backgrounds: {
-    default: 'brand',
-  },
-};
-OnBrand.args = {
-  modifiers: ['ui-menu--theme-brand'],
+WithItemsAsString.args = {
+  items: [
+    'For business',
+    'Medical Certification',
+    'Instruction for Use',
+    'Privacy policy',
+    'Interview ID',
+  ],
 };
 
 export const WithSuffix = Template.bind({
@@ -93,7 +79,7 @@ WithSuffix.args = {
     iconVisible: 'always',
     icon: 'chevron-right',
     iconLabel: 'more info',
-    iconAttrs: {
+    suffixIconAttrs: {
       class: 'ui-button__icon',
     },
   }, {
@@ -101,7 +87,7 @@ WithSuffix.args = {
     iconVisible: 'always',
     icon: 'chevron-right',
     iconLabel: 'more info',
-    iconAttrs: {
+    suffixIconAttrs: {
       class: 'ui-button__icon',
     },
   }, {
@@ -109,7 +95,7 @@ WithSuffix.args = {
     iconVisible: 'always',
     icon: 'chevron-right',
     iconLabel: 'more info',
-    iconAttrs: {
+    suffixIconAttrs: {
       class: 'ui-button__icon',
     },
   }, {
@@ -117,7 +103,7 @@ WithSuffix.args = {
     iconVisible: 'always',
     icon: 'chevron-right',
     iconLabel: 'more info',
-    iconAttrs: {
+    suffixIconAttrs: {
       class: 'ui-button__icon',
     },
   }, {
@@ -125,67 +111,7 @@ WithSuffix.args = {
     iconVisible: 'always',
     icon: 'chevron-right',
     iconLabel: 'more info',
-    iconAttrs: {
-      class: 'ui-button__icon',
-    },
-  }],
-};
-
-export const WithIconSlot = (args) => ({
-  components: {
-    UiMenu,
-    UiIcon,
-  },
-  setup() {
-    return {
-      ...args,
-    };
-  },
-  template: `<UiMenu :class="modifiers">
-    <template #icon="{isIcon}">
-      <UiIcon
-        v-if="isIcon"
-        icon="info"
-        :class="['ui-button__icon', 'ui-menu-item__icon']"
-      />
-    </template>
-  </UiMenu>`,
-});
-WithIconSlot.args = {
-  items: [{
-    label: 'For business',
-    iconVisible: 'always',
-    iconAttrs: {
-      class: 'ui-button__icon',
-    },
-  }, {
-    label: 'Medical Certification',
-    iconVisible: 'always',
-    iconAttrs: {
-      class: 'ui-button__icon',
-    },
-  }, {
-    label: 'Instruction for Use',
-    iconVisible: 'always',
-    iconAttrs: {
-      class: 'ui-button__icon',
-    },
-  }, {
-    label: 'Terms of Service',
-    iconVisible: 'always',
-    iconAttrs: {
-      class: 'ui-button__icon',
-    },
-  }, {
-    label: 'Privacy policy',
-    iconVisible: 'always',
-    iconAttrs: {
-      class: 'ui-button__icon',
-    },
-  }, {
-    label: 'Interview ID',
-    iconVisible: 'always',
-    iconAttrs: {
+    suffixIconAttrs: {
       class: 'ui-button__icon',
     },
   }],
@@ -212,13 +138,13 @@ export const AsSidePanelContent = (args) => ({
   >
     Settings & Info
   </UiButton>
-  <UiSidePanel 
+  <UiSidePanel
     v-model="modelValue"
     title="Settings & Info"
     transition="slide"
     class="menu-side-panel"
   >
-    <UiMenu :class="modifiers" :items="items"/>
+    <UiMenu :items="items"/>
   </UiSidePanel>`,
 });
 AsSidePanelContent.decorators = [() => ({
@@ -230,12 +156,12 @@ AsSidePanelContent.args = {
     iconVisible: 'always',
     icon: 'chevron-right',
     iconLabel: 'English',
-    class: 'ui-button--text',
-    listItemAttrs: {
-      class: 'menu-side-panel__list-item--divider',
+    class: 'ui-button--text menu-side-panel__list-item--divider',
+    suffixAttrs: {
+      class: 'menu-side-panel__suffix',
     },
-    iconAttrs: {
-      class: 'ui-button__icon',
+    suffixIconAttrs: {
+      class: 'menu-side-panel__icon',
     },
   }, {
     label: 'For business',
@@ -261,13 +187,7 @@ AsSidePanelContent.args = {
     label: 'Interview ID',
     iconVisible: 'always',
     icon: 'chevron-right',
-    class: 'ui-button--text',
-    iconAttrs: {
-      class: 'menu-side-panel__icon',
-    },
-    listItemAttrs: {
-      class: 'menu-side-panel__list-item--divider',
-    },
+    class: 'ui-button--text menu-side-panel__list-item--divider',
   }],
 };
 
@@ -292,13 +212,13 @@ export const Selectable = (args) => ({
       clickHandler,
     };
   },
-  template: `<UiPopover title="" class="max-w-80" style="--popover-content-padding: 8px;">
-  <UiMenu :items="items" :class="modifiers">
+  template: `<UiPopover title="" class="max-w-80" style="--popover-content-padding: 4px 0px;">
+  <UiMenu :items="items">
     <template v-for="(item, key) in items" :key="key">
-      <UiMenuItem 
-        :class="[{'ui-button--is-selected': value === item.label}]"
+      <UiMenuItem
+        :class="[{'ui-menu-item--is-selected': value === item.label}]"
         @click="clickHandler(item.label)"
-        v-bind="item"
+        v-bind="(() => {const {label, ...rest} = item; return rest;})()"
       >
         {{item.label}}
       </UiMenuItem>
@@ -309,37 +229,37 @@ export const Selectable = (args) => ({
 Selectable.args = {
   items: [{
     label: 'Čeština',
-    iconAttrs: {
+    suffixIconAttrs: {
       class: 'ui-button__icon',
     },
   }, {
     label: 'Deutsch',
-    iconAttrs: {
+    suffixIconAttrs: {
       class: 'ui-button__icon',
     },
   }, {
     label: 'English',
-    iconAttrs: {
+    suffixIconAttrs: {
       class: 'ui-button__icon',
     },
   }, {
     label: 'Español',
-    iconAttrs: {
+    suffixIconAttrs: {
       class: 'ui-button__icon',
     },
   }, {
     label: 'Français',
-    iconAttrs: {
+    suffixIconAttrs: {
       class: 'ui-button__icon',
     },
   }, {
     label: 'Italiano',
-    iconAttrs: {
+    suffixIconAttrs: {
       class: 'ui-button__icon',
     },
   }, {
     label: 'Polski',
-    iconAttrs: {
+    suffixIconAttrs: {
       class: 'ui-button__icon',
     },
   }],

@@ -11,22 +11,17 @@ import UiMenu from "./UiMenu.vue";
 ## How to use
 UiMenuItem has 3 types of icon visibility:
 
-- `default` - the icon is only visible when an item is selected
-- `always` - the icon is always visible
-- `never` - the icon is never visible
+- `default` - the icon is rendered, but is transparent when the item is unselected
+- `always` - the icon is always rendered
+- `never` - the icon is never rendered
 
 Each of these visibility will apply in a different situation.
 
 ## Stories
 
-### Secondary
+### With Items As String
 <Canvas>
-  <Story id="organisms-menu--secondary"/>
-</Canvas>
-
-### On Brand
-<Canvas style={{background: 'var(--color-background-brand)'}}>
-  <Story id="organisms-menu--on-brand"/>
+  <Story id="organisms-menu--with-items-as-string"/>
 </Canvas>
 
 ### With Suffix

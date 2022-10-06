@@ -1,58 +1,43 @@
 <template>
   <UiListItem
     class="ui-menu-item"
-    v-bind="listItemAttrs"
+    v-bind="menuItemAttrs"
   >
     <UiButton
-      :class="['ui-button--outlined', 'ui-menu-item__button']"
-      v-bind="$attrs"
+      :class="['ui-button--outlined ui-menu-item__button', buttonClass]"
+      v-bind="defaultProps.buttonMenuItemAttrs"
     >
       <!-- @slot Use this slot to replace label template -->
 
       <slot
         name="label"
-        v-bind="labelClass"
       >
-        <UiText
-          :class="['ui-menu-item__label', labelClass]"
-        >
+        <span class="ui-menu-item__label">
           <!-- @slot Use this slot to place label content inside menu-item -->
           <slot />
-        </UiText>
+        </span>
       </slot>
       <!-- @slot Use this slot to replace suffix template -->
       <slot
-        v-if="hasSuffix"
         name="suffix"
         v-bind="{
           hasSuffix,
           iconLabel,
           hasIcon,
           icon,
-          iconAttrs
+          iconAttrs: suffixIconAttrs,
+          suffixAttrs,
         }"
       >
-        <span
-          :class="['ui-menu-item__suffix']"
-        >
-          {{ iconLabel }}
-          <!-- @slot Use this slot to replace icon template  -->
-          <slot
-            name="icon"
-            v-bind="{
-              hasIcon,
-              icon,
-              iconAttrs,
-            }"
-          >
-            <UiIcon
-              v-if="hasIcon"
-              :icon="icon"
-              :class="['ui-menu-item__icon']"
-              v-bind="iconAttrs"
-            />
-          </slot>
-        </span>
+        <UiMenuItemSuffix
+          v-if="hasSuffix"
+          :class="['ui-menu-item__suffix', suffixClass]"
+          :icon-label="iconLabel"
+          :has-icon="hasIcon"
+          :icon="icon"
+          :icon-attrs="suffixIconAttrs"
+          v-bind="suffixAttrs"
+        />
       </slot>
     </UiButton>
   </UiListItem>
@@ -72,13 +57,20 @@ import {
 import type { PropType } from 'vue';
 import type { Icon } from '../../../../types/icon';
 import type { MenuIconVisible } from '../UiMenu.vue';
-import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
-import UiText from '../../../atoms/UiText/UiText.vue';
 import UiListItem from '../../UiList/_internal/UiListItem.vue';
+import UiMenuItemSuffix from './UiMenuItemSuffix.vue';
 import type { PropsAttrs } from '../../../../types/attrs';
 
 const props = defineProps({
+  /**
+   * Use this prop to set button attributes.
+   */
+  buttonMenuItemAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({
+    }),
+  },
   /**
    * Use this prop to set icon.
    */
@@ -94,6 +86,14 @@ const props = defineProps({
     default: '',
   },
   /**
+   * Use this prop to set suffix attributes.
+   */
+  suffixAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({
+    }),
+  },
+  /**
    * Use this prop to control icon visibility.
    */
   iconVisible: {
@@ -101,72 +101,80 @@ const props = defineProps({
     default: 'default',
   },
   /**
-   * Use this prop to set icon attributes.
+   * Use this prop to set icon suffix attributes.
    */
-  iconAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({
-    }),
-  },
-  /**
-   * Use this prop to set list item attributes.
-   */
-  listItemAttrs: {
+  suffixIconAttrs: {
     type: Object as PropsAttrs,
     default: () => ({
     }),
   },
 });
-const attrs = useAttrs() as {class?: string};
-const isSelected = computed(() => attrs.class && attrs.class.includes('ui-button--is-selected'));
-const labelClass = computed(() => ({
-  'ui-text--on-brand': isSelected.value,
+const attrs = useAttrs();
+const isSelected = computed(() => attrs.class && (attrs.class as string).includes('ui-menu-item--is-selected'));
+const hasIcon = computed(() => props.iconVisible !== 'never');
+const hasSuffix = computed(() => props.iconLabel || props.iconVisible !== 'never');
+const suffixClass = computed(() => ({
+  'ui-menu-item-suffix--hide-icon': (props.iconVisible === 'default' && !isSelected.value),
 }));
-const hasIcon = computed(() => (props.iconVisible === 'always' || (props.iconVisible === 'default' && isSelected.value)));
-const hasSuffix = computed(() => props.iconLabel || hasIcon.value);
+const buttonClass = computed(() => ({
+  'ui-button--is-selected': isSelected.value,
+}));
+const defaultProps = computed(() => ({
+  buttonMenuItemAttrs: {
+    ...Object.keys(attrs)
+      .filter((key) => (key.match(/^on.*/gi)))
+      .reduce((object, key) => (
+        {
+          ...object,
+          [key]: attrs[key],
+        }
+      ), {
+      }),
+    ...props.buttonMenuItemAttrs,
+  },
+}));
+const menuItemAttrs = computed(() => ({
+  ...Object.keys(attrs)
+    .filter((key) => (!key.match(/^on.*/gi)))
+    .reduce((object, key) => (
+      {
+        ...object,
+        [key]: attrs[key],
+      }
+    ), {
+    }),
+}));
 </script>
 
 <style lang="scss">
 @use "../../../../styles/functions";
 
 .ui-menu-item {
+  $this: &;
   $element: menu-item;
 
-  --list-item-padding: 0;
-
-  margin: functions.var($element + "-list-item", margin, 0 0 var(--space-8) 0);
-
-  &:last-child {
-    margin: 0;
-  }
+  --list-item-padding: #{functions.var($element, padding, var(--space-4) var(--space-8) )};
 
   &__button {
-    --button-padding: #{functions.var($element, padding, var(--space-8))};
-    --button-border-width: #{functions.var($element, border-width, 0)};
-    --button-font: #{functions.var($element, font, var(--font-body-1))};
+    --button-padding: #{functions.var($element + "-button", padding, var(--space-8))};
+    --button-border-width: #{functions.var($element + "button", border-width, 0)};
+    --button-font: #{functions.var($element + "button", font, var(--font-body-1))};
+    --button-letter-spacing: #{functions.var($element + "button", letter-spacing, var(--letter-spacing-body-1))};
 
-    width: functions.var($element, width, 100%);
+    width: 100%;
     justify-content: flex-start;
   }
 
   &__label {
     flex: 1;
+    color: functions.var($element + "-label", color, var(--color-text-body));
     text-align: start;
   }
 
-  &__suffix {
-    display: flex;
-    align-items: center;
-    margin: functions.var($element + "-label", margin, 0 0 0 var(--space-12));
-    gap: var(--space-4);
-
-    [dir="rtl"] & {
-      margin: functions.var($element + "-rtl-label", margin, 0 var(--space-12) 0 0);
+  &--is-selected {
+    #{$this}__label {
+      color: functions.var($element + "-label", color, unset);
     }
-  }
-
-  &__icon {
-    margin: functions.var($element + "-icon", margin, 0);
   }
 }
 </style>
