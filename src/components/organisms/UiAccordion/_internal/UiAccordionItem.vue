@@ -80,6 +80,7 @@ import type {
   AccordionValue,
   AccordionItemSettings,
 } from '../UiAccordion.vue';
+import type { IconAsString } from '../../../../types/icon';
 
 const props = defineProps({
   /**
@@ -138,8 +139,8 @@ const isOpen = computed(() => {
 });
 const defaultProps = computed(() => ({
   settings: {
-    iconOpen: 'chevron-up',
-    iconClose: 'chevron-down',
+    iconOpen: 'chevron-up' as IconAsString,
+    iconClose: 'chevron-down' as IconAsString,
     ...props.settings,
   },
   iconTogglerAttrs: {

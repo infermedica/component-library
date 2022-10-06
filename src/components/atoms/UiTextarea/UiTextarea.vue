@@ -53,7 +53,7 @@ function inputHandler(event: Event) {
   const el = event.target as HTMLInputElement;
   emit('update:modelValue', el.value);
 }
-const resizeValue = computed<'both' | 'none' | 'vertical' | 'horizontal'>(() => {
+const resizeValue = computed(() => {
   if (typeof props.resize !== 'boolean') {
     return props.resize;
   }

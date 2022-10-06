@@ -78,8 +78,8 @@ import UiText from '../UiText/UiText.vue';
 import useInput from '../../../composable/useInput';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 
-export type CheckboxValue = string | object;
-export type CheckboxModelValue = boolean | object[];
+export type CheckboxValue = string | Record<string, unknown>[];
+export type CheckboxModelValue = boolean | Record<string, unknown>[];
 const props = defineProps({
   /**
    *  Use this props or v-model to set checked.
@@ -129,7 +129,7 @@ const defaultProps = computed(() => ({
     ...props.textLabelAttrs,
   },
 }));
-const emit = defineEmits<{(e: 'update:modelValue', value: boolean | object[]): void
+const emit = defineEmits<{(e: 'update:modelValue', value: CheckboxModelValue): void
 }>();
 const slots = useSlots();
 const {
@@ -139,7 +139,7 @@ const hasLabel = computed(() => (!!slots.default));
 const checkboxId = computed(() => (props.id || `checkbox-${uid()}`));
 const isChecked = computed(() => {
   if (Array.isArray(props.modelValue)) {
-    return !!props.modelValue.find((option: object) => (
+    return !!props.modelValue.find((option) => (
       equal(JSON.parse(JSON.stringify(props.value)), JSON.parse(JSON.stringify(option)))));
   }
   return props.modelValue;
@@ -148,7 +148,7 @@ const getChecked = (checked: boolean): CheckboxModelValue => {
   if (Array.isArray(props.modelValue)) {
     return checked
       ? [...props.modelValue, JSON.parse(JSON.stringify(props.value))]
-      : props.modelValue.filter((option: object) => (!equal(props.value, option)));
+      : props.modelValue.filter((option: Record<string, unknown>) => (!equal(props.value, option)));
   }
   return checked;
 };

@@ -42,6 +42,8 @@ import UiTabsItem from './_internal/UiTabsItem.vue';
 export interface TabsItem {
     name: string;
     title: string;
+    buttonAttrs?: Record<string, unknown>;
+    tabsItemAttrs?: Record<string, unknown>;
     [key: string]: unknown;
 }
 const props = defineProps({
@@ -67,7 +69,7 @@ const emit = defineEmits<{(e:'update:modelValue', value: string): void}>();
 watch(activeTab, (name) => {
   emit('update:modelValue', name);
 });
-const itemsToRender = computed<TabsItem[]>(() => (props.items.map((item: TabsItem | string, key: number) => {
+const itemsToRender = computed(() => (props.items.map((item, key) => {
   if (typeof item === 'string') {
     return {
       name: `tabs-item-${key}`,
@@ -76,8 +78,8 @@ const itemsToRender = computed<TabsItem[]>(() => (props.items.map((item: TabsIte
   }
   const { name } = item;
   return {
-    name: name || `tabs-item-${key}`,
     ...item,
+    name: name || `tabs-item-${key}`,
   };
 })));
 

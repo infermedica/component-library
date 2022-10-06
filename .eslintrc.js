@@ -72,6 +72,16 @@ module.exports = {
     'object-curly-spacing': ['error', 'always'],
     'vue/object-curly-spacing': ['error', 'always'],
     'vue/object-curly-newline': ['error', 'always'],
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
+    ],
   },
   overrides: [{
     files: ['**/*.spec.{j,t}s?(x)'],
@@ -87,6 +97,14 @@ module.exports = {
         ['@sb', './.storybook'],
         ['@', './src'],
       ],
+      node: {
+        extensions: [
+          '.js',
+          '.jsx',
+          '.ts',
+          '.tsx',
+        ],
+      },
     },
   },
   plugins: [

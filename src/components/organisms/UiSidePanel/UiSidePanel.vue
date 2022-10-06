@@ -169,7 +169,7 @@ import {
   scrollTabindex as vScrollTabindex,
   keyboardFocus as vKeyboardFocus,
 } from '../../../utilities/directives';
-import { focusElement } from '../../../utilities/helpers/index.ts';
+import { focusElement } from '../../../utilities/helpers/index';
 import UiBackdrop from '../../atoms/UiBackdrop/UiBackdrop.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';

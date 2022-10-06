@@ -280,7 +280,7 @@ import {
   bodyScrollLock as vBodyScrollLock,
   focusTrap as vFocusTrap,
 } from '../../../utilities/directives';
-import { focusElement } from '../../../utilities/helpers/index.ts';
+import { focusElement } from '../../../utilities/helpers/index';
 import UiBackdrop from '../../atoms/UiBackdrop/UiBackdrop.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
@@ -288,9 +288,9 @@ import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 
 export interface ModalTranslation {
-  confirm: string;
-  cancel: string;
-  [key: string]: string;
+  confirm?: string;
+  cancel?: string;
+  [key: string]: string | undefined;
 }
 const props = defineProps({
   /**
@@ -457,7 +457,7 @@ const emit = defineEmits<{(e: 'cancel'): void, (e:'confirm'): void, (e:'update:m
 const hasActions = computed(() => props.hasCancel || props.hasConfirm);
 const hasDescription = computed(() => !!props.title && !!props.description);
 const hasHeader = computed(() => !!props.title || !!props.description || !!props.isClosable);
-const titleSlotName = computed<'title'|'description'>(() => (props.title
+const titleSlotName = computed(() => (props.title
   ? 'title'
   : 'description'));
 const titleTag = computed(() => (props.title

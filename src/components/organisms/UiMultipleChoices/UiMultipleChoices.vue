@@ -84,6 +84,15 @@ import UiList from '../UiList/UiList.vue';
 import UiListItem from '../UiList/_internal/UiListItem.vue';
 import UiMultipleChoicesItem from './_internal/UiMultipleChoicesItem.vue';
 
+export interface MultipleChoiceOption {
+  [key: string]: unknown;
+  name?: string;
+  value?: string;
+}
+export interface MultipleChoiceItems {
+  [key: string]: unknown;
+  name: string;
+}
 const props = defineProps({
   /**
    * Use this props to set hint for question.
@@ -113,18 +122,18 @@ const props = defineProps({
    *  Use this props to set possible choices.
    */
   items: {
-    type: Array,
+    type: Array as PropType<MultipleChoiceItems[]>,
     default: () => ([]),
   },
   options: {
-    type: Array,
+    type: Array as PropType<MultipleChoiceOption[]>,
     default: () => ([]),
   },
   /**
    *  Use this props or v-model to set checked.
    */
   modelValue: {
-    type: Array,
+    type: Array as PropType<string[]>,
     default: () => ([]),
   },
   /**
@@ -135,21 +144,21 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-const emit = defineEmits<{(e: 'update:modelValue', value: string | object[]): void, (e: 'update:invalid', value: boolean): void}>();
+const emit = defineEmits<{(e: 'update:modelValue', value: string[]): void, (e: 'update:invalid', value: boolean): void}>();
 const value = computed(() => (JSON.parse(JSON.stringify(props.modelValue))));
 const valid = computed(() => (value.value.filter((item) => item).length === props.items.length));
 watch(valid, (value) => {
   emit('update:invalid', !value);
 }, { immediate: true });
-const hintType = computed<'error'| 'default'>(() => (props.touched && props.invalid ? 'error' : 'default'));
-const hasError = (index: number): boolean => (props.touched && !value.value[index]);
+const hintType = computed(() => (props.touched && props.invalid ? 'error' : 'default'));
+const hasError = (index: number) => (props.touched && !value.value[index]);
 function updateHandler(newValue: any, index: number): void {
   value.value[index] = newValue;
   emit('update:modelValue', value.value);
 }
 // TODO: remove in 0.6.0 / BEGIN
 const attrs = useAttrs();
-const choices = computed(() => (attrs.choices));
+const choices = computed(() => (attrs.choices) as MultipleChoiceItems[]);
 if (choices.value) {
   if (process.env.NODE_ENV === 'development') {
     console.warn('[@infermedica/component-library warn][UiMultipleChoices]: The `choices` props will be removed in 0.6.0. Please use `items` props instead.');

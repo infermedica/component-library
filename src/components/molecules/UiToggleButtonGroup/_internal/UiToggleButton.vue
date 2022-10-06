@@ -41,7 +41,7 @@ const props = defineProps({
   },
 });
 const emit = defineEmits<{(e:'check'|'uncheck'):void;}>();
-const attrs = useAttrs() as {class?: string[]};
+const attrs = useAttrs() as { class?: string[] };
 const parentComponent = getCurrentInstance()?.parent;
 if (!parentComponent || parentComponent.type.name !== 'UiToggleButtonGroup') {
   if (process.env.NODE_ENV !== 'production') {
@@ -53,7 +53,7 @@ const isChecked = computed(() => (modelValue && equal(modelValue.value, props.va
 const clickHandler = (): void => {
   modelValue.value = props.value;
 };
-watch(isChecked, (): void => {
+watch(isChecked, () => {
   emit(isChecked.value ? 'check' : 'uncheck');
 });
 const isDisabled = computed(() => !!attrs.class && attrs.class.includes('ui-toggle-button--is-disabled'));

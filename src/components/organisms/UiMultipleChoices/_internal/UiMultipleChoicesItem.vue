@@ -99,6 +99,7 @@ import UiRadio from '../../../atoms/UiRadio/UiRadio.vue';
 import UiText from '../../../atoms/UiText/UiText.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
+import type { MultipleChoiceOption } from '../UiMultipleChoices.vue';
 
 const props = defineProps({
   /**
@@ -119,13 +120,6 @@ const props = defineProps({
    *  Use this props or v-model to set checked.
    */
   modelValue: {
-    type: [Object, String],
-    default: () => ({}),
-  },
-  /**
-   * Use this props to set label of item.
-   */
-  label: {
     type: String,
     default: '',
   },
@@ -147,7 +141,7 @@ const props = defineProps({
    *  Use this props to pass options.
    */
   options: {
-    type: Array,
+    type: Array as PropType<MultipleChoiceOption[]>,
     default: () => ([]),
   },
   /**
@@ -186,7 +180,7 @@ const defaultProps = computed(() => ({
     ...props.iconInfoAttrs,
   },
 }));
-const emit = defineEmits<{(e: 'update:modelValue', value: object | string): void}>();
+const emit = defineEmits<{(e: 'update:modelValue', value: string): void}>();
 const multipleChoicesItemId = computed(() => (props.id || `multiple-choices-item-${uid()}`));
 const value = computed({
   get: () => props.modelValue,

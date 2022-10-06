@@ -54,12 +54,7 @@ export interface NavigationItem {
   text: string;
   href: string;
   name?: string
-  [key: string]: unknown;
-}
-export interface NavigationRenderItem {
-  name: string;
-  text: string;
-  navigationItemAttrs: Record<string, unknown>
+  navigationItemAttrs?: Record<string, unknown>
   [key: string]: unknown;
 }
 const props = defineProps({
@@ -76,7 +71,7 @@ const nav = ref<HTMLElement | null>(null);
 const isMultiline = ref(false);
 const modifiers = computed(() => (attrs?.class || ''));
 provide('modifiers', modifiers);
-const itemsToRender = computed<NavigationRenderItem[]>(() => (props.items.map((item: NavigationItem, key: number) => {
+const itemsToRender = computed(() => (props.items.map((item, key) => {
   const {
     name, text,
   } = item;
