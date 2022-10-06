@@ -45,15 +45,16 @@
         </slot>
         <!-- @slot Use this slot to replace back template. -->
         <slot
-          name="back"
+          v-if="toBack"
           v-bind="{
-            toBack,
+            hideBackButton,
             attrs: backAttrs,
             translation: defaultProps.translation
           }"
+          name="back"
         >
           <UiButton
-            v-if="toBack"
+            v-if="!hideBackButton"
             v-bind="backAttrs"
             class="ui-button--text ui-controls__back"
           >
@@ -77,11 +78,11 @@ import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import type { PropsAttrs } from '../../../types/attrs';
 
 export interface ControlsTranslation {
-  back: string,
-  next: string,
-  [key: string]: string
+  back?: string,
+  next?: string,
+  [key: string]: string | undefined
 }
-export type ControlsNavigation = string | Record<string, unknown> | boolean;
+export type ControlsNavigation = string | Record<string, unknown>;
 const props = defineProps({
   /**
    * Use this props to move the responsibility to move to the next screen to question content.
@@ -91,17 +92,24 @@ const props = defineProps({
     default: false,
   },
   /**
+   * Use this props to move the responsibility to move to the back screen to question content.
+   */
+  hideBackButton: {
+    type: Boolean,
+    default: false,
+  },
+  /**
    * Use this props to set route to back screen.
    */
   toBack: {
-    type: [String, Object, Boolean] as PropType<ControlsNavigation>,
+    type: [String, Object] as PropType<ControlsNavigation>,
     default: '',
   },
   /**
    * Use this props to set route to next screen.
    */
   toNext: {
-    type: [String, Object, Boolean] as PropType<ControlsNavigation>,
+    type: [String, Object] as PropType<ControlsNavigation>,
     default: '',
   },
   /**
@@ -149,7 +157,7 @@ const emit = defineEmits<{(e: 'has-error'): void}>();
 function hasError(): void {
   emit('has-error');
 }
-const nextAttrs = computed<Record<string, unknown>>(() => (
+const nextAttrs = computed(() => (
   props.invalid
     ? {
       onClick: hasError,
@@ -160,12 +168,10 @@ const nextAttrs = computed<Record<string, unknown>>(() => (
       ...props.buttonNextAttrs,
     }
 ));
-const backAttrs = computed<Record<string, unknown>>(() => (
-  {
-    to: props.toBack,
-    ...props.buttonBackAttrs,
-  }
-));
+const backAttrs = computed(() => ({
+  to: props.toBack,
+  ...props.buttonBackAttrs,
+}));
 </script>
 
 <style lang="scss">

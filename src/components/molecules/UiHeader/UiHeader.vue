@@ -85,11 +85,6 @@ import type { PropsAttrs } from '../../../types/attrs';
 import type { Icon } from '../../../types/icon';
 import { toMobile } from '../../../styles/exports/breakpoints.module.scss';
 
-export interface LogoAttrs {
-  icon: Icon;
-  title: string;
-  [key: string]: unknown;
-}
 const props = defineProps({
   /**
    * Use this props to pass attrs for logo button
@@ -157,7 +152,7 @@ const emit = defineEmits<{(e: 'hamburger:open' | 'hamburger:close'): void}>();
 const matchMediaObject: MediaQueryList = matchMedia(props.hamburgerMatchMedia);
 const isMobile = ref(matchMediaObject.matches);
 const isOpen = ref(false);
-const logoAttrs = computed<LogoAttrs>(() => ({
+const logoAttrs = computed(() => ({
   icon: props.logo,
   title: props.title,
   ...props.iconLogoAttrs,
@@ -168,7 +163,7 @@ watch(isOpen, (value: boolean) => {
 const handleHamburger = (): void => {
   isOpen.value = !isOpen.value;
 };
-function handleMedia({ matches }: {matches: boolean}) {
+function handleMedia({ matches }: { matches: boolean }): void {
   isMobile.value = matches;
   if (isOpen.value && !matches) {
     isOpen.value = false;

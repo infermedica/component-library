@@ -83,7 +83,7 @@ import UiText from '../../../atoms/UiText/UiText.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import UiRadio from '../../../atoms/UiRadio/UiRadio.vue';
-import type { RadioValue } from '../../../atoms/UiRadio/UiRadio.vue';
+import type { MultipleChoiceOption } from '../UiMultipleChoices.vue';
 
 const props = defineProps({
   /**
@@ -119,16 +119,16 @@ const props = defineProps({
    *  Use this props to override default options.
    */
   options: {
-    type: Array,
+    type: Array as PropType<MultipleChoiceOption[]>,
     default: () => ([]),
   },
 });
-const emit = defineEmits<{(e: 'update:modelValue', value: any): void}>();
+const emit = defineEmits<{(e: 'update:modelValue', value: string): void}>();
 const ariaLabelledby = computed(() => (props.item.id || `multiple-choices-item-${uid()}`));
 const value = computed({
   get: () => props.modelValue,
-  set: (value) => {
-    emit('update:modelValue', value);
+  set: (newValue) => {
+    emit('update:modelValue', newValue);
   },
 });
 </script>

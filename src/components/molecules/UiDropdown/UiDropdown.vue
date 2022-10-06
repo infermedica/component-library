@@ -104,7 +104,7 @@ import type {
 } from 'vue';
 import useDropdownItems from './useDropdownItems';
 import { clickOutside as vClickOutside } from '../../../utilities/directives';
-import { focusElement } from '../../../utilities/helpers/index.ts';
+import { focusElement } from '../../../utilities/helpers/index';
 import UiDropdownItem from './_internal/UiDropdownItem.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiPopover from '../UiPopover/UiPopover.vue';
@@ -113,7 +113,7 @@ import type { PropsAttrs } from '../../../types/attrs';
 export type DropdownValue = string | Record<string, unknown>
 export interface DropdownItemAsObj {
   text?: string;
-  name: string;
+  name?: string;
   value: DropdownValue;
   [key: string]: DropdownValue | undefined;
 }
@@ -193,7 +193,7 @@ const props = defineProps({
     default: () => [],
   },
 });
-const emit = defineEmits<{(e: 'update:modelValue', value: DropdownValue):void;
+const emit = defineEmits<{(e: 'update:modelValue', value: DropdownValue): void;
   (e: 'open'): void;
   (e: 'close'): void;
 }>();
@@ -212,7 +212,7 @@ const {
   prevDropdownItem,
   selectedDropdownItem,
 } = useDropdownItems(dropdown);
-function disableArrows(event) {
+function disableArrows(event: KeyboardEvent): void {
   if (['ArrowUp', 'ArrowDown'].indexOf(event.code) > -1) {
     event.preventDefault();
   }
@@ -256,14 +256,14 @@ const dropdownName = computed(() => (
   props.name || `dropdown-${uid()}`
 ));
 provide('name', dropdownName);
-const modelValue = computed<DropdownValue>(() => (props.modelValue));
+const modelValue = computed(() => props.modelValue);
 provide('modelValue', modelValue);
-function changeHandler(value: DropdownValue):void {
+function changeHandler(value: DropdownValue): void {
   emit('update:modelValue', value);
   closeHandler();
 }
 provide('changeHandler', changeHandler);
-async function dropdownKeydownHandler({ key }: {key: string}): Promise<void> {
+async function dropdownKeydownHandler({ key }: { key: string }): Promise<void> {
   if (!props.enableKeyboardNavigation) return;
 
   switch (key) {
@@ -297,7 +297,7 @@ async function dropdownKeydownHandler({ key }: {key: string}): Promise<void> {
 // todo: why this component handle searchQuery and searchDebounce?
 const searchQuery = ref('');
 const searchDebounce = ref<ReturnType<typeof setTimeout> | null>(null);
-function handleInputQuery({ key }: {key: string}): void {
+function handleInputQuery({ key }: { key: string }): void {
   searchQuery.value += key.toLowerCase();
   const match: number = dropdownItems.value.findIndex(
     (item: HTMLElement) => item.innerText.toLowerCase().startsWith(searchQuery.value),
@@ -320,20 +320,20 @@ defineExpose({
   closeHandler,
 });
 
-const itemsToRender = computed<DropdownItemAsObj[]>(() => (props.items.map((item: DropdownItem, key) => {
-  if (typeof item === 'string' || typeof item === 'number') {
+const itemsToRender = computed(() => (
+  props.items.map((item, key) => {
+    if (typeof item === 'string' || typeof item === 'number') {
+      return {
+        name: `dropdown-item-${key}`,
+        text: item,
+        value: item,
+      };
+    }
     return {
       name: `dropdown-item-${key}`,
-      text: item,
-      value: item,
+      ...item,
     };
-  }
-  return {
-    name: item.name || `dropdown-item-${key}`,
-    ...item,
-    value: item.value,
-  };
-})));
+  })));
 </script>
 
 <style lang="scss">

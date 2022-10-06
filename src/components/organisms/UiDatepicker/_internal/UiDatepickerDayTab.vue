@@ -7,7 +7,7 @@
       :key="i"
       class="ui-datepicker-day-tab__item"
       :class="{
-        'ui-button--is-selected': day == i,
+        'ui-button--is-selected': parseInt(day) === i,
         'ui-button--is-disabled': isDisabled(i),
       }"
       :disabled="isDisabled(i)"

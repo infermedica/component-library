@@ -72,19 +72,20 @@ const emit = defineEmits<{(e:'update:modelValue', value: string): void}>();
 watch(activeTab, (name) => {
   emit('update:modelValue', name);
 });
-const itemsToRender = computed<TabsItem[]>(() => (props.items.map((item: TabsItem | string, key: number) => {
-  if (typeof item === 'string') {
+const itemsToRender = computed(() => (
+  props.items.map((item, key) => {
+    if (typeof item === 'string') {
+      return {
+        name: `tabs-item-${key}`,
+        title: item,
+      };
+    }
+    const { name } = item;
     return {
-      name: `tabs-item-${key}`,
-      title: item,
+      ...item,
+      name: name || `tabs-item-${key}`,
     };
-  }
-  const { name } = item;
-  return {
-    ...item,
-    name: name || `tabs-item-${key}`,
-  };
-})));
+  })));
 
 const tabs = ref<HTMLDivElement | null>(null);
 const activeTabHTMLElement = ref<HTMLElement | null>(null);

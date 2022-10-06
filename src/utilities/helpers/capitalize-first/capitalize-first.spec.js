@@ -1,4 +1,4 @@
-import { capitalizeFirst } from './index.ts';
+import { capitalizeFirst } from './index';
 
 const text = 'Test test Test';
 const lowerText = 'test test Test';

@@ -304,9 +304,9 @@
         {
           "ancestorTitles": [
             "",
-            "UiRange.vue"
+            "UiNavigation.vue"
           ],
-          "fullName": " UiRange.vue clicking increment button increments the value",
+          "fullName": " UiNavigation.vue component render the correct number of items",
           "status": "passed",
           "title": "clicking increment button increments the value",
           "duration": 8,
@@ -2647,9 +2647,9 @@
         {
           "ancestorTitles": [
             "",
-            "UiTextarea.vue"
+            "UiHeader.vue"
           ],
-          "fullName": " UiTextarea.vue renders a component",
+          "fullName": " UiHeader.vue renders a component",
           "status": "passed",
           "title": "renders a component",
           "duration": 33,
@@ -2669,9 +2669,9 @@
         {
           "ancestorTitles": [
             "",
-            "UiTextarea.vue"
+            "UiHeader.vue"
           ],
-          "fullName": " UiTextarea.vue a component emits input event",
+          "fullName": " UiHeader.vue hamburger should not be visible on the desktop",
           "status": "passed",
           "title": "a component emits input event",
           "duration": 4,
@@ -2700,9 +2700,9 @@
         {
           "ancestorTitles": [
             "",
-            "UiPopover.vue"
+            "UiHeader.vue"
           ],
-          "fullName": " UiPopover.vue a component emit close event",
+          "fullName": " UiHeader.vue hamburger should be visible on the mobile",
           "status": "passed",
           "title": "a component emit close event",
           "duration": 20,
@@ -3465,9 +3465,9 @@
         {
           "ancestorTitles": [
             "",
-            "helpers/removeNonDigits"
+            "UiContainer.vue"
           ],
-          "fullName": " helpers/removeNonDigits given %p as arguments, returns %p  ",
+          "fullName": " UiContainer.vue renders a component",
           "status": "passed",
           "title": "given %p as arguments, returns %p  ",
           "duration": 9,
