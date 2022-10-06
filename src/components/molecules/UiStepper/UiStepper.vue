@@ -118,6 +118,7 @@ import type { HTMLTag } from '../../../types/tag';
 
 export interface Step {
   label: string;
+  name?: string;
   to?: string;
   href?: string;
   route?: string;
@@ -177,9 +178,9 @@ if (props.steps.some((step) => step.name)) {
     console.warn('[@infermedica/component-library warn][UiStepper]: The step `name` props will be removed in 0.6.0. Please use step `label` props instead.');
   }
 }
-const stepsToRender = computed(() => props.steps.map((step) => ({
-  label: step.name || step.label,
+const stepsToRender = computed<Step[]>(() => props.steps.map((step) => ({
   ...step,
+  label: step.name || step.label,
 })));
 // END
 </script>

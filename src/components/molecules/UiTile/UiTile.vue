@@ -45,6 +45,7 @@ import type {
   Icon,
   IconAttrs,
 } from '../../../types/icon';
+import type { HTMLTag } from '../../../types/tag';
 
 export type TileValue = string | Record<string, unknown>;
 const props = defineProps({
@@ -101,9 +102,18 @@ const props = defineProps({
     default: () => ({ tag: 'span' }),
   },
 });
-const defaultProps = computed(() => ({
+interface DefaultProps {
   iconAttrs: {
-    icon: props.icon,
+    [key: string]: unknown
+  },
+  textLabelAttrs: {
+    tag: HTMLTag,
+    [key: string]: unknown
+  }
+}
+const defaultProps = computed<DefaultProps>(() => ({
+  iconAttrs: {
+    ...{ icon: props.icon },
     ...props.iconAttrs,
   },
   textLabelAttrs: {

@@ -56,6 +56,7 @@ import UiText from '../UiText/UiText.vue';
 import useInput from '../../../composable/useInput';
 import useKeyValidation from '../../../composable/useKeyValidation';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
+import type { HTMLTag } from '../../../types/tag';
 
 const props = defineProps({
   /**
@@ -80,7 +81,13 @@ const props = defineProps({
     default: () => ({ tag: 'span' }),
   },
 });
-const defaultProps = computed(() => ({
+interface DefaultPops {
+  textSuffixAttrs: {
+    tag: HTMLTag;
+    [key: string]: unknown;
+  };
+}
+const defaultProps = computed<DefaultPops>(() => ({
   textSuffixAttrs: {
     tag: 'span',
     ...props.textSuffixAttrs,

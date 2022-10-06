@@ -10,9 +10,7 @@
         :key="key"
       >
         <UiToggleButton
-          v-bind="(()=>{const {
-            name, text, ...rest
-          } = item; return rest;})()"
+          v-bind="toggleButtonAttrs(item)"
         >
           <slot
             :name="item.name"
@@ -103,6 +101,12 @@ const itemsToRender = computed(() => (
       value: item.value,
     };
   })));
+const toggleButtonAttrs = (item: Record<string, unknown>) => {
+  const {
+    name, text, ...rest
+  } = item;
+  return rest;
+};
 </script>
 
 <style lang="scss">

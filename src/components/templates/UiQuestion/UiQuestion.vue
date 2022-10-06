@@ -140,11 +140,16 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { PropType } from 'vue';
+import type { NotificationType } from '@/components/molecules/UiNotification/UiNotification.vue';
 import type { PropsAttrs } from '../../../types/attrs';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiNotification from '../../molecules/UiNotification/UiNotification.vue';
+import type {
+  Icon,
+  IconAsString,
+} from '../../../types/icon';
 
 export interface QuestionTranslation {
   info: string;
@@ -244,24 +249,42 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-const defaultProps = computed(() => ({
+interface DefaultProps {
+  translation: QuestionTranslation;
+  settings: Questionsettings,
+  iconInfoAttrs: {
+    icon: Icon;
+    [key: string]: unknown
+  },
+  notificationFeedbackAttrs: {
+    type: NotificationType;
+    [key: string]: unknown;
+  },
+}
+const defaultProps = computed<DefaultProps>(() => ({
   translation: {
-    info: 'What does it mean?',
-    why: 'Why am I being asked this?',
+    ...{
+      info: 'What does it mean?',
+      why: 'Why am I being asked this?',
+    },
     ...props.translation,
     issue: {
-      action: 'Report an issue with this question',
-      feedback: 'Thank you. We’ll review this question as soon as possible.',
-      skip: 'Skip this question',
+      ...{
+        action: 'Report an issue with this question',
+        feedback: 'Thank you. We’ll review this question as soon as possible.',
+        skip: 'Skip this question',
+      },
       ...props.translation?.issue,
     },
   },
   settings: {
-    info: false,
-    why: false,
+    ...{
+      info: false,
+      why: false,
+    },
     ...props.settings,
     issue: {
-      feedback: false,
+      ...{ feedback: false },
       ...props.settings?.issue,
     },
   },

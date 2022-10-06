@@ -86,6 +86,7 @@ import type { PropType } from 'vue';
 import UiAlert from '../UiAlert/UiAlert.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import type { PropsAttrs } from '../../../types/attrs';
+import type { HTMLTag } from '../../../types/tag';
 
 const props = defineProps({
   /**
@@ -148,7 +149,17 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-const defaultProps = computed(() => ({
+interface DefaultProps {
+  textMessageAttrs: {
+    tag: HTMLTag;
+    [key: string]: unknown;
+  };
+  textHintAttrs: {
+    tag: HTMLTag;
+    [key: string]: unknown;
+  };
+}
+const defaultProps = computed<DefaultProps>(() => ({
   textMessageAttrs: {
     tag: 'span',
     ...props.textMessageAttrs,

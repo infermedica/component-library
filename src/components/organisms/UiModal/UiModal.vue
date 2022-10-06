@@ -271,6 +271,7 @@ import {
   onMounted,
 } from 'vue';
 import type { PropType } from 'vue';
+import type { HeadingLevel } from '@/components/atoms/UiHeading/UiHeading.vue';
 import type { PropsAttrs } from '../../../types/attrs';
 import {
   bodyScrollLock as vBodyScrollLock,
@@ -282,6 +283,7 @@ import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
+import type { Icon } from '../../../types/icon';
 
 export interface ModalTranslation {
   confirm?: string;
@@ -423,7 +425,26 @@ async function enterHandler() {
   await nextTick();
   focusElement(button.value?.$el, true);
 }
-const defaultProps = computed(() => ({
+interface Transition {
+  name: string;
+  appear: boolean;
+  [key: string]: unknown;
+}
+interface DefaultProps {
+  translation: ModalTranslation;
+  iconCloseAttrs: {
+    icon: Icon;
+    [key: string]: unknown;
+  };
+  headingTitleAttrs: {
+    level: HeadingLevel;
+    [key: string]: unknown;
+  };
+  transitionBackdropAttrs: Transition;
+  transitionDialogAttrs: Transition;
+  [key: string]: unknown;
+}
+const defaultProps = computed<DefaultProps>(() => ({
   translation: {
     confirm: 'Ok',
     cancel: 'Cancel',

@@ -11,9 +11,7 @@
         :key="key"
       >
         <UiBulletPointsItem
-          v-bind="(()=>{const {
-            name, text, children, ...rest
-          } = item; return rest;})()"
+          v-bind="bulletPointsItemAttrs(item)"
         >
           <!-- @slot Use this slot to replace bullet point item content. -->
           <slot
@@ -167,6 +165,12 @@ const itemsToRender = computed<BulletPointsRenderItem[]>(() => (
         },
     };
   })));
+const bulletPointsItemAttrs = (item: BulletPointsRenderItem) => {
+  const {
+    name, text, children, ...rest
+  } = item;
+  return rest;
+};
 </script>
 
 <style lang="scss">

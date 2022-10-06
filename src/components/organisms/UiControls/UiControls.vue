@@ -82,6 +82,7 @@ import UiContainer from '../UiContainer/UiContainer.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import type { PropsAttrs } from '../../../types/attrs';
+import type { Icon } from '../../../types/icon';
 
 export interface ControlsTranslation {
   back?: string,
@@ -174,7 +175,16 @@ const emit = defineEmits<{(e: 'has-error'): void}>();
 function hasError(): void {
   emit('has-error');
 }
-const defaultProps = computed(() => ({
+interface DefaultProps {
+  translation: ControlsTranslation,
+  buttonBackAttrs: Record<string, unknown>,
+  iconBackAttrs: {
+    icon: Icon,
+    [key: string]: unknown,
+  }
+  buttonNextAttrs: Record<string, unknown>,
+}
+const defaultProps = computed<DefaultProps>(() => ({
   translation: {
     back: 'Back',
     next: 'Next',

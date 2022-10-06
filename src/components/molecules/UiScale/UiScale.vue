@@ -161,8 +161,8 @@ import type { HTMLTag } from '../../../types/tag';
 
 export interface ScaleTranslation {
   label?: string;
-  mild?: string;
-  unbearable?: string;
+  min?: string;
+  max?: string;
   [key: string]: string | undefined;
 }
 const props = defineProps({
@@ -221,7 +221,7 @@ const props = defineProps({
     type: [
       Object,
       Array,
-    ],
+    ] as PropType<Record<string, unknown> | Record<string, unknown>[]>,
     default: () => ({}),
   },
   /**
@@ -308,7 +308,11 @@ if (translationUnbearable.value) {
   }
 }
 // END
-const defaultProps = computed(() => ({
+interface DefaultProps {
+  translation: ScaleTranslation;
+  numberStepperAttrs: Record<string, unknown>;
+}
+const defaultProps = computed<DefaultProps>(() => ({
   translation: {
     label: 'Pain scale',
     min: props.translation?.mild || 'Mild',
@@ -322,15 +326,13 @@ const defaultProps = computed(() => ({
   },
 }));
 const itemsToRender = computed(() => (Array.from({ length: maxSteps.value }, (_, index) => {
-  const radioOptionAttrs = Array.isArray(props.radioOptionAttrs)
+  const radioOptionAttrs:Record<string, unknown> = Array.isArray(props.radioOptionAttrs)
     ? props.radioOptionAttrs[index]
     : props.radioOptionAttrs;
   return {
     ...radioOptionAttrs,
-    textLabelAttrs: {
-      tag: 'div',
-      ...radioOptionAttrs?.textLabelAttrs,
-    },
+    // eslint-disable-next-line prefer-object-spread
+    textLabelAttrs: Object.assign({ tag: 'div' }, radioOptionAttrs?.textLabelAttrs), // fix: Spread types may only be created from object types. Object.assign ignored undefined types.
   };
 })));
 </script>

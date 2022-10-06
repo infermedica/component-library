@@ -81,15 +81,14 @@ import type {
   DatePart,
   DatepickerDate,
   DatepickerTranslation,
-  DefaultInputProps,
 } from '../UiDatepicker.vue';
+import type { Icon } from '../../../../types/icon';
 
 export type DatepickerTab = InstanceType<typeof UiDatepickerDayTab
   | typeof UiDatepickerMonthTab
   | typeof UiDatepickerYearTab
 >;
 export type DatepickerTabAttrName = `tabsItem${Capitalize<DatePart>}Attrs`;
-export type DatepickerTabID = `datepicker-calendar-${DatePart}`;
 const props = defineProps({
   /**
    * Use this props to set current tab value.
@@ -136,28 +135,39 @@ const defaultTabsIds = computed(() => ({
   month: props.tabsItemDayAttrs?.id || 'datepicker-calendar-month',
   year: props.tabsItemDayAttrs?.id || 'datepicker-calendar-year',
 }));
-const defaultProps = reactive<{
-  [key in DatepickerTabAttrName]: DefaultInputProps<DatepickerTabID>
-  }>({
-    iconToggleAttrs: {
-      icon: 'calendar',
-      ...props.iconToggleAttrs,
-    },
-    tabsItemDayAttrs: {
-      ...props.tabsItemDayAttrs,
-      id: defaultTabsIds.value.day,
-    },
-    tabsItemMonthAttrs: {
-      ...props.tabsItemMonthAttrs,
-      id: defaultTabsIds.value.month,
-    },
-    tabsItemYearAttrs: {
-      ...props.tabsItemYearAttrs,
-      id: defaultTabsIds.value.year,
-    },
-  });
-const getDefaultProp = (item: DatePart | DatepickerTabAttrName): DefaultInputProps<DatepickerTabID> => (
-  item.includes('Attrs') ? defaultProps[item as DatepickerTabAttrName] : defaultProps[`tabsItem${capitalizeFirst(item) as Capitalize<DatePart>}Attrs`]);
+interface DefaultProps {
+  iconToggleAttrs: {
+    icon: Icon,
+    [key:string]: unknown,
+  }
+  tabsItemDayAttrs: Record<string, unknown>,
+  tabsItemMonthAttrs: Record<string, unknown>,
+  tabsItemYearAttrs: Record<string, unknown>,
+}
+const defaultProps = computed<DefaultProps>(() => ({
+  iconToggleAttrs: {
+    icon: 'calendar',
+    ...props.iconToggleAttrs,
+  },
+  tabsItemDayAttrs: {
+    ...props.tabsItemDayAttrs,
+    id: defaultTabsIds.value.day,
+  },
+  tabsItemMonthAttrs: {
+    ...props.tabsItemMonthAttrs,
+    id: defaultTabsIds.value.month,
+  },
+  tabsItemYearAttrs: {
+    ...props.tabsItemYearAttrs,
+    id: defaultTabsIds.value.year,
+  },
+}));
+interface DefaultTabItemAttrs {
+  id: string;
+  [key: string]: unknown
+}
+const getDefaultProp = (datePart: DatePart): Record<string, unknown> => (defaultProps.value[`tabsItem${capitalizeFirst(datePart) as Capitalize<DatePart>}Attrs`]);
+
 const emit = defineEmits<{(e:'open', value: Event): void, (e: 'select', value: Event): void}>();
 const dropdown = ref<InstanceType<typeof UiDropdown> | null>(null);
 const toggleElement = ref<HTMLElement | null>(null);
@@ -169,12 +179,12 @@ const dateParts = computed(() => (Object.keys(defaultProps).reduce((parts: Recor
   const match = key.match(/tabsItem(.+)Attrs/);
   if (match) {
     // eslint-disable-next-line no-param-reassign
-    parts[getDefaultProp(key as DatePart).id] = match[1].toLowerCase();
+    parts[(getDefaultProp(key as DatePart) as DefaultTabItemAttrs).id] = match[1].toLowerCase();
   }
   return parts;
 }, {})));
-const currentTabId = computed<DatepickerTabID>({
-  get: () => (getDefaultProp(currentTab.value).id),
+const currentTabId = computed({
+  get: () => ((getDefaultProp(currentTab.value) as DefaultTabItemAttrs).id),
   set: (id) => {
     currentTab.value = dateParts.value[id] as DatePart;
   },
@@ -226,8 +236,8 @@ function goToNextTab(): void {
 const inputsIds = inject('inputsIds') as ComputedRef<Record<string, string>>;
 const clickOutsideHandler = (event: InputEvent) => {
   const target = event.target as HTMLLabelElement;
-  const id = target.id as DatepickerTabID;
-  const htmlFor = target.htmlFor as DatepickerTabID;
+  const id = target.id as string;
+  const htmlFor = target.htmlFor as string;
   const allowedIds = Object.keys(inputsIds.value);
 
   if (allowedIds.includes(htmlFor)) return;

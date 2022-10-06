@@ -148,7 +148,7 @@ const props = defineProps({
 });
 const emit = defineEmits<{(e: 'update:modelValue', value: string | Record<string, unknown>[]): void, (e: 'update:invalid', value: boolean): void}>();
 const value = computed(() => (JSON.parse(JSON.stringify(props.modelValue))));
-const valid = computed(() => (value.value.filter((item) => item).length === props.items.length));
+const valid = computed(() => (value.value.filter((item: Record<string, unknown>) => item).length === props.items.length));
 watch(valid, (value) => {
   emit('update:invalid', !value);
 }, { immediate: true });

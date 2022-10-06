@@ -15,20 +15,20 @@ export default {
     modifiers: [],
     items: [
       {
-        text: 'Medical Certification',
+        label: 'Medical Certification',
         href: '#',
         'data-testid': 'medical-certification',
       },
       {
-        text: 'Instruction for Use',
+        label: 'Instruction for Use',
         href: '#',
       },
       {
-        text: 'Terms of Service',
+        label: 'Terms of Service',
         href: '#',
       },
       {
-        text: 'Privacy Policy',
+        label: 'Privacy Policy',
         href: '#',
       },
     ],
@@ -109,22 +109,22 @@ WithNavigationItemSlot.args = {
   items: [
     {
       name: 'medical-certification',
-      text: 'Medical Certification',
+      label: 'Medical Certification',
       href: '#',
     },
     {
       name: 'instruction-for-use',
-      text: 'Instruction for Use',
+      label: 'Instruction for Use',
       href: '#',
     },
     {
       name: 'terms-of-service',
-      text: 'Terms of Service',
+      label: 'Terms of Service',
       href: '#',
     },
     {
       name: 'privacy-policy',
-      text: 'Privacy Policy',
+      label: 'Privacy Policy',
       href: '#',
     },
   ],
@@ -181,22 +181,22 @@ WithIconInNavigationItemSlot.args = {
   items: [
     {
       name: 'medical-certification',
-      text: 'Medical Certification',
+      label: 'Medical Certification',
       href: '#',
     },
     {
       name: 'instruction-for-use',
-      text: 'Instruction for Use',
+      label: 'Instruction for Use',
       href: '#',
     },
     {
       name: 'terms-of-service',
-      text: 'Terms of Service',
+      label: 'Terms of Service',
       href: '#',
     },
     {
       name: 'privacy-policy',
-      text: 'Privacy Policy',
+      label: 'Privacy Policy',
       href: '#',
     },
   ],

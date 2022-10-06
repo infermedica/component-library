@@ -54,13 +54,13 @@
           <UiListItem class="ui-multiple-answer__list-item">
             <!-- @slot Use this slot to replace choice template.-->
             <slot
-              :name="choiceItem && 'choice-item' || 'choice'"
               v-bind="{
                 value,
                 item,
                 name,
                 hasError,
               }"
+              :name="choiceItem && 'choice-item' || 'choice'"
             >
               <UiMultipleAnswerItem
                 v-model="value"
@@ -71,8 +71,8 @@
               >
                 <template #label="data">
                   <slot
-                    :name="`label-${data.id}`"
                     v-bind="data"
+                    :name="`label-${data.id}`"
                   />
                 </template>
               </UiMultipleAnswerItem>
@@ -102,11 +102,15 @@ import UiListItem from '../UiList/_internal/UiListItem.vue';
 import UiAlert from '../../molecules/UiAlert/UiAlert.vue';
 
 export interface MultipleAnswerItem {
-  label: string;
-  id: string;
-  buttonInfoAttrs?: Record<string, unknown>
+  id?: string;
+  label?: string;
+  value?: string | Record<string, unknown>,
+  name?:string, // TODO: remove in 0.6.0
+  buttonInfoAttrs?: Record<string, unknown>,
+  iconInfoAttrs?: Record<string, unknown>,
+  textLabelAttrs?: Record<string, unknown>
 }
-export type MultipleAnswerValue = string | MultipleAnswerItem | MultipleAnswerItem[]
+export type MultipleAnswerValue = string | MultipleAnswerItem | MultipleAnswerItem[] | unknown[];
 
 const props = defineProps({
   /**
@@ -191,8 +195,9 @@ watch(valid, (value) => {
 }, { immediate: true });
 const value = computed({
   get: () => (props.modelValue),
-  set: (value) => {
-    emit('update:modelValue', value);
+  set: (newValue) => {
+    console.log(newValue);
+    emit('update:modelValue', newValue);
   },
 });
 const itemsToRender = computed(() => (props.items.map((item) => {
@@ -210,9 +215,9 @@ const itemsToRender = computed(() => (props.items.map((item) => {
   }
   // END
   return {
+    ...item,
     value: item.value || JSON.parse(JSON.stringify(item)),
     label: item.name || item.label,
-    ...item,
   };
 })));
 // TODO: remove in 0.6.0 / BEGIN

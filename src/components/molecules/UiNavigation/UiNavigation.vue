@@ -12,16 +12,14 @@
       >
         <UiNavigationItem
           class=" ui-navigation__item"
-          v-bind="(()=>{const {
-            name, text, ...rest
-          } = item; return rest;})()"
+          v-bind="navigationItemAttrs(item)"
         >
           <!-- @slot Use this slot to replace navigation item content. -->
           <slot
             :name="item.name"
             v-bind="{ item }"
           >
-            {{ item.text }}
+            {{ item.label }}
           </slot>
         </UiNavigationItem>
       </template>
@@ -48,8 +46,8 @@ import UiNavigationItem from './_internal/UiNavigationItem.vue';
 
 export interface NavigationItem {
   text: string;
-  href: string;
-  name?: string
+  name?: string;
+  label?: string;
   navigationItemAttrs?: Record<string, unknown>
   [key: string]: unknown;
 }
@@ -69,11 +67,20 @@ const modifiers = computed(() => (attrs?.class || ''));
 provide('modifiers', modifiers);
 const itemsToRender = computed(() => (props.items.map((item, key) => {
   const {
-    name, text,
+    name,
+    label,
+    text,
   } = item;
+  // TODO: remove in 0.6.0 / BEGIN
+  if (text) {
+    if (process.env.NODE_ENV === 'development') {
+      console.warn('[@infermedica/component-library error][UiNavigationItem]: The `text` property from `items` props will be removed in 0.6.0. Please use `label` property instead.');
+    }
+  }
+  // END
   return {
     name: name || `navigation-item-${key}`,
-    text,
+    label: text || label,
     ...item,
   };
 })));
@@ -88,6 +95,12 @@ onMounted(async () => {
 onBeforeUnmount(() => {
   resizeObserver.unobserve(nav.value as HTMLElement);
 });
+const navigationItemAttrs = (item: NavigationItem) => {
+  const {
+    name, label, ...rest
+  } = item;
+  return rest;
+};
 </script>
 
 <style lang="scss">

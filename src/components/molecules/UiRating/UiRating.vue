@@ -35,9 +35,7 @@
       >
         <UiRadio
           v-model="rate"
-          v-bind="(()=>{const {
-            iconActiveAttrs, iconDefaultAttrs, index, ...rest
-          } = item; return rest;})()"
+          v-bind="ratingItemAttrs(item)"
           :value="`${item.index}`"
           :name="ratingName"
           class="ui-rating__option"
@@ -202,8 +200,10 @@ const props = defineProps({
 const defaultProps = computed(() => ({
   translation: { stars: (index: number) => (`${index} stars`) },
   settings: {
-    iconDefault: 'star-outlined',
-    iconActive: 'star-filled',
+    ...{
+      iconDefault: 'star-outlined',
+      iconActive: 'star-filled',
+    },
     ...props.settings,
   },
 }));
@@ -269,6 +269,12 @@ const itemsToRender = computed(() => (Array.from({ length: maxScore.value }, (_,
     },
   };
 })));
+const ratingItemAttrs = (item: Record<string, unknown>) => {
+  const {
+    iconActiveAttrs, iconDefaultAttrs, index, ...rest
+  } = item;
+  return rest;
+};
 </script>
 
 <style lang="scss">

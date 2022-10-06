@@ -68,6 +68,7 @@ import { computed } from 'vue';
 import type { PropsAttrs } from '../../../types/attrs';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
+import type { Icon } from '../../../types/icon';
 
 const props = defineProps({
   /**
@@ -140,7 +141,18 @@ const props = defineProps({
     default: () => ({ icon: 'plus' }),
   },
 });
-const defaultProps = computed(() => ({
+interface DefaultProps {
+  iconDecrementAttrs: {
+    icon: Icon,
+    [key: string]: unknown,
+  }
+  iconIncrementAttrs: {
+    icon: Icon,
+    [key: string]: unknown,
+  },
+  [key: string]: unknown,
+}
+const defaultProps = computed<DefaultProps>(() => ({
   buttonDecrementAttrs: {
     'aria-hidden': true,
     tabindex: -1,

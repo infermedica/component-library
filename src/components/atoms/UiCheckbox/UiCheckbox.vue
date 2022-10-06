@@ -73,6 +73,8 @@ import UiIcon from '../UiIcon/UiIcon.vue';
 import UiText from '../UiText/UiText.vue';
 import useInput from '../../../composable/useInput';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
+import type { Icon } from '../../../types/icon';
+import type { HTMLTag } from '../../../types/tag';
 
 export type CheckboxValue = string | Record<string, unknown>[];
 export type CheckboxModelValue = boolean | Record<string, unknown>[];
@@ -121,7 +123,17 @@ const props = defineProps({
     default: () => ({ tag: 'span' }),
   },
 });
-const defaultProps = computed(() => ({
+interface DefaultProps {
+  iconCheckmarkAttrs: {
+    icon: Icon;
+    [key:string]: unknown;
+  };
+  textLabelAttrs: {
+    tag: HTMLTag;
+    [key:string]: unknown;
+  };
+}
+const defaultProps = computed<DefaultProps>(() => ({
   iconCheckmarkAttrs: {
     icon: 'checkmark',
     ...props.iconCheckmarkAttrs,

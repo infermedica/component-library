@@ -51,6 +51,7 @@ import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import type { PropsAttrs } from '../../../types/attrs';
+import type { Icon } from '../../../types/icon';
 
 const props = defineProps({
   /**
@@ -75,7 +76,13 @@ const props = defineProps({
     default: () => ({ icon: 'remove-filled' }),
   },
 });
-const defaultProps = computed(() => ({
+interface DefaultProps {
+  iconRemoveAttrs: {
+    icon: Icon;
+    [key:string]: unknown;
+  };
+}
+const defaultProps = computed<DefaultProps>(() => ({
   iconRemoveAttrs: {
     icon: 'remove-filled',
     ...props.iconRemoveAttrs,

@@ -4,7 +4,7 @@
     role="radiogroup"
   >
     <template
-      v-for="(item, index) in options || items"
+      v-for="(item, index) in itemsToRender"
       :key="index"
     >
       <!-- @slot Use this slot to replace tile template -->
@@ -19,9 +19,7 @@
         }"
       >
         <UiTile
-          v-bind="(()=>{const {
-            label, ...rest
-          } = item; return rest;})()"
+          v-bind="tileItemAttrs(item)"
           :model-value="modelValue"
           :class="{ 'ui-tile--small': isTileSmall }"
           class="ui-simple-question__item"
@@ -44,7 +42,7 @@ import UiTile from '../../molecules/UiTile/UiTile.vue';
 import type { TileValue } from '../../molecules/UiTile/UiTile.vue';
 import type { Icon } from '../../../types/icon';
 
-export interface SimpleQuestionOptions {
+export interface SimpleQuestionOption {
   value: TileValue;
   label: string;
   tileAttrs: {
@@ -55,7 +53,7 @@ export interface SimpleQuestionOptions {
     [key: string]: unknown;
   }
 }
-defineProps({
+const props = defineProps({
   /**
    * Use this props or v-model to set value.
    */
@@ -70,7 +68,7 @@ defineProps({
    * Use this props to pass items for question
    */
   items: {
-    type: Array as PropType<SimpleQuestionOptions[]>,
+    type: Array as PropType<SimpleQuestionOption[]>,
     default: () => [ {
       id: '',
       label: '',
@@ -80,7 +78,11 @@ defineProps({
   },
 });
 const emit = defineEmits<{(e: 'update:modelValue', value: TileValue): void}>();
-const attrs = useAttrs();
+interface Attrs {
+  class?: string[];
+  options?: SimpleQuestionOption[];
+}
+const attrs:Attrs = useAttrs();
 const isTileSmall = computed(() => attrs?.class?.includes('ui-simple-question--small'));
 function updateHandler(value: TileValue) {
   emit('update:modelValue', value);
@@ -93,6 +95,13 @@ if (options.value) {
   }
 }
 // END
+const tileItemAttrs = (item: SimpleQuestionOption) => {
+  const {
+    label, ...rest
+  } = item;
+  return rest;
+};
+const itemsToRender = computed(() => options.value || props.items);
 </script>
 
 <style lang="scss">

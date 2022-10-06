@@ -152,7 +152,17 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-const defaultProps = computed(() => ({
+interface DefaultProps {
+  iconHamburgerAttrs: {
+    icon: Icon;
+    [key: string]: unknown;
+  };
+  iconLogoAttrs: {
+    icon: Icon;
+    [key: string]: unknown;
+  };
+}
+const defaultProps = computed<DefaultProps>(() => ({
   iconHamburgerAttrs: {
     icon: 'menu',
     ...props.iconHamburgerAttrs,

@@ -65,6 +65,7 @@ import { uid } from 'uid/single';
 import UiText from '../UiText/UiText.vue';
 import useInput from '../../../composable/useInput';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
+import type { HTMLTag } from '../../../types/tag';
 
 export type RadioValue = number | string | Record<string, unknown>;
 const props = defineProps({
@@ -113,7 +114,13 @@ const props = defineProps({
     default: () => ({ tag: 'span' }),
   },
 });
-const defaultProps = computed(() => ({
+interface DefaultProps {
+  textLabelAttrs: {
+    tag: HTMLTag;
+    [key:string]: unknown;
+  };
+}
+const defaultProps = computed<DefaultProps>(() => ({
   textLabelAttrs: {
     tag: 'span',
     ...props.textLabelAttrs,

@@ -13,7 +13,7 @@
           :class="{ 'ui-datepicker__group-field--long': datePart === 'year' }"
         >
           <UiText
-            v-bind="getDefaultProp(`text${capitalizeFirst(datePart)}Attrs`)"
+            v-bind="getDefaultProp('text', datePart)"
             class="ui-datepicker__label"
           >
             {{ capitalizeFirst(defaultProps.translation[datePart]) }}
@@ -25,7 +25,7 @@
             v-bind="{
               'error': invalid && touched,
               'valid': isInputValid[datePart],
-              ...getDefaultProp(datePart),
+              ...getDefaultProp('input', datePart),
             }"
             @change-input="focusNextField"
             @focus="handleFocus($event, datePart)"
@@ -86,12 +86,7 @@ export interface DatepickerTranslation {
 }
 export type DatePart = 'day' | 'month' | 'year';
 export type DatepickerDate<T> = {[key in DatePart]: T}
-export type DefaultAttrName = `input${Capitalize<DatePart>}Attrs`
-export type DatepickerInputID = `datepicker-input-${DatePart}`
-export interface DefaultInputProps<T> {
-  id: T,
-  [key: string]: unknown
-}
+
 export type DatepickerInput = typeof UiDatepickerDayInput
   | typeof UiDatepickerMonthInput
   | typeof UiDatepickerYearInput
@@ -290,11 +285,11 @@ const defaultProps = computed(() => (
     },
   }
 ));
-const getDefaultProp = (item: DatePart | DefaultAttrName): DefaultInputProps<DatepickerInputID> => (
-  item.includes('Attrs')
-    ? defaultProps.value[item as DefaultAttrName]
-    : defaultProps.value[`input${capitalizeFirst(item as DatePart) as Capitalize<DatePart>}Attrs`]);
-provide('getDefaultProp', getDefaultProp);
+interface DefaultInputAttrs {
+  id: string;
+  [key: string]: unknown
+}
+const getDefaultProp = (element: 'text' | 'input', datePart: DatePart): Record<string, unknown> => (defaultProps.value[`${element}${capitalizeFirst(datePart) as Capitalize<DatePart>}Attrs`]);
 
 const emit = defineEmits<{(e: 'update:modelValue', value: string | null): void,
   (e: 'update:invalid', value: boolean): void,
@@ -585,7 +580,7 @@ const inputsIds = computed<Record<string, string>>(() => (
     if (match) {
       const datePart = match[1].toLowerCase();
       // eslint-disable-next-line no-param-reassign
-      ids[getDefaultProp(key as DatePart).id] = datePart;
+      ids[(getDefaultProp('input', key as DatePart) as DefaultInputAttrs).id] = datePart;
     }
     return ids;
   }, {})));

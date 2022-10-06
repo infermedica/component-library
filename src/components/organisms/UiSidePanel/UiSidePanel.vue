@@ -89,7 +89,7 @@
                   title,
                   subtitle,
                   headingTitleAttrs: defaultProps.headingTitleAttrs,
-                  textSubtitleAttrs: defaultProps.textSubtitleAttrs,
+                  textSubtitleAttrs,
                 }"
               >
                 <div
@@ -161,6 +161,7 @@ import {
   onBeforeUnmount,
   useAttrs,
 } from 'vue';
+import type { HeadingLevel } from '@/components/atoms/UiHeading/UiHeading.vue';
 import {
   focusTrap as vFocusTrap,
   bodyScrollLock as vBodyScrollLock,
@@ -174,6 +175,7 @@ import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import type { PropsAttrs } from '../../../types/attrs';
+import type { Icon } from '../../../types/icon';
 
 const props = defineProps({
   /**
@@ -287,7 +289,24 @@ if (transition.value) {
   }
 }
 // END
-const defaultProps = computed(() => ({
+interface Transition {
+  appear: boolean;
+  name: string;
+  [key: string]: unknown;
+}
+interface DefaultProps {
+  transitionBackdropAttrs: Record<string, unknown>,
+  transitionDialogAttrs: Record<string, unknown>,
+  iconCloseAttrs: {
+    icon: Icon;
+    [key: string]: unknown;
+  },
+  headingTitleAttrs: {
+    level: HeadingLevel;
+    [key: string]: unknown;
+  }
+}
+const defaultProps = computed<DefaultProps>(() => ({
   transitionBackdropAttrs: {
     appear: true,
     name: 'fade',

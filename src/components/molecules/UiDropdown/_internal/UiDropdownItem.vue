@@ -31,6 +31,7 @@ import equal from 'fast-deep-equal';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import type { DropdownValue } from '../UiDropdown.vue';
+import type { Icon } from '../../../../types/icon';
 
 const props = defineProps({
   /**
@@ -51,7 +52,13 @@ const props = defineProps({
     default: () => ({ icon: 'present' }),
   },
 });
-const defaultProps = computed(() => ({
+interface DefaultProps {
+  iconItemAttrs: {
+    icon: Icon;
+    [key:string]: unknown
+  };
+}
+const defaultProps = computed<DefaultProps>(() => ({
   iconItemAttrs: {
     icon: 'present',
     ...props.iconItemAttrs,

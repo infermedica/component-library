@@ -100,6 +100,7 @@ import UiText from '../../../atoms/UiText/UiText.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import type { MultipleChoiceOption } from '../UiMultipleChoices.vue';
+import type { Icon } from '../../../../types/icon';
 
 const props = defineProps({
   /**
@@ -176,7 +177,18 @@ const props = defineProps({
     default: () => ({ tag: 'span' }),
   },
 });
-const defaultProps = computed(() => ({
+interface DefaultProps {
+  textLabelAttrs: {
+    tag: HTMLTag;
+    [key: string]: unknown
+  };
+  iconInfoAttrs: {
+    icon: Icon;
+    [key: string]: unknown
+  };
+  [key: string]: unknown
+}
+const defaultProps = computed<DefaultProps>(() => ({
   translation: {
     info: 'What does it mean?',
     ...props.translation,
@@ -190,7 +202,7 @@ const defaultProps = computed(() => ({
     ...props.iconInfoAttrs,
   },
 }));
-const emit = defineEmits<{(e: 'update:modelValue', value: string): void}>();
+const emit = defineEmits<{(e: 'update:modelValue', value: string | Record<string, unknown>): void}>();
 const multipleChoicesItemId = computed(() => (props.id || `multiple-choices-item-${uid()}`));
 const value = computed({
   get: () => props.modelValue,

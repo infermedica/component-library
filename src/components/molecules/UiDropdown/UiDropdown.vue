@@ -68,9 +68,7 @@
                 :key="key"
               >
                 <UiDropdownItem
-                  v-bind="(()=>{const {
-                    name, text, ...rest
-                  } = item; return rest;})()"
+                  v-bind="dropdownItemAttrs(item)"
                 >
                   <!-- @slot Use this slot to replace dropdown item content. -->
                   <slot
@@ -326,9 +324,9 @@ const itemsToRender = computed(() => (props.items.map((item, key) => {
     };
   }
   return {
+    ...item,
     name: item.name || `dropdown-item-${key}`,
     value: item.value || JSON.parse(JSON.stringify(item)),
-    ...item,
   };
 })));
 
@@ -341,6 +339,12 @@ if (buttonAttrs.value) {
   }
 }
 // END
+const dropdownItemAttrs = (item: DropdownItemAsObj) => {
+  const {
+    name, text, ...rest
+  } = item;
+  return rest;
+};
 </script>
 
 <style lang="scss">

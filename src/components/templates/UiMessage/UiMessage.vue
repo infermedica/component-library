@@ -80,7 +80,10 @@ import { computed } from 'vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
-import type { Icon } from '../../../types/icon';
+import type {
+  Icon,
+  IconAsString,
+} from '../../../types/icon';
 import type { PropsAttrs } from '../../../types/attrs';
 
 const props = defineProps({
@@ -102,10 +105,7 @@ const props = defineProps({
    * Use this props to set message illustration.
    */
   illustration: {
-    type: [
-      String,
-      false,
-    ] as PropType<Icon | false>,
+    type: String as PropType<Icon>,
     default: '',
   },
   /**
@@ -130,7 +130,13 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-const defaultProps = computed(() => ({
+interface DefaultProps {
+  iconIllustrationAttrs: {
+    icon: Icon;
+    [key:string]: unknown;
+  };
+}
+const defaultProps = computed<DefaultProps>(() => ({
   iconIllustrationAttrs: {
     icon: props.illustration,
     ...props.iconIllustrationAttrs,

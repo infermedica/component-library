@@ -87,6 +87,8 @@ import UiNumberStepper from '../../molecules/UiNumberStepper/UiNumberStepper.vue
 import useInput from '../../../composable/useInput';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 import type { PropsAttrs } from '../../../types/attrs';
+import type { HTMLTag } from '../../../types/tag';
+import type { HeadingLevel } from '../UiHeading/UiHeading.vue';
 
 const props = defineProps({
   /**
@@ -163,7 +165,15 @@ if (buttonIncrementAttrs.value) {
   }
 }
 // END
-const defaultProps = computed(() => ({
+interface DefaultProps {
+  headingValueAttrs: {
+    level: HeadingLevel;
+    tag: HTMLTag;
+    [key: string]: unknown;
+  };
+  numberStepperAttrs: Record<string, unknown>;
+}
+const defaultProps = computed<DefaultProps>(() => ({
   headingValueAttrs: {
     level: 1,
     tag: 'span',

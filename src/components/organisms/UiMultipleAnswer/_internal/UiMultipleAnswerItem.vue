@@ -2,11 +2,12 @@
   <component
     :is="component"
     :id="id"
+    :value="value"
     :class="[
       'ui-multiple-answer-item', errorClass
     ]"
     :model-value="modelValue"
-    @update:model-value="emit('update:model-value', $event)"
+    @update:model-value="handleUpdateModelValue"
     @keydown="focusExplication"
   >
     <template #label>
@@ -59,6 +60,8 @@ import UiText from '../../../atoms/UiText/UiText.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import { focusElement } from '../../../../utilities/helpers/index';
+import type { HTMLTag } from '../../../../types/tag';
+import type { Icon } from '../../../../types/icon';
 
 export type ComponentName = 'ui-checkbox' | 'ui-radio';
 const props = defineProps({
@@ -79,6 +82,16 @@ const props = defineProps({
       Array,
     ],
     default: () => ([]),
+  },
+  /**
+   * Use this props to set value of choice item.
+   */
+  value: {
+    type: [
+      String,
+      Object,
+    ],
+    default: '',
   },
   /**
    * Use this props to set label of item.
@@ -116,7 +129,17 @@ const props = defineProps({
     default: () => ({ icon: 'info' }),
   },
 });
-const defaultProps = computed(() => ({
+interface DefaultProps {
+  textLabelAttrs: {
+    tag: HTMLTag;
+    [key:string]: unknown;
+  };
+  iconInfoAttrs: {
+    icon: Icon;
+    [key:string]: unknown;
+  };
+}
+const defaultProps = computed<DefaultProps>(() => ({
   textLabelAttrs: {
     tag: 'span',
     ...props.textLabelAttrs,
@@ -149,6 +172,9 @@ function unfocusExplication(event: KeyboardEvent) {
   const answerInput: HTMLInputElement | null | undefined = el.closest(`.${componentName.value}`)?.querySelector('input');
   answerInput?.focus();
 }
+const handleUpdateModelValue = (newValue: Record<string, unknown> | Record<string, unknown>[] | string[]) => {
+  emit('update:modelValue', newValue);
+};
 </script>
 
 <style lang="scss">
