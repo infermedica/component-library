@@ -3,7 +3,7 @@
     class="ui-menu-item-suffix"
   >
     <slot>
-      {{ iconLabel }}
+      {{ label }}
     </slot>
     <!-- @slot Use this slot to replace icon template  -->
     <slot
@@ -25,7 +25,10 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { PropType } from 'vue';
-import type { Icon } from '../../../../types/icon';
+import type {
+  Icon,
+  IconAsString,
+} from '../../../../types/icon';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import type { PropsAttrs } from '../../../../types/attrs';
 
@@ -33,7 +36,7 @@ const props = defineProps({
   /**
    * Use this prop to set label.
    */
-  iconLabel: {
+  label: {
     type: String,
     default: '',
   },
@@ -62,7 +65,7 @@ const props = defineProps({
 });
 const defaultProps = computed(() => ({
   iconAttrs: {
-    icon: props.icon,
+    icon: props.icon as IconAsString,
     ...props.iconAttrs,
   },
 }));

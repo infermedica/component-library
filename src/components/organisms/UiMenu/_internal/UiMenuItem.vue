@@ -1,7 +1,7 @@
 <template>
   <UiListItem
     class="ui-menu-item"
-    v-bind="menuItemAttrs"
+    v-bind="defaultProps.menuItemAttrs"
   >
     <UiButton
       :class="['ui-button--outlined ui-menu-item__button', buttonClass]"
@@ -22,21 +22,13 @@
         name="suffix"
         v-bind="{
           hasSuffix,
-          iconLabel,
-          hasIcon,
-          icon,
-          iconAttrs: suffixIconAttrs,
-          suffixAttrs,
+          ...defaultProps.suffixAttrs,
         }"
       >
         <UiMenuItemSuffix
           v-if="hasSuffix"
           :class="['ui-menu-item__suffix', suffixClass]"
-          :icon-label="iconLabel"
-          :has-icon="hasIcon"
-          :icon="icon"
-          :icon-attrs="suffixIconAttrs"
-          v-bind="suffixAttrs"
+          v-bind="defaultProps.suffixAttrs"
         />
       </slot>
     </UiButton>
@@ -86,19 +78,19 @@ const props = defineProps({
     default: '',
   },
   /**
+   * Use this prop to control icon visibility.
+   */
+  iconVisible: {
+    type: String as PropType<MenuIconVisible>,
+    default: 'default',
+  },
+  /**
    * Use this prop to set suffix attributes.
    */
   suffixAttrs: {
     type: Object as PropsAttrs,
     default: () => ({
     }),
-  },
-  /**
-   * Use this prop to control icon visibility.
-   */
-  iconVisible: {
-    type: String as PropType<MenuIconVisible>,
-    default: 'default',
   },
   /**
    * Use this prop to set icon suffix attributes.
@@ -132,18 +124,26 @@ const defaultProps = computed(() => ({
       }),
     ...props.buttonMenuItemAttrs,
   },
+  menuItemAttrs: {
+    ...Object.keys(attrs)
+      .filter((key) => (!key.match(/^on.*/gi)))
+      .reduce((object, key) => (
+        {
+          ...object,
+          [key]: attrs[key],
+        }
+      ), {
+      }),
+  },
+  suffixAttrs: {
+    label: props.iconLabel,
+    icon: props.icon,
+    hasIcon: hasIcon.value,
+    iconAttrs: props.suffixIconAttrs,
+    ...props.suffixAttrs,
+  },
 }));
-const menuItemAttrs = computed(() => ({
-  ...Object.keys(attrs)
-    .filter((key) => (!key.match(/^on.*/gi)))
-    .reduce((object, key) => (
-      {
-        ...object,
-        [key]: attrs[key],
-      }
-    ), {
-    }),
-}));
+
 </script>
 
 <style lang="scss">
