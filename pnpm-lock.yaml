@@ -80,6 +80,7 @@ specifiers:
   vite-svg-loader: ^3.4.0
   vitest: ^0.18.1
   vue: ^3.2.37
+  vue-docgen-api: ^4.52.0
   vue-loader: ^17.0.0
   vue-tsc: ^0.40.13
 
@@ -165,6 +166,7 @@ devDependencies:
   typescript: 4.7.4
   uppercamelcase: 3.0.0
   vitest: 0.18.1_jsdom@20.0.0+sass@1.54.0
+  vue-docgen-api: 4.52.0_vue@3.2.37
   vue-loader: 17.0.0_webpack@5.74.0
   vue-tsc: 0.40.13_typescript@4.7.4
 
@@ -4050,8 +4052,8 @@ packages:
       ts-dedent: 2.2.0
       ts-loader: 8.4.0_xnp4kzegbjokq62cajex2ovgkm
       vue: 3.2.37
-      vue-docgen-api: 4.47.0_vue@3.2.37
-      vue-docgen-loader: 1.5.1_xss7jou436pemdpsjwyxs4iuvi
+      vue-docgen-api: 4.52.0_vue@3.2.37
+      vue-docgen-loader: 1.5.1_dnyaot7evtjkr6ie5knxyk6nha
       vue-loader: 16.8.3_26lts6h3dwnn3u2cewz7ufvryq
       webpack: 5.74.0
     transitivePeerDependencies:
@@ -4622,7 +4624,7 @@ packages:
       '@vue/compiler-dom': 3.2.39
       '@vue/compiler-sfc': 3.2.39
       '@vue/reactivity': 3.2.40
-      '@vue/shared': 3.2.39
+      '@vue/shared': 3.2.40
     dev: true
 
   /@volar/vue-typescript/0.40.13:
@@ -5521,6 +5523,13 @@ packages:
 
   /ast-types/0.14.2:
     resolution: {integrity: sha512-O0yuUDnZeQDL+ncNGlJ78BiO4jnYI3bvMsD5prT0/nsgijG/LpNBIr63gTjVTNsiGkgQhiyCShTgxt8oXOrklA==}
+    engines: {node: '>=4'}
+    dependencies:
+      tslib: 2.4.0
+    dev: true
+
+  /ast-types/0.15.2:
+    resolution: {integrity: sha512-c27loCv9QkZinsa5ProX751khO9DJl/AcB5c2KNtA6NRvHKS0PgLfcftz72KVq504vB0Gku5s2kUZzDBvQWvHg==}
     engines: {node: '>=4'}
     dependencies:
       tslib: 2.4.0
@@ -13533,6 +13542,16 @@ packages:
       tslib: 2.4.0
     dev: true
 
+  /recast/0.21.1:
+    resolution: {integrity: sha512-PF61BHLaOGF5oIKTpSrDM6Qfy2d7DIx5qblgqG+wjqHuFH97OgAqBYFIJwEuHTrM6pQGT17IJ8D0C/jVu/0tig==}
+    engines: {node: '>= 4'}
+    dependencies:
+      ast-types: 0.15.2
+      esprima: 4.0.1
+      source-map: 0.6.1
+      tslib: 2.4.0
+    dev: true
+
   /redent/1.0.0:
     resolution: {integrity: sha512-qtW5hKzGQZqKoh6JNSD+4lfitfPKGz42e6QwiRmPM5mmKtR0N41AbJRYu0xJi7nhOJ4WDgRkKvAk6tw4WIwR4g==}
     engines: {node: '>=0.10.0'}
@@ -15818,8 +15837,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /vue-docgen-api/4.47.0_vue@3.2.37:
-    resolution: {integrity: sha512-xUsD8vDpcIZNVQM/Jh8/ZUw+sfwLSvpW5awi7kxDX9bGvTIIDh7mXEEqnOmndYXR6620lGNj23uY9bJTFhim6w==}
+  /vue-docgen-api/4.52.0_vue@3.2.37:
+    resolution: {integrity: sha512-2HSt9KLQ/ehJiwV4+6LgOjRqzh37vtUv6sKhSIp3CAPlwSd4/Bq2uvbs0+GJxdfrMnVquwY5DOavgNSEHsPA2w==}
     dependencies:
       '@babel/parser': 7.18.9
       '@babel/types': 7.18.9
@@ -15829,14 +15848,14 @@ packages:
       hash-sum: 1.0.2
       lru-cache: 4.1.5
       pug: 3.0.2
-      recast: 0.20.5
+      recast: 0.21.1
       ts-map: 1.0.3
-      vue-inbrowser-compiler-utils: 4.46.0_vue@3.2.37
+      vue-inbrowser-compiler-independent-utils: 4.54.1_vue@3.2.37
     transitivePeerDependencies:
       - vue
     dev: true
 
-  /vue-docgen-loader/1.5.1_xss7jou436pemdpsjwyxs4iuvi:
+  /vue-docgen-loader/1.5.1_dnyaot7evtjkr6ie5knxyk6nha:
     resolution: {integrity: sha512-coMmQYsg+fy18SVtBNU7/tztdqEyrneFfwQFLmx8O7jaJ11VZ//9tRWXlwGzJM07cPRwMHDKMlAdWrpuw3U46A==}
     engines: {node: '>= 8.16'}
     peerDependencies:
@@ -15847,7 +15866,7 @@ packages:
       jscodeshift: 0.13.1_@babel+preset-env@7.18.9
       loader-utils: 1.4.0
       querystring: 0.2.1
-      vue-docgen-api: 4.47.0_vue@3.2.37
+      vue-docgen-api: 4.52.0_vue@3.2.37
       webpack: 5.74.0
     transitivePeerDependencies:
       - '@babel/preset-env'
@@ -15872,23 +15891,12 @@ packages:
       - supports-color
     dev: true
 
-  /vue-inbrowser-compiler-demi/4.45.0_vue@3.2.37:
-    resolution: {integrity: sha512-nZnPwiW0y2d7vEyAGI/0lZS/iVFHmHMDhdLiakcW5Wn5HJ+wiKWYUU4ZkKqErBKFSpmbnpFFS0mUToUZq0NhZA==}
-    requiresBuild: true
+  /vue-inbrowser-compiler-independent-utils/4.54.1_vue@3.2.37:
+    resolution: {integrity: sha512-hQN3mzLmWM33Ua2Oua5OgF8/BJjP6+T1Wzea5xHDRYCwVvJo2pxSJLhVqluaeBe3PB5vquMddceaKC4mhLe25A==}
     peerDependencies:
       vue: '>=2'
     dependencies:
       vue: 3.2.37
-    dev: true
-
-  /vue-inbrowser-compiler-utils/4.46.0_vue@3.2.37:
-    resolution: {integrity: sha512-leyj8EpYJixnrjWL/YZF/cF88jEyrAEUiorqoVkIxlkxWlxwQWHPoiAHZBLAfUXc5ZLzQ6uoBJXA2kHJ7A2EJg==}
-    peerDependencies:
-      vue: '>=2'
-    dependencies:
-      camelcase: 5.3.1
-      vue: 3.2.37
-      vue-inbrowser-compiler-demi: 4.45.0_vue@3.2.37
     dev: true
 
   /vue-loader/16.8.3_26lts6h3dwnn3u2cewz7ufvryq:
