@@ -268,7 +268,12 @@ const defaultProps = computed(() => ({
   @each $type in $types {
     &--#{$type} {
       #{$this}__triage {
-        background: functions.var($element + "-triage", background, var(--color-triage-#{str-replace($type, "_", "-")}));
+        background:
+          functions.var(
+            $element + "-triage",
+            background,
+            var(--color-triage-#{str-replace($type, "_", "-")})
+          );
       }
     }
   }

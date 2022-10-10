@@ -234,7 +234,11 @@ const defaultProps = computed<DefaultProps>(() => ({
   }
 
   &__bottom {
-    @include mixins.inner-border($element: $element + "-bottom", $color:  var(--color-border-divider), $width: 1px 0 0 0);
+    @include mixins.inner-border(
+      $element: $element + "-bottom",
+      $color:  var(--color-border-divider),
+      $width: 1px 0 0 0
+    );
 
     display: flex;
     height: functions.var($element + "-bottom", height, 5rem);

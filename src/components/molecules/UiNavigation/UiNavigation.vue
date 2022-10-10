@@ -111,7 +111,12 @@ const navigationItemAttrs = (item: NavigationItem) => {
   $element: navigation;
 
   display: flex;
-  flex-flow: functions.var($element, flex-flow, functions.var($element, flex-direction, row) functions.var($element, flex-wrap, wrap));
+  flex-flow:
+    functions.var(
+      $element,
+      flex-flow,
+      functions.var($element, flex-direction, row) functions.var($element, flex-wrap, wrap)
+    );
   align-items: functions.var($element, align-items, center);
   justify-content: functions.var($element, justify-content, flex-start);
   margin: functions.var($element, margin, 0 calc(var(--space-8) * -1));

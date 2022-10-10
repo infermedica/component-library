@@ -58,7 +58,12 @@ const {
   $this: &;
   $element: button;
 
-  @include mixins.inner-border($element, $color: var(--color-border-subtle), $width: 0, $radius: var(--border-radius-button));
+  @include mixins.inner-border(
+    $element,
+    $color: var(--color-border-subtle),
+    $width: 0,
+    $radius: var(--border-radius-button)
+  );
   @include mixins.font($element, button-1);
 
   display: inline-flex;

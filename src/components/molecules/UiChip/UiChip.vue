@@ -128,8 +128,18 @@ if (buttonAttrs.value) {
   &__icon {
     --_remove-filled-close: #{functions.var($element + "-remove-filled-close", color, var(--color-chip-icon))};
     --button-icon-color: #{functions.var($element + "-icon", color, var(--color-chip-icon-background))};
-    --button-hover-icon-color: #{functions.var($element + "-icon-hover", color, var(--color-chip-icon-background-hover))};
-    --button-active-icon-color: #{functions.var($element + "-icon-active", color, var(--color-chip-icon-background-active))};
+    --button-hover-icon-color:
+      #{functions.var(
+        $element + "-icon-hover",
+        color,
+        var(--color-chip-icon-background-hover)
+      )};
+    --button-active-icon-color:
+      #{functions.var(
+        $element + "-icon-active",
+        color,
+        var(--color-chip-icon-background-active)
+      )};
 
     margin: functions.var($element + "-icon", margin, -2px);
   }
@@ -138,7 +148,12 @@ if (buttonAttrs.value) {
     margin: functions.var($element + "-remove", margin, var(--space-2) var(--space-2) var(--space-2) var(--space-4));
 
     [dir="rtl"] & {
-      margin: functions.var($element + "-rtl-remove", margin, var(--space-2) var(--space-4) var(--space-2) var(--space-2));
+      margin:
+        functions.var(
+          $element + "-rtl-remove",
+          margin,
+          var(--space-2) var(--space-4) var(--space-2) var(--space-2)
+        );
     }
   }
 }

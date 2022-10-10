@@ -270,6 +270,7 @@ const itemsToRender = computed(() => (Array.from({ length: maxScore.value }, (_,
   };
 })));
 const ratingItemAttrs = (item: Record<string, unknown>) => {
+  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   const {
     iconActiveAttrs, iconDefaultAttrs, index, ...rest
   } = item;

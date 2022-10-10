@@ -177,8 +177,18 @@ onMounted(async () => {
 
   &__tab-button {
     --button-color: #{functions.var($element + "-tab-button", color, var(--color-text-action-primary))};
-    --button-hover-color: #{functions.var($element + "-tab-button-hover", color, var(--color-text-action-primary-hover))};
-    --button-active-color: #{functions.var($element + "-tab-button-active", color, var(--color-text-action-primary-active))};
+    --button-hover-color:
+      #{functions.var(
+        $element + "-tab-button-hover",
+        color,
+        var(--color-text-action-primary-hover)
+      )};
+    --button-active-color:
+      #{functions.var(
+        $element + "-tab-button-active",
+        color,
+        var(--color-text-action-primary-active)
+      )};
     --button-font: #{functions.var($element + "-tab-button", font, var(--font-body-1))};
     --button-letter-spacing: #{functions.var($element + "-tab-button", letter-spacing, var(--letter-spacing-body-1))};
 

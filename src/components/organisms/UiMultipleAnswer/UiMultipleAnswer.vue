@@ -261,7 +261,11 @@ if (choiceItem.value) {
   }
 
   &__list-item {
-    @include mixins.inner-border($element: multiple-answer-list-item, $color: var(--color-border-divider), $width: 1px 0 0 0);
+    @include mixins.inner-border(
+      $element: multiple-answer-list-item,
+      $color: var(--color-border-divider),
+      $width: 1px 0 0 0
+    );
 
     --list-item-padding: 0;
 

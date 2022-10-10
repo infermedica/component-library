@@ -282,7 +282,11 @@ const optionsToRender = computed(() => props.options.map((option) => ({
   }
 
   &__option {
-    @include mixins.inner-border($element: multiple-answer-list-item, $color: var(--color-border-divider), $width: 1px 0 0 0);
+    @include mixins.inner-border(
+      $element: multiple-answer-list-item,
+      $color: var(--color-border-divider),
+      $width: 1px 0 0 0
+    );
 
     padding: functions.var($element + "-option", padding, var(--space-12) var(--space-20));
     margin: functions.var($element + "-option", margin, 0);

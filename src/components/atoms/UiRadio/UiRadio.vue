@@ -190,7 +190,12 @@ if (radiobutton.value) {
         }
 
         #{$this}__mark {
-          background: functions.var($element + "-checked-hover-mark", color, var(--color-selectioncontrols-selection-hover));
+          background:
+            functions.var(
+              $element + "-checked-hover-mark",
+              color,
+              var(--color-selectioncontrols-selection-hover)
+            );
         }
       }
     }

@@ -80,10 +80,7 @@ import { computed } from 'vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
-import type {
-  Icon,
-  IconAsString,
-} from '../../../types/icon';
+import type { Icon } from '../../../types/icon';
 import type { PropsAttrs } from '../../../types/attrs';
 
 const props = defineProps({

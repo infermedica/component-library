@@ -275,7 +275,12 @@ const stepsToRender = computed<Step[]>(() => props.steps.map((step) => ({
       #{$this}__item {
         --button-color: #{functions.var($element + "-item", color, var(--color-text-body))};
         --button-font: #{functions.var($element + "-item", font, var(--font-body-1-thick))};
-        --button-letter-spacing: #{functions.var($element + "-item", letter-spacing, var(--letter-spacing-body-1-thick))};
+        --button-letter-spacing:
+          #{functions.var(
+            $element + "-item",
+            letter-spacing,
+            var(--letter-spacing-body-1-thick)
+          )};
 
         cursor: auto;
       }

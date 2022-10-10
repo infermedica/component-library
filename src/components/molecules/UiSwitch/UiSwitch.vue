@@ -117,14 +117,24 @@ const updateHandler = (value: CheckboxModelValue): void => {
     @include mixins.hover {
       #{$this}__control {
         --switch-control-color: #{functions.var($element + "-hover", color, var(--color-switch-disabled))};
-        --switch-control-checked-color: #{functions.var($element + "-checked-hover", color, var(--color-switch-disabled))};
+        --switch-control-checked-color:
+          #{functions.var(
+            $element + "-checked-hover",
+            color,
+            var(--color-switch-disabled)
+          )};
       }
     }
 
     &:active {
       #{$this}__control {
         --switch-control-color: #{functions.var($element + "-active", color, var(--color-switch-disabled))};
-        --switch-control-checked-color: #{functions.var($element + "-checked-active", color, var(--color-switch-disabled))};
+        --switch-control-checked-color:
+          #{functions.var(
+            $element + "-checked-active",
+            color,
+            var(--color-switch-disabled)
+          )};
       }
     }
   }

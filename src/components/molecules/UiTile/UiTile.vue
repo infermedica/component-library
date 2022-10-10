@@ -203,8 +203,18 @@ function selectHandler(): void {
   &--is-checked {
     --button-border-width: #{functions.var($element + "-checked", width, 2px)};
     --button-border-color: #{functions.var($element + "-checked", color-border, var(--color-border-strong))};
-    --button-hover-border-color: #{functions.var($element + "-hover-checked", color-border, var(--color-border-strong))};
-    --button-active-border-color: #{functions.var($element + "-active-checked", color-border, var(--color-border-strong))};
+    --button-hover-border-color:
+      #{functions.var(
+        $element + "-hover-checked",
+        color-border,
+        var(--color-border-strong)
+      )};
+    --button-active-border-color:
+      #{functions.var(
+        $element + "-active-checked",
+        color-border,
+        var(--color-border-strong)
+      )};
   }
 
   &--has-error {

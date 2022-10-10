@@ -207,7 +207,12 @@ if (checkbutton.value) {
       }
 
       &--is-checked {
-        background: functions.var($element + "-checked-hover", background, var(--color-selectioncontrols-selection-hover));
+        background:
+          functions.var(
+            $element + "-checked-hover",
+            background,
+            var(--color-selectioncontrols-selection-hover)
+          );
 
         &::after {
           border-color:
@@ -372,7 +377,12 @@ if (checkbutton.value) {
           background: functions.var($element + "-checked-hover", background, var(--color-border-error-strong-hover));
 
           &::after {
-            border-color: functions.var($element + "-checked-hover", border-color, var(--color-border-error-strong-hover));
+            border-color:
+              functions.var(
+                $element + "-checked-hover",
+                border-color,
+                var(--color-border-error-strong-hover)
+              );
           }
         }
       }
@@ -388,7 +398,12 @@ if (checkbutton.value) {
           background: functions.var($element + "-checked-active", background, var(--color-border-error-strong-active));
 
           &::after {
-            border-color: functions.var($element + "-checked-active", border-color, var(--color-border-error-strong-active));
+            border-color:
+              functions.var(
+                $element + "-checked-active",
+                border-color,
+                var(--color-border-error-strong-active)
+              );
           }
         }
       }
