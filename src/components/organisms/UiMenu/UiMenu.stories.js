@@ -18,30 +18,15 @@ export default {
   },
   args: {
     items: [
-      {
-        label: 'For business',
-        iconVisible: 'never',
-      },
-      {
-        label: 'Medical Certification',
-        iconVisible: 'never',
-      },
-      {
-        label: 'Instruction for Use',
-        iconVisible: 'never',
-      },
-      {
-        label: 'Terms of Service',
-        iconVisible: 'never',
-      },
+      { label: 'For business' },
+      { label: 'Medical Certification' },
+      { label: 'Instruction for Use' },
+      { label: 'Terms of Service' },
       {
         label: 'Privacy policy',
-        iconVisible: 'never',
+        class: 'ui-menu-item--is-selected',
       },
-      {
-        label: 'Interview ID',
-        iconVisible: 'never',
-      },
+      { label: 'Interview ID' },
     ],
   },
   parameters: { docs: { page: docs } },
@@ -55,7 +40,7 @@ const Template = (args) => ({
   template: '<UiMenu :items="items"/>',
 });
 
-export const Common = Template.bind({});
+export const WithSelectedItem = Template.bind({});
 
 export const WithItemsAsString = Template.bind({});
 WithItemsAsString.args = {

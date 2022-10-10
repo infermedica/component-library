@@ -15,7 +15,7 @@
     >
       <UiIcon
         v-if="hasIcon"
-        class="ui-menu-item-suffix__icon"
+        class="ui-button__icon ui-menu-item-suffix__icon"
         v-bind="defaultProps.iconAttrs"
       />
     </slot>
