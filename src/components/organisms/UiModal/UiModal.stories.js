@@ -4,7 +4,11 @@ import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
-import { ref } from 'vue';
+import {
+  ref,
+  provide,
+  inject,
+} from 'vue';
 import { actions } from '@storybook/addon-actions';
 import {
   bodyScrollLock,
@@ -12,6 +16,7 @@ import {
 } from '@/utilities/directives/index';
 
 const events = actions({
+  onUpdateModelValue: 'update:modelValue',
   onConfirm: 'confirm',
   onCancel: 'cancel',
 });
@@ -23,18 +28,6 @@ export default {
     initModelValue: true,
     title: 'Start new checkup?',
     description: 'You will have to answer the question again.',
-    buttonConfirmAttrs: {
-      id: 'confirm',
-      'aria-label': 'yes, start new checkup',
-    },
-    buttonCancelAttrs: {
-      id: 'cancel',
-      'aria-label': 'cancel',
-    },
-    buttonCloseAttrs: {
-      id: 'close',
-      'aria-label': 'close panel',
-    },
     isClosable: true,
     hasCancel: true,
     hasConfirm: true,
@@ -42,21 +35,30 @@ export default {
       confirm: 'Yes, start new checkup',
       cancel: 'Cancel',
     },
+    transitionBackdropAttrs: { 'data-testid': 'backdrop-transition' },
+    backdropAttrs: { 'data-testid': 'backdrop' },
+    transitionDialogAttrs: { 'data-testid': 'dialog-transition' },
+    dialogAttrs: { 'data-testid': 'dialog-element' },
+    headingTitleAttrs: { 'data-testid': 'title-heading' },
+    textDescriptionAttrs: { 'data-testid': 'description-text' },
+    buttonConfirmAttrs: { 'data-testid': 'confirm-button' },
+    buttonCancelAttrs: { 'data-testid': 'cancel-button' },
+    buttonCloseAttrs: {
+      'data-testid': 'close-button',
+      ariaLabel: 'close modal',
+    },
+    iconCloseAttrs: { 'data-testid': 'close-icon' },
     'update:modelValue': null,
   },
   argTypes: {
     initModelValue: {
       description: 'Use this control to set initial state.',
-      table: {
-        category: 'stories controls',
-      },
+      table: { category: 'stories controls' },
       control: 'boolean',
     },
     title: {
       description: 'Use this props to set dialog title.',
-      table: {
-        category: 'props',
-      },
+      table: { category: 'props' },
       control: 'text',
     },
     titleSlot: {
@@ -64,9 +66,7 @@ export default {
       description: 'Use this slot to replace title template.',
       table: {
         category: 'slots',
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
       },
       control: 'object',
     },
@@ -74,9 +74,7 @@ export default {
       description: 'Use this props to set dialog description.',
       table: {
         category: 'props',
-        type: {
-          summary: 'string',
-        },
+        type: { summary: 'string' },
       },
       control: 'text',
     },
@@ -85,129 +83,139 @@ export default {
       description: 'Use this slot to replace description template.',
       table: {
         category: 'slots',
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
       },
       control: 'object',
     },
-    modelValue: {
-      control: false,
-    },
+    modelValue: { control: false },
+    transitionBackdropAttrs: { table: { subcategory: 'Attrs props' } },
+    transitionDialogAttrs: { table: { subcategory: 'Attrs props' } },
+    backdropAttrs: { table: { subcategory: 'Attrs props' } },
+    dialogAttrs: { table: { subcategory: 'Attrs props' } },
+    headingTitleAttrs: { table: { subcategory: 'Attrs props' } },
+    textDescriptionAttrs: { table: { subcategory: 'Attrs props' } },
+    buttonConfirmAttrs: { table: { subcategory: 'Attrs props' } },
+    buttonCancelAttrs: { table: { subcategory: 'Attrs props' } },
+    buttonCloseAttrs: { table: { subcategory: 'Attrs props' } },
+    iconCloseAttrs: { table: { subcategory: 'Attrs props' } },
   },
-  decorators: [() => ({
-    template: '<div style="minHeight: 320px"><story /></div>',
-  })],
-  parameters: {
-    docs: {
-      description: {
-        component: 'Modal use `v-body-scroll-lock`. Only works on Canvas mode.',
-      },
+  decorators: [ (story, { args }) => ({
+    components: {
+      story,
+      UiButton,
     },
-  },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      const toggleModal = () => {
+        modelValue.value = !modelValue.value;
+      };
+      provide('modelValue', modelValue);
+      return { toggleModal };
+    },
+    template: `<div style="minHeight: 320px">
+      <UiButton
+          class="ui-button--theme-secondary ui-button--text"
+          @click='toggleModal'
+      >
+        Show modal
+      </UiButton>
+      <story/>
+    </div>`,
+  }) ],
+  parameters: { docs: { description: { component: 'Modal use `v-body-scroll-lock`. Only works on Canvas mode.' } } },
 };
 
 const Template = (args) => ({
-  components: {
-    UiButton,
-    UiModal,
-  },
+  components: { UiModal },
   setup() {
-    const modelValue = ref(args.initModelValue);
-    const toggleModal = () => {
-      modelValue.value = !modelValue.value;
-    };
+    const modelValue = inject('modelValue');
     return {
       ...args,
       ...events,
       modelValue,
-      toggleModal,
     };
   },
-  template: `<UiButton 
-    class="ui-button--theme-secondary ui-button--text"
-    @click='toggleModal'
-  >
-    Show modal
-  </UiButton>
-  <UiModal
+  template: `<UiModal
     v-model="modelValue"
     :title='title'
     :description='description'
+    :is-closable="isClosable"
+    :has-cancel="hasCancel"
+    :has-confirm="hasConfirm"
     :translation="translation"
-    :isClosable="isClosable"
-    :hasConfirm="hasConfirm"
-    :hasCancel="hasCancel"
-    :buttonConfirmAttrs="buttonConfirmAttrs"
-    :buttonCancelAttrs="buttonCancelAttrs"
-    :buttonCloseAttrs="buttonCloseAttrs"
+    :transition-backdrop-attrs="translationBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-description-attrs="textDescriptionAttrs"
+    :button-confirm-attrs="buttonConfirmAttrs"
+    :button-cancel-attrs="buttonCancelAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    :dialog-attrs="dialogAttrs"
+    @update:modelValue="onUpdateModelValue"
     @confirm="onConfirm"
     @cancel="onCancel"
   />`,
 });
 
-export const StartNewCheckup = Template.bind({
-});
+export const StartNewCheckup = Template.bind({});
 
-export const WithoutTitle = Template.bind({
-});
+export const WithoutTitle = Template.bind({});
 WithoutTitle.args = {
   title: '',
   description: 'Delete this file?',
-  translation: {
-    confirm: 'Yes, delete',
-    cancel: 'Cancel',
-  },
-};
-WithoutTitle.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/54rgvRJfBBagt4F34rrp1s/Core-Component-Library?node-id=1085%3A44053',
-  },
+  translation: { confirm: 'Yes, delete' },
 };
 
 export const WithBackdropSlot = (args) => ({
   components: {
-    UiBackdrop,
-    UiButton,
     UiModal,
+    UiBackdrop,
   },
   setup() {
-    const modelValue = ref(args.initModelValue);
-    const toggleModal = () => {
-      modelValue.value = !modelValue.value;
-    };
+    const modelValue = inject('modelValue');
     return {
       ...args,
       ...events,
       modelValue,
-      toggleModal,
     };
   },
-  template: `<UiButton
-    class="ui-button--theme-secondary ui-button--text"
-    @click="toggleModal"
-  >
-    Show modal
-  </UiButton>
-  <UiModal
-    v-model="refModelValue"
+  template: `<UiModal
+    v-model="modelValue"
     :title='title'
     :description='description'
+    :is-closable="isClosable"
+    :has-cancel="hasCancel"
+    :has-confirm="hasConfirm"
     :translation="translation"
-    :isClosable="isClosable"
-    :hasConfirm="hasConfirm"
-    :hasCancel="hasCancel"
-    :buttonConfirmAttrs="buttonConfirmAttrs"
-    :buttonCancelAttrs="buttonCancelAttrs"
-    :buttonCloseAttrs="buttonCloseAttrs"
+    :transition-backdrop-attrs="translationBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-description-attrs="textDescriptionAttrs"
+    :button-confirm-attrs="buttonConfirmAttrs"
+    :button-cancel-attrs="buttonCancelAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    :dialog-attrs="dialogAttrs"
+    @update:modelValue="onUpdateModelValue"
     @confirm="onConfirm"
     @cancel="onCancel"
   >
-    <template #backdrop="{closeHandler, modelValue}">
-      <transition name="fade">
+    <template 
+      #backdrop="{
+        transitionBackdropAttrs,
+        modelValue,
+        backdropAttrs,
+        closeHandler, 
+      }"
+    >
+      <transition v-bind="transitionBackdropAttrs">
         <UiBackdrop
           v-if="modelValue"
+          v-bind="UiBackdrop"
+          class="ui-modal__backdrop"
           @click="closeHandler"
         />
       </transition>
@@ -228,88 +236,123 @@ export const WithContainerSlot = (args) => ({
     bodyScrollLock,
   },
   setup() {
-    const modelValue = ref(args.initModelValue);
-    const toggleModal = () => {
-      modelValue.value = !modelValue.value;
-    };
+    const modelValue = inject('modelValue');
     return {
       ...args,
       ...events,
       modelValue,
-      toggleModal,
     };
   },
-  template: `<UiButton
-    class="ui-button--theme-secondary ui-button--text"
-    @click="toggleModal"
-  >
-    Show modal
-  </UiButton>
-  <UiModal
+  template: `<UiModal
     v-model="modelValue"
     :title='title'
     :description='description'
+    :is-closable="isClosable"
+    :has-cancel="hasCancel"
+    :has-confirm="hasConfirm"
     :translation="translation"
-    :isClosable="isClosable"
-    :hasConfirm="hasConfirm"
-    :hasCancel="hasCancel"
-    :buttonConfirmAttrs="buttonConfirmAttrs"
-    :buttonCancelAttrs="buttonCancelAttrs"
-    :buttonCloseAttrs="buttonCloseAttrs"
+    :transition-backdrop-attrs="translationBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-description-attrs="textDescriptionAttrs"
+    :button-confirm-attrs="buttonConfirmAttrs"
+    :button-cancel-attrs="buttonCancelAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    :dialog-attrs="dialogAttrs"
+    @update:modelValue="onUpdateModelValue"
     @confirm="onConfirm"
     @cancel="onCancel"
   >
-    <template #container="{ confirmHandler, cancelHandler, closeHandler, isClosable, modelValue}">
+    <template
+      #container="{
+        transitionDialogAttrs,
+        modelValue,
+        title,
+        hasHeader,
+        titleSlotName,
+        titleTag,
+        titleAttrs,
+        titleText,
+        description,
+        buttonCloseAttrs,
+        confirmHandler,
+        cancelHandler,
+        closeHandler,
+        iconCloseAttrs,
+        hasDescription,
+        textDescriptionAttrs,
+        isClosable,
+        hasActions,
+        hasConfirm,
+        buttonConfirmAttrs,
+        translation,
+        hasCancel,
+        buttonCancelAttrs,
+        dialogAttrs,
+      }"
+    >
       <transition
-        name="fade"
+        v-bind="transitionDialogAttrs"
       >
         <dialog
           v-if="modelValue"
           v-focus-trap
           v-body-scroll-lock
+          v-bind="dialogAttrs"
           class="ui-modal__dialog"
-          :class="{'ui-modal__dialog--has-title': title}"
+          :class="{
+            'ui-modal__dialog--has-title': title
+          }"
         >
           <div
+            v-if="hasHeader"
             class="ui-modal__header"
           >
-            <UiHeading
+            <component
+              :is="titleTag"
+              v-bind="titleAttrs"
               class="ui-modal__title"
             >
-              {{ title }}
-            </UiHeading>
+              {{ titleText }}
+            </component>
             <UiButton
+              v-if="isClosable"
+              v-bind="buttonCloseAttrs"
               class="ui-button--icon ui-button--theme-secondary ui-modal__close"
-              v-bind="{ buttonCloseAttrs }"
-              @click="closeHandler()"
+              @click="closeHandler"
             >
-              <UiIcon 
-                icon="close"
+              <UiIcon
+                v-bind="iconCloseAttrs"
                 class="ui-button__icon"
               />
             </UiButton>
           </div>
           <UiText
+            v-if="hasDescription"
+            v-bind="textDescriptionAttrs"
             class="ui-modal__description"
           >
             {{ description }}
           </UiText>
           <div
+            v-if="hasActions"
             class="ui-modal__actions"
           >
             <template v-if="isClosable">
               <UiButton
                 v-if="hasConfirm"
-                class="ui-modal__confirm"
                 v-bind="buttonConfirmAttrs"
+                class="ui-modal__confirm"
                 @click="confirmHandler"
               >
                 {{ translation.confirm }}
               </UiButton>
               <UiButton
                 v-if="hasCancel"
-                class="ui-button--outlined ui-modal__cancel"
                 v-bind="buttonCancelAttrs"
+                class="ui-button--outlined ui-modal__cancel"
                 @click="cancelHandler"
               >
                 {{ translation.cancel }}
@@ -318,16 +361,16 @@ export const WithContainerSlot = (args) => ({
             <template v-else>
               <UiButton
                 v-if="hasCancel"
-                class="ui-button--outlined ui-modal__cancel"
                 v-bind="buttonCancelAttrs"
+                class="ui-button--outlined ui-modal__cancel"
                 @click="cancelHandler"
               >
                 {{ translation.cancel }}
               </UiButton>
               <UiButton
                 v-if="hasConfirm"
-                class="ui-modal__confirm ui-modal__confirm--order"
                 v-bind="buttonConfirmAttrs"
+                class="ui-modal__confirm ui-modal__confirm--order"
                 @click="confirmHandler"
               >
                 {{ translation.confirm }}
@@ -343,7 +386,6 @@ export const WithContainerSlot = (args) => ({
 export const WithHeaderSlot = (args) => ({
   components: {
     UiModal,
-    UiButton,
     UiText,
     UiHeading,
     UiIcon,
@@ -353,64 +395,78 @@ export const WithHeaderSlot = (args) => ({
     bodyScrollLock,
   },
   setup() {
-    const modelValue = ref(args.initModelValue);
-    const toggleModal = () => {
-      modelValue.value = !modelValue.value;
-    };
+    const modelValue = inject('modelValue');
     return {
       ...args,
       ...events,
       modelValue,
-      toggleModal,
     };
   },
-  template: `<UiButton
-    class="ui-button--theme-secondary ui-button--text"
-    @click="toggleModal"
-  >
-    Show modal
-  </UiButton>
-  <UiModal
+  template: `<UiModal
     v-model="modelValue"
     :title='title'
     :description='description'
+    :is-closable="isClosable"
+    :has-cancel="hasCancel"
+    :has-confirm="hasConfirm"
     :translation="translation"
-    :isClosable="isClosable"
-    :hasConfirm="hasConfirm"
-    :hasCancel="hasCancel"
-    :buttonConfirmAttrs="buttonConfirmAttrs"
-    :buttonCancelAttrs="buttonCancelAttrs"
-    :buttonCloseAttrs="buttonCloseAttrs"
+    :transition-backdrop-attrs="translationBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-description-attrs="textDescriptionAttrs"
+    :button-confirm-attrs="buttonConfirmAttrs"
+    :button-cancel-attrs="buttonCancelAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    :dialog-attrs="dialogAttrs"
+    @update:modelValue="onUpdateModelValue"
     @confirm="onConfirm"
     @cancel="onCancel"
   >
-    <template
-      #header="{ closeHandler, description, hasDescription, hasHeader, isClosable, titleTag, titleText }"
+    <template 
+      #header="{
+        hasHeader,
+        titleSlotName,
+        titleTag,
+        titleAttrs,
+        titleText,
+        description,
+        isClosable,
+        buttonCloseAttrs,
+        closeHandler,
+        iconCloseAttrs,
+        title,
+        hasDescription,
+        textDescriptionAttrs,
+      }"
     >
       <div
         v-if="hasHeader"
         class="ui-modal__header"
       >
-        <UiHeading
+        <component
+          :is="titleTag"
+          v-bind="titleAttrs"
           class="ui-modal__title"
         >
-          {{ title }}
-        </UiHeading>
+          {{ titleText }}
+        </component>
         <UiButton
           v-if="isClosable"
-          class="ui-button--icon ui-button--theme-secondary ui-modal__close"
           v-bind="buttonCloseAttrs"
-          @click="closeHandler()"
+          class="ui-button--icon ui-button--theme-secondary ui-modal__close"
+          @click="closeHandler"
         >
-          <UiIcon 
-            icon="close"
+          <UiIcon
+            v-bind="iconCloseAttrs"
             class="ui-button__icon"
           />
         </UiButton>
       </div>
-
       <UiText
         v-if="hasDescription"
+        v-bind="textDescriptionAttrs"
         class="ui-modal__description"
       >
         {{ description }}
@@ -422,7 +478,6 @@ export const WithHeaderSlot = (args) => ({
 export const WithTitleSlot = (args) => ({
   components: {
     UiModal,
-    UiButton,
     UiHeading,
   },
   directives: {
@@ -430,43 +485,50 @@ export const WithTitleSlot = (args) => ({
     bodyScrollLock,
   },
   setup() {
-    const modelValue = ref(args.initModelValue);
-    const toggleModal = () => {
-      modelValue.value = !modelValue.value;
-    };
+    const modelValue = inject('modelValue');
     return {
       ...args,
       ...events,
       modelValue,
-      toggleModal,
     };
   },
-  template: `<UiButton
-    class="ui-button--theme-secondary ui-button--text"
-    @click="toggleModal"
-  >
-    Show modal
-  </UiButton>
-  <UiModal
+  template: `<UiModal
     v-model="modelValue"
     :title='title'
     :description='description'
+    :is-closable="isClosable"
+    :has-cancel="hasCancel"
+    :has-confirm="hasConfirm"
     :translation="translation"
-    :isClosable="isClosable"
-    :hasConfirm="hasConfirm"
-    :hasCancel="hasCancel"
-    :buttonConfirmAttrs="buttonConfirmAttrs"
-    :buttonCancelAttrs="buttonCancelAttrs"
-    :buttonCloseAttrs="buttonCloseAttrs"
+    :transition-backdrop-attrs="translationBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-description-attrs="textDescriptionAttrs"
+    :button-confirm-attrs="buttonConfirmAttrs"
+    :button-cancel-attrs="buttonCancelAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    :dialog-attrs="dialogAttrs"
+    @update:modelValue="onUpdateModelValue"
     @confirm="onConfirm"
     @cancel="onCancel"
   >
-    <template #title>
-      <UiHeading
+    <template 
+      #title="{
+        titleTag,
+        titleAttrs,
+        titleText,
+        description,
+      }"
+    >
+      <component
+        :is="titleTag"
+        v-bind="titleAttrs"
         class="ui-modal__title"
       >
-        {{ title }}
-      </UiHeading>
+        {{ titleText }}
+      </component>
     </template>
   </UiModal>`,
 });
@@ -482,46 +544,51 @@ export const WithCloseSlot = (args) => ({
     bodyScrollLock,
   },
   setup() {
-    const modelValue = ref(args.initModelValue);
-    const toggleModal = () => {
-      modelValue.value = !modelValue.value;
-    };
+    const modelValue = inject('modelValue');
     return {
       ...args,
       ...events,
       modelValue,
-      toggleModal,
     };
   },
-  template: `<UiButton
-    class="ui-button--theme-secondary ui-button--text"
-    @click="toggleModal"
-  >
-    Show modal
-  </UiButton>
-  <UiModal
-    v-model="modalValue"
+  template: `<UiModal
+    v-model="modelValue"
     :title='title'
     :description='description'
+    :is-closable="isClosable"
+    :has-cancel="hasCancel"
+    :has-confirm="hasConfirm"
     :translation="translation"
-    :isClosable="isClosable"
-    :hasConfirm="hasConfirm"
-    :hasCancel="hasCancel"
-    :buttonConfirmAttrs="buttonConfirmAttrs"
-    :buttonCancelAttrs="buttonCancelAttrs"
-    :buttonCloseAttrs="buttonCloseAttrs"
+    :transition-backdrop-attrs="translationBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-description-attrs="textDescriptionAttrs"
+    :button-confirm-attrs="buttonConfirmAttrs"
+    :button-cancel-attrs="buttonCancelAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    :dialog-attrs="dialogAttrs"
+    @update:modelValue="onUpdateModelValue"
     @confirm="onConfirm"
     @cancel="onCancel"
   >
-    <template #close="{ closeHandler, isClosable}">
+    <template 
+      #close="{
+        isClosable,
+        buttonCloseAttrs,
+        closeHandler,
+        iconCloseAttrs,
+      }"
+    >
       <UiButton
         v-if="isClosable"
-        class="ui-button--icon ui-button--theme-secondary ui-modal__close"
         v-bind="buttonCloseAttrs"
-        @click="closeHandler()"
+        class="ui-button--icon ui-button--theme-secondary ui-modal__close"
+        @click="closeHandler"
       >
-        <UiIcon 
-          icon="close"
+        <UiIcon
+          v-bind="iconCloseAttrs"
           class="ui-button__icon"
         />
       </UiButton>
@@ -532,7 +599,6 @@ export const WithCloseSlot = (args) => ({
 export const WithDescriptionSlot = (args) => ({
   components: {
     UiModal,
-    UiButton,
     UiText,
   },
   directives: {
@@ -540,40 +606,45 @@ export const WithDescriptionSlot = (args) => ({
     bodyScrollLock,
   },
   setup() {
-    const modelValue = ref(args.initModelValue);
-    const toggleModal = () => {
-      modelValue.value = !modelValue.value;
-    };
+    const modelValue = inject('modelValue');
     return {
       ...args,
       ...events,
       modelValue,
-      toggleModal,
     };
   },
-  template: `<UiButton
-    class="ui-button--theme-secondary ui-button--text"
-    @click="toggleModal"
-  >
-    Show modal
-  </UiButton>
-  <UiModal
+  template: `<UiModal
     v-model="modelValue"
     :title='title'
     :description='description'
+    :is-closable="isClosable"
+    :has-cancel="hasCancel"
+    :has-confirm="hasConfirm"
     :translation="translation"
-    :isClosable="isClosable"
-    :hasConfirm="hasConfirm"
-    :hasCancel="hasCancel"
-    :buttonConfirmAttrs="buttonConfirmAttrs"
-    :buttonCancelAttrs="buttonCancelAttrs"
-    :buttonCloseAttrs="buttonCloseAttrs"
+    :transition-backdrop-attrs="translationBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-description-attrs="textDescriptionAttrs"
+    :button-confirm-attrs="buttonConfirmAttrs"
+    :button-cancel-attrs="buttonCancelAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    :dialog-attrs="dialogAttrs"
+    @update:modelValue="onUpdateModelValue"
     @confirm="onConfirm"
     @cancel="onCancel"
   >
-    <template #description="{ hasDescription, description }">
+    <template 
+      #description="{ 
+        hasDescription,
+        textDescriptionAttrs,
+        description
+      }"
+    >
       <UiText
         v-if="hasDescription"
+        v-bind="attrs"
         class="ui-modal__description"
       >
         {{ description }}
@@ -582,20 +653,13 @@ export const WithDescriptionSlot = (args) => ({
   </UiModal>`,
 });
 
-export const WithoutTitleWithDescriptionSlot = WithDescriptionSlot.bind({
-});
+export const WithoutTitleWithDescriptionSlot = WithDescriptionSlot.bind({});
 WithoutTitleWithDescriptionSlot.args = {
   title: '',
   description: 'Delete this file?',
   translation: {
     confirm: 'Yes, delete',
     cancel: 'Cancel',
-  },
-};
-WithoutTitleWithDescriptionSlot.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/54rgvRJfBBagt4F34rrp1s/Core-Component-Library?node-id=1085%3A44053',
   },
 };
 
@@ -609,38 +673,49 @@ export const WithActionsSlot = (args) => ({
     bodyScrollLock,
   },
   setup() {
-    const modelValue = ref(args.initModelValue);
-    const toggleModal = () => {
-      modelValue.value = !modelValue.value;
-    };
+    const modelValue = inject('modelValue');
     return {
       ...args,
       ...events,
       modelValue,
-      toggleModal,
     };
   },
-  template: `<UiButton
-    class="ui-button--theme-secondary ui-button--text"
-    @click="toggleModal"
-  >
-    Show modal
-  </UiButton>
-  <UiModal
+  template: `<UiModal
     v-model="modelValue"
     :title='title'
     :description='description'
+    :is-closable="isClosable"
+    :has-cancel="hasCancel"
+    :has-confirm="hasConfirm"
     :translation="translation"
-    :isClosable="isClosable"
-    :hasConfirm="hasConfirm"
-    :hasCancel="hasCancel"
-    :buttonConfirmAttrs="buttonConfirmAttrs"
-    :buttonCancelAttrs="buttonCancelAttrs"
-    :buttonCloseAttrs="buttonCloseAttrs"
+    :transition-backdrop-attrs="translationBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-description-attrs="textDescriptionAttrs"
+    :button-confirm-attrs="buttonConfirmAttrs"
+    :button-cancel-attrs="buttonCancelAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    :dialog-attrs="dialogAttrs"
+    @update:modelValue="onUpdateModelValue"
     @confirm="onConfirm"
     @cancel="onCancel"
   >
-    <template #actions="{ confirmHandler, cancelHandler, hasActions, hasCancel, hasConfirm, isClosable, translation }">
+    <template 
+      #actions="{
+        hasActions,
+        isClosable,
+        hasConfirm,
+        buttonConfirmAttrs,
+        confirmHandler,
+        translation,
+        hasCancel,
+        buttonCancelAttrs,
+        cancelHandler,
+        iconCloseAttrs,
+      }"
+    >
       <div
         v-if="hasActions"
         class="ui-modal__actions"
@@ -648,16 +723,16 @@ export const WithActionsSlot = (args) => ({
         <template v-if="isClosable">
           <UiButton
             v-if="hasConfirm"
-            class="ui-modal__confirm"
             v-bind="buttonConfirmAttrs"
+            class="ui-modal__confirm"
             @click="confirmHandler"
           >
             {{ translation.confirm }}
           </UiButton>
           <UiButton
             v-if="hasCancel"
-            class="ui-button--outlined ui-modal__cancel"
             v-bind="buttonCancelAttrs"
+            class="ui-button--outlined ui-modal__cancel"
             @click="cancelHandler"
           >
             {{ translation.cancel }}
@@ -666,16 +741,16 @@ export const WithActionsSlot = (args) => ({
         <template v-else>
           <UiButton
             v-if="hasCancel"
-            class="ui-button--outlined ui-modal__cancel"
             v-bind="buttonCancelAttrs"
+            class="ui-button--outlined ui-modal__cancel"
             @click="cancelHandler"
           >
             {{ translation.cancel }}
           </UiButton>
           <UiButton
             v-if="hasConfirm"
-            class="ui-modal__confirm ui-modal__confirm--order"
             v-bind="buttonConfirmAttrs"
+            class="ui-modal__confirm ui-modal__confirm--order"
             @click="confirmHandler"
           >
             {{ translation.confirm }}
@@ -696,43 +771,48 @@ export const WithConfirmSlot = (args) => ({
     bodyScrollLock,
   },
   setup() {
-    const modelValue = ref(args.initModelValue);
-    const toggleModal = () => {
-      modelValue.value = !modelValue.value;
-    };
+    const modelValue = inject('modelValue');
     return {
       ...args,
       ...events,
       modelValue,
-      toggleModal,
     };
   },
-  template: `<UiButton
-    class="ui-button--theme-secondary ui-button--text"
-    @click="toggleModal"
-  >
-    Show modal
-  </UiButton>
-  <UiModal
+  template: `<UiModal
     v-model="modelValue"
     :title='title'
     :description='description'
+    :is-closable="isClosable"
+    :has-cancel="hasCancel"
+    :has-confirm="hasConfirm"
     :translation="translation"
-    :isClosable="isClosable"
-    :hasConfirm="hasConfirm"
-    :hasCancel="hasCancel"
-    :buttonConfirmAttrs="buttonConfirmAttrs"
-    :buttonCancelAttrs="buttonCancelAttrs"
-    :buttonCloseAttrs="buttonCloseAttrs"
+    :transition-backdrop-attrs="translationBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-description-attrs="textDescriptionAttrs"
+    :button-confirm-attrs="buttonConfirmAttrs"
+    :button-cancel-attrs="buttonCancelAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    :dialog-attrs="dialogAttrs"
+    @update:modelValue="onUpdateModelValue"
     @confirm="onConfirm"
     @cancel="onCancel"
   >
-    <template #confirm="{ confirmHandler, hasConfirm, translation }">
+    <template
+      #confirm="{ 
+        hasConfirm,
+        buttonConfirmAttrs,
+        confirmHandler,
+        translation,
+      }"
+    >
       <UiButton
         v-if="hasConfirm"
-        class="ui-modal__confirm"
         v-bind="buttonConfirmAttrs"
-        @click="confirmHandler('confirm')"
+        class="ui-modal__confirm"
+        @click="confirmHandler"
       >
         {{ translation.confirm }}
       </UiButton>
@@ -750,42 +830,47 @@ export const WithCancelSlot = (args) => ({
     bodyScrollLock,
   },
   setup() {
-    const modelValue = ref(args.initModelValue);
-    const toggleModal = () => {
-      modelValue.value = !modelValue.value;
-    };
+    const modelValue = inject('modelValue');
     return {
       ...args,
       ...events,
       modelValue,
-      toggleModal,
     };
   },
-  template: `<UiButton
-    class="ui-button--theme-secondary ui-button--text"
-    @click="toggleModal"
-  >
-    Show modal
-  </UiButton>
-  <UiModal
+  template: `<UiModal
     v-model="modelValue"
     :title='title'
     :description='description'
+    :is-closable="isClosable"
+    :has-cancel="hasCancel"
+    :has-confirm="hasConfirm"
     :translation="translation"
-    :isClosable="isClosable"
-    :hasConfirm="hasConfirm"
-    :hasCancel="hasCancel"
-    :buttonConfirmAttrs="buttonConfirmAttrs"
-    :buttonCancelAttrs="buttonCancelAttrs"
-    :buttonCloseAttrs="buttonCloseAttrs"
+    :transition-backdrop-attrs="translationBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-description-attrs="textDescriptionAttrs"
+    :button-confirm-attrs="buttonConfirmAttrs"
+    :button-cancel-attrs="buttonCancelAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    :dialog-attrs="dialogAttrs"
+    @update:modelValue="onUpdateModelValue"
     @confirm="onConfirm"
     @cancel="onCancel"
   >
-    <template #cancel="{ cancelHandler, hasCancel, translation, }">
+    <template 
+      #cancel="{
+        hasCancel,
+        buttonCancelAttrs,
+        cancelHandler,
+        translation,
+      }"
+    >
       <UiButton
         v-if="hasCancel"
-        class="ui-button--outlined ui-modal__cancel"
         v-bind="buttonCancelAttrs"
+        class="ui-button--outlined ui-modal__cancel"
         @click="cancelHandler"
       >
         {{ translation.cancel }}

@@ -2,9 +2,7 @@
   <nav
     ref="nav"
     class="ui-navigation"
-    :class="{
-      'ui-navigation--is-multiline': isMultiline
-    }"
+    :class="{ 'ui-navigation--is-multiline': isMultiline }"
   >
     <!-- @slot Use this slot to place content inside component.-->
     <slot>
@@ -14,16 +12,14 @@
       >
         <UiNavigationItem
           class=" ui-navigation__item"
-          v-bind="item.navigationItemAttrs"
+          v-bind="navigationItemAttrs(item)"
         >
           <!-- @slot Use this slot to replace navigation item content. -->
           <slot
             :name="item.name"
-            v-bind="{
-              item
-            }"
+            v-bind="{ item }"
           >
-            {{ item.text }}
+            {{ item.label }}
           </slot>
         </UiNavigationItem>
       </template>
@@ -32,9 +28,7 @@
 </template>
 
 <script lang="ts">
-export default {
-  name: 'UiNavigation',
-};
+export default { name: 'UiNavigation' };
 </script>
 
 <script setup lang="ts">
@@ -52,8 +46,8 @@ import UiNavigationItem from './_internal/UiNavigationItem.vue';
 
 export interface NavigationItem {
   text: string;
-  href: string;
-  name?: string
+  name?: string;
+  label?: string;
   navigationItemAttrs?: Record<string, unknown>
   [key: string]: unknown;
 }
@@ -71,14 +65,28 @@ const nav = ref<HTMLElement | null>(null);
 const isMultiline = ref(false);
 const modifiers = computed(() => (attrs?.class || ''));
 provide('modifiers', modifiers);
-const itemsToRender = computed(() => (
-  props.items.map((item, key) => ({
-    name: `navigation-item-${key}`,
+const itemsToRender = computed(() => (props.items.map((item, key) => {
+  const {
+    name,
+    label,
+    text,
+  } = item;
+  // TODO: remove in 0.6.0 / BEGIN
+  if (text) {
+    if (process.env.NODE_ENV === 'development') {
+      console.warn('[@infermedica/component-library error][UiNavigationItem]: The `text` property from `items` props will be removed in 0.6.0. Please use `label` property instead.');
+    }
+  }
+  // END
+  return {
+    name: name || `navigation-item-${key}`,
+    label: text || label,
     ...item,
-  }))));
+  };
+})));
 const resizeObserver = new ResizeObserver((entries) => {
   const { target } = entries[0];
-  isMultiline.value = ([...target.children].at(-1) as HTMLElement).offsetTop > (target as HTMLElement).offsetTop;
+  isMultiline.value = ([ ...target.children ].at(-1) as HTMLElement).offsetTop > (target as HTMLElement).offsetTop;
 });
 onMounted(async () => {
   await nextTick();
@@ -87,6 +95,12 @@ onMounted(async () => {
 onBeforeUnmount(() => {
   resizeObserver.unobserve(nav.value as HTMLElement);
 });
+const navigationItemAttrs = (item: NavigationItem) => {
+  const {
+    name, label, ...rest
+  } = item;
+  return rest;
+};
 </script>
 
 <style lang="scss">
@@ -97,7 +111,12 @@ onBeforeUnmount(() => {
   $element: navigation;
 
   display: flex;
-  flex-flow: functions.var($element, flex-flow, functions.var($element, flex-direction, row) functions.var($element, flex-wrap, wrap));
+  flex-flow:
+    functions.var(
+      $element,
+      flex-flow,
+      functions.var($element, flex-direction, row) functions.var($element, flex-wrap, wrap)
+    );
   align-items: functions.var($element, align-items, center);
   justify-content: functions.var($element, justify-content, flex-start);
   margin: functions.var($element, margin, 0 calc(var(--space-8) * -1));

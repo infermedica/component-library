@@ -5,7 +5,10 @@ let result;
 let app;
 
 beforeEach(() => {
-  [result, app] = withSetup(() => useActiveElement());
+  [
+    result,
+    app,
+  ] = withSetup(() => useActiveElement());
 });
 
 afterEach(() => {

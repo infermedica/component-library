@@ -6,6 +6,7 @@
       v-bind="{
         currentStep,
         currentStepDisplayText,
+        progressAttrs,
         stepsProgress
       }"
     >
@@ -13,13 +14,11 @@
         <!-- @slot Use this slot to replace text in the mobile stepper -->
         <slot
           name="current-step"
-          v-bind="{
-            currentStepDisplayText
-          }"
+          v-bind="{ currentStepDisplayText }"
         >
           <UiText
             tag="span"
-            class="ui-text--body-2-comfortable ui-stepper__text"
+            class="ui-text--body-2-comfortable ui-stepper__current-step"
           >
             {{ currentStepDisplayText }}
           </UiText>
@@ -28,14 +27,12 @@
         <slot
           name="progress"
           v-bind="{
+            progressAttrs: defaultProps.progressAttrs,
             stepsProgress
           }"
         >
           <UiProgress
-            v-bind="progressAttrs"
-            :min="0"
-            :max="100"
-            :value="stepsProgress"
+            v-bind="defaultProps.progressAttrs"
             class="ui-stepper__progress"
           />
         </slot>
@@ -45,7 +42,7 @@
     <slot
       name="desktop"
       v-bind="{
-        steps,
+        steps: stepsToRender,
         currentStep,
         indexOfActiveStep,
         determineStep
@@ -56,13 +53,13 @@
         <slot
           name="items"
           v-bind="{
-            steps,
+            steps: stepsToRender,
             indexOfActiveStep,
             determineStep
           }"
         >
           <template
-            v-for="(step, index) in steps"
+            v-for="(step, index) in stepsToRender"
             :key="index"
           >
             <!-- @slot Use this slot to replace item in the desktop list -->
@@ -96,7 +93,7 @@
                     v-bind="determineStep(index, step)"
                     class="ui-button--text ui-button--theme-secondary ui-stepper__item"
                   >
-                    {{ step.name }}
+                    {{ step.label }}
                   </UiButton>
                 </slot>
               </UiListitem>
@@ -120,7 +117,8 @@ import type { PropsAttrs } from '../../../types/attrs';
 import type { HTMLTag } from '../../../types/tag';
 
 export interface Step {
-  name: string;
+  label: string;
+  name?: string;
   to?: string;
   href?: string;
   route?: string;
@@ -137,12 +135,7 @@ const props = defineProps({
    */
   steps: {
     type: Array as PropType<Step[]>,
-    default: () => [
-      {
-        name: '',
-        route: '',
-      },
-    ],
+    default: () => [ { label: '' } ],
   },
   /**
    * Use this props to set the current step in the stepper.
@@ -156,12 +149,11 @@ const props = defineProps({
    */
   progressAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
 });
 const stepsLength = computed(() => props.steps.length);
-const indexOfActiveStep = computed(() => props.steps.findIndex((step) => step.name === props.currentStep));
+const indexOfActiveStep = computed(() => props.steps.findIndex((step) => step.label === props.currentStep));
 const currentStepDisplayNumber = computed(() => indexOfActiveStep.value + 1);
 const currentStepDisplayText = computed(() => `
       ${currentStepDisplayNumber.value}/${props.steps.length} ${props.currentStep}
@@ -172,6 +164,25 @@ const determineStep = (itemIndex: number, step: Step): DetermineStep => ({
   class: itemIndex <= indexOfActiveStep.value ? undefined : 'ui-button--is-disabled',
   ...step,
 });
+const defaultProps = computed(() => ({
+  progressAttrs: {
+    min: 0,
+    max: 100,
+    value: stepsProgress.value,
+    ...props.progressAttrs,
+  },
+}));
+// TODO: remove in 0.6.0 / BEGIN
+if (props.steps.some((step) => step.name)) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiStepper]: The step `name` props will be removed in 0.6.0. Please use step `label` props instead.');
+  }
+}
+const stepsToRender = computed<Step[]>(() => props.steps.map((step) => ({
+  ...step,
+  label: step.name || step.label,
+})));
+// END
 </script>
 
 <style lang="scss">
@@ -264,7 +275,12 @@ const determineStep = (itemIndex: number, step: Step): DetermineStep => ({
       #{$this}__item {
         --button-color: #{functions.var($element + "-item", color, var(--color-text-body))};
         --button-font: #{functions.var($element + "-item", font, var(--font-body-1-thick))};
-        --button-letter-spacing: #{functions.var($element + "-item", letter-spacing, var(--letter-spacing-body-1-thick))};
+        --button-letter-spacing:
+          #{functions.var(
+            $element + "-item",
+            letter-spacing,
+            var(--letter-spacing-body-1-thick)
+          )};
 
         cursor: auto;
       }

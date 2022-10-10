@@ -7,17 +7,12 @@
         :key="key"
       >
         <UiAccordionItem
-          :title="item.title"
-          :name="item.name"
-          :settings="item.settings"
-          v-bind="item.accordionItemAttrs"
+          v-bind="item"
         >
           <!-- @slot Use this slot to replace accordion item content. -->
           <slot
             :name="item.name"
-            v-bind="{
-              item
-            }"
+            v-bind="{ item }"
           />
         </UiAccordionItem>
       </template>
@@ -54,7 +49,10 @@ const props = defineProps({
    * Use this props or v-model to set opened items.
    */
   modelValue: {
-    type: [String, Array] as PropType<AccordionValue>,
+    type: [
+      String,
+      Array,
+    ] as PropType<AccordionValue>,
     default: '',
   },
   /**
@@ -74,7 +72,10 @@ function toggle(name: string): void {
   } else if (opened.value.includes(name)) {
     emit('update:modelValue', opened.value.filter((item) => (item !== name)));
   } else {
-    emit('update:modelValue', [...opened.value, name]);
+    emit('update:modelValue', [
+      ...opened.value,
+      name,
+    ]);
   }
 }
 provide('toggle', toggle);

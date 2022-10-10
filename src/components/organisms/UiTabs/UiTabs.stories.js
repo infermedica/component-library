@@ -2,8 +2,11 @@ import UiTabs from '@/components/organisms/UiTabs/UiTabs.vue';
 import UiTabsItem from '@/components/organisms/UiTabs/_internal/UiTabsItem.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
+import { actions } from '@storybook/addon-actions';
 import { ref } from 'vue';
 import { modifiers } from '@sb/helpers/argTypes';
+
+const events = actions({ onUpdateModelValue: 'update:modelValue' });
 
 export default {
   title: 'Organisms/Tabs',
@@ -17,9 +20,9 @@ export default {
       {
         name: 'search',
         title: 'Search',
-        tabsItemAttrs: {
-          'data-testid': 'search',
-        },
+        'data-testid': 'search',
+        buttonTabAttrs: { 'data-testid': 'search-button' },
+        contentAttrs: { 'data-testid': 'search-content' },
       },
       {
         name: 'point',
@@ -40,31 +43,21 @@ export default {
   argTypes: {
     initModelValue: {
       description: 'Use this control to set initial state.',
-      table: {
-        category: 'stories controls',
-      },
+      table: { category: 'stories controls' },
       control: 'text',
     },
-    modifiers: modifiers({
-      options: ['ui-tabs--fixed'],
-    }),
-    modelValue: {
-      control: false,
-    },
+    modifiers: modifiers({ options: [ 'ui-tabs--fixed' ] }),
+    modelValue: { control: false },
     tabsItem: {
       name: '<name>',
       description: 'Use this slot to place tabs item content. Require `name` in item object.',
       table: {
         category: 'slots',
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
       },
     },
   },
-  decorators: [() => ({
-    template: '<div style="min-height: 120px"><story /></div>',
-  })],
+  decorators: [ () => ({ template: '<div style="min-height: 120px"><story /></div>' }) ],
 };
 
 const Template = (args) => ({
@@ -76,6 +69,7 @@ const Template = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
@@ -83,25 +77,22 @@ const Template = (args) => ({
     v-model="modelValue"
     :items="items"
     :class="modifiers"
+    @update:modelValue="onUpdateModelValue"
   >
     <template 
       v-for="(item, key) in items"
       #[item.name]="{item}"
       :key="key"
     >
-      <UiText>{{content[item.name]}}</UiText>
+      <UiText>{{ content[item.name] }}</UiText>
     </template>
   </UiTabs>`,
 });
 
-export const Common = Template.bind({
-});
+export const Common = Template.bind({});
 
-export const Fixed = Template.bind({
-});
-Fixed.args = {
-  modifiers: ['ui-tabs--fixed'],
-};
+export const Fixed = Template.bind({});
+Fixed.args = { modifiers: [ 'ui-tabs--fixed' ] };
 
 export const WithDefaultSlot = (args) => ({
   components: {
@@ -125,10 +116,15 @@ export const WithDefaultSlot = (args) => ({
       :key="key"
     >
       <UiTabsItem 
-          :title="item.title" 
-          :name="item.name"
+        :title="item.title" 
+        :name="item.name"
+        :button-attrs="item.buttonTabAttrs"
+        :content-attrs="item.contentAttrs"
+        v-bind="{
+          'data-testid': item['data-testid'],
+        }"
       >
-        <UiText>{{content[item.name]}}</UiText>
+        <UiText>{{ content[item.name] }}</UiText>
       </UiTabsItem>
     </template>
   </UiTabs>`,

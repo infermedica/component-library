@@ -3,10 +3,13 @@ import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import { ref } from 'vue';
+import { actions } from '@storybook/addon-actions';
 import {
   content,
   modifiers,
 } from '@sb/helpers/argTypes';
+
+const events = actions({ onUpdateModelValue: 'update:modelValue' });
 
 export default {
   title: 'Molecules/Tile',
@@ -20,120 +23,75 @@ export default {
     initModelValue: '',
     content: 'Yes',
     modifiers: [],
-    iconAttrs: {
-      icon: 'yes',
-    },
-    id: '',
     value: 'present',
-
+    id: '',
+    icon: 'yes',
+    iconAttrs: { 'data-testid': 'icon' },
+    textLabelAttrs: { 'date-testid': 'text-label' },
   },
   argTypes: {
     content,
     initModelValue: {
       description: 'Use this control to set initial state.',
-      table: {
-        category: 'stories controls',
-      },
+      table: { category: 'stories controls' },
       control: 'string',
     },
-    modifiers: modifiers({
-      options: ['ui-tile--small'],
-    }),
-    value: {
-      control: 'text',
-    },
-    modelValue: {
-      control: false,
-    },
-  },
-  parameters: {
-    cssprops: {
-      'tile-padding': {
-        value: 'var(--space-24) var(--space-16)',
-        control: 'text',
-        description: '',
-      },
-      'tile-active-transform': {
-        value: 'scale(0.96)',
-        control: 'text',
-        description: '',
-      },
-      'tile-icon-size': {
-        value: '4rem',
-        control: 'text',
-        description: '',
-      },
-      'tile-icon-color': {
-        value: 'var(--color-icon-primary)',
-        control: 'text',
-        description: '',
-      },
-      'tile-label-padding': {
-        value: '0',
-        control: 'text',
-        description: '',
-      },
-      'tile-label-margin': {
-        value: '0 var(--space-16) 0 0',
-        control: 'text',
-        description: '',
-      },
-      'tile-label-text-align': {
-        value: 'left',
-        control: 'text',
-        description: '',
-      },
-      'tile-label-tablet-text-align': {
-        value: 'center',
-        control: 'text',
-        description: '',
-      },
-      'tile-label-tablet-margin': {
-        value: 'var(--space-16) 0 0 0',
-        control: 'text',
-        description: '',
+    modifiers: modifiers({ options: [ 'ui-tile--small' ] }),
+    value: { control: 'text' },
+    modelValue: { control: false },
+    icon: {
+      description: 'Use this props to set icon.',
+      table: {
+        category: 'props',
+        type: { summary: 'string|object' },
       },
     },
+    iconSlot: {
+      name: 'icon',
+      description: 'Use this slot to replace icon template.',
+      table: {
+        category: 'slots',
+        type: { summary: 'unknown' },
+      },
+      control: 'object',
+    },
+    iconAttrs: { table: { subcategory: 'Attrs props' } },
+    textLabelAttrs: { table: { subcategory: 'Attrs props' } },
   },
 };
 
 const Template = (args) => ({
-  components: {
-    UiTile,
-  },
+  components: { UiTile },
   setup() {
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
   template: `<UiTile
     v-model="modelValue"
-    :id="id"
     :value="value"
+    :id="id"
+    :icon="icon"
     :icon-attrs="iconAttrs"
+    :text-label-attrs="textLabelAttrs"
     :class="modifiers"
     style="width: 100%; max-width: 320px;"
+    @update:modelValue="onUpdateModelValue"
   >
     {{content}}
   </UiTile>`,
 });
 
-export const Large = Template.bind({
-});
+export const Large = Template.bind({});
 
-export const Small = Template.bind({
-});
-Small.args = {
-  modifiers: ['ui-tile--small'],
-};
+export const Small = Template.bind({});
+Small.args = { modifiers: [ 'ui-tile--small' ] };
 
-export const HasError = Template.bind({
-});
-HasError.args = {
-  modifiers: ['ui-tile--has-error'],
-};
+export const HasError = Template.bind({});
+HasError.args = { modifiers: [ 'ui-tile--has-error' ] };
 
 export const WithIconSlot = (args) => ({
   components: {
@@ -144,24 +102,28 @@ export const WithIconSlot = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
   template: `<UiTile
     v-model="modelValue"
-    :id="id"
     :value="value"
+    :id="id"
+    :icon="icon"
     :icon-attrs="iconAttrs"
+    :text-label-attrs="textLabelAttrs"
     :class="modifiers"
     style="width: 100%; max-width: 320px;"
+    @update:modelValue="onUpdateModelValue"
   >
-    <template #icon="{iconAttrs}">
+    <template #icon="{ iconAttrs }">
       <UiIcon
         v-bind="iconAttrs"
         class="ui-button__icon ui-tile__icon"
       />
     </template>
-    {{content}}
+    {{ content }}
   </UiTile>`,
 });
 
@@ -174,20 +136,23 @@ export const WithLabelSlot = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
   template: `<UiTile
     v-model="modelValue"
-    :id="id"
     :value="value"
+    :id="id"
     :icon-attrs="iconAttrs"
+    :text-label-attrs="textLabelAttrs"
     :class="modifiers"
     style="width: 100%; max-width: 320px;"
+    @update:modelValue="onUpdateModelValue"
   >
-    <template #label>
+    <template #label="{ textLabelAttrs }">
       <UiText
-        tag="span"
+        v-bind="textLabelAttrs"
         class="ui-tile__label"
       >
         {{ content }}
@@ -197,13 +162,12 @@ export const WithLabelSlot = (args) => ({
 });
 
 export const AsGroup = (args) => ({
-  components: {
-    UiTile,
-  },
+  components: { UiTile },
   setup() {
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
@@ -211,75 +175,71 @@ export const AsGroup = (args) => ({
     class="flex flex-col tablet:flex-row"
     style="width: 100%; max-width: 1008px;"
   >
-    <template v-for="(option, key) in values" :key="key">
+    <template 
+      v-for="(item, index) in items" 
+      :key="index"
+    >
       <UiTile
         v-model="modelValue"
-        :id="option.id"
-        :value="option.value"
-        :icon-attrs="option.iconAttrs"
+        name="answer"
+        :value="item.value"
+        :icon="item.icon"
+        :icon-attrs="item.iconAttrs"
+        :text-label-attrs="item.textLabelAttrs"
+        :class="[item.class, modifiers]"
         style="flex: 1;"
-        :class="[...option.class || [], ...modifiers || [] ]"
+        @update:modelValue="onUpdateModelValue"
       >
-        {{option.label}}
+        {{ item.label }}
       </UiTile>
     </template>
   </div>`,
 });
 AsGroup.args = {
-  initModelValue: {
-    choice_id: 'present',
-  },
-  values: [
+  initModelValue: { choice_id: 'present' },
+  items: [
     {
-      name: 'answer',
-      value: {
-        choice_id: 'present',
-      },
-      id: 'present',
-      iconAttrs: {
-        icon: 'yes',
-      },
+      value: 'present',
       label: 'Yes',
-      class: ['mb-3', 'tablet:mr-6', 'tablet:mb-0'],
+      icon: 'yes',
+      iconAttrs: { 'data-testid': 'present' },
+      textLabelAttrs: { 'data-testid': 'present' },
+      class: [
+        'mb-3',
+        'tablet:mr-6',
+        'tablet:mb-0',
+      ],
     },
     {
-      name: 'answer',
-      value: {
-        choice_id: 'absent',
-      },
-      id: 'absent',
-      iconAttrs: {
-        icon: 'no',
-      },
+      value: 'absent',
       label: 'No',
-      class: ['mb-3', 'tablet:mr-6', 'tablet:mb-0'],
+      icon: 'no',
+      iconAttrs: { 'data-testid': 'no' },
+      textLabelAttrs: { 'data-testid': 'no' },
+      class: [
+        'mb-3',
+        'tablet:mr-6',
+        'tablet:mb-0',
+      ],
     },
     {
-      name: 'answer',
-      value: {
-        choice_id: 'unknown',
-      },
-      id: 'unknown',
-      iconAttrs: {
-        icon: 'dont-know',
-      },
+      value: 'unknown',
       label: 'Don\'t know',
+      icon: 'dont-know',
+      iconAttrs: { 'data-testid': 'unknown' },
+      textLabelAttrs: { 'data-testid': 'unknown' },
     },
   ],
 };
 AsGroup.argTypes = {
   initModelValue: {
     description: 'Use this control to set initial state.',
-    table: {
-      category: 'stories controls',
-    },
+    table: { category: 'stories controls' },
     control: 'object',
   },
-  values: {
+  items: {
     description: 'Use this control to set the values of the tile group.',
-    table: {
-      category: 'stories controls',
-    },
+    table: { category: 'stories controls' },
     control: 'array',
   },
 };

@@ -13,7 +13,7 @@ module.exports = {
       true,
       {
         ignoreFunctions: [
-          'var',
+          'functions.var',
           'str-index',
         ],
       },
@@ -32,6 +32,8 @@ module.exports = {
           'return',
           'else',
           'extend',
+          'use',
+          'forward',
         ],
       },
     ],

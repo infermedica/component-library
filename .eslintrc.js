@@ -11,9 +11,7 @@ module.exports = {
     'plugin:storybook/recommended',
     'plugin:vitest-globals/recommended',
   ],
-  parserOptions: {
-    ecmaVersion: 2020,
-  },
+  parserOptions: { ecmaVersion: 2020 },
   // scrip setup related
   globals: {
     defineProps: 'readonly',
@@ -22,61 +20,146 @@ module.exports = {
   },
   rules: {
     'no-shadow': 'off',
-    '@typescript-eslint/no-shadow': ['error'],
+    '@typescript-eslint/no-shadow': [ 'error' ],
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'import/first': 'off',
-    'no-multiple-empty-lines': ['error', {
-      max: 1,
-      maxEOF: 1,
-    }],
-    'max-len': ['off'],
-    'vue/max-len': ['error', {
-      code: 120,
-      template: 120,
-      tabWidth: 2,
-      ignoreComments: true,
-      ignoreTrailingComments: true,
-      ignoreUrls: true,
-      ignoreStrings: true,
-      ignoreTemplateLiterals: true,
-      ignoreRegExpLiterals: true,
-      ignoreHTMLAttributeValues: true,
-      ignoreHTMLTextContents: true,
-    }],
-    'import/no-extraneous-dependencies': ['error', {
-      devDependencies: ['**/*.stories.@(js|jsx|ts|tsx|mdx)', '**/*.spec.{j,t}s?(x)'],
-    }],
-    'prefer-destructuring': ['error', {
-      array: false,
-    }],
-    'vue/v-on-event-hyphenation': ['error', 'always', {
-      autofix: true,
-    }],
-    'object-property-newline': ['error', {
-      allowAllPropertiesOnSameLine: false,
-    }],
-    'vue/object-property-newline': ['error', {
-      allowAllPropertiesOnSameLine: false,
-    }],
-    'object-curly-newline': ['error',
+    'no-multiple-empty-lines': [
+      'error',
       {
-        ObjectExpression: 'always',
+        max: 1,
+        maxEOF: 1,
+      },
+    ],
+    'max-len': [ 'off' ],
+    'vue/max-len': [
+      'error',
+      {
+        code: 120,
+        template: 120,
+        tabWidth: 2,
+        ignoreComments: true,
+        ignoreTrailingComments: true,
+        ignoreUrls: true,
+        ignoreStrings: true,
+        ignoreTemplateLiterals: true,
+        ignoreRegExpLiterals: true,
+        ignoreHTMLAttributeValues: true,
+        ignoreHTMLTextContents: true,
+      },
+    ],
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: [
+          '**/*.stories.@(js|jsx|ts|tsx|mdx)',
+          '**/*.spec.{j,t}s?(x)',
+        ],
+      },
+    ],
+    'prefer-destructuring': [
+      'error',
+      { array: false },
+    ],
+    'vue/v-on-event-hyphenation': [
+      'error',
+      'always',
+      { autofix: true },
+    ],
+    'object-property-newline': [
+      'error',
+      { allowAllPropertiesOnSameLine: false },
+    ],
+    'vue/object-property-newline': [
+      'error',
+      { allowAllPropertiesOnSameLine: false },
+    ],
+    'object-curly-newline': [
+      'error',
+      {
+        ObjectExpression: {
+          minProperties: 2,
+          multiline: true,
+        },
         ObjectPattern: {
+          minProperties: 2,
           multiline: true,
         },
         ImportDeclaration: {
           multiline: true,
+          minProperties: 2,
         },
         ExportDeclaration: {
           multiline: true,
+          minProperties: 2,
         },
       },
     ],
-    'object-curly-spacing': ['error', 'always'],
-    'vue/object-curly-spacing': ['error', 'always'],
-    'vue/object-curly-newline': ['error', 'always'],
-    'import-newlines/enforce': ['error', 1],
+    'import-newlines/enforce': [
+      'error',
+      {
+        items: 1,
+        semi: true,
+      },
+    ],
+    'object-curly-spacing': [
+      'error',
+      'always',
+    ],
+    'vue/object-curly-spacing': [
+      'error',
+      'always',
+    ],
+    'vue/object-curly-newline': [
+      'error',
+      {
+        ObjectExpression: {
+          minProperties: 2,
+          multiline: true,
+        },
+        ObjectPattern: {
+          minProperties: 2,
+          multiline: true,
+        },
+        ImportDeclaration: {
+          multiline: true,
+          minProperties: 2,
+        },
+        ExportDeclaration: {
+          multiline: true,
+          minProperties: 2,
+        },
+      },
+    ],
+    'array-element-newline': [
+      'error',
+      {
+        ArrayExpression: {
+          multiline: true,
+          minItems: 2,
+        },
+        ArrayPattern: {
+          multiline: true,
+          minItems: 2,
+        },
+      },
+    ],
+    'array-bracket-newline': [
+      'error',
+      { minItems: 2 },
+    ],
+    'array-bracket-spacing': [
+      'error',
+      'always',
+    ],
+    'vue/array-bracket-newline': [
+      'error',
+      { minItems: 2 },
+    ],
+    'vue/array-bracket-spacing': [
+      'error',
+      'always',
+    ],
     'import/extensions': [
       'error',
       'ignorePackages',
@@ -88,25 +171,32 @@ module.exports = {
       },
     ],
   },
-  overrides: [{
-    files: ['**/*.spec.{j,t}s?(x)'],
-    env: {
-      'vitest-globals/env': true,
+  overrides: [
+    {
+      files: [ '**/*.spec.{j,t}s?(x)' ],
+      env: { 'vitest-globals/env': true },
     },
-  },
-  {
-    files: ['**/*.vue'],
-    rules: {
-      'no-restricted-imports': ['error', {
-        patterns: ['@/*'],
-      }],
+    {
+      files: [ '**/*.vue' ],
+      rules: {
+        'no-restricted-imports': [
+          'error',
+          { patterns: [ '@/*' ] },
+        ],
+      },
     },
-  }],
+  ],
   settings: {
     'import/resolver': {
       alias: [
-        ['@sb', './.storybook'],
-        ['@', './src'],
+        [
+          '@sb',
+          './.storybook',
+        ],
+        [
+          '@',
+          './src',
+        ],
       ],
       node: {
         extensions: [
@@ -118,7 +208,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    'import-newlines',
-  ],
+  plugins: [ 'import-newlines' ],
 };

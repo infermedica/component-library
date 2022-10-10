@@ -9,11 +9,11 @@ export const getFocusableElements = (el) => {
     'select:not([disabled])',
     'textarea:not([disabled])',
   ];
-  return [...el.querySelectorAll(focusableElements)]
+  return [ ...el.querySelectorAll(focusableElements) ]
     .filter((selector) => !isHidden(selector));
 };
 export const isFocusable = (event, focusableElements) => (
-  [...focusableElements]
+  [ ...focusableElements ]
     .some((element) => element === event.target));
 export const moveFocus = (event, focusableElements) => {
   if (!focusableElements.length || event.key !== 'Tab') return;

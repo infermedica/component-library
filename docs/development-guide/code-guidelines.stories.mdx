@@ -83,13 +83,13 @@ we are support deprecation to next major version and adding information about de
 ```
 * Add console.warn only in development mode
 ```js
-if(process.env.NODE_ENV === 'development') {
+if('process.env.NODE_ENV' === 'development') {
     console.warn('[@infermedica/component-library warn]: <deprecated> will be removed in <version>. Please use <new> instead.');
 }
 ```
 Here is a example for slot deprecation:
 ```js
-if (process.env.NODE_ENV === 'development') {
+if ('process.env.NODE_ENV' === 'development') {
   const { symptoms } = slots;
   if (symptoms) {
     console.warn('[@infermedica/component-library warn]: The "symptoms" slot is deprecated and will be removed in v0.4.0. Please use "details" slot instead.');

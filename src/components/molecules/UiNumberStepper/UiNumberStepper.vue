@@ -16,24 +16,23 @@
     <slot
       name="decrement"
       v-bind="{
-        decrement,
         hasControls,
+        buttonDecrementAttrs: defaultProps.buttonDecrementAttrs,
         isMin,
-        attrs: buttonDecrementAttrs
+        decrement,
+        iconDecrementAttrs: defaultProps.iconDecrementAttrs,
       }"
     >
       <UiButton
         v-if="hasControls"
-        v-bind="buttonDecrementAttrs"
+        v-bind="defaultProps.buttonDecrementAttrs"
         class="ui-button--outlined ui-button--circled ui-number-stepper__decrement"
-        :class="{
-          'ui-button--is-disabled': isMin
-        }"
+        :class="{ 'ui-button--is-disabled': isMin }"
         @click="decrement"
       >
         <UiIcon
+          v-bind="defaultProps.iconDecrementAttrs"
           class="ui-button__icon"
-          icon="minus"
         />
       </UiButton>
     </slot>
@@ -41,24 +40,23 @@
     <slot
       name="increment"
       v-bind="{
-        increment,
         hasControls,
+        buttonIncrementAttrs: defaultProps.buttonIncrementAttrs,
         isMax,
-        attrs: buttonIncrementAttrs
+        increment,
+        iconIncrementAttrs: defaultProps.iconIncrementAttrs,
       }"
     >
       <UiButton
         v-if="hasControls"
-        v-bind="buttonIncrementAttrs"
+        v-bind="defaultProps.buttonIncrementAttrs"
         class="ui-button--outlined ui-button--circled ui-number-stepper__increment"
-        :class="{
-          'ui-button--is-disabled': isMax
-        }"
+        :class="{ 'ui-button--is-disabled': isMax }"
         @click="increment"
       >
         <UiIcon
+          v-bind="defaultProps.iconIncrementAttrs"
           class="ui-button__icon"
-          icon="plus"
         />
       </UiButton>
     </slot>
@@ -70,6 +68,7 @@ import { computed } from 'vue';
 import type { PropsAttrs } from '../../../types/attrs';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
+import type { Icon } from '../../../types/icon';
 
 const props = defineProps({
   /**
@@ -113,7 +112,16 @@ const props = defineProps({
   buttonDecrementAttrs: {
     type: Object as PropsAttrs,
     default: () => ({
+      'aria-hidden': true,
+      tabindex: -1,
     }),
+  },
+  /**
+   * Use this props to pass attrs for decrement UiIcon
+   */
+  iconDecrementAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({ icon: 'minus' }),
   },
   /**
    * Use this props to pass attrs for increment UiButton
@@ -121,9 +129,49 @@ const props = defineProps({
   buttonIncrementAttrs: {
     type: Object as PropsAttrs,
     default: () => ({
+      'aria-hidden': true,
+      tabindex: -1,
     }),
   },
+  /**
+   * Use this props to pass attrs for increment UiIcon
+   */
+  iconIncrementAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({ icon: 'plus' }),
+  },
 });
+interface DefaultProps {
+  iconDecrementAttrs: {
+    icon: Icon,
+    [key: string]: unknown,
+  }
+  iconIncrementAttrs: {
+    icon: Icon,
+    [key: string]: unknown,
+  },
+  [key: string]: unknown,
+}
+const defaultProps = computed<DefaultProps>(() => ({
+  buttonDecrementAttrs: {
+    'aria-hidden': true,
+    tabindex: -1,
+    ...props.buttonDecrementAttrs,
+  },
+  iconDecrementAttrs: {
+    icon: 'minus',
+    ...props.iconDecrementAttrs,
+  },
+  buttonIncrementAttrs: {
+    'aria-hidden': true,
+    tabindex: -1,
+    ...props.buttonIncrementAttrs,
+  },
+  iconIncrementAttrs: {
+    icon: 'plus',
+    ...props.iconIncrementAttrs,
+  },
+}));
 const emit = defineEmits<{(e:'update:modelValue', value: number): void,
   (e: 'error', value: {isMin: boolean, isMax: boolean}): void}>();
 const validate = (value: number) => (value >= props.min && value <= props.max);

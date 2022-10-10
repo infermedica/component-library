@@ -8,30 +8,18 @@ describe('UiInput.vue', () => {
   });
   test('render a component with suffix', () => {
     const suffix = 'symptom checker';
-    const wrapper = mount(UiInput, {
-      props: {
-        suffix,
-      },
-    });
+    const wrapper = mount(UiInput, { props: { suffix } });
     const aside = wrapper.find('.ui-input__aside');
     expect(aside.text()).toContain(suffix);
   });
   test('render a native attributes on input element', () => {
     const placeholder = 'symptom checker';
-    const wrapper = mount(UiInput, {
-      props: {
-        placeholder,
-      },
-    });
+    const wrapper = mount(UiInput, { props: { placeholder } });
     const input = wrapper.find('.ui-input__input');
     expect(input.attributes('placeholder')).toBe(placeholder);
   });
   test('render a content via aside slot', () => {
-    const wrapper = mount(UiInput, {
-      slots: {
-        aside: '<div class="symptom-checker"></div>',
-      },
-    });
+    const wrapper = mount(UiInput, { slots: { aside: '<div class="symptom-checker"></div>' } });
     const aside = wrapper.find('.symptom-checker');
     expect(aside.exists()).toBe(true);
   });
@@ -43,11 +31,7 @@ describe('UiInput.vue', () => {
     expect(wrapper.emitted('update:modelValue')[0][0]).toBe(content);
   });
   test('a number input cant accept non-numerical value', async () => {
-    const wrapper = mount(UiInput, {
-      props: {
-        type: 'number',
-      },
-    });
+    const wrapper = mount(UiInput, { props: { type: 'number' } });
     const input = wrapper.find('input');
     await input.setValue('i');
     expect(wrapper.emitted('update:modelValue')[0][0]).toBe('');

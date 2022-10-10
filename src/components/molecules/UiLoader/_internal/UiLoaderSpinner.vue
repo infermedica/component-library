@@ -1,18 +1,26 @@
 <template>
   <div class="ui-loader-spinner">
     <!-- @slot Use this slot to replace loader template.-->
-    <slot name="loader">
-      <div class="ui-loader-spinner__loader" />
+    <slot
+      name="loader"
+      v-bind="{ loaderSpinnerAttrs }"
+    >
+      <div
+        v-bind="loaderSpinnerAttrs"
+        class="ui-loader-spinner__loader"
+      />
     </slot>
     <!-- @slot Use this slot to replace label template.-->
     <slot
       name="label"
       v-bind="{
-        label
+        label,
+        textLabelAttrs,
       }"
     >
       <UiText
         v-if="label"
+        v-bind="textLabelAttrs"
         class="ui-loader-spinner__label"
       >
         {{ label }}
@@ -31,6 +39,20 @@ defineProps({
   label: {
     type: String,
     default: '',
+  },
+  /**
+   * Use this props to pass attrs for spinner
+   */
+  loaderSpinnerAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for label UiText
+   */
+  textLabelAttrs: {
+    type: Object,
+    default: () => ({}),
   },
 });
 </script>
