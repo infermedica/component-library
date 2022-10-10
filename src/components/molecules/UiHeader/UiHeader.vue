@@ -5,24 +5,22 @@
       <slot
         name="brand"
         v-bind="{
-          attrs: buttonBrandAttrs,
-          logoAttrs
+          buttonBrandAttrs,
+          iconLogoAttrs: defaultProps.iconLogoAttrs
         }"
       >
         <UiButton
-          class="ui-button--icon ui-header__brand"
           v-bind="buttonBrandAttrs"
+          class="ui-button--icon ui-header__brand"
         >
           <!-- @slot Use this slot to replace logo template.-->
           <slot
             name="logo"
-            v-bind="{
-              attrs: logoAttrs
-            }"
+            v-bind="{ iconLogoAttrs: defaultProps.iconLogoAttrs }"
           >
             <UiIcon
+              v-bind="defaultProps.iconLogoAttrs"
               class="ui-header__logo"
-              v-bind="logoAttrs"
             />
           </slot>
         </UiButton>
@@ -32,17 +30,18 @@
         <slot
           name="hamburger"
           v-bind="{
-            attrs: buttonHamburgerAttrs,
+            buttonHamburgerAttrs,
+            iconHamburgerAttrs: defaultProps.iconHamburgerAttrs,
             handleHamburger
           }"
         >
           <UiButton
-            class="ui-button--icon ui-button--theme-brand ui-header__hamburger"
             v-bind="buttonHamburgerAttrs"
+            class="ui-button--icon ui-button--theme-brand ui-header__hamburger"
             @click="handleHamburger"
           >
             <UiIcon
-              icon="menu"
+              v-bind="defaultProps.iconHamburgerAttrs"
               class="ui-button__icon"
             />
           </UiButton>
@@ -53,7 +52,7 @@
         <slot
           name="navigation"
           v-bind="{
-            attrs: navigationAttrs,
+            navigationAttrs,
             navigation
           }"
         >
@@ -97,32 +96,11 @@ const props = defineProps({
    * Use this prop to set the logo.
    */
   logo: {
-    type: [Object, String] as PropType<Icon>,
+    type: [
+      Object,
+      String,
+    ] as PropType<Icon>,
     default: '',
-  },
-  /**
-   * Use this props to pass attrs for brand button
-   */
-  buttonBrandAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({
-    }),
-  },
-  /**
-   * Use this props to pass attrs for logo icon
-   */
-  iconLogoAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({
-    }),
-  },
-  /**
-   * Use this props to pass attrs for hamburger button
-   */
-  buttonHamburgerAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({
-    }),
   },
   /**
    * Use this props to pass media query for hamburger display
@@ -139,24 +117,66 @@ const props = defineProps({
     default: () => ([]),
   },
   /**
-   * Use this props to pass attrs for navigation
+   * Use this props to pass attrs for brand button
+   */
+  buttonBrandAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for hamburger UiButton
+   */
+  buttonHamburgerAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for hamburger UiIcon
+   */
+  iconHamburgerAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({ icon: 'menu' }),
+  },
+  /**
+   * Use this props to pass attrs for logo UiIcon
+   */
+  iconLogoAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for UiNavigation.
    */
   navigationAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
 });
-
+interface DefaultProps {
+  iconHamburgerAttrs: {
+    icon: Icon;
+    [key: string]: unknown;
+  };
+  iconLogoAttrs: {
+    icon: Icon;
+    [key: string]: unknown;
+  };
+}
+const defaultProps = computed<DefaultProps>(() => ({
+  iconHamburgerAttrs: {
+    icon: 'menu',
+    ...props.iconHamburgerAttrs,
+  },
+  iconLogoAttrs: {
+    icon: props.logo,
+    title: props.title,
+    ...props.iconLogoAttrs,
+  },
+}));
 const emit = defineEmits<{(e: 'hamburger:open' | 'hamburger:close'): void}>();
 const matchMediaObject: MediaQueryList = matchMedia(props.hamburgerMatchMedia);
 const isMobile = ref(matchMediaObject.matches);
 const isOpen = ref(false);
-const logoAttrs = computed(() => ({
-  icon: props.logo,
-  title: props.title,
-  ...props.iconLogoAttrs,
-}));
 watch(isOpen, (value: boolean) => {
   emit(value ? 'hamburger:open' : 'hamburger:close');
 });
@@ -192,6 +212,7 @@ onUnmounted(() => {
     align-items: center;
     justify-content: space-between;
     padding: functions.var($element, padding, 0 var(--space-20));
+    margin: 0 auto;
   }
 
   &__brand {

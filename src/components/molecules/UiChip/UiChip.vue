@@ -1,9 +1,15 @@
 <template>
   <div class="ui-chip">
     <!-- @slot Use this slot to replace label template. -->
-    <slot name="label">
+    <slot
+      name="label"
+      v-bind="{ textLabelAttrs }"
+    >
       <!-- @slot Use this slot to place content inside chip. -->
-      <UiText class="body-2-comfortable ui-chip__label">
+      <UiText
+        v-bind="textLabelAttrs"
+        class="body-2-comfortable ui-chip__label"
+      >
         <slot />
       </UiText>
     </slot>
@@ -11,44 +17,90 @@
     <slot
       name="remove"
       v-bind="{
+        buttonAttrs,
+        buttonRemoveAttrs,
         clickHandler,
-        attrs: buttonAttrs
+        iconRemoveAttrs: defaultProps.iconRemoveAttrs
       }"
     >
       <UiButton
-        v-bind="buttonAttrs"
+        v-bind="buttonAttrs || buttonRemoveAttrs"
         class="ui-button--icon ui-button--circled ui-chip__remove"
         @click="clickHandler"
       >
-        <UiIcon
-          icon="remove-filled"
-          class=" ui-button__icon ui-chip__icon"
-        />
+        <slot
+          name="icon"
+          v-bind="{ iconRemoveAttrs: defaultProps.iconRemoveAttrs }"
+        >
+          <UiIcon
+            v-bind="defaultProps.iconRemoveAttrs"
+            class=" ui-button__icon ui-chip__icon"
+          />
+        </slot>
       </UiButton>
     </slot>
   </div>
 </template>
 
 <script setup lang="ts">
+import {
+  computed,
+  useAttrs,
+} from 'vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import type { PropsAttrs } from '../../../types/attrs';
+import type { Icon } from '../../../types/icon';
 
-defineProps({
+const props = defineProps({
   /**
-   * Use this props to pass attrs for UiButton
+   * Use this props to pass attrs for remove UiButton
    */
-  buttonAttrs: {
+  textLabelAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for remove UiButton
+   */
+  buttonRemoveAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for remove UiIcon
+   */
+  iconRemoveAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({ icon: 'remove-filled' }),
   },
 });
+interface DefaultProps {
+  iconRemoveAttrs: {
+    icon: Icon;
+    [key:string]: unknown;
+  };
+}
+const defaultProps = computed<DefaultProps>(() => ({
+  iconRemoveAttrs: {
+    icon: 'remove-filled',
+    ...props.iconRemoveAttrs,
+  },
+}));
 const emit = defineEmits<{(e:'remove'): void}>();
 function clickHandler(): void {
   emit('remove');
 }
+// TODO: remove in 0.6.0 / BEGIN
+const attrs = useAttrs();
+const buttonAttrs = computed(() => attrs.buttonAttrs || attrs['button-attrs']);
+if (buttonAttrs.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiChip]: The `buttonAttrs` props will be removed in 0.6.0. Please use `buttonRemoveAttrs` props instead.');
+  }
+}
+// END
 </script>
 
 <style lang="scss">
@@ -76,8 +128,18 @@ function clickHandler(): void {
   &__icon {
     --_remove-filled-close: #{functions.var($element + "-remove-filled-close", color, var(--color-chip-icon))};
     --button-icon-color: #{functions.var($element + "-icon", color, var(--color-chip-icon-background))};
-    --button-hover-icon-color: #{functions.var($element + "-icon-hover", color, var(--color-chip-icon-background-hover))};
-    --button-active-icon-color: #{functions.var($element + "-icon-active", color, var(--color-chip-icon-background-active))};
+    --button-hover-icon-color:
+      #{functions.var(
+        $element + "-icon-hover",
+        color,
+        var(--color-chip-icon-background-hover)
+      )};
+    --button-active-icon-color:
+      #{functions.var(
+        $element + "-icon-active",
+        color,
+        var(--color-chip-icon-background-active)
+      )};
 
     margin: functions.var($element + "-icon", margin, -2px);
   }
@@ -86,7 +148,12 @@ function clickHandler(): void {
     margin: functions.var($element + "-remove", margin, var(--space-2) var(--space-2) var(--space-2) var(--space-4));
 
     [dir="rtl"] & {
-      margin: functions.var($element + "-rtl-remove", margin, var(--space-2) var(--space-4) var(--space-2) var(--space-2));
+      margin:
+        functions.var(
+          $element + "-rtl-remove",
+          margin,
+          var(--space-2) var(--space-4) var(--space-2) var(--space-2)
+        );
     }
   }
 }

@@ -4,16 +4,18 @@
     <slot
       name="backdrop"
       v-bind="{
+        transitionBackdropAttrs: defaultProps.transitionBackdropAttrs,
+        modelValue,
+        backdropAttrs,
         closeHandler,
-        modelValue
       }"
     >
       <transition
-        appear
-        name="fade"
+        v-bind="defaultProps.transitionBackdropAttrs"
       >
         <UiBackdrop
           v-if="modelValue"
+          v-bind="backdropAttrs"
           @click="closeHandler"
         />
       </transition>
@@ -22,35 +24,40 @@
     <slot
       name="container"
       v-bind="{
-        transition,
-        afterEnterHandler,
+        transitionDialogAttrs: defaultProps.transitionDialogAttrs,
+        dialogAttrs,
         modelValue,
+        afterEnterHandler,
         buttonCloseAttrs,
         closeHandler,
         title,
-        subtitle
+        subtitle,
+        iconCloseAttrs,
+        headingTitleAttrs,
+        textSubtitleAttrs,
       }"
     >
       <transition
-        appear
-        :name="transition"
-        @enter="enterHandler"
-        @after-enter="afterEnterHandler"
+        v-bind="defaultProps.transitionDialogAttrs"
       >
         <dialog
           v-if="modelValue"
           v-focus-trap
           v-body-scroll-lock
+          v-bind="dialogAttrs"
           class="ui-side-panel__dialog"
         >
           <!-- @slot Use this slot to replace header template. -->
           <slot
             name="header"
             v-bind="{
-              attrs: buttonCloseAttrs,
+              buttonCloseAttrs,
               closeHandler,
               title,
-              subtitle
+              subtitle,
+              headingTitleAttrs,
+              textSubtitleAttrs,
+              iconCloseAttrs,
             }"
           >
             <div class="ui-side-panel__header">
@@ -58,18 +65,19 @@
               <slot
                 name="close"
                 v-bind="{
-                  attrs: buttonCloseAttrs,
-                  closeHandler
+                  buttonCloseAttrs,
+                  closeHandler,
+                  iconCloseAttrs: defaultProps.iconCloseAttrs
                 }"
               >
                 <UiButton
+                  v-bind="buttonCloseAttrs"
                   ref="button"
                   class="ui-button--icon ui-button--theme-secondary ui-side-panel__close"
-                  v-bind="buttonCloseAttrs"
                   @click="closeHandler"
                 >
                   <UiIcon
-                    icon="close"
+                    v-bind="defaultProps.iconCloseAttrs"
                     class="ui-button__icon"
                   />
                 </UiButton>
@@ -79,7 +87,9 @@
                 name="label"
                 v-bind="{
                   title,
-                  subtitle
+                  subtitle,
+                  headingTitleAttrs: defaultProps.headingTitleAttrs,
+                  textSubtitleAttrs,
                 }"
               >
                 <div
@@ -91,12 +101,12 @@
                     name="title"
                     v-bind="{
                       title,
-                      headingTitleAttrs
+                      headingTitleAttrs: defaultProps.headingTitleAttrs
                     }"
                   >
                     <UiHeading
                       v-if="title"
-                      v-bind="headingTitleAttrs"
+                      v-bind="defaultProps.headingTitleAttrs"
                     >
                       {{ title }}
                     </UiHeading>
@@ -105,7 +115,8 @@
                   <slot
                     name="subtitle"
                     v-bind="{
-                      subtitle
+                      subtitle,
+                      textSubtitleAttrs,
                     }"
                   >
                     <UiText
@@ -121,12 +132,15 @@
             </div>
           </slot>
           <!-- @slot Use this slot to replace content template. -->
-          <slot name="content">
+          <slot
+            name="content"
+            v-bind="{ contentAttrs }"
+          >
             <div
               v-scroll-tabindex
               v-keyboard-focus
               class="ui-side-panel__content"
-              :body-scroll-lock-ignore="true"
+              v-bind="contentAttrs"
             >
               <!-- @slot Use this slot to place side panel content. -->
               <slot />
@@ -141,10 +155,13 @@
 <script setup lang="ts">
 import {
   ref,
+  computed,
   nextTick,
   onMounted,
   onBeforeUnmount,
+  useAttrs,
 } from 'vue';
+import type { HeadingLevel } from '@/components/atoms/UiHeading/UiHeading.vue';
 import {
   focusTrap as vFocusTrap,
   bodyScrollLock as vBodyScrollLock,
@@ -158,8 +175,9 @@ import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import type { PropsAttrs } from '../../../types/attrs';
+import type { Icon } from '../../../types/icon';
 
-defineProps({
+const props = defineProps({
   /**
    * Use this props or v-model to set value.
    */
@@ -182,50 +200,136 @@ defineProps({
     default: '',
   },
   /**
+   * Use this props to pass attrs for backdrop Transition.
+   */
+  transitionBackdropAttrs: {
+    type: Object,
+    default: () => ({
+      appear: true,
+      name: 'fade',
+    }),
+  },
+  /**
+   * Use this props to pass attrs for UiBackdrop.
+   */
+  backdropAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for dialog element
+   */
+  dialogAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for dialog Transition.
+   */
+  transitionDialogAttrs: {
+    type: Object,
+    default: () => ({
+      appear: true,
+      name: 'slide',
+    }),
+  },
+  /**
+   * Use this props to pass attrs for title UiHeading.
+   */
+  headingTitleAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({ level: 2 }),
+  },
+  /**
+   * Use this props to pass attrs for subtitle UiText.
+   */
+  textSubtitleAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({}),
+  },
+  /**
    * Use this props to pass attrs for close UiButton
    */
   buttonCloseAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   /**
-   * Use this props to pass attrs for title UiHeading
+   * Use this props to pass attrs for close UiIcon
    */
-  headingTitleAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({
-    }),
+  iconCloseAttrs: {
+    type: Object,
+    default: () => ({ icon: 'close' }),
   },
   /**
-   * Use this props to pass attrs for subtitle UiText
+   * Use this props to pass attrs for content element
    */
-  textSubtitleAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({
-    }),
-  },
-  /**
-   * Use this props to override labels inside component translation.
-   */
-  transition: {
-    type: String,
-    default: 'slide',
+  contentAttrs: {
+    type: Object,
+    default: () => ({}),
   },
 });
 const emit = defineEmits<{(e: 'update:modelValue', value: boolean): void,
   (e: 'after-enter'): void
 }>();
 const button = ref<InstanceType<typeof UiButton>| null>(null);
-function closeHandler(): void {
-  emit('update:modelValue', false);
+async function enterHandler(): Promise<void> {
+  await nextTick();
+  focusElement(button.value?.$el, true);
 }
 function afterEnterHandler(): void {
   emit('after-enter');
 }
-async function enterHandler(): Promise<void> {
-  await nextTick();
-  focusElement(button.value?.$el, true);
+// TODO: remove in 0.6.0 / BEGIN
+const attrs = useAttrs();
+const transition = computed(() => attrs.transition);
+if (transition.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiSidePanel]: The `transition` props will be removed in 0.6.0. Please use `transitionDialogAttrs` props instead.');
+  }
+}
+// END
+interface Transition {
+  appear: boolean;
+  name: string;
+  [key: string]: unknown;
+}
+interface DefaultProps {
+  transitionBackdropAttrs: Record<string, unknown>,
+  transitionDialogAttrs: Record<string, unknown>,
+  iconCloseAttrs: {
+    icon: Icon;
+    [key: string]: unknown;
+  },
+  headingTitleAttrs: {
+    level: HeadingLevel;
+    [key: string]: unknown;
+  }
+}
+const defaultProps = computed<DefaultProps>(() => ({
+  transitionBackdropAttrs: {
+    appear: true,
+    name: 'fade',
+    ...props.transitionBackdropAttrs,
+  },
+  transitionDialogAttrs: {
+    appear: true,
+    name: transition.value || 'slide',
+    onEnter: enterHandler,
+    onAfterEnter: afterEnterHandler,
+    ...props.transitionDialogAttrs,
+  },
+  iconCloseAttrs: {
+    icon: 'close',
+    ...props.iconCloseAttrs,
+  },
+  headingTitleAttrs: {
+    level: 2,
+    ...props.headingTitleAttrs,
+  },
+}));
+function closeHandler(): void {
+  emit('update:modelValue', false);
 }
 function keydownHandler(event: Event) {
   const { key } = event as KeyboardEvent;

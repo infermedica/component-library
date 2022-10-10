@@ -6,59 +6,42 @@ import { modifiers } from '@sb/helpers/argTypes';
 export default {
   title: 'Organisms/SimpleQuestion',
   component: UiSimpleQuestion,
-  subcomponents: {
-    UiTile,
-  },
+  subcomponents: { UiTile },
   args: {
     initModelValue: 'female',
     modifiers: [],
-    options: [
+    items: [
       {
-        id: 'female',
         value: 'female',
-        name: 'sex',
         label: 'Female',
-        iconAttrs: {
-          icon: 'female',
-        },
+        icon: 'female',
+        'data-testid': 'female',
+        iconAttrs: { 'data-testid': 'female-icon' },
+        textLabelAttrs: { 'data-testid': 'female-label' },
       },
       {
-        id: 'male',
         value: 'male',
-        name: 'sex',
         label: 'Male',
-        iconAttrs: {
-          icon: 'male',
-        },
+        icon: 'male',
+        iconAttrs: { 'data-testid': 'male-icon' },
+        textLabelAttrs: { 'data-testid': 'male-label' },
       },
     ],
-    tileAttrs: {
-    },
   },
   argTypes: {
     initModelValue: {
       description: 'Use this control to set the initial value.',
-      table: {
-        category: 'stories controls',
-      },
+      table: { category: 'stories controls' },
       control: 'string',
     },
-    modifiers: modifiers({
-      options: ['ui-simple-question--small'],
-    }),
-    modelValue: {
-      control: false,
-    },
+    modifiers: modifiers({ options: [ 'ui-simple-question--small' ] }),
+    modelValue: { control: false },
   },
-  decorators: [() => ({
-    template: '<div class="max-w-147"><story /></div>',
-  })],
+  decorators: [ () => ({ template: '<div class="max-w-147"><story /></div>' }) ],
 };
 
 const Template = (args) => ({
-  components: {
-    UiSimpleQuestion,
-  },
+  components: { UiSimpleQuestion },
   setup() {
     const modelValue = ref(args.initModelValue);
     return {
@@ -68,19 +51,15 @@ const Template = (args) => ({
   },
   template: `<UiSimpleQuestion
     v-model="modelValue"
-    :options="options"
+    :items="items"
     :class="modifiers"
   />`,
 });
 
-export const AsPatientSex = Template.bind({
-});
+export const AsPatientSex = Template.bind({});
 
-export const AsPatientSexSmall = Template.bind({
-});
-AsPatientSexSmall.args = {
-  modifiers: ['ui-simple-question--small'],
-};
+export const AsPatientSexSmall = Template.bind({});
+AsPatientSexSmall.args = { modifiers: [ 'ui-simple-question--small' ] };
 
 export const WithTileSlot = (args) => ({
   components: {
@@ -96,22 +75,29 @@ export const WithTileSlot = (args) => ({
   },
   template: `<UiSimpleQuestion
     v-model="modelValue"
-    :options="options"
+    :items="items"
     :class="modifiers"
   >
-  <template #tile="{option, tileAttrs, modelValue, isTileSmall, updateHandler}">
+  <template #tile="{
+    item, 
+    modelValue, 
+    isTileSmall, 
+    updateHandler
+  }">
     <UiTile
-      :id="option.id"
-      v-bind="tileAttrs"
       :model-value="modelValue"
-      :value="option.value"
-      :icon-attrs="option.iconAttrs"
-      :name="option.name"
+      :value="item.value"
+      :icon="item.icon"
+      :icon-attrs="item.iconAttrs"
+      :text-label-attrs="item.textLabelAttrs"
+      v-bind="{
+        'data-testid': item['data-testid'],
+      }"
       :class="{'ui-tile--small': isTileSmall}"
-      class="ui-simple-question__option ui-tile"
-      @update:modelValue="updateHandler(option.value)"
+      class="ui-simple-question__item"
+      @update:modelValue="updateHandler(item.value)"
     >
-      {{ option.label }}
+      {{ item.label }}
     </UiTile>
   </template>
   </UiSimpleQuestion>`,

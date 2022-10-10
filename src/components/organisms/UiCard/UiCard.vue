@@ -6,24 +6,26 @@
     <!-- @slot Use this slot to replace triage template. -->
     <slot
       name="triage"
-      v-bind="{
-        icon
-      }"
+      v-bind="{ iconTriageAttrs: defaultProps.iconTriageAttrs }"
     >
       <div class="ui-card__triage">
         <UiIcon
-          v-if="icon"
-          :icon="icon"
+          v-if="defaultProps.iconTriageAttrs.icon"
+          v-bind="defaultProps.iconTriageAttrs"
           class="ui-card__icon"
         />
       </div>
     </slot>
+    <!-- @slot Use this slot to replace content template. -->
     <slot
       name="content"
       v-bind="{
         subtitle,
+        textSubtitleAttrs,
         title,
-        description
+        headingTitleAttrs,
+        description,
+        textDescriptionAttrs
       }"
     >
       <div class="ui-card__content">
@@ -31,11 +33,13 @@
         <slot
           name="subtitle"
           v-bind="{
-            subtitle
+            subtitle,
+            textSubtitleAttrs
           }"
         >
           <UiText
             v-if="subtitle"
+            v-bind="textSubtitleAttrs"
             class="ui-card__subtitle"
           >
             {{ subtitle }}
@@ -45,11 +49,13 @@
         <slot
           name="title"
           v-bind="{
-            title
+            title,
+            headingTitleAttrs
           }"
         >
           <UiHeading
             v-if="title"
+            v-bind="headingTitleAttrs"
             class="ui-card__title"
           >
             {{ title }}
@@ -59,11 +65,13 @@
         <slot
           name="description"
           v-bind="{
-            description
+            description,
+            textDescriptionAttrs
           }"
         >
           <UiText
             v-if="description"
+            v-bind="textDescriptionAttrs"
             class="ui-card__description"
           >
             {{ description }}
@@ -119,9 +127,43 @@ const props = defineProps({
     type: String as PropType<CardType>,
     default: 'emergency_ambulance',
   },
+  /**
+   * Use this props to pass attrs for UiIcon
+   */
+  iconTriageAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for subtitle UiText
+   */
+  textSubtitleAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for title UiHeading.
+   */
+  headingTitleAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for description UiText.
+   */
+  textDescriptionAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
 });
 const rootClassModifier = computed<`ui-card--${CardType}`>(() => `ui-card--${props.type}`);
 const icon = computed(() => props.type.replace(/_/g, '-') as IconAsString);
+const defaultProps = computed(() => ({
+  iconTriageAttrs: {
+    icon: icon.value,
+    ...props.iconTriageAttrs,
+  },
+}));
 </script>
 
 <style lang="scss">
@@ -226,7 +268,12 @@ const icon = computed(() => props.type.replace(/_/g, '-') as IconAsString);
   @each $type in $types {
     &--#{$type} {
       #{$this}__triage {
-        background: functions.var($element + "-triage", background, var(--color-triage-#{str-replace($type, "_", "-")}));
+        background:
+          functions.var(
+            $element + "-triage",
+            background,
+            var(--color-triage-#{str-replace($type, "_", "-")})
+          );
       }
     }
   }

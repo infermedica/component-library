@@ -3,36 +3,23 @@ import UiFormField from './UiFormField.vue';
 
 describe('UiFormField.vue', () => {
   test('renders a component', () => {
-    const wrapper = mount(UiFormField, {
-    });
+    const wrapper = mount(UiFormField, {});
     expect(wrapper.classes('ui-form-field')).toBe(true);
   });
   test('renders component with custom label from slot', () => {
     const customerrorMessage = 'custom alert text';
-    const wrapper = mount(UiFormField, {
-      slots: {
-        alert: `<div class="alert-class">${customerrorMessage}</div>`,
-      },
-    });
+    const wrapper = mount(UiFormField, { slots: { alert: `<div class="alert-class">${customerrorMessage}</div>` } });
     expect(wrapper.find('.alert-class').text()).toContain(customerrorMessage);
   });
   test('renders component with custom label from slot and has only one label', () => {
     const customLabel = 'custom label text';
-    const wrapper = mount(UiFormField, {
-      slots: {
-        default: `<label class="label-class">${customLabel}</label>`,
-      },
-    });
+    const wrapper = mount(UiFormField, { slots: { default: `<label class="label-class">${customLabel}</label>` } });
     expect(wrapper.find('.label-class').text()).toContain(customLabel);
     expect(wrapper.findAll('label').length).toBe(1);
   });
   test('renders a label when passed a label prop', () => {
     const labelText = 'custom label text';
-    const wrapper = mount(UiFormField, {
-      props: {
-        label: labelText,
-      },
-    });
+    const wrapper = mount(UiFormField, { props: { label: labelText } });
 
     const label = wrapper.findAll('label');
     expect(label.length).toBe(1);
@@ -40,11 +27,7 @@ describe('UiFormField.vue', () => {
   });
   test('renders an alert when passed an errorMessage prop', () => {
     const errorMessage = 'custom label text';
-    const wrapper = mount(UiFormField, {
-      props: {
-        errorMessage,
-      },
-    });
+    const wrapper = mount(UiFormField, { props: { errorMessage } });
 
     const alert = wrapper.find('.ui-alert');
     expect(alert.text()).toContain(errorMessage);
@@ -63,11 +46,7 @@ describe('UiFormField.vue', () => {
   });
   test('does not render a hint alert when passed hint prop without label', () => {
     const hintText = 'Required';
-    const wrapper = mount(UiFormField, {
-      props: {
-        hint: hintText,
-      },
-    });
+    const wrapper = mount(UiFormField, { props: { hint: hintText } });
 
     expect(wrapper.find('.ui-form-field__label-tag').exists()).toBe(false);
   });

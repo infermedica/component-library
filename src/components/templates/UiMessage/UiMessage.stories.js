@@ -19,8 +19,9 @@ export default {
     title: 'Hello!',
     subtitle: '',
     illustration: 'boy',
-    headingTitleAttrs: {
-    },
+    textSubtitleAttrs: { 'data-testid': 'subtitle-text' },
+    headingTitleAttrs: { 'data-testid': 'title-heading' },
+    iconIllustrationAttrs: { 'data-testid': 'illustration-icon' },
   },
   argTypes: {
     content,
@@ -29,61 +30,57 @@ export default {
       description: 'Use this slot to replace content template.',
       table: {
         category: 'slots',
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
       },
       control: 'object',
     },
     title: {
       description: 'Use this props to set message title.',
-      table: {
-        category: 'props',
-      },
+      table: { category: 'props' },
     },
     titleSlot: {
       name: 'title',
       description: 'Use this slot to replace title template.',
       table: {
         category: 'slots',
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
       },
       control: 'object',
     },
     subtitle: {
       description: 'Use this props to set message subtitle.',
-      table: {
-        category: 'props',
-      },
+      table: { category: 'props' },
     },
     subtitleSlot: {
       name: 'subtitle',
       description: 'Use this slot to replace subtitle template.',
       table: {
         category: 'slots',
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
       },
       control: 'object',
     },
     illustration: {
       description: 'Use this props to set message illustration.',
-      table: {
-        category: 'props',
-      },
+      table: { category: 'props' },
       type: 'select',
-      options: ['agreement', 'boy', 'no-internet-illustration', 'podium', 'lock', 'agreement-rtl', 'boy-rtl', 'no-internet-illustration-rtl', 'podium-rtl'],
+      options: [
+        'agreement',
+        'boy',
+        'no-internet-illustration',
+        'podium',
+        'lock',
+        'agreement-rtl',
+        'boy-rtl',
+        'no-internet-illustration-rtl',
+        'podium-rtl',
+      ],
     },
     illustrationSlot: {
       name: 'illustration',
       table: {
         category: 'slots',
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
       },
       control: 'object',
     },
@@ -96,22 +93,21 @@ const Template = (args) => ({
     UiText,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiMessage
     :title="title"
     :subtitle="subtitle"
     :illustration="illustration"
+    :text-subtitle-attrs="textSubtitleAttrs"
     :heading-title-attrs="headingTitleAttrs"
+    :icon-illustration-attrs="iconIllustrationAttrs"
   >
-    <UiText>{{content}}</UiText>
+    <UiText>{{ content }}</UiText>
   </UiMessage>`,
 });
 
-export const AsIntroduction = Template.bind({
-});
+export const AsIntroduction = Template.bind({});
 
 export const WithContentSlot = (args) => ({
   components: {
@@ -120,25 +116,40 @@ export const WithContentSlot = (args) => ({
     UiHeading,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiMessage
     :title="title"
     :subtitle="subtitle"
     :illustration="illustration"
+    :text-subtitle-attrs="textSubtitleAttrs"
     :heading-title-attrs="headingTitleAttrs"
+    :icon-illustration-attrs="iconIllustrationAttrs"
   >
-    <template #content="{title}">
+    <template 
+      #content="{
+        subtitle,
+        title,
+        textSubtitleAttrs,
+        headingTitleAttrs
+      }"
+    >
       <div class="ui-message__content">
+        <UiText
+          v-if="subtitle"
+          v-bind="textSubtitleAttrs"
+          class="ui-message__subtitle"
+        >
+          {{ subtitle }}
+        </UiText>
         <UiHeading
-          v-if="title"
-          class="ui-message__title"
+            v-if="title"
+            v-bind="headingTitleAttrs"
+            class="ui-message__title"
         >
           {{ title }}
         </UiHeading>
-        <UiText>{{content}}</UiText>
+        <UiText>{{ content }}</UiText>
       </div>
     </template>
   </UiMessage>`,
@@ -151,51 +162,59 @@ export const WithAsideSlot = (args) => ({
     UiIcon,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiMessage
     :title="title"
     :subtitle="subtitle"
     :illustration="illustration"
+    :text-subtitle-attrs="textSubtitleAttrs"
     :heading-title-attrs="headingTitleAttrs"
+    :icon-illustration-attrs="iconIllustrationAttrs"
   >
-    <template #aside="{illustration}">
+    <template 
+      #aside="{
+        illustration,
+        iconIllustrationAttrs
+      }"
+    >
       <div
         v-if="illustration"
         class="ui-message__aside"
       >
         <UiIcon
-          :icon="illustration"
+          v-bind="iconIllustrationAttrs"
           class="ui-message__illustration"
         />
       </div>
     </template>
-    <UiText>{{content}}</UiText>
+    <UiText>{{ content }}</UiText>
   </UiMessage>`,
 });
 
 export const WithIllustrationSlot = (args) => ({
   components: {
     UiMessage,
-    UiText,
     UiIcon,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiMessage
     :title="title"
     :subtitle="subtitle"
     :illustration="illustration"
+    :text-subtitle-attrs="textSubtitleAttrs"
     :heading-title-attrs="headingTitleAttrs"
+    :icon-illustration-attrs="iconIllustrationAttrs"
   >
-    <template #illustration="{illustration}">
+    <template 
+      #illustration="{
+        iconIllustrationAttrs
+      }"
+    >
       <UiIcon
-        :icon="illustration"
+        v-bind="iconIllustrationAttrs"
         class="ui-message__illustration"
       />
     </template>
@@ -209,15 +228,15 @@ export const AsNotAuthorized = (args) => ({
     UiText,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiMessage
     :title="title"
     :subtitle="subtitle"
     :illustration="illustration"
+    :text-subtitle-attrs="textSubtitleAttrs"
     :heading-title-attrs="headingTitleAttrs"
+    :icon-illustration-attrs="iconIllustrationAttrs"
     :style="{
       '--message-tablet-flex-direction': 'row-reverse',
       '--message-tablet-aside-margin': '0 var(--space-40) 0 0',
@@ -225,7 +244,7 @@ export const AsNotAuthorized = (args) => ({
       '--message-illustration-size': '10rem',
     }"
   >
-  <UiText>If you are an administrator of this website, then check your integration settings.</UiText>
+    <UiText>If you are an administrator of this website, then check your integration settings.</UiText>
   </UiMessage>`,
 });
 AsNotAuthorized.args = {
@@ -233,7 +252,7 @@ AsNotAuthorized.args = {
   title: 'Sorry, you are not allowed to see this page',
   illustration: 'lock',
 };
-AsNotAuthorized.decorators = [(story) => ({
+AsNotAuthorized.decorators = [ (story) => ({
   components: {
     story,
     UiControls,
@@ -249,7 +268,7 @@ AsNotAuthorized.decorators = [(story) => ({
   >
     <story/>
   </UiControls>`,
-})];
+}) ];
 
 export const AsOffline = (args) => ({
   components: {
@@ -258,15 +277,15 @@ export const AsOffline = (args) => ({
     UiButton,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiMessage
     :title="title"
     :subtitle="subtitle"
     :illustration="illustration"
+    :text-subtitle-attrs="textSubtitleAttrs"
     :heading-title-attrs="headingTitleAttrs"
+    :icon-illustration-attrs="iconIllustrationAttrs"
     :style="{
       '--message-tablet-flex-direction': 'row-reverse',
       '--message-tablet-aside-margin': '0 var(--space-40) 0 0',
@@ -287,7 +306,7 @@ AsOffline.args = {
   title: 'No internet connection',
   illustration: 'no-internet-illustration',
 };
-AsOffline.decorators = [(story) => ({
+AsOffline.decorators = [ (story) => ({
   components: {
     story,
     UiControls,
@@ -303,7 +322,7 @@ AsOffline.decorators = [(story) => ({
   >
     <story/>
   </UiControls>`,
-})];
+}) ];
 
 export const AsOfflinePopover = (args) => ({
   components: {
@@ -312,15 +331,15 @@ export const AsOfflinePopover = (args) => ({
     UiButton,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiMessage
     title="No internet connection"
     :subtitle="subtitle"
     :illustration="illustration"
+    :text-subtitle-attrs="textSubtitleAttrs"
     :heading-title-attrs="headingTitleAttrs"
+    :icon-illustration-attrs="iconIllustrationAttrs"
     :style="{
       '--message-flex-direction': 'row-reverse',
       '--message-tablet-flex-direction': 'row-reverse',
@@ -338,13 +357,11 @@ export const AsOfflinePopover = (args) => ({
   </UiMessage>`,
 });
 AsOfflinePopover.args = {
-  title: '', // hack: prevent to provide title to popover
+  title: null,
   illustration: 'no-internet',
-  headingTitleAttrs: {
-    level: '4',
-  },
+  headingTitleAttrs: { level: '4' },
 };
-AsOfflinePopover.decorators = [(story) => ({
+AsOfflinePopover.decorators = [ (story) => ({
   components: {
     story,
     UiPopover,
@@ -358,4 +375,4 @@ AsOfflinePopover.decorators = [(story) => ({
   >
     <story/>
   </UiPopover>`,
-})];
+}) ];

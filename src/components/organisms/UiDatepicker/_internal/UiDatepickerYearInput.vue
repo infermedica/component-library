@@ -2,9 +2,7 @@
   <UiInput
     id="year"
     v-model="year"
-    :class="{
-      'ui-input--has-error': hasError || error
-    }"
+    :class="{ 'ui-input--has-error': hasError || error }"
     :placeholder="translation.placeholderYear"
     maxlength="4"
     inputmode="numeric"

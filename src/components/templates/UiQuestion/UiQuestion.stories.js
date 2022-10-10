@@ -6,6 +6,14 @@ import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiControls from '@/components/organisms/UiControls/UiControls.vue';
 import UiMultipleAnswer from '@/components/organisms/UiMultipleAnswer/UiMultipleAnswer.vue';
 import UiSimpleQuestion from '@/components/organisms/UiSimpleQuestion/UiSimpleQuestion.vue';
+import { actions } from '@storybook/addon-actions';
+
+const events = actions({
+  onClickInfoButton: 'click:info-button',
+  onClickWhyButton: 'click:why-button',
+  onClickIssueButton: 'click:issue-button',
+  onClickFeedbackButton: 'click:feedback-button',
+});
 
 export default {
   title: 'Templates/Question',
@@ -27,51 +35,37 @@ export default {
         skip: 'Skip this question',
       },
     },
-    options: {
+    settings: {
       info: true,
       why: true,
-      issue: {
-        feedback: true,
-      },
+      issue: { feedback: true },
     },
-    buttonSkipAttrs: {
-      to: {
-        path: '/',
-      },
-      translation: {
-        action: 'Skip this question',
-      },
-    },
+    headingTitleAttrs: { 'data-test': 'title-heading' },
     buttonInfoAttrs: {
-      to: {
-        path: '/',
-      },
+      'data-test': 'info-button',
+      onClick: events.onClickInfoButton,
     },
+    iconInfoAttrs: { 'data-test': 'info-icon' },
     buttonWhyAttrs: {
-      to: {
-        path: '/',
-      },
+      'data-test': 'why-button',
+      onClick: events.onClickWhyButton,
     },
     buttonIssueAttrs: {
-      to: {
-        path: '/',
-      },
+      'data-test': 'issue-button',
+      onClick: events.onClickIssueButton,
     },
+    notificationFeedbackAttrs: { buttonActionAttrs: { onClick: events.onClickFeedbackButton } },
     titleSlot: null,
   },
   argTypes: {
     items: {
       description: 'Use this control to set the items.',
-      table: {
-        category: 'stories controls',
-      },
+      table: { category: 'stories controls' },
       control: 'array',
     },
     title: {
       description: 'Use this props to set question title.',
-      table: {
-        category: 'props',
-      },
+      table: { category: 'props' },
       control: 'text',
     },
     titleSlot: {
@@ -79,9 +73,7 @@ export default {
       description: 'Use this slot to replace title template.',
       table: {
         category: 'slots',
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
       },
       control: 'object',
     },
@@ -103,11 +95,13 @@ export const AsMultipleAnswer = (args) => ({
   template: `<UiQuestion
     :title="title"
     :translation="translation"
-    :options="options"
-    :button-skip-attrs="buttonSkipAttrs"
+    :settings="settings"
+    :heading-title-attrs="headingTitleAttrs"
     :button-info-attrs="buttonInfoAttrs"
+    :icon-info-attrs="iconInfoAttrs"
     :button-why-attrs="buttonWhyAttrs"
     :button-issue-attrs="buttonIssueAttrs"
+    :notification-feedback-attrs="notificationFeedbackAttrs"
     :style="{
       '--question-tablet-content-margin': 'var(--space-32) 0 0 0',
       '--question-tablet-actions-bottom-margin': 'var(--space-32) 0 0 0',
@@ -116,43 +110,33 @@ export const AsMultipleAnswer = (args) => ({
     <UiMultipleAnswer
       v-model="modelValue"
       name="group-single"
-      :choices="items"
+      :items="items"
     />
   </UiQuestion>`,
 });
 AsMultipleAnswer.args = {
   items: [
     {
-      id: 's_1907',
-      name: 'Seconds to minutes',
-      buttonInfoAttrs: null,
+      label: 'Fatigue',
+      value: 'fatigue',
+      buttonInfoAttrs: { ariaLabel: 'how to check it?' },
+      iconInfoAttrs: { 'data-testid': 'info-icon' },
+      textLabelAttrs: { 'data-testid': 'label-text' },
     },
     {
-      id: 's_1868',
-      name: 'A few minutes to 4 hours',
-      buttonInfoAttrs: {
-        'aria-label': 'what does it mean?',
-      },
+      label: 'Fever',
+      value: 'fever',
     },
     {
-      id: 's_1870',
-      name: '4 hours to 3 days',
-      buttonInfoAttrs: null,
+      label: 'Illusion of surrounding objects being bigger or smaller than they actually are',
+      value: 'illusion',
+      buttonInfoAttrs: { ariaLabel: 'what does it mean?' },
+      iconInfoAttrs: { 'data-testid': 'info-icon' },
+      textLabelAttrs: { 'data-testid': 'label-text' },
     },
   ],
-  translation: {
-    info: 'What does it mean?',
-    why: 'Why am I being asked this?',
-    issue: {
-      action: 'Report an issue with this question',
-      feedback: 'Thank you. We’ll review this question as soon as possible.',
-      skip: 'Skip this question',
-    },
-    back: 'Back',
-    next: 'Next',
-  },
 };
-AsMultipleAnswer.decorators = [(story) => ({
+AsMultipleAnswer.decorators = [ (story) => ({
   components: {
     story,
     UiControls,
@@ -168,7 +152,7 @@ AsMultipleAnswer.decorators = [(story) => ({
   >
     <story/>
   </UiControls>`,
-})];
+}) ];
 
 export const AsSimpleQuestion = (args) => ({
   components: {
@@ -185,15 +169,17 @@ export const AsSimpleQuestion = (args) => ({
   template: `<UiQuestion
     :title="title"
     :translation="translation"
-    :options="options"
-    :button-skip-attrs="buttonSkipAttrs"
+    :settings="settings"
+    :heading-title-attrs="headingTitleAttrs"
     :button-info-attrs="buttonInfoAttrs"
+    :icon-info-attrs="iconInfoAttrs"
     :button-why-attrs="buttonWhyAttrs"
     :button-issue-attrs="buttonIssueAttrs"
+    :notification-feedback-attrs="notificationFeedbackAttrs"
   >
     <UiSimpleQuestion
       v-model="modelValue"
-      :options="items"
+      :items="items"
     />
   </UiQuestion>`,
 });
@@ -202,39 +188,21 @@ AsSimpleQuestion.args = {
     {
       value: 'present',
       label: 'Yes',
-      iconAttrs: {
-        icon: 'yes',
-      },
+      icon: 'yes',
     },
     {
       value: 'absent',
       label: 'Male',
-      iconAttrs: {
-        icon: 'no',
-      },
+      icon: 'no',
     },
     {
       value: 'unknown',
       label: 'Don\'t know',
-      iconAttrs: {
-        icon: 'dont-know',
-      },
+      icon: 'dont-know',
     },
   ],
-  translation: {
-    info: 'What does it mean?',
-    why: 'Why am I being asked this?',
-    issue: {
-      action: 'Report an issue with this question',
-      feedback: 'Thank you. We’ll review this question as soon as possible.',
-      skip: 'Skip this question',
-    },
-    back: 'Back',
-    next: 'Next',
-    action: 'Skip this question',
-  },
 };
-AsSimpleQuestion.decorators = [(story) => ({
+AsSimpleQuestion.decorators = [ (story) => ({
   components: {
     story,
     UiControls,
@@ -250,7 +218,7 @@ AsSimpleQuestion.decorators = [(story) => ({
   >
     <story/>
   </UiControls>`,
-})];
+}) ];
 
 export const WithTitleSlot = (args) => ({
   components: {
@@ -258,22 +226,28 @@ export const WithTitleSlot = (args) => ({
     UiHeading,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiQuestion
     :title="title"
     :translation="translation"
-    :options="options"
-    :buttons-skip-attrs="buttonSkipAttrs"
+    :settings="settings"
+    :heading-title-attrs="headingTitleAttrs"
     :button-info-attrs="buttonInfoAttrs"
+    :icon-info-attrs="iconInfoAttrs"
     :button-why-attrs="buttonWhyAttrs"
     :button-issue-attrs="buttonIssueAttrs"
+    :notification-feedback-attrs="notificationFeedbackAttrs"
   >
-    <template #title="{title}">
+    <template 
+      #title="{ 
+        title,
+        headingTitleAttrs, 
+      }"
+    >
       <UiHeading
         v-if="title"
+        v-bind="headingTitleAttrs"
         class="ui-question__title"
       >
         {{ title }}
@@ -289,27 +263,34 @@ export const WithInfoSlot = (args) => ({
     UiIcon,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiQuestion
     :title="title"
     :translation="translation"
-    :options="options"
-    :buttons-skip-attrs="buttonSkipAttrs"
+    :settings="settings"
+    :heading-title-attrs="headingTitleAttrs"
     :button-info-attrs="buttonInfoAttrs"
+    :icon-info-attrs="iconInfoAttrs"
     :button-why-attrs="buttonWhyAttrs"
     :button-issue-attrs="buttonIssueAttrs"
+    :notification-feedback-attrs="notificationFeedbackAttrs"
   >
-    <template #info="{options, translation}">
+    <template 
+      #info="{
+       buttonInfoAttrs,
+       settings,
+       translation,
+       iconInfoAttrs,
+      }"
+    >
       <UiButton
-        v-if="options.info"
+        v-if="settings.info"
         v-bind="buttonInfoAttrs"
-        class="ui-question__info ui-button--text ui-button--small ui-button--small ui-button--has-icon"
+        class="ui-question__info ui-button--text ui-button--small ui-button--has-icon"
       >
         <UiIcon
-          icon="info"
+          v-bind="iconInfoAttrs"
           class="ui-button__icon"
         />
         {{ translation.info }}
@@ -324,33 +305,51 @@ export const WithActionsBottomSlot = (args) => ({
     UiButton,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiQuestion
     :title="title"
     :translation="translation"
-    :options="options"
+    :settings="settings"
+    :heading-title-attrs="headingTitleAttrs"
+    :button-info-attrs="buttonInfoAttrs"
+    :icon-info-attrs="iconInfoAttrs"
+    :button-why-attrs="buttonWhyAttrs"
+    :button-issue-attrs="buttonIssueAttrs"
+    :notification-feedback-attrs="notificationFeedbackAttrs"
   >
-    <template #actions-bottom="{options, translation}">
+    <template 
+      #actions-bottom="{
+        hasActionsBottom,
+        buttonWhyAttrs,
+        buttonIssueAttrs,
+        settings,
+        translation,
+      }"
+    >
       <div
-        v-if="options.why || options.issue"
+        v-if="hasActionsBottom"
         class="ui-question__actions-bottom"
       >
         <div
-          v-if="options.why"
+          v-if="settings.why"
           class="ui-question__action"
         >
-          <UiButton class="ui-button--text ui-button--small">
+        <UiButton
+            v-bind="buttonWhyAttrs"
+            class="ui-button--small ui-button--text"
+          >
             {{ translation.why }}
           </UiButton>
         </div>
         <div
-          v-if="options.issue"
+          v-if="settings.issue"
           class="ui-question__action"
         >
-          <UiButton class="ui-question__action ui-button--text ui-button--small">
+          <UiButton
+            v-bind="buttonIssueAttrs"
+            class="ui-button--small ui-button--text"
+          >
             {{ translation.issue.action }}
           </UiButton>
         </div>
@@ -365,21 +364,34 @@ export const WithWhySlot = (args) => ({
     UiButton,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiQuestion
     :title="title"
     :translation="translation"
-    :options="options"
+    :settings="settings"
+    :heading-title-attrs="headingTitleAttrs"
+    :button-info-attrs="buttonInfoAttrs"
+    :icon-info-attrs="iconInfoAttrs"
+    :button-why-attrs="buttonWhyAttrs"
+    :button-issue-attrs="buttonIssueAttrs"
+    :notification-feedback-attrs="notificationFeedbackAttrs"
   >
-    <template #why="{options, translation}">
+    <template 
+      #why="{
+        settings,
+        translation,
+        buttonWhyAttrs,
+      }"
+    >
       <div
-        v-if="options.why"
-        class="ui-question__action"
+          v-if="settings.why"
+          class="ui-question__action"
       >
-        <UiButton class="ui-button--text ui-button--small">
+        <UiButton
+            v-bind="buttonWhyAttrs"
+            class="ui-button--small ui-button--text"
+        >
           {{ translation.why }}
         </UiButton>
       </div>
@@ -393,21 +405,32 @@ export const WithIssueSlot = (args) => ({
     UiButton,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiQuestion
     :title="title"
     :translation="translation"
-    :options="options"
+    :settings="settings"
+    :heading-title-attrs="headingTitleAttrs"
+    :button-info-attrs="buttonInfoAttrs"
+    :icon-info-attrs="iconInfoAttrs"
+    :button-why-attrs="buttonWhyAttrs"
+    :button-issue-attrs="buttonIssueAttrs"
+    :notification-feedback-attrs="notificationFeedbackAttrs"
   >
-    <template #issue="{options, translation}">
+    <template #issue="{
+      buttonIssueAttrs,
+      settings,
+      translation,
+    }">
       <div
-        v-if="options.issue"
+        v-if="settings.issue"
         class="ui-question__action"
       >
-        <UiButton class="ui-question__action ui-button--text ui-button--small">
+        <UiButton
+          v-bind="buttonIssueAttrs"
+          class="ui-button--small ui-button--text"
+        >
           {{ translation.issue.action }}
         </UiButton>
       </div>

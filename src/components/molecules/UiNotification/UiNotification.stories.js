@@ -5,37 +5,39 @@ import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
 import { actions } from '@storybook/addon-actions';
 import { content } from '@sb/helpers/argTypes';
 
-const events = actions({
-  onClick: 'action',
-});
+const events = actions({ onClick: 'action' });
 
 export default {
   title: 'Molecules/Notification',
   component: UiNotification,
   subcomponents: {
     UiAlert,
+    UiButton,
+    UiIcon,
   },
   args: {
     content: 'Thank you. We’ll review this question as soon as possible.',
     type: 'error',
     hasIcon: true,
-    translation: {
-      action: 'Action',
-    },
-    buttonActionAttrs: {
-      onClick: () => (events.onClick()),
-    },
+    translation: { action: 'Action' },
+    buttonActionAttrs: { onClick: () => (events.onClick()) },
+    iconActionAttrs: { 'data-test': 'action-icon' },
   },
   argTypes: {
     content,
     type: {
       control: 'select',
-      options: ['success', 'info', 'warning', 'error'],
+      options: [
+        'success',
+        'info',
+        'warning',
+        'error',
+      ],
     },
+    buttonActionAttrs: { table: { subcategory: 'Attrs props' } },
+    iconActionAttrs: { table: { subcategory: 'Attrs props' } },
   },
-  decorators: [() => ({
-    template: '<div style="max-width: 320px;"><story /></div>',
-  })],
+  decorators: [ () => ({ template: '<div style="max-width: 320px;"><story /></div>' }) ],
 };
 
 const Template = (args) => ({
@@ -44,43 +46,32 @@ const Template = (args) => ({
     UiAlert,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiNotification 
     :type="type"
     :has-icon="hasIcon"
     :translation="translation"
     :button-action-attrs="buttonActionAttrs"
+    :icon-action-attrs="iconActionAttrs"
+    :icon-alert-attrs="{ 'data-test': 'alert-icon' }"
+    :text-message-attrs="{ 'data-testid': 'message-text' }"
   >
     {{ content }}
   </UiNotification>`,
 });
 
-export const Error = Template.bind({
-});
-Error.args = {
-  type: 'error',
-};
+export const Error = Template.bind({});
+Error.args = { type: 'error' };
 
-export const Success = Template.bind({
-});
-Success.args = {
-  type: 'success',
-};
+export const Success = Template.bind({});
+Success.args = { type: 'success' };
 
-export const Info = Template.bind({
-});
-Info.args = {
-  type: 'info',
-};
+export const Info = Template.bind({});
+Info.args = { type: 'info' };
 
-export const Warning = Template.bind({
-});
-Warning.args = {
-  type: 'warning',
-};
+export const Warning = Template.bind({});
+Warning.args = { type: 'warning' };
 
 export const WithActionSlot = (args) => ({
   components: {
@@ -89,28 +80,33 @@ export const WithActionSlot = (args) => ({
     UiIcon,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
-  template: `<UiNotification 
+  template: `<UiNotification
     :type="type"
     :has-icon="hasIcon"
     :translation="translation"
     :button-action-attrs="buttonActionAttrs"
+    :icon-alert-attrs="{ 'data-test': 'alert-icon' }"
+    :text-message-attrs="{ 'data-testid': 'message-text' }"
   >
-    {{ content }}
-    <template #action="{attrs, translation, hasAction}">
+    <template #action="{
+      buttonActionAttrs,
+      translation, 
+      hasAction,
+      iconActionAttrs,
+    }">
       <UiButton
         v-if="hasAction"
-        v-bind="attrs"
+        v-bind="buttonActionAttrs"
         class="ui-button--text ui-button--has-icon ui-notification__action"
       >
         {{ translation.action }} <UiIcon
-          icon="chevron-right"
+          v-bind="iconActionAttrs"
           class="ui-button__icon ui-button__icon--right"
       />
       </UiButton>
     </template>
+    {{ content }}
   </UiNotification>`,
 });

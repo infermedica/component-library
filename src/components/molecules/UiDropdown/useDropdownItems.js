@@ -8,7 +8,7 @@ import useActiveElement from '../../../composable/useActiveElement';
 export default function useDropdownItems(dropdown) {
   const dropdownItems = ref([]);
   useMutationObserver(dropdown, () => {
-    dropdownItems.value = [...dropdown.value.querySelectorAll('.ui-dropdown-item')];
+    dropdownItems.value = [ ...dropdown.value.querySelectorAll('.ui-dropdown-item') ];
   }, {
     subtree: true,
     childList: true,

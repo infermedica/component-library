@@ -10,13 +10,7 @@ describe('UiMegaMenu.vue', () => {
   });
   test('component emit item to open', async () => {
     const name = 'test';
-    const wrapper = mount(UiMegaMenu, {
-      slots: {
-        default: h(UiMegaMenuItem, {
-          name,
-        }),
-      },
-    });
+    const wrapper = mount(UiMegaMenu, { slots: { default: h(UiMegaMenuItem, { name }) } });
     const item = wrapper.findComponent(UiMegaMenuItem);
     item.vm.to();
     expect(wrapper.emitted('update:modelValue')[0][0]).toBe(name);

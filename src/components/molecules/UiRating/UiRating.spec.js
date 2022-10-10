@@ -9,11 +9,7 @@ describe('UiRating.vue', () => {
     expect(wrapper.classes('ui-rating')).toBe(true);
   });
   test('check if max rate pass to component', () => {
-    const wrapper = mount(UiRating, {
-      props: {
-        max: '5',
-      },
-    });
+    const wrapper = mount(UiRating, { props: { max: '5' } });
     expect(wrapper.findAllComponents(UiRadio).length).toBe(5);
   });
   test('check if rate value pass to component', () => {
@@ -22,11 +18,7 @@ describe('UiRating.vue', () => {
         max: '5',
         modelValue: '3',
       },
-      slots: {
-        'icon-active': h('div', {
-          class: 'activeIcon',
-        }),
-      },
+      slots: { 'icon-active': h('div', { class: 'activeIcon' }) },
     });
     expect(wrapper.findAll('.activeIcon').length).toBe(3);
   });

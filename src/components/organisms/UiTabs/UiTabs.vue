@@ -11,17 +11,12 @@
         :key="key"
       >
         <UiTabsItem
-          :name="item.name"
-          :title="item.title"
-          :button-attrs="item.buttonAttrs"
-          v-bind="item.tabsItemAttrs"
+          v-bind="item"
         >
           <!-- @slot Use this slot to place tab item content. -->
           <slot
             :name="item.name"
-            v-bind="{
-              item
-            }"
+            v-bind="{ item }"
           />
         </UiTabsItem>
       </template>
@@ -72,20 +67,19 @@ const emit = defineEmits<{(e:'update:modelValue', value: string): void}>();
 watch(activeTab, (name) => {
   emit('update:modelValue', name);
 });
-const itemsToRender = computed(() => (
-  props.items.map((item, key) => {
-    if (typeof item === 'string') {
-      return {
-        name: `tabs-item-${key}`,
-        title: item,
-      };
-    }
-    const { name } = item;
+const itemsToRender = computed(() => (props.items.map((item, key) => {
+  if (typeof item === 'string') {
     return {
-      ...item,
-      name: name || `tabs-item-${key}`,
+      name: `tabs-item-${key}`,
+      title: item,
     };
-  })));
+  }
+  const { name } = item;
+  return {
+    ...item,
+    name: name || `tabs-item-${key}`,
+  };
+})));
 
 const tabs = ref<HTMLDivElement | null>(null);
 const activeTabHTMLElement = ref<HTMLElement | null>(null);

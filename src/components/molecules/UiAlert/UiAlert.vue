@@ -5,16 +5,25 @@
     role="alert"
   >
     <!-- @slot Use this slot to replace icon template. -->
-    <slot name="icon">
+    <slot
+      name="icon"
+      v-bind="{ iconAlertAttrs: defaultProps.iconAlertAttrs }"
+    >
       <UiIcon
-        v-if="icon"
-        :icon="icon"
+        v-if="defaultProps.iconAlertAttrs.icon"
+        v-bind="defaultProps.iconAlertAttrs"
         class="ui-alert__icon"
       />
     </slot>
     <!-- @slot Use this slot to replace message template. -->
-    <slot name="message">
-      <UiText class="ui-text--body-2-comfortable ui-alert__message">
+    <slot
+      name="message"
+      v-bind="{ textMessageAttrs, }"
+    >
+      <UiText
+        v-bind="textMessageAttrs"
+        class="ui-text--body-2-comfortable ui-alert__message"
+      >
         <!-- @slot Use this slot to place message inside alert. -->
         <slot />
       </UiText>
@@ -47,9 +56,29 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  /**
+   * Use this props to pass attrs for UiIcon
+   */
+  iconAlertAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for message UiText
+   */
+  textMessageAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
 });
 const rootClassModifier = computed<`ui-alert--${AlertType}`>(() => `ui-alert--${props.type}`);
 const icon = computed<AlertIcon>(() => ((!props.hasIcon || props.type === 'default') ? '' : `${props.type}-filled`));
+const defaultProps = computed(() => ({
+  iconAlertAttrs: {
+    icon: icon.value,
+    ...props.iconAlertAttrs,
+  },
+}));
 </script>
 
 <style lang="scss">

@@ -2,51 +2,64 @@
   <component
     :is="tag"
     role="radiogroup"
-    :aria-labelledby="ariaLabelledby"
-    :class="['ui-multiple-choices-item', {
-      'ui-multiple-choices-item--has-error': invalid
-    }]"
+    :aria-labelledby="multipleChoicesItemId"
+    :class="[
+      'ui-multiple-choices-item', { 'ui-multiple-choices-item--has-error': invalid }
+    ]"
   >
     <!-- @slot Use this slot to replace legend template. -->
-    <slot name="legend">
+    <slot
+      name="legend"
+      v-bind="{
+        label,
+        name,
+      }"
+    >
       <legend class="visual-hidden">
-        {{ item.name }}
+        {{ name || label }}
       </legend>
     </slot>
-    <!-- @slot Use this slot to replace name template.-->
+    <!-- @slot Use this slot to replace label template.-->
     <slot
-      name="name"
+      name="label"
       v-bind="{
-        id: ariaLabelledby,
-        item,
+        id: multipleChoicesItemId,
+        textLabelAttrs,
+        name,
+        label,
+        buttonInfoAttrs,
+        iconInfoAttrs: defaultProps.iconInfoAttrs,
+        translation,
       }"
     >
       <div class="ui-multiple-choices-item__header">
         <UiText
-          :id="ariaLabelledby"
-          tag="span"
-          class="ui-multiple-choices-item__name"
+          :id="multipleChoicesItemId"
+          v-bind="textLabelAttrs"
+          class="ui-multiple-choices-item__label"
         >
-          {{ item.name }}
+          {{ name || label }}
         </UiText>
         <UiButton
-          v-if="item.buttonInfoAttrs"
-          v-bind="item.buttonInfoAttrs"
+          v-if="buttonInfoAttrs"
+          v-bind="buttonInfoAttrs"
           class="ui-button--text ui-button--small ui-multiple-choices-item__info"
         >
           <UiIcon
-            icon="info"
+            v-bind="defaultProps.iconInfoAttrs"
             class="ui-button__icon ui-multiple-choices-item__info-icon"
           />
           <span class="ui-multiple-choices-item__info-message">
-            {{ item.translation.info }}
+            {{ translation.info }}
           </span>
         </UiButton>
       </div>
     </slot>
-    <div class="ui-multiple-choices-item__options">
+    <div
+      class="ui-multiple-choices-item__options"
+    >
       <template
-        v-for="(option, key) in options"
+        v-for="(option, key) in optionsToRender"
         :key="key"
       >
         <!-- @slot Use this slot to replace option template.-->
@@ -55,18 +68,18 @@
           v-bind="{
             value,
             option,
-            item,
             invalid,
           }"
         >
           <UiRadio
             v-model="value"
             v-bind="option"
-            :class="['ui-multiple-choices-item__option', {
-              'ui-radio--has-error': invalid
-            }]"
+            :class="[
+              'ui-multiple-choices-item__option', { 'ui-radio--has-error': invalid }
+            ]"
+            :name="multipleChoicesItemId"
           >
-            {{ option.name }}
+            {{ option.label }}
           </UiRadio>
         </slot>
       </template>
@@ -75,15 +88,19 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import {
+  computed,
+  useAttrs,
+} from 'vue';
 import { uid } from 'uid/single';
 import type { PropType } from 'vue';
 import type { HTMLTag } from '../../../../types/tag';
+import UiRadio from '../../../atoms/UiRadio/UiRadio.vue';
 import UiText from '../../../atoms/UiText/UiText.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
-import UiRadio from '../../../atoms/UiRadio/UiRadio.vue';
 import type { MultipleChoiceOption } from '../UiMultipleChoices.vue';
+import type { Icon } from '../../../../types/icon';
 
 const props = defineProps({
   /**
@@ -92,6 +109,13 @@ const props = defineProps({
   tag: {
     type: String as PropType<HTMLTag>,
     default: 'fieldset',
+  },
+  /**
+   * Use this props to set multiple choices item label.
+   */
+  label: {
+    type: String,
+    default: '',
   },
   /**
    * Use this props to set invalid state of choice item.
@@ -104,33 +128,106 @@ const props = defineProps({
    *  Use this props or v-model to set checked.
    */
   modelValue: {
+    type: [
+      String,
+      Object,
+    ] as PropType<string | Record<string, unknown>>,
+    default: '',
+  },
+  /**
+   * Use this props to set item of item.
+   */
+  id: {
     type: String,
     default: '',
   },
   /**
-   * Use this props to set value of item.
+   * Use this props to pass labels inside component translation.
    */
-  item: {
+  translation: {
     type: Object,
-    default: () => ({
-    }),
+    default: () => ({ info: 'What does it mean?' }),
   },
   /**
-   *  Use this props to override default options.
+   *  Use this props to pass options.
    */
   options: {
     type: Array as PropType<MultipleChoiceOption[]>,
     default: () => ([]),
   },
+  /**
+   * Use this props to pass attrs for info UiButton.
+   */
+  buttonInfoAttrs: {
+    type: Object,
+    default: null,
+  },
+  /**
+   * Use this props to pass attrs for info UiIcon.
+   */
+  iconInfoAttrs: {
+    type: Object,
+    default: () => ({ icon: 'info' }),
+  },
+  /**
+   * Use this props to pass attrs for label UiText.
+   */
+  textLabelAttrs: {
+    type: Object,
+    default: () => ({ tag: 'span' }),
+  },
 });
-const emit = defineEmits<{(e: 'update:modelValue', value: string): void}>();
-const ariaLabelledby = computed(() => (props.item.id || `multiple-choices-item-${uid()}`));
+interface DefaultProps {
+  textLabelAttrs: {
+    tag: HTMLTag;
+    [key: string]: unknown
+  };
+  iconInfoAttrs: {
+    icon: Icon;
+    [key: string]: unknown
+  };
+  [key: string]: unknown
+}
+const defaultProps = computed<DefaultProps>(() => ({
+  translation: {
+    info: 'What does it mean?',
+    ...props.translation,
+  },
+  textLabelAttrs: {
+    tag: 'span',
+    ...props.textLabelAttrs,
+  },
+  iconInfoAttrs: {
+    icon: 'info',
+    ...props.iconInfoAttrs,
+  },
+}));
+const emit = defineEmits<{(e: 'update:modelValue', value: string | Record<string, unknown>): void}>();
+const multipleChoicesItemId = computed(() => (props.id || `multiple-choices-item-${uid()}`));
 const value = computed({
   get: () => props.modelValue,
   set: (newValue) => {
     emit('update:modelValue', newValue);
   },
 });
+// TODO: remove in 0.6.0 / BEGIN
+const attrs = useAttrs();
+const name = computed(() => (attrs.name));
+if (name.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiMultipleChoicesItem]: The `name` props will be removed in 0.6.0. Please use `label` props instead.');
+  }
+}
+if (props.options.some((option) => option.name)) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiMultipleChoicesItem]: The option `name` props will be removed in 0.6.0. Please use option `label` props instead.');
+  }
+}
+const optionsToRender = computed(() => props.options.map((option) => ({
+  label: option.name || option.label,
+  ...option,
+})));
+// END
 </script>
 
 <style lang="scss">
@@ -185,7 +282,11 @@ const value = computed({
   }
 
   &__option {
-    @include mixins.inner-border($element: multiple-answer-list-item, $color: var(--color-border-divider), $width: 1px 0 0 0);
+    @include mixins.inner-border(
+      $element: multiple-answer-list-item,
+      $color: var(--color-border-divider),
+      $width: 1px 0 0 0
+    );
 
     padding: functions.var($element + "-option", padding, var(--space-12) var(--space-20));
     margin: functions.var($element + "-option", margin, 0);

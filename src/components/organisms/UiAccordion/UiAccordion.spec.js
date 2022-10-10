@@ -30,9 +30,7 @@ describe('UiAccordion.vue', () => {
           title: 'sc',
         }),
       },
-      props: {
-        modelValue: [],
-      },
+      props: { modelValue: [] },
     });
     const item = wrapper.findComponent(UiAccordionItem);
     const toggler = item.find('button');

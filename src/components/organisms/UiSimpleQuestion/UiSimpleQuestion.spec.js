@@ -14,35 +14,25 @@ describe('UiSimpleQuestion.vue', () => {
         name: 'yes-no-dontknow',
         label: 'Yes',
         value: 'present',
-        iconAttrs: {
-          icon: 'checkmark',
-        },
+        iconAttrs: { icon: 'checkmark' },
       },
       {
         id: 'absent-id',
         name: 'yes-no-dontknow',
         label: 'No',
         value: 'absent',
-        iconAttrs: {
-          icon: 'close',
-        },
+        iconAttrs: { icon: 'close' },
       },
       {
         id: 'unknown-id',
         name: 'yes-no-dontknow',
         label: 'Dont know sometimes is long',
         value: 'unknown',
-        iconAttrs: {
-          icon: 'arrow-right',
-        },
+        iconAttrs: { icon: 'arrow-right' },
       },
     ];
     const optionsLength = options.length;
-    const wrapper = mount(UiSimpleQuestion, {
-      props: {
-        options,
-      },
-    });
+    const wrapper = mount(UiSimpleQuestion, { props: { options } });
 
     const optionTiles = wrapper.findAllComponents(UiTile);
     expect(optionTiles.length).toBe(optionsLength);
