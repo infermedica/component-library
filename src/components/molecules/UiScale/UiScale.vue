@@ -11,9 +11,7 @@
       <!-- @slot Use this slot to replace legend template. -->
       <slot
         name="legend"
-        v-bind="{
-          legend
-        }"
+        v-bind="{ legend }"
       >
         <legend
           v-if="legend"
@@ -23,11 +21,12 @@
         </legend>
       </slot>
       <template
-        v-for="(_, index) in maxSteps"
+        v-for="(item, index) in itemsToRender"
         :key="index"
       >
         <UiRadio
           ref="optionRefs"
+          v-bind="item"
           v-model="scaleValue"
           :value="index"
           :name="scaleName"
@@ -36,23 +35,26 @@
           @mouseover="hoverHandler($event, index)"
           @mouseleave="hoverHandler($event, index)"
         >
-          <template #radio>
+          <template
+            #radio="{ radioElementAttrs }"
+          >
             <div
+              v-bind="radioElementAttrs"
               :style="calcActiveElementOpacity(index)"
-              class="ui-scale__square"
-              :class="{
-                'ui-scale__square--is-checked': index <= finalValue,
-              }"
+              :class="[
+                'ui-scale__square', { 'ui-scale__square--is-checked': index <= finalValue, }
+              ]"
             />
           </template>
-          <template #label>
+          <template
+            #label="{ textLabelAttrs }"
+          >
             <UiText
               :id="`scale-label-${index}`"
-              tag="div"
-              class="ui-scale__label"
-              :class="{
-                'ui-scale__label--is-checked': index === scaleValue,
-              }"
+              v-bind="textLabelAttrs"
+              :class="[
+                'ui-scale__label', { 'ui-scale__label--is-checked': index === scaleValue, }
+              ]"
             >
               {{ index + 1 }}
             </UiText>
@@ -60,39 +62,80 @@
         </UiRadio>
       </template>
     </component>
-    <div class="ui-scale__description">
-      <UiText
-        class="ui-scale__mild"
-        aria-hidden="true"
-      >
-        {{ defaultProps.translation.mild }}
-      </UiText>
-      <UiText
-        class="ui-scale__unbearable"
-        aria-hidden="true"
-      >
-        {{ defaultProps.translation.unbearable }}
-      </UiText>
-    </div>
-    <UiNumberStepper
-      class="ui-scale__mobile-controls"
-      :model-value="scaleValue"
-      :min="0"
-      :max="steps - 1"
-      :button-decrement-attrs="defaultProps.buttonDecrementAttrs"
-      :button-increment-attrs="defaultProps.buttonIncrementAttrs"
-      @update:model-value="changeHandler"
+    <!-- @slot Use this slot to replace description template. -->
+    <slot
+      name="description"
+      v-bind="{
+        translation: defaultProps.translation,
+        textMinAttrs,
+        textMaxAttrs
+      }"
     >
-      <template
-        v-for="(_, slotName) in $slots"
-        #[slotName]="slotData"
-      >
+      <div class="ui-scale__description">
+        <!-- @slot Use this slot to replace min template. -->
         <slot
-          :name="slotName"
-          v-bind="slotData"
-        />
-      </template>
-    </UiNumberStepper>
+          name="min"
+          v-bind="{
+            textMinAttrs,
+            translation: defaultProps.translation
+          }"
+        >
+          <UiText
+            v-bind="textMinAttrs"
+            class="ui-scale__min"
+            aria-hidden="true"
+          >
+            {{ defaultProps.translation.min }}
+          </UiText>
+        </slot>
+        <!-- @slot Use this slot to replace max template. -->
+        <slot
+          name="max"
+          v-bind="{
+            textMaxAttrs,
+            translation: defaultProps.translation
+          }"
+        >
+          <UiText
+            v-bind="textMaxAttrs"
+            class="ui-scale__max"
+            aria-hidden="true"
+          >
+            {{ defaultProps.translation.max }}
+          </UiText>
+        </slot>
+      </div>
+    </slot>
+    <!-- @slot Use this slot to replace mobile controls template. -->
+    <slot
+      name="mobile-controls"
+      v-bind="{
+        numberStepperAttrs: defaultProps.numberStepperAttrs,
+        scaleValue,
+        steps,
+        max: steps - 1,
+        changeHandler
+      }"
+    >
+      <UiNumberStepper
+        v-bind="defaultProps.numberStepperAttrs"
+        class="ui-scale__mobile-controls"
+        :model-value="scaleValue"
+        :min="0"
+        :max="steps - 1"
+        @update:model-value="changeHandler"
+      >
+        <template
+          v-for="(_, slotName) in $slots"
+          #[slotName]="data"
+        >
+          <slot
+            :name="slotName"
+            v-bind="data"
+          />
+        </template>
+      </UiNumberStepper>
+    </slot>
   </div>
 </template>
 
@@ -100,6 +143,7 @@
 import {
   computed,
   ref,
+  useAttrs,
   watch,
 } from 'vue';
 import type {
@@ -117,8 +161,8 @@ import type { HTMLTag } from '../../../types/tag';
 
 export interface ScaleTranslation {
   label?: string;
-  mild?: string;
-  unbearable?: string;
+  min?: string;
+  max?: string;
   [key: string]: string | undefined;
 }
 const props = defineProps({
@@ -152,24 +196,8 @@ const props = defineProps({
     type: Object as PropType<ScaleTranslation>,
     default: () => ({
       label: 'Pain scale',
-      mild: 'Mild',
-      unbearable: 'Unbearable',
-    }),
-  },
-  /**
-   * Use this props to pass attrs for decrement UiButton
-   */
-  buttonDecrementAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({
-    }),
-  },
-  /**
-   * Use this props to pass attrs for increment UiButton
-   */
-  buttonIncrementAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({
+      min: 'Mild',
+      max: 'Unbearable',
     }),
   },
   /**
@@ -186,25 +214,38 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  /**
+   * Use this props to pass attrs for option UiRadio.
+   */
+  radioOptionAttrs: {
+    type: [
+      Object,
+      Array,
+    ] as PropType<Record<string, unknown> | Record<string, unknown>[]>,
+    default: () => ({}),
+  },
+  /**
+   * USe this props to pass attrs for min UiText.
+   */
+  textMinAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({}),
+  },
+  /**
+   * USe this props to pass attrs for max UiText.
+   */
+  textMaxAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({}),
+  },
+  /**
+   * USe this props to pass attrs for UiNumberStepper.
+   */
+  numberStepperAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({}),
+  },
 });
-const defaultProps = computed(() => ({
-  translation: {
-    label: 'Pain scale',
-    mild: 'Mild',
-    unbearable: 'Unbearable',
-    ...props.translation,
-  },
-  buttonDecrementAttrs: {
-    'aria-hidden': true,
-    tabindex: -1,
-    ...props.buttonDecrementAttrs,
-  },
-  buttonIncrementAttrs: {
-    'aria-hidden': true,
-    tabindex: -1,
-    ...props.buttonIncrementAttrs,
-  },
-}));
 const emit = defineEmits<{(e: 'update:modelValue', value: number): void}>();
 const scaleName = computed(() => (
   props.name || `scale-${uid()}`
@@ -238,11 +279,62 @@ function calcActiveElementOpacity(index: number): CSSProperties {
   const opacityStepValue = 1 / (maxSteps.value - 1);
   const isActive = index <= finalValue.value;
 
-  return isActive ? {
-    '--_scale-square-overlay-opacity': (index * opacityStepValue).toFixed(3),
-  } : {
-  };
+  return isActive ? { '--_scale-square-overlay-opacity': (index * opacityStepValue).toFixed(3) } : {};
 }
+// TODO: remove in 0.6.0 / BEGIN
+const attrs = useAttrs();
+const buttonDecrementAttrs = computed(() => attrs.buttonDecrementAttrs || attrs['button-decrement-attrs']);
+if (buttonDecrementAttrs.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiScale]: The `buttonDecrementAttrs` props will be removed in 0.6.0. Please use `numberStepperAttrs` props instead.');
+  }
+}
+const buttonIncrementAttrs = computed(() => attrs.buttonIncrementAttrs || attrs['button-increment-attrs']);
+if (buttonIncrementAttrs.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiScale]: The `buttonIncrementAttrs` will be removed in 0.6.0. Please use `numberStepperAttrs` props instead.');
+  }
+}
+const translationMild = computed(() => props.translation?.mild);
+if (translationMild.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiScale]: The translation `mild` will be removed in 0.6.0. Please use `min` translation property instead.');
+  }
+}
+const translationUnbearable = computed(() => props.translation?.mild);
+if (translationUnbearable.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiScale]: The translation `unbearable` will be removed in 0.6.0. Please use `max` translation property instead.');
+  }
+}
+// END
+interface DefaultProps {
+  translation: ScaleTranslation;
+  numberStepperAttrs: Record<string, unknown>;
+}
+const defaultProps = computed<DefaultProps>(() => ({
+  translation: {
+    label: 'Pain scale',
+    min: props.translation?.mild || 'Mild',
+    max: props.translation?.unbearable || 'Unbearable',
+    ...props.translation,
+  },
+  numberStepperAttrs: {
+    buttonDecrementAttrs: buttonDecrementAttrs.value,
+    buttonIncrementAttrs: buttonIncrementAttrs.value,
+    ...props.numberStepperAttrs,
+  },
+}));
+const itemsToRender = computed(() => (Array.from({ length: maxSteps.value }, (_, index) => {
+  const radioOptionAttrs:Record<string, unknown> = Array.isArray(props.radioOptionAttrs)
+    ? props.radioOptionAttrs[index]
+    : props.radioOptionAttrs;
+  return {
+    ...radioOptionAttrs,
+    // eslint-disable-next-line prefer-object-spread
+    textLabelAttrs: Object.assign({ tag: 'div' }, radioOptionAttrs?.textLabelAttrs), // fix: Spread types may only be created from object types. Object.assign ignored undefined types.
+  };
+})));
 </script>
 
 <style lang="scss">
@@ -410,11 +502,11 @@ function calcActiveElementOpacity(index: number): CSSProperties {
     margin: functions.var($element + "-description", margin, var(--space-16) 0 0 0);
   }
 
-  &__mild {
+  &__min {
     --text-color: #{functions.var($element + "-mild", color, var(--_scale-description-color))};
   }
 
-  &__unbearable {
+  &__max {
     --text-color: #{functions.var($element + "-unredable", color, var(--_scale-description-color))};
   }
 }

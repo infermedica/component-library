@@ -2,20 +2,12 @@ import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import { bodyScrollLock } from './index';
 
-const Component = {
-  template: '<dialog v-body-scroll-lock></dialog>',
-};
+const Component = { template: '<dialog v-body-scroll-lock></dialog>' };
 const mountOptions = (isDirective) => ({
   data() {
-    return {
-      arg: isDirective,
-    };
+    return { arg: isDirective };
   },
-  global: {
-    directives: {
-      bodyScrollLock,
-    },
-  },
+  global: { directives: { bodyScrollLock } },
 });
 
 describe('directive/bodyScrollLock', () => {

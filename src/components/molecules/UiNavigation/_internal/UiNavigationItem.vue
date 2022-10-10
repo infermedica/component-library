@@ -1,9 +1,7 @@
 <template>
   <UiButton
     class="ui-button--text ui-navigation-item"
-    :class="{
-      'ui-button--small': isSmall
-    }"
+    :class="{ 'ui-button--small': isSmall }"
   >
     <!-- @slot Use this slot to place navigation item content. -->
     <slot />

@@ -18,26 +18,34 @@ All props you can find on the component docs page.
 
 
 ## Attrs props
-Some components like `UiProgressBar`, `UiRange`, etc. provide props like `buttonIncrementAttrs`, `buttonDecrementAttrs`, etc. this props is use to set props for nested components, in this case for `UiButton` component in `UiRange` component.
-This prop binds to the component's entire object. e.g.
+Nested components can be setup by using `Attrs` props i.e. you can pass props to UiButton, UiText etc. inside more complex components.
+For example from `UiNumberStepper` component:
 
 ```html
-<UiButton v-bind="buttonDecrementAttrs">...</UiButton>
+<template>
+  <UiButton
+    v-bind="buttonDecrementAttrs"
+  >
+    ...
+  </UiButton>
+</template>
 ```
 
-You can set any props, `html` attributes, and events. e.g.
-
+You can pass props, `html` attributes and events e.g.
 ```js
-  const buttonDecrementAttrs = {
-    aria-label: 'decrement age',
-    data-testid: 'decrement-button',
-    onClick: () => {
-      console.log('decrement');
-    },
-  }
+ const buttonDecrementAttrs = {
+  'aria-label': 'decrement age',
+  'data-testid': 'decrement-button',
+  onClick: () => {
+    console.log('decrement');
+  },
+}
 ```
+Our implementation of Attrs props allows you to change "default" values of nested components i.e. You can change heading level by props or change the default icon without changing the template by using slot.
 
-Generally to name this props we used `<name-of-component-without-prefix>Attrs` e.g. `buttonAttrs` but in some cases we need to use `<name-of-component-without-prefix><function>Attrs` e.g. `buttonIncrementAttrs` or `closeButtonAttrs`
+Generally the name this props we used `<name-of-component-without-prefix><element-name>Attrs` e.g. `closeButtonAttrs` or `decrementButtonAttrs`.
+Please don't use generic names even if it is only one element in the component e.g. `iconAttrs` is not a good name, use `iconRemoveAttrs` instead.
+
 
 ## Translation props
 More complex components like `UiDatepicker` contain some labels like `day`, `month`, `year`, etc. To set these labels we use `translation` props. Generally, this prop is an object with keys and values. e.g.

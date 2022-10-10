@@ -1,13 +1,9 @@
 <template>
   <div
     ref="dropdown"
-    v-click-outside:[isActiveClickOutside]="closeHandler.bind(this, {
-      focusToggle: false
-    })"
+    v-click-outside:[isActiveClickOutside]="closeHandler.bind(this, { focusToggle: false })"
     class="ui-dropdown"
-    :class="{
-      'is-active': isOpen
-    }"
+    :class="{ 'is-active': isOpen }"
     @keydown="dropdownKeydownHandler"
   >
     <!-- @slot Use this slot to place toggle template. -->
@@ -19,11 +15,12 @@
         closeHandler,
         isOpen,
         text,
-        attrs: buttonAttrs
+        buttonAttrs,
+        buttonToggleAttrs,
       }"
     >
       <UiButton
-        v-bind="buttonAttrs"
+        v-bind="buttonAttrs || buttonToggleAttrs"
         ref="toggle"
         class="ui-dropdown__toggle"
         :aria-expanded="`${isOpen}`"
@@ -38,7 +35,7 @@
       v-bind="{
         closeHandler,
         isOpen,
-        attrs: popoverAttrs
+        popoverAttrs
       }"
     >
       <UiPopover
@@ -70,13 +67,13 @@
                 v-for="(item, key) in itemsToRender"
                 :key="key"
               >
-                <UiDropdownItem :value="item.value">
+                <UiDropdownItem
+                  v-bind="dropdownItemAttrs(item)"
+                >
                   <!-- @slot Use this slot to replace dropdown item content. -->
                   <slot
                     :name="item.name"
-                    v-bind="{
-                      item
-                    }"
+                    v-bind="{ item }"
                   >
                     {{ item.text }}
                   </slot>
@@ -97,6 +94,7 @@ import {
   computed,
   provide,
   nextTick,
+  useAttrs,
 } from 'vue';
 import type {
   PropType,
@@ -145,7 +143,10 @@ const props = defineProps({
    * Use this props or v-model to set value.
    */
   modelValue: {
-    type: [String, Object] as PropType<DropdownValue>,
+    type: [
+      String,
+      Object,
+    ] as PropType<DropdownValue>,
     default: '',
   },
   /**
@@ -170,27 +171,25 @@ const props = defineProps({
     default: true,
   },
   /**
-   *  Use this props to pass attrs to UiButton.
+   * Use this props to pass list of dropdown items.
    */
-  buttonAttrs: {
+  items: {
+    type: Array as PropType<DropdownItem[]>,
+    default: () => [],
+  },
+  /**
+   *  Use this props to pass attrs to toggle UiButton.
+   */
+  buttonToggleAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   /**
    *  Use this props to pass attrs to UiPopover.
    */
   popoverAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
-  },
-  /**
-   * Use this props to pass list of dropdown items.
-   */
-  items: {
-    type: Array as PropType<DropdownItem[]>,
-    default: () => [],
+    default: () => ({}),
   },
 });
 const emit = defineEmits<{(e: 'update:modelValue', value: DropdownValue): void;
@@ -213,12 +212,14 @@ const {
   selectedDropdownItem,
 } = useDropdownItems(dropdown);
 function disableArrows(event: KeyboardEvent): void {
-  if (['ArrowUp', 'ArrowDown'].indexOf(event.code) > -1) {
+  if ([
+    'ArrowUp',
+    'ArrowDown',
+  ].indexOf(event.code) > -1) {
     event.preventDefault();
   }
 }
-async function openHandler({ focus = false }: openOptions = {
-}): Promise<void> {
+async function openHandler({ focus = false }: openOptions = {}): Promise<void> {
   isOpen.value = true;
   emit('open');
   window.addEventListener('keydown', disableArrows, false);
@@ -231,9 +232,7 @@ async function openHandler({ focus = false }: openOptions = {
   }
 }
 
-function closeHandler({ focusToggle }: closeOptions = {
-  focusToggle: true,
-}): void {
+function closeHandler({ focusToggle }: closeOptions = { focusToggle: true }): void {
   if (dropdownToggle.value && focusToggle) {
     ((dropdownToggle.value as ButtonEl).$el || dropdownToggle.value).focus();
   }
@@ -246,9 +245,7 @@ async function toggleHandler(): Promise<void> {
   if (isOpen.value) {
     closeHandler();
   } else {
-    await openHandler({
-      focus: true,
-    });
+    await openHandler({ focus: true });
   }
 }
 const isActiveClickOutside = computed(() => (props.closeOnClickOutside && isOpen.value));
@@ -273,9 +270,7 @@ async function dropdownKeydownHandler({ key }: { key: string }): Promise<void> {
       break;
     case 'ArrowDown':
       if (!isOpen.value) {
-        await openHandler({
-          focus: true,
-        });
+        await openHandler({ focus: true });
       } else {
         focusElement(nextDropdownItem.value);
       }
@@ -320,20 +315,36 @@ defineExpose({
   closeHandler,
 });
 
-const itemsToRender = computed(() => (
-  props.items.map((item, key) => {
-    if (typeof item === 'string' || typeof item === 'number') {
-      return {
-        name: `dropdown-item-${key}`,
-        text: item,
-        value: item,
-      };
-    }
+const itemsToRender = computed(() => (props.items.map((item, key) => {
+  if (typeof item === 'string' || typeof item === 'number') {
     return {
       name: `dropdown-item-${key}`,
-      ...item,
+      text: item,
+      value: item,
     };
-  })));
+  }
+  return {
+    ...item,
+    name: item.name || `dropdown-item-${key}`,
+    value: item.value || JSON.parse(JSON.stringify(item)),
+  };
+})));
+
+// TODO: remove in 0.6.0 / BEGIN
+const attrs = useAttrs();
+const buttonAttrs = computed(() => attrs.buttonAttrs || attrs['button-attrs']);
+if (buttonAttrs.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiDropdown]: The `buttonAttrs` props will be removed in 0.6.0. Please use `buttonToggleAttrs` props instead.');
+  }
+}
+// END
+const dropdownItemAttrs = (item: DropdownItemAsObj) => {
+  const {
+    name, text, ...rest
+  } = item;
+  return rest;
+};
 </script>
 
 <style lang="scss">

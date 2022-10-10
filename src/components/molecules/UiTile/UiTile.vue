@@ -1,10 +1,9 @@
 <template>
   <UiButton
     :id="tileId"
-    class="ui-button--outlined ui-tile"
-    :class="{
-      'ui-tile--is-checked': isChecked
-    }"
+    :class="[
+      'ui-button--outlined ui-tile',{ 'ui-tile--is-checked': isChecked }
+    ]"
     role="radio"
     :aria-checked="`${isChecked}`"
     @click="selectHandler"
@@ -12,19 +11,20 @@
     <!-- @slot Use this slot to replace icon template. -->
     <slot
       name="icon"
-      v-bind="{
-        iconAttrs
-      }"
+      v-bind="{ iconAttrs: defaultProps.iconAttrs }"
     >
       <UiIcon
-        v-bind="iconAttrs"
+        v-bind="defaultProps.iconAttrs"
         class="ui-button__icon ui-tile__icon"
       />
     </slot>
     <!-- @slot Use this slot to replace label template. -->
-    <slot name="label">
+    <slot
+      name="label"
+      v-bind="{ textLabelAttrs: defaultProps.textLabelAttrs }"
+    >
       <UiText
-        tag="span"
+        v-bind="defaultProps.textLabelAttrs"
         class="ui-tile__label"
       >
         <!-- @slot Use this slot to place content inside label. -->
@@ -41,17 +41,33 @@ import type { PropType } from 'vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
-import type { IconAttrs } from '../../../types/icon';
+import type {
+  Icon,
+  IconAttrs,
+} from '../../../types/icon';
+import type { HTMLTag } from '../../../types/tag';
 
 export type TileValue = string | Record<string, unknown>;
 const props = defineProps({
   /**
-   * Use this props to pass attrs for UiIcon
+   * Use this props or v-model to set checked.
    */
-  iconAttrs: {
-    type: Object as PropType<IconAttrs>,
-    default: () => ({
-    }),
+  modelValue: {
+    type: [
+      String,
+      Object,
+    ] as PropType<TileValue>,
+    default: '',
+  },
+  /**
+   * Use this props to set value of radio.
+   */
+  value: {
+    type: [
+      String,
+      Object,
+    ] as PropType<TileValue>,
+    default: '',
   },
   /**
    * Use this props to set tile id
@@ -62,20 +78,49 @@ const props = defineProps({
     default: '',
   },
   /**
-   * Use this props to set value of radio.
+   * Use this props to set icon.
    */
-  value: {
-    type: [String, Object] as PropType<TileValue>,
+  icon: {
+    type: [
+      String,
+      Object,
+    ] as PropType<Icon>,
     default: '',
   },
   /**
-   * Use this props or v-model to set checked.
+   * Use this props to pass attrs for UiIcon
    */
-  modelValue: {
-    type: [String, Object] as PropType<TileValue>,
-    default: '',
+  iconAttrs: {
+    type: Object as PropType<IconAttrs>,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for label UiText.
+   */
+  textLabelAttrs: {
+    type: Object,
+    default: () => ({ tag: 'span' }),
   },
 });
+interface DefaultProps {
+  iconAttrs: {
+    [key: string]: unknown
+  },
+  textLabelAttrs: {
+    tag: HTMLTag,
+    [key: string]: unknown
+  }
+}
+const defaultProps = computed<DefaultProps>(() => ({
+  iconAttrs: {
+    ...{ icon: props.icon },
+    ...props.iconAttrs,
+  },
+  textLabelAttrs: {
+    tag: 'span',
+    ...props.textLabelAttrs,
+  },
+}));
 const emit = defineEmits<{(e: 'update:modelValue', value: TileValue): void}>();
 const tileId = computed(() => (
   props.id || `tile-${uid()}`
@@ -158,8 +203,18 @@ function selectHandler(): void {
   &--is-checked {
     --button-border-width: #{functions.var($element + "-checked", width, 2px)};
     --button-border-color: #{functions.var($element + "-checked", color-border, var(--color-border-strong))};
-    --button-hover-border-color: #{functions.var($element + "-hover-checked", color-border, var(--color-border-strong))};
-    --button-active-border-color: #{functions.var($element + "-active-checked", color-border, var(--color-border-strong))};
+    --button-hover-border-color:
+      #{functions.var(
+        $element + "-hover-checked",
+        color-border,
+        var(--color-border-strong)
+      )};
+    --button-active-border-color:
+      #{functions.var(
+        $element + "-active-checked",
+        color-border,
+        var(--color-border-strong)
+      )};
   }
 
   &--has-error {

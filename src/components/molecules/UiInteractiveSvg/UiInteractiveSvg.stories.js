@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import {
   onMounted,
   ref,
@@ -10,14 +11,8 @@ import docs from './UiInteractiveSvg.mdx';
 export default {
   title: 'Molecules/InteractiveSvg',
   component: UiInteractiveSvg,
-  subcomponents: {
-    UiInteractiveSvgElement,
-  },
-  parameters: {
-    docs: {
-      page: docs,
-    },
-  },
+  subcomponents: { UiInteractiveSvgElement },
+  parameters: { docs: { page: docs } },
 };
 
 export const WithFocusOnMounted = () => ({
@@ -28,7 +23,10 @@ export const WithFocusOnMounted = () => ({
   setup() {
     const checkedRegions = ref([]);
     const handleRegionCheck = ({ region }, { code }) => {
-      const codes = ['Space', 'Enter'];
+      const codes = [
+        'Space',
+        'Enter',
+      ];
 
       if (code && !codes.includes(code)) return;
       if (checkedRegions.value.includes(region)) {
@@ -41,9 +39,8 @@ export const WithFocusOnMounted = () => ({
     const handleRegionFocus = ({ region }) => {
       focusedRegion.value = region;
     };
-    const regions = ref({
-    });
-    const setElementsAttrs = (attrs) => {
+    const regions = ref({});
+    const elementsAttrs = (attrs) => {
       const { region } = attrs;
       const focusFor = attrs['focus-for'];
 
@@ -53,42 +50,39 @@ export const WithFocusOnMounted = () => ({
           ref: (el) => {
             regions.value[region] = el; // assign DOM node to region key in regions object
           },
-          class: ['map__region', {
-            'map__region--is-checked': isChecked,
-          }],
+          class: [
+            'map__region',
+            { 'map__region--is-checked': isChecked },
+          ],
           'aria-label': region.replace(/-/gm, ' '),
           'aria-checked': `${isChecked}`,
           tabindex: 0,
           onClick: handleRegionCheck.bind(null, attrs),
           onKeypress: handleRegionCheck.bind(this, attrs),
           onFocus: handleRegionFocus.bind(this, attrs),
-          onBlur: handleRegionFocus.bind(this, {
-            region: '',
-          }),
+          onBlur: handleRegionFocus.bind(this, { region: '' }),
         };
       }
 
       if (focusFor) {
         const isFocused = focusedRegion.value === focusFor;
         return {
-          class: ['map__focus-for-region', {
-            'map__focus-for-region--is-focused': isFocused,
-          }],
+          class: [
+            'map__focus-for-region',
+            { 'map__focus-for-region--is-focused': isFocused },
+          ],
         };
       }
 
-      return {
-      };
+      return {};
     };
     onMounted(() => {
       regions.value.europe.focus();
     });
-    return {
-      setElementsAttrs,
-    };
+    return { elementsAttrs };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="map"
     viewBox="0 0 654 312"
     role="group"
@@ -289,7 +283,10 @@ export const Map = () => ({
   setup() {
     const checkedRegions = ref([]);
     const handleRegionCheck = ({ region }, { code }) => {
-      const codes = ['Space', 'Enter'];
+      const codes = [
+        'Space',
+        'Enter',
+      ];
 
       if (code && !codes.includes(code)) return;
       if (checkedRegions.value.includes(region)) {
@@ -302,46 +299,43 @@ export const Map = () => ({
     const handleRegionFocus = ({ region }) => {
       focusedRegion.value = region;
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { region } = attrs;
       const focusFor = attrs['focus-for'];
 
       if (region) {
         const isChecked = checkedRegions.value.includes(region);
         return {
-          class: ['map__region', {
-            'map__region--is-checked': isChecked,
-          }],
+          class: [
+            'map__region',
+            { 'map__region--is-checked': isChecked },
+          ],
           'aria-label': region.replace(/-/gm, ' '),
           'aria-checked': `${isChecked}`,
           tabindex: 0,
           onClick: handleRegionCheck.bind(null, attrs),
           onKeypress: handleRegionCheck.bind(this, attrs),
           onFocus: handleRegionFocus.bind(this, attrs),
-          onBlur: handleRegionFocus.bind(this, {
-            region: '',
-          }),
+          onBlur: handleRegionFocus.bind(this, { region: '' }),
         };
       }
 
       if (focusFor) {
         const isFocused = focusedRegion.value === focusFor;
         return {
-          class: ['map__focus-for-region', {
-            'map__focus-for-region--is-focused': isFocused,
-          }],
+          class: [
+            'map__focus-for-region',
+            { 'map__focus-for-region--is-focused': isFocused },
+          ],
         };
       }
 
-      return {
-      };
+      return {};
     };
-    return {
-      setElementsAttrs,
-    };
+    return { elementsAttrs };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="map"
     viewBox="0 0 654 312"
     role="group"
@@ -542,7 +536,10 @@ export const AbdominalPainMale = () => ({
   setup() {
     const checkedParts = ref([]);
     const handlePartCheck = ({ part }, { code }) => {
-      const codes = ['Space', 'Enter'];
+      const codes = [
+        'Space',
+        'Enter',
+      ];
 
       if (code && !codes.includes(code)) return;
       if (checkedParts.value.includes(part)) {
@@ -555,46 +552,43 @@ export const AbdominalPainMale = () => ({
     const handlePartFocus = ({ part }) => {
       focusedPart.value = part;
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { part } = attrs;
       const focusFor = attrs['focus-for'];
 
       if (part) {
         const isChecked = checkedParts.value.includes(part);
         return {
-          class: ['abdominal-pain__part', {
-            'abdominal-pain__part--is-checked': isChecked,
-          }],
+          class: [
+            'abdominal-pain__part',
+            { 'abdominal-pain__part--is-checked': isChecked },
+          ],
           'aria-label': part.replace(/-/gm, ' '),
           'aria-checked': `${isChecked}`,
           tabindex: 0,
           onClick: handlePartCheck.bind(null, attrs),
           onKeypress: handlePartCheck.bind(this, attrs),
           onFocus: handlePartFocus.bind(this, attrs),
-          onBlur: handlePartFocus.bind(this, {
-            part: '',
-          }),
+          onBlur: handlePartFocus.bind(this, { part: '' }),
         };
       }
 
       if (focusFor) {
         const isFocused = focusedPart.value === focusFor;
         return {
-          class: ['abdominal-pain__focus-for-part', {
-            'abdominal-pain__focus-for-part--is-focused': isFocused,
-          }],
+          class: [
+            'abdominal-pain__focus-for-part',
+            { 'abdominal-pain__focus-for-part--is-focused': isFocused },
+          ],
         };
       }
 
-      return {
-      };
+      return {};
     };
-    return {
-      setElementsAttrs,
-    };
+    return { elementsAttrs };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="abdominal-pain"
     viewBox="0 0 340 220"
     role="group"
@@ -671,7 +665,10 @@ export const AbdominalPainFemale = () => ({
   setup() {
     const checkedParts = ref([]);
     const handlePartCheck = ({ part }, { code }) => {
-      const codes = ['Space', 'Enter'];
+      const codes = [
+        'Space',
+        'Enter',
+      ];
 
       if (code && !codes.includes(code)) return;
       if (checkedParts.value.includes(part)) {
@@ -684,46 +681,43 @@ export const AbdominalPainFemale = () => ({
     const handlePartFocus = ({ part }) => {
       focusedPart.value = part;
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { part } = attrs;
       const focusFor = attrs['focus-for'];
 
       if (part) {
         const isChecked = checkedParts.value.includes(part);
         return {
-          class: ['abdominal-pain__part', {
-            'abdominal-pain__part--is-checked': isChecked,
-          }],
+          class: [
+            'abdominal-pain__part',
+            { 'abdominal-pain__part--is-checked': isChecked },
+          ],
           'aria-label': part.replace(/-/gm, ' '),
           'aria-checked': `${isChecked}`,
           tabindex: 0,
           onClick: handlePartCheck.bind(null, attrs),
           onKeypress: handlePartCheck.bind(this, attrs),
           onFocus: handlePartFocus.bind(this, attrs),
-          onBlur: handlePartFocus.bind(this, {
-            part: '',
-          }),
+          onBlur: handlePartFocus.bind(this, { part: '' }),
         };
       }
 
       if (focusFor) {
         const isFocused = focusedPart.value === focusFor;
         return {
-          class: ['abdominal-pain__focus-for-part', {
-            'abdominal-pain__focus-for-part--is-focused': isFocused,
-          }],
+          class: [
+            'abdominal-pain__focus-for-part',
+            { 'abdominal-pain__focus-for-part--is-focused': isFocused },
+          ],
         };
       }
 
-      return {
-      };
+      return {};
     };
-    return {
-      setElementsAttrs,
-    };
+    return { elementsAttrs };
   },
   template: `<UiInteractiveSvg
-      :set-elements-attrs="setElementsAttrs"
+      :elements-attrs="elementsAttrs"
       class="abdominal-pain"
       viewBox="0 0 340 220"
       role="group"
@@ -807,7 +801,7 @@ export const InfantUnisexFront = (args) => ({
       }
       highlightedPart.value = '';
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { part } = attrs;
 
       if (part) {
@@ -815,24 +809,26 @@ export const InfantUnisexFront = (args) => ({
         const isSelected = part === selectedPart.value;
 
         return {
-          class: ['body-model__part', {
-            'body-model__part--is-highlighted': isHighlighted,
-            'body-model__part--is-selected': isSelected,
-          }],
+          class: [
+            'body-model__part',
+            {
+              'body-model__part--is-highlighted': isHighlighted,
+              'body-model__part--is-selected': isSelected,
+            },
+          ],
           onClick: handleBodyPartClick.bind(null, attrs),
         };
       }
 
-      return {
-      };
+      return {};
     };
     return {
       ...args,
-      setElementsAttrs,
+      elementsAttrs,
     };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="body-model"
     viewBox="0 0 168 320"
     fill-rule="evenodd"
@@ -908,15 +904,11 @@ export const InfantUnisexFront = (args) => ({
     </UiInteractiveSvgElement>
   </UiInteractiveSvg>`,
 });
-InfantUnisexFront.args = {
-  hasMoreDetails: true,
-};
+InfantUnisexFront.args = { hasMoreDetails: true };
 InfantUnisexFront.argTypes = {
   hasMoreDetails: {
     description: 'Use this control to show a more detailed head parts.',
-    table: {
-      category: 'stories controls',
-    },
+    table: { category: 'stories controls' },
     control: 'boolean',
   },
 };
@@ -936,7 +928,7 @@ export const InfantUnisexBack = () => ({
       }
       highlightedPart.value = '';
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { part } = attrs;
 
       if (part) {
@@ -944,23 +936,23 @@ export const InfantUnisexBack = () => ({
         const isSelected = part === selectedPart.value;
 
         return {
-          class: ['body-model__part', {
-            'body-model__part--is-highlighted': isHighlighted,
-            'body-model__part--is-selected': isSelected,
-          }],
+          class: [
+            'body-model__part',
+            {
+              'body-model__part--is-highlighted': isHighlighted,
+              'body-model__part--is-selected': isSelected,
+            },
+          ],
           onClick: handleBodyPartClick.bind(null, attrs),
         };
       }
 
-      return {
-      };
+      return {};
     };
-    return {
-      setElementsAttrs,
-    };
+    return { elementsAttrs };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="body-model"
     viewBox="0 0 168 320"
     fill-rule="evenodd"
@@ -1034,7 +1026,7 @@ export const ToddlerMaleFront = (args) => ({
       }
       highlightedPart.value = '';
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { part } = attrs;
 
       if (part) {
@@ -1042,24 +1034,26 @@ export const ToddlerMaleFront = (args) => ({
         const isSelected = part === selectedPart.value;
 
         return {
-          class: ['body-model__part', {
-            'body-model__part--is-highlighted': isHighlighted,
-            'body-model__part--is-selected': isSelected,
-          }],
+          class: [
+            'body-model__part',
+            {
+              'body-model__part--is-highlighted': isHighlighted,
+              'body-model__part--is-selected': isSelected,
+            },
+          ],
           onClick: handleBodyPartClick.bind(null, attrs),
         };
       }
 
-      return {
-      };
+      return {};
     };
     return {
       ...args,
-      setElementsAttrs,
+      elementsAttrs,
     };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="body-model"
     viewBox="0 0 168 320"
     fill-rule="evenodd"
@@ -1163,15 +1157,11 @@ export const ToddlerMaleFront = (args) => ({
     </UiInteractiveSvgElement>
   </UiInteractiveSvg>`,
 });
-ToddlerMaleFront.args = {
-  hasMoreDetails: true,
-};
+ToddlerMaleFront.args = { hasMoreDetails: true };
 ToddlerMaleFront.argTypes = {
   hasMoreDetails: {
     description: 'Use this control to show a more detailed head parts.',
-    table: {
-      category: 'stories controls',
-    },
+    table: { category: 'stories controls' },
     control: 'boolean',
   },
 };
@@ -1191,7 +1181,7 @@ export const ToddlerMaleBack = () => ({
       }
       highlightedPart.value = '';
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { part } = attrs;
 
       if (part) {
@@ -1199,23 +1189,23 @@ export const ToddlerMaleBack = () => ({
         const isSelected = part === selectedPart.value;
 
         return {
-          class: ['body-model__part', {
-            'body-model__part--is-highlighted': isHighlighted,
-            'body-model__part--is-selected': isSelected,
-          }],
+          class: [
+            'body-model__part',
+            {
+              'body-model__part--is-highlighted': isHighlighted,
+              'body-model__part--is-selected': isSelected,
+            },
+          ],
           onClick: handleBodyPartClick.bind(null, attrs),
         };
       }
 
-      return {
-      };
+      return {};
     };
-    return {
-      setElementsAttrs,
-    };
+    return { elementsAttrs };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="body-model"
     viewBox="0 0 168 320"
     fill-rule="evenodd"
@@ -1309,7 +1299,7 @@ export const ToddlerFemaleFront = (args) => ({
       }
       highlightedPart.value = '';
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { part } = attrs;
 
       if (part) {
@@ -1317,24 +1307,26 @@ export const ToddlerFemaleFront = (args) => ({
         const isSelected = part === selectedPart.value;
 
         return {
-          class: ['body-model__part', {
-            'body-model__part--is-highlighted': isHighlighted,
-            'body-model__part--is-selected': isSelected,
-          }],
+          class: [
+            'body-model__part',
+            {
+              'body-model__part--is-highlighted': isHighlighted,
+              'body-model__part--is-selected': isSelected,
+            },
+          ],
           onClick: handleBodyPartClick.bind(null, attrs),
         };
       }
 
-      return {
-      };
+      return {};
     };
     return {
       ...args,
-      setElementsAttrs,
+      elementsAttrs,
     };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="body-model"
     viewBox="0 0 168 320"
     fill-rule="evenodd"
@@ -1345,7 +1337,7 @@ export const ToddlerFemaleFront = (args) => ({
     style="width:10.5rem"
   >
     <UiInteractiveSvgElement
-      v-if="hasMoreDetailed"
+      v-if="hasMoreDetails"
       tag="g"
     >
       <UiInteractiveSvgElement
@@ -1438,15 +1430,11 @@ export const ToddlerFemaleFront = (args) => ({
     </UiInteractiveSvgElement>
   </UiInteractiveSvg>`,
 });
-ToddlerFemaleFront.args = {
-  hasMoreDetails: true,
-};
+ToddlerFemaleFront.args = { hasMoreDetails: true };
 ToddlerFemaleFront.argTypes = {
   hasMoreDetails: {
     description: 'Use this control to show a more detailed head parts.',
-    table: {
-      category: 'stories controls',
-    },
+    table: { category: 'stories controls' },
     control: 'boolean',
   },
 };
@@ -1466,7 +1454,7 @@ export const ToddlerFemaleBack = () => ({
       }
       highlightedPart.value = '';
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { part } = attrs;
 
       if (part) {
@@ -1474,23 +1462,23 @@ export const ToddlerFemaleBack = () => ({
         const isSelected = part === selectedPart.value;
 
         return {
-          class: ['body-model__part', {
-            'body-model__part--is-highlighted': isHighlighted,
-            'body-model__part--is-selected': isSelected,
-          }],
+          class: [
+            'body-model__part',
+            {
+              'body-model__part--is-highlighted': isHighlighted,
+              'body-model__part--is-selected': isSelected,
+            },
+          ],
           onClick: handleBodyPartClick.bind(null, attrs),
         };
       }
 
-      return {
-      };
+      return {};
     };
-    return {
-      setElementsAttrs,
-    };
+    return { elementsAttrs };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="body-model"
     viewBox="0 0 168 320"
     fill-rule="evenodd"
@@ -1584,7 +1572,7 @@ export const ChildMaleFront = (args) => ({
       }
       highlightedPart.value = '';
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { part } = attrs;
 
       if (part) {
@@ -1592,24 +1580,26 @@ export const ChildMaleFront = (args) => ({
         const isSelected = part === selectedPart.value;
 
         return {
-          class: ['body-model__part', {
-            'body-model__part--is-highlighted': isHighlighted,
-            'body-model__part--is-selected': isSelected,
-          }],
+          class: [
+            'body-model__part',
+            {
+              'body-model__part--is-highlighted': isHighlighted,
+              'body-model__part--is-selected': isSelected,
+            },
+          ],
           onClick: handleBodyPartClick.bind(null, attrs),
         };
       }
 
-      return {
-      };
+      return {};
     };
     return {
       ...args,
-      setElementsAttrs,
+      elementsAttrs,
     };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="body-model"
     viewBox="0 0 168 320"
     fill-rule="evenodd"
@@ -1713,15 +1703,11 @@ export const ChildMaleFront = (args) => ({
     </UiInteractiveSvgElement>
   </UiInteractiveSvg>`,
 });
-ChildMaleFront.args = {
-  hasMoreDetails: true,
-};
+ChildMaleFront.args = { hasMoreDetails: true };
 ToddlerFemaleFront.argTypes = {
   hasMoreDetails: {
     description: 'Use this control to show a more detailed head parts.',
-    table: {
-      category: 'stories controls',
-    },
+    table: { category: 'stories controls' },
     control: 'boolean',
   },
 };
@@ -1741,7 +1727,7 @@ export const ChildMaleBack = () => ({
       }
       highlightedPart.value = '';
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { part } = attrs;
 
       if (part) {
@@ -1749,23 +1735,23 @@ export const ChildMaleBack = () => ({
         const isSelected = part === selectedPart.value;
 
         return {
-          class: ['body-model__part', {
-            'body-model__part--is-highlighted': isHighlighted,
-            'body-model__part--is-selected': isSelected,
-          }],
+          class: [
+            'body-model__part',
+            {
+              'body-model__part--is-highlighted': isHighlighted,
+              'body-model__part--is-selected': isSelected,
+            },
+          ],
           onClick: handleBodyPartClick.bind(null, attrs),
         };
       }
 
-      return {
-      };
+      return {};
     };
-    return {
-      setElementsAttrs,
-    };
+    return { elementsAttrs };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="body-model"
     viewBox="0 0 168 320"
     fill-rule="evenodd"
@@ -1855,7 +1841,7 @@ export const ChildFemaleFront = (args) => ({
       }
       highlightedPart.value = '';
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { part } = attrs;
 
       if (part) {
@@ -1863,24 +1849,26 @@ export const ChildFemaleFront = (args) => ({
         const isSelected = part === selectedPart.value;
 
         return {
-          class: ['body-model__part', {
-            'body-model__part--is-highlighted': isHighlighted,
-            'body-model__part--is-selected': isSelected,
-          }],
+          class: [
+            'body-model__part',
+            {
+              'body-model__part--is-highlighted': isHighlighted,
+              'body-model__part--is-selected': isSelected,
+            },
+          ],
           onClick: handleBodyPartClick.bind(null, attrs),
         };
       }
 
-      return {
-      };
+      return {};
     };
     return {
       ...args,
-      setElementsAttrs,
+      elementsAttrs,
     };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="body-model"
     viewBox="0 0 168 320"
     fill-rule="evenodd"
@@ -1984,15 +1972,11 @@ export const ChildFemaleFront = (args) => ({
     </UiInteractiveSvgElement>
   </UiInteractiveSvg>`,
 });
-ChildFemaleFront.args = {
-  hasMoreDetails: true,
-};
+ChildFemaleFront.args = { hasMoreDetails: true };
 ChildFemaleFront.argTypes = {
   hasMoreDetails: {
     description: 'Use this control to show a more detailed head parts.',
-    table: {
-      category: 'stories controls',
-    },
+    table: { category: 'stories controls' },
     control: 'boolean',
   },
 };
@@ -2012,7 +1996,7 @@ export const ChildFemaleBack = () => ({
       }
       highlightedPart.value = '';
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { part } = attrs;
 
       if (part) {
@@ -2020,23 +2004,23 @@ export const ChildFemaleBack = () => ({
         const isSelected = part === selectedPart.value;
 
         return {
-          class: ['body-model__part', {
-            'body-model__part--is-highlighted': isHighlighted,
-            'body-model__part--is-selected': isSelected,
-          }],
+          class: [
+            'body-model__part',
+            {
+              'body-model__part--is-highlighted': isHighlighted,
+              'body-model__part--is-selected': isSelected,
+            },
+          ],
           onClick: handleBodyPartClick.bind(null, attrs),
         };
       }
 
-      return {
-      };
+      return {};
     };
-    return {
-      setElementsAttrs,
-    };
+    return { elementsAttrs };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="body-model"
     viewBox="0 0 168 320"
     fill-rule="evenodd"
@@ -2126,7 +2110,7 @@ export const AdultMaleFront = (args) => ({
       }
       highlightedPart.value = '';
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { part } = attrs;
 
       if (part) {
@@ -2134,24 +2118,26 @@ export const AdultMaleFront = (args) => ({
         const isSelected = part === selectedPart.value;
 
         return {
-          class: ['body-model__part', {
-            'body-model__part--is-highlighted': isHighlighted,
-            'body-model__part--is-selected': isSelected,
-          }],
+          class: [
+            'body-model__part',
+            {
+              'body-model__part--is-highlighted': isHighlighted,
+              'body-model__part--is-selected': isSelected,
+            },
+          ],
           onClick: handleBodyPartClick.bind(null, attrs),
         };
       }
 
-      return {
-      };
+      return {};
     };
     return {
       ...args,
-      setElementsAttrs,
+      elementsAttrs,
     };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="body-model"
     viewBox="0 0 168 320"
     fill-rule="evenodd"
@@ -2255,15 +2241,11 @@ export const AdultMaleFront = (args) => ({
     </UiInteractiveSvgElement>
   </UiInteractiveSvg>`,
 });
-AdultMaleFront.args = {
-  hasMoreDetails: true,
-};
+AdultMaleFront.args = { hasMoreDetails: true };
 AdultMaleFront.argTypes = {
   hasMoreDetails: {
     description: 'Use this control to show a more detailed head parts.',
-    table: {
-      category: 'stories controls',
-    },
+    table: { category: 'stories controls' },
     control: 'boolean',
   },
 };
@@ -2283,7 +2265,7 @@ export const AdultMaleBack = () => ({
       }
       highlightedPart.value = '';
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { part } = attrs;
 
       if (part) {
@@ -2291,23 +2273,23 @@ export const AdultMaleBack = () => ({
         const isSelected = part === selectedPart.value;
 
         return {
-          class: ['body-model__part', {
-            'body-model__part--is-highlighted': isHighlighted,
-            'body-model__part--is-selected': isSelected,
-          }],
+          class: [
+            'body-model__part',
+            {
+              'body-model__part--is-highlighted': isHighlighted,
+              'body-model__part--is-selected': isSelected,
+            },
+          ],
           onClick: handleBodyPartClick.bind(null, attrs),
         };
       }
 
-      return {
-      };
+      return {};
     };
-    return {
-      setElementsAttrs,
-    };
+    return { elementsAttrs };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="body-model"
     viewBox="0 0 168 320"
     fill-rule="evenodd"
@@ -2401,7 +2383,7 @@ export const AdultFemaleFront = (args) => ({
       }
       highlightedPart.value = '';
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { part } = attrs;
 
       if (part) {
@@ -2409,24 +2391,26 @@ export const AdultFemaleFront = (args) => ({
         const isSelected = part === selectedPart.value;
 
         return {
-          class: ['body-model__part', {
-            'body-model__part--is-highlighted': isHighlighted,
-            'body-model__part--is-selected': isSelected,
-          }],
+          class: [
+            'body-model__part',
+            {
+              'body-model__part--is-highlighted': isHighlighted,
+              'body-model__part--is-selected': isSelected,
+            },
+          ],
           onClick: handleBodyPartClick.bind(null, attrs),
         };
       }
 
-      return {
-      };
+      return {};
     };
     return {
       ...args,
-      setElementsAttrs,
+      elementsAttrs,
     };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="body-model"
     viewBox="0 0 168 320"
     fill-rule="evenodd"
@@ -2534,15 +2518,11 @@ export const AdultFemaleFront = (args) => ({
     </UiInteractiveSvgElement>
   </UiInteractiveSvg>`,
 });
-AdultFemaleFront.args = {
-  hasMoreDetails: true,
-};
+AdultFemaleFront.args = { hasMoreDetails: true };
 AdultFemaleFront.argTypes = {
   hasMoreDetails: {
     description: 'Use this control to show a more detailed head parts.',
-    table: {
-      category: 'stories controls',
-    },
+    table: { category: 'stories controls' },
     control: 'boolean',
   },
 };
@@ -2562,7 +2542,7 @@ export const AdultFemaleBack = () => ({
       }
       highlightedPart.value = '';
     };
-    const setElementsAttrs = (attrs) => {
+    const elementsAttrs = (attrs) => {
       const { part } = attrs;
 
       if (part) {
@@ -2570,23 +2550,23 @@ export const AdultFemaleBack = () => ({
         const isSelected = part === selectedPart.value;
 
         return {
-          class: ['body-model__part', {
-            'body-model__part--is-highlighted': isHighlighted,
-            'body-model__part--is-selected': isSelected,
-          }],
+          class: [
+            'body-model__part',
+            {
+              'body-model__part--is-highlighted': isHighlighted,
+              'body-model__part--is-selected': isSelected,
+            },
+          ],
           onClick: handleBodyPartClick.bind(null, attrs),
         };
       }
 
-      return {
-      };
+      return {};
     };
-    return {
-      setElementsAttrs,
-    };
+    return { elementsAttrs };
   },
   template: `<UiInteractiveSvg
-    :set-elements-attrs="setElementsAttrs"
+    :elements-attrs="elementsAttrs"
     class="body-model"
     viewBox="0 0 168 320"
     fill-rule="evenodd"

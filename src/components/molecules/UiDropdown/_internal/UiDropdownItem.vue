@@ -3,16 +3,14 @@
     ref="dropdownItem"
     :tabindex="tabindex"
     class="ui-button--outlined ui-dropdown-item"
-    :class="{
-      'ui-button--is-selected': isChecked,
-    }"
-    v-bind="buttonAttrs"
+    :class="{ 'ui-button--is-selected': isChecked, }"
+    v-bind="buttonItemAttrs"
     @keydown="dropdownItemKeydownHandler"
   >
     <slot />
     <UiIcon
       v-if="isChecked"
-      icon="present"
+      v-bind="defaultProps.iconItemAttrs"
       class="ui-button__icon ui-dropdown-item__icon"
     />
   </UiButton>
@@ -29,19 +27,43 @@ import type {
   PropType,
   ComputedRef,
 } from 'vue';
+import equal from 'fast-deep-equal';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import type { DropdownValue } from '../UiDropdown.vue';
+import type { Icon } from '../../../../types/icon';
 
 const props = defineProps({
   /**
    * Use this props to set the value of the dropdown item.
    */
   value: {
-    type: [String, Object] as PropType<DropdownValue>,
+    type: [
+      String,
+      Object,
+    ] as PropType<DropdownValue>,
     default: '',
   },
+  /**
+   *  Use this props to pass attrs to UiIcon.
+   */
+  iconItemAttrs: {
+    type: Object,
+    default: () => ({ icon: 'present' }),
+  },
 });
+interface DefaultProps {
+  iconItemAttrs: {
+    icon: Icon;
+    [key:string]: unknown
+  };
+}
+const defaultProps = computed<DefaultProps>(() => ({
+  iconItemAttrs: {
+    icon: 'present',
+    ...props.iconItemAttrs,
+  },
+}));
 const attrs = useAttrs();
 const dropdownItem = ref<null | HTMLButtonElement>(null);
 const changeHandler = inject('changeHandler') as (value: DropdownValue) => void;
@@ -54,9 +76,7 @@ const isChecked = computed(() => {
   if (typeof modelValue.value === 'string') {
     return props.value === modelValue.value;
   }
-  return Object.keys(props.value)
-    .every((key: string) => (
-      modelValue.value as Record<string, unknown>)[key] === (props.value as Record<string, unknown>)[key]);
+  return equal(JSON.parse(JSON.stringify(modelValue.value)), JSON.parse(JSON.stringify(props.value)));
 });
 const isOption = computed(() => !!props.value);
 const tabindex = computed(() => {
@@ -73,7 +93,7 @@ function optionChangeHandler(value: DropdownValue): void {
     changeHandler(value);
   }
 }
-const buttonAttrs = computed(() => ({
+const buttonItemAttrs = computed(() => ({
   role: isOption.value ? 'radio' : undefined,
   'aria-checked': isOption.value ? `${isChecked.value}` : undefined,
   onClick: attrs.to ? undefined : optionChangeHandler.bind(this, props.value),

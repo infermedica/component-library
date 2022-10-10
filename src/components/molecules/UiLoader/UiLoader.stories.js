@@ -24,9 +24,7 @@ import {
 import './UiLoader.stories.scss';
 import docs from './UiLoader.mdx';
 
-const events = actions({
-  onMounted: 'onMounted',
-});
+const events = actions({ onMounted: 'onMounted' });
 
 export default {
   title: 'Molecules/Loader',
@@ -42,33 +40,39 @@ export default {
     transitionType: 'if',
     tag: 'div',
     loaderAttrs: {
-      type: 'question',
-      label: 'Loading...',
+      type: 'question', // refers to UiLoaderSkeleton
+      label: 'Loading...', // refers to UiLoaderSpinner
+      textLabelAttrs: { 'data-testid': 'label-text' }, // refers to UiLoaderSpinner
+      loaderSpinnerAttrs: { 'data-testid': 'spinner-loader' }, // refers to UiLoaderSpinner
     },
-    transitionAttrs: {
-      appear: true,
-    },
+    transitionAttrs: { appear: true },
   },
   argTypes: {
     transitionType: {
       control: 'select',
-      options: ['if', 'show', 'opacity'],
+      options: [
+        'if',
+        'show',
+        'opacity',
+      ],
     },
     type: {
       control: 'select',
-      options: ['skeleton', 'spinner', 'ellipsis'],
+      options: [
+        'skeleton',
+        'spinner',
+        'ellipsis',
+      ],
     },
+    loaderAttrs: { table: { subcategory: 'Attrs props' } },
+    transitionAttrs: { table: { subcategory: 'Attrs props' } },
   },
-  decorators: [() => ({
+  decorators: [ () => ({
     template: `<div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 2.5rem">
         <story />
     </div>`,
-  })],
-  parameters: {
-    docs: {
-      page: docs,
-    },
-  },
+  }) ],
+  parameters: { docs: { page: docs } },
 };
 
 export const Common = (args) => ({
@@ -77,9 +81,7 @@ export const Common = (args) => ({
     UiText,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiLoader
     :isLoading="isLoading"
@@ -137,9 +139,7 @@ export const IfTransitionType = () => ({
   },
   setup() {
     const isLoading = inject('isLoading');
-    return {
-      isLoading,
-    };
+    return { isLoading };
   },
   template: `<UiLoader
     :is-loading="isLoading"
@@ -151,32 +151,28 @@ export const IfTransitionType = () => ({
     <ComponentWithOnMountedEvent />
   </UiLoader>`,
 });
+IfTransitionType.decorators = [ (story) => ({
+  components: {
+    story,
+    UiSwitch,
+  },
+  setup() {
+    const isLoading = ref(true);
+    provide('isLoading', isLoading);
 
-IfTransitionType.decorators = [
-  (story) => ({
-    components: {
-      story,
-      UiSwitch,
-    },
-    setup() {
-      const isLoading = ref(true);
-      provide('isLoading', isLoading);
-
-      return {
-        isLoading,
-      };
-    },
-    template: `<div style="flex: 1">
-      <UiSwitch 
-        v-model="isLoading" 
+    return { isLoading };
+  },
+  template: `<div style="flex: 1">
+      <UiSwitch
+        v-model="isLoading"
         style="margin: 0 0 1rem 0;"
       >
         {{ isLoading ? 'on' : 'off' }}
       </UiSwitch>
       <story />
     </div>`,
-  }),
-];
+}) ];
+
 export const ShowTransitionType = () => ({
   components: {
     UiLoader,
@@ -184,9 +180,7 @@ export const ShowTransitionType = () => ({
   },
   setup() {
     const isLoading = inject('isLoading');
-    return {
-      isLoading,
-    };
+    return { isLoading };
   },
   template: `<UiLoader
     :is-loading="isLoading"
@@ -198,31 +192,27 @@ export const ShowTransitionType = () => ({
     <ComponentWithOnMountedEvent />
   </UiLoader>`,
 });
-ShowTransitionType.decorators = [
-  (story) => ({
-    components: {
-      story,
-      UiSwitch,
-    },
-    setup() {
-      const isLoading = ref(true);
-      provide('isLoading', isLoading);
+ShowTransitionType.decorators = [ (story) => ({
+  components: {
+    story,
+    UiSwitch,
+  },
+  setup() {
+    const isLoading = ref(true);
+    provide('isLoading', isLoading);
 
-      return {
-        isLoading,
-      };
-    },
-    template: `<div style="flex: 1">
-      <UiSwitch 
-        v-model="isLoading" 
+    return { isLoading };
+  },
+  template: `<div style="flex: 1">
+      <UiSwitch
+        v-model="isLoading"
         style="margin: 0 0 1rem 0;"
       >
         {{ isLoading ? 'on' : 'off' }}
       </UiSwitch>
       <story />
     </div>`,
-  }),
-];
+}) ];
 
 export const OpacityTransitionType = () => ({
   components: {
@@ -231,9 +221,7 @@ export const OpacityTransitionType = () => ({
   },
   setup() {
     const isLoading = inject('isLoading');
-    return {
-      isLoading,
-    };
+    return { isLoading };
   },
   template: `<UiButton
     :class="{
@@ -249,30 +237,26 @@ export const OpacityTransitionType = () => ({
     </UiLoader>
   </UiButton>`,
 });
-OpacityTransitionType.decorators = [
-  (story) => ({
-    components: {
-      story,
-      UiSwitch,
-    },
-    setup() {
-      const isLoading = ref(true);
-      provide('isLoading', isLoading);
-      return {
-        isLoading,
-      };
-    },
-    template: `<div style="flex: 1">
-      <UiSwitch 
-        v-model="isLoading" 
+OpacityTransitionType.decorators = [ (story) => ({
+  components: {
+    story,
+    UiSwitch,
+  },
+  setup() {
+    const isLoading = ref(true);
+    provide('isLoading', isLoading);
+    return { isLoading };
+  },
+  template: `<div style="flex: 1">
+      <UiSwitch
+        v-model="isLoading"
         style="margin: 0 0 1rem 0;"
       >
         {{ isLoading ? 'on' : 'off' }}
       </UiSwitch>
       <story />
     </div>`,
-  }),
-];
+}) ];
 
 const SpinnerTemplate = () => ({
   components: {
@@ -288,8 +272,8 @@ const SpinnerTemplate = () => ({
   </UiLoader>
   <UiLoader
     :isLoading="true"
-    :loaderAttrs="{ 
-      label: 'Label' 
+    :loaderAttrs="{
+      label: 'Label'
     }"
     type="spinner"
   >
@@ -299,7 +283,7 @@ const SpinnerTemplate = () => ({
   <UiLoader
     :isLoading="true"
     type="spinner"
-    :loader-attrs="{ 
+    :loader-attrs="{
       class: 'ui-loader-spinner--small'
     }"
   >
@@ -308,7 +292,7 @@ const SpinnerTemplate = () => ({
   <UiLoader
     :isLoading="true"
     type="spinner"
-    :loader-attrs="{ 
+    :loader-attrs="{
       class: 'ui-loader-spinner--small',
       label: 'Label'
     }"
@@ -317,21 +301,15 @@ const SpinnerTemplate = () => ({
   </UiLoader>
   `,
 });
-export const SpinnerLoader = SpinnerTemplate.bind({
-});
+export const SpinnerLoader = SpinnerTemplate.bind({});
 
-export const SpinnerLoaderOnBrand = SpinnerTemplate.bind({
-});
-SpinnerLoaderOnBrand.parameters = {
-  backgrounds: {
-    default: 'brand',
-  },
-};
-SpinnerLoaderOnBrand.decorators = [() => ({
+export const SpinnerLoaderOnBrand = SpinnerTemplate.bind({});
+SpinnerLoaderOnBrand.parameters = { backgrounds: { default: 'brand' } };
+SpinnerLoaderOnBrand.decorators = [ () => ({
   template: `<div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 2.5rem" class="--theme-brand">
     <story />
   </div>`,
-})];
+}) ];
 
 export const SkeletonLoader = () => ({
   components: {
@@ -352,7 +330,7 @@ export const SkeletonLoader = () => ({
     <UiLoader
       :isLoading="true"
       type="skeleton"
-      :loaderAttrs="{ 
+      :loaderAttrs="{
         type: 'question'
       }"
     >
@@ -385,8 +363,8 @@ export const LoadingButton = (args) => ({
     </UiLoader>
   </UiButton>
   <UiText tag="span">Outlined:</UiText>
-  <UiButton 
-    class="ui-button--outlined" 
+  <UiButton
+    class="ui-button--outlined"
     style="--loader-ellipsis-dot-background: var(--color-icon-primary);"
   >
     <UiLoader
@@ -398,8 +376,8 @@ export const LoadingButton = (args) => ({
     </UiLoader>
   </UiButton>
   <UiText tag="span">Without transition:</UiText>
-  <UiButton 
-    class="ui-button--outlined" 
+  <UiButton
+    class="ui-button--outlined"
     style="--loader-ellipsis-dot-background: var(--color-icon-primary);"
   >
     <UiLoader
@@ -423,21 +401,19 @@ export const LoadingPopover = () => ({
   },
   setup() {
     const isLoading = inject('isLoading');
-    return {
-      isLoading,
-    };
+    return { isLoading };
   },
   template: `<UiPopover
     title="Upper arm"
     class="ui-popover--has-arrow loading-popover"
-    :button-attrs="{
-      'aria-label': 'close',
+    :button-close-attrs="{
+      ariaLabel: 'close',
     }"
   >
     <UiLoader
       :isLoading="isLoading"
       type="skeleton"
-      :loaderAttrs="{ 
+      :loaderAttrs="{
         type: 'common'
       }"
     >
@@ -465,31 +441,27 @@ export const LoadingPopover = () => ({
     </UiLoader>
   </UiPopover>`,
 });
-LoadingPopover.decorators = [
-  (story) => ({
-    components: {
-      story,
-      UiSwitch,
-    },
-    setup() {
-      const isLoading = ref(true);
-      provide('isLoading', isLoading);
+LoadingPopover.decorators = [ (story) => ({
+  components: {
+    story,
+    UiSwitch,
+  },
+  setup() {
+    const isLoading = ref(true);
+    provide('isLoading', isLoading);
 
-      return {
-        isLoading,
-      };
-    },
-    template: `<div style="flex: 1">
-      <UiSwitch 
-        v-model="isLoading" 
+    return { isLoading };
+  },
+  template: `<div style="flex: 1">
+      <UiSwitch
+        v-model="isLoading"
         style="margin: 0 0 1rem 0;"
       >
         {{ isLoading ? 'on' : 'off' }}
       </UiSwitch>
       <story />
     </div>`,
-  }),
-];
+}) ];
 
 export const LoadingContainer = (args) => ({
   components: {
@@ -522,21 +494,18 @@ export const LoadingContainer = (args) => ({
     </UiLoader>
   </UiContainer>`,
 });
-LoadingContainer.decorators = [
-  (story) => ({
-    components: {
-      story,
-      UiSwitch,
-    },
-    setup() {
-      const isLoading = ref(true);
-      provide('isLoading', isLoading);
+LoadingContainer.decorators = [ (story) => ({
+  components: {
+    story,
+    UiSwitch,
+  },
+  setup() {
+    const isLoading = ref(true);
+    provide('isLoading', isLoading);
 
-      return {
-        isLoading,
-      };
-    },
-    template: `<div style="flex: 1">
+    return { isLoading };
+  },
+  template: `<div style="flex: 1">
     <UiSwitch
         v-model="isLoading"
         style="margin: 0 0 1rem 0;"
@@ -545,8 +514,7 @@ LoadingContainer.decorators = [
     </UiSwitch>
     <story />
     </div>`,
-  }),
-];
+}) ];
 
 export const LoadingSidePanel = () => ({
   components: {
@@ -558,9 +526,7 @@ export const LoadingSidePanel = () => ({
   },
   setup() {
     const isLoading = inject('isLoading');
-    return {
-      isLoading,
-    };
+    return { isLoading };
   },
   template: `<UiSidePanel
     :model-value="true"
@@ -573,7 +539,7 @@ export const LoadingSidePanel = () => ({
     <UiLoader
       :isLoading="isLoading"
       type="skeleton"
-      :loaderAttrs="{ 
+      :loaderAttrs="{
         type: 'common'
       }"
       style="padding: var(--space-16);"
@@ -602,21 +568,18 @@ export const LoadingSidePanel = () => ({
     </UiLoader>
   </UiSidePanel>`,
 });
-LoadingSidePanel.decorators = [
-  (story) => ({
-    components: {
-      story,
-      UiSwitch,
-    },
-    setup() {
-      const isLoading = ref(true);
-      provide('isLoading', isLoading);
+LoadingSidePanel.decorators = [ (story) => ({
+  components: {
+    story,
+    UiSwitch,
+  },
+  setup() {
+    const isLoading = ref(true);
+    provide('isLoading', isLoading);
 
-      return {
-        isLoading,
-      };
-    },
-    template: `<div style="flex: 1; min-height: 480px;">
+    return { isLoading };
+  },
+  template: `<div style="flex: 1; min-height: 480px;">
     <UiSwitch
         v-model="isLoading"
         style="position: relative; z-index: 1; margin: 0 0 1rem 0;"
@@ -625,8 +588,7 @@ LoadingSidePanel.decorators = [
     </UiSwitch>
     <story />
     </div>`,
-  }),
-];
+}) ];
 
 export const LoadingControls = () => ({
   components: {
@@ -638,32 +600,26 @@ export const LoadingControls = () => ({
   },
   setup() {
     const isLoading = inject('isLoading');
-    const options = [
+    const items = [
       {
         value: 'present',
         label: 'Yes',
-        iconAttrs: {
-          icon: 'yes',
-        },
+        iconAttrs: { icon: 'yes' },
       },
       {
         value: 'absent',
         label: 'Male',
-        iconAttrs: {
-          icon: 'no',
-        },
+        iconAttrs: { icon: 'no' },
       },
       {
         value: 'unknown',
         label: 'Don\'t know',
-        iconAttrs: {
-          icon: 'dont-know',
-        },
+        iconAttrs: { icon: 'dont-know' },
       },
     ];
     return {
       isLoading,
-      options,
+      items,
     };
   },
   template: `<UiControls
@@ -680,7 +636,7 @@ export const LoadingControls = () => ({
     >
       <UiQuestion
         title="Do you have a sore throat?"
-        :options="{
+        :settings="{
           info: true,
           why: true,
           issue: {
@@ -690,13 +646,13 @@ export const LoadingControls = () => ({
       >
       <UiSimpleQuestion
         model-value=""
-        :options="options"
+        :items="items"
       />
       </UiQuestion>
     </UiLoader>
     <template #next>
       <UiButton>
-        <UiLoader 
+        <UiLoader
           :is-loading="isLoading"
           type="ellipsis"
           transition-type="opacity"
@@ -708,21 +664,18 @@ export const LoadingControls = () => ({
     </template>
   </UiControls>`,
 });
-LoadingControls.decorators = [
-  (story) => ({
-    components: {
-      story,
-      UiSwitch,
-    },
-    setup() {
-      const isLoading = ref(true);
-      provide('isLoading', isLoading);
+LoadingControls.decorators = [ (story) => ({
+  components: {
+    story,
+    UiSwitch,
+  },
+  setup() {
+    const isLoading = ref(true);
+    provide('isLoading', isLoading);
 
-      return {
-        isLoading,
-      };
-    },
-    template: `<div style="flex: 1">
+    return { isLoading };
+  },
+  template: `<div style="flex: 1">
     <UiSwitch
         v-model="isLoading"
         style="margin: 0 0 1rem 0;"
@@ -731,8 +684,7 @@ LoadingControls.decorators = [
     </UiSwitch>
     <story />
     </div>`,
-  }),
-];
+}) ];
 
 export const LoadingFullOnBrand = () => ({
   components: {
@@ -740,14 +692,13 @@ export const LoadingFullOnBrand = () => ({
     UiText,
   },
   setup() {
-    return {
-    };
+    return {};
   },
   template: `<UiLoader
     :isLoading="true"
     type="spinner"
-    :loaderAttrs="{ 
-      label: 'Loading...', 
+    :loaderAttrs="{
+      label: 'Loading...',
       class: 'ui-loader-spinner--on-dark'
     }"
     class="ui-loader--theme-brand"
@@ -756,8 +707,8 @@ export const LoadingFullOnBrand = () => ({
     <!-- Place the content to be loaded. -->
   </UiLoader>`,
 });
-LoadingFullOnBrand.decorators = [() => ({
+LoadingFullOnBrand.decorators = [ () => ({
   template: `<div style="flex: 1; min-height: 480px;">
     <story />
   </div>`,
-})];
+}) ];

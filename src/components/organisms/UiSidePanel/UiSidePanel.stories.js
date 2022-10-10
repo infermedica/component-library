@@ -10,15 +10,19 @@ import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/
 import {
   onMounted,
   ref,
+  provide,
+  inject,
 } from 'vue';
 import { actions } from '@storybook/addon-actions';
 import {
   focusTrap,
   bodyScrollLock,
   scrollTabindex,
+  keyboardFocus,
 } from '@/utilities/directives';
 
 const events = actions({
+  onUpdateModelValue: 'update:modelValue',
   onAfterEnter: 'after-enter',
 });
 
@@ -36,33 +40,30 @@ export default {
     initModelValue: true,
     title: 'For business',
     subtitle: '',
+    transitionBackdropAttrs: { 'data-testid': 'backdrop-transition' },
+    backdropAttrs: { 'data-testid': 'backdrop' },
+    dialogAttrs: { 'data-testid': 'dialog-element' },
+    transitionDialogAttrs: { 'data-testid': 'dialog-transition' },
+    headingTitleAttrs: { 'data-testid': 'title-heading' },
+    textSubtitleAttrs: { 'data-testid': 'subtitle-text' },
     buttonCloseAttrs: {
-      id: 'close',
-      'aria-label': 'close panel',
+      'data-testid': 'close-button',
+      ariaLabel: 'close modal',
     },
-    headingTitleAttrs: {
-      id: 'title',
-    },
-    textSubtitleAttrs: {
-      id: 'subtitle',
-    },
-    transition: 'slide',
+    iconCloseAttrs: { 'data-testid': 'close-icon' },
+    contentAttrs: { 'data-testid': 'content-element' },
   },
   argTypes: {
     initModelValue: {
       description: 'Use this control to set initial state.',
-      table: {
-        category: 'stories controls',
-      },
+      table: { category: 'stories controls' },
       control: 'boolean',
     },
     title: {
       description: 'Use this props to set side panel title.',
       table: {
         category: 'props',
-        type: {
-          summary: 'string',
-        },
+        type: { summary: 'string' },
       },
       control: 'text',
     },
@@ -71,17 +72,13 @@ export default {
       description: 'Use this slot to replace title template.',
       table: {
         category: 'slots',
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
       },
     },
     subtitle: {
       table: {
         category: 'props',
-        type: {
-          summary: 'string',
-        },
+        type: { summary: 'string' },
       },
       control: 'text',
     },
@@ -90,32 +87,46 @@ export default {
       description: 'Use this slot to replace subtitle template.',
       table: {
         category: 'slots',
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
       },
     },
-    transition: {
-      control: 'select',
-      options: ['fade', 'slide'],
-    },
-    modelValue: {
-      control: false,
-    },
-    'after-enter': {
-      description: 'Use this event to detect when side panel enter transition is finishing.',
-    },
+    modelValue: { control: false },
+    'after-enter': { description: 'Use this event to detect when side panel enter transition is finishing.' },
+    transitionBackdropAttrs: { table: { subcategory: 'Attrs props' } },
+    backdropAttrs: { table: { subcategory: 'Attrs props' } },
+    dialogAttrs: { table: { subcategory: 'Attrs props' } },
+    transitionDialogAttrs: { table: { subcategory: 'Attrs props' } },
+    headingTitleAttrs: { table: { subcategory: 'Attrs props' } },
+    textSubtitleAttrs: { table: { subcategory: 'Attrs props' } },
+    buttonCloseAttrs: { table: { subcategory: 'Attrs props' } },
+    iconCloseAttrs: { table: { subcategory: 'Attrs props' } },
+    contentAttrs: { table: { subcategory: 'Attrs props' } },
   },
-  decorators: [() => ({
-    template: '<div class="max-w-32" style="min-height: 320px;"><story /></div>',
-  })],
-  parameters: {
-    docs: {
-      description: {
-        component: 'SidePanel use `v-body-scroll-lock`. Only works on Canvas mode.',
-      },
+  decorators: [ (story, { args }) => ({
+    components: {
+      story,
+      UiButton,
     },
-  },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      const toggleSidePanel = () => {
+        modelValue.value = !modelValue.value;
+      };
+      provide('modelValue', modelValue);
+      return {
+        toggleSidePanel,
+        title: args.title,
+      };
+    },
+    template: `<div class="max-w-32" style="min-height: 320px;">
+      <UiButton
+        class="ui-button--text ui-button--theme-secondary"
+        @click="toggleSidePanel"
+      >{{ title }}</UiButton>
+      <story/>
+    </div>`,
+  }) ],
+  parameters: { docs: { description: { component: 'SidePanel use `v-body-scroll-lock`. Only works on Canvas mode.' } } },
 };
 
 const Template = (args) => ({
@@ -129,25 +140,27 @@ const Template = (args) => ({
     UiLink,
   },
   setup() {
-    const modelValue = ref(args.initModelValue);
+    const modelValue = inject('modelValue');
     return {
       ...args,
       ...events,
       modelValue,
     };
   },
-  template: `<UiButton
-      class="ui-button--text ui-button--theme-secondary"
-      @click="modelValue = true;"
-  >{{ title }}</UiButton>
-  <UiSidePanel 
+  template: `<UiSidePanel 
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :button-close-attrs="buttonCloseAttrs"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
     :heading-title-attrs="headingTitleAttrs"
     :text-subtitle-attrs="textSubtitleAttrs"
-    :transition="transition"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    :dialog-attrs="dialogAttrs"
+    :content-attrs="contentAttrs"
+    @update:modelValue="onUpdateModelValue"
     @after-enter="onAfterEnter"
   >
     <UiHeading>§1. General Provisions</UiHeading>
@@ -159,7 +172,7 @@ const Template = (args) => ({
           type="a"
         >
           <UiBulletPointsItem>
-            <UiText>principles of operation of the website and the mobile application "<UiLink href="#">Symptomate.com</UiLink>",</UiText>
+            <UiText>principles of operation of the website and the mobile application "<UiLink href="#">Triage.com</UiLink>",</UiText>
           </UiBulletPointsItem>
           <UiBulletPointsItem>
             <UiText>rules on the provision of services by electronic means,</UiText>
@@ -196,8 +209,7 @@ const Template = (args) => ({
   </UiSidePanel>`,
 });
 
-export const TermsOfService = Template.bind({
-});
+export const TermsOfService = Template.bind({});
 TermsOfService.args = {
   title: 'Terms of Service',
   subtitle: 'Last updated: Nov 26th, 2020',
@@ -211,35 +223,46 @@ export const WithBackdropSlot = (args) => ({
     UiBackdrop,
   },
   setup() {
-    const modelValue = ref(args.initModelValue);
+    const modelValue = inject('modelValue');
     return {
       ...args,
       ...events,
       modelValue,
     };
   },
-  template: `<UiButton
-      class="ui-button--text ui-button--theme-secondary"
-      @click="modelValue = true;"
-  >{{ title }}</UiButton>
-  <UiSidePanel
+  template: `<UiSidePanel
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :button-close-attrs="buttonCloseAttrs"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
     :heading-title-attrs="headingTitleAttrs"
     :text-subtitle-attrs="textSubtitleAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    :dialog-attrs="dialogAttrs"
+    :content-attrs="contentAttrs"
+    @update:modelValue="onUpdateModelValue"
     @after-enter="onAfterEnter"
   >
-    <template #backdrop="{closeHandler, modelValue}">
-      <transition name="fade">
+    <template
+      #backdrop="{
+        transitionBackdropAttrs,
+        modelValue,
+        backdropAttrs,
+        closeHandler,
+      }"
+    >
+      <transition v-bind="transitionBackdropAttrs">
         <UiBackdrop
           v-if="modelValue"
+          v-bind="backdropAttrs"
           @click="closeHandler"
         />
       </transition>
     </template>
-    <UiText>Symptomate is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
+    <UiText>Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
   </UiSidePanel>`,
 });
 
@@ -256,56 +279,81 @@ export const WithContainerSlot = (args) => ({
     bodyScrollLock,
   },
   setup() {
-    const modelValue = ref(args.initModelValue);
+    const modelValue = inject('modelValue');
     return {
       ...args,
       ...events,
       modelValue,
     };
   },
-  template: `<UiButton
-      class="ui-button--text ui-button--theme-secondary"
-      @click="modelValue = true;"
-  >{{ title }}</UiButton>
-  <UiSidePanel
+  template: `<UiSidePanel
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :button-close-attrs="buttonCloseAttrs"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
     :heading-title-attrs="headingTitleAttrs"
     :text-subtitle-attrs="textSubtitleAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    :dialog-attrs="dialogAttrs"
+    :content-attrs="contentAttrs"
+    @update:modelValue="onUpdateModelValue"
+    @after-enter="onAfterEnter"
   >
-    <template #container="{transition, afterEnterHandler, modelValue, buttonCloseAttrs, closeHandler, title, subtitle}">
+    <template
+      #container="{
+        transitionDialogAttrs,
+        modelValue,
+        afterEnterHandler,
+        buttonCloseAttrs,
+        closeHandler,
+        title,
+        subtitle,
+        iconCloseAttrs,
+        headingTitleAttrs,
+        textSubtitleAttrs,
+        dialogAttrs,
+      }"
+    >
       <transition
-        :name="transition"
-        @after-enter="afterEnterHandler"
+        v-bind="transitionDialogAttrs"
       >
         <dialog
           v-if="modelValue"
           v-focus-trap
           v-body-scroll-lock
+          v-bind="dialogAttrs"
           class="ui-side-panel__dialog"
         >
           <div class="ui-side-panel__header">
             <!-- @slot Use this slot to replace close template. -->
             <UiButton
+              v-bind="buttonCloseAttrs"
               ref="button"
               class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
-              v-bind="buttonCloseAttrs"
               @click="closeHandler"
             >
-              <UiIcon icon="close" />
+              <UiIcon
+                v-bind="iconCloseAttrs"
+                class="ui-button__icon"
+              />
             </UiButton>
             <div
               v-if="title || subtitle"
               class="ui-side-panel__label"
             >
-              <UiHeading v-if="title">
+              <UiHeading
+                v-if="title"
+                v-bind="headingTitleAttrs"
+              >
                 {{ title }}
               </UiHeading>
               <UiText
                 v-if="subtitle"
-                class="ui-side-panel__subtitle"
+                v-bind="textSubtitleAttrs"
+                class="ui-text--body-2-comfortable ui-side-panel__subtitle"
               >
                 {{ subtitle }}
               </UiText>
@@ -313,9 +361,8 @@ export const WithContainerSlot = (args) => ({
           </div>
           <div
             class="ui-side-panel__content"
-            :body-scroll-lock-ignore="true"
           >
-            <UiText>Symptomate is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
+            <UiText>Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
           </div>
         </dialog>
       </transition>
@@ -332,53 +379,73 @@ export const WithHeaderSlot = (args) => ({
     UiIcon,
   },
   setup() {
-    const modelValue = ref(args.initModelValue);
+    const modelValue = inject('modelValue');
     return {
       ...args,
       ...events,
       modelValue,
     };
   },
-  template: `<UiButton
-      class="ui-button--text ui-button--theme-secondary"
-      @click="modelValue = true;"
-  >{{ title }}</UiButton>
-  <UiSidePanel
+  template: `<UiSidePanel
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :button-close-attrs="buttonCloseAttrs"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
     :heading-title-attrs="headingTitleAttrs"
     :text-subtitle-attrs="textSubtitleAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    :dialog-attrs="dialogAttrs"
+    :content-attrs="contentAttrs"
+    @update:modelValue="onUpdateModelValue"
     @after-enter="onAfterEnter"
   >
-    <template #header="{attrs, closeHandler, title, subtitle}">
+    <template
+      #header="{
+        buttonCloseAttrs,
+        closeHandler,
+        title,
+        subtitle,
+        headingTitleAttrs,
+        textSubtitleAttrs,
+        iconCloseAttrs,
+      }"
+    >
       <div class="ui-side-panel__header">
         <UiButton
+          v-bind="buttonCloseAttrs"
           ref="button"
           class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
-          v-bind="attrs"
           @click="closeHandler"
         >
-          <UiIcon icon="close" />
+          <UiIcon
+            v-bind="iconCloseAttrs"
+            class="ui-button__icon"
+          />
         </UiButton>
         <div
           v-if="title || subtitle"
           class="ui-side-panel__label"
         >
-          <UiHeading v-if="title">
+          <UiHeading
+            v-if="title"
+            v-bind="headingTitleAttrs"
+          >
             {{ title }}
           </UiHeading>
           <UiText
             v-if="subtitle"
-            class="ui-side-panel__subtitle"
+            v-bind="textSubtitleAttrs"
+            class="ui-text--body-2-comfortable ui-side-panel__subtitle"
           >
             {{ subtitle }}
           </UiText>
         </div>
       </div>
     </template>
-    <UiText>Symptomate is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
+    <UiText>Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
   </UiSidePanel>`,
 });
 
@@ -391,37 +458,49 @@ export const WithCloseSlot = (args) => ({
     UiIcon,
   },
   setup() {
-    const modelValue = ref(args.initModelValue);
+    const modelValue = inject('modelValue');
     return {
       ...args,
       ...events,
       modelValue,
     };
   },
-  template: `<UiButton
-      class="ui-button--text ui-button--theme-secondary"
-      @click="modelValue = true;"
-  >{{ title }}</UiButton>
-  <UiSidePanel
+  template: `<UiSidePanel
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :button-close-attrs="buttonCloseAttrs"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
     :heading-title-attrs="headingTitleAttrs"
     :text-subtitle-attrs="textSubtitleAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    :dialog-attrs="dialogAttrs"
+    :content-attrs="contentAttrs"
+    @update:modelValue="onUpdateModelValue"
     @after-enter="onAfterEnter"
   >
-    <template #close="{attrs, closeHandler}">
+    <template
+      #close="{
+        buttonCloseAttrs,
+        closeHandler,
+        iconCloseAttrs,
+      }"
+    >
       <UiButton
+        v-bind="buttonCloseAttrs"
         ref="button"
         class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
-        v-bind="attrs"
         @click="closeHandler"
       >
-        <UiIcon icon="close" />
+        <UiIcon
+          v-bind="iconCloseAttrs"
+          class="ui-button__icon"
+        />
       </UiButton>
     </template>
-    <UiText>Symptomate is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
+    <UiText>Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
   </UiSidePanel>`,
 });
 
@@ -433,43 +512,57 @@ export const WithLabelSlot = (args) => ({
     UiHeading,
   },
   setup() {
-    const modelValue = ref(args.initModelValue);
+    const modelValue = inject('modelValue');
     return {
       ...args,
       ...events,
       modelValue,
     };
   },
-  template: `<UiButton
-      class="ui-button--text ui-button--theme-secondary"
-      @click="modelValue = true;"
-  >{{ title }}</UiButton>
-  <UiSidePanel
+  template: `<UiSidePanel
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :button-close-attrs="buttonCloseAttrs"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
     :heading-title-attrs="headingTitleAttrs"
     :text-subtitle-attrs="textSubtitleAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    :dialog-attrs="dialogAttrs"
+    :content-attrs="contentAttrs"
+    @update:modelValue="onUpdateModelValue"
     @after-enter="onAfterEnter"
   >
-    <template #label="{title, subtitle}">
+    <template
+      #label="{
+        title,
+        subtitle,
+        headingTitleAttrs,
+        textSubtitleAttrs,
+      }"
+    >
       <div
         v-if="title || subtitle"
         class="ui-side-panel__label"
       >
-        <UiHeading v-if="title">
+        <UiHeading
+          v-if="title"
+          v-bind="headingTitleAttrs"
+        >
           {{ title }}
         </UiHeading>
         <UiText
           v-if="subtitle"
-          class="ui-side-panel__subtitle"
+          v-bind="textSubtitleAttrs"
+          class="ui-text--body-2-comfortable ui-side-panel__subtitle"
         >
           {{ subtitle }}
         </UiText>
       </div>
     </template>
-    <UiText>Symptomate is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
+    <UiText>Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
   </UiSidePanel>`,
 });
 
@@ -481,32 +574,43 @@ export const WithTitleSlot = (args) => ({
     UiHeading,
   },
   setup() {
-    const modelValue = ref(args.initModelValue);
+    const modelValue = inject('modelValue');
     return {
       ...args,
       ...events,
       modelValue,
     };
   },
-  template: `<UiButton
-      class="ui-button--text ui-button--theme-secondary"
-      @click="modelValue = true;"
-  >{{ title }}</UiButton>
-  <UiSidePanel
+  template: `<UiSidePanel
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :button-close-attrs="buttonCloseAttrs"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
     :heading-title-attrs="headingTitleAttrs"
     :text-subtitle-attrs="textSubtitleAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    :dialog-attrs="dialogAttrs"
+    :content-attrs="contentAttrs"
+    @update:modelValue="onUpdateModelValue"
     @after-enter="onAfterEnter"
   >
-    <template #title="{title}">
-      <UiHeading v-if="title">
+    <template
+      #title="{
+        title,
+        headingTitleAttrs,
+      }"
+    >
+      <UiHeading
+        v-if="title"
+        v-bind="headingTitleAttrs"
+      >
         {{ title }}
       </UiHeading>
     </template>
-    <UiText>Symptomate is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
+    <UiText>Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
   </UiSidePanel>`,
 });
 
@@ -517,35 +621,42 @@ export const WithSubtitleSlot = (args) => ({
     UiText,
   },
   setup() {
-    const modelValue = ref(args.initModelValue);
+    const modelValue = inject('modelValue');
     return {
       ...args,
       ...events,
       modelValue,
     };
   },
-  template: `<UiButton
-      class="ui-button--text ui-button--theme-secondary"
-      @click="modelValue = true;"
-  >{{ title }}</UiButton>
-  <UiSidePanel
+  template: `<UiSidePanel
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :button-close-attrs="buttonCloseAttrs"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
     :heading-title-attrs="headingTitleAttrs"
     :text-subtitle-attrs="textSubtitleAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    @update:modelValue="onUpdateModelValue"
     @after-enter="onAfterEnter"
   >
-    <template #subtitle="{subtitle}">
+    <template
+      #subtitle="{
+        subtitle,
+        textSubtitleAttrs,
+      }"
+    >
       <UiText
         v-if="subtitle"
-        class="ui-side-panel__subtitle"
+        v-bind="textSubtitleAttrs"
+        class="ui-text--body-2-comfortable ui-side-panel__subtitle"
       >
         {{ subtitle }}
       </UiText>
     </template>
-    <UiText>Symptomate is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
+    <UiText>Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
   </UiSidePanel>`,
 });
 
@@ -557,41 +668,46 @@ export const WithContentSlot = (args) => ({
   },
   directives: {
     scrollTabindex,
+    keyboardFocus,
   },
   setup() {
-    const modelValue = ref(args.initModelValue);
+    const modelValue = inject('modelValue');
     return {
       ...args,
       ...events,
       modelValue,
     };
   },
-  template: `<UiButton
-      class="ui-button--text ui-button--theme-secondary"
-      @click="modelValue = true;"
-  >{{ title }}</UiButton>
-  <UiSidePanel
+  template: `<UiSidePanel
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :button-close-attrs="buttonCloseAttrs"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
     :heading-title-attrs="headingTitleAttrs"
     :text-subtitle-attrs="textSubtitleAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    :dialog-attrs="dialogAttrs"
+    :content-attrs="contentAttrs"
+    @update:modelValue="onUpdateModelValue"
     @after-enter="onAfterEnter"
   >
-    <template #content>
+    <template #content="{ contentAttrs }">
       <div
         v-scroll-tabindex
+        v-keyboard-focus
+        v-bind="contentAttrs"
         class="ui-side-panel__content"
-        :body-scroll-lock-ignore="true"
       >
-        <UiText>Symptomate is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
+        <UiText>Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:</UiText>
       </div>
     </template>
   </UiSidePanel>`,
 });
 
-export const WithAsynContent = (args) => ({
+export const WithAsyncContent = (args) => ({
   components: {
     UiSidePanel,
     UiButton,
@@ -602,7 +718,7 @@ export const WithAsynContent = (args) => ({
     UiLink,
   },
   setup() {
-    const modelValue = ref(args.initModelValue);
+    const modelValue = inject('modelValue');
     const isLoaded = ref(false);
     onMounted(() => (
       window.setTimeout(() => {
@@ -616,17 +732,20 @@ export const WithAsynContent = (args) => ({
       isLoaded,
     };
   },
-  template: `<UiButton
-      class="ui-button--text ui-button--theme-secondary"
-      @click="modelValue = true;"
-  >{{ title }}</UiButton>
-  <UiSidePanel
+  template: `<UiSidePanel
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
-    :button-close-attrs="buttonCloseAttrs"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
     :heading-title-attrs="headingTitleAttrs"
     :text-subtitle-attrs="textSubtitleAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    :dialog-attrs="dialogAttrs"
+    :content-attrs="contentAttrs"
+    @update:modelValue="onUpdateModelValue"
     @after-enter="onAfterEnter"
   >
     <template v-if="isLoaded">
@@ -639,7 +758,7 @@ export const WithAsynContent = (args) => ({
             type="a"
           >
             <UiBulletPointsItem>
-              <UiText>principles of operation of the website and the mobile application "<UiLink href="#">Symptomate.com</UiLink>",</UiText>
+              <UiText>principles of operation of the website and the mobile application "<UiLink href="#">Triage.com</UiLink>",</UiText>
             </UiBulletPointsItem>
             <UiBulletPointsItem>
               <UiText>rules on the provision of services by electronic means,</UiText>

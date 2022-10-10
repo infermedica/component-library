@@ -26,9 +26,30 @@ describe('UiDatepicker.vue', () => {
     expect(wrapper.classes('ui-datepicker')).toBe(true);
   });
   test.each([
-    ['day', ['day', 'month', 'year']],
-    ['month', ['month', 'day', 'year']],
-    ['year', ['year', 'day', 'month']],
+    [
+      'day',
+      [
+        'day',
+        'month',
+        'year',
+      ],
+    ],
+    [
+      'month',
+      [
+        'month',
+        'day',
+        'year',
+      ],
+    ],
+    [
+      'year',
+      [
+        'year',
+        'day',
+        'month',
+      ],
+    ],
   ])('open calendar with %s tab when all fields are filled', async (expected, order) => {
     const wrapper = mountDatepicker({
       propsData: {
@@ -44,15 +65,32 @@ describe('UiDatepicker.vue', () => {
     expect(calendar.findComponent(UiTabs).vm.modelValue).toBe(`datepicker-calendar-${expected}`);
   });
   test.each([
-    ['day', ['day', 'month', 'year']],
-    ['month', ['month', 'day', 'year']],
-    ['year', ['year', 'day', 'month']],
+    [
+      'day',
+      [
+        'day',
+        'month',
+        'year',
+      ],
+    ],
+    [
+      'month',
+      [
+        'month',
+        'day',
+        'year',
+      ],
+    ],
+    [
+      'year',
+      [
+        'year',
+        'day',
+        'month',
+      ],
+    ],
   ])('open calendar with %s tab when non fields are filled', async (expected, order) => {
-    const wrapper = mountDatepicker({
-      propsData: {
-        order,
-      },
-    });
+    const wrapper = mountDatepicker({ propsData: { order } });
 
     const calendar = wrapper.findComponent(UiDatepickerCalendar);
     await calendar

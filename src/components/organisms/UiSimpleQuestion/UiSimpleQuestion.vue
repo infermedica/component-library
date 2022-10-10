@@ -3,32 +3,29 @@
     class="ui-simple-question"
     role="radiogroup"
   >
-    <template v-for="option in options">
+    <template
+      v-for="(item, index) in itemsToRender"
+      :key="index"
+    >
       <!-- @slot Use this slot to replace tile template -->
       <slot
         name="tile"
         v-bind="{
-          option,
-          tileAttrs,
+          option: item,
+          item,
           modelValue,
           isTileSmall,
           updateHandler
         }"
       >
         <UiTile
-          :id="option.id"
-          v-bind="tileAttrs"
+          v-bind="tileItemAttrs(item)"
           :model-value="modelValue"
-          :value="option.value"
-          :icon-attrs="option.iconAttrs"
-          :name="option.name"
-          :class="{
-            'ui-tile--small': isTileSmall
-          }"
-          class="ui-simple-question__option ui-tile"
-          @update:model-value="updateHandler(option.value)"
+          :class="{ 'ui-tile--small': isTileSmall }"
+          class="ui-simple-question__item"
+          @update:model-value="updateHandler(item.value)"
         >
-          {{ option.label }}
+          {{ item.label }}
         </UiTile>
       </slot>
     </template>
@@ -43,58 +40,68 @@ import {
 import type { PropType } from 'vue';
 import UiTile from '../../molecules/UiTile/UiTile.vue';
 import type { TileValue } from '../../molecules/UiTile/UiTile.vue';
-import type { PropsAttrs } from '../../../types/attrs';
 import type { Icon } from '../../../types/icon';
 
-export interface SimpleQuestionOptions {
-  id: string;
+export interface SimpleQuestionOption {
   value: TileValue;
-  name: string;
   label: string;
-  iconAttrs: {
-    icon: Icon;
+  tileAttrs: {
+    iconAttrs: {
+      icon: Icon;
+      [key: string]: unknown;
+    },
     [key: string]: unknown;
-  },
+  }
 }
-defineProps({
+const props = defineProps({
   /**
    * Use this props or v-model to set value.
    */
   modelValue: {
-    type: [Object, String] as PropType<TileValue>,
-    default: () => ({
-    }),
+    type: [
+      Object,
+      String,
+    ] as PropType<TileValue>,
+    default: () => ({}),
   },
   /**
-   * Use this props to pass options for question
+   * Use this props to pass items for question
    */
-  options: {
-    type: Array as PropType<SimpleQuestionOptions[]>,
-    default: () => [{
+  items: {
+    type: Array as PropType<SimpleQuestionOption[]>,
+    default: () => [ {
       id: '',
-      name: '',
       label: '',
       value: '',
-      iconAttrs: {
-        icon: '',
-      },
-    }],
-  },
-  /**
-   * Use this props to pass native attributes to all UiTiles.
-   */
-  tileAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({
-    }),
+      tileAttrs: { iconAttrs: { icon: '' } },
+    } ],
   },
 });
 const emit = defineEmits<{(e: 'update:modelValue', value: TileValue): void}>();
-const attrs = useAttrs() as {class: string[]};
-const isTileSmall = computed(() => attrs.class?.includes('ui-simple-question--small'));
+interface Attrs {
+  class?: string[];
+  options?: SimpleQuestionOption[];
+}
+const attrs:Attrs = useAttrs();
+const isTileSmall = computed(() => attrs?.class?.includes('ui-simple-question--small'));
 function updateHandler(value: TileValue) {
   emit('update:modelValue', value);
 }
+// TODO: remove in 0.6.0 / BEGIN
+const options = computed(() => (attrs?.options));
+if (options.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiSimpleQuestion]: The `options` props will be removed in 0.6.0. Please use `items` props instead.');
+  }
+}
+// END
+const tileItemAttrs = (item: SimpleQuestionOption) => {
+  const {
+    label, ...rest
+  } = item;
+  return rest;
+};
+const itemsToRender = computed(() => options.value || props.items);
 </script>
 
 <style lang="scss">
@@ -112,8 +119,8 @@ function updateHandler(value: TileValue) {
     flex-direction: row;
   }
 
-  &__option {
-    margin: functions.var($element + "-option", margin, 0 0 var(--space-12) 0);
+  &__item {
+    margin: functions.var($element + "-item", margin, 0 0 var(--space-12) 0);
 
     &:last-of-type {
       margin: 0;
@@ -121,14 +128,14 @@ function updateHandler(value: TileValue) {
 
     @include mixins.from-tablet {
       flex: 1;
-      margin: functions.var($element + "-tablet-option", margin, 0 var(--space-24) 0 0);
+      margin: functions.var($element + "-tablet-item", margin, 0 var(--space-24) 0 0);
 
       &:last-of-type {
         margin: 0;
       }
 
       [dir="rtl"] & {
-        margin: functions.var($element + "-rtl-tablet-option", margin, 0 0 0 var(--space-24));
+        margin: functions.var($element + "-rtl-tablet-item", margin, 0 0 0 var(--space-24));
 
         &:last-of-type {
           margin: 0;

@@ -7,9 +7,7 @@
       v-keyboard-focus
       v-bind="getInputAttrs($attrs)"
       :value="modelValue"
-      :style="{
-        resize: resizeValue
-      }"
+      :style="{ resize: resizeValue }"
       class="ui-textarea__textarea"
       @input="inputHandler($event)"
     />
@@ -17,9 +15,7 @@
 </template>
 
 <script lang="ts">
-export default {
-  inheritAttrs: false,
-};
+export default { inheritAttrs: false };
 </script>
 
 <script setup lang="ts">
@@ -42,13 +38,18 @@ const props = defineProps({
    * 'horizontal' - horizontal resizing only, 'vertical' - vertical resizing only
    */
   resize: {
-    type: [Boolean, String] as PropType<boolean | 'horizontal' | 'vertical'>,
+    type: [
+      Boolean,
+      String,
+    ] as PropType<boolean | 'horizontal' | 'vertical'>,
     optional: true,
     default: false,
   },
 });
 const emit = defineEmits<{(e:'update:modelValue', value:string):void}>();
-const { getRootAttrs, getInputAttrs } = useInput();
+const {
+  getRootAttrs, getInputAttrs,
+} = useInput();
 function inputHandler(event: Event) {
   const el = event.target as HTMLInputElement;
   emit('update:modelValue', el.value);

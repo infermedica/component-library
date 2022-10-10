@@ -1,9 +1,7 @@
 <template>
   <div
     class="ui-progress"
-    :style="{
-      '--_progress-value': progressValue
-    }"
+    :style="{ '--_progress-value': progressValue }"
   >
     <div
       v-if="progressValue"

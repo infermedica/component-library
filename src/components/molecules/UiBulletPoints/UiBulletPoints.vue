@@ -10,15 +10,15 @@
         v-for="(item, key) in itemsToRender"
         :key="key"
       >
-        <UiBulletPointsItem v-bind="item.bulletPointsItemAttrs">
+        <UiBulletPointsItem
+          v-bind="bulletPointsItemAttrs(item)"
+        >
           <!-- @slot Use this slot to replace bullet point item content. -->
           <slot
             :name="item.name"
-            v-bind="{
-              item
-            }"
+            v-bind="{ item }"
           >
-            <UiText>{{ item.text }}</UiText>
+            {{ item.text }}
             <template v-if="item.children?.items">
               <component
                 :is="'ui-bullet-points'"
@@ -32,6 +32,10 @@
   </component>
 </template>
 
+<script lang="ts">
+export default { name: 'UiBulletPoints' };
+</script>
+
 <script setup lang="ts">
 import {
   computed,
@@ -41,7 +45,6 @@ import type {
   CSSProperties,
   PropType,
 } from 'vue';
-import UiText from '../../atoms/UiText/UiText.vue';
 import UiBulletPointsItem from './_internal/UiBulletPointsItem.vue';
 import type { ListTag } from '../../../types/tag';
 import type { IconAsString } from '../../../types/icon';
@@ -155,14 +158,19 @@ const itemsToRender = computed<BulletPointsRenderItem[]>(() => (
         }
         : {
           items: item.children?.items,
-          ...(item.children?.bulletPointAttrs || {
-            tag: props.tag,
-            type: props.type,
-            icon: props.icon,
-          }),
+          tag: props.tag,
+          type: props.type,
+          icon: props.icon,
+          ...item.children,
         },
     };
   })));
+const bulletPointsItemAttrs = (item: BulletPointsRenderItem) => {
+  const {
+    name, text, children, ...rest
+  } = item;
+  return rest;
+};
 </script>
 
 <style lang="scss">

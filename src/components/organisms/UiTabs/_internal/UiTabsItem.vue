@@ -1,9 +1,7 @@
 <template>
   <div
     class="ui-tabs-item"
-    :class="{
-      'ui-tabs-item--is-active': isActive
-    }"
+    :class="{ 'ui-tabs-item--is-active': isActive }"
   >
     <!-- @slot Use this slot to replace tab template. -->
     <slot
@@ -11,7 +9,8 @@
       v-bind="{
         id,
         isActive,
-        buttonAttrs,
+        buttonTabAttrs,
+        contentAttrs,
         handleTabActive,
         title
       }"
@@ -26,7 +25,7 @@
           v-bind="{
             id,
             isActive,
-            attrs:buttonAttrs,
+            buttonTabAttrs,
             handleTabActive,
             title
           }"
@@ -35,8 +34,8 @@
             :id="`button-${id}`"
             :aria-expanded="`${isActive}`"
             :aria-controls="id"
+            v-bind="buttonTabAttrs"
             class="ui-button--text ui-tabs-item__tab-button"
-            v-bind="buttonAttrs"
             @click="handleTabActive($event, id)"
           >
             {{ title }}
@@ -48,7 +47,9 @@
     <slot
       name="content"
       v-bind="{
-        isActive
+        isActive,
+        contentAttrs,
+        id,
       }"
     >
       <div
@@ -96,18 +97,16 @@ const props = defineProps({
   /**
    * Use this props to pass attrs for toggle UiButton.
    */
-  buttonAttrs: {
+  buttonTabAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   /**
    * Use this props to pass attrs for content element.
    */
   contentAttrs: {
     type: Object,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
 });
 const attrs = useAttrs() as {id: string};
@@ -178,8 +177,18 @@ onMounted(async () => {
 
   &__tab-button {
     --button-color: #{functions.var($element + "-tab-button", color, var(--color-text-action-primary))};
-    --button-hover-color: #{functions.var($element + "-tab-button-hover", color, var(--color-text-action-primary-hover))};
-    --button-active-color: #{functions.var($element + "-tab-button-active", color, var(--color-text-action-primary-active))};
+    --button-hover-color:
+      #{functions.var(
+        $element + "-tab-button-hover",
+        color,
+        var(--color-text-action-primary-hover)
+      )};
+    --button-active-color:
+      #{functions.var(
+        $element + "-tab-button-active",
+        color,
+        var(--color-text-action-primary-active)
+      )};
     --button-font: #{functions.var($element + "-tab-button", font, var(--font-body-1))};
     --button-letter-spacing: #{functions.var($element + "-tab-button", letter-spacing, var(--letter-spacing-body-1))};
 

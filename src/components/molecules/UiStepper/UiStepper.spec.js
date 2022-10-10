@@ -9,32 +9,32 @@ import UiText from '../../atoms/UiText/UiText.vue';
 describe('UiStepper.vue', () => {
   const steps = [
     {
-      name: 'Introduction',
-      route: '/intro',
+      label: 'Introduction',
+      href: '#',
     },
     {
-      name: 'Patient',
-      route: '/patient',
+      label: 'Patient',
+      href: '#',
     },
     {
-      name: 'Symptoms',
-      route: '/symptoms',
+      label: 'Symptoms',
+      href: '#',
     },
     {
-      name: 'Regions',
-      route: '/regions',
+      label: 'Regions',
+      href: '#',
     },
     {
-      name: 'Interview',
-      route: '/interview',
+      label: 'Interview',
+      href: '#',
     },
     {
-      name: 'Results',
-      route: '/results',
+      label: 'Results',
+      href: '#',
     },
   ];
   const currentStepIndex = 3;
-  const currentStep = steps[currentStepIndex].name;
+  const currentStep = steps[currentStepIndex].label;
 
   describe('shared', () => {
     test('renders a component', () => {
@@ -66,7 +66,7 @@ describe('UiStepper.vue', () => {
       const totalNumberOfSteps = steps.length;
       const mobileText = wrapper.findComponent(UiText);
 
-      expect(mobileText.classes()).toContain('ui-stepper__text');
+      expect(mobileText.classes()).toContain('ui-stepper__current-step');
       expect(mobileText.text()).toContain(`${displayedCurrentStepNumber}/${totalNumberOfSteps} ${currentStep}`);
     });
   });
