@@ -4,23 +4,17 @@ import UiMenuItem from '@/components/organisms/UiMenu/_internal/UiMenuItem.vue';
 
 const mountComponent = (iconVisible, isSelected, options) => mount(UiMenu, {
   props: {
-    items: [{
+    items: [ {
       label: 'item1',
       iconVisible,
-      class: {
-        'ui-button--is-selected': isSelected,
-      },
-    }],
+      class: { 'ui-button--is-selected': isSelected },
+    } ],
   },
   ...options,
 });
 const isSlotExist = (iconVisible, isSelected, slotName) => {
   const slotClass = `${slotName}-slot`;
-  const wrapper = mountComponent(iconVisible, isSelected, {
-    slots: {
-      [slotName]: `<div class="${slotClass}"></div>`,
-    },
-  });
+  const wrapper = mountComponent(iconVisible, isSelected, { slots: { [slotName]: `<div class="${slotClass}"></div>` } });
   const slot = wrapper.find(`.${slotClass}`);
   return slot.exists();
 };
@@ -30,11 +24,40 @@ describe('UiMenu.vue', () => {
     const wrapper = mount(UiMenu);
     expect(wrapper.classes('ui-menu')).toBe(true);
   });
-  it.each(['default', 'label', 'suffix'])('renders a component via %s slot', (slotName) => {
+  it.each([
+    'default',
+    'label',
+    'suffix',
+  ])('renders a component via %s slot', (slotName) => {
     expect(isSlotExist('always', false, slotName)).toBe(true);
   });
-  describe.each([['is selected', true], ["isn't selected", false]])('component correct render icon when item %s', (str, isSelected) => {
-    it.each([['', 'always', true], ['doesn\'t', 'never', false], ['', 'default', true]])(`
+  describe.each([
+    [
+      'is selected',
+      true,
+    ],
+    [
+      "isn't selected",
+      false,
+    ],
+  ])('component correct render icon when item %s', (str, isSelected) => {
+    it.each([
+      [
+        '',
+        'always',
+        true,
+      ],
+      [
+        'doesn\'t',
+        'never',
+        false,
+      ],
+      [
+        '',
+        'default',
+        true,
+      ],
+    ])(`
       component %s render an icon when "iconVisible" is set to %s and item ${str}`, (isRender, type, result) => {
       const wrapper = mountComponent(type, isSelected);
       const icon = wrapper.find('.ui-menu-item-suffix__icon');
@@ -49,15 +72,12 @@ describe('UiMenu.vue', () => {
   it('renders the correct number of items', () => {
     const wrapper = mount(UiMenu, {
       props: {
-        items: [{
-          label: 'item1',
-        }, {
-          label: 'item2',
-        }, {
-          label: 'item3',
-        }, {
-          label: 'item4',
-        }],
+        items: [
+          { label: 'item1' },
+          { label: 'item2' },
+          { label: 'item3' },
+          { label: 'item4' },
+        ],
       },
     });
     const numberOfItems = wrapper.findAllComponents(UiMenuItem).length;

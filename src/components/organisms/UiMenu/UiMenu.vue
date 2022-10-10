@@ -59,7 +59,10 @@ const props = defineProps({
    * Use this to set menu tag.
    */
   tag: {
-    type: [String, Object] as PropType<HTMLTag | Record<string, unknown>>,
+    type: [
+      String,
+      Object,
+    ] as PropType<HTMLTag | Record<string, unknown>>,
     default: UiList,
   },
   /**
@@ -71,7 +74,9 @@ const props = defineProps({
   },
 });
 const menuItemAttrs = (item: MenuItem) => {
-  const { name, text, ...rest } = item;
+  const {
+    name, text, ...rest
+  } = item;
   return rest;
 };
 const itemsToRender = computed(() => (props.items.map((item, key) => {

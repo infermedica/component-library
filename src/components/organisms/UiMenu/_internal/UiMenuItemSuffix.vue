@@ -51,7 +51,10 @@ const props = defineProps({
    * Use this prop to set icon.
    */
   icon: {
-    type: [String, Object] as PropType<Icon>,
+    type: [
+      String,
+      Object,
+    ] as PropType<Icon>,
     default: 'checkmark',
   },
   /**
@@ -59,8 +62,7 @@ const props = defineProps({
    */
   iconAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
 });
 const defaultProps = computed(() => ({

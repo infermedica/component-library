@@ -4,7 +4,9 @@
     v-bind="defaultProps.menuItemAttrs"
   >
     <UiButton
-      :class="['ui-button--outlined ui-menu-item__button', buttonClass]"
+      :class="[
+        'ui-button--outlined ui-menu-item__button', buttonClass
+      ]"
       v-bind="defaultProps.buttonMenuItemAttrs"
     >
       <!-- @slot Use this slot to replace label template -->
@@ -27,7 +29,9 @@
       >
         <UiMenuItemSuffix
           v-if="hasSuffix"
-          :class="['ui-menu-item__suffix', suffixClass]"
+          :class="[
+            'ui-menu-item__suffix', suffixClass
+          ]"
           v-bind="defaultProps.suffixAttrs"
         />
       </slot>
@@ -36,9 +40,7 @@
 </template>
 
 <script lang="ts">
-export default {
-  inheritAttrs: false,
-};
+export default { inheritAttrs: false };
 </script>
 
 <script setup lang="ts">
@@ -60,14 +62,16 @@ const props = defineProps({
    */
   buttonMenuItemAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   /**
    * Use this prop to set icon.
    */
   icon: {
-    type: [String, Object] as PropType<Icon>,
+    type: [
+      String,
+      Object,
+    ] as PropType<Icon>,
     default: 'checkmark',
   },
   /**
@@ -89,28 +93,22 @@ const props = defineProps({
    */
   suffixAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   /**
    * Use this prop to set icon suffix attributes.
    */
   suffixIconAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
 });
 const attrs = useAttrs();
 const isSelected = computed(() => attrs.class && (attrs.class as string).includes('ui-menu-item--is-selected'));
 const hasIcon = computed(() => props.iconVisible !== 'never');
 const hasSuffix = computed(() => props.iconLabel || props.iconVisible !== 'never');
-const suffixClass = computed(() => ({
-  'ui-menu-item-suffix--hide-icon': (props.iconVisible === 'default' && !isSelected.value),
-}));
-const buttonClass = computed(() => ({
-  'ui-button--is-selected': isSelected.value,
-}));
+const suffixClass = computed(() => ({ 'ui-menu-item-suffix--hide-icon': (props.iconVisible === 'default' && !isSelected.value) }));
+const buttonClass = computed(() => ({ 'ui-button--is-selected': isSelected.value }));
 const defaultProps = computed(() => ({
   buttonMenuItemAttrs: {
     ...Object.keys(attrs)
@@ -120,8 +118,7 @@ const defaultProps = computed(() => ({
           ...object,
           [key]: attrs[key],
         }
-      ), {
-      }),
+      ), {}),
     ...props.buttonMenuItemAttrs,
   },
   menuItemAttrs: {
@@ -132,8 +129,7 @@ const defaultProps = computed(() => ({
           ...object,
           [key]: attrs[key],
         }
-      ), {
-      }),
+      ), {}),
   },
   suffixAttrs: {
     label: props.iconLabel,

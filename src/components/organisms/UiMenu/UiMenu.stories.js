@@ -17,50 +17,47 @@ export default {
     UiMenuItemSuffix,
   },
   args: {
-    items: [{
-      label: 'For business',
-      iconVisible: 'never',
-    }, {
-      label: 'Medical Certification',
-      iconVisible: 'never',
-    }, {
-      label: 'Instruction for Use',
-      iconVisible: 'never',
-    }, {
-      label: 'Terms of Service',
-      iconVisible: 'never',
-    }, {
-      label: 'Privacy policy',
-      iconVisible: 'never',
-    }, {
-      label: 'Interview ID',
-      iconVisible: 'never',
-    }],
+    items: [
+      {
+        label: 'For business',
+        iconVisible: 'never',
+      },
+      {
+        label: 'Medical Certification',
+        iconVisible: 'never',
+      },
+      {
+        label: 'Instruction for Use',
+        iconVisible: 'never',
+      },
+      {
+        label: 'Terms of Service',
+        iconVisible: 'never',
+      },
+      {
+        label: 'Privacy policy',
+        iconVisible: 'never',
+      },
+      {
+        label: 'Interview ID',
+        iconVisible: 'never',
+      },
+    ],
   },
-  parameters: {
-    docs: {
-      page: docs,
-    },
-  },
+  parameters: { docs: { page: docs } },
 };
 
 const Template = (args) => ({
-  components: {
-    UiMenu,
-  },
+  components: { UiMenu },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: '<UiMenu :items="items"/>',
 });
 
-export const Common = Template.bind({
-});
+export const Common = Template.bind({});
 
-export const WithItemsAsString = Template.bind({
-});
+export const WithItemsAsString = Template.bind({});
 WithItemsAsString.args = {
   items: [
     'For business',
@@ -71,50 +68,45 @@ WithItemsAsString.args = {
   ],
 };
 
-export const WithSuffix = Template.bind({
-});
+export const WithSuffix = Template.bind({});
 WithSuffix.args = {
-  items: [{
-    label: 'For business',
-    iconVisible: 'always',
-    icon: 'chevron-right',
-    iconLabel: 'more info',
-    suffixIconAttrs: {
-      class: 'ui-button__icon',
+  items: [
+    {
+      label: 'For business',
+      iconVisible: 'always',
+      icon: 'chevron-right',
+      iconLabel: 'more info',
+      suffixIconAttrs: { class: 'ui-button__icon' },
     },
-  }, {
-    label: 'Medical Certification',
-    iconVisible: 'always',
-    icon: 'chevron-right',
-    iconLabel: 'more info',
-    suffixIconAttrs: {
-      class: 'ui-button__icon',
+    {
+      label: 'Medical Certification',
+      iconVisible: 'always',
+      icon: 'chevron-right',
+      iconLabel: 'more info',
+      suffixIconAttrs: { class: 'ui-button__icon' },
     },
-  }, {
-    label: 'Instruction for Use',
-    iconVisible: 'always',
-    icon: 'chevron-right',
-    iconLabel: 'more info',
-    suffixIconAttrs: {
-      class: 'ui-button__icon',
+    {
+      label: 'Instruction for Use',
+      iconVisible: 'always',
+      icon: 'chevron-right',
+      iconLabel: 'more info',
+      suffixIconAttrs: { class: 'ui-button__icon' },
     },
-  }, {
-    label: 'Privacy policy',
-    iconVisible: 'always',
-    icon: 'chevron-right',
-    iconLabel: 'more info',
-    suffixIconAttrs: {
-      class: 'ui-button__icon',
+    {
+      label: 'Privacy policy',
+      iconVisible: 'always',
+      icon: 'chevron-right',
+      iconLabel: 'more info',
+      suffixIconAttrs: { class: 'ui-button__icon' },
     },
-  }, {
-    label: 'Interview ID',
-    iconVisible: 'always',
-    icon: 'chevron-right',
-    iconLabel: 'more info',
-    suffixIconAttrs: {
-      class: 'ui-button__icon',
+    {
+      label: 'Interview ID',
+      iconVisible: 'always',
+      icon: 'chevron-right',
+      iconLabel: 'more info',
+      suffixIconAttrs: { class: 'ui-button__icon' },
     },
-  }],
+  ],
 };
 
 export const AsSidePanelContent = (args) => ({
@@ -147,48 +139,49 @@ export const AsSidePanelContent = (args) => ({
     <UiMenu :items="items"/>
   </UiSidePanel>`,
 });
-AsSidePanelContent.decorators = [() => ({
-  template: '<div style="min-height: 350px"><story /></div>',
-})];
+AsSidePanelContent.decorators = [ () => ({ template: '<div style="min-height: 350px"><story /></div>' }) ];
 AsSidePanelContent.args = {
-  items: [{
-    label: 'Language',
-    iconVisible: 'always',
-    icon: 'chevron-right',
-    iconLabel: 'English',
-    class: 'ui-button--text menu-side-panel__list-item--divider',
-    suffixAttrs: {
-      class: 'menu-side-panel__suffix',
+  items: [
+    {
+      label: 'Language',
+      iconVisible: 'always',
+      icon: 'chevron-right',
+      iconLabel: 'English',
+      class: 'ui-button--text menu-side-panel__list-item--divider',
+      suffixAttrs: { class: 'menu-side-panel__suffix' },
+      suffixIconAttrs: { class: 'menu-side-panel__icon' },
     },
-    suffixIconAttrs: {
-      class: 'menu-side-panel__icon',
+    {
+      label: 'For business',
+      iconVisible: 'always',
+      icon: 'chevron-right',
+      class: 'ui-button--text',
     },
-  }, {
-    label: 'For business',
-    iconVisible: 'always',
-    icon: 'chevron-right',
-    class: 'ui-button--text',
-  }, {
-    label: 'Medical Certification',
-    iconVisible: 'always',
-    icon: 'chevron-right',
-    class: 'ui-button--text',
-  }, {
-    label: 'Instruction for Use',
-    iconVisible: 'always',
-    icon: 'chevron-right',
-    class: 'ui-button--text',
-  }, {
-    label: 'Privacy policy',
-    iconVisible: 'always',
-    icon: 'chevron-right',
-    class: 'ui-button--text',
-  }, {
-    label: 'Interview ID',
-    iconVisible: 'always',
-    icon: 'chevron-right',
-    class: 'ui-button--text menu-side-panel__list-item--divider',
-  }],
+    {
+      label: 'Medical Certification',
+      iconVisible: 'always',
+      icon: 'chevron-right',
+      class: 'ui-button--text',
+    },
+    {
+      label: 'Instruction for Use',
+      iconVisible: 'always',
+      icon: 'chevron-right',
+      class: 'ui-button--text',
+    },
+    {
+      label: 'Privacy policy',
+      iconVisible: 'always',
+      icon: 'chevron-right',
+      class: 'ui-button--text',
+    },
+    {
+      label: 'Interview ID',
+      iconVisible: 'always',
+      icon: 'chevron-right',
+      class: 'ui-button--text menu-side-panel__list-item--divider',
+    },
+  ],
 };
 
 export const Selectable = (args) => ({
@@ -198,9 +191,7 @@ export const Selectable = (args) => ({
     UiButton,
     UiMenuItem,
   },
-  directives: {
-    clickOutside,
-  },
+  directives: { clickOutside },
   setup() {
     const value = ref('English');
     const clickHandler = (label) => {
@@ -227,40 +218,34 @@ export const Selectable = (args) => ({
   </UiPopover>`,
 });
 Selectable.args = {
-  items: [{
-    label: 'Čeština',
-    suffixIconAttrs: {
-      class: 'ui-button__icon',
+  items: [
+    {
+      label: 'Čeština',
+      suffixIconAttrs: { class: 'ui-button__icon' },
     },
-  }, {
-    label: 'Deutsch',
-    suffixIconAttrs: {
-      class: 'ui-button__icon',
+    {
+      label: 'Deutsch',
+      suffixIconAttrs: { class: 'ui-button__icon' },
     },
-  }, {
-    label: 'English',
-    suffixIconAttrs: {
-      class: 'ui-button__icon',
+    {
+      label: 'English',
+      suffixIconAttrs: { class: 'ui-button__icon' },
     },
-  }, {
-    label: 'Español',
-    suffixIconAttrs: {
-      class: 'ui-button__icon',
+    {
+      label: 'Español',
+      suffixIconAttrs: { class: 'ui-button__icon' },
     },
-  }, {
-    label: 'Français',
-    suffixIconAttrs: {
-      class: 'ui-button__icon',
+    {
+      label: 'Français',
+      suffixIconAttrs: { class: 'ui-button__icon' },
     },
-  }, {
-    label: 'Italiano',
-    suffixIconAttrs: {
-      class: 'ui-button__icon',
+    {
+      label: 'Italiano',
+      suffixIconAttrs: { class: 'ui-button__icon' },
     },
-  }, {
-    label: 'Polski',
-    suffixIconAttrs: {
-      class: 'ui-button__icon',
+    {
+      label: 'Polski',
+      suffixIconAttrs: { class: 'ui-button__icon' },
     },
-  }],
+  ],
 };
