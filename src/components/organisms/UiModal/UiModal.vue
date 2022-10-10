@@ -6,17 +6,19 @@
     <slot
       name="backdrop"
       v-bind="{
-        closeHandler,
-        modelValue
+        transitionBackdropAttrs: defaultProps.transitionBackdropAttrs,
+        modelValue,
+        backdropAttrs,
+        closeHandler
       }"
     >
       <transition
-        appear
-        name="fade"
+        v-bind="defaultProps.transitionBackdropAttrs"
       >
         <UiBackdrop
           v-if="modelValue"
-          class="ui-modal__background"
+          v-bind="backdropAttrs"
+          class="ui-modal__backdrop"
           @click="closeHandler"
         />
       </transition>
@@ -25,38 +27,60 @@
     <slot
       name="container"
       v-bind="{
+        transitionDialogAttrs: defaultProps.transitionDialogAttrs,
+        modelValue,
+        dialogAttrs,
+        title,
+        hasHeader,
+        titleSlotName,
+        titleTag,
+        titleAttrs,
+        titleText,
+        description,
+        buttonCloseAttrs,
         confirmHandler,
         cancelHandler,
         closeHandler,
+        iconCloseAttrs,
+        hasDescription,
+        textDescriptionAttrs,
         isClosable,
-        modelValue
+        hasActions,
+        hasConfirm,
+        buttonConfirmAttrs,
+        translation,
+        hasCancel,
+        buttonCancelAttrs,
       }"
     >
       <transition
-        appear
-        name="fade"
-        @enter="enterHandler"
+        v-bind="defaultProps.transitionDialogAttrs"
       >
         <dialog
           v-if="modelValue"
           v-focus-trap
           v-body-scroll-lock
+          v-bind="dialogAttrs"
           class="ui-modal__dialog"
-          :class="{
-            'ui-modal__dialog--has-title': title
-          }"
+          :class="{ 'ui-modal__dialog--has-title': title }"
         >
           <!-- @slot Use this slot to replace header template. -->
           <slot
             name="header"
             v-bind="{
-              closeHandler,
-              description,
-              hasDescription,
               hasHeader,
-              isClosable,
+              titleSlotName,
               titleTag,
-              titleText
+              titleAttrs,
+              titleText,
+              description,
+              isClosable,
+              buttonCloseAttrs,
+              closeHandler,
+              iconCloseAttrs: defaultProps.iconCloseAttrs,
+              title,
+              hasDescription,
+              textDescriptionAttrs,
             }"
           >
             <div
@@ -68,12 +92,14 @@
                 :name="titleSlotName"
                 v-bind="{
                   titleTag,
+                  titleAttrs: titleAttrs,
                   titleText,
-                  description
+                  description,
                 }"
               >
                 <component
                   :is="titleTag"
+                  v-bind="titleAttrs"
                   class="ui-modal__title"
                 >
                   {{ titleText }}
@@ -83,37 +109,44 @@
               <slot
                 name="close"
                 v-bind="{
-                  attrs: buttonCloseAttrs,
+                  isClosable,
+                  buttonCloseAttrs,
                   closeHandler,
-                  isClosable
+                  iconCloseAttrs: defaultProps.iconCloseAttrs
                 }"
               >
                 <UiButton
                   v-if="isClosable"
+                  v-bind="buttonCloseAttrs"
                   ref="button"
                   class="ui-button--theme-secondary ui-button--icon ui-modal__close"
-                  v-bind="buttonCloseAttrs"
-                  @click="closeHandler()"
+                  @click="closeHandler"
                 >
-                  <UiIcon
-                    icon="close"
-                    class="ui-button__icon"
-                  />
+                  <slot
+                    name="icon"
+                    v-bind="{ iconCloseAttrs: defaultProps.iconCloseAttrs }"
+                  >
+                    <UiIcon
+                      v-bind="defaultProps.iconCloseAttrs"
+                      class="ui-button__icon"
+                    />
+                  </slot>
                 </UiButton>
               </slot>
             </div>
-
             <!-- @slot Use this slot to replace description template. -->
             <slot
               v-if="title"
               name="description"
               v-bind="{
                 hasDescription,
+                textDescriptionAttrs,
                 description
               }"
             >
               <UiText
                 v-if="hasDescription"
+                v-bind="textDescriptionAttrs"
                 class="ui-modal__description"
               >
                 {{ description }}
@@ -124,13 +157,16 @@
           <slot
             name="actions"
             v-bind="{
-              confirmHandler,
-              cancelHandler,
               hasActions,
-              hasCancel,
-              hasConfirm,
               isClosable,
-              translation: defaultProps.translation
+              hasConfirm,
+              buttonConfirmAttrs,
+              confirmHandler,
+              translation: defaultProps.translation,
+              hasCancel,
+              buttonCancelAttrs,
+              cancelHandler,
+              iconCloseAttrs,
             }"
           >
             <div
@@ -142,16 +178,16 @@
                 <slot
                   name="confirm"
                   v-bind="{
-                    attrs: buttonConfirmAttrs,
-                    confirmHandler,
                     hasConfirm,
+                    buttonConfirmAttrs,
+                    confirmHandler,
                     translation: defaultProps.translation
                   }"
                 >
                   <UiButton
                     v-if="hasConfirm"
-                    class="ui-modal__confirm"
                     v-bind="buttonConfirmAttrs"
+                    class="ui-modal__confirm"
                     @click="confirmHandler"
                   >
                     {{ defaultProps.translation.confirm }}
@@ -161,16 +197,16 @@
                 <slot
                   name="cancel"
                   v-bind="{
-                    attrs: buttonCancelAttrs,
-                    cancelHandler,
                     hasCancel,
+                    buttonCancelAttrs,
+                    cancelHandler,
                     translation: defaultProps.translation
                   }"
                 >
                   <UiButton
                     v-if="hasCancel"
-                    class="ui-button--outlined ui-modal__cancel"
                     v-bind="buttonCancelAttrs"
+                    class="ui-button--outlined ui-modal__cancel"
                     @click="cancelHandler"
                   >
                     {{ defaultProps.translation.cancel }}
@@ -182,17 +218,17 @@
                 <slot
                   name="cancel"
                   v-bind="{
+                    hasCancel,
                     attrs: buttonCancelAttrs,
                     cancelHandler,
-                    hasCancel,
                     translation: defaultProps.translation
                   }"
                 >
                   <UiButton
                     v-if="hasCancel"
+                    v-bind="buttonCancelAttrs"
                     ref="button"
                     class="ui-button--outlined ui-modal__cancel"
-                    v-bind="buttonCancelAttrs"
                     @click="cancelHandler"
                   >
                     {{ defaultProps.translation.cancel }}
@@ -202,16 +238,16 @@
                 <slot
                   name="confirm"
                   v-bind="{
+                    hasConfirm,
                     attrs: buttonConfirmAttrs,
                     confirmHandler,
-                    hasConfirm,
                     translation: defaultProps.translation
                   }"
                 >
                   <UiButton
                     v-if="hasConfirm"
-                    class="ui-modal__confirm ui-modal__confirm--order"
                     v-bind="buttonConfirmAttrs"
+                    class="ui-modal__confirm ui-modal__confirm--order"
                     @click="confirmHandler"
                   >
                     {{ defaultProps.translation.confirm }}
@@ -235,6 +271,7 @@ import {
   onMounted,
 } from 'vue';
 import type { PropType } from 'vue';
+import type { HeadingLevel } from '@/components/atoms/UiHeading/UiHeading.vue';
 import type { PropsAttrs } from '../../../types/attrs';
 import {
   bodyScrollLock as vBodyScrollLock,
@@ -246,6 +283,7 @@ import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
+import type { Icon } from '../../../types/icon';
 
 export interface ModalTranslation {
   confirm?: string;
@@ -273,30 +311,6 @@ const props = defineProps({
   description: {
     type: String,
     default: '',
-  },
-  /**
-   * Use this props to pass attrs for confirm UiButton.
-   */
-  buttonConfirmAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({
-    }),
-  },
-  /**
-   * Use this props to pass attrs for cancel UiButton
-   */
-  buttonCancelAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({
-    }),
-  },
-  /**
-   * Use this props to pass attrs for close UiButton
-   */
-  buttonCloseAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({
-    }),
   },
   /**
    * Use this props to hide close icon.
@@ -329,27 +343,148 @@ const props = defineProps({
       cancel: 'Cancel',
     }),
   },
+  /**
+   * Use this props to pass attrs for backdrop Transition
+   */
+  transitionBackdropAttrs: {
+    type: Object,
+    default: () => ({
+      appear: true,
+      name: 'fade',
+    }),
+  },
+  /**
+   * Use this props to pass attrs for UiBackdrop
+   */
+  backdropAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for dialog element
+   */
+  dialogAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for dialog Transition
+   */
+  transitionDialogAttrs: {
+    type: Object,
+    default: () => ({
+      appear: true,
+      name: 'fade',
+    }),
+  },
+  /**
+   * Use this props to pass attrs for title UiHeading
+   */
+  headingTitleAttrs: {
+    type: Object,
+    default: () => ({ level: 2 }),
+  },
+  /**
+   * Use this props to pass attrs for description UiText
+   */
+  textDescriptionAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for confirm UiButton.
+   */
+  buttonConfirmAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for cancel UiButton.
+   */
+  buttonCancelAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for close UiButton.
+   */
+  buttonCloseAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for close UiIcon
+   */
+  iconCloseAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({ icon: 'close' }),
+  },
 });
-const defaultProps = computed(() => ({
+const button = ref<InstanceType<typeof UiButton>|null>(null);
+async function enterHandler() {
+  await nextTick();
+  focusElement(button.value?.$el, true);
+}
+interface Transition {
+  name: string;
+  appear: boolean;
+  [key: string]: unknown;
+}
+interface DefaultProps {
+  translation: ModalTranslation;
+  iconCloseAttrs: {
+    icon: Icon;
+    [key: string]: unknown;
+  };
+  headingTitleAttrs: {
+    level: HeadingLevel;
+    [key: string]: unknown;
+  };
+  transitionBackdropAttrs: Transition;
+  transitionDialogAttrs: Transition;
+  [key: string]: unknown;
+}
+const defaultProps = computed<DefaultProps>(() => ({
   translation: {
     confirm: 'Ok',
     cancel: 'Cancel',
     ...props.translation,
   },
+  iconCloseAttrs: {
+    icon: 'close',
+    ...props.iconCloseAttrs,
+  },
+  headingTitleAttrs: {
+    level: 2,
+    ...props.headingTitleAttrs,
+  },
+  transitionBackdropAttrs: {
+    appear: true,
+    name: 'fade',
+    ...props.transitionBackdropAttrs,
+  },
+  transitionDialogAttrs: {
+    appear: true,
+    name: 'fade',
+    onEnter: enterHandler,
+    ...props.transitionDialogAttrs,
+  },
 }));
 const emit = defineEmits<{(e: 'cancel'): void, (e:'confirm'): void, (e:'update:modelValue', value: boolean): void}>();
-const button = ref<InstanceType<typeof UiButton>|null>(null);
 const hasActions = computed(() => props.hasCancel || props.hasConfirm);
 const hasDescription = computed(() => !!props.title && !!props.description);
 const hasHeader = computed(() => !!props.title || !!props.description || !!props.isClosable);
-const titleSlotName = computed(() => (props.title ? 'title' : 'description'));
-const titleTag = computed(() => (props.title ? UiHeading : UiText));
+const titleSlotName = computed(() => (props.title
+  ? 'title'
+  : 'description'));
+const titleTag = computed(() => (props.title
+  ? UiHeading
+  : UiText));
 const titleText = computed(() => props.title || props.description);
+const titleAttrs = computed(() => (props.title
+  ? defaultProps.value.headingTitleAttrs
+  : props.textDescriptionAttrs));
 
-async function enterHandler() {
-  await nextTick();
-  focusElement(button.value?.$el, true);
-}
 function closeHandler(): void {
   if (!props.isClosable) return;
   emit('update:modelValue', false);

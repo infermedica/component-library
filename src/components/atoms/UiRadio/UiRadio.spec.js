@@ -7,20 +7,12 @@ describe('UiRadio.vue', () => {
     expect(wrapper.classes('ui-radio')).toBe(true);
   });
   test('render a content via default slot', () => {
-    const wrapper = mount(UiRadio, {
-      slots: {
-        default: '<div class="symptom-checker"></div>',
-      },
-    });
+    const wrapper = mount(UiRadio, { slots: { default: '<div class="symptom-checker"></div>' } });
     const slot = wrapper.find('.symptom-checker');
     expect(slot.exists()).toBe(true);
   });
   test('render a content via radio slot', () => {
-    const wrapper = mount(UiRadio, {
-      slots: {
-        radio: '<div class="symptom-checker"></div>',
-      },
-    });
+    const wrapper = mount(UiRadio, { slots: { radio: '<div class="symptom-checker"></div>' } });
     const slot = wrapper.find('.symptom-checker');
     expect(slot.exists()).toBe(true);
   });
@@ -41,9 +33,7 @@ describe('UiRadio.vue', () => {
     expect(wrapper.emitted('update:modelValue')[0][0]).toBe(value);
   });
   test('a component pass Object as value', () => {
-    const value = {
-      value: 'symptom checker',
-    };
+    const value = { value: 'symptom checker' };
     const wrapper = mount(UiRadio, {
       props: {
         modelValue: value,

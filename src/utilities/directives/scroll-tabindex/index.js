@@ -5,7 +5,9 @@ export const scrollTabindex = {
   async beforeMount(el) {
     await nextTick();
     el.__vueResizeHandler__ = function () {
-      const { clientHeight, scrollHeight } = el;
+      const {
+        clientHeight, scrollHeight,
+      } = el;
       if (scrollHeight > clientHeight) {
         if (!el.getAttribute('tabindex')) {
           el.setAttribute('tabindex', '0');

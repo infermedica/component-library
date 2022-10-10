@@ -14,16 +14,8 @@ Object.defineProperty(HTMLElement.prototype, 'clientHeight', {
 
 let wrapper;
 let elementDiv;
-const Component = {
-  template: '<div v-scroll-tabindex></div>',
-};
-const options = {
-  global: {
-    directives: {
-      scrollTabindex,
-    },
-  },
-};
+const Component = { template: '<div v-scroll-tabindex></div>' };
+const options = { global: { directives: { scrollTabindex } } };
 beforeEach(() => {
   wrapper = mount(Component, options);
   elementDiv = wrapper.findComponent(Component).element;

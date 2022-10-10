@@ -14,23 +14,24 @@
       />
     </template>
     <template
-      #checkbox="{
-        checked
-      }"
+      #checkbox="{ checked }"
     >
       <!-- @slot Use this slot to replace switch control template. -->
       <slot
         name="switchcontrol"
         v-bind="{
-          checked
+          checked,
+          controlAttrs
         }"
       >
         <UiSwitchControl
-          class="ui-switch__control"
-          :class="{
-            'ui-switch-control--is-checked': checked,
-            'ui-switch__control--is-checked': checked,
-          }"
+          v-bind="controlAttrs"
+          :class="[
+            'ui-switch__control', {
+              'ui-switch-control--is-checked': checked,
+              'ui-switch__control--is-checked': checked,
+            }
+          ]"
         />
       </slot>
     </template>
@@ -48,8 +49,18 @@ defineProps({
    *  Use this props or v-model to set checked.
    */
   modelValue: {
-    type: [Boolean, Array] as PropType<CheckboxModelValue>,
+    type: [
+      Boolean,
+      Array,
+    ] as PropType<CheckboxModelValue>,
     default: false,
+  },
+  /**
+   *  Use this props to set pass attrs for UiSwitchControl.
+   */
+  controlAttrs: {
+    type: Object,
+    default: () => ({}),
   },
 });
 const emit = defineEmits<{(e: 'update:modelValue', value: CheckboxModelValue): void}>();
@@ -65,11 +76,6 @@ const updateHandler = (value: CheckboxModelValue): void => {
 .ui-switch {
   $this: &;
   $element: switch;
-
-  &__control {
-    --switch-control-color: #{functions.var($element + "-hover", color, var(--color-switch-track))};
-    --switch-control-checked-color: #{functions.var($element + "-checked-hover", color, var(--color-switch-track-checked))};
-  }
 
   @include mixins.hover {
     #{$this}__control {
@@ -111,14 +117,24 @@ const updateHandler = (value: CheckboxModelValue): void => {
     @include mixins.hover {
       #{$this}__control {
         --switch-control-color: #{functions.var($element + "-hover", color, var(--color-switch-disabled))};
-        --switch-control-checked-color: #{functions.var($element + "-checked-hover", color, var(--color-switch-disabled))};
+        --switch-control-checked-color:
+          #{functions.var(
+            $element + "-checked-hover",
+            color,
+            var(--color-switch-disabled)
+          )};
       }
     }
 
     &:active {
       #{$this}__control {
         --switch-control-color: #{functions.var($element + "-active", color, var(--color-switch-disabled))};
-        --switch-control-checked-color: #{functions.var($element + "-checked-active", color, var(--color-switch-disabled))};
+        --switch-control-checked-color:
+          #{functions.var(
+            $element + "-checked-active",
+            color,
+            var(--color-switch-disabled)
+          )};
       }
     }
   }

@@ -17,60 +17,61 @@ export default {
     content: 'Select one answer',
     modifiers: [],
     type: 'error',
+    hasIcon: true,
+    iconAlertAttrs: { 'data-testid': 'icon' },
+    textMessageAttrs: { 'data-testid': 'text-message' },
   },
   argTypes: {
     content,
     modifiers: modifiers({
-      options: ['ui-alert', 'ui-alert--secondary'],
+      options: [
+        'ui-alert',
+        'ui-alert--secondary',
+      ],
       control: 'select',
     }),
     type: {
       control: 'select',
-      options: ['default', 'success', 'info', 'warning', 'error'],
+      options: [
+        'default',
+        'success',
+        'info',
+        'warning',
+        'error',
+      ],
     },
+    iconAlertAttrs: { table: { subcategory: 'Attrs props' } },
+    textMessageAttrs: { table: { subcategory: 'Attrs props' } },
   },
 };
 
 const Template = (args) => ({
-  components: {
-    UiAlert,
-  },
+  components: { UiAlert },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiAlert 
     :type="type" 
+    :has-icon="hasIcon"
+    :icon-alert-attrs="iconAlertAttrs"
+    :text-message-attrs="textMessageAttrs"
     :class="modifiers"
   >
     {{ content }}
   </UiAlert>`,
 });
 
-export const Error = Template.bind({
-});
-Error.args = {
-  type: 'error',
-};
+export const Error = Template.bind({});
+Error.args = { type: 'error' };
 
-export const Success = Template.bind({
-});
-Success.args = {
-  type: 'success',
-};
+export const Success = Template.bind({});
+Success.args = { type: 'success' };
 
-export const Info = Template.bind({
-});
-Info.args = {
-  type: 'info',
-};
+export const Info = Template.bind({});
+Info.args = { type: 'info' };
 
-export const Warning = Template.bind({
-});
-Warning.args = {
-  type: 'warning',
-};
+export const Warning = Template.bind({});
+Warning.args = { type: 'warning' };
 
 export const WithIconSlot = (args) => ({
   components: {
@@ -78,17 +79,21 @@ export const WithIconSlot = (args) => ({
     UiIcon,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
-  template: `<UiAlert 
-    :type="type" 
+  template: `<UiAlert
+    :type="type"
+    :has-icon="hasIcon"
+    :icon-alert-attrs="iconAlertAttrs"
+    :text-message-attrs="textMessageAttrs"
     :class="modifiers"
   >
-    <template #icon>
+    <template #icon="{ 
+      iconAlertAttrs
+    }">
       <UiIcon 
-        icon="error-filled"
+        v-if="iconAlertAttrs.icon"
+        v-bind="iconAlertAttrs"
         class="ui-alert__icon"
       />
     </template>
@@ -102,16 +107,22 @@ export const WithMessageSlot = (args) => ({
     UiText,
   },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
-  template: `<UiAlert 
-    :type="type" 
-    :class="modifiers"
+  template: `<UiAlert
+      :type="type"
+      :has-icon="hasIcon"
+      :icon-alert-attrs="iconAlertAttrs"
+      :text-message-attrs="textMessageAttrs"
+      :class="modifiers"
   >
-    <template #message>
-      <UiText class="ui-text--body-2-comfortable ui-alert__message">
+    <template #message="{
+      textMessageAttrs
+    }">
+      <UiText
+        v-bind="textMessageAttrs"
+        class="ui-text--body-2-comfortable ui-alert__message"
+      >
         How to check it?
       </UiText>
     </template>

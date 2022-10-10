@@ -1,16 +1,11 @@
 import UiRange from '@/components/atoms/UiRange/UiRange.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
-import UiText from '@/components/atoms/UiText/UiText.vue';
+import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiNumberStepper from '@/components/molecules/UiNumberStepper/UiNumberStepper.vue';
 import { ref } from 'vue';
-import { expect } from '@storybook/jest';
-import {
-  within,
-  userEvent,
-} from '@storybook/testing-library';
 import { actions } from '@storybook/addon-actions';
-import { disabled } from '@sb/helpers/argTypes';
+import { keyboardFocus } from '@/utilities/directives';
 
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
@@ -20,61 +15,43 @@ const events = actions({
 export default {
   title: 'Atoms/Range',
   component: UiRange,
-  subcomponents: {
-    UiNumberStepper,
-  },
+  subcomponents: { UiNumberStepper },
   args: {
     initModelValue: 50,
-    disabled: false,
     min: 18,
     max: 122,
     step: 1,
-    buttonIncrementAttrs: {
-      'aria-label': 'increment age',
-      'data-testid': 'increment-age',
+    numberStepperAttrs: {
+      buttonDecrementAttrs: {
+        'aria-label': 'decrement age',
+        'data-testid': 'decrement-age',
+      },
     },
-    buttonDecrementAttrs: {
-      'aria-label': 'decrement age',
-      'data-testid': 'decrement-age',
-      class: 'unicorn',
-    },
+    headingValueAttrs: { 'data-testid': 'value-heading' },
     ariaLabel: 'patient age',
   },
   argTypes: {
     initModelValue: {
       description: 'Use this control to set initial state.',
-      table: {
-        category: 'stories controls',
-      },
-      control: {
-        type: 'number',
-      },
+      table: { category: 'stories controls' },
+      control: { type: 'number' },
     },
-    disabled,
     ariaLabel: {
       name: 'aria-label',
       description: 'Use this control to set aria-label attribute.',
       control: 'text',
-      table: {
-        category: 'html attributes',
-      },
+      table: { category: 'html attributes' },
     },
-    min: {
-      control: 'number',
-    },
-    max: {
-      control: 'number',
-    },
-    modelValue: {
-      control: false,
-    },
+    min: { control: 'number' },
+    max: { control: 'number' },
+    modelValue: { control: false },
+    numberStepperAttrs: { table: { subcategory: 'Attrs props' } },
+    headingValueAttrs: { table: { subcategory: 'Attrs props' } },
   },
 };
 
 export const Common = (args) => ({
-  components: {
-    UiRange,
-  },
+  components: { UiRange },
   setup() {
     const modelValue = ref(args.initModelValue);
     return {
@@ -88,21 +65,13 @@ export const Common = (args) => ({
   :min="min"
   :max="max"
   :step="step"
-  :button-increment-attrs="buttonIncrementAttrs"
-  :button-decrement-attrs="buttonDecrementAttrs"
+  :number-stepper-attrs="numberStepperAttrs"
+  :heading-value-attrs="headingValueAttrs"
   :aria-label="ariaLabel"
   @update:modelValue="onUpdateModelValue"
   @error="onError"
-  class="custom"
 />`,
 });
-Common.play = async ({ canvasElement }) => {
-  const canvas = within(canvasElement);
-  await userEvent.click(canvas.getByTestId('increment-age'));
-  await expect(canvas.getByText('51')).toBeInTheDocument();
-  await userEvent.click(canvas.getByTestId('decrement-age'));
-  await expect(canvas.getByText('50')).toBeInTheDocument();
-};
 
 export const WithDecrementSlot = (args) => ({
   components: {
@@ -123,19 +92,34 @@ export const WithDecrementSlot = (args) => ({
   :min="min"
   :max="max"
   :step="step"
-  :button-increment-attrs="buttonIncrementAttrs"
-  :button-decrement-attrs="buttonDecrementAttrs"
+  :number-stepper-attrs="numberStepperAttrs"
+  :heading-value-attrs="headingValueAttrs"
   :aria-label="ariaLabel"
   @update:modelValue="onUpdateModelValue"
   @error="onError"
 >
-  <template #decrement="{decrement, attrs}">
+  <template 
+    #decrement="{
+      decrement,
+      hasControls,
+      isMin,
+      buttonDecrementAttrs,
+      iconDecrementAttrs,
+    }"
+  >
     <UiButton
-      v-bind="attrs"
-      class="ui-button--circled ui-button--outlined ui-button--has-icon ui-number-stepper__decrement"
-      @click="decrement"
+        v-if="hasControls"
+        v-bind="buttonDecrementAttrs"
+        class="ui-button--outlined ui-button--circled ui-number-stepper__decrement"
+        :class="{
+          'ui-button--is-disabled': isMin
+        }"
+        @click="decrement"
     >
-      <UiIcon icon="minus" />
+      <UiIcon
+          v-bind="iconDecrementAttrs"
+          class="ui-button__icon"
+      />
     </UiButton>
   </template>
 </UiRange>`,
@@ -160,19 +144,34 @@ export const WithIncrementSlot = (args) => ({
   :min="min"
   :max="max"
   :step="step"
-  :button-increment-attrs="buttonIncrementAttrs"
-  :button-decrement-attrs="buttonDecrementAttrs"
+  :number-stepper-attrs="numberStepperAttrs"
+  :heading-value-attrs="headingValueAttrs"
   :aria-label="ariaLabel"
   @update:modelValue="onUpdateModelValue"
   @error="onError"
 >
-  <template #increment="{increment, attrs}">
+  <template 
+    #increment="{
+      increment,
+      hasControls,
+      isMax,
+      buttonIncrementAttrs,
+      iconIncrementAttrs,
+    }"
+  >
     <UiButton
-      v-bind="attrs"
-      class="ui-button--circled ui-button--outlined ui-button--has-icon ui-number-stepper__increment"
-      @click="increment"
+        v-if="hasControls"
+        v-bind="buttonIncrementAttrs"
+        class="ui-button--outlined ui-button--circled ui-number-stepper__increment"
+        :class="{
+          'ui-button--is-disabled': isMax
+        }"
+        @click="increment"
     >
-      <UiIcon icon="plus" />
+      <UiIcon
+          v-bind="iconIncrementAttrs"
+          class="ui-button__icon"
+      />
     </UiButton>
   </template>
 </UiRange>`,
@@ -181,7 +180,7 @@ export const WithIncrementSlot = (args) => ({
 export const WithValueSlot = (args) => ({
   components: {
     UiRange,
-    UiText,
+    UiHeading,
   },
   setup() {
     const modelValue = ref(args.initModelValue);
@@ -192,31 +191,35 @@ export const WithValueSlot = (args) => ({
     };
   },
   template: `<UiRange 
-  v-model="modelValue"
-  :min="min"
-  :max="max"
-  :step="step"
-  :button-increment-attrs="buttonIncrementAttrs"
-  :button-decrement-attrs="buttonDecrementAttrs"
-  :aria-label="ariaLabel"
-  @update:modelValue="onUpdateModelValue"
-  @error="onError"
->
-  <template #value="{value}">
-    <UiText
-      tag="span"
-      class="ui-range__value"
+    v-model="modelValue"
+    :min="min"
+    :max="max"
+    :step="step"
+    :number-stepper-attrs="numberStepperAttrs"
+    :heading-value-attrs="headingValueAttrs"
+    :aria-label="ariaLabel"
+    @update:modelValue="onUpdateModelValue"
+    @error="onError"
+  >
+    <template 
+      #value="{ 
+        value,
+        headingValueAttrs,
+      }"
     >
-      {{ value }}
-    </UiText>
-  </template>
-</UiRange>`,
+      <UiHeading
+          v-bind="headingValueAttrs"
+          class="ui-range__value"
+      >
+        {{ value }}
+      </UiHeading>
+    </template>
+  </UiRange>`,
 });
 
 export const WithRangeSlot = (args) => ({
-  components: {
-    UiRange,
-  },
+  components: { UiRange },
+  directives: { keyboardFocus },
   setup() {
     const modelValue = ref(args.initModelValue);
     return {
@@ -226,26 +229,38 @@ export const WithRangeSlot = (args) => ({
     };
   },
   template: `<UiRange 
-  v-model="modelValue"
-  :min="min"
-  :max="max"
-  :step="step"
-  :button-increment-attrs="buttonIncrementAttrs"
-  :button-decrement-attrs="buttonDecrementAttrs"
-  :aria-label="ariaLabel"
-  @update:modelValue="onUpdateModelValue"
-  @error="onError"
->
-  <template #range="{attrs, min, max, value, change}">
-    <input
-      v-bind="attrs"
-      type="range"
-      :min="min"
-      :max="max"
-      :value="value"
-      class="ui-range__track"
-      @input="change($event.target.valueAsNumber)"
+    v-model="modelValue"
+    :min="min"
+    :max="max"
+    :step="step"
+    :number-stepper-attrs="numberStepperAttrs"
+    :heading-value-attrs="headingValueAttrs"
+    :aria-label="ariaLabel"
+    @update:modelValue="onUpdateModelValue"
+    @error="onError"
+  >
+    <template 
+      #range="{
+        inputAttrs,
+        min,
+        max,
+        change,
+        value
+      }"
     >
-  </template>
-</UiRange>`,
+      <input
+        v-keyboard-focus
+        v-bind="inputAttrs"
+        type="range"
+        :min="min"
+        :max="max"
+        :value="value"
+        :aria-valuemin="min"
+        :aria-valuemax="max"
+        :aria-valuenow="value"
+        class="ui-range__track"
+        @input="change($event.target.valueAsNumber)"
+      />
+    </template>
+  </UiRange>`,
 });

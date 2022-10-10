@@ -8,7 +8,7 @@
       <slot
         name="input"
         v-bind="{
-          attrs: getInputAttrs($attrs),
+          inputAttrs: getInputAttrs($attrs),
           input: inputHandler,
           value: modelValue,
           validation: keyValidation
@@ -28,12 +28,13 @@
     <slot
       name="aside"
       v-bind="{
-        suffix
+        suffix,
+        textSuffixAttrs: defaultProps.textSuffixAttrs
       }"
     >
       <UiText
         v-if="suffix"
-        tag="span"
+        v-bind="defaultProps.textSuffixAttrs"
         class="ui-input__aside"
       >
         {{ suffix }}
@@ -43,19 +44,28 @@
 </template>
 
 <script lang="ts">
-export default {
-  inheritAttrs: false,
-};
+export default { inheritAttrs: false };
 </script>
 
 <script setup lang="ts">
-import { useAttrs } from 'vue';
+import {
+  computed,
+  useAttrs,
+} from 'vue';
 import UiText from '../UiText/UiText.vue';
 import useInput from '../../../composable/useInput';
 import useKeyValidation from '../../../composable/useKeyValidation';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
+import type { HTMLTag } from '../../../types/tag';
 
-defineProps({
+const props = defineProps({
+  /**
+   * Use this props or v-model to set value.
+   */
+  modelValue: {
+    type: String,
+    default: '',
+  },
   /**
    * Use this props to set suffix.
    */
@@ -64,17 +74,31 @@ defineProps({
     default: '',
   },
   /**
-   * Use this props or v-model to set value.
+   * Use this props to pass attrs for suffix UiText
    */
-  modelValue: {
-    type: String,
-    default: '',
+  textSuffixAttrs: {
+    type: Object,
+    default: () => ({ tag: 'span' }),
   },
 });
+interface DefaultPops {
+  textSuffixAttrs: {
+    tag: HTMLTag;
+    [key: string]: unknown;
+  };
+}
+const defaultProps = computed<DefaultPops>(() => ({
+  textSuffixAttrs: {
+    tag: 'span',
+    ...props.textSuffixAttrs,
+  },
+}));
 const emit = defineEmits<{(e: 'update:modelValue', value: string): void
 }>();
 const attrs = useAttrs();
-const { getRootAttrs, getInputAttrs } = useInput();
+const {
+  getRootAttrs, getInputAttrs,
+} = useInput();
 const { numbersOnly } = useKeyValidation();
 function keyValidation(event: Event): void {
   switch (attrs.type) {

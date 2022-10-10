@@ -21,34 +21,45 @@ export default {
     steps: 10,
     translation: {
       label: 'Pain scale',
-      mild: 'Mild',
-      unbearable: 'Unbearable',
+      min: 'Mild',
+      max: 'Unbearable',
     },
-    buttonDecrementAttrs: {
-      'aria-label': 'decrement pain',
+    radioOptionAttrs: {
+      'data-testid': 'option-radio-input',
+      radioElementAttrs: { 'data-testid': 'option-radio' },
     },
-    buttonIncrementAttrs: {
-      'aria-label': 'increment pain',
+    textMinAttrs: { 'data-testid': 'min-text' },
+    textMaxAttrs: { 'data-testid': 'max-text' },
+    numberStepperAttrs: {
+      buttonDecrementAttrs: { 'aria-label': 'decrement pain' },
+      buttonIncrementAttrs: { 'aria-label': 'increment pain' },
     },
   },
   argTypes: {
+    legend: {
+      table: { category: 'props' },
+      description: 'Use this props to set legend.',
+    },
+    legendSlot: {
+      name: 'Legend',
+      table: { category: 'slots' },
+      description: 'Use this props to set legend.',
+    },
     initModelValue: {
       description: 'Use this control to set initial state. Starting from 0.',
-      table: {
-        category: 'stories controls',
-      },
+      table: { category: 'stories controls' },
       control: 'number',
     },
-    modelValue: {
-      control: false,
-    },
+    modelValue: { control: false },
+    radioOptionAttrs: { table: { subcategory: 'Attrs props' } },
+    textMinAttrs: { table: { subcategory: 'Attrs props' } },
+    textMaxAttrs: { table: { subcategory: 'Attrs props' } },
+    numberStepperAttrs: { table: { subcategory: 'Attrs props' } },
   },
 };
 
 const Template = (args) => ({
-  components: {
-    UiScale,
-  },
+  components: { UiScale },
   setup() {
     const modelValue = ref(args.initModelValue);
     return {
@@ -62,13 +73,27 @@ const Template = (args) => ({
     :legend="legend"
     :steps="steps"
     :translation="translation"
-    :button-decrement-attrs="buttonDecrementAttrs"
-    :button-increment-attrs="buttonIncrementAttrs"
+    :radio-option-attrs="radioOptionAttrs"
+    :text-min-attrs="textMinAttrs"
+    :text-max-attrs="textMaxAttrs"
+    :number-stepper-attrs="numberStepperAttrs"
   />`,
 });
 
-export const Common = Template.bind({
-});
+export const Common = Template.bind({});
+
+export const WithRadioOptionAttrsAsArray = Template.bind({});
+WithRadioOptionAttrsAsArray.args = {
+  radioOptionAttrs: [
+    undefined,
+    undefined,
+    {
+      'data-testid': 'third-radio-input-element',
+      radioElementAttrs: { 'data-testid': 'third-radio-element' },
+      textLabelAttrs: { 'data-testid': 'third-label-text' },
+    },
+  ],
+};
 
 export const WithDecrementSlot = (args) => ({
   components: {
@@ -89,20 +114,29 @@ export const WithDecrementSlot = (args) => ({
     :legend="legend"
     :steps="steps"
     :translation="translation"
-    :button-decrement-attrs="buttonDecrementAttrs"
-    :button-increment-attrs="buttonIncrementAttrs"
+    :radio-option-attrs="radioOptionAttrs"
+    :text-min-attrs="textMinAttrs"
+    :text-max-attrs="textMaxAttrs"
+    :number-stepper-attrs="numberStepperAttrs"
   >
-    <template #decrement="{decrement, hasControls, isMin, attrs}">
+    <template 
+      #decrement="{
+        hasControls, 
+        buttonDecrementAttrs,
+        isMin, 
+        decrement, 
+        iconDecrementAttrs,
+      }"
+    >
       <UiButton
         v-if="hasControls"
-        v-bind="attrs"
-        class="ui-button--outlined ui-button--circled ui-number-stepper__decrement"
-        :class="{'ui-button--is-disabled': isMin}"
+        v-bind="buttonDecrementAttrs"
+        :class="['ui-button--outlined ui-button--circled ui-number-stepper__decrement', { 'ui-button--is-disabled': isMin }]"
         @click="decrement"
       >
         <UiIcon
+          v-bind="iconDecrementAttrs"
           class="ui-button__icon"
-          icon="minus"
         />
       </UiButton>
     </template>
@@ -128,15 +162,24 @@ export const WithIncrementSlot = (args) => ({
     :legend="legend"
     :steps="steps"
     :translation="translation"
-    :button-decrement-attrs="buttonDecrementAttrs"
-    :button-increment-attrs="buttonIncrementAttrs"
+    :radio-option-attrs="radioOptionAttrs"
+    :text-min-attrs="textMinAttrs"
+    :text-max-attrs="textMaxAttrs"
+    :number-stepper-attrs="numberStepperAttrs"
   >
-    <template #increment="{increment, hasControls, isMax, attrs}">
+    <template 
+      #increment="{
+        hasControls,
+        buttonIncrementAttrs,
+        isMax,
+        increment,
+        iconIncrementAttrs
+      }"
+    >
       <UiButton
         v-if="hasControls"
-        v-bind="attrs"
-        class="ui-button--outlined ui-button--circled ui-number-stepper__increment"
-        :class="{'ui-button--is-disabled': isMax}"
+        v-bind="buttonIncrementAttrs"
+        :class="['ui-button--outlined ui-button--circled ui-number-stepper__increment', { 'ui-button--is-disabled': isMax }]"
         @click="increment"
       >
         <UiIcon

@@ -9,9 +9,7 @@ import {
   modifiers,
 } from '@sb/helpers/argTypes';
 
-const events = actions({
-  onClose: 'close',
-});
+const events = actions({ onClose: 'close' });
 
 export default {
   title: 'Molecules/Popover',
@@ -22,48 +20,48 @@ export default {
     UiIcon,
   },
   args: {
-    content: 'A custom Symptomate app that you can use anywhere.',
+    content: 'A custom Triage app that you can use anywhere.',
     modifiers: [],
-    title: 'Symptom Checker',
-    buttonAttrs: {
-      'aria-label': 'close',
-    },
+    title: 'Triage',
+    headingTitleAttrs: { 'data-testid': 'heading-title' },
+    buttonCloseAttrs: { 'aria-label': 'close triage popover' },
+    iconCloseAttrs: { 'data-testid': 'close-icon' },
     closeAction: null,
   },
   argTypes: {
     content,
     modifiers: modifiers({
-      options: ['ui-popover--has-arrow', 'ui-popover--has-left-arrow', 'ui-popover--unrounded', 'ui-popover--has-mobile'],
+      options: [
+        'ui-popover--has-arrow',
+        'ui-popover--has-left-arrow',
+        'ui-popover--unrounded',
+        'ui-popover--has-mobile',
+      ],
     }),
     title: {
       table: {
-        type: {
-          summary: 'string',
-        },
+        type: { summary: 'string' },
         category: 'props',
       },
-      control: {
-        type: 'text',
-      },
+      control: { type: 'text' },
     },
     titleSlot: {
       name: 'title',
       description: 'Use this slot to replace title template.',
       table: {
-        type: {
-          summary: 'unknown',
-        },
+        type: { summary: 'unknown' },
         category: 'slots',
       },
     },
     closeAction: {
       name: 'close',
       description: 'Use this event to detect when popover is closing.',
-      table: {
-        category: 'events',
-      },
+      table: { category: 'events' },
       action: 'closed',
     },
+    headingTitleAttrs: { table: { subcategory: 'Attrs props' } },
+    buttonCloseAttrs: { table: { subcategory: 'Attrs props' } },
+    iconCloseAttrs: { table: { subcategory: 'Attrs props' } },
   },
 };
 
@@ -80,35 +78,26 @@ const Template = (args) => ({
   },
   template: `<UiPopover
     :title="title"
-    :button-attrs="buttonAttrs"
-    class="max-w-80"
-    :class="modifiers"
+    :heading-title-attrs="headingTitleAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    :class="['max-w-80', modifiers]"
     @close="onClose"
   >
-    <UiText>{{content}}</UiText>
+    <UiText>{{ content }}</UiText>
   </UiPopover>`,
 });
 
-export const Common = Template.bind({
-});
+export const Common = Template.bind({});
 
-export const HasArrow = Template.bind({
-});
-HasArrow.args = {
-  modifiers: ['ui-popover--has-arrow'],
-};
+export const HasArrow = Template.bind({});
+HasArrow.args = { modifiers: [ 'ui-popover--has-arrow' ] };
 
-export const HasLeftArrow = Template.bind({
-});
-HasLeftArrow.args = {
-  modifiers: ['ui-popover--has-left-arrow'],
-};
+export const HasLeftArrow = Template.bind({});
+HasLeftArrow.args = { modifiers: [ 'ui-popover--has-left-arrow' ] };
 
-export const Unrounded = Template.bind({
-});
-Unrounded.args = {
-  modifiers: ['ui-popover--unrounded'],
-};
+export const Unrounded = Template.bind({});
+Unrounded.args = { modifiers: [ 'ui-popover--unrounded' ] };
 
 export const AsBottomPanelOnMobile = (args) => ({
   components: {
@@ -123,7 +112,9 @@ export const AsBottomPanelOnMobile = (args) => ({
   },
   template: `<UiPopover
     :title="title"
-    :button-attrs="buttonAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
     class="tablet:max-w-80"
     :class="modifiers"
     @close="onClose"
@@ -132,22 +123,16 @@ export const AsBottomPanelOnMobile = (args) => ({
   </UiPopover>`,
 });
 AsBottomPanelOnMobile.args = {
-  modifiers: ['ui-popover--has-mobile', 'ui-popover--has-arrow'],
+  modifiers: [
+    'ui-popover--has-mobile',
+    'ui-popover--has-arrow',
+  ],
 };
-AsBottomPanelOnMobile.parameters = {
-  viewport: {
-    defaultViewport: 'mobile2',
-  },
-};
-AsBottomPanelOnMobile.decorators = [() => ({
-  template: '<div style="min-height: 568px"><story /></div>',
-})];
+AsBottomPanelOnMobile.parameters = { viewport: { defaultViewport: 'mobile2' } };
+AsBottomPanelOnMobile.decorators = [ () => ({ template: '<div style="min-height: 568px"><story /></div>' }) ];
 
-export const AsDropdown = Template.bind({
-});
-AsDropdown.args = {
-  title: '',
-};
+export const AsDropdown = Template.bind({});
+AsDropdown.args = { title: '' };
 
 export const WithTitleSlot = (args) => ({
   components: {
@@ -163,20 +148,23 @@ export const WithTitleSlot = (args) => ({
   },
   template: `<UiPopover
     :title="title"
-    :button-attrs="buttonAttrs"
-    class="tablet:max-w-80"
-    :class="modifiers"
+    :heading-title-attrs="headingTitleAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    :class="['tablet:max-w-80', modifiers]"
     @close="onClose"
   >
-    <template #title="{title}">
+    <template #title="{
+      headingTitleAttrs,
+      title
+    }">
       <UiHeading
-        level="4"
-        tag="span"
+        v-bind="headingTitleAttrs"
       >
         {{ title }}
       </UiHeading>
     </template>
-    <UiText>{{content}}</UiText>
+    <UiText>{{ content }}</UiText>
   </UiPopover>`,
 });
 
@@ -194,24 +182,29 @@ export const WithCloseSlot = (args) => ({
     };
   },
   template: `<UiPopover
-    :title="title"
-    :button-attrs="buttonAttrs"
-    class="tablet:max-w-80"
-    :class="modifiers"
-    @close="onClose"
+      :title="title"
+      :heading-title-attrs="headingTitleAttrs"
+      :button-close-attrs="buttonCloseAttrs"
+      :icon-close-attrs="iconCloseAttrs"
+      :class="['tablet:max-w-80', modifiers]"
+      @close="onClose"
   >
-    <template #close="{attrs, clickHandler}">
+    <template #close="{
+      buttonCloseAttrs,
+      clickHandler,
+      iconCloseAttrs,
+    }">
       <UiButton
-        v-bind="attrs"
+        v-bind="buttonCloseAttrs"
         class="ui-button--icon ui-button--theme-secondary ui-popover__close"
         @click="clickHandler"
       >
         <UiIcon 
-          class="ui-button__icon" 
-          icon="clear" 
+          v-bind="iconCloseAttrs"
+          class="ui-button__icon"
         />
       </UiButton>
     </template>
-    <UiText>{{content}}</UiText>
+    <UiText>{{ content }}</UiText>
   </UiPopover>`,
 });

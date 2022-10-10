@@ -8,49 +8,31 @@ import { ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
 import { content } from '@sb/helpers/argTypes';
 
-const events = actions({
-  onUpdateModelValue: 'update:modelValue',
-});
+const events = actions({ onUpdateModelValue: 'update:modelValue' });
 
 export default {
   title: 'Molecules/Switch',
   component: UiSwitch,
-  subcomponents: {
-    UiCheckbox,
-  },
+  subcomponents: { UiCheckbox },
   args: {
     initModelValue: false,
-    slotName: '',
     content: 'I agree to the processing of my health information for the purpose of performing the interview.',
+    controlAttrs: { 'data-testid': 'switch-control' },
   },
   argTypes: {
     content,
     initModelValue: {
       description: 'Use this control to set initial state.',
-      table: {
-        category: 'stories controls',
-      },
+      table: { category: 'stories controls' },
       control: 'boolean',
     },
-    slotName: {
-      name: 'slot',
-      description: 'Use this control to set slot to override.',
-      table: {
-        category: 'stories controls',
-      },
-      control: 'select',
-      options: ['switchcontrol', 'checkbutton', 'label'],
-    },
-    modelValue: {
-      control: false,
-    },
+    modelValue: { control: false },
+    controlAttrs: { table: { subcategory: 'Attrs props' } },
   },
 };
 
 export const WithoutLabel = (args) => ({
-  components: {
-    UiSwitch,
-  },
+  components: { UiSwitch },
   setup() {
     const modelValue = ref(args.initModelValue);
     return {
@@ -61,14 +43,14 @@ export const WithoutLabel = (args) => ({
   },
   template: `<UiSwitch
     v-model="modelValue"
+    :control-attrs="controlAttrs"
+    :text-label-attrs="{ 'data-testid': 'label-text' }"
     @update:modelValue="onUpdateModelValue"
   />`,
 });
 
 export const IsDisabled = (args) => ({
-  components: {
-    UiSwitch,
-  },
+  components: { UiSwitch },
   setup() {
     const modelValue = ref(args.initModelValue);
     return {
@@ -79,6 +61,8 @@ export const IsDisabled = (args) => ({
   },
   template: `<UiSwitch
     v-model="modelValue"
+    :control-attrs="controlAttrs"
+    :text-label-attrs="{ 'data-testid': 'label-text' }"
     class="ui-switch--is-disabled"
     @update:modelValue="onUpdateModelValue"
   />`,
@@ -99,6 +83,8 @@ export const WithLabel = (args) => ({
   },
   template: `<UiSwitch
     v-model="modelValue"
+    :control-attrs="controlAttrs"
+    :text-label-attrs="{ 'data-testid': 'label-text' }"
     @update:modelValue="onUpdateModelValue"
   >
     {{ content }}
@@ -120,34 +106,22 @@ export const WithSwitchControlSlot = (args) => ({
   },
   template: `<UiSwitch
     v-model="modelValue"
+    :control-attrs="controlAttrs"
+    :text-label-attrs="{ 'data-testid': 'label-text' }"
     @update:modelValue="onUpdateModelValue"
   >
-    <template #switchcontrol="{isChecked}">
-      <UiSwitchControl/>
+    <template #switchcontrol="{
+      checked,
+      controlAttrs,
+    }">
+      <UiSwitchControl
+        v-bind="controlAttrs"
+        :class="{
+          'ui-switch-control--is-checked': checked,
+          'ui-switch__control--is-checked': checked,
+        }"
+      />
     </template>
-  </UiSwitch>`,
-});
-
-export const SlotsInSwitch = (args) => ({
-  components: {
-    UiSwitch,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiSwitch
-    v-model="modelValue"
-    @update:modelValue="onUpdateModelValue"
-  >
-    <template #[slotName]="data">
-      {{ slotName }}-{{ data }}
-    </template>
-    {{ content }}
   </UiSwitch>`,
 });
 
@@ -161,6 +135,7 @@ export const AsGroup = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
@@ -172,45 +147,47 @@ export const AsGroup = (args) => ({
       <UiSwitch
         v-model="modelValue"
         :value="value"
+        :control-attrs="value.controlAttrs"
+        @update:modelValue="onUpdateModelValue"
       >
-        {{value.label}}
+        {{ value.label }}
       </UiSwitch>
     </UiListItem>
   </UiList>`,
 });
 AsGroup.args = {
-  initModelValue: [{
+  initModelValue: [ {
     label: 'Necessary',
     id: 'necessary',
-  }],
+    controlAttrs: { 'data-testid': 'necessary' },
+  } ],
   values: [
     {
       label: 'Necessary',
       id: 'necessary',
+      controlAttrs: { 'data-testid': 'necessary' },
     },
     {
       label: 'Functional',
       id: 'functional',
+      controlAttrs: { 'data-testid': 'functional' },
     },
     {
       label: 'Analytics',
       id: 'analytics',
+      controlAttrs: { 'data-testid': 'analytics' },
     },
   ],
 };
 AsGroup.argTypes = {
   initial: {
     description: 'Use this control to set initial state.',
-    table: {
-      category: 'stories controls',
-    },
+    table: { category: 'stories controls' },
     control: 'array',
   },
   values: {
     description: 'Use this control to set the values of checkbox group.',
-    table: {
-      category: 'stories controls',
-    },
+    table: { category: 'stories controls' },
     control: 'array',
   },
 };
@@ -237,28 +214,28 @@ export const AsGroupWithPrimitiveTypes = (args) => ({
         v-model="modelValue"
         :value="value"
       >
-        {{value}}
+        {{ value }}
       </UiSwitch>
     </UiListItem>
   </UiList>`,
 });
 AsGroupWithPrimitiveTypes.args = {
-  initModelValue: ['Necessary'],
-  values: ['Necessary', 'Functional', 'Analytics'],
+  initModelValue: [ 'Necessary' ],
+  values: [
+    'Necessary',
+    'Functional',
+    'Analytics',
+  ],
 };
 AsGroupWithPrimitiveTypes.argTypes = {
   initial: {
     description: 'Use this control to set initial state.',
-    table: {
-      category: 'stories controls',
-    },
+    table: { category: 'stories controls' },
     control: 'array',
   },
   values: {
     description: 'Use this control to set the values of checkbox group.',
-    table: {
-      category: 'stories controls',
-    },
+    table: { category: 'stories controls' },
     control: 'array',
   },
 };

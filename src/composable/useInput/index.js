@@ -9,8 +9,7 @@ export default function useInput() {
           ...object,
           [key]: attrs[key],
         }
-      ), {
-      });
+      ), {});
   }
 
   function getRootAttrs(attrs) {
@@ -21,8 +20,7 @@ export default function useInput() {
           ...object,
           [key]: attrs[key],
         }
-      ), {
-      });
+      ), {});
   }
 
   return {

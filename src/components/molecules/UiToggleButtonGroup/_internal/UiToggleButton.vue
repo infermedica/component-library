@@ -1,12 +1,13 @@
 <template>
   <UiButton
-    class="ui-button--outlined ui-toggle-button"
-    :class="{
-      'ui-button--is-selected': isChecked,
-      'ui-toggle-button--is-selected': isChecked,
-      'ui-button--is-disabled': isDisabled,
-      'ui-button--has-icon': hasIcon
-    }"
+    :class="[
+      'ui-button--outlined ui-toggle-button', {
+        'ui-button--is-selected': isChecked,
+        'ui-toggle-button--is-selected': isChecked,
+        'ui-button--is-disabled': isDisabled,
+        'ui-button--has-icon': hasIcon
+      }
+    ]"
     :aria-checked="isChecked"
     role="radio"
     @click="clickHandler"
@@ -37,8 +38,12 @@ const props = defineProps({
    * Use this props to set value of toggle button.
    */
   value: {
-    type: [Number, String, Object] as PropType<ToggleButtonValue>,
-    required: true,
+    type: [
+      Number,
+      String,
+      Object,
+    ] as PropType<ToggleButtonValue>,
+    default: '',
   },
 });
 const emit = defineEmits<{(e:'check'|'uncheck'):void;}>();

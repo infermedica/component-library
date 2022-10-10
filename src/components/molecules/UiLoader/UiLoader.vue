@@ -30,9 +30,7 @@
 </template>
 
 <script lang="ts">
-export default {
-  inheritAttrs: false,
-};
+export default { inheritAttrs: false };
 </script>
 
 <script setup lang="ts">
@@ -84,24 +82,25 @@ const props = defineProps({
    * Use this props to pass tag of loader
    */
   tag: {
-    type: [String, Object] as PropType<HTMLTag | Record<string, unknown>>,
+    type: [
+      String,
+      Object,
+    ] as PropType<HTMLTag | Record<string, unknown>>,
     default: 'div',
-  },
-  /**
-   * Use this props to pass attributes to internal child components
-   */
-  loaderAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({
-    }),
   },
   /**
    * Use this props to pas transition name
    */
   transitionAttrs: {
     type: Object as PropType<Record<string, unknown>>,
-    default: () => ({
-    }),
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attributes to internal child components
+   */
+  loaderAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({}),
   },
 });
 const isIfTransitionType = computed(() => props.transitionType === 'if');

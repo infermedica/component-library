@@ -13,9 +13,7 @@
           <!-- @slot Use this slot to replace list item content -->
           <slot
             :name="item.name"
-            v-bind="{
-              item
-            }"
+            v-bind="{ item }"
           >
             <UiText>{{ item.text }}</UiText>
             <template v-if="(item as ListRenderItemWithChildren).children?.items">
@@ -74,31 +72,30 @@ const props = defineProps({
     default: () => ([]),
   },
 });
-const itemsToRender = computed<ListRender[]>(() => (
-  props.items.map((item, key) => {
-    if (typeof item === 'string') {
-      return {
-        name: `list-item-${key}`,
-        text: item,
-      };
-    }
-    const { name, children } = item;
+const itemsToRender = computed<ListRender[]>(() => (props.items.map((item, key) => {
+  if (typeof item === 'string') {
     return {
-      ...item,
-      name: name || `list-item-${key}`,
-      children: Array.isArray(children)
-        ? {
-          tag: props.tag,
-          items: children,
-        }
-        : {
-          items: children?.items,
-          ...(children?.listAttrs || {
-            tag: props.tag,
-          }),
-        },
+      name: `list-item-${key}`,
+      text: item,
     };
-  })));
+  }
+  const {
+    name, children,
+  } = item;
+  return {
+    ...item,
+    name: name || `list-item-${key}`,
+    children: Array.isArray(children)
+      ? {
+        tag: props.tag,
+        items: children,
+      }
+      : {
+        items: children?.items,
+        ...(children?.listAttrs || { tag: props.tag }),
+      },
+  };
+})));
 </script>
 
 <style lang="scss">

@@ -22,7 +22,10 @@ const props = defineProps({
    * Use this props to set heading HeadingLevel from 1-6
    */
   level: {
-    type: [Number, String] as PropType<HeadingLevel>,
+    type: [
+      Number,
+      String,
+    ] as PropType<HeadingLevel>,
     default: '2',
   },
   /**

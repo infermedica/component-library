@@ -21,14 +21,20 @@ const props = defineProps({
    * Use this props to set tag when a component shouldn't be a button.
    */
   tag: {
-    type: [String, Object] as PropType<HTMLTag | Record<string, unknown>>,
+    type: [
+      String,
+      Object,
+    ] as PropType<HTMLTag | Record<string, unknown>>,
     default: 'button',
   },
   /**
    * Use this props to set route for internal link.
    */
   to: {
-    type: [String, Object] as PropType<string | Record<string, unknown>>,
+    type: [
+      String,
+      Object,
+    ] as PropType<string | Record<string, unknown>>,
     default: '',
   },
   /**
@@ -39,7 +45,9 @@ const props = defineProps({
     default: '',
   },
 });
-const { componentTag, routeAttrs } = useLink(props);
+const {
+  componentTag, routeAttrs,
+} = useLink(props);
 </script>
 
 <style lang="scss">
@@ -50,7 +58,12 @@ const { componentTag, routeAttrs } = useLink(props);
   $this: &;
   $element: button;
 
-  @include mixins.inner-border($element, $color: var(--color-border-subtle), $width: 0, $radius: var(--border-radius-button));
+  @include mixins.inner-border(
+    $element,
+    $color: var(--color-border-subtle),
+    $width: 0,
+    $radius: var(--border-radius-button)
+  );
   @include mixins.font($element, button-1);
 
   display: inline-flex;

@@ -13,9 +13,7 @@
       >
         <div
           class="ui-progressbar__step"
-          :style="{
-            '--_progressbar-step-left': `${100 / steps * dot}%`
-          }"
+          :style="{ '--_progressbar-step-left': `${100 / steps * dot}%` }"
         />
       </template>
     </div>
@@ -47,8 +45,7 @@ const props = defineProps({
    */
   progressAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
 });
 const value = computed(() => ((100 / props.steps) * props.currentStep));

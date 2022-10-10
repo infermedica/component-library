@@ -5,7 +5,5 @@ export default function useKeyValidation() {
       event.preventDefault();
     }
   }
-  return {
-    numbersOnly,
-  };
+  return { numbersOnly };
 }

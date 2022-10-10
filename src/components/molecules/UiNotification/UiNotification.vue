@@ -9,13 +9,24 @@
       <!-- @slot Use this slot to replace icon template. -->
       <slot name="icon" />
     </template>
-    <template #message>
+    <template
+      #message="{ textMessageAttrs, }"
+    >
       <!-- @slot Use this slot to replace message template. -->
-      <slot name="message">
+      <slot
+        name="message"
+        v-bind="{ textMessageAttrs }"
+      >
         <div class="notification__message">
           <!-- @slot Use this slot to replace text template. -->
-          <slot name="text">
-            <UiText class="ui-notification__text">
+          <slot
+            name="text"
+            v-bind="{ textMessageAttrs }"
+          >
+            <UiText
+              v-bind="{ textMessageAttrs }"
+              class="ui-notification__text"
+            >
               <!-- @slot Use this slot to place text inside alert. -->
               <slot />
             </UiText>
@@ -24,9 +35,10 @@
           <slot
             name="action"
             v-bind="{
-              attrs: buttonActionAttrs,
+              buttonActionAttrs,
               translation: defaultProps.translation,
-              hasAction
+              hasAction,
+              iconActionAttrs: defaultProps.iconActionAttrs,
             }"
           >
             <UiButton
@@ -36,6 +48,7 @@
             >
               {{ defaultProps.translation.action }}
               <UiIcon
+                v-bind="defaultProps.iconActionAttrs"
                 icon="chevron-right"
                 class="ui-button__icon ui-button__icon--right"
               />
@@ -72,27 +85,35 @@ const props = defineProps({
     default: true,
   },
   /**
-   * Use this props to pass attrs for action UiButton.
-   */
-  buttonActionAttrs: {
-    type: Object,
-    default: () => ({
-    }),
-  },
-  /**
    * Use this props to pass labels inside component translation.
    */
   translation: {
     type: Object,
-    default: () => ({
-      action: 'Action',
-    }),
+    default: () => ({ action: 'Action' }),
+  },
+  /**
+   * Use this props to pass attrs for action UiButton.
+   */
+  buttonActionAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for action UiIcon.
+   */
+  iconActionAttrs: {
+    type: Object,
+    default: () => ({ icon: 'chevron-right' }),
   },
 });
 const defaultProps = computed(() => ({
   translation: {
     action: 'Action',
     ...props.translation,
+  },
+  iconActionAttrs: {
+    icon: 'chevron-right',
+    ...props.iconActionAttrs,
   },
 }));
 const modifier = computed<`ui-notification--${NotificationType}`>(() => `ui-notification--${props.type}`);

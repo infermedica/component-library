@@ -80,25 +80,35 @@ const nextFrame = (callback: () => void) => {
   });
 };
 const toggleTransitionClass = (state: TransitionState | TransitionState[]) => {
-  const stateList = Array.isArray(state) ? state : [state];
+  const stateList = Array.isArray(state) ? state : [ state ];
   stateList.forEach((stateEl) => {
     transitionEl.value?.classList.toggle(`${props.name}-${move.value}-${stateEl}`);
   });
 };
 const onTransitionEnd = () => {
-  toggleTransitionClass(['active', 'to']);
+  toggleTransitionClass([
+    'active',
+    'to',
+  ]);
   transitionEl.value.removeEventListener('transitionend', onTransitionEnd);
   emit(`after-${move.value}`, transitionEl.value);
   isLoaderVisible.value = props.isLoading;
 };
 const onTransitionCancel = () => {
-  [loaderEl.value, contentEl.value].forEach((el) => (el as HTMLElement).removeAttribute('class'));
+  [
+    loaderEl.value,
+    contentEl.value,
+  ].forEach((el) => (el as HTMLElement).removeAttribute('class'));
   transitionEl.value.removeEventListener('transitionend', onTransitionEnd);
 };
 const onTransitionActive = () => {
   nextFrame(() => {
     emit(`${move.value}`, transitionEl.value);
-    toggleTransitionClass(['from', 'active', 'to']);
+    toggleTransitionClass([
+      'from',
+      'active',
+      'to',
+    ]);
   });
   transitionEl.value.addEventListener('transitionend', onTransitionEnd);
 };
@@ -120,7 +130,10 @@ onMounted(() => {
   }
 });
 watch(
-  () => [props.isLoading, isLoaderVisible.value],
+  () => [
+    props.isLoading,
+    isLoaderVisible.value,
+  ],
   () => {
     if (props.name) {
       startTransition();

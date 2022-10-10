@@ -6,9 +6,7 @@
 </template>
 
 <script lang="ts">
-export default {
-  name: 'UiContainer',
-};
+export default { name: 'UiContainer' };
 </script>
 
 <style lang="scss">

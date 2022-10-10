@@ -6,38 +6,27 @@ import icons from '@/components/atoms/UiIcon/icons.ts';
 export default {
   title: 'Atoms/Icon',
   component: UiIcon,
-  args: {
-    icon: 'absent',
-  },
+  args: { icon: 'absent' },
   argTypes: {
     icon: {
-      control: {
-        type: 'select',
-      },
+      control: { type: 'select' },
       options: icons,
     },
   },
 };
 
 const Template = (args) => ({
-  components: {
-    UiIcon,
-  },
+  components: { UiIcon },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: '<UiIcon :icon="icon"/>',
 });
 
-export const IconAsName = Template.bind({
-});
+export const IconAsName = Template.bind({});
 
 export const IconAsImport = (args) => ({
-  components: {
-    UiIcon,
-  },
+  components: { UiIcon },
   setup() {
     const icon = defineAsyncComponent(() => import('../../../assets/icons/ce.svg'));
     return {
@@ -49,28 +38,25 @@ export const IconAsImport = (args) => ({
 });
 
 export const IconAsIllustration = (args) => ({
-  components: {
-    UiIcon,
-  },
+  components: { UiIcon },
   setup() {
-    return {
-      ...args,
-    };
+    return { ...args };
   },
   template: `<UiIcon
       :icon="icon"
       style="--icon-size: 15rem;"
   />`,
 });
-IconAsIllustration.args = {
-  icon: 'agreement',
-};
+IconAsIllustration.args = { icon: 'agreement' };
 IconAsIllustration.argTypes = {
   icon: {
-    control: {
-      type: 'select',
-    },
-    options: ['agreement', 'boy', 'no-internet-illustration', 'podium'],
+    control: { type: 'select' },
+    options: [
+      'agreement',
+      'boy',
+      'no-internet-illustration',
+      'podium',
+    ],
   },
 };
 
@@ -80,9 +66,7 @@ export const ListOfIcons = () => ({
     UiText,
   },
   setup() {
-    return {
-      icons,
-    };
+    return { icons };
   },
   template: `<div class="grid grid-cols-icon gap-2">
     <div
@@ -103,15 +87,7 @@ export const ListOfIcons = () => ({
   </div>`,
 });
 ListOfIcons.argTypes = {
-  icon: {
-    control: false,
-  },
-  viewBox: {
-    control: false,
-  },
+  icon: { control: false },
+  viewBox: { control: false },
 };
-ListOfIcons.parameters = {
-  controls: {
-    hideNoControlsWarning: true,
-  },
-};
+ListOfIcons.parameters = { controls: { hideNoControlsWarning: true } };

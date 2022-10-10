@@ -1,30 +1,30 @@
 <template>
   <UiNumberStepper
-    v-bind="getRootAttrs($attrs)"
-    :model-value="modelValue"
-    :style="{
-      '--_range-runnable-track-width': trackWidth
+    v-bind="{
+      ...getRootAttrs($attrs),
+      ...defaultProps.numberStepperAttrs,
     }"
+    :model-value="modelValue"
+    :style="{ '--_range-runnable-track-width': trackWidth }"
     :min="min"
     :max="max"
     :step="step"
-    :button-decrement-attrs="defaultProps.buttonDecrementAttrs"
-    :button-increment-attrs="defaultProps.buttonIncrementAttrs"
     class="ui-range"
     @update:model-value="changeHandler"
   >
     <template
       v-for="(_, name) in $slots"
-      #[name]="slotData"
+      #[name]="data"
     >
       <slot
         :name="name"
-        v-bind="slotData"
+        v-bind="data"
       />
     </template>
     <template
       #default="{
-        change, value
+        change,
+        value
       }"
     >
       <div class="ui-range__input">
@@ -32,12 +32,12 @@
         <slot
           name="value"
           v-bind="{
-            value
+            value,
+            headingValueAttrs: defaultProps.headingValueAttrs
           }"
         >
           <UiHeading
-            :level="1"
-            tag="span"
+            v-bind="defaultProps.headingValueAttrs"
             class="ui-range__value"
           >
             {{ value }}
@@ -47,7 +47,7 @@
         <slot
           name="range"
           v-bind="{
-            attrs: getInputAttrs($attrs),
+            inputAttrs: getInputAttrs($attrs),
             min,
             max,
             change,
@@ -74,9 +74,7 @@
 </template>
 
 <script lang="ts">
-export default {
-  inheritAttrs: false,
-};
+export default { inheritAttrs: false };
 </script>
 
 <script setup lang="ts">
@@ -89,6 +87,8 @@ import UiNumberStepper from '../../molecules/UiNumberStepper/UiNumberStepper.vue
 import useInput from '../../../composable/useInput';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 import type { PropsAttrs } from '../../../types/attrs';
+import type { HTMLTag } from '../../../types/tag';
+import type { HeadingLevel } from '../UiHeading/UiHeading.vue';
 
 const props = defineProps({
   /**
@@ -120,37 +120,28 @@ const props = defineProps({
     default: 1,
   },
   /**
-   * Use this props to pass attrs for decrement UiButton
+   * Use this props to pass attrs for UiNumberStepper
    */
-  buttonDecrementAttrs: {
+  numberStepperAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   /**
-   * Use this props to pass attrs for increment UiButton
+   * Use this props to pass attrs for value UiHeading
    */
-  buttonIncrementAttrs: {
+  headingValueAttrs: {
     type: Object as PropsAttrs,
     default: () => ({
+      level: 1,
+      tag: 'span',
     }),
   },
 });
-const defaultProps = computed(() => ({
-  buttonDecrementAttrs: {
-    'aria-hidden': true,
-    tabindex: -1,
-    ...props.buttonDecrementAttrs,
-  },
-  buttonIncrementAttrs: {
-    'aria-hidden': true,
-    tabindex: -1,
-    ...props.buttonIncrementAttrs,
-  },
-}));
 const attrs = useAttrs();
 const emit = defineEmits<{(e:'update:modelValue', value: number): void}>();
-const { getRootAttrs, getInputAttrs } = useInput();
+const {
+  getRootAttrs, getInputAttrs,
+} = useInput();
 const trackWidth = computed(() => {
   const scope = props.max - props.min;
   const position = props.modelValue - props.min;
@@ -160,6 +151,40 @@ function changeHandler(value: number) {
   if (attrs.disabled) return;
   emit('update:modelValue', value);
 }
+// TODO: remove in 0.6.0 / BEGIN
+const buttonDecrementAttrs = computed(() => attrs.buttonDecrementAttrs || attrs['button-decrement-attrs']);
+if (buttonDecrementAttrs.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiRange]: The `buttonDecrementAttrs` props will be removed in 0.6.0. Please use `numberStepperAttrs` props instead.');
+  }
+}
+const buttonIncrementAttrs = computed(() => attrs.buttonIncrementAttrs || attrs['button-increment-attrs']);
+if (buttonIncrementAttrs.value) {
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('[@infermedica/component-library warn][UiRange]: The `buttonIncrementAttrs` props will be removed in 0.6.0. Please use `numberStepperAttrs` props instead.');
+  }
+}
+// END
+interface DefaultProps {
+  headingValueAttrs: {
+    level: HeadingLevel;
+    tag: HTMLTag;
+    [key: string]: unknown;
+  };
+  numberStepperAttrs: Record<string, unknown>;
+}
+const defaultProps = computed<DefaultProps>(() => ({
+  headingValueAttrs: {
+    level: 1,
+    tag: 'span',
+    ...props.headingValueAttrs,
+  },
+  numberStepperAttrs: {
+    buttonDecrementAttrs: buttonDecrementAttrs.value,
+    buttonIncrementAttrs: buttonIncrementAttrs.value,
+    ...props.numberStepperAttrs,
+  },
+}));
 </script>
 
 <style lang="scss">

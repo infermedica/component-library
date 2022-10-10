@@ -2,9 +2,7 @@
   <UiInput
     id="month"
     v-model="month"
-    :class="{
-      'ui-input--has-error': hasError
-    }"
+    :class="{ 'ui-input--has-error': hasError }"
     :placeholder="translation.placeholderMonth"
     maxlength="2"
     inputmode="numeric"
@@ -65,7 +63,10 @@ async function checkMonth(event: Event): Promise<void> {
   unfulfilledMonthError.value = false;
   const inputValue = (event as InputEvent).data;
   await nextTick();
-  if (inputValue && (!['0', '1'].includes(inputValue) || month.value.length === 2) && props.valid) {
+  if (inputValue && (![
+    '0',
+    '1',
+  ].includes(inputValue) || month.value.length === 2) && props.valid) {
     emit('change-input', 'month');
   }
 }

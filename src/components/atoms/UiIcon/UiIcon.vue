@@ -19,7 +19,10 @@ const props = defineProps({
    * Use this prop to set the icon.
    */
   icon: {
-    type: [String, Object] as PropType<Icon>,
+    type: [
+      String,
+      Object,
+    ] as PropType<Icon>,
     default: '',
   },
 });
@@ -28,9 +31,7 @@ const file = computed<SVGElement>(() => {
   if (typeof props.icon === 'string') {
     return defineAsyncComponent({
       loader: () => import(`../../../assets/icons/${props.icon}.svg`),
-      loadingComponent: () => h('svg', {
-        class: 'ui-icon',
-      }),
+      loadingComponent: () => h('svg', { class: 'ui-icon' }),
       delay: 0,
     });
   }

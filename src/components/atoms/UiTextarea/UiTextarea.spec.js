@@ -8,11 +8,7 @@ describe('UiTextarea.vue', () => {
   });
   test('render a native attributes on input element', () => {
     const placeholder = 'symptom checker';
-    const wrapper = mount(UiTextarea, {
-      props: {
-        placeholder,
-      },
-    });
+    const wrapper = mount(UiTextarea, { props: { placeholder } });
     const textarea = wrapper.find('textarea');
     expect(textarea.attributes('placeholder')).toBe(placeholder);
   });

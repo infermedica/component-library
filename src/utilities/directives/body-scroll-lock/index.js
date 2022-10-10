@@ -5,7 +5,10 @@ function disableBodyScroll() {
   const scrollWidth = window.innerWidth - document.body.clientWidth;
   const x = window.pageXOffset;
   const y = window.pageYOffset;
-  document.body.__vueScrollPosition = [x, y];
+  document.body.__vueScrollPosition = [
+    x,
+    y,
+  ];
   document.body.style.overflow = 'hidden';
   document.body.style.position = 'fixed';
   document.body.style.top = `-${y}px`;

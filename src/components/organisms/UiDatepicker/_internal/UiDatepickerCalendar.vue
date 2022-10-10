@@ -8,23 +8,26 @@
   >
     <template
       #toggle="{
-        toggleHandler, attrs
+        toggleHandler,
+        buttonToggleAttrs,
       }"
     >
       <slot
-        name="toggler"
+        name="toggle"
         v-bind="{
-          toggle: toggleHandler
+          toggleHandler,
+          buttonToggleAttrs,
+          iconToggleAttrs: defaultProps.iconToggleAttrs,
         }"
       >
         <UiButton
           ref="toggleElement"
           class="ui-button--circled"
-          v-bind="attrs"
+          v-bind="buttonToggleAttrs"
           @click="openCalendar(toggleHandler, $event)"
         >
           <UiIcon
-            icon="calendar"
+            v-bind="defaultProps.iconToggleAttrs"
             class="ui-button__icon"
           />
         </UiButton>
@@ -33,6 +36,7 @@
     <template #content>
       <UiTabs
         v-model="currentTabId"
+        v-bind="tabsAttrs"
         class="ui-tabs--fixed ui-datepicker-calendar__tabs"
       >
         <component
@@ -77,15 +81,14 @@ import type {
   DatePart,
   DatepickerDate,
   DatepickerTranslation,
-  DefaultInputProps,
 } from '../UiDatepicker.vue';
+import type { Icon } from '../../../../types/icon';
 
 export type DatepickerTab = InstanceType<typeof UiDatepickerDayTab
   | typeof UiDatepickerMonthTab
   | typeof UiDatepickerYearTab
 >;
 export type DatepickerTabAttrName = `tabsItem${Capitalize<DatePart>}Attrs`;
-export type DatepickerTabID = `datepicker-calendar-${DatePart}`;
 const props = defineProps({
   /**
    * Use this props to set current tab value.
@@ -94,44 +97,77 @@ const props = defineProps({
     type: String as PropType<DatePart>,
     default: '',
   },
+  iconToggleAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for UiTabs
+   */
+  tabsAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
   /**
    * Use this props to pass attrs for day UiTabsItem
    */
   tabsItemDayAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   /**
    * Use this props to pass attrs for month UiTabsItem
    */
   tabsItemMonthAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
   /**
    * Use this props to pass attrs for year UiTabsItem
    */
   tabsItemYearAttrs: {
     type: Object as PropsAttrs,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
 });
-const getDefaultProps = (datePart: DatePart): DefaultInputProps<DatepickerTabID> => ({
-  id: `datepicker-calendar-${datePart}`,
-  ...props[`tabsItem${capitalizeFirst(datePart) as Capitalize<DatePart>}Attrs`],
-});
-const defaultProps = reactive<{
-  [key in DatepickerTabAttrName]: DefaultInputProps<DatepickerTabID>
-  }>({
-    tabsItemDayAttrs: getDefaultProps('day'),
-    tabsItemMonthAttrs: getDefaultProps('month'),
-    tabsItemYearAttrs: getDefaultProps('year'),
-  });
-const getDefaultProp = (item: DatePart | DatepickerTabAttrName): DefaultInputProps<DatepickerTabID> => (
-  item.includes('Attrs') ? defaultProps[item as DatepickerTabAttrName] : defaultProps[`tabsItem${capitalizeFirst(item) as Capitalize<DatePart>}Attrs`]);
+const defaultTabsIds = computed(() => ({
+  day: props.tabsItemDayAttrs?.id || 'datepicker-calendar-day',
+  month: props.tabsItemDayAttrs?.id || 'datepicker-calendar-month',
+  year: props.tabsItemDayAttrs?.id || 'datepicker-calendar-year',
+}));
+interface DefaultProps {
+  iconToggleAttrs: {
+    icon: Icon,
+    [key:string]: unknown,
+  }
+  tabsItemDayAttrs: Record<string, unknown>,
+  tabsItemMonthAttrs: Record<string, unknown>,
+  tabsItemYearAttrs: Record<string, unknown>,
+}
+const defaultProps = computed<DefaultProps>(() => ({
+  iconToggleAttrs: {
+    icon: 'calendar',
+    ...props.iconToggleAttrs,
+  },
+  tabsItemDayAttrs: {
+    ...props.tabsItemDayAttrs,
+    id: defaultTabsIds.value.day,
+  },
+  tabsItemMonthAttrs: {
+    ...props.tabsItemMonthAttrs,
+    id: defaultTabsIds.value.month,
+  },
+  tabsItemYearAttrs: {
+    ...props.tabsItemYearAttrs,
+    id: defaultTabsIds.value.year,
+  },
+}));
+interface DefaultTabItemAttrs {
+  id: string;
+  [key: string]: unknown
+}
+const getDefaultProp = (datePart: DatePart): Record<string, unknown> => (defaultProps.value[`tabsItem${capitalizeFirst(datePart) as Capitalize<DatePart>}Attrs`]);
+
 const emit = defineEmits<{(e:'open', value: Event): void, (e: 'select', value: Event): void}>();
 const dropdown = ref<InstanceType<typeof UiDropdown> | null>(null);
 const toggleElement = ref<HTMLElement | null>(null);
@@ -143,13 +179,12 @@ const dateParts = computed(() => (Object.keys(defaultProps).reduce((parts: Recor
   const match = key.match(/tabsItem(.+)Attrs/);
   if (match) {
     // eslint-disable-next-line no-param-reassign
-    parts[getDefaultProp(key as DatePart).id] = match[1].toLowerCase();
+    parts[(getDefaultProp(key as DatePart) as DefaultTabItemAttrs).id] = match[1].toLowerCase();
   }
   return parts;
-}, {
-})));
-const currentTabId = computed<DatepickerTabID>({
-  get: () => (getDefaultProp(currentTab.value).id),
+}, {})));
+const currentTabId = computed({
+  get: () => ((getDefaultProp(currentTab.value) as DefaultTabItemAttrs).id),
   set: (id) => {
     currentTab.value = dateParts.value[id] as DatePart;
   },
@@ -184,9 +219,7 @@ watchEffect(() => {
 watch(isDateFulfilled, (dateFulfilled) => {
   const focusedLastInput = props.lastFocused === order.at(-1);
   if (dateFulfilled && focusedLastInput) {
-    dropdown.value?.closeHandler({
-      focusToggle: false,
-    });
+    dropdown.value?.closeHandler({ focusToggle: false });
   }
 });
 function goToNextTab(): void {
@@ -197,23 +230,19 @@ function goToNextTab(): void {
     const firstEmptyTabIndex = order.indexOf(firstEmptyTab.value);
     currentTab.value = order[firstEmptyTabIndex];
   } else {
-    dropdown.value?.closeHandler({
-      focusToggle: true,
-    });
+    dropdown.value?.closeHandler({ focusToggle: true });
   }
 }
 const inputsIds = inject('inputsIds') as ComputedRef<Record<string, string>>;
 const clickOutsideHandler = (event: InputEvent) => {
   const target = event.target as HTMLLabelElement;
-  const id = target.id as DatepickerTabID;
-  const htmlFor = target.htmlFor as DatepickerTabID;
+  const id = target.id as string;
+  const htmlFor = target.htmlFor as string;
   const allowedIds = Object.keys(inputsIds.value);
 
   if (allowedIds.includes(htmlFor)) return;
   if (!allowedIds.includes(id)) {
-    dropdown.value?.closeHandler({
-      focusToggle: false,
-    });
+    dropdown.value?.closeHandler({ focusToggle: false });
   }
   currentTab.value = inputsIds.value[id] as DatePart;
 };
