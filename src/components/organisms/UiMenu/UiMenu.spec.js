@@ -2,12 +2,12 @@ import { mount } from '@vue/test-utils';
 import UiMenu from '@/components/organisms/UiMenu/UiMenu.vue';
 import UiMenuItem from '@/components/organisms/UiMenu/_internal/UiMenuItem.vue';
 
-const mountComponent = (iconVisible, isSelected, options) => mount(UiMenu, {
+const mountComponent = (suffixVisible, isSelected, options) => mount(UiMenu, {
   props: {
     items: [ {
       label: 'item1',
-      iconVisible,
-      class: { 'ui-button--is-selected': isSelected },
+      suffixVisible,
+      class: { 'ui-menu-item--is-selected': isSelected },
     } ],
   },
   ...options,
@@ -45,29 +45,36 @@ describe('UiMenu.vue', () => {
       [
         '',
         'always',
-        true,
+        [
+          true,
+          true,
+        ],
       ],
       [
         'doesn\'t',
         'never',
-        false,
+        [
+          false,
+          false,
+        ],
       ],
       [
         '',
         'default',
-        true,
+        [
+          true,
+          false,
+        ],
       ],
     ])(`
-      component %s render an icon when "iconVisible" is set to %s and item ${str}`, (isRender, type, result) => {
+      component %s render an icon when "suffixVisible" is set to %s and item ${str}`, (isRender, type, result) => {
       const wrapper = mountComponent(type, isSelected);
       const icon = wrapper.find('.ui-menu-item-suffix__icon');
-      expect(icon.exists()).toBe(result);
+      const expected = isSelected
+        ? result[0]
+        : result[1];
+      expect(icon.exists()).toBe(expected);
     });
-  });
-  it('renders transparent icon when item is unselected and "iconVisible" is default', () => {
-    const wrapper = mountComponent('default', false);
-    const suffix = wrapper.find('.ui-menu-item-suffix');
-    expect(suffix.classes('ui-menu-item-suffix--hide-icon')).toBe(true);
   });
   it('renders the correct number of items', () => {
     const wrapper = mount(UiMenu, {
