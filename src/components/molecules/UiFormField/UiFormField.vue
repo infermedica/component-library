@@ -149,23 +149,13 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-interface DefaultProps {
+const defaultProps = computed(() => ({
   textMessageAttrs: {
-    tag: HTMLTag;
-    [key: string]: unknown;
-  };
-  textHintAttrs: {
-    tag: HTMLTag;
-    [key: string]: unknown;
-  };
-}
-const defaultProps = computed<DefaultProps>(() => ({
-  textMessageAttrs: {
-    tag: 'span',
+    tag: 'span' as HTMLTag,
     ...props.textMessageAttrs,
   },
   textHintAttrs: {
-    tag: 'span',
+    tag: 'span' as HTMLTag,
     ...props.textHintAttrs,
   },
 }));

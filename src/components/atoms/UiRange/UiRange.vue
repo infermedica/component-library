@@ -165,23 +165,15 @@ if (buttonIncrementAttrs.value) {
   }
 }
 // END
-interface DefaultProps {
+const defaultProps = computed(() => ({
   headingValueAttrs: {
-    level: HeadingLevel;
-    tag: HTMLTag;
-    [key: string]: unknown;
-  };
-  numberStepperAttrs: Record<string, unknown>;
-}
-const defaultProps = computed<DefaultProps>(() => ({
-  headingValueAttrs: {
-    level: 1,
-    tag: 'span',
+    level: 1 as HeadingLevel,
+    tag: 'span' as HTMLTag,
     ...props.headingValueAttrs,
   },
   numberStepperAttrs: {
-    buttonDecrementAttrs: buttonDecrementAttrs.value,
-    buttonIncrementAttrs: buttonIncrementAttrs.value,
+    buttonDecrementAttrs: buttonDecrementAttrs.value as Record<string, unknown>,
+    buttonIncrementAttrs: buttonIncrementAttrs.value as Record<string, unknown>,
     ...props.numberStepperAttrs,
   },
 }));

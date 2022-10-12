@@ -141,25 +141,14 @@ const props = defineProps({
     default: () => ({ icon: 'plus' }),
   },
 });
-interface DefaultProps {
-  iconDecrementAttrs: {
-    icon: Icon,
-    [key: string]: unknown,
-  }
-  iconIncrementAttrs: {
-    icon: Icon,
-    [key: string]: unknown,
-  },
-  [key: string]: unknown,
-}
-const defaultProps = computed<DefaultProps>(() => ({
+const defaultProps = computed(() => ({
   buttonDecrementAttrs: {
     'aria-hidden': true,
     tabindex: -1,
     ...props.buttonDecrementAttrs,
   },
   iconDecrementAttrs: {
-    icon: 'minus',
+    icon: 'minus' as Icon,
     ...props.iconDecrementAttrs,
   },
   buttonIncrementAttrs: {
@@ -168,7 +157,7 @@ const defaultProps = computed<DefaultProps>(() => ({
     ...props.buttonIncrementAttrs,
   },
   iconIncrementAttrs: {
-    icon: 'plus',
+    icon: 'plus' as Icon,
     ...props.iconIncrementAttrs,
   },
 }));

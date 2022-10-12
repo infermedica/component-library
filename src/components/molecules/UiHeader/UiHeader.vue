@@ -152,23 +152,13 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-interface DefaultProps {
+const defaultProps = computed(() => ({
   iconHamburgerAttrs: {
-    icon: Icon;
-    [key: string]: unknown;
-  };
-  iconLogoAttrs: {
-    icon: Icon;
-    [key: string]: unknown;
-  };
-}
-const defaultProps = computed<DefaultProps>(() => ({
-  iconHamburgerAttrs: {
-    icon: 'menu',
+    icon: 'menu' as Icon,
     ...props.iconHamburgerAttrs,
   },
   iconLogoAttrs: {
-    icon: props.logo,
+    icon: props.logo as Icon,
     title: props.title,
     ...props.iconLogoAttrs,
   },

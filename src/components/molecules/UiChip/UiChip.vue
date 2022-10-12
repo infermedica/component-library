@@ -76,15 +76,9 @@ const props = defineProps({
     default: () => ({ icon: 'remove-filled' }),
   },
 });
-interface DefaultProps {
+const defaultProps = computed(() => ({
   iconRemoveAttrs: {
-    icon: Icon;
-    [key:string]: unknown;
-  };
-}
-const defaultProps = computed<DefaultProps>(() => ({
-  iconRemoveAttrs: {
-    icon: 'remove-filled',
+    icon: 'remove-filled' as Icon,
     ...props.iconRemoveAttrs,
   },
 }));
