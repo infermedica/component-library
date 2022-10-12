@@ -69,7 +69,7 @@ import {
 import type { PropType } from 'vue';
 import equal from 'fast-deep-equal';
 import { uid } from 'uid/single';
-import { PropsAttrs } from '../../../types/attrs';
+import type { PropsAttrs } from '../../../types/attrs';
 import type { Icon } from '../../../types/icon';
 import type { HTMLTag } from '../../../types/tag';
 import UiIcon from '../UiIcon/UiIcon.vue';
@@ -110,6 +110,14 @@ const props = defineProps({
     default: '',
   },
   /**
+   * Use this props to disabled checkbox.
+   * Remember to use `ui-checkbox--is-disabled` class to style disabled checkbox.
+   */
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  /**
    * Use this props to pass attrs for input element.
    */
   inputAttrs: {
@@ -120,14 +128,14 @@ const props = defineProps({
    * Use this props to pass attrs for checkmark UiIcon
    */
   iconCheckmarkAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({ icon: 'checkmark' }),
   },
   /**
    * Use this props to pass attrs for label UiText
    */
   textLabelAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({ tag: 'span' }),
   },
 });
@@ -144,7 +152,8 @@ const defaultProps = computed(() => ({
     ...props.textLabelAttrs,
   },
   inputAttrs: {
-    ...listeners,
+    disabled: props.disabled,
+    ...listeners.value,
     ...props.inputAttrs,
   },
 }));

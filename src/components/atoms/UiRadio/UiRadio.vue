@@ -101,6 +101,14 @@ const props = defineProps({
     default: '',
   },
   /**
+   * Use this props to disabled input.
+   * Remember to use `ui-radio--is-disabled` class to style disabled radio.
+   */
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  /**
    * Use this props to pass attrs for input element.
    */
   inputAttrs: {
@@ -131,6 +139,7 @@ const defaultProps = computed(() => ({
     ...props.textLabelAttrs,
   },
   inputAttrs: {
+    disabled: props.disabled,
     ...listeners.value,
     ...props.inputAttrs,
   },

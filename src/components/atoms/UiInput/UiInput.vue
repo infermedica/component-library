@@ -72,6 +72,14 @@ const props = defineProps({
     default: 'text',
   },
   /**
+   * Use this props to disabled input.
+   * Remember to use `ui-input--is-disabled` class to style disabled input.
+   */
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  /**
    * Use this props or v-model to set value.
    */
   modelValue: {
@@ -113,6 +121,7 @@ const defaultProps = computed(() => ({
   inputAttrs: {
     type: props.type,
     placeholder: props.placeholder,
+    disabled: props.disabled,
     ...listeners.value,
     ...props.inputAttrs,
   },

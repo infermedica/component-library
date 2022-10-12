@@ -54,6 +54,14 @@ const props = defineProps({
     default: '',
   },
   /**
+   * Use this props to disabled textarea.
+   * Remember to use `ui-textarea--is-disabled` class to style disabled textarea.
+   */
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  /**
    * Use this props to pass attrs for textarea element.
    */
   textareaAttrs: {
@@ -68,6 +76,7 @@ const {
 const defaultProps = computed(() => ({
   textareaAttrs: {
     placeholder: props.placeholder,
+    disabled: props.disabled,
     ...listeners.value,
     ...props.textareaAttrs,
   },
