@@ -37,6 +37,7 @@ import UiControls from './src/components/organisms/UiControls/UiControls.vue';
 import UiDatepicker from './src/components/organisms/UiDatepicker/UiDatepicker.vue';
 import UiList from './src/components/organisms/UiList/UiList.vue';
 import UiMegaMenu from './src/components/organisms/UiMegaMenu/UiMegaMenu.vue';
+import UiMenu from './src/components/organisms/UiMenu/UiMenu.vue';
 import UiModal from './src/components/organisms/UiModal/UiModal.vue';
 import UiMultipleAnswer from './src/components/organisms/UiMultipleAnswer/UiMultipleAnswer.vue';
 import UiMultipleChoices from './src/components/organisms/UiMultipleChoices/UiMultipleChoices.vue';
@@ -85,6 +86,7 @@ export {
   UiDatepicker,
   UiList,
   UiMegaMenu,
+  UiMenu,
   UiModal,
   UiMultipleAnswer,
   UiMultipleChoices,
