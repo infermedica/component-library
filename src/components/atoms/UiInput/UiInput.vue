@@ -93,20 +93,14 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-interface DefaultPops {
-  textSuffixAttrs: {
-    tag: HTMLTag;
-    [key: string]: unknown;
-  };
-}
 const emit = defineEmits<{(e: 'update:modelValue', value: string): void
 }>();
 const {
   attrs, listeners,
 } = useAttributes();
-const defaultProps = computed<DefaultPops>(() => ({
+const defaultProps = computed(() => ({
   textSuffixAttrs: {
-    tag: 'span',
+    tag: 'span' as HTMLTag,
     ...props.textSuffixAttrs,
   },
   inputAttrs: {
