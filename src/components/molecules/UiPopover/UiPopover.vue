@@ -185,6 +185,8 @@ if (buttonAttrs.value) {
   }
 
   &__content {
+    max-height: functions.var($element + "-content", max-height);
+    overflow-y: auto;
     padding: functions.var($element + "-content", padding, var(--space-16));
     border-radius: inherit;
     border-top-left-radius: 0;

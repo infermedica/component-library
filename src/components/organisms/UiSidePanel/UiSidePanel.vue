@@ -350,7 +350,7 @@ onBeforeUnmount(() => {
 
 .ui-side-panel {
   $this: &;
-  $element: modal;
+  $element: side-panel;
 
   z-index: 1;
 
