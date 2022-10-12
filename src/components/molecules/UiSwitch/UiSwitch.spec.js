@@ -21,10 +21,5 @@ describe('UiSwitch.vue', () => {
     await wrapper.find('input[type="checkbox"]').setChecked();
     expect(wrapper.emitted('update:modelValue')).toBeTruthy();
   });
-  test('a component is disabled', async () => {
-    const wrapper = mount(UiSwitch, { attrs: { disabled: true } });
-    await wrapper.find('input[type="checkbox"]').setChecked();
-    expect(wrapper.emitted('update:modelValue')).toBeFalsy();
-  });
 });
 

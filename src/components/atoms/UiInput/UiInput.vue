@@ -58,6 +58,13 @@ import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 
 const props = defineProps({
   /**
+   * Use this props to set input placeholder.
+   */
+  placeholder: {
+    type: String,
+    default: '',
+  },
+  /**
    * Use this props to set input type.
    */
   type: {
@@ -105,6 +112,7 @@ const defaultProps = computed(() => ({
   },
   inputAttrs: {
     type: props.type,
+    placeholder: props.placeholder,
     ...listeners.value,
     ...props.inputAttrs,
   },

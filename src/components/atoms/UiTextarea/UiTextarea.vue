@@ -21,9 +21,9 @@ export default { inheritAttrs: false };
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { PropType } from 'vue';
+import type { PropsAttrs } from '../../../types/attrs';
 import useAttributes from '../../../composable/useAttributes';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
-import { PropsAttrs } from '../../../types/attrs';
 
 const props = defineProps({
   /**
@@ -47,6 +47,13 @@ const props = defineProps({
     default: false,
   },
   /**
+   * Use this props to set input placeholder.
+   */
+  placeholder: {
+    type: String,
+    default: '',
+  },
+  /**
    * Use this props to pass attrs for textarea element.
    */
   textareaAttrs: {
@@ -60,6 +67,7 @@ const {
 } = useAttributes();
 const defaultProps = computed(() => ({
   textareaAttrs: {
+    placeholder: props.placeholder,
     ...listeners.value,
     ...props.textareaAttrs,
   },

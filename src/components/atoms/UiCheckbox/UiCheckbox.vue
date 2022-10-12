@@ -69,7 +69,7 @@ import {
 import type { PropType } from 'vue';
 import equal from 'fast-deep-equal';
 import { uid } from 'uid/single';
-import { PropsAttrs } from "../../../types/attrs";
+import { PropsAttrs } from '../../../types/attrs';
 import type { Icon } from '../../../types/icon';
 import type { HTMLTag } from '../../../types/tag';
 import UiIcon from '../UiIcon/UiIcon.vue';
@@ -145,7 +145,7 @@ const defaultProps = computed(() => ({
   },
   inputAttrs: {
     ...listeners,
-    props.inputAttrs,
+    ...props.inputAttrs,
   },
 }));
 const emit = defineEmits<{(e: 'update:modelValue', value: CheckboxModelValue): void
