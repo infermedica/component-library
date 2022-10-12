@@ -2,7 +2,7 @@
   <label
     class="ui-radio"
     :for="radioId"
-    v-bind="getRootAttrs($attrs)"
+    v-bind="attrs"
   >
     <input
       :id="radioId"
@@ -10,7 +10,7 @@
       type="radio"
       class="visual-hidden"
       :checked="isChecked"
-      v-bind="getInputAttrs($attrs)"
+      v-bind="defaultProps.inputAttrs"
       @change="changeHandler($event)"
     >
     <!-- @slot Use this slot to replace radiobutton template. -->
@@ -62,10 +62,11 @@ import {
 import type { PropType } from 'vue';
 import equal from 'fast-deep-equal';
 import { uid } from 'uid/single';
-import UiText from '../UiText/UiText.vue';
-import useInput from '../../../composable/useInput';
-import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 import type { HTMLTag } from '../../../types/tag';
+import type { PropsAttrs } from '../../../types/attrs';
+import UiText from '../UiText/UiText.vue';
+import useAttributes from '../../../composable/useAttributes';
+import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 
 export type RadioValue = number | string | Record<string, unknown>;
 const props = defineProps({
@@ -100,24 +101,38 @@ const props = defineProps({
     default: '',
   },
   /**
+   * Use this props to pass attrs for input element.
+   */
+  inputAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({}),
+  },
+  /**
    * Use this props to pass attrs for radio element.
    */
   radioElementAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({}),
   },
   /**
    * Use this props to pass attrs for label UiText
    */
   textLabelAttrs: {
-    type: Object,
+    type: Object as PropsAttrs,
     default: () => ({ tag: 'span' }),
   },
 });
+const {
+  attrs, listeners,
+} = useAttributes();
 const defaultProps = computed(() => ({
   textLabelAttrs: {
     tag: 'span' as HTMLTag,
     ...props.textLabelAttrs,
+  },
+  inputAttrs: {
+    ...listeners.value,
+    ...props.inputAttrs,
   },
 }));
 const emit = defineEmits<{(e: 'update:modelValue', value: RadioValue): void
@@ -131,9 +146,6 @@ const isChecked = computed(() => (equal(
   JSON.parse(JSON.stringify(props.value)),
   JSON.parse(JSON.stringify(props.modelValue)),
 )));
-const {
-  getRootAttrs, getInputAttrs,
-} = useInput();
 function changeHandler(event: Event) {
   const el = event.target as HTMLInputElement;
   if (el.checked) {

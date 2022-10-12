@@ -2,12 +2,12 @@
   <label
     class="ui-checkbox"
     :for="checkboxId"
-    v-bind="getRootAttrs($attrs)"
+    v-bind="attrs"
   >
     <input
       :id="checkboxId"
       v-keyboard-focus
-      v-bind="getInputAttrs($attrs)"
+      v-bind="defaultProps.inputAttrs"
       :checked="isChecked"
       type="checkbox"
       class="visual-hidden"
@@ -69,12 +69,13 @@ import {
 import type { PropType } from 'vue';
 import equal from 'fast-deep-equal';
 import { uid } from 'uid/single';
-import UiIcon from '../UiIcon/UiIcon.vue';
-import UiText from '../UiText/UiText.vue';
-import useInput from '../../../composable/useInput';
-import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
+import { PropsAttrs } from "../../../types/attrs";
 import type { Icon } from '../../../types/icon';
 import type { HTMLTag } from '../../../types/tag';
+import UiIcon from '../UiIcon/UiIcon.vue';
+import UiText from '../UiText/UiText.vue';
+import useAttributes from '../../../composable/useAttributes';
+import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 
 export type CheckboxValue = string | Record<string, unknown>[];
 export type CheckboxModelValue = boolean | Record<string, unknown>[];
@@ -109,6 +110,13 @@ const props = defineProps({
     default: '',
   },
   /**
+   * Use this props to pass attrs for input element.
+   */
+  inputAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({}),
+  },
+  /**
    * Use this props to pass attrs for checkmark UiIcon
    */
   iconCheckmarkAttrs: {
@@ -123,6 +131,9 @@ const props = defineProps({
     default: () => ({ tag: 'span' }),
   },
 });
+const {
+  attrs, listeners,
+} = useAttributes();
 const defaultProps = computed(() => ({
   iconCheckmarkAttrs: {
     icon: 'checkmark' as Icon,
@@ -132,13 +143,14 @@ const defaultProps = computed(() => ({
     tag: 'span' as HTMLTag,
     ...props.textLabelAttrs,
   },
+  inputAttrs: {
+    ...listeners,
+    props.inputAttrs,
+  },
 }));
 const emit = defineEmits<{(e: 'update:modelValue', value: CheckboxModelValue): void
 }>();
 const slots = useSlots();
-const {
-  getRootAttrs, getInputAttrs,
-} = useInput();
 const hasLabel = computed(() => (!!slots.default));
 const checkboxId = computed(() => (props.id || `checkbox-${uid()}`));
 const isChecked = computed(() => {

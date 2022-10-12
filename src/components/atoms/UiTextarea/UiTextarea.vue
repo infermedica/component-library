@@ -55,6 +55,9 @@ const props = defineProps({
     default: () => ({}),
   },
 });
+const {
+  attrs, listeners,
+} = useAttributes();
 const defaultProps = computed(() => ({
   textareaAttrs: {
     ...listeners.value,
@@ -62,9 +65,6 @@ const defaultProps = computed(() => ({
   },
 }));
 const emit = defineEmits<{(e:'update:modelValue', value:string):void}>();
-const {
-  attrs, listeners,
-} = useAttributes();
 function inputHandler(event: Event) {
   const el = event.target as HTMLInputElement;
   emit('update:modelValue', el.value);
