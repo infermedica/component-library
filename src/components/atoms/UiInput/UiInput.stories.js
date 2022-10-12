@@ -13,6 +13,8 @@ import { keyboardFocus } from '../../../utilities/directives';
 
 const events = actions({
   onClick: 'onClick',
+  onFocus: 'onFocus',
+  onBlur: 'onBlur',
   onUpdateModelValue: 'update:modelValue',
 });
 
@@ -27,6 +29,7 @@ export default {
     placeholder: 'Put your height',
     suffix: '',
     textSuffixAttrs: { 'data-testid': 'text-suffix' },
+    inputAttrs: { 'data-testid': 'input-attrs' },
   },
   argTypes: {
     initModelValue: {
@@ -74,11 +77,14 @@ const Template = (args) => ({
   template: `<UiInput
     v-model="modelValue"
     :suffix="suffix"
-    :text-suffix-attrs="textSuffixAttrs"
     :type="type"
     :class="modifiers"
     :placeholder="placeholder"
+    :text-suffix-attrs="textSuffixAttrs"
+    :input-attrs="inputAttrs"
     @update:modelValue="onUpdateModelValue"
+    @focus="onFocus"
+    @blur="onBlur"
   />`,
 });
 
