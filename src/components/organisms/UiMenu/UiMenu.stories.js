@@ -2,14 +2,13 @@ import {
   provide,
   ref,
 } from 'vue';
-import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiMenu from '@/components/organisms/UiMenu/UiMenu.vue';
-import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
-import UiButton from '@/components/atoms/UiButton/UiButton.vue';
-import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import UiMenuItem from '@/components/organisms/UiMenu/_internal/UiMenuItem.vue';
 import UiMenuItemSuffix from '@/components/organisms/UiMenu/_internal/UiMenuItemSuffix.vue';
-import { clickOutside } from '@/utilities/directives/index';
+import UiText from '@/components/atoms/UiText/UiText.vue';
+import UiButton from '@/components/atoms/UiButton/UiButton.vue';
+import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
+import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import './UiMenu.stories.scss';
 import { modifiers } from '@sb/helpers/argTypes';
 
@@ -116,7 +115,6 @@ WithSuffix.args = {
     },
   ],
 };
-
 export const AsSidePanel = (args) => ({
   components: {
     UiMenu,
@@ -214,6 +212,7 @@ AsSidePanel.decorators = [ (story) => ({
     </UiSidePanel>
   </div>`,
 }) ];
+AsSidePanel.parameters = { viewport: { defaultViewport: 'mobile2' } };
 
 export const AsPopoverContent = (args) => ({
   components: {
