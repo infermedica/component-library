@@ -114,15 +114,9 @@ const props = defineProps({
     default: () => ({ tag: 'span' }),
   },
 });
-interface DefaultProps {
+const defaultProps = computed(() => ({
   textLabelAttrs: {
-    tag: HTMLTag;
-    [key:string]: unknown;
-  };
-}
-const defaultProps = computed<DefaultProps>(() => ({
-  textLabelAttrs: {
-    tag: 'span',
+    tag: 'span' as HTMLTag,
     ...props.textLabelAttrs,
   },
 }));
