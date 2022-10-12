@@ -84,7 +84,6 @@ import type { HTMLTag } from '../../../types/tag';
 import type { HeadingLevel } from '../UiHeading/UiHeading.vue';
 import UiHeading from '../UiHeading/UiHeading.vue';
 import UiNumberStepper from '../../molecules/UiNumberStepper/UiNumberStepper.vue';
-import useInput from '../../../composable/useInput';
 import useAttributes from '../../../composable/useAttributes';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 
@@ -136,9 +135,6 @@ const props = defineProps({
   },
 });
 const emit = defineEmits<{(e:'update:modelValue', value: number): void}>();
-const {
-  getRootAttrs, getInputAttrs,
-} = useInput();
 const {
   attrs, listeners,
 } = useAttributes();
