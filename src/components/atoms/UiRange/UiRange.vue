@@ -1,9 +1,6 @@
 <template>
   <UiNumberStepper
-    v-bind="{
-      ...getRootAttrs($attrs),
-      ...defaultProps.numberStepperAttrs,
-    }"
+    v-bind="numberStepperAttrs"
     :model-value="modelValue"
     :style="{ '--_range-runnable-track-width': trackWidth }"
     :min="min"
@@ -47,7 +44,7 @@
         <slot
           name="range"
           v-bind="{
-            inputAttrs: getInputAttrs($attrs),
+            inputAttrs: defaultProps.inputAttrs,
             min,
             max,
             change,
@@ -56,7 +53,7 @@
         >
           <input
             v-keyboard-focus
-            v-bind="getInputAttrs($attrs)"
+            v-bind="defaultProps.inputAttrs"
             type="range"
             :min="min"
             :max="max"
@@ -82,13 +79,14 @@ import {
   computed,
   useAttrs,
 } from 'vue';
-import UiHeading from '../UiHeading/UiHeading.vue';
-import UiNumberStepper from '../../molecules/UiNumberStepper/UiNumberStepper.vue';
-import useInput from '../../../composable/useInput';
-import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 import type { PropsAttrs } from '../../../types/attrs';
 import type { HTMLTag } from '../../../types/tag';
 import type { HeadingLevel } from '../UiHeading/UiHeading.vue';
+import UiHeading from '../UiHeading/UiHeading.vue';
+import UiNumberStepper from '../../molecules/UiNumberStepper/UiNumberStepper.vue';
+import useInput from '../../../composable/useInput';
+import useAttributes from '../../../composable/useAttributes';
+import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 
 const props = defineProps({
   /**
@@ -120,13 +118,6 @@ const props = defineProps({
     default: 1,
   },
   /**
-   * Use this props to pass attrs for UiNumberStepper
-   */
-  numberStepperAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
-  /**
    * Use this props to pass attrs for value UiHeading
    */
   headingValueAttrs: {
@@ -136,29 +127,38 @@ const props = defineProps({
       tag: 'span',
     }),
   },
+  /**
+   * Use this props to pass attrs for input element.
+   */
+  inputAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({}),
+  },
 });
-const attrs = useAttrs();
 const emit = defineEmits<{(e:'update:modelValue', value: number): void}>();
 const {
   getRootAttrs, getInputAttrs,
 } = useInput();
+const {
+  attrs, listeners,
+} = useAttributes();
 const trackWidth = computed(() => {
   const scope = props.max - props.min;
   const position = props.modelValue - props.min;
   return `${(position / scope) * 100}%`;
 });
 function changeHandler(value: number) {
-  if (attrs.disabled) return;
+  if (attrs.value.disabled) return;
   emit('update:modelValue', value);
 }
 // TODO: remove in 0.6.0 / BEGIN
-const buttonDecrementAttrs = computed(() => attrs.buttonDecrementAttrs || attrs['button-decrement-attrs']);
+const buttonDecrementAttrs = computed(() => attrs.value.buttonDecrementAttrs || attrs.value['button-decrement-attrs']);
 if (buttonDecrementAttrs.value) {
   if (process.env.NODE_ENV === 'development') {
     console.warn('[@infermedica/component-library warn][UiRange]: The `buttonDecrementAttrs` props will be removed in 0.6.0. Please use `numberStepperAttrs` props instead.');
   }
 }
-const buttonIncrementAttrs = computed(() => attrs.buttonIncrementAttrs || attrs['button-increment-attrs']);
+const buttonIncrementAttrs = computed(() => attrs.value.buttonIncrementAttrs || attrs.value['button-increment-attrs']);
 if (buttonIncrementAttrs.value) {
   if (process.env.NODE_ENV === 'development') {
     console.warn('[@infermedica/component-library warn][UiRange]: The `buttonIncrementAttrs` props will be removed in 0.6.0. Please use `numberStepperAttrs` props instead.');
@@ -171,11 +171,15 @@ const defaultProps = computed(() => ({
     tag: 'span' as HTMLTag,
     ...props.headingValueAttrs,
   },
-  numberStepperAttrs: {
-    buttonDecrementAttrs: buttonDecrementAttrs.value as Record<string, unknown>,
-    buttonIncrementAttrs: buttonIncrementAttrs.value as Record<string, unknown>,
-    ...props.numberStepperAttrs,
+  inputAttrs: {
+    ...listeners.value,
+    ...props.inputAttrs,
   },
+}));
+const numberStepperAttrs = computed(() => ({
+  buttonDecrementAttrs: buttonDecrementAttrs.value as Record<string, unknown>,
+  buttonIncrementAttrs: buttonIncrementAttrs.value as Record<string, unknown>,
+  ...attrs,
 }));
 </script>
 
