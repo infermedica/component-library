@@ -81,15 +81,9 @@ const props = defineProps({
     default: () => ({ tag: 'span' }),
   },
 });
-interface DefaultPops {
+const defaultProps = computed(() => ({
   textSuffixAttrs: {
-    tag: HTMLTag;
-    [key: string]: unknown;
-  };
-}
-const defaultProps = computed<DefaultPops>(() => ({
-  textSuffixAttrs: {
-    tag: 'span',
+    tag: 'span' as HTMLTag,
     ...props.textSuffixAttrs,
   },
 }));

@@ -52,15 +52,9 @@ const props = defineProps({
     default: () => ({ icon: 'present' }),
   },
 });
-interface DefaultProps {
+const defaultProps = computed(() => ({
   iconItemAttrs: {
-    icon: Icon;
-    [key:string]: unknown
-  };
-}
-const defaultProps = computed<DefaultProps>(() => ({
-  iconItemAttrs: {
-    icon: 'present',
+    icon: 'present' as Icon,
     ...props.iconItemAttrs,
   },
 }));
