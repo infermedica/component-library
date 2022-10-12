@@ -110,6 +110,7 @@ const defaultProps = computed<DefaultPops>(() => ({
     ...props.textSuffixAttrs,
   },
   inputAttrs: {
+    type: props.type,
     ...listeners.value,
     ...props.inputAttrs,
   },
