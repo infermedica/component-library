@@ -1,0 +1,72 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Team"/>
+
+<style>{`
+ .list {
+   list-style-type: none;
+   margin: 1rem 0;
+ }
+ .list__item {
+   padding: 1.5rem 0;
+ }
+ .maintainer {
+   display: flex;
+  }
+  .maintainer__avatar {
+    border-radius: 50%;
+  }
+  .maintainer__profile {
+    flex: 1;
+    margin: 0 0 0 1rem;
+   }
+   .maintainer__role {
+     margin: 0 0 0.5rem 0;
+     text-transform: uppercase;
+     font-size: 0.84rem;
+     font-weight: 600;
+   }
+   .maintainer__title,
+   .maintainer__job,
+   .maintainer__location {
+     margin: 0 0 0.5rem 0;
+   }
+`}</style>
+
+# The team
+## Core Maintainers
+<ul class="list">
+  <li class="list__item">
+    <div class="maintainer">
+      <div>
+        <img src="https://github.com/pspaczek.png" alt="Przemysław Spaczek" width="80" height="80" class="maintainer__avatar"/>
+      </div>
+      <div class="maintainer__profile">
+        <h3 >Przemysław Spaczek</h3>
+        <div>
+          <div class="maintainer__role">Maintainer</div>
+          <div class="maintainer__job">Lead Software Developer <a href="https://github.com/infermedica" target="_blank">@Infermedica</a></div>
+          <div class="maintainer__location">Wrocław, Poland</div>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li class="list__item">
+    <div class="maintainer">
+      <div>
+        <img src="https://github.com/ArkadiuszKrzymienski.png" alt="Arkadiusz Krzymieński" width="80" height="80" class="maintainer__avatar"/>
+      </div>
+      <div class="maintainer__profile">
+        <h3>Arkadiusz Krzymieński</h3>
+        <div>
+          <div class="maintainer__role">Maintainer</div>
+          <div class="maintainer__job">Junior Frontend Developer <a href="https://github.com/infermedica" target="_blank">@Infermedica</a></div>
+          <div class="maintainer__location">Kielce, Poland</div>
+        </div>
+      </div>
+    </div>
+  </li>
+</ul>
+
+## Become a maintainer?
+If you are interested in becoming a core maintainer, please contact us on przemyslaw.spaczek@infermedica.com.
