@@ -81,7 +81,7 @@ const menuItemAttrs = (item: MenuItem) => {
 const itemsToRender = computed(() => (props.items.map((item, key) => {
   if (typeof item === 'string') {
     return {
-      name: `manu-item-${key}`,
+      name: `menu-item-${key}`,
       label: item,
     };
   }

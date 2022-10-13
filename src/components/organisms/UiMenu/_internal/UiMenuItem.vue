@@ -153,9 +153,5 @@ const defaultProps = computed(() => ({
       color: functions.var($element + "-label", color, unset);
     }
   }
-
-  &--compact {
-    --list-item-padding: #{functions.var($element, padding, var(--space-4) var(--space-8) )};
-  }
 }
 </style>
