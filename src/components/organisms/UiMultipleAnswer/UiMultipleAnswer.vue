@@ -35,7 +35,6 @@
     </slot>
     <UiList
       class="ui-multiple-answer__list"
-      v-bind="$attrs"
     >
       <template
         v-for="(item, index) in itemsToRender"
@@ -51,7 +50,9 @@
             hasError,
           }"
         >
-          <UiListItem class="ui-multiple-answer__list-item">
+          <UiListItem
+            class="ui-multiple-answer__list-item"
+          >
             <!-- @slot Use this slot to replace choice template.-->
             <slot
               v-bind="{
@@ -83,10 +84,6 @@
     </UiList>
   </component>
 </template>
-
-<script lang="ts">
-export default { inheritAttrs: false };
-</script>
 
 <script setup lang="ts">
 import {

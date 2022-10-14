@@ -19,7 +19,6 @@
       </UiAlert>
     </slot>
     <UiList
-      v-bind="$attrs"
       class="ui-multiple-choices__list"
     >
       <template
@@ -66,10 +65,6 @@
     </UiList>
   </div>
 </template>
-
-<script lang="ts">
-export default { inheritAttrs: false };
-</script>
 
 <script setup lang="ts">
 import {

@@ -21,12 +21,7 @@ export default {
     min: 18,
     max: 122,
     step: 1,
-    numberStepperAttrs: {
-      buttonDecrementAttrs: {
-        'aria-label': 'decrement age',
-        'data-testid': 'decrement-age',
-      },
-    },
+    inputAttrs: { 'data-testid': 'input-element' },
     headingValueAttrs: { 'data-testid': 'value-heading' },
     ariaLabel: 'patient age',
   },
@@ -45,7 +40,7 @@ export default {
     min: { control: 'number' },
     max: { control: 'number' },
     modelValue: { control: false },
-    numberStepperAttrs: { table: { subcategory: 'Attrs props' } },
+    inputAttrs: { table: { subcategory: 'Attrs props' } },
     headingValueAttrs: { table: { subcategory: 'Attrs props' } },
   },
 };
@@ -56,21 +51,21 @@ export const Common = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
-      modelValue,
       ...events,
+      modelValue,
     };
   },
   template: `<UiRange 
-  v-model="modelValue"
-  :min="min"
-  :max="max"
-  :step="step"
-  :number-stepper-attrs="numberStepperAttrs"
-  :heading-value-attrs="headingValueAttrs"
-  :aria-label="ariaLabel"
-  @update:modelValue="onUpdateModelValue"
-  @error="onError"
-/>`,
+    v-model="modelValue"
+    :min="min"
+    :max="max"
+    :step="step"
+    :input-attrs="inputAttrs"
+    :heading-value-attrs="headingValueAttrs"
+    :aria-label="ariaLabel"
+    @update:modelValue="onUpdateModelValue"
+    @error="onError"
+  />`,
 });
 
 export const WithDecrementSlot = (args) => ({
@@ -88,41 +83,41 @@ export const WithDecrementSlot = (args) => ({
     };
   },
   template: `<UiRange 
-  v-model="modelValue"
-  :min="min"
-  :max="max"
-  :step="step"
-  :number-stepper-attrs="numberStepperAttrs"
-  :heading-value-attrs="headingValueAttrs"
-  :aria-label="ariaLabel"
-  @update:modelValue="onUpdateModelValue"
-  @error="onError"
->
-  <template 
-    #decrement="{
-      decrement,
-      hasControls,
-      isMin,
-      buttonDecrementAttrs,
-      iconDecrementAttrs,
-    }"
+    v-model="modelValue"
+    :min="min"
+    :max="max"
+    :step="step"
+    :input-attrs="inputAttrs"
+    :heading-value-attrs="headingValueAttrs"
+    :aria-label="ariaLabel"
+    @update:modelValue="onUpdateModelValue"
+    @error="onError"
   >
-    <UiButton
-        v-if="hasControls"
-        v-bind="buttonDecrementAttrs"
-        class="ui-button--outlined ui-button--circled ui-number-stepper__decrement"
-        :class="{
-          'ui-button--is-disabled': isMin
-        }"
-        @click="decrement"
+    <template 
+      #decrement="{
+        decrement,
+        hasControls,
+        isMin,
+        buttonDecrementAttrs,
+        iconDecrementAttrs,
+      }"
     >
-      <UiIcon
-          v-bind="iconDecrementAttrs"
-          class="ui-button__icon"
-      />
-    </UiButton>
-  </template>
-</UiRange>`,
+      <UiButton
+          v-if="hasControls"
+          v-bind="buttonDecrementAttrs"
+          class="ui-button--outlined ui-button--circled ui-number-stepper__decrement"
+          :class="{
+            'ui-button--is-disabled': isMin
+          }"
+          @click="decrement"
+      >
+        <UiIcon
+            v-bind="iconDecrementAttrs"
+            class="ui-button__icon"
+        />
+      </UiButton>
+    </template>
+  </UiRange>`,
 });
 
 export const WithIncrementSlot = (args) => ({
@@ -140,41 +135,41 @@ export const WithIncrementSlot = (args) => ({
     };
   },
   template: `<UiRange 
-  v-model="modelValue"
-  :min="min"
-  :max="max"
-  :step="step"
-  :number-stepper-attrs="numberStepperAttrs"
-  :heading-value-attrs="headingValueAttrs"
-  :aria-label="ariaLabel"
-  @update:modelValue="onUpdateModelValue"
-  @error="onError"
->
-  <template 
-    #increment="{
-      increment,
-      hasControls,
-      isMax,
-      buttonIncrementAttrs,
-      iconIncrementAttrs,
-    }"
+    v-model="modelValue"
+    :min="min"
+    :max="max"
+    :step="step"
+    :input-attrs="inputAttrs"
+    :heading-value-attrs="headingValueAttrs"
+    :aria-label="ariaLabel"
+    @update:modelValue="onUpdateModelValue"
+    @error="onError"
   >
-    <UiButton
-        v-if="hasControls"
-        v-bind="buttonIncrementAttrs"
-        class="ui-button--outlined ui-button--circled ui-number-stepper__increment"
-        :class="{
-          'ui-button--is-disabled': isMax
-        }"
-        @click="increment"
+    <template 
+      #increment="{
+        increment,
+        hasControls,
+        isMax,
+        buttonIncrementAttrs,
+        iconIncrementAttrs,
+      }"
     >
-      <UiIcon
-          v-bind="iconIncrementAttrs"
-          class="ui-button__icon"
-      />
-    </UiButton>
-  </template>
-</UiRange>`,
+      <UiButton
+          v-if="hasControls"
+          v-bind="buttonIncrementAttrs"
+          class="ui-button--outlined ui-button--circled ui-number-stepper__increment"
+          :class="{
+            'ui-button--is-disabled': isMax
+          }"
+          @click="increment"
+      >
+        <UiIcon
+            v-bind="iconIncrementAttrs"
+            class="ui-button__icon"
+        />
+      </UiButton>
+    </template>
+  </UiRange>`,
 });
 
 export const WithValueSlot = (args) => ({
@@ -195,7 +190,7 @@ export const WithValueSlot = (args) => ({
     :min="min"
     :max="max"
     :step="step"
-    :number-stepper-attrs="numberStepperAttrs"
+    :input-attrs="inputAttrs"
     :heading-value-attrs="headingValueAttrs"
     :aria-label="ariaLabel"
     @update:modelValue="onUpdateModelValue"
@@ -233,7 +228,7 @@ export const WithRangeSlot = (args) => ({
     :min="min"
     :max="max"
     :step="step"
-    :number-stepper-attrs="numberStepperAttrs"
+    :input-attrs="inputAttrs"
     :heading-value-attrs="headingValueAttrs"
     :aria-label="ariaLabel"
     @update:modelValue="onUpdateModelValue"

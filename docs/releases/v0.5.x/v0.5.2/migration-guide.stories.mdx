@@ -11,6 +11,29 @@ import { Table } from '../../../components/Table';
 ## Remove v-focus-first directive
 From v0.5.2, the `v-focus-first` directive has been removed.
 
+## Changes in components which input element.
+From v0.5.2 components which have input element have changed the wat to handle attributes to elements.
+
+**List of components**
+
+* `UiCheckbox`
+* `UiInput`
+* `UiRadio`
+* `UiRange`
+* `UiTextarea`
+
+**Before**
+
+* To `<input>` element was added `focus`, `blur` and attrs except `class` and `styles`.
+* To root component element was added attrs except `focus` and `blur` events and `class` and `styles`.
+
+**After**
+
+* To `<input>` element is added all events.
+* To root component element is added all attrs except events.
+* To add attrs to input element use `input-attrs` prop.
+* `placeholder` and `disabled` are props now and it is bound to `<input>` element.
+
 ## UiLoader with support for transition types
 From v0.5.2 UiLoader has new props `transitionType`. `transitionType` can be use to set `if | show | opacity`. New is `show` and `opacity`. You can find [How to use](/docs/molecules-loader--common) in `UiLoader` docs.
 
