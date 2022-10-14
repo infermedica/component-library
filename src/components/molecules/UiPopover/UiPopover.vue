@@ -113,25 +113,14 @@ const props = defineProps({
     default: () => ({ icon: 'clear' }),
   },
 });
-interface DefaultProps {
+const defaultProps = computed(() => ({
   headingTitleAttrs: {
-    level: HeadingLevel,
-    tag: HTMLTag,
-    [key: string]: unknown,
-  };
-  iconCloseAttrs: {
-    icon: Icon
-    [key: string]: unknown,
-  }
-}
-const defaultProps = computed<DefaultProps>(() => ({
-  headingTitleAttrs: {
-    level: '4',
-    tag: 'span',
+    level: '4' as HeadingLevel,
+    tag: 'span' as HTMLTag,
     ...props.headingTitleAttrs,
   },
   iconCloseAttrs: {
-    icon: 'clear',
+    icon: 'clear' as Icon,
     ...props.iconCloseAttrs,
   },
 }));
@@ -185,6 +174,8 @@ if (buttonAttrs.value) {
   }
 
   &__content {
+    max-height: functions.var($element + "-content", max-height);
+    overflow-y: auto;
     padding: functions.var($element + "-content", padding, var(--space-16));
     border-radius: inherit;
     border-top-left-radius: 0;

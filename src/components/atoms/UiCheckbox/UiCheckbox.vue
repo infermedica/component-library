@@ -123,23 +123,13 @@ const props = defineProps({
     default: () => ({ tag: 'span' }),
   },
 });
-interface DefaultProps {
+const defaultProps = computed(() => ({
   iconCheckmarkAttrs: {
-    icon: Icon;
-    [key:string]: unknown;
-  };
-  textLabelAttrs: {
-    tag: HTMLTag;
-    [key:string]: unknown;
-  };
-}
-const defaultProps = computed<DefaultProps>(() => ({
-  iconCheckmarkAttrs: {
-    icon: 'checkmark',
+    icon: 'checkmark' as Icon,
     ...props.iconCheckmarkAttrs,
   },
   textLabelAttrs: {
-    tag: 'span',
+    tag: 'span' as HTMLTag,
     ...props.textLabelAttrs,
   },
 }));
