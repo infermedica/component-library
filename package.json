@@ -13,7 +13,7 @@
     "test:watch": "vitest -w --changed",
     "lint": "eslint --fix --ext .js,.vue,.ts src",
     "check:types": "tsc --noEmit & vue-tsc --noEmit",
-    "check:components-api": "git diff ..develop ./components-api-lock.json",
+    "check:components-api": "node --experimental-fetch scripts/check-components-api.js",
     "stylelint": "stylelint src/**/*.{vue,scss,css} --fix",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
