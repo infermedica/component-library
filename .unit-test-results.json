@@ -8,9 +8,1338 @@
   "numFailedTests": 0,
   "numPendingTests": 0,
   "numTodoTests": 0,
-  "startTime": 1665746453955,
+  "startTime": 1665750659838,
   "success": true,
   "testResults": [
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "directive/highlight"
+          ],
+          "fullName": " directive/highlight no markings if searched query is empty string",
+          "status": "passed",
+          "title": "no markings if searched query is empty string",
+          "duration": 26,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "directive/highlight"
+          ],
+          "fullName": " directive/highlight marking searched query",
+          "status": "passed",
+          "title": "marking searched query",
+          "duration": 8,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "directive/highlight"
+          ],
+          "fullName": " directive/highlight correct update markings searched query",
+          "status": "passed",
+          "title": "correct update markings searched query",
+          "duration": 8,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "directive/highlight"
+          ],
+          "fullName": " directive/highlight no markings if text does not contain searched query",
+          "status": "passed",
+          "title": "no markings if text does not contain searched query",
+          "duration": 5,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "directive/highlight"
+          ],
+          "fullName": " directive/highlight thrown error when search query is null",
+          "status": "passed",
+          "title": "thrown error when search query is null",
+          "duration": 3,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "directive/highlight"
+          ],
+          "fullName": " directive/highlight thrown error when search query is undefined",
+          "status": "passed",
+          "title": "thrown error when search query is undefined",
+          "duration": 3,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1665750661912,
+      "endTime": 1665750661965,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/utilities/directives/highlight/highlight.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "UiFormField.vue"
+          ],
+          "fullName": " UiFormField.vue renders a component",
+          "status": "passed",
+          "title": "renders a component",
+          "duration": 22,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiFormField.vue"
+          ],
+          "fullName": " UiFormField.vue renders component with custom label from slot",
+          "status": "passed",
+          "title": "renders component with custom label from slot",
+          "duration": 15,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiFormField.vue"
+          ],
+          "fullName": " UiFormField.vue renders component with custom label from slot and has only one label",
+          "status": "passed",
+          "title": "renders component with custom label from slot and has only one label",
+          "duration": 5,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiFormField.vue"
+          ],
+          "fullName": " UiFormField.vue renders a label when passed a label prop",
+          "status": "passed",
+          "title": "renders a label when passed a label prop",
+          "duration": 5,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiFormField.vue"
+          ],
+          "fullName": " UiFormField.vue renders an alert when passed an errorMessage prop",
+          "status": "passed",
+          "title": "renders an alert when passed an errorMessage prop",
+          "duration": 3,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiFormField.vue"
+          ],
+          "fullName": " UiFormField.vue renders a hint alert when passed a label and hint props",
+          "status": "passed",
+          "title": "renders a hint alert when passed a label and hint props",
+          "duration": 3,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiFormField.vue"
+          ],
+          "fullName": " UiFormField.vue does not render a hint alert when passed hint prop without label",
+          "status": "passed",
+          "title": "does not render a hint alert when passed hint prop without label",
+          "duration": 2,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1665750663082,
+      "endTime": 1665750663137,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiFormField/UiFormField.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "UiInput.vue"
+          ],
+          "fullName": " UiInput.vue render a component",
+          "status": "passed",
+          "title": "render a component",
+          "duration": 16,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiInput.vue"
+          ],
+          "fullName": " UiInput.vue render a component with suffix",
+          "status": "passed",
+          "title": "render a component with suffix",
+          "duration": 10,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiInput.vue"
+          ],
+          "fullName": " UiInput.vue render a native attributes on input element",
+          "status": "passed",
+          "title": "render a native attributes on input element",
+          "duration": 3,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiInput.vue"
+          ],
+          "fullName": " UiInput.vue render a content via aside slot",
+          "status": "passed",
+          "title": "render a content via aside slot",
+          "duration": 7,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiInput.vue"
+          ],
+          "fullName": " UiInput.vue a component emits input event",
+          "status": "passed",
+          "title": "a component emits input event",
+          "duration": 4,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiInput.vue"
+          ],
+          "fullName": " UiInput.vue a number input cant accept non-numerical value",
+          "status": "passed",
+          "title": "a number input cant accept non-numerical value",
+          "duration": 3,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1665750663178,
+      "endTime": 1665750663221,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/atoms/UiInput/UiInput.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "UiScale.vue"
+          ],
+          "fullName": " UiScale.vue renders a component",
+          "status": "passed",
+          "title": "renders a component",
+          "duration": 63,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiScale.vue"
+          ],
+          "fullName": " UiScale.vue renders a content via decrement slot",
+          "status": "passed",
+          "title": "renders a content via decrement slot",
+          "duration": 23,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiScale.vue"
+          ],
+          "fullName": " UiScale.vue renders a content via increment slot",
+          "status": "passed",
+          "title": "renders a content via increment slot",
+          "duration": 11,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiScale.vue"
+          ],
+          "fullName": " UiScale.vue rendes certein number of options",
+          "status": "passed",
+          "title": "rendes certein number of options",
+          "duration": 60,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiScale.vue"
+          ],
+          "fullName": " UiScale.vue pain value pass to component",
+          "status": "passed",
+          "title": "pain value pass to component",
+          "duration": 16,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiScale.vue"
+          ],
+          "fullName": " UiScale.vue clicking increment button increments scale value",
+          "status": "passed",
+          "title": "clicking increment button increments scale value",
+          "duration": 14,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiScale.vue"
+          ],
+          "fullName": " UiScale.vue clicking decrement button decrements scale value",
+          "status": "passed",
+          "title": "clicking decrement button decrements scale value",
+          "duration": 27,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiScale.vue"
+          ],
+          "fullName": " UiScale.vue incrementing by button dont get value out of scale bounds",
+          "status": "passed",
+          "title": "incrementing by button dont get value out of scale bounds",
+          "duration": 10,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiScale.vue"
+          ],
+          "fullName": " UiScale.vue decrementing by button dont get value out of scale bounds",
+          "status": "passed",
+          "title": "decrementing by button dont get value out of scale bounds",
+          "duration": 30,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1665750663285,
+      "endTime": 1665750663539,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiScale/UiScale.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "UiModal.vue"
+          ],
+          "fullName": " UiModal.vue renders a component",
+          "status": "passed",
+          "title": "renders a component",
+          "duration": 53,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiModal.vue"
+          ],
+          "fullName": " UiModal.vue component can be open by model value",
+          "status": "passed",
+          "title": "component can be open by model value",
+          "duration": 14,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiModal.vue"
+          ],
+          "fullName": " UiModal.vue component can be closed by clicking outside when is closable",
+          "status": "passed",
+          "title": "component can be closed by clicking outside when is closable",
+          "duration": 21,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiModal.vue"
+          ],
+          "fullName": " UiModal.vue component can't be closed by clicking outside when is unclosable",
+          "status": "passed",
+          "title": "component can't be closed by clicking outside when is unclosable",
+          "duration": 28,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiModal.vue"
+          ],
+          "fullName": " UiModal.vue component emit confirm event",
+          "status": "passed",
+          "title": "component emit confirm event",
+          "duration": 11,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiModal.vue"
+          ],
+          "fullName": " UiModal.vue component emit cancel event",
+          "status": "passed",
+          "title": "component emit cancel event",
+          "duration": 15,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiModal.vue"
+          ],
+          "fullName": " UiModal.vue title scope slot renders content for title when component has title and description props",
+          "status": "passed",
+          "title": "title scope slot renders content for title when component has title and description props",
+          "duration": 19,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiModal.vue"
+          ],
+          "fullName": " UiModal.vue title slot is not rendered if component does not have title prop",
+          "status": "passed",
+          "title": "title slot is not rendered if component does not have title prop",
+          "duration": 16,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiModal.vue"
+          ],
+          "fullName": " UiModal.vue description scope slot render content for description when component has title and description props",
+          "status": "passed",
+          "title": "description scope slot render content for description when component has title and description props",
+          "duration": 18,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiModal.vue"
+          ],
+          "fullName": " UiModal.vue description scope slot render content for description if component does not have title prop",
+          "status": "passed",
+          "title": "description scope slot render content for description if component does not have title prop",
+          "duration": 14,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiModal.vue"
+          ],
+          "fullName": " UiModal.vue description scope slot is rendered once if component does not have title prop",
+          "status": "passed",
+          "title": "description scope slot is rendered once if component does not have title prop",
+          "duration": 11,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1665750663304,
+      "endTime": 1665750663524,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/organisms/UiModal/UiModal.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "UiMultipleChoices.vue"
+          ],
+          "fullName": " UiMultipleChoices.vue renders a component",
+          "status": "passed",
+          "title": "renders a component",
+          "duration": 18,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiMultipleChoices.vue"
+          ],
+          "fullName": " UiMultipleChoices.vue a component emits update:modelValue as array",
+          "status": "passed",
+          "title": "a component emits update:modelValue as array",
+          "duration": 29,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiMultipleChoices.vue"
+          ],
+          "fullName": " UiMultipleChoices.vue a possible to pass custom choices by options property",
+          "status": "passed",
+          "title": "a possible to pass custom choices by options property",
+          "duration": 23,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiMultipleChoices.vue"
+          ],
+          "fullName": " UiMultipleChoices.vue a possible to valid custom choices component",
+          "status": "passed",
+          "title": "a possible to valid custom choices component",
+          "duration": 19,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1665750663346,
+      "endTime": 1665750663435,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/organisms/UiMultipleChoices/UiMultipleChoices.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "UiMultipleAnswer.vue",
+            "Component with Radioses"
+          ],
+          "fullName": " UiMultipleAnswer.vue Component with Radioses renders a component with radio buttons when modelValue is a string",
+          "status": "passed",
+          "title": "renders a component with radio buttons when modelValue is a string",
+          "duration": 49,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiMultipleAnswer.vue",
+            "Component with Radioses"
+          ],
+          "fullName": " UiMultipleAnswer.vue Component with Radioses renders a component with radio buttons when modelValue is an object",
+          "status": "passed",
+          "title": "renders a component with radio buttons when modelValue is an object",
+          "duration": 17,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiMultipleAnswer.vue",
+            "Component with Radioses"
+          ],
+          "fullName": " UiMultipleAnswer.vue Component with Radioses renders a component with correct number of radioses",
+          "status": "passed",
+          "title": "renders a component with correct number of radioses",
+          "duration": 15,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiMultipleAnswer.vue",
+            "Component with Radioses"
+          ],
+          "fullName": " UiMultipleAnswer.vue Component with Radioses renders a component and radioses with error styles when invalid and touched prop is true",
+          "status": "passed",
+          "title": "renders a component and radioses with error styles when invalid and touched prop is true",
+          "duration": 22,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiMultipleAnswer.vue",
+            "Component with Radioses"
+          ],
+          "fullName": " UiMultipleAnswer.vue Component with Radioses renders a component and radioses with error styles when invalid prop is false and touched prop is true",
+          "status": "passed",
+          "title": "renders a component and radioses with error styles when invalid prop is false and touched prop is true",
+          "duration": 13,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiMultipleAnswer.vue",
+            "Component with Checkboxes"
+          ],
+          "fullName": " UiMultipleAnswer.vue Component with Checkboxes renders a component with checkboxes when modelValue is an array",
+          "status": "passed",
+          "title": "renders a component with checkboxes when modelValue is an array",
+          "duration": 11,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiMultipleAnswer.vue",
+            "Component with Checkboxes"
+          ],
+          "fullName": " UiMultipleAnswer.vue Component with Checkboxes renders a component correct number of checkboxes",
+          "status": "passed",
+          "title": "renders a component correct number of checkboxes",
+          "duration": 12,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiMultipleAnswer.vue",
+            "Component with Checkboxes"
+          ],
+          "fullName": " UiMultipleAnswer.vue Component with Checkboxes renders a component and checkboxes with error styles when invalid and touched prop is true",
+          "status": "passed",
+          "title": "renders a component and checkboxes with error styles when invalid and touched prop is true",
+          "duration": 9,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiMultipleAnswer.vue",
+            "Component with Checkboxes"
+          ],
+          "fullName": " UiMultipleAnswer.vue Component with Checkboxes renders a component and checkboxes with error styles when invalid prop is false and touched prop is true",
+          "status": "passed",
+          "title": "renders a component and checkboxes with error styles when invalid prop is false and touched prop is true",
+          "duration": 17,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1665750663365,
+      "endTime": 1665750663530,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/organisms/UiMultipleAnswer/UiMultipleAnswer.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "UiMenu.vue"
+          ],
+          "fullName": " UiMenu.vue renders a component",
+          "status": "passed",
+          "title": "renders a component",
+          "duration": 26,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiMenu.vue"
+          ],
+          "fullName": " UiMenu.vue renders a component via default slot",
+          "status": "passed",
+          "title": "renders a component via default slot",
+          "duration": 23,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiMenu.vue"
+          ],
+          "fullName": " UiMenu.vue renders a component via label slot",
+          "status": "passed",
+          "title": "renders a component via label slot",
+          "duration": 19,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiMenu.vue"
+          ],
+          "fullName": " UiMenu.vue renders a component via suffix slot",
+          "status": "passed",
+          "title": "renders a component via suffix slot",
+          "duration": 7,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiMenu.vue",
+            "component correct render icon when item is selected"
+          ],
+          "fullName": " UiMenu.vue component correct render icon when item is selected \n      component  render an icon when \"suffixVisible\" is set to always and item is selected",
+          "status": "passed",
+          "title": "\n      component  render an icon when \"suffixVisible\" is set to always and item is selected",
+          "duration": 5,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiMenu.vue",
+            "component correct render icon when item is selected"
+          ],
+          "fullName": " UiMenu.vue component correct render icon when item is selected \n      component doesn't render an icon when \"suffixVisible\" is set to never and item is selected",
+          "status": "passed",
+          "title": "\n      component doesn't render an icon when \"suffixVisible\" is set to never and item is selected",
+          "duration": 4,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiMenu.vue",
+            "component correct render icon when item is selected"
+          ],
+          "fullName": " UiMenu.vue component correct render icon when item is selected \n      component  render an icon when \"suffixVisible\" is set to default and item is selected",
+          "status": "passed",
+          "title": "\n      component  render an icon when \"suffixVisible\" is set to default and item is selected",
+          "duration": 6,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiMenu.vue",
+            "component correct render icon when item isn't selected"
+          ],
+          "fullName": " UiMenu.vue component correct render icon when item isn't selected \n      component  render an icon when \"suffixVisible\" is set to always and item isn't selected",
+          "status": "passed",
+          "title": "\n      component  render an icon when \"suffixVisible\" is set to always and item isn't selected",
+          "duration": 7,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiMenu.vue",
+            "component correct render icon when item isn't selected"
+          ],
+          "fullName": " UiMenu.vue component correct render icon when item isn't selected \n      component doesn't render an icon when \"suffixVisible\" is set to never and item isn't selected",
+          "status": "passed",
+          "title": "\n      component doesn't render an icon when \"suffixVisible\" is set to never and item isn't selected",
+          "duration": 3,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiMenu.vue",
+            "component correct render icon when item isn't selected"
+          ],
+          "fullName": " UiMenu.vue component correct render icon when item isn't selected \n      component  render an icon when \"suffixVisible\" is set to default and item isn't selected",
+          "status": "passed",
+          "title": "\n      component  render an icon when \"suffixVisible\" is set to default and item isn't selected",
+          "duration": 4,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiMenu.vue"
+          ],
+          "fullName": " UiMenu.vue renders the correct number of items",
+          "status": "passed",
+          "title": "renders the correct number of items",
+          "duration": 18,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1665750663382,
+      "endTime": 1665750663505,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/organisms/UiMenu/UiMenu.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "UiDatepicker.vue"
+          ],
+          "fullName": " UiDatepicker.vue renders a component",
+          "status": "passed",
+          "title": "renders a component",
+          "duration": 49,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiDatepicker.vue"
+          ],
+          "fullName": " UiDatepicker.vue open calendar with day tab when all fields are filled",
+          "status": "passed",
+          "title": "open calendar with day tab when all fields are filled",
+          "duration": 118,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiDatepicker.vue"
+          ],
+          "fullName": " UiDatepicker.vue open calendar with month tab when all fields are filled",
+          "status": "passed",
+          "title": "open calendar with month tab when all fields are filled",
+          "duration": 127,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiDatepicker.vue"
+          ],
+          "fullName": " UiDatepicker.vue open calendar with year tab when all fields are filled",
+          "status": "passed",
+          "title": "open calendar with year tab when all fields are filled",
+          "duration": 83,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiDatepicker.vue"
+          ],
+          "fullName": " UiDatepicker.vue open calendar with day tab when non fields are filled",
+          "status": "passed",
+          "title": "open calendar with day tab when non fields are filled",
+          "duration": 106,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiDatepicker.vue"
+          ],
+          "fullName": " UiDatepicker.vue open calendar with month tab when non fields are filled",
+          "status": "passed",
+          "title": "open calendar with month tab when non fields are filled",
+          "duration": 60,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiDatepicker.vue"
+          ],
+          "fullName": " UiDatepicker.vue open calendar with year tab when non fields are filled",
+          "status": "passed",
+          "title": "open calendar with year tab when non fields are filled",
+          "duration": 135,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiDatepicker.vue"
+          ],
+          "fullName": " UiDatepicker.vue close calendar when all fields are filled",
+          "status": "passed",
+          "title": "close calendar when all fields are filled",
+          "duration": 136,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiDatepicker.vue"
+          ],
+          "fullName": " UiDatepicker.vue calendar is still open after focus on any input",
+          "status": "passed",
+          "title": "calendar is still open after focus on any input",
+          "duration": 108,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiDatepicker.vue"
+          ],
+          "fullName": " UiDatepicker.vue focuses calendar button after select date on calendar",
+          "status": "passed",
+          "title": "focuses calendar button after select date on calendar",
+          "duration": 165,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1665750663952,
+      "endTime": 1665750665039,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/organisms/UiDatepicker/UiDatepicker.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "UiDropdown.vue"
+          ],
+          "fullName": " UiDropdown.vue renders a component",
+          "status": "passed",
+          "title": "renders a component",
+          "duration": 17,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiDropdown.vue"
+          ],
+          "fullName": " UiDropdown.vue render a content from text props",
+          "status": "passed",
+          "title": "render a content from text props",
+          "duration": 9,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiDropdown.vue"
+          ],
+          "fullName": " UiDropdown.vue render a content via default slot",
+          "status": "passed",
+          "title": "render a content via default slot",
+          "duration": 13,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiDropdown.vue"
+          ],
+          "fullName": " UiDropdown.vue render a content via toggle slot",
+          "status": "passed",
+          "title": "render a content via toggle slot",
+          "duration": 3,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiDropdown.vue"
+          ],
+          "fullName": " UiDropdown.vue render a content via content slot",
+          "status": "passed",
+          "title": "render a content via content slot",
+          "duration": 4,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiDropdown.vue"
+          ],
+          "fullName": " UiDropdown.vue a trigger button click open dropdown",
+          "status": "passed",
+          "title": "a trigger button click open dropdown",
+          "duration": 3,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1665750664362,
+      "endTime": 1665750664412,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiDropdown/UiDropdown.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "UiInteractiveSvg.vue"
+          ],
+          "fullName": " UiInteractiveSvg.vue renders a component",
+          "status": "passed",
+          "title": "renders a component",
+          "duration": 13,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiInteractiveSvg.vue"
+          ],
+          "fullName": " UiInteractiveSvg.vue renders UiInteractiveSvgElement tag provided by tag prop",
+          "status": "passed",
+          "title": "renders UiInteractiveSvgElement tag provided by tag prop",
+          "duration": 18,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiInteractiveSvg.vue"
+          ],
+          "fullName": " UiInteractiveSvg.vue pass attributes to UiInteractiveSvgElement",
+          "status": "passed",
+          "title": "pass attributes to UiInteractiveSvgElement",
+          "duration": 3,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiInteractiveSvg.vue"
+          ],
+          "fullName": " UiInteractiveSvg.vue pass listeners to UiInteractiveSvgElement",
+          "status": "passed",
+          "title": "pass listeners to UiInteractiveSvgElement",
+          "duration": 4,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiInteractiveSvg.vue"
+          ],
+          "fullName": " UiInteractiveSvg.vue pass attrs to nested UiInteractiveSvg elements",
+          "status": "passed",
+          "title": "pass attrs to nested UiInteractiveSvg elements",
+          "duration": 36,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiInteractiveSvg.vue"
+          ],
+          "fullName": " UiInteractiveSvg.vue do not pass nested attrs to higher levels of UiInteractiveSvg elements",
+          "status": "passed",
+          "title": "do not pass nested attrs to higher levels of UiInteractiveSvg elements",
+          "duration": 4,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiInteractiveSvg.vue"
+          ],
+          "fullName": " UiInteractiveSvg.vue do not pass attrs to deeper levels of UiInteractiveSvg elements",
+          "status": "passed",
+          "title": "do not pass attrs to deeper levels of UiInteractiveSvg elements",
+          "duration": 3,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiInteractiveSvg.vue"
+          ],
+          "fullName": " UiInteractiveSvg.vue pass listeners to nested UiInteractiveSvg elements",
+          "status": "passed",
+          "title": "pass listeners to nested UiInteractiveSvg elements",
+          "duration": 3,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiInteractiveSvg.vue"
+          ],
+          "fullName": " UiInteractiveSvg.vue do not pass listeners to deeper levels of UiInteractiveSvg elements",
+          "status": "passed",
+          "title": "do not pass listeners to deeper levels of UiInteractiveSvg elements",
+          "duration": 5,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiInteractiveSvg.vue"
+          ],
+          "fullName": " UiInteractiveSvg.vue do not pass nested listeners to higher levels of UiInteractiveSvg elements",
+          "status": "passed",
+          "title": "do not pass nested listeners to higher levels of UiInteractiveSvg elements",
+          "duration": 2,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1665750664538,
+      "endTime": 1665750664630,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiInteractiveSvg/UiInteractiveSvg.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "UiSwitch.vue"
+          ],
+          "fullName": " UiSwitch.vue renders a component",
+          "status": "passed",
+          "title": "renders a component",
+          "duration": 48,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiSwitch.vue"
+          ],
+          "fullName": " UiSwitch.vue render a content via switchcontrol slot",
+          "status": "passed",
+          "title": "render a content via switchcontrol slot",
+          "duration": 13,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiSwitch.vue"
+          ],
+          "fullName": " UiSwitch.vue render a content via default slot",
+          "status": "passed",
+          "title": "render a content via default slot",
+          "duration": 5,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiSwitch.vue"
+          ],
+          "fullName": " UiSwitch.vue a component emits update event",
+          "status": "passed",
+          "title": "a component emits update event",
+          "duration": 4,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiSwitch.vue"
+          ],
+          "fullName": " UiSwitch.vue a component is disabled",
+          "status": "passed",
+          "title": "a component is disabled",
+          "duration": 5,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1665750664785,
+      "endTime": 1665750664860,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiSwitch/UiSwitch.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "UiNumberStepper.vue"
+          ],
+          "fullName": " UiNumberStepper.vue renders a component",
+          "status": "passed",
+          "title": "renders a component",
+          "duration": 23,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiNumberStepper.vue"
+          ],
+          "fullName": " UiNumberStepper.vue clicking decrement button decrement the value",
+          "status": "passed",
+          "title": "clicking decrement button decrement the value",
+          "duration": 7,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiNumberStepper.vue"
+          ],
+          "fullName": " UiNumberStepper.vue clicking increment button increment the value",
+          "status": "passed",
+          "title": "clicking increment button increment the value",
+          "duration": 5,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiNumberStepper.vue"
+          ],
+          "fullName": " UiNumberStepper.vue value can't be smallest than min",
+          "status": "passed",
+          "title": "value can't be smallest than min",
+          "duration": 4,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiNumberStepper.vue"
+          ],
+          "fullName": " UiNumberStepper.vue value can't be bigger than max",
+          "status": "passed",
+          "title": "value can't be bigger than max",
+          "duration": 15,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1665750664990,
+      "endTime": 1665750665044,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiNumberStepper/UiNumberStepper.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "UiRange.vue"
+          ],
+          "fullName": " UiRange.vue renders a component",
+          "status": "passed",
+          "title": "renders a component",
+          "duration": 35,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiRange.vue"
+          ],
+          "fullName": " UiRange.vue renders a content via value slot",
+          "status": "passed",
+          "title": "renders a content via value slot",
+          "duration": 47,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiRange.vue"
+          ],
+          "fullName": " UiRange.vue renders a content via decrement slot",
+          "status": "passed",
+          "title": "renders a content via decrement slot",
+          "duration": 9,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiRange.vue"
+          ],
+          "fullName": " UiRange.vue renders a content via increment slot",
+          "status": "passed",
+          "title": "renders a content via increment slot",
+          "duration": 5,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiRange.vue"
+          ],
+          "fullName": " UiRange.vue percent position of thumb is right",
+          "status": "passed",
+          "title": "percent position of thumb is right",
+          "duration": 4,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiRange.vue"
+          ],
+          "fullName": " UiRange.vue pass percent position of thumb to component style",
+          "status": "passed",
+          "title": "pass percent position of thumb to component style",
+          "duration": 5,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiRange.vue"
+          ],
+          "fullName": " UiRange.vue clicking increment button increments the value",
+          "status": "passed",
+          "title": "clicking increment button increments the value",
+          "duration": 8,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiRange.vue"
+          ],
+          "fullName": " UiRange.vue clicking decrement button decrements the value",
+          "status": "passed",
+          "title": "clicking decrement button decrements the value",
+          "duration": 5,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiRange.vue"
+          ],
+          "fullName": " UiRange.vue component passes attributes to child button components",
+          "status": "passed",
+          "title": "component passes attributes to child button components",
+          "duration": 15,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1665750665024,
+      "endTime": 1665750665157,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/atoms/UiRange/UiRange.spec.js"
+    },
     {
       "assertionResults": [
         {
@@ -22,7 +1351,7 @@
           "fullName": " UiStepper.vue shared renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 25,
+          "duration": 39,
           "failureMessages": []
         },
         {
@@ -46,7 +1375,7 @@
           "fullName": " UiStepper.vue mobile renders a component displaying correct step number",
           "status": "passed",
           "title": "renders a component displaying correct step number",
-          "duration": 13,
+          "duration": 21,
           "failureMessages": []
         },
         {
@@ -58,7 +1387,7 @@
           "fullName": " UiStepper.vue desktop renders a component in desktop version",
           "status": "passed",
           "title": "renders a component in desktop version",
-          "duration": 10,
+          "duration": 6,
           "failureMessages": []
         },
         {
@@ -86,1029 +1415,11 @@
           "failureMessages": []
         }
       ],
-      "startTime": 1665746457366,
-      "endTime": 1665746457447,
+      "startTime": 1665750665078,
+      "endTime": 1665750665177,
       "status": "passed",
       "message": "",
       "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiStepper/UiStepper.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "UiRange.vue"
-          ],
-          "fullName": " UiRange.vue renders a component",
-          "status": "passed",
-          "title": "renders a component",
-          "duration": 21,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiRange.vue"
-          ],
-          "fullName": " UiRange.vue renders a content via value slot",
-          "status": "passed",
-          "title": "renders a content via value slot",
-          "duration": 13,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiRange.vue"
-          ],
-          "fullName": " UiRange.vue renders a content via decrement slot",
-          "status": "passed",
-          "title": "renders a content via decrement slot",
-          "duration": 6,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiRange.vue"
-          ],
-          "fullName": " UiRange.vue renders a content via increment slot",
-          "status": "passed",
-          "title": "renders a content via increment slot",
-          "duration": 13,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiRange.vue"
-          ],
-          "fullName": " UiRange.vue percent position of thumb is right",
-          "status": "passed",
-          "title": "percent position of thumb is right",
-          "duration": 3,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiRange.vue"
-          ],
-          "fullName": " UiRange.vue pass percent position of thumb to component style",
-          "status": "passed",
-          "title": "pass percent position of thumb to component style",
-          "duration": 4,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiRange.vue"
-          ],
-          "fullName": " UiRange.vue clicking increment button increments the value",
-          "status": "passed",
-          "title": "clicking increment button increments the value",
-          "duration": 6,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiRange.vue"
-          ],
-          "fullName": " UiRange.vue clicking decrement button decrements the value",
-          "status": "passed",
-          "title": "clicking decrement button decrements the value",
-          "duration": 5,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiRange.vue"
-          ],
-          "fullName": " UiRange.vue component passes attributes to child button components",
-          "status": "passed",
-          "title": "component passes attributes to child button components",
-          "duration": 8,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1665746457377,
-      "endTime": 1665746457456,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/atoms/UiRange/UiRange.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "UiScale.vue"
-          ],
-          "fullName": " UiScale.vue renders a component",
-          "status": "passed",
-          "title": "renders a component",
-          "duration": 41,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiScale.vue"
-          ],
-          "fullName": " UiScale.vue renders a content via decrement slot",
-          "status": "passed",
-          "title": "renders a content via decrement slot",
-          "duration": 20,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiScale.vue"
-          ],
-          "fullName": " UiScale.vue renders a content via increment slot",
-          "status": "passed",
-          "title": "renders a content via increment slot",
-          "duration": 10,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiScale.vue"
-          ],
-          "fullName": " UiScale.vue rendes certein number of options",
-          "status": "passed",
-          "title": "rendes certein number of options",
-          "duration": 27,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiScale.vue"
-          ],
-          "fullName": " UiScale.vue pain value pass to component",
-          "status": "passed",
-          "title": "pain value pass to component",
-          "duration": 10,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiScale.vue"
-          ],
-          "fullName": " UiScale.vue clicking increment button increments scale value",
-          "status": "passed",
-          "title": "clicking increment button increments scale value",
-          "duration": 18,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiScale.vue"
-          ],
-          "fullName": " UiScale.vue clicking decrement button decrements scale value",
-          "status": "passed",
-          "title": "clicking decrement button decrements scale value",
-          "duration": 19,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiScale.vue"
-          ],
-          "fullName": " UiScale.vue incrementing by button dont get value out of scale bounds",
-          "status": "passed",
-          "title": "incrementing by button dont get value out of scale bounds",
-          "duration": 11,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiScale.vue"
-          ],
-          "fullName": " UiScale.vue decrementing by button dont get value out of scale bounds",
-          "status": "passed",
-          "title": "decrementing by button dont get value out of scale bounds",
-          "duration": 13,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1665746457470,
-      "endTime": 1665746457639,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiScale/UiScale.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "UiModal.vue"
-          ],
-          "fullName": " UiModal.vue renders a component",
-          "status": "passed",
-          "title": "renders a component",
-          "duration": 29,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiModal.vue"
-          ],
-          "fullName": " UiModal.vue component can be open by model value",
-          "status": "passed",
-          "title": "component can be open by model value",
-          "duration": 9,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiModal.vue"
-          ],
-          "fullName": " UiModal.vue component can be closed by clicking outside when is closable",
-          "status": "passed",
-          "title": "component can be closed by clicking outside when is closable",
-          "duration": 14,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiModal.vue"
-          ],
-          "fullName": " UiModal.vue component can't be closed by clicking outside when is unclosable",
-          "status": "passed",
-          "title": "component can't be closed by clicking outside when is unclosable",
-          "duration": 9,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiModal.vue"
-          ],
-          "fullName": " UiModal.vue component emit confirm event",
-          "status": "passed",
-          "title": "component emit confirm event",
-          "duration": 6,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiModal.vue"
-          ],
-          "fullName": " UiModal.vue component emit cancel event",
-          "status": "passed",
-          "title": "component emit cancel event",
-          "duration": 4,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiModal.vue"
-          ],
-          "fullName": " UiModal.vue title scope slot renders content for title when component has title and description props",
-          "status": "passed",
-          "title": "title scope slot renders content for title when component has title and description props",
-          "duration": 16,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiModal.vue"
-          ],
-          "fullName": " UiModal.vue title slot is not rendered if component does not have title prop",
-          "status": "passed",
-          "title": "title slot is not rendered if component does not have title prop",
-          "duration": 11,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiModal.vue"
-          ],
-          "fullName": " UiModal.vue description scope slot render content for description when component has title and description props",
-          "status": "passed",
-          "title": "description scope slot render content for description when component has title and description props",
-          "duration": 14,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiModal.vue"
-          ],
-          "fullName": " UiModal.vue description scope slot render content for description if component does not have title prop",
-          "status": "passed",
-          "title": "description scope slot render content for description if component does not have title prop",
-          "duration": 9,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiModal.vue"
-          ],
-          "fullName": " UiModal.vue description scope slot is rendered once if component does not have title prop",
-          "status": "passed",
-          "title": "description scope slot is rendered once if component does not have title prop",
-          "duration": 9,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1665746457481,
-      "endTime": 1665746457611,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/organisms/UiModal/UiModal.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "UiHeader.vue"
-          ],
-          "fullName": " UiHeader.vue renders a component",
-          "status": "passed",
-          "title": "renders a component",
-          "duration": 21,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiHeader.vue"
-          ],
-          "fullName": " UiHeader.vue hamburger should not be visible on the desktop",
-          "status": "passed",
-          "title": "hamburger should not be visible on the desktop",
-          "duration": 10,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiHeader.vue"
-          ],
-          "fullName": " UiHeader.vue hamburger should be visible on the mobile",
-          "status": "passed",
-          "title": "hamburger should be visible on the mobile",
-          "duration": 8,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiHeader.vue"
-          ],
-          "fullName": " UiHeader.vue a component emits hamburger:open event",
-          "status": "passed",
-          "title": "a component emits hamburger:open event",
-          "duration": 6,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiHeader.vue"
-          ],
-          "fullName": " UiHeader.vue a component emits hamburger:close event",
-          "status": "passed",
-          "title": "a component emits hamburger:close event",
-          "duration": 5,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1665746457574,
-      "endTime": 1665746457624,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiHeader/UiHeader.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "UiMenu.vue"
-          ],
-          "fullName": " UiMenu.vue renders a component",
-          "status": "passed",
-          "title": "renders a component",
-          "duration": 47,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiMenu.vue"
-          ],
-          "fullName": " UiMenu.vue renders a component via default slot",
-          "status": "passed",
-          "title": "renders a component via default slot",
-          "duration": 23,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiMenu.vue"
-          ],
-          "fullName": " UiMenu.vue renders a component via label slot",
-          "status": "passed",
-          "title": "renders a component via label slot",
-          "duration": 16,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiMenu.vue"
-          ],
-          "fullName": " UiMenu.vue renders a component via suffix slot",
-          "status": "passed",
-          "title": "renders a component via suffix slot",
-          "duration": 8,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiMenu.vue",
-            "component correct render icon when item is selected"
-          ],
-          "fullName": " UiMenu.vue component correct render icon when item is selected \n      component  render an icon when \"suffixVisible\" is set to always and item is selected",
-          "status": "passed",
-          "title": "\n      component  render an icon when \"suffixVisible\" is set to always and item is selected",
-          "duration": 4,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiMenu.vue",
-            "component correct render icon when item is selected"
-          ],
-          "fullName": " UiMenu.vue component correct render icon when item is selected \n      component doesn't render an icon when \"suffixVisible\" is set to never and item is selected",
-          "status": "passed",
-          "title": "\n      component doesn't render an icon when \"suffixVisible\" is set to never and item is selected",
-          "duration": 4,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiMenu.vue",
-            "component correct render icon when item is selected"
-          ],
-          "fullName": " UiMenu.vue component correct render icon when item is selected \n      component  render an icon when \"suffixVisible\" is set to default and item is selected",
-          "status": "passed",
-          "title": "\n      component  render an icon when \"suffixVisible\" is set to default and item is selected",
-          "duration": 4,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiMenu.vue",
-            "component correct render icon when item isn't selected"
-          ],
-          "fullName": " UiMenu.vue component correct render icon when item isn't selected \n      component  render an icon when \"suffixVisible\" is set to always and item isn't selected",
-          "status": "passed",
-          "title": "\n      component  render an icon when \"suffixVisible\" is set to always and item isn't selected",
-          "duration": 4,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiMenu.vue",
-            "component correct render icon when item isn't selected"
-          ],
-          "fullName": " UiMenu.vue component correct render icon when item isn't selected \n      component doesn't render an icon when \"suffixVisible\" is set to never and item isn't selected",
-          "status": "passed",
-          "title": "\n      component doesn't render an icon when \"suffixVisible\" is set to never and item isn't selected",
-          "duration": 3,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiMenu.vue",
-            "component correct render icon when item isn't selected"
-          ],
-          "fullName": " UiMenu.vue component correct render icon when item isn't selected \n      component  render an icon when \"suffixVisible\" is set to default and item isn't selected",
-          "status": "passed",
-          "title": "\n      component  render an icon when \"suffixVisible\" is set to default and item isn't selected",
-          "duration": 3,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiMenu.vue"
-          ],
-          "fullName": " UiMenu.vue renders the correct number of items",
-          "status": "passed",
-          "title": "renders the correct number of items",
-          "duration": 11,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1665746457627,
-      "endTime": 1665746457754,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/organisms/UiMenu/UiMenu.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "UiMultipleAnswer.vue",
-            "Component with Radioses"
-          ],
-          "fullName": " UiMultipleAnswer.vue Component with Radioses renders a component with radio buttons when modelValue is a string",
-          "status": "passed",
-          "title": "renders a component with radio buttons when modelValue is a string",
-          "duration": 87,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiMultipleAnswer.vue",
-            "Component with Radioses"
-          ],
-          "fullName": " UiMultipleAnswer.vue Component with Radioses renders a component with radio buttons when modelValue is an object",
-          "status": "passed",
-          "title": "renders a component with radio buttons when modelValue is an object",
-          "duration": 10,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiMultipleAnswer.vue",
-            "Component with Radioses"
-          ],
-          "fullName": " UiMultipleAnswer.vue Component with Radioses renders a component with correct number of radioses",
-          "status": "passed",
-          "title": "renders a component with correct number of radioses",
-          "duration": 9,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiMultipleAnswer.vue",
-            "Component with Radioses"
-          ],
-          "fullName": " UiMultipleAnswer.vue Component with Radioses renders a component and radioses with error styles when invalid and touched prop is true",
-          "status": "passed",
-          "title": "renders a component and radioses with error styles when invalid and touched prop is true",
-          "duration": 23,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiMultipleAnswer.vue",
-            "Component with Radioses"
-          ],
-          "fullName": " UiMultipleAnswer.vue Component with Radioses renders a component and radioses with error styles when invalid prop is false and touched prop is true",
-          "status": "passed",
-          "title": "renders a component and radioses with error styles when invalid prop is false and touched prop is true",
-          "duration": 7,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiMultipleAnswer.vue",
-            "Component with Checkboxes"
-          ],
-          "fullName": " UiMultipleAnswer.vue Component with Checkboxes renders a component with checkboxes when modelValue is an array",
-          "status": "passed",
-          "title": "renders a component with checkboxes when modelValue is an array",
-          "duration": 14,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiMultipleAnswer.vue",
-            "Component with Checkboxes"
-          ],
-          "fullName": " UiMultipleAnswer.vue Component with Checkboxes renders a component correct number of checkboxes",
-          "status": "passed",
-          "title": "renders a component correct number of checkboxes",
-          "duration": 9,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiMultipleAnswer.vue",
-            "Component with Checkboxes"
-          ],
-          "fullName": " UiMultipleAnswer.vue Component with Checkboxes renders a component and checkboxes with error styles when invalid and touched prop is true",
-          "status": "passed",
-          "title": "renders a component and checkboxes with error styles when invalid and touched prop is true",
-          "duration": 7,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiMultipleAnswer.vue",
-            "Component with Checkboxes"
-          ],
-          "fullName": " UiMultipleAnswer.vue Component with Checkboxes renders a component and checkboxes with error styles when invalid prop is false and touched prop is true",
-          "status": "passed",
-          "title": "renders a component and checkboxes with error styles when invalid prop is false and touched prop is true",
-          "duration": 13,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1665746457633,
-      "endTime": 1665746457812,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/organisms/UiMultipleAnswer/UiMultipleAnswer.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "UiDropdown.vue"
-          ],
-          "fullName": " UiDropdown.vue renders a component",
-          "status": "passed",
-          "title": "renders a component",
-          "duration": 33,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiDropdown.vue"
-          ],
-          "fullName": " UiDropdown.vue render a content from text props",
-          "status": "passed",
-          "title": "render a content from text props",
-          "duration": 13,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiDropdown.vue"
-          ],
-          "fullName": " UiDropdown.vue render a content via default slot",
-          "status": "passed",
-          "title": "render a content via default slot",
-          "duration": 15,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiDropdown.vue"
-          ],
-          "fullName": " UiDropdown.vue render a content via toggle slot",
-          "status": "passed",
-          "title": "render a content via toggle slot",
-          "duration": 2,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiDropdown.vue"
-          ],
-          "fullName": " UiDropdown.vue render a content via content slot",
-          "status": "passed",
-          "title": "render a content via content slot",
-          "duration": 14,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiDropdown.vue"
-          ],
-          "fullName": " UiDropdown.vue a trigger button click open dropdown",
-          "status": "passed",
-          "title": "a trigger button click open dropdown",
-          "duration": 6,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1665746457676,
-      "endTime": 1665746457759,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiDropdown/UiDropdown.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "UiDatepicker.vue"
-          ],
-          "fullName": " UiDatepicker.vue renders a component",
-          "status": "passed",
-          "title": "renders a component",
-          "duration": 50,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiDatepicker.vue"
-          ],
-          "fullName": " UiDatepicker.vue open calendar with day tab when all fields are filled",
-          "status": "passed",
-          "title": "open calendar with day tab when all fields are filled",
-          "duration": 106,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiDatepicker.vue"
-          ],
-          "fullName": " UiDatepicker.vue open calendar with month tab when all fields are filled",
-          "status": "passed",
-          "title": "open calendar with month tab when all fields are filled",
-          "duration": 128,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiDatepicker.vue"
-          ],
-          "fullName": " UiDatepicker.vue open calendar with year tab when all fields are filled",
-          "status": "passed",
-          "title": "open calendar with year tab when all fields are filled",
-          "duration": 55,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiDatepicker.vue"
-          ],
-          "fullName": " UiDatepicker.vue open calendar with day tab when non fields are filled",
-          "status": "passed",
-          "title": "open calendar with day tab when non fields are filled",
-          "duration": 66,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiDatepicker.vue"
-          ],
-          "fullName": " UiDatepicker.vue open calendar with month tab when non fields are filled",
-          "status": "passed",
-          "title": "open calendar with month tab when non fields are filled",
-          "duration": 48,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiDatepicker.vue"
-          ],
-          "fullName": " UiDatepicker.vue open calendar with year tab when non fields are filled",
-          "status": "passed",
-          "title": "open calendar with year tab when non fields are filled",
-          "duration": 50,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiDatepicker.vue"
-          ],
-          "fullName": " UiDatepicker.vue close calendar when all fields are filled",
-          "status": "passed",
-          "title": "close calendar when all fields are filled",
-          "duration": 117,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiDatepicker.vue"
-          ],
-          "fullName": " UiDatepicker.vue calendar is still open after focus on any input",
-          "status": "passed",
-          "title": "calendar is still open after focus on any input",
-          "duration": 73,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiDatepicker.vue"
-          ],
-          "fullName": " UiDatepicker.vue focuses calendar button after select date on calendar",
-          "status": "passed",
-          "title": "focuses calendar button after select date on calendar",
-          "duration": 227,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1665746458172,
-      "endTime": 1665746459092,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/organisms/UiDatepicker/UiDatepicker.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "UiToggleButtonGroup.vue"
-          ],
-          "fullName": " UiToggleButtonGroup.vue renders a component",
-          "status": "passed",
-          "title": "renders a component",
-          "duration": 11,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiToggleButtonGroup.vue"
-          ],
-          "fullName": " UiToggleButtonGroup.vue updates modelValue after click a first toggle button",
-          "status": "passed",
-          "title": "updates modelValue after click a first toggle button",
-          "duration": 17,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiToggleButtonGroup.vue"
-          ],
-          "fullName": " UiToggleButtonGroup.vue unpressed a first item after third item clicked",
-          "status": "passed",
-          "title": "unpressed a first item after third item clicked",
-          "duration": 9,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiToggleButtonGroup.vue"
-          ],
-          "fullName": " UiToggleButtonGroup.vue deselects item when deselectable props is set",
-          "status": "passed",
-          "title": "deselects item when deselectable props is set",
-          "duration": 5,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiToggleButtonGroup.vue"
-          ],
-          "fullName": " UiToggleButtonGroup.vue not deselects item when deselectable props is not set",
-          "status": "passed",
-          "title": "not deselects item when deselectable props is not set",
-          "duration": 7,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiToggleButtonGroup.vue"
-          ],
-          "fullName": " UiToggleButtonGroup.vue updates value with object values",
-          "status": "passed",
-          "title": "updates value with object values",
-          "duration": 5,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1665746458920,
-      "endTime": 1665746458974,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiToggleButtonGroup/UiToggleButtonGroup.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "UiCheckbox.vue"
-          ],
-          "fullName": " UiCheckbox.vue render a component",
-          "status": "passed",
-          "title": "render a component",
-          "duration": 15,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiCheckbox.vue"
-          ],
-          "fullName": " UiCheckbox.vue render a content via default slot",
-          "status": "passed",
-          "title": "render a content via default slot",
-          "duration": 14,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiCheckbox.vue"
-          ],
-          "fullName": " UiCheckbox.vue render a content via checkbox slot",
-          "status": "passed",
-          "title": "render a content via checkbox slot",
-          "duration": 3,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiCheckbox.vue"
-          ],
-          "fullName": " UiCheckbox.vue render default id for non passed id property",
-          "status": "passed",
-          "title": "render default id for non passed id property",
-          "duration": 4,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiCheckbox.vue"
-          ],
-          "fullName": " UiCheckbox.vue a checkbox click emits change event",
-          "status": "passed",
-          "title": "a checkbox click emits change event",
-          "duration": 4,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiCheckbox.vue"
-          ],
-          "fullName": " UiCheckbox.vue a component pass Object as value",
-          "status": "passed",
-          "title": "a component pass Object as value",
-          "duration": 4,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiCheckbox.vue"
-          ],
-          "fullName": " UiCheckbox.vue a component emits array for multiple checkboxes with object",
-          "status": "passed",
-          "title": "a component emits array for multiple checkboxes with object",
-          "duration": 12,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1665746458930,
-      "endTime": 1665746458986,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/atoms/UiCheckbox/UiCheckbox.spec.js"
     },
     {
       "assertionResults": [
@@ -1120,7 +1431,7 @@
           "fullName": " UiRadio.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 14,
+          "duration": 39,
           "failureMessages": []
         },
         {
@@ -1131,7 +1442,7 @@
           "fullName": " UiRadio.vue render a content via default slot",
           "status": "passed",
           "title": "render a content via default slot",
-          "duration": 14,
+          "duration": 13,
           "failureMessages": []
         },
         {
@@ -1164,7 +1475,7 @@
           "fullName": " UiRadio.vue a radio click emits change event",
           "status": "passed",
           "title": "a radio click emits change event",
-          "duration": 31,
+          "duration": 3,
           "failureMessages": []
         },
         {
@@ -1175,293 +1486,15 @@
           "fullName": " UiRadio.vue a component pass Object as value",
           "status": "passed",
           "title": "a component pass Object as value",
-          "duration": 7,
+          "duration": 3,
           "failureMessages": []
         }
       ],
-      "startTime": 1665746459134,
-      "endTime": 1665746459208,
+      "startTime": 1665750665119,
+      "endTime": 1665750665185,
       "status": "passed",
       "message": "",
       "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/atoms/UiRadio/UiRadio.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "UiAccordion.vue"
-          ],
-          "fullName": " UiAccordion.vue renders a component",
-          "status": "passed",
-          "title": "renders a component",
-          "duration": 17,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiAccordion.vue"
-          ],
-          "fullName": " UiAccordion.vue component emit single item for String v-model",
-          "status": "passed",
-          "title": "component emit single item for String v-model",
-          "duration": 21,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiAccordion.vue"
-          ],
-          "fullName": " UiAccordion.vue component emit multiple items for Array v-model",
-          "status": "passed",
-          "title": "component emit multiple items for Array v-model",
-          "duration": 6,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1665746459240,
-      "endTime": 1665746459284,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/organisms/UiAccordion/UiAccordion.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "UiNumberStepper.vue"
-          ],
-          "fullName": " UiNumberStepper.vue renders a component",
-          "status": "passed",
-          "title": "renders a component",
-          "duration": 48,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiNumberStepper.vue"
-          ],
-          "fullName": " UiNumberStepper.vue clicking decrement button decrement the value",
-          "status": "passed",
-          "title": "clicking decrement button decrement the value",
-          "duration": 13,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiNumberStepper.vue"
-          ],
-          "fullName": " UiNumberStepper.vue clicking increment button increment the value",
-          "status": "passed",
-          "title": "clicking increment button increment the value",
-          "duration": 8,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiNumberStepper.vue"
-          ],
-          "fullName": " UiNumberStepper.vue value can't be smallest than min",
-          "status": "passed",
-          "title": "value can't be smallest than min",
-          "duration": 4,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiNumberStepper.vue"
-          ],
-          "fullName": " UiNumberStepper.vue value can't be bigger than max",
-          "status": "passed",
-          "title": "value can't be bigger than max",
-          "duration": 8,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1665746459289,
-      "endTime": 1665746459370,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiNumberStepper/UiNumberStepper.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "UiInteractiveSvg.vue"
-          ],
-          "fullName": " UiInteractiveSvg.vue renders a component",
-          "status": "passed",
-          "title": "renders a component",
-          "duration": 17,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiInteractiveSvg.vue"
-          ],
-          "fullName": " UiInteractiveSvg.vue renders UiInteractiveSvgElement tag provided by tag prop",
-          "status": "passed",
-          "title": "renders UiInteractiveSvgElement tag provided by tag prop",
-          "duration": 20,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiInteractiveSvg.vue"
-          ],
-          "fullName": " UiInteractiveSvg.vue pass attributes to UiInteractiveSvgElement",
-          "status": "passed",
-          "title": "pass attributes to UiInteractiveSvgElement",
-          "duration": 5,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiInteractiveSvg.vue"
-          ],
-          "fullName": " UiInteractiveSvg.vue pass listeners to UiInteractiveSvgElement",
-          "status": "passed",
-          "title": "pass listeners to UiInteractiveSvgElement",
-          "duration": 5,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiInteractiveSvg.vue"
-          ],
-          "fullName": " UiInteractiveSvg.vue pass attrs to nested UiInteractiveSvg elements",
-          "status": "passed",
-          "title": "pass attrs to nested UiInteractiveSvg elements",
-          "duration": 9,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiInteractiveSvg.vue"
-          ],
-          "fullName": " UiInteractiveSvg.vue do not pass nested attrs to higher levels of UiInteractiveSvg elements",
-          "status": "passed",
-          "title": "do not pass nested attrs to higher levels of UiInteractiveSvg elements",
-          "duration": 3,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiInteractiveSvg.vue"
-          ],
-          "fullName": " UiInteractiveSvg.vue do not pass attrs to deeper levels of UiInteractiveSvg elements",
-          "status": "passed",
-          "title": "do not pass attrs to deeper levels of UiInteractiveSvg elements",
-          "duration": 4,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiInteractiveSvg.vue"
-          ],
-          "fullName": " UiInteractiveSvg.vue pass listeners to nested UiInteractiveSvg elements",
-          "status": "passed",
-          "title": "pass listeners to nested UiInteractiveSvg elements",
-          "duration": 4,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiInteractiveSvg.vue"
-          ],
-          "fullName": " UiInteractiveSvg.vue do not pass listeners to deeper levels of UiInteractiveSvg elements",
-          "status": "passed",
-          "title": "do not pass listeners to deeper levels of UiInteractiveSvg elements",
-          "duration": 12,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiInteractiveSvg.vue"
-          ],
-          "fullName": " UiInteractiveSvg.vue do not pass nested listeners to higher levels of UiInteractiveSvg elements",
-          "status": "passed",
-          "title": "do not pass nested listeners to higher levels of UiInteractiveSvg elements",
-          "duration": 4,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1665746459390,
-      "endTime": 1665746459474,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiInteractiveSvg/UiInteractiveSvg.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "UiMultipleChoices.vue"
-          ],
-          "fullName": " UiMultipleChoices.vue renders a component",
-          "status": "passed",
-          "title": "renders a component",
-          "duration": 20,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiMultipleChoices.vue"
-          ],
-          "fullName": " UiMultipleChoices.vue a component emits update:modelValue as array",
-          "status": "passed",
-          "title": "a component emits update:modelValue as array",
-          "duration": 26,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiMultipleChoices.vue"
-          ],
-          "fullName": " UiMultipleChoices.vue a possible to pass custom choices by options property",
-          "status": "passed",
-          "title": "a possible to pass custom choices by options property",
-          "duration": 7,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiMultipleChoices.vue"
-          ],
-          "fullName": " UiMultipleChoices.vue a possible to valid custom choices component",
-          "status": "passed",
-          "title": "a possible to valid custom choices component",
-          "duration": 30,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1665746459424,
-      "endTime": 1665746459508,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/organisms/UiMultipleChoices/UiMultipleChoices.spec.js"
     },
     {
       "assertionResults": [
@@ -1473,7 +1506,7 @@
           "fullName": " UiRating.vue check if component renders",
           "status": "passed",
           "title": "check if component renders",
-          "duration": 36,
+          "duration": 21,
           "failureMessages": []
         },
         {
@@ -1484,7 +1517,7 @@
           "fullName": " UiRating.vue check if max rate pass to component",
           "status": "passed",
           "title": "check if max rate pass to component",
-          "duration": 15,
+          "duration": 42,
           "failureMessages": []
         },
         {
@@ -1495,421 +1528,15 @@
           "fullName": " UiRating.vue check if rate value pass to component",
           "status": "passed",
           "title": "check if rate value pass to component",
-          "duration": 17,
+          "duration": 18,
           "failureMessages": []
         }
       ],
-      "startTime": 1665746459582,
-      "endTime": 1665746459650,
+      "startTime": 1665750665247,
+      "endTime": 1665750665328,
       "status": "passed",
       "message": "",
       "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiRating/UiRating.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "directive/highlight"
-          ],
-          "fullName": " directive/highlight no markings if searched query is empty string",
-          "status": "passed",
-          "title": "no markings if searched query is empty string",
-          "duration": 38,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "directive/highlight"
-          ],
-          "fullName": " directive/highlight marking searched query",
-          "status": "passed",
-          "title": "marking searched query",
-          "duration": 13,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "directive/highlight"
-          ],
-          "fullName": " directive/highlight correct update markings searched query",
-          "status": "passed",
-          "title": "correct update markings searched query",
-          "duration": 9,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "directive/highlight"
-          ],
-          "fullName": " directive/highlight no markings if text does not contain searched query",
-          "status": "passed",
-          "title": "no markings if text does not contain searched query",
-          "duration": 43,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "directive/highlight"
-          ],
-          "fullName": " directive/highlight thrown error when search query is null",
-          "status": "passed",
-          "title": "thrown error when search query is null",
-          "duration": 3,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "directive/highlight"
-          ],
-          "fullName": " directive/highlight thrown error when search query is undefined",
-          "status": "passed",
-          "title": "thrown error when search query is undefined",
-          "duration": 3,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1665746460454,
-      "endTime": 1665746460563,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/utilities/directives/highlight/highlight.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "UiNotification.vue"
-          ],
-          "fullName": " UiNotification.vue renders a component",
-          "status": "passed",
-          "title": "renders a component",
-          "duration": 18,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiNotification.vue"
-          ],
-          "fullName": " UiNotification.vue component is success type",
-          "status": "passed",
-          "title": "component is success type",
-          "duration": 9,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiNotification.vue"
-          ],
-          "fullName": " UiNotification.vue component is info type",
-          "status": "passed",
-          "title": "component is info type",
-          "duration": 5,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiNotification.vue"
-          ],
-          "fullName": " UiNotification.vue component is warning type",
-          "status": "passed",
-          "title": "component is warning type",
-          "duration": 3,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiNotification.vue"
-          ],
-          "fullName": " UiNotification.vue component is error type",
-          "status": "passed",
-          "title": "component is error type",
-          "duration": 3,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1665746460497,
-      "endTime": 1665746460535,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiNotification/UiNotification.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "UiSidePanel.vue"
-          ],
-          "fullName": " UiSidePanel.vue renders a component",
-          "status": "passed",
-          "title": "renders a component",
-          "duration": 23,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiSidePanel.vue"
-          ],
-          "fullName": " UiSidePanel.vue a component can be open by model value",
-          "status": "passed",
-          "title": "a component can be open by model value",
-          "duration": 18,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiSidePanel.vue"
-          ],
-          "fullName": " UiSidePanel.vue render a content via default slot",
-          "status": "passed",
-          "title": "render a content via default slot",
-          "duration": 12,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1665746460522,
-      "endTime": 1665746460575,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/organisms/UiSidePanel/UiSidePanel.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "directive/scrollTabindex"
-          ],
-          "fullName": " directive/scrollTabindex remove tabindex if scrollHeight is lower than clientHeight",
-          "status": "passed",
-          "title": "remove tabindex if scrollHeight is lower than clientHeight",
-          "duration": 14,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "directive/scrollTabindex"
-          ],
-          "fullName": " directive/scrollTabindex adding tabindex if scrollHeight changed",
-          "status": "passed",
-          "title": "adding tabindex if scrollHeight changed",
-          "duration": 3,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "directive/scrollTabindex"
-          ],
-          "fullName": " directive/scrollTabindex remove tabindex if clientHeight changed",
-          "status": "passed",
-          "title": "remove tabindex if clientHeight changed",
-          "duration": 4,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "directive/scrollTabindex"
-          ],
-          "fullName": " directive/scrollTabindex remove tabindex if scrollHeight equals clientHeight",
-          "status": "passed",
-          "title": "remove tabindex if scrollHeight equals clientHeight",
-          "duration": 2,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "directive/scrollTabindex"
-          ],
-          "fullName": " directive/scrollTabindex add tabindex if scrollHeight is greater than clientHeight",
-          "status": "passed",
-          "title": "add tabindex if scrollHeight is greater than clientHeight",
-          "duration": 3,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1665746460551,
-      "endTime": 1665746460577,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/utilities/directives/scroll-tabindex/scroll-tabindex.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "UiFormField.vue"
-          ],
-          "fullName": " UiFormField.vue renders a component",
-          "status": "passed",
-          "title": "renders a component",
-          "duration": 62,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiFormField.vue"
-          ],
-          "fullName": " UiFormField.vue renders component with custom label from slot",
-          "status": "passed",
-          "title": "renders component with custom label from slot",
-          "duration": 15,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiFormField.vue"
-          ],
-          "fullName": " UiFormField.vue renders component with custom label from slot and has only one label",
-          "status": "passed",
-          "title": "renders component with custom label from slot and has only one label",
-          "duration": 6,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiFormField.vue"
-          ],
-          "fullName": " UiFormField.vue renders a label when passed a label prop",
-          "status": "passed",
-          "title": "renders a label when passed a label prop",
-          "duration": 23,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiFormField.vue"
-          ],
-          "fullName": " UiFormField.vue renders an alert when passed an errorMessage prop",
-          "status": "passed",
-          "title": "renders an alert when passed an errorMessage prop",
-          "duration": 5,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiFormField.vue"
-          ],
-          "fullName": " UiFormField.vue renders a hint alert when passed a label and hint props",
-          "status": "passed",
-          "title": "renders a hint alert when passed a label and hint props",
-          "duration": 13,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiFormField.vue"
-          ],
-          "fullName": " UiFormField.vue does not render a hint alert when passed hint prop without label",
-          "status": "passed",
-          "title": "does not render a hint alert when passed hint prop without label",
-          "duration": 4,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1665746460739,
-      "endTime": 1665746460867,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiFormField/UiFormField.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "UiInput.vue"
-          ],
-          "fullName": " UiInput.vue render a component",
-          "status": "passed",
-          "title": "render a component",
-          "duration": 55,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiInput.vue"
-          ],
-          "fullName": " UiInput.vue render a component with suffix",
-          "status": "passed",
-          "title": "render a component with suffix",
-          "duration": 12,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiInput.vue"
-          ],
-          "fullName": " UiInput.vue render a native attributes on input element",
-          "status": "passed",
-          "title": "render a native attributes on input element",
-          "duration": 5,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiInput.vue"
-          ],
-          "fullName": " UiInput.vue render a content via aside slot",
-          "status": "passed",
-          "title": "render a content via aside slot",
-          "duration": 17,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiInput.vue"
-          ],
-          "fullName": " UiInput.vue a component emits input event",
-          "status": "passed",
-          "title": "a component emits input event",
-          "duration": 12,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiInput.vue"
-          ],
-          "fullName": " UiInput.vue a number input cant accept non-numerical value",
-          "status": "passed",
-          "title": "a number input cant accept non-numerical value",
-          "duration": 4,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1665746460743,
-      "endTime": 1665746460848,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/atoms/UiInput/UiInput.spec.js"
     },
     {
       "assertionResults": [
@@ -1921,7 +1548,7 @@
           "fullName": " directive/clickOutside handler function is called when click outside",
           "status": "passed",
           "title": "handler function is called when click outside",
-          "duration": 41,
+          "duration": 20,
           "failureMessages": []
         },
         {
@@ -1932,7 +1559,7 @@
           "fullName": " directive/clickOutside handler function is not called when click root element",
           "status": "passed",
           "title": "handler function is not called when click root element",
-          "duration": 4,
+          "duration": 3,
           "failureMessages": []
         },
         {
@@ -1943,7 +1570,7 @@
           "fullName": " directive/clickOutside handler function is not called when click inside",
           "status": "passed",
           "title": "handler function is not called when click inside",
-          "duration": 5,
+          "duration": 3,
           "failureMessages": []
         },
         {
@@ -1954,7 +1581,7 @@
           "fullName": " directive/clickOutside adding false argument disables the directive",
           "status": "passed",
           "title": "adding false argument disables the directive",
-          "duration": 5,
+          "duration": 3,
           "failureMessages": []
         },
         {
@@ -1976,12 +1603,12 @@
           "fullName": " directive/clickOutside reactivity of argument",
           "status": "passed",
           "title": "reactivity of argument",
-          "duration": 6,
+          "duration": 4,
           "failureMessages": []
         }
       ],
-      "startTime": 1665746460800,
-      "endTime": 1665746460865,
+      "startTime": 1665750665918,
+      "endTime": 1665750665955,
       "status": "passed",
       "message": "",
       "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/utilities/directives/click-outside/click-outside.spec.js"
@@ -1991,159 +1618,435 @@
         {
           "ancestorTitles": [
             "",
-            "UiSwitch.vue"
+            "UiCheckbox.vue"
           ],
-          "fullName": " UiSwitch.vue renders a component",
+          "fullName": " UiCheckbox.vue render a component",
           "status": "passed",
-          "title": "renders a component",
-          "duration": 45,
+          "title": "render a component",
+          "duration": 18,
           "failureMessages": []
         },
         {
           "ancestorTitles": [
             "",
-            "UiSwitch.vue"
+            "UiCheckbox.vue"
           ],
-          "fullName": " UiSwitch.vue render a content via switchcontrol slot",
-          "status": "passed",
-          "title": "render a content via switchcontrol slot",
-          "duration": 21,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiSwitch.vue"
-          ],
-          "fullName": " UiSwitch.vue render a content via default slot",
+          "fullName": " UiCheckbox.vue render a content via default slot",
           "status": "passed",
           "title": "render a content via default slot",
-          "duration": 6,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiSwitch.vue"
-          ],
-          "fullName": " UiSwitch.vue a component emits update event",
-          "status": "passed",
-          "title": "a component emits update event",
-          "duration": 5,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiSwitch.vue"
-          ],
-          "fullName": " UiSwitch.vue a component is disabled",
-          "status": "passed",
-          "title": "a component is disabled",
-          "duration": 4,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1665746460822,
-      "endTime": 1665746460903,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiSwitch/UiSwitch.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "UiAlert.vue"
-          ],
-          "fullName": " UiAlert.vue renders a component",
-          "status": "passed",
-          "title": "renders a component",
           "duration": 16,
           "failureMessages": []
         },
         {
           "ancestorTitles": [
             "",
-            "UiAlert.vue"
+            "UiCheckbox.vue"
           ],
-          "fullName": " UiAlert.vue renders content via icon slot",
+          "fullName": " UiCheckbox.vue render a content via checkbox slot",
           "status": "passed",
-          "title": "renders content via icon slot",
-          "duration": 12,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiAlert.vue"
-          ],
-          "fullName": " UiAlert.vue renders content via message slot",
-          "status": "passed",
-          "title": "renders content via message slot",
-          "duration": 5,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1665746461149,
-      "endTime": 1665746461182,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiAlert/UiAlert.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "directive/keyboardFocus"
-          ],
-          "fullName": " directive/keyboardFocus remove class focus-hidden from body when press tab",
-          "status": "passed",
-          "title": "remove class focus-hidden from body when press tab",
-          "duration": 21,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "directive/keyboardFocus"
-          ],
-          "fullName": " directive/keyboardFocus does not remove class focus-hidden from body when press other key than tab",
-          "status": "passed",
-          "title": "does not remove class focus-hidden from body when press other key than tab",
+          "title": "render a content via checkbox slot",
           "duration": 4,
           "failureMessages": []
         },
         {
           "ancestorTitles": [
             "",
-            "directive/keyboardFocus"
+            "UiCheckbox.vue"
           ],
-          "fullName": " directive/keyboardFocus focus element when press tab",
+          "fullName": " UiCheckbox.vue render default id for non passed id property",
           "status": "passed",
-          "title": "focus element when press tab",
-          "duration": 3,
+          "title": "render default id for non passed id property",
+          "duration": 4,
           "failureMessages": []
         },
         {
           "ancestorTitles": [
             "",
-            "directive/keyboardFocus"
+            "UiCheckbox.vue"
           ],
-          "fullName": " directive/keyboardFocus add class focus-hidden to body on mouse click",
+          "fullName": " UiCheckbox.vue a checkbox click emits change event",
           "status": "passed",
-          "title": "add class focus-hidden to body on mouse click",
+          "title": "a checkbox click emits change event",
+          "duration": 4,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiCheckbox.vue"
+          ],
+          "fullName": " UiCheckbox.vue a component pass Object as value",
+          "status": "passed",
+          "title": "a component pass Object as value",
+          "duration": 8,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiCheckbox.vue"
+          ],
+          "fullName": " UiCheckbox.vue a component emits array for multiple checkboxes with object",
+          "status": "passed",
+          "title": "a component emits array for multiple checkboxes with object",
           "duration": 2,
           "failureMessages": []
         }
       ],
-      "startTime": 1665746461928,
-      "endTime": 1665746461958,
+      "startTime": 1665750666157,
+      "endTime": 1665750666213,
       "status": "passed",
       "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/utilities/directives/keyboard-focus/keyboard-focus.spec.js"
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/atoms/UiCheckbox/UiCheckbox.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "helpers/focusElement"
+          ],
+          "fullName": " helpers/focusElement focus element",
+          "status": "passed",
+          "title": "focus element",
+          "duration": 19,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "helpers/focusElement"
+          ],
+          "fullName": " helpers/focusElement focus element with visible focus",
+          "status": "passed",
+          "title": "focus element with visible focus",
+          "duration": 6,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1665750666209,
+      "endTime": 1665750666234,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/utilities/helpers/focus-element/focus-element.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "UiSidePanel.vue"
+          ],
+          "fullName": " UiSidePanel.vue renders a component",
+          "status": "passed",
+          "title": "renders a component",
+          "duration": 15,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiSidePanel.vue"
+          ],
+          "fullName": " UiSidePanel.vue a component can be open by model value",
+          "status": "passed",
+          "title": "a component can be open by model value",
+          "duration": 22,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiSidePanel.vue"
+          ],
+          "fullName": " UiSidePanel.vue render a content via default slot",
+          "status": "passed",
+          "title": "render a content via default slot",
+          "duration": 11,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1665750666533,
+      "endTime": 1665750666581,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/organisms/UiSidePanel/UiSidePanel.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "UiToggleButtonGroup.vue"
+          ],
+          "fullName": " UiToggleButtonGroup.vue renders a component",
+          "status": "passed",
+          "title": "renders a component",
+          "duration": 13,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiToggleButtonGroup.vue"
+          ],
+          "fullName": " UiToggleButtonGroup.vue updates modelValue after click a first toggle button",
+          "status": "passed",
+          "title": "updates modelValue after click a first toggle button",
+          "duration": 25,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiToggleButtonGroup.vue"
+          ],
+          "fullName": " UiToggleButtonGroup.vue unpressed a first item after third item clicked",
+          "status": "passed",
+          "title": "unpressed a first item after third item clicked",
+          "duration": 10,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiToggleButtonGroup.vue"
+          ],
+          "fullName": " UiToggleButtonGroup.vue deselects item when deselectable props is set",
+          "status": "passed",
+          "title": "deselects item when deselectable props is set",
+          "duration": 9,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiToggleButtonGroup.vue"
+          ],
+          "fullName": " UiToggleButtonGroup.vue not deselects item when deselectable props is not set",
+          "status": "passed",
+          "title": "not deselects item when deselectable props is not set",
+          "duration": 10,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiToggleButtonGroup.vue"
+          ],
+          "fullName": " UiToggleButtonGroup.vue updates value with object values",
+          "status": "passed",
+          "title": "updates value with object values",
+          "duration": 5,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1665750666566,
+      "endTime": 1665750666638,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiToggleButtonGroup/UiToggleButtonGroup.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "UiTabs.vue"
+          ],
+          "fullName": " UiTabs.vue renders a component",
+          "status": "passed",
+          "title": "renders a component",
+          "duration": 15,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiTabs.vue"
+          ],
+          "fullName": " UiTabs.vue component emit single item for String v-model",
+          "status": "passed",
+          "title": "component emit single item for String v-model",
+          "duration": 17,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiTabs.vue"
+          ],
+          "fullName": " UiTabs.vue component emit update for UiTabsItem with id instead name",
+          "status": "passed",
+          "title": "component emit update for UiTabsItem with id instead name",
+          "duration": 6,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1665750666603,
+      "endTime": 1665750666641,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/organisms/UiTabs/UiTabs.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "UiNavigation.vue"
+          ],
+          "fullName": " UiNavigation.vue renders a component",
+          "status": "passed",
+          "title": "renders a component",
+          "duration": 12,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiNavigation.vue"
+          ],
+          "fullName": " UiNavigation.vue component render item with the correct text",
+          "status": "passed",
+          "title": "component render item with the correct text",
+          "duration": 10,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiNavigation.vue"
+          ],
+          "fullName": " UiNavigation.vue component render the correct number of items",
+          "status": "passed",
+          "title": "component render the correct number of items",
+          "duration": 6,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiNavigation.vue"
+          ],
+          "fullName": " UiNavigation.vue component pass attributes to the one item",
+          "status": "passed",
+          "title": "component pass attributes to the one item",
+          "duration": 17,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1665750666607,
+      "endTime": 1665750666652,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiNavigation/UiNavigation.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "UiHeader.vue"
+          ],
+          "fullName": " UiHeader.vue renders a component",
+          "status": "passed",
+          "title": "renders a component",
+          "duration": 20,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiHeader.vue"
+          ],
+          "fullName": " UiHeader.vue hamburger should not be visible on the desktop",
+          "status": "passed",
+          "title": "hamburger should not be visible on the desktop",
+          "duration": 10,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiHeader.vue"
+          ],
+          "fullName": " UiHeader.vue hamburger should be visible on the mobile",
+          "status": "passed",
+          "title": "hamburger should be visible on the mobile",
+          "duration": 5,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiHeader.vue"
+          ],
+          "fullName": " UiHeader.vue a component emits hamburger:open event",
+          "status": "passed",
+          "title": "a component emits hamburger:open event",
+          "duration": 8,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiHeader.vue"
+          ],
+          "fullName": " UiHeader.vue a component emits hamburger:close event",
+          "status": "passed",
+          "title": "a component emits hamburger:close event",
+          "duration": 13,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1665750666702,
+      "endTime": 1665750666758,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiHeader/UiHeader.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "UiBulletPoints.vue"
+          ],
+          "fullName": " UiBulletPoints.vue renders a component",
+          "status": "passed",
+          "title": "renders a component",
+          "duration": 14,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiBulletPoints.vue"
+          ],
+          "fullName": " UiBulletPoints.vue component pass tag props",
+          "status": "passed",
+          "title": "component pass tag props",
+          "duration": 17,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiBulletPoints.vue"
+          ],
+          "fullName": " UiBulletPoints.vue component pass type props",
+          "status": "passed",
+          "title": "component pass type props",
+          "duration": 42,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1665750666757,
+      "endTime": 1665750666830,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiBulletPoints/UiBulletPoints.spec.js"
     },
     {
       "assertionResults": [
@@ -2155,7 +2058,7 @@
           "fullName": " UiChip.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 24,
+          "duration": 16,
           "failureMessages": []
         },
         {
@@ -2166,7 +2069,7 @@
           "fullName": " UiChip.vue component emit click:remove event",
           "status": "passed",
           "title": "component emit click:remove event",
-          "duration": 10,
+          "duration": 16,
           "failureMessages": []
         },
         {
@@ -2192,190 +2095,11 @@
           "failureMessages": []
         }
       ],
-      "startTime": 1665746461964,
-      "endTime": 1665746462010,
+      "startTime": 1665750667327,
+      "endTime": 1665750667371,
       "status": "passed",
       "message": "",
       "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiChip/UiChip.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "UiButton.vue"
-          ],
-          "fullName": " UiButton.vue render a component",
-          "status": "passed",
-          "title": "render a component",
-          "duration": 12,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiButton.vue"
-          ],
-          "fullName": " UiButton.vue render a content via default slot",
-          "status": "passed",
-          "title": "render a content via default slot",
-          "duration": 7,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiButton.vue"
-          ],
-          "fullName": " UiButton.vue component is router-link when you pass it a \"to\" prop",
-          "status": "passed",
-          "title": "component is router-link when you pass it a \"to\" prop",
-          "duration": 3,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiButton.vue"
-          ],
-          "fullName": " UiButton.vue component is link when you pass it a  \"href\" prop",
-          "status": "passed",
-          "title": "component is link when you pass it a  \"href\" prop",
-          "duration": 1,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiButton.vue"
-          ],
-          "fullName": " UiButton.vue component is a button without \"to\" and \"href\" props",
-          "status": "passed",
-          "title": "component is a button without \"to\" and \"href\" props",
-          "duration": 2,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1665746462042,
-      "endTime": 1665746462067,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/atoms/UiButton/UiButton.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "UiLoader.vue"
-          ],
-          "fullName": " UiLoader.vue renders a component",
-          "status": "passed",
-          "title": "renders a component",
-          "duration": 21,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1665746462167,
-      "endTime": 1665746462188,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiLoader/UiLoader.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "UiNavigation.vue"
-          ],
-          "fullName": " UiNavigation.vue renders a component",
-          "status": "passed",
-          "title": "renders a component",
-          "duration": 11,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiNavigation.vue"
-          ],
-          "fullName": " UiNavigation.vue component render item with the correct text",
-          "status": "passed",
-          "title": "component render item with the correct text",
-          "duration": 22,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiNavigation.vue"
-          ],
-          "fullName": " UiNavigation.vue component render the correct number of items",
-          "status": "passed",
-          "title": "component render the correct number of items",
-          "duration": 8,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiNavigation.vue"
-          ],
-          "fullName": " UiNavigation.vue component pass attributes to the one item",
-          "status": "passed",
-          "title": "component pass attributes to the one item",
-          "duration": 9,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1665746462248,
-      "endTime": 1665746462298,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiNavigation/UiNavigation.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "UiTabs.vue"
-          ],
-          "fullName": " UiTabs.vue renders a component",
-          "status": "passed",
-          "title": "renders a component",
-          "duration": 11,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiTabs.vue"
-          ],
-          "fullName": " UiTabs.vue component emit single item for String v-model",
-          "status": "passed",
-          "title": "component emit single item for String v-model",
-          "duration": 32,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiTabs.vue"
-          ],
-          "fullName": " UiTabs.vue component emit update for UiTabsItem with id instead name",
-          "status": "passed",
-          "title": "component emit update for UiTabsItem with id instead name",
-          "duration": 7,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1665746462250,
-      "endTime": 1665746462300,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/organisms/UiTabs/UiTabs.spec.js"
     },
     {
       "assertionResults": [
@@ -2387,7 +2111,7 @@
           "fullName": " UiTile.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 25,
+          "duration": 17,
           "failureMessages": []
         },
         {
@@ -2413,11 +2137,53 @@
           "failureMessages": []
         }
       ],
-      "startTime": 1665746462313,
-      "endTime": 1665746462357,
+      "startTime": 1665750667642,
+      "endTime": 1665750667678,
       "status": "passed",
       "message": "",
       "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiTile/UiTile.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "UiAccordion.vue"
+          ],
+          "fullName": " UiAccordion.vue renders a component",
+          "status": "passed",
+          "title": "renders a component",
+          "duration": 16,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiAccordion.vue"
+          ],
+          "fullName": " UiAccordion.vue component emit single item for String v-model",
+          "status": "passed",
+          "title": "component emit single item for String v-model",
+          "duration": 21,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiAccordion.vue"
+          ],
+          "fullName": " UiAccordion.vue component emit multiple items for Array v-model",
+          "status": "passed",
+          "title": "component emit multiple items for Array v-model",
+          "duration": 7,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1665750667661,
+      "endTime": 1665750667705,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/organisms/UiAccordion/UiAccordion.spec.js"
     },
     {
       "assertionResults": [
@@ -2429,7 +2195,7 @@
           "fullName": " UiControls.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 15,
+          "duration": 16,
           "failureMessages": []
         },
         {
@@ -2440,7 +2206,7 @@
           "fullName": " UiControls.vue component does not show next button when \"hideNextButton\" is true",
           "status": "passed",
           "title": "component does not show next button when \"hideNextButton\" is true",
-          "duration": 8,
+          "duration": 9,
           "failureMessages": []
         },
         {
@@ -2473,7 +2239,7 @@
           "fullName": " UiControls.vue component has disabled next button when \"invalid\" is true and \"toNext\" is present",
           "status": "passed",
           "title": "component has disabled next button when \"invalid\" is true and \"toNext\" is present",
-          "duration": 5,
+          "duration": 4,
           "failureMessages": []
         },
         {
@@ -2484,12 +2250,12 @@
           "fullName": " UiControls.vue component emit has-error when \"invalid\" is true and \"toNext\" is present",
           "status": "passed",
           "title": "component emit has-error when \"invalid\" is true and \"toNext\" is present",
-          "duration": 6,
+          "duration": 4,
           "failureMessages": []
         }
       ],
-      "startTime": 1665746462340,
-      "endTime": 1665746462381,
+      "startTime": 1665750668011,
+      "endTime": 1665750668051,
       "status": "passed",
       "message": "",
       "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/organisms/UiControls/UiControls.spec.js"
@@ -2499,104 +2265,159 @@
         {
           "ancestorTitles": [
             "",
-            "UiBulletPoints.vue"
+            "UiNotification.vue"
           ],
-          "fullName": " UiBulletPoints.vue renders a component",
+          "fullName": " UiNotification.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 24,
+          "duration": 21,
           "failureMessages": []
         },
         {
           "ancestorTitles": [
             "",
-            "UiBulletPoints.vue"
+            "UiNotification.vue"
           ],
-          "fullName": " UiBulletPoints.vue component pass tag props",
+          "fullName": " UiNotification.vue component is success type",
           "status": "passed",
-          "title": "component pass tag props",
-          "duration": 8,
+          "title": "component is success type",
+          "duration": 10,
           "failureMessages": []
         },
         {
           "ancestorTitles": [
             "",
-            "UiBulletPoints.vue"
+            "UiNotification.vue"
           ],
-          "fullName": " UiBulletPoints.vue component pass type props",
+          "fullName": " UiNotification.vue component is info type",
           "status": "passed",
-          "title": "component pass type props",
-          "duration": 16,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1665746462609,
-      "endTime": 1665746462657,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiBulletPoints/UiBulletPoints.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "helpers/focusElement"
-          ],
-          "fullName": " helpers/focusElement focus element",
-          "status": "passed",
-          "title": "focus element",
-          "duration": 50,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "helpers/focusElement"
-          ],
-          "fullName": " helpers/focusElement focus element with visible focus",
-          "status": "passed",
-          "title": "focus element with visible focus",
+          "title": "component is info type",
           "duration": 5,
           "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiNotification.vue"
+          ],
+          "fullName": " UiNotification.vue component is warning type",
+          "status": "passed",
+          "title": "component is warning type",
+          "duration": 7,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiNotification.vue"
+          ],
+          "fullName": " UiNotification.vue component is error type",
+          "status": "passed",
+          "title": "component is error type",
+          "duration": 4,
+          "failureMessages": []
         }
       ],
-      "startTime": 1665746463344,
-      "endTime": 1665746463399,
+      "startTime": 1665750668028,
+      "endTime": 1665750668075,
       "status": "passed",
       "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/utilities/helpers/focus-element/focus-element.spec.js"
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiNotification/UiNotification.spec.js"
     },
     {
       "assertionResults": [
         {
           "ancestorTitles": [
             "",
-            "UiPopover.vue"
+            "UiAlert.vue"
           ],
-          "fullName": " UiPopover.vue renders a component",
+          "fullName": " UiAlert.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 13,
+          "duration": 17,
           "failureMessages": []
         },
         {
           "ancestorTitles": [
             "",
-            "UiPopover.vue"
+            "UiAlert.vue"
           ],
-          "fullName": " UiPopover.vue a component emit close event",
+          "fullName": " UiAlert.vue renders content via icon slot",
           "status": "passed",
-          "title": "a component emit close event",
-          "duration": 15,
+          "title": "renders content via icon slot",
+          "duration": 20,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiAlert.vue"
+          ],
+          "fullName": " UiAlert.vue renders content via message slot",
+          "status": "passed",
+          "title": "renders content via message slot",
+          "duration": 9,
           "failureMessages": []
         }
       ],
-      "startTime": 1665746463416,
-      "endTime": 1665746463444,
+      "startTime": 1665750668042,
+      "endTime": 1665750668088,
       "status": "passed",
       "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiPopover/UiPopover.spec.js"
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiAlert/UiAlert.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "directive/keyboardFocus"
+          ],
+          "fullName": " directive/keyboardFocus remove class focus-hidden from body when press tab",
+          "status": "passed",
+          "title": "remove class focus-hidden from body when press tab",
+          "duration": 26,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "directive/keyboardFocus"
+          ],
+          "fullName": " directive/keyboardFocus does not remove class focus-hidden from body when press other key than tab",
+          "status": "passed",
+          "title": "does not remove class focus-hidden from body when press other key than tab",
+          "duration": 5,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "directive/keyboardFocus"
+          ],
+          "fullName": " directive/keyboardFocus focus element when press tab",
+          "status": "passed",
+          "title": "focus element when press tab",
+          "duration": 3,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "directive/keyboardFocus"
+          ],
+          "fullName": " directive/keyboardFocus add class focus-hidden to body on mouse click",
+          "status": "passed",
+          "title": "add class focus-hidden to body on mouse click",
+          "duration": 4,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1665750668066,
+      "endTime": 1665750668104,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/utilities/directives/keyboard-focus/keyboard-focus.spec.js"
     },
     {
       "assertionResults": [
@@ -2608,7 +2429,7 @@
           "fullName": " UiSimpleQuestion.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 17,
+          "duration": 25,
           "failureMessages": []
         },
         {
@@ -2619,12 +2440,12 @@
           "fullName": " UiSimpleQuestion.vue renders a component with correct amount of options",
           "status": "passed",
           "title": "renders a component with correct amount of options",
-          "duration": 14,
+          "duration": 13,
           "failureMessages": []
         }
       ],
-      "startTime": 1665746463426,
-      "endTime": 1665746463457,
+      "startTime": 1665750668112,
+      "endTime": 1665750668150,
       "status": "passed",
       "message": "",
       "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/organisms/UiSimpleQuestion/UiSimpleQuestion.spec.js"
@@ -2639,7 +2460,7 @@
           "fullName": " directive/focusTrap focus state goes from last child to first child when press Tab",
           "status": "passed",
           "title": "focus state goes from last child to first child when press Tab",
-          "duration": 26,
+          "duration": 36,
           "failureMessages": []
         },
         {
@@ -2654,11 +2475,276 @@
           "failureMessages": []
         }
       ],
-      "startTime": 1665746463519,
-      "endTime": 1665746463549,
+      "startTime": 1665750668148,
+      "endTime": 1665750668188,
       "status": "passed",
       "message": "",
       "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/utilities/directives/focus-trap/focus-trap.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "UiPopover.vue"
+          ],
+          "fullName": " UiPopover.vue renders a component",
+          "status": "passed",
+          "title": "renders a component",
+          "duration": 10,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiPopover.vue"
+          ],
+          "fullName": " UiPopover.vue a component emit close event",
+          "status": "passed",
+          "title": "a component emit close event",
+          "duration": 13,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1665750668753,
+      "endTime": 1665750668776,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiPopover/UiPopover.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "UiButton.vue"
+          ],
+          "fullName": " UiButton.vue render a component",
+          "status": "passed",
+          "title": "render a component",
+          "duration": 12,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiButton.vue"
+          ],
+          "fullName": " UiButton.vue render a content via default slot",
+          "status": "passed",
+          "title": "render a content via default slot",
+          "duration": 15,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiButton.vue"
+          ],
+          "fullName": " UiButton.vue component is router-link when you pass it a \"to\" prop",
+          "status": "passed",
+          "title": "component is router-link when you pass it a \"to\" prop",
+          "duration": 2,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiButton.vue"
+          ],
+          "fullName": " UiButton.vue component is link when you pass it a  \"href\" prop",
+          "status": "passed",
+          "title": "component is link when you pass it a  \"href\" prop",
+          "duration": 1,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiButton.vue"
+          ],
+          "fullName": " UiButton.vue component is a button without \"to\" and \"href\" props",
+          "status": "passed",
+          "title": "component is a button without \"to\" and \"href\" props",
+          "duration": 2,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1665750669092,
+      "endTime": 1665750669125,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/atoms/UiButton/UiButton.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "UiTextarea.vue"
+          ],
+          "fullName": " UiTextarea.vue renders a component",
+          "status": "passed",
+          "title": "renders a component",
+          "duration": 10,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiTextarea.vue"
+          ],
+          "fullName": " UiTextarea.vue render a native attributes on input element",
+          "status": "passed",
+          "title": "render a native attributes on input element",
+          "duration": 8,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiTextarea.vue"
+          ],
+          "fullName": " UiTextarea.vue a component emits input event",
+          "status": "passed",
+          "title": "a component emits input event",
+          "duration": 3,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1665750669093,
+      "endTime": 1665750669114,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/atoms/UiTextarea/UiTextarea.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "directive/scrollTabindex"
+          ],
+          "fullName": " directive/scrollTabindex remove tabindex if scrollHeight is lower than clientHeight",
+          "status": "passed",
+          "title": "remove tabindex if scrollHeight is lower than clientHeight",
+          "duration": 22,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "directive/scrollTabindex"
+          ],
+          "fullName": " directive/scrollTabindex adding tabindex if scrollHeight changed",
+          "status": "passed",
+          "title": "adding tabindex if scrollHeight changed",
+          "duration": 2,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "directive/scrollTabindex"
+          ],
+          "fullName": " directive/scrollTabindex remove tabindex if clientHeight changed",
+          "status": "passed",
+          "title": "remove tabindex if clientHeight changed",
+          "duration": 3,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "directive/scrollTabindex"
+          ],
+          "fullName": " directive/scrollTabindex remove tabindex if scrollHeight equals clientHeight",
+          "status": "passed",
+          "title": "remove tabindex if scrollHeight equals clientHeight",
+          "duration": 2,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "directive/scrollTabindex"
+          ],
+          "fullName": " directive/scrollTabindex add tabindex if scrollHeight is greater than clientHeight",
+          "status": "passed",
+          "title": "add tabindex if scrollHeight is greater than clientHeight",
+          "duration": 3,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1665750669344,
+      "endTime": 1665750669376,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/utilities/directives/scroll-tabindex/scroll-tabindex.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "UiHeading.vue"
+          ],
+          "fullName": " UiHeading.vue renders a component",
+          "status": "passed",
+          "title": "renders a component",
+          "duration": 15,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiHeading.vue"
+          ],
+          "fullName": " UiHeading.vue renders an h2 element by default",
+          "status": "passed",
+          "title": "renders an h2 element by default",
+          "duration": 7,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiHeading.vue"
+          ],
+          "fullName": " UiHeading.vue renders heading corresponding to selected level",
+          "status": "passed",
+          "title": "renders heading corresponding to selected level",
+          "duration": 2,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiHeading.vue"
+          ],
+          "fullName": " UiHeading.vue renders heading tag provided by tag prop",
+          "status": "passed",
+          "title": "renders heading tag provided by tag prop",
+          "duration": 1,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "UiHeading.vue"
+          ],
+          "fullName": " UiHeading.vue renders different styles for an element when special class is provided",
+          "status": "passed",
+          "title": "renders different styles for an element when special class is provided",
+          "duration": 5,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1665750669431,
+      "endTime": 1665750669461,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/atoms/UiHeading/UiHeading.spec.js"
     },
     {
       "assertionResults": [
@@ -2670,7 +2756,7 @@
           "fullName": " composable/useActiveElement active item is null when no one items is focused",
           "status": "passed",
           "title": "active item is null when no one items is focused",
-          "duration": 10,
+          "duration": 24,
           "failureMessages": []
         },
         {
@@ -2681,7 +2767,7 @@
           "fullName": " composable/useActiveElement correct active element on focus",
           "status": "passed",
           "title": "correct active element on focus",
-          "duration": 7,
+          "duration": 11,
           "failureMessages": []
         },
         {
@@ -2692,7 +2778,7 @@
           "fullName": " composable/useActiveElement reset active element on blur",
           "status": "passed",
           "title": "reset active element on blur",
-          "duration": 3,
+          "duration": 4,
           "failureMessages": []
         },
         {
@@ -2703,15 +2789,35 @@
           "fullName": " composable/useActiveElement correct update active element",
           "status": "passed",
           "title": "correct update active element",
-          "duration": 2,
+          "duration": 3,
           "failureMessages": []
         }
       ],
-      "startTime": 1665746463537,
-      "endTime": 1665746463559,
+      "startTime": 1665750669437,
+      "endTime": 1665750669479,
       "status": "passed",
       "message": "",
       "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/composable/useActiveElement/useActiveElement.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "UiLoader.vue"
+          ],
+          "fullName": " UiLoader.vue renders a component",
+          "status": "passed",
+          "title": "renders a component",
+          "duration": 20,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1665750669500,
+      "endTime": 1665750669520,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiLoader/UiLoader.spec.js"
     },
     {
       "assertionResults": [
@@ -2723,7 +2829,7 @@
           "fullName": " UiLink.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 11,
+          "duration": 13,
           "failureMessages": []
         },
         {
@@ -2734,7 +2840,7 @@
           "fullName": " UiLink.vue component is router-link when you pass it a \"to\" prop",
           "status": "passed",
           "title": "component is router-link when you pass it a \"to\" prop",
-          "duration": 2,
+          "duration": 17,
           "failureMessages": []
         },
         {
@@ -2771,8 +2877,8 @@
           "failureMessages": []
         }
       ],
-      "startTime": 1665746463558,
-      "endTime": 1665746463579,
+      "startTime": 1665750669523,
+      "endTime": 1665750669561,
       "status": "passed",
       "message": "",
       "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/atoms/UiLink/UiLink.spec.js"
@@ -2782,126 +2888,40 @@
         {
           "ancestorTitles": [
             "",
-            "UiHeading.vue"
+            "UiProgressbar.vue"
           ],
-          "fullName": " UiHeading.vue renders a component",
+          "fullName": " UiProgressbar.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 10,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiHeading.vue"
-          ],
-          "fullName": " UiHeading.vue renders an h2 element by default",
-          "status": "passed",
-          "title": "renders an h2 element by default",
-          "duration": 6,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiHeading.vue"
-          ],
-          "fullName": " UiHeading.vue renders heading corresponding to selected level",
-          "status": "passed",
-          "title": "renders heading corresponding to selected level",
-          "duration": 3,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiHeading.vue"
-          ],
-          "fullName": " UiHeading.vue renders heading tag provided by tag prop",
-          "status": "passed",
-          "title": "renders heading tag provided by tag prop",
-          "duration": 2,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiHeading.vue"
-          ],
-          "fullName": " UiHeading.vue renders different styles for an element when special class is provided",
-          "status": "passed",
-          "title": "renders different styles for an element when special class is provided",
-          "duration": 2,
+          "duration": 30,
           "failureMessages": []
         }
       ],
-      "startTime": 1665746463558,
-      "endTime": 1665746463581,
+      "startTime": 1665750669536,
+      "endTime": 1665750669566,
       "status": "passed",
       "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/atoms/UiHeading/UiHeading.spec.js"
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiProgressbar/UiProgressbar.spec.js"
     },
     {
       "assertionResults": [
         {
           "ancestorTitles": [
             "",
-            "UiIcon.vue"
+            "UiProgress.vue"
           ],
-          "fullName": " UiIcon.vue renders a component",
+          "fullName": " UiProgress.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 12,
+          "duration": 11,
           "failureMessages": []
         }
       ],
-      "startTime": 1665746463729,
-      "endTime": 1665746463741,
+      "startTime": 1665750670050,
+      "endTime": 1665750670061,
       "status": "passed",
       "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/atoms/UiIcon/UiIcon.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "UiTextarea.vue"
-          ],
-          "fullName": " UiTextarea.vue renders a component",
-          "status": "passed",
-          "title": "renders a component",
-          "duration": 12,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiTextarea.vue"
-          ],
-          "fullName": " UiTextarea.vue render a native attributes on input element",
-          "status": "passed",
-          "title": "render a native attributes on input element",
-          "duration": 9,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "UiTextarea.vue"
-          ],
-          "fullName": " UiTextarea.vue a component emits input event",
-          "status": "passed",
-          "title": "a component emits input event",
-          "duration": 5,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1665746463905,
-      "endTime": 1665746463931,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/atoms/UiTextarea/UiTextarea.spec.js"
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/atoms/UiProgress/UiProgress.spec.js"
     },
     {
       "assertionResults": [
@@ -2913,7 +2933,7 @@
           "fullName": " directive/bodyScrollLock The directive add styles to body",
           "status": "passed",
           "title": "The directive add styles to body",
-          "duration": 12,
+          "duration": 14,
           "failureMessages": []
         },
         {
@@ -2924,12 +2944,12 @@
           "fullName": " directive/bodyScrollLock The directive removes body styles before the component unmounts",
           "status": "passed",
           "title": "The directive removes body styles before the component unmounts",
-          "duration": 4,
+          "duration": 5,
           "failureMessages": []
         }
       ],
-      "startTime": 1665746464660,
-      "endTime": 1665746464676,
+      "startTime": 1665750670473,
+      "endTime": 1665750670492,
       "status": "passed",
       "message": "",
       "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/utilities/directives/body-scroll-lock/body-scroll-lock.spec.js"
@@ -2944,7 +2964,7 @@
           "fullName": " UiMegaMenu.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 13,
+          "duration": 10,
           "failureMessages": []
         },
         {
@@ -2955,12 +2975,12 @@
           "fullName": " UiMegaMenu.vue component emit item to open",
           "status": "passed",
           "title": "component emit item to open",
-          "duration": 4,
+          "duration": 6,
           "failureMessages": []
         }
       ],
-      "startTime": 1665746464765,
-      "endTime": 1665746464782,
+      "startTime": 1665750670521,
+      "endTime": 1665750670537,
       "status": "passed",
       "message": "",
       "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/organisms/UiMegaMenu/UiMegaMenu.spec.js"
@@ -2975,12 +2995,12 @@
           "fullName": " UiCard.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 15,
+          "duration": 20,
           "failureMessages": []
         }
       ],
-      "startTime": 1665746464771,
-      "endTime": 1665746464786,
+      "startTime": 1665750670680,
+      "endTime": 1665750670700,
       "status": "passed",
       "message": "",
       "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/organisms/UiCard/UiCard.spec.js"
@@ -2995,12 +3015,12 @@
           "fullName": " UiBackdrop.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 14,
+          "duration": 10,
           "failureMessages": []
         }
       ],
-      "startTime": 1665746464790,
-      "endTime": 1665746464804,
+      "startTime": 1665750670854,
+      "endTime": 1665750670864,
       "status": "passed",
       "message": "",
       "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/atoms/UiBackdrop/UiBackdrop.spec.js"
@@ -3010,20 +3030,20 @@
         {
           "ancestorTitles": [
             "",
-            "UiList.vue"
+            "UiIcon.vue"
           ],
-          "fullName": " UiList.vue renders a component",
+          "fullName": " UiIcon.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 10,
+          "duration": 14,
           "failureMessages": []
         }
       ],
-      "startTime": 1665746464815,
-      "endTime": 1665746464825,
+      "startTime": 1665750670857,
+      "endTime": 1665750670871,
       "status": "passed",
       "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/organisms/UiList/UiList.spec.js"
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/atoms/UiIcon/UiIcon.spec.js"
     },
     {
       "assertionResults": [
@@ -3035,55 +3055,15 @@
           "fullName": " UiText.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 13,
+          "duration": 12,
           "failureMessages": []
         }
       ],
-      "startTime": 1665746464924,
-      "endTime": 1665746464937,
+      "startTime": 1665750670864,
+      "endTime": 1665750670876,
       "status": "passed",
       "message": "",
       "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/atoms/UiText/UiText.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "UiProgress.vue"
-          ],
-          "fullName": " UiProgress.vue renders a component",
-          "status": "passed",
-          "title": "renders a component",
-          "duration": 17,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1665746464929,
-      "endTime": 1665746464946,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/atoms/UiProgress/UiProgress.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "UiProgressbar.vue"
-          ],
-          "fullName": " UiProgressbar.vue renders a component",
-          "status": "passed",
-          "title": "renders a component",
-          "duration": 20,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1665746464941,
-      "endTime": 1665746464961,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/molecules/UiProgressbar/UiProgressbar.spec.js"
     },
     {
       "assertionResults": [
@@ -3095,12 +3075,12 @@
           "fullName": " UiContainer.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 11,
+          "duration": 10,
           "failureMessages": []
         }
       ],
-      "startTime": 1665746465231,
-      "endTime": 1665746465242,
+      "startTime": 1665750670864,
+      "endTime": 1665750670874,
       "status": "passed",
       "message": "",
       "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/organisms/UiContainer/UiContainer.spec.js"
@@ -3110,139 +3090,20 @@
         {
           "ancestorTitles": [
             "",
-            "composable/useInput"
+            "UiList.vue"
           ],
-          "fullName": " composable/useInput return correct attrs for input element",
+          "fullName": " UiList.vue renders a component",
           "status": "passed",
-          "title": "return correct attrs for input element",
-          "duration": 2,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "composable/useInput"
-          ],
-          "fullName": " composable/useInput return correct attrs for root element",
-          "status": "passed",
-          "title": "return correct attrs for root element",
-          "duration": 0,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "composable/useInput"
-          ],
-          "fullName": " composable/useInput return empty attrs for input element when parameter is empty",
-          "status": "passed",
-          "title": "return empty attrs for input element when parameter is empty",
-          "duration": 0,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "composable/useInput"
-          ],
-          "fullName": " composable/useInput return empty attrs for root element when parameter is empty",
-          "status": "passed",
-          "title": "return empty attrs for root element when parameter is empty",
-          "duration": 0,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "composable/useInput"
-          ],
-          "fullName": " composable/useInput thrown error when parameter for input element is null",
-          "status": "passed",
-          "title": "thrown error when parameter for input element is null",
-          "duration": 1,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "composable/useInput"
-          ],
-          "fullName": " composable/useInput thrown error when parameter for input element is undefined",
-          "status": "passed",
-          "title": "thrown error when parameter for input element is undefined",
-          "duration": 0,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "composable/useInput"
-          ],
-          "fullName": " composable/useInput thrown error when parameter for root element is null",
-          "status": "passed",
-          "title": "thrown error when parameter for root element is null",
-          "duration": 0,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "composable/useInput"
-          ],
-          "fullName": " composable/useInput thrown error when parameter for root element is undefined",
-          "status": "passed",
-          "title": "thrown error when parameter for root element is undefined",
-          "duration": 0,
+          "title": "renders a component",
+          "duration": 12,
           "failureMessages": []
         }
       ],
-      "startTime": 1665746465779,
-      "endTime": 1665746465782,
+      "startTime": 1665750670979,
+      "endTime": 1665750670991,
       "status": "passed",
       "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/composable/useInput/useInput.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "composable/useKeyValidation"
-          ],
-          "fullName": " composable/useKeyValidation pressed key is digit",
-          "status": "passed",
-          "title": "pressed key is digit",
-          "duration": 1,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "composable/useKeyValidation"
-          ],
-          "fullName": " composable/useKeyValidation pressed key is different than digit",
-          "status": "passed",
-          "title": "pressed key is different than digit",
-          "duration": 0,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "composable/useKeyValidation"
-          ],
-          "fullName": " composable/useKeyValidation pressed key value length is greater than 1",
-          "status": "passed",
-          "title": "pressed key value length is greater than 1",
-          "duration": 0,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1665746465780,
-      "endTime": 1665746465781,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/composable/useKeyValidation/useKeyValidation.spec.js"
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/components/organisms/UiList/UiList.spec.js"
     },
     {
       "assertionResults": [
@@ -3254,7 +3115,7 @@
           "fullName": " composable/useLink return correct component tag when parameter has property href",
           "status": "passed",
           "title": "return correct component tag when parameter has property href",
-          "duration": 1,
+          "duration": 2,
           "failureMessages": []
         },
         {
@@ -3309,7 +3170,7 @@
           "fullName": " composable/useLink thrown error when parameter is undefined",
           "status": "passed",
           "title": "thrown error when parameter is undefined",
-          "duration": 1,
+          "duration": 0,
           "failureMessages": []
         },
         {
@@ -3320,7 +3181,7 @@
           "fullName": " composable/useLink return correct attributes when parameter has property href",
           "status": "passed",
           "title": "return correct attributes when parameter has property href",
-          "duration": 0,
+          "duration": 1,
           "failureMessages": []
         },
         {
@@ -3390,11 +3251,203 @@
           "failureMessages": []
         }
       ],
-      "startTime": 1665746465791,
-      "endTime": 1665746465795,
+      "startTime": 1665750671429,
+      "endTime": 1665750671433,
       "status": "passed",
       "message": "",
       "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/composable/useLink/useLink.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "composable/useInput"
+          ],
+          "fullName": " composable/useInput return correct attrs for input element",
+          "status": "passed",
+          "title": "return correct attrs for input element",
+          "duration": 1,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "composable/useInput"
+          ],
+          "fullName": " composable/useInput return correct attrs for root element",
+          "status": "passed",
+          "title": "return correct attrs for root element",
+          "duration": 0,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "composable/useInput"
+          ],
+          "fullName": " composable/useInput return empty attrs for input element when parameter is empty",
+          "status": "passed",
+          "title": "return empty attrs for input element when parameter is empty",
+          "duration": 1,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "composable/useInput"
+          ],
+          "fullName": " composable/useInput return empty attrs for root element when parameter is empty",
+          "status": "passed",
+          "title": "return empty attrs for root element when parameter is empty",
+          "duration": 0,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "composable/useInput"
+          ],
+          "fullName": " composable/useInput thrown error when parameter for input element is null",
+          "status": "passed",
+          "title": "thrown error when parameter for input element is null",
+          "duration": 0,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "composable/useInput"
+          ],
+          "fullName": " composable/useInput thrown error when parameter for input element is undefined",
+          "status": "passed",
+          "title": "thrown error when parameter for input element is undefined",
+          "duration": 0,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "composable/useInput"
+          ],
+          "fullName": " composable/useInput thrown error when parameter for root element is null",
+          "status": "passed",
+          "title": "thrown error when parameter for root element is null",
+          "duration": 0,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "composable/useInput"
+          ],
+          "fullName": " composable/useInput thrown error when parameter for root element is undefined",
+          "status": "passed",
+          "title": "thrown error when parameter for root element is undefined",
+          "duration": 0,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1665750671656,
+      "endTime": 1665750671658,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/composable/useInput/useInput.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "composable/useMutationObserver"
+          ],
+          "fullName": " composable/useMutationObserver not supported when window doesn't have IntersectionObserver property",
+          "status": "passed",
+          "title": "not supported when window doesn't have IntersectionObserver property",
+          "duration": 1,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "composable/useMutationObserver"
+          ],
+          "fullName": " composable/useMutationObserver no mutation observer added when not supported",
+          "status": "passed",
+          "title": "no mutation observer added when not supported",
+          "duration": 1,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "composable/useMutationObserver"
+          ],
+          "fullName": " composable/useMutationObserver supported when window have property IntersectionObserver",
+          "status": "passed",
+          "title": "supported when window have property IntersectionObserver",
+          "duration": 0,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "composable/useMutationObserver"
+          ],
+          "fullName": " composable/useMutationObserver mutation observer added when supported",
+          "status": "passed",
+          "title": "mutation observer added when supported",
+          "duration": 0,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1665750671706,
+      "endTime": 1665750671708,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/composable/useMutationObserver/useMutationObserver.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "composable/useKeyValidation"
+          ],
+          "fullName": " composable/useKeyValidation pressed key is digit",
+          "status": "passed",
+          "title": "pressed key is digit",
+          "duration": 2,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "composable/useKeyValidation"
+          ],
+          "fullName": " composable/useKeyValidation pressed key is different than digit",
+          "status": "passed",
+          "title": "pressed key is different than digit",
+          "duration": 0,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "composable/useKeyValidation"
+          ],
+          "fullName": " composable/useKeyValidation pressed key value length is greater than 1",
+          "status": "passed",
+          "title": "pressed key value length is greater than 1",
+          "duration": 0,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1665750671738,
+      "endTime": 1665750671740,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/composable/useKeyValidation/useKeyValidation.spec.js"
     },
     {
       "assertionResults": [
@@ -3450,7 +3503,7 @@
           "fullName": " helpers/capitalizeFirst return string when white space is first",
           "status": "passed",
           "title": "return string when white space is first",
-          "duration": 0,
+          "duration": 1,
           "failureMessages": []
         },
         {
@@ -3461,7 +3514,7 @@
           "fullName": " helpers/capitalizeFirst return empty string",
           "status": "passed",
           "title": "return empty string",
-          "duration": 1,
+          "duration": 0,
           "failureMessages": []
         },
         {
@@ -3483,7 +3536,7 @@
           "fullName": " helpers/capitalizeFirst thrown type error when parameter is null",
           "status": "passed",
           "title": "thrown type error when parameter is null",
-          "duration": 0,
+          "duration": 1,
           "failureMessages": []
         },
         {
@@ -3498,64 +3551,11 @@
           "failureMessages": []
         }
       ],
-      "startTime": 1665746465794,
-      "endTime": 1665746465796,
+      "startTime": 1665750671811,
+      "endTime": 1665750671814,
       "status": "passed",
       "message": "",
       "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/utilities/helpers/capitalize-first/capitalize-first.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "composable/useMutationObserver"
-          ],
-          "fullName": " composable/useMutationObserver not supported when window doesn't have IntersectionObserver property",
-          "status": "passed",
-          "title": "not supported when window doesn't have IntersectionObserver property",
-          "duration": 1,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "composable/useMutationObserver"
-          ],
-          "fullName": " composable/useMutationObserver no mutation observer added when not supported",
-          "status": "passed",
-          "title": "no mutation observer added when not supported",
-          "duration": 1,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "composable/useMutationObserver"
-          ],
-          "fullName": " composable/useMutationObserver supported when window have property IntersectionObserver",
-          "status": "passed",
-          "title": "supported when window have property IntersectionObserver",
-          "duration": 0,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "composable/useMutationObserver"
-          ],
-          "fullName": " composable/useMutationObserver mutation observer added when supported",
-          "status": "passed",
-          "title": "mutation observer added when supported",
-          "duration": 0,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1665746465848,
-      "endTime": 1665746465850,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/composable/useMutationObserver/useMutationObserver.spec.js"
     },
     {
       "assertionResults": [
@@ -3615,8 +3615,8 @@
           "failureMessages": []
         }
       ],
-      "startTime": 1665746465863,
-      "endTime": 1665746465864,
+      "startTime": 1665750671863,
+      "endTime": 1665750671864,
       "status": "passed",
       "message": "",
       "name": "/Users/arkadiuszkrzymienski/Desktop/code/component-library/src/utilities/helpers/remove-non-digits/remove-non-digits.spec.js"
