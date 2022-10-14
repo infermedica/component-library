@@ -37,6 +37,7 @@ const logger = (diffs) => {
       console.log(colors[type], `${name} ${type}: ${getKeys} ${getChanges}`);
     });
   });
+  console.log('\x1b[37m', '\n🚀 Components API compared successfully');
 };
 const getArrayDiffs = (currArr, prevList, compareByKey) => {
   const isEqual = (el1, el2) => (typeof currArr[0] === 'object'
@@ -57,7 +58,7 @@ const getArrayDiffs = (currArr, prevList, compareByKey) => {
     changed,
   };
 };
-const compareElements = (currEl, prevEl, keys = []) => {
+const getDiffs = (currEl, prevEl, keys = []) => {
   const diffs = [];
   const type1 = typeof currEl;
   const type2 = typeof prevEl;
@@ -73,8 +74,8 @@ const compareElements = (currEl, prevEl, keys = []) => {
     added.forEach((name) => setDiff('added', name));
     removed.forEach((name) => setDiff('removed', name));
     changed.forEach((currChangedEl) => {
-      const getChangedPrevEl = prevEl.find((changedPrevEl) => currChangedEl.name === changedPrevEl.name);
-      diffs.push(...compareElements(currChangedEl, getChangedPrevEl, [
+      const getChangedPrevEl = prevEl.find(({ name }) => currChangedEl.name === name);
+      diffs.push(...getDiffs(currChangedEl, getChangedPrevEl, [
         ...keys,
         currChangedEl.name,
       ]));
@@ -88,7 +89,7 @@ const compareElements = (currEl, prevEl, keys = []) => {
           key,
         ]);
       } else if (!isElementsEqual(currEl[key], prevEl[key])) {
-        diffs.push(...compareElements(currEl[key], prevEl[key], [
+        diffs.push(...getDiffs(currEl[key], prevEl[key], [
           ...keys,
           key,
         ]));
@@ -96,7 +97,7 @@ const compareElements = (currEl, prevEl, keys = []) => {
     });
     const removedKeys = Object.keys(prevEl).filter((key) => !currentKeys.includes(key));
     removedKeys.forEach((key) => setDiff('removed', prevEl[key]));
-  } else if ((type1 !== type2 || currEl !== prevEl)) {
+  } else {
     setDiff('changed', [
       prevEl,
       currEl,
@@ -120,16 +121,17 @@ const compareApi = async (callback) => {
   });
   changed.forEach((currentComponent) => {
     const getDevelopComponent = developApi.find(
-      (developComponent) => developComponent.displayName === currentComponent.displayName,
+      ({ displayName }) => displayName === currentComponent.displayName,
     );
-    if (JSON.stringify(currentComponent) !== JSON.stringify(getDevelopComponent)) {
-      diffs[currentComponent.displayName] = compareElements(currentComponent, getDevelopComponent);
+    if (!isElementsEqual(currentComponent, getDevelopComponent)) {
+      diffs[currentComponent.displayName] = getDiffs(currentComponent, getDevelopComponent);
     }
   });
   if (callback && typeof callback === 'function') {
     diffs = callback(diffs);
   }
   logger(diffs);
+  return diffs;
 };
 
 module.exports = compareApi;

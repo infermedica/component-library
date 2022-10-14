@@ -3871,6 +3871,49 @@
     },
     {
       "exportName": "default",
+      "displayName": "UiMenu",
+      "description": "",
+      "tags": {},
+      "props": [
+        {
+          "name": "tag",
+          "description": "Use this to set menu tag.",
+          "type": {
+            "name": "HTMLTag"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "'ul'"
+          }
+        },
+        {
+          "name": "items",
+          "description": "Use this props to pass list of menu items.",
+          "type": {
+            "name": "MenuItem[]"
+          },
+          "defaultValue": {
+            "func": true,
+            "value": "() => ([])"
+          }
+        }
+      ],
+      "slots": [
+        {
+          "name": "default",
+          "description": "Use this slot to place menu items.",
+          "scoped": true,
+          "bindings": [
+            {
+              "name": "name",
+              "title": "binding"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "exportName": "default",
       "displayName": "UiModal",
       "description": "",
       "tags": {},
@@ -6763,6 +6806,152 @@
           "bindings": [
             {
               "name": "back",
+              "title": "binding"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "exportName": "default",
+      "displayName": "UiMenuItem",
+      "description": "",
+      "tags": {},
+      "props": [
+        {
+          "name": "icon",
+          "description": "Use this props to set icon.",
+          "type": {
+            "name": "Icon"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "'checkmark'"
+          }
+        },
+        {
+          "name": "suffixVisible",
+          "description": "Use this props to set suffix visibility.",
+          "type": {
+            "name": "MenuSuffixVisible"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "'default'"
+          }
+        },
+        {
+          "name": "suffixAttrs",
+          "description": "Use this props to pass attrs for UIMenuItemSuffix",
+          "type": {
+            "name": "SuffixAttrs"
+          },
+          "defaultValue": {
+            "func": true,
+            "value": "() => ({})"
+          }
+        },
+        {
+          "name": "buttonMenuItemAttrs",
+          "description": "Use this props to pass attrs for menu item UiButton",
+          "type": {
+            "name": "Object as PropsAttrs"
+          },
+          "defaultValue": {
+            "func": true,
+            "value": "() => ({})"
+          }
+        }
+      ],
+      "slots": [
+        {
+          "name": "label",
+          "description": "Use this slot to replace label template."
+        },
+        {
+          "name": "default",
+          "description": "Use this slot to place label content inside menu-item."
+        },
+        {
+          "name": "suffix",
+          "scoped": true,
+          "description": "Use this slot to replace suffix template",
+          "bindings": [
+            {
+              "name": "hasSuffix",
+              "title": "binding"
+            },
+            {
+              "name": "suffixAttrs",
+              "title": "binding"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "exportName": "default",
+      "displayName": "UiMenuItemSuffix",
+      "description": "",
+      "tags": {},
+      "props": [
+        {
+          "name": "label",
+          "description": "Use this props to set label.",
+          "type": {
+            "name": "string"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "''"
+          }
+        },
+        {
+          "name": "icon",
+          "description": "Use this props to set icon.",
+          "type": {
+            "name": "Icon"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "'checkmark'"
+          }
+        },
+        {
+          "name": "iconSuffixAttrs",
+          "description": "Use this props to pass attrs for suffix UIIcon",
+          "type": {
+            "name": "Object as PropsAttrs"
+          },
+          "defaultValue": {
+            "func": true,
+            "value": "() => ({})"
+          }
+        }
+      ],
+      "slots": [
+        {
+          "name": "label",
+          "scoped": true,
+          "description": "Use this slot to replace label template.",
+          "bindings": [
+            {
+              "name": "label",
+              "title": "binding"
+            }
+          ]
+        },
+        {
+          "name": "icon",
+          "scoped": true,
+          "description": "Use this slot to replace icon template.",
+          "bindings": [
+            {
+              "name": "hasIcon",
+              "title": "binding"
+            },
+            {
+              "name": "iconSuffixAttrs",
               "title": "binding"
             }
           ]
