@@ -9,7 +9,7 @@ follow best practice in terms of design and coding. We provide raw source and ai
 
 ## Links
 [//]: # (- Documentation)
-- Discord Community https://discord.gg/6qwtQ8Ys
+- Discord Community https://discord.gg/Uhv8Ev8yqC
 
 
 ## Contributing
