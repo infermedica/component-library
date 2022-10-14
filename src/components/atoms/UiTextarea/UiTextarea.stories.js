@@ -4,10 +4,14 @@ import {
   onMounted,
   ref,
 } from 'vue';
-import {
-  modifiers,
-  placeholder,
-} from '@sb/helpers/argTypes';
+import { actions } from '@storybook/addon-actions';
+import { modifiers } from '@sb/helpers/argTypes';
+
+const events = actions({
+  onUpdateModelValue: 'update:modelValue',
+  onFocus: 'onFocus',
+  onBlur: 'onBlur',
+});
 
 export default {
   title: 'Atoms/Textarea',
@@ -16,7 +20,12 @@ export default {
     initModelValue: '',
     modifiers: [],
     placeholder: 'I still don’t know what should I do',
+    disabled: false,
     resize: true,
+    /**
+     * Use this props to pass attrs for input element.
+     */
+    textareaAttrs: { 'data-testid': 'textarea-element' },
   },
   argTypes: {
     initModelValue: {
@@ -30,7 +39,6 @@ export default {
         'ui-textarea--has-error',
       ],
     }),
-    placeholder,
     resize: {
       control: 'select',
       options: [
@@ -54,6 +62,7 @@ const Template = (args) => ({
     });
     return {
       ...args,
+      ...events,
       modelValue,
       element,
     };
@@ -63,7 +72,12 @@ const Template = (args) => ({
     v-model="modelValue"
     :resize="resize"
     :placeholder="placeholder"
+    :disabled="disabled"
+    :textarea-attrs="textareaAttrs"
     :class="modifiers"
+    @update:modelValue="onUpdateModelValue"
+    @focus="onFocus"
+    @blur="onBlur"
   />`,
 });
 

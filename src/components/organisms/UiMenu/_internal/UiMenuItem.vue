@@ -1,6 +1,6 @@
 <template>
   <UiListItem
-    v-bind="menuItemAttrs"
+    v-bind="attrs"
     class="ui-menu-item"
   >
     <UiButton
@@ -54,6 +54,7 @@ import type {
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiListItem from '../../UiList/_internal/UiListItem.vue';
 import UiMenuItemSuffix from './UiMenuItemSuffix.vue';
+import useAttributes from '../../../../composable/useAttributes';
 
 const props = defineProps({
   /**
@@ -88,24 +89,15 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-const attrs = useAttrs();
-const isSelected = computed(() => (attrs.class && (attrs.class as string).includes('ui-menu-item--is-selected')));
+const {
+  attrs, listeners,
+} = useAttributes();
+const isSelected = computed(() => (attrs.value.class && (attrs.value.class as string).includes('ui-menu-item--is-selected')));
 const hasSuffix = computed(() => props.suffixVisible === 'always' || (props.suffixVisible === 'default' && isSelected.value));
 const buttonClass = computed(() => ({ 'ui-button--is-selected': isSelected.value }));
-const menuItemAttrs = computed(() => (Object.keys(attrs)
-  .filter((key) => (!key.match(/^on.*/gi)))
-  .reduce((object, key) => ({
-    ...object,
-    [key]: attrs[key],
-  }), {})));
 const defaultProps = computed(() => ({
   buttonMenuItemAttrs: {
-    ...Object.keys(attrs)
-      .filter((key) => (key.match(/^on.*/gi)))
-      .reduce((object, key) => ({
-        ...object,
-        [key]: attrs[key],
-      }), {}),
+    ...listeners.value,
     ...props.buttonMenuItemAttrs,
   },
   suffixAttrs: {

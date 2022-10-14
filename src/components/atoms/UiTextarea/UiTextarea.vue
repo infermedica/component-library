@@ -1,11 +1,11 @@
 <template>
   <div
     class="ui-textarea"
-    v-bind="getRootAttrs($attrs)"
+    v-bind="attrs"
   >
     <textarea
       v-keyboard-focus
-      v-bind="getInputAttrs($attrs)"
+      v-bind="defaultProps.textareaAttrs"
       :value="modelValue"
       :style="{ resize: resizeValue }"
       class="ui-textarea__textarea"
@@ -21,7 +21,8 @@ export default { inheritAttrs: false };
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { PropType } from 'vue';
-import useInput from '../../../composable/useInput';
+import type { PropsAttrs } from '../../../types/attrs';
+import useAttributes from '../../../composable/useAttributes';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 
 const props = defineProps({
@@ -45,11 +46,42 @@ const props = defineProps({
     optional: true,
     default: false,
   },
+  /**
+   * Use this props to set input placeholder.
+   */
+  placeholder: {
+    type: String,
+    default: '',
+  },
+  /**
+   * Use this props to disabled textarea.
+   * Remember to use `ui-textarea--is-disabled` class to style disabled textarea.
+   */
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+   * Use this props to pass attrs for textarea element.
+   */
+  textareaAttrs: {
+    type: Object as PropsAttrs,
+    optional: true,
+    default: () => ({}),
+  },
 });
-const emit = defineEmits<{(e:'update:modelValue', value:string):void}>();
 const {
-  getRootAttrs, getInputAttrs,
-} = useInput();
+  attrs, listeners,
+} = useAttributes();
+const defaultProps = computed(() => ({
+  textareaAttrs: {
+    placeholder: props.placeholder,
+    disabled: props.disabled,
+    ...listeners.value,
+    ...props.textareaAttrs,
+  },
+}));
+const emit = defineEmits<{(e:'update:modelValue', value:string):void}>();
 function inputHandler(event: Event) {
   const el = event.target as HTMLInputElement;
   emit('update:modelValue', el.value);

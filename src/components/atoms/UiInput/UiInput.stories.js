@@ -4,15 +4,14 @@ import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import { ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
-import {
-  modifiers,
-  placeholder,
-} from '@sb/helpers/argTypes';
+import { modifiers } from '@sb/helpers/argTypes';
 import icons from '@/components/atoms/UiIcon/icons.ts';
 import { keyboardFocus } from '../../../utilities/directives';
 
 const events = actions({
   onClick: 'onClick',
+  onFocus: 'onFocus',
+  onBlur: 'onBlur',
   onUpdateModelValue: 'update:modelValue',
 });
 
@@ -25,7 +24,9 @@ export default {
     type: 'text',
     modifiers: [],
     placeholder: 'Put your height',
+    disabled: false,
     suffix: '',
+    inputAttrs: { 'data-testid': 'input-element' },
     textSuffixAttrs: { 'data-testid': 'text-suffix' },
   },
   argTypes: {
@@ -55,8 +56,8 @@ export default {
         'ui-input--has-icon',
       ],
     }),
-    placeholder,
     modelValue: { control: false },
+    inputAttrs: { table: { subcategory: 'Attrs props' } },
     textSuffixAttrs: { table: { subcategory: 'Attrs props' } },
   },
 };
@@ -74,11 +75,15 @@ const Template = (args) => ({
   template: `<UiInput
     v-model="modelValue"
     :suffix="suffix"
-    :text-suffix-attrs="textSuffixAttrs"
     :type="type"
     :class="modifiers"
     :placeholder="placeholder"
+    :disabled="disabled"
+    :text-suffix-attrs="textSuffixAttrs"
+    :input-attrs="inputAttrs"
     @update:modelValue="onUpdateModelValue"
+    @focus="onFocus"
+    @blur="onBlur"
   />`,
 });
 
@@ -113,11 +118,15 @@ export const WithAButtonInSuffix = (args) => ({
   template: `<UiInput
     v-model="modelValue"
     :suffix="suffix"
-    :text-suffix-attrs="textSuffixAttrs"
     :type="type"
     :class="modifiers"
     :placeholder="placeholder"
+    :disabled="disabled"
+    :text-suffix-attrs="textSuffixAttrs"
+    :input-attrs="inputAttrs"
     @update:modelValue="onUpdateModelValue"
+    @focus="onFocus"
+    @blur="onBlur"
   >
     <template #aside="{
       suffix, 
@@ -163,11 +172,15 @@ export const WithInputSlot = (args) => ({
   template: `<UiInput
     v-model="modelValue"
     :suffix="suffix"
-    :text-suffix-attrs="textSuffixAttrs"
     :type="type"
     :class="modifiers"
     :placeholder="placeholder"
+    :disabled="disabled"
+    :text-suffix-attrs="textSuffixAttrs"
+    :input-attrs="inputAttrs"
     @update:modelValue="onUpdateModelValue"
+    @focus="onFocus"
+    @blur="onBlur"
   >
     <template #input="{
       inputAttrs, 
@@ -202,13 +215,17 @@ export const WithAsideSlot = (args) => ({
     };
   },
   template: `<UiInput
-      v-model="modelValue"
-      :suffix="suffix"
-      :text-suffix-attrs="textSuffixAttrs"
-      :type="type"
-      :class="modifiers"
-      :placeholder="placeholder"
-      @update:modelValue="onUpdateModelValue"
+    v-model="modelValue"
+    :suffix="suffix"
+    :type="type"
+    :class="modifiers"
+    :placeholder="placeholder"
+    :disabled="disabled"
+    :text-suffix-attrs="textSuffixAttrs"
+    :input-attrs="inputAttrs"
+    @update:modelValue="onUpdateModelValue"
+    @focus="onFocus"
+    @blur="onBlur"
   >
     <template #aside="{
       suffix,

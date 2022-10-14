@@ -1,14 +1,14 @@
 <template>
   <div
     class="ui-input"
-    v-bind="getRootAttrs($attrs)"
+    v-bind="attrs"
   >
     <div class="ui-input__outline">
       <!-- @slot Use this slot to replace input template. -->
       <slot
         name="input"
         v-bind="{
-          inputAttrs: getInputAttrs($attrs),
+          inputAttrs: defaultProps.inputAttrs,
           input: inputHandler,
           value: modelValue,
           validation: keyValidation
@@ -16,7 +16,7 @@
       >
         <input
           v-keyboard-focus
-          v-bind="getInputAttrs($attrs)"
+          v-bind="defaultProps.inputAttrs"
           :value="modelValue"
           class="ui-input__input"
           @keydown="keyValidation"
@@ -48,17 +48,37 @@ export default { inheritAttrs: false };
 </script>
 
 <script setup lang="ts">
-import {
-  computed,
-  useAttrs,
-} from 'vue';
+import { computed } from 'vue';
+import type { HTMLTag } from '../../../types/tag';
+import type { PropsAttrs } from '../../../types/attrs';
 import UiText from '../UiText/UiText.vue';
-import useInput from '../../../composable/useInput';
+import useAttributes from '../../../composable/useAttributes';
 import useKeyValidation from '../../../composable/useKeyValidation';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
-import type { HTMLTag } from '../../../types/tag';
 
 const props = defineProps({
+  /**
+   * Use this props to set input placeholder.
+   */
+  placeholder: {
+    type: String,
+    default: '',
+  },
+  /**
+   * Use this props to set input type.
+   */
+  type: {
+    type: String,
+    default: 'text',
+  },
+  /**
+   * Use this props to disabled input.
+   * Remember to use `ui-input--is-disabled` class to style disabled input.
+   */
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
   /**
    * Use this props or v-model to set value.
    */
@@ -74,28 +94,41 @@ const props = defineProps({
     default: '',
   },
   /**
-   * Use this props to pass attrs for suffix UiText
+   * Use this props to pass attrs for suffix UiText.
    */
   textSuffixAttrs: {
     type: Object,
     default: () => ({ tag: 'span' }),
   },
+  /**
+   * Use this props to pass attrs for input element.
+   */
+  inputAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({}),
+  },
 });
+const emit = defineEmits<{(e: 'update:modelValue', value: string): void
+}>();
+const {
+  attrs, listeners,
+} = useAttributes();
 const defaultProps = computed(() => ({
   textSuffixAttrs: {
     tag: 'span' as HTMLTag,
     ...props.textSuffixAttrs,
   },
+  inputAttrs: {
+    type: props.type,
+    placeholder: props.placeholder,
+    disabled: props.disabled,
+    ...listeners.value,
+    ...props.inputAttrs,
+  },
 }));
-const emit = defineEmits<{(e: 'update:modelValue', value: string): void
-}>();
-const attrs = useAttrs();
-const {
-  getRootAttrs, getInputAttrs,
-} = useInput();
 const { numbersOnly } = useKeyValidation();
 function keyValidation(event: Event): void {
-  switch (attrs.type) {
+  switch (props.type) {
     case 'number':
       numbersOnly(event);
       break;
