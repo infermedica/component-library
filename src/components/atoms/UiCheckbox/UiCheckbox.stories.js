@@ -10,7 +10,11 @@ import {
   modifiers,
 } from '@sb/helpers/argTypes';
 
-const events = actions({ onUpdateModelValue: 'update:modelValue' });
+const events = actions({
+  onUpdateModelValue: 'update:modelValue',
+  onFocus: 'onFocus',
+  onBlur: 'onBlur',
+});
 
 export default {
   title: 'Atoms/Checkbox',
@@ -26,6 +30,8 @@ export default {
     modelValue: false,
     value: '',
     id: '',
+    disabled: false,
+    inputAttrs: { 'data-testid': 'input-element' },
     iconCheckmarkAttrs: { 'data-testid': 'icon-checkmark' },
     textLabelAttrs: { 'data-testid': 'text-label' },
   },
@@ -45,6 +51,7 @@ export default {
     }),
     id: { control: 'text' },
     value: { control: 'text' },
+    inputAttrs: { table: { subcategory: 'Attrs props' } },
     iconCheckmarkAttrs: { table: { subcategory: 'Attrs props' } },
     textLabelAttrs: { table: { subcategory: 'Attrs props' } },
   },
@@ -64,10 +71,14 @@ const Template = (args) => ({
     v-model="modelValue"
     :value="value"
     :id="id"
+    :disabled="disabled"
+    :input-attrs="inputAttrs"
     :icon-checkmark-attrs="iconCheckmarkAttrs"
     :text-label-attrs="textLabelAttrs"
     :class="modifiers"
     @update:modelValue="onUpdateModelValue"
+    @focus="onFocus"
+    @blur="onBlur"
   >
     {{ content }}
   </UiCheckbox>`,
@@ -95,13 +106,17 @@ export const WithCheckboxSlot = (args) => ({
     };
   },
   template: `<UiCheckbox
-      v-model="modelValue"
-      :value="value"
-      :id="id"
-      :icon-checkmark-attrs="iconCheckmarkAttrs"
-      :text-label-attrs="textLabelAttrs"
-      :class="modifiers"
-      @update:modelValue="onUpdateModelValue"
+    v-model="modelValue"
+    :value="value"
+    :id="id"
+    :disabled="disabled"
+    :input-attrs="inputAttrs"
+    :icon-checkmark-attrs="iconCheckmarkAttrs"
+    :text-label-attrs="textLabelAttrs"
+    :class="modifiers"
+    @update:modelValue="onUpdateModelValue"
+    @focus="onFocus"
+    @blur="onBlur"
     >
       <template #checkbox="{
         checked, 
@@ -137,13 +152,17 @@ export const WithLabelSlot = (args) => ({
     };
   },
   template: `<UiCheckbox
-      v-model="modelValue"
-      :value="value"
-      :id="id"
-      :icon-checkmark-attrs="iconCheckmarkAttrs"
-      :text-label-attrs="textLabelAttrs"
-      :class="modifiers"
-      @update:modelValue="onUpdateModelValue"
+    v-model="modelValue"
+    :value="value"
+    :id="id"
+    :disabled="disabled"
+    :input-attrs="inputAttrs"
+    :icon-checkmark-attrs="iconCheckmarkAttrs"
+    :text-label-attrs="textLabelAttrs"
+    :class="modifiers"
+    @update:modelValue="onUpdateModelValue"
+    @focus="onFocus"
+    @blur="onBlur"
     >
       <template #label="{
         hasLabel, 
@@ -170,13 +189,17 @@ export const ValueAsObject = (args) => ({
     };
   },
   template: `<UiCheckbox
-      v-model="modelValue"
-      :value="value"
-      :id="id"
-      :icon-checkmark-attrs="iconCheckmarkAttrs"
-      :text-label-attrs="textLabelAttrs"
-      :class="modifiers"
-      @update:modelValue="onUpdateModelValue"
+    v-model="modelValue"
+    :value="value"
+    :id="id"
+    :disabled="disabled"
+    :input-attrs="inputAttrs"
+    :icon-checkmark-attrs="iconCheckmarkAttrs"
+    :text-label-attrs="textLabelAttrs"
+    :class="modifiers"
+    @update:modelValue="onUpdateModelValue"
+    @focus="onFocus"
+    @blur="onBlur"
   >
     {{ value.label }}
   </UiCheckbox>`,
@@ -222,10 +245,17 @@ export const AsGroupWithPrimitiveTypes = (args) => ({
       <UiCheckbox
         v-model="modelValue"
         :value="value"
+        :id="id"
+        :disabled="disabled"
+        :input-attrs="inputAttrs"
+        :icon-checkmark-attrs="iconCheckmarkAttrs"
+        :text-label-attrs="textLabelAttrs"
         :class="modifiers"
         @update:modelValue="onUpdateModelValue"
+        @focus="onFocus"
+        @blur="onBlur"
       >
-        {{value}}
+        {{ value }}
       </UiCheckbox>
     </UiListItem>
   </UiList>`,
@@ -278,8 +308,14 @@ export const AsGroupWithObject = (args) => ({
         v-model="modelValue"
         :value="value"
         :id="value.id"
+        :disabled="disabled"
+        :input-attrs="inputAttrs"
+        :icon-checkmark-attrs="iconCheckmarkAttrs"
+        :text-label-attrs="textLabelAttrs"
         :class="modifiers"
         @update:modelValue="onUpdateModelValue"
+        @focus="onFocus"
+        @blur="onBlur"
       >
         {{ value.label }}
       </UiCheckbox>
@@ -344,11 +380,16 @@ export const AsGroupWithNestedObject = (args) => ({
     >
       <UiCheckbox
         v-model="modelValue"
-        v-bind="value.checkboxAttrs"
         :value="value"
         :id="value.id"
+        :disabled="disabled"
+        :input-attrs="inputAttrs"
+        :icon-checkmark-attrs="iconCheckmarkAttrs"
+        :text-label-attrs="textLabelAttrs"
         :class="modifiers"
         @update:modelValue="onUpdateModelValue"
+        @focus="onFocus"
+        @blur="onBlur"
       >
         {{ value.label }}
       </UiCheckbox>
@@ -365,17 +406,14 @@ AsGroupWithNestedObject.args = {
     {
       label: 'Russia, Kazakhstan or Mongolia',
       id: 'as-group-with-nested-object-russia-kazakhstan-mongolia',
-      checkboxAttrs: { 'data-testid': 'russia-kazakhstan-mongolia-checkbox' },
     },
     {
       label: 'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
       id: 'as-group-with-nested-object-asia-excluding-middle-east-russia-mongolia-kazakhstan',
-      checkboxAttrs: { 'data-testid': 'asia-excluding-middle-east-russia-mongolia-kazakhstan-checkbox' },
     },
     {
       label: 'Europe',
       id: 'as-group-with-nested-object-europe',
-      checkboxAttrs: { 'data-testid': 'europe-checkbox' },
     },
   ],
 };

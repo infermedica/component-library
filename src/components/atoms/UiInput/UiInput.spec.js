@@ -12,11 +12,10 @@ describe('UiInput.vue', () => {
     const aside = wrapper.find('.ui-input__aside');
     expect(aside.text()).toContain(suffix);
   });
-  test('render a native attributes on input element', () => {
-    const placeholder = 'symptom checker';
-    const wrapper = mount(UiInput, { props: { placeholder } });
-    const input = wrapper.find('.ui-input__input');
-    expect(input.attributes('placeholder')).toBe(placeholder);
+  test('render a native attributes on root element', () => {
+    const wrapper = mount(UiInput, { props: { 'data-testid': 'ui-input' } });
+    const input = wrapper.find('.ui-input');
+    expect(input.attributes('data-testid')).toBe('ui-input');
   });
   test('render a content via aside slot', () => {
     const wrapper = mount(UiInput, { slots: { aside: '<div class="symptom-checker"></div>' } });

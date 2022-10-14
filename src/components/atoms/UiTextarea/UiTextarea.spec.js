@@ -6,11 +6,11 @@ describe('UiTextarea.vue', () => {
     const wrapper = mount(UiTextarea);
     expect(wrapper.classes('ui-textarea')).toBe(true);
   });
-  test('render a native attributes on input element', () => {
+  test('render a native attributes on root element', () => {
     const placeholder = 'symptom checker';
-    const wrapper = mount(UiTextarea, { props: { placeholder } });
-    const textarea = wrapper.find('textarea');
-    expect(textarea.attributes('placeholder')).toBe(placeholder);
+    const wrapper = mount(UiTextarea, { props: { 'data-testid': 'ui-textarea' } });
+    const textarea = wrapper.find('.ui-textarea');
+    expect(textarea.attributes('data-testid')).toBe('ui-textarea');
   });
   test('a component emits input event', async () => {
     const content = 'symptom checker';
