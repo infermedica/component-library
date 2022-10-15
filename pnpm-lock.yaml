@@ -28,6 +28,7 @@ specifiers:
   '@storybook/testing-library': ^0.0.13
   '@storybook/theming': ^6.5.12
   '@storybook/vue3': ^6.5.12
+  '@types/google-libphonenumber': ^7.4.23
   '@typescript-eslint/eslint-plugin': ^5.4.0
   '@typescript-eslint/parser': ^5.4.0
   '@vitejs/plugin-vue': ^3.0.1
@@ -41,6 +42,7 @@ specifiers:
   babel-loader: ^8.2.3
   chromatic: ^6.5.4
   core-js: ^3.23.5
+  country-codes-list: ^1.6.8
   css-loader: ^6.7.1
   date-fns: ^2.28.0
   eslint: ^8.0.0
@@ -54,7 +56,9 @@ specifiers:
   fast-deep-equal: ^3.1.3
   file-save: ^0.2.0
   glob: ^8.0.3
+  google-libphonenumber: ^3.2.31
   husky: ^8.0.1
+  i18n-iso-countries: ^7.5.0
   jsdom: ^20.0.0
   postcss: ^8.4.7
   postcss-html: ^1.3.0
@@ -87,8 +91,11 @@ specifiers:
 dependencies:
   '@vitejs/plugin-vue': 3.0.1_vite@3.0.3+vue@3.2.37
   core-js: 3.24.0
+  country-codes-list: 1.6.8
   date-fns: 2.29.1
   fast-deep-equal: 3.1.3
+  google-libphonenumber: 3.2.31
+  i18n-iso-countries: 7.5.0
   uid: 2.0.0
   vite: 3.0.3_sass@1.54.0
   vite-svg-loader: 3.4.0
@@ -122,6 +129,7 @@ devDependencies:
   '@storybook/testing-library': 0.0.13_wcqkhtmu7mswc6yz4uyexck3ty
   '@storybook/theming': 6.5.12_wcqkhtmu7mswc6yz4uyexck3ty
   '@storybook/vue3': 6.5.12_j7gy655ovfkzlzygbv62wathby
+  '@types/google-libphonenumber': 7.4.23
   '@typescript-eslint/eslint-plugin': 5.31.0_d5zwcxr4bwkhmuo464cb3a2puu
   '@typescript-eslint/parser': 5.31.0_he2ccbldppg44uulnyq4rwocfa
   '@vitest/ui': 0.23.4
@@ -4751,6 +4759,10 @@ packages:
       '@types/node': 18.6.1
     dev: true
 
+  /@types/google-libphonenumber/7.4.23:
+    resolution: {integrity: sha512-C3ydakLTQa8HxtYf9ge4q6uT9krDX8smSIxmmW3oACFi5g5vv6T068PRExF7UyWbWpuYiDG8Nm24q2X5XhcZWw==}
+    dev: true
+
   /@types/graceful-fs/4.1.5:
     resolution: {integrity: sha512-anKkLmZZ+xm4p8JWBf4hElkM4XR+EZeA2M9BAkkTldmcyDY4mbdIJnRghDJH3Ov5ooY7/UAoENtmdMSkaAd7Cw==}
     dependencies:
@@ -6681,7 +6693,7 @@ packages:
       mississippi: 3.0.0
       mkdirp: 0.5.6
       move-concurrently: 1.0.1
-      promise-inflight: 1.0.1
+      promise-inflight: 1.0.1_bluebird@3.7.2
       rimraf: 2.7.1
       ssri: 6.0.2
       unique-filename: 1.1.1
@@ -7361,6 +7373,10 @@ packages:
       yaml: 1.10.2
     dev: true
 
+  /country-codes-list/1.6.8:
+    resolution: {integrity: sha512-wsqH44Yx3pTyPA77jYt2Nxso6kXziMwxI37fJFQLcd/3ome8Gqz6areaeG1w8zfeU9i+cZvJA3k2Mo5EW7rAtg==}
+    dev: false
+
   /cp-file/7.0.0:
     resolution: {integrity: sha512-0Cbj7gyvFVApzpK/uhCtQ/9kE9UnYpxMzaq5nQQC/Dh4iaj5fxp7iEFIullrYwzj8nf0qnsI1Qsx34hAeAebvw==}
     engines: {node: '>=8'}
@@ -7846,6 +7862,10 @@ packages:
       defined: 1.0.0
       minimist: 1.2.6
     dev: true
+
+  /diacritics/1.3.0:
+    resolution: {integrity: sha512-wlwEkqcsaxvPJML+rDh/2iS824jbREk6DUMUKkEaSlxdYHeS43cClJtsWglvw2RfeXGm6ohKDqsXteJ5sP5enA==}
+    dev: false
 
   /didyoumean/1.2.2:
     resolution: {integrity: sha512-gxtyfqMg7GKyhQmb056K7M3xszy/myH8w+B4RT+QXBQsvAOdc3XymqDDPHx1BgPgsdAA5SIifona89YtRATDzw==}
@@ -9775,6 +9795,11 @@ packages:
     resolution: {integrity: sha512-xYfnw62CKG8nLkZBfWbhWwDw02CHty86jfPcc2cr3ZfeuK9ysoVPPEUxf21bAD/rWAgk52SuBrLJlefNy8mvFg==}
     dev: true
 
+  /google-libphonenumber/3.2.31:
+    resolution: {integrity: sha512-l3bzAkfN4ITICKvuqEiY7JN06RxDAviOoKMtD2KfGYjGK3btPO8Xav7k0fgmf1Ud/pEm523yBh1/s/xDtKEvnw==}
+    engines: {node: '>=0.10'}
+    dev: false
+
   /graceful-fs/4.2.10:
     resolution: {integrity: sha512-9ByhssR2fPVsNZj478qUUbKfmL0+t5BDVyjShtyZZLiK7ZDAArFFfopyOTj0M05wE2tJPisA4iTnnXl2YoPvOA==}
     dev: true
@@ -10146,6 +10171,13 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
     dev: true
+
+  /i18n-iso-countries/7.5.0:
+    resolution: {integrity: sha512-PtfKJNWLVhhU0KBX/8asmywjAcuyQk07mmmMwxFJcddTNBJJ1yvpY2qxVmyxbtVF+9+6eg9phgpv83XPUKU5CA==}
+    engines: {node: '>= 12'}
+    dependencies:
+      diacritics: 1.3.0
+    dev: false
 
   /iconv-lite/0.4.24:
     resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==}
@@ -13435,6 +13467,17 @@ packages:
     peerDependenciesMeta:
       bluebird:
         optional: true
+    dev: true
+
+  /promise-inflight/1.0.1_bluebird@3.7.2:
+    resolution: {integrity: sha512-6zWPyEOFaQBJYcGMHBKTKJ3u6TBsnMFOIZSa6ce1e/ZrrsOlnHRHbabMjLiBYKp+n44X9eUI6VUPaukCXHuG4g==}
+    peerDependencies:
+      bluebird: '*'
+    peerDependenciesMeta:
+      bluebird:
+        optional: true
+    dependencies:
+      bluebird: 3.7.2
     dev: true
 
   /promise.allsettled/1.0.5:
