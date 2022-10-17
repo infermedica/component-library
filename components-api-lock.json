@@ -93,25 +93,47 @@
           }
         },
         {
-          "name": "iconCheckmarkAttrs",
-          "description": "Use this props to pass attrs for checkmark UiIcon",
+          "name": "disabled",
+          "description": "Use this props to disabled checkbox.\nRemember to use `ui-checkbox--is-disabled` class to style disabled checkbox.",
           "type": {
-            "name": "object"
+            "name": "boolean"
           },
           "defaultValue": {
             "func": false,
-            "value": "{\n  icon: 'checkmark'\n}"
+            "value": "false"
+          }
+        },
+        {
+          "name": "inputAttrs",
+          "description": "Use this props to pass attrs for input element.",
+          "type": {
+            "name": "Object as PropsAttrs"
+          },
+          "defaultValue": {
+            "func": true,
+            "value": "() => ({})"
+          }
+        },
+        {
+          "name": "iconCheckmarkAttrs",
+          "description": "Use this props to pass attrs for checkmark UiIcon",
+          "type": {
+            "name": "Object as PropsAttrs"
+          },
+          "defaultValue": {
+            "func": true,
+            "value": "() => ({ icon: 'checkmark' })"
           }
         },
         {
           "name": "textLabelAttrs",
           "description": "Use this props to pass attrs for label UiText",
           "type": {
-            "name": "object"
+            "name": "Object as PropsAttrs"
           },
           "defaultValue": {
-            "func": false,
-            "value": "{\n  tag: 'span'\n}"
+            "func": true,
+            "value": "() => ({ tag: 'span' })"
           }
         }
       ],
@@ -235,6 +257,39 @@
       "tags": {},
       "props": [
         {
+          "name": "placeholder",
+          "description": "Use this props to set input placeholder.",
+          "type": {
+            "name": "string"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "''"
+          }
+        },
+        {
+          "name": "type",
+          "description": "Use this props to set input type.",
+          "type": {
+            "name": "string"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "'text'"
+          }
+        },
+        {
+          "name": "disabled",
+          "description": "Use this props to disabled input.\nRemember to use `ui-input--is-disabled` class to style disabled input.",
+          "type": {
+            "name": "boolean"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "false"
+          }
+        },
+        {
           "name": "modelValue",
           "description": "Use this props or v-model to set value.",
           "type": {
@@ -258,13 +313,24 @@
         },
         {
           "name": "textSuffixAttrs",
-          "description": "Use this props to pass attrs for suffix UiText",
+          "description": "Use this props to pass attrs for suffix UiText.",
           "type": {
             "name": "object"
           },
           "defaultValue": {
             "func": false,
             "value": "{\n  tag: 'span'\n}"
+          }
+        },
+        {
+          "name": "inputAttrs",
+          "description": "Use this props to pass attrs for input element.",
+          "type": {
+            "name": "Object as PropsAttrs"
+          },
+          "defaultValue": {
+            "func": true,
+            "value": "() => ({})"
           }
         }
       ],
@@ -447,25 +513,47 @@
           }
         },
         {
-          "name": "radioElementAttrs",
-          "description": "Use this props to pass attrs for radio element.",
+          "name": "disabled",
+          "description": "Use this props to disabled input.\nRemember to use `ui-radio--is-disabled` class to style disabled radio.",
           "type": {
-            "name": "object"
+            "name": "boolean"
           },
           "defaultValue": {
             "func": false,
-            "value": "{}"
+            "value": "false"
+          }
+        },
+        {
+          "name": "inputAttrs",
+          "description": "Use this props to pass attrs for input element.",
+          "type": {
+            "name": "Object as PropsAttrs"
+          },
+          "defaultValue": {
+            "func": true,
+            "value": "() => ({})"
+          }
+        },
+        {
+          "name": "radioElementAttrs",
+          "description": "Use this props to pass attrs for radio element.",
+          "type": {
+            "name": "Object as PropsAttrs"
+          },
+          "defaultValue": {
+            "func": true,
+            "value": "() => ({})"
           }
         },
         {
           "name": "textLabelAttrs",
           "description": "Use this props to pass attrs for label UiText",
           "type": {
-            "name": "object"
+            "name": "Object as PropsAttrs"
           },
           "defaultValue": {
-            "func": false,
-            "value": "{\n  tag: 'span'\n}"
+            "func": true,
+            "value": "() => ({ tag: 'span' })"
           }
         }
       ],
@@ -567,17 +655,6 @@
           }
         },
         {
-          "name": "numberStepperAttrs",
-          "description": "Use this props to pass attrs for UiNumberStepper",
-          "type": {
-            "name": "Object as PropsAttrs"
-          },
-          "defaultValue": {
-            "func": true,
-            "value": "() => ({})"
-          }
-        },
-        {
           "name": "headingValueAttrs",
           "description": "Use this props to pass attrs for value UiHeading",
           "type": {
@@ -586,6 +663,17 @@
           "defaultValue": {
             "func": true,
             "value": "() => ({\n  level: 1,\n  tag: 'span',\n})"
+          }
+        },
+        {
+          "name": "inputAttrs",
+          "description": "Use this props to pass attrs for input element.",
+          "type": {
+            "name": "Object as PropsAttrs"
+          },
+          "defaultValue": {
+            "func": true,
+            "value": "() => ({})"
           }
         }
       ],
@@ -704,6 +792,39 @@
           "defaultValue": {
             "func": false,
             "value": "false"
+          }
+        },
+        {
+          "name": "placeholder",
+          "description": "Use this props to set input placeholder.",
+          "type": {
+            "name": "string"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "''"
+          }
+        },
+        {
+          "name": "disabled",
+          "description": "Use this props to disabled textarea.\nRemember to use `ui-textarea--is-disabled` class to style disabled textarea.",
+          "type": {
+            "name": "boolean"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "false"
+          }
+        },
+        {
+          "name": "textareaAttrs",
+          "description": "Use this props to pass attrs for textarea element.",
+          "type": {
+            "name": "Object as PropsAttrs"
+          },
+          "defaultValue": {
+            "func": true,
+            "value": "() => ({})"
           }
         }
       ],
