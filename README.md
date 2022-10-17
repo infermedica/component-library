@@ -1,5 +1,11 @@
 # Infermedica Component Library
-
+<a href="https://www.npmjs.com/package/@infermedica/component-library" target="_blank"><img alt="npm" src="https://img.shields.io/npm/v/@infermedica/component-library"></a>
+<a href="https://github.com/infermedica/component-library">
+<img alt="License" src="https://img.shields.io/github/license/infermedica/component-library" />
+</a>
+<a href="https://github.com/infermedica/component-library/pulls">
+<img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" />
+</a>
 ### The first Ui library for healthcare and not only base on Vue 3.
 
 **Current status**: Stable beta
@@ -8,7 +14,7 @@
 follow best practice in terms of design and coding. We provide raw source and aim to be developer-friendly, configurable-first and performance-oriented.
 
 ## Links
-[//]: # (- Documentation)
+- Documentation https://63495e10e48e036f18bd4c89-keutwvhvwu.chromatic.com/
 - Discord Community https://discord.gg/Uhv8Ev8yqC
 
 
