@@ -132,31 +132,37 @@ export const AsSidePanel = (args) => ({
         label: 'For business',
         icon: 'chevron-right',
         suffixVisible: 'always',
+        class: 'button--theme-secondary',
       },
       {
         label: 'Medical Certification',
         icon: 'chevron-right',
         suffixVisible: 'always',
+        class: 'button--theme-secondary',
       },
       {
         label: 'Instruction for Use',
         icon: 'chevron-right',
         suffixVisible: 'always',
+        class: 'button--theme-secondary',
       },
       {
         label: 'Terms of Service',
         icon: 'chevron-right',
         suffixVisible: 'always',
+        class: 'button--theme-secondary',
       },
       {
         label: 'Privacy policy',
         icon: 'chevron-right',
         suffixVisible: 'always',
+        class: 'button--theme-secondary',
       },
       {
         label: 'Interview ID',
         icon: 'chevron-right',
         suffixVisible: 'always',
+        class: 'button--theme-secondary',
       },
     ];
     return {
