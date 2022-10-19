@@ -17,6 +17,9 @@ const getComponentsApi = async () => {
 };
 
 function saveComponentsApiFile(componentsApi) {
+  if (!fs.existsSync(pathComponentsApiFile)) {
+    fs.appendFileSync(pathComponentsApiFile, '');
+  }
   const content = JSON.parse(fs.readFileSync(pathComponentsApiFile, 'utf8') || '{}');
   content['components-api'] = componentsApi;
   fs.writeFileSync(pathComponentsApiFile, JSON.stringify(content, null, 2));
