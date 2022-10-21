@@ -14,7 +14,7 @@ const getArgs = (argName) => (process.argv.slice(2).reduce((acc, arg) => {
     [key]: value,
   };
 }, {})[`--${argName}`]);
-const getApiFromDevelop = async () => {
+const getApiFromBranch = async () => {
   try {
     const branch = getArgs('branch') || 'develop';
     const response = await fetch(`https://github.com/infermedica/component-library/raw/${branch}/components-api-lock.json`);
@@ -160,12 +160,12 @@ const getDiffs = (currEl, prevEl, keys = []) => {
   return diffs;
 };
 const compareApi = async (callback) => {
-  const developApi = await getApiFromDevelop();
+  const branchApi = await getApiFromBranch();
   const currentApi = JSON.parse(fs.readFileSync(pathComponentsApiFile, 'utf8') || '{}')['components-api'];
   let diffs = {};
   const {
     added, removed, changed,
-  } = getArrayDiffs(currentApi, developApi, 'displayName');
+  } = getArrayDiffs(currentApi, branchApi, 'displayName');
   removed.forEach((name) => {
     diffs[name] = [ getLoggerObject('removed', [ 'component' ]) ];
   });
@@ -173,11 +173,11 @@ const compareApi = async (callback) => {
     diffs[name] = [ getLoggerObject('added', [ 'component' ]) ];
   });
   changed.forEach((currentComponent) => {
-    const getDevelopComponent = developApi.find(
+    const getBranchComponent = branchApi.find(
       ({ displayName }) => displayName === currentComponent.displayName,
     );
-    if (!isElementsEqual(currentComponent, getDevelopComponent)) {
-      diffs[currentComponent.displayName] = getDiffs(currentComponent, getDevelopComponent);
+    if (!isElementsEqual(currentComponent, getBranchComponent)) {
+      diffs[currentComponent.displayName] = getDiffs(currentComponent, getBranchComponent);
     }
   });
   diffs = groupDiffs(diffs);
