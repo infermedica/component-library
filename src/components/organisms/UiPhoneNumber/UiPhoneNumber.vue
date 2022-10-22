@@ -1,77 +1,123 @@
 <template>
-  <UiFormField
-    v-if="phoneCodes.length > 0 && !!selected"
-    id="ui-phone-number"
-    :label="label"
-    :error-message="error"
-    :hint="hint"
+  <slot
+    name="controls"
+    v-bind="{
+      error,
+      touched,
+      value: modelValue,
+    }"
   >
-    <div class="ui-phone-number__fields">
-      <slot
-        name="dropdown"
-        v-bind="{
-          selected,
-          phoneCodes,
-          error
-        }"
-      >
-        <UiDropdown
-          class="ui-phone-number__dropdown"
-          :model-value="selected"
-          @update:model-value="handleOnSelected"
+    <section
+      v-if="!isLoading"
+      class="ui-phone-number"
+    >
+      <fieldset class="ui-phone-number__fields">
+        <UiText
+          tag="legend"
+          class="ui-form-field__label"
         >
-          <template
-            #toggle="{
-              toggleHandler, isOpen
-            }"
+          <UiText
+            class="ui-form-field__label-text"
+            tag="span"
           >
-            <UiButton
-              class="ui-button--outlined ui-button--has-icon ui-phone-number__dropdown-button"
-              :class="{ 'ui-button--has-error': error, }"
-              type="button"
-              @click="event => updateOffset(event, toggleHandler)"
-            >
-              <span class="ui-phone-number__dropdown-text">
-                {{ formatPrefix(selected.code) }}
-              </span>
-              <UiIcon
-                :icon="isOpen ? `chevron-up` : `chevron-down`"
-                class="ui-button__icon"
+            {{ label }}
+          </UiText>
+        </UiText>
+        <slot
+          name="dropdown"
+          v-bind="{
+            selected,
+            phoneCodes,
+            error
+          }"
+        >
+          <UiFormField
+            id="ui-phone-number__dropdown"
+            class="ui-phone-number__dropdown-form-field"
+            :error-message="false"
+            :label="countryCodeLabel"
+            :text-message-attrs="{ class: 'visual-hidden' }"
+            :text-hint-attrs="{ class: 'visual-hidden' }"
+          >
+            <template #default>
+              <UiDropdown
+                id="ui-phone-number__dropdown"
+                class="ui-phone-number__dropdown"
+                :model-value="selected"
+                @update:model-value="handleOnSelected"
+              >
+                <template
+                  #toggle="{
+                    toggleHandler, isOpen
+                  }"
+                >
+                  <UiButton
+                    id="ui-phone-number__dropdown"
+                    class="ui-button--outlined ui-button--has-icon ui-phone-number__dropdown-button"
+                    :class="{ 'ui-button--has-error': error, }"
+                    type="button"
+                    @click="event => updateOffset(event, toggleHandler)"
+                  >
+                    <span class="ui-phone-number__dropdown-text--desktop">
+                      {{ formatPrefix(selected.code) }}
+                    </span>
+                    <span class="ui-phone-number__dropdown-text--mobile">
+                      {{ selected.country }} ({{ selected.code }})
+                    </span>
+                    <UiIcon
+                      :icon="isOpen ? `chevron-up` : `chevron-down`"
+                      class="ui-button__icon"
+                    />
+                  </UiButton>
+                </template>
+                <template
+                  v-for="(option, key) in phoneCodes"
+                  :key="key"
+                >
+                  <UiDropdownItem
+                    :value="option"
+                    class="ui-dropdown-item--compact"
+                  >
+                    {{ option.country }} ({{ option.code }})
+                  </UiDropdownItem>
+                </template>
+              </UiDropdown>
+            </template>
+          </UiFormField>
+        </slot>
+
+        <slot
+          name="input"
+          v-bind="{
+            value: phone,
+            error,
+            handleOnBlur,
+          }"
+        >
+          <UiFormField
+            id="ui-phone-number__input"
+            class="ui-phone-number__input-form-field"
+            :error-message="error"
+            :label="label"
+            :text-message-attrs="{ class: 'visual-hidden' }"
+            :text-hint-attrs="{ class: 'visual-hidden' }"
+          >
+            <template #default="{ id }">
+              <UiInput
+                :id="id"
+                v-model="phone"
+                class="ui-phone-number__input"
+                :class="{ 'ui-input--has-error': error, }"
+                :placeholder="placeholder"
+                type="number"
+                @blur="handleOnBlur"
               />
-            </UiButton>
-          </template>
-          <template
-            v-for="(option, key) in phoneCodes"
-            :key="key"
-          >
-            <UiDropdownItem
-              :value="option"
-              class="ui-dropdown-item--compact"
-            >
-              {{ option.country }} ({{ option.code }})
-            </UiDropdownItem>
-          </template>
-        </UiDropdown>
-      </slot>
-      <slot
-        name="input"
-        v-bind="{
-          value: phone,
-          error,
-          handleOnBlur,
-        }"
-      >
-        <UiInput
-          v-model="phone"
-          class="ui-phone-number__input"
-          :class="{ 'ui-input--has-error': error, }"
-          :placeholder="placeholder"
-          type="number"
-          @blur="handleOnBlur"
-        />
-      </slot>
-    </div>
-  </UiFormField>
+            </template>
+          </UiFormField>
+        </slot>
+      </fieldset>
+    </section>
+  </slot>
 </template>
 
 <script lang="ts">
@@ -89,8 +135,9 @@ import {
   ref,
 } from 'vue';
 import { PhoneNumberUtil } from 'google-libphonenumber';
-import type { DropdownValue } from '@/components/molecules/UiDropdown/UiDropdown.vue';
+import type { DropdownValue } from '../../molecules/UiDropdown/UiDropdown.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
+import UiText from '../../atoms/UiText/UiText.vue';
 import UiDropdown from '../../molecules/UiDropdown/UiDropdown.vue';
 import UiDropdownItem from '../../molecules/UiDropdown/_internal/UiDropdownItem.vue';
 import UiFormField from '../../molecules/UiFormField/UiFormField.vue';
@@ -113,6 +160,13 @@ const props: UiPhoneNumberProps = defineProps({
   label: {
     type: String as PropType<string>,
     default: 'Phone number',
+  },
+  /**
+   * Use this prop to set the hidden country-code label text.
+   */
+  countryCodeLabel: {
+    type: String as PropType<string>,
+    default: 'Country code',
   },
   /**
    * Use this props to set the input's placeholder
@@ -168,6 +222,8 @@ const props: UiPhoneNumberProps = defineProps({
   },
 });
 
+const isLoading = ref(true);
+
 const phone = ref('');
 
 const phoneCodes = ref<(PhoneCodeType)[]>([]);
@@ -219,6 +275,7 @@ const updateOffset = (event: MouseEvent, callback: () => void) => {
 
 onMounted(async () => {
   phoneCodes.value = await getPhoneCodes(props.language);
+  isLoading.value = false;
   selected.value = phoneCodes.value.find(
     (prefix) => prefix.countryCode === props.defaultCountryCode,
   ) || phoneCodes.value[0];
@@ -233,13 +290,31 @@ onMounted(async () => {
   $this: &;
   $element: phone-number;
 
+  // reset fieldset styles
+  fieldset {
+    border: 0;
+    margin: 0;
+    min-width: 0;
+    padding: 0.01em 0 0 0;
+  }
+
   &__fields {
-    width: functions.var($element + "-fields", width, 100%);
-    display: functions.var($element + "-fields", display, flex);
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    //gap: functions.var($element + "-fields-mobile", gap, 0));
+
+    @include mixins.from-tablet {
+      flex-direction: row;
+      gap: functions.var($element + "-fields-desktop", gap, var(--space-4));
+    }
 
     #{$this}__dropdown {
+      --button-padding: var(--space-12);
       --button-icon-margin: 0 var(--space-4) 0 var(--space-8);
-      font: functions.var($element + "-dropdown", font, var(--font-body-1));
+
+      font: var(--font-body-1);
+      width: 100%;
 
       &-button {
         --button-color: var(--color-text-body);
@@ -254,43 +329,54 @@ onMounted(async () => {
         --icon-color: var(--color-icon-secondary);
         --button-icon-color-active: var(--color-icon-secondary-active);
         --button-icon-color-hover: var(--color-icon-secondary-hover);
+        --button-icon-margin: 0;
+        --button-width: 100%;
 
-        margin-right: functions.var($element + "-dropdown-button", margin-right, var(--space-8));
-        font: functions.var($element + "-dropdown-button", font, var(--font-body-1));
+        justify-content: space-between;
+        font: var(--font-body-1);
       }
 
       .ui-dropdown-item {
-        text-align: functions.var($element + "-dropdown-item", text-align, left);
-        white-space: functions.var($element + "-dropdown-item", white-space, break-spaces);
+        text-align: left;
+        white-space: break-spaces;
       }
 
       .ui-popover {
         --popover-border: none;
 
-        width: calc(100vw - 40px);
+        width: 100%;
         min-height: 200px;
-        max-height: calc(100vh - (v-bind(popoverOffsetTop) * 1px));
+        max-height: calc(100vh - (v-bind(popoverOffsetTop) * 1px)); /* stylelint-disable-line value-keyword-case */
         overflow-y: scroll;
         border: 1px solid var(--color-border-subtle);
+      }
 
-        @include mixins.from-tablet {
-          width: var(--ui-phone-number-text-popover-width, 358px);
-          max-height: var(--ui-phone-number-text-popover-max-height, 400px);
+      #{$this}__dropdown-text {
+        &--mobile {
+          white-space: pre-wrap;
+          flex-grow: 1;
+          text-align: left;
+
+          @include mixins.from-tablet {
+            display: none;
+          }
+        }
+
+        &--desktop {
+          white-space: pre-wrap;
+          flex-grow: 1;
+          text-align: left;
+
+          @include mixins.to-mobile {
+            display: none;
+          }
         }
       }
     }
 
-    #{$this}__dropdown-text {
-      width: var(--space-40);
-      text-align: left;
-      white-space: nowrap;
-    }
-
-    #{$this}__input {
-      width: 100%;
-
-      @include mixins.from-tablet {
-        max-width: var(--ui-phone-number-text-input-width, 246px);
+    #{$this}__input-form-field {
+      #{$this}__input {
+        width: 100%;
       }
     }
   }
