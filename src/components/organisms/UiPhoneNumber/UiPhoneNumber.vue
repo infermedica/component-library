@@ -12,23 +12,30 @@
       class="ui-phone-number"
     >
       <fieldset class="ui-phone-number__fields">
-        <UiText
-          tag="legend"
-          class="ui-form-field__label ui-phone-number__label"
+        <slot
+          name="legend"
+          v-bind="{ label: translation.phoneNumberLabel }"
         >
           <UiText
-            class="ui-form-field__label-text"
-            tag="span"
+            tag="legend"
+            class="ui-form-field__label ui-phone-number__label"
           >
-            {{ translation.phoneNumberLabel }}
+            <UiText
+              class="ui-form-field__label-text"
+              tag="span"
+            >
+              {{ translation.phoneNumberLabel }}
+            </UiText>
           </UiText>
-        </UiText>
+        </slot>
         <slot
           name="dropdown"
           v-bind="{
             selected,
+            handleOnSelected,
             phoneCodes,
-            error
+            error,
+            label: translation.countryCodeLabel,
           }"
         >
           <UiFormField
@@ -92,6 +99,8 @@
           v-bind="{
             value: phone,
             error,
+            label: translation.phoneNumberLabel,
+            placeholder: translation.phoneNumberPlaceholder,
             handleOnBlur,
           }"
         >
@@ -126,10 +135,7 @@ export default { inheritAttrs: false };
 </script>
 
 <script setup lang="ts">
-import type {
-  ComputedRef,
-  PropType,
-} from 'vue';
+import type { ComputedRef } from 'vue';
 import {
   computed,
   onMounted,
@@ -152,7 +158,6 @@ export interface PhoneNumberTranslation {
   phoneNumberPlaceholder: string, /** Use this props to set the input's placeholder */
   countryCodeLabel: string, /** Use this prop to set the hidden country-code label text */
   errorMessage: string, /** Use this props to set alert message */
-  hint: boolean | string, /** Use this props to set label hint, ex: "Required" or "Optional" */
 }
 
 export interface UiPhoneNumberProps {
@@ -169,48 +174,32 @@ const emit = defineEmits([
   'update:invalid',
 ]);
 
-const props: UiPhoneNumberProps = defineProps({
+const props: UiPhoneNumberProps = withDefaults(defineProps<UiPhoneNumberProps>(), {
   /**
    * Use this props to override labels inside component translation.
    */
-  translation: {
-    type: Object as PropType<PhoneNumberTranslation>,
-    default: () => ({
-      phoneNumberLabel: 'Phone number',
-      phoneNumberPlaceholder: 'Put your phone number',
-      countryCodeLabel: 'Country code',
-      errorMessage: 'Error message',
-      hint: false,
-    }),
-  },
+  translation: () => ({
+    phoneNumberLabel: 'Phone number',
+    phoneNumberPlaceholder: 'Put your phone number',
+    countryCodeLabel: 'Country code',
+    errorMessage: 'Error message',
+  }),
   /**
    * Use this props to control the phone-number value
    */
-  modelValue: {
-    type: String as PropType<string>,
-    default: '',
-  },
+  modelValue: '',
   /**
    * Use this props to touch the component and show validation errors
    */
-  touched: {
-    type: Boolean as PropType<boolean>,
-    default: false,
-  },
+  touched: false,
   /**
    * Use this prop to set the label text.
    */
-  language: {
-    type: String as PropType<string>,
-    default: 'en',
-  },
+  language: 'en',
   /**
    * Use this prop to set the default selected country code in the dropdown.
    */
-  defaultCountryCode: {
-    type: String as PropType<string>,
-    default: 'US',
-  },
+  defaultCountryCode: 'US',
 });
 
 const isLoading = ref(true);
