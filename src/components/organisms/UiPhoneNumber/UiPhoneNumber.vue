@@ -60,10 +60,10 @@
                     @click="event => updateOffset(event, toggleHandler)"
                   >
                     <span class="ui-phone-number__dropdown-text--desktop">
-                      {{ formatPrefix(selected.code) }}
+                      {{ formatPrefix(selected?.code) }}
                     </span>
                     <span class="ui-phone-number__dropdown-text--mobile">
-                      {{ selected.country }} ({{ selected.code }})
+                      {{ selected?.country }} ({{ selected?.code }})
                     </span>
                     <UiIcon
                       :icon="isOpen ? `chevron-up` : `chevron-down`"
@@ -146,7 +146,6 @@ import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiInput from '../../atoms/UiInput/UiInput.vue';
 import { getPhoneCodes } from '../../../utilities/helpers';
 import type { PhoneCodeType } from '../../../utilities/helpers';
-import type { UiPhoneNumberProps } from './types';
 
 export interface PhoneNumberTranslation {
   phoneNumberLabel: string, /** Use this prop to set the label text */
@@ -154,6 +153,14 @@ export interface PhoneNumberTranslation {
   countryCodeLabel: string, /** Use this prop to set the hidden country-code label text */
   errorMessage: string, /** Use this props to set alert message */
   hint: boolean | string, /** Use this props to set label hint, ex: "Required" or "Optional" */
+}
+
+export interface UiPhoneNumberProps {
+  translation: PhoneNumberTranslation,
+  modelValue: string,
+  touched: boolean,
+  language: string,
+  defaultCountryCode: string,
 }
 
 const emit = defineEmits([
@@ -228,13 +235,13 @@ const validatePhone = (phoneNumber: string): boolean => {
 const error: ComputedRef<string | boolean> = computed(() => {
   if (!props.touched) return false;
   let err: boolean | string = false;
-  if (!phone.value) err = props.errorMessage;
+  if (!phone.value) err = props.translation.errorMessage;
   else {
     const value = `${selected.value?.code}${phone.value}`;
     emit('update:modelValue', value);
     const isValid = validatePhone(value);
     if (!isValid) {
-      err = props.errorMessage;
+      err = props.translation.errorMessage;
     }
   }
   emit('update:invalid', Boolean(err));
