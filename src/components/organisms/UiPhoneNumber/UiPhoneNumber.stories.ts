@@ -1,13 +1,26 @@
 import UiPhoneNumber from '@/components/organisms/UiPhoneNumber/UiPhoneNumber.vue';
+import type { UiPhoneNumberProps } from '@/components/organisms/UiPhoneNumber/UiPhoneNumber.vue';
 import { actions } from '@storybook/addon-actions';
-import type { UiPhoneNumberProps } from './types';
 
-const events = actions({ onUpdateInvalid: 'update:invalid' });
+const events = actions({
+  onUpdateModelValue: 'update:modelValue',
+  onUpdateTouched: 'update:touched',
+  onUpdateInvalid: 'update:invalid',
+});
 
 export default {
   title: 'Organisms/PhoneNumber',
   component: UiPhoneNumber,
   args: {
+    translation: {
+      phoneNumberLabel: 'Phone number',
+      phoneNumberPlaceholder: 'Put your phone number',
+      countryCodeLabel: 'Country code',
+      errorMessage: 'Error message',
+      hint: false,
+    },
+    language: 'en',
+    defaultCountryCode: 'US',
     modelValue: '',
     touched: false,
   },
@@ -29,6 +42,8 @@ export const Common = (args: UiPhoneNumberProps) => ({
     <UiPhoneNumber
       v-model="modelValue"
       v-model:touched="touched"
+      @update:modelValue="onUpdateModelValue"
+      @update:touched="onUpdateTouched"
       @update:invalid="onUpdateInvalid"
     />
   `,
