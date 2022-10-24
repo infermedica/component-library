@@ -40,10 +40,7 @@ export default { inheritAttrs: false };
 </script>
 
 <script setup lang="ts">
-import {
-  computed,
-  useAttrs,
-} from 'vue';
+import { computed } from 'vue';
 import type { PropType } from 'vue';
 import type { PropsAttrs } from '../../../../types/attrs';
 import type { Icon } from '../../../../types/icon';

@@ -9,19 +9,25 @@
         v-for="(item, key) in itemsToRender"
         :key="key"
       >
-        <UiListItem v-bind="(item as ListRenderItemWithChildren).listItemAttrs">
+        <UiListItem
+          v-bind="item"
+          class="ui-list__item"
+        >
+          <template
+            v-for="(_, name) in $slots"
+            #[name]="data"
+          >
+            <slot
+              v-bind="data"
+              :name="name"
+            />
+          </template>
           <!-- @slot Use this slot to replace list item content -->
           <slot
             :name="item.name"
             v-bind="{ item }"
           >
-            <UiText>{{ item.text }}</UiText>
-            <template v-if="(item as ListRenderItemWithChildren).children?.items">
-              <component
-                :is="'ui-list'"
-                v-bind="(item as ListRenderItemWithChildren)?.children"
-              />
-            </template>
+            <UiText>{{ item.label }}</UiText>
           </slot>
         </UiListItem>
       </template>
@@ -35,27 +41,26 @@ import type { PropType } from 'vue';
 import UiListItem from './_internal/UiListItem.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import type { ListTag } from '../../../types/tag';
+import type { Icon } from '../../../types/icon';
 
-export type ListChildren = {tag?: ListTag, items?: ListChildren, listAttrs: Record<string, unknown>}
+export interface ListItemSuffixAttrs {
+  label?: string;
+  icon?: Icon;
+  iconSuffixAttrs?: Record<string, unknown>;
+  [key: string]: unknown;
+}
+export interface ListItemAttrs {
+  icon?: Icon;
+  hasSuffix?: boolean;
+  suffixAttrs?: ListItemSuffixAttrs;
+  [key: string]: unknown;
+}
 export interface ListItemAsObj {
   name: string;
-  children?: ListChildren | ListChildren[];
+  label?: string;
+  listItemAttrs?: ListItemAttrs;
 }
 export type ListItem = string | ListItemAsObj;
-export interface ListRenderItem {
-  name: string;
-  text: string;
-}
-export interface ListRenderItemWithChildren {
-  name: string;
-  text?: string;
-  children?: {
-    tag?: ListTag;
-    items?: ListChildren | ListChildren[];
-  };
-  listItemAttrs?: Record<string, unknown>
-}
-export type ListRender = ListRenderItem | ListRenderItemWithChildren;
 const props = defineProps({
   /**
    * Use this props to pass list tag.
@@ -72,34 +77,24 @@ const props = defineProps({
     default: () => ([]),
   },
 });
-const itemsToRender = computed<ListRender[]>(() => (props.items.map((item, key) => {
+const itemsToRender = computed(() => (props.items.map((item, key) => {
   if (typeof item === 'string') {
     return {
       name: `list-item-${key}`,
-      text: item,
+      label: item,
     };
   }
-  const {
-    name, children,
-  } = item;
   return {
     ...item,
-    name: name || `list-item-${key}`,
-    children: Array.isArray(children)
-      ? {
-        tag: props.tag,
-        items: children,
-      }
-      : {
-        items: children?.items,
-        ...(children?.listAttrs || { tag: props.tag }),
-      },
+    name: item.name || `list-item-${key}`,
   };
 })));
 </script>
 
 <style lang="scss">
 .ui-list {
+  $this: &;
+
   padding: 0;
   margin: 0;
   list-style-type: none;

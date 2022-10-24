@@ -1,0 +1,22 @@
+.list-condition-item {
+  --progressindicator-background: var(--color-dataviz-sequential-strong);
+  flex-direction: column;
+  align-items: flex-start;
+
+  &__container {
+    display: flex;
+    align-items: center;
+  }
+  &__progress {
+    width: 30px;
+    margin: 0 var(--space-8) 0 0;
+  }
+  &_evidence {
+    flex-grow: 1;
+  }
+
+  .ui-list-item__suffix {
+    align-self: flex-end;
+    margin: var(--space-8) 0 0;
+  }
+}
