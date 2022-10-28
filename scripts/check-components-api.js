@@ -1,22 +1,13 @@
 const fs = require('fs');
 const path = require('path');
 const printCustomTable = require('./helpers/custom-table');
+const getArgs = require('./helpers/get-args');
 
 const pathComponentsApiFile = path.resolve(__dirname, '../components-api-lock.json');
-
-const getArgs = (argName) => (process.argv.slice(2).reduce((acc, arg) => {
-  const [
-    key,
-    value,
-  ] = arg.split('=');
-  return {
-    ...acc,
-    [key]: value,
-  };
-}, {})[`--${argName}`]);
+const args = getArgs();
 const getApiFromBranch = async () => {
   try {
-    const branch = getArgs('branch') || 'develop';
+    const branch = args.branch || 'develop';
     const response = await fetch(`https://github.com/infermedica/component-library/raw/${branch}/components-api-lock.json`);
     const api = await response.json();
     return api['components-api'];
@@ -26,8 +17,8 @@ const getApiFromBranch = async () => {
   }
 };
 const saveDiffsInJsonFile = (diffs) => {
-  const outputFile = `../${getArgs('outputFile') || 'components-api-diffs.json'}`;
-  const branch = getArgs('branch') || 'develop';
+  const outputFile = `../${args.outputFile || 'components-api-diffs.json'}`;
+  const branch = args.branch || 'develop';
   const jsonPath = path.resolve(__dirname, outputFile);
   if (!fs.existsSync(jsonPath)) {
     fs.appendFileSync(jsonPath, '');
@@ -184,7 +175,9 @@ const compareApi = async (callback) => {
   if (callback && typeof callback === 'function') {
     diffs = callback(diffs);
   }
-  print(diffs);
+  if (!('silent' in args)) {
+    print(diffs);
+  }
   saveDiffsInJsonFile(diffs);
   return diffs;
 };
