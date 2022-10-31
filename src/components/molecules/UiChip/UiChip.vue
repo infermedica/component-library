@@ -135,24 +135,24 @@ if (buttonAttrs.value) {
         color,
         var(--color-chip-icon-background-active)
       )};
-    --button-rtl-icon-margin: #{functions.var($element + "-rtl-icon", margin,  -2px)};
-
-    margin: functions.var($element + "-icon", margin, -2px);
+    --button-icon-margin: functions.var($element + "-icon", margin, calc(var(--space-2) * -1));
+    --button-rtl-icon-margin: #{functions.var($element + "-rtl-icon", margin, calc(var(--space-2) * -1))};
   }
 
   &__remove {
+    position: relative;
     align-self: flex-start;
     margin: functions.var($element + "-remove", margin, var(--space-2));
 
-    &:before {
+    &::before {
       --_chip-remove-pointer-area-size: #{functions.var($element + "-remove-pointer-area", size, var(--space-32))};
 
-      content: "";
       position: absolute;
       top: 50%;
       left: 50%;
-      width: var(--_chip-remove-pointer-area-size);
-      height: var(--_chip-remove-pointer-area-size);
+      width: functions.var($element + "remove-pointer-area", width, var(--_chip-remove-pointer-area-size));
+      height: functions.var($element + "remove-pointer-area", height, var(--_chip-remove-pointer-area-size));
+      content: "";
       transform: translate(-50%, -50%);
     }
   }

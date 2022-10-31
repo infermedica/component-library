@@ -3,6 +3,7 @@ import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import { actions } from '@storybook/addon-actions';
 import { content } from '@sb/helpers/argTypes';
+import UiBackdrop from '@/components/atoms/UiBackdrop/UiBackdrop.vue';
 
 const events = actions({ onRemove: 'remove' });
 
@@ -34,7 +35,10 @@ export default {
 };
 
 const Template = (args) => ({
-  components: { UiChip },
+  components: {
+    UiChip,
+    UiBackdrop,
+  },
   setup() {
     return {
       ...args,
@@ -42,10 +46,10 @@ const Template = (args) => ({
     };
   },
   template: `<UiChip
-    :text-label-attrs="textLabelAttrs"
-    :button-remove-attrs="buttonRemoveAttrs"
-    :icon-remove-attrs="iconRemoveAttrs"
-    @remove="onRemove"
+      :text-label-attrs="textLabelAttrs"
+      :button-remove-attrs="buttonRemoveAttrs"
+      :icon-remove-attrs="iconRemoveAttrs"
+      @remove="onRemove"
   >
     {{ content }}
   </UiChip>`,
