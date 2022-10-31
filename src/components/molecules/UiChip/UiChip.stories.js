@@ -46,10 +46,10 @@ const Template = (args) => ({
     };
   },
   template: `<UiChip
-      :text-label-attrs="textLabelAttrs"
-      :button-remove-attrs="buttonRemoveAttrs"
-      :icon-remove-attrs="iconRemoveAttrs"
-      @remove="onRemove"
+    :text-label-attrs="textLabelAttrs"
+    :button-remove-attrs="buttonRemoveAttrs"
+    :icon-remove-attrs="iconRemoveAttrs"
+    @remove="onRemove"
   >
     {{ content }}
   </UiChip>`,
