@@ -209,6 +209,11 @@ const InterviewId = {
   <UiText style="margin: 4px 0;">8611d67x-063x-4390-x812-125288e0b070</UiText>`,
 };
 
+const Loader = {
+  components: { UiLoader },
+  template: '<UiLoader type="skeleton"/>',
+};
+
 export const Common = (args) => ({
   components: {
     UiInsidePages,
@@ -268,6 +273,81 @@ export const WithDefaultSlot = (args) => ({
       <UiInsidePagesItem v-bind="item">
         <component :is="item.name"/>
       </UiInsidePagesItem>
+    </template>
+  </UiInsidePages>`,
+});
+
+export const AsMultilevel = (args) => ({
+  components: {
+    UiInsidePages,
+    UiText,
+    Loader,
+  },
+  setup() {
+    return { ...args };
+  },
+  template: `<UiInsidePages
+    title="Settings & Info"
+    :items="[
+      {
+        label: 'Primary',
+        title: 'Primary',
+        name: 'primary',
+      },
+      {
+        label: 'Secondary',
+        title: 'Secondary',
+        name: 'secondary',
+      },
+    ]"
+  >
+    <template #primary>
+      <UiInsidePages
+        title="Primary"
+        :items="[
+          {
+            label: 'Apple',
+            title: 'Apple',
+            name: 'apple',
+          },
+          {
+            label: 'Pineapple',
+            title: 'Pineapple',
+            name: 'pineapple',
+          },
+        ]"
+      >
+        <template #apple>
+          <UiInsidePages
+            title="Apple"
+            :items="[
+              {
+                label: 'Tomato',
+                title: 'Tomato',
+                name: 'tomato',
+              },
+              {
+                label: 'Potato',
+                title: 'Potato',
+                name: 'potato',
+              }
+            ]"
+          >
+            <template #tomato>
+              <UiText>The tomato is the edible berry of the plant Solanum lycopersicum, commonly known as the tomato plant. The species originated in western South America, Mexico, and Central America. The Mexican Nahuatl word tomatl gave rise to the Spanish word tomate, from which the English word tomato derived.</UiText>
+            </template>
+            <template #potato>
+              <Loader />
+            </template>
+          </UiInsidePages>
+        </template>
+        <template #pineapple>
+          <Loader />
+        </template>
+      </UiInsidePages>
+    </template>
+    <template #secondary>
+      <Loader />
     </template>
   </UiInsidePages>`,
 });

@@ -1,7 +1,14 @@
 <template>
-  <div class="ui-inside-pages">
+  <div
+    :class="[
+      'ui-inside-pages', { 'ui-inside-pages--nested': isNested }
+    ]"
+  >
     <!-- @slot Use this slot to replace header template. -->
-    <slot name="header">
+    <slot
+      v-if="headerIsDisplayed"
+      name="header"
+    >
       <div class="ui-inside-pages__header">
         <!-- @slot Use this slot to replace back-button template. -->
         <slot
@@ -9,29 +16,32 @@
           v-bind="{
             isActive,
             buttonBackAttrs,
-            iconBackAttrs
+            handleBackClick,
           }"
         >
           <UiButton
             v-if="isActive"
             v-bind="buttonBackAttrs"
-            class="ui-button--icon ui-inside-pages__button-back"
-            @click="isActive = false; activeTitle = title; activeName = '';"
+            class="ui-button--icon ui-inside-pages__back"
+            @click="handleBackClick"
           >
             <UiIcon
               v-bind="defaultProps.iconBackAttrs"
               class="ui-button__icon"
             />
-            <span class="visual-hidden">Back to</span>
+            <span class="visual-hidden">{{ defaultProps.translation.back }} {{ backToTitle }}</span>
           </UiButton>
         </slot>
         <!-- @slot Use this slot to replace title template. -->
         <slot
           name="title"
-          v-bind="{ title: activeTitle }"
+          v-bind="{
+            headingTitleAttrs,
+            title: currentTitle
+          }"
         >
-          <UiHeading>
-            {{ activeTitle }}
+          <UiHeading v-bind="headingTitleAttrs">
+            {{ currentTitle }}
           </UiHeading>
         </slot>
       </div>
@@ -85,6 +95,7 @@ import {
   ref,
   computed,
   provide,
+  inject,
 } from 'vue';
 import type { PropType } from 'vue';
 import type { PropsAttrs } from '@/types/attrs';
@@ -117,6 +128,13 @@ const props = defineProps({
     default: () => ([]),
   },
   /**
+   * Use this props to display inside pages header.
+   */
+  hasHeader: {
+    type: Boolean,
+    default: true,
+  },
+  /**
    * Use this props to pass attrs for back UiButton
    */
   buttonBackAttrs: {
@@ -130,34 +148,74 @@ const props = defineProps({
     type: Object as PropsAttrs,
     default: () => ({ icon: 'chevron-left' }),
   },
+  /**
+   * Use this props to pass attrs for title UiHeading
+   */
+  headingTitleAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass labels inside component translation.
+   */
+  translation: {
+    type: Object,
+    default: () => ({ back: 'Back to' }),
+  },
+});
+const defaultProps = computed(() => ({
+  translation: {
+    back: 'Back to',
+    ...props.translation,
+  },
+  iconBackAttrs: {
+    icon: 'chevron-left',
+    ...props.iconBackAttrs,
+  },
+}
+));
+
+const index = inject('index', 0);
+provide('index', index + 1);
+const isNested = computed(() => index > 0);
+const headerIsDisplayed = computed(() => (props.hasHeader && !isNested.value));
+
+const activeItems = inject('activeItems', ref([]));
+provide('activeItems', activeItems);
+const sizeOfActiveItems = computed(() => (activeItems.value.length));
+const activeItem = computed(() => (activeItems.value[index] || {}));
+const isActive = computed(() => (Object.keys(activeItem.value).length > 0));
+const activeItemName = computed(() => activeItem.value?.name || '');
+provide('activeItemName', activeItemName);
+const currentTitle = computed(() => (activeItems.value[sizeOfActiveItems.value - 1]?.title || props.title));
+const backToTitle = computed(() => (activeItems.value[sizeOfActiveItems.value - 2]?.title || props.title));
+
+const itemsToHandle = ref({});
+provide('items', itemsToHandle);
+const itemsAsArray = computed(() => (Object.values(itemsToHandle.value)));
+const menuItems = computed(() => {
+  const additionalAttrs = {
+    icon: 'chevron-right',
+    suffixVisible: 'always',
+    class: 'ui-button--theme-secondary',
+  };
+  return itemsAsArray.value.map((item) => ({
+    ...additionalAttrs,
+    onClick: () => {
+      activeItems.value.push(item);
+    },
+    ...item,
+  }));
 });
 
-const defaultProps = computed(() => ({ iconBackAttrs: { icon: 'chevron-left' } }));
-
-const isActive = ref(false);
-const activeTitle = ref(props.title);
-const activeName = ref('');
-provide('activeName', activeName);
-const itemsFromInternal = ref({});
-provide('items', itemsFromInternal);
-const itemsAsArray = computed(() => Object.values(itemsFromInternal.value));
-const menuItems = computed(() => itemsAsArray.value.map((item) => ({
-  icon: 'chevron-right',
-  suffixVisible: 'always',
-  class: 'ui-button--theme-secondary',
-  onClick: () => {
-    isActive.value = true;
-    activeTitle.value = item.title;
-    activeName.value = item.name;
-  },
-  ...item,
-})));
+const handleBackClick = () => {
+  activeItems.value = activeItems.value.slice(0, -1);
+};
 </script>
 
 <style lang="scss">
 @use "../../../styles/functions";
 @use "../../../styles/mixins";
-
 .ui-inside-pages {
   $element: inside-pages;
 
@@ -170,7 +228,7 @@ const menuItems = computed(() => itemsAsArray.value.map((item) => ({
     background: functions.var($element + "-header", background, var(--color-background-subtle));
   }
 
-  &__button-back {
+  &__back {
     margin: functions.var($element + "-button-back", margin, 3px 0 0 0);
     @include mixins.from-tablet {
       margin: functions.var($element + "-tablet-button-back", margin, 6px 0 0 0);
@@ -198,6 +256,10 @@ const menuItems = computed(() => itemsAsArray.value.map((item) => ({
   &__content {
     flex: 0 0 100%;
     padding: functions.var($element + "-content", padding, var(--space-24) var(--space-20));
+  }
+
+  &--nested {
+    margin: calc(var(--space-24) * -1) calc(var(--space-20) * -1)
   }
 }
 </style>

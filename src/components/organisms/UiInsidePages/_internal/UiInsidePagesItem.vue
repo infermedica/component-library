@@ -8,6 +8,7 @@ import {
   inject,
   onBeforeUnmount,
 } from 'vue';
+import { uid } from 'uid/single';
 
 const props = defineProps({
   /**
@@ -33,8 +34,8 @@ const props = defineProps({
   },
 });
 
-const activeName = inject('activeName');
-const isActive = computed(() => activeName.value === props.name);
+const activeItemName = inject('activeItemName');
+const isActive = computed(() => activeItemName.value === props.name);
 
 const item = computed(() => ({
   label: props.label,
@@ -47,5 +48,3 @@ onBeforeUnmount(() => {
   delete items.value[props.name];
 });
 </script>
-
-<style lang="scss"></style>
