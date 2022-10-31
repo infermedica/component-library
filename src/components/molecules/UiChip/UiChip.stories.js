@@ -33,7 +33,7 @@ export default {
   },
 };
 
-export const WithLabel = (args) => ({
+const Template = (args) => ({
   components: { UiChip },
   setup() {
     return {
@@ -50,6 +50,34 @@ export const WithLabel = (args) => ({
     {{ content }}
   </UiChip>`,
 });
+export const WithLabel = Template.bind({});
+
+export const WithLongLabel = Template.bind({});
+WithLongLabel.args = { content: 'Input chips represent pieces of information that were added, selected or entered by the user.' };
+WithLongLabel.decorators = [ () => ({ template: '<div style="max-width: 22.375rem"><story/></div>' }) ];
+
+export const AsGroup = (args) => ({
+  components: { UiChip },
+  setup() {
+    return {
+      ...args,
+      ...events,
+    };
+  },
+  template: `<div style="display: flex; flex-wrap: wrap; gap: var(--space-8)">
+    <template v-for="_ in 5">
+      <UiChip
+        :text-label-attrs="textLabelAttrs"
+        :button-remove-attrs="buttonRemoveAttrs"
+        :icon-remove-attrs="iconRemoveAttrs"
+        @remove="onRemove"
+      >
+        {{ content }}
+      </UiChip>
+    </template>
+  </div>`,
+});
+AsGroup.decorators = [ () => ({ template: '<div style="max-width: 22.375rem"><story/></div>' }) ];
 
 export const WithRemoveSlot = (args) => ({
   components: {
