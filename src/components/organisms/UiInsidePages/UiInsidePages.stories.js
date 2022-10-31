@@ -225,9 +225,14 @@ export const Common = (args) => ({
     InterviewId,
   },
   setup() {
-    return { ...args };
+    const val = ref([]);
+    return {
+      ...args,
+      val,
+    };
   },
   template: `<UiInsidePages
+      v-model="val"
     :title="title"
     :items="items"
   >
@@ -264,9 +269,14 @@ export const WithDefaultSlot = (args) => ({
     InterviewId,
   },
   setup() {
-    return { ...args };
+    const val = ref([]);
+    return {
+      ...args,
+      val,
+    };
   },
   template: `<UiInsidePages
+    v-model="val"
     :title="title"
   >
     <template v-for="item in items">
@@ -284,9 +294,14 @@ export const AsMultilevel = (args) => ({
     Loader,
   },
   setup() {
-    return { ...args };
+    const val = ref([]);
+    return {
+      ...args,
+      val,
+    };
   },
   template: `<UiInsidePages
+    v-model="val"
     title="Settings & Info"
     :items="[
       {

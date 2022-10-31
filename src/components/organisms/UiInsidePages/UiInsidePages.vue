@@ -113,6 +113,13 @@ export interface InsidePagesItem {
 }
 
 const props = defineProps({
+  modelValue: {
+    type: [
+      Object,
+      Array,
+    ],
+    default: () => ({}),
+  },
   /**
    * Use this props to set inside pages title.
    */
@@ -175,12 +182,18 @@ const defaultProps = computed(() => ({
 }
 ));
 
+const emit = defineEmits<{(event: 'update:modelValue', value: InsidePagesItem[]): void;
+}>();
+
 const index = inject('index', 0);
 provide('index', index + 1);
 const isNested = computed(() => index > 0);
 const headerIsDisplayed = computed(() => (props.hasHeader && !isNested.value));
 
-const activeItems = inject('activeItems', ref([]));
+const activeItems = inject('activeItems', computed({
+  get: () => props.modelValue,
+  set: (value) => { emit('update:modelValue', value); },
+}));
 provide('activeItems', activeItems);
 const sizeOfActiveItems = computed(() => (activeItems.value.length));
 const activeItem = computed(() => (activeItems.value[index] || {}));
@@ -202,7 +215,10 @@ const menuItems = computed(() => {
   return itemsAsArray.value.map((item) => ({
     ...additionalAttrs,
     onClick: () => {
-      activeItems.value.push(item);
+      activeItems.value = [
+        ...activeItems.value,
+        item,
+      ];
     },
     ...item,
   }));
