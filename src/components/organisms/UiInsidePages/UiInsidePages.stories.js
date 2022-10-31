@@ -1,4 +1,7 @@
-import { ref } from 'vue';
+import {
+  ref,
+  computed,
+} from 'vue';
 import UiInsidePages from '@/components/organisms/UiInsidePages/UiInsidePages.vue';
 import UiInsidePagesItem from '@/components/organisms/UiInsidePages/_internal/UiInsidePagesItem.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
@@ -10,6 +13,8 @@ import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import UiLoader from '@/components/molecules/UiLoader/UiLoader.vue';
 import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints.vue';
 import UiMenu from '@/components/organisms/UiMenu/UiMenu.vue';
+import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
+import { AsSidePanel } from '@/components/organisms/UiMenu/UiMenu.stories';
 
 export default {
   title: 'Organisms/InsidePages',
@@ -366,3 +371,86 @@ export const AsMultilevel = (args) => ({
     </template>
   </UiInsidePages>`,
 });
+
+export const AsMobileMenu = (args) => ({
+  components: {
+    UiSidePanel,
+    UiInsidePages,
+    UiHeading,
+    UiButton,
+    UiIcon,
+    ForBusiness,
+    MedicalCertification,
+    InstructionForUse,
+    TermsOfService,
+    PrivacyPolicy,
+    InterviewId,
+  },
+  setup() {
+    const value = ref([]);
+    const length = computed(() => value.value.length);
+    const title = computed(() => (value.value[length.value - 1]?.title || 'Settings & Info'));
+    const previous = computed(() => (value.value[length.value - 2]?.title || 'Settings & Info'));
+    const isActive = computed(() => (value.value.length > 0));
+    const handleBackClick = () => {
+      value.value = value.value.slice(0, -1);
+    };
+    return {
+      ...args,
+      title,
+      value,
+      previous,
+      isActive,
+      handleBackClick,
+    };
+  },
+  template: `<div style="min-height: 320px;">
+    <UiSidePanel
+        :model-value="true"
+        :title="title"
+        style="--side-panel-content-padding: var(--space-12) var(--space-4);"
+    >
+      <template #title="{title}">
+        <div style="display: flex; gap: var(--space-12)">
+          <UiButton
+            v-if="isActive"
+            class="ui-button--icon"
+            @click="handleBackClick"
+          >
+            <UiIcon 
+              icon="chevron-left"
+              class="ui-button__icon"
+            />
+            <span class="visual-hidden">Back to {{ previous }}</span>
+          </UiButton>
+          <UiHeading>{{title}}</UiHeading>
+        </div>
+      </template>
+      <UiInsidePages
+          v-model="value"
+          :items="items"
+          :has-header="false"
+      >
+        <template #for-business>
+          <ForBusiness/>
+        </template>
+        <template #medical-certification>
+          <MedicalCertification/>
+        </template>
+        <template #instruction-for-use>
+          <InstructionForUse/>
+        </template>
+        <template #terms-of-service>
+          <TermsOfService/>
+        </template>
+        <template #privacy-policy>
+          <PrivacyPolicy/>
+        </template>
+        <template #interview-id>
+          <InterviewId/>
+        </template>
+      </UiInsidePages>
+    </UiSidePanel>
+  </div>`,
+});
+AsMobileMenu.parameters = { viewport: { defaultViewport: 'mobile2' } };
