@@ -35,6 +35,7 @@ import UiCard from './src/components/organisms/UiCard/UiCard.vue';
 import UiContainer from './src/components/organisms/UiContainer/UiContainer.vue';
 import UiControls from './src/components/organisms/UiControls/UiControls.vue';
 import UiDatepicker from './src/components/organisms/UiDatepicker/UiDatepicker.vue';
+import UiInsidePages from './src/components/organisms/UiInsidePages/UiInsidePages.vue';
 import UiList from './src/components/organisms/UiList/UiList.vue';
 import UiMegaMenu from './src/components/organisms/UiMegaMenu/UiMegaMenu.vue';
 import UiMenu from './src/components/organisms/UiMenu/UiMenu.vue';
@@ -84,6 +85,7 @@ export {
   UiContainer,
   UiControls,
   UiDatepicker,
+  UiInsidePages,
   UiList,
   UiMegaMenu,
   UiMenu,
