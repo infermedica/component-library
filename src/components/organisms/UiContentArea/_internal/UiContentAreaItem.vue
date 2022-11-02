@@ -8,6 +8,7 @@ import {
   inject,
   onBeforeUnmount,
 } from 'vue';
+import type { Ref } from 'vue';
 import type { ContentAreaItem } from '../UiContentArea.vue';
 
 const props = defineProps({
@@ -34,7 +35,7 @@ const props = defineProps({
   },
 });
 
-const activeItemName = inject('activeItemName');
+const activeItemName = inject('activeItemName') as Ref<string>;
 const isActive = computed(() => activeItemName.value === props.name);
 
 const item = computed(() => ({
@@ -42,7 +43,7 @@ const item = computed(() => ({
   title: props.title,
   name: props.name,
 }));
-const items = inject('items');
+const items = inject('items') as Ref<Record<string, ContentAreaItem>>;
 items.value[props.name] = item.value;
 onBeforeUnmount(() => {
   delete items.value[props.name];
