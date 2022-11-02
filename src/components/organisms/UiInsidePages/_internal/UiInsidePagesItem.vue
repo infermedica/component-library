@@ -8,7 +8,7 @@ import {
   inject,
   onBeforeUnmount,
 } from 'vue';
-import { uid } from 'uid/single';
+import type { InsidePagesItem } from '../UiInsidePages.vue';
 
 const props = defineProps({
   /**

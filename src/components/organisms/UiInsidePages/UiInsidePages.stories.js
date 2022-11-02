@@ -14,56 +14,6 @@ import UiLoader from '@/components/molecules/UiLoader/UiLoader.vue';
 import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints.vue';
 import UiMenu from '@/components/organisms/UiMenu/UiMenu.vue';
 import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
-import { AsSidePanel } from '@/components/organisms/UiMenu/UiMenu.stories';
-
-export default {
-  title: 'Organisms/InsidePages',
-  component: UiInsidePages,
-  subcomponents: {
-    UiInsidePagesItem,
-    UiButton,
-    UiIcon,
-    UiHeading,
-    UiMenu,
-  },
-  args: {
-    title: 'Settings & Info',
-    items: [
-      {
-        label: 'For business',
-        title: 'For business',
-        name: 'for-business',
-      },
-      {
-        label: 'Medical Certification',
-        title: 'Medical certification and compliance',
-        name: 'medical-certification',
-      },
-      {
-        label: 'Instruction for Use',
-        title: 'Instruction for Use',
-        name: 'instruction-for-use',
-      },
-      {
-        label: 'Terms of Service',
-        title: 'Terms of Service',
-        name: 'terms-of-service',
-      },
-      {
-        label: 'Privacy Policy',
-        title: 'Privacy Policy',
-        name: 'privacy-policy',
-      },
-      {
-        label: 'Interview ID',
-        title: 'Interview ID',
-        name: 'interview-id',
-      },
-    ],
-  },
-  argTypes: { content: { control: { type: 'text' } } },
-  decorators: [ () => ({ template: '<div style="max-width: 22.5rem"><story /></div>' }) ],
-};
 
 const ForBusiness = {
   components: {
@@ -129,7 +79,6 @@ const ForBusiness = {
   </UiList>
   <UiButton>Learn more</UiButton>`,
 };
-
 const MedicalCertification = {
   components: {
     UiText,
@@ -148,12 +97,10 @@ const MedicalCertification = {
   >Class I medical device in EU</UiHeading>
   <UiText>This software meets all applicable requirements of the European Directive MDD 93/42/EWG.</UiText>`,
 };
-
 const InstructionForUse = {
   components: { UiLoader },
   template: '<UiLoader type="skeleton"/>',
 };
-
 const TermsOfService = {
   components: {
     UiHeading,
@@ -199,12 +146,10 @@ const TermsOfService = {
   />
   `,
 };
-
 const PrivacyPolicy = {
   components: { UiLoader },
   template: '<UiLoader type="skeleton"/>',
 };
-
 const InterviewId = {
   components: {
     UiHeading,
@@ -213,10 +158,82 @@ const InterviewId = {
   template: `<UiHeading class="ui-heading--h4">Interview ID:</UiHeading>
   <UiText style="margin: 4px 0;">8611d67x-063x-4390-x812-125288e0b070</UiText>`,
 };
-
 const Loader = {
   components: { UiLoader },
   template: '<UiLoader type="skeleton"/>',
+};
+
+export default {
+  title: 'Organisms/InsidePages',
+  component: UiInsidePages,
+  subcomponents: {
+    UiInsidePagesItem,
+    UiButton,
+    UiIcon,
+    UiHeading,
+    UiMenu,
+  },
+  args: {
+    initialModelValue: [],
+    title: 'Settings & Info',
+    items: [
+      {
+        label: 'For business',
+        title: 'For business',
+        name: 'for-business',
+      },
+      {
+        label: 'Medical Certification',
+        title: 'Medical certification and compliance',
+        name: 'medical-certification',
+      },
+      {
+        label: 'Instruction for Use',
+        title: 'Instruction for Use',
+        name: 'instruction-for-use',
+      },
+      {
+        label: 'Terms of Service',
+        title: 'Terms of Service',
+        name: 'terms-of-service',
+      },
+      {
+        label: 'Privacy Policy',
+        title: 'Privacy Policy',
+        name: 'privacy-policy',
+      },
+      {
+        label: 'Interview ID',
+        title: 'Interview ID',
+        name: 'interview-id',
+      },
+    ],
+  },
+  argTypes: {
+    initialModelValue: {
+      description: 'Use this control to set initial state.',
+      table: { category: 'stories controls' },
+      control: 'array',
+    },
+    modelValue: { control: false },
+    title: {
+      description: 'Use this props to set inside pages title.',
+      table: {
+        category: 'props',
+        type: { summary: 'string' },
+      },
+      control: 'text',
+    },
+    titleSlot: {
+      name: 'title',
+      description: 'Use this slot to replace title template.',
+      table: {
+        category: 'slots',
+        type: { summary: 'unknown' },
+      },
+    },
+  },
+  decorators: [ () => ({ template: '<div style="max-width: 22.5rem;"><story /></div>' }) ],
 };
 
 export const Common = (args) => ({
@@ -230,14 +247,14 @@ export const Common = (args) => ({
     InterviewId,
   },
   setup() {
-    const val = ref([]);
+    const modelValue = ref(args.initialModelValue);
     return {
       ...args,
-      val,
+      modelValue,
     };
   },
   template: `<UiInsidePages
-      v-model="val"
+    v-model="modelValue"
     :title="title"
     :items="items"
   >
@@ -296,77 +313,79 @@ export const AsMultilevel = (args) => ({
   components: {
     UiInsidePages,
     UiText,
+    UiBulletPoints,
     Loader,
   },
   setup() {
-    const val = ref([]);
+    const modelValue = ref(args.initialModelValue);
     return {
       ...args,
-      val,
+      modelValue,
     };
   },
   template: `<UiInsidePages
-    v-model="val"
-    title="Settings & Info"
+    v-model="modelValue"
+    title="Platform"
     :items="[
       {
-        label: 'Primary',
-        title: 'Primary',
-        name: 'primary',
+        label: 'Modules',
+        title: 'Modules',
+        name: 'modules',
       },
       {
-        label: 'Secondary',
-        title: 'Secondary',
-        name: 'secondary',
+        label: 'Intelligent core',
+        title: 'Intelligent core',
+        name: 'intelligent-core',
       },
     ]"
   >
-    <template #primary>
+    <template #modules>
       <UiInsidePages
-        title="Primary"
+        title="Modules"
         :items="[
           {
-            label: 'Apple',
-            title: 'Apple',
-            name: 'apple',
+            label: 'Triage',
+            title: 'Triage',
+            name: 'triage',
           },
           {
-            label: 'Pineapple',
-            title: 'Pineapple',
-            name: 'pineapple',
+            label: 'Intake',
+            title: 'Intake',
+            name: 'intake',
           },
         ]"
       >
-        <template #apple>
+        <template #triage>
           <UiInsidePages
-            title="Apple"
+            title="Triage"
             :items="[
               {
-                label: 'Tomato',
-                title: 'Tomato',
-                name: 'tomato',
+                label: 'Intelligent survey',
+                title: 'Intelligent survey',
+                name: 'intelligent-survey',
               },
               {
-                label: 'Potato',
-                title: 'Potato',
-                name: 'potato',
+                label: 'Reliable results',
+                title: 'Reliable results',
+                name: 'reliable-results',
               }
             ]"
           >
-            <template #tomato>
-              <UiText>The tomato is the edible berry of the plant Solanum lycopersicum, commonly known as the tomato plant. The species originated in western South America, Mexico, and Central America. The Mexican Nahuatl word tomatl gave rise to the Spanish word tomate, from which the English word tomato derived.</UiText>
+            <template #intelligent-survey>
+              <UiText>This dynamic interview analyzes initial symptoms, revealing more about the patient’s state. It compares symptoms with hundreds of diseases collected in our extensive Medical Knowledge Base.</UiText>
+              <UiBulletPoints :items="['Demographic data', 'Risk factors', 'Initial symptoms', 'AI-generated interviews', 'Basic self-examination']"/>
             </template>
-            <template #potato>
+            <template #reliable-results>
               <Loader />
             </template>
           </UiInsidePages>
         </template>
-        <template #pineapple>
+        <template #intake>
           <Loader />
         </template>
       </UiInsidePages>
     </template>
-    <template #secondary>
+    <template #intelligent-core>
       <Loader />
     </template>
   </UiInsidePages>`,
@@ -387,70 +406,73 @@ export const AsMobileMenu = (args) => ({
     InterviewId,
   },
   setup() {
-    const value = ref([]);
-    const length = computed(() => value.value.length);
-    const title = computed(() => (value.value[length.value - 1]?.title || 'Settings & Info'));
-    const previous = computed(() => (value.value[length.value - 2]?.title || 'Settings & Info'));
-    const isActive = computed(() => (value.value.length > 0));
+    const modelValue = ref(args.initialModelValue);
+    const length = computed(() => modelValue.value.length);
+    const title = computed(() => (modelValue.value[length.value - 1]?.title || 'Settings & Info'));
+    const previous = computed(() => (modelValue.value[length.value - 2]?.title || 'Settings & Info'));
+    const isActive = computed(() => (modelValue.value.length > 0));
     const handleBackClick = () => {
-      value.value = value.value.slice(0, -1);
+      modelValue.value = modelValue.value.slice(0, -1);
     };
     return {
       ...args,
       title,
-      value,
+      modelValue,
       previous,
       isActive,
       handleBackClick,
     };
   },
-  template: `<div style="min-height: 320px;">
-    <UiSidePanel
-        :model-value="true"
-        :title="title"
-        style="--side-panel-content-padding: var(--space-12) var(--space-4);"
+  template: `<UiSidePanel
+    :model-value="true"
+    :title="title"
+    style="--side-panel-content-padding: var(--space-12) var(--space-4); --side-panel-tablet-content-padding: var(--space-12) var(--space-32);"
+  >
+    <template #title="{ title }">
+      <div style="display: flex; gap: var(--space-12)">
+        <UiButton
+          v-if="isActive"
+          class="ui-button--icon"
+          @click="handleBackClick"
+        >
+          <UiIcon
+            icon="chevron-left"
+            class="ui-button__icon"
+          />
+          <span class="visual-hidden">Back to {{ previous }}</span>
+        </UiButton>
+        <UiHeading>{{ title }}</UiHeading>
+      </div>
+    </template>
+    <UiInsidePages
+      v-model="modelValue"
+      :items="items"
+      :has-header="false"
     >
-      <template #title="{title}">
-        <div style="display: flex; gap: var(--space-12)">
-          <UiButton
-            v-if="isActive"
-            class="ui-button--icon"
-            @click="handleBackClick"
-          >
-            <UiIcon 
-              icon="chevron-left"
-              class="ui-button__icon"
-            />
-            <span class="visual-hidden">Back to {{ previous }}</span>
-          </UiButton>
-          <UiHeading>{{title}}</UiHeading>
-        </div>
+      <template #for-business>
+        <ForBusiness/>
       </template>
-      <UiInsidePages
-          v-model="value"
-          :items="items"
-          :has-header="false"
-      >
-        <template #for-business>
-          <ForBusiness/>
-        </template>
-        <template #medical-certification>
-          <MedicalCertification/>
-        </template>
-        <template #instruction-for-use>
-          <InstructionForUse/>
-        </template>
-        <template #terms-of-service>
-          <TermsOfService/>
-        </template>
-        <template #privacy-policy>
-          <PrivacyPolicy/>
-        </template>
-        <template #interview-id>
-          <InterviewId/>
-        </template>
-      </UiInsidePages>
-    </UiSidePanel>
-  </div>`,
+      <template #medical-certification>
+        <MedicalCertification/>
+      </template>
+      <template #instruction-for-use>
+        <InstructionForUse/>
+      </template>
+      <template #terms-of-service>
+        <TermsOfService/>
+      </template>
+      <template #privacy-policy>
+        <PrivacyPolicy/>
+      </template>
+      <template #interview-id>
+        <InterviewId/>
+      </template>
+    </UiInsidePages>
+  </UiSidePanel>`,
 });
 AsMobileMenu.parameters = { viewport: { defaultViewport: 'mobile2' } };
+AsMobileMenu.decorators = [ () => ({
+  template: `<div style="min-height: 560px">
+   <story/>
+  </div>`,
+}) ];

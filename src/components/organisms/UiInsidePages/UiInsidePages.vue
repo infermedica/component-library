@@ -99,6 +99,8 @@ import {
 } from 'vue';
 import type { PropType } from 'vue';
 import type { PropsAttrs } from '@/types/attrs';
+import type { Icon } from '../../../types/icon';
+import type { MenuSuffixVisible } from '../UiMenu/UiMenu.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
@@ -115,10 +117,10 @@ export interface InsidePagesItem {
 const props = defineProps({
   modelValue: {
     type: [
-      Object,
       Array,
-    ],
-    default: () => ({}),
+      Object,
+    ] as PropType<InsidePagesItem[] | InsidePagesItem>,
+    default: () => ([]),
   },
   /**
    * Use this props to set inside pages title.
@@ -176,7 +178,7 @@ const defaultProps = computed(() => ({
     ...props.translation,
   },
   iconBackAttrs: {
-    icon: 'chevron-left',
+    icon: 'chevron-left' as Icon,
     ...props.iconBackAttrs,
   },
 }
@@ -191,12 +193,14 @@ const isNested = computed(() => index > 0);
 const headerIsDisplayed = computed(() => (props.hasHeader && !isNested.value));
 
 const activeItems = inject('activeItems', computed({
-  get: () => props.modelValue,
+  get: () => (Array.isArray(props.modelValue)
+    ? props.modelValue
+    : [ props.modelValue ]),
   set: (value) => { emit('update:modelValue', value); },
 }));
 provide('activeItems', activeItems);
 const sizeOfActiveItems = computed(() => (activeItems.value.length));
-const activeItem = computed(() => (activeItems.value[index] || {}));
+const activeItem = computed<InsidePagesItem>(() => (activeItems.value[index] || {}));
 const isActive = computed(() => (Object.keys(activeItem.value).length > 0));
 const activeItemName = computed(() => activeItem.value?.name || '');
 provide('activeItemName', activeItemName);
@@ -205,11 +209,11 @@ const backToTitle = computed(() => (activeItems.value[sizeOfActiveItems.value - 
 
 const itemsToHandle = ref({});
 provide('items', itemsToHandle);
-const itemsAsArray = computed(() => (Object.values(itemsToHandle.value)));
+const itemsAsArray = computed<InsidePagesItem[]>(() => (Object.values(itemsToHandle.value)));
 const menuItems = computed(() => {
   const additionalAttrs = {
-    icon: 'chevron-right',
-    suffixVisible: 'always',
+    icon: 'chevron-right' as Icon,
+    suffixVisible: 'always' as MenuSuffixVisible,
     class: 'ui-button--theme-secondary',
   };
   return itemsAsArray.value.map((item) => ({
@@ -232,6 +236,7 @@ const handleBackClick = () => {
 <style lang="scss">
 @use "../../../styles/functions";
 @use "../../../styles/mixins";
+
 .ui-inside-pages {
   $element: inside-pages;
 
@@ -239,13 +244,14 @@ const handleBackClick = () => {
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
-    gap: functions.var($element + "-header", gap, var(--space-12));
     padding: functions.var($element + "-header", padding, var(--space-24) var(--space-20));
     background: functions.var($element + "-header", background, var(--color-background-subtle));
+    gap: functions.var($element + "-header", gap, var(--space-12));
   }
 
   &__back {
     margin: functions.var($element + "-button-back", margin, 3px 0 0 0);
+
     @include mixins.from-tablet {
       margin: functions.var($element + "-tablet-button-back", margin, 6px 0 0 0);
     }
@@ -275,7 +281,7 @@ const handleBackClick = () => {
   }
 
   &--nested {
-    margin: calc(var(--space-24) * -1) calc(var(--space-20) * -1)
+    margin: calc(var(--space-24) * -1) calc(var(--space-20) * -1);
   }
 }
 </style>
