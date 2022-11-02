@@ -216,16 +216,22 @@ const menuItems = computed(() => {
     suffixVisible: 'always' as MenuSuffixVisible,
     class: 'ui-button--theme-secondary',
   };
-  return itemsAsArray.value.map((item) => ({
-    ...additionalAttrs,
-    onClick: () => {
-      activeItems.value = [
-        ...activeItems.value,
-        item,
-      ];
-    },
-    ...item,
-  }));
+  return itemsAsArray.value.map((item) => {
+    const {
+      title,
+      ...rest
+    } = item;
+    return {
+      ...additionalAttrs,
+      onClick: () => {
+        activeItems.value = [
+          ...activeItems.value,
+          item,
+        ];
+      },
+      ...rest,
+    };
+  });
 });
 
 const handleBackClick = () => {

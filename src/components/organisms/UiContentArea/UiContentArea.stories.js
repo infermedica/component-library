@@ -291,14 +291,14 @@ export const WithDefaultSlot = (args) => ({
     InterviewId,
   },
   setup() {
-    const val = ref([]);
+    const modelValue = ref(args.initialModelValue);
     return {
       ...args,
-      val,
+      modelValue,
     };
   },
   template: `<UiContentArea
-    v-model="val"
+    v-model="modelValue"
     :title="title"
   >
     <template v-for="item in items">

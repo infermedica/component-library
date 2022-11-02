@@ -74,7 +74,7 @@ const props = defineProps({
 });
 const menuItemAttrs = (item: MenuItem) => {
   const {
-    name, ...rest
+    name, label, ...rest
   } = item;
   return rest;
 };
