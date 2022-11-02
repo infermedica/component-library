@@ -12,7 +12,8 @@
     "test:unit": "vitest --run",
     "test:watch": "vitest -w --changed",
     "lint": "eslint --fix --ext .js,.vue,.ts src",
-    "check:types": "tsc --noEmit & vue-tsc --noEmit",
+    "check:types": "vue-tsc --noEmit",
+    "check:components-api": "node --experimental-fetch scripts/check-components-api.js",
     "stylelint": "stylelint src/**/*.{vue,scss,css} --fix",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
@@ -20,6 +21,7 @@
     "create:component": "node scripts/create-component.js",
     "create:icons-list": "node scripts/create-icons-list.js",
     "update:docs": "node scripts/update-components-docs.mjs && pnpm lint",
+    "update:components-api": "node scripts/update-components-api && pnpm check:components-api",
     "chromatic": "chromatic --exit-zero-on-changes",
     "serve": "vite --open",
     "preview": "vite preview --open --port 8080",
@@ -131,6 +133,7 @@
     "typescript": "~4.7.4",
     "uppercamelcase": "^3.0.0",
     "vitest": "^0.18.1",
+    "vue-docgen-api": "^4.52.0",
     "vue-loader": "^17.0.0",
     "vue-tsc": "^0.40.13"
   }

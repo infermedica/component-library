@@ -94,13 +94,14 @@ const itemsToRender = computed(() => (props.items.map((item, key) => {
 
 <style lang="scss">
 @use "../../../styles/functions";
+
 .ui-menu {
   &--compact {
     .ui-menu-item {
-      --list-item-padding: #{functions.var('menu-iitem', padding, var(--space-4) var(--space-8) )};
+      --list-item-padding: #{functions.var("menu-iitem", padding, var(--space-4) var(--space-8) )};
 
       &__button {
-        --button-padding: #{functions.var('menu-item-button', padding, var(--space-4) var(--space-8) )};
+        --button-padding: #{functions.var("menu-item-button", padding, var(--space-4) var(--space-8) )};
       }
     }
   }
