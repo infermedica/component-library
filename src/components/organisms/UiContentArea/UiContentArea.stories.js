@@ -2,8 +2,8 @@ import {
   ref,
   computed,
 } from 'vue';
-import UiInsidePages from '@/components/organisms/UiInsidePages/UiInsidePages.vue';
-import UiInsidePagesItem from '@/components/organisms/UiInsidePages/_internal/UiInsidePagesItem.vue';
+import UiContentArea from '@/components/organisms/UiContentArea/UiContentArea.vue';
+import UiContentAreaItem from '@/components/organisms/UiContentArea/_internal/UiContentAreaItem.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
@@ -164,10 +164,10 @@ const Loader = {
 };
 
 export default {
-  title: 'Organisms/InsidePages',
-  component: UiInsidePages,
+  title: 'Organisms/ContentArea',
+  component: UiContentArea,
   subcomponents: {
-    UiInsidePagesItem,
+    UiContentAreaItem,
     UiButton,
     UiIcon,
     UiHeading,
@@ -238,7 +238,7 @@ export default {
 
 export const Common = (args) => ({
   components: {
-    UiInsidePages,
+    UiContentArea,
     ForBusiness,
     MedicalCertification,
     InstructionForUse,
@@ -253,7 +253,7 @@ export const Common = (args) => ({
       modelValue,
     };
   },
-  template: `<UiInsidePages
+  template: `<UiContentArea
     v-model="modelValue"
     :title="title"
     :items="items"
@@ -276,13 +276,13 @@ export const Common = (args) => ({
    <template #interview-id>
       <InterviewId/>
    </template>
-  </UiInsidePages>`,
+  </UiContentArea>`,
 });
 
 export const WithDefaultSlot = (args) => ({
   components: {
-    UiInsidePages,
-    UiInsidePagesItem,
+    UiContentArea,
+    UiContentAreaItem,
     ForBusiness,
     MedicalCertification,
     InstructionForUse,
@@ -297,21 +297,21 @@ export const WithDefaultSlot = (args) => ({
       val,
     };
   },
-  template: `<UiInsidePages
+  template: `<UiContentArea
     v-model="val"
     :title="title"
   >
     <template v-for="item in items">
-      <UiInsidePagesItem v-bind="item">
+      <UiContentAreaItem v-bind="item">
         <component :is="item.name"/>
-      </UiInsidePagesItem>
+      </UiContentAreaItem>
     </template>
-  </UiInsidePages>`,
+  </UiContentArea>`,
 });
 
 export const AsMultilevel = (args) => ({
   components: {
-    UiInsidePages,
+    UiContentArea,
     UiText,
     UiBulletPoints,
     Loader,
@@ -323,7 +323,7 @@ export const AsMultilevel = (args) => ({
       modelValue,
     };
   },
-  template: `<UiInsidePages
+  template: `<UiContentArea
     v-model="modelValue"
     title="Platform"
     :items="[
@@ -340,7 +340,7 @@ export const AsMultilevel = (args) => ({
     ]"
   >
     <template #modules>
-      <UiInsidePages
+      <UiContentArea
         title="Modules"
         :items="[
           {
@@ -356,7 +356,7 @@ export const AsMultilevel = (args) => ({
         ]"
       >
         <template #triage>
-          <UiInsidePages
+          <UiContentArea
             title="Triage"
             :items="[
               {
@@ -378,23 +378,23 @@ export const AsMultilevel = (args) => ({
             <template #reliable-results>
               <Loader />
             </template>
-          </UiInsidePages>
+          </UiContentArea>
         </template>
         <template #intake>
           <Loader />
         </template>
-      </UiInsidePages>
+      </UiContentArea>
     </template>
     <template #intelligent-core>
       <Loader />
     </template>
-  </UiInsidePages>`,
+  </UiContentArea>`,
 });
 
 export const AsMobileMenu = (args) => ({
   components: {
     UiSidePanel,
-    UiInsidePages,
+    UiContentArea,
     UiHeading,
     UiButton,
     UiIcon,
@@ -444,7 +444,7 @@ export const AsMobileMenu = (args) => ({
         <UiHeading>{{ title }}</UiHeading>
       </div>
     </template>
-    <UiInsidePages
+    <UiContentArea
       v-model="modelValue"
       :items="items"
       :has-header="false"
@@ -467,7 +467,7 @@ export const AsMobileMenu = (args) => ({
       <template #interview-id>
         <InterviewId/>
       </template>
-    </UiInsidePages>
+    </UiContentArea>
   </UiSidePanel>`,
 });
 AsMobileMenu.parameters = { viewport: { defaultViewport: 'mobile2' } };
