@@ -5,9 +5,9 @@ const getArgs = require('./helpers/get-args');
 
 const pathComponentsApiFile = path.resolve(__dirname, '../components-api-lock.json');
 const args = getArgs();
-const getApiFromBranch = async () => {
+const getApiFromBranch = async (branchName) => {
   try {
-    const branch = args.branch || 'develop';
+    const branch = args.branch || branchName || 'develop';
     const response = await fetch(`https://github.com/infermedica/component-library/raw/${branch}/components-api-lock.json`);
     const api = await response.json();
     return api['components-api'];
@@ -16,15 +16,24 @@ const getApiFromBranch = async () => {
     return [];
   }
 };
-const saveDiffsInJsonFile = (diffs) => {
-  const outputFile = `../${args.outputFile || 'components-api-diffs.json'}`;
-  const branch = args.branch || 'develop';
-  const jsonPath = path.resolve(__dirname, outputFile);
+const saveDiffsInJsonFile = (diffs, outputPath, branchName, release) => {
+  const outputFilePath = release
+    ? '../components-api-lock.json'
+    : `../${args.outputFile || outputPath || 'components-api-diffs.json'}`;
+  const branch = args.branch || branchName || 'develop';
+  const jsonPath = path.resolve(__dirname, outputFilePath);
   if (!fs.existsSync(jsonPath)) {
     fs.appendFileSync(jsonPath, '');
   }
   const content = JSON.parse(fs.readFileSync(jsonPath, 'utf8') || '{}');
-  content[`${branch}-branch`] = diffs;
+  if (release) {
+    content.release = {
+      ...content.release,
+      [`v${release}`]: diffs,
+    };
+  } else {
+    content[`${branch}-branch`] = diffs;
+  }
   fs.writeFileSync(jsonPath, JSON.stringify(content, null, 2));
 };
 const isElementsEqual = (el1, el2) => JSON.stringify(el1) === JSON.stringify(el2);
@@ -150,8 +159,8 @@ const getDiffs = (currEl, prevEl, keys = []) => {
   }
   return diffs;
 };
-const compareApi = async (callback) => {
-  const branchApi = await getApiFromBranch();
+const compareApi = async (branchName, outputPath, callback, release = '') => {
+  const branchApi = await getApiFromBranch(branchName);
   const currentApi = JSON.parse(fs.readFileSync(pathComponentsApiFile, 'utf8') || '{}')['components-api'];
   let diffs = {};
   const {
@@ -175,10 +184,10 @@ const compareApi = async (callback) => {
   if (callback && typeof callback === 'function') {
     diffs = callback(diffs);
   }
-  if (!('silent' in args)) {
+  if (release ? !release : !('silent' in args)) {
     print(diffs);
   }
-  saveDiffsInJsonFile(diffs);
+  saveDiffsInJsonFile(diffs, outputPath, branchName, release);
   return diffs;
 };
 
