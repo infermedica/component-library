@@ -4,6 +4,7 @@ const prompts = require('prompts');
 const fs = require('fs');
 const getArgs = require('./helpers/get-args');
 const checkComponentApi = require('./check-components-api');
+const sortReleaseStories = require('./helpers/sort-release-stories');
 const prevVersion = require('../package.json').version;
 
 const args = getArgs();
@@ -13,7 +14,7 @@ const updatePackageJson = (value) => {
   const content = JSON.parse(fs.readFileSync(filePath), 'utf8');
   content.version = value;
   fs.writeFileSync(filePath, JSON.stringify(content, null, 2));
-  console.log('🚀 package.json file updated successfully.');
+  console.log('🚀 Version updated successfully.');
 };
 
 (async () => {
@@ -75,11 +76,12 @@ import { release } from '../../../../../components-api-lock.json';\n
   if (!isFileExist('changelog')) {
     fs.mkdirSync(pathVersionRoot, { recursive: true });
     createFile('changelog');
-    console.log('🚀 Changelog created successfully.');
+    console.log('🚀 Changelog file created successfully.');
   }
   if (Object.keys(diffs).length) {
     createFile('migration-guide');
-    console.log('🚀 Migration guide created successfully.');
+    console.log('🚀 Migration guide file created successfully.');
   }
+  sortReleaseStories();
   updatePackageJson(newVersion);
 })();

@@ -18,7 +18,8 @@ export const parameters = {
         'Getting Started',
         ['Development Guide', ['Installation', ['*']]],
         'Releases',
-        ['v0.5.x', 'v0.4.x', 'v0.3.x', 'v0.2.x', 'v0.1.x', 'v0.0.x'],
+        // auto-generated release stories order
+        ["v0.x.x",["v0.5.x",["v0.5.2","v0.5.1","v0.5.0"],"v0.4.x",["v0.4.3","v0.4.2","v0.4.1","v0.4.0"],"v0.3.x",["v0.3.4","v0.3.3","v0.3.2","v0.3.1","v0.3.0"],"v0.2.x",["v0.2.7","v0.2.6","v0.2.5","v0.2.4","v0.2.3","v0.2.2","v0.2.1","v0.2.0"],"v0.1.x",["v0.1.1","v0.1.0","v0.1.0-beta2","v0.1.0-beta1"],"v0.0.x",["v0.0.1-beta4"]]],
         'Atoms',
         'Molecules',
         'Organisms',
