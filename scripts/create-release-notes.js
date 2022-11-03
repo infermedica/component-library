@@ -8,6 +8,13 @@ const prevVersion = require('../package.json').version;
 
 const args = getArgs();
 const pathReleasesRoot = path.resolve(__dirname, '../', 'docs/releases');
+const updatePackageJson = (value) => {
+  const filePath = path.resolve(__dirname, '../package.json');
+  const content = JSON.parse(fs.readFileSync(filePath), 'utf8');
+  content.version = value;
+  fs.writeFileSync(filePath, JSON.stringify(content, null, 2));
+  console.log('🚀 package.json file updated successfully.');
+};
 
 (async () => {
   const choices = [
@@ -15,12 +22,15 @@ const pathReleasesRoot = path.resolve(__dirname, '../', 'docs/releases');
     'minor',
     'patch',
   ];
-  const choiceIndex = choices.findIndex((el) => el === args.releaseType) || (await prompts([ {
-    type: 'select',
-    name: 'selected',
-    message: 'What type of release do you want to create?',
-    choices,
-  } ])).selected;
+  let choiceIndex = choices.findIndex((el) => el === args.releaseType);
+  if (choiceIndex < 0) {
+    choiceIndex = (await prompts([ {
+      type: 'select',
+      name: 'selected',
+      message: 'What type of release do you want to create?',
+      choices,
+    } ])).selected;
+  }
   const [
     major,
     minor,
@@ -71,10 +81,5 @@ import { release } from '../../../../../components-api-lock.json';\n
     createFile('migration-guide');
     console.log('🚀 Migration guide created successfully.');
   }
+  updatePackageJson(newVersion);
 })();
-
-process.on('exit', (code) => {
-  if (code === 1) {
-    console.log('\x1b[31m', '\nError: You need to select the release type\n');
-  }
-});
