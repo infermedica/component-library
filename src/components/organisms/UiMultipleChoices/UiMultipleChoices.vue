@@ -185,20 +185,30 @@ if (choiceItem.value) {
     @include mixins.from-tablet {
       padding: functions.var($element + "-tablet-hint", padding, 0 0 var(--space-12) 0);
     }
+
+    @include mixins.to-mobile {
+      @include mixins.inner-border(
+        $element: multiple-choices-list-item,
+        $color: var(--color-border-divider),
+        $width: 0 0 1px 0
+      );
+    }
   }
 
   &__list-item {
     --list-item-padding: 0;
 
-    @include mixins.inner-border(
-      $element: multiple-choices-list-item,
-      $color: var(--color-border-divider),
-      $width: 1px 0 0 0
-    );
+    @include mixins.from-tablet {
+      @include mixins.inner-border(
+        $element: multiple-choices-list-item,
+        $color: var(--color-border-divider),
+        $width: 1px 0 0 0
+      );
 
-    &:last-of-type {
-      &::after {
-        border-width: functions.var($element, border-width, 1px 0);
+      &:last-of-type {
+        &::after {
+          border-width: functions.var($element, border-width, 1px 0);
+        }
       }
     }
   }

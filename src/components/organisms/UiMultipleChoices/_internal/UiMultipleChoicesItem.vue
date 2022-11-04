@@ -55,34 +55,47 @@
         </UiButton>
       </div>
     </slot>
-    <div
-      class="ui-multiple-choices-item__options"
-    >
-      <template
-        v-for="(option, key) in optionsToRender"
-        :key="key"
+    <div class="ui-multiple-choices-item__content">
+      <div
+        class="ui-multiple-choices-item__options"
       >
-        <!-- @slot Use this slot to replace option template.-->
-        <slot
-          name="option"
-          v-bind="{
-            value,
-            option,
-            invalid,
-          }"
+        <template
+          v-for="(option, key) in optionsToRender"
+          :key="key"
         >
-          <UiRadio
-            v-model="value"
-            v-bind="option"
-            :class="[
-              'ui-multiple-choices-item__option', { 'ui-radio--has-error': invalid }
-            ]"
-            :name="multipleChoicesItemId"
+          <!-- @slot Use this slot to replace option template.-->
+          <slot
+            name="option"
+            v-bind="{
+              value,
+              option,
+              invalid,
+            }"
           >
-            {{ option.label }}
-          </UiRadio>
-        </slot>
-      </template>
+            <UiRadio
+              v-model="value"
+              v-bind="option"
+              :class="[
+                'ui-multiple-choices-item__option', { 'ui-radio--has-error': invalid }
+              ]"
+              :name="multipleChoicesItemId"
+            >
+              {{ option.label }}
+            </UiRadio>
+          </slot>
+        </template>
+      </div>
+      <slot
+        name="alert"
+        v-bind="{ translation: defaultProps.translation }"
+      >
+        <UiAlert
+          v-if="invalid"
+          class="ui-multiple-choices-item__alert"
+        >
+          {{ defaultProps.translation.invalid }}
+        </UiAlert>
+      </slot>
     </div>
   </component>
 </template>
@@ -99,6 +112,7 @@ import UiRadio from '../../../atoms/UiRadio/UiRadio.vue';
 import UiText from '../../../atoms/UiText/UiText.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
+import UiAlert from '../../../molecules/UiAlert/UiAlert.vue';
 import type { MultipleChoiceOption } from '../UiMultipleChoices.vue';
 import type { Icon } from '../../../../types/icon';
 
@@ -146,7 +160,10 @@ const props = defineProps({
    */
   translation: {
     type: Object,
-    default: () => ({ info: 'What does it mean?' }),
+    default: () => ({
+      info: 'What does it mean?',
+      invalid: 'Please select one answer',
+    }),
   },
   /**
    *  Use this props to pass options.
@@ -191,6 +208,7 @@ interface DefaultProps {
 const defaultProps = computed<DefaultProps>(() => ({
   translation: {
     info: 'What does it mean?',
+    invalid: 'Please select one answer',
     ...props.translation,
   },
   textLabelAttrs: {
@@ -273,15 +291,28 @@ const optionsToRender = computed(() => props.options.map((option) => ({
   }
 
   &__options {
-    display: flex;
-    flex-direction: column;
+    display: functions.var($element + "-options", display, grid);
 
     @include mixins.from-tablet {
-      flex-direction: row;
+      display: functions.var($element + "-tablet-options", display, flex);
+    }
+  }
+
+  &__alert {
+    padding: functions.var($element + "-alert", padding, var(--space-12) var(--space-20));
+    vertical-align: functions.var($element + "-alert", vertical-align, top);
+    background: functions.var($element + "-alert", background, var(--color-background-white));
+
+    @include mixins.from-tablet {
+      padding: functions.var($element + "-tablet-alert", padding, var(--space-8) var(--space-24) 0);
+      background: functions.var($element + "-tablet-alert", background, transparent);
     }
   }
 
   &__option {
+    --radio-label-margin: #{functions.var($element + "-option-radio-label", margin, 0 0 0 var(--space-8))};
+    --radio-rtl-label-margin: #{functions.var($element + "-option-radio-rtl-label", margin, 0 var(--space-8) 0 0)};
+
     @include mixins.inner-border(
       $element: multiple-answer-list-item,
       $color: var(--color-border-divider),
@@ -290,6 +321,16 @@ const optionsToRender = computed(() => props.options.map((option) => ({
 
     padding: functions.var($element + "-option", padding, var(--space-12) var(--space-20));
     margin: functions.var($element + "-option", margin, 0);
+
+    @include mixins.to-mobile {
+      &:last-child {
+        @include mixins.inner-border(
+            $element: multiple-answer-list-item,
+            $color: var(--color-border-divider),
+            $width: 1px 0 1px 0
+        );
+      }
+    }
 
     @include mixins.from-tablet {
       padding: functions.var($element + "-tablet-option", padding, 0);
