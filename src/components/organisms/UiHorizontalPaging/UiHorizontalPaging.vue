@@ -6,7 +6,7 @@
   >
     <!-- @slot Use this slot to replace header template. -->
     <slot
-      v-if="headerIsDisplayed"
+      v-if="isHeaderDisplayed"
       name="header"
     >
       <div class="ui-horizontal-paging__header">
@@ -190,7 +190,7 @@ const emit = defineEmits<{(event: 'update:modelValue', value: HorizontalPagingIt
 const index = inject('index', 0);
 provide('index', index + 1);
 const isNested = computed(() => index > 0);
-const headerIsDisplayed = computed(() => (props.hasHeader && !isNested.value));
+const isHeaderDisplayed = computed(() => (props.hasHeader && !isNested.value));
 
 const activeItems = inject('activeItems', computed({
   get: () => (Array.isArray(props.modelValue)
