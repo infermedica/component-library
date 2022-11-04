@@ -100,7 +100,10 @@ import {
 import type { PropType } from 'vue';
 import type { PropsAttrs } from '@/types/attrs';
 import type { Icon } from '../../../types/icon';
-import type { MenuSuffixVisible } from '../UiMenu/UiMenu.vue';
+import type {
+  MenuSuffixVisible,
+  MenuItem,
+} from '../UiMenu/UiMenu.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
@@ -207,10 +210,10 @@ provide('activeItemName', activeItemName);
 const currentTitle = computed(() => (activeItems.value[sizeOfActiveItems.value - 1]?.title || props.title));
 const backToTitle = computed(() => (activeItems.value[sizeOfActiveItems.value - 2]?.title || props.title));
 
-const itemsToHandle = ref({});
+const itemsToHandle = ref<Record<string, HorizontalPagingItem>>({});
 provide('items', itemsToHandle);
 const itemsAsArray = computed<HorizontalPagingItem[]>(() => (Object.values(itemsToHandle.value)));
-const menuItems = computed(() => {
+const menuItems = computed<MenuItem[]>(() => {
   const additionalAttrs = {
     icon: 'chevron-right' as Icon,
     suffixVisible: 'always' as MenuSuffixVisible,
