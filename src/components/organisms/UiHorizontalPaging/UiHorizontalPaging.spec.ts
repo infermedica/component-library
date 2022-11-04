@@ -1,99 +1,89 @@
+import { mount } from '@vue/test-utils';
 import {
   nextTick,
   h,
 } from 'vue';
-import { mount } from '@vue/test-utils';
+import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiMenuItem from '@/components/organisms/UiMenu/_internal/UiMenuItem.vue';
-import HorizontalPaging from './HorizontalPaging.vue';
-import HorizontalPagingItem from './_internal/HorizontalPagingItem.vue';
+import UiHorizontalPaging from './UiHorizontalPaging.vue';
+import UiHorizontalPagingItem from './_internal/UiHorizontalPagingtem.vue';
 
-const item = {
-  label: 'For business',
-  title: 'For business',
-  name: 'for-business',
-};
-const nestedItem = {
-  label: 'Medical Certification',
-  title: 'Medical certification and compliance',
-  name: 'medical-certification',
-};
+const items = [
+  {
+    label: 'For business',
+    title: 'For business',
+    name: 'for-business',
+  },
+  {
+    label: 'Medical Certification',
+    title: 'Medical certification and compliance',
+    name: 'medical-certification',
+  },
+];
 
 describe('HorizontalPaging.vue', () => {
   it('renders a component', () => {
-    const wrapper = mount(HorizontalPaging);
-    expect(wrapper.classes('ui-content-area')).toBe(true);
+    const wrapper = mount(UiHorizontalPaging);
+    expect(wrapper.classes('ui-horizontal-paging')).toBe(true);
   });
-  it('component allow to pass items by default slot', async () => {
-    const wrapper = mount(HorizontalPaging, {
-      props: { title: 'Settings & Info' },
-      slots: { default: h(HorizontalPagingItem, item) },
-    });
+  it('component with title', () => {
+    const title = 'Settings & Info';
+    const wrapper = mount(UiHorizontalPaging, { propsData: { title } });
+    expect(wrapper.findComponent(UiHeading).text()).toBe(title);
+  });
+  it('component without header', () => {
+    const hasHeader = false;
+    const wrapper = mount(UiHorizontalPaging, { propsData: { hasHeader } });
+    expect(wrapper.find('.ui-horizontal-paging__header').exists()).toBe(false);
+  });
+  it('component has back button when some item is active ', async () => {
+    const modelValue = items[0];
+    const wrapper = mount(UiHorizontalPaging, { propsData: { items } });
+    expect(wrapper.find('.ui-horizontal-paging__back').exists()).toBe(false);
+    wrapper.setProps({ modelValue });
     await nextTick();
-    const menuItem = wrapper.findComponent(UiMenuItem);
-    expect(menuItem.html()).toContain(item.label);
+    expect(wrapper.find('.ui-horizontal-paging__back').exists()).toBe(true);
   });
-  it('component allot to pass items by items prop', async () => {
-    const wrapper = mount(HorizontalPaging, {
-      props: {
-        title: 'Settings & Info',
+  it('component with items passed by default slot', async () => {
+    const item = items[0];
+    const wrapper = mount(UiHorizontalPaging, { slots: { default: h(UiHorizontalPagingItem, item) } });
+    await nextTick();
+    expect(wrapper.findComponent(UiMenuItem).exists()).toBe(true);
+  });
+  it('component with items passed by items props', async () => {
+    const item = items[0];
+    const wrapper = mount(UiHorizontalPaging, { propsData: { items: [ item ] } });
+    await nextTick();
+    expect(wrapper.findComponent(UiMenuItem).exists()).toBe(true);
+  });
+  it('component supports nesting elements', async () => {
+    const modelValue = items;
+    const item = items[0];
+    const wrapper = mount(UiHorizontalPaging, {
+      propsData: {
         items: [ item ],
+        modelValue,
       },
+      slots: { [item.name]: h(UiHorizontalPaging, { items: [ items[1] ] }, { [items[1].name]: () => (h('span', { 'data-testid': items[1].name })) }) },
     });
     await nextTick();
-    const menuItem = wrapper.findComponent(UiMenuItem);
-    expect(menuItem.html()).toContain(item.label);
+    expect(wrapper.find(`[data-testid="${items[1].name}"]`).exists()).toBe(true);
   });
-  it('back button is visible when some content is active', async () => {
-    const wrapper = mount(HorizontalPaging, {
-      props: {
-        modelValue: item,
-        title: 'Settings & Info',
+  it('back button in component with nesting elements remove last active item', async () => {
+    const modelValue = items;
+    const item = items[0];
+    const wrapper = mount(UiHorizontalPaging, {
+      propsData: {
         items: [ item ],
+        modelValue,
       },
+      slots: { [item.name]: h(UiHorizontalPaging, { items: [ items[1] ] }, { [items[1].name]: () => (h('span', { 'data-testid': items[1].name })) }) },
     });
     await nextTick();
-    const backButton = wrapper.find('.ui-content-area__back');
-    expect(backButton.exists()).toBe(true);
-  });
-  it('component support nesting', async () => {
-    const nestedComponent = h(HorizontalPaging, {
-      title: 'Nested Settings & Info',
-      items: [ nestedItem ],
-    }, { [nestedItem.name]: () => (h('div', { 'data-testid': nestedItem.name })) });
-    const wrapper = mount(HorizontalPaging, {
-      props: {
-        modelValue: [
-          item,
-          nestedItem,
-        ],
-        title: 'Settings & Info',
-        items: [ item ],
-      },
-      slots: { [item.name]: h(nestedComponent) },
-    });
-    await nextTick();
-    const nestedContent = wrapper.find(`[data-testid="${nestedItem.name}"]`);
-    expect(nestedContent.exists()).toBe(true);
-  });
-  it('back button in component with nesting remove last active item', async () => {
-    const nestedComponent = h(HorizontalPaging, {
-      title: 'Nested Settings & Info',
-      items: [ nestedItem ],
-    }, { [nestedItem.name]: () => (h('div', { 'data-testid': nestedItem.name })) });
-    const wrapper = mount(HorizontalPaging, {
-      props: {
-        modelValue: [
-          item,
-          nestedItem,
-        ],
-        title: 'Settings & Info',
-        items: [ item ],
-      },
-      slots: { [item.name]: h(nestedComponent) },
-    });
-    await nextTick();
-    const backButton = wrapper.find('.ui-content-area__back');
-    await backButton.trigger('click');
-    expect(wrapper.emitted('update:modelValue')[0][0].length).toBe(1);
+    const expected = [ items[0] ];
+    expect(wrapper.props().modelValue).toEqual(modelValue);
+    const back = wrapper.find('.ui-horizontal-paging__back');
+    await back.trigger('click');
+    expect(wrapper.emitted('update:modelValue')[0][0]).toEqual(expected);
   });
 });
