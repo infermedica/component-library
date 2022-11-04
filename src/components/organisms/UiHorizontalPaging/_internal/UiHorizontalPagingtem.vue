@@ -9,7 +9,7 @@ import {
   onBeforeUnmount,
 } from 'vue';
 import type { Ref } from 'vue';
-import type { ContentAreaItem } from '../UiContentArea.vue';
+import type { HorizontalPagingItem } from '../UiHorizontalPaging.vue';
 
 const props = defineProps({
   /**
@@ -43,7 +43,7 @@ const item = computed(() => ({
   title: props.title,
   name: props.name,
 }));
-const items = inject('items') as Ref<Record<string, ContentAreaItem>>;
+const items = inject('items') as Ref<Record<string, HorizontalPagingItem>>;
 items.value[props.name] = item.value;
 onBeforeUnmount(() => {
   delete items.value[props.name];

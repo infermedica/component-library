@@ -1,7 +1,7 @@
 <template>
   <div
     :class="[
-      'ui-content-area', { 'ui-content-area--nested': isNested }
+      'ui-horizontal-paging', { 'ui-horizontal-paging--nested': isNested }
     ]"
   >
     <!-- @slot Use this slot to replace header template. -->
@@ -9,7 +9,7 @@
       v-if="headerIsDisplayed"
       name="header"
     >
-      <div class="ui-content-area__header">
+      <div class="ui-horizontal-paging__header">
         <!-- @slot Use this slot to replace back-button template. -->
         <slot
           name="back-button"
@@ -22,7 +22,7 @@
           <UiButton
             v-if="isActive"
             v-bind="buttonBackAttrs"
-            class="ui-button--icon ui-content-area__back"
+            class="ui-button--icon ui-horizontal-paging__back"
             @click="handleBackClick"
           >
             <UiIcon
@@ -46,10 +46,10 @@
         </slot>
       </div>
     </slot>
-    <div class="ui-content-area__wrapper">
+    <div class="ui-horizontal-paging__wrapper">
       <div
         :class="[
-          'ui-content-area__section', { 'ui-content-area__section--is-active': isActive }
+          'ui-horizontal-paging__section', { 'ui-horizontal-paging__section--is-active': isActive }
         ]"
       >
         <!-- @slot Use this slot to replace menu template. -->
@@ -59,19 +59,19 @@
         >
           <UiMenu
             :items="menuItems"
-            class="ui-content-area__menu"
+            class="ui-horizontal-paging__menu"
           />
         </slot>
         <!-- @slot Use this slot to replace content template. -->
         <slot name="content">
-          <div class="ui-content-area__content">
+          <div class="ui-horizontal-paging__content">
             <!-- @slot Use this slot to place inside pages items. -->
             <slot>
               <template
                 v-for="(item, key) in items"
                 :key="key"
               >
-                <UiContentAreaItem
+                <UiHorizontalPagingItem
                   :label="item.label"
                   :title="item.title"
                   :name="item.name"
@@ -80,7 +80,7 @@
                     v-bind="{ item }"
                     :name="item.name"
                   />
-                </UiContentAreaItem>
+                </UiHorizontalPagingItem>
               </template>
             </slot>
           </div>
@@ -105,9 +105,9 @@ import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
 import UiMenu from '../UiMenu/UiMenu.vue';
-import UiContentAreaItem from './_internal/UiContentAreaItem.vue';
+import UiHorizontalPagingItem from './_internal/UiHorizontalPagingtem.vue';
 
-export interface ContentAreaItem {
+export interface HorizontalPagingItem {
   label: string;
   title: string;
   name?: string;
@@ -119,7 +119,7 @@ const props = defineProps({
     type: [
       Array,
       Object,
-    ] as PropType<ContentAreaItem[] | ContentAreaItem>,
+    ] as PropType<HorizontalPagingItem[] | HorizontalPagingItem>,
     default: () => ([]),
   },
   /**
@@ -133,7 +133,7 @@ const props = defineProps({
    * Use this props to pass inside pages items.
    */
   items: {
-    type: Array as PropType<ContentAreaItem[]>,
+    type: Array as PropType<HorizontalPagingItem[]>,
     default: () => ([]),
   },
   /**
@@ -184,7 +184,7 @@ const defaultProps = computed(() => ({
 }
 ));
 
-const emit = defineEmits<{(event: 'update:modelValue', value: ContentAreaItem[]): void;
+const emit = defineEmits<{(event: 'update:modelValue', value: HorizontalPagingItem[]): void;
 }>();
 
 const index = inject('index', 0);
@@ -200,7 +200,7 @@ const activeItems = inject('activeItems', computed({
 }));
 provide('activeItems', activeItems);
 const sizeOfActiveItems = computed(() => (activeItems.value.length));
-const activeItem = computed<ContentAreaItem>(() => (activeItems.value[index] || {}));
+const activeItem = computed<HorizontalPagingItem>(() => (activeItems.value[index] || {}));
 const isActive = computed(() => (Object.keys(activeItem.value).length > 0));
 const activeItemName = computed(() => activeItem.value?.name || '');
 provide('activeItemName', activeItemName);
@@ -209,7 +209,7 @@ const backToTitle = computed(() => (activeItems.value[sizeOfActiveItems.value - 
 
 const itemsToHandle = ref({});
 provide('items', itemsToHandle);
-const itemsAsArray = computed<ContentAreaItem[]>(() => (Object.values(itemsToHandle.value)));
+const itemsAsArray = computed<HorizontalPagingItem[]>(() => (Object.values(itemsToHandle.value)));
 const menuItems = computed(() => {
   const additionalAttrs = {
     icon: 'chevron-right' as Icon,
@@ -243,7 +243,7 @@ const handleBackClick = () => {
 @use "../../../styles/functions";
 @use "../../../styles/mixins";
 
-.ui-content-area {
+.ui-horizontal-paging {
   $element: inside-pages;
 
   &__header {

@@ -33,9 +33,9 @@ import UiToggleButtonGroup from './src/components/molecules/UiToggleButtonGroup/
 import UiAccordion from './src/components/organisms/UiAccordion/UiAccordion.vue';
 import UiCard from './src/components/organisms/UiCard/UiCard.vue';
 import UiContainer from './src/components/organisms/UiContainer/UiContainer.vue';
-import UiContentArea from './src/components/organisms/UiContentArea/UiContentArea.vue';
 import UiControls from './src/components/organisms/UiControls/UiControls.vue';
 import UiDatepicker from './src/components/organisms/UiDatepicker/UiDatepicker.vue';
+import UiHorizontalPaging from './src/components/organisms/UiHorizontalPaging/UiHorizontalPaging.vue';
 import UiList from './src/components/organisms/UiList/UiList.vue';
 import UiMegaMenu from './src/components/organisms/UiMegaMenu/UiMegaMenu.vue';
 import UiMenu from './src/components/organisms/UiMenu/UiMenu.vue';
@@ -83,9 +83,9 @@ export {
   UiAccordion,
   UiCard,
   UiContainer,
-  UiContentArea,
   UiControls,
   UiDatepicker,
+  UiHorizontalPaging,
   UiList,
   UiMegaMenu,
   UiMenu,

@@ -2,8 +2,7 @@ import {
   ref,
   computed,
 } from 'vue';
-import UiContentArea from '@/components/organisms/UiContentArea/UiContentArea.vue';
-import UiContentAreaItem from '@/components/organisms/UiContentArea/_internal/UiContentAreaItem.vue';
+import UiHorizontalPaging from '@/components/organisms/UiHorizontalPaging/UiHorizontalPaging.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
@@ -14,6 +13,7 @@ import UiLoader from '@/components/molecules/UiLoader/UiLoader.vue';
 import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints.vue';
 import UiMenu from '@/components/organisms/UiMenu/UiMenu.vue';
 import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
+import UiHorizontalPagingItem from '@/components/organisms/UiHorizontalPaging/_internal/UiHorizontalPagingtem.vue';
 
 const ForBusiness = {
   components: {
@@ -164,10 +164,10 @@ const Loader = {
 };
 
 export default {
-  title: 'Organisms/ContentArea',
-  component: UiContentArea,
+  title: 'Organisms/HorizontalPaging',
+  component: UiHorizontalPaging,
   subcomponents: {
-    UiContentAreaItem,
+    UiHorizontalPagingItem,
     UiButton,
     UiIcon,
     UiHeading,
@@ -238,7 +238,7 @@ export default {
 
 export const Common = (args) => ({
   components: {
-    UiContentArea,
+    UiHorizontalPaging,
     ForBusiness,
     MedicalCertification,
     InstructionForUse,
@@ -253,7 +253,7 @@ export const Common = (args) => ({
       modelValue,
     };
   },
-  template: `<UiContentArea
+  template: `<UiHorizontalPaging
     v-model="modelValue"
     :title="title"
     :items="items"
@@ -276,13 +276,13 @@ export const Common = (args) => ({
    <template #interview-id>
       <InterviewId/>
    </template>
-  </UiContentArea>`,
+  </UiHorizontalPaging>`,
 });
 
 export const WithDefaultSlot = (args) => ({
   components: {
-    UiContentArea,
-    UiContentAreaItem,
+    UiHorizontalPaging,
+    UiHorizontalPagingItem,
     ForBusiness,
     MedicalCertification,
     InstructionForUse,
@@ -297,21 +297,21 @@ export const WithDefaultSlot = (args) => ({
       modelValue,
     };
   },
-  template: `<UiContentArea
+  template: `<UiHorizontalPaging
     v-model="modelValue"
     :title="title"
   >
     <template v-for="item in items">
-      <UiContentAreaItem v-bind="item">
+      <UiHorizontalPagingItem v-bind="item">
         <component :is="item.name"/>
-      </UiContentAreaItem>
+      </UiHorizontalPagingItem>
     </template>
-  </UiContentArea>`,
+  </UiHorizontalPaging>`,
 });
 
 export const AsMultilevel = (args) => ({
   components: {
-    UiContentArea,
+    UiHorizontalPaging,
     UiText,
     UiBulletPoints,
     Loader,
@@ -323,7 +323,7 @@ export const AsMultilevel = (args) => ({
       modelValue,
     };
   },
-  template: `<UiContentArea
+  template: `<UiHorizontalPaging
     v-model="modelValue"
     title="Platform"
     :items="[
@@ -340,7 +340,7 @@ export const AsMultilevel = (args) => ({
     ]"
   >
     <template #modules>
-      <UiContentArea
+      <UiHorizontalPaging
         title="Modules"
         :items="[
           {
@@ -356,7 +356,7 @@ export const AsMultilevel = (args) => ({
         ]"
       >
         <template #triage>
-          <UiContentArea
+          <UiHorizontalPaging
             title="Triage"
             :items="[
               {
@@ -378,23 +378,23 @@ export const AsMultilevel = (args) => ({
             <template #reliable-results>
               <Loader />
             </template>
-          </UiContentArea>
+          </UiHorizontalPaging>
         </template>
         <template #intake>
           <Loader />
         </template>
-      </UiContentArea>
+      </UiHorizontalPaging>
     </template>
     <template #intelligent-core>
       <Loader />
     </template>
-  </UiContentArea>`,
+  </UiHorizontalPaging>`,
 });
 
 export const AsMobileMenu = (args) => ({
   components: {
     UiSidePanel,
-    UiContentArea,
+    UiHorizontalPaging,
     UiHeading,
     UiButton,
     UiIcon,
@@ -444,7 +444,7 @@ export const AsMobileMenu = (args) => ({
         <UiHeading>{{ title }}</UiHeading>
       </div>
     </template>
-    <UiContentArea
+    <UiHorizontalPaging
       v-model="modelValue"
       :items="items"
       :has-header="false"
@@ -467,7 +467,7 @@ export const AsMobileMenu = (args) => ({
       <template #interview-id>
         <InterviewId/>
       </template>
-    </UiContentArea>
+    </UiHorizontalPaging>
   </UiSidePanel>`,
 });
 AsMobileMenu.parameters = { viewport: { defaultViewport: 'mobile2' } };

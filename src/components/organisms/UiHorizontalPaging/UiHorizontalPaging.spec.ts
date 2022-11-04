@@ -4,8 +4,8 @@ import {
 } from 'vue';
 import { mount } from '@vue/test-utils';
 import UiMenuItem from '@/components/organisms/UiMenu/_internal/UiMenuItem.vue';
-import UiContentArea from './UiContentArea.vue';
-import UiContentAreaItem from './_internal/UiContentAreaItem.vue';
+import HorizontalPaging from './HorizontalPaging.vue';
+import HorizontalPagingItem from './_internal/HorizontalPagingItem.vue';
 
 const item = {
   label: 'For business',
@@ -18,22 +18,22 @@ const nestedItem = {
   name: 'medical-certification',
 };
 
-describe('UiContentArea.vue', () => {
+describe('HorizontalPaging.vue', () => {
   it('renders a component', () => {
-    const wrapper = mount(UiContentArea);
+    const wrapper = mount(HorizontalPaging);
     expect(wrapper.classes('ui-content-area')).toBe(true);
   });
   it('component allow to pass items by default slot', async () => {
-    const wrapper = mount(UiContentArea, {
+    const wrapper = mount(HorizontalPaging, {
       props: { title: 'Settings & Info' },
-      slots: { default: h(UiContentAreaItem, item) },
+      slots: { default: h(HorizontalPagingItem, item) },
     });
     await nextTick();
     const menuItem = wrapper.findComponent(UiMenuItem);
     expect(menuItem.html()).toContain(item.label);
   });
   it('component allot to pass items by items prop', async () => {
-    const wrapper = mount(UiContentArea, {
+    const wrapper = mount(HorizontalPaging, {
       props: {
         title: 'Settings & Info',
         items: [ item ],
@@ -44,7 +44,7 @@ describe('UiContentArea.vue', () => {
     expect(menuItem.html()).toContain(item.label);
   });
   it('back button is visible when some content is active', async () => {
-    const wrapper = mount(UiContentArea, {
+    const wrapper = mount(HorizontalPaging, {
       props: {
         modelValue: item,
         title: 'Settings & Info',
@@ -56,11 +56,11 @@ describe('UiContentArea.vue', () => {
     expect(backButton.exists()).toBe(true);
   });
   it('component support nesting', async () => {
-    const nestedComponent = h(UiContentArea, {
+    const nestedComponent = h(HorizontalPaging, {
       title: 'Nested Settings & Info',
       items: [ nestedItem ],
     }, { [nestedItem.name]: () => (h('div', { 'data-testid': nestedItem.name })) });
-    const wrapper = mount(UiContentArea, {
+    const wrapper = mount(HorizontalPaging, {
       props: {
         modelValue: [
           item,
@@ -76,11 +76,11 @@ describe('UiContentArea.vue', () => {
     expect(nestedContent.exists()).toBe(true);
   });
   it('back button in component with nesting remove last active item', async () => {
-    const nestedComponent = h(UiContentArea, {
+    const nestedComponent = h(HorizontalPaging, {
       title: 'Nested Settings & Info',
       items: [ nestedItem ],
     }, { [nestedItem.name]: () => (h('div', { 'data-testid': nestedItem.name })) });
-    const wrapper = mount(UiContentArea, {
+    const wrapper = mount(HorizontalPaging, {
       props: {
         modelValue: [
           item,
