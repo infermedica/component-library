@@ -40,10 +40,7 @@ export default { inheritAttrs: false };
 </script>
 
 <script setup lang="ts">
-import {
-  computed,
-  useAttrs,
-} from 'vue';
+import { computed } from 'vue';
 import type { PropType } from 'vue';
 import type { PropsAttrs } from '../../../../types/attrs';
 import type { Icon } from '../../../../types/icon';
@@ -55,6 +52,10 @@ import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiListItem from '../../UiList/_internal/UiListItem.vue';
 import UiMenuItemSuffix from './UiMenuItemSuffix.vue';
 import useAttributes from '../../../../composable/useAttributes';
+
+export interface MenuItemAttrs {
+  class?: string;
+}
 
 const props = defineProps({
   /**
@@ -91,8 +92,8 @@ const props = defineProps({
 });
 const {
   attrs, listeners,
-} = useAttributes();
-const isSelected = computed(() => (attrs.value.class && (attrs.value.class as string).includes('ui-menu-item--is-selected')));
+} = useAttributes<MenuItemAttrs, object>();
+const isSelected = computed(() => (attrs.value.class && attrs.value.class.includes('ui-menu-item--is-selected')));
 const hasSuffix = computed(() => props.suffixVisible === 'always' || (props.suffixVisible === 'default' && isSelected.value));
 const buttonClass = computed(() => ({ 'ui-button--is-selected': isSelected.value }));
 const defaultProps = computed(() => ({
