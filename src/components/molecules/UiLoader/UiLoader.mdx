@@ -1,6 +1,8 @@
 import { Canvas, Meta, Story, Primary, ArgsTable, Source } from "@storybook/addon-docs";
 import { Alert } from "../../../../docs/components/Alert"
+import { Code } from '../../../../docs/components/Code';
 import UiLoader from "./UiLoader.vue";
+import scss from './UiLoader.stories.scss?raw';
 
 <Meta title="MoleculesUiLoader" component={UiLoader} />
 
@@ -69,6 +71,12 @@ It's useful for buttons with loading state.
   <Story id="molecules-loader--loading-popover"/>
 </Canvas>
 
+**Use following SCSS to get the same result**
+<Code
+  id="loading-popover"
+  code={scss}
+/>
+
 ### Loading Container
 <Canvas>
   <Story id="molecules-loader--loading-container"/>
@@ -78,6 +86,12 @@ It's useful for buttons with loading state.
 <Canvas>
   <Story id="molecules-loader--loading-side-panel"/>
 </Canvas>
+
+**Use following SCSS to get the same result**
+<Code
+  id="loading-side-panel"
+  code={scss}
+/>
 
 ### Loading Controls
 <Canvas>
