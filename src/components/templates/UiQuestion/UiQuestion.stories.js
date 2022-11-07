@@ -41,6 +41,7 @@ export default {
       issue: {
         action: true,
         feedback: true,
+        skip: true,
       },
     },
     headingTitleAttrs: { 'data-test': 'title-heading' },
@@ -212,7 +213,15 @@ WithoutSkipThisQuestion.args = {
       textLabelAttrs: { 'data-testid': 'label-text' },
     },
   ],
-  notificationFeedbackAttrs: { buttonActionAttrs: {} },
+  settings: {
+    info: true,
+    why: true,
+    issue: {
+      action: true,
+      feedback: true,
+      skip: false,
+    },
+  },
 };
 WithoutSkipThisQuestion.decorators = [ (story) => ({
   components: {

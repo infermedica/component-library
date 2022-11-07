@@ -169,6 +169,7 @@ export interface Questionsettings {
   issue: {
     action: boolean;
     feedback: boolean;
+    skip: boolean;
   };
   [key: string]: unknown;
 }
@@ -257,6 +258,14 @@ const props = defineProps({
     default: () => ({}),
   },
 });
+const buttonActionAttrs = computed(() => {
+  if (typeof props.settings?.issue?.skip === 'boolean') {
+    if (!props.settings?.issue?.skip) {
+      return {};
+    }
+  }
+  return props.notificationFeedbackAttrs?.buttonActionAttrs;
+});
 const defaultProps = computed(() => ({
   translation: {
     ...{
@@ -283,6 +292,7 @@ const defaultProps = computed(() => ({
       ...{
         action: false,
         feedback: false,
+        skip: true,
       },
       ...props.settings?.issue,
     },
@@ -294,6 +304,7 @@ const defaultProps = computed(() => ({
   notificationFeedbackAttrs: {
     type: 'success' as NotificationType,
     ...props.notificationFeedbackAttrs,
+    buttonActionAttrs: buttonActionAttrs.value,
   },
 }));
 const hasActionsBottom = computed(() => (
