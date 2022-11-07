@@ -10,7 +10,7 @@
         :key="key"
       >
         <UiListItem
-          v-bind="item"
+          v-bind="listItemAttrs(item)"
         >
           <template
             v-for="(_, name) in $slots"
@@ -31,6 +31,12 @@
             </UiText>
           </slot>
         </UiListItem>
+        <template v-if="item.children?.items">
+          <ui-list
+            class="ui-list--nested"
+            v-bind="item.children"
+          />
+        </template>
       </template>
     </slot>
   </component>
@@ -59,6 +65,11 @@ export interface ListItemAttrs {
 export interface ListItemComplex {
   name: string;
   label?: string;
+  children?: {
+    tag?: ListTag;
+    items?: (string | ListItemComplex)[];
+    listItemAttrs?: ListItemAttrs;
+  }
   listItemAttrs?: ListItemAttrs;
 }
 export type ListItem = string | ListItemComplex;
@@ -91,14 +102,24 @@ const itemsToRender = computed(() => (props.items.map((item, key) => {
     name: item.name || `list-item-${key}`,
   };
 })));
+const listItemAttrs = ({
+  name, label, children, ...rest
+}: ListItemAttrs) => rest;
 </script>
 
 <style lang="scss">
+@use "../../../styles/functions";
+
 .ui-list {
   $this: &;
+  $element: list;
 
   padding: 0;
   margin: 0;
   list-style-type: none;
+
+  &--nested {
+    margin: functions.var($element + "-nested", margin, 0 0 0 var(--space-24));
+  }
 }
 </style>

@@ -3,9 +3,12 @@
     <!-- @slot Use this slot to replace label template. -->
     <slot
       name="label"
-      v-bind="{ label }"
+      v-bind="{
+        label,
+        labelAttrs
+      }"
     >
-      {{ label }}
+      <span v-bind="labelAttrs">{{ label }}</span>
     </slot>
     <!-- @slot Use this slot to replace icon template. -->
     <slot
@@ -54,6 +57,13 @@ const props = defineProps({
    * Use this props to pass attrs for UiIcon
    */
   iconAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for button label
+   */
+  labelAttrs: {
     type: Object as PropsAttrs,
     default: () => ({}),
   },

@@ -90,6 +90,40 @@ export const WithListItemSlot = (args) => ({
   </UiList>`,
 });
 
+export const NestingList = Template.bind({});
+NestingList.args = {
+  items: [
+    {
+      name: 'muscle-pain',
+      label: 'Muscle pain',
+    },
+    {
+      name: 'runny-nose',
+      label: 'Runny nose',
+      children: {
+        items: [
+          {
+            name: 'stuffy-nose',
+            label: 'Stuffy nose',
+          },
+          {
+            name: 'sneeze',
+            label: 'Sneeze',
+          },
+          {
+            name: 'runny-nose',
+            label: 'Runny nose',
+          },
+        ],
+      },
+    },
+    {
+      name: 'painful-swallowing',
+      label: 'Painful swallowing',
+    },
+  ],
+};
+
 export const WithSuffixAsText = (args) => ({
   components: { UiList },
   setup() {
