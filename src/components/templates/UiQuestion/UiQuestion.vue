@@ -163,7 +163,7 @@ export interface QuestionTranslation {
   };
   [key: string] : unknown;
 }
-export interface Questionsettings {
+export interface QuestionSettings {
   info: boolean;
   why: boolean;
   issue: {
@@ -201,7 +201,7 @@ const props = defineProps({
    * Use this props to setup question.
    */
   settings: {
-    type: Object as PropType<Questionsettings>,
+    type: Object as PropType<QuestionSettings>,
     default: () => ({
       info: false,
       why: false,
@@ -296,7 +296,7 @@ const defaultProps = computed(() => ({
       },
       ...props.settings?.issue,
     },
-  } as Questionsettings,
+  } as QuestionSettings,
   iconInfoAttrs: {
     icon: 'info' as Icon,
     ...props.iconInfoAttrs,
