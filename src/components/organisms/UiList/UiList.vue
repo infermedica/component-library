@@ -11,7 +11,6 @@
       >
         <UiListItem
           v-bind="item"
-          class="ui-list__item"
         >
           <template
             v-for="(_, name) in $slots"
@@ -27,7 +26,7 @@
             :name="item.name"
             v-bind="{ item }"
           >
-            <UiText class="ui-list__label">
+            <UiText class="ui-list-item__label">
               {{ item.label }}
             </UiText>
           </slot>
@@ -63,6 +62,7 @@ export interface ListItemComplex {
   listItemAttrs?: ListItemAttrs;
 }
 export type ListItem = string | ListItemComplex;
+
 const props = defineProps({
   /**
    * Use this props to pass list tag.
@@ -100,9 +100,5 @@ const itemsToRender = computed(() => (props.items.map((item, key) => {
   padding: 0;
   margin: 0;
   list-style-type: none;
-
-  &__label {
-    flex-grow: 1;
-  }
 }
 </style>

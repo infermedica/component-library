@@ -4,7 +4,8 @@ import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
-import UiListItemSuffix from '@/components/organisms/UiList/_internal/UiListItemSuffix.vue';
+import UiListItemSuffixAsButton from '@/components/organisms/UiList/_internal/UiListItemSuffixAsButton.vue';
+import UiListItemSuffixAsText from '@/components/organisms/UiList/_internal/UiListItemSuffixAsText.vue';
 import UiMultipleChoices from '@/components/organisms/UiMultipleChoices/UiMultipleChoices.vue';
 import UiMultipleChoicesItem from '@/components/organisms/UiMultipleChoices/_internal/UiMultipleChoicesItem.vue';
 import UiProgress from '@/components/atoms/UiProgress/UiProgress.vue';
@@ -25,7 +26,8 @@ export default {
   component: UiList,
   subcomponents: {
     UiListItem,
-    UiListItemSuffix,
+    UiListItemSuffixAsButton,
+    UiListItemSuffixAsText,
   },
   args: {
     items: [
@@ -88,7 +90,7 @@ export const WithListItemSlot = (args) => ({
   </UiList>`,
 });
 
-export const WithSuffix = (args) => ({
+export const WithSuffixAsText = (args) => ({
   components: { UiList },
   setup() {
     return { ...args };
@@ -98,7 +100,37 @@ export const WithSuffix = (args) => ({
     :items="items"
   />`,
 });
-WithSuffix.args = {
+WithSuffixAsText.args = {
+  items: [
+    {
+      name: 'painful-swallowing',
+      label: 'Painful swallowing',
+      hasSuffix: true,
+      suffixAttrs: { label: 'more info' },
+    },
+    {
+      name: 'stuffy-nose',
+      label: 'Stuffy nose',
+      hasSuffix: true,
+      suffixAttrs: { label: 'more info' },
+    },
+    {
+      name: 'sneeze',
+      label: 'Sneeze',
+      hasSuffix: true,
+      suffixAttrs: { label: 'more info' },
+    },
+    {
+      name: 'runny-nose',
+      label: 'Runny nose',
+      hasSuffix: true,
+      suffixAttrs: { label: 'more info' },
+    },
+  ],
+};
+
+export const WithSuffixAsButton = WithSuffixAsText.bind({});
+WithSuffixAsButton.args = {
   items: [
     {
       name: 'painful-swallowing',

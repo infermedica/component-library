@@ -13,7 +13,8 @@
         suffixAttrs: defaultProps.suffixAttrs
       }"
     >
-      <UiListItemSuffix
+      <component
+        :is="suffixComponent"
         v-if="hasSuffix"
         v-bind="defaultProps.suffixAttrs"
         class="ui-list-item__suffix"
@@ -28,7 +29,8 @@ import type { PropType } from 'vue';
 import type { HTMLTag } from '../../../../types/tag';
 import type { Icon } from '../../../../types/icon';
 import type { PropsAttrs } from '../../../../types/attrs';
-import UiListItemSuffix from './UiListItemSuffix.vue';
+import UiListItemSuffixAsButton from './UiListItemSuffixAsButton.vue';
+import UiListItemSuffixAsText from './UiListItemSuffixAsText.vue';
 
 const props = defineProps({
   /**
@@ -46,7 +48,7 @@ const props = defineProps({
       String,
       Object,
     ] as PropType<Icon>,
-    default: 'info',
+    default: '',
   },
   /**
    * Use this props to control suffix visibility.
@@ -62,19 +64,20 @@ const props = defineProps({
     type: Object as PropsAttrs,
     default: () => ({}),
   },
-  /**
-   * Use this props to pass attrs for menu item UiButton
-   */
-  buttonListItemAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
 });
+const hasButtonSuffix = computed(() => !!Object.keys(props.suffixAttrs).filter(
+  (key) => key.match(/(^on*|to|href)/),
+).length);
+const suffixComponent = computed(() => (hasButtonSuffix.value
+  ? UiListItemSuffixAsButton
+  : UiListItemSuffixAsText));
 const defaultProps = computed(() => ({
-  suffixAttrs: {
-    icon: props.icon as Icon,
-    ...props.suffixAttrs,
-  },
+  suffixAttrs: hasButtonSuffix.value
+    ? {
+      icon: props.icon,
+      ...props.suffixAttrs,
+    }
+    : props.suffixAttrs,
 }));
 </script>
 
@@ -87,6 +90,7 @@ const defaultProps = computed(() => ({
   $element: list-item;
 
   display: flex;
+  justify-content: space-between;
 
   @include mixins.inner-border(
     $element,
@@ -97,7 +101,7 @@ const defaultProps = computed(() => ({
   padding: functions.var($element, padding, var(--space-12) var(--space-20));
 
   @include mixins.from-tablet {
-    padding: functions.var($element, padding, var(--space-12));
+    padding: functions.var($element + "-tablet", padding, var(--space-12));
   }
 
   &:last-of-type {
@@ -110,10 +114,6 @@ const defaultProps = computed(() => ({
     background: functions.var($element + "-hover", background, var(--color-background-white-hover));
   }
 
-  &:active {
-    background: functions.var($element + "-active", background, var(--color-background-white-hover));
-  }
-
   &__label {
     flex: 1;
     text-align: start;
@@ -121,14 +121,10 @@ const defaultProps = computed(() => ({
   }
 
   &--has-error {
-    background: functions.var($element + "-error", background, var(--color-background-error));
+    background: functions.var($element, background, var(--color-background-error));
 
     @include mixins.hover {
-      background: functions.var($element + "-error-hover", background, var(--color-background-error));
-    }
-
-    &:active {
-      background: functions.var($element + "-error-active", background, var(--color-background-error));
+      background: functions.var($element + "-hover", background, var(--color-background-error));
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <UiButton class="ui-button--text ui-button--small ui-list-item-suffix">
+  <UiButton class="ui-button--text ui-list-item-suffix">
     <!-- @slot Use this slot to replace label template. -->
     <slot
       name="label"
@@ -18,7 +18,7 @@
       <UiIcon
         v-if="icon"
         v-bind="defaultProps.iconAttrs"
-        class="ui-list-item-suffix__icon ui-button__icon "
+        class="ui-button__icon ui-button__icon--right ui-list-item-suffix__icon"
       />
     </slot>
   </UiButton>
@@ -73,9 +73,6 @@ const hasIcon = computed(() => !!defaultProps.value.iconAttrs.icon);
 .ui-list-item-suffix {
   $element: list-item-suffix;
 
-  --button-icon-margin: #{functions.var($element + "-icon", margin, 0)};
-
   display: flex;
-  gap: functions.var($element, gap, var(--space-4));
 }
 </style>
