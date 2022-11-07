@@ -38,7 +38,11 @@ export default {
     settings: {
       info: true,
       why: true,
-      issue: { feedback: true },
+      issue: {
+        action: true,
+        feedback: true,
+        skip: true,
+      },
     },
     headingTitleAttrs: { 'data-test': 'title-heading' },
     buttonInfoAttrs: {
@@ -137,6 +141,81 @@ AsMultipleAnswer.args = {
   ],
 };
 AsMultipleAnswer.decorators = [ (story) => ({
+  components: {
+    story,
+    UiControls,
+  },
+  template: `<UiControls
+      :to-next="{path: '/next'}"
+      :to-back="{path: '/back'}"
+      :style="{
+      width: '100%',
+      'max-width': '780px',
+      'min-height': '540px',
+    }"
+  >
+    <story/>
+  </UiControls>`,
+}) ];
+
+export const WithoutSkipThisQuestion = (args) => ({
+  components: {
+    UiQuestion,
+    UiMultipleAnswer,
+  },
+  setup() {
+    const modelValue = ref('');
+    return {
+      ...args,
+      modelValue,
+    };
+  },
+  template: `<UiQuestion
+    :title="title"
+    :translation="translation"
+    :settings="settings"
+    :heading-title-attrs="headingTitleAttrs"
+    :button-info-attrs="buttonInfoAttrs"
+    :icon-info-attrs="iconInfoAttrs"
+    :button-why-attrs="buttonWhyAttrs"
+    :button-issue-attrs="buttonIssueAttrs"
+    :notification-feedback-attrs="notificationFeedbackAttrs"
+    :style="{
+      '--question-tablet-content-margin': 'var(--space-32) 0 0 0',
+      '--question-tablet-actions-bottom-margin': 'var(--space-32) 0 0 0',
+    }"
+  >
+    <UiMultipleAnswer
+      v-model="modelValue"
+      name="group-single"
+      :items="items"
+    />
+  </UiQuestion>`,
+});
+WithoutSkipThisQuestion.args = {
+  items: [
+    {
+      label: 'Fatigue',
+      value: 'fatigue',
+      buttonInfoAttrs: { ariaLabel: 'how to check it?' },
+      iconInfoAttrs: { 'data-testid': 'info-icon' },
+      textLabelAttrs: { 'data-testid': 'label-text' },
+    },
+    {
+      label: 'Fever',
+      value: 'fever',
+    },
+    {
+      label: 'Illusion of surrounding objects being bigger or smaller than they actually are',
+      value: 'illusion',
+      buttonInfoAttrs: { ariaLabel: 'what does it mean?' },
+      iconInfoAttrs: { 'data-testid': 'info-icon' },
+      textLabelAttrs: { 'data-testid': 'label-text' },
+    },
+  ],
+  notificationFeedbackAttrs: { buttonActionAttrs: {} },
+};
+WithoutSkipThisQuestion.decorators = [ (story) => ({
   components: {
     story,
     UiControls,

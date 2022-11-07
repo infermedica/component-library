@@ -103,7 +103,7 @@
           }"
         >
           <div
-            v-if="defaultProps.settings.issue"
+            v-if="defaultProps.settings.issue.action"
             class="ui-question__action"
           >
             <UiButton
@@ -122,6 +122,7 @@
       v-bind="{
         settings: defaultProps.settings,
         translation: defaultProps.translation,
+        notificationFeedbackAttrs: defaultProps.notificationFeedbackAttrs,
       }"
     >
       <UiNotification
@@ -165,10 +166,12 @@ export interface Questionsettings {
   info: boolean;
   why: boolean;
   issue: {
+    action: boolean;
     feedback: boolean;
   };
   [key: string]: unknown;
 }
+
 const props = defineProps({
   /**
    * Use this props to set question title.
@@ -200,7 +203,11 @@ const props = defineProps({
     default: () => ({
       info: false,
       why: false,
-      issue: { feedback: false },
+      issue: {
+        action: false,
+        feedback: false,
+        skip: true,
+      },
     }),
   },
   /**
@@ -249,19 +256,7 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-interface DefaultProps {
-  translation: QuestionTranslation;
-  settings: Questionsettings,
-  iconInfoAttrs: {
-    icon: Icon;
-    [key: string]: unknown
-  },
-  notificationFeedbackAttrs: {
-    type: NotificationType;
-    [key: string]: unknown;
-  },
-}
-const defaultProps = computed<DefaultProps>(() => ({
+const defaultProps = computed(() => ({
   translation: {
     ...{
       info: 'What does it mean?',
@@ -276,7 +271,7 @@ const defaultProps = computed<DefaultProps>(() => ({
       },
       ...props.translation?.issue,
     },
-  },
+  } as QuestionTranslation,
   settings: {
     ...{
       info: false,
@@ -284,16 +279,19 @@ const defaultProps = computed<DefaultProps>(() => ({
     },
     ...props.settings,
     issue: {
-      ...{ feedback: false },
+      ...{
+        action: false,
+        feedback: false,
+      },
       ...props.settings?.issue,
     },
-  },
+  } as Questionsettings,
   iconInfoAttrs: {
-    icon: 'info',
+    icon: 'info' as Icon,
     ...props.iconInfoAttrs,
   },
   notificationFeedbackAttrs: {
-    type: 'success',
+    type: 'success' as NotificationType,
     ...props.notificationFeedbackAttrs,
   },
 }));
