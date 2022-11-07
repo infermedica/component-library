@@ -27,7 +27,9 @@
             :name="item.name"
             v-bind="{ item }"
           >
-            <UiText>{{ item.label }}</UiText>
+            <UiText class="ui-list__label">
+              {{ item.label }}
+            </UiText>
           </slot>
         </UiListItem>
       </template>
@@ -38,10 +40,10 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { PropType } from 'vue';
+import type { Icon } from '../../../types/icon';
+import type { ListTag } from '../../../types/tag';
 import UiListItem from './_internal/UiListItem.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
-import type { ListTag } from '../../../types/tag';
-import type { Icon } from '../../../types/icon';
 
 export interface ListItemSuffixAttrs {
   label?: string;
@@ -55,12 +57,12 @@ export interface ListItemAttrs {
   suffixAttrs?: ListItemSuffixAttrs;
   [key: string]: unknown;
 }
-export interface ListItemAsObj {
+export interface ListItemComplex {
   name: string;
   label?: string;
   listItemAttrs?: ListItemAttrs;
 }
-export type ListItem = string | ListItemAsObj;
+export type ListItem = string | ListItemComplex;
 const props = defineProps({
   /**
    * Use this props to pass list tag.
@@ -98,5 +100,9 @@ const itemsToRender = computed(() => (props.items.map((item, key) => {
   padding: 0;
   margin: 0;
   list-style-type: none;
+
+  &__label {
+    flex-grow: 1;
+  }
 }
 </style>

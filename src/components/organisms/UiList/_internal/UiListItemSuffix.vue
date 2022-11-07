@@ -1,7 +1,5 @@
 <template>
-  <UiButton
-    class="ui-list-item-suffix ui-button--text ui-text--body-2-comfortable"
-  >
+  <UiButton class="ui-button--text ui-button--small ui-list-item-suffix">
     <!-- @slot Use this slot to replace label template. -->
     <slot
       name="label"
@@ -14,12 +12,12 @@
       name="icon"
       v-bind="{
         hasIcon,
-        iconSuffixAttrs: defaultProps.iconSuffixAttrs
+        iconSuffixAttrs: defaultProps.iconAttrs
       }"
     >
       <UiIcon
         v-if="icon"
-        v-bind="defaultProps.iconSuffixAttrs"
+        v-bind="defaultProps.iconAttrs"
         class="ui-list-item-suffix__icon ui-button__icon "
       />
     </slot>
@@ -29,9 +27,9 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { PropType } from 'vue';
-import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import type { PropsAttrs } from '../../../../types/attrs';
 import type { Icon } from '../../../../types/icon';
+import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 
 const props = defineProps({
@@ -53,20 +51,20 @@ const props = defineProps({
     default: 'info',
   },
   /**
-   * Use this props to pass attrs for suffix UIIcon
+   * Use this props to pass attrs for UiIcon
    */
-  iconSuffixAttrs: {
+  iconAttrs: {
     type: Object as PropsAttrs,
     default: () => ({}),
   },
 });
 const defaultProps = computed(() => ({
-  iconSuffixAttrs: {
+  iconAttrs: {
     icon: props.icon as Icon,
-    ...props.iconSuffixAttrs,
+    ...props.iconAttrs,
   },
 }));
-const hasIcon = computed(() => !!defaultProps.value.iconSuffixAttrs.icon);
+const hasIcon = computed(() => !!defaultProps.value.iconAttrs.icon);
 </script>
 
 <style lang="scss">
@@ -76,14 +74,8 @@ const hasIcon = computed(() => !!defaultProps.value.iconSuffixAttrs.icon);
   $element: list-item-suffix;
 
   --button-icon-margin: #{functions.var($element + "-icon", margin, 0)};
-  display: flex;
-  align-items: center;
-  gap: functions.var($element, gap, var(--space-4));
 
-  &__icon {
-    width: 20px;
-    height: 20px;
-    margin: 2px;
-  }
+  display: flex;
+  gap: functions.var($element, gap, var(--space-4));
 }
 </style>

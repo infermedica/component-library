@@ -3,10 +3,8 @@
     :is="tag"
     class="ui-list-item"
   >
-    <div class="ui-list-item__content">
-      <!-- @slot Use this slot to place content inside menu-item. -->
-      <slot />
-    </div>
+    <!-- @slot Use this slot to place content inside list-item. -->
+    <slot />
     <!-- @slot Use this slot to replace suffix template -->
     <slot
       name="suffix"
@@ -27,10 +25,10 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { PropType } from 'vue';
-import UiListItemSuffix from './UiListItemSuffix.vue';
 import type { HTMLTag } from '../../../../types/tag';
 import type { Icon } from '../../../../types/icon';
 import type { PropsAttrs } from '../../../../types/attrs';
+import UiListItemSuffix from './UiListItemSuffix.vue';
 
 const props = defineProps({
   /**
@@ -41,7 +39,7 @@ const props = defineProps({
     default: 'li',
   },
   /**
-   * Use this props to set icon.
+   * Use this props to set suffix icon.
    */
   icon: {
     type: [
@@ -64,6 +62,13 @@ const props = defineProps({
     type: Object as PropsAttrs,
     default: () => ({}),
   },
+  /**
+   * Use this props to pass attrs for menu item UiButton
+   */
+  buttonListItemAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({}),
+  },
 });
 const defaultProps = computed(() => ({
   suffixAttrs: {
@@ -82,8 +87,6 @@ const defaultProps = computed(() => ({
   $element: list-item;
 
   display: flex;
-  padding: functions.var($element, padding, var(--space-12) var(--space-20));
-  align-items: center;
 
   @include mixins.inner-border(
     $element,
@@ -91,26 +94,10 @@ const defaultProps = computed(() => ({
     $width: 1px 0 0 0,
   );
 
+  padding: functions.var($element, padding, var(--space-12) var(--space-20));
+
   @include mixins.from-tablet {
     padding: functions.var($element, padding, var(--space-12));
-  }
-
-  @include mixins.hover {
-    background: functions.var($element + "-hover", background, var(--color-background-white-hover));
-    color: functions.var($element + "-hover", color, var(--color-text-action-primary-hover));
-
-    #{$this}__icon {
-      --icon-color: #{functions.var($element + "-hover-icon", color, var(--color-icon-primary-hover))};
-    }
-  }
-
-  &:active {
-    background: functions.var($element + "-active", background, var(--color-background-white-active));
-    color: functions.var($element + "-active", color, var(--color-text-action-primary-active));
-
-    #{$this}__icon {
-      --icon-color: #{functions.var($element + "-active-icon", color, var(--color-icon-primary-active))};
-    }
   }
 
   &:last-of-type {
@@ -119,13 +106,29 @@ const defaultProps = computed(() => ({
     }
   }
 
-  &__content {
-    flex-grow: 1;
+  @include mixins.hover {
+    background: functions.var($element + "-hover", background, var(--color-background-white-hover));
+  }
+
+  &:active {
+    background: functions.var($element + "-active", background, var(--color-background-white-hover));
+  }
+
+  &__label {
+    flex: 1;
+    text-align: start;
+    color: functions.var($element + "-label", color, var(--color-text-body));
   }
 
   &--has-error {
-    #{$this}__item {
-      background-color: var(--color-background-error);
+    background: functions.var($element + "-error", background, var(--color-background-error));
+
+    @include mixins.hover {
+      background: functions.var($element + "-error-hover", background, var(--color-background-error));
+    }
+
+    &:active {
+      background: functions.var($element + "-error-active", background, var(--color-background-error));
     }
   }
 }

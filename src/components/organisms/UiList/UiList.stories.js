@@ -1,11 +1,24 @@
+import { ref } from 'vue';
+import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
+import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
+import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import UiListItemSuffix from '@/components/organisms/UiList/_internal/UiListItemSuffix.vue';
-import UiText from '@/components/atoms/UiText/UiText.vue';
-import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
+import UiMultipleChoices from '@/components/organisms/UiMultipleChoices/UiMultipleChoices.vue';
+import UiMultipleChoicesItem from '@/components/organisms/UiMultipleChoices/_internal/UiMultipleChoicesItem.vue';
 import UiProgress from '@/components/atoms/UiProgress/UiProgress.vue';
-import { modifiers } from '@sb/helpers/argTypes';
+import UiText from '@/components/atoms/UiText/UiText.vue';
+import { actions } from '@storybook/addon-actions';
 import './UiList.stories.scss';
+
+const events = actions({
+  onUpdateModelValue: 'update:modelValue',
+  onUpdateInvalid: 'update:invalid',
+  onClickSuffix: 'click:suffix',
+  onClickInfoButton: 'click:info-button',
+  clickShowDetails: 'click:show-details',
+});
 
 export default {
   title: 'Organisms/List',
@@ -41,7 +54,6 @@ export default {
         type: { summary: 'unknown' },
       },
     },
-    modifiers: modifiers({ options: [ 'ui-list--has-error' ] }),
   },
 };
 
@@ -51,9 +63,8 @@ const Template = (args) => ({
     return { ...args };
   },
   template: `<UiList 
-      :class="modifiers"
-      :tag="tag"
-      :items="items"
+    :tag="tag"
+    :items="items"
   />`,
 });
 
@@ -67,53 +78,25 @@ export const WithListItemSlot = (args) => ({
   setup() {
     return { ...args };
   },
-  template: `<UiList 
-      :class="modifiers"
-      :tag="tag"
-      :items="items"
+  template: `<UiList
+    :tag="tag"
+    :items="items"
   >
     <template #painful-swallowing="{ item }">
-      <UiText>{{ item.label }}</UiText>
+      <UiText>{{ item }}</UiText>
     </template>
   </UiList>`,
 });
-WithListItemSlot.args = {
-  items: [
-    {
-      name: 'painful-swallowing',
-      label: 'Painful swallowing',
-      listItemAttrs: { 'data-testid': 'painful' },
-    },
-    {
-      name: 'stuffy-nose',
-      label: 'Stuffy nose',
-    },
-    {
-      name: 'sneeze',
-      label: 'Sneeze',
-    },
-    {
-      name: 'muscle-pain',
-      label: 'Muscle pain',
-    },
-    {
-      name: 'runny-nose',
-      label: 'Runny nose',
-    },
-  ],
-};
 
 export const WithSuffix = (args) => ({
   components: { UiList },
   setup() {
     return { ...args };
   },
-  template: `<UiList 
-      :class="modifiers"
-      :tag="tag"
-      :items="items"
-  >
-  </UiList>`,
+  template: `<UiList
+    :tag="tag"
+    :items="items"
+  />`,
 });
 WithSuffix.args = {
   items: [
@@ -124,6 +107,7 @@ WithSuffix.args = {
       suffixAttrs: {
         icon: 'chevron-right',
         label: 'more info',
+        onClick: events.onClickSuffix,
       },
     },
     {
@@ -133,6 +117,7 @@ WithSuffix.args = {
       suffixAttrs: {
         icon: 'chevron-right',
         label: 'more info',
+        onClick: events.onClickSuffix,
       },
     },
     {
@@ -142,6 +127,7 @@ WithSuffix.args = {
       suffixAttrs: {
         icon: 'chevron-right',
         label: 'more info',
+        onClick: events.onClickSuffix,
       },
     },
     {
@@ -151,37 +137,142 @@ WithSuffix.args = {
       suffixAttrs: {
         icon: 'chevron-right',
         label: 'more info',
+        onClick: events.onClickSuffix,
       },
+    },
+  ],
+};
+
+export const AsMultipleChoicesItem = (args) => ({
+  components: {
+    UiListItem,
+    UiMultipleChoices,
+    UiMultipleChoicesItem,
+  },
+  setup() {
+    const modelValue = ref(args.initModelValue);
+    const invalid = ref(args.initInvalid);
+
+    return {
+      ...args,
+      ...events,
+      modelValue,
+      invalid,
+    };
+  },
+  template: `<UiMultipleChoices
+    v-model="modelValue"
+    v-model:invalid="invalid"
+    :hint="hint"
+    :touched="touched"
+    :items="items"
+    :options="options"
+    @update:modelValue="onUpdateModelValue"
+    @update:invalid="onUpdateInvalid"
+  >
+    <template #list-item="{ item, index, value, options, hasError, updateHandler }">
+      <UiListItem :class="['ui-multiple-choices__list-item', {'ui-list-item--has-error': hasError(index)}]">
+        <UiMultipleChoicesItem
+          :model-value="value[index]"
+          v-bind="item"
+          :options="options"
+          :invalid="hasError(index)"
+          class="ui-multiple-choices__choice"
+          @update:model-value="updateHandler($event, index)"
+        />
+      </UiListItem>
+    </template>
+  </UiMultipleChoices>`,
+});
+AsMultipleChoicesItem.args = {
+  touched: false,
+  initInvalid: true,
+  initModelValue: [],
+  values: [
+    'Yes',
+    'No',
+    'Don\'t know',
+  ],
+  hint: 'Select one answer in each row',
+  items: [
+    {
+      label: 'I have diabetes',
+      hint: 'Please select one answer',
+      hasSuffix: true,
+
+    },
+    {
+      label: 'I have hypertension',
+      hint: 'Please select one answer',
+      buttonInfoAttrs: { onClick: events.onClickInfoButton },
+      translation: { info: 'How to check it?' },
+    },
+    {
+      label: 'I have high cholesterol',
+      hint: 'Please select one answer',
+      translation: { info: 'How to check it?' },
+    },
+  ],
+  options: [
+    {
+      label: 'Yes',
+      value: 'present',
+    },
+    {
+      label: 'No',
+      value: 'absent',
+    },
+    {
+      label: 'Don\'t know',
+      value: 'unknown',
     },
   ],
 };
 
 export const AsCondition = (args) => ({
   components: {
+    UiButton,
+    UiHeading,
+    UiIcon,
     UiList,
     UiListItem,
-    UiHeading,
     UiProgress,
     UiText,
   },
   setup() {
-    return { ...args };
+    return {
+      ...args,
+      ...events,
+    };
   },
   template: `<UiList
-      :class="modifiers"
-      :tag="tag"
-      :items="items"
+    :tag="tag"
+    :items="items"
+    listItemType="button"
   >
     <template
       v-for="(item, key) in items"
       :key="key"
     >
-      <UiListItem class="ui-list__item list-condition-item" v-bind="item">
-        <UiHeading level="3" >{{item.label}}</UiHeading>
-        <div class="list-condition-item__container">
-          <UiProgress class="list-condition-item__progress" :value="item.evidence.value" :max="item.evidence.max"/>
-          <UiText class="list-condition-item__evidence ui-text--body-2-comfortable">{{item.evidence.label}}</UiText>
-        </div>
+      <UiListItem class="list-condition-item" v-bind="item">
+        <UiButton class="ui-button--text ui-button--small list-condition-item__button" @click="clickShowDetails">
+          <UiHeading level="3">
+            {{item.label}}
+          </UiHeading>
+          <div class="list-condition-item__container">
+            <UiProgress class="list-condition-item__progress" :value="item.evidence.value" :max="10"/>
+            <UiText class="ui-text--body-2-comfortable">
+              {{item.evidence.label}}
+            </UiText>
+          </div>
+          <div class="list-condition-item__suffix">
+            Show details
+            <UiIcon
+              icon="chevron-right"
+              class="ui-list-item-suffix__icon ui-button__icon "
+            />
+          </div>
+        </UiButton>
       </UiListItem>
     </template>
   </UiList>`,
@@ -193,13 +284,7 @@ AsCondition.args = {
       label: 'Common cold',
       evidence: {
         value: 8,
-        max: 10,
         label: 'Strong evidence',
-      },
-      hasSuffix: true,
-      suffixAttrs: {
-        icon: 'chevron-right',
-        label: 'Show details',
       },
     },
     {
@@ -207,13 +292,7 @@ AsCondition.args = {
       label: 'Tension-type headaches',
       evidence: {
         value: 6,
-        max: 10,
         label: 'Moderate evidence',
-      },
-      hasSuffix: true,
-      suffixAttrs: {
-        icon: 'chevron-right',
-        label: 'Show details',
       },
     },
     {
@@ -221,13 +300,7 @@ AsCondition.args = {
       label: 'Migraine',
       evidence: {
         value: 4,
-        max: 10,
         label: 'Moderate evidence',
-      },
-      hasSuffix: true,
-      suffixAttrs: {
-        icon: 'chevron-right',
-        label: 'Show details',
       },
     },
   ],
