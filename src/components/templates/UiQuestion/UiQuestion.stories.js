@@ -41,7 +41,6 @@ export default {
       issue: {
         action: true,
         feedback: true,
-        skip: true,
       },
     },
     headingTitleAttrs: { 'data-test': 'title-heading' },

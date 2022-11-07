@@ -120,13 +120,14 @@
     <slot
       name="feedback"
       v-bind="{
+        hasFeedback,
         settings: defaultProps.settings,
         translation: defaultProps.translation,
         notificationFeedbackAttrs: defaultProps.notificationFeedbackAttrs,
       }"
     >
       <UiNotification
-        v-if="defaultProps.settings.issue?.feedback"
+        v-if="hasFeedback"
         v-bind="defaultProps.notificationFeedbackAttrs"
         type="success"
         :translation="{ action: defaultProps.translation.issue.skip }"
@@ -298,6 +299,10 @@ const defaultProps = computed(() => ({
 const hasActionsBottom = computed(() => (
   defaultProps.value.settings.why
     || defaultProps.value.settings.issue
+));
+const hasFeedback = computed(() => (
+  defaultProps.value.settings.issue.action
+    && defaultProps.value.settings.issue.feedback
 ));
 </script>
 
