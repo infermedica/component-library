@@ -17,7 +17,6 @@
         :is="suffixComponent"
         v-if="hasSuffix"
         v-bind="defaultProps.suffixAttrs"
-        class="ui-list-item__suffix"
       />
     </slot>
   </component>
@@ -125,6 +124,23 @@ const defaultProps = computed(() => ({
 
     @include mixins.hover {
       background: functions.var($element + "-hover", background, var(--color-background-error));
+    }
+  }
+
+  &:has(> .ui-list) {
+    flex-direction: column;
+    padding: functions.var($element, padding, var(--space-12) 0 0 var(--space-20));
+
+    @include mixins.from-tablet {
+      padding: functions.var($element + "-tablet", padding, var(--space-12) 0 0 var(--space-12));
+    }
+
+    #{$this} {
+      &:last-of-type {
+        &::after {
+          border-width: functions.var($element, border-width, 1px 0 0);
+        }
+      }
     }
   }
 }

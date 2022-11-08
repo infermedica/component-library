@@ -30,13 +30,12 @@
               {{ item.label }}
             </UiText>
           </slot>
+          <template v-if="item.children?.items">
+            <ui-list
+              v-bind="item.children"
+            />
+          </template>
         </UiListItem>
-        <template v-if="item.children?.items">
-          <ui-list
-            class="ui-list--nested"
-            v-bind="item.children"
-          />
-        </template>
       </template>
     </slot>
   </component>
@@ -118,8 +117,8 @@ const listItemAttrs = ({
   margin: 0;
   list-style-type: none;
 
-  &--nested {
-    margin: functions.var($element + "-nested", margin, 0 0 0 var(--space-24));
+  #{$this} {
+    margin: functions.var($element, margin, var(--space-12) 0 0 0);
   }
 }
 </style>

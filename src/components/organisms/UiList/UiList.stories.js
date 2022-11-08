@@ -93,34 +93,18 @@ export const WithListItemSlot = (args) => ({
 export const NestingList = Template.bind({});
 NestingList.args = {
   items: [
-    {
-      name: 'muscle-pain',
-      label: 'Muscle pain',
-    },
+    'Muscle pain',
     {
       name: 'runny-nose',
       label: 'Runny nose',
       children: {
         items: [
-          {
-            name: 'stuffy-nose',
-            label: 'Stuffy nose',
-          },
-          {
-            name: 'sneeze',
-            label: 'Sneeze',
-          },
-          {
-            name: 'runny-nose',
-            label: 'Runny nose',
-          },
+          'Stuffy nose',
+          'Sneeze',
         ],
       },
     },
-    {
-      name: 'painful-swallowing',
-      label: 'Painful swallowing',
-    },
+    'Painful swallowing',
   ],
 };
 
@@ -251,9 +235,9 @@ export const AsMultipleChoicesItem = (args) => ({
   </UiMultipleChoices>`,
 });
 AsMultipleChoicesItem.args = {
-  touched: false,
+  touched: true,
   initInvalid: true,
-  initModelValue: [],
+  initModelValue: [ 'absent' ],
   values: [
     'Yes',
     'No',
