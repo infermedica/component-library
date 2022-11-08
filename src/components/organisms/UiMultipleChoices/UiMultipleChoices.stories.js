@@ -183,57 +183,6 @@ export const WithHintSlot = (args) => ({
   </UiMultipleChoices>`,
 });
 
-export const WithListItemSlot = (args) => ({
-  components: {
-    UiMultipleChoices,
-    UiMultipleChoicesItem,
-    UiListItem,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    const invalid = ref(args.initInvalid);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-      invalid,
-    };
-  },
-  template: `<UiMultipleChoices
-    v-model="modelValue"
-    v-model:invalid="invalid"
-    :hint="hint"
-    :touched="touched"
-    :items="items"
-    :options="options"
-    :alert-hint-attrs="alertHintAttrs"
-    @update:modelValue="onUpdateModelValue"
-    @update:invalid="onUpdateInvalid"
-  >
-    <template
-      #list-item="{
-        item,
-        index,
-        value,
-        options,
-        hasError,
-        updateHandler
-      }"
-    >
-      <UiListItem class="ui-multiple-choices__list-item">
-        <UiMultipleChoicesItem
-          :model-value="value[index]"
-          v-bind="item"
-          :options="options"
-          :invalid="hasError(index)"
-          class="ui-multiple-choices__choice"
-          @update:model-value="updateHandler($event, index)"
-        />
-      </UiListItem>
-    </template>
-  </UiMultipleChoices>`,
-});
-
 export const WithChoiceSlot = (args) => ({
   components: {
     UiMultipleChoices,
