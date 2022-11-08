@@ -260,7 +260,8 @@ const props = defineProps({
 });
 const buttonActionAttrs = computed(() => {
   if (typeof props.settings?.issue?.skip === 'boolean') {
-    if (!props.settings?.issue?.skip) {
+    const skipButtonForceDisabled = !props.settings?.issue?.skip;
+    if (skipButtonForceDisabled) {
       return {};
     }
   }
