@@ -1,5 +1,6 @@
 @use "../../../styles/mixins";
 
+//<Code id="map">
 .map {
   &__region {
     cursor: pointer;
@@ -51,7 +52,9 @@
     fill: white;
   }
 }
+//</Code>
 
+//<Code id="abdominal-pain">
 .abdominal-pain {
   &__part {
     cursor: pointer;
@@ -92,7 +95,9 @@
     fill: #0f5496;
   }
 }
+//</Code>
 
+//<Code id="body-model">
 .body-model {
   &__part {
     cursor: pointer;
@@ -120,4 +125,5 @@
     fill: #1471c9;
   }
 }
+//</Code>
 

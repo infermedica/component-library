@@ -1,5 +1,7 @@
-import { Canvas, Meta, Story, Primary, ArgsTable, Source } from "@storybook/addon-docs";
+import { Canvas, Meta, Story, Primary, ArgsTable } from "@storybook/addon-docs";
+import { Code } from '../../../../docs/components/Code';
 import UiInteractiveSvg from "./UiInteractiveSvg.vue";
+import scss from './UiInteractiveSvg.stories.scss?raw';
 
 <Meta title="Molecules/UiInteractiveSvg" component={UiInteractiveSvg} />
 
@@ -15,63 +17,12 @@ import UiInteractiveSvg from "./UiInteractiveSvg.vue";
 
 Some groups have `focus-for` attribute. We use it to show an outline for the focused element.
 
-To style the map, you can use the following SCSS.
-
-```scss
-@use "@infermedica/component-library/mixins";
-
-.map {
-  &__region {
-    cursor: pointer;
-    fill: #2f91ea;
-    stroke: #1471c9;
-
-    &:focus {
-      outline: none;
-      stroke: white;
-    }
-
-    @include mixins.hover {
-      fill: #a2cff5;
-    }
-
-    &--is-checked {
-      fill: #0b3d6d;
-      stroke: #2f91ea;
-
-      @include mixins.hover {
-        fill: #082c4d;
-      }
-
-    }
-  }
-
-  &__focus-for-region {
-    pointer-events: none;
-    visibility: hidden;
-    fill: transparent;
-    stroke-linejoin: round;
-
-    path:first-of-type {
-      stroke: white;
-      stroke-width: 6px;
-    }
-
-    path:last-of-type {
-      stroke: #2f91ea;
-      stroke-width: 2px;
-    }
-
-    &--is-focused {
-      visibility: visible;
-    }
-  }
-
-  &__outline {
-    fill: white;
-  }
-}
-```
+**Use following SCSS to get the same result**
+<Code
+  id="map"
+  code={scss}
+  additionalData={'@infermedica/component-library/mixins\n'}
+/>
 
 ### Abdominal Pain Male
 <Canvas>
@@ -80,51 +31,12 @@ To style the map, you can use the following SCSS.
 
 Some groups have `focus-for` attribute. We use it to show an outline for the focused element.
 
-To style the abdominal pain, you can use the following SCSS.
-
-```scss
-@use "@infermedica/component-library/mixins";
-
-.abdominal-pain {
-  &__part {
-    cursor: pointer;
-    fill: #2f91ea;
-
-    &:focus {
-      outline: none;
-    }
-
-    @include mixins.hover {
-      fill: #1471c9;
-    }
-
-    &--is-checked {
-      fill: #0b3d6d;
-
-      @include mixins.hover {
-        fill: #082c4d;
-      }
-    }
-  }
-
-  &__focus-for-part {
-    pointer-events: none;
-    visibility: hidden;
-    fill: transparent;
-    stroke: white;
-    stroke-width: 2px;
-
-    &--is-focused {
-      visibility: visible;
-    }
-  }
-
-  &__outline {
-    pointer-events: none;
-    fill: #0f5496;
-  }
-}
-```
+**Use following SCSS to get the same result**
+<Code
+  id="abdominal-pain"
+  code={scss}
+  additionalData={'@infermedica/component-library/mixins\n'}
+/>
 
 ### Abdominal Pain Female
 <Canvas>
@@ -136,39 +48,12 @@ To style the abdominal pain, you can use the following SCSS.
   <Story id="molecules-interactivesvg--infant-unisex-front"/>
 </Canvas>
 
-To style the body model, you can use the following SCSS.
-
-```scss
-@use "@infermedica/component-library/mixins";
-
-.body-model {
-  &__part {
-    cursor: pointer;
-    fill: #c2e0f8;
-
-    @include mixins.from-tablet {
-      fill: transparent;
-    }
-
-    @include mixins.hover {
-      fill: #71b5f0;
-    }
-
-    &--is-selected {
-      fill: #c2e0f8;
-    }
-
-    &--is-highlighted {
-      fill: #71b5f0;
-    }
-  }
-
-  &__outline {
-    pointer-events: none;
-    fill: #1471c9;
-  }
-}
-```
+**Use following SCSS to get the same result**
+<Code
+  id="body-model"
+  code={scss}
+  additionalData={'@infermedica/component-library/mixins\n'}
+/>
 
 ### Infant Unisex Back
 <Canvas>
