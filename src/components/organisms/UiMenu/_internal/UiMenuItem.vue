@@ -111,7 +111,10 @@ const defaultProps = computed(() => ({
   $this: &;
   $element: menu-item;
 
-  --list-item-padding: #{functions.var($element, padding, var(--space-8) )};
+  --list-item-padding: #{functions.var($element, padding, var(--space-4) var(--space-8))};
+  --list-item-tablet-padding: #{functions.var($element + '-tablet', padding, var(--space-4) var(--space-8))};
+  --list-item-border-width: 0;
+  --list-item-hover-background: transparent;
 
   &__button {
     --button-padding: #{functions.var($element + '-button', padding, var(--space-8))};

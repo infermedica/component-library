@@ -160,20 +160,14 @@ const defaultProps = computed(() => ({
   $this: &;
   $element: accordion-item;
 
-  @include mixins.inner-border($element: accordion-item, $color: var(--color-border-divider), $width: 1px 0 0 0);
-
   --list-item-padding: #{functions.var($element, padding, 0)};
+  --list-item-tablet-padding: #{functions.var($element + "-tablet", padding, 0)};
+  --list-item-hover-background: #{functions.var($element + "-hover", background, transparent)};
 
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-
-  &:last-of-type {
-    &::after {
-      border-width: functions.var($element, border-width, 1px 0);
-    }
-  }
 
   &__toggler {
     --button-padding: #{functions.var($element + "-toggler", padding, var(--space-12))};

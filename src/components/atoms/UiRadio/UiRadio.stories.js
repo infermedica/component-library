@@ -233,7 +233,7 @@ export const AsGroupWithPrimitiveTypes = (args) => ({
       modelValue,
     };
   },
-  template: `<UiList style="--list-item-padding: var(--space-12) 0;">
+  template: `<UiList>
     <UiListItem
       v-for="(value, key) in values"
       :key="key"
@@ -298,7 +298,7 @@ export const AsGroupWithObject = (args) => ({
       modelValue,
     };
   },
-  template: `<UiList style="--list-item-padding: var(--space-12) 0;">
+  template: `<UiList>
     <UiListItem
       v-for="(value, key) in values"
       :key="key"
@@ -375,7 +375,7 @@ export const AsGroupWithNestedObject = (args) => ({
       modelValue,
     };
   },
-  template: `<UiList style="--list-item-padding: var(--space-12) 0;">
+  template: `<UiList>
     <UiListItem
       v-for="(value, key) in values"
       :key="key"
