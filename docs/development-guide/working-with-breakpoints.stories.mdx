@@ -1,6 +1,7 @@
 import { Meta } from '@storybook/addon-docs';
 import { PageOutline } from '../components/PageOutline';
 import { Alert } from '../components/Alert';
+import { Code } from '../components/Code';
 
 <Meta title="Getting Started/Development Guide/Working with breakpoints"/>
 
@@ -13,12 +14,11 @@ Infermedica Component Library has a predefined breakpoints but it is possible to
 ## Predefined breakpoints
 Predefined breakpoints in Infermedica Component Library are:
 
-```scss
-$mobile-max-width: 767px !default;
+<Code code={`$mobile-max-width: 767px !default;
 $tablet-min-width: 768px !default;
 $tablet-max-width: 991px !default;
 $desktop-min-width: 992px !default;
-```
+`}/>
 
 <Alert>
   <p>Predefined breakpoints are stored in <code>src/styles/variables/breakpoints.scss</code>.
@@ -84,49 +84,41 @@ export default defineConfig({
 ## Mixins
 To use breakpoints you can use the following mixins:
 
-```scss
-@mixin from($width) {
+<Code code={`@mixin from($width) {
   @media (min-width: $width) {
     @content;
   }
-}
-
+}\n
 @mixin to($width) {
   @media (max-width: $width) {
     @content;
   }
-}
-
+}\n
 @mixin between($min, $max) {
   @media (min-width: $min) and (max-width: $max) {
     @content;
   }
-}
-
+}\n
 @mixin to-mobile {
   @include mixins.to($mobile-max-width) {
     @content;
   }
-}
-
+}\n
 @mixin from-tablet {
   @include mixins.from($tablet-min-width) {
     @content;
   }
-}
-
+}\n
 @mixin from-desktop {
   @include mixins.from($desktop-min-width) {
     @content;
   }
 }
-```
+`}/>
 
 To use breakpoints mixins you should import them in your stylesheet:
 
-```scss
-@use "@symptom-checker/ui-kit/mixins/breakpoints.scss";
-```
+<Code code={`@use "@symptom-checker/ui-kit/mixins/breakpoints.scss";`}/>
 
 ## SASS variables with JavaScript code
 A huge problem in breakpoints is a possibility of using SASS variables in JavaScript code.
@@ -144,16 +136,14 @@ const isMobile = matchMedia(toMobile).matches;
 
 ### Exported breakpoints
 
-```scss
-mobileMaxWidth: $mobile-max-width;
+<Code code={`mobileMaxWidth: $mobile-max-width;
 tabletMinWidth: $tablet-min-width;
 tabletMaxWidth: $tablet-max-width;
 desktopMinWidth: $desktop-min-width;
 toMobile: '(max-width: #{$mobile-max-width})';
 toTablet: '(max-width: #{$tablet-max-width})';
 fromTablet: '(min-width: #{$tablet-min-width})';
-fromDesktop: '(min-width: #{$desktop-min-width})';
-```
+fromDesktop: '(min-width: #{$desktop-min-width})';`} />
 
 Special thanks to @Matteo Fogli and his article [How to share SASS variables with JavaScript code in VueJS](https://dev.to/pecus/how-to-share-sass-variables-with-javascript-code-in-vuejs-55p3).
 
@@ -170,7 +160,7 @@ module.exports = {
           auto: /exports/ // enable CSS module for files from Infermedica Component Library exports directory
         }
       }
-  },
+    },
   },
 }
 ```

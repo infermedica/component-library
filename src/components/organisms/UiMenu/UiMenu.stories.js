@@ -11,6 +11,7 @@ import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
 import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import './UiMenu.stories.scss';
 import { modifiers } from '@sb/helpers/argTypes';
+import docs from './UiMenu.mdx';
 
 export default {
   title: 'Organisms/Menu',
@@ -36,6 +37,7 @@ export default {
   },
   argTypes: { modifiers: modifiers({ options: [ 'ui-menu--compact' ] }) },
   decorators: [ () => ({ template: '<div style="max-width: 21.875rem"><story /></div>' }) ],
+  parameters: { docs: { page: docs } },
 };
 
 const Template = (args) => ({
