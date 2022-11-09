@@ -26,7 +26,9 @@
             :name="item.name"
             v-bind="{ item }"
           >
-            <UiText class="ui-list-item__label">
+            <UiText
+              v-if="item.label"
+            >
               {{ item.label }}
             </UiText>
           </slot>
@@ -110,15 +112,8 @@ const listItemAttrs = ({
 @use "../../../styles/functions";
 
 .ui-list {
-  $this: &;
-  $element: list;
-
   padding: 0;
   margin: 0;
   list-style-type: none;
-
-  #{$this} {
-    margin: functions.var($element, margin, var(--space-12) 0 0 0);
-  }
 }
 </style>

@@ -15,12 +15,12 @@
       name="icon"
       v-bind="{
         hasIcon,
-        iconSuffixAttrs: defaultProps.iconAttrs
+        iconSuffixAttrs: defaultProps.iconSuffixAttrs
       }"
     >
       <UiIcon
-        v-if="icon"
-        v-bind="defaultProps.iconAttrs"
+        v-if="hasIcon"
+        v-bind="defaultProps.iconSuffixAttrs"
         class="ui-button__icon ui-button__icon--right ui-list-item-suffix__icon"
       />
     </slot>
@@ -51,17 +51,17 @@ const props = defineProps({
       String,
       Object,
     ] as PropType<Icon>,
-    default: 'info',
+    default: '',
   },
   /**
-   * Use this props to pass attrs for UiIcon
+   * Use this props to pass attrs for suffix UiIcon.
    */
-  iconAttrs: {
+  iconSuffixAttrs: {
     type: Object as PropsAttrs,
     default: () => ({}),
   },
   /**
-   * Use this props to pass attrs for button label
+   * Use this props to pass attrs for label element.
    */
   labelAttrs: {
     type: Object as PropsAttrs,
@@ -69,20 +69,10 @@ const props = defineProps({
   },
 });
 const defaultProps = computed(() => ({
-  iconAttrs: {
+  iconSuffixAttrs: {
     icon: props.icon as Icon,
-    ...props.iconAttrs,
+    ...props.iconSuffixAttrs,
   },
 }));
-const hasIcon = computed(() => !!defaultProps.value.iconAttrs.icon);
+const hasIcon = computed(() => (!!defaultProps.value.iconSuffixAttrs.icon));
 </script>
-
-<style lang="scss">
-@use "../../../../styles/functions";
-
-.ui-list-item-suffix {
-  $element: list-item-suffix;
-
-  display: flex;
-}
-</style>
