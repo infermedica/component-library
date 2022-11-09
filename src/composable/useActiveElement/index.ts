@@ -6,7 +6,7 @@ import {
 } from 'vue';
 
 export default function useActiveElement() {
-  const activeElement = ref(null);
+  const activeElement = ref<Element | null>(null);
 
   const handleBlur = () => {
     activeElement.value = null;
