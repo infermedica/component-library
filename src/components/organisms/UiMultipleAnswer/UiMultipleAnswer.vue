@@ -193,7 +193,6 @@ watch(valid, (value) => {
 const value = computed({
   get: () => (props.modelValue),
   set: (newValue) => {
-    console.log(newValue);
     emit('update:modelValue', newValue);
   },
 });

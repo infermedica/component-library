@@ -7,6 +7,7 @@ import { defineAsyncComponent } from 'vue';
 import { actions } from '@storybook/addon-actions';
 import { modifiers } from '@sb/helpers/argTypes';
 import { toMobile } from '../../../styles/exports/breakpoints.module.scss';
+import docs from './UiHeader.mdx';
 
 const events = actions({
   onClickBrandButton: 'click:brand-button',
@@ -49,7 +50,7 @@ export default {
     navigationAttrs: { 'data-testid': 'navigation' },
   },
   argTypes: {
-    modifiers: modifiers({ options: [ 'ui-header--full' ] }),
+    modifiers: modifiers({ options: [ 'ui-header--full-width' ] }),
     logo: {
       description: 'Use this prop to set the logo.',
       control: false,
@@ -82,6 +83,7 @@ export default {
     iconLogoAttrs: { table: { subcategory: 'Attrs props' } },
     navigationAttrs: { table: { subcategory: 'Attrs props' } },
   },
+  parameters: { docs: { page: docs } },
 };
 
 const Template = (args) => ({
@@ -305,16 +307,7 @@ export const WithCustomBrand = (args) => ({
       logo,
     };
   },
-  template: `<div :style="{
-    '--color-background-brand': '#FFF', 
-    '--color-icon-on-brand': '#1F262C', 
-    '--color-icon-on-brand-hover': '#1F262C',
-    '--color-icon-on-brand-active': '#1F262C',
-    '--color-text-on-brand': '#1F262C',
-    '--color-text-on-brand-hover': '#1F262C', 
-    '--color-text-on-brand-active': '#1F262C'
-  }">
-    <UiHeader
+  template: `<UiHeader
       :title="title"
       :logo="logo"
       :hamburgerMatchMedia="hamburgerMatchMedia"
@@ -324,9 +317,8 @@ export const WithCustomBrand = (args) => ({
       :icon-hamburger-attrs="iconHamburgerAttrs"
       :icon-logo-attrs="iconLogoAttrs"
       :navigation-attrs="navigationAttrs"
-      :class="modifiers"
+      :class="['header-custom-brand', modifiers]"
       @hamburger:close="onHamburgerClose"
       @hamburger:open="onHamburgerOpen"
-    />
-  </div>`,
+  />`,
 });

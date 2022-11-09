@@ -1,5 +1,6 @@
+//<Code id="loading-popover">
 .loading-popover {
-  --popover-content-padding: 0 1rem;
+  --popover-content-padding: 0 var(--space-16);
 
   max-width: 25rem;
   min-height: 18rem;
@@ -12,14 +13,16 @@
     --message-content-align-self: flex-start;
     --message-illustration-size: 1.5rem;
 
-    margin: 1rem 0;
+    margin: var(--space-16) 0;
   }
 
   &__try-again {
-    margin: 1rem 0;
+    margin: var(--space-16) 0;
   }
 }
+//</Code>
 
+//<Code id="loading-side-panel">
 .loading-side-panel {
   &__message {
     --message-flex-direction: row-reverse;
@@ -31,6 +34,7 @@
   }
 
   &__try-again {
-    margin: 1rem 0;
+    margin: var(--space-16) 0;
   }
 }
+//</Code>

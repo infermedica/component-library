@@ -1,6 +1,7 @@
 import { Meta } from '@storybook/addon-docs';
 import { PageOutline } from '../../../components/PageOutline';
 import { Table } from '../../../components/Table';
+import { Code } from '../../../components/Code';
 
 <Meta title="Releases/v0.5.x/v0.5.0/Migration Guide" />
 
@@ -21,27 +22,24 @@ From v0.5.0 we are start to use BEM themes.
 
 We are changing props by props from single component.
 
-```scss
-.ui-button {
+<Code code={`.ui-button {
    &--secondary {
     --button-color: var(--color-text-action-secondary);
     --button-hover-color: var(--color-text-action-secondary-hover);
-    --button-active-color: var(--color-text-action-secondary-active);
-
+    --button-active-color: var(--color-text-action-secondary-active);\n
     &.ui-button--has-icon {
       --button-icon-color: var(--color-icon-secondary);
       --button-icon-color-hover: var(--color-icon-secondary-hover);
       --button-icon-color-active: var(--color-icon-secondary-active);
     }
    }
-}
-```
+}`}/>
 
 **After**
 
 We are changing values of global variables used in component. You can use them in old way, but it is not recommended.
 
-```scss
+<Code code={`
 .ui-button {
   @at-root [className*="-secondary"] {
     #{$this},
@@ -54,8 +52,7 @@ We are changing values of global variables used in component. You can use them i
       --color-icon-primary-active: var(--color-icon-secondary-active);
     }
   }
-}
-```
+}`}/>
 
 ## "Private" CSS Variables
 From v0.5.0 some components has "private" CSS variables. "Private" CSS variables has `_` prefix. This variables shouldn't be used in your project.

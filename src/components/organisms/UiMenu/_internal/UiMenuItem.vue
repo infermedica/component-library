@@ -53,6 +53,10 @@ import UiListItem from '../../UiList/_internal/UiListItem.vue';
 import UiMenuItemSuffix from './UiMenuItemSuffix.vue';
 import useAttributes from '../../../../composable/useAttributes';
 
+export interface MenuItemAttrs {
+  class?: string;
+}
+
 const props = defineProps({
   /**
    * Use this props to set icon.
@@ -88,8 +92,8 @@ const props = defineProps({
 });
 const {
   attrs, listeners,
-} = useAttributes();
-const isSelected = computed(() => (attrs.value.class && (attrs.value.class as string).includes('ui-menu-item--is-selected')));
+} = useAttributes<MenuItemAttrs, object>();
+const isSelected = computed(() => (attrs.value.class && attrs.value.class.includes('ui-menu-item--is-selected')));
 const hasSuffix = computed(() => props.suffixVisible === 'always' || (props.suffixVisible === 'default' && isSelected.value));
 const buttonClass = computed(() => ({ 'ui-button--is-selected': isSelected.value }));
 const defaultProps = computed(() => ({
@@ -114,7 +118,7 @@ const defaultProps = computed(() => ({
   --list-item-padding: #{functions.var($element, padding, var(--space-8) )};
 
   &__button {
-    --button-padding: #{functions.var($element + '-button', padding, var(--space-8))};
+    --button-padding: #{functions.var($element + "-button", padding, var(--space-8))};
     --button-border-width: #{functions.var($element + "button", border-width, 0)};
     --button-font: #{functions.var($element + "button", font, var(--font-body-1))};
     --button-letter-spacing: #{functions.var($element + "button", letter-spacing, var(--letter-spacing-body-1))};

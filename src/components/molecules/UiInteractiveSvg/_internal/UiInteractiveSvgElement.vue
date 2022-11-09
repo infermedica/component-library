@@ -52,7 +52,6 @@ const elementsAttrs = (attrs: Record<string, unknown>): Record<string, unknown> 
   };
 };
 const nestedElementsAttrs = ref<AttrsFunc>(() => ({}));
-console.log(nestedElementsAttrs.value);
 const parentComponent = getCurrentInstance()?.parent;
 if (!parentComponent || (parentComponent.type.name !== 'UiInteractiveSvg' && parentComponent.type.name !== 'UiInteractiveSvgElement')) {
   if (process.env.NODE_ENV !== 'production') {
