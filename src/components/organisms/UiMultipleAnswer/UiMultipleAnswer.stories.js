@@ -107,18 +107,19 @@ const Template = (args) => ({
 
 export const WithMultipleChoices = Template.bind({});
 
-export const WithButtonInfo = Template.bind({});
-WithButtonInfo.args = {
+export const WithSuffix = Template.bind({});
+WithSuffix.args = {
   hint: 'Select all answers that apply',
   items: [
     {
       label: 'Fatigue',
       value: 'fatigue',
-      buttonInfoAttrs: {
+      hasSuffix: true,
+      suffixAttrs: {
         ariaLabel: 'how to check it?',
         onClick: events.onClickInfoButton,
+        iconAttrs: { 'data-testid': 'info-icon' },
       },
-      iconInfoAttrs: { 'data-testid': 'info-icon' },
       textLabelAttrs: { 'data-testid': 'label-text' },
     },
     {
@@ -128,11 +129,12 @@ WithButtonInfo.args = {
     {
       label: 'Illusion of surrounding objects being bigger or smaller than they actually are',
       value: 'illusion',
-      buttonInfoAttrs: {
+      hasSuffix: true,
+      suffixAttrs: {
         ariaLabel: 'what does it mean?',
         onClick: events.onClickInfoButton,
+        iconAttrs: { 'data-testid': 'info-icon' },
       },
-      iconInfoAttrs: { 'data-testid': 'info-icon' },
       textLabelAttrs: { 'data-testid': 'label-text' },
     },
   ],
@@ -195,7 +197,7 @@ export const WithHintSlot = (args) => ({
   >
     <template 
       #hint="{
-       hint,
+        hint,
         hintType,
         hintAlertAttrs
       }"
@@ -216,7 +218,6 @@ export const WithListItemSlot = (args) => ({
   components: {
     UiMultipleAnswer,
     UiMultipleAnswerItem,
-    UiListItem,
   },
   setup() {
     const modelValue = ref(args.initModelValue);
@@ -248,15 +249,12 @@ export const WithListItemSlot = (args) => ({
         hasError
       }"
     >
-      <UiListItem class="ui-multiple-answer__list-item">
-        <UiMultipleAnswerItem
-          v-model="value"
-          v-bind="item"
-          :name="name"
-          :invalid="hasError"
-          class="ui-multiple-answer__choice"
-        />
-      </UiListItem>
+      <UiMultipleAnswerItem
+        v-model="value"
+        v-bind="item"
+        :name="name"
+        :invalid="hasError"
+      />
     </template>
   </UiMultipleAnswer>`,
 });
@@ -264,8 +262,7 @@ export const WithListItemSlot = (args) => ({
 export const WithChoiceSlot = (args) => ({
   components: {
     UiMultipleAnswer,
-    UiMultipleAnswerItem,
-    UiListItem,
+    UiCheckbox,
   },
   setup() {
     const modelValue = ref(args.initModelValue);
@@ -289,32 +286,37 @@ export const WithChoiceSlot = (args) => ({
     @update:modelValue="onUpdateModelValue"
     @update:invalid="onUpdateInvalid"
   >
-    <template
-        #choice="{
-          value,
-          item,
-          name,
-          hasError
-        }"
+    <template #choice="{
+        id,
+        value,
+        modelValue,
+        textLabelAttrs,
+        focusSuffix,
+        invalid,
+        updateHandler,
+        label
+      }"
     >
-      <UiMultipleAnswerItem
-        v-model="value"
-        v-bind="item"
-        :name="name"
-        :invalid="hasError"
-        class="ui-multiple-answer__choice"
-      />
+      <UiCheckbox
+        :id="id"
+        :value="value"
+        :class="[
+          'ui-multiple-answer-item__choice',
+          {'ui-checkbox--has-error': invalid}
+        ]"
+        :model-value="modelValue"
+        :text-label-attrs="textLabelAttrs"
+        @update:model-value="updateHandler"
+        @keydown="focusSuffix"
+      >
+        {{ label }}
+      </UiCheckbox>
     </template>
   </UiMultipleAnswer>`,
 });
 
 export const WithLabelChoiceIdSlot = (args) => ({
-  components: {
-    UiMultipleAnswer,
-    UiText,
-    UiButton,
-    UiIcon,
-  },
+  components: { UiMultipleAnswer },
   setup() {
     const modelValue = ref(args.initModelValue);
     const invalid = ref(args.initInvalid);
@@ -338,35 +340,11 @@ export const WithLabelChoiceIdSlot = (args) => ({
     @update:invalid="onUpdateInvalid"
   >
     <template 
-      #label-fever="{ 
-        id,
-        componentName,
-        textLabelAttrs,
+      #label-fever="{
         label,
-        buttonInfoAttrs,
-        unfocusExplication,
-        iconInfoAttrs
       }"
     >
-      <div :class="['ui-multiple-answer-item__label', componentName+'__label']">
-        <UiText
-          v-bind="textLabelAttrs"
-        >
-          {{ label }}
-        </UiText>
-        <UiButton
-          v-if="buttonInfoAttrs"
-          v-bind="buttonInfoAttrs"
-          tabindex="-1"
-          class="ui-button--icon ui-multiple-answer-item__explication"
-          @keydown="unfocusExplication"
-        >
-          <UiIcon
-            v-bind="iconInfoAttrs"
-            class="ui-button__icon"
-          />
-        </UiButton>
-      </div>
+      {{ label }}
     </template>
   </UiMultipleAnswer>`,
 });
