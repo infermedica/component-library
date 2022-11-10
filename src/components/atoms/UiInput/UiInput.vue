@@ -127,7 +127,7 @@ const defaultProps = computed(() => ({
   },
 }));
 const { numbersOnly } = useKeyValidation();
-function keyValidation(event: Event): void {
+function keyValidation(event: KeyboardEvent): void {
   switch (props.type) {
     case 'number':
       numbersOnly(event);

@@ -75,10 +75,7 @@ export default { inheritAttrs: false };
 </script>
 
 <script setup lang="ts">
-import {
-  computed,
-  useAttrs,
-} from 'vue';
+import { computed } from 'vue';
 import type { PropsAttrs } from '../../../types/attrs';
 import type { HTMLTag } from '../../../types/tag';
 import type { HeadingLevel } from '../UiHeading/UiHeading.vue';
@@ -87,6 +84,13 @@ import UiNumberStepper from '../../molecules/UiNumberStepper/UiNumberStepper.vue
 import useAttributes from '../../../composable/useAttributes';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 
+export interface RangeAttrs {
+  disabled?: boolean;
+  buttonDecrementAttrs?: Record<string, unknown>;
+  buttonIncrementAttrs?: Record<string, unknown>;
+  'button-increment-attrs'?: Record<string, unknown>;
+  'button-decrement-attrs'?: Record<string, unknown>;
+}
 const props = defineProps({
   /**
    * Use this props or v-model to set value.
@@ -137,7 +141,7 @@ const props = defineProps({
 const emit = defineEmits<{(e:'update:modelValue', value: number): void}>();
 const {
   attrs, listeners,
-} = useAttributes();
+} = useAttributes<RangeAttrs, object>();
 const trackWidth = computed(() => {
   const scope = props.max - props.min;
   const position = props.modelValue - props.min;
@@ -173,8 +177,8 @@ const defaultProps = computed(() => ({
   },
 }));
 const numberStepperAttrs = computed(() => ({
-  buttonDecrementAttrs: buttonDecrementAttrs.value as Record<string, unknown>,
-  buttonIncrementAttrs: buttonIncrementAttrs.value as Record<string, unknown>,
+  buttonDecrementAttrs: buttonDecrementAttrs.value,
+  buttonIncrementAttrs: buttonIncrementAttrs.value,
   ...attrs,
 }));
 </script>

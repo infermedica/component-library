@@ -21,10 +21,7 @@ const props = defineProps({
    * Use this props to set tag when a component shouldn't be a button.
    */
   tag: {
-    type: [
-      String,
-      Object,
-    ] as PropType<HTMLTag | Record<string, unknown>>,
+    type: String as PropType<HTMLTag>,
     default: 'button',
   },
   /**

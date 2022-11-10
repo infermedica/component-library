@@ -1,9 +1,11 @@
-[class$="--theme-on-brand"] {
-  .ui-button {
-    &--text {
-      --button-color: var(--color-text-on-brand);
-      --button-hover-color: var(--color-text-on-brand-hover);
-      --button-action-color: var(--color-text-on-brand-action);
-    }
-  }
+//<Code id="header-custom-brand">
+.header-custom-brand {
+  --color-background-brand: #FFF;
+  --color-icon-on-brand: #1F262C;
+  --color-icon-on-brand-hover: #1F262C;
+  --color-icon-on-brand-active: #1F262C;
+  --color-text-on-brand: #1F262C;
+  --color-text-on-brand-hover: #1F262C;
+  --color-text-on-brand-active: #1F262C;
 }
+//</Code>
