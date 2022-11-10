@@ -11,6 +11,8 @@ import UiMultipleChoicesItem from '@/components/organisms/UiMultipleChoices/_int
 import UiProgress from '@/components/atoms/UiProgress/UiProgress.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import { actions } from '@storybook/addon-actions';
+import UiCheckbox from '@/components/atoms/UiCheckbox/UiCheckbox.vue';
+import UiRadio from '@/components/atoms/UiRadio/UiRadio.vue';
 import './UiList.stories.scss';
 
 const events = actions({
@@ -21,6 +23,14 @@ const events = actions({
   clickShowDetails: 'click:show-details',
 });
 
+const items = [
+  'Painful swallowing',
+  'Stuffy nose',
+  'Sneeze',
+  'Muscle pain',
+  'Runny nose',
+];
+
 export default {
   title: 'Organisms/List',
   component: UiList,
@@ -30,15 +40,8 @@ export default {
     UiListItemSuffixAsText,
   },
   args: {
-    items: [
-      'Painful swallowing',
-      'Stuffy nose',
-      'Sneeze',
-      'Muscle pain',
-      'Runny nose',
-    ],
+    items,
     tag: 'ul',
-    modifiers: [],
   },
   argTypes: {
     tag: {
@@ -72,6 +75,14 @@ const Template = (args) => ({
 
 export const Common = Template.bind({});
 
+export const WithError = Template.bind({});
+WithError.args = {
+  items: items.map((item) => ({
+    label: item,
+    class: 'ui-list-item--has-error',
+  })),
+};
+
 export const WithListItemSlot = (args) => ({
   components: {
     UiList,
@@ -89,24 +100,6 @@ export const WithListItemSlot = (args) => ({
     </template>
   </UiList>`,
 });
-
-export const NestingList = Template.bind({});
-NestingList.args = {
-  items: [
-    'Muscle pain',
-    {
-      name: 'runny-nose',
-      label: 'Runny nose',
-      children: {
-        items: [
-          'Stuffy nose',
-          'Sneeze',
-        ],
-      },
-    },
-    'Painful swallowing',
-  ],
-};
 
 export const WithSuffixAsText = (args) => ({
   components: { UiList },
@@ -193,95 +186,8 @@ WithSuffixAsButton.args = {
   ],
 };
 
-export const AsMultipleChoicesItem = (args) => ({
-  components: {
-    UiListItem,
-    UiMultipleChoices,
-    UiMultipleChoicesItem,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    const invalid = ref(args.initInvalid);
-
-    return {
-      ...args,
-      ...events,
-      modelValue,
-      invalid,
-    };
-  },
-  template: `<UiMultipleChoices
-    v-model="modelValue"
-    v-model:invalid="invalid"
-    :hint="hint"
-    :touched="touched"
-    :items="items"
-    :options="options"
-    @update:modelValue="onUpdateModelValue"
-    @update:invalid="onUpdateInvalid"
-  >
-    <template #list-item="{ item, index, value, options, hasError, updateHandler }">
-      <UiListItem :class="['ui-multiple-choices__list-item', {'ui-list-item--has-error': hasError(index)}]">
-        <UiMultipleChoicesItem
-          :model-value="value[index]"
-          v-bind="item"
-          :options="options"
-          :invalid="hasError(index)"
-          class="ui-multiple-choices__choice"
-          @update:model-value="updateHandler($event, index)"
-        />
-      </UiListItem>
-    </template>
-  </UiMultipleChoices>`,
-});
-AsMultipleChoicesItem.args = {
-  touched: true,
-  initInvalid: true,
-  initModelValue: [ 'absent' ],
-  values: [
-    'Yes',
-    'No',
-    'Don\'t know',
-  ],
-  hint: 'Select one answer in each row',
-  items: [
-    {
-      label: 'I have diabetes',
-      hint: 'Please select one answer',
-      hasSuffix: true,
-
-    },
-    {
-      label: 'I have hypertension',
-      hint: 'Please select one answer',
-      buttonInfoAttrs: { onClick: events.onClickInfoButton },
-      translation: { info: 'How to check it?' },
-    },
-    {
-      label: 'I have high cholesterol',
-      hint: 'Please select one answer',
-      translation: { info: 'How to check it?' },
-    },
-  ],
-  options: [
-    {
-      label: 'Yes',
-      value: 'present',
-    },
-    {
-      label: 'No',
-      value: 'absent',
-    },
-    {
-      label: 'Don\'t know',
-      value: 'unknown',
-    },
-  ],
-};
-
 export const AsCondition = (args) => ({
   components: {
-    UiButton,
     UiHeading,
     UiIcon,
     UiList,
@@ -296,33 +202,37 @@ export const AsCondition = (args) => ({
     };
   },
   template: `<UiList
-    :tag="tag"
-    :items="items"
     listItemType="button"
   >
     <template
       v-for="(item, key) in items"
       :key="key"
     >
-      <UiListItem class="list-condition-item" v-bind="item">
-        <UiButton class="ui-button--text ui-button--small list-condition-item__button" @click="clickShowDetails">
-          <UiHeading level="3">
-            {{item.label}}
-          </UiHeading>
-          <div class="list-condition-item__container">
-            <UiProgress class="list-condition-item__progress" :value="item.evidence.value" :max="10"/>
-            <UiText class="ui-text--body-2-comfortable">
-              {{item.evidence.label}}
-            </UiText>
-          </div>
+      <UiListItem
+        :tag="item.tag"
+        :class="['list-condition-item', item.class]"
+        @click="clickShowDetails"
+      >
+        <UiHeading level="3">{{ item.label }}</UiHeading>
+        <div class="list-condition-item__probability">
+          <UiProgress
+            :value="item.evidence.value" 
+            :max="10"
+            class="list-condition-item__progress"
+          />
+          <UiText class="ui-text--body-2-comfortable">
+            {{ item.evidence.label }}
+          </UiText>
+        </div>
+        <template #suffix>
           <div class="list-condition-item__suffix">
             Show details
             <UiIcon
               icon="chevron-right"
-              class="ui-list-item-suffix__icon ui-button__icon "
+              class="ui-button__icon list-condition-item__suffix-icon"
             />
           </div>
-        </UiButton>
+        </template>
       </UiListItem>
     </template>
   </UiList>`,
@@ -332,6 +242,8 @@ AsCondition.args = {
     {
       name: 'common-cold',
       label: 'Common cold',
+      tag: UiButton,
+      class: [ 'ui-button--outlined' ],
       evidence: {
         value: 8,
         label: 'Strong evidence',
@@ -340,6 +252,8 @@ AsCondition.args = {
     {
       name: 'tension-type-headaches',
       label: 'Tension-type headaches',
+      tag: UiButton,
+      class: [ 'ui-button--outlined' ],
       evidence: {
         value: 6,
         label: 'Moderate evidence',
@@ -348,10 +262,149 @@ AsCondition.args = {
     {
       name: 'migraine',
       label: 'Migraine',
+      tag: UiButton,
+      class: [ 'ui-button--outlined' ],
       evidence: {
         value: 4,
         label: 'Moderate evidence',
       },
     },
   ],
+};
+
+export const WithIconInHeading = (args) => ({
+  components: {
+    UiHeading,
+    UiIcon,
+    UiList,
+    UiListItem,
+    UiText,
+  },
+  setup() {
+    return {
+      ...args,
+      ...events,
+    };
+  },
+  template: `<UiList
+    :tag="tag"
+    listItemType="button"
+  >
+    <template
+      v-for="(item, key) in items"
+      :key="key"
+    >
+      <UiListItem
+        :tag="item.tag"
+        :class="['list-with-icon-item', item.class]"
+        @click="clickShowDetails"
+      >
+        <UiIcon
+            icon="calendar"
+            class="ui-button__icon list-with-icon-item__prefix-icon"
+        />
+        <div class="list-with-icon-item__content">
+          <UiHeading level="4">{{ item.label }}</UiHeading>
+          <UiText class="list-with-icon-item__description">{{ item.label }}</UiText>
+        </div>
+        <template #suffix>
+          <UiIcon
+              icon="arrow-right"
+              class="ui-button__icon list-with-icon-item__suffix"
+          />
+        </template>
+      </UiListItem>
+    </template>
+  </UiList>`,
+});
+WithIconInHeading.args = {
+  items: items.map((item) => ({
+    label: item,
+    tag: UiButton,
+    class: [ 'ui-button--outlined' ],
+  })),
+};
+
+export const WithCheckbox = (args) => ({
+  components: {
+    UiHeading,
+    UiIcon,
+    UiList,
+    UiListItem,
+    UiText,
+  },
+  setup() {
+    const modelValue = ref([]);
+
+    return {
+      ...args,
+      modelValue,
+    };
+  },
+  template: `<UiList
+    :tag="tag"
+    listItemType="button"
+  >
+    <template
+      v-for="(item, key) in items"
+      :key="key"
+    >
+      <UiListItem
+        v-model="modelValue"
+        :value="item.value"
+        :tag="item.tag"
+        :has-suffix="item.hasSuffix"
+        :suffix-attrs="item.suffixAttrs"
+        :text-label-attrs="item.textLabelAttrs"
+        :class="['list-checkbox-item', item.class]"
+      >
+       {{ item.label }}
+      </UiListItem>
+    </template>
+  </UiList>`,
+});
+const withError = {
+  class: [
+    'ui-list-item--has-error',
+    'ui-checkbox--has-error',
+  ],
+};
+const withInfo = {
+  hasSuffix: true,
+  textLabelAttrs: { class: [ 'list-checkbox-item__checkbox-label' ] },
+  suffixAttrs: {
+    icon: 'info',
+    iconSuffixAttrs: { class: [ 'list-checkbox-item__suffix-icon' ] },
+    label: 'More info',
+    labelAttrs: { class: [ 'visual-hidden' ] },
+    class: [ 'list-checkbox-item__suffix' ],
+    tabindex: -1,
+    onClick: events.onClickInfoButton,
+  },
+};
+WithCheckbox.args = {
+  items: items.map((item, index) => {
+    if (index === 1) {
+      return {
+        label: item,
+        value: item,
+        tag: UiCheckbox,
+        ...withInfo,
+        ...withError,
+      };
+    }
+    if (index === 2) {
+      return {
+        label: item,
+        value: item,
+        tag: UiCheckbox,
+        ...withError,
+      };
+    }
+    return {
+      label: item,
+      value: item,
+      tag: UiCheckbox,
+    };
+  }),
 };
