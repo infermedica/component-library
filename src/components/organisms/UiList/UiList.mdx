@@ -1,0 +1,80 @@
+import { Canvas, Meta, Story, Primary, ArgsTable } from '@storybook/addon-docs';
+import { Code } from '../../../../docs/components/Code';
+import UiList from './UiList.vue';
+import scss from './UiList.stories.scss?raw';
+
+<Meta title="Organisms/List" component={UiList} />
+
+# UiList
+<Primary />
+<ArgsTable />
+
+## Stories
+### With Error
+<Canvas>
+  <Story id="organisms-list--with-error"/>
+</Canvas>
+
+### With List Item Slot
+<Canvas>
+  <Story id="organisms-list--with-list-item-slot"/>
+</Canvas>
+
+### With Suffix As Text
+<Canvas>
+  <Story id="organisms-list--with-suffix-as-text"/>
+</Canvas>
+
+### With Suffix As Button
+<Canvas>
+  <Story id="organisms-list--with-suffix-as-button"/>
+</Canvas>
+
+### As Condition
+<Canvas>
+  <Story id="organisms-list--as-condition"/>
+</Canvas>
+
+**Use following SCSS to get the same result**
+<Code
+  id="list-condition-item"
+  code={scss}
+  additionalData={'@infermedica/component-library/mixins\n'}
+/>
+
+### With Icon In Heading
+<Canvas>
+  <Story id="organisms-list--with-icon-in-heading"/>
+</Canvas>
+
+
+**Use following SCSS to get the same result**
+<Code
+  id="list-with-icon-item"
+  code={scss}
+  additionalData={'@infermedica/component-library/mixins\n'}
+/>
+
+### With Checkbox
+<Canvas>
+  <Story id="organisms-list--with-checkbox"/>
+</Canvas>
+
+
+**Use following SCSS to get the same result**
+<Code
+  id="list-checkbox-item"
+  code={scss}
+/>
+
+### With Radio
+<Canvas>
+  <Story id="organisms-list--with-radio"/>
+</Canvas>
+
+
+**Use following SCSS to get the same result**
+<Code
+  id="list-radio-item"
+  code={scss}
+/>
