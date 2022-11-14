@@ -3,6 +3,7 @@ import UiMultipleChoicesItem from '@/components/organisms/UiMultipleChoices/_int
 import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
 import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
+import UiRadio from '@/components/atoms/UiRadio/UiRadio.vue';
 import {
   ref,
   computed,
@@ -23,6 +24,7 @@ export default {
     UiAlert,
     UiList,
     UiListItem,
+    UiRadio,
   },
   args: {
     initModelValue: [],
@@ -227,6 +229,55 @@ export const WithChoiceSlot = (args) => ({
         class="ui-multiple-choices__choice"
         @update:model-value="updateHandler($event, index)"
       />
+    </template>
+  </UiMultipleChoices>`,
+});
+
+export const WithOptionSlot = (args) => ({
+  components: {
+    UiMultipleChoices,
+    UiMultipleChoicesItem,
+    UiListItem,
+    UiRadio,
+  },
+  setup() {
+    const modelValue = ref(args.initModelValue);
+    const invalid = ref(args.initInvalid);
+    return {
+      ...args,
+      ...events,
+      modelValue,
+      invalid,
+    };
+  },
+  template: `<UiMultipleChoices
+      v-model="modelValue"
+      v-model:invalid="invalid"
+      :hint="hint"
+      :touched="touched"
+      :items="items"
+      :options="options"
+      :alert-hint-attrs="alertHintAttrs"
+      @update:modelValue="onUpdateModelValue"
+      @update:invalid="onUpdateInvalid"
+  >
+    <template 
+      #option="{
+        value,
+        option,
+        invalid,
+      }"
+    >
+      <UiListItem
+        v-model="value"
+        :list-item-attrs="{ class: 'ui-multiple-choices-item__option' }"
+        :tag="UiRadio"
+        v-bind="option"
+        :class="{ 'ui-radio--has-error': invalid }"
+        :name="multipleChoicesItemId"
+      >
+        {{ option.label }}
+      </UiListItem>
     </template>
   </UiMultipleChoices>`,
 });

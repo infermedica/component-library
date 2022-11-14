@@ -1,42 +1,45 @@
 <template>
   <UiListItem
+    :id="id"
+    :tag="component"
     :class="[
-      'ui-multiple-answer-item', { 'ui-list-item--has-error': invalid }
+      'ui-multiple-answer-item', errorClass
     ]"
-    v-bind="defaultProps.listItemAttrs"
+    :value="value"
+    :model-value="modelValue"
+    v-bind="defaultProps"
+    @update:model-value="updateHandler"
+    @keydown="focusSuffix"
   >
-    <slot
-      :name="choiceItem && 'choice-item' || 'choice'"
-      v-bind="{
-        id,
-        value,
-        modelValue,
-        textLabelAttrs: defaultProps.textLabelAttrs,
-        focusSuffix,
-        invalid,
-        updateHandler,
-        label
-      }"
+    <template
+      v-for="(_, name) in $slots"
+      #[name]="data"
     >
-      <component
-        :is="component"
-        :id="id"
-        :value="value"
-        :class="[
-          'ui-multiple-answer-item__choice', errorClass
-        ]"
-        :model-value="modelValue"
-        :text-label-attrs="defaultProps.textLabelAttrs"
-        @update:model-value="updateHandler"
-        @keydown="focusSuffix"
-      >
-        <slot
-          :name="`label-${id}`"
-          v-bind="{ label }"
-        >
-          {{ label }}
-        </slot>
-      </component>
+      <slot
+        :name="name"
+        v-bind="data"
+      />
+    </template>
+    <!-- @slot Use this slot to replace content template.-->
+    <template #content>
+      <slot
+        v-bind="{
+          id,
+          modelValue,
+          value,
+          updateHandler,
+          invalid,
+          label,
+        }"
+        :name="choiceItem && 'choice-item' || 'choice'"
+      />
+    </template>
+    <!-- @slot Use this slot to replace label template.-->
+    <slot
+      :name="`label-${id}`"
+      v-bind="{ label }"
+    >
+      {{ label }}
     </slot>
   </UiListItem>
 </template>
@@ -46,12 +49,15 @@ import {
   computed,
   useSlots,
 } from 'vue';
+import type { PropType } from 'vue';
+import type {
+  MultipleAnswerLabelAttrs,
+  MultipleAnswerSuffixAttrs,
+} from '../UiMultipleAnswer.vue';
 import UiCheckbox from '../../../atoms/UiCheckbox/UiCheckbox.vue';
 import UiListItem from '../../UiList/_internal/UiListItem.vue';
 import UiRadio from '../../../atoms/UiRadio/UiRadio.vue';
 import { focusElement } from '../../../../utilities/helpers/index';
-import type { HTMLTag } from '../../../../types/tag';
-import type { Icon } from '../../../../types/icon';
 
 export type ComponentName = 'ui-checkbox' | 'ui-radio';
 const props = defineProps({
@@ -101,48 +107,34 @@ const props = defineProps({
    * Use this props to pass attrs for suffix.
    */
   suffixAttrs: {
-    type: Object,
+    type: Object as PropType<MultipleAnswerSuffixAttrs>,
     default: () => ({}),
   },
   /**
    * Use this props to pass attrs for label UiText.
    */
   textLabelAttrs: {
-    type: Object,
-    default: () => ({ tag: 'span' }),
+    type: Object as PropType<MultipleAnswerLabelAttrs>,
+    default: () => ({}),
   },
 });
-interface DefaultProps {
-  textLabelAttrs: {
-    tag: HTMLTag;
-    [key:string]: unknown;
-  };
-  listItemAttrs: {
-    suffixAttrs: {
-      tabindex: number;
-      onkeydown: (e: KeyboardEvent) => void;
-      icon: Icon;
-      [key: string]: unknown;
-    };
-  }
-}
 const emit = defineEmits([ 'update:modelValue' ]);
 const isCheckbox = computed(() => (Array.isArray(props.modelValue)));
 const component = computed(() => (isCheckbox.value ? UiCheckbox : UiRadio));
 const componentName = computed<ComponentName>(() => (isCheckbox.value ? 'ui-checkbox' : 'ui-radio'));
 const errorClass = computed(() => (props.invalid
-  ? `${componentName.value}--has-error`
+  ? `${componentName.value}--has-error ui-list-item--has-error`
   : ''));
 function unfocusSuffix(event: KeyboardEvent) {
   if (event.key !== 'ArrowLeft') return;
   const suffixBtn = event.target as HTMLElement;
-  const answerInput: HTMLInputElement | null | undefined = suffixBtn.closest('.ui-multiple-answer-item')?.querySelector('input');
-  answerInput?.focus();
+  const input: HTMLInputElement | null | undefined = suffixBtn.closest('.ui-multiple-answer-item')?.querySelector('input');
+  input?.focus();
 }
 function focusSuffix(event: KeyboardEvent) {
   if (event.key !== 'ArrowRight') return;
-  const answerInput = event.target as HTMLInputElement;
-  const suffixBtn: HTMLElement | null | undefined = answerInput.closest('.ui-multiple-answer-item')?.querySelector('.ui-list-item-suffix');
+  const input = event.target as HTMLInputElement;
+  const suffixBtn: HTMLElement | null | undefined = input.closest('.ui-multiple-answer-item')?.querySelector('.ui-list-item-suffix');
   if (suffixBtn) {
     event.preventDefault();
     focusElement(suffixBtn);
@@ -151,18 +143,16 @@ function focusSuffix(event: KeyboardEvent) {
 const updateHandler = (newValue: Record<string, unknown> | Record<string, unknown>[] | string[]) => {
   emit('update:modelValue', newValue);
 };
-const defaultProps = computed<DefaultProps>(() => ({
+const defaultProps = computed(() => ({
+  suffixAttrs: {
+    icon: 'info',
+    tabindex: -1,
+    onkeydown: unfocusSuffix,
+    ...props.suffixAttrs,
+  },
   textLabelAttrs: {
     tag: 'span',
     ...props.textLabelAttrs,
-  },
-  listItemAttrs: {
-    suffixAttrs: {
-      icon: 'info',
-      tabindex: -1,
-      onkeydown: unfocusSuffix,
-      ...props.suffixAttrs,
-    },
   },
 }));
 // TODO: remove in 0.6.0 / BEGIN
@@ -184,8 +174,11 @@ if (choiceItem.value) {
   $this: &;
   $element: multiple-answer-item;
 
-  &__choice {
-    flex-grow: 1;
+  .ui-checkbox, .ui-radio {
+    &__label {
+      display: flex;
+      justify-content: space-between;
+    }
   }
 }
 </style>

@@ -48,12 +48,12 @@
             item,
             name,
             hasError,
+            updateHandler
           }"
         >
           <UiMultipleAnswerItem
             v-bind="item"
             v-model="value"
-            :name="name"
             :invalid="hasError"
           >
             <template
@@ -75,22 +75,31 @@
 <script setup lang="ts">
 import {
   computed,
-  useAttrs,
   watch,
+  useAttrs,
 } from 'vue';
 import type { PropType } from 'vue';
+import type { Icon } from '../../../types/icon';
 import UiAlert from '../../molecules/UiAlert/UiAlert.vue';
 import UiList from '../UiList/UiList.vue';
 import UiMultipleAnswerItem from './_internal/UiMultipleAnswerItem.vue';
 
+export interface MultipleAnswerSuffixAttrs {
+  tabindex?: number;
+  onkeydown?: (e: KeyboardEvent) => void;
+  icon?: Icon;
+}
+export interface MultipleAnswerLabelAttrs {
+  tag?: HTMLElement;
+}
 export interface MultipleAnswerItem {
   id?: string;
   label?: string;
   value?: string | Record<string, unknown>,
   name?:string; // TODO: remove in 0.6.0
   hasSuffix?: boolean;
-  suffixAttrs?: Record<string, unknown>;
-  textLabelAttrs?: Record<string, unknown>;
+  suffixAttrs?: MultipleAnswerSuffixAttrs;
+  textLabelAttrs?: MultipleAnswerLabelAttrs;
 }
 export type MultipleAnswerValue = string | MultipleAnswerItem | MultipleAnswerItem[] | unknown[];
 
@@ -175,10 +184,13 @@ const hintType = computed<'error'|'default'>(() => (props.touched && props.inval
 watch(valid, (value) => {
   emit('update:invalid', !value);
 }, { immediate: true });
+const updateHandler = (newValue: string | unknown[] | Record<string, unknown>) => {
+  emit('update:modelValue', newValue);
+};
 const value = computed({
   get: () => (props.modelValue),
   set: (newValue) => {
-    emit('update:modelValue', newValue);
+    updateHandler(newValue);
   },
 });
 const itemsToRender = computed(() => (props.items.map((item) => {

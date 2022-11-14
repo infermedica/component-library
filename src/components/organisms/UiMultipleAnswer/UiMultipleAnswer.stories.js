@@ -116,11 +116,11 @@ WithSuffix.args = {
       value: 'fatigue',
       hasSuffix: true,
       suffixAttrs: {
-        ariaLabel: 'how to check it?',
+        icon: 'info',
+        ariaLabel: 'what does it mean?',
+        labelAttrs: { class: [ 'visual-hidden' ] },
         onClick: events.onClickInfoButton,
-        iconAttrs: { 'data-testid': 'info-icon' },
       },
-      textLabelAttrs: { 'data-testid': 'label-text' },
     },
     {
       label: 'Fever',
@@ -132,8 +132,9 @@ WithSuffix.args = {
       hasSuffix: true,
       suffixAttrs: {
         ariaLabel: 'what does it mean?',
-        onClick: events.onClickInfoButton,
         iconAttrs: { 'data-testid': 'info-icon' },
+        labelAttrs: { class: [ 'visual-hidden' ] },
+        onClick: events.onClickInfoButton,
       },
       textLabelAttrs: { 'data-testid': 'label-text' },
     },
@@ -243,17 +244,18 @@ export const WithListItemSlot = (args) => ({
   >
     <template 
       #list-item="{
-        value,
         item,
         name,
-        hasError
+        hasError,
+        updateHandler
       }"
-    >
+    > 
       <UiMultipleAnswerItem
-        v-model="value"
+        v-model="modelValue"
         v-bind="item"
         :name="name"
         :invalid="hasError"
+        @update:modelValue="updateHandler"
       />
     </template>
   </UiMultipleAnswer>`,
@@ -290,24 +292,20 @@ export const WithChoiceSlot = (args) => ({
         id,
         value,
         modelValue,
-        textLabelAttrs,
-        focusSuffix,
         invalid,
-        updateHandler,
-        label
+        label,
+        updateHandler
       }"
     >
       <UiCheckbox
         :id="id"
+        v-model="modelValue"
         :value="value"
         :class="[
-          'ui-multiple-answer-item__choice',
-          {'ui-checkbox--has-error': invalid}
+          'ui-list-item__content',
+          { 'ui-checkbox--has-error ui-list-item--has-error': invalid }
         ]"
-        :model-value="modelValue"
-        :text-label-attrs="textLabelAttrs"
-        @update:model-value="updateHandler"
-        @keydown="focusSuffix"
+        @update:modelValue="updateHandler"
       >
         {{ label }}
       </UiCheckbox>
