@@ -103,7 +103,7 @@
           }"
         >
           <div
-            v-if="defaultProps.settings.issue"
+            v-if="defaultProps.settings.issue.action"
             class="ui-question__action"
           >
             <UiButton
@@ -120,12 +120,14 @@
     <slot
       name="feedback"
       v-bind="{
+        hasFeedback,
         settings: defaultProps.settings,
         translation: defaultProps.translation,
+        notificationFeedbackAttrs: defaultProps.notificationFeedbackAttrs,
       }"
     >
       <UiNotification
-        v-if="defaultProps.settings.issue?.feedback"
+        v-if="hasFeedback"
         v-bind="defaultProps.notificationFeedbackAttrs"
         type="success"
         :translation="{ action: defaultProps.translation.issue.skip }"
@@ -161,14 +163,17 @@ export interface QuestionTranslation {
   };
   [key: string] : unknown;
 }
-export interface Questionsettings {
+export interface QuestionSettings {
   info: boolean;
   why: boolean;
   issue: {
+    action: boolean;
     feedback: boolean;
+    skip: boolean;
   };
   [key: string]: unknown;
 }
+
 const props = defineProps({
   /**
    * Use this props to set question title.
@@ -196,11 +201,15 @@ const props = defineProps({
    * Use this props to setup question.
    */
   settings: {
-    type: Object as PropType<Questionsettings>,
+    type: Object as PropType<QuestionSettings>,
     default: () => ({
       info: false,
       why: false,
-      issue: { feedback: false },
+      issue: {
+        action: false,
+        feedback: false,
+        skip: true,
+      },
     }),
   },
   /**
@@ -249,19 +258,22 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-interface DefaultProps {
-  translation: QuestionTranslation;
-  settings: Questionsettings,
-  iconInfoAttrs: {
-    icon: Icon;
-    [key: string]: unknown
+const defaultSettingsIssue = computed(() => ({
+  ...{
+    action: false,
+    feedback: false,
+    skip: true,
   },
-  notificationFeedbackAttrs: {
-    type: NotificationType;
-    [key: string]: unknown;
-  },
-}
-const defaultProps = computed<DefaultProps>(() => ({
+  ...props.settings?.issue,
+}));
+const defaultButtonActionAttrs = computed(() => {
+  const hasSkip = defaultSettingsIssue.value.skip;
+  if (hasSkip) {
+    return props.notificationFeedbackAttrs?.buttonActionAttrs;
+  }
+  return {};
+});
+const defaultProps = computed(() => ({
   translation: {
     ...{
       info: 'What does it mean?',
@@ -276,30 +288,32 @@ const defaultProps = computed<DefaultProps>(() => ({
       },
       ...props.translation?.issue,
     },
-  },
+  } as QuestionTranslation,
   settings: {
     ...{
       info: false,
       why: false,
     },
     ...props.settings,
-    issue: {
-      ...{ feedback: false },
-      ...props.settings?.issue,
-    },
-  },
+    issue: defaultSettingsIssue.value,
+  } as QuestionSettings,
   iconInfoAttrs: {
-    icon: 'info',
+    icon: 'info' as Icon,
     ...props.iconInfoAttrs,
   },
   notificationFeedbackAttrs: {
-    type: 'success',
+    type: 'success' as NotificationType,
     ...props.notificationFeedbackAttrs,
+    buttonActionAttrs: defaultButtonActionAttrs.value,
   },
 }));
 const hasActionsBottom = computed(() => (
   defaultProps.value.settings.why
     || defaultProps.value.settings.issue
+));
+const hasFeedback = computed(() => (
+  defaultProps.value.settings.issue.action
+    && defaultProps.value.settings.issue.feedback
 ));
 </script>
 
