@@ -258,10 +258,16 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-const buttonActionAttrs = computed(() => {
-  const hasSkip = props.settings?.issue?.skip === undefined
-    ? true
-    : props.settings.issue.skip;
+const defaultSettingsIssue = computed(() => ({
+  ...{
+    action: false,
+    feedback: false,
+    skip: true,
+  },
+  ...props.settings?.issue,
+}));
+const defaultButtonActionAttrs = computed(() => {
+  const hasSkip = defaultSettingsIssue.value.skip;
   if (hasSkip) {
     return props.notificationFeedbackAttrs?.buttonActionAttrs;
   }
@@ -289,14 +295,7 @@ const defaultProps = computed(() => ({
       why: false,
     },
     ...props.settings,
-    issue: {
-      ...{
-        action: false,
-        feedback: false,
-        skip: true,
-      },
-      ...props.settings?.issue,
-    },
+    issue: defaultSettingsIssue.value,
   } as QuestionSettings,
   iconInfoAttrs: {
     icon: 'info' as Icon,
@@ -305,7 +304,7 @@ const defaultProps = computed(() => ({
   notificationFeedbackAttrs: {
     type: 'success' as NotificationType,
     ...props.notificationFeedbackAttrs,
-    buttonActionAttrs: buttonActionAttrs.value,
+    buttonActionAttrs: defaultButtonActionAttrs.value,
   },
 }));
 const hasActionsBottom = computed(() => (
