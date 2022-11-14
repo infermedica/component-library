@@ -259,13 +259,13 @@ const props = defineProps({
   },
 });
 const buttonActionAttrs = computed(() => {
-  if (typeof props.settings?.issue?.skip === 'boolean') {
-    const skipButtonForceDisabled = !props.settings?.issue?.skip;
-    if (skipButtonForceDisabled) {
-      return {};
-    }
+  const hasSkip = props.settings?.issue?.skip === undefined
+    ? true
+    : props.settings.issue.skip;
+  if (hasSkip) {
+    return props.notificationFeedbackAttrs?.buttonActionAttrs;
   }
-  return props.notificationFeedbackAttrs?.buttonActionAttrs;
+  return {};
 });
 const defaultProps = computed(() => ({
   translation: {
