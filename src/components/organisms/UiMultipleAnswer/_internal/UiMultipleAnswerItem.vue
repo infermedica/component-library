@@ -1,7 +1,7 @@
 <template>
   <UiListItem
     :id="id"
-    :tag="component"
+    :content-tag="component"
     :class="[
       'ui-multiple-answer-item', errorClass
     ]"
@@ -11,16 +11,7 @@
     @update:model-value="updateHandler"
     @keydown="focusSuffix"
   >
-    <template
-      v-for="(_, name) in $slots"
-      #[name]="data"
-    >
-      <slot
-        :name="name"
-        v-bind="data"
-      />
-    </template>
-    <!-- @slot Use this slot to replace content template.-->
+    <!-- @slot Use this slot to replace choice template.-->
     <template #content>
       <slot
         v-bind="{

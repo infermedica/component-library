@@ -1,21 +1,11 @@
 <template>
   <UiListItem
     :list-item-attrs="defaultProps.listItemAttrs"
-    :tag="UiButton"
+    :content-tag="UiButton"
     :class="[
       'ui-button--outlined ui-menu-item__button', buttonClass
     ]"
   >
-    <template
-      v-for="(_, name) in $slots"
-      #[name]="data"
-    >
-      <slot
-        :name="name"
-        v-bind="data"
-      />
-    </template>
-
     <!-- @slot Use this slot to replace label template. -->
     <slot name="label">
       <!-- @slot Use this slot to replace label template. -->
@@ -26,11 +16,20 @@
     </slot>
 
     <template #suffix>
-      <UiMenuItemSuffix
-        v-if="hasSuffix"
-        v-bind="defaultProps.suffixAttrs"
-        class="ui-menu-item__suffix"
-      />
+      <!-- @slot Use this slot to replace suffix template -->
+      <slot
+        name="suffix"
+        v-bind="{
+          hasSuffix,
+          suffixAttrs: defaultProps.suffixAttrs
+        }"
+      >
+        <UiMenuItemSuffix
+          v-if="hasSuffix"
+          v-bind="defaultProps.suffixAttrs"
+          class="ui-menu-item__suffix"
+        />
+      </slot>
     </template>
   </UiListItem>
 </template>

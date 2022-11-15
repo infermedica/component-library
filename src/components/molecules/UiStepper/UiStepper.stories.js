@@ -146,18 +146,17 @@ export const WithDesktopSlot = (args) => ({
           :key="index"
         >
           <UiListItem
-            class="ui-stepper__step"
-            :class="{
-              'ui-stepper__step--visited': indexOfActiveStep >= index,
-              'ui-stepper__step--current': indexOfActiveStep === index,
+            :list-item-attrs="{
+              class: [
+                'ui-stepper__step',
+                { 'ui-stepper__step--visited': indexOfActiveStep >= index },
+                { 'ui-stepper__step--current': indexOfActiveStep === index },
+              ]
             }"
+            v-bind="determineStep(index, step)"
+            class="ui-button--text ui-button--theme-secondary ui-stepper__item"
           >
-            <UiButton
-              v-bind="determineStep(index, step)"
-              class="ui-button--text ui-button--theme-secondary ui-stepper__item"
-            >
-              {{ step.label }}
-            </UiButton>
+            {{ step.label }}
           </UiListItem>
         </template>
       </UiList>
@@ -185,19 +184,18 @@ export const WithItemsSlot = (args) => ({
         :key="index"
       >
         <UiListItem
-          class="ui-stepper__step"
-          :class="{
-                'ui-stepper__step--visited': indexOfActiveStep >= index,
-                'ui-stepper__step--current': indexOfActiveStep === index,
-              }"
+          :list-item-attrs="{
+            class: [
+              'ui-stepper__step',
+              { 'ui-stepper__step--visited': indexOfActiveStep >= index },
+              { 'ui-stepper__step--current': indexOfActiveStep === index },
+            ]
+          }"
+          v-bind="determineStep(index, step)"
+          class="ui-button--text ui-button--theme-secondary ui-stepper__item"
         >
-          <UiButton
-            v-bind="determineStep(index, step)"
-            class="ui-button--text ui-button--theme-secondary ui-stepper__item"
-          >
-            {{ step.label }}
-          </UiButton>
-        </UiListItem>
+          {{ step.label }}
+      </UiListItem>
       </template>
     </template>
   </UiStepper>`,
@@ -219,18 +217,17 @@ export const WithItemSlot = (args) => ({
   >
     <template #item="{step, index, indexOfActiveStep, determineStep}">
       <UiListItem
-        class="ui-stepper__step"
-        :class="{
-          'ui-stepper__step--visited': indexOfActiveStep >= index,
-          'ui-stepper__step--current': indexOfActiveStep === index,
+        :list-item-attrs="{
+          class: [
+            'ui-stepper__step',
+            { 'ui-stepper__step--visited': indexOfActiveStep >= index },
+            { 'ui-stepper__step--current': indexOfActiveStep === index },
+          ]
         }"
+        v-bind="determineStep(index, step)"
+        class="ui-button--text ui-button--theme-secondary ui-stepper__item"
       >
-        <UiButton
-          v-bind="determineStep(index, step)"
-          class="ui-button--text ui-button--theme-secondary ui-stepper__item"
-        >
-          {{ step.label }}
-        </UiButton>
+        {{ step.label }}
       </UiListItem>
     </template>
   </UiStepper>`,
@@ -253,7 +250,7 @@ export const WithItemLinkSlot = (args) => ({
     <template #item-link="{index, step, determineStep}">
       <UiButton
         v-bind="determineStep(index, step)"
-        class="ui-button--text ui-button--theme-secondary ui-stepper__item-link"
+        class="ui-button--text ui-button--theme-secondary ui-stepper__item"
       >
         {{ step.label }}
       </UiButton>

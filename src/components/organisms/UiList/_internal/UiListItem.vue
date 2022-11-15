@@ -7,14 +7,14 @@
     <slot
       name="content"
       v-bind="{
-        tag,
+        contentTag,
         hasSuffix,
         suffixComponent,
         suffixAttrs: defaultProps.suffixAttrs
       }"
     >
       <component
-        :is="tag"
+        :is="contentTag"
         v-bind="$attrs"
         class="ui-list-item__content"
       >
@@ -61,7 +61,7 @@ const props = defineProps({
   /**
    * Use this props to set list item content tag.
    */
-  tag: {
+  contentTag: {
     type: [
       String,
       Object,

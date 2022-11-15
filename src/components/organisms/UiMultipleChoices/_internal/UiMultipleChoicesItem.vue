@@ -4,7 +4,7 @@
     :class="[
       'ui-multiple-choices-item__choices', { 'ui-multiple-choices-item--has-error': invalid }
     ]"
-    :tag="tag"
+    :content-tag="tag"
     :aria-labelledby="multipleChoicesItemId"
     role="radiogroup"
   >
@@ -76,7 +76,7 @@
             <UiListItem
               v-model="value"
               :list-item-attrs="defaultProps.optionItemAttrs"
-              :tag="UiRadio"
+              :content-tag="UiRadio"
               :class="{ 'ui-radio--has-error': invalid }"
               :name="multipleChoicesItemId"
               v-bind="option"
