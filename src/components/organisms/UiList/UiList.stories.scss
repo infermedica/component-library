@@ -80,9 +80,8 @@
 }
 //</Code>
 
-//<Code id="list-condition-item">
+//<Code id="list-checkbox-item">
 .list-checkbox-item {
-
   &__checkbox-label {
     display: flex;
     justify-content: space-between;
@@ -97,3 +96,22 @@
     --button-rtl-icon-margin: 0;
   }
 }
+//</Code>
+
+//<Code id="list-radio-item">
+.list-radio-item {
+  &__radio-label {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__suffix {
+    align-self: end;
+  }
+
+  &__suffix-icon {
+    --button-icon-margin: 0;
+    --button-rtl-icon-margin: 0;
+  }
+}
+//</Code>

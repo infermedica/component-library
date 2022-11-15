@@ -6,14 +6,13 @@ import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import UiListItemSuffixAsButton from '@/components/organisms/UiList/_internal/UiListItemSuffixAsButton.vue';
 import UiListItemSuffixAsText from '@/components/organisms/UiList/_internal/UiListItemSuffixAsText.vue';
-import UiMultipleChoices from '@/components/organisms/UiMultipleChoices/UiMultipleChoices.vue';
-import UiMultipleChoicesItem from '@/components/organisms/UiMultipleChoices/_internal/UiMultipleChoicesItem.vue';
 import UiProgress from '@/components/atoms/UiProgress/UiProgress.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import { actions } from '@storybook/addon-actions';
 import UiCheckbox from '@/components/atoms/UiCheckbox/UiCheckbox.vue';
 import UiRadio from '@/components/atoms/UiRadio/UiRadio.vue';
 import './UiList.stories.scss';
+import docs from './UiList.mdx';
 
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
@@ -60,6 +59,7 @@ export default {
       },
     },
   },
+  parameters: { docs: { page: docs } },
 };
 
 const Template = (args) => ({
@@ -325,6 +325,29 @@ WithIconInHeading.args = {
   })),
 };
 
+const handleExplicationFocus = (event) => {
+  const {
+    key, target,
+  } = event;
+  if (key !== 'ArrowRight') return;
+  const explicationButton = target.parentElement.querySelector('button');
+  if (explicationButton) {
+    event.preventDefault();
+    explicationButton.focus();
+  }
+};
+const handleExplicationUnfocus = (event) => {
+  const {
+    key, target,
+  } = event;
+  if (key !== 'ArrowLeft') return;
+  const input = target.parentElement.parentElement.querySelector('input');
+  if (input) {
+    event.preventDefault();
+    input.focus();
+  }
+};
+
 export const WithCheckbox = (args) => ({
   components: {
     UiHeading,
@@ -339,6 +362,7 @@ export const WithCheckbox = (args) => ({
     return {
       ...args,
       modelValue,
+      handleExplicationFocus,
     };
   },
   template: `<UiList
@@ -357,19 +381,20 @@ export const WithCheckbox = (args) => ({
         :suffix-attrs="item.suffixAttrs"
         :text-label-attrs="item.textLabelAttrs"
         :class="['list-checkbox-item', item.class]"
+        @keydown="handleExplicationFocus"
       >
        {{ item.label }}
       </UiListItem>
     </template>
   </UiList>`,
 });
-const withError = {
+const checkboxWithError = {
   class: [
     'ui-list-item--has-error',
     'ui-checkbox--has-error',
   ],
 };
-const withInfo = {
+const checkboxWithInfo = {
   hasSuffix: true,
   textLabelAttrs: { class: [ 'list-checkbox-item__checkbox-label' ] },
   suffixAttrs: {
@@ -380,6 +405,7 @@ const withInfo = {
     class: [ 'list-checkbox-item__suffix' ],
     tabindex: -1,
     onClick: events.onClickInfoButton,
+    onKeydown: handleExplicationUnfocus,
   },
 };
 WithCheckbox.args = {
@@ -389,8 +415,8 @@ WithCheckbox.args = {
         label: item,
         value: item,
         tag: UiCheckbox,
-        ...withInfo,
-        ...withError,
+        ...checkboxWithInfo,
+        ...checkboxWithError,
       };
     }
     if (index === 2) {
@@ -398,13 +424,100 @@ WithCheckbox.args = {
         label: item,
         value: item,
         tag: UiCheckbox,
-        ...withError,
+        ...checkboxWithError,
       };
     }
     return {
       label: item,
       value: item,
       tag: UiCheckbox,
+    };
+  }),
+};
+
+export const WithRadio = (args) => ({
+  components: {
+    UiHeading,
+    UiIcon,
+    UiList,
+    UiListItem,
+    UiText,
+  },
+  setup() {
+    const modelValue = ref([]);
+
+    return {
+      ...args,
+      modelValue,
+      handleExplicationFocus,
+    };
+  },
+  template: `<UiList
+    :tag="tag"
+    listItemType="button"
+  >
+    <template
+      v-for="(item, key) in items"
+      :key="key"
+    >
+      <UiListItem
+        v-model="modelValue"
+        :value="item.value"
+        :tag="item.tag"
+        :has-suffix="item.hasSuffix"
+        :suffix-attrs="item.suffixAttrs"
+        :text-label-attrs="item.textLabelAttrs"
+        :class="['list-radio-item', item.class]"
+        @keydown="handleExplicationFocus"
+      >
+       {{ item.label }}
+      </UiListItem>
+    </template>
+  </UiList>`,
+});
+const radioWithError = {
+  class: [
+    'ui-list-item--has-error',
+    'ui-radio--has-error',
+  ],
+};
+const radioWithInfo = {
+  hasSuffix: true,
+  textLabelAttrs: { class: [ 'list-radio-item__radio-label' ] },
+  suffixAttrs: {
+    icon: 'info',
+    iconSuffixAttrs: { class: [ 'list-radio-item__suffix-icon' ] },
+    label: 'More info',
+    labelAttrs: { class: [ 'visual-hidden' ] },
+    class: [ 'list-radio-item__suffix' ],
+    tabindex: -1,
+    onClick: events.onClickInfoButton,
+    onKeydown: handleExplicationUnfocus,
+  },
+};
+WithRadio.args = {
+  items: items.map((item, index) => {
+    if (index === 1) {
+      return {
+        label: item,
+        value: item,
+        tag: UiRadio,
+        ...radioWithInfo,
+        ...radioWithError,
+      };
+    }
+    if (index === 2) {
+      return {
+        label: item,
+        value: item,
+        tag: UiRadio,
+        ...radioWithError,
+      };
+    }
+    return {
+      label: item,
+      value: item,
+      tag: UiRadio,
     };
   }),
 };

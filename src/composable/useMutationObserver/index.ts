@@ -19,7 +19,7 @@ function tryOnScopeDispose(fn: () => void) {
 
 function unrefElement(elRef: Ref<HTMLElement | ComponentPublicInstance>) {
   const plain = unref(elRef);
-  return (plain as ComponentPublicInstance).$el ?? plain;
+  return (plain as ComponentPublicInstance)?.$el ?? plain;
 }
 
 export default function useMutationObserver(
