@@ -39,9 +39,7 @@ const Template = (args) => ({
   template: `<UiHeading
     :level="level"
     :class="modifiers"
-  >
-  {{content}}
-  </UiHeading>`,
+  >{{ content }}</UiHeading>`,
 });
 
 export const Common = Template.bind({});

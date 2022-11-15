@@ -123,9 +123,7 @@ export const WithRadioSlot = (args) => ({
     >
       <div 
         v-bind="radioElementAttrs"
-        :class="['ui-radio__radio', {
-          'ui-radio__radio--is-checked': checked
-        }]"
+        :class="[ 'ui-radio__radio', { 'ui-radio__radio--is-checked': checked} ]"
       >
         <div class="ui-radio__mark" />
       </div>

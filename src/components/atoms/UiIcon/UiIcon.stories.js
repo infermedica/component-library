@@ -1,7 +1,9 @@
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import { defineAsyncComponent } from 'vue';
+import './UiIcon.stories.scss';
 import icons from '@/components/atoms/UiIcon/icons.ts';
+import docs from './UiIcon.mdx';
 
 export default {
   title: 'Atoms/Icon',
@@ -13,6 +15,7 @@ export default {
       options: icons,
     },
   },
+  parameters: { docs: { page: docs } },
 };
 
 const Template = (args) => ({
@@ -44,7 +47,7 @@ export const IconAsIllustration = (args) => ({
   },
   template: `<UiIcon
       :icon="icon"
-      style="--icon-size: 15rem;"
+      class="icon-as-illustration"
   />`,
 });
 IconAsIllustration.args = { icon: 'agreement' };
@@ -60,6 +63,8 @@ IconAsIllustration.argTypes = {
   },
 };
 
+// TODO: add copy to clipboard
+// TODO: group icons by usage (illustration, ui, triage, etc.)
 export const ListOfIcons = () => ({
   components: {
     UiIcon,
@@ -72,16 +77,14 @@ export const ListOfIcons = () => ({
     <div
       v-for="icon in icons"
       :key="icon"
-      class="flex flex-col justify-center items-center"
+      class="grid place-items-center"
     >
-      <div class="flex justify-center items-center h-10">
-        <UiIcon 
-          :icon="icon"
-        />
-      </div>
+      <UiIcon
+        :icon="icon"
+        class="place-self-center my-0.5"
+      />
       <UiText 
-        class="ui-text--2-compact"
-        style="white-space: nowrap"
+        class="ui-text--2-compact whitespace-nowrap"
       >{{ icon }}</UiText>
     </div>
   </div>`,

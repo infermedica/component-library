@@ -35,7 +35,11 @@ export default {
       ],
     }),
   },
-  decorators: [ () => ({ template: '<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 2.5rem"><story /></div>' }) ],
+  decorators: [ () => ({
+    template: `<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 2.5rem">
+      <story />
+    </div>`,
+  }) ],
 };
 
 export const Common = (args) => ({
@@ -48,7 +52,7 @@ export const Common = (args) => ({
     :href="href"
     :class="modifiers"
   >
-    {{content}}  
+    {{ content }}  
   </UiLink>`,
 });
 
@@ -66,9 +70,7 @@ const Template = (args) => ({
     :to="to"
     :href="href"
     :class="modifiers"
-  >
-  {{content}}
-  </UiLink>
+  >{{ content }}</UiLink>
   <UiLink
     :to="to"
     :href="href"
@@ -77,14 +79,14 @@ const Template = (args) => ({
     <UiIcon
       :icon="icon"
       class="ui-link__icon"
-    />{{content}}
+    />{{ content }}
   </UiLink>
   <UiLink
     :to="to"
     :href="href"
     :class="modifiers"
   >
-    {{content}}<UiIcon
+    {{ content }}<UiIcon
         :icon="icon"
         class="ui-link__icon ui-link__icon--right"
     />
@@ -93,29 +95,26 @@ const Template = (args) => ({
   <UiLink
     :to="to"
     :href="href"
-    :class="modifiers"
-    class="ui-link--small"
+    :class="['ui-link--small', modifiers]"
   >
-    {{content}}
+    {{ content }}
   </UiLink>
   <UiLink
     :to="to"
     :href="href"
-    :class="modifiers"
-    class="ui-link--small"
+    :class="['ui-link--small', modifiers]"
   >
     <UiIcon
       :icon="icon"
       class="ui-link__icon"
-    />{{content}}
+    />{{ content }}
   </UiLink>
   <UiLink
     :to="to"
     :href="href"
-    :class="modifiers"
-    class="ui-link--small"
+    :class="['ui-link--small', modifiers]"
   >
-    {{content}}<UiIcon
+    {{ content }}<UiIcon
       :icon="icon"
       class="ui-link__icon ui-link__icon--right"
   />

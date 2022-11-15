@@ -1,0 +1,48 @@
+import { Canvas, Meta, Story, Primary, ArgsTable } from '@storybook/addon-docs';
+import { Code } from '../../../../docs/components/Code';
+import UiProgress from './UiProgress.vue';
+import scss from './UiProgress.stories.scss?raw';
+
+<Meta title="Atoms/Progress" component={UiProgress} />
+
+# UiProgress
+<Primary />
+<ArgsTable />
+
+## Stories
+### Low Value
+<Canvas>
+  <Story id="atoms-progress--low-value"/>
+</Canvas>
+
+### Low Value No Radius
+<Canvas>
+  <Story id="atoms-progress--low-value-no-radius"/>
+</Canvas>
+
+**Use following SCSS to get the same result**
+<Code
+  id="progress-low-value-no-radius"
+  code={scss}
+/>
+
+### Low Value But High
+<Canvas>
+  <Story id="atoms-progress--low-value-but-high"/>
+</Canvas>
+
+**Use following SCSS to get the same result**
+<Code
+  id="progress-low-value-but-height"
+  code={scss}
+/>
+
+### With Different Minimum
+<Canvas>
+  <Story id="atoms-progress--with-different-minimum"/>
+</Canvas>
+
+### With Same Value Min And Max
+<Canvas>
+  <Story id="atoms-progress--with-same-value-min-and-max"/>
+</Canvas>

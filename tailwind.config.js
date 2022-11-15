@@ -9,6 +9,7 @@ module.exports = {
       desktop: '992px',
     },
     minHeight: {
+      80: '20rem',
       115: '28.75rem',
       135: '33.75rem',
     },
@@ -23,12 +24,8 @@ module.exports = {
       195: '48.75rem',
     },
     extend: {
-      flex: {
-        full: '0 0 100%',
-      },
-      gridTemplateColumns: {
-        icon: 'repeat(auto-fill, minmax(8rem, 1fr))',
-      },
+      flex: { full: '0 0 100%' },
+      gridTemplateColumns: { icon: 'repeat(auto-fill, minmax(8rem, 1fr))' },
     },
   },
   plugins: [],
