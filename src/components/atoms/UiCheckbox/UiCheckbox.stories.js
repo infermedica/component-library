@@ -235,28 +235,27 @@ export const AsGroupWithPrimitiveTypes = (args) => ({
       ...args,
       ...events,
       modelValue,
+      UiCheckbox,
     };
   },
   template: `<UiList>
     <UiListItem
       v-for="(value, key) in values"
       :key="key"
+      :content-tag="UiCheckbox"
+      v-model="modelValue"
+      :value="value"
+      :id="id"
+      :disabled="disabled"
+      :input-attrs="inputAttrs"
+      :icon-checkmark-attrs="iconCheckmarkAttrs"
+      :text-label-attrs="textLabelAttrs"
+      :class="modifiers"
+      @update:modelValue="onUpdateModelValue"
+      @focus="onFocus"
+      @blur="onBlur"
     >
-      <UiCheckbox
-        v-model="modelValue"
-        :value="value"
-        :id="id"
-        :disabled="disabled"
-        :input-attrs="inputAttrs"
-        :icon-checkmark-attrs="iconCheckmarkAttrs"
-        :text-label-attrs="textLabelAttrs"
-        :class="modifiers"
-        @update:modelValue="onUpdateModelValue"
-        @focus="onFocus"
-        @blur="onBlur"
-      >
-        {{ value }}
-      </UiCheckbox>
+      {{ value }}
     </UiListItem>
   </UiList>`,
 });
@@ -297,28 +296,27 @@ export const AsGroupWithObject = (args) => ({
       ...args,
       ...events,
       modelValue,
+      UiCheckbox,
     };
   },
   template: `<UiList>
     <UiListItem
       v-for="(value, key) in values"
       :key="key"
+      :content-tag="UiCheckbox"
+      v-model="modelValue"
+      :value="value"
+      :id="value.id"
+      :disabled="disabled"
+      :input-attrs="inputAttrs"
+      :icon-checkmark-attrs="iconCheckmarkAttrs"
+      :text-label-attrs="textLabelAttrs"
+      :class="modifiers"
+      @update:modelValue="onUpdateModelValue"
+      @focus="onFocus"
+      @blur="onBlur"
     >
-      <UiCheckbox
-        v-model="modelValue"
-        :value="value"
-        :id="value.id"
-        :disabled="disabled"
-        :input-attrs="inputAttrs"
-        :icon-checkmark-attrs="iconCheckmarkAttrs"
-        :text-label-attrs="textLabelAttrs"
-        :class="modifiers"
-        @update:modelValue="onUpdateModelValue"
-        @focus="onFocus"
-        @blur="onBlur"
-      >
-        {{ value.label }}
-      </UiCheckbox>
+      {{ value.label }}
     </UiListItem>
   </UiList>`,
 });
@@ -371,28 +369,27 @@ export const AsGroupWithNestedObject = (args) => ({
       ...args,
       ...events,
       modelValue,
+      UiCheckbox,
     };
   },
   template: `<UiList>
     <UiListItem
       v-for="(value, key) in values"
       :key="key"
+      :content-tag="UiCheckbox"
+      v-model="modelValue"
+      :value="value"
+      :id="value.id"
+      :disabled="disabled"
+      :input-attrs="inputAttrs"
+      :icon-checkmark-attrs="iconCheckmarkAttrs"
+      :text-label-attrs="textLabelAttrs"
+      :class="modifiers"
+      @update:modelValue="onUpdateModelValue"
+      @focus="onFocus"
+      @blur="onBlur"
     >
-      <UiCheckbox
-        v-model="modelValue"
-        :value="value"
-        :id="value.id"
-        :disabled="disabled"
-        :input-attrs="inputAttrs"
-        :icon-checkmark-attrs="iconCheckmarkAttrs"
-        :text-label-attrs="textLabelAttrs"
-        :class="modifiers"
-        @update:modelValue="onUpdateModelValue"
-        @focus="onFocus"
-        @blur="onBlur"
-      >
-        {{ value.label }}
-      </UiCheckbox>
+      {{ value.label }}
     </UiListItem>
   </UiList>`,
 });
