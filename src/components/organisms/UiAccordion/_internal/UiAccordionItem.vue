@@ -1,7 +1,7 @@
 <template>
   <UiListItem :list-item-attrs="defaultProps.listItemAttrs">
-    <!-- @slot Use this slot to replace toggler template. -->
     <template #content>
+      <!-- @slot Use this slot to replace toggler template. -->
       <slot
         name="toggler"
         v-bind="{
