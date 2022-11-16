@@ -26,13 +26,13 @@ function saveComponentsApiFile(componentsApi) {
   content['components-api'] = componentsApi;
   fs.writeFileSync(pathComponentsApiFile, JSON.stringify(content, null, 2));
 }
-async function createComponentsApiFile() {
+async function updateComponentsApiFile() {
   saveComponentsApiFile(await getComponentsApi());
   console.log('📄 docs updated successfully');
 }
 
-export default getComponentsApi;
+export default updateComponentsApiFile;
 
 if (process.argv[1] === filename) {
-  createComponentsApiFile();
+  updateComponentsApiFile();
 }

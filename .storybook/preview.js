@@ -32,9 +32,7 @@ export const parameters = {
         },
         releases: {
           '*': {
-            'rest-reverse': {
-              changeLog: {}
-            },
+            'rest-reverse': {},
           },
         },
         atoms: {

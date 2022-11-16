@@ -2,7 +2,7 @@ import { Canvas, Meta, Story } from "@storybook/addon-docs";
 import { PageOutline } from '../../../components/PageOutline';
 import { Table } from '../../../components/Table';
 
-<Meta title="Releases/v0.5.x/v0.5.2/Migration Guide"/>
+<Meta title="Releases/v0.5.x/v0.5.2/Migration Guide" />
 
 # Migration Guide
 
@@ -49,6 +49,7 @@ From v0.5.2 UiMultipleChoices droped support for Triage application and now uses
 `UiMultipleChoices` put to array value of selected option with data required by Infermedica API.
 
 ```js
+
 ```html
 <UiMultipleChoices
   :choices="[
@@ -93,8 +94,11 @@ With selected options "Yes" for "I have hypertension" will emit array with value
   }
 ]
 ```
+
 **After**
+
 `UiMultipleChoices` put to array 1:1 value of selected option.
+
 ```html
 <UiMultipleChoices
   :items="[
@@ -112,12 +116,17 @@ With selected options "Yes" for "I have hypertension" will emit array with value
 ```js
 [undefined, 'present']
 ```
+
 **How to migrate**
+
 To migrate to new format you need to map values from `UiMultipleChoices` to your data format e.g.:
+
 <Canvas>
   <Story id="organisms-multiplechoices--as-evidence"/>
 </Canvas>
+
 ## Changes in the API of components
+
 ### UiRange
 #### Props changes
 <Table
@@ -127,6 +136,7 @@ To migrate to new format you need to map values from `UiMultipleChoices` to your
     ['`buttonIncrementAttrs`', 'Deprecated', 'Use `numberStepperAttrs`'],
   ]}
 />
+
 ### UiAlert
 #### Props changes
 <Table
@@ -135,6 +145,7 @@ To migrate to new format you need to map values from `UiMultipleChoices` to your
     ['`buttonAttrs`', 'Deprecated', 'Use `buttonRemoveAttrs`'],
   ]}
 />
+
 ### UiDropdown
 #### Props changes
 <Table
@@ -143,6 +154,7 @@ To migrate to new format you need to map values from `UiMultipleChoices` to your
     ['`buttonAttrs`', 'Deprecated', 'Use `buttonToggleAttrs`'],
   ]}
 />
+
 ### UiFormField
 #### Props changes
 <Table
@@ -151,6 +163,7 @@ To migrate to new format you need to map values from `UiMultipleChoices` to your
     ['`labelAttrs`', 'Deprecated', 'Use `textHintAttrs` or `textMessageAttrs`'],
   ]}
 />
+
 ### UiFormField
 #### Props changes
 <Table
@@ -159,6 +172,7 @@ To migrate to new format you need to map values from `UiMultipleChoices` to your
     ['`setElementsAttrs`', 'Deprecated', 'Use `elementsAttrs`'],
   ]}
 />
+
 ### UiPopover
 #### Props changes
 <Table
@@ -167,6 +181,7 @@ To migrate to new format you need to map values from `UiMultipleChoices` to your
     ['`buttonAttrs`', 'Deprecated', 'Use `buttonCloseAttrs`'],
   ]}
 />
+
 ### UiRating
 #### Props changes
 <Table
@@ -176,6 +191,7 @@ To migrate to new format you need to map values from `UiMultipleChoices` to your
     ['`settings.icon`', 'Deprecated', 'Use `settings.iconDefault`'],
   ]}
 />
+
 #### Slots changes
 <Table
   headers={['Slot', 'Status', 'Changes']}
@@ -183,6 +199,8 @@ To migrate to new format you need to map values from `UiMultipleChoices` to your
     ['`icon`', 'Deprecated', 'Use `iconDefault`'],
   ]}
 />
+
+
 ### UiScale
 #### Props changes
 <Table
@@ -194,6 +212,7 @@ To migrate to new format you need to map values from `UiMultipleChoices` to your
     ['`translation.unbearable`', 'Deprecated', 'Use `translation.max`'],
   ]}
 />
+
 ### UiSteps
 #### Props changes
 <Table
@@ -202,6 +221,7 @@ To migrate to new format you need to map values from `UiMultipleChoices` to your
     ['`step.name`', 'Deprecated', 'Use `step.label`'],
   ]}
 />
+
 ### UiMultipleAnswer
 #### Props changes
 <Table
@@ -211,6 +231,7 @@ To migrate to new format you need to map values from `UiMultipleChoices` to your
     ['`item.name`', 'Deprecated', 'Use `item.label`'],
   ]}
 />
+
 #### Slots changes
 <Table
   headers={['Slot', 'Status', 'Changes']}
@@ -218,6 +239,7 @@ To migrate to new format you need to map values from `UiMultipleChoices` to your
     ['`choiceItem`', 'Deprecated', 'Use `choice`']
   ]}
 />
+
 ### UiMultipleChoices
 #### Props changes
 <Table
@@ -228,6 +250,7 @@ To migrate to new format you need to map values from `UiMultipleChoices` to your
     ['`option.name`', 'Deprecated', 'Use `option.label`'],
   ]}
 />
+
 #### Slots changes
 <Table
   headers={['Slot', 'Status', 'Changes']}
@@ -235,6 +258,7 @@ To migrate to new format you need to map values from `UiMultipleChoices` to your
     ['`choiceItem`', 'Deprecated', 'Use `choice`']
   ]}
 />
+
 ### UiSidePanel
 #### Props changes
 <Table
@@ -243,6 +267,7 @@ To migrate to new format you need to map values from `UiMultipleChoices` to your
     ['`transition`', 'Deprecated', 'Use `transitionDialogAttrs`'],
   ]}
 />
+
 ### UiSimpleQuestion
 #### Props changes
 <Table

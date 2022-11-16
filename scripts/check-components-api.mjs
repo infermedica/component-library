@@ -9,9 +9,9 @@ const dirname = path.dirname(filename);
 const pathComponentsApiFile = path.resolve(dirname, '../components-api-lock.json');
 const args = getArgs();
 
-const getApiFromBranch = async (branchName) => {
+const getApiFromBranch = async (branchName = 'develop') => {
   try {
-    const branch = args.branch || branchName || 'develop';
+    const branch = args.branch || branchName;
     const response = await fetch(`https://github.com/infermedica/component-library/raw/${branch}/components-api-lock.json`);
     const api = await response.json();
     return api['components-api'];
@@ -20,21 +20,16 @@ const getApiFromBranch = async (branchName) => {
     return [];
   }
 };
-const saveDiffsInJsonFile = (diffs, outputPath, branchName, release) => {
-  const outputFilePath = release
-    ? '../components-api-lock.json'
-    : `../${args.outputFile || outputPath || 'components-api-diffs.json'}`;
-  const branch = args.branch || branchName || 'develop';
-  const jsonPath = path.resolve(dirname, outputFilePath);
+const saveDiffsInJsonFile = (diffs, outputPath = 'components-api-diffs.json', branchName = 'develop', release = false) => {
+  const outputFilePath = args.outputFile || outputPath;
+  const branch = args.branch || branchName;
+  const jsonPath = path.resolve(dirname, `../${outputFilePath}`);
   if (!fs.existsSync(jsonPath)) {
     fs.appendFileSync(jsonPath, '');
   }
   const content = JSON.parse(fs.readFileSync(jsonPath, 'utf8') || '{}');
   if (release) {
-    content.release = {
-      ...content.release,
-      [`v${release}`]: diffs,
-    };
+    content.diffs = diffs;
   } else {
     content[`${branch}-branch`] = diffs;
   }
@@ -163,7 +158,7 @@ const getDiffs = (currEl, prevEl, keys = []) => {
   }
   return diffs;
 };
-const compareApi = async (branchName, outputPath, callback, release = '') => {
+const compareApi = async (branchName, outputPath, callback, release = false) => {
   const branchApi = await getApiFromBranch(branchName);
   const currentApi = JSON.parse(fs.readFileSync(pathComponentsApiFile, 'utf8') || '{}')['components-api'];
   let diffs = {};
