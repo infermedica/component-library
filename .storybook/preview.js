@@ -12,7 +12,7 @@ SyntaxHighlighter.registerLanguage('scss', scss);
 
 export const parameters = {
   options: {
-    storySort: (story1, story2) => {
+    storySort: (prevStory, nextStory) => {
       /* 
         Sort function to sort stories based on a config file.
         {storiesOrder} is the order in which we want stories to appear.
@@ -33,10 +33,8 @@ export const parameters = {
         releases: {
           '*': {
             'rest-reverse': {
-              'rest-reverse': {
-                changeLog: {}
-              },
-            }
+              changeLog: {}
+            },
           },
         },
         atoms: {
@@ -67,36 +65,36 @@ export const parameters = {
         contributingGuide: {}
       };
       const hasKey = (obj, key) => Object.hasOwn(obj, key);
-      const compareAlphabetical = (a, b) => a.localeCompare(b, { numeric: true });
+      const compareAlphabetical = (prev, next) => prev.localeCompare(next, { numeric: true });
       const toCamelCase = (str) => str.toLowerCase().replace(/[^a-zA-Z0-9.-]+(.)/g, (m, chr) => chr.toUpperCase())
       const getStoryPath = (story) => [...story.title.split('/'), story.name].map(key => toCamelCase(key));
-      const story1Path = getStoryPath(story1);
-      const story2Path = getStoryPath(story2);
-      const compareStoryPaths = (order, path1, path2) => {
-        if (!path1.length || !path2.length) return path1.length - path2.length;
-        const [path1Head, ...path1Tail] = path1;
-        const [path2Head, ...path2Tail] = path2;
-        if (!order || 'rest-reverse' in order && !hasKey(order, path1Head)) {
+      const prevStoryPath = getStoryPath(prevStory);
+      const nextStoryPath = getStoryPath(nextStory);
+      const compareStoryPaths = (order, prevPath, nextPath) => {
+        if (!prevPath.length || !nextPath.length) return prevPath.length - nextPath.length;
+        const [prevPathHead, ...prevPathTail] = prevPath;
+        const [nextPathHead, ...nextPathTail] = nextPath;
+        if (!order || 'rest-reverse' in order && !hasKey(order, prevPathHead)) {
           const reverseOrder = order && order['rest-reverse'];
-          const comp = compareAlphabetical(path1Head, path2Head);
-          if (comp === 0) return compareStoryPaths(reverseOrder, path1Tail, path2Tail);
+          const comp = compareAlphabetical(prevPathHead, nextPathHead);
+          if (comp === 0) return compareStoryPaths(reverseOrder, prevPathTail, nextPathTail);
           return reverseOrder ? comp * -1 : comp
         }
-        if (path1Head === path2Head) {
-          return compareStoryPaths(order[path1Head] || order['*'], path1Tail, path2Tail);
+        if (prevPathHead === nextPathHead) {
+          return compareStoryPaths(order[prevPathHead] || order['*'], prevPathTail, nextPathTail);
         }
-        if (hasKey(order, path1Head) && hasKey(order, path2Head)) {
+        if (hasKey(order, prevPathHead) && hasKey(order, nextPathHead)) {
           const orderKeys = Object.keys(order);
-          return orderKeys.indexOf(path1Head) - orderKeys.indexOf(path2Head);
-        } else if (hasKey(order, path1Head) && !hasKey(order, path2Head)) {
+          return orderKeys.indexOf(prevPathHead) - orderKeys.indexOf(nextPathHead);
+        } else if (hasKey(order, prevPathHead) && !hasKey(order, nextPathHead)) {
           return -1;
-        } else if (!hasKey(order, path1Head) && hasKey(order, path2Head)) {
+        } else if (!hasKey(order, prevPathHead) && hasKey(order, nextPathHead)) {
           return 1;
         } else {
-          return compareStoryPaths(order['*'], path1, path2);
+          return compareStoryPaths(order['*'], prevPath, nextPath);
         }
       }
-      return compareStoryPaths(storiesOrder, story1Path, story2Path)
+      return compareStoryPaths(storiesOrder, prevStoryPath, nextStoryPath)
     }
   },
   viewMode: 'docs',

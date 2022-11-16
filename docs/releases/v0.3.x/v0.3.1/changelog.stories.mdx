@@ -1,0 +1,29 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Releases/v0.3.x/v0.3.1/Changelog" />
+
+# v0.3.1 (April 4, 2022)
+Re-edit stories, fix controls, support for actions addon and fix a few bugs.
+
+## ⛔️ Breaking Changes
+- Use the inner border in components.
+  - To create inner border we use `::before` pseudo element. To make life easier we create `inner-border` mixin.
+- ⛔️ UiTextarea component has breaking changes in template. Now `<textarea>` is wrapped on `<div>`. Check [v0.3.1 Migration Guide](/docs/releases-v0-3-x-v0-3-1-migration-guide--page)
+
+## 🐛 Fixes
+- Prevent to emit calendar-open on close calendar popoup.
+- Prevent event bubbling in dropdown.
+- Handle empty icon props in icon component.
+- Allow to disable buttons in range component.
+- Typo in getAttributes function, bodyScrollLock related.
+
+## 🔍 Tests
+- Add missing tests for modal component.
+- Add tests for directives.
+
+## 📄 Docs
+- Add code guidelines.
+- Add conventional commits commitlint.
+- Add Sentry to Storyboook.
+- Add Instalation guide.
+- Add Figma addon.

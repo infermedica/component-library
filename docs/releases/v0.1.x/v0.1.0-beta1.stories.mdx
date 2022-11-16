@@ -1,0 +1,61 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Releases/v0.1.x/v0.1.0-beta.1" />
+
+<style> {`
+  code {
+    background-color: transparent!important;
+  }
+`}</style>
+
+# v0.1.0-beta.1 (April 27, 2021)
+## 🚀 Features
+- SC-629: replace AnswerAbove functionality with HideNext
+- SC-700: UiQuestion top actions has condition for info action
+- SC-700: UiQuestion has top and bottom actions sections
+- Translation for choice info in Multiple Answer and Multiple Choices
+- SC-471: UiDatepicker component
+- SC-644: Add reported alert to UiQuestion
+- Possible to bind attrs to nested components
+  - A few components has props like `alertHintAttrs` (UiMultipleAnswer), `headingTitleAttrs` (UiSidePanel), etc.
+  This props is binded to child component and it allow to pass attrs for it.
+  ```html
+  <UiHeading
+    v-bind="headingTitleAttrs"
+  >
+    {{ title }}
+  </UiHeading>
+  ```
+  Remember, you can bind event to
+  ```js
+  function hintClickHandler () {
+    console.log('hint is clicked')
+  }
+  const alertHintAttrs = {
+    id: 'hint',
+    onClick: hintClickHandler
+  }
+  ```
+
+## 🐛 Fixes
+- SC-695: Fix for missing divider in certein zoom value
+- SC-703: Pixel perfect spacings in Multiple Answer
+- Side panel label has right margin on mobile
+- SC-694: Allow keyboard navigation inside updated side panel
+- Loader internal components without async import
+- Contained button without border
+- SC-633: Add new icon, change in related components, add additional props for info buttons in qestion components
+- Alert icon rtl has right name
+- Pixel perfect for Accordion Controls and Alert
+- HInt in Multiple questions has right spacings
+- Sidapenel without legacy props
+- No aliases in Number Stepper
+- Postinstall create-index script
+- Remove duplication from Question styles stories
+
+## 🧹 Chores
+- Remove unused testid custom directive
+- SC-691: WithActionSlot and WithIssueSlot stories for UiQuestion has right template
+- SC-691: WithInfoSlot stories for UiQuestion has right template
+- Use vue-router to transform router-link to anchor element
+- Addon Outline in Storybook
