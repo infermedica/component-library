@@ -1,12 +1,12 @@
-const getArgs = () => (process.argv.slice(2).reduce((acc, arg) => {
+const getArgs = () => (process.argv.slice(2).reduce((args, arg) => {
   const [
     key,
     value,
   ] = arg.split('=');
   return {
-    ...acc,
+    ...args,
     [key.replace('--', '')]: value,
   };
 }, {}));
 
-module.exports = getArgs;
+export default getArgs;

@@ -1,13 +1,21 @@
 /* eslint-disable import/no-extraneous-dependencies */
-const path = require('path');
-const fs = require('fs');
-const fileSave = require('file-save');
-const upperCamelCase = require('uppercamelcase');
-const prompts = require('prompts');
-const glob = require('glob');
+import fs from 'fs';
+import fileSave from 'file-save';
+import glob from 'glob';
+import prompts from 'prompts';
+import path from 'path';
+import upperCamelCase from 'uppercamelcase';
+import { fileURLToPath } from 'url';
+
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
 
 (async () => {
-  const ATOMIC_TYPE = ['atoms', 'molecules', 'organisms'];
+  const ATOMIC_TYPE = [
+    'atoms',
+    'molecules',
+    'organisms',
+  ];
   const response = await prompts([
     {
       type: 'select',
@@ -23,12 +31,12 @@ const glob = require('glob');
   ]);
   const component = ATOMIC_TYPE[response.component];
   const { name } = response;
-  const fwFolder = './scripts/component-template/';
+  const fwFolder = './scripts/templates/component/';
   function createComponent(componentFolder, componentName) {
     const ComponentType = upperCamelCase(componentFolder);
     const ComponentName = upperCamelCase(componentName);
     const ComponentNameCamelCase = ComponentName.startsWith('Ui') ? ComponentName : `Ui${ComponentName}`;
-    const PackagePath = path.resolve(__dirname, `../src/components/${componentFolder}`, `${ComponentNameCamelCase}`);
+    const PackagePath = path.resolve(dirname, `../src/components/${componentFolder}`, `${ComponentNameCamelCase}`);
     const ComponentNameKebabCase = `ui${ComponentName.replace(
       /([A-Z])(?=\w)/g,
       (s1, s2) => `-${s2.toLowerCase()}`,
@@ -50,7 +58,6 @@ const glob = require('glob');
         .write(content, 'utf8');
     });
   }
-
   createComponent(component, name);
 })();
 

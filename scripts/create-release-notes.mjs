@@ -1,15 +1,19 @@
 /* eslint-disable import/no-extraneous-dependencies */
-const path = require('path');
-const prompts = require('prompts');
-const fs = require('fs');
-const getArgs = require('./helpers/get-args');
-const checkComponentApi = require('./check-components-api');
-const prevVersion = require('../package.json').version;
+import fs from 'fs';
+import path from 'path';
+import prompts from 'prompts';
+import { fileURLToPath } from 'url';
+import checkComponentApi from './check-components-api.mjs';
+import getArgs from './helpers/get-args.mjs';
+import getVersion from './helpers/get-version.mjs';
 
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
 const args = getArgs();
-const pathReleasesRoot = path.resolve(__dirname, '../', 'docs/releases');
+const pathReleasesRoot = path.resolve(dirname, '../', 'docs/releases');
+
 const updatePackageJson = (value) => {
-  const filePath = path.resolve(__dirname, '../package.json');
+  const filePath = path.resolve(dirname, '../package.json');
   const content = JSON.parse(fs.readFileSync(filePath), 'utf8');
   content.version = value;
   fs.writeFileSync(filePath, JSON.stringify(content, null, 2));
@@ -18,7 +22,6 @@ const updatePackageJson = (value) => {
 
 (async () => {
   const choices = [
-    'major',
     'minor',
     'patch',
   ];
@@ -31,23 +34,19 @@ const updatePackageJson = (value) => {
       choices,
     } ])).selected;
   }
+  const {
+    current: currentVersion, new: newVersion,
+  } = getVersion(choices[choiceIndex]);
+  console.log(currentVersion, newVersion);
   const [
     major,
     minor,
-    patch,
-  ] = prevVersion.split('.').map(
-    (value, index) => {
-      if (index === choiceIndex) return parseInt(value, 10) + 1;
-      if (index > choiceIndex) return 0;
-      return value;
-    },
-  );
-  const newVersion = `${major}.${minor}.${patch}`;
+  ] = currentVersion.split('.');
   const pathNewVersion = `/v${major}.x.x/v${major}.${minor}.x/v${newVersion}`;
   const pathVersionRoot = `${pathReleasesRoot}${pathNewVersion}`;
   const getFilePath = (name) => `${pathVersionRoot}/${name}.stories.mdx`;
   const isFileExist = (name) => fs.existsSync(getFilePath(name));
-  const diffs = await checkComponentApi(`release/v${prevVersion}`, null, null, `${newVersion}`);
+  const diffs = await checkComponentApi(`release/v${currentVersion}`, null, null, `${newVersion}`);
   const date = new Date();
   const content = {
     changelog: `import { Meta } from '@storybook/addon-docs';\n

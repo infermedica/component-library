@@ -1,5 +1,5 @@
-const { Console } = require('node:console');
-const { Transform } = require('node:stream');
+import { Console } from 'node:console';
+import { Transform } from 'node:stream';
 
 const printCustomTable = (input) => {
   const ts = new Transform({ transform(chunk, enc, cb) { cb(null, chunk); } });
@@ -18,8 +18,4 @@ const printCustomTable = (input) => {
   console.log(result);
 };
 
-module.exports = printCustomTable;
-
-if (require.main === module) {
-  printCustomTable();
-}
+export default printCustomTable;

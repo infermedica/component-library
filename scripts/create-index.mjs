@@ -1,9 +1,12 @@
-/* eslint-disable import/no-extraneous-dependencies */
-const path = require('path');
-const fs = require('fs');
-const pathsComponentsLoop = require('./helpers/paths-components-loop');
+import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+import pathsComponentsLoop from './helpers/paths-components-loop.mjs';
 
-const pathIndexTs = path.resolve(__dirname, '..', 'index.ts');
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
+const pathIndexTs = path.resolve(dirname, '..', 'index.ts');
+
 const addLines = (pathComponent, imports, exports) => {
   const componentName = pathComponent.replace(/.*\/(Ui.+)\.vue/, '$1');
   const importLine = `import ${componentName} from './src/components/${pathComponent}';`;
@@ -30,9 +33,9 @@ function createIndexTs() {
   saveIndexTs(generateContent());
   console.log('🚀 index.ts created successfully');
 }
-module.exports = {
-  createIndexTs,
-};
-if (require.main === module) {
+
+export default createIndexTs;
+
+if (process.argv[1] === filename) {
   createIndexTs();
 }

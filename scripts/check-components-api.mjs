@@ -1,10 +1,14 @@
-const fs = require('fs');
-const path = require('path');
-const printCustomTable = require('./helpers/custom-table');
-const getArgs = require('./helpers/get-args');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import printCustomTable from './helpers/custom-table.mjs';
+import getArgs from './helpers/get-args.mjs';
 
-const pathComponentsApiFile = path.resolve(__dirname, '../components-api-lock.json');
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
+const pathComponentsApiFile = path.resolve(dirname, '../components-api-lock.json');
 const args = getArgs();
+
 const getApiFromBranch = async (branchName) => {
   try {
     const branch = args.branch || branchName || 'develop';
@@ -21,7 +25,7 @@ const saveDiffsInJsonFile = (diffs, outputPath, branchName, release) => {
     ? '../components-api-lock.json'
     : `../${args.outputFile || outputPath || 'components-api-diffs.json'}`;
   const branch = args.branch || branchName || 'develop';
-  const jsonPath = path.resolve(__dirname, outputFilePath);
+  const jsonPath = path.resolve(dirname, outputFilePath);
   if (!fs.existsSync(jsonPath)) {
     fs.appendFileSync(jsonPath, '');
   }
@@ -191,8 +195,8 @@ const compareApi = async (branchName, outputPath, callback, release = '') => {
   return diffs;
 };
 
-module.exports = compareApi;
+export default compareApi;
 
-if (require.main === module) {
+if (process.argv[1] === filename) {
   compareApi();
 }

@@ -13,16 +13,17 @@
     "test:watch": "vitest -w --changed",
     "lint": "eslint --fix --ext .js,.vue,.ts src",
     "check:types": "vue-tsc --noEmit",
-    "check:components-api": "node --experimental-fetch scripts/check-components-api.js",
+    "check:components-api": "node --experimental-fetch scripts/check-components-api.mjs",
     "stylelint": "stylelint src/**/*.{vue,scss,css} --fix",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "create:index": "node scripts/create-index.js",
-    "create:component": "node scripts/create-component.js",
-    "create:icons-list": "node scripts/create-icons-list.js",
-    "create:release-notes": "node scripts/create-release-notes.js --experimental-fetch",
+    "create:index": "node scripts/create-index.mjs",
+    "create:component": "node scripts/create-component.mjs",
+    "create:icons-list": "node scripts/create-icons-list.mjs",
+    "create:release-notes": "node scripts/create-release-notes.mjs --experimental-fetch",
+    "release": "node scripts/release.mjs --experimental-fetch",
     "update:docs": "node scripts/update-components-docs.mjs && pnpm lint",
-    "update:components-api": "node scripts/update-components-api && pnpm check:components-api",
+    "update:components-api": "node scripts/update-components-api.mjs && pnpm check:components-api",
     "chromatic": "chromatic --exit-zero-on-changes",
     "serve": "vite --open",
     "preview": "vite preview --open --port 8080",
@@ -49,7 +50,7 @@
   "files": [
     "src/*",
     "index.ts",
-    "scripts/create-index.js"
+    "scripts/create-index.mjs"
   ],
   "dependencies": {
     "@vitejs/plugin-vue": "^3.0.1",

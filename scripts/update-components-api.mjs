@@ -1,11 +1,14 @@
 /* eslint-disable import/no-extraneous-dependencies */
-const path = require('path');
-const fs = require('fs');
-const vueDocs = require('vue-docgen-api');
-const pathsComponentsLoop = require('./helpers/paths-components-loop');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import vueDocs from 'vue-docgen-api';
+import pathsComponentsLoop from './helpers/paths-components-loop.mjs';
 
-const pathComponentsRoot = path.resolve(__dirname, '../', 'src/components');
-const pathComponentsApiFile = path.resolve(__dirname, '../components-api-lock.json');
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
+const pathComponentsRoot = path.resolve(dirname, '../', 'src/components');
+const pathComponentsApiFile = path.resolve(dirname, '../components-api-lock.json');
 
 const getComponentsApi = async () => {
   const promises = [];
@@ -15,7 +18,6 @@ const getComponentsApi = async () => {
   const componentsApi = await Promise.all(promises);
   return componentsApi;
 };
-
 function saveComponentsApiFile(componentsApi) {
   if (!fs.existsSync(pathComponentsApiFile)) {
     fs.appendFileSync(pathComponentsApiFile, '');
@@ -29,8 +31,8 @@ async function createComponentsApiFile() {
   console.log('📄 docs updated successfully');
 }
 
-module.exports = getComponentsApi;
+export default getComponentsApi;
 
-if (require.main === module) {
+if (process.argv[1] === filename) {
   createComponentsApiFile();
 }
