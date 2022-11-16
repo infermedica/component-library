@@ -112,33 +112,38 @@ const defaultProps = computed(() => ({
 
   --list-item-border-width: 0;
 
+  padding: functions.var($element, padding, var(--space-4) var(--space-8));
+
   &__button {
-    --list-item-content-padding:#{functions.var($element + "-button", border-width, var(--space-8))};
-    --list-item-tablet-content-padding: #{functions.var($element + "-tablet-button", border-width, var(--space-8))};
+    --_list-item-content-padding: #{functions.var($element + "-button", padding, var(--space-8))};
+
+    --list-item-content-padding: var(--_list-item-content-padding);
+    --list-item-tablet-content-padding: var(--_list-item-content-padding);
+    --button-padding: var(-_list-item-content-padding);
     --button-border-width: #{functions.var($element + "-button", border-width, 0)};
     --button-font: #{functions.var($element + "-button", font, var(--font-body-1))};
     --button-letter-spacing: #{functions.var($element + "-button", letter-spacing, var(--letter-spacing-body-1))};
 
-    margin: var(--space-4) var(--space-8);
     justify-content: space-between;
-
-    &--is-selected {
-      #{$this}__label {
-        color: functions.var($element + "-label", color, unset);
-      }
-    }
   }
 
   &__label {
     flex: 1;
+    color: functions.var($element + "-label", color, var(--color-text-body));
     text-align: start;
   }
 
   &__suffix {
-    margin: functions.var($element, margin, 0 0 0 var(--space-12));
+    margin: functions.var($element + "-suffix", margin, 0 0 0 var(--space-12));
 
     [dir="rtl"] & {
-      margin: functions.var($element + "rtl", margin, 0 var(--space-12) 0 0);
+      margin: functions.var($element + "rtl-suffix", margin, 0 var(--space-12) 0 0);
+    }
+  }
+
+  &--is-selected {
+    #{$this}__label {
+      color: functions.var($element + "-label", color, unset);;
     }
   }
 }
