@@ -1,12 +1,13 @@
 import { ref } from 'vue';
 import UiMenuItem from '@/components/organisms/UiMenu/_internal/UiMenuItem.vue';
 import UiMenu from '@/components/organisms/UiMenu/UiMenu.vue';
-import UiMenuSuffix from '@/components/organisms/UiMenu/_internal/UiMenuItemSuffix.vue';
+import UiMenuItemSuffix from '@/components/organisms/UiMenu/_internal/UiMenuItemSuffix.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
 import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import './UiMenu.stories.scss';
+import { modifiers } from '@sb/helpers/argTypes';
 import docs from './UiMenu.mdx';
 
 export default {
@@ -14,7 +15,7 @@ export default {
   component: UiMenu,
   subcomponents: {
     UiMenuItem,
-    UiMenuSuffix,
+    UiMenuItemSuffix,
   },
   args: {
     modifiers: [],
@@ -31,6 +32,7 @@ export default {
     ],
     tag: 'ul',
   },
+  argTypes: { modifiers: modifiers({ options: [ 'ui-menu--compact' ] }) },
   decorators: [ () => ({ template: '<div style="max-width: 21.875rem"><story /></div>' }) ],
   parameters: { docs: { page: docs } },
 };
@@ -47,6 +49,9 @@ const Template = (args) => ({
 });
 
 export const WithSelectedItem = Template.bind({});
+
+export const AsCompact = Template.bind({});
+AsCompact.args = { modifiers: [ 'ui-menu--compact' ] };
 
 export const WithItemsAsString = Template.bind({});
 WithItemsAsString.args = {
