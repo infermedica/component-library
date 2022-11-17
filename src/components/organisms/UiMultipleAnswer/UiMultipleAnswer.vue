@@ -48,12 +48,11 @@
             item,
             name,
             hasError,
-            updateHandler
           }"
         >
           <UiMultipleAnswerItem
-            v-bind="item"
             v-model="value"
+            v-bind="item"
             :invalid="hasError"
           >
             <template
@@ -184,13 +183,13 @@ const hintType = computed<'error'|'default'>(() => (props.touched && props.inval
 watch(valid, (value) => {
   emit('update:invalid', !value);
 }, { immediate: true });
-const updateHandler = (newValue: string | unknown[] | Record<string, unknown>) => {
+const handleValueUpdate = (newValue: string | unknown[] | Record<string, unknown>) => {
   emit('update:modelValue', newValue);
 };
 const value = computed({
   get: () => (props.modelValue),
   set: (newValue) => {
-    updateHandler(newValue);
+    handleValueUpdate(newValue);
   },
 });
 const itemsToRender = computed(() => (props.items.map((item) => {

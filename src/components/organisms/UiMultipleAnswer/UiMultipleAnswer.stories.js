@@ -117,8 +117,13 @@ WithSuffix.args = {
       hasSuffix: true,
       suffixAttrs: {
         icon: 'info',
-        ariaLabel: 'what does it mean?',
-        labelAttrs: { class: [ 'visual-hidden' ] },
+        label: 'what does it mean?',
+        'data-testid': 'suffix-element',
+        labelSuffixAttrs: {
+          'data-testid': 'suffix-label',
+          class: [ 'visual-hidden' ],
+        },
+        iconSuffixAttrs: { 'data-testid': 'suffix-icon' },
         onClick: events.onClickInfoButton,
       },
     },
@@ -131,12 +136,16 @@ WithSuffix.args = {
       value: 'illusion',
       hasSuffix: true,
       suffixAttrs: {
-        ariaLabel: 'what does it mean?',
-        iconAttrs: { 'data-testid': 'info-icon' },
-        labelAttrs: { class: [ 'visual-hidden' ] },
+        label: 'what does it mean?',
+        'data-testid': 'suffix-element',
+        labelSuffixAttrs: {
+          'data-testid': 'label-element',
+          class: [ 'visual-hidden' ],
+        },
+        iconSuffixAttrs: { 'data-testid': 'suffix-icon' },
         onClick: events.onClickInfoButton,
       },
-      textLabelAttrs: { 'data-testid': 'label-text' },
+      textlabelSuffixAttrs: { 'data-testid': 'label-text' },
     },
   ],
 };
@@ -247,7 +256,6 @@ export const WithListItemSlot = (args) => ({
         item,
         name,
         hasError,
-        updateHandler
       }"
     > 
       <UiMultipleAnswerItem
@@ -255,7 +263,6 @@ export const WithListItemSlot = (args) => ({
         v-bind="item"
         :name="name"
         :invalid="hasError"
-        @update:modelValue="updateHandler"
       />
     </template>
   </UiMultipleAnswer>`,
@@ -289,26 +296,24 @@ export const WithChoiceSlot = (args) => ({
     @update:invalid="onUpdateInvalid"
   >
     <template #choice="{
-        id,
-        value,
-        modelValue,
-        invalid,
-        label,
-        updateHandler
-      }"
-    >
-      <UiCheckbox
+      id,
+      value,
+      invalid,
+      label,
+      component,
+    }">
+      <component
         :id="id"
+        :is="component"
         v-model="modelValue"
         :value="value"
         :class="[
           'ui-list-item__content',
           { 'ui-checkbox--has-error ui-list-item--has-error': invalid }
         ]"
-        @update:modelValue="updateHandler"
       >
         {{ label }}
-      </UiCheckbox>
+      </component>
     </template>
   </UiMultipleAnswer>`,
 });

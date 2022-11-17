@@ -5,12 +5,12 @@
       name="label"
       v-bind="{
         label,
-        labelAttrs
+        labelSuffixAttrs
       }"
     >
       <span
         v-if="label"
-        v-bind="labelAttrs"
+        v-bind="labelSuffixAttrs"
       >{{ label }}</span>
     </slot>
     <!-- @slot Use this slot to replace icon template. -->
@@ -66,7 +66,7 @@ const props = defineProps({
   /**
    * Use this props to pass attrs for label element.
    */
-  labelAttrs: {
+  labelSuffixAttrs: {
     type: Object as PropsAttrs,
     default: () => ({}),
   },

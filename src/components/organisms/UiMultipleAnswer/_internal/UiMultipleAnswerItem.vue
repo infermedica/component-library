@@ -2,13 +2,14 @@
   <UiListItem
     :id="id"
     :tag="component"
+    :value="value"
+    :model-value="modelValue"
+    :text-label-attrs="defaultProps.textLabelAttrs"
+    :suffix-attrs="defaultProps.suffixAttrs"
     :class="[
       'ui-multiple-answer-item', errorClass
     ]"
-    :value="value"
-    :model-value="modelValue"
-    v-bind="defaultProps"
-    @update:model-value="updateHandler"
+    @update:model-value="handleValueUpdate"
     @keydown="focusSuffix"
   >
     <!-- @slot Use this slot to replace choice template.-->
@@ -16,11 +17,10 @@
       <slot
         v-bind="{
           id,
-          modelValue,
           value,
-          updateHandler,
           invalid,
           label,
+          component,
         }"
         :name="choiceItem && 'choice-item' || 'choice'"
       />
@@ -95,17 +95,17 @@ const props = defineProps({
     default: '',
   },
   /**
-   * Use this props to pass attrs for suffix.
-   */
-  suffixAttrs: {
-    type: Object as PropType<MultipleAnswerSuffixAttrs>,
-    default: () => ({}),
-  },
-  /**
    * Use this props to pass attrs for label UiText.
    */
   textLabelAttrs: {
     type: Object as PropType<MultipleAnswerLabelAttrs>,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for suffix.
+   */
+  suffixAttrs: {
+    type: Object as PropType<MultipleAnswerSuffixAttrs>,
     default: () => ({}),
   },
 });
@@ -114,38 +114,54 @@ const isCheckbox = computed(() => (Array.isArray(props.modelValue)));
 const component = computed(() => (isCheckbox.value ? UiCheckbox : UiRadio));
 const componentName = computed<ComponentName>(() => (isCheckbox.value ? 'ui-checkbox' : 'ui-radio'));
 const errorClass = computed(() => (props.invalid
-  ? `${componentName.value}--has-error ui-list-item--has-error`
-  : ''));
+  ? [
+    `${componentName.value}--has-error`,
+    'ui-list-item--has-error',
+  ]
+  : []));
+
 function unfocusSuffix(event: KeyboardEvent) {
   if (event.key !== 'ArrowLeft') return;
-  const suffixBtn = event.target as HTMLElement;
-  const input: HTMLInputElement | null | undefined = suffixBtn.closest('.ui-multiple-answer-item')?.querySelector('input');
-  input?.focus();
+  const suffixButton = event.target as HTMLElement;
+  const input: HTMLInputElement | null | undefined = suffixButton.closest('.ui-multiple-answer-item')?.querySelector('input');
+  if (input) {
+    event.preventDefault();
+    focusElement(input);
+  }
 }
 function focusSuffix(event: KeyboardEvent) {
   if (event.key !== 'ArrowRight') return;
   const input = event.target as HTMLInputElement;
-  const suffixBtn: HTMLElement | null | undefined = input.closest('.ui-multiple-answer-item')?.querySelector('.ui-list-item-suffix');
-  if (suffixBtn) {
+  const suffixButton: HTMLElement | null | undefined = input.closest('.ui-multiple-answer-item')?.querySelector('.ui-multiple-answer-item-suffix');
+  if (suffixButton) {
     event.preventDefault();
-    focusElement(suffixBtn);
+    focusElement(suffixButton);
   }
 }
-const updateHandler = (newValue: Record<string, unknown> | Record<string, unknown>[] | string[]) => {
+const handleValueUpdate = (newValue: Record<string, unknown> | Record<string, unknown>[] | string[]) => {
   emit('update:modelValue', newValue);
 };
+
 const defaultProps = computed(() => ({
+  textLabelAttrs: {
+    ...props.textLabelAttrs,
+    class: [
+      'ui-multiple-answer-item__label',
+      props.textLabelAttrs?.class,
+    ],
+  },
   suffixAttrs: {
     icon: 'info',
     tabindex: -1,
     onkeydown: unfocusSuffix,
     ...props.suffixAttrs,
-  },
-  textLabelAttrs: {
-    tag: 'span',
-    ...props.textLabelAttrs,
+    class: [
+      'ui-multiple-answer-item-suffix',
+      props.suffixAttrs?.class,
+    ],
   },
 }));
+
 // TODO: remove in 0.6.0 / BEGIN
 const slots = useSlots();
 const choiceItem = computed(() => (slots['choice-item']));
@@ -165,12 +181,10 @@ if (choiceItem.value) {
   $this: &;
   $element: multiple-answer-item;
 
-  .ui-checkbox,
-  .ui-radio {
-    &__label {
-      display: flex;
-      justify-content: space-between;
-    }
+  &__label {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
   }
 }
 </style>
