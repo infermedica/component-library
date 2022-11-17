@@ -24,7 +24,7 @@
       <UiIcon
         v-if="hasIcon"
         v-bind="defaultProps.iconSuffixAttrs"
-        class="ui-button__icon ui-button__icon--right ui-list-item-suffix-as-button__icon"
+        class="ui-button__icon ui-list-item-suffix-as-button__icon"
       />
     </slot>
   </UiButton>
