@@ -1,14 +1,21 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import fs from 'fs';
+import {
+  readdirSync,
+  readFileSync,
+} from 'fs';
 import fileSave from 'file-save';
 import glob from 'glob';
 import prompts from 'prompts';
-import path from 'path';
+import {
+  dirname,
+  join,
+  resolve,
+} from 'path';
 import upperCamelCase from 'uppercamelcase';
 import { fileURLToPath } from 'url';
 
-const filename = fileURLToPath(import.meta.url);
-const dirname = path.dirname(filename);
+const fileName = fileURLToPath(import.meta.url);
+const dirName = dirname(fileName);
 
 (async () => {
   const ATOMIC_TYPE = [
@@ -36,7 +43,7 @@ const dirname = path.dirname(filename);
     const ComponentType = upperCamelCase(componentFolder);
     const ComponentName = upperCamelCase(componentName);
     const ComponentNameCamelCase = ComponentName.startsWith('Ui') ? ComponentName : `Ui${ComponentName}`;
-    const PackagePath = path.resolve(dirname, `../src/components/${componentFolder}`, `${ComponentNameCamelCase}`);
+    const PackagePath = resolve(dirName, `../src/components/${componentFolder}`, `${ComponentNameCamelCase}`);
     const ComponentNameKebabCase = `ui${ComponentName.replace(
       /([A-Z])(?=\w)/g,
       (s1, s2) => `-${s2.toLowerCase()}`,
@@ -46,15 +53,15 @@ const dirname = path.dirname(filename);
       console.warn(`🚨 ${ComponentNameCamelCase} component was already created.`);
       process.exit(-1);
     }
-    fs.readdirSync(fwFolder).forEach((file) => {
-      const fileName = file.replace('component', ComponentNameCamelCase);
-      let content = fs.readFileSync(fwFolder + file, 'utf8');
+    readdirSync(fwFolder).forEach((file) => {
+      const componentFileName = file.replace('component', ComponentNameCamelCase);
+      let content = readFileSync(fwFolder + file, 'utf8');
       content = content.replace(/ComponentFolder/g, componentFolder);
       content = content.replace(/ComponentNameCamelCase/g, ComponentNameCamelCase);
       content = content.replace(/ComponentNameKebabCase/g, ComponentNameKebabCase);
       content = content.replace(/ComponentName/g, ComponentName);
       content = content.replace(/ComponentType/g, ComponentType);
-      fileSave(path.join(PackagePath, fileName))
+      fileSave(join(PackagePath, componentFileName))
         .write(content, 'utf8');
     });
   }

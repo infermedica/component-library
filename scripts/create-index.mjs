@@ -1,11 +1,14 @@
-import path from 'path';
-import fs from 'fs';
+import { writeFileSync } from 'fs';
+import {
+  dirname,
+  resolve,
+} from 'path';
 import { fileURLToPath } from 'url';
 import pathsComponentsLoop from './helpers/paths-components-loop.mjs';
 
-const filename = fileURLToPath(import.meta.url);
-const dirname = path.dirname(filename);
-const pathIndexTs = path.resolve(dirname, '..', 'index.ts');
+const fileName = fileURLToPath(import.meta.url);
+const dirName = dirname(fileName);
+const pathIndexTs = resolve(dirName, '..', 'index.ts');
 
 const addLines = (pathComponent, exportsLines) => {
   const componentName = pathComponent.replace(/.*\/(Ui.+)\.vue/, '$1');
@@ -21,7 +24,7 @@ function generateContent() {
   return contentIndexTs;
 }
 function saveIndexTs(contentIndex) {
-  fs.writeFileSync(pathIndexTs, contentIndex);
+  writeFileSync(pathIndexTs, contentIndex);
 }
 function createIndexTs() {
   saveIndexTs(generateContent());
@@ -30,6 +33,6 @@ function createIndexTs() {
 
 export default createIndexTs;
 
-if (process.argv[1] === filename) {
+if (process.argv[1] === fileName) {
   createIndexTs();
 }

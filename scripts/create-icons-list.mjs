@@ -1,15 +1,18 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import path from 'path';
 import fs from 'fs';
-import { fileURLToPath } from 'url';
 import glob from 'glob';
+import {
+  dirname,
+  resolve,
+} from 'path';
+import { fileURLToPath } from 'url';
 
-const filename = fileURLToPath(import.meta.url);
-const dirname = path.dirname(filename);
-const pathIconComponent = path.resolve(dirname, '..', 'src/components/atoms/UiIcon');
-const pathAssets = path.resolve(dirname, '..', 'src/assets');
-const pathIconsTS = path.resolve(dirname, '..', pathIconComponent, 'icons.ts');
-const pathIconsRoot = path.resolve(dirname, '..', pathAssets, 'icons');
+const fileName = fileURLToPath(import.meta.url);
+const dirName = dirname(fileName);
+const pathIconComponent = resolve(dirName, '..', 'src/components/atoms/UiIcon');
+const pathAssets = resolve(dirName, '..', 'src/assets');
+const pathIconsTS = resolve(dirName, '..', pathIconComponent, 'icons.ts');
+const pathIconsRoot = resolve(dirName, '..', pathAssets, 'icons');
 const pathsIcons = glob.sync('*.svg', { cwd: pathIconsRoot });
 
 function generateContent() {
@@ -26,6 +29,6 @@ function createIconsTs() {
 
 export default createIconsTs;
 
-if (process.argv[1] === filename) {
+if (process.argv[1] === fileName) {
   createIconsTs();
 }
