@@ -1,5 +1,5 @@
 <template>
-  <UiButton class="ui-button--text ui-list-item-suffix">
+  <UiButton class="ui-button--text ui-list-item-suffix-as-button">
     <!-- @slot Use this slot to replace label template. -->
     <slot
       name="label"
@@ -24,7 +24,7 @@
       <UiIcon
         v-if="hasIcon"
         v-bind="defaultProps.iconSuffixAttrs"
-        class="ui-button__icon ui-button__icon--right"
+        class="ui-button__icon ui-button__icon--right ui-list-item-suffix-as-button__icon"
       />
     </slot>
   </UiButton>
@@ -79,3 +79,18 @@ const defaultProps = computed(() => ({
 }));
 const hasIcon = computed(() => (!!defaultProps.value.iconSuffixAttrs.icon));
 </script>
+
+<style lang="scss">
+@use "../../../../styles/functions";
+
+.ui-list-item-suffix-as-button {
+  $element: list-item-suffix-as-button;
+
+  gap: functions.var($element, gap, var(--space-4));
+
+  &__icon {
+   --button-icon-margin: 0;
+   --button-rtl-icon-margin: 0;
+  }
+}
+</style>
