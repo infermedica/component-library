@@ -21,10 +21,10 @@ export default {
   component: UiMultipleChoices,
   subcomponents: {
     UiMultipleChoicesItem,
+    UiRadio,
     UiAlert,
     UiList,
     UiListItem,
-    UiRadio,
   },
   args: {
     initModelValue: [],
@@ -116,6 +116,9 @@ const Template = (args) => ({
 
 export const Common = Template.bind({});
 
+export const WithError = Template.bind({});
+WithError.args = { touched: true };
+
 export const WithButtonInfo = Template.bind({});
 WithButtonInfo.args = {
   items: [
@@ -166,13 +169,11 @@ export const WithHintSlot = (args) => ({
     @update:modelValue="onUpdateModelValue"
     @update:invalid="onUpdateInvalid"
   >
-    <template
-      #hint="{
-        hint,
-        alertHintAttrs,
-        hintType
-      }"
-    >
+    <template #hint="{
+      hint,
+      alertHintAttrs,
+      hintType
+    }">
       <UiAlert
           v-if="hint"
           v-bind="alertHintAttrs"
@@ -201,26 +202,24 @@ export const WithChoiceSlot = (args) => ({
     };
   },
   template: `<UiMultipleChoices
-      v-model="modelValue"
-      v-model:invalid="invalid"
-      :hint="hint"
-      :touched="touched"
-      :items="items"
-      :options="options"
-      :alert-hint-attrs="alertHintAttrs"
-      @update:modelValue="onUpdateModelValue"
-      @update:invalid="onUpdateInvalid"
+    v-model="modelValue"
+    v-model:invalid="invalid"
+    :hint="hint"
+    :touched="touched"
+    :items="items"
+    :options="options"
+    :alert-hint-attrs="alertHintAttrs"
+    @update:modelValue="onUpdateModelValue"
+    @update:invalid="onUpdateInvalid"
   >
-    <template
-      #choice="{
-        value,
-        index,
-        item,
-        options,
-        hasError,
-        updateHandler
-      }"
-    >
+    <template #choice="{
+      value,
+      index,
+      item,
+      options,
+      hasError,
+      updateHandler
+    }">
       <UiMultipleChoicesItem
         :model-value="value[index]"
         v-bind="item"
@@ -261,13 +260,11 @@ export const WithOptionSlot = (args) => ({
       @update:modelValue="onUpdateModelValue"
       @update:invalid="onUpdateInvalid"
   >
-    <template 
-      #option="{
-        value,
-        option,
-        invalid,
-      }"
-    >
+    <template #option="{
+      value,
+      option,
+      invalid,
+    }">
       <UiListItem
         v-model="value"
         :list-item-attrs="{ class: 'ui-multiple-choices-item__option' }"

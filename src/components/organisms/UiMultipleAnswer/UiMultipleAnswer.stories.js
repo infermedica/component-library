@@ -107,6 +107,9 @@ const Template = (args) => ({
 
 export const WithMultipleChoices = Template.bind({});
 
+export const WithError = Template.bind({});
+WithError.args = { touched: true };
+
 export const WithSuffix = Template.bind({});
 WithSuffix.args = {
   hint: 'Select all answers that apply',
@@ -205,13 +208,11 @@ export const WithHintSlot = (args) => ({
     @update:modelValue="onUpdateModelValue"
     @update:invalid="onUpdateInvalid"
   >
-    <template 
-      #hint="{
-        hint,
-        hintType,
-        hintAlertAttrs
-      }"
-    >
+    <template #hint="{
+      hint,
+      hintType,
+      hintAlertAttrs
+    }">
       <UiAlert
         v-if="hint"
         v-bind="hintAlertAttrs"
@@ -251,13 +252,11 @@ export const WithListItemSlot = (args) => ({
     @update:modelValue="onUpdateModelValue"
     @update:invalid="onUpdateInvalid"
   >
-    <template 
-      #list-item="{
-        item,
-        name,
-        hasError,
-      }"
-    > 
+    <template #list-item="{
+      item,
+      name,
+      hasError,
+    }"> 
       <UiMultipleAnswerItem
         v-model="modelValue"
         v-bind="item"
@@ -342,11 +341,9 @@ export const WithLabelChoiceIdSlot = (args) => ({
     @update:modelValue="onUpdateModelValue"
     @update:invalid="onUpdateInvalid"
   >
-    <template 
-      #label-fever="{
-        label,
-      }"
-    >
+    <template #label-fever="{
+      label,
+    }">
       {{ label }}
     </template>
   </UiMultipleAnswer>`,
