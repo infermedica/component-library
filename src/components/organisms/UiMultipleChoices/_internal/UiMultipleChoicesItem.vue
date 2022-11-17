@@ -4,7 +4,7 @@
     :class="[
       'ui-multiple-choices-item__choices', { 'ui-multiple-choices-item--has-error': invalid }
     ]"
-    :content-tag="tag"
+    :tag="tag"
     :aria-labelledby="multipleChoicesItemId"
     role="radiogroup"
   >
@@ -76,7 +76,7 @@
             <UiListItem
               v-model="value"
               :list-item-attrs="defaultProps.optionItemAttrs"
-              :content-tag="UiRadio"
+              :tag="UiRadio"
               :class="{ 'ui-radio--has-error': invalid }"
               :name="multipleChoicesItemId"
               v-bind="option"
@@ -315,10 +315,10 @@ const optionsToRender = computed(() => props.options.map((option) => ({
   }
 
   @include mixins.from-tablet {
-    --list-item-border-width: #{functions.var($element + '-tablet', border-width, 1px 0 0)};
+    --list-item-border-width: #{functions.var($element + "-tablet", border-width, 1px 0 0)};
 
     &:last-of-type {
-      --list-item-border-width: #{functions.var($element + '-tablet', border-width, 1px 0)};
+      --list-item-border-width: #{functions.var($element + "-tablet", border-width, 1px 0)};
     }
   }
 
@@ -441,13 +441,15 @@ const optionsToRender = computed(() => props.options.map((option) => ({
   &--has-error {
     @include mixins.from-tablet {
       --list-item-content-hover-background: #{functions.var($element + "-tablet-hover", background, var(--color-background-error))};
+
       background: functions.var($element + "-tablet", background, var(--color-background-error));
     }
 
     #{$this}__option {
       @include mixins.to-mobile {
-          background: functions.var($element + "-mobile-option", background, var(--color-background-error));
-          --list-item-content-hover-background: #{functions.var($element + "-choices-mobile-hover", background, var(--color-background-error))};
+        background: functions.var($element + "-mobile-option", background, var(--color-background-error));
+
+        --list-item-content-hover-background: #{functions.var($element + "-choices-mobile-hover", background, var(--color-background-error))};
       }
     }
   }

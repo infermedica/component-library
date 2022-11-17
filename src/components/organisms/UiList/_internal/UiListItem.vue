@@ -7,14 +7,14 @@
     <slot
       name="content"
       v-bind="{
-        contentTag,
+        tag,
         hasSuffix,
         suffixComponent,
         suffixAttrs: defaultProps.suffixAttrs
       }"
     >
       <component
-        :is="contentTag"
+        :is="tag"
         v-bind="$attrs"
         class="ui-list-item__content"
       >
@@ -61,7 +61,7 @@ const props = defineProps({
   /**
    * Use this props to set list item content tag.
    */
-  contentTag: {
+  tag: {
     type: [
       String,
       Object,
@@ -108,10 +108,6 @@ const suffixComponent = computed(() => (hasButtonSuffix.value
   ? UiListItemSuffixAsButton
   : UiListItemSuffixAsText));
 const defaultProps = computed(() => ({
-  contentAttrs: {
-    ...attrs,
-    ...props.contentAttrs,
-  },
   suffixAttrs: hasButtonSuffix.value
     ? {
       icon: props.icon,
@@ -147,9 +143,8 @@ const defaultProps = computed(() => ({
   &__content {
     display: flex;
     flex: 1;
-    justify-content: space-between;
     align-items: flex-start;
-
+    justify-content: space-between;
     padding: functions.var($element + "-content", padding, var(--space-12) var(--space-20));
 
     @include mixins.from-tablet {

@@ -1,7 +1,7 @@
 <template>
   <UiListItem
     :id="id"
-    :content-tag="component"
+    :tag="component"
     :class="[
       'ui-multiple-answer-item', errorClass
     ]"
@@ -165,7 +165,8 @@ if (choiceItem.value) {
   $this: &;
   $element: multiple-answer-item;
 
-  .ui-checkbox, .ui-radio {
+  .ui-checkbox,
+  .ui-radio {
     &__label {
       display: flex;
       justify-content: space-between;

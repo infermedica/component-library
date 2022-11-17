@@ -238,7 +238,7 @@ export const AsGroupWithPrimitiveTypes = (args) => ({
     <UiListItem
       v-for="(value, key) in values"
       :key="key"
-      :content-tag="UiRadio"
+      :tag="UiRadio"
       v-model="modelValue"
       :name="name"
       :value="value"
@@ -302,7 +302,7 @@ export const AsGroupWithObject = (args) => ({
     <UiListItem
       v-for="(value, key) in values"
       :key="key"
-      :content-tag="UiRadio"
+      :tag="UiRadio"
       v-model="modelValue"
       :value="value"
       :id="value.id"
@@ -378,7 +378,7 @@ export const AsGroupWithNestedObject = (args) => ({
     <UiListItem
       v-for="(value, key) in values"
       :key="key"
-      :content-tag="UiRadio"
+      :tag="UiRadio"
       v-model="modelValue"
       :value="value"
       :id="value.id"

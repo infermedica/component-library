@@ -242,7 +242,7 @@ export const AsGroupWithPrimitiveTypes = (args) => ({
     <UiListItem
       v-for="(value, key) in values"
       :key="key"
-      :content-tag="UiCheckbox"
+      :tag="UiCheckbox"
       v-model="modelValue"
       :value="value"
       :id="id"
@@ -303,7 +303,7 @@ export const AsGroupWithObject = (args) => ({
     <UiListItem
       v-for="(value, key) in values"
       :key="key"
-      :content-tag="UiCheckbox"
+      :tag="UiCheckbox"
       v-model="modelValue"
       :value="value"
       :id="value.id"
@@ -376,7 +376,7 @@ export const AsGroupWithNestedObject = (args) => ({
     <UiListItem
       v-for="(value, key) in values"
       :key="key"
-      :content-tag="UiCheckbox"
+      :tag="UiCheckbox"
       v-model="modelValue"
       :value="value"
       :id="value.id"

@@ -144,7 +144,7 @@ export const AsGroup = (args) => ({
     <UiListItem
       v-for="(value, key) in values"
       :key="key"
-      :content-tag="UiSwitch"
+      :tag="UiSwitch"
       v-model="modelValue"
       :value="value"
       :control-attrs="value.controlAttrs"
@@ -209,7 +209,7 @@ export const AsGroupWithPrimitiveTypes = (args) => ({
     <UiListItem
       v-for="(value, key) in values"
       :key="key"
-      :content-tag="UiSwitch"
+      :tag="UiSwitch"
       v-model="modelValue"
       :value="value"
     >

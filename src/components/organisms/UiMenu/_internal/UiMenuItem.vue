@@ -1,7 +1,7 @@
 <template>
   <UiListItem
     :list-item-attrs="defaultProps.listItemAttrs"
-    :content-tag="UiButton"
+    :tag="UiButton"
     :class="[
       'ui-button--outlined ui-menu-item__button', buttonClass
     ]"
@@ -116,7 +116,6 @@ const defaultProps = computed(() => ({
 
   &__button {
     --_list-item-content-padding: #{functions.var($element + "-button", padding, var(--space-8))};
-
     --list-item-content-padding: var(--_list-item-content-padding);
     --list-item-tablet-content-padding: var(--_list-item-content-padding);
     --button-padding: var(-_list-item-content-padding);

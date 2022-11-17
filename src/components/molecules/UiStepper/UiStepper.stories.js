@@ -3,7 +3,7 @@ import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiProgress from '@/components/atoms/UiProgress/UiProgress.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiList from '@/components/organisms/UiList/UiList.vue';
-import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
+import UiStepperStep from '@/components/molecules/UiStepper/_internal/UiStepperStep.vue';
 
 const steps = [
   {
@@ -42,11 +42,11 @@ export default {
   title: 'Molecules/Stepper',
   component: UiStepper,
   subcomponents: {
-    UiText,
-    UiProgress,
-    UiList,
-    UiListItem,
+    UiStepperStep,
     UiButton,
+    UiProgress,
+    UiText,
+    UiList,
   },
   args: {
     steps,
@@ -60,10 +60,14 @@ export default {
     },
     progressAttrs: { table: { subcategory: 'Attrs props' } },
   },
-  decorators: [ () => ({ template: '<div class="desktop:max-w-35"><story /></div>' }) ],
+  decorators: [ () => ({
+    template: `<div class="desktop:max-w-35">
+      <story />
+    </div>`,
+  }) ],
 };
 
-const Template = (args) => ({
+export const WithCurrentStep = (args) => ({
   components: { UiStepper },
   setup() {
     return { ...args };
@@ -75,7 +79,39 @@ const Template = (args) => ({
   />`,
 });
 
-export const WithCurrentStep = Template.bind({});
+export const WithMobileSlot = (args) => ({
+  components: {
+    UiStepper,
+    UiText,
+    UiProgress,
+  },
+  setup() {
+    return { ...args };
+  },
+  template: `<UiStepper
+    :steps="steps"
+    :current-step="currentStep"
+    :progress-attrs="progressAttrs"
+  >
+    <template #mobile="{
+      currentStepDisplayText,
+      progressAttrs,
+    }">
+      <div class="ui-stepper__mobile">
+        <UiText
+          tag="span"
+          class="ui-text--body-2-comfortable ui-stepper__current-step"
+        >
+          {{ currentStepDisplayText }}
+        </UiText>
+        <UiProgress
+          v-bind="progressAttrs"
+          class="ui-stepper__progress"
+        />
+      </div>
+    </template>
+  </UiStepper>`,
+});
 
 export const WithCurrentStepSlot = (args) => ({
   components: {
@@ -90,10 +126,10 @@ export const WithCurrentStepSlot = (args) => ({
     :current-step="currentStep"
     :progress-attrs="progressAttrs"
   >
-    <template #current-step="{currentStepDisplayText}">
+    <template #current-step="{ currentStepDisplayText }">
       <UiText
         tag="span"
-        class="ui-stepper__text"
+        class="ui-text--body-2-comfortable ui-stepper__current-step"
       >
         {{ currentStepDisplayText }}
       </UiText>
@@ -114,11 +150,10 @@ export const WithProgressSlot = (args) => ({
     :current-step="currentStep"
     :progress-attrs="progressAttrs"
   >
-    <template #progress="{stepsProgress}">
+    <template #progress="{ progressAttrs }">
       <UiProgress
-        :min="0"
-        :max="100"
-        :value="stepsProgress"
+        v-bind="progressAttrs"
+        class="ui-stepper__progress"
       />
     </template>
   </UiStepper>`,
@@ -127,9 +162,8 @@ export const WithProgressSlot = (args) => ({
 export const WithDesktopSlot = (args) => ({
   components: {
     UiStepper,
+    UiStepperStep,
     UiList,
-    UiListItem,
-    UiButton,
   },
   setup() {
     return { ...args };
@@ -139,25 +173,22 @@ export const WithDesktopSlot = (args) => ({
     :current-step="currentStep"
     :progress-attrs="progressAttrs"
   >
-    <template #desktop="{steps, indexOfActiveStep, determineStep}">
+    <template #desktop="{
+      steps,
+      currentStep,
+      indexOfActiveStep,
+      stepperStepAttrs,
+    }">
       <UiList class="ui-stepper__desktop">
-        <template
+        <template 
           v-for="(step, index) in steps"
           :key="index"
         >
-          <UiListItem
-            :list-item-attrs="{
-              class: [
-                'ui-stepper__step',
-                { 'ui-stepper__step--visited': indexOfActiveStep >= index },
-                { 'ui-stepper__step--current': indexOfActiveStep === index },
-              ]
-            }"
-            v-bind="determineStep(index, step)"
-            class="ui-button--text ui-button--theme-secondary ui-stepper__item"
-          >
-            {{ step.label }}
-          </UiListItem>
+          <UiStepperStep
+            :index="index"
+            :index-of-active-step="indexOfActiveStep"
+            v-bind="stepperStepAttrs(step)"
+          />
         </template>
       </UiList>
     </template>
@@ -167,8 +198,7 @@ export const WithDesktopSlot = (args) => ({
 export const WithItemsSlot = (args) => ({
   components: {
     UiStepper,
-    UiListItem,
-    UiButton,
+    UiStepperStep,
   },
   setup() {
     return { ...args };
@@ -178,34 +208,29 @@ export const WithItemsSlot = (args) => ({
     :current-step="currentStep"
     :progress-attrs="progressAttrs"
   >
-    <template #items="{steps, indexOfActiveStep, determineStep}">
-      <template
-        v-for="(step, index) in steps"
-        :key="index"
-      >
-        <UiListItem
-          :list-item-attrs="{
-            class: [
-              'ui-stepper__step',
-              { 'ui-stepper__step--visited': indexOfActiveStep >= index },
-              { 'ui-stepper__step--current': indexOfActiveStep === index },
-            ]
-          }"
-          v-bind="determineStep(index, step)"
-          class="ui-button--text ui-button--theme-secondary ui-stepper__item"
-        >
-          {{ step.label }}
-      </UiListItem>
-      </template>
-    </template>
+   <template #items="{
+     steps, 
+     indexOfActiveStep, 
+     stepperStepAttrs
+   }">
+     <template
+         v-for="(step, index) in steps"
+         :key="index"
+     >
+       <UiStepperStep
+           :index="index"
+           :index-of-active-step="indexOfActiveStep"
+           v-bind="stepperStepAttrs(step)"
+       />
+     </template>
+   </template>
   </UiStepper>`,
 });
 
 export const WithItemSlot = (args) => ({
   components: {
     UiStepper,
-    UiListItem,
-    UiButton,
+    UiStepperStep,
   },
   setup() {
     return { ...args };
@@ -215,30 +240,23 @@ export const WithItemSlot = (args) => ({
     :current-step="currentStep"
     :progress-attrs="progressAttrs"
   >
-    <template #item="{step, index, indexOfActiveStep, determineStep}">
-      <UiListItem
-        :list-item-attrs="{
-          class: [
-            'ui-stepper__step',
-            { 'ui-stepper__step--visited': indexOfActiveStep >= index },
-            { 'ui-stepper__step--current': indexOfActiveStep === index },
-          ]
-        }"
-        v-bind="determineStep(index, step)"
-        class="ui-button--text ui-button--theme-secondary ui-stepper__item"
-      >
-        {{ step.label }}
-      </UiListItem>
-    </template>
+   <template #item="{
+    step,
+    index,
+    indexOfActiveStep,
+    stepperStepAttrs,
+  }">
+     <UiStepperStep
+       :index="index"
+       :index-of-active-step="indexOfActiveStep"
+       v-bind="stepperStepAttrs(step)"
+     />
+   </template>
   </UiStepper>`,
 });
 
 export const WithItemLinkSlot = (args) => ({
-  components: {
-    UiStepper,
-    UiListItem,
-    UiButton,
-  },
+  components: { UiStepper },
   setup() {
     return { ...args };
   },
@@ -247,46 +265,21 @@ export const WithItemLinkSlot = (args) => ({
     :current-step="currentStep"
     :progress-attrs="progressAttrs"
   >
-    <template #item-link="{index, step, determineStep}">
-      <UiButton
-        v-bind="determineStep(index, step)"
-        class="ui-button--text ui-button--theme-secondary ui-stepper__item"
+    <template #link-slot="{
+      itemAttrs,
+      itemTag,
+      itemClass,
+      label,
+    }">
+      <component
+        v-bind="itemAttrs"
+        :is="itemTag"
+        :class="[
+          'ui-stepper-step__content', itemClass
+        ]"
       >
-        {{ step.label }}
-      </UiButton>
+        {{ label }}
+      </component>
     </template>
   </UiStepper>`,
 });
-
-export const WithMobileSlot = (args) => ({
-  components: {
-    UiStepper,
-    UiText,
-    UiProgress,
-  },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiStepper
-    :steps="steps"
-    :current-step="currentStep"
-    :progress-attrs="progressAttrs"
-  >
-    <template #mobile="{currentSteps, currentStepDisplayText, stepsProgress}">
-      <div class="ui-stepper__mobile">
-          <UiText
-            tag="span"
-            class="ui-stepper__text"
-          >
-            {{ currentStepDisplayText }}
-          </UiText>
-          <UiProgress
-            :min="0"
-            :max="100"
-            :value="stepsProgress"
-          />
-      </div>
-    </template>
-  </UiStepper>`,
-});
-WithMobileSlot.parameters = { viewport: { defaultViewport: 'mobile2' } };
