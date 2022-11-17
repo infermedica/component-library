@@ -110,25 +110,18 @@ export const WithMultipleChoices = Template.bind({});
 export const WithError = Template.bind({});
 WithError.args = { touched: true };
 
-export const WithSuffix = Template.bind({});
-WithSuffix.args = {
+export const WithButtonInfo = Template.bind({});
+WithButtonInfo.args = {
   hint: 'Select all answers that apply',
   items: [
     {
       label: 'Fatigue',
       value: 'fatigue',
-      hasSuffix: true,
-      suffixAttrs: {
-        icon: 'info',
-        label: 'what does it mean?',
-        'data-testid': 'suffix-element',
-        labelSuffixAttrs: {
-          'data-testid': 'suffix-label',
-          class: [ 'visual-hidden' ],
-        },
-        iconSuffixAttrs: { 'data-testid': 'suffix-icon' },
-        onClick: events.onClickInfoButton,
-      },
+      translation: { info: 'How to check it??' },
+      textLabelAttrs: { 'data-testid': 'label-text' },
+      buttonInfoAttrs: { onClick: events.onClickInfoButton },
+      labelInfoAttrs: { 'data-testid': 'suffix-label' },
+      iconInfoAttrs: { 'data-testid': 'info-icon' },
     },
     {
       label: 'Fever',
@@ -137,18 +130,11 @@ WithSuffix.args = {
     {
       label: 'Illusion of surrounding objects being bigger or smaller than they actually are',
       value: 'illusion',
-      hasSuffix: true,
-      suffixAttrs: {
-        label: 'what does it mean?',
-        'data-testid': 'suffix-element',
-        labelSuffixAttrs: {
-          'data-testid': 'label-element',
-          class: [ 'visual-hidden' ],
-        },
-        iconSuffixAttrs: { 'data-testid': 'suffix-icon' },
-        onClick: events.onClickInfoButton,
-      },
-      textlabelSuffixAttrs: { 'data-testid': 'label-text' },
+      translation: { info: 'What does it mean?' },
+      textLabelAttrs: { 'data-testid': 'label-text' },
+      buttonInfoAttrs: { onClick: events.onClickInfoButton },
+      labelInfoAttrs: { 'data-testid': 'suffix-label' },
+      iconInfoAttrs: { 'data-testid': 'info-icon' },
     },
   ],
 };
@@ -161,10 +147,11 @@ WithSingleChoice.args = {
     {
       label: 'Fatigue',
       value: 'fatigue',
-      buttonInfoAttrs: {
-        ariaLabel: 'how to check it?',
-        onClick: events.onClickInfoButton,
-      },
+      translation: { info: 'How to check it?' },
+      textLabelAttrs: { 'data-testid': 'label-text' },
+      buttonInfoAttrs: { onClick: events.onClickInfoButton },
+      labelInfoAttrs: { 'data-testid': 'suffix-label' },
+      iconInfoAttrs: { 'data-testid': 'info-icon' },
     },
     {
       label: 'Fever',
@@ -173,10 +160,11 @@ WithSingleChoice.args = {
     {
       label: 'Illusion of surrounding objects being bigger or smaller than they actually are',
       value: 'illusion',
-      buttonInfoAttrs: {
-        ariaLabel: 'what does it mean?',
-        onClick: events.onClickInfoButton,
-      },
+      translation: { info: 'What does it mean?' },
+      textLabelAttrs: { 'data-testid': 'label-text' },
+      buttonInfoAttrs: { onClick: events.onClickInfoButton },
+      labelInfoAttrs: { 'data-testid': 'suffix-label' },
+      iconInfoAttrs: { 'data-testid': 'info-icon' },
     },
   ],
 };

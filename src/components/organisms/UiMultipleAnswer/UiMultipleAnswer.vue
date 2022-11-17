@@ -83,21 +83,20 @@ import UiAlert from '../../molecules/UiAlert/UiAlert.vue';
 import UiList from '../UiList/UiList.vue';
 import UiMultipleAnswerItem from './_internal/UiMultipleAnswerItem.vue';
 
-export interface MultipleAnswerSuffixAttrs {
-  tabindex?: number;
-  onkeydown?: (e: KeyboardEvent) => void;
-  icon?: Icon;
-}
 export interface MultipleAnswerLabelAttrs {
   tag?: HTMLElement;
+}
+export interface MultipleAnswerItemTranslation {
+  info: string;
 }
 export interface MultipleAnswerItem {
   id?: string;
   label?: string;
-  value?: string | Record<string, unknown>,
   name?:string; // TODO: remove in 0.6.0
-  hasSuffix?: boolean;
-  suffixAttrs?: MultipleAnswerSuffixAttrs;
+  value?: string | Record<string, unknown>,
+  translation?: MultipleAnswerItemTranslation
+  buttonInfoAttrs?: Record<string, unknown>;
+  iconInfoAttrs?: Record<string, unknown>;
   textLabelAttrs?: MultipleAnswerLabelAttrs;
 }
 export type MultipleAnswerValue = string | MultipleAnswerItem | MultipleAnswerItem[] | unknown[];
