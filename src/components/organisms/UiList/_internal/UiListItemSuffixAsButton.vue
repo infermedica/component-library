@@ -8,7 +8,10 @@
         labelAttrs
       }"
     >
-      <span v-bind="labelAttrs">{{ label }}</span>
+      <span
+        v-if="label"
+        v-bind="labelAttrs"
+      >{{ label }}</span>
     </slot>
     <!-- @slot Use this slot to replace icon template. -->
     <slot
