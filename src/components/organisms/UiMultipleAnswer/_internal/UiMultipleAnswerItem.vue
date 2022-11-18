@@ -4,14 +4,14 @@
     :tag="component"
     :value="value"
     :model-value="modelValue"
-    :has-suffix="hasButtonInfo"
+    :has-suffix="hasInfo"
     :suffix-attrs="suffixAttrs"
     :text-label-attrs="defaultProps.textLabelAttrs"
     :class="[
       'ui-multiple-answer-item', errorClass
     ]"
     @update:model-value="handleValueUpdate"
-    @keydown="handleButtonInfoFocus"
+    @keydown="handleInfoFocus"
   >
     <!-- @slot Use this slot to replace choice template.-->
     <template #content>
@@ -139,21 +139,21 @@ const errorClass = computed(() => (props.invalid
   ]
   : []));
 
-function handleButtonInfoFocus(event: KeyboardEvent) {
+function handleInfoFocus(event: KeyboardEvent) {
   if (event.key !== 'ArrowRight') return;
   const input = event.target as HTMLInputElement;
-  const buttonInfo: HTMLElement | null | undefined = input
+  const info: HTMLElement | null | undefined = input
     .closest('.ui-multiple-answer-item')
-    ?.querySelector('.ui-multiple-answer-item__button-info');
-  if (buttonInfo) {
+    ?.querySelector('.ui-multiple-answer-item__info');
+  if (info) {
     event.preventDefault();
-    focusElement(buttonInfo);
+    focusElement(info);
   }
 }
-function handleButtonInfoUnfocus(event: KeyboardEvent) {
+function handleInfoUnfocus(event: KeyboardEvent) {
   if (event.key !== 'ArrowLeft') return;
-  const buttonInfo = event.target as HTMLElement;
-  const input: HTMLInputElement | null | undefined = buttonInfo
+  const info = event.target as HTMLElement;
+  const input: HTMLInputElement | null | undefined = info
     .closest('.ui-multiple-answer-item')
     ?.querySelector('input');
   if (input) {
@@ -186,8 +186,8 @@ const defaultProps = computed(() => ({
 const suffixAttrs = computed(() => ({
   label: defaultProps.value.translation.info,
   tabindex: -1,
-  onKeydown: handleButtonInfoUnfocus,
-  class: [ 'ui-multiple-answer-item__button-info' ],
+  onKeydown: handleInfoUnfocus,
+  class: [ 'ui-multiple-answer-item__info' ],
   iconSuffixAttrs: defaultProps.value.iconInfoAttrs,
   labelSuffixAttrs: {
     class: [
@@ -198,7 +198,7 @@ const suffixAttrs = computed(() => ({
   },
   ...props.buttonInfoAttrs,
 }));
-const hasButtonInfo = computed(() => (Object.keys(props.buttonInfoAttrs).length > 0));
+const hasInfo = computed(() => (Object.keys(props.buttonInfoAttrs).length > 0));
 
 // TODO: remove in 0.6.0 / BEGIN
 const slots = useSlots();
@@ -221,8 +221,8 @@ if (choiceItem.value) {
 
   &__label {
     display: flex;
-    justify-content: space-between;
     align-items: flex-start;
+    justify-content: space-between;
   }
 }
 </style>

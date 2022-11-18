@@ -2,7 +2,10 @@
   <UiListItem
     :list-item-attrs="defaultProps.listItemAttrs"
     :class="[
-      'ui-multiple-choices-item__choices', { 'ui-multiple-choices-item--has-error': invalid }
+      'ui-multiple-choices-item__content', {
+        'ui-list-item--has-error': invalid,
+        'ui-multiple-choices-item--has-error': invalid
+      }
     ]"
     :tag="tag"
     :aria-labelledby="multipleChoicesItemId"
@@ -20,43 +23,69 @@
         {{ name || label }}
       </legend>
     </slot>
-    <!-- @slot Use this slot to replace label template.-->
+    <!-- @slot Use this slot to replace header template.-->
     <slot
-      name="label"
+      name="header"
       v-bind="{
         id: multipleChoicesItemId,
         textLabelAttrs,
         name,
         label,
+        hasInfo,
         buttonInfoAttrs,
         iconInfoAttrs: defaultProps.iconInfoAttrs,
         translation,
       }"
     >
       <div class="ui-multiple-choices-item__header">
-        <UiText
-          :id="multipleChoicesItemId"
-          v-bind="textLabelAttrs"
-          class="ui-multiple-choices-item__label"
+        <slot
+          name="label"
+          v-bind="{
+            multipleChoicesItemId,
+            textLabelAttrs,
+            name,
+            label
+          }"
         >
-          {{ name || label }}
-        </UiText>
-        <UiButton
-          v-if="buttonInfoAttrs"
-          v-bind="buttonInfoAttrs"
-          class="ui-button--text ui-button--small ui-multiple-choices-item__info"
+          <UiText
+            :id="multipleChoicesItemId"
+            v-bind="textLabelAttrs"
+            class="ui-multiple-choices-item__label"
+          >
+            {{ name || label }}
+          </UiText>
+        </slot>
+        <slot
+          name="info"
+          v-bind="{
+            hasInfo,
+            buttonInfoAttrs,
+            iconInfoAttrs: defaultProps.iconInfoAttrs,
+            labelInfoAttrs,
+            translation
+          }"
         >
-          <UiIcon
-            v-bind="defaultProps.iconInfoAttrs"
-            class="ui-button__icon ui-multiple-choices-item__info-icon"
-          />
-          <span class="ui-multiple-choices-item__info-message">
-            {{ translation.info }}
-          </span>
-        </UiButton>
+          <UiButton
+            v-if="hasInfo"
+            v-bind="buttonInfoAttrs"
+            class="ui-button--text ui-button--small ui-multiple-choices-item__info"
+          >
+            <UiIcon
+              v-bind="defaultProps.iconInfoAttrs"
+              class="ui-button__icon ui-multiple-choices-item__info-icon"
+            />
+            <span
+              v-bind="labelInfoAttrs"
+              class="ui-multiple-choices-item__info-label"
+            >
+              {{ translation.info }}
+            </span>
+          </UiButton>
+        </slot>
       </div>
     </slot>
-    <div class="ui-multiple-choices-item__content">
+    <div class="ui-multiple-choices-item__choices">
+      <!-- TODO: create MultipleChoicesItemOptions component -->
       <UiList
         class="ui-multiple-choices-item__options"
       >
@@ -69,17 +98,23 @@
             name="option"
             v-bind="{
               value,
-              option,
+              optionItemAttrs: defaultProps.optionItemAttrs,
               invalid,
+              option,
             }"
           >
             <UiListItem
               v-model="value"
-              :list-item-attrs="defaultProps.optionItemAttrs"
-              :tag="UiRadio"
-              :class="{ 'ui-radio--has-error': invalid }"
-              :name="multipleChoicesItemId"
               v-bind="option"
+              :tag="UiRadio"
+              :name="multipleChoicesItemId"
+              :class="[
+                'ui-multiple-choices-item__option-content', {
+                  'ui-radio--has-error': invalid,
+                  'ui-list-item--has-error': invalid,
+                }
+              ]"
+              :list-item-attrs="defaultProps.optionItemAttrs"
             >
               {{ option.label }}
             </UiListItem>
@@ -90,6 +125,7 @@
       <slot
         name="alert"
         v-bind="{
+          invalid,
           alertAttrs,
           translation: defaultProps.translation,
         }"
@@ -97,7 +133,6 @@
         <UiAlert
           v-if="invalid"
           v-bind="alertAttrs"
-          type="error"
           class="ui-multiple-choices-item__alert"
         >
           {{ defaultProps.translation.invalid }}
@@ -194,7 +229,14 @@ const props = defineProps({
    */
   buttonInfoAttrs: {
     type: Object,
-    default: null,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for info label element.
+   */
+  labelInfoAttrs: {
+    type: Object,
+    default: () => ({}),
   },
   /**
    * Use this props to pass attrs for info UiIcon.
@@ -255,6 +297,10 @@ const defaultProps = computed<DefaultProps>(() => ({
     invalid: 'Please select one answer',
     ...props.translation,
   },
+  listItemAttrs: {
+    class: 'ui-multiple-choices-item',
+    ...props.listItemAttrs,
+  },
   textLabelAttrs: {
     tag: 'span',
     ...props.textLabelAttrs,
@@ -262,10 +308,6 @@ const defaultProps = computed<DefaultProps>(() => ({
   iconInfoAttrs: {
     icon: 'info',
     ...props.iconInfoAttrs,
-  },
-  listItemAttrs: {
-    class: 'ui-multiple-choices-item',
-    ...props.listItemAttrs,
   },
   optionItemAttrs: {
     class: 'ui-multiple-choices-item__option',
@@ -280,6 +322,7 @@ const value = computed({
     emit('update:modelValue', newValue);
   },
 });
+const hasInfo = computed(() => (Object.keys(props.buttonInfoAttrs).length > 0));
 // TODO: remove in 0.6.0 / BEGIN
 const attrs = useAttrs();
 const name = computed(() => (attrs.name));
@@ -308,37 +351,32 @@ const optionsToRender = computed(() => props.options.map((option) => ({
   $this: &;
   $element: multiple-choices-item;
 
-  --list-item-border-width: #{functions.var($element, border-width, 0)};
-
-  &:first-of-type {
-    --list-item-border-width: #{functions.var($element, border-width, 1px 0 0)};
+  &:not(:first-of-type) {
+    --list-item-border-width: #{functions.var($element , border-width, 0)};
   }
 
   @include mixins.from-tablet {
-    --list-item-border-width: #{functions.var($element + "-tablet", border-width, 1px 0 0)};
-
-    &:last-of-type {
-      --list-item-border-width: #{functions.var($element + "-tablet", border-width, 1px 0)};
+    &:not(:first-of-type) {
+      --list-item-border-width: #{functions.var($element , border-width)};
     }
   }
 
-  &__choices {
+  &__content {
     @at-root fieldset#{&} {
       border: none;
       margin: 0;
     }
 
-    @include mixins.to-mobile {
-      --list-item-content-padding: #{functions.var($element + "-choices-mobile", padding, var(--space-20) 0 0)};
-      --list-item-content-hover-background: #{functions.var($element + "-choices-mobile-hover", background, transparent)};
+    --list-item-content-padding: #{functions.var($element + "-content", padding, 0)};
+    --list-item-content-hover-background: #{functions.var($element + "-content-hover", background, transparent)};
 
-      display: block;
-    }
+    display: block;
 
     @include mixins.from-tablet {
+      --list-item-content-hover-background: #{functions.var($element + "-tablet-content-hover", background)};
+
       display: flex;
-      flex-direction: row;
-      justify-content: space-between;
+      gap: functions.var($element + "-tablet-content", gap, var(--space-24));
     }
   }
 
@@ -346,69 +384,23 @@ const optionsToRender = computed(() => props.options.map((option) => ({
     display: flex;
     justify-content: space-between;
     padding: functions.var($element + "-header", padding, var(--space-12) var(--space-20));
+    margin: functions.var($element + "-header", margin, var(--space-20) 0 0 0);
+    gap: functions.var($element + "-header", gap, var(--space-12));
 
     @include mixins.from-tablet {
-      flex: 1;
       flex-direction: column;
       align-items: flex-start;
-      justify-content: flex-start;
       padding: functions.var($element + "-tablet-header", padding, 0);
-    }
-  }
-
-  &__options {
-    @include mixins.from-tablet {
-      display: flex;
-      flex-direction: row;
-    }
-  }
-
-  &__option {
-    --list-item-content-padding: #{functions.var($element + "-option", padding, var(--space-12) var(--space-20))};
-    --list-item-tablet-content-padding: #{functions.var($element + "-tablet-option", padding, 0)};
-    --list-item-border-width: #{functions.var($element + "-option", border-width, 1px 0 0)};
-    --list-item-content-hover-background: #{functions.var($element + "-option-hover", background, var(--color-background-white-hover))};
-
-    &:last-of-type {
-      --list-item-border-width: #{functions.var($element + "-option", border-width, 1px 0)};
-    }
-
-    @include mixins.from-tablet {
-      --list-item-border-width: #{functions.var($element + "-tablet-option", border-width, 0)};
-      --list-item-content-hover-background: #{functions.var($element + "-tablet-option-hover", background, transparent)};
-      --radio-label-margin: 0 0 0 var(--space-8);
-
-      display: flex;
-      flex-direction: row;
-      margin: functions.var($element + "-tablet-option", margin, 0 0 0 var(--space-24));
-
-      &:first-of-type {
-        margin: functions.var($element + "-tablet-option", margin, 0);
-      }
-
-      &:last-of-type {
-        --list-item-border-width: #{functions.var($element + "-tablet-option", border-width, 0)};
-      }
-
-      [dir="rtl"] & {
-        margin: functions.var($element + "-rtl-tablet-option", margin, 0 var(--space-24) 0 0);
-
-        &:first-of-type {
-          margin: functions.var($element + "-rtl-tablet-option", margin, 0);
-        }
-      }
+      margin: functions.var($element + "-tablet-header", margin, 0);
+      gap: functions.var($element + "-tablet-header", gap, var(--space-8));
     }
   }
 
   &__info {
-    margin: functions.var($element + "-info", margin, 0);
-
-    @include mixins.from-tablet {
-      margin: functions.var($element + "-tablet-info", margin, var(--space-8) 0 0 0);
-    }
+    gap: functions.var($element + "-info", gap, var(--space-4));
   }
 
-  &__info-message {
+  &__info-label {
     @include mixins.to-mobile {
       position: absolute;
       overflow: hidden;
@@ -421,36 +413,58 @@ const optionsToRender = computed(() => props.options.map((option) => ({
   }
 
   &__info-icon {
-    --button-icon-margin: #{functions.var($element + "-info-icon", margin, 0)};
-    --button-rtl-icon-margin: #{functions.var($element + "-rtl-info-icon", margin, 0)};
+    --button-icon-margin: 0;
+    --button-rtl-icon-margin: 0;
+  }
+
+  &__choices {
+    display: flex;
+    flex-direction: column;
+    gap: functions.var($element + "-choices", gap, 0);
 
     @include mixins.from-tablet {
-      --button-icon-margin: #{functions.var($element + "-tablet-info-icon", margin, 0 var(--space-4) 0 0)};
-      --button-rtl-icon-margin: #{functions.var($element + "-rtl-tablet-info-icon", margin, 0 0 0 var(--space-4))};
+      gap: functions.var($element + "-tablet-choices", gap, var(--space-8));
     }
   }
 
-  &__alert {
-    margin: functions.var($element + "-alert", margin, var(--space-12) var(--space-20) 0);
+  &__options {
+    --list-item-border-width: #{functions.var($element + "-options" , border-width)};
 
     @include mixins.from-tablet {
-      margin: functions.var($element + "-tablet-alert", margin, var(--space-8) 0 0);
+      --list-item-border-width: #{functions.var($element + "-tablet-options" , border-width, 0)};
+
+      display: flex;
+      gap: functions.var($element + "-options", gap, var(--space-24));
+    }
+  }
+
+  &__option-content {
+    --list-item-content-padding: #{functions.var($element + "-option-content", padding)};
+    --list-item-tablet-content-padding: #{functions.var($element + "-tablet-option-content", padding, 0)};
+    --list-item-content-hover-background: #{functions.var($element + "-content-hover", background)};
+  }
+
+  &__alert {
+    padding: functions.var($element + "-alert", padding, var(--space-12) var(--space-20) 0);
+
+    @include mixins.from-tablet {
+      padding: functions.var($element + "-tablet-alert", padding, 0);
     }
   }
 
   &--has-error {
-    @include mixins.from-tablet {
-      --list-item-content-hover-background: #{functions.var($element + "-tablet-hover", background, var(--color-background-error))};
+    --_list-item-background: #{functions.var($element, background, transparent)};
+    --list-item-background: var(--_list-item-background);
+    --list-item-hover-background: var(--_list-item-background);
 
-      background: functions.var($element + "-tablet", background, var(--color-background-error));
+    @include mixins.from-tablet {
+      --_list-item-background: #{functions.var($element + "-tablet", background)};
     }
 
     #{$this}__option {
-      @include mixins.to-mobile {
-        background: functions.var($element + "-mobile-option", background, var(--color-background-error));
-
-        --list-item-content-hover-background: #{functions.var($element + "-choices-mobile-hover", background, var(--color-background-error))};
-      }
+      --_list-item-option-background: #{functions.var($element + "-option", background)};
+      --list-item-background: var(--_list-item-option-background);
+      --list-item-hover-background: var(--_list-item-option-background);
     }
   }
 }

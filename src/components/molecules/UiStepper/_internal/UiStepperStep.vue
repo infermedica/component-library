@@ -141,7 +141,7 @@ const itemAttrs = computed(() => (isVisitedStep.value
     }
 
     #{$this}__content {
-      --text-color: #{functions.var($element + "-content", color, unset)};
+      --text-color: #{functions.var($element + "-content", color, revert)};
     }
   }
 

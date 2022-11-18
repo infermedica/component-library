@@ -19,7 +19,7 @@
       </UiAlert>
     </slot>
     <UiList
-      class="ui-multiple-choices__list"
+      class="ui-multiple-choices__items"
     >
       <template
         v-for="(item, index) in choices || items"
