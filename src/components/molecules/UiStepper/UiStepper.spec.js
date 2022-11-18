@@ -93,7 +93,7 @@ describe('UiStepper.vue', () => {
 
       const listItems = wrapper.findAllComponents(UiListItem);
       const activeListItem = listItems[currentStepIndex];
-      expect(activeListItem.classes()).toContain('ui-stepper__step--current');
+      expect(activeListItem.classes()).toContain('ui-stepper-step--is-current');
     });
     test('renders a component with visited class on the visited elements', () => {
       const wrapper = mount(UiStepper, {
@@ -105,10 +105,10 @@ describe('UiStepper.vue', () => {
 
       const listItems = wrapper.findAllComponents(UiListItem);
       // + 1 to include last element, this is specific to Array.proptotype.splice
-      const visitedListItems = listItems.slice(0, currentStepIndex + 1);
+      const visitedListItems = listItems.slice(0, currentStepIndex);
 
       visitedListItems.forEach((element) => {
-        expect(element.classes()).toContain('ui-stepper__step--visited');
+        expect(element.classes()).toContain('ui-stepper-step--is-visited');
       });
     });
   });

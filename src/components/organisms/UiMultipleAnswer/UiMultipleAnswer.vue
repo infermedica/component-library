@@ -50,35 +50,21 @@
             hasError,
           }"
         >
-          <UiListItem
-            class="ui-multiple-answer__list-item"
+          <UiMultipleAnswerItem
+            v-model="value"
+            v-bind="item"
+            :invalid="hasError"
           >
-            <!-- @slot Use this slot to replace choice template.-->
-            <slot
-              v-bind="{
-                value,
-                item,
-                name,
-                hasError,
-              }"
-              :name="choiceItem && 'choice-item' || 'choice'"
+            <template
+              v-for="(_, slotName) in $slots"
+              #[slotName]="data"
             >
-              <UiMultipleAnswerItem
-                v-model="value"
-                v-bind="item"
-                :name="name"
-                :invalid="hasError"
-                class="ui-multiple-answer__choice"
-              >
-                <template #label="data">
-                  <slot
-                    v-bind="data"
-                    :name="`label-${data.id}`"
-                  />
-                </template>
-              </UiMultipleAnswerItem>
-            </slot>
-          </UiListItem>
+              <slot
+                v-bind="data"
+                :name="slotName"
+              />
+            </template>
+          </UiMultipleAnswerItem>
         </slot>
       </template>
     </UiList>
@@ -88,24 +74,30 @@
 <script setup lang="ts">
 import {
   computed,
-  useAttrs,
-  useSlots,
   watch,
+  useAttrs,
 } from 'vue';
 import type { PropType } from 'vue';
-import UiMultipleAnswerItem from './_internal/UiMultipleAnswerItem.vue';
-import UiList from '../UiList/UiList.vue';
-import UiListItem from '../UiList/_internal/UiListItem.vue';
+import type { Icon } from '../../../types/icon';
 import UiAlert from '../../molecules/UiAlert/UiAlert.vue';
+import UiList from '../UiList/UiList.vue';
+import UiMultipleAnswerItem from './_internal/UiMultipleAnswerItem.vue';
 
+export interface MultipleAnswerLabelAttrs {
+  tag?: HTMLElement;
+}
+export interface MultipleAnswerItemTranslation {
+  info: string;
+}
 export interface MultipleAnswerItem {
   id?: string;
   label?: string;
+  name?:string; // TODO: remove in 0.6.0
   value?: string | Record<string, unknown>,
-  name?:string, // TODO: remove in 0.6.0
-  buttonInfoAttrs?: Record<string, unknown>,
-  iconInfoAttrs?: Record<string, unknown>,
-  textLabelAttrs?: Record<string, unknown>
+  translation?: MultipleAnswerItemTranslation
+  buttonInfoAttrs?: Record<string, unknown>;
+  iconInfoAttrs?: Record<string, unknown>;
+  textLabelAttrs?: MultipleAnswerLabelAttrs;
 }
 export type MultipleAnswerValue = string | MultipleAnswerItem | MultipleAnswerItem[] | unknown[];
 
@@ -122,7 +114,7 @@ const props = defineProps({
     default: () => ([]),
   },
   /**
-   *  Use this props to set possible choices.
+   *  Use this props to set possible items.
    */
   items: {
     type: Array as PropType<MultipleAnswerItem[]>,
@@ -190,10 +182,13 @@ const hintType = computed<'error'|'default'>(() => (props.touched && props.inval
 watch(valid, (value) => {
   emit('update:invalid', !value);
 }, { immediate: true });
+const handleValueUpdate = (newValue: string | unknown[] | Record<string, unknown>) => {
+  emit('update:modelValue', newValue);
+};
 const value = computed({
   get: () => (props.modelValue),
   set: (newValue) => {
-    emit('update:modelValue', newValue);
+    handleValueUpdate(newValue);
   },
 });
 const itemsToRender = computed(() => (props.items.map((item) => {
@@ -224,13 +219,6 @@ if (choices.value) {
     console.warn('[@infermedica/component-library warn][UiMultipleAnswer]: The `choices` props will be removed in 0.6.0. Please use `items` props instead.');
   }
 }
-const slots = useSlots();
-const choiceItem = computed(() => (slots['choice-item']));
-if (choiceItem.value) {
-  if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiMultipleAnswer]: The `choice-item` slot will be removed in 0.6.0. Please use `choice` slot instead.');
-  }
-}
 // END
 </script>
 
@@ -253,22 +241,6 @@ if (choiceItem.value) {
 
     @include mixins.from-tablet {
       padding: functions.var($element + "-tablet-hint", padding, 0 0 var(--space-12) 0);
-    }
-  }
-
-  &__list-item {
-    @include mixins.inner-border(
-      $element: multiple-answer-list-item,
-      $color: var(--color-border-divider),
-      $width: 1px 0 0 0
-    );
-
-    --list-item-padding: 0;
-
-    &:last-of-type {
-      &::after {
-        border-width: functions.var($element, border-width, 1px 0);
-      }
     }
   }
 }
