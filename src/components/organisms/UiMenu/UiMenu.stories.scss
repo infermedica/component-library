@@ -1,21 +1,22 @@
 @use "../../../styles/mixins";
 
-//<Code id="menu-side-panel">
-.menu-side-panel {
+//<Code id="menu-mobile-menu">
+.menu-mobile-menu {
   --side-panel-content-padding: 0;
   --side-panel-tablet-content-padding: 0;
 
-  &__container {
+  &__content {
     @include mixins.inner-border(
-      $element: 'menu-side-panel-container',
+      $element: 'menu-side-panel-content',
       $color: var(--color-border-subtle),
       $width: 0 0 1px 0,
-      $radius: var(--border-radius-button)
+      $radius: 0
     );
     padding: var(--space-12) var(--space-4);
   }
+
   &__footer {
-    padding: var(--space-24) var(--space-20) var(--space-40);
+    padding: var(--space-24) var(--space-20);
   }
 }
 //</Code>

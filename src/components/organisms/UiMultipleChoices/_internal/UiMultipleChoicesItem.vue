@@ -1,11 +1,15 @@
 <template>
-  <component
-    :is="tag"
-    role="radiogroup"
-    :aria-labelledby="multipleChoicesItemId"
+  <UiListItem
+    :list-item-attrs="defaultProps.listItemAttrs"
     :class="[
-      'ui-multiple-choices-item', { 'ui-multiple-choices-item--has-error': invalid }
+      'ui-multiple-choices-item__content', {
+        'ui-list-item--has-error': invalid,
+        'ui-multiple-choices-item--has-error': invalid
+      }
     ]"
+    :tag="tag"
+    :aria-labelledby="multipleChoicesItemId"
+    role="radiogroup"
   >
     <!-- @slot Use this slot to replace legend template. -->
     <slot
@@ -19,72 +23,123 @@
         {{ name || label }}
       </legend>
     </slot>
-    <!-- @slot Use this slot to replace label template.-->
+    <!-- @slot Use this slot to replace header template.-->
     <slot
-      name="label"
+      name="header"
       v-bind="{
         id: multipleChoicesItemId,
         textLabelAttrs,
         name,
         label,
+        hasInfo,
         buttonInfoAttrs,
         iconInfoAttrs: defaultProps.iconInfoAttrs,
         translation,
       }"
     >
       <div class="ui-multiple-choices-item__header">
-        <UiText
-          :id="multipleChoicesItemId"
-          v-bind="textLabelAttrs"
-          class="ui-multiple-choices-item__label"
-        >
-          {{ name || label }}
-        </UiText>
-        <UiButton
-          v-if="buttonInfoAttrs"
-          v-bind="buttonInfoAttrs"
-          class="ui-button--text ui-button--small ui-multiple-choices-item__info"
-        >
-          <UiIcon
-            v-bind="defaultProps.iconInfoAttrs"
-            class="ui-button__icon ui-multiple-choices-item__info-icon"
-          />
-          <span class="ui-multiple-choices-item__info-message">
-            {{ translation.info }}
-          </span>
-        </UiButton>
-      </div>
-    </slot>
-    <div
-      class="ui-multiple-choices-item__options"
-    >
-      <template
-        v-for="(option, key) in optionsToRender"
-        :key="key"
-      >
-        <!-- @slot Use this slot to replace option template.-->
         <slot
-          name="option"
+          name="label"
           v-bind="{
-            value,
-            option,
-            invalid,
+            multipleChoicesItemId,
+            textLabelAttrs,
+            name,
+            label
           }"
         >
-          <UiRadio
-            v-model="value"
-            v-bind="option"
-            :class="[
-              'ui-multiple-choices-item__option', { 'ui-radio--has-error': invalid }
-            ]"
-            :name="multipleChoicesItemId"
+          <UiText
+            :id="multipleChoicesItemId"
+            v-bind="textLabelAttrs"
+            class="ui-multiple-choices-item__label"
           >
-            {{ option.label }}
-          </UiRadio>
+            {{ name || label }}
+          </UiText>
         </slot>
-      </template>
+        <slot
+          name="info"
+          v-bind="{
+            hasInfo,
+            buttonInfoAttrs,
+            iconInfoAttrs: defaultProps.iconInfoAttrs,
+            labelInfoAttrs,
+            translation
+          }"
+        >
+          <UiButton
+            v-if="hasInfo"
+            v-bind="buttonInfoAttrs"
+            class="ui-button--text ui-button--small ui-multiple-choices-item__info"
+          >
+            <UiIcon
+              v-bind="defaultProps.iconInfoAttrs"
+              class="ui-button__icon ui-multiple-choices-item__info-icon"
+            />
+            <span
+              v-bind="labelInfoAttrs"
+              class="ui-multiple-choices-item__info-label"
+            >
+              {{ translation.info }}
+            </span>
+          </UiButton>
+        </slot>
+      </div>
+    </slot>
+    <div class="ui-multiple-choices-item__choices">
+      <!-- TODO: create MultipleChoicesItemOptions component -->
+      <UiList
+        class="ui-multiple-choices-item__options"
+      >
+        <template
+          v-for="(option, key) in optionsToRender"
+          :key="key"
+        >
+          <!-- @slot Use this slot to replace option template.-->
+          <slot
+            name="option"
+            v-bind="{
+              value,
+              optionItemAttrs: defaultProps.optionItemAttrs,
+              invalid,
+              option,
+            }"
+          >
+            <UiListItem
+              v-model="value"
+              v-bind="option"
+              :tag="UiRadio"
+              :name="multipleChoicesItemId"
+              :class="[
+                'ui-multiple-choices-item__option-content', {
+                  'ui-radio--has-error': invalid,
+                  'ui-list-item--has-error': invalid,
+                }
+              ]"
+              :list-item-attrs="defaultProps.optionItemAttrs"
+            >
+              {{ option.label }}
+            </UiListItem>
+          </slot>
+        </template>
+      </UiList>
+      <!-- @slot Use this slot to replace alert template. -->
+      <slot
+        name="alert"
+        v-bind="{
+          invalid,
+          alertAttrs,
+          translation: defaultProps.translation,
+        }"
+      >
+        <UiAlert
+          v-if="invalid"
+          v-bind="alertAttrs"
+          class="ui-multiple-choices-item__alert"
+        >
+          {{ defaultProps.translation.invalid }}
+        </UiAlert>
+      </slot>
     </div>
-  </component>
+  </UiListItem>
 </template>
 
 <script setup lang="ts">
@@ -95,12 +150,16 @@ import {
 import { uid } from 'uid/single';
 import type { PropType } from 'vue';
 import type { HTMLTag } from '../../../../types/tag';
-import UiRadio from '../../../atoms/UiRadio/UiRadio.vue';
-import UiText from '../../../atoms/UiText/UiText.vue';
+import type { Icon } from '../../../../types/icon';
+import type { MultipleChoiceOption } from '../UiMultipleChoices.vue';
+import type { PropsAttrs } from '../../../../types/attrs';
+import UiAlert from '../../../molecules/UiAlert/UiAlert.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
-import type { MultipleChoiceOption } from '../UiMultipleChoices.vue';
-import type { Icon } from '../../../../types/icon';
+import UiList from '../../UiList/UiList.vue';
+import UiListItem from '../../UiList/_internal/UiListItem.vue';
+import UiRadio from '../../../atoms/UiRadio/UiRadio.vue';
+import UiText from '../../../atoms/UiText/UiText.vue';
 
 const props = defineProps({
   /**
@@ -146,7 +205,10 @@ const props = defineProps({
    */
   translation: {
     type: Object,
-    default: () => ({ info: 'What does it mean?' }),
+    default: () => ({
+      info: 'What does it mean?',
+      invalid: 'Please select one answer',
+    }),
   },
   /**
    *  Use this props to pass options.
@@ -156,11 +218,25 @@ const props = defineProps({
     default: () => ([]),
   },
   /**
+   * Use this props to pass attrs for hint UiAlert
+   */
+  alertAttrs: {
+    type: Object as PropsAttrs,
+    default: () => ({}),
+  },
+  /**
    * Use this props to pass attrs for info UiButton.
    */
   buttonInfoAttrs: {
     type: Object,
-    default: null,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for info label element.
+   */
+  labelInfoAttrs: {
+    type: Object,
+    default: () => ({}),
   },
   /**
    * Use this props to pass attrs for info UiIcon.
@@ -176,22 +252,54 @@ const props = defineProps({
     type: Object,
     default: () => ({ tag: 'span' }),
   },
+  /**
+   * Use this props to pass attrs for list item.
+   */
+  listItemAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
+  /**
+   * Use this props to pass attrs for option item.
+   */
+  optionItemAttrs: {
+    type: Object,
+    default: () => ({}),
+  },
 });
 interface DefaultProps {
+  translation: {
+    info: string;
+    invalid: string;
+    [key: string]: unknown;
+  };
   textLabelAttrs: {
     tag: HTMLTag;
-    [key: string]: unknown
+    [key: string]: unknown;
   };
   iconInfoAttrs: {
     icon: Icon;
+    [key: string]: unknown;
+  };
+  listItemAttrs: {
+    class: string;
     [key: string]: unknown
   };
-  [key: string]: unknown
+  optionItemAttrs: {
+    class: string;
+    [key: string]: unknown;
+  };
+  [key: string]: unknown;
 }
 const defaultProps = computed<DefaultProps>(() => ({
   translation: {
     info: 'What does it mean?',
+    invalid: 'Please select one answer',
     ...props.translation,
+  },
+  listItemAttrs: {
+    class: 'ui-multiple-choices-item',
+    ...props.listItemAttrs,
   },
   textLabelAttrs: {
     tag: 'span',
@@ -200,6 +308,10 @@ const defaultProps = computed<DefaultProps>(() => ({
   iconInfoAttrs: {
     icon: 'info',
     ...props.iconInfoAttrs,
+  },
+  optionItemAttrs: {
+    class: 'ui-multiple-choices-item__option',
+    ...props.optionItemAttrs,
   },
 }));
 const emit = defineEmits<{(e: 'update:modelValue', value: string | Record<string, unknown>): void}>();
@@ -210,6 +322,7 @@ const value = computed({
     emit('update:modelValue', newValue);
   },
 });
+const hasInfo = computed(() => (Object.keys(props.buttonInfoAttrs).length > 0));
 // TODO: remove in 0.6.0 / BEGIN
 const attrs = useAttrs();
 const name = computed(() => (attrs.name));
@@ -238,82 +351,56 @@ const optionsToRender = computed(() => props.options.map((option) => ({
   $this: &;
   $element: multiple-choices-item;
 
-  @at-root fieldset#{&} {
-    border: none;
-    margin: 0;
+  &:not(:first-of-type) {
+    --list-item-border-width: #{functions.var($element , border-width, 0)};
   }
 
-  display: flex;
-  flex-direction: column;
-  padding: functions.var($element, padding, var(--space-20) 0 0 0);
-  background: functions.var($element, background, transparent);
-
   @include mixins.from-tablet {
-    flex-direction: row;
-    justify-content: space-between;
-    padding: functions.var($element + "-tablet-choice", padding, var(--space-12));
+    &:not(:first-of-type) {
+      --list-item-border-width: #{functions.var($element , border-width)};
+    }
+  }
 
-    @include mixins.hover {
-      background: functions.var($element + "-tablet-hover", background, var(--color-background-white-hover));
+  &__content {
+    @at-root fieldset#{&} {
+      border: none;
+      margin: 0;
+    }
+
+    --list-item-content-padding: #{functions.var($element + "-content", padding, 0)};
+    --list-item-content-hover-background: #{functions.var($element + "-content-hover", background, transparent)};
+
+    display: block;
+
+    @include mixins.from-tablet {
+      --list-item-content-hover-background: #{functions.var($element + "-tablet-content-hover", background)};
+
+      display: flex;
+      gap: functions.var($element + "-tablet-content", gap, var(--space-24));
     }
   }
 
   &__header {
     display: flex;
-    flex: 1;
     justify-content: space-between;
     padding: functions.var($element + "-header", padding, var(--space-12) var(--space-20));
+    margin: functions.var($element + "-header", margin, var(--space-20) 0 0 0);
+    gap: functions.var($element + "-header", gap, var(--space-12));
 
     @include mixins.from-tablet {
       flex-direction: column;
       align-items: flex-start;
-      justify-content: flex-start;
       padding: functions.var($element + "-tablet-header", padding, 0);
-    }
-  }
-
-  &__options {
-    display: flex;
-    flex-direction: column;
-
-    @include mixins.from-tablet {
-      flex-direction: row;
-    }
-  }
-
-  &__option {
-    @include mixins.inner-border(
-      $element: multiple-answer-list-item,
-      $color: var(--color-border-divider),
-      $width: 1px 0 0 0
-    );
-
-    padding: functions.var($element + "-option", padding, var(--space-12) var(--space-20));
-    margin: functions.var($element + "-option", margin, 0);
-
-    @include mixins.from-tablet {
-      padding: functions.var($element + "-tablet-option", padding, 0);
-      margin: functions.var($element + "-tablet-option", margin, 0 0 0 var(--space-24));
-
-      [dir="rtl"] & {
-        margin: functions.var($element + "-rtl-tablet-option", margin, 0 var(--space-24) 0 0);
-      }
-
-      &::after {
-        border-width: 0;
-      }
+      margin: functions.var($element + "-tablet-header", margin, 0);
+      gap: functions.var($element + "-tablet-header", gap, var(--space-8));
     }
   }
 
   &__info {
-    margin: functions.var($element + "-info", margin, 0);
-
-    @include mixins.from-tablet {
-      margin: functions.var($element + "-tablet-info", margin, var(--space-8) 0 0 0);
-    }
+    gap: functions.var($element + "-info", gap, var(--space-4));
   }
 
-  &__info-message {
+  &__info-label {
     @include mixins.to-mobile {
       position: absolute;
       overflow: hidden;
@@ -326,28 +413,58 @@ const optionsToRender = computed(() => props.options.map((option) => ({
   }
 
   &__info-icon {
-    --button-icon-margin: #{functions.var($element + "-info-icon", margin, 0)};
-    --button-rtl-icon-margin: #{functions.var($element + "-rtl-info-icon", margin, 0)};
+    --button-icon-margin: 0;
+    --button-rtl-icon-margin: 0;
+  }
+
+  &__choices {
+    display: flex;
+    flex-direction: column;
+    gap: functions.var($element + "-choices", gap, 0);
 
     @include mixins.from-tablet {
-      --button-icon-margin: #{functions.var($element + "-tablet-info-icon", margin, 0 var(--space-4) 0 0)};
-      --button-rtl-icon-margin: #{functions.var($element + "-rtl-tablet-info-icon", margin, 0 0 0 var(--space-4))};
+      gap: functions.var($element + "-tablet-choices", gap, var(--space-8));
+    }
+  }
+
+  &__options {
+    --list-item-border-width: #{functions.var($element + "-options" , border-width)};
+
+    @include mixins.from-tablet {
+      --list-item-border-width: #{functions.var($element + "-tablet-options" , border-width, 0)};
+
+      display: flex;
+      gap: functions.var($element + "-options", gap, var(--space-24));
+    }
+  }
+
+  &__option-content {
+    --list-item-content-padding: #{functions.var($element + "-option-content", padding)};
+    --list-item-tablet-content-padding: #{functions.var($element + "-tablet-option-content", padding, 0)};
+    --list-item-content-hover-background: #{functions.var($element + "-content-hover", background)};
+  }
+
+  &__alert {
+    padding: functions.var($element + "-alert", padding, var(--space-12) var(--space-20) 0);
+
+    @include mixins.from-tablet {
+      padding: functions.var($element + "-tablet-alert", padding, 0);
     }
   }
 
   &--has-error {
-    @include mixins.from-tablet {
-      background: functions.var($element + "-tablet", background, var(--color-background-error));
+    --_list-item-background: #{functions.var($element, background, transparent)};
+    --list-item-background: var(--_list-item-background);
+    --list-item-hover-background: var(--_list-item-background);
 
-      @include mixins.hover {
-        background: functions.var($element + "-tablet-hover", background, var(--color-background-error));
-      }
+    @include mixins.from-tablet {
+      --_list-item-background: #{functions.var($element + "-tablet", background)};
     }
 
     #{$this}__option {
-      @include mixins.to-mobile {
-        background: functions.var($element + "-option", background, var(--color-background-error));
-      }
+      --_list-item-option-background: #{functions.var($element + "-option", background)};
+      --list-item-background: var(--_list-item-option-background);
+      --list-item-hover-background: var(--_list-item-option-background);
     }
   }
 }

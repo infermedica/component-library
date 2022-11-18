@@ -1,14 +1,17 @@
 <template>
-  <UiButton class="ui-button--text ui-list-item-suffix">
+  <UiButton class="ui-button--text ui-list-item-suffix-as-button">
     <!-- @slot Use this slot to replace label template. -->
     <slot
       name="label"
       v-bind="{
         label,
-        labelAttrs
+        labelSuffixAttrs
       }"
     >
-      <span v-bind="labelAttrs">{{ label }}</span>
+      <span
+        v-if="label"
+        v-bind="labelSuffixAttrs"
+      >{{ label }}</span>
     </slot>
     <!-- @slot Use this slot to replace icon template. -->
     <slot
@@ -21,7 +24,7 @@
       <UiIcon
         v-if="hasIcon"
         v-bind="defaultProps.iconSuffixAttrs"
-        class="ui-button__icon ui-button__icon--right"
+        class="ui-button__icon ui-list-item-suffix-as-button__icon"
       />
     </slot>
   </UiButton>
@@ -63,7 +66,7 @@ const props = defineProps({
   /**
    * Use this props to pass attrs for label element.
    */
-  labelAttrs: {
+  labelSuffixAttrs: {
     type: Object as PropsAttrs,
     default: () => ({}),
   },
@@ -76,3 +79,18 @@ const defaultProps = computed(() => ({
 }));
 const hasIcon = computed(() => (!!defaultProps.value.iconSuffixAttrs.icon));
 </script>
+
+<style lang="scss">
+@use "../../../../styles/functions";
+
+.ui-list-item-suffix-as-button {
+  $element: list-item-suffix-as-button;
+
+  gap: functions.var($element, gap, var(--space-4));
+
+  &__icon {
+    --button-icon-margin: 0;
+    --button-rtl-icon-margin: 0;
+  }
+}
+</style>

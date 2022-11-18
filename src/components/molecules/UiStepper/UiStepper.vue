@@ -4,10 +4,8 @@
     <slot
       name="mobile"
       v-bind="{
-        currentStep,
         currentStepDisplayText,
-        progressAttrs,
-        stepsProgress
+        progressAttrs: defaultProps.progressAttrs,
       }"
     >
       <div class="ui-stepper__mobile">
@@ -26,10 +24,7 @@
         <!-- @slot Use this slot to replace progress in the stepper -->
         <slot
           name="progress"
-          v-bind="{
-            progressAttrs: defaultProps.progressAttrs,
-            stepsProgress
-          }"
+          v-bind="{ progressAttrs: defaultProps.progressAttrs, }"
         >
           <UiProgress
             v-bind="defaultProps.progressAttrs"
@@ -45,17 +40,18 @@
         steps: stepsToRender,
         currentStep,
         indexOfActiveStep,
-        determineStep
+        stepperStepAttrs,
       }"
     >
       <UiList class="ui-stepper__desktop">
+        <!-- TODO: rename items, item to steps, step to keep name consistency -->
         <!-- @slot Use this slot to replace items in the desktop list -->
         <slot
           name="items"
           v-bind="{
             steps: stepsToRender,
             indexOfActiveStep,
-            determineStep
+            stepperStepAttrs,
           }"
         >
           <template
@@ -69,34 +65,21 @@
                 step,
                 index,
                 indexOfActiveStep,
-                determineStep
+                stepperStepAttrs,
               }"
             >
-              <UiListItem
-                class="ui-stepper__step"
-                :class="{
-                  'ui-stepper__step--visited': indexOfActiveStep >= index,
-                  'ui-stepper__step--current': indexOfActiveStep === index,
-                }"
+              <UiStepperStep
+                :index="index"
+                :index-of-active-step="indexOfActiveStep"
+                v-bind="stepperStepAttrs(step)"
               >
-                <!-- @slot Use this slot to replace items-link in the desktop list -->
-                <slot
-                  name="item-link"
-                  v-bind="{
-                    step,
-                    index,
-                    indexOfActiveStep,
-                    determineStep
-                  }"
-                >
-                  <UiButton
-                    v-bind="determineStep(index, step)"
-                    class="ui-button--text ui-button--theme-secondary ui-stepper__item"
-                  >
-                    {{ step.label }}
-                  </UiButton>
-                </slot>
-              </UiListitem>
+                <template #item-link="data">
+                  <slot
+                    name="item-link"
+                    v-bind="data"
+                  />
+                </template>
+              </UiStepperStep>
             </slot>
           </template>
         </slot>
@@ -106,29 +89,27 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import {
+  computed,
+  useSlots,
+} from 'vue';
 import type { PropType } from 'vue';
+import type { PropsAttrs } from '../../../types/attrs';
+import type { HTMLTag } from '../../../types/tag';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import UiProgress from '../../atoms/UiProgress/UiProgress.vue';
 import UiList from '../../organisms/UiList/UiList.vue';
-import UiListItem from '../../organisms/UiList/_internal/UiListItem.vue';
-import type { PropsAttrs } from '../../../types/attrs';
-import type { HTMLTag } from '../../../types/tag';
+import UiStepperStep from './_internal/UiStepperStep.vue';
 
 export interface Step {
   label: string;
   name?: string;
   to?: string;
   href?: string;
-  route?: string;
   [key: string]: unknown;
 }
-export interface DetermineStep {
-  tag?: HTMLTag;
-  class?: string;
-  [key: string]: unknown;
-}
+
 const props = defineProps({
   /**
    * Use this props to set the steps in the stepper.
@@ -159,11 +140,6 @@ const currentStepDisplayText = computed(() => `
       ${currentStepDisplayNumber.value}/${props.steps.length} ${props.currentStep}
     `);
 const stepsProgress = computed(() => (currentStepDisplayNumber.value / stepsLength.value) * 100);
-const determineStep = (itemIndex: number, step: Step): DetermineStep => ({
-  tag: itemIndex >= indexOfActiveStep.value ? 'span' : undefined,
-  class: itemIndex <= indexOfActiveStep.value ? undefined : 'ui-button--is-disabled',
-  ...step,
-});
 const defaultProps = computed(() => ({
   progressAttrs: {
     min: 0,
@@ -172,6 +148,10 @@ const defaultProps = computed(() => ({
     ...props.progressAttrs,
   },
 }));
+const stepperStepAttrs = (step: Step) => {
+  const { ...rest } = step;
+  return rest;
+};
 // TODO: remove in 0.6.0 / BEGIN
 if (props.steps.some((step) => step.name)) {
   if (process.env.NODE_ENV === 'development') {
@@ -227,75 +207,6 @@ const stepsToRender = computed<Step[]>(() => props.steps.map((step) => ({
     @include mixins.from-desktop {
       display: flex;
       flex-direction: column;
-    }
-  }
-
-  &__step {
-    --_stepper-step-indicator-width: #{functions.var($element + "-step-indicator", width, 4px)};
-    --list-item-padding:
-      #{functions.var(
-        $element + "-step",
-        padding,
-        var(--space-10) var(--space-8) var(--space-10) calc(var(--space-12) + var(--_stepper-step-indicator-width))
-      )};
-
-    position: relative;
-
-    [dir="rtl"] & {
-      --list-item-padding:
-        #{functions.var(
-          $element + "-step",
-          padding,
-          var(--space-10) calc(var(--space-12) + var(--_stepper-step-indicator-width)) var(--space-10) var(--space-8)
-        )};
-    }
-
-    &::after {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: var(--_stepper-step-indicator-width);
-      height: 100%;
-      background: functions.var($element + "-step-indicator", background, var(--color-progress-track));
-      content: "";
-
-      [dir="rtl"] & {
-        right: 0;
-        left: auto;
-      }
-    }
-
-    &--visited {
-      &::after {
-        background: functions.var($element + "-step-indicator", background, var(--color-progress-indicator));
-      }
-    }
-
-    &--current {
-      #{$this}__item {
-        --button-color: #{functions.var($element + "-item", color, var(--color-text-body))};
-        --button-font: #{functions.var($element + "-item", font, var(--font-body-1-thick))};
-        --button-letter-spacing:
-          #{functions.var(
-            $element + "-item",
-            letter-spacing,
-            var(--letter-spacing-body-1-thick)
-          )};
-
-        cursor: auto;
-      }
-    }
-  }
-
-  &__item {
-    --button-color: #{functions.var($element + "-item", color, var(--color-text-action-secondary))};
-    --button-font: #{functions.var($element + "-item", font, var(--font-body-1))};
-    --button-letter-spacing: #{functions.var($element + "-item", letter-spacing, var(--letter-spacing-body-1))};
-
-    text-align: left;
-
-    [dir="rtl"] & {
-      text-align: right;
     }
   }
 }

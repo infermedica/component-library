@@ -241,14 +241,14 @@ export const WithChevronSlot = (args) => ({
       >
         <template 
           #chevron="{
-            iconToggleAttrs,
+            iconTogglerAttrs,
             isOpen,
             iconOpen,
             iconClose,
           }"
         >
           <UiIcon
-            v-bind="iconToggleAttrs"
+            v-bind="iconTogglerAttrs"
             class="ui-button__icon ui-accordion-item__chevron"
           />
         </template>
