@@ -55,12 +55,12 @@ const dirName = dirname(fileName);
     }
     readdirSync(fwFolder).forEach((file) => {
       const componentFileName = file.replace('component', ComponentNameCamelCase);
-      let content = readFileSync(fwFolder + file, 'utf8');
-      content = content.replace(/ComponentFolder/g, componentFolder);
-      content = content.replace(/ComponentNameCamelCase/g, ComponentNameCamelCase);
-      content = content.replace(/ComponentNameKebabCase/g, ComponentNameKebabCase);
-      content = content.replace(/ComponentName/g, ComponentName);
-      content = content.replace(/ComponentType/g, ComponentType);
+      const content = readFileSync(fwFolder + file, 'utf8')
+        .replace(/ComponentFolder/g, componentFolder)
+        .replace(/ComponentNameCamelCase/g, ComponentNameCamelCase)
+        .replace(/ComponentNameKebabCase/g, ComponentNameKebabCase)
+        .replace(/ComponentName/g, ComponentName)
+        .replace(/ComponentType/g, ComponentType);
       fileSave(join(PackagePath, componentFileName))
         .write(content, 'utf8');
     });
