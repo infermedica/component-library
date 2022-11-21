@@ -1,0 +1,12 @@
+@use "../functions";
+
+@mixin use-logical($element, $property, $top: null, $right: $top, $bottom: null, $left: null) {
+  $propertyHead: nth(functions.split-str($property, '-'), 1);
+  $propertyTail: nth(functions.split-str($property, '-'), 2);
+  $propertyBlockName: #{$propertyHead}-block#{$propertyTail};
+  $propertyInlineName: #{$propertyHead}-inline#{$propertyTail};
+  @if $top {
+    #{$propertyBlockName}: var(--#{$element}-#{$propertyBlockName}, #{$top $bottom});
+    #{$propertyInlineName}: var(--#{$element}-#{$propertyInlineName}, #{$left $right});
+  }
+};

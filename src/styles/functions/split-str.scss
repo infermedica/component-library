@@ -1,0 +1,9 @@
+@function split-str($string, $separator) {
+  $index : str-index($string,  $separator);
+  @if not $index {
+    @return $string null;
+  }
+  $str-before-separator : str-slice($string, 1, $index - 1);
+  $str-from-separator : str-slice($string, $index);
+  @return $str-before-separator $str-from-separator;
+}
