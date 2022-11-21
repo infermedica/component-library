@@ -357,26 +357,18 @@ onBeforeUnmount(() => {
   &__dialog {
     position: fixed;
     z-index: 1000;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: auto;
     display: flex;
     width: 100%;
     max-width: functions.var($element, max-width, 100%);
     height: 100%;
     flex-direction: column;
-    padding: 0;
-    border-width: 0;
-    margin: 0;
     background: functions.var($element, background, var(--color-background-white));
     box-shadow: functions.var($element, box-shadow, var(--box-shadow-high));
 
-    [dir="rtl"] & {
-      right: auto;
-      left: 0;
-    }
-
+    @include mixins.use-logical($element, inset, 0, 0, 0, auto);
+    @include mixins.use-logical($element, padding, 0);
+    @include mixins.use-logical($element, border-width, 0);
+    @include mixins.use-logical($element, margin, 0);
     @include mixins.from-tablet {
       max-width: functions.var($element + "-tablet", max-width, 40rem);
     }
@@ -386,11 +378,12 @@ onBeforeUnmount(() => {
     display: flex;
     flex: none;
     flex-direction: column;
-    padding: functions.var($element + "-header", padding, var(--space-20) var(--space-20) var(--space-24));
     background: functions.var($element + "-header", background, var(--color-background-subtle));
 
+    @include mixins.use-logical($element + "-header", padding, var(--space-20), var(--space-20), var(--space-24));
+
     @include mixins.from-tablet {
-      padding: functions.var($element + "-tablet-header", padding, var(--space-40) var(--space-40) var(--space-32));
+      @include mixins.use-logical($element + "-tablet-header", padding, var(--space-40), var(--space-40), var(--space-32));
     }
   }
 
@@ -399,26 +392,27 @@ onBeforeUnmount(() => {
   }
 
   &__label {
-    padding: functions.var($element + "-label", padding, 0);
-    margin: functions.var($element + "-label", margin, var(--space-32) 0 0 0);
+    @include mixins.use-logical($element + "-label", padding, 0);
+    @include mixins.use-logical($element + "-label", margin, var(--space-32), 0, 0);
 
     @include mixins.from-tablet {
-      padding: functions.var($element + "-tablet-label", padding, 0 var(--space-8));
+      @include mixins.use-logical($element + "-tablet-label", padding, 0, var(--space-8));
     }
   }
 
   &__subtitle {
-    margin: functions.var($element + "-subtitle", margin, var(--space-8) 0 0 0);
+    @include mixins.use-logical($element + "-subtitle", margin, var(--space-8), 0, 0);
   }
 
   &__content {
     overflow: auto;
     height: 100%;
     flex: 1;
-    padding: functions.var($element + "-content", padding, var(--space-24) var(--space-20));
+
+    @include mixins.use-logical($element + "-content", padding, var(--space-24), var(--space-20));
 
     @include mixins.from-tablet {
-      padding: functions.var($element + "-tablet-content", padding, var(--space-32) var(--space-48));
+      @include mixins.use-logical($element + "-tablet-content", padding, var(--space-32), var(--space-48));
     }
 
     &:focus {
