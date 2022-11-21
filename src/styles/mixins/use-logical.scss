@@ -1,12 +1,25 @@
 @use "../functions";
-
-@mixin use-logical($element, $property, $top: null, $right: $top, $bottom: null, $left: null) {
-  $propertyHead: nth(functions.split-str($property, '-'), 1);
-  $propertyTail: nth(functions.split-str($property, '-'), 2);
-  $propertyBlockName: #{$propertyHead}-block#{$propertyTail};
-  $propertyInlineName: #{$propertyHead}-inline#{$propertyTail};
-  @if $top {
-    #{$propertyBlockName}: var(--#{$element}-#{$propertyBlockName}, #{$top $bottom});
-    #{$propertyInlineName}: var(--#{$element}-#{$propertyInlineName}, #{$left $right});
+/**
+ * CSS Custom Properties
+ * <element>-<propertyHead>-block-<?propertyTail>
+ * <element>-<propertyHead>-inline-<?propertyTail>
+ */
+@mixin use-logical($element, $property, $value) {
+  @if $value and $property {
+    $splittedProperty: functions.split-str($property, '-');
+    $propertyHead: nth($splittedProperty, 1);
+    $propertyTail: nth($splittedProperty, 2);
+    $propertyBlock: #{$propertyHead}-block#{$propertyTail};
+    $propertyInline: #{$propertyHead}-inline#{$propertyTail};
+    $listLength: length($value);
+    @while $listLength < 4 {
+      $value: append($value, null);
+      $listLength: $listLength + 1;
+    }
+    @if nth($value, 2) == null {
+      $value: set-nth($value, 2, nth($value, 1));
+    }
+    #{$propertyBlock}: var(--#{$element}-#{$propertyBlock}, #{nth($value, 1)} #{nth($value, 3)});
+    #{$propertyInline}: var(--#{$element}-#{$propertyInline}, #{nth($value, 4)} #{nth($value, 2)});
   }
 };

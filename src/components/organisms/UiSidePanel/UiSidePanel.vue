@@ -365,7 +365,7 @@ onBeforeUnmount(() => {
     background: functions.var($element, background, var(--color-background-white));
     box-shadow: functions.var($element, box-shadow, var(--box-shadow-high));
 
-    @include mixins.use-logical($element, inset, 0, 0, 0, auto);
+    @include mixins.use-logical($element, inset, 0 0 0 auto);
     @include mixins.use-logical($element, padding, 0);
     @include mixins.use-logical($element, border-width, 0);
     @include mixins.use-logical($element, margin, 0);
@@ -380,10 +380,10 @@ onBeforeUnmount(() => {
     flex-direction: column;
     background: functions.var($element + "-header", background, var(--color-background-subtle));
 
-    @include mixins.use-logical($element + "-header", padding, var(--space-20), var(--space-20), var(--space-24));
+    @include mixins.use-logical($element + "-header", padding, var(--space-20) var(--space-20) var(--space-24));
 
     @include mixins.from-tablet {
-      @include mixins.use-logical($element + "-tablet-header", padding, var(--space-40), var(--space-40), var(--space-32));
+      @include mixins.use-logical($element + "-tablet-header", padding, var(--space-40) var(--space-40) var(--space-32));
     }
   }
 
@@ -393,15 +393,15 @@ onBeforeUnmount(() => {
 
   &__label {
     @include mixins.use-logical($element + "-label", padding, 0);
-    @include mixins.use-logical($element + "-label", margin, var(--space-32), 0, 0);
+    @include mixins.use-logical($element + "-label", margin, var(--space-32) 0 0);
 
     @include mixins.from-tablet {
-      @include mixins.use-logical($element + "-tablet-label", padding, 0, var(--space-8));
+      @include mixins.use-logical($element + "-tablet-label", padding, 0 var(--space-8));
     }
   }
 
   &__subtitle {
-    @include mixins.use-logical($element + "-subtitle", margin, var(--space-8), 0, 0);
+    @include mixins.use-logical($element + "-subtitle", margin, var(--space-8) 0 0);
   }
 
   &__content {
@@ -409,10 +409,10 @@ onBeforeUnmount(() => {
     height: 100%;
     flex: 1;
 
-    @include mixins.use-logical($element + "-content", padding, var(--space-24), var(--space-20));
+    @include mixins.use-logical($element + "-content", padding, var(--space-24) var(--space-20));
 
     @include mixins.from-tablet {
-      @include mixins.use-logical($element + "-tablet-content", padding, var(--space-32), var(--space-48));
+      @include mixins.use-logical($element + "-tablet-content", padding, var(--space-32) var(--space-48));
     }
 
     &:focus {
