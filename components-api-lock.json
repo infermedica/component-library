@@ -16,7 +16,7 @@
           "name": "tag",
           "description": "Use this props to set tag when a component shouldn't be a button.",
           "type": {
-            "name": "HTMLTag | Record<string, unknown>"
+            "name": "HTMLTag"
           },
           "defaultValue": {
             "func": false,
@@ -149,7 +149,7 @@
       ],
       "slots": [
         {
-          "name": "default",
+          "name": "checkbutton && 'checkbutton' || 'checkbox'",
           "scoped": true,
           "description": "Use this slot to replace checkbox template.",
           "bindings": [
@@ -192,6 +192,10 @@
               "title": "binding"
             }
           ]
+        },
+        {
+          "name": "default",
+          "description": "Use this slot to place content inside label."
         }
       ]
     },
@@ -395,7 +399,7 @@
           "name": "tag",
           "description": "Use this props to set tag when a component shouldn't be a link.",
           "type": {
-            "name": "HTMLTag | Record<string, unknown>"
+            "name": "HTMLTag"
           },
           "defaultValue": {
             "func": false,
@@ -569,7 +573,7 @@
       ],
       "slots": [
         {
-          "name": "default",
+          "name": "radiobutton && 'radiobutton' || 'radio'",
           "scoped": true,
           "description": "Use this slot to replace radiobutton template.",
           "bindings": [
@@ -601,6 +605,10 @@
               "title": "binding"
             }
           ]
+        },
+        {
+          "name": "default",
+          "description": "Use this slot to place content inside label."
         }
       ]
     },
@@ -689,7 +697,7 @@
       ],
       "slots": [
         {
-          "name": "default",
+          "name": "name",
           "scoped": true,
           "bindings": [
             {
@@ -974,8 +982,12 @@
       "slots": [
         {
           "name": "default",
-          "description": "Use this slot to place bullet points items",
+          "description": "Use this slot to place bullet points items"
+        },
+        {
+          "name": "item.name",
           "scoped": true,
+          "description": "Use this slot to replace bullet point item content.",
           "bindings": [
             {
               "name": "item",
@@ -1288,6 +1300,21 @@
           "name": "default",
           "scoped": true,
           "description": "Use this slot to place dropdown content inside dropdown.",
+          "bindings": [
+            {
+              "name": "closeHandler",
+              "title": "binding"
+            },
+            {
+              "name": "isOpen",
+              "title": "binding"
+            }
+          ]
+        },
+        {
+          "name": "item.name",
+          "scoped": true,
+          "description": "Use this slot to replace dropdown item content.",
           "bindings": [
             {
               "name": "item",
@@ -1793,8 +1820,12 @@
       "slots": [
         {
           "name": "default",
-          "description": "Use this slot to place content inside component.",
+          "description": "Use this slot to place content inside component."
+        },
+        {
+          "name": "item.name",
           "scoped": true,
+          "description": "Use this slot to replace navigation item content.",
           "bindings": [
             {
               "name": "item",
@@ -2733,7 +2764,7 @@
           ]
         },
         {
-          "name": "default",
+          "name": "slotName",
           "scoped": true,
           "bindings": [
             {
@@ -2791,19 +2822,11 @@
           "description": "Use this slot to replace the mobile stepper",
           "bindings": [
             {
-              "name": "currentStep",
-              "title": "binding"
-            },
-            {
               "name": "currentStepDisplayText",
               "title": "binding"
             },
             {
               "name": "progressAttrs",
-              "title": "binding"
-            },
-            {
-              "name": "stepsProgress",
               "title": "binding"
             }
           ]
@@ -2827,10 +2850,6 @@
             {
               "name": "progressAttrs",
               "title": "binding"
-            },
-            {
-              "name": "stepsProgress",
-              "title": "binding"
             }
           ]
         },
@@ -2852,7 +2871,7 @@
               "title": "binding"
             },
             {
-              "name": "determineStep",
+              "name": "stepperStepAttrs",
               "title": "binding"
             }
           ]
@@ -2871,7 +2890,7 @@
               "title": "binding"
             },
             {
-              "name": "determineStep",
+              "name": "stepperStepAttrs",
               "title": "binding"
             }
           ]
@@ -2894,7 +2913,7 @@
               "title": "binding"
             },
             {
-              "name": "determineStep",
+              "name": "stepperStepAttrs",
               "title": "binding"
             }
           ]
@@ -2902,25 +2921,7 @@
         {
           "name": "item-link",
           "scoped": true,
-          "description": "Use this slot to replace items-link in the desktop list",
-          "bindings": [
-            {
-              "name": "step",
-              "title": "binding"
-            },
-            {
-              "name": "index",
-              "title": "binding"
-            },
-            {
-              "name": "indexOfActiveStep",
-              "title": "binding"
-            },
-            {
-              "name": "determineStep",
-              "title": "binding"
-            }
-          ]
+          "bindings": []
         }
       ]
     },
@@ -2965,7 +2966,7 @@
       ],
       "slots": [
         {
-          "name": "default",
+          "name": "slot",
           "scoped": true,
           "bindings": [
             {
@@ -3156,7 +3157,10 @@
       "slots": [
         {
           "name": "default",
-          "description": "Use this slot to place content inside component.",
+          "description": "Use this slot to place content inside component."
+        },
+        {
+          "name": "item.name",
           "scoped": true,
           "bindings": [
             {
@@ -3213,8 +3217,12 @@
       "slots": [
         {
           "name": "default",
-          "description": "Use this slot to place accordion items.",
+          "description": "Use this slot to place accordion items."
+        },
+        {
+          "name": "item.name",
           "scoped": true,
+          "description": "Use this slot to replace accordion item content.",
           "bindings": [
             {
               "name": "item",
@@ -3910,6 +3918,184 @@
     },
     {
       "exportName": "default",
+      "displayName": "UiHorizontalPaging",
+      "description": "",
+      "tags": {},
+      "props": [
+        {
+          "name": "modelValue",
+          "type": {
+            "name": "HorizontalPagingItem[] | HorizontalPagingItem"
+          },
+          "defaultValue": {
+            "func": true,
+            "value": "() => ([])"
+          }
+        },
+        {
+          "name": "title",
+          "description": "Use this props to set inside pages title.",
+          "type": {
+            "name": "string"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "''"
+          }
+        },
+        {
+          "name": "items",
+          "description": "Use this props to pass inside pages items.",
+          "type": {
+            "name": "HorizontalPagingItem[]"
+          },
+          "defaultValue": {
+            "func": true,
+            "value": "() => ([])"
+          }
+        },
+        {
+          "name": "hasHeader",
+          "description": "Use this props to display inside pages header.",
+          "type": {
+            "name": "boolean"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "true"
+          }
+        },
+        {
+          "name": "buttonBackAttrs",
+          "description": "Use this props to pass attrs for back UiButton",
+          "type": {
+            "name": "Object as PropsAttrs"
+          },
+          "defaultValue": {
+            "func": true,
+            "value": "() => ({})"
+          }
+        },
+        {
+          "name": "iconBackAttrs",
+          "description": "Use this props to pass attrs for back button UiIcon",
+          "type": {
+            "name": "Object as PropsAttrs"
+          },
+          "defaultValue": {
+            "func": true,
+            "value": "() => ({ icon: 'chevron-left' })"
+          }
+        },
+        {
+          "name": "headingTitleAttrs",
+          "description": "Use this props to pass attrs for title UiHeading",
+          "type": {
+            "name": "Object as PropsAttrs"
+          },
+          "defaultValue": {
+            "func": true,
+            "value": "() => ({})"
+          }
+        },
+        {
+          "name": "translation",
+          "description": "Use this props to pass labels inside component translation.",
+          "type": {
+            "name": "object"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "{\n  back: 'Back to'\n}"
+          }
+        }
+      ],
+      "events": [
+        {
+          "name": "update:modelValue",
+          "type": {
+            "names": [
+              "Array"
+            ]
+          }
+        }
+      ],
+      "slots": [
+        {
+          "name": "header",
+          "description": "Use this slot to replace header template."
+        },
+        {
+          "name": "back-button",
+          "scoped": true,
+          "description": "Use this slot to replace back-button template.",
+          "bindings": [
+            {
+              "name": "isActive",
+              "title": "binding"
+            },
+            {
+              "name": "buttonBackAttrs",
+              "title": "binding"
+            },
+            {
+              "name": "handleBackClick",
+              "title": "binding"
+            }
+          ]
+        },
+        {
+          "name": "title",
+          "scoped": true,
+          "description": "Use this slot to replace title template.",
+          "bindings": [
+            {
+              "name": "headingTitleAttrs",
+              "title": "binding"
+            },
+            {
+              "name": "title",
+              "title": "binding"
+            }
+          ]
+        },
+        {
+          "name": "menu",
+          "scoped": true,
+          "description": "Use this slot to replace menu template.",
+          "bindings": [
+            {
+              "name": "items",
+              "title": "binding"
+            }
+          ]
+        },
+        {
+          "name": "content",
+          "description": "Use this slot to replace content template."
+        },
+        {
+          "name": "default",
+          "description": "Use this slot to place inside pages items."
+        },
+        {
+          "name": "item.name",
+          "scoped": true,
+          "bindings": [
+            {
+              "name": "item",
+              "title": "binding"
+            },
+            {
+              "name": "name",
+              "title": "binding"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "exportName": "default",
       "displayName": "UiList",
       "description": "",
       "tags": {},
@@ -3940,8 +4126,22 @@
       "slots": [
         {
           "name": "default",
-          "description": "Use this slot to place list items",
+          "description": "Use this slot to place list items"
+        },
+        {
+          "name": "name",
           "scoped": true,
+          "bindings": [
+            {
+              "name": "name",
+              "title": "binding"
+            }
+          ]
+        },
+        {
+          "name": "item.name",
+          "scoped": true,
+          "description": "Use this slot to replace list item content",
           "bindings": [
             {
               "name": "item",
@@ -4022,8 +4222,22 @@
       "slots": [
         {
           "name": "default",
-          "description": "Use this slot to place menu items.",
+          "description": "Use this slot to place menu items."
+        },
+        {
+          "name": "name",
           "scoped": true,
+          "bindings": [
+            {
+              "name": "name",
+              "title": "binding"
+            }
+          ]
+        },
+        {
+          "name": "item.name",
+          "scoped": true,
+          "description": "Use this slot to place menu item content.",
           "bindings": [
             {
               "name": "name",
@@ -4430,7 +4644,7 @@
           ]
         },
         {
-          "name": "default",
+          "name": "titleSlotName",
           "scoped": true,
           "description": "Use this slot to replace title template.",
           "bindings": [
@@ -4622,7 +4836,7 @@
         },
         {
           "name": "items",
-          "description": "Use this props to set possible choices.",
+          "description": "Use this props to set possible items.",
           "type": {
             "name": "MultipleAnswerItem[]"
           },
@@ -4782,9 +4996,8 @@
           ]
         },
         {
-          "name": "default",
+          "name": "slotName",
           "scoped": true,
-          "description": "Use this slot to replace choice template.",
           "bindings": [
             {
               "name": "name",
@@ -4917,38 +5130,7 @@
           ]
         },
         {
-          "name": "list-item",
-          "scoped": true,
-          "description": "Use this slot to replace list-item template.",
-          "bindings": [
-            {
-              "name": "item",
-              "title": "binding"
-            },
-            {
-              "name": "index",
-              "title": "binding"
-            },
-            {
-              "name": "value",
-              "title": "binding"
-            },
-            {
-              "name": "options",
-              "title": "binding"
-            },
-            {
-              "name": "hasError",
-              "title": "binding"
-            },
-            {
-              "name": "updateHandler",
-              "title": "binding"
-            }
-          ]
-        },
-        {
-          "name": "default",
+          "name": "choiceItem && 'choice-item' || 'choice'",
           "scoped": true,
           "description": "Use this slot to replace choice template.",
           "bindings": [
@@ -5446,8 +5628,12 @@
       "slots": [
         {
           "name": "default",
-          "description": "Use this slot to place tabs.",
+          "description": "Use this slot to place tabs."
+        },
+        {
+          "name": "item.name",
           "scoped": true,
+          "description": "Use this slot to place tab item content.",
           "bindings": [
             {
               "name": "item",
@@ -5652,11 +5838,11 @@
           "name": "settings",
           "description": "Use this props to setup question.",
           "type": {
-            "name": "Questionsettings"
+            "name": "QuestionSettings"
           },
           "defaultValue": {
             "func": true,
-            "value": "() => ({\n  info: false,\n  why: false,\n  issue: { feedback: false },\n})"
+            "value": "() => ({\n  info: false,\n  why: false,\n  issue: {\n    action: false,\n    feedback: false,\n    skip: true,\n  },\n})"
           }
         },
         {
@@ -5863,11 +6049,19 @@
           "description": "Use this slot to replace feedback template.",
           "bindings": [
             {
+              "name": "hasFeedback",
+              "title": "binding"
+            },
+            {
               "name": "settings",
               "title": "binding"
             },
             {
               "name": "translation",
+              "title": "binding"
+            },
+            {
+              "name": "notificationFeedbackAttrs",
               "title": "binding"
             }
           ]
@@ -6235,6 +6429,83 @@
       ]
     },
     {
+      "exportName": "default",
+      "displayName": "UiStepperStep",
+      "description": "",
+      "tags": {},
+      "props": [
+        {
+          "name": "index",
+          "description": "Use this props to pass index of current step.",
+          "type": {
+            "name": "number"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "0"
+          }
+        },
+        {
+          "name": "indexOfActiveStep",
+          "description": "Use this props to pass index of active step.",
+          "type": {
+            "name": "number"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "0"
+          }
+        },
+        {
+          "name": "label",
+          "description": "Use this props to set the step label.",
+          "type": {
+            "name": "string"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "''"
+          }
+        }
+      ],
+      "slots": [
+        {
+          "name": "item-link",
+          "scoped": true,
+          "description": "Use this slot to replace item-link template.",
+          "bindings": [
+            {
+              "name": "itemAttrs",
+              "title": "binding"
+            },
+            {
+              "name": "itemTag",
+              "title": "binding"
+            },
+            {
+              "name": "itemClass",
+              "title": "binding"
+            },
+            {
+              "name": "label",
+              "title": "binding"
+            }
+          ]
+        },
+        {
+          "name": "label",
+          "scoped": true,
+          "description": "Use this slot to replace label template.",
+          "bindings": [
+            {
+              "name": "label",
+              "title": "binding"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "displayName": "UiSwitchControl",
       "description": "",
       "tags": {}
@@ -6328,6 +6599,17 @@
         {
           "name": "contentAttrs",
           "description": "Use this props to pass attrs to content element.",
+          "type": {
+            "name": "object"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "{}"
+          }
+        },
+        {
+          "name": "listItemAttrs",
+          "description": "Use this props to pass attrs to list item.",
           "type": {
             "name": "object"
           },
@@ -6848,26 +7130,261 @@
     },
     {
       "exportName": "default",
+      "displayName": "UiHorizontalPagingtem",
+      "description": "",
+      "tags": {},
+      "props": [
+        {
+          "name": "label",
+          "description": "Use this props to set inside pages item label.",
+          "type": {
+            "name": "string"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "''"
+          }
+        },
+        {
+          "name": "title",
+          "description": "Use this props to set inside pages item title.",
+          "type": {
+            "name": "string"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "''"
+          }
+        },
+        {
+          "name": "name",
+          "description": "Use this props to set inside pages item name.",
+          "type": {
+            "name": "string"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "''"
+          }
+        }
+      ],
+      "slots": [
+        {
+          "name": "default"
+        }
+      ]
+    },
+    {
+      "exportName": "default",
       "displayName": "UiListItem",
       "description": "",
       "tags": {},
       "props": [
         {
           "name": "tag",
-          "description": "Use this props to set list item tag.",
+          "description": "Use this props to set list item content tag.",
           "type": {
-            "name": "HTMLTag"
+            "name": "string|object"
           },
           "defaultValue": {
             "func": false,
-            "value": "'li'"
+            "value": "'div'"
+          }
+        },
+        {
+          "name": "icon",
+          "description": "Use this props to set suffix icon.",
+          "type": {
+            "name": "Icon"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "''"
+          }
+        },
+        {
+          "name": "hasSuffix",
+          "description": "Use this props to control suffix visibility.",
+          "type": {
+            "name": "boolean"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "false"
+          }
+        },
+        {
+          "name": "suffixAttrs",
+          "description": "Use this props to pass attrs for UIListItemSuffix",
+          "type": {
+            "name": "Object as PropsAttrs"
+          },
+          "defaultValue": {
+            "func": true,
+            "value": "() => ({})"
+          }
+        },
+        {
+          "name": "listItemAttrs",
+          "description": "Use this props to pass attrs for list item element",
+          "type": {
+            "name": "Object as PropsAttrs"
+          },
+          "defaultValue": {
+            "func": true,
+            "value": "() => ({})"
           }
         }
       ],
       "slots": [
         {
+          "name": "content",
+          "scoped": true,
+          "description": "Use this slot to replace list item content template.",
+          "bindings": [
+            {
+              "name": "tag",
+              "title": "binding"
+            },
+            {
+              "name": "hasSuffix",
+              "title": "binding"
+            },
+            {
+              "name": "suffixComponent",
+              "title": "binding"
+            },
+            {
+              "name": "suffixAttrs",
+              "title": "binding"
+            }
+          ]
+        },
+        {
           "name": "default",
-          "description": "Use this slot to place list item content."
+          "description": "Use this slot to place content inside list-item."
+        },
+        {
+          "name": "suffix",
+          "scoped": true,
+          "description": "Use this slot to replace suffix template",
+          "bindings": [
+            {
+              "name": "hasSuffix",
+              "title": "binding"
+            },
+            {
+              "name": "suffixComponent",
+              "title": "binding"
+            },
+            {
+              "name": "suffixAttrs",
+              "title": "binding"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "exportName": "default",
+      "displayName": "UiListItemSuffixAsButton",
+      "description": "",
+      "tags": {},
+      "props": [
+        {
+          "name": "label",
+          "description": "Use this props to set label.",
+          "type": {
+            "name": "string"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "''"
+          }
+        },
+        {
+          "name": "icon",
+          "description": "Use this props to set icon.",
+          "type": {
+            "name": "Icon"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "''"
+          }
+        },
+        {
+          "name": "iconSuffixAttrs",
+          "description": "Use this props to pass attrs for suffix UiIcon.",
+          "type": {
+            "name": "Object as PropsAttrs"
+          },
+          "defaultValue": {
+            "func": true,
+            "value": "() => ({})"
+          }
+        },
+        {
+          "name": "labelSuffixAttrs",
+          "description": "Use this props to pass attrs for label element.",
+          "type": {
+            "name": "Object as PropsAttrs"
+          },
+          "defaultValue": {
+            "func": true,
+            "value": "() => ({})"
+          }
+        }
+      ],
+      "slots": [
+        {
+          "name": "label",
+          "scoped": true,
+          "description": "Use this slot to replace label template.",
+          "bindings": [
+            {
+              "name": "label",
+              "title": "binding"
+            },
+            {
+              "name": "labelSuffixAttrs",
+              "title": "binding"
+            }
+          ]
+        },
+        {
+          "name": "icon",
+          "scoped": true,
+          "description": "Use this slot to replace icon template.",
+          "bindings": [
+            {
+              "name": "hasIcon",
+              "title": "binding"
+            },
+            {
+              "name": "iconSuffixAttrs",
+              "title": "binding"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "exportName": "default",
+      "displayName": "UiListItemSuffixAsText",
+      "description": "",
+      "tags": {},
+      "props": [
+        {
+          "name": "label",
+          "description": "Use this props to set label.",
+          "type": {
+            "name": "string"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "''"
+          }
         }
       ]
     },
@@ -6973,8 +7490,8 @@
           }
         },
         {
-          "name": "buttonMenuItemAttrs",
-          "description": "Use this props to pass attrs for menu item UiButton",
+          "name": "listItemAttrs",
+          "description": "Use this props to pass attrs for list item element",
           "type": {
             "name": "Object as PropsAttrs"
           },
@@ -7087,7 +7604,7 @@
       "props": [
         {
           "name": "invalid",
-          "description": "Use this props to set invalid state of choice item.",
+          "description": "Use this props to set invalid state of item.",
           "type": {
             "name": "boolean"
           },
@@ -7109,7 +7626,7 @@
         },
         {
           "name": "value",
-          "description": "Use this props to set value of choice item.",
+          "description": "Use this props to set value of item.",
           "type": {
             "name": "string|object"
           },
@@ -7131,13 +7648,24 @@
         },
         {
           "name": "id",
-          "description": "Use this props to set item of item.",
+          "description": "Use this props to set id of item.",
           "type": {
             "name": "string"
           },
           "defaultValue": {
             "func": false,
             "value": "''"
+          }
+        },
+        {
+          "name": "textLabelAttrs",
+          "description": "Use this props to pass attrs for label UiText.",
+          "type": {
+            "name": "MultipleAnswerLabelAttrs"
+          },
+          "defaultValue": {
+            "func": true,
+            "value": "() => ({})"
           }
         },
         {
@@ -7148,18 +7676,18 @@
           },
           "defaultValue": {
             "func": false,
-            "value": "null"
+            "value": "{}"
           }
         },
         {
-          "name": "textLabelAttrs",
-          "description": "Use this props to pass attrs for label UiText.",
+          "name": "labelInfoAttrs",
+          "description": "Use this props to pass attrs for info label element.",
           "type": {
             "name": "object"
           },
           "defaultValue": {
             "func": false,
-            "value": "{\n  tag: 'span'\n}"
+            "value": "{}"
           }
         },
         {
@@ -7172,6 +7700,17 @@
             "func": false,
             "value": "{\n  icon: 'info'\n}"
           }
+        },
+        {
+          "name": "translation",
+          "description": "Use this props to pass labels inside component translation.",
+          "type": {
+            "name": "object"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "{\n  info: 'What does it mean?'\n}"
+          }
         }
       ],
       "events": [
@@ -7181,7 +7720,7 @@
       ],
       "slots": [
         {
-          "name": "label",
+          "name": "choiceItem && 'choice-item' || 'choice'",
           "scoped": true,
           "bindings": [
             {
@@ -7189,15 +7728,11 @@
               "title": "binding"
             },
             {
-              "name": "componentName",
+              "name": "value",
               "title": "binding"
             },
             {
-              "name": "textLabelAttrs",
-              "title": "binding"
-            },
-            {
-              "name": "name",
+              "name": "invalid",
               "title": "binding"
             },
             {
@@ -7205,15 +7740,26 @@
               "title": "binding"
             },
             {
-              "name": "buttonInfoAttrs",
+              "name": "component",
               "title": "binding"
             },
             {
-              "name": "unfocusExplication",
+              "name": "name",
+              "title": "binding"
+            }
+          ]
+        },
+        {
+          "name": "`label-${id}`",
+          "scoped": true,
+          "description": "Use this slot to replace label template.",
+          "bindings": [
+            {
+              "name": "label",
               "title": "binding"
             },
             {
-              "name": "iconInfoAttrs",
+              "name": "name",
               "title": "binding"
             }
           ]
@@ -7289,7 +7835,7 @@
           },
           "defaultValue": {
             "func": false,
-            "value": "{\n  info: 'What does it mean?'\n}"
+            "value": "{\n  info: 'What does it mean?',\n  invalid: 'Please select one answer'\n}"
           }
         },
         {
@@ -7304,6 +7850,17 @@
           }
         },
         {
+          "name": "alertAttrs",
+          "description": "Use this props to pass attrs for hint UiAlert",
+          "type": {
+            "name": "Object as PropsAttrs"
+          },
+          "defaultValue": {
+            "func": true,
+            "value": "() => ({})"
+          }
+        },
+        {
           "name": "buttonInfoAttrs",
           "description": "Use this props to pass attrs for info UiButton.",
           "type": {
@@ -7311,7 +7868,18 @@
           },
           "defaultValue": {
             "func": false,
-            "value": "null"
+            "value": "{}"
+          }
+        },
+        {
+          "name": "labelInfoAttrs",
+          "description": "Use this props to pass attrs for info label element.",
+          "type": {
+            "name": "object"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "{}"
           }
         },
         {
@@ -7334,6 +7902,28 @@
           "defaultValue": {
             "func": false,
             "value": "{\n  tag: 'span'\n}"
+          }
+        },
+        {
+          "name": "listItemAttrs",
+          "description": "Use this props to pass attrs for list item.",
+          "type": {
+            "name": "object"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "{}"
+          }
+        },
+        {
+          "name": "optionItemAttrs",
+          "description": "Use this props to pass attrs for option item.",
+          "type": {
+            "name": "object"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "{}"
           }
         }
       ],
@@ -7364,9 +7954,9 @@
           ]
         },
         {
-          "name": "label",
+          "name": "header",
           "scoped": true,
-          "description": "Use this slot to replace label template.",
+          "description": "Use this slot to replace header template.",
           "bindings": [
             {
               "name": "id",
@@ -7385,11 +7975,63 @@
               "title": "binding"
             },
             {
+              "name": "hasInfo",
+              "title": "binding"
+            },
+            {
               "name": "buttonInfoAttrs",
               "title": "binding"
             },
             {
               "name": "iconInfoAttrs",
+              "title": "binding"
+            },
+            {
+              "name": "translation",
+              "title": "binding"
+            }
+          ]
+        },
+        {
+          "name": "label",
+          "scoped": true,
+          "bindings": [
+            {
+              "name": "multipleChoicesItemId",
+              "title": "binding"
+            },
+            {
+              "name": "textLabelAttrs",
+              "title": "binding"
+            },
+            {
+              "name": "name",
+              "title": "binding"
+            },
+            {
+              "name": "label",
+              "title": "binding"
+            }
+          ]
+        },
+        {
+          "name": "info",
+          "scoped": true,
+          "bindings": [
+            {
+              "name": "hasInfo",
+              "title": "binding"
+            },
+            {
+              "name": "buttonInfoAttrs",
+              "title": "binding"
+            },
+            {
+              "name": "iconInfoAttrs",
+              "title": "binding"
+            },
+            {
+              "name": "labelInfoAttrs",
               "title": "binding"
             },
             {
@@ -7408,11 +8050,34 @@
               "title": "binding"
             },
             {
-              "name": "option",
+              "name": "optionItemAttrs",
               "title": "binding"
             },
             {
               "name": "invalid",
+              "title": "binding"
+            },
+            {
+              "name": "option",
+              "title": "binding"
+            }
+          ]
+        },
+        {
+          "name": "alert",
+          "scoped": true,
+          "description": "Use this slot to replace alert template.",
+          "bindings": [
+            {
+              "name": "invalid",
+              "title": "binding"
+            },
+            {
+              "name": "alertAttrs",
+              "title": "binding"
+            },
+            {
+              "name": "translation",
               "title": "binding"
             }
           ]
