@@ -66,7 +66,7 @@ const {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: functions.var($element, padding, var(--space-12) var(--space-32));
+  gap: functions.var($element, gap, var(--space-4));
   background: functions.var($element, background, var(--color-background-action));
   color: functions.var($element, color, var(--color-text-on-action));
   text-align: center;
@@ -86,6 +86,8 @@ const {
     word-break: normal;
   }
 
+  @include mixins.use-logical($element, padding, var(--space-12) var(--space-32));
+
   @include mixins.with-hover {
     cursor: pointer;
   }
@@ -99,11 +101,11 @@ const {
   }
 
   @include mixins.hover {
-    background: functions.var($element + -hover, background, var(--color-background-action-hover));
-    color: functions.var($element + -hover, color, var(--color-text-on-action));
+    background: functions.var($element + "-hover", background, var(--color-background-action-hover));
+    color: functions.var($element + "-hover", color, var(--color-text-on-action));
 
     &::after {
-      border-color: functions.var($element + -hover, border-color, var(--color-border-subtle));
+      @include mixins.use-logical($element + "-hover", border-color, var(--color-border-subtle));
     }
 
     #{$this}__icon {
@@ -116,7 +118,7 @@ const {
     color: functions.var($element + "-active", color, var(--color-text-on-action));
 
     &::after {
-      border-color: functions.var($element + "-active", border-color, var(--color-border-subtle));
+      @include mixins.use-logical($element + "-active", border-color, var(--color-border-subtle));
     }
 
     #{$this}__icon {
@@ -127,20 +129,12 @@ const {
   &__icon {
     --icon-color: #{functions.var($element + "-icon", color, var(--color-icon-on-action))};
 
-    flex: none;
-    margin: functions.var($element + "-icon", margin, 0 var(--space-4) 0 calc(var(--space-8) * -1));
     transition: fill 150ms ease-in-out;
 
-    [dir="rtl"] & {
-      margin: functions.var($element + "-rtl-icon", margin, 0 calc(var(--space-8) * -1) 0 var(--space-4));
-    }
+    @include mixins.use-logical($element + "-icon", margin, 0 0 0 calc(var(--space-8) * -1));
 
     &--right {
-      margin: functions.var($element + "-icon", margin, 0 calc(var(--space-8) * -1) 0 var(--space-4));
-
-      [dir="rtl"] & {
-        margin: functions.var($element + "-rtl-icon", margin, 0 var(--space-4) 0 calc(var(--space-8) * -1));
-      }
+      @include mixins.use-logical($element + "-icon", margin, 0 calc(var(--space-8) * -1) 0 0);
     }
   }
 
@@ -158,9 +152,10 @@ const {
   }
 
   &--small {
-    padding: functions.var($element, padding, var(--space-8) var(--space-20));
     font: functions.var($element, font, var(--font-body-1));
     letter-spacing: functions.var($element, letter-spacing, var(--letter-spacing-body-1));
+
+    @include mixins.use-logical($element, padding, var(--space-8) var(--space-20));
   }
 
   &--outlined {
@@ -168,7 +163,7 @@ const {
     color: functions.var($element, color, var(--color-text-action-primary));
 
     &::after {
-      border-width: functions.var($element, border-width, 1px);
+      @include mixins.use-logical($element, border-width, 1px);
     }
 
     #{$this}__icon {
@@ -198,7 +193,7 @@ const {
       color: functions.var($element, color, var(--color-text-on-selection));
 
       &::after {
-        border-color: functions.var($element, border-color, var(--color-background-selection));
+        @include mixins.use-logical($element, border-color, var(--color-background-selection));
       }
 
       #{$this}__icon {
@@ -210,7 +205,7 @@ const {
         color: functions.var($element + "-hover", color, var(--color-text-on-selection));
 
         &::after {
-          border-color: functions.var($element + "-hover", border-color, var(--color-background-selection-hover));
+          @include mixins.use-logical($element + "-hover", border-color, var(--color-background-selection-hover));
         }
 
         #{$this}__icon {
@@ -223,7 +218,7 @@ const {
         color: functions.var($element + "-active", color, var(--color-text-on-selection));
 
         &::after {
-          border-color: functions.var($element + "-active", border-color, var(--color-background-selection-active));
+          @include mixins.use-logical($element + "-active", border-color, var(--color-background-selection-active));
         }
 
         #{$this}__icon {
@@ -236,7 +231,7 @@ const {
         color: functions.var($element, color, var(--color-text-on-action));
 
         &::after {
-          border-color: functions.var($element, border-color, var(--color-border-subtle));
+          @include mixins.use-logical($element, border-color, var(--color-border-subtle));
         }
 
         #{$this}__icon {
@@ -297,25 +292,10 @@ const {
     --#{$element}-padding: 0;
     --#{$element}-hover-background: transparent;
     --#{$element}-active-background: transparent;
+    --#{$element}-icon-margin: 0;
 
     font: functions.var($element, font, var(--font-body-1));
     letter-spacing: functions.var($element, letter-spacing, var(--letter-spacing-body-1));
-
-    #{$this}__icon {
-      margin: functions.var($element + "-icon", margin, 0 var(--space-4) 0 0);
-
-      [dir="rtl"] & {
-        margin: functions.var($element + "-rtl-icon", margin, 0 0 0 var(--space-4));
-      }
-
-      &--right {
-        margin: functions.var($element + "-icon", margin, 0 0 0 var(--space-4));
-
-        [dir="rtl"] & {
-          margin: functions.var($element + "-rtl-icon", margin, 0 var(--space-4) 0 0);
-        }
-      }
-    }
 
     &#{$this}--small {
       font: functions.var($element, font, var(--font-body-2-comfortable));
@@ -328,9 +308,8 @@ const {
 
     --#{$element}-border-radius: var(--border-radius-circle);
     --#{$element}-icon-margin: 0;
-    --#{$element}-rtl-icon-margin: 0;
 
-    padding: functions.var($element, padding, var(--space-12));
+    @include mixins.use-logical($element, padding, var(--space-12));
 
     .ui-text {
       --text-color: currentcolor;
@@ -345,7 +324,6 @@ const {
     --#{$element}-padding: 0;
     --#{$element}-border-width: 0;
     --#{$element}-icon-margin: 0;
-    --#{$element}-rtl-icon-margin: 0;
     --#{$element}-hover-background: transparent;
     --#{$element}-active-background: transparent;
   }

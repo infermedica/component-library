@@ -379,6 +379,7 @@ onBeforeUnmount(() => {
     flex: none;
     flex-direction: column;
     background: functions.var($element + "-header", background, var(--color-background-subtle));
+    gap: functions.var($element + "-header", gap, var(--space-32));
 
     @include mixins.use-logical($element + "-header", padding, var(--space-20) var(--space-20) var(--space-24));
 
@@ -393,7 +394,6 @@ onBeforeUnmount(() => {
 
   &__label {
     @include mixins.use-logical($element + "-label", padding, 0);
-    @include mixins.use-logical($element + "-label", margin, var(--space-32) 0 0);
 
     @include mixins.from-tablet {
       @include mixins.use-logical($element + "-tablet-label", padding, 0 var(--space-8));

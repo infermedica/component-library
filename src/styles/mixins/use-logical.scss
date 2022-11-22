@@ -19,7 +19,7 @@
     @if nth($value, 2) == null {
       $value: set-nth($value, 2, nth($value, 1));
     }
-    #{$propertyBlock}: var(--#{$element}-#{$propertyBlock}, #{nth($value, 1)} #{nth($value, 3)});
-    #{$propertyInline}: var(--#{$element}-#{$propertyInline}, #{nth($value, 4)} #{nth($value, 2)});
+    #{$propertyBlock}: var(--#{$element}-#{$propertyBlock}, var(--#{$element}-#{$property}, #{nth($value, 1)} #{nth($value, 3)}));
+    #{$propertyInline}: var(--#{$element}-#{$propertyInline}, var(--#{$element}-#{$property}, #{nth($value, 4)} #{nth($value, 2)}));
   }
 };
