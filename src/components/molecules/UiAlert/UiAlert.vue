@@ -93,16 +93,10 @@ const defaultProps = computed(() => ({
   align-items: flex-start;
   justify-content: flex-start;
   vertical-align: functions.var($element, vertical-align, top);
+  gap: functions.var($element + "-icon", gap, var(--space-4));
 
   &__icon {
     --icon-color: #{functions.var($element + "-icon", color)};
-
-    flex: none;
-    margin: functions.var($element + "-icon", margin, 0 var(--space-4) 0 0);
-
-    [dir="rtl"] & {
-      margin: functions.var($element + "-rtl-icon", margin, 0 0 0 var(--space-4));
-    }
   }
 
   &__message {

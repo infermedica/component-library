@@ -355,6 +355,11 @@ onBeforeUnmount(() => {
   z-index: 1;
 
   &__dialog {
+    @include mixins.use-logical($element, inset, 0 0 0 auto);
+    @include mixins.use-logical($element, padding, 0);
+    @include mixins.use-logical($element, border-width, 0);
+    @include mixins.use-logical($element, margin, 0);
+
     position: fixed;
     z-index: 1000;
     display: flex;
@@ -365,23 +370,19 @@ onBeforeUnmount(() => {
     background: functions.var($element, background, var(--color-background-white));
     box-shadow: functions.var($element, box-shadow, var(--box-shadow-high));
 
-    @include mixins.use-logical($element, inset, 0 0 0 auto);
-    @include mixins.use-logical($element, padding, 0);
-    @include mixins.use-logical($element, border-width, 0);
-    @include mixins.use-logical($element, margin, 0);
     @include mixins.from-tablet {
       max-width: functions.var($element + "-tablet", max-width, 40rem);
     }
   }
 
   &__header {
+    @include mixins.use-logical($element + "-header", padding, var(--space-20) var(--space-20) var(--space-24));
+
     display: flex;
     flex: none;
     flex-direction: column;
     background: functions.var($element + "-header", background, var(--color-background-subtle));
     gap: functions.var($element + "-header", gap, var(--space-32));
-
-    @include mixins.use-logical($element + "-header", padding, var(--space-20) var(--space-20) var(--space-24));
 
     @include mixins.from-tablet {
       @include mixins.use-logical($element + "-tablet-header", padding, var(--space-40) var(--space-40) var(--space-32));
@@ -405,11 +406,11 @@ onBeforeUnmount(() => {
   }
 
   &__content {
+    @include mixins.use-logical($element + "-content", padding, var(--space-24) var(--space-20));
+
     overflow: auto;
     height: 100%;
     flex: 1;
-
-    @include mixins.use-logical($element + "-content", padding, var(--space-24) var(--space-20));
 
     @include mixins.from-tablet {
       @include mixins.use-logical($element + "-tablet-content", padding, var(--space-32) var(--space-48));

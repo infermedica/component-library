@@ -55,6 +55,7 @@ const {
   $this: &;
   $element: button;
 
+  @include mixins.use-logical($element, padding, var(--space-12) var(--space-32));
   @include mixins.inner-border(
     $element,
     $color: var(--color-border-subtle),
@@ -85,8 +86,6 @@ const {
     overflow-wrap: anywhere;
     word-break: normal;
   }
-
-  @include mixins.use-logical($element, padding, var(--space-12) var(--space-32));
 
   @include mixins.with-hover {
     cursor: pointer;
@@ -129,9 +128,9 @@ const {
   &__icon {
     --icon-color: #{functions.var($element + "-icon", color, var(--color-icon-on-action))};
 
-    transition: fill 150ms ease-in-out;
-
     @include mixins.use-logical($element + "-icon", margin, 0 0 0 calc(var(--space-8) * -1));
+
+    transition: fill 150ms ease-in-out;
 
     &--right {
       @include mixins.use-logical($element + "-icon", margin, 0 calc(var(--space-8) * -1) 0 0);
@@ -152,10 +151,10 @@ const {
   }
 
   &--small {
+    @include mixins.use-logical($element, padding, var(--space-8) var(--space-20));
+
     font: functions.var($element, font, var(--font-body-1));
     letter-spacing: functions.var($element, letter-spacing, var(--letter-spacing-body-1));
-
-    @include mixins.use-logical($element, padding, var(--space-8) var(--space-20));
   }
 
   &--outlined {
@@ -288,11 +287,13 @@ const {
   &--text {
     @extend #{$this}--outlined;
 
-    --#{$element}-border-width: 0;
-    --#{$element}-padding: 0;
+    --#{$element}-border-block-width: 0;
+    --#{$element}-border-inline-width: 0;
+    --#{$element}-padding-block: 0;
+    --#{$element}-padding-inline: 0;
     --#{$element}-hover-background: transparent;
     --#{$element}-active-background: transparent;
-    --#{$element}-icon-margin: 0;
+    --#{$element}-icon-margin-inline: 0;
 
     font: functions.var($element, font, var(--font-body-1));
     letter-spacing: functions.var($element, letter-spacing, var(--letter-spacing-body-1));
@@ -307,7 +308,7 @@ const {
     @extend #{$this}--outlined;
 
     --#{$element}-border-radius: var(--border-radius-circle);
-    --#{$element}-icon-margin: 0;
+    --#{$element}-icon-margin-inline: 0;
 
     @include mixins.use-logical($element, padding, var(--space-12));
 
@@ -321,9 +322,11 @@ const {
   &--icon {
     @extend #{$this}--outlined;
 
-    --#{$element}-padding: 0;
-    --#{$element}-border-width: 0;
-    --#{$element}-icon-margin: 0;
+    --#{$element}-padding-block: 0;
+    --#{$element}-padding-inline: 0;
+    --#{$element}-border-block-width: 0;
+    --#{$element}-border-inline-width: 0;
+    --#{$element}-icon-margin-inline: 0;
     --#{$element}-hover-background: transparent;
     --#{$element}-active-background: transparent;
   }

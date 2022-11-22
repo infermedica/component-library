@@ -6,7 +6,7 @@
  */
 @mixin use-logical($element, $property, $value) {
   @if $value and $property {
-    $splittedProperty: functions.split-str($property, '-');
+    $splittedProperty: functions.str-split($property, '-');
     $propertyHead: nth($splittedProperty, 1);
     $propertyTail: nth($splittedProperty, 2);
     $propertyBlock: #{$propertyHead}-block#{$propertyTail};
@@ -19,7 +19,7 @@
     @if nth($value, 2) == null {
       $value: set-nth($value, 2, nth($value, 1));
     }
-    #{$propertyBlock}: var(--#{$element}-#{$propertyBlock}, var(--#{$element}-#{$property}, #{nth($value, 1)} #{nth($value, 3)}));
-    #{$propertyInline}: var(--#{$element}-#{$propertyInline}, var(--#{$element}-#{$property}, #{nth($value, 4)} #{nth($value, 2)}));
+    #{$propertyBlock}: var(--#{$element}-#{$propertyBlock}, #{nth($value, 1)} #{nth($value, 3)});
+    #{$propertyInline}: var(--#{$element}-#{$propertyInline}, #{nth($value, 4)} #{nth($value, 2)});
   }
 };
