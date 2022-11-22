@@ -1,0 +1,23 @@
+import { Canvas, Meta, Story } from "@storybook/addon-docs";
+import { PageOutline } from '../../../components/PageOutline';
+import { Table } from '../../../components/Table';
+
+<Meta title="Releases/v0.5.x/v0.5.3/Migration Guide" />
+
+# Migration Guide
+
+<PageOutline selectors="h2, h3"/>
+
+## Adjust UiList to design.
+From v0.5.3, UiList has been adjusted to the design. UiListItem has borders.
+
+**Before**
+`UiListItem` pass attrs to `li` element.
+
+**After**
+`UiListItem` pass attrs to `component` element (default is `div`). To pass attr to `li` element, use `listItemAttrs` props.
+
+
+`component` can be set by `tag` props. This change allows to use e.g. `UiCheckbox` as `component` with list element padding. Check [List with Checkbox](/docs/organisms-list--with-checkbox) example.
+
+From v0.5.3, UiListItem support suffix as text or button. Check [List with suffix as text](/docs/organisms-list--with-suffix-as-text) or [List with suffix as button](/docs/organisms-list--with-suffix-as-button) examples.
