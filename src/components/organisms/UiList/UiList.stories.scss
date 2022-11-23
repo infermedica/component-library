@@ -22,8 +22,11 @@
   &__progress {
     --progressindicator-background: var(--color-dataviz-sequential-strong);
 
-    width: 1.875rem;
-    flex: none;
+    flex: 0 0 1.875rem;
+  }
+
+  &__label {
+    flex: 0 0 auto;
   }
 
   &__suffix {

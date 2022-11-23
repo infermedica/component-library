@@ -220,7 +220,7 @@ export const AsCondition = (args) => ({
             :max="10"
             class="list-condition-item__progress"
           />
-          <UiText class="ui-text--body-2-comfortable">
+          <UiText class="ui-text--body-2-comfortable list-condition-item__label">
             {{ item.evidence.label }}
           </UiText>
         </div>
