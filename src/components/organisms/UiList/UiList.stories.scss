@@ -22,8 +22,11 @@
   &__progress {
     --progressindicator-background: var(--color-dataviz-sequential-strong);
 
-    width: 1.875rem;
-    flex: none;
+    flex: 0 0 1.875rem;
+  }
+
+  &__label {
+    flex: 0 0 auto;
   }
 
   &__suffix {
@@ -90,11 +93,6 @@
   &__suffix {
     align-self: end;
   }
-
-  &__suffix-icon {
-    --button-icon-margin: 0;
-    --button-rtl-icon-margin: 0;
-  }
 }
 //</Code>
 
@@ -107,11 +105,6 @@
 
   &__suffix {
     align-self: end;
-  }
-
-  &__suffix-icon {
-    --button-icon-margin: 0;
-    --button-rtl-icon-margin: 0;
   }
 }
 //</Code>

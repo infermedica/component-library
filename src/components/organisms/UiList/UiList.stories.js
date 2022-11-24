@@ -220,7 +220,7 @@ export const AsCondition = (args) => ({
             :max="10"
             class="list-condition-item__progress"
           />
-          <UiText class="ui-text--body-2-comfortable">
+          <UiText class="ui-text--body-2-comfortable list-condition-item__label">
             {{ item.evidence.label }}
           </UiText>
         </div>
@@ -401,7 +401,7 @@ const checkboxWithInfo = {
     icon: 'info',
     iconSuffixAttrs: { class: [ 'list-checkbox-item__suffix-icon' ] },
     label: 'More info',
-    labelAttrs: { class: [ 'visual-hidden' ] },
+    labelSuffixAttrs: { class: [ 'visual-hidden' ] },
     class: [ 'list-checkbox-item__suffix' ],
     tabindex: -1,
     onClick: events.onClickInfoButton,
@@ -488,7 +488,7 @@ const radioWithInfo = {
     icon: 'info',
     iconSuffixAttrs: { class: [ 'list-radio-item__suffix-icon' ] },
     label: 'More info',
-    labelAttrs: { class: [ 'visual-hidden' ] },
+    labelSuffixAttrs: { class: [ 'visual-hidden' ] },
     class: [ 'list-radio-item__suffix' ],
     tabindex: -1,
     onClick: events.onClickInfoButton,

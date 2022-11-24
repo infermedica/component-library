@@ -1,9 +1,6 @@
-import {
-  provide,
-  ref,
-} from 'vue';
-import UiMenu from '@/components/organisms/UiMenu/UiMenu.vue';
+import { ref } from 'vue';
 import UiMenuItem from '@/components/organisms/UiMenu/_internal/UiMenuItem.vue';
+import UiMenu from '@/components/organisms/UiMenu/UiMenu.vue';
 import UiMenuItemSuffix from '@/components/organisms/UiMenu/_internal/UiMenuItemSuffix.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
@@ -117,7 +114,7 @@ WithSuffix.args = {
     },
   ],
 };
-export const AsSidePanel = (args) => ({
+export const AsMobileMenu = (args) => ({
   components: {
     UiMenu,
     UiText,
@@ -173,23 +170,23 @@ export const AsSidePanel = (args) => ({
       other,
     };
   },
-  template: `<div class="menu-side-panel__container">
+  template: `<div class="menu-mobile-menu__content">
     <UiMenu
       :class="modifiers"
       :items="language"
     />
   </div>
-  <div class="menu-side-panel__container">
+  <div class="menu-mobile-menu__content">
     <UiMenu
       :class="modifiers"
       :items="other"
     />
   </div>
-  <div class="menu-side-panel__footer">
+  <div class="menu-mobile-menu__footer">
     <UiText class="ui-text--theme-secondary">© 2021 Infermedica</UiText>
   </div>`,
 });
-AsSidePanel.decorators = [ (story) => ({
+AsMobileMenu.decorators = [ (story) => ({
   components: {
     UiSidePanel,
     UiButton,
@@ -214,13 +211,13 @@ AsSidePanel.decorators = [ (story) => ({
     <UiSidePanel
       v-model="modelValue"
       title="Settings & Info"
-      class="menu-side-panel"
+      class="menu-mobile-menu"
     >
       <story/>
     </UiSidePanel>
   </div>`,
 }) ];
-AsSidePanel.parameters = { viewport: { defaultViewport: 'mobile2' } };
+AsMobileMenu.parameters = { viewport: { defaultViewport: 'mobile2' } };
 
 export const AsPopoverContent = (args) => ({
   components: {

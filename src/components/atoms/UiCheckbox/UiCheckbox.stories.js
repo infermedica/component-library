@@ -122,10 +122,11 @@ export const WithCheckboxSlot = (args) => ({
         checked, 
         iconCheckmarkAttrs
       }">
-        <div
-          :class="['ui-checkbox__checkbox', {
+        <div 
+          class="ui-checkbox__checkbox"
+          :class="{
             'ui-checkbox__checkbox--is-checked': checked,
-         }]"
+          }"
         >
           <UiIcon
             v-bind="iconCheckmarkAttrs"
@@ -234,28 +235,27 @@ export const AsGroupWithPrimitiveTypes = (args) => ({
       ...args,
       ...events,
       modelValue,
+      UiCheckbox,
     };
   },
-  template: `<UiList style="--list-item-padding: var(--space-12) 0;">
+  template: `<UiList>
     <UiListItem
       v-for="(value, key) in values"
       :key="key"
+      :tag="UiCheckbox"
+      v-model="modelValue"
+      :value="value"
+      :id="id"
+      :disabled="disabled"
+      :input-attrs="inputAttrs"
+      :icon-checkmark-attrs="iconCheckmarkAttrs"
+      :text-label-attrs="textLabelAttrs"
+      :class="modifiers"
+      @update:modelValue="onUpdateModelValue"
+      @focus="onFocus"
+      @blur="onBlur"
     >
-      <UiCheckbox
-        v-model="modelValue"
-        :value="value"
-        :id="id"
-        :disabled="disabled"
-        :input-attrs="inputAttrs"
-        :icon-checkmark-attrs="iconCheckmarkAttrs"
-        :text-label-attrs="textLabelAttrs"
-        :class="modifiers"
-        @update:modelValue="onUpdateModelValue"
-        @focus="onFocus"
-        @blur="onBlur"
-      >
-        {{ value }}
-      </UiCheckbox>
+      {{ value }}
     </UiListItem>
   </UiList>`,
 });
@@ -296,28 +296,27 @@ export const AsGroupWithObject = (args) => ({
       ...args,
       ...events,
       modelValue,
+      UiCheckbox,
     };
   },
-  template: `<UiList style="--list-item-padding: var(--space-12) 0;">
+  template: `<UiList>
     <UiListItem
       v-for="(value, key) in values"
       :key="key"
+      :tag="UiCheckbox"
+      v-model="modelValue"
+      :value="value"
+      :id="value.id"
+      :disabled="disabled"
+      :input-attrs="inputAttrs"
+      :icon-checkmark-attrs="iconCheckmarkAttrs"
+      :text-label-attrs="textLabelAttrs"
+      :class="modifiers"
+      @update:modelValue="onUpdateModelValue"
+      @focus="onFocus"
+      @blur="onBlur"
     >
-      <UiCheckbox
-        v-model="modelValue"
-        :value="value"
-        :id="value.id"
-        :disabled="disabled"
-        :input-attrs="inputAttrs"
-        :icon-checkmark-attrs="iconCheckmarkAttrs"
-        :text-label-attrs="textLabelAttrs"
-        :class="modifiers"
-        @update:modelValue="onUpdateModelValue"
-        @focus="onFocus"
-        @blur="onBlur"
-      >
-        {{ value.label }}
-      </UiCheckbox>
+      {{ value.label }}
     </UiListItem>
   </UiList>`,
 });
@@ -370,28 +369,27 @@ export const AsGroupWithNestedObject = (args) => ({
       ...args,
       ...events,
       modelValue,
+      UiCheckbox,
     };
   },
-  template: `<UiList style="--list-item-padding: var(--space-12) 0;">
+  template: `<UiList>
     <UiListItem
       v-for="(value, key) in values"
       :key="key"
+      :tag="UiCheckbox"
+      v-model="modelValue"
+      :value="value"
+      :id="value.id"
+      :disabled="disabled"
+      :input-attrs="inputAttrs"
+      :icon-checkmark-attrs="iconCheckmarkAttrs"
+      :text-label-attrs="textLabelAttrs"
+      :class="modifiers"
+      @update:modelValue="onUpdateModelValue"
+      @focus="onFocus"
+      @blur="onBlur"
     >
-      <UiCheckbox
-        v-model="modelValue"
-        :value="value"
-        :id="value.id"
-        :disabled="disabled"
-        :input-attrs="inputAttrs"
-        :icon-checkmark-attrs="iconCheckmarkAttrs"
-        :text-label-attrs="textLabelAttrs"
-        :class="modifiers"
-        @update:modelValue="onUpdateModelValue"
-        @focus="onFocus"
-        @blur="onBlur"
-      >
-        {{ value.label }}
-      </UiCheckbox>
+      {{ value.label }}
     </UiListItem>
   </UiList>`,
 });

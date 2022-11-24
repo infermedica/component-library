@@ -229,29 +229,28 @@ export const AsGroupWithPrimitiveTypes = (args) => ({
       ...args,
       ...events,
       modelValue,
+      UiRadio,
     };
   },
-  template: `<UiList style="--list-item-padding: var(--space-12) 0;">
+  template: `<UiList>
     <UiListItem
       v-for="(value, key) in values"
       :key="key"
+      :tag="UiRadio"
+      v-model="modelValue"
+      :name="name"
+      :value="value"
+      :id="id"
+      :disabled="disabled"
+      :input-attrs="inputAttrs"
+      :radio-element-attrs="radioElementAttrs"
+      :text-label-attrs="textLabelAttrs"
+      :class="modifiers"
+      @update:modelValue="onUpdateModelValue"
+      @focus="onFocus"
+      @blur="onBlur"
     >
-      <UiRadio
-          v-model="modelValue"
-          :name="name"
-          :value="value"
-          :id="id"
-          :disabled="disabled"
-          :input-attrs="inputAttrs"
-          :radio-element-attrs="radioElementAttrs"
-          :text-label-attrs="textLabelAttrs"
-          :class="modifiers"
-          @update:modelValue="onUpdateModelValue"
-          @focus="onFocus"
-          @blur="onBlur"
-      >
-        {{ value }}
-      </UiRadio>
+      {{ value }}
     </UiListItem>
   </UiList>`,
 });
@@ -294,29 +293,28 @@ export const AsGroupWithObject = (args) => ({
       ...args,
       ...events,
       modelValue,
+      UiRadio,
     };
   },
-  template: `<UiList style="--list-item-padding: var(--space-12) 0;">
+  template: `<UiList>
     <UiListItem
       v-for="(value, key) in values"
       :key="key"
+      :tag="UiRadio"
+      v-model="modelValue"
+      :value="value"
+      :id="value.id"
+      :name="name"
+      :disabled="disabled"
+      :input-attrs="inputAttrs"
+      :radio-element-attrs="radioElementAttrs"
+      :text-label-attrs="textLabelAttrs"
+      :class="modifiers"
+      @update:modelValue="onUpdateModelValue"
+      @focus="onFocus"
+      @blur="onBlur"
     >
-      <UiRadio
-        v-model="modelValue"
-        :value="value"
-        :id="value.id"
-        :name="name"
-        :disabled="disabled"
-        :input-attrs="inputAttrs"
-        :radio-element-attrs="radioElementAttrs"
-        :text-label-attrs="textLabelAttrs"
-        :class="modifiers"
-        @update:modelValue="onUpdateModelValue"
-        @focus="onFocus"
-        @blur="onBlur"
-      >
-        {{ value.label }}
-      </UiRadio>
+      {{ value.label }}
     </UiListItem>
   </UiList>`,
 });
@@ -371,29 +369,28 @@ export const AsGroupWithNestedObject = (args) => ({
       ...args,
       ...events,
       modelValue,
+      UiRadio,
     };
   },
-  template: `<UiList style="--list-item-padding: var(--space-12) 0;">
+  template: `<UiList>
     <UiListItem
       v-for="(value, key) in values"
       :key="key"
+      :tag="UiRadio"
+      v-model="modelValue"
+      :value="value"
+      :id="value.id"
+      :name="name"
+      :disabled="disabled"
+      :input-attrs="inputAttrs"
+      :radio-element-attrs="value.radioElementAttrs"
+      :text-label-attrs="textLabelAttrs"
+      :class="modifiers"
+      @update:modelValue="onUpdateModelValue"
+      @focus="onFocus"
+      @blur="onBlur"
     >
-      <UiRadio
-        v-model="modelValue"
-        :value="value"
-        :id="value.id"
-        :name="name"
-        :disabled="disabled"
-        :input-attrs="inputAttrs"
-        :radio-element-attrs="value.radioElementAttrs"
-        :text-label-attrs="textLabelAttrs"
-        :class="modifiers"
-        @update:modelValue="onUpdateModelValue"
-        @focus="onFocus"
-        @blur="onBlur"
-      >
-        {{ value.label }}
-      </UiRadio>
+      {{ value.label }}
     </UiListItem>
   </UiList>`,
 });
