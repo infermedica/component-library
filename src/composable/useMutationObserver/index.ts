@@ -4,8 +4,12 @@ import {
   getCurrentScope,
   onScopeDispose,
 } from 'vue';
+import type {
+  Ref,
+  ComponentPublicInstance,
+} from 'vue';
 
-function tryOnScopeDispose(fn) {
+function tryOnScopeDispose(fn: () => void) {
   if (getCurrentScope()) {
     onScopeDispose(fn);
     return true;
@@ -13,13 +17,17 @@ function tryOnScopeDispose(fn) {
   return false;
 }
 
-function unrefElement(elRef) {
+function unrefElement(elRef: Ref<HTMLElement | ComponentPublicInstance>) {
   const plain = unref(elRef);
-  return plain?.$el ?? plain;
+  return (plain as ComponentPublicInstance)?.$el ?? plain;
 }
 
-export default function useMutationObserver(target, callback, options) {
-  let observer;
+export default function useMutationObserver(
+  target: Ref<HTMLElement | ComponentPublicInstance>,
+  callback: () => void,
+  options?: MutationObserverInit,
+) {
+  let observer: MutationObserver | undefined;
   const isSupported = window && 'IntersectionObserver' in window;
 
   const cleanup = () => {

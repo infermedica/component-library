@@ -3,6 +3,7 @@ import UiMultipleChoicesItem from '@/components/organisms/UiMultipleChoices/_int
 import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
 import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
+import UiRadio from '@/components/atoms/UiRadio/UiRadio.vue';
 import {
   ref,
   computed,
@@ -20,6 +21,7 @@ export default {
   component: UiMultipleChoices,
   subcomponents: {
     UiMultipleChoicesItem,
+    UiRadio,
     UiAlert,
     UiList,
     UiListItem,
@@ -114,6 +116,9 @@ const Template = (args) => ({
 
 export const Common = Template.bind({});
 
+export const WithError = Template.bind({});
+WithError.args = { touched: true };
+
 export const WithButtonInfo = Template.bind({});
 WithButtonInfo.args = {
   items: [
@@ -164,13 +169,11 @@ export const WithHintSlot = (args) => ({
     @update:modelValue="onUpdateModelValue"
     @update:invalid="onUpdateInvalid"
   >
-    <template
-      #hint="{
-        hint,
-        alertHintAttrs,
-        hintType
-      }"
-    >
+    <template #hint="{
+      hint,
+      alertHintAttrs,
+      hintType
+    }">
       <UiAlert
           v-if="hint"
           v-bind="alertHintAttrs"
@@ -183,11 +186,10 @@ export const WithHintSlot = (args) => ({
   </UiMultipleChoices>`,
 });
 
-export const WithListItemSlot = (args) => ({
+export const WithChoiceSlot = (args) => ({
   components: {
     UiMultipleChoices,
     UiMultipleChoicesItem,
-    UiListItem,
   },
   setup() {
     const modelValue = ref(args.initModelValue);
@@ -210,34 +212,32 @@ export const WithListItemSlot = (args) => ({
     @update:modelValue="onUpdateModelValue"
     @update:invalid="onUpdateInvalid"
   >
-    <template
-      #list-item="{
-        item,
-        index,
-        value,
-        options,
-        hasError,
-        updateHandler
-      }"
-    >
-      <UiListItem class="ui-multiple-choices__list-item">
-        <UiMultipleChoicesItem
-          :model-value="value[index]"
-          v-bind="item"
-          :options="options"
-          :invalid="hasError(index)"
-          class="ui-multiple-choices__choice"
-          @update:model-value="updateHandler($event, index)"
-        />
-      </UiListItem>
+    <template #choice="{
+      value,
+      index,
+      item,
+      options,
+      hasError,
+      updateHandler
+    }">
+      <UiMultipleChoicesItem
+        :model-value="value[index]"
+        v-bind="item"
+        :options="options"
+        :invalid="hasError(index)"
+        class="ui-multiple-choices__choice"
+        @update:model-value="updateHandler($event, index)"
+      />
     </template>
   </UiMultipleChoices>`,
 });
 
-export const WithChoiceSlot = (args) => ({
+export const WithOptionSlot = (args) => ({
   components: {
     UiMultipleChoices,
     UiMultipleChoicesItem,
+    UiListItem,
+    UiRadio,
   },
   setup() {
     const modelValue = ref(args.initModelValue);
@@ -260,24 +260,21 @@ export const WithChoiceSlot = (args) => ({
       @update:modelValue="onUpdateModelValue"
       @update:invalid="onUpdateInvalid"
   >
-    <template
-      #choice="{
-        value,
-        index,
-        item,
-        options,
-        hasError,
-        updateHandler
-      }"
-    >
-      <UiMultipleChoicesItem
-        :model-value="value[index]"
-        v-bind="item"
-        :options="options"
-        :invalid="hasError(index)"
-        class="ui-multiple-choices__choice"
-        @update:model-value="updateHandler($event, index)"
-      />
+    <template #option="{
+      value,
+      option,
+      invalid,
+    }">
+      <UiListItem
+        v-model="value"
+        :list-item-attrs="{ class: 'ui-multiple-choices-item__option' }"
+        :tag="UiRadio"
+        v-bind="option"
+        :class="{ 'ui-radio--has-error': invalid }"
+        :name="multipleChoicesItemId"
+      >
+        {{ option.label }}
+      </UiListItem>
     </template>
   </UiMultipleChoices>`,
 });

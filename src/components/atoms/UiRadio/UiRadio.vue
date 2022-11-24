@@ -297,13 +297,13 @@ if (radiobutton.value) {
   }
 
   &__label {
+    --text-margin: #{functions.var($element + "-label", margin, 0 0 0 var(--space-12))};
     --text-color: #{functions.var($element + "-label", color, var(--color-text-body))};
 
     flex: 1;
-    margin: functions.var($element + "-label", margin, 0 0 0 var(--space-12));
 
     [dir="rtl"] & {
-      margin: functions.var($element + "-rtl-label", margin, 0 var(--space-12) 0 0);
+      --text-margin: #{functions.var($element + "-rtl-label", margin, 0 var(--space-12) 0 0)};
     }
   }
 

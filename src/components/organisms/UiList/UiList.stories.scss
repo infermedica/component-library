@@ -1,0 +1,110 @@
+@use "../../../styles/mixins";
+
+//<Code id="list-condition-item">
+.list-condition-item {
+  --button-border-radius: 0;
+  --button-border-width: 0;
+
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+
+  @include mixins.focus {
+    box-shadow: var(--focus-inner);
+  }
+
+  &__probability {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+  }
+
+  &__progress {
+    --progressindicator-background: var(--color-dataviz-sequential-strong);
+
+    flex: 0 0 1.875rem;
+  }
+
+  &__label {
+    flex: 0 0 auto;
+  }
+
+  &__suffix {
+    display: flex;
+    align-items: center;
+    align-self: flex-end;
+    gap: var(--space-4);
+    margin: var(--space-8) 0 0 0;
+    font: var(--font-body-2-comfortable);
+    letter-spacing: var(--letter-spacing-body-2-comfortable);
+  }
+
+  &__suffix-icon {
+    --button-icon-margin: 0;
+    --button-rtl-icon-margin: 0;
+  }
+}
+//</Code>
+
+//<Code id="list-with-icon-item">
+.list-with-icon-item {
+  --button-border-radius: 0;
+  --button-border-width: 0;
+
+  @include mixins.focus {
+    box-shadow: var(--focus-inner);
+  }
+
+  &__prefix-icon {
+    --icon-size: 2rem;
+    margin: 0 var(--space-16) 0 0;
+
+    [dir="rtl"] & {
+      margin: 0 0 0 var(--space-16);
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    flex: 1;
+    text-align: start;
+    margin: var(--space-4) 0 0 0;
+  }
+
+  &__suffix {
+    margin: var(--space-4) 0 0 var(--space-12);
+
+    [dir="rtl"] & {
+      margin: var(--space-4) var(--space-12) 0 0;
+    }
+  }
+}
+//</Code>
+
+//<Code id="list-checkbox-item">
+.list-checkbox-item {
+  &__checkbox-label {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__suffix {
+    align-self: end;
+  }
+}
+//</Code>
+
+//<Code id="list-radio-item">
+.list-radio-item {
+  &__radio-label {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__suffix {
+    align-self: end;
+  }
+}
+//</Code>

@@ -1,5 +1,6 @@
 import { Meta } from '@storybook/addon-docs';
 import { PageOutline } from '../components/PageOutline';
+import { Code } from '../components/Code';
 
 <Meta title="Getting Started/Development Guide/Theme Configuration"/>
 
@@ -24,40 +25,32 @@ Infermedica Component Library uses a few levels to configure the CSS of your pro
 Global variables representing project style guide. They base on the Figma project where we keep Style Library with tokens for color, font, font styles, space, border-radius and more.
 Our tokens used `html` scope to setup default values e.g.
 
-```scss
-html {
+<Code code={`html {
   --space-2: 0.125rem;
-  --space-4: 0.25rem;
-
+  --space-4: 0.25rem;\n
   --border-radius-container: 5px;
   --border-radius-button: 5px;
   --border-radius-form: 5px;
-}
-```
+}`}/>
 
 `html` has lower priority than `:root` scope. So, you can override the default values by adding your own custom properties to `:root` scope e.g.
 
-```scss
-:root {
+<Code code={`:root {
   --border-radius-container: 0;
   --border-radius-button: 0;
   --border-radius-form: 0;
-}
-```
+}`}/>
 
 RTL is supported by adding `:root` scope with `dir: rtl` property e.g.
 
-```scss
-:root {
+<Code code={`:root {
   --font-family-heading: "Roboto", sans-serif;
   --font-family-body: "Roboto", sans-serif;
-}
-
+}\n
 :root[dir="rtl"] {
   --font-family-heading: "IBM Plex Sans Arabic", sans-serif;
   --font-family-body: "IBM Plex Sans Arabic", sans-serif;
-}
-```
+}`}/>
 
 ### Themes
 For styles like `secondary` or `brand` we use themes from BEM convention. Theme is a type of modifiers with have a `-theme-` in name. e.b.
@@ -65,8 +58,7 @@ For styles like `secondary` or `brand` we use themes from BEM convention. Theme 
 
 To set styles for theme, we override the values of default variables using in component. e.g.
 
-```scss
-.ui-button {
+<Code code={`.ui-button {
   @at-root [class*="-secondary"] {
     #{$this},
     &#{$this} {
@@ -78,8 +70,7 @@ To set styles for theme, we override the values of default variables using in co
       --color-icon-primary-active: var(--color-icon-secondary-active);
     }
   }
-}
-```
+}`}/>
 
 The selector used allows to set theme in component. e.g.
 
@@ -104,68 +95,55 @@ You can crete your own themes e.g. dark or light theme.
 Global variables cover many cases. But sometimes you need to configure the CSS of specific components like buttons, icons (e.g. icon sizes), ...
 For example, you may want to change the background color of a every `UiButton` component.
 
-```scss
-.ui-button {
+<Code code={`.ui-button {
   --button-background: #1471C9;
   --button-hover-background: #0F5496;
   --button-active-background: #0B3D6D;
-}
-```
+}`}/>
 
 or size of the icon
 
-```scss
-.ui-icon {
+<Code code={`.ui-icon {
   --icon-size: 1.5rem;
-}
-```
+}`}/>
+
 Component specific variables are defined for customizable properties like color, backgrounds, borders, paddings, margins, etc.
 List of CSS variables for each component is available in the component's documentation.
 
 #### BEM and CSS Custom Properties
 We use BEM naming convention for CSS variables, in common cases is will be `--<block>-<element>-<property>` e.g.
 
-```scss
-.ui-side-panel {
+<Code code={`.ui-side-panel {
   &__content {
    padding: var(--side-panel-content-padding, var(--space-24) var(--space-20));
   }
-}
-```
+}`}/>
 
 But in some case it's not enough.
 
-```scss
-//rtl
+<Code code={`//rtl
 --checkbox-label-margin: 0 0 0 var(--space-12);
---checkbox-rtl-label-margin: 0 var(--space-12) 0 0; // -rtl will be added after block
-
-//breakpoints
---side-panel-content-padding: var(--space-24) var(--space-20);
---side-panel-rtl-tablet-content-padding: var(--space-32) var(--space-48); // <breakpoint> will be added after block if `-rtl` is doesn't exist
-
-//states (hover, active)
---button-icon-color: var(--color-icon-on-action);
---button-hover-icon-color: var(--color-icon-on-action-hover); // <state> will be added after block/element name with used this state i.e. hover is used for button not only for icon
-
-//checked state
---checkbox-checked-background: var(--color-selectioncontrols-selection);
---checkbox-checked-hover-background: var(--color-selectioncontrols-selection-hover); // some components has checked state, it will be added before <state> because checked is more static than temporary states like hover.
-```
+--checkbox-rtl-label-margin: 0 var(--space-12) 0 0; // -rtl will be added after block\n
+  //breakpoints
+  --side-panel-content-padding: var(--space-24) var(--space-20);
+  --side-panel-rtl-tablet-content-padding: var(--space-32) var(--space-48); // breakpoint will be added after block if -rtl is doesn't exist\n
+  //states (hover, active)
+  --button-icon-color: var(--color-icon-on-action);
+  --button-hover-icon-color: var(--color-icon-on-action-hover); // state will be added after block/element name with used this state i.e. hover is used for button not only for icon\n
+  //checked state
+  --checkbox-checked-background: var(--color-selectioncontrols-selection);
+  --checkbox-checked-hover-background: var(--color-selectioncontrols-selection-hover); // some components has checked state, it will be added before state because checked is more static than temporary states like hover.`}/>
 
 CSS Variable cover only design cases i.e. breakpoints, rtl, states is added to required components. When you need to cover new case e.g. new breakpoint you can do it.
 
-``` scss
-@use "@infermedica/component-library/styles/mixins";
-
+<Code code={`@use "@infermedica/component-library/styles/mixins";'\n
 .ui-checkbox {
   &__checkmark {
     @include mixins.for-desktop {
       --icon-size: var(--checkbox-desktop-checkmark-size, 1.5rem);
     }
   }
-}
-```
+}`}/>
 
 More about our CSS Variable and our approach to it you can find in [CSS Variables Deep Diving](docs/contributing-guide-css-var-deep-dive--page).
 
@@ -201,24 +179,20 @@ import { UiButton } from '@infermedica/component-library';
 To configure nested components you should use it CSS Custom Properties. e.g.
 We don't create "proxy variables" for nested Atoms. To configure nested components you should use it variables. e.g.
 
-```scss
-.ui-number-stepper {
+<Code code={`.ui-number-stepper {
   --button-icon-color: #D42E2E;
-}
-```
+}`}/>
 
 But `UiNumberStepper` contain two different buttons. So you can use their own class to override it.
 
-```scss
-.ui-number-stepper {
+<Code code={`.ui-number-stepper {
   &__decrement {
     --button-icon-color: #127F5B;
-  }
+  }\n
   &__increment {
     --button-icon-color: #D42E2E;
   }
-}
-```
+}`}/>
 
 Or you can add custom classes to buttons by props. e.g.
 
