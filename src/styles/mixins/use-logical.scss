@@ -1,25 +1,48 @@
 @use "../functions";
-/**
- * CSS Custom Properties
- * <element>-<propertyHead>-block-<?propertyTail>
- * <element>-<propertyHead>-inline-<?propertyTail>
- */
-@mixin use-logical($element, $property, $value) {
-  @if $value and $property {
+
+@function getLogicalValues($element, $values, $propertyHead, $propertyTail, $options) {
+  $results: [];
+  @for $index from 1 through 4 {
+    $varHead: --#{$element}-#{$propertyHead};
+    $varName: #{$varHead}-#{nth($options, $index)}#{$propertyTail};
+    $secondVarName: #{$varHead}-block#{$propertyTail};
+    @if $index % 2 == 0 {
+      $secondVarName: #{$varHead}-inline#{$propertyTail};
+    }
+    $thirdVarName: #{$varHead}-logical#{$propertyTail};
+    $valueIndex: $index;
+    @if $index > length($values) {
+      @if $index == 2 {
+        $values: append($values, nth($values, 1));
+      }@else {
+        $valueIndex: $index - 2;
+      };
+    }
+    $value: #{var($varName, var($secondVarName, var($thirdVarName, nth($values, $valueIndex))))};
+    $results: append($results, $value);
+  }
+  @return $results
+}
+
+@mixin use-logical($element, $property, $values) {
+  @if if $values and $property {
     $splittedProperty: functions.str-split($property, '-');
     $propertyHead: nth($splittedProperty, 1);
     $propertyTail: nth($splittedProperty, 2);
-    $propertyBlock: #{$propertyHead}-block#{$propertyTail};
-    $propertyInline: #{$propertyHead}-inline#{$propertyTail};
-    $listLength: length($value);
-    @while $listLength < 4 {
-      $value: append($value, null);
-      $listLength: $listLength + 1;
+    $includeBorderRadius: str-index($property, border-radius);
+    @if $includeBorderRadius {
+      $options: start-start, start-end, end-start, end-end;
+      $logicalValues: getLogicalValues($element, $values, $propertyHead, $propertyTail, $options);
+      @for $index from 1 through 4 {
+        border-#{nth($options, $index)}-radius: #{nth($logicalValues, $index)}
+      }
+    } @else {
+      $propertyBlock: #{$propertyHead}-block#{$propertyTail};
+      $propertyInline: #{$propertyHead}-inline#{$propertyTail};
+      $options: block-start, inline-end, block-end, inline-start;
+      $logicalValues: getLogicalValues($element, $values, $propertyHead, $propertyTail, $options);
+      #{$propertyBlock}: #{nth($logicalValues, 1)} #{nth($logicalValues, 3)};
+      #{$propertyInline}: #{nth($logicalValues, 4)} #{nth($logicalValues, 2)};
     }
-    @if nth($value, 2) == null {
-      $value: set-nth($value, 2, nth($value, 1));
-    }
-    #{$propertyBlock}: var(--#{$element}-#{$propertyBlock}, #{nth($value, 1)} #{nth($value, 3)});
-    #{$propertyInline}: var(--#{$element}-#{$propertyInline}, #{nth($value, 4)} #{nth($value, 2)});
   }
 };

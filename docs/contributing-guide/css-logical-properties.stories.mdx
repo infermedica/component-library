@@ -1,0 +1,173 @@
+import { Meta, Canvas, Story} from '@storybook/addon-docs';
+import { PageOutline } from '../components/PageOutline';
+import { Code } from '../components/Code.jsx';
+import { Table } from '../components/Table.jsx';
+import UiButton from '../../src/components/atoms/UiButton/UiButton.vue';
+
+<Meta title="Contributing Guide/Css Logical Properties"/>
+
+# CSS Logical Properties
+The Infermedica component library uses [CSS logical properties](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties)
+that provide the ability to control the layout through logical, not physical representations of directions and dimensions.
+It give us a lot more power to control our websites with minimal style changes, no matter what type of language we use
+English, Arabic, etc.
+
+<PageOutline/>
+
+## How to use
+You can use the following `use-logical` mixin, which transforms conventional ltr CSS physical value to CSS logical properties.
+
+<Code code={`@include mixins.use-logical(element, property, value);`}/>
+
+### Mixin arguments:
+#### Property
+- margin
+- border
+- inset
+- border-width
+- border-style
+- border-color
+- border-radius
+
+
+Here is an example of logical properties and css variables for - `margin`, `border`, `inset`.
+<Table
+  headers={['Physical property', 'Logical property', 'Css variable']}
+  rows={[
+    ['`{property}-top`', '`{property}-block-start`', '`--{element}-{property}-block-start`'],
+    ['`{property}-right`', '`{property}-inline-end`', '`--{element}-{property}-inline-end`'],
+    ['`{property}-bottom`', '`{property}-block-end`', '`--{element}-{property}-block-end`'],
+    ['`{property}-left`', '`{property}-inline-start`', '`--{element}-{property}-inline-start`'],
+    ['`{property}`', '`{property}-block` `{property}-inline`', '`--{element}-{property}-block` `--{element}-{property}-inline`'],
+    ['`{property}`', '`{property}-block` `{property}-inline`', '`--{element}-{property}-logical`'],
+  ]}
+/>
+
+Here is an example of logical properties and css variables for `border-width`, `border-style` and `border-color`.
+<Table
+  headers={['Physical property', 'Logical property', 'Css variable']}
+  rows={[
+    [
+      '`border-top-{width/style/color}`',
+      '`border-block-start-{width/style/color}`',
+      '`--{element}-border-block-start-{width/style/color}`'
+    ],[
+      '`border-right-{width/style/color}`',
+      '`border-inline-end-{width/style/color}`',
+      '`--{element}-border-inline-end-{width/style/color}`'
+    ],[
+      '`border-bottom-{width/style/color}`',
+      '`border-block-end-{width/style/color}`',
+      '`--{element}-border-block-end-{width/style/color}`'
+    ],[
+      '`border-left-{width/style/color}`',
+      '`border-inline-start-{width/style/color}`',
+      '`--{element}-border-inline-start-{width/style/color}`'
+    ],[
+      '`border-{width/style/color}`',
+      '`border-block-{width/style/color}` `border-inline-{width/style/color}`',
+      '`--{element}-border-block-{width/style/color}` `--{element}-border-inline-{width/style/color}`'
+    ],[
+      '`border-{width/style/color}`',
+      '`border-block-{width/style/color}` `border-inline-{width/style/color}`',
+      '`--{element}-border-logical-{width/style/color}`'],
+  ]}
+/>
+
+Here is an example of logical properties and css variables for `border-radius`.
+<Table
+  headers={['Physical property', 'Logical property', 'Css variable']}
+  rows={[
+    [
+      '`border-top-left-radius`',
+      '`border-start-start-radius`',
+      '`--{element}-border-start-start-radius`'
+    ],[
+      '`border-top-right-radius`',
+      '`border-start-end-radius`',
+      '`--{element}-border-start-end-radius`'
+    ],[
+      '`border-bottom-left-radius`',
+      '`border-end-start-radius`',
+      '`--{element}-border-end-start-radius`'
+    ],[
+      '`border-bottom-right-radius`',
+      '`border-end-end-radius`',
+      '`--{element}-border-end-end-radius`'
+    ],[
+      '`border-radius`',
+      '`border-start-start-radius` `border-start-end-radius` `border-end-start-radius` `border-end-end-radius`',
+      '`--{element}-border-block-radius` `--{element}-border-inline-radius`'
+    ],[
+      '`border-radius`',
+      '`border-start-start-radius` `border-start-end-radius` `border-end-start-radius` `border-end-end-radius`',
+      '`--{element}-border-logical-radius`'],
+  ]}
+/>
+
+#### Value
+Please use conventional ltr css value for property (top right bottom left) e.g. `20px 30px 10px 40px`:
+<Code code={`
+{property}-block-start: 20px;
+{property}-block-end: 10px;
+{property}-inline-start: 30px;
+{property}-inline-end: 40px;
+`}/>
+
+- When a value has three declaration, it is a shortcut to set `inline-end` property e.g `20px 30px 10px`
+
+<Code code={`
+{property}-block-start: 20px;
+{property}-block-end: 10px;
+{property}-inline-start: 30px;
+{property}-inline-end: 30px;
+`}/>
+
+- When a value has two declaration, it is a shortcut to set block and inline properties e.g `20px 30px`
+
+<Code code={`
+{property}-block-start: 20px;
+{property}-block-end: 20px;
+{property}-inline-start: 30px;
+{property}-inline-end: 30px;
+`}/>
+
+- When a value has one declaration, it is a shortcut to set all properties e.g. `20px`
+
+<Code code={`
+{property}-block-start: 20px;
+{property}-block-end: 20px;
+{property}-inline-start: 20px;
+{property}-inline-end: 20px;
+`}/>
+
+### How it works in practice
+- sass input
+<Code code={`
+  @include mixins.use-logical(button, padding, 12px 32px 8px);
+`}/>
+
+- css output
+<Code code={`
+padding-block:
+  var(--button-padding-block-start, var(--button-padding-block, var(--button-padding-logical, 12px)))
+  var(--button-padding-block-end, var(--button-padding-block, var(--button-padding-logical, 8px)));
+padding-inline:
+  var(--button-padding-inline-start, var(--button-padding-inline, var(--button-padding-logical, 32px)))
+  var(--button-padding-inline-end, var(--button-padding-inline, var(--button-padding-logical, 32px)));
+`}/>
+
+## Easy way for rtl support
+CSS logical properties respond automatically to text direction and typing mode. This means that the left and right sides will be automatically reversed and
+you won't need to add styles for rtl layouts anymore.
+
+<Code code={`.ui-list {
+  // deprecated
+  margin: 0 var(--space-4) 0 var(--space-8);'\n
+  [dir="rtl"] & {
+    margin: 0 var(--space-8) 0 var(--space-4);
+  }
+  // Please, use this instead
+  @include mixins.use-logical(list, margin, 0 var(--space-4) 0 var(--space-8));
+}
+`}/>

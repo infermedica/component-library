@@ -15,25 +15,9 @@ To name CSS variables we base on BEM. `--<block>-<element>-<property>` e.g.
 <Code code={`.ui-button {
   color: var(--button-color, var(--color-text-on-action))\n
   &__icon {
-    margin: var(--button-icon-margin, 0 0 0 var(--space-4));
+    --icon-size: var(--tile-icon-size, 3rem);\n
   }
 }`}/>
-
-But we have a few additional cases to handle.
-
-### RTL
-Infermedica Component Library support LTR and RTL languages. Styles base on LTR direction. To handle RTL languages we use `dir="rtl"` e.g.
-
-<Code code={`.ui-button {
-  &__icon {
-    margin: var(--button-icon-margin, 0 0 0 var(--space-4));\n
-    [dir="rtl"] & {
-      margin: var(--button-rtl-icon-margin, 0 var(--space-4) 0 0);
-    }
-  }
-}`}/>
-
-As you can see on example we add `-rtl` to variable name. `-rtl` will be added only to block.
 
 ### Breakpoints
 Our component library has mobile first styles. In some case we want to change some properties for `tablet` or `desktop` devises. e.g.
