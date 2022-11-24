@@ -36,7 +36,7 @@ export default {
     }),
   },
   decorators: [ () => ({
-    template: `<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 2.5rem">
+    template: `<div class="flex flex-wrap items-center gap-10">
       <story />
     </div>`,
   }) ],
