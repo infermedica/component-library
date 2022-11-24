@@ -103,17 +103,16 @@ export const WithDecrementSlot = (args) => ({
       }"
     >
       <UiButton
-          v-if="hasControls"
-          v-bind="buttonDecrementAttrs"
-          class="ui-button--outlined ui-button--circled ui-number-stepper__decrement"
-          :class="{
-            'ui-button--is-disabled': isMin
-          }"
-          @click="decrement"
+        v-if="hasControls"
+        v-bind="buttonDecrementAttrs"
+        :class="['ui-button--outlined ui-button--circled ui-number-stepper__decrement', {
+          'ui-button--is-disabled': isMin
+        }]"
+        @click="decrement"
       >
         <UiIcon
-            v-bind="iconDecrementAttrs"
-            class="ui-button__icon"
+          v-bind="iconDecrementAttrs"
+          class="ui-button__icon"
         />
       </UiButton>
     </template>
@@ -155,17 +154,16 @@ export const WithIncrementSlot = (args) => ({
       }"
     >
       <UiButton
-          v-if="hasControls"
-          v-bind="buttonIncrementAttrs"
-          class="ui-button--outlined ui-button--circled ui-number-stepper__increment"
-          :class="{
-            'ui-button--is-disabled': isMax
-          }"
-          @click="increment"
+        v-if="hasControls"
+        v-bind="buttonIncrementAttrs"
+        :class="['ui-button--outlined ui-button--circled ui-number-stepper__increment', {
+          'ui-button--is-disabled': isMax
+        }]"
+        @click="increment"
       >
         <UiIcon
-            v-bind="iconIncrementAttrs"
-            class="ui-button__icon"
+          v-bind="iconIncrementAttrs"
+          class="ui-button__icon"
         />
       </UiButton>
     </template>
@@ -203,8 +201,8 @@ export const WithValueSlot = (args) => ({
       }"
     >
       <UiHeading
-          v-bind="headingValueAttrs"
-          class="ui-range__value"
+        v-bind="headingValueAttrs"
+        class="ui-range__value"
       >
         {{ value }}
       </UiHeading>

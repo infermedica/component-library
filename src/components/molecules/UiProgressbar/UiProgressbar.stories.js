@@ -1,5 +1,7 @@
 import UiProgressbar from '@/components/molecules/UiProgressbar/UiProgressbar.vue';
 import UiProgress from '@/components/atoms/UiProgress/UiProgress.vue';
+import './UiProgressbar.stories.scss';
+import docs from './UiProgressbar.mdx';
 
 export default {
   title: 'Molecules/Progressbar',
@@ -11,6 +13,7 @@ export default {
     progressAttrs: { id: 'stepper-progress' },
   },
   argTypes: { progressAttrs: { table: { subcategory: 'Attrs props' } } },
+  parameters: { docs: { page: docs } },
 };
 
 export const WithDots = (args) => ({
@@ -32,7 +35,7 @@ export const WithoutDots = (args) => ({
   template: `<UiProgressbar 
     :steps="steps" 
     :current-step="currentStep" 
-    style="--progressbar-step-size: 0;"
+    class="progressbar-without-dots"
   />`,
 });
 

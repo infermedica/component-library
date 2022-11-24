@@ -214,13 +214,13 @@ export const WithItemsSlot = (args) => ({
      stepperStepAttrs
    }">
      <template
-         v-for="(step, index) in steps"
-         :key="index"
+       v-for="(step, index) in steps"
+       :key="index"
      >
        <UiStepperStep
-           :index="index"
-           :index-of-active-step="indexOfActiveStep"
-           v-bind="stepperStepAttrs(step)"
+         :index="index"
+         :index-of-active-step="indexOfActiveStep"
+         v-bind="stepperStepAttrs(step)"
        />
      </template>
    </template>
@@ -245,7 +245,7 @@ export const WithItemSlot = (args) => ({
     index,
     indexOfActiveStep,
     stepperStepAttrs,
-  }">
+   }">
      <UiStepperStep
        :index="index"
        :index-of-active-step="indexOfActiveStep"
@@ -274,9 +274,7 @@ export const WithItemLinkSlot = (args) => ({
       <component
         v-bind="itemAttrs"
         :is="itemTag"
-        :class="[
-          'ui-stepper-step__content', itemClass
-        ]"
+        :class="[ 'ui-stepper-step__content', itemClass ]"
       >
         {{ label }}
       </component>

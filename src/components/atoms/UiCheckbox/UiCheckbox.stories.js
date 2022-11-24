@@ -122,11 +122,10 @@ export const WithCheckboxSlot = (args) => ({
         checked, 
         iconCheckmarkAttrs
       }">
-        <div 
-          class="ui-checkbox__checkbox"
-          :class="{
+        <div
+          :class="['ui-checkbox__checkbox', {
             'ui-checkbox__checkbox--is-checked': checked,
-          }"
+          }]"
         >
           <UiIcon
             v-bind="iconCheckmarkAttrs"

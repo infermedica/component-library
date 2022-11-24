@@ -1,0 +1,8 @@
+@use "../../../styles/mixins";
+
+.popover {
+  @include mixins.from-tablet {
+    max-width: 20rem;
+    width: 100%;
+  }
+}

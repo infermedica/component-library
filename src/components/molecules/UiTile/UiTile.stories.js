@@ -8,6 +8,8 @@ import {
   content,
   modifiers,
 } from '@sb/helpers/argTypes';
+import './UiTIle.stories.scss';
+import docs from './UiTile.mdx';
 
 const events = actions({ onUpdateModelValue: 'update:modelValue' });
 
@@ -58,6 +60,7 @@ export default {
     iconAttrs: { table: { subcategory: 'Attrs props' } },
     textLabelAttrs: { table: { subcategory: 'Attrs props' } },
   },
+  parameters: { docs: { page: docs } },
 };
 
 const Template = (args) => ({
@@ -77,11 +80,10 @@ const Template = (args) => ({
     :icon="icon"
     :icon-attrs="iconAttrs"
     :text-label-attrs="textLabelAttrs"
-    :class="modifiers"
-    style="width: 100%; max-width: 320px;"
+    :class="['tile', modifiers]"
     @update:modelValue="onUpdateModelValue"
   >
-    {{content}}
+    {{ content }}
   </UiTile>`,
 });
 
@@ -113,8 +115,7 @@ export const WithIconSlot = (args) => ({
     :icon="icon"
     :icon-attrs="iconAttrs"
     :text-label-attrs="textLabelAttrs"
-    :class="modifiers"
-    style="width: 100%; max-width: 320px;"
+    :class="[ 'tile', modifiers ]"
     @update:modelValue="onUpdateModelValue"
   >
     <template #icon="{ iconAttrs }">
@@ -146,8 +147,7 @@ export const WithLabelSlot = (args) => ({
     :id="id"
     :icon-attrs="iconAttrs"
     :text-label-attrs="textLabelAttrs"
-    :class="modifiers"
-    style="width: 100%; max-width: 320px;"
+    :class="[ 'tile', modifiers ]"
     @update:modelValue="onUpdateModelValue"
   >
     <template #label="{ textLabelAttrs }">
@@ -171,10 +171,7 @@ export const AsGroup = (args) => ({
       modelValue,
     };
   },
-  template: `<div 
-    class="flex flex-col tablet:flex-row"
-    style="width: 100%; max-width: 1008px;"
-  >
+  template: `<div class="tile-as-group">
     <template 
       v-for="(item, index) in items" 
       :key="index"
@@ -186,8 +183,7 @@ export const AsGroup = (args) => ({
         :icon="item.icon"
         :icon-attrs="item.iconAttrs"
         :text-label-attrs="item.textLabelAttrs"
-        :class="[item.class, modifiers]"
-        style="flex: 1;"
+        :class="[ 'tile-as-group__tile', item.class, modifiers ]"
         @update:modelValue="onUpdateModelValue"
       >
         {{ item.label }}

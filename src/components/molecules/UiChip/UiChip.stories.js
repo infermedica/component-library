@@ -58,7 +58,11 @@ export const WithLabel = Template.bind({});
 
 export const WithLongLabel = Template.bind({});
 WithLongLabel.args = { content: 'Input chips represent pieces of information that were added, selected or entered by the user.' };
-WithLongLabel.decorators = [ () => ({ template: '<div style="max-width: 22.375rem"><story/></div>' }) ];
+WithLongLabel.decorators = [ () => ({
+  template: `<div class="max-w-89">
+    <story/>
+  </div>`,
+}) ];
 
 export const AsGroup = (args) => ({
   components: { UiChip },
@@ -68,7 +72,7 @@ export const AsGroup = (args) => ({
       ...events,
     };
   },
-  template: `<div style="display: flex; flex-wrap: wrap; gap: var(--space-8)">
+  template: `<div class="flex flex-wrap gap-2">
     <template v-for="_ in 5">
       <UiChip
         :text-label-attrs="textLabelAttrs"
@@ -81,7 +85,11 @@ export const AsGroup = (args) => ({
     </template>
   </div>`,
 });
-AsGroup.decorators = [ () => ({ template: '<div style="max-width: 22.375rem"><story/></div>' }) ];
+AsGroup.decorators = [ () => ({
+  template: `<div class="max-w-89">
+<story/>
+</div>`,
+}) ];
 
 export const WithRemoveSlot = (args) => ({
   components: {
@@ -101,13 +109,11 @@ export const WithRemoveSlot = (args) => ({
     :icon-remove-attrs="iconRemoveAttrs"
     @remove="onRemove"
   >
-    <template 
-      #remove="{
-        buttonRemoveAttrs,
-        clickHandler,
-        iconRemoveAttrs 
-      }"
-    >
+    <template #remove="{
+      buttonRemoveAttrs,
+      clickHandler,
+      iconRemoveAttrs 
+    }">
       <UiButton
         v-bind="buttonRemoveAttrs"
         class="ui-button--icon ui-button--circled ui-chip__remove"

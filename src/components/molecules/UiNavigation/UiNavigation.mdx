@@ -1,0 +1,58 @@
+import { Canvas, Meta, Story, Primary, ArgsTable } from '@storybook/addon-docs';
+import { Code } from '../../../../docs/components/Code';
+import UiNavigation from './UiNavigation.vue';
+import scss from './UiNavigation.stories.scss?raw';
+
+<Meta title="Molecules/Navigation" component={UiNavigation} />
+
+# UiNavigation
+
+<Primary />
+<ArgsTable />
+
+## Stories
+### Multiline
+<Canvas>
+  <Story id="molecules-navigation--multiline"/>
+</Canvas>
+
+### Secondary
+<Canvas>
+  <Story id="molecules-navigation--secondary"/>
+</Canvas>
+
+### On Brand
+<Canvas>
+  <Story id="molecules-navigation--on-brand"/>
+</Canvas>
+
+### Small
+<Canvas>
+  <Story id="molecules-navigation--small"/>
+</Canvas>
+
+### Vertical
+<Canvas>
+<Story id="molecules-navigation--vertical"/>
+</Canvas>
+
+**Use following SCSS to get the same result**
+<Code
+  id="navigation-vertical"
+  code={scss}
+/>
+
+### With Navigation Item Slot
+<Canvas>
+  <Story id="molecules-navigation--with-navigation-item-slot"/>
+</Canvas>
+
+### With Default Slot
+<Canvas>
+  <Story id="molecules-navigation--with-default-slot"/>
+</Canvas>
+
+### With Icon In Navigation Item Slot
+<Canvas>
+  <Story id="molecules-navigation--with-icon-in-navigation-item-slot"/>
+</Canvas>

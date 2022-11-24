@@ -8,6 +8,7 @@ import {
   content,
   modifiers,
 } from '@sb/helpers/argTypes';
+import './UiPopover.stories.scss';
 
 const events = actions({ onClose: 'close' });
 
@@ -81,10 +82,12 @@ const Template = (args) => ({
     :heading-title-attrs="headingTitleAttrs"
     :button-close-attrs="buttonCloseAttrs"
     :icon-close-attrs="iconCloseAttrs"
-    :class="['max-w-80', modifiers]"
+    :class="[ 'popover', modifiers ]"
     @close="onClose"
   >
-    <UiText>{{ content }}</UiText>
+    <UiText>
+      {{ content }}
+    </UiText>
   </UiPopover>`,
 });
 
@@ -115,11 +118,12 @@ export const AsBottomPanelOnMobile = (args) => ({
     :heading-title-attrs="headingTitleAttrs"
     :button-close-attrs="buttonCloseAttrs"
     :icon-close-attrs="iconCloseAttrs"
-    class="tablet:max-w-80"
-    :class="modifiers"
+    :class="[ 'popover', modifiers ]"
     @close="onClose"
   >
-    <UiText>{{content}}</UiText>
+    <UiText>
+      {{ content }}
+    </UiText>
   </UiPopover>`,
 });
 AsBottomPanelOnMobile.args = {
@@ -129,7 +133,11 @@ AsBottomPanelOnMobile.args = {
   ],
 };
 AsBottomPanelOnMobile.parameters = { viewport: { defaultViewport: 'mobile2' } };
-AsBottomPanelOnMobile.decorators = [ () => ({ template: '<div style="min-height: 568px"><story /></div>' }) ];
+AsBottomPanelOnMobile.decorators = [ () => ({
+  template: `<div class="min-h-135">
+    <story />
+  </div>`,
+}) ];
 
 export const AsDropdown = Template.bind({});
 AsDropdown.args = { title: '' };
@@ -151,7 +159,7 @@ export const WithTitleSlot = (args) => ({
     :heading-title-attrs="headingTitleAttrs"
     :button-close-attrs="buttonCloseAttrs"
     :icon-close-attrs="iconCloseAttrs"
-    :class="['tablet:max-w-80', modifiers]"
+    :class="[ 'popover', modifiers ]"
     @close="onClose"
   >
     <template #title="{
@@ -164,7 +172,9 @@ export const WithTitleSlot = (args) => ({
         {{ title }}
       </UiHeading>
     </template>
-    <UiText>{{ content }}</UiText>
+    <UiText>
+      {{ content }}
+    </UiText>
   </UiPopover>`,
 });
 
@@ -186,7 +196,7 @@ export const WithCloseSlot = (args) => ({
       :heading-title-attrs="headingTitleAttrs"
       :button-close-attrs="buttonCloseAttrs"
       :icon-close-attrs="iconCloseAttrs"
-      :class="['tablet:max-w-80', modifiers]"
+      :class="[ 'popover', modifiers ]"
       @close="onClose"
   >
     <template #close="{
@@ -205,6 +215,8 @@ export const WithCloseSlot = (args) => ({
         />
       </UiButton>
     </template>
-    <UiText>{{ content }}</UiText>
+    <UiText>
+      {{ content }}
+    </UiText>
   </UiPopover>`,
 });

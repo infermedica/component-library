@@ -1,3 +1,19 @@
+//<Code id="loading-common">
+.loading-common {
+  &--is-skeleton {
+    width: 100%;
+  }
+}
+//</Code>
+
+//<Code id="loading-button">
+.loading-button {
+  &--is-outlined {
+    --loader-ellipsis-dot-background: var(--color-icon-primary);
+  }
+}
+//</Code>
+
 //<Code id="loading-popover">
 .loading-popover {
   --popover-content-padding: 0 var(--space-16);
@@ -10,10 +26,10 @@
     --message-tablet-flex-direction: row-reverse;
     --message-aside-margin: 0 var(--space-12) 0 0;
     --message-tablet-aside-margin: 0 var(--space-12) 0 0;
-    --message-content-align-self: flex-start;
     --message-illustration-size: 1.5rem;
 
     margin: var(--space-16) 0;
+    align-items: flex-start;
   }
 
   &__try-again {
@@ -24,17 +40,48 @@
 
 //<Code id="loading-side-panel">
 .loading-side-panel {
-  &__message {
-    --message-flex-direction: row-reverse;
-    --message-tablet-flex-direction: row-reverse;
-    --message-aside-margin: 0 var(--space-12) 0 0;
-    --message-tablet-aside-margin: 0 var(--space-12) 0 0;
-    --message-content-align-self: flex-start;
-    --message-illustration-size: 1.5rem;
+  &__loader {
+    padding: var(--space-16);
+  }
+}
+//</Code>
+
+//<Code id="loading-controls">
+.loading-controls {
+  max-width: 48.75rem;
+  width: 100%;
+
+  &__loader {
+    width: 100%;
+  }
+}
+//</Code>
+
+//<Code id="loading-full-on-brand">
+.loading-full-on-brand {
+  position: absolute;
+  inset: 0;
+  background: var(--color-background-brand)
+}
+//</Code>
+
+//<Code id="loading-container">
+.loading-container {
+  --container-padding: var(--space-40) var(--space-48);
+
+  max-width: 48.75rem;
+  width: 100%;
+
+  &__recommended {
+    margin: var(--space-16) 0 0 0
   }
 
-  &__try-again {
-    margin: var(--space-16) 0;
+  &__description {
+    margin: var(--space-4) 0 0 0
+  }
+
+  &__accordion {
+    margin: var(--space-24) 0 0 0
   }
 }
 //</Code>

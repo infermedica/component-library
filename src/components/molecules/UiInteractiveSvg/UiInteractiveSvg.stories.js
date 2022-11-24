@@ -86,7 +86,6 @@ export const WithFocusOnMounted = () => ({
     class="map"
     viewBox="0 0 654 312"
     role="group"
-    style="width: 40.75rem"
   >
     <UiInteractiveSvgElement
       tag="g"
@@ -339,7 +338,6 @@ export const Map = () => ({
     class="map"
     viewBox="0 0 654 312"
     role="group"
-    style="width: 40.75rem"
   >
     <UiInteractiveSvgElement
       tag="g"
@@ -592,7 +590,6 @@ export const AbdominalPainMale = () => ({
     class="abdominal-pain"
     viewBox="0 0 340 220"
     role="group"
-    style="width: 21.25rem;"
   >
     <UiInteractiveSvgElement
       part="upper-right"
@@ -717,11 +714,10 @@ export const AbdominalPainFemale = () => ({
     return { elementsAttrs };
   },
   template: `<UiInteractiveSvg
-      :elements-attrs="elementsAttrs"
-      class="abdominal-pain"
-      viewBox="0 0 340 220"
-      role="group"
-      style="width: 21.25rem;"
+    :elements-attrs="elementsAttrs"
+    class="abdominal-pain"
+    viewBox="0 0 340 220"
+    role="group"
   >
     <UiInteractiveSvgElement
       part="upper-right"
@@ -836,7 +832,6 @@ export const InfantUnisexFront = (args) => ({
     stroke-linecap="round"
     stroke-linejoin="round"
     stroke-miterlimit="1.5"
-    style="width:10.5rem"
   >
     <UiInteractiveSvgElement
       v-if="hasMoreDetails"
@@ -960,7 +955,6 @@ export const InfantUnisexBack = () => ({
     stroke-linecap="round"
     stroke-linejoin="round"
     stroke-miterlimit="1.5"
-    style="width:10.5rem"
   >
     <UiInteractiveSvgElement
       part="head"
@@ -1061,7 +1055,6 @@ export const ToddlerMaleFront = (args) => ({
     stroke-linecap="round"
     stroke-linejoin="round"
     stroke-miterlimit="1.5"
-    style="width:10.5rem"
   >
     <UiInteractiveSvgElement
         v-if="hasMoreDetails"
@@ -1213,7 +1206,6 @@ export const ToddlerMaleBack = () => ({
     stroke-linecap="round"
     stroke-linejoin="round"
     stroke-miterlimit="1.5"
-    style="width:10.5rem"
   >
     <UiInteractiveSvgElement
       part="head"
@@ -1334,7 +1326,6 @@ export const ToddlerFemaleFront = (args) => ({
     stroke-linecap="round"
     stroke-linejoin="round"
     stroke-miterlimit="1.5"
-    style="width:10.5rem"
   >
     <UiInteractiveSvgElement
       v-if="hasMoreDetails"
@@ -1486,7 +1477,6 @@ export const ToddlerFemaleBack = () => ({
     stroke-linecap="round"
     stroke-linejoin="round"
     stroke-miterlimit="1.5"
-    style="width:10.5rem"
   >
     <UiInteractiveSvgElement
       part="head"
@@ -1607,7 +1597,6 @@ export const ChildMaleFront = (args) => ({
     stroke-linecap="round"
     stroke-linejoin="round"
     stroke-miterlimit="1.5"
-    style="width:10.5rem"
   >
     <UiInteractiveSvgElement
       v-if="hasMoreDetails"
@@ -1759,7 +1748,6 @@ export const ChildMaleBack = () => ({
     stroke-linecap="round"
     stroke-linejoin="round"
     stroke-miterlimit="1.5"
-    style="width:10.5rem"
   >
     <UiInteractiveSvgElement
       part="head"
@@ -1876,7 +1864,6 @@ export const ChildFemaleFront = (args) => ({
     stroke-linecap="round"
     stroke-linejoin="round"
     stroke-miterlimit="1.5"
-    style="width:10.5rem"
   >
     <UiInteractiveSvgElement
       v-if="hasMoreDetails"
@@ -2028,7 +2015,6 @@ export const ChildFemaleBack = () => ({
     stroke-linecap="round"
     stroke-linejoin="round"
     stroke-miterlimit="1.5"
-    style="width:10.5rem"
   >
     <UiInteractiveSvgElement
       part="head"
@@ -2145,7 +2131,6 @@ export const AdultMaleFront = (args) => ({
     stroke-linecap="round"
     stroke-linejoin="round"
     stroke-miterlimit="1.5"
-    style="width:10.5rem"
   >
     <UiInteractiveSvgElement
       v-if="hasMoreDetails"
@@ -2297,7 +2282,6 @@ export const AdultMaleBack = () => ({
     stroke-linecap="round"
     stroke-linejoin="round"
     stroke-miterlimit="1.5"
-    style="width:10.5rem"
   >
     <UiInteractiveSvgElement
       part="head"
@@ -2418,7 +2402,6 @@ export const AdultFemaleFront = (args) => ({
     stroke-linecap="round"
     stroke-linejoin="round"
     stroke-miterlimit="1.5"
-    style="width:10.5rem"
   >
     <UiInteractiveSvgElement
       v-if="hasMoreDetails"
@@ -2574,7 +2557,6 @@ export const AdultFemaleBack = () => ({
     stroke-linecap="round"
     stroke-linejoin="round"
     stroke-miterlimit="1.5"
-    style="width:10.5rem"
   >
     <UiInteractiveSvgElement
       part="head"

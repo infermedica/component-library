@@ -3,6 +3,8 @@ import UiCheckbox from '@/components/atoms/UiCheckbox/UiCheckbox.vue';
 import UiInput from '@/components/atoms/UiInput/UiInput.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
+import './UiFormField.stories.scss';
+import docs from './UiFormField.mdx';
 
 export default {
   title: 'Molecules/FormField',
@@ -58,6 +60,7 @@ export default {
     textHintAttrs: { table: { subcategory: 'Attrs props' } },
     alertAttrs: { table: { subcategory: 'Attrs props' } },
   },
+  parameters: { docs: { page: docs } },
 };
 
 export const WithInput = (args) => ({
@@ -76,16 +79,16 @@ export const WithInput = (args) => ({
     :text-message-attrs="textMessageAttrs"
     :text-hint-attrs="textHintAttrs"
     :alert-attrs="alertAttrs"
+    class="form-field-with-input"
   >
     <template #default="{ id }">
       <UiInput
         :id="id"
         suffix="cm"
         type="number"
-        style="width: 100%"
-        :class="{
+        :class="['form-field-with-input__input', {
           'ui-input--has-error': errorMessage
-        }"
+        }]"
       />
     </template>
   </UiFormField>`,
@@ -100,9 +103,7 @@ export const WithCheckboxes = (args) => ({
   setup() {
     return { ...args };
   },
-  template: `<UiText
-    style="margin: 0 0 var(--space-24) 0;"
-  >
+  template: `<UiText class="form-field-with-checkboxes-description">
     What’s wrong with this question?
   </UiText>
   <UiFormField
@@ -113,21 +114,19 @@ export const WithCheckboxes = (args) => ({
     :text-message-attrs="textMessageAttrs"
     :text-hint-attrs="textHintAttrs"
     :alert-attrs="alertAttrs"
-    style="--form-field-alert-margin: 0;"
+    class="form-field-with-checkboxes"
   >
     <UiCheckbox
-      :class="{
+      :class="['form-field-with-checkboxes__checkbox',{
         'ui-checkbox--has-error': errorMessage
-      }"
-      style="margin: 0 0 var(--space-24) 0;"
+      }]"
     >
       I found a typo
     </UiCheckbox>
     <UiCheckbox
-      :class="{
+      :class="['form-field-with-checkboxes__checkbox',{
         'ui-checkbox--has-error': errorMessage
-      }"
-      style="margin: 0 0 var(--space-24) 0;"
+      }]"
     >
       Other (please comment below)
     </UiCheckbox>
@@ -156,6 +155,7 @@ export const WithLabelSlot = (args) => ({
     :text-message-attrs="textMessageAttrs"
     :text-hint-attrs="textHintAttrs"
     :alert-attrs="alertAttrs"
+    class="form-field-with-input"
   >
     <template #label="{
       message,
@@ -189,10 +189,9 @@ export const WithLabelSlot = (args) => ({
         :id="id"
         suffix="cm"
         type="number"
-        :class="{
+        :class="['form-field-with-input__input',{
           'ui-input--has-error': errorMessage
-        }"
-        style="width: 100%"
+        }]"
       />
     </template>
   </UiFormField>`,
@@ -214,6 +213,7 @@ export const WithAlertSlot = (args) => ({
     :hint="hint"
     :alert-attrs="alertAttrs"
     :error-message="errorMessage"
+    class="form-field-with-input"
   >
     <template #alert="{
       alertAttrs,
@@ -232,10 +232,9 @@ export const WithAlertSlot = (args) => ({
         :id="id"
         suffix="cm"
         type="number"
-        :class="{
+        :class="['form-field-with-input__input',{
           'ui-input--has-error': errorMessage
-        }"
-        style="width: 100%"
+        }]"
       />
     </template>
   </UiFormField>`,
