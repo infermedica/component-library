@@ -1,0 +1,12 @@
+import { Meta } from "@storybook/addon-docs";
+import { PageOutline } from '../../../components/PageOutline';
+import { ComponentsApiSection } from '../../../components/ComponentsApiSection';
+import { diffs } from './components-api-lock.json';
+
+<Meta title="Releases/ReleasePath/Migration Guide"/>
+
+# Migration Guide
+
+<PageOutline selectors="h2, h3"/>
+
+<ComponentsApiSection diffs={diffs}/>

@@ -3,16 +3,8 @@ import ComponentNameCamelCase from '@/components/ComponentFolder/ComponentNameCa
 export default {
   title: 'ComponentType/ComponentName',
   component: ComponentNameCamelCase,
-  args: {
-    content: 'content',
-  },
-  argTypes: {
-    content: {
-      control: {
-        type: 'text',
-      },
-    },
-  },
+  args: { content: 'content' },
+  argTypes: { content: { control: { type: 'text' } } },
 };
 
 const Template = (args) => ({
@@ -28,6 +20,4 @@ const Template = (args) => ({
 });
 
 export const Common = Template.bind({});
-Common.args = {
-  content: 'common',
-};
+Common.args = { content: 'common' };
