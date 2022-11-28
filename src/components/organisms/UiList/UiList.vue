@@ -109,11 +109,14 @@ const listItemAttrs = ({
 </script>
 
 <style lang="scss">
-@use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-list {
-  padding: 0;
-  margin: 0;
+  $element: list;
+
+  @include mixins.use-logical($element, padding, 0);
+  @include mixins.use-logical($element, margin, 0);
+
   list-style-type: none;
 }
 </style>

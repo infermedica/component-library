@@ -105,21 +105,22 @@ const defaultProps = computed(() => ({
 
 <style lang="scss">
 @use "../../../../styles/functions";
+@use "../../../../styles/mixins";
 
 .ui-menu-item {
   $this: &;
   $element: menu-item;
 
-  --list-item-border-width: 0;
+  --list-item-border-logical-width: 0;
 
-  padding: functions.var($element, padding, var(--space-4) var(--space-8));
+  @include mixins.use-logical($element, padding, var(--space-4) var(--space-8));
 
   &__button {
-    --_list-item-content-padding: #{functions.var($element + "-button", padding, var(--space-8))};
-    --list-item-content-padding: var(--_list-item-content-padding);
-    --list-item-tablet-content-padding: var(--_list-item-content-padding);
-    --button-padding: var(-_list-item-content-padding);
-    --button-border-width: #{functions.var($element + "-button", border-width, 0)};
+    --_list-item-content-padding-logical: #{functions.var($element + "-button", padding-logical, var(--space-8))};
+    --list-item-content-padding-logical: var(--_list-item-content-padding-logical);
+    --list-item-tablet-content-padding-logical: var(--_list-item-content-padding-logical);
+    --button-padding-logical: var(--_list-item-content-padding-logical);
+    --button-border-logical-width: #{functions.var($element + "-button", border-logical-width, 0)};
     --button-font: #{functions.var($element + "-button", font, var(--font-body-1))};
     --button-letter-spacing: #{functions.var($element + "-button", letter-spacing, var(--letter-spacing-body-1))};
 
@@ -133,11 +134,7 @@ const defaultProps = computed(() => ({
   }
 
   &__suffix {
-    margin: functions.var($element + "-suffix", margin, 0 0 0 var(--space-12));
-
-    [dir="rtl"] & {
-      margin: functions.var($element + "rtl-suffix", margin, 0 var(--space-12) 0 0);
-    }
+    @include mixins.use-logical($element + "-suffix", margin, 0 0 0 var(--space-12));
   }
 
   &--is-selected {

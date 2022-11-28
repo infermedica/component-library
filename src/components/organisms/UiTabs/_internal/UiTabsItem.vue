@@ -133,6 +133,7 @@ onMounted(async () => {
 
 <style lang="scss">
 @use "../../../../styles/functions";
+@use "../../../../styles/mixins";
 
 .ui-tabs-item {
   $this: &;
@@ -141,13 +142,10 @@ onMounted(async () => {
   display: contents;
 
   &__tab {
-    flex: functions.var($element + "-tab", flex, 0 0 auto);
-    padding: functions.var($element + "-tab", padding, var(--space-16) 0);
-    margin: functions.var($element + "-tab", margin, 0 var(--space-24) 0 0);
+    @include mixins.use-logical($element + "-tab", padding, var(--space-16) 0);
+    @include mixins.use-logical($element + "-tab", margin, 0 var(--space-24) 0 0);
 
-    [dir="rtl"] & {
-      margin: functions.var($element + "-rtl-tab", margin, 0 0 0 var(--space-24));
-    }
+    flex: functions.var($element + "-tab", flex, 0 0 auto);
 
     #{$this}:first-of-type & {
       position: relative;
@@ -171,7 +169,7 @@ onMounted(async () => {
     }
 
     #{$this}:last-of-type & {
-      margin: functions.var($element + "-tab", margin, 0);
+      @include mixins.use-logical($element + "-tab", margin, 0);
     }
   }
 
@@ -196,19 +194,21 @@ onMounted(async () => {
   }
 
   &__content {
+    @include mixins.use-logical($element + "-content", padding, var(--space-16) var(--space-20));
+    @include mixins.use-logical($element + "-content", margin, 0 calc(var(--space-20) * -1));
+
     position: relative;
     flex: 0 0 100%;
     order: 1;
-    padding: functions.var($element + "-content", padding, var(--space-16) var(--space-20));
-    margin: functions.var($element + "-content", margin, 0 calc(var(--space-20) * -1));
 
     &::before {
+      @include mixins.use-logical($element + "content", inset, 0 auto auto 0);
+      @include mixins.use-logical($element + "-content", border-style, solid);
+      @include mixins.use-logical($element + "-content", border-color, var(--color-border-divider));
+      @include mixins.use-logical($element + "-content", border-width, 1px 0 0);
+
       position: absolute;
-      top: 0;
-      left: 0;
       width: 100%;
-      border: solid functions.var($element + "-content", border-color, var(--color-border-divider));
-      border-width: functions.var($element + "-content", border-width, 1px 0 0);
       content: "";
     }
   }

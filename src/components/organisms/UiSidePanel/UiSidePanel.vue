@@ -161,7 +161,7 @@ import {
   onBeforeUnmount,
   useAttrs,
 } from 'vue';
-import type { HeadingLevel } from '@/components/atoms/UiHeading/UiHeading.vue';
+import type { HeadingLevel } from '../../atoms/UiHeading/UiHeading.vue';
 import {
   focusTrap as vFocusTrap,
   bodyScrollLock as vBodyScrollLock,

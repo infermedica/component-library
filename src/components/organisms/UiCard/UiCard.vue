@@ -177,10 +177,8 @@ const defaultProps = computed(() => ({
 
   --container-padding-block: #{functions.var($element, padding-block, var(--space-20) var(--space-32))};
   --container-padding-inline: #{functions.var($element, padding-inline, var(--space-20))};
-  --container-tablet-padding-block: #{functions.var($element + "-tablet", padding-block, 0)};
-  --container-tablet-padding-inline: #{functions.var($element + "-tablet", padding-inline, 0)};
-  --container-desktop-padding-block: #{functions.var($element + "-desktop", padding-block, 0)};
-  --container-desktop-padding-inline: #{functions.var($element + "-desktop", padding-inline, 0)};
+  --container-tablet-padding-logical: #{functions.var($element + "-tablet", padding-logical, 0)};
+  --container-desktop-padding-logical: #{functions.var($element + "-desktop", padding-logical, 0)};
 
   display: flex;
   flex-direction: column;
@@ -193,18 +191,24 @@ const defaultProps = computed(() => ({
 
   &__triage {
     @include mixins.use-logical($element + '-triage', padding, var(--space-20));
+    @include mixins.use-logical($element + "-triage", border-radius, var(--border-radius-container));
 
     display: flex;
     align-items: center;
     justify-content: center;
     background: functions.var($element + "-triage", background, var(--color-triage-emergency-ambulance));
-    border-radius: functions.var($element + "-triage", border-radius, var(--border-radius-container));
 
     @include mixins.from-tablet {
-      @include mixins.use-logical($element + "-tablet-triage", padding, var(--space-40) var(--space-32));
-
-      border-start-end-radius: functions.var($element + "-triage", border-start-start-radius, 0);
-      border-end-end-radius: functions.var($element + "-triage", border-end-end-radius, 0);
+      @include mixins.use-logical(
+        $element + "-tablet-triage",
+        padding,
+        var(--space-40) var(--space-32)
+      );
+      @include mixins.use-logical(
+        $element + "-tablet-triage",
+        border-radius,
+        var(--border-radius-container) 0
+      );
     }
   }
 
@@ -247,19 +251,17 @@ const defaultProps = computed(() => ({
   }
 
   &--modern {
-    --container-padding-block: #{functions.var($element, padding-block, 0)};
-    --container-padding-inline: #{functions.var($element, padding-inline, 0)};
+    --container-padding-logical: #{functions.var($element, padding-logical, 0)};
 
     @include mixins.from-tablet {
       flex-direction: row-reverse;
     }
 
     #{$this}__triage {
-      border-radius: functions.var($element + "-triage", border-radius, 0);
+      @include mixins.use-logical($element + "-triage", border-radius, 0);
 
       @include mixins.from-tablet {
-        border-start-end-radius: functions.var($element + "-tablet-triage", border-start-start-radius, var(--border-radius-container));
-        border-end-end-radius: functions.var($element + "-tablet-triage", border-end-end-radius, var(--border-radius-container));
+        @include mixins.use-logical($element + "-tablet-triage", border-radius, 0 var(--border-radius-container));
       }
     }
 

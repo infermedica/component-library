@@ -57,16 +57,18 @@ function select(value: string): void {
 </script>
 
 <style lang="scss">
+@use "../../../../styles/mixins";
+
 .ui-datepicker-month-tab {
   $this: &;
   $element: datepicker-month-tab;
 
   &__item {
     --datepicker-tab-item-width: calc(100% / 3);
-    --datepicker-tab-item-margin: var(--space-16) 0 0 0;
+    --datepicker-tab-item-margin-logical: var(--space-16) 0 0 0;
 
     &:nth-of-type(-n+3) {
-      margin: 0;
+      @include mixins.use-logical($element, margin, 0);
     }
   }
 }

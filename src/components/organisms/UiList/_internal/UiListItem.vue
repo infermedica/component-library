@@ -136,19 +136,20 @@ const defaultProps = computed(() => ({
 
   &:last-of-type {
     &::after {
-      border-width: functions.var($element, border-width, 1px 0);
+      @include mixins.use-logical($element, border-width, 1px 0);
     }
   }
 
   &__content {
+    @include mixins.use-logical($element + "-content", padding, var(--space-12) var(--space-20));
+
     display: flex;
     flex: 1;
     align-items: flex-start;
     justify-content: space-between;
-    padding: functions.var($element + "-content", padding, var(--space-12) var(--space-20));
 
     @include mixins.from-tablet {
-      padding: functions.var($element + "-tablet-content", padding, var(--space-12));
+      @include mixins.use-logical($element + "-tablet-content", padding, var(--space-12));
     }
 
     @include mixins.hover {
@@ -157,11 +158,7 @@ const defaultProps = computed(() => ({
   }
 
   &__suffix {
-    margin: functions.var($element + "-suffix", margin, 0 0 0 var(--space-12));
-
-    [dir="rtl"] & {
-      margin: functions.var($element + "-rtl-suffix", margin, 0 var(--space-12) 0 0);
-    }
+    @include mixins.use-logical($element + "-suffix", margin, 0 0 0 var(--space-12));
   }
 
   &--has-error {

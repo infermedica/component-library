@@ -2,8 +2,8 @@
 
 //<Code id="list-condition-item">
 .list-condition-item {
-  --button-border-radius: 0;
-  --button-border-width: 0;
+  --button-border-logical-radius: 0;
+  --button-border-logical-width: 0;
 
   flex-direction: column;
   align-items: flex-start;
@@ -45,8 +45,8 @@
 
 //<Code id="list-with-icon-item">
 .list-with-icon-item {
-  --button-border-radius: 0;
-  --button-border-width: 0;
+  --button-border-logical-radius: 0;
+  --button-border-logical-width: 0;
 
   @include mixins.focus {
     box-shadow: var(--focus-inner);

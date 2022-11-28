@@ -99,10 +99,14 @@ const itemsToRender = computed(() => (props.items.map((item, key) => {
   &--compact {
     .ui-menu-item {
       &__button {
-        --_list-item-content-padding: #{functions.var("menu-item-button", padding, var(--space-4) var(--space-8))};
-        --list-item-content-padding: var(--_list-item-content-padding);
-        --list-item-tablet-content-padding: var(--_list-item-content-padding);
-        --button-padding: var(-_list-item-content-padding);
+        --_list-item-content-padding-block: #{functions.var("menu-item-button", padding-block, var(--space-4))};
+        --_list-item-content-padding-inline: #{functions.var("menu-item-button", padding-inline, var(--space-8))};
+        --list-item-content-padding-block: var(--_list-item-content-padding-block);
+        --list-item-content-padding-inline: var(--_list-item-content-padding-inline);
+        --list-item-tablet-content-padding-block: var(--_list-item-content-padding-block);
+        --list-item-tablet-content-padding-inline: var(--_list-item-content-padding-inline);
+        --button-padding-block: var(-_list-item-content-padding-block);
+        --button-padding-inline: var(-_list-item-content-padding-inline);
       }
     }
   }

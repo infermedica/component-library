@@ -290,7 +290,7 @@ const {
     --#{$element}-padding-logical: 0;
     --#{$element}-border-logical-width: 0;
     --#{$element}-hover-background: transparent;
-    --#{$element}-icon-margin-inline-end: 0;
+    --#{$element}-icon-margin-inline: 0;
     --#{$element}-active-background: transparent;
 
     font: functions.var($element, font, var(--font-body-1));

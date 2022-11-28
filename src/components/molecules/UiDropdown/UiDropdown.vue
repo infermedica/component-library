@@ -376,7 +376,7 @@ const dropdownItemAttrs = (item: DropdownItemAsObj) => {
   }
 
   &--compact {
-    --dropdown-item-padding: var(--space-4) var(--space-8);
+    --dropdown-item-padding-logical: var(--space-4) var(--space-8);
   }
 }
 </style>

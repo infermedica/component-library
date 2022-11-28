@@ -1,6 +1,6 @@
 //<Code id="loading-popover">
 .loading-popover {
-  --popover-content-padding: 0 var(--space-16);
+  --popover-content-padding-inline: 0 var(--space-16);
 
   max-width: 25rem;
   min-height: 18rem;
@@ -8,8 +8,8 @@
   &__message {
     --message-flex-direction: row-reverse;
     --message-tablet-flex-direction: row-reverse;
-    --message-aside-margin: 0 var(--space-12) 0 0;
-    --message-tablet-aside-margin: 0 var(--space-12) 0 0;
+    --message-aside-margin-inline: 0 var(--space-12);
+    --message-tablet-aside-margin-inline: 0 var(--space-12);
     --message-content-align-self: flex-start;
     --message-illustration-size: 1.5rem;
 
@@ -27,8 +27,8 @@
   &__message {
     --message-flex-direction: row-reverse;
     --message-tablet-flex-direction: row-reverse;
-    --message-aside-margin: 0 var(--space-12) 0 0;
-    --message-tablet-aside-margin: 0 var(--space-12) 0 0;
+    --message-aside-margin-inline: 0 var(--space-12);
+    --message-tablet-aside-margin-inline: 0 var(--space-12);
     --message-content-align-self: flex-start;
     --message-illustration-size: 1.5rem;
   }

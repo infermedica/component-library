@@ -27,7 +27,7 @@ export const WithDirective = () => ({
     };
   },
   template: `
-  <UiInput style="--input-padding: 5px; margin-bottom: 10px" :modelValue="searchQuery" @update:modelValue="inputHandler"/>
+  <UiInput style="--input-padding-logical: 5px; margin-block-end: 10px" :modelValue="searchQuery" @update:modelValue="inputHandler"/>
   <UiText  v-highlight="searchQuery">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididuntut labore et dolore magna aliqua. 
     Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute 

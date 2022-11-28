@@ -120,26 +120,19 @@ const itemsToRender = computed(() => options.value || props.items);
   }
 
   &__item {
-    margin: functions.var($element + "-item", margin, 0 0 var(--space-12) 0);
+    @include mixins.use-logical($element + "-item", margin, 0 0 var(--space-12) 0);
 
     &:last-of-type {
       margin: 0;
     }
 
     @include mixins.from-tablet {
+      @include mixins.use-logical($element + "-tablet-item", margin, 0 var(--space-24) 0 0);
+
       flex: 1;
-      margin: functions.var($element + "-tablet-item", margin, 0 var(--space-24) 0 0);
 
       &:last-of-type {
         margin: 0;
-      }
-
-      [dir="rtl"] & {
-        margin: functions.var($element + "-rtl-tablet-item", margin, 0 0 0 var(--space-24));
-
-        &:last-of-type {
-          margin: 0;
-        }
       }
     }
   }

@@ -589,6 +589,7 @@ provide('inputsIds', inputsIds);
 
 <style lang="scss">
 @use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-datepicker {
   $this: &;
@@ -599,11 +600,7 @@ provide('inputsIds', inputsIds);
   align-items: flex-start;
 
   &__dropdown {
-    margin: functions.var($element + "-dropdown", margin, var(--space-32) 0 0 var(--space-24));
-
-    [dir="rtl"] & {
-      margin: functions.var($element + "-rtl-dropdown", margin, var(--space-32) var(--space-24) 0 0);
-    }
+    @include mixins.use-logical($element + "-dropdown", margin, var(--space-32) 0 0 var(--space-24));
   }
 
   &__form-fields {
@@ -616,17 +613,14 @@ provide('inputsIds', inputsIds);
   }
 
   &__group-field {
+    @include mixins.use-logical($element + "-group-field", margin, 0 var(--space-8) 0 0);
+
     display: flex;
     flex: 1 1 4rem;
     flex-direction: column;
-    margin: functions.var($element + "-group-field", margin, 0 var(--space-8) 0 0);
-
-    [dir="rtl"] & {
-      margin: functions.var($element + "-rtl-group-field", margin, 0 0 0 var(--space-8));
-    }
 
     &:last-of-type {
-      margin: functions.var($element + "-group-field", margin, 0);
+      @include mixins.use-logical($element + "-group-field", margin, 0);
     }
 
     &--long {
@@ -635,8 +629,9 @@ provide('inputsIds', inputsIds);
   }
 
   &__label {
+    @include mixins.use-logical($element + "-label", margin, 0 0 var(--space-8) 0);
+
     display: block;
-    margin: functions.var($element + "-label", margin, 0 0 var(--space-8) 0);
   }
 }
 </style>

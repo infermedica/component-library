@@ -173,8 +173,8 @@ const defaultProps = computed(() => ({
   $this: &;
   $element: accordion-item;
 
-  --list-item-padding: #{functions.var($element, padding, 0)};
-  --list-item-tablet-padding: #{functions.var($element + "-tablet", padding, 0)};
+  --list-item-padding-logical: #{functions.var($element, padding-logical, 0)};
+  --list-item-tablet-padding-logical: #{functions.var($element + "-tablet", padding-logical, 0)};
   --list-item-hover-background: #{functions.var($element + "-hover", background, transparent)};
 
   display: flex;
@@ -183,45 +183,26 @@ const defaultProps = computed(() => ({
   justify-content: center;
 
   &__toggler {
-    --button-padding: #{functions.var($element + "-toggler", padding, var(--space-12))};
-    --button-border-width: #{functions.var($element + "-toggler", border-width, 0)};
-    --button-border-radius: #{functions.var($element + "-toggler", border-radius, 0)};
+    --button-padding-logical: #{functions.var($element + "-toggler", padding-logical, var(--space-12))};
+    --button-border-logical-width: #{functions.var($element + "-toggler", border-width, 0)};
+    --button-border-logical-radius: #{functions.var($element + "-toggler", border-radius, 0)};
     --button-font: #{functions.var($element, font, var(--font-body-1))};
     --button-letter-spacing: #{functions.var($element, letter-spacing, var(--letter-spacing-body-1))};
-    --button-icon-margin: #{functions.var($element + "-toggler", icon-margin,  0 var(--space-12) 0 0)};
-    --button-rtl-icon-margin: #{functions.var($element + "-rtl-toggler", icon-margin,  0 0 0 var(--space-12))};
+    --button-icon-margin-logical: #{functions.var($element + "-toggler", icon-margin-logical,  0 var(--space-12) 0 0)};
+    --button-gap: #{functions.var($element + "-toggler", gap, var(--space-12))};
 
     width: 100%;
     align-items: flex-start;
     justify-content: flex-start;
-    text-align: left;
+    text-align: start;
 
     @include mixins.focus {
       box-shadow: var(--focus-inner);
     }
-
-    [dir="rtl"] & {
-      text-align: right;
-    }
   }
 
   &__content {
-    width: 100%;
-    padding:
-      functions.var(
-        $element + "-content",
-        padding,
-        var(--space-12) var(--space-12) var(--space-12) var(--space-48)
-      );
-
-    [dir="rtl"] & {
-      padding:
-        functions.var(
-          $element + "-rtl-content",
-          padding,
-          var(--space-12) var(--space-48) var(--space-12) var(--space-12)
-        );
-    }
+    @include mixins.use-logical($element + "-content", padding, var(--space-12) var(--space-12) var(--space-12) var(--space-48));
   }
 }
 </style>
