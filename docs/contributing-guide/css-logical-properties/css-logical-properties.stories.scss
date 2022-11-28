@@ -1,0 +1,49 @@
+.docs {
+  padding: 0 0 10px;
+  border-bottom: 1px solid var(--color-background-subtle);
+
+  &__css {
+    width: fit-content;
+    margin: 10px 0;
+    padding: 0 20px;
+    border-radius: 10px;
+    background: var(--color-gray-800);
+  }
+
+  &__scss {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+    margin: 10px 0;
+    padding: 20px 25px;
+    border-radius: 10px;
+    background: var(--color-gray-800);
+  }
+
+  &__text {
+    $textColor: var(--color-gray-200);
+
+    --text-color: #{$textColor};
+    --input-color: #{$textColor};
+    color: #{$textColor};
+  }
+
+  &__label {
+    margin: 10px 0;
+  }
+
+  .ui-input {
+    --input-color: var(--color-gray-300);
+    --input-padding-logical: var(--space-4) var(--space-8);
+    --input-font: var(--font-body-2-compact)
+  }
+
+  pre {
+    margin: 0;
+  }
+}
+
+.content {
+  position: relative;
+}

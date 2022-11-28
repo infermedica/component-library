@@ -1,15 +1,8 @@
 @use "../functions";
 
-@function getLogicalValues($element, $values, $propertyHead, $propertyTail, $options) {
+@function getLogicalValues($values) {
   $results: [];
   @for $index from 1 through 4 {
-    $varHead: --#{$element}-#{$propertyHead};
-    $varName: #{$varHead}-#{nth($options, $index)}#{$propertyTail};
-    $secondVarName: #{$varHead}-block#{$propertyTail};
-    @if $index % 2 == 0 {
-      $secondVarName: #{$varHead}-inline#{$propertyTail};
-    }
-    $thirdVarName: #{$varHead}-logical#{$propertyTail};
     $valueIndex: $index;
     @if $index > length($values) {
       @if $index == 2 {
@@ -18,7 +11,7 @@
         $valueIndex: $index - 2;
       };
     }
-    $value: #{var($varName, var($secondVarName, var($thirdVarName, nth($values, $valueIndex))))};
+    $value: #{nth($values, $valueIndex)};
     $results: append($results, $value);
   }
   @return $results
@@ -29,20 +22,27 @@
     $splittedProperty: functions.str-split($property, '-');
     $propertyHead: nth($splittedProperty, 1);
     $propertyTail: nth($splittedProperty, 2);
+    $propertyBlock: #{$propertyHead}-block#{$propertyTail};
+    $propertyInline: #{$propertyHead}-inline#{$propertyTail};
+    $varHead: --#{$element}-;
+    $varBlock: #{$varHead}#{$propertyBlock};
+    $varInline: #{$varHead}#{$propertyInline};
+    $varLogical: #{$varHead}#{$propertyHead}-logical#{$propertyTail};
     $includeBorderRadius: str-index($property, border-radius);
     @if $includeBorderRadius {
       $options: start-start, start-end, end-start, end-end;
-      $logicalValues: getLogicalValues($element, $values, $propertyHead, $propertyTail, $options);
+      $logicalValues: getLogicalValues($values);
       @for $index from 1 through 4 {
-        border-#{nth($options, $index)}-radius: #{nth($logicalValues, $index)}
+        $varSecond: $varBlock;
+        @if $index % 2 == 0 {
+          $varSecond: $varInline;
+        }
+        border-#{nth($options, $index)}-radius: var($varLogical, var($varSecond, nth($logicalValues, $index)));
       }
     } @else {
-      $propertyBlock: #{$propertyHead}-block#{$propertyTail};
-      $propertyInline: #{$propertyHead}-inline#{$propertyTail};
-      $options: block-start, inline-end, block-end, inline-start;
-      $logicalValues: getLogicalValues($element, $values, $propertyHead, $propertyTail, $options);
-      #{$propertyBlock}: #{nth($logicalValues, 1)} #{nth($logicalValues, 3)};
-      #{$propertyInline}: #{nth($logicalValues, 4)} #{nth($logicalValues, 2)};
+      $logicalValues: getLogicalValues($values);
+      #{$propertyBlock}: var($varLogical, var($varBlock, nth($logicalValues, 1) nth($logicalValues, 3)));
+      #{$propertyInline}: var($varLogical, var($varInline, nth($logicalValues, 4) nth($logicalValues, 2)));
     }
   }
 };

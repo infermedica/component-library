@@ -1,8 +1,8 @@
 import { Meta, Canvas, Story} from '@storybook/addon-docs';
-import { PageOutline } from '../components/PageOutline';
-import { Code } from '../components/Code.jsx';
-import { Table } from '../components/Table.jsx';
-import UiButton from '../../src/components/atoms/UiButton/UiButton.vue';
+import { PageOutline } from '../../components/PageOutline';
+import { Code } from '../../components/Code.jsx';
+import { Table } from '../../components/Table.jsx';
+
 
 <Meta title="Contributing Guide/Css Logical Properties"/>
 
@@ -22,7 +22,6 @@ You can use the following `use-logical` mixin, which transforms conventional ltr
 ### Mixin arguments:
 #### Property
 - margin
-- border
 - inset
 - border-width
 - border-style
@@ -30,14 +29,10 @@ You can use the following `use-logical` mixin, which transforms conventional ltr
 - border-radius
 
 
-Here is an example of logical properties and css variables for - `margin`, `border`, `inset`.
+Here is an example of logical properties and css variables for - `margin`, `border`, `inset`, `border`.
 <Table
   headers={['Physical property', 'Logical property', 'Css variable']}
   rows={[
-    ['`{property}-top`', '`{property}-block-start`', '`--{element}-{property}-block-start`'],
-    ['`{property}-right`', '`{property}-inline-end`', '`--{element}-{property}-inline-end`'],
-    ['`{property}-bottom`', '`{property}-block-end`', '`--{element}-{property}-block-end`'],
-    ['`{property}-left`', '`{property}-inline-start`', '`--{element}-{property}-inline-start`'],
     ['`{property}`', '`{property}-block` `{property}-inline`', '`--{element}-{property}-block` `--{element}-{property}-inline`'],
     ['`{property}`', '`{property}-block` `{property}-inline`', '`--{element}-{property}-logical`'],
   ]}
@@ -48,22 +43,6 @@ Here is an example of logical properties and css variables for `border-width`, `
   headers={['Physical property', 'Logical property', 'Css variable']}
   rows={[
     [
-      '`border-top-{width/style/color}`',
-      '`border-block-start-{width/style/color}`',
-      '`--{element}-border-block-start-{width/style/color}`'
-    ],[
-      '`border-right-{width/style/color}`',
-      '`border-inline-end-{width/style/color}`',
-      '`--{element}-border-inline-end-{width/style/color}`'
-    ],[
-      '`border-bottom-{width/style/color}`',
-      '`border-block-end-{width/style/color}`',
-      '`--{element}-border-block-end-{width/style/color}`'
-    ],[
-      '`border-left-{width/style/color}`',
-      '`border-inline-start-{width/style/color}`',
-      '`--{element}-border-inline-start-{width/style/color}`'
-    ],[
       '`border-{width/style/color}`',
       '`border-block-{width/style/color}` `border-inline-{width/style/color}`',
       '`--{element}-border-block-{width/style/color}` `--{element}-border-inline-{width/style/color}`'
@@ -108,53 +87,29 @@ Here is an example of logical properties and css variables for `border-radius`.
 #### Value
 Please use conventional ltr css value for property (top right bottom left) e.g. `20px 30px 10px 40px`:
 <Code code={`
-{property}-block-start: 20px;
-{property}-block-end: 10px;
-{property}-inline-start: 30px;
-{property}-inline-end: 40px;
+{property}-block: 20px 10px;
+{property}-inline-start: 30px 40px;
 `}/>
 
-- When a value has three declaration, it is a shortcut to set `inline-end` property e.g `20px 30px 10px`
+- When a value has three declaration, it is a shortcut to set `inline-start` property e.g `20px 30px 10px`
 
 <Code code={`
-{property}-block-start: 20px;
-{property}-block-end: 10px;
-{property}-inline-start: 30px;
-{property}-inline-end: 30px;
+{property}-block: 20px 10px;
+{property}-inline: 30px;
 `}/>
 
 - When a value has two declaration, it is a shortcut to set block and inline properties e.g `20px 30px`
 
 <Code code={`
-{property}-block-start: 20px;
-{property}-block-end: 20px;
-{property}-inline-start: 30px;
-{property}-inline-end: 30px;
+{property}-block: 20px;
+{property}-inline: 30px;
 `}/>
 
 - When a value has one declaration, it is a shortcut to set all properties e.g. `20px`
 
 <Code code={`
-{property}-block-start: 20px;
-{property}-block-end: 20px;
-{property}-inline-start: 20px;
-{property}-inline-end: 20px;
-`}/>
-
-### How it works in practice
-- sass input
-<Code code={`
-  @include mixins.use-logical(button, padding, 12px 32px 8px);
-`}/>
-
-- css output
-<Code code={`
-padding-block:
-  var(--button-padding-block-start, var(--button-padding-block, var(--button-padding-logical, 12px)))
-  var(--button-padding-block-end, var(--button-padding-block, var(--button-padding-logical, 8px)));
-padding-inline:
-  var(--button-padding-inline-start, var(--button-padding-inline, var(--button-padding-logical, 32px)))
-  var(--button-padding-inline-end, var(--button-padding-inline, var(--button-padding-logical, 32px)));
+{property}-block: 20px;
+{property}-inline: 20px;
 `}/>
 
 ## Easy way for rtl support
@@ -171,3 +126,14 @@ you won't need to add styles for rtl layouts anymore.
   @include mixins.use-logical(list, margin, 0 var(--space-4) 0 var(--space-8));
 }
 `}/>
+
+## Stories
+### Padding
+
+<Canvas>
+  <Story id="contributing-guide-css-logical-properties--padding"/>
+</Canvas>
+
+<Canvas>
+  <Story id="contributing-guide-css-logical-properties--margin"/>
+</Canvas>
