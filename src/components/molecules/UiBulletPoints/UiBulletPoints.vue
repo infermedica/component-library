@@ -174,9 +174,14 @@ const bulletPointsItemAttrs = (item: BulletPointsRenderItem) => {
 </script>
 
 <style lang="scss">
+@use "../../../styles/mixins";
+
 .ui-bullet-points {
-  padding: 0;
-  margin: 0;
+  $element: bullet-points;
+
+  @include mixins.use-logical($element, padding, 0);
+  @include mixins.use-logical($element, margin, 0);
+
   counter-reset: counter;
   list-style-type: none;
 }

@@ -114,9 +114,12 @@ const itemAttrs = computed(() => (isVisitedStep.value
   $element: stepper-step;
 
   --_stepper-step-indicator-width: #{functions.var($element + "-step-indicator", width, 4px)};
-  --_list-item-content-padding: #{functions.var($element + "-button", padding, var(--space-10) var(--space-8) var(--space-10) 0)};
-  --list-item-content-padding: var(--_list-item-content-padding);
-  --list-item-tablet-content-padding: var(--_list-item-content-padding);
+  --_list-item-content-padding-block: #{functions.var($element + "-button", padding-block, var(--space-10))};
+  --_list-item-content-padding-inline: #{functions.var($element + "-button", padding-inline, 0 var(--space-8))};
+  --list-item-content-padding-block: var(--_list-item-content-padding-block);
+  --list-item-content-padding-inline: var(--_list-item-content-padding-inline);
+  --list-item-tablet-content-padding-block: var(--_list-item-content-padding-block);
+  --list-item-tablet-content-padding-inline: var(--_list-item-content-padding-inline);
   --list-item-content-hover-background: #{functions.var($element + "-content-hover", background, transparent)};
 
   display: flex;
@@ -131,7 +134,7 @@ const itemAttrs = computed(() => (isVisitedStep.value
   }
 
   &::after {
-    --list-item-border-width: 0;
+    --list-item-border-logical-width: 0;
   }
 
   &--is-visited,

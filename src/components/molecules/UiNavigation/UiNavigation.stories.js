@@ -142,16 +142,20 @@ export const WithDefaultSlot = (args) => ({
     :class="modifiers"
   >
     <template
-      v-for="(item, key) in items"
+      v-for="(item, key) in itemsToRender"
       :key="key"
     >
       <UiNavigationItem
         class=" ui-navigation__item"
-        v-bind="(()=>{const {
-            name, text, ...rest
-          } = item; return rest;})()"
+        v-bind="navigationItemAttrs(item)"
       >
-        {{ item.text }}
+        <!-- @slot Use this slot to replace navigation item content. -->
+        <slot
+          :name="item.name"
+          v-bind="{ item }"
+        >
+          {{ item.label }}
+        </slot>
       </UiNavigationItem>
     </template>
   </UiNavigation>`,

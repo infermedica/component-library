@@ -9,17 +9,19 @@
 
 <style lang="scss">
 @use "../../../../styles/functions";
+@use "../../../../styles/mixins";
 
 .ui-loader-ellipsis {
   $element: loader-ellipsis;
 
   @mixin dot($animation-delay) {
+    @include mixins.use-logical($element + "-dot", border-radius, var(--border-radius-circle));
+
     width: var(--_loader-ellipsis-dot-size);
     height: var(--_loader-ellipsis-dot-size);
     animation: dot 1s infinite linear alternate;
     animation-delay: $animation-delay;
     background: functions.var($element + "-dot", background, var(--color-icon-on-action));
-    border-radius: functions.var($element + "-dot", border-radius, var(--border-radius-circle));
   }
 
   --_loader-ellipsis-dot-size: #{functions.var($element + "-dot", size, 0.375rem)};
@@ -31,9 +33,9 @@
 
     &::before,
     &::after {
+      @include mixins.use-logical($element + "-dot", inset, 0 auto auto 0);
+
       position: absolute;
-      top: 0;
-      left: 0;
       display: inline-block;
       content: "";
     }

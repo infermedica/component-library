@@ -99,22 +99,20 @@ if (buttonAttrs.value) {
 
 <style lang="scss">
 @use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-chip {
   $this: &;
   $element: chip;
 
+  @include mixins.use-logical($element, padding, var(--space-4) var(--space-4) var(--space-4) var(--space-12));
+  @include mixins.use-logical($element, border-radius, var(--border-radius-form));
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: functions.var($element, padding, var(--space-4) var(--space-4) var(--space-4) var(--space-12));
   background: functions.var($element, background, var(--color-chip-background));
-  border-radius: functions.var($element, border-radius, var(--border-radius-form));
   gap: functions.var($element, gap, var(--space-8));
-
-  [dir="rtl"] & {
-    padding: functions.var($element + "-rtl", padding, var(--space-4) var(--space-12) var(--space-4) var(--space-4));
-  }
 
   &__label {
     --text-color: #{functions.var($element + "-label", color, var(--color-chip-text))};
@@ -135,14 +133,11 @@ if (buttonAttrs.value) {
         color,
         var(--color-chip-icon-background-active)
       )};
-    --button-icon-margin: functions.var($element + "-icon", margin, calc(var(--space-2) * -1));
-    --button-rtl-icon-margin: #{functions.var($element + "-rtl-icon", margin, calc(var(--space-2) * -1))};
   }
 
   &__remove {
     position: relative;
     align-self: flex-start;
-    margin: functions.var($element + "-remove", margin, var(--space-2));
 
     &::before {
       --_chip-remove-pointer-area-size: #{functions.var($element + "-remove-pointer-area", size, var(--space-32))};

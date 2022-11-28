@@ -349,6 +349,7 @@ const dropdownItemAttrs = (item: DropdownItemAsObj) => {
 
 <style lang="scss">
 @use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-dropdown {
   $element: dropdown;
@@ -357,15 +358,15 @@ const dropdownItemAttrs = (item: DropdownItemAsObj) => {
   display: inline-flex;
 
   &__popover {
-    --popover-content-padding: #{functions.var($element + "-popover", padding, var(--space-8))};
+    --popover-content-padding-logical: #{functions.var($element + "-popover", padding-logical, var(--space-8))};
+
+    @include mixins.use-logical($element + "-popover", margin, var(--space-8) 0 0);
+    @include mixins.use-logical($element + "-popover", inset, 100% auto auto 0);
 
     position: absolute;
-    top: 100%;
-    left: 0;
     width: functions.var($element + "-popover", width, 100%);
     max-width: functions.var($element + "-popover", max-width, 15rem);
     min-height: functions.var($element + "-popover", min-height, 0);
-    margin: functions.var($element + "-popover", margin, var(--space-8) 0 0 0);
   }
 
   &__items {

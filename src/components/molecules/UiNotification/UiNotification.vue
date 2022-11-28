@@ -128,17 +128,20 @@ const hasAction = computed(() => (Object.keys(props.buttonActionAttrs).length > 
   $element: notification;
   $types: "success", "info", "warning", "error";
 
-  @include mixins.inner-border($element, $radius: var(--border-radius-container), $color: var(--color-border-strong));
+  --alert-icon-gap: #{functions.var($element + "-icon", gap, var(--space-12))};
 
-  --alert-icon-margin: #{functions.var($element + "-icon", margin, 0 var(--space-12) 0 0)};
-  --alert-rtl-icon-margin: #{functions.var($element + "-rtl-icon", margin, 0 0 0 var(--space-12))};
+  @include mixins.inner-border(
+    $element,
+    $radius: var(--border-radius-container),
+    $color: var(--color-border-strong)
+  );
 
   display: flex;
   padding: functions.var($element, padding, var(--space-12));
   background: functions.var($element, background);
 
   &__action {
-    margin: functions.var($element + "-action", margin, var(--space-4) 0 0 0);
+    @include mixins.use-logical($element + "-action", margin, var(--space-4) 0 0);
   }
 
   @each $type in $types {
@@ -146,7 +149,7 @@ const hasAction = computed(() => (Object.keys(props.buttonActionAttrs).length > 
       background: functions.var($element, background, var(--color-background-#{$type}));
 
       &::after {
-        border-color: functions.var($element, border-color, var(--color-border-#{$type}-subtle));
+        @include mixins.use-logical($element, border-color, var(--color-border-#{$type}-subtle));
       }
     }
   }

@@ -105,10 +105,13 @@ const navigationItemAttrs = (item: NavigationItem) => {
 
 <style lang="scss">
 @use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-navigation {
   $this: &;
   $element: navigation;
+
+  @include mixins.use-logical($element, margin, 0 calc(var(--space-8) * -1));
 
   display: flex;
   flex-flow:
@@ -119,10 +122,9 @@ const navigationItemAttrs = (item: NavigationItem) => {
     );
   align-items: functions.var($element, align-items, center);
   justify-content: functions.var($element, justify-content, flex-start);
-  margin: functions.var($element, margin, 0 calc(var(--space-8) * -1));
 
   &--is-multiline {
-    margin: functions.var($element, margin, 0 calc(var(--space-8) * -1) calc(var(--space-12) * -1));
+    @include mixins.use-logical($element, margin, 0 calc(var(--space-8) * -1) calc(var(--space-12) * -1));
   }
 }
 </style>

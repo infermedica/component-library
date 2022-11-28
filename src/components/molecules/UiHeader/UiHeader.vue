@@ -189,6 +189,7 @@ onUnmounted(() => {
 
 <style lang="scss">
 @use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-header {
   $element: header;
@@ -196,17 +197,18 @@ onUnmounted(() => {
   background: functions.var($element, background, var(--color-background-brand));
 
   &__header {
+    @include mixins.use-logical($element, padding, 0 var(--space-20));
+    @include mixins.use-logical($element, margin, 0 auto);
+
     display: flex;
     width: 100%;
     max-width: functions.var($element, max-width, 61.25rem);
     align-items: center;
     justify-content: space-between;
-    padding: functions.var($element, padding, 0 var(--space-20));
-    margin: 0 auto;
   }
 
   &__brand {
-    margin: functions.var($element + "-brand", margin, var(--space-20) 0);
+    @include mixins.use-logical($element + "-brand", margin, var(--space-20) 0);
   }
 
   &__logo {

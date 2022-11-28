@@ -97,28 +97,26 @@ const defaultProps = computed(() => ({
 
 <style lang="scss">
 @use "../../../../styles/functions";
+@use "../../../../styles/mixins";
 
 .ui-bullet-points-item {
   $element: bullet-points-item;
 
+  @include mixins.use-logical($element, margin, var(--space-4) 0);
+
   display: flex;
   align-items: functions.var($element, align-items, flex-start);
   justify-content: functions.var($element, justify-content, flex-start);
-  margin: functions.var($element, margin, var(--space-4) 0);
+  gap: functions.var($element, gap, var(--space-12));
 
   &:last-child {
-    margin: 0;
+    @include mixins.use-logical($element, margin, 0);
   }
 
   &__marker {
     --icon-color: #{functions.var($element + "-marker", color, var(--color-text-body))};
 
     flex: none;
-    margin: functions.var($element + "-marker", padding, 0 var(--space-12) 0 0);
-
-    [dir="rtl"] & {
-      margin: functions.var($element + "-rtl-marker", padding, 0 0 0 var(--space-12));
-    }
 
     &::before {
       display: block;

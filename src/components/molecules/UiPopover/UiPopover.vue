@@ -72,7 +72,7 @@ import {
   useAttrs,
   computed,
 } from 'vue';
-import type { HeadingLevel } from '@/components/atoms/UiHeading/UiHeading.vue';
+import type { HeadingLevel } from '../../atoms/UiHeading/UiHeading.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
@@ -163,22 +163,20 @@ if (buttonAttrs.value) {
   box-shadow: functions.var($element, box-shadow, var(--box-shadow-high));
 
   &__header {
+    @include mixins.use-logical($element + "-header", padding, var(--space-12) var(--space-16));
+    @include mixins.use-logical($element + "-header", border-radius, inherit inherit 0 0);
+
     position: relative;
     display: flex;
     justify-content: space-between;
-    padding: functions.var($element + "-header", padding, var(--space-12) var(--space-16));
     background: functions.var($element, background, var(--color-background-subtle));
-    border-radius: inherit;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
   }
 
   &__content {
+    @include mixins.use-logical($element + "-content", padding, var(--space-16));
+    @include mixins.use-logical($element + "-content", border-radius, 0 0 inherit inherit);
+
     max-height: functions.var($element + "-content", max-height);
-    padding: functions.var($element + "-content", padding, var(--space-16));
-    border-radius: inherit;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
     overflow-y: auto;
   }
 
@@ -189,6 +187,9 @@ if (buttonAttrs.value) {
 
     #{$this}__header {
       &::after {
+        @include mixins.use-logical($element, border-style, solid);
+        @include mixins.use-logical($element, border-color, var(--color-border-subtle));
+
         position: absolute;
         z-index: 1;
         top: 50%;
@@ -228,25 +229,24 @@ if (buttonAttrs.value) {
 
   &--has-mobile {
     @include mixins.to-mobile {
+      @include mixins.use-logical($element, inset, auto 0 0 0);
+      @include mixins.use-logical($element + "-mobile", border-radius, 0);
+
       position: fixed;
-      right: 0;
-      bottom: 0;
-      left: 0;
       height: 50%;
-      border-radius: functions.var($element + "-mobile", border-radius, 0);
     }
 
     &#{$this}--has-arrow,
     &#{$this}--has-left-arrow {
       @include mixins.to-mobile {
         --_popover-arrow-size: 0;
-        --_popover-arrow-border-width: 0;
+        --_popover-arrow-border-logical-width: 0;
       }
     }
   }
 
   &--unrounded {
-    border-radius: 0;
+    --popover-border-logical-radius: 0;
   }
 }
 </style>
