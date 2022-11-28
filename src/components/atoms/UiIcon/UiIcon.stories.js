@@ -46,8 +46,8 @@ export const IconAsIllustration = (args) => ({
     return { ...args };
   },
   template: `<UiIcon
-      :icon="icon"
-      class="icon-as-illustration"
+    :icon="icon"
+    class="icon-as-illustration"
   />`,
 });
 IconAsIllustration.args = { icon: 'agreement' };
@@ -83,9 +83,9 @@ export const ListOfIcons = () => ({
         :icon="icon"
         class="place-self-center my-0.5"
       />
-      <UiText 
-        class="ui-text--2-compact whitespace-nowrap"
-      >{{ icon }}</UiText>
+      <UiText class="ui-text--2-compact whitespace-nowrap">
+        {{ icon }}
+      </UiText>
     </div>
   </div>`,
 });

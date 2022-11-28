@@ -93,21 +93,19 @@ export const WithDecrementSlot = (args) => ({
     @update:modelValue="onUpdateModelValue"
     @error="onError"
   >
-    <template 
-      #decrement="{
-        decrement,
-        hasControls,
-        isMin,
-        buttonDecrementAttrs,
-        iconDecrementAttrs,
-      }"
-    >
+    <template #decrement="{
+      decrement,
+      hasControls,
+      isMin,
+      buttonDecrementAttrs,
+      iconDecrementAttrs,
+    }">
       <UiButton
         v-if="hasControls"
         v-bind="buttonDecrementAttrs"
-        :class="['ui-button--outlined ui-button--circled ui-number-stepper__decrement', {
+        :class="[ 'ui-button--outlined ui-button--circled ui-number-stepper__decrement', {
           'ui-button--is-disabled': isMin
-        }]"
+        } ]"
         @click="decrement"
       >
         <UiIcon
@@ -144,21 +142,19 @@ export const WithIncrementSlot = (args) => ({
     @update:modelValue="onUpdateModelValue"
     @error="onError"
   >
-    <template 
-      #increment="{
-        increment,
-        hasControls,
-        isMax,
+    <template #increment="{
+      increment,
+      hasControls,
+      isMax,
         buttonIncrementAttrs,
-        iconIncrementAttrs,
-      }"
-    >
+      iconIncrementAttrs,
+    }">
       <UiButton
         v-if="hasControls"
         v-bind="buttonIncrementAttrs"
-        :class="['ui-button--outlined ui-button--circled ui-number-stepper__increment', {
+        :class="[ 'ui-button--outlined ui-button--circled ui-number-stepper__increment', {
           'ui-button--is-disabled': isMax
-        }]"
+        } ]"
         @click="increment"
       >
         <UiIcon
@@ -194,12 +190,10 @@ export const WithValueSlot = (args) => ({
     @update:modelValue="onUpdateModelValue"
     @error="onError"
   >
-    <template 
-      #value="{ 
-        value,
-        headingValueAttrs,
-      }"
-    >
+    <template #value="{ 
+      value,
+      headingValueAttrs,
+    }">
       <UiHeading
         v-bind="headingValueAttrs"
         class="ui-range__value"
@@ -232,15 +226,13 @@ export const WithRangeSlot = (args) => ({
     @update:modelValue="onUpdateModelValue"
     @error="onError"
   >
-    <template 
-      #range="{
-        inputAttrs,
-        min,
-        max,
-        change,
-        value
-      }"
-    >
+    <template #range="{
+      inputAttrs,
+      min,
+      max,
+      change,
+      value
+    }">
       <input
         v-keyboard-focus
         v-bind="inputAttrs"

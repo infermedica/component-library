@@ -65,12 +65,16 @@ const Template = (args) => ({
   setup() {
     return { ...args };
   },
-  template: `<UiText tag="span">Large: </UiText>
+  template: `<UiText tag="span">
+  Large:
+  </UiText>
   <UiLink
     :to="to"
     :href="href"
     :class="modifiers"
-  >{{ content }}</UiLink>
+  >
+    {{ content }}
+  </UiLink>
   <UiLink
     :to="to"
     :href="href"
@@ -91,7 +95,9 @@ const Template = (args) => ({
         class="ui-link__icon ui-link__icon--right"
     />
   </UiLink>
-  <UiText tag="span">Small: </UiText>
+  <UiText tag="span">
+    Small:
+  </UiText>
   <UiLink
     :to="to"
     :href="href"
