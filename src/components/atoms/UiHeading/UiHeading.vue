@@ -49,8 +49,8 @@ const headingClass = computed<HeadingClass>(() => `ui-heading--h${props.level}`)
   $element: heading;
 
   @include mixins.font($element, body-1);
+  @include mixins.use-logical($element, margin, 0);
 
-  margin: functions.var($element, margin, 0);
   color: functions.var($element, color, var(--color-text-heading));
 
   @for $i from 1 through 6 {

@@ -50,6 +50,7 @@ const progressValue = computed(() => {
 
 <style lang="scss">
 @use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-progress {
   $element: progress;
@@ -58,18 +59,20 @@ const progressValue = computed(() => {
   --_progress-padding: #{functions.var($element, padding, calc(var(--_progress-height) * 0.5))};
   --_progress-border-radius: #{functions.var($element, border-radius, calc(var(--_progress-height) * 0.5))};
 
+  @include mixins.use-logical($element, border-radius, var(--_progress-border-radius));
+
   overflow: hidden;
   width: 100%;
   height: var(--_progress-height);
   background: functions.var($element + "track", background, var(--color-progress-track));
-  border-radius: var(--_progress-border-radius);
 
   &__inner {
+    @include mixins.use-logical($element, border-radius, 0);
+
     position: relative;
     width: calc(var(--_progress-value) * 100%);
     height: 100%;
     background: functions.var($element + "indicator", background, var(--color-progress-indicator));
-    border-radius: 0;
 
     &::before,
     &::after {
@@ -77,20 +80,18 @@ const progressValue = computed(() => {
       display: block;
       width: var(--_progress-padding);
       height: 100%;
-      background: functions.var($element + "indicator", background, arg var(--color-progress-indicator));
+      background: functions.var($element + "indicator", background, var(--color-progress-indicator));
       content: "";
     }
 
     &::before {
-      right: 100%;
-      border-bottom-left-radius: var(--_progress-border-radius);
-      border-top-left-radius: var(--_progress-border-radius);
+      @include mixins.use-logical($element, border-radius, var(--_progress-border-radius) 0);
+      @include mixins.use-logical($element, inset, auto 100% auto auto);
     }
 
     &::after {
-      left: 100%;
-      border-bottom-right-radius: var(--_progress-border-radius);
-      border-top-right-radius: var(--_progress-border-radius);
+      @include mixins.use-logical($element, border-radius, 0 var(--_progress-border-radius));
+      @include mixins.use-logical($element, inset, auto auto auto 100%);
     }
   }
 }
