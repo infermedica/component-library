@@ -76,10 +76,10 @@ const Template = (args) => ({
     <UiIcon 
       :icon="icon" 
       class="ui-button__icon"
-    />{{ content }}
+    /> {{ content }}
   </UiButton>
   <UiButton :class="modifiers">
-    {{ content }}<UiIcon
+    {{ content }} <UiIcon
       :icon="icon"
       class="ui-button__icon ui-button__icon--right"
     />
@@ -87,19 +87,28 @@ const Template = (args) => ({
   <UiText tag="span">
     Small:
   </UiText>
-  <UiButton :class="[ 'ui-button--small', modifiers ]">
+  <UiButton :class="[ 
+    'ui-button--small', 
+    modifiers,
+  ]">
     {{ content }}
   </UiButton>
   <UiButton
-    :class="[ 'ui-button--small', modifiers ]"
+    :class="[
+      'ui-button--small', 
+      modifiers, 
+    ]"
   >
     <UiIcon 
       :icon="icon" 
       class="ui-button__icon"
-    />{{ content }}
+    /> {{ content }}
   </UiButton>
-  <UiButton :class="[ 'ui-button--small', modifiers ]">
-    {{ content }}<UiIcon
+  <UiButton :class="[ 
+    'ui-button--small', 
+    modifiers, 
+  ]">
+    {{ content }} <UiIcon
       :icon="icon"
       class="ui-button__icon ui-button__icon--right"
     />
@@ -107,17 +116,26 @@ const Template = (args) => ({
   <UiText tag="span">
     Disable:
   </UiText>
-  <UiButton :class="[ 'ui-button--is-disabled', modifiers ]">
+  <UiButton :class="[ 
+    'ui-button--is-disabled',
+     modifiers,
+   ]">
     {{ content }}
   </UiButton>
-  <UiButton :class="[ 'ui-button--is-disabled', modifiers ]">
+  <UiButton :class="[ 
+    'ui-button--is-disabled', 
+    modifiers,
+  ]">
     <UiIcon 
       :icon="icon" 
       class="ui-button__icon"
-    />{{ content }}
+    /> {{ content }}
   </UiButton>
-  <UiButton :class="[ 'ui-button--is-disabled', modifiers ]">
-    {{ content }}<UiIcon
+  <UiButton :class="[ 
+    'ui-button--is-disabled', 
+    modifiers
+  ]">
+    {{ content }} <UiIcon
       :icon="icon"
       class="ui-button__icon ui-button__icon--right"
     />
@@ -145,42 +163,60 @@ export const Outlined = (args) => ({
     <UiIcon 
       :icon="icon" 
       class="ui-button__icon"
-    />{{ content }}
+    /> {{ content }}
   </UiButton>
   <UiButton :class="modifiers">
-    {{ content }}<UiIcon
+    {{ content }} <UiIcon
       :icon="icon"
       class="ui-button__icon ui-button__icon--right"
     />
   </UiButton>
   <UiText tag="span">Small:</UiText>
-  <UiButton :class="[ 'ui-button--small', modifiers ]">
+  <UiButton :class="[
+    'ui-button--small', 
+    modifiers, 
+  ]">
     {{ content }}
   </UiButton>
-  <UiButton :class="[ 'ui-button--small', modifiers ]">
+  <UiButton :class="[ 
+    'ui-button--small', 
+    modifiers,
+  ]">
     <UiIcon 
       :icon="icon" 
       class="ui-button__icon"
-    />{{ content }}
+    /> {{ content }}
   </UiButton>
-  <UiButton :class="[ 'ui-button--small', modifiers ]">
-    {{ content }}<UiIcon
+  <UiButton :class="[ 
+    'ui-button--small', 
+    modifiers, 
+  ]">
+    {{ content }} <UiIcon
       :icon="icon"
       class="ui-button__icon ui-button__icon--right"
     />
   </UiButton>
   <UiText tag="span">Selected:</UiText>
-  <UiButton :class="[ 'ui-button--is-selected', modifiers ]">
-  {{ content }}
+  <UiButton :class="[ 
+    'ui-button--is-selected', 
+    modifiers,
+  ]">
+    {{ content }}
   </UiButton>
-  <UiButton :class="[ 'ui-button--is-selected', modifiers ]">
+  <UiButton :class="[ 
+    'ui-button--is-selected', 
+    modifiers,
+  ]">
   <UiIcon
     :icon="icon"
     class="ui-button__icon"
-  />{{ content }}
+  /> {{ content }}
   </UiButton>
-  <UiButton :class="[ 'ui-button--is-selected', modifiers ]">
-  {{ content }}<UiIcon
+  <UiButton :class="[ 
+    'ui-button--is-selected',
+    modifiers,
+  ]">
+  {{ content }} <UiIcon
     :icon="icon"
     class="ui-button__icon ui-button__icon--right"
   />
@@ -188,17 +224,26 @@ export const Outlined = (args) => ({
   <UiText tag="span">
     Disable:
   </UiText>
-  <UiButton :class="['ui-button--is-disabled', modifiers]">
+  <UiButton :class="[
+    'ui-button--is-disabled', 
+    modifiers,
+  ]">
     {{ content }}
   </UiButton>
-  <UiButton :class="['ui-button--is-disabled', modifiers]">
+  <UiButton :class="[
+    'ui-button--is-disabled',
+    modifiers,
+  ]">
     <UiIcon 
       :icon="icon" 
       class="ui-button__icon"
     />{{ content }}
   </UiButton>
-  <UiButton :class="['ui-button--is-disabled', modifiers]">
-    {{ content }}<UiIcon
+  <UiButton :class="[
+    'ui-button--is-disabled',
+    modifiers,
+  ]">
+    {{ content }} <UiIcon
       :icon="icon"
       class="ui-button__icon ui-button__icon--right"
     />
@@ -238,13 +283,19 @@ export const Circled = (args) => ({
   <UiText tag="span">
     Selected: 
   </UiText>
-  <UiButton :class="[ 'ui-button--is-selected', modifiers ]">
+  <UiButton :class="[
+    'ui-button--is-selected',
+    modifiers,
+  ]">
   <UiIcon
     :icon="icon"
     class="ui-button__icon"
   />
   </UiButton>
-  <UiButton :class="[ 'ui-button--is-selected', modifiers ]">
+  <UiButton :class="[
+    'ui-button--is-selected',
+    modifiers,
+  ]">
     <UiText tag="span">
       1
     </UiText>
@@ -292,7 +343,10 @@ export const IconSecondary = (args) => ({
   setup() {
     return { ...args };
   },
-  template: `<UiButton :class="[ 'ui-button--icon', modifiers ]">
+  template: `<UiButton :class="[
+    'ui-button--icon', 
+    modifiers, 
+  ]">
     <UiIcon
       :icon="icon"
       class="ui-button__icon"
@@ -319,7 +373,10 @@ export const IconOnBrand = (args) => ({
   setup() {
     return { ...args };
   },
-  template: `<UiButton :class="[ 'ui-button--icon', modifiers ]">
+  template: `<UiButton :class="[
+    'ui-button--icon',
+    modifiers
+  ]">
     <UiIcon
       :icon="icon"
       class="ui-button__icon"

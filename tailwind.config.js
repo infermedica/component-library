@@ -9,10 +9,12 @@ module.exports = {
       desktop: '992px',
     },
     minHeight: {
+      30: '7.5rem',
       55: '13.75rem',
       80: '20rem',
       115: '28.75rem',
       135: '33.75rem',
+      140: '35rem',
     },
     minWidth: { 80: '20rem' },
     maxWidth: {
@@ -21,6 +23,7 @@ module.exports = {
       68: '17rem',
       80: '20rem',
       89: '22.25rem',
+      90: '22.5rem',
       120: '30rem',
       147: '36.75rem',
       158: '39.5rem',

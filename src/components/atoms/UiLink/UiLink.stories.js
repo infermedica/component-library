@@ -90,7 +90,7 @@ const Template = (args) => ({
     :href="href"
     :class="modifiers"
   >
-    {{ content }}<UiIcon
+    {{ content }} <UiIcon
         :icon="icon"
         class="ui-link__icon ui-link__icon--right"
     />
@@ -101,14 +101,20 @@ const Template = (args) => ({
   <UiLink
     :to="to"
     :href="href"
-    :class="['ui-link--small', modifiers]"
+    :class="[
+      'ui-link--small',
+      modifiers,
+    ]"
   >
     {{ content }}
   </UiLink>
   <UiLink
     :to="to"
     :href="href"
-    :class="['ui-link--small', modifiers]"
+    :class="[
+      'ui-link--small',
+      modifiers,
+    ]"
   >
     <UiIcon
       :icon="icon"
@@ -118,9 +124,12 @@ const Template = (args) => ({
   <UiLink
     :to="to"
     :href="href"
-    :class="['ui-link--small', modifiers]"
+    :class="[
+      'ui-link--small',
+      modifiers,
+    ]"
   >
-    {{ content }}<UiIcon
+    {{ content }} <UiIcon
       :icon="icon"
       class="ui-link__icon ui-link__icon--right"
   />

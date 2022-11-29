@@ -317,7 +317,10 @@ export const WithCustomBrand = (args) => ({
     :icon-hamburger-attrs="iconHamburgerAttrs"
     :icon-logo-attrs="iconLogoAttrs"
     :navigation-attrs="navigationAttrs"
-    :class="['header-custom-brand', modifiers]"
+    :class="[
+      'header-custom-brand', 
+      modifiers,
+    ]"
     @hamburger:close="onHamburgerClose"
     @hamburger:open="onHamburgerOpen"
   />`,

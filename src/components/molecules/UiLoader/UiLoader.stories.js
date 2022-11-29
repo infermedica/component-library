@@ -90,7 +90,10 @@ export const Common = (args) => ({
     :tag="tag"
     :loader-attrs="loaderAttrs"
     :transition-attrs="transitionAttrs"
-    :class="['loading-common',{'loading-common--is-skeleton': type === 'skeleton'}]"
+    :class="[
+      'loading-common',
+      { 'loading-common--is-skeleton': type === 'skeleton' },
+    ]"
   >
     <UiText>
       Place the content to be loaded.

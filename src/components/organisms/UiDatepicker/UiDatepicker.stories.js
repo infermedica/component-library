@@ -130,7 +130,11 @@ export default {
     inputYearAttrs: { table: { subcategory: 'Attrs props' } },
     datepickerCalendarAttrs: { table: { subcategory: 'Attrs props' } },
   },
-  decorators: [ () => ({ template: '<div style="min-height: 430px" class="max-w-80"><story /></div>' }) ],
+  decorators: [ () => ({
+    template: `<div class="min-h-115 max-w-80">
+      <story />
+    </div>`,
+  }) ],
 };
 
 export const FullConfiguration = (args) => ({
@@ -146,29 +150,29 @@ export const FullConfiguration = (args) => ({
     };
   },
   template: `<UiDatepicker
-      v-model="modelValue"
-      v-model:invalid="invalid"
-      :error="error"
-      :order="order"
-      :touched="touched"
-      :lang="lang"
-      :translation="translation"
-      :min-limit="minLimit"
-      :max-limit="maxLimit"
-      :alert-attrs="alertAttrs"
-      :text-day-attrs="textDayAttrs"
-      :text-month-attrs="textMonthAttrs"
-      :text-year-attrs="textYearAttrs"
-      :input-day-attrs="inputDayAttrs"
-      :input-month-attrs="inputMonthAttrs"
-      :input-year-attrs="inputYearAttrs"
-      :datepicker-calendar-attrs="datepickerCalendarAttrs"
-      @calendar-open="onCalendarOpen"
-      @calendar-select="onCalendarSelect"
-      @update:invalid="onUpdateInvalid"
-      @field-insert="onFieldInsert"
-      @field-error="onFieldError"
-      @field-focus="onFieldFocus"
+    v-model="modelValue"
+    v-model:invalid="invalid"
+    :error="error"
+    :order="order"
+    :touched="touched"
+    :lang="lang"
+    :translation="translation"
+    :min-limit="minLimit"
+    :max-limit="maxLimit"
+    :alert-attrs="alertAttrs"
+    :text-day-attrs="textDayAttrs"
+    :text-month-attrs="textMonthAttrs"
+    :text-year-attrs="textYearAttrs"
+    :input-day-attrs="inputDayAttrs"
+    :input-month-attrs="inputMonthAttrs"
+    :input-year-attrs="inputYearAttrs"
+    :datepicker-calendar-attrs="datepickerCalendarAttrs"
+    @calendar-open="onCalendarOpen"
+    @calendar-select="onCalendarSelect"
+    @update:invalid="onUpdateInvalid"
+    @field-insert="onFieldInsert"
+    @field-error="onFieldError"
+    @field-focus="onFieldFocus"
   />`,
 });
 
@@ -183,8 +187,8 @@ export const NoConfiguration = () => ({
     };
   },
   template: `<UiDatepicker
-      v-model="modelValue"
-      v-model:invalid="invalid"
-      error="Sorry, the date of birth cannot be a future date"
+    v-model="modelValue"
+    v-model:invalid="invalid"
+    error="Sorry, the date of birth cannot be a future date"
   />`,
 });

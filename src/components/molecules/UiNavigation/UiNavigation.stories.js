@@ -92,8 +92,10 @@ export const Vertical = (args) => ({
   },
   template: `<UiNavigation
     :items="items"
-    :class="[ 'navigation-vertical', modifiers ]"
-  />`,
+    :class="[ 
+      'navigation-vertical', 
+      modifiers,
+    ]"/>`,
 });
 
 export const WithNavigationItemSlot = (args) => ({

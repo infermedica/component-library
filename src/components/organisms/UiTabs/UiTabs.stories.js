@@ -57,7 +57,11 @@ export default {
       },
     },
   },
-  decorators: [ () => ({ template: '<div style="min-height: 120px"><story /></div>' }) ],
+  decorators: [ () => ({
+    template: `<div class="min-h-30">
+      <story />
+    </div>`,
+  }) ],
 };
 
 const Template = (args) => ({
@@ -84,7 +88,9 @@ const Template = (args) => ({
       #[item.name]="{item}"
       :key="key"
     >
-      <UiText>{{ content[item.name] }}</UiText>
+      <UiText>
+        {{ content[item.name] }}
+      </UiText>
     </template>
   </UiTabs>`,
 });
@@ -124,7 +130,9 @@ export const WithDefaultSlot = (args) => ({
           'data-testid': item['data-testid'],
         }"
       >
-        <UiText>{{ content[item.name] }}</UiText>
+        <UiText>
+          {{ content[item.name] }}
+        </UiText>
       </UiTabsItem>
     </template>
   </UiTabs>`,

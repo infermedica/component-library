@@ -294,9 +294,9 @@ export const WithChoiceSlot = (args) => ({
         :is="component"
         v-model="modelValue"
         :value="value"
-        :class="[
-          'ui-list-item__content',
-          { 'ui-checkbox--has-error ui-list-item--has-error': invalid }
+        :class="[ 
+          'ui-list-item__content', 
+          { 'ui-checkbox--has-error ui-list-item--has-error': invalid },
         ]"
       >
         {{ label }}
@@ -329,9 +329,7 @@ export const WithLabelChoiceIdSlot = (args) => ({
     @update:modelValue="onUpdateModelValue"
     @update:invalid="onUpdateInvalid"
   >
-    <template #label-fever="{
-      label,
-    }">
+    <template #label-fever="{ label }">
       {{ label }}
     </template>
   </UiMultipleAnswer>`,

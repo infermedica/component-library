@@ -86,9 +86,10 @@ export const WithInput = (args) => ({
         :id="id"
         suffix="cm"
         type="number"
-        :class="['form-field-with-input__input', {
-          'ui-input--has-error': errorMessage
-        }]"
+        :class="[
+          'form-field-with-input__input', 
+          { 'ui-input--has-error': errorMessage },
+        ]"
       />
     </template>
   </UiFormField>`,
@@ -117,16 +118,18 @@ export const WithCheckboxes = (args) => ({
     class="form-field-with-checkboxes"
   >
     <UiCheckbox
-      :class="['form-field-with-checkboxes__checkbox',{
-        'ui-checkbox--has-error': errorMessage
-      }]"
+      :class="[
+        'form-field-with-checkboxes__checkbox',
+        { 'ui-checkbox--has-error': errorMessage },
+      ]"
     >
       I found a typo
     </UiCheckbox>
     <UiCheckbox
-      :class="['form-field-with-checkboxes__checkbox',{
-        'ui-checkbox--has-error': errorMessage
-      }]"
+      :class="[
+        'form-field-with-checkboxes__checkbox',
+        { 'ui-checkbox--has-error': errorMessage },
+      ]"
     >
       Other (please comment below)
     </UiCheckbox>
@@ -189,9 +192,10 @@ export const WithLabelSlot = (args) => ({
         :id="id"
         suffix="cm"
         type="number"
-        :class="['form-field-with-input__input',{
-          'ui-input--has-error': errorMessage
-        }]"
+        :class="[
+          'form-field-with-input__input',
+          { 'ui-input--has-error': errorMessage },
+        ]"
       />
     </template>
   </UiFormField>`,
@@ -232,9 +236,10 @@ export const WithAlertSlot = (args) => ({
         :id="id"
         suffix="cm"
         type="number"
-        :class="['form-field-with-input__input',{
-          'ui-input--has-error': errorMessage
-        }]"
+        :class="[
+          'form-field-with-input__input',
+          { 'ui-input--has-error': errorMessage },
+        ]"
       />
     </template>
   </UiFormField>`,

@@ -1,0 +1,63 @@
+import { Canvas, Meta, Story, Primary, ArgsTable } from '@storybook/addon-docs';
+import { Code } from '../../../../docs/components/Code';
+import UiMessage from './UiMessage.vue';
+import scss from './UiMessage.stories.scss?raw';
+
+<Meta
+  title="Templates/Message"
+  component={ UiMessage }
+/>
+
+# UiMessage
+
+<Primary />
+<ArgsTable />
+
+## Stories
+### With Content Slot
+<Canvas>
+  <Story id="templates-message--with-content-slot"/>
+</Canvas>
+
+### With Aside Slot
+<Canvas>
+  <Story id="templates-message--with-aside-slot"/>
+</Canvas>
+
+### With Illustration Slot
+<Canvas>
+  <Story id="templates-message--with-illustration-slot"/>
+</Canvas>
+
+### As Not Authorized
+<Canvas>
+  <Story id="templates-message--as-not-authorized"/>
+</Canvas>
+
+**Use following SCSS to get the same result**
+<Code
+  id="message-not-authorized"
+  code={ scss }
+/>
+
+### As Offline
+<Canvas>
+  <Story id="templates-message--as-offline"/>
+</Canvas>
+
+**Use following SCSS to get the same result**
+<Code
+  id="message-offline"
+  code={ scss }
+/>
+
+### As Offline
+<Canvas>
+  <Story id="templates-message--as-offline-popover"/>
+</Canvas>
+
+**Use following SCSS to get the same result**
+<Code
+  id="message-offline-popover"
+  code={ scss }
+/>

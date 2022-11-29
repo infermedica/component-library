@@ -80,7 +80,10 @@ const Template = (args) => ({
     :icon="icon"
     :icon-attrs="iconAttrs"
     :text-label-attrs="textLabelAttrs"
-    :class="['tile', modifiers]"
+    :class="[
+      'tile',
+      modifiers,
+    ]"
     @update:modelValue="onUpdateModelValue"
   >
     {{ content }}
@@ -115,7 +118,10 @@ export const WithIconSlot = (args) => ({
     :icon="icon"
     :icon-attrs="iconAttrs"
     :text-label-attrs="textLabelAttrs"
-    :class="[ 'tile', modifiers ]"
+    :class="[
+      'tile',
+      modifiers,
+    ]"
     @update:modelValue="onUpdateModelValue"
   >
     <template #icon="{ iconAttrs }">
@@ -147,7 +153,10 @@ export const WithLabelSlot = (args) => ({
     :id="id"
     :icon-attrs="iconAttrs"
     :text-label-attrs="textLabelAttrs"
-    :class="[ 'tile', modifiers ]"
+    :class="[
+      'tile',
+      modifiers,
+    ]"
     @update:modelValue="onUpdateModelValue"
   >
     <template #label="{ textLabelAttrs }">
@@ -183,7 +192,11 @@ export const AsGroup = (args) => ({
         :icon="item.icon"
         :icon-attrs="item.iconAttrs"
         :text-label-attrs="item.textLabelAttrs"
-        :class="[ 'tile-as-group__tile', item.class, modifiers ]"
+        :class="[
+          'tile-as-group__tile',
+          item.class,
+          modifiers,
+        ]"
         @update:modelValue="onUpdateModelValue"
       >
         {{ item.label }}

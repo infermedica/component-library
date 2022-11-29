@@ -1,0 +1,42 @@
+//<Code id="message-not-authorized">
+.message-not-authorized {
+  --message-tablet-flex-direction: row-reverse;
+  --message-tablet-aside-margin: 0 var(--space-40) 0 0;
+  --message-rtl-tablet-aside-margin: 0 0 0 var(--space-40);
+  --message-content-align-self: flex-start;
+  --message-illustration-size: 10rem;
+}
+//</Code>
+
+//<Code id="message-offline">
+.message-offline {
+  --message-tablet-flex-direction: row-reverse;
+  --message-tablet-aside-margin: 0 var(--space-40) 0 0;
+  --message-rtl-tablet-aside-margin: 0 0 0 var(--space-40);
+  --message-content-align-self: flex-start;
+  --message-illustration-size: 10rem;
+
+  &__button {
+    margin: var(--space-16) 0 0 0;
+  }
+}
+//</Code>
+
+//<Code id="message-offline-popover">
+.message-offline-popover {
+  --message-flex-direction: row-reverse;
+  --message-tablet-flex-direction: row-reverse;
+  --message-aside-margin: 0 var(--space-12) 0 0;
+  --message-tablet-aside-margin: 0 var(--space-12) 0 0;
+  --message-rtl-aside-margin: 0 0 0 var(--space-12);
+  --message-rtl-tablet-aside-margin: 0 0 0 var(--space-12);
+  --message-illustration-size: 1.5rem;
+
+  margin: var(--space-16) 0;
+  align-items: flex-start;
+
+  &__button {
+    margin: var(--space-16) 0 0 0;
+  }
+}
+//</Code>

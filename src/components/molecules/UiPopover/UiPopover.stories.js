@@ -82,7 +82,10 @@ const Template = (args) => ({
     :heading-title-attrs="headingTitleAttrs"
     :button-close-attrs="buttonCloseAttrs"
     :icon-close-attrs="iconCloseAttrs"
-    :class="[ 'popover', modifiers ]"
+    :class="[ 
+      'popover', 
+      modifiers, 
+    ]"
     @close="onClose"
   >
     <UiText>
@@ -118,7 +121,10 @@ export const AsBottomPanelOnMobile = (args) => ({
     :heading-title-attrs="headingTitleAttrs"
     :button-close-attrs="buttonCloseAttrs"
     :icon-close-attrs="iconCloseAttrs"
-    :class="[ 'popover', modifiers ]"
+    :class="[ 
+      'popover', 
+      modifiers,
+    ]"
     @close="onClose"
   >
     <UiText>
@@ -159,7 +165,10 @@ export const WithTitleSlot = (args) => ({
     :heading-title-attrs="headingTitleAttrs"
     :button-close-attrs="buttonCloseAttrs"
     :icon-close-attrs="iconCloseAttrs"
-    :class="[ 'popover', modifiers ]"
+    :class="[
+      'popover',
+      modifiers,
+    ]"
     @close="onClose"
   >
     <template #title="{
@@ -196,7 +205,10 @@ export const WithCloseSlot = (args) => ({
       :heading-title-attrs="headingTitleAttrs"
       :button-close-attrs="buttonCloseAttrs"
       :icon-close-attrs="iconCloseAttrs"
-      :class="[ 'popover', modifiers ]"
+      :class="[ 
+        'popover', 
+        modifiers,
+      ]"
       @close="onClose"
   >
     <template #close="{

@@ -14,6 +14,8 @@ import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints
 import UiMenu from '@/components/organisms/UiMenu/UiMenu.vue';
 import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import UiHorizontalPagingItem from '@/components/organisms/UiHorizontalPaging/_internal/UiHorizontalPagingtem.vue';
+import './UiHorizontalPaging.stories.scss';
+import docs from './UiHorizontalPaging.mdx';
 
 const ForBusiness = {
   components: {
@@ -24,58 +26,59 @@ const ForBusiness = {
     UiList,
     UiListItem,
   },
+  setup() {
+    const products = [
+      {
+        icon: 'symptom-checker',
+        title: 'Symptom Checker',
+        description: 'A custom Symptomate app that you can use anywhere.',
+      },
+      {
+        icon: 'call-center-triage',
+        title: 'Call Center Triage',
+        description: 'Patient triage tool for call centers and emergency rooms.',
+      },
+      {
+        icon: 'api',
+        title: 'Infermedica API',
+        description: 'An API for preliminary diagnosis and patient triage.',
+      },
+    ];
+    return {
+      products,
+      UiButton,
+    };
+  },
   template: `<UiText>
   Symptomate is developed by Infermedica – the company providing a technological platform for digital symptom assessment, triage, patient intake, and more.
   </UiText>
-  <UiList style="margin: 24px 0 32px">
-  <UiListItem style="--icon-size: 2rem; --icon-color: var(--color-icon-primary); display: flex; gap: 1rem; align-items: flex-start">
-    <UiIcon
-        icon="symptom-checker"
-        style="flex: none;"
-    />
-    <div>
-      <UiHeading :level="4">Symptom Checker</UiHeading>
-      <UiText>A custom Symptomate app that you can use anywhere.</UiText>
-    </div>
-    <UiButton class="ui-button--icon">
+  <UiList class="for-business__products">
+    <template 
+      v-for="({icon, title, description}, key) in products" 
+      :key="key"
+    >
+      <UiListItem 
+      :tag="UiButton" 
+      class="ui-button--outlined for-business__product"
+    >
       <UiIcon
-          icon="arrow-right"
-          class="ui-button__icon"
+        :icon="icon"
+        class="ui-button__icon for-business__product-prefix-icon"
       />
-    </UiButton>
-  </UiListItem>
-  <UiListItem style="--icon-size: 2rem; --icon-color: var(--color-icon-primary); display: flex; gap: 1rem; align-items: flex-start">
-    <UiIcon
-        icon="call-center-triage"
-        style="flex: none;"
-    />
-    <div>
-      <UiHeading :level="4">Call Center Triage</UiHeading>
-      <UiText>Patient triage tool for call centers and emergency rooms.</UiText>
-    </div>
-    <UiButton class="ui-button--icon">
+      <div class="for-business__product-content">
+        <UiHeading :level="4">
+          {{ title }}
+        </UiHeading>
+        <UiText>
+          {{ description }}
+        </UiText>
+      </div>
       <UiIcon
-          icon="arrow-right"
-          class="ui-button__icon"
+        icon="arrow-right"
+        class="ui-button__icon for-business__product-suffix-icon"
       />
-    </UiButton>
-  </UiListItem>
-  <UiListItem style="--icon-size: 2rem; --icon-color: var(--color-icon-primary); display: flex; gap: 1rem; align-items: flex-start">
-    <UiIcon
-        icon="api"
-        style="flex: none;"
-    />
-    <div>
-      <UiHeading :level="4">Infermedica API</UiHeading>
-      <UiText>An API for preliminary diagnosis and patient triage.</UiText>
-    </div>
-    <UiButton class="ui-button--icon">
-      <UiIcon
-          icon="arrow-right"
-          class="ui-button__icon"
-      />
-    </UiButton>
-  </UiListItem>
+    </UiListItem>
+    </template>
   </UiList>
   <UiButton>Learn more</UiButton>`,
 };
@@ -86,16 +89,22 @@ const MedicalCertification = {
     UiIcon,
     UiButton,
   },
-  template: `<UiHeading class="ui-heading--h3">Medical device label</UiHeading>
+  template: `<UiHeading class="ui-heading--h3">
+    Medical device label
+  </UiHeading>
   <UiIcon
-      icon="ce"
-      style="--icon-size: 3rem; margin: 12px 0 0;"
+    icon="ce"
+    class="medical-certification__icon"
   />
   <UiHeading
-      :level="3"
-      style="margin: 8px 0;"
-  >Class I medical device in EU</UiHeading>
-  <UiText>This software meets all applicable requirements of the European Directive MDD 93/42/EWG.</UiText>`,
+    :level="3"
+    class="medical-certification__heading"
+  >
+    Class I medical device in EU
+  </UiHeading>
+  <UiText>
+    This software meets all applicable requirements of the European Directive MDD 93/42/EWG.
+  </UiText>`,
 };
 const InstructionForUse = {
   components: { UiLoader },
@@ -137,12 +146,14 @@ const TermsOfService = {
   },
   template: `<UiHeading 
     :lavel="3"
-    style="margin: 0 0 32px 0"
-  >§1. General Provisions</UiHeading>
+    class="terms-of-service__heading"
+  >
+    §1. General Provisions
+  </UiHeading>
   <UiBulletPoints
     :items="items"
     tag="ol"
-    style="--bullet-points-item-margin: var(--space-8) 0;"
+    class="terms-of-service__bullet-points"
   />
   `,
 };
@@ -155,8 +166,12 @@ const InterviewId = {
     UiHeading,
     UiText,
   },
-  template: `<UiHeading class="ui-heading--h4">Interview ID:</UiHeading>
-  <UiText style="margin: 4px 0;">8611d67x-063x-4390-x812-125288e0b070</UiText>`,
+  template: `<UiHeading class="ui-heading--h4">
+    Interview ID:
+  </UiHeading>
+  <UiText class="interview-id__heading">
+    8611d67x-063x-4390-x812-125288e0b070
+  </UiText>`,
 };
 const Loader = {
   components: { UiLoader },
@@ -233,7 +248,12 @@ export default {
       },
     },
   },
-  decorators: [ () => ({ template: '<div style="max-width: 22.5rem;"><story /></div>' }) ],
+  decorators: [ () => ({
+    template: `<div class="max-w-90">
+      <story />
+    </div>`,
+  }) ],
+  parameters: { docs: { page: docs } },
 };
 
 export const Common = (args) => ({
@@ -258,24 +278,24 @@ export const Common = (args) => ({
     :title="title"
     :items="items"
   >
-   <template #for-business>
-     <ForBusiness />
-   </template>
-   <template #medical-certification>
-     <MedicalCertification/>
-   </template>
-   <template #instruction-for-use>
-     <InstructionForUse/>
-   </template>
-   <template #terms-of-service>
-     <TermsOfService/>
-   </template>
-   <template #privacy-policy>
-     <PrivacyPolicy/>
-   </template>
-   <template #interview-id>
-      <InterviewId/>
-   </template>
+     <template #for-business>
+       <ForBusiness />
+     </template>
+     <template #medical-certification>
+       <MedicalCertification/>
+     </template>
+     <template #instruction-for-use>
+       <InstructionForUse/>
+     </template>
+     <template #terms-of-service>
+       <TermsOfService/>
+     </template>
+     <template #privacy-policy>
+       <PrivacyPolicy/>
+     </template>
+     <template #interview-id>
+        <InterviewId/>
+     </template>
   </UiHorizontalPaging>`,
 });
 
@@ -301,7 +321,10 @@ export const WithDefaultSlot = (args) => ({
     v-model="modelValue"
     :title="title"
   >
-    <template v-for="item in items">
+    <template 
+      v-for="(item, key) in items" 
+      :key="key"
+    >
       <UiHorizontalPagingItem v-bind="item">
         <component :is="item.name"/>
       </UiHorizontalPagingItem>
@@ -426,10 +449,10 @@ export const AsMobileMenu = (args) => ({
   template: `<UiSidePanel
     :model-value="true"
     :title="title"
-    style="--side-panel-content-padding: var(--space-12) var(--space-4); --side-panel-tablet-content-padding: var(--space-12) var(--space-32);"
+    class="horizontal-paging-as-mobile-menu"
   >
     <template #title="{ title }">
-      <div style="display: flex; gap: var(--space-12)">
+      <div class="horizontal-paging-as-mobile-menu__title">
         <UiButton
           v-if="isActive"
           class="ui-button--icon"
@@ -441,7 +464,9 @@ export const AsMobileMenu = (args) => ({
           />
           <span class="visual-hidden">Back to {{ previous }}</span>
         </UiButton>
-        <UiHeading>{{ title }}</UiHeading>
+        <UiHeading>
+          {{ title }}
+        </UiHeading>
       </div>
     </template>
     <UiHorizontalPaging
@@ -472,7 +497,7 @@ export const AsMobileMenu = (args) => ({
 });
 AsMobileMenu.parameters = { viewport: { defaultViewport: 'mobile2' } };
 AsMobileMenu.decorators = [ () => ({
-  template: `<div style="min-height: 560px">
+  template: `<div class="min-h-140">
    <story/>
   </div>`,
 }) ];

@@ -274,7 +274,10 @@ export const WithItemLinkSlot = (args) => ({
       <component
         v-bind="itemAttrs"
         :is="itemTag"
-        :class="[ 'ui-stepper-step__content', itemClass ]"
+        :class="[
+          'ui-stepper-step__content', 
+          itemClass,
+        ]"
       >
         {{ label }}
       </component>

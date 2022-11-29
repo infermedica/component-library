@@ -105,10 +105,10 @@ export const WithBottomSlot = (args) => ({
         <UiButton
           v-if="toNext && !hideNextButton"
           v-bind="buttonNextAttrs"
-          class="ui-controls__next"
-          :class="{
-            'ui-button--is-disabled': invalid
-          }"
+          :class="[
+            'ui-controls__next', 
+            { 'ui-button--is-disabled': invalid },
+          ]"
         >
           {{ translation.next }}
         </UiButton>
@@ -121,7 +121,7 @@ export const WithBottomSlot = (args) => ({
           <UiIcon
             v-bind="iconBackAttrs"
             class="ui-button__icon"
-          /> {{ translation.back }}
+          />{{ translation.back }}
         </UiButton>
       </div>
     </template>
@@ -160,10 +160,10 @@ export const WithNextSlot = (args) => ({
       <UiButton
         v-if="toNext && !hideNextButton"
         v-bind="buttonNextAttrs"
-        class="ui-controls__next"
-        :class="{
-          'ui-button--is-disabled': invalid
-        }"
+        :class="[ 
+          'ui-controls__next',
+          { 'ui-button--is-disabled': invalid },
+        ]"
       >
         {{ translation.next }}
       </UiButton>
@@ -209,7 +209,7 @@ export const WithBackSlot = (args) => ({
         <UiIcon
           v-bind="iconBackAttrs"
           class="ui-button__icon"
-        /> {{ translation.back }}
+        />{{ translation.back }}
       </UiButton>
     </template>
   </UiControls>`,
