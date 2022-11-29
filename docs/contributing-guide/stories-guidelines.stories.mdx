@@ -195,3 +195,68 @@ export default {
   }
 }
 ```
+## CSS in stories
+### Tailiwnd CSS
+We use [Tailwind CSS](https://tailwindcss.com/) in our stories. Tailwind helps us to write less CSS and focus on the content of the story. We use it in decorators but not to add styles to Component Library components.
+
+### Custom CSS
+Sometimes we need to add custom CSS to the story. To handle that we add `<component-name>.stories.scss` file in component directory and import it in the `*.stories.js` e.g.
+
+```js
+// *.stories.js
+import './*.stories.scss';
+
+export default {
+  title: '',
+  component: '',
+  ...
+}
+```
+Mostly we want to display this custom CSS (scss to be more precise) in the documentation. To do that we need to use `*.mdx` file and import it in the `*.stories.js`. To use it in `*.stories.js` we need to set `docs` parameters e.g.
+
+```js
+// *.stories.js
+import './*.stories.scss';
+import docs from './*.mdx'
+
+export default {
+  title: '',
+  component: '',
+  parameters: { docs: { page: docs } },
+}
+```
+To display SCSS in `mdx` file we use `<Code/>` DocBlock component e.g.
+
+```mdx
+import { Code } from '../../../../docs/components/Code';
+
+<Meta />
+
+## ComponentName
+<Primary />
+<ArgsTable />
+
+## Stories
+### With custom CSS
+<Canvas>
+  <Story id="with-custom-css"/>
+</Canvas>
+
+**Use following SCSS to get the same result**
+<Code
+  id="with-custom-css"
+  code={ scss }
+/>
+```
+
+And wrap the code in the `Code` tags to display it in `<Code>` block e.g.
+
+```scss
+//<Code id="with-custom-css">
+.with-custom-css {
+ // your custom CSS
+}
+//</Code>
+```
+
+
