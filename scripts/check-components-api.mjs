@@ -1,22 +1,24 @@
-const fs = require('fs');
-const path = require('path');
-const printCustomTable = require('./helpers/custom-table');
+import {
+  appendFileSync,
+  existsSync,
+  readFileSync,
+  writeFileSync,
+} from 'fs';
+import {
+  dirname,
+  resolve,
+} from 'path';
+import { fileURLToPath } from 'url';
+import printCustomTable from './helpers/custom-table.mjs';
+import getArgs from './helpers/get-args.mjs';
 
-const pathComponentsApiFile = path.resolve(__dirname, '../components-api-lock.json');
+const fileName = fileURLToPath(import.meta.url);
+const dirName = dirname(fileName);
+const pathComponentsApiFile = resolve(dirName, '../components-api-lock.json');
+const args = getArgs();
 
-const getArgs = (argName) => (process.argv.slice(2).reduce((acc, arg) => {
-  const [
-    key,
-    value,
-  ] = arg.split('=');
-  return {
-    ...acc,
-    [key]: value,
-  };
-}, {})[`--${argName}`]);
-const getApiFromBranch = async () => {
+const getApiFromBranch = async (branch = 'develop') => {
   try {
-    const branch = getArgs('branch') || 'develop';
     const response = await fetch(`https://github.com/infermedica/component-library/raw/${branch}/components-api-lock.json`);
     const api = await response.json();
     return api['components-api'];
@@ -25,16 +27,23 @@ const getApiFromBranch = async () => {
     return [];
   }
 };
-const saveDiffsInJsonFile = (diffs) => {
-  const outputFile = `../${getArgs('outputFile') || 'components-api-diffs.json'}`;
-  const branch = getArgs('branch') || 'develop';
-  const jsonPath = path.resolve(__dirname, outputFile);
-  if (!fs.existsSync(jsonPath)) {
-    fs.appendFileSync(jsonPath, '');
+const saveDiffsInJsonFile = (
+  diffs,
+  outputPath = 'components-api-diffs.json',
+  branch = 'develop',
+  release = false,
+) => {
+  const jsonPath = resolve(dirName, `../${outputPath}`);
+  if (!existsSync(jsonPath)) {
+    appendFileSync(jsonPath, '');
   }
-  const content = JSON.parse(fs.readFileSync(jsonPath, 'utf8') || '{}');
-  content[`${branch}-branch`] = diffs;
-  fs.writeFileSync(jsonPath, JSON.stringify(content, null, 2));
+  const content = JSON.parse(readFileSync(jsonPath, 'utf8') || '{}');
+  if (release) {
+    content.diffs = diffs;
+  } else {
+    content[`${branch}-branch`] = diffs;
+  }
+  writeFileSync(jsonPath, JSON.stringify(content, null, 2));
 };
 const isElementsEqual = (el1, el2) => JSON.stringify(el1) === JSON.stringify(el2);
 const stringify = (el) => (typeof el === 'object' ? JSON.stringify(el) : el);
@@ -159,9 +168,9 @@ const getDiffs = (currEl, prevEl, keys = []) => {
   }
   return diffs;
 };
-const compareApi = async (callback) => {
-  const branchApi = await getApiFromBranch();
-  const currentApi = JSON.parse(fs.readFileSync(pathComponentsApiFile, 'utf8') || '{}')['components-api'];
+const compareComponentsApi = async (branch, outputPath, release, callback) => {
+  const branchApi = await getApiFromBranch(branch);
+  const currentApi = JSON.parse(readFileSync(pathComponentsApiFile, 'utf8') || '{}')['components-api'];
   let diffs = {};
   const {
     added, removed, changed,
@@ -184,13 +193,15 @@ const compareApi = async (callback) => {
   if (callback && typeof callback === 'function') {
     diffs = callback(diffs);
   }
-  print(diffs);
-  saveDiffsInJsonFile(diffs);
+  if (release ? !release : !('silent' in args)) {
+    print(diffs);
+  }
+  saveDiffsInJsonFile(diffs, outputPath, branch, release);
   return diffs;
 };
 
-module.exports = compareApi;
+export default compareComponentsApi;
 
-if (require.main === module) {
-  compareApi();
+if (process.argv[1] === fileName) {
+  compareComponentsApi(args.branch, args.outputFile);
 }
