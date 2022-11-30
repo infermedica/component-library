@@ -4,7 +4,10 @@ import { Code } from '../../../../docs/components/Code';
 import UiLoader from "./UiLoader.vue";
 import scss from './UiLoader.stories.scss?raw';
 
-<Meta title="MoleculesUiLoader" component={UiLoader} />
+<Meta
+  title="Molecules/Loader"
+  component={ UiLoader }
+/>
 
 # UiLoader
 <Primary />
@@ -66,6 +69,12 @@ It's useful for buttons with loading state.
   <Story id="molecules-loader--loading-button"/>
 </Canvas>
 
+**Use following SCSS to get the same result**
+<Code
+  id="loading-button"
+  code={ scss }
+/>
+
 ### Loading Popover
 <Canvas>
   <Story id="molecules-loader--loading-popover"/>
@@ -74,13 +83,19 @@ It's useful for buttons with loading state.
 **Use following SCSS to get the same result**
 <Code
   id="loading-popover"
-  code={scss}
+  code={ scss }
 />
 
 ### Loading Container
 <Canvas>
   <Story id="molecules-loader--loading-container"/>
 </Canvas>
+
+**Use following SCSS to get the same result**
+<Code
+  id="loading-container"
+  code={ scss }
+/>
 
 ### Loading Side Panel
 <Canvas>
@@ -90,7 +105,7 @@ It's useful for buttons with loading state.
 **Use following SCSS to get the same result**
 <Code
   id="loading-side-panel"
-  code={scss}
+  code={ scss }
 />
 
 ### Loading Controls
@@ -98,7 +113,19 @@ It's useful for buttons with loading state.
   <Story id="molecules-loader--loading-controls"/>
 </Canvas>
 
+**Use following SCSS to get the same result**
+<Code
+  id="loading-controls"
+  code={ scss }
+/>
+
 ## Loading Full On Brand
 <Canvas>
   <Story id="molecules-loader--loading-full-on-brand"/>
 </Canvas>
+
+**Use following SCSS to get the same result**
+<Code
+  id="loading-full-on-brand"
+  code={ scss }
+/>

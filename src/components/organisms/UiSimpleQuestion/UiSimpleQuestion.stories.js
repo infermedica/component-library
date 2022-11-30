@@ -78,27 +78,29 @@ export const WithTileSlot = (args) => ({
     :items="items"
     :class="modifiers"
   >
-  <template #tile="{
-    item, 
-    modelValue, 
-    isTileSmall, 
-    updateHandler
-  }">
-    <UiTile
-      :model-value="modelValue"
-      :value="item.value"
-      :icon="item.icon"
-      :icon-attrs="item.iconAttrs"
-      :text-label-attrs="item.textLabelAttrs"
-      v-bind="{
-        'data-testid': item['data-testid'],
-      }"
-      :class="{'ui-tile--small': isTileSmall}"
-      class="ui-simple-question__item"
-      @update:modelValue="updateHandler(item.value)"
-    >
-      {{ item.label }}
-    </UiTile>
-  </template>
+    <template #tile="{
+      item, 
+      modelValue, 
+      isTileSmall, 
+      updateHandler
+    }">
+      <UiTile
+        :model-value="modelValue"
+        :value="item.value"
+        :icon="item.icon"
+        :icon-attrs="item.iconAttrs"
+        :text-label-attrs="item.textLabelAttrs"
+        v-bind="{
+          'data-testid': item['data-testid'],
+        }"
+        :class="[ 
+          'ui-simple-question__item', 
+          { 'ui-tile--small': isTileSmall }
+        ]"
+        @update:modelValue="updateHandler(item.value)"
+      >
+        {{ item.label }}
+      </UiTile>
+    </template>
   </UiSimpleQuestion>`,
 });

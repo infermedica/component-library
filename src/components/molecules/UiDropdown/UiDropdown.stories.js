@@ -13,6 +13,8 @@ import {
   ref,
   watch,
 } from 'vue';
+import './UiDropdown.stories.scss';
+import docs from './UiDropdown.mdx';
 
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
@@ -75,7 +77,12 @@ export default {
     buttonToggleAttrs: { table: { subcategory: 'Attrs props' } },
     popoverAttrs: { table: { subcategory: 'Attrs props' } },
   },
-  decorators: [ () => ({ template: '<div style="min-height: 220px"><story /></div>' }) ],
+  decorators: [ () => ({
+    template: `<div class="min-h-55">
+        <story />
+    </div>`,
+  }) ],
+  parameters: { docs: { page: docs } },
 };
 
 const Template = (args) => ({
@@ -89,19 +96,19 @@ const Template = (args) => ({
     };
   },
   template: `<UiDropdown
-      v-model="modelValue"
-      :text="modelValue"
-      :name="name"
-      :close-on-click-outside="closeOnClickOutside"
-      :toggle-element="toggleElement"
-      :enable-keyboard-navigation="enableKeyboardNavigation"
-      :items="items"
-      :button-toggle-attrs="buttonToggleAttrs"
-      :popover-attrs="popoverAttrs"
-      style="--dropdown-popover-width: 15rem;"
-      @update:modelValue="onUpdateModelValue"
-      @open="onOpen"
-      @close="onClose"
+    v-model="modelValue"
+    :text="modelValue"
+    :name="name"
+    :close-on-click-outside="closeOnClickOutside"
+    :toggle-element="toggleElement"
+    :enable-keyboard-navigation="enableKeyboardNavigation"
+    :items="items"
+    :button-toggle-attrs="buttonToggleAttrs"
+    :popover-attrs="popoverAttrs"
+    class="dropdown-with-popover-width"
+    @update:modelValue="onUpdateModelValue"
+    @open="onOpen"
+    @close="onClose"
   />`,
 });
 
@@ -140,18 +147,18 @@ export const WithDefaultSlot = (args) => ({
     };
   },
   template: `<UiDropdown
-      v-model="modelValue"
-      :text="modelValue"
-      :name="name"
-      :close-on-click-outside="closeOnClickOutside"
-      :toggle-element="toggleElement"
-      :enable-keyboard-navigation="enableKeyboardNavigation"
-      :button-toggle-attrs="buttonToggleAttrs"
-      :popover-attrs="popoverAttrs"
-      style="--dropdown-popover-width: 15rem;"
-      @update:modelValue="onUpdateModelValue"
-      @open="onOpen"
-      @close="onClose"
+    v-model="modelValue"
+    :text="modelValue"
+    :name="name"
+    :close-on-click-outside="closeOnClickOutside"
+    :toggle-element="toggleElement"
+    :enable-keyboard-navigation="enableKeyboardNavigation"
+    :button-toggle-attrs="buttonToggleAttrs"
+    :popover-attrs="popoverAttrs"
+    class="dropdown-with-popover-width"
+    @update:modelValue="onUpdateModelValue"
+    @open="onOpen"
+    @close="onClose"
   >
     <template 
       v-for="(item, key) in items"
@@ -207,12 +214,11 @@ export const WithDropdownItemSlot = (args) => ({
     :items="items"
     :button-toggle-attrs="buttonToggleAttrs"
     :popover-attrs="popoverAttrs"
-    style="--dropdown-popover-width: 15rem;"
+    class="dropdown-with-popover-width"
     @update:modelValue="onUpdateModelValue"
     @open="onOpen"
     @close="onClose"
-  >
-  </UiDropdown>`,
+  />`,
 });
 WithDropdownItemSlot.args = {
   initModelValue: {
@@ -264,7 +270,7 @@ export const WithToggleSlot = (args) => ({
     :items="items"
     :button-toggle-attrs="buttonToggleAttrs"
     :popover-attrs="popoverAttrs"
-    style="--dropdown-popover-width: 15rem;"
+    class="dropdown-with-popover-width"
     @update:modelValue="onUpdateModelValue"
     @open="onOpen"
     @close="onClose"
@@ -334,7 +340,7 @@ export const WithPopoverSlot = (args) => ({
     :items="items"
     :button-toggle-attrs="buttonToggleAttrs"
     :popover-attrs="popoverAttrs"
-    style="--dropdown-popover-width: 15rem;"
+    class="dropdown-with-popover-width"
     @update:modelValue="onUpdateModelValue"
     @open="onOpen"
     @close="onClose"
@@ -396,14 +402,14 @@ export const WithContentSlot = (args) => ({
     :items="items"
     :button-toggle-attrs="buttonToggleAttrs"
     :popover-attrs="popoverAttrs"
-    style="--dropdown-popover-width: 15rem;"
+    class="dropdown-with-popover-width"
     @update:modelValue="onUpdateModelValue"
     @open="onOpen"
     @close="onClose"
   >
     <template #content="{
       closeHandler,
-       isOpen
+      isOpen
     }">
       <div 
         role="radiogroup"
@@ -416,7 +422,7 @@ export const WithContentSlot = (args) => ({
           <UiDropdownItem 
             :value="item"
           >
-            {{item}}
+            {{ item }}
           </UiDropdownItem>
         </template>
       </div>
@@ -471,25 +477,19 @@ export const WithInputToggle = (args) => ({
     };
   },
   template: `<UiDropdown
-        v-model="modelValue"
-        :text="text"
-        :name="name"
-        :close-on-click-outside="closeOnClickOutside"
-        :toggle-element="toggleElement"
-        :enable-keyboard-navigation="enableKeyboardNavigation"
-        :items="filteredItems"
-        :button-toggle-attrs="buttonToggleAttrs"
-        :popover-attrs="popoverAttrs"
-        :style="{
-          '--dropdown-popover-width': '26.25rem',
-          '--dropdown-popover-max-width': '26.25rem',
-          '--dropdown-popover-padding': noResults 
-            ? 'var(--space-24) var(--space-16)'
-            : 'var(--space-8)',
-        }"
-        @update:modelValue="onUpdateModelValue"
-        @open="onOpen"
-        @close="onClose"
+    v-model="modelValue"
+    :text="text"
+    :name="name"
+    :close-on-click-outside="closeOnClickOutside"
+    :toggle-element="toggleElement"
+    :enable-keyboard-navigation="enableKeyboardNavigation"
+    :items="filteredItems"
+    :button-toggle-attrs="buttonToggleAttrs"
+    :popover-attrs="popoverAttrs"
+    class="dropdown-with-input-toggle"
+    @update:modelValue="onUpdateModelValue"
+    @open="onOpen"
+    @close="onClose"
     >
       <template #toggle="{
         toggleHandler, 
@@ -504,13 +504,13 @@ export const WithInputToggle = (args) => ({
           ref="toggleElement"
           :model-value="search"
           type="search"
+          class="dropdown-with-input-toggle__input"
+          placeholder="Search, e.g. English"
           @update:model-value="inputHandler($event, openHandler, closeHandler)"
         >
         </UiInput>
       </template>
-      <template
-        #content
-      >
+      <template #content>
         <UiMessage
           v-if="noResults"
           title="No results"
@@ -518,16 +518,11 @@ export const WithInputToggle = (args) => ({
           :heading-title-attrs="{
             level: '4',
           }"
-          :style="{
-            '--message-flex-direction': 'row-reverse',
-            '--message-tablet-flex-direction': 'row-reverse',
-            '--message-aside-margin': '0 var(--space-12) 0 0',
-            '--message-tablet-aside-margin': '0 var(--space-12) 0 0',
-            '--message-content-align-self': 'flex-start',
-            '--message-illustration-size': '1.5rem',
-          }"
+          class="dropdown-with-input-toggle__no-results"
         >
-          <UiText>Unfortunately, the languages was not found.</UiText>
+          <UiText>
+            Unfortunately, the languages was not found.
+          </UiText>
           <UiBulletPoints :items="[
             'Please try to enter single words', 
             'Keep in mind, that you can only select languages from the autocomplete list'

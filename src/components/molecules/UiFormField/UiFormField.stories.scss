@@ -1,0 +1,21 @@
+//<Code id="form-field-with-input">
+.form-field-with-input {
+  &__input {
+    width: 100%;
+  }
+}
+//</Code>
+
+//<Code id="form-field-with-checkboxes">
+.form-field-with-checkboxes-description {
+  margin: 0 0 var(--space-24) 0;
+}
+
+.form-field-with-checkboxes {
+  --form-field-alert-margin: 0;
+
+  &__checkbox {
+    margin: 0 0 var(--space-24) 0;
+  }
+}
+//</Code>

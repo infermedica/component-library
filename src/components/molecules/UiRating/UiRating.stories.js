@@ -56,7 +56,7 @@ const Template = (args) => ({
     :translation="translation"
     :radio-option-attrs="radioOptionAttrs"
     :class="modifiers"
-  />{{modelValue}}`,
+  />`,
 });
 
 export const Common = Template.bind({});
@@ -96,24 +96,22 @@ export const WithIconSlot = (args) => ({
     };
   },
   template: `<UiRating
-      v-model="modelValue"
-      :max="max"
-      :name="name"
-      :tag="tag"
-      :legend="legend"
-      :settings="settings"
-      :translation="translation"
-      :radio-option-attrs="radioOptionAttrs"
-      :class="modifiers"
+    v-model="modelValue"
+    :max="max"
+    :name="name"
+    :tag="tag"
+    :legend="legend"
+    :settings="settings"
+    :translation="translation"
+    :radio-option-attrs="radioOptionAttrs"
+    :class="modifiers"
   >
-    <template 
-      #icon="{
-        index,
-        finalScore,
-        iconActiveAttrs,
-        iconDefaultAttrs,
-      }"
-    >
+    <template #icon="{
+      index,
+      finalScore,
+      iconActiveAttrs,
+      iconDefaultAttrs,
+    }">
       <template v-if="index <= finalScore">
         <UiIcon
           v-bind="iconActiveAttrs"
@@ -122,8 +120,8 @@ export const WithIconSlot = (args) => ({
       </template>
       <template v-else>
         <UiIcon
-            v-bind="iconDefaultAttrs"
-            class="ui-rating__icon"
+          v-bind="iconDefaultAttrs"
+          class="ui-rating__icon"
         />
       </template>
     </template>

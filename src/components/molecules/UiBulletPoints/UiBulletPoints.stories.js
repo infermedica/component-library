@@ -3,6 +3,8 @@ import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import icons from '@/components/atoms/UiIcon/icons.ts';
+import './UiBulletPoints.stories.scss';
+import docs from './UiBulletPoints.mdx';
 
 export default {
   title: 'Molecules/BulletPoints',
@@ -56,6 +58,7 @@ export default {
       },
     },
   },
+  parameters: { docs: { page: docs } },
 };
 
 const Template = (args) => ({
@@ -135,9 +138,9 @@ export const WithBulletPointItemSlot = (args) => ({
     return { ...args };
   },
   template: `<UiBulletPoints
-      :tag="tag"
-      :type="type"
-      :items="items"
+    :tag="tag"
+    :type="type"
+    :items="items"
   >
     <template #sneeze="{item}">
       {{ item.text }}
@@ -192,7 +195,7 @@ export const WithDefaultSlot = (args) => ({
         :text-marker-attrs="item.textMarkerAttrs"
         :text-content-attrs="item.textContentAttrs"
       >
-        {{item}}
+        {{ item }}
       </UiBulletPointsItem>
     </template>
   </UiBulletPoints>`,
@@ -223,16 +226,14 @@ export const WithMarkerSlot = (args) => ({
         :text-marker-attrs="item.textMarkerAttrs"
         :text-content-attrs="item.textContentAttrs"
       >
-        <template 
-          #marker="{
-            isUnordered,
-            icon,
-            iconMarkerAttrs,
-            textMarkerAttrs,
-          }"
-        >
+        <template #marker="{
+          isUnordered,
+          icon,
+          iconMarkerAttrs,
+          textMarkerAttrs,
+        }">
           <UiIcon
-              v-if="isUnordered"
+            v-if="isUnordered"
             v-bind="iconMarkerAttrs"
             class="ui-bullet-points-item__marker"
           />
@@ -272,7 +273,9 @@ export const WithContentSlot = (args) => ({
       >
         <template #content="{ textContentAttrs }">
           <div class="ui-bullet-points-item__content">
-            <UiText v-bind="textContentAttrs">{{ item }}</UiText>
+            <UiText v-bind="textContentAttrs">
+              {{ item }}
+            </UiText>
           </div>
         </template>
       </UiBulletPointsItem>
@@ -289,7 +292,7 @@ export const WithCustomMarker = (args) => ({
     :tag="tag"
     :type="type"
     :items="items"
-    style="--bullet-points-item-marker-color: var(--color-icon-primary);"
+    class="bullet-points-custom-marker"
   />`,
 });
 WithCustomMarker.args = {

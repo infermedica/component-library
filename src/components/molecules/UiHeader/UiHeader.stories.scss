@@ -1,11 +1,11 @@
 //<Code id="header-custom-brand">
 .header-custom-brand {
   --color-background-brand: #FFF;
-  --color-icon-on-brand: #1F262C;
-  --color-icon-on-brand-hover: #1F262C;
-  --color-icon-on-brand-active: #1F262C;
-  --color-text-on-brand: #1F262C;
-  --color-text-on-brand-hover: #1F262C;
-  --color-text-on-brand-active: #1F262C;
+  --color-icon-on-brand: var(--color-text-body);
+  --color-icon-on-brand-hover: var(--color-text-body);
+  --color-icon-on-brand-active: var(--color-text-body);
+  --color-text-on-brand: var(--color-text-body);
+  --color-text-on-brand-hover: var(--color-text-body);
+  --color-text-on-brand-active: var(--color-text-body);
 }
 //</Code>

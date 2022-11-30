@@ -1,0 +1,50 @@
+import { Canvas, Meta, Story, Primary, ArgsTable } from '@storybook/addon-docs';
+import { Code } from '../../../../docs/components/Code';
+import UiQuestion from './UiQuestion.vue';
+import scss from './UiQuestion.stories.scss?raw';
+
+<Meta
+  title="Templates/Question"
+  component={ UiQuestion }
+/>
+
+# UiQuestion
+<Primary />
+<ArgsTable />
+
+## Stories
+### Without Skip This Question
+<Canvas>
+  <Story id="templates-question--without-skip-this-question"/>
+</Canvas>
+
+**Use following SCSS to get the same result**
+<Code
+  id="question-as-multiple-answer"
+  code={ scss }
+/>
+
+### As Simple Question
+<Canvas>
+  <Story id="templates-question--as-simple-question"/>
+</Canvas>
+
+### With Title Slot
+<Canvas>
+  <Story id="templates-question--with-title-slot"/>
+</Canvas>
+
+### With Actions Bottom Slot
+<Canvas>
+  <Story id="templates-question--with-actions-bottom-slot"/>
+</Canvas>
+
+### With Why Slot
+<Canvas>
+  <Story id="templates-question--with-why-slot"/>
+</Canvas>
+
+### With Issue Slot
+<Canvas>
+  <Story id="templates-question--with-issue-slot"/>
+</Canvas>

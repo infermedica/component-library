@@ -2,10 +2,13 @@
 
 //<Code id="map">
 .map {
+  max-width: 40.75rem;
+  width: 100%;
+
   &__region {
     cursor: pointer;
-    fill: #2f91ea;
-    stroke: #1471c9;
+    fill: var(--color-blue-500);
+    stroke: var(--color-blue-600);
 
     &:focus {
       outline: none;
@@ -13,15 +16,15 @@
     }
 
     @include mixins.hover {
-      fill: #a2cff5;
+      fill: var(--color-blue-300);
     }
 
     &--is-checked {
-      fill: #0b3d6d;
-      stroke: #2f91ea;
+      fill: var(--color-blue-800);
+      stroke: var(--color-blue-500);
 
       @include mixins.hover {
-        fill: #082c4d;
+        fill: var(--color-blue-900);
       }
 
     }
@@ -39,7 +42,7 @@
     }
 
     path:last-of-type {
-      stroke: #2f91ea;
+      stroke: var(--color-blue-500);
       stroke-width: 2px;
     }
 
@@ -56,23 +59,26 @@
 
 //<Code id="abdominal-pain">
 .abdominal-pain {
+  max-width: 21.25rem;
+  width: 100%;
+
   &__part {
     cursor: pointer;
-    fill: #2f91ea;
+    fill: var(--color-blue-500);
 
     &:focus {
       outline: none;
     }
 
     @include mixins.hover {
-      fill: #1471c9;
+      fill: var(--color-blue-600);
     }
 
     &--is-checked {
-      fill: #0b3d6d;
+      fill: var(--color-blue-800);
 
       @include mixins.hover {
-        fill: #082c4d;
+        fill: var(--color-blue-900);
       }
 
     }
@@ -92,37 +98,40 @@
 
   &__outline {
     pointer-events: none;
-    fill: #0f5496;
+    fill: var(--color-blue-700);
   }
 }
 //</Code>
 
 //<Code id="body-model">
 .body-model {
+  max-width:10.5rem;
+  width:100%;
+
   &__part {
     cursor: pointer;
-    fill: #c2e0f8;
+    fill: var(--color-blue-200);
 
     @include mixins.from-tablet {
       fill: transparent;
     }
 
     @include mixins.hover {
-      fill: #71b5f0;
+      fill: var(--color-blue-400);
     }
 
     &--is-selected {
-      fill: #c2e0f8;
+      fill: var(--color-blue-200);
     }
 
     &--is-highlighted {
-      fill: #71b5f0;
+      fill: var(--color-blue-400);
     }
   }
 
   &__outline {
     pointer-events: none;
-    fill: #1471c9;
+    fill: var(--color-blue-600);
   }
 }
 //</Code>
