@@ -278,24 +278,24 @@ export const Common = (args) => ({
     :title="title"
     :items="items"
   >
-     <template #for-business>
-       <ForBusiness />
-     </template>
-     <template #medical-certification>
-       <MedicalCertification/>
-     </template>
-     <template #instruction-for-use>
-       <InstructionForUse/>
-     </template>
-     <template #terms-of-service>
-       <TermsOfService/>
-     </template>
-     <template #privacy-policy>
-       <PrivacyPolicy/>
-     </template>
-     <template #interview-id>
-        <InterviewId/>
-     </template>
+    <template #for-business>
+     <ForBusiness />
+    </template>
+    <template #medical-certification>
+     <MedicalCertification/>
+    </template>
+    <template #instruction-for-use>
+     <InstructionForUse/>
+    </template>
+    <template #terms-of-service>
+     <TermsOfService/>
+    </template>
+    <template #privacy-policy>
+     <PrivacyPolicy/>
+    </template>
+    <template #interview-id>
+      <InterviewId/>
+    </template>
   </UiHorizontalPaging>`,
 });
 

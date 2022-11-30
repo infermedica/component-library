@@ -308,14 +308,14 @@ export const WithRange = (args) => ({
       max,
       step,
     }">
-        <input
-          type="range"
-          :value="value"
-          :min="min"
-          :max="max"
-          class="m-0 mb-6 tablet:m-0 flex-full tablet:flex-1"
-          @input="change(parseInt($event.target.value, 10))"
-        />
+      <input
+        type="range"
+        :value="value"
+        :min="min"
+        :max="max"
+        class="m-0 mb-6 tablet:m-0 flex-full tablet:flex-1"
+        @input="change(parseInt($event.target.value, 10))"
+      />
     </template>
   </UiNumberStepper>`,
 });

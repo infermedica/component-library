@@ -347,10 +347,10 @@ export const WithInfoSlot = (args) => ({
     :notification-feedback-attrs="notificationFeedbackAttrs"
   >
     <template #info="{
-     buttonInfoAttrs,
-     settings,
-     translation,
-     iconInfoAttrs,
+      buttonInfoAttrs,
+      settings,
+      translation,
+      iconInfoAttrs,
     }">
       <UiButton
         v-if="settings.info"

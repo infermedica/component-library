@@ -87,8 +87,8 @@ export const AsGroup = (args) => ({
 });
 AsGroup.decorators = [ () => ({
   template: `<div class="max-w-89">
-<story/>
-</div>`,
+    <story/>
+  </div>`,
 }) ];
 
 export const WithRemoveSlot = (args) => ({

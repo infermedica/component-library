@@ -118,8 +118,8 @@ const Template = (args) => ({
   </UiText>
   <UiButton :class="[ 
     'ui-button--is-disabled',
-     modifiers,
-   ]">
+    modifiers,
+  ]">
     {{ content }}
   </UiButton>
   <UiButton :class="[ 
