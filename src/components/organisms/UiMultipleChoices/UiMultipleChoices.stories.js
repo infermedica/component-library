@@ -172,13 +172,13 @@ export const WithHintSlot = (args) => ({
     <template #hint="{
       hint,
       alertHintAttrs,
-      hintType
+      hintType,
     }">
       <UiAlert
-          v-if="hint"
-          v-bind="alertHintAttrs"
-          :type="hintType"
-          class="ui-multiple-choices__hint"
+        v-if="hint"
+        v-bind="alertHintAttrs"
+        :type="hintType"
+        class="ui-multiple-choices__hint"
       >
         {{ hint }}
       </UiAlert>
@@ -218,7 +218,7 @@ export const WithChoiceSlot = (args) => ({
       item,
       options,
       hasError,
-      updateHandler
+      updateHandler,
     }">
       <UiMultipleChoicesItem
         :model-value="value[index]"
@@ -250,15 +250,15 @@ export const WithOptionSlot = (args) => ({
     };
   },
   template: `<UiMultipleChoices
-      v-model="modelValue"
-      v-model:invalid="invalid"
-      :hint="hint"
-      :touched="touched"
-      :items="items"
-      :options="options"
-      :alert-hint-attrs="alertHintAttrs"
-      @update:modelValue="onUpdateModelValue"
-      @update:invalid="onUpdateInvalid"
+    v-model="modelValue"
+    v-model:invalid="invalid"
+    :hint="hint"
+    :touched="touched"
+    :items="items"
+    :options="options"
+    :alert-hint-attrs="alertHintAttrs"
+    @update:modelValue="onUpdateModelValue"
+    @update:invalid="onUpdateInvalid"
   >
     <template #option="{
       value,

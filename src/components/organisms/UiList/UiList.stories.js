@@ -96,7 +96,9 @@ export const WithListItemSlot = (args) => ({
     :items="items"
   >
     <template #painful-swallowing="{ item }">
-      <UiText>{{ item }}</UiText>
+      <UiText>
+        {{ item }}
+      </UiText>
     </template>
   </UiList>`,
 });
@@ -210,10 +212,15 @@ export const AsCondition = (args) => ({
     >
       <UiListItem
         :tag="item.tag"
-        :class="['list-condition-item', item.class]"
+        :class="[
+          'list-condition-item',
+          item.class,
+        ]"
         @click="clickShowDetails"
       >
-        <UiHeading level="3">{{ item.label }}</UiHeading>
+        <UiHeading level="3">
+          {{ item.label }}
+        </UiHeading>
         <div class="list-condition-item__probability">
           <UiProgress
             :value="item.evidence.value" 
@@ -226,8 +233,7 @@ export const AsCondition = (args) => ({
         </div>
         <template #suffix>
           <div class="list-condition-item__suffix">
-            Show details
-            <UiIcon
+            Show details <UiIcon
               icon="chevron-right"
               class="ui-button__icon list-condition-item__suffix-icon"
             />
@@ -296,21 +302,28 @@ export const WithIconInHeading = (args) => ({
     >
       <UiListItem
         :tag="item.tag"
-        :class="['list-with-icon-item', item.class]"
+        :class="[
+          'list-with-icon-item',
+          item.class,
+        ]"
         @click="clickShowDetails"
       >
         <UiIcon
-            icon="calendar"
-            class="ui-button__icon list-with-icon-item__prefix-icon"
+          icon="calendar"
+          class="ui-button__icon list-with-icon-item__prefix-icon"
         />
         <div class="list-with-icon-item__content">
-          <UiHeading level="4">{{ item.label }}</UiHeading>
-          <UiText class="list-with-icon-item__description">{{ item.label }}</UiText>
+          <UiHeading level="4">
+            {{ item.label }}
+          </UiHeading>
+          <UiText class="list-with-icon-item__description">
+            {{ item.label }}
+          </UiText>
         </div>
         <template #suffix>
           <UiIcon
-              icon="arrow-right"
-              class="ui-button__icon list-with-icon-item__suffix"
+            icon="arrow-right"
+            class="ui-button__icon list-with-icon-item__suffix"
           />
         </template>
       </UiListItem>
@@ -380,7 +393,10 @@ export const WithCheckbox = (args) => ({
         :has-suffix="item.hasSuffix"
         :suffix-attrs="item.suffixAttrs"
         :text-label-attrs="item.textLabelAttrs"
-        :class="['list-checkbox-item', item.class]"
+        :class="[
+          'list-checkbox-item',
+          item.class,
+        ]"
         @keydown="handleExplicationFocus"
       >
        {{ item.label }}
@@ -467,7 +483,10 @@ export const WithRadio = (args) => ({
         :has-suffix="item.hasSuffix"
         :suffix-attrs="item.suffixAttrs"
         :text-label-attrs="item.textLabelAttrs"
-        :class="['list-radio-item', item.class]"
+        :class="[
+          'list-radio-item',
+          item.class,
+        ]"
         @keydown="handleExplicationFocus"
       >
        {{ item.label }}

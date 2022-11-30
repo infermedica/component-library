@@ -1,0 +1,46 @@
+import { Canvas, Meta, Story, Primary, ArgsTable } from '@storybook/addon-docs';
+import { Code } from '../../../../docs/components/Code';
+import UiTile from './UiTile.vue';
+import scss from './UiTile.stories.scss?raw';
+
+<Meta
+  title="Molecules/Tile"
+  component={ UiTile }
+/>
+
+# UiTile
+<Primary />
+<ArgsTable />
+
+## Stories
+### Small
+<Canvas>
+  <Story id="molecules-tile--small"/>
+</Canvas>
+
+### Has Error
+<Canvas>
+  <Story id="molecules-tile--has-error"/>
+</Canvas>
+
+### With Icon Slot
+<Canvas>
+  <Story id="molecules-tile--with-icon-slot"/>
+</Canvas>
+
+### With Label Slot
+<Canvas>
+  <Story id="molecules-tile--with-label-slot"/>
+</Canvas>
+
+### As Group
+<Canvas>
+  <Story id="molecules-tile--as-group"/>
+</Canvas>
+
+**Use following SCSS to get the same result**
+<Code
+  id="tile-as-group"
+  code={ scss }
+  additionalData={ '@infermedica/component-library/mixins\n' }
+/>

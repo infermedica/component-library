@@ -79,7 +79,9 @@ const Template = (args) => ({
       #[name]="{ item }"
       :key="key"
     >
-      <UiText>{{ content[item.name] }}</UiText>
+      <UiText>
+        {{ content[item.name] }}
+      </UiText>
     </template>
   </UiAccordion>`,
 });
@@ -137,7 +139,9 @@ export const WithDefaultSlot = (args) => ({
         :icon-toggler-attrs="item.iconTogglerAttrs"
         :content-attrs="item.contentAttrs"
       >
-        <UiText>{{ content[item.name] }}</UiText>
+        <UiText>
+          {{ content[item.name] }}
+        </UiText>
       </UiAccordionItem>
     </template>
   </UiAccordion>`,
@@ -175,18 +179,16 @@ export const WithTogglerSlot = (args) => ({
         :icon-toggler-attrs="item.iconTogglerAttrs"
         :content-attrs="item.contentAttrs"
       >
-        <template 
-          #toggler="{
-            buttonTogglerAttrs,
-            name,
-            isOpen,
-            toggle,
-            title,
-            iconOpen,
-            iconClose,
-            iconTogglerAttrs,
-          }"
-        >
+        <template #toggler="{
+          buttonTogglerAttrs,
+          name,
+          isOpen,
+          toggle,
+          title,
+          iconOpen,
+          iconClose,
+          iconTogglerAttrs,
+        }">
           <UiButton
             v-bind="buttonTogglerAttrs"
             :id="'toggler-' + name"
@@ -198,11 +200,12 @@ export const WithTogglerSlot = (args) => ({
             <UiIcon
               v-bind="iconTogglerAttrs"
               class="ui-button__icon ui-accordion-item__chevron"
-            />
-            {{ title }}
+            />{{ title }}
           </UiButton>
         </template>
-        <UiText>{{ content[item.name] }}</UiText>
+        <UiText>
+          {{ content[item.name] }}
+        </UiText>
       </UiAccordionItem>
     </template>
   </UiAccordion>`,
@@ -239,20 +242,20 @@ export const WithChevronSlot = (args) => ({
         :icon-toggler-attrs="item.iconTogglerAttrs"
         :content-attrs="item.contentAttrs"
       >
-        <template 
-          #chevron="{
-            iconTogglerAttrs,
-            isOpen,
-            iconOpen,
-            iconClose,
-          }"
-        >
+        <template #chevron="{
+          iconTogglerAttrs,
+          isOpen,
+          iconOpen,
+          iconClose,
+        }">
           <UiIcon
             v-bind="iconTogglerAttrs"
             class="ui-button__icon ui-accordion-item__chevron"
           />
         </template>
-        <UiText>{{ content[item.name] }}</UiText>
+        <UiText>
+          {{ content[item.name] }}
+        </UiText>
       </UiAccordionItem>
     </template>
   </UiAccordion>`,
@@ -288,13 +291,11 @@ export const WithContentSlot = (args) => ({
         :icon-toggler-attrs="item.iconTogglerAttrs"
         :content-attrs="item.contentAttrs"
       >
-        <template 
-          #content="{
-            isOpen,
-            contentAttrs,
-            name,
-          }"
-        >
+        <template #content="{
+          isOpen,
+          contentAttrs,
+          name,
+          }">
           <div
             v-show="isOpen"
             v-bind="contentAttrs"
@@ -303,7 +304,9 @@ export const WithContentSlot = (args) => ({
             :aria-labelledby="'toggler-' + name"
             class="ui-accordion-item__content"
           >
-            <UiText>{{ content[item.name] }}</UiText>
+            <UiText>
+              {{ content[item.name] }}
+            </UiText>
           </div>
         </template>
       </UiAccordionItem>

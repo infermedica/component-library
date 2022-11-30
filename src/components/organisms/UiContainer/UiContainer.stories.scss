@@ -1,0 +1,8 @@
+.container-disclaimer {
+  max-width: 40.75rem;
+  width: 100%;
+
+  &__disclaimer {
+    --text-color: var(--color-text-dimmed);
+  }
+}

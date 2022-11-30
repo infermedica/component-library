@@ -308,17 +308,20 @@ export const WithCustomBrand = (args) => ({
     };
   },
   template: `<UiHeader
-      :title="title"
-      :logo="logo"
-      :hamburgerMatchMedia="hamburgerMatchMedia"
-      :navigation="navigation"
-      :button-brand-attrs="buttonBrandAttrs"
-      :button-hamburger-attrs="buttonHamburgerAttrs"
-      :icon-hamburger-attrs="iconHamburgerAttrs"
-      :icon-logo-attrs="iconLogoAttrs"
-      :navigation-attrs="navigationAttrs"
-      :class="['header-custom-brand', modifiers]"
-      @hamburger:close="onHamburgerClose"
-      @hamburger:open="onHamburgerOpen"
+    :title="title"
+    :logo="logo"
+    :hamburgerMatchMedia="hamburgerMatchMedia"
+    :navigation="navigation"
+    :button-brand-attrs="buttonBrandAttrs"
+    :button-hamburger-attrs="buttonHamburgerAttrs"
+    :icon-hamburger-attrs="iconHamburgerAttrs"
+    :icon-logo-attrs="iconLogoAttrs"
+    :navigation-attrs="navigationAttrs"
+    :class="[
+      'header-custom-brand', 
+      modifiers,
+    ]"
+    @hamburger:close="onHamburgerClose"
+    @hamburger:open="onHamburgerOpen"
   />`,
 });

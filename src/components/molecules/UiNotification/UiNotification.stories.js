@@ -37,7 +37,11 @@ export default {
     buttonActionAttrs: { table: { subcategory: 'Attrs props' } },
     iconActionAttrs: { table: { subcategory: 'Attrs props' } },
   },
-  decorators: [ () => ({ template: '<div style="max-width: 320px;"><story /></div>' }) ],
+  decorators: [ () => ({
+    template: `<div class="max-w-80">
+      <story />
+    </div>`,
+  }) ],
 };
 
 const Template = (args) => ({

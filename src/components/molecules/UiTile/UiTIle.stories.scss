@@ -1,0 +1,23 @@
+@use "../../../styles/mixins";
+
+.tile {
+  width: 100%;
+  max-width: 20rem;
+}
+
+//<Code id="tile-as-group">
+.tile-as-group {
+  max-width: 63rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  @include mixins.from-tablet {
+    flex-direction: row;
+  }
+
+  &__tile {
+    flex: 1;
+  }
+}
+//</Code>

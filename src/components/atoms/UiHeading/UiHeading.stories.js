@@ -40,7 +40,7 @@ const Template = (args) => ({
     :level="level"
     :class="modifiers"
   >
-  {{content}}
+    {{ content }}
   </UiHeading>`,
 });
 

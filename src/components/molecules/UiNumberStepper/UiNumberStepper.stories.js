@@ -118,22 +118,22 @@ export const WithControlsOnMobile = (args) => ({
     @error="onError"
     @update:modelValue="onUpdateModelValue"
   >
-  <template #default="{
-    change,
-    value,
-    min,
-    max,
-    step,
-  }">
-    <input
-      type="range"
-      :value="value"
-      :min="min"
-      :max="max"
-      class="m-0 mb-6 tablet:m-0 flex-full tablet:flex-1"
-      @input="change(parseInt($event.target.value, 10))"
-    />
-  </template>
+    <template #default="{
+      change,
+      value,
+      min,
+      max,
+      step,
+    }">
+      <input
+        type="range"
+        :value="value"
+        :min="min"
+        :max="max"
+        class="m-0 mb-6 tablet:m-0 flex-full tablet:flex-1"
+        @input="change(parseInt($event.target.value, 10))"
+      />
+    </template>
   </UiNumberStepper>`,
 });
 WithControlsOnMobile.args = {
@@ -187,10 +187,10 @@ export const WithDecrementSlot = (args) => ({
       <UiButton
         v-if="hasControls"
         v-bind="attrs"
-        class="ui-button--outlined ui-button--circled ui-number-stepper__decrement"
-        :class="{
-          'ui-button--is-disabled': isMin
-        }"
+        :class="[ 
+          'ui-button--outlined ui-button--circled ui-number-stepper__decrement', 
+          { 'ui-button--is-disabled': isMin }, 
+        ]"
         @click="decrement"
       >
         <UiIcon 
@@ -250,10 +250,10 @@ export const WithIncrementSlot = (args) => ({
       <UiButton
         v-if="hasControls"
         v-bind="attrs"
-        class="ui-button--outlined ui-button--circled ui-number-stepper__increment"
-        :class="{
-          'ui-button--is-disabled': isMax
-        }"
+        :class="[ 
+          'ui-button--outlined ui-button--circled ui-number-stepper__increment',
+          { 'ui-button--is-disabled': isMax }, 
+        ]"
         @click="increment"
       >
         <UiIcon 
@@ -301,13 +301,13 @@ export const WithRange = (args) => ({
     @error="onError"
     @update:modelValue="onUpdateModelValue"
   >
-  <template #default="{
-    change,
-    value,
-    min,
-    max,
-    step,
-  }">
+    <template #default="{
+      change,
+      value,
+      min,
+      max,
+      step,
+    }">
       <input
         type="range"
         :value="value"
