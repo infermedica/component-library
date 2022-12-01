@@ -25,17 +25,3 @@ if (!parentComponent || parentComponent.type.name !== 'UiNavigation') {
   }
 }
 </script>
-<style lang="scss">
-@use "../../../../styles/mixins";
-
-.ui-navigation-item {
-  $element: navigation-item;
-  $parent: #{".ui-navigation"};
-
-  @include mixins.use-logical($element, margin, 0 var(--space-8));
-
-  #{$parent}--is-multiline & {
-    @include mixins.use-logical($element, margin, 0 var(--space-8) var(--space-12));
-  }
-}
-</style>

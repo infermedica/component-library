@@ -18,14 +18,6 @@ const items = [
   },
 ];
 
-class ResizeObserver {
-  observe() {}
-
-  unobserve() {}
-}
-
-window.ResizeObserver = ResizeObserver;
-
 describe('UiNavigation.vue', () => {
   test('renders a component', () => {
     const wrapper = mount(UiNavigation);

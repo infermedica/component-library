@@ -194,21 +194,19 @@ onUnmounted(() => {
 .ui-header {
   $element: header;
 
+  --navigation-justify-content: flex-end;
+
   background: functions.var($element, background, var(--color-background-brand));
 
   &__header {
-    @include mixins.use-logical($element, padding, 0 var(--space-20));
-    @include mixins.use-logical($element, margin, 0 auto);
+    @include mixins.use-logical($element, padding, var(--space-20));
 
     display: flex;
     width: 100%;
     max-width: functions.var($element, max-width, 61.25rem);
     align-items: center;
     justify-content: space-between;
-  }
-
-  &__brand {
-    @include mixins.use-logical($element + "-brand", margin, var(--space-20) 0);
+    gap: functions.var($element, gap, var(--space-16));
   }
 
   &__logo {

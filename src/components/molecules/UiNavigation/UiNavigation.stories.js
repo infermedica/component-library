@@ -108,7 +108,7 @@ export const WithNavigationItemSlot = (args) => ({
     :class="modifiers"
   >
     <template #medical-certification="{ item }">
-      {{ item.text }}
+      {{ item.label }}
     </template>
   </UiNavigation>`,
 });
