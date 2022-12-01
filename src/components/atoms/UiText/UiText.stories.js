@@ -42,7 +42,7 @@ const Template = (args) => ({
     :tag="tag" 
     :class="modifiers"
   >
-    {{content}}  
+    {{ content }}  
   </UiText>`,
 });
 

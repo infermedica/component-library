@@ -3,16 +3,18 @@ import UiBackdrop from '@/components/atoms/UiBackdrop/UiBackdrop.vue';
 export default {
   title: 'Atoms/Backdrop',
   component: UiBackdrop,
+  decorators: [ () => ({
+    template: `<div class="min-h-80">
+      <story />
+    </div>`,
+  }) ],
+  parameters: { controls: { hideNoControlsWarning: true } },
 };
 
-const Template = (args) => ({
+export const Common = (args) => ({
   components: { UiBackdrop },
   setup() {
     return { args };
   },
-  template: '<UiBackdrop style="position: absolute"/>',
+  template: '<UiBackdrop class="absolute"/>',
 });
-
-export const Common = Template.bind({});
-Common.parameters = { controls: { hideNoControlsWarning: true } };
-Common.decorators = [ () => ({ template: '<div style="min-height: 320px"><story /></div>' }) ];

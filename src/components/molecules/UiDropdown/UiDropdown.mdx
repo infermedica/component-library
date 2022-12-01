@@ -1,0 +1,61 @@
+import { Canvas, Meta, Story, Primary, ArgsTable } from '@storybook/addon-docs';
+import { Code } from '../../../../docs/components/Code';
+import UiDropdown from './UiDropdown.vue';
+import scss from './UiDropdown.stories.scss?raw';
+
+<Meta
+  title="Molecules/Dropdown"
+  component={ UiDropdown }
+/>
+
+# UiDropdown
+<Primary />
+<ArgsTable />
+
+## Stories
+### With Items As Objects
+<Canvas>
+  <Story id="molecules-dropdown--with-items-as-objects"/>
+</Canvas>
+
+**Use following SCSS to get the same result**
+<Code
+  id="dropdown-with-popover-width"
+  code={ scss }
+/>
+
+### With Default Slot
+<Canvas>
+  <Story id="molecules-dropdown--with-default-slot"/>
+</Canvas>
+
+### With Dropdown Item Slot
+<Canvas>
+  <Story id="molecules-dropdown--with-dropdown-item-slot"/>
+</Canvas>
+
+### With Toggle Slot
+<Canvas>
+  <Story id="molecules-dropdown--with-toggle-slot"/>
+</Canvas>
+
+### With Popover Slot
+<Canvas>
+  <Story id="molecules-dropdown--with-popover-slot"/>
+</Canvas>
+
+### With Content Slot
+<Canvas>
+  <Story id="molecules-dropdown--with-content-slot"/>
+</Canvas>
+
+### With Input Toggle
+<Canvas>
+  <Story id="molecules-dropdown--with-items-as-objects"/>
+</Canvas>
+
+**Use following SCSS to get the same result**
+<Code
+  id="dropdown-with-popover-width"
+  code={ scss }
+/>

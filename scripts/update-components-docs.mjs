@@ -1,18 +1,21 @@
-import path from 'path';
-import { fileURLToPath, pathToFileURL } from 'url';
+/* eslint-disable import/no-extraneous-dependencies */
+import {
+  resolve,
+  dirname,
+} from 'path';
+import {
+  fileURLToPath,
+  pathToFileURL,
+} from 'url';
 import process from 'process';
-import fs from 'fs';
-import glob from 'glob';
+import { readFileSync } from 'fs';
 import fileSave from 'file-save';
-import stringify from 'stringify-object';
 import sass from 'sass';
+import pathsComponentsLoop from './helpers/paths-components-loop.mjs';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const pathComponentsRoot = path.resolve(__dirname, '../src/components');
-const pathsVueComponents = glob.sync('*/*/Ui*.vue', { cwd: pathComponentsRoot });
-
+const fileName = fileURLToPath(import.meta.url);
+const dirName = dirname(fileName);
+const pathComponentsRoot = resolve(dirName, '../src/components');
 const getAsKebabCase = (string) => string.replace(
   /([A-Z])(?=\w)/g,
   (s1, s2, index) => (index > 0 ? `-${s2.toLowerCase()}` : s2.toLowerCase()),
@@ -23,117 +26,86 @@ const getStyle = ({ component }) => {
   return matches[1];
 };
 const getCompiledStyle = (style) => sass.compileString(style, {
-  importers: [{
+  importers: [ {
     findFileUrl(url) {
       const index = url.indexOf('styles');
       return new URL(pathToFileURL(`./src/${url.slice(index, url.length)}`));
     },
-  }],
+  } ],
 }).css;
-const getStoriesMetadata = ({ stories }) => {
-  const regex = new RegExp('export default\\s*{([\\s\\S]+?)};');
-  const matches = stories.match(regex);
-  if (!matches) return '';
-  return matches[1];
-};
 const getCssProperties = (style, componentName) => {
   const regex = new RegExp(`:\\n*[\\s]*var\\([\\s]*--${componentName}-[\\s\\S]*?\\);`, 'g');
   const matches = style.match(regex);
-  if (!matches) return;
-  return [...matches]
-    .map((cssProp) => cssProp
-      .replace(/\n(\s{2,})/g, '')
-      .match(/:[\s]*var\([\s]*--([\s\S]+?)(,[\s]*([\s\S]+?))?\);/))
-    .reduce((object, [wholeMatch, name, valueMatch, value]) => ({
+  if (!matches) return [];
+  return [ ...matches ].map((cssProp) => cssProp
+    .replace(/\n(\s{2,})/g, '')
+    .match(/:[\s]*var\([\s]*--([\s\S]+?)(,[\s]*([\s\S]+?))?\);/))
+    .reduce((object, cssVar) => ({
       ...object,
-      [name]: {
-        value,
+      [cssVar[1]]: {
+        value: cssVar[3],
         control: 'text',
         description: '',
       },
     }), {});
 };
-const getImportedComponents = ({ metadata }) => [...new Set(metadata
-  .match(/(Ui.+?)(,| )/g)
-  .map((match) => match
-    .replace(/(,|'| )/g, '')))];
-
-const getNewParameters = (parameters, cssprops) => {
-  const newParameters = {
-    ...parameters,
-  };
-  if (newParameters.cssprops) {
-    delete newParameters.cssprops;
+const updateMeta = ({
+  stories,
+  cssProps = {},
+}) => {
+  const indexStartMeta = stories.indexOf('export default');
+  const indexNextConst = stories.indexOf(stories.match(/const [A-Z]/)[0]);
+  const indexNextExport = stories.indexOf('export', indexStartMeta + 1);
+  const indexEndMeta = indexNextConst < indexNextExport ? indexNextConst : indexNextExport;
+  const meta = stories.slice(indexStartMeta, indexEndMeta).trim();
+  const hasCssProps = Object.keys(cssProps).length;
+  const metaHasParameters = meta.includes('parameters:');
+  const metaHasCssProps = meta.includes('cssprops:');
+  const regCssProps = /cssprops:\s*{([\s\S]*)(?<=\n {6}},\n {4}},)/;
+  let updatedMeta;
+  if (!metaHasParameters && hasCssProps) {
+    updatedMeta = `${meta.slice(0, -2)} parameters: { cssprops: ${JSON.stringify(cssProps)}}};`;
+  } else if (metaHasCssProps && !hasCssProps) {
+    updatedMeta = meta.replace(regCssProps, '');
+  } else if (metaHasCssProps && hasCssProps) {
+    updatedMeta = meta.replace(regCssProps, `cssprops: ${JSON.stringify(cssProps)},`);
+  } else {
+    updatedMeta = meta.replace(/(,|)\s*},\s(};)/, `, cssprops: ${JSON.stringify(cssProps)}}};`);
   }
-  if (cssprops && Object.keys(cssprops).length) {
-    newParameters.cssprops = {
-      ...cssprops,
-    };
-  }
-  return newParameters;
+  return stories.replace(meta, updatedMeta);
 };
-const updateMeta = ({ stories, parameters, hasParameters }) => stories.replace(/export default\s*{([\s\S]*?)};/, (exportDefault, meta) => {
-  if (hasParameters) {
-    const metaWithParameters = !meta.includes('parameters:') ? `${meta} parameters: {},` : meta;
-    return `export default { ${metaWithParameters} };`.replace(
-      /parameters:\s*{([\s\S]*)},/,
-      () => `parameters: ${parameters},`,
-    );
-  }
-  return `export default { ${meta} };`.replace(
-    /\n\s*parameters:\s*{([\s\S]*)},/,
-    () => '',
-  );
-});
-const updateCssProps = ({ component, stories, componentNameKebabCase: componentName }) => {
+const updateCssProps = ({
+  component,
+  stories,
+  componentNameKebabCase: componentName,
+}) => {
   const style = getStyle({ component });
   const compiled = getCompiledStyle(style);
-  const cssprops = getCssProperties(compiled, componentName);
-  const metadata = getStoriesMetadata({ stories });
-  const imports = getImportedComponents({ metadata });
-  const { parameters } = JSON.parse(new Function(`
-    let ${imports.join(', ')}, content, modifiers=${() => {}}, placeholder, disabled, icons, steps = [{name: ''}];
-    return JSON.stringify({${metadata}});`)());
-  const newParameters = getNewParameters(parameters, cssprops);
-  const updatedParameters = stringify(
-    newParameters,
-    {
-      indent: '  ',
-      singleQuotes: true,
-    },
-  );
+  const cssProps = getCssProperties(compiled, componentName);
   const storiesToSave = updateMeta({
     stories,
-    parameters: updatedParameters,
-    hasParameters: newParameters && Object.keys(newParameters).length,
+    cssProps,
   });
-
   return storiesToSave;
 };
 function updateComponentsDocs() {
-  for (const pathComponentVue of pathsVueComponents) {
+  pathsComponentsLoop((pathComponentVue) => {
     const pathComponentStories = pathComponentVue.replace(/\.vue$/, '.stories.js');
     const componentName = pathComponentVue.replace(/.*\/(Ui(.+))\.vue/, '$2');
     const componentNameKebabCase = getAsKebabCase(componentName);
-
-    const component = fs.readFileSync(path.resolve(pathComponentsRoot, pathComponentVue), 'utf8');
-    const stories = fs.readFileSync(path.resolve(pathComponentsRoot, pathComponentStories), 'utf8');
-
-    let storiesToSave = stories;
-    storiesToSave = updateCssProps({
+    const component = readFileSync(resolve(pathComponentsRoot, pathComponentVue), 'utf8');
+    const stories = readFileSync(resolve(pathComponentsRoot, pathComponentStories), 'utf8');
+    const storiesToSave = updateCssProps({
       component,
       stories,
       componentNameKebabCase,
     });
-    fileSave(path.resolve(pathComponentsRoot, pathComponentStories))
+    fileSave(resolve(pathComponentsRoot, pathComponentStories))
       .write(storiesToSave, 'utf8');
-  }
+  }, false);
   console.log('📄 docs updated successfully');
 }
-export default {
-  updateComponentsDocs,
-};
-
-if (process.argv[1] === __filename) {
+export default updateComponentsDocs;
+if (process.argv[1] === fileName) {
   updateComponentsDocs();
 }

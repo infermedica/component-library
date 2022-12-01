@@ -125,8 +125,8 @@ const defaultProps = computed(() => ({
     --list-item-tablet-content-padding-inline: var(--_list-item-content-padding-inline);
     --button-padding-block: var(--_list-item-content-padding-block);
     --button-padding-inline: var(--_list-item-content-padding-inline);
-    --button-border-block-width: #{functions.var($element + "-button", border-logical-block, 0)};
-    --button-border-inline-width: #{functions.var($element + "-button", border-logical-inline, 0)};
+    --button-border-block-width: #{functions.var($element + "-button", border--block-width, 0)};
+    --button-border-inline-width: #{functions.var($element + "-button", border-inline-width, 0)};
     --button-font: #{functions.var($element + "-button", font, var(--font-body-1))};
     --button-letter-spacing: #{functions.var($element + "-button", letter-spacing, var(--letter-spacing-body-1))};
 

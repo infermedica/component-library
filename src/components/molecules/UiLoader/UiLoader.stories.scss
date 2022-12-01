@@ -1,3 +1,19 @@
+//<Code id="loading-common">
+.loading-common {
+  &--is-skeleton {
+    width: 100%;
+  }
+}
+//</Code>
+
+//<Code id="loading-button">
+.loading-button {
+  &--is-outlined {
+    --loader-ellipsis-dot-background: var(--color-icon-primary);
+  }
+}
+//</Code>
+
 //<Code id="loading-popover">
 .loading-popover {
   --popover-content-padding-inline: 0 var(--space-16);
@@ -14,10 +30,12 @@
     --message-illustration-size: 1.5rem;
 
     margin: var(--space-16) 0;
+    align-items: flex-start;
   }
 
   &__try-again {
-    margin: var(--space-16) 0;
+    margin-block: var(--space-16) 0 ;
+    margin-inline: 0;
   }
 }
 //</Code>
@@ -34,7 +52,7 @@
   }
 
   &__try-again {
-    margin: var(--space-16) 0;
+    margin-block: var(--space-16);
+    margin-inline: 0;
   }
 }
-//</Code>

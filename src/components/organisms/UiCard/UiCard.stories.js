@@ -6,6 +6,8 @@ import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints.vue';
 import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue';
 import UiContainer from '@/components/organisms/UiContainer/UiContainer.vue';
+import './UiCard.stories.scss';
+import docs from './UiCard.mdx';
 
 export default {
   title: 'Organisms/Card',
@@ -95,6 +97,7 @@ export default {
     headingTitleAttrs: { table: { subcategory: 'Attrs props' } },
     textDescriptionAttrs: { table: { subcategory: 'Attrs props' } },
   },
+  parameters: { docs: { page: docs } },
 };
 
 const Template = (args) => ({
@@ -175,28 +178,30 @@ export const WithDetailsSlot = (args) => ({
   setup() {
     return { ...args };
   },
-  template: `
-    <UiCard
-      :title="title"
-      :subtitle="subtitle"
-      :description="description"
-      :type="type"
-      :icon-triage-attrs="iconTriageAttrs"
-      :text-subtitle-attrs="textSubtitleAttrs"
-      :heading-title-attrs="headingTitleAttrs"
-      :text-description-attrs="textDescriptionAttrs"
-      :class="modifiers"
-    >
+  template: `<UiCard
+    :title="title"
+    :subtitle="subtitle"
+    :description="description"
+    :type="type"
+    :icon-triage-attrs="iconTriageAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-description-attrs="textDescriptionAttrs"
+    :class="[ 
+      'card-with-detailed', 
+      modifiers,
+    ]"
+  >
     <template #details>
       <UiHeading
         :level="4"
-        style="margin: var(--space-24) 0 var(--space-8) 0"
+        class="card-with-detailed__heading"
       >
         Alarming symptoms:
       </UiHeading>
       <UiBulletPoints :items="['Vomiting', 'Abdominal pain, lasting 2 to 7 days']" />
     </template>
-    </UiCard>`,
+  </UiCard>`,
 });
 
 export const WithTriageSlot = (args) => ({
@@ -300,12 +305,10 @@ export const WithSubtitleSlot = (args) => ({
     :text-description-attrs="textDescriptionAttrs"
     :class="modifiers"
   >
-    <template 
-      #subtitle="{
-        subtitle,
-        textSubtitleAttrs
-      }"
-    >
+    <template #subtitle="{
+      subtitle,
+      textSubtitleAttrs
+    }">
       <UiText
         v-if="subtitle"
         v-bind="textSubtitleAttrs"
@@ -336,12 +339,10 @@ export const WithTitleSlot = (args) => ({
     :text-description-attrs="textDescriptionAttrs"
     :class="modifiers"
   >
-    <template 
-      #title="{
-        title,
-        headingTitleAttrs,
-      }"
-    >
+    <template #title="{
+      title,
+      headingTitleAttrs,
+    }">
       <UiHeading
         v-if="title"
         v-bind="headingTitleAttrs"
@@ -372,12 +373,10 @@ export const WithDescriptionSlot = (args) => ({
     :text-description-attrs="textDescriptionAttrs"
     :class="modifiers"
   >
-    <template 
-      #description="{
-        description,
-        textDescriptionAttrs
-      }"
-    >
+    <template #description="{
+      description,
+      textDescriptionAttrs
+    }">
       <UiText
         v-if="description"
         v-bind="textDescriptionAttrs"

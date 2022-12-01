@@ -6,6 +6,8 @@ import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
 import UiControls from '@/components/organisms/UiControls/UiControls.vue';
 import { content } from '@sb/helpers/argTypes';
+import scss from './UiMessage.stories.scss';
+import docs from './UiMessage.mdx';
 
 export default {
   title: 'Templates/Message',
@@ -85,6 +87,7 @@ export default {
       control: 'object',
     },
   },
+  parameters: { docs: { page: docs } },
 };
 
 const Template = (args) => ({
@@ -103,7 +106,9 @@ const Template = (args) => ({
     :heading-title-attrs="headingTitleAttrs"
     :icon-illustration-attrs="iconIllustrationAttrs"
   >
-    <UiText>{{ content }}</UiText>
+    <UiText>
+      {{ content }}
+    </UiText>
   </UiMessage>`,
 });
 
@@ -126,14 +131,12 @@ export const WithContentSlot = (args) => ({
     :heading-title-attrs="headingTitleAttrs"
     :icon-illustration-attrs="iconIllustrationAttrs"
   >
-    <template 
-      #content="{
-        subtitle,
-        title,
-        textSubtitleAttrs,
-        headingTitleAttrs
-      }"
-    >
+    <template #content="{
+      subtitle,
+      title,
+      textSubtitleAttrs,
+      headingTitleAttrs
+    }">
       <div class="ui-message__content">
         <UiText
           v-if="subtitle"
@@ -143,13 +146,15 @@ export const WithContentSlot = (args) => ({
           {{ subtitle }}
         </UiText>
         <UiHeading
-            v-if="title"
-            v-bind="headingTitleAttrs"
-            class="ui-message__title"
+          v-if="title"
+          v-bind="headingTitleAttrs"
+          class="ui-message__title"
         >
           {{ title }}
         </UiHeading>
-        <UiText>{{ content }}</UiText>
+        <UiText>
+          {{ content }}
+        </UiText>
       </div>
     </template>
   </UiMessage>`,
@@ -172,12 +177,10 @@ export const WithAsideSlot = (args) => ({
     :heading-title-attrs="headingTitleAttrs"
     :icon-illustration-attrs="iconIllustrationAttrs"
   >
-    <template 
-      #aside="{
-        illustration,
-        iconIllustrationAttrs
-      }"
-    >
+    <template #aside="{
+      illustration,
+      iconIllustrationAttrs
+    }">
       <div
         v-if="illustration"
         class="ui-message__aside"
@@ -188,7 +191,9 @@ export const WithAsideSlot = (args) => ({
         />
       </div>
     </template>
-    <UiText>{{ content }}</UiText>
+    <UiText>
+      {{ content }}
+    </UiText>
   </UiMessage>`,
 });
 
@@ -196,6 +201,7 @@ export const WithIllustrationSlot = (args) => ({
   components: {
     UiMessage,
     UiIcon,
+    UiText,
   },
   setup() {
     return { ...args };
@@ -208,17 +214,15 @@ export const WithIllustrationSlot = (args) => ({
     :heading-title-attrs="headingTitleAttrs"
     :icon-illustration-attrs="iconIllustrationAttrs"
   >
-    <template 
-      #illustration="{
-        iconIllustrationAttrs
-      }"
-    >
+    <template #illustration="{ iconIllustrationAttrs }">
       <UiIcon
         v-bind="iconIllustrationAttrs"
         class="ui-message__illustration"
       />
     </template>
-    <UiText>{{content}}</UiText>
+    <UiText>
+      {{ content }}
+    </UiText>
   </UiMessage>`,
 });
 
@@ -237,14 +241,11 @@ export const AsNotAuthorized = (args) => ({
     :text-subtitle-attrs="textSubtitleAttrs"
     :heading-title-attrs="headingTitleAttrs"
     :icon-illustration-attrs="iconIllustrationAttrs"
-    :style="{
-      '--message-tablet-flex-direction': 'row-reverse',
-      '--message-tablet-aside-margin': '0 var(--space-40) 0 0',
-      '--message-content-align-self': 'flex-start',
-      '--message-illustration-size': '10rem',
-    }"
+    class="message-not-authorized"
   >
-    <UiText>If you are an administrator of this website, then check your integration settings.</UiText>
+    <UiText>
+      If you are an administrator of this website, then check your integration settings.
+    </UiText>
   </UiMessage>`,
 });
 AsNotAuthorized.args = {
@@ -286,18 +287,12 @@ export const AsOffline = (args) => ({
     :text-subtitle-attrs="textSubtitleAttrs"
     :heading-title-attrs="headingTitleAttrs"
     :icon-illustration-attrs="iconIllustrationAttrs"
-    :style="{
-      '--message-tablet-flex-direction': 'row-reverse',
-      '--message-tablet-aside-margin': '0 var(--space-40) 0 0',
-      '--message-content-align-self': 'flex-start',
-      '--message-illustration-size': '10rem',
-    }"
+    class="message-offline"
   >
-    <UiText>If you are an administrator of this website, then check your integration settings.</UiText>
-    <UiButton
-      class="ui-button--text"
-      style="margin: var(--space-16) 0 0 0;"
-    >
+    <UiText>
+      If you are an administrator of this website, then check your integration settings.
+    </UiText>
+    <UiButton class="ui-button--text message-offline__button">
       Try again
     </UiButton>
   </UiMessage>`,
@@ -340,20 +335,14 @@ export const AsOfflinePopover = (args) => ({
     :text-subtitle-attrs="textSubtitleAttrs"
     :heading-title-attrs="headingTitleAttrs"
     :icon-illustration-attrs="iconIllustrationAttrs"
-    :style="{
-      '--message-flex-direction': 'row-reverse',
-      '--message-tablet-flex-direction': 'row-reverse',
-      '--message-aside-margin': '0 var(--space-12) 0 0',
-      '--message-tablet-aside-margin': '0 var(--space-12) 0 0',
-      '--message-content-align-self': 'flex-start',
-      '--message-illustration-size': '1.5rem',
-    }"
+    class="message-offline-popover"
   >
-  <UiText>It seems you’re offline right now. Please check your connection and try again.</UiText>
-  <UiButton
-    class="ui-button--text"
-    style="margin: var(--space-16) 0 0 0;"
-  >Try again</UiButton>
+    <UiText>
+      It seems you’re offline right now. Please check your connection and try again.
+    </UiText>
+    <UiButton class="ui-button--text message-offline-popover__button">
+      Try again
+    </UiButton>
   </UiMessage>`,
 });
 AsOfflinePopover.args = {

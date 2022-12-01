@@ -3,6 +3,8 @@ import UiNavigationItem from '@/components/molecules/UiNavigation/_internal/UiNa
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import { modifiers } from '@sb/helpers/argTypes';
+import './UiNavigation.stories.scss';
+import docs from './UiNavigation.mdx';
 
 export default {
   title: 'Molecules/Navigation',
@@ -50,6 +52,7 @@ export default {
       ],
     }),
   },
+  parameters: { docs: { page: docs } },
 };
 
 const Template = (args) => ({
@@ -60,14 +63,17 @@ const Template = (args) => ({
   template: `<UiNavigation
     :items="items"
     :class="modifiers"
-  >
-  </UiNavigation>`,
+  />`,
 });
 
 export const Common = Template.bind({});
 
 export const Multiline = Template.bind({});
-Multiline.decorators = [ () => ({ template: '<div style="max-width: 480px;"><story /></div>' }) ];
+Multiline.decorators = [ () => ({
+  template: `<div class="max-w-120">
+    <story />
+  </div>`,
+}) ];
 
 export const Secondary = Template.bind({});
 Secondary.args = { modifiers: [ 'ui-navigation--theme-secondary' ] };
@@ -77,7 +83,7 @@ OnBrand.args = { modifiers: [ 'ui-navigation--theme-brand' ] };
 OnBrand.parameters = { backgrounds: { default: 'brand' } };
 
 export const Small = Template.bind({});
-Small.args = { modifiers: 'ui-navigation--small' };
+Small.args = { modifiers: [ 'ui-navigation--small' ] };
 
 export const Vertical = (args) => ({
   components: { UiNavigation },
@@ -86,9 +92,10 @@ export const Vertical = (args) => ({
   },
   template: `<UiNavigation
     :items="items"
-    :class="modifiers"
-    style="--navigation-flex-direction: column; --navigation-align-items: flex-start;"
-  />`,
+    :class="[
+      'navigation-vertical',
+      modifiers,
+    ]"/>`,
 });
 
 export const WithNavigationItemSlot = (args) => ({
@@ -100,7 +107,7 @@ export const WithNavigationItemSlot = (args) => ({
     :items="items"
     :class="modifiers"
   >
-    <template #medical-certification="{item}">
+    <template #medical-certification="{ item }">
       {{ item.text }}
     </template>
   </UiNavigation>`,
@@ -149,13 +156,7 @@ export const WithDefaultSlot = (args) => ({
         class=" ui-navigation__item"
         v-bind="navigationItemAttrs(item)"
       >
-        <!-- @slot Use this slot to replace navigation item content. -->
-        <slot
-          :name="item.name"
-          v-bind="{ item }"
-        >
-          {{ item.label }}
-        </slot>
+        {{ item.label }}
       </UiNavigationItem>
     </template>
   </UiNavigation>`,
@@ -173,9 +174,9 @@ export const WithIconInNavigationItemSlot = (args) => ({
     :items="items"
     :class="modifiers"
   >
-    <template #medical-certification="{item}">
-      <UiIcon 
-        icon="info-filled" 
+    <template #medical-certification="{ item }">
+      <UiIcon
+        icon="info-filled"
         class="ui-button__icon"
       /> {{ item.text }}
     </template>

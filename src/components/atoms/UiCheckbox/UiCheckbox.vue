@@ -313,6 +313,7 @@ if (checkbutton.value) {
   }
 
   &__label {
+    --text-margin: #{functions.var($element + "-label", margin, 0 0 0 var(--space-12))};
     --text-color: #{functions.var($element + "-label", color, var(--color-text-body))};
 
     flex: 1;

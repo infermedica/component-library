@@ -1,0 +1,95 @@
+import { Canvas, Meta, Story, Primary, ArgsTable } from '@storybook/addon-docs';
+import { Code } from '../../../../docs/components/Code';
+import UiCard from './UiCard.vue'
+import scss from './UiCard.stories.scss?raw';
+
+<Meta
+  title="Organisms/Card"
+  component={ UiCard }
+/>
+
+# UiCard
+<Primary />
+<ArgsTable />
+
+## Stories
+### Emergency
+<Canvas>
+  <Story id="organisms-card--emergency"/>
+</Canvas>
+
+### Consultation 24
+<Canvas>
+  <Story id="organisms-card--consultation-24"/>
+</Canvas>
+
+### Consultation
+<Canvas>
+  <Story id="organisms-card--consultation"/>
+</Canvas>
+
+### Self Care
+<Canvas>
+  <Story id="organisms-card--self-care"/>
+</Canvas>
+
+### Modern Ambulance
+<Canvas>
+  <Story id="organisms-card--modern-ambulance"/>
+</Canvas>
+
+### Modern Emergency
+<Canvas>
+  <Story id="organisms-card--modern-emergency"/>
+</Canvas>
+
+### Modern Consultation 24
+<Canvas>
+  <Story id="organisms-card--modern-consultation-24"/>
+</Canvas>
+
+### Modern Consultation
+<Canvas>
+  <Story id="organisms-card--modern-consultation"/>
+</Canvas>
+
+### Modern Self Care
+<Canvas>
+  <Story id="organisms-card--modern-self-care"/>
+</Canvas>
+
+### With Details Slot
+<Canvas>
+  <Story id="organisms-card--with-details-slot"/>
+</Canvas>
+
+**Use following SCSS to get the same result**
+<Code
+  id="card-with-detailed"
+  code={ scss }
+/>
+
+### With Triage Slot
+<Canvas>
+  <Story id="organisms-card--with-triage-slot"/>
+</Canvas>
+
+### With Content Slot
+<Canvas>
+  <Story id="organisms-card--with-content-slot"/>
+</Canvas>
+
+### With Subtitle Slot
+<Canvas>
+  <Story id="organisms-card--with-subtitle-slot"/>
+</Canvas>
+
+### With Title Slot
+<Canvas>
+  <Story id="organisms-card--with-title-slot"/>
+</Canvas>
+
+### With Description Slot
+<Canvas>
+  <Story id="organisms-card--with-description-slot"/>
+</Canvas>

@@ -35,7 +35,11 @@ export default {
       ],
     }),
   },
-  decorators: [ () => ({ template: '<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 2.5rem"><story /></div>' }) ],
+  decorators: [ () => ({
+    template: `<div class="flex flex-wrap items-center gap-10">
+      <story />
+    </div>`,
+  }) ],
 };
 
 export const Common = (args) => ({
@@ -48,7 +52,7 @@ export const Common = (args) => ({
     :href="href"
     :class="modifiers"
   >
-    {{content}}  
+    {{ content }}  
   </UiLink>`,
 });
 
@@ -61,13 +65,15 @@ const Template = (args) => ({
   setup() {
     return { ...args };
   },
-  template: `<UiText tag="span">Large: </UiText>
+  template: `<UiText tag="span">
+  Large:
+  </UiText>
   <UiLink
     :to="to"
     :href="href"
     :class="modifiers"
   >
-  {{content}}
+    {{ content }}
   </UiLink>
   <UiLink
     :to="to"
@@ -77,45 +83,53 @@ const Template = (args) => ({
     <UiIcon
       :icon="icon"
       class="ui-link__icon"
-    />{{content}}
+    />{{ content }}
   </UiLink>
   <UiLink
     :to="to"
     :href="href"
     :class="modifiers"
   >
-    {{content}}<UiIcon
+    {{ content }} <UiIcon
         :icon="icon"
         class="ui-link__icon ui-link__icon--right"
     />
   </UiLink>
-  <UiText tag="span">Small: </UiText>
+  <UiText tag="span">
+    Small:
+  </UiText>
   <UiLink
     :to="to"
     :href="href"
-    :class="modifiers"
-    class="ui-link--small"
+    :class="[
+      'ui-link--small',
+      modifiers,
+    ]"
   >
-    {{content}}
+    {{ content }}
   </UiLink>
   <UiLink
     :to="to"
     :href="href"
-    :class="modifiers"
-    class="ui-link--small"
+    :class="[
+      'ui-link--small',
+      modifiers,
+    ]"
   >
     <UiIcon
       :icon="icon"
       class="ui-link__icon"
-    />{{content}}
+    />{{ content }}
   </UiLink>
   <UiLink
     :to="to"
     :href="href"
-    :class="modifiers"
-    class="ui-link--small"
+    :class="[
+      'ui-link--small',
+      modifiers,
+    ]"
   >
-    {{content}}<UiIcon
+    {{ content }} <UiIcon
       :icon="icon"
       class="ui-link__icon ui-link__icon--right"
   />

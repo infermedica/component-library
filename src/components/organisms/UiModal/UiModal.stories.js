@@ -112,10 +112,10 @@ export default {
       provide('modelValue', modelValue);
       return { toggleModal };
     },
-    template: `<div style="minHeight: 320px">
+    template: `<div class="min-h-80">
       <UiButton
-          class="ui-button--theme-secondary ui-button--text"
-          @click='toggleModal'
+        class="ui-button--theme-secondary ui-button--text"
+        @click='toggleModal'
       >
         Show modal
       </UiButton>
@@ -203,14 +203,12 @@ export const WithBackdropSlot = (args) => ({
     @confirm="onConfirm"
     @cancel="onCancel"
   >
-    <template 
-      #backdrop="{
-        transitionBackdropAttrs,
-        modelValue,
-        backdropAttrs,
-        closeHandler, 
-      }"
-    >
+    <template #backdrop="{
+      transitionBackdropAttrs,
+      modelValue,
+      backdropAttrs,
+      closeHandler, 
+    }">
       <transition v-bind="transitionBackdropAttrs">
         <UiBackdrop
           v-if="modelValue"
@@ -265,34 +263,32 @@ export const WithContainerSlot = (args) => ({
     @confirm="onConfirm"
     @cancel="onCancel"
   >
-    <template
-      #container="{
-        transitionDialogAttrs,
-        modelValue,
-        title,
-        hasHeader,
-        titleSlotName,
-        titleTag,
-        titleAttrs,
-        titleText,
-        description,
-        buttonCloseAttrs,
-        confirmHandler,
-        cancelHandler,
-        closeHandler,
-        iconCloseAttrs,
-        hasDescription,
-        textDescriptionAttrs,
-        isClosable,
-        hasActions,
-        hasConfirm,
-        buttonConfirmAttrs,
-        translation,
-        hasCancel,
-        buttonCancelAttrs,
-        dialogAttrs,
-      }"
-    >
+    <template #container="{
+      transitionDialogAttrs,
+      modelValue,
+      title,
+      hasHeader,
+      titleSlotName,
+      titleTag,
+      titleAttrs,
+      titleText,
+      description,
+      buttonCloseAttrs,
+      confirmHandler,
+      cancelHandler,
+      closeHandler,
+      iconCloseAttrs,
+      hasDescription,
+      textDescriptionAttrs,
+      isClosable,
+      hasActions,
+      hasConfirm,
+      buttonConfirmAttrs,
+      translation,
+      hasCancel,
+      buttonCancelAttrs,
+      dialogAttrs,
+    }">
       <transition
         v-bind="transitionDialogAttrs"
       >
@@ -301,10 +297,10 @@ export const WithContainerSlot = (args) => ({
           v-focus-trap
           v-body-scroll-lock
           v-bind="dialogAttrs"
-          class="ui-modal__dialog"
-          :class="{
-            'ui-modal__dialog--has-title': title
-          }"
+          :class="[
+            'ui-modal__dialog',
+            { 'ui-modal__dialog--has-title': title },
+          ]"
         >
           <div
             v-if="hasHeader"
@@ -424,23 +420,21 @@ export const WithHeaderSlot = (args) => ({
     @confirm="onConfirm"
     @cancel="onCancel"
   >
-    <template 
-      #header="{
-        hasHeader,
-        titleSlotName,
-        titleTag,
-        titleAttrs,
-        titleText,
-        description,
-        isClosable,
-        buttonCloseAttrs,
-        closeHandler,
-        iconCloseAttrs,
-        title,
-        hasDescription,
-        textDescriptionAttrs,
-      }"
-    >
+    <template #header="{
+      hasHeader,
+      titleSlotName,
+      titleTag,
+      titleAttrs,
+      titleText,
+      description,
+      isClosable,
+      buttonCloseAttrs,
+      closeHandler,
+      iconCloseAttrs,
+      title,
+      hasDescription,
+      textDescriptionAttrs,
+    }">
       <div
         v-if="hasHeader"
         class="ui-modal__header"
@@ -514,14 +508,12 @@ export const WithTitleSlot = (args) => ({
     @confirm="onConfirm"
     @cancel="onCancel"
   >
-    <template 
-      #title="{
-        titleTag,
-        titleAttrs,
-        titleText,
-        description,
-      }"
-    >
+    <template #title="{
+      titleTag,
+      titleAttrs,
+      titleText,
+      description,
+    }">
       <component
         :is="titleTag"
         v-bind="titleAttrs"
@@ -573,14 +565,12 @@ export const WithCloseSlot = (args) => ({
     @confirm="onConfirm"
     @cancel="onCancel"
   >
-    <template 
-      #close="{
-        isClosable,
-        buttonCloseAttrs,
-        closeHandler,
-        iconCloseAttrs,
-      }"
-    >
+    <template #close="{
+      isClosable,
+      buttonCloseAttrs,
+      closeHandler,
+      iconCloseAttrs,
+    }">
       <UiButton
         v-if="isClosable"
         v-bind="buttonCloseAttrs"
@@ -635,16 +625,14 @@ export const WithDescriptionSlot = (args) => ({
     @confirm="onConfirm"
     @cancel="onCancel"
   >
-    <template 
-      #description="{ 
-        hasDescription,
-        textDescriptionAttrs,
-        description
-      }"
-    >
+    <template #description="{ 
+      hasDescription,
+      textDescriptionAttrs,
+      description
+    }">
       <UiText
         v-if="hasDescription"
-        v-bind="attrs"
+        v-bind="textDescriptionAttrs"
         class="ui-modal__description"
       >
         {{ description }}
@@ -702,20 +690,18 @@ export const WithActionsSlot = (args) => ({
     @confirm="onConfirm"
     @cancel="onCancel"
   >
-    <template 
-      #actions="{
-        hasActions,
-        isClosable,
-        hasConfirm,
-        buttonConfirmAttrs,
-        confirmHandler,
-        translation,
-        hasCancel,
-        buttonCancelAttrs,
-        cancelHandler,
-        iconCloseAttrs,
-      }"
-    >
+    <template #actions="{
+      hasActions,
+      isClosable,
+      hasConfirm,
+      buttonConfirmAttrs,
+      confirmHandler,
+      translation,
+      hasCancel,
+      buttonCancelAttrs,
+      cancelHandler,
+      iconCloseAttrs,
+    }">
       <div
         v-if="hasActions"
         class="ui-modal__actions"
@@ -800,14 +786,12 @@ export const WithConfirmSlot = (args) => ({
     @confirm="onConfirm"
     @cancel="onCancel"
   >
-    <template
-      #confirm="{ 
-        hasConfirm,
-        buttonConfirmAttrs,
-        confirmHandler,
-        translation,
-      }"
-    >
+    <template #confirm="{ 
+      hasConfirm,
+      buttonConfirmAttrs,
+      confirmHandler,
+      translation,
+    }">
       <UiButton
         v-if="hasConfirm"
         v-bind="buttonConfirmAttrs"
@@ -859,14 +843,12 @@ export const WithCancelSlot = (args) => ({
     @confirm="onConfirm"
     @cancel="onCancel"
   >
-    <template 
-      #cancel="{
-        hasCancel,
-        buttonCancelAttrs,
-        cancelHandler,
-        translation,
-      }"
-    >
+    <template #cancel="{
+      hasCancel,
+      buttonCancelAttrs,
+      cancelHandler,
+      translation,
+    }">
       <UiButton
         v-if="hasCancel"
         v-bind="buttonCancelAttrs"

@@ -71,7 +71,7 @@ export const WithToggleButtonSlot = (args) => ({
     :items="items"
   >
     <template #first="{ item }">
-      {{item.text}}
+      {{ item.text }}
     </template>
   </UiToggleButtonGroup>`,
 });
@@ -242,8 +242,8 @@ export const WithDefaultSlot = (args) => ({
     :deselectable="deselectable"
   >
     <template
-        v-for="(item, key) in items"
-        :key="key"
+      v-for="(item, key) in items"
+      :key="key"
     >
       <UiToggleButton :value="item">
         {{ item }}
