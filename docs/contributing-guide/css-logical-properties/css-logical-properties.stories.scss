@@ -1,23 +1,23 @@
 .docs {
-  padding: 0 0 10px;
+  padding: 0 0 var(--space-8);
   border-bottom: 1px solid var(--color-background-subtle);
-
-  &__css {
-    width: fit-content;
-    margin: 10px 0;
-    padding: 0 20px;
-    border-radius: 10px;
-    background: var(--color-gray-800);
-  }
 
   &__scss {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: var(--space-8);
     width: fit-content;
-    margin: 10px 0;
-    padding: 20px 25px;
-    border-radius: 10px;
+    margin: var(--space-8) 0;
+    padding: var(--space-8) var(--space-12);
+    border-radius: var(--space-8);
+    background: var(--color-gray-800);
+  }
+
+  &__css {
+    width: fit-content;
+    margin: var(--space-8) 0;
+    padding: var(--space-8) var(--space-12);
+    border-radius: var(--space-8);
     background: var(--color-gray-800);
   }
 
@@ -30,12 +30,21 @@
   }
 
   &__label {
-    margin: 10px 0;
+    margin: var(--space-8) 0;
+  }
+
+  &__border {
+    border: solid var(--color-border-subtle);
+
+    &:after {
+      display: none;
+    }
   }
 
   .ui-input {
     --input-color: var(--color-gray-300);
-    --input-padding-logical: var(--space-4) var(--space-8);
+    --input-padding-block: var(--space-4);
+    --input-padding-inline: var(--space-8);
     --input-font: var(--font-body-2-compact)
   }
 

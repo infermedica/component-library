@@ -22,19 +22,25 @@ You can use the following `use-logical` mixin, which transforms conventional ltr
 ### Mixin arguments:
 #### Property
 - margin
-- inset
+- padding
+- border
 - border-width
 - border-style
 - border-color
 - border-radius
+- inset
 
-
-Here is an example of logical properties and css variables for - `margin`, `border`, `inset`, `border`.
+Here is an example of logical properties and css variables for - `margin`, `padding`, `border`, `inset`.
 <Table
   headers={['Physical property', 'Logical property', 'Css variable']}
   rows={[
+    ['`{property}-top`', '`{property}-block-start`', '`--{element}-{property}-block-start`'],
+    ['`{property}-right`', '`{property}-inline-end`', '`--{element}-{property}-inline-end`'],
+    ['`{property}-bottom`', '`{property}-block-end`', '`--{element}-{property}-block-end`'],
+    ['`{property}-left`', '`{property}-inline-start`', '`--{element}-{property}-inline-start`'],
+    ['`{property}-top` `{property}-bottom`', '`{property}-block`', '`--{element}-{property}-block`'],
+    ['`{property}-left` `{property}-right`', '`{property}-inline`', '`--{element}-{property}-inline`'],
     ['`{property}`', '`{property}-block` `{property}-inline`', '`--{element}-{property}-block` `--{element}-{property}-inline`'],
-    ['`{property}`', '`{property}-block` `{property}-inline`', '`--{element}-{property}-logical`'],
   ]}
 />
 
@@ -43,13 +49,25 @@ Here is an example of logical properties and css variables for `border-width`, `
   headers={['Physical property', 'Logical property', 'Css variable']}
   rows={[
     [
-      '`border-{width/style/color}`',
-      '`border-block-{width/style/color}` `border-inline-{width/style/color}`',
-      '`--{element}-border-block-{width/style/color}` `--{element}-border-inline-{width/style/color}`'
+      '`border-top-{width/style/color}`',
+      '`border-block-start-{width/style/color}`',
+      '`--{element}-border-block-start-{width/style/color}`'
+    ],[
+      '`border-right-{width/style/color}`',
+      '`border-inline-end-{width/style/color}`',
+      '`--{element}-border-inline-end-{width/style/color}`'
+    ],[
+      '`border-bottom-{width/style/color}`',
+      '`border-block-end-{width/style/color}`',
+      '`--{element}-border-block-end-{width/style/color}`'
+    ],[
+      '`border-left-{width/style/color}`',
+      '`border-inline-start-{width/style/color}`',
+      '`--{element}-border-inline-start-{width/style/color}`'
     ],[
       '`border-{width/style/color}`',
       '`border-block-{width/style/color}` `border-inline-{width/style/color}`',
-      '`--{element}-border-logical-{width/style/color}`'],
+      '`--{element}-border-block-{width/style/color}` `--{element}-border-inline-{width/style/color}`'],
   ]}
 />
 
@@ -73,14 +91,7 @@ Here is an example of logical properties and css variables for `border-radius`.
       '`border-bottom-right-radius`',
       '`border-end-end-radius`',
       '`--{element}-border-end-end-radius`'
-    ],[
-      '`border-radius`',
-      '`border-start-start-radius` `border-start-end-radius` `border-end-start-radius` `border-end-end-radius`',
-      '`--{element}-border-block-radius` `--{element}-border-inline-radius`'
-    ],[
-      '`border-radius`',
-      '`border-start-start-radius` `border-start-end-radius` `border-end-start-radius` `border-end-end-radius`',
-      '`--{element}-border-logical-radius`'],
+    ],
   ]}
 />
 
@@ -88,28 +99,28 @@ Here is an example of logical properties and css variables for `border-radius`.
 Please use conventional ltr css value for property (top right bottom left) e.g. `20px 30px 10px 40px`:
 <Code code={`
 {property}-block: 20px 10px;
-{property}-inline-start: 30px 40px;
+{property}-inline: 30px 40px;
 `}/>
 
 - When a value has three declaration, it is a shortcut to set `inline-start` property e.g `20px 30px 10px`
 
 <Code code={`
 {property}-block: 20px 10px;
-{property}-inline: 30px;
+{property}-inline: 30px 30px;
 `}/>
 
 - When a value has two declaration, it is a shortcut to set block and inline properties e.g `20px 30px`
 
 <Code code={`
-{property}-block: 20px;
-{property}-inline: 30px;
+{property}-block: 20px 20px;
+{property}-inline: 30px 30px;
 `}/>
 
 - When a value has one declaration, it is a shortcut to set all properties e.g. `20px`
 
 <Code code={`
-{property}-block: 20px;
-{property}-inline: 20px;
+{property}-block: 20px 20px;
+{property}-inline: 20px 20px;
 `}/>
 
 ## Easy way for rtl support
@@ -134,6 +145,17 @@ you won't need to add styles for rtl layouts anymore.
   <Story id="contributing-guide-css-logical-properties--padding"/>
 </Canvas>
 
+### Margin
 <Canvas>
   <Story id="contributing-guide-css-logical-properties--margin"/>
+</Canvas>
+
+### Border width
+<Canvas>
+  <Story id="contributing-guide-css-logical-properties--border-width"/>
+</Canvas>
+
+### Border radius
+<Canvas>
+  <Story id="contributing-guide-css-logical-properties--border-radius"/>
 </Canvas>

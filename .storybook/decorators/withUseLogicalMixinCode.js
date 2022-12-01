@@ -6,7 +6,7 @@ import UiButton from '../../src/components/atoms/UiButton/UiButton.vue';
 import UiInput from '../../src/components/atoms/UiInput/UiInput.vue';
 import UiText from '../../src/components/atoms/UiText/UiText.vue';
 
-const withMixinCode = (story, { args }) => ({
+const withUseLogicalMixinCode = (story, { args }) => ({
   components: {
     story,
     UiButton,
@@ -24,13 +24,11 @@ const withMixinCode = (story, { args }) => ({
     const propertyTail = rest ? `-${rest}` : '';
     const direction = ref('ltr');
     const value = ref(initValue);
+    const isBorderRadius = computed(() => property === 'border-radius');
+    const getPropertyName = (str) => `${propertyHead}-${str}${propertyTail}`;
+    const getVarName = (str) => `--${element}-${getPropertyName(str)}`;
     const logicalValue = computed(() => {
-      const [
-        blockStart,
-        inlineEnd,
-        blockEnd,
-        inlineStart,
-      ] = value.value.split(' ');
+      const [ blockStart, inlineEnd, blockEnd, inlineStart ] = value.value.split(property === 'border' ? '" ' : ' ');
       return {
         blockStart: blockStart || '',
         blockEnd: blockEnd || blockStart,
@@ -39,19 +37,35 @@ const withMixinCode = (story, { args }) => ({
       };
     });
     const logicalStyle = computed(() => {
-      const {
-        blockStart, inlineEnd, blockEnd, inlineStart,
-      } = logicalValue.value;
-      return `${propertyHead}-block${propertyTail}: ${blockStart} ${blockEnd}; ${propertyHead}-inline${propertyTail}: ${inlineStart} ${inlineEnd};`;
+      const { blockStart, blockEnd, inlineStart, inlineEnd } = logicalValue.value
+      if (!isBorderRadius.value) {
+        return `
+        ${getPropertyName('block')}: ${blockStart} ${blockEnd};
+        ${getPropertyName('inline')}: ${inlineStart} ${inlineEnd};`
+      } else {
+        return `
+        ${getPropertyName('start-start')}: ${blockStart};
+        ${getPropertyName('start-end')}: ${inlineEnd};
+        ${getPropertyName('end-start')}: ${blockEnd};
+        ${getPropertyName('end-end')}: ${inlineStart};`
+      }
     });
     const physicalStyle = computed(() => `${property}: ${value.value}`);
     const cssOutput = computed(() => {
-      const {
-        blockStart, inlineEnd, blockEnd, inlineStart,
-      } = logicalValue.value;
-      return `
-${propertyHead}-block${propertyTail}: var(--button-${propertyHead}-logical${propertyTail}, var(--button-${propertyHead}-block${propertyTail}, ${blockStart} ${blockEnd}));
-${propertyHead}-inline${propertyTail}: var(--button-${propertyHead}-logical${propertyTail}, var(--button-${propertyHead}-inline${propertyTail}, ${inlineStart} ${inlineEnd} ));`;
+      const { blockStart, inlineEnd, blockEnd, inlineStart } = logicalValue.value;
+      if (!isBorderRadius.value) {
+        return [
+          `${getPropertyName('block')}: var( ${getVarName('block')}, var( ${getVarName('block-start')}, ${blockStart} ) var( ${getVarName('block-end')}, ${blockEnd} ));`,
+          `${getPropertyName('inline')}: var( ${getVarName('inline')}, var(${getVarName('inline-start')}, ${inlineStart} ) var${getVarName('inline-end')}, ${inlineEnd} ));`
+        ];
+      } else {
+        return [
+          `${getPropertyName('start-start')}: var( ${getVarName('start-start')}, ${blockStart} );`,
+          `${getPropertyName('start-end')}: var( ${getVarName('start-end')}, ${inlineEnd} );`,
+          `${getPropertyName('end-start')}: var( ${getVarName('end-start')}, ${blockEnd} );`,
+          `${getPropertyName('end-end')}: var( ${getVarName('end')}, ${inlineStart} );`,
+        ]
+      }
     });
     const handleClick = () => {
       const options = {
@@ -84,9 +98,9 @@ ${propertyHead}-inline${propertyTail}: var(--button-${propertyHead}-logical${pro
       Css output:
     </UiText>
     <div class="docs__css">
-      <pre class="ui-text--body-2-compact docs__text">
-        {{cssOutput}}
-      </pre>
+      <UiText v-for="(output, index) in cssOutput" :key="index" class="ui-text--body-2-compact docs__text">
+        {{output}}
+      </UiText>
     </div>
     <UiButton class="ui-button--text" @click="handleClick">
       Change direction: {{direction}}
@@ -97,4 +111,4 @@ ${propertyHead}-inline${propertyTail}: var(--button-${propertyHead}-logical${pro
   </div>`,
 });
 
-export default withMixinCode;
+export default withUseLogicalMixinCode;

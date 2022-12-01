@@ -60,7 +60,11 @@ export const parameters = {
             docs: {}
           },
         },
-        contributingGuide: {}
+        contributingGuide: {
+          '*': {
+            'rest-reverse': {}
+          }
+        }
       };
       const hasKey = (obj, key) => Object.hasOwn(obj, key);
       const compareAlphabetical = (prev, next) => prev.localeCompare(next, { numeric: true });
