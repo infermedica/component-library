@@ -44,9 +44,9 @@ const skeleton = computed(() => (defineAsyncComponent(() => import(`./UiLoaderSk
   width: 100%;
   height: auto;
   flex-direction: column;
+  gap: functions.var($element, gap, var(--space-32));
 
   &__block {
-    @include mixins.use-logical($element + "-block", margin, 0 0 var(--space-32) 0);
     @include mixins.use-logical($element + "-block", border-radius, 0.3125rem); //pixel perfect hack
 
     width: functions.var($element + "-block", width, 100%);
@@ -64,10 +64,6 @@ const skeleton = computed(() => (defineAsyncComponent(() => import(`./UiLoaderSk
         )
       );
     background-size: functions.var($element + "-block", background-size, 200% 100%);
-
-    &:last-of-type {
-      @include mixins.use-logical($element + "-block", margin, 0);
-    }
 
     &--large {
       flex: 1 1  functions.var($element + "-block", height, 7.5rem);

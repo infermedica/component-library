@@ -102,16 +102,10 @@ const defaultProps = computed(() => ({
 .ui-bullet-points-item {
   $element: bullet-points-item;
 
-  @include mixins.use-logical($element, margin, var(--space-4) 0);
-
   display: flex;
   align-items: functions.var($element, align-items, flex-start);
   justify-content: functions.var($element, justify-content, flex-start);
   gap: functions.var($element, gap, var(--space-12));
-
-  &:last-child {
-    @include mixins.use-logical($element, margin, 0);
-  }
 
   &__marker {
     --icon-color: #{functions.var($element + "-marker", color, var(--color-text-body))};

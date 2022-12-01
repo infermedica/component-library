@@ -136,20 +136,9 @@ if (buttonAttrs.value) {
   }
 
   &__remove {
-    position: relative;
+    @include mixins.pointer-area($element + "-remove", var(--space-32));
+
     align-self: flex-start;
-
-    &::before {
-      --_chip-remove-pointer-area-size: #{functions.var($element + "-remove-pointer-area", size, var(--space-32))};
-
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: functions.var($element + "remove-pointer-area", width, var(--_chip-remove-pointer-area-size));
-      height: functions.var($element + "remove-pointer-area", height, var(--_chip-remove-pointer-area-size));
-      content: "";
-      transform: translate(-50%, -50%);
-    }
   }
 }
 </style>

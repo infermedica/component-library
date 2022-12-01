@@ -72,7 +72,7 @@ const progressValue = computed(() => {
     position: relative;
     width: calc(var(--_progress-value) * 100%);
     height: 100%;
-    background: functions.var($element + "indicator", background, var(--color-progress-indicator));
+    background: functions.var($element + "-indicator", background, var(--color-progress-indicator));
 
     &::before,
     &::after {
@@ -80,18 +80,18 @@ const progressValue = computed(() => {
       display: block;
       width: var(--_progress-padding);
       height: 100%;
-      background: functions.var($element + "indicator", background, var(--color-progress-indicator));
+      background: functions.var($element + "-indicator", background, var(--color-progress-indicator));
       content: "";
     }
 
     &::before {
-      @include mixins.use-logical($element + "indicator", border-radius, var(--_progress-border-radius) 0);
-      @include mixins.use-logical($element + "indicator", inset, auto 100% auto auto);
+      @include mixins.use-logical($element + "-indicator", border-radius, var(--_progress-border-radius) 0);
+      @include mixins.use-logical($element + "-indicator", inset, auto 100% auto auto);
     }
 
     &::after {
-      @include mixins.use-logical($element + "indicator", border-radius, 0 var(--_progress-border-radius));
-      @include mixins.use-logical($element + "indicator", inset, auto auto auto 100%);
+      @include mixins.use-logical($element + "-indicator", border-radius, 0 var(--_progress-border-radius));
+      @include mixins.use-logical($element + "-indicator", inset, auto auto auto 100%);
     }
   }
 }

@@ -355,6 +355,7 @@ const itemsToRender = computed(() => (Array.from({ length: maxSteps.value }, (_,
     }
 
     display: flex;
+    gap: functions.var($element + "-controls", gap, 1px);
   }
 
   &__mobile-controls {
@@ -366,12 +367,7 @@ const itemsToRender = computed(() => (Array.from({ length: maxSteps.value }, (_,
   }
 
   &__option {
-
-    --_scale-option-gap: #{functions.var($element + "-option", gap, 1px)};
-
-    @include mixins.use-logical($element + "-option", border-style, solid);
-    @include mixins.use-logical($element + "-option", border-color, transparent);
-    @include mixins.use-logical($element + "-option", border-width, 0 var(--_scale-option-gap) 0 0);
+    @include mixins.use-logical($element + "-option", border-width, 0);
     @include mixins.use-logical($element + "-option", border-radius, var(--border-radius-form));
 
     position: relative;
@@ -390,8 +386,6 @@ const itemsToRender = computed(() => (Array.from({ length: maxSteps.value }, (_,
     }
 
     &:last-of-type {
-      --scale-option-gap: 0;
-
       #{$this}__square {
         @include mixins.use-logical(
           $element + "-option",

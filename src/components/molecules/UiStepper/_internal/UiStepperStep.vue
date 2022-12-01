@@ -134,7 +134,8 @@ const itemAttrs = computed(() => (isVisitedStep.value
   }
 
   &::after {
-    --list-item-border-logical-width: 0;
+    --list-item-border-block-width: 0;
+    --list-item-border-inline-width: 0;
   }
 
   &--is-visited,

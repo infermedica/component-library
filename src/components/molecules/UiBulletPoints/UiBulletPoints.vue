@@ -174,6 +174,7 @@ const bulletPointsItemAttrs = (item: BulletPointsRenderItem) => {
 </script>
 
 <style lang="scss">
+@use "../../../styles/functions";
 @use "../../../styles/mixins";
 
 .ui-bullet-points {
@@ -181,6 +182,10 @@ const bulletPointsItemAttrs = (item: BulletPointsRenderItem) => {
 
   @include mixins.use-logical($element, padding, 0);
   @include mixins.use-logical($element, margin, 0);
+
+  display: flex;
+  flex-direction: column;
+  gap: functions.var($element, gap, var(--space-4));
 
   counter-reset: counter;
   list-style-type: none;

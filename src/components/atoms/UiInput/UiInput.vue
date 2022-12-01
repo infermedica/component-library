@@ -192,7 +192,7 @@ function inputHandler(event: Event): void {
   &__input {
     @include mixins.font($element, body-1);
     @include mixins.use-logical($element, padding, var(--space-12) var(--space-16));
-    @include mixins.use-logical($element, border, 0);
+    @include mixins.use-logical($element, border-width, 0);
 
     width: 100%;
     background: transparent;
@@ -236,12 +236,12 @@ function inputHandler(event: Event): void {
 
   &--is-disabled {
     &::after {
-      @include mixins.use-logical($element, border-color, var(--color-border-subtle));
+      border-color: functions.var($element, border-color, var(--color-border-subtle));
     }
 
     @include mixins.hover {
       &::after {
-        @include mixins.use-logical($element, border-color, var(--color-border-subtle));
+        border-color: functions.var($element, border-color, var(--color-border-subtle));
       }
     }
 
@@ -262,12 +262,12 @@ function inputHandler(event: Event): void {
 
   &--has-error {
     &::after {
-      @include mixins.use-logical($element, border-color, var(--color-border-error-strong));
+      border-color: functions.var($element, border-color, var(--color-border-error-strong));
     }
 
     @include mixins.hover {
       &::after {
-        @include mixins.use-logical($element + "-hover", border-color, var(--color-border-error-strong-hover));
+        border-color: functions.var($element + "-hover", border-color, var(--color-border-error-strong-hover));
       }
     }
   }

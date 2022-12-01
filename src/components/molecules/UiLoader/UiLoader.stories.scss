@@ -16,8 +16,6 @@
 
 //<Code id="loading-popover">
 .loading-popover {
-  --popover-content-padding-inline: 0 var(--space-16);
-
   max-width: 25rem;
   min-height: 18rem;
 
@@ -56,3 +54,4 @@
     margin-inline: 0;
   }
 }
+//</Code>

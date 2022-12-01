@@ -362,10 +362,9 @@ const dropdownItemAttrs = (item: DropdownItemAsObj) => {
     --popover-content-padding-inline: #{functions.var($element + "-popover", padding-inline, var(--space-8))};
 
     @include mixins.use-logical($element + "-popover", margin, var(--space-8) 0 0);
+    @include mixins.use-logical($element + "-popover", inset, 100% auto auto 0);
 
     position: absolute;
-    top: 100%;
-    left: 0;
     width: functions.var($element + "-popover", width, 100%);
     max-width: functions.var($element + "-popover", max-width, 15rem);
     min-height: functions.var($element + "-popover", min-height, 0);

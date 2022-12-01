@@ -610,18 +610,14 @@ provide('inputsIds', inputsIds);
 
   &__fields {
     display: flex;
+    gap: functions.var($element + "-fields", gap, var(--space-8));
   }
 
   &__group-field {
-    @include mixins.use-logical($element + "-group-field", margin, 0 var(--space-8) 0 0);
-
     display: flex;
     flex: 1 1 4rem;
     flex-direction: column;
-
-    &:last-of-type {
-      @include mixins.use-logical($element + "-group-field", margin, 0);
-    }
+    gap: functions.var($element + "-group-field", gap, var(--space-8));
 
     &--long {
       flex: calc(6.5 / 4) 1 6.5rem;
@@ -629,8 +625,6 @@ provide('inputsIds', inputsIds);
   }
 
   &__label {
-    @include mixins.use-logical($element + "-label", margin, 0 0 var(--space-8) 0);
-
     display: block;
   }
 }
