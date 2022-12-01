@@ -173,7 +173,8 @@ function selectHandler(): void {
 
   &__icon {
     --icon-size: #{functions.var($element + "-icon", size, 3rem)};
-    --button-icon-margin-logical: 0;
+    --button-icon-margin-block: 0;
+    --button-icon-margin-inline: 0;
 
     @include mixins.from-tablet {
       --icon-size: #{functions.var($element + "-tablet-icon", size, 4rem)};
@@ -187,24 +188,39 @@ function selectHandler(): void {
   }
 
   &--is-checked {
-    --button-border-logical-width: #{functions.var($element + "-checked", width, 2px)};
-    --button-border-logical-color: #{functions.var($element + "-checked", color-border, var(--color-border-strong))};
-    --button-hover-border-logical-color:
+    --button-border-block-width: #{functions.var($element + "-checked", border-block-width, 2px)};
+    --button-border-inline-width: #{functions.var($element + "-checked", border-inline-width, 2px)};
+    --button-border-block-color: #{functions.var($element + "-checked", border-inline-color, var(--color-border-strong))};
+    --button-border-inline-color: #{functions.var($element + "-checked", border-block-color, var(--color-border-strong))};
+    --button-hover-border-block-color:
       #{functions.var(
         $element + "-hover-checked",
-        color-border,
+        border-block-color,
         var(--color-border-strong)
       )};
-    --button-active-border-logical-color:
+    --button-hover-border-inline-color:
+      #{functions.var(
+        $element + "-hover-checked",
+        border-inline-color,
+        var(--color-border-strong)
+      )};
+    --button-active-border-block-color:
       #{functions.var(
         $element + "-active-checked",
-        color-border,
+        border-block-color,
+        var(--color-border-strong)
+      )};
+    --button-active-border-inline-color:
+      #{functions.var(
+        $element + "-active-checked",
+        border-inline-color,
         var(--color-border-strong)
       )};
   }
 
   &--has-error {
-    --button-border-logical-color: var(--color-border-error-strong);
+    --button-border-block-color: var(--color-border-error-strong);
+    --button-border-inline-color: var(--color-border-error-strong);
   }
 }
 </style>

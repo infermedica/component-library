@@ -64,8 +64,6 @@ const stepsDots = computed(() => (props.steps - 1));
   position: relative;
 
   &__steps {
-    @include mixins.use-logical($element + "-steps", inset, 0 0 auto auto);
-
     position: absolute;
     top: 0;
     left: 0;

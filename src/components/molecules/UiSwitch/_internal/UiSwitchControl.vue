@@ -50,6 +50,16 @@
         transform: translate3d(-100%, 0, 0);
       }
     }
+
+    [dir="rtl"] & {
+      #{$this}__wrapper {
+      transform: translate3d(-100%, 0, 0);
+
+        &::after {
+          transform: translate3d(100%, 0, 0);
+        }
+      }
+    }
   }
 }
 </style>

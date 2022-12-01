@@ -355,13 +355,16 @@ onBeforeUnmount(() => {
   z-index: 1;
 
   &__dialog {
-    @include mixins.use-logical($element, inset, 0 0 0 auto);
     @include mixins.use-logical($element, padding, 0);
     @include mixins.use-logical($element, border-width, 0);
     @include mixins.use-logical($element, margin, 0);
 
     position: fixed;
     z-index: 1000;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: auto;
     display: flex;
     width: 100%;
     max-width: functions.var($element, max-width, 100%);
@@ -369,6 +372,11 @@ onBeforeUnmount(() => {
     flex-direction: column;
     background: functions.var($element, background, var(--color-background-white));
     box-shadow: functions.var($element, box-shadow, var(--box-shadow-high));
+
+    [dir="rtl"] & {
+      right: auto;
+      left: 0;
+    }
 
     @include mixins.from-tablet {
       max-width: functions.var($element + "-tablet", max-width, 40rem);

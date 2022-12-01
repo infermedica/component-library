@@ -170,9 +170,11 @@ function inputHandler(event: Event): void {
     border-radius: inherit;
 
     &::after {
-      @include mixins.use-logical($element, inset, 0);
-
       position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
       border-radius: inherit;
       box-shadow: var(--focus-outer);
       content: "";

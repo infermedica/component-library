@@ -254,7 +254,7 @@ export const AsPopoverContent = (args) => ({
 });
 AsPopoverContent.decorators = [ (story) => ({
   components: { UiPopover },
-  template: `<UiPopover style="--popover-content-padding: 0; --popover-content-max-height: 20rem; max-width: 20rem">
+  template: `<UiPopover style="--popover-content-padding-block: 0; --popover-content-max-height: 20rem; max-width: 20rem">
     <story />
   </UiPopover>`,
 }) ];

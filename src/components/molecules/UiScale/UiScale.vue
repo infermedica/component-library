@@ -402,11 +402,14 @@ const itemsToRender = computed(() => (Array.from({ length: maxSteps.value }, (_,
     }
 
     &::after {
-      @include mixins.use-logical($element + "-option", inset, 0);
       @include mixins.use-logical($element + "-option", border-radius, inherit);
 
       position: absolute;
       z-index: 1;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
       box-shadow: var(--focus-outer);
       content: "";
       opacity: 0;
@@ -429,10 +432,13 @@ const itemsToRender = computed(() => (Array.from({ length: maxSteps.value }, (_,
     background: functions.var($element + "-square", background, var(--color-dataviz-diverging-track));
 
     &::after {
-      @include mixins.use-logical($element + "-square", inset, 0);
       @include mixins.use-logical($element + "-square", border-radius, inherit);
 
       position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
       background:
         functions.var(
           $element + "-square-overlay",

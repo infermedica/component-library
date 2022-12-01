@@ -1,5 +1,12 @@
 @use "../functions";
 
+@function getLogicalName ($property, $str) {
+  $splittedProperty: functions.str-split($property, '-');
+  $propertyHead: nth($splittedProperty, 1);
+  $propertyTail: nth($splittedProperty, 2);
+  @return #{$propertyHead}#{$str}#{$propertyTail};
+};
+
 @function getLogicalValues($values) {
   $results: [];
   @for $index from 1 through 4 {
@@ -18,31 +25,24 @@
 }
 
 @mixin use-logical($element, $property, $values) {
-  @if if $values and $property {
-    $splittedProperty: functions.str-split($property, '-');
-    $propertyHead: nth($splittedProperty, 1);
-    $propertyTail: nth($splittedProperty, 2);
-    $propertyBlock: #{$propertyHead}-block#{$propertyTail};
-    $propertyInline: #{$propertyHead}-inline#{$propertyTail};
-    $varHead: --#{$element}-;
-    $varBlock: #{$varHead}#{$propertyBlock};
-    $varInline: #{$varHead}#{$propertyInline};
-    $varLogical: #{$varHead}#{$propertyHead}-logical#{$propertyTail};
+  @if $values and $property {
     $includeBorderRadius: str-index($property, border-radius);
     @if $includeBorderRadius {
       $options: start-start, start-end, end-start, end-end;
       $logicalValues: getLogicalValues($values);
       @for $index from 1 through 4 {
-        $varSecond: $varBlock;
-        @if $index % 2 == 0 {
-          $varSecond: $varInline;
-        }
-        border-#{nth($options, $index)}-radius: var($varLogical, var($varSecond, nth($logicalValues, $index)));
+        border-#{nth($options, $index)}-radius: functions.var($element, border-#{nth($options, $index)}-radius, nth($logicalValues, $index));
       }
     } @else {
       $logicalValues: getLogicalValues($values);
-      #{$propertyBlock}: var($varLogical, var($varBlock, nth($logicalValues, 1) nth($logicalValues, 3)));
-      #{$propertyInline}: var($varLogical, var($varInline, nth($logicalValues, 4) nth($logicalValues, 2)));
+      #{getLogicalName($property, -block)}: functions.var($element, getLogicalName($property, -block),
+        functions.var($element, getLogicalName($property, -block-start), nth($logicalValues, 1))
+        functions.var($element, getLogicalName($property, -block-end), nth($logicalValues, 3))
+      );
+      #{getLogicalName($property, -inline)}: functions.var($element, getLogicalName($property, -inline),
+        functions.var($element, getLogicalName($property, -inline-start), nth($logicalValues, 4))
+        functions.var($element, getLogicalName($property, -inline-end), nth($logicalValues, 2))
+      );
     }
   }
 };

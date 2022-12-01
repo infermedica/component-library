@@ -89,7 +89,8 @@ const hasIcon = computed(() => (!!defaultProps.value.iconSuffixAttrs.icon));
   gap: functions.var($element, gap, var(--space-4));
 
   &__icon {
-    --button-icon-margin-logical: 0;
+    --button-icon-margin-block: 0;
+    --button-icon-margin-inline: 0;
   }
 }
 </style>

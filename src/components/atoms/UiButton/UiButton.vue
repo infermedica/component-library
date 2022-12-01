@@ -75,7 +75,7 @@ const {
   transition:
     (
       background-color 150ms ease-in-out,
-      --border-logical-color 150ms ease-in-out,
+      border 150ms ease-in-out,
       color 150ms ease-in-out,
     );
   vertical-align: top;
@@ -287,8 +287,10 @@ const {
   &--text {
     @extend #{$this}--outlined;
 
-    --#{$element}-padding-logical: 0;
-    --#{$element}-border-logical-width: 0;
+    --#{$element}-padding-block: 0;
+    --#{$element}-padding-inline: 0;
+    --#{$element}-border-block-width: 0;
+    --#{$element}-border-inline-width: 0;
     --#{$element}-hover-background: transparent;
     --#{$element}-icon-margin-inline: 0;
     --#{$element}-active-background: transparent;
@@ -305,9 +307,9 @@ const {
   &--circled {
     @extend #{$this}--outlined;
 
-    --#{$element}-border-logical-radius: var(--border-radius-circle);
     --#{$element}-icon-margin-inline: 0;
 
+    @include mixins.use-logical($element, border-radius, var(--border-radius-circle));
     @include mixins.use-logical($element, padding, var(--space-12));
 
     .ui-text {
@@ -320,8 +322,10 @@ const {
   &--icon {
     @extend #{$this}--outlined;
 
-    --#{$element}-padding-logical: 0;
-    --#{$element}-border-logical-width: 0;
+    --#{$element}-padding-block: 0;
+    --#{$element}-padding-inline: 0;
+    --#{$element}-border-block-width: 0;
+    --#{$element}-border-inline-width: 0;
     --#{$element}-icon-margin-inline: 0;
     --#{$element}-hover-background: transparent;
     --#{$element}-active-background: transparent;

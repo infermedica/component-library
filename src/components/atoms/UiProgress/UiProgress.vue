@@ -85,13 +85,13 @@ const progressValue = computed(() => {
     }
 
     &::before {
-      @include mixins.use-logical($element, border-radius, var(--_progress-border-radius) 0);
-      @include mixins.use-logical($element, inset, auto 100% auto auto);
+      @include mixins.use-logical($element + "indicator", border-radius, var(--_progress-border-radius) 0);
+      @include mixins.use-logical($element + "indicator", inset, auto 100% auto auto);
     }
 
     &::after {
-      @include mixins.use-logical($element, border-radius, 0 var(--_progress-border-radius));
-      @include mixins.use-logical($element, inset, auto auto auto 100%);
+      @include mixins.use-logical($element + "indicator", border-radius, 0 var(--_progress-border-radius));
+      @include mixins.use-logical($element + "indicator", inset, auto auto auto 100%);
     }
   }
 }

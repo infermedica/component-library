@@ -33,9 +33,9 @@
 
     &::before,
     &::after {
-      @include mixins.use-logical($element + "-dot", inset, 0 auto auto 0);
-
       position: absolute;
+      top: 0;
+      left: 0;
       display: inline-block;
       content: "";
     }

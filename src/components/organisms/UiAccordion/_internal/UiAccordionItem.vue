@@ -173,8 +173,10 @@ const defaultProps = computed(() => ({
   $this: &;
   $element: accordion-item;
 
-  --list-item-padding-logical: #{functions.var($element, padding-logical, 0)};
-  --list-item-tablet-padding-logical: #{functions.var($element + "-tablet", padding-logical, 0)};
+  --list-item-padding-block: #{functions.var($element, padding-block, 0)};
+  --list-item-padding-inline: #{functions.var($element, padding-inline, 0)};
+  --list-item-tablet-block: #{functions.var($element + "-tablet", padding-block, 0)};
+  --list-item-tablet-inline: #{functions.var($element + "-tablet", padding-inline, 0)};
   --list-item-hover-background: #{functions.var($element + "-hover", background, transparent)};
 
   display: flex;
@@ -183,12 +185,17 @@ const defaultProps = computed(() => ({
   justify-content: center;
 
   &__toggler {
-    --button-padding-logical: #{functions.var($element + "-toggler", padding-logical, var(--space-12))};
-    --button-border-logical-width: #{functions.var($element + "-toggler", border-width, 0)};
-    --button-border-logical-radius: #{functions.var($element + "-toggler", border-radius, 0)};
+    --button-padding-block: #{functions.var($element + "-toggler", padding-block, var(--space-12))};
+    --button-padding-inline: #{functions.var($element + "-toggler", padding-inline, var(--space-12))};
+    --button-border-block-width: #{functions.var($element + "-toggler", border-block-width, 0)};
+    --button-border-inline-width: #{functions.var($element + "-toggler", border-inline-width, 0)};
+    --button-border-start-start-radius: #{functions.var($element + "-toggler", border-start-start-radius, 0)};
+    --button-border-start-end-radius: #{functions.var($element + "-toggler", border-start-end-radius, 0)};
+    --button-border-end-start-radius: #{functions.var($element + "-toggler", border-end-start-radius, 0)};
+    --button-border-end-end-radius: #{functions.var($element + "-toggler", border-end-end-radius, 0)};
     --button-font: #{functions.var($element, font, var(--font-body-1))};
     --button-letter-spacing: #{functions.var($element, letter-spacing, var(--letter-spacing-body-1))};
-    --button-icon-margin-logical: #{functions.var($element + "-toggler", icon-margin-logical,  0 var(--space-12) 0 0)};
+    --button-icon-margin-inline: #{functions.var($element + "-toggler", icon-margin-inline,  0)};
     --button-gap: #{functions.var($element + "-toggler", gap, var(--space-12))};
 
     width: 100%;
@@ -203,6 +210,8 @@ const defaultProps = computed(() => ({
 
   &__content {
     @include mixins.use-logical($element + "-content", padding, var(--space-12) var(--space-12) var(--space-12) var(--space-48));
+
+    width: 100%;
   }
 }
 </style>

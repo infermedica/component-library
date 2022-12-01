@@ -93,10 +93,12 @@ const defaultProps = computed(() => ({
   align-items: flex-start;
   justify-content: flex-start;
   vertical-align: functions.var($element, vertical-align, top);
-  gap: functions.var($element + "-icon", gap, var(--space-4));
+  gap: functions.var($element, gap, var(--space-4));
 
   &__icon {
     --icon-color: #{functions.var($element + "-icon", color)};
+
+    flex: none;
   }
 
   &__message {

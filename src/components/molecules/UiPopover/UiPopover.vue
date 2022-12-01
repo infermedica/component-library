@@ -181,7 +181,7 @@ if (buttonAttrs.value) {
   }
 
   &--has-arrow,
-  &--has-left-arrow {
+  &--has-start-arrow {
     --_popover-arrow-size: #{functions.var($element + "-arrow", size, 0.75rem)};
     --_popover-arrow-border-width: #{functions.var($element + "-arrow", border-width, 1px)};
 
@@ -189,15 +189,13 @@ if (buttonAttrs.value) {
       &::after {
         @include mixins.use-logical($element, border-style, solid);
         @include mixins.use-logical($element, border-color, var(--color-border-subtle));
+        @include mixins.use-logical($element, border-width, var(--_popover-arrow-border-width));
 
         position: absolute;
         z-index: 1;
         top: 50%;
         width: var(--_popover-arrow-size);
         height: var(--_popover-arrow-size);
-        border-width: var(--_popover-arrow-border-width);
-        border-style: solid;
-        border-color: functions.var($element, border-color, var(--color-border-subtle));
         background: var(--popover-header-background, var(--color-background-subtle));
         content: "";
         pointer-events: none;
@@ -208,31 +206,46 @@ if (buttonAttrs.value) {
   &--has-arrow {
     #{$this}__header {
       &::after {
+        --#{$element}-border-block-end-width: 0;
+        --#{$element}-border-inline-start-width: 0;
         right: 0;
-        border-bottom-width: 0;
-        border-left-width: 0;
         transform: translate(50%, -50%) rotate(45deg);
+
+        [dir="rtl"] & {
+          left: 0;
+          right: auto;
+          transform: translate(-50%, -50%) rotate(-45deg);
+        }
       }
     }
   }
 
-  &--has-left-arrow {
+  &--has-start-arrow {
     #{$this}__header {
       &::after {
+        --#{$element}-border-block-start-width: 0;
+        --#{$element}-border-inline-end-width: 0;
+
         left: 0;
-        border-top-width: 0;
-        border-right-width: 0;
         transform: translate(-50%, -50%) rotate(45deg);
+
+        [dir="rtl"] & {
+          right: 0;
+          left: auto;
+          transform: translate(50%, -50%) rotate(-45deg);
+        }
       }
     }
   }
 
   &--has-mobile {
     @include mixins.to-mobile {
-      @include mixins.use-logical($element, inset, auto 0 0 0);
       @include mixins.use-logical($element + "-mobile", border-radius, 0);
 
       position: fixed;
+      right: 0;
+      bottom: 0;
+      left: 0;
       height: 50%;
     }
 
@@ -240,13 +253,13 @@ if (buttonAttrs.value) {
     &#{$this}--has-left-arrow {
       @include mixins.to-mobile {
         --_popover-arrow-size: 0;
-        --_popover-arrow-border-logical-width: 0;
+        --_popover-arrow-border-width: 0;
       }
     }
   }
 
   &--unrounded {
-    --popover-border-logical-radius: 0;
+    border-radius: 0;
   }
 }
 </style>

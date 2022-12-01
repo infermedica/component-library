@@ -217,9 +217,12 @@ const defaultProps = computed<DefaultProps>(() => ({
 .ui-controls {
   $element: controls;
 
-  --container-padding-logical: 0;
-  --container-tablet-padding-logical: 0;
-  --container-desktop-padding-logical: 0;
+  --container-padding-block: 0;
+  --container-padding-inline: 0;
+  --container-tablet-padding-block: 0;
+  --container-tablet-padding-inline: 0;
+  --container-desktop-padding-block: 0;
+  --container-desktop-padding-inline: 0;
 
   display: flex;
   flex-direction: column;

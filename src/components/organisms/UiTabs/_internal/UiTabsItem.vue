@@ -202,12 +202,13 @@ onMounted(async () => {
     order: 1;
 
     &::before {
-      @include mixins.use-logical($element + "content", inset, 0 auto auto 0);
       @include mixins.use-logical($element + "-content", border-style, solid);
       @include mixins.use-logical($element + "-content", border-color, var(--color-border-divider));
       @include mixins.use-logical($element + "-content", border-width, 1px 0 0);
 
       position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       content: "";
     }

@@ -256,7 +256,8 @@ const clickOutsideHandler = (event: InputEvent) => {
   $element: datepicker-calendar;
 
   --dropdown-popover-max-width: #{functions.var($element + "-popover", max-width, 100% )};
-  --dropdown-popover-padding-logical: #{functions.var($element + "-popover", padding-logical, 0 )};
+  --dropdown-popover-padding-block: #{functions.var($element + "-popover", padding-block, 0 )};
+  --dropdown-popover-padding-inline: #{functions.var($element + "-popover", padding-inline, 0 )};
 
   position: unset;
 }

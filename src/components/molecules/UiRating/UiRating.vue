@@ -333,7 +333,7 @@ const ratingItemAttrs = (item: Record<string, unknown>) => {
     }
 
     &:last-of-type {
-      @include mixins.use-logical($element + "-option", border-width, 0);
+      --#{$element}-option-border-inline-end-width: 0;
     }
   }
 

@@ -84,6 +84,7 @@ defineProps({
     &::after {
       @include mixins.use-logical($element + "-loader", border-width, 2px);
       @include mixins.use-logical($element, border-style, solid);
+      @include mixins.use-logical($element, border-color, var(--color-icon-secondary));
 
       position: absolute;
       width: 100%;
@@ -93,15 +94,11 @@ defineProps({
     }
 
     &::before {
-      @include mixins.use-logical(
-        $element + "-indicator",
-        border-color,
-        var(--color-icon-secondary) transparent transparent
-      );
+      --#{$element}-border-block-end-color: transparent;
+      --#{$element}-border-inline-color: transparent;
     }
 
     &::after {
-      @include mixins.use-logical($element + "-indicator", border-color, var(--color-icon-secondary));
       opacity: functions.var($element + "-loader", opacity, 0.3);
     }
   }

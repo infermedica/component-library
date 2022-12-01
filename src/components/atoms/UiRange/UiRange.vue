@@ -235,14 +235,17 @@ const numberStepperAttrs = computed(() => ({
       --_range-track-height: #{functions.var($element + "-track", height, 4px)};
 
       @include mixins.use-logical($element + "-track", border-radius, var(--_range-track-height));
-      @include mixins.use-logical($element + "-track", inset, 50% auto auto 0);
 
       position: absolute;
+      top: 50%;
+      left: 0;
       height: var(--_range-track-height);
       content: "";
       transform: translate(var(--_range-thumb-half-of-size), -50%);
 
       [dir="rtl"] & {
+        right: 0;
+        left: auto;
         transform: translate(calc(var(--_range-thumb-half-of-size) * -1), -50%);
       }
     }
@@ -251,9 +254,8 @@ const numberStepperAttrs = computed(() => ({
   &__value {
     --_range-value-margin-bottom: #{functions.var($element + "-value", margin-bottom, var(--space-8))};
 
-    @include mixins.use-logical($element + "-value", inset, auto auto auto var(--_range-runnable-track-width));
-
     position: absolute;
+    left: var(--_range-runnable-track-width);
     display: flex;
     width: functions.var($element + "-thumb", size, 3rem);
     align-items: center;
@@ -267,6 +269,8 @@ const numberStepperAttrs = computed(() => ({
     transform-origin: center;
 
     [dir="rtl"] & {
+      right: var(--_range-runnable-track-width);
+      left: auto;
       transform:
         translate3d(
           calc(var(--_range-runnable-track-width)),
@@ -279,7 +283,6 @@ const numberStepperAttrs = computed(() => ({
   &__track {
     --_range-thumb-background: #{ functions.var($element + "-thumb", background-color, var(--color-range-thumb))};
 
-    @include mixins.use-logical($element + "-track", inset, 50% auto auto auto);
     @include mixins.use-logical($element + "-track", margin, 0);
 
     position: absolute;

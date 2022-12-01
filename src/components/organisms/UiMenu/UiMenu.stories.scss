@@ -2,8 +2,10 @@
 
 //<Code id="menu-mobile-menu">
 .menu-mobile-menu {
-  --side-panel-content-padding-logical: 0;
-  --side-panel-tablet-content-padding-logical: 0;
+  --side-panel-content-padding-block: 0;
+  --side-panel-content-padding-inline: 0;
+  --side-panel-tablet-content-padding-block: 0;
+  --side-panel-tablet-content-padding-inline: 0;
 
   &__content {
     @include mixins.inner-border(

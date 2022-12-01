@@ -17,7 +17,8 @@ import UiTabsItem from '../../UiTabs/_internal/UiTabsItem.vue';
   $this: &;
   $element: datepicker-tab;
 
-  --tabs-item-content-padding-logical: 0;
+  --tabs-item-content-padding-block: 0;
+  --tabs-item-content-padding-inline: 0;
 
   &__content {
     @include mixins.use-logical($element + "-content", padding, var(--space-16) var(--space-20));

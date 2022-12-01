@@ -73,15 +73,12 @@ const hasIcon = computed(() => !!attrs.class && attrs.class.includes('ui-toggle-
   $this: &;
   $element: toggle-button;
 
-  flex: 1;
-
+  @include mixins.use-logical($element, border-radius, 0);
   @include mixins.focus {
     z-index: 1;
   }
 
-  &:not(:first-of-type, :last-of-type) {
-    @include mixins.use-logical($element, border-radius, 0);
-  }
+  flex: 1;
 
   &:not(:last-of-type) {
     &::after {

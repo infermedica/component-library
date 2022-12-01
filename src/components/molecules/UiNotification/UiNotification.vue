@@ -17,7 +17,7 @@
         name="message"
         v-bind="{ textMessageAttrs }"
       >
-        <div class="notification__message">
+        <div class="ui-notification__message">
           <!-- @slot Use this slot to replace text template. -->
           <slot
             name="text"
@@ -128,7 +128,9 @@ const hasAction = computed(() => (Object.keys(props.buttonActionAttrs).length > 
   $element: notification;
   $types: "success", "info", "warning", "error";
 
-  --alert-icon-gap: #{functions.var($element + "-icon", gap, var(--space-12))};
+  --alert-gap: #{functions.var($element, gap, var(--space-12))};
+
+  @include mixins.use-logical($element, padding, var(--space-12));
 
   @include mixins.inner-border(
     $element,
@@ -137,7 +139,6 @@ const hasAction = computed(() => (Object.keys(props.buttonActionAttrs).length > 
   );
 
   display: flex;
-  padding: functions.var($element, padding, var(--space-12));
   background: functions.var($element, background);
 
   &__action {
