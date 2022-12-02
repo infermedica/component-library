@@ -56,9 +56,14 @@ IconAsIllustration.argTypes = {
     control: { type: 'select' },
     options: [
       'agreement',
+      'agreement-rtl',
       'boy',
+      'boy-rtl',
       'no-internet-illustration',
+      'no-internet-illustration-rtl',
       'podium',
+      'podium-rtl',
+      'lock',
     ],
   },
 };
