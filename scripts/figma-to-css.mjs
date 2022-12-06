@@ -1,29 +1,30 @@
-import fs from 'fs';
+import { writeFileSync } from 'fs';
+import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 
 dotenv.config();
-
+const fileName = fileURLToPath(import.meta.url);
 const figmaToken = process.env.FIGMA_TOKEN;
 const figmaUrl = 'https://api.figma.com/v1';
+const figmaFileId = 'txuY6Y2evaphl43mSvHUQ8';
 const figmaServiceOptions = {
   method: 'GET',
   headers: { 'X-Figma-Token': figmaToken },
+};
+const generatedCodeText = '// Auto-generated file by update:css-bariables script. Do not edit manually';
+const saveFile = (content, name) => {
+  writeFileSync(`./src/styles/variables/${name}`, content, (err) => {
+    if (err) {
+      throw err;
+    }
+    console.log(`${name} file has been saved!`);
+  });
 };
 const getFile = async (key) => {
   const response = await fetch(`${figmaUrl}/files/${key}`, figmaServiceOptions);
   const data = await response.json();
   return data;
 };
-
-const saveFile = (content, fileName) => {
-  fs.writeFile(fileName, content, (err) => {
-    if (err) {
-      throw err;
-    }
-    console.log(`${fileName} file has been saved!`);
-  });
-};
-
 const getValueWithUnit = (value, unit = 'px') => {
   if (value?.match(/^0/g)) {
     return '0';
@@ -35,7 +36,6 @@ const getValueWithUnit = (value, unit = 'px') => {
 const getValue = (value, typeOfValue) => (value?.match(new RegExp(typeOfValue, 'g'))
   ? `var(--${value})`
   : value);
-
 const getTokens = ({
   frames, frameName, listName = 'Lists', nesting = 2, filter = ({ name }) => name?.match(/Name|Value/g), map = ({ characters }) => characters,
 }) => {
@@ -43,14 +43,11 @@ const getTokens = ({
   let tokensFrames = frames
     ?.find(({ name }) => (name?.match(new RegExp(frameName, 'g'))))?.children
     ?.find(({ name }) => (name?.match(new RegExp(listName, 'g'))))?.children;
-
-  // TODO: should be refactored
   let lvl = nesting;
   while (lvl > 0) {
     tokensFrames = tokensFrames?.reduce((acc, { children }) => acc.concat(children), []);
     lvl -= 1;
   }
-
   return tokensFrames
     ?.map(({ children }) => children
       ?.filter(filter)
@@ -58,9 +55,8 @@ const getTokens = ({
     ?.filter((arr) => arr?.length === 2);
 };
 
-(async () => {
-  const { document } = await getFile('txuY6Y2evaphl43mSvHUQ8');
-  console.log(document);
+const figmaToCss = async () => {
+  const { document } = await getFile(figmaFileId);
   const tokensFrames = document?.children
     ?.find(({ name }) => name?.match(/Tokens/g))?.children;
 
@@ -94,13 +90,14 @@ const getTokens = ({
     filter: ({ name }) => name?.match(/Name|Frame 1105/g),
     map: (frame) => {
       const getFontProperties = ({ characters }) => {
+        if (!characters) return {};
         const [
           fontFamily,
           fontSize,
           fontWeight,
           lineHeight,
           letterSpacing,
-        ] = characters?.split('\n');
+        ] = characters.split('\n');
         return {
           fontFamily: getValue(fontFamily, 'font'),
           fontSize: getValue(fontSize, 'font'),
@@ -109,7 +106,6 @@ const getTokens = ({
           letterSpacing: getValue(letterSpacing, 'letter'),
         };
       };
-      // eslint-disable-next-line default-case
       switch (frame.name) {
         case 'Name':
           return frame.characters;
@@ -122,6 +118,8 @@ const getTokens = ({
           }
           return frame?.children
             ?.map(getFontProperties);
+        default:
+          return [];
       }
     },
   });
@@ -153,32 +151,28 @@ const getTokens = ({
       mobile: [],
       desktop: [],
     });
-  const fontStyleCSS = ''
-  + `${mobileDesktopFontStyleTokens.mobile.map(([
+  const fontStyleCSS = `${mobileDesktopFontStyleTokens.mobile.map(([
     name,
     {
       fontFamily, fontSize, fontWeight, lineHeight,
     },
-  ]) => `--${name}: ${fontWeight} ${fontSize} / ${lineHeight} ${fontFamily};`).join('\n')}`
-  + '\n@media (min-width: 768px) {\n'
-      + `${mobileDesktopFontStyleTokens.desktop.map(([
-        name,
-        {
-          fontFamily, fontSize, fontWeight, lineHeight,
-        },
-      ]) => `--${name}: ${fontWeight} ${fontSize} / ${lineHeight} ${fontFamily};`).join('\n')}`
-  + '\n}';
-  const letterSpacingCSS = ''
-      + `${mobileDesktopFontStyleTokens.mobile.map(([
-        name,
-        { letterSpacing },
-      ]) => `--letter-spacing-${name}: ${letterSpacing};`).join('\n')}`
-      + '\n@media (min-width: 768px) {\n'
-      + `${mobileDesktopFontStyleTokens.desktop.map(([
-        name,
-        { letterSpacing },
-      ]) => `--letter-spacing-${name}: ${letterSpacing};`).join('\n')}`
-      + '\n}';
+  ]) => `--${name}: ${fontWeight} ${fontSize} / ${lineHeight} ${fontFamily};`).join('\n')}
+    \n@media screen and (min-width: 768px) {\n
+    ${mobileDesktopFontStyleTokens.desktop.map(([
+    name,
+    {
+      fontFamily, fontSize, fontWeight, lineHeight,
+    },
+  ]) => `--${name}: ${fontWeight} ${fontSize} / ${lineHeight} ${fontFamily};`).join('\n')}\n}`;
+  const letterSpacingCSS = `${mobileDesktopFontStyleTokens.mobile.map(([
+    name,
+    { letterSpacing },
+  ]) => `--letter-spacing-${name}: ${letterSpacing};`).join('\n')}
+    \n@media screen and (min-width: 768px) {
+    ${mobileDesktopFontStyleTokens.desktop.map(([
+    name,
+    { letterSpacing },
+  ]) => `--letter-spacing-${name}: ${letterSpacing};`).join('\n')}\n}`;
 
   const spaceTokens = getTokens({
     frames: tokensFrames,
@@ -201,23 +195,26 @@ const getTokens = ({
     ?.map(([
       name,
       value,
-    ]) => `--${name}: ${value.replace(/\n.+/g, '')};`)
+    ]) => `  --${name}: ${value.replace(/\n.+/g, '')};`)
     .join('\n');
 
-  const getCSSBoxShadow = ({ characters }) => characters
-    ?.split('+')
-    ?.map((shadow) => {
-      const [
-        offsetX,
-        offsetY,
-        blurRadius,
-        spreadRadius,
-        color,
-      ] = shadow.split('\n')
-        ?.filter((property) => property?.match(/offset-x|offset-y|blur-radius|spread-radius|color/g))
-        ?.map((property) => property.replace(/.+: /, '')); // e.g. offset-x: 0 => 0
-      return `${getValueWithUnit(offsetX)} ${getValueWithUnit(offsetY)} ${getValueWithUnit(blurRadius)} ${getValueWithUnit(spreadRadius)} ${getValue(color, 'color')}`;
-    }).join(', ');
+  const getCSSBoxShadow = ({ characters }) => {
+    const isInset = characters.includes('(inset/inner shadow)') ? 'inset ' : '';
+    return characters
+      ?.split('+')
+      ?.map((shadow) => {
+        const [
+          offsetX,
+          offsetY,
+          blurRadius,
+          spreadRadius,
+          color,
+        ] = shadow.split('\n')
+          .filter((property) => property?.match(/offset-x|offset-y|blur-radius|spread-radius|color/g))
+          .map((property) => property.replace(/.+: /, '')); // e.g. offset-x: 0 => 0
+        return `${isInset}${getValueWithUnit(offsetX)} ${getValueWithUnit(offsetY)} ${getValueWithUnit(blurRadius)} ${getValueWithUnit(spreadRadius)} ${getValue(color, 'color')}`;
+      }).join(', ');
+  };
   const boxShadowTokens = getTokens({
     frames: tokensFrames,
     frameName: 'Box Shadow',
@@ -253,21 +250,23 @@ const getTokens = ({
       value,
     ]) => `--${name}: ${value.replace(/\n.+/g, '')};`)
     .join('\n');
+  const getContent = (properties) => `${generatedCodeText}\n:root {\n${properties.join('\n\n')}\n}`;
+  saveFile(getContent([ colorDecisionsCSS ]), 'colors.scss', false);
+  saveFile(getContent([
+    spaceCSS,
+    borderRadiusCSS,
+    boxShadowCSS,
+    focusCSS,
+    opacityCSS,
+  ]), 'layouts.scss');
+  saveFile(getContent([
+    fontCSS,
+    fontStyleCSS,
+    letterSpacingCSS,
+  ]), 'typography.scss', false);
+};
 
-  const scss = `:root {\n${
-    [
-      colorDecisionsCSS,
-      fontCSS,
-      fontStyleCSS,
-      letterSpacingCSS,
-      spaceCSS,
-      borderRadiusCSS,
-      boxShadowCSS,
-      focusCSS,
-      opacityCSS,
-    ]
-      ?.filter(Boolean)
-      .join('\n')
-  }\n}`;
-  saveFile(scss, 'styles.scss');
-})();
+export default figmaToCss;
+if (process.argv[1] === fileName) {
+  figmaToCss();
+}
