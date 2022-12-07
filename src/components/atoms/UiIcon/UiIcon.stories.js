@@ -75,7 +75,7 @@ export const IconAsCustomIllustration = (args) => ({
   },
   template: `<UiIcon
     :icon="icon"
-    class="icon-as-custom-illustration"
+    class="icon-as-illustration icon-as-custom-illustration"
   />`,
 });
 IconAsCustomIllustration.args = { icon: 'boy' };
