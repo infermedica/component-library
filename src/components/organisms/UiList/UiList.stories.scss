@@ -24,7 +24,7 @@
   }
 
   &__progress {
-    --progressindicator-background: var(--color-dataviz-sequential-strong);
+    --progress-indicator-background: var(--color-dataviz-sequential-strong);
 
     flex: 0 0 1.875rem;
   }
@@ -64,6 +64,7 @@
 
   &__prefix-icon {
     --icon-size: 2rem;
+
     margin-inline: 0 var(--space-16);
   }
 
