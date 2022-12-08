@@ -5,9 +5,11 @@ import {
 import UiButton from '../../src/components/atoms/UiButton/UiButton.vue';
 import UiInput from '../../src/components/atoms/UiInput/UiInput.vue';
 import UiText from '../../src/components/atoms/UiText/UiText.vue';
+import UiSwitch from "@/components/molecules/UiSwitch/UiSwitch.vue";
 
 const withUseLogicalMixinCode = (story, { args }) => ({
   components: {
+    UiSwitch,
     story,
     UiButton,
     UiInput,
@@ -109,12 +111,10 @@ const withUseLogicalMixinCode = (story, { args }) => ({
         {{ output }}
       </UiText>
     </div>
-    <UiButton 
-      class="ui-button--text" 
-      @click="handleClick"
-    >
-      Change direction: {{ direction }}
-    </UiButton>
+    <UiText class="ui-text--body-2-compact">Toggle Text Direction:</UiText>
+    <div class="docs__switch">
+      <UiText class="ui-text--body-2-compact">ltr</UiText><UiSwitch :model-value="direction === 'rtl'" @update:modelValue="handleClick"/><UiText class="ui-text--body-2-compact">rtl</UiText>
+    </div>
   </div>
   <div 
     class="content" 

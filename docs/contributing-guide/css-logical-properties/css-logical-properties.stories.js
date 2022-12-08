@@ -6,7 +6,7 @@ import docs from './css-logical-properties.mdx';
 import './css-logical-properties.stories.scss';
 
 export default {
-  title: 'Contributing Guide/Css Logical Properties',
+  title: 'Contributing Guide/CSS Logical Properties',
   args: {
     property: 'padding',
     element: 'button',
@@ -32,10 +32,18 @@ const Template = (args) => ({
       ...props.value,
     };
   },
-  template: `<UiText class="docs__label">Logical {{property}}</UiText>
-    <UiButton :style="logicalStyle">Label</UiButton>
-    <UiText class="docs__label">Physical {{property}}</UiText>
-    <UiButton :style="physicalStyle">Label</UiButton>`,
+  template: `<UiText class="docs__label">
+    Logical {{ property }}
+  </UiText>
+  <UiButton :style="logicalStyle">
+    Label
+  </UiButton>
+  <UiText class="docs__label">
+    Physical {{ property }}
+  </UiText>
+  <UiButton :style="physicalStyle">
+    Label
+  </UiButton>`,
 });
 
 export const Padding = Template.bind({});

@@ -30,6 +30,13 @@
     color: #{$textColor};
   }
 
+  &__switch {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+    margin: var(--space-8) 0;
+  }
+
   &__label {
     margin: var(--space-8) 0;
   }
