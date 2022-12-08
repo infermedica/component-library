@@ -181,19 +181,24 @@ if (label.value) {
 
 <style lang="scss">
 @use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-form-field {
   $element: form-field;
 
   display: flex;
   flex-direction: column;
-  gap: functions.var($element, gap, var(--space-8));
 
   &__label {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap: functions.var($element + "label", gap, var(--space-8))
+    gap: functions.var($element + "label", gap, var(--space-8));
+    @include mixins.use-logical($element + "-alert", margin, 0 0 var(--space-8) 0);
+  }
+
+  &__alert {
+    @include mixins.use-logical($element + "-alert", margin, var(--space-8) 0 0 0);
   }
 }
 </style>
