@@ -74,7 +74,7 @@ const Template = (args) => ({
                 class="ui-button--text ui-button--has-icon"
                 style="--button-justify-content: space-between; --button-width: 100%; --button-padding-block: var(--space-8); --button-padding-inline var(--space-12);"
               >
-                {{title}} <UiIcon icon="chevron-right"/>
+                {{title}}<UiIcon icon="chevron-right"/>
               </UiButton>
             </template>
             <template v-else>
@@ -84,7 +84,7 @@ const Template = (args) => ({
                 style="--button-justify-content: space-between; --button-width: 100%; --button-padding-block: var(--space-8); button-padding-inline: var(--space-12);"
                 @click="to"
               >
-                {{title}} <UiIcon icon="chevron-right"/>
+                {{title}}<UiIcon icon="chevron-right"/>
               </UiButton>
             </template>
           </div>

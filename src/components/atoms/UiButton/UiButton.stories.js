@@ -79,7 +79,7 @@ const Template = (args) => ({
     /> {{ content }}
   </UiButton>
   <UiButton :class="modifiers">
-    {{ content }} <UiIcon
+    {{ content }}<UiIcon
       :icon="icon"
       class="ui-button__icon ui-button__icon--right"
     />
@@ -108,7 +108,7 @@ const Template = (args) => ({
     'ui-button--small', 
     modifiers, 
   ]">
-    {{ content }} <UiIcon
+    {{ content }}<UiIcon
       :icon="icon"
       class="ui-button__icon ui-button__icon--right"
     />
@@ -135,7 +135,7 @@ const Template = (args) => ({
     'ui-button--is-disabled', 
     modifiers
   ]">
-    {{ content }} <UiIcon
+    {{ content }}<UiIcon
       :icon="icon"
       class="ui-button__icon ui-button__icon--right"
     />
@@ -166,7 +166,7 @@ export const Outlined = (args) => ({
     /> {{ content }}
   </UiButton>
   <UiButton :class="modifiers">
-    {{ content }} <UiIcon
+    {{ content }}<UiIcon
       :icon="icon"
       class="ui-button__icon ui-button__icon--right"
     />
@@ -191,7 +191,7 @@ export const Outlined = (args) => ({
     'ui-button--small', 
     modifiers, 
   ]">
-    {{ content }} <UiIcon
+    {{ content }}<UiIcon
       :icon="icon"
       class="ui-button__icon ui-button__icon--right"
     />
@@ -216,7 +216,7 @@ export const Outlined = (args) => ({
     'ui-button--is-selected',
     modifiers,
   ]">
-  {{ content }} <UiIcon
+  {{ content }}<UiIcon
     :icon="icon"
     class="ui-button__icon ui-button__icon--right"
   />
@@ -243,7 +243,7 @@ export const Outlined = (args) => ({
     'ui-button--is-disabled',
     modifiers,
   ]">
-    {{ content }} <UiIcon
+    {{ content }}<UiIcon
       :icon="icon"
       class="ui-button__icon ui-button__icon--right"
     />
