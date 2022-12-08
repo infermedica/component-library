@@ -200,6 +200,7 @@ onUnmounted(() => {
 
   &__header {
     @include mixins.use-logical($element, padding, var(--space-20));
+    @include mixins.use-logical($element, margin, auto);
 
     display: flex;
     width: 100%;
