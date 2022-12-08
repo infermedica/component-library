@@ -4,13 +4,13 @@ import { Code } from '../../components/Code.jsx';
 import { Table } from '../../components/Table.jsx';
 
 
-<Meta title="Contributing Guide/Css Logical Properties"/>
+<Meta title="Contributing Guide/CSS Logical Properties"/>
 
 # CSS Logical Properties
-The Infermedica component library uses [CSS logical properties](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties)
+The Infermedica component library uses [CSS Logical Properties](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties)
 that provide the ability to control the layout through logical, not physical representations of directions and dimensions.
 It give us a lot more power to control our websites with minimal style changes, no matter what type of language we use
-English, Arabic, etc.
+English, Polish, Arabic, etc.
 
 <PageOutline/>
 
@@ -19,20 +19,26 @@ You can use the following `use-logical` mixin, which transforms conventional ltr
 
 <Code code={`@include mixins.use-logical(element, property, value);`}/>
 
+for example
+
+<Code
+ code={`@infermedica/component-library/mixins;\n\n.ui-button {\n  @include mixins.use-logical("button", padding, var(--space-12) var(--space-32));\n}`}
+/>
+
 ### Mixin arguments:
 #### Property
-- margin
-- padding
-- border
-- border-width
-- border-style
-- border-color
-- border-radius
-- inset
+- `margin`
+- `padding`
+- `border`
+- `border-width`
+- `border-style`
+- `border-color`
+- `border-radius`
+- `inset`
 
-Here is an example of logical properties and css variables for - `margin`, `padding`, `border`, `inset`.
+Here is an example of logical properties and CSS variables for - `margin`, `padding`, `border`, `inset`.
 <Table
-  headers={['Physical property', 'Logical property', 'Css variable']}
+  headers={['Physical property', 'Logical property', 'CSS variable']}
   rows={[
     ['`{property}-top`', '`{property}-block-start`', '`--{element}-{property}-block-start`'],
     ['`{property}-right`', '`{property}-inline-end`', '`--{element}-{property}-inline-end`'],
@@ -44,9 +50,9 @@ Here is an example of logical properties and css variables for - `margin`, `padd
   ]}
 />
 
-Here is an example of logical properties and css variables for `border-width`, `border-style` and `border-color`.
+Here is an example of logical properties and CSS variables for `border-width`, `border-style` and `border-color`.
 <Table
-  headers={['Physical property', 'Logical property', 'Css variable']}
+  headers={['Physical property', 'Logical property', 'CSS Variable']}
   rows={[
     [
       '`border-top-{width/style/color}`',
@@ -71,9 +77,9 @@ Here is an example of logical properties and css variables for `border-width`, `
   ]}
 />
 
-Here is an example of logical properties and css variables for `border-radius`.
+Here is an example of logical properties and CSS variables for `border-radius`.
 <Table
-  headers={['Physical property', 'Logical property', 'Css variable']}
+  headers={['Physical property', 'Logical property', 'CSS variable']}
   rows={[
     [
       '`border-top-left-radius`',
@@ -96,7 +102,7 @@ Here is an example of logical properties and css variables for `border-radius`.
 />
 
 #### Value
-Please use conventional ltr css value for property (top right bottom left) e.g. `20px 30px 10px 40px`:
+Please use conventional ltr CSS value for property (top right bottom left) e.g. `20px 30px 10px 40px`:
 <Code code={`
 {property}-block: 20px 10px;
 {property}-inline: 30px 40px;
@@ -124,7 +130,7 @@ Please use conventional ltr css value for property (top right bottom left) e.g. 
 `}/>
 
 ## Easy way for rtl support
-CSS logical properties respond automatically to text direction and typing mode. This means that the left and right sides will be automatically reversed and
+CSS Logical Properties respond automatically to text direction and typing mode. This means that the left and right sides will be automatically reversed and
 you won't need to add styles for rtl layouts anymore.
 
 <Code code={`.ui-list {
@@ -138,7 +144,7 @@ you won't need to add styles for rtl layouts anymore.
 }
 `}/>
 
-## Stories
+## CSS Logical Properties and Values
 ### Padding
 
 <Canvas>

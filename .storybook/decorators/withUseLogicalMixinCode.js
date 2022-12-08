@@ -89,25 +89,43 @@ const withUseLogicalMixinCode = (story, { args }) => ({
     <UiText class="ui-text--body-2-compact">Sass input:</UiText>
     <div class="docs__scss">
       <UiText class="ui-text--body-2-compact docs__text">
-        @include mixins.use-logical({{element}}, {{property}},
+        @include mixins.use-logical({{ element }}, {{ property }},
       </UiText>
-      <UiInput class="docs__text" v-model="value"/>
+      <UiInput
+        v-model="value"
+        class="docs__text"
+      />
       <UiText class="docs__text">);</UiText>
     </div>
     <UiText class="ui-text--body-2-compact">
       Css output:
     </UiText>
     <div class="docs__css">
-      <UiText v-for="(output, index) in cssOutput" :key="index" class="ui-text--body-2-compact docs__text">
-        {{output}}
+      <UiText 
+        v-for="(output, index) in cssOutput" 
+        :key="index" 
+        class="ui-text--body-2-compact docs__text"
+      >
+        {{ output }}
       </UiText>
     </div>
-    <UiButton class="ui-button--text" @click="handleClick">
-      Change direction: {{direction}}
+    <UiButton 
+      class="ui-button--text" 
+      @click="handleClick"
+    >
+      Change direction: {{ direction }}
     </UiButton>
   </div>
-  <div class="content" :dir="direction">
-    <story v-bind="{logicalStyle, physicalStyle, property}"/>
+  <div 
+    class="content" 
+    :dir="direction"
+  >
+    <story 
+      v-bind="{
+        logicalStyle, 
+        physicalStyle, 
+        property
+    }"/>
   </div>`,
 });
 
