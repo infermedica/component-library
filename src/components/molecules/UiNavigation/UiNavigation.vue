@@ -102,6 +102,7 @@ const navigationItemAttrs = (item: NavigationItem) => {
       flex-flow,
       functions.var($element, flex-direction, row) functions.var($element, flex-wrap, wrap)
     );
+  align-items: functions.var($element, align-items, center);
   justify-content: functions.var($element, justify-content, flex-start);
   gap: functions.var($element, gap, var(--space-12) var(--space-16));
 }
