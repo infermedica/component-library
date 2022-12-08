@@ -23,6 +23,7 @@
               <component
                 :is="'ui-bullet-points'"
                 v-bind="item.children"
+                class="ui-bullet-points--nested"
               />
             </template>
           </slot>
@@ -183,11 +184,17 @@ const bulletPointsItemAttrs = (item: BulletPointsRenderItem) => {
   @include mixins.use-logical($element, padding, 0);
   @include mixins.use-logical($element, margin, 0);
 
+  --_bullet-points-gap: #{functions.var($element, gap, var(--space-4))};
+
   display: flex;
   flex-direction: column;
-  gap: functions.var($element, gap, var(--space-4));
+  gap: var(--_bullet-points-gap);
 
   counter-reset: counter;
   list-style-type: none;
+
+  &--nested {
+    margin-block-start: var(--_bullet-points-gap);
+  }
 }
 </style>
