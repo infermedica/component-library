@@ -115,6 +115,7 @@ export const AsMultipleAnswer = (args) => ({
       v-model="modelValue"
       name="group-single"
       :items="items"
+      hint="Select one answer"
     />
   </UiQuestion>`,
 });

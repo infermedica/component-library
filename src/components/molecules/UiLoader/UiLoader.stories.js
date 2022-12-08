@@ -320,7 +320,7 @@ export const SkeletonLoader = () => ({
   template: `<UiText tag="span">
     Common:
   </UiText>
-  <div class="min-w-80">
+  <div class="min-w-80 self-start">
     <UiLoader
       :isLoading="true"
       type="skeleton"
