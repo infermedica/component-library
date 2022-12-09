@@ -356,10 +356,9 @@ AsOfflinePopover.decorators = [ (story) => ({
     UiPopover,
   },
   template: `<UiPopover
+    class="max-w-80"
     :style="{
-      '--popover-padding': 'var(--space-24) var(--space-16)',
-      width: '320px',
-      height: '192px',
+      '--popover-content-padding-block': 'var(--space-24)',
     }"
   >
     <story/>

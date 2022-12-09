@@ -141,11 +141,12 @@ const TOS = {
     tag="ol"
     class="tos"
   >
-    <UiBulletPointsItem class="tos__paragraph">
+    <UiBulletPointsItem>
       These Terms of Service specify:
       <UiBulletPoints
         tag="ol"
         type="a"
+        class="ui-bullet-points--nested tos--nested"
       >
         <UiBulletPointsItem>
           principles of operation of the website and the mobile application "<UiLink href="#">Triage.com</UiLink>",
@@ -158,11 +159,12 @@ const TOS = {
         </UiBulletPointsItem>
       </UiBulletPoints>
     </UiBulletPointsItem>
-    <UiBulletPointsItem class="tos__paragraph">
+    <UiBulletPointsItem>
       Whenever these Terms of Service refer to:
       <UiBulletPoints
         tag="ol"
         type="a"
+        class="ui-bullet-points--nested tos--nested"
       >
         <UiBulletPointsItem>
           Application, this means the software for portable devices, made available free of charge by the Service Provider referred to in sec. 2(l) below, enabling the use of the Services referred to in sec. 2(k) below,

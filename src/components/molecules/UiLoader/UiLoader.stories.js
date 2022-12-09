@@ -317,7 +317,10 @@ export const SkeletonLoader = () => ({
     UiLoader,
     UiText,
   },
-  template: `<UiText tag="span">
+  template: `<UiText 
+    tag="span" 
+    class="self-start"
+  >
     Common:
   </UiText>
   <div class="min-w-80 self-start">
@@ -328,10 +331,13 @@ export const SkeletonLoader = () => ({
       <!-- Place the content to be loaded. -->
     </UiLoader>
   </div>
-  <UiText tag="span">
+  <UiText 
+    tag="span"
+    class="self-start"
+  >
     Question:
   </UiText>
-  <div class="min-w-80">
+  <div class="min-w-80 self-start">
     <UiLoader
       :isLoading="true"
       type="skeleton"

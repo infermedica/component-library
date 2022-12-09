@@ -16,7 +16,7 @@ export default { name: 'UiContainer' };
 .ui-container {
   $element: container;
 
-  @include mixins.use-logical($element, padding, var(--space-40) var(--space-32));
+  @include mixins.use-logical($element, padding, var(--space-32) var(--space-20 ));
   @include mixins.use-logical($element, border-radius, 0);
 
   background: functions.var($element, background, var(--color-background-white));

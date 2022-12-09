@@ -59,7 +59,7 @@ const {
   @include mixins.inner-border($element, $color: transparent, $width: 0, $radius: var(--border-radius-button));
   @include mixins.font($element, body-1);
 
-  display: flex;
+  display: inline-flex;
   color: functions.var($element, color, var(--color-text-action-primary));
   text-decoration: none;
   transition: color 150ms ease-in-out;

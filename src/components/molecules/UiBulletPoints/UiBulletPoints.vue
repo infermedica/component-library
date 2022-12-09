@@ -181,8 +181,8 @@ const bulletPointsItemAttrs = (item: BulletPointsRenderItem) => {
 .ui-bullet-points {
   $element: bullet-points;
 
-  @include mixins.use-logical($element, padding, 0);
-  @include mixins.use-logical($element, margin, 0);
+  margin: 0;
+  padding: 0;
 
   --_bullet-points-gap: #{functions.var($element, gap, var(--space-4))};
 

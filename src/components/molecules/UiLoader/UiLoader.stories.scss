@@ -55,3 +55,45 @@
   }
 }
 //</Code>
+
+//<Code id="loading-container">
+.loading-container {
+  --container-tablet-padding-block: var(--space-40);
+  --container-desktop-padding-inline: var(--space-48);
+  --container-desktop-padding-block: var(--space-32);
+
+  width: 100%;
+  max-width: 48.75rem;
+
+  &__recommended {
+    margin-block-start: var(--space-16);
+  }
+
+  &__description {
+    margin-block-start: var(--space-4);
+  }
+
+  &__accordion {
+    margin-block-start: var(--space-24);
+  }
+}
+//</Code>
+
+//<Code id="loading-controls">
+.loading-controls {
+  max-width: 48.75rem;
+  width: 100%;
+
+  &__loader {
+    width: 100%;
+  }
+}
+//</Code>
+
+//<Code id="loading-full-on-brand">
+.loading-full-on-brand {
+  position: absolute;
+  inset: 0;
+  background: var(--color-background-brand)
+}
+//</Code>

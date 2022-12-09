@@ -66,8 +66,7 @@
 
   &__prefix-icon {
     --icon-size: 2rem;
-
-    margin-inline: 0 var(--space-16);
+    --button-icon-margin-inline: 0 var(--space-16);
   }
 
   &__content {
@@ -76,12 +75,12 @@
     gap: var(--space-4);
     flex: 1;
     text-align: start;
-    margin: var(--space-4) 0 0 0;
+    margin-block-start: var(--space-4);
   }
 
   &__suffix {
-    margin-block: var(--space-4) 0 ;
-    margin-inline: var(--space-12) 0;
+    --button-icon-margin-block: var(--space-4) 0 ;
+    --button-icon-margin-inline: var(--space-12) 0;
   }
 }
 //</Code>
