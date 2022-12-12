@@ -14,7 +14,7 @@
 follow best practice in terms of design and coding. We provide raw source and aim to be developer-friendly, configurable-first and performance-oriented.
 
 ## Links
-- Documentation https://main--63495e10e48e036f18bd4c89.chromatic.com/
+- Documentation https://main--639728541e2039caadfe5404.chromatic.com
 - Discord Community https://discord.gg/Uhv8Ev8yqC
 
 
