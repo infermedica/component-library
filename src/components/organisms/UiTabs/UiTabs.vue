@@ -131,11 +131,11 @@ provide('handleTabActive', handleTabActive);
   flex-wrap: wrap;
 
   &--fixed {
+    @include mixins.use-logical($element, padding, 0);
+
     --tabs-item-tab-flex: 1;
     --tabs-item-content-margin-block: 0;
     --tabs-item-content-margin-inline: 0;
-
-    @include mixins.use-logical($element, padding, 0);
   }
 }
 </style>

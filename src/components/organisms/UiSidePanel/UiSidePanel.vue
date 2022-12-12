@@ -350,10 +350,6 @@ onBeforeUnmount(() => {
   z-index: 1;
 
   &__dialog {
-    @include mixins.use-logical($element, padding, 0);
-    @include mixins.use-logical($element, border-width, 0);
-    @include mixins.use-logical($element, margin, 0);
-
     position: fixed;
     z-index: 1000;
     top: 0;
@@ -365,6 +361,9 @@ onBeforeUnmount(() => {
     max-width: functions.var($element, max-width, 100%);
     height: 100%;
     flex-direction: column;
+    padding: 0;
+    border-width: 0;
+    margin: 0;
     background: functions.var($element, background, var(--color-background-white));
     box-shadow: functions.var($element, box-shadow, var(--box-shadow-high));
 
