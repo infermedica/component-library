@@ -56,7 +56,7 @@ const Template = (args) => ({
     :translation="translation"
     :radio-option-attrs="radioOptionAttrs"
     :class="modifiers"
-  />{{modelValue}}`,
+  />`,
 });
 
 export const Common = Template.bind({});
