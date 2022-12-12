@@ -39,7 +39,7 @@
     align-items: center;
     align-self: flex-end;
     gap: var(--space-4);
-    margin: var(--space-8) 0 0 0;
+    margin-block-start: var(--space-8);
     font: var(--font-body-2-comfortable);
     letter-spacing: var(--letter-spacing-body-2-comfortable);
   }

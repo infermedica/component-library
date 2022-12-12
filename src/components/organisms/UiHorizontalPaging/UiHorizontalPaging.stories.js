@@ -122,6 +122,7 @@ const TermsOfService = {
         children: {
           tag: 'ol',
           type: 'a',
+          class: 'terms-of-service__bullet-points terms-of-service__bullet-points--nested',
           items: [
             { text: 'principles of operation of the website and the mobile application "Symptomate.com",' },
             { text: 'rules on the provision of services by electronic means,' },

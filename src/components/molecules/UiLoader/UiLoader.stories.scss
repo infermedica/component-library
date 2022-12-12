@@ -27,7 +27,7 @@
     --message-content-align-self: flex-start;
     --message-illustration-size: 1.5rem;
 
-    margin: var(--space-16) 0;
+    margin-block: var(--space-16);
     align-items: flex-start;
   }
 
@@ -66,11 +66,11 @@
   max-width: 48.75rem;
 
   &__recommended {
-    margin-block-start: var(--space-16);
+    margin-block: var(--space-16) 0;
   }
 
   &__description {
-    margin-block-start: var(--space-4);
+    margin-block: var(--space-4) 0;
   }
 
   &__accordion {

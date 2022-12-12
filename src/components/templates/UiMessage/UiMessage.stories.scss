@@ -15,7 +15,7 @@
   --message-illustration-size: 10rem;
 
   &__button {
-    margin: var(--space-16) 0 0 0;
+    margin-block-start: var(--space-16);
   }
 }
 //</Code>
@@ -31,7 +31,7 @@
   align-items: flex-start;
 
   &__button {
-    margin: var(--space-16) 0 0 0;
+    margin-block-start: var(--space-16);
   }
 }
 //</Code>
