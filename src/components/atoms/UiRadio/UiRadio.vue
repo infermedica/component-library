@@ -213,8 +213,8 @@ if (radiobutton.value) {
       &--is-checked {
         &::after {
           @include mixins.use-logical(
-              $element + "-checked-hover",
-              border-color,
+            $element + "-checked-hover",
+            border-color,
               var(--color-selectioncontrols-selection-hover)
             );
         }
@@ -240,8 +240,8 @@ if (radiobutton.value) {
       &--is-checked {
         &::after {
           @include mixins.use-logical(
-              $element + "-checked-active",
-              border-color,
+            $element + "-checked-active",
+            border-color,
               var(--color-selectioncontrols-selection-active)
             );
         }

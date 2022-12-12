@@ -98,7 +98,7 @@ import {
   inject,
 } from 'vue';
 import type { PropType } from 'vue';
-import type { PropsAttrs } from '@/types/attrs';
+import type { PropsAttrs } from '../../../types/attrs';
 import type { Icon } from '../../../types/icon';
 import type {
   MenuSuffixVisible,
@@ -220,10 +220,13 @@ const menuItems = computed<MenuItem[]>(() => {
     class: 'ui-button--theme-secondary',
   };
   return itemsAsArray.value.map((item) => {
+    /* eslint-disable @typescript-eslint/no-unused-vars */
     const {
       title,
       ...rest
     } = item;
+    /* eslint-enable @typescript-eslint/no-unused-vars */
+
     return {
       ...additionalAttrs,
       onClick: () => {

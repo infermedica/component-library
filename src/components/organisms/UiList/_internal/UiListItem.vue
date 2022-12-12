@@ -46,12 +46,8 @@ export default { inheritAttrs: false };
 </script>
 
 <script setup lang="ts">
-import {
-  computed,
-  useAttrs,
-} from 'vue';
+import { computed } from 'vue';
 import type { PropType } from 'vue';
-import type { HTMLTag } from '../../../../types/tag';
 import type { Icon } from '../../../../types/icon';
 import type { PropsAttrs } from '../../../../types/attrs';
 import UiListItemSuffixAsButton from './UiListItemSuffixAsButton.vue';
@@ -100,7 +96,6 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-const attrs = useAttrs();
 const hasButtonSuffix = computed(() => !!Object.keys(props.suffixAttrs).filter(
   (key) => key.match(/(^on*|to|href)/),
 ).length);

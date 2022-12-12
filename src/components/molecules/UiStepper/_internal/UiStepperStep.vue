@@ -98,7 +98,7 @@ const itemAttrs = computed(() => (isVisitedStep.value
     tag: 'span',
     ...Object.keys(attrs.value).reduce((attributes, attribute) => {
       if (!attribute.match(/(to|href)/)) {
-        attributes[attribute] = attrs.value[attribute];
+        attributes[attribute] = attrs.value[attribute]; // eslint-disable-line no-param-reassign
       }
       return attributes;
     }, {}),

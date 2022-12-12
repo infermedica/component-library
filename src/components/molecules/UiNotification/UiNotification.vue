@@ -131,7 +131,6 @@ const hasAction = computed(() => (Object.keys(props.buttonActionAttrs).length > 
   --alert-gap: #{functions.var($element, gap, var(--space-12))};
 
   @include mixins.use-logical($element, padding, var(--space-12));
-
   @include mixins.inner-border(
     $element,
     $radius: var(--border-radius-container),

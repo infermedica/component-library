@@ -61,12 +61,12 @@ const {
 
   display: inline-flex;
   color: functions.var($element, color, var(--color-text-action-primary));
+  gap: functions.var($element, gap, var(--space-4));
   text-decoration: none;
   transition: color 150ms ease-in-out;
   vertical-align: top;
   white-space: normal;
   word-break: break-all;
-  gap: functions.var($element, gap, var(--space-4));
 
   @supports (overflow-wrap: anywhere) {
     overflow-wrap: anywhere;

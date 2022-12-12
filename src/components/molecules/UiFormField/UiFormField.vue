@@ -194,6 +194,7 @@ if (label.value) {
     align-items: center;
     justify-content: flex-start;
     gap: functions.var($element + "label", gap, var(--space-8));
+
     @include mixins.use-logical($element + "-alert", margin, 0 0 var(--space-8) 0);
   }
 

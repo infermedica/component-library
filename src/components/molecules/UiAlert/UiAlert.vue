@@ -92,8 +92,8 @@ const defaultProps = computed(() => ({
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  vertical-align: functions.var($element, vertical-align, top);
   gap: functions.var($element, gap, var(--space-4));
+  vertical-align: functions.var($element, vertical-align, top);
 
   &__icon {
     --icon-color: #{functions.var($element + "-icon", color)};

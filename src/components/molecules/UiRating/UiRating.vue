@@ -270,10 +270,15 @@ const itemsToRender = computed(() => (Array.from({ length: maxScore.value }, (_,
   };
 })));
 const ratingItemAttrs = (item: Record<string, unknown>) => {
-  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+  /* eslint-disable @typescript-eslint/no-unused-vars */
   const {
-    iconActiveAttrs, iconDefaultAttrs, index, ...rest
+    iconActiveAttrs,
+    iconDefaultAttrs,
+    index,
+    ...rest
   } = item;
+  /* eslint-enable @typescript-eslint/no-unused-vars */
+
   return rest;
 };
 </script>
@@ -298,6 +303,7 @@ const ratingItemAttrs = (item: Record<string, unknown>) => {
 
   &__option {
     --_rating-option-gap: #{functions.var($element + "-option", gap, var(--space-24))};
+
     @include mixins.use-logical($element + "-option", border-style, solid);
     @include mixins.use-logical($element + "-option", border-color, transparent);
     @include mixins.use-logical($element + "-option", border-width, 0 var(--_rating-option-gap) 0 0);

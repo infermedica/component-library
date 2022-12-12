@@ -188,6 +188,7 @@ export const AsMobileMenu = (args) => ({
 });
 AsMobileMenu.decorators = [ (story) => ({
   components: {
+    story,
     UiSidePanel,
     UiButton,
   },
@@ -253,7 +254,10 @@ export const AsPopoverContent = (args) => ({
   </UiMenu>`,
 });
 AsPopoverContent.decorators = [ (story) => ({
-  components: { UiPopover },
+  components: {
+    UiPopover,
+    story,
+  },
   template: `<UiPopover style="--popover-content-padding-block: 0; --popover-content-padding-inline: 0; --popover-content-max-height: 20rem; max-width: 20rem">
     <story />
   </UiPopover>`,

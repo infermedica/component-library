@@ -67,9 +67,9 @@ const {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: functions.var($element, gap, var(--space-4));
   background: functions.var($element, background, var(--color-background-action));
   color: functions.var($element, color, var(--color-text-on-action));
+  gap: functions.var($element, gap, var(--space-4));
   text-align: center;
   text-decoration: none;
   transition:

@@ -289,11 +289,6 @@ if (transition.value) {
   }
 }
 // END
-interface Transition {
-  appear: boolean;
-  name: string;
-  [key: string]: unknown;
-}
 interface DefaultProps {
   transitionBackdropAttrs: Record<string, unknown>,
   transitionDialogAttrs: Record<string, unknown>,
@@ -393,7 +388,11 @@ onBeforeUnmount(() => {
     gap: functions.var($element + "-header", gap, var(--space-32));
 
     @include mixins.from-tablet {
-      @include mixins.use-logical($element + "-tablet-header", padding, var(--space-40) var(--space-40) var(--space-32));
+      @include mixins.use-logical(
+        $element + "-tablet-header",
+        padding,
+        var(--space-40) var(--space-40) var(--space-32)
+      );
     }
   }
 

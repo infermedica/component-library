@@ -340,9 +340,14 @@ if (buttonAttrs.value) {
 }
 // END
 const dropdownItemAttrs = (item: DropdownItemAsObj) => {
+  /* eslint-disable @typescript-eslint/no-unused-vars */
   const {
-    name, text, ...rest
+    name,
+    text,
+    ...rest
   } = item;
+  /* eslint-enable @typescript-eslint/no-unused-vars */
+
   return rest;
 };
 </script>

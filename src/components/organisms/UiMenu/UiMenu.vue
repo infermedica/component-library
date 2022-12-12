@@ -73,9 +73,12 @@ const props = defineProps({
   },
 });
 const menuItemAttrs = (item: MenuItem) => {
+  /* eslint-disable @typescript-eslint/no-unused-vars */
   const {
     name, label, ...rest
   } = item;
+  /* eslint-enable @typescript-eslint/no-unused-vars */
+
   return rest;
 };
 const itemsToRender = computed(() => (props.items.map((item, key) => {

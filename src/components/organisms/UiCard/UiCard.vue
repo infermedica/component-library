@@ -187,12 +187,12 @@ const defaultProps = computed(() => ({
   gap: functions.var($element, gap, var(--space-20));
 
   @include mixins.from-tablet {
-    gap: functions.var($element + "-tablet", gap, 0);
     flex-direction: row;
+    gap: functions.var($element + "-tablet", gap, 0);
   }
 
   &__triage {
-    @include mixins.use-logical($element + '-triage', padding, var(--space-20));
+    @include mixins.use-logical($element + "-triage", padding, var(--space-20));
     @include mixins.use-logical($element + "-triage", border-radius, var(--border-radius-container));
 
     display: flex;
@@ -233,7 +233,11 @@ const defaultProps = computed(() => ({
     @include mixins.use-logical($element + "-content", padding, 0);
 
     @include mixins.from-tablet {
-      @include mixins.use-logical($element + "-tablet-content", padding, var(--space-40) var(--space-48) var(--space-48) var(--space-40));
+      @include mixins.use-logical(
+        $element + "-tablet-content",
+        padding,
+        var(--space-40) var(--space-48) var(--space-48) var(--space-40)
+      );
     }
   }
 
@@ -283,7 +287,11 @@ const defaultProps = computed(() => ({
       @include mixins.use-logical($element + "-content", padding, var(--space-24) var(--space-20) var(--space-32));
 
       @include mixins.from-tablet {
-        @include mixins.use-logical($element + "-tablet-content", padding, var(--space-40) var(--space-40) var(--space-48) var(--space-48));
+        @include mixins.use-logical(
+          $element + "-tablet-content",
+          padding,
+          var(--space-40) var(--space-40) var(--space-48) var(--space-48)
+        );
       }
     }
   }

@@ -96,9 +96,13 @@ if (options.value) {
 }
 // END
 const tileItemAttrs = (item: SimpleQuestionOption) => {
+  /* eslint-disable @typescript-eslint/no-unused-vars */
   const {
-    label, ...rest
+    label,
+    ...rest
   } = item;
+  /* eslint-enable @typescript-eslint/no-unused-vars */
+
   return rest;
 };
 const itemsToRender = computed(() => options.value || props.items);

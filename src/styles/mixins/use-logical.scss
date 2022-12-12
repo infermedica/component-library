@@ -16,7 +16,7 @@
         $values: append($values, nth($values, 1));
       }@else {
         $valueIndex: $index - 2;
-      };
+      }
     }
     $value: #{nth($values, $valueIndex)};
     $results: append($results, $value);

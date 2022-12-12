@@ -7,7 +7,6 @@ describe('UiTextarea.vue', () => {
     expect(wrapper.classes('ui-textarea')).toBe(true);
   });
   test('render a native attributes on root element', () => {
-    const placeholder = 'symptom checker';
     const wrapper = mount(UiTextarea, { props: { 'data-testid': 'ui-textarea' } });
     const textarea = wrapper.find('.ui-textarea');
     expect(textarea.attributes('data-testid')).toBe('ui-textarea');

@@ -239,7 +239,6 @@ const defaultProps = computed<DefaultProps>(() => ({
 
   &__bottom {
     @include mixins.use-logical($element + "-bottom", padding, var(--space-12) var(--space-20));
-
     @include mixins.inner-border(
       $element: $element + "-bottom",
       $color:  var(--color-border-divider),

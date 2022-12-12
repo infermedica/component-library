@@ -72,6 +72,7 @@ const hasIcon = computed(() => !!attrs.class && attrs.class.includes('ui-toggle-
 .ui-toggle-button {
   $this: &;
   $element: toggle-button;
+
   @include mixins.focus {
     z-index: 1;
   }

@@ -209,7 +209,11 @@ const defaultProps = computed(() => ({
   }
 
   &__content {
-    @include mixins.use-logical($element + "-content", padding, var(--space-12) var(--space-12) var(--space-12) var(--space-48));
+    @include mixins.use-logical(
+      $element + "-content",
+      padding,
+      var(--space-12) var(--space-12) var(--space-12) var(--space-48)
+    );
 
     width: 100%;
   }

@@ -61,7 +61,6 @@ import {
   ref,
   watch,
   watchEffect,
-  reactive,
 } from 'vue';
 import type {
   PropType,

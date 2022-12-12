@@ -208,12 +208,13 @@ if (buttonAttrs.value) {
       &::after {
         --#{$element}-border-block-end-width: 0;
         --#{$element}-border-inline-start-width: 0;
+
         right: 0;
         transform: translate(50%, -50%) rotate(45deg);
 
         [dir="rtl"] & {
-          left: 0;
           right: auto;
+          left: 0;
           transform: translate(-50%, -50%) rotate(-45deg);
         }
       }
