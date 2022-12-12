@@ -2,7 +2,10 @@
   <label
     class="ui-checkbox"
     :for="checkboxId"
-    v-bind="attrs"
+    v-bind="{
+      ...attrs,
+      ...elementsListeners.label
+    }"
   >
     <input
       :id="checkboxId"
@@ -142,6 +145,18 @@ const props = defineProps({
 const {
   attrs, listeners,
 } = useAttributes();
+const elementsListeners = computed(() => {
+  const {
+    onFocus, onBlur, ...rest
+  } = listeners.value;
+  return {
+    input: {
+      onFocus,
+      onBlur,
+    },
+    label: rest,
+  };
+});
 const defaultProps = computed(() => ({
   iconCheckmarkAttrs: {
     icon: 'checkmark' as Icon,
@@ -153,7 +168,7 @@ const defaultProps = computed(() => ({
   },
   inputAttrs: {
     disabled: props.disabled,
-    ...listeners.value,
+    ...elementsListeners.value.input,
     ...props.inputAttrs,
   },
 }));
