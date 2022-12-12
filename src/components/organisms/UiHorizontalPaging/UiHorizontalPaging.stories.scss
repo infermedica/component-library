@@ -59,12 +59,12 @@
 
   &__bullet-points {
     --bullet-points-gap: var(--space-32);
+  }
 
-    &--nested {
-      --bullet-points-gap: var(--space-8);
+  &__sub-points {
+    --bullet-points-gap: var(--space-8);
 
-      margin-block-start: var(--space-12);
-    }
+    margin-block-start: var(--space-12);
   }
 }
 

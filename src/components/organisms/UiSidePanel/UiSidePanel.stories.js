@@ -146,7 +146,7 @@ const TOS = {
       <UiBulletPoints
         tag="ol"
         type="a"
-        class="ui-bullet-points--nested tos--nested"
+        class="ui-bullet-points--nested tos__sub-points"
       >
         <UiBulletPointsItem>
           principles of operation of the website and the mobile application "<UiLink href="#">Triage.com</UiLink>",
@@ -164,7 +164,7 @@ const TOS = {
       <UiBulletPoints
         tag="ol"
         type="a"
-        class="ui-bullet-points--nested tos--nested"
+        class="ui-bullet-points--nested tos__sub-points"
       >
         <UiBulletPointsItem>
           Application, this means the software for portable devices, made available free of charge by the Service Provider referred to in sec. 2(l) below, enabling the use of the Services referred to in sec. 2(k) below,
