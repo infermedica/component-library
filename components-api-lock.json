@@ -4157,41 +4157,6 @@
     },
     {
       "exportName": "default",
-      "displayName": "UiMegaMenu",
-      "description": "",
-      "tags": {},
-      "props": [
-        {
-          "name": "modelValue",
-          "description": "Use this props or v-model to set value.",
-          "type": {
-            "name": "string"
-          },
-          "defaultValue": {
-            "func": false,
-            "value": "''"
-          }
-        }
-      ],
-      "events": [
-        {
-          "name": "update:modelValue",
-          "type": {
-            "names": [
-              "string"
-            ]
-          }
-        }
-      ],
-      "slots": [
-        {
-          "name": "default",
-          "description": "Use this slot to place content inside MegaMenu."
-        }
-      ]
-    },
-    {
-      "exportName": "default",
       "displayName": "UiMenu",
       "description": "",
       "tags": {},
@@ -7385,68 +7350,6 @@
             "func": false,
             "value": "''"
           }
-        }
-      ]
-    },
-    {
-      "exportName": "default",
-      "displayName": "UiMegaMenuItem",
-      "description": "",
-      "tags": {},
-      "props": [
-        {
-          "name": "name",
-          "description": "Use this props to set item name.",
-          "type": {
-            "name": "string"
-          },
-          "defaultValue": {
-            "func": false,
-            "value": "''"
-          }
-        },
-        {
-          "name": "title",
-          "description": "Use this props to set item title.",
-          "type": {
-            "name": "string"
-          },
-          "defaultValue": {
-            "func": false,
-            "value": "''"
-          }
-        }
-      ],
-      "slots": [
-        {
-          "name": "trigger",
-          "scoped": true,
-          "description": "Use this slot to place trigger template.",
-          "bindings": [
-            {
-              "name": "title",
-              "title": "binding"
-            },
-            {
-              "name": "to",
-              "title": "binding"
-            },
-            {
-              "name": "hasControls",
-              "title": "binding"
-            }
-          ]
-        },
-        {
-          "name": "default",
-          "scoped": true,
-          "description": "Use this slot to place content inside MegaMenuItem.",
-          "bindings": [
-            {
-              "name": "back",
-              "title": "binding"
-            }
-          ]
         }
       ]
     },
