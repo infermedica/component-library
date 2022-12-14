@@ -32,7 +32,14 @@ export default {
       <story/>
     </div>`,
   }) ],
-  parameters: { docs: { page: docs } },
+  parameters: {
+    docs: { page: docs },
+    cssProperties: {
+      '--progress-height': '0.5rem',
+      '--progress-padding': 'calc(var(--_progress-height) * 0.5)',
+      '--progress-border-radius': 'calc(var(--_progress-height) * 0.5)',
+    },
+  },
 };
 
 const Template = (args) => ({

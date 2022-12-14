@@ -65,6 +65,15 @@ export default {
       <story />
     </div>`,
   }) ],
+  parameters: {
+    cssProperties: {
+      '--stepper-padding': '0',
+      '--stepper-background': 'var(--color-background-subtle)',
+      '--stepper-desktop-background': 'transparent',
+      '--stepper-progress-width': '6rem',
+      '--stepper-tablet-progress-width': '11.25rem',
+    },
+  },
 };
 
 export const WithCurrentStep = (args) => ({

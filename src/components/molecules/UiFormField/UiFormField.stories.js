@@ -60,7 +60,15 @@ export default {
     textHintAttrs: { table: { subcategory: 'Attrs props' } },
     alertAttrs: { table: { subcategory: 'Attrs props' } },
   },
-  parameters: { docs: { page: docs } },
+  parameters: {
+    docs: { page: docs },
+    cssProperties: {
+      '--form-field-label-margin': '0 0 var(--space-8) 0',
+      '--form-field-hint-margin': '0 0 0 var(--space-8)',
+      '--form-field-rtl-hint-margin': '0 var(--space-8) 0 0',
+      '--form-field-alert-margin': 'var(--space-8) 0 0 0',
+    },
+  },
 };
 
 export const WithInput = (args) => ({

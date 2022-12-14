@@ -43,6 +43,15 @@ export default {
     iconAlertAttrs: { table: { subcategory: 'Attrs props' } },
     textMessageAttrs: { table: { subcategory: 'Attrs props' } },
   },
+  parameters: {
+    cssProperties: {
+      '--alert-vertical-align': 'top',
+      '--alert-icon-color': 'var(--color-icon-error)',
+      '--alert-icon-margin': '0 var(--space-4) 0 0',
+      '--alert-rtl-icon-margin': '0 0 0 var(--space-4)',
+      '--alert-color': 'var(--color-text-error)',
+    },
+  },
 };
 
 const Template = (args) => ({

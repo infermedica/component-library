@@ -87,7 +87,19 @@ export default {
       control: 'object',
     },
   },
-  parameters: { docs: { page: docs } },
+  parameters: {
+    docs: { page: docs },
+    cssProperties: {
+      '--message-flex-direction': 'column-reverse',
+      '--message-tablet-flex-direction': 'row',
+      '--message-content-align-self': 'flex-end',
+      '--message-title-margin': '0 0 var(--space-8) 0',
+      '--message-aside-margin': '0 0 var(--space-24) 0',
+      '--message-tablet-aside-margin': '0 0 0 var(--space-40)',
+      '--message-rtl-tablet-aside-margin': '0 var(--space-40) 0 0',
+      '--message-illustration-size': '15rem',
+    },
+  },
 };
 
 const Template = (args) => ({

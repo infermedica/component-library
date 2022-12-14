@@ -41,6 +41,20 @@ export default {
     buttonBackAttrs: { table: { subcategory: 'Attrs props' } },
     iconBackAttrs: { table: { subcategory: 'Attrs props' } },
   },
+  parameters: {
+    cssProperties: {
+      '--controls-container-padding': 'var(--space-32) var(--space-20)',
+      '--controls-tablet-container-padding': 'var(--space-48) var(--space-64)',
+      '--controls-bottom-border-radius': '0',
+      '--controls-bottom-transition': 'border-color 150ms ease-in-out',
+      '--controls-bottom-height': '5rem',
+      '--controls-bottom-padding': 'var(--space-12) var(--space-20)',
+      '--controls-bottom-border-style': 'solid',
+      '--controls-bottom-border-color': 'var(--color-border-divider)',
+      '--controls-bottom-border-width': '1px 0 0 0',
+      '--controls-tablet-bottom-padding': 'var(--space-16) var(--space-32)',
+    },
+  },
 };
 
 const Template = (args) => ({

@@ -84,7 +84,21 @@ export default {
       control: 'object',
     },
   },
-  parameters: { docs: { page: docs } },
+  parameters: {
+    docs: { page: docs },
+    cssProperties: {
+      '--question-actions-top-margin': 'var(--space-24) 0 0 0',
+      '--question-content-margin': 'var(--space-32) 0 0 0',
+      '--question-tablet-content-margin': 'var(--space-48) 0 0 0',
+      '--question-actions-bottom-margin': 'var(--space-32) 0 0 0',
+      '--question-tablet-actions-bottom-margin': 'var(--space-48) 0 0 0',
+      '--question-action-margin': 'var(--space-20) 0 0 0',
+      '--question-tablet-action-margin': '0',
+      '--question-action-indicator-width': '1px',
+      '--question-action-indicator-margin': '0 var(--space-16)',
+      '--question-action-indicator-background': 'var(--color-border-divider)',
+    },
+  },
 };
 
 export const AsMultipleAnswer = (args) => ({

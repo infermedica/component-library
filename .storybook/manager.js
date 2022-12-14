@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { addons, types } from '@storybook/addons';
 import { useParameter } from '@storybook/api';
 import { AddonPanel } from '@storybook/components';
@@ -12,16 +12,16 @@ addons.setConfig({
   },
 });
 
+// CSS properties addon
 const ADDON_ID = 'CssProperties';
 const PANEL_ID = `${ADDON_ID}/panel`;
-
 addons.register(ADDON_ID, (api) => {
   addons.add(PANEL_ID, {
     type: types.PANEL,
     title: 'CSS Properties',
     render: ({ active, key }) => (
       <AddonPanel active={active} key={key}>
-        <CssPropertiesTable inAddonPanel={true}/>
+        <CssPropertiesTable data={useParameter('cssProperties')} inAddonPanel={true}/>
       </AddonPanel>
     ),
   });

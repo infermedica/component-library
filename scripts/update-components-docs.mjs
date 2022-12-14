@@ -36,41 +36,37 @@ const getCompiledStyle = (style) => sass.compileString(style, {
 const getCssProperties = (style, componentName) => {
   const regex = new RegExp(`:\\n*[\\s]*var\\([\\s]*--${componentName}-[\\s\\S]*?\\);`, 'g');
   const matches = style.match(regex);
-  if (!matches) return [];
-  return [ ...matches ].map((cssProp) => cssProp
+  if (!matches) return {};
+  return [ ...matches ].map((cssProperty) => cssProperty
     .replace(/\n(\s{2,})/g, '')
     .match(/:[\s]*var\([\s]*--([\s\S]+?)(,[\s]*([\s\S]+?))?\);/))
     .reduce((object, cssVar) => ({
       ...object,
-      [cssVar[1]]: {
-        value: cssVar[3],
-        control: 'text',
-        description: '',
-      },
+      [`--${cssVar[1]}`]: cssVar[3],
     }), {});
 };
 const updateMeta = ({
   stories,
-  cssProps = {},
+  cssProperties = {},
 }) => {
   const indexStartMeta = stories.indexOf('export default');
   const indexNextConst = stories.indexOf(stories.match(/const [A-Z]/)[0]);
   const indexNextExport = stories.indexOf('export', indexStartMeta + 1);
   const indexEndMeta = indexNextConst < indexNextExport ? indexNextConst : indexNextExport;
   const meta = stories.slice(indexStartMeta, indexEndMeta).trim();
-  const hasCssProps = Object.keys(cssProps).length;
+  const hasCssProperties = Object.keys(cssProperties).length;
   const metaHasParameters = meta.includes('parameters:');
-  const metaHasCssProps = meta.includes('cssprops:');
-  const regCssProps = /cssprops:\s*{([\s\S]*)(?<=\n {6}},\n {4}},)/;
+  const metaHasCssProperties = meta.includes('cssProperties:');
+  const regCssProperties = /cssProperties:\s*{([\s\S]*)(?=},\n)/;
   let updatedMeta;
-  if (!metaHasParameters && hasCssProps) {
-    updatedMeta = `${meta.slice(0, -2)} parameters: { cssprops: ${JSON.stringify(cssProps)}}};`;
-  } else if (metaHasCssProps && !hasCssProps) {
-    updatedMeta = meta.replace(regCssProps, '');
-  } else if (metaHasCssProps && hasCssProps) {
-    updatedMeta = meta.replace(regCssProps, `cssprops: ${JSON.stringify(cssProps)},`);
+  if (!metaHasParameters && hasCssProperties) {
+    updatedMeta = `${meta.slice(0, -2)} parameters: { cssProperties: ${JSON.stringify(cssProperties)}}};`;
+  } else if (metaHasCssProperties && !hasCssProperties) {
+    updatedMeta = meta.replace(regCssProperties, '');
+  } else if (metaHasCssProperties && hasCssProperties) {
+    updatedMeta = meta.replace(regCssProperties, `cssProperties: ${JSON.stringify(cssProperties)},`);
   } else {
-    updatedMeta = meta.replace(/(,|)\s*},\s(};)/, `, cssprops: ${JSON.stringify(cssProps)}}};`);
+    updatedMeta = meta.replace(/(,|)\s*},\s(};)/, `, cssProperties: ${JSON.stringify(cssProperties)}}};`);
   }
   return stories.replace(meta, updatedMeta);
 };
@@ -81,10 +77,10 @@ const updateCssProps = ({
 }) => {
   const style = getStyle({ component });
   const compiled = getCompiledStyle(style);
-  const cssProps = getCssProperties(compiled, componentName);
+  const cssProperties = getCssProperties(compiled, componentName);
   const storiesToSave = updateMeta({
     stories,
-    cssProps,
+    cssProperties,
   });
   return storiesToSave;
 };

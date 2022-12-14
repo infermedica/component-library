@@ -135,6 +135,15 @@ export default {
       <story />
     </div>`,
   }) ],
+  parameters: {
+    cssProperties: {
+      '--datepicker-dropdown-margin': 'var(--space-32) 0 0 var(--space-24)',
+      '--datepicker-rtl-dropdown-margin': 'var(--space-32) var(--space-24) 0 0',
+      '--datepicker-group-field-margin': '0',
+      '--datepicker-rtl-group-field-margin': '0 0 0 var(--space-8)',
+      '--datepicker-label-margin': '0 0 var(--space-8) 0',
+    },
+  },
 };
 
 export const FullConfiguration = (args) => ({

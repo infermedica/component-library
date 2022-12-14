@@ -97,7 +97,32 @@ export default {
     headingTitleAttrs: { table: { subcategory: 'Attrs props' } },
     textDescriptionAttrs: { table: { subcategory: 'Attrs props' } },
   },
-  parameters: { docs: { page: docs } },
+  parameters: {
+    docs: { page: docs },
+    cssProperties: {
+      '--card-padding': '0',
+      '--card-tablet-padding': '0',
+      '--card-desktop-padding': '0',
+      '--card-triage-padding': 'var(--space-20)',
+      '--card-subtitle-margin': '0 0 var(--space-12)',
+      '--card-triage-background': 'var(--color-triage-self-care)',
+      '--card-triage-border-radius': '0',
+      '--card-tablet-triage-padding': 'var(--space-40) var(--space-32)',
+      '--card-tablet-triage-margin': '0',
+      '--card-tablet-triage-border-radius': '0 var(--border-radius-container) var(--border-radius-container) 0',
+      '--card-rtl-tablet-triage-border-radius': 'var(--border-radius-container) 0 0 var(--border-radius-container)',
+      '--card-icon-size': '4rem',
+      '--card-icon-color': 'var(--color-icon-negative)',
+      '--card-subtitle-color': 'var(--color-text-dimmed)',
+      '--card-title-margin': '0 0 var(--space-16)',
+      '--card-content-padding': 'var(--space-24) var(--space-20) var(--space-32)',
+      '--card-tablet-content-padding': 'var(--space-40) var(--space-40) var(--space-48) var(--space-48)',
+      '--card-rtl-tablet-content-padding': 'var(--space-40) var(--space-48) var(--space-48) var(--space-40)',
+      '--card-mobile-icon-size': '3rem',
+      '--card-title-font': 'var(--font-h1)',
+      '--card-title-letter-spacing': 'var(--letter-spacing-h1)',
+    },
+  },
 };
 
 const Template = (args) => ({

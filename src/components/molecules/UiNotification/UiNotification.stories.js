@@ -42,6 +42,20 @@ export default {
       <story />
     </div>`,
   }) ],
+  parameters: {
+    cssProperties: {
+      '--notification-border-radius': 'var(--border-radius-container)',
+      '--notification-transition': 'border-color 150ms ease-in-out',
+      '--notification-icon-margin': '0 var(--space-12) 0 0',
+      '--notification-rtl-icon-margin': '0 0 0 var(--space-12)',
+      '--notification-padding': 'var(--space-12)',
+      '--notification-background': 'var(--color-background-error)',
+      '--notification-border-style': 'solid',
+      '--notification-border-color': 'var(--color-border-error-subtle)',
+      '--notification-border-width': '1px',
+      '--notification-action-margin': 'var(--space-4) 0 0 0',
+    },
+  },
 };
 
 const Template = (args) => ({

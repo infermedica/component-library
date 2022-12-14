@@ -35,6 +35,17 @@ export default {
     modelValue: { control: false },
     radioOptionAttrs: { table: { subcategory: 'Attrs props' } },
   },
+  parameters: {
+    cssProperties: {
+      '--rating-option-gap': 'var(--space-24)',
+      '--rating-hover-icon-color': 'var(--color-icon-disabled)',
+      '--rating-checked-hover-icon-color': 'var(--color-icon-disabled)',
+      '--rating-active-icon-color': 'var(--color-icon-secondary-active)',
+      '--rating-checked-active-icon-color': 'var(--color-icon-disabled)',
+      '--rating-checked-icon-color': 'var(--color-icon-disabled)',
+      '--rating-icon-color': 'var(--color-icon-disabled)',
+    },
+  },
 };
 
 const Template = (args) => ({

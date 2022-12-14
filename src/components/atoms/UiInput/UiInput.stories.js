@@ -60,6 +60,25 @@ export default {
     inputAttrs: { table: { subcategory: 'Attrs props' } },
     textSuffixAttrs: { table: { subcategory: 'Attrs props' } },
   },
+  parameters: {
+    cssProperties: {
+      '--input-border-radius': 'var(--border-radius-form)',
+      '--input-transition': 'border-color 150ms ease-in-out',
+      '--input-border-style': 'solid',
+      '--input-border-color': 'var(--color-border-error-strong)',
+      '--input-border-width': '1px',
+      '--input-hover-border-color': 'var(--color-border-error-strong-hover)',
+      '--input-font': 'var(--font-body-1)',
+      '--input-letter-spacing': 'var(--letter-spacing-body-1)',
+      '--input-padding': 'var(--space-12) var(--space-16)',
+      '--input-caret-color': 'var(--color-gray-400)',
+      '--input-color': 'var(--color-text-disabled)',
+      '--input-placeholder-color': 'var(--color-text-disabled)',
+      '--input-aside-margin': '0 var(--space-12) 0 calc(var(--space-4) * -1)',
+      '--input-rtl-aside-margin': '0 calc(var(--space-4) * -1) 0 var(--space-12)',
+      '--input-aside-color': 'var(--color-text-disabled)',
+    },
+  },
 };
 
 const Template = (args) => ({

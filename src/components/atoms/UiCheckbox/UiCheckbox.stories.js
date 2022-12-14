@@ -55,6 +55,31 @@ export default {
     iconCheckmarkAttrs: { table: { subcategory: 'Attrs props' } },
     textLabelAttrs: { table: { subcategory: 'Attrs props' } },
   },
+  parameters: {
+    cssProperties: {
+      '--checkbox-hover-border-color': 'var(--color-border-error-strong-hover)',
+      '--checkbox-checked-hover-background': 'var(--color-border-error-strong-hover)',
+      '--checkbox-checked-hover-border-color': 'var(--color-border-error-strong-hover)',
+      '--checkbox-active-border-color': 'var(--color-border-strong-active)',
+      '--checkbox-checked-active-background': 'var(--color-border-error-strong-active)',
+      '--checkbox-checked-active-border-color': 'var(--color-border-error-strong-active)',
+      '--checkbox-border-radius': 'var(--border-radius-form)',
+      '--checkbox-transition': 'border-color 150ms ease-in-out, background-color 150ms ease-in-out',
+      '--checkbox-size': '1.25rem',
+      '--checkbox-background': 'var(--color-background-white)',
+      '--checkbox-border-style': 'solid',
+      '--checkbox-border-color': 'var(--color-border-error-strong)',
+      '--checkbox-border-width': '2px',
+      '--checkbox-checked-background': 'var(--color-border-error-strong)',
+      '--checkbox-checked-border-color': 'var(--color-border-error-strong)',
+      '--checkbox-checked-checkmark-color': 'var(--color-text-on-selection)',
+      '--checkbox-checkmark-size': '1rem',
+      '--checkbox-checkmark-color': 'transparent',
+      '--checkbox-label-margin': '0 0 0 var(--space-12)',
+      '--checkbox-label-color': 'var(--color-text-disabled)',
+      '--checkbox-rtl-label-margin': '0 var(--space-12) 0 0',
+    },
+  },
 };
 
 const Template = (args) => ({

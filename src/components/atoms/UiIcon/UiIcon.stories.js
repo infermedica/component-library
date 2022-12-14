@@ -15,7 +15,10 @@ export default {
       options: icons,
     },
   },
-  parameters: { docs: { page: docs } },
+  parameters: {
+    docs: { page: docs },
+    cssProperties: { '--icon-size': 'var(--icon-height, 1.5rem)' },
+  },
 };
 
 const Template = (args) => ({

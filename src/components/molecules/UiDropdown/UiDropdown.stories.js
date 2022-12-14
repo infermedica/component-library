@@ -82,7 +82,16 @@ export default {
         <story />
     </div>`,
   }) ],
-  parameters: { docs: { page: docs } },
+  parameters: {
+    docs: { page: docs },
+    cssProperties: {
+      '--dropdown-popover-padding': 'var(--space-8)',
+      '--dropdown-popover-width': '100%',
+      '--dropdown-popover-max-width': '15rem',
+      '--dropdown-popover-min-height': '0',
+      '--dropdown-popover-margin': 'var(--space-8) 0 0 0',
+    },
+  },
 };
 
 const Template = (args) => ({

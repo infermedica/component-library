@@ -44,6 +44,18 @@ export default {
     buttonIncrementAttrs: { table: { subcategory: 'Attrs props' } },
     iconIncrementAttrs: { table: { subcategory: 'Attrs props' } },
   },
+  parameters: {
+    cssProperties: {
+      '--number-stepper-decrement-margin': '0 var(--space-12) 0 0',
+      '--number-stepper-rtl-decrement-margin': '0 0 0 var(--space-12)',
+      '--number-stepper-tablet-decrement-margin': '0 var(--space-4) 0 0',
+      '--number-stepper-rtl-tablet-decrement-margin': '0 0 0 var(--space-4)',
+      '--number-stepper-increment-margin': '0 0 0 var(--space-12)',
+      '--number-stepper-rtl-increment-margin': '0 var(--space-12) 0 0',
+      '--number-stepper-tablet-increment-margin': '0 0 0 var(--space-4)',
+      '--number-stepper-rtl-tablet-increment-margin': '0 var(--space-4) 0 0',
+    },
+  },
 };
 
 export const WithTextValue = (args) => ({

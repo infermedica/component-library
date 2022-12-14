@@ -55,6 +55,30 @@ export default {
     radioElementAttrs: { table: { subcategory: 'Attrs props' } },
     textLabelAttrs: { table: { subcategory: 'Attrs props' } },
   },
+  parameters: {
+    cssProperties: {
+      '--radio-hover-border-color': 'var(--color-border-strong-hover)',
+      '--radio-checked-hover-border-color': 'var(--color-selectioncontrols-selection-hover)',
+      '--radio-checked-hover-mark-color': 'var(--color-selectioncontrols-selection-hover)',
+      '--radio-active-border-color': 'var(--color-border-strong-active)',
+      '--radio-checked-active-border-color': 'var(--color-selectioncontrols-selection-active)',
+      '--radio-checked-active-mark-color': 'var(--color-selectioncontrols-selection-active)',
+      '--radio-border-radius': 'var(--border-radius-circle)',
+      '--radio-transition': 'border-color 150ms ease-in-out, background-color 150ms ease-in-out',
+      '--radio-size': '1.25rem',
+      '--radio-background': 'var(--color-background-white)',
+      '--radio-border-style': 'solid',
+      '--radio-border-color': 'var(--color-border-strong)',
+      '--radio-border-width': '2px',
+      '--radio-checked-border-color': 'var(--color-border-error-strong)',
+      '--radio-checked-mark-color': 'var(--color-border-error-strong)',
+      '--radio-mark-size': '0.625rem',
+      '--radio-mark-color': 'transparent',
+      '--radio-label-margin': '0 0 0 var(--space-12)',
+      '--radio-label-color': 'var(--color-text-disabled)',
+      '--radio-rtl-label-margin': '0 var(--space-12) 0 0',
+    },
+  },
 };
 
 const Template = (args) => ({

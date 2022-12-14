@@ -32,6 +32,23 @@ export default {
     buttonRemoveAttrs: { table: { subcategory: 'Attrs props' } },
     iconRemoveAttrs: { table: { subcategory: 'Attrs props' } },
   },
+  parameters: {
+    cssProperties: {
+      '--chip-padding': 'var(--space-4) var(--space-4) var(--space-4) var(--space-12)',
+      '--chip-background': 'var(--color-chip-background)',
+      '--chip-border-radius': 'var(--border-radius-form)',
+      '--chip-gap': 'var(--space-8)',
+      '--chip-rtl-padding': 'var(--space-4) var(--space-12) var(--space-4) var(--space-4)',
+      '--chip-label-color': 'var(--color-chip-text)',
+      '--chip-remove-filled-close-color': 'var(--color-chip-icon)',
+      '--chip-icon-color': 'var(--color-chip-icon-background)',
+      '--chip-icon-hover-color': 'var(--color-chip-icon-background-hover)',
+      '--chip-icon-active-color': 'var(--color-chip-icon-background-active)',
+      '--chip-rtl-icon-margin': 'calc(var(--space-2) * -1)',
+      '--chip-remove-margin': 'var(--space-2)',
+      '--chip-remove-pointer-area-size': 'var(--space-32)',
+    },
+  },
 };
 
 const Template = (args) => ({

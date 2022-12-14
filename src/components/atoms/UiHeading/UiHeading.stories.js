@@ -29,6 +29,14 @@ export default {
       ],
     }),
   },
+  parameters: {
+    cssProperties: {
+      '--heading-font': 'var(--font-h6)',
+      '--heading-letter-spacing': 'var(--letter-spacing-h6)',
+      '--heading-margin': '0',
+      '--heading-color': 'var(--color-text-heading)',
+    },
+  },
 };
 
 const Template = (args) => ({

@@ -122,7 +122,21 @@ export default {
       <story/>
     </div>`,
   }) ],
-  parameters: { docs: { description: { component: 'Modal use `v-body-scroll-lock`. Only works on Canvas mode.' } } },
+  parameters: {
+    docs: { description: { component: 'Modal use `v-body-scroll-lock`. Only works on Canvas mode.' } },
+    cssProperties: {
+      '--modal-max-width': '40rem',
+      '--modal-padding': 'var(--space-24)',
+      '--modal-background': 'var(--color-background-white)',
+      '--modal-border-radius': 'var(--border-radius-container)',
+      '--modal-box-shadow': 'var(--box-shadow-high)',
+      '--modal-title-margin': '0 0 var(--space-12) 0',
+      '--modal-actions-margin': 'var(--space-32) 0 0 0',
+      '--modal-confirm-margin': '0 0 var(--space-12) 0',
+      '--modal-tablet-confirm-margin': '0 0 0 var(--space-12)',
+      '--modal-rtl-tablet-confirm-margin': '0 var(--space-12) 0 0',
+    },
+  },
 };
 
 const Template = (args) => ({

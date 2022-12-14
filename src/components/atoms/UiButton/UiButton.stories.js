@@ -41,6 +41,31 @@ export default {
       <story />
     </div>`,
   }) ],
+  parameters: {
+    cssProperties: {
+      '--button-border-radius': 'var(--border-radius-button)',
+      '--button-transition': 'border-color 150ms ease-in-out',
+      '--button-font': 'var(--font-body-2-comfortable)',
+      '--button-letter-spacing': 'var(--letter-spacing-2-comfortable)',
+      '--button-padding': 'var(--space-12)',
+      '--button-background': 'var(--color-background-disabled)',
+      '--button-color': 'var(--color-text-disabled)',
+      '--button-border-style': 'solid',
+      '--button-border-color': 'var(--color-border-subtle)',
+      '--button-border-width': '1px',
+      '--button-hover-background': 'transparent',
+      '--button-hover-color': 'var(--color-text-disabled)',
+      '--button-hover-border-color': 'var(--color-background-selection-hover)',
+      '--button-hover-icon-color': 'var(--color-icon-disabled)',
+      '--button-active-background': 'var(--color-background-selection-active)',
+      '--button-active-color': 'var(--color-text-disabled)',
+      '--button-active-border-color': 'var(--color-background-selection-active)',
+      '--button-active-icon-color': 'var(--color-icon-disabled)',
+      '--button-icon-color': 'var(--color-icon-disabled)',
+      '--button-icon-margin': '0 0 0 var(--space-4)',
+      '--button-rtl-icon-margin': '0 var(--space-4) 0 0',
+    },
+  },
 };
 
 export const Common = (args) => ({

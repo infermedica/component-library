@@ -49,6 +49,22 @@ export default {
       ],
     },
   },
+  parameters: {
+    cssProperties: {
+      '--textarea-border-radius': 'var(--border-radius-form)',
+      '--textarea-transition': 'border-color 150ms ease-in-out',
+      '--textarea-border-style': 'solid',
+      '--textarea-border-color': 'var(--color-border-error-strong)',
+      '--textarea-border-width': '1px',
+      '--textarea-hover-border-color': 'var(--color-border-error-strong-hover)',
+      '--textarea-font': 'var(--font-body-1)',
+      '--textarea-letter-spacing': 'var(--letter-spacing-body-1)',
+      '--textarea-padding': 'var(--space-12) var(--space-16)',
+      '--textarea-caret-color': 'var(--color-gray-400)',
+      '--textarea-color': 'var(--color-text-disabled)',
+      '--textarea-placeholder-color': 'var(--color-text-disabled)',
+    },
+  },
 };
 
 const Template = (args) => ({

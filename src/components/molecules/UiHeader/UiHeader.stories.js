@@ -83,7 +83,17 @@ export default {
     iconLogoAttrs: { table: { subcategory: 'Attrs props' } },
     navigationAttrs: { table: { subcategory: 'Attrs props' } },
   },
-  parameters: { docs: { page: docs } },
+  parameters: {
+    docs: { page: docs },
+    cssProperties: {
+      '--header-background': 'var(--color-background-brand)',
+      '--header-max-width': '61.25rem',
+      '--header-padding': '0 var(--space-20)',
+      '--header-brand-margin': 'var(--space-20) 0',
+      '--header-logo-width': 'fit-content',
+      '--header-logo-height': '1.5rem',
+    },
+  },
 };
 
 const Template = (args) => ({

@@ -77,6 +77,12 @@ export default {
     invalid: { control: false },
     hintAlertAttrs: { table: { subcategory: 'Attrs props' } },
   },
+  parameters: {
+    cssProperties: {
+      '--multiple-answer-hint-padding': '0 var(--space-20) var(--space-12)',
+      '--multiple-answer-tablet-hint-padding': '0 0 var(--space-12) 0',
+    },
+  },
 };
 
 const Template = (args) => ({

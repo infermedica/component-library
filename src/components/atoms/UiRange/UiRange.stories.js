@@ -43,6 +43,25 @@ export default {
     inputAttrs: { table: { subcategory: 'Attrs props' } },
     headingValueAttrs: { table: { subcategory: 'Attrs props' } },
   },
+  parameters: {
+    cssProperties: {
+      '--range-thumb-size': '3rem',
+      '--range-input-margin': '0 0 var(--space-24) 0',
+      '--range-tablet-input-margin': '0',
+      '--range-track-background': 'var(--color-progress-track)',
+      '--range-runnable-track-background': 'var(--color-range-progress-indicator)',
+      '--range-track-height': '4px',
+      '--range-value-margin-bottom': 'var(--space-8)',
+      '--range-thumb-background-color': 'var(--color-range-thumb)',
+      '--range-thumb-background-image': "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M34 12l-2.828 2.828L40.344 24l-9.172 9.172L34 36l12-12zm0 0M14 12l2.828 2.828L7.656 24l9.172 9.172L14 36 2 24zm0 0' fill-rule='evenodd' fill='%23fff'/%3E%3C/svg%3E%0A\")",
+      '--range-thumb-icon-size': '1.5rem',
+      '--range-thumb-border-radius': 'var(--border-radius-circle)',
+      '--range-thumb-box-shadow': 'var(--box-shadow-high)',
+      '--range-thumb-transition': 'background-color 150ms ease-in-out',
+      '--range-thumb-hover-background-color': 'var(--color-range-thumb-hover)',
+      '--range-thumb-active-background-color': 'var(--color-range-thumb-active)',
+    },
+  },
 };
 
 export const Common = (args) => ({

@@ -13,7 +13,16 @@ export default {
     progressAttrs: { id: 'stepper-progress' },
   },
   argTypes: { progressAttrs: { table: { subcategory: 'Attrs props' } } },
-  parameters: { docs: { page: docs } },
+  parameters: {
+    docs: { page: docs },
+    cssProperties: {
+      '--progressbar-height': '1rem',
+      '--progressbar-step-size': '0.625rem',
+      '--progressbar-step-margin': '3px 0',
+      '--progressbar-step-background': 'var(--color-icon-on-selection)',
+      '--progressbar-step-border-radius': 'var(--border-radius-circle)',
+    },
+  },
 };
 
 export const WithDots = (args) => ({

@@ -64,6 +64,23 @@ export default {
     buttonCloseAttrs: { table: { subcategory: 'Attrs props' } },
     iconCloseAttrs: { table: { subcategory: 'Attrs props' } },
   },
+  parameters: {
+    cssProperties: {
+      '--popover-border-radius': 'var(--border-radius-form)',
+      '--popover-transition': 'border-color 150ms ease-in-out',
+      '--popover-background': 'var(--color-background-subtle)',
+      '--popover-box-shadow': 'var(--box-shadow-high)',
+      '--popover-border-style': 'solid',
+      '--popover-border-color': 'var(--color-border-subtle)',
+      '--popover-border-width': '1px',
+      '--popover-header-padding': 'var(--space-12) var(--space-16)',
+      '--popover-content-padding': 'var(--space-16)',
+      '--popover-arrow-size': '0.75rem',
+      '--popover-arrow-border-width': '1px',
+      '--popover-header-background': 'var(--color-background-subtle)',
+      '--popover-mobile-border-radius': '0',
+    },
+  },
 };
 
 const Template = (args) => ({

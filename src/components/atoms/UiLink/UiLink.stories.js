@@ -40,6 +40,25 @@ export default {
       <story />
     </div>`,
   }) ],
+  parameters: {
+    cssProperties: {
+      '--link-border-radius': 'var(--border-radius-button)',
+      '--link-transition': 'border-color 150ms ease-in-out',
+      '--link-font': 'var(--font-body-1)',
+      '--link-letter-spacing': 'var(--letter-spacing-body-1)',
+      '--link-color': 'var(--color-text-action-primary)',
+      '--link-border-style': 'solid',
+      '--link-border-color': 'transparent',
+      '--link-border-width': '0',
+      '--link-hover-color': 'var(--color-text-action-primary-hover)',
+      '--link-hover-icon-color': 'var(--color-icon-primary-hover)',
+      '--link-active-color': 'var(--color-text-action-primary-active)',
+      '--link-active-icon-color': 'var(--color-icon-primary-active)',
+      '--link-icon-color': 'var(--color-icon-primary)',
+      '--link-icon-margin': '0 0 0 var(--space-4)',
+      '--link-rtl-icon-margin': '0 var(--space-4) 0 0',
+    },
+  },
 };
 
 export const Common = (args) => ({

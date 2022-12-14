@@ -60,7 +60,23 @@ export default {
     iconAttrs: { table: { subcategory: 'Attrs props' } },
     textLabelAttrs: { table: { subcategory: 'Attrs props' } },
   },
-  parameters: { docs: { page: docs } },
+  parameters: {
+    docs: { page: docs },
+    cssProperties: {
+      '--tile-padding': 'var(--space-16)',
+      '--tile-tablet-padding': 'var(--space-24) var(--space-16)',
+      '--tile-icon-size': '2rem',
+      '--tile-tablet-icon-size': '4rem',
+      '--tile-label-margin': '0 0 0 var(--space-16)',
+      '--tile-rtl-label-margin': '0 var(--space-16) 0 0',
+      '--tile-tablet-label-margin': 'var(--space-16) 0 0 0',
+      '--tile-rtl-tablet-label-margin': 'var(--space-16) 0 0 0',
+      '--tile-checked-width': '2px',
+      '--tile-checked-color-border': 'var(--color-border-strong)',
+      '--tile-hover-checked-color-border': 'var(--color-border-strong)',
+      '--tile-active-checked-color-border': 'var(--color-border-strong)',
+    },
+  },
 };
 
 const Template = (args) => ({

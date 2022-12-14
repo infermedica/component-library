@@ -62,6 +62,7 @@ export default {
       <story />
     </div>`,
   }) ],
+  parameters: { cssProperties: { '--tabs-padding': '0' } },
 };
 
 const Template = (args) => ({

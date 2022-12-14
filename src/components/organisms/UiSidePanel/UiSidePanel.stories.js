@@ -129,7 +129,24 @@ export default {
       <story/>
     </div>`,
   }) ],
-  parameters: { docs: { description: { component: 'SidePanel use `v-body-scroll-lock`. Only works on Canvas mode.' } } },
+  parameters: {
+    docs: { description: { component: 'SidePanel use `v-body-scroll-lock`. Only works on Canvas mode.' } },
+    cssProperties: {
+      '--side-panel-max-width': '100%',
+      '--side-panel-background': 'var(--color-background-white)',
+      '--side-panel-box-shadow': 'var(--box-shadow-high)',
+      '--side-panel-tablet-max-width': '40rem',
+      '--side-panel-header-padding': 'var(--space-20) var(--space-20) var(--space-24)',
+      '--side-panel-header-background': 'var(--color-background-subtle)',
+      '--side-panel-tablet-header-padding': 'var(--space-40) var(--space-40) var(--space-32)',
+      '--side-panel-label-padding': '0',
+      '--side-panel-label-margin': 'var(--space-32) 0 0 0',
+      '--side-panel-tablet-label-padding': '0 var(--space-8)',
+      '--side-panel-subtitle-margin': 'var(--space-8) 0 0 0',
+      '--side-panel-content-padding': 'var(--space-24) var(--space-20)',
+      '--side-panel-tablet-content-padding': 'var(--space-32) var(--space-48)',
+    },
+  },
 };
 const TOS = {
   components: {

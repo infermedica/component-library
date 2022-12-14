@@ -56,6 +56,24 @@ export default {
     textMaxAttrs: { table: { subcategory: 'Attrs props' } },
     numberStepperAttrs: { table: { subcategory: 'Attrs props' } },
   },
+  parameters: {
+    cssProperties: {
+      '--scale-mobile-controls-margin': 'var(--space-32) 0 0 0',
+      '--scale-option-gap': '1px',
+      '--scale-option-border-radius': 'var(--border-radius-form)',
+      '--scale-square-background': 'var(--color-dataviz-diverging-moderately-negative)',
+      '--scale-square-overlay-background': 'var(--color-dataviz-diverging-strongly-negative)',
+      '--scale-label-color': 'var(--color-text-on-selection)',
+      '--scale-label-padding': 'var(--space-8) 0',
+      '--scale-label-margin': '0 0 var(--space-8) 0',
+      '--scale-label-arrow-size': '8px',
+      '--scale-checked-label-background': 'var(--color-background-selection)',
+      '--scale-description-color': 'var(--color-text-dimmed)',
+      '--scale-description-margin': 'var(--space-16) 0 0 0',
+      '--scale-mild-color': 'var(--_scale-description-color)',
+      '--scale-unredable-color': 'var(--_scale-description-color)',
+    },
+  },
 };
 
 const Template = (args) => ({
