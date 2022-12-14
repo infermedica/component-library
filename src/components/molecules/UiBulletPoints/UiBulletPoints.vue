@@ -181,6 +181,8 @@ const bulletPointsItemAttrs = (item: BulletPointsRenderItem) => {
 .ui-bullet-points {
   $element: bullet-points;
 
+  --_bullet-points-gap: #{functions.var($element, gap, var(--space-4))};
+
   display: flex;
   flex-direction: column;
   padding: 0;
@@ -188,8 +190,6 @@ const bulletPointsItemAttrs = (item: BulletPointsRenderItem) => {
   counter-reset: counter;
   gap: var(--_bullet-points-gap);
   list-style-type: none;
-
-  --_bullet-points-gap: #{functions.var($element, gap, var(--space-4))};
 
   &--nested {
     margin-block-start: var(--_bullet-points-gap);
