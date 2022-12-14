@@ -92,7 +92,7 @@ const Template = (args) => ({
   >
     {{ content }}<UiIcon
         :icon="icon"
-        class="ui-link__icon ui-link__icon--right"
+        class="ui-link__icon ui-link__icon--end"
     />
   </UiLink>
   <UiText tag="span">
@@ -131,7 +131,7 @@ const Template = (args) => ({
   >
     {{ content }}<UiIcon
       :icon="icon"
-      class="ui-link__icon ui-link__icon--right"
+      class="ui-link__icon ui-link__icon--end"
   />
   </UiLink>`,
 });

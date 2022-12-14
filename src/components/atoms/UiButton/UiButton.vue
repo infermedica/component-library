@@ -132,7 +132,7 @@ const {
 
     transition: fill 150ms ease-in-out;
 
-    &--right {
+    &--end {
       @include mixins.use-logical($element + "-icon", margin, 0 calc(var(--space-8) * -1) 0 0);
     }
   }

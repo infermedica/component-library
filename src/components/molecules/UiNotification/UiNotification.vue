@@ -50,7 +50,7 @@
               <UiIcon
                 v-bind="defaultProps.iconActionAttrs"
                 icon="chevron-right"
-                class="ui-button__icon ui-button__icon--right"
+                class="ui-button__icon ui-button__icon--end"
               />
             </UiButton>
           </slot>

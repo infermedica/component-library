@@ -81,7 +81,7 @@ const Template = (args) => ({
   <UiButton :class="modifiers">
     {{ content }}<UiIcon
       :icon="icon"
-      class="ui-button__icon ui-button__icon--right"
+      class="ui-button__icon ui-button__icon--end"
     />
   </UiButton>
   <UiText tag="span">
@@ -110,7 +110,7 @@ const Template = (args) => ({
   ]">
     {{ content }}<UiIcon
       :icon="icon"
-      class="ui-button__icon ui-button__icon--right"
+      class="ui-button__icon ui-button__icon--end"
     />
   </UiButton>
   <UiText tag="span">
@@ -137,7 +137,7 @@ const Template = (args) => ({
   ]">
     {{ content }}<UiIcon
       :icon="icon"
-      class="ui-button__icon ui-button__icon--right"
+      class="ui-button__icon ui-button__icon--end"
     />
   </UiButton>`,
 });
@@ -168,7 +168,7 @@ export const Outlined = (args) => ({
   <UiButton :class="modifiers">
     {{ content }}<UiIcon
       :icon="icon"
-      class="ui-button__icon ui-button__icon--right"
+      class="ui-button__icon ui-button__icon--end"
     />
   </UiButton>
   <UiText tag="span">Small:</UiText>
@@ -193,7 +193,7 @@ export const Outlined = (args) => ({
   ]">
     {{ content }}<UiIcon
       :icon="icon"
-      class="ui-button__icon ui-button__icon--right"
+      class="ui-button__icon ui-button__icon--end"
     />
   </UiButton>
   <UiText tag="span">Selected:</UiText>
@@ -218,7 +218,7 @@ export const Outlined = (args) => ({
   ]">
   {{ content }}<UiIcon
     :icon="icon"
-    class="ui-button__icon ui-button__icon--right"
+    class="ui-button__icon ui-button__icon--end"
   />
   </UiButton>
   <UiText tag="span">
@@ -245,7 +245,7 @@ export const Outlined = (args) => ({
   ]">
     {{ content }}<UiIcon
       :icon="icon"
-      class="ui-button__icon ui-button__icon--right"
+      class="ui-button__icon ui-button__icon--end"
     />
   </UiButton>`,
 });
