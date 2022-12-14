@@ -103,14 +103,14 @@ const itemsToRender = computed(() => (props.items.map((item, key) => {
     name: item.name || `list-item-${key}`,
   };
 })));
+/* eslint-disable @typescript-eslint/no-unused-vars */
 const listItemAttrs = ({
   name, label, children, ...rest
 }: ListItemAttrs) => rest;
+/* eslint-enable @typescript-eslint/no-unused-vars */
 </script>
 
 <style lang="scss">
-@use "../../../styles/functions";
-
 .ui-list {
   padding: 0;
   margin: 0;

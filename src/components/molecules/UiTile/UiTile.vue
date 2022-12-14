@@ -146,7 +146,9 @@ function selectHandler(): void {
   $this: &;
   $element: tile;
 
-  --button-padding: #{functions.var($element, padding, var(--space-16))};
+  --button-padding-block: #{functions.var($element, padding + "-block", var(--space-16))};
+  --button-padding-inline: #{functions.var($element, padding + "-inline", var(--space-16))};
+  --button-gap: #{functions.var($element, gap, var(--space-16))};
 
   align-items: center;
   justify-content: flex-start;
@@ -163,34 +165,19 @@ function selectHandler(): void {
   }
 
   @include mixins.from-tablet {
-    --button-padding: #{functions.var($element + "-tablet", padding, var(--space-24) var(--space-16))};
+    --button-padding-block: #{functions.var($element + "-tablet", padding + "-block", var(--space-24))};
+    --button-padding-inline: #{functions.var($element + "-tablet", padding + "-inline", var(--space-16))};
 
     flex-direction: column;
   }
 
   &__icon {
     --icon-size: #{functions.var($element + "-icon", size, 3rem)};
-    --button-icon-margin: 0;
-    --button-rtl-icon-margin: 0;
+    --button-icon-margin-block: 0;
+    --button-icon-margin-inline: 0;
 
     @include mixins.from-tablet {
       --icon-size: #{functions.var($element + "-tablet-icon", size, 4rem)};
-    }
-  }
-
-  &__label {
-    margin: functions.var($element + "-label", margin, 0 0 0 var(--space-16));
-
-    [dir="rtl"] & {
-      margin: functions.var($element + "-rtl-label", margin, 0 var(--space-16) 0 0);
-    }
-
-    @include mixins.from-tablet {
-      margin: functions.var($element + "-tablet-label", margin, var(--space-16) 0 0 0);
-
-      [dir="rtl"] & {
-        margin: functions.var($element + "-rtl-tablet-label", margin, var(--space-16) 0 0 0);
-      }
     }
   }
 
@@ -201,24 +188,49 @@ function selectHandler(): void {
   }
 
   &--is-checked {
-    --button-border-width: #{functions.var($element + "-checked", width, 2px)};
-    --button-border-color: #{functions.var($element + "-checked", color-border, var(--color-border-strong))};
-    --button-hover-border-color:
+    --button-border-block-width: #{functions.var($element + "-checked", border-block-width, 2px)};
+    --button-border-inline-width: #{functions.var($element + "-checked", border-inline-width, 2px)};
+    --button-border-block-color:
       #{functions.var(
-        $element + "-hover-checked",
-        color-border,
+        $element + "-checked",
+        border-inline-color,
         var(--color-border-strong)
       )};
-    --button-active-border-color:
+    --button-border-inline-color:
+      #{functions.var(
+        $element + "-checked",
+        border-block-color,
+        var(--color-border-strong)
+      )};
+    --button-hover-border-block-color:
+      #{functions.var(
+        $element + "-hover-checked",
+        border-block-color,
+        var(--color-border-strong)
+      )};
+    --button-hover-border-inline-color:
+      #{functions.var(
+        $element + "-hover-checked",
+        border-inline-color,
+        var(--color-border-strong)
+      )};
+    --button-active-border-block-color:
       #{functions.var(
         $element + "-active-checked",
-        color-border,
+        border-block-color,
+        var(--color-border-strong)
+      )};
+    --button-active-border-inline-color:
+      #{functions.var(
+        $element + "-active-checked",
+        border-inline-color,
         var(--color-border-strong)
       )};
   }
 
   &--has-error {
-    --button-border-color: var(--color-border-error-strong);
+    --button-border-block-color: var(--color-border-error-strong);
+    --button-border-inline-color: var(--color-border-error-strong);
   }
 }
 </style>

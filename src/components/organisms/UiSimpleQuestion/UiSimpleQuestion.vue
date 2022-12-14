@@ -96,9 +96,13 @@ if (options.value) {
 }
 // END
 const tileItemAttrs = (item: SimpleQuestionOption) => {
+  /* eslint-disable @typescript-eslint/no-unused-vars */
   const {
-    label, ...rest
+    label,
+    ...rest
   } = item;
+  /* eslint-enable @typescript-eslint/no-unused-vars */
+
   return rest;
 };
 const itemsToRender = computed(() => options.value || props.items);
@@ -114,33 +118,16 @@ const itemsToRender = computed(() => options.value || props.items);
 
   display: flex;
   flex-direction: column;
+  gap: functions.var($element, gap, var(--space-12));
 
   @include mixins.from-tablet {
     flex-direction: row;
+    gap: functions.var($element + "-tablet", gap, var(--space-24));
   }
 
   &__item {
-    margin: functions.var($element + "-item", margin, 0 0 var(--space-12) 0);
-
-    &:last-of-type {
-      margin: 0;
-    }
-
     @include mixins.from-tablet {
       flex: 1;
-      margin: functions.var($element + "-tablet-item", margin, 0 var(--space-24) 0 0);
-
-      &:last-of-type {
-        margin: 0;
-      }
-
-      [dir="rtl"] & {
-        margin: functions.var($element + "-rtl-tablet-item", margin, 0 0 0 var(--space-24));
-
-        &:last-of-type {
-          margin: 0;
-        }
-      }
     }
   }
 }

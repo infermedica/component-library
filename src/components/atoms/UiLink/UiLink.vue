@@ -59,8 +59,9 @@ const {
   @include mixins.inner-border($element, $color: transparent, $width: 0, $radius: var(--border-radius-button));
   @include mixins.font($element, body-1);
 
-  display: inline;
+  display: inline-flex;
   color: functions.var($element, color, var(--color-text-action-primary));
+  gap: functions.var($element, gap, var(--space-4));
   text-decoration: none;
   transition: color 150ms ease-in-out;
   vertical-align: top;
@@ -104,21 +105,8 @@ const {
     --icon-color: #{functions.var($element + "-icon", color, var(--color-icon-primary))};
 
     flex: none;
-    margin: functions.var($element + "-icon", margin, 0 var(--space-4) 0 0);
     transition: fill 150ms ease-in-out;
     vertical-align: top;
-
-    [dir="rtl"] & {
-      margin: functions.var($element + "-rtl-icon", margin, 0 0 0 var(--space-4));
-    }
-
-    &--right {
-      margin: functions.var($element + "-icon", margin, 0 0 0 var(--space-4));
-
-      [dir="rtl"] & {
-        margin: functions.var($element + "-rtl-icon", margin, 0 var(--space-4) 0 0);
-      }
-    }
   }
 
   @at-root [class*="-secondary"] {

@@ -202,35 +202,20 @@ function increment(): void {
   }
 
   &__decrement {
-    margin: functions.var($element + "-decrement", margin, 0 var(--space-12) 0 0);
-
-    &[dir="rtl"] {
-      margin: functions.var($element + "-rtl-decrement", margin, 0 0 0 var(--space-12));
-    }
+    @include mixins.use-logical($element + "-decrement", margin, 0 var(--space-12) 0 0);
 
     @include mixins.from-tablet {
-      order: -1;
-      margin: functions.var($element + "-tablet-decrement", margin, 0 var(--space-4) 0 0);
+      @include mixins.use-logical($element + "-decrement", margin, 0 var(--space-4) 0 0);
 
-      &[dir="rtl"] {
-        margin: functions.var($element + "-rtl-tablet-decrement", margin, 0 0 0 var(--space-4));
-      }
+      order: -1;
     }
   }
 
   &__increment {
-    margin: functions.var($element + "-increment", margin, 0 0 0 var(--space-12));
-
-    &[dir="rtl"] {
-      margin: functions.var($element + "-rtl-increment", margin, 0 var(--space-12) 0 0);
-    }
+    @include mixins.use-logical($element + "-increment", margin, 0 0 0 var(--space-12));
 
     @include mixins.from-tablet {
-      margin: functions.var($element + "-tablet-increment", margin, 0 0 0 var(--space-4));
-
-      &[dir="rtl"] {
-        margin: functions.var($element + "-rtl-tablet-increment", margin, 0 var(--space-4) 0 0);
-      }
+      @include mixins.use-logical($element + "-tablet-increment", margin, 0 0 0 var(--space-4));
     }
   }
 }

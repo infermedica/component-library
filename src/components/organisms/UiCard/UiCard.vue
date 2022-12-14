@@ -175,44 +175,42 @@ const defaultProps = computed(() => ({
   $element: card;
   $types: "emergency_ambulance", "emergency", "consultation_24", "consultation", "self_care";
 
-  --container-padding: #{functions.var($element, padding, var(--space-20) var(--space-20) var(--space-32))};
-  --container-tablet-padding: #{functions.var($element + "-tablet", padding, 0)};
-  --container-desktop-padding: #{functions.var($element + "-desktop", padding, 0)};
+  --container-padding-block: #{functions.var($element, padding-block, var(--space-20) var(--space-32))};
+  --container-padding-inline: #{functions.var($element, padding-inline, var(--space-20))};
+  --container-tablet-padding-block: #{functions.var($element + "-tablet", padding-block, 0)};
+  --container-tablet-padding-inline: #{functions.var($element + "-tablet", padding-inline, 0)};
+  --container-desktop-padding-block: #{functions.var($element + "-desktop", padding-block, 0)};
+  --container-desktop-padding-inline: #{functions.var($element + "-desktop", padding-inline, 0)};
 
   display: flex;
   flex-direction: column;
+  gap: functions.var($element, gap, var(--space-20));
 
   @include mixins.from-tablet {
     flex-direction: row;
+    gap: functions.var($element + "-tablet", gap, 0);
   }
 
   &__triage {
+    @include mixins.use-logical($element + "-triage", padding, var(--space-20));
+    @include mixins.use-logical($element + "-triage", border-radius, var(--border-radius-container));
+
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: functions.var($element + "-triage", padding, var(--space-20));
-    margin: functions.var($element + "-subtitle", margin, 0 0 var(--space-20));
     background: functions.var($element + "-triage", background, var(--color-triage-emergency-ambulance));
-    border-radius: functions.var($element + "-triage", border-radius, var(--border-radius-container));
 
     @include mixins.from-tablet {
-      padding: functions.var($element + "-tablet-triage", padding, var(--space-40) var(--space-32));
-      margin: functions.var($element + "-tablet-triage", margin, 0);
-      border-radius:
-        functions.var(
-          $element + "-tablet-triage",
-          border-radius,
-          var(--border-radius-container) 0 0 var(--border-radius-container)
-        );
-
-      [dir="rtl"] & {
-        border-radius:
-          functions.var(
-            $element + "-rtl-tablet-triage",
-            border-radius,
-            0 var(--border-radius-container) var(--border-radius-container) 0
-          );
-      }
+      @include mixins.use-logical(
+        $element + "-tablet-triage",
+        padding,
+        var(--space-40) var(--space-32)
+      );
+      @include mixins.use-logical(
+        $element + "-tablet-triage",
+        border-radius,
+        var(--border-radius-container) 0
+      );
     }
   }
 
@@ -224,45 +222,23 @@ const defaultProps = computed(() => ({
   &__subtitle {
     --text-color: #{functions.var($element + "-subtitle", color, var(--color-text-dimmed))};
 
-    margin: functions.var($element + "-subtitle", margin, 0 0 var(--space-4));
+    @include mixins.use-logical($element + "-subtitle", margin, 0 0 var(--space-4));
   }
 
   &__title {
-    margin: functions.var($element + "-title", margin, 0 0 var(--space-16));
+    @include mixins.use-logical($element + "-title", margin, 0 0 var(--space-16));
   }
 
   &__content {
-    padding: functions.var($element + "-content", padding, 0);
+    @include mixins.use-logical($element + "-content", padding, 0);
 
     @include mixins.from-tablet {
-      padding:
-        functions.var(
-          $element + "-tablet-content",
-          padding,
-          var(--space-40) var(--space-48) var(--space-48) var(--space-40)
-        );
-
-      [dir="rtl"] &__content {
-        padding:
-          functions.var(
-            $element + "-rtl-tablet-content",
-            padding,
-            var(--space-40) var(--space-40) var(--space-48) var(--space-48)
-          );
-      }
+      @include mixins.use-logical(
+        $element + "-tablet-content",
+        padding,
+        var(--space-40) var(--space-48) var(--space-48) var(--space-40)
+      );
     }
-  }
-
-  @function str-replace($string, $search, $replace: "") {
-    /* stylelint-disable-next-line scss/no-global-function-names */
-    $index: str-index($string, $search);
-
-    @if $index {
-      /* stylelint-disable-next-line max-line-length */
-      @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
-    }
-
-    @return $string;
   }
 
   @each $type in $types {
@@ -272,39 +248,25 @@ const defaultProps = computed(() => ({
           functions.var(
             $element + "-triage",
             background,
-            var(--color-triage-#{str-replace($type, "_", "-")})
+            var(--color-triage-#{functions.str-replace($type, "_", "-")})
           );
       }
     }
   }
 
   &--modern {
-    --container-padding: #{functions.var($element, padding, 0)};
+    --container-padding-block: #{functions.var($element, padding-block, 0)};
+    --container-padding-inline: #{functions.var($element, padding-inline, 0)};
 
     @include mixins.from-tablet {
       flex-direction: row-reverse;
     }
 
     #{$this}__triage {
-      margin: functions.var($element + "-subtitle", margin, 0);
-      border-radius: functions.var($element + "-triage", border-radius, 0);
+      @include mixins.use-logical($element + "-triage", border-radius, 0);
 
       @include mixins.from-tablet {
-        border-radius:
-          functions.var(
-            $element + "-tablet-triage",
-            border-radius,
-            0 var(--border-radius-container) var(--border-radius-container) 0
-          );
-
-        [dir="rtl"] & {
-          border-radius:
-            functions.var(
-              $element + "-rtl-tablet-triage",
-              border-radius,
-              var(--border-radius-container) 0 0 var(--border-radius-container)
-            );
-        }
+        @include mixins.use-logical($element + "-tablet-triage", border-radius, 0 var(--border-radius-container));
       }
     }
 
@@ -318,28 +280,18 @@ const defaultProps = computed(() => ({
       --heading-font: #{functions.var($element + "-title", font, var(--font-h1))};
       --heading-letter-spacing: #{functions.var($element + "-title", letter-spacing, var(--letter-spacing-h1))};
 
-      margin: functions.var($element + "-subtitle", margin, 0 0 var(--space-12));
+      @include mixins.use-logical($element + "-title", margin, 0 0 var(--space-12));
     }
 
     #{$this}__content {
-      padding: functions.var($element + "-content", padding, var(--space-24) var(--space-20) var(--space-32));
+      @include mixins.use-logical($element + "-content", padding, var(--space-24) var(--space-20) var(--space-32));
 
       @include mixins.from-tablet {
-        padding:
-          functions.var(
-            $element + "-tablet-content",
-            padding,
-            var(--space-40) var(--space-40) var(--space-48) var(--space-48)
-          );
-
-        [dir="rtl"] &__content {
-          padding:
-            functions.var(
-              $element + "-rtl-tablet-content",
-              padding,
-              var(--space-40) var(--space-48) var(--space-48) var(--space-40)
-            );
-        }
+        @include mixins.use-logical(
+          $element + "-tablet-content",
+          padding,
+          var(--space-40) var(--space-40) var(--space-48) var(--space-48)
+        );
       }
     }
   }

@@ -198,6 +198,7 @@ if (radiobutton.value) {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
+  gap: functions.var($element, gap, var(--space-12));
 
   @include mixins.with-hover {
     cursor: pointer;
@@ -206,16 +207,15 @@ if (radiobutton.value) {
   @include mixins.hover {
     #{$this}__radio {
       &::after {
-        border-color: functions.var($element + "-hover", border-color, var(--color-border-strong-hover));
+        @include mixins.use-logical($element + "-hover", border-color, var(--color-border-strong-hover));
       }
 
       &--is-checked {
         &::after {
-          border-color:
-            functions.var(
-              $element + "-checked-hover",
-              border-color,
-              var(--color-selectioncontrols-selection-hover)
+          @include mixins.use-logical(
+            $element + "-checked-hover",
+            border-color,
+            var(--color-selectioncontrols-selection-hover)
             );
         }
 
@@ -234,16 +234,15 @@ if (radiobutton.value) {
   &:active {
     #{$this}__radio {
       &::after {
-        border-color: functions.var($element + "-active", border-color, var(--color-border-strong-active));
+        @include mixins.use-logical($element + "-active", border-color, var(--color-border-strong-active));
       }
 
       &--is-checked {
         &::after {
-          border-color:
-            functions.var(
-              $element + "-checked-active",
-              border-color,
-              var(--color-selectioncontrols-selection-active)
+          @include mixins.use-logical(
+            $element + "-checked-active",
+            border-color,
+            var(--color-selectioncontrols-selection-active)
             );
         }
 
@@ -278,6 +277,7 @@ if (radiobutton.value) {
         background-color 150ms ease-in-out
       )
     );
+    @include mixins.use-logical($element + "-radio", margin, var(--space-2));
 
     position: relative;
     display: flex;
@@ -286,12 +286,11 @@ if (radiobutton.value) {
     flex: none;
     align-items: center;
     justify-content: center;
-    margin: 2px;
     background: functions.var($element, background, var(--color-background-white));
 
     &--is-checked {
       &::after {
-        border-color: functions.var($element + "-checked", border-color, var(--color-selectioncontrols-selection));
+        @include mixins.use-logical($element + "-checked", border-color, var(--color-selectioncontrols-selection));
       }
 
       #{$this}__mark {
@@ -316,10 +315,6 @@ if (radiobutton.value) {
     --text-color: #{functions.var($element + "-label", color, var(--color-text-body))};
 
     flex: 1;
-
-    [dir="rtl"] & {
-      --text-margin: #{functions.var($element + "-rtl-label", margin, 0 var(--space-12) 0 0)};
-    }
   }
 
   &--is-disabled {
@@ -328,12 +323,12 @@ if (radiobutton.value) {
     @include mixins.hover {
       #{$this}__radio {
         &::after {
-          border-color: functions.var($element + "-checked", border-color, var(--color-icon-disabled));
+          @include mixins.use-logical($element + "-checked", border-color, var(--color-icon-disabled));
         }
 
         &--is-checked {
           &::after {
-            border-color: functions.var($element + "-checked", border-color, var(--color-icon-disabled));
+            @include mixins.use-logical($element + "-checked", border-color, var(--color-icon-disabled));
           }
 
           #{$this}__mark {
@@ -346,12 +341,12 @@ if (radiobutton.value) {
     &:active {
       #{$this}__radio {
         &::after {
-          border-color: functions.var($element + "-checked", border-color, var(--color-icon-disabled));
+          @include mixins.use-logical($element + "-checked", border-color, var(--color-icon-disabled));
         }
 
         &--is-checked {
           &::after {
-            border-color: functions.var($element + "-checked", border-color, var(--color-icon-disabled));
+            @include mixins.use-logical($element + "-checked", border-color, var(--color-icon-disabled));
           }
 
           #{$this}__mark {
@@ -363,12 +358,12 @@ if (radiobutton.value) {
 
     #{$this}__radio {
       &::after {
-        border-color: functions.var($element + "-checked", border-color, var(--color-icon-disabled));
+        @include mixins.use-logical($element + "-checked", border-color, var(--color-icon-disabled));
       }
 
       &--is-checked {
         &::after {
-          border-color: functions.var($element + "-checked", border-color, var(--color-icon-disabled));
+          @include mixins.use-logical($element + "-checked", border-color, var(--color-icon-disabled));
         }
 
         #{$this}__mark {
@@ -386,12 +381,12 @@ if (radiobutton.value) {
     @include mixins.hover {
       #{$this}__radio {
         &::after {
-          border-color: functions.var($element + "-checked", border-color, var(--color-border-error-strong-hover));
+          @include mixins.use-logical($element + "-checked", border-color, var(--color-border-error-strong-hover));
         }
 
         &--is-checked {
           &::after {
-            border-color: functions.var($element + "-checked", border-color, var(--color-border-error-strong-hover));
+            @include mixins.use-logical($element + "-checked", border-color, var(--color-border-error-strong-hover));
           }
 
           #{$this}__mark {
@@ -404,12 +399,12 @@ if (radiobutton.value) {
     &:active {
       #{$this}__radio {
         &::after {
-          border-color: functions.var($element + "-checked", border-color, var(--color-border-error-strong-active));
+          @include mixins.use-logical($element + "-checked", border-color, var(--color-border-error-strong-active));
         }
 
         &--is-checked {
           &::after {
-            border-color: functions.var($element + "-checked", border-color, var(--color-border-error-strong-active));
+            @include mixins.use-logical($element + "-checked", border-color, var(--color-border-error-strong-active));
           }
 
           #{$this}__mark {
@@ -421,12 +416,12 @@ if (radiobutton.value) {
 
     #{$this}__radio {
       &::after {
-        border-color: functions.var($element + "-checked", border-color, var(--color-border-error-strong));
+        @include mixins.use-logical($element + "-checked", border-color, var(--color-border-error-strong));
       }
 
       &--is-checked {
         &::after {
-          border-color: functions.var($element + "-checked", border-color, var(--color-border-error-strong));
+          @include mixins.use-logical($element + "-checked", border-color, var(--color-border-error-strong));
         }
 
         #{$this}__mark {

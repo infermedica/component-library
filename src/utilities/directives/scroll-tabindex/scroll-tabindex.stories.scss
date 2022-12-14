@@ -1,9 +1,8 @@
 .tos {
   --bullet-points-gap: var(--space-32);
-
   margin-block-start: var(--space-32);
 
-  &__sub-points {
+  &--nested {
     --bullet-points-gap: var(--space-8);
 
     margin-block-start: var(--space-12);

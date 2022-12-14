@@ -59,6 +59,7 @@ defineProps({
 
 <style lang="scss">
 @use "../../../../styles/functions";
+@use "../../../../styles/mixins";
 
 .ui-loader-spinner {
   $this: &;
@@ -72,28 +73,29 @@ defineProps({
   &__loader {
     --_loader-spinner-loader-size: #{functions.var($element + "-loader", size, 4rem)};
 
+    @include mixins.use-logical($element, border-radius, var(--border-radius-circle));
+
     position: relative;
     width: var(--_loader-spinner-loader-size);
     height: var(--_loader-spinner-loader-size);
     animation: rotate 0.8s cubic-bezier(0.8, 0.4, 0.4, 0.8) infinite;
-    border-radius: var(--border-radius-circle);
 
     &::before,
     &::after {
+      @include mixins.use-logical($element + "-loader", border-width, 2px);
+      @include mixins.use-logical($element, border-style, solid);
+      @include mixins.use-logical($element, border-color, var(--color-icon-secondary));
+
       position: absolute;
       width: 100%;
       height: 100%;
-      border-width: functions.var($element + "-loader", border-width, 2px);
-      border-style: solid;
-      border-color: functions.var($element + "-indicator", color, var(--color-icon-secondary));
       border-radius: inherit;
       content: "";
     }
 
     &::before {
-      border-right-color: transparent;
-      border-bottom-color: transparent;
-      border-left-color: transparent;
+      --#{$element}-border-block-end-color: transparent;
+      --#{$element}-border-inline-color: transparent;
     }
 
     &::after {
@@ -102,7 +104,7 @@ defineProps({
   }
 
   &__label {
-    margin: functions.var($element + "-label", margin, var(--space-24) 0 0 0);
+    @include mixins.use-logical($element + "-label", margin, var(--space-24) 0 0);
   }
 
   &--small {
@@ -111,15 +113,11 @@ defineProps({
     #{$this}__loader {
       --_loader-spinner-loader-size: #{functions.var($element + "-loader", size, 1.125rem)};
 
-      margin: 3px; //pixel perfect hack
+      @include mixins.use-logical($element, margin, 3px); //pixel perfect hack
     }
 
     #{$this}__label {
-      margin: functions.var($element + "-label", margin, 0 0 0 var(--space-8));
-
-      [dir="rtl"] & {
-        margin: functions.var($element + "-rtl-label", margin, 0 var(--space-8) 0 0);
-      }
+      @include mixins.use-logical($element + "-label", margin, 0 0 0 var(--space-8));
     }
   }
 

@@ -142,16 +142,13 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { PropType } from 'vue';
-import type { NotificationType } from '@/components/molecules/UiNotification/UiNotification.vue';
+import type { NotificationType } from '../../molecules/UiNotification/UiNotification.vue';
 import type { PropsAttrs } from '../../../types/attrs';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiNotification from '../../molecules/UiNotification/UiNotification.vue';
-import type {
-  Icon,
-  IconAsString,
-} from '../../../types/icon';
+import type { Icon } from '../../../types/icon';
 
 export interface QuestionTranslation {
   info: string;
@@ -326,43 +323,47 @@ const hasFeedback = computed(() => (
   $element: question;
 
   &__actions-top {
-    margin: functions.var($element + "-actions-top", margin, var(--space-12) 0 0 0);
+    @include mixins.use-logical($element + "-actions-top", margin, var(--space-12) 0 0 0);
   }
 
   &__content {
-    margin: functions.var($element + "-content", margin, var(--space-32) 0 0 0);
+    @include mixins.use-logical($element + "-content", margin, var(--space-32) 0 0 0);
 
     @include mixins.from-tablet {
-      margin: functions.var($element + "-tablet-content", margin, var(--space-48) 0 0 0);
+      @include mixins.use-logical($element + "-tablet-content", margin, var(--space-48) 0 0 0);
     }
   }
 
   &__actions-bottom {
+    @include mixins.use-logical($element + "-actions-bottom", margin, var(--space-32) 0 0 0);
+
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin: functions.var($element + "-actions-bottom", margin, var(--space-32) 0 0 0);
 
     @include mixins.from-tablet {
+      @include mixins.use-logical($element + "-tablet-actions-bottom", margin, var(--space-48) 0 0 0);
+
       flex-direction: row;
       align-items: flex-start;
-      margin: functions.var($element + "-tablet-actions-bottom", margin, var(--space-48) 0 0 0);
     }
   }
 
   &__action {
+    @include mixins.use-logical($element + "-action", margin, var(--space-20) 0 0 0);
+
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    margin: functions.var($element + "-action", margin, var(--space-20) 0 0 0);
 
     @include mixins.from-tablet {
-      margin: functions.var($element + "-tablet-action", margin, 0);
+      @include mixins.use-logical($element + "-tablet-action", margin, 0);
 
       &::before {
+        @include mixins.use-logical($element + "-action-indicator", margin, 0 var(--space-16));
+
         width: functions.var($element + "-action-indicator", width, 1px);
         align-self: stretch;
-        margin: functions.var($element + "-action-indicator", margin, 0 var(--space-16));
         background: functions.var($element + "-action-indicator", background, var(--color-border-divider));
         content: "";
       }
@@ -380,7 +381,7 @@ const hasFeedback = computed(() => (
   }
 
   &__feedback {
-    margin: functions.var($element + "-actions-top", margin, var(--space-24) 0 0 0);
+    @include mixins.use-logical($element + "-actions-top", margin, var(--space-24) 0 0 0);
   }
 }
 </style>

@@ -60,13 +60,15 @@ function select(value: number): void {
 </script>
 
 <style lang="scss">
+@use "../../../../styles/mixins";
+
 .ui-datepicker-day-tab {
   $this: &;
   $element: datepicker-day-tab;
 
   &__item {
     &:nth-of-type(-n+7) {
-      margin: 0;
+      @include mixins.use-logical($element, margin, 0);
     }
   }
 }

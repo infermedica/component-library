@@ -271,7 +271,7 @@ import {
   onMounted,
 } from 'vue';
 import type { PropType } from 'vue';
-import type { HeadingLevel } from '@/components/atoms/UiHeading/UiHeading.vue';
+import type { HeadingLevel } from '../../atoms/UiHeading/UiHeading.vue';
 import type { PropsAttrs } from '../../../types/attrs';
 import {
   bodyScrollLock as vBodyScrollLock,
@@ -522,6 +522,10 @@ onBeforeUnmount(() => {
   z-index: 1;
 
   &__dialog {
+    @include mixins.use-logical($element, padding, var(--space-24));
+    @include mixins.use-logical($element, margin, 0);
+    @include mixins.use-logical($element, border-radius, var(--border-radius-container));
+
     position: fixed;
     z-index: 1000;
     top: 50%;
@@ -530,11 +534,8 @@ onBeforeUnmount(() => {
     width: calc(100% - functions.var($element, padding-horizontal, var(--space-20)));
     max-width: functions.var($element, max-width, 30rem);
     flex-direction: column;
-    padding: functions.var($element, padding, var(--space-24));
     border: none;
-    margin: 0;
     background: functions.var($element, background, var(--color-background-white));
-    border-radius: functions.var($element, border-radius, var(--border-radius-container));
     box-shadow: functions.var($element, box-shadow, var(--box-shadow-high));
     transform: translate(-50%, -50%);
 
@@ -559,8 +560,9 @@ onBeforeUnmount(() => {
   }
 
   &__title {
+    @include mixins.use-logical($element + "-title", margin, 0 0 var(--space-12) 0);
+
     flex: 1;
-    margin: functions.var($element + "-title", margin, 0 0 var(--space-12) 0);
   }
 
   &__description {
@@ -568,9 +570,10 @@ onBeforeUnmount(() => {
   }
 
   &__actions {
+    @include mixins.use-logical($element + "-actions", margin, var(--space-32) 0 0 0);
+
     display: flex;
     flex-direction: column;
-    margin: functions.var($element + "-actions", margin, var(--space-32) 0 0 0);
 
     @include mixins.from-tablet {
       flex-direction: row;
@@ -579,18 +582,14 @@ onBeforeUnmount(() => {
   }
 
   &__confirm {
-    margin: functions.var($element + "-confirm", margin, 0 0 var(--space-12) 0);
+    @include mixins.use-logical($element + "-confirm", margin, 0 0 var(--space-12) 0);
 
     &--order {
       order: -1;
     }
 
     @include mixins.from-tablet {
-      margin: functions.var($element + "-tablet-confirm", margin, 0 0 0 var(--space-12));
-
-      [dir="rtl"] & {
-        margin: functions.var($element + "-rtl-tablet-confirm", margin, 0 var(--space-12) 0 0);
-      }
+      @include mixins.use-logical($element + "-tablet-confirm", margin, 0 0 0 var(--space-12));
     }
   }
 

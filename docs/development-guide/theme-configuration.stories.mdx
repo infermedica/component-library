@@ -121,13 +121,7 @@ We use BEM naming convention for CSS variables, in common cases is will be `--<b
 
 But in some case it's not enough.
 
-<Code code={`//rtl
---checkbox-label-margin: 0 0 0 var(--space-12);
---checkbox-rtl-label-margin: 0 var(--space-12) 0 0; // -rtl will be added after block\n
-  //breakpoints
-  --side-panel-content-padding: var(--space-24) var(--space-20);
-  --side-panel-rtl-tablet-content-padding: var(--space-32) var(--space-48); // breakpoint will be added after block if -rtl is doesn't exist\n
-  //states (hover, active)
+<Code code={`//states (hover, active)
   --button-icon-color: var(--color-icon-on-action);
   --button-hover-icon-color: var(--color-icon-on-action-hover); // state will be added after block/element name with used this state i.e. hover is used for button not only for icon\n
   //checked state

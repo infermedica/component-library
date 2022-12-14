@@ -217,23 +217,28 @@ const defaultProps = computed<DefaultProps>(() => ({
 .ui-controls {
   $element: controls;
 
-  --container-padding: 0;
-  --container-tablet-padding: 0;
-  --container-desktop-padding: 0;
+  --container-padding-block: 0;
+  --container-padding-inline: 0;
+  --container-tablet-padding-block: 0;
+  --container-tablet-padding-inline: 0;
+  --container-desktop-padding-block: 0;
+  --container-desktop-padding-inline: 0;
 
   display: flex;
   flex-direction: column;
 
   &__container {
+    @include mixins.use-logical($element + "-container", padding, var(--space-32) var(--space-20));
+
     flex: 1;
-    padding: functions.var($element + "-container", padding, var(--space-32) var(--space-20));
 
     @include mixins.from-tablet {
-      padding: functions.var($element + "-tablet-container", padding, var(--space-48) var(--space-64));
+      @include mixins.use-logical($element + "-tablet-container", padding, var(--space-48) var(--space-64));
     }
   }
 
   &__bottom {
+    @include mixins.use-logical($element + "-bottom", padding, var(--space-12) var(--space-20));
     @include mixins.inner-border(
       $element: $element + "-bottom",
       $color:  var(--color-border-divider),
@@ -245,10 +250,9 @@ const defaultProps = computed<DefaultProps>(() => ({
     flex-direction: row-reverse;
     align-items: center;
     justify-content: space-between;
-    padding: functions.var($element + "-bottom", padding, var(--space-12) var(--space-20));
 
     @include mixins.from-tablet {
-      padding: functions.var($element + "-tablet-bottom", padding, var(--space-16) var(--space-32));
+      @include mixins.use-logical($element + "-tablet-bottom", padding, var(--space-16) var(--space-32));
     }
   }
 }

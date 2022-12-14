@@ -54,6 +54,7 @@ const stepsDots = computed(() => (props.steps - 1));
 
 <style lang="scss">
 @use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-progressbar {
   $element: progressbar;
@@ -72,13 +73,14 @@ const stepsDots = computed(() => (props.steps - 1));
   &__step {
     --_progressbar-step-size: #{functions.var($element + "-step", size, 0.625rem)};
 
+    @include mixins.use-logical($element + "-step", margin, 3px 0);
+    @include mixins.use-logical($element + "-step", border-radius, var(--border-radius-circle));
+
     position: absolute;
     left: var(--_progressbar-step-left);
     width: var(--_progressbar-step-size);
     height: var(--_progressbar-step-size);
-    margin: functions.var($element + "-step", margin, 3px 0);
     background: functions.var($element + "-step", background, var(--color-icon-on-selection));
-    border-radius: functions.var($element + "-step", border-radius, var(--border-radius-circle));
     transform: translateX(-50%);
   }
 }

@@ -40,12 +40,28 @@ export const WithDirective = () => ({
   <UiHeading>
     Whats's wrong with this question?
   </UiHeading>
-  <UiFormField style="height: 150px" :alertAttrs="{type: 'success'}" label="Describe details" hint="Optional" :errorMessage="alert">
+  <UiFormField
+    :alertAttrs="{type: 'success'}"
+    label="Describe details"
+    hint="Optional"
+    :errorMessage="alert"
+    style="height: 150px"
+  >
     <template #default>
-      <UiTextarea class="ui-textarea" style="width: 100%; resize: none" v-model="feedback" @click="reset" v-keyboard-focus/>
+      <UiTextarea
+        v-model="feedback"
+        v-keyboard-focus
+        class="ui-textarea" 
+        style="width: 100%; resize: none"
+        @click="reset"
+      />
     </template>
   </UiFormField>
-  <button class="ui-button" @click='sendMessage' v-keyboard-focus>
+  <button
+      v-keyboard-focus
+      class="ui-button" 
+      @click='sendMessage'
+  >
     Send
   </button>
   `,

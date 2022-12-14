@@ -16,14 +16,6 @@ const doMockMatchMedia = (isMobile) => {
   });
 };
 
-class ResizeObserver {
-  observe() {}
-
-  unobserve() {}
-}
-
-window.ResizeObserver = ResizeObserver;
-
 beforeEach(() => {
   doMockMatchMedia(false);
 });

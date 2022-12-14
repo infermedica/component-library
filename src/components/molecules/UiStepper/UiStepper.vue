@@ -89,14 +89,9 @@
 </template>
 
 <script setup lang="ts">
-import {
-  computed,
-  useSlots,
-} from 'vue';
+import { computed } from 'vue';
 import type { PropType } from 'vue';
 import type { PropsAttrs } from '../../../types/attrs';
-import type { HTMLTag } from '../../../types/tag';
-import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import UiProgress from '../../atoms/UiProgress/UiProgress.vue';
 import UiList from '../../organisms/UiList/UiList.vue';
@@ -175,11 +170,13 @@ const stepsToRender = computed<Step[]>(() => props.steps.map((step) => ({
 
   --space-10: calc(var(--space-20) / 2); //pixel perfect hack
 
-  padding: functions.var($element, padding, var(--space-12) var(--space-20));
+  @include mixins.use-logical($element, padding, var(--space-12) var(--space-20));
+
   background: functions.var($element, background, var(--color-background-subtle));
 
   @include mixins.from-desktop {
-    padding: functions.var($element, padding, 0);
+    @include mixins.use-logical($element, padding, 0);
+
     background: functions.var($element + "-desktop", background, transparent);
   }
 

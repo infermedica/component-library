@@ -158,7 +158,7 @@ function inputHandler(event: Event): void {
 
   @include mixins.hover {
     &::after {
-      border-color: functions.var($element + "-hover", border-color, var(--color-border-strong-hover));
+      @include mixins.use-logical($element + "-hover", border-color, var(--color-border-strong-hover));
     }
   }
 
@@ -191,10 +191,10 @@ function inputHandler(event: Event): void {
 
   &__input {
     @include mixins.font($element, body-1);
+    @include mixins.use-logical($element, padding, var(--space-12) var(--space-16));
+    @include mixins.use-logical($element, border-width, 0);
 
     width: 100%;
-    padding: functions.var($element, padding, var(--space-12) var(--space-16));
-    border: 0;
     background: transparent;
     border-radius: inherit;
     caret-color: functions.var($element, caret-color, var(--color-blue-500));
@@ -227,18 +227,10 @@ function inputHandler(event: Event): void {
   }
 
   &__aside {
-    margin: functions.var($element + "-aside", margin, 0 var(--space-16) 0 calc(var(--space-4) * -1));
-
-    [dir="rtl"] & {
-      margin: functions.var($element + "-rtl-aside", margin, 0 calc(var(--space-4) * -1) 0 var(--space-16));
-    }
+    @include mixins.use-logical($element + "-aside", margin, 0 var(--space-16) 0 calc(var(--space-4) * -1));
 
     &.ui-button {
-      margin: functions.var($element + "-aside", margin, 0 var(--space-12) 0 calc(var(--space-4) * -1));
-
-      [dir="rtl"] & {
-        margin: functions.var($element + "-rtl-aside", margin, 0 calc(var(--space-4) * -1) 0 var(--space-12));
-      }
+      @include mixins.use-logical($element + "-aside", margin, 0 var(--space-12) 0 calc(var(--space-4) * -1));
     }
   }
 

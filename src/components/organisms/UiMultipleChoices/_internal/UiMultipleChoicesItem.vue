@@ -352,12 +352,14 @@ const optionsToRender = computed(() => props.options.map((option) => ({
   $element: multiple-choices-item;
 
   &:not(:first-of-type) {
-    --list-item-border-width: #{functions.var($element , border-width, 0)};
+    --list-item-border-block-width: #{functions.var($element , border-block-width, 0)};
+    --list-item-border-inline-width: #{functions.var($element , border-inline-width, 0)};
   }
 
   @include mixins.from-tablet {
     &:not(:first-of-type) {
-      --list-item-border-width: #{functions.var($element , border-width)};
+      --list-item-border-block-width: #{functions.var($element , border-block-width)};
+      --list-item-border-inline-width: #{functions.var($element , border-inline-width)};
     }
   }
 
@@ -367,7 +369,8 @@ const optionsToRender = computed(() => props.options.map((option) => ({
       margin: 0;
     }
 
-    --list-item-content-padding: #{functions.var($element + "-content", padding, 0)};
+    --list-item-content-padding-block: #{functions.var($element + "-content", padding-block, 0)};
+    --list-item-content-padding-inline: #{functions.var($element + "-content", padding-inline, 0)};
     --list-item-content-hover-background: #{functions.var($element + "-content-hover", background, transparent)};
 
     display: block;
@@ -381,17 +384,19 @@ const optionsToRender = computed(() => props.options.map((option) => ({
   }
 
   &__header {
+    @include mixins.use-logical($element + "-header", padding, var(--space-12) var(--space-20));
+    @include mixins.use-logical($element + "-header", margin, var(--space-20) 0 0 0);
+
     display: flex;
     justify-content: space-between;
-    padding: functions.var($element + "-header", padding, var(--space-12) var(--space-20));
-    margin: functions.var($element + "-header", margin, var(--space-20) 0 0 0);
     gap: functions.var($element + "-header", gap, var(--space-12));
 
     @include mixins.from-tablet {
+      @include mixins.use-logical($element + "-tablet-header", padding, 0);
+      @include mixins.use-logical($element + "-tablet-header", margin, 0);
+
       flex-direction: column;
       align-items: flex-start;
-      padding: functions.var($element + "-tablet-header", padding, 0);
-      margin: functions.var($element + "-tablet-header", margin, 0);
       gap: functions.var($element + "-tablet-header", gap, var(--space-8));
     }
   }
@@ -413,8 +418,7 @@ const optionsToRender = computed(() => props.options.map((option) => ({
   }
 
   &__info-icon {
-    --button-icon-margin: 0;
-    --button-rtl-icon-margin: 0;
+    --button-icon-margin-logical: 0;
   }
 
   &__choices {
@@ -428,10 +432,12 @@ const optionsToRender = computed(() => props.options.map((option) => ({
   }
 
   &__options {
-    --list-item-border-width: #{functions.var($element + "-options" , border-width)};
+    --list-item-border-block-width: #{functions.var($element + "-options" , border-block-width)};
+    --list-item-border-inline-width: #{functions.var($element + "-options" , border-inline-width)};
 
     @include mixins.from-tablet {
-      --list-item-border-width: #{functions.var($element + "-tablet-options" , border-width, 0)};
+      --list-item-border-block-width: #{functions.var($element + "-tablet-options" , border-block-width, 0)};
+      --list-item-border-inline-width: #{functions.var($element + "-tablet-options" , border-inline-width, 0)};
 
       display: flex;
       gap: functions.var($element + "-options", gap, var(--space-24));
@@ -439,16 +445,18 @@ const optionsToRender = computed(() => props.options.map((option) => ({
   }
 
   &__option-content {
-    --list-item-content-padding: #{functions.var($element + "-option-content", padding)};
-    --list-item-tablet-content-padding: #{functions.var($element + "-tablet-option-content", padding, 0)};
+    --list-item-content-padding-block: #{functions.var($element + "-option-content", padding-block)};
+    --list-item-content-padding-inline: #{functions.var($element + "-option-content", padding-inline)};
+    --list-item-tablet-content-padding-block: #{functions.var($element + "-tablet-option-content", padding-block, 0)};
+    --list-item-tablet-content-padding-inline: #{functions.var($element + "-tablet-option-content", padding-inline, 0)};
     --list-item-content-hover-background: #{functions.var($element + "-content-hover", background)};
   }
 
   &__alert {
-    padding: functions.var($element + "-alert", padding, var(--space-12) var(--space-20) 0);
+    @include mixins.use-logical($element + "-alert", padding, var(--space-12) var(--space-20) 0);
 
     @include mixins.from-tablet {
-      padding: functions.var($element + "-tablet-alert", padding, 0);
+      @include mixins.use-logical($element + "-tablet-alert", padding, 0);
     }
   }
 

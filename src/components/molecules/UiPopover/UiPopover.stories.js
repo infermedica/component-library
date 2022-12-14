@@ -34,7 +34,7 @@ export default {
     modifiers: modifiers({
       options: [
         'ui-popover--has-arrow',
-        'ui-popover--has-left-arrow',
+        'ui-popover--has-start-arrow',
         'ui-popover--unrounded',
         'ui-popover--has-mobile',
       ],
@@ -99,8 +99,8 @@ export const Common = Template.bind({});
 export const HasArrow = Template.bind({});
 HasArrow.args = { modifiers: [ 'ui-popover--has-arrow' ] };
 
-export const HasLeftArrow = Template.bind({});
-HasLeftArrow.args = { modifiers: [ 'ui-popover--has-left-arrow' ] };
+export const HasStartArrow = Template.bind({});
+HasStartArrow.args = { modifiers: [ 'ui-popover--has-start-arrow' ] };
 
 export const Unrounded = Template.bind({});
 Unrounded.args = { modifiers: [ 'ui-popover--unrounded' ] };

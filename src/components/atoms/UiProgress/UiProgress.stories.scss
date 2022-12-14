@@ -1,6 +1,11 @@
 //<Code id="progress-low-value-no-radius">
 .progress-low-value-no-radius {
-  --progress-border-radius: 0;
+  --progress-border-start-start-radius: 0;
+  --progress-border-start-end-radius: 0;
+  --progress-border-end-start-radius: 0;
+  --progress-border-end-end-radius: 0;
+  --progress-indicator-border-start-end-radius: 0;
+  --progress-indicator-border-end-end-radius: 0;
 }
 //</Code>
 

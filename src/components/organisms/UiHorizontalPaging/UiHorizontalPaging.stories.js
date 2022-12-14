@@ -122,6 +122,7 @@ const TermsOfService = {
         children: {
           tag: 'ol',
           type: 'a',
+          class: 'terms-of-service__sub-points',
           items: [
             { text: 'principles of operation of the website and the mobile application "Symptomate.com",' },
             { text: 'rules on the provision of services by electronic means,' },
@@ -134,6 +135,7 @@ const TermsOfService = {
         children: {
           tag: 'ol',
           type: 'a',
+          class: 'terms-of-service__sub-points',
           items: [
             { text: 'Application, this means the software for portable devices, made available free of charge by the Service Provider referred to in sec. 2(l) below, enabling the use of the Services referred to in sec. 2(k) below,' },
             { text: 'Articles, this means articles referring to medical and pharmaceutical topics,' },
