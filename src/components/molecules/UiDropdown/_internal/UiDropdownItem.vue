@@ -101,8 +101,20 @@ const buttonItemAttrs = computed(() => ({
 .ui-dropdown-item {
   $element: dropdown-item;
 
-  --button-padding-block: #{functions.var($element, padding-block, var(--space-8))};
-  --button-padding-inline: #{functions.var($element, padding-inline, var(--space-8))};
+  --button-padding-block:
+    #{functions.var(
+      $element,
+      padding-block,
+      functions.var($element, padding-block-start, var(--space-8))
+      functions.var($element, padding-block-end, var(--space-8))
+    )};
+  --button-padding-inline:
+    #{functions.var(
+      $element,
+      padding-inline,
+      functions.var($element, padding-inline-start, var(--space-8))
+      functions.var($element, padding-inline-end, var(--space-8))
+    )};
   --button-border-block-width: 0;
   --button-border-inline-width: 0;
   --button-color: #{functions.var($element, color, var(--color-text-body))};

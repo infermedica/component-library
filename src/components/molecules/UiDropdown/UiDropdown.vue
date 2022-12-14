@@ -363,8 +363,20 @@ const dropdownItemAttrs = (item: DropdownItemAsObj) => {
   display: inline-flex;
 
   &__popover {
-    --popover-content-padding-block: #{functions.var($element + "-popover", padding-block, var(--space-8))};
-    --popover-content-padding-inline: #{functions.var($element + "-popover", padding-inline, var(--space-8))};
+    --popover-content-padding-block:
+      #{functions.var(
+        $element + "-popover",
+        padding-block,
+        functions.var($element + "-popover", padding-block-start, var(--space-8))
+        functions.var($element + "-popover", padding-block-end, var(--space-8))
+      )};
+    --popover-content-padding-inline:
+      #{functions.var(
+        $element + "-popover",
+        padding-inline,
+        functions.var($element + "-popover", padding-inline-start, var(--space-8))
+        functions.var($element + "-popover", padding-inline-end, var(--space-8))
+      )};
 
     @include mixins.use-logical($element + "-popover", margin, var(--space-8) 0 0);
     @include mixins.use-logical($element + "-popover", inset, 100% auto auto 0);
