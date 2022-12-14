@@ -186,9 +186,6 @@ if (label.value) {
 .ui-form-field {
   $element: form-field;
 
-  display: flex;
-  flex-direction: column;
-
   &__label {
     display: flex;
     align-items: center;
