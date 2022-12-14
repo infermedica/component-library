@@ -23,6 +23,7 @@ import {
 } from 'vue';
 import './UiLoader.stories.scss';
 import docs from './UiLoader.mdx';
+import {OnBrand} from "@/components/molecules/UiNavigation/UiNavigation.stories";
 
 const events = actions({ onMounted: 'onMounted' });
 
@@ -682,6 +683,7 @@ export const LoadingFullOnBrand = () => ({
     <!-- Place the content to be loaded. -->
   </UiLoader>`,
 });
+LoadingFullOnBrand.parameters = { backgrounds: { default: 'brand' } };
 LoadingFullOnBrand.decorators = [ () => ({
   template: `<div class="flex-1 min-h-135">
     <story />
