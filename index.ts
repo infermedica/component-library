@@ -37,7 +37,6 @@ export { default as UiControls } from './src/components/organisms/UiControls/UiC
 export { default as UiDatepicker } from './src/components/organisms/UiDatepicker/UiDatepicker.vue';
 export { default as UiHorizontalPaging } from './src/components/organisms/UiHorizontalPaging/UiHorizontalPaging.vue';
 export { default as UiList } from './src/components/organisms/UiList/UiList.vue';
-export { default as UiMegaMenu } from './src/components/organisms/UiMegaMenu/UiMegaMenu.vue';
 export { default as UiMenu } from './src/components/organisms/UiMenu/UiMenu.vue';
 export { default as UiModal } from './src/components/organisms/UiModal/UiModal.vue';
 export { default as UiMultipleAnswer } from './src/components/organisms/UiMultipleAnswer/UiMultipleAnswer.vue';
