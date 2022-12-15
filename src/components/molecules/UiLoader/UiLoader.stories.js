@@ -72,7 +72,10 @@ export default {
       <story />
     </div>`,
   }) ],
-  parameters: { docs: { page: docs } },
+  parameters: {
+    docs: { page: docs },
+    cssProperties: {},
+  },
 };
 
 export const Common = (args) => ({

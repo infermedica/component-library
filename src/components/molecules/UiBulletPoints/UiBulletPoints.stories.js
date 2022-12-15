@@ -58,7 +58,10 @@ export default {
       },
     },
   },
-  parameters: { docs: { page: docs } },
+  parameters: {
+    docs: { page: docs },
+    cssProperties: {},
+  },
 };
 
 const Template = (args) => ({

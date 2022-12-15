@@ -41,6 +41,7 @@ export default {
       control: 'text',
     },
     modelValue: { control: false },
+    cssProperties: {},
   },
 };
 

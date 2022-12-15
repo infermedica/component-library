@@ -53,6 +53,7 @@ export default {
         type: { summary: 'unknown' },
       },
     },
+    cssProperties: {},
   },
 };
 
