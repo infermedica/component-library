@@ -1,48 +1,63 @@
 @use "../functions";
 
-@function getLogicalName ($property, $str) {
-  $splittedProperty: functions.str-split($property, '-');
-  $propertyHead: nth($splittedProperty, 1);
-  $propertyTail: nth($splittedProperty, 2);
-  @return #{$propertyHead}#{$str}#{$propertyTail};
+@function get-logical-name ($property, $str) {
+  $split-property: functions.str-split($property, '-');
+  $property-head: nth($split-property, 1);
+  $property-tail: nth($split-property, 2);
+
+  @return #{$property-head}#{$str}#{$property-tail};
 };
 
-@function getLogicalValues($values) {
+@function get-logical-values($values) {
   $results: [];
+
   @for $index from 1 through 4 {
-    $valueIndex: $index;
+    $value-index: $index;
+
     @if $index > length($values) {
       @if $index == 2 {
         $values: append($values, nth($values, 1));
       }@else {
-        $valueIndex: $index - 2;
+        $value-index: $index - 2;
       }
     }
-    $value: #{nth($values, $valueIndex)};
+
+    $value: #{nth($values, $value-index)};
     $results: append($results, $value);
   }
+
   @return $results
+}
+@mixin border-radius($element, $values) {
+  $options: start-start, start-end, end-start, end-end;
+  $logical-values: get-logical-values($values);
+
+  @for $index from 1 through 4 {
+    border-#{nth($options, $index)}-radius: functions.var($element, border-#{nth($options, $index)}-radius, nth($logical-values, $index));
+  }
+}
+
+@mixin default($element, $property, $values) {
+  $logical-values: get-logical-values($values);
+
+  #{get-logical-name($property, -block)}: functions.var($element, get-logical-name($property, -block),
+    functions.var($element, get-logical-name($property, -block-start), nth($logical-values, 1))
+    functions.var($element, get-logical-name($property, -block-end), nth($logical-values, 3))
+  );
+  #{get-logical-name($property, -inline)}: functions.var($element, get-logical-name($property, -inline),
+    functions.var($element, get-logical-name($property, -inline-start), nth($logical-values, 4))
+    functions.var($element, get-logical-name($property, -inline-end), nth($logical-values, 2))
+  );
 }
 
 @mixin use-logical($element, $property, $values) {
   @if $values and $property {
-    $includeBorderRadius: str-index($property, border-radius);
-    @if $includeBorderRadius {
-      $options: start-start, start-end, end-start, end-end;
-      $logicalValues: getLogicalValues($values);
-      @for $index from 1 through 4 {
-        border-#{nth($options, $index)}-radius: functions.var($element, border-#{nth($options, $index)}-radius, nth($logicalValues, $index));
-      }
+    $include-border-radius: str-index($property, border-radius);
+
+    @if $include-border-radius {
+      @include border-radius($element, $values);
     } @else {
-      $logicalValues: getLogicalValues($values);
-      #{getLogicalName($property, -block)}: functions.var($element, getLogicalName($property, -block),
-        functions.var($element, getLogicalName($property, -block-start), nth($logicalValues, 1))
-        functions.var($element, getLogicalName($property, -block-end), nth($logicalValues, 3))
-      );
-      #{getLogicalName($property, -inline)}: functions.var($element, getLogicalName($property, -inline),
-        functions.var($element, getLogicalName($property, -inline-start), nth($logicalValues, 4))
-        functions.var($element, getLogicalName($property, -inline-end), nth($logicalValues, 2))
-      );
+        @include default($element, $property, $values);
     }
   }
 };
