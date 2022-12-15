@@ -43,6 +43,7 @@ specifiers:
   core-js: ^3.23.5
   css-loader: ^6.7.1
   date-fns: ^2.28.0
+  dotenv: ^16.0.3
   eslint: ^8.0.0
   eslint-import-resolver-alias: ^1.1.2
   eslint-plugin-import: ^2.25.4
@@ -135,6 +136,7 @@ devDependencies:
   babel-loader: 8.2.5_wfdvla2jorjoj23kkavho2upde
   chromatic: 6.7.1
   css-loader: 6.7.1_webpack@5.74.0
+  dotenv: 16.0.3
   eslint: 8.20.0
   eslint-import-resolver-alias: 1.1.2_fkfqfehjtk7sk2efaqbgxsuasa
   eslint-plugin-import: 2.26.0_ficupzxy3q6nk56ibvavehtzue
@@ -8024,6 +8026,11 @@ packages:
 
   /dotenv-expand/5.1.0:
     resolution: {integrity: sha512-YXQl1DSa4/PQyRfgrv6aoNjhasp/p4qs9FjJ4q4cQk+8m4r6k4ZSiEyytKG8f8W9gi8WsQtIObNmKd+tMzNTmA==}
+    dev: true
+
+  /dotenv/16.0.3:
+    resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
+    engines: {node: '>=12'}
     dev: true
 
   /dotenv/8.6.0:

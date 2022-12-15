@@ -38,4 +38,8 @@ module.exports = {
       },
     ],
   },
+  overrides: [ {
+    files: [ 'src/styles/variables/*.scss' ],
+    rules: { 'custom-property-empty-line-before': null },
+  } ],
 };
