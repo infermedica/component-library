@@ -83,7 +83,7 @@ OnBrand.args = { modifiers: [ 'ui-navigation--theme-brand' ] };
 OnBrand.parameters = { backgrounds: { default: 'brand' } };
 
 export const Small = Template.bind({});
-Small.args = { modifiers: 'ui-navigation--small' };
+Small.args = { modifiers: [ 'ui-navigation--small' ] };
 
 export const Vertical = (args) => ({
   components: { UiNavigation },
@@ -92,8 +92,8 @@ export const Vertical = (args) => ({
   },
   template: `<UiNavigation
     :items="items"
-    :class="[ 
-      'navigation-vertical', 
+    :class="[
+      'navigation-vertical',
       modifiers,
     ]"/>`,
 });
@@ -108,7 +108,7 @@ export const WithNavigationItemSlot = (args) => ({
     :class="modifiers"
   >
     <template #medical-certification="{ item }">
-      {{ item.text }}
+      {{ item.label }}
     </template>
   </UiNavigation>`,
 });
@@ -149,14 +149,12 @@ export const WithDefaultSlot = (args) => ({
     :class="modifiers"
   >
     <template
-      v-for="(item, key) in items"
+      v-for="(item, key) in itemsToRender"
       :key="key"
     >
       <UiNavigationItem
         class=" ui-navigation__item"
-        v-bind="(()=>{const {
-            name, text, ...rest
-          } = item; return rest;})()"
+        v-bind="navigationItemAttrs(item)"
       >
         {{ item.label }}
       </UiNavigationItem>
@@ -177,8 +175,8 @@ export const WithIconInNavigationItemSlot = (args) => ({
     :class="modifiers"
   >
     <template #medical-certification="{ item }">
-      <UiIcon 
-        icon="info-filled" 
+      <UiIcon
+        icon="info-filled"
         class="ui-button__icon"
       /> {{ item.text }}
     </template>

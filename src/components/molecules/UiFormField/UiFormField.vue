@@ -181,6 +181,7 @@ if (label.value) {
 
 <style lang="scss">
 @use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-form-field {
   $element: form-field;
@@ -189,19 +190,13 @@ if (label.value) {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    margin: functions.var($element + "-label", margin, 0 0 var(--space-8) 0);
-  }
+    gap: functions.var($element + "label", gap, var(--space-8));
 
-  &__hint {
-    margin: functions.var($element + "-hint", margin, 0 0 0 var(--space-8));
-
-    [dir="rtl"] & {
-      margin: functions.var($element + "-rtl-hint", margin, 0 var(--space-8) 0 0);
-    }
+    @include mixins.use-logical($element + "-alert", margin, 0 0 var(--space-8) 0);
   }
 
   &__alert {
-    margin: functions.var($element + "-alert", margin, var(--space-8) 0 0 0);
+    @include mixins.use-logical($element + "-alert", margin, var(--space-8) 0 0 0);
   }
 }
 </style>

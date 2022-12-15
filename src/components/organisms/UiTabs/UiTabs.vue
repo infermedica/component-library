@@ -119,20 +119,23 @@ provide('handleTabActive', handleTabActive);
 
 <style lang="scss">
 @use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-tabs {
   $element: tabs;
 
+  @include mixins.use-logical($element, padding, 0 var(--space-20));
+
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  padding: functions.var($element, padding, 0 var(--space-20));
 
   &--fixed {
-    --tabs-item-tab-flex: 1;
-    --tabs-item-content-margin: 0;
+    @include mixins.use-logical($element, padding, 0);
 
-    padding: functions.var($element, padding, 0);
+    --tabs-item-tab-flex: 1;
+    --tabs-item-content-margin-block: 0;
+    --tabs-item-content-margin-inline: 0;
   }
 }
 </style>

@@ -105,21 +105,28 @@ const defaultProps = computed(() => ({
 
 <style lang="scss">
 @use "../../../../styles/functions";
+@use "../../../../styles/mixins";
 
 .ui-menu-item {
   $this: &;
   $element: menu-item;
 
-  --list-item-border-width: 0;
+  --list-item-border-block-width: 0;
+  --list-item-border-inline-width: 0;
 
-  padding: functions.var($element, padding, var(--space-4) var(--space-8));
+  @include mixins.use-logical($element, padding, var(--space-4) var(--space-8));
 
   &__button {
-    --_list-item-content-padding: #{functions.var($element + "-button", padding, var(--space-8))};
-    --list-item-content-padding: var(--_list-item-content-padding);
-    --list-item-tablet-content-padding: var(--_list-item-content-padding);
-    --button-padding: var(--_list-item-content-padding);
-    --button-border-width: #{functions.var($element + "-button", border-width, 0)};
+    --_list-item-content-padding-block: #{functions.var($element + "-button", padding-block, var(--space-8))};
+    --_list-item-content-padding-inline: #{functions.var($element + "-button", padding-inline, var(--space-8))};
+    --list-item-content-padding-block: var(--_list-item-content-padding-block);
+    --list-item-content-padding-inline: var(--_list-item-content-padding-inline);
+    --list-item-tablet-content-padding-block: var(--_list-item-content-padding-block);
+    --list-item-tablet-content-padding-inline: var(--_list-item-content-padding-inline);
+    --button-padding-block: var(--_list-item-content-padding-block);
+    --button-padding-inline: var(--_list-item-content-padding-inline);
+    --button-border-block-width: #{functions.var($element + "-button", border--block-width, 0)};
+    --button-border-inline-width: #{functions.var($element + "-button", border-inline-width, 0)};
     --button-font: #{functions.var($element + "-button", font, var(--font-body-1))};
     --button-letter-spacing: #{functions.var($element + "-button", letter-spacing, var(--letter-spacing-body-1))};
 
@@ -133,11 +140,7 @@ const defaultProps = computed(() => ({
   }
 
   &__suffix {
-    margin: functions.var($element + "-suffix", margin, 0 0 0 var(--space-12));
-
-    [dir="rtl"] & {
-      margin: functions.var($element + "rtl-suffix", margin, 0 var(--space-12) 0 0);
-    }
+    @include mixins.use-logical($element + "-suffix", margin, 0 0 0 var(--space-12));
   }
 
   &--is-selected {

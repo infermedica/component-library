@@ -1,0 +1,66 @@
+.docs {
+  padding: 0 0 var(--space-8);
+  border-bottom: 1px solid var(--color-background-subtle);
+
+  &__scss {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+    width: fit-content;
+    margin: var(--space-8) 0;
+    padding: var(--space-8) var(--space-12);
+    border-radius: var(--space-8);
+    background: var(--color-gray-800);
+  }
+
+  &__css {
+    width: fit-content;
+    margin: var(--space-8) 0;
+    padding: var(--space-8) var(--space-12);
+    border-radius: var(--space-8);
+    background: var(--color-gray-800);
+  }
+
+  &__text {
+    $textColor: var(--color-gray-200);
+
+    --text-color: #{$textColor};
+    --input-color: #{$textColor};
+
+    color: #{$textColor};
+  }
+
+  &__switch {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+    margin: var(--space-8) 0;
+  }
+
+  &__label {
+    margin: var(--space-8) 0;
+  }
+
+  &__border {
+    border: solid var(--color-border-subtle);
+
+    &:after {
+      display: none;
+    }
+  }
+
+  .ui-input {
+    --input-color: var(--color-gray-300);
+    --input-padding-block: var(--space-4);
+    --input-padding-inline: var(--space-8);
+    --input-font: var(--font-body-2-compact)
+  }
+
+  pre {
+    margin: 0;
+  }
+}
+
+.content {
+  position: relative;
+}

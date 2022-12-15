@@ -162,23 +162,21 @@ const defaultProps = computed<DefaultProps>(() => ({
   }
 
   &__title {
-    margin: functions.var($element + "-title", margin, 0 0 var(--space-8) 0);
+    @include mixins.use-logical($element + "-title", margin, 0 0 var(--space-8) 0);
   }
 
   &__aside {
+    @include mixins.use-logical($element + "-aside", margin, 0 0 var(--space-24) 0);
+
     display: flex;
     flex: 0 0 auto;
     align-items: center;
     justify-content: center;
-    margin: functions.var($element + "-aside", margin, 0 0 var(--space-24) 0);
 
     @include mixins.from-tablet {
-      align-items: flex-start;
-      margin: functions.var($element + "-tablet-aside", margin, 0 0 0 var(--space-40));
+      @include mixins.use-logical($element + "-tablet-aside", margin, 0 0 0 var(--space-40));
 
-      [dir="rtl"] & {
-        margin: functions.var($element + "-rtl-tablet-aside", margin, 0 var(--space-40) 0 0);
-      }
+      align-items: flex-start;
     }
   }
 

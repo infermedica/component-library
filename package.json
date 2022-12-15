@@ -1,7 +1,7 @@
 {
   "name": "@infermedica/component-library",
   "description": "Vue 3 UI library for healthcare and not only.",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "engines": {
     "node": ">=16.13.2",
     "pnpm": ">=6.32"
@@ -21,10 +21,10 @@
     "create:component": "node scripts/create-component.mjs",
     "create:icons-list": "node scripts/create-icons-list.mjs",
     "create:release-notes": "node --experimental-fetch scripts/create-release-notes.mjs",
+    "prerelease": "pnpm run create:index && pnpm run create:icons-list && pnpm run test:generate-output",
     "release": "node --experimental-fetch scripts/release.mjs",
-    "update:components-api": "node scripts/update-components-api.mjs",
     "update:docs": "node scripts/update-components-docs.mjs && pnpm lint",
-    "update:css-variables": "node --experimental-fetch scripts/figma-to-css.mjs && stylelint src/styles/variables/*.scss --fix",
+    "update:components-api": "node scripts/update-components-api.mjs",
     "chromatic": "chromatic --exit-zero-on-changes",
     "serve": "vite --open",
     "preview": "vite preview --open --port 8080",
@@ -57,7 +57,6 @@
     "@vitejs/plugin-vue": "^3.0.1",
     "core-js": "^3.23.5",
     "date-fns": "^2.28.0",
-    "dotenv": "^16.0.3",
     "fast-deep-equal": "^3.1.3",
     "uid": "^2.0.0",
     "vite": "^3.0.2",

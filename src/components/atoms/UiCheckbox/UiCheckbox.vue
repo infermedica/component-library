@@ -2,7 +2,10 @@
   <label
     class="ui-checkbox"
     :for="checkboxId"
-    v-bind="attrs"
+    v-bind="{
+      ...attrs,
+      ...elementsListeners.label
+    }"
   >
     <input
       :id="checkboxId"
@@ -142,6 +145,18 @@ const props = defineProps({
 const {
   attrs, listeners,
 } = useAttributes();
+const elementsListeners = computed(() => {
+  const {
+    onFocus, onBlur, ...rest
+  } = listeners.value;
+  return {
+    input: {
+      onFocus,
+      onBlur,
+    },
+    label: rest,
+  };
+});
 const defaultProps = computed(() => ({
   iconCheckmarkAttrs: {
     icon: 'checkmark' as Icon,
@@ -153,7 +168,7 @@ const defaultProps = computed(() => ({
   },
   inputAttrs: {
     disabled: props.disabled,
-    ...listeners.value,
+    ...elementsListeners.value.input,
     ...props.inputAttrs,
   },
 }));
@@ -206,6 +221,7 @@ if (checkbutton.value) {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
+  gap: functions.var($element, gap, var(--space-12));
 
   @include mixins.with-hover {
     cursor: pointer;
@@ -214,7 +230,7 @@ if (checkbutton.value) {
   @include mixins.hover {
     #{$this}__checkbox {
       &::after {
-        border-color: functions.var($element + "-hover", border-color, var(--color-border-strong-hover));
+        @include mixins.use-logical($element + "-hover", border-color, var(--color-border-strong-hover));
       }
 
       &--is-checked {
@@ -240,7 +256,7 @@ if (checkbutton.value) {
   &:active {
     #{$this}__checkbox {
       &::after {
-        border-color: functions.var($element + "-active", border-color, var(--color-border-strong-active));
+        @include mixins.use-logical($element + "-active", border-color, var(--color-border-strong-active));
       }
 
       &--is-checked {
@@ -252,12 +268,11 @@ if (checkbutton.value) {
           );
 
         &::after {
-          border-color:
-            functions.var(
-              $element + "-checked-active",
-              border-color,
-              var(--color-selectioncontrols-selection-active)
-            );
+          @include mixins.use-logical(
+            $element + "-checked-active",
+            border-color,
+            var(--color-selectioncontrols-selection-active)
+          );
         }
       }
     }
@@ -282,6 +297,7 @@ if (checkbutton.value) {
         background-color 150ms ease-in-out
       )
     );
+    @include mixins.use-logical($element + "-checkbox", margin, var(--space-2));
 
     display: flex;
     width: functions.var($element, size, 1.25rem);
@@ -289,14 +305,13 @@ if (checkbutton.value) {
     flex: none;
     align-items: center;
     justify-content: center;
-    margin: 2px;
     background: functions.var($element, background, var(--color-background-white));
 
     &--is-checked {
       background: functions.var($element + "-checked", background, var(--color-selectioncontrols-selection));
 
       &::after {
-        border-color: functions.var($element + "-checked", border-color, var(--color-selectioncontrols-selection));
+        @include mixins.use-logical($element + "-checked", border-color, var(--color-selectioncontrols-selection));
       }
 
       #{$this}__checkmark {
@@ -317,10 +332,6 @@ if (checkbutton.value) {
     --text-color: #{functions.var($element + "-label", color, var(--color-text-body))};
 
     flex: 1;
-
-    [dir="rtl"] & {
-      --text-margin: #{functions.var($element + "-rtl-label", margin, 0 var(--space-12) 0 0)};
-    }
   }
 
   &--is-disabled {
@@ -329,14 +340,14 @@ if (checkbutton.value) {
     @include mixins.hover {
       #{$this}__checkbox {
         &::after {
-          border-color: functions.var($element + "-hover", border-color, var(--color-icon-disabled));
+          @include mixins.use-logical($element + "-hover", border-color, var(--color-icon-disabled));
         }
 
         &--is-checked {
           background: functions.var($element + "-checked-hover", background, var(--color-icon-disabled));
 
           &::after {
-            border-color: functions.var($element + "-checked-hover", border-color, var(--color-icon-disabled));
+            @include mixins.use-logical($element + "-checked-hover", border-color, var(--color-icon-disabled));
           }
         }
       }
@@ -345,14 +356,14 @@ if (checkbutton.value) {
     &:active {
       #{$this}__checkbox {
         &::after {
-          border-color: functions.var($element + "-hover", border-color, var(--color-icon-disabled));
+          @include mixins.use-logical($element + "-hover", border-color, var(--color-icon-disabled));
         }
 
         &--is-checked {
           background: functions.var($element + "-checked-active", background, var(--color-icon-disabled));
 
           &::after {
-            border-color: functions.var($element + "-checked-active", border-color, var(--color-icon-disabled));
+            @include mixins.use-logical($element + "-checked-active", border-color, var(--color-icon-disabled));
           }
         }
       }
@@ -360,14 +371,14 @@ if (checkbutton.value) {
 
     #{$this}__checkbox {
       &::after {
-        border-color: functions.var($element, border-color, var(--color-icon-disabled));
+        @include mixins.use-logical($element, border-color, var(--color-icon-disabled));
       }
 
       &--is-checked {
         background: functions.var($element + "-checked", background, var(--color-icon-disabled));
 
         &::after {
-          border-color: functions.var($element + "-checked", border-color, var(--color-icon-disabled));
+          @include mixins.use-logical($element + "-checked", border-color, var(--color-icon-disabled));
         }
       }
     }
@@ -381,19 +392,18 @@ if (checkbutton.value) {
     @include mixins.hover {
       #{$this}__checkbox {
         &::after {
-          border-color: functions.var($element + "-hover", border-color, var(--color-border-error-strong-hover));
+          @include mixins.use-logical($element + "-hover", border-color, var(--color-border-error-strong-hover));
         }
 
         &--is-checked {
           background: functions.var($element + "-checked-hover", background, var(--color-border-error-strong-hover));
 
           &::after {
-            border-color:
-              functions.var(
-                $element + "-checked-hover",
-                border-color,
-                var(--color-border-error-strong-hover)
-              );
+            @include mixins.use-logical(
+              $element + "-checked-hover",
+              border-color,
+              var(--color-border-error-strong-hover)
+            );
           }
         }
       }
@@ -402,19 +412,18 @@ if (checkbutton.value) {
     &:active {
       #{$this}__checkbox {
         &::after {
-          border-color: functions.var($element + "-hover", border-color, var(--color-border-error-strong-hover));
+          @include mixins.use-logical($element + "-hover", border-color, var(--color-border-error-strong-hover));
         }
 
         &--is-checked {
           background: functions.var($element + "-checked-active", background, var(--color-border-error-strong-active));
 
           &::after {
-            border-color:
-              functions.var(
-                $element + "-checked-active",
-                border-color,
-                var(--color-border-error-strong-active)
-              );
+            @include mixins.use-logical(
+              $element + "-checked-active",
+              border-color,
+              var(--color-border-error-strong-active)
+            );
           }
         }
       }
@@ -422,14 +431,14 @@ if (checkbutton.value) {
 
     #{$this}__checkbox {
       &::after {
-        border-color: functions.var($element, border-color, var(--color-border-error-strong));
+        @include mixins.use-logical($element, border-color, var(--color-border-error-strong));
       }
 
       &--is-checked {
         background: functions.var($element + "-checked", background, var(--color-border-error-strong));
 
         &::after {
-          border-color: functions.var($element + "-checked", border-color, var(--color-border-error-strong));
+          @include mixins.use-logical($element + "-checked", border-color, var(--color-border-error-strong));
         }
       }
     }

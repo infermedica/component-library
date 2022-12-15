@@ -31,8 +31,8 @@ defineProps({
   $element: text;
 
   @include mixins.font(text, body-1);
+  @include mixins.use-logical($element, margin, 0);
 
-  margin: functions.var($element, margin, 0);
   color: functions.var($element, color, var(--color-text-body));
 
   $styles: "body-1-thick", "body-2-comfortable", "body-2-compact",

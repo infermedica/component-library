@@ -1,0 +1,10 @@
+.tos {
+  --bullet-points-gap: var(--space-32);
+  margin-block-start: var(--space-32);
+
+  &--nested {
+    --bullet-points-gap: var(--space-8);
+
+    margin-block-start: var(--space-12);
+  }
+}

@@ -71,8 +71,8 @@ const hasIcon = computed(() => !!defaultProps.value.iconSuffixAttrs.icon);
 .ui-menu-item-suffix {
   $element: menu-item-suffix;
 
-  --button-icon-margin: #{functions.var($element + "-icon", margin, 0)};
-  --button-rtl-icon-margin: #{functions.var($element + "-rtl-icon", margin, 0)};
+  --button-icon-block: #{functions.var($element + "-icon", margin-block, 0)};
+  --button-icon-inline: #{functions.var($element + "-icon", margin-inline, 0)};
 
   display: flex;
   align-items: center;

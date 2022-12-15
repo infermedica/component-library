@@ -61,7 +61,6 @@ import {
   ref,
   watch,
   watchEffect,
-  reactive,
 } from 'vue';
 import type {
   PropType,
@@ -256,7 +255,8 @@ const clickOutsideHandler = (event: InputEvent) => {
   $element: datepicker-calendar;
 
   --dropdown-popover-max-width: #{functions.var($element + "-popover", max-width, 100% )};
-  --dropdown-popover-padding: #{functions.var($element + "-popover", padding, 0 )};
+  --dropdown-popover-padding-block: #{functions.var($element + "-popover", padding-block, 0 )};
+  --dropdown-popover-padding-inline: #{functions.var($element + "-popover", padding-inline, 0 )};
 
   position: unset;
 }

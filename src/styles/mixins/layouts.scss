@@ -1,3 +1,5 @@
+@use './use-logical.scss' as *;
+
 /**
  * CSS Custom Properties
  * <element>-border
@@ -8,22 +10,24 @@
  * <element>-transition
  */
 @mixin inner-border($element, $style: solid, $color: var(--color-border-strong), $width: 1px, $radius: 0, $pseudo-element: 'after', $transition: border-color 150ms ease-in-out) {
+  @include use-logical($element, border-radius, $radius);
+
   position: relative;
   border: none;
-  border-radius: var(--#{$element}-border-radius, #{$radius});
   transition: var(--#{$element}-transition, $transition);
 
   &::#{$pseudo-element} {
+    @include use-logical($element, border, var(--#{$element}-border));
+    @include use-logical($element, border-style, $style);
+    @include use-logical($element, border-color, $color);
+    @include use-logical($element, border-width, $width);
+
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
     content: "";
-    border: var(--#{$element}-border);
-    border-style: var(--#{$element}-border-style, #{$style});
-    border-color: var(--#{$element}-border-color, #{$color});
-    border-width: var(--#{$element}-border-width, #{$width});
     border-radius: inherit;
     pointer-events: none;
     transition: inherit;

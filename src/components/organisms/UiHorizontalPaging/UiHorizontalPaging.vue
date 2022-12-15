@@ -98,7 +98,7 @@ import {
   inject,
 } from 'vue';
 import type { PropType } from 'vue';
-import type { PropsAttrs } from '@/types/attrs';
+import type { PropsAttrs } from '../../../types/attrs';
 import type { Icon } from '../../../types/icon';
 import type {
   MenuSuffixVisible,
@@ -220,10 +220,13 @@ const menuItems = computed<MenuItem[]>(() => {
     class: 'ui-button--theme-secondary',
   };
   return itemsAsArray.value.map((item) => {
+    /* eslint-disable @typescript-eslint/no-unused-vars */
     const {
       title,
       ...rest
     } = item;
+    /* eslint-enable @typescript-eslint/no-unused-vars */
+
     return {
       ...additionalAttrs,
       onClick: () => {
@@ -250,19 +253,20 @@ const handleBackClick = () => {
   $element: inside-pages;
 
   &__header {
+    @include mixins.use-logical($element + "-header", padding, var(--space-24) var(--space-20));
+
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
-    padding: functions.var($element + "-header", padding, var(--space-24) var(--space-20));
     background: functions.var($element + "-header", background, var(--color-background-subtle));
     gap: functions.var($element + "-header", gap, var(--space-12));
   }
 
   &__back {
-    margin: functions.var($element + "-button-back", margin, 3px 0 0 0);
+    @include mixins.use-logical($element + "-button-back", margin, 3px 0 0 0);
 
     @include mixins.from-tablet {
-      margin: functions.var($element + "-tablet-button-back", margin, 6px 0 0 0);
+      @include mixins.use-logical($element + "-tablet-button-back", margin, 6px 0 0 0);
     }
   }
 
@@ -280,17 +284,19 @@ const handleBackClick = () => {
   }
 
   &__menu {
+    @include mixins.use-logical($element + "-menu", padding, var(--space-12) var(--space-4));
+
     flex: 0 0 100%;
-    padding: functions.var($element + "-menu", padding, var(--space-12) var(--space-4));
   }
 
   &__content {
+    @include mixins.use-logical($element + "-content", padding, var(--space-24) var(--space-20));
+
     flex: 0 0 100%;
-    padding: functions.var($element + "-content", padding, var(--space-24) var(--space-20));
   }
 
   &--nested {
-    margin: calc(var(--space-24) * -1) calc(var(--space-20) * -1);
+    @include mixins.use-logical($element + "-nested", margin, calc(var(--space-24) * -1) calc(var(--space-20) * -1));
   }
 }
 </style>

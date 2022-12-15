@@ -340,15 +340,21 @@ if (buttonAttrs.value) {
 }
 // END
 const dropdownItemAttrs = (item: DropdownItemAsObj) => {
+  /* eslint-disable @typescript-eslint/no-unused-vars */
   const {
-    name, text, ...rest
+    name,
+    text,
+    ...rest
   } = item;
+  /* eslint-enable @typescript-eslint/no-unused-vars */
+
   return rest;
 };
 </script>
 
 <style lang="scss">
 @use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-dropdown {
   $element: dropdown;
@@ -357,15 +363,28 @@ const dropdownItemAttrs = (item: DropdownItemAsObj) => {
   display: inline-flex;
 
   &__popover {
-    --popover-content-padding: #{functions.var($element + "-popover", padding, var(--space-8))};
+    --popover-content-padding-block:
+      #{functions.var(
+        $element + "-popover",
+        padding-block,
+        functions.var($element + "-popover", padding-block-start, var(--space-8))
+        functions.var($element + "-popover", padding-block-end, var(--space-8))
+      )};
+    --popover-content-padding-inline:
+      #{functions.var(
+        $element + "-popover",
+        padding-inline,
+        functions.var($element + "-popover", padding-inline-start, var(--space-8))
+        functions.var($element + "-popover", padding-inline-end, var(--space-8))
+      )};
+
+    @include mixins.use-logical($element + "-popover", margin, var(--space-8) 0 0);
+    @include mixins.use-logical($element + "-popover", inset, 100% auto auto 0);
 
     position: absolute;
-    top: 100%;
-    left: 0;
     width: functions.var($element + "-popover", width, 100%);
     max-width: functions.var($element + "-popover", max-width, 15rem);
     min-height: functions.var($element + "-popover", min-height, 0);
-    margin: functions.var($element + "-popover", margin, var(--space-8) 0 0 0);
   }
 
   &__items {
@@ -375,7 +394,8 @@ const dropdownItemAttrs = (item: DropdownItemAsObj) => {
   }
 
   &--compact {
-    --dropdown-item-padding: var(--space-4) var(--space-8);
+    --dropdown-item-padding-block: var(--space-4);
+    --dropdown-item-padding-inline: var(--space-8);
   }
 }
 </style>

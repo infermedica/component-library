@@ -60,6 +60,8 @@ function select(value: string): void {
 </script>
 
 <style lang="scss">
+@use "../../../../styles/mixins";
+
 .ui-datepicker-year-tab {
   $this: &;
   $element: datepicker-year-tab;
@@ -68,7 +70,7 @@ function select(value: string): void {
     --datepicker-tab-item-width: calc(100% / 5);
 
     &:nth-of-type(-n+5) {
-      margin: 0;
+      @include mixins.use-logical($element, margin, 0);
     }
   }
 }

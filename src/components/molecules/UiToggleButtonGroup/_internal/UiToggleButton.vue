@@ -73,49 +73,26 @@ const hasIcon = computed(() => !!attrs.class && attrs.class.includes('ui-toggle-
   $this: &;
   $element: toggle-button;
 
-  flex: 1;
-
   @include mixins.focus {
     z-index: 1;
   }
 
-  &:not(:first-of-type, :last-of-type) {
-    border-radius: 0;
-  }
+  flex: 1;
 
   &:not(:last-of-type) {
-    &::after {
-      border-right-width: 0;
+    @include mixins.use-logical($element, border-radius, 0);
 
-      [dir="rtl"] & {
-        border-width: var(--button-border-width, 1px);
-        border-left-width: 0;
-      }
+    &::after {
+      @include mixins.use-logical($element, border-width, 1px 0 1px 1px);
     }
   }
 
   &:first-of-type {
-    border-bottom-right-radius: 0;
-    border-top-right-radius: 0;
+    @include mixins.use-logical($element, border-radius, var(--border-radius-button) 0);
   }
 
   &:last-of-type {
-    border-bottom-left-radius: 0;
-    border-top-left-radius: 0;
-  }
-
-  [dir="rtl"] & {
-    &:first-of-type {
-      border-radius: var(--button-border-radius, var(--border-radius-form));
-      border-bottom-left-radius: 0;
-      border-top-left-radius: 0;
-    }
-
-    &:last-of-type {
-      border-radius: var(--button-border-radius, var(--border-radius-form));
-      border-bottom-right-radius: 0;
-      border-top-right-radius: 0;
-    }
+    @include mixins.use-logical($element, border-radius, 0 var(--border-radius-button));
   }
 }
 </style>

@@ -7,7 +7,7 @@ import UiControls from '@/components/organisms/UiControls/UiControls.vue';
 import UiMultipleAnswer from '@/components/organisms/UiMultipleAnswer/UiMultipleAnswer.vue';
 import UiSimpleQuestion from '@/components/organisms/UiSimpleQuestion/UiSimpleQuestion.vue';
 import { actions } from '@storybook/addon-actions';
-import scss from './UiQuestion.stories.scss';
+import './UiQuestion.stories.scss';
 import docs from './UiQuestion.mdx';
 
 const events = actions({
@@ -115,6 +115,7 @@ export const AsMultipleAnswer = (args) => ({
       v-model="modelValue"
       name="group-single"
       :items="items"
+      hint="Select one answer"
     />
   </UiQuestion>`,
 });

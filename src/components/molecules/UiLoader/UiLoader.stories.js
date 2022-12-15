@@ -23,6 +23,7 @@ import {
 } from 'vue';
 import './UiLoader.stories.scss';
 import docs from './UiLoader.mdx';
+import {OnBrand} from "@/components/molecules/UiNavigation/UiNavigation.stories";
 
 const events = actions({ onMounted: 'onMounted' });
 
@@ -317,10 +318,13 @@ export const SkeletonLoader = () => ({
     UiLoader,
     UiText,
   },
-  template: `<UiText tag="span">
+  template: `<UiText 
+    tag="span" 
+    class="self-start"
+  >
     Common:
   </UiText>
-  <div class="min-w-80">
+  <div class="min-w-80 self-start">
     <UiLoader
       :isLoading="true"
       type="skeleton"
@@ -328,10 +332,13 @@ export const SkeletonLoader = () => ({
       <!-- Place the content to be loaded. -->
     </UiLoader>
   </div>
-  <UiText tag="span">
+  <UiText 
+    tag="span"
+    class="self-start"
+  >
     Question:
   </UiText>
-  <div class="min-w-80">
+  <div class="min-w-80 self-start">
     <UiLoader
       :isLoading="true"
       type="skeleton"
@@ -676,6 +683,7 @@ export const LoadingFullOnBrand = () => ({
     <!-- Place the content to be loaded. -->
   </UiLoader>`,
 });
+LoadingFullOnBrand.parameters = { backgrounds: { default: 'brand' } };
 LoadingFullOnBrand.decorators = [ () => ({
   template: `<div class="flex-1 min-h-135">
     <story />
