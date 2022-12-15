@@ -1,85 +1,60 @@
-@mixin color($name, $colors) {
-  @each $key, $value in $colors {
-    --color-#{$name}-#{$key}: #{$value};
-  }
-}
+// Auto-generated file by update:css-variables script. Do not edit manually
 
 :root {
+  --color-blue-50: #edf6fd;
+  --color-blue-100: #daedfb;
+  --color-blue-200: #c2e0f8;
+  --color-blue-300: #a2cff5;
+  --color-blue-400: #71b5f0;
+  --color-blue-500: #2f91ea;
+  --color-blue-600: #1471c9;
+  --color-blue-700: #0f5496;
+  --color-blue-800: #0b3d6d;
+  --color-blue-900: #082c4d;
+
+  --color-gray-50: #f3f5f7;
+  --color-gray-100: #e7ebef;
+  --color-gray-200: #d6dde3;
+  --color-gray-300: #c1cbd5;
+  --color-gray-400: #a4b1bf;
+  --color-gray-500: #7d8fa3;
+  --color-gray-600: #5f7285;
+  --color-gray-700: #475463;
+  --color-gray-800: #333d48;
+  --color-gray-900: #1f262c;
+
+  --color-green-50: #e6f9f2;
+  --color-green-100: #c2f5e2;
+  --color-green-200: #92eece;
+  --color-green-300: #6ddeb6;
+  --color-green-400: #2dc692;
+  --color-green-500: #1aa175;
+  --color-green-600: #127f5b;
+  --color-green-700: #0b5f43;
+  --color-green-800: #064530;
+  --color-green-900: #033021;
+
+  --color-red-50: #fff1f1;
+  --color-red-100: #ffe4e4;
+  --color-red-200: #ffd2d2;
+  --color-red-300: #ffb8b8;
+  --color-red-400: #ff8f8e;
+  --color-red-500: #fa514f;
+  --color-red-600: #d42e2e;
+  --color-red-700: #a12020;
+  --color-red-800: #781515;
+  --color-red-900: #580d0d;
+
   --color-white: #fff;
 
-  @include color(
-    $name: "gray",
-    $colors: (
-      "50": #f3f5f7,
-      "100": #e7ebef,
-      "200": #d6dde3,
-      "300": #c1cbd5,
-      "400": #a4b1bf,
-      "500": #7d8fa3,
-      "600": #5f7285,
-      "700": #475463,
-      "800": #333d48,
-      "900": #1f262c,
-    )
-  );
-  @include color(
-    $name: "green",
-    $colors: (
-      "50": #e6f9f2,
-      "100": #c2f5e2,
-      "200": #92eece,
-      "300": #6ddeb6,
-      "400": #2dc692,
-      "500": #1aa175,
-      "600": #127f5b,
-      "700": #0b5f43,
-      "800": #064530,
-      "900": #033021,
-    )
-  );
-  @include color(
-    $name: "blue",
-    $colors: (
-      "50": #edf6fd,
-      "100": #daedfb,
-      "200": #c2e0f8,
-      "300": #a2cff5,
-      "400": #71b5f0,
-      "500": #2f91ea,
-      "600": #1471c9,
-      "700": #0f5496,
-      "800": #0b3d6d,
-      "900": #082c4d,
-    )
-  );
-  @include color(
-    $name: "red",
-    $colors: (
-      "50": #fff1f1,
-      "100": #ffe4e4,
-      "200": #ffd2d2,
-      "300": #ffb8b8,
-      "400": #ff8f8e,
-      "500": #fa514f,
-      "600": #d42e2e,
-      "700": #a12020,
-      "800": #781515,
-      "900": #580d0d,
-    )
-  );
-  @include color(
-    $name: "yellow",
-    $colors: (
-      "50": #fff4db,
-      "100": #ffe8b8,
-      "200": #ffd882,
-      "300": #ffc037,
-      "400": #eba100,
-      "500": #be8200,
-      "600": #976700,
-      "700": #704c00,
-      "800": #513800,
-      "900": #3a2700,
-    )
-  );
+  --color-yellow-50: #fff4db;
+  --color-yellow-100: #ffe8b8;
+  --color-yellow-200: #ffd882;
+  --color-yellow-300: #ffc037;
+  --color-yellow-400: #eba100;
+  --color-yellow-500: #be8200;
+  --color-yellow-600: #976700;
+  --color-yellow-700: #704c00;
+  --color-yellow-800: #513800;
+  --color-yellow-900: #3a2700;
 }
