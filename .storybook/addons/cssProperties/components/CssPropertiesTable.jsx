@@ -51,7 +51,7 @@ const CssPropertiesTable = ({
     if (stringifiedStyles) {
       previewRef?.current?.body?.setAttribute("style", stringifiedStyles);
     }
-  }, [args]);
+  });
 
   // events
   const resetArgs = () => {
