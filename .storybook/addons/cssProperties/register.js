@@ -2,19 +2,22 @@ import * as React from 'react';
 import { addons, types } from '@storybook/addons';
 import { AddonPanel } from '@storybook/components';
 import { useParameter } from '@storybook/api';
-import CssPropertiesTable from '../../../docs/components/CssPropertiesTable.jsx';
+import CssPropertiesTable from './components/CssPropertiesTable.jsx';
 
 const ADDON_ID = 'CssProperties';
 const PANEL_ID = `${ADDON_ID}/panel`;
 
-addons.register(ADDON_ID, () => {
-  addons.add(PANEL_ID, {
+addons.register(ADDON_ID, (api) => {
+  addons.addPanel(PANEL_ID, {
     type: types.PANEL,
     title: 'CSS Properties',
-    render: ({ active, key }) => (
-      <AddonPanel active={active} key={key}>
-        <CssPropertiesTable data={useParameter('cssProperties')} inAddonPanel={true}/>
-      </AddonPanel>
-    ),
-  });
+    render: ({ active, key }) => {
+      const story = api.getCurrentStoryData();
+      const storyId = story ? story.kind : 'global'
+      return (
+        <AddonPanel active={active} key={key}>
+          <CssPropertiesTable data={useParameter('cssProperties')} inAddonPanel={true} storyId={storyId} active={active}/>
+        </AddonPanel>
+      )
+  }});
 });
