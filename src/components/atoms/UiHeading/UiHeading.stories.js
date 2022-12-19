@@ -1,9 +1,5 @@
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
-import {
-  content,
-  modifiers,
-} from '@sb/helpers/argTypes';
-
+import { content, modifiers } from '@sb/helpers/argTypes';
 export default {
   title: 'Atoms/Heading',
   component: UiHeading,
@@ -23,28 +19,46 @@ export default {
       },
     },
     modifiers: modifiers({
-      options: [
-        'ui-heading--theme-secondary',
-        'ui-heading--theme-brand',
-      ],
+      options: ['ui-heading--theme-secondary', 'ui-heading--theme-brand'],
     }),
   },
 };
-
-const Template = (args) => ({
-  components: { UiHeading },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiHeading
+export const Common = {
+  render: (args) => ({
+    components: {
+      UiHeading,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiHeading
     :level="level"
     :class="modifiers"
   >
     {{ content }}
   </UiHeading>`,
-});
-
-export const Common = Template.bind({});
-
-export const AsSpan = Template.bind({});
-AsSpan.args = { tag: 'span' };
+  }),
+};
+export const AsSpan = {
+  render: (args) => ({
+    components: {
+      UiHeading,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiHeading
+    :level="level"
+    :class="modifiers"
+  >
+    {{ content }}
+  </UiHeading>`,
+  }),
+  args: {
+    tag: 'span',
+  },
+};

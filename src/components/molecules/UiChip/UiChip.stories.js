@@ -4,9 +4,9 @@ import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import { actions } from '@storybook/addon-actions';
 import { content } from '@sb/helpers/argTypes';
 import UiBackdrop from '@/components/atoms/UiBackdrop/UiBackdrop.vue';
-
-const events = actions({ onRemove: 'remove' });
-
+const events = actions({
+  onRemove: 'remove',
+});
 export default {
   title: 'Molecules/Chip',
   component: UiChip,
@@ -16,9 +16,15 @@ export default {
   },
   args: {
     content: 'Label',
-    textLabelAttrs: { 'data-testid': 'label-text' },
-    buttonRemoveAttrs: { ariaLabel: 'remove label' },
-    iconRemoveAttrs: { 'data-testid': 'icon-remove' },
+    textLabelAttrs: {
+      'data-testid': 'label-text',
+    },
+    buttonRemoveAttrs: {
+      ariaLabel: 'remove label',
+    },
+    iconRemoveAttrs: {
+      'data-testid': 'icon-remove',
+    },
     removeAction: null,
   },
   argTypes: {
@@ -26,26 +32,40 @@ export default {
     removeAction: {
       name: 'remove',
       description: 'Use this event to detect click on remove button.',
-      table: { category: 'events' },
+      table: {
+        category: 'events',
+      },
     },
-    textLabelAttrs: { table: { subcategory: 'Attrs props' } },
-    buttonRemoveAttrs: { table: { subcategory: 'Attrs props' } },
-    iconRemoveAttrs: { table: { subcategory: 'Attrs props' } },
+    textLabelAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    buttonRemoveAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    iconRemoveAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
   },
 };
-
-const Template = (args) => ({
-  components: {
-    UiChip,
-    UiBackdrop,
-  },
-  setup() {
-    return {
-      ...args,
-      ...events,
-    };
-  },
-  template: `<UiChip
+export const WithLabel = {
+  render: (args) => ({
+    components: {
+      UiChip,
+      UiBackdrop,
+    },
+    setup() {
+      return {
+        ...args,
+        ...events,
+      };
+    },
+    template: `<UiChip
     :text-label-attrs="textLabelAttrs"
     :button-remove-attrs="buttonRemoveAttrs"
     :icon-remove-attrs="iconRemoveAttrs"
@@ -53,26 +73,53 @@ const Template = (args) => ({
   >
     {{ content }}
   </UiChip>`,
-});
-export const WithLabel = Template.bind({});
-
-export const WithLongLabel = Template.bind({});
-WithLongLabel.args = { content: 'Input chips represent pieces of information that were added, selected or entered by the user.' };
-WithLongLabel.decorators = [ () => ({
-  template: `<div class="max-w-89">
+  }),
+};
+export const WithLongLabel = {
+  render: (args) => ({
+    components: {
+      UiChip,
+      UiBackdrop,
+    },
+    setup() {
+      return {
+        ...args,
+        ...events,
+      };
+    },
+    template: `<UiChip
+    :text-label-attrs="textLabelAttrs"
+    :button-remove-attrs="buttonRemoveAttrs"
+    :icon-remove-attrs="iconRemoveAttrs"
+    @remove="onRemove"
+  >
+    {{ content }}
+  </UiChip>`,
+  }),
+  args: {
+    content:
+      'Input chips represent pieces of information that were added, selected or entered by the user.',
+  },
+  decorators: [
+    () => ({
+      template: `<div class="max-w-89">
     <story/>
   </div>`,
-}) ];
-
-export const AsGroup = (args) => ({
-  components: { UiChip },
-  setup() {
-    return {
-      ...args,
-      ...events,
-    };
-  },
-  template: `<div class="flex flex-wrap gap-2">
+    }),
+  ],
+};
+export const AsGroup = {
+  render: (args) => ({
+    components: {
+      UiChip,
+    },
+    setup() {
+      return {
+        ...args,
+        ...events,
+      };
+    },
+    template: `<div class="flex flex-wrap gap-2">
     <template v-for="_ in 5">
       <UiChip
         :text-label-attrs="textLabelAttrs"
@@ -84,26 +131,29 @@ export const AsGroup = (args) => ({
       </UiChip>
     </template>
   </div>`,
-});
-AsGroup.decorators = [ () => ({
-  template: `<div class="max-w-89">
+  }),
+  decorators: [
+    () => ({
+      template: `<div class="max-w-89">
     <story/>
   </div>`,
-}) ];
-
-export const WithRemoveSlot = (args) => ({
-  components: {
-    UiChip,
-    UiButton,
-    UiIcon,
-  },
-  setup() {
-    return {
-      ...args,
-      events,
-    };
-  },
-  template: `<UiChip
+    }),
+  ],
+};
+export const WithRemoveSlot = {
+  render: (args) => ({
+    components: {
+      UiChip,
+      UiButton,
+      UiIcon,
+    },
+    setup() {
+      return {
+        ...args,
+        events,
+      };
+    },
+    template: `<UiChip
     :text-label-attrs="textLabelAttrs"
     :button-remove-attrs="buttonRemoveAttrs"
     :icon-remove-attrs="iconRemoveAttrs"
@@ -127,4 +177,5 @@ export const WithRemoveSlot = (args) => ({
     </template>
     {{ content }}
   </UiChip>`,
-});
+  }),
+};

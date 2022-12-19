@@ -10,17 +10,21 @@ import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import { ref } from 'vue';
 import docs from './scroll-tabindex.mdx';
 import './scroll-tabindex.stories.scss';
-
 export default {
   title: 'Utilities/Directives/Scroll Tabindex',
-  decorators: [ () => ({
-    template: `<div style="--backdrop-position: absolute; --side-panel-position: absolute; --side-panel-z-index: 0; min-height: 320px;">
+  decorators: [
+    () => ({
+      template: `<div style="--backdrop-position: absolute; --side-panel-position: absolute; --side-panel-z-index: 0; min-height: 320px;">
         <story />
     </div>`,
-  }) ],
-  parameters: { docs: { page: docs } },
+    }),
+  ],
+  parameters: {
+    docs: {
+      page: docs,
+    },
+  },
 };
-
 export const WithDirective = () => ({
   components: {
     UiButton,
@@ -29,10 +33,14 @@ export const WithDirective = () => ({
     UiSidePanel,
     UiText,
   },
-  directives: { scrollTabindex },
+  directives: {
+    scrollTabindex,
+  },
   setup() {
     const modelValue = ref(true);
-    return { modelValue };
+    return {
+      modelValue,
+    };
   },
   template: `
   <UiButton 
@@ -145,7 +153,6 @@ const TOS = {
     </UiBulletPointsItem>
   </UiBulletPoints>`,
 };
-
 export const WithDirectiveAndScrollableContent = () => ({
   components: {
     UiButton,
@@ -155,10 +162,14 @@ export const WithDirectiveAndScrollableContent = () => ({
     UiText,
     TOS,
   },
-  directives: { scrollTabindex },
+  directives: {
+    scrollTabindex,
+  },
   setup() {
     const modelValue = ref(true);
-    return { modelValue };
+    return {
+      modelValue,
+    };
   },
   template: `<UiButton
     class="ui-button--text ui-button--theme-secondary"
@@ -213,7 +224,6 @@ export const WithDirectiveAndScrollableContent = () => ({
     </template>
   </UiSidePanel>`,
 });
-
 export const WithoutDirective = () => ({
   components: {
     UiButton,
@@ -225,7 +235,9 @@ export const WithoutDirective = () => ({
   },
   setup() {
     const modelValue = ref(true);
-    return { modelValue };
+    return {
+      modelValue,
+    };
   },
   template: `<UiButton
     class="ui-button--text ui-button--theme-secondary"

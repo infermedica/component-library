@@ -9,14 +9,12 @@ import UiSimpleQuestion from '@/components/organisms/UiSimpleQuestion/UiSimpleQu
 import { actions } from '@storybook/addon-actions';
 import './UiQuestion.stories.scss';
 import docs from './UiQuestion.mdx';
-
 const events = actions({
   onClickInfoButton: 'click:info-button',
   onClickWhyButton: 'click:why-button',
   onClickIssueButton: 'click:issue-button',
   onClickFeedbackButton: 'click:feedback-button',
 });
-
 export default {
   title: 'Templates/Question',
   component: UiQuestion,
@@ -46,12 +44,16 @@ export default {
         skip: true,
       },
     },
-    headingTitleAttrs: { 'data-test': 'title-heading' },
+    headingTitleAttrs: {
+      'data-test': 'title-heading',
+    },
     buttonInfoAttrs: {
       'data-test': 'info-button',
       onClick: events.onClickInfoButton,
     },
-    iconInfoAttrs: { 'data-test': 'info-icon' },
+    iconInfoAttrs: {
+      'data-test': 'info-icon',
+    },
     buttonWhyAttrs: {
       'data-test': 'why-button',
       onClick: events.onClickWhyButton,
@@ -60,18 +62,26 @@ export default {
       'data-test': 'issue-button',
       onClick: events.onClickIssueButton,
     },
-    notificationFeedbackAttrs: { buttonActionAttrs: { onClick: events.onClickFeedbackButton } },
+    notificationFeedbackAttrs: {
+      buttonActionAttrs: {
+        onClick: events.onClickFeedbackButton,
+      },
+    },
     titleSlot: null,
   },
   argTypes: {
     items: {
       description: 'Use this control to set the items.',
-      table: { category: 'stories controls' },
+      table: {
+        category: 'stories controls',
+      },
       control: 'array',
     },
     title: {
       description: 'Use this props to set question title.',
-      table: { category: 'props' },
+      table: {
+        category: 'props',
+      },
       control: 'text',
     },
     titleSlot: {
@@ -79,27 +89,33 @@ export default {
       description: 'Use this slot to replace title template.',
       table: {
         category: 'slots',
-        type: { summary: 'unknown' },
+        type: {
+          summary: 'unknown',
+        },
       },
       control: 'object',
     },
   },
-  parameters: { docs: { page: docs } },
+  parameters: {
+    docs: {
+      page: docs,
+    },
+  },
 };
-
-export const AsMultipleAnswer = (args) => ({
-  components: {
-    UiQuestion,
-    UiMultipleAnswer,
-  },
-  setup() {
-    const modelValue = ref('');
-    return {
-      ...args,
-      modelValue,
-    };
-  },
-  template: `<UiQuestion
+export const AsMultipleAnswer = {
+  render: (args) => ({
+    components: {
+      UiQuestion,
+      UiMultipleAnswer,
+    },
+    setup() {
+      const modelValue = ref('');
+      return {
+        ...args,
+        modelValue,
+      };
+    },
+    template: `<UiQuestion
     :title="title"
     :translation="translation"
     :settings="settings"
@@ -118,56 +134,71 @@ export const AsMultipleAnswer = (args) => ({
       hint="Select one answer"
     />
   </UiQuestion>`,
-});
-AsMultipleAnswer.args = {
-  items: [
-    {
-      label: 'Fatigue',
-      value: 'fatigue',
-      buttonInfoAttrs: { ariaLabel: 'how to check it?' },
-      iconInfoAttrs: { 'data-testid': 'info-icon' },
-      textLabelAttrs: { 'data-testid': 'label-text' },
-    },
-    {
-      label: 'Fever',
-      value: 'fever',
-    },
-    {
-      label: 'Illusion of surrounding objects being bigger or smaller than they actually are',
-      value: 'illusion',
-      buttonInfoAttrs: { ariaLabel: 'what does it mean?' },
-      iconInfoAttrs: { 'data-testid': 'info-icon' },
-      textLabelAttrs: { 'data-testid': 'label-text' },
-    },
-  ],
-};
-AsMultipleAnswer.decorators = [ (story) => ({
-  components: {
-    story,
-    UiControls,
+  }),
+  args: {
+    items: [
+      {
+        label: 'Fatigue',
+        value: 'fatigue',
+        buttonInfoAttrs: {
+          ariaLabel: 'how to check it?',
+        },
+        iconInfoAttrs: {
+          'data-testid': 'info-icon',
+        },
+        textLabelAttrs: {
+          'data-testid': 'label-text',
+        },
+      },
+      {
+        label: 'Fever',
+        value: 'fever',
+      },
+      {
+        label: 'Illusion of surrounding objects being bigger or smaller than they actually are',
+        value: 'illusion',
+        buttonInfoAttrs: {
+          ariaLabel: 'what does it mean?',
+        },
+        iconInfoAttrs: {
+          'data-testid': 'info-icon',
+        },
+        textLabelAttrs: {
+          'data-testid': 'label-text',
+        },
+      },
+    ],
   },
-  template: `<UiControls
+  decorators: [
+    (story) => ({
+      components: {
+        story,
+        UiControls,
+      },
+      template: `<UiControls
     :to-next="{path: '/next'}"
     :to-back="{path: '/back'}"
     class="max-w-195 min-h-135 w-full"
   >
     <story/>
   </UiControls>`,
-}) ];
-
-export const WithoutSkipThisQuestion = (args) => ({
-  components: {
-    UiQuestion,
-    UiMultipleAnswer,
-  },
-  setup() {
-    const modelValue = ref('');
-    return {
-      ...args,
-      modelValue,
-    };
-  },
-  template: `<UiQuestion
+    }),
+  ],
+};
+export const WithoutSkipThisQuestion = {
+  render: (args) => ({
+    components: {
+      UiQuestion,
+      UiMultipleAnswer,
+    },
+    setup() {
+      const modelValue = ref('');
+      return {
+        ...args,
+        modelValue,
+      };
+    },
+    template: `<UiQuestion
     :title="title"
     :translation="translation"
     :settings="settings"
@@ -185,65 +216,80 @@ export const WithoutSkipThisQuestion = (args) => ({
       :items="items"
     />
   </UiQuestion>`,
-});
-WithoutSkipThisQuestion.args = {
-  items: [
-    {
-      label: 'Fatigue',
-      value: 'fatigue',
-      buttonInfoAttrs: { ariaLabel: 'how to check it?' },
-      iconInfoAttrs: { 'data-testid': 'info-icon' },
-      textLabelAttrs: { 'data-testid': 'label-text' },
-    },
-    {
-      label: 'Fever',
-      value: 'fever',
-    },
-    {
-      label: 'Illusion of surrounding objects being bigger or smaller than they actually are',
-      value: 'illusion',
-      buttonInfoAttrs: { ariaLabel: 'what does it mean?' },
-      iconInfoAttrs: { 'data-testid': 'info-icon' },
-      textLabelAttrs: { 'data-testid': 'label-text' },
-    },
-  ],
-  settings: {
-    info: true,
-    why: true,
-    issue: {
-      action: true,
-      feedback: true,
-      skip: false,
+  }),
+  args: {
+    items: [
+      {
+        label: 'Fatigue',
+        value: 'fatigue',
+        buttonInfoAttrs: {
+          ariaLabel: 'how to check it?',
+        },
+        iconInfoAttrs: {
+          'data-testid': 'info-icon',
+        },
+        textLabelAttrs: {
+          'data-testid': 'label-text',
+        },
+      },
+      {
+        label: 'Fever',
+        value: 'fever',
+      },
+      {
+        label: 'Illusion of surrounding objects being bigger or smaller than they actually are',
+        value: 'illusion',
+        buttonInfoAttrs: {
+          ariaLabel: 'what does it mean?',
+        },
+        iconInfoAttrs: {
+          'data-testid': 'info-icon',
+        },
+        textLabelAttrs: {
+          'data-testid': 'label-text',
+        },
+      },
+    ],
+    settings: {
+      info: true,
+      why: true,
+      issue: {
+        action: true,
+        feedback: true,
+        skip: false,
+      },
     },
   },
-};
-WithoutSkipThisQuestion.decorators = [ (story) => ({
-  components: {
-    story,
-    UiControls,
-  },
-  template: `<UiControls
+  decorators: [
+    (story) => ({
+      components: {
+        story,
+        UiControls,
+      },
+      template: `<UiControls
     :to-next="{path: '/next'}"
     :to-back="{path: '/back'}"
     class="max-w-195 min-h-135 w-full"
   >
     <story/>
   </UiControls>`,
-}) ];
-
-export const AsSimpleQuestion = (args) => ({
-  components: {
-    UiQuestion,
-    UiSimpleQuestion,
-  },
-  setup() {
-    const modelValue = ref('');
-    return {
-      ...args,
-      modelValue,
-    };
-  },
-  template: `<UiQuestion
+    }),
+  ],
+};
+export const AsSimpleQuestion = {
+  render: (args) => ({
+    components: {
+      UiQuestion,
+      UiSimpleQuestion,
+    },
+    setup() {
+      const modelValue = ref('');
+      return {
+        ...args,
+        modelValue,
+      };
+    },
+    template: `<UiQuestion
     :title="title"
     :translation="translation"
     :settings="settings"
@@ -259,49 +305,54 @@ export const AsSimpleQuestion = (args) => ({
       :items="items"
     />
   </UiQuestion>`,
-});
-AsSimpleQuestion.args = {
-  items: [
-    {
-      value: 'present',
-      label: 'Yes',
-      icon: 'yes',
-    },
-    {
-      value: 'absent',
-      label: 'Male',
-      icon: 'no',
-    },
-    {
-      value: 'unknown',
-      label: 'Don\'t know',
-      icon: 'dont-know',
-    },
-  ],
-};
-AsSimpleQuestion.decorators = [ (story) => ({
-  components: {
-    story,
-    UiControls,
+  }),
+  args: {
+    items: [
+      {
+        value: 'present',
+        label: 'Yes',
+        icon: 'yes',
+      },
+      {
+        value: 'absent',
+        label: 'Male',
+        icon: 'no',
+      },
+      {
+        value: 'unknown',
+        label: "Don't know",
+        icon: 'dont-know',
+      },
+    ],
   },
-  template: `<UiControls
+  decorators: [
+    (story) => ({
+      components: {
+        story,
+        UiControls,
+      },
+      template: `<UiControls
     :to-next="{path: '/next'}"
     :to-back="{path: '/back'}"
     class="max-w-195 min-h-135 w-full"
   >
     <story/>
   </UiControls>`,
-}) ];
-
-export const WithTitleSlot = (args) => ({
-  components: {
-    UiQuestion,
-    UiHeading,
-  },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiQuestion
+    }),
+  ],
+};
+export const WithTitleSlot = {
+  render: (args) => ({
+    components: {
+      UiQuestion,
+      UiHeading,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiQuestion
     :title="title"
     :translation="translation"
     :settings="settings"
@@ -325,18 +376,21 @@ export const WithTitleSlot = (args) => ({
       </UiHeading>
     </template>
   </UiQuestion>`,
-});
-
-export const WithInfoSlot = (args) => ({
-  components: {
-    UiQuestion,
-    UiButton,
-    UiIcon,
-  },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiQuestion
+  }),
+};
+export const WithInfoSlot = {
+  render: (args) => ({
+    components: {
+      UiQuestion,
+      UiButton,
+      UiIcon,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiQuestion
     :title="title"
     :translation="translation"
     :settings="settings"
@@ -365,17 +419,20 @@ export const WithInfoSlot = (args) => ({
       </UiButton>
     </template>
   </UiQuestion>`,
-});
-
-export const WithActionsBottomSlot = (args) => ({
-  components: {
-    UiQuestion,
-    UiButton,
-  },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiQuestion
+  }),
+};
+export const WithActionsBottomSlot = {
+  render: (args) => ({
+    components: {
+      UiQuestion,
+      UiButton,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiQuestion
     :title="title"
     :translation="translation"
     :settings="settings"
@@ -422,17 +479,20 @@ export const WithActionsBottomSlot = (args) => ({
       </div>
     </template>
   </UiQuestion>`,
-});
-
-export const WithWhySlot = (args) => ({
-  components: {
-    UiQuestion,
-    UiButton,
-  },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiQuestion
+  }),
+};
+export const WithWhySlot = {
+  render: (args) => ({
+    components: {
+      UiQuestion,
+      UiButton,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiQuestion
     :title="title"
     :translation="translation"
     :settings="settings"
@@ -461,17 +521,20 @@ export const WithWhySlot = (args) => ({
       </div>
     </template>
   </UiQuestion>`,
-});
-
-export const WithIssueSlot = (args) => ({
-  components: {
-    UiQuestion,
-    UiButton,
-  },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiQuestion
+  }),
+};
+export const WithIssueSlot = {
+  render: (args) => ({
+    components: {
+      UiQuestion,
+      UiButton,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiQuestion
     :title="title"
     :translation="translation"
     :settings="settings"
@@ -500,4 +563,5 @@ export const WithIssueSlot = (args) => ({
       </div>
     </template>
   </UiQuestion>`,
-});
+  }),
+};

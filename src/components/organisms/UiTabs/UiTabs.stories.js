@@ -5,9 +5,9 @@ import UiText from '@/components/atoms/UiText/UiText.vue';
 import { actions } from '@storybook/addon-actions';
 import { ref } from 'vue';
 import { modifiers } from '@sb/helpers/argTypes';
-
-const events = actions({ onUpdateModelValue: 'update:modelValue' });
-
+const events = actions({
+  onUpdateModelValue: 'update:modelValue',
+});
 export default {
   title: 'Organisms/Tabs',
   component: UiTabs,
@@ -21,8 +21,12 @@ export default {
         name: 'search',
         title: 'Search',
         'data-testid': 'search',
-        buttonTabAttrs: { 'data-testid': 'search-button' },
-        contentAttrs: { 'data-testid': 'search-content' },
+        buttonTabAttrs: {
+          'data-testid': 'search-button',
+        },
+        contentAttrs: {
+          'data-testid': 'search-content',
+        },
       },
       {
         name: 'point',
@@ -43,41 +47,51 @@ export default {
   argTypes: {
     initModelValue: {
       description: 'Use this control to set initial state.',
-      table: { category: 'stories controls' },
+      table: {
+        category: 'stories controls',
+      },
       control: 'text',
     },
-    modifiers: modifiers({ options: [ 'ui-tabs--fixed' ] }),
-    modelValue: { control: false },
+    modifiers: modifiers({
+      options: ['ui-tabs--fixed'],
+    }),
+    modelValue: {
+      control: false,
+    },
     tabsItem: {
       name: '<name>',
       description: 'Use this slot to place tabs item content. Require `name` in item object.',
       table: {
         category: 'slots',
-        type: { summary: 'unknown' },
+        type: {
+          summary: 'unknown',
+        },
       },
     },
   },
-  decorators: [ () => ({
-    template: `<div class="min-h-30">
+  decorators: [
+    () => ({
+      template: `<div class="min-h-30">
       <story />
     </div>`,
-  }) ],
+    }),
+  ],
 };
-
-const Template = (args) => ({
-  components: {
-    UiTabs,
-    UiText,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiTabs 
+export const Common = {
+  render: (args) => ({
+    components: {
+      UiTabs,
+      UiText,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiTabs 
     v-model="modelValue"
     :items="items"
     :class="modifiers"
@@ -93,27 +107,58 @@ const Template = (args) => ({
       </UiText>
     </template>
   </UiTabs>`,
-});
-
-export const Common = Template.bind({});
-
-export const Fixed = Template.bind({});
-Fixed.args = { modifiers: [ 'ui-tabs--fixed' ] };
-
-export const WithDefaultSlot = (args) => ({
-  components: {
-    UiTabs,
-    UiTabsItem,
-    UiText,
+  }),
+};
+export const Fixed = {
+  render: (args) => ({
+    components: {
+      UiTabs,
+      UiText,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiTabs 
+    v-model="modelValue"
+    :items="items"
+    :class="modifiers"
+    @update:modelValue="onUpdateModelValue"
+  >
+    <template 
+      v-for="(item, key) in items"
+      #[item.name]="{item}"
+      :key="key"
+    >
+      <UiText>
+        {{ content[item.name] }}
+      </UiText>
+    </template>
+  </UiTabs>`,
+  }),
+  args: {
+    modifiers: ['ui-tabs--fixed'],
   },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      modelValue,
-    };
-  },
-  template: `<UiTabs 
+};
+export const WithDefaultSlot = {
+  render: (args) => ({
+    components: {
+      UiTabs,
+      UiTabsItem,
+      UiText,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        modelValue,
+      };
+    },
+    template: `<UiTabs 
     v-model="modelValue"
     :class="modifiers"
   >
@@ -136,4 +181,5 @@ export const WithDefaultSlot = (args) => ({
       </UiTabsItem>
     </template>
   </UiTabs>`,
-});
+  }),
+};

@@ -21,8 +21,6 @@ export const Code = ({
     const codeBlocksAsObject = getCodeBlocksAsObject(codeBlocks);
     code = `${additionalData} ${codeBlocksAsObject[id]}`.trim();
   }
-  return <Source
-    language={language}
-    code={code}
-  />;
+  // Throw Error "Uncaught (in promise) Error: No primary story defined for docs entry. Did you forget to use `<Meta>`?"
+  return <p>{'<Source/> in <Code /> component Throw some Error.'}</p>;
 };

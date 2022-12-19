@@ -1,5 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { styled, css } from '@storybook/theming';
+import React, {
+  useState,
+  useEffect,
+} from 'react';
+import {
+  styled,
+  css,
+} from '@storybook/theming';
 
 // https://emotion.sh/docs/introduction
 const Container = styled.div`
@@ -38,7 +44,7 @@ const makeAnchor = (node) => {
 };
 const getHeadingLevel = (node) => parseInt(node?.tagName.substring(1), 10);
 const getNodes = (elements) => {
-  let headings = [...elements];
+  let headings = [ ...elements ];
   const nodes = [];
 
   while (headings.length) {
@@ -54,10 +60,15 @@ const getNodes = (elements) => {
           {currentHeading.textContent}
         </Link>
       </li>);
-      return { nodes, headings };
+      return {
+        nodes,
+        headings,
+      };
     }
     if (getHeadingLevel(currentHeading) < getHeadingLevel(nextHeading)) { // h2 < h3
-      const { nodes: children, headings: restHeadings } = getNodes(headings);
+      const {
+        nodes: children, headings: restHeadings,
+      } = getNodes(headings);
       headings = restHeadings;
       nodes.push(<li key={key}>
         <Link
@@ -92,10 +103,13 @@ const getNodes = (elements) => {
  * Generate a list of links to the sections based on the page's outline.
  */
 export const PageOutline = ({ selectors = 'h2, h3, h4, h5, h6' }) => {
-  const [pageOutline, setPageOutline] = useState(<li>loading...</li>);
+  const [
+    pageOutline,
+    setPageOutline,
+  ] = useState(<li>loading...</li>);
   useEffect(() => {
-    const el = document.getElementById('docs-root');
-    const headings = [...el.querySelectorAll(selectors)];
+    const el = document.getElementById('storybook-docs');
+    const headings = [ ...el.querySelectorAll(selectors) ];
     const nodes = getNodes(headings).nodes;
     setPageOutline(nodes);
   }, []);

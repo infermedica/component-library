@@ -4,7 +4,6 @@ import UiProgress from '@/components/atoms/UiProgress/UiProgress.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiStepperStep from '@/components/molecules/UiStepper/_internal/UiStepperStep.vue';
-
 const steps = [
   {
     label: 'Introduction',
@@ -37,7 +36,6 @@ const steps = [
     'data-testid': 'results',
   },
 ];
-
 export default {
   title: 'Molecules/Stepper',
   component: UiStepper,
@@ -51,44 +49,59 @@ export default {
   args: {
     steps,
     currentStep: steps.at(2).label,
-    progressAttrs: { id: 'progress' },
+    progressAttrs: {
+      id: 'progress',
+    },
   },
   argTypes: {
     currentStep: {
       control: 'select',
       options: steps.map((step) => step.label),
     },
-    progressAttrs: { table: { subcategory: 'Attrs props' } },
+    progressAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
   },
-  decorators: [ () => ({
-    template: `<div class="desktop:max-w-35">
+  decorators: [
+    () => ({
+      template: `<div class="desktop:max-w-35">
       <story />
     </div>`,
-  }) ],
+    }),
+  ],
 };
-
-export const WithCurrentStep = (args) => ({
-  components: { UiStepper },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiStepper
+export const WithCurrentStep = {
+  render: (args) => ({
+    components: {
+      UiStepper,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiStepper
     :steps="steps"
     :current-step="currentStep"
     :progress-attrs="progressAttrs"
   />`,
-});
-
-export const WithMobileSlot = (args) => ({
-  components: {
-    UiStepper,
-    UiText,
-    UiProgress,
-  },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiStepper
+  }),
+};
+export const WithMobileSlot = {
+  render: (args) => ({
+    components: {
+      UiStepper,
+      UiText,
+      UiProgress,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiStepper
     :steps="steps"
     :current-step="currentStep"
     :progress-attrs="progressAttrs"
@@ -111,17 +124,20 @@ export const WithMobileSlot = (args) => ({
       </div>
     </template>
   </UiStepper>`,
-});
-
-export const WithCurrentStepSlot = (args) => ({
-  components: {
-    UiStepper,
-    UiText,
-  },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiStepper
+  }),
+};
+export const WithCurrentStepSlot = {
+  render: (args) => ({
+    components: {
+      UiStepper,
+      UiText,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiStepper
     :steps="steps"
     :current-step="currentStep"
     :progress-attrs="progressAttrs"
@@ -135,17 +151,20 @@ export const WithCurrentStepSlot = (args) => ({
       </UiText>
     </template>
   </UiStepper>`,
-});
-
-export const WithProgressSlot = (args) => ({
-  components: {
-    UiStepper,
-    UiProgress,
-  },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiStepper
+  }),
+};
+export const WithProgressSlot = {
+  render: (args) => ({
+    components: {
+      UiStepper,
+      UiProgress,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiStepper
     :steps="steps"
     :current-step="currentStep"
     :progress-attrs="progressAttrs"
@@ -157,18 +176,21 @@ export const WithProgressSlot = (args) => ({
       />
     </template>
   </UiStepper>`,
-});
-
-export const WithDesktopSlot = (args) => ({
-  components: {
-    UiStepper,
-    UiStepperStep,
-    UiList,
-  },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiStepper
+  }),
+};
+export const WithDesktopSlot = {
+  render: (args) => ({
+    components: {
+      UiStepper,
+      UiStepperStep,
+      UiList,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiStepper
     :steps="steps"
     :current-step="currentStep"
     :progress-attrs="progressAttrs"
@@ -193,17 +215,20 @@ export const WithDesktopSlot = (args) => ({
       </UiList>
     </template>
   </UiStepper>`,
-});
-
-export const WithItemsSlot = (args) => ({
-  components: {
-    UiStepper,
-    UiStepperStep,
-  },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiStepper
+  }),
+};
+export const WithItemsSlot = {
+  render: (args) => ({
+    components: {
+      UiStepper,
+      UiStepperStep,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiStepper
     :steps="steps"
     :current-step="currentStep"
     :progress-attrs="progressAttrs"
@@ -225,17 +250,20 @@ export const WithItemsSlot = (args) => ({
      </template>
    </template>
   </UiStepper>`,
-});
-
-export const WithItemSlot = (args) => ({
-  components: {
-    UiStepper,
-    UiStepperStep,
-  },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiStepper
+  }),
+};
+export const WithItemSlot = {
+  render: (args) => ({
+    components: {
+      UiStepper,
+      UiStepperStep,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiStepper
     :steps="steps"
     :current-step="currentStep"
     :progress-attrs="progressAttrs"
@@ -253,14 +281,19 @@ export const WithItemSlot = (args) => ({
      />
    </template>
   </UiStepper>`,
-});
-
-export const WithItemLinkSlot = (args) => ({
-  components: { UiStepper },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiStepper
+  }),
+};
+export const WithItemLinkSlot = {
+  render: (args) => ({
+    components: {
+      UiStepper,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiStepper
     :steps="steps"
     :current-step="currentStep"
     :progress-attrs="progressAttrs"
@@ -283,4 +316,5 @@ export const WithItemLinkSlot = (args) => ({
       </component>
     </template>
   </UiStepper>`,
-});
+  }),
+};

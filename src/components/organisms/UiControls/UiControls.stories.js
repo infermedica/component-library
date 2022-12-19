@@ -3,9 +3,9 @@ import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import { actions } from '@storybook/addon-actions';
-
-const events = actions({ onHasError: 'has-error' });
-
+const events = actions({
+  onHasError: 'has-error',
+});
 export default {
   title: 'Organisms/Controls',
   component: UiControls,
@@ -17,41 +17,77 @@ export default {
   args: {
     hideNextButton: false,
     hideBackButton: false,
-    toBack: { path: '/back' },
-    toNext: { path: '/next' },
+    toBack: {
+      path: '/back',
+    },
+    toNext: {
+      path: '/next',
+    },
     invalid: true,
     translation: {
       back: 'Back',
       next: 'Next',
     },
-    containerAttrs: { 'data-testid': 'container-element' },
-    buttonNextAttrs: { 'data-testid': 'next-button' },
-    buttonBackAttrs: { 'data-testid': 'back-button' },
-    iconBackAttrs: { 'data-testid': 'back-icon' },
+    containerAttrs: {
+      'data-testid': 'container-element',
+    },
+    buttonNextAttrs: {
+      'data-testid': 'next-button',
+    },
+    buttonBackAttrs: {
+      'data-testid': 'back-button',
+    },
+    iconBackAttrs: {
+      'data-testid': 'back-icon',
+    },
   },
   argTypes: {
-    toBack: { control: 'object' },
-    toNext: { control: 'object' },
+    toBack: {
+      control: 'object',
+    },
+    toNext: {
+      control: 'object',
+    },
     'has-error': {
       description: 'Use this event to detect when control has error and toNext is blocked.',
-      table: { category: 'events' },
+      table: {
+        category: 'events',
+      },
     },
-    containerAttrs: { table: { subcategory: 'Attrs props' } },
-    buttonNextAttrs: { table: { subcategory: 'Attrs props' } },
-    buttonBackAttrs: { table: { subcategory: 'Attrs props' } },
-    iconBackAttrs: { table: { subcategory: 'Attrs props' } },
+    containerAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    buttonNextAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    buttonBackAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    iconBackAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
   },
 };
-
-const Template = (args) => ({
-  components: { UiControls },
-  setup() {
-    return {
-      ...args,
-      ...events,
-    };
-  },
-  template: `<UiControls
+export const Common = {
+  render: (args) => ({
+    components: {
+      UiControls,
+    },
+    setup() {
+      return {
+        ...args,
+        ...events,
+      };
+    },
+    template: `<UiControls
     :hide-next-button="hideNextButton"
     :to-back="toBack"
     :to-next="toNext"
@@ -63,24 +99,23 @@ const Template = (args) => ({
     :icon-back-attrs="iconBackAttrs"
     @has-error="onHasError"
   />`,
-});
-
-export const Common = Template.bind({});
-
-export const WithBottomSlot = (args) => ({
-  components: {
-    UiControls,
-    UiText,
-    UiButton,
-    UiIcon,
-  },
-  setup() {
-    return {
-      ...args,
-      ...events,
-    };
-  },
-  template: `<UiControls
+  }),
+};
+export const WithBottomSlot = {
+  render: (args) => ({
+    components: {
+      UiControls,
+      UiText,
+      UiButton,
+      UiIcon,
+    },
+    setup() {
+      return {
+        ...args,
+        ...events,
+      };
+    },
+    template: `<UiControls
     :hide-next-button="hideNextButton"
     :to-back="toBack"
     :to-next="toNext"
@@ -126,20 +161,21 @@ export const WithBottomSlot = (args) => ({
       </div>
     </template>
   </UiControls>`,
-});
-
-export const WithNextSlot = (args) => ({
-  components: {
-    UiControls,
-    UiButton,
-  },
-  setup() {
-    return {
-      ...args,
-      ...events,
-    };
-  },
-  template: `<UiControls
+  }),
+};
+export const WithNextSlot = {
+  render: (args) => ({
+    components: {
+      UiControls,
+      UiButton,
+    },
+    setup() {
+      return {
+        ...args,
+        ...events,
+      };
+    },
+    template: `<UiControls
     :hide-next-button="hideNextButton"
     :to-back="toBack"
     :to-next="toNext"
@@ -170,21 +206,22 @@ export const WithNextSlot = (args) => ({
       <span v-else/>
     </template>
   </UiControls>`,
-});
-
-export const WithBackSlot = (args) => ({
-  components: {
-    UiControls,
-    UiButton,
-    UiIcon,
-  },
-  setup() {
-    return {
-      ...args,
-      ...events,
-    };
-  },
-  template: `<UiControls
+  }),
+};
+export const WithBackSlot = {
+  render: (args) => ({
+    components: {
+      UiControls,
+      UiButton,
+      UiIcon,
+    },
+    setup() {
+      return {
+        ...args,
+        ...events,
+      };
+    },
+    template: `<UiControls
     :hide-next-button="hideNextButton"
     :to-back="toBack"
     :to-next="toNext"
@@ -213,4 +250,5 @@ export const WithBackSlot = (args) => ({
       </UiButton>
     </template>
   </UiControls>`,
-});
+  }),
+};

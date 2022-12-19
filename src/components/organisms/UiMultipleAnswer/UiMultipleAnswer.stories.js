@@ -10,13 +10,11 @@ import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import { ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
-
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
   onUpdateInvalid: 'update:invalid',
   onClickInfoButton: 'click:info-button',
 });
-
 export default {
   title: 'Organisms/MultipleAnswer',
   component: UiMultipleAnswer,
@@ -34,34 +32,38 @@ export default {
   args: {
     initModelValue: [],
     initInvalid: true,
-    items: [
-      'Seconds to minutes',
-      'A few minutes to 4 hours',
-      '4 hours to 3 days',
-    ],
+    items: ['Seconds to minutes', 'A few minutes to 4 hours', '4 hours to 3 days'],
     name: 'multiple-answer',
     legend: 'How long have you had a fever?',
     hint: 'Select all answers that apply.',
     touched: false,
-    hintAlertAttrs: { 'data-testid': 'alert-hint' },
+    hintAlertAttrs: {
+      'data-testid': 'alert-hint',
+    },
   },
   argTypes: {
     initModelValue: {
       description: 'Use this control to set initial state.',
-      table: { category: 'stories controls' },
+      table: {
+        category: 'stories controls',
+      },
       control: 'array',
     },
     initInvalid: {
       name: 'invalid',
       description: 'Use this control to set initial state of invalid props.',
-      table: { category: 'stories controls' },
+      table: {
+        category: 'stories controls',
+      },
       control: 'boolean',
     },
     hint: {
       description: 'Use this props to set hint for question.',
       table: {
         category: 'props',
-        type: { summary: 'string' },
+        type: {
+          summary: 'string',
+        },
       },
       control: 'text',
     },
@@ -70,28 +72,40 @@ export default {
       description: 'Use this slot to replace hint template.',
       table: {
         category: 'slots',
-        type: { summary: 'unknown' },
+        type: {
+          summary: 'unknown',
+        },
       },
     },
-    modelValue: { control: false },
-    invalid: { control: false },
-    hintAlertAttrs: { table: { subcategory: 'Attrs props' } },
+    modelValue: {
+      control: false,
+    },
+    invalid: {
+      control: false,
+    },
+    hintAlertAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
   },
 };
-
-const Template = (args) => ({
-  components: { UiMultipleAnswer },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    const invalid = ref(args.initInvalid);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-      invalid,
-    };
-  },
-  template: `<UiMultipleAnswer
+export const WithMultipleChoices = {
+  render: (args) => ({
+    components: {
+      UiMultipleAnswer,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      const invalid = ref(args.initInvalid);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+        invalid,
+      };
+    },
+    template: `<UiMultipleAnswer
     v-model="modelValue"
     v-model:invalid="invalid"
     :items="items"
@@ -103,88 +117,210 @@ const Template = (args) => ({
     @update:modelValue="onUpdateModelValue"
     @update:invalid="onUpdateInvalid"
   />`,
-});
-
-export const WithMultipleChoices = Template.bind({});
-
-export const WithError = Template.bind({});
-WithError.args = { touched: true };
-
-export const WithButtonInfo = Template.bind({});
-WithButtonInfo.args = {
-  hint: 'Select all answers that apply',
-  items: [
-    {
-      label: 'Fatigue',
-      value: 'fatigue',
-      translation: { info: 'How to check it??' },
-      textLabelAttrs: { 'data-testid': 'label-text' },
-      buttonInfoAttrs: { onClick: events.onClickInfoButton },
-      labelInfoAttrs: { 'data-testid': 'suffix-label' },
-      iconInfoAttrs: { 'data-testid': 'info-icon' },
-    },
-    {
-      label: 'Fever',
-      value: 'fever',
-    },
-    {
-      label: 'Illusion of surrounding objects being bigger or smaller than they actually are',
-      value: 'illusion',
-      translation: { info: 'What does it mean?' },
-      textLabelAttrs: { 'data-testid': 'label-text' },
-      buttonInfoAttrs: { onClick: events.onClickInfoButton },
-      labelInfoAttrs: { 'data-testid': 'suffix-label' },
-      iconInfoAttrs: { 'data-testid': 'info-icon' },
-    },
-  ],
+  }),
 };
-
-export const WithSingleChoice = Template.bind({});
-WithSingleChoice.args = {
-  initModelValue: {},
-  hint: 'Select one answer.',
-  items: [
-    {
-      label: 'Fatigue',
-      value: 'fatigue',
-      translation: { info: 'How to check it?' },
-      textLabelAttrs: { 'data-testid': 'label-text' },
-      buttonInfoAttrs: { onClick: events.onClickInfoButton },
-      labelInfoAttrs: { 'data-testid': 'suffix-label' },
-      iconInfoAttrs: { 'data-testid': 'info-icon' },
+export const WithError = {
+  render: (args) => ({
+    components: {
+      UiMultipleAnswer,
     },
-    {
-      label: 'Fever',
-      value: 'fever',
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      const invalid = ref(args.initInvalid);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+        invalid,
+      };
     },
-    {
-      label: 'Illusion of surrounding objects being bigger or smaller than they actually are',
-      value: 'illusion',
-      translation: { info: 'What does it mean?' },
-      textLabelAttrs: { 'data-testid': 'label-text' },
-      buttonInfoAttrs: { onClick: events.onClickInfoButton },
-      labelInfoAttrs: { 'data-testid': 'suffix-label' },
-      iconInfoAttrs: { 'data-testid': 'info-icon' },
-    },
-  ],
+    template: `<UiMultipleAnswer
+    v-model="modelValue"
+    v-model:invalid="invalid"
+    :items="items"
+    :name="name"
+    :legend="legend"
+    :hint="hint"
+    :touched="touched"
+    :hint-alert-attrs="hintAlertAttrs"
+    @update:modelValue="onUpdateModelValue"
+    @update:invalid="onUpdateInvalid"
+  />`,
+  }),
+  args: {
+    touched: true,
+  },
 };
-
-export const WithHintSlot = (args) => ({
-  components: {
-    UiMultipleAnswer,
-    UiAlert,
+export const WithButtonInfo = {
+  render: (args) => ({
+    components: {
+      UiMultipleAnswer,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      const invalid = ref(args.initInvalid);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+        invalid,
+      };
+    },
+    template: `<UiMultipleAnswer
+    v-model="modelValue"
+    v-model:invalid="invalid"
+    :items="items"
+    :name="name"
+    :legend="legend"
+    :hint="hint"
+    :touched="touched"
+    :hint-alert-attrs="hintAlertAttrs"
+    @update:modelValue="onUpdateModelValue"
+    @update:invalid="onUpdateInvalid"
+  />`,
+  }),
+  args: {
+    hint: 'Select all answers that apply',
+    items: [
+      {
+        label: 'Fatigue',
+        value: 'fatigue',
+        translation: {
+          info: 'How to check it??',
+        },
+        textLabelAttrs: {
+          'data-testid': 'label-text',
+        },
+        buttonInfoAttrs: {
+          onClick: events.onClickInfoButton,
+        },
+        labelInfoAttrs: {
+          'data-testid': 'suffix-label',
+        },
+        iconInfoAttrs: {
+          'data-testid': 'info-icon',
+        },
+      },
+      {
+        label: 'Fever',
+        value: 'fever',
+      },
+      {
+        label: 'Illusion of surrounding objects being bigger or smaller than they actually are',
+        value: 'illusion',
+        translation: {
+          info: 'What does it mean?',
+        },
+        textLabelAttrs: {
+          'data-testid': 'label-text',
+        },
+        buttonInfoAttrs: {
+          onClick: events.onClickInfoButton,
+        },
+        labelInfoAttrs: {
+          'data-testid': 'suffix-label',
+        },
+        iconInfoAttrs: {
+          'data-testid': 'info-icon',
+        },
+      },
+    ],
   },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    const invalid = ref(args.initInvalid);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-      invalid,
-    };
+};
+export const WithSingleChoice = {
+  render: (args) => ({
+    components: {
+      UiMultipleAnswer,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      const invalid = ref(args.initInvalid);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+        invalid,
+      };
+    },
+    template: `<UiMultipleAnswer
+    v-model="modelValue"
+    v-model:invalid="invalid"
+    :items="items"
+    :name="name"
+    :legend="legend"
+    :hint="hint"
+    :touched="touched"
+    :hint-alert-attrs="hintAlertAttrs"
+    @update:modelValue="onUpdateModelValue"
+    @update:invalid="onUpdateInvalid"
+  />`,
+  }),
+  args: {
+    initModelValue: {},
+    hint: 'Select one answer.',
+    items: [
+      {
+        label: 'Fatigue',
+        value: 'fatigue',
+        translation: {
+          info: 'How to check it?',
+        },
+        textLabelAttrs: {
+          'data-testid': 'label-text',
+        },
+        buttonInfoAttrs: {
+          onClick: events.onClickInfoButton,
+        },
+        labelInfoAttrs: {
+          'data-testid': 'suffix-label',
+        },
+        iconInfoAttrs: {
+          'data-testid': 'info-icon',
+        },
+      },
+      {
+        label: 'Fever',
+        value: 'fever',
+      },
+      {
+        label: 'Illusion of surrounding objects being bigger or smaller than they actually are',
+        value: 'illusion',
+        translation: {
+          info: 'What does it mean?',
+        },
+        textLabelAttrs: {
+          'data-testid': 'label-text',
+        },
+        buttonInfoAttrs: {
+          onClick: events.onClickInfoButton,
+        },
+        labelInfoAttrs: {
+          'data-testid': 'suffix-label',
+        },
+        iconInfoAttrs: {
+          'data-testid': 'info-icon',
+        },
+      },
+    ],
   },
-  template: `<UiMultipleAnswer
+};
+export const WithHintSlot = {
+  render: (args) => ({
+    components: {
+      UiMultipleAnswer,
+      UiAlert,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      const invalid = ref(args.initInvalid);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+        invalid,
+      };
+    },
+    template: `<UiMultipleAnswer
     v-model="modelValue"
     v-model:invalid="invalid"
     :items="items"
@@ -211,24 +347,25 @@ export const WithHintSlot = (args) => ({
       </UiAlert>
     </template>
   </UiMultipleAnswer>`,
-});
-
-export const WithListItemSlot = (args) => ({
-  components: {
-    UiMultipleAnswer,
-    UiMultipleAnswerItem,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    const invalid = ref(args.initInvalid);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-      invalid,
-    };
-  },
-  template: `<UiMultipleAnswer
+  }),
+};
+export const WithListItemSlot = {
+  render: (args) => ({
+    components: {
+      UiMultipleAnswer,
+      UiMultipleAnswerItem,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      const invalid = ref(args.initInvalid);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+        invalid,
+      };
+    },
+    template: `<UiMultipleAnswer
     v-model="modelValue"
     v-model:invalid="invalid"
     :items="items"
@@ -253,24 +390,25 @@ export const WithListItemSlot = (args) => ({
       />
     </template>
   </UiMultipleAnswer>`,
-});
-
-export const WithChoiceSlot = (args) => ({
-  components: {
-    UiMultipleAnswer,
-    UiCheckbox,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    const invalid = ref(args.initInvalid);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-      invalid,
-    };
-  },
-  template: `<UiMultipleAnswer
+  }),
+};
+export const WithChoiceSlot = {
+  render: (args) => ({
+    components: {
+      UiMultipleAnswer,
+      UiCheckbox,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      const invalid = ref(args.initInvalid);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+        invalid,
+      };
+    },
+    template: `<UiMultipleAnswer
     v-model="modelValue"
     v-model:invalid="invalid"
     :items="items"
@@ -303,21 +441,24 @@ export const WithChoiceSlot = (args) => ({
       </component>
     </template>
   </UiMultipleAnswer>`,
-});
-
-export const WithLabelChoiceIdSlot = (args) => ({
-  components: { UiMultipleAnswer },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    const invalid = ref(args.initInvalid);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-      invalid,
-    };
-  },
-  template: `<UiMultipleAnswer
+  }),
+};
+export const WithLabelChoiceIdSlot = {
+  render: (args) => ({
+    components: {
+      UiMultipleAnswer,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      const invalid = ref(args.initInvalid);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+        invalid,
+      };
+    },
+    template: `<UiMultipleAnswer
     v-model="modelValue"
     v-model:invalid="invalid"
     :items="items"
@@ -333,23 +474,24 @@ export const WithLabelChoiceIdSlot = (args) => ({
       {{ label }}
     </template>
   </UiMultipleAnswer>`,
-});
-WithLabelChoiceIdSlot.args = {
-  items: [
-    {
-      label: 'Fatigue',
-      value: 'fatigue',
-      id: 'fatigue',
-    },
-    {
-      label: 'Fever',
-      value: 'fever',
-      id: 'fever',
-    },
-    {
-      label: 'Illusion of surrounding objects being bigger or smaller than they actually are',
-      value: 'illusion',
-      id: 'illusion',
-    },
-  ],
+  }),
+  args: {
+    items: [
+      {
+        label: 'Fatigue',
+        value: 'fatigue',
+        id: 'fatigue',
+      },
+      {
+        label: 'Fever',
+        value: 'fever',
+        id: 'fever',
+      },
+      {
+        label: 'Illusion of surrounding objects being bigger or smaller than they actually are',
+        value: 'illusion',
+        id: 'illusion',
+      },
+    ],
+  },
 };

@@ -3,7 +3,6 @@ import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiRadio from '@/components/atoms/UiRadio/UiRadio.vue';
 import { ref } from 'vue';
 import { modifiers } from '@sb/helpers/argTypes';
-
 export default {
   title: 'Molecules/Rating',
   component: UiRating,
@@ -22,31 +21,47 @@ export default {
       iconDefault: 'star-outlined',
       iconActive: 'star-filled',
     },
-    translation: { stars: (index) => (`${index} stars`) },
-    radioOptionAttrs: { 'data-testid': 'option-radio-input' },
+    translation: {
+      stars: (index) => `${index} stars`,
+    },
+    radioOptionAttrs: {
+      'data-testid': 'option-radio-input',
+    },
   },
   argTypes: {
     initModelValue: {
       description: 'Use this control to set initial state. Starting from 0.',
-      table: { category: 'stories controls' },
+      table: {
+        category: 'stories controls',
+      },
       control: 'number',
     },
-    modifiers: modifiers({ options: [ 'ui-rating--is-disabled' ] }),
-    modelValue: { control: false },
-    radioOptionAttrs: { table: { subcategory: 'Attrs props' } },
+    modifiers: modifiers({
+      options: ['ui-rating--is-disabled'],
+    }),
+    modelValue: {
+      control: false,
+    },
+    radioOptionAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
   },
 };
-
-const Template = (args) => ({
-  components: { UiRating },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      modelValue,
-    };
-  },
-  template: `<UiRating
+export const Common = {
+  render: (args) => ({
+    components: {
+      UiRating,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        modelValue,
+      };
+    },
+    template: `<UiRating
     v-model="modelValue"
     :max="max"
     :name="name"
@@ -57,45 +72,94 @@ const Template = (args) => ({
     :radio-option-attrs="radioOptionAttrs"
     :class="modifiers"
   />`,
-});
-
-export const Common = Template.bind({});
-
-export const IsDisabled = Template.bind({});
-IsDisabled.args = { modifiers: [ 'ui-rating--is-disabled' ] };
-
-export const WithRadioOptionsAttrsAsArray = Template.bind({});
-WithRadioOptionsAttrsAsArray.args = {
-  radioOptionAttrs: [
-    { 'data-testid': 'first-option-radio-input' },
-    undefined,
-    {
-      'data-testid': 'third-option-radio-input',
-      iconDefaultAttrs: {
-        icon: 'star-outlined',
-        'data-testid': 'third-option-icon-default',
-      },
-      iconActiveAttrs: {
-        icon: 'star-filled',
-        'data-testid': 'third-option-icon-active',
-      },
-    },
-  ],
+  }),
 };
-
-export const WithIconSlot = (args) => ({
-  components: {
-    UiRating,
-    UiIcon,
+export const IsDisabled = {
+  render: (args) => ({
+    components: {
+      UiRating,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        modelValue,
+      };
+    },
+    template: `<UiRating
+    v-model="modelValue"
+    :max="max"
+    :name="name"
+    :tag="tag"
+    :legend="legend"
+    :settings="settings"
+    :translation="translation"
+    :radio-option-attrs="radioOptionAttrs"
+    :class="modifiers"
+  />`,
+  }),
+  args: {
+    modifiers: ['ui-rating--is-disabled'],
   },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      modelValue,
-    };
+};
+export const WithRadioOptionsAttrsAsArray = {
+  render: (args) => ({
+    components: {
+      UiRating,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        modelValue,
+      };
+    },
+    template: `<UiRating
+    v-model="modelValue"
+    :max="max"
+    :name="name"
+    :tag="tag"
+    :legend="legend"
+    :settings="settings"
+    :translation="translation"
+    :radio-option-attrs="radioOptionAttrs"
+    :class="modifiers"
+  />`,
+  }),
+  args: {
+    radioOptionAttrs: [
+      {
+        'data-testid': 'first-option-radio-input',
+      },
+      undefined,
+      {
+        'data-testid': 'third-option-radio-input',
+        iconDefaultAttrs: {
+          icon: 'star-outlined',
+          'data-testid': 'third-option-icon-default',
+        },
+        iconActiveAttrs: {
+          icon: 'star-filled',
+          'data-testid': 'third-option-icon-active',
+        },
+      },
+    ],
   },
-  template: `<UiRating
+};
+export const WithIconSlot = {
+  render: (args) => ({
+    components: {
+      UiRating,
+      UiIcon,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        modelValue,
+      };
+    },
+    template: `<UiRating
     v-model="modelValue"
     :max="max"
     :name="name"
@@ -126,4 +190,5 @@ export const WithIconSlot = (args) => ({
       </template>
     </template>
   </UiRating>`,
-});
+  }),
+};

@@ -1,7 +1,4 @@
-import {
-  ref,
-  computed,
-} from 'vue';
+import { ref, computed } from 'vue';
 import UiHorizontalPaging from '@/components/organisms/UiHorizontalPaging/UiHorizontalPaging.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
@@ -16,7 +13,6 @@ import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import UiHorizontalPagingItem from '@/components/organisms/UiHorizontalPaging/_internal/UiHorizontalPagingtem.vue';
 import './UiHorizontalPaging.stories.scss';
 import docs from './UiHorizontalPaging.mdx';
-
 const ForBusiness = {
   components: {
     UiText,
@@ -107,7 +103,9 @@ const MedicalCertification = {
   </UiText>`,
 };
 const InstructionForUse = {
-  components: { UiLoader },
+  components: {
+    UiLoader,
+  },
   template: '<UiLoader type="skeleton"/>',
 };
 const TermsOfService = {
@@ -124,9 +122,15 @@ const TermsOfService = {
           type: 'a',
           class: 'terms-of-service__sub-points',
           items: [
-            { text: 'principles of operation of the website and the mobile application "Symptomate.com",' },
-            { text: 'rules on the provision of services by electronic means,' },
-            { text: 'the rights and obligations of the Service Provider and the Service Recipients.' },
+            {
+              text: 'principles of operation of the website and the mobile application "Symptomate.com",',
+            },
+            {
+              text: 'rules on the provision of services by electronic means,',
+            },
+            {
+              text: 'the rights and obligations of the Service Provider and the Service Recipients.',
+            },
           ],
         },
       },
@@ -137,14 +141,22 @@ const TermsOfService = {
           type: 'a',
           class: 'terms-of-service__sub-points',
           items: [
-            { text: 'Application, this means the software for portable devices, made available free of charge by the Service Provider referred to in sec. 2(l) below, enabling the use of the Services referred to in sec. 2(k) below,' },
-            { text: 'Articles, this means articles referring to medical and pharmaceutical topics,' },
-            { text: 'License, this means a non-exclusive, royalty-free license granted to Users referred to in sec. 2(m) below to use the Application or Website referred to in sec. 2(j) below,' },
+            {
+              text: 'Application, this means the software for portable devices, made available free of charge by the Service Provider referred to in sec. 2(l) below, enabling the use of the Services referred to in sec. 2(k) below,',
+            },
+            {
+              text: 'Articles, this means articles referring to medical and pharmaceutical topics,',
+            },
+            {
+              text: 'License, this means a non-exclusive, royalty-free license granted to Users referred to in sec. 2(m) below to use the Application or Website referred to in sec. 2(j) below,',
+            },
           ],
         },
       },
     ];
-    return { items };
+    return {
+      items,
+    };
   },
   template: `<UiHeading 
     :lavel="3"
@@ -160,7 +172,9 @@ const TermsOfService = {
   `,
 };
 const PrivacyPolicy = {
-  components: { UiLoader },
+  components: {
+    UiLoader,
+  },
   template: '<UiLoader type="skeleton"/>',
 };
 const InterviewId = {
@@ -176,10 +190,11 @@ const InterviewId = {
   </UiText>`,
 };
 const Loader = {
-  components: { UiLoader },
+  components: {
+    UiLoader,
+  },
   template: '<UiLoader type="skeleton"/>',
 };
-
 export default {
   title: 'Organisms/HorizontalPaging',
   component: UiHorizontalPaging,
@@ -229,15 +244,21 @@ export default {
   argTypes: {
     initialModelValue: {
       description: 'Use this control to set initial state.',
-      table: { category: 'stories controls' },
+      table: {
+        category: 'stories controls',
+      },
       control: 'array',
     },
-    modelValue: { control: false },
+    modelValue: {
+      control: false,
+    },
     title: {
       description: 'Use this props to set inside pages title.',
       table: {
         category: 'props',
-        type: { summary: 'string' },
+        type: {
+          summary: 'string',
+        },
       },
       control: 'text',
     },
@@ -246,36 +267,44 @@ export default {
       description: 'Use this slot to replace title template.',
       table: {
         category: 'slots',
-        type: { summary: 'unknown' },
+        type: {
+          summary: 'unknown',
+        },
       },
     },
   },
-  decorators: [ () => ({
-    template: `<div class="max-w-90">
+  decorators: [
+    () => ({
+      template: `<div class="max-w-90">
       <story />
     </div>`,
-  }) ],
-  parameters: { docs: { page: docs } },
+    }),
+  ],
+  parameters: {
+    docs: {
+      page: docs,
+    },
+  },
 };
-
-export const Common = (args) => ({
-  components: {
-    UiHorizontalPaging,
-    ForBusiness,
-    MedicalCertification,
-    InstructionForUse,
-    TermsOfService,
-    PrivacyPolicy,
-    InterviewId,
-  },
-  setup() {
-    const modelValue = ref(args.initialModelValue);
-    return {
-      ...args,
-      modelValue,
-    };
-  },
-  template: `<UiHorizontalPaging
+export const Common = {
+  render: (args) => ({
+    components: {
+      UiHorizontalPaging,
+      ForBusiness,
+      MedicalCertification,
+      InstructionForUse,
+      TermsOfService,
+      PrivacyPolicy,
+      InterviewId,
+    },
+    setup() {
+      const modelValue = ref(args.initialModelValue);
+      return {
+        ...args,
+        modelValue,
+      };
+    },
+    template: `<UiHorizontalPaging
     v-model="modelValue"
     :title="title"
     :items="items"
@@ -299,27 +328,28 @@ export const Common = (args) => ({
       <InterviewId/>
     </template>
   </UiHorizontalPaging>`,
-});
-
-export const WithDefaultSlot = (args) => ({
-  components: {
-    UiHorizontalPaging,
-    UiHorizontalPagingItem,
-    ForBusiness,
-    MedicalCertification,
-    InstructionForUse,
-    TermsOfService,
-    PrivacyPolicy,
-    InterviewId,
-  },
-  setup() {
-    const modelValue = ref(args.initialModelValue);
-    return {
-      ...args,
-      modelValue,
-    };
-  },
-  template: `<UiHorizontalPaging
+  }),
+};
+export const WithDefaultSlot = {
+  render: (args) => ({
+    components: {
+      UiHorizontalPaging,
+      UiHorizontalPagingItem,
+      ForBusiness,
+      MedicalCertification,
+      InstructionForUse,
+      TermsOfService,
+      PrivacyPolicy,
+      InterviewId,
+    },
+    setup() {
+      const modelValue = ref(args.initialModelValue);
+      return {
+        ...args,
+        modelValue,
+      };
+    },
+    template: `<UiHorizontalPaging
     v-model="modelValue"
     :title="title"
   >
@@ -332,23 +362,24 @@ export const WithDefaultSlot = (args) => ({
       </UiHorizontalPagingItem>
     </template>
   </UiHorizontalPaging>`,
-});
-
-export const AsMultilevel = (args) => ({
-  components: {
-    UiHorizontalPaging,
-    UiText,
-    UiBulletPoints,
-    Loader,
-  },
-  setup() {
-    const modelValue = ref(args.initialModelValue);
-    return {
-      ...args,
-      modelValue,
-    };
-  },
-  template: `<UiHorizontalPaging
+  }),
+};
+export const AsMultilevel = {
+  render: (args) => ({
+    components: {
+      UiHorizontalPaging,
+      UiText,
+      UiBulletPoints,
+      Loader,
+    },
+    setup() {
+      const modelValue = ref(args.initialModelValue);
+      return {
+        ...args,
+        modelValue,
+      };
+    },
+    template: `<UiHorizontalPaging
     v-model="modelValue"
     title="Platform"
     :items="[
@@ -414,41 +445,44 @@ export const AsMultilevel = (args) => ({
       <Loader />
     </template>
   </UiHorizontalPaging>`,
-});
-
-export const AsMobileMenu = (args) => ({
-  components: {
-    UiSidePanel,
-    UiHorizontalPaging,
-    UiHeading,
-    UiButton,
-    UiIcon,
-    ForBusiness,
-    MedicalCertification,
-    InstructionForUse,
-    TermsOfService,
-    PrivacyPolicy,
-    InterviewId,
-  },
-  setup() {
-    const modelValue = ref(args.initialModelValue);
-    const length = computed(() => modelValue.value.length);
-    const title = computed(() => (modelValue.value[length.value - 1]?.title || 'Settings & Info'));
-    const previous = computed(() => (modelValue.value[length.value - 2]?.title || 'Settings & Info'));
-    const isActive = computed(() => (modelValue.value.length > 0));
-    const handleBackClick = () => {
-      modelValue.value = modelValue.value.slice(0, -1);
-    };
-    return {
-      ...args,
-      title,
-      modelValue,
-      previous,
-      isActive,
-      handleBackClick,
-    };
-  },
-  template: `<UiSidePanel
+  }),
+};
+export const AsMobileMenu = {
+  render: (args) => ({
+    components: {
+      UiSidePanel,
+      UiHorizontalPaging,
+      UiHeading,
+      UiButton,
+      UiIcon,
+      ForBusiness,
+      MedicalCertification,
+      InstructionForUse,
+      TermsOfService,
+      PrivacyPolicy,
+      InterviewId,
+    },
+    setup() {
+      const modelValue = ref(args.initialModelValue);
+      const length = computed(() => modelValue.value.length);
+      const title = computed(() => modelValue.value[length.value - 1]?.title || 'Settings & Info');
+      const previous = computed(
+        () => modelValue.value[length.value - 2]?.title || 'Settings & Info'
+      );
+      const isActive = computed(() => modelValue.value.length > 0);
+      const handleBackClick = () => {
+        modelValue.value = modelValue.value.slice(0, -1);
+      };
+      return {
+        ...args,
+        title,
+        modelValue,
+        previous,
+        isActive,
+        handleBackClick,
+      };
+    },
+    template: `<UiSidePanel
     :model-value="true"
     :title="title"
     class="horizontal-paging-as-mobile-menu"
@@ -496,10 +530,17 @@ export const AsMobileMenu = (args) => ({
       </template>
     </UiHorizontalPaging>
   </UiSidePanel>`,
-});
-AsMobileMenu.parameters = { viewport: { defaultViewport: 'mobile2' } };
-AsMobileMenu.decorators = [ () => ({
-  template: `<div class="min-h-140">
+  }),
+  parameters: {
+    viewport: {
+      defaultViewport: 'mobile2',
+    },
+  },
+  decorators: [
+    () => ({
+      template: `<div class="min-h-140">
    <story/>
   </div>`,
-}) ];
+    }),
+  ],
+};

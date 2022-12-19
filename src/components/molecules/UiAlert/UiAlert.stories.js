@@ -1,11 +1,7 @@
 import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
-import {
-  content,
-  modifiers,
-} from '@sb/helpers/argTypes';
-
+import { content, modifiers } from '@sb/helpers/argTypes';
 export default {
   title: 'Molecules/Alert',
   component: UiAlert,
@@ -18,39 +14,46 @@ export default {
     modifiers: [],
     type: 'error',
     hasIcon: true,
-    iconAlertAttrs: { 'data-testid': 'icon' },
-    textMessageAttrs: { 'data-testid': 'text-message' },
+    iconAlertAttrs: {
+      'data-testid': 'icon',
+    },
+    textMessageAttrs: {
+      'data-testid': 'text-message',
+    },
   },
   argTypes: {
     content,
     modifiers: modifiers({
-      options: [
-        'ui-alert',
-        'ui-alert--secondary',
-      ],
+      options: ['ui-alert', 'ui-alert--secondary'],
       control: 'select',
     }),
     type: {
       control: 'select',
-      options: [
-        'default',
-        'success',
-        'info',
-        'warning',
-        'error',
-      ],
+      options: ['default', 'success', 'info', 'warning', 'error'],
     },
-    iconAlertAttrs: { table: { subcategory: 'Attrs props' } },
-    textMessageAttrs: { table: { subcategory: 'Attrs props' } },
+    iconAlertAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    textMessageAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
   },
 };
-
-const Template = (args) => ({
-  components: { UiAlert },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiAlert 
+export const Error = {
+  render: (args) => ({
+    components: {
+      UiAlert,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiAlert 
     :type="type" 
     :has-icon="hasIcon"
     :icon-alert-attrs="iconAlertAttrs"
@@ -59,29 +62,95 @@ const Template = (args) => ({
   >
     {{ content }}
   </UiAlert>`,
-});
-
-export const Error = Template.bind({});
-Error.args = { type: 'error' };
-
-export const Success = Template.bind({});
-Success.args = { type: 'success' };
-
-export const Info = Template.bind({});
-Info.args = { type: 'info' };
-
-export const Warning = Template.bind({});
-Warning.args = { type: 'warning' };
-
-export const WithIconSlot = (args) => ({
-  components: {
-    UiAlert,
-    UiIcon,
+  }),
+  args: {
+    type: 'error',
   },
-  setup() {
-    return { ...args };
+};
+export const Success = {
+  render: (args) => ({
+    components: {
+      UiAlert,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiAlert 
+    :type="type" 
+    :has-icon="hasIcon"
+    :icon-alert-attrs="iconAlertAttrs"
+    :text-message-attrs="textMessageAttrs"
+    :class="modifiers"
+  >
+    {{ content }}
+  </UiAlert>`,
+  }),
+  args: {
+    type: 'success',
   },
-  template: `<UiAlert
+};
+export const Info = {
+  render: (args) => ({
+    components: {
+      UiAlert,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiAlert 
+    :type="type" 
+    :has-icon="hasIcon"
+    :icon-alert-attrs="iconAlertAttrs"
+    :text-message-attrs="textMessageAttrs"
+    :class="modifiers"
+  >
+    {{ content }}
+  </UiAlert>`,
+  }),
+  args: {
+    type: 'info',
+  },
+};
+export const Warning = {
+  render: (args) => ({
+    components: {
+      UiAlert,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiAlert 
+    :type="type" 
+    :has-icon="hasIcon"
+    :icon-alert-attrs="iconAlertAttrs"
+    :text-message-attrs="textMessageAttrs"
+    :class="modifiers"
+  >
+    {{ content }}
+  </UiAlert>`,
+  }),
+  args: {
+    type: 'warning',
+  },
+};
+export const WithIconSlot = {
+  render: (args) => ({
+    components: {
+      UiAlert,
+      UiIcon,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiAlert
     :type="type"
     :has-icon="hasIcon"
     :icon-alert-attrs="iconAlertAttrs"
@@ -97,17 +166,20 @@ export const WithIconSlot = (args) => ({
     </template>
     {{ content }}
   </UiAlert>`,
-});
-
-export const WithMessageSlot = (args) => ({
-  components: {
-    UiAlert,
-    UiText,
-  },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiAlert
+  }),
+};
+export const WithMessageSlot = {
+  render: (args) => ({
+    components: {
+      UiAlert,
+      UiText,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiAlert
     :type="type"
     :has-icon="hasIcon"
     :icon-alert-attrs="iconAlertAttrs"
@@ -123,4 +195,5 @@ export const WithMessageSlot = (args) => ({
       </UiText>
     </template>
   </UiAlert>`,
-});
+  }),
+};

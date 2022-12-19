@@ -5,7 +5,6 @@ import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
 import './UiFormField.stories.scss';
 import docs from './UiFormField.mdx';
-
 export default {
   title: 'Molecules/FormField',
   component: UiFormField,
@@ -18,17 +17,27 @@ export default {
     id: '',
     hint: 'Required',
     errorMessage: 'Please enter a valid height',
-    textMessageAttrs: { 'data-testid': 'message-text' },
-    textHintAttrs: { 'data-testid': 'hint-text' },
-    alertAttrs: { 'data-testid': 'alert' },
+    textMessageAttrs: {
+      'data-testid': 'message-text',
+    },
+    textHintAttrs: {
+      'data-testid': 'hint-text',
+    },
+    alertAttrs: {
+      'data-testid': 'alert',
+    },
   },
   argTypes: {
-    id: { control: 'text' },
+    id: {
+      control: 'text',
+    },
     message: {
       description: 'Use this props to set message text',
       table: {
         category: 'props',
-        type: { summary: 'boolean|string' },
+        type: {
+          summary: 'boolean|string',
+        },
       },
     },
     messageSlot: {
@@ -36,7 +45,9 @@ export default {
       description: 'Use this slot to replace message template.',
       table: {
         category: 'slots',
-        type: { summary: 'unknown' },
+        type: {
+          summary: 'unknown',
+        },
       },
       control: 'object',
     },
@@ -44,7 +55,9 @@ export default {
       description: 'Use this props to set hint text',
       table: {
         category: 'props',
-        type: { summary: 'boolean|string' },
+        type: {
+          summary: 'boolean|string',
+        },
       },
     },
     hintSlot: {
@@ -52,26 +65,46 @@ export default {
       description: 'Use this slot to replace hint template.',
       table: {
         category: 'slots',
-        type: { summary: 'unknown' },
+        type: {
+          summary: 'unknown',
+        },
       },
       control: 'object',
     },
-    textMessageAttrs: { table: { subcategory: 'Attrs props' } },
-    textHintAttrs: { table: { subcategory: 'Attrs props' } },
-    alertAttrs: { table: { subcategory: 'Attrs props' } },
+    textMessageAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    textHintAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    alertAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
   },
-  parameters: { docs: { page: docs } },
+  parameters: {
+    docs: {
+      page: docs,
+    },
+  },
 };
-
-export const WithInput = (args) => ({
-  components: {
-    UiFormField,
-    UiInput,
-  },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiFormField
+export const WithInput = {
+  render: (args) => ({
+    components: {
+      UiFormField,
+      UiInput,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiFormField
     :message="message"
     :id="id"
     :hint="hint"
@@ -93,18 +126,21 @@ export const WithInput = (args) => ({
       />
     </template>
   </UiFormField>`,
-});
-
-export const WithCheckboxes = (args) => ({
-  components: {
-    UiFormField,
-    UiCheckbox,
-    UiText,
-  },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiText class="form-field-with-checkboxes-description">
+  }),
+};
+export const WithCheckboxes = {
+  render: (args) => ({
+    components: {
+      UiFormField,
+      UiCheckbox,
+      UiText,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiText class="form-field-with-checkboxes-description">
     What’s wrong with this question?
   </UiText>
   <UiFormField
@@ -134,23 +170,26 @@ export const WithCheckboxes = (args) => ({
       Other (please comment below)
     </UiCheckbox>
   </UiFormField>`,
-});
-WithCheckboxes.args = {
-  errorMessage: 'Please select at least one issue.',
-  message: false,
-  hint: false,
+  }),
+  args: {
+    errorMessage: 'Please select at least one issue.',
+    message: false,
+    hint: false,
+  },
 };
-
-export const WithLabelSlot = (args) => ({
-  components: {
-    UiFormField,
-    UiInput,
-    UiText,
-  },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiFormField
+export const WithLabelSlot = {
+  render: (args) => ({
+    components: {
+      UiFormField,
+      UiInput,
+      UiText,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiFormField
     :message="message"
     :id="id"
     :hint="hint"
@@ -199,19 +238,22 @@ export const WithLabelSlot = (args) => ({
       />
     </template>
   </UiFormField>`,
-});
-
-export const WithAlertSlot = (args) => ({
-  components: {
-    UiFormField,
-    UiInput,
-    UiText,
-    UiAlert,
-  },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiFormField
+  }),
+};
+export const WithAlertSlot = {
+  render: (args) => ({
+    components: {
+      UiFormField,
+      UiInput,
+      UiText,
+      UiAlert,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiFormField
     :message="message"
     :id="id"
     :hint="hint"
@@ -243,4 +285,5 @@ export const WithAlertSlot = (args) => ({
       />
     </template>
   </UiFormField>`,
-});
+  }),
+};

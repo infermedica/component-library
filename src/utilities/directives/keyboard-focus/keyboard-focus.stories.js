@@ -5,12 +5,14 @@ import UiTextarea from '@/components/atoms/UiTextarea/UiTextarea.vue';
 import UiFormField from '@/components/molecules/UiFormField/UiFormField.vue';
 import { ref } from 'vue';
 import docs from './keyboard-focus.mdx';
-
 export default {
   title: 'Utilities/Directives/Keyboard Focus',
-  parameters: { docs: { page: docs } },
+  parameters: {
+    docs: {
+      page: docs,
+    },
+  },
 };
-
 export const WithDirective = () => ({
   components: {
     UiButton,
@@ -18,7 +20,9 @@ export const WithDirective = () => ({
     UiTextarea,
     UiFormField,
   },
-  directives: { keyboardFocus },
+  directives: {
+    keyboardFocus,
+  },
   setup() {
     const feedback = ref('');
     const alert = ref(null);

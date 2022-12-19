@@ -9,20 +9,14 @@ import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints
 import UiMessage from '@/components/templates/UiMessage/UiMessage.vue';
 import { actions } from '@storybook/addon-actions';
 import { modifiers } from '@sb/helpers/argTypes';
-import {
-  computed,
-  ref,
-  watch,
-} from 'vue';
+import { computed, ref, watch } from 'vue';
 import './UiDropdown.stories.scss';
 import docs from './UiDropdown.mdx';
-
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
   onOpen: 'open',
   onClose: 'close',
 });
-
 export default {
   title: 'Molecules/Dropdown',
   component: UiDropdown,
@@ -37,68 +31,95 @@ export default {
     closeOnClickOutside: true,
     toggleElement: null,
     enableKeyboardNavigation: true,
-    items: [
-      'English',
-      'Deutsch',
-      'Italiano',
-      'Polski',
-    ],
+    items: ['English', 'Deutsch', 'Italiano', 'Polski'],
     buttonToggleAttrs: {
       'data-testid': 'toggle-button',
       class: 'ui-button--text',
     },
-    popoverAttrs: { 'data-testid': 'popover' },
+    popoverAttrs: {
+      'data-testid': 'popover',
+    },
     modifiers: [],
   },
   argTypes: {
     initModelValue: {
       description: 'Use this control to set the initial value.',
-      table: { category: 'stories controls' },
+      table: {
+        category: 'stories controls',
+      },
       control: 'object',
     },
-    modelValue: { control: false },
-    toggleElement: { control: false },
+    modelValue: {
+      control: false,
+    },
+    toggleElement: {
+      control: false,
+    },
     open: {
       name: 'open',
       description: 'Use this event to detect when dropdown is opening.',
-      table: { category: 'events' },
+      table: {
+        category: 'events',
+      },
     },
     close: {
       name: 'close',
       description: 'Use this event to detect when dropdown is closing.',
-      table: { category: 'events' },
+      table: {
+        category: 'events',
+      },
     },
     dropdownItem: {
       name: '<name>',
       description: 'Use this slot to replace dropdown item content. Require `name` in item object.',
       table: {
         category: 'slots',
-        type: { summary: 'unknown' },
+        type: {
+          summary: 'unknown',
+        },
       },
     },
-    buttonToggleAttrs: { table: { subcategory: 'Attrs props' } },
-    popoverAttrs: { table: { subcategory: 'Attrs props' } },
-    modifiers: modifiers({ options: [ 'ui-dropdown--compact' ] }),
+    buttonToggleAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    popoverAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    modifiers: modifiers({
+      options: ['ui-dropdown--compact'],
+    }),
   },
-  decorators: [ () => ({
-    template: `<div class="min-h-55">
+  decorators: [
+    () => ({
+      template: `<div class="min-h-55">
         <story />
     </div>`,
-  }) ],
-  parameters: { docs: { page: docs } },
-};
-
-const Template = (args) => ({
-  components: { UiDropdown },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
+    }),
+  ],
+  parameters: {
+    docs: {
+      page: docs,
+    },
   },
-  template: `<UiDropdown
+};
+export const AsSelect = {
+  render: (args) => ({
+    components: {
+      UiDropdown,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiDropdown
     v-model="modelValue"
     :text="modelValue"
     :name="name"
@@ -113,43 +134,74 @@ const Template = (args) => ({
     @open="onOpen"
     @close="onClose"
   />`,
-});
-
-export const AsSelect = Template.bind({});
-
-export const WithItemsAsObjects = Template.bind({});
-WithItemsAsObjects.args = {
-  initModelValue: 'English',
-  items: [
-    {
-      text: 'English',
-      value: 'English',
-      'data-testid': 'english-dropdown-item',
-      iconItemAttrs: { 'data-testid': 'english-dropdown-item-icon' },
-    },
-    {
-      text: 'Deutsch',
-      value: 'Deutsch',
-      'data-testid': 'deutsch-dropdown-item',
-      iconItemAttrs: { 'data-testid': 'deutsch-dropdown-item-icon' },
-    },
-  ],
+  }),
 };
-
-export const WithDefaultSlot = (args) => ({
-  components: {
-    UiDropdown,
-    UiDropdownItem,
+export const WithItemsAsObjects = {
+  render: (args) => ({
+    components: {
+      UiDropdown,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiDropdown
+    v-model="modelValue"
+    :text="modelValue"
+    :name="name"
+    :close-on-click-outside="closeOnClickOutside"
+    :toggle-element="toggleElement"
+    :enable-keyboard-navigation="enableKeyboardNavigation"
+    :items="items"
+    :button-toggle-attrs="buttonToggleAttrs"
+    :popover-attrs="popoverAttrs"
+    class="dropdown-with-popover-width"
+    @update:modelValue="onUpdateModelValue"
+    @open="onOpen"
+    @close="onClose"
+  />`,
+  }),
+  args: {
+    initModelValue: 'English',
+    items: [
+      {
+        text: 'English',
+        value: 'English',
+        'data-testid': 'english-dropdown-item',
+        iconItemAttrs: {
+          'data-testid': 'english-dropdown-item-icon',
+        },
+      },
+      {
+        text: 'Deutsch',
+        value: 'Deutsch',
+        'data-testid': 'deutsch-dropdown-item',
+        iconItemAttrs: {
+          'data-testid': 'deutsch-dropdown-item-icon',
+        },
+      },
+    ],
   },
-  setup: () => {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiDropdown
+};
+export const WithDefaultSlot = {
+  render: (args) => ({
+    components: {
+      UiDropdown,
+      UiDropdownItem,
+    },
+    setup: () => {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiDropdown
     v-model="modelValue"
     :text="modelValue"
     :name="name"
@@ -178,36 +230,43 @@ export const WithDefaultSlot = (args) => ({
       </UiDropdownItem>
     </template>
   </UiDropdown>`,
-});
-WithDefaultSlot.args = {
-  initModelValue: 'English',
-  items: [
-    {
-      text: 'English',
-      value: 'English',
-      'data-testid': 'english-dropdown-item',
-      iconItemAttrs: { 'data-testid': 'english-dropdown-item-icon' },
-    },
-    {
-      text: 'Deutsch',
-      value: 'Deutsch',
-      'data-testid': 'deutsch-dropdown-item',
-      iconItemAttrs: { 'data-testid': 'deutsch-dropdown-item-icon' },
-    },
-  ],
-};
-
-export const WithDropdownItemSlot = (args) => ({
-  components: { UiDropdown },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
+  }),
+  args: {
+    initModelValue: 'English',
+    items: [
+      {
+        text: 'English',
+        value: 'English',
+        'data-testid': 'english-dropdown-item',
+        iconItemAttrs: {
+          'data-testid': 'english-dropdown-item-icon',
+        },
+      },
+      {
+        text: 'Deutsch',
+        value: 'Deutsch',
+        'data-testid': 'deutsch-dropdown-item',
+        iconItemAttrs: {
+          'data-testid': 'deutsch-dropdown-item-icon',
+        },
+      },
+    ],
   },
-  template: `<UiDropdown
+};
+export const WithDropdownItemSlot = {
+  render: (args) => ({
+    components: {
+      UiDropdown,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiDropdown
     v-model="modelValue"
     :class="modifiers"
     :text="modelValue.text"
@@ -223,48 +282,49 @@ export const WithDropdownItemSlot = (args) => ({
     @open="onOpen"
     @close="onClose"
   />`,
-});
-WithDropdownItemSlot.args = {
-  initModelValue: {
-    name: 'english',
-    text: 'English',
-  },
-  items: [
-    {
+  }),
+  args: {
+    initModelValue: {
       name: 'english',
       text: 'English',
     },
-    {
-      name: 'deutsch',
-      text: 'Deutsch',
-    },
-    {
-      name: 'italiano',
-      text: 'Italiano',
-    },
-    {
-      name: 'polski',
-      text: 'Polski',
-    },
-  ],
+    items: [
+      {
+        name: 'english',
+        text: 'English',
+      },
+      {
+        name: 'deutsch',
+        text: 'Deutsch',
+      },
+      {
+        name: 'italiano',
+        text: 'Italiano',
+      },
+      {
+        name: 'polski',
+        text: 'Polski',
+      },
+    ],
+  },
 };
-
-export const WithToggleSlot = (args) => ({
-  components: {
-    UiDropdown,
-    UiButton,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    const toggleElement = ref(null);
-    return {
-      ...args,
-      ...events,
-      toggleElement,
-      modelValue,
-    };
-  },
-  template: `<UiDropdown
+export const WithToggleSlot = {
+  render: (args) => ({
+    components: {
+      UiDropdown,
+      UiButton,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      const toggleElement = ref(null);
+      return {
+        ...args,
+        ...events,
+        toggleElement,
+        modelValue,
+      };
+    },
+    template: `<UiDropdown
     :class="modifiers"
     v-model="modelValue"
     :text="text"
@@ -299,43 +359,50 @@ export const WithToggleSlot = (args) => ({
       </UiButton>
     </template>
   </UiDropdown>`,
-});
-WithToggleSlot.argTypes = {
-  text: { control: false },
-  name: { control: false },
+  }),
+  argTypes: {
+    text: {
+      control: false,
+    },
+    name: {
+      control: false,
+    },
+  },
 };
-
-export const WithPopoverSlot = (args) => ({
-  components: {
-    UiDropdown,
-    UiDropdownItem,
-    UiButton,
-    UiPopover,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    const itemsToRender = computed(() => (args.items.map((item, key) => {
-      if (typeof item === 'string' || typeof item === 'number') {
-        return {
-          name: `dropdown-item-${key}`,
-          text: item,
-          value: item,
-        };
-      }
+export const WithPopoverSlot = {
+  render: (args) => ({
+    components: {
+      UiDropdown,
+      UiDropdownItem,
+      UiButton,
+      UiPopover,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      const itemsToRender = computed(() =>
+        args.items.map((item, key) => {
+          if (typeof item === 'string' || typeof item === 'number') {
+            return {
+              name: `dropdown-item-${key}`,
+              text: item,
+              value: item,
+            };
+          }
+          return {
+            name: item.name || `dropdown-item-${key}`,
+            value: item.value || item,
+            ...item,
+          };
+        })
+      );
       return {
-        name: item.name || `dropdown-item-${key}`,
-        value: item.value || item,
-        ...item,
+        ...args,
+        ...events,
+        modelValue,
+        itemsToRender,
       };
-    })));
-    return {
-      ...args,
-      ...events,
-      modelValue,
-      itemsToRender,
-    };
-  },
-  template: `<UiDropdown
+    },
+    template: `<UiDropdown
     v-model="modelValue"
     :class="modifiers"
     :text="text"
@@ -382,23 +449,24 @@ export const WithPopoverSlot = (args) => ({
       </UiPopover>
     </template>
   </UiDropdown>`,
-});
-
-export const WithContentSlot = (args) => ({
-  components: {
-    UiDropdown,
-    UiDropdownItem,
-    UiButton,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiDropdown
+  }),
+};
+export const WithContentSlot = {
+  render: (args) => ({
+    components: {
+      UiDropdown,
+      UiDropdownItem,
+      UiButton,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiDropdown
     v-model="modelValue"
     :class="modifiers"
     :text="text"
@@ -435,55 +503,53 @@ export const WithContentSlot = (args) => ({
       </div>
     </template>
   </UiDropdown>`,
-});
-
-export const WithInputToggle = (args) => ({
-  components: {
-    UiDropdown,
-    UiInput,
-    UiText,
-    UiMessage,
-    UiBulletPoints,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    const toggleElement = ref(null);
-    const search = ref('');
-
-    watch(() => modelValue.value, () => {
-      search.value = modelValue.value;
-    });
-
-    const filteredItems = computed(
-      () => args.items.filter(
-        (item) => item.toLocaleLowerCase()
-          .includes(search.value.toLocaleLowerCase()),
-      ),
-    );
-
-    const noResults = computed(() => filteredItems.value.length < 1);
-
-    const inputHandler = (value, open, close) => {
-      search.value = value;
-      if (value.length > 0) {
-        open();
-      } else if (value.length < 1) {
-        close();
-      }
-    };
-
-    return {
-      ...args,
-      ...events,
-      toggleElement,
-      modelValue,
-      search,
-      inputHandler,
-      filteredItems,
-      noResults,
-    };
-  },
-  template: `<UiDropdown
+  }),
+};
+export const WithInputToggle = {
+  render: (args) => ({
+    components: {
+      UiDropdown,
+      UiInput,
+      UiText,
+      UiMessage,
+      UiBulletPoints,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      const toggleElement = ref(null);
+      const search = ref('');
+      watch(
+        () => modelValue.value,
+        () => {
+          search.value = modelValue.value;
+        }
+      );
+      const filteredItems = computed(() =>
+        args.items.filter((item) =>
+          item.toLocaleLowerCase().includes(search.value.toLocaleLowerCase())
+        )
+      );
+      const noResults = computed(() => filteredItems.value.length < 1);
+      const inputHandler = (value, open, close) => {
+        search.value = value;
+        if (value.length > 0) {
+          open();
+        } else if (value.length < 1) {
+          close();
+        }
+      };
+      return {
+        ...args,
+        ...events,
+        toggleElement,
+        modelValue,
+        search,
+        inputHandler,
+        filteredItems,
+        noResults,
+      };
+    },
+    template: `<UiDropdown
     v-model="modelValue"
     :text="text"
     :name="name"
@@ -537,6 +603,11 @@ export const WithInputToggle = (args) => ({
         </UiMessage>
       </template>
     </UiDropdown>`,
-});
-WithInputToggle.args = {};
-WithInputToggle.argTypes = { initModelValue: { control: false } };
+  }),
+  args: {},
+  argTypes: {
+    initModelValue: {
+      control: false,
+    },
+  },
+};

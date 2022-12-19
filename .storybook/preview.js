@@ -1,6 +1,6 @@
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import scss from 'react-syntax-highlighter/dist/esm/languages/prism/scss';
-import { app } from '@storybook/vue3';
+import { setup } from '@storybook/vue3';
 import withTest from './decorators/withTest';
 import withTheme from "./decorators/withTheme";
 import './tailwindcss.css';
@@ -13,11 +13,11 @@ SyntaxHighlighter.registerLanguage('scss', scss);
 export const parameters = {
   options: {
     storySort: (prevStory, nextStory) => {
-      /* 
+      /*
         Sort function to sort stories based on a config file.
         {storiesOrder} is the order in which we want stories to appear.
         Any stories that aren't explicitly listed will appear at the end of list in alphabetical order.
-        Modifiers: 
+        Modifiers:
           {'*'} - every nested element
           {'rest-reverse'} - rest of not listed elements appear in reverse alphabetical order
       */
@@ -126,7 +126,9 @@ export const globalTypes = {
     }
   }
 }
-export const decorators = [withTest, withTheme]
+// addons.getChannel() is not a function
+// export const decorators = [withTest, withTheme]
+export const decorators = [withTheme]
 
 document.body.onload = function() {
   // Set LTR as default directionality.
@@ -134,15 +136,17 @@ document.body.onload = function() {
 }
 
 // Mock of router-link component
-app.component('router-link', {
-  props: ['to'],
-  setup(props) {
-    const href = props.to.path;
-    return { href }
-  },
-  template: `<a 
+setup((app)=> {
+  app.component('router-link', {
+    props: ['to'],
+    setup(props) {
+      const href = props.to.path;
+      return { href }
+    },
+    template: `<a 
     :href="href" 
     data-component-name="router-link">
     <slot />
   </a>`,
+  })
 })

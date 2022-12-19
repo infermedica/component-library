@@ -4,7 +4,6 @@ import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiRadio from '@/components/atoms/UiRadio/UiRadio.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
-
 export default {
   title: 'Molecules/Scale',
   component: UiScale,
@@ -26,48 +25,84 @@ export default {
     },
     radioOptionAttrs: {
       'data-testid': 'option-radio-input',
-      radioElementAttrs: { 'data-testid': 'option-radio' },
+      radioElementAttrs: {
+        'data-testid': 'option-radio',
+      },
     },
-    textMinAttrs: { 'data-testid': 'min-text' },
-    textMaxAttrs: { 'data-testid': 'max-text' },
+    textMinAttrs: {
+      'data-testid': 'min-text',
+    },
+    textMaxAttrs: {
+      'data-testid': 'max-text',
+    },
     numberStepperAttrs: {
-      buttonDecrementAttrs: { 'aria-label': 'decrement pain' },
-      buttonIncrementAttrs: { 'aria-label': 'increment pain' },
+      buttonDecrementAttrs: {
+        'aria-label': 'decrement pain',
+      },
+      buttonIncrementAttrs: {
+        'aria-label': 'increment pain',
+      },
     },
   },
   argTypes: {
     legend: {
-      table: { category: 'props' },
+      table: {
+        category: 'props',
+      },
       description: 'Use this props to set legend.',
     },
     legendSlot: {
       name: 'Legend',
-      table: { category: 'slots' },
+      table: {
+        category: 'slots',
+      },
       description: 'Use this props to set legend.',
     },
     initModelValue: {
       description: 'Use this control to set initial state. Starting from 0.',
-      table: { category: 'stories controls' },
+      table: {
+        category: 'stories controls',
+      },
       control: 'number',
     },
-    modelValue: { control: false },
-    radioOptionAttrs: { table: { subcategory: 'Attrs props' } },
-    textMinAttrs: { table: { subcategory: 'Attrs props' } },
-    textMaxAttrs: { table: { subcategory: 'Attrs props' } },
-    numberStepperAttrs: { table: { subcategory: 'Attrs props' } },
+    modelValue: {
+      control: false,
+    },
+    radioOptionAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    textMinAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    textMaxAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    numberStepperAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
   },
 };
-
-const Template = (args) => ({
-  components: { UiScale },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      modelValue,
-    };
-  },
-  template: `<UiScale
+export const Common = {
+  render: (args) => ({
+    components: {
+      UiScale,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        modelValue,
+      };
+    },
+    template: `<UiScale
     v-model="modelValue"
     :name="name"
     :legend="legend"
@@ -78,37 +113,63 @@ const Template = (args) => ({
     :text-max-attrs="textMaxAttrs"
     :number-stepper-attrs="numberStepperAttrs"
   />`,
-});
-
-export const Common = Template.bind({});
-
-export const WithRadioOptionAttrsAsArray = Template.bind({});
-WithRadioOptionAttrsAsArray.args = {
-  radioOptionAttrs: [
-    undefined,
-    undefined,
-    {
-      'data-testid': 'third-radio-input-element',
-      radioElementAttrs: { 'data-testid': 'third-radio-element' },
-      textLabelAttrs: { 'data-testid': 'third-label-text' },
-    },
-  ],
+  }),
 };
-
-export const WithDecrementSlot = (args) => ({
-  components: {
-    UiScale,
-    UiButton,
-    UiIcon,
+export const WithRadioOptionAttrsAsArray = {
+  render: (args) => ({
+    components: {
+      UiScale,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        modelValue,
+      };
+    },
+    template: `<UiScale
+    v-model="modelValue"
+    :name="name"
+    :legend="legend"
+    :steps="steps"
+    :translation="translation"
+    :radio-option-attrs="radioOptionAttrs"
+    :text-min-attrs="textMinAttrs"
+    :text-max-attrs="textMaxAttrs"
+    :number-stepper-attrs="numberStepperAttrs"
+  />`,
+  }),
+  args: {
+    radioOptionAttrs: [
+      undefined,
+      undefined,
+      {
+        'data-testid': 'third-radio-input-element',
+        radioElementAttrs: {
+          'data-testid': 'third-radio-element',
+        },
+        textLabelAttrs: {
+          'data-testid': 'third-label-text',
+        },
+      },
+    ],
   },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      modelValue,
-    };
-  },
-  template: `<UiScale
+};
+export const WithDecrementSlot = {
+  render: (args) => ({
+    components: {
+      UiScale,
+      UiButton,
+      UiIcon,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        modelValue,
+      };
+    },
+    template: `<UiScale
     v-model="modelValue"
     :name="name"
     :legend="legend"
@@ -142,22 +203,23 @@ export const WithDecrementSlot = (args) => ({
       </UiButton>
     </template>
   </UiScale>`,
-});
-
-export const WithIncrementSlot = (args) => ({
-  components: {
-    UiScale,
-    UiButton,
-    UiIcon,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      modelValue,
-    };
-  },
-  template: `<UiScale
+  }),
+};
+export const WithIncrementSlot = {
+  render: (args) => ({
+    components: {
+      UiScale,
+      UiButton,
+      UiIcon,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        modelValue,
+      };
+    },
+    template: `<UiScale
     v-model="modelValue"
     :name="name"
     :legend="legend"
@@ -191,4 +253,5 @@ export const WithIncrementSlot = (args) => ({
       </UiButton>
     </template>
   </UiScale>`,
-});
+  }),
+};

@@ -2,18 +2,13 @@ import UiNumberStepper from '@/components/molecules/UiNumberStepper/UiNumberStep
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
-import {
-  onMounted,
-  ref,
-} from 'vue';
+import { onMounted, ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
 import { toMobile } from '@/styles/exports/breakpoints.module.scss';
-
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
   onError: 'error',
 });
-
 export default {
   title: 'Molecules/NumberStepper',
   component: UiNumberStepper,
@@ -27,39 +22,67 @@ export default {
     max: 10,
     step: 1,
     hasControls: true,
-    buttonDecrementAttrs: { ariaLabel: 'decrement number' },
-    iconDecrementAttrs: { 'data-testid': 'icon-decrement' },
-    buttonIncrementAttrs: { ariaLabel: 'increment number' },
-    iconIncrementAttrs: { 'data-testid': 'icon-icrement' },
+    buttonDecrementAttrs: {
+      ariaLabel: 'decrement number',
+    },
+    iconDecrementAttrs: {
+      'data-testid': 'icon-decrement',
+    },
+    buttonIncrementAttrs: {
+      ariaLabel: 'increment number',
+    },
+    iconIncrementAttrs: {
+      'data-testid': 'icon-icrement',
+    },
   },
   argTypes: {
     initModelValue: {
       description: 'Use this control to set initial state.',
-      table: { category: 'stories controls' },
+      table: {
+        category: 'stories controls',
+      },
       control: 'number',
     },
-    modelValue: { control: false },
-    buttonDecrementAttrs: { table: { subcategory: 'Attrs props' } },
-    iconDecrementAttrs: { table: { subcategory: 'Attrs props' } },
-    buttonIncrementAttrs: { table: { subcategory: 'Attrs props' } },
-    iconIncrementAttrs: { table: { subcategory: 'Attrs props' } },
+    modelValue: {
+      control: false,
+    },
+    buttonDecrementAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    iconDecrementAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    buttonIncrementAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    iconIncrementAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
   },
 };
-
-export const WithTextValue = (args) => ({
-  components: {
-    UiNumberStepper,
-    UiText,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiNumberStepper 
+export const WithTextValue = {
+  render: (args) => ({
+    components: {
+      UiNumberStepper,
+      UiText,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiNumberStepper 
     v-model="modelValue" 
     :min="min" 
     :max="max"
@@ -84,28 +107,31 @@ export const WithTextValue = (args) => ({
       </UiText>
     </template>
   </UiNumberStepper>`,
-});
-
-export const WithControlsOnMobile = (args) => ({
-  components: {
-    UiNumberStepper,
-    UiText,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    const isMobile = ref(false);
-    onMounted(() => {
-      isMobile.value = matchMedia(toMobile).matches;
-      matchMedia(toMobile).addListener(({ matches }) => { isMobile.value = matches; });
-    });
-    return {
-      ...args,
-      ...events,
-      modelValue,
-      isMobile,
-    };
-  },
-  template: `<UiNumberStepper
+  }),
+};
+export const WithControlsOnMobile = {
+  render: (args) => ({
+    components: {
+      UiNumberStepper,
+      UiText,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      const isMobile = ref(false);
+      onMounted(() => {
+        isMobile.value = matchMedia(toMobile).matches;
+        matchMedia(toMobile).addListener(({ matches }) => {
+          isMobile.value = matches;
+        });
+      });
+      return {
+        ...args,
+        ...events,
+        modelValue,
+        isMobile,
+      };
+    },
+    template: `<UiNumberStepper
     v-model="modelValue"
     :min="min"
     :max="max"
@@ -135,36 +161,45 @@ export const WithControlsOnMobile = (args) => ({
       />
     </template>
   </UiNumberStepper>`,
-});
-WithControlsOnMobile.args = {
-  buttonDecrementAttrs: {
-    'aria-label': 'decrement number',
-    tabindex: -1,
+  }),
+  args: {
+    buttonDecrementAttrs: {
+      'aria-label': 'decrement number',
+      tabindex: -1,
+    },
+    buttonIncrementAttrs: {
+      'aria-label': 'increment number',
+      tabindex: -1,
+    },
   },
-  buttonIncrementAttrs: {
-    'aria-label': 'increment number',
-    tabindex: -1,
+  argTypes: {
+    hasControls: {
+      control: false,
+    },
+  },
+  parameters: {
+    viewport: {
+      defaultViewport: 'mobile2',
+    },
   },
 };
-WithControlsOnMobile.argTypes = { hasControls: { control: false } };
-WithControlsOnMobile.parameters = { viewport: { defaultViewport: 'mobile2' } };
-
-export const WithDecrementSlot = (args) => ({
-  components: {
-    UiNumberStepper,
-    UiText,
-    UiButton,
-    UiIcon,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiNumberStepper
+export const WithDecrementSlot = {
+  render: (args) => ({
+    components: {
+      UiNumberStepper,
+      UiText,
+      UiButton,
+      UiIcon,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiNumberStepper
     v-model="modelValue"
     :min="min"
     :max="max"
@@ -211,23 +246,24 @@ export const WithDecrementSlot = (args) => ({
       </UiText>
     </template>
   </UiNumberStepper>`,
-});
-
-export const WithIncrementSlot = (args) => ({
-  components: {
-    UiNumberStepper,
-    UiText,
-    UiButton,
-    UiIcon,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      modelValue,
-    };
-  },
-  template: `<UiNumberStepper
+  }),
+};
+export const WithIncrementSlot = {
+  render: (args) => ({
+    components: {
+      UiNumberStepper,
+      UiText,
+      UiButton,
+      UiIcon,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        modelValue,
+      };
+    },
+    template: `<UiNumberStepper
     v-model="modelValue"
     :min="min"
     :max="max"
@@ -274,21 +310,22 @@ export const WithIncrementSlot = (args) => ({
       </UiText>
     </template>
   </UiNumberStepper>`,
-});
-
-export const WithRange = (args) => ({
-  components: {
-    UiNumberStepper,
-    UiText,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      modelValue,
-    };
-  },
-  template: `<UiNumberStepper
+  }),
+};
+export const WithRange = {
+  render: (args) => ({
+    components: {
+      UiNumberStepper,
+      UiText,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        modelValue,
+      };
+    },
+    template: `<UiNumberStepper
     v-model="modelValue"
     :min="min"
     :max="max"
@@ -318,14 +355,15 @@ export const WithRange = (args) => ({
       />
     </template>
   </UiNumberStepper>`,
-});
-WithRange.args = {
-  buttonDecrementAttrs: {
-    'aria-label': 'decrement number',
-    tabindex: -1,
-  },
-  buttonIncrementAttrs: {
-    'aria-label': 'increment number',
-    tabindex: -1,
+  }),
+  args: {
+    buttonDecrementAttrs: {
+      'aria-label': 'decrement number',
+      tabindex: -1,
+    },
+    buttonIncrementAttrs: {
+      'aria-label': 'increment number',
+      tabindex: -1,
+    },
   },
 };

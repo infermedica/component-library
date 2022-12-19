@@ -5,13 +5,15 @@ import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import { ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
-
-const events = actions({ onUpdateModelValue: 'update:modelValue' });
-
+const events = actions({
+  onUpdateModelValue: 'update:modelValue',
+});
 export default {
   title: 'Organisms/Accordion',
   component: UiAccordion,
-  subcomponents: { UiAccordionItem },
+  subcomponents: {
+    UiAccordionItem,
+  },
   args: {
     content: {
       mortphology: 'Serum uric acid concentration',
@@ -37,39 +39,48 @@ export default {
   argTypes: {
     initModelValue: {
       description: 'Use this control to set the initial value.',
-      table: { category: 'stories controls' },
+      table: {
+        category: 'stories controls',
+      },
       control: 'text',
     },
     content: {
       description: 'Use this control to set the content of the accordion items.',
-      table: { category: 'stories controls' },
+      table: {
+        category: 'stories controls',
+      },
     },
-    modelValue: { control: false },
+    modelValue: {
+      control: false,
+    },
     accordionItem: {
       name: '<name>',
-      description: 'Use this slot to replace accordion item content. Require `name` in item object.',
+      description:
+        'Use this slot to replace accordion item content. Require `name` in item object.',
       table: {
         category: 'slots',
-        type: { summary: 'unknown' },
+        type: {
+          summary: 'unknown',
+        },
       },
     },
   },
 };
-
-const Template = (args) => ({
-  components: {
-    UiAccordion,
-    UiText,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiAccordion
+export const MultipleItems = {
+  render: (args) => ({
+    components: {
+      UiAccordion,
+      UiText,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiAccordion
     v-model="modelValue"
     :items="items"
     @update:modelValue="onUpdateModelValue"
@@ -84,46 +95,119 @@ const Template = (args) => ({
       </UiText>
     </template>
   </UiAccordion>`,
-});
-
-export const MultipleItems = Template.bind({});
-
-export const SingleItem = Template.bind({});
-SingleItem.args = {
-  items: [ {
-    title: 'Less likely conditions',
-    name: 'less',
-    settings: {
-      iconOpen: 'chevron-up',
-      iconClose: 'chevron-down',
-    },
-    buttonToggleAttrs: { 'data-testid': 'less-likely-conditions-button' },
-    iconTogglerAttrs: { 'data-testid': 'less-likely-conditions-icon' },
-    contentAttrs: { 'data-testid': 'less-likely-conditions-content' },
-    'data-testid': 'less-likely-conditions',
-  } ],
-  content: { less: 'Serum uric acid concentration' },
+  }),
 };
-
-export const MultipleItemsOpened = Template.bind({});
-MultipleItemsOpened.args = { initModelValue: [] };
-MultipleItemsOpened.argTypes = { initModelValue: { control: 'array' } };
-
-export const WithDefaultSlot = (args) => ({
-  components: {
-    UiAccordion,
-    UiAccordionItem,
-    UiText,
+export const SingleItem = {
+  render: (args) => ({
+    components: {
+      UiAccordion,
+      UiText,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiAccordion
+    v-model="modelValue"
+    :items="items"
+    @update:modelValue="onUpdateModelValue"
+  >
+    <template
+      v-for="({ name }, key) in items"
+      #[name]="{ item }"
+      :key="key"
+    >
+      <UiText>
+        {{ content[item.name] }}
+      </UiText>
+    </template>
+  </UiAccordion>`,
+  }),
+  args: {
+    items: [
+      {
+        title: 'Less likely conditions',
+        name: 'less',
+        settings: {
+          iconOpen: 'chevron-up',
+          iconClose: 'chevron-down',
+        },
+        buttonToggleAttrs: {
+          'data-testid': 'less-likely-conditions-button',
+        },
+        iconTogglerAttrs: {
+          'data-testid': 'less-likely-conditions-icon',
+        },
+        contentAttrs: {
+          'data-testid': 'less-likely-conditions-content',
+        },
+        'data-testid': 'less-likely-conditions',
+      },
+    ],
+    content: {
+      less: 'Serum uric acid concentration',
+    },
   },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
+};
+export const MultipleItemsOpened = {
+  render: (args) => ({
+    components: {
+      UiAccordion,
+      UiText,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiAccordion
+    v-model="modelValue"
+    :items="items"
+    @update:modelValue="onUpdateModelValue"
+  >
+    <template
+      v-for="({ name }, key) in items"
+      #[name]="{ item }"
+      :key="key"
+    >
+      <UiText>
+        {{ content[item.name] }}
+      </UiText>
+    </template>
+  </UiAccordion>`,
+  }),
+  args: {
+    initModelValue: [],
   },
-  template: `<UiAccordion 
+  argTypes: {
+    initModelValue: {
+      control: 'array',
+    },
+  },
+};
+export const WithDefaultSlot = {
+  render: (args) => ({
+    components: {
+      UiAccordion,
+      UiAccordionItem,
+      UiText,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiAccordion 
     v-model="modelValue"
     @onUpdateModelValue="onUpdateModelValue"
   >
@@ -145,25 +229,26 @@ export const WithDefaultSlot = (args) => ({
       </UiAccordionItem>
     </template>
   </UiAccordion>`,
-});
-
-export const WithTogglerSlot = (args) => ({
-  components: {
-    UiAccordion,
-    UiAccordionItem,
-    UiButton,
-    UiIcon,
-    UiText,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiAccordion 
+  }),
+};
+export const WithTogglerSlot = {
+  render: (args) => ({
+    components: {
+      UiAccordion,
+      UiAccordionItem,
+      UiButton,
+      UiIcon,
+      UiText,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiAccordion 
     v-model="modelValue"
     @onUpdateModelValue="onUpdateModelValue"
   >
@@ -209,24 +294,25 @@ export const WithTogglerSlot = (args) => ({
       </UiAccordionItem>
     </template>
   </UiAccordion>`,
-});
-
-export const WithChevronSlot = (args) => ({
-  components: {
-    UiAccordion,
-    UiAccordionItem,
-    UiText,
-    UiIcon,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiAccordion 
+  }),
+};
+export const WithChevronSlot = {
+  render: (args) => ({
+    components: {
+      UiAccordion,
+      UiAccordionItem,
+      UiText,
+      UiIcon,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiAccordion 
     v-model="modelValue"
     @onUpdateModelValue="onUpdateModelValue"
   >
@@ -259,23 +345,24 @@ export const WithChevronSlot = (args) => ({
       </UiAccordionItem>
     </template>
   </UiAccordion>`,
-});
-
-export const WithContentSlot = (args) => ({
-  components: {
-    UiAccordion,
-    UiAccordionItem,
-    UiText,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiAccordion 
+  }),
+};
+export const WithContentSlot = {
+  render: (args) => ({
+    components: {
+      UiAccordion,
+      UiAccordionItem,
+      UiText,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiAccordion 
     v-model="modelValue"
     @onUpdateModelValue="onUpdateModelValue"
   >
@@ -312,4 +399,5 @@ export const WithContentSlot = (args) => ({
       </UiAccordionItem>
     </template>
   </UiAccordion>`,
-});
+  }),
+};

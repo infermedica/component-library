@@ -8,7 +8,6 @@ import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/
 import UiContainer from '@/components/organisms/UiContainer/UiContainer.vue';
 import './UiCard.stories.scss';
 import docs from './UiCard.mdx';
-
 export default {
   title: 'Organisms/Card',
   component: UiCard,
@@ -22,20 +21,33 @@ export default {
     modifiers: [],
     title: 'Call an ambulance',
     subtitle: 'Recommendation',
-    description: 'Your symptoms are very serious, and you may require emergency care. Do not delay. Call an ambulance right now.',
+    description:
+      'Your symptoms are very serious, and you may require emergency care. Do not delay. Call an ambulance right now.',
     type: 'emergency_ambulance',
-    iconTriageAttrs: { 'data-testid': 'triage-icon' },
-    textSubtitleAttrs: { 'data-testid': 'subtitle-text' },
-    headingTitleAttrs: { 'data-testid': 'title-heading' },
-    textDescriptionAttrs: { 'data-testid': 'description-text' },
+    iconTriageAttrs: {
+      'data-testid': 'triage-icon',
+    },
+    textSubtitleAttrs: {
+      'data-testid': 'subtitle-text',
+    },
+    headingTitleAttrs: {
+      'data-testid': 'title-heading',
+    },
+    textDescriptionAttrs: {
+      'data-testid': 'description-text',
+    },
   },
   argTypes: {
-    modifiers: modifiers({ options: [ 'ui-card--modern' ] }),
+    modifiers: modifiers({
+      options: ['ui-card--modern'],
+    }),
     title: {
       description: 'Use this props to set title for card.',
       table: {
         category: 'props',
-        type: { summary: 'string' },
+        type: {
+          summary: 'string',
+        },
       },
       control: 'text',
     },
@@ -44,15 +56,21 @@ export default {
       description: 'Use this slot to replace title template.',
       table: {
         category: 'slots',
-        type: { summary: 'unknown' },
+        type: {
+          summary: 'unknown',
+        },
       },
-      control: { type: 'object' },
+      control: {
+        type: 'object',
+      },
     },
     subtitle: {
       description: 'Use this props to set subtitle for card.',
       table: {
         category: 'props',
-        type: { summary: 'string' },
+        type: {
+          summary: 'string',
+        },
       },
       control: 'text',
     },
@@ -61,7 +79,9 @@ export default {
       description: 'Use this slot to replace subtitle template.',
       table: {
         category: 'slots',
-        type: { summary: 'unknown' },
+        type: {
+          summary: 'unknown',
+        },
       },
       control: 'object',
     },
@@ -69,7 +89,9 @@ export default {
       description: 'Use this props to set description for card.',
       table: {
         category: 'props',
-        type: { summary: 'string' },
+        type: {
+          summary: 'string',
+        },
       },
       control: 'text',
     },
@@ -78,34 +100,58 @@ export default {
       description: 'Use this slot to replace description template.',
       table: {
         category: 'slots',
-        type: { summary: 'unknown' },
+        type: {
+          summary: 'unknown',
+        },
       },
-      control: { type: 'object' },
+      control: {
+        type: 'object',
+      },
     },
     type: {
-      control: { type: 'select' },
-      options: [
-        'emergency_ambulance',
-        'emergency',
-        'consultation_24',
-        'consultation',
-        'self_care',
-      ],
+      control: {
+        type: 'select',
+      },
+      options: ['emergency_ambulance', 'emergency', 'consultation_24', 'consultation', 'self_care'],
     },
-    iconTriageAttrs: { table: { subcategory: 'Attrs props' } },
-    textSubtitleAttrs: { table: { subcategory: 'Attrs props' } },
-    headingTitleAttrs: { table: { subcategory: 'Attrs props' } },
-    textDescriptionAttrs: { table: { subcategory: 'Attrs props' } },
+    iconTriageAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    textSubtitleAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    headingTitleAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    textDescriptionAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
   },
-  parameters: { docs: { page: docs } },
+  parameters: {
+    docs: {
+      page: docs,
+    },
+  },
 };
-
-const Template = (args) => ({
-  components: { UiCard },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiCard
+export const Ambulance = {
+  render: (args) => ({
+    components: {
+      UiCard,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiCard
     :title="title"
     :subtitle="subtitle"
     :description="description"
@@ -116,69 +162,267 @@ const Template = (args) => ({
     :text-description-attrs="textDescriptionAttrs"
     :class="modifiers"
   />`,
-});
-
-export const Ambulance = Template.bind({});
-
-export const Emergency = Template.bind({});
-Emergency.args = { type: 'emergency' };
-
-export const Consultation24 = Template.bind({});
-Consultation24.args = { type: 'consultation_24' };
-
-export const Consultation = Template.bind({});
-Consultation.args = { type: 'consultation' };
-
-export const SelfCare = Template.bind({});
-SelfCare.args = { type: 'self_care' };
-
-export const ModernAmbulance = Template.bind({});
-ModernAmbulance.args = {
-  type: 'emergency_ambulance',
-  subtitle: '',
-  modifiers: [ 'ui-card--modern' ],
+  }),
 };
-
-export const ModernEmergency = Template.bind({});
-ModernEmergency.args = {
-  type: 'emergency',
-  subtitle: '',
-  modifiers: [ 'ui-card--modern' ],
-};
-
-export const ModernConsultation24 = Template.bind({});
-ModernConsultation24.args = {
-  type: 'consultation_24',
-  subtitle: '',
-  modifiers: [ 'ui-card--modern' ],
-};
-
-export const ModernConsultation = Template.bind({});
-ModernConsultation.args = {
-  type: 'consultation',
-  subtitle: '',
-  modifiers: [ 'ui-card--modern' ],
-};
-
-export const ModernSelfCare = Template.bind({});
-ModernSelfCare.args = {
-  type: 'self_care',
-  subtitle: '',
-  modifiers: [ 'ui-card--modern' ],
-};
-
-export const WithDetailsSlot = (args) => ({
-  components: {
-    UiCard,
-    UiText,
-    UiHeading,
-    UiBulletPoints,
-    UiBulletPointsItem,
+export const Emergency = {
+  render: (args) => ({
+    components: {
+      UiCard,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiCard
+    :title="title"
+    :subtitle="subtitle"
+    :description="description"
+    :type="type"
+    :icon-triage-attrs="iconTriageAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-description-attrs="textDescriptionAttrs"
+    :class="modifiers"
+  />`,
+  }),
+  args: {
+    type: 'emergency',
   },
-  setup() {
-    return { ...args };
+};
+export const Consultation24 = {
+  render: (args) => ({
+    components: {
+      UiCard,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiCard
+    :title="title"
+    :subtitle="subtitle"
+    :description="description"
+    :type="type"
+    :icon-triage-attrs="iconTriageAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-description-attrs="textDescriptionAttrs"
+    :class="modifiers"
+  />`,
+  }),
+  args: {
+    type: 'consultation_24',
   },
-  template: `<UiCard
+};
+export const Consultation = {
+  render: (args) => ({
+    components: {
+      UiCard,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiCard
+    :title="title"
+    :subtitle="subtitle"
+    :description="description"
+    :type="type"
+    :icon-triage-attrs="iconTriageAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-description-attrs="textDescriptionAttrs"
+    :class="modifiers"
+  />`,
+  }),
+  args: {
+    type: 'consultation',
+  },
+};
+export const SelfCare = {
+  render: (args) => ({
+    components: {
+      UiCard,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiCard
+    :title="title"
+    :subtitle="subtitle"
+    :description="description"
+    :type="type"
+    :icon-triage-attrs="iconTriageAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-description-attrs="textDescriptionAttrs"
+    :class="modifiers"
+  />`,
+  }),
+  args: {
+    type: 'self_care',
+  },
+};
+export const ModernAmbulance = {
+  render: (args) => ({
+    components: {
+      UiCard,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiCard
+    :title="title"
+    :subtitle="subtitle"
+    :description="description"
+    :type="type"
+    :icon-triage-attrs="iconTriageAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-description-attrs="textDescriptionAttrs"
+    :class="modifiers"
+  />`,
+  }),
+  args: {
+    type: 'emergency_ambulance',
+    subtitle: '',
+    modifiers: ['ui-card--modern'],
+  },
+};
+export const ModernEmergency = {
+  render: (args) => ({
+    components: {
+      UiCard,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiCard
+    :title="title"
+    :subtitle="subtitle"
+    :description="description"
+    :type="type"
+    :icon-triage-attrs="iconTriageAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-description-attrs="textDescriptionAttrs"
+    :class="modifiers"
+  />`,
+  }),
+  args: {
+    type: 'emergency',
+    subtitle: '',
+    modifiers: ['ui-card--modern'],
+  },
+};
+export const ModernConsultation24 = {
+  render: (args) => ({
+    components: {
+      UiCard,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiCard
+    :title="title"
+    :subtitle="subtitle"
+    :description="description"
+    :type="type"
+    :icon-triage-attrs="iconTriageAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-description-attrs="textDescriptionAttrs"
+    :class="modifiers"
+  />`,
+  }),
+  args: {
+    type: 'consultation_24',
+    subtitle: '',
+    modifiers: ['ui-card--modern'],
+  },
+};
+export const ModernConsultation = {
+  render: (args) => ({
+    components: {
+      UiCard,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiCard
+    :title="title"
+    :subtitle="subtitle"
+    :description="description"
+    :type="type"
+    :icon-triage-attrs="iconTriageAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-description-attrs="textDescriptionAttrs"
+    :class="modifiers"
+  />`,
+  }),
+  args: {
+    type: 'consultation',
+    subtitle: '',
+    modifiers: ['ui-card--modern'],
+  },
+};
+export const ModernSelfCare = {
+  render: (args) => ({
+    components: {
+      UiCard,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiCard
+    :title="title"
+    :subtitle="subtitle"
+    :description="description"
+    :type="type"
+    :icon-triage-attrs="iconTriageAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-description-attrs="textDescriptionAttrs"
+    :class="modifiers"
+  />`,
+  }),
+  args: {
+    type: 'self_care',
+    subtitle: '',
+    modifiers: ['ui-card--modern'],
+  },
+};
+export const WithDetailsSlot = {
+  render: (args) => ({
+    components: {
+      UiCard,
+      UiText,
+      UiHeading,
+      UiBulletPoints,
+      UiBulletPointsItem,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiCard
     :title="title"
     :subtitle="subtitle"
     :description="description"
@@ -202,17 +446,20 @@ export const WithDetailsSlot = (args) => ({
       <UiBulletPoints :items="['Vomiting', 'Abdominal pain, lasting 2 to 7 days']" />
     </template>
   </UiCard>`,
-});
-
-export const WithTriageSlot = (args) => ({
-  components: {
-    UiCard,
-    UiIcon,
-  },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiCard
+  }),
+};
+export const WithTriageSlot = {
+  render: (args) => ({
+    components: {
+      UiCard,
+      UiIcon,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiCard
     :class="modifiers"
     :title="title"
     :subtitle="subtitle"
@@ -229,18 +476,21 @@ export const WithTriageSlot = (args) => ({
       </div>
     </template>
   </UiCard>`,
-});
-
-export const WithContentSlot = (args) => ({
-  components: {
-    UiCard,
-    UiText,
-    UiHeading,
-  },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiCard
+  }),
+};
+export const WithContentSlot = {
+  render: (args) => ({
+    components: {
+      UiCard,
+      UiText,
+      UiHeading,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiCard
     :title="title"
     :subtitle="subtitle"
     :description="description"
@@ -284,17 +534,20 @@ export const WithContentSlot = (args) => ({
       </div>
     </template>
   </UiCard>`,
-});
-
-export const WithSubtitleSlot = (args) => ({
-  components: {
-    UiCard,
-    UiText,
-  },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiCard
+  }),
+};
+export const WithSubtitleSlot = {
+  render: (args) => ({
+    components: {
+      UiCard,
+      UiText,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiCard
     :title="title"
     :subtitle="subtitle"
     :description="description"
@@ -318,17 +571,20 @@ export const WithSubtitleSlot = (args) => ({
       </UiText>
     </template>
   </UiCard>`,
-});
-
-export const WithTitleSlot = (args) => ({
-  components: {
-    UiCard,
-    UiHeading,
-  },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiCard
+  }),
+};
+export const WithTitleSlot = {
+  render: (args) => ({
+    components: {
+      UiCard,
+      UiHeading,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiCard
     :title="title"
     :subtitle="subtitle"
     :description="description"
@@ -352,17 +608,20 @@ export const WithTitleSlot = (args) => ({
       </UiHeading>
     </template>
   </UiCard>`,
-});
-
-export const WithDescriptionSlot = (args) => ({
-  components: {
-    UiCard,
-    UiText,
-  },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiCard
+  }),
+};
+export const WithDescriptionSlot = {
+  render: (args) => ({
+    components: {
+      UiCard,
+      UiText,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiCard
     :title="title"
     :subtitle="subtitle"
     :description="description"
@@ -386,4 +645,5 @@ export const WithDescriptionSlot = (args) => ({
       </UiText>
     </template>
   </UiCard>`,
-});
+  }),
+};

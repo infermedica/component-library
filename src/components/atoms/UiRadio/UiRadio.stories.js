@@ -4,21 +4,18 @@ import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import { ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
-import {
-  content,
-  modifiers,
-} from '@sb/helpers/argTypes';
-
+import { content, modifiers } from '@sb/helpers/argTypes';
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
   onFocus: 'onFocus',
   onBlur: 'onBlur',
 });
-
 export default {
   title: 'Atoms/Radio',
   component: UiRadio,
-  subcomponents: { UiText },
+  subcomponents: {
+    UiText,
+  },
   args: {
     initModelValue: '',
     content: 'I’m overweight or obese',
@@ -27,47 +24,74 @@ export default {
     disabled: false,
     value: 'overweight-or-obese',
     id: '',
-    inputAttrs: { 'data-testid': 'input-element' },
-    radioElementAttrs: { 'data-testid': 'radio-element' },
-    textLabelAttrs: { 'data-testid': 'label-text' },
+    inputAttrs: {
+      'data-testid': 'input-element',
+    },
+    radioElementAttrs: {
+      'data-testid': 'radio-element',
+    },
+    textLabelAttrs: {
+      'data-testid': 'label-text',
+    },
   },
   argTypes: {
     initModelValue: {
       description: 'Use this control to set initial state.',
-      table: { category: 'stories controls' },
+      table: {
+        category: 'stories controls',
+      },
       control: 'text',
     },
     content,
     modifiers: modifiers({
-      options: [
-        'ui-radio--has-error',
-        'ui-radio--is-disabled',
-      ],
+      options: ['ui-radio--has-error', 'ui-radio--is-disabled'],
     }),
     name: {
       description: 'Use this control to set name attribute.',
-      table: { category: 'html attributes' },
-      control: { type: 'text' },
+      table: {
+        category: 'html attributes',
+      },
+      control: {
+        type: 'text',
+      },
     },
-    value: { control: 'text' },
-    id: { control: 'text' },
-    inputAttrs: { table: { subcategory: 'Attrs props' } },
-    radioElementAttrs: { table: { subcategory: 'Attrs props' } },
-    textLabelAttrs: { table: { subcategory: 'Attrs props' } },
+    value: {
+      control: 'text',
+    },
+    id: {
+      control: 'text',
+    },
+    inputAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    radioElementAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    textLabelAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
   },
 };
-
-const Template = (args) => ({
-  components: { UiRadio },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiRadio
+export const WithLabel = {
+  render: (args) => ({
+    components: {
+      UiRadio,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiRadio
     v-model="modelValue"
     :value="value"
     :id="id"
@@ -82,27 +106,88 @@ const Template = (args) => ({
   >
     {{ content }}
   </UiRadio>`,
-});
-
-export const WithLabel = Template.bind({});
-
-export const IsDisabled = Template.bind({});
-IsDisabled.args = { modifiers: [ 'ui-radio--is-disabled' ] };
-
-export const HasError = Template.bind({});
-HasError.args = { modifiers: [ 'ui-radio--has-error' ] };
-
-export const WithRadioSlot = (args) => ({
-  components: { UiRadio },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
+  }),
+};
+export const IsDisabled = {
+  render: (args) => ({
+    components: {
+      UiRadio,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiRadio
+    v-model="modelValue"
+    :value="value"
+    :id="id"
+    :disabled="disabled"
+    :input-attrs="inputAttrs"
+    :radio-element-attrs="radioElementAttrs"
+    :text-label-attrs="textLabelAttrs"
+    :class="modifiers"
+    @update:modelValue="onUpdateModelValue"
+    @focus="onFocus"
+    @blur="onBlur"
+  >
+    {{ content }}
+  </UiRadio>`,
+  }),
+  args: {
+    modifiers: ['ui-radio--is-disabled'],
   },
-  template: `<UiRadio
+};
+export const HasError = {
+  render: (args) => ({
+    components: {
+      UiRadio,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiRadio
+    v-model="modelValue"
+    :value="value"
+    :id="id"
+    :disabled="disabled"
+    :input-attrs="inputAttrs"
+    :radio-element-attrs="radioElementAttrs"
+    :text-label-attrs="textLabelAttrs"
+    :class="modifiers"
+    @update:modelValue="onUpdateModelValue"
+    @focus="onFocus"
+    @blur="onBlur"
+  >
+    {{ content }}
+  </UiRadio>`,
+  }),
+  args: {
+    modifiers: ['ui-radio--has-error'],
+  },
+};
+export const WithRadioSlot = {
+  render: (args) => ({
+    components: {
+      UiRadio,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiRadio
     v-model="modelValue"
     :value="value"
     :id="id"
@@ -131,22 +216,23 @@ export const WithRadioSlot = (args) => ({
     </template>
     {{ content }}
   </UiRadio>`,
-});
-
-export const WithLabelSlot = (args) => ({
-  components: {
-    UiRadio,
-    UiText,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiRadio
+  }),
+};
+export const WithLabelSlot = {
+  render: (args) => ({
+    components: {
+      UiRadio,
+      UiText,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiRadio
     v-model="modelValue"
     :value="value"
     :id="id"
@@ -171,19 +257,22 @@ export const WithLabelSlot = (args) => ({
       </UiText>
     </template>
   </UiRadio>`,
-});
-
-export const ValueAsObject = (args) => ({
-  components: { UiRadio },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiRadio
+  }),
+};
+export const ValueAsObject = {
+  render: (args) => ({
+    components: {
+      UiRadio,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiRadio
     v-model="modelValue"
     :value="value"
     :id="value.id"
@@ -198,42 +287,47 @@ export const ValueAsObject = (args) => ({
   >
     {{ value.label }}
   </UiRadio>`,
-});
-ValueAsObject.args = {
-  initModelValue: {
-    label: 'I’m overweight or obese',
-    id: 'value-as-object-overweight-or-obese',
+  }),
+  args: {
+    initModelValue: {
+      label: 'I’m overweight or obese',
+      id: 'value-as-object-overweight-or-obese',
+    },
+    value: {
+      label: 'I’m overweight or obese',
+      id: 'value-as-object-overweight-or-obese',
+    },
   },
-  value: {
-    label: 'I’m overweight or obese',
-    id: 'value-as-object-overweight-or-obese',
+  argTypes: {
+    initModelValue: {
+      description: 'Use this control to set initial state.',
+      table: {
+        category: 'stories controls',
+      },
+      control: 'object',
+    },
+    modelValue: {
+      control: false,
+    },
   },
 };
-ValueAsObject.argTypes = {
-  initModelValue: {
-    description: 'Use this control to set initial state.',
-    table: { category: 'stories controls' },
-    control: 'object',
-  },
-  modelValue: { control: false },
-};
-
-export const AsGroupWithPrimitiveTypes = (args) => ({
-  components: {
-    UiRadio,
-    UiList,
-    UiListItem,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
+export const AsGroupWithPrimitiveTypes = {
+  render: (args) => ({
+    components: {
       UiRadio,
-    };
-  },
-  template: `<UiList>
+      UiList,
+      UiListItem,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+        UiRadio,
+      };
+    },
+    template: `<UiList>
     <UiListItem
       v-for="(value, key) in values"
       :key="key"
@@ -254,50 +348,67 @@ export const AsGroupWithPrimitiveTypes = (args) => ({
       {{ value }}
     </UiListItem>
   </UiList>`,
-});
-AsGroupWithPrimitiveTypes.args = {
-  initModelValue: 'I’m overweight or obese',
-  values: [
-    'I’m overweight or obese',
-    'I have hypertension',
-    'I have smoked cigarettes for at least 10 years',
-  ],
-  name: 'AsGroupWithPrimitiveTypes',
+  }),
+  args: {
+    initModelValue: 'I’m overweight or obese',
+    values: [
+      'I’m overweight or obese',
+      'I have hypertension',
+      'I have smoked cigarettes for at least 10 years',
+    ],
+    name: 'AsGroupWithPrimitiveTypes',
+  },
+  argTypes: {
+    initModelValue: {
+      description: 'Use this control to set initial state.',
+      table: {
+        category: 'stories controls',
+      },
+      control: 'text',
+    },
+    values: {
+      description: 'Use this control to set the values of radio group.',
+      table: {
+        category: 'stories controls',
+      },
+      control: {
+        type: 'object',
+      },
+    },
+    id: {
+      control: false,
+    },
+    value: {
+      control: false,
+    },
+    modifiers: {
+      control: false,
+    },
+    disabled: {
+      control: false,
+    },
+    content: {
+      control: false,
+    },
+  },
 };
-AsGroupWithPrimitiveTypes.argTypes = {
-  initModelValue: {
-    description: 'Use this control to set initial state.',
-    table: { category: 'stories controls' },
-    control: 'text',
-  },
-  values: {
-    description: 'Use this control to set the values of radio group.',
-    table: { category: 'stories controls' },
-    control: { type: 'object' },
-  },
-  id: { control: false },
-  value: { control: false },
-  modifiers: { control: false },
-  disabled: { control: false },
-  content: { control: false },
-};
-
-export const AsGroupWithObject = (args) => ({
-  components: {
-    UiRadio,
-    UiList,
-    UiListItem,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
+export const AsGroupWithObject = {
+  render: (args) => ({
+    components: {
       UiRadio,
-    };
-  },
-  template: `<UiList>
+      UiList,
+      UiListItem,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+        UiRadio,
+      };
+    },
+    template: `<UiList>
     <UiListItem
       v-for="(value, key) in values"
       :key="key"
@@ -318,62 +429,79 @@ export const AsGroupWithObject = (args) => ({
       {{ value.label }}
     </UiListItem>
   </UiList>`,
-});
-AsGroupWithObject.args = {
-  initModelValue: {
-    label: 'I’m overweight or obese',
-    id: 'as-group-with-object-overweight-or-obese',
-  },
-  values: [
-    {
+  }),
+  args: {
+    initModelValue: {
       label: 'I’m overweight or obese',
       id: 'as-group-with-object-overweight-or-obese',
     },
-    {
-      label: 'I have hypertension',
-      id: 'as-group-with-object-hypertension',
+    values: [
+      {
+        label: 'I’m overweight or obese',
+        id: 'as-group-with-object-overweight-or-obese',
+      },
+      {
+        label: 'I have hypertension',
+        id: 'as-group-with-object-hypertension',
+      },
+      {
+        label: 'I have smoked cigarettes for at least 10 years',
+        id: 'as-group-with-object-smoked-cigarettes',
+      },
+    ],
+    name: 'AsGroupWithObject',
+  },
+  argTypes: {
+    initModelValue: {
+      description: 'Use this control to set initial state.',
+      table: {
+        category: 'stories controls',
+      },
+      control: 'object',
     },
-    {
-      label: 'I have smoked cigarettes for at least 10 years',
-      id: 'as-group-with-object-smoked-cigarettes',
+    values: {
+      description: 'Values of the radios group.',
+      table: {
+        category: 'stories controls',
+      },
+      control: {
+        type: 'object',
+      },
     },
-  ],
-  name: 'AsGroupWithObject',
+    id: {
+      control: false,
+    },
+    value: {
+      control: false,
+    },
+    modifiers: {
+      control: false,
+    },
+    disabled: {
+      control: false,
+    },
+    content: {
+      control: false,
+    },
+  },
 };
-AsGroupWithObject.argTypes = {
-  initModelValue: {
-    description: 'Use this control to set initial state.',
-    table: { category: 'stories controls' },
-    control: 'object',
-  },
-  values: {
-    description: 'Values of the radios group.',
-    table: { category: 'stories controls' },
-    control: { type: 'object' },
-  },
-  id: { control: false },
-  value: { control: false },
-  modifiers: { control: false },
-  disabled: { control: false },
-  content: { control: false },
-};
-
-export const AsGroupWithNestedObject = (args) => ({
-  components: {
-    UiRadio,
-    UiList,
-    UiListItem,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
+export const AsGroupWithNestedObject = {
+  render: (args) => ({
+    components: {
       UiRadio,
-    };
-  },
-  template: `<UiList>
+      UiList,
+      UiListItem,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+        UiRadio,
+      };
+    },
+    template: `<UiList>
     <UiListItem
       v-for="(value, key) in values"
       :key="key"
@@ -394,45 +522,68 @@ export const AsGroupWithNestedObject = (args) => ({
       {{ value.label }}
     </UiListItem>
   </UiList>`,
-});
-AsGroupWithNestedObject.args = {
-  initModelValue: {
-    label: 'I’m overweight or obese',
-    id: 'as-group-with-nested-object-overweight-or-obese',
-    radioElementAttrs: { 'data-testid': 'overweight-or-obese-radio' },
-  },
-  values: [
-    {
+  }),
+  args: {
+    initModelValue: {
       label: 'I’m overweight or obese',
-      id: 'overweight-or-obese',
-      radioElementAttrs: { 'data-testid': 'overweight-or-obese-radio' },
+      id: 'as-group-with-nested-object-overweight-or-obese',
+      radioElementAttrs: {
+        'data-testid': 'overweight-or-obese-radio',
+      },
     },
-    {
-      label: 'I have hypertension',
-      id: 'as-group-with-nested-object-hypertension',
-      radioElementAttrs: { 'data-testid': 'hypertension-radio' },
-    },
-    {
-      label: 'I have smoked cigarettes for at least 10 years',
-      id: 'as-group-with-nested-object-smoked-cigarettes',
-      radioElementAttrs: { 'data-testid': 'smoked-cigarettes-radio' },
-    },
-  ],
-  name: 'AsGroupWithNestedObject',
-};
-AsGroupWithNestedObject.argTypes = {
-  initModelValue: {
-    description: 'Use this control to set initial state.',
-    table: { category: 'stories controls' },
-    control: 'array',
+    values: [
+      {
+        label: 'I’m overweight or obese',
+        id: 'overweight-or-obese',
+        radioElementAttrs: {
+          'data-testid': 'overweight-or-obese-radio',
+        },
+      },
+      {
+        label: 'I have hypertension',
+        id: 'as-group-with-nested-object-hypertension',
+        radioElementAttrs: {
+          'data-testid': 'hypertension-radio',
+        },
+      },
+      {
+        label: 'I have smoked cigarettes for at least 10 years',
+        id: 'as-group-with-nested-object-smoked-cigarettes',
+        radioElementAttrs: {
+          'data-testid': 'smoked-cigarettes-radio',
+        },
+      },
+    ],
+    name: 'AsGroupWithNestedObject',
   },
-  values: {
-    description: 'Values of the radios group.',
-    table: { category: 'stories controls' },
-    control: { type: 'object' },
+  argTypes: {
+    initModelValue: {
+      description: 'Use this control to set initial state.',
+      table: {
+        category: 'stories controls',
+      },
+      control: 'array',
+    },
+    values: {
+      description: 'Values of the radios group.',
+      table: {
+        category: 'stories controls',
+      },
+      control: {
+        type: 'object',
+      },
+    },
+    id: {
+      control: false,
+    },
+    value: {
+      control: false,
+    },
+    modifiers: {
+      control: false,
+    },
+    content: {
+      control: false,
+    },
   },
-  id: { control: false },
-  value: { control: false },
-  modifiers: { control: false },
-  content: { control: false },
 };

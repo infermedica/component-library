@@ -5,7 +5,6 @@ import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import { modifiers } from '@sb/helpers/argTypes';
 import './UiNavigation.stories.scss';
 import docs from './UiNavigation.mdx';
-
 export default {
   title: 'Molecules/Navigation',
   component: UiNavigation,
@@ -38,10 +37,13 @@ export default {
   argTypes: {
     navigationItem: {
       name: '<name>',
-      description: 'Use this slot to replace navigation item content. Require `name` in item object.',
+      description:
+        'Use this slot to replace navigation item content. Require `name` in item object.',
       table: {
         category: 'slots',
-        type: { summary: 'unknown' },
+        type: {
+          summary: 'unknown',
+        },
       },
     },
     modifiers: modifiers({
@@ -52,58 +54,142 @@ export default {
       ],
     }),
   },
-  parameters: { docs: { page: docs } },
-};
-
-const Template = (args) => ({
-  components: { UiNavigation },
-  setup() {
-    return { ...args };
+  parameters: {
+    docs: {
+      page: docs,
+    },
   },
-  template: `<UiNavigation
+};
+export const Common = {
+  render: (args) => ({
+    components: {
+      UiNavigation,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiNavigation
     :items="items"
     :class="modifiers"
   />`,
-});
-
-export const Common = Template.bind({});
-
-export const Multiline = Template.bind({});
-Multiline.decorators = [ () => ({
-  template: `<div class="max-w-120">
+  }),
+};
+export const Multiline = {
+  render: (args) => ({
+    components: {
+      UiNavigation,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiNavigation
+    :items="items"
+    :class="modifiers"
+  />`,
+  }),
+  decorators: [
+    () => ({
+      template: `<div class="max-w-120">
     <story />
   </div>`,
-}) ];
-
-export const Secondary = Template.bind({});
-Secondary.args = { modifiers: [ 'ui-navigation--theme-secondary' ] };
-
-export const OnBrand = Template.bind({});
-OnBrand.args = { modifiers: [ 'ui-navigation--theme-brand' ] };
-OnBrand.parameters = { backgrounds: { default: 'brand' } };
-
-export const Small = Template.bind({});
-Small.args = { modifiers: [ 'ui-navigation--small' ] };
-
-export const Vertical = (args) => ({
-  components: { UiNavigation },
-  setup() {
-    return { ...args };
+    }),
+  ],
+};
+export const Secondary = {
+  render: (args) => ({
+    components: {
+      UiNavigation,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiNavigation
+    :items="items"
+    :class="modifiers"
+  />`,
+  }),
+  args: {
+    modifiers: ['ui-navigation--theme-secondary'],
   },
-  template: `<UiNavigation
+};
+export const OnBrand = {
+  render: (args) => ({
+    components: {
+      UiNavigation,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiNavigation
+    :items="items"
+    :class="modifiers"
+  />`,
+  }),
+  args: {
+    modifiers: ['ui-navigation--theme-brand'],
+  },
+  parameters: {
+    backgrounds: {
+      default: 'brand',
+    },
+  },
+};
+export const Small = {
+  render: (args) => ({
+    components: {
+      UiNavigation,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiNavigation
+    :items="items"
+    :class="modifiers"
+  />`,
+  }),
+  args: {
+    modifiers: ['ui-navigation--small'],
+  },
+};
+export const Vertical = {
+  render: (args) => ({
+    components: {
+      UiNavigation,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiNavigation
     :items="items"
     :class="[
       'navigation-vertical',
       modifiers,
     ]"/>`,
-});
-
-export const WithNavigationItemSlot = (args) => ({
-  components: { UiNavigation },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiNavigation
+  }),
+};
+export const WithNavigationItemSlot = {
+  render: (args) => ({
+    components: {
+      UiNavigation,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiNavigation
     :items="items"
     :class="modifiers"
   >
@@ -111,41 +197,44 @@ export const WithNavigationItemSlot = (args) => ({
       {{ item.label }}
     </template>
   </UiNavigation>`,
-});
-WithNavigationItemSlot.args = {
-  items: [
-    {
-      name: 'medical-certification',
-      label: 'Medical Certification',
-      href: '#',
-    },
-    {
-      name: 'instruction-for-use',
-      label: 'Instruction for Use',
-      href: '#',
-    },
-    {
-      name: 'terms-of-service',
-      label: 'Terms of Service',
-      href: '#',
-    },
-    {
-      name: 'privacy-policy',
-      label: 'Privacy Policy',
-      href: '#',
-    },
-  ],
+  }),
+  args: {
+    items: [
+      {
+        name: 'medical-certification',
+        label: 'Medical Certification',
+        href: '#',
+      },
+      {
+        name: 'instruction-for-use',
+        label: 'Instruction for Use',
+        href: '#',
+      },
+      {
+        name: 'terms-of-service',
+        label: 'Terms of Service',
+        href: '#',
+      },
+      {
+        name: 'privacy-policy',
+        label: 'Privacy Policy',
+        href: '#',
+      },
+    ],
+  },
 };
-
-export const WithDefaultSlot = (args) => ({
-  components: {
-    UiNavigation,
-    UiNavigationItem,
-  },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiNavigation
+export const WithDefaultSlot = {
+  render: (args) => ({
+    components: {
+      UiNavigation,
+      UiNavigationItem,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiNavigation
     :class="modifiers"
   >
     <template
@@ -160,17 +249,20 @@ export const WithDefaultSlot = (args) => ({
       </UiNavigationItem>
     </template>
   </UiNavigation>`,
-});
-
-export const WithIconInNavigationItemSlot = (args) => ({
-  components: {
-    UiNavigation,
-    UiIcon,
-  },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiNavigation
+  }),
+};
+export const WithIconInNavigationItemSlot = {
+  render: (args) => ({
+    components: {
+      UiNavigation,
+      UiIcon,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiNavigation
     :items="items"
     :class="modifiers"
   >
@@ -181,28 +273,29 @@ export const WithIconInNavigationItemSlot = (args) => ({
       /> {{ item.text }}
     </template>
   </UiNavigation>`,
-});
-WithIconInNavigationItemSlot.args = {
-  items: [
-    {
-      name: 'medical-certification',
-      label: 'Medical Certification',
-      href: '#',
-    },
-    {
-      name: 'instruction-for-use',
-      label: 'Instruction for Use',
-      href: '#',
-    },
-    {
-      name: 'terms-of-service',
-      label: 'Terms of Service',
-      href: '#',
-    },
-    {
-      name: 'privacy-policy',
-      label: 'Privacy Policy',
-      href: '#',
-    },
-  ],
+  }),
+  args: {
+    items: [
+      {
+        name: 'medical-certification',
+        label: 'Medical Certification',
+        href: '#',
+      },
+      {
+        name: 'instruction-for-use',
+        label: 'Instruction for Use',
+        href: '#',
+      },
+      {
+        name: 'terms-of-service',
+        label: 'Terms of Service',
+        href: '#',
+      },
+      {
+        name: 'privacy-policy',
+        label: 'Privacy Policy',
+        href: '#',
+      },
+    ],
+  },
 };

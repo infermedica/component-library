@@ -6,13 +6,19 @@ import UiSwitch from '@/components/molecules/UiSwitch/UiSwitch.vue';
 import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
 import { ref } from 'vue';
 import docs from './click-outside.mdx';
-
 export default {
   title: 'Utilities/Directives/Click Outside',
-  decorators: [ () => ({ template: '<div style="height: 200px;"><story /></div>' }) ],
-  parameters: { docs: { page: docs } },
+  decorators: [
+    () => ({
+      template: '<div style="height: 200px;"><story /></div>',
+    }),
+  ],
+  parameters: {
+    docs: {
+      page: docs,
+    },
+  },
 };
-
 export const WithDirective = () => ({
   components: {
     UiButton,
@@ -20,7 +26,9 @@ export const WithDirective = () => ({
     UiText,
     UiPopover,
   },
-  directives: { clickOutside },
+  directives: {
+    clickOutside,
+  },
   setup() {
     const isOpen = ref(true);
     const toggleHandler = () => {
@@ -57,7 +65,6 @@ export const WithDirective = () => ({
     </UiText>
   </UiPopover>`,
 });
-
 export const WithDirectiveSwitcher = () => ({
   components: {
     UiButton,
@@ -66,7 +73,9 @@ export const WithDirectiveSwitcher = () => ({
     UiSwitch,
     UiPopover,
   },
-  directives: { clickOutside },
+  directives: {
+    clickOutside,
+  },
   setup() {
     const isOpen = ref(true);
     const isDirective = ref(true);
@@ -111,7 +120,6 @@ export const WithDirectiveSwitcher = () => ({
     </UiText>
   </UiPopover>`,
 });
-
 export const WithoutDirective = () => ({
   components: {
     UiButton,

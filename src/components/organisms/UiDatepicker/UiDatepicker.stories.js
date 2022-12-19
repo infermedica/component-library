@@ -1,7 +1,6 @@
 import UiDatepicker from '@/components/organisms/UiDatepicker/UiDatepicker.vue';
 import { ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
-
 const events = actions({
   onFieldFocus: 'field-focus',
   onFieldInsert: 'field-insert',
@@ -10,7 +9,6 @@ const events = actions({
   onCalendarOpen: 'calendar-open',
   onUpdateInvalid: 'update:invalid',
 });
-
 export default {
   title: 'Organisms/Datepicker',
   component: UiDatepicker,
@@ -18,11 +16,7 @@ export default {
     initModelValue: '2077-11-27',
     initInvalid: true,
     error: 'Sorry, the date of birth cannot be a future date',
-    order: [
-      'day',
-      'month',
-      'year',
-    ],
+    order: ['day', 'month', 'year'],
     touched: false,
     lang: 'en-us',
     translation: {
@@ -38,28 +32,56 @@ export default {
     },
     minLimit: 0,
     maxLimit: 120,
-    alertAttrs: { 'data-testid': 'alert' },
-    textDayAttrs: { 'data-testid': 'day-text' },
-    textMonthAttrs: { 'data-testid': 'month-text' },
-    textYearAttrs: { 'data-testid': 'year-text' },
-    inputDayAttrs: { 'data-testid': 'day-input' },
-    inputMonthAttrs: { 'data-testid': 'month-input' },
-    inputYearAttrs: { 'data-testid': 'year-input' },
+    alertAttrs: {
+      'data-testid': 'alert',
+    },
+    textDayAttrs: {
+      'data-testid': 'day-text',
+    },
+    textMonthAttrs: {
+      'data-testid': 'month-text',
+    },
+    textYearAttrs: {
+      'data-testid': 'year-text',
+    },
+    inputDayAttrs: {
+      'data-testid': 'day-input',
+    },
+    inputMonthAttrs: {
+      'data-testid': 'month-input',
+    },
+    inputYearAttrs: {
+      'data-testid': 'year-input',
+    },
     datepickerCalendarAttrs: {
       buttonToggleAttrs: {
         ariaLabel: 'calendar',
         'data-testid': 'calendar-toggle-button',
       },
-      iconToggleAttrs: { 'data-testid': 'calendar-toggle-icon' },
-      popoverAttrs: { 'data-testid': 'calendar-popover' },
-      tabsAttrs: { 'data-testid': 'calendar-tabs' },
+      iconToggleAttrs: {
+        'data-testid': 'calendar-toggle-icon',
+      },
+      popoverAttrs: {
+        'data-testid': 'calendar-popover',
+      },
+      tabsAttrs: {
+        'data-testid': 'calendar-tabs',
+      },
       tabsItemDayAttrs: {
         'data-testid': 'day-tabs-item',
-        buttonTabAttrs: { 'data-testid': 'day-tabs-item-button' },
-        contentTabsAttrs: { 'data-testid': 'day-tabs-item-content' },
+        buttonTabAttrs: {
+          'data-testid': 'day-tabs-item-button',
+        },
+        contentTabsAttrs: {
+          'data-testid': 'day-tabs-item-content',
+        },
       },
-      tabsItemMonthAttrs: { 'data-testid': 'month-tabs-item' },
-      tabsItemYearAttrs: { 'data-testid': 'year-tabs-item' },
+      tabsItemMonthAttrs: {
+        'data-testid': 'month-tabs-item',
+      },
+      tabsItemYearAttrs: {
+        'data-testid': 'year-tabs-item',
+      },
     },
     'update:modelValue': null,
     'update:invalid': null,
@@ -67,13 +89,17 @@ export default {
   argTypes: {
     initModelValue: {
       description: 'Use this control to set initial state.',
-      table: { category: 'stories controls' },
+      table: {
+        category: 'stories controls',
+      },
       control: 'text',
     },
     initInvalid: {
       name: 'invalid',
       description: 'Use this control to set initial state of invalid props.',
-      table: { category: 'stories controls' },
+      table: {
+        category: 'stories controls',
+      },
       control: 'boolean',
     },
     lang: {
@@ -99,57 +125,107 @@ export default {
         'zh-hans',
       ],
     },
-    modelValue: { control: false },
-    invalid: { control: false },
+    modelValue: {
+      control: false,
+    },
+    invalid: {
+      control: false,
+    },
     'calendar-open': {
       description: 'Use this event to detect when calendar is open.',
-      table: { category: 'events' },
+      table: {
+        category: 'events',
+      },
     },
     'calendar-select': {
       description: 'Use this event to detect when user selects value on calendar tab.',
-      table: { category: 'events' },
+      table: {
+        category: 'events',
+      },
     },
     'field-insert': {
       description: 'Use this event to detect when user put value to input.',
-      table: { category: 'events' },
+      table: {
+        category: 'events',
+      },
     },
     'field-error': {
       description: 'Use this event to detect when datepicker has error.',
-      table: { category: 'events' },
+      table: {
+        category: 'events',
+      },
     },
     'field-focus': {
       description: 'Use this event to detect when some field is focused.',
-      table: { category: 'events' },
+      table: {
+        category: 'events',
+      },
     },
-    alertAttrs: { table: { subcategory: 'Attrs props' } },
-    textDayAttrs: { table: { subcategory: 'Attrs props' } },
-    textMonthAttrs: { table: { subcategory: 'Attrs props' } },
-    textYearAttrs: { table: { subcategory: 'Attrs props' } },
-    inputDayAttrs: { table: { subcategory: 'Attrs props' } },
-    inputMonthAttrs: { table: { subcategory: 'Attrs props' } },
-    inputYearAttrs: { table: { subcategory: 'Attrs props' } },
-    datepickerCalendarAttrs: { table: { subcategory: 'Attrs props' } },
+    alertAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    textDayAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    textMonthAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    textYearAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    inputDayAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    inputMonthAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    inputYearAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    datepickerCalendarAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
   },
-  decorators: [ () => ({
-    template: `<div class="min-h-115 max-w-80">
+  decorators: [
+    () => ({
+      template: `<div class="min-h-115 max-w-80">
       <story />
     </div>`,
-  }) ],
+    }),
+  ],
 };
-
-export const FullConfiguration = (args) => ({
-  components: { UiDatepicker },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    const invalid = ref(args.initInvalid);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-      invalid,
-    };
-  },
-  template: `<UiDatepicker
+export const FullConfiguration = {
+  render: (args) => ({
+    components: {
+      UiDatepicker,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      const invalid = ref(args.initInvalid);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+        invalid,
+      };
+    },
+    template: `<UiDatepicker
     v-model="modelValue"
     v-model:invalid="invalid"
     :error="error"
@@ -174,10 +250,12 @@ export const FullConfiguration = (args) => ({
     @field-error="onFieldError"
     @field-focus="onFieldFocus"
   />`,
-});
-
+  }),
+};
 export const NoConfiguration = () => ({
-  components: { UiDatepicker },
+  components: {
+    UiDatepicker,
+  },
   setup() {
     const modelValue = ref('');
     const invalid = ref(true);

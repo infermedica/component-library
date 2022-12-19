@@ -7,81 +7,100 @@ import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import { ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
 import { content } from '@sb/helpers/argTypes';
-
-const events = actions({ onUpdateModelValue: 'update:modelValue' });
-
+const events = actions({
+  onUpdateModelValue: 'update:modelValue',
+});
 export default {
   title: 'Molecules/Switch',
   component: UiSwitch,
-  subcomponents: { UiCheckbox },
+  subcomponents: {
+    UiCheckbox,
+  },
   args: {
     initModelValue: false,
-    content: 'I agree to the processing of my health information for the purpose of performing the interview.',
-    controlAttrs: { 'data-testid': 'switch-control' },
+    content:
+      'I agree to the processing of my health information for the purpose of performing the interview.',
+    controlAttrs: {
+      'data-testid': 'switch-control',
+    },
   },
   argTypes: {
     content,
     initModelValue: {
       description: 'Use this control to set initial state.',
-      table: { category: 'stories controls' },
+      table: {
+        category: 'stories controls',
+      },
       control: 'boolean',
     },
-    modelValue: { control: false },
-    controlAttrs: { table: { subcategory: 'Attrs props' } },
+    modelValue: {
+      control: false,
+    },
+    controlAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
   },
 };
-
-export const WithoutLabel = (args) => ({
-  components: { UiSwitch },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiSwitch
+export const WithoutLabel = {
+  render: (args) => ({
+    components: {
+      UiSwitch,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiSwitch
     v-model="modelValue"
     :control-attrs="controlAttrs"
     :text-label-attrs="{ 'data-testid': 'label-text' }"
     @update:modelValue="onUpdateModelValue"
   />`,
-});
-
-export const IsDisabled = (args) => ({
-  components: { UiSwitch },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiSwitch
+  }),
+};
+export const IsDisabled = {
+  render: (args) => ({
+    components: {
+      UiSwitch,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiSwitch
     v-model="modelValue"
     :control-attrs="controlAttrs"
     :text-label-attrs="{ 'data-testid': 'label-text' }"
     class="ui-switch--is-disabled"
     @update:modelValue="onUpdateModelValue"
   />`,
-});
-
-export const WithLabel = (args) => ({
-  components: {
-    UiSwitch,
-    UiText,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiSwitch
+  }),
+};
+export const WithLabel = {
+  render: (args) => ({
+    components: {
+      UiSwitch,
+      UiText,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiSwitch
     v-model="modelValue"
     :control-attrs="controlAttrs"
     :text-label-attrs="{ 'data-testid': 'label-text' }"
@@ -89,22 +108,23 @@ export const WithLabel = (args) => ({
   >
     {{ content }}
   </UiSwitch>`,
-});
-
-export const WithSwitchControlSlot = (args) => ({
-  components: {
-    UiSwitch,
-    UiSwitchControl,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiSwitch
+  }),
+};
+export const WithSwitchControlSlot = {
+  render: (args) => ({
+    components: {
+      UiSwitch,
+      UiSwitchControl,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiSwitch
     v-model="modelValue"
     :control-attrs="controlAttrs"
     :text-label-attrs="{ 'data-testid': 'label-text' }"
@@ -123,24 +143,25 @@ export const WithSwitchControlSlot = (args) => ({
       />
     </template>
   </UiSwitch>`,
-});
-
-export const AsGroup = (args) => ({
-  components: {
-    UiSwitch,
-    UiList,
-    UiListItem,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
+  }),
+};
+export const AsGroup = {
+  render: (args) => ({
+    components: {
       UiSwitch,
-    };
-  },
-  template: `<UiList>
+      UiList,
+      UiListItem,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+        UiSwitch,
+      };
+    },
+    template: `<UiList>
     <UiListItem
       v-for="(value, key) in values"
       :key="key"
@@ -153,59 +174,74 @@ export const AsGroup = (args) => ({
       {{ value.label }}
     </UiListItem>
   </UiList>`,
-});
-AsGroup.args = {
-  initModelValue: [ {
-    label: 'Necessary',
-    id: 'necessary',
-    controlAttrs: { 'data-testid': 'necessary' },
-  } ],
-  values: [
-    {
-      label: 'Necessary',
-      id: 'necessary',
-      controlAttrs: { 'data-testid': 'necessary' },
+  }),
+  args: {
+    initModelValue: [
+      {
+        label: 'Necessary',
+        id: 'necessary',
+        controlAttrs: {
+          'data-testid': 'necessary',
+        },
+      },
+    ],
+    values: [
+      {
+        label: 'Necessary',
+        id: 'necessary',
+        controlAttrs: {
+          'data-testid': 'necessary',
+        },
+      },
+      {
+        label: 'Functional',
+        id: 'functional',
+        controlAttrs: {
+          'data-testid': 'functional',
+        },
+      },
+      {
+        label: 'Analytics',
+        id: 'analytics',
+        controlAttrs: {
+          'data-testid': 'analytics',
+        },
+      },
+    ],
+  },
+  argTypes: {
+    initial: {
+      description: 'Use this control to set initial state.',
+      table: {
+        category: 'stories controls',
+      },
+      control: 'array',
     },
-    {
-      label: 'Functional',
-      id: 'functional',
-      controlAttrs: { 'data-testid': 'functional' },
+    values: {
+      description: 'Use this control to set the values of checkbox group.',
+      table: {
+        category: 'stories controls',
+      },
+      control: 'array',
     },
-    {
-      label: 'Analytics',
-      id: 'analytics',
-      controlAttrs: { 'data-testid': 'analytics' },
-    },
-  ],
+  },
 };
-AsGroup.argTypes = {
-  initial: {
-    description: 'Use this control to set initial state.',
-    table: { category: 'stories controls' },
-    control: 'array',
-  },
-  values: {
-    description: 'Use this control to set the values of checkbox group.',
-    table: { category: 'stories controls' },
-    control: 'array',
-  },
-};
-
-export const AsGroupWithPrimitiveTypes = (args) => ({
-  components: {
-    UiSwitch,
-    UiList,
-    UiListItem,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      modelValue,
+export const AsGroupWithPrimitiveTypes = {
+  render: (args) => ({
+    components: {
       UiSwitch,
-    };
-  },
-  template: `<UiList>
+      UiList,
+      UiListItem,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        modelValue,
+        UiSwitch,
+      };
+    },
+    template: `<UiList>
     <UiListItem
       v-for="(value, key) in values"
       :key="key"
@@ -216,24 +252,25 @@ export const AsGroupWithPrimitiveTypes = (args) => ({
       {{ value }}
     </UiListItem>
   </UiList>`,
-});
-AsGroupWithPrimitiveTypes.args = {
-  initModelValue: [ 'Necessary' ],
-  values: [
-    'Necessary',
-    'Functional',
-    'Analytics',
-  ],
-};
-AsGroupWithPrimitiveTypes.argTypes = {
-  initial: {
-    description: 'Use this control to set initial state.',
-    table: { category: 'stories controls' },
-    control: 'array',
+  }),
+  args: {
+    initModelValue: ['Necessary'],
+    values: ['Necessary', 'Functional', 'Analytics'],
   },
-  values: {
-    description: 'Use this control to set the values of checkbox group.',
-    table: { category: 'stories controls' },
-    control: 'array',
+  argTypes: {
+    initial: {
+      description: 'Use this control to set initial state.',
+      table: {
+        category: 'stories controls',
+      },
+      control: 'array',
+    },
+    values: {
+      description: 'Use this control to set the values of checkbox group.',
+      table: {
+        category: 'stories controls',
+      },
+      control: 'array',
+    },
   },
 };

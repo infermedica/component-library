@@ -7,26 +7,14 @@ import UiLink from '@/components/atoms/UiLink/UiLink.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints.vue';
 import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue';
-import {
-  onMounted,
-  ref,
-  provide,
-  inject,
-} from 'vue';
+import { onMounted, ref, provide, inject } from 'vue';
 import { actions } from '@storybook/addon-actions';
-import {
-  focusTrap,
-  bodyScrollLock,
-  scrollTabindex,
-  keyboardFocus,
-} from '@/utilities/directives';
+import { focusTrap, bodyScrollLock, scrollTabindex, keyboardFocus } from '@/utilities/directives';
 import './UiSidePanel.stories.scss';
-
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
   onAfterEnter: 'after-enter',
 });
-
 export default {
   title: 'Organisms/SidePanel',
   component: UiSidePanel,
@@ -41,30 +29,50 @@ export default {
     initModelValue: true,
     title: 'For business',
     subtitle: '',
-    transitionBackdropAttrs: { 'data-testid': 'backdrop-transition' },
-    backdropAttrs: { 'data-testid': 'backdrop' },
-    dialogAttrs: { 'data-testid': 'dialog-element' },
-    transitionDialogAttrs: { 'data-testid': 'dialog-transition' },
-    headingTitleAttrs: { 'data-testid': 'title-heading' },
-    textSubtitleAttrs: { 'data-testid': 'subtitle-text' },
+    transitionBackdropAttrs: {
+      'data-testid': 'backdrop-transition',
+    },
+    backdropAttrs: {
+      'data-testid': 'backdrop',
+    },
+    dialogAttrs: {
+      'data-testid': 'dialog-element',
+    },
+    transitionDialogAttrs: {
+      'data-testid': 'dialog-transition',
+    },
+    headingTitleAttrs: {
+      'data-testid': 'title-heading',
+    },
+    textSubtitleAttrs: {
+      'data-testid': 'subtitle-text',
+    },
     buttonCloseAttrs: {
       'data-testid': 'close-button',
       ariaLabel: 'close modal',
     },
-    iconCloseAttrs: { 'data-testid': 'close-icon' },
-    contentAttrs: { 'data-testid': 'content-element' },
+    iconCloseAttrs: {
+      'data-testid': 'close-icon',
+    },
+    contentAttrs: {
+      'data-testid': 'content-element',
+    },
   },
   argTypes: {
     initModelValue: {
       description: 'Use this control to set initial state.',
-      table: { category: 'stories controls' },
+      table: {
+        category: 'stories controls',
+      },
       control: 'boolean',
     },
     title: {
       description: 'Use this props to set side panel title.',
       table: {
         category: 'props',
-        type: { summary: 'string' },
+        type: {
+          summary: 'string',
+        },
       },
       control: 'text',
     },
@@ -73,13 +81,17 @@ export default {
       description: 'Use this slot to replace title template.',
       table: {
         category: 'slots',
-        type: { summary: 'unknown' },
+        type: {
+          summary: 'unknown',
+        },
       },
     },
     subtitle: {
       table: {
         category: 'props',
-        type: { summary: 'string' },
+        type: {
+          summary: 'string',
+        },
       },
       control: 'text',
     },
@@ -88,38 +100,81 @@ export default {
       description: 'Use this slot to replace subtitle template.',
       table: {
         category: 'slots',
-        type: { summary: 'unknown' },
+        type: {
+          summary: 'unknown',
+        },
       },
     },
-    modelValue: { control: false },
-    'after-enter': { description: 'Use this event to detect when side panel enter transition is finishing.' },
-    transitionBackdropAttrs: { table: { subcategory: 'Attrs props' } },
-    backdropAttrs: { table: { subcategory: 'Attrs props' } },
-    dialogAttrs: { table: { subcategory: 'Attrs props' } },
-    transitionDialogAttrs: { table: { subcategory: 'Attrs props' } },
-    headingTitleAttrs: { table: { subcategory: 'Attrs props' } },
-    textSubtitleAttrs: { table: { subcategory: 'Attrs props' } },
-    buttonCloseAttrs: { table: { subcategory: 'Attrs props' } },
-    iconCloseAttrs: { table: { subcategory: 'Attrs props' } },
-    contentAttrs: { table: { subcategory: 'Attrs props' } },
+    modelValue: {
+      control: false,
+    },
+    'after-enter': {
+      description: 'Use this event to detect when side panel enter transition is finishing.',
+    },
+    transitionBackdropAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    backdropAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    dialogAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    transitionDialogAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    headingTitleAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    textSubtitleAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    buttonCloseAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    iconCloseAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    contentAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
   },
-  decorators: [ (story, { args }) => ({
-    components: {
-      story,
-      UiButton,
-    },
-    setup() {
-      const modelValue = ref(args.initModelValue);
-      const toggleSidePanel = () => {
-        modelValue.value = !modelValue.value;
-      };
-      provide('modelValue', modelValue);
-      return {
-        toggleSidePanel,
-        title: args.title,
-      };
-    },
-    template: `<div class="max-w-32 min-h-80">
+  decorators: [
+    (story, { args }) => ({
+      components: {
+        story,
+        UiButton,
+      },
+      setup() {
+        const modelValue = ref(args.initModelValue);
+        const toggleSidePanel = () => {
+          modelValue.value = !modelValue.value;
+        };
+        provide('modelValue', modelValue);
+        return {
+          toggleSidePanel,
+          title: args.title,
+        };
+      },
+      template: `<div class="max-w-32 min-h-80">
       <UiButton
         class="ui-button--text ui-button--theme-secondary"
         @click="toggleSidePanel"
@@ -128,8 +183,15 @@ export default {
       </UiButton>
       <story/>
     </div>`,
-  }) ],
-  parameters: { docs: { description: { component: 'SidePanel use `v-body-scroll-lock`. Only works on Canvas mode.' } } },
+    }),
+  ],
+  parameters: {
+    docs: {
+      description: {
+        component: 'SidePanel use `v-body-scroll-lock`. Only works on Canvas mode.',
+      },
+    },
+  },
 };
 const TOS = {
   components: {
@@ -185,22 +247,23 @@ const TOS = {
     </UiBulletPointsItem>
   </UiBulletPoints>`,
 };
-const Template = (args) => ({
-  components: {
-    UiSidePanel,
-    UiButton,
-    UiHeading,
-    TOS,
-  },
-  setup() {
-    const modelValue = inject('modelValue');
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiSidePanel 
+export const TermsOfService = {
+  render: (args) => ({
+    components: {
+      UiSidePanel,
+      UiButton,
+      UiHeading,
+      TOS,
+    },
+    setup() {
+      const modelValue = inject('modelValue');
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiSidePanel 
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
@@ -221,30 +284,29 @@ const Template = (args) => ({
     </UiHeading>
     <TOS/>
   </UiSidePanel>`,
-});
-
-export const TermsOfService = Template.bind({});
-TermsOfService.args = {
-  title: 'Terms of Service',
-  subtitle: 'Last updated: Nov 26th, 2020',
+  }),
+  args: {
+    title: 'Terms of Service',
+    subtitle: 'Last updated: Nov 26th, 2020',
+  },
 };
-
-export const WithBackdropSlot = (args) => ({
-  components: {
-    UiSidePanel,
-    UiButton,
-    UiText,
-    UiBackdrop,
-  },
-  setup() {
-    const modelValue = inject('modelValue');
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiSidePanel
+export const WithBackdropSlot = {
+  render: (args) => ({
+    components: {
+      UiSidePanel,
+      UiButton,
+      UiText,
+      UiBackdrop,
+    },
+    setup() {
+      const modelValue = inject('modelValue');
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiSidePanel
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
@@ -278,29 +340,30 @@ export const WithBackdropSlot = (args) => ({
       Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:
     </UiText>
   </UiSidePanel>`,
-});
-
-export const WithContainerSlot = (args) => ({
-  components: {
-    UiSidePanel,
-    UiButton,
-    UiText,
-    UiHeading,
-    UiIcon,
-  },
-  directives: {
-    focusTrap,
-    bodyScrollLock,
-  },
-  setup() {
-    const modelValue = inject('modelValue');
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiSidePanel
+  }),
+};
+export const WithContainerSlot = {
+  render: (args) => ({
+    components: {
+      UiSidePanel,
+      UiButton,
+      UiText,
+      UiHeading,
+      UiIcon,
+    },
+    directives: {
+      focusTrap,
+      bodyScrollLock,
+    },
+    setup() {
+      const modelValue = inject('modelValue');
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiSidePanel
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
@@ -382,25 +445,26 @@ export const WithContainerSlot = (args) => ({
       </transition>
     </template>
   </UiSidePanel>`,
-});
-
-export const WithHeaderSlot = (args) => ({
-  components: {
-    UiSidePanel,
-    UiButton,
-    UiText,
-    UiHeading,
-    UiIcon,
-  },
-  setup() {
-    const modelValue = inject('modelValue');
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiSidePanel
+  }),
+};
+export const WithHeaderSlot = {
+  render: (args) => ({
+    components: {
+      UiSidePanel,
+      UiButton,
+      UiText,
+      UiHeading,
+      UiIcon,
+    },
+    setup() {
+      const modelValue = inject('modelValue');
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiSidePanel
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
@@ -461,25 +525,26 @@ export const WithHeaderSlot = (args) => ({
       Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:
     </UiText>
   </UiSidePanel>`,
-});
-
-export const WithCloseSlot = (args) => ({
-  components: {
-    UiSidePanel,
-    UiButton,
-    UiText,
-    UiHeading,
-    UiIcon,
-  },
-  setup() {
-    const modelValue = inject('modelValue');
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiSidePanel
+  }),
+};
+export const WithCloseSlot = {
+  render: (args) => ({
+    components: {
+      UiSidePanel,
+      UiButton,
+      UiText,
+      UiHeading,
+      UiIcon,
+    },
+    setup() {
+      const modelValue = inject('modelValue');
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiSidePanel
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
@@ -516,24 +581,25 @@ export const WithCloseSlot = (args) => ({
       Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:
     </UiText>
   </UiSidePanel>`,
-});
-
-export const WithLabelSlot = (args) => ({
-  components: {
-    UiSidePanel,
-    UiButton,
-    UiText,
-    UiHeading,
-  },
-  setup() {
-    const modelValue = inject('modelValue');
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiSidePanel
+  }),
+};
+export const WithLabelSlot = {
+  render: (args) => ({
+    components: {
+      UiSidePanel,
+      UiButton,
+      UiText,
+      UiHeading,
+    },
+    setup() {
+      const modelValue = inject('modelValue');
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiSidePanel
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
@@ -578,24 +644,25 @@ export const WithLabelSlot = (args) => ({
       Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:
     </UiText>
   </UiSidePanel>`,
-});
-
-export const WithTitleSlot = (args) => ({
-  components: {
-    UiSidePanel,
-    UiButton,
-    UiText,
-    UiHeading,
-  },
-  setup() {
-    const modelValue = inject('modelValue');
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiSidePanel
+  }),
+};
+export const WithTitleSlot = {
+  render: (args) => ({
+    components: {
+      UiSidePanel,
+      UiButton,
+      UiText,
+      UiHeading,
+    },
+    setup() {
+      const modelValue = inject('modelValue');
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiSidePanel
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
@@ -626,23 +693,24 @@ export const WithTitleSlot = (args) => ({
       Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:
     </UiText>
   </UiSidePanel>`,
-});
-
-export const WithSubtitleSlot = (args) => ({
-  components: {
-    UiSidePanel,
-    UiButton,
-    UiText,
-  },
-  setup() {
-    const modelValue = inject('modelValue');
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiSidePanel
+  }),
+};
+export const WithSubtitleSlot = {
+  render: (args) => ({
+    components: {
+      UiSidePanel,
+      UiButton,
+      UiText,
+    },
+    setup() {
+      const modelValue = inject('modelValue');
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiSidePanel
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
@@ -672,27 +740,28 @@ export const WithSubtitleSlot = (args) => ({
       Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:
     </UiText>
   </UiSidePanel>`,
-});
-
-export const WithContentSlot = (args) => ({
-  components: {
-    UiSidePanel,
-    UiButton,
-    UiText,
-  },
-  directives: {
-    scrollTabindex,
-    keyboardFocus,
-  },
-  setup() {
-    const modelValue = inject('modelValue');
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiSidePanel
+  }),
+};
+export const WithContentSlot = {
+  render: (args) => ({
+    components: {
+      UiSidePanel,
+      UiButton,
+      UiText,
+    },
+    directives: {
+      scrollTabindex,
+      keyboardFocus,
+    },
+    setup() {
+      const modelValue = inject('modelValue');
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiSidePanel
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
@@ -721,31 +790,32 @@ export const WithContentSlot = (args) => ({
       </div>
     </template>
   </UiSidePanel>`,
-});
-
-export const WithAsyncContent = (args) => ({
-  components: {
-    UiSidePanel,
-    UiButton,
-    UiHeading,
-    TOS,
-  },
-  setup() {
-    const modelValue = inject('modelValue');
-    const isLoaded = ref(false);
-    onMounted(() => (
-      window.setTimeout(() => {
-        isLoaded.value = true;
-      }, 1000)
-    ));
-    return {
-      ...args,
-      ...events,
-      modelValue,
-      isLoaded,
-    };
-  },
-  template: `<UiSidePanel
+  }),
+};
+export const WithAsyncContent = {
+  render: (args) => ({
+    components: {
+      UiSidePanel,
+      UiButton,
+      UiHeading,
+      TOS,
+    },
+    setup() {
+      const modelValue = inject('modelValue');
+      const isLoaded = ref(false);
+      onMounted(() =>
+        window.setTimeout(() => {
+          isLoaded.value = true;
+        }, 1000)
+      );
+      return {
+        ...args,
+        ...events,
+        modelValue,
+        isLoaded,
+      };
+    },
+    template: `<UiSidePanel
     v-model="modelValue"
     :title="title"
     :subtitle="subtitle"
@@ -766,4 +836,5 @@ export const WithAsyncContent = (args) => ({
       <TOS/>
     </template>
   </UiSidePanel>`,
-});
+  }),
+};

@@ -6,56 +6,82 @@ import UiNumberStepper from '@/components/molecules/UiNumberStepper/UiNumberStep
 import { ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
 import { keyboardFocus } from '@/utilities/directives';
-
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
   onError: 'error',
 });
-
 export default {
   title: 'Atoms/Range',
   component: UiRange,
-  subcomponents: { UiNumberStepper },
+  subcomponents: {
+    UiNumberStepper,
+  },
   args: {
     initModelValue: 50,
     min: 18,
     max: 122,
     step: 1,
-    inputAttrs: { 'data-testid': 'input-element' },
-    headingValueAttrs: { 'data-testid': 'value-heading' },
+    inputAttrs: {
+      'data-testid': 'input-element',
+    },
+    headingValueAttrs: {
+      'data-testid': 'value-heading',
+    },
     ariaLabel: 'patient age',
   },
   argTypes: {
     initModelValue: {
       description: 'Use this control to set initial state.',
-      table: { category: 'stories controls' },
-      control: { type: 'number' },
+      table: {
+        category: 'stories controls',
+      },
+      control: {
+        type: 'number',
+      },
     },
     ariaLabel: {
       name: 'aria-label',
       description: 'Use this control to set aria-label attribute.',
       control: 'text',
-      table: { category: 'html attributes' },
+      table: {
+        category: 'html attributes',
+      },
     },
-    min: { control: 'number' },
-    max: { control: 'number' },
-    modelValue: { control: false },
-    inputAttrs: { table: { subcategory: 'Attrs props' } },
-    headingValueAttrs: { table: { subcategory: 'Attrs props' } },
+    min: {
+      control: 'number',
+    },
+    max: {
+      control: 'number',
+    },
+    modelValue: {
+      control: false,
+    },
+    inputAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
+    headingValueAttrs: {
+      table: {
+        subcategory: 'Attrs props',
+      },
+    },
   },
 };
-
-export const Common = (args) => ({
-  components: { UiRange },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiRange 
+export const Common = {
+  render: (args) => ({
+    components: {
+      UiRange,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiRange 
     v-model="modelValue"
     :min="min"
     :max="max"
@@ -66,23 +92,24 @@ export const Common = (args) => ({
     @update:modelValue="onUpdateModelValue"
     @error="onError"
   />`,
-});
-
-export const WithDecrementSlot = (args) => ({
-  components: {
-    UiRange,
-    UiButton,
-    UiIcon,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      modelValue,
-      ...events,
-    };
-  },
-  template: `<UiRange 
+  }),
+};
+export const WithDecrementSlot = {
+  render: (args) => ({
+    components: {
+      UiRange,
+      UiButton,
+      UiIcon,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        modelValue,
+        ...events,
+      };
+    },
+    template: `<UiRange 
     v-model="modelValue"
     :min="min"
     :max="max"
@@ -116,23 +143,24 @@ export const WithDecrementSlot = (args) => ({
       </UiButton>
     </template>
   </UiRange>`,
-});
-
-export const WithIncrementSlot = (args) => ({
-  components: {
-    UiRange,
-    UiButton,
-    UiIcon,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      modelValue,
-      ...events,
-    };
-  },
-  template: `<UiRange 
+  }),
+};
+export const WithIncrementSlot = {
+  render: (args) => ({
+    components: {
+      UiRange,
+      UiButton,
+      UiIcon,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        modelValue,
+        ...events,
+      };
+    },
+    template: `<UiRange 
     v-model="modelValue"
     :min="min"
     :max="max"
@@ -166,22 +194,23 @@ export const WithIncrementSlot = (args) => ({
       </UiButton>
     </template>
   </UiRange>`,
-});
-
-export const WithValueSlot = (args) => ({
-  components: {
-    UiRange,
-    UiHeading,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      modelValue,
-      ...events,
-    };
-  },
-  template: `<UiRange 
+  }),
+};
+export const WithValueSlot = {
+  render: (args) => ({
+    components: {
+      UiRange,
+      UiHeading,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        modelValue,
+        ...events,
+      };
+    },
+    template: `<UiRange 
     v-model="modelValue"
     :min="min"
     :max="max"
@@ -204,20 +233,25 @@ export const WithValueSlot = (args) => ({
       </UiHeading>
     </template>
   </UiRange>`,
-});
-
-export const WithRangeSlot = (args) => ({
-  components: { UiRange },
-  directives: { keyboardFocus },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      modelValue,
-      ...events,
-    };
-  },
-  template: `<UiRange 
+  }),
+};
+export const WithRangeSlot = {
+  render: (args) => ({
+    components: {
+      UiRange,
+    },
+    directives: {
+      keyboardFocus,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        modelValue,
+        ...events,
+      };
+    },
+    template: `<UiRange 
     v-model="modelValue"
     :min="min"
     :max="max"
@@ -250,4 +284,5 @@ export const WithRangeSlot = (args) => ({
       />
     </template>
   </UiRange>`,
-});
+  }),
+};

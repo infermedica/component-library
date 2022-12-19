@@ -4,94 +4,127 @@ import { defineAsyncComponent } from 'vue';
 import './UiIcon.stories.scss';
 import icons from '@/components/atoms/UiIcon/icons.ts';
 import docs from './UiIcon.mdx';
-
 export default {
   title: 'Atoms/Icon',
   component: UiIcon,
-  args: { icon: 'absent' },
+  args: {
+    icon: 'absent',
+  },
   argTypes: {
     icon: {
-      control: { type: 'select' },
+      control: {
+        type: 'select',
+      },
       options: icons,
     },
   },
-  parameters: { docs: { page: docs } },
+  parameters: {
+    docs: {
+      page: docs,
+    },
+  },
 };
-
-const Template = (args) => ({
-  components: { UiIcon },
-  setup() {
-    return { ...args };
-  },
-  template: '<UiIcon :icon="icon"/>',
-});
-
-export const IconAsName = Template.bind({});
-
-export const IconAsImport = (args) => ({
-  components: { UiIcon },
-  setup() {
-    const icon = defineAsyncComponent(() => import('../../../assets/icons/ce.svg'));
-    return {
-      ...args,
-      icon,
-    };
-  },
-  template: '<UiIcon :icon="icon"/>',
-});
-
-export const IconAsIllustration = (args) => ({
-  components: { UiIcon },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiIcon
+export const IconAsName = {
+  render: (args) => ({
+    components: {
+      UiIcon,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: '<UiIcon :icon="icon"/>',
+  }),
+};
+export const IconAsImport = {
+  render: (args) => ({
+    components: {
+      UiIcon,
+    },
+    setup() {
+      const icon = defineAsyncComponent(() => import('../../../assets/icons/ce.svg'));
+      return {
+        ...args,
+        icon,
+      };
+    },
+    template: '<UiIcon :icon="icon"/>',
+  }),
+};
+export const IconAsIllustration = {
+  render: (args) => ({
+    components: {
+      UiIcon,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiIcon
     :icon="icon"
     class="icon-as-illustration"
   />`,
-});
-IconAsIllustration.args = { icon: 'boy' };
-IconAsIllustration.argTypes = {
-  icon: {
-    control: { type: 'select' },
-    options: [
-      'agreement',
-      'agreement-rtl',
-      'boy',
-      'boy-rtl',
-      'no-internet-illustration',
-      'no-internet-illustration-rtl',
-      'podium',
-      'podium-rtl',
-      'lock',
-    ],
+  }),
+  args: {
+    icon: 'boy',
+  },
+  argTypes: {
+    icon: {
+      control: {
+        type: 'select',
+      },
+      options: [
+        'agreement',
+        'agreement-rtl',
+        'boy',
+        'boy-rtl',
+        'no-internet-illustration',
+        'no-internet-illustration-rtl',
+        'podium',
+        'podium-rtl',
+        'lock',
+      ],
+    },
   },
 };
-
-export const IconAsCustomIllustration = (args) => ({
-  components: { UiIcon },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiIcon
+export const IconAsCustomIllustration = {
+  render: (args) => ({
+    components: {
+      UiIcon,
+    },
+    setup() {
+      return {
+        ...args,
+      };
+    },
+    template: `<UiIcon
     :icon="icon"
     class="icon-as-illustration icon-as-custom-illustration"
   />`,
-});
-IconAsCustomIllustration.args = { icon: 'boy' };
-IconAsCustomIllustration.argTypes = { icon: { control: false } };
-
-// TODO: add copy to clipboard
-// TODO: group icons by usage (illustration, ui, triage, etc.)
-export const ListOfIcons = () => ({
-  components: {
-    UiIcon,
-    UiText,
+  }),
+  args: {
+    icon: 'boy',
   },
-  setup() {
-    return { icons };
+  argTypes: {
+    icon: {
+      control: false,
+    },
   },
-  template: `<div class="grid grid-cols-icon gap-2">
+};
+export const ListOfIcons = {
+  render: () => ({
+    components: {
+      UiIcon,
+      UiText,
+    },
+    setup() {
+      return {
+        icons,
+      };
+    },
+    template: `<div class="grid grid-cols-icon gap-2">
     <div
       v-for="icon in icons"
       :key="icon"
@@ -106,9 +139,18 @@ export const ListOfIcons = () => ({
       </UiText>
     </div>
   </div>`,
-});
-ListOfIcons.argTypes = {
-  icon: { control: false },
-  viewBox: { control: false },
+  }),
+  argTypes: {
+    icon: {
+      control: false,
+    },
+    viewBox: {
+      control: false,
+    },
+  },
+  parameters: {
+    controls: {
+      hideNoControlsWarning: true,
+    },
+  },
 };
-ListOfIcons.parameters = { controls: { hideNoControlsWarning: true } };

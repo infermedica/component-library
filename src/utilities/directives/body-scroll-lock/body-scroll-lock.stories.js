@@ -12,13 +12,19 @@ import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import { ref } from 'vue';
 import docs from './body-scroll-lock.mdx';
 import './body-scroll-lock.stories.scss';
-
 export default {
   title: 'Utilities/Directives/Body Scroll Lock',
-  decorators: [ () => ({ template: '<div style="height: 320px;"><story /></div>' }) ],
-  parameters: { docs: { page: docs } },
+  decorators: [
+    () => ({
+      template: '<div style="height: 320px;"><story /></div>',
+    }),
+  ],
+  parameters: {
+    docs: {
+      page: docs,
+    },
+  },
 };
-
 const TOS = {
   components: {
     UiBulletPoints,
@@ -84,10 +90,14 @@ export const WithDirective = () => ({
     UiSidePanel,
     TOS,
   },
-  directives: { bodyScrollLock },
+  directives: {
+    bodyScrollLock,
+  },
   setup() {
     const modelValue = ref(true);
-    return { modelValue };
+    return {
+      modelValue,
+    };
   },
   template: `<UiButton 
     class="ui-button--text ui-button--theme-secondary" 
@@ -149,7 +159,6 @@ export const WithDirective = () => ({
     </template>
   </UiSidePanel>`,
 });
-
 export const WithoutDirective = () => ({
   components: {
     UiButton,
@@ -161,10 +170,14 @@ export const WithoutDirective = () => ({
     UiSidePanel,
     TOS,
   },
-  directives: { bodyScrollLock },
+  directives: {
+    bodyScrollLock,
+  },
   setup() {
     const modelValue = ref(true);
-    return { modelValue };
+    return {
+      modelValue,
+    };
   },
   template: `<UiButton
       class="ui-button--text ui-button--theme-secondary"
@@ -225,4 +238,3 @@ export const WithoutDirective = () => ({
   </template>
   </UiSidePanel>`,
 });
-

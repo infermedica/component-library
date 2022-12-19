@@ -3,19 +3,25 @@ import UiInput from '@/components/atoms/UiInput/UiInput.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import { ref } from 'vue';
 import docs from './highlight.mdx';
-
 export default {
   title: 'Utilities/Directives/Highlight',
-  components: { UiText },
-  parameters: { docs: { page: docs } },
+  components: {
+    UiText,
+  },
+  parameters: {
+    docs: {
+      page: docs,
+    },
+  },
 };
-
 export const WithDirective = () => ({
   components: {
     UiInput,
     UiText,
   },
-  directives: { highlight },
+  directives: {
+    highlight,
+  },
   setup() {
     const searchQuery = ref('ipsum');
     const inputHandler = (value) => {
