@@ -193,28 +193,31 @@ const numberStepperAttrs = computed(() => ({
   --_range-thumb-size: #{functions.var($element + "-thumb", size, 3rem)};
   --_range-thumb-half-of-size: calc(var(--_range-thumb-size) / 2);
 
+  @include mixins.use-logical($element, padding, calc(var(--_range-thumb-size) + 0.5rem) 0 0 0);
+
   display: flex;
   flex-flow: row wrap;
   align-items: center;
   justify-content: center;
-  padding: calc(var(--_range-thumb-size) + 0.5rem) 0 0 0;
 
   @include mixins.from-tablet {
     flex-flow: row nowrap;
   }
 
   &__input {
+    @include mixins.use-logical($element + "input", margin, 0 0 var(--space-24) 0);
+
     position: relative;
     height: var(--_range-thumb-size);
     flex: 0 0 100%;
     order: -1;
-    margin: functions.var($element + "-input", margin, 0 0 var(--space-24) 0);
     touch-action: none;
 
     @include mixins.from-tablet {
+      @include mixins.use-logical($element + "-tablet-input", margin, 0);
+
       flex: 0 1 100%;
       order: 0;
-      margin: functions.var($element + "-tablet-input", margin, 0);
     }
 
     &::before {
@@ -231,11 +234,12 @@ const numberStepperAttrs = computed(() => ({
     &::after {
       --_range-track-height: #{functions.var($element + "-track", height, 4px)};
 
+      @include mixins.use-logical($element + "-track", border-radius, var(--_range-track-height));
+
       position: absolute;
       top: 50%;
       left: 0;
       height: var(--_range-track-height);
-      border-radius: var(--_range-track-height);
       content: "";
       transform: translate(var(--_range-thumb-half-of-size), -50%);
 
@@ -279,6 +283,8 @@ const numberStepperAttrs = computed(() => ({
   &__track {
     --_range-thumb-background: #{ functions.var($element + "-thumb", background-color, var(--color-range-thumb))};
 
+    @include mixins.use-logical($element + "-track", margin, 0);
+
     position: absolute;
     z-index: 1;
     top: 50%;
@@ -294,15 +300,16 @@ const numberStepperAttrs = computed(() => ({
     }
 
     @mixin thumb {
+      @include mixins.use-logical($element + "-thumb", border, 0);
+      @include mixins.use-logical($element + "-thumb", border-radius,  var(--border-radius-circle));
+
       width: functions.var($element + "-thumb", size, 3rem);
       height: functions.var($element + "-thumb", size, 3rem);
-      border: 0;
       background-color: var(--_range-thumb-background);
       background-image: functions.var($element + "-thumb", background-image, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M34 12l-2.828 2.828L40.344 24l-9.172 9.172L34 36l12-12zm0 0M14 12l2.828 2.828L7.656 24l9.172 9.172L14 36 2 24zm0 0' fill-rule='evenodd' fill='%23fff'/%3E%3C/svg%3E%0A"));
       background-position: center;
       background-repeat: no-repeat;
       background-size: functions.var($element + "-thumb-icon", size, 1.5rem);
-      border-radius: functions.var($element + "-thumb", border-radius, var(--border-radius-circle));
       box-shadow: functions.var($element + "-thumb", box-shadow, var(--box-shadow-high));
       transition:
         functions.var(

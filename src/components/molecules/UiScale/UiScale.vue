@@ -345,6 +345,8 @@ const itemsToRender = computed(() => (Array.from({ length: maxSteps.value }, (_,
   $this: &;
   $element: scale;
 
+  --radio-gap: #{functions.var($element + "-option", gap, var(--space-8))};
+
   &__controls {
     @at-root fieldset#{&} {
       padding: 0;
@@ -353,10 +355,11 @@ const itemsToRender = computed(() => (Array.from({ length: maxSteps.value }, (_,
     }
 
     display: flex;
+    gap: functions.var($element + "-controls", gap, 1px);
   }
 
   &__mobile-controls {
-    margin: functions.var($element + "-mobile-controls", margin, var(--space-32) 0 0 0);
+    @include mixins.use-logical($element + "-mobile-controls", margin, var(--space-32) 0 0 0);
 
     @include mixins.from-tablet {
       display: none;
@@ -364,58 +367,43 @@ const itemsToRender = computed(() => (Array.from({ length: maxSteps.value }, (_,
   }
 
   &__option {
-    --_scale-option-gap: #{functions.var($element + "-option", gap, 1px)};
+    @include mixins.use-logical($element + "-option", border-width, 0);
+    @include mixins.use-logical($element + "-option", border-radius, var(--border-radius-form));
 
     position: relative;
     flex: 1;
     flex-direction: column-reverse;
     align-items: center;
-    border: solid transparent;
-    border-width: 0 var(--_scale-option-gap) 0 0;
-    border-radius: functions.var($element + "-option", border-radius, var(--border-radius-form));
-
-    [dir="rtl"] & {
-      border-width: 0 0 0 var(--_scale-option-gap);
-    }
 
     &:first-of-type {
       #{$this}__square {
-        border-radius: inherit;
-        border-bottom-right-radius: 0;
-        border-top-right-radius: 0;
-
-        [dir="rtl"] & {
-          border-radius: inherit;
-          border-bottom-left-radius: 0;
-          border-top-left-radius: 0;
-        }
+        @include mixins.use-logical(
+          $element + "-option",
+          border-radius,
+          var(--border-radius-form) 0 var(--border-radius-form) 0
+        );
       }
     }
 
     &:last-of-type {
-      --scale-option-gap: 0;
-
       #{$this}__square {
-        border-radius: inherit;
-        border-bottom-left-radius: 0;
-        border-top-left-radius: 0;
-
-        [dir="rtl"] & {
-          border-radius: inherit;
-          border-bottom-right-radius: 0;
-          border-top-right-radius: 0;
-        }
+        @include mixins.use-logical(
+          $element + "-option",
+          border-radius,
+          0 var(--border-radius-form) 0 var(--border-radius-form)
+        );
       }
     }
 
     &::after {
+      @include mixins.use-logical($element + "-option", border-radius, inherit);
+
       position: absolute;
       z-index: 1;
       top: 0;
       right: 0;
       bottom: 0;
       left: 0;
-      border-radius: inherit;
       box-shadow: var(--focus-outer);
       content: "";
       opacity: 0;
@@ -438,6 +426,8 @@ const itemsToRender = computed(() => (Array.from({ length: maxSteps.value }, (_,
     background: functions.var($element + "-square", background, var(--color-dataviz-diverging-track));
 
     &::after {
+      @include mixins.use-logical($element + "-square", border-radius, inherit);
+
       position: absolute;
       top: 0;
       right: 0;
@@ -449,7 +439,6 @@ const itemsToRender = computed(() => (Array.from({ length: maxSteps.value }, (_,
           background,
           var(--color-dataviz-diverging-strongly-negative)
         );
-      border-radius: inherit;
       content: "";
       opacity: var(--_scale-square-overlay-opacity, 0);
       transition: opacity 150ms ease-in-out;
@@ -468,11 +457,11 @@ const itemsToRender = computed(() => (Array.from({ length: maxSteps.value }, (_,
   &__label {
     --text-color: #{functions.var($element + "-label", color, var(--color-text-body))};
 
+    @include mixins.use-logical($element + "-label", padding, var(--space-8) 0);
+    @include mixins.use-logical($element + "-label", border-radius, inherit);
+
     position: relative;
     width: 100%;
-    padding: functions.var($element + "-label", padding, var(--space-8) 0);
-    margin: functions.var($element + "-label", margin, 0 0 var(--space-8) 0);
-    border-radius: inherit;
     text-align: center;
 
     &::after {
@@ -496,10 +485,11 @@ const itemsToRender = computed(() => (Array.from({ length: maxSteps.value }, (_,
   &__description {
     --_scale-description-color: #{functions.var($element + "-description", color, var(--color-text-dimmed))};
 
+    @include mixins.use-logical($element + "-description", margin, var(--space-16) 0 0 0);
+
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: functions.var($element + "-description", margin, var(--space-16) 0 0 0);
   }
 
   &__min {
@@ -507,7 +497,7 @@ const itemsToRender = computed(() => (Array.from({ length: maxSteps.value }, (_,
   }
 
   &__max {
-    --text-color: #{functions.var($element + "-unredable", color, var(--_scale-description-color))};
+    --text-color: #{functions.var($element + "-unbearable", color, var(--_scale-description-color))};
   }
 }
 </style>

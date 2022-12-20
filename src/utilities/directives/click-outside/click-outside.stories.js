@@ -40,9 +40,9 @@ export const WithDirective = () => ({
   </UiButton>
   <UiPopover
     v-else
+    v-click-outside="toggleHandler"
     style="--popover-content-padding: var(--space-16)"
     title="Popover header"
-    v-click-outside="toggleHandler"
   >
     <template #close>
       <UiButton
@@ -52,7 +52,9 @@ export const WithDirective = () => ({
         <UiIcon icon="clear" />
       </UiButton>
     </template>
-    <UiText>Popover content</UiText>
+    <UiText>
+      Popover content
+    </UiText>
   </UiPopover>`,
 });
 
@@ -79,15 +81,14 @@ export const WithDirectiveSwitcher = () => ({
   },
   template: `<UiSwitch 
     v-model="isDirective" 
-    class="mb-4" 
-    style="display:flex"
+    class="flex mb-4"
   >
-    Outside click event listener is {{isDirective ? 'enabled' : 'disabled'}}.
+    Outside click event listener is {{ isDirective ? 'enabled' : 'disabled' }}.
   </UiSwitch>
   <UiButton
-      v-if="!isOpen"
-      class="ui-button--theme-secondary ui-button--text"
-      @click="toggleHandler"
+    v-if="!isOpen"
+    class="ui-button--theme-secondary ui-button--text"
+    @click="toggleHandler"
   >
     Open popover
   </UiButton>
@@ -99,13 +100,15 @@ export const WithDirectiveSwitcher = () => ({
   >
     <template #close>
       <UiButton
-          class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-popover__close"
-          @click="toggleHandler"
+        class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-popover__close"
+        @click="toggleHandler"
       >
         <UiIcon icon="clear"/>
       </UiButton>
     </template>
-    <UiText>Popover content</UiText>
+    <UiText>
+      Popover content
+    </UiText>
   </UiPopover>`,
 });
 
@@ -147,7 +150,9 @@ export const WithoutDirective = () => ({
         <UiIcon icon="clear" />
       </UiButton>
     </template>
-    <UiText>Popover content</UiText>
+    <UiText>
+      Popover content
+    </UiText>
   </UiPopover>
   `,
 });

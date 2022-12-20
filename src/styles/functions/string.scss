@@ -1,0 +1,19 @@
+@function str-split($string, $separator) {
+  $index : str-index($string,  $separator);
+  @if not $index {
+    @return $string null;
+  }
+  $str-before-separator : str-slice($string, 1, $index - 1);
+  $str-from-separator : str-slice($string, $index);
+  @return $str-before-separator $str-from-separator;
+}
+
+@function str-replace($string, $search, $replace: "") {
+  $index: str-index($string, $search);
+
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+
+  @return $string;
+}

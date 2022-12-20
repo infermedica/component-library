@@ -119,9 +119,9 @@ export const WithActionSlot = (args) => ({
         v-bind="buttonActionAttrs"
         class="ui-button--text ui-button--has-icon ui-notification__action"
       >
-        {{ translation.action }} <UiIcon
+        {{ translation.action }}<UiIcon
           v-bind="iconActionAttrs"
-          class="ui-button__icon ui-button__icon--right"
+          class="ui-button__icon ui-button__icon--end"
       />
       </UiButton>
     </template>

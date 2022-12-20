@@ -165,10 +165,10 @@ if (choiceItem.value) {
   $element: multiple-choices;
 
   &__hint {
-    padding: functions.var($element + "-hint", padding, 0 var(--space-20) var(--space-12));
+    @include mixins.use-logical($element + "-hint", padding, 0 var(--space-20) var(--space-12));
 
     @include mixins.from-tablet {
-      padding: functions.var($element + "-tablet-hint", padding, 0 0 var(--space-12) 0);
+      @include mixins.use-logical($element + "-tablet-hint", padding, 0 0 var(--space-12) 0);
     }
   }
 }

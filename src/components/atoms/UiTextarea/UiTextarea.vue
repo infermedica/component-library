@@ -111,7 +111,7 @@ const resizeValue = computed(() => {
 
   @include mixins.hover {
     &::after {
-      border-color: functions.var($element + "-hover", border-color, var(--color-border-strong-hover));
+      @include mixins.use-logical($element + "-hover", border-color, var(--color-border-strong-hover));
     }
   }
 
@@ -121,10 +121,10 @@ const resizeValue = computed(() => {
 
   &__textarea {
     @include mixins.font($element, body-1);
+    @include mixins.use-logical($element, padding, var(--space-12) var(--space-16));
+    @include mixins.use-logical($element, border, 0);
 
     flex: 1;
-    padding: functions.var($element, padding, var(--space-12) var(--space-16));
-    border: 0;
     background: transparent;
     border-radius: inherit;
     caret-color: functions.var($element, caret-color, var(--color-blue-500));
@@ -140,12 +140,12 @@ const resizeValue = computed(() => {
 
   &--is-disabled {
     &::after {
-      border-color: functions.var($element, border-color, var(--color-border-subtle));
+      @include mixins.use-logical($element, border-color, var(--color-border-subtle));
     }
 
     @include mixins.hover {
       &::after {
-        border-color: functions.var($element, border-color, var(--color-border-subtle));
+        @include mixins.use-logical($element, border-color, var(--color-border-subtle));
       }
     }
 
@@ -162,12 +162,12 @@ const resizeValue = computed(() => {
 
   &--has-error {
     &::after {
-      border-color: functions.var($element, border-color, var(--color-border-error-strong));
+      @include mixins.use-logical($element, border-color, var(--color-border-error-strong));
     }
 
     @include mixins.hover {
       &::after {
-        border-color: functions.var($element + "-hover", border-color, var(--color-border-error-strong-hover));
+        @include mixins.use-logical($element + "-hover", border-color, var(--color-border-error-strong-hover));
       }
     }
   }

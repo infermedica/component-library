@@ -270,10 +270,15 @@ const itemsToRender = computed(() => (Array.from({ length: maxScore.value }, (_,
   };
 })));
 const ratingItemAttrs = (item: Record<string, unknown>) => {
-  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+  /* eslint-disable @typescript-eslint/no-unused-vars */
   const {
-    iconActiveAttrs, iconDefaultAttrs, index, ...rest
+    iconActiveAttrs,
+    iconDefaultAttrs,
+    index,
+    ...rest
   } = item;
+  /* eslint-enable @typescript-eslint/no-unused-vars */
+
   return rest;
 };
 </script>
@@ -299,9 +304,11 @@ const ratingItemAttrs = (item: Record<string, unknown>) => {
   &__option {
     --_rating-option-gap: #{functions.var($element + "-option", gap, var(--space-24))};
 
+    @include mixins.use-logical($element + "-option", border-style, solid);
+    @include mixins.use-logical($element + "-option", border-color, transparent);
+    @include mixins.use-logical($element + "-option", border-width, 0 var(--_rating-option-gap) 0 0);
+
     position: relative;
-    border: solid transparent;
-    border-width: 0 var(--_rating-option-gap) 0 0;
 
     @include mixins.hover {
       #{$this}__icon {
@@ -331,16 +338,8 @@ const ratingItemAttrs = (item: Record<string, unknown>) => {
       }
     }
 
-    [dir="rtl"] & {
-      border-width: 0 0 0 var(--_rating-option-gap);
-    }
-
     &:last-of-type {
-      border-width: 0;
-
-      [dir="rtl"] & {
-        border-width: 0;
-      }
+      --#{$element}-option-border-inline-end-width: 0;
     }
   }
 

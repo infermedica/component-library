@@ -17,7 +17,7 @@
         name="message"
         v-bind="{ textMessageAttrs }"
       >
-        <div class="notification__message">
+        <div class="ui-notification__message">
           <!-- @slot Use this slot to replace text template. -->
           <slot
             name="text"
@@ -50,7 +50,7 @@
               <UiIcon
                 v-bind="defaultProps.iconActionAttrs"
                 icon="chevron-right"
-                class="ui-button__icon ui-button__icon--right"
+                class="ui-button__icon"
               />
             </UiButton>
           </slot>
@@ -128,17 +128,20 @@ const hasAction = computed(() => (Object.keys(props.buttonActionAttrs).length > 
   $element: notification;
   $types: "success", "info", "warning", "error";
 
-  @include mixins.inner-border($element, $radius: var(--border-radius-container), $color: var(--color-border-strong));
+  --alert-gap: #{functions.var($element, gap, var(--space-12))};
 
-  --alert-icon-margin: #{functions.var($element + "-icon", margin, 0 var(--space-12) 0 0)};
-  --alert-rtl-icon-margin: #{functions.var($element + "-rtl-icon", margin, 0 0 0 var(--space-12))};
+  @include mixins.use-logical($element, padding, var(--space-12));
+  @include mixins.inner-border(
+    $element,
+    $radius: var(--border-radius-container),
+    $color: var(--color-border-strong)
+  );
 
   display: flex;
-  padding: functions.var($element, padding, var(--space-12));
   background: functions.var($element, background);
 
   &__action {
-    margin: functions.var($element + "-action", margin, var(--space-4) 0 0 0);
+    @include mixins.use-logical($element + "-action", margin, var(--space-4) 0 0);
   }
 
   @each $type in $types {
@@ -146,7 +149,7 @@ const hasAction = computed(() => (Object.keys(props.buttonActionAttrs).length > 
       background: functions.var($element, background, var(--color-background-#{$type}));
 
       &::after {
-        border-color: functions.var($element, border-color, var(--color-border-#{$type}-subtle));
+        @include mixins.use-logical($element, border-color, var(--color-border-#{$type}-subtle));
       }
     }
   }

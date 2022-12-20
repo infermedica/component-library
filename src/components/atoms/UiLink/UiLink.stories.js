@@ -109,9 +109,9 @@ const Template = (args) => ({
     :href="href"
     :class="modifiers"
   >
-    {{ content }} <UiIcon
+    {{ content }}<UiIcon
         :icon="icon"
-        class="ui-link__icon ui-link__icon--right"
+        class="ui-link__icon"
     />
   </UiLink>
   <UiText tag="span">
@@ -148,9 +148,9 @@ const Template = (args) => ({
       modifiers,
     ]"
   >
-    {{ content }} <UiIcon
+    {{ content }}<UiIcon
       :icon="icon"
-      class="ui-link__icon ui-link__icon--right"
+      class="ui-link__icon"
   />
   </UiLink>`,
 });
@@ -163,3 +163,34 @@ LinkSecondary.args = { modifiers: [ 'ui-button--theme-secondary' ] };
 export const LinkOnBrand = Template.bind({});
 LinkOnBrand.args = { modifiers: [ 'ui-button--theme-brand' ] };
 LinkOnBrand.parameters = { backgrounds: { default: 'brand' } };
+
+export const LinkInTheLongText = (args) => ({
+  components: {
+    UiLink,
+    UiText,
+  },
+  setup() {
+    return { ...args };
+  },
+  template: `<UiText style="max-width: 600px">
+    Infermedica Component Library is a highly configurable UI components library. To configure components to your needs, you can use a lot of global CSS variables and adjust styles to your requirements. More details you can find in "<UiLink href="http://localhost:6006/iframe.html?path=/docs/getting-started-development-guide-theme-configuration--page">Theme Configuration</UiLink>" 
+    guideline.
+  </UiText>`,
+});
+
+export const LinkInTheLongTextWithIcon = (args) => ({
+  components: {
+    UiLink,
+    UiText,
+    UiIcon,
+  },
+  setup() {
+    return { ...args };
+  },
+  template: `<UiText style="max-width: 600px">
+    Infermedica Component Library is a highly configurable UI components library. To configure components to your needs, you can use a lot of global CSS variables and adjust styles to your requirements. More details you can find in "<UiLink href="http://localhost:6006/iframe.html?path=/docs/getting-started-development-guide-theme-configuration--page">
+      <UiIcon icon="plus-circled-filled" class="ui-link__icon"/>Theme Configuration
+    </UiLink>" 
+    guideline.
+  </UiText>`,
+});

@@ -53,18 +53,36 @@ export const IconAsIllustration = (args) => ({
     class="icon-as-illustration"
   />`,
 });
-IconAsIllustration.args = { icon: 'agreement' };
+IconAsIllustration.args = { icon: 'boy' };
 IconAsIllustration.argTypes = {
   icon: {
     control: { type: 'select' },
     options: [
       'agreement',
+      'agreement-rtl',
       'boy',
+      'boy-rtl',
       'no-internet-illustration',
+      'no-internet-illustration-rtl',
       'podium',
+      'podium-rtl',
+      'lock',
     ],
   },
 };
+
+export const IconAsCustomIllustration = (args) => ({
+  components: { UiIcon },
+  setup() {
+    return { ...args };
+  },
+  template: `<UiIcon
+    :icon="icon"
+    class="icon-as-illustration icon-as-custom-illustration"
+  />`,
+});
+IconAsCustomIllustration.args = { icon: 'boy' };
+IconAsCustomIllustration.argTypes = { icon: { control: false } };
 
 // TODO: add copy to clipboard
 // TODO: group icons by usage (illustration, ui, triage, etc.)

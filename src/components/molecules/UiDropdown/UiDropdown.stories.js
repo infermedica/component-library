@@ -8,6 +8,7 @@ import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
 import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints.vue';
 import UiMessage from '@/components/templates/UiMessage/UiMessage.vue';
 import { actions } from '@storybook/addon-actions';
+import { modifiers } from '@sb/helpers/argTypes';
 import {
   computed,
   ref,
@@ -47,6 +48,7 @@ export default {
       class: 'ui-button--text',
     },
     popoverAttrs: { 'data-testid': 'popover' },
+    modifiers: [],
   },
   argTypes: {
     initModelValue: {
@@ -76,6 +78,7 @@ export default {
     },
     buttonToggleAttrs: { table: { subcategory: 'Attrs props' } },
     popoverAttrs: { table: { subcategory: 'Attrs props' } },
+    modifiers: modifiers({ options: [ 'ui-dropdown--compact' ] }),
   },
   decorators: [ () => ({
     template: `<div class="min-h-55">
@@ -169,7 +172,7 @@ export const WithDefaultSlot = (args) => ({
     @open="onOpen"
     @close="onClose"
   >
-    <template 
+    <template
       v-for="(item, key) in items"
       :key="key"
     >
@@ -215,6 +218,7 @@ export const WithDropdownItemSlot = (args) => ({
   },
   template: `<UiDropdown
     v-model="modelValue"
+    :class="modifiers"
     :text="modelValue.text"
     :name="name"
     :close-on-click-outside="closeOnClickOutside"
@@ -270,6 +274,7 @@ export const WithToggleSlot = (args) => ({
     };
   },
   template: `<UiDropdown
+    :class="modifiers"
     v-model="modelValue"
     :text="text"
     :name="name"
@@ -285,11 +290,11 @@ export const WithToggleSlot = (args) => ({
     @close="onClose"
   >
     <template #toggle="{
-      toggleHandler, 
-      openHandler, 
-      closeHandler, 
-      isOpen, 
-      text, 
+      toggleHandler,
+      openHandler,
+      closeHandler,
+      isOpen,
+      text,
       buttonToggleAttrs
     }">
       <UiButton
@@ -341,6 +346,7 @@ export const WithPopoverSlot = (args) => ({
   },
   template: `<UiDropdown
     v-model="modelValue"
+    :class="modifiers"
     :text="text"
     :name="name"
     :close-on-click-outside="closeOnClickOutside"
@@ -355,8 +361,8 @@ export const WithPopoverSlot = (args) => ({
     @close="onClose"
   >
     <template #popover="{
-      closeHandler, 
-      isOpen, 
+      closeHandler,
+      isOpen,
       popoverAttrs
     }">
       <UiPopover
@@ -365,12 +371,12 @@ export const WithPopoverSlot = (args) => ({
         class="ui-dropdown__popover"
         @close="closeHandler"
       >
-        <div 
+        <div
           role="radiogroup"
           class="ui-dropdown__items"
         >
-          <template 
-            v-for="(item, key) in itemsToRender" 
+          <template
+            v-for="(item, key) in itemsToRender"
             :key="key"
           >
             <UiDropdownItem
@@ -403,6 +409,7 @@ export const WithContentSlot = (args) => ({
   },
   template: `<UiDropdown
     v-model="modelValue"
+    :class="modifiers"
     :text="text"
     :name="name"
     :close-on-click-outside="closeOnClickOutside"
@@ -420,15 +427,15 @@ export const WithContentSlot = (args) => ({
       closeHandler,
       isOpen
     }">
-      <div 
+      <div
         role="radiogroup"
         class="ui-dropdown__items"
       >
-        <template 
-          v-for="(item, key) in items" 
+        <template
+          v-for="(item, key) in items"
           :key="key"
         >
-          <UiDropdownItem 
+          <UiDropdownItem
             :value="item"
           >
             {{ item }}
@@ -501,11 +508,11 @@ export const WithInputToggle = (args) => ({
     @close="onClose"
     >
       <template #toggle="{
-        toggleHandler, 
-        openHandler, 
-        closeHandler, 
-        isOpen, 
-        text, 
+        toggleHandler,
+        openHandler,
+        closeHandler,
+        isOpen,
+        text,
         buttonToggleAttrs
       }">
         <UiInput
@@ -533,7 +540,7 @@ export const WithInputToggle = (args) => ({
             Unfortunately, the languages was not found.
           </UiText>
           <UiBulletPoints :items="[
-            'Please try to enter single words', 
+            'Please try to enter single words',
             'Keep in mind, that you can only select languages from the autocomplete list'
           ]"/>
         </UiMessage>

@@ -78,7 +78,6 @@ import {
   useAttrs,
 } from 'vue';
 import type { PropType } from 'vue';
-import type { Icon } from '../../../types/icon';
 import UiAlert from '../../molecules/UiAlert/UiAlert.vue';
 import UiList from '../UiList/UiList.vue';
 import UiMultipleAnswerItem from './_internal/UiMultipleAnswerItem.vue';
@@ -237,10 +236,10 @@ if (choices.value) {
   }
 
   &__hint {
-    padding: functions.var($element + "-hint", padding, 0 var(--space-20) var(--space-12));
+    @include mixins.use-logical($element + "-hint", padding, 0 var(--space-20) var(--space-12));
 
     @include mixins.from-tablet {
-      padding: functions.var($element + "-tablet-hint", padding, 0 0 var(--space-12) 0);
+      @include mixins.use-logical($element + "-tablet-hint", padding, 0 0 var(--space-12) 0);
     }
   }
 }

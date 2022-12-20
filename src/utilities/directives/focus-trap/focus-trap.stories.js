@@ -51,19 +51,23 @@ export const WithDirective = () => ({
   },
   template: `
   <UiSidePanel v-model="modelValue">
-    <template
-      #container="{
-        transition,
-        afterEnterHandler,
-        modelValue,
-        buttonCloseAttrs,
-        closeHandler,
-        title,
-        subtitle,
-      }"
-    >
-      <transition :name="transition" @after-enter="afterEnterHandler">
-        <dialog v-if="modelValue" class="ui-side-panel__dialog" v-focus-trap>
+    <template #container="{
+      transition,
+      afterEnterHandler,
+      modelValue,
+      buttonCloseAttrs,
+      closeHandler,
+      title,
+      subtitle,
+    }">
+      <transition 
+        :name="transition" 
+        @after-enter="afterEnterHandler"
+      >
+        <dialog 
+          v-if="modelValue"
+          v-focus-trap
+          class="ui-side-panel__dialog">
           <div class="ui-side-panel__header">
             <UiButton
               ref="button"
@@ -75,7 +79,9 @@ export const WithDirective = () => ({
             </UiButton>
           </div>
           <div class="ui-side-panel__content">
-            <UiHeading> Whats's wrong with this question? </UiHeading>
+            <UiHeading>
+              Whats's wrong with this question?
+            </UiHeading>
             <UiFormField
               style="height: 150px"
               :alertAttrs="{ type: 'success' }"
@@ -84,10 +90,16 @@ export const WithDirective = () => ({
               :errorMessage="alert"
             >
               <template #default>
-                <UiTextarea style="width: 100%" v-model="feedback" @click="reset" />
+                <UiTextarea
+                  v-model="feedback"
+                  style="width: 100%" 
+                  @click="reset" 
+                />
               </template>
             </UiFormField>
-            <UiButton @click="sendMessage"> Send </UiButton>
+            <UiButton @click="sendMessage">
+              Send
+            </UiButton>
           </div>
         </dialog>
       </transition>
@@ -97,9 +109,17 @@ export const WithDirective = () => ({
     <UiButton class="ui-button--text ui-button--theme-secondary" @click="modelValue = true">
       Show side panel
     </UiButton>
-    <UiHeading style="margin-top: 25px"> Feedback </UiHeading>
-    <UiText style="margin-top: 5px"> Is the information on this site helpful? </UiText>
-    <UiRating style="margin-top: 10px" v-model="rating" max="5" />
+    <UiHeading style="margin-top: 25px">
+      Feedback
+    </UiHeading>
+    <UiText style="margin-top: 5px">
+      Is the information on this site helpful?
+    </UiText>
+    <UiRating
+      v-model="rating"
+      max="5"
+      style="margin-top: 10px"   
+    />
   </div>
   `,
 });
@@ -138,20 +158,23 @@ export const WithoutDirective = () => ({
   },
   template: `
   <UiSidePanel v-model="modelValue">
-    <template
-      #container="{
-        transition,
-        afterEnterHandler,
-        modelValue,
-        buttonCloseAttrs,
-        closeHandler,
-        title,
-        subtitle,
-      }"
-    >
-      <transition :name="transition" @after-enter="afterEnterHandler">
-        <!-- scope where body-scroll-lock will be look elements to ignore -->
-        <dialog v-if="modelValue" class="ui-side-panel__dialog">
+    <template #container="{
+      transition,
+      afterEnterHandler,
+      modelValue,
+      buttonCloseAttrs,
+      closeHandler,
+      title,
+      subtitle,
+    }">
+      <transition 
+        :name="transition" 
+        @after-enter="afterEnterHandler"
+      >
+        <dialog 
+          v-if="modelValue" 
+          class="ui-side-panel__dialog"
+        >
           <div class="ui-side-panel__header">
             <UiButton
               ref="button"
@@ -163,7 +186,9 @@ export const WithoutDirective = () => ({
             </UiButton>
           </div>
           <div class="ui-side-panel__content">
-            <UiHeading> Whats's wrong with this question? </UiHeading>
+            <UiHeading>
+              Whats's wrong with this question?
+            </UiHeading>
             <UiFormField
               style="height: 150px"
               :alertAttrs="{ type: 'success' }"
@@ -172,22 +197,39 @@ export const WithoutDirective = () => ({
               :errorMessage="alert"
             >
               <template #default>
-                <UiTextarea style="width: 100%" v-model="feedback" @click="reset" />
+                <UiTextarea
+                  v-model="feedback"
+                  style="width: 100%" 
+                  @click="reset"
+                />
               </template>
             </UiFormField>
-            <UiButton @click="sendMessage"> Send </UiButton>
+            <UiButton @click="sendMessage">
+              Send
+            </UiButton>
           </div>
         </dialog>
       </transition>
     </template>
   </UiSidePanel>
   <div style="padding: 5px">
-    <UiButton class="ui-button--text ui-button--theme-secondary" @click="modelValue = true">
+    <UiButton 
+      class="ui-button--text ui-button--theme-secondary" 
+      @click="modelValue = true"
+    >
       Show side panel
     </UiButton>
-    <UiHeading style="margin-top: 25px"> Feedback </UiHeading>
-    <UiText style="margin-top: 5px"> Is the information on this site helpful? </UiText>
-    <UiRating style="margin-top: 10px" v-model="rating" max="5" />
+    <UiHeading style="margin-top: 25px">
+      Feedback
+    </UiHeading>
+    <UiText style="margin-top: 5px">
+      Is the information on this site helpful?
+    </UiText>
+    <UiRating
+      v-model="rating"
+      style="margin-top: 10px"
+      max="5"
+    />
   </div>
   `,
 });

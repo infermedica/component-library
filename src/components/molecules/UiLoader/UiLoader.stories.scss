@@ -16,32 +16,65 @@
 
 //<Code id="loading-popover">
 .loading-popover {
-  --popover-content-padding: 0 var(--space-16);
-
   max-width: 25rem;
   min-height: 18rem;
 
   &__message {
     --message-flex-direction: row-reverse;
     --message-tablet-flex-direction: row-reverse;
-    --message-aside-margin: 0 var(--space-12) 0 0;
-    --message-tablet-aside-margin: 0 var(--space-12) 0 0;
+    --message-aside-margin-inline: 0 var(--space-12);
+    --message-tablet-aside-margin-inline: 0 var(--space-12);
+    --message-content-align-self: flex-start;
     --message-illustration-size: 1.5rem;
 
-    margin: var(--space-16) 0;
+    margin-block: var(--space-8);
     align-items: flex-start;
   }
 
   &__try-again {
-    margin: var(--space-16) 0 0 0;
+    margin-block: var(--space-16) 0;
+    margin-inline: 0;
   }
 }
 //</Code>
 
 //<Code id="loading-side-panel">
 .loading-side-panel {
-  &__loader {
-    padding: var(--space-16);
+  &__message {
+    --message-flex-direction: row-reverse;
+    --message-tablet-flex-direction: row-reverse;
+    --message-aside-margin-inline: 0 var(--space-12);
+    --message-tablet-aside-margin-inline: 0 var(--space-12);
+    --message-content-align-self: flex-start;
+    --message-illustration-size: 1.5rem;
+  }
+
+  &__try-again {
+    margin-block: var(--space-16);
+    margin-inline: 0;
+  }
+}
+//</Code>
+
+//<Code id="loading-container">
+.loading-container {
+  --container-tablet-padding-block: var(--space-40);
+  --container-desktop-padding-inline: var(--space-48);
+  --container-desktop-padding-block: var(--space-32);
+
+  width: 100%;
+  max-width: 48.75rem;
+
+  &__recommended {
+    margin-block: var(--space-16) 0;
+  }
+
+  &__description {
+    margin-block: var(--space-4) 0;
+  }
+
+  &__accordion {
+    margin-block-start: var(--space-24);
   }
 }
 //</Code>
@@ -61,27 +94,5 @@
 .loading-full-on-brand {
   position: absolute;
   inset: 0;
-  background: var(--color-background-brand)
-}
-//</Code>
-
-//<Code id="loading-container">
-.loading-container {
-  --container-padding: var(--space-40) var(--space-48);
-
-  max-width: 48.75rem;
-  width: 100%;
-
-  &__recommended {
-    margin: var(--space-16) 0 0 0
-  }
-
-  &__description {
-    margin: var(--space-4) 0 0 0
-  }
-
-  &__accordion {
-    margin: var(--space-24) 0 0 0
-  }
 }
 //</Code>

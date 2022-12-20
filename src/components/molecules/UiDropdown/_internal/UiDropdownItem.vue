@@ -96,23 +96,39 @@ const buttonItemAttrs = computed(() => ({
 
 <style lang="scss">
 @use "../../../../styles/functions";
+@use "../../../../styles/mixins";
 
 .ui-dropdown-item {
   $element: dropdown-item;
 
-  --button-padding: #{functions.var($element, padding, var(--space-8))};
-  --button-border-width: 0;
+  --button-padding-block:
+    #{functions.var(
+      $element,
+      padding-block,
+      functions.var($element, padding-block-start, var(--space-8))
+      functions.var($element, padding-block-end, var(--space-8))
+    )};
+  --button-padding-inline:
+    #{functions.var(
+      $element,
+      padding-inline,
+      functions.var($element, padding-inline-start, var(--space-8))
+      functions.var($element, padding-inline-end, var(--space-8))
+    )};
+  --button-border-block-width: 0;
+  --button-border-inline-width: 0;
   --button-color: #{functions.var($element, color, var(--color-text-body))};
   --button-hover-color: #{functions.var($element + "-hover", color, var(--color-text-body))};
   --button-active-color: #{functions.var($element + "-active", color, var(--color-text-body))};
   --button-font: #{functions.var($element, font, var(--font-body-1))};
   --button-letter-spacing: #{functions.var($element, letter-spacing, var(--letter-spacing-body-1))};
 
+  @include mixins.use-logical($element, margin, var(--space-8) 0 0);
+
   justify-content: space-between;
-  margin: functions.var($element, margin, var(--space-8) 0 0 0);
 
   &:first-of-type {
-    margin-top: 0;
+    @include mixins.use-logical($element, margin, 0);
   }
 
   /* fixme: do something to remove this hack */

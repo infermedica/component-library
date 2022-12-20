@@ -6,7 +6,7 @@ import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
 import UiControls from '@/components/organisms/UiControls/UiControls.vue';
 import { content } from '@sb/helpers/argTypes';
-import scss from './UiMessage.stories.scss';
+import './UiMessage.stories.scss';
 import docs from './UiMessage.mdx';
 
 export default {
@@ -368,11 +368,7 @@ AsOfflinePopover.decorators = [ (story) => ({
     UiPopover,
   },
   template: `<UiPopover
-    :style="{
-      '--popover-padding': 'var(--space-24) var(--space-16)',
-      width: '320px',
-      height: '192px',
-    }"
+    class="max-w-80"
   >
     <story/>
   </UiPopover>`,

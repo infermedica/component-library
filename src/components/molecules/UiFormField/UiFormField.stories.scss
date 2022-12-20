@@ -8,14 +8,14 @@
 
 //<Code id="form-field-with-checkboxes">
 .form-field-with-checkboxes-description {
-  margin: 0 0 var(--space-24) 0;
+  --text-margin-block-end: var(--space-24);
 }
 
 .form-field-with-checkboxes {
-  --form-field-alert-margin: 0;
+  --form-field-alert-margin-block-start: 0;
 
   &__checkbox {
-    margin: 0 0 var(--space-24) 0;
+    margin-block-end: var(--space-24);
   }
 }
 //</Code>

@@ -1,3 +1,5 @@
+@use '../functions';
+
 @mixin no-highlight {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-tap-highlight-color: transparent;
@@ -22,3 +24,18 @@
   }
 }
 
+@mixin pointer-area ($element, $size, $pseudo-element: before) {
+  position: relative;
+
+  &::#{$pseudo-element} {
+    --_#{element}-pointer-area-size: #{functions.var($element + "-pointer-area", size, $size)};
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: functions.var($element + "-pointer-area", width, var(--_#{element}-pointer-area-size));
+    height: functions.var($element + "-pointer-area", height, var(--_#{element}-pointer-area-size));
+    content: "";
+    transform: translate(-50%, -50%);
+  }
+}

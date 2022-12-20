@@ -4,7 +4,7 @@
 }
 //</Code>
 
-//<Code id="dropdown-with-popover-width">
+//<Code id="dropdown-with-input-toggle">
 .dropdown-with-input-toggle {
   --dropdown-popover-width: 26.25rem;
   --dropdown-popover-max-width: 26.25rem;
@@ -16,12 +16,14 @@
   &__no-results {
     --message-flex-direction: row-reverse;
     --message-tablet-flex-direction: row-reverse;
-    --message-aside-margin: 0 var(--space-12) 0 0;
-    --message-tablet-aside-margin: 0 var(--space-12) 0 0;
+    --message-aside-margin-inline: 0 var(--space-12);
+    --message-tablet-aside-margin-inline: 0 var(--space-12);
     --message-content-align-self: flex-start;
     --message-illustration-size: 1.5rem;
+    --icon-color: var(--color-icon-secondary);
 
-    padding: var(--space-24) var(--space-16);
+    padding-block: var(--space-16);
+    padding-inline: var(--space-8);
   }
 }
 //</Code>

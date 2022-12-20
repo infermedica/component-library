@@ -2,7 +2,6 @@
   <nav
     ref="nav"
     class="ui-navigation"
-    :class="{ 'ui-navigation--is-multiline': isMultiline }"
   >
     <!-- @slot Use this slot to place content inside component.-->
     <slot>
@@ -35,9 +34,6 @@ export default { name: 'UiNavigation' };
 import {
   computed,
   ref,
-  onMounted,
-  onBeforeUnmount,
-  nextTick,
   useAttrs,
   provide,
 } from 'vue';
@@ -62,7 +58,6 @@ const props = defineProps({
 });
 const attrs = useAttrs() as {class: string};
 const nav = ref<HTMLElement | null>(null);
-const isMultiline = ref(false);
 const modifiers = computed(() => (attrs?.class || ''));
 provide('modifiers', modifiers);
 const itemsToRender = computed(() => (props.items.map((item, key) => {
@@ -84,17 +79,6 @@ const itemsToRender = computed(() => (props.items.map((item, key) => {
     ...item,
   };
 })));
-const resizeObserver = new ResizeObserver((entries) => {
-  const { target } = entries[0];
-  isMultiline.value = ([ ...target.children ].at(-1) as HTMLElement).offsetTop > (target as HTMLElement).offsetTop;
-});
-onMounted(async () => {
-  await nextTick();
-  resizeObserver.observe(nav.value as HTMLElement);
-});
-onBeforeUnmount(() => {
-  resizeObserver.unobserve(nav.value as HTMLElement);
-});
 const navigationItemAttrs = (item: NavigationItem) => {
   const {
     name, label, ...rest
@@ -105,6 +89,7 @@ const navigationItemAttrs = (item: NavigationItem) => {
 
 <style lang="scss">
 @use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-navigation {
   $this: &;
@@ -119,10 +104,6 @@ const navigationItemAttrs = (item: NavigationItem) => {
     );
   align-items: functions.var($element, align-items, center);
   justify-content: functions.var($element, justify-content, flex-start);
-  margin: functions.var($element, margin, 0 calc(var(--space-8) * -1));
-
-  &--is-multiline {
-    margin: functions.var($element, margin, 0 calc(var(--space-8) * -1) calc(var(--space-12) * -1));
-  }
+  gap: functions.var($element, gap, var(--space-12) var(--space-16));
 }
 </style>

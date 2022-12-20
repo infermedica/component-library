@@ -10,7 +10,7 @@ const figmaFileId = 'txuY6Y2evaphl43mSvHUQ8';
 
 const saveFile = (name, content) => {
   try {
-    const comment = '// Auto-generated file by update:css-variables script. Do not edit manually\n\n:root {';
+    const comment = '// Auto-generated file by update:css-variables script. Do not edit manually\nhtml {';
     writeFileSync(`./src/styles/variables/${name}.scss`, `${comment}${content.join('\n\n')}}`, 'utf-8');
     console.log(`🚀 ${name} file has been updated!`);
   } catch (err) {
