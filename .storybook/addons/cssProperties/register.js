@@ -13,11 +13,12 @@ addons.register(ADDON_ID, (api) => {
     title: 'CSS Properties',
     render: ({ active }) => {
       const story = api.getCurrentStoryData();
-      const storyId = story ? story.kind : 'global'
+      const storyId = story ? story.kind : 'global';
       return (
         <AddonPanel active={active} key={storyId}>
-          <CssPropertiesTable data={useParameter('cssProperties')} inAddonPanel={true} storyId={storyId} active={active}/>
+          <CssPropertiesTable data={useParameter('cssProperties')} storyId={storyId} inAddonPanel={true} />
         </AddonPanel>
       )
-  }});
+    }
+  });
 });

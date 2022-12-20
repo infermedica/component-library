@@ -1,61 +1,44 @@
-import * as React from 'react';
+import React, { useMemo } from 'react';
 import { ArgsTable } from '@storybook/components';
-import { useLocalStorage } from '../hooks/useLocalStorage.jsx'
+import { useInjectStyles } from '../hooks/useInjectStyles'
 import { useWindowEvent } from '../hooks/useWindowEvents'
+import {
+  useLocalStorage,
+  getStorageGlobalProperties,
+  setStorageGlobalProperties,
+} from '../hooks/useLocalStorage'
 import {
   getArgs,
   getArgsTypes,
-  getCssPropertiesList,
-  getStringifiedStyles,
+  getCssProperties,
   parseScssFile,
 } from '../helpers'
 
 const CssPropertiesTable = ({
-  active = true, storyId = "global", data = {}, inAddonPanel = false,
+  storyId = "global", data = {}, inAddonPanel = false,
 }) => {
-  const cssPropertiesList = getCssPropertiesList(inAddonPanel ? data : parseScssFile(data));
-  const cssGlobalProperties = React.useRef(window.localStorage.getItem('cssProperties') ? JSON.parse(window.localStorage.getItem('cssProperties'))['global']: {})
-  const updateGlobalStorage = (event) => {
-    if (event.storageArea === window.localStorage && event.key === 'cssProperties') {
-      cssGlobalProperties.current = JSON.parse(event.newValue)['global'];
-    }
-  }
-  const [changes, setChanges, resetChanges] = useLocalStorage(storyId);
-  const [ args ] = React.useMemo(() => ([{
-    ...getArgs(cssPropertiesList),
-    ...cssGlobalProperties.current,
-    ...changes,
+  const defaultCssProperties = getCssProperties(inAddonPanel ? data : parseScssFile(data));
+  const globalCssProperties = getStorageGlobalProperties();
+  const [ cssLocalProperties, setCssLocalProperties, resetCssLocalProperties] = useLocalStorage(storyId);
+  const rows = getArgsTypes(defaultCssProperties);
+  useWindowEvent('storage', (event) => setStorageGlobalProperties(event, globalCssProperties));
+  useInjectStyles({
+    ...globalCssProperties.current,
+    ...cssLocalProperties
+  });
+  const [ args ] = useMemo(() => ([{
+    ...getArgs(defaultCssProperties),
+    ...globalCssProperties.current,
+    ...cssLocalProperties,
   }]));
   const handleUpdateArgs = (arg) => {
-    setChanges((prevState) => ({
+    setCssLocalProperties((prevState) => ({
       ...prevState,
       ...arg,
     }));
   };
-  // hooks
-  useWindowEvent('storage', updateGlobalStorage);
-  const previewRef = React.useRef();
-  React.useLayoutEffect(() => {
-    const iframe = document.querySelector(
-      "#storybook-preview-iframe"
-    );
-    if (iframe) {
-      previewRef.current = iframe?.contentWindow?.document;
-    } else if (document) {
-      previewRef.current = document;
-    }
-  });
-
-  React.useLayoutEffect(() => {
-    const stringifiedStyles = getStringifiedStyles({...cssGlobalProperties.current, ...changes});
-    if (stringifiedStyles) {
-      previewRef?.current?.body?.setAttribute("style", stringifiedStyles);
-    }
-  });
-
-  // events
   const resetArgs = () => {
-    resetChanges();
+    resetCssLocalProperties();
     window.location.reload();
   };
   return (
@@ -63,10 +46,9 @@ const CssPropertiesTable = ({
       inAddonPanel={inAddonPanel}
       resetArgs={resetArgs}
       args={args}
-      rows={getArgsTypes(cssPropertiesList)}
+      rows={rows}
       updateArgs={handleUpdateArgs}
     />
   );
 };
-
 export default CssPropertiesTable;
