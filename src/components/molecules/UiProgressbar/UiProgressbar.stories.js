@@ -18,9 +18,13 @@ export default {
     cssProperties: {
       '--progressbar-height': '1rem',
       '--progressbar-step-size': '0.625rem',
-      '--progressbar-step-margin': '3px 0',
+      '--progressbar-step-margin-block': 'var(--progressbar-step-margin-block-start, 3px) var(--progressbar-step-margin-block-end, 3px)',
+      '--progressbar-step-margin-inline': 'var(--progressbar-step-margin-inline-start, 0) var(--progressbar-step-margin-inline-end, 0)',
+      '--progressbar-step-border-start-start-radius': 'var(--border-radius-circle)',
+      '--progressbar-step-border-start-end-radius': 'var(--border-radius-circle)',
+      '--progressbar-step-border-end-start-radius': 'var(--border-radius-circle)',
+      '--progressbar-step-border-end-end-radius': 'var(--border-radius-circle)',
       '--progressbar-step-background': 'var(--color-icon-on-selection)',
-      '--progressbar-step-border-radius': 'var(--border-radius-circle)',
     },
   },
 };

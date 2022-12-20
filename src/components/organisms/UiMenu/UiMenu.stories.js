@@ -36,7 +36,10 @@ export default {
   decorators: [ () => ({ template: '<div style="max-width: 21.875rem"><story /></div>' }) ],
   parameters: {
     docs: { page: docs },
-    cssProperties: { '--menu-item-button-padding': 'var(--space-4) var(--space-8)' },
+    cssProperties: {
+      '--menu-item-button-padding-block': 'var(--space-4)',
+      '--menu-item-button-padding-inline': 'var(--space-8)',
+    },
   },
 };
 

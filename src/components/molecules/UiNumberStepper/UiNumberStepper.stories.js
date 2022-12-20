@@ -46,14 +46,12 @@ export default {
   },
   parameters: {
     cssProperties: {
-      '--number-stepper-decrement-margin': '0 var(--space-12) 0 0',
-      '--number-stepper-rtl-decrement-margin': '0 0 0 var(--space-12)',
-      '--number-stepper-tablet-decrement-margin': '0 var(--space-4) 0 0',
-      '--number-stepper-rtl-tablet-decrement-margin': '0 0 0 var(--space-4)',
-      '--number-stepper-increment-margin': '0 0 0 var(--space-12)',
-      '--number-stepper-rtl-increment-margin': '0 var(--space-12) 0 0',
-      '--number-stepper-tablet-increment-margin': '0 0 0 var(--space-4)',
-      '--number-stepper-rtl-tablet-increment-margin': '0 var(--space-4) 0 0',
+      '--number-stepper-decrement-margin-block': 'var(--number-stepper-decrement-margin-block-start, 0) var(--number-stepper-decrement-margin-block-end, 0)',
+      '--number-stepper-decrement-margin-inline': 'var(--number-stepper-decrement-margin-inline-start, 0) var(--number-stepper-decrement-margin-inline-end, var(--space-4))',
+      '--number-stepper-increment-margin-block': 'var(--number-stepper-increment-margin-block-start, 0) var(--number-stepper-increment-margin-block-end, 0)',
+      '--number-stepper-increment-margin-inline': 'var(--number-stepper-increment-margin-inline-start, var(--space-12)) var(--number-stepper-increment-margin-inline-end, 0)',
+      '--number-stepper-tablet-increment-margin-block': 'var(--number-stepper-tablet-increment-margin-block-start, 0) var(--number-stepper-tablet-increment-margin-block-end, 0)',
+      '--number-stepper-tablet-increment-margin-inline': 'var(--number-stepper-tablet-increment-margin-inline-start, var(--space-4)) var(--number-stepper-tablet-increment-margin-inline-end, 0)',
     },
   },
 };

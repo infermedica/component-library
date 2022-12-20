@@ -38,6 +38,12 @@ export default {
   parameters: {
     cssProperties: {
       '--rating-option-gap': 'var(--space-24)',
+      '--rating-option-border-block-style': 'var(--rating-option-border-block-start-style, solid) var(--rating-option-border-block-end-style, solid)',
+      '--rating-option-border-inline-style': 'var(--rating-option-border-inline-start-style, solid) var(--rating-option-border-inline-end-style, solid)',
+      '--rating-option-border-block-color': 'var(--rating-option-border-block-start-color, transparent) var(--rating-option-border-block-end-color, transparent)',
+      '--rating-option-border-inline-color': 'var(--rating-option-border-inline-start-color, transparent) var(--rating-option-border-inline-end-color, transparent)',
+      '--rating-option-border-block-width': 'var(--rating-option-border-block-start-width, 0) var(--rating-option-border-block-end-width, 0)',
+      '--rating-option-border-inline-width': 'var(--rating-option-border-inline-start-width, 0) var(--rating-option-border-inline-end-width, var(--_rating-option-gap))',
       '--rating-hover-icon-color': 'var(--color-icon-disabled)',
       '--rating-checked-hover-icon-color': 'var(--color-icon-disabled)',
       '--rating-active-icon-color': 'var(--color-icon-secondary-active)',

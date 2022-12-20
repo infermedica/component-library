@@ -35,7 +35,8 @@ export default {
     cssProperties: {
       '--text-font': 'var(--font-button-1)',
       '--text-letter-spacing': 'var(--letter-spacing-button-1)',
-      '--text-margin': '0',
+      '--text-margin-block': 'var(--text-margin-block-start, 0) var(--text-margin-block-end, 0)',
+      '--text-margin-inline': 'var(--text-margin-inline-start, 0) var(--text-margin-inline-end, 0)',
       '--text-color': 'var(--color-text-body)',
     },
   },

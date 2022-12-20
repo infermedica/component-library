@@ -63,10 +63,8 @@ export default {
   parameters: {
     docs: { page: docs },
     cssProperties: {
-      '--form-field-label-margin': '0 0 var(--space-8) 0',
-      '--form-field-hint-margin': '0 0 0 var(--space-8)',
-      '--form-field-rtl-hint-margin': '0 var(--space-8) 0 0',
-      '--form-field-alert-margin': 'var(--space-8) 0 0 0',
+      '--form-field-alert-margin-block': 'var(--form-field-alert-margin-block-start, var(--space-8)) var(--form-field-alert-margin-block-end, 0)',
+      '--form-field-alert-margin-inline': 'var(--form-field-alert-margin-inline-start, 0) var(--form-field-alert-margin-inline-end, 0)',
     },
   },
 };

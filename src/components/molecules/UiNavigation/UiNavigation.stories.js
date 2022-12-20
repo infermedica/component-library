@@ -58,7 +58,7 @@ export default {
       '--navigation-flex-flow': 'var(--navigation-flex-direction, row) var(--navigation-flex-wrap, wrap)',
       '--navigation-align-items': 'center',
       '--navigation-justify-content': 'flex-start',
-      '--navigation-margin': '0 calc(var(--space-8) * -1) calc(var(--space-12) * -1)',
+      '--navigation-gap': 'var(--space-12) var(--space-16)',
     },
   },
 };

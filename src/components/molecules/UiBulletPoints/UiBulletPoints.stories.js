@@ -60,7 +60,7 @@ export default {
   },
   parameters: {
     docs: { page: docs },
-    cssProperties: {},
+    cssProperties: { '--bullet-points-gap': 'var(--space-4)' },
   },
 };
 

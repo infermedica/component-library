@@ -40,9 +40,8 @@ export default {
   decorators: [ () => ({ template: '<div class="max-w-147"><story /></div>' }) ],
   parameters: {
     cssProperties: {
-      '--simple-question-item-margin': '0 0 var(--space-12) 0',
-      '--simple-question-tablet-item-margin': '0 var(--space-24) 0 0',
-      '--simple-question-rtl-tablet-item-margin': '0 0 0 var(--space-24)',
+      '--simple-question-gap': 'var(--space-12)',
+      '--simple-question-tablet-gap': 'var(--space-24)',
     },
   },
 };

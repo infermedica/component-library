@@ -12,10 +12,7 @@ export default {
   title: 'Molecules/InteractiveSvg',
   component: UiInteractiveSvg,
   subcomponents: { UiInteractiveSvgElement },
-  parameters: {
-    docs: { page: docs },
-    cssProperties: {},
-  },
+  parameters: { docs: { page: docs } },
 };
 
 export const WithFocusOnMounted = () => ({
