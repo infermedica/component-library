@@ -2,7 +2,7 @@ import * as React from 'react';
 import { addons, types } from '@storybook/addons';
 import { AddonPanel } from '@storybook/components';
 import { useParameter } from '@storybook/api';
-import CssPropertiesTable from './components/CssPropertiesTable.jsx';
+import { CssPropertiesTable } from './components/CssPropertiesTable';
 
 const ADDON_ID = 'CssProperties';
 const PANEL_ID = `${ADDON_ID}/panel`;

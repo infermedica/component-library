@@ -10,15 +10,15 @@ export const getArgsTypes = (cssProperties) => cssProperties.reduce((argsTypes, 
   value,
 ]) => ({
   ...argsTypes,
-  [name]: {
-    name,
-    table: {
-      category: getCategory(name),
-      type: 'CSS Properties',
-      defaultValue: { summary: value },
+  [getCategory(name)]: {
+    ...argsTypes[getCategory(name)],
+    [name]: {
+      name,
+      defaultValue: value,
+      value: value,
+      type: getControlType(name, value),
     },
-    control: { type: getControlType(name, value) },
-  },
+  }
 }), {});
 const getCategory = (cssPropertyName) => {
   const [
