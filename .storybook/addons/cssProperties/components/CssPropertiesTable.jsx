@@ -1,7 +1,7 @@
-import React, { useMemo } from 'react';
+import React, { useState, useRef, useMemo, createContext } from 'react';
 import { IconButton, Icons } from '@storybook/components';
 import { Table } from '../../../../docs/components/Table';
-import { CssPropertiesSection as TableSection } from './CssPropertiesSection';
+import { TableExpandableRows } from './internals/TableExpandableRows';
 import { useWindowEvent } from '../hooks/useWindowEvents';
 import { useInjectStyles } from '../hooks/useInjectStyles';
 import {
@@ -10,8 +10,7 @@ import {
   setStorageGlobalProperties,
 } from '../hooks/useLocalStorage';
 import {
-  getArgs,
-  getArgsTypes,
+  getRows,
   getCssProperties,
   parseScssFile,
 } from '../helpers';
@@ -32,79 +31,81 @@ const ResetButton = styled(IconButton)`
   color: #30ABFD;
 `;
 
+export const KeyColorPickerContext = createContext(0);
+
 export const CssPropertiesTable = ({
-  storyId = "global", data = {}, inAddonPanel = false,
+  storyId = "global", data = {}, hasBorder = true, hasExampleColumn = true,
 }) => {
-  const defaultCssProperties = getCssProperties(inAddonPanel ? data : parseScssFile(data));
+  const defaultCssProperties = getCssProperties(hasBorder ? parseScssFile(data) : data);
   const globalCssProperties = getStorageGlobalProperties();
   const [cssLocalProperties, setCssLocalProperties, resetCssLocalProperties] = useLocalStorage(storyId);
-  const rows = getArgsTypes(defaultCssProperties);
-  const sections = getArgsTypes(defaultCssProperties)
-
+  const [rows, setRows] = useState(getRows(defaultCssProperties))
+  // storybook bug: force rerender a color picker after reset a table
+  const key = useRef(0);
   useWindowEvent('storage', (event) => setStorageGlobalProperties(event, globalCssProperties));
   useInjectStyles({
     ...globalCssProperties.current,
-    ...cssLocalProperties
-  });
-  const [args] = useMemo(() => ([{
-    ...getArgs(defaultCssProperties),
-    ...globalCssProperties.current,
     ...cssLocalProperties,
-  }]));
-  const handleUpdateArgs = (arg) => {
-    setCssLocalProperties((prevState) => ({
+  });
+  const getHeaders = (hasExampleColumn) => {
+    const headers = [
+      <span>Name</span>,
+      <span>Default</span>,
+      <ControlContainer>
+        <span>Control</span>
+        <ResetButton
+          onClick={resetArgs}
+        >
+          <Icons icon="undo" />
+        </ResetButton>
+      </ControlContainer>,
+    ]
+    if (hasExampleColumn) {
+      headers.unshift(<span>Example</span>)
+    }
+    return headers
+  }
+  const [groupedRows] = useMemo(() => ([Object.keys(rows).reduce((groupedRows, rowName) => ({
+    ...groupedRows,
+    [rows[rowName].section]: {
+      ...groupedRows[rows[rowName].section],
+      [rowName]: rows[rowName]
+    }
+  }), {})]));
+  const handleChange = ([name, value]) => {
+    setRows(prevState => ({
       ...prevState,
-      ...arg,
-    }));
+      [name]: {
+        ...prevState[name],
+        value,
+      }
+    }))
+    setCssLocalProperties((prevState) => ({ ...prevState, [name]: value }))
   };
   const resetArgs = () => {
-    resetCssLocalProperties();
-    window.location.reload();
-  };
-  const newResetArgs = () => {
-    console.log('reset')
+    key.current++;
+    setRows(getRows(defaultCssProperties));
+    resetCssLocalProperties({});
   };
   return (
-    <div
-      className="red"
-    >
+    <KeyColorPickerContext.Provider value={key.current}>
       <Table
-        slotHeaders={(
-          <React.Fragment>
-            <th>
-              <span>Name</span>
-            </th>
-            <th>
-              <span>Default</span>
-            </th>
-            <th>
-              <span>Control</span>
-            </th>
-            <th>
-              <ControlContainer>
-                <span>
-                  Example
-                </span>
-                <ResetButton
-                  onClick={newResetArgs}
-                >
-                  <Icons icon="undo" />
-                </ResetButton>
-              </ControlContainer>
-            </th>
-          </React.Fragment>
-        )}
+        hasBorder={hasBorder}
+        hasExampleColumn={hasExampleColumn}
+        headers={getHeaders(hasExampleColumn)}
         slotRows={
-          Object.keys(sections).map(sectionName => ([
-            <TableSection
-              name={sectionName}
-              rows={sections[sectionName]}
-              key={sectionName}
+          Object.keys(groupedRows).map((rowName, index) => ([
+            <TableExpandableRows
+              name={rowName}
+              rows={groupedRows[rowName]}
+              hasExampleColumn={hasExampleColumn}
+              onChange={handleChange}
+              key={`${rowName}-${index}`}
             />
           ]))
         }
       />
-    </div >
+    </KeyColorPickerContext.Provider>
   );
 };
 

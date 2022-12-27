@@ -16,7 +16,12 @@ addons.register(ADDON_ID, (api) => {
       const storyId = story ? story.kind : 'global';
       return (
         <AddonPanel active={active} key={storyId}>
-          <CssPropertiesTable data={useParameter('cssProperties')} storyId={storyId} inAddonPanel={true} />
+          <CssPropertiesTable
+            storyId={storyId}
+            data={useParameter('cssProperties')}
+            hasBorder={false}
+            hasExampleColumn={false}
+          />
         </AddonPanel>
       )
     }

@@ -1,24 +1,15 @@
-export const getArgs = (cssProperties) => cssProperties.reduce((args, [
-  name,
-  value,
-]) => ({
-  ...args,
-  [name]: value,
-}), {});
-export const getArgsTypes = (cssProperties) => cssProperties.reduce((argsTypes, [
+export const getRows = (cssProperties) => cssProperties.reduce((argsTypes, [
   name,
   value,
 ]) => ({
   ...argsTypes,
-  [getCategory(name)]: {
-    ...argsTypes[getCategory(name)],
     [name]: {
       name,
+      section: getCategory(name),
       defaultValue: value,
       value: value,
       type: getControlType(name, value),
     },
-  }
 }), {});
 const getCategory = (cssPropertyName) => {
   const [
@@ -54,4 +45,4 @@ export const parseScssFile = (scssFile) => scssFile.split('\n')
       ...cssProperties,
       [name.trim()]: value.trim(),
     });
-}, {});
+  }, {});

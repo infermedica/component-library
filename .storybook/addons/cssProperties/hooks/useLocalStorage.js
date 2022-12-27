@@ -3,7 +3,7 @@ import { useState, useRef } from "react";
 const getStorageValue = (storyId) => (JSON.parse(window.localStorage.getItem('cssProperties'))
   ? JSON.parse(window.localStorage.getItem('cssProperties'))[storyId]
   : {});
-const setStorageValue = (storyId, newValue) => {
+const setStorageValue = (storyId, newValue = {}) => {
   window.localStorage.setItem('cssProperties', JSON.stringify({
     ...JSON.parse(window.localStorage.getItem('cssProperties')),
     [storyId]: newValue
@@ -22,7 +22,7 @@ export const getStorageGlobalProperties = () => {
   );
 }
 export const useLocalStorage = (storyId, initialValue = {cssProperties: {}}) => {
-  const [storedValue, setStoredValue] = useState(() => {
+  const [value, setValue] = useState(() => {
     if (typeof window === "undefined") {
       return initialValue;
     }
@@ -33,12 +33,12 @@ export const useLocalStorage = (storyId, initialValue = {cssProperties: {}}) => 
       return initialValue;
     }
   });
-  const setValue = (value) => {
+  const handleSetValue = (value) => {
     try {
       const valueToStore = value instanceof Function
-        ? value(storedValue)
+        ? value(value)
         : value;
-      setStoredValue(valueToStore);
+      setValue(valueToStore);
       if (typeof window !== "undefined") {
         setStorageValue(storyId, valueToStore);
       }
@@ -47,8 +47,8 @@ export const useLocalStorage = (storyId, initialValue = {cssProperties: {}}) => 
     }
   };
   const resetValue = () => {
-    setStoredValue({});
+    setValue({});
     setStorageValue(storyId, {});
   };
-  return [storedValue, setValue, resetValue];
+  return [value, handleSetValue, resetValue];
 }

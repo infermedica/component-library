@@ -1,26 +1,29 @@
 import React, { useState } from 'react';
-import { CssPropertiesRow as TableRow } from './CssPropertiesRow';
+import { TableRow } from './TableRow';
 import { Icons } from '@storybook/components';
 
 import { styled } from '@storybook/theming';
 
 const Header = styled.tr`
-  background: #F6F9FC;
   border-top: 1px solid #eee;
+  background-color: #f6f9fc;
+  &:first-of-type {
+    border-top: none;
+  }
 `;
 const HeaderCell = styled.td`
   position: relative;
-  width: 25%;
 `;
 const HeaderButton = styled.button`
   cursor: pointer;
   position: absolute;
   top: 0;
-  right: 0;
+  right: -300%;
   bottom: 0;
   left: 0;
   border: none;
   background-color: transparent;
+  /* background-color: red; */
 `;
 const HeaderText = styled.span`
   display: flex;
@@ -37,7 +40,14 @@ const Icon = styled(Icons)`
   height: 12px;
 `;
 
-export const CssPropertiesSection = ({ name, rows, expandable = true, initExpanded = false }) => {
+export const TableExpandableRows = ({
+  name,
+  rows,
+  onChange,
+  expandable = true,
+  initExpanded = false,
+  hasExampleColumn = true,
+}) => {
   const [expanded, setExpanded] = useState(expandable && initExpanded);
   const toggleCollapsed = () => {
     if (expandable) {
@@ -45,6 +55,7 @@ export const CssPropertiesSection = ({ name, rows, expandable = true, initExpand
     }
   };
   const icon = expanded ? 'arrowdown' : 'arrowright';
+
   return (
     <React.Fragment>
       <Header>
@@ -54,21 +65,18 @@ export const CssPropertiesSection = ({ name, rows, expandable = true, initExpand
             <Icon icon={icon} />{name.toUpperCase()}
           </HeaderText>
         </HeaderCell>
-        {
-          Array(3).fill('').map((el, index) => (
-            <HeaderCell key={index}>
-              <HeaderButton tabIndex="-1" onClick={toggleCollapsed} />
-            </HeaderCell>
-          ))
-        }
+        <td></td>
+        <td></td>
+        {hasExampleColumn && <td></td>}
       </Header>
       {
         expanded
-          ? Object.keys(rows).map((row) => (
+          ? Object.keys(rows).map((rowName, index) => (
             <TableRow
-              name={row}
-              row={rows[row]}
-              key={row}
+              row={rows[rowName]}
+              hasExampleColumn={hasExampleColumn}
+              key={`${rowName}-${index}`}
+              onChange={onChange}
             />))
           : null
       }
