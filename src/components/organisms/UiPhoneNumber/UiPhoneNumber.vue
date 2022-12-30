@@ -3,8 +3,7 @@
     name="controls"
     v-bind="{
       error,
-      touched,
-      value: modelValue,
+      touched
     }"
   >
     <section
@@ -31,8 +30,6 @@
         <slot
           name="dropdown"
           v-bind="{
-            selected,
-            handleOnSelected,
             phoneCodes,
             error,
             label: translation.countryCodeLabel,
@@ -50,9 +47,9 @@
               <UiDropdown
                 id="ui-phone-number__dropdown"
                 class="ui-phone-number__dropdown"
-                :model-value="selected"
+                :model-value="code"
                 :popover-attrs="{ class: 'ui-phone-number__dropdown-popover' }"
-                @update:model-value="handleOnSelected"
+                @update:model-value="handleOnChangeCode"
               >
                 <template
                   #toggle="{
@@ -67,10 +64,10 @@
                     @click="event => updateOffset(event, toggleHandler)"
                   >
                     <span class="ui-phone-number__dropdown-text--desktop">
-                      {{ formatPrefix(selected?.code) }}
+                      {{ formattedPrefix }}
                     </span>
                     <span class="ui-phone-number__dropdown-text--mobile">
-                      {{ selected?.country }} ({{ selected?.code }})
+                      {{ code?.country }} ({{ code?.code }})
                     </span>
                     <UiIcon
                       :icon="isOpen ? `chevron-up` : `chevron-down`"
@@ -162,14 +159,17 @@ export interface PhoneNumberTranslation {
 
 export interface UiPhoneNumberProps {
   translation: PhoneNumberTranslation,
-  modelValue: string,
-  touched: boolean,
-  language: string,
-  defaultCountryCode: string,
+  phoneNumber?: string,
+  phoneCode?: string,
+  touched?: boolean,
+  language?: string,
+  defaultCountryCode?: string,
 }
 
 const emit = defineEmits([
   'update:modelValue',
+  'update:phoneNumber',
+  'update:phoneCode',
   'update:touched',
   'update:invalid',
 ]);
@@ -187,7 +187,11 @@ const props: UiPhoneNumberProps = withDefaults(defineProps<UiPhoneNumberProps>()
   /**
    * Use this props to control the phone-number value
    */
-  modelValue: '',
+  phoneNumber: '',
+  /**
+   * Use this props to control the phone-code value
+   */
+  phoneCode: '',
   /**
    * Use this props to touch the component and show validation errors
    */
@@ -204,11 +208,21 @@ const props: UiPhoneNumberProps = withDefaults(defineProps<UiPhoneNumberProps>()
 
 const isLoading = ref(true);
 
-const phone = ref('');
-
 const phoneCodes = ref<(PhoneCodeType)[]>([]);
 
-const selected = ref<(PhoneCodeType)>();
+const phone = computed<string>({
+  get: () => (`${props.phoneNumber}`),
+  set: (value) => emit('update:phoneNumber', value),
+});
+
+const code = computed<PhoneCodeType>({
+  get: () => phoneCodes.value.find(
+    (prefix) => (prefix.code === props.phoneCode) || (prefix.countryCode === props.defaultCountryCode),
+  ) || phoneCodes.value[0],
+  set: (value) => emit('update:phoneCode', value.code),
+});
+
+const formattedPrefix = computed(() => props.phoneCode?.replace('+', '+ '));
 
 const popoverOffsetTop = ref<number>();
 
@@ -226,7 +240,7 @@ const error: ComputedRef<string | boolean> = computed(() => {
   let err: boolean | string = false;
   if (!phone.value) err = props.translation.errorMessage;
   else {
-    const value = `${selected.value?.code}${phone.value}`;
+    const value = `${props.phoneCode}${phone.value}`;
     emit('update:modelValue', value);
     const isValid = validatePhone(value);
     if (!isValid) {
@@ -237,11 +251,9 @@ const error: ComputedRef<string | boolean> = computed(() => {
   return err;
 });
 
-const handleOnSelected = (value: DropdownValue) => {
-  selected.value = value as Record<string, unknown> as PhoneCodeType;
+const handleOnChangeCode = (value: DropdownValue) => {
+  code.value = value as Record<string, unknown> as PhoneCodeType;
 };
-
-const formatPrefix = (prefix: string): string => prefix.replace('+', '+ ');
 
 const handleOnBlur = (): void => {
   if (phone.value !== '') emit('update:touched', true);
@@ -256,9 +268,6 @@ const updateOffset = (event: MouseEvent, callback: () => void) => {
 onMounted(async () => {
   phoneCodes.value = await getPhoneCodes(props.language);
   isLoading.value = false;
-  selected.value = phoneCodes.value.find(
-    (prefix) => prefix.countryCode === props.defaultCountryCode,
-  ) || phoneCodes.value[0];
 });
 </script>
 
