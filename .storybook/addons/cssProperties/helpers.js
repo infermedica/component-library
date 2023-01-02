@@ -1,4 +1,6 @@
-export const getRows = (cssProperties) => cssProperties.reduce((argsTypes, [
+import { getStorageValue } from './hooks/useLocalStorage';
+
+export const getRows = (cssProperties, storyId) => cssProperties.reduce((argsTypes, [
   name,
   value,
 ]) => ({
@@ -7,7 +9,7 @@ export const getRows = (cssProperties) => cssProperties.reduce((argsTypes, [
       name,
       section: getCategory(name),
       defaultValue: value,
-      value: value,
+      value: getStorageValue(storyId)?.[name] || value,
       type: getControlType(name, value),
     },
 }), {});
