@@ -1,130 +1,126 @@
 <template>
-  <slot
-    name="controls"
-    v-bind="{
-      error,
-      touched
-    }"
+  <section
+    v-if="!isLoading"
+    class="ui-phone-number"
   >
-    <section
-      v-if="!isLoading"
-      class="ui-phone-number"
-    >
-      <fieldset class="ui-phone-number__fields">
-        <slot
-          name="legend"
-          v-bind="{ label: translation.phoneNumberLabel }"
+    <fieldset class="ui-phone-number__fields">
+      <slot
+        name="legend"
+        v-bind="{ label: translation.phoneNumberLabel }"
+      >
+        <UiText
+          tag="legend"
+          class="ui-form-field__label ui-phone-number__label"
         >
           <UiText
-            tag="legend"
-            class="ui-form-field__label ui-phone-number__label"
+            class="ui-form-field__label-text"
+            tag="span"
           >
-            <UiText
-              class="ui-form-field__label-text"
-              tag="span"
-            >
-              {{ translation.phoneNumberLabel }}
-            </UiText>
+            {{ translation.phoneNumberLabel }}
           </UiText>
-        </slot>
-        <slot
-          name="dropdown"
-          v-bind="{
-            phoneCodes,
-            error,
-            label: translation.countryCodeLabel,
-          }"
+        </UiText>
+      </slot>
+      <slot
+        name="dropdown"
+        v-bind="{
+          code,
+          handleOnChangeCode,
+          updateOffset,
+          formattedPrefix,
+          phoneCodes,
+          error,
+          label: translation.countryCodeLabel,
+        }"
+      >
+        <UiFormField
+          id="ui-phone-number__dropdown"
+          class="ui-phone-number__dropdown-form-field"
+          :error-message="false"
+          :label="translation.countryCodeLabel"
+          :text-message-attrs="{ class: 'visual-hidden' }"
+          :text-hint-attrs="{ class: 'visual-hidden' }"
         >
-          <UiFormField
-            id="ui-phone-number__dropdown"
-            class="ui-phone-number__dropdown-form-field"
-            :error-message="false"
-            :label="translation.countryCodeLabel"
-            :text-message-attrs="{ class: 'visual-hidden' }"
-            :text-hint-attrs="{ class: 'visual-hidden' }"
-          >
-            <template #default>
-              <UiDropdown
-                id="ui-phone-number__dropdown"
-                class="ui-phone-number__dropdown"
-                :model-value="code"
-                :popover-attrs="{ class: 'ui-phone-number__dropdown-popover' }"
-                @update:model-value="handleOnChangeCode"
+          <template #default>
+            <UiDropdown
+              id="ui-phone-number__dropdown"
+              class="ui-phone-number__dropdown"
+              :model-value="code"
+              :popover-attrs="{ class: 'ui-phone-number__dropdown-popover' }"
+              @update:model-value="handleOnChangeCode"
+            >
+              <template
+                #toggle="{
+                  toggleHandler, isOpen
+                }"
               >
-                <template
-                  #toggle="{
-                    toggleHandler, isOpen
-                  }"
+                <UiButton
+                  id="ui-phone-number__dropdown"
+                  class="ui-button--outlined ui-button--has-icon ui-phone-number__dropdown-button"
+                  :class="{ 'ui-button--has-error': error, }"
+                  type="button"
+                  @click="event => updateOffset(event, toggleHandler)"
                 >
-                  <UiButton
-                    id="ui-phone-number__dropdown"
-                    class="ui-button--outlined ui-button--has-icon ui-phone-number__dropdown-button"
-                    :class="{ 'ui-button--has-error': error, }"
-                    type="button"
-                    @click="event => updateOffset(event, toggleHandler)"
-                  >
-                    <span class="ui-phone-number__dropdown-text--desktop">
-                      {{ formattedPrefix }}
-                    </span>
-                    <span class="ui-phone-number__dropdown-text--mobile">
-                      {{ code?.country }} ({{ code?.code }})
-                    </span>
-                    <UiIcon
-                      :icon="isOpen ? `chevron-up` : `chevron-down`"
-                      class="ui-button__icon"
-                    />
-                  </UiButton>
-                </template>
-                <template
-                  v-for="(option, key) in phoneCodes"
-                  :key="key"
+                  <span class="ui-phone-number__dropdown-text--desktop">
+                    {{ formattedPrefix }}
+                  </span>
+                  <span class="ui-phone-number__dropdown-text--mobile">
+                    {{ code?.country }} ({{ code?.code }})
+                  </span>
+                  <UiIcon
+                    :icon="isOpen ? `chevron-up` : `chevron-down`"
+                    class="ui-button__icon"
+                  />
+                </UiButton>
+              </template>
+              <template
+                v-for="(option, key) in phoneCodes"
+                :key="key"
+              >
+                <UiDropdownItem
+                  :value="option"
+                  class="ui-dropdown-item--compact ui-phone-number__dropdown-item"
                 >
-                  <UiDropdownItem
-                    :value="option"
-                    class="ui-dropdown-item--compact ui-phone-number__dropdown-item"
-                  >
-                    {{ option.country }} ({{ option.code }})
-                  </UiDropdownItem>
-                </template>
-              </UiDropdown>
-            </template>
-          </UiFormField>
-        </slot>
+                  {{ option.country }} ({{ option.code }})
+                </UiDropdownItem>
+              </template>
+            </UiDropdown>
+          </template>
+        </UiFormField>
+      </slot>
 
-        <slot
-          name="input"
-          v-bind="{
-            value: phone,
-            error,
-            label: translation.phoneNumberLabel,
-            placeholder: translation.phoneNumberPlaceholder,
-            handleOnBlur,
-          }"
+      <slot
+        name="input"
+        v-bind="{
+          value: phone,
+          error,
+          label: translation.phoneNumberLabel,
+          placeholder: translation.phoneNumberPlaceholder,
+          handleOnBlur,
+        }"
+      >
+        <UiFormField
+          id="ui-phone-number__input"
+          class="ui-phone-number__input-form-field"
+          :error-message="error"
+          :label="translation.phoneNumberLabel"
+          :text-message-attrs="{ class: 'visual-hidden' }"
+          :text-hint-attrs="{ class: 'visual-hidden' }"
         >
-          <UiFormField
-            id="ui-phone-number__input"
-            class="ui-phone-number__input-form-field"
-            :error-message="error"
-            :label="translation.phoneNumberLabel"
-            :text-message-attrs="{ class: 'visual-hidden' }"
-            :text-hint-attrs="{ class: 'visual-hidden' }"
-          >
-            <template #default="{ id }">
-              <UiInput
-                :id="id"
-                v-model="phone"
-                class="ui-phone-number__input"
-                :class="{ 'ui-input--has-error': error, }"
-                :placeholder="translation.phoneNumberPlaceholder"
-                type="number"
-                @blur="handleOnBlur"
-              />
-            </template>
-          </UiFormField>
-        </slot>
-      </fieldset>
-    </section>
-  </slot>
+          <template #default="{ id }">
+            <UiInput
+              :id="id"
+              v-model="phone"
+              class="ui-phone-number__input"
+              :class="{ 'ui-input--has-error': error, }"
+              :placeholder="translation.phoneNumberPlaceholder"
+              type="number"
+              @blur="handleOnBlur"
+            />
+          </template>
+        </UiFormField>
+      </slot>
+    </fieldset>
+  </section>
 </template>
 
 <script lang="ts">
