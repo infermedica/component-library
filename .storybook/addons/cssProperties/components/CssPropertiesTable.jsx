@@ -34,9 +34,9 @@ const ResetButton = styled(IconButton)`
 export const KeyColorPickerContext = createContext(0);
 
 export const CssPropertiesTable = ({
-  storyId = "global", data = {}, hasBorder = true, hasExampleColumn = true, initExpanded = false,
+  storyId = "global", data = {}, hasExampleColumn = true, inAddon = false,
 }) => {
-  const defaultCssProperties = getCssProperties(hasBorder ? parseScssFile(data) : data);
+  const defaultCssProperties = getCssProperties(inAddon ? data : parseScssFile(data));
   const globalCssProperties = getStorageGlobalProperties();
   const [cssLocalProperties, setCssLocalProperties, resetCssLocalProperties] = useLocalStorage(storyId);
   const [rows, setRows] = useState(getRows(defaultCssProperties, storyId));
@@ -90,7 +90,7 @@ export const CssPropertiesTable = ({
   return (
     <KeyColorPickerContext.Provider value={key.current}>
       <Table
-        hasBorder={hasBorder}
+        hasBorder={!inAddon}
         hasExampleColumn={hasExampleColumn}
         headers={getHeaders(hasExampleColumn)}
         slotRows={
@@ -99,7 +99,6 @@ export const CssPropertiesTable = ({
               name={rowName}
               rows={groupedRows[rowName]}
               hasExampleColumn={hasExampleColumn}
-              initExpanded={initExpanded}
               onChange={handleChange}
               key={`${rowName}-${index}`}
             />

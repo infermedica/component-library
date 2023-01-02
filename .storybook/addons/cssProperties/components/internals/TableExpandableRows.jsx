@@ -18,12 +18,11 @@ const HeaderButton = styled.button`
   cursor: pointer;
   position: absolute;
   top: 0;
-  right: -300%;
+  right: ${({ hasExampleColumn }) => hasExampleColumn ? '-300%' : '-200%'};
   bottom: 0;
   left: 0;
   border: none;
   background-color: transparent;
-  /* background-color: red; */
 `;
 const HeaderText = styled.span`
   display: flex;
@@ -60,7 +59,10 @@ export const TableExpandableRows = ({
     <React.Fragment>
       <Header>
         <HeaderCell>
-          <HeaderButton onClick={toggleCollapsed} />
+          <HeaderButton
+            hasExampleColumn={hasExampleColumn}
+            onClick={toggleCollapsed}
+          />
           <HeaderText>
             <Icon icon={icon} />{name.toUpperCase()}
           </HeaderText>
