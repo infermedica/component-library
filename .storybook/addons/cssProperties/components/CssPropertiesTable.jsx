@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo, createContext } from 'react';
+import React, { useState, useRef, useMemo, createContext, } from 'react';
 import { IconButton, Icons } from '@storybook/components';
 import { Table } from '../../../../docs/components/Table';
 import { TableExpandableRows } from './internals/TableExpandableRows';
@@ -34,12 +34,12 @@ const ResetButton = styled(IconButton)`
 export const KeyColorPickerContext = createContext(0);
 
 export const CssPropertiesTable = ({
-  storyId = "global", data = {}, hasBorder = true, hasExampleColumn = true,
+  storyId = "global", data = {}, hasBorder = true, hasExampleColumn = true, initExpanded = false,
 }) => {
   const defaultCssProperties = getCssProperties(hasBorder ? parseScssFile(data) : data);
   const globalCssProperties = getStorageGlobalProperties();
   const [cssLocalProperties, setCssLocalProperties, resetCssLocalProperties] = useLocalStorage(storyId);
-  const [rows, setRows] = useState(getRows(defaultCssProperties))
+  const [rows, setRows] = useState(getRows(defaultCssProperties, storyId));
   // storybook bug: force rerender a color picker after reset a table
   const key = useRef(0);
   useWindowEvent('storage', (event) => setStorageGlobalProperties(event, globalCssProperties));
@@ -65,10 +65,10 @@ export const CssPropertiesTable = ({
     }
     return headers
   }
-  const [groupedRows] = useMemo(() => ([Object.keys(rows).reduce((groupedRows, rowName) => ({
-    ...groupedRows,
+  const [groupedRows] = useMemo(() => ([Object.keys(rows).reduce((rowsList, rowName) => ({
+    ...rowsList,
     [rows[rowName].section]: {
-      ...groupedRows[rows[rowName].section],
+      ...rowsList[rows[rowName].section],
       [rowName]: rows[rowName]
     }
   }), {})]));
@@ -99,6 +99,7 @@ export const CssPropertiesTable = ({
               name={rowName}
               rows={groupedRows[rowName]}
               hasExampleColumn={hasExampleColumn}
+              initExpanded={initExpanded}
               onChange={handleChange}
               key={`${rowName}-${index}`}
             />
