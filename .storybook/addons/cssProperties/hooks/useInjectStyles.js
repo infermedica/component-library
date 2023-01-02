@@ -13,6 +13,8 @@ export const useInjectStyles = (cssProperties) => {
     const stringifiedStyles = getStringifiedStyles(cssProperties);
     if (stringifiedStyles) {
       previewRef?.current?.body?.setAttribute("style", stringifiedStyles);
+    } else {
+      previewRef?.current?.body?.removeAttribute("style");
     }
   });
 }
