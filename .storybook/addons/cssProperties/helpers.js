@@ -23,7 +23,9 @@ const getCategory = (cssPropertyName) => {
   return propertyTail;
 };
 const getControlType = (cssPropertyName, cssPropertyValue) => (
-  cssPropertyName.includes('color') || cssPropertyValue.includes('color')
+  ( cssPropertyName.includes('color')
+  || cssPropertyName.includes('background'))
+  && !cssPropertyValue.includes(' ')
     ? 'color'
     : 'text'
 );
@@ -36,13 +38,14 @@ export const getCssProperties = (cssProperties) => (
 export const getStringifiedStyles = (cssProperties) => Object.keys(cssProperties)
   .reduce((stylesString, cssProperty) => `${stylesString} ${cssProperty}: ${cssProperties[cssProperty]};`, '');
 export const parseScssFile = (scssFile) => scssFile.split('\n')
-  .slice(3, -2)
+  .slice(2, -2)
   .reduce((cssProperties, cssProperty) => {
     if (!cssProperty || !cssProperty.includes('--')) return cssProperties;
     const [
       name,
       value,
     ] = cssProperty.replace(';', '').split(':');
+    if(cssProperties[name.trim()]) return cssProperties;
     return ({
       ...cssProperties,
       [name.trim()]: value.trim(),

@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef, useMemo, useContext } from 'react';
+import React, { useContext } from 'react';
+import { ExampleCell } from './ExampleCell';
 import { KeyColorPickerContext } from '../CssPropertiesTable';
 import { ColorControl, TextControl } from '@storybook/components';
 import { styled } from '@storybook/theming';
@@ -7,6 +8,7 @@ const Row = styled.tr`
   border-top: 1px solid #E6E6E6;
 `;
 const Cell = styled.td`
+  overflow: hidden;
   padding: 10px 5px;
   &:first-of-type{
     padding: 10px 5px 10px 15px;
@@ -25,22 +27,12 @@ const DefaultValue = styled.span`
   background-color: #f8f8f8;
   border-radius: 3px;
 `;
-const ExampleText = styled.div`
-  color: #fff;
-  box-shadow: inset 0 0 0 1px #0000001a;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  font-weight: 600;
-  line-height: 32px;
-  border-radius: 3px;
-`;
 const Control = styled(ColorControl)`
   max-width: 100%;
 `;
 
 export const TableRow = ({ row, onChange, hasExampleColumn = true }) => {
-  const { name, value, defaultValue } = row;
+  const { name, value, defaultValue, type } = row;
   const handleChange = (newValue) => {
     onChange([name, newValue]);
   }
@@ -52,10 +44,12 @@ export const TableRow = ({ row, onChange, hasExampleColumn = true }) => {
         {
           hasExampleColumn
             ? <Cell>
-              <ExampleText style={{ background: value }}>
-                <span>example text</span>
-              </ExampleText>
-            </Cell> : null
+              <ExampleCell
+                type={type}
+                property={[name, value]}
+              />
+            </Cell>
+            : null
         }
         <Cell>
           <Name>{name}</Name>

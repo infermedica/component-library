@@ -28,8 +28,8 @@ const HeaderText = styled.span`
   display: flex;
   align-items: center;
   gap: 8px;
-    padding: 10px 15px;
-    letter-spacing: 0.35em;
+  padding: 10px 15px;
+  letter-spacing: 0.35em;
   color: #33333399;
   font-size: 11px;
   font-weight: 900;

@@ -38,7 +38,11 @@ export const CssPropertiesTable = ({
 }) => {
   const defaultCssProperties = getCssProperties(inAddon ? data : parseScssFile(data));
   const globalCssProperties = getStorageGlobalProperties();
-  const [cssLocalProperties, setCssLocalProperties, resetCssLocalProperties] = useLocalStorage(storyId);
+  const [
+    cssLocalProperties,
+    setCssLocalProperties,
+    resetCssLocalProperties
+  ] = useLocalStorage(storyId);
   const [rows, setRows] = useState(getRows(defaultCssProperties, storyId));
   // storybook bug: force rerender a color picker after reset a table
   const key = useRef(0);
