@@ -1,3 +1,4 @@
+import { addons } from '@storybook/addons';
 import { getStorageValue } from './hooks/useLocalStorage';
 
 export const getRows = (cssProperties, storyId) => cssProperties.reduce((argsTypes, [
@@ -14,13 +15,18 @@ export const getRows = (cssProperties, storyId) => cssProperties.reduce((argsTyp
     },
 }), {});
 const getCategory = (cssPropertyName) => {
+  const storyName = addons.getChannel().data.currentStoryWasSet[0].storyId.split('-')[1]
   const [
     propertyHead,
-    propertyTail,
+    ...propertyTail
   ] = cssPropertyName.slice(2).split('-');
   if (propertyHead === 'space' || propertyHead === 'focus' || propertyHead === 'opacity') return propertyHead;
-  if (propertyTail.match(/h[1-6]/g)) return 'heading';
-  return propertyTail;
+  if (propertyTail[0].match(/h[1-6]/g)) return 'heading';
+  const index = storyName === `${propertyHead}${propertyTail[0]}` ? 1 : 0
+  const category = ['max', 'box'].includes(propertyTail[index])
+    ? `${propertyTail[index]}-${propertyTail[index + 1]}`
+    : `${propertyTail[index]}`
+  return category
 };
 const getControlType = (cssPropertyName, cssPropertyValue) => (
   ( cssPropertyName.includes('color')
