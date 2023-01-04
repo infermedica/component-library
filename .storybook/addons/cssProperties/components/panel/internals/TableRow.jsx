@@ -37,7 +37,7 @@ export const TableRow = ({ row, onChange, hasExampleColumn = true }) => {
     onChange([name, newValue]);
   }
   // storybook bug: force rerender a color picker after reset a table
-  const key = useContext(KeyColorPickerContext)
+  const key = useContext(KeyColorPickerContext);
   return (
     <React.Fragment>
       <Row>

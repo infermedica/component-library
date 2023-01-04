@@ -14,7 +14,7 @@ const ExampleText = styled.div`
 export const ExampleCell = ({ type, property: [varName, value] }) => {
   const getStyles = () => {
     if (type === 'color') {
-      return { background: value }
+      return { background: value };
     } else {
       const [cssPropertyHead, cssPropertyTail] = varName.replace('--', '').split('-');
       const getCssPropertyName = () => {

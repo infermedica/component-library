@@ -29,7 +29,7 @@ const RTh = styled.th`
 const RTr = styled.tr`
   margin: 16px;
   text-align: left;
-  border-bottom: ${props => props.hasBorder ? 'none' : '1px solid rgba(0,0,0,.1)'};
+  border-bottom: ${(props) => (props.hasBorder ? 'none' : '1px solid rgba(0,0,0,.1)')};
 `;
 
 const RTd = styled.td`
@@ -47,8 +47,8 @@ padding: 6px 13px;
 `;
 
 const TBody = styled.tbody`
-  box-shadow: ${props => props.hasBorder ? 'rgb(0 0 0 / 10%) 0 1px 3px 1px, rgb(0 0 0 / 7%) 0 0 0 1px' : 'none'};
-  border-radius: ${props => props.hasBorder ? '4px' : '0'};
+  box-shadow: ${({ hasBorder }) => (hasBorder ? 'rgb(0 0 0 / 10%) 0 1px 3px 1px, rgb(0 0 0 / 7%) 0 0 0 1px' : 'none')};
+  border-radius: ${({ hasBorder }) => (hasBorder ? '4px' : '0')};
 `;
 
 const RCode = styled.code`
@@ -63,11 +63,11 @@ color: rgba(51,51,51,0.9);
 background-color: #F8F8F8`;
 
 export const Table = ({
-  headers = [], rows = [[]], slotRows, hasBorder
+  headers = [], rows = [[]], slotRows, slotHeader, hasBorder,
 }) => <RTable>
     <THead>
       <RTr>
-        {headers.map((header, index) => <RTh className="th" key={index}>{header}</RTh>)}
+        {slotHeader || headers.map((header, index) => <RTh className="th" key={index}>{header}</RTh>)}
       </RTr>
     </THead>
     <TBody hasBorder={hasBorder}>

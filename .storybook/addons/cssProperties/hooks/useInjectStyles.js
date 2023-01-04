@@ -1,10 +1,9 @@
-import React, { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import { getStringifiedStyles } from "../helpers";
 
 export const useInjectStyles = (cssProperties) => {
   const previewRef = useRef();
-  useEffect(() => {
-    console.log('inject', cssProperties)
+  useLayoutEffect(() => {
     const iframe = document.querySelector("#storybook-preview-iframe");
     if (iframe) {
       previewRef.current = iframe?.contentWindow?.document;
@@ -17,5 +16,5 @@ export const useInjectStyles = (cssProperties) => {
     } else {
       previewRef?.current?.body?.removeAttribute("style");
     }
-  }, [cssProperties]);
+  });
 }

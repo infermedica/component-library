@@ -1,28 +1,27 @@
-import { useState, useRef, useEffect } from "react";
-import { useAddonState } from "@storybook/api";
+import { useState, useRef } from "react";
 
 export const getStorageValue = (storyId) => (JSON.parse(window.localStorage.getItem('cssProperties'))
   ? JSON.parse(window.localStorage.getItem('cssProperties'))[storyId]
   : {});
-export const setStorageValue = (storyId, newValue = {}, isReset = false) => {
-  if(isReset){
-    window.localStorage.setItem('cssProperties', JSON.stringify(newValue))
-  } else {
+export const setStorageValue = (storyId, newValue = {}) => {
     window.localStorage.setItem('cssProperties', JSON.stringify({
       ...JSON.parse(window.localStorage.getItem('cssProperties')),
       [storyId]: newValue
     }));
-  }
 };
 export const setStorageGlobalProperties = (event, cssGlobalProperties) => {
   if (event.storageArea === window.localStorage && event.key === 'cssProperties') {
-    cssGlobalProperties.current = JSON.parse(event.newValue).global;
+    cssGlobalProperties.current = JSON.parse(event.newValue);
   }
 }
 export const getStorageGlobalProperties = () => {
-  const hasProperty = !!window.localStorage.getItem('cssProperties')
+  const cssProperties = JSON.parse(window.localStorage.getItem('cssProperties'));
+  const hasProperty = !!cssProperties;
   return useRef(hasProperty
-    ? JSON.parse(window.localStorage.getItem('cssProperties'))?.global
+    ? Object.keys(cssProperties).reduce((styles, key) => ({
+        ...styles,
+        ...cssProperties[key],
+    }),{})
     : {}
   );
 }
@@ -38,13 +37,6 @@ export const useLocalStorage = (storyId, initialValue = {cssProperties: {}}) => 
       return initialValue;
     }
   });
-  const [addonState, setAddonState] = useAddonState("LocalChanges", localValue)
-  useEffect(() => {
-    setAddonState(localValue)
-  }, [localValue])
-  useEffect(() => {
-    setLocalValue(addonState);
-  }, [addonState])
   const handleSetValue = (value) => {
     try {
       const valueToStore = value instanceof Function
@@ -58,9 +50,9 @@ export const useLocalStorage = (storyId, initialValue = {cssProperties: {}}) => 
       console.log(error);
     }
   };
-  const resetValue = (isReset = false) => {
+  const resetValue = () => {
     setLocalValue({});
-    setStorageValue(storyId, {}, isReset);
+    setStorageValue(storyId, {});
   };
   return [localValue, handleSetValue, resetValue];
 }

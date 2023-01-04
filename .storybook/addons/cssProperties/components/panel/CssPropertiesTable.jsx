@@ -1,11 +1,11 @@
-import React, { useState, useRef, useMemo, createContext, useEffect } from 'react';
-import { useAddonState } from '@storybook/api';
-import { IconButton, Icons } from '@storybook/components';
+import React, { useState, useRef, useMemo, createContext } from 'react';
 import { styled } from '@storybook/theming';
 import { Table } from '../../../../../docs/components/Table';
 import { TableExpandableRows } from './internals/TableExpandableRows';
+import { getTableHeader } from './internals/TableHeader';
 import { useWindowEvent } from '../../hooks/useWindowEvents';
 import { useInjectStyles } from '../../hooks/useInjectStyles';
+import { useCssPropertiesState } from '../../hooks/useCssPropertiesState';
 import {
   useLocalStorage,
   getStorageGlobalProperties,
@@ -17,20 +17,12 @@ import {
   parseScssFile,
 } from '../../helpers';
 
-const ControlContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-const ResetButton = styled(IconButton)`
-  height: 20px;
-  margin: 0;
-  padding: 3px 8px;
-  border: 1px solid #D2DAE2;
-  border-radius: 3em;
-  background-color: #F6F9FC;
-  color: #30ABFD;
-`;
+const Empty = styled.div(({ theme }) => ({
+  background: theme.background.app,
+  padding: "10px 15px",
+  boxShadow: `${theme.appBorderColor} 0 -1px 0 0 inset`,
+  lineHeight: "20px",
+}));
 
 export const KeyColorPickerContext = createContext(0);
 
@@ -44,74 +36,66 @@ export const CssPropertiesTable = ({
     setCssLocalProperties,
     resetCssLocalProperties
   ] = useLocalStorage(storyId);
-  const [rows, setRows] = useAddonState('CssPropertiesState', getRows(defaultCssProperties, storyId));
-  useEffect(() => {
-    setRows(getRows(defaultCssProperties, storyId))
-  }, [storyId])
-  const key = useRef(0);
-  useWindowEvent('storage', (event) => setStorageGlobalProperties(event, globalCssProperties));
-  useInjectStyles({
-    ...globalCssProperties.current,
-    ...cssLocalProperties,
-  });
-  const getHeaders = (hasExampleColumn) => {
-    const headers = [
-      <span>Name</span>,
-      <span>Default</span>,
-      <ControlContainer>
-        <span>Control</span>
-        <ResetButton
-          onClick={resetArgs}
-        >
-          <Icons icon="undo" />
-        </ResetButton>
-      </ControlContainer>,
-    ]
-    if (hasExampleColumn) {
-      headers.unshift(<span>Example</span>)
-    }
-    return headers
-  }
-  const [groupedRows] = useMemo(() => ([Object.keys(rows).reduce((rowsList, rowName) => ({
-    ...rowsList,
-    [rows[rowName].section]: {
-      ...rowsList[rows[rowName].section],
-      [rowName]: rows[rowName]
-    }
-  }), {})]));
-  const handleChange = ([name, value]) => {
-    setRows({
-      ...rows,
-      [name]: {
-        ...rows[name],
-        value: value,
+  const [rows, setRows] = useState(getRows(defaultCssProperties, storyId));
+  const [groupedRows] = useMemo(() => ([
+    Object.keys(rows).reduce((rowsList, rowName) => ({
+      ...rowsList,
+      [rows[rowName].section]: {
+        ...rowsList[rows[rowName].section],
+        [rowName]: rows[rowName]
       }
+    }), {})
+  ]));
+  if (inAddon) {
+    useCssPropertiesState(() => {
+      resetArgs()
+      globalCssProperties.current = {}
+    })
+    useInjectStyles({
+      ...globalCssProperties.current,
+      ...cssLocalProperties,
     });
-    setCssLocalProperties({ ...cssLocalProperties, [name]: value });
-  };
+  }
+  useWindowEvent('storage', (event) => setStorageGlobalProperties(event, globalCssProperties));
+  const key = useRef(0);
   const resetArgs = () => {
     key.current++;
     setRows(getRows(defaultCssProperties));
     resetCssLocalProperties({});
   };
+  const handleChange = ([name, value]) => {
+    setRows((prevState) => {
+      prevState[name].value = value
+      return prevState
+    })
+    setCssLocalProperties({ ...cssLocalProperties, [name]: value });
+  };
   return (
     <KeyColorPickerContext.Provider value={key.current}>
-      <Table
-        hasBorder={!inAddon}
-        hasExampleColumn={hasExampleColumn}
-        headers={getHeaders(hasExampleColumn)}
-        slotRows={
-          Object.keys(groupedRows).map((rowName, index) => ([
-            <TableExpandableRows
-              name={rowName}
-              rows={groupedRows[rowName]}
-              hasExampleColumn={hasExampleColumn}
-              onChange={handleChange}
-              key={`${rowName}-${index}`}
-            />
-          ]))
-        }
-      />
+      {
+        Object.keys(data).length
+          ? <Table
+            hasBorder={!inAddon}
+            hasExampleColumn={hasExampleColumn}
+            headers={getTableHeader(hasExampleColumn, resetArgs)}
+            slotRows={
+              Object.keys(groupedRows).map((rowName, index) => ([
+                <TableExpandableRows
+                  name={rowName}
+                  rows={groupedRows[rowName]}
+                  hasExampleColumn={hasExampleColumn}
+                  onChange={handleChange}
+                  key={`${rowName}-${index}`}
+                />
+              ]))}
+          />
+          : <Empty>
+            <span>
+              This story isn`t configured to handle
+              <b> CSS Custom Properties</b>.
+            </span>
+          </Empty>
+      }
     </KeyColorPickerContext.Provider>
   );
 };

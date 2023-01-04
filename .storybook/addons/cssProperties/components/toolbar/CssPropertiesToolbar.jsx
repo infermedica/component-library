@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { IconButton, WithTooltip, Icons } from '@storybook/components';
 import { styled } from "@storybook/theming";
-import { useAddonState, useParameter } from '@storybook/api';
-import { getRows, getCssProperties, getStringifiedStyles } from '../../helpers';
-import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { useCssPropertiesState } from "../../hooks/useCssPropertiesState";
 
 const List = styled.ul`
   display: flex;
@@ -26,46 +24,40 @@ const Button = styled(IconButton)`
   margin: 0;
 `
 
-export const CssPropertiesToolbar = ({ active, storyId }) => {
+export const CssPropertiesToolbar = ({ active }) => {
   const [isHidden, setIsHidden] = useState(false);
-  const defaultCssProperties = getCssProperties(useParameter('cssProperties', {}));
-  const setPanelState = useAddonState('CssPropertiesState')[1];
-  const [localChanges, setLocalChanges, resetLocalChanges] = useLocalStorage(storyId);
-
-  const handleReset = () => {
-    // window.localStorage.setItem("cssProperties", JSON.stringify({}))
-    setPanelState(getRows(defaultCssProperties));
-    // setLocalChanges({})
-    resetLocalChanges(true);
+  const setAddonState = useCssPropertiesState()[1];
+  const styles = useRef();
+  const handleReset = (closeTooltip) => {
+    setAddonState(true);
+    styles.current = "";
+    closeTooltip();
   }
-  const handleHide = () => {
-    const iframe = document.querySelector("#storybook-preview-iframe")
+  const handleHide = (closeTooltip) => {
+    const body = document.querySelector("#storybook-preview-iframe").contentWindow.document.body;
     if (isHidden) {
-      iframe.contentWindow.document.body.style = getStringifiedStyles(localChanges)
+      body.style = styles.current;
     } else {
-      iframe.contentWindow.document.body.removeAttribute("style");
+      styles.current = body.getAttribute('style');
+      body.removeAttribute("style");
     }
-    setIsHidden(!isHidden)
-  }
-  const HideButton = () => {
-    const icon = isHidden ? 'eye' : 'eyeclose';
-    const text = isHidden ? "Show Custom Properties" : "Hide Custom Properties"
-    return (
-      <Button onClick={handleHide}>
-        <Icon icon={icon} />{text}
-      </Button>
-    )
+    setIsHidden(!isHidden);
+    closeTooltip();
   }
   return (
     <WithTooltip
       placement="bottom"
       trigger="click"
       closeOnClick
-      tooltip={() => {
+      tooltip={({ onHide }) => {
+        const icon = isHidden ? 'eye' : 'eyeclose';
+        const text = isHidden ? "Show Custom Properties" : "Hide Custom Properties";
         return (
           <List>
-            <HideButton />
-            <Button onClick={handleReset}>
+            <Button onClick={() => handleHide(onHide)}>
+              <Icon icon={icon} />{text}
+            </Button>
+            <Button onClick={() => handleReset(onHide)}>
               <ResetIcon icon="delete" />Reset Custom Properties
             </Button>
           </List>
@@ -74,7 +66,7 @@ export const CssPropertiesToolbar = ({ active, storyId }) => {
     >
       <IconButton
         active={active}
-        title="Show a Storybook toolbar"
+        title="Reset or hide CSS Custom Properties"
       >
         CSS
       </IconButton>
