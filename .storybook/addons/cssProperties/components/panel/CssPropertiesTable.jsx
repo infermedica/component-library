@@ -1,20 +1,21 @@
-import React, { useState, useRef, useMemo, createContext, } from 'react';
+import React, { useState, useRef, useMemo, createContext, useEffect } from 'react';
+import { useAddonState } from '@storybook/api';
 import { IconButton, Icons } from '@storybook/components';
-import { Table } from '../../../../docs/components/Table';
+import { styled } from '@storybook/theming';
+import { Table } from '../../../../../docs/components/Table';
 import { TableExpandableRows } from './internals/TableExpandableRows';
-import { useWindowEvent } from '../hooks/useWindowEvents';
-import { useInjectStyles } from '../hooks/useInjectStyles';
+import { useWindowEvent } from '../../hooks/useWindowEvents';
+import { useInjectStyles } from '../../hooks/useInjectStyles';
 import {
   useLocalStorage,
   getStorageGlobalProperties,
   setStorageGlobalProperties,
-} from '../hooks/useLocalStorage';
+} from '../../hooks/useLocalStorage';
 import {
   getRows,
   getCssProperties,
   parseScssFile,
-} from '../helpers';
-import { styled } from '@storybook/theming';
+} from '../../helpers';
 
 const ControlContainer = styled.div`
   display: flex;
@@ -43,8 +44,10 @@ export const CssPropertiesTable = ({
     setCssLocalProperties,
     resetCssLocalProperties
   ] = useLocalStorage(storyId);
-  const [rows, setRows] = useState(getRows(defaultCssProperties, storyId));
-  // storybook bug: force rerender a color picker after reset a table
+  const [rows, setRows] = useAddonState('CssPropertiesState', getRows(defaultCssProperties, storyId));
+  useEffect(() => {
+    setRows(getRows(defaultCssProperties, storyId))
+  }, [storyId])
   const key = useRef(0);
   useWindowEvent('storage', (event) => setStorageGlobalProperties(event, globalCssProperties));
   useInjectStyles({
@@ -77,14 +80,14 @@ export const CssPropertiesTable = ({
     }
   }), {})]));
   const handleChange = ([name, value]) => {
-    setRows(prevState => ({
-      ...prevState,
+    setRows({
+      ...rows,
       [name]: {
-        ...prevState[name],
-        value,
+        ...rows[name],
+        value: value,
       }
-    }))
-    setCssLocalProperties((prevState) => ({ ...prevState, [name]: value }))
+    });
+    setCssLocalProperties({ ...cssLocalProperties, [name]: value });
   };
   const resetArgs = () => {
     key.current++;

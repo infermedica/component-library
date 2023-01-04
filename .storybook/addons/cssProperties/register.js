@@ -2,11 +2,13 @@ import * as React from 'react';
 import { addons, types } from '@storybook/addons';
 import { AddonPanel } from '@storybook/components';
 import { useParameter } from '@storybook/api';
-import { CssPropertiesTable } from './components/CssPropertiesTable';
+import { CssPropertiesTable } from './components/panel/CssPropertiesTable';
+import { CssPropertiesToolbar } from './components/toolbar/CssPropertiesToolbar';
 import { styled } from '@storybook/theming';
 
 const ADDON_ID = 'CssProperties';
 const PANEL_ID = `${ADDON_ID}/panel`;
+const TOOLBAR_ID = `${ADDON_ID}/toolbar`;
 
 const Empty = styled.div(({ theme }) => ({
   background: theme.background.app,
@@ -15,13 +17,17 @@ const Empty = styled.div(({ theme }) => ({
   lineHeight: "20px",
 }));
 
-addons.register(ADDON_ID, (api) => {
+const getStoryId = (api) => {
+  const story = api.getCurrentStoryData();
+  return story ? story.kind : 'global';
+}
+
+addons.register(`${ADDON_ID}`, (api) => {
   addons.addPanel(PANEL_ID, {
     type: types.PANEL,
     title: 'CSS Properties',
     render: ({ active }) => {
-      const story = api.getCurrentStoryData();
-      const storyId = story ? story.kind : 'global';
+      const storyId = getStoryId(api);
       const parameter = useParameter('cssProperties', {})
       return (
         <AddonPanel active={active} key={storyId}>
@@ -43,4 +49,20 @@ addons.register(ADDON_ID, (api) => {
       )
     }
   });
+
+  addons.add(TOOLBAR_ID, {
+    title: "CSS Properties",
+    type: types.TOOL,
+    match: ({ viewMode }) => !!(viewMode && viewMode.match(/^(story|docs)$/)),
+    render: ({ active }) => {
+      const storyId = getStoryId(api);
+      return (
+        <CssPropertiesToolbar
+          active={active}
+          storyId={storyId}
+          key={storyId}
+        />
+      )
+    }
+  })
 });

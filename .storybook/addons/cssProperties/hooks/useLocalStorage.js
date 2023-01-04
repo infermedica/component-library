@@ -1,13 +1,18 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useAddonState } from "@storybook/api";
 
 export const getStorageValue = (storyId) => (JSON.parse(window.localStorage.getItem('cssProperties'))
   ? JSON.parse(window.localStorage.getItem('cssProperties'))[storyId]
   : {});
-export const setStorageValue = (storyId, newValue = {}) => {
-  window.localStorage.setItem('cssProperties', JSON.stringify({
-    ...JSON.parse(window.localStorage.getItem('cssProperties')),
-    [storyId]: newValue
-  }));
+export const setStorageValue = (storyId, newValue = {}, isReset = false) => {
+  if(isReset){
+    window.localStorage.setItem('cssProperties', JSON.stringify(newValue))
+  } else {
+    window.localStorage.setItem('cssProperties', JSON.stringify({
+      ...JSON.parse(window.localStorage.getItem('cssProperties')),
+      [storyId]: newValue
+    }));
+  }
 };
 export const setStorageGlobalProperties = (event, cssGlobalProperties) => {
   if (event.storageArea === window.localStorage && event.key === 'cssProperties') {
@@ -33,6 +38,13 @@ export const useLocalStorage = (storyId, initialValue = {cssProperties: {}}) => 
       return initialValue;
     }
   });
+  const [addonState, setAddonState] = useAddonState("LocalChanges", localValue)
+  useEffect(() => {
+    setAddonState(localValue)
+  }, [localValue])
+  useEffect(() => {
+    setLocalValue(addonState);
+  }, [addonState])
   const handleSetValue = (value) => {
     try {
       const valueToStore = value instanceof Function
@@ -46,9 +58,9 @@ export const useLocalStorage = (storyId, initialValue = {cssProperties: {}}) => 
       console.log(error);
     }
   };
-  const resetValue = () => {
+  const resetValue = (isReset = false) => {
     setLocalValue({});
-    setStorageValue(storyId, {});
+    setStorageValue(storyId, {}, isReset);
   };
   return [localValue, handleSetValue, resetValue];
 }

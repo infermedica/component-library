@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { TableRow } from './TableRow';
-import { Icons } from '@storybook/components';
-
 import { styled } from '@storybook/theming';
+import { Icons } from '@storybook/components';
+import { TableRow } from './TableRow';
 
 const Header = styled.tr`
   border-top: 1px solid #eee;
@@ -44,7 +43,7 @@ export const TableExpandableRows = ({
   rows,
   onChange,
   expandable = true,
-  initExpanded = false,
+  initExpanded = true,
   hasExampleColumn = true,
 }) => {
   const [expanded, setExpanded] = useState(expandable && initExpanded);

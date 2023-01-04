@@ -55,7 +55,6 @@
     "scripts/create-index.mjs"
   ],
   "dependencies": {
-    "@storybook/components": "^6.5.14",
     "@vitejs/plugin-vue": "^3.0.1",
     "core-js": "^3.23.5",
     "date-fns": "^2.28.0",
@@ -83,6 +82,8 @@
     "@storybook/addon-outline": "^6.5.12",
     "@storybook/addon-postcss": "^2.0.0",
     "@storybook/addons": "^6.5.12",
+    "@storybook/api": "^6.5.15",
+    "@storybook/components": "^6.5.14",
     "@storybook/builder-vite": "^0.2.4",
     "@storybook/channel-postmessage": "^6.5.12",
     "@storybook/channel-websocket": "^6.5.12",

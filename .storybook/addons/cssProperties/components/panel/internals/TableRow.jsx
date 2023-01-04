@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
+import { styled } from '@storybook/theming';
+import { ColorControl, TextControl } from '@storybook/components';
 import { ExampleCell } from './ExampleCell';
 import { KeyColorPickerContext } from '../CssPropertiesTable';
-import { ColorControl, TextControl } from '@storybook/components';
-import { styled } from '@storybook/theming';
 
 const Row = styled.tr`
   border-top: 1px solid #E6E6E6;
