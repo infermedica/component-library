@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { IconButton, WithTooltip, Icons } from '@storybook/components';
 import { styled } from "@storybook/theming";
 import { useCssPropertiesState } from "../../hooks/useCssPropertiesState";
+import { getDocument, removeBodyStyles } from "../../helpers";
 
 const List = styled.ul`
   display: flex;
@@ -34,12 +35,12 @@ export const CssPropertiesToolbar = ({ active }) => {
     closeTooltip();
   }
   const handleHide = (closeTooltip) => {
-    const body = document.querySelector("#storybook-preview-iframe").contentWindow.document.body;
+    const body = getDocument().body;
     if (isHidden) {
       body.style = styles.current;
     } else {
       styles.current = body.getAttribute('style');
-      body.removeAttribute("style");
+      removeBodyStyles();
     }
     setIsHidden(!isHidden);
     closeTooltip();

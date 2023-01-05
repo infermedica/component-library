@@ -1,5 +1,6 @@
 import {useEffect} from "react";
 import { useAddonState } from '@storybook/api';
+import { removeBodyStyles } from "../helpers";
 
 export const useCssPropertiesState = (onChange = () => {}) => {
   const [state, setState] = useAddonState('AddonReset', false);
@@ -8,11 +9,11 @@ export const useCssPropertiesState = (onChange = () => {}) => {
       onChange();
       setState(false);
     }
-  }, [state])
+  }, [state]);
   const updateState = (isReset) => {
     if (isReset) {
-      document.querySelector("#storybook-preview-iframe").contentWindow.document.body.removeAttribute("style");
-      window.localStorage.setItem('cssProperties', JSON.stringify({}))
+      removeBodyStyles();
+      window.localStorage.setItem('cssProperties', JSON.stringify({}));
     }
     setState(isReset);
   }

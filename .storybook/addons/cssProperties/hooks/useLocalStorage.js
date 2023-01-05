@@ -1,13 +1,30 @@
 import { useState, useRef } from "react";
 
-export const getStorageValue = (storyId) => (JSON.parse(window.localStorage.getItem('cssProperties'))
-  ? JSON.parse(window.localStorage.getItem('cssProperties'))[storyId]
-  : {});
+const handleError = (error) => {
+  console.error(error);
+  return {};
+};
+const getLocalStorageItem = (key) => {
+  try {
+    return JSON.parse(window.localStorage.getItem(key));
+  } catch (error) {
+    return handleError(error)
+  }
+};
+const setLocalStorageItem = (key, value) => {
+  try {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  } catch (error) {
+    return handleError(error);
+  }
+};
+export const getStorageValue = (storyId) => {
+  const cssProperties = getLocalStorageItem('cssProperties') || {};
+  return cssProperties[storyId] || {};
+};
 export const setStorageValue = (storyId, newValue = {}) => {
-    window.localStorage.setItem('cssProperties', JSON.stringify({
-      ...JSON.parse(window.localStorage.getItem('cssProperties')),
-      [storyId]: newValue
-    }));
+  const cssProperties = getLocalStorageItem('cssProperties');
+  setLocalStorageItem('cssProperties', { ...cssProperties, [storyId]: newValue });
 };
 export const setStorageGlobalProperties = (event, cssGlobalProperties) => {
   if (event.storageArea === window.localStorage && event.key === 'cssProperties') {
@@ -15,14 +32,11 @@ export const setStorageGlobalProperties = (event, cssGlobalProperties) => {
   }
 }
 export const getStorageGlobalProperties = () => {
-  const cssProperties = JSON.parse(window.localStorage.getItem('cssProperties'));
-  const hasProperty = !!cssProperties;
-  return useRef(hasProperty
-    ? Object.keys(cssProperties).reduce((styles, key) => ({
-        ...styles,
-        ...cssProperties[key],
+  const cssProperties = getLocalStorageItem('cssProperties');
+  return useRef(Object.keys(cssProperties).reduce((styles, key) => ({
+      ...styles,
+      ...cssProperties[key],
     }),{})
-    : {}
   );
 }
 export const useLocalStorage = (storyId, initialValue = {cssProperties: {}}) => {

@@ -57,3 +57,13 @@ export const parseScssFile = (scssFile) => scssFile.split('\n')
       [name.trim()]: value.trim(),
     });
   }, {});
+export const getDocument = () => {
+  const iframe = document.querySelector("#storybook-preview-iframe");
+  if (iframe) {
+    return iframe.contentWindow.document;
+  }
+  return document;
+};
+export const removeBodyStyles = () => {
+  getDocument().body.removeAttribute("style");
+};
