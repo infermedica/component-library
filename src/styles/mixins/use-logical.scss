@@ -1,12 +1,33 @@
 @use "../functions";
 
+@function is-css-variable ($property) {
+  @return str-index($property, "--");
+}
+/// @example
+/// get-logical-name(margin, block)
+/// // margin-block
+/// @example
+/// get-logical-name(border-color, block)
+/// // border-block-color
 @function get-logical-name ($property, $str) {
-  $split-property: functions.str-split($property, '-');
-  $property-head: nth($split-property, 1);
-  $property-tail: nth($split-property, 2);
+  $include-border-property: str-index($property, border-);
 
-  @return #{$property-head}#{$str}#{$property-tail};
-};
+  @if $include-border-property {
+    $is-css-variable: is-css-variable($property);
+    $split-property: functions.str-split(functions.str-replace($property, "--", ""), "-");
+    $property-head: nth($split-property, 1) !default;
+    $property-tail: "-" + nth($split-property, 2) !default;
+
+    @if $is-css-variable {
+      $property-head: "--" + $property-head + "-" + nth($split-property, 2);
+      $property-tail: "-" + nth($split-property, 3);
+    }
+
+    @return #{$property-head}#{$str}#{$property-tail};
+  }
+
+  @return $property+$str;
+}
 
 @function get-logical-values($values) {
   $results: [];
@@ -17,47 +38,151 @@
     @if $index > length($values) {
       @if $index == 2 {
         $values: append($values, nth($values, 1));
-      }@else {
+      }
+
+      @else {
         $value-index: $index - 2;
       }
     }
-
     $value: #{nth($values, $value-index)};
     $results: append($results, $value);
   }
 
-  @return $results
+  @return $results;
 }
-@mixin border-radius($element, $values) {
+
+@function get-border-radius-property ($element: null, $option) {
+  $radius-property: border-#{$option}-radius !default;
+
+  @if $element {
+    $radius-property: "--#{$element}-#{$radius-property}";
+  }
+
+  @return $radius-property;
+}
+
+@function get-border-radius-value ($element: null, $option, $logical-value) {
+  $radius-value: functions.var($element, border-#{$option}-radius, $logical-value) !default;
+
+  @if not $element {
+    $radius-value: $logical-value;
+  }
+
+  @return $radius-value;
+}
+
+/// @example
+///    @include border-radius(button, 1px);
+///    // border-start-start-radius: var(--button-border-start-start-radius, 1px);
+///    // border-start-end-radius: var(--button-border-start-start-radius, 1px);
+///    // border-end-start-radius: var(--button-border-start-start-radius, 1px);
+///    // border-end-end-radius: var(--button-border-start-start-radius, 1px);
+@mixin border-radius($element, $element-to-override: null, $values) {
   $options: start-start, start-end, end-start, end-end;
   $logical-values: get-logical-values($values);
 
   @for $index from 1 through 4 {
-    border-#{nth($options, $index)}-radius: functions.var($element, border-#{nth($options, $index)}-radius, nth($logical-values, $index));
+    #{get-border-radius-property(
+        $element-to-override,
+        nth($options, $index)
+      )}      :
+    #{get-border-radius-value(
+      $element,
+      nth($options, $index),
+      nth($logical-values, $index)
+    )};
   }
 }
 
-@mixin default($element, $property, $values) {
-  $logical-values: get-logical-values($values);
-
-  #{get-logical-name($property, -block)}: functions.var($element, get-logical-name($property, -block),
-    functions.var($element, get-logical-name($property, -block-start), nth($logical-values, 1))
-    functions.var($element, get-logical-name($property, -block-end), nth($logical-values, 3))
-  );
-  #{get-logical-name($property, -inline)}: functions.var($element, get-logical-name($property, -inline),
-    functions.var($element, get-logical-name($property, -inline-start), nth($logical-values, 4))
-    functions.var($element, get-logical-name($property, -inline-end), nth($logical-values, 2))
+/// @example
+///   @include default(button, padding, var(--space-8));
+///   // padding-block: var(--button-padding-block, var(--button-padding-block-start, var(--space-8)) var(--button-padding-block-end, var(--space-8)));
+///   // padding-inline: var(--button-padding-inline, var(--button-padding-inline-start, var(--space-8)) var(--button-padding-inline-end, var(--space-8)));
+@function css-property-to-property ($property) {
+  @return functions.str-replace(
+    nth(
+      functions.str-split(
+        functions.str-replace($property, "--", ""),
+        "-"
+      ),
+      -1
+    ),
+    "-",
+    ""
   );
 }
 
+@mixin default($element: null, $property, $values) {
+  $logical-values: get-logical-values($values);
+  $is-css-variable: is-css-variable($property);
+  $prepared-property: $property !default;
+
+  @if $is-css-variable {
+    $prepared-property: css-property-to-property($property);
+  }
+  $block-related-css-props: functions.var(
+    $element,
+    get-logical-name($prepared-property, -block),
+    functions.var($element, get-logical-name($prepared-property, -block-start), nth($logical-values, 1))
+    functions.var($element, get-logical-name($prepared-property, -block-end), nth($logical-values, 3))
+  ) !default;
+  $inline-related-css-props: functions.var(
+    $element,
+    get-logical-name($prepared-property, -inline),
+    functions.var($element, get-logical-name($prepared-property, -inline-start), nth($logical-values, 4))
+    functions.var($element, get-logical-name($prepared-property, -inline-end), nth($logical-values, 2))
+  ) !default;
+
+  @if $element == null {
+    $block-related-css-props: nth($logical-values, 1);
+
+    @if (nth($logical-values, 3) != "0") {
+      $block-related-css-props: "#{$block-related-css-props} #{nth($logical-values, 3)}";
+    }
+    $inline-related-css-props: nth($logical-values, 4);
+
+    @if (nth($logical-values, 2) != "0") {
+      $inline-related-css-props:  "#{$inline-related-css-props} #{nth($logical-values, 2)}";
+    }
+  }
+
+  #{get-logical-name($property, -block)}: #{$block-related-css-props};
+  #{get-logical-name($property, -inline)}: #{$inline-related-css-props};
+}
+
+/// Use use-logical mixin to generate logical properties with related CSS VAR.
 @mixin use-logical($element, $property, $values) {
   @if $values and $property {
     $include-border-radius: str-index($property, border-radius);
 
     @if $include-border-radius {
-      @include border-radius($element, $values);
-    } @else {
-        @include default($element, $property, $values);
+      @include border-radius($element, null, $values);
+    }
+
+    @else {
+      @include default($element, $property, $values);
     }
   }
-};
+}
+
+/// Use override-logical mixin to override logical properties
+/// @example
+///   @include override-logical(button, dropdown-item, padding, var(--space-8));
+///   // --button-padding-block: var(--dropdown-item-padding-block, var(--dropdown-item-padding-block-start, var(--space-8)) var(--dropdown-item-padding-block-end, var(--space-8)));
+///   // --button-padding-inline: var(--dropdown-item-padding-inline, var(--dropdown-item-padding-inline-start, var(--space-8)) var(--dropdown-item-padding-inline-end, var(--space-8)));
+///   @include override-logical(button, null, padding, 0);
+///   // --button-padding-block: 0;
+///   // --button-padding-inline: 0;
+@mixin override-logical($element-to-override, $element: null, $property, $values) {
+  @if $values and $property {
+    $include-border-radius: str-index($property, border-radius);
+
+    @if $include-border-radius {
+      @include border-radius($element, $element-to-override, $values);
+    }
+
+    @else {
+      @include default($element, "--#{$element-to-override}-#{$property}", $values);
+    }
+  }
+}
