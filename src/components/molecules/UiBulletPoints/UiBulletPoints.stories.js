@@ -58,7 +58,10 @@ export default {
       },
     },
   },
-  parameters: { docs: { page: docs } },
+  parameters: {
+    docs: { page: docs },
+    cssProperties: { '--bullet-points-gap': 'var(--space-4)' },
+  },
 };
 
 const Template = (args) => ({

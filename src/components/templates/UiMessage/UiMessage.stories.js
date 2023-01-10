@@ -87,7 +87,21 @@ export default {
       control: 'object',
     },
   },
-  parameters: { docs: { page: docs } },
+  parameters: {
+    docs: { page: docs },
+    cssProperties: {
+      '--message-flex-direction': 'column-reverse',
+      '--message-tablet-flex-direction': 'row',
+      '--message-content-align-self': 'flex-end',
+      '--message-title-margin-block': 'var(--message-title-margin-block-start, 0) var(--message-title-margin-block-end, var(--space-8))',
+      '--message-title-margin-inline': 'var(--message-title-margin-inline-start, 0) var(--message-title-margin-inline-end, 0)',
+      '--message-aside-margin-block': 'var(--message-aside-margin-block-start, 0) var(--message-aside-margin-block-end, var(--space-24))',
+      '--message-aside-margin-inline': 'var(--message-aside-margin-inline-start, 0) var(--message-aside-margin-inline-end, 0)',
+      '--message-tablet-aside-margin-block': 'var(--message-tablet-aside-margin-block-start, 0) var(--message-tablet-aside-margin-block-end, 0)',
+      '--message-tablet-aside-margin-inline': 'var(--message-tablet-aside-margin-inline-start, var(--space-40)) var(--message-tablet-aside-margin-inline-end, 0)',
+      '--message-illustration-size': '15rem',
+    },
+  },
 };
 
 const Template = (args) => ({

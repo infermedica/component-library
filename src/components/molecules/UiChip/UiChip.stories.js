@@ -32,6 +32,26 @@ export default {
     buttonRemoveAttrs: { table: { subcategory: 'Attrs props' } },
     iconRemoveAttrs: { table: { subcategory: 'Attrs props' } },
   },
+  parameters: {
+    cssProperties: {
+      '--chip-padding-block': 'var(--chip-padding-block-start, var(--space-4)) var(--chip-padding-block-end, var(--space-4))',
+      '--chip-padding-inline': 'var(--chip-padding-inline-start, var(--space-12)) var(--chip-padding-inline-end, var(--space-4))',
+      '--chip-border-start-start-radius': 'var(--border-radius-form)',
+      '--chip-border-start-end-radius': 'var(--border-radius-form)',
+      '--chip-border-end-start-radius': 'var(--border-radius-form)',
+      '--chip-border-end-end-radius': 'var(--border-radius-form)',
+      '--chip-background': 'var(--color-chip-background)',
+      '--chip-gap': 'var(--space-8)',
+      '--chip-label-color': 'var(--color-chip-text)',
+      '--chip-remove-filled-close-color': 'var(--color-chip-icon)',
+      '--chip-icon-color': 'var(--color-chip-icon-background)',
+      '--chip-icon-hover-color': 'var(--color-chip-icon-background-hover)',
+      '--chip-icon-active-color': 'var(--color-chip-icon-background-active)',
+      '--chip-remove-pointer-area-size': 'var(--space-32)',
+      '--chip-remove-pointer-area-width': 'var(--_element-pointer-area-size)',
+      '--chip-remove-pointer-area-height': 'var(--_element-pointer-area-size)',
+    },
+  },
 };
 
 const Template = (args) => ({

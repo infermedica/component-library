@@ -44,6 +44,16 @@ export default {
     buttonIncrementAttrs: { table: { subcategory: 'Attrs props' } },
     iconIncrementAttrs: { table: { subcategory: 'Attrs props' } },
   },
+  parameters: {
+    cssProperties: {
+      '--number-stepper-decrement-margin-block': 'var(--number-stepper-decrement-margin-block-start, 0) var(--number-stepper-decrement-margin-block-end, 0)',
+      '--number-stepper-decrement-margin-inline': 'var(--number-stepper-decrement-margin-inline-start, 0) var(--number-stepper-decrement-margin-inline-end, var(--space-4))',
+      '--number-stepper-increment-margin-block': 'var(--number-stepper-increment-margin-block-start, 0) var(--number-stepper-increment-margin-block-end, 0)',
+      '--number-stepper-increment-margin-inline': 'var(--number-stepper-increment-margin-inline-start, var(--space-12)) var(--number-stepper-increment-margin-inline-end, 0)',
+      '--number-stepper-tablet-increment-margin-block': 'var(--number-stepper-tablet-increment-margin-block-start, 0) var(--number-stepper-tablet-increment-margin-block-end, 0)',
+      '--number-stepper-tablet-increment-margin-inline': 'var(--number-stepper-tablet-increment-margin-inline-start, var(--space-4)) var(--number-stepper-tablet-increment-margin-inline-end, 0)',
+    },
+  },
 };
 
 export const WithTextValue = (args) => ({

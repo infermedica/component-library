@@ -65,6 +65,16 @@ export default {
       <story />
     </div>`,
   }) ],
+  parameters: {
+    cssProperties: {
+      '--stepper-padding-block': 'var(--stepper-padding-block-start, 0) var(--stepper-padding-block-end, 0)',
+      '--stepper-padding-inline': 'var(--stepper-padding-inline-start, 0) var(--stepper-padding-inline-end, 0)',
+      '--stepper-background': 'var(--color-background-subtle)',
+      '--stepper-desktop-background': 'transparent',
+      '--stepper-progress-width': '6rem',
+      '--stepper-tablet-progress-width': '11.25rem',
+    },
+  },
 };
 
 export const WithCurrentStep = (args) => ({

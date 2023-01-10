@@ -41,6 +41,32 @@ export default {
     buttonBackAttrs: { table: { subcategory: 'Attrs props' } },
     iconBackAttrs: { table: { subcategory: 'Attrs props' } },
   },
+  parameters: {
+    cssProperties: {
+      '--controls-container-padding-block': 'var(--controls-container-padding-block-start, var(--space-32)) var(--controls-container-padding-block-end, var(--space-32))',
+      '--controls-container-padding-inline': 'var(--controls-container-padding-inline-start, var(--space-20)) var(--controls-container-padding-inline-end, var(--space-20))',
+      '--controls-tablet-container-padding-block': 'var(--controls-tablet-container-padding-block-start, var(--space-48)) var(--controls-tablet-container-padding-block-end, var(--space-48))',
+      '--controls-tablet-container-padding-inline': 'var(--controls-tablet-container-padding-inline-start, var(--space-64)) var(--controls-tablet-container-padding-inline-end, var(--space-64))',
+      '--controls-bottom-padding-block': 'var(--controls-bottom-padding-block-start, var(--space-12)) var(--controls-bottom-padding-block-end, var(--space-12))',
+      '--controls-bottom-padding-inline': 'var(--controls-bottom-padding-inline-start, var(--space-20)) var(--controls-bottom-padding-inline-end, var(--space-20))',
+      '--controls-bottom-border-start-start-radius': '0',
+      '--controls-bottom-border-start-end-radius': '0',
+      '--controls-bottom-border-end-start-radius': '0',
+      '--controls-bottom-border-end-end-radius': '0',
+      '--controls-bottom-transition': 'border-color 150ms ease-in-out',
+      '--controls-bottom-height': '5rem',
+      '--controls-bottom-border-block': 'var(--controls-bottom-border-block-start, var(--controls-bottom-border)) var(--controls-bottom-border-block-end, var(--controls-bottom-border))',
+      '--controls-bottom-border-inline': 'var(--controls-bottom-border-inline-start, var(--controls-bottom-border)) var(--controls-bottom-border-inline-end, var(--controls-bottom-border))',
+      '--controls-bottom-border-block-style': 'var(--controls-bottom-border-block-start-style, solid) var(--controls-bottom-border-block-end-style, solid)',
+      '--controls-bottom-border-inline-style': 'var(--controls-bottom-border-inline-start-style, solid) var(--controls-bottom-border-inline-end-style, solid)',
+      '--controls-bottom-border-block-color': 'var(--controls-bottom-border-block-start-color, var(--color-border-divider)) var(--controls-bottom-border-block-end-color, var(--color-border-divider))',
+      '--controls-bottom-border-inline-color': 'var(--controls-bottom-border-inline-start-color, var(--color-border-divider)) var(--controls-bottom-border-inline-end-color, var(--color-border-divider))',
+      '--controls-bottom-border-block-width': 'var(--controls-bottom-border-block-start-width, 1px) var(--controls-bottom-border-block-end-width, 0)',
+      '--controls-bottom-border-inline-width': 'var(--controls-bottom-border-inline-start-width, 0) var(--controls-bottom-border-inline-end-width, 0)',
+      '--controls-tablet-bottom-padding-block': 'var(--controls-tablet-bottom-padding-block-start, var(--space-16)) var(--controls-tablet-bottom-padding-block-end, var(--space-16))',
+      '--controls-tablet-bottom-padding-inline': 'var(--controls-tablet-bottom-padding-inline-start, var(--space-32)) var(--controls-tablet-bottom-padding-inline-end, var(--space-32))',
+    },
+  },
 };
 
 const Template = (args) => ({

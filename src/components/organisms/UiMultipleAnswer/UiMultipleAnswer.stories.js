@@ -77,6 +77,14 @@ export default {
     invalid: { control: false },
     hintAlertAttrs: { table: { subcategory: 'Attrs props' } },
   },
+  parameters: {
+    cssProperties: {
+      '--multiple-answer-hint-padding-block': 'var(--multiple-answer-hint-padding-block-start, 0) var(--multiple-answer-hint-padding-block-end, var(--space-12))',
+      '--multiple-answer-hint-padding-inline': 'var(--multiple-answer-hint-padding-inline-start, var(--space-20)) var(--multiple-answer-hint-padding-inline-end, var(--space-20))',
+      '--multiple-answer-tablet-hint-padding-block': 'var(--multiple-answer-tablet-hint-padding-block-start, 0) var(--multiple-answer-tablet-hint-padding-block-end, var(--space-12))',
+      '--multiple-answer-tablet-hint-padding-inline': 'var(--multiple-answer-tablet-hint-padding-inline-start, 0) var(--multiple-answer-tablet-hint-padding-inline-end, 0)',
+    },
+  },
 };
 
 const Template = (args) => ({

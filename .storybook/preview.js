@@ -13,11 +13,11 @@ SyntaxHighlighter.registerLanguage('scss', scss);
 export const parameters = {
   options: {
     storySort: (prevStory, nextStory) => {
-      /* 
+      /*
         Sort function to sort stories based on a config file.
         {storiesOrder} is the order in which we want stories to appear.
         Any stories that aren't explicitly listed will appear at the end of list in alphabetical order.
-        Modifiers: 
+        Modifiers:
           {'*'} - every nested element
           {'rest-reverse'} - rest of not listed elements appear in reverse alphabetical order
       */
@@ -140,8 +140,8 @@ app.component('router-link', {
     const href = props.to.path;
     return { href }
   },
-  template: `<a 
-    :href="href" 
+  template: `<a
+    :href="href"
     data-component-name="router-link">
     <slot />
   </a>`,

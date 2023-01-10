@@ -85,7 +85,20 @@ export default {
         <story />
     </div>`,
   }) ],
-  parameters: { docs: { page: docs } },
+  parameters: {
+    docs: { page: docs },
+    cssProperties: {
+      '--dropdown-popover-padding-block': 'var(--dropdown-popover-padding-block-start, var(--space-8)) var(--dropdown-popover-padding-block-end, var(--space-8))',
+      '--dropdown-popover-padding-inline': 'var(--dropdown-popover-padding-inline-start, var(--space-8)) var(--dropdown-popover-padding-inline-end, var(--space-8))',
+      '--dropdown-popover-margin-block': 'var(--dropdown-popover-margin-block-start, var(--space-8)) var(--dropdown-popover-margin-block-end, 0)',
+      '--dropdown-popover-margin-inline': 'var(--dropdown-popover-margin-inline-start, 0) var(--dropdown-popover-margin-inline-end, 0)',
+      '--dropdown-popover-inset-block': 'var(--dropdown-popover-inset-block-start, 100%) var(--dropdown-popover-inset-block-end, auto)',
+      '--dropdown-popover-inset-inline': 'var(--dropdown-popover-inset-inline-start, 0) var(--dropdown-popover-inset-inline-end, auto)',
+      '--dropdown-popover-width': '100%',
+      '--dropdown-popover-max-width': '15rem',
+      '--dropdown-popover-min-height': '0',
+    },
+  },
 };
 
 const Template = (args) => ({

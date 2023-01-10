@@ -34,7 +34,13 @@ export default {
   },
   argTypes: { modifiers: modifiers({ options: [ 'ui-menu--compact' ] }) },
   decorators: [ () => ({ template: '<div style="max-width: 21.875rem"><story /></div>' }) ],
-  parameters: { docs: { page: docs } },
+  parameters: {
+    docs: { page: docs },
+    cssProperties: {
+      '--menu-item-button-padding-block': 'var(--space-4)',
+      '--menu-item-button-padding-inline': 'var(--space-8)',
+    },
+  },
 };
 
 const Template = (args) => ({

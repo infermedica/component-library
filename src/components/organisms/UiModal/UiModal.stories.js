@@ -122,7 +122,30 @@ export default {
       <story/>
     </div>`,
   }) ],
-  parameters: { docs: { description: { component: 'Modal use `v-body-scroll-lock`. Only works on Canvas mode.' } } },
+  parameters: {
+    docs: { description: { component: 'Modal use `v-body-scroll-lock`. Only works on Canvas mode.' } },
+    cssProperties: {
+      '--modal-padding-block': 'var(--modal-padding-block-start, var(--space-24)) var(--modal-padding-block-end, var(--space-24))',
+      '--modal-padding-inline': 'var(--modal-padding-inline-start, var(--space-24)) var(--modal-padding-inline-end, var(--space-24))',
+      '--modal-margin-block': 'var(--modal-margin-block-start, 0) var(--modal-margin-block-end, 0)',
+      '--modal-margin-inline': 'var(--modal-margin-inline-start, 0) var(--modal-margin-inline-end, 0)',
+      '--modal-border-start-start-radius': 'var(--border-radius-container)',
+      '--modal-border-start-end-radius': 'var(--border-radius-container)',
+      '--modal-border-end-start-radius': 'var(--border-radius-container)',
+      '--modal-border-end-end-radius': 'var(--border-radius-container)',
+      '--modal-max-width': '40rem',
+      '--modal-background': 'var(--color-background-white)',
+      '--modal-box-shadow': 'var(--box-shadow-high)',
+      '--modal-title-margin-block': 'var(--modal-title-margin-block-start, 0) var(--modal-title-margin-block-end, var(--space-12))',
+      '--modal-title-margin-inline': 'var(--modal-title-margin-inline-start, 0) var(--modal-title-margin-inline-end, 0)',
+      '--modal-actions-margin-block': 'var(--modal-actions-margin-block-start, var(--space-32)) var(--modal-actions-margin-block-end, 0)',
+      '--modal-actions-margin-inline': 'var(--modal-actions-margin-inline-start, 0) var(--modal-actions-margin-inline-end, 0)',
+      '--modal-confirm-margin-block': 'var(--modal-confirm-margin-block-start, 0) var(--modal-confirm-margin-block-end, var(--space-12))',
+      '--modal-confirm-margin-inline': 'var(--modal-confirm-margin-inline-start, 0) var(--modal-confirm-margin-inline-end, 0)',
+      '--modal-tablet-confirm-margin-block': 'var(--modal-tablet-confirm-margin-block-start, 0) var(--modal-tablet-confirm-margin-block-end, 0)',
+      '--modal-tablet-confirm-margin-inline': 'var(--modal-tablet-confirm-margin-inline-start, var(--space-12)) var(--modal-tablet-confirm-margin-inline-end, 0)',
+    },
+  },
 };
 
 const Template = (args) => ({
