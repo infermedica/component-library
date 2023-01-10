@@ -20,23 +20,23 @@
       >
         <!-- @slot Use this slot to place content inside list-item. -->
         <slot />
-        <!-- @slot Use this slot to replace suffix template -->
-        <slot
-          name="suffix"
-          v-bind="{
-            hasSuffix,
-            suffixComponent,
-            suffixAttrs: defaultProps.suffixAttrs
-          }"
-        >
-          <component
-            :is="suffixComponent"
-            v-if="hasSuffix"
-            v-bind="defaultProps.suffixAttrs"
-            class="ui-list-item__suffix"
-          />
-        </slot>
       </component>
+      <!-- @slot Use this slot to replace suffix template -->
+      <slot
+        name="suffix"
+        v-bind="{
+          hasSuffix,
+          suffixComponent,
+          suffixAttrs: defaultProps.suffixAttrs
+        }"
+      >
+        <component
+          :is="suffixComponent"
+          v-if="hasSuffix"
+          v-bind="defaultProps.suffixAttrs"
+          class="ui-list-item__suffix"
+        />
+      </slot>
     </slot>
   </li>
 </template>

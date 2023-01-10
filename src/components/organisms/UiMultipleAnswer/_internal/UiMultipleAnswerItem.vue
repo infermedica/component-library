@@ -185,7 +185,6 @@ const defaultProps = computed(() => ({
 }));
 const suffixAttrs = computed(() => ({
   label: defaultProps.value.translation.info,
-  tabindex: -1,
   onKeydown: handleInfoUnfocus,
   class: [ 'ui-multiple-answer-item__info' ],
   iconSuffixAttrs: defaultProps.value.iconInfoAttrs,
