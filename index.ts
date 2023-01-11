@@ -1,4 +1,55 @@
 // Auto-generated file by create-index.js. Do not edit manually
+
+// types
+export * from './src/components/atoms/UiBackdrop/UiBackdrop.vue';
+export * from './src/components/atoms/UiButton/UiButton.vue';
+export * from './src/components/atoms/UiCheckbox/UiCheckbox.vue';
+export * from './src/components/atoms/UiHeading/UiHeading.vue';
+export * from './src/components/atoms/UiIcon/UiIcon.vue';
+export * from './src/components/atoms/UiInput/UiInput.vue';
+export * from './src/components/atoms/UiLink/UiLink.vue';
+export * from './src/components/atoms/UiProgress/UiProgress.vue';
+export * from './src/components/atoms/UiRadio/UiRadio.vue';
+export * from './src/components/atoms/UiRange/UiRange.vue';
+export * from './src/components/atoms/UiText/UiText.vue';
+export * from './src/components/atoms/UiTextarea/UiTextarea.vue';
+export * from './src/components/molecules/UiAlert/UiAlert.vue';
+export * from './src/components/molecules/UiBulletPoints/UiBulletPoints.vue';
+export * from './src/components/molecules/UiChip/UiChip.vue';
+export * from './src/components/molecules/UiDropdown/UiDropdown.vue';
+export * from './src/components/molecules/UiFormField/UiFormField.vue';
+export * from './src/components/molecules/UiHeader/UiHeader.vue';
+export * from './src/components/molecules/UiInteractiveSvg/UiInteractiveSvg.vue';
+export * from './src/components/molecules/UiLoader/UiLoader.vue';
+export * from './src/components/molecules/UiNavigation/UiNavigation.vue';
+export * from './src/components/molecules/UiNotification/UiNotification.vue';
+export * from './src/components/molecules/UiNumberStepper/UiNumberStepper.vue';
+export * from './src/components/molecules/UiPopover/UiPopover.vue';
+export * from './src/components/molecules/UiProgressbar/UiProgressbar.vue';
+export * from './src/components/molecules/UiRating/UiRating.vue';
+export * from './src/components/molecules/UiScale/UiScale.vue';
+export * from './src/components/molecules/UiStepper/UiStepper.vue';
+export * from './src/components/molecules/UiSwitch/UiSwitch.vue';
+export * from './src/components/molecules/UiTile/UiTile.vue';
+export * from './src/components/molecules/UiToggleButtonGroup/UiToggleButtonGroup.vue';
+export * from './src/components/organisms/UiAccordion/UiAccordion.vue';
+export * from './src/components/organisms/UiCard/UiCard.vue';
+export * from './src/components/organisms/UiContainer/UiContainer.vue';
+export * from './src/components/organisms/UiControls/UiControls.vue';
+export * from './src/components/organisms/UiDatepicker/UiDatepicker.vue';
+export * from './src/components/organisms/UiHorizontalPaging/UiHorizontalPaging.vue';
+export * from './src/components/organisms/UiList/UiList.vue';
+export * from './src/components/organisms/UiMenu/UiMenu.vue';
+export * from './src/components/organisms/UiModal/UiModal.vue';
+export * from './src/components/organisms/UiMultipleAnswer/UiMultipleAnswer.vue';
+export * from './src/components/organisms/UiMultipleChoices/UiMultipleChoices.vue';
+export * from './src/components/organisms/UiSidePanel/UiSidePanel.vue';
+export * from './src/components/organisms/UiSimpleQuestion/UiSimpleQuestion.vue';
+export * from './src/components/organisms/UiTabs/UiTabs.vue';
+export * from './src/components/templates/UiMessage/UiMessage.vue';
+export * from './src/components/templates/UiQuestion/UiQuestion.vue';
+
+// components
 export { default as UiBackdrop } from './src/components/atoms/UiBackdrop/UiBackdrop.vue';
 export { default as UiButton } from './src/components/atoms/UiButton/UiButton.vue';
 export { default as UiCheckbox } from './src/components/atoms/UiCheckbox/UiCheckbox.vue';
