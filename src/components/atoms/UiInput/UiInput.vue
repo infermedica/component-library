@@ -50,11 +50,10 @@ export default { inheritAttrs: false };
 <script setup lang="ts">
 import {
   computed,
-  type HTMLAttributes,
   type InputHTMLAttributes,
 } from 'vue';
-import type { HTMLTag } from '../../../types/tag';
-import UiText, { type TextProps } from '../UiText/UiText.vue';
+import type { DefineAttrs } from '../../../types/attrs';
+import UiText, { type TextAttrs } from '../UiText/UiText.vue';
 import useAttributes from '../../../composable/useAttributes';
 import useKeyValidation from '../../../composable/useKeyValidation';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
@@ -84,12 +83,13 @@ export interface InputProps {
   /**
    * Use this props to pass attrs for suffix UiText.
    */
-  textSuffixAttrs?: TextProps & HTMLAttributes;
+  textSuffixAttrs?: TextAttrs;
   /**
    * Use this props to pass attrs for input element.
    */
-  inputAttrs?: InputHTMLAttributes;
+  inputAttrs?: DefineAttrs<InputHTMLAttributes>;
 }
+export type InputAttrs = DefineAttrs<InputProps>
 const props = withDefaults(defineProps<InputProps>(), {
   placeholder: '',
   type: 'text',
@@ -99,14 +99,14 @@ const props = withDefaults(defineProps<InputProps>(), {
   textSuffixAttrs: () => ({ tag: 'span' }),
   inputAttrs: () => ({}),
 });
-const emit = defineEmits<{(e: 'update:modelValue', value: string): void
+const emit = defineEmits<{(e: 'update:modelValue', value: InputProps['modelValue']): void
 }>();
 const {
   attrs, listeners,
 } = useAttributes();
 const defaultProps = computed(() => ({
   textSuffixAttrs: {
-    tag: 'span' as HTMLTag,
+    tag: 'span' as TextAttrs['tag'],
     ...props.textSuffixAttrs,
   },
   inputAttrs: {

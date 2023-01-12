@@ -11,9 +11,11 @@
 </template>
 
 <script setup lang="ts">
+import type { ButtonHTMLAttributes } from 'vue';
+import type { DefineAttrs } from '../../../types/attrs';
+import type { HTMLTag } from '../../../types/tag';
 import useLink from '../../../composable/useLink';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
-import type { HTMLTag } from '../../../types/tag';
 
 export interface ButtonProps {
   /**
@@ -29,13 +31,12 @@ export interface ButtonProps {
    */
   href?: string;
 }
-
+export type ButtonAttrs<T = ButtonHTMLAttributes> = DefineAttrs<ButtonProps, T>;
 const props = withDefaults(defineProps<ButtonProps>(), {
   tag: 'button',
   to: '',
   href: '',
 });
-
 const {
   componentTag, routeAttrs,
 } = useLink(props);

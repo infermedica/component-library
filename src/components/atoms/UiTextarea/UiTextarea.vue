@@ -23,6 +23,7 @@ import {
   computed,
   type TextareaHTMLAttributes,
 } from 'vue';
+import type { DefineAttrs } from '../../../types/attrs';
 import useAttributes from '../../../composable/useAttributes';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 
@@ -49,8 +50,9 @@ export interface TextareaProps {
   /**
    * Use this props to pass attrs for textarea element.
    */
-  textareaAttrs?: TextareaHTMLAttributes;
+  textareaAttrs?: DefineAttrs<TextareaHTMLAttributes>;
 }
+export type TextareaAttrs = DefineAttrs<TextareaProps>
 const props = withDefaults(defineProps<TextareaProps>(), {
   modelValue: '',
   resize: false,
@@ -69,7 +71,7 @@ const defaultProps = computed(() => ({
     ...props.textareaAttrs,
   },
 }));
-const emit = defineEmits<{(e:'update:modelValue', value:string):void}>();
+const emit = defineEmits<{(e:'update:modelValue', value: TextareaProps['modelValue']):void}>();
 function inputHandler(event: Event) {
   const el = event.target as HTMLInputElement;
   emit('update:modelValue', el.value);

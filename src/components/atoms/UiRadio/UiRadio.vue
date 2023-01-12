@@ -61,13 +61,15 @@ export default { inheritAttrs: false };
 import {
   computed,
   type InputHTMLAttributes,
+  type LabelHTMLAttributes,
   type HTMLAttributes,
   useSlots,
 } from 'vue';
 import equal from 'fast-deep-equal';
 import { uid } from 'uid/single';
+import type { DefineAttrs } from '../../../types/attrs';
 import type { HTMLTag } from '../../../types/tag';
-import UiText, { type TextProps } from '../UiText/UiText.vue';
+import UiText, { type TextAttrs } from '../UiText/UiText.vue';
 import useAttributes from '../../../composable/useAttributes';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 
@@ -94,16 +96,17 @@ export interface RadioProps {
   /**
    * Use this props to pass attrs for input element.
    */
-  inputAttrs?: InputHTMLAttributes;
+  inputAttrs?: DefineAttrs<InputHTMLAttributes>;
   /**
    * Use this props to pass attrs for radio element.
    */
-  radioElementAttrs?: HTMLAttributes;
+  radioElementAttrs?: DefineAttrs<HTMLAttributes>;
   /**
    * Use this props to pass attrs for label UiText
    */
-  textLabelAttrs?: TextProps & HTMLAttributes;
+  textLabelAttrs?: TextAttrs;
 }
+export type RadioAttrs = DefineAttrs<RadioProps, LabelHTMLAttributes>
 const props = withDefaults(defineProps<RadioProps>(), {
   modelValue: '',
   value: '',
@@ -139,7 +142,7 @@ const defaultProps = computed(() => ({
     ...props.inputAttrs,
   },
 }));
-const emit = defineEmits<{(e: 'update:modelValue', value: RadioValue): void
+const emit = defineEmits<{(e: 'update:modelValue', value: RadioProps['modelValue']): void
 }>();
 const slots = useSlots();
 const hasLabel = computed(() => (!!slots.default));

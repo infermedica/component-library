@@ -12,6 +12,8 @@
 
 <script setup lang="ts">
 // https://www.figma.com/file/54rgvRJfBBagt4F34rrp1s/Core-Component-Library?node-id=2%3A3027
+import type { HTMLAttributes } from 'vue';
+import type { DefineAttrs } from '../../../types/attrs';
 import type { HTMLTag } from '../../../types/tag';
 import useLink from '../../../composable/useLink';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
@@ -30,6 +32,7 @@ export interface LinkProps {
    */
   href?: string
 }
+export type LinkAttrs<T = HTMLAttributes> = DefineAttrs<LinkProps, T>
 const props = withDefaults(defineProps<LinkProps>(), {
   tag: 'span',
   to: '',

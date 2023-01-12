@@ -10,7 +10,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import {
+  computed,
+  type HTMLAttributes,
+} from 'vue';
+import type { DefineAttrs } from '../../../types/attrs';
 import type { HTMLTag } from '../../../types/tag';
 
 export interface HeadingProps {
@@ -23,11 +27,12 @@ export interface HeadingProps {
    */
   tag?: HTMLTag;
 }
+export type HeadingAttrs<T = HTMLAttributes> = DefineAttrs<HeadingProps, T>;
 const props = withDefaults(defineProps<HeadingProps>(), {
   level: '2',
   tag: undefined,
 });
-const headingTag = computed<HTMLTag>(() => (props.tag ? props.tag : `h${props.level}`));
+const headingTag = computed(() => (props.tag ? props.tag : `h${props.level}`));
 const headingClass = computed(() => `ui-heading--h${props.level}`);
 </script>
 

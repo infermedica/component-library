@@ -77,21 +77,15 @@ export default { inheritAttrs: false };
 <script setup lang="ts">
 import {
   computed,
+  type ButtonHTMLAttributes,
   type InputHTMLAttributes,
-  type HTMLAttributes,
 } from 'vue';
-import UiHeading, { type HeadingProps } from '../UiHeading/UiHeading.vue';
+import type { DefineAttrs } from '../../../types/attrs';
+import UiHeading, { type HeadingAttrs } from '../UiHeading/UiHeading.vue';
 import UiNumberStepper from '../../molecules/UiNumberStepper/UiNumberStepper.vue';
 import useAttributes from '../../../composable/useAttributes';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 
-export interface RangeAttrs {
-  disabled?: boolean;
-  buttonDecrementAttrs?: Record<string, unknown>;
-  buttonIncrementAttrs?: Record<string, unknown>;
-  'button-increment-attrs'?: Record<string, unknown>;
-  'button-decrement-attrs'?: Record<string, unknown>;
-}
 export interface RangeProps {
   /**
    * Use this props or v-model to set value.
@@ -112,12 +106,19 @@ export interface RangeProps {
   /**
    * Use this props to pass attrs for value UiHeading
    */
-  headingValueAttrs?: HeadingProps & HTMLAttributes;
+  headingValueAttrs?: DefineAttrs<HeadingAttrs>;
   /**
    * Use this props to pass attrs for input element.
    */
-  inputAttrs?: InputHTMLAttributes;
+  inputAttrs?: DefineAttrs<InputHTMLAttributes>;
 }
+export interface RangeButtonAttrs extends ButtonHTMLAttributes {
+  buttonDecrementAttrs?: Record<string, unknown>;
+  buttonIncrementAttrs?: Record<string, unknown>;
+  'button-increment-attrs'?: Record<string, unknown>;
+  'button-decrement-attrs'?: Record<string, unknown>;
+}
+export type RangeAttrs = DefineAttrs<RangeProps, RangeButtonAttrs>
 const props = withDefaults(defineProps<RangeProps>(), {
   modelValue: 0,
   min: 0,
@@ -129,10 +130,10 @@ const props = withDefaults(defineProps<RangeProps>(), {
   }),
   inputAttrs: () => ({}),
 });
-const emit = defineEmits<{(e:'update:modelValue', value: number): void}>();
+const emit = defineEmits<{(e:'update:modelValue', value: RangeProps['modelValue']): void}>();
 const {
   attrs, listeners,
-} = useAttributes<RangeAttrs, object>();
+} = useAttributes<RangeButtonAttrs>();
 const trackWidth = computed(() => {
   const scope = props.max - props.min;
   const position = props.modelValue - props.min;
@@ -158,8 +159,8 @@ if (buttonIncrementAttrs.value) {
 // END
 const defaultProps = computed(() => ({
   headingValueAttrs: {
-    level: 1 as HeadingProps['level'],
-    tag: 'span' as HeadingProps['tag'],
+    level: 1 as HeadingAttrs['level'],
+    tag: 'span' as HeadingAttrs['tag'],
     ...props.headingValueAttrs,
   },
   inputAttrs: {

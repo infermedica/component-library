@@ -8,6 +8,8 @@
 </template>
 
 <script setup lang="ts">
+import type { HTMLAttributes } from 'vue';
+import type { DefineAttrs } from '../../../types/attrs';
 import type { HTMLTag } from '../../../types/tag';
 
 export interface TextProps {
@@ -16,6 +18,7 @@ export interface TextProps {
    */
   tag?: HTMLTag;
 }
+export type TextAttrs<T= HTMLAttributes> = DefineAttrs<TextProps, T>;
 withDefaults(defineProps<TextProps>(), { tag: 'p' });
 </script>
 
