@@ -1,9 +1,15 @@
 import {
   computed,
   useAttrs,
+  type HTMLAttributes,
+  type Events,
 } from 'vue';
 
-export default function useAttributes<T extends object, U extends object>() {
+type EventHandlers = {
+  [K in keyof Events]?: HTMLAttributes[K];
+}
+
+export default function useAttributes<T = HTMLAttributes>() {
   const attributes = useAttrs();
   const filteredAttributes = computed(() => Object.keys(attributes)
     .reduce((acc, key) => {
@@ -16,7 +22,7 @@ export default function useAttributes<T extends object, U extends object>() {
     }, {
       attrs: {} as Record<string, unknown>,
       listeners: {} as Record<string, unknown>,
-    }) as { attrs: T, listeners: U});
+    }) as { attrs: Omit<T, keyof EventHandlers>; listeners: EventHandlers });
   const attrs = computed(() => filteredAttributes.value.attrs);
   const listeners = computed(() => filteredAttributes.value.listeners);
   return {
