@@ -11,33 +11,24 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { PropType } from 'vue';
 import type { HTMLTag } from '../../../types/tag';
 
-export type HeadingLevel ='1' | '2' | '3' | '4' | '5' | '6' | 1 | 2 | 3 | 4 | 5 | 6;
-export type HeadingTag =`h${HeadingLevel}`;
-export type HeadingClass =`ui-heading--${HeadingTag}`
-const props = defineProps({
+export interface HeadingProps {
   /**
    * Use this props to set heading HeadingLevel from 1-6
    */
-  level: {
-    type: [
-      Number,
-      String,
-    ] as PropType<HeadingLevel>,
-    default: '2',
-  },
+  level?: '1' | '2' | '3' | '4' | '5' | '6' | 1 | 2 | 3 | 4 | 5 | 6;
   /**
    * Use this props to set heading HTML HeadingTag
    */
-  tag: {
-    type: String as PropType<HTMLTag>,
-    default: '',
-  },
+  tag?: HTMLTag;
+}
+const props = withDefaults(defineProps<HeadingProps>(), {
+  level: '2',
+  tag: undefined,
 });
 const headingTag = computed<HTMLTag>(() => (props.tag ? props.tag : `h${props.level}`));
-const headingClass = computed<HeadingClass>(() => `ui-heading--h${props.level}`);
+const headingClass = computed(() => `ui-heading--h${props.level}`);
 </script>
 
 <style lang="scss">

@@ -48,65 +48,56 @@ export default { inheritAttrs: false };
 </script>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import {
+  computed,
+  type HTMLAttributes,
+  type InputHTMLAttributes,
+} from 'vue';
 import type { HTMLTag } from '../../../types/tag';
-import type { PropsAttrs } from '../../../types/attrs';
-import UiText from '../UiText/UiText.vue';
+import UiText, { type TextProps } from '../UiText/UiText.vue';
 import useAttributes from '../../../composable/useAttributes';
 import useKeyValidation from '../../../composable/useKeyValidation';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 
-const props = defineProps({
+export interface InputProps {
   /**
    * Use this props to set input placeholder.
    */
-  placeholder: {
-    type: String,
-    default: '',
-  },
+  placeholder?: string;
   /**
    * Use this props to set input type.
    */
-  type: {
-    type: String,
-    default: 'text',
-  },
+  type?: string;
   /**
    * Use this props to disabled input.
    * Remember to use `ui-input--is-disabled` class to style disabled input.
    */
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
+  disabled?: boolean;
   /**
    * Use this props or v-model to set value.
    */
-  modelValue: {
-    type: String,
-    default: '',
-  },
+  modelValue?: string;
   /**
    * Use this props to set suffix.
    */
-  suffix: {
-    type: String,
-    default: '',
-  },
+  suffix?: string;
   /**
    * Use this props to pass attrs for suffix UiText.
    */
-  textSuffixAttrs: {
-    type: Object,
-    default: () => ({ tag: 'span' }),
-  },
+  textSuffixAttrs?: TextProps & HTMLAttributes;
   /**
    * Use this props to pass attrs for input element.
    */
-  inputAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  inputAttrs?: InputHTMLAttributes;
+}
+const props = withDefaults(defineProps<InputProps>(), {
+  placeholder: '',
+  type: 'text',
+  disabled: false,
+  modelValue: '',
+  suffix: '',
+  textSuffixAttrs: () => ({ tag: 'span' }),
+  inputAttrs: () => ({}),
 });
 const emit = defineEmits<{(e: 'update:modelValue', value: string): void
 }>();

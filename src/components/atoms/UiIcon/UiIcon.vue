@@ -11,21 +11,15 @@ import {
   defineAsyncComponent,
   h,
 } from 'vue';
-import type { PropType } from 'vue';
 import type { Icon } from '../../../types/icon';
 
-const props = defineProps({
+export interface IconProps {
   /**
    * Use this prop to set the icon.
    */
-  icon: {
-    type: [
-      String,
-      Object,
-    ] as PropType<Icon>,
-    default: '',
-  },
-});
+  icon?: Icon
+}
+const props = withDefaults(defineProps<IconProps>(), { icon: '' });
 const file = computed<SVGElement>(() => {
   if (!props.icon) return h('svg');
   if (typeof props.icon === 'string') {

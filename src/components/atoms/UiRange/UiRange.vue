@@ -75,11 +75,12 @@ export default { inheritAttrs: false };
 </script>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import type { PropsAttrs } from '../../../types/attrs';
-import type { HTMLTag } from '../../../types/tag';
-import type { HeadingLevel } from '../UiHeading/UiHeading.vue';
-import UiHeading from '../UiHeading/UiHeading.vue';
+import {
+  computed,
+  type InputHTMLAttributes,
+  type HTMLAttributes,
+} from 'vue';
+import UiHeading, { type HeadingProps } from '../UiHeading/UiHeading.vue';
 import UiNumberStepper from '../../molecules/UiNumberStepper/UiNumberStepper.vue';
 import useAttributes from '../../../composable/useAttributes';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
@@ -91,52 +92,42 @@ export interface RangeAttrs {
   'button-increment-attrs'?: Record<string, unknown>;
   'button-decrement-attrs'?: Record<string, unknown>;
 }
-const props = defineProps({
+export interface RangeProps {
   /**
    * Use this props or v-model to set value.
    */
-  modelValue: {
-    type: Number,
-    default: 0,
-  },
+  modelValue?: number;
   /**
    * Use this props to set min value.
    */
-  min: {
-    type: Number,
-    default: 0,
-  },
+  min?: number;
   /**
    * Use this props to set max value.
    */
-  max: {
-    type: Number,
-    default: 1,
-  },
+  max?: number;
   /**
    * Use this props to set step value.
    */
-  step: {
-    type: Number,
-    default: 1,
-  },
+  step?: number;
   /**
    * Use this props to pass attrs for value UiHeading
    */
-  headingValueAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({
-      level: 1,
-      tag: 'span',
-    }),
-  },
+  headingValueAttrs?: HeadingProps & HTMLAttributes;
   /**
    * Use this props to pass attrs for input element.
    */
-  inputAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  inputAttrs?: InputHTMLAttributes;
+}
+const props = withDefaults(defineProps<RangeProps>(), {
+  modelValue: 0,
+  min: 0,
+  max: 1,
+  step: 1,
+  headingValueAttrs: () => ({
+    level: 1,
+    tag: 'span',
+  }),
+  inputAttrs: () => ({}),
 });
 const emit = defineEmits<{(e:'update:modelValue', value: number): void}>();
 const {
@@ -167,8 +158,8 @@ if (buttonIncrementAttrs.value) {
 // END
 const defaultProps = computed(() => ({
   headingValueAttrs: {
-    level: 1 as HeadingLevel,
-    tag: 'span' as HTMLTag,
+    level: 1 as HeadingProps['level'],
+    tag: 'span' as HeadingProps['tag'],
     ...props.headingValueAttrs,
   },
   inputAttrs: {

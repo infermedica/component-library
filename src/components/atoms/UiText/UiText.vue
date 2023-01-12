@@ -8,18 +8,15 @@
 </template>
 
 <script setup lang="ts">
-import type { PropType } from 'vue';
 import type { HTMLTag } from '../../../types/tag';
 
-defineProps({
+export interface TextProps {
   /**
    * Use this to set text tag.
    */
-  tag: {
-    type: String as PropType<HTMLTag>,
-    default: 'p',
-  },
-});
+  tag?: HTMLTag;
+}
+withDefaults(defineProps<TextProps>(), { tag: 'p' });
 </script>
 
 <style lang="scss">

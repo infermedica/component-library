@@ -19,56 +19,44 @@ export default { inheritAttrs: false };
 </script>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import type { PropType } from 'vue';
-import type { PropsAttrs } from '../../../types/attrs';
+import {
+  computed,
+  type TextareaHTMLAttributes,
+} from 'vue';
 import useAttributes from '../../../composable/useAttributes';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 
-const props = defineProps({
+export interface TextareaProps {
   /**
    * Use this props or v-model to set value.
    */
-  modelValue: {
-    type: String,
-    default: '',
-  },
+  modelValue?: string;
   /**
    * Use this props to enable resizing on textarea.
    * true - both direction resizing, false - disable resizing,
    * 'horizontal' - horizontal resizing only, 'vertical' - vertical resizing only
    */
-  resize: {
-    type: [
-      Boolean,
-      String,
-    ] as PropType<boolean | 'horizontal' | 'vertical'>,
-    optional: true,
-    default: false,
-  },
+  resize?: boolean | 'horizontal' | 'vertical';
   /**
    * Use this props to set input placeholder.
    */
-  placeholder: {
-    type: String,
-    default: '',
-  },
+  placeholder?: string;
   /**
    * Use this props to disabled textarea.
    * Remember to use `ui-textarea--is-disabled` class to style disabled textarea.
    */
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
+  disabled?: boolean
   /**
    * Use this props to pass attrs for textarea element.
    */
-  textareaAttrs: {
-    type: Object as PropsAttrs,
-    optional: true,
-    default: () => ({}),
-  },
+  textareaAttrs?: TextareaHTMLAttributes;
+}
+const props = withDefaults(defineProps<TextareaProps>(), {
+  modelValue: '',
+  resize: false,
+  placeholder: '',
+  disabled: false,
+  textareaAttrs: () => ({}),
 });
 const {
   attrs, listeners,

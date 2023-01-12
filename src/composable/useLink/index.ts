@@ -1,12 +1,8 @@
 import { computed } from 'vue';
-import type { HTMLTag } from '../../types/tag';
+import type { ButtonProps } from '@/components/atoms/UiButton/UiButton.vue';
+import type { LinkProps } from '@/components/atoms/UiLink/UiLink.vue';
 
-export interface UseLinkProps {
-  tag: HTMLTag;
-  to?: string | Record<string, unknown>;
-  href?: string;
-}
-export default function useLink(props: UseLinkProps) {
+export default function useLink(props: ButtonProps | LinkProps) {
   const componentTag = computed(() => {
     if (props.href) {
       return 'a';
