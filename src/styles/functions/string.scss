@@ -1,11 +1,16 @@
 @function str-split($string, $separator) {
-  $index : str-index($string,  $separator);
-  @if not $index {
-    @return $string null;
+  $split-arr: ();
+  $index : str-index($string, $separator);
+
+  @while $index != null {
+    $item: str-slice($string, 1, $index - 1);
+    $split-arr: append($split-arr, $item);
+    $string: str-slice($string, $index + 1);
+    $index : str-index($string, $separator);
   }
-  $str-before-separator : str-slice($string, 1, $index - 1);
-  $str-from-separator : str-slice($string, $index);
-  @return $str-before-separator $str-from-separator;
+  $split-arr: append($split-arr, $string);
+
+  @return $split-arr;
 }
 
 @function str-replace($string, $search, $replace: "") {
