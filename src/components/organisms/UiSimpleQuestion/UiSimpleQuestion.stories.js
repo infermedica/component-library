@@ -38,6 +38,12 @@ export default {
     modelValue: { control: false },
   },
   decorators: [ () => ({ template: '<div class="max-w-147"><story /></div>' }) ],
+  parameters: {
+    cssProperties: {
+      '--simple-question-gap': 'var(--space-12)',
+      '--simple-question-tablet-gap': 'var(--space-24)',
+    },
+  },
 };
 
 const Template = (args) => ({

@@ -29,6 +29,15 @@ export default {
       ],
     }),
   },
+  parameters: {
+    cssProperties: {
+      '--heading-font': 'var(--font-h6)',
+      '--heading-letter-spacing': 'var(--letter-spacing-h6)',
+      '--heading-margin-block': 'var(--heading-margin-block-start, 0) var(--heading-margin-block-end, 0)',
+      '--heading-margin-inline': 'var(--heading-margin-inline-start, 0) var(--heading-margin-inline-end, 0)',
+      '--heading-color': 'var(--color-text-heading)',
+    },
+  },
 };
 
 const Template = (args) => ({

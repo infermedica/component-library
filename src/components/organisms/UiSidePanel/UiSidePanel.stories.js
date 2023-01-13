@@ -129,7 +129,31 @@ export default {
       <story/>
     </div>`,
   }) ],
-  parameters: { docs: { description: { component: 'SidePanel use `v-body-scroll-lock`. Only works on Canvas mode.' } } },
+  parameters: {
+    docs: { description: { component: 'SidePanel use `v-body-scroll-lock`. Only works on Canvas mode.' } },
+    cssProperties: {
+      '--side-panel-max-width': '100%',
+      '--side-panel-background': 'var(--color-background-white)',
+      '--side-panel-box-shadow': 'var(--box-shadow-high)',
+      '--side-panel-tablet-max-width': '40rem',
+      '--side-panel-header-padding-block': 'var(--side-panel-header-padding-block-start, var(--space-20)) var(--side-panel-header-padding-block-end, var(--space-24))',
+      '--side-panel-header-padding-inline': 'var(--side-panel-header-padding-inline-start, var(--space-20)) var(--side-panel-header-padding-inline-end, var(--space-20))',
+      '--side-panel-header-background': 'var(--color-background-subtle)',
+      '--side-panel-header-gap': 'var(--space-32)',
+      '--side-panel-tablet-header-padding-block': 'var(--side-panel-tablet-header-padding-block-start, var(--space-40)) var(--side-panel-tablet-header-padding-block-end, var(--space-32))',
+      '--side-panel-tablet-header-padding-inline': 'var(--side-panel-tablet-header-padding-inline-start, var(--space-40)) var(--side-panel-tablet-header-padding-inline-end, var(--space-40))',
+      '--side-panel-label-padding-block': 'var(--side-panel-label-padding-block-start, 0) var(--side-panel-label-padding-block-end, 0)',
+      '--side-panel-label-padding-inline': 'var(--side-panel-label-padding-inline-start, 0) var(--side-panel-label-padding-inline-end, 0)',
+      '--side-panel-tablet-label-padding-block': 'var(--side-panel-tablet-label-padding-block-start, 0) var(--side-panel-tablet-label-padding-block-end, 0)',
+      '--side-panel-tablet-label-padding-inline': 'var(--side-panel-tablet-label-padding-inline-start, var(--space-8)) var(--side-panel-tablet-label-padding-inline-end, var(--space-8))',
+      '--side-panel-subtitle-margin-block': 'var(--side-panel-subtitle-margin-block-start, var(--space-8)) var(--side-panel-subtitle-margin-block-end, 0)',
+      '--side-panel-subtitle-margin-inline': 'var(--side-panel-subtitle-margin-inline-start, 0) var(--side-panel-subtitle-margin-inline-end, 0)',
+      '--side-panel-content-padding-block': 'var(--side-panel-content-padding-block-start, var(--space-24)) var(--side-panel-content-padding-block-end, var(--space-24))',
+      '--side-panel-content-padding-inline': 'var(--side-panel-content-padding-inline-start, var(--space-20)) var(--side-panel-content-padding-inline-end, var(--space-20))',
+      '--side-panel-tablet-content-padding-block': 'var(--side-panel-tablet-content-padding-block-start, var(--space-32)) var(--side-panel-tablet-content-padding-block-end, var(--space-32))',
+      '--side-panel-tablet-content-padding-inline': 'var(--side-panel-tablet-content-padding-inline-start, var(--space-48)) var(--side-panel-tablet-content-padding-inline-end, var(--space-48))',
+    },
+  },
 };
 const TOS = {
   components: {

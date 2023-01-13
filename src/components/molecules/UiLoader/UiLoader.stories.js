@@ -22,8 +22,8 @@ import {
   onMounted,
 } from 'vue';
 import './UiLoader.stories.scss';
+import { OnBrand } from '@/components/molecules/UiNavigation/UiNavigation.stories';
 import docs from './UiLoader.mdx';
-import {OnBrand} from "@/components/molecules/UiNavigation/UiNavigation.stories";
 
 const events = actions({ onMounted: 'onMounted' });
 

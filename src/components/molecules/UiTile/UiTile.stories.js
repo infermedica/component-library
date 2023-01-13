@@ -60,7 +60,26 @@ export default {
     iconAttrs: { table: { subcategory: 'Attrs props' } },
     textLabelAttrs: { table: { subcategory: 'Attrs props' } },
   },
-  parameters: { docs: { page: docs } },
+  parameters: {
+    docs: { page: docs },
+    cssProperties: {
+      '--tile-padding-block': 'var(--space-16)',
+      '--tile-padding-inline': 'var(--space-16)',
+      '--tile-gap': 'var(--space-16)',
+      '--tile-tablet-padding-block': 'var(--space-24)',
+      '--tile-tablet-padding-inline': 'var(--space-16)',
+      '--tile-icon-size': '2rem',
+      '--tile-tablet-icon-size': '4rem',
+      '--tile-checked-border-block-width': '2px',
+      '--tile-checked-border-inline-width': '2px',
+      '--tile-checked-border-inline-color': 'var(--color-border-strong)',
+      '--tile-checked-border-block-color': 'var(--color-border-strong)',
+      '--tile-hover-checked-border-block-color': 'var(--color-border-strong)',
+      '--tile-hover-checked-border-inline-color': 'var(--color-border-strong)',
+      '--tile-active-checked-border-block-color': 'var(--color-border-strong)',
+      '--tile-active-checked-border-inline-color': 'var(--color-border-strong)',
+    },
+  },
 };
 
 const Template = (args) => ({

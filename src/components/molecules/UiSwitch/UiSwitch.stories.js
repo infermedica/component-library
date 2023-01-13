@@ -29,6 +29,15 @@ export default {
     modelValue: { control: false },
     controlAttrs: { table: { subcategory: 'Attrs props' } },
   },
+  parameters: {
+    cssProperties: {
+      '--switch-hover-color': 'var(--color-switch-disabled)',
+      '--switch-checked-hover-color': 'var(--color-switch-disabled)',
+      '--switch-active-color': 'var(--color-switch-disabled)',
+      '--switch-checked-active-color': 'var(--color-switch-disabled)',
+      '--switch-color': 'var(--color-switch-disabled)',
+    },
+  },
 };
 
 export const WithoutLabel = (args) => ({

@@ -39,6 +39,7 @@ module.exports = {
     '../src/**/*.stories.@(js|jsx|ts|tsx|mdx)'
   ],
   addons: [
+    // addons appears in a order that they are declared below
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-a11y',
@@ -55,6 +56,7 @@ module.exports = {
     'storybook-addon-designs',
     // @storybook/addon-jest is used to display vitest results
     '@storybook/addon-jest',
+    './addons/cssProperties/preset.js'
   ],
   framework: '@storybook/vue3',
   core: {
