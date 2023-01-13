@@ -1,6 +1,6 @@
 @mixin font ($element, $font-token, $to-extend: undefined) {
-  $font: font!default;
-  $letter-spacing: letter-spacing!default;
+  $font: font !default;
+  $letter-spacing: letter-spacing !default;
 
   @if ($to-extend != undefined) {
     $font: --#{$to-extend}-font;

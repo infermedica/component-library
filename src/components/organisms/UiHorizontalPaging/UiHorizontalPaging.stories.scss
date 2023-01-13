@@ -6,12 +6,8 @@
   }
 
   &__product {
-    --button-border-start-start-radius: 0;
-    --button-border-start-end-radius: 0;
-    --button-border-end-start-radius: 0;
-    --button-border-end-end-radius: 0;
-    --button-border-block-width: 0;
-    --button-border-inline-width: 0;
+    @include mixins.override-logical(button, null, border-radius, 0);
+    @include mixins.override-logical(button, null, border-width, 0);
 
     @include mixins.focus {
       box-shadow: var(--focus-inner);
