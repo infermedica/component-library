@@ -12,8 +12,10 @@ import {
   h,
   type SVGAttributes,
 } from 'vue';
-import type { DefineAttrs } from '../../../types/attrs';
-import type { Icon } from '../../../types/icon';
+import type {
+  DefineAttrs,
+  Icon,
+} from '../../../types';
 
 export interface IconProps {
   /**

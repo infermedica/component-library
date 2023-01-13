@@ -60,15 +60,17 @@ export default { inheritAttrs: false };
 <script setup lang="ts">
 import {
   computed,
+  useSlots,
   type InputHTMLAttributes,
   type LabelHTMLAttributes,
   type HTMLAttributes,
-  useSlots,
 } from 'vue';
 import equal from 'fast-deep-equal';
 import { uid } from 'uid/single';
-import type { DefineAttrs } from '../../../types/attrs';
-import type { HTMLTag } from '../../../types/tag';
+import type {
+  DefineAttrs,
+  HTMLTag,
+} from '../../../types';
 import UiText, { type TextAttrs } from '../UiText/UiText.vue';
 import useAttributes from '../../../composable/useAttributes';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';

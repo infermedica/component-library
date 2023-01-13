@@ -52,7 +52,7 @@ import {
   computed,
   type InputHTMLAttributes,
 } from 'vue';
-import type { DefineAttrs } from '../../../types/attrs';
+import type { DefineAttrs } from '../../../types';
 import UiText, { type TextAttrs } from '../UiText/UiText.vue';
 import useAttributes from '../../../composable/useAttributes';
 import useKeyValidation from '../../../composable/useKeyValidation';

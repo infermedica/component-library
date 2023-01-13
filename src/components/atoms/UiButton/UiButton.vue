@@ -12,8 +12,10 @@
 
 <script setup lang="ts">
 import type { ButtonHTMLAttributes } from 'vue';
-import type { DefineAttrs } from '../../../types/attrs';
-import type { HTMLTag } from '../../../types/tag';
+import type {
+  HTMLTag,
+  DefineAttrs,
+} from '../../../types';
 import useLink from '../../../composable/useLink';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 

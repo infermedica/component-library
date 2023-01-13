@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { DefineAttrs } from '../../../types/attrs';
+import type { DefineAttrs } from '../../../types';
 
 export interface ProgressProps {
   /**

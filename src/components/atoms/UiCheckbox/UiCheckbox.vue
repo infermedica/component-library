@@ -73,7 +73,7 @@ import {
 } from 'vue';
 import equal from 'fast-deep-equal';
 import { uid } from 'uid/single';
-import type { DefineAttrs } from '../../../types/attrs';
+import type { DefineAttrs } from '../../../types';
 import UiIcon, { type IconAttrs } from '../UiIcon/UiIcon.vue';
 import UiText, { type TextAttrs } from '../UiText/UiText.vue';
 import useAttributes from '../../../composable/useAttributes';

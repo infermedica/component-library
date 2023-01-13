@@ -80,7 +80,7 @@ import {
   type ButtonHTMLAttributes,
   type InputHTMLAttributes,
 } from 'vue';
-import type { DefineAttrs } from '../../../types/attrs';
+import type { DefineAttrs } from '../../../types';
 import UiHeading, { type HeadingAttrs } from '../UiHeading/UiHeading.vue';
 import UiNumberStepper from '../../molecules/UiNumberStepper/UiNumberStepper.vue';
 import useAttributes from '../../../composable/useAttributes';

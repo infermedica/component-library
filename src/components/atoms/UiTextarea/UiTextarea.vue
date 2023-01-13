@@ -23,7 +23,7 @@ import {
   computed,
   type TextareaHTMLAttributes,
 } from 'vue';
-import type { DefineAttrs } from '../../../types/attrs';
+import type { DefineAttrs } from '../../../types';
 import useAttributes from '../../../composable/useAttributes';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 

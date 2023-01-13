@@ -14,8 +14,10 @@ import {
   computed,
   type HTMLAttributes,
 } from 'vue';
-import type { DefineAttrs } from '../../../types/attrs';
-import type { HTMLTag } from '../../../types/tag';
+import type {
+  DefineAttrs,
+  HTMLTag,
+} from '../../../types';
 
 export interface HeadingProps {
   /**
