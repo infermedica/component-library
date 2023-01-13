@@ -29,6 +29,9 @@ export const parameters = {
           developmentGuide: {
             installation: {},
           },
+          designSystem: {
+            defaultColors: {}
+          }
         },
         releases: {
           '*': {

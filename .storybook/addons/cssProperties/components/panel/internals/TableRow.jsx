@@ -46,6 +46,7 @@ export const TableRow = ({ row, onChange, hasExampleColumn = true }) => {
             ? <Cell>
               <ExampleCell
                 type={type}
+                defaultValue={defaultValue}
                 property={[name, value]}
               />
             </Cell>
