@@ -5,11 +5,7 @@ const handleError = (error) => {
   return {};
 };
 const getLocalStorageItem = (key) => {
-  try {
-    return JSON.parse(window.localStorage.getItem(key));
-  } catch (error) {
-    return handleError(error)
-  }
+  return JSON.parse(window.localStorage.getItem(key)) || {};
 };
 const setLocalStorageItem = (key, value) => {
   try {
@@ -19,7 +15,7 @@ const setLocalStorageItem = (key, value) => {
   }
 };
 export const getStorageValue = (storyId) => {
-  const cssProperties = getLocalStorageItem('cssProperties') || {};
+  const cssProperties = getLocalStorageItem('cssProperties');
   return cssProperties[storyId] || {};
 };
 export const setStorageValue = (storyId, newValue = {}) => {
