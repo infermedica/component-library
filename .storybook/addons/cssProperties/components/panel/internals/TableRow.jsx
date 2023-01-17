@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { styled } from '@storybook/theming';
 import { ColorControl, TextControl } from '@storybook/components';
-import { ExampleCell } from './ExampleCell';
+import { ExampleFontCell } from './ExampleFontCell';
+import { ExampleColorCell } from './ExampleColorCell';
 import { KeyColorPickerContext } from '../CssPropertiesTable';
 
 const Row = styled.tr`
@@ -36,6 +37,7 @@ export const TableRow = ({ row, onChange, hasExampleColumn = true }) => {
   const handleChange = (newValue) => {
     onChange([name, newValue]);
   }
+  const isColorType = type === 'color';
   // storybook bug: force rerender a color picker after reset a table
   const key = useContext(KeyColorPickerContext);
   return (
@@ -44,11 +46,18 @@ export const TableRow = ({ row, onChange, hasExampleColumn = true }) => {
         {
           hasExampleColumn
             ? <Cell>
-              <ExampleCell
-                type={type}
-                defaultValue={defaultValue}
-                property={[name, value]}
-              />
+              {isColorType
+                ? <ExampleColorCell
+                  defaultValue={defaultValue}
+                  name={name}
+                  value={value}
+                />
+                : <ExampleFontCell
+                  name={name}
+                  value={value}
+                  defaultValue={defaultValue}
+                />
+              }
             </Cell>
             : null
         }
@@ -59,7 +68,7 @@ export const TableRow = ({ row, onChange, hasExampleColumn = true }) => {
           <DefaultValue>{defaultValue}</DefaultValue>
         </Cell>
         <Cell>
-          {row.type === 'color'
+          {isColorType
             ? <Control
               name={name}
               value={value}

@@ -35,6 +35,12 @@ export const getStorageGlobalProperties = () => {
     }),{})
   );
 }
+export const getStorageCssVarValue = (cssVar) => {
+  const localStorage = getStorageValue('global');
+  return localStorage.hasOwnProperty(cssVar)
+    ? localStorage[cssVar]
+    : `var(${cssVar})`
+}
 export const useLocalStorage = (storyId, initialValue = {cssProperties: {}}) => {
   const [localValue, setLocalValue] = useState(() => {
     if (typeof window === "undefined") {

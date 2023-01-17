@@ -1,5 +1,5 @@
 import { addons } from '@storybook/addons';
-import { getStorageValue } from './hooks/useLocalStorage';
+import { getStorageValue, getStorageCssVarValue } from './hooks/useLocalStorage';
 
 export const getRows = (cssProperties, storyId) => cssProperties.reduce((argsTypes, [
   name,
@@ -67,3 +67,18 @@ export const getDocument = () => {
 export const removeBodyStyles = () => {
   getDocument().body.removeAttribute("style");
 };
+export const getBackgroundColor = (cssVar, defaultValue) => {
+  if (cssVar.includes('icon-negative')) {
+    return getStorageCssVarValue('--color-triage-emergency');
+  }
+  if (cssVar.includes('chip')) return getStorageCssVarValue('--color-chip-background');
+  const isWithBackground = cssVar.includes('-on');
+  if ((defaultValue === 'var(--color-white)' && !isWithBackground) || cssVar.includes('-on-brand')) {
+    return getStorageCssVarValue('--color-background-brand');
+  }
+  if (isWithBackground) {
+    const type = cssVar.includes('icon') ? 'icon' : 'text';
+    return getStorageCssVarValue(cssVar.replace(type, 'background').replace('-on-', '-'));
+  }
+  return 'white';
+}
