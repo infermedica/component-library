@@ -2,19 +2,17 @@
   <UiListItem
     :id="id"
     :tag="component"
-    :value="value"
-    :model-value="modelValue"
     :has-suffix="hasInfo"
     :suffix-attrs="suffixAttrs"
-    :text-label-attrs="defaultProps.textLabelAttrs"
-    :class="[
-      'ui-multiple-answer-item', errorClass
-    ]"
-    @update:model-value="handleValueUpdate"
-    @keydown="handleInfoFocus"
   >
     <!-- @slot Use this slot to replace choice template.-->
-    <template #content>
+    <template
+      #content="{
+        tag,
+        hasSuffix,
+        suffixComponent,
+      }"
+    >
       <slot
         v-bind="{
           id,
@@ -24,15 +22,49 @@
           component,
         }"
         :name="choiceItem && 'choice-item' || 'choice'"
-      />
+      >
+        <component
+          :is="tag"
+          v-bind="$attrs"
+          :text-label-attrs="defaultProps.textLabelAttrs"
+          :value="value"
+          :model-value="modelValue"
+          class="ui-list-item__content"
+          :class="[
+            'ui-multiple-answer-item', errorClass
+          ]"
+          @update:model-value="handleValueUpdate"
+          @keydown="handleInfoFocus"
+        >
+          <!-- @slot Use this slot to place content inside list-item. -->
+          <slot name="content" />
+          <!-- @slot Use this slot to replace label template.-->
+          <slot
+            :name="`label-${id}`"
+            v-bind="{ label }"
+          >
+            {{ label }}
+          </slot>
+        </component>
+      </slot>
+
+      <!-- @slot Use this slot to replace suffix template -->
+      <slot
+        name="suffix"
+        v-bind="{
+          hasSuffix,
+          suffixComponent,
+          suffixAttrs
+        }"
+      >
+        <component
+          :is="suffixComponent"
+          v-if="hasSuffix"
+          v-bind="suffixAttrs"
+          class="ui-list-item__suffix ui-multiple-answer-item__suffix"
+        />
+      </slot>
     </template>
-    <!-- @slot Use this slot to replace label template.-->
-    <slot
-      :name="`label-${id}`"
-      v-bind="{ label }"
-    >
-      {{ label }}
-    </slot>
   </UiListItem>
 </template>
 
@@ -144,6 +176,7 @@ function handleInfoFocus(event: KeyboardEvent) {
   const input = event.target as HTMLInputElement;
   const info: HTMLElement | null | undefined = input
     .closest('.ui-multiple-answer-item')
+    ?.parentNode
     ?.querySelector('.ui-multiple-answer-item__info');
   if (info) {
     event.preventDefault();
@@ -154,7 +187,7 @@ function handleInfoUnfocus(event: KeyboardEvent) {
   if (event.key !== 'ArrowLeft') return;
   const info = event.target as HTMLElement;
   const input: HTMLInputElement | null | undefined = info
-    .closest('.ui-multiple-answer-item')
+    ?.parentNode
     ?.querySelector('input');
   if (input) {
     event.preventDefault();
@@ -185,6 +218,7 @@ const defaultProps = computed(() => ({
 }));
 const suffixAttrs = computed(() => ({
   label: defaultProps.value.translation.info,
+  tabindex: -1,
   onKeydown: handleInfoUnfocus,
   class: [ 'ui-multiple-answer-item__info' ],
   iconSuffixAttrs: defaultProps.value.iconInfoAttrs,
@@ -222,6 +256,15 @@ if (choiceItem.value) {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
+
+    @include mixins.use-logical($element + "-label", margin, 0 var(--space-32) 0 0);
+  }
+
+  &__suffix {
+    --list-item-suffix-margin-inline: #{functions.var($element + "-suffix", margin-inline, var(--space-12))};
+
+    position: #{functions.var($element + "-suffix", position, absolute)};
+    inset-inline-end: #{functions.var($element + "-suffix", inset-inline-end, 0)};
   }
 }
 </style>
