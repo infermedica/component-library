@@ -1,21 +1,27 @@
-import {useEffect} from "react";
+import { useEffect } from 'react';
 import { useAddonState } from '@storybook/api';
-import { removeBodyStyles } from "../helpers";
+import { removeBodyStyles } from '../helpers';
 
 export const useCssPropertiesState = (onChange = () => {}) => {
-  const [state, setState] = useAddonState('AddonReset', false);
+  const [
+    state,
+    setState,
+  ] = useAddonState('AddonReset', false);
   useEffect(() => {
     if (state) {
       onChange();
       setState(false);
     }
-  }, [state]);
+  }, [ state ]);
   const updateState = (isReset) => {
     if (isReset) {
       removeBodyStyles();
       window.localStorage.setItem('cssProperties', JSON.stringify({}));
     }
     setState(isReset);
-  }
-  return [state, updateState];
-}
+  };
+  return [
+    state,
+    updateState,
+  ];
+};

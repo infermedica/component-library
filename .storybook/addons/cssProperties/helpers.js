@@ -1,35 +1,41 @@
 import { addons } from '@storybook/addons';
-import { getStorageValue, getStorageCssVarValue } from './hooks/useLocalStorage';
+import {
+  getStorageValue,
+  getStorageCssVarValue,
+} from './hooks/useLocalStorage';
 
 export const getRows = (cssProperties, storyId) => cssProperties.reduce((argsTypes, [
   name,
   value,
 ]) => ({
   ...argsTypes,
-    [name]: {
-      name,
-      section: getCategory(name),
-      defaultValue: value,
-      value: getStorageValue(storyId)?.[name] || value,
-      type: getControlType(name, value),
-    },
+  [name]: {
+    name,
+    section: getCategory(name),
+    defaultValue: value,
+    value: getStorageValue(storyId)?.[name] || value,
+    type: getControlType(name, value),
+  },
 }), {});
 const getCategory = (cssPropertyName) => {
-  const storyName = addons.getChannel().data.currentStoryWasSet[0].storyId.split('-')[1]
+  const storyName = addons.getChannel().data.currentStoryWasSet[0].storyId.split('-')[1];
   const [
     propertyHead,
     ...propertyTail
   ] = cssPropertyName.slice(2).split('-');
   if (propertyHead === 'space' || propertyHead === 'focus' || propertyHead === 'opacity') return propertyHead;
   if (propertyTail[0].match(/h[1-6]/g)) return 'heading';
-  const index = storyName === `${propertyHead}${propertyTail[0]}` ? 1 : 0
-  const category = ['max', 'box'].includes(propertyTail[index])
+  const index = storyName === `${propertyHead}${propertyTail[0]}` ? 1 : 0;
+  const category = [
+    'max',
+    'box',
+  ].includes(propertyTail[index])
     ? `${propertyTail[index]}-${propertyTail[index + 1]}`
-    : `${propertyTail[index]}`
-  return category
+    : `${propertyTail[index]}`;
+  return category;
 };
 const getControlType = (cssPropertyName, cssPropertyValue) => (
-  ( cssPropertyName.includes('color')
+  (cssPropertyName.includes('color')
   || cssPropertyName.includes('background'))
   && !cssPropertyValue.includes(' ')
     ? 'color'
@@ -51,21 +57,21 @@ export const parseScssFile = (scssFile) => scssFile.split('\n')
       name,
       value,
     ] = cssProperty.replace(';', '').split(':');
-    if(cssProperties[name.trim()]) return cssProperties;
+    if (cssProperties[name.trim()]) return cssProperties;
     return ({
       ...cssProperties,
       [name.trim()]: value.trim(),
     });
   }, {});
 export const getDocument = () => {
-  const iframe = document.querySelector("#storybook-preview-iframe");
+  const iframe = document.querySelector('#storybook-preview-iframe');
   if (iframe) {
     return iframe.contentWindow.document;
   }
   return document;
 };
 export const removeBodyStyles = () => {
-  getDocument().body.removeAttribute("style");
+  getDocument().body.removeAttribute('style');
 };
 export const getBackgroundColor = (cssVar, defaultValue) => {
   if (cssVar.includes('icon-negative')) {
@@ -81,4 +87,4 @@ export const getBackgroundColor = (cssVar, defaultValue) => {
     return getStorageCssVarValue(cssVar.replace(type, 'background').replace('-on-', '-'));
   }
   return 'white';
-}
+};

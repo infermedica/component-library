@@ -1,5 +1,8 @@
 import * as React from 'react';
-import { addons, types } from '@storybook/addons';
+import {
+  addons,
+  types,
+} from '@storybook/addons';
 import { AddonPanel } from '@storybook/components';
 import { useParameter } from '@storybook/api';
 import { CssPropertiesTable } from './components/panel/CssPropertiesTable';
@@ -12,7 +15,7 @@ const TOOLBAR_ID = `${ADDON_ID}/toolbar`;
 export const getStoryId = (api) => {
   const story = api.getCurrentStoryData();
   return story ? story.kind : 'global';
-}
+};
 
 addons.register(`${ADDON_ID}`, (api) => {
   addons.addPanel(PANEL_ID, {
@@ -20,7 +23,7 @@ addons.register(`${ADDON_ID}`, (api) => {
     title: 'CSS Properties',
     render: ({ active }) => {
       const storyId = getStoryId(api);
-      const parameter = useParameter('cssProperties', {})
+      const parameter = useParameter('cssProperties', {});
       return (
         <AddonPanel active={active} key={storyId}>
           <CssPropertiesTable
@@ -31,20 +34,18 @@ addons.register(`${ADDON_ID}`, (api) => {
             key={Object.keys(parameter)}
           />
         </AddonPanel>
-      )
-    }
+      );
+    },
   });
 
   addons.add(TOOLBAR_ID, {
-    title: "CSS Properties",
+    title: 'CSS Properties',
     type: types.TOOL,
-    match: ({storyId}) => !storyId.includes('design-system'),
-    render: ({ active }) => {
-      return (
+    match: ({ storyId }) => !storyId.includes('design-system'),
+    render: ({ active }) => (
         <CssPropertiesToolbar
           active={active}
         />
-      )
-    }
-  })
+    ),
+  });
 });
