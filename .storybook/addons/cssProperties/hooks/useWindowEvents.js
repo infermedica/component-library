@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
 export const useWindowEvent = (
   type,
@@ -8,4 +8,4 @@ export const useWindowEvent = (
     window.addEventListener(type, listener);
     return () => window.removeEventListener(type, listener);
   }, []);
-}
+};

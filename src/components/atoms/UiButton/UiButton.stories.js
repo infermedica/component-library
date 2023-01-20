@@ -370,7 +370,6 @@ TextSecondary.args = {
     'ui-button--theme-secondary',
   ],
 };
-
 export const IconSecondary = (args) => ({
   components: {
     UiButton,

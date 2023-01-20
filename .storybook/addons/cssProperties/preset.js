@@ -1,5 +1,8 @@
 function managerEntries(entry = []) {
-  return [...entry, require.resolve("./register.js")];
+  return [
+    ...entry,
+    require.resolve('./register.js'),
+  ];
 }
 
-module.exports = { managerEntries }
+module.exports = { managerEntries };

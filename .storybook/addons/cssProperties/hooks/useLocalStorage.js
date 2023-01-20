@@ -1,29 +1,55 @@
-import { useState, useRef } from "react";
+import {
+  useState,
+  useRef,
+} from 'react';
 
-const getStorageValue = (storyId) => (JSON.parse(window.localStorage.getItem('cssProperties'))
-  ? JSON.parse(window.localStorage.getItem('cssProperties'))[storyId]
-  : {});
-const setStorageValue = (storyId, newValue) => {
-  window.localStorage.setItem('cssProperties', JSON.stringify({
-    ...JSON.parse(window.localStorage.getItem('cssProperties')),
-    [storyId]: newValue
-  }));
+const handleError = (error) => {
+  console.error(error);
+  return {};
+};
+const getLocalStorageItem = (key) => JSON.parse(window.localStorage.getItem(key)) || {};
+const setLocalStorageItem = (key, value) => {
+  try {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  } catch (error) {
+    return handleError(error);
+  }
+};
+export const getStorageValue = (storyId) => {
+  const cssProperties = getLocalStorageItem('cssProperties');
+  return cssProperties[storyId] || {};
+};
+export const setStorageValue = (storyId, newValue = {}) => {
+  const cssProperties = getLocalStorageItem('cssProperties');
+  setLocalStorageItem('cssProperties', {
+    ...cssProperties,
+    [storyId]: newValue,
+  });
 };
 export const setStorageGlobalProperties = (event, cssGlobalProperties) => {
   if (event.storageArea === window.localStorage && event.key === 'cssProperties') {
-    cssGlobalProperties.current = JSON.parse(event.newValue).global;
+    cssGlobalProperties.current = JSON.parse(event.newValue);
   }
-}
+};
 export const getStorageGlobalProperties = () => {
-  const hasProperty = !!window.localStorage.getItem('cssProperties')
-  return useRef(hasProperty
-    ? JSON.parse(window.localStorage.getItem('cssProperties'))?.global
-    : {}
-  );
-}
-export const useLocalStorage = (storyId, initialValue = {cssProperties: {}}) => {
-  const [storedValue, setStoredValue] = useState(() => {
-    if (typeof window === "undefined") {
+  const cssProperties = getLocalStorageItem('cssProperties');
+  return useRef(Object.keys(cssProperties).reduce((styles, key) => ({
+    ...styles,
+    ...cssProperties[key],
+  }), {}));
+};
+export const getStorageCssVarValue = (cssVar) => {
+  const localStorage = getStorageValue('global');
+  return localStorage.hasOwnProperty(cssVar)
+    ? localStorage[cssVar]
+    : `var(${cssVar})`;
+};
+export const useLocalStorage = (storyId, initialValue = { cssProperties: {} }) => {
+  const [
+    localValue,
+    setLocalValue,
+  ] = useState(() => {
+    if (typeof window === 'undefined') {
       return initialValue;
     }
     try {
@@ -33,13 +59,13 @@ export const useLocalStorage = (storyId, initialValue = {cssProperties: {}}) => 
       return initialValue;
     }
   });
-  const setValue = (value) => {
+  const handleSetValue = (value) => {
     try {
       const valueToStore = value instanceof Function
-        ? value(storedValue)
+        ? value(localValue)
         : value;
-      setStoredValue(valueToStore);
-      if (typeof window !== "undefined") {
+      setLocalValue(valueToStore);
+      if (typeof window !== 'undefined') {
         setStorageValue(storyId, valueToStore);
       }
     } catch (error) {
@@ -47,8 +73,12 @@ export const useLocalStorage = (storyId, initialValue = {cssProperties: {}}) => 
     }
   };
   const resetValue = () => {
-    setStoredValue({});
+    setLocalValue({});
     setStorageValue(storyId, {});
   };
-  return [storedValue, setValue, resetValue];
-}
+  return [
+    localValue,
+    handleSetValue,
+    resetValue,
+  ];
+};
