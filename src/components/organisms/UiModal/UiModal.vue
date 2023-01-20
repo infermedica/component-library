@@ -271,7 +271,7 @@ import {
   onMounted,
 } from 'vue';
 import type { PropType } from 'vue';
-import type { HeadingLevel } from '../../atoms/UiHeading/UiHeading.vue';
+import type { HeadingProps } from '../../atoms/UiHeading/UiHeading.vue';
 import type { PropsAttrs } from '../../../types/attrs';
 import {
   bodyScrollLock as vBodyScrollLock,
@@ -437,7 +437,7 @@ interface DefaultProps {
     [key: string]: unknown;
   };
   headingTitleAttrs: {
-    level: HeadingLevel;
+    level: HeadingProps['level'];
     [key: string]: unknown;
   };
   transitionBackdropAttrs: Transition;

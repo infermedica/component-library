@@ -37,10 +37,12 @@ export default { inheritAttrs: false };
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import type { HTMLAttributes } from 'vue';
 import useAttributes from '../../../../composable/useAttributes';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiText from '../../../atoms/UiText/UiText.vue';
 import UiListItem from '../../../organisms/UiList/_internal/UiListItem.vue';
+import type { Attrs } from '../../../../types';
 
 const props = defineProps({
   /**
@@ -96,7 +98,7 @@ const itemAttrs = computed(() => (isVisitedStep.value
   }
   : {
     tag: 'span',
-    ...Object.keys(attrs.value).reduce((attributes, attribute) => {
+    ...Object.keys(attrs.value).reduce((attributes: Attrs<HTMLAttributes>, attribute) => {
       if (!attribute.match(/(to|href)/)) {
         attributes[attribute] = attrs.value[attribute]; // eslint-disable-line no-param-reassign
       }
