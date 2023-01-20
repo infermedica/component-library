@@ -68,16 +68,23 @@ export default { inheritAttrs: false };
 import {
   computed,
   useSlots,
-  type LabelHTMLAttributes,
-  type InputHTMLAttributes,
+} from 'vue';
+import type {
+  LabelHTMLAttributes,
+  InputHTMLAttributes,
 } from 'vue';
 import equal from 'fast-deep-equal';
 import { uid } from 'uid/single';
-import type { DefineAttrs } from '../../../types';
-import UiIcon, { type IconAttrs } from '../UiIcon/UiIcon.vue';
-import UiText, { type TextAttrs } from '../UiText/UiText.vue';
 import useAttributes from '../../../composable/useAttributes';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
+import UiIcon from '../UiIcon/UiIcon.vue';
+import type { IconPropsAttrs } from '../UiIcon/UiIcon.vue';
+import UiText from '../UiText/UiText.vue';
+import type { TextPropsAttrs } from '../UiText/UiText.vue';
+import type {
+  DefinePropsAttrs,
+  Attrs,
+} from '../../../types';
 
 export interface CheckboxProps {
   /**
@@ -102,17 +109,21 @@ export interface CheckboxProps {
   /**
    * Use this props to pass attrs for input element.
    */
-  inputAttrs?: DefineAttrs<InputHTMLAttributes>;
+  inputAttrs?: Attrs<InputHTMLAttributes>;
   /**
    * Use this props to pass attrs for checkmark UiIcon
    */
-  iconCheckmarkAttrs?: IconAttrs;
+  iconCheckmarkAttrs?: IconPropsAttrs;
   /**
    * Use this props to pass attrs for label UiText
    */
-  textLabelAttrs?: TextAttrs;
+  textLabelAttrs?: TextPropsAttrs;
 }
-export type CheckboxAttrs = DefineAttrs<CheckboxProps, LabelHTMLAttributes>;
+export type CheckboxPropsAttrs = DefinePropsAttrs<CheckboxProps, LabelHTMLAttributes>;
+export interface CheckboxEmits {
+  (e: 'update:modelValue', value: CheckboxProps['modelValue']): void,
+}
+
 const props = withDefaults(defineProps<CheckboxProps>(), {
   modelValue: false,
   value: '',
@@ -122,6 +133,23 @@ const props = withDefaults(defineProps<CheckboxProps>(), {
   iconCheckmarkAttrs: () => ({ icon: 'checkmark' }),
   textLabelAttrs: () => ({ tag: 'span' }),
 });
+const defaultProps = computed<CheckboxProps>(() => ({
+  iconCheckmarkAttrs: {
+    icon: 'checkmark',
+    ...props.iconCheckmarkAttrs,
+  },
+  textLabelAttrs: {
+    tag: 'span',
+    ...props.textLabelAttrs,
+  },
+  inputAttrs: {
+    disabled: props.disabled,
+    ...elementsListeners.value.input,
+    ...props.inputAttrs,
+  },
+}));
+const emit = defineEmits<CheckboxEmits>();
+const slots = useSlots();
 const {
   attrs, listeners,
 } = useAttributes<LabelHTMLAttributes>();
@@ -137,24 +165,6 @@ const elementsListeners = computed(() => {
     label: rest,
   };
 });
-const defaultProps = computed(() => ({
-  iconCheckmarkAttrs: {
-    icon: 'checkmark' as IconAttrs['icon'],
-    ...props.iconCheckmarkAttrs,
-  },
-  textLabelAttrs: {
-    tag: 'span' as TextAttrs['tag'],
-    ...props.textLabelAttrs,
-  },
-  inputAttrs: {
-    disabled: props.disabled,
-    ...elementsListeners.value.input,
-    ...props.inputAttrs,
-  },
-}));
-const emit = defineEmits<{(e: 'update:modelValue', value: CheckboxAttrs['modelValue']): void
-}>();
-const slots = useSlots();
 const hasLabel = computed(() => (!!slots.default));
 const checkboxId = computed(() => (props.id || `checkbox-${uid()}`));
 const isChecked = computed(() => {
@@ -164,7 +174,7 @@ const isChecked = computed(() => {
   }
   return props.modelValue;
 });
-const getChecked = (checked: boolean): CheckboxAttrs['modelValue'] => {
+const getChecked = (checked: boolean): CheckboxProps['modelValue'] => {
   if (Array.isArray(props.modelValue)) {
     return checked
       ? [
@@ -179,7 +189,6 @@ function changeHandler(event: Event): void {
   const el = event.target as HTMLInputElement;
   emit('update:modelValue', getChecked(el.checked));
 }
-
 // TODO: remove in 0.6.0 / BEGIN
 const checkbutton = computed(() => (slots.checkbutton));
 if (checkbutton.value) {

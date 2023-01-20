@@ -3,6 +3,7 @@
     :is="tag"
     class="ui-text"
   >
+    <!-- @slot Use this slot to place content inside text -->
     <slot />
   </component>
 </template>
@@ -10,7 +11,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
 import type {
-  DefineAttrs,
+  DefinePropsAttrs,
   HTMLTag,
 } from '../../../types';
 
@@ -20,7 +21,8 @@ export interface TextProps {
    */
   tag?: HTMLTag;
 }
-export type TextAttrs<T= HTMLAttributes> = DefineAttrs<TextProps, T>;
+export type TextPropsAttrs<T= HTMLAttributes> = DefinePropsAttrs<TextProps, T>;
+
 withDefaults(defineProps<TextProps>(), { tag: 'p' });
 </script>
 

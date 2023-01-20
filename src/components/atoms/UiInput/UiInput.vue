@@ -48,15 +48,20 @@ export default { inheritAttrs: false };
 </script>
 
 <script setup lang="ts">
-import {
-  computed,
-  type InputHTMLAttributes,
+import { computed } from 'vue';
+import type {
+  HTMLAttributes,
+  InputHTMLAttributes,
 } from 'vue';
-import type { DefineAttrs } from '../../../types';
-import UiText, { type TextAttrs } from '../UiText/UiText.vue';
 import useAttributes from '../../../composable/useAttributes';
 import useKeyValidation from '../../../composable/useKeyValidation';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
+import UiText from '../UiText/UiText.vue';
+import type { TextPropsAttrs } from '../UiText/UiText.vue';
+import type {
+  Attrs,
+  DefinePropsAttrs,
+} from '../../../types';
 
 export interface InputProps {
   /**
@@ -83,13 +88,17 @@ export interface InputProps {
   /**
    * Use this props to pass attrs for suffix UiText.
    */
-  textSuffixAttrs?: TextAttrs;
+  textSuffixAttrs?: TextPropsAttrs;
   /**
    * Use this props to pass attrs for input element.
    */
-  inputAttrs?: DefineAttrs<InputHTMLAttributes>;
+  inputAttrs?: Attrs<InputHTMLAttributes>;
 }
-export type InputAttrs = DefineAttrs<InputProps>
+export type InputPropsAttrs = DefinePropsAttrs<InputProps>;
+export interface InputEmits {
+  (e: 'update:modelValue', value: InputProps['modelValue']): void
+}
+
 const props = withDefaults(defineProps<InputProps>(), {
   placeholder: '',
   type: 'text',
@@ -99,14 +108,9 @@ const props = withDefaults(defineProps<InputProps>(), {
   textSuffixAttrs: () => ({ tag: 'span' }),
   inputAttrs: () => ({}),
 });
-const emit = defineEmits<{(e: 'update:modelValue', value: InputProps['modelValue']): void
-}>();
-const {
-  attrs, listeners,
-} = useAttributes();
-const defaultProps = computed(() => ({
+const defaultProps = computed<InputProps>(() => ({
   textSuffixAttrs: {
-    tag: 'span' as TextAttrs['tag'],
+    tag: 'span',
     ...props.textSuffixAttrs,
   },
   inputAttrs: {
@@ -117,6 +121,10 @@ const defaultProps = computed(() => ({
     ...props.inputAttrs,
   },
 }));
+const emit = defineEmits<InputEmits>();
+const {
+  attrs, listeners,
+} = useAttributes<HTMLAttributes>();
 const { numbersOnly } = useKeyValidation();
 function keyValidation(event: KeyboardEvent): void {
   switch (props.type) {

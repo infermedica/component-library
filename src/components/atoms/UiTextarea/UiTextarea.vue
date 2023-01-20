@@ -19,13 +19,14 @@ export default { inheritAttrs: false };
 </script>
 
 <script setup lang="ts">
-import {
-  computed,
-  type TextareaHTMLAttributes,
-} from 'vue';
-import type { DefineAttrs } from '../../../types';
+import { computed } from 'vue';
+import type { TextareaHTMLAttributes } from 'vue';
 import useAttributes from '../../../composable/useAttributes';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
+import type {
+  Attrs,
+  DefinePropsAttrs,
+} from '../../../types';
 
 export interface TextareaProps {
   /**
@@ -46,13 +47,17 @@ export interface TextareaProps {
    * Use this props to disabled textarea.
    * Remember to use `ui-textarea--is-disabled` class to style disabled textarea.
    */
-  disabled?: boolean
+  disabled?: boolean;
   /**
    * Use this props to pass attrs for textarea element.
    */
-  textareaAttrs?: DefineAttrs<TextareaHTMLAttributes>;
+  textareaAttrs?: Attrs<TextareaHTMLAttributes>;
 }
-export type TextareaAttrs = DefineAttrs<TextareaProps>
+export type TextareaPropsAttrs = DefinePropsAttrs<TextareaProps>;
+export interface TextareaEmits {
+  (e:'update:modelValue', value: TextareaProps['modelValue']): void
+}
+
 const props = withDefaults(defineProps<TextareaProps>(), {
   modelValue: '',
   resize: false,
@@ -60,10 +65,7 @@ const props = withDefaults(defineProps<TextareaProps>(), {
   disabled: false,
   textareaAttrs: () => ({}),
 });
-const {
-  attrs, listeners,
-} = useAttributes();
-const defaultProps = computed(() => ({
+const defaultProps = computed<TextareaProps>(() => ({
   textareaAttrs: {
     placeholder: props.placeholder,
     disabled: props.disabled,
@@ -71,7 +73,10 @@ const defaultProps = computed(() => ({
     ...props.textareaAttrs,
   },
 }));
-const emit = defineEmits<{(e:'update:modelValue', value: TextareaProps['modelValue']):void}>();
+const emit = defineEmits<TextareaEmits>();
+const {
+  attrs, listeners,
+} = useAttributes();
 function inputHandler(event: Event) {
   const el = event.target as HTMLInputElement;
   emit('update:modelValue', el.value);

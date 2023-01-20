@@ -4,6 +4,7 @@ import {
   type HTMLAttributes,
   type Events,
 } from 'vue';
+import type { Attrs } from '../../types';
 
 type EventHandlers = {
   [K in keyof Events]?: HTMLAttributes[K];
@@ -22,7 +23,7 @@ export default function useAttributes<T = HTMLAttributes>() {
     }, {
       attrs: {} as Record<string, unknown>,
       listeners: {} as Record<string, unknown>,
-    }) as { attrs: Omit<T, keyof EventHandlers>; listeners: EventHandlers });
+    }) as { attrs: Attrs<Omit<T, keyof EventHandlers>>; listeners: EventHandlers });
   const attrs = computed(() => filteredAttributes.value.attrs);
   const listeners = computed(() => filteredAttributes.value.listeners);
   return {

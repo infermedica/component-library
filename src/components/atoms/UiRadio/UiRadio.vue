@@ -61,19 +61,22 @@ export default { inheritAttrs: false };
 import {
   computed,
   useSlots,
-  type InputHTMLAttributes,
-  type LabelHTMLAttributes,
-  type HTMLAttributes,
+} from 'vue';
+import type {
+  HTMLAttributes,
+  InputHTMLAttributes,
+  LabelHTMLAttributes,
 } from 'vue';
 import equal from 'fast-deep-equal';
 import { uid } from 'uid/single';
-import type {
-  DefineAttrs,
-  HTMLTag,
-} from '../../../types';
-import UiText, { type TextAttrs } from '../UiText/UiText.vue';
 import useAttributes from '../../../composable/useAttributes';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
+import type {
+  Attrs,
+  DefinePropsAttrs,
+} from '../../../types';
+import UiText from '../UiText/UiText.vue';
+import type { TextPropsAttrs } from '../UiText/UiText.vue';
 
 export type RadioValue = number | string | Record<string, unknown>;
 export interface RadioProps {
@@ -98,17 +101,21 @@ export interface RadioProps {
   /**
    * Use this props to pass attrs for input element.
    */
-  inputAttrs?: DefineAttrs<InputHTMLAttributes>;
+  inputAttrs?: Attrs<InputHTMLAttributes>;
   /**
    * Use this props to pass attrs for radio element.
    */
-  radioElementAttrs?: DefineAttrs<HTMLAttributes>;
+  radioElementAttrs?: Attrs<HTMLAttributes>;
   /**
    * Use this props to pass attrs for label UiText
    */
-  textLabelAttrs?: TextAttrs;
+  textLabelAttrs?: TextPropsAttrs;
 }
-export type RadioAttrs = DefineAttrs<RadioProps, LabelHTMLAttributes>
+export type RadioPropsAttrs = DefinePropsAttrs<RadioProps, LabelHTMLAttributes>;
+export interface RadioEmits {
+  (e: 'update:modelValue', value: RadioProps['modelValue']): void;
+}
+
 const props = withDefaults(defineProps<RadioProps>(), {
   modelValue: '',
   value: '',
@@ -118,9 +125,22 @@ const props = withDefaults(defineProps<RadioProps>(), {
   radioElementAttrs: () => ({}),
   textLabelAttrs: () => ({ tag: 'span' }),
 });
+const defaultProps = computed<RadioProps>(() => ({
+  textLabelAttrs: {
+    tag: 'span',
+    ...props.textLabelAttrs,
+  },
+  inputAttrs: {
+    disabled: props.disabled,
+    ...elementsListeners.value.input,
+    ...props.inputAttrs,
+  },
+}));
+const emit = defineEmits<RadioEmits>();
+const slots = useSlots();
 const {
   attrs, listeners,
-} = useAttributes();
+} = useAttributes<LabelHTMLAttributes>();
 const elementsListeners = computed(() => {
   const {
     onFocus, onBlur, ...rest
@@ -133,20 +153,6 @@ const elementsListeners = computed(() => {
     label: rest,
   };
 });
-const defaultProps = computed(() => ({
-  textLabelAttrs: {
-    tag: 'span' as HTMLTag,
-    ...props.textLabelAttrs,
-  },
-  inputAttrs: {
-    disabled: props.disabled,
-    ...elementsListeners.value.input,
-    ...props.inputAttrs,
-  },
-}));
-const emit = defineEmits<{(e: 'update:modelValue', value: RadioProps['modelValue']): void
-}>();
-const slots = useSlots();
 const hasLabel = computed(() => (!!slots.default));
 const radioId = computed(() => (
   props.id || `radio-${uid()}`
@@ -161,7 +167,6 @@ function changeHandler(event: Event) {
     emit('update:modelValue', JSON.parse(JSON.stringify(props.value)));
   }
 }
-
 // TODO: remove in 0.6.0 / BEGIN
 const radiobutton = computed(() => (slots.radiobutton));
 if (radiobutton.value) {

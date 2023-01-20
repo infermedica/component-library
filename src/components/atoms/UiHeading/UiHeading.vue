@@ -10,12 +10,10 @@
 </template>
 
 <script setup lang="ts">
-import {
-  computed,
-  type HTMLAttributes,
-} from 'vue';
+import { computed } from 'vue';
+import type { HTMLAttributes } from 'vue';
 import type {
-  DefineAttrs,
+  DefinePropsAttrs,
   HTMLTag,
 } from '../../../types';
 
@@ -29,7 +27,8 @@ export interface HeadingProps {
    */
   tag?: HTMLTag;
 }
-export type HeadingAttrs<T = HTMLAttributes> = DefineAttrs<HeadingProps, T>;
+export type HeadingPropsAttrs<T = HTMLAttributes> = DefinePropsAttrs<HeadingProps, T>;
+
 const props = withDefaults(defineProps<HeadingProps>(), {
   level: '2',
   tag: undefined,
