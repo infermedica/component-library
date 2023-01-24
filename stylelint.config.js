@@ -40,6 +40,9 @@ module.exports = {
   },
   overrides: [ {
     files: [ 'src/styles/variables/*.scss' ],
-    rules: { 'custom-property-empty-line-before': null },
+    rules: {
+      'max-line-length': 200,
+      'custom-property-empty-line-before': null,
+    },
   } ],
 };

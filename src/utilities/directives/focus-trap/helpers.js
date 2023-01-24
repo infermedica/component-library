@@ -1,13 +1,12 @@
 const isHidden = (selector) => (selector.offsetParent === null);
 export const getFocusableElements = (el) => {
   const focusableElements = [
-    'a[href]:not([disabled])',
-    'button:not([disabled])',
-    'button:not([hidden])',
-    '[tabindex]:not([disabled])',
-    'input:not([disabled])',
-    'select:not([disabled])',
-    'textarea:not([disabled])',
+    'input:not([tabindex^="-"]):not([disabled])',
+    'select:not([tabindex^="-"]):not([disabled])',
+    'textarea:not([tabindex^="-"]):not([disabled])',
+    'button:not([tabindex^="-"]):not([disabled])',
+    'a[href]:not([tabindex^="-"]):not([disabled])',
+    '[tabindex]:not([tabindex^="-"]):not([disabled])',
   ];
   return [ ...el.querySelectorAll(focusableElements) ]
     .filter((selector) => !isHidden(selector));

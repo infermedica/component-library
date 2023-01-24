@@ -84,7 +84,29 @@ export default {
       control: 'object',
     },
   },
-  parameters: { docs: { page: docs } },
+  parameters: {
+    docs: { page: docs },
+    cssProperties: {
+      '--question-actions-top-margin-block': 'var(--question-actions-top-margin-block-start, var(--space-24)) var(--question-actions-top-margin-block-end, 0)',
+      '--question-actions-top-margin-inline': 'var(--question-actions-top-margin-inline-start, 0) var(--question-actions-top-margin-inline-end, 0)',
+      '--question-content-margin-block': 'var(--question-content-margin-block-start, var(--space-32)) var(--question-content-margin-block-end, 0)',
+      '--question-content-margin-inline': 'var(--question-content-margin-inline-start, 0) var(--question-content-margin-inline-end, 0)',
+      '--question-tablet-content-margin-block': 'var(--question-tablet-content-margin-block-start, var(--space-48)) var(--question-tablet-content-margin-block-end, 0)',
+      '--question-tablet-content-margin-inline': 'var(--question-tablet-content-margin-inline-start, 0) var(--question-tablet-content-margin-inline-end, 0)',
+      '--question-actions-bottom-margin-block': 'var(--question-actions-bottom-margin-block-start, var(--space-32)) var(--question-actions-bottom-margin-block-end, 0)',
+      '--question-actions-bottom-margin-inline': 'var(--question-actions-bottom-margin-inline-start, 0) var(--question-actions-bottom-margin-inline-end, 0)',
+      '--question-tablet-actions-bottom-margin-block': 'var(--question-tablet-actions-bottom-margin-block-start, var(--space-48)) var(--question-tablet-actions-bottom-margin-block-end, 0)',
+      '--question-tablet-actions-bottom-margin-inline': 'var(--question-tablet-actions-bottom-margin-inline-start, 0) var(--question-tablet-actions-bottom-margin-inline-end, 0)',
+      '--question-action-margin-block': 'var(--question-action-margin-block-start, var(--space-20)) var(--question-action-margin-block-end, 0)',
+      '--question-action-margin-inline': 'var(--question-action-margin-inline-start, 0) var(--question-action-margin-inline-end, 0)',
+      '--question-tablet-action-margin-block': 'var(--question-tablet-action-margin-block-start, 0) var(--question-tablet-action-margin-block-end, 0)',
+      '--question-tablet-action-margin-inline': 'var(--question-tablet-action-margin-inline-start, 0) var(--question-tablet-action-margin-inline-end, 0)',
+      '--question-action-indicator-margin-block': 'var(--question-action-indicator-margin-block-start, 0) var(--question-action-indicator-margin-block-end, 0)',
+      '--question-action-indicator-margin-inline': 'var(--question-action-indicator-margin-inline-start, var(--space-16)) var(--question-action-indicator-margin-inline-end, var(--space-16))',
+      '--question-action-indicator-width': '1px',
+      '--question-action-indicator-background': 'var(--color-border-divider)',
+    },
+  },
 };
 
 export const AsMultipleAnswer = (args) => ({

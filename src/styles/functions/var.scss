@@ -1,7 +1,9 @@
 @function var($element, $property, $fallback: undefined) {
   $value: --#{$element}-#{$property} !default;
+
   @if ($fallback != undefined) {
     $value: --#{$element}-#{$property}, #{$fallback};
   }
+
   @return #{"var(" + $value + ")"};
 }

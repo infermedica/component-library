@@ -185,14 +185,9 @@ const defaultProps = computed(() => ({
   justify-content: center;
 
   &__toggler {
-    --button-padding-block: #{functions.var($element + "-toggler", padding-block, var(--space-12))};
-    --button-padding-inline: #{functions.var($element + "-toggler", padding-inline, var(--space-12))};
-    --button-border-block-width: #{functions.var($element + "-toggler", border-block-width, 0)};
-    --button-border-inline-width: #{functions.var($element + "-toggler", border-inline-width, 0)};
-    --button-border-start-start-radius: #{functions.var($element + "-toggler", border-start-start-radius, 0)};
-    --button-border-start-end-radius: #{functions.var($element + "-toggler", border-start-end-radius, 0)};
-    --button-border-end-start-radius: #{functions.var($element + "-toggler", border-end-start-radius, 0)};
-    --button-border-end-end-radius: #{functions.var($element + "-toggler", border-end-end-radius, 0)};
+    @include mixins.override-logical(button, $element + "-toggler", padding, var(--space-12));
+    @include mixins.override-logical(button, $element + "-toggler", border-width, 0);
+    @include mixins.override-logical(button, $element + "-toggler", border-radius, 0);
     --button-font: #{functions.var($element, font, var(--font-body-1))};
     --button-letter-spacing: #{functions.var($element, letter-spacing, var(--letter-spacing-body-1))};
     --button-icon-margin-inline: #{functions.var($element + "-toggler", icon-margin-inline,  0)};

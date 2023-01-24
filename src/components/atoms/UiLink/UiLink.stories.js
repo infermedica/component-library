@@ -40,6 +40,32 @@ export default {
       <story />
     </div>`,
   }) ],
+  parameters: {
+    cssProperties: {
+      '--link-border-start-start-radius': 'var(--border-radius-button)',
+      '--link-border-start-end-radius': 'var(--border-radius-button)',
+      '--link-border-end-start-radius': 'var(--border-radius-button)',
+      '--link-border-end-end-radius': 'var(--border-radius-button)',
+      '--link-transition': 'border-color 150ms ease-in-out',
+      '--link-font': 'var(--font-body-1)',
+      '--link-letter-spacing': 'var(--letter-spacing-body-1)',
+      '--link-color': 'var(--color-text-action-primary)',
+      '--link-gap': 'var(--space-4)',
+      '--link-border-block': 'var(--link-border-block-start, var(--link-border)) var(--link-border-block-end, var(--link-border))',
+      '--link-border-inline': 'var(--link-border-inline-start, var(--link-border)) var(--link-border-inline-end, var(--link-border))',
+      '--link-border-block-style': 'var(--link-border-block-start-style, solid) var(--link-border-block-end-style, solid)',
+      '--link-border-inline-style': 'var(--link-border-inline-start-style, solid) var(--link-border-inline-end-style, solid)',
+      '--link-border-block-color': 'var(--link-border-block-start-color, transparent) var(--link-border-block-end-color, transparent)',
+      '--link-border-inline-color': 'var(--link-border-inline-start-color, transparent) var(--link-border-inline-end-color, transparent)',
+      '--link-border-block-width': 'var(--link-border-block-start-width, 0) var(--link-border-block-end-width, 0)',
+      '--link-border-inline-width': 'var(--link-border-inline-start-width, 0) var(--link-border-inline-end-width, 0)',
+      '--link-hover-color': 'var(--color-text-action-primary-hover)',
+      '--link-hover-icon-color': 'var(--color-icon-primary-hover)',
+      '--link-active-color': 'var(--color-text-action-primary-active)',
+      '--link-active-icon-color': 'var(--color-icon-primary-active)',
+      '--link-icon-color': 'var(--color-icon-primary)',
+    },
+  },
 };
 
 export const Common = (args) => ({

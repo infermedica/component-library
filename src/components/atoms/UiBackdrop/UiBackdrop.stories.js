@@ -8,7 +8,13 @@ export default {
       <story />
     </div>`,
   }) ],
-  parameters: { controls: { hideNoControlsWarning: true } },
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+    cssProperties: {
+      '--backdrop-background': 'var(--color-backdrop)',
+      '--backdrop-opacity': 'var(--opacity-medium)',
+    },
+  },
 };
 
 export const Common = (args) => ({

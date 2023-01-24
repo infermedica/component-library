@@ -174,9 +174,10 @@ const figmaToCss = async () => {
         return `${isInset}${getValueWithUnit(offsetX)} ${getValueWithUnit(offsetY)} ${getValueWithUnit(blurRadius)} ${getValueWithUnit(spreadRadius)} ${getValue(color, 'color')}`;
       }).join(', ');
   };
-  const getCSSVars = (frameName, setValue = (value) => value.replace(/\n.+/g, ''), nesting = 1) => getTokens({
+  const getCSSVars = (frameName, setValue = (value) => value.replace(/\n.+/g, ''), nesting = 1, listName = 'Lists') => getTokens({
     frames: tokensFrames,
     frameName,
+    listName,
     nesting,
   })?.map((
     [
@@ -193,7 +194,7 @@ const figmaToCss = async () => {
       ? '\n' : '';
     return `${isEmptyLine}--${name}: ${setValue(value)};`;
   }).join('\n');
-
+  saveFile('default-colors', [ getCSSVars('Color Options', (value) => value, 1, 'Frame 1106') ]);
   saveFile('colors', [
     getCSSVars('Color Decisions', (value) => getValue(value, 'color'), 2),
     `--color-switch-disabled: var(--color-gray-300);

@@ -32,7 +32,25 @@ export default {
       <story/>
     </div>`,
   }) ],
-  parameters: { docs: { page: docs } },
+  parameters: {
+    docs: { page: docs },
+    cssProperties: {
+      '--progress-height': '0.5rem',
+      '--progress-padding': 'calc(var(--_progress-height) * 0.5)',
+      '--progress-border-radius': 'calc(var(--_progress-height) * 0.5)',
+      '--progress-border-start-start-radius': '0',
+      '--progress-border-start-end-radius': '0',
+      '--progress-border-end-start-radius': '0',
+      '--progress-border-end-end-radius': '0',
+      '--progress-indicator-background': 'var(--color-progress-indicator)',
+      '--progress-indicator-border-start-start-radius': '0',
+      '--progress-indicator-border-start-end-radius': 'var(--_progress-border-radius)',
+      '--progress-indicator-border-end-start-radius': '0',
+      '--progress-indicator-border-end-end-radius': 'var(--_progress-border-radius)',
+      '--progress-indicator-inset-block': 'var(--progress-indicator-inset-block-start, auto) var(--progress-indicator-inset-block-end, auto)',
+      '--progress-indicator-inset-inline': 'var(--progress-indicator-inset-inline-start, 100%) var(--progress-indicator-inset-inline-end, auto)',
+    },
+  },
 };
 
 const Template = (args) => ({
