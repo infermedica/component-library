@@ -78,13 +78,10 @@ import { uid } from 'uid/single';
 import useAttributes from '../../../composable/useAttributes';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 import UiIcon from '../UiIcon/UiIcon.vue';
-import type { IconPropsAttrs } from '../UiIcon/UiIcon.vue';
+import type { IconAttrsProps } from '../UiIcon/UiIcon.vue';
 import UiText from '../UiText/UiText.vue';
-import type { TextPropsAttrs } from '../UiText/UiText.vue';
-import type {
-  DefinePropsAttrs,
-  Attrs,
-} from '../../../types';
+import type { TextAttrsProps } from '../UiText/UiText.vue';
+import type { DefineAttrsProps } from '../../../types';
 
 export interface CheckboxProps {
   /**
@@ -109,17 +106,17 @@ export interface CheckboxProps {
   /**
    * Use this props to pass attrs for input element.
    */
-  inputAttrs?: Attrs<InputHTMLAttributes>;
+  inputAttrs?: DefineAttrsProps<null, InputHTMLAttributes>;
   /**
    * Use this props to pass attrs for checkmark UiIcon
    */
-  iconCheckmarkAttrs?: IconPropsAttrs;
+  iconCheckmarkAttrs?: IconAttrsProps;
   /**
    * Use this props to pass attrs for label UiText
    */
-  textLabelAttrs?: TextPropsAttrs;
+  textLabelAttrs?: TextAttrsProps;
 }
-export type CheckboxPropsAttrs = DefinePropsAttrs<CheckboxProps, LabelHTMLAttributes>;
+export type CheckboxAttrsProps = DefineAttrsProps<CheckboxProps, LabelHTMLAttributes>;
 export interface CheckboxEmits {
   (e: 'update:modelValue', value: CheckboxProps['modelValue']): void,
 }

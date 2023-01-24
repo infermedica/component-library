@@ -91,7 +91,7 @@ import UiContainer from '../UiContainer/UiContainer.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
-import type { IconAsString } from '../../../types/icon';
+import type { IconName } from '../../../types/icon';
 
 export type CardType = 'emergency_ambulance'
   | 'emergency'
@@ -157,7 +157,7 @@ const props = defineProps({
   },
 });
 const rootClassModifier = computed<`ui-card--${CardType}`>(() => `ui-card--${props.type}`);
-const icon = computed(() => props.type.replace(/_/g, '-') as IconAsString);
+const icon = computed(() => props.type.replace(/_/g, '-') as IconName);
 const defaultProps = computed(() => ({
   iconTriageAttrs: {
     icon: icon.value,

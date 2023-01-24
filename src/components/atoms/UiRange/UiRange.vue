@@ -79,13 +79,10 @@ import { computed } from 'vue';
 import type { InputHTMLAttributes } from 'vue';
 import useAttributes from '../../../composable/useAttributes';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
-import type {
-  Attrs,
-  DefinePropsAttrs,
-} from '../../../types';
 import UiHeading from '../UiHeading/UiHeading.vue';
-import type { HeadingPropsAttrs } from '../UiHeading/UiHeading.vue';
+import type { HeadingAttrsProps } from '../UiHeading/UiHeading.vue';
 import UiNumberStepper from '../../molecules/UiNumberStepper/UiNumberStepper.vue';
+import type { DefineAttrsProps } from '../../../types';
 
 export interface RangeProps {
   /**
@@ -107,14 +104,14 @@ export interface RangeProps {
   /**
    * Use this props to pass attrs for value UiHeading
    */
-  headingValueAttrs?: HeadingPropsAttrs;
+  headingValueAttrs?: HeadingAttrsProps;
   /**
    * Use this props to pass attrs for input element.
    */
-  inputAttrs?: Attrs<InputHTMLAttributes>;
+  inputAttrs?: DefineAttrsProps<null, InputHTMLAttributes>;
 }
-// TODO after refactoring the NumberStepper component, pass its NumberStepperPropsAttrs type as the second argument of RangeAttrs
-export type RangeAttrs = DefinePropsAttrs<RangeProps>;
+// TODO after refactoring the NumberStepper component, pass its NumberStepperAttrsProps type as the second argument of RangeAttrs
+export type RangeAttrs = DefineAttrsProps<RangeProps>;
 export interface RangeEmits {
   (e:'update:modelValue', value: RangeProps['modelValue']): void;
 }
@@ -142,7 +139,7 @@ const defaultProps = computed<RangeProps>(() => ({
   },
 }));
 const emit = defineEmits<RangeEmits>();
-// TODO after refactoring the NumberStepper component, pass its NumberStepperPropsAttrs type as the argument of useAttributes
+// TODO after refactoring the NumberStepper component, pass its NumberStepperAttrsProps type as the argument of useAttributes
 const {
   attrs, listeners,
 } = useAttributes();
@@ -169,7 +166,7 @@ if (buttonIncrementAttrs.value) {
   }
 }
 // END
-// TODO after refactoring the NumberStepper component, pass its NumberStepperPropsAttrs type as the argument of numberStepperAttrs
+// TODO after refactoring the NumberStepper component, pass its NumberStepperAttrsProps type as the argument of numberStepperAttrs
 const numberStepperAttrs = computed((): Record<string, unknown> => ({
   buttonDecrementAttrs: buttonDecrementAttrs.value,
   buttonIncrementAttrs: buttonIncrementAttrs.value,

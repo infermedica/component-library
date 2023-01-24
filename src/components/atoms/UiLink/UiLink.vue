@@ -16,7 +16,7 @@ import type { HTMLAttributes } from 'vue';
 import useLink from '../../../composable/useLink';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 import type {
-  DefinePropsAttrs,
+  DefineAttrsProps,
   HTMLTag,
 } from '../../../types';
 
@@ -34,7 +34,7 @@ export interface LinkProps {
    */
   href?: string
 }
-export type LinkPropsAttrs<T = HTMLAttributes> = DefinePropsAttrs<LinkProps, T>;
+export type LinkAttrsProps<T = HTMLAttributes> = DefineAttrsProps<LinkProps, T>;
 
 const props = withDefaults(defineProps<LinkProps>(), {
   tag: 'span',

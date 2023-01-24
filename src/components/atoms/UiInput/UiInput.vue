@@ -57,11 +57,8 @@ import useAttributes from '../../../composable/useAttributes';
 import useKeyValidation from '../../../composable/useKeyValidation';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 import UiText from '../UiText/UiText.vue';
-import type { TextPropsAttrs } from '../UiText/UiText.vue';
-import type {
-  Attrs,
-  DefinePropsAttrs,
-} from '../../../types';
+import type { TextAttrsProps } from '../UiText/UiText.vue';
+import type { DefineAttrsProps } from '../../../types';
 
 export interface InputProps {
   /**
@@ -88,13 +85,13 @@ export interface InputProps {
   /**
    * Use this props to pass attrs for suffix UiText.
    */
-  textSuffixAttrs?: TextPropsAttrs;
+  textSuffixAttrs?: TextAttrsProps;
   /**
    * Use this props to pass attrs for input element.
    */
-  inputAttrs?: Attrs<InputHTMLAttributes>;
+  inputAttrs?: DefineAttrsProps<InputProps, InputHTMLAttributes>;
 }
-export type InputPropsAttrs = DefinePropsAttrs<InputProps>;
+export type InputAttrsProps = DefineAttrsProps<InputProps>;
 export interface InputEmits {
   (e: 'update:modelValue', value: InputProps['modelValue']): void
 }

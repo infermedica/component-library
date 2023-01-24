@@ -13,7 +13,7 @@ import {
 } from 'vue';
 import type { SVGAttributes } from 'vue';
 import type {
-  DefinePropsAttrs,
+  DefineAttrsProps,
   Icon,
 } from '../../../types';
 
@@ -23,7 +23,7 @@ export interface IconProps {
    */
   icon?: Icon;
 }
-export type IconPropsAttrs = DefinePropsAttrs<IconProps, SVGAttributes>;
+export type IconAttrsProps = DefineAttrsProps<IconProps, SVGAttributes>;
 
 const props = withDefaults(defineProps<IconProps>(), { icon: '' });
 const file = computed<SVGElement>(() => {

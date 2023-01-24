@@ -28,12 +28,12 @@ import {
 import type { PropType } from 'vue';
 import UiAccordionItem from './_internal/UiAccordionItem.vue';
 import UiList from '../UiList/UiList.vue';
-import type { IconAsString } from '../../../types/icon';
+import type { IconName } from '../../../types/icon';
 
 export type AccordionValue = string | string[];
 export interface AccordionItemSettings {
-  iconOpen?: IconAsString;
-  iconClose?: IconAsString;
+  iconOpen?: IconName;
+  iconClose?: IconName;
   [key: string]: unknown
 }
 export interface AccordionItemAsObj {

@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
 import type {
-  DefinePropsAttrs,
+  DefineAttrsProps,
   HTMLTag,
 } from '../../../types';
 
@@ -21,7 +21,7 @@ export interface TextProps {
    */
   tag?: HTMLTag;
 }
-export type TextPropsAttrs<T= HTMLAttributes> = DefinePropsAttrs<TextProps, T>;
+export type TextAttrsProps<T= HTMLAttributes> = DefineAttrsProps<TextProps, T>;
 
 withDefaults(defineProps<TextProps>(), { tag: 'p' });
 </script>

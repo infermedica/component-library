@@ -23,10 +23,7 @@ import { computed } from 'vue';
 import type { TextareaHTMLAttributes } from 'vue';
 import useAttributes from '../../../composable/useAttributes';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
-import type {
-  Attrs,
-  DefinePropsAttrs,
-} from '../../../types';
+import type { DefineAttrsProps } from '../../../types';
 
 export interface TextareaProps {
   /**
@@ -51,9 +48,9 @@ export interface TextareaProps {
   /**
    * Use this props to pass attrs for textarea element.
    */
-  textareaAttrs?: Attrs<TextareaHTMLAttributes>;
+  textareaAttrs?: DefineAttrsProps<null, TextareaHTMLAttributes>;
 }
-export type TextareaPropsAttrs = DefinePropsAttrs<TextareaProps>;
+export type TextareaAttrsProps = DefineAttrsProps<TextareaProps>;
 export interface TextareaEmits {
   (e:'update:modelValue', value: TextareaProps['modelValue']): void
 }

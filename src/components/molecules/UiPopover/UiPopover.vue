@@ -72,7 +72,7 @@ import {
   useAttrs,
   computed,
 } from 'vue';
-import type { HeadingPropsAttrs } from '../../atoms/UiHeading/UiHeading.vue';
+import type { HeadingAttrsProps } from '../../atoms/UiHeading/UiHeading.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
@@ -117,7 +117,7 @@ const defaultProps = computed(() => ({
     level: '4',
     tag: 'span',
     ...props.headingTitleAttrs,
-  } as HeadingPropsAttrs,
+  } as HeadingAttrsProps,
   iconCloseAttrs: {
     icon: 'clear' as Icon,
     ...props.iconCloseAttrs,

@@ -14,7 +14,7 @@
 import type { HTMLAttributes } from 'vue';
 import type {
   HTMLTag,
-  DefinePropsAttrs,
+  DefineAttrsProps,
 } from '../../../types';
 import useLink from '../../../composable/useLink';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
@@ -33,7 +33,7 @@ export interface ButtonProps {
    */
   href?: string;
 }
-export type ButtonPropsAttrs<HTMLAttrs = HTMLAttributes> = DefinePropsAttrs<ButtonProps, HTMLAttrs>;
+export type ButtonAttrsProps<HTMLAttrs = HTMLAttributes> = DefineAttrsProps<ButtonProps, HTMLAttrs>;
 
 const props = withDefaults(defineProps<ButtonProps>(), {
   tag: 'button',

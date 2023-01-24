@@ -13,7 +13,7 @@
 import { computed } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import type {
-  DefinePropsAttrs,
+  DefineAttrsProps,
   HTMLTag,
 } from '../../../types';
 
@@ -27,7 +27,7 @@ export interface HeadingProps {
    */
   tag?: HTMLTag;
 }
-export type HeadingPropsAttrs<T = HTMLAttributes> = DefinePropsAttrs<HeadingProps, T>;
+export type HeadingAttrsProps<T = HTMLAttributes> = DefineAttrsProps<HeadingProps, T>;
 
 const props = withDefaults(defineProps<HeadingProps>(), {
   level: '2',

@@ -41,7 +41,7 @@ import type { PropType } from 'vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
-import type { IconPropsAttrs } from '../../atoms/UiIcon/UiIcon.vue';
+import type { IconAttrsProps } from '../../atoms/UiIcon/UiIcon.vue';
 import type { Icon } from '../../../types/icon';
 import type { HTMLTag } from '../../../types/tag';
 
@@ -89,7 +89,7 @@ const props = defineProps({
    * Use this props to pass attrs for UiIcon
    */
   iconAttrs: {
-    type: Object as PropType<IconPropsAttrs>,
+    type: Object as PropType<IconAttrsProps>,
     default: () => ({}),
   },
   /**

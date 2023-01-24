@@ -46,8 +46,10 @@ import type {
   PropType,
   ComputedRef,
 } from 'vue';
-import type { IconAsString } from '../../../../types/icon';
-import type { ListTag } from '../../../../types/tag';
+import type {
+  IconName,
+  ListTag,
+} from '../../../../types';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import UiText from '../../../atoms/UiText/UiText.vue';
 
@@ -56,7 +58,7 @@ const props = defineProps({
    * Use this props to set the bullet point icon.
    */
   icon: {
-    type: String as PropType<IconAsString>,
+    type: String as PropType<IconName>,
     default: 'bullet-common',
   },
   /**

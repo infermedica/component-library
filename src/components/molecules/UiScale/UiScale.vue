@@ -153,7 +153,7 @@ import type {
 } from 'vue';
 import { uid } from 'uid/single';
 import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
-import type { RadioPropsAttrs } from '../../atoms/UiRadio/UiRadio.vue';
+import type { RadioAttrsProps } from '../../atoms/UiRadio/UiRadio.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import UiNumberStepper from '../UiNumberStepper/UiNumberStepper.vue';
 import type { PropsAttrs } from '../../../types/attrs';
@@ -222,7 +222,7 @@ const props = defineProps({
     type: [
       Object,
       Array,
-    ] as PropType<RadioPropsAttrs>,
+    ] as PropType<RadioAttrsProps>,
     default: () => ({}),
   },
   /**
@@ -327,7 +327,7 @@ const defaultProps = computed<DefaultProps>(() => ({
   },
 }));
 const itemsToRender = computed(() => (Array.from({ length: maxSteps.value }, (_, index) => {
-  const radioOptionAttrs: RadioPropsAttrs = Array.isArray(props.radioOptionAttrs)
+  const radioOptionAttrs: RadioAttrsProps = Array.isArray(props.radioOptionAttrs)
     ? props.radioOptionAttrs[index]
     : props.radioOptionAttrs;
   return {

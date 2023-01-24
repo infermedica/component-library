@@ -71,12 +71,9 @@ import equal from 'fast-deep-equal';
 import { uid } from 'uid/single';
 import useAttributes from '../../../composable/useAttributes';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
-import type {
-  Attrs,
-  DefinePropsAttrs,
-} from '../../../types';
 import UiText from '../UiText/UiText.vue';
-import type { TextPropsAttrs } from '../UiText/UiText.vue';
+import type { TextAttrsProps } from '../UiText/UiText.vue';
+import type { DefineAttrsProps } from '../../../types';
 
 export type RadioValue = number | string | Record<string, unknown>;
 export interface RadioProps {
@@ -101,17 +98,17 @@ export interface RadioProps {
   /**
    * Use this props to pass attrs for input element.
    */
-  inputAttrs?: Attrs<InputHTMLAttributes>;
+  inputAttrs?: DefineAttrsProps<null, InputHTMLAttributes>;
   /**
    * Use this props to pass attrs for radio element.
    */
-  radioElementAttrs?: Attrs<HTMLAttributes>;
+  radioElementAttrs?: DefineAttrsProps<null, HTMLAttributes>;
   /**
    * Use this props to pass attrs for label UiText
    */
-  textLabelAttrs?: TextPropsAttrs;
+  textLabelAttrs?: TextAttrsProps;
 }
-export type RadioPropsAttrs = DefinePropsAttrs<RadioProps, LabelHTMLAttributes>;
+export type RadioAttrsProps = DefineAttrsProps<RadioProps, LabelHTMLAttributes>;
 export interface RadioEmits {
   (e: 'update:modelValue', value: RadioProps['modelValue']): void;
 }

@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { DefinePropsAttrs } from '../../../types';
+import type { DefineAttrsProps } from '../../../types';
 
 export interface ProgressProps {
   /**
@@ -28,7 +28,7 @@ export interface ProgressProps {
    */
   max?: number;
 }
-export type ProgressPropsAttrs = DefinePropsAttrs<ProgressProps>;
+export type ProgressAttrsProps = DefineAttrsProps<ProgressProps>;
 
 const props = withDefaults(defineProps<ProgressProps>(), {
   value: 0,
