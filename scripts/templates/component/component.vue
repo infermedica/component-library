@@ -8,25 +8,27 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {
   ref,
   computed,
 } from 'vue';
+import type { HTMLAttributes } from 'vue';
+import type { DefineAttrsProps } from '../../../types';
 
-const props = defineProps({
-  /**
-   * Use this props to set content,
-   */
-  content: {
-    type: String,
-    default: '',
-  },
-});
-const emit = defineEmits([ 'update:content' ]);
-const el = ref(null);
+export interface ComponentNameProps {
+  content?: string;
+}
+export type ComponentNameAttrsProps = DefineAttrsProps<ComponentNameProps, HTMLAttributes>;
+export interface ComponentNameEmits {
+  (e:'update:content', value: ComponentNameProps['content']): void;
+}
+
+const props = withDefaults(defineProps<ComponentNameProps>(), { content: '' });
+const emit = defineEmits<ComponentNameEmits>();
+const el = ref<HTMLElement | null>(null);
 const hasContent = computed(() => (!!props.content));
-function updateHandler(value) {
+function updateHandler(value: ComponentNameProps['content']) {
   emit('update:content', value);
 }
 // or use Computed Setter
