@@ -1,0 +1,173 @@
+import { Meta } from '@storybook/addon-docs';
+import { PageOutline } from '../components/PageOutline';
+import { Alert } from '../components/Alert';
+
+<Meta title="Contributing Guide/Typescript Guidelines" />
+
+# Typescript Guidelines
+Infermedica Component Library uses TypeScript which is a superset of JavaScript that adds support for static types. This means that you can define the
+data types of variables, function parameters and return values. This can help catch bugs and errors early in the development process, as well as make
+the code more readable and understandable for other developers. This guide will help you understand how to define types in our library.
+
+<PageOutline/>
+
+## Components
+Defining and exporting types for the `attrs props`, `props`, and `emits` of a component in a library can improve the component's usability and prevent errors.
+It makes it clear to other developers what the component expects as input and what it will output, and allows the TypeScript compiler to catch any errors
+where the component is being used with the wrong types.
+
+## Attrs Props
+Component should have a declared type for inherited attributes, because nested components can be setup using these attributes. Declaring the type for attrs
+ensures that the nested components are being passed the correct attributes and prevents errors. It also helps other developers understand how to properly use
+the component and its nested components.
+
+### Naming
+Use the component name as a prefix, followed by the word `AttrsProps` as a suffix for the type of the component's inherited attributes. For example,
+`MultipleAnswerAttrsProps` for the `UiMultipleAnswer` component.
+
+### DefineAttrsProps
+Use `DefineAttrsProps` generic type when defining the type for inherit attributes passed to component or to HTML Element. The generic type allows you to
+specify the type of the attributes that will be passed. This way, you are defining the structure and the types of the attrs that the component is going to
+receive, and the type checker will help you to catch any mistake if the type passed doesn't match the defined.
+
+Parameters of `DefineAttrsProps<ComponentProps, ElementAttrs>`
+  - `ComponentProps` [ required ] - specify the type of component props here.
+  - `ElementAttrs` [ optional ] - specify the type of the HTML element that will be inherit attributes. The default value is `HTMLAttributes`.
+
+### Example
+- `UiInput` component:
+```ts
+<template>
+  <div v-bind="attrs">
+  ...
+</template>
+<script setup lang="ts">
+export type InputAttrsProps = DefineAttrsProps<InputProps>;
+...
+</script>
+```
+
+- `UiRadio` component:
+```ts
+<template>
+  <label v-bind="attrs">
+  ...
+</template>
+<script setup lang="ts">
+export type RadioAttrsProps = DefineAttrsProps<RadioProps, LabelHTMLAttributes>;
+...
+</script>
+```
+
+<Alert>
+<p>
+Currently, Vue doesn't support generic typed props in SFC components, we will follow this topic. When the element that inherits the attributes is the <code>component :is=""</code>
+element, then we should add a parameter with default value <code>HTMLAttributes</code>.
+</p>
+</Alert>
+
+- `UiButton` component:
+```ts
+<template>
+  <component :is="tag" v-bind="attrs"/>
+  ...
+</template>
+<script setup lang="ts">
+export type ButtonAttrsProps<HTMLAttrs = HTMLAttributes> = DefineAttrsProps<ButtonProps, HTMLAttrs>;
+...
+</script>
+```
+
+## Props
+Use a [type-based](https://vuejs.org/guide/typescript/composition-api.html#typing-component-props) declaration and the `withDefaults` method to define
+and type component props. This allows us to define the interface of the entire props object, rather than defining the types for each prop. Use props interface to declare
+types of variables, function parameters and return values.
+
+### Naming
+Use the component name as a prefix, followed by the word `Props` as a suffix for the type of the component's props. For example, `MultipleAnswerProps` for the `UiMultipleAnswer`
+component.
+
+### Fallthrough Attributes
+#### Custom component
+If the attributes are inherited by a custom component, then use the type for attrs props exported from that component. For example `UiCheckbox` component:
+
+```ts
+<template>
+  <UiIcon v-bind="iconCheckmarkAttrs"/>
+  ...
+</template>
+<script setup lang="ts">
+import { Icon } from '../UiIcon/UiIcon.vue';
+import type { IconAttrsProps } from '../UiIcon/UiIcon.vue';
+export interface CheckboxProps {
+  iconCheckmarkAttrs?: IconAttrsProps;
+  ...
+}
+</script>
+```
+
+#### HTML element
+If the attributes are inherited by a native HTML element, then use `DefineAttrsProps` and pass null as the first parameter. For example `UiCheckbox` component:
+
+```ts
+<template>
+  <input v-bind="inputAttrs"/>
+  ...
+</template>
+<script setup lang="ts">
+import type { DefineAttrsProps } from '../../../types';
+export interface CheckboxProps {
+  inputAttrs?: DefineAttrsProps<null, InputHTMLAttributes>;
+  ...
+}
+</script>
+```
+
+## Emits
+Use a [type-based](https://vuejs.org/guide/typescript/composition-api.html#typing-component-emits) declaration to define component emits.
+To declare the type of the emitted value, we can use the component props interface.
+
+### Naming
+Use the component name as a prefix, followed by the word `Emits` as a suffix for the type of the component's emits. For example, `MultipleAnswerEmits` for the `UiMultipleAnswer`
+component.
+
+### Example
+- `UiInput` component:
+```ts
+export interface InputEmits {
+  (e: 'update:modelValue', value: InputProps['modelValue']): void
+}
+const emit = defineEmits<InputEmits>();
+```
+
+## Default Props
+If component has defined a `defaultProps` object, it should be of the same type as the component's props. This ensures that the default props are of the
+correct type. and they are consistent with the props that the component expects to receive. For example `UiRange` component:
+```ts
+export interface RangeProps{
+  ...
+}
+const props = withDefaults(defineProps<RangeProps>(), {
+  ...
+});
+const defaultProps = computed<RangeProps>(() => ({
+  ...
+}));
+```
+
+## Global Types
+Global types are defined in a `types` folder and then re-exported in an `index.ts` file. This allows for easy access to the types from other
+parts of the code. The `index.ts` file serves as a central location to import and export types, making it easy to manage and maintain the types used in the
+project. For example:
+
+```ts
+import type { DefineAttrsProps, Icon } from '../../../types';
+```
+
+List of exported global types:
+- `DefineAttrsProps`
+- `Attrs`
+- `IconName`
+- `Icon`
+- `HTMLTag`
+- `ListTag`

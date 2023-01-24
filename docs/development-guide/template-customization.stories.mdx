@@ -14,11 +14,17 @@ Below you can read about props and how you can configure template of components.
 ## Props
 Prop allows to configure component behavior and put some data to it. Generally, props are used to set component behavior, translations, and attributes for nested components (in Molecules and Organisms).
 For content in Atoms we used slots. For example, `UiButton` hasn't content props, but it uses `default` slot to set content. More complex components allow setting content by using props like `title`, `description`, etc.
-All props you can find on the component docs page.
+All props you can find on the component docs page. Each component export type for his props. You can easily import this types by adding Props suffix to the component name. For example `UiButton` component:
+
+```js
+import type { ButtonProps } from "@infermedica/component-library";
+```
 
 
 ## Attrs props
-Nested components can be setup by using `Attrs` props i.e. you can pass props to UiButton, UiText etc. inside more complex components.
+Nested components can be setup by using `Attrs` props i.e. you can pass props to UiButton, UiText etc. inside more complex components. Each components exports types for fallthrough attributes as well. You can import them
+by adding AttrsProps prefix to the component name.
+
 For example from `UiNumberStepper` component:
 
 ```html
@@ -33,7 +39,9 @@ For example from `UiNumberStepper` component:
 
 You can pass props, `html` attributes and events e.g.
 ```js
- const buttonDecrementAttrs = {
+import type { ButtonAttrsProps } from "@infermedica/component-library";
+
+const buttonDecrementAttrs: <ButtonAttrsProps> = {
   'aria-label': 'decrement age',
   'data-testid': 'decrement-button',
   onClick: () => {
@@ -41,6 +49,24 @@ You can pass props, `html` attributes and events e.g.
   },
 }
 ```
+
+When changing the default tag of a component, it may also be necessary to change the type of the attributes. By adding the correct argument for the generic type, you can ensure that the attributes
+passed to the component are valid and have the expected types. Provided default value is `HTMLAttributes`.
+```js
+import type { AnchorHTMLAttributes } from 'vue';
+import type { ButtonAttrsProps } from "@infermedica/component-library";
+
+const buttonDecrementAttrs: <ButtonAttrsProps<AnchorHTMLAttributes>> = {
+  tag: 'a',
+  rel: 'external',
+  'aria-label': 'decrement age',
+  'data-testid': 'decrement-button',
+  onClick: () => {
+    console.log('decrement');
+  },
+}
+```
+
 Our implementation of Attrs props allows you to change "default" values of nested components i.e. You can change heading level by props or change the default icon without changing the template by using slot.
 
 Generally the name this props we used `<name-of-component-without-prefix><element-name>Attrs` e.g. `closeButtonAttrs` or `decrementButtonAttrs`.
