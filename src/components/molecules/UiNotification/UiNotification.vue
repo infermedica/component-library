@@ -10,7 +10,7 @@
       <slot name="icon" />
     </template>
     <template
-      #message="{ textMessageAttrs, }"
+      #message="{ textMessageAttrs }"
     >
       <!-- @slot Use this slot to replace message template. -->
       <slot
@@ -46,7 +46,7 @@
               v-bind="buttonActionAttrs"
               class="ui-button--text ui-button--has-icon ui-notification__action"
             >
-              {{ defaultProps.translation.action }}
+              {{ defaultProps.translation?.action }}
               <UiIcon
                 v-bind="defaultProps.iconActionAttrs"
                 icon="chevron-right"
@@ -62,61 +62,57 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { PropType } from 'vue';
 import UiAlert from '../UiAlert/UiAlert.vue';
+import type { AlertAttrsProps } from '../UiAlert/UiAlert.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
+import type { ButtonAttrsProps } from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
+import type { IconAttrsProps } from '../../atoms/UiIcon/UiIcon.vue';
+import type { DefineAttrsProps } from '../../../types';
 
-export type NotificationType = 'success' | 'info' | 'warning' | 'error';
-const props = defineProps({
+export interface NotificationTranslation {
+  action: string;
+}
+export interface NotificationProps {
   /**
    * Use this props to set notification type.
    */
-  type: {
-    type: String as PropType<NotificationType>,
-    default: 'error',
-  },
+  type?: 'success' | 'info' | 'warning' | 'error';
   /**
    * Use this props to hide icon.
    */
-  hasIcon: {
-    type: Boolean,
-    default: true,
-  },
+  hasIcon?: boolean;
   /**
    * Use this props to pass labels inside component translation.
    */
-  translation: {
-    type: Object,
-    default: () => ({ action: 'Action' }),
-  },
+  translation?: NotificationTranslation;
   /**
    * Use this props to pass attrs for action UiButton.
    */
-  buttonActionAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
+  buttonActionAttrs?: ButtonAttrsProps;
   /**
    * Use this props to pass attrs for action UiIcon.
    */
-  iconActionAttrs: {
-    type: Object,
-    default: () => ({ icon: 'chevron-right' }),
-  },
+  iconActionAttrs?: IconAttrsProps;
+}
+export type NotificationAttrsProps = DefineAttrsProps<NotificationProps, AlertAttrsProps>
+
+const props = withDefaults(defineProps<NotificationProps>(), {
+  type: 'error',
+  hasIcon: true,
+  translation: () => ({ action: 'Action' }),
+  buttonActionAttrs: () => ({}),
+  iconActionAttrs: () => ({ icon: 'chevron-right' }),
 });
-const defaultProps = computed(() => ({
-  translation: {
-    action: 'Action',
-    ...props.translation,
-  },
+const defaultProps = computed<NotificationProps>(() => ({
+  translation: { ...props.translation },
   iconActionAttrs: {
     icon: 'chevron-right',
     ...props.iconActionAttrs,
   },
 }));
-const modifier = computed<`ui-notification--${NotificationType}`>(() => `ui-notification--${props.type}`);
+const modifier = computed(() => `ui-notification--${props.type}`);
 const hasAction = computed(() => (Object.keys(props.buttonActionAttrs).length > 0));
 </script>
 
