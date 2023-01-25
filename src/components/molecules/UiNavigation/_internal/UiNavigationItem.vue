@@ -15,6 +15,10 @@ import {
 } from 'vue';
 import type { ComputedRef } from 'vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
+import type { ButtonAttrsProps } from '../../../atoms/UiButton/UiButton.vue';
+import type { DefineAttrsProps } from '../../../../types';
+
+export type NavigationItemAttrsProps = DefineAttrsProps<null, ButtonAttrsProps>;
 
 const modifiers = inject('modifiers') as ComputedRef<string>;
 const isSmall = computed(() => modifiers.value.includes('ui-navigation--small'));
