@@ -51,7 +51,7 @@ export const Common = (args) => ({
       modelValue,
     };
   },
-  template: `<UiToggleButtonGroup 
+  template: `<UiToggleButtonGroup
     v-model="modelValue"
     :items="items"
   />`,
@@ -105,7 +105,7 @@ Disabled.args = {
     {
       text: 'First',
       value: 'first',
-      toggleButtonAttrs: { class: 'ui-toggle-button--is-disabled' },
+      class: 'ui-toggle-button--is-disabled',
     },
     {
       text: 'Second',
@@ -129,7 +129,7 @@ PressedDisabled.args = {
     {
       text: 'Second',
       value: 'second',
-      toggleButtonAttrs: { class: 'ui-toggle-button--is-disabled' },
+      class: 'ui-toggle-button--is-disabled',
     },
     {
       text: 'Third',
@@ -213,13 +213,13 @@ WithIcon.args = {
     {
       text: 'First',
       value: 'first',
-      toggleButtonAttrs: { class: 'ui-toggle-button--has-icon' },
+      class: 'ui-toggle-button--has-icon',
       icon: 'dots',
     },
     {
       text: 'Second',
       value: 'second',
-      toggleButtonAttrs: { class: 'ui-toggle-button--has-icon' },
+      class: 'ui-toggle-button--has-icon',
       icon: 'plus',
     },
   ],

@@ -25,42 +25,46 @@ import {
   watch,
   useAttrs,
 } from 'vue';
-import type {
-  PropType,
-  WritableComputedRef,
-} from 'vue';
+import type { WritableComputedRef } from 'vue';
 import equal from 'fast-deep-equal';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
-import type { ToggleButtonValue } from '../UiToggleButtonGroup.vue';
+import type { ButtonAttrsProps } from '../../../atoms/UiButton/UiButton.vue';
+import type { ToggleButtonGroupProps } from '../UiToggleButtonGroup.vue';
+import type { DefineAttrsProps } from '../../../../types';
 
-const props = defineProps({
+export interface ToggleButtonProps {
   /**
    * Use this props to set value of toggle button.
    */
-  value: {
-    type: [
-      Number,
-      String,
-      Object,
-    ] as PropType<ToggleButtonValue>,
-    default: '',
-  },
-});
-const emit = defineEmits<{(e:'check'|'uncheck'):void;}>();
-const attrs = useAttrs() as { class?: string[] };
+  value?: ToggleButtonGroupProps['modelValue'];
+}
+export type ToggleButtonAttrsProps = DefineAttrsProps<ToggleButtonProps, ButtonAttrsProps>
+export interface ToggleButtonEmits {
+  (e:'check'): void;
+  (e:'uncheck'): void;
+}
+
+const props = withDefaults(defineProps<ToggleButtonProps>(), { value: '' });
+const emit = defineEmits<ToggleButtonEmits>();
+const attrs = useAttrs() as ToggleButtonAttrsProps;
 const parentComponent = getCurrentInstance()?.parent;
+console.log(parentComponent);
 if (!parentComponent || parentComponent.type.name !== 'UiToggleButtonGroup') {
   if (process.env.NODE_ENV !== 'production') {
     throw new Error('UiToggleButton has to be child of UiToggleButtonGroup');
   }
 }
-const modelValue = inject('modelValue') as WritableComputedRef<ToggleButtonValue>;
+const modelValue = inject('modelValue') as WritableComputedRef<ToggleButtonGroupProps['modelValue']>;
 const isChecked = computed(() => (modelValue && equal(modelValue.value, props.value)));
-const clickHandler = (): void => {
+const clickHandler = () => {
   modelValue.value = props.value;
 };
 watch(isChecked, () => {
-  emit(isChecked.value ? 'check' : 'uncheck');
+  if (isChecked.value) {
+    emit('check');
+  } else {
+    emit('uncheck');
+  }
 });
 const isDisabled = computed(() => !!attrs.class && attrs.class.includes('ui-toggle-button--is-disabled'));
 const hasIcon = computed(() => !!attrs.class && attrs.class.includes('ui-toggle-button--has-icon'));
