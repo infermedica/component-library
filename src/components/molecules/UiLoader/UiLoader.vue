@@ -35,73 +35,68 @@ export default { inheritAttrs: false };
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { PropType } from 'vue';
+import type { HTMLAttributes } from 'vue';
 import type { HTMLTag } from '../../../types/tag';
+import type { DefineAttrsProps } from '../../../types/attrs';
 import UiLoaderSpinner from './_internal/UiLoaderSpinner.vue';
-import type { PropsAttrs } from '../../../types/attrs';
+import type { LoaderSpinnerAttrsProps } from './_internal/UiLoaderSpinner.vue';
 import UiLoaderSkeleton from './_internal/UiLoaderSkeleton.vue';
+import type { LoaderSkeletonAttrsProps } from './_internal/UiLoaderSkeleton.vue';
 import UiLoaderEllipsis from './_internal/UiLoaderEllipsis.vue';
 import UiLoaderTransition from './_internal/UiLoaderTransition.vue';
+import type { LoaderTransitionAttrsProps } from './_internal/UiLoaderTransition.vue';
 import UiLoaderNativeTransition from './_internal/UiLoaderNativeTransition.vue';
+import type { LoaderNativeTransitionAttrsProps } from './_internal/UiLoaderNativeTransition.vue';
 
+export type LoaderItemAttrsProps = LoaderSpinnerAttrsProps
+  | LoaderSkeletonAttrsProps
+  | LoaderTransitionAttrsProps
+  | LoaderNativeTransitionAttrsProps;
 export type LoaderType = 'spinner' | 'ellipsis' | 'skeleton';
 export type LoaderComponent = typeof UiLoaderSpinner
   | typeof UiLoaderEllipsis
   | typeof UiLoaderSkeleton;
 export type LoaderTransitionType = 'if' | 'show' | 'opacity';
-const props = defineProps({
+export interface LoaderProps {
   /**
    * Use this props to show UiLoader component
    */
-  isLoading: {
-    type: Boolean,
-    default: true,
-  },
+  isLoading?: boolean;
   /**
    * Use this props to select UiLoader variant
    */
-  type: {
-    type: String as PropType<LoaderType>,
-    default: 'spinner',
-  },
+  type?: LoaderType;
   /**
    * Use this props to set transition type.
    */
-  transitionType: {
-    type: String as PropType<LoaderTransitionType>,
-    default: 'if',
-  },
+  transitionType?: LoaderTransitionType;
   /**
    * Use this props to set transition name.
    */
-  name: {
-    type: String,
-    default: 'fade',
-  },
+  name?: string;
   /**
    * Use this props to pass tag of loader
    */
-  tag: {
-    type: [
-      String,
-      Object,
-    ] as PropType<HTMLTag | Record<string, unknown>>,
-    default: 'div',
-  },
+  tag?: HTMLTag;
   /**
    * Use this props to pas transition name
    */
-  transitionAttrs: {
-    type: Object as PropType<Record<string, unknown>>,
-    default: () => ({}),
-  },
+  transitionAttrs?: LoaderNativeTransitionAttrsProps | LoaderTransitionAttrsProps;
   /**
    * Use this props to pass attributes to internal child components
    */
-  loaderAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  loaderAttrs?: LoaderItemAttrsProps;
+}
+export type LoaderAttrsProps<HTMLAttrs = HTMLAttributes> = DefineAttrsProps<LoaderProps, HTMLAttrs>;
+
+const props = withDefaults(defineProps<LoaderProps>(), {
+  isLoading: true,
+  type: 'spinner',
+  transitionType: 'if',
+  name: 'fade',
+  tag: 'div',
+  transitionAttrs: () => ({}),
+  loaderAttrs: () => ({}),
 });
 const isIfTransitionType = computed(() => props.transitionType === 'if');
 const component = computed<LoaderComponent>(() => {
@@ -124,11 +119,11 @@ const transitionComponentAttrs = computed(() => {
     isLoading: props.isLoading,
   };
   return isIfTransitionType.value
-    ? attrs
+    ? attrs as LoaderNativeTransitionAttrsProps
     : {
       ...attrs,
       isOpacityTransitionType: props.transitionType === 'opacity',
-    };
+    } as LoaderTransitionAttrsProps;
 });
 </script>
 

@@ -4,9 +4,6 @@
   </div>
 </template>
 
-<script setup lang="ts">
-</script>
-
 <style lang="scss">
 @use "../../../../styles/functions";
 @use "../../../../styles/mixins";

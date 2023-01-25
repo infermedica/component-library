@@ -30,30 +30,31 @@
 </template>
 
 <script setup lang="ts">
+import type { HTMLAttributes } from 'vue';
 import UiText from '../../../atoms/UiText/UiText.vue';
+import type { TextAttrsProps } from '../../../atoms/UiText/UiText.vue';
+import type { DefineAttrsProps } from '../../../../types';
 
-defineProps({
+export interface LoaderSpinnerProps {
   /**
    * Use this prop to set the label text.
    */
-  label: {
-    type: String,
-    default: '',
-  },
+  label?: string;
   /**
    * Use this props to pass attrs for spinner
    */
-  loaderSpinnerAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
+  loaderSpinnerAttrs?: DefineAttrsProps<null, HTMLAttributes>;
   /**
    * Use this props to pass attrs for label UiText
    */
-  textLabelAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
+  textLabelAttrs?: TextAttrsProps;
+}
+export type LoaderSpinnerAttrsProps = DefineAttrsProps<LoaderSpinnerProps>;
+
+withDefaults(defineProps<LoaderSpinnerProps>(), {
+  label: '',
+  loaderSpinnerAttrs: () => ({}),
+  textLabelAttrs: () => ({}),
 });
 </script>
 
