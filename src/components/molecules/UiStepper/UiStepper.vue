@@ -90,43 +90,38 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { PropType } from 'vue';
-import type { PropsAttrs } from '../../../types/attrs';
 import UiText from '../../atoms/UiText/UiText.vue';
 import UiProgress from '../../atoms/UiProgress/UiProgress.vue';
+import type { ProgressAttrsProps } from '../../atoms/UiProgress/UiProgress.vue';
 import UiList from '../../organisms/UiList/UiList.vue';
 import UiStepperStep from './_internal/UiStepperStep.vue';
+import type { StepperStepAttrsProps } from './_internal/UiStepperStep.vue';
+import type { DefineAttrsProps } from '../../../types';
 
-export interface Step {
-  label: string;
+// TODO: after 0.6.0. we can remove StepperRenderItem type and use StepperStepAttrsProps instead.
+export type StepperRenderItem = {
   name?: string;
-  to?: string;
-  href?: string;
-  [key: string]: unknown;
-}
-
-const props = defineProps({
+} & StepperStepAttrsProps;
+export interface StepperProps {
   /**
    * Use this props to set the steps in the stepper.
    */
-  steps: {
-    type: Array as PropType<Step[]>,
-    default: () => [ { label: '' } ],
-  },
+  steps?: StepperRenderItem[];
   /**
    * Use this props to set the current step in the stepper.
    */
-  currentStep: {
-    type: String,
-    default: '',
-  },
+  currentStep?: string;
   /**
    * Use this props to pass attrs for UiProgress.
    */
-  progressAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  progressAttrs?: ProgressAttrsProps;
+}
+export type StepperAttrsProps = DefineAttrsProps<StepperProps>;
+
+const props = withDefaults(defineProps<StepperProps>(), {
+  steps: () => [ { label: '' } ],
+  currentStep: '',
+  progressAttrs: () => ({}),
 });
 const stepsLength = computed(() => props.steps.length);
 const indexOfActiveStep = computed(() => props.steps.findIndex((step) => step.label === props.currentStep));
@@ -135,7 +130,7 @@ const currentStepDisplayText = computed(() => `
       ${currentStepDisplayNumber.value}/${props.steps.length} ${props.currentStep}
     `);
 const stepsProgress = computed(() => (currentStepDisplayNumber.value / stepsLength.value) * 100);
-const defaultProps = computed(() => ({
+const defaultProps = computed<StepperProps>(() => ({
   progressAttrs: {
     min: 0,
     max: 100,
@@ -143,7 +138,8 @@ const defaultProps = computed(() => ({
     ...props.progressAttrs,
   },
 }));
-const stepperStepAttrs = (step: Step) => {
+// TODO: after 0.6.0. we should use StepperStepAttrsProps instead StepperRenderItem.
+const stepperStepAttrs = (step: StepperRenderItem) => {
   const { ...rest } = step;
   return rest;
 };
@@ -153,7 +149,7 @@ if (props.steps.some((step) => step.name)) {
     console.warn('[@infermedica/component-library warn][UiStepper]: The step `name` props will be removed in 0.6.0. Please use step `label` props instead.');
   }
 }
-const stepsToRender = computed<Step[]>(() => props.steps.map((step) => ({
+const stepsToRender = computed<StepperProps['steps']>(() => props.steps.map((step) => ({
   ...step,
   label: step.name || step.label,
 })));
