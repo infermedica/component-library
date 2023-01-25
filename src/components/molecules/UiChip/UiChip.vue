@@ -48,42 +48,45 @@ import {
   useAttrs,
 } from 'vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
+import type { ButtonAttrsProps } from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
+import type { IconAttrsProps } from '../../atoms/UiIcon/UiIcon.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
-import type { PropsAttrs } from '../../../types/attrs';
-import type { Icon } from '../../../types/icon';
+import type { TextAttrsProps } from '../../atoms/UiText/UiText.vue';
+import type { DefineAttrsProps } from '../../../types';
 
-const props = defineProps({
+export interface ChipProps {
   /**
    * Use this props to pass attrs for remove UiButton
    */
-  textLabelAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  textLabelAttrs?: TextAttrsProps;
   /**
    * Use this props to pass attrs for remove UiButton
    */
-  buttonRemoveAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  buttonRemoveAttrs?: ButtonAttrsProps;
   /**
    * Use this props to pass attrs for remove UiIcon
    */
-  iconRemoveAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({ icon: 'remove-filled' }),
-  },
+  iconRemoveAttrs?: IconAttrsProps;
+}
+export type ChipAttrsProps = DefineAttrsProps<ChipProps>;
+export interface ChipEmits {
+  (e:'remove'): void;
+}
+
+const props = withDefaults(defineProps<ChipProps>(), {
+  textLabelAttrs: () => ({}),
+  buttonRemoveAttrs: () => ({}),
+  iconRemoveAttrs: () => ({ icon: 'remove-filled' }),
 });
-const defaultProps = computed(() => ({
+const defaultProps = computed<ChipProps>(() => ({
   iconRemoveAttrs: {
-    icon: 'remove-filled' as Icon,
+    icon: 'remove-filled',
     ...props.iconRemoveAttrs,
   },
 }));
-const emit = defineEmits<{(e:'remove'): void}>();
-function clickHandler(): void {
+const emit = defineEmits<ChipEmits>();
+function clickHandler() {
   emit('remove');
 }
 // TODO: remove in 0.6.0 / BEGIN
