@@ -39,8 +39,8 @@
           :value="`${item.index}`"
           :name="ratingName"
           class="ui-rating__option"
-          @mouseover="hoverHandler($event, item.index)"
-          @mouseleave="hoverHandler($event, item.index)"
+          @mouseover="(event: Event) => hoverHandler(event, item.index)"
+          @mouseleave="(event: Event) => hoverHandler(event, item.index)"
         >
           <template
             #radio="{ radioElementAttrs }"

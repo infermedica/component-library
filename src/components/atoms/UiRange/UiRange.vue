@@ -76,78 +76,79 @@ export default { inheritAttrs: false };
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { PropsAttrs } from '../../../types/attrs';
-import type { HTMLTag } from '../../../types/tag';
-import type { HeadingLevel } from '../UiHeading/UiHeading.vue';
-import UiHeading from '../UiHeading/UiHeading.vue';
-import UiNumberStepper from '../../molecules/UiNumberStepper/UiNumberStepper.vue';
+import type { InputHTMLAttributes } from 'vue';
 import useAttributes from '../../../composable/useAttributes';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
+import UiHeading from '../UiHeading/UiHeading.vue';
+import type { HeadingAttrsProps } from '../UiHeading/UiHeading.vue';
+import UiNumberStepper from '../../molecules/UiNumberStepper/UiNumberStepper.vue';
+import type { DefineAttrsProps } from '../../../types';
 
-export interface RangeAttrs {
-  disabled?: boolean;
-  buttonDecrementAttrs?: Record<string, unknown>;
-  buttonIncrementAttrs?: Record<string, unknown>;
-  'button-increment-attrs'?: Record<string, unknown>;
-  'button-decrement-attrs'?: Record<string, unknown>;
-}
-const props = defineProps({
+export interface RangeProps {
   /**
    * Use this props or v-model to set value.
    */
-  modelValue: {
-    type: Number,
-    default: 0,
-  },
+  modelValue?: number;
   /**
    * Use this props to set min value.
    */
-  min: {
-    type: Number,
-    default: 0,
-  },
+  min?: number;
   /**
    * Use this props to set max value.
    */
-  max: {
-    type: Number,
-    default: 1,
-  },
+  max?: number;
   /**
    * Use this props to set step value.
    */
-  step: {
-    type: Number,
-    default: 1,
-  },
+  step?: number;
   /**
    * Use this props to pass attrs for value UiHeading
    */
-  headingValueAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({
-      level: 1,
-      tag: 'span',
-    }),
-  },
+  headingValueAttrs?: HeadingAttrsProps;
   /**
    * Use this props to pass attrs for input element.
    */
-  inputAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  inputAttrs?: DefineAttrsProps<null, InputHTMLAttributes>;
+}
+// TODO after refactoring the NumberStepper component, pass its NumberStepperAttrsProps type as the second argument of RangeAttrs
+export type RangeAttrs = DefineAttrsProps<RangeProps>;
+export interface RangeEmits {
+  (e:'update:modelValue', value: RangeProps['modelValue']): void;
+}
+
+const props = withDefaults(defineProps<RangeProps>(), {
+  modelValue: 0,
+  min: 0,
+  max: 1,
+  step: 1,
+  headingValueAttrs: () => ({
+    level: 1,
+    tag: 'span',
+  }),
+  inputAttrs: () => ({}),
 });
-const emit = defineEmits<{(e:'update:modelValue', value: number): void}>();
+const defaultProps = computed<RangeProps>(() => ({
+  headingValueAttrs: {
+    level: 1,
+    tag: 'span',
+    ...props.headingValueAttrs,
+  },
+  inputAttrs: {
+    ...listeners.value,
+    ...props.inputAttrs,
+  },
+}));
+const emit = defineEmits<RangeEmits>();
+// TODO after refactoring the NumberStepper component, pass its NumberStepperAttrsProps type as the argument of useAttributes
 const {
   attrs, listeners,
-} = useAttributes<RangeAttrs, object>();
+} = useAttributes();
 const trackWidth = computed(() => {
   const scope = props.max - props.min;
   const position = props.modelValue - props.min;
   return `${(position / scope) * 100}%`;
 });
-function changeHandler(value: number) {
+function changeHandler(value: RangeProps['modelValue']) {
   if (attrs.value.disabled) return;
   emit('update:modelValue', value);
 }
@@ -165,18 +166,8 @@ if (buttonIncrementAttrs.value) {
   }
 }
 // END
-const defaultProps = computed(() => ({
-  headingValueAttrs: {
-    level: 1 as HeadingLevel,
-    tag: 'span' as HTMLTag,
-    ...props.headingValueAttrs,
-  },
-  inputAttrs: {
-    ...listeners.value,
-    ...props.inputAttrs,
-  },
-}));
-const numberStepperAttrs = computed(() => ({
+// TODO after refactoring the NumberStepper component, pass its NumberStepperAttrsProps type as the argument of numberStepperAttrs
+const numberStepperAttrs = computed((): Record<string, unknown> => ({
   buttonDecrementAttrs: buttonDecrementAttrs.value,
   buttonIncrementAttrs: buttonIncrementAttrs.value,
   ...attrs,

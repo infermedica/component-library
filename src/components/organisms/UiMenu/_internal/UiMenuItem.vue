@@ -86,7 +86,7 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-const { attrs } = useAttributes<MenuItemAttrs, object>();
+const { attrs } = useAttributes();
 const isSelected = computed(() => (attrs.value.class && attrs.value.class.includes('ui-menu-item--is-selected')));
 const hasSuffix = computed(() => !!(props.suffixVisible === 'always' || (props.suffixVisible === 'default' && isSelected.value)));
 const buttonClass = computed(() => ({ 'ui-button--is-selected': isSelected.value }));

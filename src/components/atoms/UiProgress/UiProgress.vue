@@ -12,29 +12,28 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import type { DefineAttrsProps } from '../../../types';
 
-const props = defineProps({
+export interface ProgressProps {
   /**
    * Use this props to set the progress value.
    */
-  value: {
-    type: Number,
-    default: 0,
-  },
+  value?: number;
   /**
    * Use this props to set the minimum value.
    */
-  min: {
-    type: Number,
-    default: 0,
-  },
+  min?: number;
   /**
    * Use this props to set the maximum value.
    */
-  max: {
-    type: Number,
-    default: 100,
-  },
+  max?: number;
+}
+export type ProgressAttrsProps = DefineAttrsProps<ProgressProps>;
+
+const props = withDefaults(defineProps<ProgressProps>(), {
+  value: 0,
+  min: 0,
+  max: 100,
 });
 const progressValue = computed(() => {
   const progress = (props.value - props.min) / (props.max - props.min);

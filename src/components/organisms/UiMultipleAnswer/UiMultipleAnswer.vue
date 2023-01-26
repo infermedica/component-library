@@ -77,12 +77,15 @@ import {
   watch,
   useAttrs,
 } from 'vue';
-import type { PropType } from 'vue';
+import type {
+  HTMLAttributes,
+  PropType,
+} from 'vue';
 import UiAlert from '../../molecules/UiAlert/UiAlert.vue';
 import UiList from '../UiList/UiList.vue';
 import UiMultipleAnswerItem from './_internal/UiMultipleAnswerItem.vue';
 
-export interface MultipleAnswerLabelAttrs {
+export interface MultipleAnswerLabelAttrs extends HTMLAttributes {
   tag?: HTMLElement;
 }
 export interface MultipleAnswerItemTranslation {

@@ -42,7 +42,7 @@
 import type { PropType } from 'vue';
 import UiCheckbox from '../../atoms/UiCheckbox/UiCheckbox.vue';
 import UiSwitchControl from './_internal/UiSwitchControl.vue';
-import type { CheckboxModelValue } from '../../atoms/UiCheckbox/UiCheckbox.vue';
+import type { CheckboxProps } from '../../atoms/UiCheckbox/UiCheckbox.vue';
 
 defineProps({
   /**
@@ -52,7 +52,7 @@ defineProps({
     type: [
       Boolean,
       Array,
-    ] as PropType<CheckboxModelValue>,
+    ] as PropType<CheckboxProps['modelValue']>,
     default: false,
   },
   /**
@@ -63,8 +63,8 @@ defineProps({
     default: () => ({}),
   },
 });
-const emit = defineEmits<{(e: 'update:modelValue', value: CheckboxModelValue): void}>();
-const updateHandler = (value: CheckboxModelValue): void => {
+const emit = defineEmits<{(e: 'update:modelValue', value: CheckboxProps['modelValue']): void}>();
+const updateHandler = (value: CheckboxProps['modelValue']): void => {
   emit('update:modelValue', value);
 };
 </script>

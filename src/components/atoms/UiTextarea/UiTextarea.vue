@@ -20,60 +20,49 @@ export default { inheritAttrs: false };
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { PropType } from 'vue';
-import type { PropsAttrs } from '../../../types/attrs';
+import type { TextareaHTMLAttributes } from 'vue';
 import useAttributes from '../../../composable/useAttributes';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
+import type { DefineAttrsProps } from '../../../types';
 
-const props = defineProps({
+export interface TextareaProps {
   /**
    * Use this props or v-model to set value.
    */
-  modelValue: {
-    type: String,
-    default: '',
-  },
+  modelValue?: string;
   /**
    * Use this props to enable resizing on textarea.
    * true - both direction resizing, false - disable resizing,
    * 'horizontal' - horizontal resizing only, 'vertical' - vertical resizing only
    */
-  resize: {
-    type: [
-      Boolean,
-      String,
-    ] as PropType<boolean | 'horizontal' | 'vertical'>,
-    optional: true,
-    default: false,
-  },
+  resize?: boolean | 'horizontal' | 'vertical';
   /**
    * Use this props to set input placeholder.
    */
-  placeholder: {
-    type: String,
-    default: '',
-  },
+  placeholder?: string;
   /**
    * Use this props to disabled textarea.
    * Remember to use `ui-textarea--is-disabled` class to style disabled textarea.
    */
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
+  disabled?: boolean;
   /**
    * Use this props to pass attrs for textarea element.
    */
-  textareaAttrs: {
-    type: Object as PropsAttrs,
-    optional: true,
-    default: () => ({}),
-  },
+  textareaAttrs?: DefineAttrsProps<null, TextareaHTMLAttributes>;
+}
+export type TextareaAttrsProps = DefineAttrsProps<TextareaProps>;
+export interface TextareaEmits {
+  (e:'update:modelValue', value: TextareaProps['modelValue']): void
+}
+
+const props = withDefaults(defineProps<TextareaProps>(), {
+  modelValue: '',
+  resize: false,
+  placeholder: '',
+  disabled: false,
+  textareaAttrs: () => ({}),
 });
-const {
-  attrs, listeners,
-} = useAttributes();
-const defaultProps = computed(() => ({
+const defaultProps = computed<TextareaProps>(() => ({
   textareaAttrs: {
     placeholder: props.placeholder,
     disabled: props.disabled,
@@ -81,7 +70,10 @@ const defaultProps = computed(() => ({
     ...props.textareaAttrs,
   },
 }));
-const emit = defineEmits<{(e:'update:modelValue', value:string):void}>();
+const emit = defineEmits<TextareaEmits>();
+const {
+  attrs, listeners,
+} = useAttributes();
 function inputHandler(event: Event) {
   const el = event.target as HTMLInputElement;
   emit('update:modelValue', el.value);

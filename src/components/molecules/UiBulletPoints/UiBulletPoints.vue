@@ -47,8 +47,10 @@ import type {
   PropType,
 } from 'vue';
 import UiBulletPointsItem from './_internal/UiBulletPointsItem.vue';
-import type { ListTag } from '../../../types/tag';
-import type { IconAsString } from '../../../types/icon';
+import type {
+  ListTag,
+  IconName,
+} from '../../../types';
 
 export type BulletPointsType = 'a' | 'A' | 'i' | 'I' | '1' | 'ar';
 export interface BulletPointsRenderItem {
@@ -58,7 +60,7 @@ export interface BulletPointsRenderItem {
     tag: ListTag;
     type: BulletPointsType;
     items: Record<string, unknown>[];
-    icon: IconAsString;
+    icon: IconName;
     [key: string]: string | Record<string, unknown>[];
   } | Record<string, unknown>;
   bulletPointsItemAttrs?: Record<string, unknown>
@@ -99,7 +101,7 @@ const props = defineProps({
    * Use this props to set the bullet point icon.
    */
   icon: {
-    type: String as PropType<IconAsString>,
+    type: String as PropType<IconName>,
     default: 'bullet-common',
   },
 });

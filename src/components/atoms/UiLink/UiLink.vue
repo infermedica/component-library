@@ -12,36 +12,34 @@
 
 <script setup lang="ts">
 // https://www.figma.com/file/54rgvRJfBBagt4F34rrp1s/Core-Component-Library?node-id=2%3A3027
-import type { PropType } from 'vue';
-import type { HTMLTag } from '../../../types/tag';
+import type { HTMLAttributes } from 'vue';
 import useLink from '../../../composable/useLink';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
+import type {
+  DefineAttrsProps,
+  HTMLTag,
+} from '../../../types';
 
-const props = defineProps({
+export interface LinkProps {
   /**
    * Use this props to set tag when a component shouldn't be a link.
    */
-  tag: {
-    type: String as PropType<HTMLTag>,
-    default: 'span',
-  },
+  tag?: HTMLTag
   /**
    * Use this props to set route for internal link.
    */
-  to: {
-    type: [
-      String,
-      Object,
-    ] as PropType<string | Record<string, unknown>>,
-    default: '',
-  },
+  to?: string | Record<string, unknown>
   /**
    * Use this props to set route for external link.
    */
-  href: {
-    type: String,
-    default: '',
-  },
+  href?: string
+}
+export type LinkAttrsProps<T = HTMLAttributes> = DefineAttrsProps<LinkProps, T>;
+
+const props = withDefaults(defineProps<LinkProps>(), {
+  tag: 'span',
+  to: '',
+  href: '',
 });
 const {
   componentTag, routeAttrs,
