@@ -2,9 +2,9 @@ import { Meta } from '@storybook/addon-docs';
 import { PageOutline } from '../components/PageOutline';
 import { Alert } from '../components/Alert';
 
-<Meta title="Contributing Guide/Typescript Guidelines" />
+<Meta title="Contributing Guide/TypeScript Guidelines" />
 
-# Typescript Guidelines
+# TypeScript Guidelines
 Infermedica Component Library uses TypeScript which is a superset of JavaScript that adds support for static types. This means that you can define the
 data types of variables, function parameters and return values. This can help catch bugs and errors early in the development process, as well as make
 the code more readable and understandable for other developers. This guide will help you understand how to define types in our library.
@@ -35,7 +35,8 @@ Parameters of `DefineAttrsProps<ComponentProps, ElementAttrs>`
   - `ElementAttrs` [ optional ] - specify the type of the HTML element that will be inherit attributes. The default value is `HTMLAttributes`.
 
 ### Example
-- `UiInput` component:
+`UiInput` component:
+
 ```ts
 <template>
   <div v-bind="attrs">
@@ -47,7 +48,8 @@ export type InputAttrsProps = DefineAttrsProps<InputProps>;
 </script>
 ```
 
-- `UiRadio` component:
+`UiRadio` component:
+
 ```ts
 <template>
   <label v-bind="attrs">
@@ -66,7 +68,8 @@ element, then we should add a parameter with default value <code>HTMLAttributes<
 </p>
 </Alert>
 
-- `UiButton` component:
+`UiButton` component:
+
 ```ts
 <template>
   <component :is="tag" v-bind="attrs"/>
@@ -132,7 +135,8 @@ Use the component name as a prefix, followed by the word `Emits` as a suffix for
 component.
 
 ### Example
-- `UiInput` component:
+`UiInput` component:
+
 ```ts
 export interface InputEmits {
   (e: 'update:modelValue', value: InputProps['modelValue']): void
