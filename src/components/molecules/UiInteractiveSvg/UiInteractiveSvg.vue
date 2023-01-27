@@ -17,18 +17,22 @@ import {
   provide,
   useAttrs,
 } from 'vue';
-import type { PropType } from 'vue';
+import type { SVGAttributes } from 'vue';
+import type { InteractiveSvgElementAttrsProps } from './_internal/UiInteractiveSvgElement.vue';
+import type { DefineAttrsProps } from '../../../types';
 
-export type AttrsFunc = (attrs: Record<string, unknown>) => Record<string, unknown>;
-const props = defineProps({
+export type InteractiveSvgAttrsFunc = (
+  attrs?: Record<string, unknown>
+) => InteractiveSvgProps & InteractiveSvgElementAttrsProps;
+export interface InteractiveSvgProps {
   /**
-  * Use this props to pass function that returns attrs for UiInteractiveSvgElements
+   * Use this props to pass function that returns attrs for UiInteractiveSvgElements
   */
-  elementsAttrs: {
-    type: Function as PropType<AttrsFunc>,
-    default: (attrs: Record<string, unknown>) => ({}),
-  },
-});
+  elementsAttrs?: InteractiveSvgAttrsFunc;
+}
+export type InteractiveSvgAttrsProps = DefineAttrsProps<InteractiveSvgProps, SVGAttributes>
+
+const props = withDefaults(defineProps<InteractiveSvgProps>(), { elementsAttrs: () => ({}) });
 // TODO: remove in 0.6.0 / BEGIN
 const attrs = useAttrs();
 const setElementsAttrs = computed(() => (attrs.setElementsAttrs || attrs['set-elements-attrs']));

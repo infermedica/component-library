@@ -24,34 +24,35 @@ import {
   ref,
 } from 'vue';
 import type { Ref } from 'vue';
-import type { AttrsFunc } from '../UiInteractiveSvg.vue';
+import type { InteractiveSvgAttrsFunc } from '../UiInteractiveSvg.vue';
+import type { DefineAttrsProps } from '../../../../types';
 
-defineProps({
+export interface InteractiveSvgElementProps {
   /**
-   *  Use this props to set component tag.
-   */
-  tag: {
-    type: String,
-    default: 'path',
-  },
-});
-const setAttrs: AttrsFunc | Ref<AttrsFunc> | undefined = inject('elementsAttrs');
-const elementsAttrs = (attrs: Record<string, unknown>): Record<string, unknown> => {
-  const elementsAttrs = (setAttrs as Ref<AttrsFunc>).value || setAttrs;
+  *  Use this props to set component tag.
+  */
+  tag?: string;
+}
+export type InteractiveSvgElementAttrsProps = DefineAttrsProps<InteractiveSvgElementProps>;
+
+withDefaults(defineProps<InteractiveSvgElementProps>(), { tag: 'path' });
+const setAttrs: InteractiveSvgAttrsFunc | Ref<InteractiveSvgAttrsFunc> | undefined = inject('elementsAttrs');
+const elementsAttrs: InteractiveSvgAttrsFunc = (attrs) => {
+  const elementsAttrs = (setAttrs as Ref<InteractiveSvgAttrsFunc>).value || setAttrs;
   const {
     elementsAttrs: elementsAttrsForNested, ...rest
   } = elementsAttrs(attrs);
   if (elementsAttrsForNested) {
-    nestedElementsAttrs.value = elementsAttrsForNested as AttrsFunc;
+    nestedElementsAttrs.value = elementsAttrsForNested;
   } else {
-    nestedElementsAttrs.value = elementsAttrs as AttrsFunc;
+    nestedElementsAttrs.value = elementsAttrs;
   }
   return {
     ...attrs,
     ...rest,
   };
 };
-const nestedElementsAttrs = ref<AttrsFunc>(() => ({}));
+const nestedElementsAttrs = ref<InteractiveSvgAttrsFunc>(() => ({}));
 const parentComponent = getCurrentInstance()?.parent;
 if (!parentComponent || (parentComponent.type.name !== 'UiInteractiveSvg' && parentComponent.type.name !== 'UiInteractiveSvgElement')) {
   if (process.env.NODE_ENV !== 'production') {
