@@ -43,49 +43,46 @@ import {
   inject,
 } from 'vue';
 import type {
-  PropType,
   ComputedRef,
+  LiHTMLAttributes,
 } from 'vue';
-import type {
-  IconName,
-  ListTag,
-} from '../../../../types';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
+import type { IconAttrsProps } from '../../../atoms/UiIcon/UiIcon.vue';
 import UiText from '../../../atoms/UiText/UiText.vue';
+import type { TextAttrsProps } from '../../../atoms/UiText/UiText.vue';
+import type {
+  DefineAttrsProps,
+  HTMLTag,
+  IconName,
+} from '../../../../types';
 
-const props = defineProps({
+export interface BulletPointsItemProps {
   /**
    * Use this props to set the bullet point icon.
    */
-  icon: {
-    type: String as PropType<IconName>,
-    default: 'bullet-common',
-  },
+  icon?: IconName;
   /**
    * Use this props to pass attrs for marker UiIcon
    */
-  iconMarkerAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
+  iconMarkerAttrs?: IconAttrsProps;
   /**
    * Use this props to pass attrs for checkmark UiIcon
    */
-  textMarkerAttrs: {
-    type: Object,
-    default: () => ({ tag: 'span' }),
-  },
+  textMarkerAttrs?: TextAttrsProps;
   /**
    * Use this props to pass attrs for text content UiText
    */
-  textContentAttrs: {
-    type: Object,
-    default: () => ({ }),
-  },
+  textContentAttrs?: TextAttrsProps;
+}
+export type BulletPointsItemAttrsProps = DefineAttrsProps<BulletPointsItemProps, LiHTMLAttributes>;
+
+const props = withDefaults(defineProps<BulletPointsItemProps>(), {
+  icon: 'bullet-common',
+  iconMarkerAttrs: () => ({}),
+  textMarkerAttrs: () => ({ tag: 'span' }),
+  textContentAttrs: () => ({ }),
 });
-const tag = inject('tag') as ComputedRef<ListTag>;
-const isUnordered = computed(() => tag.value === 'ul');
-const defaultProps = computed(() => ({
+const defaultProps = computed<BulletPointsItemProps>(() => ({
   iconMarkerAttrs: {
     icon: props.icon,
     ...props.iconMarkerAttrs,
@@ -95,6 +92,8 @@ const defaultProps = computed(() => ({
     ...props.textMarkerAttrs,
   },
 }));
+const tag = inject('tag') as ComputedRef<HTMLTag>;
+const isUnordered = computed(() => tag.value === 'ul');
 </script>
 
 <style lang="scss">

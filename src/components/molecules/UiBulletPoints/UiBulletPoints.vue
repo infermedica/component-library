@@ -19,7 +19,7 @@
             v-bind="{ item }"
           >
             {{ item.text }}
-            <template v-if="item.children?.items">
+            <template v-if="item.children">
               <component
                 :is="'ui-bullet-points'"
                 v-bind="item.children"
@@ -44,66 +44,50 @@ import {
 } from 'vue';
 import type {
   CSSProperties,
-  PropType,
+  LiHTMLAttributes,
+  OlHTMLAttributes,
 } from 'vue';
 import UiBulletPointsItem from './_internal/UiBulletPointsItem.vue';
+import type { BulletPointsItemAttrsProps } from './_internal/UiBulletPointsItem.vue';
 import type {
-  ListTag,
+  DefineAttrsProps,
   IconName,
+  ListTag,
 } from '../../../types';
 
 export type BulletPointsType = 'a' | 'A' | 'i' | 'I' | '1' | 'ar';
-export interface BulletPointsRenderItem {
+export interface BulletPointsRenderItemComplex extends BulletPointsItemAttrsProps {
   name: string;
-  text: string;
-  children?: {
-    tag: ListTag;
-    type: BulletPointsType;
-    items: Record<string, unknown>[];
-    icon: IconName;
-    [key: string]: string | Record<string, unknown>[];
-  } | Record<string, unknown>;
-  bulletPointsItemAttrs?: Record<string, unknown>
+  text?: string;
+  // eslint-disable-next-line no-use-before-define
+  children?: BulletPointsItem[] | BulletPointsAttrsProps;
 }
-export interface BulletPointsItemAsObj {
-  name: string,
-  text: string,
-  items?: Record<string, unknown>[];
-  children?: {
-    items?: Record<string, unknown>[]
-    bulletPointAttrs?: Record<string, unknown>
-  }
-}
-export type BulletPointsItem = string | BulletPointsItemAsObj;
-const props = defineProps({
+export type BulletPointsItem = string | BulletPointsRenderItemComplex;
+export interface BulletPointsProps {
   /**
    * Use this props to set list tag.
    */
-  tag: {
-    type: String as PropType<ListTag>,
-    default: 'ul',
-  },
+  tag?: ListTag;
   /**
    * Use this props to set list type.
    */
-  type: {
-    type: String as PropType<BulletPointsType>,
-    default: '1',
-  },
+  type?: BulletPointsType;
   /**
    * Use this props to set list of bullet points.
    */
-  items: {
-    type: Array as PropType<BulletPointsItem[]>,
-    default: () => ([]),
-  },
+  items?: BulletPointsItem[];
   /**
    * Use this props to set the bullet point icon.
    */
-  icon: {
-    type: String as PropType<IconName>,
-    default: 'bullet-common',
-  },
+  icon?: IconName;
+}
+export type BulletPointsAttrsProps = DefineAttrsProps<BulletPointsProps, LiHTMLAttributes | OlHTMLAttributes>;
+
+const props = withDefaults(defineProps<BulletPointsProps>(), {
+  tag: 'ul',
+  type: '1',
+  items: () => ([]),
+  icon: 'bullet-common',
 });
 const tag = computed(() => props.tag);
 provide('tag', tag);
@@ -141,7 +125,7 @@ const listStyleType = computed<CSSProperties>(() => {
     '--_list-item-suffix': `"${type[props.type]?.suffix}"`,
   };
 });
-const itemsToRender = computed<BulletPointsRenderItem[]>(() => (
+const itemsToRender = computed<BulletPointsRenderItemComplex[]>(() => (
   props.items.map((item, index) => {
     if (typeof item === 'string') {
       return {
@@ -168,9 +152,11 @@ const itemsToRender = computed<BulletPointsRenderItem[]>(() => (
         },
     };
   })));
-const bulletPointsItemAttrs = (item: BulletPointsRenderItem) => {
+const bulletPointsItemAttrs = (item: BulletPointsRenderItemComplex) => {
   const {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     name, text, children, ...rest
+    // eslint-enable-next-line @typescript-eslint/no-unused-vars
   } = item;
   return rest;
 };
