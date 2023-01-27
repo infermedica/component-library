@@ -48,7 +48,6 @@ const props = withDefaults(defineProps<ToggleButtonProps>(), { value: '' });
 const emit = defineEmits<ToggleButtonEmits>();
 const attrs = useAttrs() as ToggleButtonAttrsProps;
 const parentComponent = getCurrentInstance()?.parent;
-console.log(parentComponent);
 if (!parentComponent || parentComponent.type.name !== 'UiToggleButtonGroup') {
   if (process.env.NODE_ENV !== 'production') {
     throw new Error('UiToggleButton has to be child of UiToggleButtonGroup');

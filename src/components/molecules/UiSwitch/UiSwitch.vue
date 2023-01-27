@@ -52,11 +52,11 @@ export interface SwitchProps {
   /**
    *  Use this props or v-model to set checked.
    */
-  modelValue: CheckboxProps['modelValue'];
+  modelValue?: CheckboxProps['modelValue'];
   /**
    *  Use this props to set pass attrs for UiSwitchControl.
    */
-  controlAttrs: SwitchControlAttrsProps;
+  controlAttrs?: SwitchControlAttrsProps;
 }
 export type SwitchAttrsProps = DefineAttrsProps<SwitchProps, CheckboxAttrsProps>
 export interface SwitchEmits {
