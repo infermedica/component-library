@@ -4,6 +4,9 @@ import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiRadio from '@/components/atoms/UiRadio/UiRadio.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
+import { actions } from '@storybook/addon-actions';
+
+const events = actions({ onUpdateModelValue: 'update:modelValue' });
 
 export default {
   title: 'Molecules/Scale',
@@ -98,6 +101,7 @@ const Template = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
@@ -111,6 +115,7 @@ const Template = (args) => ({
     :text-min-attrs="textMinAttrs"
     :text-max-attrs="textMaxAttrs"
     :number-stepper-attrs="numberStepperAttrs"
+    @update:modelValue="onUpdateModelValue"
   />`,
 });
 
@@ -139,6 +144,7 @@ export const WithDecrementSlot = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
@@ -152,19 +158,20 @@ export const WithDecrementSlot = (args) => ({
     :text-min-attrs="textMinAttrs"
     :text-max-attrs="textMaxAttrs"
     :number-stepper-attrs="numberStepperAttrs"
+    @update:modelValue="onUpdateModelValue"
   >
     <template #decrement="{
-      hasControls, 
+      hasControls,
       buttonDecrementAttrs,
-      isMin, 
-      decrement, 
+      isMin,
+      decrement,
       iconDecrementAttrs,
     }">
       <UiButton
         v-if="hasControls"
         v-bind="buttonDecrementAttrs"
-        :class="[ 
-          'ui-button--outlined ui-button--circled ui-number-stepper__decrement', 
+        :class="[
+          'ui-button--outlined ui-button--circled ui-number-stepper__decrement',
           { 'ui-button--is-disabled': isMin },
         ]"
         @click="decrement"
@@ -188,6 +195,7 @@ export const WithIncrementSlot = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
@@ -201,6 +209,7 @@ export const WithIncrementSlot = (args) => ({
     :text-min-attrs="textMinAttrs"
     :text-max-attrs="textMaxAttrs"
     :number-stepper-attrs="numberStepperAttrs"
+    @update:modelValue="onUpdateModelValue"
   >
     <template #increment="{
       hasControls,

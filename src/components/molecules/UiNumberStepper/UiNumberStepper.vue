@@ -111,8 +111,8 @@ export interface NumberStepperProps {
 }
 export type NumberStepperAttrsProps = DefineAttrsProps<NumberStepperProps>;
 export interface NumberStepperEmits {
-  (e:'update:modelValue', value: number): void;
-  (e: 'error', value: {isMin: boolean, isMax: boolean}): void;
+  (e: 'update:modelValue', value: number): void;
+  (e: 'error:value', value: {isMin: boolean, isMax: boolean}): void;
 }
 
 const props = withDefaults(defineProps<NumberStepperProps>(), {
@@ -162,7 +162,7 @@ function change(value: number, modifier = 0) {
     emit('update:modelValue', newValue);
     return;
   }
-  emit('error', {
+  emit('error:value', {
     isMin: isMin.value,
     isMax: isMax.value,
   });
