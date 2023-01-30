@@ -10,7 +10,7 @@
     >
       <div class="ui-card__triage">
         <UiIcon
-          v-if="defaultProps.iconTriageAttrs.icon"
+          v-if="defaultProps.iconTriageAttrs?.icon"
           v-bind="defaultProps.iconTriageAttrs"
           class="ui-card__icon"
         />
@@ -86,79 +86,73 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { PropType } from 'vue';
 import UiContainer from '../UiContainer/UiContainer.vue';
+import type { ContainerAttrsProps } from '../UiContainer/UiContainer.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
+import type { IconAttrsProps } from '../../atoms/UiIcon/UiIcon.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
+import type { HeadingAttrsProps } from '../../atoms/UiHeading/UiHeading.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
-import type { IconName } from '../../../types/icon';
+import type { TextAttrsProps } from '../../atoms/UiText/UiText.vue';
+import type {
+  DefineAttrsProps,
+  IconName,
+} from '../../../types';
 
 export type CardType = 'emergency_ambulance'
   | 'emergency'
   | 'consultation_24'
   | 'consultation'
   | 'self_care';
-const props = defineProps({
+export interface CardProps {
   /**
     * Use this props to set title for card.
     */
-  title: {
-    type: String,
-    default: '',
-  },
+  title?: string;
   /**
    * Use this props to set subtitle for card.
    */
-  subtitle: {
-    type: String,
-    default: '',
-  },
+  subtitle?: string;
   /**
    * Use this props to set description for card.
    */
-  description: {
-    type: String,
-    default: '',
-  },
+  description?: string;
   /**
    * Use this props to set icon type.
    */
-  type: {
-    type: String as PropType<CardType>,
-    default: 'emergency_ambulance',
-  },
+  type?: 'emergency_ambulance' | 'emergency' | 'consultation_24' | 'consultation' | 'self_care';
   /**
    * Use this props to pass attrs for UiIcon
    */
-  iconTriageAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
+  iconTriageAttrs?: IconAttrsProps;
   /**
    * Use this props to pass attrs for subtitle UiText
    */
-  textSubtitleAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
+  textSubtitleAttrs?: TextAttrsProps;
   /**
    * Use this props to pass attrs for title UiHeading.
    */
-  headingTitleAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
+  headingTitleAttrs?: HeadingAttrsProps;
   /**
    * Use this props to pass attrs for description UiText.
    */
-  textDescriptionAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
+  textDescriptionAttrs?: TextAttrsProps;
+}
+export type CardAttrsProps = DefineAttrsProps<CardProps, ContainerAttrsProps>
+
+const props = withDefaults(defineProps<CardProps>(), {
+  title: '',
+  subtitle: '',
+  description: '',
+  type: 'emergency_ambulance',
+  iconTriageAttrs: () => ({ icon: 'emergency-ambulance' }),
+  textSubtitleAttrs: () => ({}),
+  headingTitleAttrs: () => ({}),
+  textDescriptionAttrs: () => ({}),
 });
-const rootClassModifier = computed<`ui-card--${CardType}`>(() => `ui-card--${props.type}`);
+const rootClassModifier = computed(() => `ui-card--${props.type}`);
 const icon = computed(() => props.type.replace(/_/g, '-') as IconName);
-const defaultProps = computed(() => ({
+const defaultProps = computed<CardProps>(() => ({
   iconTriageAttrs: {
     icon: icon.value,
     ...props.iconTriageAttrs,
