@@ -52,7 +52,7 @@ import type { BulletPointsItemAttrsProps } from './_internal/UiBulletPointsItem.
 import type {
   DefineAttrsProps,
   IconName,
-  ListTag,
+  ListHTMLTag,
 } from '../../../types';
 
 export type BulletPointsType = 'a' | 'A' | 'i' | 'I' | '1' | 'ar';
@@ -67,7 +67,7 @@ export interface BulletPointsProps {
   /**
    * Use this props to set list tag.
    */
-  tag?: ListTag;
+  tag?: ListHTMLTag;
   /**
    * Use this props to set list type.
    */

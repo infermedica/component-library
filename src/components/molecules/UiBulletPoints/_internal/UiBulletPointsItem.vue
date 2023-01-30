@@ -52,8 +52,8 @@ import UiText from '../../../atoms/UiText/UiText.vue';
 import type { TextAttrsProps } from '../../../atoms/UiText/UiText.vue';
 import type {
   DefineAttrsProps,
-  HTMLTag,
   IconName,
+  ListHTMLTag,
 } from '../../../../types';
 
 export interface BulletPointsItemProps {
@@ -92,7 +92,7 @@ const defaultProps = computed<BulletPointsItemProps>(() => ({
     ...props.textMarkerAttrs,
   },
 }));
-const tag = inject('tag') as ComputedRef<HTMLTag>;
+const tag = inject<ComputedRef<ListHTMLTag>>('tag', computed(() => 'ul'));
 const isUnordered = computed(() => tag.value === 'ul');
 </script>
 
