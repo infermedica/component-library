@@ -1,19 +1,19 @@
 <template>
-  <UiListItem :list-item-attrs="defaultProps.listItemAttrs">
+  <UiListItem class="ui-accordion-item">
     <template #content>
       <!-- @slot Use this slot to replace toggler template. -->
       <slot
-        name="toggler"
         v-bind="{
           buttonTogglerAttrs,
           name,
           isOpen,
           toggle,
           title,
-          iconOpen: defaultProps.settings.iconOpen,
+          iconOpen: defaultProps.settings!.iconOpen,
           iconClose: settings.iconClose,
           iconTogglerAttrs: defaultProps.iconTogglerAttrs,
         }"
+        name="toggler"
       >
         <UiButton
           v-bind="buttonTogglerAttrs"
@@ -29,7 +29,7 @@
             v-bind="{
               iconTogglerAttrs: defaultProps.iconTogglerAttrs,
               isOpen,
-              iconOpen: defaultProps.settings.iconOpen,
+              iconOpen: defaultProps.settings!.iconOpen,
               iconClose: settings.iconClose
             }"
           >
@@ -43,12 +43,12 @@
       </slot>
       <!-- @slot Use this slot to replace content template. -->
       <slot
-        name="content"
         v-bind="{
           isOpen,
           contentAttrs,
           name
         }"
+        name="content"
       >
         <div
           v-show="isOpen"
@@ -71,85 +71,75 @@ import {
   computed,
   inject,
 } from 'vue';
-import type {
-  ComputedRef,
-  PropType,
-} from 'vue';
+import type { ComputedRef } from 'vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
+import type { ButtonAttrsProps } from '../../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
+import type { IconAttrsProps } from '../../../atoms/UiIcon/UiIcon.vue';
 import UiListItem from '../../UiList/_internal/UiListItem.vue';
+import type { ListItemAttrsProps } from '../../UiList/_internal/UiListItem.vue';
+import type { AccordionProps } from '../UiAccordion.vue';
 import type {
-  AccordionValue,
-  AccordionItemSettings,
-} from '../UiAccordion.vue';
-import type { IconName } from '../../../../types/icon';
+  DefineAttrsProps,
+  IconName,
+} from '../../../../types';
 
-const props = defineProps({
+export interface AccordionItemSettings {
+  iconOpen?: IconName;
+  iconClose?: IconName;
+}
+export interface AccordionItemProps {
   /**
     * Use this props to set item title.
     */
-  title: {
-    type: String,
-    default: '',
-  },
+  title?: string;
   /**
     * Use this props to set item name, it used to toggle.
     */
-  name: {
-    type: String,
-    default: '',
-  },
+  name?: string;
   /**
     * Use this props to setup item component.
     */
-  settings: {
-    type: Object as PropType<AccordionItemSettings>,
-    default: () => ({
-      iconOpen: 'chevron-up',
-      iconClose: 'chevron-down',
-    }),
-  },
+  settings?: AccordionItemSettings;
   /**
    *  Use this props to pass attrs to toggler UiButton.
    */
-  buttonTogglerAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
+  buttonTogglerAttrs?: ButtonAttrsProps;
   /**
    *  Use this props to pass attrs to toggler UiIcon.
    */
-  iconTogglerAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
+  iconTogglerAttrs?: IconAttrsProps;
   /**
    *  Use this props to pass attrs to content element.
    */
-  contentAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
-  /**
-   *  Use this props to pass attrs to list item.
-   */
-  listItemAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
+  contentAttrs?: DefineAttrsProps<null>;
+}
+export type AccordionItemAttrsProps = DefineAttrsProps<AccordionItemProps, ListItemAttrsProps>
+
+const props = withDefaults(defineProps<AccordionItemProps>(), {
+  title: '',
+  name: '',
+  settings: () => ({
+    iconOpen: 'chevron-up',
+    iconClose: 'chevron-down',
+  }),
+  buttonTogglerAttrs: () => ({}),
+  iconTogglerAttrs: () => ({}),
+  contentAttrs: () => ({}),
+  listItemAttrs: () => ({}),
 });
-const opened = inject('opened') as ComputedRef<AccordionValue>;
+const opened = inject('opened') as ComputedRef<AccordionProps['modelValue']>;
 const toggle = inject('toggle') as (name: string) => void;
 const isOpen = computed(() => {
   if (opened.value === 'string') {
     return props.name === opened.value;
   }
-  return opened.value.includes(props.name);
+  return opened.value?.includes(props.name);
 });
-const defaultProps = computed(() => ({
+const defaultProps = computed<AccordionItemProps>(() => ({
   settings: {
-    iconOpen: 'chevron-up' as IconName,
-    iconClose: 'chevron-down' as IconName,
+    iconOpen: 'chevron-up',
+    iconClose: 'chevron-down',
     ...props.settings,
   },
   iconTogglerAttrs: {
@@ -157,10 +147,6 @@ const defaultProps = computed(() => ({
       ? props.settings?.iconOpen || 'chevron-up'
       : props.settings?.iconClose || 'chevron-down',
     ...props.iconTogglerAttrs,
-  },
-  listItemAttrs: {
-    class: 'ui-accordion-item',
-    ...props.listItemAttrs,
   },
 }));
 </script>

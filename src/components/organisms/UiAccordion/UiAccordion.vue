@@ -25,51 +25,38 @@ import {
   computed,
   provide,
 } from 'vue';
-import type { PropType } from 'vue';
 import UiAccordionItem from './_internal/UiAccordionItem.vue';
+import type { AccordionItemAttrsProps } from './_internal/UiAccordionItem.vue';
 import UiList from '../UiList/UiList.vue';
-import type { IconName } from '../../../types/icon';
+import type { ListAttrsProps } from '../UiList/UiList.vue';
+import type { DefineAttrsProps } from '../../../types';
 
-export type AccordionValue = string | string[];
-export interface AccordionItemSettings {
-  iconOpen?: IconName;
-  iconClose?: IconName;
-  [key: string]: unknown
-}
-export interface AccordionItemAsObj {
-  title: string;
-  name?: string;
-  accordionItemAttrs?: Record<string, unknown>;
-  settings?: AccordionItemSettings;
-  [key: string]: unknown;
-}
-export type AccordionItem = string | AccordionItemAsObj;
-const props = defineProps({
+export interface AccordionProps {
   /**
    * Use this props or v-model to set opened items.
    */
-  modelValue: {
-    type: [
-      String,
-      Array,
-    ] as PropType<AccordionValue>,
-    default: '',
-  },
+  modelValue?: string | string[];
   /**
    * Use this props to pass accordion items.
    */
-  items: {
-    type: Array as PropType<AccordionItem[]>,
-    default: () => ([]),
-  },
+  items?: (string | AccordionItemAttrsProps)[];
+}
+export type AccordionAttrsProps = DefineAttrsProps<AccordionProps, ListAttrsProps>
+export interface AccordionEmits {
+  (e: 'update:modelValue', value: AccordionProps['modelValue']): void
+}
+
+const props = withDefaults(defineProps<AccordionProps>(), {
+  modelValue: '',
+  items: () => ([]),
 });
-const emit = defineEmits<{(e: 'update:modelValue', value: AccordionValue): void}>();
-const opened = computed<AccordionValue>(() => (props.modelValue));
+const emit = defineEmits<AccordionEmits>();
+const opened = computed<AccordionProps['modelValue']>(() => (props.modelValue));
 provide('opened', opened);
 function toggle(name: string): void {
   if (typeof opened.value === 'string') {
     emit('update:modelValue', opened.value === name ? '' : name);
-  } else if (opened.value.includes(name)) {
+  } else if (opened.value?.includes(name)) {
     emit('update:modelValue', opened.value.filter((item) => (item !== name)));
   } else {
     emit('update:modelValue', [
@@ -79,7 +66,7 @@ function toggle(name: string): void {
   }
 }
 provide('toggle', toggle);
-const itemsToRender = computed(() => (
+const itemsToRender = computed<AccordionItemAttrsProps[]>(() => (
   props.items.map((item, key) => {
     if (typeof item === 'string') {
       return {
