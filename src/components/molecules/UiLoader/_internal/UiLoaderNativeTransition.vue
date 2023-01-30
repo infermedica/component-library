@@ -16,8 +16,8 @@ import type { DefineAttrsProps } from '../../../../types';
 
 export interface LoaderNativeTransitionProps {
   /**
-  * Use this props to show UiLoader component
-  */
+   * Use this props to show UiLoader component
+   */
   isLoading?: boolean;
 }
 export type LoaderNativeTransitionAttrsProps = DefineAttrsProps<LoaderNativeTransitionProps, TransitionProps>;

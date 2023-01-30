@@ -22,7 +22,6 @@ import {
   onMounted,
 } from 'vue';
 import './UiLoader.stories.scss';
-import { OnBrand } from '@/components/molecules/UiNavigation/UiNavigation.stories';
 import docs from './UiLoader.mdx';
 
 const events = actions({ onMounted: 'onMounted' });
@@ -318,8 +317,8 @@ export const SkeletonLoader = () => ({
     UiLoader,
     UiText,
   },
-  template: `<UiText 
-    tag="span" 
+  template: `<UiText
+    tag="span"
     class="self-start"
   >
     Common:
@@ -332,7 +331,7 @@ export const SkeletonLoader = () => ({
       <!-- Place the content to be loaded. -->
     </UiLoader>
   </div>
-  <UiText 
+  <UiText
     tag="span"
     class="self-start"
   >
@@ -478,8 +477,8 @@ export const LoadingContainer = (args) => ({
       <UiHeading level="2">
         Lab tests
       </UiHeading>
-      <UiHeading 
-        level="4" 
+      <UiHeading
+        level="4"
         class="loading-container__recommended"
       >
         Recommended

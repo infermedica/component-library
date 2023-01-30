@@ -18,7 +18,7 @@ import { capitalizeFirst } from '../../../../utilities/helpers/index';
 import type { DefineAttrsProps } from '../../../../types';
 
 export interface LoaderSkeletonProps {
-    /**
+  /**
    * Use this props to set skeleton type.
    */
   type?: 'common' | 'question';

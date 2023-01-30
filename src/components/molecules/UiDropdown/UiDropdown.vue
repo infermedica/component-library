@@ -139,7 +139,7 @@ export interface DropdownProps {
   /**
    * Use this props to set toggle DOM element to back to it after close popover.
    */
-  toggleElement?: HTMLElement;
+  toggleElement?: HTMLElement | null;
   /**
    * Use this props to allow using key navigation.
    */
@@ -211,7 +211,6 @@ async function openHandler({ focus = false }: DropdownHandlersOptions = {}): Pro
     else if (nextDropdownItem.value) focusElement(nextDropdownItem.value);
   }
 }
-
 function closeHandler({ focusToggle }: DropdownHandlersOptions = { focusToggle: true }): void {
   if (dropdownToggle.value && focusToggle) {
     ((dropdownToggle.value as ButtonInstance).$el || dropdownToggle.value).focus();
@@ -220,7 +219,6 @@ function closeHandler({ focusToggle }: DropdownHandlersOptions = { focusToggle: 
   emit('close');
   window.removeEventListener('keydown', disableArrows, false);
 }
-
 async function toggleHandler() {
   if (isOpen.value) {
     closeHandler();
@@ -289,12 +287,10 @@ async function dropdownItemKeydownHandler(event: KeyboardEvent): Promise<void> {
   }
 }
 provide('dropdownItemKeydownHandler', dropdownItemKeydownHandler);
-
 defineExpose({
   isOpen,
   closeHandler,
 });
-
 const itemsToRender = computed<DropdownItemComplex[]>(() => (props.items.map((item, key) => {
   if (typeof item === 'string') {
     return {
@@ -309,7 +305,6 @@ const itemsToRender = computed<DropdownItemComplex[]>(() => (props.items.map((it
     value: item.value || JSON.parse(JSON.stringify(item)),
   };
 })));
-
 // TODO: remove in 0.6.0 / BEGIN
 const attrs = useAttrs();
 const buttonAttrs = computed(() => attrs.buttonAttrs || attrs['button-attrs']);

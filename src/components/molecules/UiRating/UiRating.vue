@@ -123,13 +123,12 @@ import type {
 
 export type RatingValue = string | number;
 export interface RatingSettings {
-  iconDefault: Icon;
-  iconActive: Icon;
-  [key: string]: unknown
+  iconDefault?: Icon;
+  iconActive?: Icon;
+  icon?: Icon; // TODO: remove in 0.6.0
 }
 export interface RatingTranslation {
   stars: (index: number) => string;
-  [key: string]: unknown;
 }
 export interface RatingRenderItem extends RadioAttrsProps {
   index: number;
@@ -192,10 +191,8 @@ const props = withDefaults(defineProps<RatingProps>(), {
 const defaultProps = computed<RatingProps>(() => ({
   translation: { stars: (index: number) => (`${index} stars`) },
   settings: {
-    ...{
-      iconDefault: 'star-outlined',
-      iconActive: 'star-filled',
-    },
+    iconDefault: 'star-outlined',
+    iconActive: 'star-filled',
     ...props.settings,
   },
 }));
