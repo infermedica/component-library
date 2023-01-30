@@ -77,46 +77,41 @@ import {
 import type { Ref } from 'vue';
 import { uid } from 'uid/single';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
-import type { PropsAttrs } from '../../../../types/attrs';
+import type { ButtonAttrsProps } from '../../../atoms/UiButton/UiButton.vue';
+import type { DefineAttrsProps } from '../../../../types';
 
-const props = defineProps({
+export interface TabsItemProps {
   /**
    * Use this props to set item title.
    */
-  title: {
-    type: String,
-    default: '',
-  },
+  title?: string;
   /**
    * Use this props to set item name, it used to toggle.
    */
-  name: {
-    type: String,
-    default: '',
-  },
+  name?: string;
   /**
    * Use this props to pass attrs for toggle UiButton.
    */
-  buttonTabAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  buttonTabAttrs?: ButtonAttrsProps;
   /**
    * Use this props to pass attrs for content element.
    */
-  contentAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
+  contentAttrs?: DefineAttrsProps<null>,
+}
+export type TabsItemAttrsProps = DefineAttrsProps<TabsItemProps>;
+
+const props = withDefaults(defineProps<TabsItemProps>(), {
+  title: '',
+  name: '',
+  buttonTabAttrs: () => ({}),
+  contentAttrs: () => ({}),
 });
-const attrs = useAttrs() as {id: string};
+const attrs: TabsItemAttrsProps = useAttrs();
 const activeTab = inject('activeTab') as Ref<string>;
 const hasActiveTab = computed(() => (!!activeTab.value));
-
 const id = computed(() => (props.name || attrs.id || `tab-${uid()}`));
 const isActive = computed(() => (id.value === activeTab.value));
 const handleTabActive = inject('handleTabActive') as (event: Event, name: string) => void;
-
 const tab = ref<HTMLElement | null>(null);
 const setActiveHTMLElement = inject('setActiveHTMLElement') as (element: HTMLElement | null) => void;
 onMounted(async () => {
