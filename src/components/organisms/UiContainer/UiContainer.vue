@@ -6,7 +6,11 @@
 </template>
 
 <script lang="ts">
+import type { DefineAttrsProps } from '../../../types';
+
 export default { name: 'UiContainer' };
+
+export type ContainerAttrsProps = DefineAttrsProps<null>
 </script>
 
 <style lang="scss">
