@@ -6,14 +6,16 @@
 
 <script setup lang="ts">
 import UiText from '../../../atoms/UiText/UiText.vue';
+import type { TextAttrsProps } from '../../../atoms/UiText/UiText.vue';
+import type { DefineAttrsProps } from '../../../../types';
 
-defineProps({
+export interface ListItemSuffixAsTextProps {
   /**
    * Use this props to set label.
    */
-  label: {
-    type: String,
-    default: '',
-  },
-});
+  label: string;
+}
+export type ListItemSuffixAsTextAttrsProps = DefineAttrsProps<ListItemSuffixAsTextProps, TextAttrsProps>
+
+withDefaults(defineProps<ListItemSuffixAsTextProps>(), { label: '' });
 </script>
