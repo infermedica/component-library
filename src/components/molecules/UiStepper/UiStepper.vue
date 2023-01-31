@@ -70,7 +70,7 @@
             >
               <UiStepperStep
                 :index="index"
-                :index-of-active-step="indexOfActiveStep"
+                :active-step-index="indexOfActiveStep"
                 v-bind="stepperStepAttrs(step)"
               >
                 <template #item-link="data">

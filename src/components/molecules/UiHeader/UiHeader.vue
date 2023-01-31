@@ -130,8 +130,7 @@ export interface HeaderProps {
 }
 export type HeaderAttrsProps = DefineAttrsProps<HeaderProps>;
 export interface HeaderEmits {
-  (e: 'hamburger:open'): void;
-  (e: 'hamburger:close'): void;
+  (e: 'hamburger:open' | 'hamburger:close'): void;
 }
 const props = withDefaults(defineProps<HeaderProps>(), {
   title: '',
@@ -161,9 +160,7 @@ const isMobile = ref(matchMediaObject.matches);
 const isOpen = ref(false);
 watch(isOpen, (value: boolean) => {
   if (value) {
-    emit('hamburger:open');
-  } else {
-    emit('hamburger:close');
+    emit(value ? 'hamburger:open' : 'hamburger:close');
   }
 });
 const handleHamburger = (): void => {

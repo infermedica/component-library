@@ -152,14 +152,11 @@ const itemsToRender = computed<BulletPointsRenderItemComplex[]>(() => (
         },
     };
   })));
-const bulletPointsItemAttrs = (item: BulletPointsRenderItemComplex) => {
-  const {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    name, text, children, ...rest
-    // eslint-enable-next-line @typescript-eslint/no-unused-vars
-  } = item;
-  return rest;
-};
+const bulletPointsItemAttrs = ({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  name, text, children, ...rest
+  // eslint-enable-next-line @typescript-eslint/no-unused-vars
+}: BulletPointsRenderItemComplex) => rest;
 </script>
 
 <style lang="scss">

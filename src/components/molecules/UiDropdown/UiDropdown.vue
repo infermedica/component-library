@@ -96,7 +96,7 @@ import {
   nextTick,
   useAttrs,
 } from 'vue';
-import type { VNode } from 'vue';
+import type { ComponentPublicInstance } from 'vue';
 import useDropdownItems from './useDropdownItems';
 import { clickOutside as vClickOutside } from '../../../utilities/directives';
 import { focusElement } from '../../../utilities/helpers/index';
@@ -139,7 +139,7 @@ export interface DropdownProps {
   /**
    * Use this props to set toggle DOM element to back to it after close popover.
    */
-  toggleElement?: HTMLElement | null;
+  toggleElement?: ComponentPublicInstance | HTMLElement | null;
   /**
    * Use this props to allow using key navigation.
    */
@@ -179,8 +179,15 @@ const emit = defineEmits<DropdownEmits>();
 const toggle = ref<ButtonInstance | null>(null);
 const dropdown = ref<HTMLDivElement | null>(null);
 const isOpen = ref(false);
-const dropdownToggle = computed<VNode | ButtonInstance>(
-  () => props.toggleElement || toggle.value?.$el,
+const dropdownToggle = computed<HTMLElement>(
+  () => {
+    if (!props.toggleElement) {
+      return toggle.value?.$el;
+    }
+    return '$el' in props.toggleElement
+      ? props.toggleElement.$el
+      : props.toggleElement;
+  },
 );
 const {
   dropdownItems,
@@ -199,7 +206,7 @@ function disableArrows(event: KeyboardEvent): void {
     event.preventDefault();
   }
 }
-async function openHandler({ focus = false }: DropdownHandlersOptions = {}): Promise<void> {
+async function openHandler({ focus = false }: DropdownHandlersOptions = {}) {
   isOpen.value = true;
   emit('open');
   window.addEventListener('keydown', disableArrows, false);
@@ -211,9 +218,9 @@ async function openHandler({ focus = false }: DropdownHandlersOptions = {}): Pro
     else if (nextDropdownItem.value) focusElement(nextDropdownItem.value);
   }
 }
-function closeHandler({ focusToggle }: DropdownHandlersOptions = { focusToggle: true }): void {
+function closeHandler({ focusToggle }: DropdownHandlersOptions = { focusToggle: true }) {
   if (dropdownToggle.value && focusToggle) {
-    ((dropdownToggle.value as ButtonInstance).$el || dropdownToggle.value).focus();
+    dropdownToggle.value.focus();
   }
   isOpen.value = false;
   emit('close');
@@ -270,19 +277,17 @@ async function dropdownKeydownHandler({ key }: KeyboardEvent) {
 // todo: why this component handle searchQuery and searchDebounce?
 const searchQuery = ref('');
 const searchDebounce = ref<ReturnType<typeof setTimeout> | null>(null);
-function handleInputQuery({ key }: KeyboardEvent): void {
+function handleInputQuery(key: KeyboardEvent['key']): void {
   searchQuery.value += key.toLowerCase();
   const match: number = dropdownItems.value.findIndex(
     (item: HTMLElement) => item.innerText.toLowerCase().startsWith(searchQuery.value),
   );
   if (match !== -1 && match !== activeDropdownItemIndex.value) focusElement(dropdownItems.value[match]);
 }
-async function dropdownItemKeydownHandler(event: KeyboardEvent): Promise<void> {
-  const { key } = event;
+async function dropdownItemKeydownHandler({ key }: KeyboardEvent): Promise<void> {
   if (searchDebounce.value) clearTimeout(searchDebounce.value);
-
   if (key.length === 1) {
-    handleInputQuery(event);
+    handleInputQuery(key);
     searchDebounce.value = setTimeout(() => { searchQuery.value = ''; }, 500);
   }
 }
@@ -314,15 +319,11 @@ if (buttonAttrs.value) {
   }
 }
 // END
-const dropdownItemAttrs = (item: DropdownItemComplex) => {
-  /* eslint-disable @typescript-eslint/no-unused-vars */
-  const {
-    name,
-    text,
-    ...rest
-  } = item;
-  return rest;
-};
+const dropdownItemAttrs = ({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  name, text, ...rest
+  // eslint-enable-next-line @typescript-eslint/no-unused-vars
+}: DropdownItemComplex) => rest;
 </script>
 
 <style lang="scss">

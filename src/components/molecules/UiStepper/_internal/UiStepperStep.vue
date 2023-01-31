@@ -57,7 +57,7 @@ export interface StepperStepProps {
   /**
    * Use this props to pass index of active step.
    */
-  indexOfActiveStep?: number;
+  activeStepIndex?: number;
   /**
    * Use this props to set the step label.
    */
@@ -67,11 +67,11 @@ export type StepperStepAttrsProps = DefineAttrsProps<StepperStepProps, ButtonAtt
 
 const props = withDefaults(defineProps<StepperStepProps>(), {
   index: 0,
-  indexOfActiveStep: 0,
+  activeStepIndex: 0,
   label: '',
 });
-const isCurrentStep = computed(() => props.index === props.indexOfActiveStep);
-const isVisitedStep = computed(() => props.index < props.indexOfActiveStep);
+const isCurrentStep = computed(() => props.index === props.activeStepIndex);
+const isVisitedStep = computed(() => props.index < props.activeStepIndex);
 const listItemAttrs = computed(() => ({
   class: [
     'ui-stepper-step',

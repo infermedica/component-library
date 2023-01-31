@@ -50,15 +50,16 @@ const props = withDefaults(defineProps<DropdownItemProps>(), {
 });
 const defaultProps = computed<DropdownItemProps>(() => ({
   iconItemAttrs: {
-    icon: 'present',
+    icon: props.iconItemAttrs.icon || 'present',
     ...props.iconItemAttrs,
   },
 }));
-const attrs = useAttrs() as DropdownItemAttrsProps;
+const attrs = useAttrs();
 const dropdownItem = ref<null | HTMLButtonElement>(null);
-const changeHandler = inject('changeHandler') as (value: DropdownProps['modelValue']) => void;
-const dropdownItemKeydownHandler = inject('dropdownItemKeydownHandler') as (e: Event) => Promise<void>;
-const modelValue = inject('modelValue') as ComputedRef<DropdownProps['modelValue']>;
+const changeHandler = inject<(value: DropdownProps['modelValue']) => void>('changeHandler');
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const dropdownItemKeydownHandler = inject<(e: Event) => Promise<void> | void>('dropdownItemKeydownHandler', () => {});
+const modelValue = inject<ComputedRef<DropdownProps['modelValue']>>('modelValue', computed(() => ''));
 const isChecked = computed(() => {
   if (!modelValue.value) {
     return false;
@@ -73,7 +74,7 @@ const isChecked = computed(() => {
 });
 const isOption = computed(() => !!props.value);
 const tabindex = computed(() => {
-  if (isChecked.value || typeof modelValue.value === 'undefined') {
+  if (isChecked.value || !modelValue.value) {
     return 0;
   }
   if (typeof modelValue.value === 'string') {
@@ -82,7 +83,7 @@ const tabindex = computed(() => {
   return !Object.keys(modelValue.value).length ? 0 : -1;
 });
 function optionChangeHandler(value: DropdownItemProps['value']): void {
-  if (isOption.value) {
+  if (isOption.value && changeHandler) {
     changeHandler(value);
   }
 }

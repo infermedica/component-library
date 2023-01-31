@@ -111,19 +111,19 @@ const transitionComponent = computed(() => (isIfTransitionType.value
   ? UiLoaderNativeTransition
   : UiLoaderTransition
 ));
-const transitionComponentAttrs = computed(() => {
-  const attrs = {
+const transitionComponentAttrs = computed<LoaderProps['transitionAttrs']>(() => {
+  const attrs: LoaderNativeTransitionAttrsProps = {
     name: props.name,
     mode: 'out-in',
     ...props.transitionAttrs,
     isLoading: props.isLoading,
   };
   return isIfTransitionType.value
-    ? attrs as LoaderNativeTransitionAttrsProps
+    ? attrs
     : {
       ...attrs,
       isOpacityTransitionType: props.transitionType === 'opacity',
-    } as LoaderTransitionAttrsProps;
+    };
 });
 </script>
 

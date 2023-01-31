@@ -92,7 +92,7 @@ const defaultProps = computed<BulletPointsItemProps>(() => ({
     ...props.textMarkerAttrs,
   },
 }));
-const tag = inject('tag') as ComputedRef<HTMLTag>;
+const tag = inject<ComputedRef<HTMLTag>>('tag', computed(() => 'ul'));
 const isUnordered = computed(() => tag.value === 'ul');
 </script>
 

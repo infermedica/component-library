@@ -22,6 +22,7 @@ import {
   inject,
   provide,
   ref,
+  isRef,
 } from 'vue';
 import type { Ref } from 'vue';
 import type { InteractiveSvgAttrsFunc } from '../UiInteractiveSvg.vue';
@@ -36,9 +37,12 @@ export interface InteractiveSvgElementProps {
 export type InteractiveSvgElementAttrsProps = DefineAttrsProps<InteractiveSvgElementProps>;
 
 withDefaults(defineProps<InteractiveSvgElementProps>(), { tag: 'path' });
-const setAttrs: InteractiveSvgAttrsFunc | Ref<InteractiveSvgAttrsFunc> | undefined = inject('elementsAttrs');
-const elementsAttrs: InteractiveSvgAttrsFunc = (attrs) => {
-  const elementsAttrs = (setAttrs as Ref<InteractiveSvgAttrsFunc>).value || setAttrs;
+const setAttrs = inject<InteractiveSvgAttrsFunc | Ref<InteractiveSvgAttrsFunc>>('elementsAttrs');
+const elementsAttrs = (attrs: Record<string, unknown>) => {
+  if (!setAttrs) {
+    return {};
+  }
+  const elementsAttrs = isRef<InteractiveSvgAttrsFunc>(setAttrs) ? setAttrs.value : setAttrs;
   const {
     elementsAttrs: elementsAttrsForNested, ...rest
   } = elementsAttrs(attrs);

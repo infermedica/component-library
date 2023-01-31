@@ -157,14 +157,14 @@ export const WithDefaultSlot = (args) => ({
     :class="modifiers"
   >
     <template
-      v-for="(item, key) in itemsToRender"
+      v-for="({name, label, ...attrs}, key) in items"
       :key="key"
     >
       <UiNavigationItem
         class=" ui-navigation__item"
-        v-bind="navigationItemAttrs(item)"
+        v-bind="attrs"
       >
-        {{ item.label }}
+        {{ label }}
       </UiNavigationItem>
     </template>
   </UiNavigation>`,
