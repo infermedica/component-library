@@ -39,7 +39,7 @@
       v-bind="{
         steps: stepsToRender,
         currentStep,
-        indexOfActiveStep,
+        activeStepIndex,
         stepperStepAttrs,
       }"
     >
@@ -50,7 +50,7 @@
           name="items"
           v-bind="{
             steps: stepsToRender,
-            indexOfActiveStep,
+            activeStepIndex,
             stepperStepAttrs,
           }"
         >
@@ -64,13 +64,13 @@
               v-bind="{
                 step,
                 index,
-                indexOfActiveStep,
+                activeStepIndex,
                 stepperStepAttrs,
               }"
             >
               <UiStepperStep
                 :index="index"
-                :active-step-index="indexOfActiveStep"
+                :active-step-index="activeStepIndex"
                 v-bind="stepperStepAttrs(step)"
               >
                 <template #item-link="data">
@@ -124,8 +124,8 @@ const props = withDefaults(defineProps<StepperProps>(), {
   progressAttrs: () => ({}),
 });
 const stepsLength = computed(() => props.steps.length);
-const indexOfActiveStep = computed(() => props.steps.findIndex((step) => step.label === props.currentStep));
-const currentStepDisplayNumber = computed(() => indexOfActiveStep.value + 1);
+const activeStepIndex = computed(() => props.steps.findIndex((step) => step.label === props.currentStep));
+const currentStepDisplayNumber = computed(() => activeStepIndex.value + 1);
 const currentStepDisplayText = computed(() => `
       ${currentStepDisplayNumber.value}/${props.steps.length} ${props.currentStep}
     `);

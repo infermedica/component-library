@@ -84,6 +84,7 @@ import type { HeadingAttrsProps } from '../UiHeading/UiHeading.vue';
 import UiNumberStepper from '../../molecules/UiNumberStepper/UiNumberStepper.vue';
 import type { DefineAttrsProps } from '../../../types';
 
+export type RangeModelValue = number;
 export interface RangeProps {
   /**
    * Use this props or v-model to set value.
@@ -113,7 +114,7 @@ export interface RangeProps {
 // TODO after refactoring the NumberStepper component, pass its NumberStepperAttrsProps type as the second argument of RangeAttrs
 export type RangeAttrs = DefineAttrsProps<RangeProps>;
 export interface RangeEmits {
-  (e:'update:modelValue', value: RangeProps['modelValue']): void;
+  (e:'update:modelValue', value: RangeModelValue): void;
 }
 
 const props = withDefaults(defineProps<RangeProps>(), {
@@ -148,7 +149,7 @@ const trackWidth = computed(() => {
   const position = props.modelValue - props.min;
   return `${(position / scope) * 100}%`;
 });
-function changeHandler(value: RangeProps['modelValue']) {
+function changeHandler(value: RangeModelValue) {
   if (attrs.value.disabled) return;
   emit('update:modelValue', value);
 }

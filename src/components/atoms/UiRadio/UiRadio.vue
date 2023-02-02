@@ -110,7 +110,7 @@ export interface RadioProps {
 }
 export type RadioAttrsProps = DefineAttrsProps<RadioProps, LabelHTMLAttributes>;
 export interface RadioEmits {
-  (e: 'update:modelValue', value: RadioProps['modelValue']): void;
+  (e: 'update:modelValue', value: RadioValue): void;
 }
 
 const props = withDefaults(defineProps<RadioProps>(), {

@@ -118,6 +118,7 @@ export interface DropdownHandlersOptions {
   focus?: boolean;
   focusToggle?: boolean;
 }
+export type DropdownModelValue = string | Record<string, unknown>;
 export interface DropdownProps {
   /**
    * Use this props to set text on toggle button.
@@ -131,7 +132,7 @@ export interface DropdownProps {
   /**
    * Use this props or v-model to set value.
    */
-  modelValue?: string | Record<string, unknown>;
+  modelValue?: DropdownModelValue;
   /**
    * Use this props to allow clicking outside to close dropdown.
    */
@@ -159,7 +160,7 @@ export interface DropdownProps {
 }
 export type DropdownAttrsProps = DefineAttrsProps<DropdownProps>
 export interface DropdownEmits {
-  (e: 'update:modelValue', value: DropdownProps['modelValue']): void;
+  (e: 'update:modelValue', value: DropdownModelValue): void;
   (e: 'open'): void;
   (e: 'close'): void;
 }
@@ -240,7 +241,7 @@ const dropdownName = computed(() => (
 provide('name', dropdownName);
 const modelValue = computed(() => props.modelValue);
 provide('modelValue', modelValue);
-function changeHandler(value: DropdownProps['modelValue']) {
+function changeHandler(value: DropdownModelValue) {
   emit('update:modelValue', value);
   closeHandler();
 }
@@ -277,14 +278,14 @@ async function dropdownKeydownHandler({ key }: KeyboardEvent) {
 // todo: why this component handle searchQuery and searchDebounce?
 const searchQuery = ref('');
 const searchDebounce = ref<ReturnType<typeof setTimeout> | null>(null);
-function handleInputQuery(key: KeyboardEvent['key']): void {
+function handleInputQuery(key: KeyboardEvent['key']) {
   searchQuery.value += key.toLowerCase();
   const match: number = dropdownItems.value.findIndex(
     (item: HTMLElement) => item.innerText.toLowerCase().startsWith(searchQuery.value),
   );
   if (match !== -1 && match !== activeDropdownItemIndex.value) focusElement(dropdownItems.value[match]);
 }
-async function dropdownItemKeydownHandler({ key }: KeyboardEvent): Promise<void> {
+async function dropdownItemKeydownHandler({ key }: KeyboardEvent) {
   if (searchDebounce.value) clearTimeout(searchDebounce.value);
   if (key.length === 1) {
     handleInputQuery(key);
@@ -312,7 +313,7 @@ const itemsToRender = computed<DropdownItemComplex[]>(() => (props.items.map((it
 })));
 // TODO: remove in 0.6.0 / BEGIN
 const attrs = useAttrs();
-const buttonAttrs = computed(() => attrs.buttonAttrs || attrs['button-attrs']);
+const buttonAttrs = computed(() => (attrs.buttonAttrs || attrs['button-attrs']));
 if (buttonAttrs.value) {
   if (process.env.NODE_ENV === 'development') {
     console.warn('[@infermedica/component-library warn][UiDropdown]: The `buttonAttrs` props will be removed in 0.6.0. Please use `buttonToggleAttrs` props instead.');
@@ -321,9 +322,8 @@ if (buttonAttrs.value) {
 // END
 const dropdownItemAttrs = ({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  name, text, ...rest
-  // eslint-enable-next-line @typescript-eslint/no-unused-vars
-}: DropdownItemComplex) => rest;
+  name, text, ...itemAttrs
+}: DropdownItemComplex) => itemAttrs;
 </script>
 
 <style lang="scss">

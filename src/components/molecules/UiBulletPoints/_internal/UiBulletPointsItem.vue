@@ -18,7 +18,6 @@
       <UiText
         v-else
         v-bind="defaultProps.textMarkerAttrs"
-        tag="span"
         class="ui-bullet-points-item__marker"
       />
     </slot>

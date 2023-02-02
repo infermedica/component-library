@@ -83,11 +83,12 @@ import UiText from '../UiText/UiText.vue';
 import type { TextAttrsProps } from '../UiText/UiText.vue';
 import type { DefineAttrsProps } from '../../../types';
 
+export type CheckboxModelValue = boolean | Record<string, unknown>[];
 export interface CheckboxProps {
   /**
    *  Use this props or v-model to set checked.
    */
-  modelValue?: boolean | Record<string, unknown>[];
+  modelValue?: CheckboxModelValue;
   /**
    * Use this props to set value of checkbox.
    * Required for multiple checkboxes.
@@ -118,7 +119,7 @@ export interface CheckboxProps {
 }
 export type CheckboxAttrsProps = DefineAttrsProps<CheckboxProps, LabelHTMLAttributes>;
 export interface CheckboxEmits {
-  (e: 'update:modelValue', value: CheckboxProps['modelValue']): void,
+  (e: 'update:modelValue', value: CheckboxModelValue): void,
 }
 
 const props = withDefaults(defineProps<CheckboxProps>(), {
@@ -171,7 +172,7 @@ const isChecked = computed(() => {
   }
   return props.modelValue;
 });
-const getChecked = (checked: boolean): CheckboxProps['modelValue'] => {
+const getChecked = (checked: boolean): CheckboxModelValue => {
   if (Array.isArray(props.modelValue)) {
     return checked
       ? [

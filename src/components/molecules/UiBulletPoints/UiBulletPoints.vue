@@ -52,22 +52,27 @@ import type { BulletPointsItemAttrsProps } from './_internal/UiBulletPointsItem.
 import type {
   DefineAttrsProps,
   IconName,
-  ListTag,
+  ListHTMLTag,
 } from '../../../types';
 
 export type BulletPointsType = 'a' | 'A' | 'i' | 'I' | '1' | 'ar';
-export interface BulletPointsRenderItemComplex extends BulletPointsItemAttrsProps {
-  name: string;
+export interface BulletPointsItemComplex extends BulletPointsItemAttrsProps {
+  name?: string;
   text?: string;
   // eslint-disable-next-line no-use-before-define
   children?: BulletPointsItem[] | BulletPointsAttrsProps;
 }
-export type BulletPointsItem = string | BulletPointsRenderItemComplex;
+export type BulletPointsItem = string | BulletPointsItemComplex;
+export type BulletPointsRenderItem = ({name: string; text: string}
+  | {name: string}
+  // eslint-disable-next-line no-use-before-define
+  | {children: BulletPointsItem[] | BulletPointsAttrsProps; name: string;})
+  & BulletPointsItemAttrsProps;
 export interface BulletPointsProps {
   /**
    * Use this props to set list tag.
    */
-  tag?: ListTag;
+  tag?: ListHTMLTag;
   /**
    * Use this props to set list type.
    */
@@ -89,7 +94,7 @@ const props = withDefaults(defineProps<BulletPointsProps>(), {
   items: () => ([]),
   icon: 'bullet-common',
 });
-const tag = computed(() => props.tag);
+const tag = computed<ListHTMLTag>(() => props.tag);
 provide('tag', tag);
 const listStyleType = computed<CSSProperties>(() => {
   const type = {
@@ -125,7 +130,7 @@ const listStyleType = computed<CSSProperties>(() => {
     '--_list-item-suffix': `"${type[props.type]?.suffix}"`,
   };
 });
-const itemsToRender = computed<BulletPointsRenderItemComplex[]>(() => (
+const itemsToRender = computed<BulletPointsRenderItem[]>(() => (
   props.items.map((item, index) => {
     if (typeof item === 'string') {
       return {
@@ -133,30 +138,33 @@ const itemsToRender = computed<BulletPointsRenderItemComplex[]>(() => (
         text: item,
       };
     }
-    return {
-      ...item,
-      name: item.name || `bullet-point-${index}`,
-      children: Array.isArray(item.children)
-        ? {
+    if ((item.children)) {
+      return {
+        ...item,
+        name: item.name || `bullet-point-${index}`,
+        children: Array.isArray(item.children) ? {
           tag: props.tag,
           type: props.type,
           items: item.children,
           icon: props.icon,
-        }
-        : {
+        } : {
           items: item.children?.items,
           tag: props.tag,
           type: props.type,
           icon: props.icon,
           ...item.children,
         },
+      };
+    }
+    return {
+      ...item,
+      name: item.name || `bullet-point-${index}`,
     };
   })));
 const bulletPointsItemAttrs = ({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  name, text, children, ...rest
-  // eslint-enable-next-line @typescript-eslint/no-unused-vars
-}: BulletPointsRenderItemComplex) => rest;
+  name, text, children, ...itemAttrs
+}: BulletPointsRenderItem) => itemAttrs;
 </script>
 
 <style lang="scss">

@@ -71,11 +71,12 @@ import type { ButtonAttrsProps } from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import type { IconAttrsProps } from '../../atoms/UiIcon/UiIcon.vue';
 
+export type NumberStepperModelValue = number;
 export interface NumberStepperProps {
   /**
    * Use this props or v-model to set value.
    */
-  modelValue?: number;
+  modelValue?: NumberStepperModelValue;
   /**
    * Use this props to set min value.
    */
@@ -111,7 +112,7 @@ export interface NumberStepperProps {
 }
 export type NumberStepperAttrsProps = DefineAttrsProps<NumberStepperProps>;
 export interface NumberStepperEmits {
-  (e: 'update:modelValue', value: number): void;
+  (e: 'update:modelValue', value: NumberStepperModelValue): void;
   (e: 'error:value', value: {isMin: boolean, isMax: boolean}): void;
 }
 

@@ -90,7 +90,7 @@ export const WithRadioOptionsAttrsAsArray = Template.bind({});
 WithRadioOptionsAttrsAsArray.args = {
   radioOptionAttrs: [
     { 'data-testid': 'first-option-radio-input' },
-    undefined,
+    {},
     {
       'data-testid': 'third-option-radio-input',
       iconDefaultAttrs: {
