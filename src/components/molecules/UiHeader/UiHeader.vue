@@ -143,17 +143,20 @@ const props = withDefaults(defineProps<HeaderProps>(), {
   iconLogoAttrs: () => ({}),
   navigationAttrs: () => ({}),
 });
-const defaultProps = computed<HeaderProps>(() => ({
-  iconHamburgerAttrs: {
-    icon: 'menu',
-    ...props.iconHamburgerAttrs,
-  },
-  iconLogoAttrs: {
-    icon: props.logo,
-    title: props.title,
-    ...props.iconLogoAttrs,
-  },
-}));
+const defaultProps = computed(() => {
+  const icon: IconAttrsProps['icon'] = 'menu';
+  return {
+    iconHamburgerAttrs: {
+      icon,
+      ...props.iconHamburgerAttrs,
+    },
+    iconLogoAttrs: {
+      icon: props.logo,
+      title: props.title,
+      ...props.iconLogoAttrs,
+    },
+  };
+});
 const emit = defineEmits<HeaderEmits>();
 const matchMediaObject: MediaQueryList = matchMedia(props.hamburgerMatchMedia);
 const isMobile = ref(matchMediaObject.matches);

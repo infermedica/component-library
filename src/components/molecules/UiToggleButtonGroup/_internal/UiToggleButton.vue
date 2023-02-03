@@ -65,8 +65,8 @@ watch(isChecked, () => {
     emit('uncheck');
   }
 });
-const isDisabled = computed(() => !!attrs.class?.includes('ui-toggle-button--is-disabled'));
-const hasIcon = computed(() => !!attrs.class?.includes('ui-toggle-button--has-icon'));
+const isDisabled = computed(() => !!attrs.class.includes('ui-toggle-button--is-disabled'));
+const hasIcon = computed(() => !!attrs.class.includes('ui-toggle-button--has-icon'));
 </script>
 
 <style lang="scss">

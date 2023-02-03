@@ -122,17 +122,20 @@ const props = withDefaults(defineProps<RadioProps>(), {
   radioElementAttrs: () => ({}),
   textLabelAttrs: () => ({ tag: 'span' }),
 });
-const defaultProps = computed<RadioProps>(() => ({
-  textLabelAttrs: {
-    tag: 'span',
-    ...props.textLabelAttrs,
-  },
-  inputAttrs: {
-    disabled: props.disabled,
-    ...elementsListeners.value.input,
-    ...props.inputAttrs,
-  },
-}));
+const defaultProps = computed(() => {
+  const tag: TextAttrsProps['tag'] = 'span';
+  return {
+    textLabelAttrs: {
+      tag,
+      ...props.textLabelAttrs,
+    },
+    inputAttrs: {
+      disabled: props.disabled,
+      ...elementsListeners.value.input,
+      ...props.inputAttrs,
+    },
+  };
+});
 const emit = defineEmits<RadioEmits>();
 const slots = useSlots();
 const {

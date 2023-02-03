@@ -79,12 +79,15 @@ const props = withDefaults(defineProps<ChipProps>(), {
   buttonRemoveAttrs: () => ({}),
   iconRemoveAttrs: () => ({ icon: 'remove-filled' }),
 });
-const defaultProps = computed<ChipProps>(() => ({
-  iconRemoveAttrs: {
-    icon: 'remove-filled',
-    ...props.iconRemoveAttrs,
-  },
-}));
+const defaultProps = computed(() => {
+  const icon: IconAttrsProps['icon'] = 'remove-filled';
+  return {
+    iconRemoveAttrs: {
+      icon,
+      ...props.iconRemoveAttrs,
+    },
+  };
+});
 const emit = defineEmits<ChipEmits>();
 function clickHandler() {
   emit('remove');

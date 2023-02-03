@@ -51,7 +51,7 @@ import UiText from '../../../atoms/UiText/UiText.vue';
 import type { TextAttrsProps } from '../../../atoms/UiText/UiText.vue';
 import type {
   DefineAttrsProps,
-  HTMLTag,
+  ListHTMLTag,
   IconName,
 } from '../../../../types';
 
@@ -81,17 +81,20 @@ const props = withDefaults(defineProps<BulletPointsItemProps>(), {
   textMarkerAttrs: () => ({ tag: 'span' }),
   textContentAttrs: () => ({ }),
 });
-const defaultProps = computed<BulletPointsItemProps>(() => ({
-  iconMarkerAttrs: {
-    icon: props.icon,
-    ...props.iconMarkerAttrs,
-  },
-  textMarkerAttrs: {
-    tag: 'span',
-    ...props.textMarkerAttrs,
-  },
-}));
-const tag = inject<ComputedRef<HTMLTag>>('tag', computed(() => 'ul'));
+const defaultProps = computed(() => {
+  const tag: TextAttrsProps['tag'] = 'span';
+  return {
+    iconMarkerAttrs: {
+      icon: props.icon,
+      ...props.iconMarkerAttrs,
+    },
+    textMarkerAttrs: {
+      tag,
+      ...props.textMarkerAttrs,
+    },
+  };
+});
+const tag = inject<ComputedRef<ListHTMLTag>>('tag', computed(() => 'ul'));
 const isUnordered = computed(() => tag.value === 'ul');
 </script>
 

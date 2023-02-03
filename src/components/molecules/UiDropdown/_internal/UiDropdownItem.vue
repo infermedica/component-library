@@ -48,12 +48,15 @@ const props = withDefaults(defineProps<DropdownItemProps>(), {
   value: '',
   iconItemAttrs: () => ({ icon: 'present' }),
 });
-const defaultProps = computed<DropdownItemProps>(() => ({
-  iconItemAttrs: {
-    icon: props.iconItemAttrs.icon || 'present',
-    ...props.iconItemAttrs,
-  },
-}));
+const defaultProps = computed(() => {
+  const icon: IconAttrsProps['icon'] = 'present';
+  return {
+    iconItemAttrs: {
+      icon,
+      ...props.iconItemAttrs,
+    },
+  };
+});
 const attrs = useAttrs();
 const dropdownItem = ref<null | HTMLButtonElement>(null);
 const changeHandler = inject<(value: Required<DropdownModelValue>) => void>('changeHandler');

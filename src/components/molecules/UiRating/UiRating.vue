@@ -94,7 +94,7 @@
             <span
               v-bind="textLabelAttrs"
               class="visual-hidden"
-            >{{ defaultProps.translation?.stars }}</span>
+            >{{ defaultProps.translation.stars }}</span>
           </template>
         </UiRadio>
       </slot>
@@ -189,14 +189,17 @@ const props = withDefaults(defineProps<RatingProps>(), {
   legend: '',
   radioOptionAttrs: () => ({}),
 });
-const defaultProps = computed<RatingProps>(() => ({
-  translation: { stars: (index: number) => (`${index} stars`) },
-  settings: {
-    iconDefault: 'star-outlined',
-    iconActive: 'star-filled',
-    ...props.settings,
-  },
-}));
+const defaultProps = computed(() => {
+  const iconDefault: IconAttrsProps['icon'] = 'star-outlined';
+  const iconActive: IconAttrsProps['icon'] = 'star-filled';
+  return {
+    translation: { stars: (index: number) => (`${index} stars`) },
+    settings: {
+      iconDefault,
+      iconActive,
+    },
+  };
+});
 const emit = defineEmits<RatingEmits>();
 const ratingName = computed(() => (
   props.name || `rating-${uid()}`
@@ -219,7 +222,7 @@ const finalScore = computed(() => (
     : parseInt(rate.value, 10)));
 // TODO: remove in 0.6.0 / BEGIN
 const attrs = useAttrs();
-const radioAttrs = computed(() => (attrs.radioAttrs || attrs['radio-attrs']) as RatingProps['radioOptionAttrs'] | undefined);
+const radioAttrs = computed(() => (attrs.radioAttrs || attrs['radio-attrs']) as RatingProps['radioOptionAttrs']);
 if (radioAttrs.value) {
   if (process.env.NODE_ENV === 'development') {
     console.warn('[@infermedica/component-library warn][UiRating]: The `radioAttrs` props will be removed in 0.6.0. Please use `radioOptionAttrs` props instead.');
@@ -249,16 +252,16 @@ const itemsToRender = computed<RatingRenderItem[]>(() => (Array.from({ length: m
     ...radioOptionAttrs,
     index: index + 1,
     iconActiveAttrs: {
-      icon: defaultProps.value.settings?.iconActive,
-      ...radioOptionAttrs?.iconActiveAttrs,
+      icon: defaultProps.value.settings.iconActive,
+      ...radioOptionAttrs.iconActiveAttrs,
     },
     iconDefaultAttrs: {
-      icon: icon.value || defaultProps.value.settings?.iconDefault, // TODO: remove icon.value in 0.6.0
-      ...radioOptionAttrs?.iconDefaultAttrs,
+      icon: icon.value || defaultProps.value.settings.iconDefault, // TODO: remove icon.value in 0.6.0
+      ...radioOptionAttrs.iconDefaultAttrs,
     },
     textLabelAttrs: {
       tag: 'div',
-      ...radioOptionAttrs?.textLabelAttrs,
+      ...radioOptionAttrs.textLabelAttrs,
     },
   };
 })));

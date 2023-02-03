@@ -121,7 +121,10 @@ export type StepperAttrsProps = DefineAttrsProps<StepperProps>;
 const props = withDefaults(defineProps<StepperProps>(), {
   steps: () => [ { label: '' } ],
   currentStep: '',
-  progressAttrs: () => ({}),
+  progressAttrs: () => ({
+    min: 0,
+    max: 100,
+  }),
 });
 const stepsLength = computed(() => props.steps.length);
 const activeStepIndex = computed(() => props.steps.findIndex((step) => step.label === props.currentStep));
@@ -130,7 +133,7 @@ const currentStepDisplayText = computed(() => `
       ${currentStepDisplayNumber.value}/${props.steps.length} ${props.currentStep}
     `);
 const stepsProgress = computed(() => (currentStepDisplayNumber.value / stepsLength.value) * 100);
-const defaultProps = computed<StepperProps>(() => ({
+const defaultProps = computed(() => ({
   progressAttrs: {
     min: 0,
     max: 100,

@@ -131,21 +131,25 @@ const props = withDefaults(defineProps<CheckboxProps>(), {
   iconCheckmarkAttrs: () => ({ icon: 'checkmark' }),
   textLabelAttrs: () => ({ tag: 'span' }),
 });
-const defaultProps = computed<CheckboxProps>(() => ({
-  iconCheckmarkAttrs: {
-    icon: 'checkmark',
-    ...props.iconCheckmarkAttrs,
-  },
-  textLabelAttrs: {
-    tag: 'span',
-    ...props.textLabelAttrs,
-  },
-  inputAttrs: {
-    disabled: props.disabled,
-    ...elementsListeners.value.input,
-    ...props.inputAttrs,
-  },
-}));
+const defaultProps = computed(() => {
+  const icon: IconAttrsProps['icon'] = 'checkmark';
+  const tag: TextAttrsProps['tag'] = 'span';
+  return {
+    iconCheckmarkAttrs: {
+      icon,
+      ...props.iconCheckmarkAttrs,
+    },
+    textLabelAttrs: {
+      tag,
+      ...props.textLabelAttrs,
+    },
+    inputAttrs: {
+      disabled: props.disabled,
+      ...elementsListeners.value.input,
+      ...props.inputAttrs,
+    },
+  };
+});
 const emit = defineEmits<CheckboxEmits>();
 const slots = useSlots();
 const {

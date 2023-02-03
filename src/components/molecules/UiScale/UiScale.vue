@@ -2,7 +2,7 @@
   <div
     class="ui-scale"
     role="radiogroup"
-    :aria-label="defaultProps.translation?.label"
+    :aria-label="defaultProps.translation.label"
   >
     <component
       :is="tag"
@@ -85,7 +85,7 @@
             class="ui-scale__min"
             aria-hidden="true"
           >
-            {{ defaultProps.translation?.min }}
+            {{ defaultProps.translation.min }}
           </UiText>
         </slot>
         <!-- @slot Use this slot to replace max template. -->
@@ -101,7 +101,7 @@
             class="ui-scale__max"
             aria-hidden="true"
           >
-            {{ defaultProps.translation?.max }}
+            {{ defaultProps.translation.max }}
           </UiText>
         </slot>
       </div>
@@ -262,7 +262,7 @@ function hoverHandler({ type }: Event, value: number): void {
 }
 const finalValue = computed<ScaleValue>(() => (hoverValue.value >= 0 ? hoverValue.value : scaleValue.value));
 watch(finalValue, (value: ScaleValue) => {
-  focusElement(optionRefs.value[value]?.$el, true);
+  focusElement(optionRefs.value[value].$el, true);
 });
 function calcActiveElementOpacity(index: number): CSSProperties {
   const opacityStepValue = 1 / (maxSteps.value - 1);
@@ -297,7 +297,7 @@ if (translationUnbearable.value) {
   }
 }
 // END
-const defaultProps = computed<ScaleProps>(() => ({
+const defaultProps = computed(() => ({
   translation: {
     label: 'Pain scale',
     min: translationMild.value || 'Mild',
@@ -318,7 +318,7 @@ const itemsToRender = computed<RadioAttrsProps[]>(() => (Array.from({ length: ma
     ...radioOptionAttrs,
     textLabelAttrs: {
       tag: 'div',
-      ...radioOptionAttrs?.textLabelAttrs,
+      ...radioOptionAttrs.textLabelAttrs,
     },
   };
 })));

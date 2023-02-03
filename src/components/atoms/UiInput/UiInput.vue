@@ -106,19 +106,22 @@ const props = withDefaults(defineProps<InputProps>(), {
   textSuffixAttrs: () => ({ tag: 'span' }),
   inputAttrs: () => ({}),
 });
-const defaultProps = computed<InputProps>(() => ({
-  textSuffixAttrs: {
-    tag: 'span',
-    ...props.textSuffixAttrs,
-  },
-  inputAttrs: {
-    type: props.type,
-    placeholder: props.placeholder,
-    disabled: props.disabled,
-    ...listeners.value,
-    ...props.inputAttrs,
-  },
-}));
+const defaultProps = computed(() => {
+  const tag: TextAttrsProps['tag'] = 'span';
+  return {
+    textSuffixAttrs: {
+      tag,
+      ...props.textSuffixAttrs,
+    },
+    inputAttrs: {
+      type: props.type,
+      placeholder: props.placeholder,
+      disabled: props.disabled,
+      ...listeners.value,
+      ...props.inputAttrs,
+    },
+  };
+});
 const emit = defineEmits<InputEmits>();
 const {
   attrs, listeners,

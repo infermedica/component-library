@@ -133,26 +133,30 @@ const props = withDefaults(defineProps<NumberStepperProps>(), {
   }),
   iconIncrementAttrs: () => ({ icon: 'plus' }),
 });
-const defaultProps = computed<NumberStepperProps>(() => ({
-  buttonDecrementAttrs: {
-    'aria-hidden': true,
-    tabindex: -1,
-    ...props.buttonDecrementAttrs,
-  },
-  iconDecrementAttrs: {
-    icon: 'minus',
-    ...props.iconDecrementAttrs,
-  },
-  buttonIncrementAttrs: {
-    'aria-hidden': true,
-    tabindex: -1,
-    ...props.buttonIncrementAttrs,
-  },
-  iconIncrementAttrs: {
-    icon: 'plus',
-    ...props.iconIncrementAttrs,
-  },
-}));
+const defaultProps = computed(() => {
+  const decrementIcon: IconAttrsProps['icon'] = 'minus';
+  const incrementIcon: IconAttrsProps['icon'] = 'plus';
+  return {
+    buttonDecrementAttrs: {
+      'aria-hidden': true,
+      tabindex: -1,
+      ...props.buttonDecrementAttrs,
+    },
+    iconDecrementAttrs: {
+      icon: decrementIcon,
+      ...props.iconDecrementAttrs,
+    },
+    buttonIncrementAttrs: {
+      'aria-hidden': true,
+      tabindex: -1,
+      ...props.buttonIncrementAttrs,
+    },
+    iconIncrementAttrs: {
+      icon: incrementIcon,
+      ...props.iconIncrementAttrs,
+    },
+  };
+});
 const emit = defineEmits<NumberStepperEmits>();
 const validate = (value: number) => (value >= props.min && value <= props.max);
 const isMin = computed(() => props.modelValue === props.min);

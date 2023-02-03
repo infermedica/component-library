@@ -10,7 +10,7 @@
       v-bind="{ iconAlertAttrs: defaultProps.iconAlertAttrs }"
     >
       <UiIcon
-        v-if="defaultProps.iconAlertAttrs?.icon"
+        v-if="defaultProps.iconAlertAttrs.icon"
         v-bind="defaultProps.iconAlertAttrs"
         class="ui-alert__icon"
       />
@@ -70,7 +70,7 @@ const props = withDefaults(defineProps<AlertProps>(), {
 });
 const rootClassModifier = computed(() => `ui-alert--${props.type}`);
 const icon = computed<IconName>(() => ((!props.hasIcon || props.type === 'default') ? '' : `${props.type}-filled`));
-const defaultProps = computed<AlertProps>(() => ({
+const defaultProps = computed(() => ({
   iconAlertAttrs: {
     icon: icon.value,
     ...props.iconAlertAttrs,

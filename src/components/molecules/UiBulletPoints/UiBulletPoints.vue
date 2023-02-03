@@ -126,8 +126,8 @@ const listStyleType = computed<CSSProperties>(() => {
   // TODO: decide how to handle latin/roman styles
   // Decimal appears to be perfectly fine for most of Arabic variants
   return {
-    '--_list-style-type': type[props.type]?.style,
-    '--_list-item-suffix': `"${type[props.type]?.suffix}"`,
+    '--_list-style-type': type[props.type].style,
+    '--_list-item-suffix': `"${type[props.type].suffix}"`,
   };
 });
 const itemsToRender = computed<BulletPointsRenderItem[]>(() => (
@@ -148,7 +148,7 @@ const itemsToRender = computed<BulletPointsRenderItem[]>(() => (
           items: item.children,
           icon: props.icon,
         } : {
-          items: item.children?.items,
+          items: item.children.items,
           tag: props.tag,
           type: props.type,
           icon: props.icon,

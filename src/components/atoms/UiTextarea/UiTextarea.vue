@@ -63,7 +63,7 @@ const props = withDefaults(defineProps<TextareaProps>(), {
   disabled: false,
   textareaAttrs: () => ({}),
 });
-const defaultProps = computed<TextareaProps>(() => ({
+const defaultProps = computed(() => ({
   textareaAttrs: {
     placeholder: props.placeholder,
     disabled: props.disabled,
