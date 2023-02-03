@@ -135,7 +135,7 @@ export const IfTransitionType = () => ({
     LoadingPopoverOfflineMessage,
   },
   setup() {
-    const isLoading = inject('isLoading');
+    const isLoading = inject('isLoading', true);
     return { isLoading };
   },
   template: `<UiLoader
@@ -176,7 +176,7 @@ export const ShowTransitionType = () => ({
     LoadingPopoverOfflineMessage,
   },
   setup() {
-    const isLoading = inject('isLoading');
+    const isLoading = inject('isLoading', true);
     return { isLoading };
   },
   template: `<UiLoader
@@ -217,7 +217,7 @@ export const OpacityTransitionType = () => ({
     UiButton,
   },
   setup() {
-    const isLoading = inject('isLoading');
+    const isLoading = inject('isLoading', true);
     return { isLoading };
   },
   template: `<UiButton
@@ -357,7 +357,7 @@ export const LoadingButton = (args) => ({
     UiText,
   },
   setup() {
-    const isLoading = inject('isLoading');
+    const isLoading = inject('isLoading', true);
     return {
       ...args,
       isLoading,
@@ -409,7 +409,7 @@ export const LoadingPopover = () => ({
     LoadingPopoverOfflineMessage,
   },
   setup() {
-    const isLoading = inject('isLoading');
+    const isLoading = inject('isLoading', true);
     return { isLoading };
   },
   template: `<UiPopover
@@ -461,7 +461,7 @@ export const LoadingContainer = (args) => ({
     UiAccordion,
   },
   setup() {
-    const isLoading = inject('isLoading');
+    const isLoading = inject('isLoading', true);
     return {
       ...args,
       isLoading,
@@ -521,7 +521,7 @@ export const LoadingSidePanel = () => ({
     LoadingPopoverOfflineMessage,
   },
   setup() {
-    const isLoading = inject('isLoading');
+    const isLoading = inject('isLoading', true);
     return { isLoading };
   },
   template: `<UiSidePanel
@@ -575,7 +575,7 @@ export const LoadingControls = () => ({
     UiButton,
   },
   setup() {
-    const isLoading = inject('isLoading');
+    const isLoading = inject('isLoading', true);
     const items = [
       {
         value: 'present',

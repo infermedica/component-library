@@ -87,16 +87,19 @@ const props = withDefaults(defineProps<TileProps>(), {
   iconAttrs: () => ({}),
   textLabelAttrs: () => ({ tag: 'span' }),
 });
-const defaultProps = computed<TileProps>(() => ({
-  iconAttrs: {
-    ...{ icon: props.icon },
-    ...props.iconAttrs,
-  },
-  textLabelAttrs: {
-    tag: 'span',
-    ...props.textLabelAttrs,
-  },
-}));
+const defaultProps = computed(() => {
+  const tag : TextAttrsProps['tag'] = 'span';
+  return {
+    iconAttrs: {
+      icon: props.icon,
+      ...props.iconAttrs,
+    },
+    textLabelAttrs: {
+      tag,
+      ...props.textLabelAttrs,
+    },
+  };
+});
 const emit = defineEmits<TileEmits>();
 const tileId = computed(() => (
   props.id || `tile-${uid()}`

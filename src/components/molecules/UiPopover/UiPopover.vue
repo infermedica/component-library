@@ -112,17 +112,22 @@ const props = withDefaults(defineProps<PopoverProps>(), {
   buttonCloseAttrs: () => ({}),
   iconCloseAttrs: () => ({ icon: 'clear' }),
 });
-const defaultProps = computed<PopoverProps>(() => ({
-  headingTitleAttrs: {
-    level: '4',
-    tag: 'span',
-    ...props.headingTitleAttrs,
-  },
-  iconCloseAttrs: {
-    icon: 'clear',
-    ...props.iconCloseAttrs,
-  },
-}));
+const defaultProps = computed(() => {
+  const level: HeadingAttrsProps['level'] = '4';
+  const tag: HeadingAttrsProps['tag'] = 'span';
+  const icon: IconAttrsProps['icon'] = 'clear';
+  return {
+    headingTitleAttrs: {
+      level,
+      tag,
+      ...props.headingTitleAttrs,
+    },
+    iconCloseAttrs: {
+      icon,
+      ...props.iconCloseAttrs,
+    },
+  };
+});
 const emit = defineEmits<PopoverEmits>();
 function clickHandler(): void {
   emit('close');

@@ -39,8 +39,8 @@
           :value="`${item.index}`"
           :name="ratingName"
           class="ui-rating__option"
-          @mouseover="(event: Event) => hoverHandler(event, item.index)"
-          @mouseleave="(event: Event) => hoverHandler(event, item.index)"
+          @mouseover="hoverHandler($event, item.index)"
+          @mouseleave="hoverHandler($event, item.index)"
         >
           <template
             #radio="{ radioElementAttrs }"
@@ -94,7 +94,7 @@
             <span
               v-bind="textLabelAttrs"
               class="visual-hidden"
-            >{{ defaultProps.translation!.stars(index) }}</span>
+            >{{ defaultProps.translation.stars }}</span>
           </template>
         </UiRadio>
       </slot>
@@ -135,6 +135,7 @@ export interface RatingRenderItem extends RadioAttrsProps {
   iconActiveAttrs: IconAttrsProps;
   iconDefaultAttrs: IconAttrsProps;
 }
+export type RatingRadioAttrsProps = Partial<RatingRenderItem>
 export interface RatingProps {
   /**
    * Use this props to set current rate.
@@ -168,7 +169,7 @@ export interface RatingProps {
   /**
    * Use this props to pass attrs for option UiRadio.
    */
-  radioOptionAttrs?: RadioAttrsProps | RadioAttrsProps[];
+  radioOptionAttrs?: RatingRadioAttrsProps | RatingRadioAttrsProps[];
 }
 export type RatingAttrsProps<HTMLAttrs = HTMLAttributes> = DefineAttrsProps<RatingProps, HTMLAttrs>;
 export interface RatingEmits{
@@ -186,16 +187,19 @@ const props = withDefaults(defineProps<RatingProps>(), {
   translation: () => ({ stars: (index: number) => (`${index} stars`) }),
   tag: 'fieldset',
   legend: '',
-  radioOptionAttrs: () => ([]),
+  radioOptionAttrs: () => ({}),
 });
-const defaultProps = computed<RatingProps>(() => ({
-  translation: { stars: (index: number) => (`${index} stars`) },
-  settings: {
-    iconDefault: 'star-outlined',
-    iconActive: 'star-filled',
-    ...props.settings,
-  },
-}));
+const defaultProps = computed(() => {
+  const iconDefault: IconAttrsProps['icon'] = 'star-outlined';
+  const iconActive: IconAttrsProps['icon'] = 'star-filled';
+  return {
+    translation: { stars: (index: number) => (`${index} stars`) },
+    settings: {
+      iconDefault,
+      iconActive,
+    },
+  };
+});
 const emit = defineEmits<RatingEmits>();
 const ratingName = computed(() => (
   props.name || `rating-${uid()}`
@@ -218,7 +222,7 @@ const finalScore = computed(() => (
     : parseInt(rate.value, 10)));
 // TODO: remove in 0.6.0 / BEGIN
 const attrs = useAttrs();
-const radioAttrs = computed(() => (attrs.radioAttrs || attrs['radio-attrs']));
+const radioAttrs = computed(() => (attrs.radioAttrs || attrs['radio-attrs']) as RatingProps['radioOptionAttrs']);
 if (radioAttrs.value) {
   if (process.env.NODE_ENV === 'development') {
     console.warn('[@infermedica/component-library warn][UiRating]: The `radioAttrs` props will be removed in 0.6.0. Please use `radioOptionAttrs` props instead.');
@@ -245,34 +249,30 @@ const itemsToRender = computed<RatingRenderItem[]>(() => (Array.from({ length: m
     ? proxyRadioAttrs[index]
     : proxyRadioAttrs;
   return {
-    index: index + 1,
     ...radioOptionAttrs,
+    index: index + 1,
     iconActiveAttrs: {
-      icon: defaultProps.value.settings?.iconActive,
-      ...radioOptionAttrs?.iconActiveAttrs,
+      icon: defaultProps.value.settings.iconActive,
+      ...radioOptionAttrs.iconActiveAttrs,
     },
     iconDefaultAttrs: {
-      icon: icon.value || defaultProps.value.settings?.iconDefault, // TODO: remove icon.value in 0.6.0
-      ...radioOptionAttrs?.iconDefaultAttrs,
+      icon: icon.value || defaultProps.value.settings.iconDefault, // TODO: remove icon.value in 0.6.0
+      ...radioOptionAttrs.iconDefaultAttrs,
     },
     textLabelAttrs: {
       tag: 'div',
-      ...radioOptionAttrs?.textLabelAttrs,
+      ...radioOptionAttrs.textLabelAttrs,
     },
   };
 })));
-const ratingItemAttrs = (item: RatingRenderItem) => {
+const ratingItemAttrs = ({
   /* eslint-disable @typescript-eslint/no-unused-vars */
-  const {
-    iconActiveAttrs,
-    iconDefaultAttrs,
-    index,
-    ...rest
-  } = item;
+  iconActiveAttrs,
+  iconDefaultAttrs,
+  index,
+  ...itemAttrs
   /* eslint-enable @typescript-eslint/no-unused-vars */
-
-  return rest;
-};
+}: RatingRenderItem) => itemAttrs;
 </script>
 
 <style lang="scss">

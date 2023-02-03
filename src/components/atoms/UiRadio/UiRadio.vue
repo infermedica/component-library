@@ -110,7 +110,7 @@ export interface RadioProps {
 }
 export type RadioAttrsProps = DefineAttrsProps<RadioProps, LabelHTMLAttributes>;
 export interface RadioEmits {
-  (e: 'update:modelValue', value: RadioProps['modelValue']): void;
+  (e: 'update:modelValue', value: RadioValue): void;
 }
 
 const props = withDefaults(defineProps<RadioProps>(), {
@@ -122,17 +122,20 @@ const props = withDefaults(defineProps<RadioProps>(), {
   radioElementAttrs: () => ({}),
   textLabelAttrs: () => ({ tag: 'span' }),
 });
-const defaultProps = computed<RadioProps>(() => ({
-  textLabelAttrs: {
-    tag: 'span',
-    ...props.textLabelAttrs,
-  },
-  inputAttrs: {
-    disabled: props.disabled,
-    ...elementsListeners.value.input,
-    ...props.inputAttrs,
-  },
-}));
+const defaultProps = computed(() => {
+  const tag: TextAttrsProps['tag'] = 'span';
+  return {
+    textLabelAttrs: {
+      tag,
+      ...props.textLabelAttrs,
+    },
+    inputAttrs: {
+      disabled: props.disabled,
+      ...elementsListeners.value.input,
+      ...props.inputAttrs,
+    },
+  };
+});
 const emit = defineEmits<RadioEmits>();
 const slots = useSlots();
 const {

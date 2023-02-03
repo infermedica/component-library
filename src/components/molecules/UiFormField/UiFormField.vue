@@ -130,16 +130,19 @@ const props = withDefaults(defineProps<FormFieldProps>(), {
   textHintAttrs: () => ({ tag: 'span' }),
   alertAttrs: () => ({}),
 });
-const defaultProps = computed<FormFieldProps>(() => ({
-  textMessageAttrs: {
-    tag: 'span',
-    ...props.textMessageAttrs,
-  },
-  textHintAttrs: {
-    tag: 'span',
-    ...props.textHintAttrs,
-  },
-}));
+const defaultProps = computed(() => {
+  const tag: TextAttrsProps['tag'] = 'span';
+  return {
+    textMessageAttrs: {
+      tag,
+      ...props.textMessageAttrs,
+    },
+    textHintAttrs: {
+      tag,
+      ...props.textHintAttrs,
+    },
+  };
+});
 const inputId = computed(() => (
   props.id || `input-${uid()}`
 ));

@@ -29,14 +29,14 @@ import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import type { IconAttrsProps } from '../../../atoms/UiIcon/UiIcon.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import type { ButtonAttrsProps } from '../../../atoms/UiButton/UiButton.vue';
-import type { DropdownProps } from '../UiDropdown.vue';
+import type { DropdownModelValue } from '../UiDropdown.vue';
 import type { DefineAttrsProps } from '../../../../types';
 
 export interface DropdownItemProps {
   /**
    * Use this props to set the value of the dropdown item.
    */
-  value?: DropdownProps['modelValue'];
+  value?: DropdownModelValue;
   /**
    *  Use this props to pass attrs to UiIcon.
    */
@@ -48,17 +48,21 @@ const props = withDefaults(defineProps<DropdownItemProps>(), {
   value: '',
   iconItemAttrs: () => ({ icon: 'present' }),
 });
-const defaultProps = computed<DropdownItemProps>(() => ({
-  iconItemAttrs: {
-    icon: 'present',
-    ...props.iconItemAttrs,
-  },
-}));
-const attrs = useAttrs() as DropdownItemAttrsProps;
+const defaultProps = computed(() => {
+  const icon: IconAttrsProps['icon'] = 'present';
+  return {
+    iconItemAttrs: {
+      icon,
+      ...props.iconItemAttrs,
+    },
+  };
+});
+const attrs = useAttrs();
 const dropdownItem = ref<null | HTMLButtonElement>(null);
-const changeHandler = inject('changeHandler') as (value: DropdownProps['modelValue']) => void;
-const dropdownItemKeydownHandler = inject('dropdownItemKeydownHandler') as (e: Event) => Promise<void>;
-const modelValue = inject('modelValue') as ComputedRef<DropdownProps['modelValue']>;
+const changeHandler = inject<(value: Required<DropdownModelValue>) => void>('changeHandler');
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const dropdownItemKeydownHandler = inject<(e: Event) => Promise<void> | void>('dropdownItemKeydownHandler', () => {});
+const modelValue = inject<ComputedRef<Required<DropdownModelValue>>>('modelValue', computed(() => ''));
 const isChecked = computed(() => {
   if (!modelValue.value) {
     return false;
@@ -73,7 +77,7 @@ const isChecked = computed(() => {
 });
 const isOption = computed(() => !!props.value);
 const tabindex = computed(() => {
-  if (isChecked.value || typeof modelValue.value === 'undefined') {
+  if (isChecked.value || !modelValue.value) {
     return 0;
   }
   if (typeof modelValue.value === 'string') {
@@ -81,8 +85,8 @@ const tabindex = computed(() => {
   }
   return !Object.keys(modelValue.value).length ? 0 : -1;
 });
-function optionChangeHandler(value: DropdownItemProps['value']): void {
-  if (isOption.value) {
+function optionChangeHandler(value: DropdownModelValue): void {
+  if (isOption.value && changeHandler) {
     changeHandler(value);
   }
 }

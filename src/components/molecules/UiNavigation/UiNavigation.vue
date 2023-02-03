@@ -55,9 +55,9 @@ export interface NavigationProps {
 export type NavigationAttrsProps = DefineAttrsProps<NavigationProps>;
 
 const props = withDefaults(defineProps<NavigationProps>(), { items: () => ([]) });
-const attrs = useAttrs() as NavigationAttrsProps;
+const attrs = useAttrs();
 const nav = ref<HTMLElement | null>(null);
-const modifiers = computed(() => (attrs?.class || ''));
+const modifiers = computed(() => (attrs.class || ''));
 provide('modifiers', modifiers);
 const itemsToRender = computed<NavigationRenderItem[]>(() => (props.items.map((item, key) => {
   const {
@@ -78,12 +78,9 @@ const itemsToRender = computed<NavigationRenderItem[]>(() => (props.items.map((i
     ...item,
   };
 })));
-const navigationItemAttrs = (item: NavigationRenderItem) => {
-  const {
-    name, label, ...rest
-  } = item;
-  return rest;
-};
+const navigationItemAttrs = ({
+  name, label, ...rest
+}: NavigationRenderItem): NavigationItemAttrsProps => rest;
 </script>
 
 <style lang="scss">

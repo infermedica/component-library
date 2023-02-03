@@ -46,7 +46,7 @@
               v-bind="buttonActionAttrs"
               class="ui-button--text ui-button--has-icon ui-notification__action"
             >
-              {{ defaultProps.translation?.action }}
+              {{ defaultProps.translation.action }}
               <UiIcon
                 v-bind="defaultProps.iconActionAttrs"
                 icon="chevron-right"
@@ -72,7 +72,7 @@ import type { IconAttrsProps } from '../../atoms/UiIcon/UiIcon.vue';
 import type { DefineAttrsProps } from '../../../types';
 
 export interface NotificationTranslation {
-  action: string;
+  action?: string;
 }
 export interface NotificationProps {
   /**
@@ -105,13 +105,19 @@ const props = withDefaults(defineProps<NotificationProps>(), {
   buttonActionAttrs: () => ({}),
   iconActionAttrs: () => ({ icon: 'chevron-right' }),
 });
-const defaultProps = computed<NotificationProps>(() => ({
-  translation: { ...props.translation },
-  iconActionAttrs: {
-    icon: 'chevron-right',
-    ...props.iconActionAttrs,
-  },
-}));
+const defaultProps = computed(() => {
+  const icon: IconAttrsProps['icon'] = 'chevron-right';
+  return {
+    translation: {
+      action: 'Action',
+      ...props.translation,
+    },
+    iconActionAttrs: {
+      icon,
+      ...props.iconActionAttrs,
+    },
+  };
+});
 const modifier = computed(() => `ui-notification--${props.type}`);
 const hasAction = computed(() => (Object.keys(props.buttonActionAttrs).length > 0));
 </script>

@@ -60,6 +60,7 @@ import UiText from '../UiText/UiText.vue';
 import type { TextAttrsProps } from '../UiText/UiText.vue';
 import type { DefineAttrsProps } from '../../../types';
 
+export type InputModelValue = string;
 export interface InputProps {
   /**
    * Use this props to set input placeholder.
@@ -77,7 +78,7 @@ export interface InputProps {
   /**
    * Use this props or v-model to set value.
    */
-  modelValue?: string;
+  modelValue?: InputModelValue;
   /**
    * Use this props to set suffix.
    */
@@ -93,7 +94,7 @@ export interface InputProps {
 }
 export type InputAttrsProps = DefineAttrsProps<InputProps>;
 export interface InputEmits {
-  (e: 'update:modelValue', value: InputProps['modelValue']): void
+  (e: 'update:modelValue', value: InputModelValue): void
 }
 
 const props = withDefaults(defineProps<InputProps>(), {
@@ -105,19 +106,22 @@ const props = withDefaults(defineProps<InputProps>(), {
   textSuffixAttrs: () => ({ tag: 'span' }),
   inputAttrs: () => ({}),
 });
-const defaultProps = computed<InputProps>(() => ({
-  textSuffixAttrs: {
-    tag: 'span',
-    ...props.textSuffixAttrs,
-  },
-  inputAttrs: {
-    type: props.type,
-    placeholder: props.placeholder,
-    disabled: props.disabled,
-    ...listeners.value,
-    ...props.inputAttrs,
-  },
-}));
+const defaultProps = computed(() => {
+  const tag: TextAttrsProps['tag'] = 'span';
+  return {
+    textSuffixAttrs: {
+      tag,
+      ...props.textSuffixAttrs,
+    },
+    inputAttrs: {
+      type: props.type,
+      placeholder: props.placeholder,
+      disabled: props.disabled,
+      ...listeners.value,
+      ...props.inputAttrs,
+    },
+  };
+});
 const emit = defineEmits<InputEmits>();
 const {
   attrs, listeners,

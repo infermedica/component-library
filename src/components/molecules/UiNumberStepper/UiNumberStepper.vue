@@ -71,11 +71,12 @@ import type { ButtonAttrsProps } from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import type { IconAttrsProps } from '../../atoms/UiIcon/UiIcon.vue';
 
+export type NumberStepperModelValue = number;
 export interface NumberStepperProps {
   /**
    * Use this props or v-model to set value.
    */
-  modelValue?: number;
+  modelValue?: NumberStepperModelValue;
   /**
    * Use this props to set min value.
    */
@@ -111,7 +112,7 @@ export interface NumberStepperProps {
 }
 export type NumberStepperAttrsProps = DefineAttrsProps<NumberStepperProps>;
 export interface NumberStepperEmits {
-  (e: 'update:modelValue', value: number): void;
+  (e: 'update:modelValue', value: NumberStepperModelValue): void;
   (e: 'error:value', value: {isMin: boolean, isMax: boolean}): void;
 }
 
@@ -132,26 +133,30 @@ const props = withDefaults(defineProps<NumberStepperProps>(), {
   }),
   iconIncrementAttrs: () => ({ icon: 'plus' }),
 });
-const defaultProps = computed<NumberStepperProps>(() => ({
-  buttonDecrementAttrs: {
-    'aria-hidden': true,
-    tabindex: -1,
-    ...props.buttonDecrementAttrs,
-  },
-  iconDecrementAttrs: {
-    icon: 'minus',
-    ...props.iconDecrementAttrs,
-  },
-  buttonIncrementAttrs: {
-    'aria-hidden': true,
-    tabindex: -1,
-    ...props.buttonIncrementAttrs,
-  },
-  iconIncrementAttrs: {
-    icon: 'plus',
-    ...props.iconIncrementAttrs,
-  },
-}));
+const defaultProps = computed(() => {
+  const decrementIcon: IconAttrsProps['icon'] = 'minus';
+  const incrementIcon: IconAttrsProps['icon'] = 'plus';
+  return {
+    buttonDecrementAttrs: {
+      'aria-hidden': true,
+      tabindex: -1,
+      ...props.buttonDecrementAttrs,
+    },
+    iconDecrementAttrs: {
+      icon: decrementIcon,
+      ...props.iconDecrementAttrs,
+    },
+    buttonIncrementAttrs: {
+      'aria-hidden': true,
+      tabindex: -1,
+      ...props.buttonIncrementAttrs,
+    },
+    iconIncrementAttrs: {
+      icon: incrementIcon,
+      ...props.iconIncrementAttrs,
+    },
+  };
+});
 const emit = defineEmits<NumberStepperEmits>();
 const validate = (value: number) => (value >= props.min && value <= props.max);
 const isMin = computed(() => props.modelValue === props.min);

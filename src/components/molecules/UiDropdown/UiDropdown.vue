@@ -96,7 +96,7 @@ import {
   nextTick,
   useAttrs,
 } from 'vue';
-import type { VNode } from 'vue';
+import type { ComponentPublicInstance } from 'vue';
 import useDropdownItems from './useDropdownItems';
 import { clickOutside as vClickOutside } from '../../../utilities/directives';
 import { focusElement } from '../../../utilities/helpers/index';
@@ -118,6 +118,7 @@ export interface DropdownHandlersOptions {
   focus?: boolean;
   focusToggle?: boolean;
 }
+export type DropdownModelValue = string | Record<string, unknown>;
 export interface DropdownProps {
   /**
    * Use this props to set text on toggle button.
@@ -131,7 +132,7 @@ export interface DropdownProps {
   /**
    * Use this props or v-model to set value.
    */
-  modelValue?: string | Record<string, unknown>;
+  modelValue?: DropdownModelValue;
   /**
    * Use this props to allow clicking outside to close dropdown.
    */
@@ -139,7 +140,7 @@ export interface DropdownProps {
   /**
    * Use this props to set toggle DOM element to back to it after close popover.
    */
-  toggleElement?: HTMLElement | null;
+  toggleElement?: ComponentPublicInstance | HTMLElement | null;
   /**
    * Use this props to allow using key navigation.
    */
@@ -159,7 +160,7 @@ export interface DropdownProps {
 }
 export type DropdownAttrsProps = DefineAttrsProps<DropdownProps>
 export interface DropdownEmits {
-  (e: 'update:modelValue', value: DropdownProps['modelValue']): void;
+  (e: 'update:modelValue', value: DropdownModelValue): void;
   (e: 'open'): void;
   (e: 'close'): void;
 }
@@ -179,8 +180,15 @@ const emit = defineEmits<DropdownEmits>();
 const toggle = ref<ButtonInstance | null>(null);
 const dropdown = ref<HTMLDivElement | null>(null);
 const isOpen = ref(false);
-const dropdownToggle = computed<VNode | ButtonInstance>(
-  () => props.toggleElement || toggle.value?.$el,
+const dropdownToggle = computed<HTMLElement>(
+  () => {
+    if (!props.toggleElement) {
+      return toggle.value?.$el;
+    }
+    return '$el' in props.toggleElement
+      ? props.toggleElement.$el
+      : props.toggleElement;
+  },
 );
 const {
   dropdownItems,
@@ -199,7 +207,7 @@ function disableArrows(event: KeyboardEvent): void {
     event.preventDefault();
   }
 }
-async function openHandler({ focus = false }: DropdownHandlersOptions = {}): Promise<void> {
+async function openHandler({ focus = false }: DropdownHandlersOptions = {}) {
   isOpen.value = true;
   emit('open');
   window.addEventListener('keydown', disableArrows, false);
@@ -211,9 +219,9 @@ async function openHandler({ focus = false }: DropdownHandlersOptions = {}): Pro
     else if (nextDropdownItem.value) focusElement(nextDropdownItem.value);
   }
 }
-function closeHandler({ focusToggle }: DropdownHandlersOptions = { focusToggle: true }): void {
+function closeHandler({ focusToggle }: DropdownHandlersOptions = { focusToggle: true }) {
   if (dropdownToggle.value && focusToggle) {
-    ((dropdownToggle.value as ButtonInstance).$el || dropdownToggle.value).focus();
+    dropdownToggle.value.focus();
   }
   isOpen.value = false;
   emit('close');
@@ -233,7 +241,7 @@ const dropdownName = computed(() => (
 provide('name', dropdownName);
 const modelValue = computed(() => props.modelValue);
 provide('modelValue', modelValue);
-function changeHandler(value: DropdownProps['modelValue']) {
+function changeHandler(value: DropdownModelValue) {
   emit('update:modelValue', value);
   closeHandler();
 }
@@ -270,19 +278,17 @@ async function dropdownKeydownHandler({ key }: KeyboardEvent) {
 // todo: why this component handle searchQuery and searchDebounce?
 const searchQuery = ref('');
 const searchDebounce = ref<ReturnType<typeof setTimeout> | null>(null);
-function handleInputQuery({ key }: KeyboardEvent): void {
+function handleInputQuery(key: KeyboardEvent['key']) {
   searchQuery.value += key.toLowerCase();
   const match: number = dropdownItems.value.findIndex(
     (item: HTMLElement) => item.innerText.toLowerCase().startsWith(searchQuery.value),
   );
   if (match !== -1 && match !== activeDropdownItemIndex.value) focusElement(dropdownItems.value[match]);
 }
-async function dropdownItemKeydownHandler(event: KeyboardEvent): Promise<void> {
-  const { key } = event;
+async function dropdownItemKeydownHandler({ key }: KeyboardEvent) {
   if (searchDebounce.value) clearTimeout(searchDebounce.value);
-
   if (key.length === 1) {
-    handleInputQuery(event);
+    handleInputQuery(key);
     searchDebounce.value = setTimeout(() => { searchQuery.value = ''; }, 500);
   }
 }
@@ -307,22 +313,17 @@ const itemsToRender = computed<DropdownItemComplex[]>(() => (props.items.map((it
 })));
 // TODO: remove in 0.6.0 / BEGIN
 const attrs = useAttrs();
-const buttonAttrs = computed(() => attrs.buttonAttrs || attrs['button-attrs']);
+const buttonAttrs = computed(() => (attrs.buttonAttrs || attrs['button-attrs']));
 if (buttonAttrs.value) {
   if (process.env.NODE_ENV === 'development') {
     console.warn('[@infermedica/component-library warn][UiDropdown]: The `buttonAttrs` props will be removed in 0.6.0. Please use `buttonToggleAttrs` props instead.');
   }
 }
 // END
-const dropdownItemAttrs = (item: DropdownItemComplex) => {
-  /* eslint-disable @typescript-eslint/no-unused-vars */
-  const {
-    name,
-    text,
-    ...rest
-  } = item;
-  return rest;
-};
+const dropdownItemAttrs = ({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  name, text, ...itemAttrs
+}: DropdownItemComplex) => itemAttrs;
 </script>
 
 <style lang="scss">

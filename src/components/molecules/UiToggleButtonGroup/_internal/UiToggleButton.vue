@@ -53,7 +53,7 @@ if (!parentComponent || parentComponent.type.name !== 'UiToggleButtonGroup') {
     throw new Error('UiToggleButton has to be child of UiToggleButtonGroup');
   }
 }
-const modelValue = inject('modelValue') as WritableComputedRef<ToggleButtonGroupProps['modelValue']>;
+const modelValue = inject<WritableComputedRef<ToggleButtonGroupProps['modelValue']>>('modelValue', computed(() => ''));
 const isChecked = computed(() => (modelValue && equal(modelValue.value, props.value)));
 const clickHandler = () => {
   modelValue.value = props.value;
@@ -65,8 +65,8 @@ watch(isChecked, () => {
     emit('uncheck');
   }
 });
-const isDisabled = computed(() => !!attrs.class && attrs.class.includes('ui-toggle-button--is-disabled'));
-const hasIcon = computed(() => !!attrs.class && attrs.class.includes('ui-toggle-button--has-icon'));
+const isDisabled = computed(() => !!attrs.class.includes('ui-toggle-button--is-disabled'));
+const hasIcon = computed(() => !!attrs.class.includes('ui-toggle-button--has-icon'));
 </script>
 
 <style lang="scss">

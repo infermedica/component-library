@@ -25,11 +25,12 @@ import useAttributes from '../../../composable/useAttributes';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 import type { DefineAttrsProps } from '../../../types';
 
+export type TextareaModelValue = string;
 export interface TextareaProps {
   /**
    * Use this props or v-model to set value.
    */
-  modelValue?: string;
+  modelValue?: TextareaModelValue;
   /**
    * Use this props to enable resizing on textarea.
    * true - both direction resizing, false - disable resizing,
@@ -52,7 +53,7 @@ export interface TextareaProps {
 }
 export type TextareaAttrsProps = DefineAttrsProps<TextareaProps>;
 export interface TextareaEmits {
-  (e:'update:modelValue', value: TextareaProps['modelValue']): void
+  (e:'update:modelValue', value: TextareaModelValue): void
 }
 
 const props = withDefaults(defineProps<TextareaProps>(), {
@@ -62,7 +63,7 @@ const props = withDefaults(defineProps<TextareaProps>(), {
   disabled: false,
   textareaAttrs: () => ({}),
 });
-const defaultProps = computed<TextareaProps>(() => ({
+const defaultProps = computed(() => ({
   textareaAttrs: {
     placeholder: props.placeholder,
     disabled: props.disabled,

@@ -20,7 +20,7 @@ import type { DefineAttrsProps } from '../../../../types';
 
 export type NavigationItemAttrsProps = DefineAttrsProps<null, ButtonAttrsProps>;
 
-const modifiers = inject('modifiers') as ComputedRef<string>;
+const modifiers = inject<ComputedRef<string>>('modifiers', computed(() => ''));
 const isSmall = computed(() => modifiers.value.includes('ui-navigation--small'));
 const parentComponent = getCurrentInstance()?.parent;
 if (!parentComponent || parentComponent.type.name !== 'UiNavigation') {

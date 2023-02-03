@@ -124,8 +124,8 @@ export const Common = Template.bind({});
 export const WithRadioOptionAttrsAsArray = Template.bind({});
 WithRadioOptionAttrsAsArray.args = {
   radioOptionAttrs: [
-    undefined,
-    undefined,
+    {},
+    {},
     {
       'data-testid': 'third-radio-input-element',
       radioElementAttrs: { 'data-testid': 'third-radio-element' },

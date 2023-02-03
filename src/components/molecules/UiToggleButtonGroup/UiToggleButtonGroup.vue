@@ -97,12 +97,9 @@ const itemsToRender = computed<ToggleButtonRenderItemComplex[]>(() => (
     };
   })
 ));
-const toggleButtonAttrs = (item: ToggleButtonRenderItemComplex) => {
-  const {
-    name, text, ...rest
-  } = item;
-  return rest;
-};
+const toggleButtonAttrs = ({
+  name, text, ...rest
+}: ToggleButtonRenderItemComplex) => rest;
 </script>
 
 <style lang="scss">
