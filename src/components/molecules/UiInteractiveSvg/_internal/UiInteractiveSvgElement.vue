@@ -63,6 +63,6 @@ if (!parentComponent || (parentComponent.type.name !== 'UiInteractiveSvg' && par
     throw new Error('UiInteractiveSvgElement has to be child of UiInteractiveSvg or nested in another UiInteractiveSvgElement');
   }
 }
-provide('elementsAttrs', nestedElementsAttrs);
+provide<InteractiveSvgAttrsFunc>('elementsAttrs', nestedElementsAttrs.value);
 </script>
 

@@ -253,15 +253,15 @@ const itemsToRender = computed<RatingRenderItem[]>(() => (Array.from({ length: m
     index: index + 1,
     iconActiveAttrs: {
       icon: defaultProps.value.settings.iconActive,
-      ...radioOptionAttrs.iconActiveAttrs,
+      ...radioOptionAttrs?.iconActiveAttrs,
     },
     iconDefaultAttrs: {
       icon: icon.value || defaultProps.value.settings.iconDefault, // TODO: remove icon.value in 0.6.0
-      ...radioOptionAttrs.iconDefaultAttrs,
+      ...radioOptionAttrs?.iconDefaultAttrs,
     },
     textLabelAttrs: {
       tag: 'div',
-      ...radioOptionAttrs.textLabelAttrs,
+      ...radioOptionAttrs?.textLabelAttrs,
     },
   };
 })));

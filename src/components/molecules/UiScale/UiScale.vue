@@ -318,7 +318,7 @@ const itemsToRender = computed<RadioAttrsProps[]>(() => (Array.from({ length: ma
     ...radioOptionAttrs,
     textLabelAttrs: {
       tag: 'div',
-      ...radioOptionAttrs.textLabelAttrs,
+      ...radioOptionAttrs?.textLabelAttrs,
     },
   };
 })));

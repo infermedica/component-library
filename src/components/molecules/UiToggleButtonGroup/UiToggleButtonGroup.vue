@@ -33,6 +33,7 @@ import {
   computed,
   provide,
 } from 'vue';
+import type { WritableComputedRef } from 'vue';
 import equal from 'fast-deep-equal';
 import UiToggleButton from './_internal/UiToggleButton.vue';
 import type { ToggleButtonAttrsProps } from './_internal/UiToggleButton.vue';
@@ -80,7 +81,7 @@ const innerValue = computed({
     }
   },
 });
-provide('modelValue', innerValue);
+provide<WritableComputedRef<ToggleButtonGroupProps['modelValue']>>('modelValue', innerValue);
 const itemsToRender = computed<ToggleButtonRenderItemComplex[]>(() => (
   props.items.map((item, key) => {
     if (typeof item === 'string' || typeof item === 'number') {
