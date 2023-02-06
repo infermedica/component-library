@@ -96,7 +96,10 @@ import {
   nextTick,
   useAttrs,
 } from 'vue';
-import type { ComponentPublicInstance } from 'vue';
+import type {
+  ComputedRef,
+  ComponentPublicInstance,
+} from 'vue';
 import useDropdownItems from './useDropdownItems';
 import { clickOutside as vClickOutside } from '../../../utilities/directives';
 import { focusElement } from '../../../utilities/helpers/index';
@@ -110,15 +113,17 @@ import type { DefineAttrsProps } from '../../../types';
 
 export type ButtonInstance = InstanceType<typeof UiButton>;
 export interface DropdownItemComplex extends DropdownItemAttrsProps {
-  text?: string;
-  name?: string;
-}
+    text?: string;
+    name?: string;
+  }
 export type DropdownItem = string | DropdownItemComplex;
 export interface DropdownHandlersOptions {
-  focus?: boolean;
-  focusToggle?: boolean;
-}
+    focus?: boolean;
+    focusToggle?: boolean;
+  }
 export type DropdownModelValue = string | Record<string, unknown>;
+export type DropdownItemKeydownHandler = ({ key }: KeyboardEvent) => Promise<void>;
+export type DropdownChangeHandler = (value: DropdownModelValue) => void;
 export interface DropdownProps {
   /**
    * Use this props to set text on toggle button.
@@ -238,14 +243,14 @@ const isActiveClickOutside = computed(() => (props.closeOnClickOutside && isOpen
 const dropdownName = computed(() => (
   props.name || `dropdown-${uid()}`
 ));
-provide('name', dropdownName);
+provide<ComputedRef<string>>('name', dropdownName);
 const modelValue = computed(() => props.modelValue);
-provide('modelValue', modelValue);
-function changeHandler(value: DropdownModelValue) {
+provide<ComputedRef<DropdownProps['modelValue']>>('modelValue', modelValue);
+const changeHandler: DropdownChangeHandler = (value) => {
   emit('update:modelValue', value);
   closeHandler();
-}
-provide('changeHandler', changeHandler);
+};
+provide<DropdownChangeHandler>('changeHandler', changeHandler);
 async function dropdownKeydownHandler({ key }: KeyboardEvent) {
   if (!props.enableKeyboardNavigation) return;
 
@@ -285,14 +290,14 @@ function handleInputQuery(key: KeyboardEvent['key']) {
   );
   if (match !== -1 && match !== activeDropdownItemIndex.value) focusElement(dropdownItems.value[match]);
 }
-async function dropdownItemKeydownHandler({ key }: KeyboardEvent) {
+const dropdownItemKeydownHandler: DropdownItemKeydownHandler = async ({ key }) => {
   if (searchDebounce.value) clearTimeout(searchDebounce.value);
   if (key.length === 1) {
     handleInputQuery(key);
     searchDebounce.value = setTimeout(() => { searchQuery.value = ''; }, 500);
   }
-}
-provide('dropdownItemKeydownHandler', dropdownItemKeydownHandler);
+};
+provide<DropdownItemKeydownHandler>('dropdownItemKeydownHandler', dropdownItemKeydownHandler);
 defineExpose({
   isOpen,
   closeHandler,

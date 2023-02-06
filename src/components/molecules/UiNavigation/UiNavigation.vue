@@ -37,6 +37,7 @@ import {
   useAttrs,
   provide,
 } from 'vue';
+import type { ComputedRef } from 'vue';
 import UiNavigationItem from './_internal/UiNavigationItem.vue';
 import type { NavigationItemAttrsProps } from './_internal/UiNavigationItem.vue';
 import type { DefineAttrsProps } from '../../../types';
@@ -57,8 +58,8 @@ export type NavigationAttrsProps = DefineAttrsProps<NavigationProps>;
 const props = withDefaults(defineProps<NavigationProps>(), { items: () => ([]) });
 const attrs = useAttrs();
 const nav = ref<HTMLElement | null>(null);
-const modifiers = computed(() => (attrs.class || ''));
-provide('modifiers', modifiers);
+const modifiers = computed(() => (attrs.class as string || ''));
+provide<ComputedRef<string>>('modifiers', modifiers);
 const itemsToRender = computed<NavigationRenderItem[]>(() => (props.items.map((item, key) => {
   const {
     name,

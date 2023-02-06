@@ -43,6 +43,7 @@ import {
   provide,
 } from 'vue';
 import type {
+  ComputedRef,
   CSSProperties,
   LiHTMLAttributes,
   OlHTMLAttributes,
@@ -94,8 +95,8 @@ const props = withDefaults(defineProps<BulletPointsProps>(), {
   items: () => ([]),
   icon: 'bullet-common',
 });
-const tag = computed<ListHTMLTag>(() => props.tag);
-provide('tag', tag);
+const tag = computed(() => props.tag);
+provide<ComputedRef<ListHTMLTag>>('tag', tag);
 const listStyleType = computed<CSSProperties>(() => {
   const type = {
     a: {
@@ -148,7 +149,7 @@ const itemsToRender = computed<BulletPointsRenderItem[]>(() => (
           items: item.children,
           icon: props.icon,
         } : {
-          items: item.children.items,
+          items: item.children?.items,
           tag: props.tag,
           type: props.type,
           icon: props.icon,
