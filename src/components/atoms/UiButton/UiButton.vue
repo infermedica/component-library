@@ -11,36 +11,34 @@
 </template>
 
 <script setup lang="ts">
-import type { PropType } from 'vue';
+import type { HTMLAttributes } from 'vue';
+import type {
+  HTMLTag,
+  DefineAttrsProps,
+} from '../../../types';
 import useLink from '../../../composable/useLink';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
-import type { HTMLTag } from '../../../types/tag';
 
-const props = defineProps({
+export interface ButtonProps {
   /**
    * Use this props to set tag when a component shouldn't be a button.
    */
-  tag: {
-    type: String as PropType<HTMLTag>,
-    default: 'button',
-  },
+  tag?: HTMLTag;
   /**
    * Use this props to set route for internal link.
    */
-  to: {
-    type: [
-      String,
-      Object,
-    ] as PropType<string | Record<string, unknown>>,
-    default: '',
-  },
+  to?: string | Record<string, unknown>;
   /**
    * Use this props to set route for external link.
    */
-  href: {
-    type: String,
-    default: '',
-  },
+  href?: string;
+}
+export type ButtonAttrsProps<HTMLAttrs = HTMLAttributes> = DefineAttrsProps<ButtonProps, HTMLAttrs>;
+
+const props = withDefaults(defineProps<ButtonProps>(), {
+  tag: 'button',
+  to: '',
+  href: '',
 });
 const {
   componentTag, routeAttrs,

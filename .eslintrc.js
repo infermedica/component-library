@@ -12,12 +12,6 @@ module.exports = {
     'plugin:vitest-globals/recommended',
   ],
   parserOptions: { ecmaVersion: 2020 },
-  // scrip setup related
-  globals: {
-    defineProps: 'readonly',
-    defineEmits: 'readonly',
-    defineExpose: 'readonly',
-  },
   rules: {
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': [ 'error' ],

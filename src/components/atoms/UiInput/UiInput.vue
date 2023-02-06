@@ -49,73 +49,65 @@ export default { inheritAttrs: false };
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { HTMLTag } from '../../../types/tag';
-import type { PropsAttrs } from '../../../types/attrs';
-import UiText from '../UiText/UiText.vue';
+import type {
+  HTMLAttributes,
+  InputHTMLAttributes,
+} from 'vue';
 import useAttributes from '../../../composable/useAttributes';
 import useKeyValidation from '../../../composable/useKeyValidation';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
+import UiText from '../UiText/UiText.vue';
+import type { TextAttrsProps } from '../UiText/UiText.vue';
+import type { DefineAttrsProps } from '../../../types';
 
-const props = defineProps({
+export interface InputProps {
   /**
    * Use this props to set input placeholder.
    */
-  placeholder: {
-    type: String,
-    default: '',
-  },
+  placeholder?: string;
   /**
    * Use this props to set input type.
    */
-  type: {
-    type: String,
-    default: 'text',
-  },
+  type?: string;
   /**
    * Use this props to disabled input.
    * Remember to use `ui-input--is-disabled` class to style disabled input.
    */
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
+  disabled?: boolean;
   /**
    * Use this props or v-model to set value.
    */
-  modelValue: {
-    type: String,
-    default: '',
-  },
+  modelValue?: string;
   /**
    * Use this props to set suffix.
    */
-  suffix: {
-    type: String,
-    default: '',
-  },
+  suffix?: string;
   /**
    * Use this props to pass attrs for suffix UiText.
    */
-  textSuffixAttrs: {
-    type: Object,
-    default: () => ({ tag: 'span' }),
-  },
+  textSuffixAttrs?: TextAttrsProps;
   /**
    * Use this props to pass attrs for input element.
    */
-  inputAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  inputAttrs?: DefineAttrsProps<InputProps, InputHTMLAttributes>;
+}
+export type InputAttrsProps = DefineAttrsProps<InputProps>;
+export interface InputEmits {
+  (e: 'update:modelValue', value: InputProps['modelValue']): void
+}
+
+const props = withDefaults(defineProps<InputProps>(), {
+  placeholder: '',
+  type: 'text',
+  disabled: false,
+  modelValue: '',
+  suffix: '',
+  textSuffixAttrs: () => ({ tag: 'span' }),
+  inputAttrs: () => ({}),
 });
-const emit = defineEmits<{(e: 'update:modelValue', value: string): void
-}>();
-const {
-  attrs, listeners,
-} = useAttributes();
-const defaultProps = computed(() => ({
+const defaultProps = computed<InputProps>(() => ({
   textSuffixAttrs: {
-    tag: 'span' as HTMLTag,
+    tag: 'span',
     ...props.textSuffixAttrs,
   },
   inputAttrs: {
@@ -126,6 +118,10 @@ const defaultProps = computed(() => ({
     ...props.inputAttrs,
   },
 }));
+const emit = defineEmits<InputEmits>();
+const {
+  attrs, listeners,
+} = useAttributes<HTMLAttributes>();
 const { numbersOnly } = useKeyValidation();
 function keyValidation(event: KeyboardEvent): void {
   switch (props.type) {
