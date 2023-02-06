@@ -187,10 +187,10 @@ const getChecked = (checked: boolean): CheckboxModelValue => {
   }
   return checked;
 };
-function changeHandler(event: Event): void {
+const changeHandler = (event: Event) => {
   const el = event.target as HTMLInputElement;
   emit('update:modelValue', getChecked(el.checked));
-}
+};
 // TODO: remove in 0.6.0 / BEGIN
 const checkbutton = computed(() => (slots.checkbutton));
 if (checkbutton.value) {

@@ -129,13 +129,13 @@ const defaultProps = computed(() => {
   };
 });
 const emit = defineEmits<PopoverEmits>();
-function clickHandler(): void {
+const clickHandler = () => {
   emit('close');
-}
-function keydownHandler({ key }: KeyboardEvent): void {
+};
+const keydownHandler = ({ key }: KeyboardEvent) => {
   if (key !== 'Escape') return;
   emit('close');
-}
+};
 onMounted(() => {
   window.addEventListener('keydown', keydownHandler);
 });

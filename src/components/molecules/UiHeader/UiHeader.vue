@@ -169,12 +169,12 @@ watch(isOpen, (value: boolean) => {
 const handleHamburger = (): void => {
   isOpen.value = !isOpen.value;
 };
-function handleMedia({ matches }: { matches: boolean }): void {
+const handleMedia = ({ matches }: { matches: boolean }) => {
   isMobile.value = matches;
   if (isOpen.value && !matches) {
     isOpen.value = false;
   }
-}
+};
 onMounted(() => {
   matchMediaObject.addEventListener('change', handleMedia);
 });

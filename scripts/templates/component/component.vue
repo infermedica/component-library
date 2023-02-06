@@ -28,9 +28,9 @@ const props = withDefaults(defineProps<ComponentNameProps>(), { content: '' });
 const emit = defineEmits<ComponentNameEmits>();
 const el = ref<HTMLElement | null>(null);
 const hasContent = computed(() => (!!props.content));
-function updateHandler(value: ComponentNameProps['content']) {
+const updateHandler = (value: ComponentNameProps['content']) => {
   emit('update:content', value);
-}
+};
 // or use Computed Setter
 // const hasContent = computed({
 //   get() {

@@ -127,18 +127,18 @@ const {
   attrs, listeners,
 } = useAttributes<HTMLAttributes>();
 const { numbersOnly } = useKeyValidation();
-function keyValidation(event: KeyboardEvent): void {
+const keyValidation = (event: KeyboardEvent) => {
   switch (props.type) {
     case 'number':
       numbersOnly(event);
       break;
     default:
   }
-}
-function inputHandler(event: Event): void {
+};
+const inputHandler = (event: Event) => {
   const el = event.target as HTMLInputElement;
   emit('update:modelValue', el.value);
-}
+};
 </script>
 
 <style lang="scss">

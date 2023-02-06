@@ -89,9 +89,9 @@ const defaultProps = computed(() => {
   };
 });
 const emit = defineEmits<ChipEmits>();
-function clickHandler() {
+const clickHandler = () => {
   emit('remove');
-}
+};
 // TODO: remove in 0.6.0 / BEGIN
 const attrs = useAttrs();
 const buttonAttrs = computed(() => attrs.buttonAttrs || attrs['button-attrs']);

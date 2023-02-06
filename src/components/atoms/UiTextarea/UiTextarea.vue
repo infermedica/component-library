@@ -75,10 +75,10 @@ const emit = defineEmits<TextareaEmits>();
 const {
   attrs, listeners,
 } = useAttributes();
-function inputHandler(event: Event) {
+const inputHandler = (event: Event) => {
   const el = event.target as HTMLInputElement;
   emit('update:modelValue', el.value);
-}
+};
 const resizeValue = computed(() => {
   if (typeof props.resize !== 'boolean') {
     return props.resize;

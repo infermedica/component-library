@@ -152,10 +152,10 @@ const trackWidth = computed(() => {
   const position = props.modelValue - props.min;
   return `${(position / scope) * 100}%`;
 });
-function changeHandler(value: RangeModelValue) {
+const changeHandler = (value: RangeModelValue) => {
   if (attrs.value.disabled) return;
   emit('update:modelValue', value);
-}
+};
 // TODO: remove in 0.6.0 / BEGIN
 const buttonDecrementAttrs = computed(() => attrs.value.buttonDecrementAttrs || attrs.value['button-decrement-attrs']);
 if (buttonDecrementAttrs.value) {

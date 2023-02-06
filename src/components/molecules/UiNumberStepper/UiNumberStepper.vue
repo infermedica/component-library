@@ -161,7 +161,7 @@ const emit = defineEmits<NumberStepperEmits>();
 const validate = (value: number) => (value >= props.min && value <= props.max);
 const isMin = computed(() => props.modelValue === props.min);
 const isMax = computed(() => props.modelValue === props.max);
-function change(value: number, modifier = 0) {
+const change = (value: number, modifier = 0) => {
   const newValue = value + modifier;
   if (validate(newValue)) {
     emit('update:modelValue', newValue);
@@ -171,13 +171,13 @@ function change(value: number, modifier = 0) {
     isMin: isMin.value,
     isMax: isMax.value,
   });
-}
-function decrement(): void {
+};
+const decrement = () => {
   change(props.modelValue, props.step * -1);
-}
-function increment(): void {
+};
+const increment = () => {
   change(props.modelValue, props.step);
-}
+};
 </script>
 
 <style lang="scss">

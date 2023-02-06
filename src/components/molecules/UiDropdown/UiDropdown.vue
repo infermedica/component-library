@@ -204,15 +204,15 @@ const {
   prevDropdownItem,
   selectedDropdownItem,
 } = useDropdownItems(dropdown);
-function disableArrows(event: KeyboardEvent): void {
+const disableArrows = (event: KeyboardEvent) => {
   if ([
     'ArrowUp',
     'ArrowDown',
   ].indexOf(event.code) > -1) {
     event.preventDefault();
   }
-}
-async function openHandler({ focus = false }: DropdownHandlersOptions = {}) {
+};
+const openHandler = async ({ focus = false }: DropdownHandlersOptions = {}) => {
   isOpen.value = true;
   emit('open');
   window.addEventListener('keydown', disableArrows, false);
@@ -223,22 +223,22 @@ async function openHandler({ focus = false }: DropdownHandlersOptions = {}) {
     if (selectedDropdownItem.value) focusElement(selectedDropdownItem.value);
     else if (nextDropdownItem.value) focusElement(nextDropdownItem.value);
   }
-}
-function closeHandler({ focusToggle }: DropdownHandlersOptions = { focusToggle: true }) {
+};
+const closeHandler = ({ focusToggle }: DropdownHandlersOptions = { focusToggle: true }) => {
   if (dropdownToggle.value && focusToggle) {
     dropdownToggle.value.focus();
   }
   isOpen.value = false;
   emit('close');
   window.removeEventListener('keydown', disableArrows, false);
-}
-async function toggleHandler() {
+};
+const toggleHandler = async () => {
   if (isOpen.value) {
     closeHandler();
   } else {
     await openHandler({ focus: true });
   }
-}
+};
 const isActiveClickOutside = computed(() => (props.closeOnClickOutside && isOpen.value));
 const dropdownName = computed(() => (
   props.name || `dropdown-${uid()}`
@@ -251,7 +251,7 @@ const changeHandler: DropdownChangeHandler = (value) => {
   closeHandler();
 };
 provide<DropdownChangeHandler>('changeHandler', changeHandler);
-async function dropdownKeydownHandler({ key }: KeyboardEvent) {
+const dropdownKeydownHandler = async ({ key }: KeyboardEvent) => {
   if (!props.enableKeyboardNavigation) return;
 
   switch (key) {
@@ -279,17 +279,17 @@ async function dropdownKeydownHandler({ key }: KeyboardEvent) {
       break;
     default: break;
   }
-}
+};
 // todo: why this component handle searchQuery and searchDebounce?
 const searchQuery = ref('');
 const searchDebounce = ref<ReturnType<typeof setTimeout> | null>(null);
-function handleInputQuery(key: KeyboardEvent['key']) {
+const handleInputQuery = (key: KeyboardEvent['key']) => {
   searchQuery.value += key.toLowerCase();
   const match: number = dropdownItems.value.findIndex(
     (item: HTMLElement) => item.innerText.toLowerCase().startsWith(searchQuery.value),
   );
   if (match !== -1 && match !== activeDropdownItemIndex.value) focusElement(dropdownItems.value[match]);
-}
+};
 const dropdownItemKeydownHandler: DropdownItemKeydownHandler = async ({ key }) => {
   if (searchDebounce.value) clearTimeout(searchDebounce.value);
   if (key.length === 1) {

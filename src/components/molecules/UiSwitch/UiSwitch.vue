@@ -41,7 +41,7 @@
 <script setup lang="ts">
 import UiCheckbox from '../../atoms/UiCheckbox/UiCheckbox.vue';
 import type {
-  CheckboxProps,
+  CheckboxModelValue,
   CheckboxAttrsProps,
 } from '../../atoms/UiCheckbox/UiCheckbox.vue';
 import UiSwitchControl from './_internal/UiSwitchControl.vue';
@@ -52,7 +52,7 @@ export interface SwitchProps {
   /**
    *  Use this props or v-model to set checked.
    */
-  modelValue?: CheckboxProps['modelValue'];
+  modelValue?: CheckboxModelValue;
   /**
    *  Use this props to set pass attrs for UiSwitchControl.
    */
@@ -60,7 +60,7 @@ export interface SwitchProps {
 }
 export type SwitchAttrsProps = DefineAttrsProps<SwitchProps, CheckboxAttrsProps>
 export interface SwitchEmits {
-  (e: 'update:modelValue', value: SwitchProps['modelValue']): void
+  (e: 'update:modelValue', value: CheckboxModelValue): void
 }
 
 withDefaults(defineProps<SwitchProps>(), {
@@ -68,7 +68,7 @@ withDefaults(defineProps<SwitchProps>(), {
   controlAttrs: () => ({}),
 });
 const emit = defineEmits<SwitchEmits>();
-const updateHandler = (value: SwitchProps['modelValue']): void => {
+const updateHandler = (value: CheckboxModelValue): void => {
   emit('update:modelValue', value);
 };
 </script>

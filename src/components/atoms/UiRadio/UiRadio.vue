@@ -161,12 +161,12 @@ const isChecked = computed(() => (equal(
   JSON.parse(JSON.stringify(props.value)),
   JSON.parse(JSON.stringify(props.modelValue)),
 )));
-function changeHandler(event: Event) {
+const changeHandler = (event: Event) => {
   const el = event.target as HTMLInputElement;
   if (el.checked) {
     emit('update:modelValue', JSON.parse(JSON.stringify(props.value)));
   }
-}
+};
 // TODO: remove in 0.6.0 / BEGIN
 const radiobutton = computed(() => (slots.radiobutton));
 if (radiobutton.value) {
