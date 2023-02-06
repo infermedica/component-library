@@ -22,41 +22,47 @@
 import {
   computed,
   inject,
+  ref,
 } from 'vue';
 import type {
   ComputedRef,
   Ref,
 } from 'vue';
 import UiDatepickerTab from './UiDatepickerTab.vue';
+import type { DatepickerTabAttrsProps } from './UiDatepickerTab.vue';
 import UiDatepickerTabItem from './UiDatepickerTabItem.vue';
+import type { DefineAttrsProps } from '../../../../types';
+import type { DatepickerCheckAvailability } from '../UiDatepicker.vue';
 
-const props = defineProps({
+export interface DatepickerYearTabProps {
   /**
    * Use this props or v-model to set value.
    */
-  modelValue: {
-    type: String,
-    default: '',
-  },
-});
-const emit = defineEmits<{(e: 'update:modelValue', value: string): void, (e: 'select', value: {type: 'year', value: string}): void}>();
-const yearsList = inject('yearsList') as ComputedRef<number[]>;
-const isDisabled = inject('checkYearAvailability') as (year: number) => boolean;
-const unfulfilledYearError = inject('unfulfilledYear') as Ref<boolean>;
+  modelValue?: string;
+}
+export type DatepickerYearTabAttrsProps = DefineAttrsProps<DatepickerYearTabProps, DatepickerTabAttrsProps>;
+export interface DatepickerYearTabEmits {
+  (e:'update:modelValue', value: string): void;
+  (e: 'select', value: {type: 'year'; value: string}): void
+}
 
+const props = withDefaults(defineProps<DatepickerYearTabProps>(), { modelValue: '' });
+const emit = defineEmits<DatepickerYearTabEmits>();
+const yearsList = inject<ComputedRef<number[]>>('yearsList', computed(() => ([])));
+const isDisabled = inject<DatepickerCheckAvailability>('checkYearAvailability', () => false);
+const unfulfilledYearError = inject<Ref<boolean>>('unfulfilledYear', ref(false));
 const year = computed({
   get: () => (`${props.modelValue}`),
   set: (value) => { emit('update:modelValue', value); },
 });
-
-function select(value: string): void {
+const select = (value: string) => {
   emit('select', {
     type: 'year',
     value,
   });
   year.value = value;
   unfulfilledYearError.value = false;
-}
+};
 </script>
 
 <style lang="scss">

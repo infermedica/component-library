@@ -3,7 +3,7 @@
     id="month"
     v-model="month"
     :class="{ 'ui-input--has-error': hasError }"
-    :placeholder="translation.placeholderMonth"
+    :placeholder="translation?.placeholderMonth"
     maxlength="2"
     inputmode="numeric"
     pattern="[0-9]*"
@@ -19,39 +19,44 @@ import {
   computed,
   inject,
   nextTick,
+  ref,
 } from 'vue';
 import type { Ref } from 'vue';
 import { removeNonDigits } from '../../../../utilities/helpers/index';
 import UiInput from '../../../atoms/UiInput/UiInput.vue';
+import type { InputAttrsProps } from '../../../atoms/UiInput/UiInput.vue';
 import useKeyValidation from '../../../../composable/useKeyValidation';
 import type { DatepickerTranslation } from '../UiDatepicker.vue';
+import type { DefineAttrsProps } from '../../../../types';
 
-const props = defineProps({
+export interface DatepickerMonthInputProps {
   /**
    * Use this props or v-model to set value.
    */
-  modelValue: {
-    type: String,
-    default: '',
-  },
+  modelValue?: string;
   /**
    * Use this props to set input in error state manually
    */
-  error: {
-    type: Boolean,
-    default: false,
-  },
+  error?: boolean;
   /**
    * Use this props to set input value validation status
    */
-  valid: {
-    type: Boolean,
-    default: false,
-  },
+  valid?: boolean;
+}
+export type DatepickerMonthInputAttrsProps = DefineAttrsProps<DatepickerMonthInputProps, InputAttrsProps>;
+export interface DatepickerMonthEmits {
+  (e: 'update:modelValue', value: string): void;
+  (e: 'change-input', value: 'month'): void
+}
+
+const props = withDefaults(defineProps<DatepickerMonthInputProps>(), {
+  modelValue: '',
+  error: false,
+  valid: false,
 });
-const emit = defineEmits<{(e: 'update:modelValue', value: string): void, (e: 'change-input', value: 'month'): void}>();
-const translation = inject('translation') as DatepickerTranslation;
-const unfulfilledMonthError = inject('unfulfilledMonth') as Ref<boolean>;
+const emit = defineEmits<DatepickerMonthEmits>();
+const translation = inject<DatepickerTranslation>('translation');
+const unfulfilledMonthError = inject<Ref<boolean>>('unfulfilledMonth', ref(false));
 const { numbersOnly } = useKeyValidation();
 const month = computed({
   get: () => (`${props.modelValue}`),
@@ -59,18 +64,17 @@ const month = computed({
 });
 const validationError = computed(() => (month.value.length === 2 && !props.valid));
 const hasError = computed(() => (validationError.value || unfulfilledMonthError.value || props.error));
-async function checkMonth(event: Event): Promise<void> {
+const checkMonth = async ({ data }: InputEvent) => {
   unfulfilledMonthError.value = false;
-  const inputValue = (event as InputEvent).data;
   await nextTick();
-  if (inputValue && (![
+  if (data && (![
     '0',
     '1',
-  ].includes(inputValue) || month.value.length === 2) && props.valid) {
+  ].includes(data) || month.value.length === 2) && props.valid) {
     emit('change-input', 'month');
   }
-}
-function standardizeMonthFormat(): void {
+};
+const standardizeMonthFormat = () => {
   if (month.value.length === 1) {
     if (month.value !== '0') {
       month.value = `0${month.value}`;
@@ -78,5 +82,5 @@ function standardizeMonthFormat(): void {
       unfulfilledMonthError.value = true;
     }
   }
-}
+};
 </script>

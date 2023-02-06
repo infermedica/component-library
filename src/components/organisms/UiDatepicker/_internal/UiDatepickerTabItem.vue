@@ -4,8 +4,12 @@
   </UiButton>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
+import type { ButtonAttrsProps } from '../../../atoms/UiButton/UiButton.vue';
+import type { DefineAttrsProps } from '../../../../types';
+
+export type DatepickerTabItemAttrsProps = DefineAttrsProps<null, ButtonAttrsProps>;
 </script>
 
 <style lang="scss">

@@ -6,8 +6,12 @@
   </UiTabsItem>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import UiTabsItem from '../../UiTabs/_internal/UiTabsItem.vue';
+import type { TabsItemAttrsProps } from '../../UiTabs/_internal/UiTabsItem.vue';
+import type { DefineAttrsProps } from '../../../../types';
+
+export type DatepickerTabAttrsProps = DefineAttrsProps<null, TabsItemAttrsProps>;
 </script>
 
 <style lang="scss">

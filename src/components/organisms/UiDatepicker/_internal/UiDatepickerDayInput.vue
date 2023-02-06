@@ -2,13 +2,13 @@
   <UiInput
     v-model="day"
     :class="{ 'ui-input--has-error': hasError }"
-    :placeholder="translation.placeholderDay"
+    :placeholder="translation?.placeholderDay"
     maxlength="2"
     inputmode="numeric"
     pattern="[0-9]*"
     autocomplete="off"
     @blur="standardizeDayFormat"
-    @input="checkDay($event as InputEvent)"
+    @input="checkDay($event)"
     @keydown="numbersOnly"
   />
 </template>
@@ -18,39 +18,44 @@ import {
   computed,
   inject,
   nextTick,
+  ref,
 } from 'vue';
 import type { Ref } from 'vue';
 import { removeNonDigits } from '../../../../utilities/helpers/index';
 import UiInput from '../../../atoms/UiInput/UiInput.vue';
+import type { InputAttrsProps } from '../../../atoms/UiInput/UiInput.vue';
 import useKeyValidation from '../../../../composable/useKeyValidation';
 import type { DatepickerTranslation } from '../UiDatepicker.vue';
+import type { DefineAttrsProps } from '../../../../types';
 
-const props = defineProps({
+export interface DatepickerDayInputProps {
   /**
    * Use this props or v-model to set value.
    */
-  modelValue: {
-    type: String,
-    default: '',
-  },
+  modelValue?: string;
   /**
    * Use this props to set input in error state manually
    */
-  error: {
-    type: Boolean,
-    default: false,
-  },
+  error?: boolean;
   /**
    * Use this props to set input value validation status
    */
-  valid: {
-    type: Boolean,
-    default: false,
-  },
+  valid?: boolean;
+}
+export type DatepickerDayInputAttrsProps = DefineAttrsProps<DatepickerDayInputProps, InputAttrsProps>
+export interface DatepickerDayInputEmits {
+  (e:'update:modelValue', value: string):void;
+  (e:'change-input', value: 'day'): void
+}
+
+const props = withDefaults(defineProps<DatepickerDayInputProps>(), {
+  modelValue: '',
+  error: false,
+  valid: false,
 });
-const emit = defineEmits<{(e:'update:modelValue', value: string):void, (e:'change-input', value: 'day'): void}>();
-const translation = inject('translation') as DatepickerTranslation;
-const unfulfilledDayError = inject('unfulfilledDay') as Ref<boolean>;
+const emit = defineEmits<DatepickerDayInputEmits>();
+const translation = inject<DatepickerTranslation>('translation');
+const unfulfilledDayError = inject<Ref<boolean>>('unfulfilledDay', ref(false));
 const { numbersOnly } = useKeyValidation();
 const day = computed({
   get: () => (`${props.modelValue}`),
@@ -58,20 +63,19 @@ const day = computed({
 });
 const validationError = computed(() => (day.value.length === 2 && !props.valid));
 const hasError = computed(() => (validationError.value || unfulfilledDayError.value || props.error));
-async function checkDay(event: InputEvent): Promise<void> {
+async function checkDay({ data }: InputEvent) {
   unfulfilledDayError.value = false;
-  const inputValue = event.data;
   await nextTick();
-  if (inputValue && (![
+  if (data && (![
     '0',
     '1',
     '2',
     '3',
-  ].includes(inputValue) || day.value.length === 2) && props.valid) {
+  ].includes(data) || day.value.length === 2) && props.valid) {
     emit('change-input', 'day');
   }
 }
-function standardizeDayFormat(): void {
+const standardizeDayFormat = () => {
   if (day.value.length === 1) {
     if (day.value !== '0') {
       day.value = `0${day.value}`;
@@ -79,5 +83,5 @@ function standardizeDayFormat(): void {
       unfulfilledDayError.value = true;
     }
   }
-}
+};
 </script>

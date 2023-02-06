@@ -22,38 +22,44 @@
 import {
   computed,
   inject,
+  ref,
 } from 'vue';
 import type { Ref } from 'vue';
+import type { DatepickerCheckAvailability } from '../UiDatepicker.vue';
 import UiDatepickerTab from './UiDatepickerTab.vue';
+import type { DatepickerTabAttrsProps } from './UiDatepickerTab.vue';
 import UiDatepickerTabItem from './UiDatepickerTabItem.vue';
+import type { DefineAttrsProps } from '../../../../types';
 
-const props = defineProps({
+export interface DatepickerMonthTabProps {
   /**
    * Use this props or v-model to set value.
    */
-  modelValue: {
-    type: String,
-    default: '',
-  },
-});
-const emit = defineEmits<{(e: 'update:modelValue', value: string): void, (e: 'select', value: {type: 'month', value: string}): void}>();
-const monthNames = inject('monthNames') as string[];
-const isDisabled = inject('checkMonthAvailability') as (month: number) => boolean;
-const unfulfilledMonthError = inject('unfulfilledMonth') as Ref<boolean>;
+  modelValue?: string;
+}
+export type DatepickerMonthTabAttrsProps = DefineAttrsProps<DatepickerMonthTabProps, DatepickerTabAttrsProps>;
+export interface DatepickerMonthTabEmits {
+  (e:'update:modelValue', value: string): void;
+  (e: 'select', value: {type: 'month'; value: string}): void
+}
 
+const props = withDefaults(defineProps<DatepickerMonthTabProps>(), { modelValue: '' });
+const emit = defineEmits<DatepickerMonthTabEmits>();
+const monthNames = inject('monthNames') as string[];
+const isDisabled = inject<DatepickerCheckAvailability>('checkMonthAvailability', () => false);
+const unfulfilledMonthError = inject<Ref<boolean>>('unfulfilledMonth', ref(false));
 const month = computed({
   get: () => (`${props.modelValue}`),
   set: (value) => { emit('update:modelValue', value); },
 });
-
-function select(value: string): void {
+const select = (value: string) => {
   emit('select', {
     type: 'month',
     value,
   });
   month.value = value.length === 1 ? `0${value}` : value;
   unfulfilledMonthError.value = false;
-}
+};
 </script>
 
 <style lang="scss">
