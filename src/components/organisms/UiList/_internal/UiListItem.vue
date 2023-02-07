@@ -47,10 +47,7 @@ export default { inheritAttrs: false };
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import type {
-  ComponentPublicInstance,
-  LiHTMLAttributes,
-} from 'vue';
+import type { LiHTMLAttributes } from 'vue';
 import type { Icon } from '../../../../types/icon';
 import UiListItemSuffixAsButton from './UiListItemSuffixAsButton.vue';
 import type { ListItemSuffixAsButtonAttrsProps } from './UiListItemSuffixAsButton.vue';
@@ -65,7 +62,7 @@ export interface ListItemProps {
   /**
    * Use this props to set list item content tag.
    */
-  tag?: HTMLTag | ComponentPublicInstance;
+  tag?: HTMLTag;
   /**
    * Use this props to set suffix icon.
    */
