@@ -25,17 +25,20 @@ import {
   computed,
   provide,
 } from 'vue';
+import type { ComputedRef } from 'vue';
 import UiAccordionItem from './_internal/UiAccordionItem.vue';
 import type { AccordionItemAttrsProps } from './_internal/UiAccordionItem.vue';
 import UiList from '../UiList/UiList.vue';
 import type { ListAttrsProps } from '../UiList/UiList.vue';
 import type { DefineAttrsProps } from '../../../types';
 
+export type AccordionToggle = (name: string) => void;
+export type AccordionModelValue = string | string[];
 export interface AccordionProps {
   /**
    * Use this props or v-model to set opened items.
    */
-  modelValue?: string | string[];
+  modelValue?: AccordionModelValue;
   /**
    * Use this props to pass accordion items.
    */
@@ -43,7 +46,7 @@ export interface AccordionProps {
 }
 export type AccordionAttrsProps = DefineAttrsProps<AccordionProps, ListAttrsProps>
 export interface AccordionEmits {
-  (e: 'update:modelValue', value: AccordionProps['modelValue']): void
+  (e: 'update:modelValue', value: AccordionModelValue): void;
 }
 
 const props = withDefaults(defineProps<AccordionProps>(), {
@@ -51,12 +54,12 @@ const props = withDefaults(defineProps<AccordionProps>(), {
   items: () => ([]),
 });
 const emit = defineEmits<AccordionEmits>();
-const opened = computed<AccordionProps['modelValue']>(() => (props.modelValue));
-provide('opened', opened);
-function toggle(name: string): void {
+const opened = computed(() => (props.modelValue));
+provide<ComputedRef<AccordionModelValue>>('opened', opened);
+const toggle: AccordionToggle = (name) => {
   if (typeof opened.value === 'string') {
     emit('update:modelValue', opened.value === name ? '' : name);
-  } else if (opened.value?.includes(name)) {
+  } else if (opened.value.includes(name)) {
     emit('update:modelValue', opened.value.filter((item) => (item !== name)));
   } else {
     emit('update:modelValue', [
@@ -64,8 +67,8 @@ function toggle(name: string): void {
       name,
     ]);
   }
-}
-provide('toggle', toggle);
+};
+provide<AccordionToggle>('toggle', toggle);
 const itemsToRender = computed<AccordionItemAttrsProps[]>(() => (
   props.items.map((item, key) => {
     if (typeof item === 'string') {
