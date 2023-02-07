@@ -65,11 +65,11 @@ export interface ListProps {
   /**
    * Use this props to pass list tag.
    */
-  tag: ListHTMLTag;
+  tag?: ListHTMLTag;
   /**
    * Use this props to pass list items.
    */
-  items: ListItem[],
+  items?: ListItem[],
 }
 export type ListAttrsProps<HTMLAttrs = HTMLAttributes> = DefineAttrsProps<ListProps, HTMLAttrs>;
 

@@ -262,13 +262,13 @@ const props = withDefaults(defineProps<SidePanelProps>(), {
 });
 const emit = defineEmits<SidePanelEmits>();
 const button = ref<InstanceType<typeof UiButton>| null>(null);
-async function enterHandler(): Promise<void> {
+const enterHandler = async () => {
   await nextTick();
   focusElement(button.value?.$el, true);
-}
-function afterEnterHandler(): void {
+};
+const afterEnterHandler = () => {
   emit('after-enter');
-}
+};
 // TODO: remove in 0.6.0 / BEGIN
 const attrs = useAttrs();
 const transition = computed(() => attrs.transition as string);
@@ -301,14 +301,14 @@ const defaultProps = computed<SidePanelProps>(() => ({
   },
 }));
 
-function closeHandler(): void {
+const closeHandler = () => {
   emit('update:modelValue', false);
-}
-function keydownHandler(event: Event) {
+};
+const keydownHandler = (event: Event) => {
   const { key } = event as KeyboardEvent;
   if (key !== 'Escape') return;
   emit('update:modelValue', false);
-}
+};
 onMounted(() => {
   window.addEventListener('keydown', keydownHandler);
 });

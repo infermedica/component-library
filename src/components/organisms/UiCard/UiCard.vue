@@ -152,7 +152,7 @@ const props = withDefaults(defineProps<CardProps>(), {
 });
 const rootClassModifier = computed(() => `ui-card--${props.type}`);
 const icon = computed(() => props.type.replace(/_/g, '-') as IconName);
-const defaultProps = computed<CardProps>(() => ({
+const defaultProps = computed(() => ({
   iconTriageAttrs: {
     icon: icon.value,
     ...props.iconTriageAttrs,

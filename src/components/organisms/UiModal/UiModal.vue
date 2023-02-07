@@ -400,10 +400,10 @@ const props = withDefaults(defineProps<ModalProps>(), {
   iconCloseAttrs: () => ({ icon: 'close' }),
 });
 const button = ref<InstanceType<typeof UiButton>|null>(null);
-async function enterHandler() {
+const enterHandler = async () => {
   await nextTick();
   focusElement(button.value?.$el, true);
-}
+};
 const defaultProps = computed<ModalProps>(() => ({
   translation: {
     confirm: 'Ok',
@@ -444,21 +444,21 @@ const titleText = computed(() => props.title || props.description);
 const titleAttrs = computed(() => (props.title
   ? defaultProps.value.headingTitleAttrs
   : props.textDescriptionAttrs));
-function closeHandler(): void {
+const closeHandler = () => {
   if (!props.isClosable) return;
   emit('update:modelValue', false);
-}
-function keydownHandler({ key }: KeyboardEvent) {
+};
+const keydownHandler = ({ key }: KeyboardEvent) => {
   if (key !== 'Escape') return;
   closeHandler();
-}
-function confirmHandler(): void {
+};
+const confirmHandler = () => {
   emit('confirm');
-}
-function cancelHandler(): void {
+};
+const cancelHandler = () => {
   emit('cancel');
   emit('update:modelValue', false);
-}
+};
 onMounted(() => {
   if (!props.isClosable) return;
   window.addEventListener('keydown', keydownHandler);

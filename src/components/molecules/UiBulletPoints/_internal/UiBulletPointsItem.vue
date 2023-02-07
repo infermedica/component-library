@@ -52,14 +52,14 @@ import type { TextAttrsProps } from '../../../atoms/UiText/UiText.vue';
 import type {
   DefineAttrsProps,
   ListHTMLTag,
-  IconName,
+  Icon,
 } from '../../../../types';
 
 export interface BulletPointsItemProps {
   /**
    * Use this props to set the bullet point icon.
    */
-  icon?: IconName;
+  icon?: Icon;
   /**
    * Use this props to pass attrs for marker UiIcon
    */

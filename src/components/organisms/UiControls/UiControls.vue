@@ -149,37 +149,40 @@ const props = withDefaults(defineProps<ControlsProps>(), {
   }),
   containerAttrs: () => ({}),
   buttonNextAttrs: () => ({}),
-  buttonBackAttrs: () => ({}),
+  buttonBackAttrs: () => ({ to: '' }),
   iconBackAttrs: () => ({ icon: 'chevron-left' }),
 });
 const emit = defineEmits<ControlsEmits>();
-function hasError(): void {
+const hasError = () => {
   emit('has-error');
-}
-const defaultProps = computed<ControlsProps>(() => ({
-  translation: {
-    back: 'Back',
-    next: 'Next',
-    ...props.translation,
-  },
-  buttonBackAttrs: {
-    to: props.toBack,
-    ...props.buttonBackAttrs,
-  },
-  iconBackAttrs: {
-    icon: 'chevron-left',
-    ...props.iconBackAttrs,
-  },
-  buttonNextAttrs: {
-    onClick: props.invalid
-      ? hasError
-      : undefined,
-    to: props.invalid
-      ? undefined
-      : props.toNext,
-    ...props.buttonNextAttrs,
-  },
-}));
+};
+const defaultProps = computed(() => {
+  const icon: IconAttrsProps['icon'] = 'chevron-left';
+  return {
+    translation: {
+      back: 'Back',
+      next: 'Next',
+      ...props.translation,
+    },
+    buttonBackAttrs: {
+      to: props.toBack,
+      ...props.buttonBackAttrs,
+    },
+    iconBackAttrs: {
+      icon,
+      ...props.iconBackAttrs,
+    },
+    buttonNextAttrs: {
+      onClick: props.invalid
+        ? hasError
+        : undefined,
+      to: props.invalid
+        ? undefined
+        : props.toNext,
+      ...props.buttonNextAttrs,
+    },
+  };
+});
 </script>
 
 <style lang="scss">
