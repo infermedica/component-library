@@ -77,6 +77,10 @@ import {
 import type { Ref } from 'vue';
 import { uid } from 'uid/single';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
+import type {
+  TabsHandleTabActive,
+  TabsSetActiveElement,
+} from '../UiTabs.vue';
 import type { ButtonAttrsProps } from '../../../atoms/UiButton/UiButton.vue';
 import type { DefineAttrsProps } from '../../../../types';
 
@@ -107,14 +111,16 @@ const props = withDefaults(defineProps<TabsItemProps>(), {
   contentAttrs: () => ({}),
 });
 const attrs: TabsItemAttrsProps = useAttrs();
-const activeTab = inject('activeTab') as Ref<string>;
+const activeTab = inject<Ref<string>>('activeTab', ref(''));
 const hasActiveTab = computed(() => (!!activeTab.value));
 const id = computed(() => (props.name || attrs.id || `tab-${uid()}`));
 const isActive = computed(() => (id.value === activeTab.value));
-const handleTabActive = inject('handleTabActive') as (event: Event, name: string) => void;
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const handleTabActive = inject<TabsHandleTabActive>('handleTabActive', () => {});
 const tab = ref<HTMLElement | null>(null);
-const setActiveHTMLElement = inject('setActiveHTMLElement') as (element: HTMLElement | null) => void;
-onMounted(async () => {
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const setActiveHTMLElement = inject<TabsSetActiveElement>('setActiveHTMLElement', () => {});
+onMounted(() => {
   if (isActive.value) {
     setActiveHTMLElement(tab.value);
     return;

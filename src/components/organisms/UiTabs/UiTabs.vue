@@ -36,6 +36,8 @@ import UiTabsItem from './_internal/UiTabsItem.vue';
 import type { TabsItemAttrsProps } from './_internal/UiTabsItem.vue';
 import type { DefineAttrsProps } from '../../../types';
 
+export type TabsHandleTabActive = (event: Event, name: string) => void;
+export type TabsSetActiveElement = (element: HTMLElement | null) => void
 export interface TabsProps {
   /**
    * Use this props or v-model to set opened items.
@@ -101,13 +103,13 @@ const style = computed<CSSProperties>(() => ({
 const setActiveHTMLElement = (element: HTMLElement | null): void => {
   activeTabHTMLElement.value = element;
 };
-provide('setActiveHTMLElement', setActiveHTMLElement);
-const handleTabActive = (event: Event, name: string): void => {
+provide<TabsSetActiveElement>('setActiveHTMLElement', setActiveHTMLElement);
+const handleTabActive = (event: Event, name: string) => {
   const target = event.target as HTMLElement;
   setActiveHTMLElement(target.parentElement);
   activeTab.value = name;
 };
-provide('handleTabActive', handleTabActive);
+provide<TabsHandleTabActive>('handleTabActive', handleTabActive);
 </script>
 
 <style lang="scss">
