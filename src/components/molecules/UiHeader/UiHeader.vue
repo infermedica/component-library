@@ -161,20 +161,18 @@ const emit = defineEmits<HeaderEmits>();
 const matchMediaObject: MediaQueryList = matchMedia(props.hamburgerMatchMedia);
 const isMobile = ref(matchMediaObject.matches);
 const isOpen = ref(false);
-watch(isOpen, (value: boolean) => {
-  if (value) {
-    emit(value ? 'hamburger:open' : 'hamburger:close');
-  }
+watch(isOpen, (value) => {
+  emit(value ? 'hamburger:open' : 'hamburger:close');
 });
 const handleHamburger = (): void => {
   isOpen.value = !isOpen.value;
 };
-function handleMedia({ matches }: { matches: boolean }): void {
+const handleMedia = ({ matches }: { matches: boolean }) => {
   isMobile.value = matches;
   if (isOpen.value && !matches) {
     isOpen.value = false;
   }
-}
+};
 onMounted(() => {
   matchMediaObject.addEventListener('change', handleMedia);
 });

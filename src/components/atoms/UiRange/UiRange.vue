@@ -82,7 +82,10 @@ import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 import UiHeading from '../UiHeading/UiHeading.vue';
 import type { HeadingAttrsProps } from '../UiHeading/UiHeading.vue';
 import UiNumberStepper from '../../molecules/UiNumberStepper/UiNumberStepper.vue';
-import type { NumberStepperAttrsProps } from '../../molecules/UiNumberStepper/UiNumberStepper.vue';
+import type {
+  NumberStepperProps,
+  NumberStepperAttrsProps,
+} from '../../molecules/UiNumberStepper/UiNumberStepper.vue';
 import type { DefineAttrsProps } from '../../../types';
 
 export type RangeModelValue = number;
@@ -152,29 +155,28 @@ const trackWidth = computed(() => {
   const position = props.modelValue - props.min;
   return `${(position / scope) * 100}%`;
 });
-function changeHandler(value: RangeModelValue) {
+const changeHandler = (value: RangeModelValue) => {
   if (attrs.value.disabled) return;
   emit('update:modelValue', value);
-}
+};
 // TODO: remove in 0.6.0 / BEGIN
-const buttonDecrementAttrs = computed(() => attrs.value.buttonDecrementAttrs || attrs.value['button-decrement-attrs']);
+const buttonDecrementAttrs = computed(() => (attrs.value.buttonDecrementAttrs || attrs.value['button-decrement-attrs']) as NumberStepperProps['buttonDecrementAttrs']);
 if (buttonDecrementAttrs.value) {
   if (process.env.NODE_ENV === 'development') {
     console.warn('[@infermedica/component-library warn][UiRange]: The `buttonDecrementAttrs` props will be removed in 0.6.0. Please use `numberStepperAttrs` props instead.');
   }
 }
-const buttonIncrementAttrs = computed(() => attrs.value.buttonIncrementAttrs || attrs.value['button-increment-attrs']);
+const buttonIncrementAttrs = computed(() => (attrs.value.buttonIncrementAttrs || attrs.value['button-increment-attrs']) as NumberStepperProps['buttonIncrementAttrs']);
 if (buttonIncrementAttrs.value) {
   if (process.env.NODE_ENV === 'development') {
     console.warn('[@infermedica/component-library warn][UiRange]: The `buttonIncrementAttrs` props will be removed in 0.6.0. Please use `numberStepperAttrs` props instead.');
   }
 }
 // END
-// TODO after refactoring the NumberStepper component, pass its NumberStepperAttrsProps type as the argument of numberStepperAttrs
-const numberStepperAttrs = computed((): Record<string, unknown> => ({
+const numberStepperAttrs = computed<NumberStepperAttrsProps>(() => ({
   buttonDecrementAttrs: buttonDecrementAttrs.value,
   buttonIncrementAttrs: buttonIncrementAttrs.value,
-  ...attrs,
+  ...attrs.value,
 }));
 </script>
 

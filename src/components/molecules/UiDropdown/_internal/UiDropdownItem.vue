@@ -85,11 +85,11 @@ const tabindex = computed(() => {
   }
   return !Object.keys(modelValue.value).length ? 0 : -1;
 });
-function optionChangeHandler(value: DropdownModelValue): void {
+const optionChangeHandler = (value: DropdownModelValue) => {
   if (isOption.value && changeHandler) {
     changeHandler(value);
   }
-}
+};
 const buttonItemAttrs = computed<ButtonAttrsProps>(() => ({
   role: isOption.value ? 'radio' : undefined,
   'aria-checked': isOption.value ? `${isChecked.value}` : undefined,

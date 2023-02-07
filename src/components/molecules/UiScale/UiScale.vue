@@ -151,7 +151,6 @@ import type {
   ComponentPublicInstance,
 } from 'vue';
 import { uid } from 'uid/single';
-import type { ButtonAttrsProps } from '../../atoms/UiButton/UiButton.vue';
 import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
 import type { RadioAttrsProps } from '../../atoms/UiRadio/UiRadio.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
@@ -242,14 +241,12 @@ const scaleName = computed(() => (
 ));
 const optionRefs = ref<ComponentPublicInstance[]>([]);
 const maxSteps = computed(() => props.steps);
-function valueValidation(value: ScaleValue) {
-  return value >= 0 && value < maxSteps.value;
-}
-function changeHandler(value: ScaleValue) {
+const valueValidation = (value: ScaleValue) => value >= 0 && value < maxSteps.value;
+const changeHandler = (value: ScaleValue) => {
   if (valueValidation(value)) {
     emit('update:modelValue', value);
   }
-}
+};
 const scaleValue = computed<ScaleValue>({
   get: () => props.modelValue,
   set: (value) => {
@@ -257,28 +254,28 @@ const scaleValue = computed<ScaleValue>({
   },
 });
 const hoverValue = ref(-1);
-function hoverHandler({ type }: Event, value: number): void {
+const hoverHandler = ({ type }: Event, value: number) => {
   hoverValue.value = type === 'mouseover' ? value : -1;
-}
+};
 const finalValue = computed<ScaleValue>(() => (hoverValue.value >= 0 ? hoverValue.value : scaleValue.value));
 watch(finalValue, (value: ScaleValue) => {
   focusElement(optionRefs.value[value].$el, true);
 });
-function calcActiveElementOpacity(index: number): CSSProperties {
+const calcActiveElementOpacity = (index: number): CSSProperties => {
   const opacityStepValue = 1 / (maxSteps.value - 1);
   const isActive = index <= finalValue.value;
 
   return isActive ? { '--_scale-square-overlay-opacity': (index * opacityStepValue).toFixed(3) } : {};
-}
+};
 // TODO: remove in 0.6.0 / BEGIN
 const attrs = useAttrs();
-const buttonDecrementAttrs = computed(() => (attrs.buttonDecrementAttrs || attrs['button-decrement-attrs']) as ButtonAttrsProps | undefined);
+const buttonDecrementAttrs = computed(() => (attrs.buttonDecrementAttrs || attrs['button-decrement-attrs']) as ScaleProps['numberStepperAttrs']);
 if (buttonDecrementAttrs.value) {
   if (process.env.NODE_ENV === 'development') {
     console.warn('[@infermedica/component-library warn][UiScale]: The `buttonDecrementAttrs` props will be removed in 0.6.0. Please use `numberStepperAttrs` props instead.');
   }
 }
-const buttonIncrementAttrs = computed(() => (attrs.buttonIncrementAttrs || attrs['button-increment-attrs']) as ButtonAttrsProps | undefined);
+const buttonIncrementAttrs = computed(() => (attrs.buttonIncrementAttrs || attrs['button-increment-attrs']) as ScaleProps['numberStepperAttrs']);
 if (buttonIncrementAttrs.value) {
   if (process.env.NODE_ENV === 'development') {
     console.warn('[@infermedica/component-library warn][UiScale]: The `buttonIncrementAttrs` will be removed in 0.6.0. Please use `numberStepperAttrs` props instead.');

@@ -212,10 +212,10 @@ const rate = computed({
 });
 const maxScore = computed(() => (typeof props.max === 'number' ? props.max : parseInt(props.max, 10)));
 const hoverScore = ref(0);
-function hoverHandler(event: Event, value: number) {
+const hoverHandler = (event: Event, value: number) => {
   const { type } = event;
   hoverScore.value = type === 'mouseover' ? value : 0;
-}
+};
 const finalScore = computed(() => (
   hoverScore.value
     ? hoverScore.value

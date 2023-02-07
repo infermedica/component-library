@@ -86,7 +86,7 @@ describe('UiToggleButtonGroup.vue', () => {
     await firstToggleButton.trigger('click');
 
     expect(firstToggleButton.classes()).not.toContain('ui-toggle-button--is-checked');
-    expect(modelValue.value).toBe(null);
+    expect(modelValue.value).toBe(undefined);
   });
 
   test('not deselects item when deselectable props is not set', async () => {
