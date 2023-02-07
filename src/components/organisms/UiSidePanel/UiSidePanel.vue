@@ -179,16 +179,23 @@ import type { ButtonAttrsProps } from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import type { IconAttrsProps } from '../../atoms/UiIcon/UiIcon.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
-import type { HeadingAttrsProps } from '../../atoms/UiHeading/UiHeading.vue';
+import type {
+  HeadingAttrsProps,
+  HeadingProps,
+} from '../../atoms/UiHeading/UiHeading.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import type { TextAttrsProps } from '../../atoms/UiText/UiText.vue';
-import type { DefineAttrsProps } from '../../../types';
+import type {
+  DefineAttrsProps,
+  Icon,
+} from '../../../types';
 
+export type SidePanelModelValue = boolean;
 export interface SidePanelProps {
   /**
    * Use this props or v-model to set value.
    */
-  modelValue?: boolean;
+  modelValue?: SidePanelModelValue;
   /**
    * Use this props to set side panel title.
    */
@@ -271,41 +278,43 @@ const afterEnterHandler = () => {
 };
 // TODO: remove in 0.6.0 / BEGIN
 const attrs = useAttrs();
-const transition = computed(() => attrs.transition as string);
+const transition = computed(() => attrs.transition as string | undefined);
 if (transition.value) {
   if (process.env.NODE_ENV === 'development') {
     console.warn('[@infermedica/component-library warn][UiSidePanel]: The `transition` props will be removed in 0.6.0. Please use `transitionDialogAttrs` props instead.');
   }
 }
 // END
-const defaultProps = computed<SidePanelProps>(() => ({
-  transitionBackdropAttrs: {
-    appear: true,
-    name: 'fade',
-    ...props.transitionBackdropAttrs,
-  },
-  transitionDialogAttrs: {
-    appear: true,
-    name: transition.value || 'slide',
-    onEnter: enterHandler,
-    onAfterEnter: afterEnterHandler,
-    ...props.transitionDialogAttrs,
-  },
-  iconCloseAttrs: {
-    icon: 'close',
-    ...props.iconCloseAttrs,
-  },
-  headingTitleAttrs: {
-    level: 2,
-    ...props.headingTitleAttrs,
-  },
-}));
-
+const defaultProps = computed(() => {
+  const icon: Icon = 'close';
+  const level: HeadingProps['level'] = 2;
+  return {
+    transitionBackdropAttrs: {
+      appear: true,
+      name: 'fade',
+      ...props.transitionBackdropAttrs,
+    },
+    transitionDialogAttrs: {
+      appear: true,
+      name: transition.value || 'slide',
+      onEnter: enterHandler,
+      onAfterEnter: afterEnterHandler,
+      ...props.transitionDialogAttrs,
+    },
+    iconCloseAttrs: {
+      icon,
+      ...props.iconCloseAttrs,
+    },
+    headingTitleAttrs: {
+      level,
+      ...props.headingTitleAttrs,
+    },
+  };
+});
 const closeHandler = () => {
   emit('update:modelValue', false);
 };
-const keydownHandler = (event: Event) => {
-  const { key } = event as KeyboardEvent;
+const keydownHandler = ({ key }: KeyboardEvent) => {
   if (key !== 'Escape') return;
   emit('update:modelValue', false);
 };
