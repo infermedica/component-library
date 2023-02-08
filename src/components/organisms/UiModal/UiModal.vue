@@ -284,12 +284,18 @@ import type { BackdropAttrsProps } from '../../atoms/UiBackdrop/UiBackdrop.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import type { ButtonAttrsProps } from '../../atoms/UiButton/UiButton.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
-import type { HeadingAttrsProps } from '../../atoms/UiHeading/UiHeading.vue';
+import type {
+  HeadingProps,
+  HeadingAttrsProps,
+} from '../../atoms/UiHeading/UiHeading.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import type { IconAttrsProps } from '../../atoms/UiIcon/UiIcon.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import type { TextAttrsProps } from '../../atoms/UiText/UiText.vue';
-import type { DefineAttrsProps } from '../../../types';
+import type {
+  DefineAttrsProps,
+  Icon,
+} from '../../../types';
 
 export interface ModalTranslation {
   confirm?: string;
@@ -404,39 +410,41 @@ const enterHandler = async () => {
   await nextTick();
   focusElement(button.value?.$el, true);
 };
-const defaultProps = computed<ModalProps>(() => ({
-  translation: {
-    confirm: 'Ok',
-    cancel: 'Cancel',
-    ...props.translation,
-  },
-  iconCloseAttrs: {
-    icon: 'close',
-    ...props.iconCloseAttrs,
-  },
-  headingTitleAttrs: {
-    level: 2,
-    ...props.headingTitleAttrs,
-  },
-  transitionBackdropAttrs: {
-    appear: true,
-    name: 'fade',
-    ...props.transitionBackdropAttrs,
-  },
-  transitionDialogAttrs: {
-    appear: true,
-    name: 'fade',
-    onEnter: enterHandler,
-    ...props.transitionDialogAttrs,
-  },
-}));
+const defaultProps = computed(() => {
+  const icon: Icon = 'close';
+  const level: HeadingProps['level'] = 2;
+  return {
+    translation: {
+      confirm: 'Ok',
+      cancel: 'Cancel',
+      ...props.translation,
+    },
+    iconCloseAttrs: {
+      icon,
+      ...props.iconCloseAttrs,
+    },
+    headingTitleAttrs: {
+      level,
+      ...props.headingTitleAttrs,
+    },
+    transitionBackdropAttrs: {
+      appear: true,
+      name: 'fade',
+      ...props.transitionBackdropAttrs,
+    },
+    transitionDialogAttrs: {
+      appear: true,
+      name: 'fade',
+      onEnter: enterHandler,
+      ...props.transitionDialogAttrs,
+    },
+  };
+});
 const emit = defineEmits<ModalEmits>();
 const hasActions = computed(() => props.hasCancel || props.hasConfirm);
-const hasDescription = computed(() => !!props.title && !!props.description);
-const hasHeader = computed(() => !!props.title || !!props.description || !!props.isClosable);
-const titleSlotName = computed(() => (props.title
-  ? 'title'
-  : 'description'));
+const hasDescription = computed(() => !!(props.title && props.description));
+const hasHeader = computed(() => !!(props.title || props.description || props.isClosable));
+const titleSlotName = computed(() => (props.title ? 'title' : 'description'));
 const titleTag = computed(() => (props.title
   ? UiHeading
   : UiText));
