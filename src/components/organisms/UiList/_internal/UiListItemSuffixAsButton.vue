@@ -67,7 +67,7 @@ const props = withDefaults(defineProps<ListItemSuffixAsButtonProps>(), {
   iconSuffixAttrs: () => ({}),
   labelSuffixAttrs: () => ({}),
 });
-const defaultProps = computed<ListItemSuffixAsButtonProps>(() => ({
+const defaultProps = computed(() => ({
   iconSuffixAttrs: {
     icon: props.icon,
     ...props.iconSuffixAttrs,

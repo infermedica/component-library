@@ -54,13 +54,13 @@ import type {
   ListHTMLTag,
 } from '../../../types';
 
-export interface ListItemComplex extends ListItemAttrsProps {
+export interface ListRenderItem extends ListItemAttrsProps {
   name: string;
   label?: string;
   // eslint-disable-next-line no-use-before-define
   children?: ListAttrsProps
 }
-export type ListItem = string | ListItemComplex;
+export type ListItem = string | ListRenderItem;
 export interface ListProps {
   /**
    * Use this props to pass list tag.
@@ -77,7 +77,7 @@ const props = withDefaults(defineProps<ListProps>(), {
   tag: 'ul',
   items: () => ([]),
 });
-const itemsToRender = computed<ListItemComplex[]>(() => (props.items.map((item, key) => {
+const itemsToRender = computed<ListRenderItem[]>(() => (props.items.map((item, key) => {
   if (typeof item === 'string') {
     return {
       name: `list-item-${key}`,
@@ -92,7 +92,7 @@ const itemsToRender = computed<ListItemComplex[]>(() => (props.items.map((item, 
 const listItemAttrs = ({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   name, label, children, ...rest
-}: ListItemComplex) => rest;
+}: ListRenderItem) => rest;
 </script>
 
 <style lang="scss">

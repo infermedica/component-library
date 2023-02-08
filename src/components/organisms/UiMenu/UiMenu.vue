@@ -39,12 +39,15 @@ import UiMenuItem from './_internal/UiMenuItem.vue';
 import type { MenuItemAttrsProps } from './_internal/UiMenuItem.vue';
 import type { DefineAttrsProps } from '../../../types';
 
-export type MenuRenderItem = MenuItemAttrsProps & { name?: string; label?: string }
+export interface MenuRenderItem extends MenuItemAttrsProps {
+  name?: string;
+  label?: string;
+}
 export interface MenuProps {
   /**
    * Use this props to pass list of menu items.
    */
-  items?: (string | MenuItemAttrsProps)[];
+  items?: (string | MenuRenderItem)[];
 }
 export type MenuAttrsProps = DefineAttrsProps<MenuProps, ListAttrsProps>;
 
