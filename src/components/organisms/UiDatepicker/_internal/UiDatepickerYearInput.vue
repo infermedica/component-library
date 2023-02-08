@@ -3,11 +3,8 @@
     id="year"
     v-model="year"
     :class="{ 'ui-input--has-error': hasError || error }"
-    :placeholder="translation?.placeholderYear"
-    maxlength="4"
-    inputmode="numeric"
-    pattern="[0-9]*"
-    autocomplete="off"
+    :placeholder="translation.placeholderYear"
+    :input-attrs="defaultProps.inputAttrs"
     @blur="standardizeYearFormat"
     @input="checkYear"
     @keydown="numbersOnly"
@@ -42,6 +39,10 @@ export interface DatepickerYearInputProps {
    * Use this props to set input value validation status
    */
   valid?: boolean;
+  /**
+   *  Use this props to pass attrs to input.
+   */
+  inputAttrs?: InputAttrsProps['inputAttrs'],
 }
 export type DatepickerYearInputAttrsProps = DefineAttrsProps<DatepickerYearInputProps, InputAttrsProps>;
 export interface DatepickerYearInputEmits {
@@ -53,9 +54,24 @@ const props = withDefaults(defineProps<DatepickerYearInputProps>(), {
   modelValue: '',
   error: false,
   valid: false,
+  inputAttrs: () => ({
+    maxlength: '4',
+    inputmode: 'numeric',
+    autocomplete: 'off',
+    pattern: '[0-9]*',
+  }),
 });
+const defaultProps = computed(() => ({
+  inputAttrs: {
+    maxLength: '4',
+    inputMode: 'numeric',
+    autocomplete: 'off',
+    pattern: '[0-9]*',
+    ...props.inputAttrs,
+  },
+}));
 const emit = defineEmits<DatepickerYearInputEmits>();
-const translation = inject<DatepickerTranslation>('translation');
+const translation = inject<DatepickerTranslation>('translation', { placeholderYear: 'YYYY' });
 const unfulfilledYearError = inject<Ref<boolean>>('unfulfilledYear', ref(false));
 const { numbersOnly } = useKeyValidation();
 const year = computed({

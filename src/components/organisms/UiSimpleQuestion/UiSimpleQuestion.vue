@@ -44,6 +44,9 @@ import type {
 } from '../../molecules/UiTile/UiTile.vue';
 import type { DefineAttrsProps } from '../../../types';
 
+export interface SimpleQuestionItem extends TileAttrsProps {
+  label?: string;
+}
 export interface SimpleQuestionProps {
   /**
    * Use this props or v-model to set value.
@@ -52,7 +55,7 @@ export interface SimpleQuestionProps {
   /**
    * Use this props to pass items for question
    */
-  items?: TileAttrsProps[];
+  items?: SimpleQuestionItem[];
 }
 export type SimpleQuestionAttrsProps = DefineAttrsProps<SimpleQuestionProps>;
 export interface SimpleQuestionEmits {
@@ -72,12 +75,12 @@ const props = withDefaults(defineProps<SimpleQuestionProps>(), {
 const emit = defineEmits<SimpleQuestionEmits>();
 
 const attrs: SimpleQuestionAttrsProps = useAttrs();
-const isTileSmall = computed(() => attrs.class.includes('ui-simple-question--small'));
+const isTileSmall = computed(() => attrs.class && attrs.class.includes('ui-simple-question--small'));
 const updateHandler = (value: SimpleQuestionProps['modelValue']) => {
   emit('update:modelValue', value);
 };
 // TODO: remove in 0.6.0 / BEGIN
-const options = computed(() => (attrs.options as SimpleQuestionProps['items']));
+const options = computed(() => (attrs?.options as SimpleQuestionProps['items']));
 if (options.value) {
   if (process.env.NODE_ENV === 'development') {
     console.warn('[@infermedica/component-library warn][UiSimpleQuestion]: The `options` props will be removed in 0.6.0. Please use `items` props instead.');
@@ -87,7 +90,7 @@ if (options.value) {
 const tileItemAttrs = ({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   label, ...itemAttrs
-}: TileAttrsProps) => itemAttrs;
+}: SimpleQuestionItem) => itemAttrs;
 const itemsToRender = computed(() => options.value || props.items);
 </script>
 

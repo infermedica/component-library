@@ -3,11 +3,8 @@
     id="month"
     v-model="month"
     :class="{ 'ui-input--has-error': hasError }"
-    :placeholder="translation?.placeholderMonth"
-    maxlength="2"
-    inputmode="numeric"
-    pattern="[0-9]*"
-    autocomplete="off"
+    :placeholder="translation.placeholderMonth"
+    :input-attrs="defaultProps.inputAttrs"
     @blur="standardizeMonthFormat"
     @input="checkMonth"
     @keydown="numbersOnly"
@@ -42,6 +39,10 @@ export interface DatepickerMonthInputProps {
    * Use this props to set input value validation status
    */
   valid?: boolean;
+  /**
+   *  Use this props to pass attrs to input.
+   */
+  inputAttrs?: InputAttrsProps['inputAttrs'],
 }
 export type DatepickerMonthInputAttrsProps = DefineAttrsProps<DatepickerMonthInputProps, InputAttrsProps>;
 export interface DatepickerMonthEmits {
@@ -53,9 +54,24 @@ const props = withDefaults(defineProps<DatepickerMonthInputProps>(), {
   modelValue: '',
   error: false,
   valid: false,
+  inputAttrs: () => ({
+    maxlength: '2',
+    inputmode: 'numeric',
+    autocomplete: 'off',
+    pattern: '[0-9]*',
+  }),
 });
+const defaultProps = computed(() => ({
+  inputAttrs: {
+    maxLength: '2',
+    inputMode: 'numeric',
+    autocomplete: 'off',
+    pattern: '[0-9]*',
+    ...props.inputAttrs,
+  },
+}));
 const emit = defineEmits<DatepickerMonthEmits>();
-const translation = inject<DatepickerTranslation>('translation');
+const translation = inject<DatepickerTranslation>('translation', { placeholderMonth: 'MM' });
 const unfulfilledMonthError = inject<Ref<boolean>>('unfulfilledMonth', ref(false));
 const { numbersOnly } = useKeyValidation();
 const month = computed({

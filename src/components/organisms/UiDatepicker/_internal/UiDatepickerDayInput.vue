@@ -1,14 +1,12 @@
 <template>
   <UiInput
+    id="month"
     v-model="day"
     :class="{ 'ui-input--has-error': hasError }"
-    :placeholder="translation?.placeholderDay"
-    maxlength="2"
-    inputmode="numeric"
-    pattern="[0-9]*"
-    autocomplete="off"
+    :placeholder="translation.placeholderDay"
+    :input-attrs="defaultProps.inputAttrs"
     @blur="standardizeDayFormat"
-    @input="checkDay($event)"
+    @input="checkDay($event as InputEvent)"
     @keydown="numbersOnly"
   />
 </template>
@@ -41,6 +39,10 @@ export interface DatepickerDayInputProps {
    * Use this props to set input value validation status
    */
   valid?: boolean;
+  /**
+   *  Use this props to pass attrs to input.
+   */
+  inputAttrs?: InputAttrsProps['inputAttrs'],
 }
 export type DatepickerDayInputAttrsProps = DefineAttrsProps<DatepickerDayInputProps, InputAttrsProps>
 export interface DatepickerDayInputEmits {
@@ -52,9 +54,24 @@ const props = withDefaults(defineProps<DatepickerDayInputProps>(), {
   modelValue: '',
   error: false,
   valid: false,
+  inputAttrs: () => ({
+    maxlength: '2',
+    inputmode: 'numeric',
+    autocomplete: 'off',
+    pattern: '[0-9]*',
+  }),
 });
+const defaultProps = computed(() => ({
+  inputAttrs: {
+    maxLength: '2',
+    inputMode: 'numeric',
+    autocomplete: 'off',
+    pattern: '[0-9]*',
+    ...props.inputAttrs,
+  },
+}));
 const emit = defineEmits<DatepickerDayInputEmits>();
-const translation = inject<DatepickerTranslation>('translation');
+const translation = inject<DatepickerTranslation>('translation', { placeholderDay: 'DD' });
 const unfulfilledDayError = inject<Ref<boolean>>('unfulfilledDay', ref(false));
 const { numbersOnly } = useKeyValidation();
 const day = computed({
@@ -63,7 +80,7 @@ const day = computed({
 });
 const validationError = computed(() => (day.value.length === 2 && !props.valid));
 const hasError = computed(() => (validationError.value || unfulfilledDayError.value || props.error));
-async function checkDay({ data }: InputEvent) {
+const checkDay = async ({ data }: InputEvent) => {
   unfulfilledDayError.value = false;
   await nextTick();
   if (data && (![
@@ -74,7 +91,7 @@ async function checkDay({ data }: InputEvent) {
   ].includes(data) || day.value.length === 2) && props.valid) {
     emit('change-input', 'day');
   }
-}
+};
 const standardizeDayFormat = () => {
   if (day.value.length === 1) {
     if (day.value !== '0') {
