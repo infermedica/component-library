@@ -57,7 +57,7 @@ export interface ListItemSuffixAsButtonProps {
   /**
    * Use this props to pass attrs for label element.
    */
-  labelSuffixAttrs?: DefineAttrsProps<null>
+  labelSuffixAttrs?: DefineAttrsProps<null>;
 }
 export type ListItemSuffixAsButtonAttrsProps = DefineAttrsProps<ListItemSuffixAsButtonProps, ButtonAttrsProps>
 

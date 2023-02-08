@@ -83,7 +83,7 @@ import UiText from '../UiText/UiText.vue';
 import type { TextAttrsProps } from '../UiText/UiText.vue';
 import type { DefineAttrsProps } from '../../../types';
 
-export type CheckboxModelValue = boolean | Record<string, unknown>[];
+export type CheckboxModelValue = boolean | (string | Record<string, unknown>)[];
 export interface CheckboxProps {
   /**
    *  Use this props or v-model to set checked.
