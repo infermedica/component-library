@@ -6,7 +6,7 @@ import {
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiMenuItem from '@/components/organisms/UiMenu/_internal/UiMenuItem.vue';
 import UiHorizontalPaging from './UiHorizontalPaging.vue';
-import UiHorizontalPagingItem from './_internal/UiHorizontalPagingtem.vue';
+import UiHorizontalPagingItem from './_internal/UiHorizontalPagingItem.vue';
 
 const items = [
   {

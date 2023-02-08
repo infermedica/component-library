@@ -97,152 +97,140 @@ import {
   provide,
   inject,
 } from 'vue';
-import type { PropType } from 'vue';
-import type { PropsAttrs } from '../../../types/attrs';
-import type { Icon } from '../../../types/icon';
 import type {
-  MenuSuffixVisible,
-  MenuItem,
-} from '../UiMenu/UiMenu.vue';
+  ComputedRef,
+  WritableComputedRef,
+  Ref,
+} from 'vue';
+import type {
+  Icon,
+  DefineAttrsProps,
+} from '../../../types';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
+import type { ButtonAttrsProps } from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
+import type { IconAttrsProps } from '../../atoms/UiIcon/UiIcon.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
 import UiMenu from '../UiMenu/UiMenu.vue';
-import UiHorizontalPagingItem from './_internal/UiHorizontalPagingtem.vue';
+import type { MenuItemAttrsProps } from '../UiMenu/_internal/UiMenuItem.vue';
+import UiHorizontalPagingItem from './_internal/UiHorizontalPagingItem.vue';
+import type { HorizontalPangingItemProps } from './_internal/UiHorizontalPagingItem.vue';
+import type { HeadingAttrsProps } from '../../atoms/UiHeading/UiHeading.vue';
 
-export interface HorizontalPagingItem {
-  label: string;
-  title: string;
-  name?: string;
-  [key: string]: unknown;
+export type HorizontalPangingHandleItems = Record<string, HorizontalPangingItemProps>;
+export type HorizontalPangingActiveItems = WritableComputedRef<HorizontalPangingItemProps[]>;
+export interface HorizontalPagingTranslation {
+  back?: string
 }
-
-const props = defineProps({
-  modelValue: {
-    type: [
-      Array,
-      Object,
-    ] as PropType<HorizontalPagingItem[] | HorizontalPagingItem>,
-    default: () => ([]),
-  },
+export interface HorizontalPangingProps{
+  /**
+   * Use this props to set active page item.
+   */
+  modelValue?: HorizontalPangingItemProps[] | HorizontalPangingItemProps;
   /**
    * Use this props to set inside pages title.
    */
-  title: {
-    type: String,
-    default: '',
-  },
+  title?: string;
   /**
    * Use this props to pass inside pages items.
    */
-  items: {
-    type: Array as PropType<HorizontalPagingItem[]>,
-    default: () => ([]),
-  },
+  items?: HorizontalPangingItemProps[],
   /**
    * Use this props to display inside pages header.
    */
-  hasHeader: {
-    type: Boolean,
-    default: true,
-  },
+  hasHeader?: boolean;
   /**
    * Use this props to pass attrs for back UiButton
    */
-  buttonBackAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  buttonBackAttrs?: ButtonAttrsProps;
   /**
    * Use this props to pass attrs for back button UiIcon
    */
-  iconBackAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({ icon: 'chevron-left' }),
-  },
+  iconBackAttrs?: IconAttrsProps;
   /**
    * Use this props to pass attrs for title UiHeading
    */
-  headingTitleAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  headingTitleAttrs?: HeadingAttrsProps;
   /**
    * Use this props to pass labels inside component translation.
    */
-  translation: {
-    type: Object,
-    default: () => ({ back: 'Back to' }),
-  },
-});
-const defaultProps = computed(() => ({
-  translation: {
-    back: 'Back to',
-    ...props.translation,
-  },
-  iconBackAttrs: {
-    icon: 'chevron-left' as Icon,
-    ...props.iconBackAttrs,
-  },
+  translation?: HorizontalPagingTranslation;
 }
-));
+export type HorizontalPagingAttrsProps = DefineAttrsProps<HorizontalPangingProps>;
+export interface HorizontalPangingEmits {
+  (event: 'update:modelValue', value: HorizontalPangingItemProps[]): void;
+}
 
-const emit = defineEmits<{(event: 'update:modelValue', value: HorizontalPagingItem[]): void;
-}>();
-
-const index = inject('index', 0);
-provide('index', index + 1);
+const props = withDefaults(defineProps<HorizontalPangingProps>(), {
+  modelValue: () => ([]),
+  title: '',
+  items: () => ([]),
+  hasHeader: true,
+  buttonBackAttrs: () => ({}),
+  iconBackAttrs: () => ({ icon: 'chevron-left' }),
+  headingTitleAttrs: () => ({}),
+  translation: () => ({ back: 'Back to' }),
+});
+const defaultProps = computed(() => {
+  const icon: Icon = 'chevron-left';
+  return {
+    translation: {
+      back: 'Back to',
+      ...props.translation,
+    },
+    iconBackAttrs: {
+      icon,
+      ...props.iconBackAttrs,
+    },
+  };
+});
+const emit = defineEmits<HorizontalPangingEmits>();
+const index = inject<number>('index', 0);
+provide<number>('index', index + 1);
 const isNested = computed(() => index > 0);
 const isHeaderDisplayed = computed(() => (props.hasHeader && !isNested.value));
-
-const activeItems = inject('activeItems', computed({
+const activeItems = inject<HorizontalPangingActiveItems>('activeItems', computed({
   get: () => (Array.isArray(props.modelValue)
     ? props.modelValue
     : [ props.modelValue ]),
   set: (value) => { emit('update:modelValue', value); },
 }));
-provide('activeItems', activeItems);
+provide<HorizontalPangingActiveItems>('activeItems', activeItems);
 const sizeOfActiveItems = computed(() => (activeItems.value.length));
-const activeItem = computed<HorizontalPagingItem>(() => (activeItems.value[index] || {}));
+const activeItem = computed<HorizontalPangingItemProps>(() => (activeItems.value[index] || {}));
 const isActive = computed(() => (Object.keys(activeItem.value).length > 0));
 const activeItemName = computed(() => activeItem.value?.name || '');
-provide('activeItemName', activeItemName);
+provide<ComputedRef<string>>('activeItemName', activeItemName);
 const currentTitle = computed(() => (activeItems.value[sizeOfActiveItems.value - 1]?.title || props.title));
 const backToTitle = computed(() => (activeItems.value[sizeOfActiveItems.value - 2]?.title || props.title));
 
-const itemsToHandle = ref<Record<string, HorizontalPagingItem>>({});
-provide('items', itemsToHandle);
-const itemsAsArray = computed<HorizontalPagingItem[]>(() => (Object.values(itemsToHandle.value)));
-const menuItems = computed<MenuItem[]>(() => {
-  const additionalAttrs = {
-    icon: 'chevron-right' as Icon,
-    suffixVisible: 'always' as MenuSuffixVisible,
-    class: 'ui-button--theme-secondary',
-  };
-  return itemsAsArray.value.map((item) => {
-    /* eslint-disable @typescript-eslint/no-unused-vars */
-    const {
-      title,
-      ...rest
-    } = item;
-    /* eslint-enable @typescript-eslint/no-unused-vars */
-
-    return {
-      ...additionalAttrs,
-      onClick: () => {
-        activeItems.value = [
-          ...activeItems.value,
-          item,
-        ];
-      },
-      ...rest,
-    };
-  });
-});
-
+const itemsToHandle = ref<HorizontalPangingHandleItems>({});
+provide<Ref<HorizontalPangingHandleItems>>('items', itemsToHandle);
+const itemsAsArray = computed(() => (Object.values(itemsToHandle.value)));
 const handleBackClick = () => {
   activeItems.value = activeItems.value.slice(0, -1);
 };
+const menuItems = computed<MenuItemAttrsProps[]>(() => itemsAsArray.value.map((item) => {
+  /* eslint-disable @typescript-eslint/no-unused-vars */
+  const {
+    title,
+    ...rest
+  } = item;
+    /* eslint-enable @typescript-eslint/no-unused-vars */
+  const icon: Icon = 'chevron-right';
+  return {
+    icon,
+    suffixVisible: 'always',
+    class: 'ui-button--theme-secondary',
+    onClick: () => {
+      activeItems.value = [
+        ...activeItems.value,
+        item,
+      ];
+    },
+    ...rest,
+  };
+}));
 </script>
 
 <style lang="scss">

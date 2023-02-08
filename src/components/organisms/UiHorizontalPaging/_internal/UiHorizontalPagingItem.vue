@@ -5,45 +5,44 @@
 <script setup lang="ts">
 import {
   computed,
+  ref,
   inject,
   onBeforeUnmount,
 } from 'vue';
-import type { Ref } from 'vue';
-import type { HorizontalPagingItem } from '../UiHorizontalPaging.vue';
+import type {
+  Ref,
+  ComputedRef,
+} from 'vue';
+import type { HorizontalPangingHandleItems } from '../UiHorizontalPaging.vue';
 
-const props = defineProps({
+export interface HorizontalPangingItemProps {
   /**
    * Use this props to set inside pages item label.
    */
-  label: {
-    type: String,
-    default: '',
-  },
+  label?: string;
   /**
    * Use this props to set inside pages item title.
    */
-  title: {
-    type: String,
-    default: '',
-  },
+  title?: string;
   /**
    * Use this props to set inside pages item name.
    */
-  name: {
-    type: String,
-    default: '',
-  },
+  name?: string;
+}
+
+const props = withDefaults(defineProps<HorizontalPangingItemProps>(), {
+  label: '',
+  title: '',
+  name: '',
 });
-
-const activeItemName = inject('activeItemName') as Ref<string>;
+const activeItemName = inject<ComputedRef<string>>('activeItemName', computed(() => ''));
 const isActive = computed(() => activeItemName.value === props.name);
-
 const item = computed(() => ({
   label: props.label,
   title: props.title,
   name: props.name,
 }));
-const items = inject('items') as Ref<Record<string, HorizontalPagingItem>>;
+const items = inject<Ref<HorizontalPangingHandleItems>>('items', ref({}));
 items.value[props.name] = item.value;
 onBeforeUnmount(() => {
   delete items.value[props.name];
