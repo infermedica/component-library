@@ -36,55 +36,42 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { PropType } from 'vue';
-import type { PropsAttrs } from '../../../../types/attrs';
-import type { Icon } from '../../../../types/icon';
-import type {
-  MenuSuffixVisible,
-  SuffixAttrs,
-} from '../UiMenu.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiListItem from '../../UiList/_internal/UiListItem.vue';
+import type { ListItemAttrsProps } from '../../UiList/_internal/UiListItem.vue';
 import UiMenuItemSuffix from './UiMenuItemSuffix.vue';
+import type { MenuItemSuffixAttrsProps } from './UiMenuItemSuffix.vue';
 import useAttributes from '../../../../composable/useAttributes';
+import type {
+  DefineAttrsProps,
+  Icon,
+} from '../../../../types';
 
-export interface MenuItemAttrs {
-  class?: string;
-  [key: string]: unknown;
-}
-
-const props = defineProps({
+export interface MenuItemProps {
   /**
    * Use this props to set icon.
    */
-  icon: {
-    type: [
-      String,
-      Object,
-    ] as PropType<Icon>,
-    default: 'checkmark',
-  },
+  icon?: Icon;
   /**
    * Use this props to set suffix visibility.
    */
-  suffixVisible: {
-    type: String as PropType<MenuSuffixVisible>,
-    default: 'default',
-  },
+  suffixVisible?: 'default' | 'always' | 'never'
   /**
    * Use this props to pass attrs for UIMenuItemSuffix
    */
-  suffixAttrs: {
-    type: Object as PropType<SuffixAttrs>,
-    default: () => ({}),
-  },
+  suffixAttrs?: MenuItemSuffixAttrsProps;
   /**
    * Use this props to pass attrs for list item element
    */
-  listItemAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  listItemAttrs?: ListItemAttrsProps;
+}
+export type MenuItemAttrsProps = DefineAttrsProps<MenuItemProps, ListItemAttrsProps>;
+
+const props = withDefaults(defineProps<MenuItemProps>(), {
+  icon: 'checkmark',
+  suffixVisible: 'default',
+  suffixAttrs: () => ({ class: 'ui-button--text ui-menu-item__suffix' }),
+  listItemAttrs: () => ({ class: 'ui-menu-item' }),
 });
 const { attrs } = useAttributes();
 const isSelected = computed(() => (attrs.value.class && attrs.value.class.includes('ui-menu-item--is-selected')));
@@ -92,7 +79,7 @@ const hasSuffix = computed(() => !!(props.suffixVisible === 'always' || (props.s
 const buttonClass = computed(() => ({ 'ui-button--is-selected': isSelected.value }));
 const defaultProps = computed(() => ({
   suffixAttrs: {
-    icon: props.icon as Icon,
+    icon: props.icon,
     class: 'ui-button--text ui-menu-item__suffix',
     ...props.suffixAttrs,
   },

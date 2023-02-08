@@ -33,55 +33,27 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { PropType } from 'vue';
-import type { HTMLTag } from '../../../types/tag';
-import type { Icon } from '../../../types/icon';
 import UiList from '../UiList/UiList.vue';
+import type { ListAttrsProps } from '../UiList/UiList.vue';
 import UiMenuItem from './_internal/UiMenuItem.vue';
+import type { MenuItemAttrsProps } from './_internal/UiMenuItem.vue';
+import type { DefineAttrsProps } from '../../../types';
 
-export type MenuSuffixVisible = 'default' | 'always' | 'never';
-export interface SuffixAttrs {
-  label?: string;
-  icon?: Icon;
-  iconSuffixAttrs?: Record<string, unknown>;
-  [key: string]: unknown;
-}
-export interface MenuItem {
-  label: string;
-  name?: string;
-  icon?: Icon;
-  suffixVisible?: MenuSuffixVisible;
-  suffixAttrs?: SuffixAttrs;
-  buttonMenuItemAttrs?: Record<string, unknown>;
-  [key: string]: unknown;
-}
-
-const props = defineProps({
-  /**
-   * Use this to set menu tag.
-   */
-  tag: {
-    type: String as PropType<HTMLTag>,
-    default: 'ul',
-  },
+export type MenuRenderItem = MenuItemAttrsProps & { name?: string; label?: string }
+export interface MenuProps {
   /**
    * Use this props to pass list of menu items.
    */
-  items: {
-    type: Array as PropType<MenuItem[]>,
-    default: () => ([]),
-  },
-});
-const menuItemAttrs = (item: MenuItem) => {
-  /* eslint-disable @typescript-eslint/no-unused-vars */
-  const {
-    name, label, ...rest
-  } = item;
-  /* eslint-enable @typescript-eslint/no-unused-vars */
+  items?: (string | MenuItemAttrsProps)[];
+}
+export type MenuAttrsProps = DefineAttrsProps<MenuProps, ListAttrsProps>;
 
-  return rest;
-};
-const itemsToRender = computed(() => (props.items.map((item, key) => {
+const props = withDefaults(defineProps<MenuProps>(), { items: () => ([]) });
+const menuItemAttrs = ({
+  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+  name, label, ...itemAttrs
+}: MenuRenderItem) => itemAttrs;
+const itemsToRender = computed<MenuRenderItem[]>(() => (props.items.map((item, key) => {
   if (typeof item === 'string') {
     return {
       name: `menu-item-${key}`,
@@ -89,7 +61,7 @@ const itemsToRender = computed(() => (props.items.map((item, key) => {
     };
   }
   return {
-    name: item.name || `menu-item-${key}`,
+    name: `menu-item-${key}`,
     ...item,
   };
 })));
