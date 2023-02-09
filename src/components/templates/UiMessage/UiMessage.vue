@@ -75,65 +75,55 @@
 </template>
 
 <script setup lang="ts">
-import type { PropType } from 'vue';
 import { computed } from 'vue';
 import UiText from '../../atoms/UiText/UiText.vue';
+import type { TextAttrsProps } from '../../atoms/UiText/UiText.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
+import type { IconAttrsProps } from '../../atoms/UiIcon/UiIcon.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
-import type { Icon } from '../../../types/icon';
-import type { PropsAttrs } from '../../../types/attrs';
+import type { HeadingAttrsProps } from '../../atoms/UiHeading/UiHeading.vue';
+import type {
+  Icon,
+  DefineAttrsProps,
+} from '../../../types';
 
-const props = defineProps({
+export interface MessageProps {
   /**
    * Use this props to set message title.
    */
-  title: {
-    type: String,
-    default: '',
-  },
+  title?: string;
   /**
    * Use this props to set message subtitle.
    */
-  subtitle: {
-    type: String,
-    default: '',
-  },
+  subtitle?: string;
   /**
    * Use this props to set message illustration.
    */
-  illustration: {
-    type: String as PropType<Icon>,
-    default: '',
-  },
+  illustration?: Icon;
   /**
    * Use this props to pass attrs for subtitle UiText.
    */
-  textSubtitleAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  textSubtitleAttrs?: TextAttrsProps;
   /**
    * Use this props to pass attrs for title UiHeading.
    */
-  headingTitleAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  headingTitleAttrs?: HeadingAttrsProps;
   /**
    * Use this props to pass attrs for illustration UiIcon.
    */
-  iconIllustrationAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
-});
-interface DefaultProps {
-  iconIllustrationAttrs: {
-    icon: Icon;
-    [key:string]: unknown;
-  };
+  iconIllustrationAttrs?: IconAttrsProps;
 }
-const defaultProps = computed<DefaultProps>(() => ({
+export type MessageAttrsProps = DefineAttrsProps<MessageProps>;
+
+const props = withDefaults(defineProps<MessageProps>(), {
+  title: '',
+  subtitle: '',
+  illustration: '',
+  textSubtitleAttrs: () => ({}),
+  headingTitleAttrs: () => ({}),
+  iconIllustrationAttrs: () => ({}),
+});
+const defaultProps = computed(() => ({
   iconIllustrationAttrs: {
     icon: props.illustration,
     ...props.iconIllustrationAttrs,
