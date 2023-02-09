@@ -79,13 +79,13 @@ import type { DatepickerMonthTabAttrsProps } from './UiDatepickerMonthTab.vue';
 import UiDatepickerYearTab from './UiDatepickerYearTab.vue';
 import type { DatepickerYearTabAttrsProps } from './UiDatepickerYearTab.vue';
 import type {
-  DefineAttrsProps,
-  Icon,
-} from '../../../../types';
-import type {
   DatepickerDatePart,
   DatepickerDate,
 } from '../UiDatepicker.vue';
+import type {
+  DefineAttrsProps,
+  Icon,
+} from '../../../../types';
 
 export type DatepickerTab = InstanceType<typeof UiDatepickerDayTab
   | typeof UiDatepickerMonthTab
@@ -118,10 +118,10 @@ export interface DatepickerCalendarProps {
    */
   tabsItemYearAttrs?: DatepickerYearTabAttrsProps;
 }
-export type DatepickerCalendarAttrsProps = DefineAttrsProps<DatepickerCalendarProps, DropdownAttrsProps>
+export type DatepickerCalendarAttrsProps = DefineAttrsProps<DatepickerCalendarProps, DropdownAttrsProps>;
 export interface DatepickerCalendarEmits {
   (e:'open', value: Event): void;
-  (e: 'select', value: Event): void
+  (e: 'select', value: Event): void;
 }
 
 const props = withDefaults(defineProps<DatepickerCalendarProps>(), {
@@ -189,7 +189,6 @@ const currentTabId = computed({
 });
 const firstEmptyTab = computed(() => (order.find((key) => !date[key])));
 const tabComponentSelector = (datePart: DatepickerDatePart) => {
-  console.log(datePart);
   switch (datePart) {
     case ('day'):
       return UiDatepickerDayTab;

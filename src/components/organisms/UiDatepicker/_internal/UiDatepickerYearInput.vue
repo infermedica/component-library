@@ -6,7 +6,7 @@
     :placeholder="translation.placeholderYear"
     :input-attrs="defaultProps.inputAttrs"
     @blur="standardizeYearFormat"
-    @input="checkYear"
+    @input="checkYear($event as InputEvent)"
     @keydown="numbersOnly"
   />
 </template>
@@ -42,7 +42,7 @@ export interface DatepickerYearInputProps {
   /**
    *  Use this props to pass attrs to input.
    */
-  inputAttrs?: InputAttrsProps['inputAttrs'],
+  inputAttrs?: InputAttrsProps['inputAttrs'];
 }
 export type DatepickerYearInputAttrsProps = DefineAttrsProps<DatepickerYearInputProps, InputAttrsProps>;
 export interface DatepickerYearInputEmits {
@@ -75,7 +75,7 @@ const translation = inject<DatepickerTranslation>('translation', { placeholderYe
 const unfulfilledYearError = inject<Ref<boolean>>('unfulfilledYear', ref(false));
 const { numbersOnly } = useKeyValidation();
 const year = computed({
-  get: () => (`${props.modelValue}`),
+  get: () => props.modelValue,
   set: (value) => { emit('update:modelValue', removeNonDigits(value)); },
 });
 const validationError = computed(() => (year.value.length === 4 && !props.valid));

@@ -43,7 +43,7 @@ export interface DatepickerYearTabProps {
 export type DatepickerYearTabAttrsProps = DefineAttrsProps<DatepickerYearTabProps, DatepickerTabAttrsProps>;
 export interface DatepickerYearTabEmits {
   (e:'update:modelValue', value: string): void;
-  (e: 'select', value: {type: 'year'; value: string}): void
+  (e: 'select', value: {type: 'year'; value: string}): void;
 }
 
 const props = withDefaults(defineProps<DatepickerYearTabProps>(), { modelValue: '' });

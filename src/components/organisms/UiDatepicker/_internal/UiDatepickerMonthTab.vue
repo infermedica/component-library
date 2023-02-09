@@ -40,7 +40,7 @@ export interface DatepickerMonthTabProps {
 export type DatepickerMonthTabAttrsProps = DefineAttrsProps<DatepickerMonthTabProps, DatepickerTabAttrsProps>;
 export interface DatepickerMonthTabEmits {
   (e:'update:modelValue', value: string): void;
-  (e: 'select', value: {type: 'month'; value: string}): void
+  (e: 'select', value: {type: 'month'; value: string}): void;
 }
 
 const props = withDefaults(defineProps<DatepickerMonthTabProps>(), { modelValue: '' });

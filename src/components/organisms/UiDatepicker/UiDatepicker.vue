@@ -28,8 +28,8 @@
               ...getInputAttrs(datePart),
             }"
             @change-input="focusNextField"
-            @focus="handleFocus($event, datePart)"
-            @update:model-value="(value: DatepickerModelValue) => handleDateUpdate(datePart, value)"
+            @focus="handleFocus(datePart)"
+            @update:model-value="handleDateUpdate(datePart, $event)"
           />
         </div>
       </div>
@@ -97,7 +97,7 @@ export interface DatepickerTranslation {
 }
 export type DatepickerCheckAvailability = (datePart: number) => boolean;
 export type DatepickerDatePart = 'day' | 'month' | 'year';
-export type DatepickerDate<T> = Record<DatepickerDatePart, T>
+export type DatepickerDate<T> = Record<DatepickerDatePart, T>;
 export type DatepickerInput = typeof UiDatepickerDayInput
   | typeof UiDatepickerMonthInput
   | typeof UiDatepickerYearInput
@@ -305,7 +305,7 @@ const dateAsInt = computed(() => (Object.keys(date) as DatepickerDatePart[]).red
   month: 0,
   year: 0,
 }));
-const handleDateUpdate = (datePart: DatepickerDatePart, value: DatepickerModelValue): void => {
+const handleDateUpdate = (datePart: DatepickerDatePart, value: DatepickerModelValue) => {
   date[datePart] = value;
 };
 provide<DatepickerDate<string>>('date', date);
@@ -457,7 +457,7 @@ const inputComponentSelector = (datePart: DatepickerDatePart) => {
 
 const lastFocusedDatePart = ref<DatepickerDatePart>(props.order[0]);
 
-const handleFocus = (event: Event, datePart: DatepickerDatePart) => {
+const handleFocus = (datePart: DatepickerDatePart) => {
   emit('field-focus', { field: datePart });
   lastFocusedDatePart.value = datePart;
 };

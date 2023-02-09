@@ -6,7 +6,7 @@
     :placeholder="translation.placeholderMonth"
     :input-attrs="defaultProps.inputAttrs"
     @blur="standardizeMonthFormat"
-    @input="checkMonth"
+    @input="checkMonth($event as InputEvent)"
     @keydown="numbersOnly"
   />
 </template>
@@ -75,7 +75,7 @@ const translation = inject<DatepickerTranslation>('translation', { placeholderMo
 const unfulfilledMonthError = inject<Ref<boolean>>('unfulfilledMonth', ref(false));
 const { numbersOnly } = useKeyValidation();
 const month = computed({
-  get: () => (`${props.modelValue}`),
+  get: () => props.modelValue,
   set: (value) => { emit('update:modelValue', removeNonDigits(value)); },
 });
 const validationError = computed(() => (month.value.length === 2 && !props.valid));

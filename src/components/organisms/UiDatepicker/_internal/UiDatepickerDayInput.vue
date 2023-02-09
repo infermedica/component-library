@@ -42,12 +42,12 @@ export interface DatepickerDayInputProps {
   /**
    *  Use this props to pass attrs to input.
    */
-  inputAttrs?: InputAttrsProps['inputAttrs'],
+  inputAttrs?: InputAttrsProps['inputAttrs'];
 }
-export type DatepickerDayInputAttrsProps = DefineAttrsProps<DatepickerDayInputProps, InputAttrsProps>
+export type DatepickerDayInputAttrsProps = DefineAttrsProps<DatepickerDayInputProps, InputAttrsProps>;
 export interface DatepickerDayInputEmits {
-  (e:'update:modelValue', value: string):void;
-  (e:'change-input', value: 'day'): void
+  (e:'update:modelValue', value: string): void;
+  (e:'change-input', value: 'day'): void;
 }
 
 const props = withDefaults(defineProps<DatepickerDayInputProps>(), {
@@ -75,8 +75,8 @@ const translation = inject<DatepickerTranslation>('translation', { placeholderDa
 const unfulfilledDayError = inject<Ref<boolean>>('unfulfilledDay', ref(false));
 const { numbersOnly } = useKeyValidation();
 const day = computed({
-  get: () => (`${props.modelValue}`),
-  set: (value: string) => { emit('update:modelValue', removeNonDigits(value)); },
+  get: () => props.modelValue,
+  set: (value) => { emit('update:modelValue', removeNonDigits(value)); },
 });
 const validationError = computed(() => (day.value.length === 2 && !props.valid));
 const hasError = computed(() => (validationError.value || unfulfilledDayError.value || props.error));
