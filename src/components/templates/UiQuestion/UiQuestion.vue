@@ -141,169 +141,136 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { PropType } from 'vue';
-import type { PropsAttrs } from '../../../types/attrs';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
+import type { ButtonAttrsProps } from '../../atoms/UiButton/UiButton.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
+import type { HeadingAttrsProps } from '../../atoms/UiHeading/UiHeading.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
+import type { IconAttrsProps } from '../../atoms/UiIcon/UiIcon.vue';
 import UiNotification from '../../molecules/UiNotification/UiNotification.vue';
-import type { NotificationProps } from '../../molecules/UiNotification/UiNotification.vue';
-import type { Icon } from '../../../types/icon';
+import type {
+  NotificationProps,
+  NotificationAttrsProps,
+} from '../../molecules/UiNotification/UiNotification.vue';
+import type { Icon } from '../../../types';
 
-export interface QuestionTranslation {
-  info: string;
-  why: string;
-  issue: {
-    action: string;
-    feedback: string;
-    skip: string;
+export interface QuestionTranslationSetting<T> {
+  info?: T;
+  why?: T;
+  issue?: {
+    action?: T;
+    feedback?: T;
+    skip?: T;
   };
-  [key: string] : unknown;
 }
-export interface QuestionSettings {
-  info: boolean;
-  why: boolean;
-  issue: {
-    action: boolean;
-    feedback: boolean;
-    skip: boolean;
-  };
-  [key: string]: unknown;
-}
-
-const props = defineProps({
+export interface QuestionProps {
   /**
    * Use this props to set question title.
    */
-  title: {
-    type: String,
-    default: '',
-  },
+  title?: string;
   /**
    * Use this props to set valid state of the question.
    */
-  translation: {
-    type: Object as PropType<QuestionTranslation>,
-    default: () => ({
-      info: 'What does it mean?',
-      why: 'Why am I being asked this?',
-      issue: {
-        action: 'Report an issue with this question',
-        feedback: 'Thank you. We’ll review this question as soon as possible.',
-        skip: 'Skip this question',
-      },
-    }),
-  },
+  translation?: QuestionTranslationSetting<string>;
   /**
    * Use this props to setup question.
    */
-  settings: {
-    type: Object as PropType<QuestionSettings>,
-    default: () => ({
-      info: false,
-      why: false,
-      issue: {
-        action: false,
-        feedback: false,
-        skip: true,
-      },
-    }),
-  },
+  settings?: QuestionTranslationSetting<boolean>;
   /**
    * Use this props to pass attrs for title UiHeading
    */
-  headingTitleAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
+  headingTitleAttrs?: HeadingAttrsProps;
   /**
    * Use this props to pass attrs for info UiButton
    */
-  buttonInfoAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  buttonInfoAttrs?: ButtonAttrsProps;
   /**
    * Use this props to pass attrs for info UiIcon
    */
-  iconInfoAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
+  iconInfoAttrs?: IconAttrsProps;
   /**
    * Use this props to pass attrs for why UiButton
    */
-  /**
-   * Use this props to pass attrs for why UiButton
-   */
-  buttonWhyAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  buttonWhyAttrs?: ButtonAttrsProps;
   /**
    * Use this props to pass attrs for issue UiButton
    */
-  buttonIssueAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
+  buttonIssueAttrs?: ButtonAttrsProps;
   /**
    * Use this props to pass attrs for feedback UiNotification
    */
-  notificationFeedbackAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
+  notificationFeedbackAttrs?: NotificationAttrsProps;
+}
+
+const props = withDefaults(defineProps<QuestionProps>(), {
+  title: '',
+  translation: () => ({
+    info: 'What does it mean?',
+    why: 'Why am I being asked this?',
+    issue: {
+      action: 'Report an issue with this question',
+      feedback: 'Thank you. We’ll review this question as soon as possible.',
+      skip: 'Skip this question',
+    },
+  }),
+  settings: () => ({
+    info: false,
+    why: false,
+    issue: {
+      action: false,
+      feedback: false,
+      skip: true,
+    },
+  }),
+  headingTitleAttrs: () => ({}),
+  buttonInfoAttrs: () => ({}),
+  iconInfoAttrs: () => ({ icon: 'info' }),
+  buttonWhyAttrs: () => ({}),
+  buttonIssueAttrs: () => ({}),
+  notificationFeedbackAttrs: () => ({ type: 'success' }),
 });
+
 const defaultSettingsIssue = computed(() => ({
-  ...{
-    action: false,
-    feedback: false,
-    skip: true,
-  },
+  feedback: false,
+  skip: true,
+  action: false,
   ...props.settings?.issue,
 }));
-const defaultButtonActionAttrs = computed(() => {
-  const hasSkip = defaultSettingsIssue.value.skip;
-  if (hasSkip) {
-    return props.notificationFeedbackAttrs?.buttonActionAttrs;
-  }
-  return {};
-});
-const defaultProps = computed(() => ({
-  translation: {
-    ...{
+const defaultButtonActionAttrs = computed(() => (defaultSettingsIssue.value.skip
+  ? props.notificationFeedbackAttrs?.buttonActionAttrs
+  : {}));
+const defaultProps = computed(() => {
+  const icon: Icon = 'info';
+  const type: NotificationProps['type'] = 'success';
+  return {
+    translation: {
       info: 'What does it mean?',
       why: 'Why am I being asked this?',
-    },
-    ...props.translation,
-    issue: {
-      ...{
+      ...props.translation,
+      issue: {
         action: 'Report an issue with this question',
         feedback: 'Thank you. We’ll review this question as soon as possible.',
         skip: 'Skip this question',
+        ...props.translation?.issue,
       },
-      ...props.translation?.issue,
     },
-  } as QuestionTranslation,
-  settings: {
-    ...{
+    settings: {
       info: false,
       why: false,
+      ...props.settings,
+      issue: defaultSettingsIssue.value,
     },
-    ...props.settings,
-    issue: defaultSettingsIssue.value,
-  } as QuestionSettings,
-  iconInfoAttrs: {
-    icon: 'info' as Icon,
-    ...props.iconInfoAttrs,
-  },
-  notificationFeedbackAttrs: {
-    type: 'success' as NotificationProps['type'],
-    ...props.notificationFeedbackAttrs,
-    buttonActionAttrs: defaultButtonActionAttrs.value,
-  },
-}));
+    iconInfoAttrs: {
+      icon,
+      ...props.iconInfoAttrs,
+    },
+    notificationFeedbackAttrs: {
+      type,
+      ...props.notificationFeedbackAttrs,
+      buttonActionAttrs: defaultButtonActionAttrs.value,
+    },
+  };
+});
 const hasActionsBottom = computed(() => (
   defaultProps.value.settings.why
     || defaultProps.value.settings.issue
