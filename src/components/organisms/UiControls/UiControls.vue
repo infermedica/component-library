@@ -86,8 +86,8 @@ import type { IconAttrsProps } from '../../atoms/UiIcon/UiIcon.vue';
 import type { DefineAttrsProps } from '../../../types';
 
 export interface ControlsTranslation {
-  back?: string,
-  next?: string,
+  back?: string;
+  next?: string;
 }
 export type ControlsNavigation = string | Record<string, unknown>;
 export interface ControlsProps {
@@ -134,7 +134,7 @@ export interface ControlsProps {
 }
 export type ControlsAttrsProps = DefineAttrsProps<ControlsProps, ContainerAttrsProps>
 export interface ControlsEmits {
-  (e: 'has-error'): void
+  (e: 'has-error'): void;
 }
 
 const props = withDefaults(defineProps<ControlsProps>(), {

@@ -58,7 +58,7 @@ export interface ListRenderItem extends ListItemAttrsProps {
   name: string;
   label?: string;
   // eslint-disable-next-line no-use-before-define
-  children?: ListAttrsProps
+  children?: ListAttrsProps;
 }
 export type ListItem = string | ListRenderItem;
 export interface ListProps {
@@ -69,7 +69,7 @@ export interface ListProps {
   /**
    * Use this props to pass list items.
    */
-  items?: ListItem[],
+  items?: ListItem[];
 }
 export type ListAttrsProps<HTMLAttrs = HTMLAttributes> = DefineAttrsProps<ListProps, HTMLAttrs>;
 

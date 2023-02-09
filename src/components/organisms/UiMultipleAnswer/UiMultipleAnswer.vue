@@ -92,7 +92,7 @@ export interface MultipleAnswerProps {
   /**
    *  Use this props or v-model to set checked.
    */
-  modelValue?: MultipleAnswerModelValue,
+  modelValue?: MultipleAnswerModelValue;
   /**
    *  Use this props to set possible items.
    */
@@ -124,7 +124,7 @@ export interface MultipleAnswerProps {
   /**
    * Use this props to set legend.
    */
-  legend?: string
+  legend?: string;
 }
 export type MultipleAnswerAttrsProps = DefineAttrsProps<MultipleAnswerProps>;
 export interface MultipleAnswerEmits {

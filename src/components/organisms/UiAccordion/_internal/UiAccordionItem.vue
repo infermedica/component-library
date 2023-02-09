@@ -115,13 +115,13 @@ export interface AccordionItemProps {
   /**
    *  Use this props to pass attrs to list item.
    */
-  listItemAttrs?: ListItemAttrsProps['listItemAttrs'],
+  listItemAttrs?: ListItemAttrsProps['listItemAttrs'];
   /**
    *  Use this props to pass attrs to content element.
    */
   contentAttrs?: DefineAttrsProps<null>;
 }
-export type AccordionItemAttrsProps = DefineAttrsProps<AccordionItemProps, ListItemAttrsProps>
+export type AccordionItemAttrsProps = DefineAttrsProps<AccordionItemProps, ListItemAttrsProps>;
 
 const props = withDefaults(defineProps<AccordionItemProps>(), {
   title: '',

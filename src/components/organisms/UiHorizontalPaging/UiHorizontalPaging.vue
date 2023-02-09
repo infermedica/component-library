@@ -120,7 +120,7 @@ import type { HeadingAttrsProps } from '../../atoms/UiHeading/UiHeading.vue';
 export type HorizontalPangingHandleItems = Record<string, HorizontalPangingItemProps>;
 export type HorizontalPangingActiveItems = WritableComputedRef<HorizontalPangingItemProps[]>;
 export interface HorizontalPagingTranslation {
-  back?: string
+  back?: string;
 }
 export interface HorizontalPangingProps{
   /**
@@ -134,7 +134,7 @@ export interface HorizontalPangingProps{
   /**
    * Use this props to pass inside pages items.
    */
-  items?: HorizontalPangingItemProps[],
+  items?: HorizontalPangingItemProps[];
   /**
    * Use this props to display inside pages header.
    */

@@ -59,7 +59,7 @@ export interface SimpleQuestionProps {
 }
 export type SimpleQuestionAttrsProps = DefineAttrsProps<SimpleQuestionProps>;
 export interface SimpleQuestionEmits {
-  (e: 'update:modelValue', value: SimpleQuestionProps['modelValue']): void
+  (e: 'update:modelValue', value: SimpleQuestionProps['modelValue']): void;
 }
 
 const props = withDefaults(defineProps<SimpleQuestionProps>(), {

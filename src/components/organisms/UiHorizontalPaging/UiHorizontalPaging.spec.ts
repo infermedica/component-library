@@ -84,6 +84,6 @@ describe('HorizontalPaging.vue', () => {
     expect(wrapper.props().modelValue).toEqual(modelValue);
     const back = wrapper.find('.ui-horizontal-paging__back');
     await back.trigger('click');
-    expect(wrapper.emitted('update:modelValue')[0][0]).toEqual(expected);
+    expect((wrapper.emitted('update:modelValue')?.at(0)?.at(0))).toEqual(expected);
   });
 });

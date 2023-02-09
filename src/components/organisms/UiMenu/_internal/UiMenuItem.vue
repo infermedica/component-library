@@ -55,7 +55,7 @@ export interface MenuItemProps {
   /**
    * Use this props to set suffix visibility.
    */
-  suffixVisible?: 'default' | 'always' | 'never'
+  suffixVisible?: 'default' | 'always' | 'never';
   /**
    * Use this props to pass attrs for UIMenuItemSuffix
    */

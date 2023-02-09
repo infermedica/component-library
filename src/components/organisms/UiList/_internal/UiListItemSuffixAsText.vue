@@ -15,7 +15,7 @@ export interface ListItemSuffixAsTextProps {
    */
   label: string;
 }
-export type ListItemSuffixAsTextAttrsProps = DefineAttrsProps<ListItemSuffixAsTextProps, TextAttrsProps>
+export type ListItemSuffixAsTextAttrsProps = DefineAttrsProps<ListItemSuffixAsTextProps, TextAttrsProps>;
 
 withDefaults(defineProps<ListItemSuffixAsTextProps>(), { label: '' });
 </script>

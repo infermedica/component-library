@@ -243,8 +243,8 @@ export interface SidePanelProps {
 }
 export type SidePanelAttrsProps = DefineAttrsProps<SidePanelProps>;
 export interface SidePanelEmits {
-  (e: 'update:modelValue', value: boolean): void,
-  (e: 'after-enter'): void
+  (e: 'update:modelValue', value: boolean): void;
+  (e: 'after-enter'): void;
 }
 
 const props = withDefaults(defineProps<SidePanelProps>(), {

@@ -375,7 +375,7 @@ export type ModalAttrsProps = DefineAttrsProps<ModalProps>;
 export interface ModalEmits {
   (e: 'cancel'): void;
   (e:'confirm'): void;
-  (e:'update:modelValue', value: boolean): void
+  (e:'update:modelValue', value: boolean): void;
 }
 const props = withDefaults(defineProps<ModalProps>(), {
   modelValue: false,

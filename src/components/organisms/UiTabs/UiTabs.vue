@@ -37,7 +37,7 @@ import type { TabsItemAttrsProps } from './_internal/UiTabsItem.vue';
 import type { DefineAttrsProps } from '../../../types';
 
 export type TabsHandleTabActive = (event: Event, name: string) => void;
-export type TabsSetActiveElement = (element: HTMLElement | null) => void
+export type TabsSetActiveElement = (element: HTMLElement | null) => void;
 export interface TabsProps {
   /**
    * Use this props or v-model to set opened items.

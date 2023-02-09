@@ -59,7 +59,7 @@ export interface ListItemSuffixAsButtonProps {
    */
   labelSuffixAttrs?: DefineAttrsProps<null>;
 }
-export type ListItemSuffixAsButtonAttrsProps = DefineAttrsProps<ListItemSuffixAsButtonProps, ButtonAttrsProps>
+export type ListItemSuffixAsButtonAttrsProps = DefineAttrsProps<ListItemSuffixAsButtonProps, ButtonAttrsProps>;
 
 const props = withDefaults(defineProps<ListItemSuffixAsButtonProps>(), {
   label: '',

@@ -234,7 +234,7 @@ export interface MultipleChoicesItemProps {
 }
 export type MultipleChoicesItemAttrsProps = DefineAttrsProps<MultipleChoicesItemProps, ListItemAttrsProps>;
 export interface MultipleChoicesItemEmits {
-  (e: 'update:modelValue', value: MultipleChoicesModelValue): void
+  (e: 'update:modelValue', value: MultipleChoicesModelValue): void;
 }
 
 const props = withDefaults(defineProps<MultipleChoicesItemProps>(), {

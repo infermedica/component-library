@@ -10,7 +10,7 @@ import type { DefineAttrsProps } from '../../../types';
 
 export default { name: 'UiContainer' };
 
-export type ContainerAttrsProps = DefineAttrsProps<null>
+export type ContainerAttrsProps = DefineAttrsProps<null>;
 </script>
 
 <style lang="scss">
