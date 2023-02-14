@@ -29,7 +29,10 @@ import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import type { IconAttrsProps } from '../../../atoms/UiIcon/UiIcon.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import type { ButtonAttrsProps } from '../../../atoms/UiButton/UiButton.vue';
-import type { DropdownModelValue } from '../UiDropdown.vue';
+import type {
+  DropdownModelValue,
+  DropdownItemKeydownHandler,
+} from '../UiDropdown.vue';
 import type { DefineAttrsProps } from '../../../../types';
 
 export interface DropdownItemProps {
@@ -60,8 +63,7 @@ const defaultProps = computed(() => {
 const attrs = useAttrs();
 const dropdownItem = ref<null | HTMLButtonElement>(null);
 const changeHandler = inject<(value: Required<DropdownModelValue>) => void>('changeHandler');
-// eslint-disable-next-line @typescript-eslint/no-empty-function
-const dropdownItemKeydownHandler = inject<(e: Event) => Promise<void> | void>('dropdownItemKeydownHandler', () => {});
+const dropdownItemKeydownHandler = inject<DropdownItemKeydownHandler>('dropdownItemKeydownHandler', () => undefined);
 const modelValue = inject<ComputedRef<Required<DropdownModelValue>>>('modelValue', computed(() => ''));
 const isChecked = computed(() => {
   if (!modelValue.value) {
