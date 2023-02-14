@@ -120,7 +120,7 @@ export interface DatepickerCalendarProps {
 }
 export type DatepickerCalendarAttrsProps = DefineAttrsProps<DatepickerCalendarProps, DropdownAttrsProps>;
 export interface DatepickerCalendarEmits {
-  (e:'open', value: Event): void;
+  (e: 'open', value: Event): void;
   (e: 'select', value: Event): void;
 }
 

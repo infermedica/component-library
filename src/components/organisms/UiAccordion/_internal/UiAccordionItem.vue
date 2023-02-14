@@ -136,8 +136,7 @@ const props = withDefaults(defineProps<AccordionItemProps>(), {
   listItemAttrs: () => ({ class: 'ui-accordion-item' }),
 });
 const opened = inject<ComputedRef<AccordionModelValue>>('opened', computed(() => ''));
-// eslint-disable-next-line @typescript-eslint/no-empty-function
-const toggle = inject<AccordionToggle>('toggle', () => {});
+const toggle = inject<AccordionToggle>('toggle', () => undefined);
 const isOpen = computed(() => (opened.value === 'string'
   ? props.name === opened.value
   : opened.value.includes(props.name)));

@@ -51,7 +51,7 @@ import type { ListItemAttrsProps } from './_internal/UiListItem.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import type {
   DefineAttrsProps,
-  ListHTMLTag,
+  HTMLListTag,
 } from '../../../types';
 
 export interface ListRenderItem extends ListItemAttrsProps {
@@ -65,7 +65,7 @@ export interface ListProps {
   /**
    * Use this props to pass list tag.
    */
-  tag?: ListHTMLTag;
+  tag?: HTMLListTag;
   /**
    * Use this props to pass list items.
    */

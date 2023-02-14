@@ -24,10 +24,9 @@ import type { CSSProperties } from 'vue';
 import type { DefineAttrsProps } from '../../../../types';
 
 export type LoaderTransitionState = 'from' | 'active' | 'to';
-export type LoaderTransitionMove = 'leave' | 'enter';
-export type LoaderTransitionHook = `before-${LoaderTransitionMove}`
+export type LoaderTransitionMove = 'enter' | 'leave';
+export type LoaderTransitionHook = `${'before' | 'after'}-${LoaderTransitionMove}`
   | `${LoaderTransitionMove}`
-  | `after-${LoaderTransitionMove}`
   | `${LoaderTransitionMove}-cancelled`;
 export interface LoaderTransitionProps {
   /**
@@ -63,7 +62,7 @@ const loaderEl = ref<HTMLElement | null>(null);
 const contentEl = ref<HTMLElement | null>(null);
 const isLoaderVisible = ref(props.isLoading);
 const transitionEl = computed(() => (isLoaderVisible.value ? loaderEl.value : contentEl.value) as HTMLElement);
-const move = computed(() => (isLoaderVisible.value === props.isLoading ? 'enter' : 'leave'));
+const move = computed<LoaderTransitionMove>(() => (isLoaderVisible.value === props.isLoading ? 'enter' : 'leave'));
 const useTransitionStyle = (isVisible: boolean, isAbsolute: boolean): CSSProperties => ({
   visibility: isVisible ? undefined : 'hidden',
   position: isAbsolute ? 'absolute' : undefined,

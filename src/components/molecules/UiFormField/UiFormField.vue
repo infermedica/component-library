@@ -146,7 +146,7 @@ const defaultProps = computed(() => {
 const inputId = computed(() => (
   props.id || `input-${uid()}`
 ));
-  // TODO: remove in 0.6.0 / BEGIN
+// TODO: remove in 0.6.0 / BEGIN
 const attrs = useAttrs();
 const labelAttrs = computed(() => attrs.labelAttrs || attrs['label-attrs']);
 if (labelAttrs.value) {
