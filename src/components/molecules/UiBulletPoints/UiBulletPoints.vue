@@ -53,7 +53,7 @@ import type { BulletPointsItemAttrsProps } from './_internal/UiBulletPointsItem.
 import type {
   DefineAttrsProps,
   IconName,
-  ListHTMLTag,
+  HTMLListTag,
 } from '../../../types';
 
 export type BulletPointsType = 'a' | 'A' | 'i' | 'I' | '1' | 'ar';
@@ -73,7 +73,7 @@ export interface BulletPointsProps {
   /**
    * Use this props to set list tag.
    */
-  tag?: ListHTMLTag;
+  tag?: HTMLListTag;
   /**
    * Use this props to set list type.
    */
@@ -96,7 +96,7 @@ const props = withDefaults(defineProps<BulletPointsProps>(), {
   icon: 'bullet-common',
 });
 const tag = computed(() => props.tag);
-provide<ComputedRef<ListHTMLTag>>('tag', tag);
+provide<ComputedRef<HTMLListTag>>('tag', tag);
 const listStyleType = computed<CSSProperties>(() => {
   const type = {
     a: {

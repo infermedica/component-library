@@ -47,7 +47,7 @@
 import { computed } from 'vue';
 import type { PropType } from 'vue';
 import type { Icon } from '../../../types/icon';
-import type { ListHTMLTag } from '../../../types/tag';
+import type { HTMLListTag } from '../../../types/tag';
 import UiListItem from './_internal/UiListItem.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 
@@ -67,7 +67,7 @@ export interface ListItemComplex {
   name: string;
   label?: string;
   children?: {
-    tag?: ListHTMLTag;
+    tag?: HTMLListTag;
     items?: (string | ListItemComplex)[];
     listItemAttrs?: ListItemAttrs;
   }
@@ -80,7 +80,7 @@ const props = defineProps({
    * Use this props to pass list tag.
    */
   tag: {
-    type: String as PropType<ListHTMLTag>,
+    type: String as PropType<HTMLListTag>,
     default: 'ul',
   },
   /**

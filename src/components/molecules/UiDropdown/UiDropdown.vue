@@ -122,7 +122,7 @@ export interface DropdownHandlersOptions {
     focusToggle?: boolean;
   }
 export type DropdownModelValue = string | Record<string, unknown>;
-export type DropdownItemKeydownHandler = ({ key }: KeyboardEvent) => Promise<void>;
+export type DropdownItemKeydownHandler = ({ key }: KeyboardEvent) => void;
 export type DropdownChangeHandler = (value: DropdownModelValue) => void;
 export interface DropdownProps {
   /**
@@ -290,7 +290,7 @@ const handleInputQuery = (key: KeyboardEvent['key']) => {
   );
   if (match !== -1 && match !== activeDropdownItemIndex.value) focusElement(dropdownItems.value[match]);
 };
-const dropdownItemKeydownHandler: DropdownItemKeydownHandler = async ({ key }) => {
+const dropdownItemKeydownHandler: DropdownItemKeydownHandler = ({ key }) => {
   if (searchDebounce.value) clearTimeout(searchDebounce.value);
   if (key.length === 1) {
     handleInputQuery(key);
