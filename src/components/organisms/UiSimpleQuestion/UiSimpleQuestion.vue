@@ -37,74 +37,60 @@ import {
   computed,
   useAttrs,
 } from 'vue';
-import type { PropType } from 'vue';
 import UiTile from '../../molecules/UiTile/UiTile.vue';
-import type { TileModelValue } from '../../molecules/UiTile/UiTile.vue';
-import type { Icon } from '../../../types/icon';
+import type {
+  TileModelValue,
+  TileAttrsProps,
+} from '../../molecules/UiTile/UiTile.vue';
+import type { DefineAttrsProps } from '../../../types';
 
-export interface SimpleQuestionOption {
-  value: TileModelValue;
-  label: string;
-  tileAttrs: {
-    iconAttrs: {
-      icon: Icon;
-      [key: string]: unknown;
-    },
-    [key: string]: unknown;
-  }
+export interface SimpleQuestionItem extends TileAttrsProps {
+  label?: string;
 }
-const props = defineProps({
+export interface SimpleQuestionProps {
   /**
    * Use this props or v-model to set value.
    */
-  modelValue: {
-    type: [
-      Object,
-      String,
-    ] as PropType<TileModelValue>,
-    default: () => ({}),
-  },
+  modelValue?: TileModelValue;
   /**
    * Use this props to pass items for question
    */
-  items: {
-    type: Array as PropType<SimpleQuestionOption[]>,
-    default: () => [ {
-      id: '',
-      label: '',
-      value: '',
-      tileAttrs: { iconAttrs: { icon: '' } },
-    } ],
-  },
+  items?: SimpleQuestionItem[];
+}
+export type SimpleQuestionAttrsProps = DefineAttrsProps<SimpleQuestionProps>;
+export interface SimpleQuestionEmits {
+  (e: 'update:modelValue', value: SimpleQuestionProps['modelValue']): void;
+}
+
+const props = withDefaults(defineProps<SimpleQuestionProps>(), {
+  /**
+   * Use this props or v-model to set value.
+   */
+  modelValue: () => ({}),
+  /**
+   * Use this props to pass items for question
+   */
+  items: () => ([]),
 });
-const emit = defineEmits<{(e: 'update:modelValue', value: TileModelValue): void}>();
-interface Attrs {
-  class?: string[];
-  options?: SimpleQuestionOption[];
-}
-const attrs:Attrs = useAttrs();
-const isTileSmall = computed(() => attrs?.class?.includes('ui-simple-question--small'));
-function updateHandler(value: TileModelValue) {
+const emit = defineEmits<SimpleQuestionEmits>();
+
+const attrs: SimpleQuestionAttrsProps = useAttrs();
+const isTileSmall = computed(() => attrs.class && attrs.class.includes('ui-simple-question--small'));
+const updateHandler = (value: SimpleQuestionProps['modelValue']) => {
   emit('update:modelValue', value);
-}
+};
 // TODO: remove in 0.6.0 / BEGIN
-const options = computed(() => (attrs?.options));
+const options = computed(() => (attrs?.options as SimpleQuestionProps['items']));
 if (options.value) {
   if (process.env.NODE_ENV === 'development') {
     console.warn('[@infermedica/component-library warn][UiSimpleQuestion]: The `options` props will be removed in 0.6.0. Please use `items` props instead.');
   }
 }
 // END
-const tileItemAttrs = (item: SimpleQuestionOption) => {
-  /* eslint-disable @typescript-eslint/no-unused-vars */
-  const {
-    label,
-    ...rest
-  } = item;
-  /* eslint-enable @typescript-eslint/no-unused-vars */
-
-  return rest;
-};
+const tileItemAttrs = ({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  label, ...itemAttrs
+}: SimpleQuestionItem) => itemAttrs;
 const itemsToRender = computed(() => options.value || props.items);
 </script>
 

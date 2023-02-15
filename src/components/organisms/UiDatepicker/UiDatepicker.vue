@@ -13,7 +13,7 @@
           :class="{ 'ui-datepicker__group-field--long': datePart === 'year' }"
         >
           <UiText
-            v-bind="getDefaultProp('text', datePart)"
+            v-bind="getTextAttrs(datePart)"
             class="ui-datepicker__label"
           >
             {{ capitalizeFirst(defaultProps.translation[datePart]) }}
@@ -25,11 +25,11 @@
             v-bind="{
               'error': invalid && touched,
               'valid': isInputValid[datePart],
-              ...getDefaultProp('input', datePart),
+              ...getInputAttrs(datePart),
             }"
             @change-input="focusNextField"
-            @focus="handleFocus($event, datePart)"
-            @update:model-value="(value: string) => handleDateUpdate(datePart, value)"
+            @focus="handleFocus(datePart)"
+            @update:model-value="handleDateUpdate(datePart, $event)"
           />
         </div>
       </div>
@@ -54,7 +54,10 @@ import {
   ref,
   watch,
 } from 'vue';
-import type { PropType } from 'vue';
+import type {
+  ComputedRef,
+  Ref,
+} from 'vue';
 import {
   format,
   isMatch,
@@ -65,92 +68,168 @@ import {
   focusElement,
 } from '../../../utilities/helpers/index';
 import UiFormField from '../../molecules/UiFormField/UiFormField.vue';
+import type { AlertAttrsProps } from '../../molecules/UiAlert/UiAlert.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
+import type { TextAttrsProps } from '../../atoms/UiText/UiText.vue';
 import UiDatepickerDayInput from './_internal/UiDatepickerDayInput.vue';
+import type { DatepickerDayInputAttrsProps } from './_internal/UiDatepickerDayInput.vue';
 import UiDatepickerMonthInput from './_internal/UiDatepickerMonthInput.vue';
+import type { DatepickerMonthInputAttrsProps } from './_internal/UiDatepickerMonthInput.vue';
 import UiDatepickerYearInput from './_internal/UiDatepickerYearInput.vue';
+import type { DatepickerYearInputAttrsProps } from './_internal/UiDatepickerYearInput.vue';
 import UiDatepickerCalendar from './_internal/UiDatepickerCalendar.vue';
-import type { PropsAttrs } from '../../../types/attrs';
+import type { DatepickerCalendarAttrsProps } from './_internal/UiDatepickerCalendar.vue';
+import type {
+  DefineAttrsProps,
+  HTMLTag,
+} from '../../../types';
 
 export interface DatepickerTranslation {
-  day: string;
-  month: string;
-  year: string;
-  placeholderDay: string;
-  placeholderMonth: string;
-  placeholderYear: string;
-  errorWrongDate: string;
-  errorDateInFuture: string;
-  errorOutOfBounds: string;
-  [key: string]: string | undefined;
+  day?: string;
+  month?: string;
+  year?: string;
+  placeholderDay?: string;
+  placeholderMonth?: string;
+  placeholderYear?: string;
+  errorWrongDate?: string;
+  errorDateInFuture?: string;
+  errorOutOfBounds?: string;
 }
-export type DatePart = 'day' | 'month' | 'year';
-export type DatepickerDate<T> = {[key in DatePart]: T}
-
+export type DatepickerCheckAvailability = (datePart: number) => boolean;
+export type DatepickerDatePart = 'day' | 'month' | 'year';
+export type DatepickerDate<T> = Record<DatepickerDatePart, T>;
 export type DatepickerInput = typeof UiDatepickerDayInput
   | typeof UiDatepickerMonthInput
   | typeof UiDatepickerYearInput
-const props = defineProps({
+export type DatepickerModelValue = string;
+export type DatepickerInvalid = boolean;
+export interface DatepickerProps {
   /**
    * Use this props or v-model to set value.
    */
-  modelValue: {
-    type: String as PropType<string | null>,
-    default: null,
-    validator: (value: string) => isMatch(value, 'yyyy-MM-dd') || value === '',
-  },
+  modelValue?: DatepickerModelValue;
   /**
    * Use this props to set invalid state of component.
    */
-  invalid: {
-    type: Boolean,
-    default: true,
-  },
+  invalid?: DatepickerInvalid;
   /**
    * Use this props to set custom error message
    */
-  error: {
-    type: [
-      Boolean,
-      String,
-    ] as PropType<string | boolean>,
-    default: '',
-  },
+  error?: boolean | string;
   /**
    * Use this props to set input fields order
    */
-  order: {
-    type: Array as PropType<DatePart[]>,
-    default: () => ([
-      'day',
-      'month',
-      'year',
-    ]),
-    validator: (value: DatePart[]) => value.length === 3
-        && value.includes('day')
-        && value.includes('month')
-        && value.includes('year'),
-  },
+  order?: DatepickerDatePart[];
   /**
    * Use this props to touch component and show validation errors.
    */
-  touched: {
-    type: Boolean,
-    default: true,
-  },
+  touched?: boolean;
   /**
    * Use this props to set months language - default enUS
    */
-  lang: {
-    type: String,
-    default: 'en-us',
-  },
+  lang?: string;
   /**
    * Use this props to override labels inside component translation.
    */
-  translation: {
-    type: Object as PropType<DatepickerTranslation>,
-    default: () => ({
+  translation?: DatepickerTranslation;
+  /**
+   * Use this props to set minimum age limit
+   */
+  minLimit?: number;
+  /**
+   *  Use this props to set maximum age limit
+   */
+  maxLimit?: number;
+  /**
+   * Use this props to pass attrs to UiAlert.
+   */
+  alertAttrs?: AlertAttrsProps;
+  /**
+   *  Use this props to pass attrs to day UiText.
+   */
+  textDayAttrs?: TextAttrsProps;
+  /**
+   *  Use this props to pass attrs to month UiText.
+   */
+  textMonthAttrs?: TextAttrsProps;
+  /**
+   *  Use this props to pass attrs to year UiText.
+   */
+  textYearAttrs?: TextAttrsProps;
+  /**
+   *  Use this props to pass attrs to day UiInput.
+   */
+  inputDayAttrs?: DatepickerDayInputAttrsProps;
+  /**
+   *  Use this props to pass attrs to month UiInput.
+   */
+  inputMonthAttrs?: DatepickerMonthInputAttrsProps;
+  /**
+   *  Use this props to pass attrs to year UiInput.
+   */
+  inputYearAttrs?: DatepickerYearInputAttrsProps;
+  /**
+   *  Use this props to pass attrs to UiDatepickerCalendar
+   */
+  datepickerCalendarAttrs?: DatepickerCalendarAttrsProps;
+}
+export type DatepickerAttrsProps = DefineAttrsProps<DatepickerProps>;
+export interface DatepickerEmits {
+  (e: 'update:modelValue', value: DatepickerModelValue): void;
+  (e: 'update:invalid', value: DatepickerInvalid): void;
+  (e: 'calendar-open', value: Event): void;
+  (e: 'calendar-select', value: Event): void;
+  (e: 'field-insert', value: { field: DatepickerDatePart, value: string }): void;
+  (e: 'field-error', value: { field: DatepickerDatePart, error?: string | boolean }): void;
+  (e: 'field-focus', value: { field: DatepickerDatePart }): void;
+}
+
+const props = withDefaults(defineProps<DatepickerProps>(), {
+  modelValue: '',
+  invalid: true,
+  error: '',
+  order: () => ([
+    'day',
+    'month',
+    'year',
+  ]),
+  touched: true,
+  lang: 'en-us',
+  translation: () => ({
+    day: 'day',
+    month: 'month',
+    year: 'year',
+    placeholderDay: 'DD',
+    placeholderMonth: 'MM',
+    placeholderYear: 'YYYY',
+    errorWrongDate: 'Please enter a valid date, e.g. 05/11/1990',
+    errorDateInFuture: 'Sorry, the date of birth cannot be a future date',
+    errorOutOfBounds: 'Sorry, our checkup only covers people between 0 and 120 years old',
+  }),
+  minLimit: 0,
+  maxLimit: 120,
+  alertAttrs: () => ({}),
+  textDayAttrs: () => ({
+    tag: 'label',
+    for: 'datepicker-input-day',
+  }),
+  textMonthAttrs: () => ({
+    tag: 'label',
+    for: 'datepicker-input-month',
+  }),
+  textYearAttrs: () => ({
+    tag: 'label',
+    for: 'datepicker-input-year',
+  }),
+  inputDayAttrs: () => ({ inputAttrs: { id: 'datepicker-input-day' } }),
+  inputMonthAttrs: () => ({ inputAttrs: { id: 'datepicker-input-month' } }),
+  inputYearAttrs: () => ({ inputAttrs: { id: 'datepicker-input-year' } }),
+  datepickerCalendarAttrs: () => ({}),
+});
+const defaultProps = computed(() => {
+  const tag: HTMLTag = 'label';
+  return {
+    translation: {
       day: 'day',
       month: 'month',
       year: 'year',
@@ -160,181 +239,82 @@ const props = defineProps({
       errorWrongDate: 'Please enter a valid date, e.g. 05/11/1990',
       errorDateInFuture: 'Sorry, the date of birth cannot be a future date',
       errorOutOfBounds: 'Sorry, our checkup only covers people between 0 and 120 years old',
-    }),
-  },
-  /**
-   * Use this props to set minimum age limit
-   */
-  minLimit: {
-    type: Number,
-    default: 0,
-    validator: (value: number) => value >= 0,
-  },
-  /**
-   *  Use this props to set maximum age limit
-   */
-  maxLimit: {
-    type: Number,
-    default: 120,
-    validator: (value: number) => value > 0,
-  },
-  /**
-   * Use this props to pass attrs to UiAlert.
-   */
-  alertAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
-  /**
-   *  Use this props to pass attrs to day UiText.
-   */
-  textDayAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
-  /**
-   *  Use this props to pass attrs to month UiText.
-   */
-  textMonthAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
-  /**
-   *  Use this props to pass attrs to year UiText.
-   */
-  textYearAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
-  /**
-   *  Use this props to pass attrs to day UiInput.
-   */
-  inputDayAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
-  /**
-   *  Use this props to pass attrs to month UiInput.
-   */
-  inputMonthAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
-  /**
-   *  Use this props to pass attrs to year UiInput.
-   */
-  inputYearAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
-  /**
-   *  Use this props to pass attrs to UiDatepickerCalendar
-   */
-  datepickerCalendarAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
-});
-const defaultInputsIds = computed(() => ({
-  day: props.inputDayAttrs?.id || 'datepicker-input-day',
-  month: props.inputDayAttrs?.id || 'datepicker-input-month',
-  year: props.inputDayAttrs?.id || 'datepicker-input-year',
-}));
-const defaultProps = computed(() => (
-  {
-    translation: {
-      ...{
-        day: 'day',
-        month: 'month',
-        year: 'year',
-        placeholderDay: 'DD',
-        placeholderMonth: 'MM',
-        placeholderYear: 'YYYY',
-        errorWrongDate: 'Please enter a valid date, e.g. 05/11/1990',
-        errorDateInFuture: 'Sorry, the date of birth cannot be a future date',
-        errorOutOfBounds: 'Sorry, our checkup only covers people between 0 and 120 years old',
-      },
       ...props.translation,
     },
     inputDayAttrs: {
       ...props.inputDayAttrs,
-      id: defaultInputsIds.value.day,
+      inputAttrs: {
+        id: 'datepicker-input-day',
+        ...props.inputDayAttrs.inputAttrs,
+      },
     },
     inputMonthAttrs: {
       ...props.inputMonthAttrs,
-      id: defaultInputsIds.value.month,
+      inputAttrs: {
+        id: 'datepicker-input-month',
+        ...props.inputMonthAttrs.inputAttrs,
+      },
     },
     inputYearAttrs: {
       ...props.inputYearAttrs,
-      id: defaultInputsIds.value.year,
+      inputAttrs: {
+        id: 'datepicker-input-year',
+        ...props.inputYearAttrs.inputAttrs,
+      },
     },
     textDayAttrs: {
-      tag: 'label',
+      tag,
+      for: 'datepicker-input-day',
       ...props.textDayAttrs,
-      for: defaultInputsIds.value.day,
     },
     textMonthAttrs: {
-      tag: 'label',
+      tag,
+      for: 'datepicker-input-month',
       ...props.textMonthAttrs,
-      for: defaultInputsIds.value.month,
     },
     textYearAttrs: {
-      tag: 'label',
+      tag,
+      for: 'datepicker-input-year',
       ...props.textYearAttrs,
-      for: defaultInputsIds.value.year,
     },
-  }
-));
-interface DefaultInputAttrs {
-  id: string;
-  [key: string]: unknown
-}
-const getDefaultProp = (element: 'text' | 'input', datePart: DatePart): Record<string, unknown> => (defaultProps.value[`${element}${capitalizeFirst(datePart) as Capitalize<DatePart>}Attrs`]);
-
-const emit = defineEmits<{(e: 'update:modelValue', value: string | null): void,
-  (e: 'update:invalid', value: boolean): void,
-  (e: 'calendar-open', value: Event): void,
-  (e: 'calendar-select', value: Event): void,
-  (e: 'field-insert', value: { field: DatePart, value: string }): void,
-  (e: 'field-error', value: { field: DatePart, error: string | boolean }): void,
-  (e: 'field-focus', value: { field: DatePart }): void,
-}>();
-const datePartElements: {[key in DatePart]: DatepickerInput | null} = {
+  };
+});
+const emit = defineEmits<DatepickerEmits>();
+const getTextAttrs = (datePart: DatepickerDatePart) => defaultProps.value[`text${capitalizeFirst<DatepickerDatePart>(datePart)}Attrs`];
+const getInputAttrs = (datePart: DatepickerDatePart) => defaultProps.value[`input${capitalizeFirst<DatepickerDatePart>(datePart)}Attrs`];
+const datePartElements: Record<DatepickerDatePart, DatepickerInput | null> = {
   day: null,
   month: null,
   year: null,
 };
-const setDatePartElement = (el: DatepickerInput, datePart: DatePart): void => {
+const setDatePartElement = (el: DatepickerInput, datePart: DatepickerDatePart): void => {
   datePartElements[datePart] = el;
 };
 const monthNames = ref<string[]>([]);
-provide('monthNames', monthNames);
-const date = reactive<DatepickerDate<string>>(
-  {
-    day: '',
-    month: '',
-    year: '',
-  },
-);
-const dateAsInt = computed<DatepickerDate<number>>(() => Object.keys(date).reduce((result, key) => (
-  {
-    ...result,
-    [key]: parseInt(date[key as DatePart], 10),
-  }), {
+provide<Ref<string[]>>('monthNames', monthNames);
+const date = reactive<DatepickerDate<string>>({
+  day: '',
+  month: '',
+  year: '',
+});
+const dateAsInt = computed(() => (Object.keys(date) as DatepickerDatePart[]).reduce((result, key) => ({
+  ...result,
+  [key]: parseInt(date[key], 10),
+}), {
   day: 0,
   month: 0,
   year: 0,
 }));
-const handleDateUpdate = (datePart: DatePart, value: string): void => {
+const handleDateUpdate = (datePart: DatepickerDatePart, value: DatepickerModelValue) => {
   date[datePart] = value;
 };
-provide('date', date);
-const currentDate: Date = new Date();
-const currentDay: number = parseInt(lightFormat(currentDate, 'dd'), 10);
-const currentMonth: number = parseInt(lightFormat(currentDate, 'MM'), 10);
-const currentYear: number = parseInt(lightFormat(currentDate, 'yyyy'), 10);
+provide<DatepickerDate<string>>('date', date);
+const currentDate = new Date();
+const currentDay = parseInt(lightFormat(currentDate, 'dd'), 10);
+const currentMonth = parseInt(lightFormat(currentDate, 'MM'), 10);
+const currentYear = parseInt(lightFormat(currentDate, 'yyyy'), 10);
 
-const yearsList = computed<number[]>(() => {
+const yearsList = computed((): number[] => {
   const firstYear = currentDate.getUTCFullYear() - props.minLimit;
   const yearsNumber = props.maxLimit - props.minLimit + 2;
   const years = Array(yearsNumber).fill('').map((_, i) => firstYear - i);
@@ -342,31 +322,31 @@ const yearsList = computed<number[]>(() => {
 });
 const firstAvailableYear = computed(() => yearsList.value[0]);
 const lastAvailableYear = computed(() => yearsList.value[yearsList.value.length - 1]);
-provide('yearsList', yearsList);
+provide<ComputedRef<number[]>>('yearsList', yearsList);
 
-function checkDayMonthLimit(day = dateAsInt.value.day, month = dateAsInt.value.month): boolean {
+const checkDayMonthLimit = (day: number = dateAsInt.value.day, month: number = dateAsInt.value.month) => {
   let daysLimit = new Date(dateAsInt.value.year, month, 0, 0, 0, 0).getDate();
   if (day === 29 && !date.year.length) daysLimit += 1;
   return day > daysLimit;
-}
+};
 
 // Day validations
-function checkDayAvailability(day: number): boolean {
+const checkDayAvailability = (day: number) => {
   const isMonthDaysLimitExceeded = checkDayMonthLimit(day, undefined);
   const isDayAboveLimit = (dateAsInt.value.year === firstAvailableYear.value)
     && (dateAsInt.value.month === currentMonth) && (day > currentDay);
   const isDayBelowLimit = (dateAsInt.value.year === lastAvailableYear.value)
     && (dateAsInt.value.month === currentMonth) && (day <= currentDay);
   return isDayAboveLimit || isDayBelowLimit || isMonthDaysLimitExceeded;
-}
+};
 const isDayValid = computed(() => (dateAsInt.value.day > 0) && (dateAsInt.value.day <= 31)
   && !checkDayMonthLimit(dateAsInt.value.day, undefined));
 const isDayFulfilled = computed(() => (date.day.length === 2));
 const hasDayError = computed(() => (isDayFulfilled.value && !isDayValid.value));
-provide('checkDayAvailability', checkDayAvailability);
+provide<DatepickerCheckAvailability>('checkDayAvailability', checkDayAvailability);
 
 // Month validations
-function checkMonthAvailability(month: number): boolean {
+const checkMonthAvailability = (month: number) => {
   const isMonthDaysLimitExceeded = checkDayMonthLimit(undefined, month);
   const isMonthAboveLimit = (dateAsInt.value.year === firstAvailableYear.value
     && (month > currentMonth || (month >= currentMonth && currentDay < dateAsInt.value.day)));
@@ -376,15 +356,15 @@ function checkMonthAvailability(month: number): boolean {
   const monthWithoutAvailableDays = dateAsInt.value.year === lastAvailableYear.value
     && month === currentMonth && isCurrentLastDayOfMonth;
   return isMonthAboveLimit || isMonthBelowLimit || isMonthDaysLimitExceeded || monthWithoutAvailableDays;
-}
+};
 const isMonthValid = computed(() => dateAsInt.value.month > 0 && dateAsInt.value.month <= 12
   && !checkDayMonthLimit(undefined, dateAsInt.value.month));
 const isMonthFulfilled = computed(() => (date.month.length === 2));
 const hasMonthError = computed(() => (isMonthFulfilled.value && !isMonthValid.value));
-provide('checkMonthAvailability', checkMonthAvailability);
+provide<DatepickerCheckAvailability>('checkMonthAvailability', checkMonthAvailability);
 
 // Year validations
-function checkYearAvailability(year: number): boolean {
+const checkYearAvailability = (year: number) => {
   const isLeapYearLimit = !!((year % 4) || (!(year % 25) && (year % 16)))
     && (dateAsInt.value.day === 29 && dateAsInt.value.month === 2);
   const isYearAboveLimit = (year === firstAvailableYear.value) && (currentMonth < dateAsInt.value.month
@@ -393,17 +373,17 @@ function checkYearAvailability(year: number): boolean {
     && (currentMonth > dateAsInt.value.month || (dateAsInt.value.day
     && currentMonth === dateAsInt.value.month && currentDay >= dateAsInt.value.day));
   return isYearAboveLimit || isYearBelowLimit || isLeapYearLimit;
-}
+};
 const isYearValid = computed(() => yearsList.value.includes(dateAsInt.value.year)
   && !checkYearAvailability(dateAsInt.value.year));
 const isYearFulfilled = computed(() => (date.year.length === 4));
 const hasYearError = computed(() => (isYearFulfilled.value && !isYearValid.value) || date.year[0] === '0');
-provide('checkYearAvailability', checkYearAvailability);
+provide<DatepickerCheckAvailability>('checkYearAvailability', checkYearAvailability);
 
 // Date validations
 const isDateFulfilled = computed(() => isDayFulfilled.value
   && isMonthFulfilled.value && isYearFulfilled.value);
-provide('isDateFulfilled', isDateFulfilled);
+provide<ComputedRef<boolean>>('isDateFulfilled', isDateFulfilled);
 const isDateEmpty = computed(() => !isDayFulfilled.value && !isMonthFulfilled.value && !isYearFulfilled.value);
 const isDateOutOfBounds = computed(() => {
   const startDate = new Date(firstAvailableYear.value, currentMonth - 1, currentDay, 0, 0, 0);
@@ -433,14 +413,14 @@ const isInputValid = computed<DatepickerDate<boolean>>(() => ({
   year: isYearValid.value,
 }));
 
-function assignDateParts() {
+const assignDateParts = () => {
   const plainDate = new Date(`${props.modelValue}T00:00:00`);
   date.day = lightFormat(plainDate, 'dd');
   date.month = lightFormat(plainDate, 'MM');
   date.year = lightFormat(plainDate, 'yyyy');
-}
+};
 
-const formattedDate = computed<string | null>({
+const formattedDate = computed({
   get: () => {
     if (props.modelValue && isMatch(props.modelValue, 'yyyy-MM-dd')) {
       assignDateParts();
@@ -452,7 +432,7 @@ const formattedDate = computed<string | null>({
   },
 });
 
-function setDate(): void {
+const setDate = () => {
   if (isDateFulfilled.value && isDateValid.value) {
     const newDate = format(new Date(dateAsInt.value.year, dateAsInt.value.month - 1, dateAsInt.value.day, 0, 0, 0), 'yyyy-MM-dd');
     formattedDate.value = newDate;
@@ -460,9 +440,9 @@ function setDate(): void {
   if (isDateEmpty.value) {
     formattedDate.value = '';
   }
-}
+};
 
-function inputComponentSelector(datePart: DatePart): DatepickerInput | '' {
+const inputComponentSelector = (datePart: DatepickerDatePart) => {
   switch (datePart) {
     case ('day'):
       return UiDatepickerDayInput;
@@ -473,28 +453,33 @@ function inputComponentSelector(datePart: DatePart): DatepickerInput | '' {
     default:
       return '';
   }
-}
+};
 
-const lastFocusedDatePart = ref<DatePart>(props.order[0]);
+const lastFocusedDatePart = ref<DatepickerDatePart>(props.order[0]);
 
-function handleFocus(event: Event, datePart: DatePart) {
+const handleFocus = (datePart: DatepickerDatePart) => {
   emit('field-focus', { field: datePart });
   lastFocusedDatePart.value = datePart;
-}
+};
 
-const focus = async (inputElement: DatepickerInput): Promise<void> => {
+const focus = async (inputElement: DatepickerInput) => {
   await nextTick();
-  const target = inputElement?.$el?.children[0];
+  const target = inputElement.$el.children[0];
   focusElement(target);
   if (target.value) target.select();
 };
-function focusInput(datePart: DatePart): void {
-  focus(datePartElements[datePart] as DatepickerInput);
-}
-function focusNextField(currentField: DatePart): void {
+const focusInput = (datePart: DatepickerDatePart) => {
+  const input = datePartElements[datePart];
+  if (input) {
+    focus(input);
+  }
+};
+const focusNextField = (currentField: DatepickerDatePart) => {
   const currentInputIndex = props.order.indexOf(currentField);
-  if (currentInputIndex < props.order.length - 1) focusInput(props.order[currentInputIndex + 1]);
-}
+  if (currentInputIndex < props.order.length - 1) {
+    focusInput(props.order[currentInputIndex + 1]);
+  }
+};
 
 // TODO - refactor, for test only
 const unfulfilledDay = ref(false);
@@ -504,8 +489,8 @@ provide('unfulfilledDay', unfulfilledDay);
 provide('unfulfilledMonth', unfulfilledMonth);
 provide('unfulfilledYear', unfulfilledYear);
 
-const errorDisplayHandler = computed<boolean | string>(() => {
-  let error: string | boolean = false;
+const errorDisplayHandler = computed(() => {
+  let error: boolean | string | undefined = false;
 
   if (isDateInFuture.value) {
     error = props.translation.errorDateInFuture;
@@ -520,7 +505,12 @@ const errorDisplayHandler = computed<boolean | string>(() => {
   return error;
 });
 
-const handleFulfilledChange = (isFulfilled: boolean, field: DatePart, value: string, isValid: boolean): void => {
+const handleFulfilledChange = (
+  isFulfilled: boolean,
+  field: DatepickerDatePart,
+  value: DatepickerModelValue,
+  isValid: boolean,
+) => {
   if (isFulfilled) {
     emit('field-insert', {
       field,
@@ -530,28 +520,28 @@ const handleFulfilledChange = (isFulfilled: boolean, field: DatePart, value: str
   if (isFulfilled && (!isValid || errorDisplayHandler.value)) {
     emit('field-error', {
       field,
-      error: errorDisplayHandler.value,
+      error: errorDisplayHandler?.value,
     });
   }
 };
 
-watch(isDayFulfilled, (fulfilled) => handleFulfilledChange(fulfilled, 'day', date.day, isDayValid.value));
-watch(isMonthFulfilled, (fulfilled) => handleFulfilledChange(fulfilled, 'month', date.month, isMonthValid.value));
-watch(isYearFulfilled, (fulfilled) => handleFulfilledChange(fulfilled, 'year', date.year, isYearValid.value));
+watch(isDayFulfilled, (fulfilled: boolean) => handleFulfilledChange(fulfilled, 'day', date.day, isDayValid.value));
+watch(isMonthFulfilled, (fulfilled: boolean) => handleFulfilledChange(fulfilled, 'month', date.month, isMonthValid.value));
+watch(isYearFulfilled, (fulfilled: boolean) => handleFulfilledChange(fulfilled, 'year', date.year, isYearValid.value));
 
-function monthList(locale: string): string[] {
+const monthList = (locale: string): string[] => {
   const getMonth = new Intl.DateTimeFormat(locale, { month: 'long' }).format;
   return [ ...Array(12).keys() ].map((m) => getMonth(new Date(2022, m)));
-}
+};
 
-function localizeMonths() {
+const localizeMonths = () => {
   try {
     monthNames.value = monthList(props.lang);
   } catch {
     monthNames.value = monthList('en-US');
     console.error('Unrecognized language props value, default \'en-us\' language loaded'); // eslint-disable-line no-console
   }
-}
+};
 
 onMounted(() => {
   localizeMonths();
@@ -568,23 +558,21 @@ watch([
   setDate();
 });
 
-watch(isDateValid, (isValid) => {
+watch(isDateValid, (isValid: boolean) => {
   emit('update:invalid', !isValid);
 });
 
-provide('translation', defaultProps.value.translation);
-provide('order', props.order);
-const inputsIds = computed<Record<string, string>>(() => (
-  Object.keys(defaultProps).reduce((ids: Record<string, string>, key: string) => {
-    const match = key.match(/input(.+)Attrs/);
-    if (match) {
-      const datePart = match[1].toLowerCase();
-      // eslint-disable-next-line no-param-reassign
-      ids[(getDefaultProp('input', key as DatePart) as DefaultInputAttrs).id] = datePart;
-    }
-    return ids;
-  }, {})));
-provide('inputsIds', inputsIds);
+provide<DatepickerTranslation>('translation', defaultProps.value.translation);
+provide<DatepickerDatePart[]>('order', props.order);
+const inputsIds = computed(() => (
+  (Object.keys(date) as DatepickerDatePart[]).reduce<Record<string, DatepickerDatePart>>(
+    (ids, key) => ({
+      ...ids,
+      [getInputAttrs(key).inputAttrs.id]: key,
+    }),
+    {},
+  )));
+provide<ComputedRef<Record<string, DatepickerDatePart>>>('inputsIds', inputsIds);
 </script>
 
 <style lang="scss">

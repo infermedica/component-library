@@ -52,7 +52,7 @@ import UiBulletPointsItem from './_internal/UiBulletPointsItem.vue';
 import type { BulletPointsItemAttrsProps } from './_internal/UiBulletPointsItem.vue';
 import type {
   DefineAttrsProps,
-  IconName,
+  Icon,
   HTMLListTag,
 } from '../../../types';
 
@@ -85,7 +85,7 @@ export interface BulletPointsProps {
   /**
    * Use this props to set the bullet point icon.
    */
-  icon?: IconName;
+  icon?: Icon;
 }
 export type BulletPointsAttrsProps = DefineAttrsProps<BulletPointsProps, LiHTMLAttributes | OlHTMLAttributes>;
 

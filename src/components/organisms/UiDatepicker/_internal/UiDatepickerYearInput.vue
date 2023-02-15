@@ -4,12 +4,9 @@
     v-model="year"
     :class="{ 'ui-input--has-error': hasError || error }"
     :placeholder="translation.placeholderYear"
-    maxlength="4"
-    inputmode="numeric"
-    pattern="[0-9]*"
-    autocomplete="off"
+    :input-attrs="defaultProps.inputAttrs"
     @blur="standardizeYearFormat"
-    @input="checkYear"
+    @input="checkYear($event as InputEvent)"
     @keydown="numbersOnly"
   />
 </template>
@@ -19,55 +16,78 @@ import {
   computed,
   inject,
   nextTick,
+  ref,
 } from 'vue';
 import type { Ref } from 'vue';
 import { removeNonDigits } from '../../../../utilities/helpers/index';
 import UiInput from '../../../atoms/UiInput/UiInput.vue';
+import type { InputAttrsProps } from '../../../atoms/UiInput/UiInput.vue';
 import useKeyValidation from '../../../../composable/useKeyValidation';
 import type { DatepickerTranslation } from '../UiDatepicker.vue';
+import type { DefineAttrsProps } from '../../../../types';
 
-const props = defineProps({
+export interface DatepickerYearInputProps {
   /**
    * Use this props or v-model to set value.
    */
-  modelValue: {
-    type: String,
-    default: '',
-  },
+  modelValue?: string;
   /**
    * Use this props to set input in error state manually
    */
-  error: {
-    type: Boolean,
-    default: false,
-  },
+  error?: boolean;
   /**
    * Use this props to set input value validation status
    */
-  valid: {
-    type: Boolean,
-    default: false,
-  },
+  valid?: boolean;
+  /**
+   *  Use this props to pass attrs to input.
+   */
+  inputAttrs?: InputAttrsProps['inputAttrs'];
+}
+export type DatepickerYearInputAttrsProps = DefineAttrsProps<DatepickerYearInputProps, InputAttrsProps>;
+export interface DatepickerYearInputEmits {
+  (e: 'update:modelValue', value: string): void;
+  (e: 'change-input', value: 'year'): void;
+}
+
+const props = withDefaults(defineProps<DatepickerYearInputProps>(), {
+  modelValue: '',
+  error: false,
+  valid: false,
+  inputAttrs: () => ({
+    maxlength: '4',
+    inputmode: 'numeric',
+    autocomplete: 'off',
+    pattern: '[0-9]*',
+  }),
 });
-const emit = defineEmits<{(e: 'update:modelValue', value: string): void, (e: 'change-input', value: 'year'): void }>();
-const translation = inject('translation') as DatepickerTranslation;
-const unfulfilledYearError = inject('unfulfilledYear') as Ref<boolean>;
+const defaultProps = computed(() => ({
+  inputAttrs: {
+    maxLength: '4',
+    inputMode: 'numeric',
+    autocomplete: 'off',
+    pattern: '[0-9]*',
+    ...props.inputAttrs,
+  },
+}));
+const emit = defineEmits<DatepickerYearInputEmits>();
+const translation = inject<DatepickerTranslation>('translation', { placeholderYear: 'YYYY' });
+const unfulfilledYearError = inject<Ref<boolean>>('unfulfilledYear', ref(false));
 const { numbersOnly } = useKeyValidation();
 const year = computed({
-  get: () => (`${props.modelValue}`),
+  get: () => props.modelValue,
   set: (value) => { emit('update:modelValue', removeNonDigits(value)); },
 });
 const validationError = computed(() => (year.value.length === 4 && !props.valid));
 const hasError = computed(() => (validationError.value || unfulfilledYearError.value || props.error));
-async function checkYear(event: Event) {
+const checkYear = async ({ data }: InputEvent) => {
   unfulfilledYearError.value = false;
-  const inputValue = (event as InputEvent).data;
   await nextTick();
-  if (inputValue && year.value.length === 4 && props.valid) {
+  if (data && year.value.length === 4 && props.valid) {
     emit('change-input', 'year');
   }
-}
-function standardizeYearFormat(): void {
+};
+const standardizeYearFormat = () => {
   if (year.value.length > 0 && year.value.length < 4) unfulfilledYearError.value = true;
-}
+};
 </script>

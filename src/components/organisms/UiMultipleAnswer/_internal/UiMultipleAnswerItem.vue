@@ -41,148 +41,144 @@ import {
   computed,
   useSlots,
 } from 'vue';
-import type { PropType } from 'vue';
-import type { MultipleAnswerLabelAttrs } from '../UiMultipleAnswer.vue';
+import { focusElement } from '../../../../utilities/helpers/index';
+import type { TextAttrsProps } from '../../../atoms/UiText/UiText.vue';
+import type { ButtonAttrsProps } from '../../../atoms/UiButton/UiButton.vue';
+import type { IconAttrsProps } from '../../../atoms/UiIcon/UiIcon.vue';
+import type { MultipleAnswerModelValue } from '../UiMultipleAnswer.vue';
 import UiCheckbox from '../../../atoms/UiCheckbox/UiCheckbox.vue';
 import UiListItem from '../../UiList/_internal/UiListItem.vue';
+import type { ListItemAttrsProps } from '../../UiList/_internal/UiListItem.vue';
 import UiRadio from '../../../atoms/UiRadio/UiRadio.vue';
-import { focusElement } from '../../../../utilities/helpers/index';
+import type {
+  DefineAttrsProps,
+  HTMLTag,
+  Icon,
+} from '../../../../types';
 
-export type ComponentName = 'ui-checkbox' | 'ui-radio';
-const props = defineProps({
+export interface MultipleAnswerItemTranslation {
+  info?: string;
+}
+export interface MultipleAnswerItemProps {
   /**
    * Use this props to set invalid state of item.
    */
-  invalid: {
-    type: Boolean,
-    default: true,
-  },
+  invalid?: boolean;
   /**
    *  Use this props or v-model to set checked.
    */
-  modelValue: {
-    type: [
-      String,
-      Object,
-      Array,
-    ],
-    default: () => ([]),
-  },
+  modelValue?: MultipleAnswerModelValue;
   /**
    * Use this props to set value of item.
    */
-  value: {
-    type: [
-      String,
-      Object,
-    ],
-    default: '',
-  },
+  value?: MultipleAnswerModelValue;
   /**
    * Use this props to set label of item.
    */
-  label: {
-    type: String,
-    default: '',
-  },
+  label?: string;
   /**
    * Use this props to set id of item.
    */
-  id: {
-    type: String,
-    default: '',
-  },
+  id?: string;
   /**
    * Use this props to pass attrs for label UiText.
    */
-  textLabelAttrs: {
-    type: Object as PropType<MultipleAnswerLabelAttrs>,
-    default: () => ({}),
-  },
+  textLabelAttrs?: TextAttrsProps;
   /**
    * Use this props to pass attrs for info UiButton.
    */
-  buttonInfoAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
+  buttonInfoAttrs?: ButtonAttrsProps;
   /**
    * Use this props to pass attrs for info label element.
    */
-  labelInfoAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
+  labelInfoAttrs?: DefineAttrsProps<null>;
   /**
    *  Use this props to pass attrs for info UiIcon.
    */
-  iconInfoAttrs: {
-    type: Object,
-    default: () => ({ icon: 'info' }),
-  },
+  iconInfoAttrs?: IconAttrsProps;
   /**
    * Use this props to pass labels inside component translation.
    */
-  translation: {
-    type: Object,
-    default: () => ({ info: 'What does it mean?' }),
-  },
+  translation?: MultipleAnswerItemTranslation;
+}
+export type MultipleAnswerItemAttrsProps = DefineAttrsProps<MultipleAnswerItemProps, ListItemAttrsProps>
+export interface MultipleAnswerItemEmits {
+  (e: 'update:modelValue', value: MultipleAnswerModelValue): void;
+}
+
+const props = withDefaults(defineProps<MultipleAnswerItemProps>(), {
+  invalid: true,
+  modelValue: () => ([]),
+  value: '',
+  label: '',
+  id: '',
+  textLabelAttrs: () => ({
+    tag: 'span',
+    class: 'ui-multiple-answer-item__label',
+  }),
+  buttonInfoAttrs: () => ({}),
+  labelInfoAttrs: () => ({}),
+  iconInfoAttrs: () => ({ icon: 'info' }),
+  translation: () => ({ info: 'What does it mean?' }),
 });
-const emit = defineEmits([ 'update:modelValue' ]);
+const defaultProps = computed(() => {
+  const tag: HTMLTag = 'span';
+  const icon: Icon = 'info';
+  return {
+    translation: {
+      info: 'What does it mean?',
+      ...props.translation,
+    },
+    textLabelAttrs: {
+      tag,
+      class: 'ui-multiple-answer-item__label',
+      ...props.textLabelAttrs,
+    },
+    iconInfoAttrs: {
+      icon,
+      ...props.iconInfoAttrs,
+    },
+  };
+});
+const emit = defineEmits<MultipleAnswerItemEmits>();
 const isCheckbox = computed(() => (Array.isArray(props.modelValue)));
 const component = computed(() => (isCheckbox.value ? UiCheckbox : UiRadio));
-const componentName = computed<ComponentName>(() => (isCheckbox.value ? 'ui-checkbox' : 'ui-radio'));
+const componentName = computed(() => (isCheckbox.value ? 'ui-checkbox' : 'ui-radio'));
 const errorClass = computed(() => (props.invalid
   ? [
     `${componentName.value}--has-error`,
     'ui-list-item--has-error',
   ]
   : []));
-
-function handleInfoFocus(event: KeyboardEvent) {
-  if (event.key !== 'ArrowRight') return;
-  const input = event.target as HTMLInputElement;
+const handleInfoFocus = ({
+  key, target, preventDefault,
+}: KeyboardEvent) => {
+  if (key !== 'ArrowRight') return;
+  const input = target as HTMLInputElement;
   const info: HTMLElement | null | undefined = input
     .closest('.ui-multiple-answer-item')
     ?.querySelector('.ui-multiple-answer-item__info');
   if (info) {
-    event.preventDefault();
+    preventDefault();
     focusElement(info);
   }
-}
-function handleInfoUnfocus(event: KeyboardEvent) {
-  if (event.key !== 'ArrowLeft') return;
-  const info = event.target as HTMLElement;
+};
+const handleInfoUnfocus = ({
+  key, target, preventDefault,
+}: KeyboardEvent) => {
+  if (key !== 'ArrowLeft') return;
+  const info = target as HTMLElement;
   const input: HTMLInputElement | null | undefined = info
     .closest('.ui-multiple-answer-item')
     ?.querySelector('input');
   if (input) {
-    event.preventDefault();
+    preventDefault();
     focusElement(input);
   }
-}
-const handleValueUpdate = (newValue: Record<string, unknown> | Record<string, unknown>[] | string[]) => {
+};
+const handleValueUpdate = (newValue: MultipleAnswerModelValue) => {
   emit('update:modelValue', newValue);
 };
-
-const defaultProps = computed(() => ({
-  translation: {
-    ...{ info: 'What does it mean?' },
-    ...props.translation,
-  },
-  textLabelAttrs: {
-    tag: 'span',
-    ...props.textLabelAttrs,
-    class: [
-      'ui-multiple-answer-item__label',
-      props.textLabelAttrs?.class,
-    ],
-  },
-  iconInfoAttrs: {
-    icon: 'info',
-    ...props.iconInfoAttrs,
-  },
-}));
 const suffixAttrs = computed(() => ({
   label: defaultProps.value.translation.info,
   tabindex: -1,

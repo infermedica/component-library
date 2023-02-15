@@ -32,50 +32,46 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { PropType } from 'vue';
-import type { PropsAttrs } from '../../../../types/attrs';
-import type { Icon } from '../../../../types/icon';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
+import type { ButtonAttrsProps } from '../../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
+import type { IconAttrsProps } from '../../../atoms/UiIcon/UiIcon.vue';
+import type {
+  DefineAttrsProps,
+  Icon,
+} from '../../../../types';
 
-const props = defineProps({
+export interface ListItemSuffixAsButtonProps {
   /**
    * Use this props to set label.
    */
-  label: {
-    type: String,
-    default: '',
-  },
+  label?: string;
   /**
    * Use this props to set icon.
    */
-  icon: {
-    type: [
-      String,
-      Object,
-    ] as PropType<Icon>,
-    default: '',
-  },
+  icon?: Icon;
   /**
    * Use this props to pass attrs for suffix UiIcon.
    */
-  iconSuffixAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  iconSuffixAttrs?: IconAttrsProps;
   /**
    * Use this props to pass attrs for label element.
    */
-  labelSuffixAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  labelSuffixAttrs?: DefineAttrsProps<null>;
+}
+export type ListItemSuffixAsButtonAttrsProps = DefineAttrsProps<ListItemSuffixAsButtonProps, ButtonAttrsProps>;
+
+const props = withDefaults(defineProps<ListItemSuffixAsButtonProps>(), {
+  label: '',
+  icon: '',
+  iconSuffixAttrs: () => ({}),
+  labelSuffixAttrs: () => ({}),
 });
 const defaultProps = computed(() => ({
   iconSuffixAttrs: {
-    icon: props.icon as Icon,
+    icon: props.icon,
     ...props.iconSuffixAttrs,
   },
 }));
-const hasIcon = computed(() => (!!defaultProps.value.iconSuffixAttrs.icon));
+const hasIcon = computed(() => (!!defaultProps.value.iconSuffixAttrs?.icon));
 </script>

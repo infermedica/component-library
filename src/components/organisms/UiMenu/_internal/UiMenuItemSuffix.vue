@@ -25,40 +25,37 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { PropType } from 'vue';
-import type { PropsAttrs } from '../../../../types/attrs';
-import type { Icon } from '../../../../types/icon';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
+import type { IconAttrsProps } from '../../../atoms/UiIcon/UiIcon.vue';
+import type {
+  DefineAttrsProps,
+  Icon,
+} from '../../../../types';
 
-const props = defineProps({
+export interface MenuItemSuffixProps {
   /**
    * Use this props to set label.
    */
-  label: {
-    type: String,
-    default: '',
-  },
+  label?: string;
   /**
    * Use this props to set icon.
    */
-  icon: {
-    type: [
-      String,
-      Object,
-    ] as PropType<Icon>,
-    default: 'checkmark',
-  },
+  icon?: Icon;
   /**
    * Use this props to pass attrs for suffix UIIcon
    */
-  iconSuffixAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  iconSuffixAttrs?: IconAttrsProps;
+}
+export type MenuItemSuffixAttrsProps = DefineAttrsProps<MenuItemSuffixProps>;
+
+const props = withDefaults(defineProps<MenuItemSuffixProps>(), {
+  label: '',
+  icon: 'checkmark',
+  iconSuffixAttrs: () => ({}),
 });
 const defaultProps = computed(() => ({
   iconSuffixAttrs: {
-    icon: props.icon as Icon,
+    icon: props.icon,
     ...props.iconSuffixAttrs,
   },
 }));

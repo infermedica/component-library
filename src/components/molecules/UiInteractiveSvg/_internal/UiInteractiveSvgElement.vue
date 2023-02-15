@@ -26,13 +26,16 @@ import {
 } from 'vue';
 import type { Ref } from 'vue';
 import type { InteractiveSvgFunc } from '../UiInteractiveSvg.vue';
-import type { DefineAttrsProps } from '../../../../types';
+import type {
+  DefineAttrsProps,
+  HTMLTag,
+} from '../../../../types';
 
 export interface InteractiveSvgElementProps {
   /**
   *  Use this props to set component tag.
   */
-  tag?: string;
+  tag?: HTMLTag;
 }
 export type InteractiveSvgElementAttrsProps = DefineAttrsProps<InteractiveSvgElementProps>;
 

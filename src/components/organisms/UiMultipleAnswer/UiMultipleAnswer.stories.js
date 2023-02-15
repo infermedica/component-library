@@ -149,7 +149,7 @@ WithButtonInfo.args = {
 
 export const WithSingleChoice = Template.bind({});
 WithSingleChoice.args = {
-  initModelValue: {},
+  initModelValue: '',
   hint: 'Select one answer.',
   items: [
     {
@@ -252,7 +252,7 @@ export const WithListItemSlot = (args) => ({
       item,
       name,
       hasError,
-    }"> 
+    }">
       <UiMultipleAnswerItem
         v-model="modelValue"
         v-bind="item"
@@ -302,8 +302,8 @@ export const WithChoiceSlot = (args) => ({
         :is="component"
         v-model="modelValue"
         :value="value"
-        :class="[ 
-          'ui-list-item__content', 
+        :class="[
+          'ui-list-item__content',
           { 'ui-checkbox--has-error ui-list-item--has-error': invalid },
         ]"
       >

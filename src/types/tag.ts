@@ -1,3 +1,5 @@
-export type HTMLTag = keyof HTMLElementTagNameMap;
+import type { Component } from 'vue';
 
-export type HTMLListTag = 'ol'|'ul';
+export type HTMLTag = keyof HTMLElementTagNameMap | keyof SVGElementTagNameMap | Component;
+
+export type HTMLListTag = 'ol' | 'ul' | Component;

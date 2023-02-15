@@ -190,7 +190,7 @@
                     class="ui-modal__confirm"
                     @click="confirmHandler"
                   >
-                    {{ defaultProps.translation.confirm }}
+                    {{ defaultProps.translation!.confirm }}
                   </UiButton>
                 </slot>
                 <!-- @slot Use this slot to replace cancel button template. -->
@@ -209,7 +209,7 @@
                     class="ui-button--outlined ui-modal__cancel"
                     @click="cancelHandler"
                   >
-                    {{ defaultProps.translation.cancel }}
+                    {{ defaultProps.translation!.cancel }}
                   </UiButton>
                 </slot>
               </template>
@@ -231,7 +231,7 @@
                     class="ui-button--outlined ui-modal__cancel"
                     @click="cancelHandler"
                   >
-                    {{ defaultProps.translation.cancel }}
+                    {{ defaultProps.translation!.cancel }}
                   </UiButton>
                 </slot>
                 <!-- @slot Use this slot to replace confirm button template. -->
@@ -250,7 +250,7 @@
                     class="ui-modal__confirm ui-modal__confirm--order"
                     @click="confirmHandler"
                   >
-                    {{ defaultProps.translation.confirm }}
+                    {{ defaultProps.translation!.confirm }}
                   </UiButton>
                 </slot>
               </template>
@@ -270,213 +270,181 @@ import {
   onBeforeUnmount,
   onMounted,
 } from 'vue';
-import type { PropType } from 'vue';
-import type { HeadingProps } from '../../atoms/UiHeading/UiHeading.vue';
-import type { PropsAttrs } from '../../../types/attrs';
+import type {
+  DialogHTMLAttributes,
+  TransitionProps,
+} from 'vue';
 import {
   bodyScrollLock as vBodyScrollLock,
   focusTrap as vFocusTrap,
 } from '../../../utilities/directives';
 import { focusElement } from '../../../utilities/helpers/index';
 import UiBackdrop from '../../atoms/UiBackdrop/UiBackdrop.vue';
+import type { BackdropAttrsProps } from '../../atoms/UiBackdrop/UiBackdrop.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
+import type { ButtonAttrsProps } from '../../atoms/UiButton/UiButton.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
+import type {
+  HeadingProps,
+  HeadingAttrsProps,
+} from '../../atoms/UiHeading/UiHeading.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
+import type { IconAttrsProps } from '../../atoms/UiIcon/UiIcon.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
-import type { Icon } from '../../../types/icon';
+import type { TextAttrsProps } from '../../atoms/UiText/UiText.vue';
+import type {
+  DefineAttrsProps,
+  Icon,
+} from '../../../types';
 
 export interface ModalTranslation {
   confirm?: string;
   cancel?: string;
-  [key: string]: string | undefined;
 }
-const props = defineProps({
+export interface ModalProps {
   /**
    * Use this props to set dialog visibility.
    */
-  modelValue: {
-    type: Boolean,
-    default: false,
-  },
+  modelValue?: boolean;
   /**
    * Use this props to set dialog title.
    */
-  title: {
-    type: String,
-    default: '',
-  },
+  title?: string;
   /**
    * Use this props to set dialog description.
    */
-  description: {
-    type: String,
-    default: '',
-  },
+  description?: string;
   /**
    * Use this props to hide close icon.
    */
-  isClosable: {
-    type: Boolean,
-    default: true,
-  },
+  isClosable?: boolean;
   /**
    * Use this props to hide cancel UiButton.
    */
-  hasCancel: {
-    type: Boolean,
-    default: true,
-  },
+  hasCancel?: boolean;
   /**
    * Use this props to hide confirm UiButton.
    */
-  hasConfirm: {
-    type: Boolean,
-    default: true,
-  },
+  hasConfirm?: boolean;
   /**
    * Use this props to override labels inside component translation.
    */
-  translation: {
-    type: Object as PropType<ModalTranslation>,
-    default: () => ({
-      confirm: 'Ok',
-      cancel: 'Cancel',
-    }),
-  },
+  translation?: ModalTranslation;
   /**
    * Use this props to pass attrs for backdrop Transition
    */
-  transitionBackdropAttrs: {
-    type: Object,
-    default: () => ({
-      appear: true,
-      name: 'fade',
-    }),
-  },
+  transitionBackdropAttrs?: TransitionProps;
   /**
    * Use this props to pass attrs for UiBackdrop
    */
-  backdropAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
+  backdropAttrs?: BackdropAttrsProps;
   /**
    * Use this props to pass attrs for dialog element
    */
-  dialogAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
+  dialogAttrs?: DefineAttrsProps<null, DialogHTMLAttributes>;
   /**
    * Use this props to pass attrs for dialog Transition
    */
-  transitionDialogAttrs: {
-    type: Object,
-    default: () => ({
-      appear: true,
-      name: 'fade',
-    }),
-  },
+  transitionDialogAttrs?: TransitionProps;
   /**
    * Use this props to pass attrs for title UiHeading
    */
-  headingTitleAttrs: {
-    type: Object,
-    default: () => ({ level: 2 }),
-  },
+  headingTitleAttrs?: HeadingAttrsProps;
   /**
    * Use this props to pass attrs for description UiText
    */
-  textDescriptionAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
+  textDescriptionAttrs?: TextAttrsProps;
   /**
    * Use this props to pass attrs for confirm UiButton.
    */
-  buttonConfirmAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  buttonConfirmAttrs?: ButtonAttrsProps;
   /**
    * Use this props to pass attrs for cancel UiButton.
    */
-  buttonCancelAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  buttonCancelAttrs?: ButtonAttrsProps;
   /**
    * Use this props to pass attrs for close UiButton.
    */
-  buttonCloseAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  buttonCloseAttrs?: ButtonAttrsProps;
   /**
    * Use this props to pass attrs for close UiIcon
    */
-  iconCloseAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({ icon: 'close' }),
-  },
-});
-const button = ref<InstanceType<typeof UiButton>|null>(null);
-async function enterHandler() {
-  await nextTick();
-  focusElement(button.value?.$el, true);
+  iconCloseAttrs?: IconAttrsProps;
 }
-interface Transition {
-  name: string;
-  appear: boolean;
-  [key: string]: unknown;
+export type ModalAttrsProps = DefineAttrsProps<ModalProps>;
+export interface ModalEmits {
+  (e: 'cancel'): void;
+  (e:'confirm'): void;
+  (e:'update:modelValue', value: boolean): void;
 }
-interface DefaultProps {
-  translation: ModalTranslation;
-  iconCloseAttrs: {
-    icon: Icon;
-    [key: string]: unknown;
-  };
-  headingTitleAttrs: {
-    level: HeadingProps['level'];
-    [key: string]: unknown;
-  };
-  transitionBackdropAttrs: Transition;
-  transitionDialogAttrs: Transition;
-  [key: string]: unknown;
-}
-const defaultProps = computed<DefaultProps>(() => ({
-  translation: {
+const props = withDefaults(defineProps<ModalProps>(), {
+  modelValue: false,
+  title: '',
+  description: '',
+  isClosable: true,
+  hasCancel: true,
+  hasConfirm: true,
+  translation: () => ({
     confirm: 'Ok',
     cancel: 'Cancel',
-    ...props.translation,
-  },
-  iconCloseAttrs: {
-    icon: 'close',
-    ...props.iconCloseAttrs,
-  },
-  headingTitleAttrs: {
-    level: 2,
-    ...props.headingTitleAttrs,
-  },
-  transitionBackdropAttrs: {
+  }),
+  transitionBackdropAttrs: () => ({
     appear: true,
     name: 'fade',
-    ...props.transitionBackdropAttrs,
-  },
-  transitionDialogAttrs: {
+  }),
+  backdropAttrs: () => ({}),
+  dialogAttrs: () => ({}),
+  transitionDialogAttrs: () => ({
     appear: true,
     name: 'fade',
-    onEnter: enterHandler,
-    ...props.transitionDialogAttrs,
-  },
-}));
-const emit = defineEmits<{(e: 'cancel'): void, (e:'confirm'): void, (e:'update:modelValue', value: boolean): void}>();
+  }),
+  headingTitleAttrs: () => ({ level: 2 }),
+  textDescriptionAttrs: () => ({}),
+  buttonConfirmAttrs: () => ({}),
+  buttonCancelAttrs: () => ({}),
+  buttonCloseAttrs: () => ({}),
+  iconCloseAttrs: () => ({ icon: 'close' }),
+});
+const button = ref<InstanceType<typeof UiButton>|null>(null);
+const enterHandler = async () => {
+  await nextTick();
+  focusElement(button.value?.$el, true);
+};
+const defaultProps = computed(() => {
+  const icon: Icon = 'close';
+  const level: HeadingProps['level'] = 2;
+  return {
+    translation: {
+      confirm: 'Ok',
+      cancel: 'Cancel',
+      ...props.translation,
+    },
+    iconCloseAttrs: {
+      icon,
+      ...props.iconCloseAttrs,
+    },
+    headingTitleAttrs: {
+      level,
+      ...props.headingTitleAttrs,
+    },
+    transitionBackdropAttrs: {
+      appear: true,
+      name: 'fade',
+      ...props.transitionBackdropAttrs,
+    },
+    transitionDialogAttrs: {
+      appear: true,
+      name: 'fade',
+      onEnter: enterHandler,
+      ...props.transitionDialogAttrs,
+    },
+  };
+});
+const emit = defineEmits<ModalEmits>();
 const hasActions = computed(() => props.hasCancel || props.hasConfirm);
-const hasDescription = computed(() => !!props.title && !!props.description);
-const hasHeader = computed(() => !!props.title || !!props.description || !!props.isClosable);
-const titleSlotName = computed(() => (props.title
-  ? 'title'
-  : 'description'));
+const hasDescription = computed(() => !!(props.title && props.description));
+const hasHeader = computed(() => !!(props.title || props.description || props.isClosable));
+const titleSlotName = computed(() => (props.title ? 'title' : 'description'));
 const titleTag = computed(() => (props.title
   ? UiHeading
   : UiText));
@@ -484,23 +452,21 @@ const titleText = computed(() => props.title || props.description);
 const titleAttrs = computed(() => (props.title
   ? defaultProps.value.headingTitleAttrs
   : props.textDescriptionAttrs));
-
-function closeHandler(): void {
+const closeHandler = () => {
   if (!props.isClosable) return;
   emit('update:modelValue', false);
-}
-function keydownHandler(event: Event) {
-  const { key } = event as KeyboardEvent;
+};
+const keydownHandler = ({ key }: KeyboardEvent) => {
   if (key !== 'Escape') return;
   closeHandler();
-}
-function confirmHandler(): void {
+};
+const confirmHandler = () => {
   emit('confirm');
-}
-function cancelHandler(): void {
+};
+const cancelHandler = () => {
   emit('cancel');
   emit('update:modelValue', false);
-}
+};
 onMounted(() => {
   if (!props.isClosable) return;
   window.addEventListener('keydown', keydownHandler);
