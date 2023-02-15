@@ -1,9 +1,4 @@
-import type {
-  HTMLAttributes,
-  PropType,
-} from 'vue';
-
-export type PropsAttrs = PropType<Record<string, unknown>>;
+import type { HTMLAttributes } from 'vue';
 
 export type Attrs<ElementAttrs = HTMLAttributes> = ElementAttrs & {
   'data-testid'?: string;
