@@ -37,38 +37,41 @@ export default { inheritAttrs: false };
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { HTMLAttributes } from 'vue';
+import type {
+  ButtonHTMLAttributes,
+  HTMLAttributes,
+} from 'vue';
 import useAttributes from '../../../../composable/useAttributes';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
+import type { ButtonAttrsProps } from '../../../atoms/UiButton/UiButton.vue';
 import UiText from '../../../atoms/UiText/UiText.vue';
+import type { TextAttrsProps } from '../../../atoms/UiText/UiText.vue';
 import UiListItem from '../../../organisms/UiList/_internal/UiListItem.vue';
-import type { Attrs } from '../../../../types';
+import type { DefineAttrsProps } from '../../../../types';
 
-const props = defineProps({
+export interface StepperStepProps {
   /**
    * Use this props to pass index of current step.
    */
-  index: {
-    type: Number,
-    default: 0,
-  },
+  index?: number;
   /**
    * Use this props to pass index of active step.
    */
-  indexOfActiveStep: {
-    type: Number,
-    default: 0,
-  },
+  activeStepIndex?: number;
   /**
    * Use this props to set the step label.
    */
-  label: {
-    type: String,
-    default: '',
-  },
+  label?: string;
+}
+export type StepperStepAttrsProps = DefineAttrsProps<StepperStepProps, ButtonAttrsProps | TextAttrsProps>
+
+const props = withDefaults(defineProps<StepperStepProps>(), {
+  index: 0,
+  activeStepIndex: 0,
+  label: '',
 });
-const isCurrentStep = computed(() => props.index === props.indexOfActiveStep);
-const isVisitedStep = computed(() => props.index < props.indexOfActiveStep);
+const isCurrentStep = computed(() => props.index === props.activeStepIndex);
+const isVisitedStep = computed(() => props.index < props.activeStepIndex);
 const listItemAttrs = computed(() => ({
   class: [
     'ui-stepper-step',
@@ -90,15 +93,15 @@ const itemClass = computed(() => (isVisitedStep.value
 ));
 const {
   attrs, listeners,
-} = useAttributes();
-const itemAttrs = computed(() => (isVisitedStep.value
+} = useAttributes<ButtonHTMLAttributes | HTMLAttributes>();
+const itemAttrs = computed<ButtonAttrsProps | TextAttrsProps>(() => (isVisitedStep.value
   ? {
     ...listeners.value,
     ...attrs.value,
   }
   : {
     tag: 'span',
-    ...Object.keys(attrs.value).reduce((attributes: Attrs<HTMLAttributes>, attribute) => {
+    ...Object.keys(attrs.value).reduce((attributes: TextAttrsProps, attribute) => {
       if (!attribute.match(/(to|href)/)) {
         attributes[attribute] = attrs.value[attribute]; // eslint-disable-line no-param-reassign
       }

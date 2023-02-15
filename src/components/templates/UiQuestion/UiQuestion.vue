@@ -142,12 +142,12 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { PropType } from 'vue';
-import type { NotificationType } from '../../molecules/UiNotification/UiNotification.vue';
 import type { PropsAttrs } from '../../../types/attrs';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import UiNotification from '../../molecules/UiNotification/UiNotification.vue';
+import type { NotificationProps } from '../../molecules/UiNotification/UiNotification.vue';
 import type { Icon } from '../../../types/icon';
 
 export interface QuestionTranslation {
@@ -299,7 +299,7 @@ const defaultProps = computed(() => ({
     ...props.iconInfoAttrs,
   },
   notificationFeedbackAttrs: {
-    type: 'success' as NotificationType,
+    type: 'success' as NotificationProps['type'],
     ...props.notificationFeedbackAttrs,
     buttonActionAttrs: defaultButtonActionAttrs.value,
   },

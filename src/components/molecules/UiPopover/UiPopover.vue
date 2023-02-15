@@ -72,65 +72,70 @@ import {
   useAttrs,
   computed,
 } from 'vue';
-import type { HeadingAttrsProps } from '../../atoms/UiHeading/UiHeading.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
+import type { HeadingAttrsProps } from '../../atoms/UiHeading/UiHeading.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
+import type { ButtonAttrsProps } from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
-import type { PropsAttrs } from '../../../types/attrs';
-import type { Icon } from '../../../types/icon';
+import type { IconAttrsProps } from '../../atoms/UiIcon/UiIcon.vue';
+import type { DefineAttrsProps } from '../../../types';
 
-const props = defineProps({
+export interface PopoverProps {
   /**
    * Use this props to pass title for popover.
    */
-  title: {
-    type: String,
-    default: '',
-  },
+  title?: string;
   /**
    * Use this props to pass attrs to title UiHeading.
    */
-  headingTitleAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({
-      level: '4',
-      tag: 'span',
-    }),
-  },
+  headingTitleAttrs?: HeadingAttrsProps;
   /**
    * Use this props to pass attrs to close UiButton.
    */
-  buttonCloseAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  buttonCloseAttrs?: ButtonAttrsProps;
   /**
    * Use this props to pass attrs to close UiIcon.
    */
-  iconCloseAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({ icon: 'clear' }),
-  },
-});
-const defaultProps = computed(() => ({
-  headingTitleAttrs: {
+  iconCloseAttrs?: IconAttrsProps;
+}
+export type PopoverAttrsProps = DefineAttrsProps<PopoverProps>;
+export interface PopoverEmits {
+  (e: 'close'): void;
+}
+
+const props = withDefaults(defineProps<PopoverProps>(), {
+  title: '',
+  headingTitleAttrs: () => ({
     level: '4',
     tag: 'span',
-    ...props.headingTitleAttrs,
-  } as HeadingAttrsProps,
-  iconCloseAttrs: {
-    icon: 'clear' as Icon,
-    ...props.iconCloseAttrs,
-  },
-}));
-const emit = defineEmits<{(e: 'close'): void}>();
-function clickHandler(): void {
+  }),
+  buttonCloseAttrs: () => ({}),
+  iconCloseAttrs: () => ({ icon: 'clear' }),
+});
+const defaultProps = computed(() => {
+  const level: HeadingAttrsProps['level'] = '4';
+  const tag: HeadingAttrsProps['tag'] = 'span';
+  const icon: IconAttrsProps['icon'] = 'clear';
+  return {
+    headingTitleAttrs: {
+      level,
+      tag,
+      ...props.headingTitleAttrs,
+    },
+    iconCloseAttrs: {
+      icon,
+      ...props.iconCloseAttrs,
+    },
+  };
+});
+const emit = defineEmits<PopoverEmits>();
+const clickHandler = () => {
   emit('close');
-}
-function keydownHandler({ key }: {key: string}): void {
+};
+const keydownHandler = ({ key }: KeyboardEvent) => {
   if (key !== 'Escape') return;
   emit('close');
-}
+};
 onMounted(() => {
   window.addEventListener('keydown', keydownHandler);
 });

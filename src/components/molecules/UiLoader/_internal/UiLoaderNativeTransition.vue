@@ -11,13 +11,15 @@
 </template>
 
 <script setup lang="ts">
-defineProps({
+import type { TransitionProps } from 'vue';
+import type { DefineAttrsProps } from '../../../../types';
+
+export interface LoaderNativeTransitionProps {
   /**
    * Use this props to show UiLoader component
    */
-  isLoading: {
-    type: Boolean,
-    default: true,
-  },
-});
+  isLoading?: boolean;
+}
+export type LoaderNativeTransitionAttrsProps = DefineAttrsProps<LoaderNativeTransitionProps, TransitionProps>;
+withDefaults(defineProps<LoaderNativeTransitionProps>(), { isLoading: true });
 </script>

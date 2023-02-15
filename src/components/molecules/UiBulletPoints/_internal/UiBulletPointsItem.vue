@@ -18,7 +18,6 @@
       <UiText
         v-else
         v-bind="defaultProps.textMarkerAttrs"
-        tag="span"
         class="ui-bullet-points-item__marker"
       />
     </slot>
@@ -43,58 +42,60 @@ import {
   inject,
 } from 'vue';
 import type {
-  PropType,
   ComputedRef,
+  LiHTMLAttributes,
 } from 'vue';
-import type {
-  IconName,
-  ListTag,
-} from '../../../../types';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
+import type { IconAttrsProps } from '../../../atoms/UiIcon/UiIcon.vue';
 import UiText from '../../../atoms/UiText/UiText.vue';
+import type { TextAttrsProps } from '../../../atoms/UiText/UiText.vue';
+import type {
+  DefineAttrsProps,
+  HTMLListTag,
+  IconName,
+} from '../../../../types';
 
-const props = defineProps({
+export interface BulletPointsItemProps {
   /**
    * Use this props to set the bullet point icon.
    */
-  icon: {
-    type: String as PropType<IconName>,
-    default: 'bullet-common',
-  },
+  icon?: IconName;
   /**
    * Use this props to pass attrs for marker UiIcon
    */
-  iconMarkerAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
+  iconMarkerAttrs?: IconAttrsProps;
   /**
    * Use this props to pass attrs for checkmark UiIcon
    */
-  textMarkerAttrs: {
-    type: Object,
-    default: () => ({ tag: 'span' }),
-  },
+  textMarkerAttrs?: TextAttrsProps;
   /**
    * Use this props to pass attrs for text content UiText
    */
-  textContentAttrs: {
-    type: Object,
-    default: () => ({ }),
-  },
+  textContentAttrs?: TextAttrsProps;
+}
+export type BulletPointsItemAttrsProps = DefineAttrsProps<BulletPointsItemProps, LiHTMLAttributes>;
+
+const props = withDefaults(defineProps<BulletPointsItemProps>(), {
+  icon: 'bullet-common',
+  iconMarkerAttrs: () => ({}),
+  textMarkerAttrs: () => ({ tag: 'span' }),
+  textContentAttrs: () => ({ }),
 });
-const tag = inject('tag') as ComputedRef<ListTag>;
+const defaultProps = computed(() => {
+  const tag: TextAttrsProps['tag'] = 'span';
+  return {
+    iconMarkerAttrs: {
+      icon: props.icon,
+      ...props.iconMarkerAttrs,
+    },
+    textMarkerAttrs: {
+      tag,
+      ...props.textMarkerAttrs,
+    },
+  };
+});
+const tag = inject<ComputedRef<HTMLListTag>>('tag', computed(() => 'ul'));
 const isUnordered = computed(() => tag.value === 'ul');
-const defaultProps = computed(() => ({
-  iconMarkerAttrs: {
-    icon: props.icon,
-    ...props.iconMarkerAttrs,
-  },
-  textMarkerAttrs: {
-    tag: 'span',
-    ...props.textMarkerAttrs,
-  },
-}));
 </script>
 
 <style lang="scss">

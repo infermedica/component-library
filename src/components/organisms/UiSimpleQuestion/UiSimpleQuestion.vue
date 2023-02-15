@@ -39,11 +39,11 @@ import {
 } from 'vue';
 import type { PropType } from 'vue';
 import UiTile from '../../molecules/UiTile/UiTile.vue';
-import type { TileValue } from '../../molecules/UiTile/UiTile.vue';
+import type { TileModelValue } from '../../molecules/UiTile/UiTile.vue';
 import type { Icon } from '../../../types/icon';
 
 export interface SimpleQuestionOption {
-  value: TileValue;
+  value: TileModelValue;
   label: string;
   tileAttrs: {
     iconAttrs: {
@@ -61,7 +61,7 @@ const props = defineProps({
     type: [
       Object,
       String,
-    ] as PropType<TileValue>,
+    ] as PropType<TileModelValue>,
     default: () => ({}),
   },
   /**
@@ -77,14 +77,14 @@ const props = defineProps({
     } ],
   },
 });
-const emit = defineEmits<{(e: 'update:modelValue', value: TileValue): void}>();
+const emit = defineEmits<{(e: 'update:modelValue', value: TileModelValue): void}>();
 interface Attrs {
   class?: string[];
   options?: SimpleQuestionOption[];
 }
 const attrs:Attrs = useAttrs();
 const isTileSmall = computed(() => attrs?.class?.includes('ui-simple-question--small'));
-function updateHandler(value: TileValue) {
+function updateHandler(value: TileModelValue) {
   emit('update:modelValue', value);
 }
 // TODO: remove in 0.6.0 / BEGIN

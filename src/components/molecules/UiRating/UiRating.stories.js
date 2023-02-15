@@ -3,6 +3,9 @@ import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiRadio from '@/components/atoms/UiRadio/UiRadio.vue';
 import { ref } from 'vue';
 import { modifiers } from '@sb/helpers/argTypes';
+import { actions } from '@storybook/addon-actions';
+
+const events = actions({ onUpdateModelValue: 'update:modelValue' });
 
 export default {
   title: 'Molecules/Rating',
@@ -60,6 +63,7 @@ const Template = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
@@ -73,6 +77,7 @@ const Template = (args) => ({
     :translation="translation"
     :radio-option-attrs="radioOptionAttrs"
     :class="modifiers"
+    @update:modelValue="onUpdateModelValue"
   />`,
 });
 
@@ -85,7 +90,7 @@ export const WithRadioOptionsAttrsAsArray = Template.bind({});
 WithRadioOptionsAttrsAsArray.args = {
   radioOptionAttrs: [
     { 'data-testid': 'first-option-radio-input' },
-    undefined,
+    {},
     {
       'data-testid': 'third-option-radio-input',
       iconDefaultAttrs: {
@@ -109,6 +114,7 @@ export const WithIconSlot = (args) => ({
     const modelValue = ref(args.initModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
@@ -122,6 +128,7 @@ export const WithIconSlot = (args) => ({
     :translation="translation"
     :radio-option-attrs="radioOptionAttrs"
     :class="modifiers"
+    @update:modelValue="onUpdateModelValue"
   >
     <template #icon="{
       index,

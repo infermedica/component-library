@@ -15,8 +15,12 @@ import {
 } from 'vue';
 import type { ComputedRef } from 'vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
+import type { ButtonAttrsProps } from '../../../atoms/UiButton/UiButton.vue';
+import type { DefineAttrsProps } from '../../../../types';
 
-const modifiers = inject('modifiers') as ComputedRef<string>;
+export type NavigationItemAttrsProps = DefineAttrsProps<null, ButtonAttrsProps>;
+
+const modifiers = inject<ComputedRef<string>>('modifiers', computed(() => ''));
 const isSmall = computed(() => modifiers.value.includes('ui-navigation--small'));
 const parentComponent = getCurrentInstance()?.parent;
 if (!parentComponent || parentComponent.type.name !== 'UiNavigation') {

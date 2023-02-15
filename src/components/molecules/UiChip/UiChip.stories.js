@@ -120,7 +120,7 @@ export const WithRemoveSlot = (args) => ({
   setup() {
     return {
       ...args,
-      events,
+      ...events,
     };
   },
   template: `<UiChip
@@ -132,7 +132,7 @@ export const WithRemoveSlot = (args) => ({
     <template #remove="{
       buttonRemoveAttrs,
       clickHandler,
-      iconRemoveAttrs 
+      iconRemoveAttrs
     }">
       <UiButton
         v-bind="buttonRemoveAttrs"

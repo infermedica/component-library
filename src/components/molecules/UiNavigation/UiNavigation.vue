@@ -37,30 +37,30 @@ import {
   useAttrs,
   provide,
 } from 'vue';
-import type { PropType } from 'vue';
+import type { ComputedRef } from 'vue';
 import UiNavigationItem from './_internal/UiNavigationItem.vue';
+import type { NavigationItemAttrsProps } from './_internal/UiNavigationItem.vue';
+import type { DefineAttrsProps } from '../../../types';
 
-export interface NavigationItem {
-  text: string;
+export interface NavigationRenderItem extends NavigationItemAttrsProps {
   name?: string;
+  text?: string;
   label?: string;
-  navigationItemAttrs?: Record<string, unknown>
-  [key: string]: unknown;
 }
-const props = defineProps({
+export interface NavigationProps {
   /**
    * Use this props to pass list of navigation items.
    */
-  items: {
-    type: Array as PropType<NavigationItem[]>,
-    default: () => ([]),
-  },
-});
-const attrs = useAttrs() as {class: string};
+  items?: NavigationRenderItem[],
+}
+export type NavigationAttrsProps = DefineAttrsProps<NavigationProps>;
+
+const props = withDefaults(defineProps<NavigationProps>(), { items: () => ([]) });
+const attrs = useAttrs();
 const nav = ref<HTMLElement | null>(null);
-const modifiers = computed(() => (attrs?.class || ''));
-provide('modifiers', modifiers);
-const itemsToRender = computed(() => (props.items.map((item, key) => {
+const modifiers = computed(() => (attrs.class as string || ''));
+provide<ComputedRef<string>>('modifiers', modifiers);
+const itemsToRender = computed<NavigationRenderItem[]>(() => (props.items.map((item, key) => {
   const {
     name,
     label,
@@ -79,12 +79,9 @@ const itemsToRender = computed(() => (props.items.map((item, key) => {
     ...item,
   };
 })));
-const navigationItemAttrs = (item: NavigationItem) => {
-  const {
-    name, label, ...rest
-  } = item;
-  return rest;
-};
+const navigationItemAttrs = ({
+  name, label, ...rest
+}: NavigationRenderItem): NavigationItemAttrsProps => rest;
 </script>
 
 <style lang="scss">

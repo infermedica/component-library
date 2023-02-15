@@ -33,60 +33,56 @@ import {
   computed,
   provide,
 } from 'vue';
-import type { PropType } from 'vue';
+import type { WritableComputedRef } from 'vue';
 import equal from 'fast-deep-equal';
 import UiToggleButton from './_internal/UiToggleButton.vue';
+import type { ToggleButtonAttrsProps } from './_internal/UiToggleButton.vue';
+import type { DefineAttrsProps } from '../../../types';
 
-export type ToggleButtonValue = number | string | Record<string, unknown> | undefined | null;
-export interface ToggleButtonItemAsObj{
+export interface ToggleButtonRenderItemComplex extends ToggleButtonAttrsProps {
   name: string;
-  text: string;
-  value: ToggleButtonValue;
-  toggleButtonAttrs?: Record<string, unknown>
-  [key: string]: ToggleButtonValue | undefined;
+  text: string | number;
+  value: string | number;
 }
-export type ToggleButtonItem = number | string | ToggleButtonItemAsObj;
-const props = defineProps({
+export type ToggleButtonRenderItem = number | string | ToggleButtonRenderItemComplex;
+export interface ToggleButtonGroupProps {
   /**
    * Use this props or v-model to set value.
    */
-  modelValue: {
-    type: [
-      Number,
-      String,
-      Object,
-    ] as PropType<ToggleButtonValue>,
-    default: '',
-  },
+  modelValue?: number | string | Record<string, unknown>;
   /**
    * Use this prop to set to allow deselecting selected value.
    */
-  deselectable: {
-    type: Boolean,
-    default: false,
-  },
+  deselectable?: boolean;
   /**
    * Use this props to pass list of toggle buttons.
    */
-  items: {
-    type: Array as PropType<ToggleButtonItem[]>,
-    default: () => ([]),
-  },
+  items?: ToggleButtonRenderItem[];
+}
+export type ToggleButtonGroupAttrsProps = DefineAttrsProps<ToggleButtonGroupProps>
+export interface ToggleButtonGroupEmits {
+  (e: 'update:modelValue', value: ToggleButtonGroupProps['modelValue']): void
+}
+
+const props = withDefaults(defineProps<ToggleButtonGroupProps>(), {
+  modelValue: '',
+  deselectable: false,
+  items: () => ([]),
 });
-const emit = defineEmits<{(e: 'update:modelValue', value: ToggleButtonValue): void}>();
-const innerValue = computed<ToggleButtonValue>({
-  get: (): ToggleButtonValue => (props.modelValue),
-  set: (newValue: ToggleButtonValue): void => {
+const emit = defineEmits<ToggleButtonGroupEmits>();
+const innerValue = computed({
+  get: (): ToggleButtonGroupProps['modelValue'] => (props.modelValue),
+  set: (newValue: ToggleButtonGroupProps['modelValue']): void => {
     const isEquals = equal(props.modelValue, newValue);
     if (props.deselectable) {
-      emit('update:modelValue', !isEquals ? newValue : null);
+      emit('update:modelValue', !isEquals ? newValue : undefined);
     } else if (!isEquals) {
       emit('update:modelValue', newValue);
     }
   },
 });
-provide('modelValue', innerValue);
-const itemsToRender = computed(() => (
+provide<WritableComputedRef<ToggleButtonGroupProps['modelValue']>>('modelValue', innerValue);
+const itemsToRender = computed<ToggleButtonRenderItemComplex[]>(() => (
   props.items.map((item, key) => {
     if (typeof item === 'string' || typeof item === 'number') {
       return {
@@ -100,13 +96,11 @@ const itemsToRender = computed(() => (
       name: item.name || `toggle-button-${key}`,
       value: item.value,
     };
-  })));
-const toggleButtonAttrs = (item: Record<string, unknown>) => {
-  const {
-    name, text, ...rest
-  } = item;
-  return rest;
-};
+  })
+));
+const toggleButtonAttrs = ({
+  name, text, ...rest
+}: ToggleButtonRenderItemComplex) => rest;
 </script>
 
 <style lang="scss">
