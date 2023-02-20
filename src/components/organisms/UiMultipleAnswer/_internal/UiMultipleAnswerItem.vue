@@ -26,6 +26,7 @@
       >
         <component
           :is="tag"
+          ref="content"
           v-bind="$attrs"
           :text-label-attrs="defaultProps.textLabelAttrs"
           :value="value"
@@ -59,6 +60,7 @@
         <component
           :is="suffixComponent"
           v-if="hasSuffix"
+          ref="suffix"
           v-bind="suffixAttrs"
           class="ui-list-item__suffix ui-multiple-answer-item__suffix"
         />
@@ -69,6 +71,7 @@
 
 <script setup lang="ts">
 import {
+  ref,
   computed,
   useSlots,
 } from 'vue';
@@ -181,31 +184,20 @@ const errorClass = computed(() => (props.invalid
     'ui-list-item--has-error',
   ]
   : []));
-const handleInfoFocus = ({
-  key, target, preventDefault,
-}: KeyboardEvent) => {
-  if (key !== 'ArrowRight') return;
-  const input = target as HTMLInputElement;
-  const info: HTMLElement | null | undefined = input
-    .closest('.ui-multiple-answer-item')
-    ?.parentNode
-    ?.querySelector('.ui-multiple-answer-item__info');
-  if (info) {
-    preventDefault();
-    focusElement(info);
+const content = ref(null);
+const suffix = ref(null);
+const handleInfoFocus = (event: KeyboardEvent) => {
+  if (event.key !== 'ArrowRight') return;
+  if (suffix.value?.$el) {
+    event.preventDefault();
+    focusElement(suffix.value.$el);
   }
 };
-const handleInfoUnfocus = ({
-  key, target, preventDefault,
-}: KeyboardEvent) => {
-  if (key !== 'ArrowLeft') return;
-  const info = target as HTMLElement;
-  const input: HTMLInputElement | null | undefined = info
-    ?.parentNode
-    ?.querySelector('input');
-  if (input) {
-    preventDefault();
-    focusElement(input);
+const handleInfoUnfocus = (event: KeyboardEvent) => {
+  if (event.key !== 'ArrowLeft') return;
+  if (content.value?.$refs?.input) {
+    event.preventDefault();
+    focusElement(content.value?.$refs?.input);
   }
 };
 const handleValueUpdate = (newValue: MultipleAnswerModelValue) => {
