@@ -21,49 +21,48 @@ import {
   onMounted,
 } from 'vue';
 import type { CSSProperties } from 'vue';
+import type { DefineAttrsProps } from '../../../../types';
 
-export type TransitionState = 'from' | 'active' | 'to';
-export type Move = 'leave' | 'enter';
-export type TransitionHook = `before-${Move}`
-  | `${Move}`
-  | `after-${Move}`
-  | `${Move}-cancelled`;
-const props = defineProps({
+export type LoaderTransitionState = 'from' | 'active' | 'to';
+export type LoaderTransitionMove = 'enter' | 'leave';
+export type LoaderTransitionHook = `${'before' | 'after'}-${LoaderTransitionMove}`
+  | `${LoaderTransitionMove}`
+  | `${LoaderTransitionMove}-cancelled`;
+export interface LoaderTransitionProps {
   /**
    * Use this props to show UiLoader component.
    */
-  isLoading: {
-    type: Boolean,
-    default: true,
-  },
+  isLoading?: boolean;
   /**
    * Use this props to set transition name.
    */
-  name: {
-    type: String,
-    default: '',
-  },
+  name?: '';
   /**
    * Use this props to apply a transition on the initial render.
    */
-  appear: {
-    type: Boolean,
-    default: true,
-  },
+  appear?: boolean;
   /**
    * Use this props to use opacity transition type.
    */
-  isOpacityTransitionType: {
-    type: Boolean,
-    default: false,
-  },
+  isOpacityTransitionType?: boolean;
+}
+export type LoaderTransitionAttrsProps = DefineAttrsProps<LoaderTransitionProps>;
+export interface LoaderTransitionEmits {
+  (e: LoaderTransitionHook, el: HTMLElement): void;
+}
+
+const props = withDefaults(defineProps<LoaderTransitionProps>(), {
+  isLoading: true,
+  name: '',
+  appear: true,
+  isOpacityTransitionType: false,
 });
+const emit = defineEmits<LoaderTransitionEmits>();
 const loaderEl = ref<HTMLElement | null>(null);
 const contentEl = ref<HTMLElement | null>(null);
 const isLoaderVisible = ref(props.isLoading);
 const transitionEl = computed(() => (isLoaderVisible.value ? loaderEl.value : contentEl.value) as HTMLElement);
-const move = computed(() => (isLoaderVisible.value === props.isLoading ? 'enter' : 'leave'));
-const emit = defineEmits<{(e: TransitionHook, el: HTMLElement): void}>();
+const move = computed<LoaderTransitionMove>(() => (isLoaderVisible.value === props.isLoading ? 'enter' : 'leave'));
 const useTransitionStyle = (isVisible: boolean, isAbsolute: boolean): CSSProperties => ({
   visibility: isVisible ? undefined : 'hidden',
   position: isAbsolute ? 'absolute' : undefined,
@@ -79,7 +78,7 @@ const nextFrame = (callback: () => void) => {
     requestAnimationFrame(callback);
   });
 };
-const toggleTransitionClass = (state: TransitionState | TransitionState[]) => {
+const toggleTransitionClass = (state: LoaderTransitionState | LoaderTransitionState[]) => {
   const stateList = Array.isArray(state) ? state : [ state ];
   stateList.forEach((stateEl) => {
     transitionEl.value?.classList.toggle(`${props.name}-${move.value}-${stateEl}`);

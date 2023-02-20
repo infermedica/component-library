@@ -82,8 +82,13 @@ import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 import UiHeading from '../UiHeading/UiHeading.vue';
 import type { HeadingAttrsProps } from '../UiHeading/UiHeading.vue';
 import UiNumberStepper from '../../molecules/UiNumberStepper/UiNumberStepper.vue';
+import type {
+  NumberStepperProps,
+  NumberStepperAttrsProps,
+} from '../../molecules/UiNumberStepper/UiNumberStepper.vue';
 import type { DefineAttrsProps } from '../../../types';
 
+export type RangeModelValue = number;
 export interface RangeProps {
   /**
    * Use this props or v-model to set value.
@@ -110,10 +115,9 @@ export interface RangeProps {
    */
   inputAttrs?: DefineAttrsProps<null, InputHTMLAttributes>;
 }
-// TODO after refactoring the NumberStepper component, pass its NumberStepperAttrsProps type as the second argument of RangeAttrs
-export type RangeAttrs = DefineAttrsProps<RangeProps>;
+export type RangeAttrs = DefineAttrsProps<RangeProps, NumberStepperAttrsProps>;
 export interface RangeEmits {
-  (e:'update:modelValue', value: RangeProps['modelValue']): void;
+  (e:'update:modelValue', value: RangeModelValue): void;
 }
 
 const props = withDefaults(defineProps<RangeProps>(), {
@@ -127,50 +131,52 @@ const props = withDefaults(defineProps<RangeProps>(), {
   }),
   inputAttrs: () => ({}),
 });
-const defaultProps = computed<RangeProps>(() => ({
-  headingValueAttrs: {
-    level: 1,
-    tag: 'span',
-    ...props.headingValueAttrs,
-  },
-  inputAttrs: {
-    ...listeners.value,
-    ...props.inputAttrs,
-  },
-}));
+const defaultProps = computed(() => {
+  const tag: HeadingAttrsProps['tag'] = 'span';
+  const level: HeadingAttrsProps['level'] = 1;
+  return {
+    headingValueAttrs: {
+      tag,
+      level,
+      ...props.headingValueAttrs,
+    },
+    inputAttrs: {
+      ...listeners.value,
+      ...props.inputAttrs,
+    },
+  };
+});
 const emit = defineEmits<RangeEmits>();
-// TODO after refactoring the NumberStepper component, pass its NumberStepperAttrsProps type as the argument of useAttributes
 const {
   attrs, listeners,
-} = useAttributes();
+} = useAttributes<NumberStepperAttrsProps>();
 const trackWidth = computed(() => {
   const scope = props.max - props.min;
   const position = props.modelValue - props.min;
   return `${(position / scope) * 100}%`;
 });
-function changeHandler(value: RangeProps['modelValue']) {
+const changeHandler = (value: RangeModelValue) => {
   if (attrs.value.disabled) return;
   emit('update:modelValue', value);
-}
+};
 // TODO: remove in 0.6.0 / BEGIN
-const buttonDecrementAttrs = computed(() => attrs.value.buttonDecrementAttrs || attrs.value['button-decrement-attrs']);
+const buttonDecrementAttrs = computed(() => (attrs.value.buttonDecrementAttrs || attrs.value['button-decrement-attrs']) as NumberStepperProps['buttonDecrementAttrs']);
 if (buttonDecrementAttrs.value) {
   if (process.env.NODE_ENV === 'development') {
     console.warn('[@infermedica/component-library warn][UiRange]: The `buttonDecrementAttrs` props will be removed in 0.6.0. Please use `numberStepperAttrs` props instead.');
   }
 }
-const buttonIncrementAttrs = computed(() => attrs.value.buttonIncrementAttrs || attrs.value['button-increment-attrs']);
+const buttonIncrementAttrs = computed(() => (attrs.value.buttonIncrementAttrs || attrs.value['button-increment-attrs']) as NumberStepperProps['buttonIncrementAttrs']);
 if (buttonIncrementAttrs.value) {
   if (process.env.NODE_ENV === 'development') {
     console.warn('[@infermedica/component-library warn][UiRange]: The `buttonIncrementAttrs` props will be removed in 0.6.0. Please use `numberStepperAttrs` props instead.');
   }
 }
 // END
-// TODO after refactoring the NumberStepper component, pass its NumberStepperAttrsProps type as the argument of numberStepperAttrs
-const numberStepperAttrs = computed((): Record<string, unknown> => ({
+const numberStepperAttrs = computed<NumberStepperAttrsProps>(() => ({
   buttonDecrementAttrs: buttonDecrementAttrs.value,
   buttonIncrementAttrs: buttonIncrementAttrs.value,
-  ...attrs,
+  ...attrs.value,
 }));
 </script>
 

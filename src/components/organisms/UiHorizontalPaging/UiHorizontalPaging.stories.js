@@ -13,9 +13,12 @@ import UiLoader from '@/components/molecules/UiLoader/UiLoader.vue';
 import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints.vue';
 import UiMenu from '@/components/organisms/UiMenu/UiMenu.vue';
 import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
-import UiHorizontalPagingItem from '@/components/organisms/UiHorizontalPaging/_internal/UiHorizontalPagingtem.vue';
+import UiHorizontalPagingItem from '@/components/organisms/UiHorizontalPaging/_internal/UiHorizontalPagingItem.vue';
+import { actions } from '@storybook/addon-actions';
 import './UiHorizontalPaging.stories.scss';
 import docs from './UiHorizontalPaging.mdx';
+
+const events = actions({ onUpdateModelValue: 'update:modelValue' });
 
 const ForBusiness = {
   components: {
@@ -53,12 +56,12 @@ const ForBusiness = {
   Symptomate is developed by Infermedica – the company providing a technological platform for digital symptom assessment, triage, patient intake, and more.
   </UiText>
   <UiList class="for-business__products">
-    <template 
-      v-for="({icon, title, description}, key) in products" 
+    <template
+      v-for="({icon, title, description}, key) in products"
       :key="key"
     >
-      <UiListItem 
-      :tag="UiButton" 
+      <UiListItem
+      :tag="UiButton"
       class="ui-button--outlined for-business__product"
     >
       <UiIcon
@@ -146,7 +149,7 @@ const TermsOfService = {
     ];
     return { items };
   },
-  template: `<UiHeading 
+  template: `<UiHeading
     :lavel="3"
     class="terms-of-service__heading"
   >
@@ -272,6 +275,7 @@ export const Common = (args) => ({
     const modelValue = ref(args.initialModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
@@ -279,21 +283,22 @@ export const Common = (args) => ({
     v-model="modelValue"
     :title="title"
     :items="items"
+    @update:modelValue="onUpdateModelValue"
   >
     <template #for-business>
-     <ForBusiness />
+      <ForBusiness />
     </template>
     <template #medical-certification>
-     <MedicalCertification/>
+      <MedicalCertification/>
     </template>
     <template #instruction-for-use>
-     <InstructionForUse/>
+      <InstructionForUse/>
     </template>
     <template #terms-of-service>
-     <TermsOfService/>
+      <TermsOfService/>
     </template>
     <template #privacy-policy>
-     <PrivacyPolicy/>
+      <PrivacyPolicy/>
     </template>
     <template #interview-id>
       <InterviewId/>
@@ -316,15 +321,17 @@ export const WithDefaultSlot = (args) => ({
     const modelValue = ref(args.initialModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
   template: `<UiHorizontalPaging
     v-model="modelValue"
     :title="title"
+    @update:modelValue="onUpdateModelValue"
   >
-    <template 
-      v-for="(item, key) in items" 
+    <template
+      v-for="(item, key) in items"
       :key="key"
     >
       <UiHorizontalPagingItem v-bind="item">
@@ -345,6 +352,7 @@ export const AsMultilevel = (args) => ({
     const modelValue = ref(args.initialModelValue);
     return {
       ...args,
+      ...events,
       modelValue,
     };
   },
@@ -363,6 +371,7 @@ export const AsMultilevel = (args) => ({
         name: 'intelligent-core',
       },
     ]"
+    @update:modelValue="onUpdateModelValue"
   >
     <template #modules>
       <UiHorizontalPaging
@@ -441,6 +450,7 @@ export const AsMobileMenu = (args) => ({
     };
     return {
       ...args,
+      ...events,
       title,
       modelValue,
       previous,
@@ -475,6 +485,7 @@ export const AsMobileMenu = (args) => ({
       v-model="modelValue"
       :items="items"
       :has-header="false"
+      @update:modelValue="onUpdateModelValue"
     >
       <template #for-business>
         <ForBusiness/>
@@ -500,6 +511,6 @@ export const AsMobileMenu = (args) => ({
 AsMobileMenu.parameters = { viewport: { defaultViewport: 'mobile2' } };
 AsMobileMenu.decorators = [ () => ({
   template: `<div class="min-h-140">
-   <story/>
+    <story/>
   </div>`,
 }) ];

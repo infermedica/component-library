@@ -65,124 +65,119 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { PropsAttrs } from '../../../types/attrs';
+import type { DefineAttrsProps } from '../../../types';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
+import type { ButtonAttrsProps } from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
-import type { Icon } from '../../../types/icon';
+import type { IconAttrsProps } from '../../atoms/UiIcon/UiIcon.vue';
 
-const props = defineProps({
+export type NumberStepperModelValue = number;
+export interface NumberStepperProps {
   /**
    * Use this props or v-model to set value.
    */
-  modelValue: {
-    type: Number,
-    default: 0,
-  },
+  modelValue?: NumberStepperModelValue;
   /**
    * Use this props to set min value.
    */
-  min: {
-    type: Number,
-    default: 0,
-  },
+  min?: number;
   /**
    * Use this props to set max value.
    */
-  max: {
-    type: Number,
-    default: 1,
-  },
+  max?: number;
   /**
    * Use this props to set step value.
    */
-  step: {
-    type: Number,
-    default: 1,
-  },
+  step?: number;
   /**
    * Use this props to hide controls.
    */
-  hasControls: {
-    type: Boolean,
-    default: true,
-  },
+  hasControls?: boolean;
   /**
    * Use this props to pass attrs for decrement UiButton
    */
-  buttonDecrementAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({
-      'aria-hidden': true,
-      tabindex: -1,
-    }),
-  },
+  buttonDecrementAttrs?: ButtonAttrsProps;
   /**
    * Use this props to pass attrs for decrement UiIcon
    */
-  iconDecrementAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({ icon: 'minus' }),
-  },
+  iconDecrementAttrs?: IconAttrsProps;
   /**
    * Use this props to pass attrs for increment UiButton
    */
-  buttonIncrementAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({
-      'aria-hidden': true,
-      tabindex: -1,
-    }),
-  },
+  buttonIncrementAttrs?: ButtonAttrsProps;
   /**
    * Use this props to pass attrs for increment UiIcon
    */
-  iconIncrementAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({ icon: 'plus' }),
-  },
+  iconIncrementAttrs?: IconAttrsProps;
+}
+export type NumberStepperAttrsProps = DefineAttrsProps<NumberStepperProps>;
+export interface NumberStepperEmits {
+  (e: 'update:modelValue', value: NumberStepperModelValue): void;
+  (e: 'error:value', value: {isMin: boolean, isMax: boolean}): void;
+}
+
+const props = withDefaults(defineProps<NumberStepperProps>(), {
+  modelValue: 0,
+  min: 0,
+  max: 1,
+  step: 1,
+  hasControls: true,
+  buttonDecrementAttrs: () => ({
+    'aria-hidden': true,
+    tabindex: -1,
+  }),
+  iconDecrementAttrs: () => ({ icon: 'minus' }),
+  buttonIncrementAttrs: () => ({
+    'aria-hidden': true,
+    tabindex: -1,
+  }),
+  iconIncrementAttrs: () => ({ icon: 'plus' }),
 });
-const defaultProps = computed(() => ({
-  buttonDecrementAttrs: {
-    'aria-hidden': true,
-    tabindex: -1,
-    ...props.buttonDecrementAttrs,
-  },
-  iconDecrementAttrs: {
-    icon: 'minus' as Icon,
-    ...props.iconDecrementAttrs,
-  },
-  buttonIncrementAttrs: {
-    'aria-hidden': true,
-    tabindex: -1,
-    ...props.buttonIncrementAttrs,
-  },
-  iconIncrementAttrs: {
-    icon: 'plus' as Icon,
-    ...props.iconIncrementAttrs,
-  },
-}));
-const emit = defineEmits<{(e:'update:modelValue', value: number): void,
-  (e: 'error', value: {isMin: boolean, isMax: boolean}): void}>();
+const defaultProps = computed(() => {
+  const decrementIcon: IconAttrsProps['icon'] = 'minus';
+  const incrementIcon: IconAttrsProps['icon'] = 'plus';
+  return {
+    buttonDecrementAttrs: {
+      'aria-hidden': true,
+      tabindex: -1,
+      ...props.buttonDecrementAttrs,
+    },
+    iconDecrementAttrs: {
+      icon: decrementIcon,
+      ...props.iconDecrementAttrs,
+    },
+    buttonIncrementAttrs: {
+      'aria-hidden': true,
+      tabindex: -1,
+      ...props.buttonIncrementAttrs,
+    },
+    iconIncrementAttrs: {
+      icon: incrementIcon,
+      ...props.iconIncrementAttrs,
+    },
+  };
+});
+const emit = defineEmits<NumberStepperEmits>();
 const validate = (value: number) => (value >= props.min && value <= props.max);
 const isMin = computed(() => props.modelValue === props.min);
 const isMax = computed(() => props.modelValue === props.max);
-function change(value: number, modifier = 0) {
+const change = (value: number, modifier = 0) => {
   const newValue = value + modifier;
   if (validate(newValue)) {
     emit('update:modelValue', newValue);
     return;
   }
-  emit('error', {
+  emit('error:value', {
     isMin: isMin.value,
     isMax: isMax.value,
   });
-}
-function decrement(): void {
+};
+const decrement = () => {
   change(props.modelValue, props.step * -1);
-}
-function increment(): void {
+};
+const increment = () => {
   change(props.modelValue, props.step);
-}
+};
 </script>
 
 <style lang="scss">

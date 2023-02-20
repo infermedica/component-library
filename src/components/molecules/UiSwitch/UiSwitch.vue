@@ -39,32 +39,36 @@
 </template>
 
 <script setup lang="ts">
-import type { PropType } from 'vue';
 import UiCheckbox from '../../atoms/UiCheckbox/UiCheckbox.vue';
+import type {
+  CheckboxModelValue,
+  CheckboxAttrsProps,
+} from '../../atoms/UiCheckbox/UiCheckbox.vue';
 import UiSwitchControl from './_internal/UiSwitchControl.vue';
-import type { CheckboxProps } from '../../atoms/UiCheckbox/UiCheckbox.vue';
+import type { SwitchControlAttrsProps } from './_internal/UiSwitchControl.vue';
+import type { DefineAttrsProps } from '../../../types';
 
-defineProps({
+export interface SwitchProps {
   /**
    *  Use this props or v-model to set checked.
    */
-  modelValue: {
-    type: [
-      Boolean,
-      Array,
-    ] as PropType<CheckboxProps['modelValue']>,
-    default: false,
-  },
+  modelValue?: CheckboxModelValue;
   /**
    *  Use this props to set pass attrs for UiSwitchControl.
    */
-  controlAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
+  controlAttrs?: SwitchControlAttrsProps;
+}
+export type SwitchAttrsProps = DefineAttrsProps<SwitchProps, CheckboxAttrsProps>
+export interface SwitchEmits {
+  (e: 'update:modelValue', value: CheckboxModelValue): void
+}
+
+withDefaults(defineProps<SwitchProps>(), {
+  modelValue: false,
+  controlAttrs: () => ({}),
 });
-const emit = defineEmits<{(e: 'update:modelValue', value: CheckboxProps['modelValue']): void}>();
-const updateHandler = (value: CheckboxProps['modelValue']): void => {
+const emit = defineEmits<SwitchEmits>();
+const updateHandler = (value: CheckboxModelValue): void => {
   emit('update:modelValue', value);
 };
 </script>

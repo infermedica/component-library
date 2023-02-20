@@ -13,11 +13,11 @@
   >
     <!-- @slot Use this slot to replace legend template. -->
     <slot
-      name="legend"
       v-bind="{
         label,
         name,
       }"
+      name="legend"
     >
       <legend class="visual-hidden">
         {{ name || label }}
@@ -25,7 +25,6 @@
     </slot>
     <!-- @slot Use this slot to replace header template.-->
     <slot
-      name="header"
       v-bind="{
         id: multipleChoicesItemId,
         textLabelAttrs,
@@ -36,16 +35,17 @@
         iconInfoAttrs: defaultProps.iconInfoAttrs,
         translation,
       }"
+      name="header"
     >
       <div class="ui-multiple-choices-item__header">
         <slot
-          name="label"
           v-bind="{
             multipleChoicesItemId,
             textLabelAttrs,
             name,
             label
           }"
+          name="label"
         >
           <UiText
             :id="multipleChoicesItemId"
@@ -98,7 +98,7 @@
             name="option"
             v-bind="{
               value,
-              optionItemAttrs: defaultProps.optionItemAttrs,
+              listOptionItemAttrs: defaultProps.listOptionItemAttrs,
               invalid,
               option,
             }"
@@ -114,7 +114,7 @@
                   'ui-list-item--has-error': invalid,
                 }
               ]"
-              :list-item-attrs="defaultProps.optionItemAttrs"
+              :list-item-attrs="defaultProps.listOptionItemAttrs"
             >
               {{ option.label }}
             </UiListItem>
@@ -148,173 +148,142 @@ import {
   useAttrs,
 } from 'vue';
 import { uid } from 'uid/single';
-import type { PropType } from 'vue';
-import type { HTMLTag } from '../../../../types/tag';
-import type { Icon } from '../../../../types/icon';
-import type { MultipleChoiceOption } from '../UiMultipleChoices.vue';
-import type { PropsAttrs } from '../../../../types/attrs';
+import type {
+  MultipleChoicesModelValue,
+  MultipleChoicesOption,
+} from '../UiMultipleChoices.vue';
 import UiAlert from '../../../molecules/UiAlert/UiAlert.vue';
+import type { AlertAttrsProps } from '../../../molecules/UiAlert/UiAlert.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
+import type { ButtonAttrsProps } from '../../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
+import type { IconAttrsProps } from '../../../atoms/UiIcon/UiIcon.vue';
 import UiList from '../../UiList/UiList.vue';
 import UiListItem from '../../UiList/_internal/UiListItem.vue';
+import type { ListItemAttrsProps } from '../../UiList/_internal/UiListItem.vue';
 import UiRadio from '../../../atoms/UiRadio/UiRadio.vue';
 import UiText from '../../../atoms/UiText/UiText.vue';
+import type { TextAttrsProps } from '../../../atoms/UiText/UiText.vue';
+import type {
+  DefineAttrsProps,
+  HTMLTag,
+  Icon,
+} from '../../../../types';
 
-const props = defineProps({
+export interface MultipleChoicesItemTranslation {
+  info?: string;
+  invalid?: string;
+}
+export interface MultipleChoicesItemProps {
   /**
    * Use this props to set multiple choices item tag.
    */
-  tag: {
-    type: String as PropType<HTMLTag>,
-    default: 'fieldset',
-  },
+  tag?: HTMLTag;
   /**
    * Use this props to set multiple choices item label.
    */
-  label: {
-    type: String,
-    default: '',
-  },
+  label?: string;
   /**
    * Use this props to set invalid state of choice item.
    */
-  invalid: {
-    type: Boolean,
-    default: true,
-  },
+  invalid?: boolean;
   /**
    *  Use this props or v-model to set checked.
    */
-  modelValue: {
-    type: [
-      String,
-      Object,
-    ] as PropType<string | Record<string, unknown>>,
-    default: '',
-  },
+  modelValue?: MultipleChoicesModelValue;
   /**
    * Use this props to set item of item.
    */
-  id: {
-    type: String,
-    default: '',
-  },
+  id?: string;
   /**
    * Use this props to pass labels inside component translation.
    */
-  translation: {
-    type: Object,
-    default: () => ({
-      info: 'What does it mean?',
-      invalid: 'Please select one answer',
-    }),
-  },
+  translation?: MultipleChoicesItemTranslation;
   /**
    *  Use this props to pass options.
    */
-  options: {
-    type: Array as PropType<MultipleChoiceOption[]>,
-    default: () => ([]),
-  },
+  options?: MultipleChoicesOption[];
   /**
    * Use this props to pass attrs for hint UiAlert
    */
-  alertAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  alertAttrs?: AlertAttrsProps;
   /**
    * Use this props to pass attrs for info UiButton.
    */
-  buttonInfoAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
+  buttonInfoAttrs?: ButtonAttrsProps;
   /**
    * Use this props to pass attrs for info label element.
    */
-  labelInfoAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
+  labelInfoAttrs?: DefineAttrsProps<null>;
   /**
    * Use this props to pass attrs for info UiIcon.
    */
-  iconInfoAttrs: {
-    type: Object,
-    default: () => ({ icon: 'info' }),
-  },
+  iconInfoAttrs?: IconAttrsProps;
   /**
    * Use this props to pass attrs for label UiText.
    */
-  textLabelAttrs: {
-    type: Object,
-    default: () => ({ tag: 'span' }),
-  },
+  textLabelAttrs?: TextAttrsProps;
   /**
    * Use this props to pass attrs for list item.
    */
-  listItemAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
+  listItemAttrs?: ListItemAttrsProps;
   /**
-   * Use this props to pass attrs for option item.
+   * Use this props to pass attrs for list option item.
    */
-  optionItemAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
-});
-interface DefaultProps {
-  translation: {
-    info: string;
-    invalid: string;
-    [key: string]: unknown;
-  };
-  textLabelAttrs: {
-    tag: HTMLTag;
-    [key: string]: unknown;
-  };
-  iconInfoAttrs: {
-    icon: Icon;
-    [key: string]: unknown;
-  };
-  listItemAttrs: {
-    class: string;
-    [key: string]: unknown
-  };
-  optionItemAttrs: {
-    class: string;
-    [key: string]: unknown;
-  };
-  [key: string]: unknown;
+  listOptionItemAttrs?: ListItemAttrsProps;
 }
-const defaultProps = computed<DefaultProps>(() => ({
-  translation: {
+export type MultipleChoicesItemAttrsProps = DefineAttrsProps<MultipleChoicesItemProps, ListItemAttrsProps>;
+export interface MultipleChoicesItemEmits {
+  (e: 'update:modelValue', value: MultipleChoicesModelValue): void;
+}
+
+const props = withDefaults(defineProps<MultipleChoicesItemProps>(), {
+  tag: 'fieldset',
+  label: '',
+  invalid: true,
+  modelValue: '',
+  id: '',
+  translation: () => ({
     info: 'What does it mean?',
     invalid: 'Please select one answer',
-    ...props.translation,
-  },
-  listItemAttrs: {
-    class: 'ui-multiple-choices-item',
-    ...props.listItemAttrs,
-  },
-  textLabelAttrs: {
-    tag: 'span',
-    ...props.textLabelAttrs,
-  },
-  iconInfoAttrs: {
-    icon: 'info',
-    ...props.iconInfoAttrs,
-  },
-  optionItemAttrs: {
-    class: 'ui-multiple-choices-item__option',
-    ...props.optionItemAttrs,
-  },
-}));
-const emit = defineEmits<{(e: 'update:modelValue', value: string | Record<string, unknown>): void}>();
+  }),
+  options: () => ([]),
+  alertAttrs: () => ({}),
+  buttonInfoAttrs: () => ({}),
+  labelInfoAttrs: () => ({}),
+  iconInfoAttrs: () => ({ icon: 'info' }),
+  textLabelAttrs: () => ({ tag: 'span' }),
+  listItemAttrs: () => ({ class: 'ui-multiple-choices-item' }),
+  listOptionItemAttrs: () => ({ class: 'ui-multiple-choices-item__option' }),
+});
+const defaultProps = computed(() => {
+  const icon: Icon = 'info';
+  const tag: HTMLTag = 'span';
+  return {
+    translation: {
+      info: 'What does it mean?',
+      invalid: 'Please select one answer',
+      ...props.translation,
+    },
+    listItemAttrs: {
+      class: 'ui-multiple-choices-item',
+      ...props.listItemAttrs,
+    },
+    textLabelAttrs: {
+      tag,
+      ...props.textLabelAttrs,
+    },
+    iconInfoAttrs: {
+      icon,
+      ...props.iconInfoAttrs,
+    },
+    listOptionItemAttrs: {
+      class: 'ui-multiple-choices-item__option',
+      ...props.listOptionItemAttrs,
+    },
+  };
+});
+const emit = defineEmits<MultipleChoicesItemEmits>();
 const multipleChoicesItemId = computed(() => (props.id || `multiple-choices-item-${uid()}`));
 const value = computed({
   get: () => props.modelValue,
@@ -325,7 +294,7 @@ const value = computed({
 const hasInfo = computed(() => (Object.keys(props.buttonInfoAttrs).length > 0));
 // TODO: remove in 0.6.0 / BEGIN
 const attrs = useAttrs();
-const name = computed(() => (attrs.name));
+const name = computed(() => attrs.name as string);
 if (name.value) {
   if (process.env.NODE_ENV === 'development') {
     console.warn('[@infermedica/component-library warn][UiMultipleChoicesItem]: The `name` props will be removed in 0.6.0. Please use `label` props instead.');
@@ -337,7 +306,7 @@ if (props.options.some((option) => option.name)) {
   }
 }
 const optionsToRender = computed(() => props.options.map((option) => ({
-  label: option.name || option.label,
+  label: option.name || 'label',
   ...option,
 })));
 // END

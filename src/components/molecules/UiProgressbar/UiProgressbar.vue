@@ -22,31 +22,30 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { PropsAttrs } from '../../../types/attrs';
 import UiProgress from '../../atoms/UiProgress/UiProgress.vue';
+import type { ProgressAttrsProps } from '../../atoms/UiProgress/UiProgress.vue';
+import type { DefineAttrsProps } from '../../../types';
 
-const props = defineProps({
+export interface ProgressbarProps {
   /**
    * Use this props to set steps.
    */
-  steps: {
-    type: Number,
-    default: 0,
-  },
+  steps?: number;
   /**
    * Use this props to set current step.
    */
-  currentStep: {
-    type: Number,
-    default: 0,
-  },
+  currentStep?: number;
   /**
    * Use this props to pass attrs for UiProgress
    */
-  progressAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  progressAttrs?: ProgressAttrsProps;
+}
+export type ProgressbarAttrsProps = DefineAttrsProps<ProgressbarProps>;
+
+const props = withDefaults(defineProps<ProgressbarProps>(), {
+  steps: 0,
+  currentStep: 0,
+  progressAttrs: () => ({}),
 });
 const value = computed(() => ((100 / props.steps) * props.currentStep));
 const stepsDots = computed(() => (props.steps - 1));

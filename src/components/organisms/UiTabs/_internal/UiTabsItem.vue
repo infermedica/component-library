@@ -77,49 +77,50 @@ import {
 import type { Ref } from 'vue';
 import { uid } from 'uid/single';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
-import type { PropsAttrs } from '../../../../types/attrs';
+import type {
+  TabsHandleTabActive,
+  TabsSetActiveElement,
+} from '../UiTabs.vue';
+import type { ButtonAttrsProps } from '../../../atoms/UiButton/UiButton.vue';
+import type { DefineAttrsProps } from '../../../../types';
 
-const props = defineProps({
+export interface TabsItemProps {
   /**
    * Use this props to set item title.
    */
-  title: {
-    type: String,
-    default: '',
-  },
+  title?: string;
   /**
    * Use this props to set item name, it used to toggle.
    */
-  name: {
-    type: String,
-    default: '',
-  },
+  name?: string;
   /**
    * Use this props to pass attrs for toggle UiButton.
    */
-  buttonTabAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  buttonTabAttrs?: ButtonAttrsProps;
   /**
    * Use this props to pass attrs for content element.
    */
-  contentAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
-});
-const attrs = useAttrs() as {id: string};
-const activeTab = inject('activeTab') as Ref<string>;
-const hasActiveTab = computed(() => (!!activeTab.value));
+  contentAttrs?: DefineAttrsProps<null>,
+}
+export type TabsItemAttrsProps = DefineAttrsProps<TabsItemProps>;
 
+const props = withDefaults(defineProps<TabsItemProps>(), {
+  title: '',
+  name: '',
+  buttonTabAttrs: () => ({}),
+  contentAttrs: () => ({}),
+});
+const attrs: TabsItemAttrsProps = useAttrs();
+const activeTab = inject<Ref<string>>('activeTab', ref(''));
+const hasActiveTab = computed(() => (!!activeTab.value));
 const id = computed(() => (props.name || attrs.id || `tab-${uid()}`));
 const isActive = computed(() => (id.value === activeTab.value));
-const handleTabActive = inject('handleTabActive') as (event: Event, name: string) => void;
-
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const handleTabActive = inject<TabsHandleTabActive>('handleTabActive', () => {});
 const tab = ref<HTMLElement | null>(null);
-const setActiveHTMLElement = inject('setActiveHTMLElement') as (element: HTMLElement | null) => void;
-onMounted(async () => {
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const setActiveHTMLElement = inject<TabsSetActiveElement>('setActiveHTMLElement', () => {});
+onMounted(() => {
   if (isActive.value) {
     setActiveHTMLElement(tab.value);
     return;

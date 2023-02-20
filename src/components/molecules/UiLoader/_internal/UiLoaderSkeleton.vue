@@ -10,24 +10,22 @@
 </template>
 
 <script setup lang="ts">
-import type { PropType } from 'vue';
 import {
   computed,
   defineAsyncComponent,
 } from 'vue';
 import { capitalizeFirst } from '../../../../utilities/helpers/index';
+import type { DefineAttrsProps } from '../../../../types';
 
-export type LoaderSkeletonType = 'common' | 'question'
-
-const props = defineProps({
+export interface LoaderSkeletonProps {
   /**
    * Use this props to set skeleton type.
    */
-  type: {
-    type: String as PropType<LoaderSkeletonType>,
-    default: 'common',
-  },
-});
+  type?: 'common' | 'question';
+}
+export type LoaderSkeletonAttrsProps = DefineAttrsProps<LoaderSkeletonProps>;
+
+const props = withDefaults(defineProps<LoaderSkeletonProps>(), { type: 'common' });
 const skeleton = computed(() => (defineAsyncComponent(() => import(`./UiLoaderSkeletons/UiLoaderSkeleton${capitalizeFirst(props.type)}.vue`))));
 </script>
 

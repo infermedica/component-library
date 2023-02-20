@@ -4,6 +4,12 @@
   </div>
 </template>
 
+<script setup lang="ts">
+import type { DefineAttrsProps } from '../../../../types';
+
+export type SwitchControlAttrsProps = DefineAttrsProps<null>;
+</script>
+
 <style lang="scss">
 @use "../../../../styles/functions";
 @use "../../../../styles/mixins";

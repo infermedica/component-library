@@ -22,41 +22,44 @@
 import {
   computed,
   inject,
+  ref,
 } from 'vue';
 import type { Ref } from 'vue';
+import type { DatepickerCheckAvailability } from '../UiDatepicker.vue';
 import UiDatepickerTab from './UiDatepickerTab.vue';
+import type { DatepickerTabAttrsProps } from './UiDatepickerTab.vue';
 import UiDatepickerTabItem from './UiDatepickerTabItem.vue';
+import type { DefineAttrsProps } from '../../../../types';
 
-const props = defineProps({
+export interface DatepickerDayTabProps {
   /**
    * Use this props or v-model to set value.
    */
-  modelValue: {
-    type: String,
-    default: '',
-  },
-});
-const emit = defineEmits<{(e:'update:modelValue', value: string): void, (e: 'select', value: {type: 'day'; value: number}): void }>();
-const isDisabled = inject('checkDayAvailability') as (day: number) => boolean;
-const unfulfilledDayError = inject('unfulfilledDay') as Ref<boolean>;
+  modelValue?: string;
+}
+export type DatepickerDayTabAttrsProps = DefineAttrsProps<DatepickerDayTabProps, DatepickerTabAttrsProps>;
+export interface DatepickerDayTabEmits {
+  (e:'update:modelValue', value: string): void;
+  (e: 'select', value: {type: 'day'; value: number}): void
+}
 
+const props = withDefaults(defineProps<DatepickerDayTabProps>(), { modelValue: '' });
+const emit = defineEmits<DatepickerDayTabEmits>();
+const isDisabled = inject<DatepickerCheckAvailability>('checkDayAvailability', () => false);
+const unfulfilledDayError = inject<Ref<boolean>>('unfulfilledDay', ref(false));
 const day = computed({
   get: () => (`${props.modelValue}`),
   set: (value) => { emit('update:modelValue', value); },
 });
-
-function formatDay(value: number): string {
-  return `${value}`.padStart(2, '0');
-}
-
-function select(value: number): void {
+const formatDay = (value: number) => `${value}`.padStart(2, '0');
+const select = (value: number) => {
   emit('select', {
     type: 'day',
     value,
   });
   day.value = formatDay(value);
   unfulfilledDayError.value = false;
-}
+};
 </script>
 
 <style lang="scss">

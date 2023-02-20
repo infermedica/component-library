@@ -161,176 +161,163 @@ import {
   onBeforeUnmount,
   useAttrs,
 } from 'vue';
-import type { HeadingProps } from '../../atoms/UiHeading/UiHeading.vue';
+import type {
+  DialogHTMLAttributes,
+  TransitionProps,
+} from 'vue';
 import {
   focusTrap as vFocusTrap,
   bodyScrollLock as vBodyScrollLock,
   scrollTabindex as vScrollTabindex,
   keyboardFocus as vKeyboardFocus,
 } from '../../../utilities/directives';
-import { focusElement } from '../../../utilities/helpers/index';
+import { focusElement } from '../../../utilities/helpers';
 import UiBackdrop from '../../atoms/UiBackdrop/UiBackdrop.vue';
+import type { BackdropAttrsProps } from '../../atoms/UiBackdrop/UiBackdrop.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
+import type { ButtonAttrsProps } from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
+import type { IconAttrsProps } from '../../atoms/UiIcon/UiIcon.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
+import type {
+  HeadingAttrsProps,
+  HeadingProps,
+} from '../../atoms/UiHeading/UiHeading.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
-import type { PropsAttrs } from '../../../types/attrs';
-import type { Icon } from '../../../types/icon';
+import type { TextAttrsProps } from '../../atoms/UiText/UiText.vue';
+import type {
+  DefineAttrsProps,
+  Icon,
+} from '../../../types';
 
-const props = defineProps({
+export type SidePanelModelValue = boolean;
+export interface SidePanelProps {
   /**
    * Use this props or v-model to set value.
    */
-  modelValue: {
-    type: Boolean,
-    default: false,
-  },
+  modelValue?: SidePanelModelValue;
   /**
    * Use this props to set side panel title.
    */
-  title: {
-    type: String,
-    default: '',
-  },
+  title?: string;
   /**
    * Use this props to set side panel subtitle.
    */
-  subtitle: {
-    type: String,
-    default: '',
-  },
+  subtitle?: string;
   /**
    * Use this props to pass attrs for backdrop Transition.
    */
-  transitionBackdropAttrs: {
-    type: Object,
-    default: () => ({
-      appear: true,
-      name: 'fade',
-    }),
-  },
+  transitionBackdropAttrs?: TransitionProps;
   /**
    * Use this props to pass attrs for UiBackdrop.
    */
-  backdropAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
+  backdropAttrs?: BackdropAttrsProps;
   /**
    * Use this props to pass attrs for dialog element
    */
-  dialogAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
+  dialogAttrs?: DefineAttrsProps<null, DialogHTMLAttributes>;
   /**
    * Use this props to pass attrs for dialog Transition.
    */
-  transitionDialogAttrs: {
-    type: Object,
-    default: () => ({
-      appear: true,
-      name: 'slide',
-    }),
-  },
+  transitionDialogAttrs?: TransitionProps;
   /**
    * Use this props to pass attrs for title UiHeading.
    */
-  headingTitleAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({ level: 2 }),
-  },
+  headingTitleAttrs?: HeadingAttrsProps;
   /**
    * Use this props to pass attrs for subtitle UiText.
    */
-  textSubtitleAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  textSubtitleAttrs?: TextAttrsProps;
   /**
    * Use this props to pass attrs for close UiButton
    */
-  buttonCloseAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  buttonCloseAttrs?: ButtonAttrsProps;
   /**
    * Use this props to pass attrs for close UiIcon
    */
-  iconCloseAttrs: {
-    type: Object,
-    default: () => ({ icon: 'close' }),
-  },
+  iconCloseAttrs?: IconAttrsProps;
   /**
    * Use this props to pass attrs for content element
    */
-  contentAttrs: {
-    type: Object,
-    default: () => ({}),
-  },
+  contentAttrs?: DefineAttrsProps<null>;
+}
+export type SidePanelAttrsProps = DefineAttrsProps<SidePanelProps>;
+export interface SidePanelEmits {
+  (e: 'update:modelValue', value: boolean): void;
+  (e: 'after-enter'): void;
+}
+
+const props = withDefaults(defineProps<SidePanelProps>(), {
+  modelValue: false,
+  title: '',
+  subtitle: '',
+  transitionBackdropAttrs: () => ({
+    appear: true,
+    name: 'fade',
+  }),
+  backdropAttrs: () => ({}),
+  dialogAttrs: () => ({}),
+  transitionDialogAttrs: () => ({
+    appear: true,
+    name: 'slide',
+  }),
+  headingTitleAttrs: () => ({ level: 2 }),
+  textSubtitleAttrs: () => ({}),
+  buttonCloseAttrs: () => ({}),
+  iconCloseAttrs: () => ({ icon: 'close' }),
+  contentAttrs: () => ({}),
 });
-const emit = defineEmits<{(e: 'update:modelValue', value: boolean): void,
-  (e: 'after-enter'): void
-}>();
+const emit = defineEmits<SidePanelEmits>();
 const button = ref<InstanceType<typeof UiButton>| null>(null);
-async function enterHandler(): Promise<void> {
+const enterHandler = async () => {
   await nextTick();
   focusElement(button.value?.$el, true);
-}
-function afterEnterHandler(): void {
+};
+const afterEnterHandler = () => {
   emit('after-enter');
-}
+};
 // TODO: remove in 0.6.0 / BEGIN
 const attrs = useAttrs();
-const transition = computed(() => attrs.transition);
+const transition = computed(() => attrs.transition as string | undefined);
 if (transition.value) {
   if (process.env.NODE_ENV === 'development') {
     console.warn('[@infermedica/component-library warn][UiSidePanel]: The `transition` props will be removed in 0.6.0. Please use `transitionDialogAttrs` props instead.');
   }
 }
 // END
-interface DefaultProps {
-  transitionBackdropAttrs: Record<string, unknown>,
-  transitionDialogAttrs: Record<string, unknown>,
-  iconCloseAttrs: {
-    icon: Icon;
-    [key: string]: unknown;
-  },
-  headingTitleAttrs: {
-    level: HeadingProps['level'];
-    [key: string]: unknown;
-  }
-}
-const defaultProps = computed<DefaultProps>(() => ({
-  transitionBackdropAttrs: {
-    appear: true,
-    name: 'fade',
-    ...props.transitionBackdropAttrs,
-  },
-  transitionDialogAttrs: {
-    appear: true,
-    name: transition.value || 'slide',
-    onEnter: enterHandler,
-    onAfterEnter: afterEnterHandler,
-    ...props.transitionDialogAttrs,
-  },
-  iconCloseAttrs: {
-    icon: 'close',
-    ...props.iconCloseAttrs,
-  },
-  headingTitleAttrs: {
-    level: 2,
-    ...props.headingTitleAttrs,
-  },
-}));
-function closeHandler(): void {
+const defaultProps = computed(() => {
+  const icon: Icon = 'close';
+  const level: HeadingProps['level'] = 2;
+  return {
+    transitionBackdropAttrs: {
+      appear: true,
+      name: 'fade',
+      ...props.transitionBackdropAttrs,
+    },
+    transitionDialogAttrs: {
+      appear: true,
+      name: transition.value || 'slide',
+      onEnter: enterHandler,
+      onAfterEnter: afterEnterHandler,
+      ...props.transitionDialogAttrs,
+    },
+    iconCloseAttrs: {
+      icon,
+      ...props.iconCloseAttrs,
+    },
+    headingTitleAttrs: {
+      level,
+      ...props.headingTitleAttrs,
+    },
+  };
+});
+const closeHandler = () => {
   emit('update:modelValue', false);
-}
-function keydownHandler(event: Event) {
-  const { key } = event as KeyboardEvent;
+};
+const keydownHandler = ({ key }: KeyboardEvent) => {
   if (key !== 'Escape') return;
   emit('update:modelValue', false);
-}
+};
 onMounted(() => {
   window.addEventListener('keydown', keydownHandler);
 });

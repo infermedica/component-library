@@ -6,7 +6,7 @@ import {
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiMenuItem from '@/components/organisms/UiMenu/_internal/UiMenuItem.vue';
 import UiHorizontalPaging from './UiHorizontalPaging.vue';
-import UiHorizontalPagingItem from './_internal/UiHorizontalPagingtem.vue';
+import UiHorizontalPagingItem from './_internal/UiHorizontalPagingItem.vue';
 
 const items = [
   {
@@ -84,6 +84,6 @@ describe('HorizontalPaging.vue', () => {
     expect(wrapper.props().modelValue).toEqual(modelValue);
     const back = wrapper.find('.ui-horizontal-paging__back');
     await back.trigger('click');
-    expect(wrapper.emitted('update:modelValue')[0][0]).toEqual(expected);
+    expect((wrapper.emitted('update:modelValue')?.at(0)?.at(0))).toEqual(expected);
   });
 });

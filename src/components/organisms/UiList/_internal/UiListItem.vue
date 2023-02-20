@@ -47,54 +47,47 @@ export default { inheritAttrs: false };
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { PropType } from 'vue';
+import type { LiHTMLAttributes } from 'vue';
 import type { Icon } from '../../../../types/icon';
-import type { PropsAttrs } from '../../../../types/attrs';
 import UiListItemSuffixAsButton from './UiListItemSuffixAsButton.vue';
+import type { ListItemSuffixAsButtonAttrsProps } from './UiListItemSuffixAsButton.vue';
 import UiListItemSuffixAsText from './UiListItemSuffixAsText.vue';
+import type { ListItemSuffixAsTextAttrsProps } from './UiListItemSuffixAsText.vue';
+import type {
+  DefineAttrsProps,
+  HTMLTag,
+} from '../../../../types';
 
-const props = defineProps({
+export interface ListItemProps {
   /**
    * Use this props to set list item content tag.
    */
-  tag: {
-    type: [
-      String,
-      Object,
-    ],
-    default: 'div',
-  },
+  tag?: HTMLTag;
   /**
    * Use this props to set suffix icon.
    */
-  icon: {
-    type: [
-      String,
-      Object,
-    ] as PropType<Icon>,
-    default: '',
-  },
+  icon?: Icon;
   /**
    * Use this props to control suffix visibility.
    */
-  hasSuffix: {
-    type: Boolean,
-    default: false,
-  },
+  hasSuffix?: boolean;
   /**
    * Use this props to pass attrs for UIListItemSuffix
    */
-  suffixAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  suffixAttrs?: ListItemSuffixAsButtonAttrsProps | ListItemSuffixAsTextAttrsProps;
   /**
    * Use this props to pass attrs for list item element
    */
-  listItemAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  listItemAttrs?: DefineAttrsProps<null, LiHTMLAttributes>;
+}
+export type ListItemAttrsProps = DefineAttrsProps<ListItemProps>;
+
+const props = withDefaults(defineProps<ListItemProps>(), {
+  tag: 'div',
+  icon: '',
+  hasSuffix: false,
+  suffixAttrs: () => ({}),
+  listItemAttrs: () => ({}),
 });
 const hasButtonSuffix = computed(() => !!Object.keys(props.suffixAttrs).filter(
   (key) => key.match(/(^on*|to|href)/),
@@ -102,7 +95,7 @@ const hasButtonSuffix = computed(() => !!Object.keys(props.suffixAttrs).filter(
 const suffixComponent = computed(() => (hasButtonSuffix.value
   ? UiListItemSuffixAsButton
   : UiListItemSuffixAsText));
-const defaultProps = computed(() => ({
+const defaultProps = computed<ListItemProps>(() => ({
   suffixAttrs: hasButtonSuffix.value
     ? {
       icon: props.icon,

@@ -166,7 +166,7 @@ const Template = (args) => ({
     :has-cancel="hasCancel"
     :has-confirm="hasConfirm"
     :translation="translation"
-    :transition-backdrop-attrs="translationBackdropAttrs"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
     :backdrop-attrs="backdropAttrs"
     :transition-dialog-attrs="transitionDialogAttrs"
     :heading-title-attrs="headingTitleAttrs"
@@ -212,7 +212,7 @@ export const WithBackdropSlot = (args) => ({
     :has-cancel="hasCancel"
     :has-confirm="hasConfirm"
     :translation="translation"
-    :transition-backdrop-attrs="translationBackdropAttrs"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
     :backdrop-attrs="backdropAttrs"
     :transition-dialog-attrs="transitionDialogAttrs"
     :heading-title-attrs="headingTitleAttrs"
@@ -230,12 +230,12 @@ export const WithBackdropSlot = (args) => ({
       transitionBackdropAttrs,
       modelValue,
       backdropAttrs,
-      closeHandler, 
+      closeHandler,
     }">
       <transition v-bind="transitionBackdropAttrs">
         <UiBackdrop
           v-if="modelValue"
-          v-bind="UiBackdrop"
+          v-bind="backdropAttrs"
           class="ui-modal__backdrop"
           @click="closeHandler"
         />
@@ -272,7 +272,7 @@ export const WithContainerSlot = (args) => ({
     :has-cancel="hasCancel"
     :has-confirm="hasConfirm"
     :translation="translation"
-    :transition-backdrop-attrs="translationBackdropAttrs"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
     :backdrop-attrs="backdropAttrs"
     :transition-dialog-attrs="transitionDialogAttrs"
     :heading-title-attrs="headingTitleAttrs"
@@ -408,6 +408,7 @@ export const WithHeaderSlot = (args) => ({
     UiText,
     UiHeading,
     UiIcon,
+    UiButton,
   },
   directives: {
     focusTrap,
@@ -429,7 +430,7 @@ export const WithHeaderSlot = (args) => ({
     :has-cancel="hasCancel"
     :has-confirm="hasConfirm"
     :translation="translation"
-    :transition-backdrop-attrs="translationBackdropAttrs"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
     :backdrop-attrs="backdropAttrs"
     :transition-dialog-attrs="transitionDialogAttrs"
     :heading-title-attrs="headingTitleAttrs"
@@ -517,7 +518,7 @@ export const WithTitleSlot = (args) => ({
     :has-cancel="hasCancel"
     :has-confirm="hasConfirm"
     :translation="translation"
-    :transition-backdrop-attrs="translationBackdropAttrs"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
     :backdrop-attrs="backdropAttrs"
     :transition-dialog-attrs="transitionDialogAttrs"
     :heading-title-attrs="headingTitleAttrs"
@@ -574,7 +575,7 @@ export const WithCloseSlot = (args) => ({
     :has-cancel="hasCancel"
     :has-confirm="hasConfirm"
     :translation="translation"
-    :transition-backdrop-attrs="translationBackdropAttrs"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
     :backdrop-attrs="backdropAttrs"
     :transition-dialog-attrs="transitionDialogAttrs"
     :heading-title-attrs="headingTitleAttrs"
@@ -634,7 +635,7 @@ export const WithDescriptionSlot = (args) => ({
     :has-cancel="hasCancel"
     :has-confirm="hasConfirm"
     :translation="translation"
-    :transition-backdrop-attrs="translationBackdropAttrs"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
     :backdrop-attrs="backdropAttrs"
     :transition-dialog-attrs="transitionDialogAttrs"
     :heading-title-attrs="headingTitleAttrs"
@@ -648,7 +649,7 @@ export const WithDescriptionSlot = (args) => ({
     @confirm="onConfirm"
     @cancel="onCancel"
   >
-    <template #description="{ 
+    <template #description="{
       hasDescription,
       textDescriptionAttrs,
       description
@@ -699,7 +700,7 @@ export const WithActionsSlot = (args) => ({
     :has-cancel="hasCancel"
     :has-confirm="hasConfirm"
     :translation="translation"
-    :transition-backdrop-attrs="translationBackdropAttrs"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
     :backdrop-attrs="backdropAttrs"
     :transition-dialog-attrs="transitionDialogAttrs"
     :heading-title-attrs="headingTitleAttrs"
@@ -795,7 +796,7 @@ export const WithConfirmSlot = (args) => ({
     :has-cancel="hasCancel"
     :has-confirm="hasConfirm"
     :translation="translation"
-    :transition-backdrop-attrs="translationBackdropAttrs"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
     :backdrop-attrs="backdropAttrs"
     :transition-dialog-attrs="transitionDialogAttrs"
     :heading-title-attrs="headingTitleAttrs"
@@ -809,7 +810,7 @@ export const WithConfirmSlot = (args) => ({
     @confirm="onConfirm"
     @cancel="onCancel"
   >
-    <template #confirm="{ 
+    <template #confirm="{
       hasConfirm,
       buttonConfirmAttrs,
       confirmHandler,
@@ -852,7 +853,7 @@ export const WithCancelSlot = (args) => ({
     :has-cancel="hasCancel"
     :has-confirm="hasConfirm"
     :translation="translation"
-    :transition-backdrop-attrs="translationBackdropAttrs"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
     :backdrop-attrs="backdropAttrs"
     :transition-dialog-attrs="transitionDialogAttrs"
     :heading-title-attrs="headingTitleAttrs"

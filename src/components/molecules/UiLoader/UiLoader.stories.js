@@ -22,7 +22,6 @@ import {
   onMounted,
 } from 'vue';
 import './UiLoader.stories.scss';
-import { OnBrand } from '@/components/molecules/UiNavigation/UiNavigation.stories';
 import docs from './UiLoader.mdx';
 
 const events = actions({ onMounted: 'onMounted' });
@@ -136,7 +135,7 @@ export const IfTransitionType = () => ({
     LoadingPopoverOfflineMessage,
   },
   setup() {
-    const isLoading = inject('isLoading');
+    const isLoading = inject('isLoading', true);
     return { isLoading };
   },
   template: `<UiLoader
@@ -177,7 +176,7 @@ export const ShowTransitionType = () => ({
     LoadingPopoverOfflineMessage,
   },
   setup() {
-    const isLoading = inject('isLoading');
+    const isLoading = inject('isLoading', true);
     return { isLoading };
   },
   template: `<UiLoader
@@ -218,7 +217,7 @@ export const OpacityTransitionType = () => ({
     UiButton,
   },
   setup() {
-    const isLoading = inject('isLoading');
+    const isLoading = inject('isLoading', true);
     return { isLoading };
   },
   template: `<UiButton
@@ -318,8 +317,8 @@ export const SkeletonLoader = () => ({
     UiLoader,
     UiText,
   },
-  template: `<UiText 
-    tag="span" 
+  template: `<UiText
+    tag="span"
     class="self-start"
   >
     Common:
@@ -332,7 +331,7 @@ export const SkeletonLoader = () => ({
       <!-- Place the content to be loaded. -->
     </UiLoader>
   </div>
-  <UiText 
+  <UiText
     tag="span"
     class="self-start"
   >
@@ -358,7 +357,7 @@ export const LoadingButton = (args) => ({
     UiText,
   },
   setup() {
-    const isLoading = inject('isLoading');
+    const isLoading = inject('isLoading', true);
     return {
       ...args,
       isLoading,
@@ -410,7 +409,7 @@ export const LoadingPopover = () => ({
     LoadingPopoverOfflineMessage,
   },
   setup() {
-    const isLoading = inject('isLoading');
+    const isLoading = inject('isLoading', true);
     return { isLoading };
   },
   template: `<UiPopover
@@ -462,7 +461,7 @@ export const LoadingContainer = (args) => ({
     UiAccordion,
   },
   setup() {
-    const isLoading = inject('isLoading');
+    const isLoading = inject('isLoading', true);
     return {
       ...args,
       isLoading,
@@ -478,8 +477,8 @@ export const LoadingContainer = (args) => ({
       <UiHeading level="2">
         Lab tests
       </UiHeading>
-      <UiHeading 
-        level="4" 
+      <UiHeading
+        level="4"
         class="loading-container__recommended"
       >
         Recommended
@@ -522,7 +521,7 @@ export const LoadingSidePanel = () => ({
     LoadingPopoverOfflineMessage,
   },
   setup() {
-    const isLoading = inject('isLoading');
+    const isLoading = inject('isLoading', true);
     return { isLoading };
   },
   template: `<UiSidePanel
@@ -576,7 +575,7 @@ export const LoadingControls = () => ({
     UiButton,
   },
   setup() {
-    const isLoading = inject('isLoading');
+    const isLoading = inject('isLoading', true);
     const items = [
       {
         value: 'present',

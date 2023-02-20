@@ -24,15 +24,15 @@ export interface LinkProps {
   /**
    * Use this props to set tag when a component shouldn't be a link.
    */
-  tag?: HTMLTag
+  tag?: HTMLTag;
   /**
    * Use this props to set route for internal link.
    */
-  to?: string | Record<string, unknown>
+  to?: string | Record<string, unknown>;
   /**
    * Use this props to set route for external link.
    */
-  href?: string
+  href?: string;
 }
 export type LinkAttrsProps<T = HTMLAttributes> = DefineAttrsProps<LinkProps, T>;
 

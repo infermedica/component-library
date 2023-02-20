@@ -1,8 +1,10 @@
 import {
   computed,
   useAttrs,
-  type HTMLAttributes,
-  type Events,
+} from 'vue';
+import type {
+  HTMLAttributes,
+  Events,
 } from 'vue';
 import type { Attrs } from '../../types';
 

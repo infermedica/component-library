@@ -75,110 +75,104 @@ import {
   onUnmounted,
   watch,
 } from 'vue';
-import type { PropType } from 'vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
+import type { ButtonAttrsProps } from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
+import type { IconAttrsProps } from '../../atoms/UiIcon/UiIcon.vue';
 import UiNavigation from '../UiNavigation/UiNavigation.vue';
-import type { NavigationItem } from '../UiNavigation/UiNavigation.vue';
-import type { PropsAttrs } from '../../../types/attrs';
-import type { Icon } from '../../../types/icon';
+import type {
+  NavigationProps,
+  NavigationAttrsProps,
+} from '../UiNavigation/UiNavigation.vue';
 import { toMobile } from '../../../styles/exports/breakpoints.module.scss';
+import type {
+  Icon,
+  DefineAttrsProps,
+} from '../../../types';
 
-const props = defineProps({
+export interface HeaderProps {
   /**
    * Use this props to pass attrs for logo button
    */
-  title: {
-    type: String,
-    default: '',
-  },
+  title?: string;
   /**
    * Use this prop to set the logo.
    */
-  logo: {
-    type: [
-      Object,
-      String,
-    ] as PropType<Icon>,
-    default: '',
-  },
+  logo?: Icon;
   /**
    * Use this props to pass media query for hamburger display
    */
-  hamburgerMatchMedia: {
-    type: String,
-    default: toMobile as string,
-  },
+  hamburgerMatchMedia?: string;
   /**
    * Use this props to pass list of navigation items.
    */
-  navigation: {
-    type: Array as PropType<NavigationItem[]>,
-    default: () => ([]),
-  },
+  navigation?: NavigationProps['items'];
   /**
    * Use this props to pass attrs for brand button
    */
-  buttonBrandAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  buttonBrandAttrs?: ButtonAttrsProps;
   /**
    * Use this props to pass attrs for hamburger UiButton
    */
-  buttonHamburgerAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  buttonHamburgerAttrs?: ButtonAttrsProps;
   /**
    * Use this props to pass attrs for hamburger UiIcon
    */
-  iconHamburgerAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({ icon: 'menu' }),
-  },
+  iconHamburgerAttrs?: IconAttrsProps;
   /**
    * Use this props to pass attrs for logo UiIcon
    */
-  iconLogoAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  iconLogoAttrs?: IconAttrsProps;
   /**
    * Use this props to pass attrs for UiNavigation.
    */
-  navigationAttrs: {
-    type: Object as PropsAttrs,
-    default: () => ({}),
-  },
+  navigationAttrs?: NavigationAttrsProps;
+}
+export type HeaderAttrsProps = DefineAttrsProps<HeaderProps>;
+export interface HeaderEmits {
+  (e: 'hamburger:open' | 'hamburger:close'): void;
+}
+const props = withDefaults(defineProps<HeaderProps>(), {
+  title: '',
+  logo: '',
+  hamburgerMatchMedia: toMobile,
+  navigation: () => ([]),
+  buttonBrandAttrs: () => ({}),
+  buttonHamburgerAttrs: () => ({}),
+  iconHamburgerAttrs: () => ({ icon: 'menu' }),
+  iconLogoAttrs: () => ({}),
+  navigationAttrs: () => ({}),
 });
-const defaultProps = computed(() => ({
-  iconHamburgerAttrs: {
-    icon: 'menu' as Icon,
-    ...props.iconHamburgerAttrs,
-  },
-  iconLogoAttrs: {
-    icon: props.logo as Icon,
-    title: props.title,
-    ...props.iconLogoAttrs,
-  },
-}));
-const emit = defineEmits<{(e: 'hamburger:open' | 'hamburger:close'): void}>();
+const defaultProps = computed(() => {
+  const icon: IconAttrsProps['icon'] = 'menu';
+  return {
+    iconHamburgerAttrs: {
+      icon,
+      ...props.iconHamburgerAttrs,
+    },
+    iconLogoAttrs: {
+      icon: props.logo,
+      title: props.title,
+      ...props.iconLogoAttrs,
+    },
+  };
+});
+const emit = defineEmits<HeaderEmits>();
 const matchMediaObject: MediaQueryList = matchMedia(props.hamburgerMatchMedia);
 const isMobile = ref(matchMediaObject.matches);
 const isOpen = ref(false);
-watch(isOpen, (value: boolean) => {
+watch(isOpen, (value) => {
   emit(value ? 'hamburger:open' : 'hamburger:close');
 });
 const handleHamburger = (): void => {
   isOpen.value = !isOpen.value;
 };
-function handleMedia({ matches }: { matches: boolean }): void {
+const handleMedia = ({ matches }: { matches: boolean }) => {
   isMobile.value = matches;
   if (isOpen.value && !matches) {
     isOpen.value = false;
   }
-}
+};
 onMounted(() => {
   matchMediaObject.addEventListener('change', handleMedia);
 });
