@@ -13,14 +13,11 @@
   >
     <!-- @slot Use this slot to replace legend template. -->
     <slot
-      v-bind="{
-        label,
-        name,
-      }"
+      v-bind="{ label, }"
       name="legend"
     >
       <legend class="visual-hidden">
-        {{ name || label }}
+        {{ label }}
       </legend>
     </slot>
     <!-- @slot Use this slot to replace header template.-->
@@ -28,7 +25,6 @@
       v-bind="{
         id: multipleChoicesItemId,
         textLabelAttrs,
-        name,
         label,
         hasInfo,
         buttonInfoAttrs,
@@ -42,7 +38,6 @@
           v-bind="{
             multipleChoicesItemId,
             textLabelAttrs,
-            name,
             label
           }"
           name="label"
@@ -52,7 +47,7 @@
             v-bind="textLabelAttrs"
             class="ui-multiple-choices-item__label"
           >
-            {{ name || label }}
+            {{ label }}
           </UiText>
         </slot>
         <slot
@@ -143,10 +138,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  computed,
-  useAttrs,
-} from 'vue';
+import { computed } from 'vue';
 import { uid } from 'uid/single';
 import type {
   MultipleChoicesModelValue,
@@ -292,24 +284,7 @@ const value = computed({
   },
 });
 const hasInfo = computed(() => (Object.keys(props.buttonInfoAttrs).length > 0));
-// TODO: remove in 0.6.0 / BEGIN
-const attrs = useAttrs();
-const name = computed(() => attrs.name as string);
-if (name.value) {
-  if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiMultipleChoicesItem]: The `name` props will be removed in 0.6.0. Please use `label` props instead.');
-  }
-}
-if (props.options.some((option) => option.name)) {
-  if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiMultipleChoicesItem]: The option `name` props will be removed in 0.6.0. Please use option `label` props instead.');
-  }
-}
-const optionsToRender = computed(() => props.options.map((option) => ({
-  label: option.name || 'label',
-  ...option,
-})));
-// END
+const optionsToRender = computed(() => props.options.map((option) => ({ ...option })));
 </script>
 
 <style lang="scss">

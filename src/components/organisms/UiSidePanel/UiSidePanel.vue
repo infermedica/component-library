@@ -276,15 +276,6 @@ const enterHandler = async () => {
 const afterEnterHandler = () => {
   emit('after-enter');
 };
-// TODO: remove in 0.6.0 / BEGIN
-const attrs = useAttrs();
-const transition = computed(() => attrs.transition as string | undefined);
-if (transition.value) {
-  if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiSidePanel]: The `transition` props will be removed in 0.6.0. Please use `transitionDialogAttrs` props instead.');
-  }
-}
-// END
 const defaultProps = computed(() => {
   const icon: Icon = 'close';
   const level: HeadingProps['level'] = 2;
@@ -296,7 +287,7 @@ const defaultProps = computed(() => {
     },
     transitionDialogAttrs: {
       appear: true,
-      name: transition.value || 'slide',
+      name: 'slide',
       onEnter: enterHandler,
       onAfterEnter: afterEnterHandler,
       ...props.transitionDialogAttrs,

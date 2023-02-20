@@ -17,14 +17,13 @@
     <slot
       name="remove"
       v-bind="{
-        buttonAttrs,
         buttonRemoveAttrs,
         clickHandler,
         iconRemoveAttrs: defaultProps.iconRemoveAttrs
       }"
     >
       <UiButton
-        v-bind="buttonAttrs || buttonRemoveAttrs"
+        v-bind="buttonRemoveAttrs"
         class="ui-button--icon ui-button--circled ui-chip__remove"
         @click="clickHandler"
       >
@@ -43,10 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  computed,
-  useAttrs,
-} from 'vue';
+import { computed } from 'vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import type { ButtonAttrsProps } from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
@@ -92,15 +88,6 @@ const emit = defineEmits<ChipEmits>();
 const clickHandler = () => {
   emit('remove');
 };
-// TODO: remove in 0.6.0 / BEGIN
-const attrs = useAttrs();
-const buttonAttrs = computed(() => attrs.buttonAttrs || attrs['button-attrs']);
-if (buttonAttrs.value) {
-  if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiChip]: The `buttonAttrs` props will be removed in 0.6.0. Please use `buttonRemoveAttrs` props instead.');
-  }
-}
-// END
 </script>
 
 <style lang="scss">

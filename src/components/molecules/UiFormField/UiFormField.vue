@@ -6,7 +6,6 @@
     <slot
       name="label"
       v-bind="{
-        label,
         message,
         hint,
         id: inputId,
@@ -15,7 +14,7 @@
       }"
     >
       <label
-        v-if="label || message"
+        v-if="message"
         :for="inputId"
         class="ui-form-field__label"
       >
@@ -23,7 +22,6 @@
         <slot
           name="message"
           v-bind="{
-            label,
             message,
             textMessageAttrs: defaultProps.textMessageAttrs
           }"
@@ -32,7 +30,7 @@
             v-bind="defaultProps.textMessageAttrs"
             class="ui-text--body-2-comfortable ui-form-field__message"
           >
-            {{ label || message }}
+            {{ message }}
           </UiText>
         </slot>
         <!-- @slot Use this slot to replace hint template.-->
@@ -146,21 +144,6 @@ const defaultProps = computed(() => {
 const inputId = computed(() => (
   props.id || `input-${uid()}`
 ));
-// TODO: remove in 0.6.0 / BEGIN
-const attrs = useAttrs();
-const labelAttrs = computed(() => attrs.labelAttrs || attrs['label-attrs']);
-if (labelAttrs.value) {
-  if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiFormField]: The `labelAttrs` will be removed in 0.6.0.');
-  }
-}
-const label = computed(() => attrs.label);
-if (label.value) {
-  if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiFormField]: The `label` props will be removed in 0.6.0. Please use `message` props instead.');
-  }
-}
-// END
 </script>
 
 <style lang="scss">
