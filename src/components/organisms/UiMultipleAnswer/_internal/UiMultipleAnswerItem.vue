@@ -74,6 +74,8 @@ import {
   ref,
   computed,
   useSlots,
+  onMounted,
+  nextTick,
 } from 'vue';
 import { focusElement } from '../../../../utilities/helpers/index';
 import type { TextAttrsProps } from '../../../atoms/UiText/UiText.vue';
@@ -186,6 +188,10 @@ const errorClass = computed(() => (props.invalid
   : []));
 const content = ref(null);
 const suffix = ref(null);
+const suffixSize = ref({
+  '--_label-suffix-width': '0',
+  '--_label-suffix-height': '0',
+});
 const handleInfoFocus = (event: KeyboardEvent) => {
   if (event.key !== 'ArrowRight') return;
   if (suffix.value?.$el) {
@@ -219,11 +225,24 @@ const suffixAttrs = computed(() => ({
   ...props.buttonInfoAttrs,
 }));
 const hasInfo = computed(() => (Object.keys(props.buttonInfoAttrs).length > 0));
+onMounted(async () => {
+  await nextTick();
+  if (suffix.value?.$el) {
+    const {
+      width, height,
+    } = suffix.value?.$el.getBoundingClientRect();
+    suffixSize.value = {
+      '--_label-suffix-width': `${width}px`,
+      '--_label-suffix-height': `${height}px`,
+    };
+  }
+});
 const listItemAttrs = computed(() => ({
   class: [
     'ui-multiple-answer-item',
     { 'ui-multiple-answer-item--has-info': hasInfo.value },
   ],
+  style: { ...suffixSize.value },
 }));
 
 // TODO: remove in 0.6.0 / BEGIN
@@ -250,8 +269,8 @@ if (choiceItem.value) {
       &::after {
         @include mixins.use-logical($element + "-suffix", margin, 0 0 0 var(--space-12));
 
-        width: var(--icon-size, var(--icon-width, 1.5rem));
-        height: var(--icon-size, var(--icon-height, 1.5rem));
+        width: var(--_label-suffix-width);
+        height: var(--_label-suffix-height);
         flex: none;
         content: "";
       }
