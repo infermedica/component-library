@@ -9,6 +9,7 @@
   >
     <input
       :id="radioId"
+      ref="input"
       v-keyboard-focus
       type="radio"
       class="visual-hidden"
@@ -59,6 +60,7 @@ export default { inheritAttrs: false };
 
 <script setup lang="ts">
 import {
+  ref,
   computed,
   useSlots,
 } from 'vue';
@@ -167,6 +169,7 @@ const changeHandler = (event: Event) => {
     emit('update:modelValue', JSON.parse(JSON.stringify(props.value)));
   }
 };
+const input = ref(null);
 // TODO: remove in 0.6.0 / BEGIN
 const radiobutton = computed(() => (slots.radiobutton));
 if (radiobutton.value) {

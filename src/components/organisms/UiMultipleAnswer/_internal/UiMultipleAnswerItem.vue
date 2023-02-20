@@ -2,19 +2,18 @@
   <UiListItem
     :id="id"
     :tag="component"
-    :value="value"
-    :model-value="modelValue"
     :has-suffix="hasInfo"
     :suffix-attrs="suffixAttrs"
-    :text-label-attrs="defaultProps.textLabelAttrs"
-    :class="[
-      'ui-multiple-answer-item', errorClass
-    ]"
-    @update:model-value="handleValueUpdate"
-    @keydown="handleInfoFocus"
+    :list-item-attrs="listItemAttrs"
   >
     <!-- @slot Use this slot to replace choice template.-->
-    <template #content>
+    <template
+      #content="{
+        tag,
+        hasSuffix,
+        suffixComponent,
+      }"
+    >
       <slot
         v-bind="{
           id,
@@ -24,22 +23,59 @@
           component,
         }"
         :name="choiceItem && 'choice-item' || 'choice'"
-      />
+      >
+        <component
+          :is="tag"
+          ref="content"
+          v-bind="$attrs"
+          :text-label-attrs="defaultProps.textLabelAttrs"
+          :value="value"
+          :model-value="modelValue"
+          class="ui-list-item__content"
+          :class="[ errorClass ]"
+          @update:model-value="handleValueUpdate"
+          @keydown="handleInfoFocus"
+        >
+          <!-- @slot Use this slot to place content inside list-item. -->
+          <slot name="content" />
+          <!-- @slot Use this slot to replace label template.-->
+          <slot
+            :name="`label-${id}`"
+            v-bind="{ label }"
+          >
+            {{ label }}
+          </slot>
+        </component>
+      </slot>
+
+      <!-- @slot Use this slot to replace suffix template -->
+      <slot
+        name="suffix"
+        v-bind="{
+          hasSuffix,
+          suffixComponent,
+          suffixAttrs
+        }"
+      >
+        <component
+          :is="suffixComponent"
+          v-if="hasSuffix"
+          ref="suffix"
+          v-bind="suffixAttrs"
+          class="ui-list-item__suffix ui-multiple-answer-item__suffix"
+        />
+      </slot>
     </template>
-    <!-- @slot Use this slot to replace label template.-->
-    <slot
-      :name="`label-${id}`"
-      v-bind="{ label }"
-    >
-      {{ label }}
-    </slot>
   </UiListItem>
 </template>
 
 <script setup lang="ts">
 import {
+  ref,
   computed,
   useSlots,
+  onMounted,
+  nextTick,
 } from 'vue';
 import { focusElement } from '../../../../utilities/helpers/index';
 import type { TextAttrsProps } from '../../../atoms/UiText/UiText.vue';
@@ -150,30 +186,24 @@ const errorClass = computed(() => (props.invalid
     'ui-list-item--has-error',
   ]
   : []));
-const handleInfoFocus = ({
-  key, target, preventDefault,
-}: KeyboardEvent) => {
-  if (key !== 'ArrowRight') return;
-  const input = target as HTMLInputElement;
-  const info: HTMLElement | null | undefined = input
-    .closest('.ui-multiple-answer-item')
-    ?.querySelector('.ui-multiple-answer-item__info');
-  if (info) {
-    preventDefault();
-    focusElement(info);
+const content = ref(null);
+const suffix = ref(null);
+const suffixSize = ref({
+  '--_label-suffix-width': '0',
+  '--_label-suffix-height': '0',
+});
+const handleInfoFocus = (event: KeyboardEvent) => {
+  if (event.key !== 'ArrowRight') return;
+  if (suffix.value?.$el) {
+    event.preventDefault();
+    focusElement(suffix.value.$el);
   }
 };
-const handleInfoUnfocus = ({
-  key, target, preventDefault,
-}: KeyboardEvent) => {
-  if (key !== 'ArrowLeft') return;
-  const info = target as HTMLElement;
-  const input: HTMLInputElement | null | undefined = info
-    .closest('.ui-multiple-answer-item')
-    ?.querySelector('input');
-  if (input) {
-    preventDefault();
-    focusElement(input);
+const handleInfoUnfocus = (event: KeyboardEvent) => {
+  if (event.key !== 'ArrowLeft') return;
+  if (content.value?.$refs?.input) {
+    event.preventDefault();
+    focusElement(content.value?.$refs?.input);
   }
 };
 const handleValueUpdate = (newValue: MultipleAnswerModelValue) => {
@@ -195,6 +225,25 @@ const suffixAttrs = computed(() => ({
   ...props.buttonInfoAttrs,
 }));
 const hasInfo = computed(() => (Object.keys(props.buttonInfoAttrs).length > 0));
+onMounted(async () => {
+  await nextTick();
+  if (suffix.value?.$el) {
+    const {
+      width, height,
+    } = suffix.value?.$el.getBoundingClientRect();
+    suffixSize.value = {
+      '--_label-suffix-width': `${width}px`,
+      '--_label-suffix-height': `${height}px`,
+    };
+  }
+});
+const listItemAttrs = computed(() => ({
+  class: [
+    'ui-multiple-answer-item',
+    { 'ui-multiple-answer-item--has-info': hasInfo.value },
+  ],
+  style: { ...suffixSize.value },
+}));
 
 // TODO: remove in 0.6.0 / BEGIN
 const slots = useSlots();
@@ -215,10 +264,37 @@ if (choiceItem.value) {
   $this: &;
   $element: multiple-answer-item;
 
+  &--has-info {
+    #{$this}__label {
+      &::after {
+        @include mixins.use-logical($element + "-suffix", margin, 0 0 0 var(--space-12));
+
+        width: var(--_label-suffix-width);
+        height: var(--_label-suffix-height);
+        flex: none;
+        content: "";
+      }
+    }
+  }
+
   &__label {
+    position: relative;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
+  }
+
+  &__suffix {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-end: 0;
+    margin-block: var(--list-item-content-padding-block, var(--list-item-content-padding-block-start, var(--space-12)) var(--list-item-content-padding-block-end, var(--space-12)));
+    margin-inline: var(--list-item-content-padding-inline, var(--list-item-content-padding-inline-start, var(--space-20)) var(--list-item-content-padding-inline-end, var(--space-12)));
+
+    @include mixins.from-tablet {
+      margin-block: var(--list-item-tablet-content-padding-block, var(--list-item-tablet-content-padding-block-start, var(--space-12)) var(--list-item-tablet-content-padding-block-end, var(--space-12)));
+      margin-inline: var(--list-item-tablet-content-padding-inline, var(--list-item-tablet-content-padding-inline-start, var(--space-12)) var(--list-item-tablet-content-padding-inline-end, var(--space-12)));
+    }
   }
 }
 </style>

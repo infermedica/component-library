@@ -9,6 +9,7 @@
   >
     <input
       :id="checkboxId"
+      ref="input"
       v-keyboard-focus
       v-bind="defaultProps.inputAttrs"
       :checked="isChecked"
@@ -66,6 +67,7 @@ export default { inheritAttrs: false };
 
 <script setup lang="ts">
 import {
+  ref,
   computed,
   useSlots,
 } from 'vue';
@@ -191,6 +193,7 @@ const changeHandler = (event: Event) => {
   const el = event.target as HTMLInputElement;
   emit('update:modelValue', getChecked(el.checked));
 };
+const input = ref(null);
 // TODO: remove in 0.6.0 / BEGIN
 const checkbutton = computed(() => (slots.checkbutton));
 if (checkbutton.value) {
