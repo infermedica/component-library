@@ -4,6 +4,7 @@
     :tag="component"
     :has-suffix="hasInfo"
     :suffix-attrs="suffixAttrs"
+    :list-item-attrs="listItemAttrs"
   >
     <!-- @slot Use this slot to replace choice template.-->
     <template
@@ -30,9 +31,7 @@
           :value="value"
           :model-value="modelValue"
           class="ui-list-item__content"
-          :class="[
-            'ui-multiple-answer-item', errorClass
-          ]"
+          :class="[ errorClass ]"
           @update:model-value="handleValueUpdate"
           @keydown="handleInfoFocus"
         >
@@ -228,6 +227,12 @@ const suffixAttrs = computed(() => ({
   ...props.buttonInfoAttrs,
 }));
 const hasInfo = computed(() => (Object.keys(props.buttonInfoAttrs).length > 0));
+const listItemAttrs = computed(() => ({
+  class: [
+    'ui-multiple-answer-item',
+    { 'ui-multiple-answer-item--has-info': hasInfo.value },
+  ],
+}));
 
 // TODO: remove in 0.6.0 / BEGIN
 const slots = useSlots();
@@ -248,19 +253,37 @@ if (choiceItem.value) {
   $this: &;
   $element: multiple-answer-item;
 
+  &--has-info {
+    #{$this}__label {
+      &::after {
+        @include mixins.use-logical($element + "-suffix", margin, 0 0 0 var(--space-12));
+
+        width: var(--icon-size, var(--icon-width, 1.5rem));
+        height: var(--icon-size, var(--icon-height, 1.5rem));
+        flex: none;
+        content: "";
+      }
+    }
+  }
+
   &__label {
+    position: relative;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-
-    @include mixins.use-logical($element + "-label", margin, 0 var(--space-32) 0 0);
   }
 
   &__suffix {
-    --list-item-suffix-margin-inline: #{functions.var($element + "-suffix", margin-inline, var(--space-12))};
+    @include mixins.override-logical(list-item-suffix, null, margin, 0);
 
-    position: #{functions.var($element + "-suffix", position, absolute)};
-    inset-inline-end: #{functions.var($element + "-suffix", inset-inline-end, 0)};
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-end: 0;
+    @include mixins.use-logical("list-item-content", padding, var(--space-12) var(--space-20));
+
+    @include mixins.from-tablet {
+      @include mixins.use-logical("list-item-tablet-content", padding, var(--space-12));
+    }
   }
 }
 </style>
