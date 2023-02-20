@@ -274,15 +274,15 @@ if (choiceItem.value) {
   }
 
   &__suffix {
-    @include mixins.override-logical(list-item-suffix, null, margin, 0);
-
     position: absolute;
     inset-block-start: 0;
     inset-inline-end: 0;
-    @include mixins.use-logical("list-item-content", padding, var(--space-12) var(--space-20));
+    margin-block: var(--list-item-content-padding-block, var(--list-item-content-padding-block-start, var(--space-12)) var(--list-item-content-padding-block-end, var(--space-12)));
+    margin-inline: var(--list-item-content-padding-inline, var(--list-item-content-padding-inline-start, var(--space-20)) var(--list-item-content-padding-inline-end, var(--space-12)));
 
     @include mixins.from-tablet {
-      @include mixins.use-logical("list-item-tablet-content", padding, var(--space-12));
+      margin-block: var(--list-item-tablet-content-padding-block, var(--list-item-tablet-content-padding-block-start, var(--space-12)) var(--list-item-tablet-content-padding-block-end, var(--space-12)));
+      margin-inline: var(--list-item-tablet-content-padding-inline, var(--list-item-tablet-content-padding-inline-start, var(--space-12)) var(--list-item-tablet-content-padding-inline-end, var(--space-12)));
     }
   }
 }
