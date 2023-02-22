@@ -36,7 +36,7 @@
             :aria-controls="id"
             v-bind="buttonTabAttrs"
             class="ui-button--text ui-tabs-item__tab-button"
-            @click="handleTabActive($event, id)"
+            @click="handleTabActive(id)"
           >
             {{ title }}
           </UiButton>
@@ -73,6 +73,7 @@ import {
   onMounted,
   inject,
   useAttrs,
+  watch,
 } from 'vue';
 import type { Ref } from 'vue';
 import { uid } from 'uid/single';
@@ -114,12 +115,17 @@ const attrs: TabsItemAttrsProps = useAttrs();
 const activeTab = inject<Ref<string>>('activeTab', ref(''));
 const hasActiveTab = computed(() => (!!activeTab.value));
 const id = computed(() => (props.name || attrs.id || `tab-${uid()}`));
-const isActive = computed(() => (id.value === activeTab.value));
-// eslint-disable-next-line @typescript-eslint/no-empty-function
-const handleTabActive = inject<TabsHandleTabActive>('handleTabActive', () => {});
-const tab = ref<HTMLElement | null>(null);
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const setActiveHTMLElement = inject<TabsSetActiveElement>('setActiveHTMLElement', () => {});
+const tab = ref<HTMLElement | null>(null);
+const isActive = computed(() => (id.value === activeTab.value));
+watch(() => isActive.value, (value) => {
+  if (value) {
+    setActiveHTMLElement(tab.value);
+  }
+});
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const handleTabActive = inject<TabsHandleTabActive>('handleTabActive', () => {});
 onMounted(() => {
   if (isActive.value) {
     setActiveHTMLElement(tab.value);
