@@ -219,19 +219,19 @@ const finalScore = computed(() => (
     ? hoverScore.value
     : parseInt(rate.value, 10)));
 const itemsToRender = computed<RatingRenderItem[]>(() => (Array.from({ length: maxScore.value }, (_, index) => ({
-  ...props.radioOptionAttrs,
+  ...props.radioOptionAttrs[index],
   index: index + 1,
   iconActiveAttrs: {
     icon: defaultProps.value.settings.iconActive,
-    ...props.radioOptionAttrs?.iconActiveAttrs,
+    ...props.radioOptionAttrs[index]?.iconActiveAttrs,
   },
   iconDefaultAttrs: {
     icon: defaultProps.value.settings.iconDefault,
-    ...props.radioOptionAttrs?.iconDefaultAttrs,
+    ...props.radioOptionAttrs[index]?.iconDefaultAttrs,
   },
   textLabelAttrs: {
     tag: 'div',
-    ...props.radioOptionAttrs?.textLabelAttrs,
+    ...props.radioOptionAttrs[index]?.textLabelAttrs,
   },
 }))));
 const ratingItemAttrs = ({
