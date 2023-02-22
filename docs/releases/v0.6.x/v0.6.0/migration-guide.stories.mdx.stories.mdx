@@ -1,0 +1,15 @@
+import { Meta } from "@storybook/addon-docs";
+import { PageOutline } from '../../../components/PageOutline';
+
+<Meta title="Releases/v0.6.x/v0.6.0/Migration Guide"/>
+
+# Migration Guide
+
+<PageOutline selectors="h2, h3"/>
+
+## Remove UiMegaMenu component.
+From v0.6.0, UiMegaMenu component is removed. Please use UiHorizontalPaging instead. UiHorizontalPaging is a new component that it support multileveling and has a better design.
+
+## Use CSS logical properties instead of directional properties.
+From v0.6.0, we use CSS logical properties instead of directional properties. For example, instead of using `margin-left`, we use `margin-inline-start`. This is to support RTL languages.
+Everything about this change is described in [this guide](docs/contributing-guide-css-logical-properties--padding).
