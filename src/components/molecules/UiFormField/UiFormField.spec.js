@@ -17,9 +17,9 @@ describe('UiFormField.vue', () => {
     expect(wrapper.find('.label-class').text()).toContain(customLabel);
     expect(wrapper.findAll('label').length).toBe(1);
   });
-  test('renders a label when passed a label prop', () => {
+  test('renders a label when passed a message prop', () => {
     const labelText = 'custom label text';
-    const wrapper = mount(UiFormField, { props: { label: labelText } });
+    const wrapper = mount(UiFormField, { props: { message: labelText } });
 
     const label = wrapper.findAll('label');
     expect(label.length).toBe(1);
@@ -36,7 +36,7 @@ describe('UiFormField.vue', () => {
     const hintText = 'Required';
     const wrapper = mount(UiFormField, {
       props: {
-        label: 'label present',
+        message: 'label present',
         hint: hintText,
       },
     });

@@ -6,15 +6,15 @@ import UiNavigationItem from './_internal/UiNavigationItem.vue';
 const items = [
   {
     to: '/',
-    text: 'title',
+    label: 'title',
   },
   {
     to: '/',
-    text: 'title',
+    label: 'title',
   },
   {
     to: '/',
-    text: 'title',
+    label: 'title',
   },
 ];
 
@@ -26,7 +26,7 @@ describe('UiNavigation.vue', () => {
   test('component render item with the correct text', async () => {
     const wrapper = mount(UiNavigation, { props: { items } });
     const item = wrapper.findComponent(UiNavigationItem);
-    expect(item.text()).toBe(items[0].text);
+    expect(item.text()).toBe(items[0].label);
   });
   test('component render the correct number of items', async () => {
     const wrapper = mount(UiNavigation, { props: { items } });

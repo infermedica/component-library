@@ -7,32 +7,32 @@ describe('UiSimpleQuestion.vue', () => {
     const wrapper = mount(UiSimpleQuestion);
     expect(wrapper.classes('ui-simple-question')).toBe(true);
   });
-  test('renders a component with correct amount of options', () => {
-    const options = [
+  test('renders a component with correct amount of items', () => {
+    const items = [
       {
         id: 'present-id',
         name: 'yes-no-dontknow',
         label: 'Yes',
         value: 'present',
-        iconAttrs: { icon: 'checkmark' },
+        icon: 'checkmark',
       },
       {
         id: 'absent-id',
         name: 'yes-no-dontknow',
         label: 'No',
         value: 'absent',
-        iconAttrs: { icon: 'close' },
+        icon: 'close',
       },
       {
         id: 'unknown-id',
         name: 'yes-no-dontknow',
         label: 'Dont know sometimes is long',
         value: 'unknown',
-        iconAttrs: { icon: 'arrow-right' },
+        icon: 'arrow-right',
       },
     ];
-    const optionsLength = options.length;
-    const wrapper = mount(UiSimpleQuestion, { props: { options } });
+    const optionsLength = items.length;
+    const wrapper = mount(UiSimpleQuestion, { props: { items } });
 
     const optionTiles = wrapper.findAllComponents(UiTile);
     expect(optionTiles.length).toBe(optionsLength);

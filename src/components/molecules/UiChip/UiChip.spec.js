@@ -14,7 +14,7 @@ describe('UiChip.vue', () => {
   });
   test('a component pass attributes for remove button', () => {
     const content = 'symptom checker';
-    const wrapper = mount(UiChip, { props: { buttonAttrs: { 'aria-label': content } } });
+    const wrapper = mount(UiChip, { props: { buttonRemoveAttrs: { 'aria-label': content } } });
     const button = wrapper.find('.ui-chip__remove');
     expect(button.attributes('aria-label')).toBe(content);
   });
