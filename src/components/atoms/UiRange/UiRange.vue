@@ -159,25 +159,7 @@ const changeHandler = (value: RangeModelValue) => {
   if (attrs.value.disabled) return;
   emit('update:modelValue', value);
 };
-// TODO: remove in 0.6.0 / BEGIN
-const buttonDecrementAttrs = computed(() => (attrs.value.buttonDecrementAttrs || attrs.value['button-decrement-attrs']) as NumberStepperProps['buttonDecrementAttrs']);
-if (buttonDecrementAttrs.value) {
-  if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiRange]: The `buttonDecrementAttrs` props will be removed in 0.6.0. Please use `numberStepperAttrs` props instead.');
-  }
-}
-const buttonIncrementAttrs = computed(() => (attrs.value.buttonIncrementAttrs || attrs.value['button-increment-attrs']) as NumberStepperProps['buttonIncrementAttrs']);
-if (buttonIncrementAttrs.value) {
-  if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiRange]: The `buttonIncrementAttrs` props will be removed in 0.6.0. Please use `numberStepperAttrs` props instead.');
-  }
-}
-// END
-const numberStepperAttrs = computed<NumberStepperAttrsProps>(() => ({
-  buttonDecrementAttrs: buttonDecrementAttrs.value,
-  buttonIncrementAttrs: buttonIncrementAttrs.value,
-  ...attrs.value,
-}));
+const numberStepperAttrs = computed<NumberStepperAttrsProps>(() => ({ ...attrs.value }));
 </script>
 
 <style lang="scss">

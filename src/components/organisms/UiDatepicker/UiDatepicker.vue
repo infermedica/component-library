@@ -464,7 +464,7 @@ const handleFocus = (datePart: DatepickerDatePart) => {
 
 const focus = async (inputElement: DatepickerInput) => {
   await nextTick();
-  const target = inputElement.$el.children[0];
+  const target = inputElement.$refs.input.$refs.input;
   focusElement(target);
   if (target.value) target.select();
 };

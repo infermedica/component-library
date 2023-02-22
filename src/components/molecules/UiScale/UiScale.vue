@@ -167,8 +167,6 @@ export interface ScaleTranslation {
   label?: string;
   min?: string;
   max?: string;
-  mild?: string; // TODO remove 0.0.6
-  unbearable?: string; // TODO remove 0.0.6
 }
 export type ScaleValue = number;
 export interface ScaleProps {
@@ -267,45 +265,14 @@ const calcActiveElementOpacity = (index: number): CSSProperties => {
 
   return isActive ? { '--_scale-square-overlay-opacity': (index * opacityStepValue).toFixed(3) } : {};
 };
-// TODO: remove in 0.6.0 / BEGIN
-const attrs = useAttrs();
-const buttonDecrementAttrs = computed(() => (attrs.buttonDecrementAttrs || attrs['button-decrement-attrs']) as ScaleProps['numberStepperAttrs']);
-if (buttonDecrementAttrs.value) {
-  if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiScale]: The `buttonDecrementAttrs` props will be removed in 0.6.0. Please use `numberStepperAttrs` props instead.');
-  }
-}
-const buttonIncrementAttrs = computed(() => (attrs.buttonIncrementAttrs || attrs['button-increment-attrs']) as ScaleProps['numberStepperAttrs']);
-if (buttonIncrementAttrs.value) {
-  if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiScale]: The `buttonIncrementAttrs` will be removed in 0.6.0. Please use `numberStepperAttrs` props instead.');
-  }
-}
-const translationMild = computed(() => props.translation.mild);
-if (translationMild.value) {
-  if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiScale]: The translation `mild` will be removed in 0.6.0. Please use `min` translation property instead.');
-  }
-}
-const translationUnbearable = computed(() => props.translation.unbearable);
-if (translationUnbearable.value) {
-  if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiScale]: The translation `unbearable` will be removed in 0.6.0. Please use `max` translation property instead.');
-  }
-}
-// END
 const defaultProps = computed(() => ({
   translation: {
     label: 'Pain scale',
-    min: translationMild.value || 'Mild',
-    max: translationUnbearable.value || 'Unbearable',
+    min: 'Mild',
+    max: 'Unbearable',
     ...props.translation,
   },
-  numberStepperAttrs: {
-    buttonDecrementAttrs: buttonDecrementAttrs.value,
-    buttonIncrementAttrs: buttonIncrementAttrs.value,
-    ...props.numberStepperAttrs,
-  },
+  numberStepperAttrs: { ...props.numberStepperAttrs },
 }));
 const itemsToRender = computed<RadioAttrsProps[]>(() => (Array.from({ length: maxSteps.value }, (_, index) => {
   const radioOptionAttrs = Array.isArray(props.radioOptionAttrs)
@@ -477,11 +444,11 @@ const itemsToRender = computed<RadioAttrsProps[]>(() => (Array.from({ length: ma
   }
 
   &__min {
-    --text-color: #{functions.var($element + "-mild", color, var(--_scale-description-color))};
+    --text-color: #{functions.var($element + "-min", color, var(--_scale-description-color))};
   }
 
   &__max {
-    --text-color: #{functions.var($element + "-unbearable", color, var(--_scale-description-color))};
+    --text-color: #{functions.var($element + "-max", color, var(--_scale-description-color))};
   }
 }
 </style>

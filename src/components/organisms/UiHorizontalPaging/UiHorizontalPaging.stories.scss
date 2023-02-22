@@ -72,8 +72,8 @@
 
 //<Code id="horizontal-paging-as-mobile-menu">
 .horizontal-paging-as-mobile-menu {
-  --side-panel-content-padding: var(--space-12) var(--space-4);
-  --side-panel-tablet-content-padding: var(--space-12) var(--space-32);
+  --side-panel-content-padding-block: 0;
+  --side-panel-content-padding-inline: 0;
 
   &__title {
     display: flex;

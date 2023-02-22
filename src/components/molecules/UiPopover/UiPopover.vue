@@ -6,7 +6,6 @@
       v-bind="{
         title,
         headingTitleAttrs,
-        buttonAttrs,
         buttonCloseAttrs,
         clickHandler
       }"
@@ -33,14 +32,13 @@
         <slot
           name="close"
           v-bind="{
-            buttonAttrs,
             buttonCloseAttrs,
             clickHandler,
             iconCloseAttrs: defaultProps.iconCloseAttrs
           }"
         >
           <UiButton
-            v-bind="buttonAttrs || buttonCloseAttrs"
+            v-bind="buttonCloseAttrs"
             class="ui-button--icon ui-button--theme-secondary ui-popover__close"
             @click="clickHandler"
           >
@@ -69,7 +67,6 @@
 import {
   onMounted,
   onBeforeUnmount,
-  useAttrs,
   computed,
 } from 'vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
@@ -142,15 +139,6 @@ onMounted(() => {
 onBeforeUnmount(() => {
   window.removeEventListener('keydown', keydownHandler);
 });
-// TODO: remove in 0.6.0 / BEGIN
-const attrs = useAttrs();
-const buttonAttrs = computed(() => attrs.buttonAttrs || attrs['button-attrs']);
-if (buttonAttrs.value) {
-  if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiPopover]: The `buttonAttrs` props will be removed in 0.6.0. Please use `buttonCloseAttrs` props instead.');
-  }
-}
-// END
 </script>
 
 <style lang="scss">

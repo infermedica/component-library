@@ -11,7 +11,6 @@
       <slot
         name="tile"
         v-bind="{
-          option: item,
           item,
           modelValue,
           isTileSmall,
@@ -79,19 +78,11 @@ const isTileSmall = computed(() => attrs.class && attrs.class.includes('ui-simpl
 const updateHandler = (value: SimpleQuestionProps['modelValue']) => {
   emit('update:modelValue', value);
 };
-// TODO: remove in 0.6.0 / BEGIN
-const options = computed(() => (attrs?.options as SimpleQuestionProps['items']));
-if (options.value) {
-  if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiSimpleQuestion]: The `options` props will be removed in 0.6.0. Please use `items` props instead.');
-  }
-}
-// END
 const tileItemAttrs = ({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   label, ...itemAttrs
 }: SimpleQuestionItem) => itemAttrs;
-const itemsToRender = computed(() => options.value || props.items);
+const itemsToRender = computed(() => props.items);
 </script>
 
 <style lang="scss">

@@ -44,7 +44,6 @@ import type { DefineAttrsProps } from '../../../types';
 
 export interface NavigationRenderItem extends NavigationItemAttrsProps {
   name?: string;
-  text?: string;
   label?: string;
 }
 export interface NavigationProps {
@@ -64,18 +63,10 @@ const itemsToRender = computed<NavigationRenderItem[]>(() => (props.items.map((i
   const {
     name,
     label,
-    text,
   } = item;
-  // TODO: remove in 0.6.0 / BEGIN
-  if (text) {
-    if (process.env.NODE_ENV === 'development') {
-      console.warn('[@infermedica/component-library error][UiNavigationItem]: The `text` property from `items` props will be removed in 0.6.0. Please use `label` property instead.');
-    }
-  }
-  // END
   return {
     name: name || `navigation-item-${key}`,
-    label: text || label,
+    label,
     ...item,
   };
 })));

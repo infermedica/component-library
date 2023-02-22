@@ -1,7 +1,7 @@
 {
   "name": "@infermedica/component-library",
   "description": "Vue 3 UI library for healthcare and not only.",
-  "version": "0.5.5",
+  "version": "0.6.0",
   "engines": {
     "node": ">=16.13.2",
     "pnpm": ">=6.32"
@@ -64,7 +64,7 @@
     "uid": "^2.0.0",
     "vite": "^3.0.2",
     "vite-svg-loader": "^3.4.0",
-    "vue": "^3.2.37"
+    "vue": "^3.2.47"
   },
   "devDependencies": {
     "@brightlayer-ui/storybook-rtl-addon": "^1.1.0",

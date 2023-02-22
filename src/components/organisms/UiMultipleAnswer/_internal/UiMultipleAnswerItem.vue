@@ -22,7 +22,7 @@
           label,
           component,
         }"
-        :name="choiceItem && 'choice-item' || 'choice'"
+        name="choice"
       >
         <component
           :is="tag"
@@ -73,7 +73,6 @@
 import {
   ref,
   computed,
-  useSlots,
   onMounted,
   nextTick,
 } from 'vue';
@@ -244,16 +243,6 @@ const listItemAttrs = computed(() => ({
   ],
   style: { ...suffixSize.value },
 }));
-
-// TODO: remove in 0.6.0 / BEGIN
-const slots = useSlots();
-const choiceItem = computed(() => (slots['choice-item']));
-if (choiceItem.value) {
-  if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiMultipleAnswer]: The `choice-item` slot will be removed in 0.6.0. Please use `choice` slot instead.');
-  }
-}
-// END
 </script>
 
 <style lang="scss">

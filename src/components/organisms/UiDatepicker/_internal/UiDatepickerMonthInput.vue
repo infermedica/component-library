@@ -1,6 +1,7 @@
 <template>
   <UiInput
     id="month"
+    ref="input"
     v-model="month"
     :class="{ 'ui-input--has-error': hasError }"
     :placeholder="translation.placeholderMonth"
@@ -80,13 +81,17 @@ const month = computed({
 });
 const validationError = computed(() => (month.value.length === 2 && !props.valid));
 const hasError = computed(() => (validationError.value || unfulfilledMonthError.value || props.error));
-const checkMonth = async ({ data }: InputEvent) => {
+const checkMonth = async (event: InputEvent) => {
   unfulfilledMonthError.value = false;
+  const {
+    data, target,
+  } = event;
+  const { value } = target as HTMLInputElement;
   await nextTick();
   if (data && (![
     '0',
     '1',
-  ].includes(data) || month.value.length === 2) && props.valid) {
+  ].includes(data) || value.length === 2) && props.valid) {
     emit('change-input', 'month');
   }
 };
@@ -99,4 +104,5 @@ const standardizeMonthFormat = () => {
     }
   }
 };
+const input = ref(null);
 </script>

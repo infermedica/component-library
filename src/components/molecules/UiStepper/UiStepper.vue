@@ -98,15 +98,11 @@ import UiStepperStep from './_internal/UiStepperStep.vue';
 import type { StepperStepAttrsProps } from './_internal/UiStepperStep.vue';
 import type { DefineAttrsProps } from '../../../types';
 
-// TODO: after 0.6.0. we can remove StepperRenderItem type and use StepperStepAttrsProps instead.
-export type StepperRenderItem = {
-  name?: string;
-} & StepperStepAttrsProps;
 export interface StepperProps {
   /**
    * Use this props to set the steps in the stepper.
    */
-  steps?: StepperRenderItem[];
+  steps?: StepperStepAttrsProps[];
   /**
    * Use this props to set the current step in the stepper.
    */
@@ -141,22 +137,14 @@ const defaultProps = computed(() => ({
     ...props.progressAttrs,
   },
 }));
-// TODO: after 0.6.0. we should use StepperStepAttrsProps instead StepperRenderItem.
-const stepperStepAttrs = (step: StepperRenderItem) => {
+const stepperStepAttrs = (step: StepperStepAttrsProps) => {
   const { ...rest } = step;
   return rest;
 };
-// TODO: remove in 0.6.0 / BEGIN
-if (props.steps.some((step) => step.name)) {
-  if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiStepper]: The step `name` props will be removed in 0.6.0. Please use step `label` props instead.');
-  }
-}
 const stepsToRender = computed<StepperProps['steps']>(() => props.steps.map((step) => ({
   ...step,
-  label: step.name || step.label,
+  label: step.label,
 })));
-// END
 </script>
 
 <style lang="scss">

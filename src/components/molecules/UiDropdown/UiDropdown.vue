@@ -15,12 +15,11 @@
         closeHandler,
         isOpen,
         text,
-        buttonAttrs,
         buttonToggleAttrs,
       }"
     >
       <UiButton
-        v-bind="buttonAttrs || buttonToggleAttrs"
+        v-bind="buttonToggleAttrs"
         ref="toggle"
         class="ui-dropdown__toggle"
         :aria-expanded="`${isOpen}`"
@@ -94,7 +93,6 @@ import {
   computed,
   provide,
   nextTick,
-  useAttrs,
 } from 'vue';
 import type {
   ComputedRef,
@@ -316,15 +314,6 @@ const itemsToRender = computed<DropdownItemComplex[]>(() => (props.items.map((it
     value: item.value || JSON.parse(JSON.stringify(item)),
   };
 })));
-// TODO: remove in 0.6.0 / BEGIN
-const attrs = useAttrs();
-const buttonAttrs = computed(() => (attrs.buttonAttrs || attrs['button-attrs']));
-if (buttonAttrs.value) {
-  if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiDropdown]: The `buttonAttrs` props will be removed in 0.6.0. Please use `buttonToggleAttrs` props instead.');
-  }
-}
-// END
 const dropdownItemAttrs = ({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   name, text, ...itemAttrs

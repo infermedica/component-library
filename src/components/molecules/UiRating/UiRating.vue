@@ -25,7 +25,6 @@
         v-bind="{
           index: item.index,
           rate,
-          radioAttrs,
           ratingName,
           hoverHandler,
           finalScore,
@@ -125,7 +124,6 @@ export type RatingValue = string | number;
 export interface RatingSettings {
   iconDefault?: Icon;
   iconActive?: Icon;
-  icon?: Icon; // TODO: remove in 0.6.0
 }
 export interface RatingTranslation {
   stars: (index: number) => string;
@@ -220,51 +218,22 @@ const finalScore = computed(() => (
   hoverScore.value
     ? hoverScore.value
     : parseInt(rate.value, 10)));
-// TODO: remove in 0.6.0 / BEGIN
-const attrs = useAttrs();
-const radioAttrs = computed(() => (attrs.radioAttrs || attrs['radio-attrs']) as RatingProps['radioOptionAttrs']);
-if (radioAttrs.value) {
-  if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiRating]: The `radioAttrs` props will be removed in 0.6.0. Please use `radioOptionAttrs` props instead.');
-  }
-}
-const icon = computed(() => (props.settings.icon));
-if (icon.value) {
-  if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiRating]: The `icon` property from `settings` props will be removed in 0.6.0. Please use `iconDefault` property instead.');
-  }
-}
-const slots = useSlots();
-const iconSlot = computed(() => (slots.icon));
-if (iconSlot.value) {
-  if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library error][UiRating]: From 0.5.2 `icon` slot is use to replace template of rating icons. Please use `iconDefault` slot instead.');
-  }
-}
-// END
-
-const itemsToRender = computed<RatingRenderItem[]>(() => (Array.from({ length: maxScore.value }, (_, index) => {
-  const proxyRadioAttrs = radioAttrs.value || props.radioOptionAttrs; // TODO: remove proxy in 0.6.0
-  const radioOptionAttrs = Array.isArray(proxyRadioAttrs)
-    ? proxyRadioAttrs[index]
-    : proxyRadioAttrs;
-  return {
-    ...radioOptionAttrs,
-    index: index + 1,
-    iconActiveAttrs: {
-      icon: defaultProps.value.settings.iconActive,
-      ...radioOptionAttrs?.iconActiveAttrs,
-    },
-    iconDefaultAttrs: {
-      icon: icon.value || defaultProps.value.settings.iconDefault, // TODO: remove icon.value in 0.6.0
-      ...radioOptionAttrs?.iconDefaultAttrs,
-    },
-    textLabelAttrs: {
-      tag: 'div',
-      ...radioOptionAttrs?.textLabelAttrs,
-    },
-  };
-})));
+const itemsToRender = computed<RatingRenderItem[]>(() => (Array.from({ length: maxScore.value }, (_, index) => ({
+  ...props.radioOptionAttrs[index],
+  index: index + 1,
+  iconActiveAttrs: {
+    icon: defaultProps.value.settings.iconActive,
+    ...props.radioOptionAttrs[index]?.iconActiveAttrs,
+  },
+  iconDefaultAttrs: {
+    icon: defaultProps.value.settings.iconDefault,
+    ...props.radioOptionAttrs[index]?.iconDefaultAttrs,
+  },
+  textLabelAttrs: {
+    tag: 'div',
+    ...props.radioOptionAttrs[index]?.textLabelAttrs,
+  },
+}))));
 const ratingItemAttrs = ({
   /* eslint-disable @typescript-eslint/no-unused-vars */
   iconActiveAttrs,

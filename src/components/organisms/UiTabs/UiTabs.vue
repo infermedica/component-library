@@ -36,7 +36,7 @@ import UiTabsItem from './_internal/UiTabsItem.vue';
 import type { TabsItemAttrsProps } from './_internal/UiTabsItem.vue';
 import type { DefineAttrsProps } from '../../../types';
 
-export type TabsHandleTabActive = (event: Event, name: string) => void;
+export type TabsHandleTabActive = (name: string) => void;
 export type TabsSetActiveElement = (element: HTMLElement | null) => void;
 export interface TabsProps {
   /**
@@ -58,11 +58,11 @@ const props = withDefaults(defineProps<TabsProps>(), {
   items: () => ([]),
 });
 const emit = defineEmits<TabsEmits>();
-const activeTab = ref(props.modelValue);
-provide('activeTab', activeTab);
-watch(activeTab, (name) => {
-  emit('update:modelValue', name);
+const activeTab = computed({
+  get: () => props.modelValue,
+  set: (value) => emit('update:modelValue', value),
 });
+provide('activeTab', activeTab);
 const itemsToRender = computed<TabsProps['items']>(() => (props.items.map((item, key) => {
   if (typeof item === 'string') {
     return {
@@ -104,9 +104,7 @@ const setActiveHTMLElement = (element: HTMLElement | null): void => {
   activeTabHTMLElement.value = element;
 };
 provide<TabsSetActiveElement>('setActiveHTMLElement', setActiveHTMLElement);
-const handleTabActive = (event: Event, name: string) => {
-  const target = event.target as HTMLElement;
-  setActiveHTMLElement(target.parentElement);
+const handleTabActive = (name: string) => {
   activeTab.value = name;
 };
 provide<TabsHandleTabActive>('handleTabActive', handleTabActive);

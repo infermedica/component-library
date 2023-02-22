@@ -184,11 +184,11 @@ export const FullConfiguration = (args) => ({
   />`,
 });
 
-export const NoConfiguration = () => ({
+export const NoConfiguration = (args) => ({
   components: { UiDatepicker },
   setup() {
-    const modelValue = ref('');
-    const invalid = ref(true);
+    const modelValue = ref(args.initModelValue);
+    const invalid = ref(args.initInvalid);
     return {
       modelValue,
       invalid,
@@ -200,3 +200,7 @@ export const NoConfiguration = () => ({
     error="Sorry, the date of birth cannot be a future date"
   />`,
 });
+NoConfiguration.args = {
+  initModelValue: '',
+  initInvalid: false,
+};

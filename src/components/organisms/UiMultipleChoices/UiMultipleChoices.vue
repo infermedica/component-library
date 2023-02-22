@@ -22,12 +22,12 @@
       class="ui-multiple-choices__items"
     >
       <template
-        v-for="(item, index) in choices || items"
+        v-for="(item, index) in items"
         :key="index"
       >
         <!-- @slot Use this slot to replace choice template.-->
         <slot
-          :name="choiceItem && 'choice-item' || 'choice'"
+          name="choice"
           v-bind="{
             value,
             index,
@@ -53,8 +53,6 @@
 <script setup lang="ts">
 import {
   computed,
-  useAttrs,
-  useSlots,
   watch,
 } from 'vue';
 import UiAlert from '../../molecules/UiAlert/UiAlert.vue';
@@ -130,22 +128,6 @@ const updateHandler = (newValue: MultipleChoicesModelValue, index: number) => {
   value.value[index] = newValue;
   emit('update:modelValue', value.value);
 };
-// TODO: remove in 0.6.0 / BEGIN
-const attrs = useAttrs();
-const choices = computed(() => (attrs.choices) as MultipleChoicesProps['items']);
-if (choices.value) {
-  if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiMultipleChoices]: The `choices` props will be removed in 0.6.0. Please use `items` props instead.');
-  }
-}
-const slots = useSlots();
-const choiceItem = computed(() => (slots['choice-item']));
-if (choiceItem.value) {
-  if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiMultipleChoices]: The `choice-item` slot will be removed in 0.6.0. Please use `choice` slot instead.');
-  }
-}
-// END
 </script>
 
 <style lang="scss">
