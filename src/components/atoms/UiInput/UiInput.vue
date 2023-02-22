@@ -15,6 +15,7 @@
         }"
       >
         <input
+          ref="input"
           v-keyboard-focus
           v-bind="defaultProps.inputAttrs"
           :value="modelValue"
@@ -48,7 +49,10 @@ export default { inheritAttrs: false };
 </script>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import {
+  ref,
+  computed,
+} from 'vue';
 import type {
   HTMLAttributes,
   InputHTMLAttributes,
@@ -139,6 +143,7 @@ const inputHandler = (event: Event) => {
   const el = event.target as HTMLInputElement;
   emit('update:modelValue', el.value);
 };
+const input = ref(null);
 </script>
 
 <style lang="scss">
