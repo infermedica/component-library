@@ -10,6 +10,7 @@ module.exports = {
     '@vue/typescript/recommended',
     'plugin:storybook/recommended',
     'plugin:vitest-globals/recommended',
+    'plugin:cypress/recommended',
   ],
   parserOptions: { ecmaVersion: 2020 },
   rules: {
