@@ -27,7 +27,6 @@
 <script setup lang="ts">
 import {
   ref,
-  watch,
   computed,
   provide,
 } from 'vue';

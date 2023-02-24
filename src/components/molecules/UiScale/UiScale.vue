@@ -143,7 +143,6 @@
 import {
   computed,
   ref,
-  useAttrs,
   watch,
 } from 'vue';
 import type {
@@ -228,7 +227,7 @@ const props = withDefaults(defineProps<ScaleProps>(), {
   }),
   tag: 'fieldset',
   legend: '',
-  radioOptionAttrs: () => ({}),
+  radioOptionAttrs: () => ([]),
   textMinAttrs: () => ({}),
   textMaxAttrs: () => ({}),
   numberStepperAttrs: () => ({}),
