@@ -169,7 +169,8 @@ const changeHandler = (event: Event) => {
     emit('update:modelValue', JSON.parse(JSON.stringify(props.value)));
   }
 };
-const input = ref(null);
+const input = ref<HTMLElement | null>(null);
+defineExpose({ input });
 </script>
 
 <style lang="scss">

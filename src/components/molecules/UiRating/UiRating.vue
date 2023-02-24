@@ -220,7 +220,7 @@ const itemsToRender = computed<RatingRenderItem[]>(() => (Array.from({ length: m
   const radioOptionAttrs = Array.isArray(props.radioOptionAttrs)
     ? props.radioOptionAttrs[index]
     : props.radioOptionAttrs;
-    return {
+  return {
     ...radioOptionAttrs,
     index: index + 1,
     iconActiveAttrs: {
