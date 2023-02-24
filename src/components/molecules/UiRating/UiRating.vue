@@ -93,7 +93,7 @@
             <span
               v-bind="textLabelAttrs"
               class="visual-hidden"
-            >{{ defaultProps.translation.stars }}</span>
+            >{{ defaultProps.translation.stars(index) }}</span>
           </template>
         </UiRadio>
       </slot>
@@ -105,8 +105,6 @@
 import {
   computed,
   ref,
-  useAttrs,
-  useSlots,
 } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { uid } from 'uid/single';
@@ -218,22 +216,27 @@ const finalScore = computed(() => (
   hoverScore.value
     ? hoverScore.value
     : parseInt(rate.value, 10)));
-const itemsToRender = computed<RatingRenderItem[]>(() => (Array.from({ length: maxScore.value }, (_, index) => ({
-  ...props.radioOptionAttrs[index],
-  index: index + 1,
-  iconActiveAttrs: {
-    icon: defaultProps.value.settings.iconActive,
-    ...props.radioOptionAttrs[index]?.iconActiveAttrs,
-  },
-  iconDefaultAttrs: {
-    icon: defaultProps.value.settings.iconDefault,
-    ...props.radioOptionAttrs[index]?.iconDefaultAttrs,
-  },
-  textLabelAttrs: {
-    tag: 'div',
-    ...props.radioOptionAttrs[index]?.textLabelAttrs,
-  },
-}))));
+const itemsToRender = computed<RatingRenderItem[]>(() => (Array.from({ length: maxScore.value }, (_, index) => {
+  const radioOptionAttrs = Array.isArray(props.radioOptionAttrs)
+    ? props.radioOptionAttrs[index]
+    : props.radioOptionAttrs;
+    return {
+    ...radioOptionAttrs,
+    index: index + 1,
+    iconActiveAttrs: {
+      icon: defaultProps.value.settings.iconActive,
+      ...radioOptionAttrs?.iconActiveAttrs,
+    },
+    iconDefaultAttrs: {
+      icon: defaultProps.value.settings.iconDefault,
+      ...radioOptionAttrs?.iconDefaultAttrs,
+    },
+    textLabelAttrs: {
+      tag: 'div',
+      ...radioOptionAttrs?.textLabelAttrs,
+    },
+  };
+})));
 const ratingItemAttrs = ({
   /* eslint-disable @typescript-eslint/no-unused-vars */
   iconActiveAttrs,

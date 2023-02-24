@@ -198,7 +198,7 @@ export interface ScaleProps {
   /**
    * Use this props to pass attrs for option UiRadio.
    */
-  radioOptionAttrs?: RadioAttrsProps[] | Partial<RadioAttrsProps>;
+  radioOptionAttrs?: RadioAttrsProps | RadioAttrsProps[];
   /**
    * USe this props to pass attrs for min UiText.
    */
