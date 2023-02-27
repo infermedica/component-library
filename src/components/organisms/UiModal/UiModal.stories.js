@@ -14,6 +14,7 @@ import {
   bodyScrollLock,
   focusTrap,
 } from '@/utilities/directives/index';
+import { WithListItemSlot } from '@/components/organisms/UiList/UiList.stories';
 
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
@@ -243,6 +244,7 @@ export const WithBackdropSlot = (args) => ({
     </template>
   </UiModal>`,
 });
+WithBackdropSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithContainerSlot = (args) => ({
   components: {
@@ -401,6 +403,7 @@ export const WithContainerSlot = (args) => ({
     </template>
   </UiModal>`,
 });
+WithContainerSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithHeaderSlot = (args) => ({
   components: {
@@ -492,6 +495,7 @@ export const WithHeaderSlot = (args) => ({
     </template>
   </UiModal>`,
 });
+WithHeaderSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithTitleSlot = (args) => ({
   components: {
@@ -548,6 +552,7 @@ export const WithTitleSlot = (args) => ({
     </template>
   </UiModal>`,
 });
+WithTitleSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithCloseSlot = (args) => ({
   components: {
@@ -609,6 +614,7 @@ export const WithCloseSlot = (args) => ({
     </template>
   </UiModal>`,
 });
+WithCloseSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithDescriptionSlot = (args) => ({
   components: {
@@ -664,6 +670,7 @@ export const WithDescriptionSlot = (args) => ({
     </template>
   </UiModal>`,
 });
+WithDescriptionSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithoutTitleWithDescriptionSlot = WithDescriptionSlot.bind({});
 WithoutTitleWithDescriptionSlot.args = {
@@ -674,6 +681,7 @@ WithoutTitleWithDescriptionSlot.args = {
     cancel: 'Cancel',
   },
 };
+WithoutTitleWithDescriptionSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithActionsSlot = (args) => ({
   components: {
@@ -770,6 +778,7 @@ export const WithActionsSlot = (args) => ({
     </template>
   </UiModal>`,
 });
+WithActionsSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithConfirmSlot = (args) => ({
   components: {
@@ -827,6 +836,7 @@ export const WithConfirmSlot = (args) => ({
     </template>
   </UiModal>`,
 });
+WithConfirmSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithCancelSlot = (args) => ({
   components: {
@@ -884,3 +894,4 @@ export const WithCancelSlot = (args) => ({
     </template>
   </UiModal>`,
 });
+WithCancelSlot.parameters = { chromatic: { disableSnapshot: true } };

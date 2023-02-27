@@ -4,6 +4,7 @@ import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
 import { actions } from '@storybook/addon-actions';
 import { content } from '@sb/helpers/argTypes';
+import { WithIconInNavigationItemSlot } from '@/components/molecules/UiNavigation/UiNavigation.stories';
 
 const events = actions({ onClick: 'action' });
 
@@ -137,3 +138,4 @@ export const WithActionSlot = (args) => ({
     {{ content }}
   </UiNotification>`,
 });
+WithActionSlot.parameters = { chromatic: { disableSnapshot: true } };

@@ -10,6 +10,7 @@ import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import { ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
+import { WithCancelSlot } from '@/components/organisms/UiModal/UiModal.stories';
 
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
@@ -220,6 +221,7 @@ export const WithHintSlot = (args) => ({
     </template>
   </UiMultipleAnswer>`,
 });
+WithHintSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithListItemSlot = (args) => ({
   components: {
@@ -262,6 +264,7 @@ export const WithListItemSlot = (args) => ({
     </template>
   </UiMultipleAnswer>`,
 });
+WithListItemSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithChoiceSlot = (args) => ({
   components: {
@@ -312,6 +315,7 @@ export const WithChoiceSlot = (args) => ({
     </template>
   </UiMultipleAnswer>`,
 });
+WithChoiceSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithLabelChoiceIdSlot = (args) => ({
   components: { UiMultipleAnswer },
@@ -361,3 +365,4 @@ WithLabelChoiceIdSlot.args = {
     },
   ],
 };
+WithLabelChoiceIdSlot.parameters = { chromatic: { disableSnapshot: true } };

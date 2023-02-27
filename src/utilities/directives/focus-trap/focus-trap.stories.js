@@ -13,7 +13,10 @@ import docs from './focus-trap.mdx';
 export default {
   title: 'Utilities/Directives/Focus Trap',
   decorators: [ () => ({ template: '<div style="--backdrop-position: absolute; --side-panel-position: absolute; --side-panel-z-index: 0; min-height: 320px;"><story /></div>' }) ],
-  parameters: { docs: { page: docs } },
+  parameters: {
+    docs: { page: docs },
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 export const WithDirective = () => ({

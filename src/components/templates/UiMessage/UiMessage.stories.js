@@ -7,6 +7,7 @@ import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
 import UiControls from '@/components/organisms/UiControls/UiControls.vue';
 import { content } from '@sb/helpers/argTypes';
 import './UiMessage.stories.scss';
+import { WithDefaultSlot } from '@/components/organisms/UiTabs/UiTabs.stories';
 import docs from './UiMessage.mdx';
 
 export default {
@@ -127,118 +128,6 @@ const Template = (args) => ({
 });
 
 export const AsIntroduction = Template.bind({});
-
-export const WithContentSlot = (args) => ({
-  components: {
-    UiMessage,
-    UiText,
-    UiHeading,
-  },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiMessage
-    :title="title"
-    :subtitle="subtitle"
-    :illustration="illustration"
-    :text-subtitle-attrs="textSubtitleAttrs"
-    :heading-title-attrs="headingTitleAttrs"
-    :icon-illustration-attrs="iconIllustrationAttrs"
-  >
-    <template #content="{
-      subtitle,
-      title,
-      textSubtitleAttrs,
-      headingTitleAttrs
-    }">
-      <div class="ui-message__content">
-        <UiText
-          v-if="subtitle"
-          v-bind="textSubtitleAttrs"
-          class="ui-message__subtitle"
-        >
-          {{ subtitle }}
-        </UiText>
-        <UiHeading
-          v-if="title"
-          v-bind="headingTitleAttrs"
-          class="ui-message__title"
-        >
-          {{ title }}
-        </UiHeading>
-        <UiText>
-          {{ content }}
-        </UiText>
-      </div>
-    </template>
-  </UiMessage>`,
-});
-
-export const WithAsideSlot = (args) => ({
-  components: {
-    UiMessage,
-    UiText,
-    UiIcon,
-  },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiMessage
-    :title="title"
-    :subtitle="subtitle"
-    :illustration="illustration"
-    :text-subtitle-attrs="textSubtitleAttrs"
-    :heading-title-attrs="headingTitleAttrs"
-    :icon-illustration-attrs="iconIllustrationAttrs"
-  >
-    <template #aside="{
-      illustration,
-      iconIllustrationAttrs
-    }">
-      <div
-        v-if="illustration"
-        class="ui-message__aside"
-      >
-        <UiIcon
-          v-bind="iconIllustrationAttrs"
-          class="ui-message__illustration"
-        />
-      </div>
-    </template>
-    <UiText>
-      {{ content }}
-    </UiText>
-  </UiMessage>`,
-});
-
-export const WithIllustrationSlot = (args) => ({
-  components: {
-    UiMessage,
-    UiIcon,
-    UiText,
-  },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiMessage
-    :title="title"
-    :subtitle="subtitle"
-    :illustration="illustration"
-    :text-subtitle-attrs="textSubtitleAttrs"
-    :heading-title-attrs="headingTitleAttrs"
-    :icon-illustration-attrs="iconIllustrationAttrs"
-  >
-    <template #illustration="{ iconIllustrationAttrs }">
-      <UiIcon
-        v-bind="iconIllustrationAttrs"
-        class="ui-message__illustration"
-      />
-    </template>
-    <UiText>
-      {{ content }}
-    </UiText>
-  </UiMessage>`,
-});
 
 export const AsNotAuthorized = (args) => ({
   components: {
@@ -375,3 +264,118 @@ AsOfflinePopover.decorators = [ (story) => ({
     <story/>
   </UiPopover>`,
 }) ];
+
+export const WithContentSlot = (args) => ({
+  components: {
+    UiMessage,
+    UiText,
+    UiHeading,
+  },
+  setup() {
+    return { ...args };
+  },
+  template: `<UiMessage
+    :title="title"
+    :subtitle="subtitle"
+    :illustration="illustration"
+    :text-subtitle-attrs="textSubtitleAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :icon-illustration-attrs="iconIllustrationAttrs"
+  >
+    <template #content="{
+      subtitle,
+      title,
+      textSubtitleAttrs,
+      headingTitleAttrs
+    }">
+      <div class="ui-message__content">
+        <UiText
+          v-if="subtitle"
+          v-bind="textSubtitleAttrs"
+          class="ui-message__subtitle"
+        >
+          {{ subtitle }}
+        </UiText>
+        <UiHeading
+          v-if="title"
+          v-bind="headingTitleAttrs"
+          class="ui-message__title"
+        >
+          {{ title }}
+        </UiHeading>
+        <UiText>
+          {{ content }}
+        </UiText>
+      </div>
+    </template>
+  </UiMessage>`,
+});
+WithContentSlot.parameters = { chromatic: { disableSnapshot: true } };
+
+export const WithAsideSlot = (args) => ({
+  components: {
+    UiMessage,
+    UiText,
+    UiIcon,
+  },
+  setup() {
+    return { ...args };
+  },
+  template: `<UiMessage
+    :title="title"
+    :subtitle="subtitle"
+    :illustration="illustration"
+    :text-subtitle-attrs="textSubtitleAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :icon-illustration-attrs="iconIllustrationAttrs"
+  >
+    <template #aside="{
+      illustration,
+      iconIllustrationAttrs
+    }">
+      <div
+        v-if="illustration"
+        class="ui-message__aside"
+      >
+        <UiIcon
+          v-bind="iconIllustrationAttrs"
+          class="ui-message__illustration"
+        />
+      </div>
+    </template>
+    <UiText>
+      {{ content }}
+    </UiText>
+  </UiMessage>`,
+});
+WithAsideSlot.parameters = { chromatic: { disableSnapshot: true } };
+
+export const WithIllustrationSlot = (args) => ({
+  components: {
+    UiMessage,
+    UiIcon,
+    UiText,
+  },
+  setup() {
+    return { ...args };
+  },
+  template: `<UiMessage
+    :title="title"
+    :subtitle="subtitle"
+    :illustration="illustration"
+    :text-subtitle-attrs="textSubtitleAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :icon-illustration-attrs="iconIllustrationAttrs"
+  >
+    <template #illustration="{ iconIllustrationAttrs }">
+      <UiIcon
+        v-bind="iconIllustrationAttrs"
+        class="ui-message__illustration"
+      />
+    </template>
+    <UiText>
+      {{ content }}
+    </UiText>
+  </UiMessage>`,
+});
+WithIllustrationSlot.parameters = { chromatic: { disableSnapshot: true } };

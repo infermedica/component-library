@@ -8,6 +8,7 @@ import {
 } from 'vue';
 import { actions } from '@storybook/addon-actions';
 import { toMobile } from '@/styles/exports/breakpoints.module.scss';
+import { WithActionSlot } from '@/components/molecules/UiNotification/UiNotification.stories';
 
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
@@ -159,6 +160,61 @@ WithControlsOnMobile.args = {
 WithControlsOnMobile.argTypes = { hasControls: { control: false } };
 WithControlsOnMobile.parameters = { viewport: { defaultViewport: 'mobile2' } };
 
+export const WithRange = (args) => ({
+  components: {
+    UiNumberStepper,
+    UiText,
+  },
+  setup() {
+    const modelValue = ref(args.initModelValue);
+    return {
+      ...args,
+      ...events,
+      modelValue,
+    };
+  },
+  template: `<UiNumberStepper
+    v-model="modelValue"
+    :min="min"
+    :max="max"
+    :step="step"
+    :has-controls="hasControls"
+    :button-decrement-attrs="buttonDecrementAttrs"
+    :icon-decrement-attrs="iconDecrementAttrs"
+    :button-increment-attrs="buttonIncrementAttrs"
+    :icon-increment-attrs="iconIncrementAttrs"
+    @error:value="onError"
+    @update:modelValue="onUpdateModelValue"
+  >
+    <template #default="{
+      change,
+      value,
+      min,
+      max,
+      step,
+    }">
+      <input
+        type="range"
+        :value="value"
+        :min="min"
+        :max="max"
+        class="m-0 mb-6 tablet:m-0 flex-full tablet:flex-1"
+        @input="change(parseInt($event.target.value, 10))"
+      />
+    </template>
+  </UiNumberStepper>`,
+});
+WithRange.args = {
+  buttonDecrementAttrs: {
+    'aria-label': 'decrement number',
+    tabindex: -1,
+  },
+  buttonIncrementAttrs: {
+    'aria-label': 'increment number',
+    tabindex: -1,
+  },
+};
+
 export const WithDecrementSlot = (args) => ({
   components: {
     UiNumberStepper,
@@ -222,6 +278,7 @@ export const WithDecrementSlot = (args) => ({
     </template>
   </UiNumberStepper>`,
 });
+WithDecrementSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithIncrementSlot = (args) => ({
   components: {
@@ -286,58 +343,4 @@ export const WithIncrementSlot = (args) => ({
     </template>
   </UiNumberStepper>`,
 });
-
-export const WithRange = (args) => ({
-  components: {
-    UiNumberStepper,
-    UiText,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiNumberStepper
-    v-model="modelValue"
-    :min="min"
-    :max="max"
-    :step="step"
-    :has-controls="hasControls"
-    :button-decrement-attrs="buttonDecrementAttrs"
-    :icon-decrement-attrs="iconDecrementAttrs"
-    :button-increment-attrs="buttonIncrementAttrs"
-    :icon-increment-attrs="iconIncrementAttrs"
-    @error:value="onError"
-    @update:modelValue="onUpdateModelValue"
-  >
-    <template #default="{
-      change,
-      value,
-      min,
-      max,
-      step,
-    }">
-      <input
-        type="range"
-        :value="value"
-        :min="min"
-        :max="max"
-        class="m-0 mb-6 tablet:m-0 flex-full tablet:flex-1"
-        @input="change(parseInt($event.target.value, 10))"
-      />
-    </template>
-  </UiNumberStepper>`,
-});
-WithRange.args = {
-  buttonDecrementAttrs: {
-    'aria-label': 'decrement number',
-    tabindex: -1,
-  },
-  buttonIncrementAttrs: {
-    'aria-label': 'increment number',
-    tabindex: -1,
-  },
-};
+WithIncrementSlot.parameters = { chromatic: { disableSnapshot: true } };

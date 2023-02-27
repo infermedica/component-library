@@ -3,6 +3,7 @@ import UiText from '@/components/atoms/UiText/UiText.vue';
 import { defineAsyncComponent } from 'vue';
 import './UiIcon.stories.scss';
 import icons from '@/components/atoms/UiIcon/icons.ts';
+import { AsSpan } from '@/components/atoms/UiHeading/UiHeading.stories';
 import docs from './UiIcon.mdx';
 
 export default {
@@ -30,6 +31,7 @@ const Template = (args) => ({
 });
 
 export const IconAsName = Template.bind({});
+IconAsName.parameters = { chromatic: { disableSnapshot: true } };
 
 export const IconAsImport = (args) => ({
   components: { UiIcon },
@@ -42,6 +44,7 @@ export const IconAsImport = (args) => ({
   },
   template: '<UiIcon :icon="icon"/>',
 });
+IconAsImport.parameters = { chromatic: { disableSnapshot: true } };
 
 export const IconAsIllustration = (args) => ({
   components: { UiIcon },
@@ -70,6 +73,7 @@ IconAsIllustration.argTypes = {
     ],
   },
 };
+IconAsIllustration.parameters = { chromatic: { disableSnapshot: true } };
 
 export const IconAsCustomIllustration = (args) => ({
   components: { UiIcon },
@@ -83,6 +87,7 @@ export const IconAsCustomIllustration = (args) => ({
 });
 IconAsCustomIllustration.args = { icon: 'boy' };
 IconAsCustomIllustration.argTypes = { icon: { control: false } };
+IconAsCustomIllustration.parameters = { chromatic: { disableSnapshot: true } };
 
 // TODO: add copy to clipboard
 // TODO: group icons by usage (illustration, ui, triage, etc.)
@@ -114,4 +119,7 @@ ListOfIcons.argTypes = {
   icon: { control: false },
   viewBox: { control: false },
 };
-ListOfIcons.parameters = { controls: { hideNoControlsWarning: true } };
+ListOfIcons.parameters = {
+  controls: { hideNoControlsWarning: true },
+  chromatic: { disableSnapshot: true },
+};

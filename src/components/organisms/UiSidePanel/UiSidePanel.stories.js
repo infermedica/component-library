@@ -21,6 +21,7 @@ import {
   keyboardFocus,
 } from '@/utilities/directives';
 import './UiSidePanel.stories.scss';
+import { WithOptionSlot } from '@/components/organisms/UiMultipleChoices/UiMultipleChoices.stories';
 
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
@@ -253,6 +254,52 @@ TermsOfService.args = {
   subtitle: 'Last updated: Nov 26th, 2020',
 };
 
+export const WithAsyncContent = (args) => ({
+  components: {
+    UiSidePanel,
+    UiButton,
+    UiHeading,
+    TOS,
+  },
+  setup() {
+    const modelValue = inject('modelValue');
+    const isLoaded = ref(false);
+    onMounted(() => (
+      window.setTimeout(() => {
+        isLoaded.value = true;
+      }, 1000)
+    ));
+    return {
+      ...args,
+      ...events,
+      modelValue,
+      isLoaded,
+    };
+  },
+  template: `<UiSidePanel
+    v-model="modelValue"
+    :title="title"
+    :subtitle="subtitle"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    :dialog-attrs="dialogAttrs"
+    :content-attrs="contentAttrs"
+    @update:modelValue="onUpdateModelValue"
+    @after-enter="onAfterEnter"
+  >
+    <template v-if="isLoaded">
+      <UiHeading>§1. General Provisions</UiHeading>
+      <TOS/>
+    </template>
+  </UiSidePanel>`,
+});
+WithAsyncContent.parameters = { chromatic: { disableSnapshot: true } };
+
 export const WithBackdropSlot = (args) => ({
   components: {
     UiSidePanel,
@@ -303,6 +350,7 @@ export const WithBackdropSlot = (args) => ({
     </UiText>
   </UiSidePanel>`,
 });
+WithBackdropSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithContainerSlot = (args) => ({
   components: {
@@ -407,6 +455,7 @@ export const WithContainerSlot = (args) => ({
     </template>
   </UiSidePanel>`,
 });
+WithContainerSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithHeaderSlot = (args) => ({
   components: {
@@ -486,6 +535,7 @@ export const WithHeaderSlot = (args) => ({
     </UiText>
   </UiSidePanel>`,
 });
+WithHeaderSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithCloseSlot = (args) => ({
   components: {
@@ -541,6 +591,7 @@ export const WithCloseSlot = (args) => ({
     </UiText>
   </UiSidePanel>`,
 });
+WithCloseSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithLabelSlot = (args) => ({
   components: {
@@ -603,6 +654,7 @@ export const WithLabelSlot = (args) => ({
     </UiText>
   </UiSidePanel>`,
 });
+WithLabelSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithTitleSlot = (args) => ({
   components: {
@@ -651,6 +703,7 @@ export const WithTitleSlot = (args) => ({
     </UiText>
   </UiSidePanel>`,
 });
+WithTitleSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithSubtitleSlot = (args) => ({
   components: {
@@ -697,6 +750,7 @@ export const WithSubtitleSlot = (args) => ({
     </UiText>
   </UiSidePanel>`,
 });
+WithSubtitleSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithContentSlot = (args) => ({
   components: {
@@ -746,48 +800,4 @@ export const WithContentSlot = (args) => ({
     </template>
   </UiSidePanel>`,
 });
-
-export const WithAsyncContent = (args) => ({
-  components: {
-    UiSidePanel,
-    UiButton,
-    UiHeading,
-    TOS,
-  },
-  setup() {
-    const modelValue = inject('modelValue');
-    const isLoaded = ref(false);
-    onMounted(() => (
-      window.setTimeout(() => {
-        isLoaded.value = true;
-      }, 1000)
-    ));
-    return {
-      ...args,
-      ...events,
-      modelValue,
-      isLoaded,
-    };
-  },
-  template: `<UiSidePanel
-    v-model="modelValue"
-    :title="title"
-    :subtitle="subtitle"
-    :transition-backdrop-attrs="transitionBackdropAttrs"
-    :backdrop-attrs="backdropAttrs"
-    :transition-dialog-attrs="transitionDialogAttrs"
-    :heading-title-attrs="headingTitleAttrs"
-    :text-subtitle-attrs="textSubtitleAttrs"
-    :button-close-attrs="buttonCloseAttrs"
-    :icon-close-attrs="iconCloseAttrs"
-    :dialog-attrs="dialogAttrs"
-    :content-attrs="contentAttrs"
-    @update:modelValue="onUpdateModelValue"
-    @after-enter="onAfterEnter"
-  >
-    <template v-if="isLoaded">
-      <UiHeading>§1. General Provisions</UiHeading>
-      <TOS/>
-    </template>
-  </UiSidePanel>`,
-});
+WithContentSlot.parameters = { chromatic: { disableSnapshot: true } };

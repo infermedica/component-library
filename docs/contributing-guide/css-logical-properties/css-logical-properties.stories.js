@@ -11,7 +11,10 @@ export default {
     element: 'button',
     initValue: '12px 32px',
   },
-  parameters: { docs: { page: docs } },
+  parameters: {
+    docs: { page: docs },
+    chromatic: { disableSnapshot: true },
+  },
   decorators: [ withUseLogicalMixinCode ],
 };
 

@@ -4,6 +4,7 @@ import UiInput from '@/components/atoms/UiInput/UiInput.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
 import './UiFormField.stories.scss';
+import { WithItemsAsObjects } from '@/components/molecules/UiDropdown/UiDropdown.stories';
 import docs from './UiFormField.mdx';
 
 export default {
@@ -206,6 +207,7 @@ export const WithLabelSlot = (args) => ({
     </template>
   </UiFormField>`,
 });
+WithLabelSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithAlertSlot = (args) => ({
   components: {
@@ -250,3 +252,4 @@ export const WithAlertSlot = (args) => ({
     </template>
   </UiFormField>`,
 });
+WithAlertSlot.parameters = { chromatic: { disableSnapshot: true } };

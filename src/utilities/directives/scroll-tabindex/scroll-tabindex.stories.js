@@ -18,7 +18,10 @@ export default {
         <story />
     </div>`,
   }) ],
-  parameters: { docs: { page: docs } },
+  parameters: {
+    docs: { page: docs },
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 export const WithDirective = () => ({

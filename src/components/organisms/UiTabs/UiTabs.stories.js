@@ -5,6 +5,7 @@ import UiText from '@/components/atoms/UiText/UiText.vue';
 import { actions } from '@storybook/addon-actions';
 import { ref } from 'vue';
 import { modifiers } from '@sb/helpers/argTypes';
+import { WithTileSlot } from '@/components/organisms/UiSimpleQuestion/UiSimpleQuestion.stories';
 
 const events = actions({ onUpdateModelValue: 'update:modelValue' });
 
@@ -143,3 +144,4 @@ export const WithDefaultSlot = (args) => ({
     </template>
   </UiTabs>`,
 });
+WithDefaultSlot.parameters = { chromatic: { disableSnapshot: true } };

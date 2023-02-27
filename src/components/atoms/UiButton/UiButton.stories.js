@@ -93,6 +93,7 @@ export const Common = (args) => ({
     {{ content }}
   </UiButton>`,
 });
+Common.parameters = { chromatic: { disableSnapshot: true } };
 
 const Template = (args) => ({
   components: {

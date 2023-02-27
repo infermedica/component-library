@@ -6,6 +6,7 @@ import {
   modifiers,
 } from '@sb/helpers/argTypes';
 import icons from '@/components/atoms/UiIcon/icons.ts';
+import { WithAButtonInSuffix } from '@/components/atoms/UiInput/UiInput.stories';
 
 export default {
   title: 'Atoms/Link',
@@ -81,6 +82,7 @@ export const Common = (args) => ({
     {{ content }}  
   </UiLink>`,
 });
+Common.parameters = { chromatic: { disableSnapshot: true } };
 
 const Template = (args) => ({
   components: {

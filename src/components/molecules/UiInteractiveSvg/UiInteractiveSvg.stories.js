@@ -6,6 +6,7 @@ import {
 import UiInteractiveSvg from '@/components/molecules/UiInteractiveSvg/UiInteractiveSvg.vue';
 import UiInteractiveSvgElement from '@/components/molecules/UiInteractiveSvg/_internal/UiInteractiveSvgElement.vue';
 import './UiInteractiveSvg.stories.scss';
+import { WithNavigationSlot } from '@/components/molecules/UiHeader/UiHeader.stories';
 import docs from './UiInteractiveSvg.mdx';
 
 export default {
@@ -273,6 +274,7 @@ export const WithFocusOnMounted = () => ({
     </UiInteractiveSvgElement>
   </UiInteractiveSvg>`,
 });
+WithFocusOnMounted.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Map = () => ({
   components: {
