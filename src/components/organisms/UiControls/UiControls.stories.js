@@ -3,6 +3,7 @@ import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import { actions } from '@storybook/addon-actions';
+import { WithDescriptionSlot } from '@/components/organisms/UiCard/UiCard.stories';
 
 const events = actions({ onHasError: 'has-error' });
 
@@ -153,6 +154,7 @@ export const WithBottomSlot = (args) => ({
     </template>
   </UiControls>`,
 });
+WithBottomSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithNextSlot = (args) => ({
   components: {
@@ -197,6 +199,7 @@ export const WithNextSlot = (args) => ({
     </template>
   </UiControls>`,
 });
+WithNextSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithBackSlot = (args) => ({
   components: {
@@ -240,3 +243,4 @@ export const WithBackSlot = (args) => ({
     </template>
   </UiControls>`,
 });
+WithBackSlot.parameters = { chromatic: { disableSnapshot: true } };

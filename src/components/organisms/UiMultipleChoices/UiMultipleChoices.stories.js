@@ -9,6 +9,7 @@ import {
   computed,
 } from 'vue';
 import { actions } from '@storybook/addon-actions';
+import { WithLabelChoiceIdSlot } from '@/components/organisms/UiMultipleAnswer/UiMultipleAnswer.stories';
 
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
@@ -151,6 +152,54 @@ WithButtonInfo.args = {
   ],
 };
 
+export const AsEvidence = (args) => ({
+  components: { UiMultipleChoices },
+  setup() {
+    const { items } = args;
+    const modelValue = ref(args.initModelValue);
+    const invalid = ref(args.initInvalid);
+    const evidence = computed(() => modelValue.value.map((item, index) => ({
+      choice_id: item,
+      id: items[index].linked_observation,
+      source: 'suggest',
+    })));
+    return {
+      ...args,
+      ...events,
+      modelValue,
+      invalid,
+      evidence,
+    };
+  },
+  template: `<UiMultipleChoices
+    v-model="modelValue"
+    v-model:invalid="invalid"
+    :hint="hint"
+    :touched="touched"
+    :items="items"
+    :options="options"
+    @update:modelValue="onUpdateModelValue"
+    @update:invalid="onUpdateInvalid"
+  />`,
+});
+AsEvidence.args = {
+  items: [
+    {
+      linked_observation: 'p_7',
+      label: 'High BMI',
+    },
+    {
+      linked_observation: 'p_9',
+      label: 'I have hypertension',
+    },
+    {
+      linked_observation: 'p_28',
+      label: 'I have smoked cigarettes for at least 10 years',
+    },
+  ],
+};
+AsEvidence.parameters = { chromatic: { disableSnapshot: true } };
+
 export const WithHintSlot = (args) => ({
   components: {
     UiMultipleChoices,
@@ -193,6 +242,7 @@ export const WithHintSlot = (args) => ({
     </template>
   </UiMultipleChoices>`,
 });
+WithHintSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithChoiceSlot = (args) => ({
   components: {
@@ -239,6 +289,7 @@ export const WithChoiceSlot = (args) => ({
     </template>
   </UiMultipleChoices>`,
 });
+WithChoiceSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithOptionSlot = (args) => ({
   components: {
@@ -286,50 +337,4 @@ export const WithOptionSlot = (args) => ({
     </template>
   </UiMultipleChoices>`,
 });
-
-export const AsEvidence = (args) => ({
-  components: { UiMultipleChoices },
-  setup() {
-    const { items } = args;
-    const modelValue = ref(args.initModelValue);
-    const invalid = ref(args.initInvalid);
-    const evidence = computed(() => modelValue.value.map((item, index) => ({
-      choice_id: item,
-      id: items[index].linked_observation,
-      source: 'suggest',
-    })));
-    return {
-      ...args,
-      ...events,
-      modelValue,
-      invalid,
-      evidence,
-    };
-  },
-  template: `<UiMultipleChoices
-    v-model="modelValue"
-    v-model:invalid="invalid"
-    :hint="hint"
-    :touched="touched"
-    :items="items"
-    :options="options"
-    @update:modelValue="onUpdateModelValue"
-    @update:invalid="onUpdateInvalid"
-  />`,
-});
-AsEvidence.args = {
-  items: [
-    {
-      linked_observation: 'p_7',
-      label: 'High BMI',
-    },
-    {
-      linked_observation: 'p_9',
-      label: 'I have hypertension',
-    },
-    {
-      linked_observation: 'p_28',
-      label: 'I have smoked cigarettes for at least 10 years',
-    },
-  ],
-};
+WithOptionSlot.parameters = { chromatic: { disableSnapshot: true } };

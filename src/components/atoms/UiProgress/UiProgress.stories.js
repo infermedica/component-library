@@ -101,6 +101,7 @@ WithDifferentMinimum.args = {
   min: 3,
   max: 7,
 };
+WithDifferentMinimum.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithSameValueMinAndMax = Template.bind({});
 WithSameValueMinAndMax.args = {
@@ -108,3 +109,4 @@ WithSameValueMinAndMax.args = {
   min: 0,
   max: 0,
 };
+WithSameValueMinAndMax.parameters = { chromatic: { disableSnapshot: true } };

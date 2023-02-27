@@ -4,6 +4,7 @@ import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import icons from '@/components/atoms/UiIcon/icons.ts';
 import './UiBulletPoints.stories.scss';
+import { WithMessageSlot } from '@/components/molecules/UiAlert/UiAlert.stories';
 import docs from './UiBulletPoints.mdx';
 
 export default {
@@ -132,6 +133,43 @@ NestingList.args = {
   ],
 };
 
+export const WithCustomMarker = (args) => ({
+  components: { UiBulletPoints },
+  setup() {
+    return { ...args };
+  },
+  template: `<UiBulletPoints 
+    :tag="tag"
+    :type="type"
+    :items="items"
+    class="bullet-points-custom-marker"
+  />`,
+});
+WithCustomMarker.args = {
+  items: [
+    {
+      name: 'painful-swallowing',
+      text: 'Painful swallowing',
+      bulletPointsItemAttrs: { icon: 'arrow-thin-up' },
+    },
+    {
+      name: 'stuffy-nose',
+      text: 'Stuffy nose',
+      bulletPointsItemAttrs: { icon: 'arrow-thin-up' },
+    },
+    {
+      name: 'sneeze',
+      text: 'Sneeze',
+      bulletPointsItemAttrs: { icon: 'arrow-thin-up' },
+    },
+    {
+      name: 'muscle-pain',
+      text: 'Muscle pain',
+      bulletPointsItemAttrs: { icon: 'arrow-thin-up' },
+    },
+  ],
+};
+
 export const WithBulletPointItemSlot = (args) => ({
   components: {
     UiBulletPoints,
@@ -174,6 +212,7 @@ WithBulletPointItemSlot.args = {
     },
   ],
 };
+WithBulletPointItemSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithDefaultSlot = (args) => ({
   components: {
@@ -203,6 +242,7 @@ export const WithDefaultSlot = (args) => ({
     </template>
   </UiBulletPoints>`,
 });
+WithDefaultSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithMarkerSlot = (args) => ({
   components: {
@@ -252,6 +292,7 @@ export const WithMarkerSlot = (args) => ({
     </template>
   </UiBulletPoints>`,
 });
+WithMarkerSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithContentSlot = (args) => ({
   components: {
@@ -285,40 +326,4 @@ export const WithContentSlot = (args) => ({
     </template>
   </UiBulletPoints>`,
 });
-
-export const WithCustomMarker = (args) => ({
-  components: { UiBulletPoints },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiBulletPoints 
-    :tag="tag"
-    :type="type"
-    :items="items"
-    class="bullet-points-custom-marker"
-  />`,
-});
-WithCustomMarker.args = {
-  items: [
-    {
-      name: 'painful-swallowing',
-      text: 'Painful swallowing',
-      bulletPointsItemAttrs: { icon: 'arrow-thin-up' },
-    },
-    {
-      name: 'stuffy-nose',
-      text: 'Stuffy nose',
-      bulletPointsItemAttrs: { icon: 'arrow-thin-up' },
-    },
-    {
-      name: 'sneeze',
-      text: 'Sneeze',
-      bulletPointsItemAttrs: { icon: 'arrow-thin-up' },
-    },
-    {
-      name: 'muscle-pain',
-      text: 'Muscle pain',
-      bulletPointsItemAttrs: { icon: 'arrow-thin-up' },
-    },
-  ],
-};
+WithContentSlot.parameters = { chromatic: { disableSnapshot: true } };

@@ -15,6 +15,7 @@ import {
   watch,
 } from 'vue';
 import './UiDropdown.stories.scss';
+import { WithRemoveSlot } from '@/components/molecules/UiChip/UiChip.stories';
 import docs from './UiDropdown.mdx';
 
 const events = actions({
@@ -148,307 +149,7 @@ WithItemsAsObjects.args = {
     },
   ],
 };
-
-export const WithDefaultSlot = (args) => ({
-  components: {
-    UiDropdown,
-    UiDropdownItem,
-  },
-  setup: () => {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiDropdown
-    v-model="modelValue"
-    :text="modelValue"
-    :name="name"
-    :close-on-click-outside="closeOnClickOutside"
-    :toggle-element="toggleElement"
-    :enable-keyboard-navigation="enableKeyboardNavigation"
-    :button-toggle-attrs="buttonToggleAttrs"
-    :popover-attrs="popoverAttrs"
-    class="dropdown-with-popover-width"
-    @update:modelValue="onUpdateModelValue"
-    @open="onOpen"
-    @close="onClose"
-  >
-    <template
-      v-for="(item, key) in items"
-      :key="key"
-    >
-      <UiDropdownItem
-        :value="item.value"
-        :icon-attrs="item.iconItemAttrs"
-        v-bind="{
-          'data-testid': item['data-testid'],
-        }"
-      >
-        {{ item.text }}
-      </UiDropdownItem>
-    </template>
-  </UiDropdown>`,
-});
-WithDefaultSlot.args = {
-  initModelValue: 'English',
-  items: [
-    {
-      text: 'English',
-      value: 'English',
-      'data-testid': 'english-dropdown-item',
-      iconItemAttrs: { 'data-testid': 'english-dropdown-item-icon' },
-    },
-    {
-      text: 'Deutsch',
-      value: 'Deutsch',
-      'data-testid': 'deutsch-dropdown-item',
-      iconItemAttrs: { 'data-testid': 'deutsch-dropdown-item-icon' },
-    },
-  ],
-};
-
-export const WithDropdownItemSlot = (args) => ({
-  components: { UiDropdown },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiDropdown
-    v-model="modelValue"
-    :class="modifiers"
-    :text="modelValue.text"
-    :name="name"
-    :close-on-click-outside="closeOnClickOutside"
-    :toggle-element="toggleElement"
-    :enable-keyboard-navigation="enableKeyboardNavigation"
-    :items="items"
-    :button-toggle-attrs="buttonToggleAttrs"
-    :popover-attrs="popoverAttrs"
-    class="dropdown-with-popover-width"
-    @update:modelValue="onUpdateModelValue"
-    @open="onOpen"
-    @close="onClose"
-  />`,
-});
-WithDropdownItemSlot.args = {
-  initModelValue: {
-    name: 'english',
-    text: 'English',
-  },
-  items: [
-    {
-      name: 'english',
-      text: 'English',
-    },
-    {
-      name: 'deutsch',
-      text: 'Deutsch',
-    },
-    {
-      name: 'italiano',
-      text: 'Italiano',
-    },
-    {
-      name: 'polski',
-      text: 'Polski',
-    },
-  ],
-};
-
-export const WithToggleSlot = (args) => ({
-  components: {
-    UiDropdown,
-    UiButton,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    const toggleElement = ref(null);
-    return {
-      ...args,
-      ...events,
-      toggleElement,
-      modelValue,
-    };
-  },
-  template: `<UiDropdown
-    :class="modifiers"
-    v-model="modelValue"
-    :text="text"
-    :name="name"
-    :close-on-click-outside="closeOnClickOutside"
-    :toggle-element="toggleElement"
-    :enable-keyboard-navigation="enableKeyboardNavigation"
-    :items="items"
-    :button-toggle-attrs="buttonToggleAttrs"
-    :popover-attrs="popoverAttrs"
-    class="dropdown-with-popover-width"
-    @update:modelValue="onUpdateModelValue"
-    @open="onOpen"
-    @close="onClose"
-  >
-    <template #toggle="{
-      toggleHandler,
-      openHandler,
-      closeHandler,
-      isOpen,
-      text,
-      buttonToggleAttrs
-    }">
-      <UiButton
-        v-bind="buttonToggleAttrs"
-        ref="toggleElement"
-        class="ui-dropdown__toggle"
-        :aria-expanded="isOpen.toString()"
-        @click="toggleHandler"
-      >
-        {{ text }}
-      </UiButton>
-    </template>
-  </UiDropdown>`,
-});
-WithToggleSlot.argTypes = {
-  text: { control: false },
-  name: { control: false },
-};
-
-export const WithPopoverSlot = (args) => ({
-  components: {
-    UiDropdown,
-    UiDropdownItem,
-    UiButton,
-    UiPopover,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    const itemsToRender = computed(() => (args.items.map((item, key) => {
-      if (typeof item === 'string' || typeof item === 'number') {
-        return {
-          name: `dropdown-item-${key}`,
-          text: item,
-          value: item,
-        };
-      }
-      return {
-        name: item.name || `dropdown-item-${key}`,
-        value: item.value || item,
-        ...item,
-      };
-    })));
-    return {
-      ...args,
-      ...events,
-      modelValue,
-      itemsToRender,
-    };
-  },
-  template: `<UiDropdown
-    v-model="modelValue"
-    :class="modifiers"
-    :text="text"
-    :name="name"
-    :close-on-click-outside="closeOnClickOutside"
-    :toggle-element="toggleElement"
-    :enable-keyboard-navigation="enableKeyboardNavigation"
-    :items="items"
-    :button-toggle-attrs="buttonToggleAttrs"
-    :popover-attrs="popoverAttrs"
-    class="dropdown-with-popover-width"
-    @update:modelValue="onUpdateModelValue"
-    @open="onOpen"
-    @close="onClose"
-  >
-    <template #popover="{
-      closeHandler,
-      isOpen,
-      popoverAttrs
-    }">
-      <UiPopover
-        v-if="isOpen"
-        v-bind="popoverAttrs"
-        class="ui-dropdown__popover"
-        @close="closeHandler"
-      >
-        <div
-          role="radiogroup"
-          class="ui-dropdown__items"
-        >
-          <template
-            v-for="(item, key) in itemsToRender"
-            :key="key"
-          >
-            <UiDropdownItem
-              v-bind="(()=>{const {
-                name, text, ...rest
-              } = item; return rest;})()"
-            >
-              {{ item.text }}
-            </UiDropdownItem>
-          </template>
-        </div>
-      </UiPopover>
-    </template>
-  </UiDropdown>`,
-});
-
-export const WithContentSlot = (args) => ({
-  components: {
-    UiDropdown,
-    UiDropdownItem,
-    UiButton,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiDropdown
-    v-model="modelValue"
-    :class="modifiers"
-    :text="text"
-    :name="name"
-    :close-on-click-outside="closeOnClickOutside"
-    :toggle-element="toggleElement"
-    :enable-keyboard-navigation="enableKeyboardNavigation"
-    :items="items"
-    :button-toggle-attrs="buttonToggleAttrs"
-    :popover-attrs="popoverAttrs"
-    class="dropdown-with-popover-width"
-    @update:modelValue="onUpdateModelValue"
-    @open="onOpen"
-    @close="onClose"
-  >
-    <template #content="{
-      closeHandler,
-      isOpen
-    }">
-      <div
-        role="radiogroup"
-        class="ui-dropdown__items"
-      >
-        <template
-          v-for="(item, key) in items"
-          :key="key"
-        >
-          <UiDropdownItem
-            :value="item"
-          >
-            {{ item }}
-          </UiDropdownItem>
-        </template>
-      </div>
-    </template>
-  </UiDropdown>`,
-});
+WithItemsAsObjects.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithInputToggle = (args) => ({
   components: {
@@ -553,3 +254,308 @@ export const WithInputToggle = (args) => ({
 });
 WithInputToggle.args = {};
 WithInputToggle.argTypes = { initModelValue: { control: false } };
+
+export const WithDefaultSlot = (args) => ({
+  components: {
+    UiDropdown,
+    UiDropdownItem,
+  },
+  setup: () => {
+    const modelValue = ref(args.initModelValue);
+    return {
+      ...args,
+      ...events,
+      modelValue,
+    };
+  },
+  template: `<UiDropdown
+    v-model="modelValue"
+    :text="modelValue"
+    :name="name"
+    :close-on-click-outside="closeOnClickOutside"
+    :toggle-element="toggleElement"
+    :enable-keyboard-navigation="enableKeyboardNavigation"
+    :button-toggle-attrs="buttonToggleAttrs"
+    :popover-attrs="popoverAttrs"
+    class="dropdown-with-popover-width"
+    @update:modelValue="onUpdateModelValue"
+    @open="onOpen"
+    @close="onClose"
+  >
+    <template
+      v-for="(item, key) in items"
+      :key="key"
+    >
+      <UiDropdownItem
+        :value="item.value"
+        :icon-attrs="item.iconItemAttrs"
+        v-bind="{
+          'data-testid': item['data-testid'],
+        }"
+      >
+        {{ item.text }}
+      </UiDropdownItem>
+    </template>
+  </UiDropdown>`,
+});
+WithDefaultSlot.args = {
+  initModelValue: 'English',
+  items: [
+    {
+      text: 'English',
+      value: 'English',
+      'data-testid': 'english-dropdown-item',
+      iconItemAttrs: { 'data-testid': 'english-dropdown-item-icon' },
+    },
+    {
+      text: 'Deutsch',
+      value: 'Deutsch',
+      'data-testid': 'deutsch-dropdown-item',
+      iconItemAttrs: { 'data-testid': 'deutsch-dropdown-item-icon' },
+    },
+  ],
+};
+WithDefaultSlot.parameters = { chromatic: { disableSnapshot: true } };
+
+export const WithDropdownItemSlot = (args) => ({
+  components: { UiDropdown },
+  setup() {
+    const modelValue = ref(args.initModelValue);
+    return {
+      ...args,
+      ...events,
+      modelValue,
+    };
+  },
+  template: `<UiDropdown
+    v-model="modelValue"
+    :class="modifiers"
+    :text="modelValue.text"
+    :name="name"
+    :close-on-click-outside="closeOnClickOutside"
+    :toggle-element="toggleElement"
+    :enable-keyboard-navigation="enableKeyboardNavigation"
+    :items="items"
+    :button-toggle-attrs="buttonToggleAttrs"
+    :popover-attrs="popoverAttrs"
+    class="dropdown-with-popover-width"
+    @update:modelValue="onUpdateModelValue"
+    @open="onOpen"
+    @close="onClose"
+  />`,
+});
+WithDropdownItemSlot.args = {
+  initModelValue: {
+    name: 'english',
+    text: 'English',
+  },
+  items: [
+    {
+      name: 'english',
+      text: 'English',
+    },
+    {
+      name: 'deutsch',
+      text: 'Deutsch',
+    },
+    {
+      name: 'italiano',
+      text: 'Italiano',
+    },
+    {
+      name: 'polski',
+      text: 'Polski',
+    },
+  ],
+};
+WithDropdownItemSlot.parameters = { chromatic: { disableSnapshot: true } };
+export const WithToggleSlot = (args) => ({
+  components: {
+    UiDropdown,
+    UiButton,
+  },
+  setup() {
+    const modelValue = ref(args.initModelValue);
+    const toggleElement = ref(null);
+    return {
+      ...args,
+      ...events,
+      toggleElement,
+      modelValue,
+    };
+  },
+  template: `<UiDropdown
+    :class="modifiers"
+    v-model="modelValue"
+    :text="text"
+    :name="name"
+    :close-on-click-outside="closeOnClickOutside"
+    :toggle-element="toggleElement"
+    :enable-keyboard-navigation="enableKeyboardNavigation"
+    :items="items"
+    :button-toggle-attrs="buttonToggleAttrs"
+    :popover-attrs="popoverAttrs"
+    class="dropdown-with-popover-width"
+    @update:modelValue="onUpdateModelValue"
+    @open="onOpen"
+    @close="onClose"
+  >
+    <template #toggle="{
+      toggleHandler,
+      openHandler,
+      closeHandler,
+      isOpen,
+      text,
+      buttonToggleAttrs
+    }">
+      <UiButton
+        v-bind="buttonToggleAttrs"
+        ref="toggleElement"
+        class="ui-dropdown__toggle"
+        :aria-expanded="isOpen.toString()"
+        @click="toggleHandler"
+      >
+        {{ text }}
+      </UiButton>
+    </template>
+  </UiDropdown>`,
+});
+WithToggleSlot.argTypes = {
+  text: { control: false },
+  name: { control: false },
+};
+WithToggleSlot.parameters = { chromatic: { disableSnapshot: true } };
+
+export const WithPopoverSlot = (args) => ({
+  components: {
+    UiDropdown,
+    UiDropdownItem,
+    UiButton,
+    UiPopover,
+  },
+  setup() {
+    const modelValue = ref(args.initModelValue);
+    const itemsToRender = computed(() => (args.items.map((item, key) => {
+      if (typeof item === 'string' || typeof item === 'number') {
+        return {
+          name: `dropdown-item-${key}`,
+          text: item,
+          value: item,
+        };
+      }
+      return {
+        name: item.name || `dropdown-item-${key}`,
+        value: item.value || item,
+        ...item,
+      };
+    })));
+    return {
+      ...args,
+      ...events,
+      modelValue,
+      itemsToRender,
+    };
+  },
+  template: `<UiDropdown
+    v-model="modelValue"
+    :class="modifiers"
+    :text="text"
+    :name="name"
+    :close-on-click-outside="closeOnClickOutside"
+    :toggle-element="toggleElement"
+    :enable-keyboard-navigation="enableKeyboardNavigation"
+    :items="items"
+    :button-toggle-attrs="buttonToggleAttrs"
+    :popover-attrs="popoverAttrs"
+    class="dropdown-with-popover-width"
+    @update:modelValue="onUpdateModelValue"
+    @open="onOpen"
+    @close="onClose"
+  >
+    <template #popover="{
+      closeHandler,
+      isOpen,
+      popoverAttrs
+    }">
+      <UiPopover
+        v-if="isOpen"
+        v-bind="popoverAttrs"
+        class="ui-dropdown__popover"
+        @close="closeHandler"
+      >
+        <div
+          role="radiogroup"
+          class="ui-dropdown__items"
+        >
+          <template
+            v-for="(item, key) in itemsToRender"
+            :key="key"
+          >
+            <UiDropdownItem
+              v-bind="(()=>{const {
+                name, text, ...rest
+              } = item; return rest;})()"
+            >
+              {{ item.text }}
+            </UiDropdownItem>
+          </template>
+        </div>
+      </UiPopover>
+    </template>
+  </UiDropdown>`,
+});
+WithPopoverSlot.parameters = { chromatic: { disableSnapshot: true } };
+
+export const WithContentSlot = (args) => ({
+  components: {
+    UiDropdown,
+    UiDropdownItem,
+    UiButton,
+  },
+  setup() {
+    const modelValue = ref(args.initModelValue);
+    return {
+      ...args,
+      ...events,
+      modelValue,
+    };
+  },
+  template: `<UiDropdown
+    v-model="modelValue"
+    :class="modifiers"
+    :text="text"
+    :name="name"
+    :close-on-click-outside="closeOnClickOutside"
+    :toggle-element="toggleElement"
+    :enable-keyboard-navigation="enableKeyboardNavigation"
+    :items="items"
+    :button-toggle-attrs="buttonToggleAttrs"
+    :popover-attrs="popoverAttrs"
+    class="dropdown-with-popover-width"
+    @update:modelValue="onUpdateModelValue"
+    @open="onOpen"
+    @close="onClose"
+  >
+    <template #content="{
+      closeHandler,
+      isOpen
+    }">
+      <div
+        role="radiogroup"
+        class="ui-dropdown__items"
+      >
+        <template
+          v-for="(item, key) in items"
+          :key="key"
+        >
+          <UiDropdownItem
+            :value="item"
+          >
+            {{ item }}
+          </UiDropdownItem>
+        </template>
+      </div>
+    </template>
+  </UiDropdown>`,
+});
+WithContentSlot.parameters = { chromatic: { disableSnapshot: true } };

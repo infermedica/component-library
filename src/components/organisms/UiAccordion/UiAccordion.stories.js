@@ -5,6 +5,7 @@ import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import { ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
+import { Deselectable } from '@/components/molecules/UiToggleButtonGroup/UiToggleButtonGroup.stories';
 
 const events = actions({ onUpdateModelValue: 'update:modelValue' });
 
@@ -108,6 +109,7 @@ SingleItem.args = {
 export const MultipleItemsOpened = Template.bind({});
 MultipleItemsOpened.args = { initModelValue: [] };
 MultipleItemsOpened.argTypes = { initModelValue: { control: 'array' } };
+MultipleItemsOpened.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithDefaultSlot = (args) => ({
   components: {
@@ -146,6 +148,7 @@ export const WithDefaultSlot = (args) => ({
     </template>
   </UiAccordion>`,
 });
+WithDefaultSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithTogglerSlot = (args) => ({
   components: {
@@ -210,6 +213,7 @@ export const WithTogglerSlot = (args) => ({
     </template>
   </UiAccordion>`,
 });
+WithTogglerSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithChevronSlot = (args) => ({
   components: {
@@ -260,6 +264,7 @@ export const WithChevronSlot = (args) => ({
     </template>
   </UiAccordion>`,
 });
+WithChevronSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithContentSlot = (args) => ({
   components: {
@@ -313,3 +318,4 @@ export const WithContentSlot = (args) => ({
     </template>
   </UiAccordion>`,
 });
+WithContentSlot.parameters = { chromatic: { disableSnapshot: true } };

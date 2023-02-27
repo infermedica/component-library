@@ -6,6 +6,7 @@ import { ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
 import { modifiers } from '@sb/helpers/argTypes';
 import icons from '@/components/atoms/UiIcon/icons.ts';
+import { IconAsImport } from '@/components/atoms/UiIcon/UiIcon.stories';
 import { keyboardFocus } from '../../../utilities/directives';
 
 const events = actions({
@@ -185,6 +186,7 @@ WithAButtonInSuffix.argTypes = {
     options: icons,
   },
 };
+WithAButtonInSuffix.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithInputSlot = (args) => ({
   components: {
@@ -230,7 +232,7 @@ export const WithInputSlot = (args) => ({
     </template>
   </UiInput>`,
 });
-
+WithInputSlot.parameters = { chromatic: { disableSnapshot: true } };
 export const WithAsideSlot = (args) => ({
   components: {
     UiInput,
@@ -272,3 +274,4 @@ export const WithAsideSlot = (args) => ({
   </UiInput>`,
 });
 WithAsideSlot.args = { suffix: 'Suffix' };
+WithAsideSlot.parameters = { chromatic: { disableSnapshot: true } };

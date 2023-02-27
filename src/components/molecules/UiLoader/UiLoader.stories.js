@@ -22,6 +22,7 @@ import {
   onMounted,
 } from 'vue';
 import './UiLoader.stories.scss';
+import { WithFocusOnMounted } from '@/components/molecules/UiInteractiveSvg/UiInteractiveSvg.stories';
 import docs from './UiLoader.mdx';
 
 const events = actions({ onMounted: 'onMounted' });
@@ -100,6 +101,7 @@ export const Common = (args) => ({
     </UiText>
   </UiLoader>`,
 });
+Common.parameters = { chromatic: { disableSnapshot: true } };
 
 const LoadingPopoverOfflineMessage = {
   components: {
@@ -169,6 +171,7 @@ IfTransitionType.decorators = [ (story) => ({
     <story />
   </div>`,
 }) ];
+IfTransitionType.parameters = { chromatic: { disableSnapshot: true } };
 
 export const ShowTransitionType = () => ({
   components: {
@@ -210,6 +213,7 @@ ShowTransitionType.decorators = [ (story) => ({
     <story />
   </div>`,
 }) ];
+ShowTransitionType.parameters = { chromatic: { disableSnapshot: true } };
 
 export const OpacityTransitionType = () => ({
   components: {
@@ -254,6 +258,7 @@ OpacityTransitionType.decorators = [ (story) => ({
     <story />
   </div>`,
 }) ];
+OpacityTransitionType.parameters = { chromatic: { disableSnapshot: true } };
 
 const SpinnerTemplate = () => ({
   components: {

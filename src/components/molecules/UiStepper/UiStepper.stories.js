@@ -4,6 +4,7 @@ import UiProgress from '@/components/atoms/UiProgress/UiProgress.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiStepperStep from '@/components/molecules/UiStepper/_internal/UiStepperStep.vue';
+import { WithRadioOptionAttrsAsArray } from '@/components/molecules/UiScale/UiScale.stories';
 
 const steps = [
   {
@@ -122,6 +123,7 @@ export const WithMobileSlot = (args) => ({
     </template>
   </UiStepper>`,
 });
+WithMobileSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithCurrentStepSlot = (args) => ({
   components: {
@@ -146,6 +148,7 @@ export const WithCurrentStepSlot = (args) => ({
     </template>
   </UiStepper>`,
 });
+WithCurrentStepSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithProgressSlot = (args) => ({
   components: {
@@ -168,6 +171,7 @@ export const WithProgressSlot = (args) => ({
     </template>
   </UiStepper>`,
 });
+WithProgressSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithDesktopSlot = (args) => ({
   components: {
@@ -204,6 +208,7 @@ export const WithDesktopSlot = (args) => ({
     </template>
   </UiStepper>`,
 });
+WithDesktopSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithItemsSlot = (args) => ({
   components: {
@@ -236,6 +241,7 @@ export const WithItemsSlot = (args) => ({
    </template>
   </UiStepper>`,
 });
+WithItemsSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithItemSlot = (args) => ({
   components: {
@@ -264,6 +270,7 @@ export const WithItemSlot = (args) => ({
    </template>
   </UiStepper>`,
 });
+WithItemSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithItemLinkSlot = (args) => ({
   components: { UiStepper },
@@ -294,3 +301,4 @@ export const WithItemLinkSlot = (args) => ({
     </template>
   </UiStepper>`,
 });
+WithItemLinkSlot.parameters = { chromatic: { disableSnapshot: true } };

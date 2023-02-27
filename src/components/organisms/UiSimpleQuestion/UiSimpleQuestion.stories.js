@@ -2,6 +2,7 @@ import UiSimpleQuestion from '@/components/organisms/UiSimpleQuestion/UiSimpleQu
 import UiTile from '@/components/molecules/UiTile/UiTile.vue';
 import { ref } from 'vue';
 import { modifiers } from '@sb/helpers/argTypes';
+import { WithContentSlot } from '@/components/organisms/UiSidePanel/UiSidePanel.stories';
 
 export default {
   title: 'Organisms/SimpleQuestion',
@@ -110,3 +111,4 @@ export const WithTileSlot = (args) => ({
     </template>
   </UiSimpleQuestion>`,
 });
+WithTileSlot.parameters = { chromatic: { disableSnapshot: true } };

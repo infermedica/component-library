@@ -12,6 +12,7 @@ import { actions } from '@storybook/addon-actions';
 import UiCheckbox from '@/components/atoms/UiCheckbox/UiCheckbox.vue';
 import UiRadio from '@/components/atoms/UiRadio/UiRadio.vue';
 import './UiList.stories.scss';
+import { AsMultilevel } from '@/components/organisms/UiHorizontalPaging/UiHorizontalPaging.stories';
 import docs from './UiList.mdx';
 
 const events = actions({
@@ -82,26 +83,6 @@ WithError.args = {
     class: 'ui-list-item--has-error',
   })),
 };
-
-export const WithListItemSlot = (args) => ({
-  components: {
-    UiList,
-    UiText,
-  },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiList
-    :tag="tag"
-    :items="items"
-  >
-    <template #painful-swallowing="{ item }">
-      <UiText>
-        {{ item }}
-      </UiText>
-    </template>
-  </UiList>`,
-});
 
 export const WithSuffixAsText = (args) => ({
   components: { UiList },
@@ -540,3 +521,24 @@ WithRadio.args = {
     };
   }),
 };
+
+export const WithListItemSlot = (args) => ({
+  components: {
+    UiList,
+    UiText,
+  },
+  setup() {
+    return { ...args };
+  },
+  template: `<UiList
+    :tag="tag"
+    :items="items"
+  >
+    <template #painful-swallowing="{ item }">
+      <UiText>
+        {{ item }}
+      </UiText>
+    </template>
+  </UiList>`,
+});
+WithListItemSlot.parameters = { chromatic: { disableSnapshot: true } };

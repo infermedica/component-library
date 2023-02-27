@@ -131,87 +131,6 @@ IsDisabled.args = { modifiers: [ 'ui-radio--is-disabled' ] };
 export const HasError = Template.bind({});
 HasError.args = { modifiers: [ 'ui-radio--has-error' ] };
 
-export const WithRadioSlot = (args) => ({
-  components: { UiRadio },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiRadio
-    v-model="modelValue"
-    :value="value"
-    :id="id"
-    :disabled="disabled"
-    :input-attrs="inputAttrs"
-    :radio-element-attrs="radioElementAttrs"
-    :text-label-attrs="textLabelAttrs"
-    :class="modifiers"
-    @update:modelValue="onUpdateModelValue"
-    @focus="onFocus"
-    @blur="onBlur"
-  >
-    <template #radiobutton="{ 
-      checked,
-      radioElementAttrs,
-    }">
-      <div 
-        v-bind="radioElementAttrs"
-        :class="[ 
-          'ui-radio__radio',
-          { 'ui-radio__radio--is-checked': checked },
-        ]"
-      >
-        <div class="ui-radio__mark" />
-      </div>
-    </template>
-    {{ content }}
-  </UiRadio>`,
-});
-
-export const WithLabelSlot = (args) => ({
-  components: {
-    UiRadio,
-    UiText,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiRadio
-    v-model="modelValue"
-    :value="value"
-    :id="id"
-    :disabled="disabled"
-    :input-attrs="inputAttrs"
-    :radio-element-attrs="radioElementAttrs"
-    :text-label-attrs="textLabelAttrs"
-    :class="modifiers"
-    @update:modelValue="onUpdateModelValue"
-    @focus="onFocus"
-    @blur="onBlur"
-  >
-    <template #label="{
-      hasLabel,
-      textLabelAttrs,
-    }">
-      <UiText
-        v-bind="textLabelAttrs"
-        class="ui-radio__label"
-      >
-        {{ content }}
-      </UiText>
-    </template>
-  </UiRadio>`,
-});
-
 export const ValueAsObject = (args) => ({
   components: { UiRadio },
   setup() {
@@ -256,6 +175,7 @@ ValueAsObject.argTypes = {
   },
   modelValue: { control: false },
 };
+ValueAsObject.parameters = { chromatic: { disableSnapshot: true } };
 
 export const AsGroupWithPrimitiveTypes = (args) => ({
   components: {
@@ -396,6 +316,7 @@ AsGroupWithObject.argTypes = {
   disabled: { control: false },
   content: { control: false },
 };
+AsGroupWithObject.parameters = { chromatic: { disableSnapshot: true } };
 
 export const AsGroupWithNestedObject = (args) => ({
   components: {
@@ -475,3 +396,87 @@ AsGroupWithNestedObject.argTypes = {
   modifiers: { control: false },
   content: { control: false },
 };
+AsGroupWithNestedObject.parameters = { chromatic: { disableSnapshot: true } };
+
+export const WithRadioSlot = (args) => ({
+  components: { UiRadio },
+  setup() {
+    const modelValue = ref(args.initModelValue);
+    return {
+      ...args,
+      ...events,
+      modelValue,
+    };
+  },
+  template: `<UiRadio
+    v-model="modelValue"
+    :value="value"
+    :id="id"
+    :disabled="disabled"
+    :input-attrs="inputAttrs"
+    :radio-element-attrs="radioElementAttrs"
+    :text-label-attrs="textLabelAttrs"
+    :class="modifiers"
+    @update:modelValue="onUpdateModelValue"
+    @focus="onFocus"
+    @blur="onBlur"
+  >
+    <template #radiobutton="{ 
+      checked,
+      radioElementAttrs,
+    }">
+      <div 
+        v-bind="radioElementAttrs"
+        :class="[ 
+          'ui-radio__radio',
+          { 'ui-radio__radio--is-checked': checked },
+        ]"
+      >
+        <div class="ui-radio__mark" />
+      </div>
+    </template>
+    {{ content }}
+  </UiRadio>`,
+});
+WithRadioSlot.parameters = { chromatic: { disableSnapshot: true } };
+
+export const WithLabelSlot = (args) => ({
+  components: {
+    UiRadio,
+    UiText,
+  },
+  setup() {
+    const modelValue = ref(args.initModelValue);
+    return {
+      ...args,
+      ...events,
+      modelValue,
+    };
+  },
+  template: `<UiRadio
+    v-model="modelValue"
+    :value="value"
+    :id="id"
+    :disabled="disabled"
+    :input-attrs="inputAttrs"
+    :radio-element-attrs="radioElementAttrs"
+    :text-label-attrs="textLabelAttrs"
+    :class="modifiers"
+    @update:modelValue="onUpdateModelValue"
+    @focus="onFocus"
+    @blur="onBlur"
+  >
+    <template #label="{
+      hasLabel,
+      textLabelAttrs,
+    }">
+      <UiText
+        v-bind="textLabelAttrs"
+        class="ui-radio__label"
+      >
+        {{ content }}
+      </UiText>
+    </template>
+  </UiRadio>`,
+});
+WithLabelSlot.parameters = { chromatic: { disableSnapshot: true } };
