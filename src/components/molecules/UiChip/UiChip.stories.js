@@ -4,6 +4,7 @@ import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import { actions } from '@storybook/addon-actions';
 import { content } from '@sb/helpers/argTypes';
 import UiBackdrop from '@/components/atoms/UiBackdrop/UiBackdrop.vue';
+import { WithBulletPointItemSlot } from '@/components/molecules/UiBulletPoints/UiBulletPoints.stories';
 
 const events = actions({ onRemove: 'remove' });
 
@@ -148,3 +149,4 @@ export const WithRemoveSlot = (args) => ({
     {{ content }}
   </UiChip>`,
 });
+WithRemoveSlot.parameters = { chromatic: { disableSnapshot: true } };

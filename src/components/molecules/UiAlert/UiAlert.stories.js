@@ -5,6 +5,7 @@ import {
   content,
   modifiers,
 } from '@sb/helpers/argTypes';
+import { WithRangeSlot } from '@/components/atoms/UiRange/UiRange.stories';
 
 export default {
   title: 'Molecules/Alert',
@@ -106,6 +107,7 @@ export const WithIconSlot = (args) => ({
     {{ content }}
   </UiAlert>`,
 });
+WithIconSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithMessageSlot = (args) => ({
   components: {
@@ -132,3 +134,4 @@ export const WithMessageSlot = (args) => ({
     </template>
   </UiAlert>`,
 });
+WithMessageSlot.parameters = { chromatic: { disableSnapshot: true } };

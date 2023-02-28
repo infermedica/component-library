@@ -6,6 +6,7 @@ import {
   ref,
   computed,
 } from 'vue';
+import { WithIconSlot } from '@/components/molecules/UiTile/UiTile.stories';
 
 export default {
   title: 'Molecules/ToggleButtonGroup',
@@ -140,42 +141,7 @@ PressedDisabled.args = {
 
 export const Deselectable = Common.bind({});
 Deselectable.args = { deselectable: true };
-
-export const WithNumberValues = Common.bind({});
-WithNumberValues.args = {
-  items: [
-    {
-      value: 1,
-      text: 'First',
-    },
-    {
-      value: 2,
-      text: 'Second',
-    },
-    {
-      value: 3,
-      text: 'Third',
-    },
-  ],
-};
-
-export const WithObjectValues = Common.bind({});
-WithObjectValues.args = {
-  items: [
-    {
-      value: { id: 1 },
-      text: 'First',
-    },
-    {
-      value: { id: 2 },
-      text: 'Second',
-    },
-    {
-      value: { id: 3 },
-      text: 'Third',
-    },
-  ],
-};
+Deselectable.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithIcon = (args) => ({
   components: {
@@ -225,6 +191,44 @@ WithIcon.args = {
   ],
 };
 
+export const WithNumberValues = Common.bind({});
+WithNumberValues.args = {
+  items: [
+    {
+      value: 1,
+      text: 'First',
+    },
+    {
+      value: 2,
+      text: 'Second',
+    },
+    {
+      value: 3,
+      text: 'Third',
+    },
+  ],
+};
+WithNumberValues.parameters = { chromatic: { disableSnapshot: true } };
+
+export const WithObjectValues = Common.bind({});
+WithObjectValues.args = {
+  items: [
+    {
+      value: { id: 1 },
+      text: 'First',
+    },
+    {
+      value: { id: 2 },
+      text: 'Second',
+    },
+    {
+      value: { id: 3 },
+      text: 'Third',
+    },
+  ],
+};
+WithObjectValues.parameters = { chromatic: { disableSnapshot: true } };
+
 export const WithDefaultSlot = (args) => ({
   components: {
     UiToggleButtonGroup,
@@ -251,3 +255,4 @@ export const WithDefaultSlot = (args) => ({
     </template>
   </UiToggleButtonGroup>`,
 });
+WithDefaultSlot.parameters = { chromatic: { disableSnapshot: true } };

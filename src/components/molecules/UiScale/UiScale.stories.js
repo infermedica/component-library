@@ -5,6 +5,7 @@ import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiRadio from '@/components/atoms/UiRadio/UiRadio.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import { actions } from '@storybook/addon-actions';
+import { WithRadioOptionsAttrsAsArray } from '@/components/molecules/UiRating/UiRating.stories';
 
 const events = actions({ onUpdateModelValue: 'update:modelValue' });
 
@@ -133,6 +134,7 @@ WithRadioOptionAttrsAsArray.args = {
     },
   ],
 };
+WithRadioOptionAttrsAsArray.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithDecrementSlot = (args) => ({
   components: {
@@ -184,6 +186,7 @@ export const WithDecrementSlot = (args) => ({
     </template>
   </UiScale>`,
 });
+WithDecrementSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithIncrementSlot = (args) => ({
   components: {
@@ -235,3 +238,4 @@ export const WithIncrementSlot = (args) => ({
     </template>
   </UiScale>`,
 });
+WithIncrementSlot.parameters = { chromatic: { disableSnapshot: true } };

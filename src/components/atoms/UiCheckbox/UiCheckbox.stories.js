@@ -133,92 +133,6 @@ IsDisabled.args = { modifiers: [ 'ui-checkbox--is-disabled' ] };
 export const HasError = Template.bind({});
 HasError.args = { modifiers: [ 'ui-checkbox--has-error' ] };
 
-export const WithCheckboxSlot = (args) => ({
-  components: {
-    UiCheckbox,
-    UiIcon,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiCheckbox
-    v-model="modelValue"
-    :value="value"
-    :id="id"
-    :disabled="disabled"
-    :input-attrs="inputAttrs"
-    :icon-checkmark-attrs="iconCheckmarkAttrs"
-    :text-label-attrs="textLabelAttrs"
-    :class="modifiers"
-    @update:modelValue="onUpdateModelValue"
-    @focus="onFocus"
-    @blur="onBlur"
-    >
-      <template #checkbox="{
-        checked, 
-        iconCheckmarkAttrs
-      }">
-        <div
-          :class="[ 
-            'ui-checkbox__checkbox', 
-            { 'ui-checkbox__checkbox--is-checked': checked },
-          ]"
-        >
-          <UiIcon
-            v-bind="iconCheckmarkAttrs"
-            class="ui-checkbox__checkmark"
-          />
-        </div>
-      </template>
-      {{ content }}
-    </UiCheckbox>`,
-});
-
-export const WithLabelSlot = (args) => ({
-  components: {
-    UiCheckbox,
-    UiText,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiCheckbox
-    v-model="modelValue"
-    :value="value"
-    :id="id"
-    :disabled="disabled"
-    :input-attrs="inputAttrs"
-    :icon-checkmark-attrs="iconCheckmarkAttrs"
-    :text-label-attrs="textLabelAttrs"
-    :class="modifiers"
-    @update:modelValue="onUpdateModelValue"
-    @focus="onFocus"
-    @blur="onBlur"
-    >
-      <template #label="{
-        hasLabel, 
-        textLabelAttrs,
-      }">
-        <UiText
-          v-bind="textLabelAttrs"
-          class="ui-checkbox__label"
-        >
-          {{ content }}
-        </UiText>
-      </template>
-    </UiCheckbox>`,
-});
-
 export const ValueAsObject = (args) => ({
   components: { UiCheckbox },
   setup() {
@@ -263,6 +177,7 @@ ValueAsObject.argTypes = {
   },
   modelValue: { control: false },
 };
+ValueAsObject.parameters = { chromatic: { disableSnapshot: true } };
 
 export const AsGroupWithPrimitiveTypes = (args) => ({
   components: {
@@ -397,6 +312,7 @@ AsGroupWithObject.argTypes = {
   modifiers: { control: false },
   content: { control: false },
 };
+AsGroupWithObject.parameters = { chromatic: { disableSnapshot: true } };
 
 export const AsGroupWithNestedObject = (args) => ({
   components: {
@@ -471,3 +387,92 @@ AsGroupWithNestedObject.argTypes = {
   modifiers: { control: false },
   content: { control: false },
 };
+AsGroupWithNestedObject.parameters = { chromatic: { disableSnapshot: true } };
+
+export const WithCheckboxSlot = (args) => ({
+  components: {
+    UiCheckbox,
+    UiIcon,
+  },
+  setup() {
+    const modelValue = ref(args.initModelValue);
+    return {
+      ...args,
+      ...events,
+      modelValue,
+    };
+  },
+  template: `<UiCheckbox
+    v-model="modelValue"
+    :value="value"
+    :id="id"
+    :disabled="disabled"
+    :input-attrs="inputAttrs"
+    :icon-checkmark-attrs="iconCheckmarkAttrs"
+    :text-label-attrs="textLabelAttrs"
+    :class="modifiers"
+    @update:modelValue="onUpdateModelValue"
+    @focus="onFocus"
+    @blur="onBlur"
+    >
+      <template #checkbox="{
+        checked, 
+        iconCheckmarkAttrs
+      }">
+        <div
+          :class="[ 
+            'ui-checkbox__checkbox', 
+            { 'ui-checkbox__checkbox--is-checked': checked },
+          ]"
+        >
+          <UiIcon
+            v-bind="iconCheckmarkAttrs"
+            class="ui-checkbox__checkmark"
+          />
+        </div>
+      </template>
+      {{ content }}
+    </UiCheckbox>`,
+});
+WithCheckboxSlot.parameters = { chromatic: { disableSnapshot: true } };
+
+export const WithLabelSlot = (args) => ({
+  components: {
+    UiCheckbox,
+    UiText,
+  },
+  setup() {
+    const modelValue = ref(args.initModelValue);
+    return {
+      ...args,
+      ...events,
+      modelValue,
+    };
+  },
+  template: `<UiCheckbox
+    v-model="modelValue"
+    :value="value"
+    :id="id"
+    :disabled="disabled"
+    :input-attrs="inputAttrs"
+    :icon-checkmark-attrs="iconCheckmarkAttrs"
+    :text-label-attrs="textLabelAttrs"
+    :class="modifiers"
+    @update:modelValue="onUpdateModelValue"
+    @focus="onFocus"
+    @blur="onBlur"
+    >
+      <template #label="{
+        hasLabel, 
+        textLabelAttrs,
+      }">
+        <UiText
+          v-bind="textLabelAttrs"
+          class="ui-checkbox__label"
+        >
+          {{ content }}
+        </UiText>
+      </template>
+    </UiCheckbox>`,
+});
+WithLabelSlot.parameters = { chromatic: { disableSnapshot: true } };

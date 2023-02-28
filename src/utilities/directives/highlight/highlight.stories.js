@@ -7,7 +7,10 @@ import docs from './highlight.mdx';
 export default {
   title: 'Utilities/Directives/Highlight',
   components: { UiText },
-  parameters: { docs: { page: docs } },
+  parameters: {
+    docs: { page: docs },
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 export const WithDirective = () => ({

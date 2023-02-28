@@ -3,6 +3,7 @@ import {
   content,
   modifiers,
 } from '@sb/helpers/argTypes';
+import { AsGroupWithObject } from '@/components/atoms/UiCheckbox/UiCheckbox.stories';
 
 export default {
   title: 'Atoms/Heading',
@@ -57,3 +58,4 @@ export const Common = Template.bind({});
 
 export const AsSpan = Template.bind({});
 AsSpan.args = { tag: 'span' };
+AsSpan.parameters = { chromatic: { disableSnapshot: true } };

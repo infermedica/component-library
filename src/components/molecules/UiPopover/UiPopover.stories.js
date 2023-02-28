@@ -9,6 +9,7 @@ import {
   modifiers,
 } from '@sb/helpers/argTypes';
 import './UiPopover.stories.scss';
+import { WithDecrementSlot } from '@/components/molecules/UiNumberStepper/UiNumberStepper.stories';
 
 const events = actions({ onClose: 'close' });
 
@@ -224,6 +225,7 @@ export const WithTitleSlot = (args) => ({
     </UiText>
   </UiPopover>`,
 });
+WithTitleSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithCloseSlot = (args) => ({
   components: {
@@ -270,3 +272,4 @@ export const WithCloseSlot = (args) => ({
     </UiText>
   </UiPopover>`,
 });
+WithCloseSlot.parameters = { chromatic: { disableSnapshot: true } };

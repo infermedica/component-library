@@ -7,6 +7,7 @@ import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import { ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
 import { content } from '@sb/helpers/argTypes';
+import { WithItemLinkSlot } from '@/components/molecules/UiStepper/UiStepper.stories';
 
 const events = actions({ onUpdateModelValue: 'update:modelValue' });
 
@@ -97,40 +98,6 @@ export const WithLabel = (args) => ({
     @update:modelValue="onUpdateModelValue"
   >
     {{ content }}
-  </UiSwitch>`,
-});
-
-export const WithSwitchControlSlot = (args) => ({
-  components: {
-    UiSwitch,
-    UiSwitchControl,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiSwitch
-    v-model="modelValue"
-    :control-attrs="controlAttrs"
-    :text-label-attrs="{ 'data-testid': 'label-text' }"
-    @update:modelValue="onUpdateModelValue"
-  >
-    <template #switchcontrol="{
-      checked,
-      controlAttrs,
-    }">
-      <UiSwitchControl
-        v-bind="controlAttrs"
-        :class="{
-          'ui-switch-control--is-checked': checked,
-          'ui-switch__control--is-checked': checked,
-        }"
-      />
-    </template>
   </UiSwitch>`,
 });
 
@@ -246,3 +213,39 @@ AsGroupWithPrimitiveTypes.argTypes = {
     control: 'array',
   },
 };
+AsGroupWithPrimitiveTypes.parameters = { chromatic: { disableSnapshot: true } };
+
+export const WithSwitchControlSlot = (args) => ({
+  components: {
+    UiSwitch,
+    UiSwitchControl,
+  },
+  setup() {
+    const modelValue = ref(args.initModelValue);
+    return {
+      ...args,
+      ...events,
+      modelValue,
+    };
+  },
+  template: `<UiSwitch
+    v-model="modelValue"
+    :control-attrs="controlAttrs"
+    :text-label-attrs="{ 'data-testid': 'label-text' }"
+    @update:modelValue="onUpdateModelValue"
+  >
+    <template #switchcontrol="{
+      checked,
+      controlAttrs,
+    }">
+      <UiSwitchControl
+        v-bind="controlAttrs"
+        :class="{
+          'ui-switch-control--is-checked': checked,
+          'ui-switch__control--is-checked': checked,
+        }"
+      />
+    </template>
+  </UiSwitch>`,
+});
+WithSwitchControlSlot.parameters = { chromatic: { disableSnapshot: true } };

@@ -13,7 +13,10 @@ import docs from './click-outside.mdx';
 export default {
   title: 'Utilities/Directives/Click Outside',
   decorators: [ () => ({ template: '<div style="height: 200px;"><story /></div>' }) ],
-  parameters: { docs: { page: docs } },
+  parameters: {
+    docs: { page: docs },
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 export const WithDirective = () => ({

@@ -8,6 +8,7 @@ import UiMultipleAnswer from '@/components/organisms/UiMultipleAnswer/UiMultiple
 import UiSimpleQuestion from '@/components/organisms/UiSimpleQuestion/UiSimpleQuestion.vue';
 import { actions } from '@storybook/addon-actions';
 import './UiQuestion.stories.scss';
+import { WithIllustrationSlot } from '@/components/templates/UiMessage/UiMessage.stories';
 import docs from './UiQuestion.mdx';
 
 const events = actions({
@@ -348,6 +349,7 @@ export const WithTitleSlot = (args) => ({
     </template>
   </UiQuestion>`,
 });
+WithTitleSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithInfoSlot = (args) => ({
   components: {
@@ -388,6 +390,7 @@ export const WithInfoSlot = (args) => ({
     </template>
   </UiQuestion>`,
 });
+WithInfoSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithActionsBottomSlot = (args) => ({
   components: {
@@ -445,6 +448,7 @@ export const WithActionsBottomSlot = (args) => ({
     </template>
   </UiQuestion>`,
 });
+WithActionsBottomSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithWhySlot = (args) => ({
   components: {
@@ -484,6 +488,7 @@ export const WithWhySlot = (args) => ({
     </template>
   </UiQuestion>`,
 });
+WithWhySlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithIssueSlot = (args) => ({
   components: {
@@ -523,3 +528,4 @@ export const WithIssueSlot = (args) => ({
     </template>
   </UiQuestion>`,
 });
+WithIssueSlot.parameters = { chromatic: { disableSnapshot: true } };

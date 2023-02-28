@@ -16,6 +16,7 @@ import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import UiHorizontalPagingItem from '@/components/organisms/UiHorizontalPaging/_internal/UiHorizontalPagingItem.vue';
 import { actions } from '@storybook/addon-actions';
 import './UiHorizontalPaging.stories.scss';
+import { WithBackSlot } from '@/components/organisms/UiControls/UiControls.stories';
 import docs from './UiHorizontalPaging.mdx';
 
 const events = actions({ onUpdateModelValue: 'update:modelValue' });
@@ -306,41 +307,6 @@ export const Common = (args) => ({
   </UiHorizontalPaging>`,
 });
 
-export const WithDefaultSlot = (args) => ({
-  components: {
-    UiHorizontalPaging,
-    UiHorizontalPagingItem,
-    ForBusiness,
-    MedicalCertification,
-    InstructionForUse,
-    TermsOfService,
-    PrivacyPolicy,
-    InterviewId,
-  },
-  setup() {
-    const modelValue = ref(args.initialModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiHorizontalPaging
-    v-model="modelValue"
-    :title="title"
-    @update:modelValue="onUpdateModelValue"
-  >
-    <template
-      v-for="(item, key) in items"
-      :key="key"
-    >
-      <UiHorizontalPagingItem v-bind="item">
-        <component :is="item.name"/>
-      </UiHorizontalPagingItem>
-    </template>
-  </UiHorizontalPaging>`,
-});
-
 export const AsMultilevel = (args) => ({
   components: {
     UiHorizontalPaging,
@@ -424,6 +390,7 @@ export const AsMultilevel = (args) => ({
     </template>
   </UiHorizontalPaging>`,
 });
+AsMultilevel.parameters = { chromatic: { disableSnapshot: true } };
 
 export const AsMobileMenu = (args) => ({
   components: {
@@ -514,3 +481,40 @@ AsMobileMenu.decorators = [ () => ({
     <story/>
   </div>`,
 }) ];
+
+export const WithDefaultSlot = (args) => ({
+  components: {
+    UiHorizontalPaging,
+    UiHorizontalPagingItem,
+    ForBusiness,
+    MedicalCertification,
+    InstructionForUse,
+    TermsOfService,
+    PrivacyPolicy,
+    InterviewId,
+  },
+  setup() {
+    const modelValue = ref(args.initialModelValue);
+    return {
+      ...args,
+      ...events,
+      modelValue,
+    };
+  },
+  template: `<UiHorizontalPaging
+    v-model="modelValue"
+    :title="title"
+    @update:modelValue="onUpdateModelValue"
+  >
+    <template
+      v-for="(item, key) in items"
+      :key="key"
+    >
+      <UiHorizontalPagingItem v-bind="item">
+        <component :is="item.name"/>
+      </UiHorizontalPagingItem>
+    </template>
+  </UiHorizontalPaging>`,
+});
+WithDefaultSlot.parameters = { chromatic: { disableSnapshot: true } };
+

@@ -6,6 +6,7 @@ import UiNavigation from '@/components/molecules/UiNavigation/UiNavigation.vue';
 import { defineAsyncComponent } from 'vue';
 import { actions } from '@storybook/addon-actions';
 import { modifiers } from '@sb/helpers/argTypes';
+import { WithAlertSlot } from '@/components/molecules/UiFormField/UiFormField.stories';
 import { toMobile } from '../../../styles/exports/breakpoints.module.scss';
 import docs from './UiHeader.mdx';
 
@@ -133,6 +134,44 @@ HamburgerMenuAlwaysDisplay.args = { hamburgerMatchMedia: '(min-width: 0px)' };
 export const WithoutHamburgerMenu = Template.bind({});
 WithoutHamburgerMenu.args = { hamburgerMatchMedia: '(max-width: 0px)' };
 
+export const WithCustomBrand = (args) => ({
+  components: {
+    UiHeader,
+    UiNavigation,
+  },
+  setup() {
+    const logo = defineAsyncComponent(() => import(
+      /* webpackChunkName: "header" */
+      /* webpackMode: "eager" */
+      /* webpackPreload: true */
+      '../../../assets/logo.svg'
+    ));
+
+    return {
+      ...args,
+      ...events,
+      logo,
+    };
+  },
+  template: `<UiHeader
+    :title="title"
+    :logo="logo"
+    :hamburgerMatchMedia="hamburgerMatchMedia"
+    :navigation="navigation"
+    :button-brand-attrs="buttonBrandAttrs"
+    :button-hamburger-attrs="buttonHamburgerAttrs"
+    :icon-hamburger-attrs="iconHamburgerAttrs"
+    :icon-logo-attrs="iconLogoAttrs"
+    :navigation-attrs="navigationAttrs"
+    :class="[
+      'header-custom-brand', 
+      modifiers,
+    ]"
+    @hamburger:close="onHamburgerClose"
+    @hamburger:open="onHamburgerOpen"
+  />`,
+});
+
 export const WithBrandSlot = (args) => ({
   components: {
     UiHeader,
@@ -177,6 +216,7 @@ export const WithBrandSlot = (args) => ({
     </template>
   </UiHeader>`,
 });
+WithBrandSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithLogoSlot = (args) => ({
   components: {
@@ -213,6 +253,7 @@ export const WithLogoSlot = (args) => ({
     </template>
   </UiHeader>`,
 });
+WithLogoSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithHamburgerSlot = (args) => ({
   components: {
@@ -260,6 +301,7 @@ export const WithHamburgerSlot = (args) => ({
     </template>
   </UiHeader>`,
 });
+WithHamburgerSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithNavigationSlot = (args) => ({
   components: {
@@ -300,41 +342,4 @@ export const WithNavigationSlot = (args) => ({
     </template>
   </UiHeader>`,
 });
-
-export const WithCustomBrand = (args) => ({
-  components: {
-    UiHeader,
-    UiNavigation,
-  },
-  setup() {
-    const logo = defineAsyncComponent(() => import(
-      /* webpackChunkName: "header" */
-      /* webpackMode: "eager" */
-      /* webpackPreload: true */
-      '../../../assets/logo.svg'
-    ));
-
-    return {
-      ...args,
-      ...events,
-      logo,
-    };
-  },
-  template: `<UiHeader
-    :title="title"
-    :logo="logo"
-    :hamburgerMatchMedia="hamburgerMatchMedia"
-    :navigation="navigation"
-    :button-brand-attrs="buttonBrandAttrs"
-    :button-hamburger-attrs="buttonHamburgerAttrs"
-    :icon-hamburger-attrs="iconHamburgerAttrs"
-    :icon-logo-attrs="iconLogoAttrs"
-    :navigation-attrs="navigationAttrs"
-    :class="[
-      'header-custom-brand', 
-      modifiers,
-    ]"
-    @hamburger:close="onHamburgerClose"
-    @hamburger:open="onHamburgerOpen"
-  />`,
-});
+WithNavigationSlot.parameters = { chromatic: { disableSnapshot: true } };

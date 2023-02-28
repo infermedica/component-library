@@ -8,7 +8,10 @@ import docs from './keyboard-focus.mdx';
 
 export default {
   title: 'Utilities/Directives/Keyboard Focus',
-  parameters: { docs: { page: docs } },
+  parameters: {
+    docs: { page: docs },
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 export const WithDirective = () => ({

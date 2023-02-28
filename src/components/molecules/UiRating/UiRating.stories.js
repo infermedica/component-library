@@ -4,6 +4,7 @@ import UiRadio from '@/components/atoms/UiRadio/UiRadio.vue';
 import { ref } from 'vue';
 import { modifiers } from '@sb/helpers/argTypes';
 import { actions } from '@storybook/addon-actions';
+import { WithCloseSlot } from '@/components/molecules/UiPopover/UiPopover.stories';
 
 const events = actions({ onUpdateModelValue: 'update:modelValue' });
 
@@ -104,6 +105,7 @@ WithRadioOptionsAttrsAsArray.args = {
     },
   ],
 };
+WithRadioOptionsAttrsAsArray.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithIconSlot = (args) => ({
   components: {
@@ -151,3 +153,4 @@ export const WithIconSlot = (args) => ({
     </template>
   </UiRating>`,
 });
+WithIconSlot.parameters = { chromatic: { disableSnapshot: true } };

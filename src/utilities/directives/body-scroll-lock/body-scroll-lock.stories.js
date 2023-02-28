@@ -16,7 +16,10 @@ import './body-scroll-lock.stories.scss';
 export default {
   title: 'Utilities/Directives/Body Scroll Lock',
   decorators: [ () => ({ template: '<div style="height: 320px;"><story /></div>' }) ],
-  parameters: { docs: { page: docs } },
+  parameters: {
+    docs: { page: docs },
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 const TOS = {

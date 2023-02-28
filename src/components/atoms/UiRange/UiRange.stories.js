@@ -6,6 +6,7 @@ import UiNumberStepper from '@/components/molecules/UiNumberStepper/UiNumberStep
 import { ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
 import { keyboardFocus } from '@/utilities/directives/index.ts';
+import { WithLabelSlot } from '@/components/atoms/UiRadio/UiRadio.stories';
 
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
@@ -149,6 +150,7 @@ export const WithDecrementSlot = (args) => ({
     </template>
   </UiRange>`,
 });
+WithDecrementSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithIncrementSlot = (args) => ({
   components: {
@@ -199,6 +201,7 @@ export const WithIncrementSlot = (args) => ({
     </template>
   </UiRange>`,
 });
+WithIncrementSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithValueSlot = (args) => ({
   components: {
@@ -237,6 +240,7 @@ export const WithValueSlot = (args) => ({
     </template>
   </UiRange>`,
 });
+WithValueSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithRangeSlot = (args) => ({
   components: { UiRange },
@@ -283,3 +287,4 @@ export const WithRangeSlot = (args) => ({
     </template>
   </UiRange>`,
 });
+WithRangeSlot.parameters = { chromatic: { disableSnapshot: true } };

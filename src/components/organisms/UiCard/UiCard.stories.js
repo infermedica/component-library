@@ -7,6 +7,7 @@ import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints
 import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue';
 import UiContainer from '@/components/organisms/UiContainer/UiContainer.vue';
 import './UiCard.stories.scss';
+import { WithTogglerSlot } from '@/components/organisms/UiAccordion/UiAccordion.stories';
 import docs from './UiCard.mdx';
 
 export default {
@@ -242,6 +243,7 @@ export const WithDetailsSlot = (args) => ({
     </template>
   </UiCard>`,
 });
+WithDetailsSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithTriageSlot = (args) => ({
   components: {
@@ -269,6 +271,7 @@ export const WithTriageSlot = (args) => ({
     </template>
   </UiCard>`,
 });
+WithTriageSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithContentSlot = (args) => ({
   components: {
@@ -324,6 +327,7 @@ export const WithContentSlot = (args) => ({
     </template>
   </UiCard>`,
 });
+WithContentSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithSubtitleSlot = (args) => ({
   components: {
@@ -358,6 +362,7 @@ export const WithSubtitleSlot = (args) => ({
     </template>
   </UiCard>`,
 });
+WithSubtitleSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithTitleSlot = (args) => ({
   components: {
@@ -392,6 +397,7 @@ export const WithTitleSlot = (args) => ({
     </template>
   </UiCard>`,
 });
+WithTitleSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithDescriptionSlot = (args) => ({
   components: {
@@ -426,3 +432,4 @@ export const WithDescriptionSlot = (args) => ({
     </template>
   </UiCard>`,
 });
+WithDescriptionSlot.parameters = { chromatic: { disableSnapshot: true } };

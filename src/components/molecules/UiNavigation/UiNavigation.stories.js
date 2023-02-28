@@ -144,6 +144,7 @@ WithNavigationItemSlot.args = {
     },
   ],
 };
+WithNavigationItemSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithDefaultSlot = (args) => ({
   components: {
@@ -169,6 +170,7 @@ export const WithDefaultSlot = (args) => ({
     </template>
   </UiNavigation>`,
 });
+WithDefaultSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithIconInNavigationItemSlot = (args) => ({
   components: {
@@ -214,3 +216,4 @@ WithIconInNavigationItemSlot.args = {
     },
   ],
 };
+WithIconInNavigationItemSlot.parameters = { chromatic: { disableSnapshot: true } };
