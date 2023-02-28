@@ -1,7 +1,7 @@
 <template>
   <UiDropdown
     ref="dropdown"
-    v-click-outside:[isActiveClickOutside]="clickOutsideHandler"
+    v-click-outside="clickOutsideValue"
     class="ui-datepicker-calendar"
     :enable-keyboard-navigation="false"
     :toggle-element="toggleElement"
@@ -64,6 +64,7 @@ import {
 } from 'vue';
 import type { ComputedRef } from 'vue';
 import { clickOutside as vClickOutside } from '../../../../utilities/directives';
+import type { VClickOutsideValue } from '../../../../utilities/directives';
 import { capitalizeFirst } from '../../../../utilities/helpers/index';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiDropdown from '../../../molecules/UiDropdown/UiDropdown.vue';
@@ -200,7 +201,6 @@ const tabComponentSelector = (datePart: DatepickerDatePart) => {
       return '';
   }
 };
-const isActiveClickOutside = computed(() => `${dropdown.value?.isOpen || false}`);
 const isDateFulfilled = inject<ComputedRef<boolean>>('isDateFulfilled', computed(() => false));
 const openCalendar = (open: () => Promise<void>, event: Event) => {
   if (dropdown.value?.isOpen) return;
@@ -248,6 +248,10 @@ const clickOutsideHandler = (event: Event) => {
   }
   currentTab.value = inputsIds.value[id];
 };
+const clickOutsideValue = computed<VClickOutsideValue>(() => ({
+  isActive: dropdown.value?.isOpen || false,
+  handler: clickOutsideHandler,
+}));
 </script>
 
 <style lang="scss">

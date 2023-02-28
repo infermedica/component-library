@@ -1,7 +1,7 @@
 <template>
   <div
     ref="dropdown"
-    v-click-outside:[isActiveClickOutside]="() => closeHandler({ focusToggle: false })"
+    v-click-outside="clickOutsideValue"
     class="ui-dropdown"
     :class="{ 'is-active': isOpen }"
     @keydown="dropdownKeydownHandler"
@@ -100,6 +100,7 @@ import type {
 } from 'vue';
 import useDropdownItems from './useDropdownItems';
 import { clickOutside as vClickOutside } from '../../../utilities/directives';
+import type { VClickOutsideValue } from '../../../utilities/directives';
 import { focusElement } from '../../../utilities/helpers/index';
 import UiDropdownItem from './_internal/UiDropdownItem.vue';
 import type { DropdownItemAttrsProps } from './_internal/UiDropdownItem.vue';
@@ -237,7 +238,10 @@ const toggleHandler = async () => {
     await openHandler({ focus: true });
   }
 };
-const isActiveClickOutside = computed(() => `${props.closeOnClickOutside && isOpen.value}`);
+const clickOutsideValue = computed<VClickOutsideValue>(() => ({
+  isActive: props.closeOnClickOutside && isOpen.value,
+  handler: () => closeHandler({ focusToggle: false }),
+}));
 const dropdownName = computed(() => (
   props.name || `dropdown-${uid()}`
 ));

@@ -59,7 +59,6 @@ describe('composable/useAttributes', () => {
   test('listeners is reactive', async () => {
     const props = { onClick: vi.fn() };
     const wrapper = mount(Component, { props });
-    console.log(wrapper.vm.listeners);
     expect(wrapper.vm.listeners).toHaveProperty('onClick');
 
     wrapper.setProps({ onFocus: vi.fn() });

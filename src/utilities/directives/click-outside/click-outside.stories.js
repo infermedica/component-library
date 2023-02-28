@@ -4,10 +4,7 @@ import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiSwitch from '@/components/molecules/UiSwitch/UiSwitch.vue';
 import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
-import {
-  ref,
-  computed,
-} from 'vue';
+import { ref } from 'vue';
 import docs from './click-outside.mdx';
 
 export default {
@@ -75,23 +72,21 @@ export const WithDirectiveSwitcher = () => ({
   directives: { clickOutside },
   setup() {
     const isOpen = ref(true);
-    const modelValue = ref(true);
+    const isDirective = ref(true);
     const toggleHandler = () => {
       isOpen.value = !isOpen.value;
     };
-    const isDirective = computed(() => `${modelValue.value}`);
     return {
-      modelValue,
+      isDirective,
       isOpen,
       toggleHandler,
-      isDirective,
     };
   },
   template: `<UiSwitch
-    v-model="modelValue"
+    v-model="isDirective"
     class="flex mb-4"
   >
-    Outside click event listener is {{ modelValue ? 'enabled' : 'disabled' }}.
+    Outside click event listener is {{ isDirective ? 'enabled' : 'disabled' }}.
   </UiSwitch>
   <UiButton
     v-if="!isOpen"
@@ -104,7 +99,10 @@ export const WithDirectiveSwitcher = () => ({
     v-else
     style="--popover-content-padding: var(--space-16)"
     title="Popover header"
-    v-click-outside:[isDirective]="toggleHandler"
+    v-click-outside="{
+      handler: toggleHandler,
+      isActive: isDirective
+    }"
   >
     <template #close>
       <UiButton
