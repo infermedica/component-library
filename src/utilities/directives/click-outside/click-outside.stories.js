@@ -1,4 +1,4 @@
-import { clickOutside } from '@/utilities/directives/index';
+import { clickOutside } from '@/utilities/directives/index.ts';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
@@ -40,7 +40,7 @@ export const WithDirective = () => ({
   </UiButton>
   <UiPopover
     v-else
-    v-click-outside="toggleHandler"
+    v-click-outside="{ handler: () => toggleHandler() }"
     style="--popover-content-padding: var(--space-16)"
     title="Popover header"
   >
@@ -79,8 +79,8 @@ export const WithDirectiveSwitcher = () => ({
       toggleHandler,
     };
   },
-  template: `<UiSwitch 
-    v-model="isDirective" 
+  template: `<UiSwitch
+    v-model="isDirective"
     class="flex mb-4"
   >
     Outside click event listener is {{ isDirective ? 'enabled' : 'disabled' }}.
@@ -96,7 +96,10 @@ export const WithDirectiveSwitcher = () => ({
     v-else
     style="--popover-content-padding: var(--space-16)"
     title="Popover header"
-    v-click-outside:[isDirective]="toggleHandler"
+    v-click-outside="{
+      handler: () => toggleHandler(),
+      isActive: isDirective
+    }"
   >
     <template #close>
       <UiButton
