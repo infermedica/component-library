@@ -1,10 +1,16 @@
 /* eslint-disable import/prefer-default-export, no-underscore-dangle, no-param-reassign, func-names */
 import { nextTick } from 'vue';
+import type { Directive } from 'vue';
 
-export const scrollTabindex = {
+interface ElementScrollTabindex extends HTMLElement {
+  '__vueResizeHandler__': () => void;
+  '__observer__': MutationObserver;
+}
+
+export const scrollTabindex: Directive<ElementScrollTabindex> = {
   async beforeMount(el) {
     await nextTick();
-    el.__vueResizeHandler__ = function () {
+    el.__vueResizeHandler__ = () => {
       const {
         clientHeight, scrollHeight,
       } = el;
