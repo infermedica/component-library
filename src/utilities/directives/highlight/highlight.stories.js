@@ -1,4 +1,4 @@
-import { highlight } from '@/utilities/directives/index';
+import { highlight } from '@/utilities/directives/index.ts';
 import UiInput from '@/components/atoms/UiInput/UiInput.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import { ref } from 'vue';
