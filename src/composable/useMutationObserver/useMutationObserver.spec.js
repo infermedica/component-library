@@ -1,3 +1,4 @@
+import { ref } from 'vue';
 import useMutationObserver from './index';
 
 describe('composable/useMutationObserver', () => {
@@ -11,7 +12,7 @@ describe('composable/useMutationObserver', () => {
       disconnect: vi.fn(),
     }));
     window.MutationObserver = mutationObserverMock;
-    useMutationObserver('<div></div>');
+    useMutationObserver(ref(document.createElement('div')));
     expect(mutationObserverMock).not.toHaveBeenCalled();
   });
   test('supported when window have property IntersectionObserver', () => {
@@ -26,7 +27,7 @@ describe('composable/useMutationObserver', () => {
       disconnect: vi.fn(),
     }));
     window.MutationObserver = mutationObserverMock;
-    useMutationObserver('<div></div>');
+    useMutationObserver(ref(document.createElement('div')));
     expect(mutationObserverMock).toHaveBeenCalledTimes(1);
   });
 });

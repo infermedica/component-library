@@ -1,7 +1,7 @@
 <template>
   <div
     ref="dropdown"
-    v-click-outside:[isActiveClickOutside]="closeHandler.bind(this, { focusToggle: false })"
+    v-click-outside="clickOutsideOptions"
     class="ui-dropdown"
     :class="{ 'is-active': isOpen }"
     @keydown="dropdownKeydownHandler"
@@ -100,6 +100,7 @@ import type {
 } from 'vue';
 import useDropdownItems from './useDropdownItems';
 import { clickOutside as vClickOutside } from '../../../utilities/directives';
+import type { VClickOutsideOptions } from '../../../utilities/directives';
 import { focusElement } from '../../../utilities/helpers/index';
 import UiDropdownItem from './_internal/UiDropdownItem.vue';
 import type { DropdownItemAttrsProps } from './_internal/UiDropdownItem.vue';
@@ -113,12 +114,12 @@ export type ButtonInstance = InstanceType<typeof UiButton>;
 export interface DropdownItemComplex extends DropdownItemAttrsProps {
     text?: string;
     name?: string;
-  }
+}
 export type DropdownItem = string | DropdownItemComplex;
 export interface DropdownHandlersOptions {
     focus?: boolean;
     focusToggle?: boolean;
-  }
+}
 export type DropdownModelValue = string | Record<string, unknown>;
 export type DropdownItemKeydownHandler = ({ key }: KeyboardEvent) => void;
 export type DropdownChangeHandler = (value: DropdownModelValue) => void;
@@ -181,7 +182,7 @@ const props = withDefaults(defineProps<DropdownProps>(), {
 });
 const emit = defineEmits<DropdownEmits>();
 const toggle = ref<ButtonInstance | null>(null);
-const dropdown = ref<HTMLDivElement | null>(null);
+const dropdown = ref<HTMLElement | null>(null);
 const isOpen = ref(false);
 const dropdownToggle = computed<HTMLElement>(
   () => {
@@ -237,7 +238,10 @@ const toggleHandler = async () => {
     await openHandler({ focus: true });
   }
 };
-const isActiveClickOutside = computed(() => (props.closeOnClickOutside && isOpen.value));
+const clickOutsideOptions = computed<VClickOutsideOptions>(() => ({
+  isActive: props.closeOnClickOutside && isOpen.value,
+  handler: () => closeHandler({ focusToggle: false }),
+}));
 const dropdownName = computed(() => (
   props.name || `dropdown-${uid()}`
 ));
@@ -260,20 +264,26 @@ const dropdownKeydownHandler = async ({ key }: KeyboardEvent) => {
     case 'ArrowDown':
       if (!isOpen.value) {
         await openHandler({ focus: true });
-      } else {
+      } else if (nextDropdownItem.value) {
         focusElement(nextDropdownItem.value);
       }
       break;
     case 'ArrowUp':
-      focusElement(prevDropdownItem.value);
+      if (prevDropdownItem.value) {
+        focusElement(prevDropdownItem.value);
+      }
       break;
     case 'Home':
     case 'PageUp':
-      focusElement(firstDropdownItem.value);
+      if (firstDropdownItem.value) {
+        focusElement(firstDropdownItem.value);
+      }
       break;
     case 'End':
     case 'PageDown':
-      focusElement(lastDropdownItem.value);
+      if (lastDropdownItem.value) {
+        focusElement(lastDropdownItem.value);
+      }
       break;
     default: break;
   }
