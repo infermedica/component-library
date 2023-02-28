@@ -1,4 +1,4 @@
-import { keyboardFocus } from '@/utilities/directives/index';
+import { keyboardFocus } from '@/utilities/directives/index.ts';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiTextarea from '@/components/atoms/UiTextarea/UiTextarea.vue';

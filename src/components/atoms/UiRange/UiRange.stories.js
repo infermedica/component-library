@@ -5,7 +5,7 @@ import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiNumberStepper from '@/components/molecules/UiNumberStepper/UiNumberStepper.vue';
 import { ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
-import { keyboardFocus } from '@/utilities/directives';
+import { keyboardFocus } from '@/utilities/directives/index.ts';
 
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
