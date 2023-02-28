@@ -1,4 +1,4 @@
-import { bodyScrollLock } from '@/utilities/directives/index';
+import { bodyScrollLock } from '@/utilities/directives/index.ts';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';

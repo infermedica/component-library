@@ -13,7 +13,7 @@ import { actions } from '@storybook/addon-actions';
 import {
   bodyScrollLock,
   focusTrap,
-} from '@/utilities/directives/index';
+} from '@/utilities/directives/index.ts';
 
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
