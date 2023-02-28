@@ -4,33 +4,29 @@ import type { Directive } from 'vue';
 interface ElementClickOutside extends HTMLElement {
   '__vueClickOutsideHandler__': (event: Event) => void
 }
-export interface VClickOutsideOptions {
-  handler: (event: Event) => void;
-  isActive?: boolean;
-}
 
-const isDisabled = (isActive: boolean | undefined) => isActive !== undefined && isActive === false;
+const isDisabled = (isActive?: string | boolean) => isActive !== undefined && (isActive === 'false' || isActive === false);
 
-export const clickOutside: Directive<ElementClickOutside, VClickOutsideOptions> = {
+export const clickOutside: Directive<ElementClickOutside, (event: Event) => void> = {
   beforeMount(el, binding) {
-    el.__vueClickOutsideHandler__ = (event) => {
+    el.__vueClickOutsideHandler__ = (event: Event) => {
       const target = event.target as HTMLElement;
       if (!el.contains(target) && el !== target) {
-        binding.value.handler(event);
+        binding.value(event);
       }
     };
-    if (isDisabled(binding.value.isActive)) return;
+    if (isDisabled(binding.arg)) return;
     document.addEventListener('click', el.__vueClickOutsideHandler__, true);
   },
   updated(el, binding) {
-    if (isDisabled(binding.value.isActive)) {
+    if (isDisabled(binding.arg)) {
       document.removeEventListener('click', el.__vueClickOutsideHandler__, true);
     } else {
       document.addEventListener('click', el.__vueClickOutsideHandler__, true);
     }
   },
   beforeUnmount(el, binding) {
-    if (isDisabled(binding.value.isActive)) return;
+    if (isDisabled(binding.arg)) return;
     document.removeEventListener('click', el.__vueClickOutsideHandler__, true);
   },
 };

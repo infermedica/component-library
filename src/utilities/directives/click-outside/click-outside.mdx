@@ -5,52 +5,24 @@ import { Alert } from "../../../../docs/components/Alert"
 After adding this directive you can call some function by clicking outside of element
 
 ## How to use
-* `v-click-outside="{ handler: functionName() }"` - bind function
-* `v-click-outside="{
-  handler: functionName(),
-  isActive: boolean
-}"` - active/disable directive
+* `v-click-outside="functionName"` - bind function
+* `v-click-outside:["true" | "false"]="functionName"` - add / remove click outside listener
+
 
 <Alert>
   <p>Click outside directive use <code>beforeMount</code> hook to <code>addEventListener</code> with callback.
   But in some case e.g. <code>UiDropdown</code> you want to <code>addEventListener</code> only when is open (to close Dropdown).
-  For that you can use isActive optional parameter.</p>
+  For that you can use <code>v-click-outside:["true" | "false"]="functionName"</code>.</p>
 </Alert>
 
 ```html
   <UiButton @click="toggleVisibility"></UiButton>
   <UiPopover
     v-if="visibility"
-    v-click-outside="{
-      handler,
-      isActive,
-    }"
+    v-click-outside:["true" | "false"]="toggleVisibility"
   >
     ...
   </UiPopover>
-```
-or
-
-```html
-<template>
-  <UiButton @click="toggleVisibility"></UiButton>
-  <UiPopover
-    v-if="visibility"
-    v-click-outside="clickOutsideOptions"
-  >
-    ...
-  </UiPopover>
-<template>
-
-<script setup lang="ts">
-import { clickOutside as vClickOutside } from '@infermedica/component-library/directives';
-import type { VClickOutsideOptions } from '@infermedica/component-library/directives';
-
-const clickOutsideOptions: VClickOutsideOptions = computed(() => ({
-  handler: (event) => toggleVisibility(event),
-  isActive: boolean,
-}));
-</script>
 ```
 
 ## Used
