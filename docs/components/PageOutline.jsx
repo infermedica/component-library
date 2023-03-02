@@ -36,7 +36,10 @@ const makeAnchor = (node) => {
   node.setAttribute('id', id);
   return node;
 };
-const getHeadingLevel = (node) => parseInt(node?.tagName.substring(1), 10);
+const getHeadingLevel = (node) => {
+  if (!node) return;
+  return parseInt(node.tagName.substring(1), 10);
+}
 const getNodes = (elements) => {
   let headings = [...elements];
   const nodes = [];
@@ -94,7 +97,7 @@ const getNodes = (elements) => {
 export const PageOutline = ({ selectors = 'h2, h3, h4, h5, h6' }) => {
   const [pageOutline, setPageOutline] = useState(<li>loading...</li>);
   useEffect(() => {
-    const el = document.getElementById('docs-root');
+    const el = document.getElementById('storybook-docs');
     const headings = [...el.querySelectorAll(selectors)];
     const nodes = getNodes(headings).nodes;
     setPageOutline(nodes);

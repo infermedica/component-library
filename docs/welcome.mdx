@@ -7,8 +7,6 @@ import Flow from './assets/flow.png';
 import Plugin from './assets/plugin.png';
 import Repo from './assets/repo.png';
 import StackAlt from './assets/stackalt.png';
-
-import { MDXProvider } from '@mdx-js/react';
 import { version } from '../package.json';
 
 <Meta title="Welcome"/>
@@ -88,9 +86,7 @@ import { version } from '../package.json';
 </style>
 
 # Welcome
-<MDXProvider>
-  <p>Current version: <b>{version}</b></p>
-</MDXProvider>
+<p>Current version: <b>{version}</b></p>
 
 @infermedica/component-library is a Vue 3 UI library for healthcare and not only. We are **full configurable mobile first** UI library.
 Our components are **accessibility-friendly** and follow best practices in terms of design and coding. We provide raw source and aim to be developer-friendly, configurable-first and performance-oriented.
@@ -136,6 +132,4 @@ Our components are **accessibility-friendly** and follow best practices in terms
   </a>
 </div>
 
-<p className="licensed">
-  MIT Licensed
-</p>
+<p className="licensed">MIT Licensed</p>
