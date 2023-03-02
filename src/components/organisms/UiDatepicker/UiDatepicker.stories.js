@@ -18,11 +18,7 @@ export default {
     initModelValue: '2077-11-27',
     initInvalid: true,
     error: 'Sorry, the date of birth cannot be a future date',
-    order: [
-      'day',
-      'month',
-      'year',
-    ],
+    order: ['day', 'month', 'year'],
     touched: false,
     lang: 'en-us',
     translation: {
@@ -130,77 +126,86 @@ export default {
     inputYearAttrs: { table: { subcategory: 'Attrs props' } },
     datepickerCalendarAttrs: { table: { subcategory: 'Attrs props' } },
   },
-  decorators: [ () => ({
-    template: `<div class="min-h-115 max-w-80">
+  decorators: [
+    () => ({
+      template: `<div class="min-h-115 max-w-80">
       <story />
     </div>`,
-  }) ],
+    }),
+  ],
   parameters: {
     cssProperties: {
-      '--datepicker-dropdown-margin-block': 'var(--datepicker-dropdown-margin-block-start, var(--space-32)) var(--datepicker-dropdown-margin-block-end, 0)',
-      '--datepicker-dropdown-margin-inline': 'var(--datepicker-dropdown-margin-inline-start, var(--space-24)) var(--datepicker-dropdown-margin-inline-end, 0)',
+      '--datepicker-dropdown-margin-block':
+        'var(--datepicker-dropdown-margin-block-start, var(--space-32)) var(--datepicker-dropdown-margin-block-end, 0)',
+      '--datepicker-dropdown-margin-inline':
+        'var(--datepicker-dropdown-margin-inline-start, var(--space-24)) var(--datepicker-dropdown-margin-inline-end, 0)',
       '--datepicker-fields-gap': 'var(--space-8)',
       '--datepicker-group-field-gap': 'var(--space-8)',
     },
   },
 };
 
-export const FullConfiguration = (args) => ({
-  components: { UiDatepicker },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    const invalid = ref(args.initInvalid);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-      invalid,
-    };
-  },
-  template: `<UiDatepicker
-    v-model="modelValue"
-    v-model:invalid="invalid"
-    :error="error"
-    :order="order"
-    :touched="touched"
-    :lang="lang"
-    :translation="translation"
-    :min-limit="minLimit"
-    :max-limit="maxLimit"
-    :alert-attrs="alertAttrs"
-    :text-day-attrs="textDayAttrs"
-    :text-month-attrs="textMonthAttrs"
-    :text-year-attrs="textYearAttrs"
-    :input-day-attrs="inputDayAttrs"
-    :input-month-attrs="inputMonthAttrs"
-    :input-year-attrs="inputYearAttrs"
-    :datepicker-calendar-attrs="datepickerCalendarAttrs"
-    @calendar-open="onCalendarOpen"
-    @calendar-select="onCalendarSelect"
-    @update:invalid="onUpdateInvalid"
-    @field-insert="onFieldInsert"
-    @field-error="onFieldError"
-    @field-focus="onFieldFocus"
-  />`,
-});
+export const FullConfiguration = {
+  render: (args) => ({
+    components: { UiDatepicker },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      const invalid = ref(args.initInvalid);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+        invalid,
+      };
+    },
+    template: `<UiDatepicker
+      v-model="modelValue"
+      v-model:invalid="invalid"
+      :error="error"
+      :order="order"
+      :touched="touched"
+      :lang="lang"
+      :translation="translation"
+      :min-limit="minLimit"
+      :max-limit="maxLimit"
+      :alert-attrs="alertAttrs"
+      :text-day-attrs="textDayAttrs"
+      :text-month-attrs="textMonthAttrs"
+      :text-year-attrs="textYearAttrs"
+      :input-day-attrs="inputDayAttrs"
+      :input-month-attrs="inputMonthAttrs"
+      :input-year-attrs="inputYearAttrs"
+      :datepicker-calendar-attrs="datepickerCalendarAttrs"
+      @calendar-open="onCalendarOpen"
+      @calendar-select="onCalendarSelect"
+      @update:invalid="onUpdateInvalid"
+      @field-insert="onFieldInsert"
+      @field-error="onFieldError"
+      @field-focus="onFieldFocus"
+    />`,
+  }),
+};
 
-export const NoConfiguration = (args) => ({
-  components: { UiDatepicker },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    const invalid = ref(args.initInvalid);
-    return {
-      modelValue,
-      invalid,
-    };
+export const NoConfiguration = {
+  render: (args) => ({
+    components: { UiDatepicker },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      const invalid = ref(args.initInvalid);
+      return {
+        modelValue,
+        invalid,
+      };
+    },
+    template: `<UiDatepicker
+      v-model="modelValue"
+      v-model:invalid="invalid"
+      error="Sorry, the date of birth cannot be a future date"
+    />`,
+  }),
+
+  args: {
+    initModelValue: '',
+    initInvalid: false,
   },
-  template: `<UiDatepicker
-    v-model="modelValue"
-    v-model:invalid="invalid"
-    error="Sorry, the date of birth cannot be a future date"
-  />`,
-});
-NoConfiguration.args = {
-  initModelValue: '',
-  initInvalid: false,
 };

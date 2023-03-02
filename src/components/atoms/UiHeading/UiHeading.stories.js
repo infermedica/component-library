@@ -1,8 +1,5 @@
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
-import {
-  content,
-  modifiers,
-} from '@sb/helpers/argTypes';
+import { content, modifiers } from '@sb/helpers/argTypes';
 import { AsGroupWithObject } from '@/components/atoms/UiCheckbox/UiCheckbox.stories';
 
 export default {
@@ -26,7 +23,7 @@ export default {
     modifiers: modifiers({
       options: [
         'ui-heading--theme-secondary',
-        'ui-heading--theme-brand',
+        'ui-heading--theme-brand'
       ],
     }),
   },
@@ -34,28 +31,44 @@ export default {
     cssProperties: {
       '--heading-font': 'var(--font-h6)',
       '--heading-letter-spacing': 'var(--letter-spacing-h6)',
-      '--heading-margin-block': 'var(--heading-margin-block-start, 0) var(--heading-margin-block-end, 0)',
-      '--heading-margin-inline': 'var(--heading-margin-inline-start, 0) var(--heading-margin-inline-end, 0)',
+      '--heading-margin-block':
+        'var(--heading-margin-block-start, 0) var(--heading-margin-block-end, 0)',
+      '--heading-margin-inline':
+        'var(--heading-margin-inline-start, 0) var(--heading-margin-inline-end, 0)',
       '--heading-color': 'var(--color-text-heading)',
     },
   },
 };
 
-const Template = (args) => ({
-  components: { UiHeading },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiHeading
-    :level="level"
-    :class="modifiers"
-  >
-    {{ content }}
-  </UiHeading>`,
-});
+export const Common = {
+  render: (args) => ({
+    components: { UiHeading },
+    setup() {
+      return { ...args };
+    },
+    template: `<UiHeading
+      :level="level"
+      :class="modifiers"
+    >
+      {{ content }}
+    </UiHeading>`,
+  }),
+};
 
-export const Common = Template.bind({});
+export const AsSpan = {
+  render: (args) => ({
+    components: { UiHeading },
+    setup() {
+      return { ...args };
+    },
+    template: `<UiHeading
+      :level="level"
+      :class="modifiers"
+    >
+      {{ content }}
+    </UiHeading>`,
+  }),
 
-export const AsSpan = Template.bind({});
-AsSpan.args = { tag: 'span' };
-AsSpan.parameters = { chromatic: { disableSnapshot: true } };
+  args: { tag: 'span' },
+  parameters: { chromatic: { disableSnapshot: true } },
+};

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { styled } from '@storybook/theming';
-import { ColorControl, TextControl } from '@storybook/components';
+import { ColorControl, TextControl } from '@storybook/blocks';
 import { ExampleFontCell } from './ExampleFontCell';
 import { ExampleColorCell } from './ExampleColorCell';
 import { KeyColorPickerContext } from '../CssPropertiesTable';

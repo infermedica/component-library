@@ -38,7 +38,8 @@ export default {
   argTypes: {
     navigationItem: {
       name: '<name>',
-      description: 'Use this slot to replace navigation item content. Require `name` in item object.',
+      description:
+        'Use this slot to replace navigation item content. Require `name` in item object.',
       table: {
         category: 'slots',
         type: { summary: 'unknown' },
@@ -55,7 +56,8 @@ export default {
   parameters: {
     docs: { page: docs },
     cssProperties: {
-      '--navigation-flex-flow': 'var(--navigation-flex-direction, row) var(--navigation-flex-wrap, wrap)',
+      '--navigation-flex-flow':
+        'var(--navigation-flex-direction, row) var(--navigation-flex-wrap, wrap)',
       '--navigation-align-items': 'center',
       '--navigation-justify-content': 'flex-start',
       '--navigation-gap': 'var(--space-12) var(--space-16)',
@@ -63,157 +65,220 @@ export default {
   },
 };
 
-const Template = (args) => ({
-  components: { UiNavigation },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiNavigation
-    :items="items"
-    :class="modifiers"
-  />`,
-});
-
-export const Common = Template.bind({});
-
-export const Multiline = Template.bind({});
-Multiline.decorators = [ () => ({
-  template: `<div class="max-w-120">
-    <story />
-  </div>`,
-}) ];
-
-export const Secondary = Template.bind({});
-Secondary.args = { modifiers: [ 'ui-navigation--theme-secondary' ] };
-
-export const OnBrand = Template.bind({});
-OnBrand.args = { modifiers: [ 'ui-navigation--theme-brand' ] };
-OnBrand.parameters = { backgrounds: { default: 'brand' } };
-
-export const Small = Template.bind({});
-Small.args = { modifiers: [ 'ui-navigation--small' ] };
-
-export const Vertical = (args) => ({
-  components: { UiNavigation },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiNavigation
-    :items="items"
-    :class="[
-      'navigation-vertical',
-      modifiers,
-    ]"/>`,
-});
-
-export const WithNavigationItemSlot = (args) => ({
-  components: { UiNavigation },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiNavigation
-    :items="items"
-    :class="modifiers"
-  >
-    <template #medical-certification="{ item }">
-      {{ item.label }}
-    </template>
-  </UiNavigation>`,
-});
-WithNavigationItemSlot.args = {
-  items: [
-    {
-      name: 'medical-certification',
-      label: 'Medical Certification',
-      href: '#',
+export const Common = {
+  render: (args) => ({
+    components: { UiNavigation },
+    setup() {
+      return { ...args };
     },
-    {
-      name: 'instruction-for-use',
-      label: 'Instruction for Use',
-      href: '#',
+    template: `<UiNavigation
+      :items="items"
+      :class="modifiers"
+    />`,
+  }),
+};
+
+export const Multiline = {
+  render: (args) => ({
+    components: { UiNavigation },
+    setup() {
+      return { ...args };
     },
-    {
-      name: 'terms-of-service',
-      label: 'Terms of Service',
-      href: '#',
-    },
-    {
-      name: 'privacy-policy',
-      label: 'Privacy Policy',
-      href: '#',
-    },
+    template: `<UiNavigation
+      :items="items"
+      :class="modifiers"
+    />`,
+  }),
+
+  decorators: [
+    () => ({
+      template: `<div class="max-w-120">
+      <story />
+    </div>`,
+    }),
   ],
 };
-WithNavigationItemSlot.parameters = { chromatic: { disableSnapshot: true } };
 
-export const WithDefaultSlot = (args) => ({
-  components: {
-    UiNavigation,
-    UiNavigationItem,
-  },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiNavigation
-    :class="modifiers"
-  >
-    <template
-      v-for="({name, label, ...attrs}, key) in items"
-      :key="key"
+export const Secondary = {
+  render: (args) => ({
+    components: { UiNavigation },
+    setup() {
+      return { ...args };
+    },
+    template: `<UiNavigation
+      :items="items"
+      :class="modifiers"
+    />`,
+  }),
+
+  args: { modifiers: ['ui-navigation--theme-secondary'] },
+};
+
+export const OnBrand = {
+  render: (args) => ({
+    components: { UiNavigation },
+    setup() {
+      return { ...args };
+    },
+    template: `<UiNavigation
+      :items="items"
+      :class="modifiers"
+    />`,
+  }),
+
+  args: { modifiers: ['ui-navigation--theme-brand'] },
+  parameters: { backgrounds: { default: 'brand' } },
+};
+
+export const Small = {
+  render: (args) => ({
+    components: { UiNavigation },
+    setup() {
+      return { ...args };
+    },
+    template: `<UiNavigation
+      :items="items"
+      :class="modifiers"
+    />`,
+  }),
+
+  args: { modifiers: ['ui-navigation--small'] },
+};
+
+export const Vertical = {
+  render: (args) => ({
+    components: { UiNavigation },
+    setup() {
+      return { ...args };
+    },
+    template: `<UiNavigation
+      :items="items"
+      :class="[
+        'navigation-vertical',
+        modifiers,
+      ]"/>`,
+  }),
+};
+
+export const WithNavigationItemSlot = {
+  render: (args) => ({
+    components: { UiNavigation },
+    setup() {
+      return { ...args };
+    },
+    template: `<UiNavigation
+      :items="items"
+      :class="modifiers"
     >
-      <UiNavigationItem
-        class=" ui-navigation__item"
-        v-bind="attrs"
-      >
-        {{ label }}
-      </UiNavigationItem>
-    </template>
-  </UiNavigation>`,
-});
-WithDefaultSlot.parameters = { chromatic: { disableSnapshot: true } };
+      <template #medical-certification="{ item }">
+        {{ item.label }}
+      </template>
+    </UiNavigation>`,
+  }),
 
-export const WithIconInNavigationItemSlot = (args) => ({
-  components: {
-    UiNavigation,
-    UiIcon,
+  args: {
+    items: [
+      {
+        name: 'medical-certification',
+        label: 'Medical Certification',
+        href: '#',
+      },
+      {
+        name: 'instruction-for-use',
+        label: 'Instruction for Use',
+        href: '#',
+      },
+      {
+        name: 'terms-of-service',
+        label: 'Terms of Service',
+        href: '#',
+      },
+      {
+        name: 'privacy-policy',
+        label: 'Privacy Policy',
+        href: '#',
+      },
+    ],
   },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiNavigation
-    :items="items"
-    :class="modifiers"
-  >
-    <template #medical-certification="{ item }">
-      <UiIcon
-        icon="info-filled"
-        class="ui-button__icon"
-      /> {{ item.text }}
-    </template>
-  </UiNavigation>`,
-});
-WithIconInNavigationItemSlot.args = {
-  items: [
-    {
-      name: 'medical-certification',
-      label: 'Medical Certification',
-      href: '#',
-    },
-    {
-      name: 'instruction-for-use',
-      label: 'Instruction for Use',
-      href: '#',
-    },
-    {
-      name: 'terms-of-service',
-      label: 'Terms of Service',
-      href: '#',
-    },
-    {
-      name: 'privacy-policy',
-      label: 'Privacy Policy',
-      href: '#',
-    },
-  ],
+
+  parameters: { chromatic: { disableSnapshot: true } },
 };
-WithIconInNavigationItemSlot.parameters = { chromatic: { disableSnapshot: true } };
+
+export const WithDefaultSlot = {
+  render: (args) => ({
+    components: {
+      UiNavigation,
+      UiNavigationItem,
+    },
+    setup() {
+      return { ...args };
+    },
+    template: `<UiNavigation
+      :class="modifiers"
+    >
+      <template
+        v-for="({name, label, ...attrs}, key) in items"
+        :key="key"
+      >
+        <UiNavigationItem
+          class=" ui-navigation__item"
+          v-bind="attrs"
+        >
+          {{ label }}
+        </UiNavigationItem>
+      </template>
+    </UiNavigation>`,
+  }),
+
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export const WithIconInNavigationItemSlot = {
+  render: (args) => ({
+    components: {
+      UiNavigation,
+      UiIcon,
+    },
+    setup() {
+      return { ...args };
+    },
+    template: `<UiNavigation
+      :items="items"
+      :class="modifiers"
+    >
+      <template #medical-certification="{ item }">
+        <UiIcon
+          icon="info-filled"
+          class="ui-button__icon"
+        /> {{ item.text }}
+      </template>
+    </UiNavigation>`,
+  }),
+
+  args: {
+    items: [
+      {
+        name: 'medical-certification',
+        label: 'Medical Certification',
+        href: '#',
+      },
+      {
+        name: 'instruction-for-use',
+        label: 'Instruction for Use',
+        href: '#',
+      },
+      {
+        name: 'terms-of-service',
+        label: 'Terms of Service',
+        href: '#',
+      },
+      {
+        name: 'privacy-policy',
+        label: 'Privacy Policy',
+        href: '#',
+      },
+    ],
+  },
+
+  parameters: { chromatic: { disableSnapshot: true } },
+};

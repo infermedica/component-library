@@ -9,7 +9,7 @@ import docs from './click-outside.mdx';
 
 export default {
   title: 'Utilities/Directives/Click Outside',
-  decorators: [ () => ({ template: '<div style="height: 200px;"><story /></div>' }) ],
+  decorators: [() => ({ template: '<div style="height: 200px;"><story /></div>' })],
   parameters: {
     docs: { page: docs },
     chromatic: { disableSnapshot: true },
@@ -82,8 +82,8 @@ export const WithDirectiveSwitcher = () => ({
       toggleHandler,
     };
   },
-  template: `<UiSwitch 
-    v-model="isDirective" 
+  template: `<UiSwitch
+    v-model="isDirective"
     class="flex mb-4"
   >
     Outside click event listener is {{ isDirective ? 'enabled' : 'disabled' }}.

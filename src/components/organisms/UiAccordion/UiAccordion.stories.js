@@ -48,7 +48,8 @@ export default {
     modelValue: { control: false },
     accordionItem: {
       name: '<name>',
-      description: 'Use this slot to replace accordion item content. Require `name` in item object.',
+      description:
+        'Use this slot to replace accordion item content. Require `name` in item object.',
       table: {
         category: 'slots',
         type: { summary: 'unknown' },
@@ -57,265 +58,341 @@ export default {
   },
 };
 
-const Template = (args) => ({
-  components: {
-    UiAccordion,
-    UiText,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiAccordion
-    v-model="modelValue"
-    :items="items"
-    @update:modelValue="onUpdateModelValue"
-  >
-    <template
-      v-for="({ name }, key) in items"
-      #[name]="{ item }"
-      :key="key"
-    >
-      <UiText>
-        {{ content[item.name] }}
-      </UiText>
-    </template>
-  </UiAccordion>`,
-});
-
-export const MultipleItems = Template.bind({});
-
-export const SingleItem = Template.bind({});
-SingleItem.args = {
-  items: [ {
-    title: 'Less likely conditions',
-    name: 'less',
-    settings: {
-      iconOpen: 'chevron-up',
-      iconClose: 'chevron-down',
+export const MultipleItems = {
+  render: (args) => ({
+    components: {
+      UiAccordion,
+      UiText,
     },
-    buttonToggleAttrs: { 'data-testid': 'less-likely-conditions-button' },
-    iconTogglerAttrs: { 'data-testid': 'less-likely-conditions-icon' },
-    contentAttrs: { 'data-testid': 'less-likely-conditions-content' },
-    'data-testid': 'less-likely-conditions',
-  } ],
-  content: { less: 'Serum uric acid concentration' },
-};
-
-export const MultipleItemsOpened = Template.bind({});
-MultipleItemsOpened.args = { initModelValue: [] };
-MultipleItemsOpened.argTypes = { initModelValue: { control: 'array' } };
-MultipleItemsOpened.parameters = { chromatic: { disableSnapshot: true } };
-
-export const WithDefaultSlot = (args) => ({
-  components: {
-    UiAccordion,
-    UiAccordionItem,
-    UiText,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiAccordion 
-    v-model="modelValue"
-    @onUpdateModelValue="onUpdateModelValue"
-  >
-    <template
-      v-for="(item, key) in items"
-      :key="key"
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiAccordion
+      v-model="modelValue"
+      :items="items"
+      @update:modelValue="onUpdateModelValue"
     >
-      <UiAccordionItem
-        :name="item.name"
-        :title="item.title"
-        :settings="item.setting"
-        :button-toggler-attrs="item.buttonToggleAttrs"
-        :icon-toggler-attrs="item.iconTogglerAttrs"
-        :content-attrs="item.contentAttrs"
+      <template
+        v-for="({ name }, key) in items"
+        #[name]="{ item }"
+        :key="key"
       >
         <UiText>
           {{ content[item.name] }}
         </UiText>
-      </UiAccordionItem>
-    </template>
-  </UiAccordion>`,
-});
-WithDefaultSlot.parameters = { chromatic: { disableSnapshot: true } };
+      </template>
+    </UiAccordion>`,
+  }),
+};
 
-export const WithTogglerSlot = (args) => ({
-  components: {
-    UiAccordion,
-    UiAccordionItem,
-    UiButton,
-    UiIcon,
-    UiText,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiAccordion 
-    v-model="modelValue"
-    @onUpdateModelValue="onUpdateModelValue"
-  >
-    <template
-      v-for="(item, key) in items"
-      :key="key"
+export const SingleItem = {
+  render: (args) => ({
+    components: {
+      UiAccordion,
+      UiText,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiAccordion
+      v-model="modelValue"
+      :items="items"
+      @update:modelValue="onUpdateModelValue"
     >
-      <UiAccordionItem
-        :name="item.name"
-        :title="item.title"
-        :settings="item.setting"
-        :button-toggler-attrs="item.buttonToggleAttrs"
-        :icon-toggler-attrs="item.iconTogglerAttrs"
-        :content-attrs="item.contentAttrs"
+      <template
+        v-for="({ name }, key) in items"
+        #[name]="{ item }"
+        :key="key"
       >
-        <template #toggler="{
-          buttonTogglerAttrs,
-          name,
-          isOpen,
-          toggle,
-          title,
-          iconOpen,
-          iconClose,
-          iconTogglerAttrs,
-        }">
-          <UiButton
-            v-bind="buttonTogglerAttrs"
-            :id="'toggler-' + name"
-            :aria-expanded="isOpen.toString()"
-            :aria-controls="name"
-            class="ui-button--outlined ui-accordion-item__toggler"
-            @click="toggle(name)"
-          >
+        <UiText>
+          {{ content[item.name] }}
+        </UiText>
+      </template>
+    </UiAccordion>`,
+  }),
+
+  args: {
+    items: [
+      {
+        title: 'Less likely conditions',
+        name: 'less',
+        settings: {
+          iconOpen: 'chevron-up',
+          iconClose: 'chevron-down',
+        },
+        buttonToggleAttrs: { 'data-testid': 'less-likely-conditions-button' },
+        iconTogglerAttrs: { 'data-testid': 'less-likely-conditions-icon' },
+        contentAttrs: { 'data-testid': 'less-likely-conditions-content' },
+        'data-testid': 'less-likely-conditions',
+      },
+    ],
+    content: { less: 'Serum uric acid concentration' },
+  },
+};
+
+export const MultipleItemsOpened = {
+  render: (args) => ({
+    components: {
+      UiAccordion,
+      UiText,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiAccordion
+      v-model="modelValue"
+      :items="items"
+      @update:modelValue="onUpdateModelValue"
+    >
+      <template
+        v-for="({ name }, key) in items"
+        #[name]="{ item }"
+        :key="key"
+      >
+        <UiText>
+          {{ content[item.name] }}
+        </UiText>
+      </template>
+    </UiAccordion>`,
+  }),
+
+  args: { initModelValue: [] },
+  argTypes: { initModelValue: { control: 'array' } },
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export const WithDefaultSlot = {
+  render: (args) => ({
+    components: {
+      UiAccordion,
+      UiAccordionItem,
+      UiText,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiAccordion
+      v-model="modelValue"
+      @onUpdateModelValue="onUpdateModelValue"
+    >
+      <template
+        v-for="(item, key) in items"
+        :key="key"
+      >
+        <UiAccordionItem
+          :name="item.name"
+          :title="item.title"
+          :settings="item.setting"
+          :button-toggler-attrs="item.buttonToggleAttrs"
+          :icon-toggler-attrs="item.iconTogglerAttrs"
+          :content-attrs="item.contentAttrs"
+        >
+          <UiText>
+            {{ content[item.name] }}
+          </UiText>
+        </UiAccordionItem>
+      </template>
+    </UiAccordion>`,
+  }),
+
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export const WithTogglerSlot = {
+  render: (args) => ({
+    components: {
+      UiAccordion,
+      UiAccordionItem,
+      UiButton,
+      UiIcon,
+      UiText,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiAccordion
+      v-model="modelValue"
+      @onUpdateModelValue="onUpdateModelValue"
+    >
+      <template
+        v-for="(item, key) in items"
+        :key="key"
+      >
+        <UiAccordionItem
+          :name="item.name"
+          :title="item.title"
+          :settings="item.setting"
+          :button-toggler-attrs="item.buttonToggleAttrs"
+          :icon-toggler-attrs="item.iconTogglerAttrs"
+          :content-attrs="item.contentAttrs"
+        >
+          <template #toggler="{
+            buttonTogglerAttrs,
+            name,
+            isOpen,
+            toggle,
+            title,
+            iconOpen,
+            iconClose,
+            iconTogglerAttrs,
+          }">
+            <UiButton
+              v-bind="buttonTogglerAttrs"
+              :id="'toggler-' + name"
+              :aria-expanded="isOpen.toString()"
+              :aria-controls="name"
+              class="ui-button--outlined ui-accordion-item__toggler"
+              @click="toggle(name)"
+            >
+              <UiIcon
+                v-bind="iconTogglerAttrs"
+                class="ui-button__icon ui-accordion-item__chevron"
+              />{{ title }}
+            </UiButton>
+          </template>
+          <UiText>
+            {{ content[item.name] }}
+          </UiText>
+        </UiAccordionItem>
+      </template>
+    </UiAccordion>`,
+  }),
+
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export const WithChevronSlot = {
+  render: (args) => ({
+    components: {
+      UiAccordion,
+      UiAccordionItem,
+      UiText,
+      UiIcon,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiAccordion
+      v-model="modelValue"
+      @onUpdateModelValue="onUpdateModelValue"
+    >
+      <template
+        v-for="(item, key) in items"
+        :key="key"
+      >
+        <UiAccordionItem
+          :name="item.name"
+          :title="item.title"
+          :settings="item.setting"
+          :button-toggler-attrs="item.buttonToggleAttrs"
+          :icon-toggler-attrs="item.iconTogglerAttrs"
+          :content-attrs="item.contentAttrs"
+        >
+          <template #chevron="{
+            iconTogglerAttrs,
+            isOpen,
+            iconOpen,
+            iconClose,
+          }">
             <UiIcon
               v-bind="iconTogglerAttrs"
               class="ui-button__icon ui-accordion-item__chevron"
-            />{{ title }}
-          </UiButton>
-        </template>
-        <UiText>
-          {{ content[item.name] }}
-        </UiText>
-      </UiAccordionItem>
-    </template>
-  </UiAccordion>`,
-});
-WithTogglerSlot.parameters = { chromatic: { disableSnapshot: true } };
+            />
+          </template>
+          <UiText>
+            {{ content[item.name] }}
+          </UiText>
+        </UiAccordionItem>
+      </template>
+    </UiAccordion>`,
+  }),
 
-export const WithChevronSlot = (args) => ({
-  components: {
-    UiAccordion,
-    UiAccordionItem,
-    UiText,
-    UiIcon,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiAccordion 
-    v-model="modelValue"
-    @onUpdateModelValue="onUpdateModelValue"
-  >
-    <template
-      v-for="(item, key) in items"
-      :key="key"
-    >
-      <UiAccordionItem
-        :name="item.name"
-        :title="item.title"
-        :settings="item.setting"
-        :button-toggler-attrs="item.buttonToggleAttrs"
-        :icon-toggler-attrs="item.iconTogglerAttrs"
-        :content-attrs="item.contentAttrs"
-      >
-        <template #chevron="{
-          iconTogglerAttrs,
-          isOpen,
-          iconOpen,
-          iconClose,
-        }">
-          <UiIcon
-            v-bind="iconTogglerAttrs"
-            class="ui-button__icon ui-accordion-item__chevron"
-          />
-        </template>
-        <UiText>
-          {{ content[item.name] }}
-        </UiText>
-      </UiAccordionItem>
-    </template>
-  </UiAccordion>`,
-});
-WithChevronSlot.parameters = { chromatic: { disableSnapshot: true } };
+  parameters: { chromatic: { disableSnapshot: true } },
+};
 
-export const WithContentSlot = (args) => ({
-  components: {
-    UiAccordion,
-    UiAccordionItem,
-    UiText,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiAccordion 
-    v-model="modelValue"
-    @onUpdateModelValue="onUpdateModelValue"
-  >
-    <template
-      v-for="(item, key) in items"
-      :key="key"
+export const WithContentSlot = {
+  render: (args) => ({
+    components: {
+      UiAccordion,
+      UiAccordionItem,
+      UiText,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiAccordion
+      v-model="modelValue"
+      @onUpdateModelValue="onUpdateModelValue"
     >
-      <UiAccordionItem
-        :name="item.name"
-        :title="item.title"
-        :settings="item.setting"
-        :button-toggler-attrs="item.buttonToggleAttrs"
-        :icon-toggler-attrs="item.iconTogglerAttrs"
-        :content-attrs="item.contentAttrs"
+      <template
+        v-for="(item, key) in items"
+        :key="key"
       >
-        <template #content="{
-          isOpen,
-          contentAttrs,
-          name,
-          }">
-          <div
-            v-show="isOpen"
-            v-bind="contentAttrs"
-            :id="name"
-            role="region"
-            :aria-labelledby="'toggler-' + name"
-            class="ui-accordion-item__content"
-          >
-            <UiText>
-              {{ content[item.name] }}
-            </UiText>
-          </div>
-        </template>
-      </UiAccordionItem>
-    </template>
-  </UiAccordion>`,
-});
-WithContentSlot.parameters = { chromatic: { disableSnapshot: true } };
+        <UiAccordionItem
+          :name="item.name"
+          :title="item.title"
+          :settings="item.setting"
+          :button-toggler-attrs="item.buttonToggleAttrs"
+          :icon-toggler-attrs="item.iconTogglerAttrs"
+          :content-attrs="item.contentAttrs"
+        >
+          <template #content="{
+            isOpen,
+            contentAttrs,
+            name,
+            }">
+            <div
+              v-show="isOpen"
+              v-bind="contentAttrs"
+              :id="name"
+              role="region"
+              :aria-labelledby="'toggler-' + name"
+              class="ui-accordion-item__content"
+            >
+              <UiText>
+                {{ content[item.name] }}
+              </UiText>
+            </div>
+          </template>
+        </UiAccordionItem>
+      </template>
+    </UiAccordion>`,
+  }),
+
+  parameters: { chromatic: { disableSnapshot: true } },
+};

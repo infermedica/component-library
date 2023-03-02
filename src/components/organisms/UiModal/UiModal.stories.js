@@ -4,16 +4,9 @@ import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
-import {
-  ref,
-  provide,
-  inject,
-} from 'vue';
+import { ref, provide, inject } from 'vue';
 import { actions } from '@storybook/addon-actions';
-import {
-  bodyScrollLock,
-  focusTrap,
-} from '@/utilities/directives/index';
+import { bodyScrollLock, focusTrap } from '@/utilities/directives/index';
 import { WithListItemSlot } from '@/components/organisms/UiList/UiList.stories';
 
 const events = actions({
@@ -100,20 +93,21 @@ export default {
     buttonCloseAttrs: { table: { subcategory: 'Attrs props' } },
     iconCloseAttrs: { table: { subcategory: 'Attrs props' } },
   },
-  decorators: [ (story, { args }) => ({
-    components: {
-      story,
-      UiButton,
-    },
-    setup() {
-      const modelValue = ref(args.initModelValue);
-      const toggleModal = () => {
-        modelValue.value = !modelValue.value;
-      };
-      provide('modelValue', modelValue);
-      return { toggleModal };
-    },
-    template: `<div class="min-h-80">
+  decorators: [
+    (story, { args }) => ({
+      components: {
+        story,
+        UiButton,
+      },
+      setup() {
+        const modelValue = ref(args.initModelValue);
+        const toggleModal = () => {
+          modelValue.value = !modelValue.value;
+        };
+        provide('modelValue', modelValue);
+        return { toggleModal };
+      },
+      template: `<div class="min-h-80">
       <UiButton
         class="ui-button--theme-secondary ui-button--text"
         @click='toggleModal'
@@ -122,14 +116,20 @@ export default {
       </UiButton>
       <story/>
     </div>`,
-  }) ],
+    }),
+  ],
   parameters: {
-    docs: { description: { component: 'Modal use `v-body-scroll-lock`. Only works on Canvas mode.' } },
+    docs: {
+      description: { component: 'Modal use `v-body-scroll-lock`. Only works on Canvas mode.' },
+    },
     cssProperties: {
-      '--modal-padding-block': 'var(--modal-padding-block-start, var(--space-24)) var(--modal-padding-block-end, var(--space-24))',
-      '--modal-padding-inline': 'var(--modal-padding-inline-start, var(--space-24)) var(--modal-padding-inline-end, var(--space-24))',
+      '--modal-padding-block':
+        'var(--modal-padding-block-start, var(--space-24)) var(--modal-padding-block-end, var(--space-24))',
+      '--modal-padding-inline':
+        'var(--modal-padding-inline-start, var(--space-24)) var(--modal-padding-inline-end, var(--space-24))',
       '--modal-margin-block': 'var(--modal-margin-block-start, 0) var(--modal-margin-block-end, 0)',
-      '--modal-margin-inline': 'var(--modal-margin-inline-start, 0) var(--modal-margin-inline-end, 0)',
+      '--modal-margin-inline':
+        'var(--modal-margin-inline-start, 0) var(--modal-margin-inline-end, 0)',
       '--modal-border-start-start-radius': 'var(--border-radius-container)',
       '--modal-border-start-end-radius': 'var(--border-radius-container)',
       '--modal-border-end-start-radius': 'var(--border-radius-container)',
@@ -137,335 +137,464 @@ export default {
       '--modal-max-width': '40rem',
       '--modal-background': 'var(--color-background-white)',
       '--modal-box-shadow': 'var(--box-shadow-high)',
-      '--modal-title-margin-block': 'var(--modal-title-margin-block-start, 0) var(--modal-title-margin-block-end, var(--space-12))',
-      '--modal-title-margin-inline': 'var(--modal-title-margin-inline-start, 0) var(--modal-title-margin-inline-end, 0)',
-      '--modal-actions-margin-block': 'var(--modal-actions-margin-block-start, var(--space-32)) var(--modal-actions-margin-block-end, 0)',
-      '--modal-actions-margin-inline': 'var(--modal-actions-margin-inline-start, 0) var(--modal-actions-margin-inline-end, 0)',
-      '--modal-confirm-margin-block': 'var(--modal-confirm-margin-block-start, 0) var(--modal-confirm-margin-block-end, var(--space-12))',
-      '--modal-confirm-margin-inline': 'var(--modal-confirm-margin-inline-start, 0) var(--modal-confirm-margin-inline-end, 0)',
-      '--modal-tablet-confirm-margin-block': 'var(--modal-tablet-confirm-margin-block-start, 0) var(--modal-tablet-confirm-margin-block-end, 0)',
-      '--modal-tablet-confirm-margin-inline': 'var(--modal-tablet-confirm-margin-inline-start, var(--space-12)) var(--modal-tablet-confirm-margin-inline-end, 0)',
+      '--modal-title-margin-block':
+        'var(--modal-title-margin-block-start, 0) var(--modal-title-margin-block-end, var(--space-12))',
+      '--modal-title-margin-inline':
+        'var(--modal-title-margin-inline-start, 0) var(--modal-title-margin-inline-end, 0)',
+      '--modal-actions-margin-block':
+        'var(--modal-actions-margin-block-start, var(--space-32)) var(--modal-actions-margin-block-end, 0)',
+      '--modal-actions-margin-inline':
+        'var(--modal-actions-margin-inline-start, 0) var(--modal-actions-margin-inline-end, 0)',
+      '--modal-confirm-margin-block':
+        'var(--modal-confirm-margin-block-start, 0) var(--modal-confirm-margin-block-end, var(--space-12))',
+      '--modal-confirm-margin-inline':
+        'var(--modal-confirm-margin-inline-start, 0) var(--modal-confirm-margin-inline-end, 0)',
+      '--modal-tablet-confirm-margin-block':
+        'var(--modal-tablet-confirm-margin-block-start, 0) var(--modal-tablet-confirm-margin-block-end, 0)',
+      '--modal-tablet-confirm-margin-inline':
+        'var(--modal-tablet-confirm-margin-inline-start, var(--space-12)) var(--modal-tablet-confirm-margin-inline-end, 0)',
     },
   },
 };
 
-const Template = (args) => ({
-  components: { UiModal },
-  setup() {
-    const modelValue = inject('modelValue');
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiModal
-    v-model="modelValue"
-    :title='title'
-    :description='description'
-    :is-closable="isClosable"
-    :has-cancel="hasCancel"
-    :has-confirm="hasConfirm"
-    :translation="translation"
-    :transition-backdrop-attrs="transitionBackdropAttrs"
-    :backdrop-attrs="backdropAttrs"
-    :transition-dialog-attrs="transitionDialogAttrs"
-    :heading-title-attrs="headingTitleAttrs"
-    :text-description-attrs="textDescriptionAttrs"
-    :button-confirm-attrs="buttonConfirmAttrs"
-    :button-cancel-attrs="buttonCancelAttrs"
-    :button-close-attrs="buttonCloseAttrs"
-    :icon-close-attrs="iconCloseAttrs"
-    :dialog-attrs="dialogAttrs"
-    @update:modelValue="onUpdateModelValue"
-    @confirm="onConfirm"
-    @cancel="onCancel"
-  />`,
-});
-
-export const StartNewCheckup = Template.bind({});
-
-export const WithoutTitle = Template.bind({});
-WithoutTitle.args = {
-  title: '',
-  description: 'Delete this file?',
-  translation: { confirm: 'Yes, delete' },
+export const StartNewCheckup = {
+  render: (args) => ({
+    components: { UiModal },
+    setup() {
+      const modelValue = inject('modelValue');
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiModal
+      v-model="modelValue"
+      :title='title'
+      :description='description'
+      :is-closable="isClosable"
+      :has-cancel="hasCancel"
+      :has-confirm="hasConfirm"
+      :translation="translation"
+      :transition-backdrop-attrs="transitionBackdropAttrs"
+      :backdrop-attrs="backdropAttrs"
+      :transition-dialog-attrs="transitionDialogAttrs"
+      :heading-title-attrs="headingTitleAttrs"
+      :text-description-attrs="textDescriptionAttrs"
+      :button-confirm-attrs="buttonConfirmAttrs"
+      :button-cancel-attrs="buttonCancelAttrs"
+      :button-close-attrs="buttonCloseAttrs"
+      :icon-close-attrs="iconCloseAttrs"
+      :dialog-attrs="dialogAttrs"
+      @update:modelValue="onUpdateModelValue"
+      @confirm="onConfirm"
+      @cancel="onCancel"
+    />`,
+  }),
 };
 
-export const WithBackdropSlot = (args) => ({
-  components: {
-    UiModal,
-    UiBackdrop,
-  },
-  setup() {
-    const modelValue = inject('modelValue');
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiModal
-    v-model="modelValue"
-    :title='title'
-    :description='description'
-    :is-closable="isClosable"
-    :has-cancel="hasCancel"
-    :has-confirm="hasConfirm"
-    :translation="translation"
-    :transition-backdrop-attrs="transitionBackdropAttrs"
-    :backdrop-attrs="backdropAttrs"
-    :transition-dialog-attrs="transitionDialogAttrs"
-    :heading-title-attrs="headingTitleAttrs"
-    :text-description-attrs="textDescriptionAttrs"
-    :button-confirm-attrs="buttonConfirmAttrs"
-    :button-cancel-attrs="buttonCancelAttrs"
-    :button-close-attrs="buttonCloseAttrs"
-    :icon-close-attrs="iconCloseAttrs"
-    :dialog-attrs="dialogAttrs"
-    @update:modelValue="onUpdateModelValue"
-    @confirm="onConfirm"
-    @cancel="onCancel"
-  >
-    <template #backdrop="{
-      transitionBackdropAttrs,
-      modelValue,
-      backdropAttrs,
-      closeHandler,
-    }">
-      <transition v-bind="transitionBackdropAttrs">
-        <UiBackdrop
-          v-if="modelValue"
-          v-bind="backdropAttrs"
-          class="ui-modal__backdrop"
-          @click="closeHandler"
-        />
-      </transition>
-    </template>
-  </UiModal>`,
-});
-WithBackdropSlot.parameters = { chromatic: { disableSnapshot: true } };
+export const WithoutTitle = {
+  render: (args) => ({
+    components: { UiModal },
+    setup() {
+      const modelValue = inject('modelValue');
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiModal
+      v-model="modelValue"
+      :title='title'
+      :description='description'
+      :is-closable="isClosable"
+      :has-cancel="hasCancel"
+      :has-confirm="hasConfirm"
+      :translation="translation"
+      :transition-backdrop-attrs="transitionBackdropAttrs"
+      :backdrop-attrs="backdropAttrs"
+      :transition-dialog-attrs="transitionDialogAttrs"
+      :heading-title-attrs="headingTitleAttrs"
+      :text-description-attrs="textDescriptionAttrs"
+      :button-confirm-attrs="buttonConfirmAttrs"
+      :button-cancel-attrs="buttonCancelAttrs"
+      :button-close-attrs="buttonCloseAttrs"
+      :icon-close-attrs="iconCloseAttrs"
+      :dialog-attrs="dialogAttrs"
+      @update:modelValue="onUpdateModelValue"
+      @confirm="onConfirm"
+      @cancel="onCancel"
+    />`,
+  }),
 
-export const WithContainerSlot = (args) => ({
-  components: {
-    UiModal,
-    UiButton,
-    UiText,
-    UiHeading,
-    UiIcon,
+  args: {
+    title: '',
+    description: 'Delete this file?',
+    translation: { confirm: 'Yes, delete' },
   },
-  directives: {
-    focusTrap,
-    bodyScrollLock,
-  },
-  setup() {
-    const modelValue = inject('modelValue');
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiModal
-    v-model="modelValue"
-    :title='title'
-    :description='description'
-    :is-closable="isClosable"
-    :has-cancel="hasCancel"
-    :has-confirm="hasConfirm"
-    :translation="translation"
-    :transition-backdrop-attrs="transitionBackdropAttrs"
-    :backdrop-attrs="backdropAttrs"
-    :transition-dialog-attrs="transitionDialogAttrs"
-    :heading-title-attrs="headingTitleAttrs"
-    :text-description-attrs="textDescriptionAttrs"
-    :button-confirm-attrs="buttonConfirmAttrs"
-    :button-cancel-attrs="buttonCancelAttrs"
-    :button-close-attrs="buttonCloseAttrs"
-    :icon-close-attrs="iconCloseAttrs"
-    :dialog-attrs="dialogAttrs"
-    @update:modelValue="onUpdateModelValue"
-    @confirm="onConfirm"
-    @cancel="onCancel"
-  >
-    <template #container="{
-      transitionDialogAttrs,
-      modelValue,
-      title,
-      hasHeader,
-      titleSlotName,
-      titleTag,
-      titleAttrs,
-      titleText,
-      description,
-      buttonCloseAttrs,
-      confirmHandler,
-      cancelHandler,
-      closeHandler,
-      iconCloseAttrs,
-      hasDescription,
-      textDescriptionAttrs,
-      isClosable,
-      hasActions,
-      hasConfirm,
-      buttonConfirmAttrs,
-      translation,
-      hasCancel,
-      buttonCancelAttrs,
-      dialogAttrs,
-    }">
-      <transition
-        v-bind="transitionDialogAttrs"
-      >
-        <dialog
-          v-if="modelValue"
-          v-focus-trap
-          v-body-scroll-lock
-          v-bind="dialogAttrs"
-          :class="[
-            'ui-modal__dialog',
-            { 'ui-modal__dialog--has-title': title },
-          ]"
+};
+
+export const WithBackdropSlot = {
+  render: (args) => ({
+    components: {
+      UiModal,
+      UiBackdrop,
+    },
+    setup() {
+      const modelValue = inject('modelValue');
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiModal
+      v-model="modelValue"
+      :title='title'
+      :description='description'
+      :is-closable="isClosable"
+      :has-cancel="hasCancel"
+      :has-confirm="hasConfirm"
+      :translation="translation"
+      :transition-backdrop-attrs="transitionBackdropAttrs"
+      :backdrop-attrs="backdropAttrs"
+      :transition-dialog-attrs="transitionDialogAttrs"
+      :heading-title-attrs="headingTitleAttrs"
+      :text-description-attrs="textDescriptionAttrs"
+      :button-confirm-attrs="buttonConfirmAttrs"
+      :button-cancel-attrs="buttonCancelAttrs"
+      :button-close-attrs="buttonCloseAttrs"
+      :icon-close-attrs="iconCloseAttrs"
+      :dialog-attrs="dialogAttrs"
+      @update:modelValue="onUpdateModelValue"
+      @confirm="onConfirm"
+      @cancel="onCancel"
+    >
+      <template #backdrop="{
+        transitionBackdropAttrs,
+        modelValue,
+        backdropAttrs,
+        closeHandler,
+      }">
+        <transition v-bind="transitionBackdropAttrs">
+          <UiBackdrop
+            v-if="modelValue"
+            v-bind="backdropAttrs"
+            class="ui-modal__backdrop"
+            @click="closeHandler"
+          />
+        </transition>
+      </template>
+    </UiModal>`,
+  }),
+
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export const WithContainerSlot = {
+  render: (args) => ({
+    components: {
+      UiModal,
+      UiButton,
+      UiText,
+      UiHeading,
+      UiIcon,
+    },
+    directives: {
+      focusTrap,
+      bodyScrollLock,
+    },
+    setup() {
+      const modelValue = inject('modelValue');
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiModal
+      v-model="modelValue"
+      :title='title'
+      :description='description'
+      :is-closable="isClosable"
+      :has-cancel="hasCancel"
+      :has-confirm="hasConfirm"
+      :translation="translation"
+      :transition-backdrop-attrs="transitionBackdropAttrs"
+      :backdrop-attrs="backdropAttrs"
+      :transition-dialog-attrs="transitionDialogAttrs"
+      :heading-title-attrs="headingTitleAttrs"
+      :text-description-attrs="textDescriptionAttrs"
+      :button-confirm-attrs="buttonConfirmAttrs"
+      :button-cancel-attrs="buttonCancelAttrs"
+      :button-close-attrs="buttonCloseAttrs"
+      :icon-close-attrs="iconCloseAttrs"
+      :dialog-attrs="dialogAttrs"
+      @update:modelValue="onUpdateModelValue"
+      @confirm="onConfirm"
+      @cancel="onCancel"
+    >
+      <template #container="{
+        transitionDialogAttrs,
+        modelValue,
+        title,
+        hasHeader,
+        titleSlotName,
+        titleTag,
+        titleAttrs,
+        titleText,
+        description,
+        buttonCloseAttrs,
+        confirmHandler,
+        cancelHandler,
+        closeHandler,
+        iconCloseAttrs,
+        hasDescription,
+        textDescriptionAttrs,
+        isClosable,
+        hasActions,
+        hasConfirm,
+        buttonConfirmAttrs,
+        translation,
+        hasCancel,
+        buttonCancelAttrs,
+        dialogAttrs,
+      }">
+        <transition
+          v-bind="transitionDialogAttrs"
         >
-          <div
-            v-if="hasHeader"
-            class="ui-modal__header"
+          <dialog
+            v-if="modelValue"
+            v-focus-trap
+            v-body-scroll-lock
+            v-bind="dialogAttrs"
+            :class="[
+              'ui-modal__dialog',
+              { 'ui-modal__dialog--has-title': title },
+            ]"
           >
-            <component
-              :is="titleTag"
-              v-bind="titleAttrs"
-              class="ui-modal__title"
+            <div
+              v-if="hasHeader"
+              class="ui-modal__header"
             >
-              {{ titleText }}
-            </component>
-            <UiButton
-              v-if="isClosable"
-              v-bind="buttonCloseAttrs"
-              class="ui-button--icon ui-button--theme-secondary ui-modal__close"
-              @click="closeHandler"
+              <component
+                :is="titleTag"
+                v-bind="titleAttrs"
+                class="ui-modal__title"
+              >
+                {{ titleText }}
+              </component>
+              <UiButton
+                v-if="isClosable"
+                v-bind="buttonCloseAttrs"
+                class="ui-button--icon ui-button--theme-secondary ui-modal__close"
+                @click="closeHandler"
+              >
+                <UiIcon
+                  v-bind="iconCloseAttrs"
+                  class="ui-button__icon"
+                />
+              </UiButton>
+            </div>
+            <UiText
+              v-if="hasDescription"
+              v-bind="textDescriptionAttrs"
+              class="ui-modal__description"
             >
-              <UiIcon
-                v-bind="iconCloseAttrs"
-                class="ui-button__icon"
-              />
-            </UiButton>
-          </div>
-          <UiText
-            v-if="hasDescription"
-            v-bind="textDescriptionAttrs"
-            class="ui-modal__description"
-          >
-            {{ description }}
-          </UiText>
-          <div
-            v-if="hasActions"
-            class="ui-modal__actions"
-          >
-            <template v-if="isClosable">
-              <UiButton
-                v-if="hasConfirm"
-                v-bind="buttonConfirmAttrs"
-                class="ui-modal__confirm"
-                @click="confirmHandler"
-              >
-                {{ translation.confirm }}
-              </UiButton>
-              <UiButton
-                v-if="hasCancel"
-                v-bind="buttonCancelAttrs"
-                class="ui-button--outlined ui-modal__cancel"
-                @click="cancelHandler"
-              >
-                {{ translation.cancel }}
-              </UiButton>
-            </template>
-            <template v-else>
-              <UiButton
-                v-if="hasCancel"
-                v-bind="buttonCancelAttrs"
-                class="ui-button--outlined ui-modal__cancel"
-                @click="cancelHandler"
-              >
-                {{ translation.cancel }}
-              </UiButton>
-              <UiButton
-                v-if="hasConfirm"
-                v-bind="buttonConfirmAttrs"
-                class="ui-modal__confirm ui-modal__confirm--order"
-                @click="confirmHandler"
-              >
-                {{ translation.confirm }}
-              </UiButton>
-            </template>
-          </div>
-        </dialog>
-      </transition>
-    </template>
-  </UiModal>`,
-});
-WithContainerSlot.parameters = { chromatic: { disableSnapshot: true } };
+              {{ description }}
+            </UiText>
+            <div
+              v-if="hasActions"
+              class="ui-modal__actions"
+            >
+              <template v-if="isClosable">
+                <UiButton
+                  v-if="hasConfirm"
+                  v-bind="buttonConfirmAttrs"
+                  class="ui-modal__confirm"
+                  @click="confirmHandler"
+                >
+                  {{ translation.confirm }}
+                </UiButton>
+                <UiButton
+                  v-if="hasCancel"
+                  v-bind="buttonCancelAttrs"
+                  class="ui-button--outlined ui-modal__cancel"
+                  @click="cancelHandler"
+                >
+                  {{ translation.cancel }}
+                </UiButton>
+              </template>
+              <template v-else>
+                <UiButton
+                  v-if="hasCancel"
+                  v-bind="buttonCancelAttrs"
+                  class="ui-button--outlined ui-modal__cancel"
+                  @click="cancelHandler"
+                >
+                  {{ translation.cancel }}
+                </UiButton>
+                <UiButton
+                  v-if="hasConfirm"
+                  v-bind="buttonConfirmAttrs"
+                  class="ui-modal__confirm ui-modal__confirm--order"
+                  @click="confirmHandler"
+                >
+                  {{ translation.confirm }}
+                </UiButton>
+              </template>
+            </div>
+          </dialog>
+        </transition>
+      </template>
+    </UiModal>`,
+  }),
 
-export const WithHeaderSlot = (args) => ({
-  components: {
-    UiModal,
-    UiText,
-    UiHeading,
-    UiIcon,
-    UiButton,
-  },
-  directives: {
-    focusTrap,
-    bodyScrollLock,
-  },
-  setup() {
-    const modelValue = inject('modelValue');
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiModal
-    v-model="modelValue"
-    :title='title'
-    :description='description'
-    :is-closable="isClosable"
-    :has-cancel="hasCancel"
-    :has-confirm="hasConfirm"
-    :translation="translation"
-    :transition-backdrop-attrs="transitionBackdropAttrs"
-    :backdrop-attrs="backdropAttrs"
-    :transition-dialog-attrs="transitionDialogAttrs"
-    :heading-title-attrs="headingTitleAttrs"
-    :text-description-attrs="textDescriptionAttrs"
-    :button-confirm-attrs="buttonConfirmAttrs"
-    :button-cancel-attrs="buttonCancelAttrs"
-    :button-close-attrs="buttonCloseAttrs"
-    :icon-close-attrs="iconCloseAttrs"
-    :dialog-attrs="dialogAttrs"
-    @update:modelValue="onUpdateModelValue"
-    @confirm="onConfirm"
-    @cancel="onCancel"
-  >
-    <template #header="{
-      hasHeader,
-      titleSlotName,
-      titleTag,
-      titleAttrs,
-      titleText,
-      description,
-      isClosable,
-      buttonCloseAttrs,
-      closeHandler,
-      iconCloseAttrs,
-      title,
-      hasDescription,
-      textDescriptionAttrs,
-    }">
-      <div
-        v-if="hasHeader"
-        class="ui-modal__header"
-      >
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export const WithHeaderSlot = {
+  render: (args) => ({
+    components: {
+      UiModal,
+      UiText,
+      UiHeading,
+      UiIcon,
+      UiButton,
+    },
+    directives: {
+      focusTrap,
+      bodyScrollLock,
+    },
+    setup() {
+      const modelValue = inject('modelValue');
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiModal
+      v-model="modelValue"
+      :title='title'
+      :description='description'
+      :is-closable="isClosable"
+      :has-cancel="hasCancel"
+      :has-confirm="hasConfirm"
+      :translation="translation"
+      :transition-backdrop-attrs="transitionBackdropAttrs"
+      :backdrop-attrs="backdropAttrs"
+      :transition-dialog-attrs="transitionDialogAttrs"
+      :heading-title-attrs="headingTitleAttrs"
+      :text-description-attrs="textDescriptionAttrs"
+      :button-confirm-attrs="buttonConfirmAttrs"
+      :button-cancel-attrs="buttonCancelAttrs"
+      :button-close-attrs="buttonCloseAttrs"
+      :icon-close-attrs="iconCloseAttrs"
+      :dialog-attrs="dialogAttrs"
+      @update:modelValue="onUpdateModelValue"
+      @confirm="onConfirm"
+      @cancel="onCancel"
+    >
+      <template #header="{
+        hasHeader,
+        titleSlotName,
+        titleTag,
+        titleAttrs,
+        titleText,
+        description,
+        isClosable,
+        buttonCloseAttrs,
+        closeHandler,
+        iconCloseAttrs,
+        title,
+        hasDescription,
+        textDescriptionAttrs,
+      }">
+        <div
+          v-if="hasHeader"
+          class="ui-modal__header"
+        >
+          <component
+            :is="titleTag"
+            v-bind="titleAttrs"
+            class="ui-modal__title"
+          >
+            {{ titleText }}
+          </component>
+          <UiButton
+            v-if="isClosable"
+            v-bind="buttonCloseAttrs"
+            class="ui-button--icon ui-button--theme-secondary ui-modal__close"
+            @click="closeHandler"
+          >
+            <UiIcon
+              v-bind="iconCloseAttrs"
+              class="ui-button__icon"
+            />
+          </UiButton>
+        </div>
+        <UiText
+          v-if="hasDescription"
+          v-bind="textDescriptionAttrs"
+          class="ui-modal__description"
+        >
+          {{ description }}
+        </UiText>
+      </template>
+    </UiModal>`,
+  }),
+
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export const WithTitleSlot = {
+  render: (args) => ({
+    components: {
+      UiModal,
+      UiHeading,
+    },
+    directives: {
+      focusTrap,
+      bodyScrollLock,
+    },
+    setup() {
+      const modelValue = inject('modelValue');
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiModal
+      v-model="modelValue"
+      :title='title'
+      :description='description'
+      :is-closable="isClosable"
+      :has-cancel="hasCancel"
+      :has-confirm="hasConfirm"
+      :translation="translation"
+      :transition-backdrop-attrs="transitionBackdropAttrs"
+      :backdrop-attrs="backdropAttrs"
+      :transition-dialog-attrs="transitionDialogAttrs"
+      :heading-title-attrs="headingTitleAttrs"
+      :text-description-attrs="textDescriptionAttrs"
+      :button-confirm-attrs="buttonConfirmAttrs"
+      :button-cancel-attrs="buttonCancelAttrs"
+      :button-close-attrs="buttonCloseAttrs"
+      :icon-close-attrs="iconCloseAttrs"
+      :dialog-attrs="dialogAttrs"
+      @update:modelValue="onUpdateModelValue"
+      @confirm="onConfirm"
+      @cancel="onCancel"
+    >
+      <template #title="{
+        titleTag,
+        titleAttrs,
+        titleText,
+        description,
+      }">
         <component
           :is="titleTag"
           v-bind="titleAttrs"
@@ -473,6 +602,60 @@ export const WithHeaderSlot = (args) => ({
         >
           {{ titleText }}
         </component>
+      </template>
+    </UiModal>`,
+  }),
+
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export const WithCloseSlot = {
+  render: (args) => ({
+    components: {
+      UiModal,
+      UiButton,
+      UiIcon,
+    },
+    directives: {
+      focusTrap,
+      bodyScrollLock,
+    },
+    setup() {
+      const modelValue = inject('modelValue');
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiModal
+      v-model="modelValue"
+      :title='title'
+      :description='description'
+      :is-closable="isClosable"
+      :has-cancel="hasCancel"
+      :has-confirm="hasConfirm"
+      :translation="translation"
+      :transition-backdrop-attrs="transitionBackdropAttrs"
+      :backdrop-attrs="backdropAttrs"
+      :transition-dialog-attrs="transitionDialogAttrs"
+      :heading-title-attrs="headingTitleAttrs"
+      :text-description-attrs="textDescriptionAttrs"
+      :button-confirm-attrs="buttonConfirmAttrs"
+      :button-cancel-attrs="buttonCancelAttrs"
+      :button-close-attrs="buttonCloseAttrs"
+      :icon-close-attrs="iconCloseAttrs"
+      :dialog-attrs="dialogAttrs"
+      @update:modelValue="onUpdateModelValue"
+      @confirm="onConfirm"
+      @cancel="onCancel"
+    >
+      <template #close="{
+        isClosable,
+        buttonCloseAttrs,
+        closeHandler,
+        iconCloseAttrs,
+      }">
         <UiButton
           v-if="isClosable"
           v-bind="buttonCloseAttrs"
@@ -484,414 +667,358 @@ export const WithHeaderSlot = (args) => ({
             class="ui-button__icon"
           />
         </UiButton>
-      </div>
-      <UiText
-        v-if="hasDescription"
-        v-bind="textDescriptionAttrs"
-        class="ui-modal__description"
-      >
-        {{ description }}
-      </UiText>
-    </template>
-  </UiModal>`,
-});
-WithHeaderSlot.parameters = { chromatic: { disableSnapshot: true } };
+      </template>
+    </UiModal>`,
+  }),
 
-export const WithTitleSlot = (args) => ({
-  components: {
-    UiModal,
-    UiHeading,
-  },
-  directives: {
-    focusTrap,
-    bodyScrollLock,
-  },
-  setup() {
-    const modelValue = inject('modelValue');
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiModal
-    v-model="modelValue"
-    :title='title'
-    :description='description'
-    :is-closable="isClosable"
-    :has-cancel="hasCancel"
-    :has-confirm="hasConfirm"
-    :translation="translation"
-    :transition-backdrop-attrs="transitionBackdropAttrs"
-    :backdrop-attrs="backdropAttrs"
-    :transition-dialog-attrs="transitionDialogAttrs"
-    :heading-title-attrs="headingTitleAttrs"
-    :text-description-attrs="textDescriptionAttrs"
-    :button-confirm-attrs="buttonConfirmAttrs"
-    :button-cancel-attrs="buttonCancelAttrs"
-    :button-close-attrs="buttonCloseAttrs"
-    :icon-close-attrs="iconCloseAttrs"
-    :dialog-attrs="dialogAttrs"
-    @update:modelValue="onUpdateModelValue"
-    @confirm="onConfirm"
-    @cancel="onCancel"
-  >
-    <template #title="{
-      titleTag,
-      titleAttrs,
-      titleText,
-      description,
-    }">
-      <component
-        :is="titleTag"
-        v-bind="titleAttrs"
-        class="ui-modal__title"
-      >
-        {{ titleText }}
-      </component>
-    </template>
-  </UiModal>`,
-});
-WithTitleSlot.parameters = { chromatic: { disableSnapshot: true } };
-
-export const WithCloseSlot = (args) => ({
-  components: {
-    UiModal,
-    UiButton,
-    UiIcon,
-  },
-  directives: {
-    focusTrap,
-    bodyScrollLock,
-  },
-  setup() {
-    const modelValue = inject('modelValue');
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiModal
-    v-model="modelValue"
-    :title='title'
-    :description='description'
-    :is-closable="isClosable"
-    :has-cancel="hasCancel"
-    :has-confirm="hasConfirm"
-    :translation="translation"
-    :transition-backdrop-attrs="transitionBackdropAttrs"
-    :backdrop-attrs="backdropAttrs"
-    :transition-dialog-attrs="transitionDialogAttrs"
-    :heading-title-attrs="headingTitleAttrs"
-    :text-description-attrs="textDescriptionAttrs"
-    :button-confirm-attrs="buttonConfirmAttrs"
-    :button-cancel-attrs="buttonCancelAttrs"
-    :button-close-attrs="buttonCloseAttrs"
-    :icon-close-attrs="iconCloseAttrs"
-    :dialog-attrs="dialogAttrs"
-    @update:modelValue="onUpdateModelValue"
-    @confirm="onConfirm"
-    @cancel="onCancel"
-  >
-    <template #close="{
-      isClosable,
-      buttonCloseAttrs,
-      closeHandler,
-      iconCloseAttrs,
-    }">
-      <UiButton
-        v-if="isClosable"
-        v-bind="buttonCloseAttrs"
-        class="ui-button--icon ui-button--theme-secondary ui-modal__close"
-        @click="closeHandler"
-      >
-        <UiIcon
-          v-bind="iconCloseAttrs"
-          class="ui-button__icon"
-        />
-      </UiButton>
-    </template>
-  </UiModal>`,
-});
-WithCloseSlot.parameters = { chromatic: { disableSnapshot: true } };
-
-export const WithDescriptionSlot = (args) => ({
-  components: {
-    UiModal,
-    UiText,
-  },
-  directives: {
-    focusTrap,
-    bodyScrollLock,
-  },
-  setup() {
-    const modelValue = inject('modelValue');
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiModal
-    v-model="modelValue"
-    :title='title'
-    :description='description'
-    :is-closable="isClosable"
-    :has-cancel="hasCancel"
-    :has-confirm="hasConfirm"
-    :translation="translation"
-    :transition-backdrop-attrs="transitionBackdropAttrs"
-    :backdrop-attrs="backdropAttrs"
-    :transition-dialog-attrs="transitionDialogAttrs"
-    :heading-title-attrs="headingTitleAttrs"
-    :text-description-attrs="textDescriptionAttrs"
-    :button-confirm-attrs="buttonConfirmAttrs"
-    :button-cancel-attrs="buttonCancelAttrs"
-    :button-close-attrs="buttonCloseAttrs"
-    :icon-close-attrs="iconCloseAttrs"
-    :dialog-attrs="dialogAttrs"
-    @update:modelValue="onUpdateModelValue"
-    @confirm="onConfirm"
-    @cancel="onCancel"
-  >
-    <template #description="{
-      hasDescription,
-      textDescriptionAttrs,
-      description
-    }">
-      <UiText
-        v-if="hasDescription"
-        v-bind="textDescriptionAttrs"
-        class="ui-modal__description"
-      >
-        {{ description }}
-      </UiText>
-    </template>
-  </UiModal>`,
-});
-WithDescriptionSlot.parameters = { chromatic: { disableSnapshot: true } };
-
-export const WithoutTitleWithDescriptionSlot = WithDescriptionSlot.bind({});
-WithoutTitleWithDescriptionSlot.args = {
-  title: '',
-  description: 'Delete this file?',
-  translation: {
-    confirm: 'Yes, delete',
-    cancel: 'Cancel',
-  },
+  parameters: { chromatic: { disableSnapshot: true } },
 };
-WithoutTitleWithDescriptionSlot.parameters = { chromatic: { disableSnapshot: true } };
 
-export const WithActionsSlot = (args) => ({
-  components: {
-    UiModal,
-    UiButton,
-  },
-  directives: {
-    focusTrap,
-    bodyScrollLock,
-  },
-  setup() {
-    const modelValue = inject('modelValue');
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiModal
-    v-model="modelValue"
-    :title='title'
-    :description='description'
-    :is-closable="isClosable"
-    :has-cancel="hasCancel"
-    :has-confirm="hasConfirm"
-    :translation="translation"
-    :transition-backdrop-attrs="transitionBackdropAttrs"
-    :backdrop-attrs="backdropAttrs"
-    :transition-dialog-attrs="transitionDialogAttrs"
-    :heading-title-attrs="headingTitleAttrs"
-    :text-description-attrs="textDescriptionAttrs"
-    :button-confirm-attrs="buttonConfirmAttrs"
-    :button-cancel-attrs="buttonCancelAttrs"
-    :button-close-attrs="buttonCloseAttrs"
-    :icon-close-attrs="iconCloseAttrs"
-    :dialog-attrs="dialogAttrs"
-    @update:modelValue="onUpdateModelValue"
-    @confirm="onConfirm"
-    @cancel="onCancel"
-  >
-    <template #actions="{
-      hasActions,
-      isClosable,
-      hasConfirm,
-      buttonConfirmAttrs,
-      confirmHandler,
-      translation,
-      hasCancel,
-      buttonCancelAttrs,
-      cancelHandler,
-      iconCloseAttrs,
-    }">
-      <div
-        v-if="hasActions"
-        class="ui-modal__actions"
-      >
-        <template v-if="isClosable">
-          <UiButton
-            v-if="hasConfirm"
-            v-bind="buttonConfirmAttrs"
-            class="ui-modal__confirm"
-            @click="confirmHandler"
-          >
-            {{ translation.confirm }}
-          </UiButton>
-          <UiButton
-            v-if="hasCancel"
-            v-bind="buttonCancelAttrs"
-            class="ui-button--outlined ui-modal__cancel"
-            @click="cancelHandler"
-          >
-            {{ translation.cancel }}
-          </UiButton>
-        </template>
-        <template v-else>
-          <UiButton
-            v-if="hasCancel"
-            v-bind="buttonCancelAttrs"
-            class="ui-button--outlined ui-modal__cancel"
-            @click="cancelHandler"
-          >
-            {{ translation.cancel }}
-          </UiButton>
-          <UiButton
-            v-if="hasConfirm"
-            v-bind="buttonConfirmAttrs"
-            class="ui-modal__confirm ui-modal__confirm--order"
-            @click="confirmHandler"
-          >
-            {{ translation.confirm }}
-          </UiButton>
-        </template>
-      </div>
-    </template>
-  </UiModal>`,
-});
-WithActionsSlot.parameters = { chromatic: { disableSnapshot: true } };
+export const WithDescriptionSlot = {
+  render: (args) => ({
+    components: {
+      UiModal,
+      UiText,
+    },
+    directives: {
+      focusTrap,
+      bodyScrollLock,
+    },
+    setup() {
+      const modelValue = inject('modelValue');
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiModal
+      v-model="modelValue"
+      :title='title'
+      :description='description'
+      :is-closable="isClosable"
+      :has-cancel="hasCancel"
+      :has-confirm="hasConfirm"
+      :translation="translation"
+      :transition-backdrop-attrs="transitionBackdropAttrs"
+      :backdrop-attrs="backdropAttrs"
+      :transition-dialog-attrs="transitionDialogAttrs"
+      :heading-title-attrs="headingTitleAttrs"
+      :text-description-attrs="textDescriptionAttrs"
+      :button-confirm-attrs="buttonConfirmAttrs"
+      :button-cancel-attrs="buttonCancelAttrs"
+      :button-close-attrs="buttonCloseAttrs"
+      :icon-close-attrs="iconCloseAttrs"
+      :dialog-attrs="dialogAttrs"
+      @update:modelValue="onUpdateModelValue"
+      @confirm="onConfirm"
+      @cancel="onCancel"
+    >
+      <template #description="{
+        hasDescription,
+        textDescriptionAttrs,
+        description
+      }">
+        <UiText
+          v-if="hasDescription"
+          v-bind="textDescriptionAttrs"
+          class="ui-modal__description"
+        >
+          {{ description }}
+        </UiText>
+      </template>
+    </UiModal>`,
+  }),
 
-export const WithConfirmSlot = (args) => ({
-  components: {
-    UiModal,
-    UiButton,
-  },
-  directives: {
-    focusTrap,
-    bodyScrollLock,
-  },
-  setup() {
-    const modelValue = inject('modelValue');
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiModal
-    v-model="modelValue"
-    :title='title'
-    :description='description'
-    :is-closable="isClosable"
-    :has-cancel="hasCancel"
-    :has-confirm="hasConfirm"
-    :translation="translation"
-    :transition-backdrop-attrs="transitionBackdropAttrs"
-    :backdrop-attrs="backdropAttrs"
-    :transition-dialog-attrs="transitionDialogAttrs"
-    :heading-title-attrs="headingTitleAttrs"
-    :text-description-attrs="textDescriptionAttrs"
-    :button-confirm-attrs="buttonConfirmAttrs"
-    :button-cancel-attrs="buttonCancelAttrs"
-    :button-close-attrs="buttonCloseAttrs"
-    :icon-close-attrs="iconCloseAttrs"
-    :dialog-attrs="dialogAttrs"
-    @update:modelValue="onUpdateModelValue"
-    @confirm="onConfirm"
-    @cancel="onCancel"
-  >
-    <template #confirm="{
-      hasConfirm,
-      buttonConfirmAttrs,
-      confirmHandler,
-      translation,
-    }">
-      <UiButton
-        v-if="hasConfirm"
-        v-bind="buttonConfirmAttrs"
-        class="ui-modal__confirm"
-        @click="confirmHandler"
-      >
-        {{ translation.confirm }}
-      </UiButton>
-    </template>
-  </UiModal>`,
-});
-WithConfirmSlot.parameters = { chromatic: { disableSnapshot: true } };
+  parameters: { chromatic: { disableSnapshot: true } },
+};
 
-export const WithCancelSlot = (args) => ({
-  components: {
-    UiModal,
-    UiButton,
+export const WithoutTitleWithDescriptionSlot = {
+  render: (args) => ({
+    components: {
+      UiModal,
+      UiText,
+    },
+    directives: {
+      focusTrap,
+      bodyScrollLock,
+    },
+    setup() {
+      const modelValue = inject('modelValue');
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiModal
+      v-model="modelValue"
+      :title='title'
+      :description='description'
+      :is-closable="isClosable"
+      :has-cancel="hasCancel"
+      :has-confirm="hasConfirm"
+      :translation="translation"
+      :transition-backdrop-attrs="transitionBackdropAttrs"
+      :backdrop-attrs="backdropAttrs"
+      :transition-dialog-attrs="transitionDialogAttrs"
+      :heading-title-attrs="headingTitleAttrs"
+      :text-description-attrs="textDescriptionAttrs"
+      :button-confirm-attrs="buttonConfirmAttrs"
+      :button-cancel-attrs="buttonCancelAttrs"
+      :button-close-attrs="buttonCloseAttrs"
+      :icon-close-attrs="iconCloseAttrs"
+      :dialog-attrs="dialogAttrs"
+      @update:modelValue="onUpdateModelValue"
+      @confirm="onConfirm"
+      @cancel="onCancel"
+    >
+      <template #description="{
+        hasDescription,
+        textDescriptionAttrs,
+        description
+      }">
+        <UiText
+          v-if="hasDescription"
+          v-bind="textDescriptionAttrs"
+          class="ui-modal__description"
+        >
+          {{ description }}
+        </UiText>
+      </template>
+    </UiModal>`,
+  }),
+
+  args: {
+    title: '',
+    description: 'Delete this file?',
+    translation: {
+      confirm: 'Yes, delete',
+      cancel: 'Cancel',
+    },
   },
-  directives: {
-    focusTrap,
-    bodyScrollLock,
-  },
-  setup() {
-    const modelValue = inject('modelValue');
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiModal
-    v-model="modelValue"
-    :title='title'
-    :description='description'
-    :is-closable="isClosable"
-    :has-cancel="hasCancel"
-    :has-confirm="hasConfirm"
-    :translation="translation"
-    :transition-backdrop-attrs="transitionBackdropAttrs"
-    :backdrop-attrs="backdropAttrs"
-    :transition-dialog-attrs="transitionDialogAttrs"
-    :heading-title-attrs="headingTitleAttrs"
-    :text-description-attrs="textDescriptionAttrs"
-    :button-confirm-attrs="buttonConfirmAttrs"
-    :button-cancel-attrs="buttonCancelAttrs"
-    :button-close-attrs="buttonCloseAttrs"
-    :icon-close-attrs="iconCloseAttrs"
-    :dialog-attrs="dialogAttrs"
-    @update:modelValue="onUpdateModelValue"
-    @confirm="onConfirm"
-    @cancel="onCancel"
-  >
-    <template #cancel="{
-      hasCancel,
-      buttonCancelAttrs,
-      cancelHandler,
-      translation,
-    }">
-      <UiButton
-        v-if="hasCancel"
-        v-bind="buttonCancelAttrs"
-        class="ui-button--outlined ui-modal__cancel"
-        @click="cancelHandler"
-      >
-        {{ translation.cancel }}
-      </UiButton>
-    </template>
-  </UiModal>`,
-});
-WithCancelSlot.parameters = { chromatic: { disableSnapshot: true } };
+
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export const WithActionsSlot = {
+  render: (args) => ({
+    components: {
+      UiModal,
+      UiButton,
+    },
+    directives: {
+      focusTrap,
+      bodyScrollLock,
+    },
+    setup() {
+      const modelValue = inject('modelValue');
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiModal
+      v-model="modelValue"
+      :title='title'
+      :description='description'
+      :is-closable="isClosable"
+      :has-cancel="hasCancel"
+      :has-confirm="hasConfirm"
+      :translation="translation"
+      :transition-backdrop-attrs="transitionBackdropAttrs"
+      :backdrop-attrs="backdropAttrs"
+      :transition-dialog-attrs="transitionDialogAttrs"
+      :heading-title-attrs="headingTitleAttrs"
+      :text-description-attrs="textDescriptionAttrs"
+      :button-confirm-attrs="buttonConfirmAttrs"
+      :button-cancel-attrs="buttonCancelAttrs"
+      :button-close-attrs="buttonCloseAttrs"
+      :icon-close-attrs="iconCloseAttrs"
+      :dialog-attrs="dialogAttrs"
+      @update:modelValue="onUpdateModelValue"
+      @confirm="onConfirm"
+      @cancel="onCancel"
+    >
+      <template #actions="{
+        hasActions,
+        isClosable,
+        hasConfirm,
+        buttonConfirmAttrs,
+        confirmHandler,
+        translation,
+        hasCancel,
+        buttonCancelAttrs,
+        cancelHandler,
+        iconCloseAttrs,
+      }">
+        <div
+          v-if="hasActions"
+          class="ui-modal__actions"
+        >
+          <template v-if="isClosable">
+            <UiButton
+              v-if="hasConfirm"
+              v-bind="buttonConfirmAttrs"
+              class="ui-modal__confirm"
+              @click="confirmHandler"
+            >
+              {{ translation.confirm }}
+            </UiButton>
+            <UiButton
+              v-if="hasCancel"
+              v-bind="buttonCancelAttrs"
+              class="ui-button--outlined ui-modal__cancel"
+              @click="cancelHandler"
+            >
+              {{ translation.cancel }}
+            </UiButton>
+          </template>
+          <template v-else>
+            <UiButton
+              v-if="hasCancel"
+              v-bind="buttonCancelAttrs"
+              class="ui-button--outlined ui-modal__cancel"
+              @click="cancelHandler"
+            >
+              {{ translation.cancel }}
+            </UiButton>
+            <UiButton
+              v-if="hasConfirm"
+              v-bind="buttonConfirmAttrs"
+              class="ui-modal__confirm ui-modal__confirm--order"
+              @click="confirmHandler"
+            >
+              {{ translation.confirm }}
+            </UiButton>
+          </template>
+        </div>
+      </template>
+    </UiModal>`,
+  }),
+
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export const WithConfirmSlot = {
+  render: (args) => ({
+    components: {
+      UiModal,
+      UiButton,
+    },
+    directives: {
+      focusTrap,
+      bodyScrollLock,
+    },
+    setup() {
+      const modelValue = inject('modelValue');
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiModal
+      v-model="modelValue"
+      :title='title'
+      :description='description'
+      :is-closable="isClosable"
+      :has-cancel="hasCancel"
+      :has-confirm="hasConfirm"
+      :translation="translation"
+      :transition-backdrop-attrs="transitionBackdropAttrs"
+      :backdrop-attrs="backdropAttrs"
+      :transition-dialog-attrs="transitionDialogAttrs"
+      :heading-title-attrs="headingTitleAttrs"
+      :text-description-attrs="textDescriptionAttrs"
+      :button-confirm-attrs="buttonConfirmAttrs"
+      :button-cancel-attrs="buttonCancelAttrs"
+      :button-close-attrs="buttonCloseAttrs"
+      :icon-close-attrs="iconCloseAttrs"
+      :dialog-attrs="dialogAttrs"
+      @update:modelValue="onUpdateModelValue"
+      @confirm="onConfirm"
+      @cancel="onCancel"
+    >
+      <template #confirm="{
+        hasConfirm,
+        buttonConfirmAttrs,
+        confirmHandler,
+        translation,
+      }">
+        <UiButton
+          v-if="hasConfirm"
+          v-bind="buttonConfirmAttrs"
+          class="ui-modal__confirm"
+          @click="confirmHandler"
+        >
+          {{ translation.confirm }}
+        </UiButton>
+      </template>
+    </UiModal>`,
+  }),
+
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export const WithCancelSlot = {
+  render: (args) => ({
+    components: {
+      UiModal,
+      UiButton,
+    },
+    directives: {
+      focusTrap,
+      bodyScrollLock,
+    },
+    setup() {
+      const modelValue = inject('modelValue');
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiModal
+      v-model="modelValue"
+      :title='title'
+      :description='description'
+      :is-closable="isClosable"
+      :has-cancel="hasCancel"
+      :has-confirm="hasConfirm"
+      :translation="translation"
+      :transition-backdrop-attrs="transitionBackdropAttrs"
+      :backdrop-attrs="backdropAttrs"
+      :transition-dialog-attrs="transitionDialogAttrs"
+      :heading-title-attrs="headingTitleAttrs"
+      :text-description-attrs="textDescriptionAttrs"
+      :button-confirm-attrs="buttonConfirmAttrs"
+      :button-cancel-attrs="buttonCancelAttrs"
+      :button-close-attrs="buttonCloseAttrs"
+      :icon-close-attrs="iconCloseAttrs"
+      :dialog-attrs="dialogAttrs"
+      @update:modelValue="onUpdateModelValue"
+      @confirm="onConfirm"
+      @cancel="onCancel"
+    >
+      <template #cancel="{
+        hasCancel,
+        buttonCancelAttrs,
+        cancelHandler,
+        translation,
+      }">
+        <UiButton
+          v-if="hasCancel"
+          v-bind="buttonCancelAttrs"
+          class="ui-button--outlined ui-modal__cancel"
+          @click="cancelHandler"
+        >
+          {{ translation.cancel }}
+        </UiButton>
+      </template>
+    </UiModal>`,
+  }),
+
+  parameters: { chromatic: { disableSnapshot: true } },
+};

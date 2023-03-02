@@ -4,10 +4,7 @@ import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import { ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
-import {
-  content,
-  modifiers,
-} from '@sb/helpers/argTypes';
+import { content, modifiers } from '@sb/helpers/argTypes';
 import './UiTIle.stories.scss';
 import { AsGroupWithPrimitiveTypes } from '@/components/molecules/UiSwitch/UiSwitch.stories';
 import docs from './UiTile.mdx';
@@ -39,7 +36,7 @@ export default {
       table: { category: 'stories controls' },
       control: 'string',
     },
-    modifiers: modifiers({ options: [ 'ui-tile--small' ] }),
+    modifiers: modifiers({ options: ['ui-tile--small'] }),
     value: { control: 'text' },
     modelValue: { control: false },
     icon: {
@@ -83,194 +80,252 @@ export default {
   },
 };
 
-const Template = (args) => ({
-  components: { UiTile },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiTile
-    v-model="modelValue"
-    :value="value"
-    :id="id"
-    :icon="icon"
-    :icon-attrs="iconAttrs"
-    :text-label-attrs="textLabelAttrs"
-    :class="[
-      'tile',
-      modifiers,
-    ]"
-    @update:modelValue="onUpdateModelValue"
-  >
-    {{ content }}
-  </UiTile>`,
-});
-
-export const Large = Template.bind({});
-
-export const Small = Template.bind({});
-Small.args = { modifiers: [ 'ui-tile--small' ] };
-
-export const HasError = Template.bind({});
-HasError.args = { modifiers: [ 'ui-tile--has-error' ] };
-
-export const AsGroup = (args) => ({
-  components: { UiTile },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<div class="tile-as-group">
-    <template 
-      v-for="(item, index) in items" 
-      :key="index"
+export const Large = {
+  render: (args) => ({
+    components: { UiTile },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiTile
+      v-model="modelValue"
+      :value="value"
+      :id="id"
+      :icon="icon"
+      :icon-attrs="iconAttrs"
+      :text-label-attrs="textLabelAttrs"
+      :class="[
+        'tile',
+        modifiers,
+      ]"
+      @update:modelValue="onUpdateModelValue"
     >
-      <UiTile
-        v-model="modelValue"
-        name="answer"
-        :value="item.value"
-        :icon="item.icon"
-        :icon-attrs="item.iconAttrs"
-        :text-label-attrs="item.textLabelAttrs"
-        :class="[
-          'tile-as-group__tile',
-          item.class,
-          modifiers,
-        ]"
-        @update:modelValue="onUpdateModelValue"
-      >
-        {{ item.label }}
-      </UiTile>
-    </template>
-  </div>`,
-});
-AsGroup.args = {
-  initModelValue: { choice_id: 'present' },
-  items: [
-    {
-      value: 'present',
-      label: 'Yes',
-      icon: 'yes',
-      iconAttrs: { 'data-testid': 'present' },
-      textLabelAttrs: { 'data-testid': 'present' },
-      class: [
-        'mb-3',
-        'tablet:mr-6',
-        'tablet:mb-0',
-      ],
-    },
-    {
-      value: 'absent',
-      label: 'No',
-      icon: 'no',
-      iconAttrs: { 'data-testid': 'no' },
-      textLabelAttrs: { 'data-testid': 'no' },
-      class: [
-        'mb-3',
-        'tablet:mr-6',
-        'tablet:mb-0',
-      ],
-    },
-    {
-      value: 'unknown',
-      label: 'Don\'t know',
-      icon: 'dont-know',
-      iconAttrs: { 'data-testid': 'unknown' },
-      textLabelAttrs: { 'data-testid': 'unknown' },
-    },
-  ],
+      {{ content }}
+    </UiTile>`,
+  }),
 };
-AsGroup.argTypes = {
-  initModelValue: {
-    description: 'Use this control to set initial state.',
-    table: { category: 'stories controls' },
-    control: 'object',
+
+export const Small = {
+  render: (args) => ({
+    components: { UiTile },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiTile
+      v-model="modelValue"
+      :value="value"
+      :id="id"
+      :icon="icon"
+      :icon-attrs="iconAttrs"
+      :text-label-attrs="textLabelAttrs"
+      :class="[
+        'tile',
+        modifiers,
+      ]"
+      @update:modelValue="onUpdateModelValue"
+    >
+      {{ content }}
+    </UiTile>`,
+  }),
+
+  args: { modifiers: ['ui-tile--small'] },
+};
+
+export const HasError = {
+  render: (args) => ({
+    components: { UiTile },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiTile
+      v-model="modelValue"
+      :value="value"
+      :id="id"
+      :icon="icon"
+      :icon-attrs="iconAttrs"
+      :text-label-attrs="textLabelAttrs"
+      :class="[
+        'tile',
+        modifiers,
+      ]"
+      @update:modelValue="onUpdateModelValue"
+    >
+      {{ content }}
+    </UiTile>`,
+  }),
+
+  args: { modifiers: ['ui-tile--has-error'] },
+};
+
+export const AsGroup = {
+  render: (args) => ({
+    components: { UiTile },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<div class="tile-as-group">
+      <template
+        v-for="(item, index) in items"
+        :key="index"
+      >
+        <UiTile
+          v-model="modelValue"
+          name="answer"
+          :value="item.value"
+          :icon="item.icon"
+          :icon-attrs="item.iconAttrs"
+          :text-label-attrs="item.textLabelAttrs"
+          :class="[
+            'tile-as-group__tile',
+            item.class,
+            modifiers,
+          ]"
+          @update:modelValue="onUpdateModelValue"
+        >
+          {{ item.label }}
+        </UiTile>
+      </template>
+    </div>`,
+  }),
+
+  args: {
+    initModelValue: { choice_id: 'present' },
+    items: [
+      {
+        value: 'present',
+        label: 'Yes',
+        icon: 'yes',
+        iconAttrs: { 'data-testid': 'present' },
+        textLabelAttrs: { 'data-testid': 'present' },
+        class: ['mb-3', 'tablet:mr-6', 'tablet:mb-0'],
+      },
+      {
+        value: 'absent',
+        label: 'No',
+        icon: 'no',
+        iconAttrs: { 'data-testid': 'no' },
+        textLabelAttrs: { 'data-testid': 'no' },
+        class: ['mb-3', 'tablet:mr-6', 'tablet:mb-0'],
+      },
+      {
+        value: 'unknown',
+        label: "Don't know",
+        icon: 'dont-know',
+        iconAttrs: { 'data-testid': 'unknown' },
+        textLabelAttrs: { 'data-testid': 'unknown' },
+      },
+    ],
   },
-  items: {
-    description: 'Use this control to set the values of the tile group.',
-    table: { category: 'stories controls' },
-    control: 'array',
+
+  argTypes: {
+    initModelValue: {
+      description: 'Use this control to set initial state.',
+      table: { category: 'stories controls' },
+      control: 'object',
+    },
+    items: {
+      description: 'Use this control to set the values of the tile group.',
+      table: { category: 'stories controls' },
+      control: 'array',
+    },
   },
 };
 
-export const WithIconSlot = (args) => ({
-  components: {
-    UiTile,
-    UiIcon,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiTile
-    v-model="modelValue"
-    :value="value"
-    :id="id"
-    :icon="icon"
-    :icon-attrs="iconAttrs"
-    :text-label-attrs="textLabelAttrs"
-    :class="[
-      'tile',
-      modifiers,
-    ]"
-    @update:modelValue="onUpdateModelValue"
-  >
-    <template #icon="{ iconAttrs }">
-      <UiIcon
-        v-bind="iconAttrs"
-        class="ui-button__icon ui-tile__icon"
-      />
-    </template>
-    {{ content }}
-  </UiTile>`,
-});
-WithIconSlot.parameters = { chromatic: { disableSnapshot: true } };
+export const WithIconSlot = {
+  render: (args) => ({
+    components: {
+      UiTile,
+      UiIcon,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiTile
+      v-model="modelValue"
+      :value="value"
+      :id="id"
+      :icon="icon"
+      :icon-attrs="iconAttrs"
+      :text-label-attrs="textLabelAttrs"
+      :class="[
+        'tile',
+        modifiers,
+      ]"
+      @update:modelValue="onUpdateModelValue"
+    >
+      <template #icon="{ iconAttrs }">
+        <UiIcon
+          v-bind="iconAttrs"
+          class="ui-button__icon ui-tile__icon"
+        />
+      </template>
+      {{ content }}
+    </UiTile>`,
+  }),
 
-export const WithLabelSlot = (args) => ({
-  components: {
-    UiTile,
-    UiText,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiTile
-    v-model="modelValue"
-    :value="value"
-    :id="id"
-    :icon-attrs="iconAttrs"
-    :text-label-attrs="textLabelAttrs"
-    :class="[
-      'tile',
-      modifiers,
-    ]"
-    @update:modelValue="onUpdateModelValue"
-  >
-    <template #label="{ textLabelAttrs }">
-      <UiText
-        v-bind="textLabelAttrs"
-        class="ui-tile__label"
-      >
-        {{ content }}
-      </UiText>
-    </template>
-  </UiTile>`,
-});
-WithLabelSlot.parameters = { chromatic: { disableSnapshot: true } };
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export const WithLabelSlot = {
+  render: (args) => ({
+    components: {
+      UiTile,
+      UiText,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiTile
+      v-model="modelValue"
+      :value="value"
+      :id="id"
+      :icon-attrs="iconAttrs"
+      :text-label-attrs="textLabelAttrs"
+      :class="[
+        'tile',
+        modifiers,
+      ]"
+      @update:modelValue="onUpdateModelValue"
+    >
+      <template #label="{ textLabelAttrs }">
+        <UiText
+          v-bind="textLabelAttrs"
+          class="ui-tile__label"
+        >
+          {{ content }}
+        </UiText>
+      </template>
+    </UiTile>`,
+  }),
+
+  parameters: { chromatic: { disableSnapshot: true } },
+};

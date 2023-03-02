@@ -12,7 +12,12 @@ import docs from './focus-trap.mdx';
 
 export default {
   title: 'Utilities/Directives/Focus Trap',
-  decorators: [ () => ({ template: '<div style="--backdrop-position: absolute; --side-panel-position: absolute; --side-panel-z-index: 0; min-height: 320px;"><story /></div>' }) ],
+  decorators: [
+    () => ({
+      template:
+        '<div style="--backdrop-position: absolute; --side-panel-position: absolute; --side-panel-z-index: 0; min-height: 320px;"><story /></div>',
+    }),
+  ],
   parameters: {
     docs: { page: docs },
     chromatic: { disableSnapshot: true },
@@ -63,11 +68,11 @@ export const WithDirective = () => ({
       title,
       subtitle,
     }">
-      <transition 
-        :name="transition" 
+      <transition
+        :name="transition"
         @after-enter="afterEnterHandler"
       >
-        <dialog 
+        <dialog
           v-if="modelValue"
           v-focus-trap
           class="ui-side-panel__dialog">
@@ -95,8 +100,8 @@ export const WithDirective = () => ({
               <template #default>
                 <UiTextarea
                   v-model="feedback"
-                  style="width: 100%" 
-                  @click="reset" 
+                  style="width: 100%"
+                  @click="reset"
                 />
               </template>
             </UiFormField>
@@ -121,7 +126,7 @@ export const WithDirective = () => ({
     <UiRating
       v-model="rating"
       max="5"
-      style="margin-top: 10px"   
+      style="margin-top: 10px"
     />
   </div>
   `,
@@ -170,12 +175,12 @@ export const WithoutDirective = () => ({
       title,
       subtitle,
     }">
-      <transition 
-        :name="transition" 
+      <transition
+        :name="transition"
         @after-enter="afterEnterHandler"
       >
-        <dialog 
-          v-if="modelValue" 
+        <dialog
+          v-if="modelValue"
           class="ui-side-panel__dialog"
         >
           <div class="ui-side-panel__header">
@@ -202,7 +207,7 @@ export const WithoutDirective = () => ({
               <template #default>
                 <UiTextarea
                   v-model="feedback"
-                  style="width: 100%" 
+                  style="width: 100%"
                   @click="reset"
                 />
               </template>
@@ -216,8 +221,8 @@ export const WithoutDirective = () => ({
     </template>
   </UiSidePanel>
   <div style="padding: 5px">
-    <UiButton 
-      class="ui-button--text ui-button--theme-secondary" 
+    <UiButton
+      class="ui-button--text ui-button--theme-secondary"
       @click="modelValue = true"
     >
       Show side panel

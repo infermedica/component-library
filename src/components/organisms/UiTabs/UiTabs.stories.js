@@ -47,7 +47,7 @@ export default {
       table: { category: 'stories controls' },
       control: 'text',
     },
-    modifiers: modifiers({ options: [ 'ui-tabs--fixed' ] }),
+    modifiers: modifiers({ options: ['ui-tabs--fixed'] }),
     modelValue: { control: false },
     tabsItem: {
       name: '<name>',
@@ -58,90 +58,128 @@ export default {
       },
     },
   },
-  decorators: [ () => ({
-    template: `<div class="min-h-30">
+  decorators: [
+    () => ({
+      template: `<div class="min-h-30">
       <story />
     </div>`,
-  }) ],
+    }),
+  ],
   parameters: {
     cssProperties: {
       '--tabs-padding-block': 'var(--tabs-padding-block-start, 0) var(--tabs-padding-block-end, 0)',
-      '--tabs-padding-inline': 'var(--tabs-padding-inline-start, 0) var(--tabs-padding-inline-end, 0)',
+      '--tabs-padding-inline':
+        'var(--tabs-padding-inline-start, 0) var(--tabs-padding-inline-end, 0)',
     },
   },
 };
 
-const Template = (args) => ({
-  components: {
-    UiTabs,
-    UiText,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiTabs 
-    v-model="modelValue"
-    :items="items"
-    :class="modifiers"
-    @update:modelValue="onUpdateModelValue"
-  >
-    <template 
-      v-for="(item, key) in items"
-      #[item.name]="{item}"
-      :key="key"
+export const Common = {
+  render: (args) => ({
+    components: {
+      UiTabs,
+      UiText,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiTabs
+      v-model="modelValue"
+      :items="items"
+      :class="modifiers"
+      @update:modelValue="onUpdateModelValue"
     >
-      <UiText>
-        {{ content[item.name] }}
-      </UiText>
-    </template>
-  </UiTabs>`,
-});
-
-export const Common = Template.bind({});
-
-export const Fixed = Template.bind({});
-Fixed.args = { modifiers: [ 'ui-tabs--fixed' ] };
-
-export const WithDefaultSlot = (args) => ({
-  components: {
-    UiTabs,
-    UiTabsItem,
-    UiText,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      modelValue,
-    };
-  },
-  template: `<UiTabs 
-    v-model="modelValue"
-    :class="modifiers"
-  >
-    <template 
-      v-for="(item, key) in items"
-      :key="key"
-    >
-      <UiTabsItem 
-        :title="item.title" 
-        :name="item.name"
-        :button-attrs="item.buttonTabAttrs"
-        :content-attrs="item.contentAttrs"
-        v-bind="{
-          'data-testid': item['data-testid'],
-        }"
+      <template
+        v-for="(item, key) in items"
+        #[item.name]="{item}"
+        :key="key"
       >
         <UiText>
           {{ content[item.name] }}
         </UiText>
-      </UiTabsItem>
-    </template>
-  </UiTabs>`,
-});
-WithDefaultSlot.parameters = { chromatic: { disableSnapshot: true } };
+      </template>
+    </UiTabs>`,
+  }),
+};
+
+export const Fixed = {
+  render: (args) => ({
+    components: {
+      UiTabs,
+      UiText,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiTabs
+      v-model="modelValue"
+      :items="items"
+      :class="modifiers"
+      @update:modelValue="onUpdateModelValue"
+    >
+      <template
+        v-for="(item, key) in items"
+        #[item.name]="{item}"
+        :key="key"
+      >
+        <UiText>
+          {{ content[item.name] }}
+        </UiText>
+      </template>
+    </UiTabs>`,
+  }),
+
+  args: { modifiers: ['ui-tabs--fixed'] },
+};
+
+export const WithDefaultSlot = {
+  render: (args) => ({
+    components: {
+      UiTabs,
+      UiTabsItem,
+      UiText,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        modelValue,
+      };
+    },
+    template: `<UiTabs
+      v-model="modelValue"
+      :class="modifiers"
+    >
+      <template
+        v-for="(item, key) in items"
+        :key="key"
+      >
+        <UiTabsItem
+          :title="item.title"
+          :name="item.name"
+          :button-attrs="item.buttonTabAttrs"
+          :content-attrs="item.contentAttrs"
+          v-bind="{
+            'data-testid': item['data-testid'],
+          }"
+        >
+          <UiText>
+            {{ content[item.name] }}
+          </UiText>
+        </UiTabsItem>
+      </template>
+    </UiTabs>`,
+  }),
+
+  parameters: { chromatic: { disableSnapshot: true } },
+};
