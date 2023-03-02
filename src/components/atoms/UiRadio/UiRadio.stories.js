@@ -18,7 +18,6 @@ const events = actions({
 export default {
   title: 'Atoms/Radio',
   component: UiRadio,
-  subcomponents: { UiText },
   args: {
     initModelValue: '',
     content: 'I’m overweight or obese',

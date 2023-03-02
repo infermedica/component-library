@@ -2,11 +2,9 @@ import UiRange from '@/components/atoms/UiRange/UiRange.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
-import UiNumberStepper from '@/components/molecules/UiNumberStepper/UiNumberStepper.vue';
 import { ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
 import { keyboardFocus } from '@/utilities/directives';
-import { WithLabelSlot } from '@/components/atoms/UiRadio/UiRadio.stories';
 
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
@@ -16,7 +14,6 @@ const events = actions({
 export default {
   title: 'Atoms/Range',
   component: UiRange,
-  subcomponents: { UiNumberStepper },
   args: {
     initModelValue: 50,
     min: 18,

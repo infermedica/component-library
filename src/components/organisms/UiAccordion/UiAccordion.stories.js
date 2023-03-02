@@ -5,14 +5,12 @@ import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import { ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
-import { Deselectable } from '@/components/molecules/UiToggleButtonGroup/UiToggleButtonGroup.stories';
 
 const events = actions({ onUpdateModelValue: 'update:modelValue' });
 
 export default {
   title: 'Organisms/Accordion',
   component: UiAccordion,
-  subcomponents: { UiAccordionItem },
   args: {
     content: {
       mortphology: 'Serum uric acid concentration',

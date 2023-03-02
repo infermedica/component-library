@@ -6,7 +6,6 @@ import {
   modifiers,
 } from '@sb/helpers/argTypes';
 import icons from '@/components/atoms/UiIcon/icons.ts';
-import { WithAButtonInSuffix } from '@/components/atoms/UiInput/UiInput.stories';
 
 export default {
   title: 'Atoms/Link',

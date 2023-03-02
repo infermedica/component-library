@@ -1,11 +1,9 @@
 import UiProgressbar from '@/components/molecules/UiProgressbar/UiProgressbar.vue';
-import UiProgress from '@/components/atoms/UiProgress/UiProgress.vue';
 import './UiProgressbar.stories.scss';
 
 export default {
   title: 'Molecules/Progressbar',
   component: UiProgressbar,
-  subcomponents: { UiProgress },
   args: {
     steps: 6,
     currentStep: 3,

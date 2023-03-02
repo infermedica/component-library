@@ -3,7 +3,6 @@ import {
   content,
   modifiers,
 } from '@sb/helpers/argTypes';
-import { AsGroupWithObject } from '@/components/atoms/UiCheckbox/UiCheckbox.stories';
 
 export default {
   title: 'Atoms/Heading',

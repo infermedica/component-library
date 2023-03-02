@@ -4,16 +4,10 @@ import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import icons from '@/components/atoms/UiIcon/icons.ts';
 import './UiBulletPoints.stories.scss';
-import { WithMessageSlot } from '@/components/molecules/UiAlert/UiAlert.stories';
 
 export default {
   title: 'Molecules/BulletPoints',
   component: UiBulletPoints,
-  subcomponents: {
-    UiBulletPointsItem,
-    UiIcon,
-    UiText,
-  },
   args: {
     items: [
       'Painful swallowing',

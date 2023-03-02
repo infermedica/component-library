@@ -1,16 +1,9 @@
 import UiMultipleAnswer from '@/components/organisms/UiMultipleAnswer/UiMultipleAnswer.vue';
 import UiMultipleAnswerItem from '@/components/organisms/UiMultipleAnswer/_internal/UiMultipleAnswerItem.vue';
-import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiCheckbox from '@/components/atoms/UiCheckbox/UiCheckbox.vue';
-import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
-import UiRadio from '@/components/atoms/UiRadio/UiRadio.vue';
-import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
-import UiList from '@/components/organisms/UiList/UiList.vue';
-import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import { ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
-import { WithCancelSlot } from '@/components/organisms/UiModal/UiModal.stories';
 
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
@@ -21,17 +14,6 @@ const events = actions({
 export default {
   title: 'Organisms/MultipleAnswer',
   component: UiMultipleAnswer,
-  subcomponents: {
-    UiMultipleAnswerItem,
-    UiList,
-    UiListItem,
-    UiRadio,
-    UiCheckbox,
-    UiText,
-    UiButton,
-    UiIcon,
-    UiAlert,
-  },
   args: {
     initModelValue: [],
     initInvalid: true,

@@ -8,7 +8,6 @@ import {
 } from 'vue';
 import { actions } from '@storybook/addon-actions';
 import { toMobile } from '@/styles/exports/breakpoints.module.scss';
-import { WithActionSlot } from '@/components/molecules/UiNotification/UiNotification.stories';
 
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
@@ -18,10 +17,6 @@ const events = actions({
 export default {
   title: 'Molecules/NumberStepper',
   component: UiNumberStepper,
-  subcomponents: {
-    UiButton,
-    UiIcon,
-  },
   args: {
     initModelValue: 1,
     min: 0,

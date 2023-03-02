@@ -5,9 +5,6 @@ import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
 import UiContainer from '@/components/organisms/UiContainer/UiContainer.vue';
 import UiControls from '@/components/organisms/UiControls/UiControls.vue';
-import UiLoaderSkeleton from '@/components/molecules/UiLoader/_internal/UiLoaderSkeleton.vue';
-import UiLoaderEllipsis from '@/components/molecules/UiLoader/_internal/UiLoaderEllipsis.vue';
-import UiLoaderSpinner from '@/components/molecules/UiLoader/_internal/UiLoaderSpinner.vue';
 import UiSwitch from '@/components/molecules/UiSwitch/UiSwitch.vue';
 import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import UiAccordion from '@/components/organisms/UiAccordion/UiAccordion.vue';
@@ -22,18 +19,12 @@ import {
   onMounted,
 } from 'vue';
 import './UiLoader.stories.scss';
-import { WithFocusOnMounted } from '@/components/molecules/UiInteractiveSvg/UiInteractiveSvg.stories';
 
 const events = actions({ onMounted: 'onMounted' });
 
 export default {
   title: 'Molecules/Loader',
   component: UiLoader,
-  subcomponents: {
-    UiLoaderSkeleton,
-    UiLoaderSpinner,
-    UiLoaderEllipsis,
-  },
   args: {
     isLoading: true,
     type: 'spinner',

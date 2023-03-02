@@ -5,15 +5,10 @@ import {
   content,
   modifiers,
 } from '@sb/helpers/argTypes';
-import { WithRangeSlot } from '@/components/atoms/UiRange/UiRange.stories';
 
 export default {
   title: 'Molecules/Alert',
   component: UiAlert,
-  subcomponents: {
-    UiIcon,
-    UiText,
-  },
   args: {
     content: 'Select one answer',
     modifiers: [],

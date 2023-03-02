@@ -6,12 +6,10 @@ import {
 import UiInteractiveSvg from '@/components/molecules/UiInteractiveSvg/UiInteractiveSvg.vue';
 import UiInteractiveSvgElement from '@/components/molecules/UiInteractiveSvg/_internal/UiInteractiveSvgElement.vue';
 import './UiInteractiveSvg.stories.scss';
-import { WithNavigationSlot } from '@/components/molecules/UiHeader/UiHeader.stories';
 
 export default {
   title: 'Molecules/InteractiveSvg',
   component: UiInteractiveSvg,
-  subcomponents: { UiInteractiveSvgElement },
 };
 
 export const WithFocusOnMounted = {

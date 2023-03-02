@@ -1,20 +1,14 @@
 import UiRating from '@/components/molecules/UiRating/UiRating.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
-import UiRadio from '@/components/atoms/UiRadio/UiRadio.vue';
 import { ref } from 'vue';
 import { modifiers } from '@sb/helpers/argTypes';
 import { actions } from '@storybook/addon-actions';
-import { WithCloseSlot } from '@/components/molecules/UiPopover/UiPopover.stories';
 
 const events = actions({ onUpdateModelValue: 'update:modelValue' });
 
 export default {
   title: 'Molecules/Rating',
   component: UiRating,
-  subcomponents: {
-    UiRadio,
-    UiIcon,
-  },
   args: {
     initModelValue: 3,
     modifiers: [],

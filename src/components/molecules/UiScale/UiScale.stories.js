@@ -2,22 +2,13 @@ import { ref } from 'vue';
 import UiScale from '@/components/molecules/UiScale/UiScale.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
-import UiRadio from '@/components/atoms/UiRadio/UiRadio.vue';
-import UiText from '@/components/atoms/UiText/UiText.vue';
 import { actions } from '@storybook/addon-actions';
-import { WithRadioOptionsAttrsAsArray } from '@/components/molecules/UiRating/UiRating.stories';
 
 const events = actions({ onUpdateModelValue: 'update:modelValue' });
 
 export default {
   title: 'Molecules/Scale',
   component: UiScale,
-  subcomponents: {
-    UiButton,
-    UiIcon,
-    UiText,
-    UiRadio,
-  },
   args: {
     initModelValue: 4,
     name: '',

@@ -1,7 +1,6 @@
 import { ref } from 'vue';
 import UiMenuItem from '@/components/organisms/UiMenu/_internal/UiMenuItem.vue';
 import UiMenu from '@/components/organisms/UiMenu/UiMenu.vue';
-import UiMenuItemSuffix from '@/components/organisms/UiMenu/_internal/UiMenuItemSuffix.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
@@ -12,10 +11,6 @@ import { modifiers } from '@sb/helpers/argTypes';
 export default {
   title: 'Organisms/Menu',
   component: UiMenu,
-  subcomponents: {
-    UiMenuItem,
-    UiMenuItemSuffix,
-  },
   args: {
     modifiers: [],
     items: [

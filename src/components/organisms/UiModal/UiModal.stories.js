@@ -14,7 +14,6 @@ import {
   bodyScrollLock,
   focusTrap,
 } from '@/utilities/directives/index';
-import { WithListItemSlot } from '@/components/organisms/UiList/UiList.stories';
 
 const events = actions({
   onUpdateModelValue: 'update:modelValue',

@@ -4,15 +4,12 @@ import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
-import UiListItemSuffixAsButton from '@/components/organisms/UiList/_internal/UiListItemSuffixAsButton.vue';
-import UiListItemSuffixAsText from '@/components/organisms/UiList/_internal/UiListItemSuffixAsText.vue';
 import UiProgress from '@/components/atoms/UiProgress/UiProgress.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import { actions } from '@storybook/addon-actions';
 import UiCheckbox from '@/components/atoms/UiCheckbox/UiCheckbox.vue';
 import UiRadio from '@/components/atoms/UiRadio/UiRadio.vue';
 import './UiList.stories.scss';
-import { AsMultilevel } from '@/components/organisms/UiHorizontalPaging/UiHorizontalPaging.stories';
 
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
@@ -33,11 +30,6 @@ const items = [
 export default {
   title: 'Organisms/List',
   component: UiList,
-  subcomponents: {
-    UiListItem,
-    UiListItemSuffixAsButton,
-    UiListItemSuffixAsText,
-  },
   args: {
     items,
     tag: 'ul',

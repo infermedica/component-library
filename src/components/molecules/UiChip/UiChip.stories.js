@@ -4,17 +4,12 @@ import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import { actions } from '@storybook/addon-actions';
 import { content } from '@sb/helpers/argTypes';
 import UiBackdrop from '@/components/atoms/UiBackdrop/UiBackdrop.vue';
-import { WithBulletPointItemSlot } from '@/components/molecules/UiBulletPoints/UiBulletPoints.stories';
 
 const events = actions({ onRemove: 'remove' });
 
 export default {
   title: 'Molecules/Chip',
   component: UiChip,
-  subcomponents: {
-    UiButton,
-    UiIcon,
-  },
   args: {
     content: 'Label',
     textLabelAttrs: { 'data-testid': 'label-text' },

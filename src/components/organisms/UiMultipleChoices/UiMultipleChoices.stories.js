@@ -1,7 +1,6 @@
 import UiMultipleChoices from '@/components/organisms/UiMultipleChoices/UiMultipleChoices.vue';
 import UiMultipleChoicesItem from '@/components/organisms/UiMultipleChoices/_internal/UiMultipleChoicesItem.vue';
 import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
-import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import UiRadio from '@/components/atoms/UiRadio/UiRadio.vue';
 import {
@@ -9,7 +8,6 @@ import {
   computed,
 } from 'vue';
 import { actions } from '@storybook/addon-actions';
-import { WithLabelChoiceIdSlot } from '@/components/organisms/UiMultipleAnswer/UiMultipleAnswer.stories';
 
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
@@ -20,13 +18,6 @@ const events = actions({
 export default {
   title: 'Organisms/MultipleChoices',
   component: UiMultipleChoices,
-  subcomponents: {
-    UiMultipleChoicesItem,
-    UiRadio,
-    UiAlert,
-    UiList,
-    UiListItem,
-  },
   args: {
     initModelValue: [],
     hint: 'Select one answer in each row',

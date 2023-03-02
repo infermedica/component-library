@@ -1,20 +1,17 @@
 import UiSwitch from '@/components/molecules/UiSwitch/UiSwitch.vue';
 import UiSwitchControl from '@/components/molecules/UiSwitch/_internal/UiSwitchControl.vue';
-import UiCheckbox from '@/components/atoms/UiCheckbox/UiCheckbox.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import { ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
 import { content } from '@sb/helpers/argTypes';
-import { WithItemLinkSlot } from '@/components/molecules/UiStepper/UiStepper.stories';
 
 const events = actions({ onUpdateModelValue: 'update:modelValue' });
 
 export default {
   title: 'Molecules/Switch',
   component: UiSwitch,
-  subcomponents: { UiCheckbox },
   args: {
     initModelValue: false,
     content:

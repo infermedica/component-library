@@ -3,7 +3,6 @@ import UiText from '@/components/atoms/UiText/UiText.vue';
 import { defineAsyncComponent } from 'vue';
 import './UiIcon.stories.scss';
 import icons from '@/components/atoms/UiIcon/icons.ts';
-import { AsSpan } from '@/components/atoms/UiHeading/UiHeading.stories';
 
 export default {
   title: 'Atoms/Icon',

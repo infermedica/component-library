@@ -1,10 +1,8 @@
 import UiStepper from '@/components/molecules/UiStepper/UiStepper.vue';
-import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiProgress from '@/components/atoms/UiProgress/UiProgress.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiStepperStep from '@/components/molecules/UiStepper/_internal/UiStepperStep.vue';
-import { WithRadioOptionAttrsAsArray } from '@/components/molecules/UiScale/UiScale.stories';
 
 const steps = [
   {
@@ -42,13 +40,6 @@ const steps = [
 export default {
   title: 'Molecules/Stepper',
   component: UiStepper,
-  subcomponents: {
-    UiStepperStep,
-    UiButton,
-    UiProgress,
-    UiText,
-    UiList,
-  },
   args: {
     steps,
     currentStep: steps.at(2).label,

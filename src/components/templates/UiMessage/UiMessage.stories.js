@@ -7,15 +7,10 @@ import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
 import UiControls from '@/components/organisms/UiControls/UiControls.vue';
 import { content } from '@sb/helpers/argTypes';
 import './UiMessage.stories.scss';
-import { WithDefaultSlot } from '@/components/organisms/UiTabs/UiTabs.stories';
 
 export default {
   title: 'Templates/Message',
   component: UiMessage,
-  subcomponents: {
-    UiHeading,
-    UiIcon,
-  },
   args: {
     content:
       'You’re about to use a short (3 min), safe and anonymous health checkup. Your answers will be carefully analyzed and you’ll learn about possible causes of your symptoms.',

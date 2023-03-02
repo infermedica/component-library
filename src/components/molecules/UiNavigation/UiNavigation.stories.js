@@ -1,6 +1,5 @@
 import UiNavigation from '@/components/molecules/UiNavigation/UiNavigation.vue';
 import UiNavigationItem from '@/components/molecules/UiNavigation/_internal/UiNavigationItem.vue';
-import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import { modifiers } from '@sb/helpers/argTypes';
 import './UiNavigation.stories.scss';
@@ -8,10 +7,6 @@ import './UiNavigation.stories.scss';
 export default {
   title: 'Molecules/Navigation',
   component: UiNavigation,
-  subcomponents: {
-    UiNavigationItem,
-    UiButton,
-  },
   args: {
     modifiers: [],
     items: [

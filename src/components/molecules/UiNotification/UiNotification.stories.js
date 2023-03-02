@@ -4,18 +4,12 @@ import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
 import { actions } from '@storybook/addon-actions';
 import { content } from '@sb/helpers/argTypes';
-import { WithIconInNavigationItemSlot } from '@/components/molecules/UiNavigation/UiNavigation.stories';
 
 const events = actions({ onClick: 'action' });
 
 export default {
   title: 'Molecules/Notification',
   component: UiNotification,
-  subcomponents: {
-    UiAlert,
-    UiButton,
-    UiIcon,
-  },
   args: {
     content: 'Thank you. We’ll review this question as soon as possible.',
     type: 'error',

@@ -6,12 +6,10 @@ import {
   ref,
   computed,
 } from 'vue';
-import { WithIconSlot } from '@/components/molecules/UiTile/UiTile.stories';
 
 export default {
   title: 'Molecules/ToggleButtonGroup',
   component: UiToggleButtonGroup,
-  subcomponents: { UiToggleButton },
   args: {
     items: [
       'First',

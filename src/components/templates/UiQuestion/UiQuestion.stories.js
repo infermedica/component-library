@@ -8,7 +8,6 @@ import UiMultipleAnswer from '@/components/organisms/UiMultipleAnswer/UiMultiple
 import UiSimpleQuestion from '@/components/organisms/UiSimpleQuestion/UiSimpleQuestion.vue';
 import { actions } from '@storybook/addon-actions';
 import './UiQuestion.stories.scss';
-import { WithIllustrationSlot } from '@/components/templates/UiMessage/UiMessage.stories';
 
 const events = actions({
   onClickInfoButton: 'click:info-button',
@@ -20,11 +19,6 @@ const events = actions({
 export default {
   title: 'Templates/Question',
   component: UiQuestion,
-  subcomponents: {
-    UiButton,
-    UiIcon,
-    UiHeading,
-  },
   args: {
     items: [],
     title: 'Do you have a sore throat?',

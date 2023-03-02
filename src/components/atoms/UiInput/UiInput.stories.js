@@ -6,7 +6,6 @@ import { ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
 import { modifiers } from '@sb/helpers/argTypes';
 import icons from '@/components/atoms/UiIcon/icons.ts';
-import { IconAsImport } from '@/components/atoms/UiIcon/UiIcon.stories';
 import { keyboardFocus } from '../../../utilities/directives';
 
 const events = actions({
@@ -19,7 +18,6 @@ const events = actions({
 export default {
   title: 'Atoms/Input',
   component: UiInput,
-  subcomponents: { UiText },
   args: {
     initModelValue: '',
     type: 'text',

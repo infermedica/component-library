@@ -1,21 +1,15 @@
 import UiTabs from '@/components/organisms/UiTabs/UiTabs.vue';
 import UiTabsItem from '@/components/organisms/UiTabs/_internal/UiTabsItem.vue';
-import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import { actions } from '@storybook/addon-actions';
 import { ref } from 'vue';
 import { modifiers } from '@sb/helpers/argTypes';
-import { WithTileSlot } from '@/components/organisms/UiSimpleQuestion/UiSimpleQuestion.stories';
 
 const events = actions({ onUpdateModelValue: 'update:modelValue' });
 
 export default {
   title: 'Organisms/Tabs',
   component: UiTabs,
-  subcomponents: {
-    UiTabsItem,
-    UiButton,
-  },
   args: {
     items: [
       {

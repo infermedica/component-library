@@ -6,7 +6,6 @@ import UiNavigation from '@/components/molecules/UiNavigation/UiNavigation.vue';
 import { defineAsyncComponent } from 'vue';
 import { actions } from '@storybook/addon-actions';
 import { modifiers } from '@sb/helpers/argTypes';
-import { WithAlertSlot } from '@/components/molecules/UiFormField/UiFormField.stories';
 import { toMobile } from '../../../styles/exports/breakpoints.module.scss';
 
 const events = actions({
@@ -18,11 +17,6 @@ const events = actions({
 export default {
   title: 'Molecules/Header',
   component: UiHeader,
-  subcomponents: {
-    UiIcon,
-    UiButton,
-    UiNavigation,
-  },
   args: {
     modifiers: [],
     title: 'Infermedica',

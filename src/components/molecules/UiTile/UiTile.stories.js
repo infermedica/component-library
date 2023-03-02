@@ -1,5 +1,4 @@
 import UiTile from '@/components/molecules/UiTile/UiTile.vue';
-import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import { ref } from 'vue';
@@ -9,18 +8,12 @@ import {
   modifiers,
 } from '@sb/helpers/argTypes';
 import './UiTIle.stories.scss';
-import { AsGroupWithPrimitiveTypes } from '@/components/molecules/UiSwitch/UiSwitch.stories';
 
 const events = actions({ onUpdateModelValue: 'update:modelValue' });
 
 export default {
   title: 'Molecules/Tile',
   component: UiTile,
-  subcomponents: {
-    UiButton,
-    UiText,
-    UiIcon,
-  },
   args: {
     initModelValue: '',
     content: 'Yes',

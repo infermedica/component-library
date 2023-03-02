@@ -15,7 +15,6 @@ import {
   watch,
 } from 'vue';
 import './UiDropdown.stories.scss';
-import { WithRemoveSlot } from '@/components/molecules/UiChip/UiChip.stories';
 
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
@@ -26,10 +25,6 @@ const events = actions({
 export default {
   title: 'Molecules/Dropdown',
   component: UiDropdown,
-  subcomponents: {
-    UiDropdownItem,
-    UiPopover,
-  },
   args: {
     initModelValue: 'English',
     text: 'English',
@@ -205,7 +200,11 @@ export const WithInputToggle = {
         },
       );
 
-      const filteredItems = computed(() => args.items.filter((item) => item.toLocaleLowerCase().includes(search.value.toLocaleLowerCase())));
+      const filteredItems = computed(
+        () => args.items.filter(
+          (item) => item.toLocaleLowerCase().includes(search.value.toLocaleLowerCase()),
+        ),
+      );
 
       const noResults = computed(() => filteredItems.value.length < 1);
 

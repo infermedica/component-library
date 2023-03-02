@@ -21,7 +21,6 @@ import {
   keyboardFocus,
 } from '@/utilities/directives';
 import './UiSidePanel.stories.scss';
-import { WithOptionSlot } from '@/components/organisms/UiMultipleChoices/UiMultipleChoices.stories';
 
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
@@ -31,13 +30,6 @@ const events = actions({
 export default {
   title: 'Organisms/SidePanel',
   component: UiSidePanel,
-  subcomponents: {
-    UiBackdrop,
-    UiButton,
-    UiIcon,
-    UiHeading,
-    UiText,
-  },
   args: {
     initModelValue: true,
     title: 'For business',

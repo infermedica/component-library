@@ -11,12 +11,10 @@ import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import UiLoader from '@/components/molecules/UiLoader/UiLoader.vue';
 import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints.vue';
-import UiMenu from '@/components/organisms/UiMenu/UiMenu.vue';
 import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import UiHorizontalPagingItem from '@/components/organisms/UiHorizontalPaging/_internal/UiHorizontalPagingItem.vue';
 import { actions } from '@storybook/addon-actions';
 import './UiHorizontalPaging.stories.scss';
-import { WithBackSlot } from '@/components/organisms/UiControls/UiControls.stories';
 
 const events = actions({ onUpdateModelValue: 'update:modelValue' });
 
@@ -186,13 +184,6 @@ const Loader = {
 export default {
   title: 'Organisms/HorizontalPaging',
   component: UiHorizontalPaging,
-  subcomponents: {
-    UiHorizontalPagingItem,
-    UiButton,
-    UiIcon,
-    UiHeading,
-    UiMenu,
-  },
   args: {
     initialModelValue: [],
     title: 'Settings & Info',

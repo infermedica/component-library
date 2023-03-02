@@ -5,19 +5,11 @@ import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints.vue';
 import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue';
-import UiContainer from '@/components/organisms/UiContainer/UiContainer.vue';
 import './UiCard.stories.scss';
-import { WithTogglerSlot } from '@/components/organisms/UiAccordion/UiAccordion.stories';
 
 export default {
   title: 'Organisms/Card',
   component: UiCard,
-  subcomponents: {
-    UiIcon,
-    UiText,
-    UiHeading,
-    UiContainer,
-  },
   args: {
     modifiers: [],
     title: 'Call an ambulance',

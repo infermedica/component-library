@@ -3,18 +3,12 @@ import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import { actions } from '@storybook/addon-actions';
-import { WithDescriptionSlot } from '@/components/organisms/UiCard/UiCard.stories';
 
 const events = actions({ onHasError: 'has-error' });
 
 export default {
   title: 'Organisms/Controls',
   component: UiControls,
-  subcomponents: {
-    UiText,
-    UiButton,
-    UiIcon,
-  },
   args: {
     hideNextButton: false,
     hideBackButton: false,

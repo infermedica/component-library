@@ -4,15 +4,10 @@ import UiInput from '@/components/atoms/UiInput/UiInput.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
 import './UiFormField.stories.scss';
-import { WithItemsAsObjects } from '@/components/molecules/UiDropdown/UiDropdown.stories';
 
 export default {
   title: 'Molecules/FormField',
   component: UiFormField,
-  subcomponents: {
-    UiText,
-    UiAlert,
-  },
   args: {
     message: 'What is your height?',
     id: '',

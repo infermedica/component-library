@@ -9,18 +9,12 @@ import {
   modifiers,
 } from '@sb/helpers/argTypes';
 import './UiPopover.stories.scss';
-import { WithDecrementSlot } from '@/components/molecules/UiNumberStepper/UiNumberStepper.stories';
 
 const events = actions({ onClose: 'close' });
 
 export default {
   title: 'Molecules/Popover',
   component: UiPopover,
-  subcomponents: {
-    UiHeading,
-    UiButton,
-    UiIcon,
-  },
   args: {
     content: 'A custom Triage app that you can use anywhere.',
     modifiers: [],
