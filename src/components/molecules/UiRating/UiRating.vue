@@ -93,7 +93,7 @@
             <span
               v-bind="textLabelAttrs"
               class="visual-hidden"
-            >{{ defaultProps.translation.stars(index) }}</span>
+            >{{ defaultProps.translation.stars(item.index) }}</span>
           </template>
         </UiRadio>
       </slot>
