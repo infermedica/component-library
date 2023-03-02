@@ -64,7 +64,7 @@ const config: StorybookConfig = {
     // TODO: fix addons below after migration to sb 7.0.0
     // '@brightlayer-ui/storybook-rtl-addon/register',
     // 'storybook-addon-designs',
-    // './addons/cssProperties/preset.js',
+    './addons/cssProperties/preset.js',
   ],
   framework: {
     name: '@storybook/vue3-vite',
