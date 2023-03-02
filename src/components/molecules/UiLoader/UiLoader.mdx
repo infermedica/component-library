@@ -1,13 +1,11 @@
-import { Canvas, Meta, Story, Primary, ArgsTable, Source } from "@storybook/addon-docs";
+import { Canvas, Meta, Primary, ArgsTable, Source } from "@storybook/addon-docs";
 import { Alert } from "../../../../docs/components/Alert"
 import { Code } from '../../../../docs/components/Code';
 import UiLoader from "./UiLoader.vue";
+import * as stories from "./UiLoader.stories.js";
 import scss from './UiLoader.stories.scss?raw';
 
-<Meta
-  title="Molecules/Loader"
-  component={ UiLoader }
-/>
+<Meta of={stories}/>
 
 # UiLoader
 <Primary />
@@ -25,49 +23,36 @@ Use this transition type when you want to hide sensitive content while is loadin
   <p>You can put to <code>UiLoader</code> multi elements because we wrap it in to <code>div</code> to allow use <code>Transition</code></p>
 </Alert>
 
-<Canvas>
-  <Story id="molecules-loader--if-transition-type"/>
-</Canvas>
+<Canvas of={stories.IfTransitionType}/>
 
 ### Show Transition Type
 `show` transition type use our custom `<UiLoaderTransition>`.
 Use this transition type allow to fetch data onMounted event while is loading.
 
-<Canvas>
-  <Story id="molecules-loader--show-transition-type"/>
-</Canvas>
+<Canvas of={stories.ShowTransitionType}/>
 
 ### Opacity Transition Type
 `opacity` transition type use our custom `<UiLoaderTransition>`.
 Use this transition type allow to keep size of loading content while is loading.
 It's useful for buttons with loading state.
 
-<Canvas>
-  <Story id="molecules-loader--opacity-transition-type"/>
-</Canvas>
+<Canvas of={stories.OpacityTransitionType}/>
 
 ## Stories
 ### Spinner Loader
-<Canvas>
-  <Story id="molecules-loader--spinner-loader"/>
-</Canvas>
+<Canvas of={stories.SpinnerLoader}/>
 
 ### Spinner Loader On Brand
-<Canvas style={{background: 'var(--color-background-brand)'}}>
-  <Story
-    id="molecules-loader--spinner-loader-on-brand"
-  />
-</Canvas>
+<Canvas
+  of={stories.SpinnerLoaderOnBrand}
+  style={{background: 'var(--color-background-brand)'}}
+/>
 
 ### Skeleton Loader
-<Canvas>
-  <Story id="molecules-loader--skeleton-loader"/>
-</Canvas>
+<Canvas of={stories.SkeletonLoader}/>
 
 ### Loading Button
-<Canvas>
-  <Story id="molecules-loader--loading-button"/>
-</Canvas>
+<Canvas of={stories.LoadingButton}/>
 
 **Use following SCSS to get the same result**
 <Code
@@ -76,9 +61,7 @@ It's useful for buttons with loading state.
 />
 
 ### Loading Popover
-<Canvas>
-  <Story id="molecules-loader--loading-popover"/>
-</Canvas>
+<Canvas of={stories.LoadingPopover}/>
 
 **Use following SCSS to get the same result**
 <Code
@@ -87,9 +70,7 @@ It's useful for buttons with loading state.
 />
 
 ### Loading Container
-<Canvas>
-  <Story id="molecules-loader--loading-container"/>
-</Canvas>
+<Canvas of={stories.LoadingContainer}/>
 
 **Use following SCSS to get the same result**
 <Code
@@ -98,9 +79,7 @@ It's useful for buttons with loading state.
 />
 
 ### Loading Side Panel
-<Canvas>
-  <Story id="molecules-loader--loading-side-panel"/>
-</Canvas>
+<Canvas of={stories.LoadingSidePanel}/>
 
 **Use following SCSS to get the same result**
 <Code
@@ -109,9 +88,7 @@ It's useful for buttons with loading state.
 />
 
 ### Loading Controls
-<Canvas>
-  <Story id="molecules-loader--loading-controls"/>
-</Canvas>
+<Canvas of={stories.LoadingControls}/>
 
 **Use following SCSS to get the same result**
 <Code
@@ -120,9 +97,10 @@ It's useful for buttons with loading state.
 />
 
 ## Loading Full On Brand
-<Canvas style={{background: 'var(--color-background-brand)'}}>
-  <Story id="molecules-loader--loading-full-on-brand"/>
-</Canvas>
+<Canvas
+  of={stories.LoadingFullOnBrand}
+  style={{background: 'var(--color-background-brand)'}}
+/>
 
 **Use following SCSS to get the same result**
 <Code

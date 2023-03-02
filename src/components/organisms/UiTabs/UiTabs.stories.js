@@ -47,7 +47,7 @@ export default {
       table: { category: 'stories controls' },
       control: 'text',
     },
-    modifiers: modifiers({ options: ['ui-tabs--fixed'] }),
+    modifiers: modifiers({ options: [ 'ui-tabs--fixed' ] }),
     modelValue: { control: false },
     tabsItem: {
       name: '<name>',
@@ -58,13 +58,11 @@ export default {
       },
     },
   },
-  decorators: [
-    () => ({
-      template: `<div class="min-h-30">
+  decorators: [ () => ({
+    template: `<div class="min-h-30">
       <story />
     </div>`,
-    }),
-  ],
+  }) ],
   parameters: {
     cssProperties: {
       '--tabs-padding-block': 'var(--tabs-padding-block-start, 0) var(--tabs-padding-block-end, 0)',
@@ -139,7 +137,7 @@ export const Fixed = {
     </UiTabs>`,
   }),
 
-  args: { modifiers: ['ui-tabs--fixed'] },
+  args: { modifiers: [ 'ui-tabs--fixed' ] },
 };
 
 export const WithDefaultSlot = {

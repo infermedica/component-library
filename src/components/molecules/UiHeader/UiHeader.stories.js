@@ -8,7 +8,6 @@ import { actions } from '@storybook/addon-actions';
 import { modifiers } from '@sb/helpers/argTypes';
 import { WithAlertSlot } from '@/components/molecules/UiFormField/UiFormField.stories';
 import { toMobile } from '../../../styles/exports/breakpoints.module.scss';
-import docs from './UiHeader.mdx';
 
 const events = actions({
   onClickBrandButton: 'click:brand-button',
@@ -51,7 +50,7 @@ export default {
     navigationAttrs: { 'data-testid': 'navigation' },
   },
   argTypes: {
-    modifiers: modifiers({ options: ['ui-header--full-width'] }),
+    modifiers: modifiers({ options: [ 'ui-header--full-width' ] }),
     logo: {
       description: 'Use this prop to set the logo.',
       control: false,
@@ -85,7 +84,6 @@ export default {
     navigationAttrs: { table: { subcategory: 'Attrs props' } },
   },
   parameters: {
-    docs: { page: docs },
     cssProperties: {
       '--header-background': 'var(--color-background-brand)',
       '--header-padding-block':
@@ -199,14 +197,12 @@ export const WithCustomBrand = {
       UiNavigation,
     },
     setup() {
-      const logo = defineAsyncComponent(() =>
-        import(
-          /* webpackChunkName: "header" */
-          /* webpackMode: "eager" */
-          /* webpackPreload: true */
-          '../../../assets/logo.svg'
-        )
-      );
+      const logo = defineAsyncComponent(() => import(
+        /* webpackChunkName: "header" */
+        /* webpackMode: "eager" */
+        /* webpackPreload: true */
+        '../../../assets/logo.svg'
+      ));
 
       return {
         ...args,

@@ -1,10 +1,11 @@
-import { Meta, Canvas, Story} from '@storybook/addon-docs';
+import { Meta, Canvas } from '@storybook/addon-docs';
 import { PageOutline } from '../../components/PageOutline';
+import * as stories from './css-logical-properties.stories.js';
 import { Code } from '../../components/Code.jsx';
 import { Table } from '../../components/Table.jsx';
 
 
-<Meta title="Contributing Guide/CSS Logical Properties"/>
+<Meta of={stories} title="Contributing Guide/CSS Logical Properties"/>
 
 # CSS Logical Properties
 The Infermedica component library uses [CSS Logical Properties](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties)
@@ -22,7 +23,7 @@ You can use the following `use-logical` mixin, which transforms conventional ltr
 for example
 
 <Code
- code={`@infermedica/component-library/mixins;\n\n.ui-button {\n  @include mixins.use-logical("button", padding, var(--space-12) var(--space-32));\n}`}
+  code={`@infermedica/component-library/mixins;\n\n.ui-button {\n  @include mixins.use-logical("button", padding, var(--space-12) var(--space-32));\n}`}
 />
 
 ### Mixin arguments:
@@ -147,21 +148,13 @@ you won't need to add styles for rtl layouts anymore.
 ## CSS Logical Properties and Values
 ### Padding
 
-<Canvas>
-  <Story id="contributing-guide-css-logical-properties--padding"/>
-</Canvas>
+<Canvas of={stories.Padding}/>
 
 ### Margin
-<Canvas>
-  <Story id="contributing-guide-css-logical-properties--margin"/>
-</Canvas>
+<Canvas of={stories.Margin}/>
 
 ### Border width
-<Canvas>
-  <Story id="contributing-guide-css-logical-properties--border-width"/>
-</Canvas>
+<Canvas of={stories.BorderWidth}/>
 
 ### Border radius
-<Canvas>
-  <Story id="contributing-guide-css-logical-properties--border-radius"/>
-</Canvas>
+<Canvas of={stories.BorderRadius}/>

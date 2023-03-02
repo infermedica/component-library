@@ -107,13 +107,11 @@ export const WithLongLabel = {
       'Input chips represent pieces of information that were added, selected or entered by the user.',
   },
 
-  decorators: [
-    () => ({
-      template: `<div class="max-w-89">
+  decorators: [ () => ({
+    template: `<div class="max-w-89">
       <story/>
     </div>`,
-    }),
-  ],
+  }) ],
 };
 
 export const AsGroup = {
@@ -139,13 +137,11 @@ export const AsGroup = {
     </div>`,
   }),
 
-  decorators: [
-    () => ({
-      template: `<div class="max-w-89">
+  decorators: [ () => ({
+    template: `<div class="max-w-89">
       <story/>
     </div>`,
-    }),
-  ],
+  }) ],
 };
 
 export const WithRemoveSlot = {

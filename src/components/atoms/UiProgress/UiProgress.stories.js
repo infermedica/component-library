@@ -1,6 +1,5 @@
 import UiProgress from '@/components/atoms/UiProgress/UiProgress.vue';
 import './UiProgress.stories.scss';
-import docs from './UiProgress.mdx';
 
 export default {
   title: 'Atoms/Progress',
@@ -24,15 +23,12 @@ export default {
       control: { type: 'number' },
     },
   },
-  decorators: [
-    () => ({
-      template: `<div class="max-w-32">
+  decorators: [ () => ({
+    template: `<div class="max-w-32">
       <story/>
     </div>`,
-    }),
-  ],
+  }) ],
   parameters: {
-    docs: { page: docs },
     cssProperties: {
       '--progress-height': '0.5rem',
       '--progress-padding': 'calc(var(--_progress-height) * 0.5)',

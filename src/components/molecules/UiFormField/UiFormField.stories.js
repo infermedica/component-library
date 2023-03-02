@@ -5,7 +5,6 @@ import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
 import './UiFormField.stories.scss';
 import { WithItemsAsObjects } from '@/components/molecules/UiDropdown/UiDropdown.stories';
-import docs from './UiFormField.mdx';
 
 export default {
   title: 'Molecules/FormField',
@@ -62,7 +61,6 @@ export default {
     alertAttrs: { table: { subcategory: 'Attrs props' } },
   },
   parameters: {
-    docs: { page: docs },
     cssProperties: {
       '--form-field-alert-margin-block':
         'var(--form-field-alert-margin-block-start, var(--space-8)) var(--form-field-alert-margin-block-end, 0)',

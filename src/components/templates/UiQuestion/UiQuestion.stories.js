@@ -9,7 +9,6 @@ import UiSimpleQuestion from '@/components/organisms/UiSimpleQuestion/UiSimpleQu
 import { actions } from '@storybook/addon-actions';
 import './UiQuestion.stories.scss';
 import { WithIllustrationSlot } from '@/components/templates/UiMessage/UiMessage.stories';
-import docs from './UiQuestion.mdx';
 
 const events = actions({
   onClickInfoButton: 'click:info-button',
@@ -86,7 +85,6 @@ export default {
     },
   },
   parameters: {
-    docs: { page: docs },
     cssProperties: {
       '--question-actions-top-margin-block':
         'var(--question-actions-top-margin-block-start, var(--space-24)) var(--question-actions-top-margin-block-end, 0)',
@@ -183,21 +181,19 @@ export const AsMultipleAnswer = {
     ],
   },
 
-  decorators: [
-    (story) => ({
-      components: {
-        story,
-        UiControls,
-      },
-      template: `<UiControls
+  decorators: [ (story) => ({
+    components: {
+      story,
+      UiControls,
+    },
+    template: `<UiControls
       :to-next="{path: '/next'}"
       :to-back="{path: '/back'}"
       class="max-w-195 min-h-135 w-full"
     >
       <story/>
     </UiControls>`,
-    }),
-  ],
+  }) ],
 };
 
 export const WithoutSkipThisQuestion = {
@@ -265,21 +261,19 @@ export const WithoutSkipThisQuestion = {
     },
   },
 
-  decorators: [
-    (story) => ({
-      components: {
-        story,
-        UiControls,
-      },
-      template: `<UiControls
+  decorators: [ (story) => ({
+    components: {
+      story,
+      UiControls,
+    },
+    template: `<UiControls
       :to-next="{path: '/next'}"
       :to-back="{path: '/back'}"
       class="max-w-195 min-h-135 w-full"
     >
       <story/>
     </UiControls>`,
-    }),
-  ],
+  }) ],
 };
 
 export const AsSimpleQuestion = {
@@ -333,21 +327,19 @@ export const AsSimpleQuestion = {
     ],
   },
 
-  decorators: [
-    (story) => ({
-      components: {
-        story,
-        UiControls,
-      },
-      template: `<UiControls
+  decorators: [ (story) => ({
+    components: {
+      story,
+      UiControls,
+    },
+    template: `<UiControls
       :to-next="{path: '/next'}"
       :to-back="{path: '/back'}"
       class="max-w-195 min-h-135 w-full"
     >
       <story/>
     </UiControls>`,
-    }),
-  ],
+  }) ],
 };
 
 export const WithTitleSlot = {

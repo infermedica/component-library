@@ -122,20 +122,18 @@ export const SingleItem = {
   }),
 
   args: {
-    items: [
-      {
-        title: 'Less likely conditions',
-        name: 'less',
-        settings: {
-          iconOpen: 'chevron-up',
-          iconClose: 'chevron-down',
-        },
-        buttonToggleAttrs: { 'data-testid': 'less-likely-conditions-button' },
-        iconTogglerAttrs: { 'data-testid': 'less-likely-conditions-icon' },
-        contentAttrs: { 'data-testid': 'less-likely-conditions-content' },
-        'data-testid': 'less-likely-conditions',
+    items: [ {
+      title: 'Less likely conditions',
+      name: 'less',
+      settings: {
+        iconOpen: 'chevron-up',
+        iconClose: 'chevron-down',
       },
-    ],
+      buttonToggleAttrs: { 'data-testid': 'less-likely-conditions-button' },
+      iconTogglerAttrs: { 'data-testid': 'less-likely-conditions-icon' },
+      contentAttrs: { 'data-testid': 'less-likely-conditions-content' },
+      'data-testid': 'less-likely-conditions',
+    } ],
     content: { less: 'Serum uric acid concentration' },
   },
 };

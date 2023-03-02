@@ -1,7 +1,6 @@
 import UiProgressbar from '@/components/molecules/UiProgressbar/UiProgressbar.vue';
 import UiProgress from '@/components/atoms/UiProgress/UiProgress.vue';
 import './UiProgressbar.stories.scss';
-import docs from './UiProgressbar.mdx';
 
 export default {
   title: 'Molecules/Progressbar',
@@ -14,7 +13,6 @@ export default {
   },
   argTypes: { progressAttrs: { table: { subcategory: 'Attrs props' } } },
   parameters: {
-    docs: { page: docs },
     cssProperties: {
       '--progressbar-height': '1rem',
       '--progressbar-step-size': '0.625rem',

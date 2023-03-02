@@ -1,12 +1,10 @@
-import { Canvas, Meta, Story, Primary, ArgsTable } from '@storybook/addon-docs';
+import { Canvas, Meta, Primary, ArgsTable } from '@storybook/addon-docs';
 import { Code } from '../../../../docs/components/Code';
 import UiCard from './UiCard.vue'
+import * as stories from './UiCard.stories.js'
 import scss from './UiCard.stories.scss?raw';
 
-<Meta
-  title="Organisms/Card"
-  component={ UiCard }
-/>
+<Meta of={stories}/>
 
 # UiCard
 <Primary />
@@ -14,54 +12,34 @@ import scss from './UiCard.stories.scss?raw';
 
 ## Stories
 ### Emergency
-<Canvas>
-  <Story id="organisms-card--emergency"/>
-</Canvas>
+<Canvas of={stories.emergency}/>
 
 ### Consultation 24
-<Canvas>
-  <Story id="organisms-card--consultation-24"/>
-</Canvas>
+<Canvas of={stories.Consultation24}/>
 
 ### Consultation
-<Canvas>
-  <Story id="organisms-card--consultation"/>
-</Canvas>
+<Canvas of={stories.Consultation}/>
 
 ### Self Care
-<Canvas>
-  <Story id="organisms-card--self-care"/>
-</Canvas>
+<Canvas of={stories.SelfCare}/>
 
 ### Modern Ambulance
-<Canvas>
-  <Story id="organisms-card--modern-ambulance"/>
-</Canvas>
+<Canvas of={stories.ModernAmbulance}/>
 
 ### Modern Emergency
-<Canvas>
-  <Story id="organisms-card--modern-emergency"/>
-</Canvas>
+<Canvas of={stories.ModernEmergency}/>
 
 ### Modern Consultation 24
-<Canvas>
-  <Story id="organisms-card--modern-consultation-24"/>
-</Canvas>
+<Canvas of={stories.ModernConsultation24}/>
 
 ### Modern Consultation
-<Canvas>
-  <Story id="organisms-card--modern-consultation"/>
-</Canvas>
+<Canvas of={stories.ModernConsultation}/>
 
 ### Modern Self Care
-<Canvas>
-  <Story id="organisms-card--modern-self-care"/>
-</Canvas>
+<Canvas of={stories.ModernSelfCare}/>
 
 ### With Details Slot
-<Canvas>
-  <Story id="organisms-card--with-details-slot"/>
-</Canvas>
+<Canvas of={stories.WithDetailsSlot}/>
 
 **Use following SCSS to get the same result**
 <Code
@@ -70,26 +48,16 @@ import scss from './UiCard.stories.scss?raw';
 />
 
 ### With Triage Slot
-<Canvas>
-  <Story id="organisms-card--with-triage-slot"/>
-</Canvas>
+<Canvas of={stories.WithTriageSlot}/>
 
 ### With Content Slot
-<Canvas>
-  <Story id="organisms-card--with-content-slot"/>
-</Canvas>
+<Canvas of={stories.WithContentSlot}/>
 
 ### With Subtitle Slot
-<Canvas>
-  <Story id="organisms-card--with-subtitle-slot"/>
-</Canvas>
+<Canvas of={stories.WithSubtitleSlot}/>
 
 ### With Title Slot
-<Canvas>
-  <Story id="organisms-card--with-title-slot"/>
-</Canvas>
+<Canvas of={stories.WithTitleSlot}/>
 
 ### With Description Slot
-<Canvas>
-  <Story id="organisms-card--with-description-slot"/>
-</Canvas>
+<Canvas of={stories.WithDescriptionSlot}/>

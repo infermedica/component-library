@@ -1,7 +1,10 @@
 import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
-import { content, modifiers } from '@sb/helpers/argTypes';
+import {
+  content,
+  modifiers,
+} from '@sb/helpers/argTypes';
 import { WithRangeSlot } from '@/components/atoms/UiRange/UiRange.stories';
 
 export default {
@@ -22,12 +25,21 @@ export default {
   argTypes: {
     content,
     modifiers: modifiers({
-      options: ['ui-alert', 'ui-alert--secondary'],
+      options: [
+        'ui-alert',
+        'ui-alert--secondary',
+      ],
       control: 'select',
     }),
     type: {
       control: 'select',
-      options: ['default', 'success', 'info', 'warning', 'error'],
+      options: [
+        'default',
+        'success',
+        'info',
+        'warning',
+        'error',
+      ],
     },
     iconAlertAttrs: { table: { subcategory: 'Attrs props' } },
     textMessageAttrs: { table: { subcategory: 'Attrs props' } },

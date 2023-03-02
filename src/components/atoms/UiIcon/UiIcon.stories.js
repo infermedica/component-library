@@ -4,7 +4,6 @@ import { defineAsyncComponent } from 'vue';
 import './UiIcon.stories.scss';
 import icons from '@/components/atoms/UiIcon/icons.ts';
 import { AsSpan } from '@/components/atoms/UiHeading/UiHeading.stories';
-import docs from './UiIcon.mdx';
 
 export default {
   title: 'Atoms/Icon',
@@ -16,10 +15,7 @@ export default {
       options: icons,
     },
   },
-  parameters: {
-    docs: { page: docs },
-    cssProperties: { '--icon-size': 'var(--icon-height, 1.5rem)' },
-  },
+  parameters: { cssProperties: { '--icon-size': 'var(--icon-height, 1.5rem)' } },
 };
 
 export const IconAsName = {

@@ -1,12 +1,10 @@
-import { Canvas, Meta, Story, Primary, ArgsTable } from '@storybook/addon-docs';
+import { Canvas, Meta, Primary, ArgsTable } from '@storybook/addon-docs';
 import { Code } from '../../../../docs/components/Code';
 import UiDropdown from './UiDropdown.vue';
+import * as stories from './UiDropdown.stories.js';
 import scss from './UiDropdown.stories.scss?raw';
 
-<Meta
-  title="Molecules/Dropdown"
-  component={ UiDropdown }
-/>
+<Meta of={stories}/>
 
 # UiDropdown
 <Primary />
@@ -14,9 +12,7 @@ import scss from './UiDropdown.stories.scss?raw';
 
 ## Stories
 ### With Items As Objects
-<Canvas>
-  <Story id="molecules-dropdown--with-items-as-objects"/>
-</Canvas>
+<Canvas of={stories.WithItemsAsObjects}/>
 
 **Use following SCSS to get the same result**
 <Code
@@ -25,34 +21,22 @@ import scss from './UiDropdown.stories.scss?raw';
 />
 
 ### With Default Slot
-<Canvas>
-  <Story id="molecules-dropdown--with-default-slot"/>
-</Canvas>
+<Canvas of={stories.WithDefaultSlot}/>
 
 ### With Dropdown Item Slot
-<Canvas>
-  <Story id="molecules-dropdown--with-dropdown-item-slot"/>
-</Canvas>
+<Canvas of={stories.WithDropdownItemSlot}/>
 
 ### With Toggle Slot
-<Canvas>
-  <Story id="molecules-dropdown--with-toggle-slot"/>
-</Canvas>
+<Canvas of={stories.WithToggleSlot}/>
 
 ### With Popover Slot
-<Canvas>
-  <Story id="molecules-dropdown--with-popover-slot"/>
-</Canvas>
+<Canvas of={stories.WithPopoverSlot}/>
 
 ### With Content Slot
-<Canvas>
-  <Story id="molecules-dropdown--with-content-slot"/>
-</Canvas>
+<Canvas of={stories.WithContentSlot}/>
 
 ### With Input Toggle
-<Canvas>
-  <Story id="molecules-dropdown--with-input-toggle"/>
-</Canvas>
+<Canvas of={stories.WithInputToggle}/>
 
 **Use following SCSS to get the same result**
 <Code

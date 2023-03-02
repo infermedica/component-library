@@ -9,10 +9,13 @@ import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints
 import UiMessage from '@/components/templates/UiMessage/UiMessage.vue';
 import { actions } from '@storybook/addon-actions';
 import { modifiers } from '@sb/helpers/argTypes';
-import { computed, ref, watch } from 'vue';
+import {
+  computed,
+  ref,
+  watch,
+} from 'vue';
 import './UiDropdown.stories.scss';
 import { WithRemoveSlot } from '@/components/molecules/UiChip/UiChip.stories';
-import docs from './UiDropdown.mdx';
 
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
@@ -34,7 +37,12 @@ export default {
     closeOnClickOutside: true,
     toggleElement: null,
     enableKeyboardNavigation: true,
-    items: ['English', 'Deutsch', 'Italiano', 'Polski'],
+    items: [
+      'English',
+      'Deutsch',
+      'Italiano',
+      'Polski',
+    ],
     buttonToggleAttrs: {
       'data-testid': 'toggle-button',
       class: 'ui-button--text',
@@ -70,17 +78,14 @@ export default {
     },
     buttonToggleAttrs: { table: { subcategory: 'Attrs props' } },
     popoverAttrs: { table: { subcategory: 'Attrs props' } },
-    modifiers: modifiers({ options: ['ui-dropdown--compact'] }),
+    modifiers: modifiers({ options: [ 'ui-dropdown--compact' ] }),
   },
-  decorators: [
-    () => ({
-      template: `<div class="min-h-55">
+  decorators: [ () => ({
+    template: `<div class="min-h-55">
         <story />
     </div>`,
-    }),
-  ],
+  }) ],
   parameters: {
-    docs: { page: docs },
     cssProperties: {
       '--dropdown-popover-padding-block':
         'var(--dropdown-popover-padding-block-start, var(--space-8)) var(--dropdown-popover-padding-block-end, var(--space-8))',
@@ -197,14 +202,10 @@ export const WithInputToggle = {
         () => modelValue.value,
         () => {
           search.value = modelValue.value;
-        }
+        },
       );
 
-      const filteredItems = computed(() =>
-        args.items.filter((item) =>
-          item.toLocaleLowerCase().includes(search.value.toLocaleLowerCase())
-        )
-      );
+      const filteredItems = computed(() => args.items.filter((item) => item.toLocaleLowerCase().includes(search.value.toLocaleLowerCase())));
 
       const noResults = computed(() => filteredItems.value.length < 1);
 
@@ -482,22 +483,20 @@ export const WithPopoverSlot = {
     },
     setup() {
       const modelValue = ref(args.initModelValue);
-      const itemsToRender = computed(() =>
-        args.items.map((item, key) => {
-          if (typeof item === 'string' || typeof item === 'number') {
-            return {
-              name: `dropdown-item-${key}`,
-              text: item,
-              value: item,
-            };
-          }
+      const itemsToRender = computed(() => args.items.map((item, key) => {
+        if (typeof item === 'string' || typeof item === 'number') {
           return {
-            name: item.name || `dropdown-item-${key}`,
-            value: item.value || item,
-            ...item,
+            name: `dropdown-item-${key}`,
+            text: item,
+            value: item,
           };
-        })
-      );
+        }
+        return {
+          name: item.name || `dropdown-item-${key}`,
+          value: item.value || item,
+          ...item,
+        };
+      }));
       return {
         ...args,
         ...events,

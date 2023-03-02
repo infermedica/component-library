@@ -1,4 +1,7 @@
-import { ref, computed } from 'vue';
+import {
+  ref,
+  computed,
+} from 'vue';
 import UiHorizontalPaging from '@/components/organisms/UiHorizontalPaging/UiHorizontalPaging.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
@@ -14,7 +17,6 @@ import UiHorizontalPagingItem from '@/components/organisms/UiHorizontalPaging/_i
 import { actions } from '@storybook/addon-actions';
 import './UiHorizontalPaging.stories.scss';
 import { WithBackSlot } from '@/components/organisms/UiControls/UiControls.stories';
-import docs from './UiHorizontalPaging.mdx';
 
 const events = actions({ onUpdateModelValue: 'update:modelValue' });
 
@@ -125,13 +127,9 @@ const TermsOfService = {
           type: 'a',
           class: 'terms-of-service__sub-points',
           items: [
-            {
-              text: 'principles of operation of the website and the mobile application "Symptomate.com",',
-            },
+            { text: 'principles of operation of the website and the mobile application "Symptomate.com",' },
             { text: 'rules on the provision of services by electronic means,' },
-            {
-              text: 'the rights and obligations of the Service Provider and the Service Recipients.',
-            },
+            { text: 'the rights and obligations of the Service Provider and the Service Recipients.' },
           ],
         },
       },
@@ -142,15 +140,9 @@ const TermsOfService = {
           type: 'a',
           class: 'terms-of-service__sub-points',
           items: [
-            {
-              text: 'Application, this means the software for portable devices, made available free of charge by the Service Provider referred to in sec. 2(l) below, enabling the use of the Services referred to in sec. 2(k) below,',
-            },
-            {
-              text: 'Articles, this means articles referring to medical and pharmaceutical topics,',
-            },
-            {
-              text: 'License, this means a non-exclusive, royalty-free license granted to Users referred to in sec. 2(m) below to use the Application or Website referred to in sec. 2(j) below,',
-            },
+            { text: 'Application, this means the software for portable devices, made available free of charge by the Service Provider referred to in sec. 2(l) below, enabling the use of the Services referred to in sec. 2(k) below,' },
+            { text: 'Articles, this means articles referring to medical and pharmaceutical topics,' },
+            { text: 'License, this means a non-exclusive, royalty-free license granted to Users referred to in sec. 2(m) below to use the Application or Website referred to in sec. 2(j) below,' },
           ],
         },
       },
@@ -261,14 +253,11 @@ export default {
       },
     },
   },
-  decorators: [
-    () => ({
-      template: `<div class="max-w-90">
+  decorators: [ () => ({
+    template: `<div class="max-w-90">
       <story />
     </div>`,
-    }),
-  ],
-  parameters: { docs: { page: docs } },
+  }) ],
 };
 
 export const Common = {
@@ -426,7 +415,7 @@ export const AsMobileMenu = {
       const length = computed(() => modelValue.value.length);
       const title = computed(() => modelValue.value[length.value - 1]?.title || 'Settings & Info');
       const previous = computed(
-        () => modelValue.value[length.value - 2]?.title || 'Settings & Info'
+        () => modelValue.value[length.value - 2]?.title || 'Settings & Info',
       );
       const isActive = computed(() => modelValue.value.length > 0);
       const handleBackClick = () => {
@@ -495,13 +484,11 @@ export const AsMobileMenu = {
 
   parameters: { viewport: { defaultViewport: 'mobile2' } },
 
-  decorators: [
-    () => ({
-      template: `<div class="min-h-140">
+  decorators: [ () => ({
+    template: `<div class="min-h-140">
       <story/>
     </div>`,
-    }),
-  ],
+  }) ],
 };
 
 export const WithDefaultSlot = {

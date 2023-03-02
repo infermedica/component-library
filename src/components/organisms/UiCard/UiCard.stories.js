@@ -8,7 +8,6 @@ import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/
 import UiContainer from '@/components/organisms/UiContainer/UiContainer.vue';
 import './UiCard.stories.scss';
 import { WithTogglerSlot } from '@/components/organisms/UiAccordion/UiAccordion.stories';
-import docs from './UiCard.mdx';
 
 export default {
   title: 'Organisms/Card',
@@ -32,7 +31,7 @@ export default {
     textDescriptionAttrs: { 'data-testid': 'description-text' },
   },
   argTypes: {
-    modifiers: modifiers({ options: ['ui-card--modern'] }),
+    modifiers: modifiers({ options: [ 'ui-card--modern' ] }),
     title: {
       description: 'Use this props to set title for card.',
       table: {
@@ -86,7 +85,13 @@ export default {
     },
     type: {
       control: { type: 'select' },
-      options: ['emergency_ambulance', 'emergency', 'consultation_24', 'consultation', 'self_care'],
+      options: [
+        'emergency_ambulance',
+        'emergency',
+        'consultation_24',
+        'consultation',
+        'self_care',
+      ],
     },
     iconTriageAttrs: { table: { subcategory: 'Attrs props' } },
     textSubtitleAttrs: { table: { subcategory: 'Attrs props' } },
@@ -94,7 +99,6 @@ export default {
     textDescriptionAttrs: { table: { subcategory: 'Attrs props' } },
   },
   parameters: {
-    docs: { page: docs },
     cssProperties: {
       '--card-padding-block': '0',
       '--card-padding-inline': '0',
@@ -277,7 +281,7 @@ export const ModernAmbulance = {
   args: {
     type: 'emergency_ambulance',
     subtitle: '',
-    modifiers: ['ui-card--modern'],
+    modifiers: [ 'ui-card--modern' ],
   },
 };
 
@@ -303,7 +307,7 @@ export const ModernEmergency = {
   args: {
     type: 'emergency',
     subtitle: '',
-    modifiers: ['ui-card--modern'],
+    modifiers: [ 'ui-card--modern' ],
   },
 };
 
@@ -329,7 +333,7 @@ export const ModernConsultation24 = {
   args: {
     type: 'consultation_24',
     subtitle: '',
-    modifiers: ['ui-card--modern'],
+    modifiers: [ 'ui-card--modern' ],
   },
 };
 
@@ -355,7 +359,7 @@ export const ModernConsultation = {
   args: {
     type: 'consultation',
     subtitle: '',
-    modifiers: ['ui-card--modern'],
+    modifiers: [ 'ui-card--modern' ],
   },
 };
 
@@ -381,7 +385,7 @@ export const ModernSelfCare = {
   args: {
     type: 'self_care',
     subtitle: '',
-    modifiers: ['ui-card--modern'],
+    modifiers: [ 'ui-card--modern' ],
   },
 };
 

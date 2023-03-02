@@ -1,12 +1,10 @@
-import { Canvas, Meta, Story, Primary, ArgsTable } from '@storybook/addon-docs';
+import { Canvas, Meta, Primary, ArgsTable } from '@storybook/addon-docs';
 import { Code } from '../../../../docs/components/Code';
 import UiMessage from './UiMessage.vue';
+import * as stories from './UiMessage.stories.js';
 import scss from './UiMessage.stories.scss?raw';
 
-<Meta
-  title="Templates/Message"
-  component={ UiMessage }
-/>
+<Meta of={stories}/>
 
 # UiMessage
 <Primary />
@@ -14,24 +12,16 @@ import scss from './UiMessage.stories.scss?raw';
 
 ## Stories
 ### With Content Slot
-<Canvas>
-  <Story id="templates-message--with-content-slot"/>
-</Canvas>
+<Canvas of={stories.WithContentSlot}/>
 
 ### With Aside Slot
-<Canvas>
-  <Story id="templates-message--with-aside-slot"/>
-</Canvas>
+<Canvas of={stories.WithAsideSlot}/>
 
 ### With Illustration Slot
-<Canvas>
-  <Story id="templates-message--with-illustration-slot"/>
-</Canvas>
+<Canvas of={stories.WithIllustrationSlot}/>
 
 ### As Not Authorized
-<Canvas>
-  <Story id="templates-message--as-not-authorized"/>
-</Canvas>
+<Canvas of={stories.AsNotAuthorized}/>
 
 **Use following SCSS to get the same result**
 <Code
@@ -40,9 +30,7 @@ import scss from './UiMessage.stories.scss?raw';
 />
 
 ### As Offline
-<Canvas>
-  <Story id="templates-message--as-offline"/>
-</Canvas>
+<Canvas of={stories.AsOffline}/>
 
 **Use following SCSS to get the same result**
 <Code
@@ -51,9 +39,7 @@ import scss from './UiMessage.stories.scss?raw';
 />
 
 ### As Offline
-<Canvas>
-  <Story id="templates-message--as-offline-popover"/>
-</Canvas>
+<Canvas of={stories.AsOfflinePopover}/>
 
 **Use following SCSS to get the same result**
 <Code

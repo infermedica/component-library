@@ -4,7 +4,10 @@ import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import { actions } from '@storybook/addon-actions';
-import { content, modifiers } from '@sb/helpers/argTypes';
+import {
+  content,
+  modifiers,
+} from '@sb/helpers/argTypes';
 import './UiPopover.stories.scss';
 import { WithDecrementSlot } from '@/components/molecules/UiNumberStepper/UiNumberStepper.stories';
 
@@ -173,7 +176,7 @@ export const HasArrow = {
     </UiPopover>`,
   }),
 
-  args: { modifiers: ['ui-popover--has-arrow'] },
+  args: { modifiers: [ 'ui-popover--has-arrow' ] },
 };
 
 export const HasStartArrow = {
@@ -205,7 +208,7 @@ export const HasStartArrow = {
     </UiPopover>`,
   }),
 
-  args: { modifiers: ['ui-popover--has-start-arrow'] },
+  args: { modifiers: [ 'ui-popover--has-start-arrow' ] },
 };
 
 export const Unrounded = {
@@ -237,7 +240,7 @@ export const Unrounded = {
     </UiPopover>`,
   }),
 
-  args: { modifiers: ['ui-popover--unrounded'] },
+  args: { modifiers: [ 'ui-popover--unrounded' ] },
 };
 
 export const AsBottomPanelOnMobile = {
@@ -270,18 +273,19 @@ export const AsBottomPanelOnMobile = {
   }),
 
   args: {
-    modifiers: ['ui-popover--has-mobile', 'ui-popover--has-arrow'],
+    modifiers: [
+      'ui-popover--has-mobile',
+      'ui-popover--has-arrow',
+    ],
   },
 
   parameters: { viewport: { defaultViewport: 'mobile2' } },
 
-  decorators: [
-    () => ({
-      template: `<div class="min-h-135">
+  decorators: [ () => ({
+    template: `<div class="min-h-135">
       <story />
     </div>`,
-    }),
-  ],
+  }) ],
 };
 
 export const AsDropdown = {

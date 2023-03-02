@@ -140,13 +140,11 @@ export const AsGroup = {
   }),
 
   args: {
-    initModelValue: [
-      {
-        label: 'Necessary',
-        id: 'necessary',
-        controlAttrs: { 'data-testid': 'necessary' },
-      },
-    ],
+    initModelValue: [ {
+      label: 'Necessary',
+      id: 'necessary',
+      controlAttrs: { 'data-testid': 'necessary' },
+    } ],
     values: [
       {
         label: 'Necessary',
@@ -209,8 +207,12 @@ export const AsGroupWithPrimitiveTypes = {
   }),
 
   args: {
-    initModelValue: ['Necessary'],
-    values: ['Necessary', 'Functional', 'Analytics'],
+    initModelValue: [ 'Necessary' ],
+    values: [
+      'Necessary',
+      'Functional',
+      'Analytics',
+    ],
   },
 
   argTypes: {

@@ -8,7 +8,6 @@ import UiControls from '@/components/organisms/UiControls/UiControls.vue';
 import { content } from '@sb/helpers/argTypes';
 import './UiMessage.stories.scss';
 import { WithDefaultSlot } from '@/components/organisms/UiTabs/UiTabs.stories';
-import docs from './UiMessage.mdx';
 
 export default {
   title: 'Templates/Message',
@@ -90,7 +89,6 @@ export default {
     },
   },
   parameters: {
-    docs: { page: docs },
     cssProperties: {
       '--message-flex-direction': 'column-reverse',
       '--message-tablet-flex-direction': 'row',
@@ -166,13 +164,12 @@ export const AsNotAuthorized = {
     illustration: 'lock',
   },
 
-  decorators: [
-    (story) => ({
-      components: {
-        story,
-        UiControls,
-      },
-      template: `<UiControls
+  decorators: [ (story) => ({
+    components: {
+      story,
+      UiControls,
+    },
+    template: `<UiControls
       :to-next="{path: '/next'}"
       :to-back="{path: '/back'}"
       :style="{
@@ -183,8 +180,7 @@ export const AsNotAuthorized = {
     >
       <story/>
     </UiControls>`,
-    }),
-  ],
+  }) ],
 };
 
 export const AsOffline = {
@@ -220,13 +216,12 @@ export const AsOffline = {
     illustration: 'no-internet-illustration',
   },
 
-  decorators: [
-    (story) => ({
-      components: {
-        story,
-        UiControls,
-      },
-      template: `<UiControls
+  decorators: [ (story) => ({
+    components: {
+      story,
+      UiControls,
+    },
+    template: `<UiControls
       :to-next="{path: '/next'}"
       :to-back="{path: '/back'}"
       :style="{
@@ -237,8 +232,7 @@ export const AsOffline = {
     >
       <story/>
     </UiControls>`,
-    }),
-  ],
+  }) ],
 };
 
 export const AsOfflinePopover = {
@@ -275,19 +269,17 @@ export const AsOfflinePopover = {
     headingTitleAttrs: { level: '4' },
   },
 
-  decorators: [
-    (story) => ({
-      components: {
-        story,
-        UiPopover,
-      },
-      template: `<UiPopover
+  decorators: [ (story) => ({
+    components: {
+      story,
+      UiPopover,
+    },
+    template: `<UiPopover
       class="max-w-80"
     >
       <story/>
     </UiPopover>`,
-    }),
-  ],
+  }) ],
 };
 
 export const WithContentSlot = {

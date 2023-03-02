@@ -1,12 +1,10 @@
-import { Canvas, Meta, Story, Primary, ArgsTable } from '@storybook/addon-docs';
+import { Canvas, Meta, Primary, ArgsTable } from '@storybook/addon-docs';
 import { Code } from '../../../../docs/components/Code';
 import UiNavigation from './UiNavigation.vue';
+import * as stories from './UiNavigation.stories.js';
 import scss from './UiNavigation.stories.scss?raw';
 
-<Meta
-  title="Molecules/Navigation"
-  component={UiNavigation}
-/>
+<Meta of={stories}/>
 
 # UiNavigation
 <Primary />
@@ -14,29 +12,22 @@ import scss from './UiNavigation.stories.scss?raw';
 
 ## Stories
 ### Multiline
-<Canvas>
-  <Story id="molecules-navigation--multiline"/>
-</Canvas>
+<Canvas of={stories.Multiline}/>
 
 ### Secondary
-<Canvas>
-  <Story id="molecules-navigation--secondary"/>
-</Canvas>
+<Canvas of={stories.Secondary}/>
 
 ### On Brand
-<Canvas style={{background: 'var(--color-background-brand)'}}>
-  <Story id="molecules-navigation--on-brand"/>
-</Canvas>
+<Canvas
+  of={stories.OnBrand}
+  style={{background: 'var(--color-background-brand)'}}
+/>
 
 ### Small
-<Canvas>
-  <Story id="molecules-navigation--small"/>
-</Canvas>
+<Canvas of={stories.Small}/>
 
 ### Vertical
-<Canvas>
-<Story id="molecules-navigation--vertical"/>
-</Canvas>
+<Canvas of={stories.Vertical}/>
 
 **Use following SCSS to get the same result**
 <Code
@@ -45,16 +36,10 @@ import scss from './UiNavigation.stories.scss?raw';
 />
 
 ### With Navigation Item Slot
-<Canvas>
-  <Story id="molecules-navigation--with-navigation-item-slot"/>
-</Canvas>
+<Canvas of={stories.WithNavigationItemSlot}/>
 
 ### With Default Slot
-<Canvas>
-  <Story id="molecules-navigation--with-default-slot"/>
-</Canvas>
+<Canvas of={stories.WithDefaultSlot}/>
 
 ### With Icon In Navigation Item Slot
-<Canvas>
-  <Story id="molecules-navigation--with-icon-in-navigation-item-slot"/>
-</Canvas>
+<Canvas of={stories.WithIconInNavigationItemSlot}/>

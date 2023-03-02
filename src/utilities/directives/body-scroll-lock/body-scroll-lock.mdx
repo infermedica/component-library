@@ -1,5 +1,8 @@
-import { Canvas, Story } from "@storybook/addon-docs";
+import { Meta, Canvas } from "@storybook/addon-docs";
 import { Alert } from "../../../../docs/components/Alert"
+import * as stories from './body-scroll-lock.stories.js'
+
+<Meta of={stories}/>
 
 # Body scroll lock
 <Alert>
@@ -26,11 +29,7 @@ After adding this directive and when element is visible body can't be scrolled a
 
 ## Stories
 ### With directive
-<Canvas>
-  <Story id="utilities-directives-body-scroll-lock--with-directive"/>
-</Canvas>
+<Canvas of={stories.WithDirective}/>
 
 ### Without directive
-<Canvas>
-  <Story id="utilities-directives-body-scroll-lock--without-directive"/>
-</Canvas>
+<Canvas of={stories.WithoutDirective}/>

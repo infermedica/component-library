@@ -2,7 +2,10 @@ import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import icons from '@/components/atoms/UiIcon/icons.ts';
-import { content, modifiers } from '@sb/helpers/argTypes';
+import {
+  content,
+  modifiers,
+} from '@sb/helpers/argTypes';
 
 export default {
   title: 'Atoms/Button',
@@ -33,13 +36,11 @@ export default {
       ],
     }),
   },
-  decorators: [
-    () => ({
-      template: `<div class="flex flex-wrap items-center gap-10">
+  decorators: [ () => ({
+    template: `<div class="flex flex-wrap items-center gap-10">
       <story />
     </div>`,
-    }),
-  ],
+  }) ],
   parameters: {
     cssProperties: {
       '--button-padding-block':
@@ -307,7 +308,7 @@ export const Outlined = {
     </UiButton>`,
   }),
 
-  args: { modifiers: ['ui-button--outlined'] },
+  args: { modifiers: [ 'ui-button--outlined' ] },
 };
 
 export const Text = {
@@ -396,7 +397,7 @@ export const Text = {
     </UiButton>`,
   }),
 
-  args: { modifiers: ['ui-button--text'] },
+  args: { modifiers: [ 'ui-button--text' ] },
 };
 
 export const Circled = {
@@ -450,7 +451,10 @@ export const Circled = {
   }),
 
   args: {
-    modifiers: ['ui-button--outlined', 'ui-button--circled'],
+    modifiers: [
+      'ui-button--outlined',
+      'ui-button--circled',
+    ],
   },
 };
 
@@ -560,7 +564,10 @@ export const TextSecondary = {
   }),
 
   args: {
-    modifiers: ['ui-button--text', 'ui-button--theme-secondary'],
+    modifiers: [
+      'ui-button--text',
+      'ui-button--theme-secondary',
+    ],
   },
 };
 
@@ -585,7 +592,7 @@ export const IconSecondary = {
     </UiButton>`,
   }),
 
-  args: { modifiers: ['ui-button--theme-secondary'] },
+  args: { modifiers: [ 'ui-button--theme-secondary' ] },
 };
 
 export const TextOnBrand = {
@@ -675,7 +682,10 @@ export const TextOnBrand = {
   }),
 
   args: {
-    modifiers: ['ui-button--text', 'ui-button--theme-brand'],
+    modifiers: [
+      'ui-button--text',
+      'ui-button--theme-brand',
+    ],
   },
 
   parameters: { backgrounds: { default: 'brand' } },
@@ -703,7 +713,10 @@ export const IconOnBrand = {
   }),
 
   args: {
-    modifiers: ['ui-button--text', 'ui-button--theme-brand'],
+    modifiers: [
+      'ui-button--text',
+      'ui-button--theme-brand',
+    ],
   },
 
   parameters: { backgrounds: { default: 'brand' } },

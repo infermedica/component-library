@@ -28,18 +28,21 @@ export default {
     content,
     type: {
       control: 'select',
-      options: ['success', 'info', 'warning', 'error'],
+      options: [
+        'success',
+        'info',
+        'warning',
+        'error',
+      ],
     },
     buttonActionAttrs: { table: { subcategory: 'Attrs props' } },
     iconActionAttrs: { table: { subcategory: 'Attrs props' } },
   },
-  decorators: [
-    () => ({
-      template: `<div class="max-w-80">
+  decorators: [ () => ({
+    template: `<div class="max-w-80">
       <story />
     </div>`,
-    }),
-  ],
+  }) ],
   parameters: {
     cssProperties: {
       '--notification-gap': 'var(--space-12)',

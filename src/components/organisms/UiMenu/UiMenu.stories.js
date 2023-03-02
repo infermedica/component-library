@@ -8,7 +8,6 @@ import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
 import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import './UiMenu.stories.scss';
 import { modifiers } from '@sb/helpers/argTypes';
-import docs from './UiMenu.mdx';
 
 export default {
   title: 'Organisms/Menu',
@@ -32,10 +31,9 @@ export default {
     ],
     tag: 'ul',
   },
-  argTypes: { modifiers: modifiers({ options: ['ui-menu--compact'] }) },
-  decorators: [() => ({ template: '<div style="max-width: 21.875rem"><story /></div>' })],
+  argTypes: { modifiers: modifiers({ options: [ 'ui-menu--compact' ] }) },
+  decorators: [ () => ({ template: '<div style="max-width: 21.875rem"><story /></div>' }) ],
   parameters: {
-    docs: { page: docs },
     cssProperties: {
       '--menu-item-button-padding-block': 'var(--space-4)',
       '--menu-item-button-padding-inline': 'var(--space-8)',
@@ -68,7 +66,7 @@ export const AsCompact = {
     />`,
   }),
 
-  args: { modifiers: ['ui-menu--compact'] },
+  args: { modifiers: [ 'ui-menu--compact' ] },
 };
 
 export const WithItemsAsString = {
@@ -164,14 +162,12 @@ export const AsMobileMenu = {
       UiText,
     },
     setup() {
-      const language = [
-        {
-          label: 'Language',
-          icon: 'chevron-right',
-          suffixVisible: 'always',
-          suffixAttrs: { label: 'English' },
-        },
-      ];
+      const language = [ {
+        label: 'Language',
+        icon: 'chevron-right',
+        suffixVisible: 'always',
+        suffixAttrs: { label: 'English' },
+      } ];
       const other = [
         {
           label: 'For business',
@@ -233,24 +229,23 @@ export const AsMobileMenu = {
     </div>`,
   }),
 
-  decorators: [
-    (story) => ({
-      components: {
-        story,
-        UiSidePanel,
-        UiButton,
-      },
-      setup() {
-        const modelValue = ref(true);
-        const toggleSidePanel = () => {
-          modelValue.value = !modelValue.value;
-        };
-        return {
-          modelValue,
-          toggleSidePanel,
-        };
-      },
-      template: `<div style="min-height: 680px;">
+  decorators: [ (story) => ({
+    components: {
+      story,
+      UiSidePanel,
+      UiButton,
+    },
+    setup() {
+      const modelValue = ref(true);
+      const toggleSidePanel = () => {
+        modelValue.value = !modelValue.value;
+      };
+      return {
+        modelValue,
+        toggleSidePanel,
+      };
+    },
+    template: `<div style="min-height: 680px;">
       <UiButton
         class="ui-button ui-button--text ui-button--theme-secondary"
         @click="toggleSidePanel"
@@ -265,8 +260,7 @@ export const AsMobileMenu = {
         <story/>
       </UiSidePanel>
     </div>`,
-    }),
-  ],
+  }) ],
 
   parameters: { viewport: { defaultViewport: 'mobile2' } },
 };
@@ -306,17 +300,15 @@ export const AsPopoverContent = {
     </UiMenu>`,
   }),
 
-  decorators: [
-    (story) => ({
-      components: {
-        UiPopover,
-        story,
-      },
-      template: `<UiPopover style="--popover-content-padding-block: 0; --popover-content-padding-inline: 0; --popover-content-max-height: 20rem; max-width: 20rem">
+  decorators: [ (story) => ({
+    components: {
+      UiPopover,
+      story,
+    },
+    template: `<UiPopover style="--popover-content-padding-block: 0; --popover-content-padding-inline: 0; --popover-content-max-height: 20rem; max-width: 20rem">
       <story />
     </UiPopover>`,
-    }),
-  ],
+  }) ],
 
   args: {
     items: [

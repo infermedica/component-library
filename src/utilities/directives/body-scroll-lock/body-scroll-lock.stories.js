@@ -10,16 +10,12 @@ import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/
 import UiNotification from '@/components/molecules/UiNotification/UiNotification.vue';
 import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import { ref } from 'vue';
-import docs from './body-scroll-lock.mdx';
 import './body-scroll-lock.stories.scss';
 
 export default {
   title: 'Utilities/Directives/Body Scroll Lock',
-  decorators: [() => ({ template: '<div style="height: 320px;"><story /></div>' })],
-  parameters: {
-    docs: { page: docs },
-    chromatic: { disableSnapshot: true },
-  },
+  decorators: [ () => ({ template: '<div style="height: 320px;"><story /></div>' }) ],
+  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 const TOS = {

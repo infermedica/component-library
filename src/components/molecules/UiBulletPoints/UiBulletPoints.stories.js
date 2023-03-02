@@ -5,7 +5,6 @@ import UiText from '@/components/atoms/UiText/UiText.vue';
 import icons from '@/components/atoms/UiIcon/icons.ts';
 import './UiBulletPoints.stories.scss';
 import { WithMessageSlot } from '@/components/molecules/UiAlert/UiAlert.stories';
-import docs from './UiBulletPoints.mdx';
 
 export default {
   title: 'Molecules/BulletPoints',
@@ -16,7 +15,13 @@ export default {
     UiText,
   },
   args: {
-    items: ['Painful swallowing', 'Stuffy nose', 'Sneeze', 'Muscle pain', 'Runny nose'],
+    items: [
+      'Painful swallowing',
+      'Stuffy nose',
+      'Sneeze',
+      'Muscle pain',
+      'Runny nose',
+    ],
     tag: 'ul',
     type: '1',
     icon: 'bullet-common',
@@ -24,11 +29,21 @@ export default {
   argTypes: {
     tag: {
       control: 'select',
-      options: ['ul', 'ol'],
+      options: [
+        'ul',
+        'ol',
+      ],
     },
     type: {
       control: 'select',
-      options: ['a', 'A', 'i', 'I', '1', 'ar'],
+      options: [
+        'a',
+        'A',
+        'i',
+        'I',
+        '1',
+        'ar',
+      ],
     },
     icon: {
       control: 'select',
@@ -44,10 +59,7 @@ export default {
       },
     },
   },
-  parameters: {
-    docs: { page: docs },
-    cssProperties: { '--bullet-points-gap': 'var(--space-4)' },
-  },
+  parameters: { cssProperties: { '--bullet-points-gap': 'var(--space-4)' } },
 };
 
 export const UnorderedList = {

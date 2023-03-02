@@ -1,16 +1,17 @@
 /* eslint-disable no-alert */
-import { onMounted, ref } from 'vue';
+import {
+  onMounted,
+  ref,
+} from 'vue';
 import UiInteractiveSvg from '@/components/molecules/UiInteractiveSvg/UiInteractiveSvg.vue';
 import UiInteractiveSvgElement from '@/components/molecules/UiInteractiveSvg/_internal/UiInteractiveSvgElement.vue';
 import './UiInteractiveSvg.stories.scss';
 import { WithNavigationSlot } from '@/components/molecules/UiHeader/UiHeader.stories';
-import docs from './UiInteractiveSvg.mdx';
 
 export default {
   title: 'Molecules/InteractiveSvg',
   component: UiInteractiveSvg,
   subcomponents: { UiInteractiveSvgElement },
-  parameters: { docs: { page: docs } },
 };
 
 export const WithFocusOnMounted = {
@@ -22,12 +23,15 @@ export const WithFocusOnMounted = {
     setup() {
       const checkedRegions = ref([]);
       const handleRegionCheck = ({ region }, { code }) => {
-        const codes = ['Space', 'Enter'];
+        const codes = [
+          'Space',
+          'Enter',
+        ];
 
         if (code && !codes.includes(code)) return;
         if (checkedRegions.value.includes(region)) {
           checkedRegions.value = checkedRegions.value.filter(
-            (checkedPart) => checkedPart !== region
+            (checkedPart) => checkedPart !== region,
           );
         } else {
           checkedRegions.value.push(region);
@@ -48,7 +52,10 @@ export const WithFocusOnMounted = {
             ref: (el) => {
               regions.value[region] = el; // assign DOM node to region key in regions object
             },
-            class: ['map__region', { 'map__region--is-checked': isChecked }],
+            class: [
+              'map__region',
+              { 'map__region--is-checked': isChecked },
+            ],
             'aria-label': region.replace(/-/gm, ' '),
             'aria-checked': `${isChecked}`,
             tabindex: 0,
@@ -62,7 +69,10 @@ export const WithFocusOnMounted = {
         if (focusFor) {
           const isFocused = focusedRegion.value === focusFor;
           return {
-            class: ['map__focus-for-region', { 'map__focus-for-region--is-focused': isFocused }],
+            class: [
+              'map__focus-for-region',
+              { 'map__focus-for-region--is-focused': isFocused },
+            ],
           };
         }
 
@@ -277,7 +287,10 @@ export const Map = () => ({
   setup() {
     const checkedRegions = ref([]);
     const handleRegionCheck = ({ region }, { code }) => {
-      const codes = ['Space', 'Enter'];
+      const codes = [
+        'Space',
+        'Enter',
+      ];
 
       if (code && !codes.includes(code)) return;
       if (checkedRegions.value.includes(region)) {
@@ -297,7 +310,10 @@ export const Map = () => ({
       if (region) {
         const isChecked = checkedRegions.value.includes(region);
         return {
-          class: ['map__region', { 'map__region--is-checked': isChecked }],
+          class: [
+            'map__region',
+            { 'map__region--is-checked': isChecked },
+          ],
           'aria-label': region.replace(/-/gm, ' '),
           'aria-checked': `${isChecked}`,
           tabindex: 0,
@@ -311,7 +327,10 @@ export const Map = () => ({
       if (focusFor) {
         const isFocused = focusedRegion.value === focusFor;
         return {
-          class: ['map__focus-for-region', { 'map__focus-for-region--is-focused': isFocused }],
+          class: [
+            'map__focus-for-region',
+            { 'map__focus-for-region--is-focused': isFocused },
+          ],
         };
       }
 
@@ -520,7 +539,10 @@ export const AbdominalPainMale = () => ({
   setup() {
     const checkedParts = ref([]);
     const handlePartCheck = ({ part }, { code }) => {
-      const codes = ['Space', 'Enter'];
+      const codes = [
+        'Space',
+        'Enter',
+      ];
 
       if (code && !codes.includes(code)) return;
       if (checkedParts.value.includes(part)) {
@@ -540,7 +562,10 @@ export const AbdominalPainMale = () => ({
       if (part) {
         const isChecked = checkedParts.value.includes(part);
         return {
-          class: ['abdominal-pain__part', { 'abdominal-pain__part--is-checked': isChecked }],
+          class: [
+            'abdominal-pain__part',
+            { 'abdominal-pain__part--is-checked': isChecked },
+          ],
           'aria-label': part.replace(/-/gm, ' '),
           'aria-checked': `${isChecked}`,
           tabindex: 0,
@@ -642,7 +667,10 @@ export const AbdominalPainFemale = () => ({
   setup() {
     const checkedParts = ref([]);
     const handlePartCheck = ({ part }, { code }) => {
-      const codes = ['Space', 'Enter'];
+      const codes = [
+        'Space',
+        'Enter',
+      ];
 
       if (code && !codes.includes(code)) return;
       if (checkedParts.value.includes(part)) {
@@ -662,7 +690,10 @@ export const AbdominalPainFemale = () => ({
       if (part) {
         const isChecked = checkedParts.value.includes(part);
         return {
-          class: ['abdominal-pain__part', { 'abdominal-pain__part--is-checked': isChecked }],
+          class: [
+            'abdominal-pain__part',
+            { 'abdominal-pain__part--is-checked': isChecked },
+          ],
           'aria-label': part.replace(/-/gm, ' '),
           'aria-checked': `${isChecked}`,
           tabindex: 0,

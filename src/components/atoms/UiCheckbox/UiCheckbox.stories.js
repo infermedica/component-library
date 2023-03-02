@@ -5,7 +5,10 @@ import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import { ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
-import { content, modifiers } from '@sb/helpers/argTypes';
+import {
+  content,
+  modifiers,
+} from '@sb/helpers/argTypes';
 
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
@@ -43,7 +46,7 @@ export default {
     modifiers: modifiers({
       options: [
         'ui-checkbox--has-error',
-        'ui-checkbox--is-disabled'
+        'ui-checkbox--is-disabled',
       ],
     }),
     id: { control: 'text' },
@@ -172,7 +175,7 @@ export const IsDisabled = {
     </UiCheckbox>`,
   }),
 
-  args: { modifiers: ['ui-checkbox--is-disabled'] },
+  args: { modifiers: [ 'ui-checkbox--is-disabled' ] },
 };
 
 export const HasError = {
@@ -203,7 +206,7 @@ export const HasError = {
     </UiCheckbox>`,
   }),
 
-  args: { modifiers: ['ui-checkbox--has-error'] },
+  args: { modifiers: [ 'ui-checkbox--has-error' ] },
 };
 
 export const ValueAsObject = {
@@ -235,12 +238,10 @@ export const ValueAsObject = {
   }),
 
   args: {
-    initModelValue: [
-      {
-        label: 'Europe',
-        id: 'value-as-object-europe',
-      },
-    ],
+    initModelValue: [ {
+      label: 'Europe',
+      id: 'value-as-object-europe',
+    } ],
     value: {
       label: 'Europe',
       id: 'value-as-object-europe',
@@ -298,7 +299,7 @@ export const AsGroupWithPrimitiveTypes = {
   }),
 
   args: {
-    initModelValue: ['Europe'],
+    initModelValue: [ 'Europe' ],
     values: [
       'Russia, Kazakhstan or Mongolia',
       'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
@@ -363,12 +364,10 @@ export const AsGroupWithObject = {
   }),
 
   args: {
-    initModelValue: [
-      {
-        label: 'Europe',
-        id: 'as-group-with-object-europe',
-      },
-    ],
+    initModelValue: [ {
+      label: 'Europe',
+      id: 'as-group-with-object-europe',
+    } ],
     values: [
       {
         label: 'Russia, Kazakhstan or Mongolia',
@@ -444,13 +443,11 @@ export const AsGroupWithNestedObject = {
   }),
 
   args: {
-    initModelValue: [
-      {
-        label: 'Europe',
-        id: 'as-group-with-nested-object-europe',
-        checkboxAttrs: { 'data-testid': 'europe-checkbox' },
-      },
-    ],
+    initModelValue: [ {
+      label: 'Europe',
+      id: 'as-group-with-nested-object-europe',
+      checkboxAttrs: { 'data-testid': 'europe-checkbox' },
+    } ],
     values: [
       {
         label: 'Russia, Kazakhstan or Mongolia',

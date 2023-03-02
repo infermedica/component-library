@@ -4,10 +4,12 @@ import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import { ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
-import { content, modifiers } from '@sb/helpers/argTypes';
+import {
+  content,
+  modifiers,
+} from '@sb/helpers/argTypes';
 import './UiTIle.stories.scss';
 import { AsGroupWithPrimitiveTypes } from '@/components/molecules/UiSwitch/UiSwitch.stories';
-import docs from './UiTile.mdx';
 
 const events = actions({ onUpdateModelValue: 'update:modelValue' });
 
@@ -36,7 +38,7 @@ export default {
       table: { category: 'stories controls' },
       control: 'string',
     },
-    modifiers: modifiers({ options: ['ui-tile--small'] }),
+    modifiers: modifiers({ options: [ 'ui-tile--small' ] }),
     value: { control: 'text' },
     modelValue: { control: false },
     icon: {
@@ -59,7 +61,6 @@ export default {
     textLabelAttrs: { table: { subcategory: 'Attrs props' } },
   },
   parameters: {
-    docs: { page: docs },
     cssProperties: {
       '--tile-padding-block': 'var(--space-16)',
       '--tile-padding-inline': 'var(--space-16)',
@@ -137,7 +138,7 @@ export const Small = {
     </UiTile>`,
   }),
 
-  args: { modifiers: ['ui-tile--small'] },
+  args: { modifiers: [ 'ui-tile--small' ] },
 };
 
 export const HasError = {
@@ -168,7 +169,7 @@ export const HasError = {
     </UiTile>`,
   }),
 
-  args: { modifiers: ['ui-tile--has-error'] },
+  args: { modifiers: [ 'ui-tile--has-error' ] },
 };
 
 export const AsGroup = {
@@ -216,7 +217,11 @@ export const AsGroup = {
         icon: 'yes',
         iconAttrs: { 'data-testid': 'present' },
         textLabelAttrs: { 'data-testid': 'present' },
-        class: ['mb-3', 'tablet:mr-6', 'tablet:mb-0'],
+        class: [
+          'mb-3',
+          'tablet:mr-6',
+          'tablet:mb-0',
+        ],
       },
       {
         value: 'absent',
@@ -224,7 +229,11 @@ export const AsGroup = {
         icon: 'no',
         iconAttrs: { 'data-testid': 'no' },
         textLabelAttrs: { 'data-testid': 'no' },
-        class: ['mb-3', 'tablet:mr-6', 'tablet:mb-0'],
+        class: [
+          'mb-3',
+          'tablet:mr-6',
+          'tablet:mb-0',
+        ],
       },
       {
         value: 'unknown',

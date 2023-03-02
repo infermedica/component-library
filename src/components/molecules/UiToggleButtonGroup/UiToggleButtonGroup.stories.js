@@ -2,7 +2,10 @@ import UiToggleButtonGroup from '@/components/molecules/UiToggleButtonGroup/UiTo
 import UiToggleButton from '@/components/molecules/UiToggleButtonGroup/_internal/UiToggleButton.vue';
 import UiBackdrop from '@/components/atoms/UiBackdrop/UiBackdrop.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
-import { ref, computed } from 'vue';
+import {
+  ref,
+  computed,
+} from 'vue';
 import { WithIconSlot } from '@/components/molecules/UiTile/UiTile.stories';
 
 export default {
@@ -10,7 +13,11 @@ export default {
   component: UiToggleButtonGroup,
   subcomponents: { UiToggleButton },
   args: {
-    items: ['First', 'Second', 'Third'],
+    items: [
+      'First',
+      'Second',
+      'Third',
+    ],
     initModelValue: 'Second',
     deselectable: false,
   },

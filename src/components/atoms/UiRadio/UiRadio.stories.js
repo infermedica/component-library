@@ -4,7 +4,10 @@ import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import { ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
-import { content, modifiers } from '@sb/helpers/argTypes';
+import {
+  content,
+  modifiers,
+} from '@sb/helpers/argTypes';
 
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
@@ -36,7 +39,10 @@ export default {
     },
     content,
     modifiers: modifiers({
-      options: ['ui-radio--has-error', 'ui-radio--is-disabled'],
+      options: [
+        'ui-radio--has-error',
+        'ui-radio--is-disabled',
+      ],
     }),
     name: {
       description: 'Use this control to set name attribute.',
@@ -167,7 +173,7 @@ export const IsDisabled = {
     </UiRadio>`,
   }),
 
-  args: { modifiers: ['ui-radio--is-disabled'] },
+  args: { modifiers: [ 'ui-radio--is-disabled' ] },
 };
 
 export const HasError = {
@@ -198,7 +204,7 @@ export const HasError = {
     </UiRadio>`,
   }),
 
-  args: { modifiers: ['ui-radio--has-error'] },
+  args: { modifiers: [ 'ui-radio--has-error' ] },
 };
 
 export const ValueAsObject = {

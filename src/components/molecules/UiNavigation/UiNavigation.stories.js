@@ -4,7 +4,6 @@ import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import { modifiers } from '@sb/helpers/argTypes';
 import './UiNavigation.stories.scss';
-import docs from './UiNavigation.mdx';
 
 export default {
   title: 'Molecules/Navigation',
@@ -54,7 +53,6 @@ export default {
     }),
   },
   parameters: {
-    docs: { page: docs },
     cssProperties: {
       '--navigation-flex-flow':
         'var(--navigation-flex-direction, row) var(--navigation-flex-wrap, wrap)',
@@ -90,13 +88,11 @@ export const Multiline = {
     />`,
   }),
 
-  decorators: [
-    () => ({
-      template: `<div class="max-w-120">
+  decorators: [ () => ({
+    template: `<div class="max-w-120">
       <story />
     </div>`,
-    }),
-  ],
+  }) ],
 };
 
 export const Secondary = {
@@ -111,7 +107,7 @@ export const Secondary = {
     />`,
   }),
 
-  args: { modifiers: ['ui-navigation--theme-secondary'] },
+  args: { modifiers: [ 'ui-navigation--theme-secondary' ] },
 };
 
 export const OnBrand = {
@@ -126,7 +122,7 @@ export const OnBrand = {
     />`,
   }),
 
-  args: { modifiers: ['ui-navigation--theme-brand'] },
+  args: { modifiers: [ 'ui-navigation--theme-brand' ] },
   parameters: { backgrounds: { default: 'brand' } },
 };
 
@@ -142,7 +138,7 @@ export const Small = {
     />`,
   }),
 
-  args: { modifiers: ['ui-navigation--small'] },
+  args: { modifiers: [ 'ui-navigation--small' ] },
 };
 
 export const Vertical = {

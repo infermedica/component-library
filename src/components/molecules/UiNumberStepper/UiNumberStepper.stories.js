@@ -2,7 +2,10 @@ import UiNumberStepper from '@/components/molecules/UiNumberStepper/UiNumberStep
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
-import { onMounted, ref } from 'vue';
+import {
+  onMounted,
+  ref,
+} from 'vue';
 import { actions } from '@storybook/addon-actions';
 import { toMobile } from '@/styles/exports/breakpoints.module.scss';
 import { WithActionSlot } from '@/components/molecules/UiNotification/UiNotification.stories';

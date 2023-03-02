@@ -1,5 +1,9 @@
 import UiTextarea from '@/components/atoms/UiTextarea/UiTextarea.vue';
-import { nextTick, onMounted, ref } from 'vue';
+import {
+  nextTick,
+  onMounted,
+  ref,
+} from 'vue';
 import { actions } from '@storybook/addon-actions';
 import { modifiers } from '@sb/helpers/argTypes';
 
@@ -32,12 +36,17 @@ export default {
     modifiers: modifiers({
       options: [
         'ui-textarea--is-disabled',
-        'ui-textarea--has-error'
+        'ui-textarea--has-error',
       ],
     }),
     resize: {
       control: 'select',
-      options: [true, false, 'horizontal', 'vertical'],
+      options: [
+        true,
+        false,
+        'horizontal',
+        'vertical',
+      ],
     },
   },
   parameters: {

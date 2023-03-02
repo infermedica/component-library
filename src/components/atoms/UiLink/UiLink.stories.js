@@ -1,7 +1,10 @@
 import UiLink from '@/components/atoms/UiLink/UiLink.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
-import { content, modifiers } from '@sb/helpers/argTypes';
+import {
+  content,
+  modifiers,
+} from '@sb/helpers/argTypes';
 import icons from '@/components/atoms/UiIcon/icons.ts';
 import { WithAButtonInSuffix } from '@/components/atoms/UiInput/UiInput.stories';
 
@@ -33,13 +36,11 @@ export default {
       ],
     }),
   },
-  decorators: [
-    () => ({
-      template: `<div class="flex flex-wrap items-center gap-10">
+  decorators: [ () => ({
+    template: `<div class="flex flex-wrap items-center gap-10">
       <story />
     </div>`,
-    }),
-  ],
+  }) ],
   parameters: {
     cssProperties: {
       '--link-border-start-start-radius': 'var(--border-radius-button)',
@@ -257,7 +258,7 @@ export const LinkSecondary = {
     </UiLink>`,
   }),
 
-  args: { modifiers: ['ui-button--theme-secondary'] },
+  args: { modifiers: [ 'ui-button--theme-secondary' ] },
 };
 
 export const LinkOnBrand = {
@@ -341,7 +342,7 @@ export const LinkOnBrand = {
     </UiLink>`,
   }),
 
-  args: { modifiers: ['ui-button--theme-brand'] },
+  args: { modifiers: [ 'ui-button--theme-brand' ] },
   parameters: { backgrounds: { default: 'brand' } },
 };
 

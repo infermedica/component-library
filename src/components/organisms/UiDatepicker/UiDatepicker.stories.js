@@ -18,7 +18,11 @@ export default {
     initModelValue: '2077-11-27',
     initInvalid: true,
     error: 'Sorry, the date of birth cannot be a future date',
-    order: ['day', 'month', 'year'],
+    order: [
+      'day',
+      'month',
+      'year',
+    ],
     touched: false,
     lang: 'en-us',
     translation: {
@@ -126,13 +130,11 @@ export default {
     inputYearAttrs: { table: { subcategory: 'Attrs props' } },
     datepickerCalendarAttrs: { table: { subcategory: 'Attrs props' } },
   },
-  decorators: [
-    () => ({
-      template: `<div class="min-h-115 max-w-80">
+  decorators: [ () => ({
+    template: `<div class="min-h-115 max-w-80">
       <story />
     </div>`,
-    }),
-  ],
+  }) ],
   parameters: {
     cssProperties: {
       '--datepicker-dropdown-margin-block':

@@ -7,9 +7,19 @@ import UiLink from '@/components/atoms/UiLink/UiLink.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints.vue';
 import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue';
-import { onMounted, ref, provide, inject } from 'vue';
+import {
+  onMounted,
+  ref,
+  provide,
+  inject,
+} from 'vue';
 import { actions } from '@storybook/addon-actions';
-import { focusTrap, bodyScrollLock, scrollTabindex, keyboardFocus } from '@/utilities/directives';
+import {
+  focusTrap,
+  bodyScrollLock,
+  scrollTabindex,
+  keyboardFocus,
+} from '@/utilities/directives';
 import './UiSidePanel.stories.scss';
 import { WithOptionSlot } from '@/components/organisms/UiMultipleChoices/UiMultipleChoices.stories';
 
@@ -83,9 +93,7 @@ export default {
       },
     },
     modelValue: { control: false },
-    'after-enter': {
-      description: 'Use this event to detect when side panel enter transition is finishing.',
-    },
+    'after-enter': { description: 'Use this event to detect when side panel enter transition is finishing.' },
     transitionBackdropAttrs: { table: { subcategory: 'Attrs props' } },
     backdropAttrs: { table: { subcategory: 'Attrs props' } },
     dialogAttrs: { table: { subcategory: 'Attrs props' } },
@@ -96,24 +104,23 @@ export default {
     iconCloseAttrs: { table: { subcategory: 'Attrs props' } },
     contentAttrs: { table: { subcategory: 'Attrs props' } },
   },
-  decorators: [
-    (story, { args }) => ({
-      components: {
-        story,
-        UiButton,
-      },
-      setup() {
-        const modelValue = ref(args.initModelValue);
-        const toggleSidePanel = () => {
-          modelValue.value = !modelValue.value;
-        };
-        provide('modelValue', modelValue);
-        return {
-          toggleSidePanel,
-          title: args.title,
-        };
-      },
-      template: `<div class="max-w-32 min-h-80">
+  decorators: [ (story, { args }) => ({
+    components: {
+      story,
+      UiButton,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      const toggleSidePanel = () => {
+        modelValue.value = !modelValue.value;
+      };
+      provide('modelValue', modelValue);
+      return {
+        toggleSidePanel,
+        title: args.title,
+      };
+    },
+    template: `<div class="max-w-32 min-h-80">
       <UiButton
         class="ui-button--text ui-button--theme-secondary"
         @click="toggleSidePanel"
@@ -122,12 +129,9 @@ export default {
       </UiButton>
       <story/>
     </div>`,
-    }),
-  ],
+  }) ],
   parameters: {
-    docs: {
-      description: { component: 'SidePanel use `v-body-scroll-lock`. Only works on Canvas mode.' },
-    },
+    docs: { description: { component: 'SidePanel use `v-body-scroll-lock`. Only works on Canvas mode.' } },
     cssProperties: {
       '--side-panel-max-width': '100%',
       '--side-panel-background': 'var(--color-background-white)',
@@ -277,11 +281,9 @@ export const WithAsyncContent = {
     setup() {
       const modelValue = inject('modelValue');
       const isLoaded = ref(false);
-      onMounted(() =>
-        window.setTimeout(() => {
-          isLoaded.value = true;
-        }, 1000)
-      );
+      onMounted(() => window.setTimeout(() => {
+        isLoaded.value = true;
+      }, 1000));
       return {
         ...args,
         ...events,

@@ -8,22 +8,16 @@ import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints
 import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue';
 import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import { ref } from 'vue';
-import docs from './scroll-tabindex.mdx';
 import './scroll-tabindex.stories.scss';
 
 export default {
   title: 'Utilities/Directives/Scroll Tabindex',
-  decorators: [
-    () => ({
-      template: `<div style="--backdrop-position: absolute; --side-panel-position: absolute; --side-panel-z-index: 0; min-height: 320px;">
+  decorators: [ () => ({
+    template: `<div style="--backdrop-position: absolute; --side-panel-position: absolute; --side-panel-z-index: 0; min-height: 320px;">
         <story />
     </div>`,
-    }),
-  ],
-  parameters: {
-    docs: { page: docs },
-    chromatic: { disableSnapshot: true },
-  },
+  }) ],
+  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithDirective = () => ({

@@ -13,7 +13,6 @@ import UiCheckbox from '@/components/atoms/UiCheckbox/UiCheckbox.vue';
 import UiRadio from '@/components/atoms/UiRadio/UiRadio.vue';
 import './UiList.stories.scss';
 import { AsMultilevel } from '@/components/organisms/UiHorizontalPaging/UiHorizontalPaging.stories';
-import docs from './UiList.mdx';
 
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
@@ -23,7 +22,13 @@ const events = actions({
   clickShowDetails: 'click:show-details',
 });
 
-const items = ['Painful swallowing', 'Stuffy nose', 'Sneeze', 'Muscle pain', 'Runny nose'];
+const items = [
+  'Painful swallowing',
+  'Stuffy nose',
+  'Sneeze',
+  'Muscle pain',
+  'Runny nose',
+];
 
 export default {
   title: 'Organisms/List',
@@ -39,7 +44,10 @@ export default {
   },
   argTypes: {
     tag: {
-      options: ['ul', 'ol'],
+      options: [
+        'ul',
+        'ol',
+      ],
       control: 'select',
     },
     listItem: {
@@ -51,7 +59,6 @@ export default {
       },
     },
   },
-  parameters: { docs: { page: docs } },
 };
 
 export const Common = {
@@ -250,7 +257,7 @@ export const AsCondition = {
         name: 'common-cold',
         label: 'Common cold',
         tag: UiButton,
-        class: ['ui-button--outlined'],
+        class: [ 'ui-button--outlined' ],
         evidence: {
           value: 8,
           label: 'Strong evidence',
@@ -260,7 +267,7 @@ export const AsCondition = {
         name: 'tension-type-headaches',
         label: 'Tension-type headaches',
         tag: UiButton,
-        class: ['ui-button--outlined'],
+        class: [ 'ui-button--outlined' ],
         evidence: {
           value: 6,
           label: 'Moderate evidence',
@@ -270,7 +277,7 @@ export const AsCondition = {
         name: 'migraine',
         label: 'Migraine',
         tag: UiButton,
-        class: ['ui-button--outlined'],
+        class: [ 'ui-button--outlined' ],
         evidence: {
           value: 4,
           label: 'Moderate evidence',
@@ -338,13 +345,15 @@ export const WithIconInHeading = {
     items: items.map((item) => ({
       label: item,
       tag: UiButton,
-      class: ['ui-button--outlined'],
+      class: [ 'ui-button--outlined' ],
     })),
   },
 };
 
 const handleExplicationFocus = (event) => {
-  const { key, target } = event;
+  const {
+    key, target,
+  } = event;
   if (key !== 'ArrowRight') return;
   const explicationButton = target.parentElement.querySelector('button');
   if (explicationButton) {
@@ -353,7 +362,9 @@ const handleExplicationFocus = (event) => {
   }
 };
 const handleExplicationUnfocus = (event) => {
-  const { key, target } = event;
+  const {
+    key, target,
+  } = event;
   if (key !== 'ArrowLeft') return;
   const input = target.parentElement.parentElement.querySelector('input');
   if (input) {
@@ -363,17 +374,20 @@ const handleExplicationUnfocus = (event) => {
 };
 
 const checkboxWithError = {
-  class: ['ui-list-item--has-error', 'ui-checkbox--has-error'],
+  class: [
+    'ui-list-item--has-error',
+    'ui-checkbox--has-error',
+  ],
 };
 const checkboxWithInfo = {
   hasSuffix: true,
-  textLabelAttrs: { class: ['list-checkbox-item__checkbox-label'] },
+  textLabelAttrs: { class: [ 'list-checkbox-item__checkbox-label' ] },
   suffixAttrs: {
     icon: 'info',
-    iconSuffixAttrs: { class: ['list-checkbox-item__suffix-icon'] },
+    iconSuffixAttrs: { class: [ 'list-checkbox-item__suffix-icon' ] },
     label: 'More info',
-    labelSuffixAttrs: { class: ['visual-hidden'] },
-    class: ['list-checkbox-item__suffix'],
+    labelSuffixAttrs: { class: [ 'visual-hidden' ] },
+    class: [ 'list-checkbox-item__suffix' ],
     tabindex: -1,
     onClick: events.onClickInfoButton,
     onKeydown: handleExplicationUnfocus,
@@ -454,17 +468,20 @@ export const WithCheckbox = {
 };
 
 const radioWithError = {
-  class: ['ui-list-item--has-error', 'ui-radio--has-error'],
+  class: [
+    'ui-list-item--has-error',
+    'ui-radio--has-error',
+  ],
 };
 const radioWithInfo = {
   hasSuffix: true,
-  textLabelAttrs: { class: ['list-radio-item__radio-label'] },
+  textLabelAttrs: { class: [ 'list-radio-item__radio-label' ] },
   suffixAttrs: {
     icon: 'info',
-    iconSuffixAttrs: { class: ['list-radio-item__suffix-icon'] },
+    iconSuffixAttrs: { class: [ 'list-radio-item__suffix-icon' ] },
     label: 'More info',
-    labelSuffixAttrs: { class: ['visual-hidden'] },
-    class: ['list-radio-item__suffix'],
+    labelSuffixAttrs: { class: [ 'visual-hidden' ] },
+    class: [ 'list-radio-item__suffix' ],
     tabindex: -1,
     onClick: events.onClickInfoButton,
     onKeydown: handleExplicationUnfocus,

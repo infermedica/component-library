@@ -1,5 +1,8 @@
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
-import { content, modifiers } from '@sb/helpers/argTypes';
+import {
+  content,
+  modifiers,
+} from '@sb/helpers/argTypes';
 import { AsGroupWithObject } from '@/components/atoms/UiCheckbox/UiCheckbox.stories';
 
 export default {
@@ -23,7 +26,7 @@ export default {
     modifiers: modifiers({
       options: [
         'ui-heading--theme-secondary',
-        'ui-heading--theme-brand'
+        'ui-heading--theme-brand',
       ],
     }),
   },

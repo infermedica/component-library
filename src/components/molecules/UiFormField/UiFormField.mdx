@@ -1,12 +1,10 @@
-import { Canvas, Meta, Story, Primary, ArgsTable } from '@storybook/addon-docs';
+import { Canvas, Meta, Primary, ArgsTable } from '@storybook/addon-docs';
 import { Code } from '../../../../docs/components/Code';
 import UiFormField from './UiFormField.vue';
+import * as stories from './UiFormField.stories.js';
 import scss from './UiFormField.stories.scss?raw';
 
-<Meta
-  title="Molecules/FormField"
-  component={ UiFormField }
-/>
+<Meta of={stories}/>
 
 # UiFormField
 <Primary />
@@ -14,9 +12,7 @@ import scss from './UiFormField.stories.scss?raw';
 
 ## Stories
 ### With Checkboxes
-<Canvas>
-  <Story id="molecules-formfield--with-checkboxes"/>
-</Canvas>
+<Canvas of={stories.WithCheckboxes}/>
 
 **Use following SCSS to get the same result**
 <Code
@@ -25,9 +21,7 @@ import scss from './UiFormField.stories.scss?raw';
 />
 
 ### With Label Slot
-<Canvas>
-  <Story id="molecules-formfield--with-label-slot"/>
-</Canvas>
+<Canvas of={stories.WithLabelSlot}/>
 
 **Use following SCSS to get the same result**
 <Code
@@ -36,6 +30,4 @@ import scss from './UiFormField.stories.scss?raw';
 />
 
 ### With Alert Slot
-<Canvas>
-  <Story id="molecules-formfield--with-alert-slot"/>
-</Canvas>
+<Canvas of={stories.WithAlertSlot}/>

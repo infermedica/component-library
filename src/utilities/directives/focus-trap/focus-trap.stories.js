@@ -8,20 +8,14 @@ import UiFormField from '@/components/molecules/UiFormField/UiFormField.vue';
 import UiRating from '@/components/molecules/UiRating/UiRating.vue';
 import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import { ref } from 'vue';
-import docs from './focus-trap.mdx';
 
 export default {
   title: 'Utilities/Directives/Focus Trap',
-  decorators: [
-    () => ({
-      template:
+  decorators: [ () => ({
+    template:
         '<div style="--backdrop-position: absolute; --side-panel-position: absolute; --side-panel-z-index: 0; min-height: 320px;"><story /></div>',
-    }),
-  ],
-  parameters: {
-    docs: { page: docs },
-    chromatic: { disableSnapshot: true },
-  },
+  }) ],
+  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithDirective = () => ({

@@ -4,9 +4,16 @@ import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
-import { ref, provide, inject } from 'vue';
+import {
+  ref,
+  provide,
+  inject,
+} from 'vue';
 import { actions } from '@storybook/addon-actions';
-import { bodyScrollLock, focusTrap } from '@/utilities/directives/index';
+import {
+  bodyScrollLock,
+  focusTrap,
+} from '@/utilities/directives/index';
 import { WithListItemSlot } from '@/components/organisms/UiList/UiList.stories';
 
 const events = actions({
@@ -93,21 +100,20 @@ export default {
     buttonCloseAttrs: { table: { subcategory: 'Attrs props' } },
     iconCloseAttrs: { table: { subcategory: 'Attrs props' } },
   },
-  decorators: [
-    (story, { args }) => ({
-      components: {
-        story,
-        UiButton,
-      },
-      setup() {
-        const modelValue = ref(args.initModelValue);
-        const toggleModal = () => {
-          modelValue.value = !modelValue.value;
-        };
-        provide('modelValue', modelValue);
-        return { toggleModal };
-      },
-      template: `<div class="min-h-80">
+  decorators: [ (story, { args }) => ({
+    components: {
+      story,
+      UiButton,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      const toggleModal = () => {
+        modelValue.value = !modelValue.value;
+      };
+      provide('modelValue', modelValue);
+      return { toggleModal };
+    },
+    template: `<div class="min-h-80">
       <UiButton
         class="ui-button--theme-secondary ui-button--text"
         @click='toggleModal'
@@ -116,12 +122,9 @@ export default {
       </UiButton>
       <story/>
     </div>`,
-    }),
-  ],
+  }) ],
   parameters: {
-    docs: {
-      description: { component: 'Modal use `v-body-scroll-lock`. Only works on Canvas mode.' },
-    },
+    docs: { description: { component: 'Modal use `v-body-scroll-lock`. Only works on Canvas mode.' } },
     cssProperties: {
       '--modal-padding-block':
         'var(--modal-padding-block-start, var(--space-24)) var(--modal-padding-block-end, var(--space-24))',

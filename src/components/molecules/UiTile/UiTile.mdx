@@ -1,12 +1,10 @@
-import { Canvas, Meta, Story, Primary, ArgsTable } from '@storybook/addon-docs';
+import { Canvas, Meta, Primary, ArgsTable } from '@storybook/addon-docs';
 import { Code } from '../../../../docs/components/Code';
 import UiTile from './UiTile.vue';
+import * as stories from './UiTile.stories.js';
 import scss from './UiTile.stories.scss?raw';
 
-<Meta
-  title="Molecules/Tile"
-  component={ UiTile }
-/>
+<Meta of={stories}/>
 
 # UiTile
 <Primary />
@@ -14,29 +12,19 @@ import scss from './UiTile.stories.scss?raw';
 
 ## Stories
 ### Small
-<Canvas>
-  <Story id="molecules-tile--small"/>
-</Canvas>
+<Canvas of={stories.Small}/>
 
 ### Has Error
-<Canvas>
-  <Story id="molecules-tile--has-error"/>
-</Canvas>
+<Canvas of={stories.HasError}/>
 
 ### With Icon Slot
-<Canvas>
-  <Story id="molecules-tile--with-icon-slot"/>
-</Canvas>
+<Canvas of={stories.WithIconSlot}/>
 
 ### With Label Slot
-<Canvas>
-  <Story id="molecules-tile--with-label-slot"/>
-</Canvas>
+<Canvas of={stories.WithLabelSlot}/>
 
 ### As Group
-<Canvas>
-  <Story id="molecules-tile--as-group"/>
-</Canvas>
+<Canvas of={stories.AsGroup}/>
 
 **Use following SCSS to get the same result**
 <Code

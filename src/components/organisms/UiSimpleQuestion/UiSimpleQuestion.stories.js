@@ -35,10 +35,10 @@ export default {
       table: { category: 'stories controls' },
       control: 'string',
     },
-    modifiers: modifiers({ options: ['ui-simple-question--small'] }),
+    modifiers: modifiers({ options: [ 'ui-simple-question--small' ] }),
     modelValue: { control: false },
   },
-  decorators: [() => ({ template: '<div class="max-w-147"><story /></div>' })],
+  decorators: [ () => ({ template: '<div class="max-w-147"><story /></div>' }) ],
   parameters: {
     cssProperties: {
       '--simple-question-gap': 'var(--space-12)',
@@ -82,7 +82,7 @@ export const AsPatientSexSmall = {
     />`,
   }),
 
-  args: { modifiers: ['ui-simple-question--small'] },
+  args: { modifiers: [ 'ui-simple-question--small' ] },
 };
 
 export const WithTileSlot = {

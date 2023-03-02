@@ -15,10 +15,14 @@ import UiSimpleQuestion from '@/components/organisms/UiSimpleQuestion/UiSimpleQu
 import UiMessage from '@/components/templates/UiMessage/UiMessage.vue';
 import UiQuestion from '@/components/templates/UiQuestion/UiQuestion.vue';
 import { actions } from '@storybook/addon-actions';
-import { ref, provide, inject, onMounted } from 'vue';
+import {
+  ref,
+  provide,
+  inject,
+  onMounted,
+} from 'vue';
 import './UiLoader.stories.scss';
 import { WithFocusOnMounted } from '@/components/molecules/UiInteractiveSvg/UiInteractiveSvg.stories';
-import docs from './UiLoader.mdx';
 
 const events = actions({ onMounted: 'onMounted' });
 
@@ -46,23 +50,28 @@ export default {
   argTypes: {
     transitionType: {
       control: 'select',
-      options: ['if', 'show', 'opacity'],
+      options: [
+        'if',
+        'show',
+        'opacity',
+      ],
     },
     type: {
       control: 'select',
-      options: ['skeleton', 'spinner', 'ellipsis'],
+      options: [
+        'skeleton',
+        'spinner',
+        'ellipsis',
+      ],
     },
     loaderAttrs: { table: { subcategory: 'Attrs props' } },
     transitionAttrs: { table: { subcategory: 'Attrs props' } },
   },
-  decorators: [
-    () => ({
-      template: `<div class="flex flex-wrap items-center gap-10">
+  decorators: [ () => ({
+    template: `<div class="flex flex-wrap items-center gap-10">
       <story />
     </div>`,
-    }),
-  ],
-  parameters: { docs: { page: docs } },
+  }) ],
 };
 
 export const Common = {
@@ -144,19 +153,18 @@ export const IfTransitionType = {
     </UiLoader>`,
   }),
 
-  decorators: [
-    (story) => ({
-      components: {
-        story,
-        UiSwitch,
-      },
-      setup() {
-        const isLoading = ref(true);
-        provide('isLoading', isLoading);
+  decorators: [ (story) => ({
+    components: {
+      story,
+      UiSwitch,
+    },
+    setup() {
+      const isLoading = ref(true);
+      provide('isLoading', isLoading);
 
-        return { isLoading };
-      },
-      template: `<div class="flex-1">
+      return { isLoading };
+    },
+    template: `<div class="flex-1">
       <UiSwitch
         v-model="isLoading"
         class="mb-4"
@@ -165,8 +173,7 @@ export const IfTransitionType = {
       </UiSwitch>
       <story />
     </div>`,
-    }),
-  ],
+  }) ],
 
   parameters: { chromatic: { disableSnapshot: true } },
 };
@@ -192,19 +199,18 @@ export const ShowTransitionType = {
     </UiLoader>`,
   }),
 
-  decorators: [
-    (story) => ({
-      components: {
-        story,
-        UiSwitch,
-      },
-      setup() {
-        const isLoading = ref(true);
-        provide('isLoading', isLoading);
+  decorators: [ (story) => ({
+    components: {
+      story,
+      UiSwitch,
+    },
+    setup() {
+      const isLoading = ref(true);
+      provide('isLoading', isLoading);
 
-        return { isLoading };
-      },
-      template: `<div class="flex-1">
+      return { isLoading };
+    },
+    template: `<div class="flex-1">
       <UiSwitch
         v-model="isLoading"
         class="mb-4"
@@ -213,8 +219,7 @@ export const ShowTransitionType = {
       </UiSwitch>
       <story />
     </div>`,
-    }),
-  ],
+  }) ],
 
   parameters: { chromatic: { disableSnapshot: true } },
 };
@@ -244,18 +249,17 @@ export const OpacityTransitionType = {
     </UiButton>`,
   }),
 
-  decorators: [
-    (story) => ({
-      components: {
-        story,
-        UiSwitch,
-      },
-      setup() {
-        const isLoading = ref(true);
-        provide('isLoading', isLoading);
-        return { isLoading };
-      },
-      template: `<div class="flex-1">
+  decorators: [ (story) => ({
+    components: {
+      story,
+      UiSwitch,
+    },
+    setup() {
+      const isLoading = ref(true);
+      provide('isLoading', isLoading);
+      return { isLoading };
+    },
+    template: `<div class="flex-1">
       <UiSwitch
         v-model="isLoading"
         class="mb-4"
@@ -264,8 +268,7 @@ export const OpacityTransitionType = {
       </UiSwitch>
       <story />
     </div>`,
-    }),
-  ],
+  }) ],
 
   parameters: { chromatic: { disableSnapshot: true } },
 };
@@ -371,13 +374,11 @@ export const SpinnerLoaderOnBrand = {
 
   parameters: { backgrounds: { default: 'brand' } },
 
-  decorators: [
-    () => ({
-      template: `<div class="flex flex-wrap items-center gap-10 --theme-brand">
+  decorators: [ () => ({
+    template: `<div class="flex flex-wrap items-center gap-10 --theme-brand">
       <story />
     </div>`,
-    }),
-  ],
+  }) ],
 };
 
 export const SkeletonLoader = () => ({
@@ -502,19 +503,18 @@ export const LoadingPopover = {
     </UiPopover>`,
   }),
 
-  decorators: [
-    (story) => ({
-      components: {
-        story,
-        UiSwitch,
-      },
-      setup() {
-        const isLoading = ref(true);
-        provide('isLoading', isLoading);
+  decorators: [ (story) => ({
+    components: {
+      story,
+      UiSwitch,
+    },
+    setup() {
+      const isLoading = ref(true);
+      provide('isLoading', isLoading);
 
-        return { isLoading };
-      },
-      template: `<div class="flex-1">
+      return { isLoading };
+    },
+    template: `<div class="flex-1">
       <UiSwitch
         v-model="isLoading"
         class="mb-4"
@@ -523,8 +523,7 @@ export const LoadingPopover = {
       </UiSwitch>
       <story />
     </div>`,
-    }),
-  ],
+  }) ],
 };
 
 export const LoadingContainer = {
@@ -569,19 +568,18 @@ export const LoadingContainer = {
     </UiContainer>`,
   }),
 
-  decorators: [
-    (story) => ({
-      components: {
-        story,
-        UiSwitch,
-      },
-      setup() {
-        const isLoading = ref(true);
-        provide('isLoading', isLoading);
+  decorators: [ (story) => ({
+    components: {
+      story,
+      UiSwitch,
+    },
+    setup() {
+      const isLoading = ref(true);
+      provide('isLoading', isLoading);
 
-        return { isLoading };
-      },
-      template: `<div class="flex-1">
+      return { isLoading };
+    },
+    template: `<div class="flex-1">
       <UiSwitch
         v-model="isLoading"
         class="mb-4"
@@ -590,8 +588,7 @@ export const LoadingContainer = {
       </UiSwitch>
       <story />
     </div>`,
-    }),
-  ],
+  }) ],
 };
 
 export const LoadingSidePanel = {
@@ -626,19 +623,18 @@ export const LoadingSidePanel = {
     </UiSidePanel>`,
   }),
 
-  decorators: [
-    (story) => ({
-      components: {
-        story,
-        UiSwitch,
-      },
-      setup() {
-        const isLoading = ref(true);
-        provide('isLoading', isLoading);
+  decorators: [ (story) => ({
+    components: {
+      story,
+      UiSwitch,
+    },
+    setup() {
+      const isLoading = ref(true);
+      provide('isLoading', isLoading);
 
-        return { isLoading };
-      },
-      template: `<div class="flex-1 min-h-135">
+      return { isLoading };
+    },
+    template: `<div class="flex-1 min-h-135">
       <UiSwitch
         v-model="isLoading"
         class="relative z-10 mb-4"
@@ -647,8 +643,7 @@ export const LoadingSidePanel = {
       </UiSwitch>
       <story />
     </div>`,
-    }),
-  ],
+  }) ],
 };
 
 export const LoadingControls = {
@@ -727,19 +722,18 @@ export const LoadingControls = {
     </UiControls>`,
   }),
 
-  decorators: [
-    (story) => ({
-      components: {
-        story,
-        UiSwitch,
-      },
-      setup() {
-        const isLoading = ref(true);
-        provide('isLoading', isLoading);
+  decorators: [ (story) => ({
+    components: {
+      story,
+      UiSwitch,
+    },
+    setup() {
+      const isLoading = ref(true);
+      provide('isLoading', isLoading);
 
-        return { isLoading };
-      },
-      template: `<div class="flex-1">
+      return { isLoading };
+    },
+    template: `<div class="flex-1">
       <UiSwitch
         v-model="isLoading"
         class="mb-4"
@@ -748,8 +742,7 @@ export const LoadingControls = {
       </UiSwitch>
       <story />
     </div>`,
-    }),
-  ],
+  }) ],
 };
 
 export const LoadingFullOnBrand = {
@@ -776,11 +769,9 @@ export const LoadingFullOnBrand = {
 
   parameters: { backgrounds: { default: 'brand' } },
 
-  decorators: [
-    () => ({
-      template: `<div class="flex-1 min-h-135">
+  decorators: [ () => ({
+    template: `<div class="flex-1 min-h-135">
       <story />
     </div>`,
-    }),
-  ],
+  }) ],
 };

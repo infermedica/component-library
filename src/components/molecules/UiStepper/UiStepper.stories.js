@@ -61,13 +61,11 @@ export default {
     },
     progressAttrs: { table: { subcategory: 'Attrs props' } },
   },
-  decorators: [
-    () => ({
-      template: `<div class="desktop:max-w-35">
+  decorators: [ () => ({
+    template: `<div class="desktop:max-w-35">
       <story />
     </div>`,
-    }),
-  ],
+  }) ],
   parameters: {
     cssProperties: {
       '--stepper-padding-block':

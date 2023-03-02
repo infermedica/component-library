@@ -1,5 +1,8 @@
 import UiText from '@/components/atoms/UiText/UiText.vue';
-import { content, modifiers } from '@sb/helpers/argTypes';
+import {
+  content,
+  modifiers,
+} from '@sb/helpers/argTypes';
 
 export default {
   title: 'Atoms/Text',

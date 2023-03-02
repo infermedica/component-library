@@ -35,7 +35,7 @@ export default {
       table: { category: 'stories controls' },
       control: 'number',
     },
-    modifiers: modifiers({ options: ['ui-rating--is-disabled'] }),
+    modifiers: modifiers({ options: [ 'ui-rating--is-disabled' ] }),
     modelValue: { control: false },
     radioOptionAttrs: { table: { subcategory: 'Attrs props' } },
   },
@@ -115,7 +115,7 @@ export const IsDisabled = {
     />`,
   }),
 
-  args: { modifiers: ['ui-rating--is-disabled'] },
+  args: { modifiers: [ 'ui-rating--is-disabled' ] },
 };
 
 export const WithRadioOptionsAttrsAsArray = {

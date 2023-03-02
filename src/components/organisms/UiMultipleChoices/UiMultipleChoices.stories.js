@@ -4,7 +4,10 @@ import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
 import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import UiRadio from '@/components/atoms/UiRadio/UiRadio.vue';
-import { ref, computed } from 'vue';
+import {
+  ref,
+  computed,
+} from 'vue';
 import { actions } from '@storybook/addon-actions';
 import { WithLabelChoiceIdSlot } from '@/components/organisms/UiMultipleAnswer/UiMultipleAnswer.stories';
 
@@ -212,13 +215,11 @@ export const AsEvidence = {
       const { items } = args;
       const modelValue = ref(args.initModelValue);
       const invalid = ref(args.initInvalid);
-      const evidence = computed(() =>
-        modelValue.value.map((item, index) => ({
-          choice_id: item,
-          id: items[index].linked_observation,
-          source: 'suggest',
-        }))
-      );
+      const evidence = computed(() => modelValue.value.map((item, index) => ({
+        choice_id: item,
+        id: items[index].linked_observation,
+        source: 'suggest',
+      })));
       return {
         ...args,
         ...events,
