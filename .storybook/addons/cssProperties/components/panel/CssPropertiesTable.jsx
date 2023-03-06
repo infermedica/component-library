@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo, createContext } from 'react';
+import React, { useState, useRef, useMemo } from 'react';
 import { styled } from '@storybook/theming';
 import { Table } from '../../../../../docs/components/Table';
 import { TableExpandableRows } from './internals/TableExpandableRows';
@@ -23,8 +23,6 @@ const Empty = styled.div(({ theme }) => ({
   boxShadow: `${theme.appBorderColor} 0 -1px 0 0 inset`,
   lineHeight: "20px",
 }));
-
-export const KeyColorPickerContext = createContext(0);
 
 export const CssPropertiesTable = ({
   storyId = "global", data = {}, hasExampleColumn = true, inAddon = false,
@@ -71,12 +69,13 @@ export const CssPropertiesTable = ({
     setCssLocalProperties({ ...cssLocalProperties, [name]: value });
   };
   return (
-    <KeyColorPickerContext.Provider value={key.current}>
+    <>
       {
         Object.keys(data).length
           ? <Table
             hasBorder={!inAddon}
             hasExampleColumn={hasExampleColumn}
+            isUnstyled={!inAddon}
             headers={getTableHeader(hasExampleColumn, resetArgs)}
             slotRows={
               Object.keys(groupedRows).map((rowName, index) => ([
@@ -96,7 +95,7 @@ export const CssPropertiesTable = ({
             </span>
           </Empty>
       }
-    </KeyColorPickerContext.Provider>
+    </>
   );
 };
 

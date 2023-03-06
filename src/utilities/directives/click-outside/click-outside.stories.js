@@ -5,15 +5,11 @@ import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiSwitch from '@/components/molecules/UiSwitch/UiSwitch.vue';
 import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
 import { ref } from 'vue';
-import docs from './click-outside.mdx';
 
 export default {
   title: 'Utilities/Directives/Click Outside',
   decorators: [ () => ({ template: '<div style="height: 200px;"><story /></div>' }) ],
-  parameters: {
-    docs: { page: docs },
-    chromatic: { disableSnapshot: true },
-  },
+  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithDirective = () => ({
@@ -82,8 +78,8 @@ export const WithDirectiveSwitcher = () => ({
       toggleHandler,
     };
   },
-  template: `<UiSwitch 
-    v-model="isDirective" 
+  template: `<UiSwitch
+    v-model="isDirective"
     class="flex mb-4"
   >
     Outside click event listener is {{ isDirective ? 'enabled' : 'disabled' }}.

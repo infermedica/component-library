@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import React from 'react';
-import { Source } from '@storybook/addon-docs';
+import { Source } from '@storybook/blocks';
 
 const getCodeBlocks = (raw) => {
   const regex = /(\/\/<Code[\s\S]*?<\/Code>)/mg;

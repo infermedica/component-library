@@ -1,52 +1,35 @@
-import { Canvas, Meta, Story, Primary, ArgsTable } from '@storybook/addon-docs';
+import { Canvas, Meta, Controls } from '@storybook/blocks';
 import { Code } from '../../../../docs/components/Code';
-import UiBulletPoints from './UiBulletPoints.vue';
+import * as stories from './UiBulletPoints.stories.js';
 import scss from './UiBulletPoints.stories.scss?raw';
 
-<Meta
-  title="Molecules/BulletPoints"
-  component={ UiBulletPoints }
-/>
+<Meta of={stories}/>
 
 # UiBulletPoints
-<Primary />
-<ArgsTable />
+<Canvas of={stories.UnorderedList} />
+<Controls of={stories.UnorderedList} />
 
 ## Stories
 ### Ordered List
-<Canvas>
-  <Story id="molecules-bulletpoints--ordered-list"/>
-</Canvas>
+<Canvas of={stories.OrderedList}/>
 
 ### Nesting List
-<Canvas>
-  <Story id="molecules-bulletpoints--nesting-list"/>
-</Canvas>
+<Canvas of={stories.NestingList}/>
 
 ### With Bullet Point Item Slot
-<Canvas>
-  <Story id="molecules-bulletpoints--with-bullet-point-item-slot"/>
-</Canvas>
+<Canvas of={stories.WithBulletPointItemSlot}/>
 
 ### With Default Slot
-<Canvas>
-  <Story id="molecules-bulletpoints--with-default-slot"/>
-</Canvas>
+<Canvas of={stories.WithDefaultSlot}/>
 
 ### With Marker Slot
-<Canvas>
-  <Story id="molecules-bulletpoints--with-marker-slot"/>
-</Canvas>
+<Canvas of={stories.WithMarkerSlot}/>
 
 ### With Content Slot
-<Canvas>
-  <Story id="molecules-bulletpoints--with-content-slot"/>
-</Canvas>
+<Canvas of={stories.WithContentSlot}/>
 
 ### With Custom Marker
-<Canvas>
-  <Story id="molecules-bulletpoints--with-custom-marker"/>
-</Canvas>
+<Canvas of={stories.WithCustomMarker}/>
 
 **Use following SCSS to get the same result**
 <Code

@@ -1,30 +1,21 @@
-import { Canvas, Meta, Story, Primary, ArgsTable } from '@storybook/addon-docs';
+import { Canvas, Meta, Controls } from '@storybook/blocks';
 import { Code } from '../../../../docs/components/Code';
 import { Alert } from '../../../../docs/components/Alert';
-import UiIcon from './UiIcon.vue';
+import * as stories from './UiIcon.stories.js';
 import scss from './UiIcon.stories.scss?raw';
 
-<Meta
-  title="Atoms/Icon"
-  component={ UiIcon }
-/>
+<Meta of={stories}/>
 
 # UiIcon
-<Canvas>
-  <Story id="atoms-icon--icon-as-name"/>
-</Canvas>
-<ArgsTable />
+<Canvas of={stories.IconAsName}/>
+<Controls of={stories.IconAsName}/>
 
 ## Stories
 ### Icon As Import
-<Canvas>
-  <Story id="atoms-icon--icon-as-import"/>
-</Canvas>
+<Canvas of={stories.IconAsImport}/>
 
 ### As Illustration
-<Canvas>
-  <Story id="atoms-icon--icon-as-illustration"/>
-</Canvas>
+<Canvas of={stories.IconAsIllustration}/>
 
 **Use following SCSS to get the same result**
 <Code
@@ -33,9 +24,7 @@ import scss from './UiIcon.stories.scss?raw';
 />
 
 ### As custom Illustration
-<Canvas>
-  <Story id="atoms-icon--icon-as-custom-illustration"/>
-</Canvas>
+<Canvas of={stories.IconAsCustomIllustration}/>
 
 **Use following SCSS to get the same result**
 <Code
@@ -48,6 +37,4 @@ import scss from './UiIcon.stories.scss?raw';
 </Alert>
 
 ## List Of Icons
-<Canvas>
-  <Story id="atoms-icon--list-of-icons"/>
-</Canvas>
+<Canvas of={stories.ListOfIcons}/>

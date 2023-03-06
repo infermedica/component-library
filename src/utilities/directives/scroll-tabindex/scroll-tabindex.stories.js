@@ -8,7 +8,6 @@ import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints
 import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue';
 import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import { ref } from 'vue';
-import docs from './scroll-tabindex.mdx';
 import './scroll-tabindex.stories.scss';
 
 export default {
@@ -18,10 +17,7 @@ export default {
         <story />
     </div>`,
   }) ],
-  parameters: {
-    docs: { page: docs },
-    chromatic: { disableSnapshot: true },
-  },
+  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithDirective = () => ({
@@ -38,15 +34,15 @@ export const WithDirective = () => ({
     return { modelValue };
   },
   template: `
-  <UiButton 
-    class="ui-button--text ui-button--theme-secondary" 
+  <UiButton
+    class="ui-button--text ui-button--theme-secondary"
     @click="modelValue = true;"
   >
     Show side panel
   </UiButton>
   <UiSidePanel v-model="modelValue">
     <template #container="{
-      transition, 
+      transition,
       afterEnterHandler,
       modelValue,
       buttonCloseAttrs,
@@ -54,16 +50,16 @@ export const WithDirective = () => ({
       title,
       subtitle
     }">
-      <transition 
-        :name="transition" 
+      <transition
+        :name="transition"
         @after-enter="afterEnterHandler"
       >
-        <dialog 
+        <dialog
           v-if='modelValue'
           class="ui-side-panel__dialog"
         >
           <div class="ui-side-panel__header">
-            <UiButton 
+            <UiButton
               ref="button"
               class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
               v-bind="buttonCloseAttrs"
@@ -100,7 +96,7 @@ const TOS = {
     UiBulletPointsItem,
     UiLink,
   },
-  template: `<UiBulletPoints 
+  template: `<UiBulletPoints
     tag="ol"
     class="tos"
   >

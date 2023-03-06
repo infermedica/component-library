@@ -1,0 +1,27 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Releases/v0.2.x/v0.2.5" />
+
+<style> {`
+  code {
+    background-color: transparent!important;
+  }
+`}</style>
+
+# v0.2.5 (February 23 , 2022)
+v0.2.5 add script setup to components and a few docs improvements.
+
+## 🚀 Features
+- Add modern theme for UiCard
+    - `symptoms` slot is deprecated, use `details` slot instead. `symptoms` slot will be removed in v0.4.0
+- Add CSS custom properties to stories
+- Add jest addon to storybook
+
+## 🐛 Fixes
+- Solve a few minor linters errors
+- Pass filed tests
+- Restore deprecated slot in UiCard to keep reverse compatibility
+- Sizes of desktop, frame, fullscreen, mobile icons
+
+## 🧹 Chores
+- Add `<script setup>` to components atoms, molecules and organisms

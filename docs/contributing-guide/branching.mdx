@@ -1,0 +1,70 @@
+{/* TODO: How to support older version of the project and fix bugs? Related to /release and /hotfix branches. */}
+import { Meta } from '@storybook/blocks';
+import { PageOutline } from '../components/PageOutline';
+
+<Meta title="Contributing Guide/Branching"/>
+
+# Branching
+
+By default we use a variation of the Gitflow workflow.
+
+<PageOutline/>
+
+## Gitflow Workflow
+As a contributor, you will need to follow the ["Daily Development"](#daily-development) section and to ensure that your commits are well-organized and follow the ["Conventional Commits"](#conventional-commits) section.
+
+### Daily Development
+We have two major branches: `master` and `develop`. Common development takes place on `feature branches` which are created by naming a new branch with `feat/` in front of the name.
+Feature branches are base on `develop` and can be merge into `develop` after CR. To merge a feature branch into `develop` we use the Pull Request.
+Pull Request is a only way to merge feature to `develop`. `master` is protected and never touched. Neither branched from nor merged into `master`.
+As a convention, we use GitHub issue number to reference a feature branch i.e. `feat/#CL-456_add_modal_component`. We use this reference to link issues with feature branches.
+
+#### Types of feature branches
+`feat/` is a prefix for feature branches, but it's not the only type of branches. We can also created
+* `fix/` - for bug fixes
+* `docs/` - for documentation changes
+* `test/` - for test changes
+* `chore/` - for changes that don't modify src code
+
+### Releases
+Before releasing a new version, we create a release branch. We use the `release/` prefix to name the release branch.
+Release branch is protected so no new features can be added to it, only bug fixes, documentation and other releases task should go in this branch.
+This branch is based on `develop` and is merged into `master` and `develop` after the release.
+
+Releases are tagged with the version number. We use the `v` prefix to name the tag.
+
+### Hotfixes
+Sometimes Released versions are not working as expected. We can create a `hotfix/` branch to fix urgent issue.
+Hotfix branch is based on `master` and is merged into `master` and `develop`. In the name of the branch we use `hotfix/` and new version number, i.e. `hotfix/v1.0.1` whe the released version is `v1.0.0`.
+
+### Merging
+To keep the git log clean, we use **squash commits** to merge feature branches into `develop`.
+To merge a feature branch into `develop` we always use the Pull Request.
+
+## Conventional Commits
+Infermedica Component Library uses a [Conventional Commits](https://conventionalcommits.org/), i.e. a commit message that follows a specific format.
+Conventional Commits allow to keep track of the changes in a project, to make it easy to understand the changes and allows to automatically generate changelogs.
+To keep the commit messages consistent, we use the commitlint package and "config-conventional" ruleset as a commit-msg hook.
+
+### Types of commits
+* `feat:` - A new feature
+* `fix:` - A bug fix
+* `docs:` - Documentation only changes
+* `test:` - Test related changes
+* `chore:` - Changes that don't modify src or test files
+* `refactor:` - A code change that neither fixes a bug or adds a feature
+* `release:` - A release commit
+
+
+e.g. of valid commit message:
+* `feat: Add button component`
+* `fix: Prevent to trigger search when the input is empty`
+* `docs: Correct spelling of CHANGELOG`
+* `test: Add tests for buttons component`
+* `chore!: Drop image component`
+
+You can add some scope to the commit message, e.g.
+* `docs(storybook): Add Figma addon`
+* `test(unit): Add tests for input component`
+* `feat(components): Add button component`
+

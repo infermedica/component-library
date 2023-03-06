@@ -1,39 +1,28 @@
-import { Canvas, Meta, Story, Primary, ArgsTable } from '@storybook/addon-docs';
+import { Canvas, Meta, Controls } from '@storybook/blocks';
 import { Code } from '../../../../docs/components/Code';
-import UiMenu from './UiMenu.vue';
+import * as stories from './UiMenu.stories.js';
 import scss from './UiMenu.stories.scss?raw';
 
-<Meta
-  title="OrganismsUiMenu"
-  component={ UiMenu }
-/>
+<Meta of={stories}/>
 
 # UiMenu
-<Primary />
-<ArgsTable />
+<Canvas of={stories.WithSelectedItem} />
+<Controls of={stories.WithSelectedItem}/>
 
 ## Stories
 ### As Compact
-<Canvas>
-  <Story id="organisms-menu--as-compact"/>
-</Canvas>
+<Canvas of={stories.AsCompact}/>
 
 ### With Items As String
-<Canvas>
-  <Story id="organisms-menu--with-items-as-string"/>
-</Canvas>
+<Canvas of={stories.WithItemsAsString}/>
 
 ### With Suffix
-<Canvas>
-  <Story id="organisms-menu--with-suffix"/>
-</Canvas>
+<Canvas of={stories.WithSuffix}/>
 
 ### As Mobile Menu
 This story support only mobile view. Please open this story in Canvas.
 
-<Canvas>
-  <Story id="organisms-menu--as-mobile-menu"/>
-</Canvas>
+<Canvas of={stories.AsMobileMenu}/>
 
 **Use following SCSS to get the same result**
 <Code
@@ -43,6 +32,4 @@ This story support only mobile view. Please open this story in Canvas.
 />
 
 ### As Popover Content
-<Canvas>
-  <Story id="organisms-menu--as-popover-content"/>
-</Canvas>
+<Canvas of={stories.AsPopoverContent}/>

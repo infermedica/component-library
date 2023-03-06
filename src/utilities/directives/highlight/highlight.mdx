@@ -1,4 +1,7 @@
-import { Canvas, Story } from "@storybook/addon-docs";
+import { Meta, Canvas } from "@storybook/blocks";
+import * as stories from './highlight.stories.js'
+
+<Meta of={stories}/>
 
 # Highlight
 After adding this directive you can highlight text fragments of element
@@ -13,6 +16,4 @@ After adding this directive you can highlight text fragments of element
 
 ## Stories
 ### With directive
-<Canvas>
-  <Story id="utilities-directives-highlight--with-directive"/>
-</Canvas>
+<Canvas of={stories.WithDirective}/>

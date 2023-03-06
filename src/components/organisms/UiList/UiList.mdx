@@ -1,42 +1,29 @@
-import { Canvas, Meta, Story, Primary, ArgsTable } from '@storybook/addon-docs';
+import { Canvas, Meta, Controls } from '@storybook/blocks';
 import { Code } from '../../../../docs/components/Code';
-import UiList from './UiList.vue';
+import * as stories from './UiList.stories.js';
 import scss from './UiList.stories.scss?raw';
 
-<Meta
-  title="Organisms/List"
-  component={ UiList }
-/>
+<Meta of={stories}/>
 
 # UiList
-<Primary />
-<ArgsTable />
+<Canvas of={stories.Common} />
+<Controls of={stories.Common}/>
 
 ## Stories
 ### With Error
-<Canvas>
-  <Story id="organisms-list--with-error"/>
-</Canvas>
+<Canvas of={stories.WithError}/>
 
 ### With List Item Slot
-<Canvas>
-  <Story id="organisms-list--with-list-item-slot"/>
-</Canvas>
+<Canvas of={stories.WithListItemSlot}/>
 
 ### With Suffix As Text
-<Canvas>
-  <Story id="organisms-list--with-suffix-as-text"/>
-</Canvas>
+<Canvas of={stories.WithSuffixAsText}/>
 
 ### With Suffix As Button
-<Canvas>
-  <Story id="organisms-list--with-suffix-as-button"/>
-</Canvas>
+<Canvas of={stories.WithSuffixAsButton}/>
 
 ### As Condition
-<Canvas>
-  <Story id="organisms-list--as-condition"/>
-</Canvas>
+<Canvas of={stories.AsCondition}/>
 
 **Use following SCSS to get the same result**
 <Code
@@ -46,9 +33,7 @@ import scss from './UiList.stories.scss?raw';
 />
 
 ### With Icon In Heading
-<Canvas>
-  <Story id="organisms-list--with-icon-in-heading"/>
-</Canvas>
+<Canvas of={stories.WithIconInHeading}/>
 
 
 **Use following SCSS to get the same result**
@@ -59,9 +44,7 @@ import scss from './UiList.stories.scss?raw';
 />
 
 ### With Checkbox
-<Canvas>
-  <Story id="organisms-list--with-checkbox"/>
-</Canvas>
+<Canvas of={stories.WithCheckbox}/>
 
 
 **Use following SCSS to get the same result**
@@ -71,9 +54,7 @@ import scss from './UiList.stories.scss?raw';
 />
 
 ### With Radio
-<Canvas>
-  <Story id="organisms-list--with-radio"/>
-</Canvas>
+<Canvas of={stories.WithRadio}/>
 
 
 **Use following SCSS to get the same result**

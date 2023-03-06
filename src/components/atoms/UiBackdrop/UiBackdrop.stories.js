@@ -17,10 +17,12 @@ export default {
   },
 };
 
-export const Common = (args) => ({
-  components: { UiBackdrop },
-  setup() {
-    return { args };
-  },
-  template: '<UiBackdrop class="absolute"/>',
-});
+export const Common = {
+  render: (args) => ({
+    components: { UiBackdrop },
+    setup() {
+      return { args };
+    },
+    template: '<UiBackdrop class="absolute"/>',
+  }),
+};

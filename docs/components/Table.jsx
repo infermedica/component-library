@@ -63,8 +63,8 @@ color: rgba(51,51,51,0.9);
 background-color: #F8F8F8`;
 
 export const Table = ({
-  headers = [], rows = [[]], slotRows, slotHeader, hasBorder,
-}) => <RTable>
+  headers = [], rows = [[]], isUnstyled, slotRows, slotHeader, hasBorder,
+}) => <RTable className={isUnstyled && 'sb-unstyled'}>
     <THead>
       <RTr>
         {slotHeader || headers.map((header, index) => <RTh className="th" key={index}>{header}</RTh>)}

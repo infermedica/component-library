@@ -1,22 +1,17 @@
-import { Canvas, Meta, Story, Primary, ArgsTable } from '@storybook/addon-docs';
+import { Canvas, Meta, Controls } from '@storybook/blocks';
 import { Code } from '../../../../docs/components/Code';
-import UiProgressbar from './UiProgressbar.vue';
+import * as stories from './UiProgressbar.stories.js';
 import scss from './UiProgressbar.stories.scss?raw';
 
-<Meta
-  title="Molecules/Progressbar"
-  component={ UiProgressbar }
-/>
+<Meta of={stories}/>
 
 # UiProgressbar
-<Primary />
-<ArgsTable />
+<Canvas of={stories.WithDots} />
+<Controls of={stories.WithDots} />
 
 ## Stories
 ### Without Dots
-<Canvas>
-  <Story id="molecules-progressbar--without-dots"/>
-</Canvas>
+<Canvas of={stories.WithoutDots}/>
 
 **Use following SCSS to get the same result**
 <Code

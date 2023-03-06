@@ -1,4 +1,7 @@
-import { Canvas, Story } from "@storybook/addon-docs";
+import { Meta, Canvas } from "@storybook/blocks";
+import * as stories from './keyboard-focus.stories.js';
+
+<Meta of={stories}/>
 
 # Keyboard focus
 Focus state in Infermedica Component Library is hidden for mouse users. To hide focus we ass to `body` element class `focus-hidden`.
@@ -39,6 +42,4 @@ Some components will be shown always keyboard focus.
 
 ## Stories
 ### With directive
-<Canvas>
-  <Story id="utilities-directives-keyboard-focus--with-directive"/>
-</Canvas>
+<Canvas of={stories.WithDirective}/>
