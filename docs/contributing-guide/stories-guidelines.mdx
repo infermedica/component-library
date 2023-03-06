@@ -217,30 +217,27 @@ Mostly we want to display this custom CSS (scss to be more precise) in the docum
 ```js
 // *.stories.js
 import './*.stories.scss';
-import docs from './*.mdx'
 
 export default {
   title: '',
   component: '',
-  parameters: { docs: { page: docs } },
 }
 ```
 To display SCSS in `mdx` file we use `<Code/>` DocBlock component e.g.
 
 ```mdx
 import { Code } from '../../../../docs/components/Code';
+import * as stories from './ComponentName.stories.js';
 
-<Meta />
+<Meta of={stories}/>
 
 ## ComponentName
-<Primary />
+<Canvas of={stories.Common}/>
 <ArgTypes />
 
 ## Stories
 ### With custom CSS
-<Canvas>
-  <Story id="with-custom-css"/>
-</Canvas>
+<Canvas of={stories.WithCustomCss}/>
 
 **Use following SCSS to get the same result**
 <Code

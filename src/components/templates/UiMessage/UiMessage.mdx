@@ -1,13 +1,12 @@
-import { Canvas, Meta, Primary, ArgTypes } from '@storybook/addon-docs';
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs';
 import { Code } from '../../../../docs/components/Code';
-import UiMessage from './UiMessage.vue';
 import * as stories from './UiMessage.stories.js';
 import scss from './UiMessage.stories.scss?raw';
 
 <Meta of={stories}/>
 
 # UiMessage
-<Primary />
+<Canvas of={stories.AsIntroduction} />
 <ArgTypes />
 
 ## Stories

@@ -1,14 +1,14 @@
-import { Canvas, Meta, Primary, ArgTypes, Source } from "@storybook/addon-docs";
+import { Canvas, Meta, ArgTypes, Source } from "@storybook/addon-docs";
 import { Alert } from "../../../../docs/components/Alert"
 import { Code } from '../../../../docs/components/Code';
-import UiLoader from "./UiLoader.vue";
 import * as stories from "./UiLoader.stories.js";
 import scss from './UiLoader.stories.scss?raw';
 
 <Meta of={stories}/>
 
 # UiLoader
-<Primary />
+<Canvas of={stories.Common} />
+<Source/>
 <ArgTypes />
 
 ## How to use

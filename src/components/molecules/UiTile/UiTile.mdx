@@ -1,13 +1,12 @@
-import { Canvas, Meta, Primary, ArgTypes } from '@storybook/addon-docs';
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs';
 import { Code } from '../../../../docs/components/Code';
-import UiTile from './UiTile.vue';
 import * as stories from './UiTile.stories.js';
 import scss from './UiTile.stories.scss?raw';
 
 <Meta of={stories}/>
 
 # UiTile
-<Primary />
+<Canvas of={stories.Large}/>
 <ArgTypes />
 
 ## Stories

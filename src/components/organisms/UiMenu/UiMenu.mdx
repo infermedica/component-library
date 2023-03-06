@@ -1,13 +1,12 @@
-import { Canvas, Meta, Primary, ArgTypes } from '@storybook/addon-docs';
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs';
 import { Code } from '../../../../docs/components/Code';
-import UiMenu from './UiMenu.vue';
 import * as stories from './UiMenu.stories.js';
 import scss from './UiMenu.stories.scss?raw';
 
 <Meta of={stories}/>
 
 # UiMenu
-<Primary />
+<Canvas of={stories.WithSelectedItem} />
 <ArgTypes />
 
 ## Stories
