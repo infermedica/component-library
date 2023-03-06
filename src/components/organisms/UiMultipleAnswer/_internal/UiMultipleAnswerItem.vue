@@ -76,6 +76,7 @@ import {
   onMounted,
   nextTick,
 } from 'vue';
+import type { ComponentPublicInstance } from 'vue';
 import { focusElement } from '../../../../utilities/helpers/index';
 import type { TextAttrsProps } from '../../../atoms/UiText/UiText.vue';
 import type { ButtonAttrsProps } from '../../../atoms/UiButton/UiButton.vue';
@@ -185,8 +186,8 @@ const errorClass = computed(() => (props.invalid
     'ui-list-item--has-error',
   ]
   : []));
-const content = ref(null);
-const suffix = ref(null);
+const content = ref<InstanceType<typeof component.value> | null>(null);
+const suffix = ref<ComponentPublicInstance | null>(null);
 const suffixSize = ref({
   '--_label-suffix-width': '0',
   '--_label-suffix-height': '0',
@@ -200,9 +201,9 @@ const handleInfoFocus = (event: KeyboardEvent) => {
 };
 const handleInfoUnfocus = (event: KeyboardEvent) => {
   if (event.key !== 'ArrowLeft') return;
-  if (content.value?.$refs?.input) {
+  if (content.value?.input) {
     event.preventDefault();
-    focusElement(content.value?.$refs?.input);
+    focusElement(content.value.input);
   }
 };
 const handleValueUpdate = (newValue: MultipleAnswerModelValue) => {
@@ -229,7 +230,7 @@ onMounted(async () => {
   if (suffix.value?.$el) {
     const {
       width, height,
-    } = suffix.value?.$el.getBoundingClientRect();
+    } = suffix.value.$el.getBoundingClientRect();
     suffixSize.value = {
       '--_label-suffix-width': `${width}px`,
       '--_label-suffix-height': `${height}px`,

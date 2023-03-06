@@ -12,11 +12,7 @@ export default { name: 'UiInteractiveSvg' };
 </script>
 
 <script setup lang="ts">
-import {
-  computed,
-  provide,
-  useAttrs,
-} from 'vue';
+import { provide } from 'vue';
 import type {
   HTMLAttributes,
   SVGAttributes,

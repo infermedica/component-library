@@ -82,10 +82,7 @@ import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 import UiHeading from '../UiHeading/UiHeading.vue';
 import type { HeadingAttrsProps } from '../UiHeading/UiHeading.vue';
 import UiNumberStepper from '../../molecules/UiNumberStepper/UiNumberStepper.vue';
-import type {
-  NumberStepperProps,
-  NumberStepperAttrsProps,
-} from '../../molecules/UiNumberStepper/UiNumberStepper.vue';
+import type { NumberStepperAttrsProps } from '../../molecules/UiNumberStepper/UiNumberStepper.vue';
 import type { DefineAttrsProps } from '../../../types';
 
 export type RangeModelValue = number;

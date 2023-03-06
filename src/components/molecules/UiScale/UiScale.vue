@@ -143,7 +143,6 @@
 import {
   computed,
   ref,
-  useAttrs,
   watch,
 } from 'vue';
 import type {
@@ -198,7 +197,7 @@ export interface ScaleProps {
   /**
    * Use this props to pass attrs for option UiRadio.
    */
-  radioOptionAttrs?: RadioAttrsProps[] | Partial<RadioAttrsProps>;
+  radioOptionAttrs?: RadioAttrsProps | RadioAttrsProps[];
   /**
    * USe this props to pass attrs for min UiText.
    */
@@ -228,7 +227,7 @@ const props = withDefaults(defineProps<ScaleProps>(), {
   }),
   tag: 'fieldset',
   legend: '',
-  radioOptionAttrs: () => ({}),
+  radioOptionAttrs: () => ([]),
   textMinAttrs: () => ({}),
   textMaxAttrs: () => ({}),
   numberStepperAttrs: () => ({}),
