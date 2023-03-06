@@ -1,4 +1,4 @@
-import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs';
+import { Canvas, Meta, Controls } from '@storybook/blocks';
 import { Code } from '../../../../docs/components/Code';
 import * as stories from './UiMessage.stories.js';
 import scss from './UiMessage.stories.scss?raw';
@@ -7,7 +7,7 @@ import scss from './UiMessage.stories.scss?raw';
 
 # UiMessage
 <Canvas of={stories.AsIntroduction} />
-<ArgTypes />
+<Controls of={stories.AsIntroduction}/>
 
 ## Stories
 ### With Content Slot

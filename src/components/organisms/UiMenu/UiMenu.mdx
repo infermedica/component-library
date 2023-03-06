@@ -1,4 +1,4 @@
-import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs';
+import { Canvas, Meta, Controls } from '@storybook/blocks';
 import { Code } from '../../../../docs/components/Code';
 import * as stories from './UiMenu.stories.js';
 import scss from './UiMenu.stories.scss?raw';
@@ -7,7 +7,7 @@ import scss from './UiMenu.stories.scss?raw';
 
 # UiMenu
 <Canvas of={stories.WithSelectedItem} />
-<ArgTypes />
+<Controls of={stories.WithSelectedItem}/>
 
 ## Stories
 ### As Compact

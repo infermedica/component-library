@@ -1,4 +1,4 @@
-import { Canvas, Meta, ArgTypes } from "@storybook/addon-docs";
+import { Canvas, Meta, Controls } from "@storybook/blocks";
 import { Code } from '../../../../docs/components/Code';
 import * as stories from "./UiInteractiveSvg.stories.js";
 import scss from './UiInteractiveSvg.stories.scss?raw';
@@ -7,7 +7,7 @@ import scss from './UiInteractiveSvg.stories.scss?raw';
 
 # UiInteractiveSvg
 <Canvas of={stories.WithFocusOnMounted} />
-<ArgTypes />
+<Controls of={stories.WithFocusOnMounted} />
 
 ## Stories
 ### Map

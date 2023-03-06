@@ -1,4 +1,4 @@
-import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs';
+import { Canvas, Meta, Controls } from '@storybook/blocks';
 import { Code } from '../../../../docs/components/Code';
 import * as stories from './UiDropdown.stories.js';
 import scss from './UiDropdown.stories.scss?raw';
@@ -6,8 +6,8 @@ import scss from './UiDropdown.stories.scss?raw';
 <Meta of={stories}/>
 
 # UiDropdown
-<Canvas of={stories.AsSelect} />
-<ArgTypes />
+<Canvas of={stories.AsSelect}/>
+<Controls of={stories.AsSelect}/>
 
 ## Stories
 ### With Items As Objects

@@ -1,4 +1,4 @@
-import { Canvas, Meta, ArgTypes, Source } from "@storybook/addon-docs";
+import { Canvas, Meta, Controls } from "@storybook/blocks";
 import { Alert } from "../../../../docs/components/Alert"
 import { Code } from '../../../../docs/components/Code';
 import * as stories from "./UiLoader.stories.js";
@@ -8,8 +8,7 @@ import scss from './UiLoader.stories.scss?raw';
 
 # UiLoader
 <Canvas of={stories.Common} />
-<Source/>
-<ArgTypes />
+<Controls of={stories.Common} />
 
 ## How to use
 UiLoader has 3 transition types: `if`, `show` and `opacity`.
