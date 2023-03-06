@@ -1,9 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { styled } from '@storybook/theming';
 import { ColorControl, TextControl } from '@storybook/blocks';
 import { ExampleFontCell } from './ExampleFontCell';
 import { ExampleColorCell } from './ExampleColorCell';
-import { KeyColorPickerContext } from '../CssPropertiesTable';
 
 const Row = styled.tr`
   border-top: 1px solid #E6E6E6;
@@ -38,8 +37,6 @@ export const TableRow = ({ row, onChange, hasExampleColumn = true }) => {
     onChange([name, newValue]);
   }
   const isColorType = type === 'color';
-  // storybook bug: force rerender a color picker after reset a table
-  const key = useContext(KeyColorPickerContext);
   return (
     <React.Fragment>
       <Row>
@@ -73,7 +70,6 @@ export const TableRow = ({ row, onChange, hasExampleColumn = true }) => {
               name={name}
               value={value}
               onChange={handleChange}
-              key={key}
             />
             : <TextControl
               name={name}

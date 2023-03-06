@@ -1,3 +1,4 @@
+import React from 'react';
 import { styled } from '@storybook/theming';
 import { Icons } from '@storybook/components';
 import { FontExample } from './ExampleFontCell'
