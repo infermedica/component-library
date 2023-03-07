@@ -10,6 +10,10 @@ export default defineConfig({
         find: '@',
         replacement: path.resolve(__dirname, 'src'),
       },
+      {
+        find: '@sb',
+        replacement: path.resolve(__dirname, '.storybook'),
+      },
     ],
   },
   plugins: [
@@ -27,12 +31,11 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: true,
-    include: ['./src/**/*.spec.{js,ts}'],
-    reporters: ['default', 'json'],
-    deps: {
-      inline: [
-        'date-fns',
-      ],
-    },
+    include: [ './src/**/*.spec.{js,ts}' ],
+    reporters: [
+      'default',
+      'json',
+    ],
+    deps: { inline: [ 'date-fns' ] },
   },
 });
