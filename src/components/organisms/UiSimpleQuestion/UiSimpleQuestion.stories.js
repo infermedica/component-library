@@ -2,12 +2,10 @@ import UiSimpleQuestion from '@/components/organisms/UiSimpleQuestion/UiSimpleQu
 import UiTile from '@/components/molecules/UiTile/UiTile.vue';
 import { ref } from 'vue';
 import { modifiers } from '@sb/helpers/argTypes';
-import { WithContentSlot } from '@/components/organisms/UiSidePanel/UiSidePanel.stories';
 
 export default {
   title: 'Organisms/SimpleQuestion',
   component: UiSimpleQuestion,
-  subcomponents: { UiTile },
   args: {
     initModelValue: 'female',
     modifiers: [],
@@ -47,68 +45,88 @@ export default {
   },
 };
 
-const Template = (args) => ({
-  components: { UiSimpleQuestion },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      modelValue,
-    };
-  },
-  template: `<UiSimpleQuestion
-    v-model="modelValue"
-    :items="items"
-    :class="modifiers"
-  />`,
-});
+export const AsPatientSex = {
+  render: (args) => ({
+    components: { UiSimpleQuestion },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        modelValue,
+      };
+    },
+    template: `<UiSimpleQuestion
+      v-model="modelValue"
+      :items="items"
+      :class="modifiers"
+    />`,
+  }),
+};
 
-export const AsPatientSex = Template.bind({});
+export const AsPatientSexSmall = {
+  render: (args) => ({
+    components: { UiSimpleQuestion },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        modelValue,
+      };
+    },
+    template: `<UiSimpleQuestion
+      v-model="modelValue"
+      :items="items"
+      :class="modifiers"
+    />`,
+  }),
 
-export const AsPatientSexSmall = Template.bind({});
-AsPatientSexSmall.args = { modifiers: [ 'ui-simple-question--small' ] };
+  args: { modifiers: [ 'ui-simple-question--small' ] },
+};
 
-export const WithTileSlot = (args) => ({
-  components: {
-    UiSimpleQuestion,
-    UiTile,
-  },
-  setup() {
-    const modelValue = ref(args.initModelValue);
-    return {
-      ...args,
-      modelValue,
-    };
-  },
-  template: `<UiSimpleQuestion
-    v-model="modelValue"
-    :items="items"
-    :class="modifiers"
-  >
-    <template #tile="{
-      item, 
-      modelValue, 
-      isTileSmall, 
-      updateHandler
-    }">
-      <UiTile
-        :model-value="modelValue"
-        :value="item.value"
-        :icon="item.icon"
-        :icon-attrs="item.iconAttrs"
-        :text-label-attrs="item.textLabelAttrs"
-        v-bind="{
-          'data-testid': item['data-testid'],
-        }"
-        :class="[ 
-          'ui-simple-question__item', 
-          { 'ui-tile--small': isTileSmall }
-        ]"
-        @update:modelValue="updateHandler(item.value)"
-      >
-        {{ item.label }}
-      </UiTile>
-    </template>
-  </UiSimpleQuestion>`,
-});
-WithTileSlot.parameters = { chromatic: { disableSnapshot: true } };
+export const WithTileSlot = {
+  render: (args) => ({
+    components: {
+      UiSimpleQuestion,
+      UiTile,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      return {
+        ...args,
+        modelValue,
+      };
+    },
+    template: `<UiSimpleQuestion
+      v-model="modelValue"
+      :items="items"
+      :class="modifiers"
+    >
+      <template #tile="{
+        item,
+        modelValue,
+        isTileSmall,
+        updateHandler
+      }">
+        <UiTile
+          :model-value="modelValue"
+          :value="item.value"
+          :icon="item.icon"
+          :icon-attrs="item.iconAttrs"
+          :text-label-attrs="item.textLabelAttrs"
+          v-bind="{
+            'data-testid': item['data-testid'],
+          }"
+          :class="[
+            'ui-simple-question__item',
+            { 'ui-tile--small': isTileSmall }
+          ]"
+          @update:modelValue="updateHandler(item.value)"
+        >
+          {{ item.label }}
+        </UiTile>
+      </template>
+    </UiSimpleQuestion>`,
+  }),
+
+  parameters: { chromatic: { disableSnapshot: true } },
+};

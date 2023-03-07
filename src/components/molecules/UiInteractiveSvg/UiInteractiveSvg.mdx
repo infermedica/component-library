@@ -1,22 +1,17 @@
-import { Canvas, Meta, Story, Primary, ArgsTable } from "@storybook/addon-docs";
+import { Canvas, Meta, Controls } from "@storybook/blocks";
 import { Code } from '../../../../docs/components/Code';
-import UiInteractiveSvg from "./UiInteractiveSvg.vue";
+import * as stories from "./UiInteractiveSvg.stories.js";
 import scss from './UiInteractiveSvg.stories.scss?raw';
 
-<Meta
-  title="Molecules/InteractiveSvg"
-  component={ UiInteractiveSvg }
-/>
+<Meta of={stories}/>
 
 # UiInteractiveSvg
-<Primary />
-<ArgsTable />
+<Canvas of={stories.WithFocusOnMounted} />
+<Controls of={stories.WithFocusOnMounted} />
 
 ## Stories
 ### Map
-<Canvas>
-  <Story id="molecules-interactivesvg--map"/>
-</Canvas>
+<Canvas of={stories.map}/>
 
 Some groups have `focus-for` attribute. We use it to show an outline for the focused element.
 
@@ -28,9 +23,7 @@ Some groups have `focus-for` attribute. We use it to show an outline for the foc
 />
 
 ### Abdominal Pain Male
-<Canvas>
-  <Story id="molecules-interactivesvg--abdominal-pain-male"/>
-</Canvas>
+<Canvas of={stories.AbdominalPainMale}/>
 
 Some groups have `focus-for` attribute. We use it to show an outline for the focused element.
 
@@ -42,14 +35,10 @@ Some groups have `focus-for` attribute. We use it to show an outline for the foc
 />
 
 ### Abdominal Pain Female
-<Canvas>
-  <Story id="molecules-interactivesvg--abdominal-pain-female"/>
-</Canvas>
+<Canvas of={stories.AbdominalPainFemale}/>
 
 ### Infant Unisex Front
-<Canvas>
-  <Story id="molecules-interactivesvg--infant-unisex-front"/>
-</Canvas>
+<Canvas of={stories.InfantUnisexFront}/>
 
 **Use following SCSS to get the same result**
 <Code
@@ -59,66 +48,40 @@ Some groups have `focus-for` attribute. We use it to show an outline for the foc
 />
 
 ### Infant Unisex Back
-<Canvas>
-  <Story id="molecules-interactivesvg--infant-unisex-back"/>
-</Canvas>
+<Canvas of={stories.InfantUnisexBack}/>
 
 ### Toddler Male Front
-<Canvas>
-  <Story id="molecules-interactivesvg--toddler-male-front"/>
-</Canvas>
+<Canvas of={stories.ToddlerMaleFront}/>
 
 ### Toddler Male Back
-<Canvas>
-  <Story id="molecules-interactivesvg--toddler-male-back"/>
-</Canvas>
+<Canvas of={stories.ToddlerMaleBack}/>
 
 ### Toddler Female Front
-<Canvas>
-  <Story id="molecules-interactivesvg--toddler-female-front"/>
-</Canvas>
+<Canvas of={stories.ToddlerFemaleFront}/>
 
 ### Toddler Female Back
-<Canvas>
-  <Story id="molecules-interactivesvg--toddler-female-back"/>
-</Canvas>
+<Canvas of={stories.ToddlerFemaleBack}/>
 
 ### Child Male Front
-<Canvas>
-  <Story id="molecules-interactivesvg--child-male-front"/>
-</Canvas>
+<Canvas of={stories.ChildMaleFront}/>
 
 ### Child Male Back
-<Canvas>
-  <Story id="molecules-interactivesvg--child-male-back"/>
-</Canvas>
+<Canvas of={stories.ChildMaleBack}/>
 
 ### Child Female Front
-<Canvas>
-  <Story id="molecules-interactivesvg--child-female-front"/>
-</Canvas>
+<Canvas of={stories.ChildFemaleFront}/>
 
 ### Child Female Back
-<Canvas>
-  <Story id="molecules-interactivesvg--child-female-back"/>
-</Canvas>
+<Canvas of={stories.ChildFemaleBack}/>
 
 ###  Adult Male Front
-<Canvas>
-  <Story id="molecules-interactivesvg--adult-male-front"/>
-</Canvas>
+<Canvas of={stories.AdultMaleFront}/>
 
 ### Adult Male Back
-<Canvas>
-  <Story id="molecules-interactivesvg--adult-male-back"/>
-</Canvas>
+<Canvas of={stories.AdultMaleBack}/>
 
 ### Adult Female Front
-<Canvas>
-  <Story id="molecules-interactivesvg--adult-female-front"/>
-</Canvas>
+<Canvas of={stories.AdultFemaleFront}/>
 
 ### Adult Female Back
-<Canvas>
-  <Story id="molecules-interactivesvg--adult-female-back"/>
-</Canvas>
+<Canvas of={stories.AdultFemaleBack}/>

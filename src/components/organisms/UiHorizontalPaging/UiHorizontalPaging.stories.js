@@ -11,13 +11,10 @@ import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import UiLoader from '@/components/molecules/UiLoader/UiLoader.vue';
 import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints.vue';
-import UiMenu from '@/components/organisms/UiMenu/UiMenu.vue';
 import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import UiHorizontalPagingItem from '@/components/organisms/UiHorizontalPaging/_internal/UiHorizontalPagingItem.vue';
 import { actions } from '@storybook/addon-actions';
 import './UiHorizontalPaging.stories.scss';
-import { WithBackSlot } from '@/components/organisms/UiControls/UiControls.stories';
-import docs from './UiHorizontalPaging.mdx';
 
 const events = actions({ onUpdateModelValue: 'update:modelValue' });
 
@@ -187,13 +184,6 @@ const Loader = {
 export default {
   title: 'Organisms/HorizontalPaging',
   component: UiHorizontalPaging,
-  subcomponents: {
-    UiHorizontalPagingItem,
-    UiButton,
-    UiIcon,
-    UiHeading,
-    UiMenu,
-  },
   args: {
     initialModelValue: [],
     title: 'Settings & Info',
@@ -259,203 +249,35 @@ export default {
       <story />
     </div>`,
   }) ],
-  parameters: { docs: { page: docs } },
 };
 
-export const Common = (args) => ({
-  components: {
-    UiHorizontalPaging,
-    ForBusiness,
-    MedicalCertification,
-    InstructionForUse,
-    TermsOfService,
-    PrivacyPolicy,
-    InterviewId,
-  },
-  setup() {
-    const modelValue = ref(args.initialModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiHorizontalPaging
-    v-model="modelValue"
-    :title="title"
-    :items="items"
-    @update:modelValue="onUpdateModelValue"
-  >
-    <template #for-business>
-      <ForBusiness />
-    </template>
-    <template #medical-certification>
-      <MedicalCertification/>
-    </template>
-    <template #instruction-for-use>
-      <InstructionForUse/>
-    </template>
-    <template #terms-of-service>
-      <TermsOfService/>
-    </template>
-    <template #privacy-policy>
-      <PrivacyPolicy/>
-    </template>
-    <template #interview-id>
-      <InterviewId/>
-    </template>
-  </UiHorizontalPaging>`,
-});
-
-export const AsMultilevel = (args) => ({
-  components: {
-    UiHorizontalPaging,
-    UiText,
-    UiBulletPoints,
-    Loader,
-  },
-  setup() {
-    const modelValue = ref(args.initialModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiHorizontalPaging
-    v-model="modelValue"
-    title="Platform"
-    :items="[
-      {
-        label: 'Modules',
-        title: 'Modules',
-        name: 'modules',
-      },
-      {
-        label: 'Intelligent core',
-        title: 'Intelligent core',
-        name: 'intelligent-core',
-      },
-    ]"
-    @update:modelValue="onUpdateModelValue"
-  >
-    <template #modules>
-      <UiHorizontalPaging
-        title="Modules"
-        :items="[
-          {
-            label: 'Triage',
-            title: 'Triage',
-            name: 'triage',
-          },
-          {
-            label: 'Intake',
-            title: 'Intake',
-            name: 'intake',
-          },
-        ]"
-      >
-        <template #triage>
-          <UiHorizontalPaging
-            title="Triage"
-            :items="[
-              {
-                label: 'Intelligent survey',
-                title: 'Intelligent survey',
-                name: 'intelligent-survey',
-              },
-              {
-                label: 'Reliable results',
-                title: 'Reliable results',
-                name: 'reliable-results',
-              }
-            ]"
-          >
-            <template #intelligent-survey>
-              <UiText>This dynamic interview analyzes initial symptoms, revealing more about the patient’s state. It compares symptoms with hundreds of diseases collected in our extensive Medical Knowledge Base.</UiText>
-              <UiBulletPoints :items="['Demographic data', 'Risk factors', 'Initial symptoms', 'AI-generated interviews', 'Basic self-examination']"/>
-            </template>
-            <template #reliable-results>
-              <Loader />
-            </template>
-          </UiHorizontalPaging>
-        </template>
-        <template #intake>
-          <Loader />
-        </template>
-      </UiHorizontalPaging>
-    </template>
-    <template #intelligent-core>
-      <Loader />
-    </template>
-  </UiHorizontalPaging>`,
-});
-AsMultilevel.parameters = { chromatic: { disableSnapshot: true } };
-
-export const AsMobileMenu = (args) => ({
-  components: {
-    UiSidePanel,
-    UiHorizontalPaging,
-    UiHeading,
-    UiButton,
-    UiIcon,
-    ForBusiness,
-    MedicalCertification,
-    InstructionForUse,
-    TermsOfService,
-    PrivacyPolicy,
-    InterviewId,
-  },
-  setup() {
-    const modelValue = ref(args.initialModelValue);
-    const length = computed(() => modelValue.value.length);
-    const title = computed(() => (modelValue.value[length.value - 1]?.title || 'Settings & Info'));
-    const previous = computed(() => (modelValue.value[length.value - 2]?.title || 'Settings & Info'));
-    const isActive = computed(() => (modelValue.value.length > 0));
-    const handleBackClick = () => {
-      modelValue.value = modelValue.value.slice(0, -1);
-    };
-    return {
-      ...args,
-      ...events,
-      title,
-      modelValue,
-      previous,
-      isActive,
-      handleBackClick,
-    };
-  },
-  template: `<UiSidePanel
-    :model-value="true"
-    :title="title"
-    class="horizontal-paging-as-mobile-menu"
-  >
-    <template #title="{ title }">
-      <div class="horizontal-paging-as-mobile-menu__title">
-        <UiButton
-          v-if="isActive"
-          class="ui-button--icon"
-          @click="handleBackClick"
-        >
-          <UiIcon
-            icon="chevron-left"
-            class="ui-button__icon"
-          />
-          <span class="visual-hidden">Back to {{ previous }}</span>
-        </UiButton>
-        <UiHeading>
-          {{ title }}
-        </UiHeading>
-      </div>
-    </template>
-    <UiHorizontalPaging
+export const Common = {
+  render: (args) => ({
+    components: {
+      UiHorizontalPaging,
+      ForBusiness,
+      MedicalCertification,
+      InstructionForUse,
+      TermsOfService,
+      PrivacyPolicy,
+      InterviewId,
+    },
+    setup() {
+      const modelValue = ref(args.initialModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiHorizontalPaging
       v-model="modelValue"
+      :title="title"
       :items="items"
-      :has-header="false"
       @update:modelValue="onUpdateModelValue"
     >
       <template #for-business>
-        <ForBusiness/>
+        <ForBusiness />
       </template>
       <template #medical-certification>
         <MedicalCertification/>
@@ -472,49 +294,229 @@ export const AsMobileMenu = (args) => ({
       <template #interview-id>
         <InterviewId/>
       </template>
-    </UiHorizontalPaging>
-  </UiSidePanel>`,
-});
-AsMobileMenu.parameters = { viewport: { defaultViewport: 'mobile2' } };
-AsMobileMenu.decorators = [ () => ({
-  template: `<div class="min-h-140">
-    <story/>
-  </div>`,
-}) ];
+    </UiHorizontalPaging>`,
+  }),
+};
 
-export const WithDefaultSlot = (args) => ({
-  components: {
-    UiHorizontalPaging,
-    UiHorizontalPagingItem,
-    ForBusiness,
-    MedicalCertification,
-    InstructionForUse,
-    TermsOfService,
-    PrivacyPolicy,
-    InterviewId,
-  },
-  setup() {
-    const modelValue = ref(args.initialModelValue);
-    return {
-      ...args,
-      ...events,
-      modelValue,
-    };
-  },
-  template: `<UiHorizontalPaging
-    v-model="modelValue"
-    :title="title"
-    @update:modelValue="onUpdateModelValue"
-  >
-    <template
-      v-for="(item, key) in items"
-      :key="key"
+export const AsMultilevel = {
+  render: (args) => ({
+    components: {
+      UiHorizontalPaging,
+      UiText,
+      UiBulletPoints,
+      Loader,
+    },
+    setup() {
+      const modelValue = ref(args.initialModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiHorizontalPaging
+      v-model="modelValue"
+      title="Platform"
+      :items="[
+        {
+          label: 'Modules',
+          title: 'Modules',
+          name: 'modules',
+        },
+        {
+          label: 'Intelligent core',
+          title: 'Intelligent core',
+          name: 'intelligent-core',
+        },
+      ]"
+      @update:modelValue="onUpdateModelValue"
     >
-      <UiHorizontalPagingItem v-bind="item">
-        <component :is="item.name"/>
-      </UiHorizontalPagingItem>
-    </template>
-  </UiHorizontalPaging>`,
-});
-WithDefaultSlot.parameters = { chromatic: { disableSnapshot: true } };
+      <template #modules>
+        <UiHorizontalPaging
+          title="Modules"
+          :items="[
+            {
+              label: 'Triage',
+              title: 'Triage',
+              name: 'triage',
+            },
+            {
+              label: 'Intake',
+              title: 'Intake',
+              name: 'intake',
+            },
+          ]"
+        >
+          <template #triage>
+            <UiHorizontalPaging
+              title="Triage"
+              :items="[
+                {
+                  label: 'Intelligent survey',
+                  title: 'Intelligent survey',
+                  name: 'intelligent-survey',
+                },
+                {
+                  label: 'Reliable results',
+                  title: 'Reliable results',
+                  name: 'reliable-results',
+                }
+              ]"
+            >
+              <template #intelligent-survey>
+                <UiText>This dynamic interview analyzes initial symptoms, revealing more about the patient’s state. It compares symptoms with hundreds of diseases collected in our extensive Medical Knowledge Base.</UiText>
+                <UiBulletPoints :items="['Demographic data', 'Risk factors', 'Initial symptoms', 'AI-generated interviews', 'Basic self-examination']"/>
+              </template>
+              <template #reliable-results>
+                <Loader />
+              </template>
+            </UiHorizontalPaging>
+          </template>
+          <template #intake>
+            <Loader />
+          </template>
+        </UiHorizontalPaging>
+      </template>
+      <template #intelligent-core>
+        <Loader />
+      </template>
+    </UiHorizontalPaging>`,
+  }),
 
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export const AsMobileMenu = {
+  render: (args) => ({
+    components: {
+      UiSidePanel,
+      UiHorizontalPaging,
+      UiHeading,
+      UiButton,
+      UiIcon,
+      ForBusiness,
+      MedicalCertification,
+      InstructionForUse,
+      TermsOfService,
+      PrivacyPolicy,
+      InterviewId,
+    },
+    setup() {
+      const modelValue = ref(args.initialModelValue);
+      const length = computed(() => modelValue.value.length);
+      const title = computed(() => modelValue.value[length.value - 1]?.title || 'Settings & Info');
+      const previous = computed(
+        () => modelValue.value[length.value - 2]?.title || 'Settings & Info',
+      );
+      const isActive = computed(() => modelValue.value.length > 0);
+      const handleBackClick = () => {
+        modelValue.value = modelValue.value.slice(0, -1);
+      };
+      return {
+        ...args,
+        ...events,
+        title,
+        modelValue,
+        previous,
+        isActive,
+        handleBackClick,
+      };
+    },
+    template: `<UiSidePanel
+      :model-value="true"
+      :title="title"
+      class="horizontal-paging-as-mobile-menu"
+    >
+      <template #title="{ title }">
+        <div class="horizontal-paging-as-mobile-menu__title">
+          <UiButton
+            v-if="isActive"
+            class="ui-button--icon"
+            @click="handleBackClick"
+          >
+            <UiIcon
+              icon="chevron-left"
+              class="ui-button__icon"
+            />
+            <span class="visual-hidden">Back to {{ previous }}</span>
+          </UiButton>
+          <UiHeading>
+            {{ title }}
+          </UiHeading>
+        </div>
+      </template>
+      <UiHorizontalPaging
+        v-model="modelValue"
+        :items="items"
+        :has-header="false"
+        @update:modelValue="onUpdateModelValue"
+      >
+        <template #for-business>
+          <ForBusiness/>
+        </template>
+        <template #medical-certification>
+          <MedicalCertification/>
+        </template>
+        <template #instruction-for-use>
+          <InstructionForUse/>
+        </template>
+        <template #terms-of-service>
+          <TermsOfService/>
+        </template>
+        <template #privacy-policy>
+          <PrivacyPolicy/>
+        </template>
+        <template #interview-id>
+          <InterviewId/>
+        </template>
+      </UiHorizontalPaging>
+    </UiSidePanel>`,
+  }),
+
+  parameters: { viewport: { defaultViewport: 'mobile2' } },
+
+  decorators: [ () => ({
+    template: `<div class="min-h-140">
+      <story/>
+    </div>`,
+  }) ],
+};
+
+export const WithDefaultSlot = {
+  render: (args) => ({
+    components: {
+      UiHorizontalPaging,
+      UiHorizontalPagingItem,
+      ForBusiness,
+      MedicalCertification,
+      InstructionForUse,
+      TermsOfService,
+      PrivacyPolicy,
+      InterviewId,
+    },
+    setup() {
+      const modelValue = ref(args.initialModelValue);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiHorizontalPaging
+      v-model="modelValue"
+      :title="title"
+      @update:modelValue="onUpdateModelValue"
+    >
+      <template
+        v-for="(item, key) in items"
+        :key="key"
+      >
+        <UiHorizontalPagingItem v-bind="item">
+          <component :is="item.name"/>
+        </UiHorizontalPagingItem>
+      </template>
+    </UiHorizontalPaging>`,
+  }),
+
+  parameters: { chromatic: { disableSnapshot: true } },
+};

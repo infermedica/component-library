@@ -10,16 +10,12 @@ import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/
 import UiNotification from '@/components/molecules/UiNotification/UiNotification.vue';
 import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import { ref } from 'vue';
-import docs from './body-scroll-lock.mdx';
 import './body-scroll-lock.stories.scss';
 
 export default {
   title: 'Utilities/Directives/Body Scroll Lock',
   decorators: [ () => ({ template: '<div style="height: 320px;"><story /></div>' }) ],
-  parameters: {
-    docs: { page: docs },
-    chromatic: { disableSnapshot: true },
-  },
+  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 const TOS = {
@@ -28,7 +24,7 @@ const TOS = {
     UiBulletPointsItem,
     UiLink,
   },
-  template: `<UiBulletPoints 
+  template: `<UiBulletPoints
     tag="ol"
     class="tos"
   >
@@ -92,14 +88,14 @@ export const WithDirective = () => ({
     const modelValue = ref(true);
     return { modelValue };
   },
-  template: `<UiButton 
-    class="ui-button--text ui-button--theme-secondary" 
+  template: `<UiButton
+    class="ui-button--text ui-button--theme-secondary"
     @click="modelValue = true"
   >
     Show side panel
   </UiButton>
-  <UiNotification 
-    type="info" 
+  <UiNotification
+    type="info"
     style="margin-block-start: 105vh"
   >
     Bottom of body
@@ -114,13 +110,13 @@ export const WithDirective = () => ({
       title,
       subtitle,
     }">
-      <transition 
-        :name="transition" 
+      <transition
+        :name="transition"
         @after-enter="afterEnterHandler"
       >
         <dialog
           v-body-scroll-lock
-          v-if="modelValue" 
+          v-if="modelValue"
           class="ui-side-panel__dialog"
         >
           <div class="ui-side-panel__header">
@@ -228,4 +224,3 @@ export const WithoutDirective = () => ({
   </template>
   </UiSidePanel>`,
 });
-

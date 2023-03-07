@@ -1,5 +1,5 @@
 import testResults from '../../.unit-test-results.json'
-import addons from '@storybook/addons';
+import { addons } from '@storybook/addons';
 
 const getName = (title) => title.includes('Directives')
   ? `${title.split('/').at(-1).toLowerCase().replaceAll(' ', '-')}.spec.js`

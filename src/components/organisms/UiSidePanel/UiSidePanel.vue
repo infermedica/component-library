@@ -159,7 +159,6 @@ import {
   nextTick,
   onMounted,
   onBeforeUnmount,
-  useAttrs,
 } from 'vue';
 import type {
   DialogHTMLAttributes,

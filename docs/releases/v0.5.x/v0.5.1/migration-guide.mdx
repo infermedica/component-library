@@ -1,0 +1,34 @@
+import { Meta } from '@storybook/blocks';
+import { PageOutline } from '../../../components/PageOutline';
+import { Code } from '../../../components/Code';
+
+<Meta title="Releases/v0.5.x/v0.5.1/Migration Guide" />
+
+# Migration Guide
+
+v0.5.1 use SASS @use instead @import
+
+<PageOutline/>
+
+## SASS @use
+From v0.5.1 we use SASS `@use` instead `@import` because `@import` will be dropped by October 2022.
+
+**Before**
+
+<Code code={`@import "../../../styles/mixins/mixins";
+@import "../../../styles/functions/functions";\n
+.ui-component {
+  $element: component;
+  @include font($element, button-1);
+  padding: css-var($element, padding, var(--space-12) var(--space-32));
+}`}/>
+
+**After**
+<Code code={`@use "../../../styles/functions";
+@use "../../../styles/mixins";\n
+.ui-component {
+  $element: component;
+  @include mixins.font($element, button-1);
+  padding: functions.var($element, padding, var(--space-12) var(--space-32));
+}
+`}/>

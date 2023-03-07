@@ -76,10 +76,7 @@
 
 <script setup lang="ts">
 import { uid } from 'uid/single';
-import {
-  computed,
-  useAttrs,
-} from 'vue';
+import { computed } from 'vue';
 import UiAlert from '../UiAlert/UiAlert.vue';
 import type { AlertAttrsProps } from '../UiAlert/UiAlert.vue';
 import UiText from '../../atoms/UiText/UiText.vue';

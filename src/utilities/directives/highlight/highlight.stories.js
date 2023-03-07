@@ -2,15 +2,11 @@ import { highlight } from '@/utilities/directives/index.ts';
 import UiInput from '@/components/atoms/UiInput/UiInput.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import { ref } from 'vue';
-import docs from './highlight.mdx';
 
 export default {
   title: 'Utilities/Directives/Highlight',
   components: { UiText },
-  parameters: {
-    docs: { page: docs },
-    chromatic: { disableSnapshot: true },
-  },
+  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithDirective = () => ({

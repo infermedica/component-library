@@ -4,17 +4,12 @@ import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import { actions } from '@storybook/addon-actions';
 import { content } from '@sb/helpers/argTypes';
 import UiBackdrop from '@/components/atoms/UiBackdrop/UiBackdrop.vue';
-import { WithBulletPointItemSlot } from '@/components/molecules/UiBulletPoints/UiBulletPoints.stories';
 
 const events = actions({ onRemove: 'remove' });
 
 export default {
   title: 'Molecules/Chip',
   component: UiChip,
-  subcomponents: {
-    UiButton,
-    UiIcon,
-  },
   args: {
     content: 'Label',
     textLabelAttrs: { 'data-testid': 'label-text' },
@@ -35,8 +30,10 @@ export default {
   },
   parameters: {
     cssProperties: {
-      '--chip-padding-block': 'var(--chip-padding-block-start, var(--space-4)) var(--chip-padding-block-end, var(--space-4))',
-      '--chip-padding-inline': 'var(--chip-padding-inline-start, var(--space-12)) var(--chip-padding-inline-end, var(--space-4))',
+      '--chip-padding-block':
+        'var(--chip-padding-block-start, var(--space-4)) var(--chip-padding-block-end, var(--space-4))',
+      '--chip-padding-inline':
+        'var(--chip-padding-inline-start, var(--space-12)) var(--chip-padding-inline-end, var(--space-4))',
       '--chip-border-start-start-radius': 'var(--border-radius-form)',
       '--chip-border-start-end-radius': 'var(--border-radius-form)',
       '--chip-border-end-start-radius': 'var(--border-radius-form)',
@@ -55,98 +52,131 @@ export default {
   },
 };
 
-const Template = (args) => ({
-  components: {
-    UiChip,
-    UiBackdrop,
-  },
-  setup() {
-    return {
-      ...args,
-      ...events,
-    };
-  },
-  template: `<UiChip
-    :text-label-attrs="textLabelAttrs"
-    :button-remove-attrs="buttonRemoveAttrs"
-    :icon-remove-attrs="iconRemoveAttrs"
-    @remove="onRemove"
-  >
-    {{ content }}
-  </UiChip>`,
-});
-export const WithLabel = Template.bind({});
+export const WithLabel = {
+  render: (args) => ({
+    components: {
+      UiChip,
+      UiBackdrop,
+    },
+    setup() {
+      return {
+        ...args,
+        ...events,
+      };
+    },
+    template: `<UiChip
+      :text-label-attrs="textLabelAttrs"
+      :button-remove-attrs="buttonRemoveAttrs"
+      :icon-remove-attrs="iconRemoveAttrs"
+      @remove="onRemove"
+    >
+      {{ content }}
+    </UiChip>`,
+  }),
+};
 
-export const WithLongLabel = Template.bind({});
-WithLongLabel.args = { content: 'Input chips represent pieces of information that were added, selected or entered by the user.' };
-WithLongLabel.decorators = [ () => ({
-  template: `<div class="max-w-89">
-    <story/>
-  </div>`,
-}) ];
+export const WithLongLabel = {
+  render: (args) => ({
+    components: {
+      UiChip,
+      UiBackdrop,
+    },
+    setup() {
+      return {
+        ...args,
+        ...events,
+      };
+    },
+    template: `<UiChip
+      :text-label-attrs="textLabelAttrs"
+      :button-remove-attrs="buttonRemoveAttrs"
+      :icon-remove-attrs="iconRemoveAttrs"
+      @remove="onRemove"
+    >
+      {{ content }}
+    </UiChip>`,
+  }),
 
-export const AsGroup = (args) => ({
-  components: { UiChip },
-  setup() {
-    return {
-      ...args,
-      ...events,
-    };
+  args: {
+    content:
+      'Input chips represent pieces of information that were added, selected or entered by the user.',
   },
-  template: `<div class="flex flex-wrap gap-2">
-    <template v-for="_ in 5">
-      <UiChip
-        :text-label-attrs="textLabelAttrs"
-        :button-remove-attrs="buttonRemoveAttrs"
-        :icon-remove-attrs="iconRemoveAttrs"
-        @remove="onRemove"
-      >
-        {{ content }}
-      </UiChip>
-    </template>
-  </div>`,
-});
-AsGroup.decorators = [ () => ({
-  template: `<div class="max-w-89">
-    <story/>
-  </div>`,
-}) ];
 
-export const WithRemoveSlot = (args) => ({
-  components: {
-    UiChip,
-    UiButton,
-    UiIcon,
-  },
-  setup() {
-    return {
-      ...args,
-      ...events,
-    };
-  },
-  template: `<UiChip
-    :text-label-attrs="textLabelAttrs"
-    :button-remove-attrs="buttonRemoveAttrs"
-    :icon-remove-attrs="iconRemoveAttrs"
-    @remove="onRemove"
-  >
-    <template #remove="{
-      buttonRemoveAttrs,
-      clickHandler,
-      iconRemoveAttrs
-    }">
-      <UiButton
-        v-bind="buttonRemoveAttrs"
-        class="ui-button--icon ui-button--circled ui-chip__remove"
-        @click="clickHandler"
-      >
-        <UiIcon
-          v-bind="iconRemoveAttrs"
-          class="ui-button__icon ui-chip__icon"
-        />
-      </UiButton>
-    </template>
-    {{ content }}
-  </UiChip>`,
-});
-WithRemoveSlot.parameters = { chromatic: { disableSnapshot: true } };
+  decorators: [ () => ({
+    template: `<div class="max-w-89">
+      <story/>
+    </div>`,
+  }) ],
+};
+
+export const AsGroup = {
+  render: (args) => ({
+    components: { UiChip },
+    setup() {
+      return {
+        ...args,
+        ...events,
+      };
+    },
+    template: `<div class="flex flex-wrap gap-2">
+      <template v-for="_ in 5">
+        <UiChip
+          :text-label-attrs="textLabelAttrs"
+          :button-remove-attrs="buttonRemoveAttrs"
+          :icon-remove-attrs="iconRemoveAttrs"
+          @remove="onRemove"
+        >
+          {{ content }}
+        </UiChip>
+      </template>
+    </div>`,
+  }),
+
+  decorators: [ () => ({
+    template: `<div class="max-w-89">
+      <story/>
+    </div>`,
+  }) ],
+};
+
+export const WithRemoveSlot = {
+  render: (args) => ({
+    components: {
+      UiChip,
+      UiButton,
+      UiIcon,
+    },
+    setup() {
+      return {
+        ...args,
+        ...events,
+      };
+    },
+    template: `<UiChip
+      :text-label-attrs="textLabelAttrs"
+      :button-remove-attrs="buttonRemoveAttrs"
+      :icon-remove-attrs="iconRemoveAttrs"
+      @remove="onRemove"
+    >
+      <template #remove="{
+        buttonRemoveAttrs,
+        clickHandler,
+        iconRemoveAttrs
+      }">
+        <UiButton
+          v-bind="buttonRemoveAttrs"
+          class="ui-button--icon ui-button--circled ui-chip__remove"
+          @click="clickHandler"
+        >
+          <UiIcon
+            v-bind="iconRemoveAttrs"
+            class="ui-button__icon ui-chip__icon"
+          />
+        </UiButton>
+      </template>
+      {{ content }}
+    </UiChip>`,
+  }),
+
+  parameters: { chromatic: { disableSnapshot: true } },
+};

@@ -1,7 +1,6 @@
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import withUseLogicalMixinCode from '../../../.storybook/decorators/withUseLogicalMixinCode';
-import docs from './css-logical-properties.mdx';
 import './css-logical-properties.stories.scss';
 
 export default {
@@ -12,7 +11,6 @@ export default {
     initValue: '12px 32px',
   },
   parameters: {
-    docs: { page: docs },
     chromatic: { disableSnapshot: true },
   },
   decorators: [ withUseLogicalMixinCode ],
@@ -76,8 +74,8 @@ export const BorderWidth = (args) => ({
   template: `<UiText class="docs__label">
   Logical {{ property }}
   </UiText>
-  <UiButton 
-    class="docs__border ui-button--outlined" 
+  <UiButton
+    class="docs__border ui-button--outlined"
     :style="logicalStyle"
   >
     Label
@@ -85,8 +83,8 @@ export const BorderWidth = (args) => ({
   <UiText class="docs__label">
     Physical {{ property }}
   </UiText>
-  <UiButton 
-    class="docs__border ui-button--outlined" 
+  <UiButton
+    class="docs__border ui-button--outlined"
     :style="physicalStyle"
   >
     Label

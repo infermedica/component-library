@@ -1,6 +1,5 @@
 import UiProgress from '@/components/atoms/UiProgress/UiProgress.vue';
 import './UiProgress.stories.scss';
-import docs from './UiProgress.mdx';
 
 export default {
   title: 'Atoms/Progress',
@@ -13,18 +12,15 @@ export default {
   argTypes: {
     value: {
       table: { category: 'Props' },
-      control:
-        { type: 'number' },
+      control: { type: 'number' },
     },
     min: {
       table: { category: 'Props' },
-      control:
-        { type: 'number' },
+      control: { type: 'number' },
     },
     max: {
       table: { category: 'Props' },
-      control:
-        { type: 'number' },
+      control: { type: 'number' },
     },
   },
   decorators: [ () => ({
@@ -33,7 +29,6 @@ export default {
     </div>`,
   }) ],
   parameters: {
-    docs: { page: docs },
     cssProperties: {
       '--progress-height': '0.5rem',
       '--progress-padding': 'calc(var(--_progress-height) * 0.5)',
@@ -47,66 +42,113 @@ export default {
       '--progress-indicator-border-start-end-radius': 'var(--_progress-border-radius)',
       '--progress-indicator-border-end-start-radius': '0',
       '--progress-indicator-border-end-end-radius': 'var(--_progress-border-radius)',
-      '--progress-indicator-inset-block': 'var(--progress-indicator-inset-block-start, auto) var(--progress-indicator-inset-block-end, auto)',
-      '--progress-indicator-inset-inline': 'var(--progress-indicator-inset-inline-start, 100%) var(--progress-indicator-inset-inline-end, auto)',
+      '--progress-indicator-inset-block':
+        'var(--progress-indicator-inset-block-start, auto) var(--progress-indicator-inset-block-end, auto)',
+      '--progress-indicator-inset-inline':
+        'var(--progress-indicator-inset-inline-start, 100%) var(--progress-indicator-inset-inline-end, auto)',
     },
   },
 };
 
-const Template = (args) => ({
-  components: { UiProgress },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiProgress
-    :value="value"
-    :min="min"
-    :max="max"
-  />`,
-});
+export const Common = {
+  render: (args) => ({
+    components: { UiProgress },
+    setup() {
+      return { ...args };
+    },
+    template: `<UiProgress
+      :value="value"
+      :min="min"
+      :max="max"
+    />`,
+  }),
 
-export const Common = Template.bind({});
-Common.args = { value: 70 };
-
-export const LowValue = Template.bind({});
-
-export const LowValueNoRadius = (args) => ({
-  components: { UiProgress },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiProgress
-    :value="value"
-    :min="min"
-    :max="max"
-    class="progress-low-value-no-radius"
-  />`,
-});
-
-export const LowValueButHigh = (args) => ({
-  components: { UiProgress },
-  setup() {
-    return { ...args };
-  },
-  template: `<UiProgress
-    :value="value"
-    :min="min"
-    :max="max"
-    class="progress-low-value-but-height"
-  />`,
-});
-
-export const WithDifferentMinimum = Template.bind({});
-WithDifferentMinimum.args = {
-  min: 3,
-  max: 7,
+  args: { value: 70 },
 };
-WithDifferentMinimum.parameters = { chromatic: { disableSnapshot: true } };
 
-export const WithSameValueMinAndMax = Template.bind({});
-WithSameValueMinAndMax.args = {
-  value: 0,
-  min: 0,
-  max: 0,
+export const LowValue = {
+  render: (args) => ({
+    components: { UiProgress },
+    setup() {
+      return { ...args };
+    },
+    template: `<UiProgress
+      :value="value"
+      :min="min"
+      :max="max"
+    />`,
+  }),
 };
-WithSameValueMinAndMax.parameters = { chromatic: { disableSnapshot: true } };
+
+export const LowValueNoRadius = {
+  render: (args) => ({
+    components: { UiProgress },
+    setup() {
+      return { ...args };
+    },
+    template: `<UiProgress
+      :value="value"
+      :min="min"
+      :max="max"
+      class="progress-low-value-no-radius"
+    />`,
+  }),
+};
+
+export const LowValueButHigh = {
+  render: (args) => ({
+    components: { UiProgress },
+    setup() {
+      return { ...args };
+    },
+    template: `<UiProgress
+      :value="value"
+      :min="min"
+      :max="max"
+      class="progress-low-value-but-height"
+    />`,
+  }),
+};
+
+export const WithDifferentMinimum = {
+  render: (args) => ({
+    components: { UiProgress },
+    setup() {
+      return { ...args };
+    },
+    template: `<UiProgress
+      :value="value"
+      :min="min"
+      :max="max"
+    />`,
+  }),
+
+  args: {
+    min: 3,
+    max: 7,
+  },
+
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export const WithSameValueMinAndMax = {
+  render: (args) => ({
+    components: { UiProgress },
+    setup() {
+      return { ...args };
+    },
+    template: `<UiProgress
+      :value="value"
+      :min="min"
+      :max="max"
+    />`,
+  }),
+
+  args: {
+    value: 0,
+    min: 0,
+    max: 0,
+  },
+
+  parameters: { chromatic: { disableSnapshot: true } },
+};

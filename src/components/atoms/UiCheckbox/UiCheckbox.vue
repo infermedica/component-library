@@ -193,7 +193,8 @@ const changeHandler = (event: Event) => {
   const el = event.target as HTMLInputElement;
   emit('update:modelValue', getChecked(el.checked));
 };
-const input = ref(null);
+const input = ref<HTMLElement | null>(null);
+defineExpose({ input });
 </script>
 
 <style lang="scss">
