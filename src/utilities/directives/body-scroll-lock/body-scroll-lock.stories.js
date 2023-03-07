@@ -9,7 +9,7 @@ import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/
 import UiNotification from '@/components/molecules/UiNotification/UiNotification.vue';
 import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import { ref } from 'vue';
-import { bodyScrollLock } from './index';
+import { bodyScrollLock } from '@/utilities/directives';
 import './body-scroll-lock.stories.scss';
 
 export default {

@@ -3,7 +3,7 @@ import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiTextarea from '@/components/atoms/UiTextarea/UiTextarea.vue';
 import UiFormField from '@/components/molecules/UiFormField/UiFormField.vue';
 import { ref } from 'vue';
-import { keyboardFocus } from './index';
+import { keyboardFocus } from '@/utilities/directives';
 
 export default {
   title: 'Utilities/Directives/Keyboard Focus',

@@ -7,7 +7,7 @@ import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints
 import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue';
 import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import { ref } from 'vue';
-import { scrollTabindex } from './index';
+import { scrollTabindex } from '@/utilities/directives';
 import './scroll-tabindex.stories.scss';
 
 export default {

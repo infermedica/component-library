@@ -4,7 +4,7 @@ import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiSwitch from '@/components/molecules/UiSwitch/UiSwitch.vue';
 import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
 import { ref } from 'vue';
-import { clickOutside } from './index';
+import { clickOutside } from '@/utilities/directives';
 
 export default {
   title: 'Utilities/Directives/Click Outside',

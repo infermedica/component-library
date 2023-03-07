@@ -182,16 +182,22 @@ module.exports = {
   ],
   settings: {
     'import/resolver': {
-      alias: [
-        [
-          '@sb',
-          './.storybook',
+      alias: {
+        map: [
+          [
+            '@sb',
+            './.storybook',
+          ],
+          [
+            '@',
+            './src',
+          ],
         ],
-        [
-          '@',
-          './src',
+        extensions: [
+          '.ts',
+          '.js',
         ],
-      ],
+      },
       node: {
         extensions: [
           '.js',

@@ -5,7 +5,7 @@ import UiText from '@/components/atoms/UiText/UiText.vue';
 import { ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
 import { modifiers } from '@sb/helpers/argTypes';
-import icons from '@/components/atoms/UiIcon/icons.ts';
+import icons from '@/components/atoms/UiIcon/icons';
 import { keyboardFocus } from '../../../utilities/directives';
 
 const events = actions({

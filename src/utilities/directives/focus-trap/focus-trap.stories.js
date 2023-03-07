@@ -7,7 +7,7 @@ import UiFormField from '@/components/molecules/UiFormField/UiFormField.vue';
 import UiRating from '@/components/molecules/UiRating/UiRating.vue';
 import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import { ref } from 'vue';
-import { focusTrap } from './index';
+import { focusTrap } from '@/utilities/directives';
 
 export default {
   title: 'Utilities/Directives/Focus Trap',

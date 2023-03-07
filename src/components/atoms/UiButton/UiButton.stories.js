@@ -1,7 +1,7 @@
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
-import icons from '@/components/atoms/UiIcon/icons.ts';
+import icons from '@/components/atoms/UiIcon/icons';
 import {
   content,
   modifiers,
