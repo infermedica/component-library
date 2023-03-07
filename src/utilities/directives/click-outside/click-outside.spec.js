@@ -7,7 +7,13 @@ let Component;
 beforeEach(() => {
   handler = vi.fn();
   Component = {
-    template: '<div data-testid="root-element" v-click-outside="handler"><button data-testid="inside-button"></button></div><button data-testid="outside-button"></button>',
+    template: `<div
+      data-testid="root-element"
+      v-click-outside="handler"
+    >
+      <button data-testid="inside-button"/>
+    </div>
+    <button data-testid="outside-button"/>`,
     methods: { handler },
   };
   options = {
@@ -35,22 +41,22 @@ describe('directive/clickOutside', () => {
     await button.trigger('click');
     expect(handler).not.toHaveBeenCalled();
   });
-  test('adding false argument disables the directive', async () => {
-    Component.template = '<div v-click-outside:[false]="handler"></div><button data-testid="outside-button"></button>';
+  test('adding false isActive parameter disables the directive', async () => {
+    Component.template = '<div v-click-outside="{ handler, isActive: false }"/><button data-testid="outside-button"/>';
     const wrapper = mount(Component, options);
     const button = wrapper.find('[data-testid="outside-button"]');
     await button.trigger('click');
     expect(handler).not.toHaveBeenCalled();
   });
-  test('handler function is called when argument is undefined', async () => {
-    Component.template = '<div v-click-outside:[undefined]="handler"></div><button data-testid="outside-button"></button>';
+  test('handler function is called when isActive parameter is undefined', async () => {
+    Component.template = '<div v-click-outside="{ handler, isActive: undefined }"/><button data-testid="outside-button"/>';
     const wrapper = mount(Component, options);
     const button = wrapper.find('[data-testid="outside-button"]');
     await button.trigger('click');
     expect(handler).toHaveBeenCalled();
   });
-  test('reactivity of argument', async () => {
-    Component.template = '<div v-click-outside:[isActive]="handler"></div><button data-testid="outside-button"></button>';
+  test('reactivity of isActive parameter', async () => {
+    Component.template = '<div v-click-outside="{ handler, isActive }"/><button data-testid="outside-button"/>';
     const wrapper = mount(Component, {
       ...options,
       data() {

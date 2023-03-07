@@ -2,13 +2,17 @@ import {
   computed,
   ref,
 } from 'vue';
+import type { Ref } from 'vue';
 import useMutationObserver from '../../../composable/useMutationObserver';
 import useActiveElement from '../../../composable/useActiveElement';
 
-export default function useDropdownItems(dropdown) {
-  const dropdownItems = ref([]);
+export default function useDropdownItems(dropdown: Ref<HTMLElement | null>) {
+  const dropdownItems = ref<HTMLElement[]>([]);
+
   useMutationObserver(dropdown, () => {
-    dropdownItems.value = [ ...dropdown.value.querySelectorAll('.ui-dropdown-item') ];
+    if (dropdown.value) {
+      dropdownItems.value = [ ...dropdown.value.querySelectorAll<HTMLElement>('.ui-dropdown-item') ];
+    }
   }, {
     subtree: true,
     childList: true,
@@ -18,10 +22,12 @@ export default function useDropdownItems(dropdown) {
   const focusedDropdownItem = computed(
     () => dropdownItems.value.find((item) => activeElement.value === item),
   );
-  const activeDropdownItemIndex = computed(() => dropdownItems.value.indexOf(focusedDropdownItem.value));
+  const activeDropdownItemIndex = computed(() => dropdownItems.value.findIndex(
+    (el) => el === focusedDropdownItem.value,
+  ));
 
-  const firstDropdownItem = computed(() => dropdownItems.value[0]);
-  const lastDropdownItem = computed(() => dropdownItems.value[dropdownItems.value.length - 1]);
+  const firstDropdownItem = computed(() => dropdownItems.value.at(0));
+  const lastDropdownItem = computed(() => dropdownItems.value.at(-1));
   const nextDropdownItem = computed(() => (
     (activeDropdownItemIndex.value >= dropdownItems.value.length - 1 || activeDropdownItemIndex.value === -1)
       ? firstDropdownItem.value

@@ -9,21 +9,23 @@ import type {
   ComponentPublicInstance,
 } from 'vue';
 
-function tryOnScopeDispose(fn: () => void) {
+const tryOnScopeDispose = (fn: () => void) => {
   if (getCurrentScope()) {
     onScopeDispose(fn);
     return true;
   }
   return false;
-}
+};
 
-function unrefElement(elRef: Ref<HTMLElement | ComponentPublicInstance>) {
+const unrefElement = (elRef: Ref<HTMLElement | ComponentPublicInstance | null>) => {
   const plain = unref(elRef);
-  return (plain as ComponentPublicInstance)?.$el ?? plain;
-}
+  return plain && '$el' in plain
+    ? plain.$el
+    : plain;
+};
 
 export default function useMutationObserver(
-  target: Ref<HTMLElement | ComponentPublicInstance>,
+  target: Ref<HTMLElement | ComponentPublicInstance | null>,
   callback: () => void,
   options?: MutationObserverInit,
 ) {
@@ -39,7 +41,7 @@ export default function useMutationObserver(
 
   const stopWatch = watch(
     () => unrefElement(target),
-    (el) => {
+    (el: HTMLElement) => {
       cleanup();
 
       if (isSupported && window && el) {

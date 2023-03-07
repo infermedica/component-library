@@ -2,7 +2,7 @@ import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints
 import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
-import icons from '@/components/atoms/UiIcon/icons.ts';
+import icons from '@/components/atoms/UiIcon/icons';
 import './UiBulletPoints.stories.scss';
 
 export default {

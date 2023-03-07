@@ -2,7 +2,7 @@ import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import { defineAsyncComponent } from 'vue';
 import './UiIcon.stories.scss';
-import icons from '@/components/atoms/UiIcon/icons.ts';
+import icons from '@/components/atoms/UiIcon/icons';
 
 export default {
   title: 'Atoms/Icon',

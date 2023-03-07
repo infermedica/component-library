@@ -9,23 +9,50 @@ After adding this directive you can call some function by clicking outside of el
 
 ## How to use
 * `v-click-outside="functionName"` - bind function
-* `v-click-outside:[boolean]="functionName"` - add / remove click outside listener
+* `v-click-outside="{
+  handler: functionName,
+  isActive: boolean
+}"` - active/disable directive
 
 <Alert>
   <p>Click outside directive use <code>beforeMount</code> hook to <code>addEventListener</code> with callback.
   But in some case e.g. <code>UiDropdown</code> you want to <code>addEventListener</code> only when is open (to close Dropdown).
-  For that you can use <code>v-click-outside:[boolean]="functionName"</code>.</p>
+  For that you can bind object as a value, which provide <code>isActive</code> boolean optional parameter.</p>
 </Alert>
 
+- value as a function
 ```html
-  <UiButton @click="toggleVisibility"></UiButton>
   <UiPopover
-    v-if="visibility"
-    v-click-outside:[boolean]="toggleVisibility"
-  >
-    ...
-  </UiPopover>
+    v-click-outside="handler"
+  />
 ```
+- value as a object
+
+```html
+<template>
+  <UiPopover
+    v-click-outside="clickOutsideValue"
+  />
+<template>
+
+<script setup lang="ts">
+import { clickOutside as vClickOutside } from '@infermedica/component-library/directives';
+import type { VClickOutsideValue } from '@infermedica/component-library/directives';
+
+const clickOutsideValue: VClickOutsideValue = computed(() => ({
+  handler: (event) => toggleVisibility(event),
+  isActive: boolean,
+}));
+</script>
+```
+## Typescript
+```ts
+type VClickOutsideValue = ((event: MouseEvent) => void) | {
+  handler: (event: MouseEvent) => void;
+  isActive?: boolean;
+}
+```
+
 
 ## Used
 * [Datepicker](/docs/organisms-datepicker--common)

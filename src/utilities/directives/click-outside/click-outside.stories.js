@@ -1,10 +1,10 @@
-import { clickOutside } from '@/utilities/directives/index';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiSwitch from '@/components/molecules/UiSwitch/UiSwitch.vue';
 import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
 import { ref } from 'vue';
+import { clickOutside } from '@/utilities/directives';
 
 export default {
   title: 'Utilities/Directives/Click Outside',
@@ -95,7 +95,10 @@ export const WithDirectiveSwitcher = () => ({
     v-else
     style="--popover-content-padding: var(--space-16)"
     title="Popover header"
-    v-click-outside:[isDirective]="toggleHandler"
+    v-click-outside="{
+      handler: toggleHandler,
+      isActive: isDirective
+    }"
   >
     <template #close>
       <UiButton

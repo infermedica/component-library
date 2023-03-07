@@ -1,10 +1,17 @@
 /* eslint-disable import/prefer-default-export, no-underscore-dangle, no-param-reassign, func-names */
-export const keyboardFocus = {
+import type { Directive } from 'vue';
+
+interface ElementKeyboardFocus extends HTMLElement {
+  '__vueMouseHandler__': () => void;
+  '__vueKeyHandler__': (event: KeyboardEvent) => void;
+}
+
+export const keyboardFocus: Directive<ElementKeyboardFocus> = {
   beforeMount(el) {
-    el.__vueMouseHandler__ = function () {
+    el.__vueMouseHandler__ = () => {
       document.body.classList.add('focus-hidden');
     };
-    el.__vueKeyHandler__ = function (event) {
+    el.__vueKeyHandler__ = (event) => {
       if (event.code === 'Tab') {
         document.body.classList.remove('focus-hidden');
         el.focus();

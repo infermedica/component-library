@@ -5,7 +5,7 @@ import {
   content,
   modifiers,
 } from '@sb/helpers/argTypes';
-import icons from '@/components/atoms/UiIcon/icons.ts';
+import icons from '@/components/atoms/UiIcon/icons';
 
 export default {
   title: 'Atoms/Link',

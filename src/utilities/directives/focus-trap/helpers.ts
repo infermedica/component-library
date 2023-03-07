@@ -1,6 +1,6 @@
-const isHidden = (selector) => (selector.offsetParent === null);
-export const getFocusableElements = (el) => {
-  const focusableElements = [
+const isHidden = (selector: HTMLElement) => selector.offsetParent === null;
+export const getFocusableElements = (el: HTMLElement) => {
+  const focusableElements: string[] = [
     'input:not([tabindex^="-"]):not([disabled])',
     'select:not([tabindex^="-"]):not([disabled])',
     'textarea:not([tabindex^="-"]):not([disabled])',
@@ -8,13 +8,12 @@ export const getFocusableElements = (el) => {
     'a[href]:not([tabindex^="-"]):not([disabled])',
     '[tabindex]:not([tabindex^="-"]):not([disabled])',
   ];
-  return [ ...el.querySelectorAll(focusableElements) ]
+  return [ ...el.querySelectorAll<HTMLElement>(focusableElements.join(', ')) ]
     .filter((selector) => !isHidden(selector));
 };
-export const isFocusable = (event, focusableElements) => (
-  [ ...focusableElements ]
-    .some((element) => element === event.target));
-export const moveFocus = (event, focusableElements) => {
+export const isFocusable = (event: Event, focusableElements: HTMLElement[]) => (
+  focusableElements.some((element) => element === event.target));
+export const moveFocus = (event: KeyboardEvent, focusableElements: HTMLElement[]) => {
   if (!focusableElements.length || event.key !== 'Tab') return;
   if (!isFocusable(event, focusableElements)) {
     event.preventDefault();

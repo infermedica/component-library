@@ -1,7 +1,16 @@
 /* eslint-disable import/prefer-default-export, no-underscore-dangle, no-param-reassign, func-names */
-export const highlight = {
+import type {
+  Directive,
+  DirectiveBinding,
+} from 'vue';
+
+interface ElementHighlight extends HTMLElement {
+  '__highlightHandler__': (element: ElementHighlight, binding: DirectiveBinding<string>) => void;
+}
+
+export const highlight: Directive<ElementHighlight, string> = {
   beforeMount(el, binding) {
-    el.__highlightHandler__ = function (element, { value }) {
+    el.__highlightHandler__ = (element, { value }) => {
       const content = element.innerHTML.replace(/<\/?mark>/gi, '');
       const marked = content.replace(
         new RegExp(value.replace(/([.?*+^$[\]\\(){}|-])/g, '\\$1'), 'gi'),
