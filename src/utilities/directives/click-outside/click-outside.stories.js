@@ -1,10 +1,10 @@
-import { clickOutside } from '@/utilities/directives/index.ts';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiSwitch from '@/components/molecules/UiSwitch/UiSwitch.vue';
 import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
 import { ref } from 'vue';
+import { clickOutside } from './index';
 
 export default {
   title: 'Utilities/Directives/Click Outside',

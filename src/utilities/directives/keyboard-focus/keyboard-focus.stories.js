@@ -1,9 +1,9 @@
-import { keyboardFocus } from '@/utilities/directives/index.ts';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiTextarea from '@/components/atoms/UiTextarea/UiTextarea.vue';
 import UiFormField from '@/components/molecules/UiFormField/UiFormField.vue';
 import { ref } from 'vue';
+import { keyboardFocus } from './index';
 
 export default {
   title: 'Utilities/Directives/Keyboard Focus',

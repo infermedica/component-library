@@ -47,8 +47,8 @@ const clickOutsideValue: VClickOutsideValue = computed(() => ({
 ```
 ## Typescript
 ```ts
-type VClickOutsideValue = ((event: Event) => void) | {
-  handler: (event: Event) => void;
+type VClickOutsideValue = ((event: MouseEvent) => void) | {
+  handler: (event: MouseEvent) => void;
   isActive?: boolean;
 }
 ```

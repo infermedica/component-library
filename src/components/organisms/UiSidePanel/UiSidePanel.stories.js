@@ -19,7 +19,7 @@ import {
   bodyScrollLock,
   scrollTabindex,
   keyboardFocus,
-} from '@/utilities/directives/index.ts';
+} from '../../../utilities/directives';
 import './UiSidePanel.stories.scss';
 
 const events = actions({

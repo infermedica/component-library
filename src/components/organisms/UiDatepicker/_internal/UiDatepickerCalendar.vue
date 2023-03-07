@@ -236,7 +236,7 @@ const inputsIds = inject<ComputedRef<Record<string, DatepickerDatePart>>>('input
   'datepicker-input-month': 'month',
   'datepicker-input-year': 'year',
 })));
-const clickOutsideHandler = (event: Event) => {
+const clickOutsideHandler = (event: MouseEvent) => {
   const target = event.target as HTMLLabelElement;
   const id = target.id;
   const htmlFor = target.htmlFor;

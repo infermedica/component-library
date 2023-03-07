@@ -1,4 +1,3 @@
-import { focusTrap } from '@/utilities/directives/index.ts';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
@@ -8,6 +7,7 @@ import UiFormField from '@/components/molecules/UiFormField/UiFormField.vue';
 import UiRating from '@/components/molecules/UiRating/UiRating.vue';
 import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import { ref } from 'vue';
+import { focusTrap } from './index';
 
 export default {
   title: 'Utilities/Directives/Focus Trap',

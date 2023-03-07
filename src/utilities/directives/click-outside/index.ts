@@ -2,13 +2,13 @@
 import type { Directive } from 'vue';
 
 interface ElementClickOutside extends HTMLElement {
-  '__vueClickOutsideHandler__': (event: Event) => void
+  '__vueClickOutsideHandler__': (event: MouseEvent) => void
 }
 export interface VClickOutsideOptions {
-  handler: (event: Event) => void;
+  handler: (event: MouseEvent) => void;
   isActive?: boolean;
 }
-export type VClickOutsideValue = VClickOutsideOptions | ((event: Event) => void);
+export type VClickOutsideValue = VClickOutsideOptions | ((event: MouseEvent) => void);
 
 const isDisabled = (value: VClickOutsideValue) => {
   const isActive = typeof value === 'function' ? undefined : value.isActive;
