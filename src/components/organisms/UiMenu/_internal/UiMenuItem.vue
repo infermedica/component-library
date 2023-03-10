@@ -98,22 +98,15 @@ const defaultProps = computed(() => ({
   $this: &;
   $element: menu-item;
 
-  --list-item-border-block-width: 0;
-  --list-item-border-inline-width: 0;
-
   @include mixins.use-logical($element, padding, var(--space-4) var(--space-8));
+  @include mixins.override-logical(list-item, null, border-width, 0);
 
   &__button {
-    --_list-item-content-padding-block: #{functions.var($element + "-button", padding-block, var(--space-8))};
-    --_list-item-content-padding-inline: #{functions.var($element + "-button", padding-inline, var(--space-8))};
-    --list-item-content-padding-block: var(--_list-item-content-padding-block);
-    --list-item-content-padding-inline: var(--_list-item-content-padding-inline);
-    --list-item-tablet-content-padding-block: var(--_list-item-content-padding-block);
-    --list-item-tablet-content-padding-inline: var(--_list-item-content-padding-inline);
-    --button-padding-block: var(--_list-item-content-padding-block);
-    --button-padding-inline: var(--_list-item-content-padding-inline);
-    --button-border-block-width: #{functions.var($element + "-button", border--block-width, 0)};
-    --button-border-inline-width: #{functions.var($element + "-button", border-inline-width, 0)};
+    @include mixins.override-logical(list-item-content, $element + "-button", padding, var(--space-8));
+    @include mixins.override-logical(list-item-tablet-content, $element + "-button", padding, var(--space-8));
+    @include mixins.override-logical(button, $element + "-button", padding, var(--space-8));
+    @include mixins.override-logical(button, $element + "-button", border-width, 0);
+
     --button-font: #{functions.var($element + "-button", font, var(--font-body-1))};
     --button-letter-spacing: #{functions.var($element + "-button", letter-spacing, var(--letter-spacing-body-1))};
 

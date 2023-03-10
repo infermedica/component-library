@@ -296,14 +296,12 @@ const optionsToRender = computed(() => props.options.map((option) => ({ ...optio
   $element: multiple-choices-item;
 
   &:not(:first-of-type) {
-    --list-item-border-block-width: #{functions.var($element , border-block-width, 0)};
-    --list-item-border-inline-width: #{functions.var($element , border-inline-width, 0)};
+    @include mixins.override-logical(list-item, null, border-width, 0);
   }
 
   @include mixins.from-tablet {
     &:not(:first-of-type) {
-      --list-item-border-block-width: #{functions.var($element , border-block-width)};
-      --list-item-border-inline-width: #{functions.var($element , border-inline-width)};
+      @include mixins.override-logical(list-item, $element, border-width);
     }
   }
 
@@ -313,8 +311,8 @@ const optionsToRender = computed(() => props.options.map((option) => ({ ...optio
       margin: 0;
     }
 
-    --list-item-content-padding-block: #{functions.var($element + "-content", padding-block, 0)};
-    --list-item-content-padding-inline: #{functions.var($element + "-content", padding-inline, 0)};
+    @include mixins.override-logical(list-item-content, $element + "-content", padding, 0);
+
     --list-item-content-hover-background: #{functions.var($element + "-content-hover", background, transparent)};
 
     display: block;
@@ -376,12 +374,10 @@ const optionsToRender = computed(() => props.options.map((option) => ({ ...optio
   }
 
   &__options {
-    --list-item-border-block-width: #{functions.var($element + "-options" , border-block-width)};
-    --list-item-border-inline-width: #{functions.var($element + "-options" , border-inline-width)};
+    @include mixins.override-logical(list-item, $element + "-options", border-width);
 
     @include mixins.from-tablet {
-      --list-item-border-block-width: #{functions.var($element + "-tablet-options" , border-block-width, 0)};
-      --list-item-border-inline-width: #{functions.var($element + "-tablet-options" , border-inline-width, 0)};
+      @include mixins.override-logical(list-item, $element + "-tablet-options", border-width, 0);
 
       display: flex;
       gap: functions.var($element + "-options", gap, var(--space-24));
@@ -389,10 +385,8 @@ const optionsToRender = computed(() => props.options.map((option) => ({ ...optio
   }
 
   &__option-content {
-    --list-item-content-padding-block: #{functions.var($element + "-option-content", padding-block)};
-    --list-item-content-padding-inline: #{functions.var($element + "-option-content", padding-inline)};
-    --list-item-tablet-content-padding-block: #{functions.var($element + "-tablet-option-content", padding-block, 0)};
-    --list-item-tablet-content-padding-inline: #{functions.var($element + "-tablet-option-content", padding-inline, 0)};
+    @include mixins.override-logical(list-item, $element + "-option-content", padding);
+    @include mixins.override-logical(list-item-tablet-content, $element + "-tablet-option-content", padding, 0);
     --list-item-content-hover-background: #{functions.var($element + "-content-hover", background)};
   }
 

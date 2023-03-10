@@ -124,10 +124,9 @@ provide<TabsHandleTabActive>('handleTabActive', handleTabActive);
 
   &--fixed {
     @include mixins.use-logical($element, padding, 0);
+    @include mixins.override-logical(tabs-item-content, null, margin, 0);
 
     --tabs-item-tab-flex: 1;
-    --tabs-item-content-margin-block: 0;
-    --tabs-item-content-margin-inline: 0;
   }
 }
 </style>

@@ -171,10 +171,9 @@ const defaultProps = computed(() => {
   $this: &;
   $element: accordion-item;
 
-  --list-item-padding-block: #{functions.var($element, padding-block, 0)};
-  --list-item-padding-inline: #{functions.var($element, padding-inline, 0)};
-  --list-item-tablet-block: #{functions.var($element + "-tablet", padding-block, 0)};
-  --list-item-tablet-inline: #{functions.var($element + "-tablet", padding-inline, 0)};
+  @include mixins.override-logical(list-item, $element, padding, 0);
+  @include mixins.override-logical(list-item-tablet, $element + "-tablet", padding, 0);
+
   --list-item-hover-background: #{functions.var($element + "-hover", background, transparent)};
 
   display: flex;
