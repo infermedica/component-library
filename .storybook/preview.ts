@@ -1,4 +1,4 @@
-import { withTest, withTheme } from './decorators';
+import { withTest, withTheme, withModelValue  } from './decorators';
 import type { Preview } from '@storybook/vue3';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import scss from 'react-syntax-highlighter/dist/esm/languages/prism/scss';
@@ -151,7 +151,8 @@ const preview: Preview = {
   },
   decorators: [
     withTest,
-    withTheme
+    withTheme,
+    withModelValue
   ]
 }
 

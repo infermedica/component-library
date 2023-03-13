@@ -5,10 +5,9 @@ import type {
 
 type StoryControls<ModelValue = undefined> = {
   content?: string;
-  modifiers?: string[];
+  class?: string[] | string | Record<string, boolean>;
   placeholder?: string;
   disabled?: boolean;
-  initModelValue?: ModelValue;
   items?: ModelValue;
 }
 

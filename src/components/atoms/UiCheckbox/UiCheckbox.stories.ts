@@ -1,35 +1,33 @@
-import { withPseudoState } from '@sb/decorators/withPseudoState';
+import { withPseudoState } from '@sb/decorators';
+import { inject } from 'vue';
+import {
+  content as contentArgType,
+  modifiers,
+} from '@sb/helpers/argTypes';
 import UiCheckbox from '@/components/atoms/UiCheckbox/UiCheckbox.vue';
 import type { CheckboxProps } from '@/components/atoms/UiCheckbox/UiCheckbox.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
-import { ref } from 'vue';
 import { actions } from '@storybook/addon-actions';
-import {
-  content,
-  modifiers,
-} from '@sb/helpers/argTypes';
 import type {
   StoryMeta,
   Story,
 } from '@/types';
 
 const events = actions({
-  onUpdateModelValue: 'update:modelValue',
   onFocus: 'onFocus',
   onBlur: 'onBlur',
 });
 
-const meta: StoryMeta<CheckboxProps> = {
+export default {
   title: 'Atoms/Checkbox',
   component: UiCheckbox,
   args: {
-    initModelValue: false,
-    content: 'I read and accept Terms of Service and Privacy Policy.',
-    modifiers: [],
     modelValue: false,
+    content: 'I read and accept Terms of Service and Privacy Policy.',
+    class: [],
     value: '',
     id: '',
     disabled: false,
@@ -38,14 +36,9 @@ const meta: StoryMeta<CheckboxProps> = {
     textLabelAttrs: { 'data-testid': 'text-label' },
   },
   argTypes: {
-    modelValue: { control: false },
-    content,
-    initModelValue: {
-      description: 'Use this control to set initial state.',
-      table: { category: 'stories controls' },
-      control: 'boolean',
-    },
-    modifiers: modifiers({
+    modelValue: { control: 'boolean' },
+    content: contentArgType,
+    class: modifiers({
       options: [
         'ui-checkbox--has-error',
         'ui-checkbox--is-disabled',
@@ -118,34 +111,27 @@ const meta: StoryMeta<CheckboxProps> = {
         'var(--checkbox-checked-hover-border-inline-start-color, var(--color-border-error-strong-hover)) var(--checkbox-checked-hover-border-inline-end-color, var(--color-border-error-strong-hover))',
     },
   },
-};
+} satisfies StoryMeta<CheckboxProps>;
 
-export default meta;
 type CheckboxStory = Story<CheckboxProps>;
 
 export const Basic: CheckboxStory = {
   render: (args) => ({
     components: { UiCheckbox },
+    props: Object.keys(args),
     setup() {
-      const modelValue = ref(args.initModelValue);
+      const modelValue = inject('modelValue', args.modelValue);
       return {
-        ...args,
-        ...events,
+        events,
         modelValue,
       };
     },
     template: `<UiCheckbox
+      v-bind="{
+        ...$props,
+        ...events,
+      }"
       v-model="modelValue"
-      :value="value"
-      :id="id"
-      :disabled="disabled"
-      :input-attrs="inputAttrs"
-      :icon-checkmark-attrs="iconCheckmarkAttrs"
-      :text-label-attrs="textLabelAttrs"
-      :class="modifiers"
-      @update:modelValue="onUpdateModelValue"
-      @focus="onFocus"
-      @blur="onBlur"
     >
       {{ content }}
     </UiCheckbox>`,
@@ -155,35 +141,35 @@ export const Basic: CheckboxStory = {
 const StateTemplate: CheckboxStory = {
   render: (args) => ({
     components: { UiCheckbox },
+    props: Object.keys(args),
     setup() {
       const states = [
         'pseudo-hover',
         'pseudo-active',
         'pseudo-focus-within',
         'ui-checkbox--is-disabled',
+        'ui-checkbox--has-error',
         'ui-checkbox--has-error pseudo-hover',
         'ui-checkbox--has-error pseudo-active',
       ];
-      return {
-        ...args,
-        states,
-      };
+      return { states };
     },
-    template: `<template v-for="(state, index) in states">
-      <UiCheckbox
-        v-model="modelValue"
-        :class="state"
-      >
-        {{ content }}
-      </UiCheckbox>
-    </template>`,
+    template: `<UiCheckbox
+      v-for="(state, index) in states"
+      :key="index"
+      v-bind="$props"
+      :class="state"
+      :modelValue="modelValue"
+    >
+      {{ content }}
+    </UiCheckbox>`,
   }),
+  args: { content: '' },
   argTypes: {
-    initModelValue: { control: false },
     modelValue: { control: false },
     value: { control: false },
     disabled: { control: false },
-    modifiers: { control: false },
+    class: { control: false },
     id: { control: false },
     inputAttrs: { control: false },
     iconCheckmarkAttrs: { control: false },
@@ -205,7 +191,7 @@ export const Checked: CheckboxStory = {
 export const ValueAsObject: CheckboxStory = {
   ...Basic,
   args: {
-    initModelValue: [ {
+    modelValue: [ {
       label: 'Europe',
       id: 'value-as-object-europe',
     } ],
@@ -215,12 +201,8 @@ export const ValueAsObject: CheckboxStory = {
     },
   },
   argTypes: {
-    initModelValue: {
-      description: 'Use this control to set initial state.',
-      table: { category: 'stories controls' },
-      control: 'object',
-    },
-    modelValue: { control: false },
+    modelValue: { control: 'object' },
+    value: { control: 'object' },
   },
   parameters: { chromatic: { disableSnapshot: true } },
 };
@@ -232,42 +214,33 @@ const AsGroupTemplate: CheckboxStory = {
       UiList,
       UiListItem,
     },
+    props: Object.keys(args),
     setup() {
-      const modelValue = ref(args.initModelValue);
+      const modelValue = inject('modelValue', args.modelValue);
       return {
-        ...args,
-        ...events,
-        modelValue,
+        events,
         UiCheckbox,
+        modelValue,
       };
     },
     template: `<UiList>
       <UiListItem
-        v-for="(value, key) in items"
+        v-for="(item, key) in items"
         :key="key"
+        v-bind="{
+          ...$props,
+          ...events
+        }"
         :tag="UiCheckbox"
+        :value="item"
         v-model="modelValue"
-        :value="value"
-        :id="id"
-        :disabled="disabled"
-        :input-attrs="inputAttrs"
-        :icon-checkmark-attrs="iconCheckmarkAttrs"
-        :text-label-attrs="textLabelAttrs"
-        :class="modifiers"
-        @update:modelValue="onUpdateModelValue"
-        @focus="onFocus"
-        @blur="onBlur"
       >
-        {{ value }}
+        {{ item.label || item}}
       </UiListItem>
     </UiList>`,
   }),
   argTypes: {
-    initModelValue: {
-      description: 'Use this control to set initial state.',
-      table: { category: 'stories controls' },
-      control: 'array',
-    },
+    modelValue: { control: 'array' },
     items: {
       description: 'Values of the checkbox group.',
       table: { category: 'stories controls' },
@@ -275,7 +248,7 @@ const AsGroupTemplate: CheckboxStory = {
     },
     id: { control: false },
     value: { control: false },
-    modifiers: { control: false },
+    class: { control: false },
     content: { control: false },
   },
 };
@@ -283,7 +256,7 @@ const AsGroupTemplate: CheckboxStory = {
 export const AsGroupWithPrimitiveTypes: CheckboxStory = {
   ...AsGroupTemplate,
   args: {
-    initModelValue: [ 'Europe' ],
+    modelValue: [ 'Europe' ],
     items: [
       'Russia, Kazakhstan or Mongolia',
       'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
@@ -292,42 +265,46 @@ export const AsGroupWithPrimitiveTypes: CheckboxStory = {
   },
 };
 
+const complexItems = [
+  {
+    label: 'Russia, Kazakhstan or Mongolia',
+    id: 'as-group-with-object-north-asia',
+  },
+  {
+    label: 'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
+    id: 'as-group-with-object-south-asia',
+  },
+  {
+    label: 'Europe',
+    id: 'as-group-with-object-europe',
+  },
+];
+
 export const AsGroupWithObject: CheckboxStory = {
   ...AsGroupTemplate,
   args: {
-    initModelValue: [ {
-      label: 'Europe',
-      id: 'as-group-with-object-europe',
-    } ],
-    items: [
-      'Russia, Kazakhstan or Mongolia',
-      'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
-      'Europe',
-    ],
+    modelValue: [ complexItems[0] ],
+    items: complexItems,
   },
 };
 
 export const AsGroupWithNestedObject: CheckboxStory = {
   ...AsGroupTemplate,
   args: {
-    initModelValue: [ {
-      label: 'Europe',
-      id: 'as-group-with-nested-object-europe',
-      checkboxAttrs: { 'data-testid': 'europe-checkbox' },
-    } ],
+    modelValue: [ complexItems[0] ],
     items: [
-      'Russia, Kazakhstan or Mongolia',
-      'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
-      'Europe',
+      complexItems[0],
+      complexItems[1],
+      {
+        label: 'Europe',
+        id: 'as-group-with-object-europe',
+        checkboxAttrs: { 'data-testid': 'europe-checkbox' },
+      },
     ],
   },
   argTypes: {
     ...AsGroupTemplate.argTypes,
-    initModelValue: {
-      description: 'Use this control to set initial state.',
-      table: { category: 'stories controls' },
-      control: 'object',
-    },
+    modelValue: { control: 'object' },
   },
 };
 
@@ -337,45 +314,39 @@ export const WithCheckboxSlot: CheckboxStory = {
       UiCheckbox,
       UiIcon,
     },
+    props: Object.keys(args),
     setup() {
-      const modelValue = ref(args.initModelValue);
+      const modelValue = inject('modelValue', args.modelValue);
       return {
-        ...args,
-        ...events,
+        events,
         modelValue,
       };
     },
     template: `<UiCheckbox
+      v-bind="{
+        ...$props,
+        ...events
+      }"
       v-model="modelValue"
-      :value="value"
-      :id="id"
-      :disabled="disabled"
-      :input-attrs="inputAttrs"
-      :icon-checkmark-attrs="iconCheckmarkAttrs"
-      :text-label-attrs="textLabelAttrs"
-      :class="modifiers"
-      @update:modelValue="onUpdateModelValue"
-      @focus="onFocus"
-      @blur="onBlur"
-      >
-        <template #checkbox="{
-          checked,
-          iconCheckmarkAttrs
-        }">
-          <div
-            :class="[
-              'ui-checkbox__checkbox',
-              { 'ui-checkbox__checkbox--is-checked': checked },
-            ]"
-          >
-            <UiIcon
-              v-bind="iconCheckmarkAttrs"
-              class="ui-checkbox__checkmark"
-            />
-          </div>
-        </template>
-        {{ content }}
-      </UiCheckbox>`,
+    >
+      <template #checkbox="{
+        checked,
+        iconCheckmarkAttrs
+      }">
+        <div
+          :class="[
+            'ui-checkbox__checkbox',
+            { 'ui-checkbox__checkbox--is-checked': checked },
+          ]"
+        >
+          <UiIcon
+            v-bind="iconCheckmarkAttrs"
+            class="ui-checkbox__checkmark"
+          />
+        </div>
+      </template>
+      {{ content }}
+    </UiCheckbox>`,
   }),
   parameters: { chromatic: { disableSnapshot: true } },
 };
@@ -386,39 +357,33 @@ export const WithLabelSlot: CheckboxStory = {
       UiCheckbox,
       UiText,
     },
+    props: Object.keys(args),
     setup() {
-      const modelValue = ref(args.initModelValue);
+      const modelValue = inject('modelValue', args.modelValue);
       return {
-        ...args,
-        ...events,
+        events,
         modelValue,
       };
     },
     template: `<UiCheckbox
+      v-bind="{
+        ...$props,
+        ...events
+      }"
       v-model="modelValue"
-      :value="value"
-      :id="id"
-      :disabled="disabled"
-      :input-attrs="inputAttrs"
-      :icon-checkmark-attrs="iconCheckmarkAttrs"
-      :text-label-attrs="textLabelAttrs"
-      :class="modifiers"
-      @update:modelValue="onUpdateModelValue"
-      @focus="onFocus"
-      @blur="onBlur"
-      >
-        <template #label="{
-          hasLabel,
-          textLabelAttrs,
-        }">
-          <UiText
-            v-bind="textLabelAttrs"
-            class="ui-checkbox__label"
-          >
-            {{ content }}
-          </UiText>
-        </template>
-      </UiCheckbox>`,
+    >
+      <template #label="{
+        hasLabel,
+        textLabelAttrs,
+      }">
+        <UiText
+          v-bind="textLabelAttrs"
+          class="ui-checkbox__label"
+        >
+          {{ content }}
+        </UiText>
+      </template>
+    </UiCheckbox>`,
   }),
   parameters: { chromatic: { disableSnapshot: true } },
 };
