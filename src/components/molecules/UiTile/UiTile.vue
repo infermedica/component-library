@@ -149,7 +149,6 @@ const selectHandler = () => {
   }
 
   &__icon {
-    @include mixins.override-logical(button, $element + "-checked", border-width, 2px);
     @include mixins.override-logical(button, null, margin, 0);
 
     --icon-size: #{functions.var($element + "-icon", size, 3rem)};
