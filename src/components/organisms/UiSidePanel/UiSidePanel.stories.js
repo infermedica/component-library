@@ -305,8 +305,6 @@ export const WithAsyncContent = {
       </template>
     </UiSidePanel>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithBackdropSlot = {
@@ -360,8 +358,6 @@ export const WithBackdropSlot = {
       </UiText>
     </UiSidePanel>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithContainerSlot = {
@@ -468,8 +464,6 @@ export const WithContainerSlot = {
       </template>
     </UiSidePanel>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithHeaderSlot = {
@@ -551,8 +545,6 @@ export const WithHeaderSlot = {
       </UiText>
     </UiSidePanel>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithCloseSlot = {
@@ -610,8 +602,6 @@ export const WithCloseSlot = {
       </UiText>
     </UiSidePanel>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithLabelSlot = {
@@ -676,8 +666,6 @@ export const WithLabelSlot = {
       </UiText>
     </UiSidePanel>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithTitleSlot = {
@@ -728,8 +716,6 @@ export const WithTitleSlot = {
       </UiText>
     </UiSidePanel>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithSubtitleSlot = {
@@ -778,8 +764,6 @@ export const WithSubtitleSlot = {
       </UiText>
     </UiSidePanel>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithContentSlot = {
@@ -831,6 +815,4 @@ export const WithContentSlot = {
       </template>
     </UiSidePanel>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };

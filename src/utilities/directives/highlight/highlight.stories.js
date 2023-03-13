@@ -6,7 +6,6 @@ import { highlight } from '@/utilities/directives';
 export default {
   title: 'Utilities/Directives/Highlight',
   components: { UiText },
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithDirective = () => ({

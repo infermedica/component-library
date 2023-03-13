@@ -290,8 +290,6 @@ export const WithBackdropSlot = {
       </template>
     </UiModal>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithContainerSlot = {
@@ -452,8 +450,6 @@ export const WithContainerSlot = {
       </template>
     </UiModal>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithHeaderSlot = {
@@ -547,8 +543,6 @@ export const WithHeaderSlot = {
       </template>
     </UiModal>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithTitleSlot = {
@@ -607,8 +601,6 @@ export const WithTitleSlot = {
       </template>
     </UiModal>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithCloseSlot = {
@@ -672,8 +664,6 @@ export const WithCloseSlot = {
       </template>
     </UiModal>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithDescriptionSlot = {
@@ -731,8 +721,6 @@ export const WithDescriptionSlot = {
       </template>
     </UiModal>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithoutTitleWithDescriptionSlot = {
@@ -799,8 +787,6 @@ export const WithoutTitleWithDescriptionSlot = {
       cancel: 'Cancel',
     },
   },
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithActionsSlot = {
@@ -899,8 +885,6 @@ export const WithActionsSlot = {
       </template>
     </UiModal>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithConfirmSlot = {
@@ -960,8 +944,6 @@ export const WithConfirmSlot = {
       </template>
     </UiModal>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithCancelSlot = {
@@ -1021,6 +1003,4 @@ export const WithCancelSlot = {
       </template>
     </UiModal>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };

@@ -127,8 +127,6 @@ export const WithDifferentMinimum = {
     min: 3,
     max: 7,
   },
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithSameValueMinAndMax = {
@@ -149,6 +147,4 @@ export const WithSameValueMinAndMax = {
     min: 0,
     max: 0,
   },
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };

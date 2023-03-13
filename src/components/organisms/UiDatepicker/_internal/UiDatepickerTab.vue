@@ -21,8 +21,7 @@ export type DatepickerTabAttrsProps = DefineAttrsProps<null, TabsItemAttrsProps>
   $this: &;
   $element: datepicker-tab;
 
-  --tabs-item-content-padding-block: 0;
-  --tabs-item-content-padding-inline: 0;
+  @include mixins.override-logical(tabs-item-content, null, padding, 0);
 
   &__content {
     @include mixins.use-logical($element + "-content", padding, var(--space-16) var(--space-20));

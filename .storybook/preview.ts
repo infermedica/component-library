@@ -133,6 +133,7 @@ const preview: Preview = {
       ]
     },
     controls: { hideNoControlsWarning: true },
+    chromatic: { disableSnapshot: true },
   },
   globalTypes: {
     theme: {

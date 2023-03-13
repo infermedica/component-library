@@ -256,14 +256,15 @@ const clickOutsideValue = computed<VClickOutsideValue>(() => ({
 
 <style lang="scss">
 @use "../../../../styles/functions";
+@use "../../../../styles/mixins";
 
 .ui-datepicker-calendar {
   $this: &;
   $element: datepicker-calendar;
 
+  @include mixins.override-logical(dropdown-popover, $element + "-popover", padding, 0);
+
   --dropdown-popover-max-width: #{functions.var($element + "-popover", max-width, 100% )};
-  --dropdown-popover-padding-block: #{functions.var($element + "-popover", padding-block, 0 )};
-  --dropdown-popover-padding-inline: #{functions.var($element + "-popover", padding-inline, 0 )};
 
   position: unset;
 }

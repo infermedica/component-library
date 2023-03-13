@@ -125,8 +125,7 @@ const selectHandler = () => {
   $this: &;
   $element: tile;
 
-  --button-padding-block: #{functions.var($element, padding + "-block", var(--space-16))};
-  --button-padding-inline: #{functions.var($element, padding + "-inline", var(--space-16))};
+  @include mixins.override-logical(button, $element, padding, var(--space-16));
   --button-gap: #{functions.var($element, gap, var(--space-16))};
 
   align-items: center;
@@ -144,16 +143,15 @@ const selectHandler = () => {
   }
 
   @include mixins.from-tablet {
-    --button-padding-block: #{functions.var($element + "-tablet", padding + "-block", var(--space-24))};
-    --button-padding-inline: #{functions.var($element + "-tablet", padding + "-inline", var(--space-16))};
+    @include mixins.override-logical(button, $element + "-tablet", padding, var(--space-24) var(--space-16));
 
     flex-direction: column;
   }
 
   &__icon {
+    @include mixins.override-logical(button, null, margin, 0);
+
     --icon-size: #{functions.var($element + "-icon", size, 3rem)};
-    --button-icon-margin-block: 0;
-    --button-icon-margin-inline: 0;
 
     @include mixins.from-tablet {
       --icon-size: #{functions.var($element + "-tablet-icon", size, 4rem)};
@@ -167,49 +165,14 @@ const selectHandler = () => {
   }
 
   &--is-checked {
-    --button-border-block-width: #{functions.var($element + "-checked", border-block-width, 2px)};
-    --button-border-inline-width: #{functions.var($element + "-checked", border-inline-width, 2px)};
-    --button-border-block-color:
-      #{functions.var(
-        $element + "-checked",
-        border-inline-color,
-        var(--color-border-strong)
-      )};
-    --button-border-inline-color:
-      #{functions.var(
-        $element + "-checked",
-        border-block-color,
-        var(--color-border-strong)
-      )};
-    --button-hover-border-block-color:
-      #{functions.var(
-        $element + "-hover-checked",
-        border-block-color,
-        var(--color-border-strong)
-      )};
-    --button-hover-border-inline-color:
-      #{functions.var(
-        $element + "-hover-checked",
-        border-inline-color,
-        var(--color-border-strong)
-      )};
-    --button-active-border-block-color:
-      #{functions.var(
-        $element + "-active-checked",
-        border-block-color,
-        var(--color-border-strong)
-      )};
-    --button-active-border-inline-color:
-      #{functions.var(
-        $element + "-active-checked",
-        border-inline-color,
-        var(--color-border-strong)
-      )};
+    @include mixins.override-logical(button, $element + "-checked", border-width, 2px);
+    @include mixins.override-logical(button, $element + "-checked", border-color, var(--color-border-strong));
+    @include mixins.override-logical(button-hover, $element + "-hover-checked", border-color, var(--color-border-strong));
+    @include mixins.override-logical(button-active, $element + "-active-checked", border-color, var(--color-border-strong));
   }
 
   &--has-error {
-    --button-border-block-color: var(--color-border-error-strong);
-    --button-border-inline-color: var(--color-border-error-strong);
+    @include mixins.override-logical(button, null, border-color, var(--color-border-error-strong));
   }
 }
 </style>

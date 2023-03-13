@@ -151,12 +151,12 @@ const inputId = computed(() => (
   $element: form-field;
 
   &__label {
+    @include mixins.use-logical($element + "-alert", margin, 0 0 var(--space-8) 0);
+
     display: flex;
     align-items: center;
     justify-content: flex-start;
     gap: functions.var($element + "label", gap, var(--space-8));
-
-    @include mixins.use-logical($element + "-alert", margin, 0 0 var(--space-8) 0);
   }
 
   &__alert {

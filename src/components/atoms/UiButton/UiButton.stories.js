@@ -110,8 +110,6 @@ export const Common = {
       {{ content }}
     </UiButton>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const Contained = {

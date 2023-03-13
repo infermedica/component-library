@@ -177,6 +177,4 @@ export const WithRemoveSlot = {
       {{ content }}
     </UiChip>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };

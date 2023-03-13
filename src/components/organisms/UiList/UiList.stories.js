@@ -573,6 +573,4 @@ export const WithListItemSlot = {
       </template>
     </UiList>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };

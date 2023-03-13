@@ -370,8 +370,6 @@ export const WithTitleSlot = {
       </template>
     </UiQuestion>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithInfoSlot = {
@@ -414,8 +412,6 @@ export const WithInfoSlot = {
       </template>
     </UiQuestion>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithActionsBottomSlot = {
@@ -475,8 +471,6 @@ export const WithActionsBottomSlot = {
       </template>
     </UiQuestion>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithWhySlot = {
@@ -518,8 +512,6 @@ export const WithWhySlot = {
       </template>
     </UiQuestion>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithIssueSlot = {
@@ -561,6 +553,4 @@ export const WithIssueSlot = {
       </template>
     </UiQuestion>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };

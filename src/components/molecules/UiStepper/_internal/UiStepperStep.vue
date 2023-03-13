@@ -139,8 +139,7 @@ const itemAttrs = computed<ButtonAttrsProps | TextAttrsProps>(() => (isVisitedSt
   }
 
   &::after {
-    --list-item-border-block-width: 0;
-    --list-item-border-inline-width: 0;
+    @include mixins.override-logical(list-item, null, border-width, 0);
   }
 
   &--is-visited,

@@ -169,7 +169,6 @@ export const MultipleItemsOpened = {
 
   args: { initModelValue: [] },
   argTypes: { initModelValue: { control: 'array' } },
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithDefaultSlot = {
@@ -210,8 +209,6 @@ export const WithDefaultSlot = {
       </template>
     </UiAccordion>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithTogglerSlot = {
@@ -278,8 +275,6 @@ export const WithTogglerSlot = {
       </template>
     </UiAccordion>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithChevronSlot = {
@@ -332,8 +327,6 @@ export const WithChevronSlot = {
       </template>
     </UiAccordion>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithContentSlot = {
@@ -389,6 +382,4 @@ export const WithContentSlot = {
       </template>
     </UiAccordion>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };

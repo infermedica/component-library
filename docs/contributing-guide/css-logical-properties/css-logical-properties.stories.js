@@ -10,9 +10,6 @@ export default {
     element: 'button',
     initValue: '12px 32px',
   },
-  parameters: {
-    chromatic: { disableSnapshot: true },
-  },
   decorators: [ withUseLogicalMixinCode ],
 };
 
