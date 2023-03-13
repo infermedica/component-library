@@ -17,3 +17,16 @@ export const Basic: Story = {
     template: '<UiBackdrop />',
   }),
 };
+Basic.parameters = {
+  chromatic: { disableSnapshot: false },
+  docs: {
+    source: {
+      code: `<template>
+    <UiBackdrop />
+</template>
+<script lang="ts">
+import { UiBackdrop } from '@infermedica/component-library'
+</script>`,
+    },
+  },
+};
