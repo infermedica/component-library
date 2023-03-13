@@ -14,7 +14,6 @@ const config: StorybookConfig = {
       // customize the Vite config here
       resolve: {
         alias: {
-          '@infermedica/component-library': path.resolve(__dirname, 'index.ts'),
           '@': path.resolve(__dirname, '../src'),
           '@sb': path.resolve(__dirname)
         }

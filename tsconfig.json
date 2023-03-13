@@ -23,9 +23,6 @@
       "vitest/globals"
     ],
     "paths": {
-      "@infermedica/component-library": [
-        "index.ts"
-      ],
       "@/*": [
         "src/*"
       ],
