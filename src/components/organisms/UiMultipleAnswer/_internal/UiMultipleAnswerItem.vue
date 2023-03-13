@@ -278,10 +278,13 @@ const listItemAttrs = computed(() => ({
     position: absolute;
     inset-block-start: 0;
     inset-inline-end: 0;
+    // HACK: use list-item-content-padding to make the same spacing for suffix as in list item content / BEGIN
     margin-block: var(--list-item-content-padding-block, var(--list-item-content-padding-block-start, var(--space-12)) var(--list-item-content-padding-block-end, var(--space-12)));
     margin-inline: var(--list-item-content-padding-inline, var(--list-item-content-padding-inline-start, var(--space-20)) var(--list-item-content-padding-inline-end, var(--space-12)));
+    // END
 
     @include mixins.from-tablet {
+      // HACK: use list-item-content-padding to make the same spacing for suffix as in list item content / BEGIN
       margin-block: var(--list-item-tablet-content-padding-block, var(--list-item-tablet-content-padding-block-start, var(--space-12)) var(--list-item-tablet-content-padding-block-end, var(--space-12)));
       margin-inline: var(--list-item-tablet-content-padding-inline, var(--list-item-tablet-content-padding-inline-start, var(--space-12)) var(--list-item-tablet-content-padding-inline-end, var(--space-12)));
     }

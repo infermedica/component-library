@@ -64,12 +64,12 @@ const hasIcon = computed(() => !!defaultProps.value.iconSuffixAttrs.icon);
 
 <style lang="scss">
 @use "../../../../styles/functions";
+@use "../../../../styles/mixins";
 
 .ui-menu-item-suffix {
   $element: menu-item-suffix;
 
-  --button-icon-block: #{functions.var($element + "-icon", margin-block, 0)};
-  --button-icon-inline: #{functions.var($element + "-icon", margin-inline, 0)};
+  @include mixins.override-logical(button-icon, $element + "-icon", margin, 0);
 
   display: flex;
   align-items: center;

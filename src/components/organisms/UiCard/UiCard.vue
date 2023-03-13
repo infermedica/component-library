@@ -169,12 +169,9 @@ const defaultProps = computed(() => ({
   $element: card;
   $types: "emergency_ambulance", "emergency", "consultation_24", "consultation", "self_care";
 
-  --container-padding-block: #{functions.var($element, padding-block, var(--space-20) var(--space-32))};
-  --container-padding-inline: #{functions.var($element, padding-inline, var(--space-20))};
-  --container-tablet-padding-block: #{functions.var($element + "-tablet", padding-block, 0)};
-  --container-tablet-padding-inline: #{functions.var($element + "-tablet", padding-inline, 0)};
-  --container-desktop-padding-block: #{functions.var($element + "-desktop", padding-block, 0)};
-  --container-desktop-padding-inline: #{functions.var($element + "-desktop", padding-inline, 0)};
+  @include mixins.override-logical(container, $element, padding, var(--space-20) var(--spce-20) var(--space-32));
+  @include mixins.override-logical(container-tablet, $element + "-tablet", padding, 0);
+  @include mixins.override-logical(container-desktop, $element + "-desktop", padding, 0);
 
   display: flex;
   flex-direction: column;
@@ -249,8 +246,7 @@ const defaultProps = computed(() => ({
   }
 
   &--modern {
-    --container-padding-block: #{functions.var($element, padding-block, 0)};
-    --container-padding-inline: #{functions.var($element, padding-inline, 0)};
+    @include mixins.override-logical(container, $element, padding, 0);
 
     @include mixins.from-tablet {
       flex-direction: row-reverse;
