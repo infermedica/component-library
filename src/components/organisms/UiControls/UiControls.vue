@@ -192,12 +192,9 @@ const defaultProps = computed(() => {
 .ui-controls {
   $element: controls;
 
-  --container-padding-block: 0;
-  --container-padding-inline: 0;
-  --container-tablet-padding-block: 0;
-  --container-tablet-padding-inline: 0;
-  --container-desktop-padding-block: 0;
-  --container-desktop-padding-inline: 0;
+  @include mixins.override-logical(container, null, padding, 0);
+  @include mixins.override-logical(container-tablet, null, padding, 0);
+  @include mixins.override-logical(container-desktop, null, padding, 0);
 
   display: flex;
   flex-direction: column;

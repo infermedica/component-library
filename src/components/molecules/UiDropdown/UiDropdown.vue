@@ -358,8 +358,7 @@ const dropdownItemAttrs = ({
   }
 
   &--compact {
-    --dropdown-item-padding-block: var(--space-4);
-    --dropdown-item-padding-inline: var(--space-8);
+    @include mixins.override-logical(dropdown-item, null, padding, var(--space-4) var(--space-8));
   }
 }
 </style>

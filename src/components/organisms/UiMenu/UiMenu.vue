@@ -72,19 +72,15 @@ const itemsToRender = computed<MenuRenderItem[]>(() => (props.items.map((item, k
 
 <style lang="scss">
 @use "../../../styles/functions";
+@use "../../../styles/mixins";
 
 .ui-menu {
   &--compact {
     .ui-menu-item {
       &__button {
-        --_list-item-content-padding-block: #{functions.var("menu-item-button", padding-block, var(--space-4))};
-        --_list-item-content-padding-inline: #{functions.var("menu-item-button", padding-inline, var(--space-8))};
-        --list-item-content-padding-block: var(--_list-item-content-padding-block);
-        --list-item-content-padding-inline: var(--_list-item-content-padding-inline);
-        --list-item-tablet-content-padding-block: var(--_list-item-content-padding-block);
-        --list-item-tablet-content-padding-inline: var(--_list-item-content-padding-inline);
-        --button-padding-block: var(-_list-item-content-padding-block);
-        --button-padding-inline: var(-_list-item-content-padding-inline);
+        @include mixins.override-logical(list-item-content, "menu-item-button", padding, var(--space-4) var(--space-8));
+        @include mixins.override-logical(list-item-tablet-content, "menu-item-button", padding, var(--space-4) var(--space-8));
+        @include mixins.override-logical(button, "menu-item-button", padding, var(--space-4) var(--space-8));
       }
     }
   }
