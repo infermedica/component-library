@@ -1,11 +1,15 @@
+.as-import {
+  --icon-width: 7.75rem;
+  --icon-height: auto;
+}
 //<Code id="icon-as-illustration">
-.icon-as-illustration {
+.as-illustration {
   --icon-size: 15rem;
 }
 //</Code>
 
-//<Code id="icon-as-custom-illustration">
-.icon-as-custom-illustration {
+//<Code id="illustration-with-custom-colors">
+.illustration-with-custom-colors {
   --boy-skin: #f0d7bf;
   --boy-hair: #bf9b6f;
   --boy-background: #f1eff0;

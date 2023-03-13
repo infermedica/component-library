@@ -1,0 +1,22 @@
+<svg width="160" height="160" style="--icon-color: transparent;" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="80" cy="80" r="80" fill="#FFE4E4"/>
+    <mask id="mask0_852_43257" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="160" height="160">
+        <circle cx="80" cy="80" r="80" fill="#FFE8B8"/>
+    </mask>
+    <g mask="url(#mask0_852_43257)">
+        <rect x="40" y="40" width="80" height="125" rx="8" fill="#475463" stroke="#333D48" stroke-width="2"/>
+        <rect x="40" y="80" width="80" height="2" fill="#333D48"/>
+        <rect x="40" y="56" width="80" height="2" fill="#333D48"/>
+        <rect x="40" y="104" width="80" height="2" fill="#333D48"/>
+        <rect x="40" y="128" width="80" height="2" fill="#333D48"/>
+        <circle cx="97" cy="69" r="4" fill="#FFC037"/>
+        <circle cx="109" cy="69" r="4" fill="#FA514F"/>
+        <circle cx="97" cy="93" r="4" fill="#FFC037"/>
+        <circle cx="109" cy="93" r="4" fill="#FA514F"/>
+        <circle cx="97" cy="117" r="4" fill="#FFC037"/>
+        <circle cx="109" cy="117" r="4" fill="#FA514F"/>
+    </g>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M77 40H48C43.5817 40 40 43.5817 40 48V77C60.4345 77 77 60.4345 77 40Z" fill="#333D48"/>
+    <rect x="8" y="8" width="64" height="64" rx="32" fill="#FA514F" stroke="#D42E2E" stroke-width="2"/>
+    <path d="M32.2426 26.5858C31.4616 25.8047 30.1953 25.8047 29.4142 26.5858L26.5858 29.4142C25.8047 30.1953 25.8047 31.4616 26.5858 32.2426L34.364 40.0208L26.5858 47.799C25.8047 48.58 25.8047 49.8464 26.5858 50.6274L29.4142 53.4558C30.1953 54.2369 31.4616 54.2369 32.2426 53.4558L40.0208 45.6777L47.799 53.4558C48.58 54.2369 49.8464 54.2369 50.6274 53.4558L53.4558 50.6274C54.2369 49.8464 54.2369 48.58 53.4558 47.799L45.6777 40.0208L53.4558 32.2426C54.2369 31.4616 54.2369 30.1953 53.4558 29.4142L50.6274 26.5858C49.8464 25.8047 48.58 25.8047 47.799 26.5858L40.0208 34.364L32.2426 26.5858Z" fill="white" stroke="#D42E2E" stroke-width="2"/>
+</svg>

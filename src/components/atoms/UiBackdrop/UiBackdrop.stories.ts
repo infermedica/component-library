@@ -2,7 +2,7 @@ import type {
   Meta,
   StoryObj,
 } from '@storybook/vue3';
-import UiBackdrop from '@/components/atoms/UiBackdrop/UiBackdrop.vue';
+import { UiBackdrop } from '@/../index';
 
 const meta = {
   title: 'Atoms/Backdrop',
@@ -24,6 +24,7 @@ Basic.parameters = {
       code: `<template>
     <UiBackdrop />
 </template>
+
 <script lang="ts">
 import { UiBackdrop } from '@infermedica/component-library'
 </script>`,

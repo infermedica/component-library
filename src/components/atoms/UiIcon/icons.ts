@@ -32,6 +32,7 @@ export default [
   'dots',
   'emergency-ambulance',
   'emergency',
+  'error-500',
   'error-filled',
   'female',
   'frame',
