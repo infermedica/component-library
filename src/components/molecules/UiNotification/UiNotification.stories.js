@@ -212,6 +212,4 @@ export const WithActionSlot = {
       {{ content }}
     </UiNotification>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };

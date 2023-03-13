@@ -165,8 +165,6 @@ export const WithBottomSlot = {
       </template>
     </UiControls>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithNextSlot = {
@@ -213,8 +211,6 @@ export const WithNextSlot = {
       </template>
     </UiControls>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithBackSlot = {
@@ -260,6 +256,4 @@ export const WithBackSlot = {
       </template>
     </UiControls>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };

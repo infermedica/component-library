@@ -208,8 +208,6 @@ export const WithLabelSlot = {
       </template>
     </UiFormField>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithAlertSlot = {
@@ -256,6 +254,4 @@ export const WithAlertSlot = {
       </template>
     </UiFormField>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };

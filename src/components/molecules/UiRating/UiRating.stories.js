@@ -154,8 +154,6 @@ export const WithRadioOptionsAttrsAsArray = {
       },
     ],
   },
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithIconSlot = {
@@ -205,6 +203,4 @@ export const WithIconSlot = {
       </template>
     </UiRating>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };

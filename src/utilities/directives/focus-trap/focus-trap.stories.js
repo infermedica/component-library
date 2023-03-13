@@ -15,7 +15,6 @@ export default {
     template:
         '<div style="--backdrop-position: absolute; --side-panel-position: absolute; --side-panel-z-index: 0; min-height: 320px;"><story /></div>',
   }) ],
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithDirective = () => ({

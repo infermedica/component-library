@@ -17,7 +17,6 @@ export default {
         <story />
     </div>`,
   }) ],
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithDirective = () => ({

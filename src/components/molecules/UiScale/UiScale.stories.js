@@ -157,8 +157,6 @@ export const WithRadioOptionAttrsAsArray = {
       },
     ],
   },
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithDecrementSlot = {
@@ -212,8 +210,6 @@ export const WithDecrementSlot = {
       </template>
     </UiScale>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithIncrementSlot = {
@@ -267,6 +263,4 @@ export const WithIncrementSlot = {
       </template>
     </UiScale>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };

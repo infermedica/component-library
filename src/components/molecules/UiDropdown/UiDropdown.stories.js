@@ -175,8 +175,6 @@ export const WithItemsAsObjects = {
       },
     ],
   },
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithInputToggle = {
@@ -350,8 +348,6 @@ export const WithDefaultSlot = {
       },
     ],
   },
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithDropdownItemSlot = {
@@ -407,8 +403,6 @@ export const WithDropdownItemSlot = {
       },
     ],
   },
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithToggleSlot = {
@@ -468,8 +462,6 @@ export const WithToggleSlot = {
     text: { control: false },
     name: { control: false },
   },
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithPopoverSlot = {
@@ -551,8 +543,6 @@ export const WithPopoverSlot = {
       </template>
     </UiDropdown>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithContentSlot = {
@@ -608,6 +598,4 @@ export const WithContentSlot = {
       </template>
     </UiDropdown>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };

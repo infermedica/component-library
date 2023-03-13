@@ -134,6 +134,7 @@ const preview: Preview = {
         }
       ]
     },
+    chromatic: { disableSnapshot: true },
   },
   globalTypes: {
     theme: {

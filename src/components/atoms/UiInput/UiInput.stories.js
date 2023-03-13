@@ -305,8 +305,6 @@ export const WithAButtonInSuffix = {
       options: icons,
     },
   },
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithInputSlot = {
@@ -354,8 +352,6 @@ export const WithInputSlot = {
       </template>
     </UiInput>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithAsideSlot = {
@@ -401,5 +397,4 @@ export const WithAsideSlot = {
   }),
 
   args: { suffix: 'Suffix' },
-  parameters: { chromatic: { disableSnapshot: true } },
 };

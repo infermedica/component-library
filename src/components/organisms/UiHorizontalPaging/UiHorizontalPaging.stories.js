@@ -382,8 +382,6 @@ export const AsMultilevel = {
       </template>
     </UiHorizontalPaging>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const AsMobileMenu = {
@@ -517,6 +515,4 @@ export const WithDefaultSlot = {
       </template>
     </UiHorizontalPaging>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };

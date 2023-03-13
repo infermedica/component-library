@@ -172,6 +172,4 @@ export const WithDefaultSlot = {
       </template>
     </UiTabs>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };

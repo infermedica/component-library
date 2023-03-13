@@ -256,8 +256,6 @@ export const ValueAsObject = {
     },
     modelValue: { control: false },
   },
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const AsGroupWithPrimitiveTypes = {
@@ -400,8 +398,6 @@ export const AsGroupWithObject = {
     modifiers: { control: false },
     content: { control: false },
   },
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const AsGroupWithNestedObject = {
@@ -480,8 +476,6 @@ export const AsGroupWithNestedObject = {
     modifiers: { control: false },
     content: { control: false },
   },
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithCheckboxSlot = {
@@ -530,8 +524,6 @@ export const WithCheckboxSlot = {
         {{ content }}
       </UiCheckbox>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithLabelSlot = {
@@ -574,6 +566,4 @@ export const WithLabelSlot = {
         </template>
       </UiCheckbox>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };

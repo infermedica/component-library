@@ -291,8 +291,6 @@ export const WithDecrementSlot = {
       </template>
     </UiNumberStepper>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithIncrementSlot = {
@@ -359,6 +357,4 @@ export const WithIncrementSlot = {
       </template>
     </UiNumberStepper>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
