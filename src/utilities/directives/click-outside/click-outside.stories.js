@@ -9,7 +9,6 @@ import { clickOutside } from '@/utilities/directives';
 export default {
   title: 'Utilities/Directives/Click Outside',
   decorators: [ () => ({ template: '<div style="height: 200px;"><story /></div>' }) ],
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithDirective = () => ({

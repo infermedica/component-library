@@ -269,8 +269,6 @@ export const WithBrandSlot = {
       </template>
     </UiHeader>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithLogoSlot = {
@@ -309,8 +307,6 @@ export const WithLogoSlot = {
       </template>
     </UiHeader>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithHamburgerSlot = {
@@ -360,8 +356,6 @@ export const WithHamburgerSlot = {
       </template>
     </UiHeader>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithNavigationSlot = {
@@ -404,6 +398,4 @@ export const WithNavigationSlot = {
       </template>
     </UiHeader>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };

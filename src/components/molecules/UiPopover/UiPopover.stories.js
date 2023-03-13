@@ -353,8 +353,6 @@ export const WithTitleSlot = {
       </UiText>
     </UiPopover>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithCloseSlot = {
@@ -403,6 +401,4 @@ export const WithCloseSlot = {
       </UiText>
     </UiPopover>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };

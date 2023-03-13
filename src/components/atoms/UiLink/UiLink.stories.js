@@ -90,8 +90,6 @@ export const Common = {
       {{ content }}
     </UiLink>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const Link = {

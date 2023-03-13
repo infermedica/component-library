@@ -221,9 +221,6 @@ export const Deselectable = {
       :items="items"
     />`,
   }),
-
-  args: { deselectable: true },
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithIcon = {
@@ -313,8 +310,6 @@ export const WithNumberValues = {
       },
     ],
   },
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithObjectValues = {
@@ -353,8 +348,6 @@ export const WithObjectValues = {
       },
     ],
   },
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithDefaultSlot = {
@@ -384,6 +377,4 @@ export const WithDefaultSlot = {
       </template>
     </UiToggleButtonGroup>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };

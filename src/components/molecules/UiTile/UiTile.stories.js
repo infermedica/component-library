@@ -288,8 +288,6 @@ export const WithIconSlot = {
       {{ content }}
     </UiTile>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithLabelSlot = {
@@ -328,6 +326,4 @@ export const WithLabelSlot = {
       </template>
     </UiTile>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };

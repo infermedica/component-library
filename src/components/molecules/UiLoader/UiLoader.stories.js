@@ -91,8 +91,6 @@ export const Common = {
       </UiText>
     </UiLoader>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 const LoadingPopoverOfflineMessage = {
@@ -165,8 +163,6 @@ export const IfTransitionType = {
       <story />
     </div>`,
   }) ],
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const ShowTransitionType = {
@@ -211,8 +207,6 @@ export const ShowTransitionType = {
       <story />
     </div>`,
   }) ],
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const OpacityTransitionType = {
@@ -260,8 +254,6 @@ export const OpacityTransitionType = {
       <story />
     </div>`,
   }) ],
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const SpinnerLoader = {

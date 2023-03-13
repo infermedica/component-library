@@ -155,8 +155,6 @@ export const WithIconSlot = {
       {{ content }}
     </UiAlert>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithMessageSlot = {
@@ -185,6 +183,4 @@ export const WithMessageSlot = {
       </template>
     </UiAlert>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };

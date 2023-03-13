@@ -72,5 +72,4 @@ export const AsSpan = {
   }),
 
   args: { tag: 'span' },
-  parameters: { chromatic: { disableSnapshot: true } },
 };

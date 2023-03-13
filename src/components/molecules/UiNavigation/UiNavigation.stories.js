@@ -191,8 +191,6 @@ export const WithNavigationItemSlot = {
       },
     ],
   },
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithDefaultSlot = {
@@ -220,8 +218,6 @@ export const WithDefaultSlot = {
       </template>
     </UiNavigation>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithIconInNavigationItemSlot = {
@@ -270,6 +266,4 @@ export const WithIconInNavigationItemSlot = {
       },
     ],
   },
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };

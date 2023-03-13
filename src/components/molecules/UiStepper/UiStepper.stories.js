@@ -119,8 +119,6 @@ export const WithMobileSlot = {
       </template>
     </UiStepper>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithCurrentStepSlot = {
@@ -147,8 +145,6 @@ export const WithCurrentStepSlot = {
       </template>
     </UiStepper>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithProgressSlot = {
@@ -173,8 +169,6 @@ export const WithProgressSlot = {
       </template>
     </UiStepper>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithDesktopSlot = {
@@ -213,8 +207,6 @@ export const WithDesktopSlot = {
       </template>
     </UiStepper>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithItemsSlot = {
@@ -249,8 +241,6 @@ export const WithItemsSlot = {
      </template>
     </UiStepper>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithItemSlot = {
@@ -281,8 +271,6 @@ export const WithItemSlot = {
       </template>
     </UiStepper>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithItemLinkSlot = {
@@ -315,6 +303,4 @@ export const WithItemLinkSlot = {
       </template>
     </UiStepper>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };

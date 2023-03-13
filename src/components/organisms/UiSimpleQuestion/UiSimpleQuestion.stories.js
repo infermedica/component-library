@@ -127,6 +127,4 @@ export const WithTileSlot = {
       </template>
     </UiSimpleQuestion>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };

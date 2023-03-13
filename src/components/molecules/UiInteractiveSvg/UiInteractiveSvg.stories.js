@@ -273,8 +273,6 @@ export const WithFocusOnMounted = {
       </UiInteractiveSvgElement>
     </UiInteractiveSvg>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const Map = () => ({

@@ -253,8 +253,6 @@ export const ValueAsObject = {
     },
     modelValue: { control: false },
   },
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const AsGroupWithPrimitiveTypes = {
@@ -403,8 +401,6 @@ export const AsGroupWithObject = {
     disabled: { control: false },
     content: { control: false },
   },
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const AsGroupWithNestedObject = {
@@ -488,8 +484,6 @@ export const AsGroupWithNestedObject = {
     modifiers: { control: false },
     content: { control: false },
   },
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithRadioSlot = {
@@ -533,8 +527,6 @@ export const WithRadioSlot = {
       {{ content }}
     </UiRadio>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithLabelSlot = {
@@ -577,6 +569,4 @@ export const WithLabelSlot = {
       </template>
     </UiRadio>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };

@@ -289,8 +289,6 @@ export const WithHintSlot = {
       </template>
     </UiMultipleAnswer>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithListItemSlot = {
@@ -335,8 +333,6 @@ export const WithListItemSlot = {
       </template>
     </UiMultipleAnswer>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithChoiceSlot = {
@@ -389,8 +385,6 @@ export const WithChoiceSlot = {
       </template>
     </UiMultipleAnswer>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithLabelChoiceIdSlot = {
@@ -443,6 +437,4 @@ export const WithLabelChoiceIdSlot = {
       },
     ],
   },
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
