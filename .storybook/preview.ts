@@ -132,6 +132,7 @@ const preview: Preview = {
         }
       ]
     },
+    controls: { hideNoControlsWarning: true },
   },
   globalTypes: {
     theme: {
