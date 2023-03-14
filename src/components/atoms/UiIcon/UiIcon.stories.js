@@ -25,8 +25,6 @@ export const IconAsName = {
     },
     template: '<UiIcon :icon="icon"/>',
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const IconAsImport = {
@@ -41,8 +39,6 @@ export const IconAsImport = {
     },
     template: '<UiIcon :icon="icon"/>',
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const IconAsIllustration = {
@@ -75,8 +71,6 @@ export const IconAsIllustration = {
       ],
     },
   },
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const IconAsCustomIllustration = {
@@ -93,7 +87,6 @@ export const IconAsCustomIllustration = {
 
   args: { icon: 'boy' },
   argTypes: { icon: { control: false } },
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const ListOfIcons = {
@@ -127,8 +120,5 @@ export const ListOfIcons = {
     viewBox: { control: false },
   },
 
-  parameters: {
-    controls: { hideNoControlsWarning: true },
-    chromatic: { disableSnapshot: true },
-  },
+  parameters: { controls: { hideNoControlsWarning: true } },
 };

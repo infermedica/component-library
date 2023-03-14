@@ -418,8 +418,6 @@ export const WithDetailsSlot = {
       </template>
     </UiCard>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithTriageSlot = {
@@ -449,8 +447,6 @@ export const WithTriageSlot = {
       </template>
     </UiCard>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithContentSlot = {
@@ -508,8 +504,6 @@ export const WithContentSlot = {
       </template>
     </UiCard>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithSubtitleSlot = {
@@ -546,8 +540,6 @@ export const WithSubtitleSlot = {
       </template>
     </UiCard>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithTitleSlot = {
@@ -584,8 +576,6 @@ export const WithTitleSlot = {
       </template>
     </UiCard>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithDescriptionSlot = {
@@ -622,6 +612,4 @@ export const WithDescriptionSlot = {
       </template>
     </UiCard>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };

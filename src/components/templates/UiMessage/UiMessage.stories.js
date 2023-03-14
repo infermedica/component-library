@@ -323,8 +323,6 @@ export const WithContentSlot = {
       </template>
     </UiMessage>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithAsideSlot = {
@@ -364,8 +362,6 @@ export const WithAsideSlot = {
       </UiText>
     </UiMessage>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithIllustrationSlot = {
@@ -397,6 +393,4 @@ export const WithIllustrationSlot = {
       </UiText>
     </UiMessage>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };

@@ -70,9 +70,9 @@ const select = (value: string) => {
   $element: datepicker-month-tab;
 
   &__item {
+    @include mixins.override-logical(datepicker-tab-item, null, margin, var(--space-16) 0 0 0);
+
     --datepicker-tab-item-width: calc(100% / 3);
-    --datepicker-tab-item-margin-block: var(--space-16) 0;
-    --datepicker-tab-item-margin-inline: 0;
 
     &:nth-of-type(-n+3) {
       @include mixins.use-logical($element, margin, 0);

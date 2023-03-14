@@ -159,8 +159,6 @@ export const WithDecrementSlot = {
       </template>
     </UiRange>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithIncrementSlot = {
@@ -213,8 +211,6 @@ export const WithIncrementSlot = {
       </template>
     </UiRange>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithValueSlot = {
@@ -255,8 +251,6 @@ export const WithValueSlot = {
       </template>
     </UiRange>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithRangeSlot = {
@@ -305,6 +299,4 @@ export const WithRangeSlot = {
       </template>
     </UiRange>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };

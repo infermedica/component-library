@@ -224,8 +224,6 @@ export const AsGroupWithPrimitiveTypes = {
       control: 'array',
     },
   },
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithSwitchControlSlot = {
@@ -262,6 +260,4 @@ export const WithSwitchControlSlot = {
       </template>
     </UiSwitch>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };

@@ -1,8 +1,29 @@
 @use "../functions";
 
+@function splice($list: (), $begin: 1, $end: 2) {
+  $newList: ();
+  @for $i from $begin through $end {
+    $newList: append($newList, nth($list, $i));
+  }
+  @return $newList;
+}
+
+@function join($list, $separator: "-") {
+  $result: "";
+  @for $i from 1 through length($list) {
+    @if($i == length($list)) {
+      $result: $result + nth($list, $i);
+    } @else {
+      $result: $result + nth($list, $i) + $separator;
+    }
+  }
+  @return $result;
+}
+
 @function is-css-variable ($property) {
   @return str-index($property, "--");
 }
+
 /// @example
 /// get-logical-name(margin, block)
 /// // margin-block
@@ -15,12 +36,13 @@
   @if $include-border-property {
     $is-css-variable: is-css-variable($property);
     $split-property: functions.str-split(functions.str-replace($property, "--", ""), "-");
-    $property-head: nth($split-property, 1) !default;
-    $property-tail: "-" + nth($split-property, 2) !default;
+    $property-head: nth($split-property, 1);
+    $property-tail: "-" + nth($split-property, 2);
 
     @if $is-css-variable {
-      $property-head: "--" + $property-head + "-" + nth($split-property, 2);
-      $property-tail: "-" + nth($split-property, 3);
+      $index: index($split-property, "border");
+      $property-head: "--" + join(splice($split-property, 1, $index), "-");
+      $property-tail: "-" + nth($split-property, $index + 1);
     }
 
     @return #{$property-head}#{$str}#{$property-tail};
@@ -48,11 +70,15 @@
     $results: append($results, $value);
   }
 
+  //@if (index($results, 'default')) {
+  //  $results: ["", "", "", ""];
+  //}
+
   @return $results;
 }
 
 @function get-border-radius-property ($element: null, $option) {
-  $radius-property: border-#{$option}-radius !default;
+  $radius-property: border-#{$option}-radius;
 
   @if $element {
     $radius-property: "--#{$element}-#{$radius-property}";
@@ -62,7 +88,7 @@
 }
 
 @function get-border-radius-value ($element: null, $option, $logical-value) {
-  $radius-value: functions.var($element, border-#{$option}-radius, $logical-value) !default;
+  $radius-value: functions.var($element, border-#{$option}-radius, $logical-value);
 
   @if not $element {
     $radius-value: $logical-value;
@@ -115,7 +141,7 @@
 @mixin default($element: null, $property, $values) {
   $logical-values: get-logical-values($values);
   $is-css-variable: is-css-variable($property);
-  $prepared-property: $property !default;
+  $prepared-property: $property;
 
   @if $is-css-variable {
     $prepared-property: css-property-to-property($property);
@@ -125,24 +151,24 @@
     get-logical-name($prepared-property, -block),
     functions.var($element, get-logical-name($prepared-property, -block-start), nth($logical-values, 1))
     functions.var($element, get-logical-name($prepared-property, -block-end), nth($logical-values, 3))
-  ) !default;
+  );
   $inline-related-css-props: functions.var(
     $element,
     get-logical-name($prepared-property, -inline),
     functions.var($element, get-logical-name($prepared-property, -inline-start), nth($logical-values, 4))
     functions.var($element, get-logical-name($prepared-property, -inline-end), nth($logical-values, 2))
-  ) !default;
+  );
 
   @if $element == null {
     $block-related-css-props: nth($logical-values, 1);
 
-    @if (nth($logical-values, 3) != "0") {
+    @if (nth($logical-values, 1) != "0" or nth($logical-values, 3) != "0") {
       $block-related-css-props: "#{$block-related-css-props} #{nth($logical-values, 3)}";
     }
     $inline-related-css-props: nth($logical-values, 4);
 
-    @if (nth($logical-values, 2) != "0") {
-      $inline-related-css-props:  "#{$inline-related-css-props} #{nth($logical-values, 2)}";
+    @if (nth($logical-values, 2) != "0" or nth($logical-values, 4) != "0") {
+      $inline-related-css-props: "#{$inline-related-css-props} #{nth($logical-values, 2)}";
     }
   }
 
@@ -173,7 +199,7 @@
 ///   @include override-logical(button, null, padding, 0);
 ///   // --button-padding-block: 0;
 ///   // --button-padding-inline: 0;
-@mixin override-logical($element-to-override, $element: null, $property, $values) {
+@mixin override-logical($element-to-override, $element: null, $property, $values: "") {
   @if $values and $property {
     $include-border-radius: str-index($property, border-radius);
 

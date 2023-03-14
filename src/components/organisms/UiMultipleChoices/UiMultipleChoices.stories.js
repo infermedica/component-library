@@ -247,8 +247,6 @@ export const AsEvidence = {
       },
     ],
   },
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithHintSlot = {
@@ -294,8 +292,6 @@ export const WithHintSlot = {
       </template>
     </UiMultipleChoices>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithChoiceSlot = {
@@ -344,8 +340,6 @@ export const WithChoiceSlot = {
       </template>
     </UiMultipleChoices>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithOptionSlot = {
@@ -395,6 +389,4 @@ export const WithOptionSlot = {
       </template>
     </UiMultipleChoices>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };

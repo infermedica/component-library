@@ -234,8 +234,6 @@ export const WithBulletPointItemSlot = {
       },
     ],
   },
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithDefaultSlot = {
@@ -267,8 +265,6 @@ export const WithDefaultSlot = {
       </template>
     </UiBulletPoints>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithMarkerSlot = {
@@ -320,8 +316,6 @@ export const WithMarkerSlot = {
       </template>
     </UiBulletPoints>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export const WithContentSlot = {
@@ -357,6 +351,4 @@ export const WithContentSlot = {
       </template>
     </UiBulletPoints>`,
   }),
-
-  parameters: { chromatic: { disableSnapshot: true } },
 };
