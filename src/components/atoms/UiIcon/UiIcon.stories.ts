@@ -14,6 +14,8 @@ import {
 // TODO: Add illustration- prefix to all illustrations svg's
 // TODO: Keep in icons.ts only icons
 // TODO: Keep in illustrations.ts only illustrations
+// FIXME: Use scss's from *.stories.scss file
+// TODO: Add illustration modifiers to UiIcon component? --illustration; --small-illustration;
 import icons from './icons';
 import './UiIcon.stories.scss';
 
