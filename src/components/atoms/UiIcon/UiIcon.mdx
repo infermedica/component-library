@@ -1,0 +1,33 @@
+import { Canvas, Meta, Controls } from "@storybook/blocks";
+import * as UiIconStories from "./UiIcon.stories"; import {IllustrationWithCustomColors} from "./UiIcon.stories";
+
+<Meta of={UiIconStories} />
+
+# UiIcon
+Icon component is used for cases where you need an icon from the Component Library
+
+<Canvas of={UiIconStories.Basic} />
+<Controls of={UiIconStories.Basic} />
+
+## Stories
+### All icons
+<Canvas of={UiIconStories.AllIcons} />
+
+### As Name
+You can put the name of icon from the Component Library into `icon` props.
+<Canvas of={UiIconStories.AsName} />
+
+## As Import
+You can `import` SVG icon out of the Component Library.
+<Canvas of={UiIconStories.AsImport} />
+
+### All Illustrations
+<Canvas of={UiIconStories.AllIllustrations} />
+
+### RTL Illustrations
+We have a few illustrations in the RTL version in Component Library.
+<Canvas of={UiIconStories.RTLIllustrations} />
+
+### Illustration With Custom Colors
+Illustration has a CSS Variables. You can use it to customize the colors of the illustration.
+<Canvas of={IllustrationWithCustomColors}/>
