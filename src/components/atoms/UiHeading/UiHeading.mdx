@@ -1,0 +1,28 @@
+import { Canvas, Meta, Controls } from "@storybook/blocks";
+import * as UiHeadingStories from "./UiHeading.stories";
+
+<Meta of={UiHeadingStories} />
+
+# Heading
+Heading component is used for cases where you need to add some titles.
+
+<Canvas of={UiHeadingStories.Basic} />
+<Controls of={UiHeadingStories.Basic} />
+
+
+# Stories
+## With Custom Tag
+In some cases, you may want to use a heading without its semantic properties.
+<Canvas of={UiHeadingStories.WithCustomTag} />
+
+## All Variants
+<Canvas of={UiHeadingStories.AllVariants} />
+
+## Secondary
+<Canvas of={UiHeadingStories.Secondary} />
+
+## On Brand
+<Canvas
+  of={UiHeadingStories.OnBrand}
+  className='sb-canvas-on-brand'
+/>
