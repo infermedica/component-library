@@ -101,6 +101,10 @@ export const AllVariants: Story = {
     </template>`,
   }),
 };
+AllVariants.argTypes = {
+  level: { control: false },
+  tag: { control: false },
+};
 AllVariants.parameters = {
   chromatic: { disableSnapshot: false },
   docs: { source: { code: null } },
