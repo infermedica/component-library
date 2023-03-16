@@ -20,12 +20,27 @@ import type {
   StoryObj,
 } from '@storybook/vue3';
 
-type CheckboxStoryArgs = CheckboxProps & {
+export type ArgsType = CheckboxProps & {
   content?: string;
   class?: string[];
   items?: CheckboxProps['modelValue'];
 }
-type CheckboxStory = StoryObj<CheckboxStoryArgs>;
+export type MetaType = Meta<ArgsType>;
+export type StoryType = StoryObj<ArgsType>;
+export const complexItemsData: CheckboxProps['modelValue'] = [
+  {
+    label: 'Russia, Kazakhstan or Mongolia',
+    id: 'as-group-with-object-north-asia',
+  },
+  {
+    label: 'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
+    id: 'as-group-with-object-south-asia',
+  },
+  {
+    label: 'Europe',
+    id: 'as-group-with-object-europe',
+  },
+];
 
 const events = actions({
   onFocus: 'onFocus',
@@ -35,6 +50,7 @@ const events = actions({
 export default {
   title: 'Atoms/Checkbox',
   component: UiCheckbox,
+  excludeStories: /.*(Type|Data)$/,
   args: {
     modelValue: false,
     content: 'I read and accept Terms of Service and Privacy Policy.',
@@ -42,9 +58,13 @@ export default {
     value: '',
     id: '',
     disabled: false,
-    inputAttrs: { 'data-testid': 'input-element' },
-    iconCheckmarkAttrs: { 'data-testid': 'icon-checkmark' },
-    textLabelAttrs: { 'data-testid': 'text-label' },
+    inputAttrs: {
+      'data-testid': 'input-element',
+      onFocus: events.onFocus,
+      onBlur: events.onBlur,
+    },
+    iconCheckmarkAttrs: { 'data-testid': 'icon-element' },
+    textLabelAttrs: { 'data-testid': 'text-element' },
   },
   argTypes: {
     modelValue: { control: 'boolean' },
@@ -123,23 +143,17 @@ export default {
     },
   },
   decorators: [ withModelValue ],
-} satisfies Meta<CheckboxStoryArgs>;
+} satisfies MetaType;
 
-export const Basic: CheckboxStory = {
+export const Basic: StoryType = {
   render: (args, { modelValue }) => ({
     components: { UiCheckbox },
     props: Object.keys(args),
     setup() {
-      return {
-        events,
-        modelValue,
-      };
+      return { modelValue };
     },
     template: `<UiCheckbox
-      v-bind="{
-        ...$props,
-        ...events
-      }"
+      v-bind="$props"
       v-model="modelValue"
     >
       {{ content }}
@@ -147,7 +161,7 @@ export const Basic: CheckboxStory = {
   }),
 };
 
-const StateTemplate: CheckboxStory = { ...Basic };
+const StateTemplate: StoryType = { ...Basic };
 StateTemplate.argTypes = {
   modelValue: { control: false },
   value: { control: false },
@@ -193,13 +207,13 @@ StateTemplate.parameters = {
   ],
 };
 
-export const Unchecked: CheckboxStory = { ...StateTemplate };
+export const Unchecked: StoryType = { ...StateTemplate };
 Unchecked.args = { modelValue: false };
 
-export const Checked: CheckboxStory = { ...StateTemplate };
+export const Checked: StoryType = { ...StateTemplate };
 Checked.args = { modelValue: true };
 
-export const ValueAsObject: CheckboxStory = { ...Basic };
+export const ValueAsObject: StoryType = { ...Basic };
 ValueAsObject.args = {
   modelValue: [ {
     label: 'Europe',
@@ -216,7 +230,7 @@ ValueAsObject.argTypes = {
 };
 ValueAsObject.parameters = { chromatic: { disableSnapshot: true } };
 
-const AsGroupTemplate: CheckboxStory = {
+const AsGroupTemplate: StoryType = {
   render: (args, { modelValue }) => ({
     components: {
       UiCheckbox,
@@ -226,7 +240,6 @@ const AsGroupTemplate: CheckboxStory = {
     props: Object.keys(args),
     setup() {
       return {
-        events,
         UiCheckbox,
         modelValue,
       };
@@ -235,10 +248,7 @@ const AsGroupTemplate: CheckboxStory = {
       <UiListItem
         v-for="(item, key) in items"
         :key="key"
-        v-bind="{
-          ...$props,
-          ...events
-        }"
+        v-bind="$props"
         :tag="UiCheckbox"
         :value="item"
         v-model="modelValue"
@@ -261,45 +271,28 @@ AsGroupTemplate.argTypes = {
   content: { control: false },
 };
 
-export const AsGroupWithPrimitiveTypes: CheckboxStory = {
-  ...AsGroupTemplate,
-  args: {
-    modelValue: [ 'Europe' ],
-    items: [
-      'Russia, Kazakhstan or Mongolia',
-      'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
-      'Europe',
-    ],
-  },
-};
-
-const complexItems = [
-  {
-    label: 'Russia, Kazakhstan or Mongolia',
-    id: 'as-group-with-object-north-asia',
-  },
-  {
-    label: 'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
-    id: 'as-group-with-object-south-asia',
-  },
-  {
-    label: 'Europe',
-    id: 'as-group-with-object-europe',
-  },
-];
-
-export const AsGroupWithObject: CheckboxStory = { ...AsGroupTemplate };
-AsGroupWithObject.args = {
-  modelValue: [ complexItems[0] ],
-  items: complexItems,
-};
-
-export const AsGroupWithNestedObject: CheckboxStory = { ...AsGroupTemplate };
-AsGroupWithNestedObject.args = {
-  modelValue: [ complexItems[0] ],
+export const AsGroupWithPrimitiveTypes: StoryType = { ...AsGroupTemplate };
+AsGroupWithPrimitiveTypes.args = {
+  modelValue: [ 'Europe' ],
   items: [
-    complexItems[0],
-    complexItems[1],
+    'Russia, Kazakhstan or Mongolia',
+    'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
+    'Europe',
+  ],
+};
+
+export const AsGroupWithObject: StoryType = { ...AsGroupTemplate };
+AsGroupWithObject.args = {
+  modelValue: [ complexItemsData[0] ],
+  items: complexItemsData,
+};
+
+export const AsGroupWithNestedObject: StoryType = { ...AsGroupTemplate };
+AsGroupWithNestedObject.args = {
+  modelValue: [ complexItemsData[0] ],
+  items: [
+    complexItemsData[0],
+    complexItemsData[1],
     {
       label: 'Europe',
       id: 'as-group-with-object-europe',
@@ -312,7 +305,7 @@ AsGroupWithNestedObject.argTypes = {
   modelValue: { control: 'object' },
 };
 
-export const WithCheckboxSlot: CheckboxStory = {
+export const WithCheckboxSlot: StoryType = {
   render: (args, { modelValue }) => ({
     components: {
       UiCheckbox,
@@ -320,16 +313,10 @@ export const WithCheckboxSlot: CheckboxStory = {
     },
     props: Object.keys(args),
     setup() {
-      return {
-        events,
-        modelValue,
-      };
+      return { modelValue };
     },
     template: `<UiCheckbox
-      v-bind="{
-        ...$props,
-        ...events
-      }"
+      v-bind="$props"
       v-model="modelValue"
     >
       <template #checkbox="{
@@ -353,7 +340,7 @@ export const WithCheckboxSlot: CheckboxStory = {
   }),
 };
 
-export const WithLabelSlot: CheckboxStory = {
+export const WithLabelSlot: StoryType = {
   render: (args, { modelValue }) => ({
     components: {
       UiCheckbox,
@@ -361,16 +348,10 @@ export const WithLabelSlot: CheckboxStory = {
     },
     props: Object.keys(args),
     setup() {
-      return {
-        events,
-        modelValue,
-      };
+      return { modelValue };
     },
     template: `<UiCheckbox
-      v-bind="{
-        ...$props,
-        ...events
-      }"
+      v-bind="$props"
       v-model="modelValue"
     >
       <template #label="{
