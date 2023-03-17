@@ -1,11 +1,10 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
+    "target": "ESNext",
+    "module": "ESNext",
     "strict": true,
-    "allowJs": true,
     "jsx": "preserve",
-    "moduleResolution": "node",
+    "moduleResolution": "Node",
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -18,6 +17,9 @@
     "experimentalDecorators": true,
     "sourceMap": true,
     "noImplicitThis": false,
+    "isolatedModules": true,
+    "lib": ["ESNext", "DOM"],
+    "noEmit": true,
     "baseUrl": ".",
     "types": [
       "vitest/globals"
@@ -30,19 +32,17 @@
         ".storybook/*"
       ]
     },
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost"
-    ]
   },
   "include": [
     "src/**/*.ts",
+    "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue"
   ],
   "exclude": [
     "node_modules"
-  ]
+  ],
+  "references": [{
+    "path": "./tsconfig.node.json"
+  }]
 }
