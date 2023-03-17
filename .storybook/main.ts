@@ -31,8 +31,6 @@ const config: StorybookConfig = {
       ],
       optimizeDeps: {
         include: [
-          'react-syntax-highlighter',
-          'react-syntax-highlighter/dist/esm/languages/prism/scss',
           '@storybook/theming'
         ]
       }
