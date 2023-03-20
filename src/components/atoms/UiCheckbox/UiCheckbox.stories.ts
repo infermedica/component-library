@@ -146,15 +146,13 @@ export default {
 } satisfies MetaType;
 
 export const Basic: StoryType = {
-  render: (args, { modelValue }) => ({
+  render: (args) => ({
     components: { UiCheckbox },
-    props: Object.keys(args),
     setup() {
-      return { modelValue };
+      return { ...args };
     },
     template: `<UiCheckbox
-      v-bind="$props"
-      v-model="modelValue"
+      v-bind="$attrs"
     >
       {{ content }}
     </UiCheckbox>`,
@@ -231,27 +229,25 @@ ValueAsObject.argTypes = {
 ValueAsObject.parameters = { chromatic: { disableSnapshot: true } };
 
 const AsGroupTemplate: StoryType = {
-  render: (args, { modelValue }) => ({
+  render: (args) => ({
     components: {
       UiCheckbox,
       UiList,
       UiListItem,
     },
-    props: Object.keys(args),
     setup() {
       return {
         UiCheckbox,
-        modelValue,
+        ...args,
       };
     },
     template: `<UiList>
       <UiListItem
         v-for="(item, key) in items"
         :key="key"
-        v-bind="$props"
+        v-bind="$attrs"
         :tag="UiCheckbox"
         :value="item"
-        v-model="modelValue"
       >
         {{ item.label || item}}
       </UiListItem>
@@ -306,19 +302,15 @@ AsGroupWithNestedObject.argTypes = {
 };
 
 export const WithCheckboxSlot: StoryType = {
-  render: (args, { modelValue }) => ({
+  render: (args) => ({
     components: {
       UiCheckbox,
       UiIcon,
     },
-    props: Object.keys(args),
     setup() {
-      return { modelValue };
+      return { ...args };
     },
-    template: `<UiCheckbox
-      v-bind="$props"
-      v-model="modelValue"
-    >
+    template: `<UiCheckbox v-bind="$attrs">
       <template #checkbox="{
         checked,
         iconCheckmarkAttrs
@@ -341,19 +333,15 @@ export const WithCheckboxSlot: StoryType = {
 };
 
 export const WithLabelSlot: StoryType = {
-  render: (args, { modelValue }) => ({
+  render: (args) => ({
     components: {
       UiCheckbox,
       UiText,
     },
-    props: Object.keys(args),
     setup() {
-      return { modelValue };
+      return { ...args };
     },
-    template: `<UiCheckbox
-      v-bind="$props"
-      v-model="modelValue"
-    >
+    template: `<UiCheckbox v-bind="$attrs">
       <template #label="{
         hasLabel,
         textLabelAttrs,
