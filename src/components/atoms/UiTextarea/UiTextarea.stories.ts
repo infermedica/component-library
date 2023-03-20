@@ -1,4 +1,3 @@
-import { ref } from 'vue';
 import type {
   Meta,
   StoryObj,
@@ -52,7 +51,7 @@ export const WithModelValue: Story = { ...Basic };
 WithModelValue.args = { modelValue: 'I encountered an error message while trying to submit a form on your website. The error message read \'500 Internal Server Error\'.' };
 
 export const WithPlaceholder: Story = { ...Basic };
-WithPlaceholder.args = { placeholder: 'Please provide a detailed description of the issue ' };
+WithPlaceholder.args = { placeholder: 'Please provide a detailed description of the issue' };
 
 export const WithDisabled: Story = { ...Basic };
 WithDisabled.args = { disabled: true };
@@ -90,7 +89,7 @@ export const WithError: Story = {
     props: Object.keys(args),
     template: `<UiTextarea 
       v-bind="$props"
-      modelValue=""
+      model-value=""
       class="ui-textarea--has-error"
     />
     <UiTextarea 
@@ -103,5 +102,5 @@ WithError.args = {
   modelValue: 'I encountered an error message while trying to submit a form on your website. The error message read \'500 Internal Server Error\'.',
   placeholder: 'Please provide a detailed description of the issue ',
 };
-WithError.decorators = [ () => ({ template: '<div class="grid gap-2"><story/></div>' }) ];
+WithError.decorators = [ ...Empty.decorators ];
 WithError.parameters = { ...Empty.parameters };
