@@ -25,17 +25,15 @@ const processPseudoSelector = (ct, st) => {
     st,
     st.split(", ")
       .flatMap((selector) => {
-        if (selector.includes(`.pseudo-`)) return [];
-        const modifiedSelector = selector.replace(
+        const modifiedSelector = selector.replaceAll(
           matchAllPseudoSelectors,
           (originalSelector, state) => {
-            const replacement = originalSelector.replace(
+            const replacement = originalSelector.replaceAll(
               `:${state}`,
               `.pseudo-${state}`
-            );
-            return replacement;
-          }
-        );
+              );
+              return replacement;
+        }).replace('body:not(.focus-hidden)', '');
         return [st, modifiedSelector];
       })
       .join(", ")
