@@ -31,8 +31,6 @@ const config: StorybookConfig = {
       ],
       optimizeDeps: {
         include: [
-          'react-syntax-highlighter',
-          'react-syntax-highlighter/dist/esm/languages/prism/scss',
           '@storybook/theming'
         ]
       }
@@ -62,7 +60,6 @@ const config: StorybookConfig = {
     // @storybook/addon-jest is used to display vitest results
     '@storybook/addon-jest',
     // TODO: fix addons below after migration to sb 7.0.0
-    // '@brightlayer-ui/storybook-rtl-addon/register',
     // 'storybook-addon-designs',
     './addons/cssProperties/preset.js',
   ],

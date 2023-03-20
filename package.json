@@ -66,7 +66,6 @@
     "vue": "^3.2.47"
   },
   "devDependencies": {
-    "@brightlayer-ui/storybook-rtl-addon": "^1.1.0",
     "@commitlint/cli": "^17.0.3",
     "@commitlint/config-conventional": "^17.0.3",
     "@mdx-js/react": "^2.3.0",
@@ -127,7 +126,6 @@
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-string-replace": "^1.1.0",
-    "react-syntax-highlighter": "^15.5.0",
     "sass": "^1.32.7",
     "sass-loader": "^13.0.2",
     "storybook": "^7.0.0-rc.1",
