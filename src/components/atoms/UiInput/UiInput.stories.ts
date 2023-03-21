@@ -3,7 +3,7 @@ import type {
   StoryObj,
 } from '@storybook/vue3';
 import { UiInput } from '@/../index';
-import { Icon } from '../UiButton/UiButton.stories';
+// import { Icon } from '../UiButton/UiButton.stories';
 import {withVariants } from '@sb/decorators';
 
 const slots = ['input', 'aside']
@@ -117,27 +117,27 @@ WithSuffix.args = {
 };
 WithSuffix.parameters = { chromatic: { disableSnapshot: false } };
 
-export const WithAsideButton:Story = {
-  render: (args) => ({
-    components: { UiInput },
-    props: Object.keys(args),
-    setup: () => {
-      console.log(Icon.render());
-      return { Icon: Icon.render({ icon: 'search' }) };
-    },
-    template: `<UiInput 
-      v-bind="$props"
-      model-value=""
-    >
-      <template #aside>
-        <component 
-          :is="Icon"
-          class="ui-input__aside"
-        />
-      </template>
-    </UiInput>`,
-  }),
-};
+// export const WithAsideButton:Story = {
+//   render: (args) => ({
+//     components: { UiInput },
+//     props: Object.keys(args),
+//     setup: () => {
+//       console.log(Icon.render());
+//       return { Icon: Icon.render({ icon: 'search' }) };
+//     },
+//     template: `<UiInput
+//       v-bind="$props"
+//       model-value=""
+//     >
+//       <template #aside>
+//         <component
+//           :is="Icon"
+//           class="ui-input__aside"
+//         />
+//       </template>
+//     </UiInput>`,
+//   }),
+// };
 
 /**
  * Slots

@@ -130,12 +130,14 @@ const {
 
     transition: fill 150ms ease-in-out;
 
+    // TODO: Remove this hack when we have a better way to do this.
     &--end {
       @include mixins.use-logical($element + "-icon", margin, 0 calc(var(--space-8) * -1) 0 0);
     }
   }
 
-  &--is-disabled {
+  // should we?
+  & &--is-disabled {
     background: functions.var($element, background, var(--color-background-disabled));
     cursor: not-allowed;
 
