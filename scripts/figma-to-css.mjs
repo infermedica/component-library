@@ -97,6 +97,7 @@ const figmaToCss = async () => {
         case 'Frame 1105':
           if (frame?.children.length > 1) {
             return frame.children
+              .reverse()
               ?.reduce((acc, { children }) => acc.concat(children), [])
               ?.filter(({ characters }) => !characters?.match(/Desktop|Mobile/g))
               ?.map(getFontProperties);
