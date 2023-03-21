@@ -15,6 +15,7 @@ import {
 import type { CheckboxProps } from '@/../index';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import { actions } from '@storybook/addon-actions';
+import { expect } from '@storybook/jest';
 import type {
   Meta,
   StoryObj,
@@ -205,11 +206,68 @@ StateTemplate.parameters = {
   ],
 };
 
+
+const testFocusedCheckbox = (checkbox: Element) => {
+  expect(window.getComputedStyle(checkbox).boxShadow).toBe('rgb(255, 255, 255) 0px 0px 0px 2px, rgb(47, 145, 234) 0px 0px 0px 4px');
+}
+const testDisabledLabel = async (canvasElement: Element) => {
+  const disabledLabel = await canvasElement.querySelectorAll('.ui-checkbox__label')[4]
+  expect(window.getComputedStyle(disabledLabel).color).toBe('rgb(164, 177, 191)');
+}
+
 export const Unchecked: StoryType = { ...StateTemplate };
 Unchecked.args = { modelValue: false };
+Unchecked.play = async ({canvasElement, step}) => {
+  const checkboxes = await canvasElement.querySelectorAll('.ui-checkbox__checkbox')
+  const expectedColors = [
+    'rgb(125, 143, 163)',
+    'rgb(71, 84, 99)',
+    'rgb(31, 38, 44)',
+    'rgb(125, 143, 163)',
+    'rgb(193, 203, 213)',
+    'rgb(250, 81, 79)',
+    'rgb(212, 46, 46)',
+    'rgb(161, 32, 32)',
+  ];
+  await step('Unchecked checkboxes have correct border color', async () => {
+    checkboxes.forEach((checkbox: Element, index: number) => {
+      expect(window.getComputedStyle(checkbox, ':after').borderColor).toBe(expectedColors[index]);
+    })
+  })
+  await step('Focused checkbox has correct box-shadow', async () => {
+    testFocusedCheckbox(checkboxes[3])
+  });
+  await step('Disabled checkbox has correct label color', async () => {
+    await testDisabledLabel(canvasElement)
+  });
+}
 
 export const Checked: StoryType = { ...StateTemplate };
 Checked.args = { modelValue: true };
+Checked.play = async ({canvasElement, step}) => {
+  const checkboxes = await canvasElement.querySelectorAll('.ui-checkbox__checkbox')
+  const expectedColors = [
+    'rgb(26, 161, 117)',
+    'rgb(18, 127, 91)',
+    'rgb(11, 95, 67)',
+    'rgb(26, 161, 117)',
+    'rgb(193, 203, 213)',
+    'rgb(250, 81, 79)',
+    'rgb(212, 46, 46)',
+    'rgb(161, 32, 32)',
+  ];
+  await step('Checked checkboxes have correct backgrounds color', async () => {
+    checkboxes.forEach((checkbox: Element, index: number) => {
+      expect(window.getComputedStyle(checkbox).backgroundColor).toBe(expectedColors[index]);
+    })
+  })
+  await step('Focused checkbox has correct box-shadow', async () => {
+    testFocusedCheckbox(checkboxes[3])
+  });
+  await step('Disabled checkbox has correct label color', async () => {
+    await testDisabledLabel(canvasElement)
+  });
+}
 
 export const ValueAsObject: StoryType = { ...Basic };
 ValueAsObject.args = {
