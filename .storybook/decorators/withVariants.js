@@ -95,7 +95,7 @@ const replacePseudoSelectors = (selector) => {
   }
   return rulesProcessed;
 }
-export const withVariants = (story, { componentId, id, parameters }) => ({
+export const withVariants = (story, { componentId, id, parameters, args }) => ({
   components: { story },
   setup() {
     const componentClassName = `.ui-${componentId.split('-')[1]}`;
@@ -105,7 +105,8 @@ export const withVariants = (story, { componentId, id, parameters }) => ({
       removeStylesFromDOM(id);
     })
     return {
-      variants: parameters.variants
+      variants: parameters.variants,
+      args,
     }
   },
   template: `<div class="variants">
@@ -113,7 +114,12 @@ export const withVariants = (story, { componentId, id, parameters }) => ({
       <span class="variants__label">
         {{variant.label}}:
       </span>
-      <story :class="variant.class"/>
+      <story 
+          :class="variant.class" 
+          :disabled="variant.disabled || null"
+          :model-value="variant.modelValue || args.modelValue"
+          :level="variant.level || null"
+      />
     </template>
   </div>`
 })

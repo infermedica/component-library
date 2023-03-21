@@ -3,6 +3,7 @@ import type {
   StoryObj,
 } from '@storybook/vue3';
 import { UiTextarea } from '@/../index';
+import { withVariants } from '@sb/decorators';
 
 const meta = {
   title: 'Atoms/Textarea',
@@ -59,48 +60,52 @@ WithDisabled.args = { disabled: true };
 export const WithResize: Story = { ...Basic };
 WithResize.args = { resize: true };
 
-export const Empty: Story = {
-  render: (args) => ({
-    components: { UiTextarea },
-    props: Object.keys(args),
-    template: `<UiTextarea v-bind="$props"/>
-    <UiTextarea 
-      v-bind="$props"
-      :disabled="true"
-      class="ui-textarea--is-disabled"
-    />`,
-  }),
-};
-Empty.args = { placeholder: 'Please provide a detailed description of the issue.' };
-Empty.decorators = [ () => ({ template: '<div class="grid gap-2"><story/></div>' }) ];
-Empty.parameters = {
+const StateTemplate: Story = { ...Basic }
+StateTemplate.argTypes = {
+  disabled: {
+    control: false,
+  }
+}
+StateTemplate.decorators = [ withVariants ]
+StateTemplate.parameters = {
+  variants: [
+    { label: 'default' },
+    ...['hover', 'focus'].map((variant) => ({
+      label: `${variant}`,
+      class: `pseudo-${variant}`,
+    })),
+    {
+      label: 'disabled',
+      disabled: true,
+      class: 'ui-textarea--is-disabled'
+    }
+  ],
   chromatic: { disableSnapshot: false },
   docs: { source: { code: null } },
-};
+}
+
+export const Empty: Story = {...StateTemplate};
 
 export const Filled: Story = { ...Empty };
 Filled.args = { modelValue: 'I encountered an error message while trying to submit a form on your website. The error message read \'500 Internal Server Error\'.' };
 
-// TODO: story for hover and focus?
-
-export const WithError: Story = {
-  render: (args) => ({
-    components: { UiTextarea },
-    props: Object.keys(args),
-    template: `<UiTextarea 
-      v-bind="$props"
-      model-value=""
-      class="ui-textarea--has-error"
-    />
-    <UiTextarea 
-      v-bind="$props"
-      class="ui-textarea--has-error"
-    />`,
-  }),
-};
-WithError.args = {
-  modelValue: 'I encountered an error message while trying to submit a form on your website. The error message read \'500 Internal Server Error\'.',
-  placeholder: 'Please provide a detailed description of the issue ',
-};
-WithError.decorators = [ ...Empty.decorators ];
-WithError.parameters = { ...Empty.parameters };
+export const WithError: Story = { ...Basic };
+WithError.decorators = [ withVariants ]
+WithError.parameters = {
+  ...StateTemplate.parameters,
+  variants: [
+    {
+      label: 'default',
+      class: 'ui-textarea--has-error'
+    },
+    ...['hover'].map((variant) => ({
+      label: `${variant}`,
+      class: `ui-textarea--has-error pseudo-${variant}`,
+    })),
+    {
+      label: 'filed',
+      class: 'ui-textarea--has-error',
+      modelValue: '\'I encountered an error message while trying to submit a form on your website. The error message read \'500 Internal Server Error\'.'
+    }
+  ]
+}

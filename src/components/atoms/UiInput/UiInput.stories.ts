@@ -2,12 +2,20 @@ import type {
   Meta,
   StoryObj,
 } from '@storybook/vue3';
-import {
-  UiInput,
-  UiButton,
-  UiIcon,
-} from '@/../index';
+import { UiInput } from '@/../index';
 import { Icon } from '../UiButton/UiButton.stories';
+import {withVariants } from '@sb/decorators';
+
+const slots = ['input', 'aside']
+  .reduce((acc, key) => {
+    return {...acc, [key]: { control: false } };
+  }, {})
+const events = ['onFocus', 'onBlur'].reduce((acc, key) => {
+  return {...acc, [key]: {
+    action: key,
+    table: { disable: true },
+  } };
+}, {})
 
 const meta = {
   title: 'Atoms/Input',
@@ -35,14 +43,8 @@ const meta = {
         'url',
       ],
     },
-    onFocus: {
-      action: 'onFocus',
-      table: { disable: true },
-    },
-    onBlur: {
-      action: 'onBlur',
-      table: { disable: true },
-    },
+    ...slots,
+    ...events,
   },
 } satisfies Meta<typeof UiInput>;
 export default meta;
@@ -56,45 +58,57 @@ export const Basic: Story = {
   }),
 };
 
-export const Empty: Story = {
-  render: (args) => ({
-    components: { UiInput },
-    props: Object.keys(args),
-    template: `<UiInput v-bind="$props"/>
-    <UiInput 
-      v-bind="$props"
-      :disabled="true"
-      class="ui-input--is-disabled"
-    />`,
-  }),
-};
-Empty.decorators = [ () => ({ template: '<div class="grid gap-2 justify-start"><story/></div>' }) ];
-Empty.parameters = {
+const StateTemplate: Story = { ...Basic }
+StateTemplate.argTypes = {
+  disabled: {
+    control: false,
+  }
+}
+StateTemplate.decorators = [ withVariants ]
+StateTemplate.parameters = {
+  variants: [
+    { label: 'default' },
+    ...['hover', 'focus'].map((variant) => ({
+      label: `${variant}`,
+      class: `pseudo-${variant}`,
+    })),
+    {
+      label: 'disabled',
+      disabled: true,
+      class: 'ui-input--is-disabled'
+    }
+  ],
   chromatic: { disableSnapshot: false },
   docs: { source: { code: null } },
-};
+}
+
+export const Empty: Story = { ...StateTemplate }
 
 export const Filled: Story = { ...Empty };
 Filled.args = { modelValue: 'headache' };
 
 export const WithError: Story = {
-  render: (args) => ({
-    components: { UiInput },
-    props: Object.keys(args),
-    template: `<UiInput 
-      v-bind="$props"
-      model-value=""
-      class="ui-input--has-error"
-    />
-    <UiInput 
-      v-bind="$props"
-      class="ui-input--has-error"
-    />`,
-  }),
-};
-WithError.args = { ...Filled.args };
-WithError.decorators = [ ...Empty.decorators ];
-WithError.parameters = { ...Empty.parameters };
+  ...Basic,
+}
+WithError.decorators = [ withVariants ]
+WithError.parameters = {
+  ...StateTemplate.parameters,
+  variants: [
+    {
+      label: 'default',
+      class: 'ui-input--has-error'
+    },
+    ...['hover'].map((variant) => ({
+      label: `${variant}`,
+      class: `ui-input--has-error pseudo-${variant}`,
+    })),
+    {
+      label: 'filed',
+      class: 'ui-input--has-error',
+      modelValue: 'headache'
+    }
+  ]
+}
 
 export const WithSuffix: Story = { ...Basic };
 WithSuffix.args = {
@@ -125,6 +139,9 @@ export const WithAsideButton:Story = {
   }),
 };
 
+/**
+ * Slots
+ */
 export const WithInputSlot:Story = {
   render: () => ({
     components: { UiInput },
@@ -143,6 +160,7 @@ export const WithInputSlot:Story = {
     </UiInput>`,
   }),
 };
+
 export const WithAsideSlot:Story = {
   render: () => ({
     components: { UiInput },

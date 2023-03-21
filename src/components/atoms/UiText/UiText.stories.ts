@@ -3,6 +3,7 @@ import type {
   StoryObj,
 } from '@storybook/vue3';
 import { UiText } from '@/../index';
+import { withVariants } from '@sb/decorators';
 
 const UiTextModifiers = [
   'ui-text--body-1-thick',
@@ -65,38 +66,35 @@ Basic.args = { modifiers: [] };
 export const WithTag: Story = { ...Basic };
 WithTag.args = { tag: 'span' };
 
-export const AllVariants: Story = {
-  render: (args) => ({
-    components: { UiText },
-    setup() {
-      const { content } = args;
-      return {
-        content,
-        UiTextModifiers,
-      };
-    },
-    template: `<template v-for="modifier in UiTextModifiers">
-      <UiText :class="modifier">
-        {{ content }}
-      </UiText>
-    </template>`,
-  }),
-};
+export const AllVariants: Story = {...Basic };
 AllVariants.argTypes = {
   tag: { control: false },
   modifiers: { control: false },
 };
+AllVariants.decorators = [ withVariants ]
 AllVariants.parameters = {
+  variants: [
+    ...UiTextModifiers.map((variant) => ({
+      label: `${variant.replace('ui-text--', '')}`,
+      class: `${variant}`,
+    })),
+  ],
   chromatic: { disableSnapshot: false },
   docs: { source: { code: null } },
 };
 
 export const Secondary: Story = { ...AllVariants };
-Secondary.decorators = [ () => ({ template: '<div class="ui-text--theme-secondary"><story/></div>' }) ];
+Secondary.decorators = [
+  ...AllVariants.decorators,
+  () => ({ template: '<div class="ui-text--theme-secondary"><story/></div>' })
+];
 
 export const Brand: Story = { ...AllVariants };
 Brand.parameters = {
   ...AllVariants.parameters,
   backgrounds: { default: 'brand' },
 };
-Brand.decorators = [ () => ({ template: '<div class="ui-text--theme-brand"><story/></div>' }) ];
+Brand.decorators = [
+  ...AllVariants.decorators,
+  () => ({ template: '<div class="ui-text--theme-brand"><story/></div>' })
+];

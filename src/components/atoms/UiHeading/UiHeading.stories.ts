@@ -3,7 +3,7 @@ import type {
   StoryObj,
 } from '@storybook/vue3';
 import { UiHeading } from '@/../index';
-import { components } from '@storybook/components';
+import {withVariants } from '@sb/decorators';
 
 const meta = {
   title: 'Atoms/Heading',
@@ -85,38 +85,37 @@ import { UiHeading } from '@infermedica/component-library';
 };
 
 export const AllVariants: Story = {
-  render: (args) => ({
-    components: { UiHeading },
-    setup() {
-      const {
-        content, ...rest
-      } = args;
-
-      return { content };
-    },
-    template: `<template v-for="level in 5">
-      <UiHeading :level="level">
-        {{ content }}
-      </UiHeading>
-    </template>`,
-  }),
+  ...Basic,
 };
 AllVariants.argTypes = {
   level: { control: false },
   tag: { control: false },
 };
+AllVariants.decorators = [ withVariants ];
 AllVariants.parameters = {
+  variants: [
+    ...Array.apply(null, Array(5)).map( (variant, index)=> ({
+      label: `H${index+1}`,
+      level: index+1,
+    }))
+  ],
   chromatic: { disableSnapshot: false },
   docs: { source: { code: null } },
 };
 
 export const Secondary: Story = { ...AllVariants };
-Secondary.decorators = [ () => ({ template: '<div class="ui-heading--theme-secondary"><story/></div>' }) ];
+Secondary.decorators = [
+  ...AllVariants.decorators,
+  () => ({ template: '<div class="ui-heading--theme-secondary"><story/></div>' })
+];
 
 export const Brand: Story = { ...AllVariants };
 Brand.parameters = {
   ...AllVariants.parameters,
   backgrounds: { default: 'brand' },
 };
-Brand.decorators = [ () => ({ template: '<div class="ui-heading--theme-brand"><story/></div>' }) ];
+Brand.decorators = [
+  ...AllVariants.decorators,
+  () => ({ template: '<div class="ui-heading--theme-brand"><story/></div>' })
+];
 
