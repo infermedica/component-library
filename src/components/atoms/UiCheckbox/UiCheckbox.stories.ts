@@ -1,20 +1,46 @@
-import { withPseudoState } from '@sb/decorators';
-import { inject } from 'vue';
 import {
-  content as contentArgType,
+  withVariants,
+  withModelValue,
+} from '@sb/decorators';
+import {
+  content,
   modifiers,
 } from '@sb/helpers/argTypes';
-import UiCheckbox from '@/components/atoms/UiCheckbox/UiCheckbox.vue';
-import type { CheckboxProps } from '@/components/atoms/UiCheckbox/UiCheckbox.vue';
-import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
-import UiText from '@/components/atoms/UiText/UiText.vue';
-import UiList from '@/components/organisms/UiList/UiList.vue';
+import {
+  UiIcon,
+  UiCheckbox,
+  UiText,
+  UiList,
+} from '@/../index';
+import type { CheckboxProps } from '@/../index';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import { actions } from '@storybook/addon-actions';
 import type {
-  StoryMeta,
-  Story,
-} from '@/types';
+  Meta,
+  StoryObj,
+} from '@storybook/vue3';
+
+export type ArgsType = CheckboxProps & {
+  content?: string;
+  class?: string[];
+  items?: CheckboxProps['modelValue'];
+}
+export type MetaType = Meta<ArgsType>;
+export type StoryType = StoryObj<ArgsType>;
+export const complexItemsData: CheckboxProps['modelValue'] = [
+  {
+    label: 'Russia, Kazakhstan or Mongolia',
+    id: 'as-group-with-object-north-asia',
+  },
+  {
+    label: 'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
+    id: 'as-group-with-object-south-asia',
+  },
+  {
+    label: 'Europe',
+    id: 'as-group-with-object-europe',
+  },
+];
 
 const events = actions({
   onFocus: 'onFocus',
@@ -24,6 +50,7 @@ const events = actions({
 export default {
   title: 'Atoms/Checkbox',
   component: UiCheckbox,
+  excludeStories: /.*(Type|Data)$/,
   args: {
     modelValue: false,
     content: 'I read and accept Terms of Service and Privacy Policy.',
@@ -31,13 +58,17 @@ export default {
     value: '',
     id: '',
     disabled: false,
-    inputAttrs: { 'data-testid': 'input-element' },
-    iconCheckmarkAttrs: { 'data-testid': 'icon-checkmark' },
-    textLabelAttrs: { 'data-testid': 'text-label' },
+    inputAttrs: {
+      'data-testid': 'input-element',
+      onFocus: events.onFocus,
+      onBlur: events.onBlur,
+    },
+    iconCheckmarkAttrs: { 'data-testid': 'icon-element' },
+    textLabelAttrs: { 'data-testid': 'text-element' },
   },
   argTypes: {
     modelValue: { control: 'boolean' },
-    content: contentArgType,
+    content,
     class: modifiers({
       options: [
         'ui-checkbox--has-error',
@@ -111,224 +142,175 @@ export default {
         'var(--checkbox-checked-hover-border-inline-start-color, var(--color-border-error-strong-hover)) var(--checkbox-checked-hover-border-inline-end-color, var(--color-border-error-strong-hover))',
     },
   },
-} satisfies StoryMeta<CheckboxProps>;
+  decorators: [ withModelValue ],
+} satisfies MetaType;
 
-type CheckboxStory = Story<CheckboxProps>;
-
-export const Basic: CheckboxStory = {
+export const Basic: StoryType = {
   render: (args) => ({
     components: { UiCheckbox },
-    props: Object.keys(args),
     setup() {
-      const modelValue = inject('modelValue', args.modelValue);
-      return {
-        events,
-        modelValue,
-      };
+      return { ...args };
     },
     template: `<UiCheckbox
-      v-bind="{
-        ...$props,
-        ...events,
-      }"
-      v-model="modelValue"
+      v-bind="$attrs"
     >
       {{ content }}
     </UiCheckbox>`,
   }),
 };
 
-const StateTemplate: CheckboxStory = {
-  render: (args) => ({
-    components: { UiCheckbox },
-    props: Object.keys(args),
-    setup() {
-      const states = [
-        'pseudo-hover',
-        'pseudo-active',
-        'pseudo-focus-within',
-        'ui-checkbox--is-disabled',
-        'ui-checkbox--has-error',
-        'ui-checkbox--has-error pseudo-hover',
-        'ui-checkbox--has-error pseudo-active',
-      ];
-      return { states };
+const StateTemplate: StoryType = { ...Basic };
+StateTemplate.argTypes = {
+  modelValue: { control: false },
+  value: { control: false },
+  disabled: { control: false },
+  class: { control: false },
+  id: { control: false },
+  inputAttrs: { control: false },
+  iconCheckmarkAttrs: { control: false },
+  textLabelAttrs: { control: false },
+};
+StateTemplate.decorators = [ withVariants ];
+StateTemplate.parameters = {
+  variants: [
+    { label: 'default' },
+    {
+      label: 'hover',
+      class: 'pseudo-hover',
     },
-    template: `<UiCheckbox
-      v-for="(state, index) in states"
-      :key="index"
-      v-bind="$props"
-      :class="state"
-      :modelValue="modelValue"
-    >
-      {{ content }}
-    </UiCheckbox>`,
-  }),
-  args: { content: '' },
-  argTypes: {
-    modelValue: { control: false },
-    value: { control: false },
-    disabled: { control: false },
-    class: { control: false },
-    id: { control: false },
-    inputAttrs: { control: false },
-    iconCheckmarkAttrs: { control: false },
-    textLabelAttrs: { control: false },
-  },
-  decorators: [ withPseudoState ],
-};
-
-export const Unchecked: CheckboxStory = {
-  ...StateTemplate,
-  args: { modelValue: false },
-};
-
-export const Checked: CheckboxStory = {
-  ...StateTemplate,
-  args: { modelValue: true },
-};
-
-export const ValueAsObject: CheckboxStory = {
-  ...Basic,
-  args: {
-    modelValue: [ {
-      label: 'Europe',
-      id: 'value-as-object-europe',
-    } ],
-    value: {
-      label: 'Europe',
-      id: 'value-as-object-europe',
+    {
+      label: 'active',
+      class: 'pseudo-active',
     },
-  },
-  argTypes: {
-    modelValue: { control: 'object' },
-    value: { control: 'object' },
-  },
-  parameters: { chromatic: { disableSnapshot: true } },
+    {
+      label: 'focus',
+      class: 'pseudo-focus-within',
+    },
+    {
+      label: 'disabled',
+      class: 'ui-checkbox--is-disabled',
+    },
+    {
+      label: 'error',
+      class: 'ui-checkbox--has-error',
+    },
+    {
+      label: 'error-hover',
+      class: 'ui-checkbox--has-error pseudo-hover',
+    },
+    {
+      label: 'error-active',
+      class: 'ui-checkbox--has-error pseudo-active',
+    },
+  ],
 };
 
-const AsGroupTemplate: CheckboxStory = {
+export const Unchecked: StoryType = { ...StateTemplate };
+Unchecked.args = { modelValue: false };
+
+export const Checked: StoryType = { ...StateTemplate };
+Checked.args = { modelValue: true };
+
+export const ValueAsObject: StoryType = { ...Basic };
+ValueAsObject.args = {
+  modelValue: [ {
+    label: 'Europe',
+    id: 'value-as-object-europe',
+  } ],
+  value: {
+    label: 'Europe',
+    id: 'value-as-object-europe',
+  },
+};
+ValueAsObject.argTypes = {
+  modelValue: { control: 'object' },
+  value: { control: 'object' },
+};
+ValueAsObject.parameters = { chromatic: { disableSnapshot: true } };
+
+const AsGroupTemplate: StoryType = {
   render: (args) => ({
     components: {
       UiCheckbox,
       UiList,
       UiListItem,
     },
-    props: Object.keys(args),
     setup() {
-      const modelValue = inject('modelValue', args.modelValue);
       return {
-        events,
         UiCheckbox,
-        modelValue,
+        ...args,
       };
     },
     template: `<UiList>
       <UiListItem
         v-for="(item, key) in items"
         :key="key"
-        v-bind="{
-          ...$props,
-          ...events
-        }"
+        v-bind="$attrs"
         :tag="UiCheckbox"
         :value="item"
-        v-model="modelValue"
       >
         {{ item.label || item}}
       </UiListItem>
     </UiList>`,
   }),
-  argTypes: {
-    modelValue: { control: 'array' },
-    items: {
-      description: 'Values of the checkbox group.',
-      table: { category: 'stories controls' },
-      control: 'object',
+};
+AsGroupTemplate.argTypes = {
+  modelValue: { control: 'array' },
+  items: {
+    description: 'Values of the checkbox group.',
+    table: { category: 'stories controls' },
+    control: 'object',
+  },
+  id: { control: false },
+  value: { control: false },
+  class: { control: false },
+  content: { control: false },
+};
+
+export const AsGroupWithPrimitiveTypes: StoryType = { ...AsGroupTemplate };
+AsGroupWithPrimitiveTypes.args = {
+  modelValue: [ 'Europe' ],
+  items: [
+    'Russia, Kazakhstan or Mongolia',
+    'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
+    'Europe',
+  ],
+};
+
+export const AsGroupWithObject: StoryType = { ...AsGroupTemplate };
+AsGroupWithObject.args = {
+  modelValue: [ complexItemsData[0] ],
+  items: complexItemsData,
+};
+
+export const AsGroupWithNestedObject: StoryType = { ...AsGroupTemplate };
+AsGroupWithNestedObject.args = {
+  modelValue: [ complexItemsData[0] ],
+  items: [
+    complexItemsData[0],
+    complexItemsData[1],
+    {
+      label: 'Europe',
+      id: 'as-group-with-object-europe',
+      checkboxAttrs: { 'data-testid': 'europe-checkbox' },
     },
-    id: { control: false },
-    value: { control: false },
-    class: { control: false },
-    content: { control: false },
-  },
+  ],
+};
+AsGroupWithNestedObject.argTypes = {
+  ...AsGroupTemplate.argTypes,
+  modelValue: { control: 'object' },
 };
 
-export const AsGroupWithPrimitiveTypes: CheckboxStory = {
-  ...AsGroupTemplate,
-  args: {
-    modelValue: [ 'Europe' ],
-    items: [
-      'Russia, Kazakhstan or Mongolia',
-      'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
-      'Europe',
-    ],
-  },
-};
-
-const complexItems = [
-  {
-    label: 'Russia, Kazakhstan or Mongolia',
-    id: 'as-group-with-object-north-asia',
-  },
-  {
-    label: 'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
-    id: 'as-group-with-object-south-asia',
-  },
-  {
-    label: 'Europe',
-    id: 'as-group-with-object-europe',
-  },
-];
-
-export const AsGroupWithObject: CheckboxStory = {
-  ...AsGroupTemplate,
-  args: {
-    modelValue: [ complexItems[0] ],
-    items: complexItems,
-  },
-};
-
-export const AsGroupWithNestedObject: CheckboxStory = {
-  ...AsGroupTemplate,
-  args: {
-    modelValue: [ complexItems[0] ],
-    items: [
-      complexItems[0],
-      complexItems[1],
-      {
-        label: 'Europe',
-        id: 'as-group-with-object-europe',
-        checkboxAttrs: { 'data-testid': 'europe-checkbox' },
-      },
-    ],
-  },
-  argTypes: {
-    ...AsGroupTemplate.argTypes,
-    modelValue: { control: 'object' },
-  },
-};
-
-export const WithCheckboxSlot: CheckboxStory = {
+export const WithCheckboxSlot: StoryType = {
   render: (args) => ({
     components: {
       UiCheckbox,
       UiIcon,
     },
-    props: Object.keys(args),
     setup() {
-      const modelValue = inject('modelValue', args.modelValue);
-      return {
-        events,
-        modelValue,
-      };
+      return { ...args };
     },
-    template: `<UiCheckbox
-      v-bind="{
-        ...$props,
-        ...events
-      }"
-      v-model="modelValue"
-    >
+    template: `<UiCheckbox v-bind="$attrs">
       <template #checkbox="{
         checked,
         iconCheckmarkAttrs
@@ -348,30 +330,18 @@ export const WithCheckboxSlot: CheckboxStory = {
       {{ content }}
     </UiCheckbox>`,
   }),
-  parameters: { chromatic: { disableSnapshot: true } },
 };
 
-export const WithLabelSlot: CheckboxStory = {
+export const WithLabelSlot: StoryType = {
   render: (args) => ({
     components: {
       UiCheckbox,
       UiText,
     },
-    props: Object.keys(args),
     setup() {
-      const modelValue = inject('modelValue', args.modelValue);
-      return {
-        events,
-        modelValue,
-      };
+      return { ...args };
     },
-    template: `<UiCheckbox
-      v-bind="{
-        ...$props,
-        ...events
-      }"
-      v-model="modelValue"
-    >
+    template: `<UiCheckbox v-bind="$attrs">
       <template #label="{
         hasLabel,
         textLabelAttrs,
@@ -385,5 +355,4 @@ export const WithLabelSlot: CheckboxStory = {
       </template>
     </UiCheckbox>`,
   }),
-  parameters: { chromatic: { disableSnapshot: true } },
 };

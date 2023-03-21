@@ -25,17 +25,15 @@ const processPseudoSelector = (ct, st) => {
     st,
     st.split(", ")
       .flatMap((selector) => {
-        if (selector.includes(`.pseudo-`)) return [];
-        const modifiedSelector = selector.replace(
+        const modifiedSelector = selector.replaceAll(
           matchAllPseudoSelectors,
           (originalSelector, state) => {
-            const replacement = originalSelector.replace(
+            const replacement = originalSelector.replaceAll(
               `:${state}`,
               `.pseudo-${state}`
-            );
-            return replacement;
-          }
-        );
+              );
+              return replacement;
+        }).replace('body:not(.focus-hidden)', '');
         return [st, modifiedSelector];
       })
       .join(", ")
@@ -97,17 +95,25 @@ const replacePseudoSelectors = (selector) => {
   }
   return rulesProcessed;
 }
-export const withPseudoState = (story, context) => ({
+export const withVariants = (story, { componentId, id, parameters }) => ({
   components: { story },
   setup() {
-    const componentClassName = `.ui-${context.componentId.split('-')[1]}`;
+    const componentClassName = `.ui-${componentId.split('-')[1]}`;
     const getModifiedStyles = replacePseudoSelectors(componentClassName);
-    insertStylesIntoDOM(getModifiedStyles, context.id);
+    insertStylesIntoDOM(getModifiedStyles, id);
     onBeforeUnmount(() => {
-      removeStylesFromDOM(context.id);
+      removeStylesFromDOM(id);
     })
+    return {
+      variants: parameters.variants
+    }
   },
-  template: `<div style="display: flex; flex-direction: column; gap: 20px">
-    <story/>
+  template: `<div class="variants">
+    <template v-for="(variant, index) in variants" :key="index">
+      <span class="variants__label">
+        {{variant.label}}:
+      </span>
+      <story :class="variant.class"/>
+    </template>
   </div>`
 })
