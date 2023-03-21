@@ -37,6 +37,11 @@ export default defineConfig({
       'default',
       'json',
     ],
+    coverage: {
+      provider: 'istanbul',
+      reporter: [ 'json' ],
+      reportsDirectory: './coverage/storybook',
+    },
     deps: { inline: [ 'date-fns' ] },
   },
 });

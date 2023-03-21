@@ -3,6 +3,8 @@ import path from 'path';
 import { mergeConfig } from 'vite';
 import svgLoader from 'vite-svg-loader';
 import postcss from 'postcss';
+import istanbul from 'vite-plugin-istanbul';
+import { defaultExclude, defaultExtensions } from '@storybook/addon-coverage/dist/cjs/constants';
 
 const config: StorybookConfig = {
   async viteFinal(config) {
@@ -27,6 +29,10 @@ const config: StorybookConfig = {
               'convertStyleToAttrs'
             ]
           }
+        }),
+        istanbul({
+          exclude: defaultExclude,
+          extension: defaultExtensions
         })
       ],
       optimizeDeps: {
@@ -49,6 +55,7 @@ const config: StorybookConfig = {
     '@storybook/addon-essentials',
     '@storybook/addon-a11y',
     '@storybook/addon-interactions',
+    '@storybook/addon-coverage',
     {
       name: '@storybook/addon-postcss',
       options: {
@@ -67,6 +74,7 @@ const config: StorybookConfig = {
     name: '@storybook/vue3-vite',
     options: {}
   },
+  features: { buildStoriesJson: true },
   core: {
     disableTelemetry: true
   },
