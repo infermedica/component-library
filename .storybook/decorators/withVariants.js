@@ -109,11 +109,11 @@ export const withVariants = (story, { componentId, id, parameters }) => ({
     }
   },
   template: `<div class="variants">
-    <template v-for="(variant, index) in variants" :key="index">
+    <template v-for="({label, ...rest}, index) in variants" :key="index">
       <span class="variants__label">
-        {{variant.label}}:
+        {{ label }}:
       </span>
-      <story :class="variant.class"/>
+      <story v-bind="rest"/>
     </template>
   </div>`
 })
