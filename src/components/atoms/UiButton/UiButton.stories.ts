@@ -4,7 +4,6 @@ import type {
 } from '@storybook/vue3';
 import { UiButton, UiIcon, UiText } from '@/../index';
 import { withVariants } from '@sb/decorators';
-import {useAttrs} from "vue";
 
 const UiButtonModifiers = [
   'ui-button--small',
@@ -289,17 +288,13 @@ export const WithIcon: Story = {
         args: rest
       };
     },
-    template: `<UiButton 
-      v-bind="$attrs"
-    >
+    template: `<UiButton v-bind="$attrs">
       <UiIcon
         icon="plus-circled-filled"
         class="ui-button__icon"
       /> {{ content }}
     </UiButton>
-    <UiButton 
-      v-bind="$attrs"
-    >
+    <UiButton v-bind="$attrs">
       {{ content }}
       <UiIcon 
         icon="plus-circled-filled"
