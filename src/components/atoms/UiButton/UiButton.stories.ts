@@ -4,6 +4,8 @@ import type {
 } from '@storybook/vue3';
 import { UiButton, UiIcon, UiText } from '@/../index';
 import { withVariants } from '@sb/decorators';
+import {useAttrs} from "vue";
+import icons from "@/components/atoms/UiIcon/icons";
 
 const UiButtonModifiers = [
   'ui-button--small',
@@ -13,6 +15,22 @@ const UiButtonModifiers = [
   'ui-button--icon',
   'ui-button--is-disabled',
 ]
+const withIconVariants = ( Story, { parameters: { iconVariants }} ) => ({
+  setup() {
+    return { iconVariants }
+  },
+  template: `<template v-for="variant in iconVariants">
+    <story v-bind="{...$attrs, ...variant}"/>
+  </template>`
+});
+const UiButtonIcon = {
+  components: { UiIcon },
+  props: ['icon'],
+  template: `<UiIcon
+    :icon="icon"
+    class="ui-button__icon"
+  />`
+}
 
 const slots = ['default']
   .reduce((acc, key) => {
@@ -37,6 +55,47 @@ const meta = {
       description: 'Use this control to set the content.',
       table: { category: 'stories controls' },
       control: 'text',
+    },
+    icon: {
+      description: 'Use this control to set the icon.',
+      table: { category: 'stories controls' },
+      control: 'select',
+      options: ['', ...icons.filter((icon) => {
+        const illustrations = [
+          'agreement',
+          'agreement-rtl',
+          'boy',
+          'boy-rtl',
+          'lock',
+          'no-internet-illustration',
+          'no-internet-illustration-rtl',
+          'podium',
+          'podium-rtl',
+          'error-500',
+        ];
+        return !illustrations.includes(icon);
+      })],
+    },
+    iconEnd: {
+      name: 'icon-end',
+      description: 'Use this control to set the icon-end.',
+      table: { category: 'stories controls' },
+      control: 'select',
+      options: ['', ...icons.filter((icon) => {
+        const illustrations = [
+          'agreement',
+          'agreement-rtl',
+          'boy',
+          'boy-rtl',
+          'lock',
+          'no-internet-illustration',
+          'no-internet-illustration-rtl',
+          'podium',
+          'podium-rtl',
+          'error-500',
+        ];
+        return !illustrations.includes(icon);
+      })],
     },
     modifiers: {
       name: 'class',
@@ -64,16 +123,29 @@ export const Basic: Story = {
   render: (args) => ({
     components: {
       UiButton,
+      UiButtonIcon,
     },
     setup() {
       const { content, ...rest } = args;
+      const {icon, iconEnd} = useAttrs();
       return {
         content,
+        icon,
+        iconEnd,
         args: rest
       };
     },
     template: `<UiButton v-bind="args">
+      <UiButtonIcon
+          v-if="icon"
+          :icon="icon"
+      />
       {{ content }}
+      <UiButtonIcon
+          v-if="iconEnd"
+          :icon="iconEnd"
+          class="ui-button__icon--end"
+      />
     </UiButton>`,
   }),
 };
@@ -276,35 +348,21 @@ CircledSelected.parameters = {
 }
 
 export const WithIcon: Story = {
-  render: (args) => ({
-    components: {
-      UiButton,
-      UiIcon,
-    },
-    setup() {
-      const { content, ...rest } = args;
-      return {
-        content,
-        args: rest
-      };
-    },
-    template: `<UiButton v-bind="$attrs">
-      <UiIcon
-        icon="plus-circled-filled"
-        class="ui-button__icon"
-      /> {{ content }}
-    </UiButton>
-    <UiButton v-bind="$attrs">
-      {{ content }}
-      <UiIcon 
-        icon="plus-circled-filled"
-        class="ui-button__icon ui-button__icon--end"
-      />
-    </UiButton>`,
-  })
+  ...Basic,
 }
-WithIcon.decorators = [ ...Circled.decorators ];
+WithIcon.decorators = [
+  withIconVariants,
+  ...Circled.decorators
+];
 WithIcon.parameters = {
+  iconVariants: [
+    {
+      icon: 'plus'
+    },
+    {
+      iconEnd: 'plus'
+    },
+  ],
   variants: [
     {
       label: 'contained',
@@ -321,44 +379,18 @@ WithIcon.parameters = {
 };
 
 export const Small: Story = {
-  render: (args) => ({
-    components: {
-      UiButton,
-      UiIcon,
-    },
-    setup() {
-      const { content, ...rest } = args;
-      return {
-        content,
-        args: rest
-      };
-    },
-    template: `<UiButton
-        v-bind="$attrs"
-    >
-      {{ content }}
-    </UiButton>
-    <UiButton 
-      v-bind="$attrs"
-    >
-      <UiIcon
-        icon="plus-circled-filled"
-        class="ui-button__icon"
-      /> {{ content }}
-    </UiButton>
-    <UiButton 
-      v-bind="$attrs"
-    >
-      {{ content }}
-      <UiIcon 
-        icon="plus-circled-filled"
-        class="ui-button__icon ui-button__icon--end"
-      />
-    </UiButton>`,
-  })
+  ...Basic,
 }
-Small.decorators = [ ...Circled.decorators ];
+Small.decorators = [
+  withIconVariants,
+  ...Circled.decorators
+];
 Small.parameters = {
+  iconVariants: [
+    {},
+    {icon: 'plus'},
+    {iconEnd: 'plus'},
+  ],
   variants: [
     ...WithIcon.parameters.variants.map((variant) => ({
       ...variant,

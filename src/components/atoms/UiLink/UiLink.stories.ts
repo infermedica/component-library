@@ -18,6 +18,14 @@ const withIconVariants = ( Story, { parameters: { iconVariants }} ) => ({
     <story v-bind="{...$attrs, ...variant}"/>
   </template>`
 });
+const UiLinkIcon = {
+  components: { UiIcon },
+  props: ['icon'],
+  template: `<UiIcon
+    :icon="icon"
+    class="ui-link__icon"
+  />`
+}
 
 const slots = ['default']
   .reduce((acc, key) => {
@@ -99,14 +107,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof UiLink>;
 
-const UiLinkIcon = {
-  components: { UiIcon },
-  props: ['icon'],
-  template: `<UiIcon
-    :icon="icon"
-    class="ui-link__icon"
-  />`
-}
 export const Basic:Story = {
   render: (args) => ({
     components: {
