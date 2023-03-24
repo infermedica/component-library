@@ -117,10 +117,13 @@ export const withVariants = (story, { componentId, id, parameters, args }) => ({
       >
         {{ label }}:
       </span>
-      <story
-        v-bind="rest"
-        :model-value="rest.modelValue || args.modelValue"
-      />
+      <!-- *required -->
+      <div>
+        <story
+            v-bind="rest"
+            :model-value="rest.modelValue || args.modelValue"
+        />
+      </div>
     </template>
   </div>`
 })

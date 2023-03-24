@@ -40,7 +40,7 @@
             {{ value }}
           </UiHeading>
         </slot>
-        <!-- @slot Use this slot to replace range template. --->
+        <!-- @slot Use this slot to replace range template. -->
         <slot
           name="range"
           v-bind="{

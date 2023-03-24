@@ -2,7 +2,7 @@ import type {
   Meta,
   StoryObj,
 } from '@storybook/vue3';
-import {UiLink, UiIcon, UiText, UiButton} from '@/../index';
+import {UiLink, UiIcon, UiText} from '@/../index';
 import { withVariants } from '@sb/decorators';
 import {useAttrs} from "vue";
 import icons from '../UiIcon/icons';

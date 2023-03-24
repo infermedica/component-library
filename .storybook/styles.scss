@@ -47,7 +47,7 @@ body {
 // styles for withVariants decorator
 .variants {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto 1fr;
   gap: 20px 30px;
   justify-content: start;
 
