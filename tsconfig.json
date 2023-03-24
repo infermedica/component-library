@@ -27,7 +27,7 @@
     "noEmit": true,
     "baseUrl": ".",
     "types": [
-      "vitest/globals",
+      "vitest/globals"
     ],
     "paths": {
       "@/*": [
@@ -37,7 +37,7 @@
         ".storybook/*"
       ],
       "react": [ "./src/types/react.d.ts" ]
-    },
+    }
   },
   "include": [
     "src/**/*.ts",
