@@ -1,5 +1,5 @@
 module.exports = {
-  process(content) {
+  process(content: string) {
     return `module.exports = { template: '${content.replace(/\n/g, '')}' }`;
   },
 };

@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import { mount } from '@vue/test-utils';
 import type { VueWrapper } from '@vue/test-utils';
-import type { Component } from 'vue';
+import type { ConcreteComponent } from 'vue';
 import type {
   Meta,
   StoryObj,
@@ -13,11 +13,15 @@ type ReturnTypeMountedStory<T> = () => {
 };
 
 export const mountStories = <StoryImport extends {default: Meta} & Record<string, StoryObj>>(
-  component: Component, storiesImport: StoryImport, setWrapper: (story: VueWrapper) => void,
+  component: ConcreteComponent, storiesImport: StoryImport, setWrapper: (story: VueWrapper) => void,
 ) => {
   const {
     default: meta, ...stories
   } = storiesImport;
+
+  type Stories = typeof stories;
+  type StoriesName = keyof Stories;
+
   return Object.entries(stories).reduce((storiesMap, [
     key,
     story,
@@ -29,10 +33,22 @@ export const mountStories = <StoryImport extends {default: Meta} & Record<string
       ...(meta?.args || {}),
       ...(story?.args || {}),
     };
-    const mountedStory: VueWrapper = mount(story.render(
+    const storyAsComponent = story.render(
       args,
       meta as any,
-    ) as any, { props: args });
+    );
+    const componentToMount = {
+      ...storyAsComponent,
+      emits: {
+        ...component.emits,
+        ...storyAsComponent.emits,
+      },
+      props: {
+        ...component.props,
+        ...storyAsComponent,
+      },
+    };
+    const mountedStory: VueWrapper = mount(componentToMount, { props: args });
     return {
       ...storiesMap,
       [key]: () => {
@@ -43,5 +59,5 @@ export const mountStories = <StoryImport extends {default: Meta} & Record<string
         };
       },
     };
-  }, {} as Record<keyof typeof stories, ReturnTypeMountedStory<typeof stories[keyof typeof stories]['args']>>);
+  }, {} as Record<StoriesName, ReturnTypeMountedStory<Stories[StoriesName]['args']>>);
 };
