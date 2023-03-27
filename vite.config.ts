@@ -15,6 +15,14 @@ export default defineConfig({
         find: '@sb',
         replacement: path.resolve(__dirname, '.storybook'),
       },
+      {
+        find: '@unit',
+        replacement: path.resolve(__dirname, './tests/unit'),
+      },
+      {
+        find: '@index',
+        replacement: path.resolve(__dirname, './index.ts'),
+      },
     ],
   },
   plugins: [

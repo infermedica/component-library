@@ -36,6 +36,12 @@
       "@sb/*": [
         ".storybook/*"
       ],
+      "@unit/*": [
+        "./tests/unit/*"
+      ],
+      "@index": [
+        "./index.ts"
+      ],
       "react": [ "./src/types/react.d.ts" ]
     }
   },
