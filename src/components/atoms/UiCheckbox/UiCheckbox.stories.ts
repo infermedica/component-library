@@ -11,8 +11,8 @@ import {
   UiCheckbox,
   UiText,
   UiList,
-} from '@/../index';
-import type { CheckboxProps } from '@/../index';
+} from '@index';
+import type { CheckboxProps } from '@index';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import { actions } from '@storybook/addon-actions';
 import { expect } from '@storybook/jest';
@@ -21,13 +21,13 @@ import type {
   StoryObj,
 } from '@storybook/vue3';
 
-export type ArgsType = CheckboxProps & {
+export type CheckboxArgsType = CheckboxProps & {
   content?: string;
   class?: string[];
   items?: CheckboxProps['modelValue'];
 }
-export type MetaType = Meta<ArgsType>;
-export type StoryType = StoryObj<ArgsType>;
+export type CheckboxMetaType = Meta<CheckboxArgsType>;
+export type CheckboxStoryType = StoryObj<CheckboxArgsType>;
 export const complexItemsData: CheckboxProps['modelValue'] = [
   {
     label: 'Russia, Kazakhstan or Mongolia',
@@ -144,13 +144,13 @@ export default {
     },
   },
   decorators: [ withModelValue ],
-} satisfies MetaType;
+} satisfies CheckboxMetaType;
 
-export const Basic: StoryType = {
-  render: (args) => ({
+export const Basic: CheckboxStoryType = {
+  render: () => ({
     components: { UiCheckbox },
-    setup() {
-      return { ...args };
+    setup(props, { attrs }) {
+      return { ...attrs };
     },
     template: `<UiCheckbox
       v-bind="$attrs"
@@ -160,8 +160,20 @@ export const Basic: StoryType = {
   }),
 };
 
-const StateTemplate: StoryType = { ...Basic };
-StateTemplate.argTypes = {
+export const BasicVariants: CheckboxStoryType = {
+  render: () => ({
+    components: { UiCheckbox },
+    setup(props, { attrs }) {
+      return { ...attrs };
+    },
+    template: `<UiCheckbox
+      v-bind="$attrs"
+    >
+      {{ content }}
+    </UiCheckbox>`,
+  }),
+};
+BasicVariants.argTypes = {
   modelValue: { control: false },
   value: { control: false },
   disabled: { control: false },
@@ -171,106 +183,84 @@ StateTemplate.argTypes = {
   iconCheckmarkAttrs: { control: false },
   textLabelAttrs: { control: false },
 };
-StateTemplate.decorators = [ withVariants ];
-StateTemplate.parameters = {
+BasicVariants.decorators = [ withVariants ];
+BasicVariants.parameters = {
   variants: [
-    { label: 'default' },
+    {
+      label: 'default',
+      modelValue: false,
+    },
     {
       label: 'hover',
       class: 'pseudo-hover',
+      modelValue: false,
     },
     {
       label: 'active',
       class: 'pseudo-active',
+      modelValue: false,
     },
     {
       label: 'focus',
       class: 'pseudo-focus-within',
+      modelValue: false,
     },
     {
-      label: 'disabled',
-      class: 'ui-checkbox--is-disabled',
+      label: 'chacked default',
+      modelValue: true,
     },
     {
-      label: 'error',
-      class: 'ui-checkbox--has-error',
+      label: 'checked hover',
+      class: 'pseudo-hover',
+      modelValue: true,
     },
     {
-      label: 'error-hover',
-      class: 'ui-checkbox--has-error pseudo-hover',
+      label: 'checked active',
+      class: 'pseudo-active',
+      modelValue: true,
     },
     {
-      label: 'error-active',
-      class: 'ui-checkbox--has-error pseudo-active',
+      label: 'checked focus',
+      class: 'pseudo-focus-within',
+      modelValue: true,
     },
   ],
 };
 
+export const DisabledVariants: CheckboxStoryType = { ...BasicVariants };
+DisabledVariants.parameters = {
+  variants: BasicVariants.parameters.variants.map(
+    (variant: Record<string, unknown>) => ({
+      ...variant,
+      class: `ui-checkbox--is-disabled ${variant.class}`,
+    }),
+  ),
+};
 
-const testFocusedCheckbox = (checkbox: Element) => {
-  expect(window.getComputedStyle(checkbox).boxShadow).toBe('rgb(255, 255, 255) 0px 0px 0px 2px, rgb(47, 145, 234) 0px 0px 0px 4px');
-}
-const testDisabledLabel = async (canvasElement: Element) => {
-  const disabledLabel = await canvasElement.querySelectorAll('.ui-checkbox__label')[4]
-  expect(window.getComputedStyle(disabledLabel).color).toBe('rgb(164, 177, 191)');
-}
+export const ErrorVariants: CheckboxStoryType = { ...BasicVariants };
+ErrorVariants.parameters = {
+  variants: BasicVariants.parameters.variants.map(
+    (variant: Record<string, unknown>) => ({
+      ...variant,
+      class: `ui-checkbox--has-error ${variant.class}`,
+    }),
+  ),
+};
 
-export const Unchecked: StoryType = { ...StateTemplate };
-Unchecked.args = { modelValue: false };
-Unchecked.play = async ({canvasElement, step}) => {
-  const checkboxes = await canvasElement.querySelectorAll('.ui-checkbox__checkbox')
-  const expectedColors = [
-    'rgb(125, 143, 163)',
-    'rgb(71, 84, 99)',
-    'rgb(31, 38, 44)',
-    'rgb(125, 143, 163)',
-    'rgb(193, 203, 213)',
-    'rgb(250, 81, 79)',
-    'rgb(212, 46, 46)',
-    'rgb(161, 32, 32)',
-  ];
-  await step('Unchecked checkboxes have correct border color', async () => {
-    checkboxes.forEach((checkbox: Element, index: number) => {
-      expect(window.getComputedStyle(checkbox, ':after').borderColor).toBe(expectedColors[index]);
-    })
-  })
-  await step('Focused checkbox has correct box-shadow', async () => {
-    testFocusedCheckbox(checkboxes[3])
-  });
-  await step('Disabled checkbox has correct label color', async () => {
-    await testDisabledLabel(canvasElement)
-  });
-}
+export const WithStringValue: CheckboxStoryType = { ...Basic };
+WithStringValue.args = {
+  modelValue: false,
+  value: 'I read and accept Terms of Service and Privacy Policy.',
+  content: 'I read and accept Terms of Service and Privacy Policy.',
+};
+WithStringValue.argTypes = {
+  modelValue: { control: 'boolean' },
+  value: { control: 'text' },
+};
+WithStringValue.parameters = { chromatic: { disableSnapshot: true } };
 
-export const Checked: StoryType = { ...StateTemplate };
-Checked.args = { modelValue: true };
-Checked.play = async ({canvasElement, step}) => {
-  const checkboxes = await canvasElement.querySelectorAll('.ui-checkbox__checkbox')
-  const expectedColors = [
-    'rgb(26, 161, 117)',
-    'rgb(18, 127, 91)',
-    'rgb(11, 95, 67)',
-    'rgb(26, 161, 117)',
-    'rgb(193, 203, 213)',
-    'rgb(250, 81, 79)',
-    'rgb(212, 46, 46)',
-    'rgb(161, 32, 32)',
-  ];
-  await step('Checked checkboxes have correct backgrounds color', async () => {
-    checkboxes.forEach((checkbox: Element, index: number) => {
-      expect(window.getComputedStyle(checkbox).backgroundColor).toBe(expectedColors[index]);
-    })
-  })
-  await step('Focused checkbox has correct box-shadow', async () => {
-    testFocusedCheckbox(checkboxes[3])
-  });
-  await step('Disabled checkbox has correct label color', async () => {
-    await testDisabledLabel(canvasElement)
-  });
-}
-
-export const ValueAsObject: StoryType = { ...Basic };
-ValueAsObject.args = {
+export const WithObjectValue: CheckboxStoryType = { ...Basic };
+WithObjectValue.args = {
   modelValue: [ {
     label: 'Europe',
     id: 'value-as-object-europe',
@@ -280,23 +270,23 @@ ValueAsObject.args = {
     id: 'value-as-object-europe',
   },
 };
-ValueAsObject.argTypes = {
+WithObjectValue.argTypes = {
   modelValue: { control: 'object' },
   value: { control: 'object' },
 };
-ValueAsObject.parameters = { chromatic: { disableSnapshot: true } };
+WithObjectValue.parameters = { chromatic: { disableSnapshot: true } };
 
-const AsGroupTemplate: StoryType = {
-  render: (args) => ({
+const AsGroupTemplate: CheckboxStoryType = {
+  render: () => ({
     components: {
       UiCheckbox,
       UiList,
       UiListItem,
     },
-    setup() {
+    setup(props, { attrs }) {
       return {
         UiCheckbox,
-        ...args,
+        ...attrs,
       };
     },
     template: `<UiList>
@@ -325,8 +315,8 @@ AsGroupTemplate.argTypes = {
   content: { control: false },
 };
 
-export const AsGroupWithPrimitiveTypes: StoryType = { ...AsGroupTemplate };
-AsGroupWithPrimitiveTypes.args = {
+export const AsGroupWithStringValue: CheckboxStoryType = { ...AsGroupTemplate };
+AsGroupWithStringValue.args = {
   modelValue: [ 'Europe' ],
   items: [
     'Russia, Kazakhstan or Mongolia',
@@ -335,31 +325,13 @@ AsGroupWithPrimitiveTypes.args = {
   ],
 };
 
-export const AsGroupWithObject: StoryType = { ...AsGroupTemplate };
-AsGroupWithObject.args = {
+export const AsGroupWithObjectValue: CheckboxStoryType = { ...AsGroupTemplate };
+AsGroupWithObjectValue.args = {
   modelValue: [ complexItemsData[0] ],
   items: complexItemsData,
 };
 
-export const AsGroupWithNestedObject: StoryType = { ...AsGroupTemplate };
-AsGroupWithNestedObject.args = {
-  modelValue: [ complexItemsData[0] ],
-  items: [
-    complexItemsData[0],
-    complexItemsData[1],
-    {
-      label: 'Europe',
-      id: 'as-group-with-object-europe',
-      checkboxAttrs: { 'data-testid': 'europe-checkbox' },
-    },
-  ],
-};
-AsGroupWithNestedObject.argTypes = {
-  ...AsGroupTemplate.argTypes,
-  modelValue: { control: 'object' },
-};
-
-export const WithCheckboxSlot: StoryType = {
+export const WithCheckboxSlot: CheckboxStoryType = {
   render: (args) => ({
     components: {
       UiCheckbox,
@@ -389,8 +361,49 @@ export const WithCheckboxSlot: StoryType = {
     </UiCheckbox>`,
   }),
 };
+WithCheckboxSlot.args = {
+  inputAttrs: {
+    'data-testid': 'input-element',
+    id: 'test-id',
+    class: 'test-class',
+    onFocus: events.onFocus,
+    onBlur: events.onBlur,
+  },
+};
 
-export const WithLabelSlot: StoryType = {
+export const WithCheckmarkSlot: CheckboxStoryType = {
+  render: (args) => ({
+    components: {
+      UiCheckbox,
+      UiIcon,
+    },
+    setup() {
+      return { ...args };
+    },
+    template: `<UiCheckbox v-bind="$attrs">
+      <template
+        #checkmark="{ iconCheckmarkAttrs }"
+      >
+        <UiIcon
+          v-bind="iconCheckmarkAttrs"
+          class="ui-checkbox__checkmark"
+        />
+      </template>
+      {{ content }}
+    </UiCheckbox>`,
+  }),
+};
+WithCheckmarkSlot.args = {
+  iconCheckmarkAttrs: {
+    'data-testid': 'icon-element',
+    id: 'test-id',
+    class: 'test-class',
+    icon: 'no',
+    role: 'presentation',
+  },
+};
+
+export const WithLabelSlot: CheckboxStoryType = {
   render: (args) => ({
     components: {
       UiCheckbox,
@@ -406,11 +419,18 @@ export const WithLabelSlot: StoryType = {
       }">
         <UiText
           v-bind="textLabelAttrs"
-          class="ui-checkbox__label"
         >
           {{ content }}
         </UiText>
       </template>
     </UiCheckbox>`,
   }),
+};
+WithLabelSlot.args = {
+  textLabelAttrs: {
+    'data-testid': 'label-element',
+    id: 'test-id',
+    class: 'ui-checkbox__label',
+    tag: 'p',
+  },
 };

@@ -47,6 +47,7 @@
   },
   "include": [
     "src/**/*.ts",
+    "src/**/*.mdx",
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue"
