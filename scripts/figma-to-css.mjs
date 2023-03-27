@@ -99,7 +99,8 @@ const figmaToCss = async () => {
             return frame.children
               ?.reduce((acc, { children }) => acc.concat(children), [])
               ?.filter(({ characters }) => !characters?.match(/Desktop|Mobile/g))
-              ?.map(getFontProperties);
+              ?.map(getFontProperties)
+              ?.reverse();
           }
           return frame?.children?.map(getFontProperties);
         default:
