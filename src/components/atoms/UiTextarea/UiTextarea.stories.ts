@@ -2,8 +2,10 @@ import type {
   Meta,
   StoryObj,
 } from '@storybook/vue3';
+import { ref } from 'vue';
 import { UiTextarea } from '@/../index';
 import { withVariants } from '@sb/decorators';
+import { events } from '@sb/helpers';
 
 const meta = {
   title: 'Atoms/Textarea',
@@ -13,10 +15,12 @@ const meta = {
     resize: false,
     placeholder: 'Please provide a detailed description of the issue.',
     disabled: false,
-    textareaAttrs: { 'data-test': 'textarea-element' },
+    textareaAttrs: { 'data-testid': 'textarea-element' },
   },
   argTypes: {
     modelValue: { control: 'text' },
+    placeholder: { control: 'text' },
+    disabled: { control: 'boolean' },
     resize: {
       control: 'select',
       options: [
@@ -26,51 +30,95 @@ const meta = {
         'vertical',
       ],
     },
-    'update:modelValue': { control: false },
-    onFocus: {
-      action: 'onFocus',
-      table: { disable: true },
-    },
-    onBlur: {
-      action: 'onBlur',
-      table: { disable: true },
-    },
+    textareaAttrs: { control: 'object' },
+    ...events(
+      [ 'onUpdate:modelValue', 'onFocus', 'onBlur' ],
+      UiTextarea.__docgenInfo.events.map(({ name })=>(name))
+    ),
   },
+  parameters: {
+    chromatic: { disableSnapshot: false },
+    docs: {
+      source: {
+        code: null
+      }
+    }
+  }
 } satisfies Meta<typeof UiTextarea>;
 export default meta;
 type Story = StoryObj<typeof UiTextarea>;
 
 export const Basic: Story = {
-  render: (args) => ({
+  render: () => ({
+    inheritAttrs: false,
     components: { UiTextarea },
-    props: Object.keys(args),
-    template: '<UiTextarea v-bind="$props"/>',
+    setup( props, { attrs })  {
+      const {
+        modifiers,
+        modelValue,
+        ...args
+      } = attrs;
+      const value = ref(modelValue);
+
+      return {
+        args: {
+          ...args,
+          class: modifiers,
+        },
+        value,
+      }
+    },
+    template: `<UiTextarea
+      v-model="value"
+      v-bind="args"
+    />`,
   }),
 };
+Basic.parameters = {
+  chromatic: { disableSnapshot: true },
+  docs: {
+    source: {
+      code: `<template>
+  <UiTextarea
+    v-model="modelValue"
+    :resize="resize"
+    :placeholder="placeholder"
+    :disabled="disabled"
+    textarea-attrs="textareaAttrs"
+  />
+</template>
 
-export const WithModelValue: Story = { ...Basic };
-WithModelValue.args = { modelValue: 'I encountered an error message while trying to submit a form on your website. The error message read \'500 Internal Server Error\'.' };
+<script setup lang="ts">
+import { ref } from 'vue';
+import { UiTextarea } from '@infermedica/component-library';
 
-export const WithPlaceholder: Story = { ...Basic };
-WithPlaceholder.args = { placeholder: 'Please provide a detailed description of the issue' };
-
-export const WithDisabled: Story = { ...Basic };
-WithDisabled.args = { disabled: true };
-
-export const WithResize: Story = { ...Basic };
-WithResize.args = { resize: true };
-
-const StateTemplate: Story = { ...Basic }
-StateTemplate.argTypes = {
-  disabled: {
-    control: false,
-  }
+const modelValue = ref('');
+const resize = false;
+const placeholder = 'Please provide a detailed description of the issue.';
+const disabled = false;
+const textareaAttrs = {
+  'data-testid': 'textarea-element'
 }
-StateTemplate.decorators = [ withVariants ]
-StateTemplate.parameters = {
+</script>`
+    }
+  }
+};
+
+export const Empty: Story = {
+  ...Basic
+}
+Empty.argTypes = {
+  modelValue: { control: false },
+  placeholder: { control: 'text' },
+  disabled: { control: false }
+}
+Empty.decorators = [ withVariants ]
+Empty.parameters = {
   variants: [
-    { label: 'default' },
-    ...['hover', 'focus'].map((variant) => ({
+    {
+      label: 'default',
+    },
+    ...['hover', 'focus-within'].map((variant) => ({
       label: `${variant}`,
       class: `pseudo-${variant}`,
     })),
@@ -84,15 +132,25 @@ StateTemplate.parameters = {
   docs: { source: { code: null } },
 }
 
-export const Empty: Story = {...StateTemplate};
 
 export const Filled: Story = { ...Empty };
-Filled.args = { modelValue: 'I encountered an error message while trying to submit a form on your website. The error message read \'500 Internal Server Error\'.' };
+Filled.args = {
+  modelValue: 'I encountered an error message while trying to submit a form on your website. The error message read \'500 Internal Server Error\'.'
+};
+Filled.argTypes = {
+  ...Empty.argTypes,
+  modelValue: { control: 'text' },
+  placeholder: { control: false },
+}
 
 export const WithError: Story = { ...Basic };
+WithError.argTypes = {
+  modelValue: { control: false },
+  placeholder: { control: false },
+};
 WithError.decorators = [ withVariants ]
 WithError.parameters = {
-  ...StateTemplate.parameters,
+  ...Empty.parameters,
   variants: [
     {
       label: 'default',
@@ -105,7 +163,7 @@ WithError.parameters = {
     {
       label: 'filed',
       class: 'ui-textarea--has-error',
-      modelValue: '\'I encountered an error message while trying to submit a form on your website. The error message read \'500 Internal Server Error\'.'
+      modelValue: 'I encountered an error message while trying to submit a form on your website. The error message read \'500 Internal Server Error.'
     }
   ]
 }

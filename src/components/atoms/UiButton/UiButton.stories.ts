@@ -2,9 +2,12 @@ import type {
   Meta,
   StoryObj,
 } from '@storybook/vue3';
-import {UiButton, UiIcon, UiText} from '@/../index';
+import {
+  UiButton,
+  UiIcon,
+  UiText
+} from '@/../index';
 import { withVariants } from '@sb/decorators';
-import { useAttrs } from "vue";
 import icons from "@/components/atoms/UiIcon/icons";
 import {
   slots,
@@ -53,7 +56,6 @@ const meta = {
     content: 'Submit',
     modifiers: [],
   },
-  // TODO: can we merge `to` and `href` to one property?
   argTypes: {
     content: {
       description: 'Use this control to set the content.',
@@ -108,6 +110,15 @@ const meta = {
       control: 'multi-select',
       options: UiButtonModifiers,
     },
+    tag: {
+      control: 'text',
+    },
+    to: {
+      control: 'object',
+    },
+    href: {
+      control: 'text',
+    },
     ...slots(UiButton),
     ...events(['onClick']),
   },
@@ -135,14 +146,14 @@ export const Basic: Story = {
         icon,
         iconEnd,
         modifiers,
-        ...rest
+        ...args
       } = attrs
       return {
         content,
         icon,
         iconEnd,
         args: {
-          ...rest,
+          ...args,
           class: modifiers,
         }
       };
@@ -167,7 +178,12 @@ Basic.parameters = {
   docs: {
     source: {
       code: `<template>
-  <UiButton>{{ content }}</UiButton>
+  <UiButton
+    :to="to"
+    :href="href"
+    :tag="tag"
+    @click="handleButtonClick"
+  >{{ content }}</UiButton>
 </template>
 
 <script setup lang="ts">
@@ -178,43 +194,62 @@ import { UiButton } from '@infermedica/cpmponent-library'
   }
 }
 
-export const AsARoute: Story = {
+export const RouterButton: Story = {
   ...Basic
 }
-AsARoute.args = {
+RouterButton.args = {
   to: { path: '/blog/medical-guide-platform' },
 }
-AsARoute.argTypes = {
-  to: {
-    control: 'object',
-  }
+RouterButton.argTypes = {
+  tag: { control: false },
+  href: { control: false }
 }
-AsARoute.parameters = {
+RouterButton.parameters = {
   ...Basic.parameters,
   docs: {
     source: {
-      code: `<template></template>`
+      code: `<template>
+  <UiButton :to="to">{{ content }}</UiButton>
+</template>
+
+<script setup lang="ts">
+import { UiButton } from '@infermedica/cpmponent-library';
+
+const to = { path: '/blog/medical-guide-platform' };
+</script>
+`,
     }
   }
 }
 
-export const AsAExternalLink: Story = {
+export const LinkButton: Story = {
   ...Basic
 }
-AsAExternalLink.args = {
+LinkButton.args = {
   href: 'https://www.infermedica.com',
   target: '_blank',
 }
-AsAExternalLink.argTypes = {
-  href: {
-    control: 'text',
-  }
+LinkButton.argTypes = {
+  tag: { control: false },
+  to: { control: false }
 }
-AsARoute.parameters = {
+LinkButton.parameters = {
   ...Basic.parameters,
   docs: {
     source: {
-      code: `<template></template>`
+      code: `<template>
+  <UiButton 
+    :href="href"
+    target="_blank"
+  >{{ content }}</UiButton>
+</template>
+
+<script setup lang="ts">
+import { UiButton } from '@infermedica/cpmponent-library';
+
+const href = 'https://www.infermedica.com';
+</script>
+`,
     }
   }
 }
@@ -225,8 +260,11 @@ export const Contained: Story = {
 Contained.argTypes = {
   modifiers: {
     ...meta.argTypes.modifiers,
-    control: false,
-  }
+    options: ['ui-button--small'],
+  },
+  to: { control: false },
+  tag: { control: false },
+  href: { control: false }
 };
 Contained.decorators = [ withVariants ];
 Contained.parameters = {
@@ -297,12 +335,12 @@ export const Icon: Story = {
       UiIcon
     },
     setup(props, { attrs }) {
-      const { icon, ...rest } = attrs;
+      const { icon, ...args } = attrs;
       return {
         icon,
         args: {
-          ...rest,
-          class: rest.modifiers,
+          ...args,
+          class: args.modifiers,
         }
       };
     },
@@ -323,7 +361,10 @@ Icon.argTypes = {
   modifiers: {
     ...meta.argTypes.modifiers,
     control: false,
-  }
+  },
+  to: { control: false },
+  tag: { control: false },
+  href: { control: false }
 };
 Icon.decorators = [ withVariants ];
 Icon.parameters = {
@@ -361,14 +402,14 @@ export const Circled: Story = {
       const {
         content,
         icon,
-        ...rest
+        ...args
       } = attrs;
       return {
         content,
         icon,
         args: {
-          ...rest,
-          class: rest.modifiers,
+          ...args,
+          class: args.modifiers,
         }
       };
     },
@@ -400,12 +441,14 @@ Circled.argTypes = {
   modifiers: {
     ...meta.argTypes.modifiers,
     control: false,
-  }
+  },
+  to: { control: false },
+  tag: { control: false },
+  href: { control: false }
 };
 Circled.decorators = [
   () => ({
-    setup(props, {attrs}) {
-      console.log('flex');
+    setup(props, { attrs }) {
       return {
         attrs,
       }
@@ -452,7 +495,10 @@ WithIcon.argTypes = {
   modifiers: {
     ...meta.argTypes.modifiers,
     control: false,
-  }
+  },
+  to: { control: false },
+  tag: { control: false },
+  href: { control: false }
 };
 WithIcon.decorators = [
   withIconVariants,
@@ -484,10 +530,10 @@ Small.args = {
   iconEnd: 'plus-circled-filled'
 }
 Small.argTypes = {
-  modifiers: {
-    ...meta.argTypes.modifiers,
-    control: false,
-  }
+  modifiers: { control: false },
+  to: { control: false },
+  tag: { control: false },
+  href: { control: false }
 };
 Small.decorators = [
   withIconVariants,

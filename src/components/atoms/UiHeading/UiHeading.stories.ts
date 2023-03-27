@@ -3,7 +3,8 @@ import type {
   StoryObj,
 } from '@storybook/vue3';
 import { UiHeading } from '@/../index';
-import {withVariants } from '@sb/decorators';
+import { withVariants } from '@sb/decorators';
+import { slots } from '@sb/helpers'
 
 const meta = {
   title: 'Atoms/Heading',
@@ -19,70 +20,61 @@ const meta = {
       control: {
         type: 'range',
         min: 1,
-        max: 6,
+        max: 5,
       },
     },
     tag: { control: { type: 'text' } },
-    default: { control: false },
+    ...slots(UiHeading),
+  },
+  parameters: {
+    chromatic: {
+      disableSnapshot: false,
+      viewports: [320, 1200],
+    },
+    docs: { source: { code: null } },
   },
 } satisfies Meta<typeof UiHeading>;
 export default meta;
 type Story = StoryObj<typeof UiHeading>;
 
 export const Basic: Story = {
-  render: (args) => ({
+  render: () => ({
     components: { UiHeading },
-    setup() {
+    setup(props, { attrs }) {
       const {
-        content, ...rest
-      } = args;
+        content, ...args
+      } = attrs;
       return {
         content,
-        rest,
+        args,
       };
     },
-    template: `<UiHeading v-bind="rest">
+    template: `<UiHeading v-bind="args">
       {{ content }}
     </UiHeading>`,
   }),
 };
 Basic.args = { level: 2 };
-
-export const WithLevel: Story = { ...Basic };
-WithLevel.args = { level: 2 };
-WithLevel.parameters = {
+Basic.parameters = {
+  chromatic: { disableSnapshot: true },
   docs: {
     source: {
       code: `<template>
-  <UiHeading level="1">
+  <UiHeading 
+    :level="level"
+  >
     {{ content }}
   </UiHeading>
 </template>
 
 <script setup lang="ts">
-import { UiHeading } from '@infermedica/component-library';
-</script>`,
-    },
-  },
-};
+import { UiHeading } from '@infemedica/component-library'
 
-export const WithTag: Story = { ...Basic };
-WithTag.args = { tag: 'span' };
-WithTag.parameters = {
-  docs: {
-    source: {
-      code: `<template>
-  <UiHeading tag="span">
-    {{ content }}
-  </UiHeading>
-</template>
-
-<script setup lang="ts">
-import { UiHeading } from '@infermedica/component-library';
-</script>`,
-    },
-  },
-};
+const level = 2;
+</script>`
+    }
+  }
+}
 
 export const AllVariants: Story = {
   ...Basic,
@@ -99,8 +91,6 @@ AllVariants.parameters = {
       level: index+1,
     }))
   ],
-  chromatic: { disableSnapshot: false },
-  docs: { source: { code: null } },
 };
 
 export const Secondary: Story = { ...AllVariants };

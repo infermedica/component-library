@@ -4,6 +4,7 @@ import type {
 } from '@storybook/vue3';
 import { UiText } from '@/../index';
 import { withVariants } from '@sb/decorators';
+import { slots } from '@sb/helpers';
 
 const UiTextModifiers = [
   'ui-text--body-1-thick',
@@ -33,38 +34,56 @@ const meta = {
       options: UiTextModifiers,
     },
     tag: { control: { type: 'text' } },
-    default: { control: false },
+    ...slots(UiText),
+  },
+  parameters: {
+    chromatic: {
+      disableSnapshot: false,
+      viewports: [320, 1200],
+    },
+    docs: { source: { code: null } },
   },
 } satisfies Meta<typeof UiText>;
 export default meta;
 type Story = StoryObj<typeof UiText>;
 
 export const Basic: Story = {
-  render: (args) => ({
+  render: () => ({
     components: { UiText },
-    setup() {
+    setup( props, { attrs } ) {
       const {
         content,
         modifiers,
-        ...rest
-      } = args;
+        ...args
+      } = attrs;
       return {
         content,
-        rest: {
-          ...rest,
+        args: {
+          ...args,
           class: modifiers,
         },
       };
     },
-    template: `<UiText v-bind="rest">
+    template: `<UiText v-bind="args">
       {{ content }}
     </UiText>`,
   }),
 };
 Basic.args = { modifiers: [] };
+Basic.parameters = {
+  docs: {
+    source: {
+      code: `<template>
+  <UiText :tag="tag"> {{ content }} </UiText>
+</template>
+<script setup lang="ts">
+import { UiText } from '@infermedica/component-library';
 
-export const WithTag: Story = { ...Basic };
-WithTag.args = { tag: 'span' };
+const tag = 'p';
+</script>`
+    }
+  }
+}
 
 export const AllVariants: Story = {...Basic };
 AllVariants.argTypes = {
@@ -79,8 +98,6 @@ AllVariants.parameters = {
       class: `${variant}`,
     })),
   ],
-  chromatic: { disableSnapshot: false },
-  docs: { source: { code: null } },
 };
 
 export const Secondary: Story = { ...AllVariants };
@@ -90,11 +107,11 @@ Secondary.decorators = [
 ];
 
 export const Brand: Story = { ...AllVariants };
-Brand.parameters = {
-  ...AllVariants.parameters,
-  backgrounds: { default: 'brand' },
-};
 Brand.decorators = [
   ...AllVariants.decorators,
   () => ({ template: '<div class="ui-text--theme-brand"><story/></div>' })
 ];
+Brand.parameters = {
+  ...AllVariants.parameters,
+  backgrounds: { default: 'brand' },
+};

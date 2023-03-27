@@ -1,33 +1,29 @@
 import { Canvas, Meta, Controls } from "@storybook/blocks";
+import { MetaActions } from "../../../../docs/components";
 import * as UiHeadingStories from "./UiHeading.stories";
 
-<Meta of={UiHeadingStories} />
+<Meta of={ UiHeadingStories } />
 
 # Heading
+<MetaActions stories={ UiHeadingStories }/>
+
 {/* TODO: add description */}
-<Canvas of={UiHeadingStories.Basic} />
-<Controls of={UiHeadingStories.Basic} />
+
+<Canvas of={ UiHeadingStories.Basic } />
+<Controls of={ UiHeadingStories.Basic } />
 
 # Stories
-## With Level
-{/* TODO: add description */}
-<Canvas of={UiHeadingStories.WithLevel} />
-
-## With Tag
-{/* TODO: add description */}
-<Canvas of={UiHeadingStories.WithTag} />
-
 ## All Variants
 {/* TODO: add description */}
-<Canvas of={UiHeadingStories.AllVariants} />
+<Canvas of={ UiHeadingStories.AllVariants } />
 
 ## Secondary
 {/* TODO: add description */}
-<Canvas of={UiHeadingStories.Secondary} />
+<Canvas of={ UiHeadingStories.Secondary } />
 
 ## Brand
 {/* TODO: add description */}
 <Canvas
-  of={UiHeadingStories.Brand}
+  of={ UiHeadingStories.Brand }
   className='sb-canvas-brand'
 />

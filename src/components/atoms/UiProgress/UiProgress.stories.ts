@@ -14,68 +14,115 @@ const meta = {
     max: 100,
   },
   argTypes: {
+    // TODO: update control after min / max changes
+    value: { control: 'range' }
   },
+  parameters: {
+    chromatic: { disableSnapshot: false },
+  }
 } satisfies Meta<typeof UiProgress>;
 export default meta;
 type Story = StoryObj<typeof UiProgress>;
 
 export const Basic: Story = {
-  render: (args) => ({
+  render: () => ({
     components: { UiProgress },
-    props: Object.keys(args),
-    template: '<UiProgress v-bind="$props"/>',
+    setup( props, { attrs } ) {
+      return {
+        args: attrs,
+      }
+    },
+    template: '<UiProgress v-bind="args"/>',
   }),
 };
-export const NoRadius: Story = {
-  ...Basic,
-}
-NoRadius.args = {
-  class: 'progress-no-radius',
-}
-NoRadius.parameters = {
+Basic.parameters = {
   docs: {
     source: {
       code: `<template>
-    <UiProgress class="progress-no-radius" />
+    <UiProgress
+      :value="value"
+      :min="min"
+      :max="max" 
+    />
 </template>
 
 <script setup lang="ts">
-  import { UiProgress } from '@infermedica/component-library';
+import { UiProgress } from '@infermedica/component-library';
+  
+const min = 0;
+const max = 100;
+const value = 4;
+</script>`
+    }
+  }
+}
+
+export const NoRadiusProgress: Story = {
+  ...Basic,
+}
+NoRadiusProgress.args = {
+  class: 'no-radius-progress',
+}
+NoRadiusProgress.parameters = {
+  docs: {
+    source: {
+      code: `<template>
+    <UiProgress
+      :value="value"
+      :min="min"
+      :max="max" 
+      class="no-radius-progress"
+    />
+</template>
+
+<script setup lang="ts">
+import { UiProgress } from '@infermedica/component-library';
+
+const min = 0;
+const max = 100;
+const value = 4;
 </script>
 
 <style lang="scss">
-.progress-no-radius {
-  --progress-border-start-start-radius: 0;
-  --progress-border-start-end-radius: 0;
-  --progress-border-end-start-radius: 0;
-  --progress-border-end-end-radius: 0;
-  --progress-indicator-border-start-end-radius: 0;
-  --progress-indicator-border-end-end-radius: 0;
+@use "@infermedica/component-library/mixins";
+
+.no-radius-progress {
+  @include mixins.override-logical('progress', null, border-radius, 0);
+  @include mixins.override-logical('progress-indicator', null, border-radius, 0);
 }
 </style>`
     }
   }
 }
 
-export const Height: Story = {
+export const HeightsProgress: Story = {
   ...Basic,
 }
-Height.args = {
-  class: 'progress-height',
+HeightsProgress.args = {
+  class: 'heights-progress',
 }
-Height.parameters = {
+HeightsProgress.parameters = {
   docs: {
     source: {
       code: `<template>
-    <UiProgress class="progress-height" />
+    <UiProgress
+      :value="value"
+      :min="min"
+      :max="max" 
+      class="no-radius-progress"
+    />
 </template>
 
 <script setup lang="ts">
-  import { UiProgress } from '@infermedica/component-library';
+import { UiProgress } from '@infermedica/component-library';
+
+const min = 0;
+const max = 100;
+const value = 4;
 </script>
 
 <style lang="scss">
-.progress-height {
+.heights-progress {
   --progress-height: 3rem;
 }
 </style>`

@@ -11,13 +11,9 @@ import {
   ref,
   defineAsyncComponent,
 } from 'vue';
-// TODO: Add illustration- prefix to all illustrations svg's
-// TODO: Keep in icons.ts only icons
-// TODO: Keep in illustrations.ts only illustrations
-// FIXME: Use scss's from *.stories.scss file
-// TODO: Add illustration modifiers to UiIcon component? --illustration; --small-illustration;
 import icons from './icons';
 import './UiIcon.stories.scss';
+
 
 const meta = {
   title: 'Atoms/Icon',
@@ -42,36 +38,47 @@ const meta = {
       }),
     },
   },
+  parameters: {
+    chromatic: {
+      disableSnapshot: false
+    },
+    docs: { source: { code: null } },
+  }
 } satisfies Meta<typeof UiIcon>;
 export default meta;
 type Story = StoryObj<typeof UiIcon>;
 
 export const Basic: Story = {
-  render: (args) => ({
+  render: () => ({
     components: { UiIcon },
-    setup() {
-      return { args };
+    setup(props, { attrs } ) {
+      return {
+        args: attrs,
+      };
     },
     template: '<UiIcon v-bind="args"/>',
   }),
 };
 Basic.args = { icon: 'absent' };
 Basic.parameters = {
+  chromatic: { disableSnapshot: true },
   docs: {
     source: {
       code: `<template>
-    <UiIcon icon="absent" />
+    <UiIcon :icon="icon" />
 </template>
 
 <script lang="ts">
 import { UiIcon } from '@infermedica/component-library';
+
+const icon = 'absent'; 
 </script>`,
     },
   },
 };
 
 export const AllIcons: Story = {
-  render: (args) => ({
+  render: () => ({
     components: {
       UiButton,
       UiIcon,
@@ -126,20 +133,19 @@ export const AllIcons: Story = {
             v-if="copiedIcon === icon"
             class="absolute bottom-0 right-0 p-1"
             style="font-size: 0.625rem;"
-          >Copied!</UiText>
+          >
+            Copied!
+          </UiText>
         </UiButton>
       </template>
     </div>`,
   }),
 };
-AllIcons.parameters = {
-  chromatic: { disableSnapshot: false },
-  docs: { source: { code: null } },
-};
+AllIcons.argTypes = {
+  icon: { control: false }
+}
 
-export const AsName: Story = { ...Basic };
-
-export const AsImport: Story = {
+export const ImportedIcon: Story = {
   render: () => ({
     components: { UiIcon },
     setup() {
@@ -152,7 +158,10 @@ export const AsImport: Story = {
     />`,
   }),
 };
-AsImport.parameters = {
+ImportedIcon.argTypes = {
+  icon: { control: false }
+}
+ImportedIcon.parameters = {
   docs: {
     source: {
       code: `<template>
@@ -256,7 +265,6 @@ AllIllustrations.args = {
     },
   ],
 };
-AllIllustrations.parameters = { docs: { source: { code: null } } };
 
 export const RTLIllustrations: Story = { ...AllIllustrations };
 RTLIllustrations.args = {
@@ -287,7 +295,7 @@ IllustrationWithCustomColors.args = {
   class: [ 'illustration-with-custom-colors' ],
 };
 IllustrationWithCustomColors.parameters = {
-  chromatic: { disableSnapshot: false },
+  chromatic: { disableSnapshot: true },
   docs: {
     source: {
       code: `<template>

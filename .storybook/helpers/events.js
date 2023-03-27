@@ -1,8 +1,12 @@
-export const events = (events) => {
+export const events = (events, componentEvents = []) => {
   return events.reduce((acc, key) => {
-    return {...acc, [key]: {
-        action: key,
-        table: { disable: true },
-      } };
+    const event = {
+      action: key,
+      control: false,
+    };
+    if (!componentEvents.includes(key)) {
+      event['table'] = { disable: true }
+    }
+    return {...acc, [key]: event };
   }, {})
 }

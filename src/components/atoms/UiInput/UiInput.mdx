@@ -1,9 +1,11 @@
 import { Canvas, Meta, Controls } from "@storybook/blocks";
+import { MetaActions } from "../../../../docs/components";
 import * as UiInputStories from "./UiInput.stories";
 
 <Meta of={ UiInputStories } />
 
 # Input
+<MetaActions stories={ UiInputStories }/>
 {/* TODO: add description */}
 <Canvas of={ UiInputStories.Basic } />
 <Controls of={ UiInputStories.Basic } />
@@ -25,9 +27,9 @@ import * as UiInputStories from "./UiInput.stories";
 {/* TODO: add description */}
 <Canvas of={ UiInputStories.WithSuffix } />
 
-## With Aside Button
+## With Button Aside
 {/* TODO: add description */}
-<Canvas of={ UiInputStories.WithAsideButton } />
+<Canvas of={ UiInputStories.WithButtonAside } />
 
 ## With Input Slot
 {/* TODO: add description */}

@@ -1,34 +1,34 @@
 import { Canvas, Meta, Controls } from "@storybook/blocks";
+import { MetaActions } from "../../../../docs/components";
 import * as UiIconStories from "./UiIcon.stories";
 
-<Meta of={UiIconStories} />
+<Meta of={ UiIconStories } />
 
 # Icon
+<MetaActions stories={ UiIconStories }/>
+
 {/* TODO: add description */}
-<Canvas of={UiIconStories.Basic} />
-<Controls of={UiIconStories.Basic} />
+
+<Canvas of={ UiIconStories.Basic } />
+<Controls of={ UiIconStories.Basic } />
 
 ## Stories
 ### All icons
 {/* TODO: add description */}
-<Canvas of={UiIconStories.AllIcons} />
+<Canvas of={ UiIconStories.AllIcons } />
 
-### As Name
+## Imported Icon
 {/* TODO: add description */}
-<Canvas of={UiIconStories.AsName} />
-
-## As Import
-{/* TODO: add description */}
-<Canvas of={UiIconStories.AsImport} />
+<Canvas of={ UiIconStories.ImportedIcon } />
 
 ### All Illustrations
 {/* TODO: add description */}
-<Canvas of={UiIconStories.AllIllustrations} />
+<Canvas of={ UiIconStories.AllIllustrations } />
 
 ### RTL Illustrations
 {/* TODO: add description */}
-<Canvas of={UiIconStories.RTLIllustrations} />
+<Canvas of={ UiIconStories.RTLIllustrations } />
 
-### Illustration With Custom Colors
+### With Custom Colors Illustration
 {/* TODO: add description */}
-<Canvas of={UiIconStories.IllustrationWithCustomColors}/>
+<Canvas of={ UiIconStories.IllustrationWithCustomColors }/>

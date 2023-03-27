@@ -95,6 +95,21 @@ const replacePseudoSelectors = (selector) => {
   }
   return rulesProcessed;
 }
+const getModifiers = (variant, args) => {
+  if( typeof variant.class === 'string' ) {
+    variant.class = variant.class.split(' ');
+  }
+  if( typeof variant.class === 'undefined' ) {
+    variant.class = []
+  }
+  if( typeof args.modifiers === 'undefined' ) {
+    args.modifiers = []
+  }
+  return [
+    ...variant.class,
+    ...args.modifiers,
+  ]
+}
 export const withVariants = (story, { componentId, id, parameters, args }) => ({
   components: { story },
   setup() {
@@ -107,6 +122,7 @@ export const withVariants = (story, { componentId, id, parameters, args }) => ({
     return {
       variants: parameters.variants,
       args,
+      getModifiers,
     }
   },
   template: `<div class="variants">
@@ -123,7 +139,7 @@ export const withVariants = (story, { componentId, id, parameters, args }) => ({
             v-bind="{
               ...rest,
               class: '',
-              modifiers: rest.class,
+              modifiers: getModifiers(rest, args),
             }"
             :model-value="rest.modelValue || args.modelValue"
         />

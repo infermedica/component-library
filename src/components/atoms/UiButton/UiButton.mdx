@@ -1,89 +1,83 @@
 import { Canvas, Meta, Controls } from "@storybook/blocks";
-import { Link, Icon } from '@storybook/design-system';
+import { MetaActions } from "../../../../docs/components";
 import * as UiButtonStories from "./UiButton.stories";
 
-<Meta of={UiButtonStories} />
-
+<Meta of={ UiButtonStories } />
 
 # Button
+<MetaActions stories={ UiButtonStories }/>
 {/* TODO: add description */}
 
-{/* TODO: move to React component */}
-<div class="flex gap-2">
-  <Link href={`https://github.com/infermedica/component-library/issues/new/choose`} target="_blank"><Icon icon="support"/>Report an issue</Link>
-  <Link href={`https://github.com/infermedica/component-library/blob/develop/src/components/atoms/${UiButtonStories.default.component.__name}/${UiButtonStories.default.component.__name}.vue`} target="_blank"><Icon icon="markup"/>Source</Link>
-</div>
-
-<Canvas of={UiButtonStories.Basic} />
-<Controls of={UiButtonStories.Basic} />
+<Canvas of={ UiButtonStories.Basic } />
+<Controls of={ UiButtonStories.Basic } />
 
 # Stories
-## As a route
+## Router Button
 {/* TODO: add description */}
-<Canvas of={UiButtonStories.AsARoute} />
+<Canvas of={ UiButtonStories.RouterButton } />
 
-## As A External Link
+## Link Button
 {/* TODO: add description */}
-<Canvas of={UiButtonStories.AsAExternalLink} />
+<Canvas of={ UiButtonStories.LinkButton } />
 
 ## Contained
 {/* TODO: add description */}
-<Canvas of={UiButtonStories.Contained} />
+<Canvas of={ UiButtonStories.Contained } />
 
 ## Outlined
 {/* TODO: add description */}
-<Canvas of={UiButtonStories.Outlined} />
+<Canvas of={ UiButtonStories.Outlined } />
 
 ## Text
 {/* TODO: add description */}
-<Canvas of={UiButtonStories.Text} />
+<Canvas of={ UiButtonStories.Text } />
 
 ## Text Secondary
 {/* TODO: add description */}
-<Canvas of={UiButtonStories.TextSecondary} />
+<Canvas of={ UiButtonStories.TextSecondary } />
 
 ## Text Brand
 {/* TODO: add description */}
 <Canvas
-  of={UiButtonStories.TextBrand}
+  of={ UiButtonStories.TextBrand }
   className='sb-canvas-brand'
 />
 
 ## Icon
 {/* TODO: add description */}
-<Canvas of={UiButtonStories.Icon} />
+<Canvas of={ UiButtonStories.Icon } />
 
 ## Icon Secondary
 {/* TODO: add description */}
-<Canvas of={UiButtonStories.IconSecondary} />
+<Canvas of={ UiButtonStories.IconSecondary } />
 
 ## Icon Brand
 {/* TODO: add description */}
 <Canvas
-  of={UiButtonStories.IconBrand}
+  of={ UiButtonStories.IconBrand }
   className='sb-canvas-brand'
 />
 
 ## Circled
 {/* TODO: add description */}
 <Canvas
-  of={UiButtonStories.Circled}
+  of={ UiButtonStories.Circled }
 />
 
 # Circled Selected
 {/* TODO: add description */}
 <Canvas
-  of={UiButtonStories.CircledSelected}
+  of={ UiButtonStories.CircledSelected }
 />
 
 # With Icon
 {/* TODO: add description */}
 <Canvas
-  of={UiButtonStories.WithIcon}
+  of={ UiButtonStories.WithIcon }
 />
 
 # Small
 {/* TODO: add description */}
 <Canvas
-  of={UiButtonStories.Small}
+  of={ UiButtonStories.Small }
 />
