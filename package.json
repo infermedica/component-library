@@ -89,6 +89,7 @@
     "@storybook/client-api": "^7.0.0-rc.5",
     "@storybook/client-logger": "^7.0.0-rc.5",
     "@storybook/components": "^7.0.0-rc.5",
+    "@storybook/design-system": "^7.15.7",
     "@storybook/jest": "^0.0.11-next.0",
     "@storybook/preview-web": "^7.0.0-rc.5",
     "@storybook/test-runner": "^1.0.0--canary.224.3c57b66.0",

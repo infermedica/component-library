@@ -1,14 +1,31 @@
 import { Canvas, Meta, Controls } from "@storybook/blocks";
+import { Link, Icon } from '@storybook/design-system';
 import * as UiButtonStories from "./UiButton.stories";
 
 <Meta of={UiButtonStories} />
 
+
 # Button
 {/* TODO: add description */}
+
+{/* TODO: move to React component */}
+<div class="flex gap-2">
+  <Link href={`https://github.com/infermedica/component-library/issues/new/choose`} target="_blank"><Icon icon="support"/>Report an issue</Link>
+  <Link href={`https://github.com/infermedica/component-library/blob/develop/src/components/atoms/${UiButtonStories.default.component.__name}/${UiButtonStories.default.component.__name}.vue`} target="_blank"><Icon icon="markup"/>Source</Link>
+</div>
+
 <Canvas of={UiButtonStories.Basic} />
 <Controls of={UiButtonStories.Basic} />
 
 # Stories
+## As a route
+{/* TODO: add description */}
+<Canvas of={UiButtonStories.AsARoute} />
+
+## As A External Link
+{/* TODO: add description */}
+<Canvas of={UiButtonStories.AsAExternalLink} />
+
 ## Contained
 {/* TODO: add description */}
 <Canvas of={UiButtonStories.Contained} />

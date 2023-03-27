@@ -178,6 +178,47 @@ import { UiButton } from '@infermedica/cpmponent-library'
   }
 }
 
+export const AsARoute: Story = {
+  ...Basic
+}
+AsARoute.args = {
+  to: { path: '/blog/medical-guide-platform' },
+}
+AsARoute.argTypes = {
+  to: {
+    control: 'object',
+  }
+}
+AsARoute.parameters = {
+  ...Basic.parameters,
+  docs: {
+    source: {
+      code: `<template></template>`
+    }
+  }
+}
+
+export const AsAExternalLink: Story = {
+  ...Basic
+}
+AsAExternalLink.args = {
+  href: 'https://www.infermedica.com',
+  target: '_blank',
+}
+AsAExternalLink.argTypes = {
+  href: {
+    control: 'text',
+  }
+}
+AsARoute.parameters = {
+  ...Basic.parameters,
+  docs: {
+    source: {
+      code: `<template></template>`
+    }
+  }
+}
+
 export const Contained: Story = {
   ...Basic
 };
