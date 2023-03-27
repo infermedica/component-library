@@ -15,7 +15,9 @@ const config: StorybookConfig = {
       resolve: {
         alias: {
           '@': path.resolve(__dirname, '../src'),
-          '@sb': path.resolve(__dirname)
+          '@sb': path.resolve(__dirname),
+          '@index': path.resolve(__dirname, '../index.ts'),
+          '@unit': path.resolve(__dirname, '../tests/unit'),
         }
       },
       plugins: [
