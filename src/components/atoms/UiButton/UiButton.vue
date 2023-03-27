@@ -136,8 +136,7 @@ const {
     }
   }
 
-  // should we?
-  & &--is-disabled {
+  &--is-disabled {
     background: functions.var($element, background, var(--color-background-disabled));
     cursor: not-allowed;
 

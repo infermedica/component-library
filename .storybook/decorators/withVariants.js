@@ -120,7 +120,11 @@ export const withVariants = (story, { componentId, id, parameters, args }) => ({
       <!-- *required -->
       <div>
         <story
-            v-bind="rest"
+            v-bind="{
+              ...rest,
+              class: '',
+              modifiers: rest.class,
+            }"
             :model-value="rest.modelValue || args.modelValue"
         />
       </div>
