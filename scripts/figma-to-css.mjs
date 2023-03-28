@@ -193,6 +193,7 @@ const figmaToCss = async () => {
       && !(name.includes('space') || name.includes('focus'))
       && getVariableHead(name) !== getVariableHead(tokens[index - 1][0])
       ? '\n' : '';
+      if (name.includes('letter-spacing')) value = value.split('\n')[1];
     return `${isEmptyLine}--${name}: ${setValue(value)};`;
   }).join('\n');
   saveFile('default-colors', [ getCSSVars('Color Options', (value) => value, 1, 'Frame 1106') ]);
