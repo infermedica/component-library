@@ -6,6 +6,7 @@ import {
   content,
   modifiers,
 } from '@sb/helpers/argTypes';
+import { getCSSValue, haveStyles } from '@sb/helpers/interactions';
 import {
   UiIcon,
   UiCheckbox,
@@ -28,7 +29,8 @@ export type CheckboxArgsType = CheckboxProps & {
 }
 export type CheckboxMetaType = Meta<CheckboxArgsType>;
 export type CheckboxStoryType = StoryObj<CheckboxArgsType>;
-export const complexItemsData: CheckboxProps['modelValue'] = [
+type PlayContext = { canvasElement: HTMLElement, step: Function}
+const complexItemsData: CheckboxProps['modelValue'] = [
   {
     label: 'Russia, Kazakhstan or Mongolia',
     id: 'as-group-with-object-north-asia',
@@ -42,11 +44,22 @@ export const complexItemsData: CheckboxProps['modelValue'] = [
     id: 'as-group-with-object-europe',
   },
 ];
-
-const events = actions({
-  onFocus: 'onFocus',
-  onBlur: 'onBlur',
-});
+const playStates = async <T extends PlayContext>({ canvasElement, step }: T , results: Partial<CSSStyleDeclaration>[]) => {
+  const checkboxes = [...canvasElement.querySelectorAll('.ui-checkbox__checkbox')];
+  const labels = [...canvasElement.querySelectorAll('.ui-checkbox__label')];
+  await step('Correct border colors', () => {
+    haveStyles(checkboxes, 'borderColor', results, ':after');
+  })
+  await step('Correct background colors', () => {
+    haveStyles(checkboxes, 'backgroundColor', results);
+  })
+  await step('Correct focus state', () => {
+    haveStyles([checkboxes[3], checkboxes[7]], 'boxShadow', [results[3], results[7]]);
+  })
+  await step('Correct Label color', () => {
+    haveStyles(labels, 'color', results);
+  })
+}
 
 export default {
   title: 'Atoms/Checkbox',
@@ -61,8 +74,6 @@ export default {
     disabled: false,
     inputAttrs: {
       'data-testid': 'input-element',
-      onFocus: events.onFocus,
-      onBlur: events.onBlur,
     },
     iconCheckmarkAttrs: { 'data-testid': 'icon-element' },
     textLabelAttrs: { 'data-testid': 'text-element' },
@@ -226,6 +237,29 @@ BasicVariants.parameters = {
     },
   ],
 };
+BasicVariants.play = async (context) => playStates(context, [
+  ...['', '-hover', '-active'].map(state => ({
+    backgroundColor: getCSSValue('--color-background-white'),
+    borderColor: getCSSValue(`--color-border-strong${state}`),
+  })),
+  {
+    backgroundColor: getCSSValue('--color-background-white'),
+    borderColor: getCSSValue('--color-border-strong'),
+    boxShadow: 'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(47, 145, 234) 0px 0px 0px 4px',
+  },
+  ...['', '-hover', '-active'].map(state => ({
+    borderColor: getCSSValue(`--color-selectioncontrols-selection${state}`),
+    backgroundColor: getCSSValue(`--color-selectioncontrols-selection${state}`)
+  })),
+  {
+    borderColor: getCSSValue('--color-selectioncontrols-selection'),
+    backgroundColor: getCSSValue('--color-selectioncontrols-selection'),
+    boxShadow: 'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(47, 145, 234) 0px 0px 0px 4px',
+  }].map(result => ({
+    ...result,
+    color: getCSSValue('--color-text-body')
+  }))
+)
 
 export const DisabledVariants: CheckboxStoryType = { ...BasicVariants };
 DisabledVariants.parameters = {
@@ -236,6 +270,23 @@ DisabledVariants.parameters = {
     }),
   ),
 };
+DisabledVariants.play = async (context) => playStates(context, [
+  ...Array(3).fill({}),
+  {
+    boxShadow: 'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(47, 145, 234) 0px 0px 0px 4px',
+  },
+  ...Array(3).fill({
+    backgroundColor: getCSSValue('--color-icon-disabled'),
+  }),{
+    backgroundColor: getCSSValue('--color-icon-disabled'),
+    boxShadow: 'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(47, 145, 234) 0px 0px 0px 4px',
+  }].map((result) => ({
+    backgroundColor: getCSSValue('--color-background-white'),
+    borderColor: getCSSValue('--color-icon-disabled'),
+    color: getCSSValue('--color-text-disabled'),
+    ...result,
+  }))
+)
 
 export const ErrorVariants: CheckboxStoryType = { ...BasicVariants };
 ErrorVariants.parameters = {
@@ -246,6 +297,27 @@ ErrorVariants.parameters = {
     }),
   ),
 };
+ErrorVariants.play = async (context) => playStates(context, [
+  ...['', '-hover', '-active'].map(state => ({
+    backgroundColor: getCSSValue('--color-background-white'),
+    borderColor: getCSSValue(`--color-border-error-strong${state}`),
+  })),{
+    backgroundColor: getCSSValue('--color-background-white'),
+    borderColor: getCSSValue('--color-border-error-strong'),
+    boxShadow: 'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(47, 145, 234) 0px 0px 0px 4px',
+  },
+  ...['', '-hover', '-active'].map(state => ({
+    borderColor: getCSSValue(`--color-border-error-strong${state}`),
+    backgroundColor: getCSSValue(`--color-border-error-strong${state}`)
+  })),{
+    borderColor: getCSSValue('--color-border-error-strong'),
+    backgroundColor: getCSSValue('--color-border-error-strong'),
+    boxShadow: 'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(47, 145, 234) 0px 0px 0px 4px',
+  }].map(result => ({
+    ...result,
+    color: getCSSValue('--color-text-body')
+  }))
+);
 
 export const WithStringValue: CheckboxStoryType = { ...Basic };
 WithStringValue.args = {
@@ -261,17 +333,14 @@ WithStringValue.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithObjectValue: CheckboxStoryType = { ...Basic };
 WithObjectValue.args = {
-  modelValue: [ {
-    label: 'Europe',
-    id: 'value-as-object-europe',
-  } ],
+  modelValue: false,
   value: {
     label: 'Europe',
     id: 'value-as-object-europe',
   },
 };
 WithObjectValue.argTypes = {
-  modelValue: { control: 'object' },
+  modelValue: { control: 'boolean' },
   value: { control: 'object' },
 };
 WithObjectValue.parameters = { chromatic: { disableSnapshot: true } };
@@ -317,7 +386,7 @@ AsGroupTemplate.argTypes = {
 
 export const AsGroupWithStringValue: CheckboxStoryType = { ...AsGroupTemplate };
 AsGroupWithStringValue.args = {
-  modelValue: [ 'Europe' ],
+  modelValue: [],
   items: [
     'Russia, Kazakhstan or Mongolia',
     'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
@@ -327,7 +396,7 @@ AsGroupWithStringValue.args = {
 
 export const AsGroupWithObjectValue: CheckboxStoryType = { ...AsGroupTemplate };
 AsGroupWithObjectValue.args = {
-  modelValue: [ complexItemsData[0] ],
+  modelValue: [],
   items: complexItemsData,
 };
 
@@ -366,8 +435,6 @@ WithCheckboxSlot.args = {
     'data-testid': 'input-element',
     id: 'test-id',
     class: 'test-class',
-    onFocus: events.onFocus,
-    onBlur: events.onBlur,
   },
 };
 
