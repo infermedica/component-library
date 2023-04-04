@@ -614,6 +614,8 @@ provide<ComputedRef<Record<string, DatepickerDatePart>>>('inputsIds', inputsIds)
 
   &__label {
     display: block;
+    font: functions.var($element, font, var(--font-body-2-comfortable));
+    letter-spacing: functions.var($element, letter-spacing, var(--letter-spacing-2-comfortable));
   }
 }
 </style>
