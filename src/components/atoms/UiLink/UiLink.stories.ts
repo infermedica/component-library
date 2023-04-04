@@ -5,18 +5,26 @@ import type {
 import {
   UiLink,
   UiIcon,
-  UiText
+  UiText, UiButton
 } from '@/../index';
+import raw from './UiLink.vue?raw';
 import { withVariants } from '@sb/decorators';
-import icons from '../UiIcon/icons';
 import {
-  slots,
-  events,
+  parseArgTypes,
+  parseRaw,
 } from '@sb/helpers'
+import {
+  content,
+  icon,
+  modifiers
+} from '@sb/helpers/argTypes/index.js';
 
-const UiLinkModifiers = [
-  'ui-link--small',
-]
+const argTypes = parseArgTypes(UiLink);
+const {
+  modifiers: UiLinkModifiers,
+  variables: UiLinkVariables,
+} = parseRaw(raw);
+
 const withIconVariants = ( Story, { parameters: { iconVariants }} ) => ({
   setup(props, { attrs }) {
     return {
@@ -34,6 +42,7 @@ const withIconVariants = ( Story, { parameters: { iconVariants }} ) => ({
     }" />
   </template>`
 });
+
 const UiLinkIcon = {
   components: { UiIcon },
   props: ['icon'],
@@ -52,69 +61,14 @@ const meta = {
     href: 'https://infermedica.com/'
   },
   argTypes: {
-    content: {
-      description: 'Use this control to set the content.',
-      table: { category: 'stories controls' },
-      control: 'text',
-    },
-    icon: {
-      description: 'Use this control to set the icon.',
-      table: { category: 'stories controls' },
-      control: 'select',
-      options: ['', ...icons.filter((icon) => {
-        const illustrations = [
-          'agreement',
-          'agreement-rtl',
-          'boy',
-          'boy-rtl',
-          'lock',
-          'no-internet-illustration',
-          'no-internet-illustration-rtl',
-          'podium',
-          'podium-rtl',
-          'error-500',
-        ];
-        return !illustrations.includes(icon);
-      })],
-    },
+    ...argTypes,
+    content,
+    icon,
     iconEnd: {
       name: 'icon-end',
-      description: 'Use this control to set the icon-end.',
-      table: { category: 'stories controls' },
-      control: 'select',
-      options: ['', ...icons.filter((icon) => {
-        const illustrations = [
-          'agreement',
-          'agreement-rtl',
-          'boy',
-          'boy-rtl',
-          'lock',
-          'no-internet-illustration',
-          'no-internet-illustration-rtl',
-          'podium',
-          'podium-rtl',
-          'error-500',
-        ];
-        return !illustrations.includes(icon);
-      })],
+      ...icon
     },
-    modifiers: {
-      name: 'class',
-      description: 'Use this control to add modifier to class.',
-      table: { category: 'html attributes' },
-      control: 'multi-select',
-      options: UiLinkModifiers,
-    },
-    tag: {
-      control: 'text',
-    },
-    to: {
-      control: 'object',
-    },
-    href: {
-      control: 'text',
-    },
-    ...slots(UiLink),
+    modifiers: modifiers( { options: UiLinkModifiers } )
   },
   parameters: {
     chromatic: { disableSnapshot: false },

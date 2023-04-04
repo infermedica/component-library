@@ -13,30 +13,23 @@ import {
 } from 'vue';
 import icons from './icons';
 import './UiIcon.stories.scss';
+import raw from './UiIcon.vue?raw';
+import {
+  parseArgTypes,
+  parseRaw,
+} from '@sb/helpers'
+import { icon } from '@sb/helpers/argTypes/index.js';
 
+const argTypes = parseArgTypes(UiIcon);
+const { variables: UiIconVariables } = parseRaw(raw);
 
 const meta = {
   title: 'Atoms/Icon',
   component: UiIcon,
   argTypes: {
-    icon: {
-      control: { type: 'select' },
-      options: icons.filter((icon) => {
-        const illustrations = [
-          'agreement',
-          'agreement-rtl',
-          'boy',
-          'boy-rtl',
-          'lock',
-          'no-internet-illustration',
-          'no-internet-illustration-rtl',
-          'podium',
-          'podium-rtl',
-          'error-500',
-        ];
-        return !illustrations.includes(icon);
-      }),
-    },
+    ...argTypes,
+    icon,
+    ...UiIconVariables,
   },
   parameters: {
     chromatic: {

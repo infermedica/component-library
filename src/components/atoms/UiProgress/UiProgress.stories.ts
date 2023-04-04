@@ -2,8 +2,16 @@ import type {
   Meta,
   StoryObj,
 } from '@storybook/vue3';
-import {UiProgress} from '@/../index';
+import { UiProgress } from '@/../index';
+import raw from './UiProgress.vue?raw';
 import './UiProgress.stories.scss';
+import {
+  parseArgTypes,
+  parseRaw,
+} from '@sb/helpers'
+
+const argTypes = parseArgTypes(UiProgress);
+const { variables: UiProgressVariables } = parseRaw(raw);
 
 const meta = {
   title: 'Atoms/Progress',
@@ -14,8 +22,13 @@ const meta = {
     max: 100,
   },
   argTypes: {
-    // TODO: update control after min / max changes
-    value: { control: 'range' }
+    ...argTypes,
+    value: {
+      control: 'range',
+      min: 0,
+      max: 100,
+    },
+    ...UiProgressVariables,
   },
   parameters: {
     chromatic: { disableSnapshot: false },

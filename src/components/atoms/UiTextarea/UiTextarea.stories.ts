@@ -4,13 +4,29 @@ import type {
 } from '@storybook/vue3';
 import { ref } from 'vue';
 import { UiTextarea } from '@/../index';
+import raw from './UiTextarea.vue?raw';
 import { withVariants } from '@sb/decorators';
-import { events } from '@sb/helpers';
+import {
+  parseArgTypes,
+  parseRaw,
+} from '@sb/helpers'
+import {
+  content,
+  icon,
+  modifiers
+} from '@sb/helpers/argTypes/index.js';
+const argTypes = parseArgTypes(UiTextarea);
+console.log(argTypes);
+const {
+  modifiers: UiTextareaModifiers,
+  variables: UiTextareaVariables,
+} = parseRaw(raw)
 
 const meta = {
   title: 'Atoms/Textarea',
   component: UiTextarea,
   args: {
+    modifiers: [],
     modelValue: '',
     resize: false,
     placeholder: 'Please provide a detailed description of the issue.',
@@ -18,9 +34,7 @@ const meta = {
     textareaAttrs: { 'data-testid': 'textarea-element' },
   },
   argTypes: {
-    modelValue: { control: 'text' },
-    placeholder: { control: 'text' },
-    disabled: { control: 'boolean' },
+    ...argTypes,
     resize: {
       control: 'select',
       options: [
@@ -30,11 +44,8 @@ const meta = {
         'vertical',
       ],
     },
-    textareaAttrs: { control: 'object' },
-    ...events(
-      [ 'onUpdate:modelValue', 'onFocus', 'onBlur' ],
-      UiTextarea.__docgenInfo.events.map(({ name })=>(name))
-    ),
+    modifiers: modifiers( { options: UiTextareaModifiers } ),
+    ...UiTextareaVariables
   },
   parameters: {
     chromatic: { disableSnapshot: false },

@@ -3,9 +3,21 @@ import type {
   StoryObj,
 } from '@storybook/vue3';
 import { UiText } from '@/../index';
+import raw from './UiText.vue?raw';
 import { withVariants } from '@sb/decorators';
-import { slots } from '@sb/helpers';
+import {
+  parseArgTypes,
+  parseRaw,
+} from '@sb/helpers'
+import {
+  content,
+  modifiers
+} from '@sb/helpers/argTypes/index.js';
 
+const argTypes = parseArgTypes(UiText);
+const { variables: UiTextVariables } = parseRaw(raw);
+
+// TODO: scss to css
 const UiTextModifiers = [
   'ui-text--body-1-thick',
   'ui-text--body-2-comfortable',
@@ -21,20 +33,10 @@ const meta = {
   component: UiText,
   args: { content: 'How to use it?' },
   argTypes: {
-    content: {
-      description: 'Use this control to set the content.',
-      table: { category: 'stories controls' },
-      control: 'text',
-    },
-    modifiers: {
-      name: 'class',
-      description: 'Use this control to add modifier to class.',
-      table: { category: 'html attributes' },
-      control: 'multi-select',
-      options: UiTextModifiers,
-    },
-    tag: { control: { type: 'text' } },
-    ...slots(UiText),
+    ...argTypes,
+    content,
+    modifiers: modifiers({ options: UiTextModifiers } ),
+    ...UiTextVariables
   },
   parameters: {
     chromatic: {

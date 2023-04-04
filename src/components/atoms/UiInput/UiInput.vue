@@ -4,14 +4,20 @@
     v-bind="attrs"
   >
     <div class="ui-input__outline">
-      <!-- @slot Use this slot to replace input template. -->
+      <!--
+        @slot Use this slot to replace input template.
+        @binding {function} input
+        @binding {InputModelValue} value
+        @validation {function} keyValidation
+        @binding {DefineAttrsProps} inputAttrs
+       -->
       <slot
         name="input"
         v-bind="{
-          inputAttrs: defaultProps.inputAttrs,
           input: inputHandler,
           value: modelValue,
-          validation: keyValidation
+          validation: keyValidation,
+          inputAttrs: defaultProps.inputAttrs
         }"
       >
         <input
@@ -25,7 +31,11 @@
         >
       </slot>
     </div>
-    <!-- @slot Use this slot to place aside element. -->
+    <!--
+      @slot Use this slot to place aside element.
+      @binding {string} suffix
+      @binding {TextAttrsProps} textSuffixAttrs
+     -->
     <slot
       name="aside"
       v-bind="{

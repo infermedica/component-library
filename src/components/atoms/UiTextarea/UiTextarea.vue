@@ -53,6 +53,9 @@ export interface TextareaProps {
 }
 export type TextareaAttrsProps = DefineAttrsProps<TextareaProps>;
 export interface TextareaEmits {
+  /**
+   * Update event
+   */
   (e:'update:modelValue', value: TextareaModelValue): void
 }
 

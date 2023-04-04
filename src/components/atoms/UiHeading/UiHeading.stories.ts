@@ -3,19 +3,23 @@ import type {
   StoryObj,
 } from '@storybook/vue3';
 import { UiHeading } from '@/../index';
+import raw from './UiHeading.vue?raw';
 import { withVariants } from '@sb/decorators';
-import { slots } from '@sb/helpers'
+import {
+  parseArgTypes,
+  parseRaw,
+} from '@sb/helpers'
+import { content } from '@sb/helpers/argTypes/index.js';
+const argTypes = parseArgTypes(UiHeading);
+const { variables: UiHeadingVariables } = parseRaw(raw);
 
 const meta = {
   title: 'Atoms/Heading',
   component: UiHeading,
   args: { content: 'How to use it?' },
   argTypes: {
-    content: {
-      description: 'Use this control to set the content.',
-      table: { category: 'stories controls' },
-      control: 'text',
-    },
+    ...argTypes,
+    content,
     level: {
       control: {
         type: 'range',
@@ -23,8 +27,7 @@ const meta = {
         max: 5,
       },
     },
-    tag: { control: { type: 'text' } },
-    ...slots(UiHeading),
+    ...UiHeadingVariables
   },
   parameters: {
     chromatic: {

@@ -7,27 +7,34 @@ import {
   UiIcon,
   UiText
 } from '@/../index';
+import raw from './UiButton.vue?raw';
 import { withVariants } from '@sb/decorators';
-import icons from "@/components/atoms/UiIcon/icons";
 import {
-  slots,
-  events,
+  parseArgTypes,
+  parseRaw,
 } from '@sb/helpers'
+import {
+  content,
+  icon,
+  modifiers
+} from '@sb/helpers/argTypes/index.js';
 
-const UiButtonModifiers = [
-  'ui-button--small',
-  'ui-button--outlined',
-  'ui-button--text',
-  'ui-button--circled',
-  'ui-button--icon',
-  'ui-button--is-disabled',
-]
+const argTypes = parseArgTypes(UiButton);
+const {
+  modifiers: UiButtonModifiers,
+  variables: UiButtonVariables,
+} = parseRaw(raw);
+
 const withIconVariants = ( Story, { parameters: { iconVariants }} ) => ({
   setup(props, { attrs }) {
     return {
       iconVariants: iconVariants.map(({icon, iconEnd}) => ({
-        iconEnd: iconEnd ? attrs.iconEnd : undefined,
-        icon: icon ? attrs.icon : undefined
+        iconEnd: iconEnd
+          ? attrs.iconEnd
+          : undefined,
+        icon: icon
+          ? attrs.icon
+          : undefined
       })),
       args: attrs,
     }
@@ -57,70 +64,15 @@ const meta = {
     modifiers: [],
   },
   argTypes: {
-    content: {
-      description: 'Use this control to set the content.',
-      table: { category: 'stories controls' },
-      control: 'text',
-    },
-    icon: {
-      description: 'Use this control to set the icon.',
-      table: { category: 'stories controls' },
-      control: 'select',
-      options: ['', ...icons.filter((icon) => {
-        const illustrations = [
-          'agreement',
-          'agreement-rtl',
-          'boy',
-          'boy-rtl',
-          'lock',
-          'no-internet-illustration',
-          'no-internet-illustration-rtl',
-          'podium',
-          'podium-rtl',
-          'error-500',
-        ];
-        return !illustrations.includes(icon);
-      })],
-    },
+    ...argTypes,
+    content,
+    icon,
     iconEnd: {
       name: 'icon-end',
-      description: 'Use this control to set the icon-end.',
-      table: { category: 'stories controls' },
-      control: 'select',
-      options: ['', ...icons.filter((icon) => {
-        const illustrations = [
-          'agreement',
-          'agreement-rtl',
-          'boy',
-          'boy-rtl',
-          'lock',
-          'no-internet-illustration',
-          'no-internet-illustration-rtl',
-          'podium',
-          'podium-rtl',
-          'error-500',
-        ];
-        return !illustrations.includes(icon);
-      })],
+      ...icon
     },
-    modifiers: {
-      name: 'class',
-      description: 'Use this control to add modifier to class.',
-      table: { category: 'html attributes' },
-      control: 'multi-select',
-      options: UiButtonModifiers,
-    },
-    tag: {
-      control: 'text',
-    },
-    to: {
-      control: 'object',
-    },
-    href: {
-      control: 'text',
-    },
-    ...slots(UiButton),
-    ...events(['onClick']),
+    modifiers: modifiers({ options: UiButtonModifiers }),
+    ...UiButtonVariables,
   },
   parameters: {
     chromatic: { disableSnapshot: false },
@@ -130,7 +82,7 @@ const meta = {
       }
     }
   }
-} satisfies Meta<typeof UiButton>;
+} satisfies Meta<typeof UiButton>
 export default meta;
 type Story = StoryObj<typeof UiButton>;
 
@@ -172,7 +124,6 @@ export const Basic: Story = {
     </UiButton>`,
   }),
 };
-// TODO: how to update code after change the args in stories?
 Basic.parameters = {
   chromatic: { disableSnapshot: true },
   docs: {

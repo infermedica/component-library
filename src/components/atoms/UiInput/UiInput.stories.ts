@@ -9,12 +9,24 @@ import {
   UiIcon,
   UiText,
 } from '@/../index';
+import raw from './UiInput.vue?raw';
 import { keyboardFocus} from "@/utilities/directives";
 import { withVariants } from '@sb/decorators';
 import {
-  slots,
-  events,
+  parseArgTypes,
+  parseRaw,
 } from '@sb/helpers'
+import {
+  content,
+  icon,
+  modifiers
+} from '@sb/helpers/argTypes/index.js';
+
+const argTypes = parseArgTypes(UiInput);
+const {
+  modifiers: UiInputModifiers,
+  variables: UiInputVariables,
+} = parseRaw(raw);
 
 const UiInputButtonAside = {
   components: {
@@ -34,6 +46,7 @@ const meta = {
   title: 'Atoms/Input',
   component: UiInput,
   args: {
+    modifiers: [],
     modelValue: '',
     placeholder: 'Search, e.g. headache',
     type: 'text',
@@ -43,28 +56,9 @@ const meta = {
     inputAttrs: { 'data-testid': 'input-element' },
   },
   argTypes: {
-    modelValue: { control: 'text' },
-    placeholder: { control: 'text' },
-    type: {
-      control: 'select',
-      options: [
-        'text',
-        'password',
-        'email',
-        'number',
-        'tel',
-        'url',
-      ],
-    },
-    disabled: { control: 'boolean' },
-    suffix: { control: 'text' },
-    textSuffixAttrs: { control: 'object' },
-    inputAttrs: { control: 'object' },
-    ...slots(UiInput),
-    ...events(
-      [ 'onUpdate:modelValue', 'onFocus', 'onBlur' ],
-      UiInput.__docgenInfo.events.map(({ name })=>(name))
-    ),
+    ...argTypes,
+    modifiers: modifiers( { options: UiInputModifiers } ),
+    ...UiInputVariables
   },
   parameters: {
     chromatic: {

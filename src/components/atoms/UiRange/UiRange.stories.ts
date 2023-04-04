@@ -7,11 +7,15 @@ import {
   UiRange,
   UiHeading
 } from '@/../index';
+import raw from './UiRange.vue?raw';
 import { withVariants } from '@sb/decorators';
 import {
-  slots,
-  events,
+  parseArgTypes,
+  parseRaw,
 } from '@sb/helpers'
+
+const argTypes = parseArgTypes(UiRange);
+const { variables: UiProgressVariables } = parseRaw(raw);
 
 const meta = {
   title: 'Atoms/Range',
@@ -26,36 +30,15 @@ const meta = {
     headingValueAttrs: { 'data-testid': 'value-heading' },
   },
   argTypes: {
+    ...argTypes,
     ariaLabel: {
       name: 'aria-label',
       description: 'Use this control to set aria-label attribute.',
       control: 'text',
       table: { category: 'html attributes' },
     },
-    modelValue: {
-      control: 'number',
-    },
-    min: {
-      control: 'number',
-    },
-    max: {
-      control: 'number',
-    },
-    step: {
-      control: 'number',
-    },
-    inputAttrs: { control: 'object' },
-    headingValueAttrs: { control: 'object' },
-    ...slots(UiRange),
-    ...events(
-      [ 'onUpdate:modelValue', 'onFocus', 'onBlur' ],
-      UiRange.__docgenInfo.events.map(({ name })=>(name))
-    ),
-    name: {
-      table: false,
-    },
+    ...UiProgressVariables,
   },
-  decorators: [ () => ({ template: '<div><story/></div>' }) ],
   parameters: {
     chromatic: {
       disableSnapshot: false,

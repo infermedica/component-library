@@ -7,6 +7,6 @@ export const events = (events, componentEvents = []) => {
     if (!componentEvents.includes(key)) {
       event['table'] = { disable: true }
     }
-    return {...acc, [key]: event };
+    return {...acc, [key]: event }
   }, {})
 }

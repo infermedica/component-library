@@ -5,7 +5,9 @@
     v-bind="routeAttrs"
     class="ui-button"
   >
-    <!-- @slot Use this slot to place content inside button. -->
+    <!--
+      @slot Use this slot to place content inside button.
+     -->
     <slot />
   </component>
 </template>
