@@ -7,7 +7,7 @@ type SlotTestCase<TArgs extends object> = {
   story: ReturnType<StoryToMount<TArgs>>;
   slot: string;
   content: (story: VueWrapper) => VueWrapper;
-  expectedBinding: (args: TArgs) => object,
+  expectedBinding: (args: TArgs) => Required<TArgs[keyof TArgs]>,
 }
 
 export const getSlotTests = <TArgs extends object>(

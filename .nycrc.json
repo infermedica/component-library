@@ -1,3 +1,10 @@
 {
-  "extension": [".vue", ".js", "jsx", ".ts", "tsx"]
+  "extension": [".vue", ".js", ".ts"],
+  "exclude": [
+    "**/*.spec.ts",
+    "**/*.spec.js",
+    "**/*.stories.ts",
+    "**/*.stories.js",
+    ".storybook/**"
+  ]
 }

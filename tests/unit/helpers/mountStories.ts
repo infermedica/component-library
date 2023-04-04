@@ -7,7 +7,7 @@ import type {
   StoryObj,
 } from '@storybook/vue3';
 
-type StoryImport<TArgs> = { default: Meta<TArgs> } & Record<string, StoryObj<TArgs>>;
+type StoryFileImports<TArgs> = { default: Meta<TArgs> } & Record<string, StoryObj<TArgs>>;
 export type StoryToMount<TArgs extends object> = (additionalArgs?: TArgs) => {
   wrapper: VueWrapper,
   component: VueWrapper,
@@ -19,18 +19,21 @@ type StoryMap<
 > = Record<TKeys, StoryToMount<TArgs>>;
 
 export const mountStories = <TArgs extends object>(
-  component: Component, storiesImport: StoryImport<TArgs>, setWrapper: (story: VueWrapper) => void,
+  component: Component,
+  imports: StoryFileImports<TArgs>,
+  setWrapper: (story: VueWrapper) => void,
 ) => {
   const {
-    default: meta, ...stories
-  } = storiesImport;
+    default: meta,
+    ...stories
+  } = imports;
   return Object.entries(stories).reduce((storiesMap: StoryMap<keyof typeof stories, TArgs>, [
     key,
     story,
   ]) => {
     const args = {
-      ...(meta?.args || {}),
-      ...(story?.args || {}),
+      ...meta.args,
+      ...story.args,
     } as TArgs;
     const getMountedStory = (storyArgs: TArgs) => mount(
       story.render

@@ -6,7 +6,7 @@ type EmitTestCase<TArgs extends object> = {
   name: string,
   story: ReturnType<StoryToMount<TArgs>>,
   action: (story: VueWrapper) => Promise<void>,
-  expected: (args: TArgs) => TArgs[keyof TArgs],
+  expected: ((args: TArgs) => TArgs[keyof TArgs]) | Required<TArgs[keyof TArgs]>,
 }
 
 export const getEmitTests = async <TArgs extends object>(
@@ -23,7 +23,11 @@ export const getEmitTests = async <TArgs extends object>(
         } = story;
         await action(component);
         const emittedValue = component.emitted(emit)?.at(0)?.at(0);
-        expect(emittedValue).toStrictEqual(expected(args));
+        expect(emittedValue).toStrictEqual(
+          typeof expected === 'function'
+            ? expected(args)
+            : expected,
+        );
         wrapper.unmount();
       });
     });
