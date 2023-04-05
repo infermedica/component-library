@@ -1,6 +1,6 @@
 import { computed } from 'vue';
-import type { ButtonProps } from '@/components/atoms/UiButton/UiButton.vue';
-import type { LinkProps } from '@/components/atoms/UiLink/UiLink.vue';
+import type { ButtonProps } from '../../components/atoms/UiButton/UiButton.vue';
+import type { LinkProps } from '../../components/atoms/UiLink/UiLink.vue';
 
 export default function useLink(props: ButtonProps | LinkProps) {
   const componentTag = computed(() => {
