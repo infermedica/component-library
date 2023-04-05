@@ -3,6 +3,7 @@ import type {
   StoryObj,
 } from '@storybook/vue3';
 import { ref } from 'vue';
+import deepmerge from "deepmerge";
 import {
   UiRange,
   UiHeading
@@ -12,9 +13,10 @@ import { withVariants } from '@sb/decorators';
 import {
   parseArgTypes,
   parseRaw,
+  inputEvents
 } from '@sb/helpers'
 
-const argTypes = parseArgTypes(UiRange);
+const argTypes = parseArgTypes(deepmerge(UiRange, inputEvents));
 const { variables: UiProgressVariables } = parseRaw(raw);
 
 const meta = {

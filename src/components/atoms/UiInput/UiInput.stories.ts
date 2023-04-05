@@ -3,6 +3,7 @@ import type {
   StoryObj,
 } from '@storybook/vue3';
 import { ref } from 'vue';
+import deepmerge from "deepmerge";
 import {
   UiInput,
   UiButton,
@@ -15,6 +16,7 @@ import { withVariants } from '@sb/decorators';
 import {
   parseArgTypes,
   parseRaw,
+  inputEvents
 } from '@sb/helpers'
 import {
   content,
@@ -22,7 +24,7 @@ import {
   modifiers
 } from '@sb/helpers/argTypes/index.js';
 
-const argTypes = parseArgTypes(UiInput);
+const argTypes = parseArgTypes(deepmerge(UiInput, inputEvents));
 const {
   modifiers: UiInputModifiers,
   variables: UiInputVariables,

@@ -48,6 +48,7 @@ specifiers:
   core-js: ^3.23.5
   css-loader: ^6.7.1
   date-fns: ^2.28.0
+  deepmerge: ^4.3.1
   dotenv: ^16.0.3
   eslint: ^8.0.0
   eslint-import-resolver-alias: ^1.1.2
@@ -149,6 +150,7 @@ devDependencies:
   babel-loader: 8.3.0_qoaxtqicpzj5p3ubthw53xafqm
   chromatic: 6.17.1
   css-loader: 6.7.3_webpack@5.75.0
+  deepmerge: 4.3.1
   eslint: 8.35.0
   eslint-import-resolver-alias: 1.1.2_5rfvta7qn57kxm7ir36ta6fixq
   eslint-plugin-import: 2.27.5_uyiasnnzcqrxqkfvjklwnmwcha
@@ -6398,8 +6400,8 @@ packages:
     resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}
     dev: true
 
-  /deepmerge/4.3.0:
-    resolution: {integrity: sha512-z2wJZXrmeHdvYJp/Ux55wIjqo81G5Bp4c+oELTW+7ar6SogWHajt5a9gO3s3IDaGSAXjDk0vlQKN3rms8ab3og==}
+  /deepmerge/4.3.1:
+    resolution: {integrity: sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==}
     engines: {node: '>=0.10.0'}
     dev: true
 
@@ -9089,7 +9091,7 @@ packages:
       babel-jest: 28.1.3_@babel+core@7.21.0
       chalk: 4.1.2
       ci-info: 3.8.0
-      deepmerge: 4.3.0
+      deepmerge: 4.3.1
       glob: 7.2.3
       graceful-fs: 4.2.10
       jest-circus: 28.1.3

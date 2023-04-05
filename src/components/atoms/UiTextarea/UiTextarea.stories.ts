@@ -3,20 +3,19 @@ import type {
   StoryObj,
 } from '@storybook/vue3';
 import { ref } from 'vue';
+import deepmerge from "deepmerge";
 import { UiTextarea } from '@/../index';
 import raw from './UiTextarea.vue?raw';
 import { withVariants } from '@sb/decorators';
 import {
   parseArgTypes,
   parseRaw,
+  inputEvents
 } from '@sb/helpers'
 import {
-  content,
-  icon,
   modifiers
 } from '@sb/helpers/argTypes/index.js';
-const argTypes = parseArgTypes(UiTextarea);
-console.log(argTypes);
+const argTypes = parseArgTypes(deepmerge(UiTextarea, inputEvents));
 const {
   modifiers: UiTextareaModifiers,
   variables: UiTextareaVariables,
