@@ -81,7 +81,6 @@ const getAction = (action) => {
   }
 }
 const formatEvents = (events = []) => {
-  console.log(events);
   return events.reduce((obj, { name }) => {
     const action = getAction(name);
     return {

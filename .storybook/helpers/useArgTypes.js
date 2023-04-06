@@ -3,7 +3,10 @@ import {
   getModifiers,
   getVariables,
 } from "./parseRaw";
-import { modifiers as argTypesModifiers } from './argTypes';
+import {
+  modifiers as argTypesModifiers,
+  variable as argTypesVariable
+} from './argTypes/index';
 export function useArgTypes(component, raw) {
   const { __docgenInfo } = component;
   const style = getStyle(raw);
@@ -35,7 +38,7 @@ export function useArgTypes(component, raw) {
   }
   const props = (()=> {
     return __docgenInfo.props
-      .reduce(
+      ?.reduce(
         (object, { name, type }) => {
           const control = getControl(type)
           const table = getTable(name);
@@ -61,7 +64,7 @@ export function useArgTypes(component, raw) {
   )
   const slots = (() => {
     return __docgenInfo.slots
-      .reduce(
+      ?.reduce(
         (object, { name, description, bindings = [ { name: 'unknown '} ] }) => {
           if ( !description ) {
             return {
@@ -87,9 +90,35 @@ export function useArgTypes(component, raw) {
         {}
       )
   })();
-  const events = () => {
-    console.log('events');
+  const getAction = (action) => {
+    switch (action) {
+      case 'update:modelValue':
+        return 'onUpdate:modelValue'
+      default:
+        return action
+    }
   }
+  const events = (() => {
+    console.log(__docgenInfo);
+    return __docgenInfo.events
+      ?.reduce(
+        (object, { name }) => {
+          const action = getAction(name);
+          return {
+            ...object,
+            [action]: {
+              name,
+              action,
+              control: false,
+              table: {
+                disable: true,
+              }
+            }
+          }
+        },
+        {}
+      )
+  })();
   const modifiers = (() => {
     const options = getModifiers(style)
       .map( modifier => modifier.replace(/&/, __docgenInfo.displayName
@@ -104,12 +133,21 @@ export function useArgTypes(component, raw) {
   })();
   const variables = (()=> {
     const options = getVariables(style);
-    console.log(options);
+    return options.reduce(
+      (object, {name, defaultValue}) => (
+        {
+          ...object,
+          [name]: argTypesVariable({defaultValue}),
+        }
+      ),
+      {}
+    );
   })();
   const argTypes = (() => {
     return {
       ...props,
       ...slots,
+      ...events,
       ...variables,
       modifiers,
     }

@@ -2,6 +2,7 @@ import type {
   Meta,
   StoryObj,
 } from '@storybook/vue3';
+import deepmerge from "deepmerge";
 import {
   UiButton,
   UiIcon,
@@ -10,17 +11,19 @@ import {
 import raw from './UiButton.vue?raw';
 import { withVariants } from '@sb/decorators';
 import {
-  parseArgTypes,
-  parseRaw,
   useArgTypes,
+  extendEvents
 } from '@sb/helpers'
 import {
   content,
-  icon,
-  modifiers
+  icon
 } from '@sb/helpers/argTypes/index.js';
 
-const { props, slots, events, argTypes } = useArgTypes(UiButton, raw);
+const buttonEvents = extendEvents([ 'onClick' ]);
+const { argTypes } = useArgTypes(
+  deepmerge(UiButton, buttonEvents),
+  raw
+);
 const withIconVariants = ( Story, { parameters: { iconVariants }} ) => ({
   setup(props, { attrs }) {
     return {
