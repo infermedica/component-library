@@ -1,4 +1,4 @@
-import { withSetup } from '@unit/helpers';
+import { withSetup } from '@tests/unit/helpers';
 import useActiveElement from './index';
 
 let result;
