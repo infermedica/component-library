@@ -1,7 +1,5 @@
 import {
-  getStyle,
-  getModifiers,
-  getVariables,
+  getStyle
 } from "./parseRaw";
 import {
   modifiers as argTypesModifiers,
@@ -9,7 +7,22 @@ import {
 } from './argTypes/index';
 export function useArgTypes(component, raw) {
   const { __docgenInfo } = component;
+  const componentNameKebabCase = __docgenInfo.displayName
+    .toLowerCase()
+    .split('ui')
+    .join('ui-');
   const style = getStyle(raw);
+  const { cssRules } = [...document.styleSheets]
+    .find( (styleSheet) => {
+      try {
+        const { cssRules } = styleSheet;
+        const { selectorText } = [...cssRules].at(0);
+        return selectorText.match(componentNameKebabCase);
+      }
+      catch (e) {
+        console.error(e);
+      }
+    })
   const getControl = (type) => {
     const { name } = type
 
@@ -99,7 +112,6 @@ export function useArgTypes(component, raw) {
     }
   }
   const events = (() => {
-    console.log(__docgenInfo);
     return __docgenInfo.events
       ?.reduce(
         (object, { name }) => {
@@ -119,20 +131,29 @@ export function useArgTypes(component, raw) {
         {}
       )
   })();
+  const getModifiers = (rules) => {
+    return rules
+      .filter( ( { selectorText = '' } ) => {
+        const MODIFIER_RE = new RegExp(`^\.${componentNameKebabCase}--[\\w|-]+?$`);
+        return selectorText.match(MODIFIER_RE)
+      })
+      .map( ( { selectorText = '' } ) => ( selectorText.substring(1) ));
+  };
+  const getVariables = (rules) => {
+    const { cssText } = rules[0];
+    const VARIABLE_RE = /var\(([\s\S]+?), ([\s\S]+?)\);/gm
+    const VARIABLE_MA = [...cssText.matchAll(VARIABLE_RE)];
+    return VARIABLE_MA.map(([match, name, defaultValue]) => ({
+      name,
+      defaultValue
+    }));
+  };
   const modifiers = (() => {
-    const options = getModifiers(style)
-      .map( modifier => modifier.replace(/&/, __docgenInfo.displayName
-        .toLowerCase()
-        .split('ui')
-        .join('ui-'))
-      );
-    if ( options.length < 1 ) {
-      return {};
-    }
+    const options = getModifiers([...cssRules]);
     return argTypesModifiers({ options });
   })();
   const variables = (()=> {
-    const options = getVariables(style);
+    const options = getVariables([...cssRules]);
     return options.reduce(
       (object, {name, defaultValue}) => (
         {

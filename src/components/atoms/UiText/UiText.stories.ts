@@ -5,28 +5,11 @@ import type {
 import { UiText } from '@/../index';
 import raw from './UiText.vue?raw';
 import { withVariants } from '@sb/decorators';
-import {
-  parseArgTypes,
-  parseRaw,
-} from '@sb/helpers'
-import {
-  content,
-  modifiers
-} from '@sb/helpers/argTypes/index.js';
+import { useArgTypes } from '@sb/helpers'
+import { content } from '@sb/helpers/argTypes/index.js'
 
-const argTypes = parseArgTypes(UiText);
-const { variables: UiTextVariables } = parseRaw(raw);
+const { argTypes } = useArgTypes(UiText, raw);
 
-// TODO: scss to css
-const UiTextModifiers = [
-  'ui-text--body-1-thick',
-  'ui-text--body-2-comfortable',
-  'ui-text--body-2-compact',
-  'ui-text--body-2-comfortable-thick',
-  'ui-text--body-2-compact-thick',
-  'ui-text--caption',
-  'ui-text--button-1',
-];
 
 const meta = {
   title: 'Atoms/Text',
@@ -34,9 +17,7 @@ const meta = {
   args: { content: 'How to use it?' },
   argTypes: {
     ...argTypes,
-    content,
-    modifiers: modifiers({ options: UiTextModifiers } ),
-    ...UiTextVariables
+    content
   },
   parameters: {
     chromatic: {
@@ -95,7 +76,7 @@ AllVariants.argTypes = {
 AllVariants.decorators = [ withVariants ]
 AllVariants.parameters = {
   variants: [
-    ...UiTextModifiers.map((variant) => ({
+    ...argTypes.modifiers.options.map((variant) => ({
       label: `${variant.replace('ui-text--', '')}`,
       class: `${variant}`,
     })),
