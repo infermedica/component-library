@@ -2,7 +2,7 @@ import {
   mountStories,
   getEmitTests,
   getSlotTests,
-} from '@unit/helpers';
+} from '@tests/unit/helpers';
 import {
   UiCheckbox,
   UiText,
@@ -33,15 +33,13 @@ describe('UiCheckbox.vue', () => {
   afterEach(() => {
     wrapper.unmount();
   });
-
-  const getInput = (story = wrapper) => story.find('[data-testid="input-element"]');
+  const getInput = (story = wrapper) => story.find('[data-testid="input"]');
   const toggleInput = (story = wrapper, value = true) => getInput(story).setValue(value);
   const setChecked = (story?: VueWrapper) => toggleInput(story);
   const setUnchecked = (story?: VueWrapper) => toggleInput(story, false);
   const getIcon = (story = wrapper) => story.findComponent(UiIcon);
   const getText = (story = wrapper) => story.findComponent(UiText);
   const hasEmittedValue = (component: VueWrapper) => component.emitted('update:modelValue');
-
   test('render a component', () => {
     const { component } = Basic();
     expect(component.classes('ui-checkbox')).toBe(true);
@@ -70,7 +68,6 @@ describe('UiCheckbox.vue', () => {
       });
     });
   });
-
   describe('emits', () => {
     getEmitTests(
       'update:modelValue',
@@ -120,7 +117,6 @@ describe('UiCheckbox.vue', () => {
       ],
     );
   });
-
   describe('slots', () => {
     describe('default slot', () => {
       test('render a content via default slot', () => {
@@ -131,19 +127,40 @@ describe('UiCheckbox.vue', () => {
     getSlotTests([
       {
         slot: 'checkmark',
-        story: WithCheckmarkSlot(),
+        story: WithCheckmarkSlot({
+          iconCheckmarkAttrs: {
+            id: 'test-id',
+            'data-testid': 'icon',
+            class: 'test-class',
+            icon: 'no',
+          },
+        }),
         content: getIcon,
         expectedBinding: ({ iconCheckmarkAttrs }) => iconCheckmarkAttrs,
       },
       {
         slot: 'checkbox',
-        story: WithCheckboxSlot(),
+        story: WithCheckboxSlot({
+          iconCheckmarkAttrs: {
+            id: 'test-id',
+            'data-testid': 'icon',
+            class: 'test-class',
+            icon: 'no',
+          },
+        }),
         content: getIcon,
         expectedBinding: ({ iconCheckmarkAttrs }) => iconCheckmarkAttrs,
       },
       {
         slot: 'label',
-        story: WithLabelSlot(),
+        story: WithLabelSlot({
+          textLabelAttrs: {
+            id: 'test-id',
+            'data-testid': 'label',
+            class: 'ui-checkbox__label',
+            tag: 'p',
+          },
+        }),
         content: getText,
         expectedBinding: ({ textLabelAttrs }) => textLabelAttrs,
       },
