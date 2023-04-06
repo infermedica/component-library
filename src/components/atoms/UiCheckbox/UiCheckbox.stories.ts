@@ -238,7 +238,10 @@ BasicVariants.parameters = {
       label: 'default',
       modelValue: false,
     },
-    ...['hover', 'active'].map((variant) => ({
+    ...[
+      'hover',
+      'active',
+    ].map((variant) => ({
       label: `${variant}`,
       class: `pseudo-${variant}`,
       modelValue: false,
@@ -252,7 +255,10 @@ BasicVariants.parameters = {
       label: 'checked default',
       modelValue: true,
     },
-    ...['hover', 'active'].map((variant) => ({
+    ...[
+      'hover',
+      'active',
+    ].map((variant) => ({
       label: `${variant}`,
       class: `pseudo-${variant}`,
       modelValue: true,
