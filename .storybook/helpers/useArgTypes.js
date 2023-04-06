@@ -1,17 +1,13 @@
 import {
-  getStyle
-} from "./parseRaw";
-import {
   modifiers as argTypesModifiers,
   variable as argTypesVariable
 } from './argTypes/index';
-export function useArgTypes(component, raw) {
+export function useArgTypes(component) {
   const { __docgenInfo } = component;
   const componentNameKebabCase = __docgenInfo.displayName
     .toLowerCase()
     .split('ui')
     .join('ui-');
-  const style = getStyle(raw);
   const { cssRules } = [...document.styleSheets]
     .find( (styleSheet) => {
       try {
@@ -140,6 +136,7 @@ export function useArgTypes(component, raw) {
       .map( ( { selectorText = '' } ) => ( selectorText.substring(1) ));
   };
   const getVariables = (rules) => {
+    // get variables just for main selector i.e. .ui-button
     const { cssText } = rules[0];
     const VARIABLE_RE = /var\(([\s\S]+?), ([\s\S]+?)\);/gm
     const VARIABLE_MA = [...cssText.matchAll(VARIABLE_RE)];
@@ -152,6 +149,7 @@ export function useArgTypes(component, raw) {
     const options = getModifiers([...cssRules]);
     return argTypesModifiers({ options });
   })();
+  // TODO: group by subcategory
   const variables = (()=> {
     const options = getVariables([...cssRules]);
     return options.reduce(
@@ -165,13 +163,16 @@ export function useArgTypes(component, raw) {
     );
   })();
   const argTypes = (() => {
-    return {
+    const toReturn = {
       ...props,
       ...slots,
       ...events,
       ...variables,
-      modifiers,
     }
+    if (modifiers) {
+      toReturn['modifiers'] = modifiers
+    }
+    return toReturn
   })()
   return {
     props,

@@ -5,25 +5,16 @@ import type {
 import {
   UiLink,
   UiIcon,
-  UiText, UiButton
+  UiText
 } from '@/../index';
-import raw from './UiLink.vue?raw';
 import { withVariants } from '@sb/decorators';
-import {
-  parseArgTypes,
-  parseRaw,
-} from '@sb/helpers'
+import { useArgTypes } from '@sb/helpers'
 import {
   content,
-  icon,
-  modifiers
+  icon
 } from '@sb/helpers/argTypes/index.js';
 
-const argTypes = parseArgTypes(UiLink);
-const {
-  modifiers: UiLinkModifiers,
-  variables: UiLinkVariables,
-} = parseRaw(raw);
+const { argTypes } = useArgTypes(UiLink);
 
 const withIconVariants = ( Story, { parameters: { iconVariants }} ) => ({
   setup(props, { attrs }) {
@@ -67,8 +58,7 @@ const meta = {
     iconEnd: {
       name: 'icon-end',
       ...icon
-    },
-    modifiers: modifiers( { options: UiLinkModifiers } )
+    }
   },
   parameters: {
     chromatic: { disableSnapshot: false },

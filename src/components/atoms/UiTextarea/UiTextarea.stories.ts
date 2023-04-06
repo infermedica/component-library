@@ -8,18 +8,16 @@ import { UiTextarea } from '@/../index';
 import raw from './UiTextarea.vue?raw';
 import { withVariants } from '@sb/decorators';
 import {
-  parseArgTypes,
-  parseRaw,
+  useArgTypes,
   inputEvents
 } from '@sb/helpers'
 import {
   modifiers
 } from '@sb/helpers/argTypes/index.js';
-const argTypes = parseArgTypes(deepmerge(UiTextarea, inputEvents));
-const {
-  modifiers: UiTextareaModifiers,
-  variables: UiTextareaVariables,
-} = parseRaw(raw)
+const { argTypes } = useArgTypes(deepmerge(
+  UiTextarea,
+  inputEvents
+));
 
 const meta = {
   title: 'Atoms/Textarea',
@@ -42,9 +40,7 @@ const meta = {
         'horizontal',
         'vertical',
       ],
-    },
-    modifiers: modifiers( { options: UiTextareaModifiers } ),
-    ...UiTextareaVariables
+    }
   },
   parameters: {
     chromatic: { disableSnapshot: false },

@@ -13,23 +13,17 @@ import {
 } from 'vue';
 import icons from './icons';
 import './UiIcon.stories.scss';
-import raw from './UiIcon.vue?raw';
-import {
-  parseArgTypes,
-  parseRaw,
-} from '@sb/helpers'
+import { useArgTypes } from '@sb/helpers'
 import { icon } from '@sb/helpers/argTypes/index.js';
 
-const argTypes = parseArgTypes(UiIcon);
-const { variables: UiIconVariables } = parseRaw(raw);
+const { argTypes } = useArgTypes(UiIcon);
 
 const meta = {
   title: 'Atoms/Icon',
   component: UiIcon,
   argTypes: {
     ...argTypes,
-    icon,
-    ...UiIconVariables,
+    icon
   },
   parameters: {
     chromatic: {

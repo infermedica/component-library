@@ -8,16 +8,16 @@ import {
   UiRange,
   UiHeading
 } from '@/../index';
-import raw from './UiRange.vue?raw';
 import { withVariants } from '@sb/decorators';
 import {
-  parseArgTypes,
-  parseRaw,
+  useArgTypes,
   inputEvents
 } from '@sb/helpers'
 
-const argTypes = parseArgTypes(deepmerge(UiRange, inputEvents));
-const { variables: UiProgressVariables } = parseRaw(raw);
+const { argTypes } = useArgTypes(deepmerge(
+  UiRange,
+  inputEvents
+));
 
 const meta = {
   title: 'Atoms/Range',
@@ -38,8 +38,7 @@ const meta = {
       description: 'Use this control to set aria-label attribute.',
       control: 'text',
       table: { category: 'html attributes' },
-    },
-    ...UiProgressVariables,
+    }
   },
   parameters: {
     chromatic: {

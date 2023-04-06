@@ -3,12 +3,11 @@ import type {
   StoryObj,
 } from '@storybook/vue3';
 import { UiText } from '@/../index';
-import raw from './UiText.vue?raw';
 import { withVariants } from '@sb/decorators';
 import { useArgTypes } from '@sb/helpers'
 import { content } from '@sb/helpers/argTypes/index.js'
 
-const { argTypes } = useArgTypes(UiText, raw);
+const { argTypes } = useArgTypes(UiText);
 
 
 const meta = {

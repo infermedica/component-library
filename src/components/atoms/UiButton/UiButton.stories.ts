@@ -8,7 +8,6 @@ import {
   UiIcon,
   UiText
 } from '@/../index';
-import raw from './UiButton.vue?raw';
 import { withVariants } from '@sb/decorators';
 import {
   useArgTypes,
@@ -20,10 +19,7 @@ import {
 } from '@sb/helpers/argTypes/index.js';
 
 const buttonEvents = extendEvents([ 'onClick' ]);
-const { argTypes } = useArgTypes(
-  deepmerge(UiButton, buttonEvents),
-  raw
-);
+const { argTypes } = useArgTypes(deepmerge(UiButton, buttonEvents));
 const withIconVariants = ( Story, { parameters: { iconVariants }} ) => ({
   setup(props, { attrs }) {
     return {

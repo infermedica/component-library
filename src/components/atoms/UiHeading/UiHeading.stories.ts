@@ -3,20 +3,18 @@ import type {
   StoryObj,
 } from '@storybook/vue3';
 import { UiHeading } from '@/../index';
-import raw from './UiHeading.vue?raw';
 import { withVariants } from '@sb/decorators';
-import {
-  parseArgTypes,
-  parseRaw,
-} from '@sb/helpers'
+import { useArgTypes } from '@sb/helpers'
 import { content } from '@sb/helpers/argTypes/index.js';
-const argTypes = parseArgTypes(UiHeading);
-const { variables: UiHeadingVariables } = parseRaw(raw);
+
+const { argTypes } = useArgTypes(UiHeading);
 
 const meta = {
   title: 'Atoms/Heading',
   component: UiHeading,
-  args: { content: 'How to use it?' },
+  args: {
+    content: 'How to use it?'
+  },
   argTypes: {
     ...argTypes,
     content,
@@ -27,7 +25,11 @@ const meta = {
         max: 5,
       },
     },
-    ...UiHeadingVariables
+    modifiers: {
+      table: {
+        disable: true,
+      }
+    }
   },
   parameters: {
     chromatic: {

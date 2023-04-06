@@ -14,21 +14,12 @@ import raw from './UiInput.vue?raw';
 import { keyboardFocus} from "@/utilities/directives";
 import { withVariants } from '@sb/decorators';
 import {
-  parseArgTypes,
-  parseRaw,
+  useArgTypes,
   inputEvents
 } from '@sb/helpers'
-import {
-  content,
-  icon,
-  modifiers
-} from '@sb/helpers/argTypes/index.js';
+import { icon } from '@sb/helpers/argTypes/index.js';
 
-const argTypes = parseArgTypes(deepmerge(UiInput, inputEvents));
-const {
-  modifiers: UiInputModifiers,
-  variables: UiInputVariables,
-} = parseRaw(raw);
+const { argTypes } = useArgTypes(deepmerge(UiInput, inputEvents));
 
 const UiInputButtonAside = {
   components: {
@@ -58,9 +49,7 @@ const meta = {
     inputAttrs: { 'data-testid': 'input-element' },
   },
   argTypes: {
-    ...argTypes,
-    modifiers: modifiers( { options: UiInputModifiers } ),
-    ...UiInputVariables
+    ...argTypes
   },
   parameters: {
     chromatic: {

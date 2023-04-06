@@ -3,15 +3,10 @@ import type {
   StoryObj,
 } from '@storybook/vue3';
 import { UiProgress } from '@/../index';
-import raw from './UiProgress.vue?raw';
 import './UiProgress.stories.scss';
-import {
-  parseArgTypes,
-  parseRaw,
-} from '@sb/helpers'
+import { useArgTypes } from '@sb/helpers'
 
-const argTypes = parseArgTypes(UiProgress);
-const { variables: UiProgressVariables } = parseRaw(raw);
+const { argTypes } = useArgTypes(UiProgress);
 
 const meta = {
   title: 'Atoms/Progress',
@@ -28,7 +23,6 @@ const meta = {
       min: 0,
       max: 100,
     },
-    ...UiProgressVariables,
   },
   parameters: {
     chromatic: { disableSnapshot: false },
