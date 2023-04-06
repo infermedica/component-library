@@ -8,8 +8,8 @@ import {
 } from '@sb/helpers/argTypes';
 import {
   getCSSValue,
-  haveStyles,
-} from '@sb/helpers/interactions';
+  getStyleTests,
+} from '@tests/interactions/helpers';
 import {
   UiIcon,
   UiCheckbox,
@@ -18,10 +18,16 @@ import {
 } from '@index';
 import type { CheckboxProps } from '@index';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
+import {
+  userEvent,
+  within,
+} from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
+import type { PlayFunctionContext } from '@storybook/types';
 import type {
   Meta,
   StoryObj,
+  VueRenderer,
 } from '@storybook/vue3';
 
 type CheckboxArgsType = CheckboxProps & {
@@ -31,7 +37,7 @@ type CheckboxArgsType = CheckboxProps & {
 }
 type CheckboxMetaType = Meta<CheckboxArgsType>;
 type CheckboxStoryType = StoryObj<CheckboxArgsType>;
-type PlayContext = { canvasElement: HTMLElement, step: Function}
+type PlayContext = PlayFunctionContext<VueRenderer, CheckboxArgsType>;
 
 export const stringItemsData = [
   'Russia, Kazakhstan or Mongolia',
@@ -52,19 +58,19 @@ export const complexItemsData = [
     id: 'as-group-with-object-europe',
   },
 ];
-const playStates = async <T extends PlayContext>({
+const getStylesTests = async ({
   canvasElement, step,
-}: T, results: Partial<CSSStyleDeclaration>[]) => {
+}: PlayContext, results: Partial<CSSStyleDeclaration>[]) => {
   const checkboxes = [ ...canvasElement.querySelectorAll('.ui-checkbox__checkbox') ];
   const labels = [ ...canvasElement.querySelectorAll('.ui-checkbox__label') ];
   await step('Correct border colors', () => {
-    haveStyles(checkboxes, 'borderColor', results, ':after');
+    getStyleTests(checkboxes, 'borderColor', results, ':after');
   });
   await step('Correct background colors', () => {
-    haveStyles(checkboxes, 'backgroundColor', results);
+    getStyleTests(checkboxes, 'backgroundColor', results);
   });
   await step('Correct focus state', () => {
-    haveStyles([
+    getStyleTests([
       checkboxes[3],
       checkboxes[7],
     ], 'boxShadow', [
@@ -73,7 +79,24 @@ const playStates = async <T extends PlayContext>({
     ]);
   });
   await step('Correct Label color', () => {
-    haveStyles(labels, 'color', results);
+    getStyleTests(labels, 'color', results);
+  });
+};
+const getToggleTest = async ({ canvasElement }: PlayContext) => {
+  const className = 'ui-checkbox__checkbox';
+  const inputs: HTMLInputElement[] = await within(canvasElement).findAllByTestId('input');
+  const expected = inputs.map((el) => !el.checked);
+  const checkboxes = canvasElement.querySelectorAll(`.${className}`);
+  const hasCheckedClass = (checkbox: Element) => checkbox.className.includes(`${className}--is-checked`);
+  await inputs.reduce(
+    async (events, checkbox) => {
+      await events;
+      return userEvent.click(checkbox);
+    },
+    Promise.resolve(),
+  );
+  checkboxes.forEach((checkbox, index) => {
+    expect(hasCheckedClass(checkbox)).toBe(expected[index]);
   });
 };
 
@@ -231,7 +254,7 @@ BasicVariants.parameters = {
       modelValue: false,
     },
     {
-      label: 'chacked default',
+      label: 'checked default',
       modelValue: true,
     },
     {
@@ -251,7 +274,7 @@ BasicVariants.parameters = {
     },
   ],
 };
-BasicVariants.play = async (context) => playStates(context, [
+BasicVariants.play = async (context) => getStylesTests(context, [
   ...[
     '',
     '-hover',
@@ -292,7 +315,7 @@ DisabledVariants.parameters = {
     }),
   ),
 };
-DisabledVariants.play = async (context) => playStates(context, [
+DisabledVariants.play = async (context) => getStylesTests(context, [
   ...Array(3).fill({}),
   { boxShadow: 'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(47, 145, 234) 0px 0px 0px 4px' },
   ...Array(3).fill({ backgroundColor: getCSSValue('--color-icon-disabled') }),
@@ -316,7 +339,7 @@ ErrorVariants.parameters = {
     }),
   ),
 };
-ErrorVariants.play = async (context) => playStates(context, [
+ErrorVariants.play = async (context) => getStylesTests(context, [
   ...[
     '',
     '-hover',
@@ -359,6 +382,7 @@ WithStringValue.argTypes = {
   value: { control: 'text' },
 };
 WithStringValue.parameters = { chromatic: { disableSnapshot: true } };
+WithStringValue.play = getToggleTest;
 
 export const WithObjectValue: CheckboxStoryType = { ...Basic };
 WithObjectValue.args = {
@@ -373,6 +397,7 @@ WithObjectValue.argTypes = {
   value: { control: 'object' },
 };
 WithObjectValue.parameters = { chromatic: { disableSnapshot: true } };
+WithObjectValue.play = getToggleTest;
 
 const AsGroupTemplate: CheckboxStoryType = {
   render: () => ({
@@ -412,6 +437,7 @@ AsGroupTemplate.argTypes = {
   class: { control: false },
   content: { control: false },
 };
+AsGroupTemplate.play = getToggleTest;
 
 export const AsGroupWithStringValue: CheckboxStoryType = { ...AsGroupTemplate };
 AsGroupWithStringValue.args = {
