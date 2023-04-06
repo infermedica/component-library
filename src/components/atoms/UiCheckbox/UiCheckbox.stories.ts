@@ -155,19 +155,7 @@ export const Basic: CheckboxStoryType = {
   }),
 };
 
-export const BasicVariants: CheckboxStoryType = {
-  render: () => ({
-    components: { UiCheckbox },
-    setup(props, { attrs }) {
-      return { ...attrs };
-    },
-    template: `<UiCheckbox
-      v-bind="$attrs"
-    >
-      {{ content }}
-    </UiCheckbox>`,
-  }),
-};
+export const BasicVariants: CheckboxStoryType = { ... Basic }
 BasicVariants.argTypes = {
   modelValue: { control: false },
   value: { control: false },
