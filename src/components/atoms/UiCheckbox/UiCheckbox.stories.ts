@@ -238,16 +238,11 @@ BasicVariants.parameters = {
       label: 'default',
       modelValue: false,
     },
-    {
-      label: 'hover',
-      class: 'pseudo-hover',
+    ...['hover', 'active'].map((variant) => ({
+      label: `${variant}`,
+      class: `pseudo-${variant}`,
       modelValue: false,
-    },
-    {
-      label: 'active',
-      class: 'pseudo-active',
-      modelValue: false,
-    },
+    })),
     {
       label: 'focus',
       class: 'pseudo-focus-within',
@@ -257,16 +252,11 @@ BasicVariants.parameters = {
       label: 'checked default',
       modelValue: true,
     },
-    {
-      label: 'checked hover',
-      class: 'pseudo-hover',
+    ...['hover', 'active'].map((variant) => ({
+      label: `${variant}`,
+      class: `pseudo-${variant}`,
       modelValue: true,
-    },
-    {
-      label: 'checked active',
-      class: 'pseudo-active',
-      modelValue: true,
-    },
+    })),
     {
       label: 'checked focus',
       class: 'pseudo-focus-within',

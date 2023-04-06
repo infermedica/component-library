@@ -1,10 +1,12 @@
 import { Canvas, Meta, Controls } from "@storybook/blocks";
+import { MetaActions } from "../../../../docs/components";
 import * as UiCheckboxStories from "./UiCheckbox.stories";
 
 <Meta of={ UiCheckboxStories } />
 
 # Checkbox
 {/* TODO: add description */}
+<MetaActions stories={ UiCheckboxStories }/>
 <Canvas of={ UiCheckboxStories.Basic } />
 <Controls of={ UiCheckboxStories.Basic } />
 
