@@ -1,2 +1,2 @@
-export * from './geStyleTests';
+export * from './getStyleTests';
 export * from './getCSSValue';

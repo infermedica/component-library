@@ -18,6 +18,9 @@ describe('UiCheckbox.vue', () => {
     stringItemsData,
     ...storiesImport
   } = checkboxStoriesImports;
+  const setWrapper = (storyWrapper: VueWrapper) => {
+    wrapper = storyWrapper;
+  };
   const {
     Basic,
     WithStringValue,
@@ -27,9 +30,7 @@ describe('UiCheckbox.vue', () => {
     WithCheckmarkSlot,
     WithCheckboxSlot,
     WithLabelSlot,
-  } = mountStories(UiCheckbox, storiesImport, (storyWrapper) => {
-    wrapper = storyWrapper;
-  });
+  } = mountStories(UiCheckbox, storiesImport, setWrapper);
   afterEach(() => {
     wrapper.unmount();
   });

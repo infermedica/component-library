@@ -58,7 +58,7 @@ export const complexItemsData = [
     id: 'as-group-with-object-europe',
   },
 ];
-const getStylesTests = async ({
+const getStatesTests = async ({
   canvasElement, step,
 }: PlayContext, results: Partial<CSSStyleDeclaration>[]) => {
   const checkboxes = [ ...canvasElement.querySelectorAll('.ui-checkbox__checkbox') ];
@@ -274,7 +274,7 @@ BasicVariants.parameters = {
     },
   ],
 };
-BasicVariants.play = async (context) => getStylesTests(context, [
+BasicVariants.play = async (context) => getStatesTests(context, [
   ...[
     '',
     '-hover',
@@ -315,7 +315,7 @@ DisabledVariants.parameters = {
     }),
   ),
 };
-DisabledVariants.play = async (context) => getStylesTests(context, [
+DisabledVariants.play = async (context) => getStatesTests(context, [
   ...Array(3).fill({}),
   { boxShadow: 'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(47, 145, 234) 0px 0px 0px 4px' },
   ...Array(3).fill({ backgroundColor: getCSSValue('--color-icon-disabled') }),
@@ -339,7 +339,7 @@ ErrorVariants.parameters = {
     }),
   ),
 };
-ErrorVariants.play = async (context) => getStylesTests(context, [
+ErrorVariants.play = async (context) => getStatesTests(context, [
   ...[
     '',
     '-hover',
