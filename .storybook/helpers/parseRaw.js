@@ -1,6 +1,6 @@
 import { variable as argTypesVariable } from './argTypes/index.js';
 
-const getStyle = ( source ) => {
+export const getStyle = ( source ) => {
   const STYLE_RE = /<style lang="scss">([\s\S]*)<\/style>/
   const STYLE_MA = source.match(STYLE_RE)
   return STYLE_MA[1] || null;
@@ -10,12 +10,13 @@ const getComponentName = ( style ) => {
   const NAME_MA = style.match(NAME_RE);
   return NAME_MA[0].replace(/\./, '') || null;
 }
-const getModifiers = ( style )=> {
-  const MODIFIERS_RE = /^\s\s&--[\w\S]+/gm
+export const getModifiers = ( style )=> {
+  const MODIFIERS_RE = /^\s\s(&--[\w\S]+)/gm
   const MODIFIERS_MA = style.match(MODIFIERS_RE)
+    .map( modifier => modifier.trim() );
   return MODIFIERS_MA || []
 }
-const getVariables = ( style )=> {
+export const getVariables = ( style )=> {
   const VARIABLES_RE = /.*/gm;
   const VARIABLES_MA = style.match(VARIABLES_RE);
  return [

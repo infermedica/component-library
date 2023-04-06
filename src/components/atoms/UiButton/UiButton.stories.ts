@@ -12,6 +12,7 @@ import { withVariants } from '@sb/decorators';
 import {
   parseArgTypes,
   parseRaw,
+  useArgTypes,
 } from '@sb/helpers'
 import {
   content,
@@ -19,12 +20,7 @@ import {
   modifiers
 } from '@sb/helpers/argTypes/index.js';
 
-const argTypes = parseArgTypes(UiButton);
-const {
-  modifiers: UiButtonModifiers,
-  variables: UiButtonVariables,
-} = parseRaw(raw);
-
+const { props, slots, events, argTypes } = useArgTypes(UiButton, raw);
 const withIconVariants = ( Story, { parameters: { iconVariants }} ) => ({
   setup(props, { attrs }) {
     return {
@@ -71,8 +67,6 @@ const meta = {
       name: 'icon-end',
       ...icon
     },
-    modifiers: modifiers({ options: UiButtonModifiers }),
-    ...UiButtonVariables,
   },
   parameters: {
     chromatic: { disableSnapshot: false },
