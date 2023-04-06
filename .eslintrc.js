@@ -197,8 +197,8 @@ module.exports = {
             './index.ts',
           ],
           [
-            '@unit',
-            './tests/unit',
+            '@tests',
+            './tests',
           ],
         ],
         extensions: [

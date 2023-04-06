@@ -14,20 +14,25 @@ import {
 } from '@index';
 import type { CheckboxProps } from '@index';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
-import { actions } from '@storybook/addon-actions';
 import type {
   Meta,
   StoryObj,
 } from '@storybook/vue3';
 
-export type CheckboxArgsType = CheckboxProps & {
+type CheckboxArgsType = CheckboxProps & {
   content?: string;
   class?: string[];
-  items?: CheckboxProps['modelValue'];
+  items?: Required<CheckboxProps['value']>[];
 }
-export type CheckboxMetaType = Meta<CheckboxArgsType>;
-export type CheckboxStoryType = StoryObj<CheckboxArgsType>;
-export const complexItemsData: CheckboxProps['modelValue'] = [
+type CheckboxMetaType = Meta<CheckboxArgsType>;
+type CheckboxStoryType = StoryObj<CheckboxArgsType>;
+
+export const stringItemsData = [
+  'Russia, Kazakhstan or Mongolia',
+  'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
+  'Europe',
+];
+export const complexItemsData = [
   {
     label: 'Russia, Kazakhstan or Mongolia',
     id: 'as-group-with-object-north-asia',
@@ -42,11 +47,6 @@ export const complexItemsData: CheckboxProps['modelValue'] = [
   },
 ];
 
-const events = actions({
-  onFocus: 'onFocus',
-  onBlur: 'onBlur',
-});
-
 export default {
   title: 'Atoms/Checkbox',
   component: UiCheckbox,
@@ -58,13 +58,9 @@ export default {
     value: '',
     id: '',
     disabled: false,
-    inputAttrs: {
-      'data-testid': 'input-element',
-      onFocus: events.onFocus,
-      onBlur: events.onBlur,
-    },
-    iconCheckmarkAttrs: { 'data-testid': 'icon-element' },
-    textLabelAttrs: { 'data-testid': 'text-element' },
+    inputAttrs: { 'data-testid': 'input' },
+    iconCheckmarkAttrs: { 'data-testid': 'icon' },
+    textLabelAttrs: { 'data-testid': 'text' },
   },
   argTypes: {
     modelValue: { control: 'boolean' },
@@ -313,15 +309,12 @@ AsGroupTemplate.argTypes = {
   class: { control: false },
   content: { control: false },
 };
+AsGroupTemplate.play = getToggleTest;
 
 export const AsGroupWithStringValue: CheckboxStoryType = { ...AsGroupTemplate };
 AsGroupWithStringValue.args = {
-  modelValue: [ 'Europe' ],
-  items: [
-    'Russia, Kazakhstan or Mongolia',
-    'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
-    'Europe',
-  ],
+  modelValue: [],
+  items: stringItemsData,
 };
 
 export const AsGroupWithObjectValue: CheckboxStoryType = { ...AsGroupTemplate };
@@ -331,13 +324,13 @@ AsGroupWithObjectValue.args = {
 };
 
 export const WithCheckboxSlot: CheckboxStoryType = {
-  render: (args) => ({
+  render: () => ({
     components: {
       UiCheckbox,
       UiIcon,
     },
-    setup() {
-      return { ...args };
+    setup(props, { attrs }) {
+      return { ...attrs };
     },
     template: `<UiCheckbox v-bind="$attrs">
       <template #checkbox="{
@@ -360,24 +353,15 @@ export const WithCheckboxSlot: CheckboxStoryType = {
     </UiCheckbox>`,
   }),
 };
-WithCheckboxSlot.args = {
-  inputAttrs: {
-    'data-testid': 'input-element',
-    id: 'test-id',
-    class: 'test-class',
-    onFocus: events.onFocus,
-    onBlur: events.onBlur,
-  },
-};
 
 export const WithCheckmarkSlot: CheckboxStoryType = {
-  render: (args) => ({
+  render: () => ({
     components: {
       UiCheckbox,
       UiIcon,
     },
-    setup() {
-      return { ...args };
+    setup(props, { attrs }) {
+      return { ...attrs };
     },
     template: `<UiCheckbox v-bind="$attrs">
       <template
@@ -392,24 +376,15 @@ export const WithCheckmarkSlot: CheckboxStoryType = {
     </UiCheckbox>`,
   }),
 };
-WithCheckmarkSlot.args = {
-  iconCheckmarkAttrs: {
-    'data-testid': 'icon-element',
-    id: 'test-id',
-    class: 'test-class',
-    icon: 'no',
-    role: 'presentation',
-  },
-};
 
 export const WithLabelSlot: CheckboxStoryType = {
-  render: (args) => ({
+  render: () => ({
     components: {
       UiCheckbox,
       UiText,
     },
-    setup() {
-      return { ...args };
+    setup(props, { attrs }) {
+      return { ...attrs };
     },
     template: `<UiCheckbox v-bind="$attrs">
       <template #label="{
@@ -418,18 +393,11 @@ export const WithLabelSlot: CheckboxStoryType = {
       }">
         <UiText
           v-bind="textLabelAttrs"
+          class="ui-checkbox__label"
         >
           {{ content }}
         </UiText>
       </template>
     </UiCheckbox>`,
   }),
-};
-WithLabelSlot.args = {
-  textLabelAttrs: {
-    'data-testid': 'label-element',
-    id: 'test-id',
-    class: 'ui-checkbox__label',
-    tag: 'p',
-  },
 };

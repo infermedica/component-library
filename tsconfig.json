@@ -36,8 +36,8 @@
       "@sb/*": [
         ".storybook/*"
       ],
-      "@unit/*": [
-        "./tests/unit/*"
+      "@tests/*": [
+        "./tests/*"
       ],
       "@index": [
         "./index.ts"
