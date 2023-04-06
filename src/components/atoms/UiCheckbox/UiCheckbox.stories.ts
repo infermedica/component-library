@@ -6,7 +6,10 @@ import {
   content,
   modifiers,
 } from '@sb/helpers/argTypes';
-import { getCSSValue, haveStyles } from '@sb/helpers/interactions';
+import {
+  getCSSValue,
+  haveStyles,
+} from '@sb/helpers/interactions';
 import {
   UiIcon,
   UiCheckbox,
@@ -15,22 +18,27 @@ import {
 } from '@index';
 import type { CheckboxProps } from '@index';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
-import { actions } from '@storybook/addon-actions';
 import { expect } from '@storybook/jest';
 import type {
   Meta,
   StoryObj,
 } from '@storybook/vue3';
 
-export type CheckboxArgsType = CheckboxProps & {
+type CheckboxArgsType = CheckboxProps & {
   content?: string;
   class?: string[];
-  items?: CheckboxProps['modelValue'];
+  items?: Required<CheckboxProps['value']>[];
 }
-export type CheckboxMetaType = Meta<CheckboxArgsType>;
-export type CheckboxStoryType = StoryObj<CheckboxArgsType>;
+type CheckboxMetaType = Meta<CheckboxArgsType>;
+type CheckboxStoryType = StoryObj<CheckboxArgsType>;
 type PlayContext = { canvasElement: HTMLElement, step: Function}
-const complexItemsData: CheckboxProps['modelValue'] = [
+
+export const stringItemsData = [
+  'Russia, Kazakhstan or Mongolia',
+  'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
+  'Europe',
+];
+export const complexItemsData = [
   {
     label: 'Russia, Kazakhstan or Mongolia',
     id: 'as-group-with-object-north-asia',
@@ -44,22 +52,30 @@ const complexItemsData: CheckboxProps['modelValue'] = [
     id: 'as-group-with-object-europe',
   },
 ];
-const playStates = async <T extends PlayContext>({ canvasElement, step }: T , results: Partial<CSSStyleDeclaration>[]) => {
-  const checkboxes = [...canvasElement.querySelectorAll('.ui-checkbox__checkbox')];
-  const labels = [...canvasElement.querySelectorAll('.ui-checkbox__label')];
+const playStates = async <T extends PlayContext>({
+  canvasElement, step,
+}: T, results: Partial<CSSStyleDeclaration>[]) => {
+  const checkboxes = [ ...canvasElement.querySelectorAll('.ui-checkbox__checkbox') ];
+  const labels = [ ...canvasElement.querySelectorAll('.ui-checkbox__label') ];
   await step('Correct border colors', () => {
     haveStyles(checkboxes, 'borderColor', results, ':after');
-  })
+  });
   await step('Correct background colors', () => {
     haveStyles(checkboxes, 'backgroundColor', results);
-  })
+  });
   await step('Correct focus state', () => {
-    haveStyles([checkboxes[3], checkboxes[7]], 'boxShadow', [results[3], results[7]]);
-  })
+    haveStyles([
+      checkboxes[3],
+      checkboxes[7],
+    ], 'boxShadow', [
+      results[3],
+      results[7],
+    ]);
+  });
   await step('Correct Label color', () => {
     haveStyles(labels, 'color', results);
-  })
-}
+  });
+};
 
 export default {
   title: 'Atoms/Checkbox',
@@ -72,11 +88,9 @@ export default {
     value: '',
     id: '',
     disabled: false,
-    inputAttrs: {
-      'data-testid': 'input-element',
-    },
-    iconCheckmarkAttrs: { 'data-testid': 'icon-element' },
-    textLabelAttrs: { 'data-testid': 'text-element' },
+    inputAttrs: { 'data-testid': 'input' },
+    iconCheckmarkAttrs: { 'data-testid': 'icon' },
+    textLabelAttrs: { 'data-testid': 'text' },
   },
   argTypes: {
     modelValue: { control: 'boolean' },
@@ -238,7 +252,11 @@ BasicVariants.parameters = {
   ],
 };
 BasicVariants.play = async (context) => playStates(context, [
-  ...['', '-hover', '-active'].map(state => ({
+  ...[
+    '',
+    '-hover',
+    '-active',
+  ].map((state) => ({
     backgroundColor: getCSSValue('--color-background-white'),
     borderColor: getCSSValue(`--color-border-strong${state}`),
   })),
@@ -247,19 +265,23 @@ BasicVariants.play = async (context) => playStates(context, [
     borderColor: getCSSValue('--color-border-strong'),
     boxShadow: 'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(47, 145, 234) 0px 0px 0px 4px',
   },
-  ...['', '-hover', '-active'].map(state => ({
+  ...[
+    '',
+    '-hover',
+    '-active',
+  ].map((state) => ({
     borderColor: getCSSValue(`--color-selectioncontrols-selection${state}`),
-    backgroundColor: getCSSValue(`--color-selectioncontrols-selection${state}`)
+    backgroundColor: getCSSValue(`--color-selectioncontrols-selection${state}`),
   })),
   {
     borderColor: getCSSValue('--color-selectioncontrols-selection'),
     backgroundColor: getCSSValue('--color-selectioncontrols-selection'),
     boxShadow: 'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(47, 145, 234) 0px 0px 0px 4px',
-  }].map(result => ({
-    ...result,
-    color: getCSSValue('--color-text-body')
-  }))
-)
+  },
+].map((result) => ({
+  ...result,
+  color: getCSSValue('--color-text-body'),
+})));
 
 export const DisabledVariants: CheckboxStoryType = { ...BasicVariants };
 DisabledVariants.parameters = {
@@ -272,21 +294,18 @@ DisabledVariants.parameters = {
 };
 DisabledVariants.play = async (context) => playStates(context, [
   ...Array(3).fill({}),
+  { boxShadow: 'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(47, 145, 234) 0px 0px 0px 4px' },
+  ...Array(3).fill({ backgroundColor: getCSSValue('--color-icon-disabled') }),
   {
+    backgroundColor: getCSSValue('--color-icon-disabled'),
     boxShadow: 'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(47, 145, 234) 0px 0px 0px 4px',
   },
-  ...Array(3).fill({
-    backgroundColor: getCSSValue('--color-icon-disabled'),
-  }),{
-    backgroundColor: getCSSValue('--color-icon-disabled'),
-    boxShadow: 'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(47, 145, 234) 0px 0px 0px 4px',
-  }].map((result) => ({
-    backgroundColor: getCSSValue('--color-background-white'),
-    borderColor: getCSSValue('--color-icon-disabled'),
-    color: getCSSValue('--color-text-disabled'),
-    ...result,
-  }))
-)
+].map((result) => ({
+  backgroundColor: getCSSValue('--color-background-white'),
+  borderColor: getCSSValue('--color-icon-disabled'),
+  color: getCSSValue('--color-text-disabled'),
+  ...result,
+})));
 
 export const ErrorVariants: CheckboxStoryType = { ...BasicVariants };
 ErrorVariants.parameters = {
@@ -298,26 +317,36 @@ ErrorVariants.parameters = {
   ),
 };
 ErrorVariants.play = async (context) => playStates(context, [
-  ...['', '-hover', '-active'].map(state => ({
+  ...[
+    '',
+    '-hover',
+    '-active',
+  ].map((state) => ({
     backgroundColor: getCSSValue('--color-background-white'),
     borderColor: getCSSValue(`--color-border-error-strong${state}`),
-  })),{
+  })),
+  {
     backgroundColor: getCSSValue('--color-background-white'),
     borderColor: getCSSValue('--color-border-error-strong'),
     boxShadow: 'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(47, 145, 234) 0px 0px 0px 4px',
   },
-  ...['', '-hover', '-active'].map(state => ({
+  ...[
+    '',
+    '-hover',
+    '-active',
+  ].map((state) => ({
     borderColor: getCSSValue(`--color-border-error-strong${state}`),
-    backgroundColor: getCSSValue(`--color-border-error-strong${state}`)
-  })),{
+    backgroundColor: getCSSValue(`--color-border-error-strong${state}`),
+  })),
+  {
     borderColor: getCSSValue('--color-border-error-strong'),
     backgroundColor: getCSSValue('--color-border-error-strong'),
     boxShadow: 'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(47, 145, 234) 0px 0px 0px 4px',
-  }].map(result => ({
-    ...result,
-    color: getCSSValue('--color-text-body')
-  }))
-);
+  },
+].map((result) => ({
+  ...result,
+  color: getCSSValue('--color-text-body'),
+})));
 
 export const WithStringValue: CheckboxStoryType = { ...Basic };
 WithStringValue.args = {
@@ -387,11 +416,7 @@ AsGroupTemplate.argTypes = {
 export const AsGroupWithStringValue: CheckboxStoryType = { ...AsGroupTemplate };
 AsGroupWithStringValue.args = {
   modelValue: [],
-  items: [
-    'Russia, Kazakhstan or Mongolia',
-    'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
-    'Europe',
-  ],
+  items: stringItemsData,
 };
 
 export const AsGroupWithObjectValue: CheckboxStoryType = { ...AsGroupTemplate };
@@ -401,13 +426,13 @@ AsGroupWithObjectValue.args = {
 };
 
 export const WithCheckboxSlot: CheckboxStoryType = {
-  render: (args) => ({
+  render: () => ({
     components: {
       UiCheckbox,
       UiIcon,
     },
-    setup() {
-      return { ...args };
+    setup(props, { attrs }) {
+      return { ...attrs };
     },
     template: `<UiCheckbox v-bind="$attrs">
       <template #checkbox="{
@@ -430,22 +455,15 @@ export const WithCheckboxSlot: CheckboxStoryType = {
     </UiCheckbox>`,
   }),
 };
-WithCheckboxSlot.args = {
-  inputAttrs: {
-    'data-testid': 'input-element',
-    id: 'test-id',
-    class: 'test-class',
-  },
-};
 
 export const WithCheckmarkSlot: CheckboxStoryType = {
-  render: (args) => ({
+  render: () => ({
     components: {
       UiCheckbox,
       UiIcon,
     },
-    setup() {
-      return { ...args };
+    setup(props, { attrs }) {
+      return { ...attrs };
     },
     template: `<UiCheckbox v-bind="$attrs">
       <template
@@ -460,24 +478,15 @@ export const WithCheckmarkSlot: CheckboxStoryType = {
     </UiCheckbox>`,
   }),
 };
-WithCheckmarkSlot.args = {
-  iconCheckmarkAttrs: {
-    'data-testid': 'icon-element',
-    id: 'test-id',
-    class: 'test-class',
-    icon: 'no',
-    role: 'presentation',
-  },
-};
 
 export const WithLabelSlot: CheckboxStoryType = {
-  render: (args) => ({
+  render: () => ({
     components: {
       UiCheckbox,
       UiText,
     },
-    setup() {
-      return { ...args };
+    setup(props, { attrs }) {
+      return { ...attrs };
     },
     template: `<UiCheckbox v-bind="$attrs">
       <template #label="{
@@ -486,18 +495,11 @@ export const WithLabelSlot: CheckboxStoryType = {
       }">
         <UiText
           v-bind="textLabelAttrs"
+          class="ui-checkbox__label"
         >
           {{ content }}
         </UiText>
       </template>
     </UiCheckbox>`,
   }),
-};
-WithLabelSlot.args = {
-  textLabelAttrs: {
-    'data-testid': 'label-element',
-    id: 'test-id',
-    class: 'ui-checkbox__label',
-    tag: 'p',
-  },
 };

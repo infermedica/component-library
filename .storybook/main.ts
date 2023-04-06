@@ -19,7 +19,7 @@ const config: StorybookConfig = {
           '@': path.resolve(__dirname, '../src'),
           '@sb': path.resolve(__dirname),
           '@index': path.resolve(__dirname, '../index.ts'),
-          '@unit': path.resolve(__dirname, '../tests/unit'),
+          '@tests': path.resolve(__dirname, '../tests'),
         }
       },
       plugins: [

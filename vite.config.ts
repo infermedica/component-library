@@ -16,8 +16,8 @@ export default defineConfig({
         replacement: path.resolve(__dirname, '.storybook'),
       },
       {
-        find: '@unit',
-        replacement: path.resolve(__dirname, './tests/unit'),
+        find: '@tests',
+        replacement: path.resolve(__dirname, './tests'),
       },
       {
         find: '@index',
