@@ -256,10 +256,7 @@ WithStringValue.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithObjectValue: CheckboxStoryType = { ...Basic };
 WithObjectValue.args = {
-  modelValue: [ {
-    label: 'Europe',
-    id: 'value-as-object-europe',
-  } ],
+  modelValue: [],
   value: {
     label: 'Europe',
     id: 'value-as-object-europe',
@@ -309,7 +306,6 @@ AsGroupTemplate.argTypes = {
   class: { control: false },
   content: { control: false },
 };
-AsGroupTemplate.play = getToggleTest;
 
 export const AsGroupWithStringValue: CheckboxStoryType = { ...AsGroupTemplate };
 AsGroupWithStringValue.args = {
@@ -319,7 +315,7 @@ AsGroupWithStringValue.args = {
 
 export const AsGroupWithObjectValue: CheckboxStoryType = { ...AsGroupTemplate };
 AsGroupWithObjectValue.args = {
-  modelValue: [ complexItemsData[0] ],
+  modelValue: [],
   items: complexItemsData,
 };
 
