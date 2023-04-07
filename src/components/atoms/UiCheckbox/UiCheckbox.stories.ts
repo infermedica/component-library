@@ -208,7 +208,7 @@ export const Basic: CheckboxStoryType = {
   }),
 };
 
-export const BasicVariants: CheckboxStoryType = { ... Basic }
+export const BasicVariants: CheckboxStoryType = { ...Basic };
 BasicVariants.argTypes = {
   modelValue: { control: false },
   value: { control: false },
