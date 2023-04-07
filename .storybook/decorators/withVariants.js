@@ -141,7 +141,6 @@ export const withVariants = (story, { componentId, id, parameters, args }) => ({
               class: '',
               modifiers: getModifiers(rest, args),
             }"
-            :model-value="rest.modelValue || args.modelValue"
         />
       </div>
     </template>

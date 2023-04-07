@@ -2,7 +2,11 @@ import type {
   Meta,
   StoryObj,
 } from '@storybook/vue3';
-import { ref } from 'vue';
+import {
+  ref,
+  provide,
+  inject
+} from 'vue';
 import deepmerge from "deepmerge";
 import { UiTextarea } from '@/../index';
 import raw from './UiTextarea.vue?raw';
@@ -11,9 +15,6 @@ import {
   useArgTypes,
   inputEvents
 } from '@sb/helpers'
-import {
-  modifiers
-} from '@sb/helpers/argTypes/index.js';
 const { argTypes } = useArgTypes(deepmerge(
   UiTextarea,
   inputEvents
@@ -64,7 +65,7 @@ export const Basic: Story = {
         modelValue,
         ...args
       } = attrs;
-      const value = ref(modelValue);
+      const value = inject('value') || ref(modelValue);
 
       return {
         args: {
@@ -118,7 +119,17 @@ Empty.argTypes = {
   placeholder: { control: 'text' },
   disabled: { control: false }
 }
-Empty.decorators = [ withVariants ]
+Empty.decorators = [
+  withVariants,
+  () => ({
+    setup( props, { attrs }) {
+      const { modelValue } = attrs;
+      const value = ref(modelValue);
+      provide('value', value);
+    },
+    template: `<story />`
+  })
+]
 Empty.parameters = {
   variants: [
     {

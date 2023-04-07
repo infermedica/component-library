@@ -2,7 +2,11 @@ import type {
   Meta,
   StoryObj,
 } from '@storybook/vue3';
-import { ref } from 'vue';
+import {
+  ref,
+  provide,
+  inject
+} from 'vue';
 import deepmerge from "deepmerge";
 import {
   UiRange,
@@ -63,10 +67,9 @@ export const Basic: Story = {
         modelValue,
         ...args
       } = attrs;
-      const value = ref(modelValue);
-
+      const value = inject('value') || ref(modelValue);
       return {
-        args,
+        args: args,
         value,
       };
     },
@@ -115,9 +118,17 @@ const headingValueAttrs = {
 export const PseudoClass: Story = {
   ...Basic,
 }
-PseudoClass.argTypes = {}
 PseudoClass.decorators = [
   withVariants,
+  () => ({
+    inheritAttrs: false,
+    setup( props, { attrs }) {
+      const { modelValue } = attrs;
+      const value = ref(modelValue);
+      provide('value', value);
+    },
+    template: `<story />`
+  })
 ]
 PseudoClass.parameters = {
   variants: [
@@ -167,7 +178,7 @@ export const WithValueSlot: Story = {
         modelValue,
         ...args
       } = attrs;
-      const value = ref(modelValue);
+      const value = inject('value') || ref(modelValue);
 
       return {
         args,
@@ -243,7 +254,7 @@ export const WithRangeSlot: Story = {
         modelValue,
         ...args
       } = attrs;
-      const value = ref(modelValue);
+      const value = inject('value') || ref(modelValue);
 
       return {
         args,

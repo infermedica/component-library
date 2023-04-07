@@ -86,7 +86,10 @@ export default { inheritAttrs: false };
 </script>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import {
+  computed,
+  onMounted,
+} from 'vue';
 import type { InputHTMLAttributes } from 'vue';
 import useAttributes from '../../../composable/useAttributes';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
@@ -168,6 +171,9 @@ const changeHandler = (value: RangeModelValue) => {
   emit('update:modelValue', value);
 };
 const numberStepperAttrs = computed<NumberStepperAttrsProps>(() => ({ ...attrs.value }));
+onMounted(() => {
+  // console.log(props);
+});
 </script>
 
 <style lang="scss">
