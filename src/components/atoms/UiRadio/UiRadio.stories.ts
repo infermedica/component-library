@@ -201,7 +201,7 @@ BasicVariants.parameters = {
   variants: [
     {
       label: 'default',
-      modelValue: false,
+      modelValue: '',
     },
     ...[
       'hover',
@@ -209,12 +209,12 @@ BasicVariants.parameters = {
     ].map((variant) => ({
       label: `${variant}`,
       class: `pseudo-${variant}`,
-      modelValue: false,
+      modelValue: '',
     })),
     {
       label: 'focus',
       class: 'pseudo-focus-within',
-      modelValue: false,
+      modelValue: '',
     },
     {
       label: 'checked default',
