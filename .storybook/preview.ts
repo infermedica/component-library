@@ -5,11 +5,6 @@ import './tailwindcss.css';
 import '@/styles/styles.scss';
 import './styles.scss';
 
-document.body.onload = function() {
-  // Set LTR as default directionality.
-  document.body.setAttribute('dir', 'ltr')
-}
-
 setup((app) => {
   // Mock of router-link component
   app.component('router-link', {

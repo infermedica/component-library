@@ -198,10 +198,10 @@ const href = 'https://www.infermedica.com';
   }
 }
 
-export const Contained: Story = {
+export const Primary: Story = {
   ...Basic
 };
-Contained.argTypes = {
+Primary.argTypes = {
   modifiers: {
     ...meta.argTypes.modifiers,
     options: ['ui-button--small'],
@@ -210,8 +210,8 @@ Contained.argTypes = {
   tag: { control: false },
   href: { control: false }
 };
-Contained.decorators = [ withVariants ];
-Contained.parameters = {
+Primary.decorators = [ withVariants ];
+Primary.parameters = {
   variants: [
     { label: 'default' },
     ...['hover', 'focus', 'active'].map((variant) => ({
@@ -229,11 +229,11 @@ Contained.parameters = {
 };
 
 export const Outlined: Story = {
-  ...Contained
+  ...Primary
 }
 Outlined.parameters = {
   variants: {
-    ...Contained.parameters.variants.map((variant) => ({
+    ...Primary.parameters.variants.map((variant) => ({
       ...variant,
       class: `${variant.class} ui-button--outlined`,
     }))
@@ -241,11 +241,11 @@ Outlined.parameters = {
 }
 
 export const Text: Story = {
-  ...Contained
+  ...Primary
 }
 Text.parameters = {
   variants: {
-    ...Contained.parameters.variants.map((variant) => ({
+    ...Primary.parameters.variants.map((variant) => ({
       ...variant,
       class: `${variant.class} ui-button--text`,
     }))
@@ -454,7 +454,7 @@ WithIcon.parameters = {
     { iconEnd: WithIcon.args.iconEnd },
   ],
   variants: [
-    { label: 'contained' },
+    { label: 'primary' },
     {
       label: 'outlined',
       class: 'ui-button--outlined',

@@ -2,21 +2,21 @@ import {
   modifiers as argTypesModifiers,
   variable as argTypesVariable
 } from './argTypes/index';
-export function useArgTypes(component) {
+export function useArgTypes(component, options = { variables: {}}) {
   const { __docgenInfo } = component;
   const componentNameKebabCase = __docgenInfo.displayName
-    .toLowerCase()
-    .split('ui')
-    .join('ui-');
+    .replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`)
+    .substring(1);
   const { cssRules } = [...document.styleSheets]
     .find( (styleSheet) => {
       try {
         const { cssRules } = styleSheet;
         const { selectorText } = [...cssRules].at(0);
-        return selectorText.match(componentNameKebabCase);
+        return selectorText
+          ?.match(componentNameKebabCase);
       }
       catch (e) {
-        console.error(e);
+        // console.error(e);
       }
     })
   const getControl = (type) => {
@@ -31,7 +31,7 @@ export function useArgTypes(component) {
     if ( name.match(/^(boolean)$/gm) ) {
       return 'boolean'
     }
-    if ( name.match(/^(AttrsProps)$/gm) ) {
+    if ( name.match(/(AttrsProps|HTMLAttributes)$/gm) ) {
       return 'object'
     }
     if ( name.match(/^(ModelValue)$/gm) ) {
@@ -136,29 +136,60 @@ export function useArgTypes(component) {
       .map( ( { selectorText = '' } ) => ( selectorText.substring(1) ));
   };
   const getVariables = (rules) => {
-    // get variables just for main selector i.e. .ui-button
-    const { cssText } = rules[0];
+    const { variables: {
+      regexp = undefined
+    } } = options;
+    const SELECTOR_RE = regexp || new RegExp(`^(\.${componentNameKebabCase})$`);
+    const cssText = rules
+      .filter( ( { selectorText } ) => (
+        selectorText
+          ?.match(SELECTOR_RE)
+      ))
+      .reduce( ( string, { cssText } ) => {
+        return string + cssText
+      }, '' )
+
     const VARIABLE_RE = /var\(([\s\S]+?), ([\s\S]+?)\);/gm
     const VARIABLE_MA = [...cssText.matchAll(VARIABLE_RE)];
     return VARIABLE_MA.map(([match, name, defaultValue]) => ({
       name,
       defaultValue
     }));
+
+    return [];
   };
   const modifiers = (() => {
     const options = getModifiers([...cssRules]);
     return argTypesModifiers({ options });
   })();
   // TODO: group by subcategory
+  const getSubcategory = (name) => {
+    if ( name.match(/-border-/gm) ) {
+      return 'Borders'
+    }
+    if ( name.match(/(-padding-|-margin-|-gap)/gm) ) {
+      return 'Spacings'
+    }
+    if ( name.match(/(-font|-letter-spacing)/gm) ) {
+      return 'Typography'
+    }
+    if ( name.match(/(-color|-background)/gm) ) {
+      return 'Colors'
+    }
+  }
   const variables = (()=> {
     const options = getVariables([...cssRules]);
     return options.reduce(
-      (object, {name, defaultValue}) => (
-        {
+      (object, {name, defaultValue}) => {
+        const subcategory = getSubcategory(name)
+        return {
           ...object,
-          [name]: argTypesVariable({defaultValue}),
+          [name]: argTypesVariable({
+            subcategory,
+            defaultValue
+          }),
         }
-      ),
+      },
       {}
     );
   })();

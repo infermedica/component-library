@@ -19,7 +19,11 @@ import {
 } from '@sb/helpers'
 import { icon } from '@sb/helpers/argTypes/index.js';
 
-const { argTypes } = useArgTypes(deepmerge(UiInput, inputEvents));
+const { argTypes } = useArgTypes(deepmerge(UiInput, inputEvents), {
+  variables: {
+    regexp: /^(\.ui-input|\.ui-input__input)$/
+  }
+});
 
 const UiInputButtonAside = {
   components: {
@@ -47,6 +51,7 @@ const meta = {
     suffix: '',
     textSuffixAttrs: { 'data-testid': 'text-suffix' },
     inputAttrs: { 'data-testid': 'input-element' },
+    outline: { 'data-testid': 'outline-element' },
   },
   argTypes: {
     ...argTypes
@@ -138,11 +143,16 @@ Empty.decorators = [ withVariants ]
 Empty.parameters = {
   variants: [
     { label: 'default' },
-    // FIXME: focus-within
-    ...['hover', 'focus-within'].map((variant) => ({
-      label: `${variant}`,
-      class: `pseudo-${variant}`,
-    })),
+    {
+      label: 'hover',
+      class: 'pseudo-hover'
+    },
+    {
+      label: 'focus',
+      outlineAttrs: {
+        class: 'pseudo-focus-within'
+      }
+    },
     {
       label: 'disabled',
       disabled: true,
