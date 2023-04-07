@@ -155,7 +155,7 @@ export const Basic: CheckboxStoryType = {
   }),
 };
 
-export const BasicVariants: CheckboxStoryType = { ... Basic }
+export const BasicVariants: CheckboxStoryType = { ...Basic };
 BasicVariants.argTypes = {
   modelValue: { control: false },
   value: { control: false },
@@ -173,7 +173,10 @@ BasicVariants.parameters = {
       label: 'default',
       modelValue: false,
     },
-    ...['hover', 'active'].map((variant) => ({
+    ...[
+      'hover',
+      'active',
+    ].map((variant) => ({
       label: `${variant}`,
       class: `pseudo-${variant}`,
       modelValue: false,
@@ -187,7 +190,10 @@ BasicVariants.parameters = {
       label: 'checked default',
       modelValue: true,
     },
-    ...['hover', 'active'].map((variant) => ({
+    ...[
+      'hover',
+      'active',
+    ].map((variant) => ({
       label: `${variant}`,
       class: `pseudo-${variant}`,
       modelValue: true,
