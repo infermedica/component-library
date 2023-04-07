@@ -10,6 +10,7 @@ import {
 import {
   getCSSValue,
   getStyleTests,
+  getFocusTests,
 } from '@tests/interactions/helpers';
 import type { RadioProps } from '@index';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
@@ -64,15 +65,10 @@ const getStatesTests = async ({
   await step('Correct background colors', () => {
     getStyleTests(markElements, 'backgroundColor', results);
   });
-  await step('Correct focus state', () => {
-    getStyleTests([
-      radioElements[3],
-      radioElements[7],
-    ], 'boxShadow', [
-      results[3],
-      results[7],
-    ]);
-  });
+  await getFocusTests(step, [
+    radioElements[3],
+    radioElements[7],
+  ]);
   await step('Correct Label color', () => {
     getStyleTests(labels, 'color', results);
   });
@@ -244,24 +240,17 @@ BasicVariants.play = async (context) => getStatesTests(context, [
     '',
     '-hover',
     '-active',
+    '',
   ].map((state) => ({ borderColor: getCSSValue(`--color-border-strong${state}`) })),
-  {
-    borderColor: getCSSValue('--color-border-strong'),
-    boxShadow: 'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(47, 145, 234) 0px 0px 0px 4px',
-  },
   ...[
     '',
     '-hover',
     '-active',
+    '',
   ].map((state) => ({
     borderColor: getCSSValue(`--color-selectioncontrols-selection${state}`),
     backgroundColor: getCSSValue(`--color-selectioncontrols-selection${state}`),
   })),
-  {
-    borderColor: getCSSValue('--color-selectioncontrols-selection'),
-    backgroundColor: getCSSValue('--color-selectioncontrols-selection'),
-    boxShadow: 'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(47, 145, 234) 0px 0px 0px 4px',
-  },
 ].map((result) => ({
   backgroundColor: getCSSValue('transparent'),
   color: getCSSValue('--color-text-body'),
@@ -278,13 +267,8 @@ DisabledVariants.parameters = {
   ),
 };
 DisabledVariants.play = async (context) => getStatesTests(context, [
-  ...Array(3).fill({}),
-  { boxShadow: 'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(47, 145, 234) 0px 0px 0px 4px' },
-  ...Array(3).fill({ backgroundColor: getCSSValue('--color-icon-disabled') }),
-  {
-    backgroundColor: getCSSValue('--color-icon-disabled'),
-    boxShadow: 'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(47, 145, 234) 0px 0px 0px 4px',
-  },
+  ...Array(4).fill({}),
+  ...Array(4).fill({ backgroundColor: getCSSValue('--color-icon-disabled') }),
 ].map((result) => ({
   backgroundColor: getCSSValue('transparent'),
   borderColor: getCSSValue('--color-icon-disabled'),
@@ -306,24 +290,17 @@ ErrorVariants.play = async (context) => getStatesTests(context, [
     '',
     '-hover',
     '-active',
+    '',
   ].map((state) => ({ borderColor: getCSSValue(`--color-border-error-strong${state}`) })),
-  {
-    borderColor: getCSSValue('--color-border-error-strong'),
-    boxShadow: 'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(47, 145, 234) 0px 0px 0px 4px',
-  },
   ...[
     '',
     '-hover',
     '-active',
+    '',
   ].map((state) => ({
     borderColor: getCSSValue(`--color-border-error-strong${state}`),
     backgroundColor: getCSSValue(`--color-border-error-strong${state}`),
   })),
-  {
-    borderColor: getCSSValue('--color-border-error-strong'),
-    backgroundColor: getCSSValue('--color-border-error-strong'),
-    boxShadow: 'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(47, 145, 234) 0px 0px 0px 4px',
-  },
 ].map((result) => ({
   backgroundColor: getCSSValue('transparent'),
   color: getCSSValue('--color-text-body'),
