@@ -1,13 +1,16 @@
 /* eslint-disable import/prefer-default-export */
-import type { VueWrapper } from '@vue/test-utils';
+import type {
+  DOMWrapper,
+  VueWrapper,
+} from '@vue/test-utils';
 import type { StoryToMount } from './mountStories';
 import { getBindingTest } from './getBindingTest';
 
 type SlotTestCase<TArgs extends object> = {
   story: ReturnType<StoryToMount<TArgs>>;
   slot: string;
-  content: (story: VueWrapper) => VueWrapper;
-  expectedBinding: (args: TArgs) => Required<TArgs[keyof TArgs]>,
+  content: (story: VueWrapper) => VueWrapper | DOMWrapper<Element>;
+  expectedBinding?: (args: TArgs) => Required<TArgs[keyof TArgs]>,
 }
 
 export const getSlotTests = <TArgs extends object>(
@@ -24,12 +27,17 @@ export const getSlotTests = <TArgs extends object>(
         const { wrapper } = story;
         expect(await content(wrapper).exists()).toBe(true);
       });
-      test(`pass attributes to the ${slot} slot element`, async () => {
-        const {
-          args, wrapper,
-        } = story;
-        getBindingTest(content(wrapper), expectedBinding(args));
-      });
+      if (expectedBinding) {
+        test(`pass attributes to the ${slot} slot element`, async () => {
+          const {
+            args, wrapper,
+          } = story;
+          const element = content(wrapper);
+          if ('vm' in element) {
+            getBindingTest(element, expectedBinding(args));
+          }
+        });
+      }
     });
   });
 };

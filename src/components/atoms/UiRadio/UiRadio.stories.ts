@@ -7,15 +7,21 @@ import {
   UiRadio,
   UiList,
 } from '@index';
+import {
+  getCSSValue,
+  getStyleTests,
+} from '@tests/interactions/helpers';
 import type { RadioProps } from '@index';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import {
   content,
   modifiers,
 } from '@sb/helpers/argTypes';
+import type { PlayFunctionContext } from '@storybook/types';
 import type {
   Meta,
   StoryObj,
+  VueRenderer,
 } from '@storybook/vue3';
 
 type RadioArgsType = RadioProps & {
@@ -25,10 +31,57 @@ type RadioArgsType = RadioProps & {
 }
 type RadioMetaType = Meta<RadioArgsType>;
 type RadioStoryType = StoryObj<RadioArgsType>;
+type PlayContext = PlayFunctionContext<VueRenderer, RadioArgsType>;
+
+const stringItemsData = [
+  'I’m overweight or obese',
+  'I have hypertension',
+  'I have smoked cigarettes for at least 10 years',
+];
+const complexItemsData = [
+  {
+    label: 'I’m overweight or obese',
+    id: 'as-group-with-object-overweight-or-obese',
+  },
+  {
+    label: 'I have hypertension',
+    id: 'as-group-with-object-hypertension',
+  },
+  {
+    label: 'I have smoked cigarettes for at least 10 years',
+    id: 'as-group-with-object-smoked-cigarettes',
+  },
+];
+const getStatesTests = async ({
+  canvasElement, step,
+}: PlayContext, results: Partial<CSSStyleDeclaration>[]) => {
+  const radioElements = [ ...canvasElement.querySelectorAll('.ui-radio__radio') ];
+  const markElements = [ ...canvasElement.querySelectorAll('.ui-radio__mark') ];
+  const labels = [ ...canvasElement.querySelectorAll('.ui-radio__label') ];
+  await step('Correct border colors', () => {
+    getStyleTests(radioElements, 'borderColor', results, ':after');
+  });
+  await step('Correct background colors', () => {
+    getStyleTests(markElements, 'backgroundColor', results);
+  });
+  await step('Correct focus state', () => {
+    getStyleTests([
+      radioElements[3],
+      radioElements[7],
+    ], 'boxShadow', [
+      results[3],
+      results[7],
+    ]);
+  });
+  await step('Correct Label color', () => {
+    getStyleTests(labels, 'color', results);
+  });
+};
 
 export default {
   title: 'Atoms/Radio',
   component: UiRadio,
+  excludeStories: /.*(Type|Data)$/,
   args: {
     modelValue: '',
     content: 'I’m overweight or obese',
@@ -37,9 +90,9 @@ export default {
     id: '',
     disabled: false,
     // name: '',
-    inputAttrs: { 'data-testid': 'input-element' },
-    radioElementAttrs: { 'data-testid': 'radio-element' },
-    textLabelAttrs: { 'data-testid': 'label-text' },
+    inputAttrs: { 'data-testid': 'input' },
+    textLabelAttrs: { 'data-testid': 'text' },
+    radioElementAttrs: { 'data-testid': 'radio' },
   },
   argTypes: {
     modelValue: { control: 'text' },
@@ -186,6 +239,34 @@ BasicVariants.parameters = {
     },
   ],
 };
+BasicVariants.play = async (context) => getStatesTests(context, [
+  ...[
+    '',
+    '-hover',
+    '-active',
+  ].map((state) => ({ borderColor: getCSSValue(`--color-border-strong${state}`) })),
+  {
+    borderColor: getCSSValue('--color-border-strong'),
+    boxShadow: 'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(47, 145, 234) 0px 0px 0px 4px',
+  },
+  ...[
+    '',
+    '-hover',
+    '-active',
+  ].map((state) => ({
+    borderColor: getCSSValue(`--color-selectioncontrols-selection${state}`),
+    backgroundColor: getCSSValue(`--color-selectioncontrols-selection${state}`),
+  })),
+  {
+    borderColor: getCSSValue('--color-selectioncontrols-selection'),
+    backgroundColor: getCSSValue('--color-selectioncontrols-selection'),
+    boxShadow: 'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(47, 145, 234) 0px 0px 0px 4px',
+  },
+].map((result) => ({
+  backgroundColor: getCSSValue('transparent'),
+  color: getCSSValue('--color-text-body'),
+  ...result,
+})));
 
 export const DisabledVariants: RadioStoryType = { ...BasicVariants };
 DisabledVariants.parameters = {
@@ -196,6 +277,20 @@ DisabledVariants.parameters = {
     }),
   ),
 };
+DisabledVariants.play = async (context) => getStatesTests(context, [
+  ...Array(3).fill({}),
+  { boxShadow: 'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(47, 145, 234) 0px 0px 0px 4px' },
+  ...Array(3).fill({ backgroundColor: getCSSValue('--color-icon-disabled') }),
+  {
+    backgroundColor: getCSSValue('--color-icon-disabled'),
+    boxShadow: 'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(47, 145, 234) 0px 0px 0px 4px',
+  },
+].map((result) => ({
+  backgroundColor: getCSSValue('transparent'),
+  borderColor: getCSSValue('--color-icon-disabled'),
+  color: getCSSValue('--color-text-disabled'),
+  ...result,
+})));
 
 export const ErrorVariants: RadioStoryType = { ...BasicVariants };
 ErrorVariants.parameters = {
@@ -206,6 +301,34 @@ ErrorVariants.parameters = {
     }),
   ),
 };
+ErrorVariants.play = async (context) => getStatesTests(context, [
+  ...[
+    '',
+    '-hover',
+    '-active',
+  ].map((state) => ({ borderColor: getCSSValue(`--color-border-error-strong${state}`) })),
+  {
+    borderColor: getCSSValue('--color-border-error-strong'),
+    boxShadow: 'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(47, 145, 234) 0px 0px 0px 4px',
+  },
+  ...[
+    '',
+    '-hover',
+    '-active',
+  ].map((state) => ({
+    borderColor: getCSSValue(`--color-border-error-strong${state}`),
+    backgroundColor: getCSSValue(`--color-border-error-strong${state}`),
+  })),
+  {
+    borderColor: getCSSValue('--color-border-error-strong'),
+    backgroundColor: getCSSValue('--color-border-error-strong'),
+    boxShadow: 'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(47, 145, 234) 0px 0px 0px 4px',
+  },
+].map((result) => ({
+  backgroundColor: getCSSValue('transparent'),
+  color: getCSSValue('--color-text-body'),
+  ...result,
+})));
 
 export const WithStringValue: RadioStoryType = { ...Basic };
 
@@ -243,7 +366,6 @@ const AsGroupTemplate: RadioStoryType = {
         :key="key"
         :tag="UiRadio"
         v-bind="$attrs"
-        :id="item.id"
         :value="item.value || item"
       >
         {{ item.label || item }}
@@ -253,13 +375,7 @@ const AsGroupTemplate: RadioStoryType = {
 };
 
 export const AsGroupWithStringValue: RadioStoryType = { ...AsGroupTemplate };
-AsGroupWithStringValue.args = {
-  items: [
-    'I’m overweight or obese',
-    'I have hypertension',
-    'I have smoked cigarettes for at least 10 years',
-  ],
-};
+AsGroupWithStringValue.args = { items: stringItemsData };
 AsGroupWithStringValue.argTypes = {
   modelValue: {
     description: 'Use this control to set initial state.',
@@ -279,22 +395,7 @@ AsGroupWithStringValue.argTypes = {
 };
 
 export const AsGroupWithObjectValue = { ...AsGroupTemplate };
-AsGroupWithObjectValue.args = {
-  items: [
-    {
-      label: 'I’m overweight or obese',
-      id: 'as-group-with-object-overweight-or-obese',
-    },
-    {
-      label: 'I have hypertension',
-      id: 'as-group-with-object-hypertension',
-    },
-    {
-      label: 'I have smoked cigarettes for at least 10 years',
-      id: 'as-group-with-object-smoked-cigarettes',
-    },
-  ],
-};
+AsGroupWithObjectValue.args = { items: complexItemsData };
 AsGroupWithObjectValue.argTypes = {
   modelValue: {
     description: 'Use this control to set initial state.',
