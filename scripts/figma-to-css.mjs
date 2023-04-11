@@ -193,7 +193,6 @@ const figmaToCss = async () => {
       && !(name.includes('space') || name.includes('focus'))
       && getVariableHead(name) !== getVariableHead(tokens[index - 1][0])
       ? '\n' : '';
-      if (name.includes('letter-spacing')) value = value.split('\n')[1];
     return `${isEmptyLine}--${name}: ${setValue(value)};`;
   }).join('\n');
   saveFile('default-colors', [ getCSSVars('Color Options', (value) => value, 1, 'Frame 1106') ]);
@@ -220,7 +219,7 @@ const figmaToCss = async () => {
     `& [dir="rtl"] {
       --font-family-body: "IBM Plex Sans Arabic", sans-serif;
       --font-family-heading: "IBM Plex Sans Arabic", sans-serif;}`,
-    getCSSVars('Font', (value) => value.replace(/\n.+/g, ''), 2),
+    getCSSVars('Font', (value) => (value.split('\n').filter((prop) => !prop.match(/px|%/)).join('')), 2),
     fontStyleCSS,
     letterSpacingCSS,
   ]);
