@@ -92,27 +92,23 @@ export default {
   },
   parameters: {
     cssProperties: {
-      '--card-padding-block': '0',
-      '--card-padding-inline': '0',
-      '--card-tablet-padding-block': '0',
-      '--card-tablet-padding-inline': '0',
-      '--card-desktop-padding-block': '0',
-      '--card-desktop-padding-inline': '0',
+      '--card-padding-block': 'var(--card-padding-block-start, 0) var(--card-padding-block-end, 0)',
+      '--card-padding-inline': 'var(--card-padding-inline-start, 0) var(--card-padding-inline-end, 0)',
+      '--card-tablet-padding-block': 'var(--card-tablet-padding-block-start, 0) var(--card-tablet-padding-block-end, 0)',
+      '--card-tablet-padding-inline': 'var(--card-tablet-padding-inline-start, 0) var(--card-tablet-padding-inline-end, 0)',
+      '--card-desktop-padding-block': 'var(--card-desktop-padding-block-start, 0) var(--card-desktop-padding-block-end, 0)',
+      '--card-desktop-padding-inline': 'var(--card-desktop-padding-inline-start, 0) var(--card-desktop-padding-inline-end, 0)',
       '--card-gap': 'var(--space-20)',
       '--card-tablet-gap': '0',
-      '--card-triage-padding-block':
-        'var(--card-triage-padding-block-start, var(--space-20)) var(--card-triage-padding-block-end, var(--space-20))',
-      '--card-triage-padding-inline':
-        'var(--card-triage-padding-inline-start, var(--space-20)) var(--card-triage-padding-inline-end, var(--space-20))',
+      '--card-triage-padding-block': 'var(--card-triage-padding-block-start, var(--space-16)) var(--card-triage-padding-block-end, var(--space-16))',
+      '--card-triage-padding-inline': 'var(--card-triage-padding-inline-start, var(--space-16)) var(--card-triage-padding-inline-end, var(--space-16))',
       '--card-triage-border-start-start-radius': '0',
       '--card-triage-border-start-end-radius': '0',
       '--card-triage-border-end-start-radius': '0',
       '--card-triage-border-end-end-radius': '0',
       '--card-triage-background': 'var(--color-triage-self-care)',
-      '--card-tablet-triage-padding-block':
-        'var(--card-tablet-triage-padding-block-start, var(--space-40)) var(--card-tablet-triage-padding-block-end, var(--space-40))',
-      '--card-tablet-triage-padding-inline':
-        'var(--card-tablet-triage-padding-inline-start, var(--space-32)) var(--card-tablet-triage-padding-inline-end, var(--space-32))',
+      '--card-tablet-triage-padding-block': 'var(--card-tablet-triage-padding-block-start, var(--space-32)) var(--card-tablet-triage-padding-block-end, var(--space-32))',
+      '--card-tablet-triage-padding-inline': 'var(--card-tablet-triage-padding-inline-start, var(--space-32)) var(--card-tablet-triage-padding-inline-end, var(--space-32))',
       '--card-tablet-triage-border-start-start-radius': '0',
       '--card-tablet-triage-border-start-end-radius': 'var(--border-radius-container)',
       '--card-tablet-triage-border-end-start-radius': '0',
@@ -120,22 +116,14 @@ export default {
       '--card-icon-size': '4rem',
       '--card-icon-color': 'var(--color-icon-negative)',
       '--card-subtitle-color': 'var(--color-text-dimmed)',
-      '--card-subtitle-margin-block':
-        'var(--card-subtitle-margin-block-start, 0) var(--card-subtitle-margin-block-end, var(--space-4))',
-      '--card-subtitle-margin-inline':
-        'var(--card-subtitle-margin-inline-start, 0) var(--card-subtitle-margin-inline-end, 0)',
-      '--card-title-margin-block':
-        'var(--card-title-margin-block-start, 0) var(--card-title-margin-block-end, var(--space-12))',
-      '--card-title-margin-inline':
-        'var(--card-title-margin-inline-start, 0) var(--card-title-margin-inline-end, 0)',
-      '--card-content-padding-block':
-        'var(--card-content-padding-block-start, var(--space-24)) var(--card-content-padding-block-end, var(--space-32))',
-      '--card-content-padding-inline':
-        'var(--card-content-padding-inline-start, var(--space-20)) var(--card-content-padding-inline-end, var(--space-20))',
-      '--card-tablet-content-padding-block':
-        'var(--card-tablet-content-padding-block-start, var(--space-40)) var(--card-tablet-content-padding-block-end, var(--space-48))',
-      '--card-tablet-content-padding-inline':
-        'var(--card-tablet-content-padding-inline-start, var(--space-48)) var(--card-tablet-content-padding-inline-end, var(--space-40))',
+      '--card-subtitle-margin-block': 'var(--card-subtitle-margin-block-start, 0) var(--card-subtitle-margin-block-end, var(--space-4))',
+      '--card-subtitle-margin-inline': 'var(--card-subtitle-margin-inline-start, 0) var(--card-subtitle-margin-inline-end, 0)',
+      '--card-title-margin-block': 'var(--card-title-margin-block-start, 0) var(--card-title-margin-block-end, var(--space-12))',
+      '--card-title-margin-inline': 'var(--card-title-margin-inline-start, 0) var(--card-title-margin-inline-end, 0)',
+      '--card-content-padding-block': 'var(--card-content-padding-block-start, var(--space-24)) var(--card-content-padding-block-end, var(--space-32))',
+      '--card-content-padding-inline': 'var(--card-content-padding-inline-start, var(--space-20)) var(--card-content-padding-inline-end, var(--space-20))',
+      '--card-tablet-content-padding-block': 'var(--card-tablet-content-padding-block-start, var(--space-40)) var(--card-tablet-content-padding-block-end, var(--space-48))',
+      '--card-tablet-content-padding-inline': 'var(--card-tablet-content-padding-inline-start, var(--space-48)) var(--card-tablet-content-padding-inline-end, var(--space-40))',
       '--card-mobile-icon-size': '3rem',
       '--card-title-font': 'var(--font-h1)',
       '--card-title-letter-spacing': 'var(--letter-spacing-h1)',
