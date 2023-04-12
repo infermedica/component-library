@@ -12,13 +12,13 @@ import {
   getStyleTests,
   getFocusTests,
 } from '@tests/interactions/helpers';
-import type { RadioProps } from '@index';
-import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import {
   content,
-  modifiers,
 } from '@sb/helpers/argTypes';
 import type { PlayFunctionContext } from '@storybook/types';
+import { useArgTypes } from '@sb/helpers';
+import type { RadioProps } from '@index';
+import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import type {
   Meta,
   StoryObj,
@@ -27,32 +27,13 @@ import type {
 
 type RadioArgsType = RadioProps & {
   content?: string;
-  class?: string[];
+  modifiers?: string[];
   items?: Required<RadioProps['value']>[];
 }
 type RadioMetaType = Meta<RadioArgsType>;
 type RadioStoryType = StoryObj<RadioArgsType>;
 type PlayContext = PlayFunctionContext<VueRenderer, RadioArgsType>;
 
-const stringItemsData = [
-  'I’m overweight or obese',
-  'I have hypertension',
-  'I have smoked cigarettes for at least 10 years',
-];
-const complexItemsData = [
-  {
-    label: 'I’m overweight or obese',
-    id: 'as-group-with-object-overweight-or-obese',
-  },
-  {
-    label: 'I have hypertension',
-    id: 'as-group-with-object-hypertension',
-  },
-  {
-    label: 'I have smoked cigarettes for at least 10 years',
-    id: 'as-group-with-object-smoked-cigarettes',
-  },
-];
 const getStatesTests = async ({
   canvasElement, step,
 }: PlayContext, results: Partial<CSSStyleDeclaration>[]) => {
@@ -74,6 +55,28 @@ const getStatesTests = async ({
   });
 };
 
+const stringItemsData = [
+  'I’m overweight or obese',
+  'I have hypertension',
+  'I have smoked cigarettes for at least 10 years',
+];
+const complexItemsData = [
+  {
+    label: 'I’m overweight or obese',
+    id: 'as-group-with-object-overweight-or-obese',
+  },
+  {
+    label: 'I have hypertension',
+    id: 'as-group-with-object-hypertension',
+  },
+  {
+    label: 'I have smoked cigarettes for at least 10 years',
+    id: 'as-group-with-object-smoked-cigarettes',
+  },
+];
+
+const { argTypes } = useArgTypes(UiRadio, { variables: { regexp: /^(\.ui-radio|\.ui-radio__radio)$/ } });
+console.log(argTypes);
 export default {
   title: 'Atoms/Radio',
   component: UiRadio,
@@ -81,34 +84,19 @@ export default {
   args: {
     modelValue: '',
     content: 'I’m overweight or obese',
-    class: [],
+    modifiers: [],
     value: 'overweight-or-obese',
     id: '',
     disabled: false,
-    // name: '',
-    inputAttrs: { 'data-testid': 'input' },
-    textLabelAttrs: { 'data-testid': 'text' },
-    radioElementAttrs: { 'data-testid': 'radio' },
+    inputAttrs: { 'data-testid': 'input-element' },
+    radioElementAttrs: { 'data-testid': 'radio-element' },
+    textLabelAttrs: { 'data-testid': 'text-label' },
   },
   argTypes: {
+    ...argTypes,
     modelValue: { control: 'text' },
     content,
-    class: modifiers({
-      options: [
-        'ui-radio--has-error',
-        'ui-radio--is-disabled',
-      ],
-    }),
-    // name: {
-    //   description: 'Use this control to set name attribute.',
-    //   table: { category: 'html attributes' },
-    //   control: { type: 'text' },
-    // },
     value: { control: 'text' },
-    id: { control: 'text' },
-    inputAttrs: { table: { subcategory: 'Attrs props' } },
-    radioElementAttrs: { table: { subcategory: 'Attrs props' } },
-    textLabelAttrs: { table: { subcategory: 'Attrs props' } },
   },
   parameters: {
     cssProperties: {
@@ -185,19 +173,61 @@ export const Basic: RadioStoryType = {
     </UiRadio>`,
   }),
 };
+Basic.parameters = {
+  docs: {
+    source: {
+      code: `<template>
+  <UiRadio
+    v-model="modelValue"
+    :value="value"
+    :id="id"
+    :disabled="disabled"
+    :input-attrs="inputAttrs"
+    :radio-element-attrs="radioElementAttrs"
+    :text-label-attrs="textLabelAttrs"
+    :class="modifiers"
+  >
+    {{ content }}
+  </UiRadio>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import { UiRadio } from '@infermedica/component-library';
+
+const modelValue = ref('');
+const value = 'overweight-or-obese';
+const id = '';
+const disabled = false;
+const inputAttrs = {
+  'data-testid': 'input-element'
+};
+const radioElementAttrs = {
+  'data-testid': 'radio-element'
+};
+const textLabelAttrs = {
+  'data-testid': 'text-label'
+};
+const modifiers = [];
+const content = 'I’m overweight or obese';
+</script>"`,
+    },
+  },
+};
 
 export const BasicVariants: RadioStoryType = { ...Basic };
 BasicVariants.argTypes = {
   modelValue: { control: false },
   value: { control: false },
   disabled: { control: false },
-  class: { control: false },
+  modifiers: { control: false },
   id: { control: false },
   inputAttrs: { control: false },
   textLabelAttrs: { control: false },
 };
 BasicVariants.decorators = [ withVariants ];
 BasicVariants.parameters = {
+  docs: { source: { code: null } },
   variants: [
     {
       label: 'default',
@@ -259,6 +289,7 @@ BasicVariants.play = async (context) => getStatesTests(context, [
 
 export const DisabledVariants: RadioStoryType = { ...BasicVariants };
 DisabledVariants.parameters = {
+  docs: { source: { code: null } },
   variants: BasicVariants.parameters.variants.map(
     (variant: Record<string, unknown>) => ({
       ...variant,
@@ -278,6 +309,7 @@ DisabledVariants.play = async (context) => getStatesTests(context, [
 
 export const ErrorVariants: RadioStoryType = { ...BasicVariants };
 ErrorVariants.parameters = {
+  docs: { source: { code: null } },
   variants: BasicVariants.parameters.variants.map(
     (variant: Record<string, unknown>) => ({
       ...variant,
@@ -317,10 +349,51 @@ WithObjectValue.args = {
   },
 };
 WithObjectValue.argTypes = {
-  modelValue: {
-    description: 'Use this control to set initial state.',
-    table: { category: 'stories controls' },
-    control: 'object',
+  modelValue: { control: 'object' },
+  value: { control: 'object' },
+};
+WithObjectValue.parameters = {
+  docs: {
+    source: {
+      code: `<template>
+  <UiRadio
+    v-model="modelValue"
+    :value="value"
+    :id="id"
+    :disabled="disabled"
+    :input-attrs="inputAttrs"
+    :radio-element-attrs="radioElementAttrs"
+    :text-label-attrs="textLabelAttrs"
+    :class="modifiers"
+  >
+    {{ content }}
+  </UiRadio>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import { UiRadio } from '@infermedica/component-library';
+
+const modelValue = ref({});
+const value = {
+  label: 'I’m overweight or obese',
+  id: 'value-as-object-overweight-or-obese',
+};
+const id = '';
+const disabled = false;
+const inputAttrs = {
+  'data-testid': 'input-element'
+};
+const radioElementAttrs = {
+  'data-testid': 'radio-element'
+};
+const textLabelAttrs = {
+  'data-testid': 'text-label'
+};
+const modifiers = [];
+const content = 'I’m overweight or obese';
+</script>"`,
+    },
   },
 };
 
@@ -350,15 +423,7 @@ const AsGroupTemplate: RadioStoryType = {
     </UiList>`,
   }),
 };
-
-export const AsGroupWithStringValue: RadioStoryType = { ...AsGroupTemplate };
-AsGroupWithStringValue.args = { items: stringItemsData };
-AsGroupWithStringValue.argTypes = {
-  modelValue: {
-    description: 'Use this control to set initial state.',
-    table: { category: 'stories controls' },
-    control: 'text',
-  },
+AsGroupTemplate.argTypes = {
   items: {
     description: 'Use this control to set the values of radio group.',
     table: { category: 'stories controls' },
@@ -366,29 +431,117 @@ AsGroupWithStringValue.argTypes = {
   },
   id: { control: false },
   value: { control: false },
-  class: { control: false },
-  disabled: { control: false },
   content: { control: false },
+};
+
+export const AsGroupWithStringValue: RadioStoryType = { ...AsGroupTemplate };
+AsGroupWithStringValue.args = { items: stringItemsData };
+AsGroupWithStringValue.argTypes = {
+  ...AsGroupTemplate.argTypes,
+  modelValue: { control: 'text' },
+};
+AsGroupWithStringValue.parameters = {
+  docs: {
+    source: {
+      code: `<template>
+  <UiList>
+    <UiListItem
+      v-for="(item, key) in items"
+      :key="key"
+      :tag="UiRadio"
+      v-model="modelValue"
+      :class="modifiers"
+      :value="item"
+      :disabled="disabled"
+      :input-attrs="inputAttrs"
+      :radio-element-attrs="radioElementAttrs"
+      :text-label-attrs="textLabelAttrs"
+      :class="modifiers"
+    >
+      {{ item }}
+    </UiListItem>
+  </UiList>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import {
+  UiRadio,
+  UiList,
+} from '@infermedica/component-library';
+import UiListItem from '@infermedica/component-library/components/organisms/UiList/_internal/UiListItem.vue';
+
+const modelValue = ref('');
+const disabled = false;
+const inputAttrs = {
+  'data-testid': 'input-element'
+};
+const radioElementAttrs = {
+  'data-testid': 'radio-element'
+};
+const textLabelAttrs = {
+  'data-testid': 'text-label'
+};
+const modifiers = [];
+const items = ${JSON.stringify(stringItemsData)}
+</script>"`,
+    },
+  },
 };
 
 export const AsGroupWithObjectValue = { ...AsGroupTemplate };
 AsGroupWithObjectValue.args = { items: complexItemsData };
 AsGroupWithObjectValue.argTypes = {
-  modelValue: {
-    description: 'Use this control to set initial state.',
-    table: { category: 'stories controls' },
-    control: 'object',
+  ...AsGroupTemplate.argTypes,
+  modelValue: { control: 'object' },
+};
+AsGroupWithObjectValue.parameters = {
+  docs: {
+    source: {
+      code: `<template>
+  <UiList>
+    <UiListItem
+      v-for="(item, key) in items"
+      :key="key"
+      :tag="UiRadio"
+      v-model="modelValue"
+      :class="modifiers"
+      :value="item"
+      :disabled="disabled"
+      :input-attrs="inputAttrs"
+      :radio-element-attrs="radioElementAttrs"
+      :text-label-attrs="textLabelAttrs"
+      :class="modifiers"
+    >
+      {{ item }}
+    </UiListItem>
+  </UiList>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import {
+  UiRadio,
+  UiList,
+} from '@infermedica/component-library';
+import UiListItem from '@infermedica/component-library/components/organisms/UiList/_internal/UiListItem.vue';
+
+const modelValue = ref({});
+const disabled = false;
+const inputAttrs = {
+  'data-testid': 'input-element'
+};
+const radioElementAttrs = {
+  'data-testid': 'radio-element'
+};
+const textLabelAttrs = {
+  'data-testid': 'text-label'
+};
+const modifiers = [];
+const items = ${JSON.stringify(complexItemsData)}
+</script>"`,
+    },
   },
-  items: {
-    description: 'Values of the radios group.',
-    table: { category: 'stories controls' },
-    control: { type: 'object' },
-  },
-  id: { control: false },
-  value: { control: false },
-  class: { control: false },
-  disabled: { control: false },
-  content: { control: false },
 };
 
 export const WithRadioSlot: RadioStoryType = {
@@ -418,6 +571,61 @@ export const WithRadioSlot: RadioStoryType = {
     </UiRadio>`,
   }),
 };
+WithRadioSlot.parameters = {
+  docs: {
+    source: {
+      code: `<template>
+  <UiRadio
+    v-model="modelValue"
+    :value="value"
+    :id="id"
+    :disabled="disabled"
+    :input-attrs="inputAttrs"
+    :radio-element-attrs="radioElementAttrs"
+    :text-label-attrs="textLabelAttrs"
+    :class="modifiers"
+  >
+    <template #radio="{
+      checked,
+      radioElementAttrs,
+    }">
+      <div
+        v-bind="radioElementAttrs"
+        :class="[
+          'ui-radio__radio',
+          { 'ui-radio__radio--is-checked': checked },
+        ]"
+      >
+        <div class="ui-radio__mark" />
+      </div>
+    </template>
+    {{ content }}
+  </UiRadio>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import { UiRadio } from '@infermedica/component-library';
+
+const modelValue = ref('');
+const value = 'overweight-or-obese';
+const id = '';
+const disabled = false;
+const inputAttrs = {
+  'data-testid': 'input-element'
+};
+const radioElementAttrs = {
+  'data-testid': 'radio-element'
+};
+const textLabelAttrs = {
+  'data-testid': 'text-label'
+};
+const modifiers = [];
+const content = 'I’m overweight or obese';
+</script>"`,
+    },
+  },
+};
 
 export const WithLabelSlot: RadioStoryType = {
   render: () => ({
@@ -444,4 +652,55 @@ export const WithLabelSlot: RadioStoryType = {
       </template>
     </UiRadio>`,
   }),
+};
+WithLabelSlot.parameters = {
+  docs: {
+    source: {
+      code: `<template>
+  <UiRadio
+    v-model="modelValue"
+    :value="value"
+    :id="id"
+    :disabled="disabled"
+    :input-attrs="inputAttrs"
+    :radio-element-attrs="radioElementAttrs"
+    :text-label-attrs="textLabelAttrs"
+    :class="modifiers"
+  >
+    <template #label="{
+      hasLabel,
+      textLabelAttrs,
+    }">
+      <UiText
+        v-bind="textLabelAttrs"
+        class="ui-radio__label"
+      >
+        {{ content }}
+      </UiText>
+    </template>
+  </UiRadio>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import { UiRadio } from '@infermedica/component-library';
+
+const modelValue = ref('');
+const value = 'overweight-or-obese';
+const id = '';
+const disabled = false;
+const inputAttrs = {
+  'data-testid': 'input-element'
+};
+const radioElementAttrs = {
+  'data-testid': 'radio-element'
+};
+const textLabelAttrs = {
+  'data-testid': 'text-label'
+};
+const modifiers = [];
+const content = 'I’m overweight or obese';
+</script>"`,
+    },
+  },
 };

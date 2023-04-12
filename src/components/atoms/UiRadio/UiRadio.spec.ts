@@ -25,7 +25,7 @@ describe('UiRadio.vue', () => {
   afterEach(() => {
     wrapper.unmount();
   });
-  const getInput = (story = wrapper) => story.find('[data-testid="input"]');
+  const getInput = (story = wrapper) => story.find('[data-testid="input-element"]');
   const getRadio = (story = wrapper) => story.find('.ui-radio__radio');
   const toggleInput = (story = wrapper, value = true) => getInput(story).setValue(value);
   const setChecked = (story?: VueWrapper) => toggleInput(story);
@@ -91,7 +91,7 @@ describe('UiRadio.vue', () => {
         story: WithRadioSlot({
           radioElementAttrs: {
             id: 'test-id',
-            'data-testid': 'icon',
+            'data-testid': 'icon-element',
             class: 'test-class',
             icon: 'no',
           },
@@ -103,7 +103,7 @@ describe('UiRadio.vue', () => {
         story: WithLabelSlot({
           textLabelAttrs: {
             id: 'test-id',
-            'data-testid': 'label',
+            'data-testid': 'label-element',
             class: 'ui-checkbox__label',
             tag: 'p',
           },
