@@ -7,13 +7,20 @@ import {
   UiRadio,
   UiList,
 } from '@index';
+import {
+  getCSSValue,
+  getStyleTests,
+  getFocusTests,
+} from '@tests/interactions/helpers';
+import { content } from '@sb/helpers/argTypes';
+import type { PlayFunctionContext } from '@storybook/types';
 import { useArgTypes } from '@sb/helpers';
 import type { RadioProps } from '@index';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
-import { content } from '@sb/helpers/argTypes';
 import type {
   Meta,
   StoryObj,
+  VueRenderer,
 } from '@storybook/vue3';
 
 type RadioArgsType = RadioProps & {
@@ -23,6 +30,28 @@ type RadioArgsType = RadioProps & {
 }
 type RadioMetaType = Meta<RadioArgsType>;
 type RadioStoryType = StoryObj<RadioArgsType>;
+type PlayContext = PlayFunctionContext<VueRenderer, RadioArgsType>;
+
+const getStatesTests = async ({
+  canvasElement, step,
+}: PlayContext, results: Partial<CSSStyleDeclaration>[]) => {
+  const radioElements = [ ...canvasElement.querySelectorAll('.ui-radio__radio') ];
+  const markElements = [ ...canvasElement.querySelectorAll('.ui-radio__mark') ];
+  const labels = [ ...canvasElement.querySelectorAll('.ui-radio__label') ];
+  await step('Correct border colors', () => {
+    getStyleTests(radioElements, 'borderColor', results, ':after');
+  });
+  await step('Correct background colors', () => {
+    getStyleTests(markElements, 'backgroundColor', results);
+  });
+  await getFocusTests(step, [
+    radioElements[3],
+    radioElements[7],
+  ]);
+  await step('Correct Label color', () => {
+    getStyleTests(labels, 'color', results);
+  });
+};
 
 const stringItemsData = [
   'I’m overweight or obese',
@@ -45,10 +74,10 @@ const complexItemsData = [
 ];
 
 const { argTypes } = useArgTypes(UiRadio, { variables: { regexp: /^(\.ui-radio|\.ui-radio__radio)$/ } });
-console.log(argTypes);
 export default {
   title: 'Atoms/Radio',
   component: UiRadio,
+  excludeStories: /.*(Type|Data)$/,
   args: {
     modelValue: '',
     content: 'I’m overweight or obese',
@@ -233,6 +262,27 @@ BasicVariants.parameters = {
     },
   ],
 };
+BasicVariants.play = async (context) => getStatesTests(context, [
+  ...[
+    '',
+    '-hover',
+    '-active',
+    '',
+  ].map((state) => ({ borderColor: getCSSValue(`--color-border-strong${state}`) })),
+  ...[
+    '',
+    '-hover',
+    '-active',
+    '',
+  ].map((state) => ({
+    borderColor: getCSSValue(`--color-selectioncontrols-selection${state}`),
+    backgroundColor: getCSSValue(`--color-selectioncontrols-selection${state}`),
+  })),
+].map((result) => ({
+  backgroundColor: getCSSValue('transparent'),
+  color: getCSSValue('--color-text-body'),
+  ...result,
+})));
 
 export const DisabledVariants: RadioStoryType = { ...BasicVariants };
 DisabledVariants.parameters = {
@@ -244,6 +294,15 @@ DisabledVariants.parameters = {
     }),
   ),
 };
+DisabledVariants.play = async (context) => getStatesTests(context, [
+  ...Array(4).fill({}),
+  ...Array(4).fill({ backgroundColor: getCSSValue('--color-icon-disabled') }),
+].map((result) => ({
+  backgroundColor: getCSSValue('transparent'),
+  borderColor: getCSSValue('--color-icon-disabled'),
+  color: getCSSValue('--color-text-disabled'),
+  ...result,
+})));
 
 export const ErrorVariants: RadioStoryType = { ...BasicVariants };
 ErrorVariants.parameters = {
@@ -255,6 +314,27 @@ ErrorVariants.parameters = {
     }),
   ),
 };
+ErrorVariants.play = async (context) => getStatesTests(context, [
+  ...[
+    '',
+    '-hover',
+    '-active',
+    '',
+  ].map((state) => ({ borderColor: getCSSValue(`--color-border-error-strong${state}`) })),
+  ...[
+    '',
+    '-hover',
+    '-active',
+    '',
+  ].map((state) => ({
+    borderColor: getCSSValue(`--color-border-error-strong${state}`),
+    backgroundColor: getCSSValue(`--color-border-error-strong${state}`),
+  })),
+].map((result) => ({
+  backgroundColor: getCSSValue('transparent'),
+  color: getCSSValue('--color-text-body'),
+  ...result,
+})));
 
 export const WithStringValue: RadioStoryType = { ...Basic };
 
@@ -333,7 +413,6 @@ const AsGroupTemplate: RadioStoryType = {
         :key="key"
         :tag="UiRadio"
         v-bind="$attrs"
-        :id="item.id"
         :value="item.value || item"
       >
         {{ item.label || item }}

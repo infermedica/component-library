@@ -10,9 +10,12 @@ const hexToRgb = (hex: string) => {
   return `rgb(${r}, ${g}, ${b})`;
 };
 
-export const getCSSValue = (variable: string) => (
-  getComputedStyle(document.documentElement)
+export const getCSSValue = (variable: string) => {
+  if (variable === 'transparent') {
+    return 'rgba(0, 0, 0, 0)';
+  }
+  return getComputedStyle(document.documentElement)
     .getPropertyValue(variable)
     .replaceAll(/ #(?:[0-9a-fA-F]{3}){1,2}\b/g, (hex) => hexToRgb(hex))
-    .trim()
-);
+    .trim();
+};

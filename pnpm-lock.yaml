@@ -11572,6 +11572,12 @@ packages:
       prop-types: 15.8.1
     dev: true
 
+  /react-github-button/0.1.11:
+    resolution: {integrity: sha512-KL/kieQiR5DXd1RxWMegr4Igyz9+Lm6ZVwjpN5rQyttz/sdEq8DF1R/vzLl2f58nChJe0sKE3U3A7QRK+Zb01w==}
+    dependencies:
+      prop-types: 15.8.1
+    dev: true
+
   /react-inspector/6.0.1_react@18.0.0:
     resolution: {integrity: sha512-cxKSeFTf7jpSSVddm66sKdolG90qURAX3g1roTeaN6x0YEbtWc8JpmFN9+yIqLNH2uEkYerWLtJZIXRIFuBKrg==}
     peerDependencies:
