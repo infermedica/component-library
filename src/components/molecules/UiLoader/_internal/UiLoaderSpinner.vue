@@ -79,6 +79,7 @@ withDefaults(defineProps<LoaderSpinnerProps>(), {
     position: relative;
     width: var(--_loader-spinner-loader-size);
     height: var(--_loader-spinner-loader-size);
+    flex-shrink: 0;
     animation: rotate 0.8s cubic-bezier(0.8, 0.4, 0.4, 0.8) infinite;
 
     &::before,

@@ -77,6 +77,11 @@
       "displayName": "UiCheckbox",
       "description": "",
       "tags": {},
+      "expose": [
+        {
+          "name": "input"
+        }
+      ],
       "props": [
         {
           "name": "modelValue",
@@ -606,6 +611,11 @@
       "displayName": "UiRadio",
       "description": "",
       "tags": {},
+      "expose": [
+        {
+          "name": "input"
+        }
+      ],
       "props": [
         {
           "name": "modelValue",
@@ -2964,15 +2974,10 @@
             "name": "union",
             "elements": [
               {
-                "name": "Array",
-                "elements": [
-                  {
-                    "name": "RadioAttrsProps"
-                  }
-                ]
+                "name": "RadioAttrsProps"
               },
               {
-                "name": "Partial",
+                "name": "Array",
                 "elements": [
                   {
                     "name": "RadioAttrsProps"
@@ -2983,7 +2988,7 @@
           },
           "defaultValue": {
             "func": false,
-            "value": "() => ({})"
+            "value": "() => ([])"
           }
         },
         {
