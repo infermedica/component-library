@@ -185,6 +185,7 @@ const defaultProps = computed(() => {
     @include mixins.override-logical(button, $element + "-toggler", padding, var(--space-12));
     @include mixins.override-logical(button, $element + "-toggler", border-width, 0);
     @include mixins.override-logical(button, $element + "-toggler", border-radius, 0);
+
     --button-font: #{functions.var($element, font, var(--font-body-1))};
     --button-letter-spacing: #{functions.var($element, letter-spacing, var(--letter-spacing-body-1))};
     --button-icon-margin-inline: #{functions.var($element + "-toggler", icon-margin-inline,  0)};

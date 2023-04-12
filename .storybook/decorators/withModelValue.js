@@ -1,5 +1,5 @@
 import { actions } from '@storybook/addon-actions';
-import { useArgs } from '@storybook/client-api';
+import { useArgs } from '@storybook/preview-api';
 import { defineComponent, ref, watch } from 'vue';
 
 const events = actions({

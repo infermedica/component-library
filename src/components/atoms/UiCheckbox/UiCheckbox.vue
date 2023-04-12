@@ -17,7 +17,11 @@
       class="visual-hidden"
       @change="changeHandler($event)"
     >
-    <!-- @slot Use this slot to replace checkbox template.-->
+    <!--
+      @slot Use this slot to replace checkbox template.
+      @binding {boolean} checked
+      @binding {IconAttrsProps} iconCheckmarkAttrs
+    -->
     <slot
       name="checkbox"
       v-bind="{
@@ -29,7 +33,10 @@
         class="ui-checkbox__checkbox"
         :class="{ 'ui-checkbox__checkbox--is-checked': isChecked, }"
       >
-        <!-- @slot Use this slot to replace checkmark template.-->
+        <!--
+          @slot Use this slot to replace checkmark template.
+          @binding {IconAttrsProps} iconCheckmarkAttrs
+        -->
         <slot
           name="checkmark"
           v-bind="{ iconCheckmarkAttrs: defaultProps.iconCheckmarkAttrs }"
@@ -41,7 +48,11 @@
         </slot>
       </div>
     </slot>
-    <!-- @slot Use this slot to replace label template. -->
+    <!--
+      @slot Use this slot to replace label template.
+      @binding {boolean} hasLabel
+      @binding {TextAttrsProps} textLabelAttrs
+    -->
     <slot
       name="label"
       v-bind="{
@@ -399,7 +410,7 @@ defineExpose({ input });
     &:active {
       #{$this}__checkbox {
         &::after {
-          @include mixins.use-logical($element + "-hover", border-color, var(--color-border-error-strong-hover));
+          @include mixins.use-logical($element + "-hover", border-color, var(--color-border-error-strong-active));
         }
 
         &--is-checked {

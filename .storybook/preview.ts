@@ -112,7 +112,13 @@ const preview: Preview = {
           }
         }
         return compareStoryPaths(storiesOrder, prevStoryPath, nextStoryPath)
-      }
+      },
+    },
+    docs: {
+      source: {
+        language: 'md',
+        format: true,
+      },
     },
     backgrounds: {
       values: [

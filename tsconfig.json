@@ -27,7 +27,7 @@
     "noEmit": true,
     "baseUrl": ".",
     "types": [
-      "vitest/globals",
+      "vitest/globals"
     ],
     "paths": {
       "@/*": [
@@ -36,14 +36,22 @@
       "@sb/*": [
         ".storybook/*"
       ],
+      "@tests/*": [
+        "./tests/*"
+      ],
+      "@index": [
+        "./index.ts"
+      ],
       "react": [ "./src/types/react.d.ts" ]
-    },
+    }
   },
   "include": [
     "src/**/*.ts",
+    "src/**/*.mdx",
     "src/**/*.d.ts",
     "src/**/*.tsx",
-    "src/**/*.vue"
+    "src/**/*.vue",
+    "tests/**/*.ts"
   ],
   "exclude": [
     "node_modules"

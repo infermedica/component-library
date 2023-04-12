@@ -15,6 +15,14 @@ export default defineConfig({
         find: '@sb',
         replacement: path.resolve(__dirname, '.storybook'),
       },
+      {
+        find: '@tests',
+        replacement: path.resolve(__dirname, './tests'),
+      },
+      {
+        find: '@index',
+        replacement: path.resolve(__dirname, './index.ts'),
+      },
     ],
   },
   plugins: [
@@ -37,6 +45,11 @@ export default defineConfig({
       'default',
       'json',
     ],
+    coverage: {
+      provider: 'istanbul',
+      reporter: [ 'json' ],
+      reportsDirectory: './coverage/storybook',
+    },
     deps: { inline: [ 'date-fns' ] },
   },
 });
