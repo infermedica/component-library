@@ -410,7 +410,7 @@ defineExpose({ input });
     &:active {
       #{$this}__checkbox {
         &::after {
-          @include mixins.use-logical($element + "-hover", border-color, var(--color-border-error-strong-hover));
+          @include mixins.use-logical($element + "-hover", border-color, var(--color-border-error-strong-active));
         }
 
         &--is-checked {

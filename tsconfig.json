@@ -50,7 +50,8 @@
     "src/**/*.mdx",
     "src/**/*.d.ts",
     "src/**/*.tsx",
-    "src/**/*.vue"
+    "src/**/*.vue",
+    "tests/**/*.ts"
   ],
   "exclude": [
     "node_modules"
