@@ -76,7 +76,6 @@ const complexItemsData = [
 ];
 
 const { argTypes } = useArgTypes(UiRadio, { variables: { regexp: /^(\.ui-radio|\.ui-radio__radio)$/ } });
-console.log(argTypes);
 export default {
   title: 'Atoms/Radio',
   component: UiRadio,
