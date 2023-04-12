@@ -187,7 +187,6 @@ const defaultProps = computed(() => ({
     @include mixins.use-logical($element + "-triage", border-radius, var(--border-radius-container));
 
     display: flex;
-    align-items: center;
     justify-content: center;
     background: functions.var($element + "-triage", background, var(--color-triage-emergency-ambulance));
 
@@ -254,9 +253,11 @@ const defaultProps = computed(() => ({
 
     #{$this}__triage {
       @include mixins.use-logical($element + "-triage", border-radius, 0);
+      @include mixins.use-logical($element + "-triage", padding, var(--space-16));
 
       @include mixins.from-tablet {
         @include mixins.use-logical($element + "-tablet-triage", border-radius, 0 var(--border-radius-container));
+        @include mixins.use-logical($element + "-tablet-triage", padding, var(--space-32));
       }
     }
 
