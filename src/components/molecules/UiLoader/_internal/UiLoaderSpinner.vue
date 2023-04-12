@@ -77,9 +77,9 @@ withDefaults(defineProps<LoaderSpinnerProps>(), {
     @include mixins.use-logical($element, border-radius, var(--border-radius-circle));
 
     position: relative;
-    flex-shrink: 0;
     width: var(--_loader-spinner-loader-size);
     height: var(--_loader-spinner-loader-size);
+    flex-shrink: 0;
     animation: rotate 0.8s cubic-bezier(0.8, 0.4, 0.4, 0.8) infinite;
 
     &::before,

@@ -388,6 +388,7 @@ const optionsToRender = computed(() => props.options.map((option) => ({ ...optio
   &__option-content {
     @include mixins.override-logical(list-item-content, $element + "-option-content", padding);
     @include mixins.override-logical(list-item-tablet-content, $element + "-tablet-option-content", padding, 0);
+
     --list-item-content-hover-background: #{functions.var($element + "-content-hover", background)};
   }
 
