@@ -192,6 +192,14 @@ module.exports = {
             '@',
             './src',
           ],
+          [
+            '@index',
+            './index.ts',
+          ],
+          [
+            '@tests',
+            './tests',
+          ],
         ],
         extensions: [
           '.ts',

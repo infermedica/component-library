@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import path from 'path';
@@ -13,6 +14,14 @@ export default defineConfig({
       {
         find: '@sb',
         replacement: path.resolve(__dirname, '.storybook'),
+      },
+      {
+        find: '@tests',
+        replacement: path.resolve(__dirname, './tests'),
+      },
+      {
+        find: '@index',
+        replacement: path.resolve(__dirname, './index.ts'),
       },
     ],
   },

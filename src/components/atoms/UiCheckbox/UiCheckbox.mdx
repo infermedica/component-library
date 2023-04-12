@@ -1,0 +1,55 @@
+import { Canvas, Meta, Controls } from "@storybook/blocks";
+import { MetaActions } from "../../../../docs/components";
+import * as UiCheckboxStories from "./UiCheckbox.stories";
+
+<Meta of={ UiCheckboxStories } />
+
+# Checkbox
+{/* TODO: add description */}
+<MetaActions stories={ UiCheckboxStories }/>
+<Canvas of={ UiCheckboxStories.Basic } />
+<Controls of={ UiCheckboxStories.Basic } />
+
+# Stories
+## Variants
+### Basic
+{/* TODO: add description */}
+<Canvas of={ UiCheckboxStories.BasicVariants } />
+
+### Disabled
+{/* TODO: add description */}
+<Canvas of={ UiCheckboxStories.DisabledVariants } />
+
+### Error
+{/* TODO: add description */}
+<Canvas of={ UiCheckboxStories.ErrorVariants } />
+
+## Value types
+### As string
+{/* TODO: add description */}
+<Canvas of={ UiCheckboxStories.WithStringValue } />
+
+### As object
+{/* TODO: add description */}
+<Canvas of={ UiCheckboxStories.WithObjectValue } />
+
+### As group with string value
+{/* TODO: add description */}
+<Canvas of={ UiCheckboxStories.AsGroupWithStringValue } />
+
+### As group with object value
+{/* TODO: add description */}
+<Canvas of={ UiCheckboxStories.AsGroupWithObjectValue } />
+
+## Slots
+### Checkbox
+{/* TODO: add description */}
+<Canvas of={ UiCheckboxStories.WithCheckboxSlot } />
+
+### Checkmark
+{/* TODO: add description */}
+<Canvas of={ UiCheckboxStories.WithCheckmarkSlot } />
+
+### Label
+{/* TODO: add description */}
+<Canvas of={ UiCheckboxStories.WithLabelSlot } />

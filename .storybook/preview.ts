@@ -1,15 +1,9 @@
+import { withTest, withTheme  } from './decorators';
 import type { Preview } from '@storybook/vue3';
-import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
-import scss from 'react-syntax-highlighter/dist/esm/languages/prism/scss';
 import { setup } from '@storybook/vue3';
-import withTest from './decorators/withTest';
-import withTheme from "./decorators/withTheme";
 import './tailwindcss.css';
 import '@/styles/styles.scss';
 import './styles.scss';
-
-// Registers and enables scss language support
-SyntaxHighlighter.registerLanguage('scss', scss);
 
 document.body.onload = function() {
   // Set LTR as default directionality.
@@ -123,9 +117,14 @@ const preview: Preview = {
           }
         }
         return compareStoryPaths(storiesOrder, prevStoryPath, nextStoryPath)
-      }
+      },
     },
-    viewMode: 'docs',
+    docs: {
+      source: {
+        language: 'md',
+        format: true,
+      },
+    },
     backgrounds: {
       values: [
         {
@@ -154,7 +153,7 @@ const preview: Preview = {
   },
   decorators: [
     withTest,
-    withTheme
+    withTheme,
   ]
 }
 
