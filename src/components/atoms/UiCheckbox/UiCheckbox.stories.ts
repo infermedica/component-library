@@ -2,10 +2,8 @@ import {
   withVariants,
   withModelValue,
 } from '@sb/decorators';
-import {
-  content,
-  modifiers,
-} from '@sb/helpers/argTypes';
+import { content } from '@sb/helpers/argTypes';
+import { useArgTypes } from '@sb/helpers';
 import {
   UiIcon,
   UiCheckbox,
@@ -21,7 +19,7 @@ import type {
 
 type CheckboxArgsType = CheckboxProps & {
   content?: string;
-  class?: string[];
+  modifiers?: string[];
   items?: Required<CheckboxProps['value']>[];
 }
 type CheckboxMetaType = Meta<CheckboxArgsType>;
@@ -47,6 +45,7 @@ export const complexItemsData = [
   },
 ];
 
+const { argTypes } = useArgTypes(UiCheckbox, { variables: { regexp: /^(\.ui-checkbox|\.ui-checkbox__checkbox)$/ } });
 export default {
   title: 'Atoms/Checkbox',
   component: UiCheckbox,
@@ -54,28 +53,18 @@ export default {
   args: {
     modelValue: false,
     content: 'I read and accept Terms of Service and Privacy Policy.',
-    class: [],
+    modifiers: [],
     value: '',
     id: '',
     disabled: false,
-    inputAttrs: { 'data-testid': 'input' },
-    iconCheckmarkAttrs: { 'data-testid': 'icon' },
-    textLabelAttrs: { 'data-testid': 'text' },
+    inputAttrs: { 'data-testid': 'input-element' },
+    iconCheckmarkAttrs: { 'data-testid': 'icon-checkmark' },
+    textLabelAttrs: { 'data-testid': 'text-label' },
   },
   argTypes: {
+    ...argTypes,
     modelValue: { control: 'boolean' },
     content,
-    class: modifiers({
-      options: [
-        'ui-checkbox--has-error',
-        'ui-checkbox--is-disabled',
-      ],
-    }),
-    id: { control: 'text' },
-    value: { control: 'text' },
-    inputAttrs: { table: { subcategory: 'Attrs props' } },
-    iconCheckmarkAttrs: { table: { subcategory: 'Attrs props' } },
-    textLabelAttrs: { table: { subcategory: 'Attrs props' } },
   },
   parameters: {
     cssProperties: {
@@ -137,6 +126,7 @@ export default {
       '--checkbox-checked-hover-border-inline-color':
         'var(--checkbox-checked-hover-border-inline-start-color, var(--color-border-error-strong-hover)) var(--checkbox-checked-hover-border-inline-end-color, var(--color-border-error-strong-hover))',
     },
+    chromatic: { disableSnapshot: false },
   },
   decorators: [ withModelValue ],
 } satisfies CheckboxMetaType;
@@ -154,13 +144,54 @@ export const Basic: CheckboxStoryType = {
     </UiCheckbox>`,
   }),
 };
+Basic.parameters = {
+  docs: {
+    source: {
+      code: `<template>
+  <UiCheckbox
+    v-model="modelValue"
+    :value="value"
+    :id="id"
+    :disabled="disabled"
+    :input-attrs="inputAttrs"
+    :icon-checkmark-attrs="iconCheckmarkAttrs"
+    :text-label-attrs="textLabelAttrs"
+    :class="modifiers"
+  >
+    {{ content }}
+  </UiCheckbox>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import { UiCheckbox } from '@infermedica/component-library';
+
+const modelValue = ref(false);
+const value = '';
+const id = '';
+const disabled = false;
+const inputAttrs = {
+  'data-testid': 'input-element'
+};
+const iconCheckmarkAttrs = {
+  'data-testid': 'icon-checkmark'
+};
+const textLabelAttrs = {
+  'data-testid': 'text-label'
+};
+const modifiers = [];
+const content = 'I read and accept Terms of Service and Privacy Policy.';
+</script>"`,
+    },
+  },
+};
 
 export const BasicVariants: CheckboxStoryType = { ...Basic };
 BasicVariants.argTypes = {
   modelValue: { control: false },
   value: { control: false },
   disabled: { control: false },
-  class: { control: false },
+  modifiers: { control: false },
   id: { control: false },
   inputAttrs: { control: false },
   iconCheckmarkAttrs: { control: false },
@@ -168,6 +199,7 @@ BasicVariants.argTypes = {
 };
 BasicVariants.decorators = [ withVariants ];
 BasicVariants.parameters = {
+  docs: { source: { code: null } },
   variants: [
     {
       label: 'default',
@@ -208,6 +240,7 @@ BasicVariants.parameters = {
 
 export const DisabledVariants: CheckboxStoryType = { ...BasicVariants };
 DisabledVariants.parameters = {
+  docs: { source: { code: null } },
   variants: BasicVariants.parameters.variants.map(
     (variant: Record<string, unknown>) => ({
       ...variant,
@@ -218,6 +251,7 @@ DisabledVariants.parameters = {
 
 export const ErrorVariants: CheckboxStoryType = { ...BasicVariants };
 ErrorVariants.parameters = {
+  docs: { source: { code: null } },
   variants: BasicVariants.parameters.variants.map(
     (variant: Record<string, unknown>) => ({
       ...variant,
@@ -227,30 +261,101 @@ ErrorVariants.parameters = {
 };
 
 export const WithStringValue: CheckboxStoryType = { ...Basic };
-WithStringValue.args = {
-  modelValue: false,
-  value: 'I read and accept Terms of Service and Privacy Policy.',
-  content: 'I read and accept Terms of Service and Privacy Policy.',
+WithStringValue.args = { value: 'I read and accept Terms of Service and Privacy Policy.' };
+WithStringValue.parameters = {
+  docs: {
+    source: {
+      code: `<template>
+  <UiCheckbox
+    v-model="modelValue"
+    :value="value"
+    :id="id"
+    :disabled="disabled"
+    :input-attrs="inputAttrs"
+    :icon-checkmark-attrs="iconCheckmarkAttrs"
+    :text-label-attrs="textLabelAttrs"
+    :class="modifiers"
+  >
+    {{ content }}
+  </UiCheckbox>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import { UiCheckbox } from '@infermedica/component-library';
+
+const modelValue = ref(false);
+const value = 'I read and accept Terms of Service and Privacy Policy.';
+const id = '';
+const disabled = false;
+const inputAttrs = {
+  'data-testid': 'input-element'
 };
-WithStringValue.argTypes = {
-  modelValue: { control: 'boolean' },
-  value: { control: 'text' },
+const iconCheckmarkAttrs = {
+  'data-testid': 'icon-checkmark'
 };
-WithStringValue.parameters = { chromatic: { disableSnapshot: true } };
+const textLabelAttrs = {
+  'data-testid': 'text-label'
+};
+const modifiers = [];
+const content = 'I read and accept Terms of Service and Privacy Policy.';
+</script>"`,
+    },
+  },
+};
 
 export const WithObjectValue: CheckboxStoryType = { ...Basic };
 WithObjectValue.args = {
-  modelValue: [],
   value: {
     label: 'Europe',
     id: 'value-as-object-europe',
   },
 };
-WithObjectValue.argTypes = {
-  modelValue: { control: 'object' },
-  value: { control: 'object' },
+WithObjectValue.argTypes = { value: { control: 'object' } };
+WithStringValue.parameters = {
+  docs: {
+    source: {
+      code: `<template>
+  <UiCheckbox
+    v-model="modelValue"
+    :value="value"
+    :id="id"
+    :disabled="disabled"
+    :input-attrs="inputAttrs"
+    :icon-checkmark-attrs="iconCheckmarkAttrs"
+    :text-label-attrs="textLabelAttrs"
+    :class="modifiers"
+  >
+    {{ content }}
+  </UiCheckbox>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import { UiCheckbox } from '@infermedica/component-library';
+
+const modelValue = ref(false);
+const value = {
+  label: 'Europe',
+  id: 'value-as-object-europe',
 };
-WithObjectValue.parameters = { chromatic: { disableSnapshot: true } };
+const id = '';
+const disabled = false;
+const inputAttrs = {
+  'data-testid': 'input-element'
+};
+const iconCheckmarkAttrs = {
+  'data-testid': 'icon-checkmark'
+};
+const textLabelAttrs = {
+  'data-testid': 'text-label'
+};
+const modifiers = [];
+const content = 'I read and accept Terms of Service and Privacy Policy.';
+</script>"`,
+    },
+  },
+};
 
 const AsGroupTemplate: CheckboxStoryType = {
   render: () => ({
@@ -270,8 +375,9 @@ const AsGroupTemplate: CheckboxStoryType = {
         v-for="(item, key) in items"
         :key="key"
         v-bind="$attrs"
+        :class="modifiers"
         :tag="UiCheckbox"
-        :value="item"
+        :value="item.id || item"
       >
         {{ item.label || item}}
       </UiListItem>
@@ -281,13 +387,11 @@ const AsGroupTemplate: CheckboxStoryType = {
 AsGroupTemplate.argTypes = {
   modelValue: { control: 'array' },
   items: {
-    description: 'Values of the checkbox group.',
     table: { category: 'stories controls' },
     control: 'object',
   },
   id: { control: false },
   value: { control: false },
-  class: { control: false },
   content: { control: false },
 };
 
@@ -296,11 +400,93 @@ AsGroupWithStringValue.args = {
   modelValue: [],
   items: stringItemsData,
 };
+AsGroupWithStringValue.parameters = {
+  docs: {
+    source: {
+      code: `<template>
+  <UiList>
+    <UiListItem
+      v-for="(item, key) in items"
+      :key="key"
+      v-model="modelValue"
+      :input-attrs="inputAttrs"
+      :icon-checkmark-attrs="iconCheckmarkAttrs"
+      :text-label-attrs="textLabelAttrs"
+      :tag="UiCheckbox"
+      :value="item"
+    >
+      {{ item }}
+    </UiListItem>
+  </UiList>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import { UiCheckbox } from '@infermedica/component-library';
+
+const modelValue = ref([]);
+const disabled = false;
+const inputAttrs = {
+  'data-testid': 'input-element'
+};
+const iconCheckmarkAttrs = {
+  'data-testid': 'icon-checkmark'
+};
+const textLabelAttrs = {
+  'data-testid': 'text-label'
+};
+const modifiers = [];
+const items = ${JSON.stringify(stringItemsData)}
+</script>"`,
+    },
+  },
+};
 
 export const AsGroupWithObjectValue: CheckboxStoryType = { ...AsGroupTemplate };
 AsGroupWithObjectValue.args = {
   modelValue: [],
   items: complexItemsData,
+};
+AsGroupWithObjectValue.parameters = {
+  docs: {
+    source: {
+      code: `<template>
+  <UiList>
+    <UiListItem
+      v-for="(item, key) in items"
+      :key="key"
+      v-model="modelValue"
+      :input-attrs="inputAttrs"
+      :icon-checkmark-attrs="iconCheckmarkAttrs"
+      :text-label-attrs="textLabelAttrs"
+      :tag="UiCheckbox"
+      :value="item.id"
+    >
+      {{ item }}
+    </UiListItem>
+  </UiList>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import { UiCheckbox } from '@infermedica/component-library';
+
+const modelValue = ref([]);
+const disabled = false;
+const inputAttrs = {
+  'data-testid': 'input-element'
+};
+const iconCheckmarkAttrs = {
+  'data-testid': 'icon-checkmark'
+};
+const textLabelAttrs = {
+  'data-testid': 'text-label'
+};
+const modifiers = [];
+const items = ${JSON.stringify(complexItemsData)}
+</script>"`,
+    },
+  },
 };
 
 export const WithCheckboxSlot: CheckboxStoryType = {
@@ -333,6 +519,63 @@ export const WithCheckboxSlot: CheckboxStoryType = {
     </UiCheckbox>`,
   }),
 };
+WithCheckboxSlot.parameters = {
+  docs: {
+    source: {
+      code: `<template>
+  <UiCheckbox
+    v-model="modelValue"
+    :value="value"
+    :id="id"
+    :disabled="disabled"
+    :input-attrs="inputAttrs"
+    :icon-checkmark-attrs="iconCheckmarkAttrs"
+    :text-label-attrs="textLabelAttrs"
+    :class="modifiers"
+  >
+    <template #checkbox="{
+      checked,
+      iconCheckmarkAttrs
+    }">
+      <div
+        :class="[
+          'ui-checkbox__checkbox',
+          { 'ui-checkbox__checkbox--is-checked': checked },
+        ]"
+      >
+        <UiIcon
+          v-bind="iconCheckmarkAttrs"
+          class="ui-checkbox__checkmark"
+        />
+      </div>
+    </template>
+    {{ content }}
+  </UiCheckbox>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import { UiCheckbox } from '@infermedica/component-library';
+
+const modelValue = ref(false);
+const value = '';
+const id = '';
+const disabled = false;
+const inputAttrs = {
+  'data-testid': 'input-element'
+};
+const iconCheckmarkAttrs = {
+  'data-testid': 'icon-checkmark'
+};
+const textLabelAttrs = {
+  'data-testid': 'text-label'
+};
+const modifiers = [];
+const content = 'I read and accept Terms of Service and Privacy Policy.';
+</script>"`,
+    },
+  },
+};
 
 export const WithCheckmarkSlot: CheckboxStoryType = {
   render: () => ({
@@ -355,6 +598,55 @@ export const WithCheckmarkSlot: CheckboxStoryType = {
       {{ content }}
     </UiCheckbox>`,
   }),
+};
+WithCheckmarkSlot.parameters = {
+  docs: {
+    source: {
+      code: `<template>
+  <UiCheckbox
+    v-model="modelValue"
+    :value="value"
+    :id="id"
+    :disabled="disabled"
+    :input-attrs="inputAttrs"
+    :icon-checkmark-attrs="iconCheckmarkAttrs"
+    :text-label-attrs="textLabelAttrs"
+    :class="modifiers"
+  >
+    <template
+      #checkmark="{ iconCheckmarkAttrs }"
+    >
+      <UiIcon
+        v-bind="iconCheckmarkAttrs"
+        class="ui-checkbox__checkmark"
+      />
+    </template>
+    {{ content }}
+  </UiCheckbox>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import { UiCheckbox } from '@infermedica/component-library';
+
+const modelValue = ref(false);
+const value = '';
+const id = '';
+const disabled = false;
+const inputAttrs = {
+  'data-testid': 'input-element'
+};
+const iconCheckmarkAttrs = {
+  'data-testid': 'icon-checkmark'
+};
+const textLabelAttrs = {
+  'data-testid': 'text-label'
+};
+const modifiers = [];
+const content = 'I read and accept Terms of Service and Privacy Policy.';
+</script>"`,
+    },
+  },
 };
 
 export const WithLabelSlot: CheckboxStoryType = {
@@ -380,4 +672,55 @@ export const WithLabelSlot: CheckboxStoryType = {
       </template>
     </UiCheckbox>`,
   }),
+};
+WithLabelSlot.parameters = {
+  docs: {
+    source: {
+      code: `<template>
+  <UiCheckbox
+    v-model="modelValue"
+    :value="value"
+    :id="id"
+    :disabled="disabled"
+    :input-attrs="inputAttrs"
+    :icon-checkmark-attrs="iconCheckmarkAttrs"
+    :text-label-attrs="textLabelAttrs"
+    :class="modifiers"
+  >
+    <template #label="{
+      hasLabel,
+      textLabelAttrs,
+    }">
+      <UiText
+        v-bind="textLabelAttrs"
+        class="ui-checkbox__label"
+      >
+        {{ content }}
+      </UiText>
+    </template>
+  </UiCheckbox>>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import { UiCheckbox } from '@infermedica/component-library';
+
+const modelValue = ref(false);
+const value = '';
+const id = '';
+const disabled = false;
+const inputAttrs = {
+  'data-testid': 'input-element'
+};
+const iconCheckmarkAttrs = {
+  'data-testid': 'icon-checkmark'
+};
+const textLabelAttrs = {
+  'data-testid': 'text-label'
+};
+const modifiers = [];
+const content = 'I read and accept Terms of Service and Privacy Policy.';
+</script>"`,
+    },
+  },
 };
