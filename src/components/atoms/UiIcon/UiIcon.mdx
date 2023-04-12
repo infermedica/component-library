@@ -1,40 +1,34 @@
-import { Canvas, Meta, Controls } from '@storybook/blocks';
-import { Code } from '../../../../docs/components/Code';
-import { Alert } from '../../../../docs/components/Alert';
-import * as stories from './UiIcon.stories.js';
-import scss from './UiIcon.stories.scss?raw';
+import { Canvas, Meta, Controls } from "@storybook/blocks";
+import { MetaActions } from "../../../../docs/components";
+import * as UiIconStories from "./UiIcon.stories";
 
-<Meta of={stories}/>
+<Meta of={ UiIconStories } />
 
-# UiIcon
-<Canvas of={stories.IconAsName}/>
-<Controls of={stories.IconAsName}/>
+# Icon
+<MetaActions stories={ UiIconStories }/>
+
+{/* TODO: add description */}
+
+<Canvas of={ UiIconStories.Basic } />
+<Controls of={ UiIconStories.Basic } />
 
 ## Stories
-### Icon As Import
-<Canvas of={stories.IconAsImport}/>
+### All icons
+{/* TODO: add description */}
+<Canvas of={ UiIconStories.AllIcons } />
 
-### As Illustration
-<Canvas of={stories.IconAsIllustration}/>
+## Imported Icon
+{/* TODO: add description */}
+<Canvas of={ UiIconStories.ImportedIcon } />
 
-**Use following SCSS to get the same result**
-<Code
-  id="icon-as-illustration"
-  code={ scss }
-/>
+### All Illustrations
+{/* TODO: add description */}
+<Canvas of={ UiIconStories.AllIllustrations } />
 
-### As custom Illustration
-<Canvas of={stories.IconAsCustomIllustration}/>
+### RTL Illustrations
+{/* TODO: add description */}
+<Canvas of={ UiIconStories.RTLIllustrations } />
 
-**Use following SCSS to get the same result**
-<Code
-  id="icon-as-custom-illustration"
-  code={ scss }
-/>
-
-<Alert>
-  <p>You can use browser dev tools or check source files in repository <code>src/assets/icons/*.svg</code> to get more CSS Variables.</p>
-</Alert>
-
-## List Of Icons
-<Canvas of={stories.ListOfIcons}/>
+### With Custom Colors Illustration
+{/* TODO: add description */}
+<Canvas of={ UiIconStories.IllustrationWithCustomColors }/>

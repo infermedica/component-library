@@ -3,15 +3,24 @@
     class="ui-input"
     v-bind="attrs"
   >
-    <div class="ui-input__outline">
-      <!-- @slot Use this slot to replace input template. -->
+    <div
+      class="ui-input__outline"
+      v-bind="outlineAttrs"
+    >
+      <!--
+        @slot Use this slot to replace input template.
+        @binding {function} input
+        @binding {InputModelValue} value
+        @validation {function} keyValidation
+        @binding {DefineAttrsProps} inputAttrs
+       -->
       <slot
         name="input"
         v-bind="{
-          inputAttrs: defaultProps.inputAttrs,
           input: inputHandler,
           value: modelValue,
-          validation: keyValidation
+          validation: keyValidation,
+          inputAttrs: defaultProps.inputAttrs
         }"
       >
         <input
@@ -25,7 +34,11 @@
         >
       </slot>
     </div>
-    <!-- @slot Use this slot to place aside element. -->
+    <!--
+      @slot Use this slot to place aside element.
+      @binding {string} suffix
+      @binding {TextAttrsProps} textSuffixAttrs
+     -->
     <slot
       name="aside"
       v-bind="{
@@ -95,6 +108,10 @@ export interface InputProps {
    * Use this props to pass attrs for input element.
    */
   inputAttrs?: DefineAttrsProps<InputProps, InputHTMLAttributes>;
+  /**
+   * Use this props to pass attrs for outline element.
+   */
+  outlineAttrs?: HTMLAttributes;
 }
 export type InputAttrsProps = DefineAttrsProps<InputProps>;
 export interface InputEmits {
@@ -109,6 +126,7 @@ const props = withDefaults(defineProps<InputProps>(), {
   suffix: '',
   textSuffixAttrs: () => ({ tag: 'span' }),
   inputAttrs: () => ({}),
+  outlineAttrs: () => ({}),
 });
 const defaultProps = computed(() => {
   const tag: TextAttrsProps['tag'] = 'span';

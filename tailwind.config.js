@@ -26,13 +26,17 @@ module.exports = {
       90: '22.5rem',
       120: '30rem',
       147: '36.75rem',
+      150: '37.5rem',
       158: '39.5rem',
       171: '42.75rem',
       195: '48.75rem',
     },
     extend: {
       flex: { full: '0 0 100%' },
-      gridTemplateColumns: { icon: 'repeat(auto-fill, minmax(8rem, 1fr))' },
+      gridTemplateColumns: {
+        icon: 'repeat(auto-fill, minmax(9rem, 1fr))',
+        illustration: 'repeat(auto-fill, minmax(15rem, 1fr))',
+      },
     },
   },
   plugins: [],

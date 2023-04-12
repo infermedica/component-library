@@ -25,7 +25,11 @@
       }"
     >
       <div class="ui-range__input">
-        <!-- @slot Use this slot to replace value template. -->
+        <!--
+          @slot Use this slot to replace value template.
+          @binding {number} value
+          @binding {HeadingAttrsProps} headingValueAttrs
+         -->
         <slot
           name="value"
           v-bind="{
@@ -40,15 +44,22 @@
             {{ value }}
           </UiHeading>
         </slot>
-        <!-- @slot Use this slot to replace range template. --->
+        <!--
+          @slot Use this slot to replace range template.
+          @binding {number} value
+          @binding {number} min
+          @binding {number} max
+          @binding {DefineAttrsProps} inputAttrs
+          @binding {function} change
+         -->
         <slot
           name="range"
           v-bind="{
-            inputAttrs: defaultProps.inputAttrs,
+            value,
             min,
             max,
-            change,
-            value
+            inputAttrs: defaultProps.inputAttrs,
+            change
           }"
         >
           <input
@@ -75,7 +86,10 @@ export default { inheritAttrs: false };
 </script>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import {
+  computed,
+  onMounted,
+} from 'vue';
 import type { InputHTMLAttributes } from 'vue';
 import useAttributes from '../../../composable/useAttributes';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
@@ -157,6 +171,9 @@ const changeHandler = (value: RangeModelValue) => {
   emit('update:modelValue', value);
 };
 const numberStepperAttrs = computed<NumberStepperAttrsProps>(() => ({ ...attrs.value }));
+onMounted(() => {
+  // console.log(props);
+});
 </script>
 
 <style lang="scss">

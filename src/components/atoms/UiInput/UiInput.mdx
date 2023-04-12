@@ -1,0 +1,41 @@
+import { Canvas, Meta, Controls } from "@storybook/blocks";
+import { MetaActions } from "../../../../docs/components";
+import * as UiInputStories from "./UiInput.stories";
+
+<Meta of={ UiInputStories } />
+
+# Input
+<MetaActions stories={ UiInputStories }/>
+{/* TODO: add description */}
+<Canvas of={ UiInputStories.Basic } />
+<Controls of={ UiInputStories.Basic } />
+
+# Stories
+## Empty
+{/* TODO: add description */}
+<Canvas of={ UiInputStories.Empty } />
+
+## Filed
+{/* TODO: add description */}
+<Canvas of={ UiInputStories.Filled } />
+
+## With Error
+{/* TODO: add description */}
+<Canvas of={ UiInputStories.WithError } />
+
+## With Suffix
+{/* TODO: add description */}
+<Canvas of={ UiInputStories.WithSuffix } />
+
+## With Button Aside
+{/* TODO: add description */}
+<Canvas of={ UiInputStories.WithButtonAside } />
+
+## With Input Slot
+{/* TODO: add description */}
+<Canvas of={ UiInputStories.WithAsideSlot } />
+
+## With Aside Slot
+{/* TODO: add description */}
+<Canvas of={ UiInputStories.WithAsideSlot } />
+

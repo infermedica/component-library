@@ -1,0 +1,16 @@
+import {
+  Canvas,
+  Meta,
+  Controls
+} from "@storybook/blocks";
+import { MetaActions } from "../../../../docs/components";
+import * as UiBackdropStories from "./UiBackdrop.stories";
+
+<Meta of={ UiBackdropStories } />
+
+# Backdrop
+<MetaActions stories={ UiBackdropStories }/>
+{/* TODO: add description */}
+
+<Canvas of={ UiBackdropStories.Basic } />
+<Controls of={ UiBackdropStories.Basic } />

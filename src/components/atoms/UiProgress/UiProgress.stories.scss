@@ -1,16 +1,10 @@
-//<Code id="progress-low-value-no-radius">
-.progress-low-value-no-radius {
-  --progress-border-start-start-radius: 0;
-  --progress-border-start-end-radius: 0;
-  --progress-border-end-start-radius: 0;
-  --progress-border-end-end-radius: 0;
-  --progress-indicator-border-start-end-radius: 0;
-  --progress-indicator-border-end-end-radius: 0;
-}
-//</Code>
+@use "../../../styles/mixins";
 
-//<Code id="progress-low-value-but-height">
-.progress-low-value-but-height {
+.no-radius-progress {
+  @include mixins.override-logical('progress', null, border-radius, 0);
+  @include mixins.override-logical('progress-indicator', null, border-radius, 0);
+}
+
+.heights-progress {
   --progress-height: 3rem;
 }
-//</Code>

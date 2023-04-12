@@ -95,7 +95,22 @@ const replacePseudoSelectors = (selector) => {
   }
   return rulesProcessed;
 }
-export const withVariants = (story, { componentId, id, parameters }) => ({
+const getModifiers = (variant, args) => {
+  if( typeof variant.class === 'string' ) {
+    variant.class = variant.class.split(' ');
+  }
+  if( typeof variant.class === 'undefined' ) {
+    variant.class = []
+  }
+  if( typeof args.modifiers === 'undefined' ) {
+    args.modifiers = []
+  }
+  return [
+    ...variant.class,
+    ...args.modifiers,
+  ]
+}
+export const withVariants = (story, { componentId, id, parameters, args }) => ({
   components: { story },
   setup() {
     const componentClassName = `.ui-${componentId.split('-')[1]}`;
@@ -105,15 +120,29 @@ export const withVariants = (story, { componentId, id, parameters }) => ({
       removeStylesFromDOM(id);
     })
     return {
-      variants: parameters.variants
+      variants: parameters.variants,
+      args,
+      getModifiers,
     }
   },
   template: `<div class="variants">
     <template v-for="({label, ...rest}, index) in variants" :key="index">
-      <span class="variants__label">
+      <span
+        v-if="label"
+        class="variants__label"
+      >
         {{ label }}:
       </span>
-      <story v-bind="rest"/>
+      <!-- *required -->
+      <div>
+        <story
+            v-bind="{
+              ...rest,
+              class: '',
+              modifiers: getModifiers(rest, args),
+            }"
+        />
+      </div>
     </template>
   </div>`
 })

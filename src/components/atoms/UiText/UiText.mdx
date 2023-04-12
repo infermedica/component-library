@@ -1,0 +1,27 @@
+import { Canvas, Meta, Controls } from "@storybook/blocks";
+import { MetaActions } from "../../../../docs/components";
+import * as UiTextStories from "./UiText.stories";
+
+<Meta of={ UiTextStories } />
+
+# Text
+<MetaActions stories={ UiTextStories }/>
+{/* TODO: add description */}
+<Canvas of={ UiTextStories.Basic } />
+<Controls of={ UiTextStories.Basic } />
+
+# Stories
+## All Variants
+{/* TODO: add description */}
+<Canvas of={ UiTextStories.AllVariants } />
+
+## Secondary
+{/* TODO: add description */}
+<Canvas of={ UiTextStories.Secondary } />
+
+## Brand
+{/* TODO: add description */}
+<Canvas
+  of={ UiTextStories.Brand }
+  className='sb-canvas-brand'
+/>

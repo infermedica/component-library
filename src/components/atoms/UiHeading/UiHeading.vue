@@ -50,6 +50,7 @@ const headingClass = computed(() => `ui-heading--h${props.level}`);
 
   color: functions.var($element, color, var(--color-text-heading));
 
+  // TODO: Should we support this?
   @for $i from 1 through 6 {
     &--h#{$i} {
       font: functions.var($element, font, var(--font-h#{$i}));

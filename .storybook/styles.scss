@@ -39,11 +39,17 @@ body {
   }
 }
 
+// background color for <Canvas> elements
+.sb-canvas-brand {
+  background-color: var(--color-background-brand)!important;
+}
+
 // styles for withVariants decorator
 .variants {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 20px 30px;
+  justify-content: start;
 
   &__label {
     display: flex;

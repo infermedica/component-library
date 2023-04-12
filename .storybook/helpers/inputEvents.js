@@ -1,12 +1,2 @@
-export const inputEvents = {
-  __docgenInfo: {
-    events: [
-      {
-        name: 'onFocus',
-      },
-      {
-        name: 'onBlur',
-      }
-    ]
-  }
-}
+import { extendEvents } from './extendEvents'
+export const inputEvents = extendEvents([ 'onFocus', 'onBlur']);

@@ -1,0 +1,24 @@
+import { Canvas, Meta, Controls } from "@storybook/blocks";
+import { MetaActions } from "../../../../docs/components";
+import * as UiTextareaStories from "./UiTextarea.stories";
+
+<Meta of={ UiTextareaStories } />
+
+# Textarea
+<MetaActions stories={ UiTextareaStories }/>
+{/* TODO: add description */}
+<Canvas of={ UiTextareaStories.Basic } />
+<Controls of={ UiTextareaStories.Basic } />
+
+# Stories
+## Empty
+{/* TODO: add description */}
+<Canvas of={ UiTextareaStories.Empty } />
+
+## Filled
+{/* TODO: add description */}
+<Canvas of={ UiTextareaStories.Filled } />
+
+## With Error
+{/* TODO: add description */}
+<Canvas of={ UiTextareaStories.WithError } />
