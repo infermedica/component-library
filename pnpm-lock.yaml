@@ -1772,6 +1772,10 @@ packages:
     resolution: {integrity: sha512-6U71C2Wp7r5XtFtQzYrW5iKFT67OixrSxjI4MptCHzdSVlgabczzqLe0ZSgnub/5Kp4hSbpDB1tMytZY9pwxxA==}
     dev: true
 
+  /@emotion/weak-memoize/0.2.5:
+    resolution: {integrity: sha512-6U71C2Wp7r5XtFtQzYrW5iKFT67OixrSxjI4MptCHzdSVlgabczzqLe0ZSgnub/5Kp4hSbpDB1tMytZY9pwxxA==}
+    dev: true
+
   /@esbuild/android-arm/0.17.15:
     resolution: {integrity: sha512-sRSOVlLawAktpMvDyJIkdLI/c/kdRTOqo8t6ImVxg8yT7LQDUYV5Rp2FKeEosLr6ZCja9UjYAzyRSxGteSJPYg==}
     engines: {node: '>=12'}
@@ -11555,6 +11559,12 @@ packages:
     dependencies:
       prop-types: 15.8.1
     dev: false
+
+  /react-github-button/0.1.11:
+    resolution: {integrity: sha512-KL/kieQiR5DXd1RxWMegr4Igyz9+Lm6ZVwjpN5rQyttz/sdEq8DF1R/vzLl2f58nChJe0sKE3U3A7QRK+Zb01w==}
+    dependencies:
+      prop-types: 15.8.1
+    dev: true
 
   /react-github-button/0.1.11:
     resolution: {integrity: sha512-KL/kieQiR5DXd1RxWMegr4Igyz9+Lm6ZVwjpN5rQyttz/sdEq8DF1R/vzLl2f58nChJe0sKE3U3A7QRK+Zb01w==}
