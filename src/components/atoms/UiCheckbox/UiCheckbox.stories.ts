@@ -422,7 +422,11 @@ AsGroupWithStringValue.parameters = {
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { UiCheckbox } from '@infermedica/component-library';
+import {
+  UiCheckbox,
+  UiList,
+} from '@infermedica/component-library';
+import UiListItem from '@infermedica/component-library/components/organisms/UiList/_internal/UiListItem.vue';
 
 const modelValue = ref([]);
 const disabled = false;
@@ -469,7 +473,11 @@ AsGroupWithObjectValue.parameters = {
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { UiCheckbox } from '@infermedica/component-library';
+import {
+  UiCheckbox,
+  UiList,
+} from '@infermedica/component-library';
+import UiListItem from '@infermedica/component-library/components/organisms/UiList/_internal/UiListItem.vue';
 
 const modelValue = ref([]);
 const disabled = false;
