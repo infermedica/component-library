@@ -12,9 +12,7 @@ import {
   getStyleTests,
   getFocusTests,
 } from '@tests/interactions/helpers';
-import {
-  content,
-} from '@sb/helpers/argTypes';
+import { content } from '@sb/helpers/argTypes';
 import type { PlayFunctionContext } from '@storybook/types';
 import { useArgTypes } from '@sb/helpers';
 import type { RadioProps } from '@index';

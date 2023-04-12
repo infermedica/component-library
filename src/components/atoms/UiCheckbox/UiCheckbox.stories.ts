@@ -567,7 +567,7 @@ AsGroupWithObjectValue.parameters = {
       :tag="UiCheckbox"
       :value="item.id"
     >
-      {{ item }}
+      {{ item.label }}
     </UiListItem>
   </UiList>
 </template>
