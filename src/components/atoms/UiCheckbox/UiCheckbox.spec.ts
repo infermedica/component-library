@@ -34,7 +34,7 @@ describe('UiCheckbox.vue', () => {
   afterEach(() => {
     wrapper.unmount();
   });
-  const getInput = (story = wrapper) => story.find('[data-testid="input"]');
+  const getInput = (story = wrapper) => story.find('[data-testid="input-element"]');
   const toggleInput = (story = wrapper, value = true) => getInput(story).setValue(value);
   const setChecked = (story?: VueWrapper) => toggleInput(story);
   const setUnchecked = (story?: VueWrapper) => toggleInput(story, false);
@@ -131,7 +131,7 @@ describe('UiCheckbox.vue', () => {
         story: WithCheckmarkSlot({
           iconCheckmarkAttrs: {
             id: 'test-id',
-            'data-testid': 'icon',
+            'data-testid': 'icon-element',
             class: 'test-class',
             icon: 'no',
           },
@@ -144,7 +144,7 @@ describe('UiCheckbox.vue', () => {
         story: WithCheckboxSlot({
           iconCheckmarkAttrs: {
             id: 'test-id',
-            'data-testid': 'icon',
+            'data-testid': 'icon-element',
             class: 'test-class',
             icon: 'no',
           },
@@ -157,7 +157,7 @@ describe('UiCheckbox.vue', () => {
         story: WithLabelSlot({
           textLabelAttrs: {
             id: 'test-id',
-            'data-testid': 'label',
+            'data-testid': 'label-element',
             class: 'ui-checkbox__label',
             tag: 'p',
           },
