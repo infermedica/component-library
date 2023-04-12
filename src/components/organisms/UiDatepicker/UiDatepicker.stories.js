@@ -137,12 +137,12 @@ export default {
   }) ],
   parameters: {
     cssProperties: {
-      '--datepicker-dropdown-margin-block': 'var(--datepicker-dropdown-margin-block-start, var(--space-32)) var(--datepicker-dropdown-margin-block-end, 0)',
-      '--datepicker-dropdown-margin-inline': 'var(--datepicker-dropdown-margin-inline-start, var(--space-24)) var(--datepicker-dropdown-margin-inline-end, 0)',
+      '--datepicker-dropdown-margin-block':
+        'var(--datepicker-dropdown-margin-block-start, var(--space-32)) var(--datepicker-dropdown-margin-block-end, 0)',
+      '--datepicker-dropdown-margin-inline':
+        'var(--datepicker-dropdown-margin-inline-start, var(--space-24)) var(--datepicker-dropdown-margin-inline-end, 0)',
       '--datepicker-fields-gap': 'var(--space-8)',
       '--datepicker-group-field-gap': 'var(--space-8)',
-      '--datepicker-label-font': 'var(--font-body-2-comfortable)',
-      '--datepicker-label-letter-spacing': 'var(--letter-spacing-2-comfortable)',
     },
   },
 };

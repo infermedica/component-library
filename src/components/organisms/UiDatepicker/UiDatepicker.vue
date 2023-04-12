@@ -14,7 +14,7 @@
         >
           <UiText
             v-bind="getTextAttrs(datePart)"
-            class="ui-datepicker__label"
+            class="ui-text--body-2-comfortable ui-datepicker__label"
           >
             {{ capitalizeFirst(defaultProps.translation[datePart]) }}
           </UiText>
@@ -614,8 +614,6 @@ provide<ComputedRef<Record<string, DatepickerDatePart>>>('inputsIds', inputsIds)
 
   &__label {
     display: block;
-    font: functions.var($element + '-label', font, var(--font-body-2-comfortable));
-    letter-spacing: functions.var($element + '-label', letter-spacing, var(--letter-spacing-2-comfortable));
   }
 }
 </style>
