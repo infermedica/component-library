@@ -2,32 +2,47 @@
   <div
     class="ui-number-stepper"
   >
-    <!-- @slot Use this slot to place content inside number stepper. -->
+    <!--
+      @slot Use this slot to place content inside number stepper.
+      @binding {number} value
+      @binding {number} min
+      @binding {number} max
+      @binding {number} step
+      @binding {function} change
+     -->
     <slot
       v-bind="{
-        change,
         value: modelValue,
         min,
         max,
-        step
+        step,
+        change,
       }"
     />
-    <!-- @slot Use this slot to replace decrement template. -->
+    <!--
+      @slot Use this slot to replace decrement template.
+      @binding {boolean} hasControls
+      @binding {boolean} isMin
+      @binding {ButtonAttrsProps} buttonDecrementAttrs
+      @binding {IconAttrsProps} iconDecrementAttrs
+      @binding {function} decrement
+     -->
     <slot
       name="decrement"
       v-bind="{
         hasControls,
-        buttonDecrementAttrs: defaultProps.buttonDecrementAttrs,
         isMin,
-        decrement,
+        buttonDecrementAttrs: defaultProps.buttonDecrementAttrs,
         iconDecrementAttrs: defaultProps.iconDecrementAttrs,
+        decrement,
       }"
     >
       <UiButton
         v-if="hasControls"
         v-bind="defaultProps.buttonDecrementAttrs"
-        class="ui-button--outlined ui-button--circled ui-number-stepper__decrement"
-        :class="{ 'ui-button--is-disabled': isMin }"
+        :class="[
+          'ui-button--outlined ui-button--circled ui-number-stepper__decrement', { 'ui-button--is-disabled': isMin }
+        ]"
         @click="decrement"
       >
         <UiIcon
@@ -36,22 +51,31 @@
         />
       </UiButton>
     </slot>
-    <!-- @slot Use this slot to replace increment template. -->
+    <!--
+      @slot Use this slot to replace increment template.
+      @binding {boolean} hasControls
+      @binding {boolean} isMac
+      @binding {ButtonAttrsProps} buttonIncrementAttrs
+      @binding {IconAttrsProps} iconIncrementAttrs
+      @binding {function} increment
+     -->
     <slot
       name="increment"
       v-bind="{
         hasControls,
-        buttonIncrementAttrs: defaultProps.buttonIncrementAttrs,
         isMax,
-        increment,
+        buttonIncrementAttrs: defaultProps.buttonIncrementAttrs,
         iconIncrementAttrs: defaultProps.iconIncrementAttrs,
+        increment,
       }"
     >
       <UiButton
         v-if="hasControls"
         v-bind="defaultProps.buttonIncrementAttrs"
-        class="ui-button--outlined ui-button--circled ui-number-stepper__increment"
-        :class="{ 'ui-button--is-disabled': isMax }"
+        :class="[
+          'ui-button--outlined ui-button--circled ui-number-stepper__increment',
+          { 'ui-button--is-disabled': isMax }
+        ]"
         @click="increment"
       >
         <UiIcon

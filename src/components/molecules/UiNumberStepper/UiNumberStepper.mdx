@@ -1,0 +1,33 @@
+import {
+  Canvas,
+  Meta,
+  Controls
+} from "@storybook/blocks";
+import { MetaActions } from "../../../../docs/components";
+import * as UiNumberStepperStories from "./UiNumberStepper.stories";
+
+<Meta of={ UiNumberStepperStories } />
+
+# Number Stepper
+<MetaActions stories={ UiNumberStepperStories }/>
+{/* TODO: add description */}
+
+<Canvas of={ UiNumberStepperStories.Basic } />
+<Controls of={ UiNumberStepperStories.Basic } />
+
+# Stories
+## Min
+{/* TODO: add description */}
+<Canvas of={ UiNumberStepperStories.Min } />
+
+## Max
+{/* TODO: add description */}
+<Canvas of={ UiNumberStepperStories.Max } />
+
+## With Decrement Slot
+{/* TODO: add description */}
+<Canvas of={ UiNumberStepperStories.WithDecrementSlot } />
+
+## With Increment Slot
+{/* TODO: add description */}
+<Canvas of={ UiNumberStepperStories.WithIncrementSlot } />

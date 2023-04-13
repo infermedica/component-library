@@ -85,13 +85,14 @@ export function useArgTypes(component, options = { variables: {}}) {
               }
             }
           }
-
           return {
             ...object,
             [name]: {
               control: false,
               table: {
-                summary: getBindings(bindings),
+                type: {
+                  summary: getBindings(bindings).join(' | '),
+                }
               }
             }
           }
