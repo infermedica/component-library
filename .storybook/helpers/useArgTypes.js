@@ -5,7 +5,7 @@ import {
 export function useArgTypes(component, options = { variables: {}}) {
   const { __docgenInfo } = component;
   const componentNameKebabCase = __docgenInfo?.displayName
-    .replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`)
+    ?.replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`)
     .substring(1);
   const cssRules = [...document?.styleSheets]
     .find( (styleSheet) => {

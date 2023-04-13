@@ -1,55 +1,139 @@
 import type {
   Meta,
+  StoryContext,
   StoryObj,
+  VueRenderer,
 } from '@storybook/vue3';
-import deepmerge from "deepmerge";
+import deepmerge from 'deepmerge';
 import {
   UiButton,
   UiIcon,
-  UiText
-} from '@/../index';
+  UiText,
+} from '@index';
+import type { ButtonProps } from '@index';
+import {
+  getCSSValue,
+  getStyleTests,
+  getFocusTests,
+} from '@tests/interactions/helpers';
 import { withVariants } from '@sb/decorators';
 import {
   useArgTypes,
-  extendEvents
-} from '@sb/helpers'
+  extendEvents,
+} from '@sb/helpers';
 import {
-  content,
-  icon
-} from '@sb/helpers/argTypes/index.js';
+  content as contentArgsType,
+  icon as iconArgsType,
+} from '@sb/helpers/argTypes/index';
+import type {
+  PartialStoryFn,
+  PlayFunctionContext,
+} from '@storybook/types';
+import type { Icon as IconType } from '@/types';
+import { defineComponent } from 'vue';
+
+type ButtonArgsType = ButtonProps & {
+  content?: string;
+  modifiers?: string[];
+  target?: string;
+  icon?: IconType;
+  iconEnd?: IconType
+}
+type ButtonMetaType = Meta<ButtonArgsType>;
+type ButtonStoryType = StoryObj<ButtonArgsType>;
+type PlayContext = PlayFunctionContext<VueRenderer, ButtonArgsType>;
+
+const getBasicVariantTests = async ({
+  canvasElement, step,
+}: PlayContext, results: Partial<CSSStyleDeclaration>[]) => {
+  const buttons = [ ...canvasElement.querySelectorAll('.ui-button') ];
+  await step('Correct background colors', () => {
+    getStyleTests(buttons, 'backgroundColor', results);
+  });
+  await step('Correct font colors', () => {
+    getStyleTests(buttons, 'color', results);
+  });
+  await getFocusTests(step, [ buttons[2] ]);
+};
+const getVariantTests = (
+  elements: Element[],
+  property: keyof CSSStyleDeclaration,
+  varName: string,
+  disabledVarName: string,
+) => {
+  getStyleTests(
+    elements,
+    property,
+    [
+      ...[
+        '',
+        '-hover',
+        '',
+        '-active',
+      ].map((state) => ({ [property]: getCSSValue(`${varName}${state}`) })),
+      { [property]: getCSSValue(disabledVarName) },
+    ],
+  );
+};
+const getTextVariantTests = async (
+  step: PlayContext['step'],
+  varName: string,
+  disabledVarName: string,
+) => {
+  await step('Correct font colors', () => {
+    getVariantTests([ ...document.querySelectorAll('.ui-button') ], 'color', varName, disabledVarName);
+  });
+  await getFocusTests(step, [ [ ...document.querySelectorAll('.ui-button') ][2] ]);
+};
+const getIconVariantTests = async (
+  step: PlayContext['step'],
+  varName: string,
+  disabledVarName: string,
+) => {
+  await step('Correct icon fill colors', () => {
+    getVariantTests([ ...document.querySelectorAll('.ui-button__icon') ], 'fill', varName, disabledVarName);
+  });
+  await getFocusTests(step, [ [ ...document.querySelectorAll('.ui-button') ][2] ]);
+};
 
 const buttonEvents = extendEvents([ 'onClick' ]);
 const { argTypes } = useArgTypes(deepmerge(UiButton, buttonEvents));
-const withIconVariants = ( Story, { parameters: { iconVariants }} ) => ({
+const withIconVariants = (
+  story: PartialStoryFn<VueRenderer, ButtonProps>,
+  { parameters: { iconVariants } }: StoryContext<ButtonArgsType>,
+) => defineComponent({
+  components: { story },
   setup(props, { attrs }) {
     return {
-      iconVariants: iconVariants.map(({icon, iconEnd}) => ({
+      iconVariants: (iconVariants as Record<string, unknown>[]).map(({
+        icon, iconEnd,
+      }) => ({
         iconEnd: iconEnd
           ? attrs.iconEnd
           : undefined,
         icon: icon
           ? attrs.icon
-          : undefined
+          : undefined,
       })),
       args: attrs,
-    }
+    };
   },
   template: `<template v-for="variant in iconVariants">
     <story v-bind="{
-      ...args, 
+      ...args,
       ...variant
     }" />
-  </template>`
+  </template>`,
 });
 
 const UiButtonIcon = {
   components: { UiIcon },
-  props: ['icon'],
+  props: [ 'icon' ],
   template: `<UiIcon
     :icon="icon"
     class="ui-button__icon"
-  />`
-}
+  />`,
+};
 
 const meta = {
   title: 'Atoms/Button',
@@ -60,26 +144,21 @@ const meta = {
   },
   argTypes: {
     ...argTypes,
-    content,
-    icon,
+    contentArgsType,
+    iconArgsType,
     iconEnd: {
       name: 'icon-end',
-      ...icon
+      ...iconArgsType,
     },
   },
   parameters: {
     chromatic: { disableSnapshot: false },
-    docs: {
-      source: {
-        code: null
-      }
-    }
-  }
-} satisfies Meta<typeof UiButton>
+    docs: { source: { code: null } },
+  },
+} satisfies ButtonMetaType;
 export default meta;
-type Story = StoryObj<typeof UiButton>;
 
-export const Basic: Story = {
+export const Basic: ButtonStoryType = {
   render: () => ({
     components: {
       UiButton,
@@ -92,7 +171,7 @@ export const Basic: Story = {
         iconEnd,
         modifiers,
         ...args
-      } = attrs
+      } = attrs;
       return {
         content,
         icon,
@@ -100,7 +179,7 @@ export const Basic: Story = {
         args: {
           ...args,
           class: modifiers,
-        }
+        },
       };
     },
     template: `<UiButton v-bind="args">
@@ -134,20 +213,16 @@ Basic.parameters = {
 import { UiButton } from '@infermedica/cpmponent-library'
 </script>
 `,
-    }
-  }
-}
+    },
+  },
+};
 
-export const RouterButton: Story = {
-  ...Basic
-}
-RouterButton.args = {
-  to: { path: '/blog/medical-guide-platform' },
-}
+export const RouterButton: ButtonStoryType = { ...Basic };
+RouterButton.args = { to: { path: '/blog/medical-guide-platform' } };
 RouterButton.argTypes = {
   tag: { control: false },
-  href: { control: false }
-}
+  href: { control: false },
+};
 RouterButton.parameters = {
   ...Basic.parameters,
   docs: {
@@ -162,27 +237,25 @@ import { UiButton } from '@infermedica/cpmponent-library';
 const to = { path: '/blog/medical-guide-platform' };
 </script>
 `,
-    }
-  }
-}
+    },
+  },
+};
 
-export const LinkButton: Story = {
-  ...Basic
-}
+export const LinkButton: ButtonStoryType = { ...Basic };
 LinkButton.args = {
   href: 'https://www.infermedica.com',
   target: '_blank',
-}
+};
 LinkButton.argTypes = {
   tag: { control: false },
-  to: { control: false }
-}
+  to: { control: false },
+};
 LinkButton.parameters = {
   ...Basic.parameters,
   docs: {
     source: {
       code: `<template>
-  <UiButton 
+  <UiButton
     :href="href"
     target="_blank"
   >{{ content }}</UiButton>
@@ -194,112 +267,163 @@ import { UiButton } from '@infermedica/cpmponent-library';
 const href = 'https://www.infermedica.com';
 </script>
 `,
-    }
-  }
-}
-
-export const Primary: Story = {
-  ...Basic
+    },
+  },
 };
+
+export const Primary: ButtonStoryType = { ...Basic };
 Primary.argTypes = {
   modifiers: {
     ...meta.argTypes.modifiers,
-    options: ['ui-button--small'],
+    options: [ 'ui-button--small' ],
   },
   to: { control: false },
   tag: { control: false },
-  href: { control: false }
+  href: { control: false },
 };
 Primary.decorators = [ withVariants ];
 Primary.parameters = {
   variants: [
     { label: 'default' },
-    ...['hover', 'focus', 'active'].map((variant) => ({
+    ...[
+      'hover',
+      'focus',
+      'active',
+    ].map((variant) => ({
       label: `${variant}`,
       class: `pseudo-${variant}`,
     })),
     {
       label: 'disabled',
       disabled: true,
-      class: 'ui-button--is-disabled'
+      class: 'ui-button--is-disabled',
     },
   ],
   chromatic: { disableSnapshot: false },
   docs: { source: { code: null } },
 };
+Primary.play = async (context) => {
+  getBasicVariantTests(context, [
+    ...[
+      '',
+      '-hover',
+      '',
+      '-active',
+    ].map((state) => ({
+      backgroundColor: getCSSValue(`--color-background-action${state}`),
+      color: getCSSValue('--color-text-on-action'),
+    })),
+    {
+      backgroundColor: getCSSValue('--color-background-disabled'),
+      color: getCSSValue('--color-text-on-action'),
+    },
+  ]);
+};
 
-export const Outlined: Story = {
-  ...Primary
-}
+export const Outlined: ButtonStoryType = { ...Primary };
 Outlined.parameters = {
   variants: {
-    ...Primary.parameters.variants.map((variant) => ({
+    ...Primary.parameters.variants.map((variant: Record<string, unknown>) => ({
       ...variant,
       class: `${variant.class} ui-button--outlined`,
-    }))
-  }
-}
+    })),
+  },
+};
+Outlined.play = async (context) => {
+  getBasicVariantTests(context, [
+    ...[
+      '',
+      '-hover',
+      '',
+      '-active',
+    ].map((state) => ({
+      backgroundColor: getCSSValue(state.length
+        ? `--color-background-white${state}`
+        : 'transparent'),
+      color: getCSSValue(`--color-text-action-primary${state}`),
+    })),
+    {
+      backgroundColor: getCSSValue('transparent'),
+      color: getCSSValue('--color-text-disabled'),
+    },
+  ]);
+};
 
-export const Text: Story = {
-  ...Primary
-}
+export const Text: ButtonStoryType = { ...Primary };
 Text.parameters = {
   variants: {
-    ...Primary.parameters.variants.map((variant) => ({
+    ...Primary.parameters.variants.map((variant: Record<string, unknown>) => ({
       ...variant,
       class: `${variant.class} ui-button--text`,
-    }))
-  }
-}
+    })),
+  },
+};
+Text.play = async ({ step }) => {
+  getTextVariantTests(
+    step,
+    '--color-text-action-primary',
+    '--color-text-disabled',
+  );
+};
 
-export const TextSecondary: Story = {
-  ...Text
-}
-TextSecondary.decorators = [
-  ...Text.decorators,
-  () => ({ template: '<div class="ui-button--theme-secondary"><story/></div>' })
-]
+export const TextSecondary: ButtonStoryType = { ...Text };
+TextSecondary.decorators = Text.decorators?.concat(
+  () => ({ template: '<div class="ui-button--theme-secondary"><story/></div>' }),
+);
+TextSecondary.play = async ({ step }) => {
+  getTextVariantTests(
+    step,
+    '--color-text-action-secondary',
+    '--color-text-disabled',
+  );
+};
 
-export const TextBrand: Story = {
-  ...Text
-}
+export const TextBrand: ButtonStoryType = { ...Text };
 TextBrand.parameters = {
   ...Text.parameters,
   backgrounds: { default: 'brand' },
 };
-TextBrand.decorators = [
-  ...Text.decorators,
-  () => ({ template: '<div class="ui-button--theme-brand"><story/></div>' })
-]
+TextBrand.decorators = Text.decorators?.concat(
+  () => ({ template: '<div class="ui-button--theme-brand"><story/></div>' }),
+);
+TextBrand.play = async ({ step }) => {
+  getTextVariantTests(
+    step,
+    '--color-text-on-brand',
+    '--color-text-on-brand-disabled',
+  );
+};
 
-export const Icon: Story = {
+export const Icon: ButtonStoryType = {
   render: () => ({
     components: {
       UiButton,
-      UiIcon
+      UiIcon,
     },
     setup(props, { attrs }) {
-      const { icon, ...args } = attrs;
+      const {
+        icon, ...args
+      } = attrs;
       return {
         icon,
         args: {
           ...args,
           class: args.modifiers,
-        }
+        },
       };
     },
-    template: `<UiButton 
-        v-bind="args" 
+    template: `<UiButton
+        v-bind="args"
         class="ui-button--icon"
     >
-      <UiIcon 
+      <UiIcon
         :icon="icon"
         class="ui-button__icon"
       />
     </UiButton>`,
   }),
-}
-Icon.args = { icon: 'plus-circled-filled' }
+};
+Icon.args = { icon: 'plus-circled-filled' };
 Icon.argTypes = {
   iconEnd: { control: false },
   modifiers: {
@@ -308,34 +432,43 @@ Icon.argTypes = {
   },
   to: { control: false },
   tag: { control: false },
-  href: { control: false }
+  href: { control: false },
 };
 Icon.decorators = [ withVariants ];
-Icon.parameters = {
-  ...Text.parameters
-}
+Icon.parameters = { ...Text.parameters };
+Icon.play = async ({ step }) => getIconVariantTests(
+  step,
+  '--color-icon-primary',
+  '--color-icon-disabled',
+);
 
-export const IconSecondary: Story = {
-  ...Icon
-}
+export const IconSecondary: ButtonStoryType = { ...Icon };
 IconSecondary.decorators = [
   ...Icon.decorators,
-  () => ({ template: '<div class="ui-button--theme-secondary"><story/></div>' })
-]
+  () => ({ template: '<div class="ui-button--theme-secondary"><story/></div>' }),
+];
+IconSecondary.play = async ({ step }) => getIconVariantTests(
+  step,
+  '--color-icon-secondary',
+  '--color-icon-disabled',
+);
 
-export const IconBrand: Story = {
-  ...Icon
-}
+export const IconBrand: ButtonStoryType = { ...Icon };
 IconBrand.parameters = {
   ...Icon.parameters,
   backgrounds: { default: 'brand' },
 };
 IconBrand.decorators = [
   ...Icon.decorators,
-  () => ({ template: '<div class="ui-button--theme-brand"><story/></div>' })
-]
+  () => ({ template: '<div class="ui-button--theme-brand"><story/></div>' }),
+];
+IconBrand.play = async ({ step }) => getIconVariantTests(
+  step,
+  '--color-text-on-brand',
+  '--color-text-on-brand-disabled',
+);
 
-export const Circled: Story = {
+export const Circled: ButtonStoryType = {
   render: () => ({
     components: {
       UiButton,
@@ -354,10 +487,10 @@ export const Circled: Story = {
         args: {
           ...args,
           class: args.modifiers,
-        }
+        },
       };
     },
-    template: `<UiButton 
+    template: `<UiButton
       v-bind="args"
       class="ui-button--circled"
     >
@@ -365,12 +498,12 @@ export const Circled: Story = {
         {{ content }}
       </UiText>
     </UiButton>
-    <UiButton 
+    <UiButton
       v-bind="args"
       class="ui-button--circled"
     >
-      <UiIcon 
-        :icon="icon" 
+      <UiIcon
+        :icon="icon"
         class="ui-button__icon"
       />
     </UiButton>`,
@@ -388,53 +521,49 @@ Circled.argTypes = {
   },
   to: { control: false },
   tag: { control: false },
-  href: { control: false }
+  href: { control: false },
 };
 Circled.decorators = [
   () => ({
     setup(props, { attrs }) {
-      return {
-        attrs,
-      }
+      return { attrs };
     },
-    template: '<div class="flex gap-2"><story v-bind="attrs"/></div>'
+    template: '<div class="flex gap-2"><story v-bind="attrs"/></div>',
   }),
   withVariants,
 ];
 Circled.parameters = {
   variants: [
     { label: 'default' },
-    ...['hover', 'focus', 'active'].map((variant) => ({
+    ...[
+      'hover',
+      'focus',
+      'active',
+    ].map((variant) => ({
       label: `${variant}`,
       class: `pseudo-${variant}`,
     })),
     {
       label: 'disabled',
       disabled: true,
-      class: 'ui-button--is-disabled'
+      class: 'ui-button--is-disabled',
     },
-  ]
-}
+  ],
+};
 
-export const CircledSelected: Story = {
-  ...Circled
-}
+export const CircledSelected: ButtonStoryType = { ...Circled };
 CircledSelected.parameters = {
-  variants: [
-    ...Circled.parameters.variants.map((variant) => ({
-      ...variant,
-      class: `${variant.class} ui-button--is-selected`,
-    }))
-  ]
-}
+  variants: [ ...Circled.parameters.variants.map((variant: Record<string, unknown>) => ({
+    ...variant,
+    class: `${variant.class} ui-button--is-selected`,
+  })) ],
+};
 
-export const WithIcon: Story = {
-  ...Basic,
-}
+export const WithIcon: ButtonStoryType = { ...Basic };
 WithIcon.args = {
   icon: 'plus-circled-filled',
-  iconEnd: 'plus-circled-filled'
-}
+  iconEnd: 'plus-circled-filled',
+};
 WithIcon.argTypes = {
   modifiers: {
     ...meta.argTypes.modifiers,
@@ -442,11 +571,11 @@ WithIcon.argTypes = {
   },
   to: { control: false },
   tag: { control: false },
-  href: { control: false }
+  href: { control: false },
 };
 WithIcon.decorators = [
   withIconVariants,
-  ...Circled.decorators
+  ...Circled.decorators,
 ];
 WithIcon.parameters = {
   iconVariants: [
@@ -462,26 +591,24 @@ WithIcon.parameters = {
     {
       label: 'text',
       class: 'ui-button--text',
-    }
-  ]
+    },
+  ],
 };
 
-export const Small: Story = {
-  ...Basic,
-}
+export const Small: ButtonStoryType = { ...Basic };
 Small.args = {
   icon: 'plus-circled-filled',
-  iconEnd: 'plus-circled-filled'
-}
+  iconEnd: 'plus-circled-filled',
+};
 Small.argTypes = {
   modifiers: { control: false },
   to: { control: false },
   tag: { control: false },
-  href: { control: false }
+  href: { control: false },
 };
 Small.decorators = [
   withIconVariants,
-  ...Circled.decorators
+  ...Circled.decorators,
 ];
 Small.parameters = {
   iconVariants: [
@@ -489,10 +616,8 @@ Small.parameters = {
     { icon: Small.args.icon },
     { iconEnd: Small.args.iconEnd },
   ],
-  variants: [
-    ...WithIcon.parameters.variants.map((variant) => ({
-      ...variant,
-      class: `${variant.class} ui-button--small`,
-    }))
-  ]
-}
+  variants: [ ...WithIcon.parameters.variants.map((variant: Record<string, unknown>) => ({
+    ...variant,
+    class: `${variant.class} ui-button--small`,
+  })) ],
+};
