@@ -9,33 +9,43 @@ describe('UiButton.vue', () => {
     wrapper = storyWrapper;
   };
   const {
-    Basic, RouterButton, LinkButton,
+    Basic,
+    RouterButton,
+    LinkButton,
   } = mountStories(UiButton, buttonStoriesImports, setWrapper);
   afterEach(() => {
     wrapper.unmount();
   });
   test('render a component', () => {
-    const { component } = Basic();
-    expect(component.classes('ui-button')).toBe(true);
+    Basic();
+    expect(wrapper.classes('ui-button')).toBe(true);
   });
   describe('props', () => {
-    test('component is a button without "to" and "href" props', () => {
-      const { component } = Basic();
-      expect(component.element.tagName).toBe('BUTTON');
+    describe('tag', () => {
+      test('render correct tag when pass a "tag" prop', () => {
+        Basic({ tag: 'span' });
+        expect(wrapper.element.tagName).toBe('SPAN');
+      });
     });
-    test('component is router-link when you pass it a "to" prop', () => {
-      const { component } = RouterButton();
-      expect(component.element.tagName).toBe('ROUTER-LINK');
+    describe('to', () => {
+      test('render router-link when pass a "to" prop', () => {
+        RouterButton();
+        expect(wrapper.element.tagName).toBe('ROUTER-LINK');
+      });
     });
-    test('component is link when you pass it a "href" prop', () => {
-      const { component } = LinkButton();
-      expect(component.element.tagName).toBe('A');
+    describe('href', () => {
+      test('render link when pass a "href" prop', () => {
+        LinkButton();
+        expect(wrapper.element.tagName).toBe('A');
+      });
     });
   });
   describe('slots', () => {
-    test('render a content via default slot', () => {
-      const { args: { content } } = Basic();
-      expect(wrapper.html()).toContain(content);
+    describe('default slots', () => {
+      test('render a content via default slot', () => {
+        const { args: { content } } = Basic();
+        expect(wrapper.html()).toContain(content);
+      });
     });
   });
 });
