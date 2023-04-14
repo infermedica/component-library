@@ -144,8 +144,8 @@ const meta = {
   },
   argTypes: {
     ...argTypes,
-    contentArgsType,
-    iconArgsType,
+    content: contentArgsType,
+    icon: iconArgsType,
     iconEnd: {
       name: 'icon-end',
       ...iconArgsType,
