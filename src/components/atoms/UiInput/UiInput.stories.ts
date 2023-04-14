@@ -5,43 +5,39 @@ import type {
 import {
   ref,
   provide,
-  inject
+  inject,
 } from 'vue';
-import deepmerge from "deepmerge";
+import deepmerge from 'deepmerge';
 import {
   UiInput,
   UiButton,
   UiIcon,
   UiText,
 } from '@/../index';
-import raw from './UiInput.vue?raw';
-import { keyboardFocus} from "@/utilities/directives";
+import { keyboardFocus } from '@/utilities/directives';
 import { withVariants } from '@sb/decorators';
 import {
   useArgTypes,
-  inputEvents
-} from '@sb/helpers'
+  inputEvents,
+} from '@sb/helpers';
 import { icon } from '@sb/helpers/argTypes/index.js';
+import raw from './UiInput.vue?raw';
 
-const { argTypes } = useArgTypes(deepmerge(UiInput, inputEvents), {
-  variables: {
-    regexp: /^(\.ui-input|\.ui-input__input)$/
-  }
-});
+const { argTypes } = useArgTypes(deepmerge(UiInput, inputEvents), { variables: { regexp: /^(\.ui-input|\.ui-input__input)$/ } });
 
 const UiInputButtonAside = {
   components: {
     UiButton,
-    UiIcon
+    UiIcon,
   },
-  props: ['icon'],
+  props: [ 'icon' ],
   template: `<UiButton class="ui-button--icon">
     <UiIcon
       :icon="icon"
       class="ui-button__icon"
     />
-  </UiButton>`
-}
+  </UiButton>`,
+};
 
 const meta = {
   title: 'Atoms/Input',
@@ -57,20 +53,17 @@ const meta = {
     inputAttrs: { 'data-testid': 'input-element' },
     outline: { 'data-testid': 'outline-element' },
   },
-  argTypes: {
-    ...argTypes
-  },
+  argTypes: { ...argTypes },
   parameters: {
     chromatic: {
       disableSnapshot: false,
-      viewports: [320, 1200],
+      viewports: [
+        320,
+        1200,
+      ],
     },
-    docs: {
-      source: {
-        code: null,
-      }
-    }
-  }
+    docs: { source: { code: null } },
+  },
 } satisfies Meta<typeof UiInput>;
 export default meta;
 type Story = StoryObj<typeof UiInput>;
@@ -79,13 +72,13 @@ export const Basic: Story = {
   render: () => ({
     inheritAttrs: false,
     components: { UiInput },
-    setup( props, { attrs } ) {
+    setup(props, { attrs }) {
       const {
         modelValue,
         modifiers = {},
         ...args
       } = attrs;
-      const value = inject('value' ) || ref(modelValue);
+      const value = inject('value') || ref(modelValue);
       console.log(value);
 
       return {
@@ -93,8 +86,8 @@ export const Basic: Story = {
           ...args,
           class: modifiers,
         },
-        value
-      }
+        value,
+      };
     },
     template: `<UiInput
       v-model="value"
@@ -133,109 +126,97 @@ const textSuffixAttrs = {
 const inputAttrs = {
   "data-testid": "input-element"
 };
-</script>"`
-    }
-  }
-}
+</script>"`,
+    },
+  },
+};
 
-export const Empty: Story = { ...Basic }
+export const Empty: Story = { ...Basic };
 Empty.argTypes = {
   modelValue: { control: false },
   placeholder: { control: 'text' },
-  disabled: { control: false }
-}
+  disabled: { control: false },
+};
 Empty.decorators = [
   withVariants,
   () => ({
     inheritAttrs: false,
-    setup( props, { attrs }) {
+    setup(props, { attrs }) {
       const { modelValue } = attrs;
       const value = ref(modelValue);
       provide('value', value);
     },
-    template: `<story />`
+    template: '<story />',
   }),
-]
+];
 Empty.parameters = {
   variants: [
     { label: 'default' },
     {
       label: 'hover',
-      class: 'pseudo-hover'
+      class: 'pseudo-hover',
     },
     {
       label: 'focus',
-      outlineAttrs: {
-        class: 'pseudo-focus-within'
-      }
+      outlineAttrs: { class: 'pseudo-focus-within' },
     },
     {
       label: 'disabled',
       disabled: true,
-      class: 'ui-input--is-disabled'
-    }
+      class: 'ui-input--is-disabled',
+    },
   ],
   chromatic: { disableSnapshot: false },
   docs: { source: { code: null } },
-}
+};
 
 export const Filled: Story = { ...Empty };
-Filled.args = {
-  modelValue: 'headache'
-};
+Filled.args = { modelValue: 'headache' };
 Filled.argTypes = {
   ...Empty.argTypes,
   modelValue: { control: 'text' },
   placeholder: { control: false },
-}
+};
 
-export const WithError: Story = {
-  ...Basic,
-}
+export const WithError: Story = { ...Basic };
 WithError.argTypes = {
   ...Empty.argTypes,
   modelValue: { control: false },
   placeholder: { control: false },
 };
-WithError.decorators = [ withVariants ]
+WithError.decorators = [ withVariants ];
 WithError.parameters = {
   ...Empty.parameters,
   variants: [
     {
       label: 'default',
-      class: 'ui-input--has-error'
+      class: 'ui-input--has-error',
     },
-    ...['hover'].map((variant) => ({
+    ...[ 'hover' ].map((variant) => ({
       label: `${variant}`,
       class: `ui-input--has-error pseudo-${variant}`,
     })),
     {
       label: 'filed',
       class: 'ui-input--has-error',
-      modelValue: 'headache'
-    }
-  ]
-}
+      modelValue: 'headache',
+    },
+  ],
+};
 
 export const WithSuffix: Story = { ...Basic };
 WithSuffix.args = {
   placeholder: 'Put your height',
   suffix: 'cm',
 };
-WithSuffix.parameters = {
-  docs: {
-    source: {
-      code: null,
-    }
-  }
-}
+WithSuffix.parameters = { docs: { source: { code: null } } };
 export const WithButtonAside:Story = {
   render: () => ({
     components: {
       UiInput,
       UiInputButtonAside,
     },
-    setup: (props, { attrs } ) => {
+    setup: (props, { attrs }) => {
       const {
         icon,
         modelValue,
@@ -270,10 +251,8 @@ export const WithButtonAside:Story = {
 WithButtonAside.argTypes = {
   suffix: { control: false },
   textSuffixAttrs: { control: false },
-}
-WithButtonAside.args = {
-  icon: 'search',
-}
+};
+WithButtonAside.args = { icon: 'search' };
 WithButtonAside.parameters = {
   docs: {
     source: {
@@ -309,17 +288,17 @@ const placeholder = 'Search, e.g. headache';
 const type = "text";
 const disabled = false;
 const suffix = '';
-</script>"`
-    }
-  }
-}
+</script>"`,
+    },
+  },
+};
 
 export const WithInputSlot: Story = {
   render: () => ({
     inheritAttrs: false,
     directives: { keyboardFocus },
     components: { UiInput },
-    setup: ( props, { attrs } ) => {
+    setup: (props, { attrs }) => {
       const {
         modelValue,
         modifiers = {},
@@ -332,8 +311,8 @@ export const WithInputSlot: Story = {
           ...args,
           class: modifiers,
         },
-        value
-      }
+        value,
+      };
     },
     template: `<UiInput
       v-model="value"
@@ -403,10 +382,10 @@ const suffix = '';
 const inputAttrs = {
   "data-testid": "input-element"
 }
-</script>"`
-    }
-  }
-}
+</script>"`,
+    },
+  },
+};
 
 export const WithAsideSlot: Story = {
   render: () => ({
@@ -415,7 +394,7 @@ export const WithAsideSlot: Story = {
       UiInput,
       UiText,
     },
-    setup: ( props, { attrs } ) => {
+    setup: (props, { attrs }) => {
       const {
         modelValue,
         modifiers = {},
@@ -428,8 +407,8 @@ export const WithAsideSlot: Story = {
           ...args,
           class: modifiers,
         },
-        value
-      }
+        value,
+      };
     },
     template: `<UiInput
       v-model="value"
@@ -487,7 +466,7 @@ const placeholder = 'Search, e.g. headache';
 const type = "text";
 const disabled = false;
 const suffix = '';
-</script>"`
-    }
-  }
-}
+</script>"`,
+    },
+  },
+};

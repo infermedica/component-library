@@ -150,9 +150,9 @@ export function useArgTypes(component, options = { variables: {}}) {
         return string + cssText
       }, '' )
 
-    const VARIABLE_RE = /var\(([\s\S]+?), ([\s\S]+?)\);/gm
+    const VARIABLE_RE = /var\(([\s\S]+?)(, ([\s\S]+?))?\);/gm
     const VARIABLE_MA = [...cssText.matchAll(VARIABLE_RE)];
-    return VARIABLE_MA.map(([match, name, defaultValue]) => ({
+    return VARIABLE_MA.map(([match, name, i, defaultValue]) => ({
       name,
       defaultValue
     }));
@@ -177,6 +177,7 @@ export function useArgTypes(component, options = { variables: {}}) {
     if ( name.match(/(-color|-background)/gm) ) {
       return 'Colors'
     }
+    return 'Others'
   }
   const variables = (()=> {
     const options = getVariables([...cssRules]);
