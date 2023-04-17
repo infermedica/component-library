@@ -37,7 +37,7 @@ import type { Icon } from '@/types';
 
 type InputArgsType = InputProps & {
   modifiers?: string[];
-  outline?: unknown;
+  outline?: Record<string, unknown>;
   icon?: Icon;
 }
 type InputMetaType = Meta<InputArgsType>;
@@ -260,6 +260,7 @@ WithError.play = async (context) => getStatesTests(context, [
 
 export const WithSuffix: InputStoryType = { ...Basic };
 WithSuffix.args = {
+  type: 'number',
   placeholder: 'Put your height',
   suffix: 'cm',
 };
@@ -466,15 +467,16 @@ export const WithAsideSlot: InputStoryType = {
       v-model="value"
       v-bind="args"
     >
-      <template #input="{
+      <template #aside="{
         suffix,
-        textSuffixAttrs
+        textSuffixAttrs,
       }">
         <UiText
-          v-if="suffix"
           v-bind="textSuffixAttrs"
           class="ui-input__aside"
-        >{{ suffix }}</UiText>
+        >
+          {{ suffix }}
+        </UiText>
       </template>
     </UiInput>`,
   }),
@@ -496,7 +498,6 @@ WithAsideSlot.parameters = {
       textSuffixAttrs,
     }">
       <UiText
-        v-if="suffix"
         v-bind="textSuffixAttrs"
         class="ui-input__aside"
       >
