@@ -81,14 +81,10 @@ export default {
   },
   parameters: {
     cssProperties: {
-      '--multiple-choices-hint-padding-block':
-        'var(--multiple-choices-hint-padding-block-start, 0) var(--multiple-choices-hint-padding-block-end, var(--space-12))',
-      '--multiple-choices-hint-padding-inline':
-        'var(--multiple-choices-hint-padding-inline-start, var(--space-20)) var(--multiple-choices-hint-padding-inline-end, var(--space-20))',
-      '--multiple-choices-tablet-hint-padding-block':
-        'var(--multiple-choices-tablet-hint-padding-block-start, 0) var(--multiple-choices-tablet-hint-padding-block-end, var(--space-12))',
-      '--multiple-choices-tablet-hint-padding-inline':
-        'var(--multiple-choices-tablet-hint-padding-inline-start, 0) var(--multiple-choices-tablet-hint-padding-inline-end, 0)',
+      '--multiple-choices-hint-padding-block': 'var(--multiple-choices-hint-padding-block-start, 0) var(--multiple-choices-hint-padding-block-end, var(--space-12))',
+      '--multiple-choices-hint-padding-inline': 'var(--multiple-choices-hint-padding-inline-start, var(--space-20)) var(--multiple-choices-hint-padding-inline-end, var(--space-20))',
+      '--multiple-choices-tablet-hint-padding-block': 'var(--multiple-choices-tablet-hint-padding-block-start, 0) var(--multiple-choices-tablet-hint-padding-block-end, var(--space-12))',
+      '--multiple-choices-tablet-hint-padding-inline': 'var(--multiple-choices-tablet-hint-padding-inline-start, 0) var(--multiple-choices-tablet-hint-padding-inline-end, 0)',
     },
   },
 };
