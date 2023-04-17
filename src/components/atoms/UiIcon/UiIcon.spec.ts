@@ -8,7 +8,10 @@ describe('UiIcon.vue', () => {
   const setWrapper = (storyWrapper: VueWrapper) => {
     wrapper = storyWrapper;
   };
-  const { Basic } = mountStories(UiIcon, iconStoriesImports, setWrapper);
+  const {
+    Basic,
+    ImportedIcon,
+  } = mountStories(UiIcon, iconStoriesImports, setWrapper);
   afterEach(() => {
     wrapper.unmount();
   });
@@ -16,5 +19,24 @@ describe('UiIcon.vue', () => {
   test('renders a component', async () => {
     Basic();
     expect(wrapper.classes('ui-icon')).toBe(true);
+  });
+  describe('props', () => {
+    describe('icon', () => {
+      test('render an empty svg with passed undefined as "icon" prop', async () => {
+        ImportedIcon({ icon: undefined });
+        expect(wrapper.classes('ui-icon')).toBe(true);
+        expect(wrapper.element.tagName).toBe('svg');
+      });
+      test('render an icon with passed string as "icon" prop', async () => {
+        Basic();
+        expect(wrapper.classes('ui-icon')).toBe(true);
+        expect(wrapper.element.tagName).toBe('svg');
+      });
+      test('render an icon with passed import as "icon" prop', async () => {
+        Basic({ icon: await import('../../../assets/icons/yes.svg') });
+        expect(wrapper.classes('ui-icon')).toBe(true);
+        expect(wrapper.element.tagName).toBe('svg');
+      });
+    });
   });
 });
