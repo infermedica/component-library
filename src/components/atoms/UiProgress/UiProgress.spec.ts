@@ -8,7 +8,11 @@ describe('UiProgress.vue', () => {
   const setWrapper = (storyWrapper: VueWrapper) => {
     wrapper = storyWrapper;
   };
-  const { Basic } = mountStories(UiProgress, progressStoriesImports, setWrapper);
+  const {
+    Basic,
+    Min,
+    Max,
+  } = mountStories(UiProgress, progressStoriesImports, setWrapper);
   afterEach(() => {
     wrapper.unmount();
   });
@@ -25,16 +29,12 @@ describe('UiProgress.vue', () => {
         '0',
       ],
       [
-        0,
-        '0',
+        31,
+        '0.31',
       ],
       [
-        50,
-        '0.5',
-      ],
-      [
-        100,
-        '1',
+        77,
+        '0.77',
       ],
       [
         130,
@@ -44,8 +44,17 @@ describe('UiProgress.vue', () => {
       Basic({ value });
       expect(getWidth()).toEqual(expected);
     });
+    test('has correct width for min value', () => {
+      Min();
+      expect(getInnerElement().exists()).toBe(false);
+      expect(getWidth()).toEqual('0');
+    });
+    test('has correct width for max value', () => {
+      Max();
+      expect(getWidth()).toEqual('1');
+    });
     test('doesn\'t render inner element when min and max value is equal', () => {
-      Basic({
+      Min({
         value: 0,
         max: 0,
       });

@@ -18,7 +18,7 @@ const meta = {
   title: 'Atoms/Progress',
   component: UiProgress,
   args: {
-    value: 4,
+    value: 20,
     min: 0,
     max: 100,
   },
@@ -44,15 +44,15 @@ Basic.parameters = {
   docs: {
     source: {
       code: `<template>
-    <UiProgress
-      :value="value"
-      :min="min"
-      :max="max"
-    />
-</template>
+      <UiProgress
+        :value="value"
+        :min="min"
+        :max="max"
+      />
+  </template>
 
-<script setup lang="ts">
-import { UiProgress } from '@infermedica/component-library';
+  <script setup lang="ts">
+  import { UiProgress } from '@infermedica/component-library';
 
 const min = 0;
 const max = 100;
@@ -122,6 +122,62 @@ const value = 4;
   --progress-height: 3rem;
 }
 </style>`,
+    },
+  },
+};
+
+export const Min: ProgressStoryType = { ...Basic };
+Min.args = {
+  ...Basic.args,
+  value: 0,
+};
+Min.parameters = {
+  docs: {
+    source: {
+      code: `<template>
+    <UiProgress
+      :value="value"
+      :min="min"
+      :max="max"
+    />
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import { UiProgress } from '@infermedica/component-library';
+
+const min = 0;
+const max = 100;
+const value = ref(0);
+</script>`,
+    },
+  },
+};
+
+export const Max: ProgressStoryType = { ...Basic };
+Max.args = {
+  ...Basic.args,
+  value: 100,
+};
+Max.parameters = {
+  docs: {
+    source: {
+      code: `<template>
+    <UiProgress
+      :value="value"
+      :min="min"
+      :max="max"
+    />
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import { UiProgress } from '@infermedica/component-library';
+
+const min = 0;
+const max = 100;
+const value = ref(100);
+</script>`,
     },
   },
 };
