@@ -2,12 +2,18 @@ import type {
   Meta,
   StoryObj,
 } from '@storybook/vue3';
-import { UiProgress } from '@/../index';
+import { UiProgress } from '@index';
+import type { ProgressProps } from '@index';
 import './UiProgress.stories.scss';
-import { useArgTypes } from '@sb/helpers'
+import { useArgTypes } from '@sb/helpers';
+
+type ProgressArgsType = ProgressProps & {
+  class?: string;
+}
+type ProgressMetaType = Meta<ProgressArgsType>;
+type ProgressStoryType = StoryObj<ProgressArgsType>;
 
 const { argTypes } = useArgTypes(UiProgress);
-
 const meta = {
   title: 'Atoms/Progress',
   component: UiProgress,
@@ -24,22 +30,14 @@ const meta = {
       max: 100,
     },
   },
-  parameters: {
-    chromatic: { disableSnapshot: false },
-  }
-} satisfies Meta<typeof UiProgress>;
+  parameters: { chromatic: { disableSnapshot: false } },
+} satisfies ProgressMetaType;
 export default meta;
-type Story = StoryObj<typeof UiProgress>;
 
-export const Basic: Story = {
+export const Basic: ProgressStoryType = {
   render: () => ({
     components: { UiProgress },
-    setup( props, { attrs } ) {
-      return {
-        args: attrs,
-      }
-    },
-    template: '<UiProgress v-bind="args"/>',
+    template: '<UiProgress v-bind="$attrs"/>',
   }),
 };
 Basic.parameters = {
@@ -49,27 +47,22 @@ Basic.parameters = {
     <UiProgress
       :value="value"
       :min="min"
-      :max="max" 
+      :max="max"
     />
 </template>
 
 <script setup lang="ts">
 import { UiProgress } from '@infermedica/component-library';
-  
+
 const min = 0;
 const max = 100;
 const value = 4;
-</script>`
-    }
-  }
-}
+</script>`,
+    },
+  },
+};
 
-export const NoRadiusProgress: Story = {
-  ...Basic,
-}
-NoRadiusProgress.args = {
-  class: 'no-radius-progress',
-}
+export const NoRadiusProgress: ProgressStoryType = { ...Basic };
 NoRadiusProgress.parameters = {
   docs: {
     source: {
@@ -77,7 +70,7 @@ NoRadiusProgress.parameters = {
     <UiProgress
       :value="value"
       :min="min"
-      :max="max" 
+      :max="max"
       class="no-radius-progress"
     />
 </template>
@@ -97,17 +90,13 @@ const value = 4;
   @include mixins.override-logical('progress', null, border-radius, 0);
   @include mixins.override-logical('progress-indicator', null, border-radius, 0);
 }
-</style>`
-    }
-  }
-}
+</style>`,
+    },
+  },
+};
 
-export const HeightsProgress: Story = {
-  ...Basic,
-}
-HeightsProgress.args = {
-  class: 'heights-progress',
-}
+export const HeightsProgress: ProgressStoryType = { ...Basic };
+HeightsProgress.args = { class: 'heights-progress' };
 HeightsProgress.parameters = {
   docs: {
     source: {
@@ -115,8 +104,8 @@ HeightsProgress.parameters = {
     <UiProgress
       :value="value"
       :min="min"
-      :max="max" 
-      class="no-radius-progress"
+      :max="max"
+      class="heights-progress"
     />
 </template>
 
@@ -132,7 +121,7 @@ const value = 4;
 .heights-progress {
   --progress-height: 3rem;
 }
-</style>`
-    }
-  }
-}
+</style>`,
+    },
+  },
+};
