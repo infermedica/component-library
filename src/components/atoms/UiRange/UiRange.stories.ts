@@ -25,7 +25,8 @@ import {
 } from '@storybook/testing-library';
 
 type RangeArgsType = RangeProps & {
-  ariaLabel?: string
+  ariaLabel?: string;
+  disabled?: boolean;
 }
 type RangeMetaType = Meta<RangeArgsType>;
 type RangeStoryType = StoryObj<RangeArgsType>;

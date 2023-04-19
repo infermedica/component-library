@@ -86,10 +86,7 @@ export default { inheritAttrs: false };
 </script>
 
 <script setup lang="ts">
-import {
-  computed,
-  onMounted,
-} from 'vue';
+import { computed } from 'vue';
 import type { InputHTMLAttributes } from 'vue';
 import useAttributes from '../../../composable/useAttributes';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
@@ -164,6 +161,14 @@ const {
 const trackWidth = computed(() => {
   const scope = props.max - props.min;
   const position = props.modelValue - props.min;
+  if (props.min >= props.max) {
+    console.error('[UiRange error]: The max value must be greater than min value');
+    return '0%';
+  }
+  if (props.modelValue < props.min || props.modelValue > props.max) {
+    console.error('[UiRange error]: The value is out of range');
+    return props.modelValue < props.min ? '0%' : '100%';
+  }
   return `${(position / scope) * 100}%`;
 });
 const changeHandler = (value: RangeModelValue) => {
@@ -171,9 +176,6 @@ const changeHandler = (value: RangeModelValue) => {
   emit('update:modelValue', value);
 };
 const numberStepperAttrs = computed<NumberStepperAttrsProps>(() => ({ ...attrs.value }));
-onMounted(() => {
-  // console.log(props);
-});
 </script>
 
 <style lang="scss">
