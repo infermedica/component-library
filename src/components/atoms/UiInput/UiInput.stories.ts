@@ -215,7 +215,7 @@ Filled.play = async ({
 }) => {
   const canvas = within(canvasElement);
   const inputs = canvas.getAllByTestId<HTMLInputElement>('input-element');
-  inputs[0].value = '';
+  await userEvent.clear(inputs[0]);
   await step('Correct value of filled input', async () => {
     await userEvent.type(inputs[0], 'headache', { delay: 150 });
     expect(inputs[0].value).toBe('headache');
