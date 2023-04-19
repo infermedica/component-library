@@ -7,11 +7,12 @@ const fileName = fileURLToPath(import.meta.url);
 const figmaToken = process.env.FIGMA_TOKEN;
 const figmaUrl = 'https://api.figma.com/v1';
 const figmaFileId = 'txuY6Y2evaphl43mSvHUQ8';
+const indentation = '  ';
 
 const saveFile = (name, content) => {
   try {
-    const comment = '// Auto-generated file by update:css-variables script. Do not edit manually\nhtml {';
-    writeFileSync(`./src/styles/variables/${name}.scss`, `${comment}${content.join('\n\n')}}`, 'utf-8');
+    const comment = '// Auto-generated file by update:css-variables script. Do not edit manually\nhtml {\n';
+    writeFileSync(`./src/styles/variables/${name}.scss`, `${comment}${content.join('\n\n')}\n}`, 'utf-8');
     console.log(`🚀 ${name} file has been updated!`);
   } catch (err) {
     console.log(`⛔️ Something goes wrong and the ${name} file hasn't been updated!`, err);
@@ -141,23 +142,23 @@ const figmaToCss = async () => {
     {
       fontFamily, fontSize, fontWeight, lineHeight,
     },
-  ]) => `--${name}: ${fontWeight} ${fontSize} / ${lineHeight} ${fontFamily};`).join('\n')}
-    \n@media screen and (min-width: 768px) {
+  ]) => `${indentation}--${name}: ${fontWeight} ${fontSize} /\n${indentation.repeat(2)}${lineHeight} ${fontFamily};`).join('\n')}
+    \n${indentation}@media screen and (min-width: 768px) {
     ${mobileDesktopFontStyleTokens.desktop.map(([
     name,
     {
       fontFamily, fontSize, fontWeight, lineHeight,
     },
-  ]) => `--${name}: ${fontWeight} ${fontSize} / ${lineHeight} ${fontFamily};`).join('\n')}\n}`;
+  ]) => `--${name}: ${fontWeight} ${fontSize} /\n${indentation.repeat(2)}${lineHeight} ${fontFamily};`).join(`\n${indentation}${indentation}`)}\n${indentation}}`;
   const letterSpacingCSS = `${mobileDesktopFontStyleTokens.mobile.map(([
     name,
     { letterSpacing },
-  ]) => `--letter-spacing-${name.replace('font-', '')}: ${letterSpacing};`).join('\n')}
-    \n@media screen and (min-width: 768px) {
+  ]) => `${indentation}--letter-spacing-${name.replace('font-', '')}: ${letterSpacing};`).join('\n')}
+    \n${indentation}@media screen and (min-width: 768px) {
     ${mobileDesktopFontStyleTokens.desktop.map(([
     name,
     { letterSpacing },
-  ]) => `--letter-spacing-${name.replace('font-', '')}: ${letterSpacing};`).join('\n')}\n}`;
+  ]) => `--letter-spacing-${name.replace('font-', '')}: ${letterSpacing};`).join(`\n${indentation}${indentation}`)}\n${indentation}}`;
   const getCSSBoxShadow = (characters) => {
     const isInset = characters.includes('(inset/inner shadow)') ? 'inset ' : '';
     return characters
@@ -192,20 +193,20 @@ const figmaToCss = async () => {
     const isEmptyLine = index > 0
       && !(name.includes('space') || name.includes('focus'))
       && getVariableHead(name) !== getVariableHead(tokens[index - 1][0])
-      ? '\n' : '';
+      ? `\n${indentation}` : indentation;
     return `${isEmptyLine}--${name}: ${setValue(value)};`;
   }).join('\n');
   saveFile('default-colors', [ getCSSVars('Color Options', (value) => value, 1, 'Frame 1106') ]);
   saveFile('colors', [
     getCSSVars('Color Decisions', (value) => getValue(value, 'color'), 2),
-    `--color-switch-disabled: var(--color-gray-300);
-    --color-switch-track: var(--color-gray-600);
-    --color-switch-track-hover: var(--color-gray-700);
-    --color-switch-track-active: var(--color-gray-800);
-    --color-switch-track-checked: var(--color-blue-600);
-    --color-switch-track-checked-hover: var(--color-blue-700);
-    --color-switch-track-checked-active: var(--color-blue-800);
-    --color-switch-thumb: var(--color-white);`,
+    `${indentation}--color-switch-disabled: var(--color-gray-300);
+  --color-switch-track: var(--color-gray-600);
+  --color-switch-track-hover: var(--color-gray-700);
+  --color-switch-track-active: var(--color-gray-800);
+  --color-switch-track-checked: var(--color-blue-600);
+  --color-switch-track-checked-hover: var(--color-blue-700);
+  --color-switch-track-checked-active: var(--color-blue-800);
+  --color-switch-thumb: var(--color-white);`,
   ]);
   saveFile('layouts', [
     getCSSVars('Space'),
@@ -216,9 +217,9 @@ const figmaToCss = async () => {
   ]);
   saveFile('typography', [
     getCSSVars('Font', (value) => `"${value.slice(1, -1)}", sans-serif`, 1),
-    `& [dir="rtl"] {
-      --font-family-body: "IBM Plex Sans Arabic", sans-serif;
-      --font-family-heading: "IBM Plex Sans Arabic", sans-serif;}`,
+    `${indentation}& [dir="rtl"] {
+    --font-family-body: "IBM Plex Sans Arabic", sans-serif;
+    --font-family-heading: "IBM Plex Sans Arabic", sans-serif;\n${indentation}}`,
     getCSSVars('Font', (value) => (value.split('\n').filter((prop) => !prop.match(/px|%/)).join('')), 2),
     fontStyleCSS,
     letterSpacingCSS,
