@@ -21,15 +21,20 @@ describe('UiRange.vue', () => {
     Max,
     WithValueSlot,
     WithRangeSlot,
+    WithDecrementSlot,
+    WithIncrementSlot,
   } = mountStories(UiRange, rangeStoriesImports, setWrapper);
   afterEach(() => {
     wrapper.unmount();
   });
   const getInput = (story = wrapper) => story.find('input');
   const getHeading = (story = wrapper) => story.findComponent(UiHeading);
-  const clickDecreaseBtn = (story = wrapper) => story.find('.ui-number-stepper__decrement').trigger('click');
-  const clickIncreaseBtn = (story = wrapper) => story.find('.ui-number-stepper__increment').trigger('click');
-  const getWidth = () => (wrapper.element as HTMLElement).style.getPropertyValue('--_range-runnable-track-width');
+  const getDecreaseBtn = (story = wrapper) => story.find('.ui-number-stepper__decrement');
+  const getIncreaseBtn = (story = wrapper) => story.find('.ui-number-stepper__increment');
+  const clickDecreaseBtn = (story = wrapper) => getDecreaseBtn(story).trigger('click');
+  const clickIncreaseBtn = (story = wrapper) => getIncreaseBtn(story).trigger('click');
+  const getThumbWidth = () => (wrapper.element as HTMLElement).style.getPropertyValue('--_range-runnable-track-width');
+  const dragInput = (story = wrapper, value = 100) => getInput(story).setValue(value);
   test('renders a component', () => {
     Basic();
     expect(wrapper.classes('ui-range')).toBe(true);
@@ -61,6 +66,12 @@ describe('UiRange.vue', () => {
           story: Max(),
           action: clickIncreaseBtn,
           expected: undefined,
+        },
+        {
+          name: 'dragging range input should emit updated vale',
+          story: Basic(),
+          action: dragInput,
+          expected: 100,
         },
         {
           name: 'with disabled attribute shouldn\'t emit value',
@@ -99,6 +110,34 @@ describe('UiRange.vue', () => {
         content: getInput,
         expectedBinding: ({ inputAttrs }) => inputAttrs,
       },
+      {
+        slot: 'decrement',
+        story: WithDecrementSlot({
+          buttonDecrementAttrs: {
+            'aria-hidden': true,
+            tabindex: -1,
+            id: 'decrement-testid',
+            'data-testid': 'decrement-element',
+            class: 'decrement-test-class',
+          },
+        }),
+        content: getDecreaseBtn,
+        expectedBinding: ({ buttonDecrementAttrs }) => buttonDecrementAttrs,
+      },
+      {
+        slot: 'increment',
+        story: WithIncrementSlot({
+          buttonIncrementAttrs: {
+            'aria-hidden': true,
+            tabindex: -1,
+            id: 'increment-testid',
+            'data-testid': 'increment-element',
+            class: 'increment-test-class',
+          },
+        }),
+        content: getIncreaseBtn,
+        expectedBinding: ({ buttonIncrementAttrs }) => buttonIncrementAttrs,
+      },
     ]);
   });
   describe('thumb', () => {
@@ -125,11 +164,11 @@ describe('UiRange.vue', () => {
       ],
     ])('has correct width for value %i', (modelValue, expected) => {
       Basic({ modelValue });
-      expect(getWidth()).toEqual(expected);
+      expect(getThumbWidth()).toEqual(expected);
     });
     test('should have 0% width when max value is smaller than min value', () => {
       Basic({ max: 17 });
-      expect(getWidth()).toEqual('0%');
+      expect(getThumbWidth()).toEqual('0%');
     });
   });
 });

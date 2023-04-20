@@ -12,8 +12,13 @@ import deepmerge from 'deepmerge';
 import {
   UiRange,
   UiHeading,
+  UiButton,
+  UiIcon,
 } from '@index';
-import type { RangeProps } from '@index';
+import type {
+  ButtonAttrsProps,
+  RangeProps,
+} from '@index';
 import { withVariants } from '@sb/decorators';
 import {
   useArgTypes,
@@ -27,6 +32,8 @@ import {
 type RangeArgsType = RangeProps & {
   ariaLabel?: string;
   disabled?: boolean;
+  buttonDecrementAttrs?: ButtonAttrsProps;
+  buttonIncrementAttrs?: ButtonAttrsProps;
 }
 type RangeMetaType = Meta<RangeArgsType>;
 type RangeStoryType = StoryObj<RangeArgsType>;
@@ -370,6 +377,209 @@ import { ref } from 'vue';
 import {
   UiRange,
   UiHeading
+} from '@infermedica/component-library';
+
+const ariaLabel = 'patient age';
+const modelValue = ref('');
+const min = 0;
+const max = 1;
+const step = 1;
+</script>`,
+    },
+  },
+};
+
+export const WithDecrementSlot: RangeStoryType = {
+  render: () => ({
+    inheritAttrs: false,
+    components: {
+      UiRange,
+      UiButton,
+      UiIcon,
+    },
+    setup(props, { attrs }) {
+      const {
+        modelValue,
+        ...args
+      } = attrs;
+      const value = inject('value') || ref(modelValue);
+
+      return {
+        args,
+        value,
+      };
+    },
+    template: `<UiRange
+      v-model="value"
+      v-bind="args"
+    >
+      <template #decrement="{
+        hasControls,
+        buttonDecrementAttrs,
+        isMin,
+        decrement,
+        iconDecrementAttrs,
+      }">
+        <UiButton
+          v-if="hasControls"
+          v-bind="buttonDecrementAttrs"
+          class="ui-button--outlined ui-button--circled ui-number-stepper__decrement"
+          :class="{ 'ui-button--is-disabled': isMin }"
+          @click="decrement"
+        >
+          <UiIcon
+            v-bind="iconDecrementAttrs"
+            class="ui-button__icon"
+          />
+        </UiButton>
+      </slot>
+      </template>
+    </UiRange>`,
+  }),
+};
+WithDecrementSlot.parameters = {
+  docs: {
+    source: {
+      code: `<template>
+  <UiRange
+    v-model="modelValue"
+    :aria-label="ariaLabel"
+    :min="min"
+    :max="max"
+    :step="step"
+    :input-attrs="inputAttrs"
+    :heading-value-attrs="headingValueAttrs"
+  >
+    <template #decrement="{
+      hasControls,
+      buttonDecrementAttrs,
+      isMin,
+      decrement,
+      iconDecrementAttrs,
+    }">
+      <UiButton
+        v-if="hasControls"
+        v-bind="buttonDecrementAttrs"
+        class="ui-button--outlined ui-button--circled ui-number-stepper__decrement"
+        :class="{ 'ui-button--is-disabled': isMin }"
+        @click="decrement"
+      >
+        <UiIcon
+          v-bind="iconDecrementAttrs"
+          class="ui-button__icon"
+        />
+      </UiButton>
+    </template>
+  </UiRange>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import {
+  UiRange,
+  UiButton,
+  UiIcon,
+} from '@infermedica/component-library';
+
+const ariaLabel = 'patient age';
+const modelValue = ref('');
+const min = 0;
+const max = 1;
+const step = 1;
+</script>`,
+    },
+  },
+};
+
+export const WithIncrementSlot: RangeStoryType = {
+  render: () => ({
+    inheritAttrs: false,
+    components: {
+      UiRange,
+      UiButton,
+      UiIcon,
+    },
+    setup(props, { attrs }) {
+      const {
+        modelValue,
+        ...args
+      } = attrs;
+      const value = inject('value') || ref(modelValue);
+
+      return {
+        args,
+        value,
+      };
+    },
+    template: `<UiRange
+      v-model="value"
+      v-bind="args"
+    >
+      <template #increment="{
+        hasControls,
+        buttonIncrementAttrs,
+        isMax,
+        increment,
+        iconIncrementAttrs,
+      }">
+        <UiButton
+          v-if="hasControls"
+          v-bind="buttonIncrementAttrs"
+          class="ui-button--outlined ui-button--circled ui-number-stepper__increment"
+          :class="{ 'ui-button--is-disabled': isMax }"
+          @click="increment"
+        >
+          <UiIcon
+            v-bind="iconIncrementAttrs"
+            class="ui-button__icon"
+          />
+        </UiButton>
+      </template>
+    </UiRange>`,
+  }),
+};
+WithDecrementSlot.parameters = {
+  docs: {
+    source: {
+      code: `<template>
+  <UiRange
+    v-model="modelValue"
+    :aria-label="ariaLabel"
+    :min="min"
+    :max="max"
+    :step="step"
+    :input-attrs="inputAttrs"
+    :heading-value-attrs="headingValueAttrs"
+  >
+    <template #increment="{
+      hasControls,
+      buttonIncrementAttrs,
+      isMax,
+      increment,
+      iconIncrementAttrs,
+    }">
+      <UiButton
+        v-if="hasControls"
+        v-bind="buttonIncrementAttrs"
+        class="ui-button--outlined ui-button--circled ui-number-stepper__increment"
+        :class="{ 'ui-button--is-disabled': isMax }"
+        @click="increment"
+      >
+        <UiIcon
+          v-bind="iconIncrementAttrs"
+          class="ui-button__icon"
+        />
+      </UiButton>
+    </template>
+  </UiRange>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import {
+  UiRange,
+  UiButton,
+  UiIcon,
 } from '@infermedica/component-library';
 
 const ariaLabel = 'patient age';
