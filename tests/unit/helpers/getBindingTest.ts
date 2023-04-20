@@ -2,10 +2,11 @@
 import type { VueWrapper } from '@vue/test-utils';
 import type { Attrs } from '@/types';
 
-export const getBindingTest = <TBinding extends object>(
+export const getBindingTest = (
   element: VueWrapper,
-  expected: TBinding,
+  expected?: object,
 ) => {
+  if (!expected) return;
   const results: Attrs = {
     ...element.vm.$attrs,
     ...element.vm.$props,
