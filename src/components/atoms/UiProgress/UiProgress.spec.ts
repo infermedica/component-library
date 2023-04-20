@@ -54,10 +54,7 @@ describe('UiProgress.vue', () => {
       expect(getWidth()).toEqual('1');
     });
     test('doesn\'t render inner element when min and max value is equal', () => {
-      Min({
-        value: 0,
-        max: 0,
-      });
+      Min({ max: 0 });
       expect(getInnerElement().exists()).toBe(false);
     });
   });
