@@ -1,23 +1,51 @@
 import type {
   Meta,
   StoryObj,
+  VueRenderer,
 } from '@storybook/vue3';
 import {
   ref,
   provide,
-  inject
+  inject,
 } from 'vue';
-import deepmerge from "deepmerge";
-import { UiTextarea } from '@/../index';
-import raw from './UiTextarea.vue?raw';
+import deepmerge from 'deepmerge';
+import { UiTextarea } from '@index';
+import type { TextareaProps } from '@index';
 import { withVariants } from '@sb/decorators';
 import {
   useArgTypes,
-  inputEvents
-} from '@sb/helpers'
+  inputEvents,
+} from '@sb/helpers';
+import { expect } from '@storybook/jest';
+import {
+  userEvent,
+  within,
+} from '@storybook/testing-library';
+import type { PlayFunctionContext } from '@storybook/types';
+import {
+  getCSSValue,
+  getStyleTests,
+} from '@tests/interactions/helpers';
+
+type TextareaArgsType = TextareaProps & {
+  modifiers?: string[];
+}
+type TextareaMetaType = Meta<TextareaArgsType>;
+type TextareaStoryType = StoryObj<TextareaArgsType>;
+type PlayContext = PlayFunctionContext<VueRenderer, TextareaArgsType>;
+
+const getStatesTests = async ({
+  canvasElement, step,
+}: PlayContext, results: Partial<CSSStyleDeclaration>[]) => {
+  const elements = [ ...canvasElement.querySelectorAll('.ui-textarea') ];
+  await step('Correct border colors', () => {
+    getStyleTests(elements, 'borderColor', results, 'after');
+  });
+};
+
 const { argTypes } = useArgTypes(deepmerge(
   UiTextarea,
-  inputEvents
+  inputEvents,
 ));
 
 const meta = {
@@ -41,25 +69,20 @@ const meta = {
         'horizontal',
         'vertical',
       ],
-    }
+    },
   },
   parameters: {
     chromatic: { disableSnapshot: false },
-    docs: {
-      source: {
-        code: null
-      }
-    }
-  }
-} satisfies Meta<typeof UiTextarea>;
+    docs: { source: { code: null } },
+  },
+} satisfies TextareaMetaType;
 export default meta;
-type Story = StoryObj<typeof UiTextarea>;
 
-export const Basic: Story = {
+export const Basic: TextareaStoryType = {
   render: () => ({
     inheritAttrs: false,
     components: { UiTextarea },
-    setup( props, { attrs })  {
+    setup(props, { attrs }) {
       const {
         modifiers,
         modelValue,
@@ -73,7 +96,7 @@ export const Basic: Story = {
           class: modifiers,
         },
         value,
-      }
+      };
     },
     template: `<UiTextarea
       v-model="value"
@@ -106,81 +129,105 @@ const disabled = false;
 const textareaAttrs = {
   'data-testid': 'textarea-element'
 }
-</script>`
-    }
-  }
+</script>`,
+    },
+  },
 };
 
-export const Empty: Story = {
-  ...Basic
-}
+export const Empty: TextareaStoryType = { ...Basic };
 Empty.argTypes = {
   modelValue: { control: false },
   placeholder: { control: 'text' },
-  disabled: { control: false }
-}
+  disabled: { control: false },
+};
 Empty.decorators = [
   withVariants,
   () => ({
-    setup( props, { attrs }) {
+    setup(props, { attrs }) {
       const { modelValue } = attrs;
       const value = ref(modelValue);
       provide('value', value);
     },
-    template: `<story />`
-  })
-]
+    template: '<story />',
+  }),
+];
 Empty.parameters = {
   variants: [
-    {
-      label: 'default',
-    },
-    ...['hover', 'focus-within'].map((variant) => ({
+    { label: 'default' },
+    ...[
+      'hover',
+      'focus-within',
+    ].map((variant) => ({
       label: `${variant}`,
       class: `pseudo-${variant}`,
     })),
     {
       label: 'disabled',
       disabled: true,
-      class: 'ui-textarea--is-disabled'
-    }
+      class: 'ui-textarea--is-disabled',
+    },
   ],
   chromatic: { disableSnapshot: false },
   docs: { source: { code: null } },
-}
-
-
-export const Filled: Story = { ...Empty };
-Filled.args = {
-  modelValue: 'I encountered an error message while trying to submit a form on your website. The error message read \'500 Internal Server Error\'.'
 };
+Empty.play = async (context) => getStatesTests(context, [
+  ...[
+    '',
+    '-hover',
+    '',
+  ].map((state) => ({ borderColor: getCSSValue(`--color-border-strong${state}`) })),
+  { borderColor: getCSSValue('--color-border-subtle') },
+]);
+
+export const Filled: TextareaStoryType = { ...Empty };
+Filled.args = { modelValue: 'I encountered an error message while trying to submit a form on your website. The error message read \'500 Internal Server Error\'.' };
 Filled.argTypes = {
   ...Empty.argTypes,
   modelValue: { control: 'text' },
   placeholder: { control: false },
-}
+};
+Filled.play = async ({
+  canvasElement, step, args: { modelValue = '' },
+}) => {
+  const canvas = within(canvasElement);
+  const elements = canvas.getAllByTestId<HTMLInputElement>('textarea-element');
+  await userEvent.clear(elements[0]);
+  await step('Correct value of filled input', async () => {
+    await userEvent.type(elements[0], modelValue, { delay: 20 });
+    expect(elements[0].value).toBe(modelValue);
+  });
+};
 
-export const WithError: Story = { ...Basic };
+export const WithError: TextareaStoryType = { ...Basic };
 WithError.argTypes = {
   modelValue: { control: false },
   placeholder: { control: false },
 };
-WithError.decorators = [ withVariants ]
+WithError.decorators = [ withVariants ];
 WithError.parameters = {
   ...Empty.parameters,
   variants: [
     {
       label: 'default',
-      class: 'ui-textarea--has-error'
+      class: 'ui-textarea--has-error',
     },
-    ...['hover'].map((variant) => ({
+    ...[
+      'hover',
+      'focus-within',
+    ].map((variant) => ({
       label: `${variant}`,
       class: `ui-textarea--has-error pseudo-${variant}`,
     })),
     {
-      label: 'filed',
+      label: 'filled',
       class: 'ui-textarea--has-error',
-      modelValue: 'I encountered an error message while trying to submit a form on your website. The error message read \'500 Internal Server Error.'
-    }
-  ]
-}
+      modelValue: 'I encountered an error message while trying to submit a form on your website. The error message read \'500 Internal Server Error.',
+    },
+  ],
+};
+WithError.play = async (context) => getStatesTests(context, [
+  '',
+  '-hover',
+  '',
+  '',
+].map((state) => ({ borderColor: getCSSValue(`--color-border-error-strong${state}`) })));
