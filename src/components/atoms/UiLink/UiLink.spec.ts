@@ -37,7 +37,7 @@ describe('UiLink.vue', () => {
       });
     });
     describe('tag', () => {
-      test('', () => {
+      test('render correct tag when passed "tag" prop', () => {
         Basic({
           href: '',
           to: '',
@@ -48,7 +48,7 @@ describe('UiLink.vue', () => {
     });
   });
   describe('slots', () => {
-    describe('default slots', () => {
+    describe('default slot', () => {
       test('render a content via default slot', () => {
         const { args: { content } } = Basic();
         expect(wrapper.html()).toContain(content);
