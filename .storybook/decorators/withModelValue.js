@@ -1,10 +1,5 @@
-import { actions } from '@storybook/addon-actions';
 import { useArgs } from '@storybook/preview-api';
 import { defineComponent, ref, watch } from 'vue';
-
-const events = actions({
-  onUpdateModelValue: 'update:modelValue',
-});
 
 export const withModelValue = (story, context) => {
   const [{ modelValue }, updateArgs] = useArgs();
@@ -19,7 +14,6 @@ export const withModelValue = (story, context) => {
           if (context.argTypes.modelValue.control.disable) return;
           value.value = newValue;
           updateArgs({ modelValue: newValue });
-          events.onUpdateModelValue(newValue);
         }
       );
       return {

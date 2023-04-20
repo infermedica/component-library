@@ -2,7 +2,7 @@ import {
   withVariants,
   withModelValue,
 } from '@sb/decorators';
-import { content } from '@sb/helpers/argTypes';
+import { content as contentArgTypes } from '@sb/helpers/argTypes';
 import { useArgTypes } from '@sb/helpers';
 import {
   getCSSValue,
@@ -76,26 +76,16 @@ const getStatesTests = async ({
     getStyleTests(labels, 'color', results);
   });
 };
-const getToggleTest = async ({ canvasElement }: PlayContext) => {
-  const className = 'ui-checkbox__checkbox';
-  const inputs: HTMLInputElement[] = await within(canvasElement).findAllByTestId('input');
-  const expected = inputs.map((el) => !el.checked);
-  const checkboxes = canvasElement.querySelectorAll(`.${className}`);
-  const hasCheckedClass = (checkbox: Element) => checkbox.className.includes(`${className}--is-checked`);
-  await inputs.reduce(
-    async (events, checkbox) => {
-      await events;
-      return userEvent.click(checkbox);
-    },
-    Promise.resolve(),
-  );
-  checkboxes.forEach((checkbox, index) => {
-    expect(hasCheckedClass(checkbox)).toBe(expected[index]);
+const getToggleTest = async (step: PlayContext['step'], index: number) => {
+  const input = [ ...document.querySelectorAll('input') ][index];
+  const expected = !input.checked;
+  await step(`toggle checkbox - ${index + 1}`, async () => {
+    await userEvent.click(input);
+    expect(input.checked).toBe(expected);
   });
 };
-
 const { argTypes } = useArgTypes(UiCheckbox, { variables: { regexp: /^(\.ui-checkbox|\.ui-checkbox__checkbox)$/ } });
-export default {
+const meta = {
   title: 'Atoms/Checkbox',
   component: UiCheckbox,
   excludeStories: /.*(Type|Data)$/,
@@ -113,7 +103,7 @@ export default {
   argTypes: {
     ...argTypes,
     modelValue: { control: 'boolean' },
-    content,
+    contentArgTypes,
   },
   parameters: {
     cssProperties: {
@@ -179,15 +169,25 @@ export default {
   },
   decorators: [ withModelValue ],
 } satisfies CheckboxMetaType;
+export default meta;
 
 export const Basic: CheckboxStoryType = {
   render: () => ({
     components: { UiCheckbox },
     setup(props, { attrs }) {
-      return { ...attrs };
+      const {
+        content, modifiers, ...args
+      } = attrs;
+      return {
+        content,
+        args: {
+          ...args,
+          class: modifiers,
+        },
+      };
     },
     template: `<UiCheckbox
-      v-bind="$attrs"
+      v-bind="args"
     >
       {{ content }}
     </UiCheckbox>`,
@@ -403,6 +403,9 @@ const content = 'I read and accept Terms of Service and Privacy Policy.';
     },
   },
 };
+WithStringValue.play = async ({ step }) => {
+  await getToggleTest(step, 0);
+};
 
 export const WithObjectValue: CheckboxStoryType = { ...Basic };
 WithObjectValue.args = {
@@ -412,7 +415,7 @@ WithObjectValue.args = {
   },
 };
 WithObjectValue.argTypes = { value: { control: 'object' } };
-WithStringValue.parameters = {
+WithObjectValue.parameters = {
   docs: {
     source: {
       code: `<template>
@@ -456,6 +459,9 @@ const content = 'I read and accept Terms of Service and Privacy Policy.';
     },
   },
 };
+WithObjectValue.play = async ({ step }) => {
+  await getToggleTest(step, 0);
+};
 
 const AsGroupTemplate: CheckboxStoryType = {
   render: () => ({
@@ -464,20 +470,28 @@ const AsGroupTemplate: CheckboxStoryType = {
       UiList,
       UiListItem,
     },
-    setup(props, { attrs }) {
+    setup(props, {
+      attrs: {
+        items,
+        modifiers,
+        ...args
+      },
+    }) {
       return {
         UiCheckbox,
-        ...attrs,
+        items,
+        args: {
+          ...args,
+          class: modifiers,
+        },
       };
     },
     template: `<UiList>
       <UiListItem
         v-for="(item, key) in items"
-        :key="key"
-        v-bind="$attrs"
-        :class="modifiers"
+        v-bind="args"
         :tag="UiCheckbox"
-        :value="item.id || item"
+        :value="item"
       >
         {{ item.label || item}}
       </UiListItem>
@@ -494,10 +508,15 @@ AsGroupTemplate.argTypes = {
   value: { control: false },
   content: { control: false },
 };
-AsGroupTemplate.play = getToggleTest;
+AsGroupTemplate.play = async ({ step }) => {
+  await getToggleTest(step, 0);
+  await getToggleTest(step, 1);
+  await getToggleTest(step, 2);
+};
 
 export const AsGroupWithStringValue: CheckboxStoryType = { ...AsGroupTemplate };
 AsGroupWithStringValue.args = {
+  ...meta.args,
   modelValue: [],
   items: stringItemsData,
 };
@@ -565,7 +584,7 @@ AsGroupWithObjectValue.parameters = {
       :icon-checkmark-attrs="iconCheckmarkAttrs"
       :text-label-attrs="textLabelAttrs"
       :tag="UiCheckbox"
-      :value="item.id"
+      :value="item"
     >
       {{ item.label }}
     </UiListItem>
@@ -604,10 +623,22 @@ export const WithCheckboxSlot: CheckboxStoryType = {
       UiCheckbox,
       UiIcon,
     },
-    setup(props, { attrs }) {
-      return { ...attrs };
+    setup(props, {
+      attrs: {
+        content,
+        modifiers,
+        ...args
+      },
+    }) {
+      return {
+        content,
+        args: {
+          ...args,
+          class: modifiers,
+        },
+      };
     },
-    template: `<UiCheckbox v-bind="$attrs">
+    template: `<UiCheckbox v-bind="args">
       <template #checkbox="{
         checked,
         iconCheckmarkAttrs
@@ -692,10 +723,22 @@ export const WithCheckmarkSlot: CheckboxStoryType = {
       UiCheckbox,
       UiIcon,
     },
-    setup(props, { attrs }) {
-      return { ...attrs };
+    setup(props, {
+      attrs: {
+        content,
+        modifiers,
+        ...args
+      },
+    }) {
+      return {
+        content,
+        args: {
+          ...args,
+          class: modifiers,
+        },
+      };
     },
-    template: `<UiCheckbox v-bind="$attrs">
+    template: `<UiCheckbox v-bind="args">
       <template
         #checkmark="{ iconCheckmarkAttrs }"
       >
@@ -764,10 +807,22 @@ export const WithLabelSlot: CheckboxStoryType = {
       UiCheckbox,
       UiText,
     },
-    setup(props, { attrs }) {
-      return { ...attrs };
+    setup(props, {
+      attrs: {
+        content,
+        modifiers,
+        ...args
+      },
+    }) {
+      return {
+        content,
+        args: {
+          ...args,
+          class: modifiers,
+        },
+      };
     },
-    template: `<UiCheckbox v-bind="$attrs">
+    template: `<UiCheckbox v-bind="args">
       <template #label="{
         hasLabel,
         textLabelAttrs,
