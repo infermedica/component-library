@@ -41,7 +41,7 @@ describe('UiButton.vue', () => {
     });
   });
   describe('slots', () => {
-    describe('default slots', () => {
+    describe('default slot', () => {
       test('render a content via default slot', () => {
         const { args: { content } } = Basic();
         expect(wrapper.html()).toContain(content);
