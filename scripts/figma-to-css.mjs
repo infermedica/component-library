@@ -142,23 +142,21 @@ const figmaToCss = async () => {
     {
       fontFamily, fontSize, fontWeight, lineHeight,
     },
-  ]) => `${indentation}--${name}: ${fontWeight} ${fontSize} /\n${indentation.repeat(2)}${lineHeight} ${fontFamily};`).join('\n')}
-    \n${indentation}@media screen and (min-width: 768px) {
+  ]) => `${indentation}--${name}: ${fontWeight} ${fontSize} / ${lineHeight} ${fontFamily};`).join('\n')}\n${indentation}@media screen and (min-width: 768px) {
     ${mobileDesktopFontStyleTokens.desktop.map(([
     name,
     {
       fontFamily, fontSize, fontWeight, lineHeight,
     },
-  ]) => `--${name}: ${fontWeight} ${fontSize} /\n${indentation.repeat(2)}${lineHeight} ${fontFamily};`).join(`\n${indentation}${indentation}`)}\n${indentation}}`;
+  ]) => `--${name}: ${fontWeight} ${fontSize} / ${lineHeight} ${fontFamily};`).join(`\n${indentation.repeat(2)}`)}\n${indentation}}`;
   const letterSpacingCSS = `${mobileDesktopFontStyleTokens.mobile.map(([
     name,
     { letterSpacing },
-  ]) => `${indentation}--letter-spacing-${name.replace('font-', '')}: ${letterSpacing};`).join('\n')}
-    \n${indentation}@media screen and (min-width: 768px) {
+  ]) => `${indentation}--letter-spacing-${name.replace('font-', '')}: ${letterSpacing};`).join('\n')}\n${indentation}@media screen and (min-width: 768px) {
     ${mobileDesktopFontStyleTokens.desktop.map(([
     name,
     { letterSpacing },
-  ]) => `--letter-spacing-${name.replace('font-', '')}: ${letterSpacing};`).join(`\n${indentation}${indentation}`)}\n${indentation}}`;
+  ]) => `--letter-spacing-${name.replace('font-', '')}: ${letterSpacing};`).join(`\n${indentation.repeat(2)}`)}\n${indentation}}`;
   const getCSSBoxShadow = (characters) => {
     const isInset = characters.includes('(inset/inner shadow)') ? 'inset ' : '';
     return characters
