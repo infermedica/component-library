@@ -12,7 +12,7 @@ const indentation = '  ';
 const saveFile = (name, content) => {
   try {
     const comment = '// Auto-generated file by update:css-variables script. Do not edit manually\nhtml {\n';
-    writeFileSync(`./src/styles/variables/${name}.scss`, `${comment}${content.join('\n\n')}\n}`, 'utf-8');
+    writeFileSync(`./src/styles/variables/${name}.scss`, `${comment}${content.join('\n')}\n}`, 'utf-8');
     console.log(`🚀 ${name} file has been updated!`);
   } catch (err) {
     console.log(`⛔️ Something goes wrong and the ${name} file hasn't been updated!`, err);
@@ -184,16 +184,7 @@ const figmaToCss = async () => {
       name,
       value,
     ],
-    index,
-    tokens,
-  ) => {
-    const getVariableHead = (varName) => varName.slice(2).split('-').slice(0, 2).join('');
-    const isEmptyLine = index > 0
-      && !(name.includes('space') || name.includes('focus'))
-      && getVariableHead(name) !== getVariableHead(tokens[index - 1][0])
-      ? `\n${indentation}` : indentation;
-    return `${isEmptyLine}--${name}: ${setValue(value)};`;
-  }).join('\n');
+  ) => `${indentation}--${name}: ${setValue(value)};`).join('\n');
   saveFile('default-colors', [ getCSSVars('Color Options', (value) => value, 1, 'Frame 1106') ]);
   saveFile('colors', [
     getCSSVars('Color Decisions', (value) => getValue(value, 'color'), 2),

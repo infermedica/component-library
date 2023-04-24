@@ -2,12 +2,10 @@
 html {
   --font-family-body: "Roboto", sans-serif;
   --font-family-heading: "Roboto", sans-serif;
-
   & [dir="rtl"] {
     --font-family-body: "IBM Plex Sans Arabic", sans-serif;
     --font-family-heading: "IBM Plex Sans Arabic", sans-serif;
   }
-
   --font-size-0: 0.75rem;
   --font-size-1: 0.875rem;
   --font-size-2: 1rem;
@@ -16,18 +14,14 @@ html {
   --font-size-5: 1.5rem;
   --font-size-6: 1.75rem;
   --font-size-7: 2rem;
-
   --font-weight-default: 400;
   --font-weight-thick: 500;
-
   --letter-spacing-medium: 0.02em;
   --letter-spacing-none: 0;
   --letter-spacing-small: 0.01em;
-
   --line-height-1: 1.25rem;
   --line-height-2: 1.5rem;
   --line-height-default: 1.5;
-
   --font-body-1-thick: var(--font-weight-thick) var(--font-size-2) / var(--line-height-default) var(--font-family-body);
   --font-body-1: var(--font-weight-default) var(--font-size-2) / var(--line-height-default) var(--font-family-body);
   --font-body-2-comfortable-thick: var(--font-weight-thick) var(--font-size-1) / var(--line-height-2) var(--font-family-body);
@@ -41,13 +35,11 @@ html {
   --font-h3: var(--font-weight-default) var(--font-size-3) / var(--line-height-default) var(--font-family-heading);
   --font-h4: var(--font-weight-thick) var(--font-size-2) / var(--line-height-default) var(--font-family-heading);
   --font-h5: var(--font-weight-thick) var(--font-size-1) / var(--line-height-2) var(--font-family-heading);
-
   @media screen and (min-width: 768px) {
     --font-h1: var(--font-weight-default) var(--font-size-7) / var(--line-height-default) var(--font-family-heading);
     --font-h2: var(--font-weight-default) var(--font-size-5) / var(--line-height-default) var(--font-family-heading);
     --font-h3: var(--font-weight-default) var(--font-size-4) / var(--line-height-default) var(--font-family-heading);
   }
-
   --letter-spacing-body-1-thick: var(--letter-spacing-medium);
   --letter-spacing-body-1: var(--letter-spacing-medium);
   --letter-spacing-body-2-comfortable-thick: var(--letter-spacing-medium);
@@ -61,7 +53,6 @@ html {
   --letter-spacing-h3: var(--letter-spacing-small);
   --letter-spacing-h4: var(--letter-spacing-medium);
   --letter-spacing-h5: var(--letter-spacing-medium);
-
   @media screen and (min-width: 768px) {
     --letter-spacing-h1: var(--letter-spacing-none);
     --letter-spacing-h2: var(--letter-spacing-none);
