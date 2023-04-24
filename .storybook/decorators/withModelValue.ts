@@ -1,25 +1,24 @@
-import { actions } from '@storybook/addon-actions';
 import { useArgs } from '@storybook/preview-api';
-import { defineComponent, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
+import type { DecoratorFunction } from '@storybook/types';
+import type { VueRenderer } from '@storybook/vue3';
 
-const events = actions({
-  onUpdateModelValue: 'update:modelValue',
-});
-
-export const withModelValue = (story, context) => {
+export const withModelValue: DecoratorFunction<VueRenderer> = (
+  story,
+  { argTypes }
+) => {
   const [{ modelValue }, updateArgs] = useArgs();
-  return defineComponent({
+  return ({
     component: { story },
     props: [ 'modelValue'],
     setup() {
-      const value = ref(modelValue);
+      const value = ref<unknown>(modelValue);
       watch(
         () => value.value,
         (newValue) => {
-          if (context.argTypes.modelValue.control.disable) return;
+          if (argTypes.modelValue.control.disable) return;
           value.value = newValue;
           updateArgs({ modelValue: newValue });
-          events.onUpdateModelValue(newValue);
         }
       );
       return {
