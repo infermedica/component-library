@@ -21,7 +21,7 @@ export const getEmitTests = async <TArgs extends object>(
         const {
           component, args, wrapper,
         } = story;
-        await action(component);
+        await action(wrapper);
         const emittedValue = component.emitted(emit)?.at(0)?.at(0);
         expect(emittedValue).toStrictEqual(
           typeof expected === 'function'

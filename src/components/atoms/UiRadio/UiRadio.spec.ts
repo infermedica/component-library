@@ -1,3 +1,4 @@
+import { expect } from '@storybook/jest';
 import {
   mountStories,
   getEmitTests,
@@ -8,7 +9,7 @@ import {
   UiText,
 } from '@index';
 import type { VueWrapper } from '@vue/test-utils';
-import * as checkboxStoriesImports from './UiRadio.stories';
+import * as radioStoriesImports from './UiRadio.stories';
 
 describe('UiRadio.vue', () => {
   let wrapper: VueWrapper;
@@ -21,14 +22,13 @@ describe('UiRadio.vue', () => {
     WithObjectValue,
     WithRadioSlot,
     WithLabelSlot,
-  } = mountStories(UiRadio, checkboxStoriesImports, setWrapper);
+  } = mountStories(UiRadio, radioStoriesImports, setWrapper);
   afterEach(() => {
     wrapper.unmount();
   });
   const getInput = (story = wrapper) => story.find('[data-testid="input-element"]');
   const getRadio = (story = wrapper) => story.find('.ui-radio__radio');
-  const toggleInput = (story = wrapper, value = true) => getInput(story).setValue(value);
-  const setChecked = (story?: VueWrapper) => toggleInput(story);
+  const setChecked = (story = wrapper) => getInput(story).setValue(true);
   const getText = (story = wrapper) => story.findComponent(UiText);
   const hasEmittedValue = (component: VueWrapper) => component.emitted('update:modelValue');
   test('render a component', () => {
@@ -49,12 +49,12 @@ describe('UiRadio.vue', () => {
     describe('disabled', () => {
       test('should emit update:modelValue when the disabled prop is set to false', async () => {
         const { component } = Basic();
-        await toggleInput();
+        await setChecked();
         expect(hasEmittedValue(component)).toBeTruthy();
       });
       test('shouldn\'t emit update:modelValue when the disabled prop is set to true', async () => {
         const { component } = Basic({ disabled: true });
-        await toggleInput();
+        await setChecked();
         expect(hasEmittedValue(component)).toBeFalsy();
       });
     });
