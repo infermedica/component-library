@@ -1,3 +1,4 @@
+import { expect } from '@storybook/jest';
 import {
   withVariants,
   withModelValue,
@@ -12,7 +13,7 @@ import {
   getStyleTests,
   getFocusTests,
 } from '@tests/interactions/helpers';
-import { content } from '@sb/helpers/argTypes';
+import { content as contentArgType } from '@sb/helpers/argTypes';
 import type { PlayFunctionContext } from '@storybook/types';
 import { useArgTypes } from '@sb/helpers';
 import type { RadioProps } from '@index';
@@ -22,6 +23,7 @@ import type {
   StoryObj,
   VueRenderer,
 } from '@storybook/vue3';
+import { userEvent } from '@storybook/testing-library';
 
 type RadioArgsType = RadioProps & {
   content?: string;
@@ -52,6 +54,24 @@ const getStatesTests = async ({
     getStyleTests(labels, 'color', results);
   });
 };
+const getToggleTest = async (step: PlayContext['step'], clickedIndex: number) => {
+  const getInputs = () => [ ...document.querySelectorAll('[data-testid="input-element"]') ] as HTMLInputElement[];
+  await step(`click radio - ${clickedIndex + 1}`, async () => {
+    const clickedInput = getInputs()[clickedIndex];
+    await userEvent.click(clickedInput);
+    await step('clicked radio element is checked', async () => {
+      expect(clickedInput.checked).toBe(true);
+    });
+    await step('other radio elements are unchecked.', async () => {
+      const inputs = getInputs();
+      inputs.forEach((input, index) => {
+        if (index !== clickedIndex) {
+          expect(input.checked).toBe(false);
+        }
+      });
+    });
+  });
+};
 
 const stringItemsData = [
   'I’m overweight or obese',
@@ -74,7 +94,7 @@ const complexItemsData = [
 ];
 
 const { argTypes } = useArgTypes(UiRadio, { variables: { regexp: /^(\.ui-radio|\.ui-radio__radio)$/ } });
-export default {
+const meta = {
   title: 'Atoms/Radio',
   component: UiRadio,
   excludeStories: /.*(Type|Data)$/,
@@ -92,7 +112,7 @@ export default {
   argTypes: {
     ...argTypes,
     modelValue: { control: 'text' },
-    content,
+    content: contentArgType,
     value: { control: 'text' },
   },
   parameters: {
@@ -156,15 +176,28 @@ export default {
   },
   decorators: [ withModelValue ],
 } satisfies RadioMetaType;
+export default meta;
 
 export const Basic: RadioStoryType = {
   render: () => ({
     components: { UiRadio },
-    setup(props, { attrs }) {
-      return { ...attrs };
+    setup(props, {
+      attrs: {
+        content,
+        modifiers,
+        ...args
+      },
+    }) {
+      return {
+        content,
+        args: {
+          ...args,
+          class: modifiers,
+        },
+      };
     },
     template: `<UiRadio
-      v-bind="$attrs"
+      v-bind="args"
     >
       {{ content }}
     </UiRadio>`,
@@ -401,9 +434,19 @@ const AsGroupTemplate: RadioStoryType = {
       UiList,
       UiListItem,
     },
-    setup(props, { attrs }) {
+    setup(props, {
+      attrs: {
+        items,
+        modifiers,
+        ...args
+      },
+    }) {
       return {
-        ...attrs,
+        items,
+        args: {
+          ...args,
+          class: modifiers,
+        },
         UiRadio,
       };
     },
@@ -412,7 +455,7 @@ const AsGroupTemplate: RadioStoryType = {
         v-for="(item, key) in items"
         :key="key"
         :tag="UiRadio"
-        v-bind="$attrs"
+        v-bind="args"
         :value="item.value || item"
       >
         {{ item.label || item }}
@@ -429,6 +472,11 @@ AsGroupTemplate.argTypes = {
   id: { control: false },
   value: { control: false },
   content: { control: false },
+};
+AsGroupTemplate.play = async ({ step }) => {
+  await getToggleTest(step, 0);
+  await getToggleTest(step, 1);
+  await getToggleTest(step, 2);
 };
 
 export const AsGroupWithStringValue: RadioStoryType = { ...AsGroupTemplate };
@@ -544,11 +592,23 @@ const items = ${JSON.stringify(complexItemsData)}
 export const WithRadioSlot: RadioStoryType = {
   render: () => ({
     components: { UiRadio },
-    setup(props, { attrs }) {
-      return { ...attrs };
+    setup(props, {
+      attrs: {
+        content,
+        modifiers,
+        ...args
+      },
+    }) {
+      return {
+        content,
+        args: {
+          ...args,
+          class: modifiers,
+        },
+      };
     },
     template: `<UiRadio
-      v-bind="$attrs"
+      v-bind="args"
     >
       <template #radio="{
         checked,
@@ -630,11 +690,23 @@ export const WithLabelSlot: RadioStoryType = {
       UiRadio,
       UiText,
     },
-    setup(props, { attrs }) {
-      return { ...attrs };
+    setup(props, {
+      attrs: {
+        content,
+        modifiers,
+        ...args
+      },
+    }) {
+      return {
+        content,
+        args: {
+          ...args,
+          class: modifiers,
+        },
+      };
     },
     template: `<UiRadio
-      v-bind="$attrs"
+      v-bind="args"
     >
       <template #label="{
         hasLabel,
