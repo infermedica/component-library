@@ -1,23 +1,47 @@
 import type {
   Meta,
   StoryObj,
+  VueRenderer,
 } from '@storybook/vue3';
-import { UiHeading } from '@/../index';
+import {
+  UiHeading,
+  type HeadingProps,
+} from '@/../index';
 import { withVariants } from '@sb/decorators';
-import { useArgTypes } from '@sb/helpers'
-import { content } from '@sb/helpers/argTypes/index.js';
+import { useArgTypes } from '@sb/helpers';
+import { content as contentArgType } from '@sb/helpers/argTypes/index';
+import type { PlayFunctionContext } from '@storybook/types';
+import {
+  getCSSValue,
+  getStyleTests,
+} from '@tests/interactions/helpers';
+
+type HeadingArgsType = HeadingProps & {
+  content?: string;
+}
+type HeadingMetaType = Meta<HeadingArgsType>;
+type HeadingStoryType = StoryObj<HeadingArgsType>;
+type PlayContext = PlayFunctionContext<VueRenderer, HeadingArgsType>;
+
+const getVariantTests = async (step: PlayContext['step'], variant = '-heading') => {
+  const headings = [ ...document.querySelectorAll('.ui-heading') ];
+  await step('Correct font colors', () => {
+    getStyleTests(
+      headings,
+      'color',
+      Array(headings.length).fill({ color: getCSSValue(`--color-text${variant}`) }),
+    );
+  });
+};
 
 const { argTypes } = useArgTypes(UiHeading);
-
 const meta = {
   title: 'Atoms/Heading',
   component: UiHeading,
-  args: {
-    content: 'How to use it?'
-  },
+  args: { content: 'How to use it?' },
   argTypes: {
     ...argTypes,
-    content,
+    contentArgType,
     level: {
       control: {
         type: 'range',
@@ -25,24 +49,22 @@ const meta = {
         max: 5,
       },
     },
-    modifiers: {
-      table: {
-        disable: true,
-      }
-    }
+    modifiers: { table: { disable: true } },
   },
   parameters: {
     chromatic: {
       disableSnapshot: false,
-      viewports: [320, 1200],
+      viewports: [
+        320,
+        1200,
+      ],
     },
     docs: { source: { code: null } },
   },
-} satisfies Meta<typeof UiHeading>;
+} satisfies HeadingMetaType;
 export default meta;
-type Story = StoryObj<typeof UiHeading>;
 
-export const Basic: Story = {
+export const Basic: HeadingStoryType = {
   render: () => ({
     components: { UiHeading },
     setup(props, { attrs }) {
@@ -65,7 +87,7 @@ Basic.parameters = {
   docs: {
     source: {
       code: `<template>
-  <UiHeading 
+  <UiHeading
     :level="level"
   >
     {{ content }}
@@ -73,44 +95,43 @@ Basic.parameters = {
 </template>
 
 <script setup lang="ts">
-import { UiHeading } from '@infemedica/component-library'
+import { UiHeading } from '@infermedica/component-library'
 
 const level = 2;
-</script>`
-    }
-  }
-}
-
-export const AllVariants: Story = {
-  ...Basic,
+</script>`,
+    },
+  },
 };
+
+export const AllVariants: HeadingStoryType = { ...Basic };
 AllVariants.argTypes = {
   level: { control: false },
   tag: { control: false },
 };
 AllVariants.decorators = [ withVariants ];
 AllVariants.parameters = {
-  variants: [
-    ...Array.apply(null, Array(5)).map( (variant, index)=> ({
-      label: `H${index+1}`,
-      level: index+1,
-    }))
-  ],
+  variants: Array(5).fill({}).map((variant, index) => ({
+    label: `H${index + 1}`,
+    level: index + 1,
+  })),
 };
+AllVariants.play = async ({ step }) => getVariantTests(step);
 
-export const Secondary: Story = { ...AllVariants };
+export const Secondary: HeadingStoryType = { ...AllVariants };
 Secondary.decorators = [
   ...AllVariants.decorators,
-  () => ({ template: '<div class="ui-heading--theme-secondary"><story/></div>' })
+  () => ({ template: '<div class="ui-heading--theme-secondary"><story/></div>' }),
 ];
+Secondary.play = async ({ step }) => getVariantTests(step, '-dimmed');
 
-export const Brand: Story = { ...AllVariants };
+export const Brand: HeadingStoryType = { ...AllVariants };
 Brand.parameters = {
   ...AllVariants.parameters,
   backgrounds: { default: 'brand' },
 };
 Brand.decorators = [
   ...AllVariants.decorators,
-  () => ({ template: '<div class="ui-heading--theme-brand"><story/></div>' })
+  () => ({ template: '<div class="ui-heading--theme-brand"><story/></div>' }),
 ];
+Brand.play = async ({ step }) => getVariantTests(step, '-on-brand');
 
