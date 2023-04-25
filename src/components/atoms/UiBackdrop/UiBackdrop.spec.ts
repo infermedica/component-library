@@ -13,7 +13,7 @@ describe('UiBackdrop.vue', () => {
     wrapper.unmount();
   });
   test('renders a component', () => {
-    const { component } = Basic();
-    expect(component.classes('ui-backdrop')).toBe(true);
+    Basic();
+    expect(wrapper.classes('ui-backdrop')).toBe(true);
   });
 });
