@@ -4,21 +4,21 @@ import {
 } from './argTypes/index';
 export function useArgTypes(component, options = { variables: {}}) {
   const { __docgenInfo } = component;
-  const componentNameKebabCase = __docgenInfo.displayName
+  const componentNameKebabCase = __docgenInfo?.displayName
     .replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`)
     .substring(1);
-  const { cssRules } = [...document.styleSheets]
+  const cssRules = [...document?.styleSheets]
     .find( (styleSheet) => {
       try {
-        const { cssRules } = styleSheet;
-        const { selectorText } = [...cssRules].at(0);
+        const cssRules = styleSheet?.cssRules || [];
+        const { selectorText } = [...cssRules]?.at(0);
         return selectorText
           ?.match(componentNameKebabCase);
       }
       catch (e) {
-        // console.error(e);
+        console.error(e);
       }
-    })
+    })?.cssRules || [];
   const getControl = (type) => {
     const { name } = type
 
@@ -46,7 +46,7 @@ export function useArgTypes(component, options = { variables: {}}) {
     }
   }
   const props = (()=> {
-    return __docgenInfo.props
+    return __docgenInfo?.props
       ?.reduce(
         (object, { name, type }) => {
           const control = getControl(type)
@@ -64,15 +64,15 @@ export function useArgTypes(component, options = { variables: {}}) {
   })();
   const getBindings = (bindings) => (
     bindings.map(({ name, type }) => (
-      `${name}${ 
-        type?.name 
-          ? ':' + type.name 
-          : '' 
+      `${name}${
+        type?.name
+          ? ':' + type.name
+          : ''
       }`.trim()
     ))
   )
   const slots = (() => {
-    return __docgenInfo.slots
+    return __docgenInfo?.slots
       ?.reduce(
         (object, { name, description, bindings = [ { name: 'unknown '} ] }) => {
           if ( !description ) {
@@ -108,7 +108,7 @@ export function useArgTypes(component, options = { variables: {}}) {
     }
   }
   const events = (() => {
-    return __docgenInfo.events
+    return __docgenInfo?.events
       ?.reduce(
         (object, { name }) => {
           const action = getAction(name);
