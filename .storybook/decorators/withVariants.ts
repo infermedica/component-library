@@ -1,4 +1,8 @@
+import type { DecoratorFunction } from '@storybook/types';
+import type { VueRenderer } from '@storybook/vue3';
 import { onBeforeUnmount } from 'vue';
+
+type CSSStyleRuleWithSubRules = CSSStyleRule | (CSSMediaRule & { cssRules?: CSSStyleRule[]})
 
 const pseudoStates = [
   "hover",
@@ -6,28 +10,26 @@ const pseudoStates = [
   "focus-visible",
   "focus-within",
   "focus",
-];
-const decoratorSelector = "pseudo-states";
+] as const;
+const decoratorSelector = "pseudo-states" as const;
 const joinedPseudoStates = pseudoStates.join("|");
 const matchOnePseudoSelector = new RegExp(`:(${joinedPseudoStates})`);
 const matchAllPseudoSelectors = new RegExp(
   `:(${joinedPseudoStates})`,
   "g"
 );
-const createSelector = (selector) => `pseudo-style-${selector}`;
-const hasPseudoClasses = () => {
-  return !!document
-    .getElementsByTagName("style")
-    .namedItem(decoratorSelector);
-};
-const processPseudoSelector = (ct, st) => {
+const createSelector = (selector: string) => `pseudo-style-${selector.split('--')[0]}`;
+const hasPseudoClasses = () => !!document
+  .getElementsByTagName("style")
+  .namedItem(decoratorSelector);
+const processPseudoSelector = (ct: string, st: string) => {
   return ct.replace(
     st,
     st.split(", ")
       .flatMap((selector) => {
         const modifiedSelector = selector.replaceAll(
           matchAllPseudoSelectors,
-          (originalSelector, state) => {
+          (originalSelector, state: string) => {
             const replacement = originalSelector.replaceAll(
               `:${state}`,
               `.pseudo-${state}`
@@ -39,7 +41,7 @@ const processPseudoSelector = (ct, st) => {
       .join(", ")
   );
 };
-const insertStylesIntoDOM = (styleList, contextId) => {
+const insertStylesIntoDOM = (styleList: string[], contextId: string) => {
   if (hasPseudoClasses()) return;
   const markingElement = document.createElement("style");
   const selectorID = createSelector(contextId);
@@ -58,67 +60,67 @@ const insertStylesIntoDOM = (styleList, contextId) => {
     document.head.appendChild(docFragment);
   }
 }
-const removeStylesFromDOM = (contextId) => {
+const removeStylesFromDOM = (contextId: string) => {
   const selectorID = createSelector(contextId);
   document.getElementById(selectorID)?.remove();
   document.getElementById(decoratorSelector)?.remove();
 }
-const replacePseudoSelectors = (selector) => {
-  const styleSheetsList = document.styleSheets;
-  if (!styleSheetsList) return [];
-  let rulesProcessed = [];
-  for (let i = 0; i < styleSheetsList.length; i++) {
-    const currentStyleSheet = styleSheetsList.item(i);
-    if (currentStyleSheet && !currentStyleSheet.href?.includes('googleapis')) {
-    for (let j = 0; j < currentStyleSheet.cssRules.length; j++) {
-        const currentCSSRule = currentStyleSheet.cssRules.item(j);
-        if (currentCSSRule) {
-          const { cssText, selectorText } = currentCSSRule;
-            if ( matchOnePseudoSelector.test(cssText)
-              && cssText.includes(selector) &&
-              !cssText.includes(`.pseudo-`)
-            ) {
-              if (!selectorText) {
-                for(let k = 0; k < currentCSSRule.cssRules.length; k++) {
-                  rulesProcessed.push(processPseudoSelector(
-                    currentCSSRule.cssRules[k].cssText, currentCSSRule.cssRules[k].selectorText)
-                  )
-                }
-            } else {
-              const newRule = processPseudoSelector(cssText, currentCSSRule.selectorText)
-              rulesProcessed.push(newRule);
-            }
-          }
-        }
-      }
+const replacePseudoSelectors = (selector: string) => {
+  const styleSheetsList = [...document.styleSheets];
+  return styleSheetsList.flatMap((styleSheet)  => {
+    if (styleSheet.href?.includes('googleapis')) {
+      return [];
     }
-  }
-  return rulesProcessed;
-}
-const getModifiers = (variant, args) => {
+    return Array.from(styleSheet.cssRules).flatMap((cssRule) => {
+      const ruleWithSelectorText = cssRule as CSSStyleRuleWithSubRules;
+      if (
+        ruleWithSelectorText &&
+        matchOnePseudoSelector.test(ruleWithSelectorText.cssText) &&
+        ruleWithSelectorText.cssText.includes(selector) &&
+        !ruleWithSelectorText.cssText.includes('.pseudo-')
+      ) {
+        return 'selectorText' in ruleWithSelectorText
+          ? processPseudoSelector(ruleWithSelectorText.cssText, ruleWithSelectorText.selectorText)
+          : ([...ruleWithSelectorText.cssRules]).map((subRule ) => {
+              return processPseudoSelector(subRule.cssText, subRule.selectorText);
+            });
+      }
+      return [];
+    });
+  });
+};
+const getModifiers = (
+  variant: Record<string, unknown> & { class?: string | string[] },
+  { modifiers }: { modifiers?: string[] }
+) => {
   if( typeof variant.class === 'string' ) {
     variant.class = variant.class.split(' ');
   }
   if( typeof variant.class === 'undefined' ) {
     variant.class = []
   }
-  if( typeof args.modifiers === 'undefined' ) {
-    args.modifiers = []
+  if( typeof modifiers === 'undefined' ) {
+    modifiers = []
   }
   return [
     ...variant.class,
-    ...args.modifiers,
+    ...modifiers,
   ]
 }
-export const withVariants = (story, { componentId, id, parameters, args }) => ({
+export const withVariants: DecoratorFunction<VueRenderer> = (
+  story,
+  { componentId, id, parameters, args }
+) => ({
   components: { story },
   setup() {
-    const componentClassName = `.ui-${componentId.split('-')[1]}`;
-    const getModifiedStyles = replacePseudoSelectors(componentClassName);
-    insertStylesIntoDOM(getModifiedStyles, id);
-    onBeforeUnmount(() => {
-      removeStylesFromDOM(id);
-    })
+    if (!document.getElementById(createSelector(id))) {
+      const componentClassName = `.ui-${componentId.split('-')[1]}`;
+      const getModifiedStyles = replacePseudoSelectors(componentClassName);
+      insertStylesIntoDOM(getModifiedStyles, id);
+      onBeforeUnmount(() => {
+        removeStylesFromDOM(id);
+      })
+    }
     return {
       variants: parameters.variants,
       args,
