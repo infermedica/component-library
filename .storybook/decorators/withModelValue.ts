@@ -12,7 +12,7 @@ export const withModelValue: DecoratorFunction<VueRenderer> = (
     component: { story },
     props: [ 'modelValue'],
     setup() {
-      const value = ref<unknown>(modelValue);
+      const value = ref(modelValue);
       watch(
         () => value.value,
         (newValue) => {

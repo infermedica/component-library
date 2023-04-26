@@ -1,4 +1,7 @@
-import { inject } from 'vue';
+import {
+  inject,
+  type ComputedRef,
+} from 'vue';
 import {
   UiButton,
   UiText,
@@ -42,9 +45,11 @@ export const Padding: StoryType = {
     },
     props: Object.keys(args),
     setup() {
+      const logicalStyle = inject<ComputedRef<string[]>>('logicalStyle');
+      const physicalStyle = inject<ComputedRef<string>>('physicalStyle');
       return {
-        logicalStyle: inject('logicalStyle'),
-        physicalStyle: inject<string>('physicalStyle'),
+        logicalStyle,
+        physicalStyle,
       };
     },
     template: `<UiText class="docs__label">
@@ -77,9 +82,11 @@ export const BorderWidth: StoryType = {
     },
     props: Object.keys(args),
     setup() {
+      const logicalStyle = inject<ComputedRef<string[]>>('logicalStyle');
+      const physicalStyle = inject<ComputedRef<string>>('physicalStyle');
       return {
-        logicalStyle: inject('logicalStyle'),
-        physicalStyle: inject('physicalStyle'),
+        logicalStyle,
+        physicalStyle,
       };
     },
     template: `<UiText class="docs__label">

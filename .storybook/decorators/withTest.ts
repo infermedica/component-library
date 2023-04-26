@@ -12,7 +12,8 @@ const getResult = (title: string) => testResults.testResults.find(
 
 const withTest: DecoratorFunction<VueRenderer> = (
   story,
-  { title }) => {
+  { title }
+) => {
   const result = getResult(title);
   if(result?.assertionResults.length){
     addons.getChannel().emit('storybookjs/test/add_tests', {

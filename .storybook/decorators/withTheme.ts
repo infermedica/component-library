@@ -5,7 +5,8 @@ import type { VueRenderer} from '@storybook/vue3';
 
 const withTheme: DecoratorFunction<VueRenderer> = (
   story,
-  { globals, id, parameters, viewMode }) => ({
+  { globals, id, parameters, viewMode }
+) => ({
   components: { story },
   setup() {
     const theme = parameters.theme || globals.theme;
