@@ -1,4 +1,5 @@
 import { withTest, withTheme  } from './decorators';
+import addPseudoClasses from './decorators/withVariants/addPseudoClasses';
 import type { Preview } from '@storybook/vue3';
 import { setup } from '@storybook/vue3';
 import './tailwindcss.css';
@@ -20,6 +21,8 @@ setup((app) => {
     </a>`,
   })
 })
+
+addPseudoClasses();
 
 const preview: Preview = {
   parameters: {

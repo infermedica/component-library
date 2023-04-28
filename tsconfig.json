@@ -52,6 +52,7 @@
     "src/**/*.vue",
     "src/**/*.stories.ts",
     ".storybook/decorators/*.ts",
+    ".storybook/decorators/**/*.ts",
     "docs/**/*.ts",
     "tests/**/*.ts"
   ],
