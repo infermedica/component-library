@@ -232,10 +232,9 @@ const numberStepperAttrs = computed<NumberStepperAttrsProps>(() => ({ ...attrs.v
 
     position: absolute;
     left: var(--_range-runnable-track-width);
-    display: flex;
+    display: inline-block;
     width: functions.var($element + "-thumb", size, 3rem);
-    align-items: center;
-    justify-content: center;
+    text-align: center;
     transform:
       translate3d(
         calc(var(--_range-runnable-track-width) * -1),
