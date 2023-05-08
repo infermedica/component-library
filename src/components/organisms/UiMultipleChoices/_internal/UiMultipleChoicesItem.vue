@@ -375,18 +375,30 @@ const optionsToRender = computed(() => props.options.map((option) => ({ ...optio
   }
 
   &__options {
-    @include mixins.override-logical(list-item, $element + "-options", border-width);
-
     @include mixins.from-tablet {
-      @include mixins.override-logical(list-item, $element + "-tablet-options", border-width, 0);
-
       display: flex;
       gap: functions.var($element + "-options", gap, var(--space-24));
     }
   }
 
+  &__option {
+    @include mixins.override-logical(list-item, $element + "-option", border-width,  1px 0 0 0);
+
+    &:last-of-type {
+      @include mixins.override-logical(list-item, $element + "-option", border-width,  1px 0);
+    }
+
+    @include mixins.from-tablet {
+      @include mixins.override-logical(list-item, $element + "-tablet-option", border-width, 0);
+
+      &:last-of-type {
+        @include mixins.override-logical(list-item, $element + "-tablet-option", border-width, 0);
+      }
+    }
+  }
+
   &__option-content {
-    @include mixins.override-logical(list-item-content, $element + "-option-content", padding);
+    @include mixins.override-logical(list-item-content, $element + "-option-content", padding, var(--space-12) var(--space-20));
     @include mixins.override-logical(list-item-tablet-content, $element + "-tablet-option-content", padding, 0);
 
     --list-item-content-hover-background: #{functions.var($element + "-content-hover", background)};
