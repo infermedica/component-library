@@ -4,7 +4,10 @@
       "exportName": "default",
       "displayName": "UiBackdrop",
       "description": "",
-      "tags": {}
+      "tags": {},
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiBackdrop/UiBackdrop.vue"
+      ]
     },
     {
       "exportName": "default",
@@ -70,6 +73,9 @@
           "name": "default",
           "description": "Use this slot to place content inside button."
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiButton/UiButton.vue"
       ]
     },
     {
@@ -248,6 +254,9 @@
           "name": "default",
           "description": "Use this slot to place content inside label."
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiCheckbox/UiCheckbox.vue"
       ]
     },
     {
@@ -324,6 +333,9 @@
           "name": "default",
           "description": "Use this slot to place content inside heading"
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiHeading/UiHeading.vue"
       ]
     },
     {
@@ -344,6 +356,9 @@
             "value": "''"
           }
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiIcon/UiIcon.vue"
       ]
     },
     {
@@ -494,6 +509,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiInput/UiInput.vue"
       ]
     },
     {
@@ -560,6 +578,9 @@
           "name": "default",
           "description": "Use this slot to place content inside link."
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiLink/UiLink.vue"
       ]
     },
     {
@@ -604,6 +625,9 @@
             "value": "100"
           }
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiProgress/UiProgress.vue"
       ]
     },
     {
@@ -763,6 +787,9 @@
           "name": "default",
           "description": "Use this slot to place content inside label."
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiRadio/UiRadio.vue"
       ]
     },
     {
@@ -915,6 +942,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiRange/UiRange.vue"
       ]
     },
     {
@@ -941,6 +971,9 @@
           "name": "default",
           "description": "Use this slot to place content inside text"
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiText/UiText.vue"
       ]
     },
     {
@@ -1038,6 +1071,9 @@
             ]
           }
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiTextarea/UiTextarea.vue"
       ]
     },
     {
@@ -1139,6 +1175,9 @@
           "name": "default",
           "description": "Use this slot to place message inside alert."
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiAlert/UiAlert.vue"
       ]
     },
     {
@@ -1221,6 +1260,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiBulletPoints/UiBulletPoints.vue"
       ]
     },
     {
@@ -1315,6 +1357,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiChip/UiChip.vue"
       ]
     },
     {
@@ -1568,6 +1613,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiDropdown/UiDropdown.vue"
       ]
     },
     {
@@ -1769,6 +1817,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiFormField/UiFormField.vue"
       ]
     },
     {
@@ -1947,6 +1998,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiHeader/UiHeader.vue"
       ]
     },
     {
@@ -1973,6 +2027,9 @@
           "name": "default",
           "description": "Use this slot to place svg elements."
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiInteractiveSvg/UiInteractiveSvg.vue"
       ]
     },
     {
@@ -2087,6 +2144,9 @@
           "name": "default",
           "description": "Use this slot to place loaded content."
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiLoader/UiLoader.vue"
       ]
     },
     {
@@ -2133,6 +2193,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiNavigation/UiNavigation.vue"
       ]
     },
     {
@@ -2270,6 +2333,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiNotification/UiNotification.vue"
       ]
     },
     {
@@ -2487,6 +2553,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiNumberStepper/UiNumberStepper.vue"
       ]
     },
     {
@@ -2622,6 +2691,9 @@
           "name": "default",
           "description": "Use this to put content inside component."
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiPopover/UiPopover.vue"
       ]
     },
     {
@@ -2666,6 +2738,9 @@
             "value": "() => ({})"
           }
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiProgressbar/UiProgressbar.vue"
       ]
     },
     {
@@ -2886,6 +2961,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiRating/UiRating.vue"
       ]
     },
     {
@@ -3136,6 +3214,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiScale/UiScale.vue"
       ]
     },
     {
@@ -3294,6 +3375,9 @@
           "scoped": true,
           "bindings": []
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiStepper/UiStepper.vue"
       ]
     },
     {
@@ -3363,6 +3447,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiSwitch/UiSwitch.vue"
       ]
     },
     {
@@ -3481,6 +3568,9 @@
           "name": "default",
           "description": "Use this slot to place content inside label."
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiTile/UiTile.vue"
       ]
     },
     {
@@ -3579,6 +3669,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiToggleButtonGroup/UiToggleButtonGroup.vue"
       ]
     },
     {
@@ -3647,6 +3740,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiAccordion/UiAccordion.vue"
       ]
     },
     {
@@ -3861,6 +3957,9 @@
           "name": "details",
           "description": "Use this slot to place content bottom of card."
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiCard/UiCard.vue"
       ]
     },
     {
@@ -3873,6 +3972,9 @@
           "name": "default",
           "description": "Use this slot to place content inside container."
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiContainer/UiContainer.vue"
       ]
     },
     {
@@ -4114,6 +4216,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiControls/UiControls.vue"
       ]
     },
     {
@@ -4397,6 +4502,9 @@
             ]
           }
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiDatepicker/UiDatepicker.vue"
       ]
     },
     {
@@ -4602,6 +4710,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiHorizontalPaging/UiHorizontalPaging.vue"
       ]
     },
     {
@@ -4670,6 +4781,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiList/UiList.vue"
       ]
     },
     {
@@ -4722,6 +4836,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiMenu/UiMenu.vue"
       ]
     },
     {
@@ -5317,6 +5434,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiModal/UiModal.vue"
       ]
     },
     {
@@ -5521,6 +5641,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiMultipleAnswer/UiMultipleAnswer.vue"
       ]
     },
     {
@@ -5698,6 +5821,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiMultipleChoices/UiMultipleChoices.vue"
       ]
     },
     {
@@ -6074,6 +6200,9 @@
           "name": "default",
           "description": "Use this slot to place side panel content."
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiSidePanel/UiSidePanel.vue"
       ]
     },
     {
@@ -6146,6 +6275,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiSimpleQuestion/UiSimpleQuestion.vue"
       ]
     },
     {
@@ -6214,6 +6346,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiTabs/UiTabs.vue"
       ]
     },
     {
@@ -6379,6 +6514,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/templates/UiMessage/UiMessage.vue"
       ]
     },
     {
@@ -6660,6 +6798,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/templates/UiQuestion/UiQuestion.vue"
       ]
     },
     {
@@ -6756,6 +6897,9 @@
           "name": "default",
           "description": "Use this slot to place bullet points item content"
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue"
       ]
     },
     {
@@ -6793,6 +6937,9 @@
         {
           "name": "default"
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiDropdown/_internal/UiDropdownItem.vue"
       ]
     },
     {
@@ -6819,12 +6966,18 @@
           "name": "default",
           "description": "Use this slot to place svg elements."
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiInteractiveSvg/_internal/UiInteractiveSvgElement.vue"
       ]
     },
     {
       "displayName": "UiLoaderEllipsis",
       "description": "",
-      "tags": {}
+      "tags": {},
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiLoader/_internal/UiLoaderEllipsis.vue"
+      ]
     },
     {
       "exportName": "default",
@@ -6852,6 +7005,9 @@
         {
           "name": "default"
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiLoader/_internal/UiLoaderNativeTransition.vue"
       ]
     },
     {
@@ -6886,17 +7042,26 @@
           "name": "default",
           "description": "Use this slot to put skeleton blocks."
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiLoader/_internal/UiLoaderSkeleton.vue"
       ]
     },
     {
       "displayName": "UiLoaderSkeletonCommon",
       "description": "",
-      "tags": {}
+      "tags": {},
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiLoader/_internal/UiLoaderSkeletons/UiLoaderSkeletonCommon.vue"
+      ]
     },
     {
       "displayName": "UiLoaderSkeletonQuestion",
       "description": "",
-      "tags": {}
+      "tags": {},
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiLoader/_internal/UiLoaderSkeletons/UiLoaderSkeletonQuestion.vue"
+      ]
     },
     {
       "exportName": "default",
@@ -6976,6 +7141,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiLoader/_internal/UiLoaderSpinner.vue"
       ]
     },
     {
@@ -7040,6 +7208,9 @@
         {
           "name": "default"
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiLoader/_internal/UiLoaderTransition.vue"
       ]
     },
     {
@@ -7052,6 +7223,9 @@
           "name": "default",
           "description": "Use this slot to place navigation item content."
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiNavigation/_internal/UiNavigationItem.vue"
       ]
     },
     {
@@ -7132,13 +7306,19 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiStepper/_internal/UiStepperStep.vue"
       ]
     },
     {
       "exportName": "default",
       "displayName": "UiSwitchControl",
       "description": "",
-      "tags": {}
+      "tags": {},
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiSwitch/_internal/UiSwitchControl.vue"
+      ]
     },
     {
       "exportName": "default",
@@ -7172,6 +7352,9 @@
           "name": "default",
           "description": "Use this slot to place content inside component."
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiToggleButtonGroup/_internal/UiToggleButton.vue"
       ]
     },
     {
@@ -7356,6 +7539,9 @@
           "name": "default",
           "description": "Use this slot to place content inside accordion."
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiAccordion/_internal/UiAccordionItem.vue"
       ]
     },
     {
@@ -7474,6 +7660,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerCalendar.vue"
       ]
     },
     {
@@ -7548,6 +7737,9 @@
             ]
           }
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerDayInput.vue"
       ]
     },
     {
@@ -7586,6 +7778,9 @@
             ]
           }
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerDayTab.vue"
       ]
     },
     {
@@ -7660,6 +7855,9 @@
             ]
           }
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerMonthInput.vue"
       ]
     },
     {
@@ -7698,6 +7896,9 @@
             ]
           }
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerMonthTab.vue"
       ]
     },
     {
@@ -7709,6 +7910,9 @@
         {
           "name": "default"
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerTab.vue"
       ]
     },
     {
@@ -7720,6 +7924,9 @@
         {
           "name": "default"
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerTabItem.vue"
       ]
     },
     {
@@ -7794,6 +8001,9 @@
             ]
           }
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerYearInput.vue"
       ]
     },
     {
@@ -7832,6 +8042,9 @@
             ]
           }
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerYearTab.vue"
       ]
     },
     {
@@ -7881,6 +8094,9 @@
         {
           "name": "default"
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiHorizontalPaging/_internal/UiHorizontalPagingItem.vue"
       ]
     },
     {
@@ -8013,6 +8229,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiList/_internal/UiListItem.vue"
       ]
     },
     {
@@ -8106,6 +8325,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiList/_internal/UiListItemSuffixAsButton.vue"
       ]
     },
     {
@@ -8126,6 +8348,9 @@
             "value": "''"
           }
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiList/_internal/UiListItemSuffixAsText.vue"
       ]
     },
     {
@@ -8218,6 +8443,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiMenu/_internal/UiMenuItem.vue"
       ]
     },
     {
@@ -8290,6 +8518,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiMenu/_internal/UiMenuItemSuffix.vue"
       ]
     },
     {
@@ -8499,6 +8730,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiMultipleAnswer/_internal/UiMultipleAnswerItem.vue"
       ]
     },
     {
@@ -8829,6 +9063,9 @@
             }
           ]
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiMultipleChoices/_internal/UiMultipleChoicesItem.vue"
       ]
     },
     {
@@ -8972,6 +9209,9 @@
         {
           "name": "default"
         }
+      ],
+      "sourceFiles": [
+        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiTabs/_internal/UiTabsItem.vue"
       ]
     }
   ]
