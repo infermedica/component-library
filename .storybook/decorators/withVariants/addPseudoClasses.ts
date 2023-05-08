@@ -3,7 +3,11 @@ declare global {
     __pseudoStyles: Record<string, string[]>;
   }
 }
-type CSSStyleRuleWithSubRules = CSSStyleRule | (CSSMediaRule & { cssRules?: CSSStyleRule[]})
+type CSSStyleRuleWithSubRules = CSSStyleRule | (
+  CSSMediaRule & {
+    cssRules?: CSSStyleRule[]; selectorText?: string;
+  }
+)
 
 const pseudoStates = [
   "hover",
@@ -20,7 +24,7 @@ const matchAllPseudoSelectors = new RegExp(
   `:(${joinedPseudoStates})`,
   "g"
 );
-const processPseudoSelector = (ct: string, st: string) => ct.replace(
+const processPseudoSelector = (ct = '', st = '') => ct.replace(
   st,
   st.split(", ")
     .flatMap((selector) => {
@@ -62,7 +66,7 @@ const getModifiedStyles = (styleSheetsList: CSSStyleSheet[], selector: string) =
         !ruleWithSelectorText.cssText.includes('.pseudo-')
       ) {
         if ('selectorText' in ruleWithSelectorText) {
-          const componentName = ruleWithSelectorText.selectorText.match(matchComponentName)?.at(0);
+          const componentName = ruleWithSelectorText.selectorText?.match(matchComponentName)?.at(0);
           const modifiedStyles = getModifiedStyle(ruleWithSelectorText);
           if (componentName) window.__pseudoStyles[componentName] = [
             ...(window.__pseudoStyles[componentName] || []),
