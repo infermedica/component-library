@@ -6,44 +6,46 @@ import {
   UiButton,
   UiIcon,
   UiText,
-} from '@/../index';
+} from '@index';
+import type { IconProps } from '@index';
 import {
   ref,
   defineAsyncComponent,
 } from 'vue';
-import icons from './icons';
 import './UiIcon.stories.scss';
-import { useArgTypes } from '@sb/helpers'
-import { icon } from '@sb/helpers/argTypes/index.js';
+import { useArgTypes } from '@sb/helpers';
+import { icon as iconArgTypes } from '@sb/helpers/argTypes/index';
+import type { IconName } from '@/types';
+import icons from './icons';
+
+type IconArgsType = IconProps & {
+  illustrations?: {
+    name: IconName;
+    style: string;
+  }[];
+};
+type IconMetaType = Meta<IconArgsType>;
+type IconStoryType = StoryObj<IconArgsType>;
 
 const { argTypes } = useArgTypes(UiIcon);
-
 const meta = {
   title: 'Atoms/Icon',
   component: UiIcon,
   argTypes: {
     ...argTypes,
-    icon
+    icon: iconArgTypes,
   },
   parameters: {
-    chromatic: {
-      disableSnapshot: false
-    },
+    chromatic: { disableSnapshot: false },
     docs: { source: { code: null } },
-  }
-} satisfies Meta<typeof UiIcon>;
+  },
+} satisfies IconMetaType;
 export default meta;
-type Story = StoryObj<typeof UiIcon>;
 
-export const Basic: Story = {
+export const Basic: IconStoryType = {
   render: () => ({
     components: { UiIcon },
-    setup(props, { attrs } ) {
-      return {
-        args: attrs,
-      };
-    },
-    template: '<UiIcon v-bind="args"/>',
+    template: '<UiIcon v-bind="$attrs"/>',
   }),
 };
 Basic.args = { icon: 'absent' };
@@ -58,13 +60,13 @@ Basic.parameters = {
 <script lang="ts">
 import { UiIcon } from '@infermedica/component-library';
 
-const icon = 'absent'; 
+const icon = 'absent';
 </script>`,
     },
   },
 };
 
-export const AllIcons: Story = {
+export const AllIcons: IconStoryType = {
   render: () => ({
     components: {
       UiButton,
@@ -128,31 +130,27 @@ export const AllIcons: Story = {
     </div>`,
   }),
 };
-AllIcons.argTypes = {
-  icon: { control: false }
-}
+AllIcons.argTypes = { icon: { control: false } };
 
-export const ImportedIcon: Story = {
+export const ImportedIcon: IconStoryType = {
   render: () => ({
     components: { UiIcon },
     setup() {
       const icon = defineAsyncComponent(() => import('../../../../public/logo.svg'));
       return { icon };
     },
-    template: `<UiIcon 
+    template: `<UiIcon
       :icon="icon"
       class="as-import"
     />`,
   }),
 };
-ImportedIcon.argTypes = {
-  icon: { control: false }
-}
+ImportedIcon.argTypes = { icon: { control: false } };
 ImportedIcon.parameters = {
   docs: {
     source: {
       code: `<template>
-  <UiIcon 
+  <UiIcon
     :icon="icon"
     class="as-import"
   />
@@ -175,7 +173,7 @@ const icon = defineAsyncComponent(() => import('../../../../public/logo.svg'));
   },
 };
 
-export const AllIllustrations: Story = {
+export const AllIllustrations: IconStoryType = {
   render: (args) => ({
     components: {
       UiButton,
@@ -252,8 +250,9 @@ AllIllustrations.args = {
     },
   ],
 };
+AllIllustrations.argTypes = { icon: { control: false } };
 
-export const RTLIllustrations: Story = { ...AllIllustrations };
+export const RTLIllustrations: IconStoryType = { ...AllIllustrations };
 RTLIllustrations.args = {
   illustrations: [
     {
@@ -275,18 +274,25 @@ RTLIllustrations.args = {
   ],
 };
 
-export const IllustrationWithCustomColors: Story = { ...Basic };
-IllustrationWithCustomColors.args = {
-  icon: 'boy',
-  style: '--icon-width: 15rem; --icon-height: auto;',
-  class: [ 'illustration-with-custom-colors' ],
+export const IllustrationWithCustomColors: IconStoryType = {
+  render: () => ({
+    components: { UiIcon },
+    template: `<UiIcon
+      v-bind="$attrs"
+      style="--icon-width: 15rem; --icon-height: auto;"
+      class="illustration-with-custom-colors"/>`,
+  }),
 };
+IllustrationWithCustomColors.args = { icon: 'boy' };
+IllustrationWithCustomColors.argTypes = { icon: { control: false } };
 IllustrationWithCustomColors.parameters = {
   chromatic: { disableSnapshot: true },
   docs: {
     source: {
       code: `<template>
-  <UiIcon :icon="icon" />
+  <UiIcon
+    :icon="icon"
+  />
 </template>
 
 <script lang="ts">
@@ -296,7 +302,7 @@ import { UiIcon } from '@infermedica/component-library';
 const icon = ref('boy');
 </script>
 
-<style lang="scss">  
+<style lang="scss">
   .illustration-with-custom-colors {
     --boy-skin: #f0d7bf;
     --boy-hair: #bf9b6f;
