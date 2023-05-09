@@ -299,7 +299,7 @@ const date = reactive<DatepickerDate<string>>({
 });
 const dateAsInt = computed(() => (Object.keys(date) as DatepickerDatePart[]).reduce((result, key) => ({
   ...result,
-  [key]: parseInt(date[key], 10),
+  [key]: parseInt(date[key], 10) || 0,
 }), {
   day: 0,
   month: 0,
