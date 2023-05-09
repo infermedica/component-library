@@ -41,6 +41,10 @@ const progressValue = computed(() => {
     console.error('[UiProgress error]: The result of progress calculation is NaN');
     return 0;
   }
+  if (props.value < props.min || props.value > props.max) {
+    console.error('[UiProgress error]: The value is out of range');
+    return progress < props.min ? 0 : 1;
+  }
   return progress;
 });
 </script>
