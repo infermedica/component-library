@@ -1,10 +1,15 @@
 <template>
   <div
-    class="ui-alert"
-    :class="rootClassModifier"
+    :class="[
+      'ui-alert',
+      rootClassModifier
+    ]"
     role="alert"
   >
-    <!-- @slot Use this slot to replace icon template. -->
+    <!--
+      @slot Use this slot to replace icon template.
+      @binding {IconAttrsProps} iconAlertAttrs
+     -->
     <slot
       name="icon"
       v-bind="{ iconAlertAttrs: defaultProps.iconAlertAttrs }"
@@ -15,10 +20,13 @@
         class="ui-alert__icon"
       />
     </slot>
-    <!-- @slot Use this slot to replace message template. -->
+    <!--
+      @slot Use this slot to replace message template.
+      @binding {TextAttrsProps} textMessageAttrs
+     -->
     <slot
       name="message"
-      v-bind="{ textMessageAttrs, }"
+      v-bind="{ textMessageAttrs }"
     >
       <UiText
         v-bind="textMessageAttrs"

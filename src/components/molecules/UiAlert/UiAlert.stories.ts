@@ -18,7 +18,8 @@ type AlertArgsType = AlertProps & {
 }
 type AlertMetaType = Meta<AlertArgsType>;
 type AlertStoryType = StoryObj<AlertArgsType>;
-const { argTypes } = useArgTypes(UiAlert);
+// FIXME: handle CSS Var without default value
+const { argTypes } = useArgTypes(UiAlert, { variables: { regexp: /^(\.ui-alert|\.ui-alert__icon|\.ui-alert__message)$/ } });
 
 const meta = {
   title: 'Molecules/Alert',
@@ -43,10 +44,16 @@ const meta = {
         'error',
       ],
     },
-    iconAlertAttrs: { table: { subcategory: 'Attrs props' } },
-    textMessageAttrs: { table: { subcategory: 'Attrs props' } },
   },
   parameters: {
+    chromatic: {
+      disableSnapshot: false,
+      viewports: [
+        320,
+        1200,
+      ],
+    },
+    docs: { source: { code: null } },
     cssProperties: {
       '--alert-gap': 'var(--space-4)',
       '--alert-vertical-align': 'top',
@@ -66,7 +73,7 @@ export const Basic: AlertStoryType = {
       } = attrs;
       return {
         content,
-        ...args,
+        args,
       };
     },
     template: `<UiAlert v-bind="args">
@@ -74,8 +81,8 @@ export const Basic: AlertStoryType = {
     </UiAlert>`,
   }),
 };
-Basic.args = { type: 'error' };
 Basic.parameters = {
+  chromatic: { disableSnapshot: true },
   docs: {
     source: {
       code: `<template>
@@ -102,19 +109,14 @@ const textMessageAttrs = { 'data-testid': 'text-element' };
   },
 };
 
-export const Types: AlertStoryType = { ...Basic };
-Types.decorators = [ withVariants ];
-Types.parameters = {
-  docs: { source: { code: null } },
-  variants: [ ...[
-    'error',
-    'success',
-    'info',
-    'warning',
-  ].map((variant) => ({
-    label: variant,
-    type: variant,
-  })) ],
+export const Variants: AlertStoryType = { ...Basic };
+Variants.decorators = [ withVariants ];
+Variants.parameters = {
+  variants: meta.argTypes.type.options
+    .map((option: string) => ({
+      label: option,
+      type: option,
+    })),
 };
 
 export const WithoutIcon: AlertStoryType = { ...Basic };
@@ -158,7 +160,7 @@ export const WithIconSlot: AlertStoryType = {
       } = attrs;
       return {
         content,
-        ...args,
+        args,
       };
     },
     template: `<UiAlert
@@ -221,7 +223,7 @@ export const WithMessageSlot: AlertStoryType = {
       } = attrs;
       return {
         content,
-        ...args,
+        args,
       };
     },
     template: `<UiAlert
