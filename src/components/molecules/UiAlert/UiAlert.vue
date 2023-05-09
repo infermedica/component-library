@@ -23,7 +23,7 @@
     <!--
       @slot Use this slot to replace message template.
       @binding {TextAttrsProps} textMessageAttrs
-     -->
+    -->
     <slot
       name="message"
       v-bind="{ textMessageAttrs }"
