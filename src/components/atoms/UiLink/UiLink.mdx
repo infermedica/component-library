@@ -1,6 +1,6 @@
 import { Canvas, Meta, Controls } from "@storybook/blocks";
 import { MetaActions } from "../../../../docs/components";
-import * as UiLinkStories from "./UiLink.stories";
+import * as UiLinkStories from "./UiLink.stories.ts";
 
 <Meta of={ UiLinkStories } />
 
@@ -24,6 +24,21 @@ import * as UiLinkStories from "./UiLink.stories";
 {/* TODO: add description */}
 <Canvas
   of={ UiLinkStories.Brand }
+  className='sb-canvas-brand'
+/>
+
+## Icon
+{/* TODO: add description */}
+<Canvas of={ UiLinkStories.Icon } />
+
+## Icon Secondary
+{/* TODO: add description */}
+<Canvas of={ UiLinkStories.IconSecondary } />
+
+## Icon Brand
+{/* TODO: add description */}
+<Canvas
+  of={ UiLinkStories.IconBrand }
   className='sb-canvas-brand'
 />
 
