@@ -11,6 +11,10 @@ import type {
   Meta,
   StoryObj,
 } from '@storybook/vue3';
+import {
+  getCSSValue,
+  getStyleTests,
+} from '@tests/interactions/helpers';
 
 type AlertArgsType = AlertProps & {
   content?: string;
@@ -117,6 +121,27 @@ Variants.parameters = {
       label: option,
       type: option,
     })),
+};
+Variants.play = async ({
+  canvasElement, step,
+}) => {
+  const icons = [ ...canvasElement.querySelectorAll('.ui-alert__icon') ];
+  const labels = [ ...canvasElement.querySelectorAll('.ui-alert__message') ];
+  const types = [
+    'success',
+    'info',
+    'warning',
+    'error',
+  ];
+  await step('Correct icon colors', () => {
+    getStyleTests(icons, 'fill', types.map((el: string) => ({ fill: getCSSValue(`--color-icon-${el}`) })));
+  });
+  await step('Correct label colors', () => {
+    getStyleTests(labels, 'color', [
+      { color: getCSSValue('--color-text-body') },
+      ...types.map((el: string) => ({ color: getCSSValue(`--color-text-${el}`) })),
+    ]);
+  });
 };
 
 export const WithoutIcon: AlertStoryType = { ...Basic };
