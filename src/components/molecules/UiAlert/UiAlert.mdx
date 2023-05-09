@@ -1,0 +1,29 @@
+import { Canvas, Meta, Controls } from "@storybook/blocks";
+import { MetaActions } from "../../../../docs/components";
+import * as UiAlertStories from "./UiAlert.stories";
+
+<Meta of={ UiAlertStories } />
+
+# Alert
+{/* TODO: add description */}
+<MetaActions stories={ UiAlertStories }/>
+<Canvas of={ UiAlertStories.Basic } />
+<Controls of={ UiAlertStories.Basic } />
+
+# Stories
+### Types
+{/* TODO: add description */}
+<Canvas of={ UiAlertStories.Types } />
+
+### Without icon
+{/* TODO: add description */}
+<Canvas of={ UiAlertStories.WithoutIcon } />
+
+## Slots
+### With icon slot
+{/* TODO: add description */}
+<Canvas of={ UiAlertStories.WithIconSlot } />
+
+### With message slot
+{/* TODO: add description */}
+<Canvas of={ UiAlertStories.WithMessageSlot } />
