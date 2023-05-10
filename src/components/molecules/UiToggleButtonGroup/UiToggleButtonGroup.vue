@@ -40,7 +40,7 @@ import type { ToggleButtonAttrsProps } from './_internal/UiToggleButton.vue';
 import type { DefineAttrsProps } from '../../../types';
 
 export interface ToggleButtonRenderItemComplex extends ToggleButtonAttrsProps {
-  name: string;
+  name?: string;
   text: string | number;
   value: string | number;
 }

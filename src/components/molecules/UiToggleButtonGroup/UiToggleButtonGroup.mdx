@@ -1,0 +1,48 @@
+import { Canvas, Meta, Controls } from "@storybook/blocks";
+import { MetaActions } from "../../../../docs/components";
+import * as UiToggleButtonGroupStories from "./UiToggleButtonGroup.stories.ts";
+
+<Meta of={ UiToggleButtonGroupStories } />
+
+# ToggleButtonGroup
+{/* TODO: add description */}
+<MetaActions stories={ UiToggleButtonGroupStories }/>
+<Canvas of={ UiToggleButtonGroupStories.Basic } />
+<Controls of={ UiToggleButtonGroupStories.Basic } />
+
+# Stories
+## Deselectable
+{/* TODO: add description */}
+<Canvas of={ UiToggleButtonGroupStories.Deselectable } />
+
+## With icon
+{/* TODO: add description */}
+<Canvas of={ UiToggleButtonGroupStories.WithIcon } />
+
+## Variants
+### Unselected
+{/* TODO: add description */}
+<Canvas of={ UiToggleButtonGroupStories.UnselectedVariants } />
+
+### Selected
+{/* TODO: add description */}
+<Canvas of={ UiToggleButtonGroupStories.SelectedVariants } />
+
+## Value types
+{/* TODO: add description */}
+
+### As string
+<Canvas of={ UiToggleButtonGroupStories.WithStringValues } />
+
+### As number
+<Canvas of={ UiToggleButtonGroupStories.WithNumberValues } />
+
+### As object
+<Canvas of={ UiToggleButtonGroupStories.WithObjectValues } />
+
+## Slots
+### default
+<Canvas of={ UiToggleButtonGroupStories.WithDefaultSlot } />
+
+### toggle button
+<Canvas of={ UiToggleButtonGroupStories.WithToggleButtonSlot } />
