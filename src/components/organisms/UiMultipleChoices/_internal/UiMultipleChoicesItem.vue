@@ -366,7 +366,7 @@ const optionsToRender = computed(() => props.options.map((option) => ({ ...optio
   &__choices {
     display: flex;
     flex-direction: column;
-    flex-shrink: 0;
+    flex: 0;
     gap: functions.var($element + "-choices", gap, 0);
 
     @include mixins.from-tablet {
@@ -375,6 +375,8 @@ const optionsToRender = computed(() => props.options.map((option) => ({ ...optio
   }
 
   &__options {
+    white-space: nowrap;
+
     @include mixins.from-tablet {
       display: flex;
       gap: functions.var($element + "-options", gap, var(--space-24));
