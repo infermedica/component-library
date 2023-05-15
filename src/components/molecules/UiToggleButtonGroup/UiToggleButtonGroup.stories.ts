@@ -2,7 +2,11 @@ import {
   UiToggleButtonGroup,
   UiIcon,
 } from '@index';
-import type { ToggleButtonGroupProps } from '@index';
+import type {
+  ToggleButtonRenderItemComplex,
+  ToggleButtonGroupProps,
+  ToggleButtonRenderItem,
+} from '@index';
 import type {
   Meta,
   StoryObj,
@@ -18,12 +22,12 @@ type ToggleButtonGroupArgsType = ToggleButtonGroupProps;
 type ToggleButtonGroupMetaType = Meta<ToggleButtonGroupArgsType>;
 type ToggleButtonGroupStoryType = StoryObj<ToggleButtonGroupArgsType>;
 
-export const stringItemsData = [
+export const stringItemsData: ToggleButtonRenderItem[] = [
   'Primary care',
   'Specialist care',
   'Urgent care',
 ];
-export const complexItemsData = [
+export const complexItemsData: ToggleButtonRenderItemComplex[] = [
   {
     text: 'Primary care',
     value: 'primary',
@@ -129,7 +133,7 @@ const { ref } from 'vue';
 import { UiToggleButtonGroup } from '@infermedica/component-library';
 
 const modelValue = ref('primary');
-const deselectable = false;
+const deselectable = true;
 const items = [
   {
     text: 'Primary care',
@@ -291,12 +295,12 @@ UnselectedVariants.parameters = {
 export const SelectedVariants: ToggleButtonGroupStoryType = { ...UnselectedVariants };
 SelectedVariants.args = { modelValue: 'primary' };
 
-export const WithStringValues: ToggleButtonGroupStoryType = { ...Basic };
-WithStringValues.args = { items: stringItemsData };
+export const WithStringValue: ToggleButtonGroupStoryType = { ...Basic };
+WithStringValue.args = { items: stringItemsData };
 
-export const WithNumberValues: ToggleButtonGroupStoryType = { ...Basic };
-WithNumberValues.args = { items: stringItemsData.map((option, index) => index + 1) };
-WithNumberValues.parameters = {
+export const WithNumberValue: ToggleButtonGroupStoryType = { ...Basic };
+WithNumberValue.args = { items: stringItemsData.map((option, index) => index + 1) };
+WithNumberValue.parameters = {
   docs: {
     source: {
       code: `<template>
@@ -323,9 +327,9 @@ const items = [
   },
 };
 
-export const WithObjectValues: ToggleButtonGroupStoryType = { ...Basic };
-WithObjectValues.args = { items: complexItemsData };
-WithObjectValues.parameters = {
+export const WithObjectValue: ToggleButtonGroupStoryType = { ...Basic };
+WithObjectValue.args = { items: complexItemsData };
+WithObjectValue.parameters = {
   docs: {
     source: {
       code: `<template>
