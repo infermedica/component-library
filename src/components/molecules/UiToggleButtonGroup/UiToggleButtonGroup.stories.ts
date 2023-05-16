@@ -1,3 +1,4 @@
+import { expect } from '@storybook/jest';
 import {
   UiToggleButtonGroup,
   UiIcon,
@@ -10,17 +11,39 @@ import type {
 import type {
   Meta,
   StoryObj,
+  VueRenderer,
 } from '@storybook/vue3';
 import {
   withModelValue,
   withVariants,
 } from '@sb/decorators';
 import { useArgTypes } from '@sb/helpers';
+import { userEvent } from '@storybook/testing-library';
+import type { PlayFunctionContext } from '@storybook/types';
 import UiToggleButton from './_internal/UiToggleButton.vue';
 
 type ToggleButtonGroupArgsType = ToggleButtonGroupProps;
 type ToggleButtonGroupMetaType = Meta<ToggleButtonGroupArgsType>;
 type ToggleButtonGroupStoryType = StoryObj<ToggleButtonGroupArgsType>;
+type PlayContext = PlayFunctionContext<VueRenderer, ToggleButtonGroupArgsType>;
+
+const getToggleTest = async (step: PlayContext['step'], index: number, unselect = false) => {
+  const button = [ ...document.querySelectorAll('.ui-toggle-button') ][index];
+  const hasSelectedClass = () => button.className.includes('ui-toggle-button--is-selected');
+  await step(`select toggle button - ${index + 1}`, async () => {
+    await userEvent.click(button);
+    expect(hasSelectedClass()).toBe(true);
+  });
+};
+const getUnselectedToggleTest = async (step: PlayContext['step'], index: number) => {
+  const button = [ ...document.querySelectorAll('.ui-toggle-button') ][index];
+  const hasSelectedClass = () => button.className.includes('ui-toggle-button--is-selected');
+  const expected = !hasSelectedClass();
+  await step(`${expected ? '' : 'un'}select toggle button - ${index + 1}`, async () => {
+    await userEvent.click(button);
+    expect(hasSelectedClass()).toBe(expected);
+  });
+};
 
 export const stringItemsData: ToggleButtonRenderItem[] = [
   'Primary care',
@@ -153,6 +176,14 @@ const items = [
     },
   },
 };
+Deselectable.play = async ({ step }) => {
+  await getUnselectedToggleTest(step, 0);
+  await getUnselectedToggleTest(step, 0);
+  await getUnselectedToggleTest(step, 1);
+  await getUnselectedToggleTest(step, 1);
+  await getUnselectedToggleTest(step, 2);
+  await getUnselectedToggleTest(step, 2);
+};
 
 export const WithIcon: ToggleButtonGroupStoryType = {
   render: () => ({
@@ -202,6 +233,11 @@ WithIcon.args = {
       icon: icons[index],
     };
   }),
+};
+WithIcon.play = async ({ step }) => {
+  await getToggleTest(step, 0);
+  await getToggleTest(step, 1);
+  await getToggleTest(step, 2);
 };
 WithIcon.parameters = {
   docs: {
