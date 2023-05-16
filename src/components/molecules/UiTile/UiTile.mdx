@@ -1,33 +1,38 @@
 import { Canvas, Meta, Controls } from '@storybook/blocks';
-import { Code } from '../../../../docs/components/Code';
-import * as stories from './UiTile.stories.js';
-import scss from './UiTile.stories.scss?raw';
+import * as UiTileStories from './UiTile.stories';
 
-<Meta of={stories}/>
+<Meta of={UiTileStories}/>
 
 # UiTile
-<Canvas of={stories.Large}/>
-<Controls of={stories.Large}/>
+<Canvas of={UiTileStories.Basic}/>
+<Controls of={UiTileStories.Basic}/>
 
-## Stories
-### Small
-<Canvas of={stories.Small}/>
+# Stories
+## As Group
+<Canvas of={UiTileStories.AsGroup}/>
 
-### Has Error
-<Canvas of={stories.HasError}/>
+## Variants
+### Basic
+<Canvas of={UiTileStories.BasicVariants}/>
 
+### Checked
+<Canvas of={UiTileStories.CheckedVariants}/>
+
+### Size
+<Canvas of={UiTileStories.SizeVariants}/>
+
+## Value types
+### As string
+<Canvas of={ UiTileStories.WithStringValue } />
+
+### As object
+<Canvas of={ UiTileStories.WithObjectValue } />
+
+## Slots
 ### With Icon Slot
-<Canvas of={stories.WithIconSlot}/>
+<Canvas of={UiTileStories.WithIconSlot}/>
 
 ### With Label Slot
-<Canvas of={stories.WithLabelSlot}/>
+<Canvas of={UiTileStories.WithLabelSlot}/>
 
-### As Group
-<Canvas of={stories.AsGroup}/>
 
-**Use following SCSS to get the same result**
-<Code
-  id="tile-as-group"
-  code={ scss }
-  additionalData={ '@infermedica/component-library/mixins;\n' }
-/>
