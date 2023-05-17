@@ -1,3 +1,4 @@
+import { expect } from '@storybook/jest';
 import {
   UiTile,
   UiIcon,
@@ -12,6 +13,7 @@ import './UiTIle.stories.scss';
 import type {
   Meta,
   StoryObj,
+  VueRenderer,
 } from '@storybook/vue3';
 import { useArgTypes } from '@sb/helpers';
 import {
@@ -19,6 +21,13 @@ import {
   withVariants,
 } from '@sb/decorators';
 import { ref } from 'vue';
+import type { PlayFunctionContext } from '@storybook/types';
+import { userEvent } from '@storybook/testing-library';
+import {
+  getCSSValue,
+  getFocusTests,
+  getStyleTests,
+} from '@tests/interactions/helpers';
 
 type TileArgsType = TileProps & {
   content?: string;
@@ -27,6 +36,28 @@ type TileArgsType = TileProps & {
 }
 type TileMetaType = Meta<TileArgsType>;
 type TileStoryType = StoryObj<TileArgsType>;
+type PlayContext = PlayFunctionContext<VueRenderer, TileArgsType>;
+
+const getToggleTest = async (step: PlayContext['step'], index: number) => {
+  const tile = [ ...document.querySelectorAll('.ui-tile') ][index];
+  const hasSelectedClass = () => tile.className.includes('ui-tile--is-checked');
+  await step(`click tile - ${index + 1}`, async () => {
+    await userEvent.click(tile);
+    expect(hasSelectedClass()).toBe(true);
+  });
+};
+const getCheckedStatesTests = async ({
+  canvasElement, step,
+}: PlayContext, results: Partial<CSSStyleDeclaration>[]) => {
+  const tiles = [ ...canvasElement.querySelectorAll('.ui-tile') ];
+  await step('Correct border colors', () => {
+    getStyleTests(tiles, 'borderColor', results, ':after');
+  });
+  await step('Correct border width', () => {
+    getStyleTests(tiles, 'borderWidth', results, ':after');
+  });
+  await getFocusTests(step, [ tiles[3] ]);
+};
 
 const complexValueData = {
   label: 'Yes',
@@ -280,6 +311,11 @@ const items = ${JSON.stringify(complexItemsData)};
     },
   },
 };
+AsGroup.play = async ({ step }) => {
+  await getToggleTest(step, 0);
+  await getToggleTest(step, 1);
+  await getToggleTest(step, 2);
+};
 
 export const BasicVariants: TileStoryType = { ...Basic };
 BasicVariants.argTypes = {
@@ -319,6 +355,18 @@ CheckedVariants.parameters = {
     ...variant,
     class: `${variant?.class} ui-tile--is-checked`,
   })),
+};
+CheckedVariants.play = async (context) => {
+  getCheckedStatesTests(context, [
+    ...Array(4).fill({
+      borderColor: getCSSValue('--color-border-strong'),
+      borderWidth: '2px',
+    }),
+    {
+      borderColor: getCSSValue('--color-border-error-strong'),
+      borderWidth: '2px',
+    },
+  ]);
 };
 
 export const SizeVariants: TileStoryType = { ...BasicVariants };
