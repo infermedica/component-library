@@ -45,6 +45,42 @@ describe('UiTile.vue', () => {
         expect(getButton().attributes('id')).toBe('data-testid');
       });
     });
+    describe('icon', () => {
+      test('render correct icon', () => {
+        Basic({ icon: 'boy' });
+        expect(getIcon().vm.$props.icon).toBe('boy');
+      });
+    });
+    describe('value', () => {
+      const data = {
+        label: 'Yes',
+        value: 'present',
+        icon: 'yes',
+        id: 's_1922',
+        name: 'Heel drop test',
+      } as const;
+      const dataWithDiff = {
+        label: 'Yes',
+        value: 'present',
+        icon: 'yes',
+        id: 's_1980',
+        name: 'Heel drop test',
+      } as const;
+      test('is checked when value and modelValue is equal', () => {
+        Basic({
+          modelValue: data,
+          value: data,
+        });
+        expect(getButton().classes('ui-tile--is-checked')).toBe(true);
+      });
+      test('isn\'t checked when value and modelValue isn\'t equal', () => {
+        Basic({
+          modelValue: dataWithDiff,
+          value: data,
+        });
+        expect(getButton().classes('ui-tile--is-checked')).toBe(false);
+      });
+    });
   });
   describe('emits', () => {
     getEmitTests(
