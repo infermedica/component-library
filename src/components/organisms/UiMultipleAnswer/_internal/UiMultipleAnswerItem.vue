@@ -1,6 +1,5 @@
 <template>
   <UiListItem
-    :id="id"
     :tag="component"
     :has-suffix="hasInfo"
     :suffix-attrs="suffixAttrs"
@@ -26,6 +25,7 @@
       >
         <component
           :is="tag"
+          :id="id"
           ref="content"
           v-bind="$attrs"
           :text-label-attrs="defaultProps.textLabelAttrs"
