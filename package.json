@@ -1,7 +1,7 @@
 {
   "name": "@infermedica/component-library",
   "description": "Vue 3 UI library for healthcare and not only.",
-  "version": "0.6.4",
+  "version": "0.6.5",
   "engines": {
     "node": ">=16.13.2",
     "pnpm": ">=6.32"
