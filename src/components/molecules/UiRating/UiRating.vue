@@ -36,7 +36,7 @@
           v-model="rate"
           v-bind="ratingItemAttrs(item)"
           :value="`${item.index}`"
-          :name="ratingName"
+          :input-attrs="{ name: ratingName }"
           class="ui-rating__option"
           @mouseover="hoverHandler($event, item.index)"
           @mouseleave="hoverHandler($event, item.index)"
@@ -288,6 +288,14 @@ const ratingItemAttrs = ({
       }
     }
 
+    @include mixins.with-focus {
+      &:focus-within {
+        #{$this}__radio {
+          box-shadow: var(--focus-outer);
+        }
+      }
+    }
+
     &:active {
       #{$this}__icon {
         --icon-color: #{functions.var($element + "-active-icon", color, var(--color-icon-secondary-active))};
@@ -311,6 +319,7 @@ const ratingItemAttrs = ({
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: var(--border-radius-button);
 
     &--is-checked {
       #{$this}__icon {
