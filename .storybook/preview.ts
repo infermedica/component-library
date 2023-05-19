@@ -44,7 +44,10 @@ const preview: Preview = {
             },
             designSystem: {
               defaultColors: {}
-            }
+            },
+            utilities: {
+              transitions: {}
+            },
           },
           releases: {
             '*': {

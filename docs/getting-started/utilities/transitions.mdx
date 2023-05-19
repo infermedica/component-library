@@ -1,0 +1,40 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Getting Started/Design System/Utilities/Transitions" />
+
+# Transitions
+Transitions encompass animations that aid users in comprehending the flow within a page.
+Our Component Library includes a collection of readily available transition effects, which can be utilized as is or customized to align with your specific requirements.
+
+Few our components use our transitions:
+- [UiModal](?path=/docs/organisms-modal--docs)
+- [UiSidePanel](?path=/docs/organisms-sidepanel--docs)
+
+## Available transitions
+We use 2 animations:
+- Fade
+- Slide
+
+## How to use
+To use our transition, just surround your component with transition with correct name of animations
+```html
+  <Transition name="fade">
+  <slot />
+</Transition>
+```
+Also you can use ```v-bind``` to pass more attributes:
+```html
+  <Transition v-bind="{ appear: true, name: 'fade' }">
+  <slot />
+</Transition>
+```
+For both of our transitions, we have separate story where you can see how it works.
+
+## Changing transitions
+If you desire to modify an existing transition, you have the ability to override the classes responsible for the effects.
+Replace ```{transition-name}``` with ```fade``` or ```slide``` according to your needs.
+
+- ```.{transition-name}-enter-active```
+- ```.{transition-name}-enter-from```
+- ```.{transition-name}-leave-active```
+- ```.{transition-name}-leave-to```
