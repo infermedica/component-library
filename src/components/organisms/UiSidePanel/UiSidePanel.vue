@@ -10,7 +10,7 @@
         closeHandler,
       }"
     >
-      <transition
+      <Transition
         v-bind="defaultProps.transitionBackdropAttrs"
       >
         <UiBackdrop
@@ -18,7 +18,7 @@
           v-bind="backdropAttrs"
           @click="closeHandler"
         />
-      </transition>
+      </Transition>
     </slot>
     <!-- @slot Use this slot to replace container template. -->
     <slot
@@ -37,7 +37,7 @@
         textSubtitleAttrs,
       }"
     >
-      <transition
+      <Transition
         v-bind="defaultProps.transitionDialogAttrs"
       >
         <dialog
@@ -147,7 +147,7 @@
             </div>
           </slot>
         </dialog>
-      </transition>
+      </Transition>
     </slot>
   </div>
 </template>
@@ -319,6 +319,7 @@ onBeforeUnmount(() => {
 <style lang="scss">
 @use "../../../styles/functions";
 @use "../../../styles/mixins";
+@use "../../../styles/transitions";
 
 .ui-side-panel {
   $this: &;
@@ -409,38 +410,6 @@ onBeforeUnmount(() => {
   }
 }
 
-/* todo: move to utilities */
-.fade {
-  &-enter-active,
-  &-leave-active {
-    transition: opacity 0.5s linear;
-  }
-
-  &-enter-from,
-  &-leave-to {
-    opacity: 0;
-  }
-}
-
-/* todo: move to utilities */
-.slide {
-  &-enter-active,
-  &-leave-active {
-    transition: transform 0.5s ease;
-  }
-
-  &-enter-from {
-    position: fixed;
-  }
-
-  &-enter-from,
-  &-leave-to {
-    transform: translate3d(100%, 0, 0);
-    transition: transform 0.5s ease-in;
-
-    [dir="rtl"] & {
-      transform: translate3d(-100%, 0, 0);
-    }
-  }
-}
+@include transitions.fade-transition(opacity);
+@include transitions.slide-transition(transform);
 </style>
