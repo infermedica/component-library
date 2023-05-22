@@ -4,43 +4,38 @@ import {
   inject,
 } from 'vue';
 import { actions } from '@storybook/addon-actions';
-import UiModal from '@/components/organisms/UiModal/UiModal.vue';
+import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
+import UiText from '@/components/atoms/UiText/UiText.vue';
+import {
+  scrollTabindex,
+  keyboardFocus,
+} from '@/utilities/directives';
 
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
-  onConfirm: 'confirm',
-  onCancel: 'cancel',
+  onAfterEnter: 'after-enter',
 });
 
 export default {
-  title: 'Utilities/Transitions/Fade',
-  component: UiModal,
+  title: 'Utilities/Transitions/Slide',
+  component: UiSidePanel,
   args: {
     initModelValue: true,
-    title: 'Start new checkup?',
-    description: 'You will have to answer the question again.',
-    isClosable: true,
-    hasCancel: true,
-    hasConfirm: true,
-    translation: {
-      confirm: 'Yes, start new checkup',
-      cancel: 'Cancel',
-    },
+    title: 'For business',
+    subtitle: '',
     transitionBackdropAttrs: { 'data-testid': 'backdrop-transition' },
     backdropAttrs: { 'data-testid': 'backdrop' },
-    transitionDialogAttrs: { 'data-testid': 'dialog-transition' },
     dialogAttrs: { 'data-testid': 'dialog-element' },
+    transitionDialogAttrs: { 'data-testid': 'dialog-transition' },
     headingTitleAttrs: { 'data-testid': 'title-heading' },
-    textDescriptionAttrs: { 'data-testid': 'description-text' },
-    buttonConfirmAttrs: { 'data-testid': 'confirm-button' },
-    buttonCancelAttrs: { 'data-testid': 'cancel-button' },
+    textSubtitleAttrs: { 'data-testid': 'subtitle-text' },
     buttonCloseAttrs: {
       'data-testid': 'close-button',
       ariaLabel: 'close modal',
     },
     iconCloseAttrs: { 'data-testid': 'close-icon' },
-    'update:modelValue': null,
+    contentAttrs: { 'data-testid': 'content-element' },
   },
   decorators: [ (story, { args }) => ({
     components: {
@@ -49,27 +44,38 @@ export default {
     },
     setup() {
       const modelValue = ref(args.initModelValue);
-      const toggleModal = () => {
+      const toggleSidePanel = () => {
         modelValue.value = !modelValue.value;
       };
       provide('modelValue', modelValue);
-      return { toggleModal };
+      return {
+        toggleSidePanel,
+        title: args.title,
+      };
     },
-    template: `<div class="min-h-80">
+    template: `<div class="max-w-32 min-h-80">
       <UiButton
-        class="ui-button--theme-secondary ui-button--text"
-        @click='toggleModal'
+        class="ui-button--text ui-button--theme-secondary"
+        @click="toggleSidePanel"
       >
-        Show modal
+        {{ title }}
       </UiButton>
       <story/>
     </div>`,
   }) ],
 };
 
-export const Fade = {
+export const Slide = {
   render: (args) => ({
-    components: { UiModal },
+    components: {
+      UiSidePanel,
+      UiButton,
+      UiText,
+    },
+    directives: {
+      scrollTabindex,
+      keyboardFocus,
+    },
     setup() {
       const modelValue = inject('modelValue');
       return {
@@ -78,27 +84,34 @@ export const Fade = {
         modelValue,
       };
     },
-    template: `<UiModal
+    template: `<UiSidePanel
       v-model="modelValue"
-      :title='title'
-      :description='description'
-      :is-closable="isClosable"
-      :has-cancel="hasCancel"
-      :has-confirm="hasConfirm"
-      :translation="translation"
+      :title="title"
+      :subtitle="subtitle"
       :transition-backdrop-attrs="transitionBackdropAttrs"
       :backdrop-attrs="backdropAttrs"
       :transition-dialog-attrs="transitionDialogAttrs"
       :heading-title-attrs="headingTitleAttrs"
-      :text-description-attrs="textDescriptionAttrs"
-      :button-confirm-attrs="buttonConfirmAttrs"
-      :button-cancel-attrs="buttonCancelAttrs"
+      :text-subtitle-attrs="textSubtitleAttrs"
       :button-close-attrs="buttonCloseAttrs"
       :icon-close-attrs="iconCloseAttrs"
       :dialog-attrs="dialogAttrs"
+      :content-attrs="contentAttrs"
       @update:modelValue="onUpdateModelValue"
-      @confirm="onConfirm"
-      @cancel="onCancel"
-    />`,
+      @after-enter="onAfterEnter"
+    >
+      <template #content="{ contentAttrs }">
+        <div
+          v-scroll-tabindex
+          v-keyboard-focus
+          v-bind="contentAttrs"
+          class="ui-side-panel__content"
+        >
+          <UiText>
+            Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage:
+          </UiText>
+        </div>
+      </template>
+    </UiSidePanel>`,
   }),
 };

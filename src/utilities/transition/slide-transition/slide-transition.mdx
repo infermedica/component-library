@@ -1,0 +1,17 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as stories from './slide-transition.stories.js';
+
+<Meta of={stories} />
+
+# Slide transition
+A slide transition refers to the animation effect applied to elements when they change position. It gives the illusion of sliding or moving smoothly from one position to another.
+
+## How to use
+To use ```slide``` transition, just surround your component with ```Transition``` <a href="https://vuejs.org/guide/built-ins/transition.html" target="_blank">Vue build-in component</a> with attribute ```name="slide"```
+
+## Used
+- [SidePanel](?path=/docs/organisms-sidepanel--docs)
+
+## Stories
+### SidePanel
+<Canvas of={stories.Slide} />
