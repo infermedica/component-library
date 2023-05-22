@@ -386,12 +386,16 @@ const optionsToRender = computed(() => props.options.map((option) => ({ ...optio
   &__option {
     @include mixins.override-logical(list-item, $element + "-option", border-width,  1px 0 0 0);
 
+    --radio-gap: #{functions.var($element + '-option', gap, var(--space-12 ))};
+
     &:last-of-type {
       @include mixins.override-logical(list-item, $element + "-option", border-width,  1px 0);
     }
 
     @include mixins.from-tablet {
       @include mixins.override-logical(list-item, $element + "-tablet-option", border-width, 0);
+
+      --radio-gap: #{functions.var($element + '-tablet-option', gap, var(--space-8 ))};
 
       &:last-of-type {
         @include mixins.override-logical(list-item, $element + "-tablet-option", border-width, 0);
