@@ -46,6 +46,7 @@
     "./organisms/": "./src/components/organisms/",
     "./templates/": "./src/components/templates/",
     "./directives/": "./src/utilities/directives/",
+    "./transition/": "./src/utilities/transitions/",
     "./helpers/": "./src/utilities/helpers/",
     "./composable/": "./src/composable/",
     "./icons/": "./src/assets/icons/"

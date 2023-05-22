@@ -44,10 +44,7 @@ const preview: Preview = {
             },
             designSystem: {
               defaultColors: {}
-            },
-            utilities: {
-              transitions: {}
-            },
+            }
           },
           releases: {
             '*': {
@@ -78,6 +75,9 @@ const preview: Preview = {
             directives: {
               docs: {}
             },
+            transitions: {
+              docs: {}
+            }
           },
           contributingGuide: {
             '*': {
