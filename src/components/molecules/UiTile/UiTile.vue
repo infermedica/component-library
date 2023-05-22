@@ -150,7 +150,7 @@ const selectHandler = () => {
   }
 
   &__icon {
-    @include mixins.override-logical(button, null, margin, 0);
+    @include mixins.override-logical(button-icon, null, margin, 0);
 
     --icon-size: #{functions.var($element + "-icon", size, 3rem)};
 
