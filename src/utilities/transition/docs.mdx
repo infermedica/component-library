@@ -10,29 +10,15 @@ Few our components use our transitions:
 - [Modal](?path=/docs/organisms-modal--docs)
 - [SidePanel](?path=/docs/organisms-sidepanel--docs)
 
-## Available transitions
-We use 2 animations:
-- Fade
-- Slide
-
 ## How to use
-To use our transition, just surround your component with transition with correct name of animations
-```html
-  <Transition name="fade">
-  <slot />
-</Transition>
-```
-Also you can use ```v-bind``` to pass more attributes:
-```html
-  <Transition v-bind="{ appear: true, name: 'fade' }">
-  <slot />
-</Transition>
-```
-For both of our transitions, we have separate story where you can see how it works.
+To use our transition, just surround your component with build-in Vue component ```Transition``` with correct name of animations.<br />
+You can check how to use ```Transition``` in <a href="https://vuejs.org/guide/built-ins/transition.html" target="_blank">Vue documentation</a>
+
+For our transitions, we have separate story where you can see how them work.
 
 ## Changing transitions
 If you desire to modify an existing transition, you have the ability to override the classes responsible for the effects.
-Replace ```{transition-name}``` with ```fade``` or ```slide``` according to your needs.
+Replace ```{transition-name}``` with proper ```name``` according to your needs.
 
 - ```.{transition-name}-enter-active```
 - ```.{transition-name}-enter-from```
