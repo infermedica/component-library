@@ -1,21 +1,12 @@
 import {
   ref,
   provide,
-  inject,
 } from 'vue';
-import { actions } from '@storybook/addon-actions';
-import UiModal from '@/components/organisms/UiModal/UiModal.vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
-
-const events = actions({
-  onUpdateModelValue: 'update:modelValue',
-  onConfirm: 'confirm',
-  onCancel: 'cancel',
-});
+import * as stories from '../../../components/organisms/UiModal/UiModal.stories.js'
 
 export default {
   title: 'Utilities/Transitions/Fade',
-  component: UiModal,
   args: {
     initModelValue: true,
     title: 'Start new checkup?',
@@ -67,38 +58,4 @@ export default {
   }) ],
 };
 
-export const Fade = {
-  render: (args) => ({
-    components: { UiModal },
-    setup() {
-      const modelValue = inject('modelValue');
-      return {
-        ...args,
-        ...events,
-        modelValue,
-      };
-    },
-    template: `<UiModal
-      v-model="modelValue"
-      :title='title'
-      :description='description'
-      :is-closable="isClosable"
-      :has-cancel="hasCancel"
-      :has-confirm="hasConfirm"
-      :translation="translation"
-      :transition-backdrop-attrs="transitionBackdropAttrs"
-      :backdrop-attrs="backdropAttrs"
-      :transition-dialog-attrs="transitionDialogAttrs"
-      :heading-title-attrs="headingTitleAttrs"
-      :text-description-attrs="textDescriptionAttrs"
-      :button-confirm-attrs="buttonConfirmAttrs"
-      :button-cancel-attrs="buttonCancelAttrs"
-      :button-close-attrs="buttonCloseAttrs"
-      :icon-close-attrs="iconCloseAttrs"
-      :dialog-attrs="dialogAttrs"
-      @update:modelValue="onUpdateModelValue"
-      @confirm="onConfirm"
-      @cancel="onCancel"
-    />`,
-  }),
-};
+export const Fade = stories.StartNewCheckup;
