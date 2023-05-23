@@ -1,14 +1,19 @@
-import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
-import UiButton from '@/components/atoms/UiButton/UiButton.vue';
-import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
-import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
-import UiText from '@/components/atoms/UiText/UiText.vue';
 import { actions } from '@storybook/addon-actions';
 import {
   content,
   modifiers,
 } from '@sb/helpers/argTypes';
+import UiPopover from '@/components/molecules/UiPopover/UiPopover.vue';
+import UiButton from '@/components/atoms/UiButton/UiButton.vue';
+import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
+import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
+import UiText from '@/components/atoms/UiText/UiText.vue';
 import './UiPopover.stories.scss';
+import {
+  ref,
+  provide,
+  inject,
+} from 'vue';
 
 const events = actions({ onClose: 'close' });
 
@@ -238,18 +243,54 @@ export const Unrounded = {
 };
 
 export const AsBottomPanelOnMobile = {
+  args: {
+    initModelValue: false,
+    modifiers: [
+      'ui-popover--has-mobile',
+      'ui-popover--has-arrow',
+    ],
+  },
+
+  decorators: [ (story, { args }) => ({
+    components: {
+      story,
+      UiButton,
+    },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      const toggleHandler = () => {
+        modelValue.value = !modelValue.value;
+      };
+      provide('modelValue', modelValue);
+      return { toggleHandler };
+    },
+    template: `<div class="min-h-80">
+      <UiButton
+        class="ui-button--theme-secondary ui-button--text space-bottom"
+        @click='toggleHandler'
+      >
+        Show Popover
+      </UiButton>
+      <story/>
+    </div>`,
+  }) ],
+
   render: (args) => ({
     components: {
       UiPopover,
       UiText,
     },
     setup() {
+      const modelValue = inject('modelValue');
       return {
         ...args,
         ...events,
+        modelValue,
       };
     },
-    template: `<UiPopover
+    template: `<Transition name="slide-from-bottom">
+    <UiPopover
+      v-if="modelValue"
       :title="title"
       :heading-title-attrs="headingTitleAttrs"
       :button-close-attrs="buttonCloseAttrs"
@@ -263,23 +304,11 @@ export const AsBottomPanelOnMobile = {
       <UiText>
         {{ content }}
       </UiText>
-    </UiPopover>`,
+    </UiPopover>
+    </Transition>`,
   }),
 
-  args: {
-    modifiers: [
-      'ui-popover--has-mobile',
-      'ui-popover--has-arrow',
-    ],
-  },
-
   parameters: { viewport: { defaultViewport: 'mobile2' } },
-
-  decorators: [ () => ({
-    template: `<div class="min-h-135">
-      <story />
-    </div>`,
-  }) ],
 };
 
 export const AsDropdown = {
