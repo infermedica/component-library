@@ -1,15 +1,11 @@
-@mixin fade-transition($property, $duration: 0.5s) {
-  .fade {
-    &-enter-active,
-    &-leave-active {
-      transition: $property $duration linear;
-    }
+.fade {
+  &-enter-active,
+  &-leave-active {
+    transition: opacity 0.5s linear;
+  }
   
-    &-enter-from,
-    &-leave-to {
-      opacity: 0;
-    }
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
   }
 }
-
-

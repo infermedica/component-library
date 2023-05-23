@@ -566,6 +566,4 @@ onBeforeUnmount(() => {
     }
   }
 }
-
-@include transitions.fade-transition(opacity);
 </style>

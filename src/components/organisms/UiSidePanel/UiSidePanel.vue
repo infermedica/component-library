@@ -409,7 +409,4 @@ onBeforeUnmount(() => {
     }
   }
 }
-
-@include transitions.fade-transition(opacity);
-@include transitions.slide-transition(transform);
 </style>
