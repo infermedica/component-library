@@ -144,7 +144,6 @@ onBeforeUnmount(() => {
 <style lang="scss">
 @use "../../../styles/functions";
 @use "../../../styles/mixins";
-@use '../../../styles/transitions';
 
 .ui-popover {
   $this: &;
