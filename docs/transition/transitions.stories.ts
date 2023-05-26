@@ -1,25 +1,27 @@
-import {
+import type {
+  Meta,
+  StoryObj,
+} from '@storybook/vue3';
+import { 
   computed,
   ref,
-  provide,
+  Transition,
   inject,
-} from 'vue';
-import { actions } from '@storybook/addon-actions';
-import UiText from '@/components/atoms/UiText/UiText.vue';
+  provide,
+ } from 'vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
+import UiText from '@/components/atoms/UiText/UiText.vue';
 
-const events = actions({ onUpdateModelValue: 'update:isVisible' });
+type TransitionArgsType = {
+  name: 'fade' | 'slide-from-left' | 'slide-from-right' | 'slide-from-bottom',
+}
+type TransitionMetaType = Meta<TransitionArgsType>;
+type TransitionStoryType = StoryObj<TransitionArgsType>
 
-export default {
-  title: 'Utilities/Transitions',
-  args: { name: 'fade' },
-  decorators: [ (story) => ({
-    components: {
-      story,
-      UiButton,
-    },
-    setup() {
-      const isVisible = ref(true);
+const transitionDecorator = (story) => ({
+  components: { story, UiButton },
+  setup() {
+    const isVisible = ref(true);
       const toggleHandler = () => {
         isVisible.value = !isVisible.value;
       };
@@ -29,91 +31,61 @@ export default {
         toggleHandler,
         toggleButtonText,
       };
-    },
-    template: `<div class="min-h-30">
-      <UiButton
-        class="ui-button--theme-secondary ui-button--text mb-4"
-        @click='toggleHandler'
-      >
-        {{ toggleButtonText }}
-      </UiButton>
-      <story/>
-    </div>`,
-  }) ],
-};
+  },
+  template: `<div class="min-h-30">
+    <UiButton
+      class="ui-button--theme-secondary ui-button--text mb-4"
+      @click='toggleHandler'
+    >
+      {{ toggleButtonText }}
+    </UiButton>
+    <story/>
+  </div>`
+});
 
-export const Fade = {
-  render: (args) => ({
-    components: { UiText },
-    setup() {
-      const isVisible = inject('isVisible');
-      return {
-        ...args,
-        ...events,
-        isVisible,
-      };
+const meta = {
+  title: 'Utilities/Transition',
+  component: Transition,
+  args: { name: 'fade' },
+  argTypes: {
+    name: {
+      table: {
+        disable: true,
+      },
     },
-    template: `<Transition name="args.name">
+  },
+  decorators: [transitionDecorator],
+} satisfies TransitionMetaType;
+
+export default meta;
+
+export const Fade: TransitionStoryType = {
+  render: () => ({
+    components: {
+      UiButton,
+      UiText,
+    },
+    setup(props, { attrs }) {
+      const isVisible = inject('isVisible');
+     
+      return {
+        args: attrs,
+        isVisible,
+      }
+    },
+    template: `<Transition v-bind="args">
       <UiText v-if="isVisible">
         List of possible conditions may not be complete, is provided solely for informational purposes, is not a qualified medical opinion and can not replace the medical diagnosis.
       </UiText>
     </Transition>`,
-  }),
-};
+  })
+}
 
-export const SlideFromLeft = {
-  render: (args) => ({
-    components: { UiText },
-    setup() {
-      const isVisible = inject('isVisible');
-      return {
-        ...args,
-        ...events,
-        isVisible,
-      };
-    },
-    template: `<Transition name="slide-from-left">
-      <UiText v-if="isVisible">
-        List of possible conditions may not be complete, is provided solely for informational purposes, is not a qualified medical opinion and can not replace the medical diagnosis.
-      </UiText>
-    </Transition>`,
-  }),
-};
+export const SlideFromLeft: TransitionStoryType = { ...Fade };
+SlideFromLeft.args = { name: 'slide-from-left' };
 
-export const SlideFromRight = {
-  render: (args) => ({
-    components: { UiText },
-    setup() {
-      const isVisible = inject('isVisible');
-      return {
-        ...args,
-        ...events,
-        isVisible,
-      };
-    },
-    template: `<Transition name="slide-from-right">
-      <UiText v-if="isVisible">
-        List of possible conditions may not be complete, is provided solely for informational purposes, is not a qualified medical opinion and can not replace the medical diagnosis.
-      </UiText>
-    </Transition>`,
-  }),
-};
+export const SlideFromRight: TransitionStoryType = { ...Fade };
+SlideFromRight.args = { name: 'slide-from-right' };
 
-export const SlideFromBottom = {
-  render: (args) => ({
-    components: { UiText },
-    setup() {
-      const isVisible = inject('isVisible');
-      return {
-        ...args,
-        ...events,
-        isVisible,
-      };
-    },
-    template: `<Transition name="slide-from-bottom">
-      <UiText v-if="isVisible">
-        List of possible conditions may not be complete, is provided solely for informational purposes, is not a qualified medical opinion and can not replace the medical diagnosis.
-      </UiText>
-    </Transition>`,
-  }),
-};
+export const SlideFromBottom: TransitionStoryType = { ...Fade };
+SlideFromBottom.args = { name: 'slide-from-bottom' };
