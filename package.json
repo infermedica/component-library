@@ -40,11 +40,13 @@
     "./styles/": "./src/styles/",
     "./breakpoints": "./src/styles/exports/breakpoints.module.scss",
     "./mixins/": "./src/styles/mixins",
+    "./transitions/": "./src/styles/transitions",
     "./atoms/": "./src/components/atoms/",
     "./molecules/": "./src/components/molecules/",
     "./organisms/": "./src/components/organisms/",
     "./templates/": "./src/components/templates/",
     "./directives/": "./src/utilities/directives/",
+    "./transition/": "./src/utilities/transitions/",
     "./helpers/": "./src/utilities/helpers/",
     "./composable/": "./src/composable/",
     "./icons/": "./src/assets/icons/"
