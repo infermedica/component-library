@@ -1,4 +1,4 @@
-.slide-from-left {
+.slide-from-start {
   &-enter-active,
   &-leave-active {
     transition: transform 0.5s ease;
@@ -14,7 +14,7 @@
     transition: transform 0.5s ease-in;
 
     [dir="rtl"] & {
-      transform: translate3d(-100%, 0, 0);
+      transform: translate3d(100%, 0, 0);
     }
   }
 }

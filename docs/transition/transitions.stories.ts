@@ -13,7 +13,7 @@ import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 
 type TransitionArgsType = {
-  name: 'fade' | 'slide-from-left' | 'slide-from-right' | 'slide-from-bottom',
+  name: 'fade' | 'slide-from-start' | 'slide-from-end' | 'slide-from-bottom',
 }
 type TransitionMetaType = Meta<TransitionArgsType>;
 type TransitionStoryType = StoryObj<TransitionArgsType>
@@ -65,11 +65,11 @@ export const Fade: TransitionStoryType = {
       UiButton,
       UiText,
     },
-    setup(props, { attrs }) {
+    setup(props, { attrs: args }) {
       const isVisible = inject('isVisible');
      
       return {
-        args: attrs,
+        args,
         isVisible,
       }
     },
@@ -81,11 +81,11 @@ export const Fade: TransitionStoryType = {
   })
 }
 
-export const SlideFromLeft: TransitionStoryType = { ...Fade };
-SlideFromLeft.args = { name: 'slide-from-left' };
+export const SlideFromStart: TransitionStoryType = { ...Fade };
+SlideFromStart.args = { name: 'slide-from-start' };
 
-export const SlideFromRight: TransitionStoryType = { ...Fade };
-SlideFromRight.args = { name: 'slide-from-right' };
+export const SlideFromEnd: TransitionStoryType = { ...Fade };
+SlideFromEnd.args = { name: 'slide-from-end' };
 
 export const SlideFromBottom: TransitionStoryType = { ...Fade };
 SlideFromBottom.args = { name: 'slide-from-bottom' };

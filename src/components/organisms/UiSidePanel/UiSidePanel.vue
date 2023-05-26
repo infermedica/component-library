@@ -258,7 +258,7 @@ const props = withDefaults(defineProps<SidePanelProps>(), {
   dialogAttrs: () => ({}),
   transitionDialogAttrs: () => ({
     appear: true,
-    name: 'slide',
+    name: 'slide-from-end',
   }),
   headingTitleAttrs: () => ({ level: 2 }),
   textSubtitleAttrs: () => ({}),
@@ -286,7 +286,7 @@ const defaultProps = computed(() => {
     },
     transitionDialogAttrs: {
       appear: true,
-      name: 'slide',
+      name: 'slide-from-end',
       onEnter: enterHandler,
       onAfterEnter: afterEnterHandler,
       ...props.transitionDialogAttrs,
