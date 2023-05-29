@@ -7,7 +7,7 @@
       name="label"
       v-bind="{
         message,
-        hint,
+        hintValue,
         id: inputId,
         textMessageAttrs: defaultProps.textMessageAttrs,
         textHintAttrs: defaultProps.textHintAttrs,
@@ -37,16 +37,16 @@
         <slot
           name="hint"
           v-bind="{
-            hint,
+            hintValue,
             textHintAttrs: defaultProps.textHintAttrs
           }"
         >
           <UiText
-            v-if="hint"
+            v-if="hintValue"
             v-bind="defaultProps.textHintAttrs"
             class="ui-text--body-2-comfortable ui-text--theme-secondary ui-form-field__hint"
           >
-            {{ hint }}
+            {{ hintValue }}
           </UiText>
         </slot>
       </label>
@@ -60,15 +60,15 @@
       name="alert"
       v-bind="{
         alertAttrs,
-        errorMessage
+        errorMessageValue
       }"
     >
       <UiAlert
-        v-if="errorMessage"
+        v-if="errorMessageValue"
         v-bind="alertAttrs"
         class="ui-form-field__alert"
       >
-        {{ errorMessage }}
+        {{ errorMessageValue }}
       </UiAlert>
     </slot>
   </div>
@@ -141,6 +141,8 @@ const defaultProps = computed(() => {
 const inputId = computed(() => (
   props.id || `input-${uid()}`
 ));
+const hintValue = computed(() => (typeof props.hint === 'string' ? props.hint : false));
+const errorMessageValue = computed(() => (typeof props.errorMessage === 'string' ? props.errorMessage : false));
 </script>
 
 <style lang="scss">
