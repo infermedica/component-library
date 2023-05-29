@@ -254,8 +254,6 @@ const listItemAttrs = computed(() => ({
   $this: &;
   $element: multiple-answer-item;
 
-  --radio-align-items: center;
-
   &--has-info {
     #{$this}__label {
       &::after {
@@ -280,15 +278,17 @@ const listItemAttrs = computed(() => ({
     position: absolute;
     inset-block-start: 0;
     inset-inline-end: 0;
-    top: 50%;
-    transform: translateY(-50%);
     // HACK: use list-item-content-padding to make the same spacing for suffix as in list item content / BEGIN
+    margin-block: var(--list-item-content-padding-block, var(--list-item-content-padding-block-start, var(--space-12)) var(--list-item-content-padding-block-end, var(--space-12)));
     margin-inline: var(--list-item-content-padding-inline, var(--list-item-content-padding-inline-start, var(--space-20)) var(--list-item-content-padding-inline-end, var(--space-12)));
     // END
 
     @include mixins.from-tablet {
       // HACK: use list-item-content-padding to make the same spacing for suffix as in list item content / BEGIN
-      margin-inline: var(--list-item-tablet-content-padding-inline, var(--list-item-tablet-content-padding-inline-start, var(--space-20)) var(--list-item-tablet-content-padding-inline-end, var(--space-20)));
+      margin-block: var(--list-item-tablet-content-padding-block, var(--list-item-tablet-content-padding-block-start, var(--space-12)) var(--list-item-tablet-content-padding-block-end, var(--space-12)));
+      margin-inline: var(--list-item-tablet-content-padding-inline, var(--list-item-tablet-content-padding-inline-start, var(--space-12)) var(--list-item-tablet-content-padding-inline-end, 0));
+      padding-inline: var(--list-item-tablet-content-padding-inline, var(--list-item-tablet-content-padding-inline-start, var(--space-12)) var(--list-item-tablet-content-padding-inline-end, var(--space-12)));
+      // END
     }
   }
 }

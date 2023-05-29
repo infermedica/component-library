@@ -182,7 +182,7 @@ defineExpose({ input });
   $element: radio;
 
   display: flex;
-  align-items: functions.var($element, align-items, flex-start);
+  align-items: flex-start;
   justify-content: flex-start;
   gap: functions.var($element, gap, var(--space-12));
 
