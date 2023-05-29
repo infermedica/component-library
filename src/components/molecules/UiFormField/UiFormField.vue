@@ -119,8 +119,8 @@ export type FormFieldAttrsProps = DefineAttrsProps<FormFieldProps>;
 const props = withDefaults(defineProps<FormFieldProps>(), {
   message: false,
   id: '',
-  hint: '',
-  errorMessage: '',
+  hint: false,
+  errorMessage: false,
   textMessageAttrs: () => ({ tag: 'span' }),
   textHintAttrs: () => ({ tag: 'span' }),
   alertAttrs: () => ({}),
