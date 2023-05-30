@@ -133,10 +133,10 @@ const preview: Preview = {
   },
   globalTypes: {
     theme: {
-      name: 'Theme',
       description: 'Global theme for components',
       defaultValue: 'default',
       toolbar: {
+        title: 'Theme',
         icon: 'browser',
         items: [
           {value: 'default', title: 'Default'},
