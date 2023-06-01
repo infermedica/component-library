@@ -29,14 +29,16 @@ import {
   ref,
   computed,
   provide,
+  onMounted,
 } from 'vue';
 import type { CSSProperties } from 'vue';
 import UiTabsItem from './_internal/UiTabsItem.vue';
 import type { TabsItemAttrsProps } from './_internal/UiTabsItem.vue';
 import type { DefineAttrsProps } from '../../../types';
+import type { OrNull } from '../../../types/utils';
 
 export type TabsHandleTabActive = (name: string) => void;
-export type TabsSetActiveElement = (element: HTMLElement | null) => void;
+export type TabsSetActiveElement = (element: OrNull<HTMLElement>) => void;
 export interface TabsProps {
   /**
    * Use this props or v-model to set opened items.
@@ -75,32 +77,61 @@ const itemsToRender = computed<TabsProps['items']>(() => (props.items.map((item,
     name: name || `tabs-item-${key}`,
   };
 })));
-const tabs = ref<HTMLDivElement | null>(null);
-const activeTabHTMLElement = ref<HTMLElement | null>(null);
+
+const tabs = ref<OrNull<HTMLDivElement>>(null);
+const activeTabEl = ref<OrNull<HTMLElement>>(null);
+
+const containerX = ref(0);
+const containerY = ref(0);
+const containerH = ref(0);
+
 const offsetX = computed(() => {
-  if (activeTabHTMLElement.value === null) return 0;
+  Number(containerX.value * 0); /* Hack for keeping reactivity */
+  if (!activeTabEl.value) return 0;
   const firstTab = tabs.value?.children[0].children[0];
-  const activeTabRect = activeTabHTMLElement.value.getBoundingClientRect();
-  const tabsRect = tabs.value?.getBoundingClientRect();
   if (!firstTab) return 0;
-  if (tabsRect && Math.ceil((firstTab.getBoundingClientRect().right / tabsRect.right) * 100) > 50) {
-    return ((activeTabRect.x + activeTabRect.width) - firstTab.getBoundingClientRect().right);
-  }
-  return activeTabRect.x - firstTab.getBoundingClientRect().x;
+
+  const { x: activeX } = activeTabEl.value.getBoundingClientRect();
+  const { x: firstX } = firstTab.getBoundingClientRect();
+
+  return activeX - firstX;
 });
+
+const offsetY = computed(() => {
+  Number(containerH.value * 0); /* Hack for keeping reactivity */
+
+  if (!activeTabEl.value) return 0;
+  const { y } = activeTabEl.value.getBoundingClientRect();
+  return y - containerY.value;
+});
+
 const scale = computed(() => {
-  if (activeTabHTMLElement.value === null) return 1;
+  if (activeTabEl.value === null) return 1;
   const firstTabRect = tabs.value?.children[0].children[0].getBoundingClientRect();
   if (!firstTabRect) return 1;
-  const activeTabRect = activeTabHTMLElement.value.getBoundingClientRect();
+  const activeTabRect = activeTabEl.value.getBoundingClientRect();
   return activeTabRect.width / firstTabRect.width;
 });
+
+const containerObserver = new ResizeObserver(([ { target } ]) => {
+  const rect = target.getBoundingClientRect();
+
+  containerX.value = rect.width;
+  containerH.value = rect.height;
+  containerY.value = rect.y;
+});
+
+onMounted(() => {
+  if (tabs.value) containerObserver.observe(tabs.value);
+});
+
 const style = computed<CSSProperties>(() => ({
+  '--_tabs-indicator-offset-y': `${offsetY.value}px`,
   '--_tabs-indicator-offset-x': `${offsetX.value}px`,
   '--_tabs-indicator-scale-x': scale.value,
 }));
-const setActiveHTMLElement = (element: HTMLElement | null): void => {
-  activeTabHTMLElement.value = element;
+const setActiveHTMLElement = (element: OrNull<HTMLElement>): void => {
+  activeTabEl.value = element;
 };
 provide<TabsSetActiveElement>('setActiveHTMLElement', setActiveHTMLElement);
 const handleTabActive = (name: string) => {

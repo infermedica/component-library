@@ -165,7 +165,7 @@ onMounted(() => {
         height: functions.var($element + "-indicator", height, 2px);
         background: functions.var($element + "-indicator", background, var(--color-border-selection));
         content: "";
-        transform: translate3d(var(--_tabs-indicator-offset-x), 0, 0) scale3d(var(--_tabs-indicator-scale-x), 1, 1);
+        transform: translate3d(var(--_tabs-indicator-offset-x), var(--_tabs-indicator-offset-y), 0) scale3d(var(--_tabs-indicator-scale-x), 1, 1);
         transform-origin: left;
         transition: transform 150ms ease-in-out;
 
