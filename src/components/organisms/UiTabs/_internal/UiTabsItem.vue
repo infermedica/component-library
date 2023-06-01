@@ -168,10 +168,6 @@ onMounted(() => {
         transform: translate3d(var(--_tabs-indicator-offset-x), var(--_tabs-indicator-offset-y), 0) scale3d(var(--_tabs-indicator-scale-x), 1, 1);
         transform-origin: left;
         transition: transform 150ms ease-in-out;
-
-        [dir="rtl"] & {
-          transform-origin: right;
-        }
       }
     }
 
