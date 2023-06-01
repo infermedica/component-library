@@ -30,6 +30,8 @@ import {
   computed,
   provide,
   onMounted,
+  reactive,
+  watchEffect,
 } from 'vue';
 import type { CSSProperties } from 'vue';
 import UiTabsItem from './_internal/UiTabsItem.vue';
@@ -80,30 +82,24 @@ const itemsToRender = computed<TabsProps['items']>(() => (props.items.map((item,
 
 const tabs = ref<OrNull<HTMLDivElement>>(null);
 const activeTabEl = ref<OrNull<HTMLElement>>(null);
+const offsetX = ref(0);
+const offsetY = ref(0);
 
-const containerX = ref(0);
-const containerY = ref(0);
-const containerH = ref(0);
+const containerRect = reactive({
+  w: 0,
+  y: 0,
+  h: 0,
+});
 
-const offsetX = computed(() => {
-  const hack = containerX.value * 0;
-  if (!activeTabEl.value) return 0;
+const calculateOffset = () => {
   const firstTab = tabs.value?.children[0].children[0];
-  if (!firstTab) return 0;
+  if (!activeTabEl.value || !firstTab) return;
+  const activeRect = activeTabEl.value.getBoundingClientRect();
+  const firstRect = firstTab.getBoundingClientRect();
 
-  const { x: activeX } = activeTabEl.value.getBoundingClientRect();
-  const { x: firstX } = firstTab.getBoundingClientRect();
-
-  return activeX - firstX + hack;
-});
-
-const offsetY = computed(() => {
-  const hack = containerH.value * 0;
-
-  if (!activeTabEl.value) return 0;
-  const { y } = activeTabEl.value.getBoundingClientRect();
-  return y - containerY.value + hack;
-});
+  offsetX.value = activeRect.x - firstRect.x;
+  offsetY.value = activeRect.y - containerRect.y;
+};
 
 const scale = computed(() => {
   if (activeTabEl.value === null) return 1;
@@ -115,15 +111,17 @@ const scale = computed(() => {
 
 const containerObserver = new ResizeObserver(([ { target } ]) => {
   const rect = target.getBoundingClientRect();
-
-  containerX.value = rect.width;
-  containerH.value = rect.height;
-  containerY.value = rect.y;
+  containerRect.w = rect.width;
+  containerRect.h = rect.height;
+  containerRect.y = rect.y;
+  calculateOffset();
 });
 
 onMounted(() => {
   if (tabs.value) containerObserver.observe(tabs.value);
 });
+
+watchEffect(calculateOffset);
 
 const style = computed<CSSProperties>(() => ({
   '--_tabs-indicator-offset-y': `${offsetY.value}px`,
