@@ -2,12 +2,12 @@
   <UiInput
     id="year"
     ref="input"
-    v-model="year"
+    :model-value="year"
     :class="{ 'ui-input--has-error': hasError || error }"
     :placeholder="translation.placeholderYear"
     :input-attrs="defaultProps.inputAttrs"
     @blur="standardizeYearFormat"
-    @input="checkYear($event as InputEvent)"
+    @input="handleInput($event as InputEvent)"
     @keydown="numbersOnly"
   />
 </template>
@@ -81,12 +81,13 @@ const year = computed({
 });
 const validationError = computed(() => (year.value.length === 4 && !props.valid));
 const hasError = computed(() => (validationError.value || unfulfilledYearError.value || props.error));
-const checkYear = async (event: InputEvent) => {
+const handleInput = async (event: InputEvent) => {
   unfulfilledYearError.value = false;
   const {
     data, target,
   } = event;
   const { value } = target as HTMLInputElement;
+  year.value = value;
   await nextTick();
   if (data && value.length === 4 && props.valid) {
     emit('change-input', 'year');
