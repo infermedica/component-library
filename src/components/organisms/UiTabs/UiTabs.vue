@@ -30,6 +30,7 @@ import {
   computed,
   provide,
   onMounted,
+  onUnmounted,
   reactive,
   watchEffect,
 } from 'vue';
@@ -101,6 +102,8 @@ const calculateOffset = () => {
   offsetY.value = activeRect.y - containerRect.y;
 };
 
+watchEffect(calculateOffset);
+
 const scale = computed(() => {
   if (activeTabEl.value === null) return 1;
   const firstTabRect = tabs.value?.children[0].children[0].getBoundingClientRect();
@@ -121,7 +124,9 @@ onMounted(() => {
   if (tabs.value) containerObserver.observe(tabs.value);
 });
 
-watchEffect(calculateOffset);
+onUnmounted(() => {
+  containerObserver.disconnect();
+});
 
 const style = computed<CSSProperties>(() => ({
   '--_tabs-indicator-offset-y': `${offsetY.value}px`,
