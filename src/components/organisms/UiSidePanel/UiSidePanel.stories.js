@@ -803,7 +803,6 @@ export const WithContentSlot = {
     >
       <template #content="{ contentAttrs }">
         <div
-          v-scroll-tabindex
           v-keyboard-focus
           v-bind="contentAttrs"
           class="ui-side-panel__content"

@@ -137,7 +137,6 @@
             v-bind="{ contentAttrs }"
           >
             <div
-              v-scroll-tabindex
               v-keyboard-focus
               class="ui-side-panel__content"
               v-bind="contentAttrs"
@@ -167,7 +166,6 @@ import type {
 import {
   focusTrap as vFocusTrap,
   bodyScrollLock as vBodyScrollLock,
-  scrollTabindex as vScrollTabindex,
   keyboardFocus as vKeyboardFocus,
 } from '../../../utilities/directives';
 import { focusElement } from '../../../utilities/helpers';
