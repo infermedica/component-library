@@ -86,7 +86,7 @@ const containerY = ref(0);
 const containerH = ref(0);
 
 const offsetX = computed(() => {
-  Number(containerX.value * 0); /* Hack for keeping reactivity */
+  const hack = containerX.value * 0;
   if (!activeTabEl.value) return 0;
   const firstTab = tabs.value?.children[0].children[0];
   if (!firstTab) return 0;
@@ -94,15 +94,15 @@ const offsetX = computed(() => {
   const { x: activeX } = activeTabEl.value.getBoundingClientRect();
   const { x: firstX } = firstTab.getBoundingClientRect();
 
-  return activeX - firstX;
+  return activeX - firstX + hack;
 });
 
 const offsetY = computed(() => {
-  Number(containerH.value * 0); /* Hack for keeping reactivity */
+  const hack = containerH.value * 0;
 
   if (!activeTabEl.value) return 0;
   const { y } = activeTabEl.value.getBoundingClientRect();
-  return y - containerY.value;
+  return y - containerY.value + hack;
 });
 
 const scale = computed(() => {
