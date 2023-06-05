@@ -3,7 +3,10 @@ import type {
   StoryObj,
 } from '@storybook/vue3';
 import { useArgTypes } from '@sb/helpers';
-import { content as contentArgTypes } from '@sb/helpers/argTypes';
+import {
+  content as contentArgTypes,
+  modifiers as modifiersArgTypes,
+} from '@sb/helpers/argTypes';
 import { withModelValue } from '@sb/decorators';
 import type {
   TabsProps,
@@ -33,10 +36,14 @@ const complexItemsData: TabsItemAttrsProps[] = [
   {
     name: 'point',
     title: 'Point on the body',
+    buttonTabAttrs: { 'data-testid': 'pont-button' },
+    contentAttrs: { 'data-testid': 'point-content' },
   },
   {
     name: 'drop',
     title: 'Drop body point',
+    buttonTabAttrs: { 'data-testid': 'drop-button' },
+    contentAttrs: { 'data-testid': 'drop-content' },
   },
 ];
 
@@ -205,8 +212,8 @@ const meta = {
   argTypes: {
     ...argTypes,
     content: contentArgTypes,
+    modifiers: modifiersArgTypes,
   },
-  decorators: [ withModelValue ],
   parameters: {
     cssProperties: {
       '--tabs-padding-block': 'var(--tabs-padding-block-start, 0) var(--tabs-padding-block-end, 0)',
@@ -214,6 +221,7 @@ const meta = {
         'var(--tabs-padding-inline-start, 0) var(--tabs-padding-inline-end, 0)',
     },
   },
+  decorators: [ withModelValue ],
 } satisfies TabsMetaType;
 
 export default meta;
@@ -239,6 +247,8 @@ export const Basic: TabsStoryType = {
     template: basicTemplate,
   }),
 };
+
+Basic.argTypes = { modelValue: { control: false } };
 
 Basic.parameters = {
   chromatic: { disableSnapshot: true },
@@ -271,6 +281,8 @@ export const Fixed: TabsStoryType = {
   },
 };
 
+Fixed.argTypes = { ...Basic.argTypes };
+
 Fixed.parameters = {
   ...Basic.parameters,
   docs: { source: { code: fixedCode } },
@@ -298,6 +310,8 @@ export const WithDefaultSlot: TabsStoryType = {
     template: defaultSlotTemplate,
   }),
 };
+
+WithDefaultSlot.argTypes = { ...Basic.argTypes };
 
 WithDefaultSlot.parameters = {
   ...Basic.parameters,
