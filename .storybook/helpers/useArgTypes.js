@@ -91,7 +91,9 @@ export function useArgTypes(component, options = { variables: {}}) {
             [name]: {
               control: false,
               table: {
-                summary: getBindings(bindings),
+                type: {
+                  summary: getBindings(bindings),
+                }
               }
             }
           }
