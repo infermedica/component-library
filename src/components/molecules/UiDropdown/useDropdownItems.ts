@@ -40,7 +40,7 @@ export default function useDropdownItems(dropdown: Ref<HTMLElement | null>) {
 
   const selectedDropdownItem = computed(
     () => dropdownItems.value.find(
-      (item) => item.classList.contains('ui-dropdown-item--selected'),
+      (item) => item.classList.contains('ui-button--is-selected'),
     ),
   );
 
