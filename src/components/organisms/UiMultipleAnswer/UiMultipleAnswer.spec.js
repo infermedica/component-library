@@ -127,12 +127,8 @@ describe('UiMultipleAnswer.vue', () => {
     });
 
     test('renders inputs with "name" attribute', async () => {
-      const selected = [];
       const wrapper = mount(UiMultipleAnswer, {
         props: {
-          modelValue: selected,
-          invalid: false,
-          touched: true,
           items: [
             'first item',
             'second item',
