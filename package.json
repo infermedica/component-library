@@ -21,6 +21,7 @@
     "create:component": "node scripts/create-component.mjs",
     "create:icons-list": "node scripts/create-icons-list.mjs",
     "create:release-notes": "node --experimental-fetch scripts/create-release-notes.mjs",
+    "create:release-changelog-docs": "node scripts/create-release-mdx.mjs",
     "prerelease": "pnpm run create:index && pnpm run create:icons-list && pnpm run test:generate-output",
     "release": "node --experimental-fetch scripts/release.mjs",
     "update:components-api": "node scripts/update-components-api.mjs",
