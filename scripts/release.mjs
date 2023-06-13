@@ -12,6 +12,7 @@ import getArgs from './helpers/get-args.mjs';
 import getReleaseInfo from './helpers/get-release-info.mjs';
 import updateComponentsApi from './update-components-api.mjs';
 import createReleaseNotes from './create-release-notes.mjs';
+import createReleaseMdx from './create-release-mdx.mjs';
 
 const fileName = fileURLToPath(import.meta.url);
 const dirName = dirname(fileName);
@@ -20,6 +21,7 @@ const updatePackageJson = (value) => {
   const packageJsonContent = JSON.parse(readFileSync(packageJsonPath));
   packageJsonContent.version = value;
   writeFileSync(packageJsonPath, JSON.stringify(packageJsonContent, null, 2));
+
   console.log('🚀 Version updated successfully.');
 };
 const release = async (type, withDocs) => {
@@ -29,6 +31,7 @@ const release = async (type, withDocs) => {
   if (newVersion) {
     await updateComponentsApi();
     updatePackageJson(newVersion);
+    createReleaseMdx(newVersion);
   }
   if (withDocs) await createReleaseNotes(releaseType);
 };

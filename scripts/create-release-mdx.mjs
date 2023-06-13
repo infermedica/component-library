@@ -44,49 +44,55 @@ const mdxSections = {
 };
 
 const saveFile = (tag, content) => {
-  const releaseTag = tag.split('.');
-  const major = releaseTag[0];
-  const minor = releaseTag[1];
-  const patch = releaseTag[2];
-  const releaseDir = `v${major}.${minor}.${patch}`;
+  const [
+    major,
+    minor,
+  ] = tag.split('.');
+  const releaseVersionTag = `v${tag}`;
+  const releaseDirPath = `./docs/releases/v${major}.${minor}.x/${releaseVersionTag}`;
 
-  if (!existsSync(`./docs/releases/v${major}.${minor}.x/${releaseDir}`)) {
-    mkdirSync(`./docs/releases/v${major}.${minor}.x/${releaseDir}`);
+  if (!existsSync(releaseDirPath)) {
+    mkdirSync(releaseDirPath);
   }
 
   try {
-    writeFileSync(`./docs/releases/v${major}.${minor}.x/${releaseDir}/changelog.stories.mdx.mdx`, content[0]);
-    console.log(`🚀 Release v${major}.${minor}.${patch} file has been created!`);
+    writeFileSync(`${releaseDirPath}/changelog.stories.mdx.mdx`, content[0]);
+    console.log(`🚀 Release ${releaseVersionTag} file has been created!`);
   } catch (err) {
-    console.log(`⛔️ Something goes wrong and the Release v${major}.${minor}.${patch} file hasn't been created!`, err);
+    console.error(`⛔️ Something goes wrong and the Release ${releaseVersionTag} file hasn't been created!`, err);
   }
 };
 
 const createMdxSection = (content) => {
   const commits = content.split(/\n/);
-  const sections = {};
+  const sections = { breakingChanges: [] };
   let sectionsDoc = '';
 
-  commits.map((commit) => {
-    const prefix = commit.match(/^(.*?):/) && commit.match(/^(.*?):/)[1];
+  const updateSections = commits.reduce((acc, currentCommit) => {
+    let prefixCurrentCommit = currentCommit.match(/^(.*?):/) && currentCommit.match(/^(.*?):/)[1];
 
-    if (prefix in sections) {
-      sections[prefix].push(commit);
-    } else if (prefix === null) {
-      delete sections[prefix];
+    if (prefixCurrentCommit) prefixCurrentCommit = prefixCurrentCommit.replace(/\(.*?\)/, '');
+
+    if (prefixCurrentCommit in sections) {
+      sections[prefixCurrentCommit].push(currentCommit);
+      // TODO remove this condition after finish work at this script
+    } else if (prefixCurrentCommit === null) {
+      delete sections[prefixCurrentCommit];
+    } else if (prefixCurrentCommit.search(/!/) > -1) {
+      sections.breakingChanges.push(currentCommit);
     } else {
-      sections[prefix] = [];
-      sections[prefix].push(commit);
+      sections[prefixCurrentCommit] = [];
+      sections[prefixCurrentCommit].push(currentCommit);
     }
-    return null;
+    return sections;
   });
 
-  Object.keys(sections).map((section) => {
-    // TODO add exception for prefix like this: test(chromatic)
-    sectionsDoc += `\n\n## ${mdxSections[section].icon} ${mdxSections[section].name}`;
+  Object.keys(updateSections).reduce((acc, section) => {
+    const mdxSection = Object.keys(mdxSections).filter((key) => section.includes(key) && key);
+    sectionsDoc += `\n\n## ${mdxSections[mdxSection].icon} ${mdxSections[mdxSection].name}`;
 
-    const commitMessages = sections[section].map((commit) => {
-      const regexCommit = commit.match(/\((.*?)\)/);
+    const commitMessages = updateSections[section].map((commit) => {
+      const regexCommit = commit.match(/\((#.*?)\)/);
       const commitMsg = regexCommit ? commit.replace(regexCommit[0], '') : commit;
       const pullRequestWithoutHash = regexCommit ? regexCommit[1].replace('#', '') : commit;
 
@@ -94,6 +100,7 @@ const createMdxSection = (content) => {
         ? `\n* ${commitMsg} ([${regexCommit[1]}](${githubLink}${pullRequestWithoutHash}))`
         : `\n* ${commitMsg}`;
     });
+
     sectionsDoc += commitMessages;
 
     return sectionsDoc;
@@ -102,44 +109,31 @@ const createMdxSection = (content) => {
 };
 
 const createMdxDoc = (tag, content) => {
-  const releaseTag = tag.split('.');
-  const releaseMinor = releaseTag[1];
-  const releasePatch = releaseTag[2];
-
   let doc = `import { Meta } from '@storybook/blocks';
 
-<Meta title="Releases/v0.6.x/v0.${releaseMinor}.${releasePatch}/Changelog"/>
+<Meta title="Releases/v0.6.x/v${tag}/Changelog"/>
   
-# 0.${releaseMinor}.${releasePatch} (${releaseDate})`;
+# ${tag} (${releaseDate})`;
 
   doc += createMdxSection(content);
-  saveFile('0.6.7', [ doc ]);
+  saveFile(tag, [ doc ]);
   return doc;
 };
 
-child.exec('git tag', (error, stdout, stderr) => {
-  if (error) {
-    console.log(`GIT TAG Error: ${error.message}`);
-    return;
-  }
-  if (stderr) {
-    console.log(`GIT TAG stdError: ${stderr.message}`);
-    return;
-  }
-  stdout.split(/\n/).filter((el) => el !== '').pop();
-});
+const createReleaseMdx = (tag) => {
+  child.exec('git log --pretty=format:"%s" --no-merges $(git describe --tags --abbrev=0 @^)..@', (error, stdout, stderr) => {
+    if (error) {
+      console.error(`GIT LOG Error: ${error.message}`);
+      return;
+    }
+    if (stderr) {
+      console.error(`GIT LOG stdError: ${stderr.message}`);
+      return;
+    }
 
-child.exec('git log --pretty=format:"%s" --no-merges -n 5', (error, stdout, stderr) => {
-  // TODO uncomment code below and remove line abovewhen script will working with any errors
-  // child.exec('git log --pretty=format:"%s" --no-merges $(git describe --tags --abbrev=0 @^)..@', (error, stdout, stderr) => {
-  if (error) {
-    console.log(`GIT LOG Error: ${error.message}`);
-    return;
-  }
-  if (stderr) {
-    console.log(`GIT LOG stdError: ${stderr.message}`);
-    return;
-  }
+    createMdxDoc(tag, stdout);
+  });
+};
 
-  createMdxDoc('0.6.7', stdout);
-});
+export default createReleaseMdx;
+createReleaseMdx('0.6.7');
