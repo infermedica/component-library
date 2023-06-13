@@ -29,7 +29,7 @@
           hoverHandler,
           finalScore,
           settings,
-          translation: defaultProps.translation
+          translation
         }"
       >
         <UiRadio
@@ -93,7 +93,7 @@
             <span
               v-bind="textLabelAttrs"
               class="visual-hidden"
-            >{{ defaultProps.translation.stars(item.index) }}</span>
+            >{{ translation.stars(item.index) }}</span>
           </template>
         </UiRadio>
       </slot>
@@ -189,7 +189,6 @@ const defaultProps = computed(() => {
   const iconDefault: IconAttrsProps['icon'] = 'star-outlined';
   const iconActive: IconAttrsProps['icon'] = 'star-filled';
   return {
-    translation: { stars: (index: number) => (`${index} stars`) },
     settings: {
       iconDefault,
       iconActive,
