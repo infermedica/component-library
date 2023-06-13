@@ -29,7 +29,6 @@
           ref="content"
           v-bind="$attrs"
           :text-label-attrs="defaultProps.textLabelAttrs"
-          :input-attrs="inputAttrs"
           :value="value"
           :model-value="modelValue"
           class="ui-list-item__content"
@@ -77,10 +76,7 @@ import {
   onMounted,
   nextTick,
 } from 'vue';
-import type {
-  InputHTMLAttributes,
-  ComponentPublicInstance,
-} from 'vue';
+import type { ComponentPublicInstance } from 'vue';
 import { focusElement } from '../../../../utilities/helpers/index';
 import type { TextAttrsProps } from '../../../atoms/UiText/UiText.vue';
 import type { ButtonAttrsProps } from '../../../atoms/UiButton/UiButton.vue';
@@ -120,10 +116,6 @@ export interface MultipleAnswerItemProps {
    * Use this props to set id of item.
    */
   id?: string;
-   /**
-   * Use this props to pass attrs for input element.
-   */
-  inputAttrs?: DefineAttrsProps<null, InputHTMLAttributes>;
   /**
    * Use this props to pass attrs for label UiText.
    */
@@ -156,7 +148,6 @@ const props = withDefaults(defineProps<MultipleAnswerItemProps>(), {
   value: '',
   label: '',
   id: '',
-  inputAttrs: () => ({}),
   textLabelAttrs: () => ({
     tag: 'span',
     class: 'ui-multiple-answer-item__label',
