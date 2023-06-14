@@ -102,7 +102,6 @@
               v-model="value"
               v-bind="option"
               :tag="UiRadio"
-              :name="multipleChoicesItemId"
               :class="[
                 'ui-multiple-choices-item__option-content', {
                   'ui-radio--has-error': invalid,
@@ -284,7 +283,13 @@ const value = computed({
   },
 });
 const hasInfo = computed(() => (Object.keys(props.buttonInfoAttrs).length > 0));
-const optionsToRender = computed(() => props.options.map((option) => ({ ...option })));
+const optionsToRender = computed(() => props.options.map((option) => ({
+  ...option,
+  inputAttrs: {
+    name: multipleChoicesItemId.value,
+    ...option.inputAttrs,
+  },
+})));
 </script>
 
 <style lang="scss">

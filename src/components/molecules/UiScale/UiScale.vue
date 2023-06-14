@@ -29,7 +29,6 @@
           v-bind="item"
           v-model="scaleValue"
           :value="index"
-          :name="scaleName"
           class="ui-scale__option"
           :aria-labelledby="`scale-label-${index}`"
           @mouseover="hoverHandler($event, index)"
@@ -282,6 +281,10 @@ const itemsToRender = computed<RadioAttrsProps[]>(() => (Array.from({ length: ma
     textLabelAttrs: {
       tag: 'div',
       ...radioOptionAttrs?.textLabelAttrs,
+    },
+    inputAttrs: {
+      name: scaleName.value,
+      ...radioOptionAttrs?.inputAttrs,
     },
   };
 })));
