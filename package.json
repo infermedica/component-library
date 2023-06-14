@@ -1,7 +1,7 @@
 {
   "name": "@infermedica/component-library",
   "description": "Vue 3 UI library for healthcare and not only.",
-  "version": "0.6.7",
+  "version": "0.6.6",
   "engines": {
     "node": ">=16.13.2",
     "pnpm": ">=6.32"
@@ -21,7 +21,6 @@
     "create:component": "node scripts/create-component.mjs",
     "create:icons-list": "node scripts/create-icons-list.mjs",
     "create:release-notes": "node --experimental-fetch scripts/create-release-notes.mjs",
-    "create:release-changelog-docs": "node scripts/create-release-mdx.mjs",
     "prerelease": "pnpm run create:index && pnpm run create:icons-list && pnpm run test:generate-output",
     "release": "node --experimental-fetch scripts/release.mjs",
     "update:components-api": "node scripts/update-components-api.mjs",

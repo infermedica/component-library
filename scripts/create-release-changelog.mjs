@@ -12,7 +12,7 @@ const releaseDate = new Date().toLocaleString('en-US', {
   day: 'numeric',
 });
 
-const mdxSections = {
+const changelogSections = {
   feat: {
     icon: '🚀',
     name: 'Feature',
@@ -63,64 +63,62 @@ const saveFile = (tag, content) => {
   }
 };
 
-const createMdxSection = (content) => {
+const createChangelogSection = (content) => {
   const commits = content.split(/\n/);
   const sections = { breakingChanges: [] };
+  const prefixRegex = /^(.*?):/;
   let sectionsDoc = '';
 
-  const updateSections = commits.reduce((acc, currentCommit) => {
-    let prefixCurrentCommit = currentCommit.match(/^(.*?):/) && currentCommit.match(/^(.*?):/)[1];
+  const updateChangelogSections = commits.reduce((acc, currentCommit) => {
+    let commitPrefix = currentCommit.match(prefixRegex) && currentCommit.match(prefixRegex)[1];
+    if (commitPrefix) commitPrefix = commitPrefix.replace(/\(.*?\)/, '');
 
-    if (prefixCurrentCommit) prefixCurrentCommit = prefixCurrentCommit.replace(/\(.*?\)/, '');
-
-    if (prefixCurrentCommit in sections) {
-      sections[prefixCurrentCommit].push(currentCommit);
-      // TODO remove this condition after finish work at this script
-    } else if (prefixCurrentCommit === null) {
-      delete sections[prefixCurrentCommit];
-    } else if (prefixCurrentCommit.search(/!/) > -1) {
+    if (commitPrefix in sections) {
+      sections[commitPrefix].push(currentCommit);
+    } else if (commitPrefix.search(/!/) > -1) {
       sections.breakingChanges.push(currentCommit);
     } else {
-      sections[prefixCurrentCommit] = [];
-      sections[prefixCurrentCommit].push(currentCommit);
+      sections[commitPrefix] = [];
+      sections[commitPrefix].push(currentCommit);
     }
     return sections;
-  });
+  }, sections);
 
-  Object.keys(updateSections).reduce((acc, section) => {
-    const mdxSection = Object.keys(mdxSections).filter((key) => section.includes(key) && key);
-    sectionsDoc += `\n\n## ${mdxSections[mdxSection].icon} ${mdxSections[mdxSection].name}`;
+  Object.keys(updateChangelogSections).reduce((acc, section) => {
+    const changelogSection = Object.keys(changelogSections).filter((key) => section.includes(key) && key);
+    sectionsDoc += `\n\n## ${changelogSections[changelogSection].icon} ${changelogSections[changelogSection].name}`;
 
-    const commitMessages = updateSections[section].map((commit) => {
+    const commitMessages = updateChangelogSections[section].map((commit) => {
       const regexCommit = commit.match(/\((#.*?)\)/);
-      const commitMsg = regexCommit ? commit.replace(regexCommit[0], '') : commit;
+      const commitWithoutPrefix = commit.replace(prefixRegex, '');
+      const commitMsg = regexCommit ? commitWithoutPrefix.replace(regexCommit[0], '') : commitWithoutPrefix;
       const pullRequestWithoutHash = regexCommit ? regexCommit[1].replace('#', '') : commit;
 
       return regexCommit
-        ? `\n* ${commitMsg} ([${regexCommit[1]}](${githubLink}${pullRequestWithoutHash}))`
-        : `\n* ${commitMsg}`;
+        ? `\n*${commitMsg}([${regexCommit[1]}](${githubLink}${pullRequestWithoutHash}))`
+        : `\n*${commitMsg}`;
     });
 
-    sectionsDoc += commitMessages;
+    sectionsDoc += commitMessages.join('');
 
     return sectionsDoc;
   });
   return sectionsDoc;
 };
 
-const createMdxDoc = (tag, content) => {
+const createChangelogMdx = (tag, content) => {
   let doc = `import { Meta } from '@storybook/blocks';
 
 <Meta title="Releases/v0.6.x/v${tag}/Changelog"/>
   
 # ${tag} (${releaseDate})`;
 
-  doc += createMdxSection(content);
+  doc += createChangelogSection(content);
   saveFile(tag, [ doc ]);
   return doc;
 };
 
-const createReleaseMdx = (tag) => {
+const createReleaseChangelog = (tag) => {
   child.exec('git log --pretty=format:"%s" --no-merges $(git describe --tags --abbrev=0 @^)..@', (error, stdout, stderr) => {
     if (error) {
       console.error(`GIT LOG Error: ${error.message}`);
@@ -131,9 +129,8 @@ const createReleaseMdx = (tag) => {
       return;
     }
 
-    createMdxDoc(tag, stdout);
+    createChangelogMdx(tag, stdout);
   });
 };
 
-export default createReleaseMdx;
-createReleaseMdx('0.6.7');
+export default createReleaseChangelog;
