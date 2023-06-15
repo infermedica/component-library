@@ -5,6 +5,7 @@ import {
   mkdirSync,
 } from 'fs';
 
+const prefixRegex = /^(.*?):/;
 const githubLink = 'https://github.com/infermedica/component-library/pull/';
 const releaseDate = new Date().toLocaleString('en-US', {
   year: 'numeric',
@@ -12,36 +13,61 @@ const releaseDate = new Date().toLocaleString('en-US', {
   day: 'numeric',
 });
 
-const changelogSections = {
-  feat: {
-    icon: '🚀',
-    name: 'Feature',
-  },
-  fix: {
-    icon: '🐛',
-    name: 'Fixes',
-  },
-  docs: {
-    icon: '📄',
-    name: 'Docs',
-  },
-  chore: {
-    icon: '🧹',
-    name: 'Chores',
-  },
-  refactor: {
-    icon: '📝',
-    name: 'Refactors',
-  },
-  breakingChanges: {
+const changelogSections = [
+  {
+    prefix: 'breakingChanges',
     icon: '⛔️',
     name: 'Breaking Changes',
   },
-  test: {
+  {
+    prefix: 'chore',
+    icon: '🧹',
+    name: 'Chores',
+  },
+  {
+    prefix: 'docs',
+    icon: '📄',
+    name: 'Docs',
+  },
+  {
+    prefix: 'feat',
+    icon: '🚀',
+    name: 'Feature',
+  },
+  {
+    prefix: 'fix',
+    icon: '🐛',
+    name: 'Fixes',
+  },
+  {
+    prefix: 'refactor',
+    icon: '📝',
+    name: 'Refactors',
+  },
+  {
+    prefix: 'test',
     icon: '🔍',
     name: 'Tests',
   },
-};
+];
+
+const sortSectionsOrder = (sections) => sections.sort((a, b) => {
+  const prefixA = a.prefix;
+  const prefixB = b.prefix;
+  if (prefixA === 'fix' || prefixB === 'feat') {
+    return -1;
+  }
+  if (prefixA === 'feat' || prefixB === 'fix') {
+    return -1;
+  }
+  if (prefixA < prefixB) {
+    return -1;
+  }
+  if (prefixA > prefixB) {
+    return 1;
+  }
+  return 0;
+});
 
 const saveFile = (tag, content) => {
   const [
@@ -49,7 +75,12 @@ const saveFile = (tag, content) => {
     minor,
   ] = tag.split('.');
   const releaseVersionTag = `v${tag}`;
-  const releaseDirPath = `./docs/releases/v${major}.${minor}.x/${releaseVersionTag}`;
+  const releaseDirRootPath = `./docs/releases/v${major}.${minor}.x`;
+  const releaseDirPath = `${releaseDirRootPath}/${releaseVersionTag}`;
+
+  if (!existsSync(releaseDirRootPath)) {
+    mkdirSync(releaseDirRootPath);
+  }
 
   if (!existsSync(releaseDirPath)) {
     mkdirSync(releaseDirPath);
@@ -63,57 +94,72 @@ const saveFile = (tag, content) => {
   }
 };
 
-const createChangelogSection = (content) => {
+const formatCommit = (commit) => {
+  const regexCommitHash = commit.match(/\((#\d*?)\)/);
+  const commitWithoutPrefix = commit.replace(prefixRegex, '');
+  const commitMsg = regexCommitHash ? commitWithoutPrefix.replace(regexCommitHash[0], '') : commitWithoutPrefix;
+
+  const regexCommit = /(.*?: )(.*?)(\(#.*?\))/g;
+  const formatedCommit = commit.replace(regexCommit, (_match, _prefix, description, pullRequestHash) => {
+    const withoutHash = pullRequestHash.replace(/(\()(#)(.*?)(\))/g, (_match, _bracket, _hash, pullRequestNumber) => pullRequestNumber);
+    return `\n* ${description}([${pullRequestHash}](${githubLink}${withoutHash}))`;
+  });
+
+  return regexCommitHash
+    ? formatedCommit
+    : `\n*${commitMsg}`;
+};
+
+const createChangelogSections = (content) => {
   const commits = content.split(/\n/);
-  const sections = { breakingChanges: [] };
-  const prefixRegex = /^(.*?):/;
   let sectionsDoc = '';
 
   const updateChangelogSections = commits.reduce((acc, currentCommit) => {
-    let commitPrefix = currentCommit.match(prefixRegex) && currentCommit.match(prefixRegex)[1];
-    if (commitPrefix) commitPrefix = commitPrefix.replace(/\(.*?\)/, '');
+    let commitPrefix = Array.isArray(currentCommit.match(prefixRegex))
+      ? currentCommit.match(prefixRegex)[1]
+      : false;
 
-    if (commitPrefix in sections) {
-      sections[commitPrefix].push(currentCommit);
-    } else if (commitPrefix.search(/!/) > -1) {
-      sections.breakingChanges.push(currentCommit);
-    } else {
-      sections[commitPrefix] = [];
-      sections[commitPrefix].push(currentCommit);
+    const formatedCommit = formatCommit(currentCommit);
+
+    if (commitPrefix) {
+      commitPrefix = commitPrefix.replace(/\(.*?\)/, '');
+      if (commitPrefix in acc) {
+        acc[commitPrefix].push(formatedCommit);
+      } else if (commitPrefix.search(/!/) > -1) {
+        acc.breakingChanges.push(formatedCommit);
+      } else {
+        acc[commitPrefix] = [];
+        acc[commitPrefix].push(formatedCommit);
+      }
     }
-    return sections;
-  }, sections);
+    return acc;
+  }, { breakingChanges: [] });
 
-  Object.keys(updateChangelogSections).reduce((acc, section) => {
-    const changelogSection = Object.keys(changelogSections).filter((key) => section.includes(key) && key);
-    sectionsDoc += `\n\n## ${changelogSections[changelogSection].icon} ${changelogSections[changelogSection].name}`;
-
-    const commitMessages = updateChangelogSections[section].map((commit) => {
-      const regexCommit = commit.match(/\((#.*?)\)/);
-      const commitWithoutPrefix = commit.replace(prefixRegex, '');
-      const commitMsg = regexCommit ? commitWithoutPrefix.replace(regexCommit[0], '') : commitWithoutPrefix;
-      const pullRequestWithoutHash = regexCommit ? regexCommit[1].replace('#', '') : commit;
-
-      return regexCommit
-        ? `\n*${commitMsg}([${regexCommit[1]}](${githubLink}${pullRequestWithoutHash}))`
-        : `\n*${commitMsg}`;
-    });
-
-    sectionsDoc += commitMessages.join('');
-
-    return sectionsDoc;
+  sortSectionsOrder(changelogSections).forEach(({
+    prefix,
+    icon,
+    name,
+  }) => {
+    if (typeof updateChangelogSections[prefix] !== 'undefined' && updateChangelogSections[prefix].length > 0) {
+      sectionsDoc += `\n\n## ${icon} ${name}`;
+      sectionsDoc += updateChangelogSections[prefix].join('');
+    }
   });
   return sectionsDoc;
 };
 
 const createChangelogMdx = (tag, content) => {
+  const [
+    major,
+    minor,
+  ] = tag.split('.');
   let doc = `import { Meta } from '@storybook/blocks';
 
-<Meta title="Releases/v0.6.x/v${tag}/Changelog"/>
+<Meta title="Releases/v${major}.${minor}.x/v${tag}/Changelog"/>
   
 # ${tag} (${releaseDate})`;
 
-  doc += createChangelogSection(content);
+  doc += createChangelogSections(content);
   saveFile(tag, [ doc ]);
   return doc;
 };
