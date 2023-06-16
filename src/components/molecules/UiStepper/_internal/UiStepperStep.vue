@@ -156,6 +156,7 @@ const itemAttrs = computed<ButtonAttrsProps>(() => (isVisitedStep.value
     --button-hover-color: var(--color-text-body);
     --button-active-color: var(--color-text-body);
     --button-font: var(--font-body-1-thick);
+    --button-letter-spacing: var(--letter-spacing-body-1-thick)
 
     #{$this}__content {
       cursor: auto;
