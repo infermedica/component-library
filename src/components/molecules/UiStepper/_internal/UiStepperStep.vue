@@ -12,9 +12,8 @@
         label,
       }"
     >
-      <component
+      <UiButton
         v-bind="itemAttrs"
-        :is="UiButton"
         :class="[
           'ui-stepper-step__content', itemClass
         ]"
@@ -26,7 +25,7 @@
         >
           {{ label }}
         </slot>
-      </component>
+      </UiButton>
     </slot>
   </UiListItem>
 </template>
