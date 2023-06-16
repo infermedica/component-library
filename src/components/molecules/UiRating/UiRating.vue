@@ -124,7 +124,7 @@ export interface RatingSettings {
   iconActive?: Icon;
 }
 export interface RatingTranslation {
-  stars: (index: number) => string;
+  stars?: (index: number) => string;
 }
 export interface RatingRenderItem extends RadioAttrsProps {
   index: number;
@@ -180,7 +180,7 @@ const props = withDefaults(defineProps<RatingProps>(), {
     iconDefault: 'star-outlined',
     iconActive: 'star-filled',
   }),
-  translation: () => ({ stars: (index: number) => (`${index} stars`) }),
+  translation: () => ({ }),
   tag: 'fieldset',
   legend: '',
   radioOptionAttrs: () => ({}),
@@ -189,7 +189,10 @@ const defaultProps = computed(() => {
   const iconDefault: IconAttrsProps['icon'] = 'star-outlined';
   const iconActive: IconAttrsProps['icon'] = 'star-filled';
   return {
-    translation: { stars: (index: number) => (`${index} stars`) },
+    translation: {
+      stars: (index: number) => (`${index} stars`),
+      ...props.translation,
+    },
     settings: {
       iconDefault,
       iconActive,
