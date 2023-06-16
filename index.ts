@@ -46,7 +46,6 @@ export * from './src/components/organisms/UiMultipleChoices/UiMultipleChoices.vu
 export * from './src/components/organisms/UiSidePanel/UiSidePanel.vue';
 export * from './src/components/organisms/UiSimpleQuestion/UiSimpleQuestion.vue';
 export * from './src/components/organisms/UiTabs/UiTabs.vue';
-export * from './src/components/organisms/UiTabs/_internal/UiTabsItem.vue';
 export * from './src/components/templates/UiMessage/UiMessage.vue';
 export * from './src/components/templates/UiQuestion/UiQuestion.vue';
 

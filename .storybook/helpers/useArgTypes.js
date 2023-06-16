@@ -13,11 +13,9 @@ export function useArgTypes(component, options = { variables: {}}) {
         const cssRules = styleSheet?.cssRules || [];
         const { selectorText } = [...cssRules]?.at(0);
         return selectorText
-          ?.match(componentNameKebabCase);
+          ?.match(new RegExp(`${componentNameKebabCase}$`));
       }
-      catch (e) {
-        console.error(e);
-      }
+      catch (e) {}
     })?.cssRules || [];
   const getControl = (type) => {
     const { name } = type
@@ -91,7 +89,9 @@ export function useArgTypes(component, options = { variables: {}}) {
             [name]: {
               control: false,
               table: {
-                summary: getBindings(bindings),
+                type: {
+                  summary: getBindings(bindings),
+                }
               }
             }
           }

@@ -8,13 +8,13 @@ import {
   modifiers as modifiersArgTypes,
 } from '@sb/helpers/argTypes';
 import { withModelValue } from '@sb/decorators';
-import type {
-  TabsProps,
-  TabsItemAttrsProps,
+import type { TabsProps } from '@index';
+import {
+  UiTabs,
+  UiText,
 } from '@index';
-import UiTabs from '@/components/organisms/UiTabs/UiTabs.vue';
 import UiTabsItem from '@/components/organisms/UiTabs/_internal/UiTabsItem.vue';
-import UiText from '@/components/atoms/UiText/UiText.vue';
+import type { TabsItemAttrsProps } from '@/components/organisms/UiTabs/_internal/UiTabsItem.vue';
 
 type TabsArgsType = TabsProps & {
   items?: TabsProps[],
@@ -36,7 +36,7 @@ const complexItemsData: TabsItemAttrsProps[] = [
   {
     name: 'point',
     title: 'Point on the body',
-    buttonTabAttrs: { 'data-testid': 'pont-button' },
+    buttonTabAttrs: { 'data-testid': 'point-button' },
     contentAttrs: { 'data-testid': 'point-content' },
   },
   {
@@ -47,95 +47,252 @@ const complexItemsData: TabsItemAttrsProps[] = [
   },
 ];
 
-const basicTemplate = `<UiTabs
-  v-model="modelValue"
-  :items="items"
-  :class="modifiers"
-  >
-  <template
-    v-for="(item, key) in items"
-    #[item.name]="{item}"
-    :key="key"
-  >
-    <UiText>
-      {{ content[item.name] }}
-    </UiText>
+const { argTypes } = useArgTypes(UiTabs);
+
+const meta = {
+  title: 'Organisms/Tabs',
+  component: UiTabs,
+  args: {
+    modelValue: 'point',
+    items: complexItemsData,
+    content: {
+      search: 'Serum uric acid concentration',
+      point: '1. Erythrocyte Sedimentation Rate',
+    },
+  },
+  argTypes: {
+    ...argTypes,
+    content: contentArgTypes,
+    modifiers: modifiersArgTypes,
+  },
+  parameters: { chromatic: { disableSnapshot: false } },
+  decorators: [ withModelValue ],
+} satisfies TabsMetaType;
+
+export default meta;
+
+export const Basic: TabsStoryType = {
+  render: () => ({
+    components: {
+      UiTabs,
+      UiText,
+    },
+    setup(props, { attrs }) {
+      const {
+        modelValue,
+        content,
+        items,
+        modifiers,
+        ...args
+      } = attrs;
+      return {
+        args,
+        modelValue,
+        items,
+        content,
+        modifiers,
+      };
+    },
+    template: `<UiTabs
+    v-model="modelValue"
+    :items="items"
+    :class="modifiers"
+    >
+    <template
+      v-for="(item, key) in items"
+      #[item.name]="{item}"
+      :key="key"
+    >
+      <UiText>
+        {{ content[item.name] }}
+      </UiText>
+    </template>
+  </UiTabs>`,
+  }),
+};
+
+Basic.argTypes = { modelValue: { control: false } };
+
+Basic.parameters = {
+  chromatic: { disableSnapshot: true },
+  docs: {
+    source: {
+      code: `<template>
+    <UiTabs
+    v-model="modelValue"
+    :items="items"
+    :class="modifiers"
+    >
+    <template
+      v-for="(item, key) in items"
+      #[item.name]="{item}"
+      :key="key"
+    >
+      <UiText>
+        {{ content[item.name] }}
+      </UiText>
+    </template>
+    </UiTabs>
   </template>
-</UiTabs>`;
-
-const basicScript = `import { ref } from 'vue';
-import { UiTabs, UiText } from '@infermedica/component-library';
-
-const modelValue = ref('point');
-const items = [
-  {
-    name: 'search',
-    title: 'Search',
-    'data-testid': 'search',
-    buttonTabAttrs: { 'data-testid': 'search-button' },
-    contentAttrs: { 'data-testid': 'search-content' },
+  
+  <script setup lang="ts">
+  import { ref } from 'vue';
+  import { UiTabs, UiText } from '@infermedica/component-library';
+  
+  const modelValue = ref('point');
+  const items = [
+    {
+      name: 'search',
+      title: 'Search',
+      'data-testid': 'search',
+      buttonTabAttrs: { 'data-testid': 'search-button' },
+      contentAttrs: { 'data-testid': 'search-content' },
+    },
+    {
+      name: 'point',
+      title: 'Point on the body',
+    },
+    {
+      name: 'drop',
+      title: 'Drop body point',
+    },
+  ];
+  const content = {
+    search: 'Serum uric acid concentration',
+    point: '1. Erythrocyte Sedimentation Rate',
+  };
+  const modifiers = '';
+  </script>
+  `,
+    },
   },
-  {
-    name: 'point',
-    title: 'Point on the body',
-  },
-  {
-    name: 'drop',
-    title: 'Drop body point',
-  },
-];
-const content = {
-  search: 'Serum uric acid concentration',
-  point: '1. Erythrocyte Sedimentation Rate',
 };
-const modifiers = '';`;
 
-const basicCode = `<template>
-  ${basicTemplate}
-</template>
-
-<script setup lang="ts">
-${basicScript}
-</script>
-`;
-
-const fixedScript = `import { ref } from 'vue';
-import { UiTabs, UiText } from '@infermedica/component-library';
-
-const modelValue = ref('point');
-const items = [
-  {
-    name: 'search',
-    title: 'Search',
-    'data-testid': 'search',
-    buttonTabAttrs: { 'data-testid': 'search-button' },
-    contentAttrs: { 'data-testid': 'search-content' },
+export const Fixed: TabsStoryType = {
+  render: () => ({
+    components: {
+      UiTabs,
+      UiText,
+    },
+    setup: (props, { attrs }) => {
+      const {
+        modelValue,
+        content,
+        items,
+        modifiers,
+        ...args
+      } = attrs;
+      return {
+        args,
+        modelValue,
+        items,
+        content,
+        modifiers,
+      };
+    },
+    template: `<UiTabs
+    v-model="modelValue"
+    :items="items"
+    :class="modifiers"
+    >
+    <template
+      v-for="(item, key) in items"
+      #[item.name]="{item}"
+      :key="key"
+    >
+      <UiText>
+        {{ content[item.name] }}
+      </UiText>
+    </template>
+  </UiTabs>`,
+  }),
+  args: {
+    ...Basic.args,
+    modifiers: [ 'ui-tabs--fixed' ],
   },
-  {
-    name: 'point',
-    title: 'Point on the body',
-  },
-  {
-    name: 'drop',
-    title: 'Drop body point',
-  },
-];
-const content = {
-  search: 'Serum uric acid concentration',
-  point: '1. Erythrocyte Sedimentation Rate',
 };
-const modifiers = 'ui-tabs-fixed';`;
 
-const fixedCode = `<template>
-  ${basicTemplate}
-</template>
+Fixed.argTypes = { ...Basic.argTypes };
 
-<script setup lang="ts">
-${fixedScript}
-</script>
-`;
+Fixed.parameters = {
+  ...Basic.parameters,
+  docs: {
+    source: {
+      code: `<template>
+      <UiTabs
+      v-model="modelValue"
+      :items="items"
+      :class="modifiers"
+      >
+      <template
+        v-for="(item, key) in items"
+        #[item.name]="{item}"
+        :key="key"
+      >
+        <UiText>
+          {{ content[item.name] }}
+        </UiText>
+      </template>
+      </UiTabs>
+    </template>
+    
+    <script setup lang="ts">
+    import { ref } from 'vue';
+    import { UiTabs, UiText } from '@infermedica/component-library';
+    
+    const modelValue = ref('point');
+    const items = [
+      {
+        name: 'search',
+        title: 'Search',
+        'data-testid': 'search',
+        buttonTabAttrs: { 'data-testid': 'search-button' },
+        contentAttrs: { 'data-testid': 'search-content' },
+      },
+      {
+        name: 'point',
+        title: 'Point on the body',
+      },
+      {
+        name: 'drop',
+        title: 'Drop body point',
+      },
+    ];
+    const content = {
+      search: 'Serum uric acid concentration',
+      point: '1. Erythrocyte Sedimentation Rate',
+    };
+    const modifiers = 'ui-tabs-fixed';
+    </script>
+    `,
+    },
+  },
+};
 
-const defaultSlotTemplate = `<UiTabs
+export const WithDefaultSlot: TabsStoryType = {
+  render: () => ({
+    components: {
+      UiTabs,
+      UiTabsItem,
+      UiText,
+    },
+    setup: (props, { attrs }) => {
+      const {
+        modelValue,
+        content,
+        items,
+        modifiers,
+        ...args
+      } = attrs;
+      return {
+        args,
+        modelValue,
+        items,
+        content,
+        modifiers,
+      };
+    },
+    template: `<UiTabs
     v-model="modelValue"
     :class="modifiers"
     >
@@ -157,157 +314,7 @@ const defaultSlotTemplate = `<UiTabs
         </UiText>
       </UiTabsItem>
     </template>
-  </UiTabs>`;
-
-const defaultSlotScript = `import { ref } from 'vue';
-import { UiTabs, UiTabsItem, UiText } from '@infermedica/component-library';
-import UiTabsItem from '@infermedica/component-library';
-
-const modelValue = ref('point');
-const items = [
-  {
-    name: 'search',
-    title: 'Search',
-    'data-testid': 'search',
-    buttonTabAttrs: { 'data-testid': 'search-button' },
-    contentAttrs: { 'data-testid': 'search-content' },
-  },
-  {
-    name: 'point',
-    title: 'Point on the body',
-  },
-  {
-    name: 'drop',
-    title: 'Drop body point',
-  },
-];
-const content = {
-  search: 'Serum uric acid concentration',
-  point: '1. Erythrocyte Sedimentation Rate',
-};
-const modifiers = '';`;
-
-const defaultSlotCode = `<template>
-  ${defaultSlotTemplate}
-</template>
-
-<script setup lang="ts">
-${defaultSlotScript}
-</script>`;
-
-const { argTypes } = useArgTypes(UiTabs);
-
-const meta = {
-  title: 'Organisms/Tabs2',
-  component: UiTabs,
-  args: {
-    modelValue: 'point',
-    items: complexItemsData,
-    content: {
-      search: 'Serum uric acid concentration',
-      point: '1. Erythrocyte Sedimentation Rate',
-    },
-    modifiers: [],
-  },
-  argTypes: {
-    ...argTypes,
-    content: contentArgTypes,
-    modifiers: modifiersArgTypes,
-  },
-  parameters: {
-    cssProperties: {
-      '--tabs-padding-block': 'var(--tabs-padding-block-start, 0) var(--tabs-padding-block-end, 0)',
-      '--tabs-padding-inline':
-        'var(--tabs-padding-inline-start, 0) var(--tabs-padding-inline-end, 0)',
-    },
-  },
-  decorators: [ withModelValue ],
-} satisfies TabsMetaType;
-
-export default meta;
-
-export const Basic: TabsStoryType = {
-  render: () => ({
-    components: {
-      UiTabs,
-      UiText,
-    },
-    setup(props, { attrs }) {
-      const {
-        modelValue, content, items, modifiers, ...args
-      } = attrs;
-      return {
-        args,
-        modelValue,
-        items,
-        content,
-        modifiers,
-      };
-    },
-    template: basicTemplate,
-  }),
-};
-
-Basic.argTypes = { modelValue: { control: false } };
-
-Basic.parameters = {
-  chromatic: { disableSnapshot: true },
-  docs: { source: { code: basicCode } },
-};
-
-export const Fixed: TabsStoryType = {
-  render: () => ({
-    components: {
-      UiTabs,
-      UiText,
-    },
-    setup: (props, { attrs }) => {
-      const {
-        modelValue, content, items, modifiers, ...args
-      } = attrs;
-      return {
-        args,
-        modelValue,
-        items,
-        content,
-        modifiers,
-      };
-    },
-    template: basicTemplate,
-  }),
-  args: {
-    ...Basic.args,
-    modifiers: [ 'ui-tabs--fixed' ],
-  },
-};
-
-Fixed.argTypes = { ...Basic.argTypes };
-
-Fixed.parameters = {
-  ...Basic.parameters,
-  docs: { source: { code: fixedCode } },
-};
-
-export const WithDefaultSlot: TabsStoryType = {
-  render: () => ({
-    components: {
-      UiTabs,
-      UiTabsItem,
-      UiText,
-    },
-    setup: (props, { attrs }) => {
-      const {
-        modelValue, content, items, modifiers, ...args
-      } = attrs;
-      return {
-        args,
-        modelValue,
-        items,
-        content,
-        modifiers,
-      };
-    },
-    template: defaultSlotTemplate,
+  </UiTabs>`,
   }),
 };
 
@@ -315,5 +322,63 @@ WithDefaultSlot.argTypes = { ...Basic.argTypes };
 
 WithDefaultSlot.parameters = {
   ...Basic.parameters,
-  docs: { source: { code: defaultSlotCode } },
+  docs: {
+    source: {
+      code: `<template>
+    <UiTabs
+    v-model="modelValue"
+    :class="modifiers"
+    >
+    <template
+      v-for="(item, key) in items"
+      :key="key"
+    >
+      <UiTabsItem
+        :title="item.title"
+        :name="item.name"
+        :button-attrs="item.buttonTabAttrs"
+        :content-attrs="item.contentAttrs"
+        v-bind="{
+          'data-testid': item['data-testid'],
+        }"
+      >
+        <UiText>
+          {{ content[item.name] }}
+        </UiText>
+      </UiTabsItem>
+    </template>
+    </UiTabs>
+  </template>
+  
+  <script setup lang="ts">
+  import { ref } from 'vue';
+  import { UiTabs, UiTabsItem, UiText } from '@infermedica/component-library';
+  import UiTabsItem from '@infermedica/component-library';
+  
+  const modelValue = ref('point');
+  const items = [
+    {
+      name: 'search',
+      title: 'Search',
+      'data-testid': 'search',
+      buttonTabAttrs: { 'data-testid': 'search-button' },
+      contentAttrs: { 'data-testid': 'search-content' },
+    },
+    {
+      name: 'point',
+      title: 'Point on the body',
+    },
+    {
+      name: 'drop',
+      title: 'Drop body point',
+    },
+  ];
+  const content = {
+    search: 'Serum uric acid concentration',
+    point: '1. Erythrocyte Sedimentation Rate',
+  };
+  const modifiers = '';
+  </script>`,
+    },
+  },
 };
