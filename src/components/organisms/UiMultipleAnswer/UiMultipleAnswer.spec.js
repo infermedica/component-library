@@ -125,5 +125,37 @@ describe('UiMultipleAnswer.vue', () => {
       expect(wrapper.findAll(choiceErrorClass).length).toBe(items.length);
       expect(wrapper.findAll(checkboxErrorClass).length).toBe(items.length);
     });
+
+    test('renders inputs with "name" attribute', async () => {
+      const wrapper = mount(UiMultipleAnswer, {
+        props: {
+          items: [
+            'first item',
+            'second item',
+          ],
+          name: 'input-name',
+        },
+      });
+
+      expect(wrapper.findAll('input').map((input) => input.attributes().name)).toEqual([
+        'input-name',
+        'input-name',
+      ]);
+
+      await wrapper.setProps({
+        items: [
+          {
+            label: 'first item',
+            inputAttrs: { name: 'custom-input-name' },
+          },
+          { label: 'second item' },
+        ],
+      });
+
+      expect(wrapper.findAll('input').map((input) => input.attributes().name)).toEqual([
+        'custom-input-name',
+        'input-name',
+      ]);
+    });
   });
 });

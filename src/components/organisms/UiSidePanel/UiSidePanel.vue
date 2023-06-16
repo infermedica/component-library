@@ -138,7 +138,6 @@
           >
             <div
               v-scroll-tabindex
-              v-keyboard-focus
               class="ui-side-panel__content"
               v-bind="contentAttrs"
             >

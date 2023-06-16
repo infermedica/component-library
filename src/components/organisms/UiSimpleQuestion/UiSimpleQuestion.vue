@@ -14,7 +14,8 @@
           item,
           modelValue,
           isTileSmall,
-          updateHandler
+          updateHandler,
+          tileItemAttrs,
         }"
       >
         <UiTile
