@@ -1,13 +1,10 @@
+import { ref } from 'vue';
 import type {
   Meta,
   StoryObj,
 } from '@storybook/vue3';
 import { useArgTypes } from '@sb/helpers';
-import {
-  content as contentArgTypes,
-  modifiers as modifiersArgTypes,
-} from '@sb/helpers/argTypes';
-import { withModelValue } from '@sb/decorators';
+import { modifiers as modifiersArgTypes } from '@sb/helpers/argTypes';
 import type { TabsProps } from '@index';
 import {
   UiTabs,
@@ -21,7 +18,6 @@ type TabsArgsType = TabsProps & {
   content?: Record<string, string>,
   modifiers?: string[]
 }
-
 type TabsMetaType = Meta<TabsArgsType>;
 type TabsStoryType = StoryObj<TabsArgsType>
 
@@ -53,26 +49,30 @@ const meta = {
   title: 'Organisms/Tabs',
   component: UiTabs,
   args: {
-    modelValue: 'point',
-    items: complexItemsData,
     content: {
       search: 'Serum uric acid concentration',
       point: '1. Erythrocyte Sedimentation Rate',
     },
+    modelValue: 'point',
+    items: complexItemsData,
   },
   argTypes: {
+    content: {
+      control: 'object',
+      description: 'Use this control to set the content.',
+      table: { category: 'stories controls' },
+    },
     ...argTypes,
-    content: contentArgTypes,
     modifiers: modifiersArgTypes,
   },
   parameters: { chromatic: { disableSnapshot: false } },
-  decorators: [ withModelValue ],
 } satisfies TabsMetaType;
 
 export default meta;
 
 export const Basic: TabsStoryType = {
   render: () => ({
+    inheritAttrs: false,
     components: {
       UiTabs,
       UiText,
@@ -85,16 +85,19 @@ export const Basic: TabsStoryType = {
         modifiers,
         ...args
       } = attrs;
+
+      const current = ref(modelValue);
+
       return {
         args,
-        modelValue,
+        current,
         items,
         content,
         modifiers,
       };
     },
     template: `<UiTabs
-    v-model="modelValue"
+    v-model="current"
     :items="items"
     :class="modifiers"
     >
@@ -110,8 +113,6 @@ export const Basic: TabsStoryType = {
   </UiTabs>`,
   }),
 };
-
-Basic.argTypes = { modelValue: { control: false } };
 
 Basic.parameters = {
   chromatic: { disableSnapshot: true },
@@ -170,6 +171,7 @@ Basic.parameters = {
 
 export const Fixed: TabsStoryType = {
   render: () => ({
+    inheritAttrs: false,
     components: {
       UiTabs,
       UiText,
@@ -182,16 +184,19 @@ export const Fixed: TabsStoryType = {
         modifiers,
         ...args
       } = attrs;
+
+      const current = ref(modelValue);
+
       return {
         args,
-        modelValue,
+        current,
         items,
         content,
         modifiers,
       };
     },
     template: `<UiTabs
-    v-model="modelValue"
+    v-model="current"
     :items="items"
     :class="modifiers"
     >
@@ -216,6 +221,7 @@ Fixed.argTypes = { ...Basic.argTypes };
 
 Fixed.parameters = {
   ...Basic.parameters,
+  chromatic: { disableSnapshot: false },
   docs: {
     source: {
       code: `<template>
@@ -271,6 +277,7 @@ Fixed.parameters = {
 
 export const WithDefaultSlot: TabsStoryType = {
   render: () => ({
+    inheritAttrs: false,
     components: {
       UiTabs,
       UiTabsItem,
@@ -284,16 +291,19 @@ export const WithDefaultSlot: TabsStoryType = {
         modifiers,
         ...args
       } = attrs;
+
+      const current = ref(modelValue);
+
       return {
         args,
-        modelValue,
+        current,
         items,
         content,
         modifiers,
       };
     },
     template: `<UiTabs
-    v-model="modelValue"
+    v-model="current"
     :class="modifiers"
     >
     <template
