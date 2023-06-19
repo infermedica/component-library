@@ -4,7 +4,6 @@ import type {
   StoryObj,
 } from '@storybook/vue3';
 import { useArgTypes } from '@sb/helpers';
-import { modifiers as modifiersArgTypes } from '@sb/helpers/argTypes';
 import type { TabsProps } from '@index';
 import {
   UiTabs,
@@ -21,7 +20,7 @@ type TabsArgsType = TabsProps & {
 type TabsMetaType = Meta<TabsArgsType>;
 type TabsStoryType = StoryObj<TabsArgsType>
 
-const complexItemsData: TabsItemAttrsProps[] = [
+const items: TabsItemAttrsProps[] = [
   {
     name: 'search',
     title: 'Search',
@@ -49,12 +48,14 @@ const meta = {
   title: 'Organisms/Tabs',
   component: UiTabs,
   args: {
-    content: {
-      search: 'Serum uric acid concentration',
-      point: '1. Erythrocyte Sedimentation Rate',
-    },
+    content:
+      {
+        search: 'Serum uric acid concentration',
+        point: '1. Erythrocyte Sedimentation Rate',
+      },
+
     modelValue: 'point',
-    items: complexItemsData,
+    items,
   },
   argTypes: {
     content: {
@@ -63,7 +64,6 @@ const meta = {
       table: { category: 'stories controls' },
     },
     ...argTypes,
-    modifiers: modifiersArgTypes,
   },
   parameters: { chromatic: { disableSnapshot: false } },
 } satisfies TabsMetaType;
@@ -89,17 +89,19 @@ export const Basic: TabsStoryType = {
       const current = ref(modelValue);
 
       return {
-        args,
         current,
         items,
         content,
-        modifiers,
+        args: {
+          ...args,
+          class: modifiers,
+        },
       };
     },
     template: `<UiTabs
+    v-bind="args"
     v-model="current"
     :items="items"
-    :class="modifiers"
     >
     <template
       v-for="(item, key) in items"
@@ -115,7 +117,7 @@ export const Basic: TabsStoryType = {
 };
 
 Basic.parameters = {
-  chromatic: { disableSnapshot: true },
+  chromatic: { disableSnapshot: false },
   docs: {
     source: {
       code: `<template>
@@ -198,7 +200,7 @@ export const Fixed: TabsStoryType = {
     template: `<UiTabs
     v-model="current"
     :items="items"
-    :class="modifiers"
+    class="ui-tabs--fixed"
     >
     <template
       v-for="(item, key) in items"
@@ -211,17 +213,13 @@ export const Fixed: TabsStoryType = {
     </template>
   </UiTabs>`,
   }),
-  args: {
-    ...Basic.args,
-    modifiers: [ 'ui-tabs--fixed' ],
-  },
+  args: { ...Basic.args },
 };
 
 Fixed.argTypes = { ...Basic.argTypes };
 
 Fixed.parameters = {
-  ...Basic.parameters,
-  chromatic: { disableSnapshot: false },
+  chromatic: { disableSnapshot: true },
   docs: {
     source: {
       code: `<template>
@@ -304,7 +302,6 @@ export const WithDefaultSlot: TabsStoryType = {
     },
     template: `<UiTabs
     v-model="current"
-    :class="modifiers"
     >
     <template
       v-for="(item, key) in items"
