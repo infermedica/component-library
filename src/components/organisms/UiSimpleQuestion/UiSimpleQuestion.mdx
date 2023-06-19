@@ -1,0 +1,21 @@
+import { Canvas, Meta, Controls } from "@storybook/blocks";
+import { MetaActions } from "../../../../docs/components";
+import * as UiSimpleQuestionStories from './UiSimpleQuestion.stories.ts';
+
+<Meta of={ UiSimpleQuestionStories } />
+
+# SimpleQuestion
+<MetaActions stories={ UiSimpleQuestionStories } />
+SingleQuestion refers to a pattern generally use to create a single-choice question included in a survey or an interview questionnaire that allows the respondent to give only one answer.
+
+<Canvas of={ UiSimpleQuestionStories.Basic } />
+<Controls of={ UiSimpleQuestionStories.Basic } />
+
+# Stories
+## Small
+If it is necessary to set icons in UiTile smaller, you can add a modifier ```ui-simple-question--small``` to the component ```UiSimpleQuestion```.
+<Canvas of={ UiSimpleQuestionStories.Small } />
+
+## With Tile Slot
+By using slot, UiSimpleQuestion is more flexible and reusable. It is possible to  pass a `tile` template to a component, and replace our template.
+<Canvas of={ UiSimpleQuestionStories.WithTileSlot } />
