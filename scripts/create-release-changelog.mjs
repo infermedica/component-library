@@ -5,78 +5,59 @@ import {
   mkdirSync,
 } from 'fs';
 
-const prefixRegex = /^(.*?):/;
-const githubLink = 'https://github.com/infermedica/component-library/pull/';
+const githubURL = 'https://github.com/infermedica/component-library/pull/';
 const releaseDate = new Date().toLocaleString('en-US', {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
 });
 
-const changelogSections = [
+const commitTypes = [
   {
-    prefix: 'breakingChanges',
+    type: 'breaking',
     icon: '⛔️',
     name: 'Breaking Changes',
   },
   {
-    prefix: 'chore',
-    icon: '🧹',
-    name: 'Chores',
-  },
-  {
-    prefix: 'docs',
-    icon: '📄',
-    name: 'Docs',
-  },
-  {
-    prefix: 'feat',
+    type: 'feat',
     icon: '🚀',
     name: 'Feature',
   },
   {
-    prefix: 'fix',
-    icon: '🐛',
-    name: 'Fixes',
-  },
-  {
-    prefix: 'refactor',
+    type: 'refactor',
     icon: '📝',
     name: 'Refactors',
   },
   {
-    prefix: 'test',
+    type: 'fix',
+    icon: '🐛',
+    name: 'Fixes',
+  },
+  {
+    type: 'test',
     icon: '🔍',
     name: 'Tests',
   },
+  {
+    type: 'chore',
+    icon: '🧹',
+    name: 'Chores',
+  },
+  {
+    type: 'docs',
+    icon: '📄',
+    name: 'Docs',
+  },
 ];
 
-const sortSectionsOrder = (sections) => sections.sort((a, b) => {
-  const prefixA = a.prefix;
-  const prefixB = b.prefix;
-  if (prefixA === 'fix' || prefixB === 'feat') {
-    return -1;
-  }
-  if (prefixA === 'feat' || prefixB === 'fix') {
-    return -1;
-  }
-  if (prefixA < prefixB) {
-    return -1;
-  }
-  if (prefixA > prefixB) {
-    return 1;
-  }
-  return 0;
-});
-
-const saveFile = (tag, content) => {
+const saveFile = (version, content) => {
   const [
     major,
     minor,
-  ] = tag.split('.');
-  const releaseVersionTag = `v${tag}`;
+  ] = version.split('.');
+  const releaseVersion = `v${version}`;
   const releaseDirRootPath = `./docs/releases/v${major}.${minor}.x`;
-  const releaseDirPath = `${releaseDirRootPath}/${releaseVersionTag}`;
+  const releaseDirPath = `${releaseDirRootPath}/${releaseVersion}`;
 
   if (!existsSync(releaseDirRootPath)) {
     mkdirSync(releaseDirRootPath);
@@ -88,83 +69,80 @@ const saveFile = (tag, content) => {
 
   try {
     writeFileSync(`${releaseDirPath}/changelog.stories.mdx.mdx`, content[0]);
-    console.log(`🚀 Release ${releaseVersionTag} file has been created!`);
+    console.log(`🚀 Release ${releaseVersion} file has been created!`);
   } catch (err) {
-    console.error(`⛔️ Something goes wrong and the Release ${releaseVersionTag} file hasn't been created!`, err);
+    console.error(`⛔️ Something goes wrong and the Release ${releaseVersion} file hasn't been created!`, err);
   }
 };
 
-const formatCommit = (commit) => {
-  const regexCommitHash = commit.match(/\((#\d*?)\)/);
-  const commitWithoutPrefix = commit.replace(prefixRegex, '');
-  const commitMsg = regexCommitHash ? commitWithoutPrefix.replace(regexCommitHash[0], '') : commitWithoutPrefix;
-
-  const regexCommit = /(.*?: )(.*?)(\(#.*?\))/g;
-  const formatedCommit = commit.replace(regexCommit, (_match, _prefix, description, pullRequestHash) => {
-    const withoutHash = pullRequestHash.replace(/(\()(#)(.*?)(\))/g, (_match, _bracket, _hash, pullRequestNumber) => pullRequestNumber);
-    return `\n* ${description}([${pullRequestHash}](${githubLink}${withoutHash}))`;
-  });
-
-  return regexCommitHash
-    ? formatedCommit
-    : `\n*${commitMsg}`;
-};
-
-const createChangelogSections = (content) => {
-  const commits = content.split(/\n/);
-  let sectionsDoc = '';
-
-  const updateChangelogSections = commits.reduce((acc, currentCommit) => {
-    let commitPrefix = Array.isArray(currentCommit.match(prefixRegex))
-      ? currentCommit.match(prefixRegex)[1]
-      : false;
-
-    const formatedCommit = formatCommit(currentCommit);
-
-    if (commitPrefix) {
-      commitPrefix = commitPrefix.replace(/\(.*?\)/, '');
-      if (commitPrefix in acc) {
-        acc[commitPrefix].push(formatedCommit);
-      } else if (commitPrefix.search(/!/) > -1) {
-        acc.breakingChanges.push(formatedCommit);
-      } else {
-        acc[commitPrefix] = [];
-        acc[commitPrefix].push(formatedCommit);
+const createChangelogSections = (commits) => {
+  const groupedCommits = commits.reduce(
+    (object, commit) => {
+      const [
+        match,
+        type,
+        scope,
+        breaking,
+      ] = commit.match(/^(.+?)(?:\((.+?)\))?(!)?:.*/);
+      const formattedCommit = commit.replace(
+        /.+: (.*?)(?:\(#(.*)\))?$/gm,
+        (match, description, hash) => {
+          if (description && hash) {
+            return `${description} ([#${hash}](${githubURL}${hash}))`;
+          }
+          return '';
+        },
+      );
+      if (formattedCommit) {
+        if (breaking) {
+          object.breaking = [
+            ...object.breaking,
+            formattedCommit,
+          ];
+        } else {
+          object[type] = [
+            ...object[type] || [],
+            formattedCommit,
+          ];
+        }
       }
-    }
-    return acc;
-  }, { breakingChanges: [] });
+      return object;
+    },
+    {},
+  );
 
-  sortSectionsOrder(changelogSections).forEach(({
-    prefix,
-    icon,
-    name,
-  }) => {
-    if (typeof updateChangelogSections[prefix] !== 'undefined' && updateChangelogSections[prefix].length > 0) {
-      sectionsDoc += `\n\n## ${icon} ${name}`;
-      sectionsDoc += updateChangelogSections[prefix].join('');
-    }
-  });
-  return sectionsDoc;
+  return commitTypes.reduce(
+    (content, {
+      type, icon, name,
+    }) => {
+      if (groupedCommits[type]) {
+        return `${content
+        }\n## ${icon} ${name}
+* ${groupedCommits[type].join('\n* ')}\n`;
+      }
+      return content;
+    },
+    '',
+  );
 };
 
-const createChangelogMdx = (tag, content) => {
+const createChangelogMdx = (version, commits) => {
   const [
     major,
     minor,
-  ] = tag.split('.');
-  let doc = `import { Meta } from '@storybook/blocks';
+  ] = version.split('.');
+  const doc = `import { Meta } from '@storybook/blocks';
 
-<Meta title="Releases/v${major}.${minor}.x/v${tag}/Changelog"/>
+<Meta title="Releases/v${major}.${minor}.x/v${version}/Changelog"/>
   
-# ${tag} (${releaseDate})`;
-
-  doc += createChangelogSections(content);
-  saveFile(tag, [ doc ]);
+# ${version} (${releaseDate})
+${createChangelogSections(commits)}
+`;
+  saveFile(version, [ doc ]);
   return doc;
 };
 
-const createReleaseChangelog = (tag) => {
+const createReleaseChangelog = (version) => {
   child.exec('git log --pretty=format:"%s" --no-merges $(git describe --tags --abbrev=0 @^)..@', (error, stdout, stderr) => {
     if (error) {
       console.error(`GIT LOG Error: ${error.message}`);
@@ -174,8 +152,8 @@ const createReleaseChangelog = (tag) => {
       console.error(`GIT LOG stdError: ${stderr.message}`);
       return;
     }
-
-    createChangelogMdx(tag, stdout);
+    const commits = stdout.split(/\n/);
+    createChangelogMdx(version, commits);
   });
 };
 
