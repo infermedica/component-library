@@ -22,7 +22,7 @@ type SimpleQuestionStoryType = StoryObj<SimpleQuestionArgsType>
 
 const { argTypes } = useArgTypes(UiSimpleQuestion);
 const meta = {
-  title: 'Organisms/UiSimpleQuestionTS',
+  title: 'Organisms/UiSimpleQuestion',
   component: UiSimpleQuestion,
   args: {
     items: [
@@ -44,6 +44,7 @@ const meta = {
     ],
     modelValue: '',
   },
+  // TODO: fix unvisibled modifiers in controls table
   argTypes: {
     ...argTypes,
     items: {
@@ -52,14 +53,6 @@ const meta = {
       table: { category: 'stories controls' },
     },
     modelValue: { control: 'text' },
-    modifiers: {
-      name: 'class',
-      control: 'multi-select',
-      options: [ 'ui-simple-question--small' ],
-      description: 'Use this control to add modifier to class.',
-      table: { category: 'html attributes' },
-      defaultValue: '',
-    },
   },
   decorators: [ () => ({ template: '<div class="max-w-147"><story /></div>' }) ],
   parameters: { chromatic: { disableSnapshot: false } },
@@ -112,10 +105,13 @@ Basic.parameters = {
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { UiSimpleQuestion } from '@infermedica/component-library';
+import { 
+  UiSimpleQuestion,
+  SimpleQuestionProps,
+} from '@infermedica/component-library';
 
-const modelValue = ref('');
-const items = [
+const modelValue = ref<SimpleQuestionProps['modelValue']>('');
+const items: SimpleQuestionProps['items'] = [
   {
     value: 'female',
     label: 'Female',
@@ -132,7 +128,6 @@ const items = [
     textLabelAttrs: { 'data-testid': 'male-label' },
   },
 ];
-const modifiers = '';
 </script>
 `,
     },
@@ -171,10 +166,8 @@ export const Small: SimpleQuestionStoryType = {
   />`,
   }),
 };
-Small.args = {
-  ...Basic.args,
-  modifiers: 'ui-simple-question--small',
-};
+
+Small.args = { ...Basic.args };
 Small.argTypes = { ...Basic.argTypes };
 Small.parameters = {
   chromatic: { disableSnapshot: true },
@@ -191,10 +184,13 @@ Small.parameters = {
 
   <script setup lang="ts">
   import { ref } from 'vue';
-  import { UiSimpleQuestion } from '@infermedica/component-library';
+  import { 
+    UiSimpleQuestion,
+    SimpleQuestionProps,
+  } from '@infermedica/component-library';
 
-  const modelValue = ref('');
-  const items = [
+  const modelValue = ref<SimpleQuestionProps['modelValue']>('');
+  const items: SimpleQuestionProps['items'] = [
     {
       value: 'female',
       label: 'Female',
@@ -324,12 +320,12 @@ import {
   UiTile,
  } from '@infermedica/component-library';
 
-const modelValue = ref('');
+const modelValue = ref<SimpleQuestionProps['modelValue']>('');
 const attrs: SimpleQuestionAttrsProps = useAttrs();
 const isTileSmall = computed(
   () => attrs.class && attrs.class.includes('ui-simple-question--small')
 );
-const items = [
+const items: SimpleQuestionProps['items'] = [
   {
     value: 'female',
     label: 'Female',
