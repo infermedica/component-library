@@ -15,13 +15,12 @@ import UiTile from '@/components/molecules/UiTile/UiTile.vue';
 type SimpleQuestionArgsType = SimpleQuestionProps & {
   modelValue?: TileModelValue,
   items?: SimpleQuestionItem[],
-  modifiers?: string[],
+  modifiers?: string,
 }
 type SimpleQuestionMetaType = Meta<SimpleQuestionArgsType>
 type SimpleQuestionStoryType = StoryObj<SimpleQuestionArgsType>
 
 const { argTypes } = useArgTypes(UiSimpleQuestion);
-
 const meta = {
   title: 'Organisms/UiSimpleQuestionTS',
   component: UiSimpleQuestion,
@@ -51,6 +50,15 @@ const meta = {
       control: 'object',
       description: 'Use this control to set the content.',
       table: { category: 'stories controls' },
+    },
+    modelValue: { control: 'text' },
+    modifiers: {
+      name: 'class',
+      control: 'multi-select',
+      options: [ 'ui-simple-question--small' ],
+      description: 'Use this control to add modifier to class.',
+      table: { category: 'html attributes' },
+      defaultValue: '',
     },
   },
   decorators: [ () => ({ template: '<div class="max-w-147"><story /></div>' }) ],
@@ -83,10 +91,10 @@ export const Basic: SimpleQuestionStoryType = {
       };
     },
     template: `<UiSimpleQuestion
-      v-bind="args"
-      v-model="current"
-      :items="items"
-    />`,
+    v-bind="args"
+    v-model="current"
+    :items="items"
+  />`,
   }),
 };
 
@@ -148,6 +156,7 @@ export const Small: SimpleQuestionStoryType = {
       return {
         current,
         items,
+        modifiers,
         args: {
           ...args,
           class: modifiers,
@@ -155,13 +164,18 @@ export const Small: SimpleQuestionStoryType = {
       };
     },
     template: `<UiSimpleQuestion
+    v-bind="args"
     v-model="current"
     :items="items"
-    :class="'ui-simple-question--small'"
+    class="ui-simple-question--small"
   />`,
   }),
 };
-
+Small.args = {
+  ...Basic.args,
+  modifiers: 'ui-simple-question--small',
+};
+Small.argTypes = { ...Basic.argTypes };
 Small.parameters = {
   chromatic: { disableSnapshot: true },
   docs: {
@@ -174,11 +188,11 @@ Small.parameters = {
       :class="modifiers"
     />
   </template>
-  
+
   <script setup lang="ts">
   import { ref } from 'vue';
   import { UiSimpleQuestion } from '@infermedica/component-library';
-  
+
   const modelValue = ref('');
   const items = [
     {
@@ -230,7 +244,7 @@ export const WithTileSlot: SimpleQuestionStoryType = {
       };
     },
     template: `<UiSimpleQuestion
-      v-bind="args"  
+      v-bind="args"
       v-model="current"
       :items="items"
     >
@@ -272,7 +286,7 @@ WithTileSlot.parameters = {
     v-model="modelValue"
     :items="items"
   >
-    <template #tile="{ 
+    <template #tile="{
       item,
       modelValue,
       isTileSmall,
