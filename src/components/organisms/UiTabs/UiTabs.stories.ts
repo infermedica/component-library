@@ -140,10 +140,14 @@ Basic.parameters = {
   
   <script setup lang="ts">
   import { ref } from 'vue';
-  import { UiTabs, UiText } from '@infermedica/component-library';
+  import {
+    UiTabs,
+    UiText,
+    TabsProps,
+  } from '@infermedica/component-library';
   
-  const modelValue = ref('point');
-  const items = [
+  const modelValue = ref<TabsProps['modelValue']>('point');
+  const items: TabsProps['items'] = [
     {
       name: 'search',
       title: 'Search',
@@ -154,10 +158,14 @@ Basic.parameters = {
     {
       name: 'point',
       title: 'Point on the body',
+      buttonTabAttrs: { 'data-testid': 'point-button' },
+      contentAttrs: { 'data-testid': 'point-content' },
     },
     {
       name: 'drop',
       title: 'Drop body point',
+      buttonTabAttrs: { 'data-testid': 'drop-button' },
+      contentAttrs: { 'data-testid': 'drop-content' },
     },
   ];
   const content = {
@@ -190,11 +198,13 @@ export const Fixed: TabsStoryType = {
       const current = ref(modelValue);
 
       return {
-        args,
         current,
         items,
         content,
-        modifiers,
+        args: {
+          ...args,
+          class: modifiers,
+        },
       };
     },
     template: `<UiTabs
@@ -242,10 +252,14 @@ Fixed.parameters = {
     
     <script setup lang="ts">
     import { ref } from 'vue';
-    import { UiTabs, UiText } from '@infermedica/component-library';
+    import {
+      UiTabs,
+      UiText,
+      TabsProps,
+    } from '@infermedica/component-library';
     
-    const modelValue = ref('point');
-    const items = [
+    const modelValue = ref<TabsProps['modelValue']>('point');
+    const items: TabsProps['items'] = [
       {
         name: 'search',
         title: 'Search',
@@ -256,17 +270,21 @@ Fixed.parameters = {
       {
         name: 'point',
         title: 'Point on the body',
+        buttonTabAttrs: { 'data-testid': 'point-button' },
+        contentAttrs: { 'data-testid': 'point-content' },
       },
       {
         name: 'drop',
         title: 'Drop body point',
+        buttonTabAttrs: { 'data-testid': 'drop-button' },
+        contentAttrs: { 'data-testid': 'drop-content' },
       },
     ];
     const content = {
       search: 'Serum uric acid concentration',
       point: '1. Erythrocyte Sedimentation Rate',
     };
-    const modifiers = 'ui-tabs-fixed';
+    const modifiers = 'ui-tabs--fixed';
     </script>
     `,
     },
@@ -293,11 +311,14 @@ export const WithDefaultSlot: TabsStoryType = {
       const current = ref(modelValue);
 
       return {
-        args,
         current,
         items,
         content,
-        modifiers,
+        args: {
+          ...args,
+          class: modifiers,
+        }
+        ,
       };
     },
     template: `<UiTabs
@@ -359,11 +380,15 @@ WithDefaultSlot.parameters = {
   
   <script setup lang="ts">
   import { ref } from 'vue';
-  import { UiTabs, UiTabsItem, UiText } from '@infermedica/component-library';
-  import UiTabsItem from '@infermedica/component-library';
+  import {
+    UiTabs,
+    UiText,
+    TabsProps,
+  } from '@infermedica/component-library';
+  import UiTabsItem from '@infermedica/component-library/src/components/organisms/UiTabs/_internal/UiTabsItem.vue';
   
-  const modelValue = ref('point');
-  const items = [
+  const modelValue = ref<TabsProps['modelValue']>('point');
+  const items: TabsProps['items'] = [
     {
       name: 'search',
       title: 'Search',
@@ -374,10 +399,14 @@ WithDefaultSlot.parameters = {
     {
       name: 'point',
       title: 'Point on the body',
+      buttonTabAttrs: { 'data-testid': 'point-button' },
+      contentAttrs: { 'data-testid': 'point-content' },
     },
     {
       name: 'drop',
       title: 'Drop body point',
+      buttonTabAttrs: { 'data-testid': 'drop-button' },
+      contentAttrs: { 'data-testid': 'drop-content' },
     },
   ];
   const content = {
