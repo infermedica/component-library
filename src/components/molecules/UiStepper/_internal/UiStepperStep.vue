@@ -7,7 +7,6 @@
       name="item-link"
       v-bind="{
         itemAttrs,
-        itemTag,
         itemClass,
         label,
       }"
