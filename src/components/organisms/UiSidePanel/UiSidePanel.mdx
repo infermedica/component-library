@@ -1,0 +1,41 @@
+import { Canvas, Meta, Controls } from "@storybook/blocks";
+import { MetaActions } from "../../../../docs/components";
+import * as UiSidePanelStories from './UiSidePanel.stories.ts';
+
+<Meta of={ UiSidePanelStories } />
+
+# UiSidePanelStories
+{/* TODO: add description */}
+<MetaActions stories={ UiSidePanelStories } />
+
+<Canvas of={ UiSidePanelStories.Basic } />
+<Controls of={ UiSidePanelStories.Basic } />
+
+# Stories
+## Label slots
+{/* TODO: add description */}
+<Canvas of={ UiSidePanelStories.WithLabelSlot } />
+
+## Header slots
+{/* TODO: add description */}
+<Canvas of={ UiSidePanelStories.WithHeaderSlot } />
+
+## Button slots
+{/* TODO: add description */}
+<Canvas of={ UiSidePanelStories.WithCloseSlot } />
+
+## Container slots
+{/* TODO: add description */}
+<Canvas of={ UiSidePanelStories.WithContainerSlot } />
+
+## Title slots
+{/* TODO: add description */}
+<Canvas of={ UiSidePanelStories.WithTitleSlot } />
+
+## Subtitle slots
+{/* TODO: add description */}
+<Canvas of={ UiSidePanelStories.WithSubtitleSlot } />
+
+## AsyncContent slot slots
+{/* TODO: add description */}
+<Canvas of={ UiSidePanelStories.WithAsyncContentSlot } />

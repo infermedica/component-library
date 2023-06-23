@@ -206,7 +206,7 @@ export interface SidePanelProps {
   /**
    * Use this props to pass attrs for backdrop Transition.
    */
-  transitionBackdropAttrs?: TransitionProps;
+  transitionBackdropAttrs?: DefineAttrsProps<null, TransitionProps>;
   /**
    * Use this props to pass attrs for UiBackdrop.
    */
@@ -218,7 +218,7 @@ export interface SidePanelProps {
   /**
    * Use this props to pass attrs for dialog Transition.
    */
-  transitionDialogAttrs?: TransitionProps;
+  transitionDialogAttrs?: DefineAttrsProps<null, TransitionProps>;
   /**
    * Use this props to pass attrs for title UiHeading.
    */

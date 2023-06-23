@@ -9,3 +9,14 @@
     margin-block-start: var(--space-12);
   }
 }
+
+.loading-side-panel {
+  &__message {
+    --message-flex-direction: row-reverse;
+    --message-tablet-flex-direction: row-reverse;
+    --message-aside-margin-inline: 0 var(--space-12);
+    --message-tablet-aside-margin-inline: 0 var(--space-12);
+    --message-content-align-self: flex-start;
+    --message-illustration-size: 1.5rem;
+  }
+}
