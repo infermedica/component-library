@@ -272,35 +272,3 @@ export const WithItemSlot = {
     </UiStepper>`,
   }),
 };
-
-export const WithItemLinkSlot = {
-  render: (args) => ({
-    components: { UiStepper },
-    setup() {
-      return { ...args };
-    },
-    template: `<UiStepper
-      :steps="steps"
-      :current-step="currentStep"
-      :progress-attrs="progressAttrs"
-    >
-      <template #link-slot="{
-        itemAttrs,
-        itemTag,
-        itemClass,
-        label,
-      }">
-        <component
-          v-bind="itemAttrs"
-          :is="itemTag"
-          :class="[
-            'ui-stepper-step__content',
-            itemClass,
-          ]"
-        >
-          {{ label }}
-        </component>
-      </template>
-    </UiStepper>`,
-  }),
-};
