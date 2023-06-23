@@ -1,0 +1,21 @@
+import { Canvas, Meta, Controls } from "@storybook/blocks";
+import { MetaActions } from "../../../../docs/components";
+import * as UiTabsStories from './UiTabs.stories.ts';
+
+<Meta of={ UiTabsStories } />
+
+# Tabs
+<MetaActions stories={ UiTabsStories }/>
+{/* TODO: add description */}
+
+<Canvas of={ UiTabsStories.Basic } />
+<Controls of={ UiTabsStories.Basic } />
+
+# Stories
+## Fixed
+{/* TODO: add description */}
+<Canvas of={ UiTabsStories.Fixed } />
+
+## With Default Slot
+{/* TODO: add description */}
+<Canvas of={ UiTabsStories.WithDefaultSlot } />
