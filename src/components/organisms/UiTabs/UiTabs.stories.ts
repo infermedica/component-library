@@ -53,7 +53,7 @@ const meta = {
         search: 'Serum uric acid concentration',
         point: '1. Erythrocyte Sedimentation Rate',
       },
-
+    modifiers: [],
     modelValue: 'point',
     items,
   },
@@ -105,7 +105,7 @@ export const Basic: TabsStoryType = {
     >
     <template
       v-for="(item, key) in items"
-      #[item.name]="{item}"
+      #[item.name]="{ item }"
       :key="key"
     >
       <UiText>
@@ -115,9 +115,7 @@ export const Basic: TabsStoryType = {
   </UiTabs>`,
   }),
 };
-
 Basic.parameters = {
-  chromatic: { disableSnapshot: false },
   docs: {
     source: {
       code: `<template>
@@ -179,68 +177,20 @@ Basic.parameters = {
   },
 };
 
-export const Fixed: TabsStoryType = {
-  render: () => ({
-    inheritAttrs: false,
-    components: {
-      UiTabs,
-      UiText,
-    },
-    setup: (props, { attrs }) => {
-      const {
-        modelValue,
-        content,
-        items,
-        modifiers,
-        ...args
-      } = attrs;
-
-      const current = ref(modelValue);
-
-      return {
-        current,
-        items,
-        content,
-        args: {
-          ...args,
-          class: modifiers,
-        },
-      };
-    },
-    template: `<UiTabs
-    v-model="current"
-    :items="items"
-    class="ui-tabs--fixed"
-    >
-    <template
-      v-for="(item, key) in items"
-      #[item.name]="{item}"
-      :key="key"
-    >
-      <UiText>
-        {{ content[item.name] }}
-      </UiText>
-    </template>
-  </UiTabs>`,
-  }),
-  args: { ...Basic.args },
-};
-
-Fixed.argTypes = { ...Basic.argTypes };
-
+export const Fixed: TabsStoryType = { ...Basic };
+Fixed.args = { modifiers: [ 'ui-tabs--fixed' ] };
 Fixed.parameters = {
-  chromatic: { disableSnapshot: true },
   docs: {
     source: {
       code: `<template>
       <UiTabs
-      v-model="modelValue"
-      :items="items"
-      :class="modifiers"
+        v-model="modelValue"
+        :items="items"
+        class="ui-tabs--fixed"
       >
       <template
         v-for="(item, key) in items"
-        #[item.name]="{item}"
+        #[item.name]="{ item }"
         :key="key"
       >
         <UiText>
@@ -255,8 +205,8 @@ Fixed.parameters = {
     import {
       UiTabs,
       UiText,
-      TabsProps,
     } from '@infermedica/component-library';
+    import type { TabsProps } from '@infermedica/component-library';
     
     const modelValue = ref<TabsProps['modelValue']>('point');
     const items: TabsProps['items'] = [
@@ -284,7 +234,6 @@ Fixed.parameters = {
       search: 'Serum uric acid concentration',
       point: '1. Erythrocyte Sedimentation Rate',
     };
-    const modifiers = 'ui-tabs--fixed';
     </script>
     `,
     },
@@ -345,17 +294,14 @@ export const WithDefaultSlot: TabsStoryType = {
   </UiTabs>`,
   }),
 };
-
-WithDefaultSlot.argTypes = { ...Basic.argTypes };
-
 WithDefaultSlot.parameters = {
-  ...Basic.parameters,
+  chromatic: { disableSnapshot: true },
   docs: {
     source: {
       code: `<template>
     <UiTabs
-    v-model="modelValue"
-    :class="modifiers"
+      v-model="modelValue"
+      :class="modifiers"
     >
     <template
       v-for="(item, key) in items"
@@ -366,9 +312,7 @@ WithDefaultSlot.parameters = {
         :name="item.name"
         :button-attrs="item.buttonTabAttrs"
         :content-attrs="item.contentAttrs"
-        v-bind="{
-          'data-testid': item['data-testid'],
-        }"
+        :data-testid="item['data-testid']"
       >
         <UiText>
           {{ content[item.name] }}
@@ -383,8 +327,8 @@ WithDefaultSlot.parameters = {
   import {
     UiTabs,
     UiText,
-    TabsProps,
   } from '@infermedica/component-library';
+  import type { TabsProps } from '@infermedica/component-library'
   import UiTabsItem from '@infermedica/component-library/src/components/organisms/UiTabs/_internal/UiTabsItem.vue';
   
   const modelValue = ref<TabsProps['modelValue']>('point');
