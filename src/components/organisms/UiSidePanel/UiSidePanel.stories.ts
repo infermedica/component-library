@@ -8,11 +8,15 @@ import {
   UiBackdrop,
   UiBulletPoints,
   UiButton,
+  UiCheckbox,
   UiHeading,
   UiIcon,
+  UiFormField,
+  UiList,
   UiLink,
   UiLoader,
   UiProgress,
+  UiTextarea,
   UiSidePanel,
   UiText,
 } from '@index';
@@ -27,6 +31,7 @@ import type {
 import deepmerge from 'deepmerge';
 import type { SidePanelProps } from '@index';
 import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue';
+import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import './UiSidePanel.stories.scss';
 import {
   focusTrap,
@@ -2389,6 +2394,354 @@ SidePanelShowingDetails.parameters = {
       }
     }
     </style>`,
+    },
+  },
+};
+
+export const SidePanelWithForm: SidePanelStoryType = {
+  args: {
+    ...Basic.args,
+    title: 'Report an issue',
+    subtitle: '',
+  },
+  render: () => ({
+    inheritAttrs: false,
+    components: {
+      UiButton,
+      UiFormField,
+      UiList,
+      UiListItem,
+      UiCheckbox,
+      UiTextarea,
+      UiIcon,
+      UiHeading,
+      UiLoader,
+      UiProgress,
+      UiSidePanel,
+      UiText,
+    },
+    setup(props, { attrs }) {
+      const {
+        title,
+        subtitle,
+        transitionBackdropAttrs,
+        backdropAttrs,
+        dialogAttrs,
+        transitionDialogAttrs,
+        headingTitleAttrs,
+        textSubtitleAttrs,
+        buttonCloseAttrs,
+        iconCloseAttrs,
+        contentAttrs,
+        ...args
+      } = attrs;
+
+      const modelValue = inject('modelValue');
+      const heading = 'Acute viral throat infection';
+
+      const options = [
+        'It\'s too long',
+        'It seems to be unrelated to me',
+        'It contains complex words',
+        'I\'ve already answered this question',
+        'I can\'t decide which answer to choose',
+        'I found a typo',
+        'Other (please comment below)',
+      ];
+      const isProcessing = ref(true);
+      onMounted(() => window.setTimeout(() => {
+        isProcessing.value = false;
+      }, 1000));
+      const selected = ref([]);
+
+      return {
+        modelValue,
+        title,
+        subtitle,
+        heading,
+        transitionBackdropAttrs,
+        backdropAttrs,
+        dialogAttrs,
+        transitionDialogAttrs,
+        headingTitleAttrs,
+        textSubtitleAttrs,
+        buttonCloseAttrs,
+        iconCloseAttrs,
+        contentAttrs,
+        options,
+        isProcessing,
+        selected,
+        args: { ...args },
+      };
+    },
+    template: `<UiSidePanel
+    v-model="modelValue"
+    :title="title"
+    :subtitle="subtitle"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    :dialog-attrs="dialogAttrs"
+    :content-attrs="contentAttrs"
+    class="loading-side-panel"
+    >
+    <div class="report-an-issue">
+      <form @submit.prevent>
+      <UiText class="mb-6">What's wrong with this question?</UiText>
+        <UiFormField
+          class="report-an-issue__issues"
+        >
+          <UiList>
+            <template
+              v-for="option in options"
+              :key="option"
+            >
+              <UiListItem>
+                <UiCheckbox
+                  v-model="selected"
+                  :value="option"
+                  :disabled="isProcessing"
+                  :class="{
+                    'ui-checkbox--is-disabled': isProcessing,
+                  }"
+                >
+                  {{ option }}
+                </UiCheckbox>
+              </UiListItem>
+            </template>
+          </UiList>
+        </UiFormField>
+        <UiFormField
+          id="report-issue-textarea"
+          label="Describe details"
+          :hint="false"
+          :errorMessage="false"
+        >
+            <UiTextarea
+              id="comment"
+              resize="vertical"
+              :disabled="isProcessing"
+              class="mb-6"
+            />
+        </UiFormField>
+        <div class="report-an-issue__actions mb-6">
+            <UiButton
+              type="submit"
+              class="report-an-issue__submit me-5"
+              :class="{ 'report-an-issue__submit--disabled': isProcessing }"
+              :disabled="isProcessing"
+            >
+              <UiLoader
+                v-if="isProcessing"
+                type="ellipsis"
+                transition="fade"
+                tag="div"
+                class="report-an-issue__submit-loader"
+              />
+              <span
+                class="report-an-issue__submit-label"
+                :class="{ 'report-an-issue__submit-label--hidden': isProcessing }"
+              >
+                Submit
+              </span>
+            </UiButton>
+            <UiButton
+              type="button"
+              class="report-an-issue__cancel ui-button--text"
+              :class="{ 'ui-button--is-disabled': isProcessing }"
+              :disabled="isProcessing"
+            >
+              Cancel
+            </UiButton>
+        </div>
+    </form>
+</div>
+  </UiSidePanel>`,
+  }),
+};
+SidePanelWithForm.parameters = {
+  docs: {
+    source: {
+      code: `<template>
+      <UiSidePanel
+        v-model="modelValue"
+        :title="title"
+        :subtitle="subtitle"
+        :transition-backdrop-attrs="transitionBackdropAttrs"
+        :backdrop-attrs="backdropAttrs"
+        :transition-dialog-attrs="transitionDialogAttrs"
+        :heading-title-attrs="headingTitleAttrs"
+        :text-subtitle-attrs="textSubtitleAttrs"
+        :button-close-attrs="buttonCloseAttrs"
+        :icon-close-attrs="iconCloseAttrs"
+        :dialog-attrs="dialogAttrs"
+        :content-attrs="contentAttrs"
+        class="loading-side-panel"
+      >
+        <div class="report-an-issue">
+          <form @submit.prevent>
+            <UiText class="mb-6">What's wrong with this question?</UiText>
+            <UiFormField class="report-an-issue__issues">
+              <UiList>
+                <template v-for="option in options" :key="option">
+                  <UiListItem>
+                    <UiCheckbox
+                      v-model="selected"
+                      :value="option"
+                      :disabled="isProcessing"
+                      :class="{
+                        'ui-checkbox--is-disabled': isProcessing,
+                      }"
+                    >
+                      {{ option }}
+                    </UiCheckbox>
+                  </UiListItem>
+                </template>
+              </UiList>
+            </UiFormField>
+            <UiFormField
+              id="report-issue-textarea"
+              label="Describe details"
+              :hint="false"
+              :errorMessage="false"
+            >
+              <UiTextarea
+                id="comment"
+                resize="vertical"
+                :disabled="isProcessing"
+                class="mb-6"
+              />
+            </UiFormField>
+            <div class="report-an-issue__actions mb-6">
+              <UiButton
+                type="submit"
+                class="report-an-issue__submit me-5"
+                :class="{ 'report-an-issue__submit--disabled': isProcessing }"
+                :disabled="isProcessing"
+              >
+                <UiLoader
+                  v-if="isProcessing"
+                  type="ellipsis"
+                  transition="fade"
+                  tag="div"
+                  class="report-an-issue__submit-loader"
+                />
+                <span
+                  class="report-an-issue__submit-label"
+                  :class="{ 'report-an-issue__submit-label--hidden': isProcessing }"
+                >
+                  Submit
+                </span>
+              </UiButton>
+              <UiButton
+                type="button"
+                class="report-an-issue__cancel ui-button--text"
+                :class="{ 'ui-button--is-disabled': isProcessing }"
+                :disabled="isProcessing"
+              >
+                Cancel
+              </UiButton>
+            </div>
+          </form>
+        </div>
+      </UiSidePanel>
+    </template>
+    
+    <script setup lang="ts">
+    import { ref, onMounted } from 'vue';
+    import {
+      UiButton,
+      UiCheckbox,
+      UiFormField,
+      UiHeading,
+      UiIcon,
+      UiList,
+      UiLoader,
+      UiProgress,
+      UiSidePanel,
+      UiTextarea,
+      UiText,
+    } from '@infermedica/component-library';
+    import UiListItem from '@infermedica/component-library/src/components/organisms/UiList/_internal/UiListItem.vue';
+    import type { SidePanelProps } from '@infermedica/component-library';
+    
+    const modelValue = ref<SidePanelProps['modelValue']>(true);
+    const title: SidePanelProps['title'] = 'Show Details';
+    const subtitle: SidePanelProps['subtitle'] = 'Acute viral pharyngitis';
+    const transitionBackdropAttrs: SidePanelProps['transitionBackdropAttrs'] = {
+      'data-testid': 'backdrop-transition',
+    };
+    const backdropAttrs: SidePanelProps['backdropAttrs'] = {
+      'data-testid': 'backdrop',
+    };
+    const dialogAttrs: SidePanelProps['dialogAttrs'] = {
+      'data-testid': 'dialog-element',
+    };
+    const transitionDialogAttrs: SidePanelProps['transitionDialogAttrs'] = {
+      'data-testid': 'dialog-transition',
+    };
+    const headingTitleAttrs: SidePanelProps['headingTitleAttrs'] = {
+      'data-testid': 'title-heading',
+    };
+    const textSubtitleAttrs: SidePanelProps['textSubtitleAttrs'] = {
+      'data-testid': 'subtitle-text',
+    };
+    const buttonCloseAttrs: SidePanelProps['buttonCloseAttrs'] = {
+      'data-testid': 'close-button',
+      ariaLabel: 'close modal',
+    };
+    const iconCloseAttrs: SidePanelProps['iconCloseAttrs'] = {
+      'data-testid': 'close-icon',
+      icon: 'close',
+    };
+    const contentAttrs: SidePanelProps['contentAttrs'] = {
+      'data-testid': 'content-element',
+    };
+    const heading = 'Acute viral throat infection';
+    const options = [
+      "It's too long",
+      'It seems to be unrelated to me',
+      'It contains complex words',
+      "I've already answered this question",
+      "I can't decide which answer to choose",
+      'I found a typo',
+      'Other (please comment below)',
+    ];
+    const selected = ref([]);
+    const isProcessing = ref(true);
+    
+    const toggleSidePanel = () => {
+      modelValue.value = !modelValue.value;
+    };
+    
+    onMounted(() =>
+      window.setTimeout(() => {
+        isProcessing.value = false;
+      }, 1000)
+    );
+    </script>
+    
+    <style lang="scss">
+    .me-5 {
+      margin-inline-end: 1.25rem;
+    }
+    
+    .mb-6 {
+      margin-bottom: 1.5rem;
+    }
+    
+    .report-an-issue {
+      &__actions {
+        display: flex;
+        justify-items: center;
+      }
+    }
+    </style>
+    `,
     },
   },
 };

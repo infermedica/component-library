@@ -27,3 +27,10 @@
     margin: 0 var(--space-8) 0 0;
   }
 }
+
+.report-an-issue {
+  &__actions {
+    display: flex;
+    justify-items: center;
+  }
+}
