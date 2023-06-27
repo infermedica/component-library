@@ -11,6 +11,7 @@ import type {
   TileModelValue,
 } from '@index';
 import UiTile from '@/components/molecules/UiTile/UiTile.vue';
+import deepmerge from 'deepmerge';
 
 type SimpleQuestionArgsType = SimpleQuestionProps & {
   modelValue?: TileModelValue,
@@ -20,9 +21,9 @@ type SimpleQuestionArgsType = SimpleQuestionProps & {
 type SimpleQuestionMetaType = Meta<SimpleQuestionArgsType>
 type SimpleQuestionStoryType = StoryObj<SimpleQuestionArgsType>
 
-const { argTypes } = useArgTypes(UiSimpleQuestion);
+const { argTypes } = useArgTypes(deepmerge(UiSimpleQuestion, { __docgenInfo: { modifiers: [ 'ui-simple-question--small' ] } }));
 const meta = {
-  title: 'Organisms/UiSimpleQuestion',
+  title: 'Organisms/SimpleQuestion',
   component: UiSimpleQuestion,
   args: {
     items: [
@@ -42,9 +43,9 @@ const meta = {
         textLabelAttrs: { 'data-testid': 'male-label' },
       },
     ],
+    modifiers: [],
     modelValue: '',
   },
-  // TODO: fix unvisibled modifiers in controls table
   argTypes: {
     ...argTypes,
     items: {
@@ -71,11 +72,9 @@ export const Basic: SimpleQuestionStoryType = {
         modifiers,
         ...args
       } = attrs;
-
-      const current = ref(modelValue);
-
+      const value = ref(modelValue);
       return {
-        current,
+        value,
         items,
         args: {
           ...args,
@@ -84,20 +83,17 @@ export const Basic: SimpleQuestionStoryType = {
       };
     },
     template: `<UiSimpleQuestion
-    v-bind="args"
-    v-model="current"
-    :items="items"
-  />`,
+      v-model="value"
+      v-bind="args"
+      :items="items"
+    />`,
   }),
 };
-
 Basic.parameters = {
-  chromatic: { disableSnapshot: false },
   docs: {
     source: {
       code: `<template>
   <UiSimpleQuestion
-    v-bind="args"
     v-model="modelValue"
     :items="items"
   />
@@ -105,109 +101,36 @@ Basic.parameters = {
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { 
-  UiSimpleQuestion,
-  SimpleQuestionProps,
-} from '@infermedica/component-library';
+import { UiSimpleQuestion } from '@infermedica/component-library';
+import type { SimpleQuestionProps } from '@infermedica/component-library'; 
 
 const modelValue = ref<SimpleQuestionProps['modelValue']>('');
-const items: SimpleQuestionProps['items'] = [
-  {
-    value: 'female',
-    label: 'Female',
-    icon: 'female',
-    'data-testid': 'female',
-    iconAttrs: { 'data-testid': 'female-icon' },
-    textLabelAttrs: { 'data-testid': 'female-label' },
-  },
-  {
-    value: 'male',
-    label: 'Male',
-    icon: 'male',
-    iconAttrs: { 'data-testid': 'male-icon' },
-    textLabelAttrs: { 'data-testid': 'male-label' },
-  },
-];
-</script>
-`,
+const items: SimpleQuestionProps['items'] = ${JSON.stringify(meta.args.items, undefined, 2)};
+</script>`,
     },
   },
 };
 
-export const Small: SimpleQuestionStoryType = {
-  render: () => ({
-    inheritAttrs: false,
-    components: { UiSimpleQuestion },
-    setup(props, { attrs }) {
-      const {
-        modelValue,
-        items,
-        modifiers,
-        ...args
-      } = attrs;
-
-      const current = ref(modelValue);
-
-      return {
-        current,
-        items,
-        modifiers,
-        args: {
-          ...args,
-          class: modifiers,
-        },
-      };
-    },
-    template: `<UiSimpleQuestion
-    v-bind="args"
-    v-model="current"
-    :items="items"
-    class="ui-simple-question--small"
-  />`,
-  }),
-};
-
-Small.args = { ...Basic.args };
-Small.argTypes = { ...Basic.argTypes };
+export const Small: SimpleQuestionStoryType = { ...Basic };
+Small.args = { modifiers: [ 'ui-simple-question--small' ] };
 Small.parameters = {
-  chromatic: { disableSnapshot: true },
   docs: {
     source: {
       code: `<template>
     <UiSimpleQuestion
-      v-bind="args"
       v-model="modelValue"
       :items="items"
-      :class="modifiers"
+      class="ui-simple-question--small"
     />
   </template>
 
   <script setup lang="ts">
   import { ref } from 'vue';
-  import { 
-    UiSimpleQuestion,
-    SimpleQuestionProps,
-  } from '@infermedica/component-library';
+  import { UiSimpleQuestion } from '@infermedica/component-library';
+  import type { SimpleQuestionProps } from '@infermedica/component-library';
 
   const modelValue = ref<SimpleQuestionProps['modelValue']>('');
-  const items: SimpleQuestionProps['items'] = [
-    {
-      value: 'female',
-      label: 'Female',
-      icon: 'female',
-      'data-testid': 'female',
-      iconAttrs: { 'data-testid': 'female-icon' },
-      textLabelAttrs: { 'data-testid': 'female-label' },
-    },
-    {
-      value: 'male',
-      label: 'Male',
-      icon: 'male',
-      iconAttrs: { 'data-testid': 'male-icon' },
-      textLabelAttrs: { 'data-testid': 'male-label' },
-    },
-  ];
-  const modifiers = 'ui-simple-question--small';
+  const items: SimpleQuestionProps['items'] = ${JSON.stringify(meta.args.items, undefined, 2)};
   </script>`,
     },
   },
@@ -228,10 +151,10 @@ export const WithTileSlot: SimpleQuestionStoryType = {
         ...args
       } = attrs;
 
-      const current = ref(modelValue);
+      const value = ref(modelValue);
 
       return {
-        current,
+        value,
         items,
         args: {
           ...args,
@@ -240,30 +163,23 @@ export const WithTileSlot: SimpleQuestionStoryType = {
       };
     },
     template: `<UiSimpleQuestion
+      v-model="value"
       v-bind="args"
-      v-model="current"
       :items="items"
     >
       <template #tile="{
         item,
         modelValue,
         isTileSmall,
+        tileItemAttrs,
         updateHandler
       }">
         <UiTile
+          v-bind="tileItemAttrs(item)"
           :model-value="modelValue"
-          :value="item.value"
-          :icon="item.icon"
-          :icon-attrs="item.iconAttrs"
-          :text-label-attrs="item.textLabelAttrs"
-          v-bind="{
-            'data-testid': item['data-testid'],
-          }"
-          :class="[
-            'ui-simple-question__item',
-            { 'ui-tile--small': isTileSmall }
-          ]"
-          @update:modelValue="updateHandler(item.value)"
+          :class="{ 'ui-tile--small': isTileSmall }"
+          class="ui-simple-question__item"
+          @update:model-value="updateHandler(item.value)"
         >
           {{ item.label }}
         </UiTile>
@@ -271,14 +187,12 @@ export const WithTileSlot: SimpleQuestionStoryType = {
     </UiSimpleQuestion>`,
   }),
 };
-
 WithTileSlot.parameters = {
   chromatic: { disableSnapshot: true },
   docs: {
     source: {
       code: `<template>
   <UiSimpleQuestion
-    v-bind="attrs"
     v-model="modelValue"
     :items="items"
   >
@@ -286,20 +200,15 @@ WithTileSlot.parameters = {
       item,
       modelValue,
       isTileSmall,
-      updateHandler,
-    }"
-    >
+      tileItemAttrs,
+      updateHandler
+    }">
       <UiTile
+        v-bind="tileItemAttrs(item)"
         :model-value="modelValue"
-        :value="item.value"
-        :icon="item.icon"
-        :icon-attrs="item.iconAttrs"
-        :text-label-attrs="item.textLabelAttrs"
-        v-bind="{
-          'data-testid': item['data-testid'],
-        }"
-        :class="['ui-simple-question__item', { 'ui-tile--small': isTileSmall }]"
-        @update:modelValue="updateHandler(item.value)"
+        :class="{ 'ui-tile--small': isTileSmall }"
+        class="ui-simple-question__item"
+        @update:model-value="updateHandler(item.value)"
       >
         {{ item.label }}
       </UiTile>
@@ -308,47 +217,16 @@ WithTileSlot.parameters = {
 </template>
 
 <script setup lang="ts">
-import {
-  computed,
-  ref,
-  useAttrs,
-} from 'vue';
+import { ref } from 'vue';
 import {
   UiSimpleQuestion,
-  SimpleQuestionProps,
-  SimpleQuestionAttrsProps,
   UiTile,
  } from '@infermedica/component-library';
+import type { SimpleQuestionProps } from '@infermedica/component-library';
 
 const modelValue = ref<SimpleQuestionProps['modelValue']>('');
-const attrs: SimpleQuestionAttrsProps = useAttrs();
-const isTileSmall = computed(
-  () => attrs.class && attrs.class.includes('ui-simple-question--small')
-);
-const items: SimpleQuestionProps['items'] = [
-  {
-    value: 'female',
-    label: 'Female',
-    icon: 'female',
-    'data-testid': 'female',
-    iconAttrs: { 'data-testid': 'female-icon' },
-    textLabelAttrs: { 'data-testid': 'female-label' },
-  },
-  {
-    value: 'male',
-    label: 'Male',
-    icon: 'male',
-    iconAttrs: { 'data-testid': 'male-icon' },
-    textLabelAttrs: { 'data-testid': 'male-label' },
-  },
-];
-const modifiers = 'ui-simple-question--small';
-
-const updateHandler = (value: SimpleQuestionProps['modelValue']) => {
-  emit('update:modelValue', value);
-};
-</script>
-`,
+const items: SimpleQuestionProps['items'] = ${JSON.stringify(meta.args.items, undefined, 2)};
+</script>`,
     },
   },
 };
