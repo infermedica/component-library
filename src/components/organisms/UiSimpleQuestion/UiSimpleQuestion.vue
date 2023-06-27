@@ -7,13 +7,21 @@
       v-for="(item, index) in itemsToRender"
       :key="index"
     >
-      <!-- @slot Use this slot to replace tile template -->
+      <!--
+        @slot Use this slot to replace tile template
+        @binding {SimpleQuestionItem} item
+        @binding {TileModelValue} modelValue
+        @binding {boolean} isTileSmall
+        @binding {funciton} tileItemAttrs
+        @binding {funciton} updateHandler
+       -->
       <slot
         name="tile"
         v-bind="{
           item,
           modelValue,
           isTileSmall,
+          tileItemAttrs,
           updateHandler
         }"
       >

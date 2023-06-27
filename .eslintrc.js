@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   root: true,
   env: {
@@ -186,19 +188,19 @@ module.exports = {
         map: [
           [
             '@sb',
-            './.storybook',
+            path.resolve(__dirname, '.storybook'),
           ],
           [
             '@',
-            './src',
+            path.resolve(__dirname, 'src'),
           ],
           [
             '@index',
-            './index.ts',
+            path.resolve(__dirname, 'index.ts'),
           ],
           [
             '@tests',
-            './tests',
+            path.resolve(__dirname, 'tests'),
           ],
         ],
         extensions: [

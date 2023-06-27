@@ -159,10 +159,13 @@ export function useArgTypes(component, options = { variables: {}}) {
     return [];
   };
   const modifiers = (() => {
-    const options = getModifiers([...cssRules]);
+    const modifiers = __docgenInfo.modifiers || [];
+    const options = [
+      ...getModifiers([...cssRules]),
+      ...modifiers
+    ];
     return argTypesModifiers({ options });
   })();
-  // TODO: group by subcategory
   const getSubcategory = (name) => {
     if ( name.match(/-border-/gm) ) {
       return 'Borders'
