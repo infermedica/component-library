@@ -148,6 +148,12 @@ const preview: Preview = {
     }
   },
   decorators: [
+    (story, { args }) => ({
+      setup() {
+        return { args };
+      },
+      template: '<story v-bind="args"/>',
+    }),
     withTest,
     withTheme,
   ]

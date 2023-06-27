@@ -137,6 +137,7 @@ export const withVariants = (story, { componentId, id, parameters, args }) => ({
       <div>
         <story
             v-bind="{
+              ...args,
               ...rest,
               class: '',
               modifiers: getModifiers(rest, args),
