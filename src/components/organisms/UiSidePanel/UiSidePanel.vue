@@ -143,7 +143,7 @@
               v-bind="contentAttrs"
             >
               <!-- @slot Use this slot to place side panel content. -->
-              <slot />
+              <slot name="default" />
             </div>
           </slot>
         </dialog>

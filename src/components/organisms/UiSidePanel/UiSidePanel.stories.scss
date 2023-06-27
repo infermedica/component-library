@@ -13,3 +13,17 @@
 .ui-side-panel__dialog {
   z-index: 1;
 }
+
+.label-slot {
+  --progress-width: 32px;
+  &-subtitle {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    margin: var(--space-4) 0 0 0;
+  }
+  .ui-progress {
+    width: var(--progress-width, 100%);
+    margin: 0 var(--space-8) 0 0;
+  }
+}

@@ -12,6 +12,7 @@ import {
   UiIcon,
   UiLink,
   UiLoader,
+  UiProgress,
   UiSidePanel,
   UiText,
 } from '@index';
@@ -1988,6 +1989,7 @@ export const WithAsyncContentSlot: SidePanelStoryType = {
 
       const modelValue = inject('modelValue');
       const isLoading = ref(true);
+      // TODO: isLoading on each open sidepanel
       onMounted(() => window.setTimeout(() => {
         isLoading.value = false;
       }, 1000));
@@ -2139,6 +2141,254 @@ WithAsyncContentSlot.parameters = {
   }, 1000));
   </script>
   `,
+    },
+  },
+};
+
+export const SidePanelShowingDetails: SidePanelStoryType = {
+  args: {
+    ...Basic.args,
+    title: 'Show Details',
+    subtitle: 'Acute viral pharyngitis',
+  },
+  render: () => ({
+    inheritAttrs: false,
+    components: {
+      UiButton,
+      UiIcon,
+      UiHeading,
+      UiProgress,
+      UiSidePanel,
+      UiText,
+    },
+    setup(props, { attrs }) {
+      const {
+        title,
+        subtitle,
+        transitionBackdropAttrs,
+        backdropAttrs,
+        dialogAttrs,
+        transitionDialogAttrs,
+        headingTitleAttrs,
+        textSubtitleAttrs,
+        buttonCloseAttrs,
+        iconCloseAttrs,
+        contentAttrs,
+        ...args
+      } = attrs;
+
+      const modelValue = inject('modelValue');
+      const heading = 'Acute viral throat infection';
+
+      return {
+        modelValue,
+        title,
+        subtitle,
+        heading,
+        transitionBackdropAttrs,
+        backdropAttrs,
+        dialogAttrs,
+        transitionDialogAttrs,
+        headingTitleAttrs,
+        textSubtitleAttrs,
+        buttonCloseAttrs,
+        iconCloseAttrs,
+        contentAttrs,
+        args: { ...args },
+      };
+    },
+    template: `<UiSidePanel
+    v-model="modelValue"
+    :title="title"
+    :subtitle="subtitle"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    :dialog-attrs="dialogAttrs"
+    :content-attrs="contentAttrs"
+    class="loading-side-panel"
+    >
+    <template #label>
+      <div class="label-slot">
+      <div class="label-slot-subtitle">
+        <UiProgress
+          class="label-slot-pill"
+          :value="70"
+        />
+        <UiText
+          class="ui-text--body-2-comfortable"
+        >
+          Moderate evidence
+        </UiText>
+      </div>
+      <UiHeading
+        level="1"
+        class="ui-heading--h2"
+        >
+        {{ heading }}
+      </UiHeading>
+      <UiText
+        class="ui-text--body-2-comfortable"
+      >
+        {{ subtitle }}
+      </UiText>
+    </div> 
+    </template>
+    <div class="condition__section">
+      <UiHeading level="2">
+        About
+      </UiHeading>
+      <UiHeading level="5">
+        What is acute viral throat infection?
+      </UiHeading>
+      <UiText class="mt-3 mb-6">
+        Acute viral tonsillopharyngitis known as sore throat is an inflammation of throat and tonsils, caused by viral infection ...
+      </UiText>
+      <UiButton class="ui-button--text">
+        <UiIcon icon="chevron-down" />
+        Show details
+      </UiButton>
+    </div>
+  </UiSidePanel>`,
+  }),
+};
+SidePanelShowingDetails.parameters = {
+  docs: {
+    source: {
+      code: `<template>
+      <UiButton
+        class="ui-button--text ui-button--theme-secondary"
+        @click="toggleSidePanel"
+      >
+        {{ title }}
+      </UiButton>
+      <UiSidePanel
+        v-model="modelValue"
+        :title="title"
+        :subtitle="subtitle"
+        :transition-backdrop-attrs="transitionBackdropAttrs"
+        :backdrop-attrs="backdropAttrs"
+        :transition-dialog-attrs="transitionDialogAttrs"
+        :heading-title-attrs="headingTitleAttrs"
+        :text-subtitle-attrs="textSubtitleAttrs"
+        :button-close-attrs="buttonCloseAttrs"
+        :icon-close-attrs="iconCloseAttrs"
+        :dialog-attrs="dialogAttrs"
+        :content-attrs="contentAttrs"
+        class="loading-side-panel"
+      >
+        <template #label>
+          <div class="label-slot">
+            <div class="label-slot-subtitle">
+              <UiProgress class="label-slot-pill" :value="70" />
+              <UiText class="ui-text--body-2-comfortable">
+                {{ evidence }}
+              </UiText>
+            </div>
+            <UiHeading level="1" class="ui-heading--h2">
+              {{ heading }}
+            </UiHeading>
+            <UiText class="ui-text--body-2-comfortable">
+              {{ subtitle }}
+            </UiText>
+          </div>
+        </template>
+        <div class="condition__section">
+          <UiHeading level="2"> About </UiHeading>
+          <UiHeading level="5"> What is acute viral throat infection? </UiHeading>
+          <UiText class="mt-3 mb-6">
+            Acute viral tonsillopharyngitis known as sore throat is an inflammation
+            of throat and tonsils, caused by viral infection ...
+          </UiText>
+          <UiButton class="ui-button--text">
+            <UiIcon icon="chevron-down" />
+            Show details
+          </UiButton>
+        </div>
+      </UiSidePanel>
+    </template>
+    
+    <script setup lang="ts">
+    import { ref } from 'vue';
+    import {
+      UiButton,
+      UiHeading,
+      UiIcon,
+      UiSidePanel,
+      UiProgress,
+      UiText,
+    } from '@infermedica/component-library';
+    import type { SidePanelProps } from '@infermedica/component-library';
+    
+    const modelValue = ref<SidePanelProps['modelValue']>(true);
+    const title: SidePanelProps['title'] = 'Show Details';
+    const subtitle: SidePanelProps['subtitle'] = 'Acute viral pharyngitis';
+    const transitionBackdropAttrs: SidePanelProps['transitionBackdropAttrs'] = {
+      'data-testid': 'backdrop-transition',
+    };
+    const backdropAttrs: SidePanelProps['backdropAttrs'] = {
+      'data-testid': 'backdrop',
+    };
+    const dialogAttrs: SidePanelProps['dialogAttrs'] = {
+      'data-testid': 'dialog-element',
+    };
+    const transitionDialogAttrs: SidePanelProps['transitionDialogAttrs'] = {
+      'data-testid': 'dialog-transition',
+    };
+    const headingTitleAttrs: SidePanelProps['headingTitleAttrs'] = {
+      'data-testid': 'title-heading',
+    };
+    const textSubtitleAttrs: SidePanelProps['textSubtitleAttrs'] = {
+      'data-testid': 'subtitle-text',
+    };
+    const buttonCloseAttrs: SidePanelProps['buttonCloseAttrs'] = {
+      'data-testid': 'close-button',
+      ariaLabel: 'close modal',
+    };
+    const iconCloseAttrs: SidePanelProps['iconCloseAttrs'] = {
+      'data-testid': 'close-icon',
+      icon: 'close',
+    };
+    const contentAttrs: SidePanelProps['contentAttrs'] = {
+      'data-testid': 'content-element',
+    };
+    const heading = 'Acute viral throat infection';
+    const evidence = 'Moderate evidence';
+    
+    const toggleSidePanel = () => {
+      modelValue.value = !modelValue.value;
+    };
+    </script>
+    
+    <style lang="scss">
+    .mt-3 {
+      margin-top: 0.75rem;
+    }
+    
+    .mb-6 {
+      margin-bottom: 1.5rem;
+    }
+    
+    .label-slot {
+      --progress-width: 32px;
+    
+      &-subtitle {
+        display: inline-flex;
+        flex-direction: row;
+        align-items: center;
+        margin: var(--space-4) 0 0 0;
+      }
+      
+      .ui-progress {
+        width: var(--progress-width, 100%);
+        margin: 0 var(--space-8) 0 0;
+      }
+    }
+    </style>`,
     },
   },
 };
