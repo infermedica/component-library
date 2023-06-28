@@ -40,7 +40,9 @@ import {
   keyboardFocus,
 } from '@/utilities/directives';
 
-type SidePanelArgsType = SidePanelProps;
+type SidePanelArgsType = SidePanelProps & {
+  isLoading: boolean,
+};
 type SidePanelMetaType = Meta<SidePanelArgsType>;
 type SidePanelStoryType = StoryObj<SidePanelArgsType>;
 
@@ -135,11 +137,40 @@ const meta = {
   },
   argTypes: { ...argTypes },
   decorators: [ (story, { args }) => ({
+    components: { UiButton },
+    setup() {
+      const modelValue = ref(args.modelValue);
+      const toggleSidePanel = () => {
+        modelValue.value = !modelValue.value;
+      };
+
+      provide('modelValue', modelValue);
+      return {
+        toggleSidePanel,
+        title: args.title,
+      };
+    },
+    template: `<div class="max-w-32 min-h-80">
+      <UiButton
+        class="ui-button--text ui-button--theme-secondary"
+        @click="toggleSidePanel"
+      >
+        {{ title }}
+      </UiButton>
+      <story/>
+    </div>`,
+  }) ],
+  parameters: { chromatic: { disableSnapshot: true } },
+} satisfies SidePanelMetaType;
+
+export default meta;
+
+export const Basic: SidePanelStoryType = {
+  render: () => ({
+    inheritAttrs: false,
     components: {
-      UiButton,
-      UiHeading,
       UiSidePanel,
-      story,
+      TOS,
     },
     setup(props, { attrs }) {
       const {
@@ -154,17 +185,12 @@ const meta = {
         buttonCloseAttrs,
         iconCloseAttrs,
         contentAttrs,
-        ...restArgs
+        ...args
       } = attrs;
 
-      const modelValue = ref(args.modelValue);
+      const modelValue = inject('modelValue');
 
-      const toggleSidePanel = () => {
-        modelValue.value = !modelValue.value;
-      };
-      provide('modelValue', modelValue);
       return {
-        toggleSidePanel,
         modelValue,
         title,
         subtitle,
@@ -177,44 +203,25 @@ const meta = {
         buttonCloseAttrs,
         iconCloseAttrs,
         contentAttrs,
-        args: { ...restArgs },
+        args: { ...args },
       };
     },
-    template: `<div class="max-w-32 min-h-80">
-      <UiButton
-        class="ui-button--text ui-button--theme-secondary"
-        @click="toggleSidePanel"
-      >
-        {{ title }}
-      </UiButton>
-      <UiSidePanel
-        v-model="modelValue"
-        :title="title"
-        :subtitle="subtitle"
-        :transition-backdrop-attrs="transitionBackdropAttrs"
-        :backdrop-attrs="backdropAttrs"
-        :transition-dialog-attrs="transitionDialogAttrs"
-        :heading-title-attrs="headingTitleAttrs"
-        :text-subtitle-attrs="textSubtitleAttrs"
-        :button-close-attrs="buttonCloseAttrs"
-        :icon-close-attrs="iconCloseAttrs"
-        :dialog-attrs="dialogAttrs"
-        :content-attrs="contentAttrs"
-      >
-        <story />
-      </UiSidePanel>
-    </div>`,
-  }) ],
-  parameters: { chromatic: { disableSnapshot: true } },
-} satisfies SidePanelMetaType;
-
-export default meta;
-
-export const Basic: SidePanelStoryType = {
-  render: () => ({
-    inheritAttrs: false,
-    components: { TOS },
-    template: '<TOS />',
+    template: `<UiSidePanel
+    v-model="modelValue"
+    :title="title"
+    :subtitle="subtitle"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    :dialog-attrs="dialogAttrs"
+    :content-attrs="contentAttrs"
+  >
+    <TOS />
+  </UiSidePanel>`,
   }),
 };
 Basic.parameters = {
@@ -363,6 +370,7 @@ export const WithLabelSlot: SidePanelStoryType = {
   render: () => ({
     inheritAttrs: false,
     components: {
+      UiSidePanel,
       UiHeading,
       UiText,
     },
@@ -400,7 +408,20 @@ export const WithLabelSlot: SidePanelStoryType = {
         args: { ...args },
       };
     },
-    template: `
+    template: `<UiSidePanel
+    v-model="modelValue"
+    :title="title"
+    :subtitle="subtitle"
+    :transition-backdrop-attrs="transitionBackdropAttrs"
+    :backdrop-attrs="backdropAttrs"
+    :transition-dialog-attrs="transitionDialogAttrs"
+    :heading-title-attrs="headingTitleAttrs"
+    :text-subtitle-attrs="textSubtitleAttrs"
+    :button-close-attrs="buttonCloseAttrs"
+    :icon-close-attrs="iconCloseAttrs"
+    :dialog-attrs="dialogAttrs"
+    :content-attrs="contentAttrs"
+  >
     <template #label="{
       title,
       subtitle,
@@ -426,11 +447,10 @@ export const WithLabelSlot: SidePanelStoryType = {
         </UiText>
       </div>
     </template>
-    <template #default>
-      <UiText>
-        Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage
-      </UiText>
-    </template>`,
+    <UiText>
+      Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage
+    </UiText>
+  </UiSidePanel>`,
   }),
 };
 WithLabelSlot.parameters = {
@@ -1968,15 +1988,11 @@ export const WithAsyncContentSlot: SidePanelStoryType = {
         buttonCloseAttrs,
         iconCloseAttrs,
         contentAttrs,
+        isLoading,
         ...args
       } = attrs;
 
       const modelValue = inject('modelValue');
-      const isLoading = ref(true);
-      // TODO: isLoading on each open sidepanel
-      onMounted(() => window.setTimeout(() => {
-        isLoading.value = false;
-      }, 1000));
 
       return {
         modelValue,
