@@ -136,42 +136,10 @@ const meta = {
   argTypes: { ...argTypes },
   decorators: [ (story, { args }) => ({
     components: {
-      story,
       UiButton,
-    },
-    setup() {
-      const modelValue = ref(args.modelValue);
-      const toggleSidePanel = () => {
-        modelValue.value = !modelValue.value;
-      };
-      provide('modelValue', modelValue);
-      return {
-        toggleSidePanel,
-        title: args.title,
-      };
-    },
-    template: `<div class="max-w-32 min-h-80">
-      <UiButton
-        class="ui-button--text ui-button--theme-secondary"
-        @click="toggleSidePanel"
-      >
-        {{ title }}
-      </UiButton>
-      <story/>
-    </div>`,
-  }) ],
-  parameters: { chromatic: { disableSnapshot: true } },
-} satisfies SidePanelMetaType;
-
-export default meta;
-
-export const Basic: SidePanelStoryType = {
-  render: () => ({
-    inheritAttrs: false,
-    components: {
-      UiSidePanel,
       UiHeading,
-      TOS,
+      UiSidePanel,
+      story,
     },
     setup(props, { attrs }) {
       const {
@@ -186,12 +154,17 @@ export const Basic: SidePanelStoryType = {
         buttonCloseAttrs,
         iconCloseAttrs,
         contentAttrs,
-        ...args
+        ...restArgs
       } = attrs;
 
-      const modelValue = inject('modelValue');
+      const modelValue = ref(args.modelValue);
 
+      const toggleSidePanel = () => {
+        modelValue.value = !modelValue.value;
+      };
+      provide('modelValue', modelValue);
       return {
+        toggleSidePanel,
         modelValue,
         title,
         subtitle,
@@ -204,25 +177,44 @@ export const Basic: SidePanelStoryType = {
         buttonCloseAttrs,
         iconCloseAttrs,
         contentAttrs,
-        args: { ...args },
+        args: { ...restArgs },
       };
     },
-    template: `<UiSidePanel
-    v-model="modelValue"
-    :title="title"
-    :subtitle="subtitle"
-    :transition-backdrop-attrs="transitionBackdropAttrs"
-    :backdrop-attrs="backdropAttrs"
-    :transition-dialog-attrs="transitionDialogAttrs"
-    :heading-title-attrs="headingTitleAttrs"
-    :text-subtitle-attrs="textSubtitleAttrs"
-    :button-close-attrs="buttonCloseAttrs"
-    :icon-close-attrs="iconCloseAttrs"
-    :dialog-attrs="dialogAttrs"
-    :content-attrs="contentAttrs"
-  >
-    <TOS />
-  </UiSidePanel>`,
+    template: `<div class="max-w-32 min-h-80">
+      <UiButton
+        class="ui-button--text ui-button--theme-secondary"
+        @click="toggleSidePanel"
+      >
+        {{ title }}
+      </UiButton>
+      <UiSidePanel
+        v-model="modelValue"
+        :title="title"
+        :subtitle="subtitle"
+        :transition-backdrop-attrs="transitionBackdropAttrs"
+        :backdrop-attrs="backdropAttrs"
+        :transition-dialog-attrs="transitionDialogAttrs"
+        :heading-title-attrs="headingTitleAttrs"
+        :text-subtitle-attrs="textSubtitleAttrs"
+        :button-close-attrs="buttonCloseAttrs"
+        :icon-close-attrs="iconCloseAttrs"
+        :dialog-attrs="dialogAttrs"
+        :content-attrs="contentAttrs"
+      >
+        <story />
+      </UiSidePanel>
+    </div>`,
+  }) ],
+  parameters: { chromatic: { disableSnapshot: true } },
+} satisfies SidePanelMetaType;
+
+export default meta;
+
+export const Basic: SidePanelStoryType = {
+  render: () => ({
+    inheritAttrs: false,
+    components: { TOS },
+    template: '<TOS />',
   }),
 };
 Basic.parameters = {
@@ -371,7 +363,6 @@ export const WithLabelSlot: SidePanelStoryType = {
   render: () => ({
     inheritAttrs: false,
     components: {
-      UiSidePanel,
       UiHeading,
       UiText,
     },
@@ -409,20 +400,7 @@ export const WithLabelSlot: SidePanelStoryType = {
         args: { ...args },
       };
     },
-    template: `<UiSidePanel
-    v-model="modelValue"
-    :title="title"
-    :subtitle="subtitle"
-    :transition-backdrop-attrs="transitionBackdropAttrs"
-    :backdrop-attrs="backdropAttrs"
-    :transition-dialog-attrs="transitionDialogAttrs"
-    :heading-title-attrs="headingTitleAttrs"
-    :text-subtitle-attrs="textSubtitleAttrs"
-    :button-close-attrs="buttonCloseAttrs"
-    :icon-close-attrs="iconCloseAttrs"
-    :dialog-attrs="dialogAttrs"
-    :content-attrs="contentAttrs"
-  >
+    template: `
     <template #label="{
       title,
       subtitle,
@@ -448,10 +426,11 @@ export const WithLabelSlot: SidePanelStoryType = {
         </UiText>
       </div>
     </template>
-    <UiText>
-      Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage
-    </UiText>
-  </UiSidePanel>`,
+    <template #default>
+      <UiText>
+        Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage
+      </UiText>
+    </template>`,
   }),
 };
 WithLabelSlot.parameters = {
