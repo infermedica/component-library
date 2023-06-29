@@ -40,9 +40,7 @@ import {
   keyboardFocus,
 } from '@/utilities/directives';
 
-type SidePanelArgsType = SidePanelProps & {
-  isLoading: boolean,
-};
+type SidePanelArgsType = SidePanelProps;
 type SidePanelMetaType = Meta<SidePanelArgsType>;
 type SidePanelStoryType = StoryObj<SidePanelArgsType>;
 
@@ -165,13 +163,10 @@ const meta = {
 
 export default meta;
 
-export const Basic: SidePanelStoryType = {
+const TemplateStories = {
   render: () => ({
     inheritAttrs: false,
-    components: {
-      UiSidePanel,
-      TOS,
-    },
+    components: { UiSidePanel },
     setup(props, { attrs }) {
       const {
         title,
@@ -220,8 +215,30 @@ export const Basic: SidePanelStoryType = {
     :dialog-attrs="dialogAttrs"
     :content-attrs="contentAttrs"
   >
-    <TOS />
+    <template
+      v-for="(_, name) in $slots"
+      #[name]="data"
+    >
+      <slot
+        :name="name"
+        v-bind="data"
+      />
+    </template>
   </UiSidePanel>`,
+  }),
+} satisfies SidePanelStoryType;
+
+export const Basic: SidePanelStoryType = {
+  render: () => ({
+    inheritAttrs: false,
+    components: { TOS },
+    setup() {
+      return { UiSidePanel: TemplateStories.render() };
+    },
+    template: `<component :is="UiSidePanel">
+      <TOS/>
+    </component>`,
+
   }),
 };
 Basic.parameters = {
@@ -370,7 +387,6 @@ export const WithLabelSlot: SidePanelStoryType = {
   render: () => ({
     inheritAttrs: false,
     components: {
-      UiSidePanel,
       UiHeading,
       UiText,
     },
@@ -393,6 +409,7 @@ export const WithLabelSlot: SidePanelStoryType = {
       const modelValue = inject('modelValue');
 
       return {
+        UiSidePanel: TemplateStories.render(),
         modelValue,
         title,
         subtitle,
@@ -408,20 +425,7 @@ export const WithLabelSlot: SidePanelStoryType = {
         args: { ...args },
       };
     },
-    template: `<UiSidePanel
-    v-model="modelValue"
-    :title="title"
-    :subtitle="subtitle"
-    :transition-backdrop-attrs="transitionBackdropAttrs"
-    :backdrop-attrs="backdropAttrs"
-    :transition-dialog-attrs="transitionDialogAttrs"
-    :heading-title-attrs="headingTitleAttrs"
-    :text-subtitle-attrs="textSubtitleAttrs"
-    :button-close-attrs="buttonCloseAttrs"
-    :icon-close-attrs="iconCloseAttrs"
-    :dialog-attrs="dialogAttrs"
-    :content-attrs="contentAttrs"
-  >
+    template: `<component :is="UiSidePanel">
     <template #label="{
       title,
       subtitle,
@@ -450,7 +454,7 @@ export const WithLabelSlot: SidePanelStoryType = {
     <UiText>
       Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage
     </UiText>
-  </UiSidePanel>`,
+  </component>`,
   }),
 };
 WithLabelSlot.parameters = {
@@ -1988,11 +1992,16 @@ export const WithAsyncContentSlot: SidePanelStoryType = {
         buttonCloseAttrs,
         iconCloseAttrs,
         contentAttrs,
-        isLoading,
         ...args
       } = attrs;
 
       const modelValue = inject('modelValue');
+      const isLoading = ref(true);
+      onMounted(() => {
+        setTimeout(() => {
+          isLoading.value = false;
+        }, 1000);
+      });
 
       return {
         modelValue,
