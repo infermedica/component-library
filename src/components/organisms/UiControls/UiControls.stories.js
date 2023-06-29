@@ -11,6 +11,7 @@ export default {
   title: 'Organisms/Controls',
   component: UiControls,
   args: {
+    layout: 'horizontal',
     hideNextButton: false,
     hideBackButton: false,
     toBack: { path: '/back' },
@@ -24,7 +25,6 @@ export default {
     buttonNextAttrs: { 'data-testid': 'next-button' },
     buttonBackAttrs: { 'data-testid': 'back-button' },
     iconBackAttrs: { 'data-testid': 'back-icon' },
-    direction: 'horizontal',
   },
   argTypes: {
     toBack: { control: 'object' },
@@ -37,7 +37,7 @@ export default {
     buttonNextAttrs: { table: { subcategory: 'Attrs props' } },
     buttonBackAttrs: { table: { subcategory: 'Attrs props' } },
     iconBackAttrs: { table: { subcategory: 'Attrs props' } },
-    direction: {
+    layout: {
       options: [
         'vertical',
         'horizontal',
@@ -71,174 +71,9 @@ export const Common = {
       :direction="direction"
       @has-error="onHasError"
     >
-      <UiQuestion
-        title="Do you have a sore throat?"
-        :settings="{
-          info: true,
-          why: true,
-          issue: {
-            action: true,
-            feedback: true,
-            skip: true,
-          },
-        }"
-      >
-        <!-- -->
-      </UiQuestion>
     </UiControls>`,
   }),
 };
 
-export const WithBottomSlot = {
-  render: (args) => ({
-    components: {
-      UiControls,
-      UiText,
-      UiButton,
-      UiIcon,
-    },
-    setup() {
-      return {
-        ...args,
-        ...events,
-      };
-    },
-    template: `<UiControls
-      :hide-next-button="hideNextButton"
-      :to-back="toBack"
-      :to-next="toNext"
-      :invalid="invalid"
-      :translation="translation"
-      :button-next-attrs="buttonNextAttrs"
-      :button-back-attrs="buttonBackAttrs"
-      :icon-back-attrs="iconBackAttrs"
-      @has-error="onHasError"
-    >
-      <template #bottom="{
-        toNext,
-        hideNextButton,
-        buttonNextAttrs,
-        invalid,
-        toBack,
-        iconBackAttrs,
-        buttonBackAttrs,
-        translation,
-      }">
-        <div class="ui-controls__bottom">
-          <UiButton
-            v-if="toNext && !hideNextButton"
-            v-bind="buttonNextAttrs"
-            :class="[
-              'ui-controls__next',
-              { 'ui-button--is-disabled': invalid },
-            ]"
-          >
-            {{ translation.next }}
-          </UiButton>
-          <span v-else />
-          <UiButton
-            v-if="toBack"
-            v-bind="buttonBackAttrs"
-            class="ui-button--text ui-controls__back"
-          >
-            <UiIcon
-              v-bind="iconBackAttrs"
-              class="ui-button__icon"
-            />{{ translation.back }}
-          </UiButton>
-        </div>
-      </template>
-    </UiControls>`,
-  }),
-};
-
-export const WithNextSlot = {
-  render: (args) => ({
-    components: {
-      UiControls,
-      UiButton,
-    },
-    setup() {
-      return {
-        ...args,
-        ...events,
-      };
-    },
-    template: `<UiControls
-      :hide-next-button="hideNextButton"
-      :to-back="toBack"
-      :to-next="toNext"
-      :invalid="invalid"
-      :translation="translation"
-      :button-next-attrs="buttonNextAttrs"
-      :button-back-attrs="buttonBackAttrs"
-      :icon-back-attrs="iconBackAttrs"
-      @has-error="onHasError"
-    >
-      <template #next="{
-        toNext,
-        hideNextButton,
-        buttonNextAttrs,
-        invalid,
-        translation
-      }">
-        <UiButton
-          v-if="toNext && !hideNextButton"
-          v-bind="buttonNextAttrs"
-          :class="[
-            'ui-controls__next',
-            { 'ui-button--is-disabled': invalid },
-          ]"
-        >
-          {{ translation.next }}
-        </UiButton>
-        <span v-else/>
-      </template>
-    </UiControls>`,
-  }),
-};
-
-export const WithBackSlot = {
-  render: (args) => ({
-    components: {
-      UiControls,
-      UiButton,
-      UiIcon,
-    },
-    setup() {
-      return {
-        ...args,
-        ...events,
-      };
-    },
-    template: `<UiControls
-      :hide-next-button="hideNextButton"
-      :to-back="toBack"
-      :to-next="toNext"
-      :invalid="invalid"
-      :translation="translation"
-      :button-next-attrs="buttonNextAttrs"
-      :button-back-attrs="buttonBackAttrs"
-      :icon-back-attrs="iconBackAttrs"
-      @has-error="onHasError"
-    >
-      <template #next="{
-        toBack,
-        buttonBackAttrs,
-        iconBackAttrs,
-        translation
-      }">
-        <UiButton
-          v-if="toBack"
-          v-bind="buttonBackAttrs"
-          class="ui-button--text ui-controls__back"
-        >
-          <UiIcon
-            v-bind="iconBackAttrs"
-            class="ui-button__icon"
-          />{{ translation.back }}
-        </UiButton>
-      </template>
-    </UiControls>`,
-  }),
-};
+export const Vertical = { ...Common };
+Vertical.args = { layout: 'vertical' };

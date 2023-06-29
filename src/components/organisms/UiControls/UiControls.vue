@@ -2,10 +2,13 @@
   <UiContainer
     :class="[
       'ui-controls',
-      `ui-controls--${direction}`,
+      `ui-controls--${layout}`,
     ]"
   >
-    <component :is="controlsDirection">
+    <component
+      :is="layoutComponent"
+      v-bind="layoutProps"
+    >
       <template
         v-for="(_, name) in proxySlots"
         #[name]="data"
@@ -35,12 +38,10 @@ import {
   useSlots,
 } from 'vue';
 import UiContainer from '../UiContainer/UiContainer.vue';
-import UiControlsHorizontal from './_internal/UiControlsHorizontal.vue';
-import UiControlsVertical from './_internal/UiControlsVertical.vue';
+import UiControlsHorizontal from './_internal/layouts/UiControlsHorizontal.vue';
+import UiControlsVertical from './_internal/layouts/UiControlsVertical.vue';
 import type { ContainerAttrsProps } from '../UiContainer/UiContainer.vue';
-import UiButton from '../../atoms/UiButton/UiButton.vue';
 import type { ButtonAttrsProps } from '../../atoms/UiButton/UiButton.vue';
-import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import type { IconAttrsProps } from '../../atoms/UiIcon/UiIcon.vue';
 import type { DefineAttrsProps } from '../../../types';
 
@@ -49,7 +50,7 @@ export interface ControlsTranslation {
   next?: string;
 }
 export type ControlsNavigation = string | Record<string, unknown>;
-export interface ControlsProps {
+export interface ControlsCommonProps {
   /**
    * Use this props to move the responsibility to move to the next screen to question content.
    */
@@ -70,16 +71,10 @@ export interface ControlsProps {
    * Use this props to set invalid state of the question.
    */
   invalid?: boolean;
-  /** Use this props to set direction of controls. */
-  direction?: 'horizontal' | 'vertical',
   /**
    * Use this props to override labels inside component translation.
    */
   translation?: ControlsTranslation;
-  /**
-   *  Use this props to pass attrs to container element.
-   */
-  containerAttrs?: DefineAttrsProps<null>;
   /**
    * Use this props to pass attrs for next UiButton.
    */
@@ -93,6 +88,14 @@ export interface ControlsProps {
    */
   iconBackAttrs?: IconAttrsProps;
 }
+export interface ControlsProps extends ControlsCommonProps {
+  /** Use this props to set direction of controls. */
+  layout?: 'horizontal' | 'vertical',
+  /**
+   *  Use this props to pass attrs to container element.
+   */
+  containerAttrs?: DefineAttrsProps<null>;
+}
 export type ControlsAttrsProps = DefineAttrsProps<ControlsProps, ContainerAttrsProps>
 export interface ControlsEmits {
   (e: 'has-error'): void;
@@ -104,7 +107,7 @@ const props = withDefaults(defineProps<ControlsProps>(), {
   toBack: '',
   toNext: '',
   invalid: true,
-  direction: 'horizontal',
+  layout: 'horizontal',
   translation: () => ({
     back: 'Back',
     next: 'Next',
@@ -155,11 +158,21 @@ const defaultProps = computed(() => {
     },
   };
 });
-const controlsDirection = computed(() => (
-  props.direction === 'horizontal'
+const layoutComponent = computed(() => (
+  props.layout === 'horizontal'
     ? UiControlsHorizontal
     : UiControlsVertical
 ));
+
+const layoutProps = computed(() => {
+  const {
+    layout, containerAttrs, ...rest
+  } = props;
+  return {
+    ...rest,
+    ...defaultProps.value,
+  };
+});
 
 </script>
 
