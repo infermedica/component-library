@@ -17,7 +17,14 @@
     }"
   >
     <div class="ui-controls-horizontal__actions">
-      <!-- @slot Use this slot to replace next template. -->
+      <!--
+        @slot Use this slot to replace next template.
+        @binding {ControlsNavigation} toNext
+        @binding {boolean} hideNextButton
+        @binding {ButtonAttrsProps} buttonNextAttrs
+        @binding {boolean} invalid
+        @binding {ControlsTranslation} translation
+      -->
       <slot
         name="next"
         v-bind="{
@@ -37,7 +44,14 @@
         </UiControlsNextButton>
         <span v-else />
       </slot>
-      <!-- @slot Use this slot to replace back template. -->
+      <!--
+        @slot Use this slot to replace back template.
+        @binding {ControlsNavigation} toBack
+        @binding {boolean} hideBackButton
+        @binding {ButtonAttrsProps} buttonBackAttrs
+        @binding {IconAttrsProps} iconBackAttrs
+        @binding {ControlsTranslation} translation
+       -->
       <slot
         name="back"
         v-bind="{
@@ -73,13 +87,13 @@ import type { ControlsCommonProps } from '../../UiControls.vue';
 
 const props = defineProps<ControlsCommonProps>();
 
-// TODO: remove in 0.7.0 / BEGIN
+// TODO: remove in 1.0.0 / BEGIN
 const slots = useSlots();
 const slotName = ref('actions');
 if (slots.bottom) {
   slotName.value = 'bottom';
   if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiControls]: The `bottom` slots will be removed in 0.7.0. Please use `actions` slot instead.');
+    console.warn('[@infermedica/component-library warn][UiControls]: The `bottom` slots will be removed in 1.0.0. Please use `actions` slot instead.');
   }
 }
 // END
@@ -92,7 +106,7 @@ if (slots.bottom) {
 .ui-controls-horizontal {
   $element: controls-horizontal;
 
-  @at-root .ui-controls__bottom, // TODO: remove in 0.7.0
+  @at-root .ui-controls__bottom, // TODO: remove in 1.0.0
   &__actions {
     @include mixins.use-logical($element + "-actions", padding, var(--space-12) var(--space-20));
     @include mixins.inner-border(

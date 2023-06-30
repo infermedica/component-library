@@ -8,7 +8,3 @@
 <script setup lang="ts">
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 </script>
-
-<style lang="scss">
-
-</style>

@@ -1,9 +1,5 @@
 import UiControls from '@/components/organisms/UiControls/UiControls.vue';
-import UiButton from '@/components/atoms/UiButton/UiButton.vue';
-import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
-import UiText from '@/components/atoms/UiText/UiText.vue';
 import { actions } from '@storybook/addon-actions';
-import UiQuestion from '@/components/templates/UiQuestion/UiQuestion.vue';
 
 const events = actions({ onHasError: 'has-error' });
 
@@ -43,15 +39,30 @@ export default {
         'horizontal',
       ],
     },
+    next: {
+      table: { category: 'slots' },
+      control: false,
+      description: 'Use this slot to replace next template.',
+    },
+    back: {
+      table: { category: 'slots' },
+      control: false,
+      description: 'Use this slot to replace back template.',
+    },
+    actions: {
+      table: { category: 'slots' },
+      control: false,
+      description: 'Use this slot to replace actions template. Only applies to horizontal layout.',
+    },
+    default: { control: false },
+    container: { control: false },
+    name: { table: 'disable' },
   },
 };
 
 export const Common = {
   render: (args) => ({
-    components: {
-      UiControls,
-      UiQuestion,
-    },
+    components: { UiControls },
     setup() {
       return {
         ...args,
@@ -70,8 +81,7 @@ export const Common = {
       :icon-back-attrs="iconBackAttrs"
       :direction="direction"
       @has-error="onHasError"
-    >
-    </UiControls>`,
+    />`,
   }),
 };
 

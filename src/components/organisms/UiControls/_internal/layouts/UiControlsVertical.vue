@@ -1,9 +1,16 @@
 <template>
-  <!-- @slot Use this slot to replace back template. -->
+  <!--
+    @slot Use this slot to replace back template.
+    @binding {ControlsNavigation} toBack
+    @binding {boolean} hideBackButton
+    @binding {ButtonAttrsProps} buttonBackAttrs
+    @binding {IconAttrsProps} iconBackAttrs
+    @binding {ControlsTranslation} translation
+   -->
   <slot
     name="back"
     v-bind="{
-      toNext,
+      toBack,
       hideBackButton,
       buttonBackAttrs,
       iconBackAttrs,
@@ -22,7 +29,14 @@
   </slot>
   <!-- @slot Use this slot to place container content. -->
   <slot />
-  <!-- @slot Use this slot to replace next template. -->
+  <!--
+    @slot Use this slot to replace next template.
+    @binding {ControlsNavigation} toNext
+    @binding {boolean} hideNextButton
+    @binding {ButtonAttrsProps} buttonNextAttrs
+    @binding {boolean} invalid
+    @binding {ControlsTranslation} translation
+  -->
   <slot
     name="next"
     v-bind="{
@@ -51,6 +65,3 @@ import type { ControlsCommonProps } from '../../UiControls.vue';
 
 const props = defineProps<ControlsCommonProps>();
 </script>
-
-<style lang="scss">
-</style>

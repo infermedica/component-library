@@ -22,7 +22,3 @@ export interface ControlsBackButton {
 }
 const props = defineProps<ControlsBackButton>();
 </script>
-
-<style lang="scss">
-
-</style>
