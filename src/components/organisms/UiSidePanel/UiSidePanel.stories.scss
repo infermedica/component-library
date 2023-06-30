@@ -16,12 +16,14 @@
 
 .label-slot {
   --progress-width: 32px;
-  &-subtitle {
+
+  &__subtitle {
     display: inline-flex;
     flex-direction: row;
     align-items: center;
     margin: var(--space-4) 0 0 0;
   }
+  
   .ui-progress {
     width: var(--progress-width, 100%);
     margin: 0 var(--space-8) 0 0;
@@ -35,6 +37,6 @@
   }
 }
 
-.condition__section {
+.condition-section {
   --icon-color: var(--color-text-action-primary);
 }

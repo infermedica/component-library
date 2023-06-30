@@ -57,8 +57,7 @@ const TOS = {
     UiHeading,
     UiLink,
   },
-  template: `
-  <UiHeading>
+  template: `<UiHeading>
     §1. General Provisions
   </UiHeading>  
   <UiBulletPoints
@@ -109,7 +108,6 @@ const TOS = {
     </UiBulletPointsItem>
   </UiBulletPoints>`,
 };
-// TODO: wyrównac wszystkie template do lewej
 const meta = {
   title: 'Organisms/UiSidePanelTS',
   component: UiSidePanel,
@@ -143,6 +141,7 @@ const meta = {
       };
 
       provide('modelValue', modelValue);
+
       return {
         toggleSidePanel,
         title: args.title,
@@ -202,29 +201,29 @@ const TemplateStories = {
       };
     },
     template: `<UiSidePanel
-    v-model="modelValue"
-    :title="title"
-    :subtitle="subtitle"
-    :transition-backdrop-attrs="transitionBackdropAttrs"
-    :backdrop-attrs="backdropAttrs"
-    :transition-dialog-attrs="transitionDialogAttrs"
-    :heading-title-attrs="headingTitleAttrs"
-    :text-subtitle-attrs="textSubtitleAttrs"
-    :button-close-attrs="buttonCloseAttrs"
-    :icon-close-attrs="iconCloseAttrs"
-    :dialog-attrs="dialogAttrs"
-    :content-attrs="contentAttrs"
-  >
-    <template
-      v-for="(_, name) in $slots"
-      #[name]="data"
+      v-model="modelValue"
+      :title="title"
+      :subtitle="subtitle"
+      :transition-backdrop-attrs="transitionBackdropAttrs"
+      :backdrop-attrs="backdropAttrs"
+      :transition-dialog-attrs="transitionDialogAttrs"
+      :heading-title-attrs="headingTitleAttrs"
+      :text-subtitle-attrs="textSubtitleAttrs"
+      :button-close-attrs="buttonCloseAttrs"
+      :icon-close-attrs="iconCloseAttrs"
+      :dialog-attrs="dialogAttrs"
+      :content-attrs="contentAttrs"
     >
-      <slot
-        :name="name"
-        v-bind="data"
-      />
-    </template>
-  </UiSidePanel>`,
+      <template
+        v-for="(_, name) in $slots"
+        #[name]="data"
+      >
+        <slot
+          :name="name"
+          v-bind="data"
+        />
+      </template>
+    </UiSidePanel>`,
   }),
 } satisfies SidePanelStoryType;
 
@@ -245,25 +244,10 @@ Basic.parameters = {
   docs: {
     source: {
       code: `<template>
-      <UiButton
-        class="ui-button--text ui-button--theme-secondary"
-        @click="toggleSidePanel"
-      >
-        {{ title }}
-      </UiButton>
       <UiSidePanel
         v-model="modelValue"
         :title="title"
         :subtitle="subtitle"
-        :transition-backdrop-attrs="transitionBackdropAttrs"
-        :backdrop-attrs="backdropAttrs"
-        :transition-dialog-attrs="transitionDialogAttrs"
-        :heading-title-attrs="headingTitleAttrs"
-        :text-subtitle-attrs="textSubtitleAttrs"
-        :button-close-attrs="buttonCloseAttrs"
-        :icon-close-attrs="iconCloseAttrs"
-        :dialog-attrs="dialogAttrs"
-        :content-attrs="contentAttrs"
       >
         <UiHeading> §1. General Provisions </UiHeading>
         <UiBulletPoints tag="ol" class="tos">
@@ -329,7 +313,6 @@ Basic.parameters = {
     import { ref } from 'vue';
     import {
       UiBulletPoints,
-      UiButton,
       UiHeading,
       UiLink,
       UiSidePanel,
@@ -337,42 +320,10 @@ Basic.parameters = {
     import UiBulletPointsItem from '@infermedica/component-library/src/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue';
     import type { SidePanelProps } from '@infermedica/component-library';
     
-    const modelValue = ref<SidePanelProps['modelValue']>(true);
-    const title: SidePanelProps['title'] = 'Terms of Service';
-    const subtitle: SidePanelProps['subtitle'] = 'Last updated: 26/11/2020';
-    const transitionBackdropAttrs: SidePanelProps['transitionBackdropAttrs'] = {
-      'data-testid': 'backdrop-transition',
-    };
-    const backdropAttrs: SidePanelProps['backdropAttrs'] = {
-      'data-testid': 'backdrop',
-    };
-    const dialogAttrs: SidePanelProps['dialogAttrs'] = {
-      'data-testid': 'dialog-element',
-    };
-    const transitionDialogAttrs: SidePanelProps['transitionDialogAttrs'] = {
-      'data-testid': 'dialog-transition',
-    };
-    const headingTitleAttrs: SidePanelProps['headingTitleAttrs'] = {
-      'data-testid': 'title-heading',
-    };
-    const textSubtitleAttrs: SidePanelProps['textSubtitleAttrs'] = {
-      'data-testid': 'subtitle-text',
-    };
-    const buttonCloseAttrs: SidePanelProps['buttonCloseAttrs'] = {
-      'data-testid': 'close-button',
-      ariaLabel: 'close modal',
-    };
-    const iconCloseAttrs: SidePanelProps['iconCloseAttrs'] = {
-      'data-testid': 'close-icon',
-      icon: 'close',
-    };
-    const contentAttrs: SidePanelProps['contentAttrs'] = {
-      'data-testid': 'content-element',
-    };
-    
-    const toggleSidePanel = () => {
-      modelValue.value = !modelValue.value;
-    };
+    const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
+    const title: SidePanelProps['title'] = '${meta.args.title}';
+    const subtitle: SidePanelProps['subtitle'] = '${meta.args.subtitle}';
+
     </script>
       `,
     },
@@ -407,60 +358,45 @@ export const WithLabelSlot: SidePanelStoryType = {
       };
     },
     template: `<component :is="UiSidePanel">
-    <template #label="{
-      title,
-      subtitle,
-      headingTitleAttrs,
-      textSubtitleAttrs,
-    }">
-      <div
-        v-if="title || subtitle"
-        class="ui-side-panel__label"
-      >
-        <UiHeading
-          v-if="title"
-          v-bind="headingTitleAttrs"
+      <template #label="{
+        title,
+        subtitle,
+        headingTitleAttrs,
+        textSubtitleAttrs,
+      }">
+        <div
+          v-if="title || subtitle"
+          class="ui-side-panel__label"
         >
-          {{ title }}
-        </UiHeading>
-        <UiText
-          v-if="subtitle"
-          v-bind="textSubtitleAttrs"
-          class="ui-text--body-2-comfortable ui-side-panel__subtitle"
-        >
-          {{ subtitle }}
-        </UiText>
-      </div>
-    </template>
-    <UiText>
-      Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage
-    </UiText>
-  </component>`,
+          <UiHeading
+            v-if="title"
+            v-bind="headingTitleAttrs"
+          >
+            {{ title }}
+          </UiHeading>
+          <UiText
+            v-if="subtitle"
+            v-bind="textSubtitleAttrs"
+            class="ui-text--body-2-comfortable ui-side-panel__subtitle"
+          >
+            {{ subtitle }}
+          </UiText>
+        </div>
+      </template>
+      <UiText>
+        Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage
+      </UiText>
+    </component>`,
   }),
 };
 WithLabelSlot.parameters = {
   docs: {
     source: {
       code: `<template>
-      <UiButton
-        class="ui-button--text ui-button--theme-secondary"
-        @click="toggleSidePanel"
-      >
-        {{ title }}
-      </UiButton>
       <UiSidePanel
         v-model="modelValue"
         :title="title"
         :subtitle="subtitle"
-        :transition-backdrop-attrs="transitionBackdropAttrs"
-        :backdrop-attrs="backdropAttrs"
-        :transition-dialog-attrs="transitionDialogAttrs"
-        :heading-title-attrs="headingTitleAttrs"
-        :text-subtitle-attrs="textSubtitleAttrs"
-        :button-close-attrs="buttonCloseAttrs"
-        :icon-close-attrs="iconCloseAttrs"
-        :dialog-attrs="dialogAttrs"
-        :content-attrs="contentAttrs"
       >
         <template #label="{
             title,
@@ -498,49 +434,16 @@ WithLabelSlot.parameters = {
     <script setup lang="ts">
     import { ref } from 'vue';
     import {
-      UiButton,
       UiHeading,
       UiSidePanel,
       UiText,
     } from '@infermedica/component-library';
     import type { SidePanelProps } from '@infermedica/component-library';
     
-    const modelValue = ref<SidePanelProps['modelValue']>(true);
-    const title: SidePanelProps['title'] = 'For Business';
-    const subtitle: SidePanelProps['subtitle'] = 'Last updated: 26/11/2020';
-    const transitionBackdropAttrs: SidePanelProps['transitionBackdropAttrs'] = {
-      'data-testid': 'backdrop-transition',
-    };
-    const backdropAttrs: SidePanelProps['backdropAttrs'] = {
-      'data-testid': 'backdrop',
-    };
-    const dialogAttrs: SidePanelProps['dialogAttrs'] = {
-      'data-testid': 'dialog-element',
-    };
-    const transitionDialogAttrs: SidePanelProps['transitionDialogAttrs'] = {
-      'data-testid': 'dialog-transition',
-    };
-    const headingTitleAttrs: SidePanelProps['headingTitleAttrs'] = {
-      'data-testid': 'title-heading',
-    };
-    const textSubtitleAttrs: SidePanelProps['textSubtitleAttrs'] = {
-      'data-testid': 'subtitle-text',
-    };
-    const buttonCloseAttrs: SidePanelProps['buttonCloseAttrs'] = {
-      'data-testid': 'close-button',
-      ariaLabel: 'close modal',
-    };
-    const iconCloseAttrs: SidePanelProps['iconCloseAttrs'] = {
-      'data-testid': 'close-icon',
-      icon: 'close',
-    };
-    const contentAttrs: SidePanelProps['contentAttrs'] = {
-      'data-testid': 'content-element',
-    };
+    const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
+    const title: SidePanelProps['title'] = '${WithLabelSlot?.args?.title}';
+    const subtitle: SidePanelProps['subtitle'] = '${meta.args.subtitle}';
     
-    const toggleSidePanel = () => {
-      modelValue.value = !modelValue.value;
-    };
     </script>
     `,
     },
@@ -601,25 +504,10 @@ WithCloseSlot.parameters = {
   docs: {
     source: {
       code: `<template>
-      <UiButton
-        class="ui-button--text ui-button--theme-secondary"
-        @click="toggleSidePanel"
-      >
-        {{ title }}
-      </UiButton>
       <UiSidePanel
         v-model="modelValue"
         :title="title"
         :subtitle="subtitle"
-        :transition-backdrop-attrs="transitionBackdropAttrs"
-        :backdrop-attrs="backdropAttrs"
-        :transition-dialog-attrs="transitionDialogAttrs"
-        :heading-title-attrs="headingTitleAttrs"
-        :text-subtitle-attrs="textSubtitleAttrs"
-        :button-close-attrs="buttonCloseAttrs"
-        :icon-close-attrs="iconCloseAttrs"
-        :dialog-attrs="dialogAttrs"
-        :content-attrs="contentAttrs"
       >
         <template #close="{
           buttonCloseAttrs,
@@ -656,42 +544,10 @@ WithCloseSlot.parameters = {
     } from '@infermedica/component-library';
     import type { SidePanelProps } from '@infermedica/component-library';
     
-    const modelValue = ref<SidePanelProps['modelValue']>(true);
-    const title: SidePanelProps['title'] = 'For Business';
-    const subtitle: SidePanelProps['subtitle'] = '';
-    const transitionBackdropAttrs: SidePanelProps['transitionBackdropAttrs'] = {
-      'data-testid': 'backdrop-transition',
-    };
-    const backdropAttrs: SidePanelProps['backdropAttrs'] = {
-      'data-testid': 'backdrop',
-    };
-    const dialogAttrs: SidePanelProps['dialogAttrs'] = {
-      'data-testid': 'dialog-element',
-    };
-    const transitionDialogAttrs: SidePanelProps['transitionDialogAttrs'] = {
-      'data-testid': 'dialog-transition',
-    };
-    const headingTitleAttrs: SidePanelProps['headingTitleAttrs'] = {
-      'data-testid': 'title-heading',
-    };
-    const textSubtitleAttrs: SidePanelProps['textSubtitleAttrs'] = {
-      'data-testid': 'subtitle-text',
-    };
-    const buttonCloseAttrs: SidePanelProps['buttonCloseAttrs'] = {
-      'data-testid': 'close-button',
-      ariaLabel: 'close modal',
-    };
-    const iconCloseAttrs: SidePanelProps['iconCloseAttrs'] = {
-      'data-testid': 'close-icon',
-      icon: 'close',
-    };
-    const contentAttrs: SidePanelProps['contentAttrs'] = {
-      'data-testid': 'content-element',
-    };
-    
-    const toggleSidePanel = () => {
-      modelValue.value = !modelValue.value;
-    };
+    const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
+    const title: SidePanelProps['title'] = '${WithCloseSlot?.args?.title}';
+    const subtitle: SidePanelProps['subtitle'] = '${WithCloseSlot?.args?.subtitle}';
+
     </script>
     `,
     },
@@ -733,76 +589,61 @@ export const WithHeaderSlot: SidePanelStoryType = {
       };
     },
     template: `<component :is="UiSidePanel">
-  <template #header="{
-    buttonCloseAttrs,
-    closeHandler,
-    title,
-    subtitle,
-    headingTitleAttrs,
-    textSubtitleAttrs,
-    iconCloseAttrs,
-  }">
-    <div class="ui-side-panel__header">
-      <UiButton
-        v-bind="buttonCloseAttrs"
-        ref="button"
-        class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
-        @click="closeHandler"
-      >
-        <UiIcon
-          v-bind="iconCloseAttrs"
-          class="ui-button__icon"
-        />
-      </UiButton>
-      <div
-        v-if="title || subtitle"
-        class="ui-side-panel__label"
-      >
-        <UiHeading
-          v-if="title"
-          v-bind="headingTitleAttrs"
-        >
-          {{ title }}
-        </UiHeading>
-        <UiText
-          v-if="subtitle"
-          v-bind="textSubtitleAttrs"
-          class="ui-text--body-2-comfortable ui-side-panel__subtitle"
-        >
-          {{ subtitle }}
-        </UiText>
-      </div>
-    </div>
-  </template>
-  <UiText>
-    Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage
-  </UiText>
-  </component>`,
+      <template #header="{
+        buttonCloseAttrs,
+        closeHandler,
+        title,
+        subtitle,
+        headingTitleAttrs,
+        textSubtitleAttrs,
+        iconCloseAttrs,
+      }">
+        <div class="ui-side-panel__header">
+          <UiButton
+            v-bind="buttonCloseAttrs"
+            ref="button"
+            class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
+            @click="closeHandler"
+          >
+            <UiIcon
+              v-bind="iconCloseAttrs"
+              class="ui-button__icon"
+            />
+          </UiButton>
+          <div
+            v-if="title || subtitle"
+            class="ui-side-panel__label"
+          >
+            <UiHeading
+              v-if="title"
+              v-bind="headingTitleAttrs"
+            >
+              {{ title }}
+            </UiHeading>
+            <UiText
+              v-if="subtitle"
+              v-bind="textSubtitleAttrs"
+              class="ui-text--body-2-comfortable ui-side-panel__subtitle"
+            >
+              {{ subtitle }}
+            </UiText>
+          </div>
+        </div>
+      </template>
+      <UiText>
+        Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage
+      </UiText>
+    </component>`,
   }),
 };
 WithHeaderSlot.parameters = {
   docs: {
     source: {
       code: `<template>
-      <UiButton
-        class="ui-button--text ui-button--theme-secondary"
-        @click="toggleSidePanel"
-      >
-        {{ title }}
-      </UiButton>
       <UiSidePanel
         v-model="modelValue"
         :title="title"
         :subtitle="subtitle"
-        :transition-backdrop-attrs="transitionBackdropAttrs"
-        :backdrop-attrs="backdropAttrs"
-        :transition-dialog-attrs="transitionDialogAttrs"
-        :heading-title-attrs="headingTitleAttrs"
-        :text-subtitle-attrs="textSubtitleAttrs"
-        :button-close-attrs="buttonCloseAttrs"
-        :icon-close-attrs="iconCloseAttrs"
-        :dialog-attrs="dialogAttrs"
-        :content-attrs="contentAttrs"
       >
         <template #header="{
             buttonCloseAttrs,
@@ -864,42 +705,10 @@ WithHeaderSlot.parameters = {
     } from '@infermedica/component-library';
     import type { SidePanelProps } from '@infermedica/component-library';
     
-    const modelValue = ref<SidePanelProps['modelValue']>(true);
-    const title: SidePanelProps['title'] = 'For Business';
-    const subtitle: SidePanelProps['subtitle'] = '';
-    const transitionBackdropAttrs: SidePanelProps['transitionBackdropAttrs'] = {
-      'data-testid': 'backdrop-transition',
-    };
-    const backdropAttrs: SidePanelProps['backdropAttrs'] = {
-      'data-testid': 'backdrop',
-    };
-    const dialogAttrs: SidePanelProps['dialogAttrs'] = {
-      'data-testid': 'dialog-element',
-    };
-    const transitionDialogAttrs: SidePanelProps['transitionDialogAttrs'] = {
-      'data-testid': 'dialog-transition',
-    };
-    const headingTitleAttrs: SidePanelProps['headingTitleAttrs'] = {
-      'data-testid': 'title-heading',
-    };
-    const textSubtitleAttrs: SidePanelProps['textSubtitleAttrs'] = {
-      'data-testid': 'subtitle-text',
-    };
-    const buttonCloseAttrs: SidePanelProps['buttonCloseAttrs'] = {
-      'data-testid': 'close-button',
-      ariaLabel: 'close modal',
-    };
-    const iconCloseAttrs: SidePanelProps['iconCloseAttrs'] = {
-      'data-testid': 'close-icon',
-      icon: 'close',
-    };
-    const contentAttrs: SidePanelProps['contentAttrs'] = {
-      'data-testid': 'content-element',
-    };
-    
-    const toggleSidePanel = () => {
-      modelValue.value = !modelValue.value;
-    };
+    const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
+    const title: SidePanelProps['title'] = '${WithHeaderSlot?.args?.title}';
+    const subtitle: SidePanelProps['subtitle'] = '${WithHeaderSlot?.args?.subtitle}';
+
     </script>
     `,
     },
@@ -934,49 +743,34 @@ export const WithBackdropSlot: SidePanelStoryType = {
       };
     },
     template: `<component :is="UiSidePanel">
-    <template #backdrop="{
-      transitionBackdropAttrs,
-      modelValue,
-      backdropAttrs,
-      closeHandler,
-    }">
-      <transition v-bind="transitionBackdropAttrs">
-        <UiBackdrop
-          v-if="modelValue"
-          v-bind="backdropAttrs"
-          @click="closeHandler"
-        />
-      </transition>
-    </template>
-    <UiText>
-      Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage
-    </UiText>
-  </component>`,
+      <template #backdrop="{
+        transitionBackdropAttrs,
+        modelValue,
+        backdropAttrs,
+        closeHandler,
+      }">
+        <transition v-bind="transitionBackdropAttrs">
+          <UiBackdrop
+            v-if="modelValue"
+            v-bind="backdropAttrs"
+            @click="closeHandler"
+          />
+        </transition>
+      </template>
+      <UiText>
+        Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage
+      </UiText>
+    </component>`,
   }),
 };
 WithBackdropSlot.parameters = {
   docs: {
     source: {
       code: `<template>
-      <UiButton
-        class="ui-button--text ui-button--theme-secondary"
-        @click="toggleSidePanel"
-      >
-        {{ title }}
-      </UiButton>
       <UiSidePanel
         v-model="modelValue"
         :title="title"
         :subtitle="subtitle"
-        :transition-backdrop-attrs="transitionBackdropAttrs"
-        :backdrop-attrs="backdropAttrs"
-        :transition-dialog-attrs="transitionDialogAttrs"
-        :heading-title-attrs="headingTitleAttrs"
-        :text-subtitle-attrs="textSubtitleAttrs"
-        :button-close-attrs="buttonCloseAttrs"
-        :icon-close-attrs="iconCloseAttrs"
-        :dialog-attrs="dialogAttrs"
-        :content-attrs="contentAttrs"
       >
         <template #backdrop="{
             transitionBackdropAttrs,
@@ -985,7 +779,9 @@ WithBackdropSlot.parameters = {
             closeHandler,
           }"
         >
-          <transition v-bind="transitionBackdropAttrs">
+          <transition
+            v-bind="transitionBackdropAttrs"
+          >
             <UiBackdrop
               v-if="modelValue"
               v-bind="backdropAttrs"
@@ -1010,42 +806,10 @@ WithBackdropSlot.parameters = {
     } from '@infermedica/component-library';
     import type { SidePanelProps } from '@infermedica/component-library';
     
-    const modelValue = ref<SidePanelProps['modelValue']>(true);
-    const title: SidePanelProps['title'] = 'For Business';
-    const subtitle: SidePanelProps['subtitle'] = '';
-    const transitionBackdropAttrs: SidePanelProps['transitionBackdropAttrs'] = {
-      'data-testid': 'backdrop-transition',
-    };
-    const backdropAttrs: SidePanelProps['backdropAttrs'] = {
-      'data-testid': 'backdrop',
-    };
-    const dialogAttrs: SidePanelProps['dialogAttrs'] = {
-      'data-testid': 'dialog-element',
-    };
-    const transitionDialogAttrs: SidePanelProps['transitionDialogAttrs'] = {
-      'data-testid': 'dialog-transition',
-    };
-    const headingTitleAttrs: SidePanelProps['headingTitleAttrs'] = {
-      'data-testid': 'title-heading',
-    };
-    const textSubtitleAttrs: SidePanelProps['textSubtitleAttrs'] = {
-      'data-testid': 'subtitle-text',
-    };
-    const buttonCloseAttrs: SidePanelProps['buttonCloseAttrs'] = {
-      'data-testid': 'close-button',
-      ariaLabel: 'close modal',
-    };
-    const iconCloseAttrs: SidePanelProps['iconCloseAttrs'] = {
-      'data-testid': 'close-icon',
-      icon: 'close',
-    };
-    const contentAttrs: SidePanelProps['contentAttrs'] = {
-      'data-testid': 'content-element',
-    };
-    
-    const toggleSidePanel = () => {
-      modelValue.value = !modelValue.value;
-    };
+    const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
+    const title: SidePanelProps['title'] = '${WithBackdropSlot?.args?.title}';
+    const subtitle: SidePanelProps['subtitle'] = '${WithBackdropSlot?.args?.subtitle}';
+
     </script>
     `,
     },
@@ -1098,99 +862,85 @@ export const WithContainerSlot: SidePanelStoryType = {
       };
     },
     template: `<component :is="UiSidePanel">
-    <template #container="{
-      transitionDialogAttrs,
-      modelValue,
-      afterEnterHandler,
-      buttonCloseAttrs,
-      closeHandler,
-      title,
-      subtitle,
-      iconCloseAttrs,
-      headingTitleAttrs,
-      textSubtitleAttrs,
-      dialogAttrs,
-    }">
-      <transition
-        v-bind="transitionDialogAttrs"
-      >
-        <dialog
-          v-if="modelValue"
-          v-focus-trap
-          v-body-scroll-lock
-          v-bind="dialogAttrs"
-          class="ui-side-panel__dialog"
+      <template #container="{
+        transitionDialogAttrs,
+        modelValue,
+        afterEnterHandler,
+        buttonCloseAttrs,
+        closeHandler,
+        title,
+        subtitle,
+        iconCloseAttrs,
+        headingTitleAttrs,
+        textSubtitleAttrs,
+        dialogAttrs,
+      }">
+        <transition
+          v-bind="transitionDialogAttrs"
         >
-          <div class="ui-side-panel__header">
-            <UiButton
-              v-bind="buttonCloseAttrs"
-              ref="button"
-              class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
-              @click="closeHandler"
-            >
-              <UiIcon
-                v-bind="iconCloseAttrs"
-                class="ui-button__icon"
-              />
-            </UiButton>
+          <dialog
+            v-if="modelValue"
+            v-focus-trap
+            v-body-scroll-lock
+            v-bind="dialogAttrs"
+            class="ui-side-panel__dialog"
+          >
+            <div class="ui-side-panel__header">
+              <UiButton
+                v-bind="buttonCloseAttrs"
+                ref="button"
+                class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
+                @click="closeHandler"
+              >
+                <UiIcon
+                  v-bind="iconCloseAttrs"
+                  class="ui-button__icon"
+                />
+              </UiButton>
+              <div
+                v-if="title || subtitle"
+                class="ui-side-panel__label"
+              >
+                <UiHeading
+                  v-if="title"
+                  v-bind="headingTitleAttrs"
+                >
+                  {{ title }}
+                </UiHeading>
+                <UiText
+                  v-if="subtitle"
+                  v-bind="textSubtitleAttrs"
+                  class="ui-text--body-2-comfortable ui-side-panel__subtitle"
+                >
+                  {{ subtitle }}
+                </UiText>
+              </div>
+            </div>
             <div
-              v-if="title || subtitle"
-              class="ui-side-panel__label"
+              class="ui-side-panel__content"
             >
-              <UiHeading
-                v-if="title"
-                v-bind="headingTitleAttrs"
-              >
-                {{ title }}
-              </UiHeading>
-              <UiText
-                v-if="subtitle"
-                v-bind="textSubtitleAttrs"
-                class="ui-text--body-2-comfortable ui-side-panel__subtitle"
-              >
-                {{ subtitle }}
+              <UiText>
+                Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage
               </UiText>
             </div>
-          </div>
-          <div
-            class="ui-side-panel__content"
-          >
-            <UiText>
-              Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage
-            </UiText>
-          </div>
-        </dialog>
-      </transition>
-    </template>
-  </component>`,
+          </dialog>
+        </transition>
+      </template>
+    </component>`,
   }),
 };
 WithContainerSlot.parameters = {
   docs: {
     source: {
       code: `<template>
-      <UiButton
-        class="ui-button--text ui-button--theme-secondary"
-        @click="toggleSidePanel"
-      >
-        {{ title }}
-      </UiButton>
       <UiSidePanel
         v-model="modelValue"
         :title="title"
         :subtitle="subtitle"
-        :transition-backdrop-attrs="transitionBackdropAttrs"
-        :backdrop-attrs="backdropAttrs"
-        :transition-dialog-attrs="transitionDialogAttrs"
-        :heading-title-attrs="headingTitleAttrs"
-        :text-subtitle-attrs="textSubtitleAttrs"
-        :button-close-attrs="buttonCloseAttrs"
-        :icon-close-attrs="iconCloseAttrs"
-        :dialog-attrs="dialogAttrs"
-        :content-attrs="contentAttrs"
       >
         <template #container="{
             transitionDialogAttrs,
+            dialogAttrs,
             modelValue,
             afterEnterHandler,
             buttonCloseAttrs,
@@ -1200,7 +950,6 @@ WithContainerSlot.parameters = {
             iconCloseAttrs,
             headingTitleAttrs,
             textSubtitleAttrs,
-            dialogAttrs,
           }"
         >
           <transition
@@ -1271,42 +1020,10 @@ WithContainerSlot.parameters = {
     } from '@infermedica/component-library';
     import type { SidePanelProps } from '@infermedica/component-library';
     
-    const modelValue = ref<SidePanelProps['modelValue']>(true);
-    const title: SidePanelProps['title'] = 'For Business';
-    const subtitle: SidePanelProps['subtitle'] = '';
-    const transitionBackdropAttrs: SidePanelProps['transitionBackdropAttrs'] = {
-      'data-testid': 'backdrop-transition',
-    };
-    const backdropAttrs: SidePanelProps['backdropAttrs'] = {
-      'data-testid': 'backdrop',
-    };
-    const dialogAttrs: SidePanelProps['dialogAttrs'] = {
-      'data-testid': 'dialog-element',
-    };
-    const transitionDialogAttrs: SidePanelProps['transitionDialogAttrs'] = {
-      'data-testid': 'dialog-transition',
-    };
-    const headingTitleAttrs: SidePanelProps['headingTitleAttrs'] = {
-      'data-testid': 'title-heading',
-    };
-    const textSubtitleAttrs: SidePanelProps['textSubtitleAttrs'] = {
-      'data-testid': 'subtitle-text',
-    };
-    const buttonCloseAttrs: SidePanelProps['buttonCloseAttrs'] = {
-      'data-testid': 'close-button',
-      ariaLabel: 'close modal',
-    };
-    const iconCloseAttrs: SidePanelProps['iconCloseAttrs'] = {
-      'data-testid': 'close-icon',
-      icon: 'close',
-    };
-    const contentAttrs: SidePanelProps['contentAttrs'] = {
-      'data-testid': 'content-element',
-    };
+    const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
+    const title: SidePanelProps['title'] = '${WithContainerSlot?.args?.title}';
+    const subtitle: SidePanelProps['subtitle'] = '${WithContainerSlot?.args?.subtitle}';
     
-    const toggleSidePanel = () => {
-      modelValue.value = !modelValue.value;
-    };
     </script>
     `,
     },
@@ -1338,46 +1055,31 @@ export const WithTitleSlot: SidePanelStoryType = {
       };
     },
     template: `<component :is="UiSidePanel">
-    <template #title="{
-      title,
-      headingTitleAttrs,
-    }">
-      <UiHeading
-        v-if="title"
-        v-bind="headingTitleAttrs"
-      >
-        {{ title }}
-      </UiHeading>
-    </template>
-    <UiText>
-      Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage
-    </UiText>
-  </component>`,
+      <template #title="{
+        title,
+        headingTitleAttrs,
+      }">
+        <UiHeading
+          v-if="title"
+          v-bind="headingTitleAttrs"
+        >
+          {{ title }}
+        </UiHeading>
+      </template>
+      <UiText>
+        Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage
+      </UiText>
+    </component>`,
   }),
 };
 WithTitleSlot.parameters = {
   docs: {
     source: {
       code: `<template>
-      <UiButton
-        class="ui-button--text ui-button--theme-secondary"
-        @click="toggleSidePanel"
-      >
-        {{ title }}
-      </UiButton>
       <UiSidePanel
         v-model="modelValue"
         :title="title"
         :subtitle="subtitle"
-        :transition-backdrop-attrs="transitionBackdropAttrs"
-        :backdrop-attrs="backdropAttrs"
-        :transition-dialog-attrs="transitionDialogAttrs"
-        :heading-title-attrs="headingTitleAttrs"
-        :text-subtitle-attrs="textSubtitleAttrs"
-        :button-close-attrs="buttonCloseAttrs"
-        :icon-close-attrs="iconCloseAttrs"
-        :dialog-attrs="dialogAttrs"
-        :content-attrs="contentAttrs"
       >
         <template #title="{
           title,
@@ -1406,42 +1108,10 @@ WithTitleSlot.parameters = {
     } from '@infermedica/component-library';
     import type { SidePanelProps } from '@infermedica/component-library';
     
-    const modelValue = ref<SidePanelProps['modelValue']>(true);
-    const title: SidePanelProps['title'] = 'For Business';
-    const subtitle: SidePanelProps['subtitle'] = '';
-    const transitionBackdropAttrs: SidePanelProps['transitionBackdropAttrs'] = {
-      'data-testid': 'backdrop-transition',
-    };
-    const backdropAttrs: SidePanelProps['backdropAttrs'] = {
-      'data-testid': 'backdrop',
-    };
-    const dialogAttrs: SidePanelProps['dialogAttrs'] = {
-      'data-testid': 'dialog-element',
-    };
-    const transitionDialogAttrs: SidePanelProps['transitionDialogAttrs'] = {
-      'data-testid': 'dialog-transition',
-    };
-    const headingTitleAttrs: SidePanelProps['headingTitleAttrs'] = {
-      'data-testid': 'title-heading',
-    };
-    const textSubtitleAttrs: SidePanelProps['textSubtitleAttrs'] = {
-      'data-testid': 'subtitle-text',
-    };
-    const buttonCloseAttrs: SidePanelProps['buttonCloseAttrs'] = {
-      'data-testid': 'close-button',
-      ariaLabel: 'close modal',
-    };
-    const iconCloseAttrs: SidePanelProps['iconCloseAttrs'] = {
-      'data-testid': 'close-icon',
-      icon: 'close',
-    };
-    const contentAttrs: SidePanelProps['contentAttrs'] = {
-      'data-testid': 'content-element',
-    };
-    
-    const toggleSidePanel = () => {
-      modelValue.value = !modelValue.value;
-    };
+    const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
+    const title: SidePanelProps['title'] = '${WithTitleSlot?.args?.title}';
+    const subtitle: SidePanelProps['subtitle'] = '${WithTitleSlot?.args?.subtitle}';
+
     </script>`,
     },
   },
@@ -1467,47 +1137,32 @@ export const WithSubtitleSlot: SidePanelStoryType = {
       };
     },
     template: `<component :is="UiSidePanel">
-    <template #subtitle="{
-      subtitle,
-      textSubtitleAttrs,
-    }">
-      <UiText
-        v-if="subtitle"
-        v-bind="textSubtitleAttrs"
-        class="ui-text--body-2-comfortable ui-side-panel__subtitle"
-      >
-        {{ subtitle }}
+      <template #subtitle="{
+        subtitle,
+        textSubtitleAttrs,
+      }">
+        <UiText
+          v-if="subtitle"
+          v-bind="textSubtitleAttrs"
+          class="ui-text--body-2-comfortable ui-side-panel__subtitle"
+        >
+          {{ subtitle }}
+        </UiText>
+      </template>
+      <UiText>
+        Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage
       </UiText>
-    </template>
-    <UiText>
-      Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage
-    </UiText>
-  </component>`,
+    </component>`,
   }),
 };
 WithSubtitleSlot.parameters = {
   docs: {
     source: {
       code: `<template>
-      <UiButton
-        class="ui-button--text ui-button--theme-secondary"
-        @click="toggleSidePanel"
-      >
-        {{ title }}
-      </UiButton>
       <UiSidePanel
         v-model="modelValue"
         :title="title"
         :subtitle="subtitle"
-        :transition-backdrop-attrs="transitionBackdropAttrs"
-        :backdrop-attrs="backdropAttrs"
-        :transition-dialog-attrs="transitionDialogAttrs"
-        :heading-title-attrs="headingTitleAttrs"
-        :text-subtitle-attrs="textSubtitleAttrs"
-        :button-close-attrs="buttonCloseAttrs"
-        :icon-close-attrs="iconCloseAttrs"
-        :dialog-attrs="dialogAttrs"
-        :content-attrs="contentAttrs"
       >
         <template #subtitle="{
           subtitle,
@@ -1531,49 +1186,15 @@ WithSubtitleSlot.parameters = {
     <script setup lang="ts">
     import { ref } from 'vue';
     import {
-      UiButton,
-      UiHeading,
       UiSidePanel,
       UiText,
     } from '@infermedica/component-library';
     import type { SidePanelProps } from '@infermedica/component-library';
     
-    const modelValue = ref<SidePanelProps['modelValue']>(true);
-    const title: SidePanelProps['title'] = 'Terms of Service';
-    const subtitle: SidePanelProps['subtitle'] = 'Last updated: 26/11/2020';
-    const transitionBackdropAttrs: SidePanelProps['transitionBackdropAttrs'] = {
-      'data-testid': 'backdrop-transition',
-    };
-    const backdropAttrs: SidePanelProps['backdropAttrs'] = {
-      'data-testid': 'backdrop',
-    };
-    const dialogAttrs: SidePanelProps['dialogAttrs'] = {
-      'data-testid': 'dialog-element',
-    };
-    const transitionDialogAttrs: SidePanelProps['transitionDialogAttrs'] = {
-      'data-testid': 'dialog-transition',
-    };
-    const headingTitleAttrs: SidePanelProps['headingTitleAttrs'] = {
-      'data-testid': 'title-heading',
-    };
-    const textSubtitleAttrs: SidePanelProps['textSubtitleAttrs'] = {
-      'data-testid': 'subtitle-text',
-    };
-    const buttonCloseAttrs: SidePanelProps['buttonCloseAttrs'] = {
-      'data-testid': 'close-button',
-      ariaLabel: 'close modal',
-    };
-    const iconCloseAttrs: SidePanelProps['iconCloseAttrs'] = {
-      'data-testid': 'close-icon',
-      icon: 'close',
-    };
-    const contentAttrs: SidePanelProps['contentAttrs'] = {
-      'data-testid': 'content-element',
-    };
+    const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
+    const title: SidePanelProps['title'] = '${meta.args.title}';
+    const subtitle: SidePanelProps['subtitle'] = '${meta.args.subtitle}';
     
-    const toggleSidePanel = () => {
-      modelValue.value = !modelValue.value;
-    };
     </script>
     `,
     },
@@ -1602,44 +1223,29 @@ export const WithContentSlot: SidePanelStoryType = {
       };
     },
     template: `<component :is="UiSidePanel">
-    <template #content="{ contentAttrs }">
-      <div
-        v-scroll-tabindex
-        v-keyboard-focus
-        v-bind="contentAttrs"
-        class="ui-side-panel__content"
-      >
-        <UiText>
-          Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage
-        </UiText>
-      </div>
-    </template>
-  </component>`,
+      <template #content="{ contentAttrs }">
+        <div
+          v-scroll-tabindex
+          v-keyboard-focus
+          v-bind="contentAttrs"
+          class="ui-side-panel__content"
+        >
+          <UiText>
+            Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage
+          </UiText>
+        </div>
+      </template>
+    </component>`,
   }),
 };
 WithContentSlot.parameters = {
   docs: {
     source: {
       code: `<template>
-      <UiButton
-        class="ui-button--text ui-button--theme-secondary"
-        @click="toggleSidePanel"
-      >
-        {{ title }}
-      </UiButton>
       <UiSidePanel
         v-model="modelValue"
         :title="title"
         :subtitle="subtitle"
-        :transition-backdrop-attrs="transitionBackdropAttrs"
-        :backdrop-attrs="backdropAttrs"
-        :transition-dialog-attrs="transitionDialogAttrs"
-        :heading-title-attrs="headingTitleAttrs"
-        :text-subtitle-attrs="textSubtitleAttrs"
-        :button-close-attrs="buttonCloseAttrs"
-        :icon-close-attrs="iconCloseAttrs"
-        :dialog-attrs="dialogAttrs"
-        :content-attrs="contentAttrs"
       >
         <template #content="{ contentAttrs }">
           <div
@@ -1664,48 +1270,14 @@ WithContentSlot.parameters = {
       keyboardFocus as vKeyboardFocus,
     } from '@infermedica/component-library/src/utilities/directives/index.ts';
     import {
-      UiButton,
       UiSidePanel,
       UiText,
     } from '@infermedica/component-library';
     import type { SidePanelProps } from '@infermedica/component-library';
     
-    const modelValue = ref<SidePanelProps['modelValue']>(true);
-    const title: SidePanelProps['title'] = 'For Business';
-    const subtitle: SidePanelProps['subtitle'] = '';
-    const transitionBackdropAttrs: SidePanelProps['transitionBackdropAttrs'] = {
-      'data-testid': 'backdrop-transition',
-    };
-    const backdropAttrs: SidePanelProps['backdropAttrs'] = {
-      'data-testid': 'backdrop',
-    };
-    const dialogAttrs: SidePanelProps['dialogAttrs'] = {
-      'data-testid': 'dialog-element',
-    };
-    const transitionDialogAttrs: SidePanelProps['transitionDialogAttrs'] = {
-      'data-testid': 'dialog-transition',
-    };
-    const headingTitleAttrs: SidePanelProps['headingTitleAttrs'] = {
-      'data-testid': 'title-heading',
-    };
-    const textSubtitleAttrs: SidePanelProps['textSubtitleAttrs'] = {
-      'data-testid': 'subtitle-text',
-    };
-    const buttonCloseAttrs: SidePanelProps['buttonCloseAttrs'] = {
-      'data-testid': 'close-button',
-      ariaLabel: 'close modal',
-    };
-    const iconCloseAttrs: SidePanelProps['iconCloseAttrs'] = {
-      'data-testid': 'close-icon',
-      icon: 'close',
-    };
-    const contentAttrs: SidePanelProps['contentAttrs'] = {
-      'data-testid': 'content-element',
-    };
-    
-    const toggleSidePanel = () => {
-      modelValue.value = !modelValue.value;
-    };
+    const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
+    const title: SidePanelProps['title'] = '${WithContentSlot?.args?.title}';
+    const subtitle: SidePanelProps['subtitle'] = '${WithContentSlot?.args?.subtitle}';
     </script>    
     `,
     },
@@ -1739,45 +1311,29 @@ export const WithAsyncContentSlot: SidePanelStoryType = {
       };
     },
     template: `<component :is="UiSidePanel">
-    <UiLoader
-      :isLoading="isLoading"
-      type="skeleton"
-      :loaderAttrs="{
-        type: 'common'
-      }"
-      class="loading-side-panel__loader"
-    >
-      <UiText>
-        Triage is developed by Infermedica – the company that creates AI tools
-        for preliminary medical diagnosis and triage
-      </UiText>
-    </UiLoader>
-  </component>`,
+      <UiLoader
+        :isLoading="isLoading"
+        type="skeleton"
+        :loaderAttrs="{
+          type: 'common'
+        }"
+      >
+        <UiText>
+          Triage is developed by Infermedica – the company that creates AI tools
+          for preliminary medical diagnosis and triage
+        </UiText>
+      </UiLoader>
+    </component>`,
   }),
 };
 WithAsyncContentSlot.parameters = {
   docs: {
     source: {
       code: `<template>
-    <UiButton
-      class="ui-button--text ui-button--theme-secondary"
-      @click="toggleSidePanel"
-    >
-      {{ title }}
-    </UiButton>
     <UiSidePanel
       v-model="modelValue"
       :title="title"
       :subtitle="subtitle"
-      :transition-backdrop-attrs="transitionBackdropAttrs"
-      :backdrop-attrs="backdropAttrs"
-      :transition-dialog-attrs="transitionDialogAttrs"
-      :heading-title-attrs="headingTitleAttrs"
-      :text-subtitle-attrs="textSubtitleAttrs"
-      :button-close-attrs="buttonCloseAttrs"
-      :icon-close-attrs="iconCloseAttrs"
-      :dialog-attrs="dialogAttrs"
-      :content-attrs="contentAttrs"
     >
       <UiLoader
         :isLoading="isLoading"
@@ -1785,7 +1341,6 @@ WithAsyncContentSlot.parameters = {
         :loaderAttrs="{
           type: 'common'
         }"
-        class="loading-side-panel__loader"
       >
         <UiText>
           Triage is developed by Infermedica – the company that creates AI tools
@@ -1805,53 +1360,16 @@ WithAsyncContentSlot.parameters = {
     keyboardFocus as vKeyboardFocus,
   } from '@infermedica/component-library/src/utilities/directives/index.ts';
   import {
-    UiButton,
     UiLoader,
     UiSidePanel,
     UiText,
   } from '@infermedica/component-library';
   import type { SidePanelProps } from '@infermedica/component-library';
   
-  const modelValue = ref<SidePanelProps['modelValue']>(true);
-  const title: SidePanelProps['title'] = 'For Business';
-  const subtitle: SidePanelProps['subtitle'] = '';
-  const transitionBackdropAttrs: SidePanelProps['transitionBackdropAttrs'] = {
-    'data-testid': 'backdrop-transition',
-  };
-  const backdropAttrs: SidePanelProps['backdropAttrs'] = {
-    'data-testid': 'backdrop',
-  };
-  const dialogAttrs: SidePanelProps['dialogAttrs'] = {
-    'data-testid': 'dialog-element',
-  };
-  const transitionDialogAttrs: SidePanelProps['transitionDialogAttrs'] = {
-    'data-testid': 'dialog-transition',
-  };
-  const headingTitleAttrs: SidePanelProps['headingTitleAttrs'] = {
-    'data-testid': 'title-heading',
-  };
-  const textSubtitleAttrs: SidePanelProps['textSubtitleAttrs'] = {
-    'data-testid': 'subtitle-text',
-  };
-  const buttonCloseAttrs: SidePanelProps['buttonCloseAttrs'] = {
-    'data-testid': 'close-button',
-    ariaLabel: 'close modal',
-  };
-  const iconCloseAttrs: SidePanelProps['iconCloseAttrs'] = {
-    'data-testid': 'close-icon',
-    icon: 'close',
-  };
-  const contentAttrs: SidePanelProps['contentAttrs'] = {
-    'data-testid': 'content-element',
-  };
-  
-  const toggleSidePanel = () => {
-    modelValue.value = !modelValue.value;
-  };
-  const isLoading = ref(true);
-    onMounted(() => window.setTimeout(() => {
-      isLoading.value = false;
-  }, 1000));
+  const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
+  const title: SidePanelProps['title'] = '${WithAsyncContentSlot?.args?.title}';
+  const subtitle: SidePanelProps['subtitle'] = '${WithAsyncContentSlot?.args?.subtitle}';
+
   </script>
   `,
     },
@@ -1885,92 +1403,91 @@ export const SidePanelShowingDetails: SidePanelStoryType = {
       };
     },
     template: `<component :is="UiSidePanel">
-    <template #label>
-      <div class="label-slot">
-      <div class="label-slot-subtitle">
-        <UiProgress
-          class="label-slot-pill"
-          :value="70"
-        />
+      <template #label>
+        <div class="label-slot">
+        <div class="label-slot__subtitle">
+          <UiProgress
+            :value="70"
+          />
+          <UiText
+            class="ui-text--body-2-comfortable"
+          >
+            Moderate evidence
+          </UiText>
+        </div>
+        <UiHeading
+          level="1"
+          class="ui-heading--h2"
+          >
+          {{ heading }}
+        </UiHeading>
         <UiText
           class="ui-text--body-2-comfortable"
         >
-          Moderate evidence
+          {{ subtitle }}
         </UiText>
+      </div> 
+      </template>
+      <div class="condition-section">
+        <UiHeading level="2">
+          About
+        </UiHeading>
+        <UiHeading level="5">
+          What is acute viral throat infection?
+        </UiHeading>
+        <UiText class="mt-3 mb-6">
+          Acute viral tonsillopharyngitis known as sore throat is an inflammation of throat and tonsils, caused by viral infection ...
+        </UiText>
+        <UiButton class="ui-button--text">
+          <UiIcon icon="chevron-down" />
+          Show details
+        </UiButton>
       </div>
-      <UiHeading
-        level="1"
-        class="ui-heading--h2"
-        >
-        {{ heading }}
-      </UiHeading>
-      <UiText
-        class="ui-text--body-2-comfortable"
-      >
-        {{ subtitle }}
-      </UiText>
-    </div> 
-    </template>
-    <div class="condition__section">
-      <UiHeading level="2">
-        About
-      </UiHeading>
-      <UiHeading level="5">
-        What is acute viral throat infection?
-      </UiHeading>
-      <UiText class="mt-3 mb-6">
-        Acute viral tonsillopharyngitis known as sore throat is an inflammation of throat and tonsils, caused by viral infection ...
-      </UiText>
-      <UiButton class="ui-button--text">
-        <UiIcon icon="chevron-down" />
-        Show details
-      </UiButton>
-    </div>
-  </component>`,
+    </component>`,
   }),
 };
 SidePanelShowingDetails.parameters = {
   docs: {
     source: {
       code: `<template>
-      <UiButton
-        class="ui-button--text ui-button--theme-secondary"
-        @click="toggleSidePanel"
-      >
-        {{ title }}
-      </UiButton>
       <UiSidePanel
         v-model="modelValue"
         :title="title"
         :subtitle="subtitle"
-        :transition-backdrop-attrs="transitionBackdropAttrs"
-        :backdrop-attrs="backdropAttrs"
-        :transition-dialog-attrs="transitionDialogAttrs"
-        :heading-title-attrs="headingTitleAttrs"
-        :text-subtitle-attrs="textSubtitleAttrs"
-        :button-close-attrs="buttonCloseAttrs"
-        :icon-close-attrs="iconCloseAttrs"
-        :dialog-attrs="dialogAttrs"
-        :content-attrs="contentAttrs"
-        class="loading-side-panel"
       >
-        <template #label>
+        <template #label="{
+          title,
+          subtitle,
+          headingTitleAttrs,
+          textSubtitleAttrs,
+          }"
+        >
           <div class="label-slot">
-            <div class="label-slot-subtitle">
-              <UiProgress class="label-slot-pill" :value="70" />
+            <div class="label-slot__subtitle">
+              <UiProgress
+                :value="70"
+              />
               <UiText class="ui-text--body-2-comfortable">
                 {{ evidence }}
               </UiText>
             </div>
-            <UiHeading level="1" class="ui-heading--h2">
-              {{ heading }}
+            <UiHeading
+              v-if="title"
+              v-bind="headingTitleAttrs"
+              level="1"
+            >
+              {{ title }}
             </UiHeading>
-            <UiText class="ui-text--body-2-comfortable">
+            <UiText 
+              v-if="subtitle"
+              v-bind="textSubtitleAttrs"
+              class="ui-text--body-2-comfortable"
+            >
               {{ subtitle }}
             </UiText>
           </div>
         </template>
-        <div class="condition__section">
+        <div class="condition-section">
           <UiHeading level="2"> About </UiHeading>
           <UiHeading level="5"> What is acute viral throat infection? </UiHeading>
           <UiText class="mt-3 mb-6">
@@ -1997,44 +1514,11 @@ SidePanelShowingDetails.parameters = {
     } from '@infermedica/component-library';
     import type { SidePanelProps } from '@infermedica/component-library';
     
-    const modelValue = ref<SidePanelProps['modelValue']>(true);
-    const title: SidePanelProps['title'] = 'Show Details';
-    const subtitle: SidePanelProps['subtitle'] = 'Acute viral pharyngitis';
-    const transitionBackdropAttrs: SidePanelProps['transitionBackdropAttrs'] = {
-      'data-testid': 'backdrop-transition',
-    };
-    const backdropAttrs: SidePanelProps['backdropAttrs'] = {
-      'data-testid': 'backdrop',
-    };
-    const dialogAttrs: SidePanelProps['dialogAttrs'] = {
-      'data-testid': 'dialog-element',
-    };
-    const transitionDialogAttrs: SidePanelProps['transitionDialogAttrs'] = {
-      'data-testid': 'dialog-transition',
-    };
-    const headingTitleAttrs: SidePanelProps['headingTitleAttrs'] = {
-      'data-testid': 'title-heading',
-    };
-    const textSubtitleAttrs: SidePanelProps['textSubtitleAttrs'] = {
-      'data-testid': 'subtitle-text',
-    };
-    const buttonCloseAttrs: SidePanelProps['buttonCloseAttrs'] = {
-      'data-testid': 'close-button',
-      ariaLabel: 'close modal',
-    };
-    const iconCloseAttrs: SidePanelProps['iconCloseAttrs'] = {
-      'data-testid': 'close-icon',
-      icon: 'close',
-    };
-    const contentAttrs: SidePanelProps['contentAttrs'] = {
-      'data-testid': 'content-element',
-    };
-    const heading = 'Acute viral throat infection';
+    const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
+    const title: SidePanelProps['title'] = 'Acute viral throat infection';
+    const subtitle: SidePanelProps['subtitle'] = '${SidePanelShowingDetails?.args?.subtitle}';
     const evidence = 'Moderate evidence';
-    
-    const toggleSidePanel = () => {
-      modelValue.value = !modelValue.value;
-    };
+
     </script>
     
     <style lang="scss">
@@ -2111,76 +1595,76 @@ export const SidePanelWithForm: SidePanelStoryType = {
       };
     },
     template: `<component :is="UiSidePanel">
-    <div class="report-an-issue">
-      <form @submit.prevent>
-        <UiText class="mb-6">What's wrong with this question?</UiText>
-        <UiFormField class="report-an-issue__issues">
-          <UiList>
-            <template
-              v-for="option in options"
-              :key="option"
-            >
-              <UiListItem>
-                <UiCheckbox
-                  v-model="selected"
-                  :value="option"
-                  :disabled="isProcessing"
-                  :class="{
-                    'ui-checkbox--is-disabled': isProcessing,
-                  }"
-                >
-                  {{ option }}
-                </UiCheckbox>
-              </UiListItem>
-            </template>
-          </UiList>
-        </UiFormField>
-        <UiFormField
-          id="report-issue-textarea"
-          label="Describe details"
-          :hint="false"
-          :errorMessage="false"
-        >
-          <UiTextarea
-            id="comment"
-            resize="vertical"
-            :disabled="isProcessing"
+      <div class="report-an-issue">
+        <form @submit.prevent>
+          <UiText
             class="mb-6"
-          />
-        </UiFormField>
-        <div class="report-an-issue__actions mb-6">
-          <UiButton
-            type="submit"
-            class="report-an-issue__submit me-5"
-            :class="{ 'report-an-issue__submit--disabled': isProcessing }"
-            :disabled="isProcessing"
           >
-            <UiLoader
-              v-if="isProcessing"
-              type="ellipsis"
-              transition="fade"
-              tag="div"
-              class="report-an-issue__submit-loader"
+            What's wrong with this question?
+          </UiText>
+          <UiFormField>
+            <UiList>
+              <template
+                v-for="option in options"
+                :key="option"
+              >
+                <UiListItem>
+                  <UiCheckbox
+                    v-model="selected"
+                    :value="option"
+                    :disabled="isProcessing"
+                    :class="{
+                      'ui-checkbox--is-disabled': isProcessing,
+                    }"
+                  >
+                    {{ option }}
+                  </UiCheckbox>
+                </UiListItem>
+              </template>
+            </UiList>
+          </UiFormField>
+          <UiFormField
+            id="report-issue-textarea"
+            label="Describe details"
+            :hint="false"
+            :errorMessage="false"
+          >
+            <UiTextarea
+              id="comment"
+              resize="vertical"
+              :disabled="isProcessing"
+              class="mb-6"
             />
-            <span
-              class="report-an-issue__submit-label"
-              :class="{ 'report-an-issue__submit-label--hidden': isProcessing }"
+          </UiFormField>
+          <div class="report-an-issue__actions mb-6">
+            <UiButton
+              type="submit"
+              class="me-5"
+              :disabled="isProcessing"
             >
-              Submit
-            </span>
-          </UiButton>
-          <UiButton
-            type="button"
-            class="report-an-issue__cancel ui-button--text"
-            :class="{ 'ui-button--is-disabled': isProcessing }"
-            :disabled="isProcessing"
-          >
-            Cancel
-          </UiButton>
-        </div>
-      </form>
-    </div>
-  </component>`,
+              <UiLoader
+                v-if="isProcessing"
+                type="ellipsis"
+                transition="fade"
+                tag="div"
+                class="report-an-issue__submit-loader"
+              />
+              <span>
+                Submit
+              </span>
+            </UiButton>
+            <UiButton
+              type="button"
+              class="ui-button--text"
+              :class="{ 'ui-button--is-disabled': isProcessing }"
+              :disabled="isProcessing"
+            >
+              Cancel
+            </UiButton>
+          </div>
+        </form>
+      </div>
+    </component>`,
   }),
 };
 SidePanelWithForm.parameters = {
@@ -2191,23 +1675,20 @@ SidePanelWithForm.parameters = {
         v-model="modelValue"
         :title="title"
         :subtitle="subtitle"
-        :transition-backdrop-attrs="transitionBackdropAttrs"
-        :backdrop-attrs="backdropAttrs"
-        :transition-dialog-attrs="transitionDialogAttrs"
-        :heading-title-attrs="headingTitleAttrs"
-        :text-subtitle-attrs="textSubtitleAttrs"
-        :button-close-attrs="buttonCloseAttrs"
-        :icon-close-attrs="iconCloseAttrs"
-        :dialog-attrs="dialogAttrs"
-        :content-attrs="contentAttrs"
-        class="loading-side-panel"
       >
         <div class="report-an-issue">
           <form @submit.prevent>
-            <UiText class="mb-6">What's wrong with this question?</UiText>
-            <UiFormField class="report-an-issue__issues">
+            <UiText
+              class="mb-6"
+            >
+              What's wrong with this question?
+            </UiText>
+            <UiFormField>
               <UiList>
-                <template v-for="option in options" :key="option">
+                <template
+                  v-for="option in options"
+                  :key="option"
+                >
                   <UiListItem>
                     <UiCheckbox
                       v-model="selected"
@@ -2239,8 +1720,7 @@ SidePanelWithForm.parameters = {
             <div class="report-an-issue__actions mb-6">
               <UiButton
                 type="submit"
-                class="report-an-issue__submit me-5"
-                :class="{ 'report-an-issue__submit--disabled': isProcessing }"
+                class="me-5"
                 :disabled="isProcessing"
               >
                 <UiLoader
@@ -2250,16 +1730,13 @@ SidePanelWithForm.parameters = {
                   tag="div"
                   class="report-an-issue__submit-loader"
                 />
-                <span
-                  class="report-an-issue__submit-label"
-                  :class="{ 'report-an-issue__submit-label--hidden': isProcessing }"
-                >
+                <span>
                   Submit
                 </span>
               </UiButton>
               <UiButton
                 type="button"
-                class="report-an-issue__cancel ui-button--text"
+                class="ui-button--text"
                 :class="{ 'ui-button--is-disabled': isProcessing }"
                 :disabled="isProcessing"
               >
@@ -2272,7 +1749,10 @@ SidePanelWithForm.parameters = {
     </template>
     
     <script setup lang="ts">
-    import { ref, onMounted } from 'vue';
+    import {
+      ref,
+      onMounted,
+    } from 'vue';
     import {
       UiButton,
       UiCheckbox,
@@ -2289,38 +1769,9 @@ SidePanelWithForm.parameters = {
     import UiListItem from '@infermedica/component-library/src/components/organisms/UiList/_internal/UiListItem.vue';
     import type { SidePanelProps } from '@infermedica/component-library';
     
-    const modelValue = ref<SidePanelProps['modelValue']>(true);
-    const title: SidePanelProps['title'] = 'Show Details';
-    const subtitle: SidePanelProps['subtitle'] = 'Acute viral pharyngitis';
-    const transitionBackdropAttrs: SidePanelProps['transitionBackdropAttrs'] = {
-      'data-testid': 'backdrop-transition',
-    };
-    const backdropAttrs: SidePanelProps['backdropAttrs'] = {
-      'data-testid': 'backdrop',
-    };
-    const dialogAttrs: SidePanelProps['dialogAttrs'] = {
-      'data-testid': 'dialog-element',
-    };
-    const transitionDialogAttrs: SidePanelProps['transitionDialogAttrs'] = {
-      'data-testid': 'dialog-transition',
-    };
-    const headingTitleAttrs: SidePanelProps['headingTitleAttrs'] = {
-      'data-testid': 'title-heading',
-    };
-    const textSubtitleAttrs: SidePanelProps['textSubtitleAttrs'] = {
-      'data-testid': 'subtitle-text',
-    };
-    const buttonCloseAttrs: SidePanelProps['buttonCloseAttrs'] = {
-      'data-testid': 'close-button',
-      ariaLabel: 'close modal',
-    };
-    const iconCloseAttrs: SidePanelProps['iconCloseAttrs'] = {
-      'data-testid': 'close-icon',
-      icon: 'close',
-    };
-    const contentAttrs: SidePanelProps['contentAttrs'] = {
-      'data-testid': 'content-element',
-    };
+    const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
+    const title: SidePanelProps['title'] = '${SidePanelWithForm?.args?.title}';
+    const subtitle: SidePanelProps['subtitle'] = '${SidePanelWithForm?.args?.subtitle}';
     const options = [
       "It's too long",
       'It seems to be unrelated to me',
@@ -2333,15 +1784,12 @@ SidePanelWithForm.parameters = {
     const selected = ref([]);
     const isProcessing = ref(true);
     
-    const toggleSidePanel = () => {
-      modelValue.value = !modelValue.value;
-    };
-    
     onMounted(() =>
       window.setTimeout(() => {
         isProcessing.value = false;
       }, 1000)
     );
+
     </script>
     
     <style lang="scss">
