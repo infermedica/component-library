@@ -109,7 +109,7 @@ const TOS = {
   </UiBulletPoints>`,
 };
 const meta = {
-  title: 'Organisms/UiSidePanelTS',
+  title: 'Organisms/SidePanel',
   component: UiSidePanel,
   args: {
     modelValue: true,
