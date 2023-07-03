@@ -1,3 +1,4 @@
+import upperCamelCase from "uppercamelcase";
 import {
   modifiers as argTypesModifiers,
   variable as argTypesVariable
@@ -42,18 +43,23 @@ export function useArgTypes(component, options = { variables: {}}) {
         category: 'Attrs Props'
       }
     }
+    return {
+      category: 'Props'
+    }
   }
   const props = (()=> {
     return __docgenInfo?.props
       ?.reduce(
-        (object, { name, type }) => {
+        (object, { name, type, description }) => {
           const control = getControl(type)
           const table = getTable(name);
           return {
             ...object,
             [name]: {
+              name,
               control,
-              table
+              table,
+              description,
             }
           }
         },
@@ -73,11 +79,19 @@ export function useArgTypes(component, options = { variables: {}}) {
     return __docgenInfo?.slots
       ?.reduce(
         (object, { name, description, bindings = [ { name: 'unknown '} ] }) => {
+          let keyName = name;
+          if(__docgenInfo?.props.find(({name: propsName})=>{
+            return propsName === name
+          })) {
+            keyName += 'Slot'
+          }
           if ( !description ) {
             return {
               ...object,
-              [name]: {
+              [keyName]: {
+                name,
                 table: {
+                  category: 'slots',
                   disable: true,
                 }
               }
@@ -86,9 +100,12 @@ export function useArgTypes(component, options = { variables: {}}) {
 
           return {
             ...object,
-            [name]: {
+            [keyName]: {
+              name,
+              description,
               control: false,
               table: {
+                category: 'slots',
                 type: {
                   summary: getBindings(bindings),
                 }
@@ -103,8 +120,14 @@ export function useArgTypes(component, options = { variables: {}}) {
     switch (action) {
       case 'update:modelValue':
         return 'onUpdate:modelValue'
+      case 'after-enter': {
+        return 'onAfterEnter'
+      }
       default:
-        return action
+        if(action.includes(/$On/gm)){
+          return action
+        }
+        return `On${upperCamelCase(action)}`
     }
   }
   const events = (() => {
