@@ -1,0 +1,21 @@
+import { Canvas, Meta, Controls } from "@storybook/blocks";
+import { MetaActions } from "../../../../docs/components";
+import * as UiSimpleQuestionStories from './UiSimpleQuestion.stories.ts';
+
+<Meta of={ UiSimpleQuestionStories } />
+
+# SimpleQuestion
+<MetaActions stories={ UiSimpleQuestionStories } />
+{/* TODO: add description */}
+
+<Canvas of={ UiSimpleQuestionStories.Basic } />
+<Controls of={ UiSimpleQuestionStories.Basic } />
+
+# Stories
+## Small
+{/* TODO: add description */}
+<Canvas of={ UiSimpleQuestionStories.Small } />
+
+## With Tile Slot
+{/* TODO: add description */}
+<Canvas of={ UiSimpleQuestionStories.WithTileSlot } />
