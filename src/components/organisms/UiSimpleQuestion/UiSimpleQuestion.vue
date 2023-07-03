@@ -12,8 +12,8 @@
         @binding {SimpleQuestionItem} item
         @binding {TileModelValue} modelValue
         @binding {boolean} isTileSmall
-        @binding {funciton} tileItemAttrs
-        @binding {funciton} updateHandler
+        @binding {function} tileItemAttrs
+        @binding {function} updateHandler
        -->
       <slot
         name="tile"
