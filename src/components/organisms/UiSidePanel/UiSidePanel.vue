@@ -242,7 +242,9 @@ export interface SidePanelProps {
 }
 export type SidePanelAttrsProps = DefineAttrsProps<SidePanelProps>;
 export interface SidePanelEmits {
+  /** Use this event to toggle visibility of UiSidePanel. */
   (e: 'update:modelValue', value: boolean): void;
+  /** Use this event to do something after transition has finished. */
   (e: 'after-enter'): void;
 }
 
