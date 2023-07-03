@@ -1,87 +1,47 @@
 <template>
-  <UiContainer class="ui-controls">
-    <!-- @slot Use this slot to replace container content. -->
-    <slot name="container">
-      <div
-        v-bind="containerAttrs"
-        class="ui-controls__container"
-      >
-        <!-- @slot Use this slot to place container content. -->
-        <slot />
-      </div>
-    </slot>
-    <!-- @slot Use this slot to replace bottom template. -->
-    <slot
-      name="bottom"
-      v-bind="{
-        toNext,
-        hideNextButton,
-        buttonNextAttrs: defaultProps.buttonNextAttrs,
-        invalid,
-        toBack,
-        iconBackAttrs: defaultProps.iconBackAttrs,
-        buttonBackAttrs: defaultProps.buttonBackAttrs,
-        translation: defaultProps.translation,
-      }"
+  <UiContainer
+    :class="[
+      'ui-controls',
+      `ui-controls--${layout}`,
+    ]"
+  >
+    <component
+      :is="layoutComponent"
+      v-bind="layoutProps"
     >
-      <div class="ui-controls__bottom">
-        <!-- @slot Use this slot to replace next template. -->
+      <template
+        v-for="(_, name) in proxySlots"
+        #[name]="data"
+      >
         <slot
-          name="next"
-          v-bind="{
-            toNext,
-            hideNextButton,
-            buttonNextAttrs: defaultProps.buttonNextAttrs,
-            invalid,
-            translation: defaultProps.translation
-          }"
+          :name="name"
+          v-bind="data"
+        />
+      </template>
+      <!-- @slot Use this slot to replace container content. -->
+      <slot name="container">
+        <div
+          v-bind="containerAttrs"
+          class="ui-controls__container"
         >
-          <UiButton
-            v-if="toNext && !hideNextButton"
-            v-bind="defaultProps.buttonNextAttrs"
-            class="ui-controls__next"
-            :class="{ 'ui-button--is-disabled': invalid }"
-          >
-            {{ defaultProps.translation?.next }}
-          </UiButton>
-          <span
-            v-else
-          />
-        </slot>
-        <!-- @slot Use this slot to replace back template. -->
-        <slot
-          name="back"
-          v-bind="{
-            hideBackButton,
-            toBack,
-            buttonBackAttrs: defaultProps.buttonBackAttrs,
-            iconBackAttrs: defaultProps.iconBackAttrs,
-            translation: defaultProps.translation
-          }"
-        >
-          <UiButton
-            v-if="toBack && !hideBackButton"
-            v-bind="defaultProps.buttonBackAttrs"
-            class="ui-button--text ui-controls__back"
-          >
-            <UiIcon
-              v-bind="defaultProps.iconBackAttrs"
-              class="ui-button__icon"
-            /> {{ defaultProps.translation?.back }}
-          </UiButton>
-        </slot>
-      </div>
-    </slot>
+          <!-- @slot Use this slot to place container content. -->
+          <slot />
+        </div>
+      </slot>
+    </component>
   </UiContainer>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import {
+  computed,
+  useSlots,
+} from 'vue';
 import UiContainer from '../UiContainer/UiContainer.vue';
+import UiControlsHorizontal from './_internal/layouts/UiControlsHorizontal.vue';
+import UiControlsVertical from './_internal/layouts/UiControlsVertical.vue';
 import type { ContainerAttrsProps } from '../UiContainer/UiContainer.vue';
-import UiButton from '../../atoms/UiButton/UiButton.vue';
 import type { ButtonAttrsProps } from '../../atoms/UiButton/UiButton.vue';
-import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import type { IconAttrsProps } from '../../atoms/UiIcon/UiIcon.vue';
 import type { DefineAttrsProps } from '../../../types';
 
@@ -90,7 +50,7 @@ export interface ControlsTranslation {
   next?: string;
 }
 export type ControlsNavigation = string | Record<string, unknown>;
-export interface ControlsProps {
+export interface ControlsCommonProps {
   /**
    * Use this props to move the responsibility to move to the next screen to question content.
    */
@@ -116,10 +76,6 @@ export interface ControlsProps {
    */
   translation?: ControlsTranslation;
   /**
-   *  Use this props to pass attrs to container element.
-   */
-  containerAttrs?: DefineAttrsProps<null>;
-  /**
    * Use this props to pass attrs for next UiButton.
    */
   buttonNextAttrs?: ButtonAttrsProps;
@@ -132,6 +88,14 @@ export interface ControlsProps {
    */
   iconBackAttrs?: IconAttrsProps;
 }
+export interface ControlsProps extends ControlsCommonProps {
+  /** Use this props to set direction of controls. */
+  layout?: 'horizontal' | 'vertical',
+  /**
+   *  Use this props to pass attrs to container element.
+   */
+  containerAttrs?: DefineAttrsProps<null>;
+}
 export type ControlsAttrsProps = DefineAttrsProps<ControlsProps, ContainerAttrsProps>
 export interface ControlsEmits {
   (e: 'has-error'): void;
@@ -143,6 +107,7 @@ const props = withDefaults(defineProps<ControlsProps>(), {
   toBack: '',
   toNext: '',
   invalid: true,
+  layout: 'horizontal',
   translation: () => ({
     back: 'Back',
     next: 'Next',
@@ -152,6 +117,16 @@ const props = withDefaults(defineProps<ControlsProps>(), {
   buttonBackAttrs: () => ({ to: '' }),
   iconBackAttrs: () => ({ icon: 'chevron-left' }),
 });
+const slots = useSlots();
+const proxySlots = Object.keys(slots).reduce((object, slot) => {
+  if (slot === 'default') {
+    return object;
+  }
+  return {
+    ...object,
+    [slot]: slots[slot],
+  };
+}, {});
 const emit = defineEmits<ControlsEmits>();
 const hasError = () => {
   emit('has-error');
@@ -183,6 +158,22 @@ const defaultProps = computed(() => {
     },
   };
 });
+const layoutComponent = computed(() => (
+  props.layout === 'horizontal'
+    ? UiControlsHorizontal
+    : UiControlsVertical
+));
+
+const layoutProps = computed(() => {
+  const {
+    layout, containerAttrs, ...rest
+  } = props;
+  return {
+    ...rest,
+    ...defaultProps.value,
+  };
+});
+
 </script>
 
 <style lang="scss">
@@ -190,6 +181,7 @@ const defaultProps = computed(() => {
 @use "../../../styles/mixins";
 
 .ui-controls {
+  $this: &;
   $element: controls;
 
   @include mixins.override-logical(container, null, padding, 0);
@@ -198,33 +190,29 @@ const defaultProps = computed(() => {
 
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 
   &__container {
     @include mixins.use-logical($element + "-container", padding, var(--space-32) var(--space-20));
 
     flex: 1;
+    align-self: stretch;
 
     @include mixins.from-tablet {
       @include mixins.use-logical($element + "-tablet-container", padding, var(--space-48) var(--space-64));
     }
   }
 
-  &__bottom {
-    @include mixins.use-logical($element + "-bottom", padding, var(--space-12) var(--space-20));
-    @include mixins.inner-border(
-      $element: $element + "-bottom",
-      $color:  var(--color-border-divider),
-      $width: 1px 0 0 0
-    );
+  &--vertical {
+    --container-box-shadow: transparent;
 
-    display: flex;
-    height: functions.var($element + "-bottom", height, 5rem);
-    flex-direction: row-reverse;
-    align-items: center;
-    justify-content: space-between;
+    & #{$this}__container {
+      @include mixins.use-logical($element + "-container", padding, 0);
+      @include mixins.use-logical($element + "-container", margin, var(--space-12) 0 var(--space-24) 0);
 
-    @include mixins.from-tablet {
-      @include mixins.use-logical($element + "-tablet-bottom", padding, var(--space-16) var(--space-32));
+      @include mixins.from-tablet {
+        @include mixins.use-logical($element + "-tablet-container", padding, 0);
+      }
     }
   }
 }
