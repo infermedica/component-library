@@ -44,7 +44,7 @@ export function useArgTypes(component, options = { variables: {}}) {
       }
     }
     return {
-      category: 'Props'
+      category: 'props'
     }
   }
   const props = (()=> {

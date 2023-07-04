@@ -1,8 +1,9 @@
 import {
   inject,
-  onMounted,
   provide,
   ref,
+  watch,
+  computed,
 } from 'vue';
 import {
   UiBackdrop,
@@ -20,15 +21,11 @@ import {
   UiSidePanel,
   UiText,
 } from '@index';
-import {
-  useArgTypes,
-  extendEvents,
-} from '@sb/helpers';
+import { useArgTypes } from '@sb/helpers';
 import type {
   Meta,
   StoryObj,
 } from '@storybook/vue3';
-import deepmerge from 'deepmerge';
 import type { SidePanelProps } from '@index';
 import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
@@ -44,70 +41,8 @@ type SidePanelArgsType = SidePanelProps;
 type SidePanelMetaType = Meta<SidePanelArgsType>;
 type SidePanelStoryType = StoryObj<SidePanelArgsType>;
 
-const events = extendEvents([
-  'update:modelValue',
-  'after-enter',
-]);
-const { argTypes } = useArgTypes(deepmerge(UiSidePanel, events));
+const { argTypes } = useArgTypes(UiSidePanel);
 
-const TOS = {
-  components: {
-    UiBulletPoints,
-    UiBulletPointsItem,
-    UiHeading,
-    UiLink,
-  },
-  template: `<UiHeading>
-    §1. General Provisions
-  </UiHeading>  
-  <UiBulletPoints
-    tag="ol"
-    class="tos"
-  >
-    <UiBulletPointsItem>
-      These Terms of Service specify:
-      <UiBulletPoints
-        tag="ol"
-        type="a"
-        class="ui-bullet-points--nested tos__sub-points"
-      >
-        <UiBulletPointsItem>
-          principles of operation of the website and the mobile application "<UiLink href="#">Symptomate.com</UiLink>",
-        </UiBulletPointsItem>
-        <UiBulletPointsItem>
-          rules on the provision of services by electronic means,
-        </UiBulletPointsItem>
-        <UiBulletPointsItem>
-          the rights and obligations of the Service Provider and the Service Recipients.
-        </UiBulletPointsItem>
-      </UiBulletPoints>
-    </UiBulletPointsItem>
-    <UiBulletPointsItem>
-      Whenever these Terms of Service refer to:
-      <UiBulletPoints
-        tag="ol"
-        type="a"
-        class="ui-bullet-points--nested tos__sub-points"
-      >
-        <UiBulletPointsItem>
-          Application, this means the software for portable devices, made available free of charge by the Service Provider referred to in sec. 2(l) below, enabling the use of the Services referred to in sec. 2(k) below,
-        </UiBulletPointsItem>
-        <UiBulletPointsItem>
-          Articles, this means articles referring to medical and pharmaceutical topics,
-        </UiBulletPointsItem>
-        <UiBulletPointsItem>
-          License, this means a non-exclusive, royalty-free license granted to Users referred to in sec. 2(m) below to use the Application or Website referred to in sec. 2(j) below,
-        </UiBulletPointsItem>
-        <UiBulletPointsItem>
-          Terms of Service, this means these Terms of Service,
-        </UiBulletPointsItem>
-        <UiBulletPointsItem>
-          GDPR, this means Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016 on the protection of individuals with regard to the processing of personal data and on the free movement of such data and repealing Directive 95/46/EC (General Data Protection Regulation) (OJ L 119, p. 1),
-        </UiBulletPointsItem>
-      </UiBulletPoints>
-    </UiBulletPointsItem>
-  </UiBulletPoints>`,
-};
 const meta = {
   title: 'Organisms/SidePanel',
   component: UiSidePanel,
@@ -119,6 +54,7 @@ const meta = {
     backdropAttrs: { 'data-testid': 'backdrop' },
     dialogAttrs: { 'data-testid': 'dialog-element' },
     transitionDialogAttrs: { 'data-testid': 'dialog-transition' },
+    labelAttrs: { 'data-testid': 'label-element' },
     headingTitleAttrs: { 'data-testid': 'title-heading' },
     textSubtitleAttrs: { 'data-testid': 'subtitle-text' },
     buttonCloseAttrs: {
@@ -131,241 +67,871 @@ const meta = {
     },
     contentAttrs: { 'data-testid': 'content-element' },
   },
-  argTypes: { ...argTypes },
-  decorators: [ (story, { args }) => ({
+  argTypes: {
+    ...argTypes,
+    modelValue: { control: 'boolean' },
+  },
+  decorators: [ () => ({
     components: { UiButton },
-    setup() {
-      const modelValue = ref(args.modelValue);
-      const toggleSidePanel = () => {
-        modelValue.value = !modelValue.value;
+    setup(props, { attrs }) {
+      const {
+        modelValue,
+        title,
+        ...args
+      } = attrs;
+      const value = ref(modelValue);
+      provide('value', value);
+      const handleSidePanelToggle = () => {
+        value.value = !value.value;
       };
-
-      provide('modelValue', modelValue);
-
       return {
-        toggleSidePanel,
-        title: args.title,
+        handleSidePanelToggle,
+        title,
+        args: {
+          ...args,
+          title,
+        },
       };
     },
     template: `<div class="max-w-32 min-h-80">
       <UiButton
         class="ui-button--text ui-button--theme-secondary"
-        @click="toggleSidePanel"
+        @click="handleSidePanelToggle"
       >
         {{ title }}
       </UiButton>
-      <story/>
+      <story v-bind="args"/>
     </div>`,
   }) ],
-  parameters: { chromatic: { disableSnapshot: true } },
+  parameters: {
+    chromatic: {
+      disableSnapshot: true,
+      viewports: [
+        320,
+        1200,
+      ],
+    },
+  },
 } satisfies SidePanelMetaType;
 
 export default meta;
 
-const TemplateStories = {
-  render: (args) => ({
-    inheritAttrs: false,
-    components: { UiSidePanel },
-    setup() {
-      const {
-        title,
-        subtitle,
-        transitionBackdropAttrs,
-        backdropAttrs,
-        dialogAttrs,
-        transitionDialogAttrs,
-        headingTitleAttrs,
-        textSubtitleAttrs,
-        buttonCloseAttrs,
-        iconCloseAttrs,
-        contentAttrs,
-        ...attrs
-      } = args;
+const TOS = {
+  components: {
+    UiHeading,
+    UiBulletPoints,
+    UiBulletPointsItem,
+    UiLink,
+  },
+  setup() {
+    const items = [
+      {
+        text: 'These Terms of Service specify:',
+        name: 'links',
+        children: {
+          class: 'tos__sub-points',
+          type: 'a',
+          items: [
+            {
+              name: 'link',
+              text: 'principles of operation of the website and the mobile application',
+            },
+            { text: 'rules on the provision of services by electronic means,' },
+            { text: 'the rights and obligations of the Service Provider and the Service Recipients,' },
+          ],
+        },
+      },
+      {
+        text: 'Whenever these Terms of Service refer to:',
+        children: {
+          class: 'tos__sub-points',
+          type: 'a',
+          items: [
+            { text: 'Application, this means the software for portable devices, made available free of charge by the Service Provider referred to in sec. 2(l) below, enabling the use of the Services referred to in sec. 2(k) below,' },
+            { text: 'Articles, this means articles referring to medical and pharmaceutical topics,' },
+            { text: 'License, this means a non-exclusive, royalty-free license granted to Users referred to in sec. 2(m) below to use the Application or Website referred to in sec. 2(j) below,' },
+          ],
+        },
+      },
+    ];
+    return { items };
+  },
+  template: `<UiHeading>
+    §1. General Provisions
+  </UiHeading>
+  <UiBulletPoints
+    tag="ol"
+    :items="items"
+    class="tos"
+  >
+    <template #links="{ item:{ children, text } }">
+      {{ text }}
+      <UiBulletPoints
+        :items="children.items"
+        :tag="children.tag"
+        :type="children.type"
+        :class="children.class"
+      >
+        <template #link="{ item: { text } }">
+          {{ text }}
+          <UiLink href="https://github.com/infermedica/component-library">
+            Component Library,
+          </UiLink>
+        </template>
+      </UiBulletPoints>
+    </template>
+  </UiBulletPoints>`,
+};
 
-      const modelValue = inject('modelValue');
+export const Basic: SidePanelStoryType = {
+  render: () => ({
+    inheritAttrs: false,
+    components: {
+      UiSidePanel,
+      TOS,
+    },
+    setup(props, { attrs }) {
+      const {
+        modelValue,
+        ...args
+      } = attrs;
+      const value = inject('value');
 
       return {
-        modelValue,
-        title,
-        subtitle,
-        transitionBackdropAttrs,
-        backdropAttrs,
-        dialogAttrs,
-        transitionDialogAttrs,
-        headingTitleAttrs,
-        textSubtitleAttrs,
-        buttonCloseAttrs,
-        iconCloseAttrs,
-        contentAttrs,
-        args: { ...attrs },
+        value,
+        args,
       };
     },
     template: `<UiSidePanel
-      v-model="modelValue"
-      :title="title"
-      :subtitle="subtitle"
-      :transition-backdrop-attrs="transitionBackdropAttrs"
-      :backdrop-attrs="backdropAttrs"
-      :transition-dialog-attrs="transitionDialogAttrs"
-      :heading-title-attrs="headingTitleAttrs"
-      :text-subtitle-attrs="textSubtitleAttrs"
-      :button-close-attrs="buttonCloseAttrs"
-      :icon-close-attrs="iconCloseAttrs"
-      :dialog-attrs="dialogAttrs"
-      :content-attrs="contentAttrs"
+      v-model="value"
+      v-bind="args"
     >
-      <template
-        v-for="(_, name) in $slots"
-        #[name]="data"
-      >
-        <slot
-          :name="name"
-          v-bind="data"
-        />
-      </template>
-    </UiSidePanel>`,
-  }),
-} satisfies SidePanelStoryType;
-
-export const Basic: SidePanelStoryType = {
-  render: (args) => ({
-    inheritAttrs: false,
-    components: { TOS },
-    setup() {
-      return { UiSidePanel: TemplateStories.render(args) };
-    },
-    template: `<component :is="UiSidePanel">
       <TOS/>
-    </component>`,
-
+    </UiSidePanel>`,
   }),
 };
 Basic.parameters = {
+  chromatic: { disableSnapshot: false },
   docs: {
     source: {
       code: `<template>
-      <UiSidePanel
-        v-model="modelValue"
-        :title="title"
-        :subtitle="subtitle"
-      >
-        <UiHeading> §1. General Provisions </UiHeading>
-        <UiBulletPoints tag="ol" class="tos">
-          <UiBulletPointsItem>
-            These Terms of Service specify:
-            <UiBulletPoints
-              tag="ol"
-              type="a"
-              class="ui-bullet-points--nested tos__sub-points"
-            >
-              <UiBulletPointsItem>
-                principles of operation of the website and the mobile application
-                "<UiLink href="#">Symptomate.com</UiLink>",
-              </UiBulletPointsItem>
-              <UiBulletPointsItem>
-                rules on the provision of services by electronic means,
-              </UiBulletPointsItem>
-              <UiBulletPointsItem>
-                the rights and obligations of the Service Provider and the Service
-                Recipients.
-              </UiBulletPointsItem>
-            </UiBulletPoints>
-          </UiBulletPointsItem>
-          <UiBulletPointsItem>
-            Whenever these Terms of Service refer to:
-            <UiBulletPoints
-              tag="ol"
-              type="a"
-              class="ui-bullet-points--nested tos__sub-points"
-            >
-              <UiBulletPointsItem>
-                Application, this means the software for portable devices, made
-                available free of charge by the Service Provider referred to in sec.
-                2(l) below, enabling the use of the Services referred to in sec.
-                2(k) below,
-              </UiBulletPointsItem>
-              <UiBulletPointsItem>
-                Articles, this means articles referring to medical and
-                pharmaceutical topics,
-              </UiBulletPointsItem>
-              <UiBulletPointsItem>
-                License, this means a non-exclusive, royalty-free license granted to
-                Users referred to in sec. 2(m) below to use the Application or
-                Website referred to in sec. 2(j) below,
-              </UiBulletPointsItem>
-              <UiBulletPointsItem>
-                Terms of Service, this means these Terms of Service,
-              </UiBulletPointsItem>
-              <UiBulletPointsItem>
-                GDPR, this means Regulation (EU) 2016/679 of the European Parliament
-                and of the Council of 27 April 2016 on the protection of individuals
-                with regard to the processing of personal data and on the free
-                movement of such data and repealing Directive 95/46/EC (General Data
-                Protection Regulation) (OJ L 119, p. 1),
-              </UiBulletPointsItem>
-            </UiBulletPoints>
-          </UiBulletPointsItem>
-        </UiBulletPoints>
-      </UiSidePanel>
-    </template>
-    
-    <script setup lang="ts">
-    import { ref } from 'vue';
-    import {
-      UiBulletPoints,
-      UiHeading,
-      UiLink,
-      UiSidePanel,
-    } from '@infermedica/component-library';
-    import UiBulletPointsItem from '@infermedica/component-library/src/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue';
-    import type { SidePanelProps } from '@infermedica/component-library';
-    
-    const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
-    const title: SidePanelProps['title'] = '${meta.args.title}';
-    const subtitle: SidePanelProps['subtitle'] = '${meta.args.subtitle}';
+  <UiSidePanel
+    v-model="modelValue"
+    :title="title"
+    :subtitle="subtitle"
+  >
+    <!-- Use default slot to place side panel content. -->
+  </UiSidePanel>
+</template>
 
-    </script>
-      `,
+<script setup lang="ts">
+import { ref } from 'vue';
+import { UiSidePanel } from '@infermedica/component-library';
+import type { SidePanelProps } from '@infermedica/component-library';
+
+const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
+const title: SidePanelProps['title'] = '${meta.args.title}';
+const subtitle: SidePanelProps['subtitle'] = '${meta.args.subtitle}';
+</script>`,
+    },
+  },
+};
+
+export const AsyncContent: SidePanelStoryType = {
+  render: () => ({
+    inheritAttrs: false,
+    components: {
+      UiSidePanel,
+      UiLoader,
+      TOS,
+    },
+    setup(props, { attrs }) {
+      const {
+        modelValue,
+        ...args
+      } = attrs;
+      const value = inject('value');
+      const isLoading = ref(true);
+      watch(
+        value,
+        (isSidePanelOpen) => {
+          if (isSidePanelOpen) {
+            setTimeout(() => {
+              isLoading.value = false;
+            }, 1000);
+          } else {
+            isLoading.value = true;
+          }
+        },
+        { immediate: true },
+      );
+
+      return {
+        value,
+        args,
+        isLoading,
+      };
+    },
+    template: `<UiSidePanel
+      v-model="value"
+      v-bind="args"
+    >
+      <UiLoader
+        :isLoading="isLoading"
+        type="skeleton"
+      >
+        <TOS />
+      </UiLoader>
+    </UiSidePanel>`,
+  }),
+};
+AsyncContent.parameters = {
+  docs: {
+    source: {
+      code: `<template>
+  <UiSidePanel
+    v-model="modelValue"
+    :title="title"
+    :subtitle="subtitle"
+  >
+    <UiLoader
+      :isLoading="isLoading"
+      type="skeleton"
+    >
+        <!-- Use default slot to place side panel content. -->
+    </UiLoader>
+  </UiSidePanel>
+</template>
+
+<script setup lang="ts">
+import { 
+  ref,
+  onMounted
+} from 'vue';
+import { 
+  UiSidePanel,
+  UiLoader,
+} from '@infermedica/component-library';
+import type { 
+  SidePanelProps,
+  LoaderProps,
+} from '@infermedica/component-library';
+
+const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
+const title: SidePanelProps['title'] = '${meta.args.title}';
+const subtitle: SidePanelProps['subtitle'] = '${meta.args.subtitle}';
+const isLoading = ref<LoaderProps['isLoading']>(true);
+
+// TODO: remove in production code / BEGIN
+onMounted(() => {
+  setTimeout(()=>{
+    isLoading.value = false;
+  }}, 1000)
+});
+// END
+</script>`,
+    },
+  },
+};
+
+export const ConditionDetails: SidePanelStoryType = {
+  render: () => ({
+    inheritAttrs: false,
+    components: {
+      UiSidePanel,
+      UiProgress,
+      UiText,
+      UiHeading,
+      UiIcon,
+      UiButton,
+    },
+    setup(props, { attrs }) {
+      const {
+        modelValue,
+        ...args
+      } = attrs;
+      const value = inject('value');
+      const isShowMoreOpen = ref(false);
+      const handleShowMoreClick = () => {
+        isShowMoreOpen.value = !isShowMoreOpen.value;
+      };
+
+      return {
+        value,
+        args,
+        isShowMoreOpen,
+        handleShowMoreClick,
+      };
+    },
+    template: `<UiSidePanel
+      v-model="value"
+      v-bind="args"
+      class="side-panel-with-condition-details"
+    >
+      <template #title="{ title }">
+        <div class="side-panel-with-condition-details__byline">
+          <UiProgress :value="100"/>
+          <UiText class="ui-text--body-2-comfortable">
+            Strong evidence
+          </UiText>
+        </div>
+        <UiHeading>
+          {{ title }}
+        </UiHeading>
+      </template>
+      <template #default>
+        <div class="side-panel-with-condition-details-section">
+          <UiHeading class="side-panel-with-condition-details-section__title">
+            About
+          </UiHeading>
+          <UiHeading
+            level="4"
+            class="side-panel-with-condition-details-section__subtitle"
+          >
+            What is acute viral throat infection?
+          </UiHeading>
+          <template v-if="isShowMoreOpen">
+            <UiText class="side-panel-with-condition-details-section__paragraph">
+              Acute viral tonsillopharyngitis known as sore throat is an inflammation of throat and tonsils, caused by viral infection. It causes pain, discomfort, swelling in the throat, which can also be red and dry.
+            </UiText>
+            <UiText class="side-panel-with-condition-details-section__paragraph">
+              Other symptoms of pharyngitis may include painful swallowing, fever, bad breath, mild cough, joint pain, sneezing, headache, muscle aches, tender, swollen lymph nodes in the neck or runny nose.
+            </UiText>
+          </template>
+          <template v-else>
+            <UiText class="side-panel-with-condition-details-section__paragraph">Acute viral tonsillopharyngitis known as sore throat is an inflammation of throat and tonsils, caused by viral infection ...</UiText>
+          </template>
+          <UiButton
+              @click="handleShowMoreClick"
+              class="ui-button--text side-panel-with-condition-details-section__show-more"
+          >
+            <UiIcon 
+              :icon="isShowMoreOpen ? 'chevron-up' : 'chevron-down'" 
+              class="ui-button__icon"
+            />Show {{isShowMoreOpen ? 'less' : 'more'}}
+          </UiButton>
+        </div>
+      </template>
+    </UiSidePanel>`,
+  }),
+};
+ConditionDetails.args = {
+  title: 'Acute viral throat infection',
+  subtitle: 'Acute viral pharyngitis',
+  labelAttrs: { class: 'side-panel-with-condition-details__label' },
+  textSubtitleAttrs: { class: 'ui-text--theme-secondary' },
+};
+ConditionDetails.parameters = {
+  docs: {
+    source: {
+      code: `<template>
+  <UiSidePanel
+    v-model="modelValue"
+    :title="title"
+    :subtitle="subtitle"
+    class="side-panel-with-condition-details"
+  >
+    <template #title="{ title }">
+      <div class="side-panel-with-condition-details__byline">
+        <UiProgress :value="100"/>
+        <UiText class="ui-text--body-2-comfortable">
+          Strong evidence
+        </UiText>
+      </div>
+      <UiHeading>
+        {{ title }}
+      </UiHeading>
+    </template>
+    <template #default>
+      <div class="side-panel-with-condition-details-section">
+        <UiHeading class="side-panel-with-condition-details-section__title">
+          About
+        </UiHeading>
+        <UiHeading
+          level="4"
+          class="side-panel-with-condition-details-section__subtitle"
+        >
+          What is acute viral throat infection?
+        </UiHeading>
+        <template v-if="isShowMoreOpen">
+          <UiText class="side-panel-with-condition-details-section__paragraph">
+            Acute viral tonsillopharyngitis known as sore throat is an inflammation of throat and tonsils, caused by viral infection. It causes pain, discomfort, swelling in the throat, which can also be red and dry.
+          </UiText>
+          <UiText class="side-panel-with-condition-details-section__paragraph">
+            Other symptoms of pharyngitis may include painful swallowing, fever, bad breath, mild cough, joint pain, sneezing, headache, muscle aches, tender, swollen lymph nodes in the neck or runny nose.
+          </UiText>
+        </template>
+        <template v-else>
+          <UiText class="side-panel-with-condition-details-section__paragraph">Acute viral tonsillopharyngitis known as sore throat is an inflammation of throat and tonsils, caused by viral infection ...</UiText>
+        </template>
+        <UiButton
+            @click="handleShowMoreClick"
+            class="ui-button--text side-panel-with-condition-details-section__show-more"
+        >
+          <UiIcon 
+            :icon="isShowMoreOpen ? 'chevron-up' : 'chevron-down'" 
+            class="ui-button__icon"
+          />Show {{ isShowMoreOpen ? 'less' : 'more' }}
+        </UiButton>
+      </div>
+    </template>
+  </UiSidePanel>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import { 
+  UiSidePanel,
+  UiProgress,
+  UiText,
+  UiHeading,
+  UiIcon,
+  UiButton,
+} from '@infermedica/component-library';
+import type { SidePanelProps } from '@infermedica/component-library';
+
+const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
+const title: SidePanelProps['title'] = '${ConditionDetails.args.title}';
+const subtitle: SidePanelProps['subtitle'] = '${ConditionDetails.args.subtitle}';
+const labelAttr: SidePanelProps['labelAttrs'] = '${ConditionDetails.args.labelAttrs}';
+const textSubtitleAttrs: SidePanelProps['textSubtitleAttrs'] = '${ConditionDetails.args.textSubtitleAttrs}';
+const isShowMoreOpen = ref(false);
+const handleShowMoreClick = () => {
+  isShowMoreOpen.value = !isShowMoreOpen.value;
+};
+</script>
+
+<style lang="scss">
+@use "@infermedica/component-library/mixins";
+
+.side-panel-with-condition-details {
+  &__label {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  &__byline {
+    display: grid;
+    grid-template-columns: 4rem 1fr;
+    align-items: center;
+    gap: var(--space-12);
+  }
+
+  &-section {
+    @include mixins.inner-border(
+      'side-panel-with-condition-details-section',
+      $color: var(--color-border-subtle),
+      $width: 0 0 1px 0,
+      $radius: 0
+    );
+
+    &__title {
+      margin-block-end: var(--space-12);
+    }
+
+    &__paragraph {
+      margin-block-start: var(--space-12);
+    }
+
+    &__show-more {
+      margin-block: var(--space-24) var(--space-32);
+    }
+  }
+}
+</style>`,
+    },
+  },
+};
+
+export const ReportAnIssue: SidePanelStoryType = {
+  render: () => ({
+    inheritAttrs: false,
+    components: {
+      UiSidePanel,
+      UiText,
+      UiFormField,
+      UiList,
+      UiCheckbox,
+      UiTextarea,
+      UiButton,
+    },
+    setup(props, { attrs }) {
+      const {
+        modelValue,
+        ...args
+      } = attrs;
+      const value = inject('value');
+      const options = [
+        {
+          name: 'too-long',
+          label: 'It\'s too long',
+        },
+        {
+          name: 'unrelated',
+          label: 'It seems to be unrelated to me',
+        },
+        {
+          name: 'complex',
+          label: 'It contains complex words',
+        },
+        {
+          name: 'answered',
+          label: 'I\'ve already answered this question',
+        },
+        {
+          name: 'which-answer-to-choose',
+          label: 'I can\'t decide which answer to choose',
+        },
+        {
+          name: 'typo',
+          label: 'I found a typo',
+        },
+        {
+          name: 'other',
+          label: 'Other (please comment below)',
+        },
+      ].map((option) => ({
+        ...option,
+        listItemAttrs: { class: 'side-panel-with-report-an-issue__option' },
+      }));
+      const selected = ref([]);
+      const isProcessing = ref(false);
+      const isTouched = ref(false);
+      const errorMessage = computed(() => (
+        selected.value.length > 0 || !isTouched.value
+          ? false
+          : 'Please select at least one issue.'
+      ));
+      const handleReportAnIssueSubmit = () => {
+        isTouched.value = true;
+        if (!errorMessage.value) {
+          isProcessing.value = true;
+          setTimeout(() => {
+            isProcessing.value = false;
+          }, 1000);
+        }
+      };
+
+      return {
+        value,
+        args,
+        options,
+        selected,
+        isProcessing,
+        errorMessage,
+        handleReportAnIssueSubmit,
+      };
+    },
+    template: `<UiSidePanel
+      v-model="value"
+      v-bind="args"
+      class="side-panel-with-report-an-issue"
+    >
+      <form @submit.prevent="handleReportAnIssueSubmit">
+        <UiText>
+          What's wrong with this question?
+        </UiText>
+        <UiFormField 
+          :error-message="errorMessage"
+          :alert-attrs="{
+            class: 'side-panel-with-report-an-issue__alert'
+          }"
+        >
+          <UiList
+            :items="options"
+            class="side-panel-with-report-an-issue__options"
+          >
+            <template
+              v-for="({name}, key) in options"
+              #[name]="{item: { label }}"
+              :key="key"
+            >
+              <UiCheckbox
+                v-model="selected"
+                :value="label"
+                :disabled="isProcessing"
+                :class="{
+                  'ui-checkbox--is-disabled': isProcessing,
+                }"
+              >
+                {{ label }}
+              </UiCheckbox>
+            </template>
+          </UiList>
+        </UiFormField>
+        <UiFormField
+          :errorMessage="false"
+          message="Describe details"
+          hint="Optional"
+          class="side-panel-with-report-an-issue__details"
+        >
+          <template #default="{id}">
+            <UiTextarea
+              :id="id"
+              :disabled="isProcessing"
+            />
+          </template>
+        </UiFormField>
+        <div class="side-panel-with-report-an-issue__actions">
+          <UiButton
+            type="submit"
+            :class="{'ui-button--is-disabled': isProcessing}"
+            :disabled="isProcessing"
+          >
+            <UiLoader
+              :is-loading="isProcessing"
+              type="ellipsis"
+              transition-type="opacity"
+              :transition-attrs="{ name: '' }"
+            >
+              <span>Submit</span>
+            </UiLoader>
+          </UiButton>
+          <UiButton
+            type="button"
+            :class="['ui-button--text', { 'ui-button--is-disabled': isProcessing }]"
+            :disabled="isProcessing"
+          >
+            Cancel
+          </UiButton>
+        </div>
+      </form>
+    </UiSidePanel>`,
+  }),
+};
+ReportAnIssue.args = {
+  title: 'Report an issue',
+  subtitle: '',
+};
+ReportAnIssue.parameters = {
+  docs: {
+    source: {
+      code: `<template>
+  <UiSidePanel
+    v-model="modelValue"
+    :title="title"
+    class="side-panel-with-report-an-issue"
+  >
+    <form @submit.prevent="handleReportAnIssueSubmit">
+      <UiText>
+        What's wrong with this question?
+      </UiText>
+      <UiFormField 
+        :error-message="errorMessage"
+        :alert-attrs="{
+          class: 'side-panel-with-report-an-issue__alert'
+        }"
+      >
+        <UiList
+          :items="options"
+          class="side-panel-with-report-an-issue__options"
+        >
+          <template
+            v-for="({name}, key) in options"
+            #[name]="{item: { label }}"
+            :key="key"
+          >
+            <UiCheckbox
+              v-model="selected"
+              :value="label"
+              :disabled="isProcessing"
+              :class="{
+                'ui-checkbox--is-disabled': isProcessing,
+              }"
+            >
+              {{ label }}
+            </UiCheckbox>
+          </template>
+        </UiList>
+      </UiFormField>
+      <UiFormField
+        :errorMessage="false"
+        message="Describe details"
+        hint="Optional"
+        class="side-panel-with-report-an-issue__details"
+      >
+        <template #default="{ id }">
+          <UiTextarea
+            :id="id"
+            :disabled="isProcessing"
+          />
+        </template>
+      </UiFormField>
+      <div class="side-panel-with-report-an-issue__actions">
+        <UiButton
+          type="submit"
+          :class="{'ui-button--is-disabled': isProcessing}"
+          :disabled="isProcessing"
+        >
+          <UiLoader
+            :is-loading="isProcessing"
+            type="ellipsis"
+            transition-type="opacity"
+            :transition-attrs="{ name: '' }"
+          >
+            <span>Submit</span>
+          </UiLoader>
+        </UiButton>
+        <UiButton
+          type="button"
+          :class="['ui-button--text', { 'ui-button--is-disabled': isProcessing }]"
+          :disabled="isProcessing"
+        >
+          Cancel
+        </UiButton>
+      </div>
+    </form>
+  </UiSidePanel>
+</template>
+
+<script setup lang="ts">
+import { 
+  ref,
+  computed,
+} from 'vue';
+import { 
+  UiSidePanel,
+  UiText,
+  UiFormField,
+  UiList,
+  UiCheckbox,
+  UiTextarea,
+  UiButton,
+} from '@infermedica/component-library';
+import type { 
+  SidePanelProps,
+  ListItem,
+} from '@infermedica/component-library';
+
+const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
+const title: SidePanelProps['title'] = '${ReportAnIssue.args.title}';
+const options = ListItem['items'] = [
+    {
+      name: 'too-long',
+      label: 'It\'s too long',
+    },
+    {
+      name: 'unrelated',
+      label: 'It seems to be unrelated to me',
+    },
+    {
+      name: 'complex',
+      label: 'It contains complex words',
+    },
+    {
+      name: 'answered',
+      label: 'I\'ve already answered this question',
+    },
+    {
+      name: 'which-answer-to-choose',
+      label: 'I can\'t decide which answer to choose',
+    },
+    {
+      name: 'typo',
+      label: 'I found a typo',
+    },
+    {
+      name: 'other',
+      label: 'Other (please comment below)',
+    },
+  ].map((option) => ({
+    ...option,
+    listItemAttrs: { class: 'side-panel-with-report-an-issue__option' },
+  }));
+const selected = ref([]);
+const isProcessing = ref(false);
+const isTouched = ref(false);
+const errorMessage = computed(() => (
+  selected.value.length > 0 
+  || !isTouched.value 
+    ? false 
+    : 'Please select at least one issue.'
+));
+const handleReportAnIssueSubmit = () => {
+  isTouched.value = true;
+  if (!errorMessage.value) {
+    isProcessing.value = true;
+    // TODO: remove in production code / BEGIN
+    setTimeout(() => {
+      isProcessing.value = false;
+    }, 1000);
+    // END
+  }
+};
+</script>
+
+<style lang="scss">
+.side-panel-with-report-an-issue {
+  &__options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+    margin-block-start: var(--space-24)
+  }
+
+  &__option {
+    --list-item-content-padding-block: 0;
+    --list-item-content-padding-inline: 0;
+    --list-item-tablet-content-padding-block: 0;
+    --list-item-tablet-content-padding-inline: 0;
+    --list-item-border-block-width: 0;
+    --list-item-content-hover-background: transparent;
+  }
+
+  &__details {
+    margin-block: var(--space-32);
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-32);
+  }
+
+  &__alert {
+    --form-field-alert-margin-block-start: var(--space-24);
+  }
+}
+</style>`,
     },
   },
 };
 
 export const WithLabelSlot: SidePanelStoryType = {
-  args: {
-    ...Basic.args,
-    title: 'For Business',
-  },
-  render: (args) => ({
+  render: () => ({
     inheritAttrs: false,
     components: {
+      UiSidePanel,
       UiHeading,
       UiText,
+      TOS,
     },
-    setup() {
+    setup(props, { attrs }) {
       const {
-        title,
-        subtitle,
-        headingTitleAttrs,
-        textSubtitleAttrs,
-      } = args;
+        modelValue,
+        ...args
+      } = attrs;
+      const value = inject('value');
 
       return {
-        UiSidePanel: TemplateStories.render(args),
-        title,
-        subtitle,
-        headingTitleAttrs,
-        textSubtitleAttrs,
+        value,
+        args,
       };
     },
-    template: `<component :is="UiSidePanel">
+    template: `<UiSidePanel
+      v-model="value"
+      v-bind="args"
+    >
       <template #label="{
         title,
         subtitle,
         headingTitleAttrs,
         textSubtitleAttrs,
+        labelAttrs,
       }">
         <div
           v-if="title || subtitle"
+          v-bind="labelAttrs"
           class="ui-side-panel__label"
         >
           <UiHeading
@@ -383,764 +949,40 @@ export const WithLabelSlot: SidePanelStoryType = {
           </UiText>
         </div>
       </template>
-      <UiText>
-        Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage
-      </UiText>
-    </component>`,
+      <template #default>
+        <TOS/>
+      </template>
+    </UiSidePanel>`,
   }),
 };
 WithLabelSlot.parameters = {
+  chromatic: { disableSnapshot: false },
   docs: {
     source: {
       code: `<template>
-      <UiSidePanel
-        v-model="modelValue"
-        :title="title"
-        :subtitle="subtitle"
-      >
-        <template #label="{
-            title,
-            subtitle,
-            headingTitleAttrs,
-            textSubtitleAttrs
-          }"
-        >
-          <div
-            v-if="title || subtitle"
-            class="ui-side-panel__label"
-          >
-            <UiHeading
-              v-if="title"
-              v-bind="headingTitleAttrs"
-            >
-              {{ title }}
-            </UiHeading>
-            <UiText
-              v-if="subtitle"
-              v-bind="textSubtitleAttrs"
-              class="ui-text--body-2-comfortable ui-side-panel__subtitle"
-            >
-              {{ subtitle }}
-            </UiText>
-          </div>
-        </template>
-        <UiText>
-          Triage is developed by Infermedica – the company that creates AI tools for
-          preliminary medical diagnosis and triage
-        </UiText>
-      </UiSidePanel>
-    </template>
-    
-    <script setup lang="ts">
-    import { ref } from 'vue';
-    import {
-      UiHeading,
-      UiSidePanel,
-      UiText,
-    } from '@infermedica/component-library';
-    import type { SidePanelProps } from '@infermedica/component-library';
-    
-    const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
-    const title: SidePanelProps['title'] = '${WithLabelSlot?.args?.title}';
-    const subtitle: SidePanelProps['subtitle'] = '${meta.args.subtitle}';
-    
-    </script>
-    `,
-    },
-  },
-};
-
-export const WithCloseSlot: SidePanelStoryType = {
-  args: {
-    ...Basic.args,
-    title: 'For Business',
-    subtitle: '',
-  },
-  render: (args) => ({
-    inheritAttrs: false,
-    components: {
-      UiHeading,
-      UiButton,
-      UiIcon,
-      UiText,
-    },
-    setup() {
-      const {
-        buttonCloseAttrs,
-        iconCloseAttrs,
-      } = args;
-
-      return {
-        UiSidePanel: TemplateStories.render(args),
-        buttonCloseAttrs,
-        iconCloseAttrs,
-      };
-    },
-    template: `<component :is="UiSidePanel">
-    <template #close="{
-      buttonCloseAttrs,
-      closeHandler,
-      iconCloseAttrs,
+  <UiSidePanel
+    v-model="modelValue"
+    :title="title"
+    :subtitle="subtitle"
+  >
+    <template #label="{
+      title,
+      subtitle,
+      headingTitleAttrs,
+      textSubtitleAttrs,
+      labelAttrs,
     }">
-      <UiButton
-        v-bind="buttonCloseAttrs"
-        ref="button"
-        class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
-        @click="closeHandler"
+      <div
+        v-if="title || subtitle"
+        v-bind="labelAttrs"
+        class="ui-side-panel__label"
       >
-        <UiIcon
-          v-bind="iconCloseAttrs"
-          class="ui-button__icon"
-        />
-      </UiButton>
-    </template>
-    <UiText>
-      Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage
-    </UiText>
-  </component>`,
-  }),
-};
-WithCloseSlot.parameters = {
-  docs: {
-    source: {
-      code: `<template>
-      <UiSidePanel
-        v-model="modelValue"
-        :title="title"
-        :subtitle="subtitle"
-      >
-        <template #close="{
-          buttonCloseAttrs,
-          closeHandler,
-          iconCloseAttrs
-          }"
-        >
-          <UiButton
-            v-bind="buttonCloseAttrs"
-            ref="button"
-            class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
-            @click="closeHandler"
-          >
-            <UiIcon 
-              v-bind="iconCloseAttrs"
-              class="ui-button__icon" 
-            />
-          </UiButton>
-        </template>
-        <UiText>
-          Triage is developed by Infermedica – the company that creates AI tools for
-          preliminary medical diagnosis and triage
-        </UiText>
-      </UiSidePanel>
-    </template>
-    
-    <script setup lang="ts">
-    import { ref } from 'vue';
-    import {
-      UiButton,
-      UiIcon,
-      UiSidePanel,
-      UiText,
-    } from '@infermedica/component-library';
-    import type { SidePanelProps } from '@infermedica/component-library';
-    
-    const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
-    const title: SidePanelProps['title'] = '${WithCloseSlot?.args?.title}';
-    const subtitle: SidePanelProps['subtitle'] = '${WithCloseSlot?.args?.subtitle}';
-
-    </script>
-    `,
-    },
-  },
-};
-
-export const WithHeaderSlot: SidePanelStoryType = {
-  args: {
-    ...Basic.args,
-    title: 'For Business',
-    subtitle: '',
-  },
-  render: (args) => ({
-    inheritAttrs: false,
-    components: {
-      UiHeading,
-      UiButton,
-      UiIcon,
-      UiText,
-    },
-    setup() {
-      const {
-        title,
-        subtitle,
-        headingTitleAttrs,
-        textSubtitleAttrs,
-        buttonCloseAttrs,
-        iconCloseAttrs,
-      } = args;
-
-      return {
-        UiSidePanel: TemplateStories.render(args),
-        title,
-        subtitle,
-        headingTitleAttrs,
-        textSubtitleAttrs,
-        buttonCloseAttrs,
-        iconCloseAttrs,
-      };
-    },
-    template: `<component :is="UiSidePanel">
-      <template #header="{
-        buttonCloseAttrs,
-        closeHandler,
-        title,
-        subtitle,
-        headingTitleAttrs,
-        textSubtitleAttrs,
-        iconCloseAttrs,
-      }">
-        <div class="ui-side-panel__header">
-          <UiButton
-            v-bind="buttonCloseAttrs"
-            ref="button"
-            class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
-            @click="closeHandler"
-          >
-            <UiIcon
-              v-bind="iconCloseAttrs"
-              class="ui-button__icon"
-            />
-          </UiButton>
-          <div
-            v-if="title || subtitle"
-            class="ui-side-panel__label"
-          >
-            <UiHeading
-              v-if="title"
-              v-bind="headingTitleAttrs"
-            >
-              {{ title }}
-            </UiHeading>
-            <UiText
-              v-if="subtitle"
-              v-bind="textSubtitleAttrs"
-              class="ui-text--body-2-comfortable ui-side-panel__subtitle"
-            >
-              {{ subtitle }}
-            </UiText>
-          </div>
-        </div>
-      </template>
-      <UiText>
-        Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage
-      </UiText>
-    </component>`,
-  }),
-};
-WithHeaderSlot.parameters = {
-  docs: {
-    source: {
-      code: `<template>
-      <UiSidePanel
-        v-model="modelValue"
-        :title="title"
-        :subtitle="subtitle"
-      >
-        <template #header="{
-            buttonCloseAttrs,
-            closeHandler,
-            title,
-            subtitle,
-            headingTitleAttrs,
-            textSubtitleAttrs,
-            iconCloseAttrs,
-          }"
-        >
-          <div class="ui-side-panel__header">
-            <UiButton
-              v-bind="buttonCloseAttrs"
-              ref="button"
-              class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
-              @click="closeHandler"
-            >
-              <UiIcon 
-                v-bind="iconCloseAttrs" 
-                class="ui-button__icon" 
-              />
-            </UiButton>
-            <div 
-              v-if="title || subtitle"
-              class="ui-side-panel__label"
-            >
-              <UiHeading 
-                v-if="title" 
-                v-bind="headingTitleAttrs"
-              >
-                {{ title }}
-              </UiHeading>
-              <UiText
-                v-if="subtitle"
-                v-bind="textSubtitleAttrs"
-                class="ui-text--body-2-comfortable ui-side-panel__subtitle"
-              >
-                {{ subtitle }}
-              </UiText>
-            </div>
-          </div>
-        </template>
-        <UiText>
-          Triage is developed by Infermedica – the company that creates AI tools for
-          preliminary medical diagnosis and triage
-        </UiText>
-      </UiSidePanel>
-    </template>
-    
-    <script setup lang="ts">
-    import { ref } from 'vue';
-    import {
-      UiButton,
-      UiHeading,
-      UiIcon,
-      UiSidePanel,
-      UiText,
-    } from '@infermedica/component-library';
-    import type { SidePanelProps } from '@infermedica/component-library';
-    
-    const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
-    const title: SidePanelProps['title'] = '${WithHeaderSlot?.args?.title}';
-    const subtitle: SidePanelProps['subtitle'] = '${WithHeaderSlot?.args?.subtitle}';
-
-    </script>
-    `,
-    },
-  },
-};
-
-export const WithBackdropSlot: SidePanelStoryType = {
-  args: {
-    ...Basic.args,
-    title: 'For Business',
-    subtitle: '',
-  },
-  render: (args) => ({
-    inheritAttrs: false,
-    components: {
-      UiText,
-      UiBackdrop,
-    },
-    setup() {
-      const {
-        transitionBackdropAttrs,
-        backdropAttrs,
-      } = args;
-
-      const modelValue = inject('modelValue');
-
-      return {
-        UiSidePanel: TemplateStories.render(args),
-        modelValue,
-        transitionBackdropAttrs,
-        backdropAttrs,
-      };
-    },
-    template: `<component :is="UiSidePanel">
-      <template #backdrop="{
-        transitionBackdropAttrs,
-        modelValue,
-        backdropAttrs,
-        closeHandler,
-      }">
-        <transition v-bind="transitionBackdropAttrs">
-          <UiBackdrop
-            v-if="modelValue"
-            v-bind="backdropAttrs"
-            @click="closeHandler"
-          />
-        </transition>
-      </template>
-      <UiText>
-        Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage
-      </UiText>
-    </component>`,
-  }),
-};
-WithBackdropSlot.parameters = {
-  docs: {
-    source: {
-      code: `<template>
-      <UiSidePanel
-        v-model="modelValue"
-        :title="title"
-        :subtitle="subtitle"
-      >
-        <template #backdrop="{
-            transitionBackdropAttrs,
-            modelValue,
-            backdropAttrs,
-            closeHandler,
-          }"
-        >
-          <transition
-            v-bind="transitionBackdropAttrs"
-          >
-            <UiBackdrop
-              v-if="modelValue"
-              v-bind="backdropAttrs"
-              @click="closeHandler"
-            />
-          </transition>
-        </template>
-        <UiText>
-          Triage is developed by Infermedica – the company that creates AI tools for
-          preliminary medical diagnosis and triage
-        </UiText>
-      </UiSidePanel>
-    </template>
-    
-    <script setup lang="ts">
-    import { ref, onMounted } from 'vue';
-    import {
-      UiBackdrop,
-      UiButton,
-      UiSidePanel,
-      UiText,
-    } from '@infermedica/component-library';
-    import type { SidePanelProps } from '@infermedica/component-library';
-    
-    const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
-    const title: SidePanelProps['title'] = '${WithBackdropSlot?.args?.title}';
-    const subtitle: SidePanelProps['subtitle'] = '${WithBackdropSlot?.args?.subtitle}';
-
-    </script>
-    `,
-    },
-  },
-};
-
-export const WithContainerSlot: SidePanelStoryType = {
-  args: {
-    ...Basic.args,
-    title: 'For Business',
-    subtitle: '',
-  },
-  render: (args) => ({
-    inheritAttrs: false,
-    components: {
-      UiHeading,
-      UiButton,
-      UiIcon,
-      UiText,
-    },
-    directives: {
-      focusTrap,
-      bodyScrollLock,
-    },
-    setup() {
-      const {
-        title,
-        subtitle,
-        dialogAttrs,
-        transitionDialogAttrs,
-        headingTitleAttrs,
-        textSubtitleAttrs,
-        buttonCloseAttrs,
-        iconCloseAttrs,
-      } = args;
-
-      const modelValue = inject('modelValue');
-
-      return {
-        UiSidePanel: TemplateStories.render(args),
-        modelValue,
-        title,
-        subtitle,
-        dialogAttrs,
-        transitionDialogAttrs,
-        headingTitleAttrs,
-        textSubtitleAttrs,
-        buttonCloseAttrs,
-        iconCloseAttrs,
-      };
-    },
-    template: `<component :is="UiSidePanel">
-      <template #container="{
-        transitionDialogAttrs,
-        modelValue,
-        afterEnterHandler,
-        buttonCloseAttrs,
-        closeHandler,
-        title,
-        subtitle,
-        iconCloseAttrs,
-        headingTitleAttrs,
-        textSubtitleAttrs,
-        dialogAttrs,
-      }">
-        <transition
-          v-bind="transitionDialogAttrs"
-        >
-          <dialog
-            v-if="modelValue"
-            v-focus-trap
-            v-body-scroll-lock
-            v-bind="dialogAttrs"
-            class="ui-side-panel__dialog"
-          >
-            <div class="ui-side-panel__header">
-              <UiButton
-                v-bind="buttonCloseAttrs"
-                ref="button"
-                class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
-                @click="closeHandler"
-              >
-                <UiIcon
-                  v-bind="iconCloseAttrs"
-                  class="ui-button__icon"
-                />
-              </UiButton>
-              <div
-                v-if="title || subtitle"
-                class="ui-side-panel__label"
-              >
-                <UiHeading
-                  v-if="title"
-                  v-bind="headingTitleAttrs"
-                >
-                  {{ title }}
-                </UiHeading>
-                <UiText
-                  v-if="subtitle"
-                  v-bind="textSubtitleAttrs"
-                  class="ui-text--body-2-comfortable ui-side-panel__subtitle"
-                >
-                  {{ subtitle }}
-                </UiText>
-              </div>
-            </div>
-            <div
-              class="ui-side-panel__content"
-            >
-              <UiText>
-                Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage
-              </UiText>
-            </div>
-          </dialog>
-        </transition>
-      </template>
-    </component>`,
-  }),
-};
-WithContainerSlot.parameters = {
-  docs: {
-    source: {
-      code: `<template>
-      <UiSidePanel
-        v-model="modelValue"
-        :title="title"
-        :subtitle="subtitle"
-      >
-        <template #container="{
-            transitionDialogAttrs,
-            dialogAttrs,
-            modelValue,
-            afterEnterHandler,
-            buttonCloseAttrs,
-            closeHandler,
-            title,
-            subtitle,
-            iconCloseAttrs,
-            headingTitleAttrs,
-            textSubtitleAttrs,
-          }"
-        >
-          <transition
-            v-bind="transitionDialogAttrs"
-          >
-            <dialog
-              v-if="modelValue"
-              v-focus-trap
-              v-body-scroll-lock
-              v-bind="dialogAttrs"
-              class="ui-side-panel__dialog"
-            >
-              <div class="ui-side-panel__header">
-                <UiButton
-                  v-bind="buttonCloseAttrs"
-                  ref="button"
-                  class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
-                  @click="closeHandler"
-                >
-                  <UiIcon 
-                    v-bind="iconCloseAttrs" 
-                    class="ui-button__icon" 
-                  />
-                </UiButton>
-                <div 
-                  v-if="title || subtitle" 
-                  class="ui-side-panel__label"
-                >
-                  <UiHeading 
-                    v-if="title" 
-                    v-bind="headingTitleAttrs"
-                  >
-                    {{ title }}
-                  </UiHeading>
-                  <UiText
-                    v-if="subtitle"
-                    v-bind="textSubtitleAttrs"
-                    class="ui-text--body-2-comfortable ui-side-panel__subtitle"
-                  >
-                    {{ subtitle }}
-                  </UiText>
-                </div>
-              </div>
-              <div class="ui-side-panel__content">
-                <UiText>
-                  Triage is developed by Infermedica – the company that creates AI
-                  tools for preliminary medical diagnosis and triage
-                </UiText>
-              </div>
-            </dialog>
-          </transition>
-        </template>
-      </UiSidePanel>
-    </template>
-    
-    <script setup lang="ts">
-    import { ref } from 'vue';
-    import {
-      focusTrap as vFocusTrap,
-      bodyScrollLock as vBodyScrollLock,
-    } from '@infermedica/component-library/src/utilities/directives/index.ts';
-    import {
-      UiButton,
-      UiHeading,
-      UiIcon,
-      UiSidePanel,
-      UiText,
-    } from '@infermedica/component-library';
-    import type { SidePanelProps } from '@infermedica/component-library';
-    
-    const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
-    const title: SidePanelProps['title'] = '${WithContainerSlot?.args?.title}';
-    const subtitle: SidePanelProps['subtitle'] = '${WithContainerSlot?.args?.subtitle}';
-    
-    </script>
-    `,
-    },
-  },
-};
-
-export const WithTitleSlot: SidePanelStoryType = {
-  args: {
-    ...Basic.args,
-    title: 'For Business',
-    subtitle: '',
-  },
-  render: (args) => ({
-    inheritAttrs: false,
-    components: {
-      UiHeading,
-      UiText,
-    },
-    setup() {
-      const {
-        title,
-        headingTitleAttrs,
-      } = args;
-
-      return {
-        UiSidePanel: TemplateStories.render(args),
-        title,
-        headingTitleAttrs,
-      };
-    },
-    template: `<component :is="UiSidePanel">
-      <template #title="{
-        title,
-        headingTitleAttrs,
-      }">
         <UiHeading
           v-if="title"
           v-bind="headingTitleAttrs"
         >
           {{ title }}
         </UiHeading>
-      </template>
-      <UiText>
-        Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage
-      </UiText>
-    </component>`,
-  }),
-};
-WithTitleSlot.parameters = {
-  docs: {
-    source: {
-      code: `<template>
-      <UiSidePanel
-        v-model="modelValue"
-        :title="title"
-        :subtitle="subtitle"
-      >
-        <template #title="{
-          title,
-          headingTitleAttrs,
-        }">
-          <UiHeading
-            v-if="title"
-            v-bind="headingTitleAttrs"
-          >
-            {{ title }}
-          </UiHeading>
-        </template>
-        <UiText>
-          Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage
-        </UiText>
-      </UiSidePanel>
-    </template>
-    
-    <script setup lang="ts">
-    import { ref } from 'vue';
-    import {
-      UiButton,
-      UiHeading,
-      UiSidePanel,
-      UiText,
-    } from '@infermedica/component-library';
-    import type { SidePanelProps } from '@infermedica/component-library';
-    
-    const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
-    const title: SidePanelProps['title'] = '${WithTitleSlot?.args?.title}';
-    const subtitle: SidePanelProps['subtitle'] = '${WithTitleSlot?.args?.subtitle}';
-
-    </script>`,
-    },
-  },
-};
-
-export const WithSubtitleSlot: SidePanelStoryType = {
-  render: (args) => ({
-    inheritAttrs: false,
-    components: {
-      UiHeading,
-      UiText,
-    },
-    setup() {
-      const {
-        subtitle,
-        textSubtitleAttrs,
-      } = args;
-
-      return {
-        UiSidePanel: TemplateStories.render(args),
-        subtitle,
-        textSubtitleAttrs,
-      };
-    },
-    template: `<component :is="UiSidePanel">
-      <template #subtitle="{
-        subtitle,
-        textSubtitleAttrs,
-      }">
         <UiText
           v-if="subtitle"
           v-bind="textSubtitleAttrs"
@@ -1148,667 +990,27 @@ export const WithSubtitleSlot: SidePanelStoryType = {
         >
           {{ subtitle }}
         </UiText>
-      </template>
-      <UiText>
-        Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage
-      </UiText>
-    </component>`,
-  }),
-};
-WithSubtitleSlot.parameters = {
-  docs: {
-    source: {
-      code: `<template>
-      <UiSidePanel
-        v-model="modelValue"
-        :title="title"
-        :subtitle="subtitle"
-      >
-        <template #subtitle="{
-          subtitle,
-          textSubtitleAttrs,
-        }">
-          <UiText
-            v-if="subtitle"
-            v-bind="textSubtitleAttrs"
-            class="ui-text--body-2-comfortable ui-side-panel__subtitle"
-          >
-            {{ subtitle }}
-          </UiText>
-        </template>
-        <UiText>
-          Triage is developed by Infermedica – the company that creates AI tools for
-          preliminary medical diagnosis and triage
-        </UiText>
-      </UiSidePanel>
-    </template>
-    
-    <script setup lang="ts">
-    import { ref } from 'vue';
-    import {
-      UiSidePanel,
-      UiText,
-    } from '@infermedica/component-library';
-    import type { SidePanelProps } from '@infermedica/component-library';
-    
-    const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
-    const title: SidePanelProps['title'] = '${meta.args.title}';
-    const subtitle: SidePanelProps['subtitle'] = '${meta.args.subtitle}';
-    
-    </script>
-    `,
-    },
-  },
-};
-
-export const WithContentSlot: SidePanelStoryType = {
-  args: {
-    ...Basic.args,
-    title: 'For Business',
-    subtitle: '',
-  },
-  render: (args) => ({
-    inheritAttrs: false,
-    components: { UiText },
-    directives: {
-      scrollTabindex,
-      keyboardFocus,
-    },
-    setup() {
-      const { contentAttrs } = args;
-
-      return {
-        UiSidePanel: TemplateStories.render(args),
-        contentAttrs,
-      };
-    },
-    template: `<component :is="UiSidePanel">
-      <template #content="{ contentAttrs }">
-        <div
-          v-scroll-tabindex
-          v-keyboard-focus
-          v-bind="contentAttrs"
-          class="ui-side-panel__content"
-        >
-          <UiText>
-            Triage is developed by Infermedica – the company that creates AI tools for preliminary medical diagnosis and triage
-          </UiText>
-        </div>
-      </template>
-    </component>`,
-  }),
-};
-WithContentSlot.parameters = {
-  docs: {
-    source: {
-      code: `<template>
-      <UiSidePanel
-        v-model="modelValue"
-        :title="title"
-        :subtitle="subtitle"
-      >
-        <template #content="{ contentAttrs }">
-          <div
-            v-scroll-tabindex
-            v-keyboard-focus
-            v-bind="contentAttrs"
-            class="ui-side-panel__content"
-          >
-            <UiText>
-              Triage is developed by Infermedica – the company that creates AI tools
-              for preliminary medical diagnosis and triage
-            </UiText>
-          </div>
-        </template>
-      </UiSidePanel>
-    </template>
-    
-    <script setup lang="ts">
-    import { ref } from 'vue';
-    import {
-      scrollTabindex as vScrollTabindex,
-      keyboardFocus as vKeyboardFocus,
-    } from '@infermedica/component-library/src/utilities/directives/index.ts';
-    import {
-      UiSidePanel,
-      UiText,
-    } from '@infermedica/component-library';
-    import type { SidePanelProps } from '@infermedica/component-library';
-    
-    const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
-    const title: SidePanelProps['title'] = '${WithContentSlot?.args?.title}';
-    const subtitle: SidePanelProps['subtitle'] = '${WithContentSlot?.args?.subtitle}';
-    </script>    
-    `,
-    },
-  },
-};
-
-export const WithAsyncContentSlot: SidePanelStoryType = {
-  args: {
-    ...Basic.args,
-    title: 'For Business',
-    subtitle: '',
-  },
-  render: (args) => ({
-    inheritAttrs: false,
-    components: {
-      UiLoader,
-      UiText,
-    },
-    setup() {
-      const isLoading = ref(true);
-
-      onMounted(() => {
-        setTimeout(() => {
-          isLoading.value = false;
-        }, 1000);
-      });
-
-      return {
-        UiSidePanel: TemplateStories.render(args),
-        isLoading,
-      };
-    },
-    template: `<component :is="UiSidePanel">
-      <UiLoader
-        :isLoading="isLoading"
-        type="skeleton"
-        :loaderAttrs="{
-          type: 'common'
-        }"
-      >
-        <UiText>
-          Triage is developed by Infermedica – the company that creates AI tools
-          for preliminary medical diagnosis and triage
-        </UiText>
-      </UiLoader>
-    </component>`,
-  }),
-};
-WithAsyncContentSlot.parameters = {
-  docs: {
-    source: {
-      code: `<template>
-    <UiSidePanel
-      v-model="modelValue"
-      :title="title"
-      :subtitle="subtitle"
-    >
-      <UiLoader
-        :isLoading="isLoading"
-        type="skeleton"
-        :loaderAttrs="{
-          type: 'common'
-        }"
-      >
-        <UiText>
-          Triage is developed by Infermedica – the company that creates AI tools
-          for preliminary medical diagnosis and triage
-        </UiText>
-      </UiLoader>
-    </UiSidePanel>
-  </template>
-  
-  <script setup lang="ts">
-  import { 
-    ref, 
-    onMounted,
-  } from 'vue';
-  import {
-    scrollTabindex as vScrollTabindex,
-    keyboardFocus as vKeyboardFocus,
-  } from '@infermedica/component-library/src/utilities/directives/index.ts';
-  import {
-    UiLoader,
-    UiSidePanel,
-    UiText,
-  } from '@infermedica/component-library';
-  import type { SidePanelProps } from '@infermedica/component-library';
-  
-  const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
-  const title: SidePanelProps['title'] = '${WithAsyncContentSlot?.args?.title}';
-  const subtitle: SidePanelProps['subtitle'] = '${WithAsyncContentSlot?.args?.subtitle}';
-
-  </script>
-  `,
-    },
-  },
-};
-
-export const SidePanelShowingDetails: SidePanelStoryType = {
-  args: {
-    ...Basic.args,
-    title: 'Show Details',
-    subtitle: 'Acute viral pharyngitis',
-  },
-  render: (args) => ({
-    inheritAttrs: false,
-    components: {
-      UiButton,
-      UiIcon,
-      UiHeading,
-      UiProgress,
-      UiText,
-    },
-    setup() {
-      const { subtitle } = args;
-
-      const heading = 'Acute viral throat infection';
-
-      return {
-        UiSidePanel: TemplateStories.render(args),
-        subtitle,
-        heading,
-      };
-    },
-    template: `<component :is="UiSidePanel">
-      <template #label>
-        <div class="label-slot">
-        <div class="label-slot__subtitle">
-          <UiProgress
-            :value="70"
-          />
-          <UiText
-            class="ui-text--body-2-comfortable"
-          >
-            Moderate evidence
-          </UiText>
-        </div>
-        <UiHeading
-          level="1"
-          class="ui-heading--h2"
-          >
-          {{ heading }}
-        </UiHeading>
-        <UiText
-          class="ui-text--body-2-comfortable"
-        >
-          {{ subtitle }}
-        </UiText>
-      </div> 
-      </template>
-      <div class="condition-section">
-        <UiHeading level="2">
-          About
-        </UiHeading>
-        <UiHeading level="5">
-          What is acute viral throat infection?
-        </UiHeading>
-        <UiText class="mt-3 mb-6">
-          Acute viral tonsillopharyngitis known as sore throat is an inflammation of throat and tonsils, caused by viral infection ...
-        </UiText>
-        <UiButton class="ui-button--text">
-          <UiIcon icon="chevron-down" />
-          Show details
-        </UiButton>
       </div>
-    </component>`,
-  }),
-};
-SidePanelShowingDetails.parameters = {
-  docs: {
-    source: {
-      code: `<template>
-      <UiSidePanel
-        v-model="modelValue"
-        :title="title"
-        :subtitle="subtitle"
-      >
-        <template #label="{
-          title,
-          subtitle,
-          headingTitleAttrs,
-          textSubtitleAttrs,
-          }"
-        >
-          <div class="label-slot">
-            <div class="label-slot__subtitle">
-              <UiProgress
-                :value="70"
-              />
-              <UiText class="ui-text--body-2-comfortable">
-                {{ evidence }}
-              </UiText>
-            </div>
-            <UiHeading
-              v-if="title"
-              v-bind="headingTitleAttrs"
-              level="1"
-            >
-              {{ title }}
-            </UiHeading>
-            <UiText 
-              v-if="subtitle"
-              v-bind="textSubtitleAttrs"
-              class="ui-text--body-2-comfortable"
-            >
-              {{ subtitle }}
-            </UiText>
-          </div>
-        </template>
-        <div class="condition-section">
-          <UiHeading level="2"> About </UiHeading>
-          <UiHeading level="5"> What is acute viral throat infection? </UiHeading>
-          <UiText class="mt-3 mb-6">
-            Acute viral tonsillopharyngitis known as sore throat is an inflammation
-            of throat and tonsils, caused by viral infection ...
-          </UiText>
-          <UiButton class="ui-button--text">
-            <UiIcon icon="chevron-down" />
-            Show details
-          </UiButton>
-        </div>
-      </UiSidePanel>
     </template>
-    
-    <script setup lang="ts">
-    import { ref } from 'vue';
-    import {
-      UiButton,
-      UiHeading,
-      UiIcon,
-      UiSidePanel,
-      UiProgress,
-      UiText,
-    } from '@infermedica/component-library';
-    import type { SidePanelProps } from '@infermedica/component-library';
-    
-    const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
-    const title: SidePanelProps['title'] = 'Acute viral throat infection';
-    const subtitle: SidePanelProps['subtitle'] = '${SidePanelShowingDetails?.args?.subtitle}';
-    const evidence = 'Moderate evidence';
+    <template #default>
+      <!-- Use default slot to place side panel content. -->
+    </template>   
+  </UiSidePanel>
+</template>
 
-    </script>
-    
-    <style lang="scss">
-    .mt-3 {
-      margin-top: 0.75rem;
-    }
-    
-    .mb-6 {
-      margin-bottom: 1.5rem;
-    }
-    
-    .label-slot {
-      --progress-width: 32px;
-    
-      &-subtitle {
-        display: inline-flex;
-        flex-direction: row;
-        align-items: center;
-        margin: var(--space-4) 0 0 0;
-      }
-      
-      .ui-progress {
-        width: var(--progress-width, 100%);
-        margin: 0 var(--space-8) 0 0;
-      }
-    }
-    </style>`,
-    },
-  },
-};
+<script setup lang="ts">
+import { ref } from 'vue';
+import { 
+  UiSidePanel,
+  UiHeading,
+  UiText,
+} from '@infermedica/component-library';
+import type { SidePanelProps } from '@infermedica/component-library';
 
-export const SidePanelWithForm: SidePanelStoryType = {
-  args: {
-    ...Basic.args,
-    title: 'Report an issue',
-    subtitle: '',
-  },
-  render: (args) => ({
-    inheritAttrs: false,
-    components: {
-      UiButton,
-      UiFormField,
-      UiList,
-      UiListItem,
-      UiCheckbox,
-      UiTextarea,
-      UiIcon,
-      UiHeading,
-      UiLoader,
-      UiProgress,
-      UiText,
-    },
-    setup() {
-      const options = [
-        'It\'s too long',
-        'It seems to be unrelated to me',
-        'It contains complex words',
-        'I\'ve already answered this question',
-        'I can\'t decide which answer to choose',
-        'I found a typo',
-        'Other (please comment below)',
-      ];
-      const isProcessing = ref(true);
-      onMounted(() => window.setTimeout(() => {
-        isProcessing.value = false;
-      }, 1000));
-      const selected = ref([]);
-
-      return {
-        UiSidePanel: TemplateStories.render(args),
-        options,
-        isProcessing,
-        selected,
-      };
-    },
-    template: `<component :is="UiSidePanel">
-      <div class="report-an-issue">
-        <form @submit.prevent>
-          <UiText
-            class="mb-6"
-          >
-            What's wrong with this question?
-          </UiText>
-          <UiFormField>
-            <UiList>
-              <template
-                v-for="option in options"
-                :key="option"
-              >
-                <UiListItem>
-                  <UiCheckbox
-                    v-model="selected"
-                    :value="option"
-                    :disabled="isProcessing"
-                    :class="{
-                      'ui-checkbox--is-disabled': isProcessing,
-                    }"
-                  >
-                    {{ option }}
-                  </UiCheckbox>
-                </UiListItem>
-              </template>
-            </UiList>
-          </UiFormField>
-          <UiFormField
-            id="report-issue-textarea"
-            label="Describe details"
-            :hint="false"
-            :errorMessage="false"
-          >
-            <UiTextarea
-              id="comment"
-              resize="vertical"
-              :disabled="isProcessing"
-              class="mb-6"
-            />
-          </UiFormField>
-          <div class="report-an-issue__actions mb-6">
-            <UiButton
-              type="submit"
-              class="me-5"
-              :disabled="isProcessing"
-            >
-              <UiLoader
-                v-if="isProcessing"
-                type="ellipsis"
-                transition="fade"
-                tag="div"
-                class="report-an-issue__submit-loader"
-              />
-              <span>
-                Submit
-              </span>
-            </UiButton>
-            <UiButton
-              type="button"
-              class="ui-button--text"
-              :class="{ 'ui-button--is-disabled': isProcessing }"
-              :disabled="isProcessing"
-            >
-              Cancel
-            </UiButton>
-          </div>
-        </form>
-      </div>
-    </component>`,
-  }),
-};
-SidePanelWithForm.parameters = {
-  docs: {
-    source: {
-      code: `<template>
-      <UiSidePanel
-        v-model="modelValue"
-        :title="title"
-        :subtitle="subtitle"
-      >
-        <div class="report-an-issue">
-          <form @submit.prevent>
-            <UiText
-              class="mb-6"
-            >
-              What's wrong with this question?
-            </UiText>
-            <UiFormField>
-              <UiList>
-                <template
-                  v-for="option in options"
-                  :key="option"
-                >
-                  <UiListItem>
-                    <UiCheckbox
-                      v-model="selected"
-                      :value="option"
-                      :disabled="isProcessing"
-                      :class="{
-                        'ui-checkbox--is-disabled': isProcessing,
-                      }"
-                    >
-                      {{ option }}
-                    </UiCheckbox>
-                  </UiListItem>
-                </template>
-              </UiList>
-            </UiFormField>
-            <UiFormField
-              id="report-issue-textarea"
-              label="Describe details"
-              :hint="false"
-              :errorMessage="false"
-            >
-              <UiTextarea
-                id="comment"
-                resize="vertical"
-                :disabled="isProcessing"
-                class="mb-6"
-              />
-            </UiFormField>
-            <div class="report-an-issue__actions mb-6">
-              <UiButton
-                type="submit"
-                class="me-5"
-                :disabled="isProcessing"
-              >
-                <UiLoader
-                  v-if="isProcessing"
-                  type="ellipsis"
-                  transition="fade"
-                  tag="div"
-                  class="report-an-issue__submit-loader"
-                />
-                <span>
-                  Submit
-                </span>
-              </UiButton>
-              <UiButton
-                type="button"
-                class="ui-button--text"
-                :class="{ 'ui-button--is-disabled': isProcessing }"
-                :disabled="isProcessing"
-              >
-                Cancel
-              </UiButton>
-            </div>
-          </form>
-        </div>
-      </UiSidePanel>
-    </template>
-    
-    <script setup lang="ts">
-    import {
-      ref,
-      onMounted,
-    } from 'vue';
-    import {
-      UiButton,
-      UiCheckbox,
-      UiFormField,
-      UiHeading,
-      UiIcon,
-      UiList,
-      UiLoader,
-      UiProgress,
-      UiSidePanel,
-      UiTextarea,
-      UiText,
-    } from '@infermedica/component-library';
-    import UiListItem from '@infermedica/component-library/src/components/organisms/UiList/_internal/UiListItem.vue';
-    import type { SidePanelProps } from '@infermedica/component-library';
-    
-    const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
-    const title: SidePanelProps['title'] = '${SidePanelWithForm?.args?.title}';
-    const subtitle: SidePanelProps['subtitle'] = '${SidePanelWithForm?.args?.subtitle}';
-    const options = [
-      "It's too long",
-      'It seems to be unrelated to me',
-      'It contains complex words',
-      "I've already answered this question",
-      "I can't decide which answer to choose",
-      'I found a typo',
-      'Other (please comment below)',
-    ];
-    const selected = ref([]);
-    const isProcessing = ref(true);
-    
-    onMounted(() =>
-      window.setTimeout(() => {
-        isProcessing.value = false;
-      }, 1000)
-    );
-
-    </script>
-    
-    <style lang="scss">
-    .me-5 {
-      margin-inline-end: 1.25rem;
-    }
-    
-    .mb-6 {
-      margin-bottom: 1.5rem;
-    }
-    
-    .report-an-issue {
-      &__actions {
-        display: flex;
-        justify-items: center;
-      }
-    }
-    </style>
-    `,
+const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
+const title: SidePanelProps['title'] = '${meta.args.title}';
+const subtitle: SidePanelProps['subtitle'] = '${meta.args.subtitle}';
+</script>`,
     },
   },
 };

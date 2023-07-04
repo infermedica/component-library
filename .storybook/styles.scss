@@ -30,6 +30,10 @@ body {
     position: absolute;
   }
 
+  .ui-side-panel__dialog {
+    z-index: 1;
+  }
+
   .ui-side-panel__dialog:not(.slide-enter-from) {
     position: absolute;
   }
