@@ -124,10 +124,10 @@ export function useArgTypes(component, options = { variables: {}}) {
         return 'onAfterEnter'
       }
       default:
-        if(action.includes(/$On/gm)){
+        if(action.match(/^on/gmi)){
           return action
         }
-        return `On${upperCamelCase(action)}`
+        return `on${upperCamelCase(action)}`
     }
   }
   const events = (() => {
@@ -137,6 +137,9 @@ export function useArgTypes(component, options = { variables: {}}) {
           const action = getAction(name);
           return {
             ...object,
+            [name]: {
+              control: false,
+            },
             [action]: {
               name,
               action,
