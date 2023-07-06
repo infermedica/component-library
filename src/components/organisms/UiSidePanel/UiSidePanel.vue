@@ -90,10 +90,12 @@
                   subtitle,
                   headingTitleAttrs: defaultProps.headingTitleAttrs,
                   textSubtitleAttrs,
+                  labelAttrs,
                 }"
               >
                 <div
                   v-if="title || subtitle"
+                  v-bind="labelAttrs"
                   class="ui-side-panel__label"
                 >
                   <!-- @slot Use this slot to replace title template. -->
@@ -161,6 +163,7 @@ import {
   onBeforeUnmount,
 } from 'vue';
 import type {
+  HTMLAttributes,
   DialogHTMLAttributes,
   TransitionProps,
 } from 'vue';
@@ -206,7 +209,7 @@ export interface SidePanelProps {
   /**
    * Use this props to pass attrs for backdrop Transition.
    */
-  transitionBackdropAttrs?: TransitionProps;
+  transitionBackdropAttrs?: DefineAttrsProps<null, TransitionProps>;
   /**
    * Use this props to pass attrs for UiBackdrop.
    */
@@ -218,7 +221,11 @@ export interface SidePanelProps {
   /**
    * Use this props to pass attrs for dialog Transition.
    */
-  transitionDialogAttrs?: TransitionProps;
+  transitionDialogAttrs?: DefineAttrsProps<null, TransitionProps>;
+  /**
+   * Use this props to pass attrs for label element.
+   */
+  labelAttrs?: DefineAttrsProps<null, HTMLAttributes>
   /**
    * Use this props to pass attrs for title UiHeading.
    */
@@ -262,6 +269,7 @@ const props = withDefaults(defineProps<SidePanelProps>(), {
     appear: true,
     name: 'slide',
   }),
+  labelAttrs: () => ({}),
   headingTitleAttrs: () => ({ level: 2 }),
   textSubtitleAttrs: () => ({}),
   buttonCloseAttrs: () => ({}),
