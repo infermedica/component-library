@@ -32,7 +32,6 @@ import type {
 } from '@storybook/vue3';
 import type { SidePanelProps } from '@index';
 import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue';
-import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import './UiSidePanel.stories.scss';
 import {
   focusTrap,
@@ -302,7 +301,7 @@ AsyncContent.parameters = {
       :isLoading="isLoading"
       type="skeleton"
     >
-        <!-- Use default slot to place side panel content. -->
+      <!-- Use default slot to place side panel content. -->
     </UiLoader>
   </UiSidePanel>
 </template>
@@ -1284,7 +1283,6 @@ export const WithBackdropSlot: SidePanelStoryType = {
     inheritAttrs: false,
     components: {
       UiSidePanel,
-      UiText,
       UiBackdrop,
       TOS,
     },
@@ -1485,7 +1483,7 @@ WithContainerSlot.parameters = {
       textSubtitleAttrs,
       dialogAttrs,
     }">
-    <!-- Use container slot to place side panel content. -->
+      <!-- Use container slot to place side panel content. -->
     </template>
   </UiSidePanel>
 </template>
@@ -1539,8 +1537,8 @@ export const WithTitleSlot: SidePanelStoryType = {
       </UiHeading>
     </template>
     <template #default>
-        <TOS/>
-      </template>
+      <TOS/>
+    </template>
   </UiSidePanel>`,
   }),
 };
@@ -1586,6 +1584,173 @@ const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
 const title: SidePanelProps['title'] = '${meta.args.title}';
 </script>
       `,
+    },
+  },
+};
+
+export const WithSubtitleSlot: SidePanelStoryType = {
+  render: () => ({
+    inheritAttrs: false,
+    components: {
+      UiSidePanel,
+      UiText,
+      TOS,
+    },
+    setup(props, { attrs }) {
+      const {
+        modelValue,
+        ...args
+      } = attrs;
+      const value = inject('value');
+
+      return {
+        value,
+        args,
+      };
+    },
+    template: `<UiSidePanel
+      v-model="value"
+      v-bind="args"
+    >
+      <template #subtitle="{
+        subtitle,
+        textSubtitleAttrs,
+      }">
+        <UiText
+          v-if="subtitle"
+          v-bind="textSubtitleAttrs"
+          class="ui-text--body-2-comfortable ui-side-panel__subtitle"
+        >
+          {{ subtitle }}
+        </UiText>
+      </template>
+      <template #default>
+        <TOS/>
+      </template>
+    </UiSidePanel>`,
+  }),
+};
+WithSubtitleSlot.parameters = {
+  chromatic: { disableSnapshot: false },
+  docs: {
+    source: {
+      code: `<template>
+  <UiSidePanel
+    v-model="modelValue"
+    :title="title"
+    :subtitle="subtitle"
+  >
+    <template #subtitle="{
+      subtitle,
+      textSubtitleAttrs,
+    }">
+      <UiText
+        v-if="subtitle"
+        v-bind="textSubtitleAttrs"
+        class="ui-text--body-2-comfortable ui-side-panel__subtitle"
+      >
+        {{ subtitle }}
+      </UiText>
+    </template>
+    <template #default>
+      <!-- Use default slot to place side panel content. -->
+    </template>  
+  </UiSidePanel>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import { 
+  UiSidePanel,
+  UiText,
+} from '@infermedica/component-library';
+import type { SidePanelProps } from '@infermedica/component-library';
+
+const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
+const title: SidePanelProps['title'] = '${meta.args.title}';
+const subtitle: SidePanelProps['subtitle'] = '${meta.args.subtitle}';
+</script>`,
+    },
+  },
+};
+
+export const WithContentSlot: SidePanelStoryType = {
+  render: () => ({
+    inheritAttrs: false,
+    components: {
+      UiSidePanel,
+      TOS,
+    },
+    directives: {
+      scrollTabindex,
+      keyboardFocus,
+    },
+    setup(props, { attrs }) {
+      const {
+        modelValue,
+        ...args
+      } = attrs;
+      const value = inject('value');
+
+      return {
+        value,
+        args,
+      };
+    },
+    template: `<UiSidePanel
+      v-model="value"
+      v-bind="args"
+    >
+      <template #content="{ contentAttrs }">
+        <div
+          v-scroll-tabindex
+          v-keyboard-focus
+          v-bind="contentAttrs"
+          class="ui-side-panel__content"
+        >
+          <TOS/>
+        </div>
+      </template>
+    </UiSidePanel>`,
+  }),
+};
+WithContentSlot.parameters = {
+  chromatic: { disableSnapshot: false },
+  docs: {
+    source: {
+      code: `<template>
+  <UiSidePanel
+    v-model="modelValue"
+    :title="title"
+    :subtitle="subtitle"
+  >
+    <template #content="{ contentAttrs }">
+      <div
+        v-scroll-tabindex
+        v-keyboard-focus
+        v-bind="contentAttrs"
+        class="ui-side-panel__content"
+      >
+        <!-- Use content slot to place side panel content. -->
+      </div>
+    </template>
+  </UiSidePanel>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import {
+  scrollTabindex as vScrollTabindex,
+  keyboardFocus as vKeyboardFocus,
+} from '@infermedica/component-library/src/utilities/directives/index.ts';
+import { UiSidePanel } from '@infermedica/component-library';
+import type { SidePanelProps } from '@infermedica/component-library';
+
+const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
+const title: SidePanelProps['title'] = '${meta.args.title}';
+const subtitle: SidePanelProps['subtitle'] = '${meta.args.subtitle}';
+</script>
+  `,
     },
   },
 };
