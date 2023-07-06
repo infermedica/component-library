@@ -910,374 +910,6 @@ const handleReportAnIssueSubmit = () => {
   },
 };
 
-export const WithLabelSlot: SidePanelStoryType = {
-  render: () => ({
-    inheritAttrs: false,
-    components: {
-      UiSidePanel,
-      UiHeading,
-      UiText,
-      TOS,
-    },
-    setup(props, { attrs }) {
-      const {
-        modelValue,
-        ...args
-      } = attrs;
-      const value = inject('value');
-
-      return {
-        value,
-        args,
-      };
-    },
-    template: `<UiSidePanel
-      v-model="value"
-      v-bind="args"
-    >
-      <template #label="{
-        title,
-        subtitle,
-        headingTitleAttrs,
-        textSubtitleAttrs,
-        labelAttrs,
-      }">
-        <div
-          v-if="title || subtitle"
-          v-bind="labelAttrs"
-          class="ui-side-panel__label"
-        >
-          <UiHeading
-            v-if="title"
-            v-bind="headingTitleAttrs"
-          >
-            {{ title }}
-          </UiHeading>
-          <UiText
-            v-if="subtitle"
-            v-bind="textSubtitleAttrs"
-            class="ui-text--body-2-comfortable ui-side-panel__subtitle"
-          >
-            {{ subtitle }}
-          </UiText>
-        </div>
-      </template>
-      <template #default>
-        <TOS/>
-      </template>
-    </UiSidePanel>`,
-  }),
-};
-WithLabelSlot.parameters = {
-  chromatic: { disableSnapshot: false },
-  docs: {
-    source: {
-      code: `<template>
-  <UiSidePanel
-    v-model="modelValue"
-    :title="title"
-    :subtitle="subtitle"
-  >
-    <template #label="{
-      title,
-      subtitle,
-      headingTitleAttrs,
-      textSubtitleAttrs,
-      labelAttrs,
-    }">
-      <div
-        v-if="title || subtitle"
-        v-bind="labelAttrs"
-        class="ui-side-panel__label"
-      >
-        <UiHeading
-          v-if="title"
-          v-bind="headingTitleAttrs"
-        >
-          {{ title }}
-        </UiHeading>
-        <UiText
-          v-if="subtitle"
-          v-bind="textSubtitleAttrs"
-          class="ui-text--body-2-comfortable ui-side-panel__subtitle"
-        >
-          {{ subtitle }}
-        </UiText>
-      </div>
-    </template>
-    <template #default>
-      <!-- Use default slot to place side panel content. -->
-    </template>   
-  </UiSidePanel>
-</template>
-
-<script setup lang="ts">
-import { ref } from 'vue';
-import { 
-  UiSidePanel,
-  UiHeading,
-  UiText,
-} from '@infermedica/component-library';
-import type { SidePanelProps } from '@infermedica/component-library';
-
-const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
-const title: SidePanelProps['title'] = '${meta.args.title}';
-const subtitle: SidePanelProps['subtitle'] = '${meta.args.subtitle}';
-</script>`,
-    },
-  },
-};
-
-export const WithCloseSlot: SidePanelStoryType = {
-  render: () => ({
-    inheritAttrs: false,
-    components: {
-      UiSidePanel,
-      UiButton,
-      UiIcon,
-      TOS,
-    },
-    setup(props, { attrs }) {
-      const {
-        modelValue,
-        ...args
-      } = attrs;
-
-      const value = inject('value');
-
-      return {
-        value,
-        args,
-      };
-    },
-    template: `<UiSidePanel
-      v-model="value"
-      v-bind="args"
-    >
-      <template #close="{
-        buttonCloseAttrs,
-        closeHandler,
-        iconCloseAttrs,
-      }">
-        <UiButton
-          v-bind="buttonCloseAttrs"
-          ref="button"
-          class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
-          @click="closeHandler"
-        >
-          <UiIcon
-            v-bind="iconCloseAttrs"
-            class="ui-button__icon"
-          />
-        </UiButton>
-      </template>
-      <template #default>
-        <TOS/>
-      </template>
-    </UiSidePanel>`,
-  }),
-};
-WithCloseSlot.parameters = {
-  chromatic: { disableSnapshot: false },
-  docs: {
-    source: {
-      code: `<template>
-  <UiSidePanel
-    v-model="modelValue"
-    :title="title"
-    :subtitle="subtitle"
-  >
-    <template #close="{
-      buttonCloseAttrs,
-      closeHandler,
-      iconCloseAttrs,
-    }">
-      <UiButton
-        v-bind="buttonCloseAttrs"
-        ref="button"
-        class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
-        @click="closeHandler"
-      >
-        <UiIcon
-          v-bind="iconCloseAttrs"
-          class="ui-button__icon"
-        />
-      </UiButton>
-    </template>
-    <template #default>
-      <!-- Use default slot to place side panel content. -->
-    </template>
-  </UiSidePanel>
-</template>
-
-<script setup lang="ts">
-import { ref } from 'vue';
-import { 
-  UiSidePanel,
-  UiButton,
-  UiIcon,
-} from '@infermedica/component-library';
-import type { SidePanelProps } from '@infermedica/component-library';
-
-const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
-const title: SidePanelProps['title'] = '${meta.args.title}';
-const subtitle: SidePanelProps['subtitle'] = '${meta.args.subtitle}';
-</script>
-    `,
-    },
-  },
-};
-
-export const WithHeaderSlot: SidePanelStoryType = {
-  render: () => ({
-    inheritAttrs: false,
-    components: {
-      UiSidePanel,
-      UiButton,
-      UiIcon,
-      UiHeading,
-      UiText,
-      TOS,
-    },
-    setup(props, { attrs }) {
-      const {
-        modelValue,
-        ...args
-      } = attrs;
-      const value = inject('value');
-
-      return {
-        value,
-        args,
-      };
-    },
-    template: `<UiSidePanel
-      v-model="value"
-      v-bind="args"
-    >
-      <template #header="{
-        buttonCloseAttrs,
-        closeHandler,
-        title,
-        subtitle,
-        headingTitleAttrs,
-        textSubtitleAttrs,
-        iconCloseAttrs,
-      }">
-        <div class="ui-side-panel__header">
-          <UiButton
-            v-bind="buttonCloseAttrs"
-            ref="button"
-            class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
-            @click="closeHandler"
-          >
-            <UiIcon
-              v-bind="iconCloseAttrs"
-              class="ui-button__icon"
-            />
-          </UiButton>
-          <div
-            v-if="title || subtitle"
-            class="ui-side-panel__label"
-          >
-            <UiHeading
-              v-if="title"
-              v-bind="headingTitleAttrs"
-            >
-              {{ title }}
-            </UiHeading>
-            <UiText
-              v-if="subtitle"
-              v-bind="textSubtitleAttrs"
-              class="ui-text--body-2-comfortable ui-side-panel__subtitle"
-            >
-              {{ subtitle }}
-            </UiText>
-          </div>
-        </div>
-      </template>
-      <template #default>
-        <TOS/>
-      </template>
-    </UiSidePanel>`,
-  }),
-};
-WithHeaderSlot.parameters = {
-  chromatic: { disableSnapshot: false },
-  docs: {
-    source: {
-      code: `<template>
-  <UiSidePanel
-    v-model="modelValue"
-    :title="title"
-    :subtitle="subtitle"
-  >
-    <template #header="{
-      buttonCloseAttrs,
-      closeHandler,
-      title,
-      subtitle,
-      headingTitleAttrs,
-      textSubtitleAttrs,
-      iconCloseAttrs,
-    }">
-      <div class="ui-side-panel__header">
-        <UiButton
-          v-bind="buttonCloseAttrs"
-          ref="button"
-          class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
-          @click="closeHandler"
-        >
-          <UiIcon
-            v-bind="iconCloseAttrs"
-            class="ui-button__icon"
-          />
-        </UiButton>
-        <div
-          v-if="title || subtitle"
-          class="ui-side-panel__label"
-        >
-          <UiHeading
-            v-if="title"
-            v-bind="headingTitleAttrs"
-          >
-            {{ title }}
-          </UiHeading>
-          <UiText
-            v-if="subtitle"
-            v-bind="textSubtitleAttrs"
-            class="ui-text--body-2-comfortable ui-side-panel__subtitle"
-          >
-            {{ subtitle }}
-          </UiText>
-        </div>
-      </div>
-    </template>
-    <template #default>
-      <!-- Use default slot to place side panel content. -->
-    </template>
-  </UiSidePanel>
-</template>
-
-<script setup lang="ts">
-import { ref } from 'vue';
-import { 
-  UiSidePanel,
-  UiButton,
-  UiIcon,
-  UiHeading,
-  UiText,
-} from '@infermedica/component-library';
-import type { SidePanelProps } from '@infermedica/component-library';
-
-const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
-const title: SidePanelProps['title'] = '${meta.args.title}';
-const subtitle: SidePanelProps['subtitle'] = '${meta.args.subtitle}';
-</script>`,
-    },
-  },
-};
-
 export const WithBackdropSlot: SidePanelStoryType = {
   render: () => ({
     inheritAttrs: false,
@@ -1461,7 +1093,6 @@ export const WithContainerSlot: SidePanelStoryType = {
   }),
 };
 WithContainerSlot.parameters = {
-  chromatic: { disableSnapshot: false },
   docs: {
     source: {
       code: `<template>
@@ -1483,14 +1114,435 @@ WithContainerSlot.parameters = {
       textSubtitleAttrs,
       dialogAttrs,
     }">
-      <!-- Use container slot to place side panel content. -->
+      <transition
+        v-bind="transitionDialogAttrs"
+      >
+        <dialog
+          v-if="modelValue"
+          v-focus-trap
+          v-body-scroll-lock
+          v-bind="dialogAttrs"
+          class="ui-side-panel__dialog"
+        >
+          <div class="ui-side-panel__header">
+            <UiButton
+              v-bind="buttonCloseAttrs"
+              ref="button"
+              class="ui-button--icon ui-button--theme-secondary ui-side-panel__close"
+              @click="closeHandler"
+            >
+              <UiIcon
+                v-bind="iconCloseAttrs"
+                class="ui-button__icon"
+              />
+            </UiButton>
+              <div
+                v-if="title || subtitle"
+                v-bind="labelAttrs"
+                class="ui-side-panel__label"
+              >
+                <UiHeading
+                  v-if="title"
+                  v-bind="headingTitleAttrs"
+                >
+                  {{ title }}
+                </UiHeading>
+                <UiText
+                  v-if="subtitle"
+                  v-bind="textSubtitleAttrs"
+                  class="ui-text--body-2-comfortable ui-side-panel__subtitle"
+                >
+                  {{ subtitle }}
+                </UiText>
+            </div>
+          </div>
+          <div
+            v-scroll-tabindex
+            v-keyboard-focus
+            class="ui-side-panel__content"
+            v-bind="contentAttrs"
+          >
+            <!-- Place side panel content. -->
+          </div>
+        </dialog>
+      </transition>
     </template>
   </UiSidePanel>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import {
+  scrollTabindex as vScrollTabindex,
+  keyboardFocus as vKeyboardFocus,
+} from '@infermedica/component-library/directives';
 import { UiSidePanel } from '@infermedica/component-library';
+import type { SidePanelProps } from '@infermedica/component-library';
+
+const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
+const title: SidePanelProps['title'] = '${meta.args.title}';
+const subtitle: SidePanelProps['subtitle'] = '${meta.args.subtitle}';
+</script>`,
+    },
+  },
+};
+
+export const WithHeaderSlot: SidePanelStoryType = {
+  render: () => ({
+    inheritAttrs: false,
+    components: {
+      UiSidePanel,
+      UiButton,
+      UiIcon,
+      UiHeading,
+      UiText,
+      TOS,
+    },
+    setup(props, { attrs }) {
+      const {
+        modelValue,
+        ...args
+      } = attrs;
+      const value = inject('value');
+
+      return {
+        value,
+        args,
+      };
+    },
+    template: `<UiSidePanel
+      v-model="value"
+      v-bind="args"
+    >
+      <template #header="{
+        buttonCloseAttrs,
+        closeHandler,
+        title,
+        subtitle,
+        headingTitleAttrs,
+        textSubtitleAttrs,
+        iconCloseAttrs,
+      }">
+        <div class="ui-side-panel__header">
+          <UiButton
+            v-bind="buttonCloseAttrs"
+            ref="button"
+            class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
+            @click="closeHandler"
+          >
+            <UiIcon
+              v-bind="iconCloseAttrs"
+              class="ui-button__icon"
+            />
+          </UiButton>
+          <div
+            v-if="title || subtitle"
+            class="ui-side-panel__label"
+          >
+            <UiHeading
+              v-if="title"
+              v-bind="headingTitleAttrs"
+            >
+              {{ title }}
+            </UiHeading>
+            <UiText
+              v-if="subtitle"
+              v-bind="textSubtitleAttrs"
+              class="ui-text--body-2-comfortable ui-side-panel__subtitle"
+            >
+              {{ subtitle }}
+            </UiText>
+          </div>
+        </div>
+      </template>
+      <template #default>
+        <TOS/>
+      </template>
+    </UiSidePanel>`,
+  }),
+};
+WithHeaderSlot.parameters = {
+  chromatic: { disableSnapshot: false },
+  docs: {
+    source: {
+      code: `<template>
+  <UiSidePanel
+    v-model="modelValue"
+    :title="title"
+    :subtitle="subtitle"
+  >
+    <template #header="{
+      buttonCloseAttrs,
+      closeHandler,
+      title,
+      subtitle,
+      headingTitleAttrs,
+      textSubtitleAttrs,
+      iconCloseAttrs,
+    }">
+      <div class="ui-side-panel__header">
+        <UiButton
+          v-bind="buttonCloseAttrs"
+          ref="button"
+          class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
+          @click="closeHandler"
+        >
+          <UiIcon
+            v-bind="iconCloseAttrs"
+            class="ui-button__icon"
+          />
+        </UiButton>
+        <div
+          v-if="title || subtitle"
+          class="ui-side-panel__label"
+        >
+          <UiHeading
+            v-if="title"
+            v-bind="headingTitleAttrs"
+          >
+            {{ title }}
+          </UiHeading>
+          <UiText
+            v-if="subtitle"
+            v-bind="textSubtitleAttrs"
+            class="ui-text--body-2-comfortable ui-side-panel__subtitle"
+          >
+            {{ subtitle }}
+          </UiText>
+        </div>
+      </div>
+    </template>
+    <template #default>
+      <!-- Use default slot to place side panel content. -->
+    </template>
+  </UiSidePanel>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import { 
+  UiSidePanel,
+  UiButton,
+  UiIcon,
+  UiHeading,
+  UiText,
+} from '@infermedica/component-library';
+import type { SidePanelProps } from '@infermedica/component-library';
+
+const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
+const title: SidePanelProps['title'] = '${meta.args.title}';
+const subtitle: SidePanelProps['subtitle'] = '${meta.args.subtitle}';
+</script>`,
+    },
+  },
+};
+
+export const WithCloseSlot: SidePanelStoryType = {
+  render: () => ({
+    inheritAttrs: false,
+    components: {
+      UiSidePanel,
+      UiButton,
+      UiIcon,
+      TOS,
+    },
+    setup(props, { attrs }) {
+      const {
+        modelValue,
+        ...args
+      } = attrs;
+
+      const value = inject('value');
+
+      return {
+        value,
+        args,
+      };
+    },
+    template: `<UiSidePanel
+      v-model="value"
+      v-bind="args"
+    >
+      <template #close="{
+        buttonCloseAttrs,
+        closeHandler,
+        iconCloseAttrs,
+      }">
+        <UiButton
+          v-bind="buttonCloseAttrs"
+          ref="button"
+          class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
+          @click="closeHandler"
+        >
+          <UiIcon
+            v-bind="iconCloseAttrs"
+            class="ui-button__icon"
+          />
+        </UiButton>
+      </template>
+      <template #default>
+        <TOS/>
+      </template>
+    </UiSidePanel>`,
+  }),
+};
+WithCloseSlot.parameters = {
+  docs: {
+    source: {
+      code: `<template>
+  <UiSidePanel
+    v-model="modelValue"
+    :title="title"
+    :subtitle="subtitle"
+  >
+    <template #close="{
+      buttonCloseAttrs,
+      closeHandler,
+      iconCloseAttrs,
+    }">
+      <UiButton
+        v-bind="buttonCloseAttrs"
+        ref="button"
+        class="ui-button--has-icon ui-button--theme-secondary ui-button--text ui-side-panel__close"
+        @click="closeHandler"
+      >
+        <UiIcon
+          v-bind="iconCloseAttrs"
+          class="ui-button__icon"
+        />
+      </UiButton>
+    </template>
+    <template #default>
+      <!-- Use default slot to place side panel content. -->
+    </template>
+  </UiSidePanel>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import { 
+  UiSidePanel,
+  UiButton,
+  UiIcon,
+} from '@infermedica/component-library';
+import type { SidePanelProps } from '@infermedica/component-library';
+
+const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
+const title: SidePanelProps['title'] = '${meta.args.title}';
+const subtitle: SidePanelProps['subtitle'] = '${meta.args.subtitle}';
+</script>
+    `,
+    },
+  },
+};
+
+export const WithLabelSlot: SidePanelStoryType = {
+  render: () => ({
+    inheritAttrs: false,
+    components: {
+      UiSidePanel,
+      UiHeading,
+      UiText,
+      TOS,
+    },
+    setup(props, { attrs }) {
+      const {
+        modelValue,
+        ...args
+      } = attrs;
+      const value = inject('value');
+
+      return {
+        value,
+        args,
+      };
+    },
+    template: `<UiSidePanel
+      v-model="value"
+      v-bind="args"
+    >
+      <template #label="{
+        title,
+        subtitle,
+        headingTitleAttrs,
+        textSubtitleAttrs,
+        labelAttrs,
+      }">
+        <div
+          v-if="title || subtitle"
+          v-bind="labelAttrs"
+          class="ui-side-panel__label"
+        >
+          <UiHeading
+            v-if="title"
+            v-bind="headingTitleAttrs"
+          >
+            {{ title }}
+          </UiHeading>
+          <UiText
+            v-if="subtitle"
+            v-bind="textSubtitleAttrs"
+            class="ui-text--body-2-comfortable ui-side-panel__subtitle"
+          >
+            {{ subtitle }}
+          </UiText>
+        </div>
+      </template>
+      <template #default>
+        <TOS/>
+      </template>
+    </UiSidePanel>`,
+  }),
+};
+WithLabelSlot.parameters = {
+  docs: {
+    source: {
+      code: `<template>
+  <UiSidePanel
+    v-model="modelValue"
+    :title="title"
+    :subtitle="subtitle"
+  >
+    <template #label="{
+      title,
+      subtitle,
+      headingTitleAttrs,
+      textSubtitleAttrs,
+      labelAttrs,
+    }">
+      <div
+        v-if="title || subtitle"
+        v-bind="labelAttrs"
+        class="ui-side-panel__label"
+      >
+        <UiHeading
+          v-if="title"
+          v-bind="headingTitleAttrs"
+        >
+          {{ title }}
+        </UiHeading>
+        <UiText
+          v-if="subtitle"
+          v-bind="textSubtitleAttrs"
+          class="ui-text--body-2-comfortable ui-side-panel__subtitle"
+        >
+          {{ subtitle }}
+        </UiText>
+      </div>
+    </template>
+    <template #default>
+      <!-- Use default slot to place side panel content. -->
+    </template>   
+  </UiSidePanel>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import { 
+  UiSidePanel,
+  UiHeading,
+  UiText,
+} from '@infermedica/component-library';
 import type { SidePanelProps } from '@infermedica/component-library';
 
 const modelValue = ref<SidePanelProps['modelValue']>(${meta.args.modelValue});
@@ -1542,12 +1594,7 @@ export const WithTitleSlot: SidePanelStoryType = {
   </UiSidePanel>`,
   }),
 };
-WithTitleSlot.args = {
-  ...Basic.args,
-  subtitle: '',
-};
 WithTitleSlot.parameters = {
-  chromatic: { disableSnapshot: false },
   docs: {
     source: {
       code: `<template>
@@ -1631,7 +1678,6 @@ export const WithSubtitleSlot: SidePanelStoryType = {
   }),
 };
 WithSubtitleSlot.parameters = {
-  chromatic: { disableSnapshot: false },
   docs: {
     source: {
       code: `<template>
@@ -1715,7 +1761,6 @@ export const WithContentSlot: SidePanelStoryType = {
   }),
 };
 WithContentSlot.parameters = {
-  chromatic: { disableSnapshot: false },
   docs: {
     source: {
       code: `<template>
@@ -1731,7 +1776,7 @@ WithContentSlot.parameters = {
         v-bind="contentAttrs"
         class="ui-side-panel__content"
       >
-        <!-- Use content slot to place side panel content. -->
+        <!-- Place side panel content. -->
       </div>
     </template>
   </UiSidePanel>
@@ -1742,7 +1787,7 @@ import { ref } from 'vue';
 import {
   scrollTabindex as vScrollTabindex,
   keyboardFocus as vKeyboardFocus,
-} from '@infermedica/component-library/src/utilities/directives/index.ts';
+} from '@infermedica/component-library/directives';
 import { UiSidePanel } from '@infermedica/component-library';
 import type { SidePanelProps } from '@infermedica/component-library';
 
