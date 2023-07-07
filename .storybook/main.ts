@@ -18,6 +18,7 @@ const config: StorybookConfig = {
           '@': path.resolve(__dirname, '../src'),
           '@sb': path.resolve(__dirname),
           '@index': path.resolve(__dirname, '../index.ts'),
+          '@infermedica/component-library': path.resolve(__dirname, '../index.ts'),
           '@tests': path.resolve(__dirname, '../tests')
         }
       },

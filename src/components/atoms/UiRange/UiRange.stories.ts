@@ -5,22 +5,22 @@ import type {
 import {
   ref,
   provide,
-  inject
+  inject,
 } from 'vue';
-import deepmerge from "deepmerge";
+import deepmerge from 'deepmerge';
 import {
   UiRange,
-  UiHeading
+  UiHeading,
 } from '@/../index';
 import { withVariants } from '@sb/decorators';
 import {
   useArgTypes,
-  inputEvents
-} from '@sb/helpers'
+  inputEvents,
+} from '@sb/helpers';
 
 const { argTypes } = useArgTypes(deepmerge(
   UiRange,
-  inputEvents
+  inputEvents,
 ));
 
 const meta = {
@@ -42,19 +42,18 @@ const meta = {
       description: 'Use this control to set aria-label attribute.',
       control: 'text',
       table: { category: 'html attributes' },
-    }
+    },
   },
   parameters: {
     chromatic: {
       disableSnapshot: false,
-      viewports: [320, 1200],
+      viewports: [
+        320,
+        1200,
+      ],
     },
-    docs: {
-      source: {
-        code: null
-      }
-    }
-  }
+    docs: { source: { code: null } },
+  },
 } satisfies Meta<typeof UiRange>;
 export default meta;
 type Story = StoryObj<typeof UiRange>;
@@ -62,14 +61,14 @@ export const Basic: Story = {
   render: () => ({
     inheritAttrs: false,
     components: { UiRange },
-    setup( props, { attrs } ) {
+    setup(props, { attrs }) {
       const {
         modelValue,
         ...args
       } = attrs;
       const value = inject('value') || ref(modelValue);
       return {
-        args: args,
+        args,
         value,
       };
     },
@@ -111,69 +110,53 @@ const headingValueAttrs = {
   "data-testid": "value-heading"
 };
 </script>`,
-    }
-  }
-}
+    },
+  },
+};
 
-export const PseudoClass: Story = {
-  ...Basic,
-}
+export const PseudoClass: Story = { ...Basic };
 PseudoClass.decorators = [
   withVariants,
   () => ({
     inheritAttrs: false,
-    setup( props, { attrs }) {
+    setup(props, { attrs }) {
       const { modelValue } = attrs;
       const value = ref(modelValue);
       provide('value', value);
     },
-    template: `<story />`
-  })
-]
+    template: '<story />',
+  }),
+];
 PseudoClass.parameters = {
   variants: [
-    { label:'default' },
-    ...['hover', 'focus', 'active'].map((variant) => ({
+    { label: 'default' },
+    ...[
+      'hover',
+      'focus',
+      'active',
+    ].map((variant) => ({
       label: `${variant}`,
-      inputAttrs: {
-        class: `pseudo-${variant}`,
-      },
+      inputAttrs: { class: `pseudo-${variant}` },
     })),
-  ]
-}
+  ],
+};
 
-export const Min:Story = {
-  ...Basic
-}
-Min.args = {
-  modelValue: meta.args.min,
-}
-Min.parameters = {
-  docs: {
-    source: {
-      code: null
-    }
-  }
-}
+export const Min:Story = { ...Basic };
+Min.args = { modelValue: meta.args.min };
+Min.parameters = { docs: { source: { code: null } } };
 
-export const Max:Story = {
-  ...Basic
-}
-Max.args = {
-  modelValue: meta.args.max,
-}
-Max.parameters = {
-  ...Min.parameters,
-}
+export const Max:Story = { ...Basic };
+Max.args = { modelValue: meta.args.max };
+Max.parameters = { ...Min.parameters };
 
 export const WithValueSlot: Story = {
   render: () => ({
     inheritAttrs: false,
     components: {
       UiRange,
-      UiHeading
+      UiHeading,
     },
-    setup( props, { attrs } ) {
+    setup(props, { attrs }) {
       const {
         modelValue,
         ...args
@@ -202,7 +185,7 @@ export const WithValueSlot: Story = {
       </template>
     </UiRange>`,
   }),
-}
+};
 WithValueSlot.parameters = {
   docs: {
     source: {
@@ -240,16 +223,16 @@ const modelValue = ref('');
 const min = 0;
 const max = 1;
 const step = 1; 
-</script>`
-    }
-  }
-}
+</script>`,
+    },
+  },
+};
 
 export const WithRangeSlot: Story = {
   render: () => ({
     inheritAttrs: false,
     components: { UiRange },
-    setup( props, { attrs } ) {
+    setup(props, { attrs }) {
       const {
         modelValue,
         ...args
@@ -288,7 +271,7 @@ export const WithRangeSlot: Story = {
     </template>
     </UiRange>`,
   }),
-}
+};
 WithRangeSlot.parameters = {
   docs: {
     source: {
@@ -338,7 +321,7 @@ const modelValue = ref('');
 const min = 0;
 const max = 1;
 const step = 1;
-</script>`
-    }
-  }
-}
+</script>`,
+    },
+  },
+};

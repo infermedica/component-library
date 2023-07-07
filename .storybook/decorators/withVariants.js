@@ -139,7 +139,7 @@ export const withVariants = (story, { componentId, id, parameters, args }) => ({
             v-bind="{
               ...args,
               ...rest,
-              class: '',
+              // class: '', // TODO: remove for stories in vue files approach
               modifiers: getModifiers(rest, args),
             }"
         />
