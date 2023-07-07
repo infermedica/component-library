@@ -83,6 +83,7 @@
       <!-- TODO: create MultipleChoicesItemOptions component -->
       <UiList
         class="ui-multiple-choices-item__options"
+        role="presentation"
       >
         <template
           v-for="(option, key) in optionsToRender"
