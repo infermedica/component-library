@@ -1,0 +1,12 @@
+
+//<Code id="multiple-choice-side-panel">
+.multiple-choices-side-panel {
+  &__heading {
+    margin-top: var(--space-32);
+    margin-bottom: var(--space-16)
+  }
+  .ui-text--body-1-thick {
+    --text-color: #5F7285;
+  }
+}
+//</Code>
