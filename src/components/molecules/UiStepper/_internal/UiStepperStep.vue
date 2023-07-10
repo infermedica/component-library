@@ -7,14 +7,12 @@
       name="item-link"
       v-bind="{
         itemAttrs,
-        itemTag,
         itemClass,
         label,
       }"
     >
-      <component
+      <UiButton
         v-bind="itemAttrs"
-        :is="itemTag"
         :class="[
           'ui-stepper-step__content', itemClass
         ]"
@@ -26,7 +24,7 @@
         >
           {{ label }}
         </slot>
-      </component>
+      </UiButton>
     </slot>
   </UiListItem>
 </template>
@@ -44,8 +42,6 @@ import type {
 import useAttributes from '../../../../composable/useAttributes';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import type { ButtonAttrsProps } from '../../../atoms/UiButton/UiButton.vue';
-import UiText from '../../../atoms/UiText/UiText.vue';
-import type { TextAttrsProps } from '../../../atoms/UiText/UiText.vue';
 import UiListItem from '../../../organisms/UiList/_internal/UiListItem.vue';
 import type { DefineAttrsProps } from '../../../../types';
 
@@ -63,15 +59,18 @@ export interface StepperStepProps {
    */
   label?: string;
 }
-export type StepperStepAttrsProps = DefineAttrsProps<StepperStepProps, ButtonAttrsProps | TextAttrsProps>
+export type StepperStepAttrsProps = DefineAttrsProps<StepperStepProps, ButtonAttrsProps>
 
 const props = withDefaults(defineProps<StepperStepProps>(), {
   index: 0,
   activeStepIndex: 0,
   label: '',
 });
+
 const isCurrentStep = computed(() => props.index === props.activeStepIndex);
 const isVisitedStep = computed(() => props.index < props.activeStepIndex);
+const isInactiveStep = computed(() => props.index > props.activeStepIndex);
+
 const listItemAttrs = computed(() => ({
   class: [
     'ui-stepper-step',
@@ -81,27 +80,25 @@ const listItemAttrs = computed(() => ({
     },
   ],
 }));
-const itemTag = computed(() => (isVisitedStep.value
-  ? UiButton
-  : UiText));
-const itemClass = computed(() => (isVisitedStep.value
-  ? [
+const itemClass = computed(() => (
+  [
     'ui-button--text',
     'ui-button--theme-secondary',
+    isInactiveStep.value ? 'ui-button--is-disabled' : '',
   ]
-  : [ { 'ui-text--body-1-thick': isCurrentStep.value } ]
 ));
+
 const {
   attrs, listeners,
 } = useAttributes<ButtonHTMLAttributes | HTMLAttributes>();
-const itemAttrs = computed<ButtonAttrsProps | TextAttrsProps>(() => (isVisitedStep.value
+const itemAttrs = computed<ButtonAttrsProps>(() => (isVisitedStep.value
   ? {
     ...listeners.value,
     ...attrs.value,
   }
   : {
-    tag: 'span',
-    ...Object.keys(attrs.value).reduce((attributes: TextAttrsProps, attribute) => {
+    disabled: true,
+    ...Object.keys(attrs.value).reduce((attributes: ButtonAttrsProps, attribute) => {
       if (!attribute.match(/(to|href)/)) {
         attributes[attribute] = attrs.value[attribute]; // eslint-disable-line no-param-reassign
       }
@@ -150,6 +147,18 @@ const itemAttrs = computed<ButtonAttrsProps | TextAttrsProps>(() => (isVisitedSt
 
     #{$this}__content {
       --text-color: #{functions.var($element + "-content", color, revert)};
+    }
+  }
+
+  &--is-current {
+    --button-color: var(--color-text-body);
+    --button-hover-color: var(--color-text-body);
+    --button-active-color: var(--color-text-body);
+    --button-font: var(--font-body-1-thick);
+    --button-letter-spacing: var(--letter-spacing-body-1-thick)
+
+    #{$this}__content {
+      cursor: auto;
     }
   }
 

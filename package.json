@@ -1,7 +1,7 @@
 {
   "name": "@infermedica/component-library",
   "description": "Vue 3 UI library for healthcare and not only.",
-  "version": "0.6.1",
+  "version": "0.6.9",
   "engines": {
     "node": ">=16.13.2",
     "pnpm": ">=6.32"
@@ -28,7 +28,7 @@
     "release": "node --experimental-fetch scripts/release.mjs",
     "update:components-api": "node scripts/update-components-api.mjs",
     "update:docs": "node scripts/update-components-docs.mjs && pnpm lint",
-    "update:css-variables": "node --experimental-fetch scripts/figma-to-css.mjs && stylelint src/styles/variables/*.scss --fix",
+    "update:css-variables": "node --experimental-fetch scripts/figma-to-css.mjs",
     "chromatic": "chromatic --exit-zero-on-changes",
     "serve": "vite --open",
     "preview": "vite preview --open --port 8080",
@@ -43,11 +43,13 @@
     "./styles/": "./src/styles/",
     "./breakpoints": "./src/styles/exports/breakpoints.module.scss",
     "./mixins/": "./src/styles/mixins",
+    "./transitions/": "./src/styles/transitions",
     "./atoms/": "./src/components/atoms/",
     "./molecules/": "./src/components/molecules/",
     "./organisms/": "./src/components/organisms/",
     "./templates/": "./src/components/templates/",
     "./directives/": "./src/utilities/directives/",
+    "./transition/": "./src/utilities/transitions/",
     "./helpers/": "./src/utilities/helpers/",
     "./composable/": "./src/composable/",
     "./icons/": "./src/assets/icons/"
@@ -66,7 +68,7 @@
     "uid": "^2.0.0",
     "vite": "^4.0.0",
     "vite-svg-loader": "^3.4.0",
-    "vue": "^3.2.47"
+    "vue": "^3.3.4"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",

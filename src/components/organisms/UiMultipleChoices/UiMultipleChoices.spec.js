@@ -82,4 +82,22 @@ describe('UiMultipleChoices.vue', () => {
     await wrapper.vm.$nextTick();
     expect(wrapper.emitted('update:invalid')).toBeTruthy();
   });
+
+  test('renders inputs with name attribute', () => {
+    const options = [ {
+      name: 'Yes',
+      value: 'yes',
+    } ];
+    const wrapper = mount(UiMultipleChoices, {
+      props: {
+        items: [ {
+          id: 'diabetes',
+          name: 'I have diabetes',
+        } ],
+        options,
+      },
+    });
+
+    expect(wrapper.find('input').attributes()).toContain({ name: 'diabetes' });
+  });
 });

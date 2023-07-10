@@ -12,6 +12,7 @@ import getArgs from './helpers/get-args.mjs';
 import getReleaseInfo from './helpers/get-release-info.mjs';
 import updateComponentsApi from './update-components-api.mjs';
 import createReleaseNotes from './create-release-notes.mjs';
+import createReleaseChangelog from './create-release-changelog.mjs';
 
 const fileName = fileURLToPath(import.meta.url);
 const dirName = dirname(fileName);
@@ -29,6 +30,7 @@ const release = async (type, withDocs) => {
   if (newVersion) {
     await updateComponentsApi();
     updatePackageJson(newVersion);
+    createReleaseChangelog(newVersion);
   }
   if (withDocs) await createReleaseNotes(releaseType);
 };

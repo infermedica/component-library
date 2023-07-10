@@ -22,4 +22,16 @@ describe('UiRating.vue', () => {
     });
     expect(wrapper.findAll('.activeIcon').length).toBe(3);
   });
+  test('respects translation prop', () => {
+    const wrapper = mount(UiRating, {
+      props: {
+        max: '5',
+        modelValue: '3',
+        translation: { stars: (star) => `${star} custom stars` },
+      },
+    });
+
+    const [ firstOption ] = wrapper.findAll('.ui-rating__option');
+    expect(firstOption.text()).toBe('1 custom stars');
+  });
 });
