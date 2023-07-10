@@ -1,29 +1,26 @@
 // Auto-generated file by update:css-variables script. Do not edit manually
-html {--space-2: 0.125rem;
---space-4: 0.25rem;
---space-8: 0.5rem;
---space-12: 0.75rem;
---space-16: 1rem;
---space-20: 1.25rem;
---space-24: 1.5rem;
---space-32: 2rem;
---space-40: 2.5rem;
---space-48: 3rem;
---space-64: 4rem;
---space-96: 6rem;
-
---border-radius-button: 0.3125rem;
---border-radius-circle: 50%;
---border-radius-container: 0.3125rem;
---border-radius-form: 0.3125rem;
---border-radius-pill: 20rem;
---border-radius-sharp: 0;
-
---box-shadow-high: 0 2px 6px 0 rgb(51 61 72 / 10%), 0 2px 16px 0 rgb(51 61 72 / 10%);
---box-shadow-low: 0 2px 6px 0 rgb(51 61 72 / 10%);
-
---focus-inner: inset 0 0 0 2px var(--color-border-focus-light), inset 0 0 0 4px var(--color-border-focus-dark);
---focus-outer: 0 0 0 2px var(--color-border-focus-light), 0 0 0 4px var(--color-border-focus-dark);
-
---opacity-medium: 0.5;
+html {
+  --space-2: 0.125rem;
+  --space-4: 0.25rem;
+  --space-8: 0.5rem;
+  --space-12: 0.75rem;
+  --space-16: 1rem;
+  --space-20: 1.25rem;
+  --space-24: 1.5rem;
+  --space-32: 2rem;
+  --space-40: 2.5rem;
+  --space-48: 3rem;
+  --space-64: 4rem;
+  --space-96: 6rem;
+  --border-radius-button: 0.3125rem;
+  --border-radius-circle: 50%;
+  --border-radius-container: 0.3125rem;
+  --border-radius-form: 0.3125rem;
+  --border-radius-pill: 20rem;
+  --border-radius-sharp: 0;
+  --box-shadow-high: 0 2px 6px 0 rgba(51, 61, 72, 0.1), 0 2px 16px 0 rgba(51, 61, 72, 0.1);
+  --box-shadow-low: 0 2px 6px 0 rgba(51, 61, 72, 0.1);
+  --focus-inner: inset 0 0 0 2px var(--color-border-focus-light), inset 0 0 0 4px var(--color-border-focus-dark);
+  --focus-outer: 0 0 0 2px var(--color-border-focus-light), 0 0 0 4px var(--color-border-focus-dark);
+  --opacity-medium: 0.5;
 }

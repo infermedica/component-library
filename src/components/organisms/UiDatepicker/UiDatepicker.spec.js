@@ -173,5 +173,20 @@ describe('UiDatepicker.vue', () => {
 
     expect(calendar.findComponent(UiPopover).exists()).toBe(false);
   });
+
+  test('skips to next field when entered value can\'t includes any other number', async () => {
+    const wrapper = mountDatepicker();
+
+    const dayInput = wrapper.findComponent(UiDatepickerDayInput).find('input');
+    const monthInput = wrapper.findComponent(UiDatepickerMonthInput).find('input');
+
+    dayInput.element.value = '4';
+    await dayInput.trigger('input', { data: '4' });
+
+    // we focus with 0ms delay, so, we also need to wait 0ms
+    await new Promise((resolve) => { setTimeout(resolve, 0); });
+
+    expect(document.activeElement).toBe(monthInput.element);
+  });
 });
 

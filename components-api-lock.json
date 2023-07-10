@@ -1625,7 +1625,7 @@
           },
           "defaultValue": {
             "func": false,
-            "value": "''"
+            "value": "false"
           }
         },
         {
@@ -1645,7 +1645,7 @@
           },
           "defaultValue": {
             "func": false,
-            "value": "''"
+            "value": "false"
           }
         },
         {
@@ -1700,6 +1700,10 @@
               "title": "binding"
             },
             {
+              "name": "hasHint",
+              "title": "binding"
+            },
+            {
               "name": "id",
               "title": "binding"
             },
@@ -1734,6 +1738,10 @@
           "description": "Use this slot to replace hint template.",
           "bindings": [
             {
+              "name": "hasHint",
+              "title": "binding"
+            },
+            {
               "name": "hint",
               "title": "binding"
             },
@@ -1761,6 +1769,10 @@
           "bindings": [
             {
               "name": "alertAttrs",
+              "title": "binding"
+            },
+            {
+              "name": "hasErrorMessage",
               "title": "binding"
             },
             {
@@ -2731,7 +2743,7 @@
           },
           "defaultValue": {
             "func": false,
-            "value": "() => ({ stars: (index: number) => (`${index} stars`) })"
+            "value": "() => ({ })"
           }
         },
         {
@@ -5795,7 +5807,7 @@
           },
           "defaultValue": {
             "func": false,
-            "value": "() => ({\n  appear: true,\n  name: 'slide',\n})"
+            "value": "() => ({\n  appear: true,\n  name: 'slide-from-end',\n})"
           }
         },
         {
@@ -6142,6 +6154,10 @@
             },
             {
               "name": "updateHandler",
+              "title": "binding"
+            },
+            {
+              "name": "tileItemAttrs",
               "title": "binding"
             }
           ]
@@ -7105,10 +7121,6 @@
           "bindings": [
             {
               "name": "itemAttrs",
-              "title": "binding"
-            },
-            {
-              "name": "itemTag",
               "title": "binding"
             },
             {

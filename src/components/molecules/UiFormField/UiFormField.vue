@@ -8,6 +8,7 @@
       v-bind="{
         message,
         hint,
+        hasHint,
         id: inputId,
         textMessageAttrs: defaultProps.textMessageAttrs,
         textHintAttrs: defaultProps.textHintAttrs,
@@ -37,12 +38,13 @@
         <slot
           name="hint"
           v-bind="{
+            hasHint,
             hint,
             textHintAttrs: defaultProps.textHintAttrs
           }"
         >
           <UiText
-            v-if="hint"
+            v-if="hasHint"
             v-bind="defaultProps.textHintAttrs"
             class="ui-text--body-2-comfortable ui-text--theme-secondary ui-form-field__hint"
           >
@@ -60,11 +62,12 @@
       name="alert"
       v-bind="{
         alertAttrs,
-        errorMessage
+        hasErrorMessage,
+        errorMessage,
       }"
     >
       <UiAlert
-        v-if="errorMessage"
+        v-if="hasErrorMessage"
         v-bind="alertAttrs"
         class="ui-form-field__alert"
       >
@@ -119,8 +122,8 @@ export type FormFieldAttrsProps = DefineAttrsProps<FormFieldProps>;
 const props = withDefaults(defineProps<FormFieldProps>(), {
   message: false,
   id: '',
-  hint: '',
-  errorMessage: '',
+  hint: false,
+  errorMessage: false,
   textMessageAttrs: () => ({ tag: 'span' }),
   textHintAttrs: () => ({ tag: 'span' }),
   alertAttrs: () => ({}),
@@ -141,6 +144,8 @@ const defaultProps = computed(() => {
 const inputId = computed(() => (
   props.id || `input-${uid()}`
 ));
+const hasHint = computed(() => typeof props.hint !== 'boolean');
+const hasErrorMessage = computed(() => typeof props.errorMessage !== 'boolean');
 </script>
 
 <style lang="scss">

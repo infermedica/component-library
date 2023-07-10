@@ -273,7 +273,7 @@ const defaultProps = computed(() => {
 });
 const hasActionsBottom = computed(() => (
   defaultProps.value.settings.why
-    || defaultProps.value.settings.issue
+    || defaultProps.value.settings.issue.action
 ));
 const hasFeedback = computed(() => (
   defaultProps.value.settings.issue.action

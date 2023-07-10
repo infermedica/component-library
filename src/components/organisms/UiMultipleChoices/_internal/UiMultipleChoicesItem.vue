@@ -83,6 +83,7 @@
       <!-- TODO: create MultipleChoicesItemOptions component -->
       <UiList
         class="ui-multiple-choices-item__options"
+        role="presentation"
       >
         <template
           v-for="(option, key) in optionsToRender"
@@ -102,7 +103,6 @@
               v-model="value"
               v-bind="option"
               :tag="UiRadio"
-              :name="multipleChoicesItemId"
               :class="[
                 'ui-multiple-choices-item__option-content', {
                   'ui-radio--has-error': invalid,
@@ -284,7 +284,13 @@ const value = computed({
   },
 });
 const hasInfo = computed(() => (Object.keys(props.buttonInfoAttrs).length > 0));
-const optionsToRender = computed(() => props.options.map((option) => ({ ...option })));
+const optionsToRender = computed(() => props.options.map((option) => ({
+  ...option,
+  inputAttrs: {
+    name: multipleChoicesItemId.value,
+    ...option.inputAttrs,
+  },
+})));
 </script>
 
 <style lang="scss">
@@ -366,7 +372,7 @@ const optionsToRender = computed(() => props.options.map((option) => ({ ...optio
   &__choices {
     display: flex;
     flex-direction: column;
-    flex-shrink: 0;
+    flex: 0;
     gap: functions.var($element + "-choices", gap, 0);
 
     @include mixins.from-tablet {
@@ -375,18 +381,36 @@ const optionsToRender = computed(() => props.options.map((option) => ({ ...optio
   }
 
   &__options {
-    @include mixins.override-logical(list-item, $element + "-options", border-width);
+    white-space: nowrap;
 
     @include mixins.from-tablet {
-      @include mixins.override-logical(list-item, $element + "-tablet-options", border-width, 0);
-
       display: flex;
       gap: functions.var($element + "-options", gap, var(--space-24));
     }
   }
 
+  &__option {
+    @include mixins.override-logical(list-item, $element + "-option", border-width,  1px 0 0 0);
+
+    --radio-gap: #{functions.var($element + '-option', gap, var(--space-12 ))};
+
+    &:last-of-type {
+      @include mixins.override-logical(list-item, $element + "-option", border-width,  1px 0);
+    }
+
+    @include mixins.from-tablet {
+      @include mixins.override-logical(list-item, $element + "-tablet-option", border-width, 0);
+
+      --radio-gap: #{functions.var($element + '-tablet-option', gap, var(--space-8 ))};
+
+      &:last-of-type {
+        @include mixins.override-logical(list-item, $element + "-tablet-option", border-width, 0);
+      }
+    }
+  }
+
   &__option-content {
-    @include mixins.override-logical(list-item-content, $element + "-option-content", padding);
+    @include mixins.override-logical(list-item-content, $element + "-option-content", padding, var(--space-12) var(--space-20));
     @include mixins.override-logical(list-item-tablet-content, $element + "-tablet-option-content", padding, 0);
 
     --list-item-content-hover-background: #{functions.var($element + "-content-hover", background)};

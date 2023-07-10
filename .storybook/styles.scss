@@ -34,7 +34,7 @@ body {
     z-index: 1;
   }
 
-  .ui-side-panel__dialog:not(.slide-enter-from) {
+  .ui-side-panel__dialog:not(.slide-from-end-enter-from, .slide-from-start-enter-from, .slide) {
     position: absolute;
   }
 
