@@ -5,7 +5,7 @@
     class="side-panel-condition-details"
   >
     <template #title="{ title }">
-      <div class="side-panel-with-condition-details__byline">
+      <div class="side-panel-condition-details__byline">
         <UiProgress :value="100" />
         <UiText class="ui-text--body-2-comfortable">
           Strong evidence
@@ -16,31 +16,31 @@
       </UiHeading>
     </template>
     <template #default>
-      <div class="side-panel-with-condition-details-section">
-        <UiHeading class="side-panel-with-condition-details-section__title">
+      <div class="side-panel-condition-details-section">
+        <UiHeading class="side-panel-condition-details-section__title">
           About
         </UiHeading>
         <UiHeading
           level="4"
-          class="side-panel-with-condition-details-section__subtitle"
+          class="side-panel-condition-details-section__subtitle"
         >
           What is acute viral throat infection?
         </UiHeading>
         <template v-if="isShowMoreOpen">
-          <UiText class="side-panel-with-condition-details-section__paragraph">
+          <UiText class="side-panel-condition-details-section__paragraph">
             Acute viral tonsillopharyngitis known as sore throat is an inflammation of throat and tonsils, caused by viral infection. It causes pain, discomfort, swelling in the throat, which can also be red and dry.
           </UiText>
-          <UiText class="side-panel-with-condition-details-section__paragraph">
+          <UiText class="side-panel-condition-details-section__paragraph">
             Other symptoms of pharyngitis may include painful swallowing, fever, bad breath, mild cough, joint pain, sneezing, headache, muscle aches, tender, swollen lymph nodes in the neck or runny nose.
           </UiText>
         </template>
         <template v-else>
-          <UiText class="side-panel-with-condition-details-section__paragraph">
+          <UiText class="side-panel-condition-details-section__paragraph">
             Acute viral tonsillopharyngitis known as sore throat is an inflammation of throat and tonsils, caused by viral infection ...
           </UiText>
         </template>
         <UiButton
-          class="ui-button--text side-panel-with-condition-details-section__show-more"
+          class="ui-button--text side-panel-condition-details-section__show-more"
           @click="handleShowMoreClick"
         >
           <UiIcon
@@ -105,7 +105,7 @@ const handleShowMoreClick = () => {
 
   &-section {
     @include mixins.inner-border(
-            'side-panel-with-condition-details-section',
+            'side-panel-condition-details-section',
         $color: var(--color-border-subtle),
         $width: 0 0 1px 0,
         $radius: 0

@@ -43,10 +43,12 @@ const items: TabsItemAttrsProps[] = [
 ];
 
 const { argTypes } = useArgTypes(UiTabs);
-import BasicStories from './stories/Basic.vue';
-import BasicStoriesCode from './stories/Basic.vue?raw';
-import WithDefaultSlotStories from './stories/WithDefaultSlot.vue';
-import WithDefaultSlotStoriesCode from './stories/WithDefaultSlot.vue?raw';
+import {
+  BasicStories,
+  BasicStoriesSource,
+  WithDefaultSlotStories,
+  WithDefaultSlotStoriesSource,
+} from './stories';
 
 const meta = {
   title: 'Organisms/Tabs',
@@ -75,7 +77,7 @@ const meta = {
 export default meta;
 
 export const Basic: TabsStoryType = { render: () => (BasicStories) };
-Basic.parameters = { docs: { source: { code: BasicStoriesCode } } };
+Basic.parameters = { docs: { source: { code: BasicStoriesSource } } };
 
 export const Fixed: TabsStoryType = { ...Basic };
 Fixed.args = { modifiers: [ 'ui-tabs--fixed' ] };
@@ -83,5 +85,5 @@ Fixed.args = { modifiers: [ 'ui-tabs--fixed' ] };
 export const WithDefaultSlot: TabsStoryType = { render: () => (WithDefaultSlotStories) };
 WithDefaultSlot.parameters = {
   chromatic: { disableSnapshot: true },
-  docs: { source: { code: WithDefaultSlotStoriesCode } },
+  docs: { source: { code: WithDefaultSlotStoriesSource } },
 };

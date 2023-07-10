@@ -19,8 +19,10 @@ const { argTypes } = useArgTypes(deepmerge(
   UiTextarea,
   inputEvents,
 ));
-import BasicStories from './stories/Basic.vue';
-import BasicStoriesCode from './stories/Basic.vue?raw';
+import {
+  BasicStories,
+  BasicStoriesSource,
+} from './stories';
 
 const meta = {
   title: 'Atoms/Textarea',
@@ -56,7 +58,7 @@ type Story = StoryObj<typeof UiTextarea>;
 export const Basic: Story = { render: () => BasicStories };
 Basic.parameters = {
   chromatic: { disableSnapshot: true },
-  docs: { source: { code: BasicStoriesCode } },
+  docs: { source: { code: BasicStoriesSource } },
 };
 
 export const Empty: Story = { ...Basic };

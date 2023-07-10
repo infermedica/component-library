@@ -31,9 +31,4 @@ const args = computed(() => ({
   ...rest,
   class: modifiers,
 }));
-
 </script>
-
-<style lang="scss">
-
-</style>

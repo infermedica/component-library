@@ -10,11 +10,11 @@
       </UiText>
       <UiFormField
         :error-message="errorMessage"
-        :alert-attrs="{ class: 'side-panel-with-report-an-issue__alert' }"
+        :alert-attrs="{ class: 'side-panel-report-an-issue__alert' }"
       >
         <UiList
           :items="options"
-          class="side-panel-with-report-an-issue__options"
+          class="side-panel-report-an-issue__options"
         >
           <template
             v-for="({ name }, key) in options"
@@ -36,7 +36,7 @@
         :error-message="false"
         message="Describe details"
         hint="Optional"
-        class="side-panel-with-report-an-issue__details"
+        class="side-panel-report-an-issue__details"
       >
         <template #default="{ id }">
           <UiTextarea
@@ -45,7 +45,7 @@
           />
         </template>
       </UiFormField>
-      <div class="side-panel-with-report-an-issue__actions">
+      <div class="side-panel-report-an-issue__actions">
         <UiButton
           type="submit"
           :class="{ 'ui-button--is-disabled': isProcessing }"
@@ -141,7 +141,7 @@ const options = [
   },
 ].map((option) => ({
   ...option,
-  listItemAttrs: { class: 'side-panel-with-report-an-issue__option' },
+  listItemAttrs: { class: 'side-panel-report-an-issue__option' },
 }));
 const selected = ref([]);
 const isProcessing = ref(false);
@@ -171,6 +171,7 @@ const handleReportAnIssueSubmit = () => {
 
 <style lang="scss">
 .side-panel-report-an-issue {
+  background-color: red;
   &__options {
     display: flex;
     flex-direction: column;

@@ -185,7 +185,7 @@ export function useArgTypes(component, options = { variables: {}}) {
     return [];
   };
   const modifiers = (() => {
-    const modifiers = __docgenInfo.modifiers || [];
+    const modifiers = __docgenInfo?.modifiers || [];
     const options = [
       ...getModifiers([...cssRules]),
       ...modifiers
