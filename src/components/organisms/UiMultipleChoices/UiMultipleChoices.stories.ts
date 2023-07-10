@@ -3,11 +3,7 @@ import type {
   Meta,
   StoryObj,
 } from '@storybook/vue3';
-import deepmerge from 'deepmerge';
-import {
-  useArgTypes,
-  extendEvents,
-} from '@sb/helpers';
+import { useArgTypes } from '@sb/helpers';
 import {
   UiAlert,
   UiBulletPoints,
@@ -24,12 +20,7 @@ type MultipleChoicesArgsType = MultipleChoicesProps;
 type MultipleChoicesMetaType = Meta<MultipleChoicesArgsType>;
 type MultipleChoicesStoryType = StoryObj<MultipleChoicesArgsType>;
 
-const events = extendEvents([
-  'update:modelValue',
-  'update:invalid',
-]);
-
-const { argTypes } = useArgTypes(deepmerge(UiMultipleChoices, events));
+const { argTypes } = useArgTypes(UiMultipleChoices);
 const isSidePanelOpen = ref(false);
 
 function handleButtonInfoClick() {
@@ -58,7 +49,7 @@ const buttonInfoItems = [
 ];
 
 const meta = {
-  title: 'Organisms/uiMultipleChoicesTS',
+  title: 'Organisms/MultipleChoices',
   component: UiMultipleChoices,
   args: {
     modelValue: [],
