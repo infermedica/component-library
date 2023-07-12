@@ -14,6 +14,7 @@ import {
 } from '@index';
 import UiMultipleChoicesItem from '@/components/organisms/UiMultipleChoices/_internal/UiMultipleChoicesItem.vue';
 import type { MultipleChoicesProps } from '@index';
+import type { MultipleChoicesItemAttrsProps } from './_internal/UiMultipleChoicesItem.vue';
 import './UiMultipleChoices.scss';
 
 type MultipleChoicesArgsType = MultipleChoicesProps;
@@ -21,32 +22,6 @@ type MultipleChoicesMetaType = Meta<MultipleChoicesArgsType>;
 type MultipleChoicesStoryType = StoryObj<MultipleChoicesArgsType>;
 
 const { argTypes } = useArgTypes(UiMultipleChoices);
-const isSidePanelOpen = ref(false);
-
-function handleButtonInfoClick() {
-  isSidePanelOpen.value = !isSidePanelOpen.value;
-}
-
-const buttonInfoItems = [
-  {
-    id: 'i-have-diabetes',
-    label: 'I have diabetes',
-    translation: { info: 'What does it mean?' },
-    buttonInfoAttrs: { onClick: handleButtonInfoClick },
-    iconInfoAttrs: { 'data-testid': 'info-icon' },
-  },
-  {
-    id: 'i-have-hypertension',
-    label: 'I have hypertension',
-  },
-  {
-    id: 'i-have-hypertension',
-    label: 'I have high cholesterol',
-    translation: { info: 'How to check it?' },
-    buttonInfoAttrs: { onClick: handleButtonInfoClick },
-    iconInfoAttrs: { 'data-testid': 'info-icon' },
-  },
-];
 
 const meta = {
   title: 'Organisms/MultipleChoices',
@@ -92,13 +67,7 @@ const meta = {
     items: { control: 'object' },
     options: { control: 'object' },
   },
-  decorators: [ () => ({
-    template: `<div class="mx-6">
-      <story/>
-    </div>`,
-  }) ],
 } satisfies MultipleChoicesMetaType;
-
 export default meta;
 
 const ExplanationSidePanel = {
@@ -110,7 +79,7 @@ const ExplanationSidePanel = {
   },
   setup() {
     const title = 'Explanation';
-    const modelValue = isSidePanelOpen;
+    const modelValue = ref(false);
     const items = [
       { text: 'Find the artery on the neck and put your two fingers on it.' },
       { text: 'Count the beat number for 15 seconds and multiply the number by 4.' },
@@ -126,63 +95,40 @@ const ExplanationSidePanel = {
   template: `<UiSidePanel
     v-model="modelValue"
     :title="title"
-    class="multiple-choices-side-panel"
   >
-    <UiText class="ui-text--body-1-thick">
-      Bradycardia
-    </UiText>
-    <UiHeading
-      :level="3"
-      class="multiple-choices-side-panel__heading"
-    >
-      What does it mean?
-    </UiHeading>
-    <UiText>
-      A heart rate below the normal range for age. Age 0 to 3 months: &lt126 bpm; age 3 to 6 months: &lt116 bpm; age 6 to 12 months: &lt106 bpm.
-    </UiText>
-    <UiHeading 
-      :level="3"
-      class="multiple-choices-side-panel__heading"
-    >
-      How to check it?
-    </UiHeading>
-    <UiBulletPoints
-      :items="items"
-      tag="ol"
-      type="1"
-    />
-</UiSidePanel>`,
+    <div class="multiple-choices-with-button-info-side-panel-content">
+      <UiHeading
+        :level="4"
+        tag="p"
+        class="ui-heading--theme-secondary">
+        Bradycardia
+      </UiHeading>
+      <div class="multiple-choices-with-button-info-side-panel-content__section">
+        <UiHeading
+          :level="3"
+        >
+          What does it mean?
+        </UiHeading>
+        <UiText>
+          A heart rate below the normal range for age. Age 0 to 3 months: &lt126 bpm; age 3 to 6 months: &lt116 bpm; age 6 to 12 months: &lt106 bpm.
+        </UiText>
+      </div>
+      <div class="multiple-choices-with-button-info-side-panel-content__section">
+        <UiHeading 
+          :level="3"
+        >
+          How to check it?
+        </UiHeading>
+        <UiBulletPoints
+          :items="items"
+          tag="ol"
+        />
+      </div>
+    </div>
+  </UiSidePanel>`,
 };
 
 export const Basic: MultipleChoicesStoryType = {
-  render: () => ({
-    inheritAttrs: false,
-    components: { UiMultipleChoices },
-    setup(props, { attrs }) {
-      const {
-        modelValue,
-        invalid,
-        ...args
-      } = attrs;
-
-      const value = ref(modelValue);
-      const isInvalid = ref(invalid);
-
-      return {
-        value,
-        isInvalid,
-        args,
-      };
-    },
-    template: `<UiMultipleChoices
-      v-model="value"
-      v-model:invalid="isInvalid"
-      v-bind="args"
-    />`,
-  }),
-};
-
-export const WithButtonInfo: MultipleChoicesStoryType = {
   render: () => ({
     inheritAttrs: false,
     components: {
@@ -193,50 +139,64 @@ export const WithButtonInfo: MultipleChoicesStoryType = {
       const {
         modelValue,
         invalid,
+        items,
         ...args
       } = attrs;
 
       const value = ref(modelValue);
       const isInvalid = ref(invalid);
+      const isSidePanelOpen = ref(false);
+
+      function handleButtonInfoClick() {
+        isSidePanelOpen.value = !isSidePanelOpen.value;
+      }
+      const multipleChoicesItems = (items as MultipleChoicesItemAttrsProps[]).map((item) => (
+        item.translate ? {
+          ...item,
+          buttonInfoAttrs: { onClick: handleButtonInfoClick },
+        } : item));
 
       return {
         value,
         isInvalid,
+        multipleChoicesItems,
+        isSidePanelOpen,
         args,
       };
     },
-    template: `
-    <div>
-      <UiMultipleChoices
-        v-model="value"
-        v-model:invalid="isInvalid"
-        v-bind="args"
-      />
-      <ExplanationSidePanel />
-    </div>`,
+    template: `<UiMultipleChoices
+      v-model="value"
+      v-model:invalid="isInvalid"
+      :items="multipleChoicesItems"
+      v-bind="args"
+    />
+    <ExplanationSidePanel v-model="isSidePanelOpen" />`,
   }),
 };
+
+export const WithButtonInfo: MultipleChoicesStoryType = { ...Basic };
 WithButtonInfo.args = {
-  ...Basic.args,
-  items: buttonInfoItems,
+  items: meta.args.items.map((item) => ({
+    ...item,
+    translation: { info: 'How to check it?' },
+    iconInfoAttrs: { 'data-testid': 'info-icon' },
+    buttonInfoAttrs: { onClick: undefined },
+  })),
 };
 
 export const WithErrors: MultipleChoicesStoryType = { ...Basic };
-WithErrors.args = {
-  ...Basic.args,
-  touched: true,
-};
+WithErrors.args = { touched: true };
 
-export const WithOneError: MultipleChoicesStoryType = { ...WithButtonInfo };
-WithOneError.args = {
-  ...Basic.args,
-  modelValue: [
-    'present',
-    'absent',
-  ],
-  touched: true,
-  items: buttonInfoItems,
-};
+// export const WithOneError: MultipleChoicesStoryType = { ...WithButtonInfo };
+// WithOneError.args = {
+//   ...Basic.args,
+//   modelValue: [
+//     'present',
+//     'absent',
+//   ],
+//   touched: true,
+//   items: buttonInfoItems,
+// };
 
 export const WithHintSlot: MultipleChoicesStoryType = {
   render: () => ({
