@@ -137,10 +137,12 @@ const itemsToRender = computed<BulletPointsRenderItem[]>(() => (
       return {
         name: `bullet-point-${index}`,
         text: item,
+        icon: props.icon,
       };
     }
     if ((item.children)) {
       return {
+        icon: props.icon,
         ...item,
         name: item.name || `bullet-point-${index}`,
         children: Array.isArray(item.children) ? {

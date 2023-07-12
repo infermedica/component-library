@@ -12,7 +12,7 @@
         closeHandler
       }"
     >
-      <transition
+      <Transition
         v-bind="defaultProps.transitionBackdropAttrs"
       >
         <UiBackdrop
@@ -21,7 +21,7 @@
           class="ui-modal__backdrop"
           @click="closeHandler"
         />
-      </transition>
+      </Transition>
     </slot>
     <!-- @slot Use this slot to replace container template. -->
     <slot
@@ -53,7 +53,7 @@
         buttonCancelAttrs,
       }"
     >
-      <transition
+      <Transition
         v-bind="defaultProps.transitionDialogAttrs"
       >
         <dialog
@@ -257,7 +257,7 @@
             </div>
           </slot>
         </dialog>
-      </transition>
+      </Transition>
     </slot>
   </div>
 </template>
@@ -480,6 +480,7 @@ onBeforeUnmount(() => {
 <style lang="scss">
 @use "../../../styles/functions";
 @use "../../../styles/mixins";
+@use "../../../styles/transitions";
 
 .ui-modal {
   $this: &;
@@ -563,19 +564,6 @@ onBeforeUnmount(() => {
     @include mixins.from-tablet {
       order: -1;
     }
-  }
-}
-
-/* todo: move to utilities */
-.fade {
-  &-enter-active,
-  &-leave-active {
-    transition: opacity 0.5s linear;
-  }
-
-  &-enter-from,
-  &-leave-to {
-    opacity: 0;
   }
 }
 </style>

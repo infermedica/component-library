@@ -14,7 +14,7 @@
         >
           <UiText
             v-bind="getTextAttrs(datePart)"
-            class="ui-datepicker__label"
+            class="ui-text--body-2-comfortable ui-datepicker__label"
           >
             {{ capitalizeFirst(defaultProps.translation[datePart]) }}
           </UiText>
@@ -299,7 +299,7 @@ const date = reactive<DatepickerDate<string>>({
 });
 const dateAsInt = computed(() => (Object.keys(date) as DatepickerDatePart[]).reduce((result, key) => ({
   ...result,
-  [key]: parseInt(date[key], 10),
+  [key]: parseInt(date[key], 10) || 0,
 }), {
   day: 0,
   month: 0,

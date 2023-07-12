@@ -10,7 +10,7 @@
         closeHandler,
       }"
     >
-      <transition
+      <Transition
         v-bind="defaultProps.transitionBackdropAttrs"
       >
         <UiBackdrop
@@ -18,7 +18,7 @@
           v-bind="backdropAttrs"
           @click="closeHandler"
         />
-      </transition>
+      </Transition>
     </slot>
     <!-- @slot Use this slot to replace container template. -->
     <slot
@@ -37,7 +37,7 @@
         textSubtitleAttrs,
       }"
     >
-      <transition
+      <Transition
         v-bind="defaultProps.transitionDialogAttrs"
       >
         <dialog
@@ -90,10 +90,12 @@
                   subtitle,
                   headingTitleAttrs: defaultProps.headingTitleAttrs,
                   textSubtitleAttrs,
+                  labelAttrs,
                 }"
               >
                 <div
                   v-if="title || subtitle"
+                  v-bind="labelAttrs"
                   class="ui-side-panel__label"
                 >
                   <!-- @slot Use this slot to replace title template. -->
@@ -138,7 +140,6 @@
           >
             <div
               v-scroll-tabindex
-              v-keyboard-focus
               class="ui-side-panel__content"
               v-bind="contentAttrs"
             >
@@ -147,7 +148,7 @@
             </div>
           </slot>
         </dialog>
-      </transition>
+      </Transition>
     </slot>
   </div>
 </template>
@@ -161,6 +162,7 @@ import {
   onBeforeUnmount,
 } from 'vue';
 import type {
+  HTMLAttributes,
   DialogHTMLAttributes,
   TransitionProps,
 } from 'vue';
@@ -206,7 +208,7 @@ export interface SidePanelProps {
   /**
    * Use this props to pass attrs for backdrop Transition.
    */
-  transitionBackdropAttrs?: TransitionProps;
+  transitionBackdropAttrs?: DefineAttrsProps<null, TransitionProps>;
   /**
    * Use this props to pass attrs for UiBackdrop.
    */
@@ -218,7 +220,11 @@ export interface SidePanelProps {
   /**
    * Use this props to pass attrs for dialog Transition.
    */
-  transitionDialogAttrs?: TransitionProps;
+  transitionDialogAttrs?: DefineAttrsProps<null, TransitionProps>;
+  /**
+   * Use this props to pass attrs for label element.
+   */
+  labelAttrs?: DefineAttrsProps<null, HTMLAttributes>
   /**
    * Use this props to pass attrs for title UiHeading.
    */
@@ -242,7 +248,9 @@ export interface SidePanelProps {
 }
 export type SidePanelAttrsProps = DefineAttrsProps<SidePanelProps>;
 export interface SidePanelEmits {
+  /** Use this event to toggle visibility of UiSidePanel. */
   (e: 'update:modelValue', value: boolean): void;
+  /** Use this event to do something after transition has finished. */
   (e: 'after-enter'): void;
 }
 
@@ -258,8 +266,9 @@ const props = withDefaults(defineProps<SidePanelProps>(), {
   dialogAttrs: () => ({}),
   transitionDialogAttrs: () => ({
     appear: true,
-    name: 'slide',
+    name: 'slide-from-end',
   }),
+  labelAttrs: () => ({}),
   headingTitleAttrs: () => ({ level: 2 }),
   textSubtitleAttrs: () => ({}),
   buttonCloseAttrs: () => ({}),
@@ -286,7 +295,7 @@ const defaultProps = computed(() => {
     },
     transitionDialogAttrs: {
       appear: true,
-      name: 'slide',
+      name: 'slide-from-end',
       onEnter: enterHandler,
       onAfterEnter: afterEnterHandler,
       ...props.transitionDialogAttrs,
@@ -319,6 +328,7 @@ onBeforeUnmount(() => {
 <style lang="scss">
 @use "../../../styles/functions";
 @use "../../../styles/mixins";
+@use "../../../styles/transitions";
 
 .ui-side-panel {
   $this: &;
@@ -405,41 +415,6 @@ onBeforeUnmount(() => {
 
     @include mixins.focus {
       box-shadow: var(--focus-outer);
-    }
-  }
-}
-
-/* todo: move to utilities */
-.fade {
-  &-enter-active,
-  &-leave-active {
-    transition: opacity 0.5s linear;
-  }
-
-  &-enter-from,
-  &-leave-to {
-    opacity: 0;
-  }
-}
-
-/* todo: move to utilities */
-.slide {
-  &-enter-active,
-  &-leave-active {
-    transition: transform 0.5s ease;
-  }
-
-  &-enter-from {
-    position: fixed;
-  }
-
-  &-enter-from,
-  &-leave-to {
-    transform: translate3d(100%, 0, 0);
-    transition: transform 0.5s ease-in;
-
-    [dir="rtl"] & {
-      transform: translate3d(-100%, 0, 0);
     }
   }
 }

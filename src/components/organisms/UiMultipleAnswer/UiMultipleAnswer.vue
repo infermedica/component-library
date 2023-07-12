@@ -166,6 +166,7 @@ const itemsToRender = computed(() => (props.items.map((item) => {
     return {
       label: item,
       value: item,
+      inputAttrs: { name: props.name },
     };
   }
   // TODO: remove in 0.6.0 / BEGIN
@@ -179,6 +180,10 @@ const itemsToRender = computed(() => (props.items.map((item) => {
     value: JSON.parse(JSON.stringify(item)),
     label: item.name as string,
     ...item,
+    inputAttrs: {
+      name: props.name,
+      ...item.inputAttrs,
+    },
   };
 })));
 // TODO: remove in 0.6.0 / BEGIN

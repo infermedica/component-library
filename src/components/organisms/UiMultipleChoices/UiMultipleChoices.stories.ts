@@ -67,6 +67,15 @@ const meta = {
     items: { control: 'object' },
     options: { control: 'object' },
   },
+  parameters: {
+    chromatic: {
+      disableSnapshot: false,
+      viewports: [
+        320,
+        1200,
+      ],
+    },
+  },
 } satisfies MultipleChoicesMetaType;
 export default meta;
 
@@ -150,11 +159,10 @@ export const Basic: MultipleChoicesStoryType = {
       function handleButtonInfoClick() {
         isSidePanelOpen.value = !isSidePanelOpen.value;
       }
-      const multipleChoicesItems = (items as MultipleChoicesItemAttrsProps[]).map((item) => (
-        item.translate ? {
-          ...item,
-          buttonInfoAttrs: { onClick: handleButtonInfoClick },
-        } : item));
+      const multipleChoicesItems = (items as MultipleChoicesItemAttrsProps[]).map((item) => (item.translation ? {
+        ...item,
+        buttonInfoAttrs: { onClick: handleButtonInfoClick },
+      } : item));
 
       return {
         value,
@@ -243,6 +251,7 @@ export const WithHintSlot: MultipleChoicesStoryType = {
     </UiMultipleChoices>`,
   }),
 };
+WithHintSlot.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithChoiceSlot: MultipleChoicesStoryType = {
   render: () => ({
@@ -291,3 +300,4 @@ export const WithChoiceSlot: MultipleChoicesStoryType = {
     </UiMultipleChoices>`,
   }),
 };
+WithChoiceSlot.parameters = { chromatic: { disableSnapshot: true } };

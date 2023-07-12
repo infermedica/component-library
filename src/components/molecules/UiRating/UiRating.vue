@@ -36,7 +36,7 @@
           v-model="rate"
           v-bind="ratingItemAttrs(item)"
           :value="`${item.index}`"
-          :name="ratingName"
+          :input-attrs="{ name: ratingName }"
           class="ui-rating__option"
           @mouseover="hoverHandler($event, item.index)"
           @mouseleave="hoverHandler($event, item.index)"
@@ -124,7 +124,7 @@ export interface RatingSettings {
   iconActive?: Icon;
 }
 export interface RatingTranslation {
-  stars: (index: number) => string;
+  stars?: (index: number) => string;
 }
 export interface RatingRenderItem extends RadioAttrsProps {
   index: number;
@@ -180,7 +180,7 @@ const props = withDefaults(defineProps<RatingProps>(), {
     iconDefault: 'star-outlined',
     iconActive: 'star-filled',
   }),
-  translation: () => ({ stars: (index: number) => (`${index} stars`) }),
+  translation: () => ({ }),
   tag: 'fieldset',
   legend: '',
   radioOptionAttrs: () => ({}),
@@ -189,7 +189,10 @@ const defaultProps = computed(() => {
   const iconDefault: IconAttrsProps['icon'] = 'star-outlined';
   const iconActive: IconAttrsProps['icon'] = 'star-filled';
   return {
-    translation: { stars: (index: number) => (`${index} stars`) },
+    translation: {
+      stars: (index: number) => (`${index} stars`),
+      ...props.translation,
+    },
     settings: {
       iconDefault,
       iconActive,
@@ -288,6 +291,14 @@ const ratingItemAttrs = ({
       }
     }
 
+    @include mixins.with-focus {
+      &:focus-within {
+        #{$this}__radio {
+          box-shadow: var(--focus-outer);
+        }
+      }
+    }
+
     &:active {
       #{$this}__icon {
         --icon-color: #{functions.var($element + "-active-icon", color, var(--color-icon-secondary-active))};
@@ -311,6 +322,7 @@ const ratingItemAttrs = ({
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: var(--border-radius-button);
 
     &--is-checked {
       #{$this}__icon {

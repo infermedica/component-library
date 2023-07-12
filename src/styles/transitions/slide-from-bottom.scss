@@ -1,0 +1,16 @@
+.slide-from-bottom {
+  &-enter-active,
+  &-leave-active {
+    transition: transform 0.5s ease;
+  }
+  
+  &-enter-from {
+    position: fixed;
+  }
+  
+  &-enter-from,
+  &-leave-to {
+    transform: translate3d(0, 100%, 0);
+    transition: transform 0.5s ease-in;
+  }
+}
