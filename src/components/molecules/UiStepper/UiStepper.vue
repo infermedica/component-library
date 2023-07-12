@@ -16,7 +16,7 @@
         >
           <UiText
             tag="span"
-            class="ui-text--body-2-comfortable ui-stepper__current-step"
+            class="ui-text--body-2-compact ui-stepper__current-step"
           >
             {{ currentStepDisplayText }}
           </UiText>

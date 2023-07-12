@@ -74,6 +74,9 @@ const preview: Preview = {
             directives: {
               docs: {}
             },
+            transitions: {
+              docs: {}
+            }
           },
           contributingGuide: {
             '*': {

@@ -38,6 +38,7 @@
           }"
         >
           <UiHeading
+            :key="value"
             v-bind="defaultProps.headingValueAttrs"
             class="ui-range__value"
           >

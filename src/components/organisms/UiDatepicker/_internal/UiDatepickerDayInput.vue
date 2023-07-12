@@ -1,13 +1,13 @@
 <template>
   <UiInput
-    id="month"
+    id="day"
     ref="input"
-    v-model="day"
+    :model-value="day"
     :class="{ 'ui-input--has-error': hasError }"
     :placeholder="translation.placeholderDay"
     :input-attrs="defaultProps.inputAttrs"
     @blur="standardizeDayFormat"
-    @input="checkDay($event as InputEvent)"
+    @input="handleInput($event as InputEvent)"
     @keydown="numbersOnly"
   />
 </template>
@@ -81,12 +81,13 @@ const day = computed({
 });
 const validationError = computed(() => (day.value.length === 2 && !props.valid));
 const hasError = computed(() => (validationError.value || unfulfilledDayError.value || props.error));
-const checkDay = async (event: InputEvent) => {
+const handleInput = async (event: InputEvent) => {
   unfulfilledDayError.value = false;
   const {
     data, target,
   } = event;
   const { value } = target as HTMLInputElement;
+  day.value = value;
   await nextTick();
   if (data && (![
     '0',

@@ -1,6 +1,7 @@
+@use "../../../styles/mixins";
+
 .tos {
   --bullet-points-gap: var(--space-32);
-
   margin-block-start: var(--space-32);
 
   &__sub-points {
@@ -9,3 +10,74 @@
     margin-block-start: var(--space-12);
   }
 }
+
+//<Code id="side-panel-condition-details">
+.side-panel-with-condition-details {
+  &__label {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  &__byline {
+    display: grid;
+    grid-template-columns: 4rem 1fr;
+    align-items: center;
+    gap: var(--space-12);
+  }
+
+  &-section {
+    @include mixins.inner-border(
+    'side-panel-with-condition-details-section',
+    $color: var(--color-border-subtle),
+    $width: 0 0 1px 0,
+    $radius: 0
+    );
+
+    &__title {
+      margin-block-end: var(--space-12);
+    }
+
+    &__paragraph {
+      margin-block-start: var(--space-12);
+    }
+
+    &__show-more {
+      margin-block: var(--space-24) var(--space-32);
+    }
+  }
+}
+//</Code>
+
+//<Code id="side-panel-with-report-an-issue">
+.side-panel-with-report-an-issue {
+  &__options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+    margin-block-start: var(--space-24)
+  }
+
+  &__option {
+    --list-item-content-padding-block: 0;
+    --list-item-content-padding-inline: 0;
+    --list-item-tablet-content-padding-block: 0;
+    --list-item-tablet-content-padding-inline: 0;
+    --list-item-border-block-width: 0;
+    --list-item-content-hover-background: transparent;
+  }
+
+  &__details {
+    margin-block: var(--space-32);
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-32);
+  }
+
+  &__alert {
+    --form-field-alert-margin-block-start: var(--space-24);
+  }
+}
+//</Code>

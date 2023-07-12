@@ -1,0 +1,42 @@
+import { Canvas, Meta } from '@storybook/blocks';
+import * as stories from './transitions.stories.ts';
+
+<Meta of={stories} />
+
+# Transitions
+Transitions are animations that help users understand the flow on a page.
+You can use our ready-to-use transition effects or modify them according to your needs.
+
+## How to use
+To use our transition, just surround your component with build-in Vue component ```Transition``` with correct name of animations.<br />
+You can check how to use ```Transition``` in <a href="https://vuejs.org/guide/built-ins/transition.html" target="_blank">Vue documentation</a>
+
+For our transitions, we have separate story where you can see how them work.
+
+## Provided Transitions
+### Fade
+This stylistic effect allows for component in your application to gradually appear or disappear.<br/>
+The transition effect can be applied to various elements, such as text, images, or entire sections of a web page, adding a subtle and visually appealing animation to the user interface.
+
+<Canvas of={stories.Fade}/>
+
+### Slide
+A slide transition refers to the animation effect applied to elements when they change position. It gives the illusion of sliding or moving smoothly from one position to another.
+
+### Slide from start
+<Canvas of={stories.SlideFromStart} />
+
+### Slide from end
+<Canvas of={stories.SlideFromEnd} />
+
+### Slide from bottom
+<Canvas of={stories.SlideFromBottom} />
+
+## Changing transitions
+If you would like to change exsisting transition, you can override classes that are responsible for the effects.
+Replace ```{transition-name}``` with proper ```name``` according to your needs.
+
+- ```.{transition-name}-enter-active```
+- ```.{transition-name}-enter-from```
+- ```.{transition-name}-leave-active```
+- ```.{transition-name}-leave-to```
