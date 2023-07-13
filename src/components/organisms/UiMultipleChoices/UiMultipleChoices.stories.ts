@@ -32,6 +32,8 @@ const meta = {
       {
         label: 'I have diabetes',
         textLabelAttrs: { 'data-testid': 'label-text' },
+        translation: { info: 'What does it mean?' },
+        iconInfoAttrs: { 'data-testid': 'info-icon' },
       },
       {
         label: 'I have hypertension',
@@ -40,6 +42,8 @@ const meta = {
       {
         label: 'I have high cholesterol',
         textLabelAttrs: { 'data-testid': 'label-text' },
+        translation: { info: 'How to check it?' },
+        iconInfoAttrs: { 'data-testid': 'info-icon' },
       },
     ],
     options: [
@@ -181,30 +185,36 @@ export const Basic: MultipleChoicesStoryType = {
     <ExplanationSidePanel v-model="isSidePanelOpen" />`,
   }),
 };
-
-export const WithButtonInfo: MultipleChoicesStoryType = { ...Basic };
-WithButtonInfo.args = {
-  items: meta.args.items.map((item) => ({
-    ...item,
-    translation: { info: 'How to check it?' },
-    iconInfoAttrs: { 'data-testid': 'info-icon' },
-    buttonInfoAttrs: { onClick: undefined },
-  })),
+Basic.args = {
+  items: meta.args?.items.map((item) => {
+    const {
+      label, textLabelAttrs,
+    } = item;
+    return {
+      label,
+      textLabelAttrs,
+    };
+  }),
 };
 
-export const WithErrors: MultipleChoicesStoryType = { ...Basic };
-WithErrors.args = { touched: true };
+export const WithButtonInfo: MultipleChoicesStoryType = { ...Basic };
+WithButtonInfo.args = { items: meta.args.items };
 
-// export const WithOneError: MultipleChoicesStoryType = { ...WithButtonInfo };
-// WithOneError.args = {
-//   ...Basic.args,
-//   modelValue: [
-//     'present',
-//     'absent',
-//   ],
-//   touched: true,
-//   items: buttonInfoItems,
-// };
+export const WithErrors: MultipleChoicesStoryType = { ...Basic };
+WithErrors.args = {
+  touched: true,
+  items: WithButtonInfo.args.items,
+};
+
+export const WithOneError: MultipleChoicesStoryType = { ...WithButtonInfo };
+WithOneError.args = {
+  ...Basic.args,
+  modelValue: [
+    'present',
+    'absent',
+  ],
+  touched: true,
+};
 
 export const WithHintSlot: MultipleChoicesStoryType = {
   render: () => ({
