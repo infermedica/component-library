@@ -4,27 +4,27 @@ import type {
 } from '@storybook/vue3';
 import {
   ref,
+  computed,
   provide,
-  inject
+  inject,
 } from 'vue';
-import deepmerge from "deepmerge";
+import deepmerge from 'deepmerge';
 import { UiTextarea } from '@/../index';
-import raw from './UiTextarea.vue?raw';
 import { withVariants } from '@sb/decorators';
 import {
   useArgTypes,
-  inputEvents
-} from '@sb/helpers'
+  inputEvents,
+} from '@sb/helpers';
+
 const { argTypes } = useArgTypes(deepmerge(
   UiTextarea,
-  inputEvents
+  inputEvents,
 ));
 
 const meta = {
   title: 'Atoms/Textarea',
   component: UiTextarea,
   args: {
-    modifiers: [],
     modelValue: '',
     resize: false,
     placeholder: 'Please provide a detailed description of the issue.',
@@ -41,16 +41,12 @@ const meta = {
         'horizontal',
         'vertical',
       ],
-    }
+    },
   },
   parameters: {
     chromatic: { disableSnapshot: false },
-    docs: {
-      source: {
-        code: null
-      }
-    }
-  }
+    docs: { source: { code: null } },
+  },
 } satisfies Meta<typeof UiTextarea>;
 export default meta;
 type Story = StoryObj<typeof UiTextarea>;
@@ -59,21 +55,21 @@ export const Basic: Story = {
   render: () => ({
     inheritAttrs: false,
     components: { UiTextarea },
-    setup( props, { attrs })  {
-      const {
-        modifiers,
-        modelValue,
-        ...args
-      } = attrs;
+    setup(props, { attrs }) {
+      const { modelValue } = attrs;
       const value = inject('value') || ref(modelValue);
+      const args = computed(() => (Object.keys(attrs)
+        .reduce((object, key) => {
+          if (key !== 'modelValue') {
+            object[key] = attrs[key];
+          }
+          return object;
+        }, {})));
 
       return {
-        args: {
-          ...args,
-          class: modifiers,
-        },
+        args,
         value,
-      }
+      };
     },
     template: `<UiTextarea
       v-model="value"
@@ -106,81 +102,87 @@ const disabled = false;
 const textareaAttrs = {
   'data-testid': 'textarea-element'
 }
-</script>`
-    }
-  }
+</script>`,
+    },
+  },
 };
 
-export const Empty: Story = {
-  ...Basic
-}
+export const Empty: Story = { ...Basic };
 Empty.argTypes = {
   modelValue: { control: false },
   placeholder: { control: 'text' },
-  disabled: { control: false }
-}
+  disabled: { control: false },
+};
 Empty.decorators = [
   withVariants,
   () => ({
-    setup( props, { attrs }) {
+    inheritAttrs: false,
+    setup(props, { attrs }) {
       const { modelValue } = attrs;
       const value = ref(modelValue);
       provide('value', value);
+      const args = computed(() => (Object.keys(attrs)
+        .reduce((object, key) => {
+          if (key !== 'modelValue') {
+            object[key] = attrs[key];
+          }
+          return object;
+        }, {})));
+
+      return { args };
     },
-    template: `<story />`
-  })
-]
+    template: '<story v-bind="args"/>',
+  }),
+];
 Empty.parameters = {
   variants: [
-    {
-      label: 'default',
-    },
-    ...['hover', 'focus-within'].map((variant) => ({
+    { label: 'default' },
+    ...[
+      'hover',
+      'focus-within',
+    ].map((variant) => ({
       label: `${variant}`,
       class: `pseudo-${variant}`,
     })),
     {
       label: 'disabled',
       disabled: true,
-      class: 'ui-textarea--is-disabled'
-    }
+      class: 'ui-textarea--is-disabled',
+    },
   ],
   chromatic: { disableSnapshot: false },
   docs: { source: { code: null } },
-}
-
+};
 
 export const Filled: Story = { ...Empty };
-Filled.args = {
-  modelValue: 'I encountered an error message while trying to submit a form on your website. The error message read \'500 Internal Server Error\'.'
-};
+Filled.args = { modelValue: 'I encountered an error message while trying to submit a form on your website. The error message read \'500 Internal Server Error\'.' };
 Filled.argTypes = {
   ...Empty.argTypes,
   modelValue: { control: 'text' },
   placeholder: { control: false },
-}
+};
 
 export const WithError: Story = { ...Basic };
 WithError.argTypes = {
   modelValue: { control: false },
   placeholder: { control: false },
 };
-WithError.decorators = [ withVariants ]
+WithError.decorators = [ withVariants ];
 WithError.parameters = {
   ...Empty.parameters,
   variants: [
     {
       label: 'default',
-      class: 'ui-textarea--has-error'
+      class: 'ui-textarea--has-error',
     },
-    ...['hover'].map((variant) => ({
+    ...[ 'hover' ].map((variant) => ({
       label: `${variant}`,
       class: `ui-textarea--has-error pseudo-${variant}`,
     })),
     {
       label: 'filed',
       class: 'ui-textarea--has-error',
-      modelValue: 'I encountered an error message while trying to submit a form on your website. The error message read \'500 Internal Server Error.'
-    }
-  ]
-}
+      modelValue: 'I encountered an error message while trying to submit a form on your website. The error message read \'500 Internal Server Error.',
+    },
+  ],
+};
