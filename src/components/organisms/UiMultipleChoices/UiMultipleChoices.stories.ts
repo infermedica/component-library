@@ -37,6 +37,7 @@ const meta = {
       },
       {
         label: 'I have hypertension',
+        translation: { info: 'What does it mean? How to check it?' },
         textLabelAttrs: { 'data-testid': 'label-text' },
       },
       {
@@ -83,7 +84,7 @@ const meta = {
 } satisfies MultipleChoicesMetaType;
 export default meta;
 
-const ExplanationSidePanel = {
+const UiSidePanelExplanation = {
   components: {
     UiBulletPoints,
     UiText,
@@ -91,30 +92,29 @@ const ExplanationSidePanel = {
     UiSidePanel,
   },
   setup() {
-    const title = 'Explanation';
-    const modelValue = ref(false);
-    const items = [
+    const symptom = 'Slow heart rate';
+    const explication = 'A heart rate below the normal range for age. Age 0 to 3 months: &lt126 bpm; age 3 to 6 months: &lt116 bpm; age 6 to 12 months: &lt106 bpm.';
+    const instruction = [
       { text: 'Find the artery on the neck and put your two fingers on it.' },
       { text: 'Count the beat number for 15 seconds and multiply the number by 4.' },
       { text: 'Check if the number is within the normal range for age.' },
     ];
 
     return {
-      modelValue,
-      title,
-      items,
+      symptom,
+      explication,
+      instruction,
     };
   },
   template: `<UiSidePanel
-    v-model="modelValue"
-    :title="title"
+    title="Explanation"
   >
     <div class="multiple-choices-with-button-info-side-panel-content">
       <UiHeading
         :level="4"
         tag="p"
         class="ui-heading--theme-secondary">
-        Bradycardia
+        {{symptom}}
       </UiHeading>
       <div class="multiple-choices-with-button-info-side-panel-content__section">
         <UiHeading
@@ -123,7 +123,7 @@ const ExplanationSidePanel = {
           What does it mean?
         </UiHeading>
         <UiText>
-          A heart rate below the normal range for age. Age 0 to 3 months: &lt126 bpm; age 3 to 6 months: &lt116 bpm; age 6 to 12 months: &lt106 bpm.
+          {{ explication }}
         </UiText>
       </div>
       <div class="multiple-choices-with-button-info-side-panel-content__section">
@@ -133,7 +133,7 @@ const ExplanationSidePanel = {
           How to check it?
         </UiHeading>
         <UiBulletPoints
-          :items="items"
+          :items="instruction"
           tag="ol"
         />
       </div>
@@ -146,7 +146,38 @@ export const Basic: MultipleChoicesStoryType = {
     inheritAttrs: false,
     components: {
       UiMultipleChoices,
-      ExplanationSidePanel,
+      UiSidePanelExplanation,
+    },
+    setup(props, { attrs }) {
+      const {
+        modelValue,
+        invalid,
+        ...args
+      } = attrs;
+
+      const value = ref(modelValue);
+      const isInvalid = ref(invalid);
+
+      return {
+        value,
+        isInvalid,
+        args,
+      };
+    },
+    template: `<UiMultipleChoices
+      v-model="value"
+      v-model:invalid="isInvalid"
+      v-bind="args"
+    />`,
+  }),
+};
+
+export const Explanation: MultipleChoicesStoryType = {
+  render: () => ({
+    inheritAttrs: false,
+    components: {
+      UiMultipleChoices,
+      UiSidePanelExplanation,
     },
     setup(props, { attrs }) {
       const {
@@ -159,56 +190,41 @@ export const Basic: MultipleChoicesStoryType = {
       const value = ref(modelValue);
       const isInvalid = ref(invalid);
       const isSidePanelOpen = ref(false);
-
-      function handleButtonInfoClick() {
+      const handleButtonInfoClick = () => {
         isSidePanelOpen.value = !isSidePanelOpen.value;
-      }
-      const multipleChoicesItems = (items as MultipleChoicesItemAttrsProps[]).map((item) => (item.translation ? {
+      };
+      const itemsToRender = items.map((item) => ({
         ...item,
-        buttonInfoAttrs: { onClick: handleButtonInfoClick },
-      } : item));
+        buttonInfoAttrs: {
+          ...item?.buttonInfoAttrs,
+          onClick: handleButtonInfoClick,
+        },
+      }));
 
       return {
         value,
         isInvalid,
-        multipleChoicesItems,
-        isSidePanelOpen,
         args,
+        isSidePanelOpen,
+        itemsToRender,
       };
     },
     template: `<UiMultipleChoices
       v-model="value"
       v-model:invalid="isInvalid"
-      :items="multipleChoicesItems"
       v-bind="args"
+      :items="itemsToRender"
     />
-    <ExplanationSidePanel v-model="isSidePanelOpen" />`,
+    <UiSidePanelExplanation v-model="isSidePanelOpen"/>`,
   }),
 };
-Basic.args = {
-  items: meta.args?.items.map((item) => {
-    const {
-      label, textLabelAttrs,
-    } = item;
-    return {
-      label,
-      textLabelAttrs,
-    };
-  }),
-};
+Explanation.args = { items: meta.args.items };
 
-export const WithButtonInfo: MultipleChoicesStoryType = { ...Basic };
-WithButtonInfo.args = { items: meta.args.items };
+export const Invalid: MultipleChoicesStoryType = { ...Basic };
+Invalid.args = { touched: true };
 
-export const WithErrors: MultipleChoicesStoryType = { ...Basic };
-WithErrors.args = {
-  touched: true,
-  items: WithButtonInfo.args.items,
-};
-
-export const WithOneError: MultipleChoicesStoryType = { ...WithButtonInfo };
-WithOneError.args = {
-  ...Basic.args,
+export const InvalidExplanation: MultipleChoicesStoryType = { ...Explanation };
+InvalidExplanation.args = {
   modelValue: [
     'present',
     'absent',
