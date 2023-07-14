@@ -193,7 +193,7 @@ export const Explanation: MultipleChoicesStoryType = {
       const handleButtonInfoClick = () => {
         isSidePanelOpen.value = !isSidePanelOpen.value;
       };
-      const itemsToRender = items.map((item) => ({
+      const itemsToRender = (items as MultipleChoicesItemAttrsProps[]).map((item) => ({
         ...item,
         buttonInfoAttrs: {
           ...item?.buttonInfoAttrs,
@@ -218,7 +218,6 @@ export const Explanation: MultipleChoicesStoryType = {
     <UiSidePanelExplanation v-model="isSidePanelOpen"/>`,
   }),
 };
-Explanation.args = { items: meta.args.items };
 
 export const Invalid: MultipleChoicesStoryType = { ...Basic };
 Invalid.args = { touched: true };
