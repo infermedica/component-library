@@ -6,23 +6,31 @@ import { UiText } from '@index';
 import type { TextProps } from '@index';
 import { withVariants } from '@sb/decorators';
 import { useArgTypes } from '@sb/helpers';
-import { content as contentArgTypes } from '@sb/helpers/argTypes/index';
+import { content } from '@sb/helpers/argTypes/index';
 
 type TextArgsType = TextProps & {
   content?: string;
-  modifiers?: string[];
+  class?: string[];
 }
 type TextMetaType = Meta<TextArgsType>;
 type TextStoryType = StoryObj<TextArgsType>;
 
 const { argTypes } = useArgTypes(UiText);
+import {
+  BasicStories,
+  BasicStoriesSource,
+} from './stories';
+
 const meta = {
   title: 'Atoms/Text',
   component: UiText,
-  args: { content: 'How to use it?' },
+  args: {
+    content: 'How to use it?',
+    class: [],
+  },
   argTypes: {
     ...argTypes,
-    content: contentArgTypes,
+    content,
   },
   parameters: {
     chromatic: {
@@ -37,55 +45,17 @@ const meta = {
 } satisfies TextMetaType;
 export default meta;
 
-export const Basic: TextStoryType = {
-  render: () => ({
-    components: { UiText },
-    setup(props, { attrs }) {
-      const {
-        content,
-        modifiers,
-        ...args
-      } = attrs;
-      return {
-        content,
-        args: {
-          ...args,
-          class: modifiers,
-        },
-      };
-    },
-    template: `<UiText v-bind="args">
-      {{ content }}
-    </UiText>`,
-  }),
-};
-Basic.args = { modifiers: [] };
-Basic.parameters = {
-  docs: {
-    source: {
-      code: `<template>
-  <UiText :tag="tag"> {{ content }} </UiText>
-</template>
-<script setup lang="ts">
-import { UiText } from '@infermedica/component-library';
-
-const tag = 'p';
-</script>`,
-    },
-  },
-};
+export const Basic: TextStoryType = { render: () => (BasicStories) };
+Basic.parameters = { docs: { source: { code: BasicStoriesSource } } };
 
 export const AllVariants: TextStoryType = { ...Basic };
 AllVariants.argTypes = {
   tag: { control: false },
-  modifiers: {
-    ...meta.argTypes.modifiers,
-    control: false,
-  },
+  class: { control: false },
 };
 AllVariants.decorators = [ withVariants ];
 AllVariants.parameters = {
-  variants: meta.argTypes.modifiers?.options.map((variant: string) => ({
+  variants: meta.argTypes.class?.options.map((variant: string) => ({
     label: `${variant.replace('ui-text--', '')}`,
     class: `${variant}`,
   })),
@@ -94,13 +64,31 @@ AllVariants.parameters = {
 export const Secondary: TextStoryType = { ...AllVariants };
 Secondary.decorators = [
   ...AllVariants.decorators,
-  () => ({ template: '<div class="ui-text--theme-secondary"><story/></div>' }),
+  (story, { id }) => ({
+    components: { story },
+    setup(props, { attrs }) {
+      return {
+        attrs,
+        id,
+      };
+    },
+    template: '<div class="ui-text--theme-secondary"><story v-bind="attrs" :key="id"/></div>',
+  }),
 ];
 
 export const Brand: TextStoryType = { ...AllVariants };
 Brand.decorators = [
   ...AllVariants.decorators,
-  () => ({ template: '<div class="ui-text--theme-brand"><story/></div>' }),
+  (story, { id }) => ({
+    components: { story },
+    setup(props, { attrs }) {
+      return {
+        attrs,
+        id,
+      };
+    },
+    template: '<div class="ui-text--theme-brand"><story v-bind="attrs" :key="id"/></div>',
+  }),
 ];
 Brand.parameters = {
   ...AllVariants.parameters,

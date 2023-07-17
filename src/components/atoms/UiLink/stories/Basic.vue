@@ -1,34 +1,29 @@
 <template>
-  <UiButton
-    v-bind="args"
-    class="ui-button--circled"
-  >
-    <UiText>
-      {{ content }}
-    </UiText>
-  </UiButton>
-  <UiButton
-    v-bind="args"
-    class="ui-button--circled"
-  >
+  <UiLink v-bind="args">
     <UiIcon
+      v-if="icon"
       :icon="icon"
-      class="ui-button__icon"
+      class="ui-link__icon"
     />
-  </UiButton>
+    {{ content }}
+    <UiIcon
+      v-if="iconEnd"
+      :icon="iconEnd"
+      class="ui-link__icon ui-link__icon--end"
+    />
+  </UiLink>
 </template>
 
 <script setup>
 import {
   computed,
   defineOptions,
-  toRefs,
   useAttrs,
+  toRefs,
 } from 'vue';
 import {
-  UiButton,
+  UiLink,
   UiIcon,
-  UiText,
 } from '@infermedica/component-library';
 
 defineOptions({ inheritAttrs: false });
@@ -36,6 +31,7 @@ const attrs = useAttrs();
 const {
   content,
   icon,
+  iconEnd,
 } = toRefs(attrs);
 const args = computed(() => (attrs));
 </script>

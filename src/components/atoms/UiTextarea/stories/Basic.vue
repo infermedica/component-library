@@ -6,29 +6,22 @@
   />
 </template>
 
-<script lang="ts">
-export default { inheritAttrs: false };
-</script>
-
 <script setup lang="ts">
 import {
   ref,
   computed,
   inject,
   useAttrs,
+  toRefs,
+  defineOptions,
 } from 'vue';
 import { UiTextarea } from '@infermedica/component-library';
 
+defineOptions({ inheritAttrs: false });
+
 const attrs = useAttrs();
-const {
-  modelValue,
-  modifiers,
-  ...rest
-} = attrs;
+const { modelValue } = toRefs(attrs);
 
 const value = inject('value') || ref(modelValue);
-const args = computed(() => ({
-  ...rest,
-  class: modifiers,
-}));
+const args = computed(() => (attrs));
 </script>

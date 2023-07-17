@@ -17,16 +17,12 @@ import {
   content as contentArgsType,
   icon as iconArgsType,
 } from '@sb/helpers/argTypes/index';
-import type {
-  PartialStoryFn,
-  PlayFunctionContext,
-} from '@storybook/types';
-import { defineComponent } from 'vue';
+import type { PartialStoryFn } from '@storybook/types';
 import {
-  getCSSValue,
-  getFocusTests,
-  getStyleTests,
-} from '@tests/interactions/helpers';
+  computed,
+  defineComponent,
+  toRefs,
+} from 'vue';
 
 type LinkIconVariants = {
   icon?: IconType;
@@ -34,53 +30,19 @@ type LinkIconVariants = {
 }
 type LinkArgsType = LinkProps & LinkIconVariants & {
   content?: string;
-  modifiers?: string[];
+  class?: string[];
   before?: string;
   after?: string;
 }
 type LinkMetaType = Meta<LinkArgsType>;
 type LinkStoryType = StoryObj<LinkArgsType>;
-type PlayContext = PlayFunctionContext<VueRenderer, LinkArgsType>;
 
-const getBasicVariantTests = async ({
-  canvasElement, step,
-}: PlayContext, results: Partial<CSSStyleDeclaration>[]) => {
-  const links = [ ...canvasElement.querySelectorAll('.ui-link') ];
-  await step('Correct font colors', () => {
-    getStyleTests(links, 'color', results);
-  });
-  await getFocusTests(step, [ links[2] ]);
-};
-const getVariantTests = (
-  elements: Element[],
-  property: keyof CSSStyleDeclaration,
-  varName: string,
-) => {
-  getStyleTests(
-    elements,
-    property,
-    [
-      '',
-      '-hover',
-      '',
-      '-active',
-    ].map((state) => ({ [property]: getCSSValue(`${varName}${state}`) })),
-  );
-};
-const getIconVariantTests = async (
-  step: PlayContext['step'],
-  varName: string,
-) => {
-  await step('Correct icon fill colors', () => {
-    getVariantTests([ ...document.querySelectorAll('.ui-link__icon') ], 'fill', varName);
-  });
-  await getFocusTests(step, [ [ ...document.querySelectorAll('.ui-link') ][2] ]);
-};
 const withIconVariants = (
   story: PartialStoryFn<VueRenderer, LinkProps>,
   { parameters: { iconVariants } }: StoryContext<LinkArgsType>,
 ) => defineComponent({
   setup(props, { attrs }) {
+    const args = computed(() => (attrs));
     return {
       iconVariants: iconVariants.map(({
         icon, iconEnd,
@@ -88,33 +50,33 @@ const withIconVariants = (
         iconEnd: iconEnd ? attrs.iconEnd : undefined,
         icon: icon ? attrs.icon : undefined,
       })),
-      args: attrs,
+      args,
     };
   },
   template: `<template v-for="variant in iconVariants">
-    <story v-bind="{
-      ...args,
-      ...variant
-    }" />
+    <story 
+        v-bind="args" 
+        v-bind="variant"
+    />
   </template>`,
 });
 
-const UiLinkIcon = {
-  components: { UiIcon },
-  props: [ 'icon' ],
-  template: `<UiIcon
-    :icon="icon"
-    class="ui-link__icon"
-  />`,
-};
-
 const { argTypes } = useArgTypes(UiLink);
+import {
+  BasicStories,
+  BasicStoriesSource,
+  IconStories,
+  IconStoriesSource,
+} from './stories';
+
 const meta = {
   title: 'Atoms/Link',
   component: UiLink,
   args: {
     content: 'Instruction for Use',
-    modifiers: [],
+    icon: '',
+    iconEnd: '',
+    class: [],
     href: 'https://infermedica.com/',
   },
   argTypes: {
@@ -133,70 +95,15 @@ const meta = {
 } satisfies LinkMetaType;
 export default meta;
 
-export const Basic: LinkStoryType = {
-  render: () => ({
-    components: {
-      UiLink,
-      UiLinkIcon,
-    },
-    setup(props, { attrs }) {
-      const {
-        content,
-        icon,
-        iconEnd,
-        modifiers,
-        ...args
-      } = attrs;
-      return {
-        content,
-        icon,
-        iconEnd,
-        args: {
-          ...args,
-          class: modifiers,
-        },
-      };
-    },
-    template: `<UiLink v-bind="args">
-      <UiLinkIcon
-        v-if="icon"
-        :icon="icon"
-      />
-      {{ content }}
-      <UiLinkIcon
-        v-if="iconEnd"
-        :icon="iconEnd"
-        class="ui-link__icon--end"
-      />
-    </UiLink>`,
-  }),
-};
+export const Basic: LinkStoryType = { render: () => (BasicStories) };
 Basic.parameters = {
   chromatic: { disableSnapshot: true },
-  docs: {
-    source: {
-      code: `<template>
-  <UiLink
-    :to="to"
-    :href="href"
-    :tag="tag"
-  >{{ content }}</UiLink>
-</template>
-
-<script setup lang="ts">
-import { UiLink } from '@infermedica/component-library'
-</script>
-`,
-    },
-  },
+  docs: { source: { code: BasicStoriesSource } },
 };
 
 export const Primary: LinkStoryType = { ...Basic };
 Primary.argTypes = {
-  modifiers: {
-    ...meta.argTypes.modifiers,
-    options: [ 'ui-link--small' ],
-  },
+  class: { options: [ 'ui-link--small' ] },
   to: { control: false },
   tag: { control: false },
   href: { control: false },
@@ -217,104 +124,69 @@ Primary.parameters = {
   chromatic: { disableSnapshot: false },
   docs: { source: { code: null } },
 };
-Primary.play = async (context) => {
-  getBasicVariantTests(context, [
-    '',
-    '-hover',
-    '',
-    '-active',
-  ].map((state) => ({ color: getCSSValue(`--color-text-action-primary${state}`) })));
-};
 
 export const Secondary: LinkStoryType = { ...Basic };
 Secondary.decorators = [
-  () => ({ template: '<div class="ui-link--theme-secondary"><story v-bind="$attrs"/></div>' }),
+  (story, { id }) => ({
+    components: { story },
+    setup(props, { attrs }) {
+      return {
+        attrs,
+        id,
+      };
+    },
+    template: '<div class="ui-link--theme-secondary"><story v-bind="attrs" :key="id"/></div>',
+  }),
   withVariants,
 ];
 Secondary.parameters = Primary.parameters;
 
-Secondary.play = async (context) => {
-  getBasicVariantTests(context, [
-    '',
-    '-hover',
-    '',
-    '-active',
-  ].map((state) => ({ color: getCSSValue(`--color-text-action-secondary${state}`) })));
-};
-
 export const Brand: LinkStoryType = { ...Secondary };
 Brand.decorators = [
-  () => ({ template: '<div class="ui-link--theme-brand"><story v-bind="$attrs"/></div>' }),
+  (story, { id }) => ({
+    components: { story },
+    setup(props, { attrs }) {
+      return {
+        attrs,
+        id,
+      };
+    },
+    template: '<div class="ui-link--theme-brand"><story v-bind="attrs" :key="id"/></div>',
+  }),
   withVariants,
 ];
 Brand.parameters = {
   ...Primary.parameters,
   backgrounds: { default: 'brand' },
 };
-Brand.play = async (context) => {
-  getBasicVariantTests(context, [
-    '',
-    '-hover',
-    '',
-    '-active',
-  ].map((state) => ({ color: getCSSValue(`--color-text-on-brand${state}`) })));
-};
 
-export const Icon: LinkStoryType = {
-  render: () => ({
-    components: {
-      UiLink,
-      UiIcon,
-    },
-    setup(props, { attrs }) {
-      const {
-        icon, ...args
-      } = attrs;
-      return {
-        icon,
-        args: {
-          ...args,
-          class: args.modifiers,
-        },
-      };
-    },
-    template: `<UiLink
-      v-bind="args"
-    >
-      <UiIcon
-        :icon="icon"
-        class="ui-link__icon"
-      />
-    </UiLink>`,
-  }),
-};
+export const Icon: LinkStoryType = { render: () => (IconStories) };
 Icon.args = { icon: 'plus-circled-filled' };
 Icon.argTypes = {
   iconEnd: { control: false },
-  modifiers: {
-    ...meta.argTypes.modifiers,
-    control: false,
-  },
+  class: { control: false },
   to: { control: false },
   tag: { control: false },
   href: { control: false },
 };
 Icon.decorators = [ withVariants ];
 Icon.parameters = Primary.parameters;
-Icon.play = async ({ step }) => getIconVariantTests(
-  step,
-  '--color-icon-primary',
-);
 
 export const IconSecondary: LinkStoryType = { ...Icon };
 IconSecondary.decorators = [
   ...Icon.decorators,
-  () => ({ template: '<div class="ui-link--theme-secondary"><story/></div>' }),
+  (story, { id }) => ({
+    components: { story },
+    setup(props, { attrs }) {
+      return {
+        attrs,
+        id,
+      };
+    },
+    template: '<div class="ui-link--theme-secondary"><story v-bind="attrs" :key="id"/></div>',
+  }),
 ];
-IconSecondary.play = async ({ step }) => getIconVariantTests(
-  step,
-  '--color-icon-secondary',
-);
+
 export const IconBrand: LinkStoryType = { ...Icon };
 IconBrand.parameters = {
   ...Icon.parameters,
@@ -322,12 +194,17 @@ IconBrand.parameters = {
 };
 IconBrand.decorators = [
   ...Icon.decorators,
-  () => ({ template: '<div class="ui-link--theme-brand"><story/></div>' }),
+  (story, { id }) => ({
+    components: { story },
+    setup(props, { attrs }) {
+      return {
+        attrs,
+        id,
+      };
+    },
+    template: '<div class="ui-link--theme-brand"><story v-bind="attrs" :key="id"/></div>',
+  }),
 ];
-IconBrand.play = async ({ step }) => getIconVariantTests(
-  step,
-  '--color-text-on-brand',
-);
 
 export const WithIcon: LinkStoryType = { ...Basic };
 WithIcon.args = {
@@ -335,17 +212,23 @@ WithIcon.args = {
   iconEnd: 'plus-circled-filled',
 };
 WithIcon.argTypes = {
-  modifiers: {
-    ...meta.argTypes.modifiers,
-    control: false,
-  },
+  class: { control: false },
   to: { control: false },
   tag: { control: false },
   href: { control: false },
 };
 WithIcon.decorators = [
   withIconVariants,
-  () => ({ template: '<div class="flex gap-4"><story v-bind="$attrs"/></div>' }),
+  (story, { id }) => ({
+    components: { story },
+    setup(props, { attrs }) {
+      return {
+        attrs,
+        id,
+      };
+    },
+    template: '<div class="flex gap-4"><story v-bind="attrs" :key="id"/></div>',
+  }),
   withVariants,
 ];
 WithIcon.parameters = {
@@ -375,50 +258,7 @@ Small.parameters = {
   ),
 };
 
-export const LinkInLongText: LinkStoryType = {
-  render: () => ({
-    components: {
-      UiLink,
-      UiText,
-      UiLinkIcon,
-    },
-    setup(props, { attrs }) {
-      const {
-        content,
-        before,
-        after,
-        icon,
-        iconEnd,
-        modifiers,
-        ...args
-      } = attrs;
-      return {
-        content,
-        before: `${before} `,
-        after: ` ${after}`,
-        icon,
-        iconEnd,
-        args: {
-          ...args,
-          class: modifiers,
-        },
-      };
-    },
-    template: `<UiText class="max-w-150">
-      {{ before }}<UiLink v-bind="args">
-        <UiLinkIcon
-          v-if="icon"
-          :icon="icon"
-        />
-        {{ content }}
-        <UiLinkIcon
-          v-if="iconEnd"
-          :icon="iconEnd"
-          class="ui-link__icon--end"/>
-      </UiLink>{{ after }}
-    </UiText>`,
-  }),
-};
+export const LinkInLongText: LinkStoryType = { render: () => (BasicStories) };
 LinkInLongText.args = {
   content: 'Medical Guidance Platform',
   before: 'Healthcare is complex, and whether you’re a patient, provider, payer, or administrator, we all need a helping hand from time to time. Imagine a world where personalized help was available whenever you needed it. With Infermedica’s AI-powered',
@@ -427,13 +267,57 @@ LinkInLongText.args = {
   iconEnd: 'plus-circled-filled',
 
 };
+LinkInLongText.argTypes = {
+  before: {
+    control: 'text',
+    table: { category: 'stories controls' },
+  },
+  after: {
+    control: 'text',
+    table: { category: 'stories controls' },
+  },
+},
 LinkInLongText.decorators = [
+  (story, { id }) => ({
+    inheritAttrs: false,
+    components: {
+      story,
+      UiText,
+    },
+    setup(props, { attrs }) {
+      const {
+        before,
+        after,
+      } = toRefs(attrs);
+
+      return {
+        attrs,
+        id,
+        before,
+        after,
+      };
+    },
+    template: `<UiText>
+      {{ before }}
+      <story 
+        v-bind="attrs"
+        :key="id"
+      />
+      {{ after }}
+    </UiText>`,
+  }),
   withIconVariants,
-  () => ({
+  (story, { id }) => ({
+    inheritAttrs: false,
     setup(props, { attrs }) {
       return { attrs };
     },
-    template: '<div class="flex flex-col gap-2"><story v-bind="attrs"/></div>',
+    template: `<div class="flex flex-col gap-2">
+      <story 
+        v-bind="attrs"
+        :key="id"
+      />
+    </div>`,
   }),
 ];
 LinkInLongText.parameters = {

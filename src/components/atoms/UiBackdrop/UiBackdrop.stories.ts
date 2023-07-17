@@ -6,6 +6,10 @@ import { UiBackdrop } from '@index';
 import { useArgTypes } from '@sb/helpers';
 
 const { argTypes } = useArgTypes(UiBackdrop);
+import {
+  BasicStories,
+  BasicStoriesSource,
+} from './stories';
 
 const meta = {
   title: 'Atoms/Backdrop',
@@ -16,22 +20,5 @@ const meta = {
 } satisfies Meta;
 export default meta;
 
-export const Basic: StoryObj = {
-  render: () => ({
-    components: { UiBackdrop },
-    template: '  <UiBackdrop />',
-  }),
-};
-Basic.parameters = {
-  docs: {
-    source: {
-      code: `<template>
-  ${Basic.render().template}
-</template>
-
-<script lang="ts">
-import { UiBackdrop } from '@infermedica/component-library'
-</script>`,
-    },
-  },
-};
+export const Basic: StoryObj = { render: () => (BasicStories) };
+Basic.parameters = { docs: { source: { code: BasicStoriesSource } } };

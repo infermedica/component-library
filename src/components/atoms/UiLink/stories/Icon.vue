@@ -1,15 +1,15 @@
 <template>
-  <UiButton v-bind="args">
+  <UiLink v-bind="args">
     <UiIcon
       :icon="icon"
-      class="ui-button__icon"
+      class="ui-link__icon"
     />
-  </UiButton>
+  </UiLink>
 </template>
 
 <script setup>
 import {
-  UiButton,
+  UiLink,
   UiIcon,
 } from '@infermedica/component-library';
 import {

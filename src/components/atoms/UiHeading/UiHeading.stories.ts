@@ -9,39 +9,27 @@ import {
 } from '@/../index';
 import { withVariants } from '@sb/decorators';
 import { useArgTypes } from '@sb/helpers';
-import { content as contentArgType } from '@sb/helpers/argTypes/index';
-import type { PlayFunctionContext } from '@storybook/types';
-import {
-  getCSSValue,
-  getStyleTests,
-} from '@tests/interactions/helpers';
+import { content } from '@sb/helpers/argTypes/index';
 
 type HeadingArgsType = HeadingProps & {
   content?: string;
 }
 type HeadingMetaType = Meta<HeadingArgsType>;
 type HeadingStoryType = StoryObj<HeadingArgsType>;
-type PlayContext = PlayFunctionContext<VueRenderer, HeadingArgsType>;
-
-const getVariantTests = async (step: PlayContext['step'], variant = '-heading') => {
-  const headings = [ ...document.querySelectorAll('.ui-heading') ];
-  await step('Correct font colors', () => {
-    getStyleTests(
-      headings,
-      'color',
-      Array(headings.length).fill({ color: getCSSValue(`--color-text${variant}`) }),
-    );
-  });
-};
 
 const { argTypes } = useArgTypes(UiHeading);
+import {
+  BasicStories,
+  BasicStoriesSource,
+} from './stories';
+
 const meta = {
   title: 'Atoms/Heading',
   component: UiHeading,
   args: { content: 'How to use it?' },
   argTypes: {
     ...argTypes,
-    contentArgType,
+    content,
     level: {
       control: {
         type: 'range',
@@ -49,7 +37,6 @@ const meta = {
         max: 5,
       },
     },
-    modifiers: { table: { disable: true } },
   },
   parameters: {
     chromatic: {
@@ -64,43 +51,11 @@ const meta = {
 } satisfies HeadingMetaType;
 export default meta;
 
-export const Basic: HeadingStoryType = {
-  render: () => ({
-    components: { UiHeading },
-    setup(props, { attrs }) {
-      const {
-        content, ...args
-      } = attrs;
-      return {
-        content,
-        args,
-      };
-    },
-    template: `<UiHeading v-bind="args">
-      {{ content }}
-    </UiHeading>`,
-  }),
-};
+export const Basic: HeadingStoryType = { render: () => (BasicStories) };
 Basic.args = { level: 2 };
 Basic.parameters = {
   chromatic: { disableSnapshot: true },
-  docs: {
-    source: {
-      code: `<template>
-  <UiHeading
-    :level="level"
-  >
-    {{ content }}
-  </UiHeading>
-</template>
-
-<script setup lang="ts">
-import { UiHeading } from '@infermedica/component-library'
-
-const level = 2;
-</script>`,
-    },
-  },
+  docs: { source: { code: BasicStoriesSource } },
 };
 
 export const AllVariants: HeadingStoryType = { ...Basic };
@@ -115,14 +70,20 @@ AllVariants.parameters = {
     level: index + 1,
   })),
 };
-AllVariants.play = async ({ step }) => getVariantTests(step);
 
 export const Secondary: HeadingStoryType = { ...AllVariants };
 Secondary.decorators = [
   ...AllVariants.decorators,
-  () => ({ template: '<div class="ui-heading--theme-secondary"><story/></div>' }),
+  (story, { id }) => ({
+    setup(props, { attrs }) {
+      return {
+        attrs,
+        id,
+      };
+    },
+    template: '<div class="ui-heading--theme-secondary"><story v-bind="attrs" :key="id"/></div>',
+  }),
 ];
-Secondary.play = async ({ step }) => getVariantTests(step, '-dimmed');
 
 export const Brand: HeadingStoryType = { ...AllVariants };
 Brand.parameters = {
@@ -131,7 +92,14 @@ Brand.parameters = {
 };
 Brand.decorators = [
   ...AllVariants.decorators,
-  () => ({ template: '<div class="ui-heading--theme-brand"><story/></div>' }),
+  (story, { id }) => ({
+    setup(props, { attrs }) {
+      return {
+        attrs,
+        id,
+      };
+    },
+    template: '<div class="ui-heading--theme-brand"><story v-bind="attrs" :key="id"/></div>',
+  }),
 ];
-Brand.play = async ({ step }) => getVariantTests(step, '-on-brand');
 

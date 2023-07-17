@@ -16,14 +16,15 @@
 
 <script setup>
 import {
-  UiButton,
-  UiIcon,
-} from '@infermedica/component-library';
-import {
   computed,
   defineOptions,
   useAttrs,
+  toRefs,
 } from 'vue';
+import {
+  UiButton,
+  UiIcon,
+} from '@infermedica/component-library';
 
 defineOptions({ inheritAttrs: false });
 const attrs = useAttrs();
@@ -31,11 +32,6 @@ const {
   content,
   icon,
   iconEnd,
-  modifiers,
-  ...rest
-} = attrs;
-const args = computed(() => ({
-  ...rest,
-  class: modifiers,
-}));
+} = toRefs(attrs);
+const args = computed(() => (attrs));
 </script>

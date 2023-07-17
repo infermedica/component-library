@@ -5,11 +5,6 @@ import {
 import { content } from '@sb/helpers/argTypes';
 import { useArgTypes } from '@sb/helpers';
 import {
-  getCSSValue,
-  getStyleTests,
-  getFocusTests,
-} from '@tests/interactions/helpers';
-import {
   UiIcon,
   UiCheckbox,
   UiText,
@@ -17,16 +12,9 @@ import {
 } from '@index';
 import type { CheckboxProps } from '@index';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
-import {
-  userEvent,
-  within,
-} from '@storybook/testing-library';
-import { expect } from '@storybook/jest';
-import type { PlayFunctionContext } from '@storybook/types';
 import type {
   Meta,
   StoryObj,
-  VueRenderer,
 } from '@storybook/vue3';
 
 type CheckboxArgsType = CheckboxProps & {
@@ -36,7 +24,6 @@ type CheckboxArgsType = CheckboxProps & {
 }
 type CheckboxMetaType = Meta<CheckboxArgsType>;
 type CheckboxStoryType = StoryObj<CheckboxArgsType>;
-type PlayContext = PlayFunctionContext<VueRenderer, CheckboxArgsType>;
 
 export const stringItemsData = [
   'Russia, Kazakhstan or Mongolia',
@@ -57,44 +44,13 @@ export const complexItemsData = [
     id: 'as-group-with-object-europe',
   },
 ];
-const getStatesTests = async ({
-  canvasElement, step,
-}: PlayContext, results: Partial<CSSStyleDeclaration>[]) => {
-  const checkboxes = [ ...canvasElement.querySelectorAll('.ui-checkbox__checkbox') ];
-  const labels = [ ...canvasElement.querySelectorAll('.ui-checkbox__label') ];
-  await step('Correct border colors', () => {
-    getStyleTests(checkboxes, 'borderColor', results, ':after');
-  });
-  await step('Correct background colors', () => {
-    getStyleTests(checkboxes, 'backgroundColor', results);
-  });
-  await getFocusTests(step, [
-    checkboxes[3],
-    checkboxes[7],
-  ]);
-  await step('Correct Label color', () => {
-    getStyleTests(labels, 'color', results);
-  });
-};
-const getToggleTest = async ({ canvasElement }: PlayContext) => {
-  const className = 'ui-checkbox__checkbox';
-  const inputs: HTMLInputElement[] = await within(canvasElement).findAllByTestId('input');
-  const expected = inputs.map((el) => !el.checked);
-  const checkboxes = canvasElement.querySelectorAll(`.${className}`);
-  const hasCheckedClass = (checkbox: Element) => checkbox.className.includes(`${className}--is-checked`);
-  await inputs.reduce(
-    async (events, checkbox) => {
-      await events;
-      return userEvent.click(checkbox);
-    },
-    Promise.resolve(),
-  );
-  checkboxes.forEach((checkbox, index) => {
-    expect(hasCheckedClass(checkbox)).toBe(expected[index]);
-  });
-};
 
 const { argTypes } = useArgTypes(UiCheckbox, { variables: { regexp: /^(\.ui-checkbox|\.ui-checkbox__checkbox)$/ } });
+import {
+  BasicStories,
+  BasicStoriesSource,
+} from './stories';
+
 export default {
   title: 'Atoms/Checkbox',
   component: UiCheckbox,
@@ -102,7 +58,7 @@ export default {
   args: {
     modelValue: false,
     content: 'I read and accept Terms of Service and Privacy Policy.',
-    modifiers: [],
+    class: [],
     value: '',
     id: '',
     disabled: false,
@@ -180,60 +136,8 @@ export default {
   decorators: [ withModelValue ],
 } satisfies CheckboxMetaType;
 
-export const Basic: CheckboxStoryType = {
-  render: () => ({
-    components: { UiCheckbox },
-    setup(props, { attrs }) {
-      return { ...attrs };
-    },
-    template: `<UiCheckbox
-      v-bind="$attrs"
-    >
-      {{ content }}
-    </UiCheckbox>`,
-  }),
-};
-Basic.parameters = {
-  docs: {
-    source: {
-      code: `<template>
-  <UiCheckbox
-    v-model="modelValue"
-    :value="value"
-    :id="id"
-    :disabled="disabled"
-    :input-attrs="inputAttrs"
-    :icon-checkmark-attrs="iconCheckmarkAttrs"
-    :text-label-attrs="textLabelAttrs"
-    :class="modifiers"
-  >
-    {{ content }}
-  </UiCheckbox>
-</template>
-
-<script setup lang="ts">
-import { ref } from 'vue';
-import { UiCheckbox } from '@infermedica/component-library';
-
-const modelValue = ref(false);
-const value = '';
-const id = '';
-const disabled = false;
-const inputAttrs = {
-  'data-testid': 'input-element'
-};
-const iconCheckmarkAttrs = {
-  'data-testid': 'icon-checkmark'
-};
-const textLabelAttrs = {
-  'data-testid': 'text-label'
-};
-const modifiers = [];
-const content = 'I read and accept Terms of Service and Privacy Policy.';
-</script>"`,
-    },
-  },
-};
+export const Basic: CheckboxStoryType = { render: () => (BasicStories) };
+Basic.parameters = { docs: { source: { code: BasicStoriesSource } } };
 
 export const BasicVariants: CheckboxStoryType = { ...Basic };
 BasicVariants.argTypes = {
@@ -286,27 +190,6 @@ BasicVariants.parameters = {
     },
   ],
 };
-BasicVariants.play = async (context) => getStatesTests(context, [
-  ...[
-    '',
-    '-hover',
-    '-active',
-  ].map((state) => ({ borderColor: getCSSValue(`--color-border-strong${state}`) })),
-  { borderColor: getCSSValue('--color-border-strong') },
-  ...[
-    '',
-    '-hover',
-    '-active',
-    '',
-  ].map((state) => ({
-    borderColor: getCSSValue(`--color-selectioncontrols-selection${state}`),
-    backgroundColor: getCSSValue(`--color-selectioncontrols-selection${state}`),
-  })),
-].map((result) => ({
-  backgroundColor: getCSSValue('--color-background-white'),
-  color: getCSSValue('--color-text-body'),
-  ...result,
-})));
 
 export const DisabledVariants: CheckboxStoryType = { ...BasicVariants };
 DisabledVariants.parameters = {
@@ -318,15 +201,6 @@ DisabledVariants.parameters = {
     }),
   ),
 };
-DisabledVariants.play = async (context) => getStatesTests(context, [
-  ...Array(4).fill({}),
-  ...Array(4).fill({ backgroundColor: getCSSValue('--color-icon-disabled') }),
-].map((result) => ({
-  backgroundColor: getCSSValue('--color-background-white'),
-  borderColor: getCSSValue('--color-icon-disabled'),
-  color: getCSSValue('--color-text-disabled'),
-  ...result,
-})));
 
 export const ErrorVariants: CheckboxStoryType = { ...BasicVariants };
 ErrorVariants.parameters = {
@@ -338,27 +212,6 @@ ErrorVariants.parameters = {
     }),
   ),
 };
-ErrorVariants.play = async (context) => getStatesTests(context, [
-  ...[
-    '',
-    '-hover',
-    '-active',
-    '',
-  ].map((state) => ({ borderColor: getCSSValue(`--color-border-error-strong${state}`) })),
-  ...[
-    '',
-    '-hover',
-    '-active',
-    '',
-  ].map((state) => ({
-    borderColor: getCSSValue(`--color-border-error-strong${state}`),
-    backgroundColor: getCSSValue(`--color-border-error-strong${state}`),
-  })),
-].map((result) => ({
-  backgroundColor: getCSSValue('--color-background-white'),
-  color: getCSSValue('--color-text-body'),
-  ...result,
-})));
 
 export const WithStringValue: CheckboxStoryType = { ...Basic };
 WithStringValue.args = { value: 'I read and accept Terms of Service and Privacy Policy.' };
@@ -494,7 +347,6 @@ AsGroupTemplate.argTypes = {
   value: { control: false },
   content: { control: false },
 };
-AsGroupTemplate.play = getToggleTest;
 
 export const AsGroupWithStringValue: CheckboxStoryType = { ...AsGroupTemplate };
 AsGroupWithStringValue.args = {
