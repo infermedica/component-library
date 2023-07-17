@@ -1,0 +1,33 @@
+import { Canvas, Meta, Controls } from "@storybook/blocks";
+import { MetaActions } from "../../../../docs/components";
+import * as UiSwitchStories from './UiSwitch.stories.ts';
+
+<Meta of={ UiSwitchStories } />
+
+# Switch
+<MetaActions stories={ UiSwitchStories } />
+{/* TODO: add description */}
+
+<Canvas of={ UiSwitchStories.Basic } />
+<Controls of={UiSwitchStories.Basic } />
+
+# Stories
+## IsDisabled
+{/* TODO: add description */}
+<Canvas of={ UiSwitchStories.IsDisabled } />
+
+## WithLabel
+{/* TODO: add description */}
+<Canvas of={ UiSwitchStories.WithLabel } />
+
+## AsGroup
+{/* TODO: add description */}
+<Canvas of={ UiSwitchStories.AsGroup } />
+
+## AsGroupWithPrimiteTypes
+{/* TODO: add description */}
+<Canvas of={ UiSwitchStories.AsGroupWithPrimiteTypes } />
+
+## WithSwitchControlSlot
+{/* TODO: add description */}
+<Canvas of={ UiSwitchStories.WithSwitchControlSlot } />

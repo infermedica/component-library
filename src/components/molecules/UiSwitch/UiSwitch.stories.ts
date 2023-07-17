@@ -8,15 +8,10 @@ import { useArgTypes } from '@sb/helpers';
 import type { SwitchAttrsProps } from '@index';
 import {
   UiSwitch,
-  UiAccordion,
-  UiText,
-  UiButton,
-  UiIcon,
   UiList,
 } from '@index';
 import UiListItem from '@/components/organisms/UiList/_internal/UiListItem.vue';
 import UiSwitchControl from '@/components/molecules/UiSwitch/_internal/UiSwitchControl.vue';
-import UiAccordionItem from '@/components/organisms/UiAccordion/_internal/UiAccordionItem.vue';
 
 type SwitchArgsType = SwitchAttrsProps;
 type SwitchMetaType = Meta<SwitchArgsType>;
@@ -25,7 +20,7 @@ type SwitchStoryType = StoryObj<SwitchArgsType>;
 const { argTypes } = useArgTypes(deepmerge(UiSwitch, { __docgenInfo: { modifiers: [ 'ui-switch--is-disabled' ] } }));
 
 const meta = {
-  title: 'Molecules/SwitchTS',
+  title: 'Molecules/Switch',
   component: UiSwitch,
   args: {
     modelValue: false,
@@ -40,6 +35,15 @@ const meta = {
       control: 'text',
       description: 'Use this control to set the label.',
       table: { category: 'stories controls' },
+    },
+  },
+  parameters: {
+    chromatic: {
+      disableSnapshot: false,
+      viewports: [
+        320,
+        1200,
+      ],
     },
   },
 } satisfies SwitchMetaType;
@@ -121,7 +125,10 @@ export const AsGroup: SwitchStoryType = {
         ...args
       } = attrs;
 
+      const values = ref(modelValue);
+
       return {
+        values,
         args,
         items,
         UiSwitch,
@@ -133,7 +140,8 @@ export const AsGroup: SwitchStoryType = {
         v-for="(value, key) in items"
         :key="key"
         :tag="UiSwitch"
-        v-model="value.modelValue"
+        v-model="values"
+        :value="value.id"
         v-bind="args"
       >
         {{ value.label }}
@@ -142,34 +150,36 @@ export const AsGroup: SwitchStoryType = {
   }),
 };
 AsGroup.args = {
+  modelValue: [ 'necessary' ],
   items: [
     {
       label: 'Necessary',
       id: 'necessary',
       controlAttrs: { 'data-testid': 'necessary' },
-      modelValue: false,
     },
     {
       label: 'Functional',
       id: 'functional',
       controlAttrs: { 'data-testid': 'functional' },
-      modelValue: false,
     },
     {
       label: 'Analytics',
       id: 'analytics',
       controlAttrs: { 'data-testid': 'analytics' },
-      modelValue: false,
     },
   ],
 };
 AsGroup.argTypes = {
-  modelValue: { table: { disable: true } },
-  items: {
-    description: 'Use this control to set the values of checkbox group.',
-    table: { category: 'stories controls' },
-    control: 'array',
+  modelValue: {
+    control: 'object',
+    defaultValue: [ 'necessary' ],
   },
+  items: {
+    description: 'Use this control to set values of checkboxes group.',
+    table: { category: 'stories controls' },
+    control: 'object',
+  },
+  label: { table: { disable: true } },
 };
 
 export const AsGroupWithPrimiteTypes: SwitchStoryType = {
@@ -188,6 +198,7 @@ export const AsGroupWithPrimiteTypes: SwitchStoryType = {
       } = attrs;
 
       const values = ref(modelValue);
+
       return {
         values,
         args,
@@ -201,7 +212,8 @@ export const AsGroupWithPrimiteTypes: SwitchStoryType = {
       v-for="(value, key) in items"
       :key="key"
       :tag="UiSwitch"
-      v-model="values[value]"
+      v-model="values"
+      :value="value"
       v-bind="args"
     >
       {{ value }}
@@ -210,21 +222,14 @@ export const AsGroupWithPrimiteTypes: SwitchStoryType = {
   }),
 };
 AsGroupWithPrimiteTypes.args = {
+  modelValue: [ 'Necessary' ],
   items: [
     'Necessary',
     'Functional',
     'Analytics',
   ],
-  modelValue: [
-    { necessary: false },
-    { functional: false },
-    { analytics: false },
-  ],
 };
-AsGroupWithPrimiteTypes.argTypes = {
-  ...AsGroup.argTypes,
-  modelValue: { control: 'array' },
-};
+AsGroupWithPrimiteTypes.argTypes = { ...AsGroup.argTypes };
 
 export const WithSwitchControlSlot: SwitchStoryType = {
   render: () => ({
@@ -267,4 +272,4 @@ export const WithSwitchControlSlot: SwitchStoryType = {
     </UiSwitch>`,
   }),
 };
-
+WithSwitchControlSlot.parameters = { chromatic: { disableSnapshot: true } };

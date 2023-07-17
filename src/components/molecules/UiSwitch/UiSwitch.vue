@@ -16,7 +16,11 @@
     <template
       #checkbox="{ checked }"
     >
-      <!-- @slot Use this slot to replace switch control template. -->
+      <!--
+        @slot Use this slot to replace switch control template.
+        @binding {boolean} checked
+        @binding {SwitchControlAttrsProps} controlAttrs
+      -->
       <slot
         name="switchcontrol"
         v-bind="{
@@ -60,6 +64,7 @@ export interface SwitchProps {
 }
 export type SwitchAttrsProps = DefineAttrsProps<SwitchProps, CheckboxAttrsProps>
 export interface SwitchEmits {
+  /** Use this event to handle value of Switch. */
   (e: 'update:modelValue', value: CheckboxModelValue): void
 }
 
