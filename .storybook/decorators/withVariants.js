@@ -1,4 +1,7 @@
-import { onBeforeUnmount } from 'vue';
+import {
+  computed,
+  onBeforeUnmount
+} from 'vue';
 
 const pseudoStates = [
   "hover",
@@ -110,38 +113,41 @@ const getModifiers = (variant, args) => {
     ...args.modifiers,
   ]
 }
-export const withVariants = (story, { componentId, id, parameters, args }) => ({
+export const withVariants = (story, { componentId, id, parameters }) => ({
+  inheritAttrs: false,
   components: { story },
-  setup() {
+  setup(props, { attrs} ) {
+    const { variants } = parameters;
     const componentClassName = `.ui-${componentId.split('-')[1]}`;
     const getModifiedStyles = replacePseudoSelectors(componentClassName);
     insertStylesIntoDOM(getModifiedStyles, id);
     onBeforeUnmount(() => {
       removeStylesFromDOM(id);
     })
+    const args = computed(()=>(attrs));
     return {
-      variants: parameters.variants,
+      variants,
       args,
-      getModifiers,
+      id,
     }
   },
-  template: `<div class="variants">
-    <template v-for="({label, ...rest}, index) in variants" :key="index">
+  template: `<div class="sb-variants">
+    <template 
+      v-for="({label, ...rest}, key) in variants" 
+      :key="key"
+    >
       <span
         v-if="label"
-        class="variants__label"
+        class="sb-variants__label"
       >
         {{ label }}:
       </span>
-      <!-- *required -->
+      <!-- please don't remove this div -->
       <div>
         <story
-            v-bind="{
-              ...args,
-              ...rest,
-              // class: '', // TODO: remove for stories in vue files approach
-              modifiers: getModifiers(rest, args),
-            }"
+          v-bind="args"
+          v-bind="rest"
+          :key="id"
         />
       </div>
     </template>

@@ -230,7 +230,7 @@ export function useArgTypes(component, options = { variables: {}}) {
       ...variables,
     }
     if (modifiers) {
-      toReturn['modifiers'] = modifiers
+      toReturn['class'] = modifiers
     }
     return toReturn
   })()

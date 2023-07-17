@@ -4,6 +4,7 @@ import type {
 } from '@storybook/vue3';
 import {
   ref,
+  computed,
   provide,
   inject,
 } from 'vue';
@@ -19,16 +20,11 @@ const { argTypes } = useArgTypes(deepmerge(
   UiTextarea,
   inputEvents,
 ));
-import {
-  BasicStories,
-  BasicStoriesSource,
-} from './stories';
 
 const meta = {
   title: 'Atoms/Textarea',
   component: UiTextarea,
   args: {
-    modifiers: [],
     modelValue: '',
     resize: false,
     placeholder: 'Please provide a detailed description of the issue.',
@@ -55,10 +51,60 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof UiTextarea>;
 
-export const Basic: Story = { render: () => BasicStories };
+export const Basic: Story = {
+  render: () => ({
+    inheritAttrs: false,
+    components: { UiTextarea },
+    setup(props, { attrs }) {
+      const { modelValue } = attrs;
+      const value = inject('value') || ref(modelValue);
+      const args = computed(() => (Object.keys(attrs)
+        .reduce((object, key) => {
+          if (key !== 'modelValue') {
+            object[key] = attrs[key];
+          }
+          return object;
+        }, {})));
+
+      return {
+        args,
+        value,
+      };
+    },
+    template: `<UiTextarea
+      v-model="value"
+      v-bind="args"
+    />`,
+  }),
+};
 Basic.parameters = {
   chromatic: { disableSnapshot: true },
-  docs: { source: { code: BasicStoriesSource } },
+  docs: {
+    source: {
+      code: `<template>
+  <UiTextarea
+    v-model="modelValue"
+    :resize="resize"
+    :placeholder="placeholder"
+    :disabled="disabled"
+    textarea-attrs="textareaAttrs"
+  />
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import { UiTextarea } from '@infermedica/component-library';
+
+const modelValue = ref('');
+const resize = false;
+const placeholder = 'Please provide a detailed description of the issue.';
+const disabled = false;
+const textareaAttrs = {
+  'data-testid': 'textarea-element'
+}
+</script>`,
+    },
+  },
 };
 
 export const Empty: Story = { ...Basic };
@@ -70,14 +116,22 @@ Empty.argTypes = {
 Empty.decorators = [
   withVariants,
   () => ({
+    inheritAttrs: false,
     setup(props, { attrs }) {
-      const {
-        modelValue, ...args
-      } = attrs;
+      const { modelValue } = attrs;
       const value = ref(modelValue);
       provide('value', value);
+      const args = computed(() => (Object.keys(attrs)
+        .reduce((object, key) => {
+          if (key !== 'modelValue') {
+            object[key] = attrs[key];
+          }
+          return object;
+        }, {})));
+
+      return { args };
     },
-    template: '<story />',
+    template: '<story v-bind="args"/>',
   }),
 ];
 Empty.parameters = {

@@ -30,11 +30,15 @@ import type {
   PlayFunctionContext,
 } from '@storybook/types';
 import type { Icon as IconType } from '@/types';
-import { defineComponent } from 'vue';
+import {
+  computed,
+  toRefs,
+  defineComponent,
+} from 'vue';
 
 type ButtonArgsType = ButtonProps & {
   content?: string;
-  modifiers?: string[];
+  class?: string[];
   target?: string;
   icon?: IconType;
   iconEnd?: IconType
@@ -95,15 +99,9 @@ const getIconVariantTests = async (
   });
   await getFocusTests(step, [ [ ...document.querySelectorAll('.ui-button') ][2] ]);
 };
+
 const buttonEvents = extendEvents([ 'onClick' ]);
 const { argTypes } = useArgTypes(deepmerge(UiButton, buttonEvents));
-import {
-  BasicStories,
-  BasicStoriesSource,
-  IconStories,
-  CircledStories,
-} from './stories';
-
 const withIconVariants = (
   story: PartialStoryFn<VueRenderer, ButtonProps>,
   { parameters: { iconVariants } }: StoryContext<ButtonArgsType>,
@@ -132,12 +130,23 @@ const withIconVariants = (
   </template>`,
 });
 
+const UiButtonIcon = {
+  components: { UiIcon },
+  props: [ 'icon' ],
+  template: `<UiIcon
+    :icon="icon"
+    class="ui-button__icon"
+  />`,
+};
+
 const meta = {
   title: 'Atoms/Button',
   component: UiButton,
   args: {
     content: 'Submit',
-    modifiers: [],
+    icon: '',
+    iconEnd: '',
+    class: [],
   },
   argTypes: {
     ...argTypes,
@@ -155,10 +164,59 @@ const meta = {
 } satisfies ButtonMetaType;
 export default meta;
 
-export const Basic: ButtonStoryType = { render: () => BasicStories };
+export const Basic: ButtonStoryType = {
+  render: () => ({
+    components: {
+      UiButton,
+      UiButtonIcon,
+    },
+    setup(props, { attrs }) {
+      const {
+        content,
+        icon,
+        iconEnd,
+      } = toRefs(attrs);
+      const args = computed(() => (attrs));
+      return {
+        content,
+        icon,
+        iconEnd,
+        args,
+      };
+    },
+    template: `<UiButton v-bind="args">
+      <UiButtonIcon
+          v-if="icon"
+          :icon="icon"
+      />
+      {{ content }}
+      <UiButtonIcon
+          v-if="iconEnd"
+          :icon="iconEnd"
+          class="ui-button__icon--end"
+      />
+    </UiButton>`,
+  }),
+};
 Basic.parameters = {
   chromatic: { disableSnapshot: true },
-  docs: { source: { code: BasicStoriesSource } },
+  docs: {
+    source: {
+      code: `<template>
+  <UiButton
+    :to="to"
+    :href="href"
+    :tag="tag"
+    @click="handleButtonClick"
+  >{{ content }}</UiButton>
+</template>
+
+<script setup lang="ts">
+import { UiButton } from '@infermedica/cpmponent-library'
+</script>
+`,
+    },
+  },
 };
 
 export const RouterButton: ButtonStoryType = { ...Basic };
@@ -167,7 +225,23 @@ RouterButton.argTypes = {
   tag: { control: false },
   href: { control: false },
 };
-RouterButton.parameters = { docs: { source: { code: BasicStoriesSource } } };
+RouterButton.parameters = {
+  ...Basic.parameters,
+  docs: {
+    source: {
+      code: `<template>
+  <UiButton :to="to">{{ content }}</UiButton>
+</template>
+
+<script setup lang="ts">
+import { UiButton } from '@infermedica/cpmponent-library';
+
+const to = { path: '/blog/medical-guide-platform' };
+</script>
+`,
+    },
+  },
+};
 
 export const LinkButton: ButtonStoryType = { ...Basic };
 LinkButton.args = {
@@ -178,12 +252,31 @@ LinkButton.argTypes = {
   tag: { control: false },
   to: { control: false },
 };
-LinkButton.parameters = { docs: { source: { code: BasicStoriesSource } } };
+LinkButton.parameters = {
+  ...Basic.parameters,
+  docs: {
+    source: {
+      code: `<template>
+  <UiButton
+    :href="href"
+    target="_blank"
+  >{{ content }}</UiButton>
+</template>
+
+<script setup lang="ts">
+import { UiButton } from '@infermedica/cpmponent-library';
+
+const href = 'https://www.infermedica.com';
+</script>
+`,
+    },
+  },
+};
 
 export const Primary: ButtonStoryType = { ...Basic };
 Primary.argTypes = {
-  modifiers: {
-    ...meta.argTypes.modifiers,
+  class: {
+    ...meta.argTypes.class,
     options: [ 'ui-button--small' ],
   },
   to: { control: false },
@@ -277,7 +370,12 @@ Text.play = async ({ step }) => {
 
 export const TextSecondary: ButtonStoryType = { ...Text };
 TextSecondary.decorators = Text.decorators?.concat(
-  () => ({ template: '<div class="ui-button--theme-secondary"><story/></div>' }),
+  () => ({
+    setup(props, { attrs }) {
+      return { attrs };
+    },
+    template: '<div class="ui-button--theme-secondary"><story v-bind="attrs"/></div>',
+  }),
 );
 TextSecondary.play = async ({ step }) => {
   getTextVariantTests(
@@ -293,7 +391,12 @@ TextBrand.parameters = {
   backgrounds: { default: 'brand' },
 };
 TextBrand.decorators = Text.decorators?.concat(
-  () => ({ template: '<div class="ui-button--theme-brand"><story/></div>' }),
+  () => ({
+    setup(props, { attrs }) {
+      return { attrs };
+    },
+    template: '<div class="ui-button--theme-brand"><story v-bind="attrs"/></div>',
+  }),
 );
 TextBrand.play = async ({ step }) => {
   getTextVariantTests(
@@ -303,15 +406,37 @@ TextBrand.play = async ({ step }) => {
   );
 };
 
-export const Icon: ButtonStoryType = { render: () => IconStories };
-Icon.args = {
-  icon: 'plus-circled-filled',
-  modifiers: [ 'ui-button--icon' ],
+export const Icon: ButtonStoryType = {
+  render: () => ({
+    components: {
+      UiButton,
+      UiIcon,
+    },
+    setup(props, { attrs }) {
+      const { icon } = toRefs(attrs);
+      const args = computed(() => (attrs));
+
+      return {
+        icon,
+        args,
+      };
+    },
+    template: `<UiButton
+        v-bind="args"
+        class="ui-button--icon"
+    >
+      <UiIcon
+        :icon="icon"
+        class="ui-button__icon"
+      />
+    </UiButton>`,
+  }),
 };
+Icon.args = { icon: 'plus-circled-filled' };
 Icon.argTypes = {
   iconEnd: { control: false },
-  modifiers: {
-    ...meta.argTypes.modifiers,
+  class: {
+    ...meta.argTypes.class,
     control: false,
   },
   to: { control: false },
@@ -329,7 +454,12 @@ Icon.play = async ({ step }) => getIconVariantTests(
 export const IconSecondary: ButtonStoryType = { ...Icon };
 IconSecondary.decorators = [
   ...Icon.decorators,
-  () => ({ template: '<div class="ui-button--theme-secondary"><story/></div>' }),
+  () => ({
+    setup(props, { attrs }) {
+      return { attrs };
+    },
+    template: '<div class="ui-button--theme-secondary"><story v-bind="attrs"/></div>',
+  }),
 ];
 IconSecondary.play = async ({ step }) => getIconVariantTests(
   step,
@@ -344,7 +474,12 @@ IconBrand.parameters = {
 };
 IconBrand.decorators = [
   ...Icon.decorators,
-  () => ({ template: '<div class="ui-button--theme-brand"><story/></div>' }),
+  () => ({
+    setup(props, { attrs }) {
+      return { attrs };
+    },
+    template: '<div class="ui-button--theme-brand"><story v-bind="attrs"/></div>',
+  }),
 ];
 IconBrand.play = async ({ step }) => getIconVariantTests(
   step,
@@ -352,16 +487,52 @@ IconBrand.play = async ({ step }) => getIconVariantTests(
   '--color-text-on-brand-disabled',
 );
 
-export const Circled: ButtonStoryType = { render: () => CircledStories };
+export const Circled: ButtonStoryType = {
+  render: () => ({
+    components: {
+      UiButton,
+      UiIcon,
+      UiText,
+    },
+    setup(props, { attrs }) {
+      const {
+        content,
+        icon,
+      } = toRefs(attrs);
+      const args = computed(() => (attrs));
+      return {
+        content,
+        icon,
+        args,
+      };
+    },
+    template: `<UiButton
+      v-bind="args"
+      class="ui-button--circled"
+    >
+      <UiText>
+        {{ content }}
+      </UiText>
+    </UiButton>
+    <UiButton
+      v-bind="args"
+      class="ui-button--circled"
+    >
+      <UiIcon
+        :icon="icon"
+        class="ui-button__icon"
+      />
+    </UiButton>`,
+  }),
+};
 Circled.args = {
   content: '1',
   icon: 'plus-circled-filled',
-  modifiers: [ 'ui-button--circled' ],
 };
 Circled.argTypes = {
   iconEnd: { control: false },
-  modifiers: {
-    ...meta.argTypes.modifiers,
+  class: {
+    ...meta.argTypes.class,
     control: false,
   },
   to: { control: false },
@@ -369,11 +540,17 @@ Circled.argTypes = {
   href: { control: false },
 };
 Circled.decorators = [
-  () => ({
+  (story, { id }) => ({
+    inheritAttrs: false,
+    components: { story },
     setup(props, { attrs }) {
-      return { attrs };
+      const args = computed(() => (attrs));
+      return {
+        args,
+        id,
+      };
     },
-    template: '<div class="flex gap-2"><story v-bind="attrs"/></div>',
+    template: '<div class="flex gap-2"><story v-bind="args" :key="id"/></div>',
   }),
   withVariants,
 ];
@@ -410,8 +587,8 @@ WithIcon.args = {
   iconEnd: 'plus-circled-filled',
 };
 WithIcon.argTypes = {
-  modifiers: {
-    ...meta.argTypes.modifiers,
+  class: {
+    ...meta.argTypes.class,
     control: false,
   },
   to: { control: false },
@@ -446,7 +623,7 @@ Small.args = {
   iconEnd: 'plus-circled-filled',
 };
 Small.argTypes = {
-  modifiers: { control: false },
+  class: { control: false },
   to: { control: false },
   tag: { control: false },
   href: { control: false },
