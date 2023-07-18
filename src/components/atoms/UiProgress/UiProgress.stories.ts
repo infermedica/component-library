@@ -14,6 +14,16 @@ type ProgressMetaType = Meta<ProgressArgsType>;
 type ProgressStoryType = StoryObj<ProgressArgsType>;
 
 const { argTypes } = useArgTypes(UiProgress);
+
+import {
+  BasicStories,
+  BasicStoriesSource,
+  NoRadiusStories,
+  NoRadiusStoriesSource,
+  HeightsStories,
+  HeightsStoriesSource,
+} from './stories';
+
 const meta = {
   title: 'Atoms/Progress',
   component: UiProgress,
@@ -34,150 +44,18 @@ const meta = {
 } satisfies ProgressMetaType;
 export default meta;
 
-export const Basic: ProgressStoryType = {
-  render: () => ({
-    components: { UiProgress },
-    template: '<UiProgress v-bind="$attrs"/>',
-  }),
-};
-Basic.parameters = {
-  docs: {
-    source: {
-      code: `<template>
-      <UiProgress
-        :value="value"
-        :min="min"
-        :max="max"
-      />
-  </template>
+export const Basic: ProgressStoryType = { render: () => (BasicStories) };
+Basic.parameters = { docs: { source: { code: BasicStoriesSource } } };
 
-  <script setup lang="ts">
-  import { UiProgress } from '@infermedica/component-library';
+export const NoRadius: ProgressStoryType = { render: () => (NoRadiusStories) };
+NoRadius.parameters = { docs: { source: { code: NoRadiusStoriesSource } } };
 
-const min = 0;
-const max = 100;
-const value = 4;
-</script>`,
-    },
-  },
-};
-
-export const NoRadiusProgress: ProgressStoryType = { ...Basic };
-NoRadiusProgress.parameters = {
-  docs: {
-    source: {
-      code: `<template>
-    <UiProgress
-      :value="value"
-      :min="min"
-      :max="max"
-      class="no-radius-progress"
-    />
-</template>
-
-<script setup lang="ts">
-import { UiProgress } from '@infermedica/component-library';
-
-const min = 0;
-const max = 100;
-const value = 4;
-</script>
-
-<style lang="scss">
-@use "@infermedica/component-library/mixins";
-
-.no-radius-progress {
-  @include mixins.override-logical('progress', null, border-radius, 0);
-  @include mixins.override-logical('progress-indicator', null, border-radius, 0);
-}
-</style>`,
-    },
-  },
-};
-
-export const HeightsProgress: ProgressStoryType = { ...Basic };
-HeightsProgress.args = { class: 'heights-progress' };
-HeightsProgress.parameters = {
-  docs: {
-    source: {
-      code: `<template>
-    <UiProgress
-      :value="value"
-      :min="min"
-      :max="max"
-      class="heights-progress"
-    />
-</template>
-
-<script setup lang="ts">
-import { UiProgress } from '@infermedica/component-library';
-
-const min = 0;
-const max = 100;
-const value = 4;
-</script>
-
-<style lang="scss">
-.heights-progress {
-  --progress-height: 3rem;
-}
-</style>`,
-    },
-  },
-};
+export const Heights: ProgressStoryType = { render: () => (HeightsStories) };
+Heights.args = { class: 'heights-progress' };
+Heights.parameters = { docs: { source: { code: HeightsStoriesSource } } };
 
 export const Min: ProgressStoryType = { ...Basic };
-Min.args = {
-  ...Basic.args,
-  value: 0,
-};
-Min.parameters = {
-  docs: {
-    source: {
-      code: `<template>
-    <UiProgress
-      :value="value"
-      :min="min"
-      :max="max"
-    />
-</template>
-
-<script setup lang="ts">
-import { ref } from 'vue';
-import { UiProgress } from '@infermedica/component-library';
-
-const min = 0;
-const max = 100;
-const value = ref(0);
-</script>`,
-    },
-  },
-};
+Min.args = { value: 0 };
 
 export const Max: ProgressStoryType = { ...Basic };
-Max.args = {
-  ...Basic.args,
-  value: 100,
-};
-Max.parameters = {
-  docs: {
-    source: {
-      code: `<template>
-    <UiProgress
-      :value="value"
-      :min="min"
-      :max="max"
-    />
-</template>
-
-<script setup lang="ts">
-import { ref } from 'vue';
-import { UiProgress } from '@infermedica/component-library';
-
-const min = 0;
-const max = 100;
-const value = ref(100);
-</script>`,
-    },
-  },
-};
+Max.args = { value: 100 };

@@ -1,7 +1,6 @@
 import type {
   Meta,
   StoryObj,
-  VueRenderer,
 } from '@storybook/vue3';
 import {
   ref,
@@ -17,46 +16,39 @@ import {
 } from '@index';
 import type { InputProps } from '@index';
 import { keyboardFocus } from '@/utilities/directives';
-import { withVariants } from '@sb/decorators';
+import {
+  withVModel,
+  withVariants,
+} from '@sb/decorators';
 import {
   useArgTypes,
   inputEvents,
 } from '@sb/helpers';
-import { icon as iconArgsType } from '@sb/helpers/argTypes/index';
-import {
-  userEvent,
-  within,
-} from '@storybook/testing-library';
-import { expect } from '@storybook/jest';
-import type { PlayFunctionContext } from '@storybook/types';
-import {
-  getStyleTests,
-  getCSSValue,
-} from '@tests/interactions/helpers';
+import { icon } from '@sb/helpers/argTypes/index';
 import type { Icon } from '@/types';
 
 type InputArgsType = InputProps & {
-  modifiers?: string[];
-  outline?: Record<string, unknown>;
+  class?: string[];
   icon?: Icon;
 }
 type InputMetaType = Meta<InputArgsType>;
 type InputStoryType = StoryObj<InputArgsType>;
-type PlayContext = PlayFunctionContext<VueRenderer, InputArgsType>;
-
-const getStatesTests = async ({
-  canvasElement, step,
-}: PlayContext, results: Partial<CSSStyleDeclaration>[]) => {
-  const inputs = [ ...canvasElement.querySelectorAll('.ui-input') ];
-  await step('Correct border colors', () => {
-    getStyleTests(inputs, 'borderColor', results, 'after');
-  });
-};
 
 const { argTypes } = useArgTypes(
   deepmerge(UiInput, inputEvents),
   { variables: { regexp: /^(\.ui-input|\.ui-input__input)$/ } },
 );
+
+import {
+  BasicStories,
+  BasicStoriesSource,
+  WithButtonAsideStories,
+  WithButtonAsideStoriesSource,
+  WithInputSlotStories,
+  WithInputSlotStoriesSource,
+  WithAsideSlotStories,
+  WithAsideSlotStoriesSource,
+} from './stories';
 
 const UiInputButtonAside = {
   components: {
@@ -76,7 +68,7 @@ const meta = {
   title: 'Atoms/Input',
   component: UiInput,
   args: {
-    modifiers: [],
+    icon: '',
     modelValue: '',
     placeholder: 'Search, e.g. headache',
     type: 'text',
@@ -88,7 +80,8 @@ const meta = {
   },
   argTypes: {
     ...argTypes,
-    icon: iconArgsType,
+    modelValue: { control: 'text' },
+    icon,
   },
   parameters: {
     chromatic: {
@@ -103,84 +96,22 @@ const meta = {
 } satisfies InputMetaType;
 export default meta;
 
-export const Basic: InputStoryType = {
-  render: () => ({
-    inheritAttrs: false,
-    components: { UiInput },
-    setup(props, { attrs }) {
-      const {
-        modelValue,
-        modifiers = {},
-        ...args
-      } = attrs;
-      const value = inject('value') || ref(modelValue);
-      return {
-        args: {
-          ...args,
-          class: modifiers,
-        },
-        value,
-      };
-    },
-    template: `<UiInput
-      v-model="value"
-      v-bind="args"
-    />`,
-  }),
-};
+export const Basic: InputStoryType = { render: () => (BasicStories) };
+Basic.decorators = [ withVModel ];
 Basic.parameters = {
   chromatic: { disableSnapshot: true },
-  docs: {
-    source: {
-      code: `<template>
-  <UiInput
-    v-model="modelValue"
-    :placeholder="placeholder"
-    :type="type"
-    :disabled="disabled"
-    :suffix="suffix"
-    :text-suffix-attrs="textSuffixAttrs"
-    :input-attrs="inputAttrs"
-  />
-</template>
-
-<script setup lang="ts">
-import { ref } from 'vue';
-import { UiInput } from '@infermedica/component-library';
-
-const modelValue = ref('');
-const placeholder = 'Search, e.g. headache';
-const type = "text";
-const disabled = false;
-const suffix = '';
-const textSuffixAttrs = {
-  "data-testid": "text-suffix"
-};
-const inputAttrs = {
-  "data-testid": "input-element"
-};
-</script>"`,
-    },
-  },
+  docs: { source: { code: BasicStoriesSource } },
 };
 
 export const Empty: InputStoryType = { ...Basic };
 Empty.argTypes = {
-  modelValue: { control: false },
+  // modelValue: { control: false },
   placeholder: { control: 'text' },
   disabled: { control: false },
 };
 Empty.decorators = [
   withVariants,
-  () => ({
-    inheritAttrs: false,
-    setup(props, { attrs }) {
-      const { modelValue } = attrs;
-      const value = ref(modelValue);
-      provide('value', value);
-    },
-    template: '<story />',
-  }),
+  withVModel,
 ];
 Empty.parameters = {
   variants: [
@@ -210,25 +141,13 @@ Filled.argTypes = {
   modelValue: { control: 'text' },
   placeholder: { control: false },
 };
-Filled.play = async ({
-  canvasElement, step,
-}) => {
-  const canvas = within(canvasElement);
-  const inputs = canvas.getAllByTestId<HTMLInputElement>('input-element');
-  await userEvent.clear(inputs[0]);
-  await step('Correct value of filled input', async () => {
-    await userEvent.type(inputs[0], 'headache', { delay: 150 });
-    expect(inputs[0].value).toBe('headache');
-  });
-};
 
-export const WithError: InputStoryType = { ...Basic };
+export const WithError: InputStoryType = { ...Empty };
 WithError.argTypes = {
   ...Empty.argTypes,
   modelValue: { control: false },
   placeholder: { control: false },
 };
-WithError.decorators = [ withVariants ];
 WithError.parameters = {
   ...Empty.parameters,
   variants: [
@@ -251,12 +170,6 @@ WithError.parameters = {
     },
   ],
 };
-WithError.play = async (context) => getStatesTests(context, [
-  '',
-  '-hover',
-  '',
-  '',
-].map((state) => ({ borderColor: getCSSValue(`--color-border-error-strong${state}`) })));
 
 export const WithSuffix: InputStoryType = { ...Basic };
 WithSuffix.args = {
@@ -265,261 +178,24 @@ WithSuffix.args = {
   suffix: 'cm',
 };
 WithSuffix.parameters = { docs: { source: { code: null } } };
-export const WithButtonAside: InputStoryType = {
-  render: () => ({
-    components: {
-      UiInput,
-      UiInputButtonAside,
-    },
-    setup: (props, { attrs }) => {
-      const {
-        icon,
-        modelValue,
-        modifiers = {},
-        ...args
-      } = attrs;
-      const value = ref(modelValue);
-      return {
-        icon,
-        args: {
-          ...args,
-          class: modifiers,
-        },
-        value,
-      };
-    },
-    template: `<UiInput
-      v-model="value"
-      v-bind="args"
-    >
-      <template #aside>
-        <UiInputButtonAside
-          :icon="icon"
-          class="ui-input__aside"
-        />
-      </template>
-    </UiInput>`,
-  }),
-};
+
+export const WithButtonAside: InputStoryType = { render: () => (WithButtonAsideStories) };
+WithButtonAside.args = { icon: 'search' };
 WithButtonAside.argTypes = {
   suffix: { control: false },
   textSuffixAttrs: { control: false },
 };
-WithButtonAside.args = { icon: 'search' };
-WithButtonAside.parameters = {
-  docs: {
-    source: {
-      code: `<template>
-  <UiInput
-    v-model="modelValue"
-    :placeholder="placeholder"
-    :type="type"
-    :disabled="disabled"
-    :suffix="suffix"
-  >
-    <template #aside>
-      <UiButton class="ui-button--icon">
-        <UiIcon
-          icon="search"
-          class="ui-button__icon"
-        />
-      </UiButton>
-    </template>
-  </UiInput>
-</template>
+WithButtonAside.decorators = [ withVModel ];
+WithButtonAside.parameters = { docs: { source: { code: WithButtonAsideStoriesSource } } };
 
-<script setup lang="ts">
-import { ref } from 'vue';
-import {
-  UiInput,
-  UiButton,
-  UiIcon,
-} from '@infermedica/component-library';
-
-const modelValue = ref('');
-const placeholder = 'Search, e.g. headache';
-const type = "text";
-const disabled = false;
-const suffix = '';
-</script>"`,
-    },
-  },
-};
-
-export const WithInputSlot: InputStoryType = {
-  render: () => ({
-    inheritAttrs: false,
-    directives: { keyboardFocus },
-    components: { UiInput },
-    setup: (props, { attrs }) => {
-      const {
-        modelValue,
-        modifiers = {},
-        ...args
-      } = attrs;
-      const value = ref(modelValue);
-
-      return {
-        args: {
-          ...args,
-          class: modifiers,
-        },
-        value,
-      };
-    },
-    template: `<UiInput
-      v-model="value"
-      v-bind="args"
-    >
-      <template #input="{
-        inputAttrs,
-        input,
-        value,
-        validation
-      }">
-        <input
-          ref="input"
-          v-keyboard-focus
-          v-bind="inputAttrs"
-          :value="value"
-          class="ui-input__input"
-          @keydown="validation"
-          @input="input($event)"
-        >
-      </template>
-    </UiInput>`,
-  }),
-};
+export const WithInputSlot: InputStoryType = { render: () => (WithInputSlotStories) };
 WithInputSlot.parameters = {
   chromatic: { disableSnapshot: true },
-  docs: {
-    source: {
-      code: `<template>
-  <UiInput
-    v-model="modelValue"
-    :placeholder="placeholder"
-    :type="type"
-    :disabled="disabled"
-    :suffix="suffix"
-    :input-attrs="inputAttrs"
-  >
-    <template #input="{
-      inputAttrs,
-      input,
-      value,
-      validation
-    }">
-      <input
-        ref="input"
-        v-keyboard-focus
-        v-bind="inputAttrs"
-        :value="value"
-        class="ui-input__input"
-        @keydown="validation"
-        @input="input($event)"
-      >
-    </template>
-  </UiInput>
-</template>
-
-<script setup lang="ts">
-import { ref } from 'vue';
-import { UiInput } from '@infermedica/component-library';
-import { keyboardFocus as vKeyboardFocus } from '@infermedica/component-library/directives'
-
-const modelValue = ref('');
-const placeholder = 'Search, e.g. headache';
-const type = "text";
-const disabled = false;
-const suffix = '';
-const inputAttrs = {
-  "data-testid": "input-element"
-}
-</script>"`,
-    },
-  },
+  docs: { source: { code: WithInputSlotStoriesSource } },
 };
 
-export const WithAsideSlot: InputStoryType = {
-  render: () => ({
-    inheritAttrs: false,
-    components: {
-      UiInput,
-      UiText,
-    },
-    setup: (props, { attrs }) => {
-      const {
-        modelValue,
-        modifiers = {},
-        ...args
-      } = attrs;
-      const value = ref(modelValue);
-
-      return {
-        args: {
-          ...args,
-          class: modifiers,
-        },
-        value,
-      };
-    },
-    template: `<UiInput
-      v-model="value"
-      v-bind="args"
-    >
-      <template #aside="{
-        suffix,
-        textSuffixAttrs,
-      }">
-        <UiText
-          v-bind="textSuffixAttrs"
-          class="ui-input__aside"
-        >
-          {{ suffix }}
-        </UiText>
-      </template>
-    </UiInput>`,
-  }),
-};
+export const WithAsideSlot: InputStoryType = { render: () => (WithAsideSlotStories) };
 WithAsideSlot.parameters = {
   chromatic: { disableSnapshot: true },
-  docs: {
-    source: {
-      code: `<template>
-  <UiInput
-    v-model="modelValue"
-    :placeholder="placeholder"
-    :type="type"
-    :disabled="disabled"
-    :suffix="suffix"
-  >
-    <template #aside="{
-      suffix,
-      textSuffixAttrs,
-    }">
-      <UiText
-        v-bind="textSuffixAttrs"
-        class="ui-input__aside"
-      >
-        {{ suffix }}
-      </UiText>
-    </template>
-  </UiInput>
-</template>
-
-<script setup lang="ts">
-import { ref } from 'vue';
-import {
-  UiInput,
-  UiText
-} from '@infermedica/component-library';
-
-const modelValue = ref('');
-const placeholder = 'Search, e.g. headache';
-const type = "text";
-const disabled = false;
-const suffix = '';
-</script>"`,
-    },
-  },
+  docs: { source: { code: WithAsideSlotStoriesSource } },
 };

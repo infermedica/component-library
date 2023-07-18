@@ -1,22 +1,26 @@
 <template>
-  <UiTextarea
-    v-model="value"
+  <UiProgress
     v-bind="args"
-  /> {{ value }}
+    class="heights"
+  />
 </template>
 
-<script setup lang="ts">
+<script setup>
 import {
   computed,
-  inject,
-  useAttrs,
   defineOptions,
+  useAttrs,
 } from 'vue';
-import { UiTextarea } from '@infermedica/component-library';
+import { UiProgress } from '@infermedica/component-library';
 
 defineOptions({ inheritAttrs: false });
 
 const attrs = useAttrs();
 const args = computed(() => (attrs));
-const value = inject('value');
 </script>
+
+<style lang="scss">
+.heights {
+  --progress-height: 3rem;
+}
+</style>

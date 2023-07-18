@@ -1,18 +1,18 @@
 <template>
-  <UiTextarea
-    v-model="value"
+  <UiInput
     v-bind="args"
+    v-model="value"
   /> {{ value }}
 </template>
 
-<script setup lang="ts">
+<script setup>
 import {
   computed,
+  defineOptions,
   inject,
   useAttrs,
-  defineOptions,
 } from 'vue';
-import { UiTextarea } from '@infermedica/component-library';
+import { UiInput } from '@infermedica/component-library';
 
 defineOptions({ inheritAttrs: false });
 

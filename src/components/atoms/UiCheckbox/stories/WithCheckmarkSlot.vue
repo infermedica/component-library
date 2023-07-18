@@ -3,7 +3,17 @@
     v-model="value"
     v-bind="args"
   >
-    {{ content }}
+    <template
+      #checkmark="{ iconCheckmarkAttrs }"
+    >
+      <UiIcon
+        v-bind="iconCheckmarkAttrs"
+        class="ui-checkbox__checkmark"
+      />
+    </template>
+    <template #default>
+      {{ content }}
+    </template>
   </UiCheckbox>
 </template>
 
@@ -15,7 +25,10 @@ import {
   toRefs,
   inject,
 } from 'vue';
-import { UiCheckbox } from '@infermedica/component-library';
+import {
+  UiCheckbox,
+  UiIcon,
+} from '@infermedica/component-library';
 
 defineOptions({ inheritAttrs: false });
 

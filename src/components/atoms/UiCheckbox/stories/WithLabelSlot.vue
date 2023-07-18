@@ -3,7 +3,22 @@
     v-model="value"
     v-bind="args"
   >
-    {{ content }}
+    <template
+      #label="{
+        hasLabel,
+        textLabelAttrs,
+      }"
+    >
+      <UiText
+        v-bind="textLabelAttrs"
+        class="ui-checkbox__label"
+      >
+        {{ content }}
+      </UiText>
+    </template>
+    <template #default>
+      {{ content }}
+    </template>
   </UiCheckbox>
 </template>
 
@@ -15,7 +30,10 @@ import {
   toRefs,
   inject,
 } from 'vue';
-import { UiCheckbox } from '@infermedica/component-library';
+import {
+  UiCheckbox,
+  UiText,
+} from '@infermedica/component-library';
 
 defineOptions({ inheritAttrs: false });
 

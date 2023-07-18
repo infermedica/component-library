@@ -36,6 +36,8 @@ export function useArgTypes(component, options = { variables: {}}) {
     if ( name.match(/^(ModelValue)$/gm) ) {
       return 'text'
     }
+
+    return name
   }
   const getTable = (name) => {
     if (name.match(/(Attrs)$/gm)) {

@@ -1,22 +1,23 @@
 <template>
-  <UiTextarea
+  <UiRange
     v-model="value"
     v-bind="args"
-  /> {{ value }}
+  />
 </template>
 
-<script setup lang="ts">
+<script setup>
 import {
   computed,
+  defineOptions,
   inject,
   useAttrs,
-  defineOptions,
 } from 'vue';
-import { UiTextarea } from '@infermedica/component-library';
+import { UiRange } from '@infermedica/component-library';
 
 defineOptions({ inheritAttrs: false });
 
 const attrs = useAttrs();
 const args = computed(() => (attrs));
 const value = inject('value');
+
 </script>

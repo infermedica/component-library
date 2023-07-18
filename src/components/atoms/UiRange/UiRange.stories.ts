@@ -4,7 +4,6 @@ import type {
 } from '@storybook/vue3';
 import {
   ref,
-  provide,
   inject,
 } from 'vue';
 import deepmerge from 'deepmerge';
@@ -12,7 +11,10 @@ import {
   UiRange,
   UiHeading,
 } from '@/../index';
-import { withVariants } from '@sb/decorators';
+import {
+  withVModel,
+  withVariants,
+} from '@sb/decorators';
 import {
   useArgTypes,
   inputEvents,
@@ -22,6 +24,15 @@ const { argTypes } = useArgTypes(deepmerge(
   UiRange,
   inputEvents,
 ));
+
+import {
+  BasicStories,
+  BasicStoriesSource,
+  WithValueSlotStories,
+  WithValueSlotStoriesSource,
+  WithRangeSlotStories,
+  WithRangeSlotStoriesSource,
+} from './stories';
 
 const meta = {
   title: 'Atoms/Range',
@@ -57,75 +68,18 @@ const meta = {
 } satisfies Meta<typeof UiRange>;
 export default meta;
 type Story = StoryObj<typeof UiRange>;
-export const Basic: Story = {
-  render: () => ({
-    inheritAttrs: false,
-    components: { UiRange },
-    setup(props, { attrs }) {
-      const {
-        modelValue,
-        ...args
-      } = attrs;
-      const value = inject('value') || ref(modelValue);
-      return {
-        args,
-        value,
-      };
-    },
-    template: `<UiRange
-      v-model="value"
-      v-bind="args"
-    />`,
-  }),
-};
+
+export const Basic: Story = { render: () => (BasicStories) };
+Basic.decorators = [ withVModel ];
 Basic.parameters = {
   chromatic: { disableSnapshot: true },
-  docs: {
-    source: {
-      code: `<template>
-    <UiRange
-      v-model="modelValue"
-      :aria-label="ariaLabel"
-      :min="min"
-      :max="max"
-      :step="step"
-      :input-attrs="inputAttrs"
-      :heading-value-attrs="headingValueAttrs"
-    />
-</template>
-
-<script setup lang="ts">
-import { ref } from 'vue';
-import { UiRange } from '@infermedica/component-library'
-
-const ariaLabel = 'patient age';
-const modelValue = ref('');
-const min = 0;
-const max = 1;
-const step = 1;
-const inputAttrs = {
-  "data-testid": "input-element"
-}
-const headingValueAttrs = {
-  "data-testid": "value-heading"
-};
-</script>`,
-    },
-  },
+  docs: { source: { code: BasicStoriesSource } },
 };
 
 export const PseudoClass: Story = { ...Basic };
 PseudoClass.decorators = [
   withVariants,
-  () => ({
-    inheritAttrs: false,
-    setup(props, { attrs }) {
-      const { modelValue } = attrs;
-      const value = ref(modelValue);
-      provide('value', value);
-    },
-    template: '<story />',
-  }),
+  withVModel,
 ];
 PseudoClass.parameters = {
   variants: [
@@ -143,185 +97,18 @@ PseudoClass.parameters = {
 
 export const Min:Story = { ...Basic };
 Min.args = { modelValue: meta.args.min };
+Min.decorators = [ withVModel ];
 Min.parameters = { docs: { source: { code: null } } };
 
 export const Max:Story = { ...Basic };
 Max.args = { modelValue: meta.args.max };
+Max.decorators = [ withVModel ];
 Max.parameters = { ...Min.parameters };
 
-export const WithValueSlot: Story = {
-  render: () => ({
-    inheritAttrs: false,
-    components: {
-      UiRange,
-      UiHeading,
-    },
-    setup(props, { attrs }) {
-      const {
-        modelValue,
-        ...args
-      } = attrs;
-      const value = inject('value') || ref(modelValue);
+export const WithValueSlot: Story = { render: () => (WithValueSlotStories) };
+WithValueSlot.decorators = [ withVModel ];
+WithValueSlot.parameters = { docs: { source: { code: WithValueSlotStoriesSource } } };
 
-      return {
-        args,
-        value,
-      };
-    },
-    template: `<UiRange
-      v-model="value"
-      v-bind="args"
-    >
-      <template #value="{
-        value,
-        headingValueAttrs,
-      }">
-        <UiHeading
-            v-bind="headingValueAttrs"
-            class="ui-range__value"
-        >
-          {{ value }}
-        </UiHeading>
-      </template>
-    </UiRange>`,
-  }),
-};
-WithValueSlot.parameters = {
-  docs: {
-    source: {
-      code: `<template>
-  <UiRange
-    v-model="modelValue"
-    :aria-label="ariaLabel"
-    :min="min"
-    :max="max"
-    :step="step"
-    :input-attrs="inputAttrs"
-    :heading-value-attrs="headingValueAttrs"
-  >
-    <template #value="{
-      value,
-      headingValueAttrs,
-    }">
-      <UiHeading
-        v-bind="headingValueAttrs"
-        class="ui-range__value"
-      >{{ value }}</UiHeading>
-    </template>
-  </UiRange>
-</template>
-
-<script setup lang="ts">
-import { ref } from 'vue';
-import { 
-  UiRange, 
-  UiHeading
-} from '@infermedica/component-library';
-
-const ariaLabel = 'patient age';
-const modelValue = ref('');
-const min = 0;
-const max = 1;
-const step = 1; 
-</script>`,
-    },
-  },
-};
-
-export const WithRangeSlot: Story = {
-  render: () => ({
-    inheritAttrs: false,
-    components: { UiRange },
-    setup(props, { attrs }) {
-      const {
-        modelValue,
-        ...args
-      } = attrs;
-      const value = inject('value') || ref(modelValue);
-
-      return {
-        args,
-        value,
-      };
-    },
-    template: `<UiRange
-      v-model="value"
-      v-bind="args"
-    >
-    <template #range="{
-      inputAttrs,
-      min,
-      max,
-      change,
-      value,
-    }">
-      <input
-          v-keyboard-focus
-          v-bind="inputAttrs"
-          type="range"
-          :min="min"
-          :max="max"
-          :value="value"
-          :aria-valuemin="min"
-          :aria-valuemax="max"
-          :aria-valuenow="value"
-          class="ui-range__track"
-          @input="change(($event.target).valueAsNumber)"
-      >
-    </template>
-    </UiRange>`,
-  }),
-};
-WithRangeSlot.parameters = {
-  docs: {
-    source: {
-      code: `<template>
-  <UiRange
-    v-model="modelValue"
-    :aria-label="ariaLabel"
-    :min="min"
-    :max="max"
-    :step="step"
-    :input-attrs="inputAttrs"
-    :heading-value-attrs="headingValueAttrs"
-  >
-    <template #range="{
-      inputAttrs,
-      min,
-      max,
-      change,
-      value,
-    }">
-      <input
-        v-keyboard-focus
-        v-bind="inputAttrs"
-        type="range"
-        :min="min"
-        :max="max"
-        :value="value"
-        :aria-valuemin="min"
-        :aria-valuemax="max"
-        :aria-valuenow="value"
-        class="ui-range__track"
-        @input="change(($event.target).valueAsNumber)"
-      >
-    </template>
-  </UiRange>
-</template>
-
-<script setup lang="ts">
-import { ref } from 'vue';
-import { 
-  UiRange, 
-  UiHeading
-} from '@infermedica/component-library';
-
-const ariaLabel = 'patient age';
-const modelValue = ref('');
-const min = 0;
-const max = 1;
-const step = 1;
-</script>`,
-    },
-  },
-};
+export const WithRangeSlot: Story = { render: () => (WithRangeSlotStories) };
+WithRangeSlot.decorators = [ withVModel ];
+WithRangeSlot.parameters = { docs: { source: { code: WithRangeSlotStoriesSource } } };

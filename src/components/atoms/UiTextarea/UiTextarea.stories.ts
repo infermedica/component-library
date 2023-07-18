@@ -6,11 +6,13 @@ import {
   ref,
   computed,
   provide,
-  inject,
 } from 'vue';
 import deepmerge from 'deepmerge';
 import { UiTextarea } from '@/../index';
-import { withVariants } from '@sb/decorators';
+import {
+  withVModel,
+  withVariants,
+} from '@sb/decorators';
 import {
   useArgTypes,
   inputEvents,
@@ -56,6 +58,7 @@ export default meta;
 type Story = StoryObj<typeof UiTextarea>;
 
 export const Basic: Story = { render: () => (BasicStories) };
+Basic.decorators = [ withVModel ];
 Basic.parameters = {
   chromatic: { disableSnapshot: true },
   docs: { source: { code: BasicStoriesSource } },
