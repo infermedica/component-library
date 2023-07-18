@@ -1,6 +1,10 @@
 <template>
   <div class="ui-stepper">
-    <!-- @slot Use this slot to replace the mobile stepper -->
+    <!--
+      @slot Use this slot to replace the mobile stepper
+      @binding {string} currentStepDisplayText
+      @binding {ProgressAttrsProps} progressAttrs
+    -->
     <slot
       name="mobile"
       v-bind="{
@@ -9,7 +13,10 @@
       }"
     >
       <div class="ui-stepper__mobile">
-        <!-- @slot Use this slot to replace text in the mobile stepper -->
+        <!--
+          @slot Use this slot to replace text in the mobile stepper
+          @binding {string} currentStepDisplayText
+        -->
         <slot
           name="current-step"
           v-bind="{ currentStepDisplayText }"
@@ -21,7 +28,10 @@
             {{ currentStepDisplayText }}
           </UiText>
         </slot>
-        <!-- @slot Use this slot to replace progress in the stepper -->
+        <!--
+          @slot Use this slot to replace progress in the stepper
+          @binding {ProgressAttrsProps} progressAttrs
+        -->
         <slot
           name="progress"
           v-bind="{ progressAttrs: defaultProps.progressAttrs, }"
@@ -33,7 +43,13 @@
         </slot>
       </div>
     </slot>
-    <!-- @slot Use this slot to replace desktop version of the stepper -->
+    <!--
+      @slot Use this slot to replace desktop version of the stepper
+      @binding {StepperStepAttrsProps[]} steps
+      @binding {string} currentStep
+      @binding {number} activeStepIndex
+      @binding {StepperStepAttrsProps} stepperStepAttrs
+    -->
     <slot
       name="desktop"
       v-bind="{
@@ -45,7 +61,12 @@
     >
       <UiList class="ui-stepper__desktop">
         <!-- TODO: rename items, item to steps, step to keep name consistency -->
-        <!-- @slot Use this slot to replace items in the desktop list -->
+        <!--
+          @slot Use this slot to replace items in the desktop list
+          @binding {StepperStepAttrsProps[]} steps
+          @binding {number} activeStepIndex
+          @binding {StepperStepAttrsProps} stepperStepAttrs
+        -->
         <slot
           name="items"
           v-bind="{
@@ -58,7 +79,13 @@
             v-for="(step, index) in stepsToRender"
             :key="index"
           >
-            <!-- @slot Use this slot to replace item in the desktop list -->
+            <!--
+              @slot Use this slot to replace item in the desktop list
+              @binding {StepperStepAttrsProps} steps
+              @binding {number} index
+              @binding {number} activeStepIndex
+              @binding {StepperStepAttrsProps} stepperStepAttrs
+            -->
             <slot
               name="item"
               v-bind="{
@@ -145,6 +172,7 @@ const stepsToRender = computed<StepperProps['steps']>(() => props.steps.map((ste
   ...step,
   label: step.label,
 })));
+console.log('stepsToRender', stepsToRender.value, props.steps);
 </script>
 
 <style lang="scss">
