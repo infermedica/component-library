@@ -172,7 +172,6 @@ const stepsToRender = computed<StepperProps['steps']>(() => props.steps.map((ste
   ...step,
   label: step.label,
 })));
-console.log('stepsToRender', stepsToRender.value, props.steps);
 </script>
 
 <style lang="scss">

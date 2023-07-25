@@ -1,3 +1,4 @@
+import { ref } from 'vue';
 import type {
   Meta,
   StoryObj,
@@ -17,33 +18,33 @@ import type { StepperStepAttrsProps } from './_internal/UiStepperStep.vue';
 const stepperSteps: StepperStepAttrsProps[] = [
   {
     label: 'Introduction',
-    href: '#',
     'data-testid': 'introduction',
+    href: 'http://localhost:6006/?path=/story/molecules-stepperts--basic&args=currentStep:Interview',
   },
   {
     label: 'A really long step label',
-    href: '#',
     'data-testid': 'long-step-label',
+    href: 'http://localhost:6006/?path=/story/molecules-stepperts--basic&args=currentStep:A+really+long+step+label',
   },
   {
     label: 'Symptoms',
-    href: '#',
     'data-testid': 'symptoms',
+    href: 'http://localhost:6006/?path=/story/molecules-stepperts--basic&args=currentStep:Symptoms',
   },
   {
     label: 'Regions',
-    href: '#',
     'data-testid': 'regions',
+    href: 'http://localhost:6006/?path=/story/molecules-stepperts--basic&args=currentStep:Regions',
   },
   {
     label: 'Interview',
-    href: '#',
     'data-testid': 'interview',
+    href: 'http://localhost:6006/?path=/story/molecules-stepperts--basic&args=currentStep:Interview',
   },
   {
     label: 'Results',
-    href: '#',
     'data-testid': 'results',
+    href: 'http://localhost:6006/?path=/story/molecules-stepperts--basic&args=currentStep:Results',
   },
 ];
 
@@ -52,12 +53,11 @@ type StepperMetaType = Meta<StepperArgsType>;
 type StepperStoryType = StoryObj<StepperArgsType>;
 
 const { argTypes } = useArgTypes(UiStepper);
-
 const meta = {
   title: 'Molecules/StepperTS',
   component: UiStepper,
   args: {
-    currentStep: stepperSteps.at(2)?.label,
+    currentStep: stepperSteps.at(3)?.label,
     steps: stepperSteps,
     progressAttrs: { id: 'progress' },
   },
@@ -73,10 +73,19 @@ const meta = {
       control: 'object',
     },
   },
+  parameters: {
+    chromatic: {
+      disableSnapshot: false,
+      viewports: [
+        320,
+        1200,
+      ],
+    },
+  },
 } satisfies StepperMetaType;
 export default meta;
 
-export const WithCurrentStep: StepperStoryType = {
+export const Basic: StepperStoryType = {
   render: () => ({
     components: { UiStepper },
     setup(props, { attrs }) {
@@ -86,19 +95,20 @@ export const WithCurrentStep: StepperStoryType = {
         progressAttrs,
         ...args
       } = attrs;
+      const currentStepArg = ref(currentStep);
 
-      console.log('attrs', attrs);
       return {
         steps,
-        currentStep,
+        currentStepArg,
         progressAttrs,
-        ...args,
+        args,
       };
     },
     template: `<UiStepper
       :steps="steps"
-      :current-step="currentStep"
+      :current-step="currentStepArg"
       :progress-attrs="progressAttrs"
+      v-bind="args"
     />`,
   }),
 };
