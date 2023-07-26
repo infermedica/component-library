@@ -1,8 +1,15 @@
-import { ref } from 'vue';
+import {
+  computed,
+  ref,
+  provide,
+  inject,
+  toRefs,
+} from 'vue';
 import type {
   Meta,
   StoryObj,
 } from '@storybook/vue3';
+import { useArgs } from '@storybook/preview-api';
 import { useArgTypes } from '@sb/helpers';
 import {
   UiStepper,
@@ -19,32 +26,32 @@ const stepperSteps: StepperStepAttrsProps[] = [
   {
     label: 'Introduction',
     'data-testid': 'introduction',
-    href: 'http://localhost:6006/?path=/story/molecules-stepperts--basic&args=currentStep:Interview',
+    href: '#',
   },
   {
     label: 'A really long step label',
     'data-testid': 'long-step-label',
-    href: 'http://localhost:6006/?path=/story/molecules-stepperts--basic&args=currentStep:A+really+long+step+label',
+    href: '#',
   },
   {
     label: 'Symptoms',
     'data-testid': 'symptoms',
-    href: 'http://localhost:6006/?path=/story/molecules-stepperts--basic&args=currentStep:Symptoms',
+    href: '#',
   },
   {
     label: 'Regions',
     'data-testid': 'regions',
-    href: 'http://localhost:6006/?path=/story/molecules-stepperts--basic&args=currentStep:Regions',
+    href: '#',
   },
   {
     label: 'Interview',
     'data-testid': 'interview',
-    href: 'http://localhost:6006/?path=/story/molecules-stepperts--basic&args=currentStep:Interview',
+    href: '#',
   },
   {
     label: 'Results',
     'data-testid': 'results',
-    href: 'http://localhost:6006/?path=/story/molecules-stepperts--basic&args=currentStep:Results',
+    href: '#',
   },
 ];
 
@@ -73,6 +80,40 @@ const meta = {
       control: 'object',
     },
   },
+  decorators: [ (story, { id }) => {
+    const [
+      { currentStep },
+      updateArgs,
+    ] = useArgs();
+    return {
+      components: { story },
+      setup(props, { attrs }) {
+        const currentStep = computed({
+          get: () => (attrs.currentStep),
+          set: (newValue) => {
+            updateArgs({ currentStep: newValue });
+          },
+        });
+        provide('currentStep', currentStep);
+        const args = computed(() => (Object.keys(attrs)
+          .reduce(
+            (object, key) => {
+              if (key !== 'currentStep') {
+                object[key] = attrs[key];
+              }
+              return object;
+            },
+            {},
+          )));
+
+        return {
+          args,
+          id,
+        };
+      },
+      template: '<story v-bind="args" :key="id"/>',
+    };
+  } ],
   parameters: {
     chromatic: {
       disableSnapshot: false,
@@ -87,288 +128,292 @@ export default meta;
 
 export const Basic: StepperStoryType = {
   render: () => ({
+    inheritAttrs: false,
     components: { UiStepper },
     setup(props, { attrs }) {
-      const {
-        steps,
-        currentStep,
-        progressAttrs,
-        ...args
-      } = attrs;
-      const currentStepArg = ref(currentStep);
+      const { steps } = toRefs(attrs);
+      const currentStep = inject('currentStep');
+      const args = computed(() => (attrs));
+      const handleStepClick = (step, event) => {
+        event.preventDefault();
+        currentStep.value = step.label;
+      };
+      const stepsToRender = computed(() => ((steps.value as StepperStepAttrsProps[]).map((step) => ({
+        ...step,
+        data: 'data',
+        onClick: handleStepClick.bind(event, step),
+      }))));
 
       return {
-        steps,
-        currentStepArg,
-        progressAttrs,
+        currentStep,
+        stepsToRender,
         args,
       };
     },
     template: `<UiStepper
-      :steps="steps"
-      :current-step="currentStepArg"
-      :progress-attrs="progressAttrs"
       v-bind="args"
+      :current-step="currentStep"
+      :steps="stepsToRender"
     />`,
   }),
 };
 
-export const WithMobileSlot: StepperStoryType = {
-  render: () => ({
-    components: {
-      UiStepper,
-      UiText,
-      UiProgress,
-    },
-    setup(props, { attrs }) {
-      const {
-        steps,
-        currentStep,
-        progressAttrs,
-        ...args
-      } = attrs;
-
-      return {
-        steps,
-        currentStep,
-        progressAttrs,
-        ...args,
-      };
-    },
-    template: `<UiStepper
-      :steps="steps"
-      :current-step="currentStep"
-      :progress-attrs="progressAttrs"
-    >
-      <template #mobile="{
-        currentStepDisplayText,
-        progressAttrs,
-      }">
-        <div class="ui-stepper__mobile">
-          <UiText
-            tag="span"
-            class="ui-text--body-2-comfortable ui-stepper__current-step"
-          >
-            {{ currentStepDisplayText }}
-          </UiText>
-          <UiProgress
-            v-bind="progressAttrs"
-            class="ui-stepper__progress"
-          />
-        </div>
-      </template>
-    </UiStepper>`,
-  }),
-};
-
-export const WithCurrentStepSlot: StepperStoryType = {
-  render: () => ({
-    components: {
-      UiStepper,
-      UiText,
-    },
-    setup(props, { attrs }) {
-      const {
-        steps,
-        currentStep,
-        progressAttrs,
-        ...args
-      } = attrs;
-
-      return {
-        steps,
-        currentStep,
-        progressAttrs,
-        ...args,
-      };
-    },
-    template: `<UiStepper
-    :steps="steps"
-    :current-step="currentStep"
-    :progress-attrs="progressAttrs"
-  >
-    <template #current-step="{ currentStepDisplayText }">
-      <UiText
-        tag="span"
-        class="ui-text--body-2-comfortable ui-stepper__current-step"
-      >
-        {{ currentStepDisplayText }}
-      </UiText>
-    </template>
-  </UiStepper>`,
-  }),
-};
-
-export const WithProgressSlot: StepperStoryType = {
-  render: () => ({
-    components: {
-      UiStepper,
-      UiProgress,
-    },
-    setup(props, { attrs }) {
-      const {
-        steps,
-        currentStep,
-        progressAttrs,
-        ...args
-      } = attrs;
-
-      return {
-        steps,
-        currentStep,
-        progressAttrs,
-        ...args,
-      };
-    },
-    template: `<UiStepper
-      :steps="steps"
-      :current-step="currentStep"
-      :progress-attrs="progressAttrs"
-    >
-      <template #progress="{ progressAttrs }">
-        <UiProgress
-          v-bind="progressAttrs"
-          class="ui-stepper__progress"
-        />
-      </template>
-    </UiStepper>`,
-  }),
-};
-
-export const WithDesktopSlot: StepperStoryType = {
-  render: () => ({
-    components: {
-      UiStepper,
-      UiStepperStep,
-      UiList,
-    },
-    setup(props, { attrs }) {
-      const {
-        steps,
-        currentStep,
-        progressAttrs,
-        ...args
-      } = attrs;
-
-      return {
-        steps,
-        currentStep,
-        progressAttrs,
-        ...args,
-      };
-    },
-    template: `<UiStepper
-      :steps="steps"
-      :current-step="currentStep"
-      :progress-attrs="progressAttrs"
-    >
-      <template #desktop="{
-        steps,
-        currentStep,
-        activeStepIndex,
-        stepperStepAttrs,
-      }">
-        <UiList class="ui-stepper__desktop">
-          <template 
-            v-for="(step, index) in steps"
-            :key="index"
-          >
-            <UiStepperStep
-              :index="index"
-              :active-step-index="activeStepIndex"
-              v-bind="stepperStepAttrs(step)"
-            />
-          </template>
-        </UiList>
-      </template>
-    </UiStepper>`,
-  }),
-};
-
-export const WithItemsSlot: StepperStoryType = {
-  render: () => ({
-    components: {
-      UiStepper,
-      UiStepperStep,
-    },
-    setup(props, { attrs }) {
-      const {
-        steps,
-        currentStep,
-        progressAttrs,
-        ...args
-      } = attrs;
-
-      return {
-        steps,
-        currentStep,
-        progressAttrs,
-        ...args,
-      };
-    },
-    template: `<UiStepper
-      :steps="steps"
-      :current-step="currentStep"
-      :progress-attrs="progressAttrs"
-    >
-     <template #items="{
-       steps,
-       activeStepIndex,
-       stepperStepAttrs
-     }">
-       <template
-         v-for="(step, index) in steps"
-         :key="index"
-       >
-         <UiStepperStep
-           :index="index"
-           :active-step-index="activeStepIndex"
-           v-bind="stepperStepAttrs(step)"
-         />
-       </template>
-     </template>
-    </UiStepper>`,
-  }),
-};
-
-export const WithItemSlot: StepperStoryType = {
-  render: () => ({
-    components: {
-      UiStepper,
-      UiStepperStep,
-    },
-    setup(props, { attrs }) {
-      const {
-        steps,
-        currentStep,
-        progressAttrs,
-        ...args
-      } = attrs;
-
-      return {
-        steps,
-        currentStep,
-        progressAttrs,
-        ...args,
-      };
-    },
-    template: `<UiStepper
-      :steps="steps"
-      :current-step="currentStep"
-      :progress-attrs="progressAttrs"
-    >
-      <template #item="{
-        step,
-        index,
-        activeStepIndex,
-        stepperStepAttrs,
-      }">
-        <UiStepperStep
-          :index="index"
-          :active-step-index="activeStepIndex"
-          v-bind="stepperStepAttrs(step)"
-        />
-      </template>
-    </UiStepper>`,
-  }),
-};
+// export const WithMobileSlot: StepperStoryType = {
+//   render: () => ({
+//     components: {
+//       UiStepper,
+//       UiText,
+//       UiProgress,
+//     },
+//     setup(props, { attrs }) {
+//       const {
+//         steps,
+//         currentStep,
+//         progressAttrs,
+//         ...args
+//       } = attrs;
+//
+//       return {
+//         steps,
+//         currentStep,
+//         progressAttrs,
+//         ...args,
+//       };
+//     },
+//     template: `<UiStepper
+//       :steps="steps"
+//       :current-step="currentStep"
+//       :progress-attrs="progressAttrs"
+//     >
+//       <template #mobile="{
+//         currentStepDisplayText,
+//         progressAttrs,
+//       }">
+//         <div class="ui-stepper__mobile">
+//           <UiText
+//             tag="span"
+//             class="ui-text--body-2-comfortable ui-stepper__current-step"
+//           >
+//             {{ currentStepDisplayText }}
+//           </UiText>
+//           <UiProgress
+//             v-bind="progressAttrs"
+//             class="ui-stepper__progress"
+//           />
+//         </div>
+//       </template>
+//     </UiStepper>`,
+//   }),
+// };
+//
+// export const WithCurrentStepSlot: StepperStoryType = {
+//   render: () => ({
+//     components: {
+//       UiStepper,
+//       UiText,
+//     },
+//     setup(props, { attrs }) {
+//       const {
+//         steps,
+//         currentStep,
+//         progressAttrs,
+//         ...args
+//       } = attrs;
+//
+//       return {
+//         steps,
+//         currentStep,
+//         progressAttrs,
+//         ...args,
+//       };
+//     },
+//     template: `<UiStepper
+//     :steps="steps"
+//     :current-step="currentStep"
+//     :progress-attrs="progressAttrs"
+//   >
+//     <template #current-step="{ currentStepDisplayText }">
+//       <UiText
+//         tag="span"
+//         class="ui-text--body-2-comfortable ui-stepper__current-step"
+//       >
+//         {{ currentStepDisplayText }}
+//       </UiText>
+//     </template>
+//   </UiStepper>`,
+//   }),
+// };
+//
+// export const WithProgressSlot: StepperStoryType = {
+//   render: () => ({
+//     components: {
+//       UiStepper,
+//       UiProgress,
+//     },
+//     setup(props, { attrs }) {
+//       const {
+//         steps,
+//         currentStep,
+//         progressAttrs,
+//         ...args
+//       } = attrs;
+//
+//       return {
+//         steps,
+//         currentStep,
+//         progressAttrs,
+//         ...args,
+//       };
+//     },
+//     template: `<UiStepper
+//       :steps="steps"
+//       :current-step="currentStep"
+//       :progress-attrs="progressAttrs"
+//     >
+//       <template #progress="{ progressAttrs }">
+//         <UiProgress
+//           v-bind="progressAttrs"
+//           class="ui-stepper__progress"
+//         />
+//       </template>
+//     </UiStepper>`,
+//   }),
+// };
+//
+// export const WithDesktopSlot: StepperStoryType = {
+//   render: () => ({
+//     components: {
+//       UiStepper,
+//       UiStepperStep,
+//       UiList,
+//     },
+//     setup(props, { attrs }) {
+//       const {
+//         steps,
+//         currentStep,
+//         progressAttrs,
+//         ...args
+//       } = attrs;
+//
+//       return {
+//         steps,
+//         currentStep,
+//         progressAttrs,
+//         ...args,
+//       };
+//     },
+//     template: `<UiStepper
+//       :steps="steps"
+//       :current-step="currentStep"
+//       :progress-attrs="progressAttrs"
+//     >
+//       <template #desktop="{
+//         steps,
+//         currentStep,
+//         activeStepIndex,
+//         stepperStepAttrs,
+//       }">
+//         <UiList class="ui-stepper__desktop">
+//           <template
+//             v-for="(step, index) in steps"
+//             :key="index"
+//           >
+//             <UiStepperStep
+//               :index="index"
+//               :active-step-index="activeStepIndex"
+//               v-bind="stepperStepAttrs(step)"
+//             />
+//           </template>
+//         </UiList>
+//       </template>
+//     </UiStepper>`,
+//   }),
+// };
+//
+// export const WithItemsSlot: StepperStoryType = {
+//   render: () => ({
+//     components: {
+//       UiStepper,
+//       UiStepperStep,
+//     },
+//     setup(props, { attrs }) {
+//       const {
+//         steps,
+//         currentStep,
+//         progressAttrs,
+//         ...args
+//       } = attrs;
+//
+//       return {
+//         steps,
+//         currentStep,
+//         progressAttrs,
+//         ...args,
+//       };
+//     },
+//     template: `<UiStepper
+//       :steps="steps"
+//       :current-step="currentStep"
+//       :progress-attrs="progressAttrs"
+//     >
+//      <template #items="{
+//        steps,
+//        activeStepIndex,
+//        stepperStepAttrs
+//      }">
+//        <template
+//          v-for="(step, index) in steps"
+//          :key="index"
+//        >
+//          <UiStepperStep
+//            :index="index"
+//            :active-step-index="activeStepIndex"
+//            v-bind="stepperStepAttrs(step)"
+//          />
+//        </template>
+//      </template>
+//     </UiStepper>`,
+//   }),
+// };
+//
+// export const WithItemSlot: StepperStoryType = {
+//   render: () => ({
+//     components: {
+//       UiStepper,
+//       UiStepperStep,
+//     },
+//     setup(props, { attrs }) {
+//       const {
+//         steps,
+//         currentStep,
+//         progressAttrs,
+//         ...args
+//       } = attrs;
+//
+//       return {
+//         steps,
+//         currentStep,
+//         progressAttrs,
+//         ...args,
+//       };
+//     },
+//     template: `<UiStepper
+//       :steps="steps"
+//       :current-step="currentStep"
+//       :progress-attrs="progressAttrs"
+//     >
+//       <template #item="{
+//         step,
+//         index,
+//         activeStepIndex,
+//         stepperStepAttrs,
+//       }">
+//         <UiStepperStep
+//           :index="index"
+//           :active-step-index="activeStepIndex"
+//           v-bind="stepperStepAttrs(step)"
+//         />
+//       </template>
+//     </UiStepper>`,
+//   }),
+// };
