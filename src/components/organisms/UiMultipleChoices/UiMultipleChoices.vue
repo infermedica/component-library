@@ -1,6 +1,11 @@
 <template>
   <div class="ui-multiple-choices">
-    <!-- @slot Use this slot to replace hint template. -->
+    <!--
+      @slot Use this slot to replace hint template.
+      @binding {string} hint
+      @binding {AlertAttrsProps} alertHintAttrs
+      @binding {string} hintType
+     -->
     <slot
       name="hint"
       v-bind="{
@@ -25,7 +30,15 @@
         v-for="(item, index) in items"
         :key="index"
       >
-        <!-- @slot Use this slot to replace choice template.-->
+        <!--
+          @slot Use this slot to replace choice template.
+          @binding {MultipleChoicesModelValue} value
+          @binding {number} index
+          @binding {MultipleChoicesItemAttrsProps} item
+          @binding {MultipleChoicesOption} options
+          @binding {boolean} hasError
+          @binding {function} updateHandler
+        -->
         <slot
           name="choice"
           v-bind="{
@@ -97,7 +110,9 @@ export interface MultipleChoicesProps {
 }
 export type MultipleChoicesAttrsProps = DefineAttrsProps<MultipleChoicesProps>;
 export interface MultipleChoicesEmits {
+  /** Use this event to handle value of MultipleChoices. */
   (e: 'update:modelValue', value: MultipleChoicesModelValue[]): void;
+  /** Use this event to handle invalid state. */
   (e: 'update:invalid', value: boolean): void;
 }
 
