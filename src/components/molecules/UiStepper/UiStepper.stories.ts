@@ -60,7 +60,7 @@ type StepperSteps = { steps: StepperStepAttrsProps[] };
 
 const { argTypes } = useArgTypes(UiStepper);
 const meta = {
-  title: 'Molecules/StepperTS',
+  title: 'Molecules/Stepper',
   component: UiStepper,
   args: {
     currentStep: stepperSteps.at(3)?.label,
@@ -81,6 +81,7 @@ const meta = {
   },
   decorators: [ (story, { id }) => {
     const [
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       { currentStep },
       updateArgs,
     ] = useArgs();
@@ -132,11 +133,11 @@ export const Basic: StepperStoryType = {
     components: { UiStepper },
     setup(props, { attrs }) {
       const { steps } = attrs;
-      const currentStep = inject('currentStep');
+      const currentStep = inject('currentStep') as WritableComputedRef<unknown>;
       const args = computed(() => (attrs));
       const handleStepClick = (step: StepperStepAttrsProps, event: Event) => {
         event.preventDefault();
-        (currentStep as WritableComputedRef<unknown>).value = step.label;
+        currentStep.value = step.label;
       };
       const stepsToRender = computed(() => ((steps as StepperStepAttrsProps[]).map((step) => ({
         ...step,
@@ -167,11 +168,11 @@ export const WithMobileSlot: StepperStoryType = {
     },
     setup(props, { attrs }) {
       const { steps } = attrs;
-      const currentStep = inject('currentStep');
+      const currentStep = inject('currentStep') as WritableComputedRef<unknown>;
       const args = computed(() => (attrs));
       const handleStepClick = (step: StepperStepAttrsProps, event: Event) => {
         event.preventDefault();
-        (currentStep as WritableComputedRef<unknown>).value = step.label;
+        currentStep.value = step.label;
       };
       const stepsToRender = computed(() => ((steps as StepperStepAttrsProps[]).map((step) => ({
         ...step,
@@ -219,11 +220,11 @@ export const WithCurrentStepSlot: StepperStoryType = {
     },
     setup(props, { attrs }) {
       const { steps } = attrs;
-      const currentStep = inject('currentStep');
+      const currentStep = inject('currentStep') as WritableComputedRef<unknown>;
       const args = computed(() => (attrs));
       const handleStepClick = (step: StepperStepAttrsProps, event: Event) => {
         event.preventDefault();
-        (currentStep as WritableComputedRef<unknown>).value = step.label;
+        currentStep.value = step.label;
       };
       const stepsToRender = computed(() => ((steps as StepperStepAttrsProps[]).map((step) => ({
         ...step,
@@ -262,11 +263,11 @@ export const WithProgressSlot: StepperStoryType = {
     },
     setup(props, { attrs }) {
       const { steps } = attrs;
-      const currentStep = inject('currentStep');
+      const currentStep = inject('currentStep') as WritableComputedRef<unknown>;
       const args = computed(() => (attrs));
       const handleStepClick = (step: StepperStepAttrsProps, event: Event) => {
         event.preventDefault();
-        (currentStep as WritableComputedRef<unknown>).value = step.label;
+        currentStep.value = step.label;
       };
       const stepsToRender = computed(() => ((steps as StepperStepAttrsProps[]).map((step) => ({
         ...step,
@@ -304,11 +305,11 @@ export const WithDesktopSlot: StepperStoryType = {
     },
     setup(props, { attrs }) {
       const { steps } = attrs;
-      const currentStep = inject('currentStep');
+      const currentStep = inject('currentStep') as WritableComputedRef<unknown>;
       const args = computed(() => (attrs));
       const handleStepClick = (step: StepperStepAttrsProps, event: Event) => {
         event.preventDefault();
-        (currentStep as WritableComputedRef<unknown>).value = step.label;
+        currentStep.value = step.label;
       };
       const stepsToRender = computed(() => ((steps as StepperStepAttrsProps[]).map((step) => ({
         ...step,
@@ -358,11 +359,11 @@ export const WithItemsSlot: StepperStoryType = {
     },
     setup(props, { attrs }) {
       const { steps } = attrs;
-      const currentStep = inject('currentStep');
+      const currentStep = inject('currentStep') as WritableComputedRef<unknown>;
       const args = computed(() => (attrs));
       const handleStepClick = (step: StepperStepAttrsProps, event: Event) => {
         event.preventDefault();
-        (currentStep as WritableComputedRef<unknown>).value = step.label;
+        currentStep.value = step.label;
       };
       const stepsToRender = computed(() => ((steps as StepperStepAttrsProps[]).map((step) => ({
         ...step,
@@ -409,11 +410,11 @@ export const WithItemSlot: StepperStoryType = {
     },
     setup(props, { attrs }) {
       const { steps } = attrs;
-      const currentStep = inject('currentStep');
+      const currentStep = inject('currentStep') as WritableComputedRef<unknown>;
       const args = computed(() => (attrs));
       const handleStepClick = (step: StepperStepAttrsProps, event: Event) => {
         event.preventDefault();
-        (currentStep as WritableComputedRef<unknown>).value = step.label;
+        currentStep.value = step.label;
       };
       const stepsToRender = computed(() => ((steps as StepperStepAttrsProps[]).map((step) => ({
         ...step,
