@@ -15,23 +15,19 @@
 </template>
 
 <script setup>
-import {
-  computed,
-  defineOptions,
-  useAttrs,
-  toRefs,
-} from 'vue';
+import { defineOptions } from 'vue';
 import {
   UiButton,
   UiIcon,
 } from '@infermedica/component-library';
+import { useStories } from './useStories';
 
 defineOptions({ inheritAttrs: false });
-const attrs = useAttrs();
+
 const {
+  args,
   content,
   icon,
   iconEnd,
-} = toRefs(attrs);
-const args = computed(() => (attrs));
+} = useStories();
 </script>
