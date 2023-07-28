@@ -3,3 +3,11 @@
   --progressbar-step-size: 0;
 }
 //</Code>
+
+//<Code id="progressbar-without-step-counter">
+.progressbar-with-step-counter {
+  padding-block: var(--space-12);
+  padding-inline: var(--space-20);
+  background: var(--color-background-subtle);
+}
+//</Code>

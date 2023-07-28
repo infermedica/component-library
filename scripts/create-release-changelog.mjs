@@ -96,7 +96,7 @@ const createChangelogSections = (commits) => {
       if (formattedCommit) {
         if (breaking) {
           object.breaking = [
-            ...object.breaking,
+            ...object.breaking || [],
             formattedCommit,
           ];
         } else {

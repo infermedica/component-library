@@ -10,6 +10,7 @@ import scss from './UiProgressbar.stories.scss?raw';
 <Controls of={stories.WithDots} />
 
 ## Stories
+
 ### Without Dots
 <Canvas of={stories.WithoutDots}/>
 
@@ -18,3 +19,21 @@ import scss from './UiProgressbar.stories.scss?raw';
   id="progressbar-without-dots"
   code={ scss }
 />
+
+### With Label
+<Canvas of={stories.WithLabel}/>
+
+### With Step Counter
+<Canvas of={stories.WithStepCounter}/>
+
+**Use following SCSS to get the same result**
+<Code
+  id="progressbar-without-step-counter"
+  code={ scss }
+/>
+
+### With Label Slot
+<Canvas of={stories.WithLabelSlot}/>
+
+### With Progress Slot
+<Canvas of={stories.WithProgressSlot}/>
