@@ -2667,6 +2667,18 @@
           }
         },
         {
+          "name": "label",
+          "description": "Use this props to set label.",
+          "required": false,
+          "type": {
+            "name": "string"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "''"
+          }
+        },
+        {
           "name": "progressAttrs",
           "description": "Use this props to pass attrs for UiProgress",
           "required": false,
@@ -2677,6 +2689,52 @@
             "func": false,
             "value": "() => ({})"
           }
+        }
+      ],
+      "slots": [
+        {
+          "name": "label",
+          "scoped": true,
+          "bindings": [
+            {
+              "name": "label",
+              "title": "binding"
+            },
+            {
+              "name": "steps",
+              "title": "binding"
+            },
+            {
+              "name": "currentStep",
+              "title": "binding"
+            }
+          ]
+        },
+        {
+          "name": "progress",
+          "scoped": true,
+          "bindings": [
+            {
+              "name": "value",
+              "title": "binding"
+            },
+            {
+              "name": "stepsDots",
+              "title": "binding"
+            },
+            {
+              "name": "steps",
+              "title": "binding"
+            },
+            {
+              "name": "currentStep",
+              "title": "binding"
+            },
+            {
+              "name": "progressAttrs",
+              "title": "binding"
+            }
+          ]
         }
       ]
     },
@@ -3184,85 +3242,13 @@
             "func": false,
             "value": "''"
           }
-        },
-        {
-          "name": "progressAttrs",
-          "description": "Use this props to pass attrs for UiProgress.",
-          "required": false,
-          "type": {
-            "name": "ProgressAttrsProps"
-          },
-          "defaultValue": {
-            "func": false,
-            "value": "() => ({\n  min: 0,\n  max: 100,\n})"
-          }
         }
       ],
       "slots": [
         {
-          "name": "mobile",
-          "scoped": true,
-          "description": "Use this slot to replace the mobile stepper",
-          "bindings": [
-            {
-              "name": "currentStepDisplayText",
-              "title": "binding"
-            },
-            {
-              "name": "progressAttrs",
-              "title": "binding"
-            }
-          ]
-        },
-        {
-          "name": "current-step",
-          "scoped": true,
-          "description": "Use this slot to replace text in the mobile stepper",
-          "bindings": [
-            {
-              "name": "currentStepDisplayText",
-              "title": "binding"
-            }
-          ]
-        },
-        {
-          "name": "progress",
-          "scoped": true,
-          "description": "Use this slot to replace progress in the stepper",
-          "bindings": [
-            {
-              "name": "progressAttrs",
-              "title": "binding"
-            }
-          ]
-        },
-        {
-          "name": "desktop",
-          "scoped": true,
-          "description": "Use this slot to replace desktop version of the stepper",
-          "bindings": [
-            {
-              "name": "steps",
-              "title": "binding"
-            },
-            {
-              "name": "currentStep",
-              "title": "binding"
-            },
-            {
-              "name": "activeStepIndex",
-              "title": "binding"
-            },
-            {
-              "name": "stepperStepAttrs",
-              "title": "binding"
-            }
-          ]
-        },
-        {
           "name": "items",
           "scoped": true,
-          "description": "Use this slot to replace items in the desktop list",
+          "description": "Use this slot to replace items template.",
           "bindings": [
             {
               "name": "steps",
@@ -3894,75 +3880,23 @@
       "tags": {},
       "props": [
         {
-          "name": "hideNextButton",
-          "description": "Use this props to move the responsibility to move to the next screen to question content.",
+          "name": "layout",
+          "description": "Use this props to set direction of controls.",
           "required": false,
           "type": {
-            "name": "boolean"
+            "name": "union",
+            "elements": [
+              {
+                "name": "\"horizontal\""
+              },
+              {
+                "name": "\"vertical\""
+              }
+            ]
           },
           "defaultValue": {
             "func": false,
-            "value": "false"
-          }
-        },
-        {
-          "name": "hideBackButton",
-          "description": "Use this props to move the responsibility to move to the back screen to question content.",
-          "required": false,
-          "type": {
-            "name": "boolean"
-          },
-          "defaultValue": {
-            "func": false,
-            "value": "false"
-          }
-        },
-        {
-          "name": "toBack",
-          "description": "Use this props to set route to back screen.",
-          "required": false,
-          "type": {
-            "name": "ControlsNavigation"
-          },
-          "defaultValue": {
-            "func": false,
-            "value": "''"
-          }
-        },
-        {
-          "name": "toNext",
-          "description": "Use this props to set route to next screen.",
-          "required": false,
-          "type": {
-            "name": "ControlsNavigation"
-          },
-          "defaultValue": {
-            "func": false,
-            "value": "''"
-          }
-        },
-        {
-          "name": "invalid",
-          "description": "Use this props to set invalid state of the question.",
-          "required": false,
-          "type": {
-            "name": "boolean"
-          },
-          "defaultValue": {
-            "func": false,
-            "value": "true"
-          }
-        },
-        {
-          "name": "translation",
-          "description": "Use this props to override labels inside component translation.",
-          "required": false,
-          "type": {
-            "name": "ControlsTranslation"
-          },
-          "defaultValue": {
-            "func": false,
-            "value": "() => ({\n  back: 'Back',\n  next: 'Next',\n})"
+            "value": "'horizontal'"
           }
         },
         {
@@ -3983,12 +3917,49 @@
           }
         },
         {
+          "name": "hideNextButton",
+          "defaultValue": {
+            "func": false,
+            "value": "false"
+          }
+        },
+        {
+          "name": "hideBackButton",
+          "defaultValue": {
+            "func": false,
+            "value": "false"
+          }
+        },
+        {
+          "name": "toBack",
+          "defaultValue": {
+            "func": false,
+            "value": "''"
+          }
+        },
+        {
+          "name": "toNext",
+          "defaultValue": {
+            "func": false,
+            "value": "''"
+          }
+        },
+        {
+          "name": "invalid",
+          "defaultValue": {
+            "func": false,
+            "value": "true"
+          }
+        },
+        {
+          "name": "translation",
+          "defaultValue": {
+            "func": false,
+            "value": "() => ({\n  back: 'Back',\n  next: 'Next',\n})"
+          }
+        },
+        {
           "name": "buttonNextAttrs",
-          "description": "Use this props to pass attrs for next UiButton.",
-          "required": false,
-          "type": {
-            "name": "ButtonAttrsProps"
-          },
           "defaultValue": {
             "func": false,
             "value": "() => ({})"
@@ -3996,11 +3967,6 @@
         },
         {
           "name": "buttonBackAttrs",
-          "description": "Use this props to pass attrs for back UiButton.",
-          "required": false,
-          "type": {
-            "name": "ButtonAttrsProps"
-          },
           "defaultValue": {
             "func": false,
             "value": "() => ({ to: '' })"
@@ -4008,11 +3974,6 @@
         },
         {
           "name": "iconBackAttrs",
-          "description": "Use this props to pass attrs for back UiIcon.",
-          "required": false,
-          "type": {
-            "name": "IconAttrsProps"
-          },
           "defaultValue": {
             "func": false,
             "value": "() => ({ icon: 'chevron-left' })"
@@ -4026,105 +3987,22 @@
       ],
       "slots": [
         {
+          "name": "name",
+          "scoped": true,
+          "bindings": [
+            {
+              "name": "name",
+              "title": "binding"
+            }
+          ]
+        },
+        {
           "name": "container",
           "description": "Use this slot to replace container content."
         },
         {
           "name": "default",
           "description": "Use this slot to place container content."
-        },
-        {
-          "name": "bottom",
-          "scoped": true,
-          "description": "Use this slot to replace bottom template.",
-          "bindings": [
-            {
-              "name": "toNext",
-              "title": "binding"
-            },
-            {
-              "name": "hideNextButton",
-              "title": "binding"
-            },
-            {
-              "name": "buttonNextAttrs",
-              "title": "binding"
-            },
-            {
-              "name": "invalid",
-              "title": "binding"
-            },
-            {
-              "name": "toBack",
-              "title": "binding"
-            },
-            {
-              "name": "iconBackAttrs",
-              "title": "binding"
-            },
-            {
-              "name": "buttonBackAttrs",
-              "title": "binding"
-            },
-            {
-              "name": "translation",
-              "title": "binding"
-            }
-          ]
-        },
-        {
-          "name": "next",
-          "scoped": true,
-          "description": "Use this slot to replace next template.",
-          "bindings": [
-            {
-              "name": "toNext",
-              "title": "binding"
-            },
-            {
-              "name": "hideNextButton",
-              "title": "binding"
-            },
-            {
-              "name": "buttonNextAttrs",
-              "title": "binding"
-            },
-            {
-              "name": "invalid",
-              "title": "binding"
-            },
-            {
-              "name": "translation",
-              "title": "binding"
-            }
-          ]
-        },
-        {
-          "name": "back",
-          "scoped": true,
-          "description": "Use this slot to replace back template.",
-          "bindings": [
-            {
-              "name": "hideBackButton",
-              "title": "binding"
-            },
-            {
-              "name": "toBack",
-              "title": "binding"
-            },
-            {
-              "name": "buttonBackAttrs",
-              "title": "binding"
-            },
-            {
-              "name": "iconBackAttrs",
-              "title": "binding"
-            },
-            {
-              "name": "translation",
-              "title": "binding"
-            }
-          ]
         }
       ]
     },
@@ -7367,6 +7245,279 @@
         {
           "name": "default",
           "description": "Use this slot to place content inside accordion."
+        }
+      ]
+    },
+    {
+      "exportName": "default",
+      "displayName": "UiControlsHorizontal",
+      "description": "",
+      "tags": {},
+      "slots": [
+        {
+          "name": "default",
+          "description": "Use this slot to place container content."
+        },
+        {
+          "name": "slotName",
+          "scoped": true,
+          "description": "Use this slot to replace actions template.",
+          "bindings": [
+            {
+              "name": "toNext",
+              "title": "binding"
+            },
+            {
+              "name": "hideNextButton",
+              "title": "binding"
+            },
+            {
+              "name": "buttonNextAttrs",
+              "title": "binding"
+            },
+            {
+              "name": "invalid",
+              "title": "binding"
+            },
+            {
+              "name": "toBack",
+              "title": "binding"
+            },
+            {
+              "name": "hideBackButton",
+              "title": "binding"
+            },
+            {
+              "name": "buttonBackAttrs",
+              "title": "binding"
+            },
+            {
+              "name": "iconBackAttrs",
+              "title": "binding"
+            },
+            {
+              "name": "translation",
+              "title": "binding"
+            },
+            {
+              "name": "name",
+              "title": "binding"
+            }
+          ]
+        },
+        {
+          "name": "next",
+          "scoped": true,
+          "description": "Use this slot to replace next template.",
+          "bindings": [
+            {
+              "title": "binding",
+              "type": {
+                "name": "ControlsNavigation"
+              },
+              "name": "toNext"
+            },
+            {
+              "title": "binding",
+              "type": {
+                "name": "boolean"
+              },
+              "name": "hideNextButton"
+            },
+            {
+              "title": "binding",
+              "type": {
+                "name": "ButtonAttrsProps"
+              },
+              "name": "buttonNextAttrs"
+            },
+            {
+              "title": "binding",
+              "type": {
+                "name": "boolean"
+              },
+              "name": "invalid"
+            },
+            {
+              "title": "binding",
+              "type": {
+                "name": "ControlsTranslation"
+              },
+              "name": "translation"
+            }
+          ]
+        },
+        {
+          "name": "back",
+          "scoped": true,
+          "description": "Use this slot to replace back template.",
+          "bindings": [
+            {
+              "title": "binding",
+              "type": {
+                "name": "ControlsNavigation"
+              },
+              "name": "toBack"
+            },
+            {
+              "title": "binding",
+              "type": {
+                "name": "boolean"
+              },
+              "name": "hideBackButton"
+            },
+            {
+              "title": "binding",
+              "type": {
+                "name": "ButtonAttrsProps"
+              },
+              "name": "buttonBackAttrs"
+            },
+            {
+              "title": "binding",
+              "type": {
+                "name": "IconAttrsProps"
+              },
+              "name": "iconBackAttrs"
+            },
+            {
+              "title": "binding",
+              "type": {
+                "name": "ControlsTranslation"
+              },
+              "name": "translation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "exportName": "default",
+      "displayName": "UiControlsVertical",
+      "description": "",
+      "tags": {},
+      "slots": [
+        {
+          "name": "back",
+          "scoped": true,
+          "description": "Use this slot to replace back template.",
+          "bindings": [
+            {
+              "title": "binding",
+              "type": {
+                "name": "ControlsNavigation"
+              },
+              "name": "toBack"
+            },
+            {
+              "title": "binding",
+              "type": {
+                "name": "boolean"
+              },
+              "name": "hideBackButton"
+            },
+            {
+              "title": "binding",
+              "type": {
+                "name": "ButtonAttrsProps"
+              },
+              "name": "buttonBackAttrs"
+            },
+            {
+              "title": "binding",
+              "type": {
+                "name": "IconAttrsProps"
+              },
+              "name": "iconBackAttrs"
+            },
+            {
+              "title": "binding",
+              "type": {
+                "name": "ControlsTranslation"
+              },
+              "name": "translation"
+            }
+          ]
+        },
+        {
+          "name": "default",
+          "description": "Use this slot to place container content."
+        },
+        {
+          "name": "next",
+          "scoped": true,
+          "description": "Use this slot to replace next template.",
+          "bindings": [
+            {
+              "title": "binding",
+              "type": {
+                "name": "ControlsNavigation"
+              },
+              "name": "toNext"
+            },
+            {
+              "title": "binding",
+              "type": {
+                "name": "boolean"
+              },
+              "name": "hideNextButton"
+            },
+            {
+              "title": "binding",
+              "type": {
+                "name": "ButtonAttrsProps"
+              },
+              "name": "buttonNextAttrs"
+            },
+            {
+              "title": "binding",
+              "type": {
+                "name": "boolean"
+              },
+              "name": "invalid"
+            },
+            {
+              "title": "binding",
+              "type": {
+                "name": "ControlsTranslation"
+              },
+              "name": "translation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "exportName": "default",
+      "displayName": "UiControlsBackButton",
+      "description": "",
+      "tags": {},
+      "props": [
+        {
+          "name": "iconBackAttrs",
+          "description": "Use this props to pass attrs for back UiIcon.",
+          "required": false,
+          "type": {
+            "name": "IconAttrsProps"
+          }
+        }
+      ],
+      "slots": [
+        {
+          "name": "default",
+          "description": "Use this slot to place back button label."
+        }
+      ]
+    },
+    {
+      "exportName": "default",
+      "displayName": "UiControlsNextButton",
+      "description": "",
+      "tags": {},
+      "slots": [
+        {
+          "name": "default",
+          "description": "Use this slot to place next button label."
         }
       ]
     },

@@ -87,13 +87,13 @@ import type { ControlsCommonProps } from '../../UiControls.vue';
 
 const props = defineProps<ControlsCommonProps>();
 
-// TODO: remove in 1.0.0 / BEGIN
+// TODO: remove in 0.8.0 / BEGIN
 const slots = useSlots();
 const slotName = ref('actions');
 if (slots.bottom) {
   slotName.value = 'bottom';
   if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiControls]: The `bottom` slots will be removed in 1.0.0. Please use `actions` slot instead.');
+    console.warn('[@infermedica/component-library warn][UiControls]: The `bottom` slots will be removed in 0.8.0. Please use `actions` slot instead.');
   }
 }
 // END
