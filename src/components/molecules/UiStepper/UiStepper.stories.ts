@@ -59,13 +59,13 @@ type StepperStoryType = StoryObj<StepperArgsType>;
 type StepperSteps = { steps: StepperStepAttrsProps[] };
 
 const { argTypes } = useArgTypes(UiStepper);
+
 const meta = {
   title: 'Molecules/Stepper',
   component: UiStepper,
   args: {
     currentStep: stepperSteps.at(3)?.label,
     steps: stepperSteps,
-    progressAttrs: { id: 'progress' },
   },
   argTypes: {
     ...argTypes,
@@ -74,10 +74,6 @@ const meta = {
       options: stepperSteps.map((step) => step.label),
     },
     steps: { control: 'object' },
-    progressAttrs: {
-      table: { subcategory: 'Attrs props' },
-      control: 'object',
-    },
   },
   decorators: [ (story, { id }) => {
     const [
