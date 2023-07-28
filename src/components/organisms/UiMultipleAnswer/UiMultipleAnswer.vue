@@ -169,13 +169,6 @@ const itemsToRender = computed(() => (props.items.map((item) => {
       inputAttrs: { name: props.name },
     };
   }
-  // TODO: remove in 0.6.0 / BEGIN
-  if (item.name) {
-    if (process.env.NODE_ENV === 'development') {
-      console.warn('[@infermedica/component-library warn][UiMultipleAnswerItem]: The `name` props will be removed in 0.6.0. Please use `label` props instead.');
-    }
-  }
-  // END
   return {
     value: JSON.parse(JSON.stringify(item)),
     label: item.name as string,
@@ -186,15 +179,6 @@ const itemsToRender = computed(() => (props.items.map((item) => {
     },
   };
 })));
-// TODO: remove in 0.6.0 / BEGIN
-const attrs = useAttrs();
-const choices = computed(() => (attrs.choices as MultipleAnswerProps['items']));
-if (choices.value) {
-  if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiMultipleAnswer]: The `choices` props will be removed in 0.6.0. Please use `items` props instead.');
-  }
-}
-// END
 </script>
 
 <style lang="scss">
