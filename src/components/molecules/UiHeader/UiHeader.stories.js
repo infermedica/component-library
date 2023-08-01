@@ -39,7 +39,7 @@ export default {
     iconHamburgerAttrs: { 'data-testid': 'hamburger-icon' },
     iconLogoAttrs: {
       'data-testid': 'logo-icon',
-      style: { '--icon-color': 'var(--color-icon-on-brand)' },
+      style: '--icon-color: var(--color-icon-on-brand)',
     },
     navigationAttrs: { 'data-testid': 'navigation' },
   },
@@ -122,6 +122,70 @@ export const Common = {
       @hamburger:open="onHamburgerOpen"
     />`,
   }),
+};
+
+export const Simple = {
+  render: (args) => ({
+    components: { UiHeader },
+    setup() {
+      const logo = defineAsyncComponent(() => import('../../../assets/logo.svg'));
+      return {
+        ...args,
+        ...events,
+        logo,
+      };
+    },
+    template: `<UiHeader
+      :title="title"
+      :logo="logo"
+      :hamburgerMatchMedia="hamburgerMatchMedia"
+      :navigation="navigation"
+      :button-brand-attrs="buttonBrandAttrs"
+      :button-hamburger-attrs="buttonHamburgerAttrs"
+      :icon-hamburger-attrs="iconHamburgerAttrs"
+      :icon-logo-attrs="iconLogoAttrs"
+      :navigation-attrs="navigationAttrs"
+      :class="modifiers"
+      @hamburger:close="onHamburgerClose"
+      @hamburger:open="onHamburgerOpen"
+    />`,
+  }),
+};
+Simple.args = {
+  modifiers: [ 'ui-header--simple' ],
+  iconLogoAttrs: { style: '--icon-color: var(--color-icon-secondary);' },
+};
+
+export const SimpleWithoutLogo = {
+  render: (args) => ({
+    components: { UiHeader },
+    setup() {
+      const logo = false;
+      return {
+        ...args,
+        ...events,
+        logo,
+      };
+    },
+    template: `<UiHeader
+      :title="title"
+      :logo="logo"
+      :hamburgerMatchMedia="hamburgerMatchMedia"
+      :navigation="navigation"
+      :button-brand-attrs="buttonBrandAttrs"
+      :button-hamburger-attrs="buttonHamburgerAttrs"
+      :icon-hamburger-attrs="iconHamburgerAttrs"
+      :icon-logo-attrs="iconLogoAttrs"
+      :navigation-attrs="navigationAttrs"
+      :class="modifiers"
+      @hamburger:close="onHamburgerClose"
+      @hamburger:open="onHamburgerOpen"
+    />`,
+  }),
+};
+SimpleWithoutLogo.args = {
+  modifiers: [ 'ui-header--simple' ],
+  iconLogoAttrs: { style: '--icon-color: var(--color-icon-secondary);' },
 };
 
 export const HamburgerMenuAlwaysDisplay = {
@@ -393,7 +457,7 @@ export const WithNavigationSlot = {
         <UiNavigation
           v-bind="navigationAttrs"
           :items="navigation"
-          class="ui-navigation--theme-brand ui-header__navigation"
+          class="ui-header__navigation"
         />
       </template>
     </UiHeader>`,
