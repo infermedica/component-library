@@ -75,7 +75,6 @@
 import {
   computed,
   watch,
-  useAttrs,
 } from 'vue';
 import UiAlert from '../../molecules/UiAlert/UiAlert.vue';
 import type { AlertAttrsProps } from '../../molecules/UiAlert/UiAlert.vue';
@@ -175,7 +174,7 @@ const itemsToRender = computed(() => (props.items.map((item) => {
     ...item,
     inputAttrs: {
       name: props.name,
-      ...item.inputAttrs,
+      ...((typeof item.inputAttrs === 'object') ? item.inputAttrs : {}),
     },
   };
 })));

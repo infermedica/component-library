@@ -11,7 +11,10 @@ import {
   defineAsyncComponent,
   h,
 } from 'vue';
-import type { SVGAttributes } from 'vue';
+import type {
+  Component,
+  SVGAttributes,
+} from 'vue';
 import type {
   DefineAttrsProps,
   Icon,
@@ -26,7 +29,7 @@ export interface IconProps {
 export type IconAttrsProps = DefineAttrsProps<IconProps, SVGAttributes>;
 
 const props = withDefaults(defineProps<IconProps>(), { icon: '' });
-const file = computed<SVGElement>(() => {
+const file = computed<Component>(() => {
   if (!props.icon) return h('svg');
   if (typeof props.icon === 'string') {
     return defineAsyncComponent({
@@ -37,6 +40,7 @@ const file = computed<SVGElement>(() => {
   }
   return props.icon;
 });
+
 </script>
 
 <style lang="scss">

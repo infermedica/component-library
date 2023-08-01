@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   root: true,
   env: {
@@ -190,7 +192,7 @@ module.exports = {
           ],
           [
             '@',
-            './src',
+            path.resolve(__dirname, 'src'),
           ],
         ],
         extensions: [
