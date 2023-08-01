@@ -10,6 +10,7 @@
         }"
       >
         <UiButton
+          v-if="logo"
           v-bind="buttonBrandAttrs"
           class="ui-button--icon ui-header__brand"
         >
@@ -24,6 +25,7 @@
             />
           </slot>
         </UiButton>
+        <span v-else />
       </slot>
       <template v-if="isMobile">
         <!-- @slot Use this slot to replace hamburger template.-->
@@ -37,7 +39,7 @@
         >
           <UiButton
             v-bind="buttonHamburgerAttrs"
-            class="ui-button--icon ui-button--theme-brand ui-header__hamburger"
+            class="ui-button--icon ui-header__hamburger"
             @click="handleHamburger"
           >
             <UiIcon
@@ -59,7 +61,7 @@
           <UiNavigation
             v-bind="navigationAttrs"
             :items="navigation"
-            class="ui-navigation--theme-brand ui-header__navigation"
+            class="ui-header__navigation"
           />
         </slot>
       </template>
@@ -84,7 +86,7 @@ import type {
   NavigationProps,
   NavigationAttrsProps,
 } from '../UiNavigation/UiNavigation.vue';
-import { toMobile } from '../../../styles/exports/breakpoints.module.scss';
+import breakpoints from '../../../styles/exports/breakpoints.module.scss';
 import type {
   Icon,
   DefineAttrsProps,
@@ -98,7 +100,7 @@ export interface HeaderProps {
   /**
    * Use this prop to set the logo.
    */
-  logo?: Icon;
+  logo?: Icon | boolean;
   /**
    * Use this props to pass media query for hamburger display
    */
@@ -134,8 +136,8 @@ export interface HeaderEmits {
 }
 const props = withDefaults(defineProps<HeaderProps>(), {
   title: '',
-  logo: '',
-  hamburgerMatchMedia: toMobile,
+  logo: false,
+  hamburgerMatchMedia: breakpoints.toMobile,
   navigation: () => ([]),
   buttonBrandAttrs: () => ({}),
   buttonHamburgerAttrs: () => ({}),
@@ -186,6 +188,7 @@ onUnmounted(() => {
 @use "../../../styles/mixins";
 
 .ui-header {
+  $this: &;
   $element: header;
 
   --navigation-justify-content: flex-end;
@@ -209,8 +212,34 @@ onUnmounted(() => {
     --icon-height: #{functions.var($element + "-logo", height, 1.5rem)};
   }
 
+  &__navigation {
+    --button-color: #{functions.var($element + "-navigation", color, var(--color-text-on-brand))};
+    --button-hover-color: #{functions.var($element + "-navigation-hover", color, var(--color-text-on-brand-hover))};
+    --button-active-color: #{functions.var($element + "-navigation-active", color, var(--color-text-on-brand-active))};
+    --button-icon-color: #{functions.var($element + "-navigation-icon", color, var(--color-icon-on-brand))};
+    --button-hover-icon-color: #{functions.var($element + "-navigation-hover-icon", color, var(--color-icon-on-brand-hover))};
+    --button-active-icon-color: #{functions.var($element + "-navigation-active-icon", color, var(--color-icon-on-brand-active))};
+  }
+
   &--full-width {
     --header-max-width: 100%;
+  }
+
+  &--simple {
+    background: functions.var($element, background, transparent);
+
+    #{$this}__header {
+      @include mixins.use-logical($element, padding, var(--space-12));
+    }
+
+    #{$this}__navigation {
+      --button-color: #{functions.var($element + "-navigation", color, var(--color-text-action-secondary))};
+      --button-hover-color: #{functions.var($element + "-navigation-hover", color, var(--color-text-action-secondary-hover))};
+      --button-active-color: #{functions.var($element + "-navigation-active", color, var(--color-text-action-secondary-active))};
+      --button-icon-color: #{functions.var($element + "-navigation-icon", color, var(--color-icon-secondary))};
+      --button-hover-icon-color: #{functions.var($element + "-navigation-hover-icon", color, var(--color-icon-secondary-hover))};
+      --button-active-icon-color: #{functions.var($element + "-navigation-active-icon", color, var(--color-icon-secondary-active))};
+    }
   }
 }
 </style>
