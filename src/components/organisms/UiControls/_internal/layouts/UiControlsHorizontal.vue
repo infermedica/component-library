@@ -40,7 +40,7 @@
           v-bind="buttonNextAttrs"
           :class="{ 'ui-button--is-disabled': invalid }"
         >
-          {{ translation.next }}
+          {{ translation?.next }}
         </UiControlsNextButton>
         <span v-else />
       </slot>
@@ -69,7 +69,7 @@
             iconBackAttrs
           }"
         >
-          {{ translation.back }}
+          {{ translation?.back }}
         </UiControlsBackButton>
       </slot>
     </div>
