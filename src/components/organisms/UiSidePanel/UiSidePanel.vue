@@ -355,7 +355,7 @@ onBeforeUnmount(() => {
   }
 
   &__header {
-    @include mixins.use-logical($element + "-header", padding, var(--space-20) var(--space-20) var(--space-24));
+    @include mixins.use-logical($element + "-header", padding, var(--space-20));
 
     display: flex;
     flex: none;
@@ -374,11 +374,18 @@ onBeforeUnmount(() => {
   }
 
   &__close {
+    padding-block: functions.var($element + "-close", padding-block, var(--space-8));
+    padding-inline: functions.var($element + "-close", padding-inline, var(--space-8));
+
     align-self: functions.var($element + "-close", align-self, center);
   }
 
   &__label {
     @include mixins.use-logical($element + "-label", padding, 0);
+    @include mixins.use-logical($element + "-label", margin,  0 0 0 var(--space-8));
+
+    display: functions.var($element + "-label", display, flex);
+    align-items: functions.var($element + "-label", align-items, center);
 
     @include mixins.from-tablet {
       @include mixins.use-logical($element + "-tablet-label", padding, 0 var(--space-8));
