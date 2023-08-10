@@ -374,7 +374,7 @@ onBeforeUnmount(() => {
   }
 
   &__close {
-    align-self: flex-end;
+    align-self: functions.var($element + "-close", align-self, center);
   }
 
   &__label {
