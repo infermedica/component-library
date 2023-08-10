@@ -359,7 +359,8 @@ onBeforeUnmount(() => {
 
     display: flex;
     flex: none;
-    flex-direction: column;
+    flex-direction: functions.var($element + "-header", flex-direction, row-reverse);
+    justify-content: functions.var($element + "-header", justify-content, space-between);
     background: functions.var($element + "-header", background, var(--color-background-subtle));
     gap: functions.var($element + "-header", gap, var(--space-32));
 
