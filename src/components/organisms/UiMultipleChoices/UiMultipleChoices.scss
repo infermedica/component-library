@@ -1,0 +1,14 @@
+
+//<Code id="multiple-choices-with-button-info-side-panel-content">
+.multiple-choices-with-button-info-side-panel-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32);
+
+  &__section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+  }
+}
+//</Code>

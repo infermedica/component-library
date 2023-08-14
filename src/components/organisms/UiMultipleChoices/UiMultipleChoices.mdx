@@ -1,0 +1,33 @@
+import { Canvas, Meta, Controls } from "@storybook/blocks";
+import { MetaActions } from "../../../../docs/components";
+import * as UiMultipleChoicesStories from './UiMultipleChoices.stories.ts';
+
+<Meta of={ UiMultipleChoicesStories } />
+
+# MultipleChoices
+<MetaActions stories={ UiMultipleChoicesStories } />
+{/* TODO: add description */}
+
+<Canvas of={ UiMultipleChoicesStories.Basic } />
+<Controls of={ UiMultipleChoicesStories.Basic } />
+
+# Stories
+## Explanation
+{/* TODO: add description */}
+<Canvas of={ UiMultipleChoicesStories.Explanation } />
+
+## Invalid
+{/* TODO: add description */}
+<Canvas of={ UiMultipleChoicesStories.Invalid } />
+
+## Invalid Explanation
+{/* TODO: add description */}
+<Canvas of={ UiMultipleChoicesStories.InvalidExplanation } />
+
+## With Hint Slot
+{/* TODO: add description */}
+<Canvas of={ UiMultipleChoicesStories.WithHintSlot } />
+
+## With Choice Slot
+{/* TODO: add description */}
+<Canvas of={ UiMultipleChoicesStories.WithChoiceSlot } />
