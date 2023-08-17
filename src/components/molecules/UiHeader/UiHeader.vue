@@ -145,7 +145,10 @@ const props = withDefaults(defineProps<HeaderProps>(), {
   iconLogoAttrs: () => ({}),
   navigationAttrs: () => ({}),
 });
-const defaultProps = computed(() => {
+const defaultProps = computed<{
+  iconHamburgerAttrs: IconAttrsProps,
+  iconLogoAttrs: IconAttrsProps,
+}>(() => {
   const icon: IconAttrsProps['icon'] = 'menu';
   return {
     iconHamburgerAttrs: {
@@ -153,7 +156,9 @@ const defaultProps = computed(() => {
       ...props.iconHamburgerAttrs,
     },
     iconLogoAttrs: {
-      icon: props.logo,
+      icon: typeof props.logo === 'boolean'
+        ? undefined
+        : props.logo,
       title: props.title,
       ...props.iconLogoAttrs,
     },
