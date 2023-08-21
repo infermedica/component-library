@@ -68,7 +68,7 @@ export interface MenuItemProps {
 export type MenuItemAttrsProps = DefineAttrsProps<MenuItemProps, ListItemAttrsProps>;
 
 const props = withDefaults(defineProps<MenuItemProps>(), {
-  icon: 'checkmark',
+  icon: 'present',
   suffixVisible: 'default',
   suffixAttrs: () => ({ class: 'ui-button--text ui-menu-item__suffix' }),
   listItemAttrs: () => ({ class: 'ui-menu-item' }),
@@ -109,7 +109,8 @@ const defaultProps = computed(() => ({
 
     --button-font: #{functions.var($element + "-button", font, var(--font-body-1))};
     --button-letter-spacing: #{functions.var($element + "-button", letter-spacing, var(--letter-spacing-body-1))};
-
+    --border-radius-button: var(--border-radius-form);
+    
     justify-content: space-between;
   }
 
