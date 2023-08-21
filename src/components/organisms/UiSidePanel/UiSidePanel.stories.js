@@ -20,6 +20,7 @@ import {
   scrollTabindex,
   keyboardFocus,
 } from '@/utilities/directives';
+import UiProgress from '@/components/atoms/UiProgress/UiProgress.vue';
 import './UiSidePanel.stories.scss';
 
 const events = actions({
@@ -259,6 +260,197 @@ export const TermsOfService = {
   args: {
     title: 'Terms of Service',
     subtitle: 'Last updated: Nov 26th, 2020',
+  },
+};
+
+export const Condition = {
+  render: (args) => ({
+    components: {
+      UiSidePanel,
+      UiButton,
+      UiHeading,
+      UiText,
+      UiProgress,
+    },
+    setup() {
+      const modelValue = inject('modelValue');
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiSidePanel
+      v-model="modelValue"
+      :title="title"
+      :subtitle="subtitle"
+      :transition-backdrop-attrs="transitionBackdropAttrs"
+      :backdrop-attrs="backdropAttrs"
+      :transition-dialog-attrs="transitionDialogAttrs"
+      :heading-title-attrs="headingTitleAttrs"
+      :text-subtitle-attrs="textSubtitleAttrs"
+      :button-close-attrs="buttonCloseAttrs"
+      :icon-close-attrs="iconCloseAttrs"
+      :dialog-attrs="dialogAttrs"
+      :content-attrs="contentAttrs"
+      @update:modelValue="onUpdateModelValue"
+      @after-enter="onAfterEnter"
+      class="side-panel-condition"
+    >
+      <template #subtitle="{subtitle}">
+        <div class="side-panel-condition__byline">
+          <UiProgress 
+            :value="100"
+            :min="0"
+            :max="100"
+            class="side-panel-condition__progress"
+          /><UiText class="side-panel-condition__subtitle">{{subtitle}}</UiText>
+        </div>
+      </template>
+      <template #default>
+        <div style="display: flex; flex-direction: column; gap: var(--space-12)">
+        <UiHeading>
+          Hint
+        </UiHeading>
+        <UiText>
+          Try to relieve the symptoms using over-the-counter medications. If the symptoms worsen, please consult a general practitioner.
+        </UiText>
+      </div>
+      </template>
+    </UiSidePanel>`,
+  }),
+
+  args: {
+    title: 'Common cold',
+    subtitle: 'Strong evidences',
+  },
+};
+
+export const PatientEducation = {
+  render: (args) => ({
+    components: {
+      UiSidePanel,
+      UiButton,
+      UiHeading,
+      UiText,
+      UiProgress,
+    },
+    setup() {
+      const modelValue = inject('modelValue');
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiSidePanel
+      v-model="modelValue"
+      :title="title"
+      :subtitle="subtitle"
+      :transition-backdrop-attrs="transitionBackdropAttrs"
+      :backdrop-attrs="backdropAttrs"
+      :transition-dialog-attrs="transitionDialogAttrs"
+      :heading-title-attrs="headingTitleAttrs"
+      :text-subtitle-attrs="textSubtitleAttrs"
+      :button-close-attrs="buttonCloseAttrs"
+      :icon-close-attrs="iconCloseAttrs"
+      :dialog-attrs="dialogAttrs"
+      :content-attrs="contentAttrs"
+      @update:modelValue="onUpdateModelValue"
+      @after-enter="onAfterEnter"
+      class="side-panel-patient-education"
+    >
+      <template #label="{title, subtitle}">
+        <div class="ui-side-panel__label">
+          <div class="side-panel-patient-education__byline">
+            <UiProgress 
+              :value="100"
+              :min="0"
+              :max="100"
+              class="side-panel-patient-education__progress"
+            /><UiText class="ui-text--body-2-comfortable side-panel-patient-education__subtitle">{{subtitle}}</UiText>
+          </div>
+          <UiHeading>{{title}}</UiHeading>
+          <UiText class="ui-text--body-2-comfortable ui-text--theme-secondary side-panel-patient-education__subtitle">Acute viral pharyngitis</UiText>
+        </div>
+      </template>
+      <template #default>
+        <div style="display: flex; flex-direction: column; gap: var(--space-12)">
+        <UiHeading>
+          About
+        </UiHeading>
+        <UiHeading :level="4">
+          What is acute viral throat infection?
+        </UiHeading>
+        <UiText>
+          Acute viral tonsillopharyngitis known as sore throat is an inflammation of throat and tonsils, caused by viral infection ...
+        </UiText>
+      </div>
+      </template>
+    </UiSidePanel>`,
+  }),
+
+  args: {
+    title: 'Acute viral throat infection',
+    subtitle: 'Strong evidences',
+  },
+};
+
+export const MegaMenu = {
+  render: (args) => ({
+    components: {
+      UiSidePanel,
+      UiButton,
+      UiIcon,
+      UiHeading,
+      UiText,
+      TOS,
+    },
+    setup() {
+      const modelValue = inject('modelValue');
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiSidePanel
+      v-model="modelValue"
+      :title="title"
+      :subtitle="subtitle"
+      :transition-backdrop-attrs="transitionBackdropAttrs"
+      :backdrop-attrs="backdropAttrs"
+      :transition-dialog-attrs="transitionDialogAttrs"
+      :heading-title-attrs="headingTitleAttrs"
+      :text-subtitle-attrs="textSubtitleAttrs"
+      :button-close-attrs="buttonCloseAttrs"
+      :icon-close-attrs="iconCloseAttrs"
+      :dialog-attrs="dialogAttrs"
+      :content-attrs="contentAttrs"
+      @update:modelValue="onUpdateModelValue"
+      @after-enter="onAfterEnter"
+      class="side-panel-mega-menu"
+    >
+      <template #label="{title, subtitle}">
+        <div class="ui-side-panel__label side-panel-mega-menu__label">
+          <UiButton class="ui-button--icon side-panel-mega-menu__back">
+            <UiIcon icon="chevron-left" class="ui-button__icon"/>
+          </UiButton>
+          <div class="side-panel-mega-menu__label-content">
+            <UiHeading>{{title}}</UiHeading>
+            <UiText class="side-panel-mega-menu__label-subtitle">{{subtitle}}</UiText>
+          </div>
+        </div>
+      </template>
+      <template #default>
+        <TOS/>
+      </template>
+    </UiSidePanel>`,
+  }),
+
+  args: {
+    title: 'Terms of service',
+    subtitle: 'Terms of service',
   },
 };
 

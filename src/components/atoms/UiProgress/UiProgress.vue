@@ -63,7 +63,7 @@ const progressValue = computed(() => {
   overflow: hidden;
   width: 100%;
   height: var(--_progress-height);
-  background: functions.var($element + "track", background, var(--color-progress-track));
+  background: functions.var($element + "-track", background, var(--color-progress-track));
 
   &__inner {
     @include mixins.use-logical($element, border-radius, 0);
