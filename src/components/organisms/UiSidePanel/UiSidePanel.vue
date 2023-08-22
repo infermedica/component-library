@@ -355,37 +355,32 @@ onBeforeUnmount(() => {
   }
 
   &__header {
-    @include mixins.use-logical($element + "-header", padding, var(--space-20) var(--space-20) var(--space-24));
+    @include mixins.use-logical($element + "-header", padding, var(--space-20));
 
     display: flex;
     flex: none;
-    flex-direction: column;
+    flex-direction: functions.var($element + "-header", flex-direction, row-reverse);
     background: functions.var($element + "-header", background, var(--color-background-subtle));
-    gap: functions.var($element + "-header", gap, var(--space-32));
+    gap: functions.var($element + "-header", gap, var(--space-16));
 
     @include mixins.from-tablet {
       @include mixins.use-logical(
         $element + "-tablet-header",
         padding,
-        var(--space-40) var(--space-40) var(--space-32)
+        var(--space-40) var(--space-48) var(--space-32)
       );
     }
   }
 
   &__close {
-    align-self: flex-end;
+    align-self: functions.var($element + "-close", align-self, flex-start);
   }
 
   &__label {
-    @include mixins.use-logical($element + "-label", padding, 0);
-
-    @include mixins.from-tablet {
-      @include mixins.use-logical($element + "-tablet-label", padding, 0 var(--space-8));
-    }
-  }
-
-  &__subtitle {
-    @include mixins.use-logical($element + "-subtitle", margin, var(--space-8) 0 0);
+    display: flex;
+    flex-direction: functions.var($element + "-label", flex-direction, column);
+    flex: 1;
+    gap: functions.var($element + "-label", gap, var(--space-4));
   }
 
   &__content {
