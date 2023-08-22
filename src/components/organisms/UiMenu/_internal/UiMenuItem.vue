@@ -68,7 +68,7 @@ export interface MenuItemProps {
 export type MenuItemAttrsProps = DefineAttrsProps<MenuItemProps, ListItemAttrsProps>;
 
 const props = withDefaults(defineProps<MenuItemProps>(), {
-  icon: 'checkmark',
+  icon: 'present',
   suffixVisible: 'default',
   suffixAttrs: () => ({ class: 'ui-button--text ui-menu-item__suffix' }),
   listItemAttrs: () => ({ class: 'ui-menu-item' }),
@@ -106,6 +106,7 @@ const defaultProps = computed(() => ({
     @include mixins.override-logical(list-item-tablet-content, $element + "-button", padding, var(--space-8));
     @include mixins.override-logical(button, $element + "-button", padding, var(--space-8));
     @include mixins.override-logical(button, $element + "-button", border-width, 0);
+    @include mixins.override-logical(button, $element + "-button", border-radius, var(--border-radius-form));
 
     --button-font: #{functions.var($element + "-button", font, var(--font-body-1))};
     --button-letter-spacing: #{functions.var($element + "-button", letter-spacing, var(--letter-spacing-body-1))};
