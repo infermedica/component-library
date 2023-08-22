@@ -106,11 +106,11 @@ const defaultProps = computed(() => ({
     @include mixins.override-logical(list-item-tablet-content, $element + "-button", padding, var(--space-8));
     @include mixins.override-logical(button, $element + "-button", padding, var(--space-8));
     @include mixins.override-logical(button, $element + "-button", border-width, 0);
+    @include mixins.override-logical(button, $element + "-button", border-radius, var(--border-radius-form));
 
     --button-font: #{functions.var($element + "-button", font, var(--font-body-1))};
     --button-letter-spacing: #{functions.var($element + "-button", letter-spacing, var(--letter-spacing-body-1))};
-    --border-radius-button: var(--border-radius-form);
-    
+
     justify-content: space-between;
   }
 
