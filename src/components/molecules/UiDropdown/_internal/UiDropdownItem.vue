@@ -107,6 +107,7 @@ const buttonItemAttrs = computed<ButtonAttrsProps>(() => ({
   $element: dropdown-item;
 
   @include mixins.override-logical(button, $element, padding, var(--space-8));
+  @include mixins.override-logical(button, $element, border-radius, var(--border-radius-form));
   @include mixins.override-logical(button, null, border-width, 0);
 
   --button-color: #{functions.var($element, color, var(--color-text-body))};
