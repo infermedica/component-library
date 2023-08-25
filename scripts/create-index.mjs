@@ -19,11 +19,13 @@ const addLines = (pathComponent, componentLines, typeLines) => {
 };
 function generateContent() {
   const componentLines = [];
-  const typeLines = [];
-  pathsComponentsLoop((pathComponent) => addLines(pathComponent, componentLines, typeLines), false);
+  const componentTypeLines = [];
+  pathsComponentsLoop((pathComponent) => addLines(pathComponent, componentLines, componentTypeLines), false);
   const contentIndexTs = `// Auto-generated file by create-index.js. Do not edit manually\n
 // types
-${typeLines.join('\n')}\n
+export * from './src/types';\n
+// component types
+${componentTypeLines.join('\n')}\n
 // components
 ${componentLines.join('\n')}\n\n`;
   return contentIndexTs;
