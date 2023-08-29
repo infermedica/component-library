@@ -7,7 +7,7 @@ import {
   content,
   modifiers,
 } from '@sb/helpers/argTypes';
-import './UiTIle.stories.scss';
+import './UiTile.stories.scss';
 
 const events = actions({ onUpdateModelValue: 'update:modelValue' });
 
