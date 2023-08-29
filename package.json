@@ -2,6 +2,10 @@
   "name": "@infermedica/component-library",
   "description": "Vue 3 UI library for healthcare and not only.",
   "version": "0.7.1",
+  "repository": "https://github.com/infermedica/component-library.git",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "sideEffects": ["*.vue"],
   "engines": {
     "node": ">=16.13.2",
