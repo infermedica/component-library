@@ -6,7 +6,7 @@ dotenv.config();
 const fileName = fileURLToPath(import.meta.url);
 const figmaToken = process.env.FIGMA_TOKEN;
 const figmaUrl = 'https://api.figma.com/v1';
-const figmaFileId = 'txuY6Y2evaphl43mSvHUQ8';
+const figmaFileId = 'AuIoOW4ZpMZDye6lZp35sq';
 const indentation = '  ';
 
 const saveFile = (name, content) => {
