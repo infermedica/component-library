@@ -29,3 +29,17 @@ if (!parentComponent || parentComponent.type.name !== 'UiNavigation') {
   }
 }
 </script>
+
+<style lang="scss">
+@use "../../../../styles/functions";
+@use "../../../../styles/mixins";
+
+.ui-navigation-item {
+  $this: &;
+  $element: navigation-item;
+
+  --button-color: #{functions.var($element, color, var(--color-text-action-secondary))};
+  --button-hover-color: #{functions.var($element + "-hover", color, var(--color-text-action-secondary-hover))};
+  --button-active-color: #{functions.var($element + "-active", color, var(--color-text-action-secondary-active))};
+}
+</style>

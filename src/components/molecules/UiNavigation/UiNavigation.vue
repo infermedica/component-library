@@ -83,6 +83,8 @@ const navigationItemAttrs = ({
   $this: &;
   $element: navigation;
 
+  @include mixins.use-logical($element, padding, var(--space-24) var(--space-20));
+
   display: flex;
   flex-flow:
     functions.var(
@@ -90,8 +92,17 @@ const navigationItemAttrs = ({
       flex-flow,
       functions.var($element, flex-direction, row) functions.var($element, flex-wrap, wrap)
     );
-  align-items: functions.var($element, align-items, center);
-  justify-content: functions.var($element, justify-content, flex-start);
+  align-items: functions.var($element, align-items, flex-start);
+  justify-content: functions.var($element, justify-content, center);
+  flex-direction: functions.var($element, flex-direction, column);
   gap: functions.var($element, gap, var(--space-12) var(--space-16));
+
+  @include mixins.from-tablet {
+    @include mixins.use-logical($element + "-tablet", padding, var(--space-24) var(--space-16));
+
+    align-items: functions.var($element + '-tablet', align-items, center);
+    justify-content: functions.var($element + '-tablet', justify-content, center);
+    flex-direction: functions.var($element + '-tablet', flex-direction, row);
+  }
 }
 </style>
