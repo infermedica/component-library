@@ -3,6 +3,10 @@
 // types
 export * from './src/types';
 
+// utilities
+export * from './src/utilities/helpers';
+export * from './src/utilities/directives';
+
 // component types
 export * from './src/components/atoms/UiBackdrop/UiBackdrop.vue';
 export * from './src/components/atoms/UiButton/UiButton.vue';
