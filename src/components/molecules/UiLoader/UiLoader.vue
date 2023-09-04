@@ -128,6 +128,8 @@ const transitionComponentAttrs = computed<LoaderProps['transitionAttrs']>(() => 
 </script>
 
 <style lang="scss">
+@use "../../../styles/transitions";
+
 .ui-loader {
   display: flex;
   align-items: center;

@@ -4,20 +4,33 @@
     v-keyboard-focus
     v-bind="routeAttrs"
     class="ui-button"
+    :aria-disabled="isLoading ? true : null"
   >
-    <!-- @slot Use this slot to place content inside button. -->
-    <slot />
+    <UiLoader
+      :is-loading="isLoading"
+      v-bind="defaultProps.loaderAttrs"
+    >
+      <template #loader>
+        <!-- @slot Use this slot to replace loader. -->
+        <slot name="loader" />
+      </template>
+      <!-- @slot Use this slot to place content inside button. -->
+      <slot />
+    </UiLoader>
   </component>
 </template>
 
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
+import { computed } from 'vue';
 import type {
   HTMLTag,
   DefineAttrsProps,
 } from '../../../types';
+import type { LoaderAttrsProps } from '../../molecules/UiLoader/UiLoader.vue';
 import useLink from '../../../composable/useLink';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
+import UiLoader from '../../molecules/UiLoader/UiLoader.vue';
 
 export interface ButtonProps {
   /**
@@ -32,6 +45,14 @@ export interface ButtonProps {
    * Use this props to set route for external link.
    */
   href?: string;
+  /**
+   * Use this props to set button into loading state.
+   */
+  isLoading?: boolean;
+  /**
+   * Use this props to pass attrs for UiLoader.
+   */
+  loaderAttrs?: LoaderAttrsProps;
 }
 export type ButtonAttrsProps<HTMLAttrs = HTMLAttributes> = DefineAttrsProps<ButtonProps, HTMLAttrs>;
 
@@ -39,9 +60,19 @@ const props = withDefaults(defineProps<ButtonProps>(), {
   tag: 'button',
   to: '',
   href: '',
+  isLoading: false,
+  loaderAttrs: () => ({}),
 });
+const defaultProps = computed(() => ({
+  loaderAttrs: {
+    type: 'ellipsis',
+    'transition-type': 'opacity',
+    ...props.loaderAttrs,
+  },
+}));
 const {
-  componentTag, routeAttrs,
+  componentTag,
+  routeAttrs,
 } = useLink(props);
 </script>
 
@@ -110,7 +141,7 @@ const {
     }
   }
 
-  &:active {
+  &:not([aria-disabled]):active {
     background: functions.var($element + "-active", background, var(--color-background-action-active));
     color: functions.var($element + "-active", color, var(--color-text-on-action));
 
@@ -156,6 +187,8 @@ const {
   }
 
   &--outlined {
+    --loader-ellipsis-dot-background: #{functions.var($element, color, var(--color-text-action-primary))};
+
     background: functions.var($element, background, transparent);
     color: functions.var($element, color, var(--color-text-action-primary));
 
@@ -176,7 +209,7 @@ const {
       }
     }
 
-    &:active {
+    &:not([aria-disabled]):active {
       background: functions.var($element + "-active", background, var(--color-background-white-active));
       color: functions.var($element + "-active", color, var(--color-text-action-primary-active));
 
@@ -186,6 +219,8 @@ const {
     }
 
     &#{$this}--is-selected {
+      --loader-ellipsis-dot-background: #{functions.var($element, color, var(--color-text-on-selection))};
+
       background: functions.var($element, background, var(--color-background-selection));
       color: functions.var($element, color, var(--color-text-on-selection));
 
@@ -210,7 +245,7 @@ const {
         }
       }
 
-      &:active {
+      &:not([aria-disabled]):active {
         background: functions.var($element + "-active", background, var(--color-background-selection-active));
         color: functions.var($element + "-active", color, var(--color-text-on-selection));
 
@@ -256,6 +291,7 @@ const {
     }
 
     &#{$this}--is-disabled {
+      --loader-ellipsis-dot-background: #{functions.var($element, color, var(--color-text-disabled))};
       color: functions.var($element, color, var(--color-text-disabled));
 
       #{$this}__icon {
