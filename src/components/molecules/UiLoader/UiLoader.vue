@@ -132,5 +132,9 @@ const transitionComponentAttrs = computed<LoaderProps['transitionAttrs']>(() => 
   display: flex;
   align-items: center;
   justify-content: center;
+
+  &__loaded {
+    display: contents;
+  }
 }
 </style>

@@ -8,6 +8,7 @@
   <div
     ref="contentEl"
     :style="contentStyle"
+    class="ui-loader__loaded"
   >
     <slot />
   </div>
