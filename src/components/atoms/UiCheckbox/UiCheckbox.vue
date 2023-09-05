@@ -278,7 +278,7 @@ defineExpose({ input });
       $element,
       $color: var(--color-border-strong),
       $width: 2px,
-      $radius: var(--border-radius-form),
+      $radius: var(--border-radius-checkbox),
       $transition: (
         border-color 150ms ease-in-out,
         background-color 150ms ease-in-out
