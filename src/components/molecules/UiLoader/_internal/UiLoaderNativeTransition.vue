@@ -4,7 +4,10 @@
       v-if="isLoading"
       name="loader"
     />
-    <div v-else>
+    <div
+      v-else
+      class="ui-loader__loaded"
+    >
       <slot />
     </div>
   </transition>
