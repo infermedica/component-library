@@ -7,6 +7,7 @@ const events = actions({
 });
 
 export const withModelValue = (story, context) => {
+  console.warning('withModelValue decorator is deprecated, please use withVModel decorator instead.');
   const [{ modelValue }, updateArgs] = useArgs();
   return defineComponent({
     component: { story },
