@@ -2,13 +2,13 @@ import type {
   Meta,
   StoryObj,
 } from '@storybook/vue3';
-import { 
+import {
   computed,
   ref,
   Transition,
   inject,
   provide,
- } from 'vue';
+} from 'vue';
 import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 
@@ -19,18 +19,21 @@ type TransitionMetaType = Meta<TransitionArgsType>;
 type TransitionStoryType = StoryObj<TransitionArgsType>
 
 const transitionDecorator = (story) => ({
-  components: { story, UiButton },
+  components: {
+    story,
+    UiButton,
+  },
   setup() {
     const isVisible = ref(true);
-      const toggleHandler = () => {
-        isVisible.value = !isVisible.value;
-      };
-      const toggleButtonText = computed(() => (isVisible.value ? 'Hide' : 'Show'));
-      provide('isVisible', isVisible);
-      return {
-        toggleHandler,
-        toggleButtonText,
-      };
+    const toggleHandler = () => {
+      isVisible.value = !isVisible.value;
+    };
+    const toggleButtonText = computed(() => (isVisible.value ? 'Hide' : 'Show'));
+    provide('isVisible', isVisible);
+    return {
+      toggleHandler,
+      toggleButtonText,
+    };
   },
   template: `<div class="min-h-30">
     <UiButton
@@ -40,21 +43,15 @@ const transitionDecorator = (story) => ({
       {{ toggleButtonText }}
     </UiButton>
     <story/>
-  </div>`
+  </div>`,
 });
 
 const meta = {
   title: 'Utilities/Transition',
   component: Transition,
   args: { name: 'fade' },
-  argTypes: {
-    name: {
-      table: {
-        disable: true,
-      },
-    },
-  },
-  decorators: [transitionDecorator],
+  argTypes: { name: { table: { disable: true } } },
+  decorators: [ transitionDecorator ],
 } satisfies TransitionMetaType;
 
 export default meta;
@@ -67,19 +64,19 @@ export const Fade: TransitionStoryType = {
     },
     setup(props, { attrs: args }) {
       const isVisible = inject('isVisible');
-     
+
       return {
         args,
         isVisible,
-      }
+      };
     },
     template: `<Transition v-bind="args">
       <UiText v-if="isVisible">
         List of possible conditions may not be complete, is provided solely for informational purposes, is not a qualified medical opinion and can not replace the medical diagnosis.
       </UiText>
     </Transition>`,
-  })
-}
+  }),
+};
 
 export const SlideFromStart: TransitionStoryType = { ...Fade };
 SlideFromStart.args = { name: 'slide-from-start' };
