@@ -50,7 +50,7 @@ export type MenuItemSuffixAttrsProps = DefineAttrsProps<MenuItemSuffixProps>;
 
 const props = withDefaults(defineProps<MenuItemSuffixProps>(), {
   label: '',
-  icon: 'checkmark',
+  icon: 'present',
   iconSuffixAttrs: () => ({}),
 });
 const defaultProps = computed(() => ({

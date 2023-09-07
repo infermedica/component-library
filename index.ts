@@ -1,6 +1,9 @@
 // Auto-generated file by create-index.js. Do not edit manually
 
 // types
+export * from './src/types';
+
+// component types
 export * from './src/components/atoms/UiBackdrop/UiBackdrop.vue';
 export * from './src/components/atoms/UiButton/UiButton.vue';
 export * from './src/components/atoms/UiCheckbox/UiCheckbox.vue';

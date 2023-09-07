@@ -6,7 +6,7 @@
 
 @mixin hover {
   @include with-hover {
-    &:hover {
+    &:not([aria-disabled]):hover {
       @content;
     }
   }

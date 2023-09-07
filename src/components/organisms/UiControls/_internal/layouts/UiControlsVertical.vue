@@ -24,7 +24,7 @@
         iconBackAttrs
       }"
     >
-      {{ translation.back }}
+      {{ translation?.back }}
     </UiControlsBackButton>
   </slot>
   <!-- @slot Use this slot to place container content. -->
@@ -52,7 +52,7 @@
       v-bind="buttonNextAttrs"
       :class="{ 'ui-button--is-disabled': invalid }"
     >
-      {{ translation.next }}
+      {{ translation?.next }}
     </UiControlsNextButton>
   </slot>
 </template>

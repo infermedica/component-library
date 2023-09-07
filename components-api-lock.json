@@ -1806,11 +1806,19 @@
           "description": "Use this prop to set the logo.",
           "required": false,
           "type": {
-            "name": "Icon"
+            "name": "union",
+            "elements": [
+              {
+                "name": "Icon"
+              },
+              {
+                "name": "boolean"
+              }
+            ]
           },
           "defaultValue": {
             "func": false,
-            "value": "''"
+            "value": "false"
           }
         },
         {
@@ -1822,7 +1830,7 @@
           },
           "defaultValue": {
             "func": false,
-            "value": "toMobile"
+            "value": "breakpoints.toMobile"
           }
         },
         {

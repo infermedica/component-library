@@ -75,7 +75,6 @@
 import {
   computed,
   watch,
-  useAttrs,
 } from 'vue';
 import UiAlert from '../../molecules/UiAlert/UiAlert.vue';
 import type { AlertAttrsProps } from '../../molecules/UiAlert/UiAlert.vue';
@@ -87,7 +86,7 @@ import type {
   HTMLTag,
 } from '../../../types';
 
-export type MultipleAnswerModelValue = string | (string | Record<string, unknown>)[];
+export type MultipleAnswerModelValue = string | Record<string, unknown> | (string | Record<string, unknown>)[];
 export interface MultipleAnswerProps {
   /**
    *  Use this props or v-model to set checked.
@@ -175,7 +174,7 @@ const itemsToRender = computed(() => (props.items.map((item) => {
     ...item,
     inputAttrs: {
       name: props.name,
-      ...item.inputAttrs,
+      ...((typeof item.inputAttrs === 'object') ? item.inputAttrs : {}),
     },
   };
 })));
