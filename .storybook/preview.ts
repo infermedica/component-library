@@ -1,13 +1,11 @@
 import type { Preview } from '@storybook/vue3';
 import { setup } from '@storybook/vue3';
-import withTest from './decorators/withTest';
-import withTheme from "./decorators/withTheme";
+
 import './tailwindcss.css';
 import '@/styles/styles.scss';
 import './styles.scss';
 
 setup((app) => {
-  // Mock of router-link component
   app.component('router-link', {
     props: ['to'],
     setup(props) {
@@ -129,26 +127,6 @@ const preview: Preview = {
     },
     chromatic: { disableSnapshot: true },
   },
-  globalTypes: {
-    theme: {
-      name: 'Theme',
-      description: 'Global theme for components',
-      defaultValue: 'default',
-      toolbar: {
-        icon: 'browser',
-        items: [
-          {value: 'default', title: 'Default'},
-          {value: 'secondary', title: 'Secondary'},
-          {value: 'brand', title: 'Brand'},
-        ],
-        dynamicTitle: true,
-      }
-    }
-  },
-  decorators: [
-    withTest,
-    withTheme
-  ]
 }
 
 export default preview
