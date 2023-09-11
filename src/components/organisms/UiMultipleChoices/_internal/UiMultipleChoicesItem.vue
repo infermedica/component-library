@@ -332,7 +332,7 @@ const optionsToRender = computed(() => props.options.map((option) => ({
   }
 
   &__header {
-    @include mixins.use-logical($element + "-header", padding, var(--space-12) var(--space-20));
+    @include mixins.use-logical($element + "-header", padding, var(--space-12) 0);
     @include mixins.use-logical($element + "-header", margin, var(--space-20) 0 0 0);
 
     display: flex;
@@ -410,7 +410,7 @@ const optionsToRender = computed(() => props.options.map((option) => ({
   }
 
   &__option-content {
-    @include mixins.override-logical(list-item-content, $element + "-option-content", padding, var(--space-12) var(--space-20));
+    @include mixins.override-logical(list-item-content, $element + "-option-content", padding, var(--space-12));
     @include mixins.override-logical(list-item-tablet-content, $element + "-tablet-option-content", padding, 0);
 
     --list-item-content-hover-background: #{functions.var($element + "-content-hover", background)};
