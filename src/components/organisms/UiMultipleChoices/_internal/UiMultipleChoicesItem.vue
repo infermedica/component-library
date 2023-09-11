@@ -301,13 +301,18 @@ const optionsToRender = computed(() => props.options.map((option) => ({
   $this: &;
   $element: multiple-choices-item;
 
-  &:not(:first-of-type) {
-    @include mixins.override-logical(list-item, null, border-width, 0);
-  }
+  @include mixins.override-logical(list-item, null, border-width, 0);
 
   @include mixins.from-tablet {
-    &:not(:first-of-type) {
-      @include mixins.override-logical(list-item, $element, border-width);
+    @include mixins.override-logical(list-item, $element, border-width);
+  }
+
+  &:first-of-type {
+    @include mixins.to-mobile {
+      #{$this}__header {
+        @include mixins.use-logical($element + "-first-header", padding, 0 0 var(--space-12));
+        @include mixins.use-logical($element + "-first-header", margin, 0);
+      }
     }
   }
 
@@ -346,6 +351,14 @@ const optionsToRender = computed(() => props.options.map((option) => ({
       flex-direction: column;
       align-items: flex-start;
       gap: functions.var($element + "-tablet-header", gap, var(--space-8));
+    }
+  }
+
+  &__label {
+    font: functions.var($element + "-label", font, var(--font-body-1-thick));
+
+    @include mixins.from-tablet {
+      font: functions.var($element + "-tablet-label", font, var(--font-body-1));
     }
   }
 
@@ -417,7 +430,7 @@ const optionsToRender = computed(() => props.options.map((option) => ({
   }
 
   &__alert {
-    @include mixins.use-logical($element + "-alert", padding, var(--space-12) var(--space-20) 0);
+    @include mixins.use-logical($element + "-alert", padding, var(--space-12) 0 0);
 
     @include mixins.from-tablet {
       @include mixins.use-logical($element + "-tablet-alert", padding, 0);
