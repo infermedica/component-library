@@ -1,6 +1,7 @@
 import type { Preview } from '@storybook/vue3';
 import { setup } from '@storybook/vue3';
 
+import { withArgs  } from './decorators';
 import './tailwindcss.css';
 import '@/styles/styles.scss';
 import './styles.scss';
@@ -127,6 +128,9 @@ const preview: Preview = {
     },
     chromatic: { disableSnapshot: true },
   },
+  decorators: [
+    withArgs,
+  ]
 }
 
 export default preview
