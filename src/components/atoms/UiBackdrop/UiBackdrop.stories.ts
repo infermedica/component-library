@@ -9,13 +9,32 @@ import {
   BasicStoriesSource,
 } from './stories';
 
-const { argTypes } = getArgTypes(UiBackdrop);
+const {
+  argTypes,
+  args,
+} = getArgTypes(UiBackdrop);
 
 const meta = {
   title: 'Atoms/Backdrop',
   component: UiBackdrop,
+  args,
   argTypes,
-  decorators: [ () => ({ template: '<div class="min-h-80"><story/></div>' }) ],
+  decorators: [ (story, { id }) => ({
+    inheritAttrs: false,
+    setup(props, { attrs }) {
+      return {
+        attrs,
+        id,
+      };
+    },
+    template: `<div class="min-h-80">
+      <story 
+        v-bind="attrs" 
+        :key="id"
+      />
+    </div>`,
+  }
+  ) ],
   parameters: { chromatic: { disableSnapshot: false } },
 } satisfies Meta;
 export default meta;

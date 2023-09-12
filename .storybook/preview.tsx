@@ -139,7 +139,7 @@ const preview: Preview = {
           <MetaActions />
           <Primary />
           <Controls />
-          <Stories />
+          <Stories includePrimary={false} />
         </>
       ),
      source: { code: null } ,

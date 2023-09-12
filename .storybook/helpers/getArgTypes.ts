@@ -197,17 +197,18 @@ export function getArgTypes(component, options = { variables: {}}) {
   })();
   const getSubcategory = (name) => {
     if ( name.match(/-border-/gm) ) {
-      return 'Borders'
+      return 'Borders';
     }
     if ( name.match(/(-padding-|-margin-|-gap)/gm) ) {
-      return 'Spacings'
+      return 'Spacings';
     }
     if ( name.match(/(-font|-letter-spacing)/gm) ) {
-      return 'Typography'
+      return 'Typography';
     }
     if ( name.match(/(-color|-background)/gm) ) {
-      return 'Colors'
+      return 'Colors';
     }
+    return 'Others';
   }
   const variables = (()=> {
     const options = getVariables([...cssRules]);
@@ -216,7 +217,7 @@ export function getArgTypes(component, options = { variables: {}}) {
         const subcategory = getSubcategory(name)
         return {
           ...object,
-          [name]: argTypesVariable({
+          [name.replace('--', '')]: argTypesVariable({
             subcategory,
             defaultValue
           }),
@@ -237,10 +238,23 @@ export function getArgTypes(component, options = { variables: {}}) {
     }
     return toReturn
   })()
+  const args = (() => {
+    const variablesDefaults = Object.keys(variables).reduce((object, variable) => (
+      {
+        ...object,
+        [variable]: variables[variable].table.defaultValue.summary
+      }
+    ), {});
+    return {
+      ...variablesDefaults,
+    }
+  })()
   return {
     props,
     slots,
     events,
+    variables,
     argTypes,
+    args,
   }
 }
