@@ -12,7 +12,9 @@ const config: StorybookConfig = {
       resolve: {
         alias: {
           '@': path.resolve(__dirname, '../src'),
-          '@sb': path.resolve(__dirname)
+          '@sb': path.resolve(__dirname),
+          '@index': path.resolve(__dirname, '../index.ts'),
+          '@infermedica/component-library': path.resolve(__dirname, '../index.ts'),
         }
       },
       plugins: [
@@ -47,6 +49,9 @@ const config: StorybookConfig = {
     '@storybook/addon-essentials',
     '@storybook/addon-a11y',
     '@storybook/addon-interactions',
+    {
+      name: '@storybook/addon-styling',
+    },
   ],
   framework: {
     name: '@storybook/vue3-vite',

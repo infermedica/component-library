@@ -188,11 +188,15 @@ module.exports = {
         map: [
           [
             '@sb',
-            './.storybook',
+            path.resolve(__dirname, '.storybook'),
           ],
           [
             '@',
             path.resolve(__dirname, 'src'),
+          ],
+          [
+            '@index',
+            path.resolve(__dirname, 'index.ts'),
           ],
         ],
         extensions: [

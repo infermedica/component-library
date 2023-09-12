@@ -1,6 +1,9 @@
 import type { Preview } from '@storybook/vue3';
+import React from 'react';
+import { Title, Subtitle, Description, Primary, Controls, Stories } from '@storybook/blocks';
 import { setup } from '@storybook/vue3';
 
+import { MetaActions } from '../docs/components/MetaActions';
 import { withArgs  } from './decorators';
 import './tailwindcss.css';
 import '@/styles/styles.scss';
@@ -127,6 +130,20 @@ const preview: Preview = {
       ]
     },
     chromatic: { disableSnapshot: true },
+    docs: {
+      page: () => (
+        <>
+          <Title />
+          <Subtitle />
+          <Description />
+          <MetaActions />
+          <Primary />
+          <Controls />
+          <Stories />
+        </>
+      ),
+     source: { code: null } ,
+    },
   },
   decorators: [
     withArgs,
