@@ -216,12 +216,12 @@ export const WithSingleChoice = {
   }),
 
   args: {
-    initModelValue: '',
+    initModelValue: {},
     hint: 'Select one answer.',
     items: [
       {
+        id: 'fatigue',
         label: 'Fatigue',
-        value: 'fatigue',
         translation: { info: 'How to check it?' },
         textLabelAttrs: { 'data-testid': 'label-text' },
         buttonInfoAttrs: { onClick: events.onClickInfoButton },
@@ -229,12 +229,12 @@ export const WithSingleChoice = {
         iconInfoAttrs: { 'data-testid': 'info-icon' },
       },
       {
+        id: 'fever',
         label: 'Fever',
-        value: 'fever',
       },
       {
+        id: 'illusion',
         label: 'Illusion of surrounding objects being bigger or smaller than they actually are',
-        value: 'illusion',
         translation: { info: 'What does it mean?' },
         textLabelAttrs: { 'data-testid': 'label-text' },
         buttonInfoAttrs: { onClick: events.onClickInfoButton },

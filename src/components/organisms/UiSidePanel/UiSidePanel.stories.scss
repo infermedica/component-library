@@ -9,3 +9,59 @@
     margin-block-start: var(--space-12);
   }
 }
+
+.side-panel-condition {
+  --side-panel-label-flex-direction: column-reverse;
+
+  &__byline {
+    display: flex;
+    gap: var(--space-12);
+    align-items: center;
+  }
+
+  &__progress {
+    --progress-indicator-background: var(--color-dataviz-sequential-strong);
+
+    width: 64px;
+  }
+
+  &__subtitle {
+    flex: 1;
+  }
+}
+
+.side-panel-patient-education {
+  &__byline {
+    display: flex;
+    gap: var(--space-12);
+    align-items: center;
+  }
+
+  &__progress {
+    --progress-indicator-background: var(--color-dataviz-sequential-strong);
+
+    width: 64px;
+  }
+
+  &__subtitle {
+    flex: 1;
+  }
+}
+
+.side-panel-mega-menu {
+  &__label {
+    --side-panel-label-flex-direction: row; --side-panel-label-gap: var(--space-12); align-items: flex-start
+  }
+
+  &__back {
+    margin-block: 3px 0;
+  }
+
+  &__label-content {
+    display:flex; flex-direction: column; gap: var(--space-4)
+  }
+
+  &__subtitle {
+    flex: 1;
+  }
+}

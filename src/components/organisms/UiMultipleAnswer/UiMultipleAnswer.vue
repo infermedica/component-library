@@ -86,7 +86,7 @@ import type {
   HTMLTag,
 } from '../../../types';
 
-export type MultipleAnswerModelValue = string | (string | Record<string, unknown>)[];
+export type MultipleAnswerModelValue = string | Record<string, unknown> | (string | Record<string, unknown>)[];
 export interface MultipleAnswerProps {
   /**
    *  Use this props or v-model to set checked.
