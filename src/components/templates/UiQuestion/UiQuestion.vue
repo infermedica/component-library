@@ -16,6 +16,22 @@
         {{ title }}
       </UiHeading>
     </slot>
+    <!-- @slot Use this slot to replace description template. -->
+    <slot
+      name="description"
+      v-bind="{
+        description,
+        headingDescriptionAttrs
+      }"
+    >
+      <UiText
+        v-if="description"
+        v-bind="headingDescriptionAttrs"
+        class="ui-question__description"
+      >
+        {{ description }}
+      </UiText>
+    </slot>
     <slot
       name="actions-top"
       v-bind="{
@@ -152,6 +168,8 @@ import type {
   NotificationProps,
   NotificationAttrsProps,
 } from '../../molecules/UiNotification/UiNotification.vue';
+import UiText from '../../atoms/UiText/UiText.vue';
+import type { TextAttrsProps } from '../../atoms/UiText/UiText.vue';
 import type { Icon } from '../../../types';
 
 export interface QuestionTranslationSetting<T> {
@@ -169,6 +187,10 @@ export interface QuestionProps {
    */
   title?: string;
   /**
+   * Use this props to set description title.
+   */
+  description?: string;
+  /**
    * Use this props to set valid state of the question.
    */
   translation?: QuestionTranslationSetting<string>;
@@ -180,6 +202,10 @@ export interface QuestionProps {
    * Use this props to pass attrs for title UiHeading
    */
   headingTitleAttrs?: HeadingAttrsProps;
+  /**
+   * Use this props to pass attrs for description UiText
+   */
+  headingDescriptionAttrs?: TextAttrsProps;
   /**
    * Use this props to pass attrs for info UiButton
    */
@@ -204,6 +230,7 @@ export interface QuestionProps {
 
 const props = withDefaults(defineProps<QuestionProps>(), {
   title: '',
+  description: '',
   translation: () => ({
     info: 'What does it mean?',
     why: 'Why am I being asked this?',
@@ -223,6 +250,7 @@ const props = withDefaults(defineProps<QuestionProps>(), {
     },
   }),
   headingTitleAttrs: () => ({}),
+  headingDescriptionAttrs: () => ({}),
   buttonInfoAttrs: () => ({}),
   iconInfoAttrs: () => ({ icon: 'info' }),
   buttonWhyAttrs: () => ({}),
@@ -288,6 +316,10 @@ const hasFeedback = computed(() => (
 .ui-question {
   $this: &;
   $element: question;
+
+  &__description {
+    @include mixins.use-logical($element + "-description", margin, var(--space-12) 0 0 0);
+  }
 
   &__actions-top {
     @include mixins.use-logical($element + "-actions-top", margin, var(--space-12) 0 0 0);
