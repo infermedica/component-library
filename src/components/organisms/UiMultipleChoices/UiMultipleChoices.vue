@@ -1,5 +1,5 @@
 <template>
-  <div class="ui-multiple-choices">
+  <div class="ui-multiple-choices ui-multiple-choices--column">
     <!-- @slot Use this slot to replace hint template. -->
     <slot
       name="hint"
@@ -137,6 +137,25 @@ const updateHandler = (newValue: MultipleChoicesModelValue, index: number) => {
 .ui-multiple-choices {
   $this: &;
   $element: multiple-choices;
+
+  &--column {
+    @include mixins.from-tablet {
+      --multiple-choices-tablet-hint-padding-block: 0 var(--space-12);
+      --multiple-choices-tablet-hint-padding-inline: var(--space-20);
+      --multiple-choices-item-tablet-content-padding-block: 0;
+      --multiple-choices-item-tablet-content-padding-inline: 0;
+      --multiple-choices-item-tablet-content-display: block;
+      --multiple-choices-item-tablet-content-hover-background: transparent;
+      --multiple-choices-item-tablet-header-margin-block: var(--space-20) 0;
+      --multiple-choices-item-tablet-header-padding-block: var(--space-12);
+      --multiple-choices-item-tablet-header-padding-inline: var(--space-20);
+      --multiple-choices-item-tablet-options-display: block;
+      --multiple-choices-item-tablet-option-width-block: 1px 0;
+      --multiple-choices-item-tablet-option-gap: var(--space-12);
+      --multiple-choices-item-tablet-option-content-padding-block: var(--space-12);
+      --multiple-choices-item-tablet-option-content-padding-inline: var(--space-20);
+    }
+  }
 
   &__hint {
     @include mixins.use-logical($element + "-hint", padding, 0 var(--space-20) var(--space-12));

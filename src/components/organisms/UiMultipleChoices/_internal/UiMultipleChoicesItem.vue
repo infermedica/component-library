@@ -318,6 +318,7 @@ const optionsToRender = computed(() => props.options.map((option) => ({
     }
 
     @include mixins.override-logical(list-item-content, $element + "-content", padding, 0);
+    @include mixins.override-logical(list-item-tablet-content, $element + "-tablet-content", padding, var(--space-12));
 
     --list-item-content-hover-background: #{functions.var($element + "-content-hover", background, transparent)};
 
@@ -326,7 +327,7 @@ const optionsToRender = computed(() => props.options.map((option) => ({
     @include mixins.from-tablet {
       --list-item-content-hover-background: #{functions.var($element + "-tablet-content-hover", background)};
 
-      display: flex;
+      display: functions.var($element + "-tablet-content", display, flex);
       gap: functions.var($element + "-tablet-content", gap, var(--space-24));
     }
   }
@@ -384,7 +385,7 @@ const optionsToRender = computed(() => props.options.map((option) => ({
     white-space: nowrap;
 
     @include mixins.from-tablet {
-      display: flex;
+      display: functions.var($element + "-tablet-options", display, flex);
       gap: functions.var($element + "-options", gap, var(--space-24));
     }
   }
