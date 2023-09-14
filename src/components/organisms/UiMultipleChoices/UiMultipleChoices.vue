@@ -1,5 +1,5 @@
 <template>
-  <div class="ui-multiple-choices ui-multiple-choices--column">
+  <div class="ui-multiple-choices">
     <!-- @slot Use this slot to replace hint template. -->
     <slot
       name="hint"
@@ -138,7 +138,7 @@ const updateHandler = (newValue: MultipleChoicesModelValue, index: number) => {
   $this: &;
   $element: multiple-choices;
 
-  &--column {
+  &--stacked {
     @include mixins.from-tablet {
       --multiple-choices-tablet-hint-padding-block: 0 var(--space-12);
       --multiple-choices-tablet-hint-padding-inline: var(--space-20);
