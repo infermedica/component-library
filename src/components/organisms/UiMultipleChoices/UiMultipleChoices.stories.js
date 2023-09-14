@@ -21,6 +21,7 @@ export default {
   component: UiMultipleChoices,
   args: {
     initModelValue: [],
+    modifiers: [],
     hint: 'Select one answer in each row',
     touched: false,
     initInvalid: true,
@@ -47,7 +48,6 @@ export default {
       },
     ],
     alertHintAttrs: { 'data-testid': 'alert-hint' },
-    modifiers: [],
   },
   argTypes: {
     initModelValue: {
@@ -61,6 +61,7 @@ export default {
       table: { category: 'stories controls' },
       control: 'boolean',
     },
+    modifiers: modifiers({ options: [ 'ui-multiple-choices--stacked' ] }),
     hint: {
       description: 'Use this props to set hint for question.',
       table: {
@@ -80,11 +81,6 @@ export default {
     modelValue: { control: false },
     invalid: { control: false },
     alertHintAttrs: { table: { subcategory: 'Attrs props' } },
-    modifiers: modifiers({
-      options: [
-        'ui-multiple-choices--stacked',
-      ]
-    })
   },
   parameters: {
     cssProperties: {

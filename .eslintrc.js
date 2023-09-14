@@ -188,7 +188,7 @@ module.exports = {
         map: [
           [
             '@sb',
-            './.storybook',
+            path.resolve(__dirname, '.storybook'),
           ],
           [
             '@',

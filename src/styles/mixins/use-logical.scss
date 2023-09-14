@@ -124,6 +124,7 @@
 ///   @include default(button, padding, var(--space-8));
 ///   // padding-block: var(--button-padding-block, var(--button-padding-block-start, var(--space-8)) var(--button-padding-block-end, var(--space-8)));
 ///   // padding-inline: var(--button-padding-inline, var(--button-padding-inline-start, var(--space-8)) var(--button-padding-inline-end, var(--space-8)));
+// fixme: handle border-width; -list-item-border-block-width: var(--multiple-choices-item-option-width-block, var(--multiple-choices-item-option-width-block-start, 1px) var(--multiple-choices-item-option-width-block-end, 0));
 @function css-property-to-property ($property) {
   @return functions.str-replace(
     nth(
