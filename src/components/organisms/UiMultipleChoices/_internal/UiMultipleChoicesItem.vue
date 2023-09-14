@@ -301,14 +301,10 @@ const optionsToRender = computed(() => props.options.map((option) => ({
   $this: &;
   $element: multiple-choices-item;
 
-  &:not(:first-of-type) {
-    @include mixins.override-logical(list-item, null, border-width, 0);
-  }
+  @include mixins.override-logical(list-item, null, border-width, 0);
 
   @include mixins.from-tablet {
-    &:not(:first-of-type) {
-      @include mixins.override-logical(list-item, $element, border-width);
-    }
+    @include mixins.override-logical(list-item, $element, border-width);
   }
 
   &__content {
@@ -321,27 +317,26 @@ const optionsToRender = computed(() => props.options.map((option) => ({
 
     --list-item-content-hover-background: #{functions.var($element + "-content-hover", background, transparent)};
 
-    display: block;
+    display: flex;
+    flex-direction: functions.var($element + "-content", flex-direction, column);
+    align-items: stretch;
+    gap: functions.var($element + "-content", gap, var(--space-12));
 
     @include mixins.from-tablet {
       --list-item-content-hover-background: #{functions.var($element + "-tablet-content-hover", background)};
 
-      display: flex;
+      flex-direction: functions.var($element + "-tablet-content", flex-direction, row);
       gap: functions.var($element + "-tablet-content", gap, var(--space-24));
     }
   }
 
   &__header {
-    @include mixins.use-logical($element + "-header", padding, var(--space-12) var(--space-20));
-    @include mixins.use-logical($element + "-header", margin, var(--space-20) 0 0 0);
 
     display: flex;
     justify-content: space-between;
     gap: functions.var($element + "-header", gap, var(--space-12));
 
     @include mixins.from-tablet {
-      @include mixins.use-logical($element + "-tablet-header", padding, 0);
-      @include mixins.use-logical($element + "-tablet-header", margin, 0);
 
       flex-direction: column;
       align-items: flex-start;
@@ -410,14 +405,14 @@ const optionsToRender = computed(() => props.options.map((option) => ({
   }
 
   &__option-content {
-    @include mixins.override-logical(list-item-content, $element + "-option-content", padding, var(--space-12) var(--space-20));
+    @include mixins.override-logical(list-item-content, $element + "-option-content", padding, var(--space-12));
     @include mixins.override-logical(list-item-tablet-content, $element + "-tablet-option-content", padding, 0);
 
     --list-item-content-hover-background: #{functions.var($element + "-content-hover", background)};
   }
 
   &__alert {
-    @include mixins.use-logical($element + "-alert", padding, var(--space-12) var(--space-20) 0);
+    @include mixins.use-logical($element + "-alert", padding, var(--space-12) 0 0);
 
     @include mixins.from-tablet {
       @include mixins.use-logical($element + "-tablet-alert", padding, 0);

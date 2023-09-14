@@ -22,6 +22,7 @@ export default {
   args: {
     items: [],
     title: 'Do you have a sore throat?',
+    description: 'Please select the region you live in and places you.ve traveled to in the last 2 months.',
     translation: {
       info: 'What does it mean?',
       why: 'Why am I being asked this?',
@@ -133,6 +134,7 @@ export const AsMultipleAnswer = {
     },
     template: `<UiQuestion
       :title="title"
+      :description="description"
       :translation="translation"
       :settings="settings"
       :heading-title-attrs="headingTitleAttrs"
