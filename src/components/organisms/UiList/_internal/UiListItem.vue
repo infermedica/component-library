@@ -129,7 +129,7 @@ const defaultProps = computed<ListItemProps>(() => ({
   }
 
   &__content {
-    @include mixins.use-logical($element + "-content", padding, var(--space-12) var(--space-20));
+    @include mixins.use-logical($element + "-content", padding, var(--space-12));
 
     display: flex;
     flex: 1;
