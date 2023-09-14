@@ -307,15 +307,6 @@ const optionsToRender = computed(() => props.options.map((option) => ({
     @include mixins.override-logical(list-item, $element, border-width);
   }
 
-  &:first-of-type {
-    @include mixins.to-mobile {
-      #{$this}__header {
-        @include mixins.use-logical($element + "-first-header", padding, 0 0 var(--space-12));
-        @include mixins.use-logical($element + "-first-header", margin, 0);
-      }
-    }
-  }
-
   &__content {
     @at-root fieldset#{&} {
       border: none;
@@ -326,39 +317,30 @@ const optionsToRender = computed(() => props.options.map((option) => ({
 
     --list-item-content-hover-background: #{functions.var($element + "-content-hover", background, transparent)};
 
-    display: block;
+    display: flex;
+    flex-direction: functions.var($element + "-content", flex-direction, column);
+    align-items: stretch;
+    gap: functions.var($element + "-content", gap, var(--space-12));
 
     @include mixins.from-tablet {
       --list-item-content-hover-background: #{functions.var($element + "-tablet-content-hover", background)};
 
-      display: flex;
+      flex-direction: functions.var($element + "-tablet-content", flex-direction, row);
       gap: functions.var($element + "-tablet-content", gap, var(--space-24));
     }
   }
 
   &__header {
-    @include mixins.use-logical($element + "-header", padding, var(--space-12) 0);
-    @include mixins.use-logical($element + "-header", margin, var(--space-20) 0 0 0);
 
     display: flex;
     justify-content: space-between;
     gap: functions.var($element + "-header", gap, var(--space-12));
 
     @include mixins.from-tablet {
-      @include mixins.use-logical($element + "-tablet-header", padding, 0);
-      @include mixins.use-logical($element + "-tablet-header", margin, 0);
 
       flex-direction: column;
       align-items: flex-start;
       gap: functions.var($element + "-tablet-header", gap, var(--space-8));
-    }
-  }
-
-  &__label {
-    font: functions.var($element + "-label", font, var(--font-body-1-thick));
-
-    @include mixins.from-tablet {
-      font: functions.var($element + "-tablet-label", font, var(--font-body-1));
     }
   }
 

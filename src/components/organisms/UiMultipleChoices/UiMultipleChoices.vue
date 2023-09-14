@@ -140,9 +140,15 @@ const updateHandler = (newValue: MultipleChoicesModelValue, index: number) => {
 
   &__hint {
     @include mixins.use-logical($element + "-hint", padding, 0 0 var(--space-12));
+  }
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: functions.var($element + "-items", gap, var(--space-32));
 
     @include mixins.from-tablet {
-      @include mixins.use-logical($element + "-tablet-hint", padding, 0 0 var(--space-12) 0);
+      gap: functions.var($element + "-tablet-items", gap, 0);
     }
   }
 }
