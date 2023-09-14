@@ -65,7 +65,7 @@ const props = withDefaults(defineProps<ButtonProps>(), {
 });
 const defaultProps = computed(() => ({
   loaderAttrs: {
-    type: 'ellipsis',
+    type: 'ellipsis' as const,
     'transition-type': 'opacity',
     ...props.loaderAttrs,
   },
