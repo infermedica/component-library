@@ -5,24 +5,22 @@ import { PageOutline } from '../../components/PageOutline';
 <Meta title="Getting Started/Development Guide/Installation"/>
 
 # Installation
-Infermedica Component Library provides a beautiful, configurable and accessible library of basic and advanced components for faster system design and application development.
-Below you can read how you can add it to your project.
+The Infermedica Component Library provides a beautiful, configurable, and accessible library of basic and advanced components for faster system design and application development.
+Below you'll find the information you need to add it to your project.
 
 <PageOutline/>
 
 ## How to install
-You can create a new project or integrate Infermedica Component Library into an existing application. The installation process is mostly
-the same for both cases. Choose the installation that best suits to your project.
+You can create a new project or integrate the Infermedica Component Library into an existing application. The installation process is largely the same for both cases. Choose the installation that best suits your project.
 
 ```bash
 pnpm add @infermedica/component-library
 ```
 
 ## Usage default styles
-Infermedica Component Library is a highly configurable UI components library. To configure components to your needs, you can use a lot of global
-CSS variables and adjust styles to your requirements. More details you can find in <a href="/docs/getting-started-development-guide-theme-configuration--page">Theme Configuration</a> guideline.
+The Infermedica Component Library is a highly configurable UI components library. To configure components to your needs, you can use a wide variety of global CSS variables and adjust their styles to your requirements. More details are provided in the <a href="/docs/getting-started-development-guide-theme-configuration--page">Theme Configuration</a> guidelines.
 
-We provide our default design if you want use it inside your project, you need to import them into the `main.js` file.
+We provide our default designs. If you'd like to use them for your project, you need to import them into the `main.js` file.
 
 ```js
 import '@infermedica/component-library/styles/styles.scss'
@@ -31,17 +29,17 @@ import '@infermedica/component-library/styles/styles.scss'
 ## Project config and loaders
 
 ### SVG Loader
-To load SVG files for UiIcon component we use custom loader for that.
+We use a custom loader to load SVG files for the UiIcon component.
 
 #### Webpack
-For Webpack use [vue-svg-loader](https://www.npmjs.com/package/vue-svg-loader).
-For Vue 3 you should use next version of vue-svg-loader
+For Webpack, use the [vue-svg-loader](https://www.npmjs.com/package/vue-svg-loader).
+For Vue 3, you should use the latest version of vue-svg-loader.
 
 ```bash
 pnpm i vue-svg-loader@next
 ````
 
-To use `vue-svg-loader` you should add it to webpack config. e.g. for vue-cli project.
+To use the `vue-svg-loader`, you should add it to the webpack config. e.g. for vue-cli project.
 
 ```js
 // vue.config.js
@@ -76,13 +74,13 @@ module.exports = {
 ```
 
 ### Vite
-For Vite use [vite-svg-loader](https://www.npmjs.com/package/vite-svg-loader).
+For Vite, use the [vite-svg-loader](https://www.npmjs.com/package/vite-svg-loader).
 
 ```bash
 pnpm i vite-svg-loader@next
 ````
 
-To use `vite-svg-loader` you should add it to vite config. e.g.
+To use the `vite-svg-loader`, you should add it to the vite config. e.g.
 
 ```js
 // vite.config.loader
@@ -103,7 +101,7 @@ export default defineConfig({
 ```
 
 ## Usage components in SFC
-You can directly import components from the Infermedica Component Library and use them in a template.
+You can also directly import components from the Infermedica Component Library and use them in a template.
 
 ### Script syntax
 
@@ -136,8 +134,8 @@ export default {
 ```
 
 ### Internal components
-Some components like UiBulletPoints, UiTabs, etc. use `_internal` items component e.g. `UiBulletPoints` use `UiBulletPointsItem`.
-To use it in template you should import it with fully path. e.g.
+Some components - like UiBulletPoints, UiTabs, etc. - use the `_internal` items component e.g. `UiBulletPoints` use `UiBulletPointsItem`.
+To use this in a template, you should import it using the full path. e.g.
 
 ```html
 <template>
@@ -152,7 +150,7 @@ To use it in template you should import it with fully path. e.g.
 </script>
 ```
 
-You can use custom export and skip `src/components` from import.
+You can use a custom export and skip `src/components` from import.
 
 ```html
 <script setup>
@@ -160,4 +158,4 @@ You can use custom export and skip `src/components` from import.
 </script>
 ```
 
-For common cases you should use `items` props from mentioned components.
+For common cases, you should use the `items` props from the mentioned components.
