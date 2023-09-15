@@ -7,21 +7,21 @@ import { PageOutline } from '../../components/PageOutline';
 
 # Code Guidelines
 The Infermedica Component Library development team has rules to keep the code clean and easy to understand - for all team members.
-These rules ensure that the code can be read and improved by a developer other than its original author. Following these rules
-will help maintain readability, changeability, extensibility and maintainability. You can read these rules below
+These rules ensure that the code can be read and improved by any developer, not just its original author. Following these rules
+will help maintain readability, changeability, extensibility, and maintainability. The rules are outlined below
 
 <PageOutline/>
 
 ## Components rules
 ### Naming
-New component name should be simple to use and be understandable by everyone. Use **Pascal Case** and **prefix** `Ui` for component to avoid naming collision.
+New component names should be simple to use and understandable for everyone. Use **Pascal Case** and the **prefix** `Ui` for components to avoid naming collisions.
 ```
 Ui<ComponentName>
 ```
 
 ### Files structure
-We want to follow [atomic design](https://atomicdesign.bradfrost.com/chapter-2/) methodology. Components are divided into three
-levels depending on their complexity (`atoms`, `molecules`, or `organisms`). File structure should look like below.
+We want to follow [atomic design](https://atomicdesign.bradfrost.com/chapter-2/) methodology. Our components are divided into three
+levels, determined by their complexity (`atoms`, `molecules`, or `organisms`). The file structure should resemble the one below.
 ```
 ./<atoms | molecules | organisms>
   |__Ui<ComponentName>
@@ -29,34 +29,34 @@ levels depending on their complexity (`atoms`, `molecules`, or `organisms`). Fil
     |__Ui<ComponentName>.spec.js
     |__Ui<ComponentName>.stories.js
 ```
-- `*.vue` - Vue.js component file. In this file you can find `template`, `script`, `styles` by scss.
-- `*.spec.js` - Vitest test file. By default you can find `render test` on it.
-- `*.stories.js` - Storybook stories file. By default you can find `common` stories. Read more about [Storybook](https://storybook.js.org/).
+- `*.vue` - Vue.js component file. In this file you'll find `template`, `script`, `styles` by scss.
+- `*.spec.js` - Vitest test file. By default, you can find `render test` here.
+- `*.stories.js` - Storybook stories file. By default, you can find `common` stories here. Read more about [Storybook](https://storybook.js.org/).
 
 ### Creating
 If you want to create a new component, please follow these steps:
-- use script `create:component` - to create new component directory in `src/components/{level}`.
+- use script `create:component` - to create a new component directory in `src/components/{level}`.
 ```bash
 npm run create:component
 ```
-- choose one of the three component level (`atoms`, `molecules` or `organisms`).
-- enter the name of new component - <a href="#naming">naming rules</a>
+- choose one of the three component levels (`atoms`, `molecules`, or `organisms`).
+- enter the name of the new component - <a href="#naming">naming rules</a>
 
 ## CSS
 ### Naming rules
-We want to follow [BEM](http://getbem.com/introduction/) methodology for naming SCSS modifiers and CSS classes.
+We want to follow the [BEM](http://getbem.com/introduction/) methodology when naming SCSS modifiers and CSS classes.
 ```
- <block>__<element>--<modifiers>
+ <block>__<element>--<modifier>
 ```
-More details you can find in [Theme Configuration](/docs/getting-started-development-guide-theme-configuration--page) guideline.
+More details can be found in the [Theme Configuration](/docs/getting-started-development-guide-theme-configuration--page) guidelines.
 
 ## Template Rules
-- use semantic HTML for example `<a/>` for elements which change the route and `<button/>` for actions.
+- use semantic HTML, for example `<a/>`, for elements which change the route and `<button/>` for actions.
 - use `slots` and `props` for content:
     - `props` should be used only for common case
-    - **DO NOT** use `props` for properties that can be set by css
-    - provide a slot's to allow template replacement
-    - name slots with BEM
+    - **DO NOT** use `props` for properties that can be set using css
+    - provide slots to allow for template replacement
+    - name slots using BEM
     - bind data to slots with `v-bind`
 ``` html
 <slot name="header">
@@ -69,42 +69,42 @@ More details you can find in [Theme Configuration](/docs/getting-started-develop
 ```
 
 ## Deprecation guidelines
-We are trying to keep the code clean and easy to understand. Sometimes this leads to changes to the APIs. To avoid breaking changes and make migration process easier,
-we are support deprecation to next major version and adding information about deprecations to console log.
+We are trying to keep the code clean and easy to understand. Sometimes this leads to changes in the APIs. To avoid breaking changes and make the migration process easier,
+we support deprecation from one major version to the next and add information about deprecations to the console log.
 
 **Deprecation process:**
-* Add note next to deprecated APIs `@deprecated will be removed in 0.4.0 use ... instead`
-* Add note next to deprecated code that should be removed
+* Add a note next to deprecated APIs stating `@deprecated will be removed in 0.4.0 use ... instead`
+* Add a note next to any deprecated code that should be removed
 
 ```js
 // TODO: will be removed in 0.4.0 / BEGIN
 <code/>
 // END
 
-As you can see, we are using `console.warn` only when deprecated API is used.
+As you can see, we are using `console.warn` only when a deprecated API is used.
 
 ### Exceptions
-In some case we need deprecated APIs in next major version. In this case we will add information to Migration Guide and throw error if deprecated API is used (for all environments).
+In some cases, we need deprecated APIs in the next major version. If this is the case, we will add information about this to Migration Guide and throw an error if a deprecated API is used (in any environment).
 
 ```js
 //TODO: remove in 0.6.0 / BEGIN
 const { checkbutton } = slots;
 if (checkbutton) {
-  throw new Error('[@infermedica/component-library error]: The `checkbotton` slot is deprecated and removed. Please use `checkbox` slot instead.');
+  throw new Error('[@infermedica/component-library error]: The `checkbotton` slot has been deprecated and removed. Please use the `checkbox` slot instead.');
 }
 //END
 ```
 
 ## Unit tests
 Unit tests allow you to test individual units of code in isolation. The purpose of unit testing is to provide developers with confidence in their code. By writing thorough,
-meaningful tests, you achieve the confidence that as new features are built or your code is refactored your application will remain functional and stable.
+meaningful tests, you achieve the confidence that as new features are built or your code is refactored, your application will remain functional and stable.
 
-We should test the output of the components, not his internal parts. Minimum set of test should be contained components: external API (`props`, `slots`, `emits` and `$events`),
-internal API (`methods`). For example, you should check if emit was called, or if the class was added to the element. If you want to test some element, you should get it by
-adding attribute `data-testid` to him.
+We should test the output of the components, not the internal parts. The minimum set of tests should include the contained components: external API (`props`, `slots`, `emits` and `$events`), and the
+internal API (`methods`). For example, you should check whether emit was called or if the class was added to the element. If you want to test an element, you should do so by
+adding the attribute `data-testid` to that element.
 
 ## Stories for Storybook
 [Storybook](https://storybook.js.org/) makes development faster and easier by isolating components. This allows you to work on one component at a time. When creating stories, we should:
-- make sure everything is working fine. All component functionality should be supported. For example, we can close and open modal component.
+- make sure everything is working fine. All component functionality should be supported. For example, we can close and open the modal component.
 - add examples of how to use each slot in a component
-- add examples when a component differs significantly in some cases
+- add examples of when a component would differ significantly in certain cases
