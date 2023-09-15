@@ -5,16 +5,16 @@ import { PageOutline } from '../../components/PageOutline';
 
 # Template Configuration
 
-Infermedica Component Library is a highly configurable UI components library.
-You can adjust default style of the components to your design but it is not enough.
-Below you can read about props and how you can configure template of components.
+The Infermedica Component Library is a highly configurable UI components library.
+You can adjust the default style of the components to your design but that may not enough.
+Below you'll find information about props and how you can configure the template of a component.
 
 <PageOutline/>
 
 ## Props
-Prop allows to configure component behavior and put some data to it. Generally, props are used to set component behavior, translations, and attributes for nested components (in Molecules and Organisms).
-For content in Atoms we used slots. For example, `UiButton` hasn't content props, but it uses `default` slot to set content. More complex components allow setting content by using props like `title`, `description`, etc.
-All props you can find on the component docs page. Each component export type for his props. You can easily import this types by adding Props suffix to the component name. For example `UiButton` component:
+Props allows you to configure component behavior and assign some data to it. Generally, props is used to set component behavior, translations, and attributes when working with nested components (in Molecules and Organisms).
+For content in Atoms, we use slots. For example, `UiButton` doesn't have any content props but instead uses a `default` slot to set content. More complex components allow you to set content by using props like `title`, `description`, etc.
+You can find all of the props on the component docs page. Each component has an export type for their props. You can easily import this type by adding the Props suffix to the component name. For example, when importing the `UiButton` component, you'd type:
 
 ```js
 import type { ButtonProps } from "@infermedica/component-library";
@@ -22,10 +22,10 @@ import type { ButtonProps } from "@infermedica/component-library";
 
 
 ## Attrs props
-Nested components can be setup by using `Attrs` props i.e. you can pass props to UiButton, UiText etc. inside more complex components. Each components exports types for fallthrough attributes as well. You can import them
-by adding AttrsProps prefix to the component name.
+Nested components can be set up by using `Attrs` props i.e. you can pass props to UiButton, UiText etc. inside of the more complex components. Each component exports a type for fallthrough attributes as well. You can import them
+by adding the AttrsProps prefix to the component name.
 
-For example from `UiNumberStepper` component:
+For example, from the `UiNumberStepper` component:
 
 ```html
 <template>
@@ -37,7 +37,7 @@ For example from `UiNumberStepper` component:
 </template>
 ```
 
-You can pass props, `html` attributes and events e.g.
+You can pass props, `html` attributes, and events e.g.
 ```js
 import type { ButtonAttrsProps } from "@infermedica/component-library";
 
@@ -51,7 +51,7 @@ const buttonDecrementAttrs: <ButtonAttrsProps> = {
 ```
 
 When changing the default tag of a component, it may also be necessary to change the type of the attributes. By adding the correct argument for the generic type, you can ensure that the attributes
-passed to the component are valid and have the expected types. Provided default value is `HTMLAttributes`.
+passed to the component are valid and have the expected types. The default value provided is `HTMLAttributes`.
 ```js
 import type { AnchorHTMLAttributes } from 'vue';
 import type { ButtonAttrsProps } from "@infermedica/component-library";
@@ -67,14 +67,14 @@ const buttonDecrementAttrs: <ButtonAttrsProps<AnchorHTMLAttributes>> = {
 }
 ```
 
-Our implementation of Attrs props allows you to change "default" values of nested components i.e. You can change heading level by props or change the default icon without changing the template by using slot.
+Our implementation of Attrs props allows you to change the "default" values of nested components i.e. You can change the heading level by using props or change the default icon without changing the template by using a slot.
 
-Generally the name this props we used `<name-of-component-without-prefix><element-name>Attrs` e.g. `closeButtonAttrs` or `decrementButtonAttrs`.
-Please don't use generic names even if it is only one element in the component e.g. `iconAttrs` is not a good name, use `iconRemoveAttrs` instead.
+Generally to name this props, we used `<name-of-component-without-prefix><element-name>Attrs` e.g. `closeButtonAttrs` or `decrementButtonAttrs`.
+Please don't use generic names even if it is only one element in the component. E.g. `iconAttrs` is not a good name; `iconRemoveAttrs` should be used instead.
 
 
 ## Translation props
-More complex components like `UiDatepicker` contain some labels like `day`, `month`, `year`, etc. To set these labels we use `translation` props. Generally, this prop is an object with keys and values. e.g.
+More complex components like `UiDatepicker` contain some labels like `day`, `month`, `year`, etc. To set these labels, we use `translation` props. Generally, this props is an object with keys and values. e.g.
 
 ```js
 const translation = {
@@ -90,12 +90,12 @@ const translation = {
 }
 ```
 
-All possible translations keys you can find on the component docs page as the default value of props. By default, components provide labels in English.
+All of the possible translations keys are on the component docs page as the default value of props. By default, the labels provided by components are in English.
 
 ## Slots
-Slots is a way to handle whole edge cases that a user would like cover well. Slots are especially useful for markup changes.
-Every component in Infermedica Component Library has a slots. To name it we use BEM convention e.g `<UiButton class="ui-range__decrement"...` is placed in `decrement` slot
-Each of elements is wrapped into a Vue slot to let you replace parts or HTML markup.
+Slots is a way to handle whole edge cases that a user would like to cover well. Slots are especially useful for markup changes.
+Every component in the Infermedica Component Library has a slot. When naming them, we use the BEM convention e.g `<UiButton class="ui-range__decrement"...` is placed in the `decrement` slot
+Each of the elements is wrapped into a Vue slot to let you replace parts or use HTML markup.
 
 ```html
 <UiCheckbox>
@@ -106,8 +106,8 @@ Each of elements is wrapped into a Vue slot to let you replace parts or HTML mar
 ```
 
 ### Data binding
-We are binding all required data (mostly data from default template) to the slot. List of bound data is in code of stories with name `With ... Slot`.
-Below you can find examples of binding data to `checkbutton` slot in `UiCheckbox`.
+We bind all of the required data (mostly the data from the default template) to the slot. The list of bound data is in the code of the stories that are named `With ... Slot`.
+Below you can find an example of the data bound to the `checkbutton` slot in `UiCheckbox`.
 
 ```html
 <UiCheckbox>
@@ -122,10 +122,10 @@ Below you can find examples of binding data to `checkbutton` slot in `UiCheckbox
 </UiCheckbox>
 ```
 
-The same way you can configure any components in Infermedica Component Library Kit.
+This is the same way that you can configure any components in Infermedica's Component Library Kit.
 
 ### Internal components
-Some components like `UiAccordion`, `UiMegaMenu`, `UiDropdown`, etc. have internal components. e.g. `UiDropdown` use `UiDropdownItem` to work like select.
+Some components - like `UiAccordion`, `UiMegaMenu`, `UiDropdown`, etc. - have internal components. E.g. `UiDropdown` uses `UiDropdownItem` and works like select.
 ```html
 <UiDropdown
   v-model="someValue"
@@ -141,18 +141,18 @@ Some components like `UiAccordion`, `UiMegaMenu`, `UiDropdown`, etc. have intern
   </template>
 </UiDropdown>
 ```
-In this cases we use `provide/inject` to "connect" `UiDropdown` component with `UiDropdownItem` component and use `v-model` to set value
+In these cases, we use `provide/inject` to "connect" the `UiDropdown` component with the `UiDropdownItem` component and use `v-model` to set the value
 
 {/* fixme: allow to use internal components in the easiest way */}
-Unfortunately to use internal components like `UiDropdownItem` you must import it directly from package.
+Unfortunately to use internal components like `UiDropdownItem`, you must import them directly from the package.
 ```js
 import { UiDropdownItem } from '@infermedica/component-library';
 import UiDropdownItem from '@infermedica/component-library/src/components/molecules/UiDropdown/_internal/UiDropdownItem.vue';
 ```
 
 ## Proxy components
-In some case when you add custom template to component or override styles you may need a proxy component.
-Proxy component it's a wrapper for Infermedica Component Library with some changes or improvements. e.g.
+In some cases, when you add a custom template to a component or override styles, you may need a proxy component.
+A proxy component is a wrapper for the Infermedica Component Library that has some changes or improvements. e.g.
 
 ```html
 <template>
@@ -182,12 +182,10 @@ defineProps({
 ```
 
 ### Props
-When component from library is root of proxy component you can use it props directly. In case when library component is deeper
-than you can use Attrs props pattern and add props to allow to pass data to it.
+When a component from the library is a root of the proxy component, you can use it's props directly. In cases where the library component is deeper, you can use the Attrs props pattern and add props to allow data to be passed to it.
 
 ### Slots
-When you create Proxy component probably you want to use library component with slots. Unfortunately it wasn't work out of the box.
-No worry. We have a solution for this issue.
+When you create a proxy component, you'll probably want to use the library component with slots. Unfortunately, this won't work right out of the box. But don't worry. We have a solution.
 
 ```html
 <template>
@@ -214,4 +212,4 @@ No worry. We have a solution for this issue.
 </template>
 ```
 
-As you see, you can use all `UiCard` slots and override `details` slot with custom content.
+As you can see, you can use all of the `UiCard` slots and override the `details` slot with custom content.
