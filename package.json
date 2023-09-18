@@ -83,6 +83,7 @@
     "@storybook/components": "7.0.26",
     "@storybook/design-system": "^7.15.12",
     "@storybook/global": "^5.0.0",
+    "@storybook/preview-api": "^7.4.2",
     "@storybook/theming": "7.0.26",
     "@storybook/vue3": "7.0.26",
     "@storybook/vue3-vite": "7.0.26",
@@ -129,5 +130,9 @@
     "vue-docgen-api": "^4.60.0",
     "vue-loader": "^17.0.1",
     "vue-tsc": "^1.8.8"
+  },
+  "storybook": {
+    "title": "Infermedica Component Library",
+    "url": "https://component.infermedica.com/"
   }
 }

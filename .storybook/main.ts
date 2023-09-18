@@ -62,6 +62,11 @@ const config: StorybookConfig = {
   },
   docs: {
     autodocs: true
+  },
+  refs: {
+    '@storybook/design-system': {
+      disable: true
+    }
   }
 };
 

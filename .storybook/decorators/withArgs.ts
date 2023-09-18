@@ -1,4 +1,5 @@
 export  const withArgs = ( story, { args, id } ) => ({
+  inheritAttrs: false,
   components: { story },
   setup() {
     return {

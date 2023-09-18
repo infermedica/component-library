@@ -40,22 +40,29 @@ export function getArgTypes(component, options = { variables: {}}) {
 
     return name
   }
-  const getTable = (name) => {
+  const getTable = (name, defaultValue) => {
+    const { value } = defaultValue
     if (name.match(/(Attrs)$/gm)) {
       return {
+        defaultValue: {
+          // summary: value,
+        },
         category: 'Attrs Props'
       }
     }
     return {
+      defaultValue: {
+        // summary: value,
+      },
       category: 'props'
     }
   }
   const props = (()=> {
     return __docgenInfo?.props
       ?.reduce(
-        (object, { name, type, description }) => {
+        (object, { name, type, description, defaultValue }) => {
           const control = getControl(type)
-          const table = getTable(name);
+          const table = getTable(name, defaultValue);
           return {
             ...object,
             [name]: {
@@ -239,13 +246,24 @@ export function getArgTypes(component, options = { variables: {}}) {
     return toReturn
   })()
   const args = (() => {
-    const variablesDefaults = Object.keys(variables).reduce((object, variable) => (
+    const variablesDefaults = variables
+      ? Object.keys(variables).reduce((object, variable) => (
       {
         ...object,
         [variable]: variables[variable].table.defaultValue.summary
       }
-    ), {});
+    ), {})
+      : {};
+    const propsDefaults = props
+      ? Object.keys(props).reduce((object, prop) => (
+      {
+        ...object,
+        [prop]: props[prop].table.defaultValue.summary
+      }
+    ), {})
+      : {};
     return {
+      ...propsDefaults,
       ...variablesDefaults,
     }
   })()
