@@ -6,13 +6,13 @@ import { Code } from '../../components/Code';
 <Meta title="Getting Started/Development Guide/Working with breakpoints"/>
 
 # Working with breakpoints
-We want to make sure that our components work well on all devices. Than we use breakpoints to make sure that our components are responsive.
-Infermedica Component Library has a predefined breakpoints but it is possible to define your own breakpoints.
+If we want our components to work well on all types of devices then we use breakpoints to make sure that all of our components are responsive.
+The Infermedica Component Library has predefined breakpoints but it's also possible to define your own breakpoints.
 
 <PageOutline/>
 
 ## Predefined breakpoints
-Predefined breakpoints in Infermedica Component Library are:
+The predefined breakpoints found in Infermedica's Component Library are:
 
 <Code code={`$mobile-max-width: 767px !default;
 $tablet-min-width: 768px !default;
@@ -22,14 +22,14 @@ $desktop-min-width: 992px !default;
 
 <Alert>
   <p>Predefined breakpoints are stored in <code>src/styles/variables/breakpoints.scss</code>.
-  They are probably the only ones sass variables in our project because we can use CSS Custom Properties in media queries.</p>
+  They are probably the only SASS variables in our project because we tend to use CSS custom properties in media queries.</p>
 </Alert>
 
 ## How to change breakpoints
-Predefined breakpoints has `!default` flag. It means you can use your own breakpoints.
+A predefined breakpoint will have a `!default` flag. This means that you can use your own breakpoints instead, if so desired.
 
 ### sass-loader
-To define your own breakpoints you need to use on of sass-loader option. `additionalData` allow to add custom data before the actual entry file.
+To define your own breakpoints, you'll need to use one of several SASS-loader options. `additionalData` allows you to add custom data before the actual entry file.
 
 #### Webpack
 ```js
@@ -45,7 +45,7 @@ module.exports = {
 }
 ```
 
-Alternatively you can use [string-replace-loader](https://www.npmjs.com/package/string-replace-loader) to replace import.
+Alternatively, you can use [string-replace-loader](https://www.npmjs.com/package/string-replace-loader) to replace import.
 
 ```js
 //vue.config.js
@@ -82,7 +82,7 @@ export default defineConfig({
 ```
 
 ## Mixins
-To use breakpoints you can use the following mixins:
+To use breakpoints, use the following mixins:
 
 <Code code={`@mixin from($width) {
   @media (min-width: $width) {
@@ -116,15 +116,15 @@ To use breakpoints you can use the following mixins:
 }
 `}/>
 
-To use breakpoints mixins you should import them in your stylesheet:
+To use breakpoint mixins, import them in your stylesheet:
 
 <Code code={`@use "@symptom-checker/ui-kit/mixins/breakpoints.scss";`}/>
 
 ## SASS variables with JavaScript code
-A huge problem in breakpoints is a possibility of using SASS variables in JavaScript code.
-It's important to keep consistency between SASS and JavaScript breakpoints.
+A huge problem with breakpoints is the possibility of using SASS variables in JavaScript code.
+It's important to keep SASS and JavaScript breakpoints consistent.
 
-In Infermedica Component Library we solve this problem and export breakpoints and media queries. i.e.
+With Infermedica Component Library, we solve this problem by exporting breakpoints and media queries. i.e.
 
 ```js
 import breakpoints from "@symptom-checker/ui-kit/breakpoints";
@@ -148,7 +148,7 @@ fromDesktop: '(min-width: #{$desktop-min-width})';`} />
 Special thanks to @Matteo Fogli and his article [How to share SASS variables with JavaScript code in VueJS](https://dev.to/pecus/how-to-share-sass-variables-with-javascript-code-in-vuejs-55p3).
 
 ### Troubleshooting
-SASS variables with JavaScript code use CSS modules and it can be a problem. To solve it you can use fallowing code:
+SASS variables with JavaScript code use CSS modules. This can be a problem. To solve it, you can use the following code:
 
 ```js
 //vue.config.js
