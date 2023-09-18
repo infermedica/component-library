@@ -6,24 +6,24 @@ import { Code } from '../../components/Code';
 
 # Theme Configuration
 
-Infermedica Component Library is a highly configurable UI components library. We provide our default design system that will allow adjusting to almost every design.
-To configure Infermedica Component Library to your needs, you can use a lot of CSS variables and adjust styles to your requirements.
-Below you can read how you can configure different aspects of its styles and components.
+The Infermedica Component Library is a highly configurable UI components library. We provide our default design system, which allows almost every design to be adjusted.
+To configure the Infermedica Component Library to your needs, you can use a lot of CSS variables and adjust the styles to your requirements.
+Below you'll find information about how to configure the different aspects of the styles and components.
 
 <PageOutline/>
 
-## CSS Custom Properties (--*): CSS variables
-CSS Custom properties or CSS variables allow creating custom properties to contain a value that can be used in other declarations using the `var()`.
-CSS Variables is similar to SASS and LESS variables but it's a native CSS feature. It doesn't need to be compiled like SASS or LESS.
-It can be overridden by inline styles and js part. e.g. We can calculate some values in the `computed` function and use them in inline styles.
+## CSS custom properties (--*): CSS variables
+CSS custom properties (also called CSS variables) allows for the creation of custom properties that contain a value that can be used in other declarations by using `var()`.
+CSS variables is similar to SASS and LESS variables but it's a native CSS feature. It doesn't need to be compiled like SASS or LESS.
+It can also be overridden by inline styles and js part. E.g. we can calculate some values in the `computed` function and then use them in inline styles.
 
 ##  Configuring the CSS
 CSS is a powerful tool to configure the look and feel of your project. It usually covers things like colors, fonts, and other visual elements.
-Infermedica Component Library uses a few levels to configure the CSS of your project.
+The Infermedica Component Library uses a few different levels to configure the CSS of your project.
 
 ### Global custom properties
-Global variables representing project style guide. They base on the Figma project where we keep Style Library with tokens for color, font, font styles, space, border-radius and more.
-Our tokens used `html` scope to setup default values e.g.
+Global variables represent the project's style guide. They are based on the Figma project where we keep our Style Library, with tokens for color, font, font styles, space, border-radius and more.
+Our tokens use the `html` scope to set up the default values e.g.
 
 <Code code={`html {
   --space-2: 0.125rem;
@@ -33,7 +33,7 @@ Our tokens used `html` scope to setup default values e.g.
   --border-radius-form: 5px;
 }`}/>
 
-`html` has lower priority than `:root` scope. So, you can override the default values by adding your own custom properties to `:root` scope e.g.
+`html` has lower priority than the `:root` scope so you can override the default values by adding your own custom properties to the `:root` scope e.g.
 
 <Code code={`:root {
   --border-radius-container: 0;
@@ -41,7 +41,7 @@ Our tokens used `html` scope to setup default values e.g.
   --border-radius-form: 0;
 }`}/>
 
-RTL is supported by adding `:root` scope with `dir: rtl` property e.g.
+RTL is supported by adding the `:root` scope using the `dir: rtl` property e.g.
 
 <Code code={`:root {
   --font-family-heading: "Roboto", sans-serif;
@@ -53,10 +53,10 @@ RTL is supported by adding `:root` scope with `dir: rtl` property e.g.
 }`}/>
 
 ### Themes
-For styles like `secondary` or `brand` we use themes from BEM convention. Theme is a type of modifiers with have a `-theme-` in name. e.b.
+For styles like `secondary` or `brand`, we use themes that follow the BEM convention. A theme is a type of modifier that has `-theme-` in the name. e.g.
 `ui-button--theme-secondary`.
 
-To set styles for theme, we override the values of default variables using in component. e.g.
+To set a style for the theme, we override the values of the default variables used in the component. e.g.
 
 <Code code={`.ui-button {
   @at-root [class*="-secondary"] {
@@ -72,13 +72,13 @@ To set styles for theme, we override the values of default variables using in co
   }
 }`}/>
 
-The selector used allows to set theme in component. e.g.
+Using the selector allows users to set a theme for the component. e.g.
 
 ```html
  <UiButton class="ui-button--theme-secondary">Label</UiButton>
 ```
 
-or do a scope where all `UiButtons` will be affected by theme. e.g.
+or do a scope, where all of the `UiButtons` are affected by the theme. e.g.
 
 ```html
   <UiNavigation class="ui-navigation--theme-secondary">
@@ -87,13 +87,13 @@ or do a scope where all `UiButtons` will be affected by theme. e.g.
   </UiNavigation>
 ```
 
-`ui-navigation--theme-secondary` was not defined in the `UiNavigation` component but `UiButton` support this approach, thanks for `[class*="-secondary"]` selector.
+`ui-navigation--theme-secondary` was not defined in the `UiNavigation` component but `UiButton` still supports this approach, thanks to the `[class*="-secondary"]` selector.
 
-You can crete your own themes e.g. dark or light theme.
+You can create your own themes e.g. a dark or light theme.
 
 ### Component-specific custom properties
-Global variables cover many cases. But sometimes you need to configure the CSS of specific components like buttons, icons (e.g. icon sizes), ...
-For example, you may want to change the background color of a every `UiButton` component.
+Global variables cover many cases. But sometimes, you may need to configure the CSS of a specific component like a button or icon (e.g. the icon's size), ...
+For example, you may want to change the background color of every `UiButton` component.
 
 <Code code={`.ui-button {
   --button-background: #1471C9;
@@ -101,17 +101,17 @@ For example, you may want to change the background color of a every `UiButton` c
   --button-active-background: #0B3D6D;
 }`}/>
 
-or size of the icon
+or the size of the icon
 
 <Code code={`.ui-icon {
   --icon-size: 1.5rem;
 }`}/>
 
-Component specific variables are defined for customizable properties like color, backgrounds, borders, paddings, margins, etc.
-List of CSS variables for each component is available in the component's documentation.
+Component specific variables are defined for configurable properties like colors, backgrounds, borders, paddings, margins, etc.
+The list of CSS variables for each component is available in the component's documentation.
 
-#### BEM and CSS Custom Properties
-We use BEM naming convention for CSS variables, in common cases is will be `--<block>-<element>-<property>` e.g.
+#### BEM and CSS custom properties
+We use the BEM naming convention for CSS variables. In common cases, it will be `--<block>-<element>-<modifier>` e.g.
 
 <Code code={`.ui-side-panel {
   &__content {
@@ -119,16 +119,16 @@ We use BEM naming convention for CSS variables, in common cases is will be `--<b
   }
 }`}/>
 
-But in some case it's not enough.
+But in some cases, that's not enough.
 
 <Code code={`//states (hover, active)
   --button-icon-color: var(--color-icon-on-action);
-  --button-hover-icon-color: var(--color-icon-on-action-hover); // state will be added after block/element name with used this state i.e. hover is used for button not only for icon\n
+  --button-hover-icon-color: var(--color-icon-on-action-hover); // state will be added after the block/element name that used that state i.e. hover is also used for button, not only for icon\n
   //checked state
   --checkbox-checked-background: var(--color-selectioncontrols-selection);
-  --checkbox-checked-hover-background: var(--color-selectioncontrols-selection-hover); // some components has checked state, it will be added before state because checked is more static than temporary states like hover.`}/>
+  --checkbox-checked-hover-background: var(--color-selectioncontrols-selection-hover); // some components have a checked state, which will be added before the state because checked is more static than temporary states like hover.`}/>
 
-CSS Variable cover only design cases i.e. breakpoints, rtl, states is added to required components. When you need to cover new case e.g. new breakpoint you can do it.
+CSS variables only covers the design cases - i.e. breakpoints, rtl, states - when it is added to the required components. That way, when you need to cover a new case, e.g. a new breakpoint, you can do it.
 
 <Code code={`@use "@infermedica/component-library/styles/mixins";'\n
 .ui-checkbox {
@@ -139,15 +139,15 @@ CSS Variable cover only design cases i.e. breakpoints, rtl, states is added to r
   }
 }`}/>
 
-More about our CSS Variable and our approach to it you can find in [CSS Variables Deep Diving](docs/contributing-guide-css-var-deep-dive--page).
+You can get more information about CSS variables and our approach in the [CSS Variables Deep Diving](docs/contributing-guide-css-var-deep-dive--page) section.
 
 ### Per-instance custom properties
 Sometimes you may need to configure the CSS of a specific instance of a component.
 For example, you may want to change the background color of a specific `UiButton` component.
 
-This is a recommended approach to configure the CSS of a specific component. It's easier to maintain.
-Instead, overriding the property of e.g. `.ui-button` you will create new class and add it in required places. E.g. You can create
-your own component `MyAwesomeButton` with class `my-awesome-button` on it and use it instead `UiButton` directly.
+This is the recommended approach to configuring the CSS of a specific component as it's easier to maintain.
+Instead of overriding the property of e.g. `.ui-button`, you create a new class and add it in the required places. E.g. You can create
+your own component, `MyAwesomeButton`, with the class `my-awesome-button` on it and use that instead of using `UiButton`.
 
 ```html
 <template>
@@ -169,15 +169,15 @@ import { UiButton } from '@infermedica/component-library';
 </style>
 ```
 
-## Atomic Design and CSS Custom Properties
-To configure nested components you should use it CSS Custom Properties. e.g.
-We don't create "proxy variables" for nested Atoms. To configure nested components you should use it variables. e.g.
+## Atomic Design and CSS custom properties
+To configure a nested component, you should use its CSS custom properties. e.g.
+We don't create "proxy variables" for nested atoms. To configure a nested component, you should use its variables. e.g.
 
 <Code code={`.ui-number-stepper {
   --button-icon-color: #D42E2E;
 }`}/>
 
-But `UiNumberStepper` contain two different buttons. So you can use their own class to override it.
+But `UiNumberStepper` contains two different buttons so you can use the class to override it.
 
 <Code code={`.ui-number-stepper {
   &__decrement {
@@ -188,7 +188,7 @@ But `UiNumberStepper` contain two different buttons. So you can use their own cl
   }
 }`}/>
 
-Or you can add custom classes to buttons by props. e.g.
+Or you can add custom classes to buttons by using props. e.g.
 
 ```html
 <template>
@@ -210,6 +210,6 @@ Or you can add custom classes to buttons by props. e.g.
 </style>
 ```
 
-This is a recommended approach to configure the CSS of a specific nested component. It's easier to maintain.
+This is the recommended approach to configuring the CSS of a specific nested component as it's easier to maintain.
 
 
