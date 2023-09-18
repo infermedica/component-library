@@ -59,6 +59,7 @@
     />
     <!-- @slot Use this slot to replace alert template. -->
     <slot
+      v-if="!showTextLengthAlert"
       name="alert"
       v-bind="{
         alertAttrs,
@@ -74,6 +75,12 @@
         {{ errorMessage }}
       </UiAlert>
     </slot>
+    <!-- @slot Use this slot to replace Input and Alert template. -->
+
+    <slot
+      v-if="showTextLengthAlert"
+      name="textLengthAlert"
+    />
   </div>
 </template>
 
@@ -116,6 +123,7 @@ export interface FormFieldProps {
    * Use this props to pass attrs to UiAlert.
    */
   alertAttrs?: AlertAttrsProps;
+  showTextLengthAlert: boolean;
 }
 export type FormFieldAttrsProps = DefineAttrsProps<FormFieldProps>;
 
@@ -124,6 +132,7 @@ const props = withDefaults(defineProps<FormFieldProps>(), {
   id: '',
   hint: false,
   errorMessage: false,
+  showTextLengthAlert: false,
   textMessageAttrs: () => ({ tag: 'span' }),
   textHintAttrs: () => ({ tag: 'span' }),
   alertAttrs: () => ({}),

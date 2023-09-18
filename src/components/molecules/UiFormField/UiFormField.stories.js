@@ -4,6 +4,8 @@ import UiInput from '@/components/atoms/UiInput/UiInput.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
 import './UiFormField.stories.scss';
+import { ref } from 'vue';
+import UiFormFieldTextLength from '@/components/molecules/UiFormField/_internal/UiFormFieldTextLength.vue';
 
 export default {
   title: 'Molecules/FormField',
@@ -16,7 +18,9 @@ export default {
     textMessageAttrs: { 'data-testid': 'message-text' },
     textHintAttrs: { 'data-testid': 'hint-text' },
     alertAttrs: { 'data-testid': 'alert' },
+    showTextLengthAlert: false,
   },
+  // TODO: add argTypes for new props
   argTypes: {
     id: { control: 'text' },
     message: {
@@ -254,4 +258,42 @@ export const WithAlertSlot = {
       </template>
     </UiFormField>`,
   }),
+};
+
+export const WithTextarea = {
+  render: (args) => ({
+    components: {
+      UiFormField,
+      UiFormFieldTextLength,
+    },
+    setup() {
+      const alertErrorMessage = 'Use max 240 characters ';
+      const maxLength = 240;
+      const fieldValue = ref('');
+      return {
+        ...args,
+        alertErrorMessage,
+        maxLength,
+        fieldValue,
+      };
+    },
+    template: `<UiFormField
+    :message="message"
+    :id="id"
+    :hint="hint"
+    :error-message="errorMessage"
+    :text-message-attrs="textMessageAttrs"
+    :text-hint-attrs="textHintAttrs"
+    :alert-attrs="alertAttrs"
+    :showTextLengthAlert="showTextLengthAlert"
+  >
+    <template #textLengthAlert>
+      <UiFormFieldTextLength />
+    </template>
+  </UiFormField>`,
+  }),
+  args: {
+    message: 'Label',
+    showTextLengthAlert: true,
+  },
 };
