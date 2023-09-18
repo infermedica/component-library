@@ -1,6 +1,7 @@
 <template>
   <component
     :is="tag"
+    :disabled="disabled"
     class="ui-rating"
   >
     <!-- @slot Use this slot to replace legend template. -->
@@ -159,6 +160,11 @@ export interface RatingProps {
    */
   tag?: HTMLTag;
   /**
+   * Use this props to disabled input.
+   * Remember to use `ui-rating--is-disabled` class to style disabled rating.
+   */
+  disabled?: boolean;
+  /**
    * Use this props to set legend.
    */
   legend?: string;
@@ -212,6 +218,7 @@ const rate = computed({
 const maxScore = computed(() => (typeof props.max === 'number' ? props.max : parseInt(props.max, 10)));
 const hoverScore = ref(0);
 const hoverHandler = (event: Event, value: number) => {
+  if (props.disabled) return;
   const { type } = event;
   hoverScore.value = type === 'mouseover' ? value : 0;
 };
