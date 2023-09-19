@@ -8,6 +8,7 @@ import {
   computed,
 } from 'vue';
 import { actions } from '@storybook/addon-actions';
+import { modifiers } from '@sb/helpers/argTypes';
 
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
@@ -20,6 +21,7 @@ export default {
   component: UiMultipleChoices,
   args: {
     initModelValue: [],
+    modifiers: [],
     hint: 'Select one answer in each row',
     touched: false,
     initInvalid: true,
@@ -59,6 +61,7 @@ export default {
       table: { category: 'stories controls' },
       control: 'boolean',
     },
+    modifiers: modifiers({ options: [ 'ui-multiple-choices--stacked' ] }),
     hint: {
       description: 'Use this props to set hint for question.',
       table: {
@@ -385,4 +388,33 @@ export const WithOptionSlot = {
       </template>
     </UiMultipleChoices>`,
   }),
+};
+
+export const Stacked = {
+  render: (args) => ({
+    components: { UiMultipleChoices },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      const invalid = ref(args.initInvalid);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+        invalid,
+      };
+    },
+    template: `<UiMultipleChoices
+      v-model="modelValue"
+      v-model:invalid="invalid"
+      :hint="hint"
+      :touched="touched"
+      :items="items"
+      :options="options"
+      :alert-hint-attrs="alertHintAttrs"
+      :class="modifiers"
+      @update:modelValue="onUpdateModelValue"
+      @update:invalid="onUpdateInvalid"
+    />`,
+  }),
+  args: { modifiers: [ 'ui-multiple-choices--stacked' ] },
 };

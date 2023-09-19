@@ -24,7 +24,7 @@
     <slot
       v-bind="{
         id: multipleChoicesItemId,
-        textLabelAttrs,
+        headingLabelAttrs,
         label,
         hasInfo,
         buttonInfoAttrs,
@@ -37,18 +37,18 @@
         <slot
           v-bind="{
             multipleChoicesItemId,
-            textLabelAttrs,
+            headingLabelAttrs,
             label
           }"
           name="label"
         >
-          <UiText
+          <UiHeading
             :id="multipleChoicesItemId"
-            v-bind="textLabelAttrs"
+            v-bind="headingLabelAttrs"
             class="ui-multiple-choices-item__label"
           >
             {{ label }}
-          </UiText>
+          </UiHeading>
         </slot>
         <slot
           name="info"
@@ -154,8 +154,8 @@ import UiList from '../../UiList/UiList.vue';
 import UiListItem from '../../UiList/_internal/UiListItem.vue';
 import type { ListItemAttrsProps } from '../../UiList/_internal/UiListItem.vue';
 import UiRadio from '../../../atoms/UiRadio/UiRadio.vue';
-import UiText from '../../../atoms/UiText/UiText.vue';
-import type { TextAttrsProps } from '../../../atoms/UiText/UiText.vue';
+import UiHeading from '../../../atoms/UiHeading/UiHeading.vue';
+import type { HeadingAttrsProps } from '../../../atoms/UiHeading/UiHeading.vue';
 import type {
   DefineAttrsProps,
   HTMLTag,
@@ -214,7 +214,7 @@ export interface MultipleChoicesItemProps {
   /**
    * Use this props to pass attrs for label UiText.
    */
-  textLabelAttrs?: TextAttrsProps;
+  headingLabelAttrs?: HeadingAttrsProps;
   /**
    * Use this props to pass attrs for list item.
    */
@@ -244,13 +244,13 @@ const props = withDefaults(defineProps<MultipleChoicesItemProps>(), {
   buttonInfoAttrs: () => ({}),
   labelInfoAttrs: () => ({}),
   iconInfoAttrs: () => ({ icon: 'info' }),
-  textLabelAttrs: () => ({ tag: 'span' }),
+  headingLabelAttrs: () => ({ level: 2 }),
   listItemAttrs: () => ({ class: 'ui-multiple-choices-item' }),
   listOptionItemAttrs: () => ({ class: 'ui-multiple-choices-item__option' }),
 });
 const defaultProps = computed(() => {
   const icon: Icon = 'info';
-  const tag: HTMLTag = 'span';
+  const level: HeadingAttrsProps.level = 2;
   return {
     translation: {
       info: 'What does it mean?',
@@ -261,9 +261,9 @@ const defaultProps = computed(() => {
       class: 'ui-multiple-choices-item',
       ...props.listItemAttrs,
     },
-    textLabelAttrs: {
-      tag,
-      ...props.textLabelAttrs,
+    headingLabelAttrs: {
+      level,
+      ...props.headingLabelAttrs,
     },
     iconInfoAttrs: {
       icon,
@@ -314,6 +314,7 @@ const optionsToRender = computed(() => props.options.map((option) => ({
     }
 
     @include mixins.override-logical(list-item-content, $element + "-content", padding, 0);
+    @include mixins.override-logical(list-item-tablet-content, $element + "-tablet-content", padding, var(--space-12));
 
     --list-item-content-hover-background: #{functions.var($element + "-content-hover", background, transparent)};
 
@@ -331,16 +332,24 @@ const optionsToRender = computed(() => props.options.map((option) => ({
   }
 
   &__header {
-
     display: flex;
     justify-content: space-between;
     gap: functions.var($element + "-header", gap, var(--space-12));
 
     @include mixins.from-tablet {
-
       flex-direction: column;
       align-items: flex-start;
       gap: functions.var($element + "-tablet-header", gap, var(--space-8));
+    }
+  }
+
+  &__label {
+    font: functions.var($element + "-font", font, var(--font-h4));
+    letter-spacing: functions.var($element + "-letter-spacing", font, var(--letter-spacing-h4));
+
+    @include mixins.from-tablet {
+      font: functions.var($element + "-tablet-font", font, var(--font-body-1));
+      letter-spacing: functions.var($element + "-tablet-letter-spacing", font, var(--letter-spacing-body-1));
     }
   }
 
@@ -379,7 +388,7 @@ const optionsToRender = computed(() => props.options.map((option) => ({
     white-space: nowrap;
 
     @include mixins.from-tablet {
-      display: flex;
+      display: functions.var($element + "-tablet-options", display, flex);
       gap: functions.var($element + "-options", gap, var(--space-24));
     }
   }
