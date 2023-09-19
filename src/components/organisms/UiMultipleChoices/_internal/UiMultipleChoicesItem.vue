@@ -250,7 +250,7 @@ const props = withDefaults(defineProps<MultipleChoicesItemProps>(), {
 });
 const defaultProps = computed(() => {
   const icon: Icon = 'info';
-  const level: HeadingAttrsProps.level = 2;
+  const level: HeadingAttrsProps['level'] = 2;
   return {
     translation: {
       info: 'What does it mean?',
