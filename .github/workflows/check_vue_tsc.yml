@@ -1,0 +1,14 @@
+name: check-vue-tsc
+on: 
+  pull_request:
+    types: [opened, edited]
+
+jobs:
+  vue-tsc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 18
+      - uses: keita-hino/vue-tsc-action@main
