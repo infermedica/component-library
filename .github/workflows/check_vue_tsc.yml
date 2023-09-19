@@ -1,14 +1,20 @@
 name: check-vue-tsc
 on: 
-  pull_request:
-    types: [opened, edited]
+  pull_request
 
 jobs:
   vue-tsc:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
         with:
-          node-version: 18
-      - uses: keita-hino/vue-tsc-action@main
+          version: 7
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: pnpm
+      - name: Install dependences
+        run: pnpm i
+      - name: Run vue-tsc
+        run: pnpm run check:types
