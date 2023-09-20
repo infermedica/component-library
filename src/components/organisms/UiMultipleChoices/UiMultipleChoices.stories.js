@@ -416,5 +416,41 @@ export const Stacked = {
       @update:invalid="onUpdateInvalid"
     />`,
   }),
-  args: { modifiers: [ 'ui-multiple-choices--stacked' ] },
+  args: {
+    hint: 'Select one answer for each statement',
+    modifiers: [ 'ui-multiple-choices--stacked' ],
+  },
+};
+
+export const StackedWithError = {
+  render: (args) => ({
+    components: { UiMultipleChoices },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      const invalid = ref(args.initInvalid);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+        invalid,
+      };
+    },
+    template: `<UiMultipleChoices
+      v-model="modelValue"
+      v-model:invalid="invalid"
+      :hint="hint"
+      :touched="touched"
+      :items="items"
+      :options="options"
+      :alert-hint-attrs="alertHintAttrs"
+      :class="modifiers"
+      @update:modelValue="onUpdateModelValue"
+      @update:invalid="onUpdateInvalid"
+    />`,
+  }),
+  args: {
+    hint: 'Select one answer for each statement',
+    modifiers: [ 'ui-multiple-choices--stacked' ],
+    touched: true,
+  },
 };
