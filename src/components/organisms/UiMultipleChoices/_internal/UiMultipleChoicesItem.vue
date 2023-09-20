@@ -344,12 +344,12 @@ const optionsToRender = computed(() => props.options.map((option) => ({
   }
 
   &__label {
-    font: functions.var($element + "-font", font, var(--font-h4));
-    letter-spacing: functions.var($element + "-letter-spacing", font, var(--letter-spacing-h4));
+    font: functions.var($element + 'label', font, var(--font-h4));
+    letter-spacing: functions.var($element + 'label', letter-spacing, (--letter-spacing-h4));
 
     @include mixins.from-tablet {
-      font: functions.var($element + "-tablet-font", font, var(--font-body-1));
-      letter-spacing: functions.var($element + "-tablet-letter-spacing", font, var(--letter-spacing-body-1));
+      font: functions.var($element + "-tablet-label", font, var(--font-body-1));
+      letter-spacing: functions.var($element + "-tablet-label", letter-spacing, var(--letter-spacing-body-1));
     }
   }
 
@@ -409,6 +409,7 @@ const optionsToRender = computed(() => props.options.map((option) => ({
 
       &:last-of-type {
         @include mixins.override-logical(list-item, $element + "-tablet-option", border-width, 0);
+        @include mixins.override-logical(list-item, $element + "-tablet-option-last-of-type", border-width, 0);
       }
     }
   }
