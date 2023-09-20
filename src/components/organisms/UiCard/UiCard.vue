@@ -145,7 +145,7 @@ const props = withDefaults(defineProps<CardProps>(), {
   subtitle: '',
   description: '',
   type: 'emergency_ambulance',
-  iconTriageAttrs: () => ({ icon: 'emergency-ambulance' }),
+  iconTriageAttrs: () => ({}),
   textSubtitleAttrs: () => ({}),
   headingTitleAttrs: () => ({}),
   textDescriptionAttrs: () => ({}),
