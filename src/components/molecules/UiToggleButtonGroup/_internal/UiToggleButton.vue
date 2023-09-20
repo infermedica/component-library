@@ -97,10 +97,5 @@ const hasIcon = computed(() => !!attrs.class?.includes('ui-toggle-button--has-ic
   &:last-of-type {
     @include mixins.use-logical($element, border-radius, 0 var(--border-radius-button));
   }
-
-  &--is-disabled {
-    --button-hover-border-block-color: var(--color-border-subtle);
-    --button-hover-border-inline-color: var(--color-border-subtle);
-  }
 }
 </style>
