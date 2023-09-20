@@ -4,6 +4,7 @@ import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import icons from '@/components/atoms/UiIcon/icons';
 import './UiBulletPoints.stories.scss';
+import { modifiers } from '@sb/helpers/argTypes';
 
 export default {
   title: 'Molecules/BulletPoints',
@@ -19,6 +20,7 @@ export default {
     tag: 'ul',
     type: '1',
     icon: 'bullet-common',
+    modifiers: [],
   },
   argTypes: {
     tag: {
@@ -52,6 +54,7 @@ export default {
         type: { summary: 'unknown' },
       },
     },
+    modifiers: modifiers({ options: [ 'ui-bullet-points--small' ] }),
   },
   parameters: { cssProperties: { '--bullet-points-gap': 'var(--space-4)' } },
 };
@@ -366,6 +369,7 @@ export const WithBulletPointItemAsSmall = {
     template: `<UiBulletPoints
       :tag="tag"
       :type="type"
+      class="ui-bullet-points--small"
     >
       <template
         v-for="(item, key) in items"
@@ -373,7 +377,6 @@ export const WithBulletPointItemAsSmall = {
       >
         <UiBulletPointsItem
           :icon="item.icon"
-          class="ui-bullet-points-item--small"
         >
           {{ item }}
         </UiBulletPointsItem>
