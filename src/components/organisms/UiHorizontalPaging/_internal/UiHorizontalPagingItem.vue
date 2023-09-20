@@ -8,10 +8,8 @@ import {
   ref,
   inject,
   onBeforeUnmount,
-} from 'vue';
-import type {
-  Ref,
-  ComputedRef,
+  type Ref,
+  type ComputedRef,
 } from 'vue';
 import type { HorizontalPangingHandleItems } from '../UiHorizontalPaging.vue';
 

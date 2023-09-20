@@ -52,10 +52,8 @@ export default { inheritAttrs: false };
 import {
   ref,
   computed,
-} from 'vue';
-import type {
-  HTMLAttributes,
-  InputHTMLAttributes,
+  type HTMLAttributes,
+  type InputHTMLAttributes,
 } from 'vue';
 import useAttributes from '../../../composable/useAttributes';
 import useKeyValidation from '../../../composable/useKeyValidation';

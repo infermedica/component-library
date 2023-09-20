@@ -36,8 +36,8 @@ import {
   ref,
   useAttrs,
   provide,
+  type ComputedRef,
 } from 'vue';
-import type { ComputedRef } from 'vue';
 import UiNavigationItem from './_internal/UiNavigationItem.vue';
 import type { NavigationItemAttrsProps } from './_internal/UiNavigationItem.vue';
 import type { DefineAttrsProps } from '../../../types';

@@ -70,8 +70,8 @@
 import {
   computed,
   inject,
+  type ComputedRef,
 } from 'vue';
-import type { ComputedRef } from 'vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import type { ButtonAttrsProps } from '../../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';

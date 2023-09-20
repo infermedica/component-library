@@ -63,11 +63,9 @@ import {
   ref,
   computed,
   useSlots,
-} from 'vue';
-import type {
-  HTMLAttributes,
-  InputHTMLAttributes,
-  LabelHTMLAttributes,
+  type HTMLAttributes,
+  type InputHTMLAttributes,
+  type LabelHTMLAttributes,
 } from 'vue';
 import equal from 'fast-deep-equal';
 import { uid } from 'uid/single';

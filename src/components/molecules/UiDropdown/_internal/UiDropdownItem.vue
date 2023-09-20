@@ -22,8 +22,8 @@ import {
   ref,
   inject,
   useAttrs,
+  type ComputedRef,
 } from 'vue';
-import type { ComputedRef } from 'vue';
 import equal from 'fast-deep-equal';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import type { IconAttrsProps } from '../../../atoms/UiIcon/UiIcon.vue';

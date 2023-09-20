@@ -19,8 +19,10 @@ export default { inheritAttrs: false };
 </script>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import type { TextareaHTMLAttributes } from 'vue';
+import {
+  computed,
+  type TextareaHTMLAttributes,
+} from 'vue';
 import useAttributes from '../../../composable/useAttributes';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 import type { DefineAttrsProps } from '../../../types';

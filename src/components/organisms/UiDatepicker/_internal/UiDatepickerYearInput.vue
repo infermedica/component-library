@@ -18,9 +18,9 @@ import {
   inject,
   nextTick,
   ref,
+  type Ref,
 } from 'vue';
-import type { Ref } from 'vue';
-import { removeNonDigits } from '../../../../utilities/helpers/index';
+import { removeNonDigits } from '../../../../utilities/helpers';
 import UiInput from '../../../atoms/UiInput/UiInput.vue';
 import type { InputAttrsProps } from '../../../atoms/UiInput/UiInput.vue';
 import useKeyValidation from '../../../../composable/useKeyValidation';

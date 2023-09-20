@@ -34,8 +34,10 @@ export default { inheritAttrs: false };
 </script>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import type { HTMLAttributes } from 'vue';
+import {
+  computed,
+  type HTMLAttributes,
+} from 'vue';
 import type { HTMLTag } from '../../../types/tag';
 import type { DefineAttrsProps } from '../../../types/attrs';
 import UiLoaderSpinner from './_internal/UiLoaderSpinner.vue';
