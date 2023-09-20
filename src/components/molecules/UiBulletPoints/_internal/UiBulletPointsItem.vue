@@ -110,6 +110,14 @@ const isUnordered = computed(() => tag.value === 'ul');
   justify-content: functions.var($element, justify-content, flex-start);
   gap: functions.var($element, gap, var(--space-12));
 
+  &--small {
+    font: functions.var($element, font, var(--font-body-2-comfortable));
+
+    .ui-text {
+      font: functions.var($element, font, var(--font-body-2-comfortable));
+    }
+  }
+
   &__marker {
     --icon-color: #{functions.var($element + "-marker", color, var(--color-text-body))};
 

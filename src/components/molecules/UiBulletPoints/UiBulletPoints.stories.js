@@ -352,3 +352,32 @@ export const WithContentSlot = {
     </UiBulletPoints>`,
   }),
 };
+
+export const WithBulletPointItemAsSmall = {
+  render: (args) => ({
+    components: {
+      UiBulletPoints,
+      UiBulletPointsItem,
+      UiText,
+    },
+    setup() {
+      return { ...args };
+    },
+    template: `<UiBulletPoints
+      :tag="tag"
+      :type="type"
+    >
+      <template
+        v-for="(item, key) in items"
+        :key="key"
+      >
+        <UiBulletPointsItem
+          :icon="item.icon"
+          class="ui-bullet-points-item--small"
+        >
+          {{ item }}
+        </UiBulletPointsItem>
+      </template>
+    </UiBulletPoints>`,
+  }),
+};
