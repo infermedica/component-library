@@ -39,7 +39,7 @@ import {
   type ButtonHTMLAttributes,
   type HTMLAttributes,
 } from 'vue';
-import useAttributes from '../../../../composable/useAttributes';
+import { useAttributes } from '../../../../composable';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import type { ButtonAttrsProps } from '../../../atoms/UiButton/UiButton.vue';
 import UiListItem from '../../../organisms/UiList/_internal/UiListItem.vue';

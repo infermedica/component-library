@@ -55,8 +55,10 @@ import {
   type HTMLAttributes,
   type InputHTMLAttributes,
 } from 'vue';
-import useAttributes from '../../../composable/useAttributes';
-import useKeyValidation from '../../../composable/useKeyValidation';
+import {
+  useAttributes,
+  useKeyValidation,
+} from '../../../composable';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 import UiText from '../UiText/UiText.vue';
 import type { TextAttrsProps } from '../UiText/UiText.vue';

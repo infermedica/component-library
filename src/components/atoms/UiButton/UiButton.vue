@@ -30,7 +30,7 @@ import type {
   DefineAttrsProps,
 } from '../../../types';
 import type { LoaderAttrsProps } from '../../molecules/UiLoader/UiLoader.vue';
-import useLink from '../../../composable/useLink';
+import { useLink } from '../../../composable';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 import UiLoader from '../../molecules/UiLoader/UiLoader.vue';
 

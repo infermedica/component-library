@@ -23,7 +23,7 @@ import {
 import { removeNonDigits } from '../../../../utilities/helpers';
 import UiInput from '../../../atoms/UiInput/UiInput.vue';
 import type { InputAttrsProps } from '../../../atoms/UiInput/UiInput.vue';
-import useKeyValidation from '../../../../composable/useKeyValidation';
+import { useKeyValidation } from '../../../../composable';
 import type { DatepickerTranslation } from '../UiDatepicker.vue';
 import type { DefineAttrsProps } from '../../../../types';
 
