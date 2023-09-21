@@ -190,5 +190,11 @@ const bulletPointsItemAttrs = ({
   &--nested {
     margin-block-start: var(--_bullet-points-gap);
   }
+
+  &--small {
+    --bullet-points-gap: var(--space-8);
+    --text-font: var(--font-body-2-comfortable);
+    --text-letter-spacing: var(--letter-spacing-body-2-comfortable);
+  }
 }
 </style>
