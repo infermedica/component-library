@@ -88,6 +88,7 @@
           v-if="hasCharacterCounter"
           v-bind="characterCounterAttrs"
           :value="value"
+          class="ui-form-field__character-counter"
           @error="handleErrorEmit"
         />
       </slot>
@@ -209,8 +210,8 @@ const handleErrorEmit = (error: string | null) => {
 
   &__messages {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     gap: var(--space-8);
   }
 
