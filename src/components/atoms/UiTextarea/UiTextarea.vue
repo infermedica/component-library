@@ -1,9 +1,11 @@
+<!-- eslint-disable vuejs-accessibility/form-control-has-label -->
 <template>
   <div
     class="ui-textarea"
     v-bind="attrs"
   >
     <textarea
+      ref="textareaElement"
       v-keyboard-focus
       v-bind="defaultProps.textareaAttrs"
       :value="modelValue"
@@ -19,8 +21,12 @@ export default { inheritAttrs: false };
 </script>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import type { TextareaHTMLAttributes } from 'vue';
+import {
+  computed,
+  onMounted,
+  ref,
+  type TextareaHTMLAttributes,
+} from 'vue';
 import useAttributes from '../../../composable/useAttributes';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 import type { DefineAttrsProps } from '../../../types';
@@ -50,6 +56,10 @@ export interface TextareaProps {
    * Use this props to pass attrs for textarea element.
    */
   textareaAttrs?: DefineAttrsProps<null, TextareaHTMLAttributes>;
+  /**
+   * Use this props to allow the height of textarea to change as the user types.
+   */
+  dynamicHeight?: boolean;
 }
 export type TextareaAttrsProps = DefineAttrsProps<TextareaProps>;
 export interface TextareaEmits {
@@ -61,6 +71,7 @@ const props = withDefaults(defineProps<TextareaProps>(), {
   resize: false,
   placeholder: '',
   disabled: false,
+  dynamicHeight: false,
   textareaAttrs: () => ({}),
 });
 const defaultProps = computed(() => ({
@@ -76,7 +87,10 @@ const {
   attrs, listeners,
 } = useAttributes();
 const inputHandler = (event: Event) => {
-  const el = event.target as HTMLInputElement;
+  const el = event.target as HTMLTextAreaElement;
+
+  if (props.dynamicHeight) dynamicHeight(el);
+
   emit('update:modelValue', el.value);
 };
 const resizeValue = computed(() => {
@@ -84,6 +98,18 @@ const resizeValue = computed(() => {
     return props.resize;
   }
   return props.resize ? 'both' : 'none';
+});
+const textareaElement = ref<HTMLTextAreaElement | null>(null);
+const textareaHeight = ref<number | undefined>(undefined);
+
+function dynamicHeight(element: HTMLTextAreaElement) {
+  const el = element;
+  el.style.height = `${textareaHeight.value}px`;
+  el.style.height = `${element.scrollHeight}px`;
+}
+
+onMounted(() => {
+  if (textareaElement.value) textareaHeight.value = textareaElement.value.offsetHeight;
 });
 </script>
 

@@ -188,3 +188,32 @@ export const HasError = {
 
   args: { modifiers: 'ui-textarea--has-error' },
 };
+
+export const HasDynamicHeight = {
+  render: (args) => ({
+    components: { UiTextarea },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      const element = ref(null);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+        element,
+      };
+    },
+    template: `<UiTextarea
+      ref="element"
+      v-model="modelValue"
+      :resize="resize"
+      :placeholder="placeholder"
+      :disabled="disabled"
+      :textarea-attrs="textareaAttrs"
+      :dynamic-height="true"
+      :class="modifiers"
+      @update:modelValue="onUpdateModelValue"
+      @focus="onFocus"
+      @blur="onBlur"
+    />`,
+  }),
+};
