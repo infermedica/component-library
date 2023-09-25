@@ -7,16 +7,16 @@ import { Table } from '../../components/Table.jsx';
 
 <Meta of={stories}/>
 
-# CSS Logical Properties
-The Infermedica component library uses [CSS Logical Properties](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties)
+# CSS logical properties
+The Infermedica Component Library uses [CSS logical properties](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties)
 that provide the ability to control the layout through logical, not physical representations of directions and dimensions.
-It give us a lot more power to control our websites with minimal style changes, no matter what type of language we use
+This gives us a lot more power to control our websites with minimal style changes no matter what type of language we use, whether that be
 English, Polish, Arabic, etc.
 
 <PageOutline/>
 
 ## How to use
-You can use the following `use-logical` mixin, which transforms conventional ltr CSS physical value to CSS logical properties.
+You can use the following `use-logical` mixin, which transforms conventional ltr CSS physical values into CSS logical properties.
 
 <Code code={`@include mixins.use-logical(element, property, value);`}/>
 
@@ -37,7 +37,7 @@ for example
 - `border-radius`
 - `inset`
 
-Here is an example of logical properties and CSS variables for - `margin`, `padding`, `border`, `inset`.
+Here is an example of the logical properties and CSS variables for - `margin`, `padding`, `border`, `inset`.
 <Table
   headers={['Physical property', 'Logical property', 'CSS variable']}
   rows={[
@@ -51,9 +51,9 @@ Here is an example of logical properties and CSS variables for - `margin`, `padd
   ]}
 />
 
-Here is an example of logical properties and CSS variables for `border-width`, `border-style` and `border-color`.
+Here is an example of the logical properties and CSS variables for `border-width`, `border-style` and `border-color`.
 <Table
-  headers={['Physical property', 'Logical property', 'CSS Variable']}
+  headers={['Physical property', 'Logical property', 'CSS variable']}
   rows={[
     [
       '`border-top-{width/style/color}`',
@@ -78,7 +78,7 @@ Here is an example of logical properties and CSS variables for `border-width`, `
   ]}
 />
 
-Here is an example of logical properties and CSS variables for `border-radius`.
+Here is an example of the logical properties and CSS variables for `border-radius`.
 <Table
   headers={['Physical property', 'Logical property', 'CSS variable']}
   rows={[
@@ -103,36 +103,35 @@ Here is an example of logical properties and CSS variables for `border-radius`.
 />
 
 #### Value
-Please use conventional ltr CSS value for property (top right bottom left) e.g. `20px 30px 10px 40px`:
+Please use conventional ltr CSS values for properties (top right bottom left) e.g. `20px 30px 10px 40px`:
 <Code code={`
 {property}-block: 20px 10px;
 {property}-inline: 30px 40px;
 `}/>
 
-- When a value has three declaration, it is a shortcut to set `inline-start` property e.g `20px 30px 10px`
+- When a value has three declarations, it's a shortcut for setting the `inline-start` property e.g `20px 30px 10px`
 
 <Code code={`
 {property}-block: 20px 10px;
 {property}-inline: 30px 30px;
 `}/>
 
-- When a value has two declaration, it is a shortcut to set block and inline properties e.g `20px 30px`
+- When a value has two declarations, it's a shortcut for setting the block and inline properties e.g `20px 30px`
 
 <Code code={`
 {property}-block: 20px 20px;
 {property}-inline: 30px 30px;
 `}/>
 
-- When a value has one declaration, it is a shortcut to set all properties e.g. `20px`
+- When a value has one declaration, it's a shortcut to set all of the properties e.g. `20px`
 
 <Code code={`
 {property}-block: 20px 20px;
 {property}-inline: 20px 20px;
 `}/>
 
-## Easy way for rtl support
-CSS Logical Properties respond automatically to text direction and typing mode. This means that the left and right sides will be automatically reversed and
-you won't need to add styles for rtl layouts anymore.
+## Easy way to get rtl support
+CSS logical properties respond automatically to text direction and typing mode. This means that the left and right sides will be automatically inverted and you won't need to add styles for rtl layouts anymore.
 
 <Code code={`.ui-list {
   // deprecated
@@ -145,7 +144,7 @@ you won't need to add styles for rtl layouts anymore.
 }
 `}/>
 
-## CSS Logical Properties and Values
+## CSS logical properties and values
 ### Padding
 
 <Canvas of={stories.Padding}/>
