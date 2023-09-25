@@ -5,12 +5,12 @@ import { Code } from '../components/Code';
 <Meta title="Contributing Guide/CSS Var Deep Dive"/>
 
 # CSS Var Deep Dive
-CSS Custom Properties (or CSS variables) is powerful solution but it have a few puzzles to solve.
+CSS Custom Properties (or CSS variables) are a powerful solution but they do have a few issues.
 
 <PageOutline/>
 
 ## How to name CSS variables
-To name CSS variables we base on BEM. `--<block>-<element>-<property>` e.g.
+To name CSS variables, we recommend BEM. `--<block>-<element>-<modifier>` e.g.
 
 <Code code={`.ui-button {
   color: var(--button-color, var(--color-text-on-action))\n
@@ -20,7 +20,7 @@ To name CSS variables we base on BEM. `--<block>-<element>-<property>` e.g.
 }`}/>
 
 ### Breakpoints
-Our component library has mobile first styles. In some case we want to change some properties for `tablet` or `desktop` devises. e.g.
+Our component library is mobile first in terms of styles. However, in certain cases, changing some properties for `tablet` or `desktop` devices is recommended. e.g.
 
 <Code code={`.ui-tile {
   &__icon {
@@ -31,11 +31,11 @@ Our component library has mobile first styles. In some case we want to change so
   }
 }`}/>
 
-As you can see on example we add `-tablet` to variable name. `-<breakpoint-name>` will be added only to block.
+As you can see in the example above, we added `-tablet` to the variable name. `-<breakpoint-name>` will be only added to the block.
 
 ### hover and active
 
-Components like buttons use `:hover` and `:active` pseudo classes. e.g.
+Components like buttons use the `:hover` and `:active` pseudo classes. e.g.
 
 <Code code={`.ui-button {
   background: var(--button-background, var(--color-background-action));\n
@@ -49,7 +49,7 @@ Components like buttons use `:hover` and `:active` pseudo classes. e.g.
   }
 }`}/>
 
-As you can see on example we add `-hover` and `-active` to variable name. State will be added to element with trigger it.
+As you can see in the examples above, we added `-hover` and `-active` to the variable names. The state will be added to the element that triggers it.
 
 <Code code={`.ui-button {
   $this: &;\n
@@ -70,11 +70,11 @@ As you can see on example we add `-hover` and `-active` to variable name. State 
   }
 }`}/>
 
-As you can se on example we add `-hover` and `-active` after block `button` because the button is te trigger of hover and active state.
+As you can see in the example, we added `-hover` and `-active` after the block called `button` because the button is the trigger for the hover and active states.
 
 ### Checked
 
-Component like UiRadio, UiCheckbox and UiTile has `-checked` modifier in variable name e.g.
+Components like UiRadio, UiCheckbox, and UiTile have the `-checked` modifier in the variable name e.g.
 
 <Code code={`.ui-checkbox {
   &__checkbox {
@@ -85,8 +85,8 @@ Component like UiRadio, UiCheckbox and UiTile has `-checked` modifier in variabl
   }
 }`}/>
 
-## Why we use a lot of name modifiers?
-When we set custom value for variables you need to create new css class or use existing one like `.ui-button`. e.g.
+## Why do we use a lot of name modifiers?
+When you set a custom value for a variable, you need to create a new css class or use an existing one like `.ui-button`. e.g.
 
 <Code code={`.my-awesome-button {
   --button-background: var(--color-background-action);\n
@@ -98,7 +98,7 @@ When we set custom value for variables you need to create new css class or use e
   }
 }`}/>
 
-But as you can see on example we have a lot unnecessary lines of code. Our approach greatly simplifies this process.
+But, as you can see in the example above, this creates a lot of unnecessary lines of code. Our approach greatly simplifies this process.
 
 <Code code={`.my-awesome-button {
   --button-background: var(--color-background-action);
@@ -106,11 +106,11 @@ But as you can see on example we have a lot unnecessary lines of code. Our appro
   --button-active-background: var(--color-background-action-active);
 }`}/>
 
-We can't handle all use cases. When component does not provide the variable you are interested you can set it. Use approach from top of this paragraph.
+That said, we can't handle every use case. When a component does not provide the variable you need, you can set it yourself by using the approach from the top of this paragraph.
 
-## With property in components styles should provide variables.
+## With the correct property in components, styles should provide variables.
 
-Initially, we tried to add CSS variables for all properties that developers want to override in their projects. e.g.
+Initially, we tried to add CSS variables for all of the properties that developers wanted to override in their projects. e.g.
 
 <Code code={`.ui-button {
   display: var(--button-display, inline-flex);
@@ -123,8 +123,8 @@ Initially, we tried to add CSS variables for all properties that developers want
   color: var(--button-color, var(--color-text-on-action));
 }`}/>
 
-We can't predict all CSS variables developers want to use. We'll have undefined variables anyway.
-That's we use variables only for visual properties like colors, backgrounds, borders (width, radius) and spacers. e.g.
+That said, we can't predict all of the CSS variables that developers want to use. We'll have undefined variables anyway.
+That's why we've decided to use variables only for the visual properties like colors, backgrounds, borders (width, radius) and spacers. e.g.
 
 <Code code={`.ui-button {
   display: inline-flex;
@@ -135,10 +135,10 @@ That's we use variables only for visual properties like colors, backgrounds, bor
   color: functions.var($element, color, var(--color-text-on-action));
 }`}/>
 
-When you want set others property you can do it anyway.
+If you want to set another property, you can do so.
 
-## Why we override properties instead of using variables?
-The answer is Specificity and Cascading. When we use variables for e.g hover or modifiers we can't override it in other places. The major reason is Cascading.
+## Why do we override properties instead of using variables?
+The answer is Specificity and Cascading. When we use variables for e.g hover or modifiers, we can't override them in other places. The major reason for this is Cascading.
 
 <Code code={`.ui-button {
   background: var(--button-background, var(--color-background-action));\n
@@ -155,8 +155,8 @@ And we try to override `--button-background` for element with `--outlined` modif
   }
 }`}/>
 
-Specificity is same but it will be work only when `.ui-alert` styles will be loaded after `.ui-button`. We can't 100% ensure it.
-We build solution resistant to this case and override properties in component.
+Specificity is the same but it will only work when `.ui-alert` styles are loaded after `.ui-button`. We can't 100% ensure that.
+We build solutions that are resistant to this by overriding properties in components instead.
 
 <Code code={`.ui-button {
   background: var(--button-background, var(--color-background-action));\n
