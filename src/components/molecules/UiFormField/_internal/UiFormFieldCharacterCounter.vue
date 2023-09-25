@@ -1,6 +1,9 @@
 <template>
   <UiText
-    class="ui-text--body-2-comfortable ui-text--theme-secondary ui-form-field__character-counter"
+    :class="[
+      'ui-text--body-2-comfortable ui-form-field-character-counter',
+      { 'ui-form-field-character-counter--has-error': hasError }
+    ]"
   >
     {{ length }}/{{ max }}
   </UiText>
@@ -34,11 +37,12 @@ const props = withDefaults(defineProps<FormFieldCharacterCounterProps>(), {
   max: 240,
 });
 const length = computed(() => (props.value.length));
+const hasError = computed(() => (length.value > props.max));
 const emit = defineEmits<FormFieldCharacterCounterEmits>();
 watch(
-  length,
-  (size) => {
-    if (size > props.max) {
+  hasError,
+  (error) => {
+    if (error) {
       emit('error', 'max length exceeds');
       return;
     }
@@ -47,3 +51,17 @@ watch(
   { immediate: true },
 );
 </script>
+
+<style lang="scss">
+@use "../../../../styles/functions";
+
+.ui-form-field-character-counter {
+  $element: form-field-character-counter;
+
+  --text-color: #{functions.var($element, color, var(--color-text-body))};
+
+  &--has-error {
+    --text-color: #{functions.var($element, color, var(--color-text-error))};
+  }
+}
+</style>
