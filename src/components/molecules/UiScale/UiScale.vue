@@ -436,7 +436,7 @@ const itemsToRender = computed<RadioAttrsProps[]>(() => (Array.from({ length: ma
   }
 
   &__description {
-    --_scale-description-color: #{functions.var($element + "-description", color, var(--color-text-dimmed))};
+    --_scale-description-color: #{functions.var($element + "-description", color, var(--color-text-body))};
 
     @include mixins.use-logical($element + "-description", margin, var(--space-16) 0 0 0);
 
