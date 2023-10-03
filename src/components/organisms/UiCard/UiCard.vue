@@ -247,11 +247,10 @@ const defaultProps = computed(() => ({
   &--modern {
     @include mixins.override-logical(container, $element, padding, 0);
 
-    gap: functions.var($element + "-modern", gap, 0);
+    gap: functions.var($element, gap, 0);
 
     @include mixins.from-tablet {
       flex-direction: row-reverse;
-      gap: functions.var($element + "-modern-tablet", gap, 0);
     }
 
     #{$this}__triage {
