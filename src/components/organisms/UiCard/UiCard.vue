@@ -145,7 +145,7 @@ const props = withDefaults(defineProps<CardProps>(), {
   subtitle: '',
   description: '',
   type: 'emergency_ambulance',
-  iconTriageAttrs: () => ({ icon: 'emergency-ambulance' }),
+  iconTriageAttrs: () => ({}),
   textSubtitleAttrs: () => ({}),
   headingTitleAttrs: () => ({}),
   textDescriptionAttrs: () => ({}),
@@ -247,6 +247,8 @@ const defaultProps = computed(() => ({
   &--modern {
     @include mixins.override-logical(container, $element, padding, 0);
 
+    gap: functions.var($element, gap, 0);
+
     @include mixins.from-tablet {
       flex-direction: row-reverse;
     }
@@ -281,7 +283,7 @@ const defaultProps = computed(() => ({
         @include mixins.use-logical(
           $element + "-tablet-content",
           padding,
-          var(--space-40) var(--space-40) var(--space-48) var(--space-48)
+          var(--space-32) var(--space-48) var(--space-48) var(--space-48)
         );
       }
     }

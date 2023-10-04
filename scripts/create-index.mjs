@@ -24,6 +24,11 @@ function generateContent() {
   const contentIndexTs = `// Auto-generated file by create-index.js. Do not edit manually\n
 // types
 export * from './src/types';\n
+// utilities
+export * from './src/utilities/helpers';
+export * from './src/utilities/directives';\n
+// composables
+export * from './src/composable';\n
 // component types
 ${componentTypeLines.join('\n')}\n
 // components

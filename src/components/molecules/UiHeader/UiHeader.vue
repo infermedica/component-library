@@ -1,6 +1,6 @@
 <template>
-  <div class="ui-header">
-    <header class="ui-header__header">
+  <header class="ui-header">
+    <div class="ui-header__container">
       <!-- @slot Use this slot to replace brand template.-->
       <slot
         name="brand"
@@ -65,8 +65,8 @@
           />
         </slot>
       </template>
-    </header>
-  </div>
+    </div>
+  </header>
 </template>
 
 <script setup lang="ts">
@@ -200,7 +200,7 @@ onUnmounted(() => {
 
   background: functions.var($element, background, var(--color-background-brand));
 
-  &__header {
+  &__container {
     @include mixins.use-logical($element, padding, var(--space-20));
     @include mixins.use-logical($element, margin, auto);
 

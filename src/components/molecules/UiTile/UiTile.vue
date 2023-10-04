@@ -128,6 +128,7 @@ const selectHandler = () => {
   @include mixins.override-logical(button, $element, padding, var(--space-16));
 
   --button-gap: #{functions.var($element, gap, var(--space-16))};
+  --border-radius-button: #{functions.var($element, border-radius, var(--border-radius-form))};
 
   align-items: center;
   justify-content: flex-start;

@@ -17,14 +17,12 @@ export default {
   title: 'Atoms/Textarea',
   component: UiTextarea,
   args: {
-    initModelValue: '',
+    initModelValue: 'Dear Doctor, I\'ve been experiencing regular headaches for the last few weeks. The pain typically starts at the back of my head and travels to the front, settling behind my eyes. It\'s a steady, dull ache that doesn\'t respond to over-the-counter pain relief. There\'s a constant throbbing sensation, and sometimes it\'s accompanied by nausea. Bright lights and loud noises seem to make it worse. It\'s affecting my day-to-day activities. Please advise.',
     modifiers: [],
     placeholder: 'I still don’t know what should I do',
     disabled: false,
     resize: true,
-    /**
-     * Use this props to pass attrs for input element.
-     */
+    hasAutogrowing: true,
     textareaAttrs: { 'data-testid': 'textarea-element' },
   },
   argTypes: {
@@ -112,6 +110,7 @@ export const WithPlaceholder = {
       :resize="resize"
       :placeholder="placeholder"
       :disabled="disabled"
+      :has-autogrowing="hasAutogrowing"
       :textarea-attrs="textareaAttrs"
       :class="modifiers"
       @update:modelValue="onUpdateModelValue"

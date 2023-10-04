@@ -119,6 +119,7 @@ const buttonItemAttrs = computed<ButtonAttrsProps>(() => ({
   @include mixins.use-logical($element, margin, var(--space-8) 0 0);
 
   justify-content: space-between;
+  text-align: start;
 
   &:first-of-type {
     @include mixins.use-logical($element, margin, 0);

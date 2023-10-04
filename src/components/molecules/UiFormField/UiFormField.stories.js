@@ -1,6 +1,8 @@
+import { ref } from 'vue';
 import UiFormField from '@/components/molecules/UiFormField/UiFormField.vue';
 import UiCheckbox from '@/components/atoms/UiCheckbox/UiCheckbox.vue';
 import UiInput from '@/components/atoms/UiInput/UiInput.vue';
+import UiTextarea from '@/components/atoms/UiTextarea/UiTextarea.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiAlert from '@/components/molecules/UiAlert/UiAlert.vue';
 import './UiFormField.stories.scss';
@@ -63,6 +65,64 @@ export default {
         'var(--form-field-alert-margin-inline-start, 0) var(--form-field-alert-margin-inline-end, 0)',
     },
   },
+};
+
+export const WithTextarea = {
+  render: (args) => ({
+    components: {
+      UiFormField,
+      UiTextarea,
+    },
+    setup() {
+      const value = ref(args.text);
+      const errorMsg = ref(args.errorMessage);
+      const handleErrorEmit = (error) => {
+        if (error === 'max length exceeds') {
+          errorMsg.value = `Use max ${args.characterCounterAttrs?.max || 200} characters`;
+          return;
+        }
+        errorMsg.value = '';
+      };
+      return {
+        ...args,
+        value,
+        errorMsg,
+        handleErrorEmit,
+      };
+    },
+    template: `<UiFormField
+      :message="message"
+      :id="id"
+      :hint="hint"
+      :value="value"
+      :error-message="errorMsg"
+      :has-character-counter="hasCharacterCounter"
+      :text-message-attrs="textMessageAttrs"
+      :text-hint-attrs="textHintAttrs"
+      :alert-attrs="alertAttrs"
+      @error="handleErrorEmit"
+      class="form-field-with-input"
+    >
+      <template #default="{ id }">
+        <UiTextarea
+          v-model="value"
+          :id="id"
+          :class="[
+            'form-field-with-input__input',
+            { 'ui-textarea--has-error': errorMsg },
+          ]"
+        />
+      </template>
+    </UiFormField>`,
+  }),
+};
+WithTextarea.args = {
+  message: 'Message',
+  hint: 'Optional',
+  text: "Dear Doctor, I've been experiencing regular headaches for the last few weeks. The pain typically starts at the back of my head and travels to the front, settling behind my eyes. It's a steady, dull ache that doesn't respond to over-the-counter pain relief. There's a constant throbbing sensation, and sometimes it's accompanied by nausea. Bright lights and loud noises seem to make it worse. It's affecting my day-to-day activities. Please advise.",
+  hasCharacterCounter: true,
+  errorMessage: '',
+  characterCounterAttrs: { max: 400 },
 };
 
 export const WithInput = {

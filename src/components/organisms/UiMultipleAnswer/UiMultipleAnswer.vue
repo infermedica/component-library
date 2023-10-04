@@ -195,7 +195,7 @@ const itemsToRender = computed(() => (props.items.map((item) => {
   }
 
   &__hint {
-    @include mixins.use-logical($element + "-hint", padding, 0 var(--space-20) var(--space-12));
+    @include mixins.use-logical($element + "-hint", padding, 0 0 var(--space-12));
 
     @include mixins.from-tablet {
       @include mixins.use-logical($element + "-tablet-hint", padding, 0 0 var(--space-12) 0);

@@ -139,10 +139,37 @@ const updateHandler = (newValue: MultipleChoicesModelValue, index: number) => {
   $element: multiple-choices;
 
   &__hint {
-    @include mixins.use-logical($element + "-hint", padding, 0 var(--space-20) var(--space-12));
+    @include mixins.use-logical($element + "-hint", padding, 0 0 var(--space-12));
+  }
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: functions.var($element + "-items", gap, var(--space-32));
 
     @include mixins.from-tablet {
-      @include mixins.use-logical($element + "-tablet-hint", padding, 0 0 var(--space-12) 0);
+      gap: functions.var($element + "-tablet-items", gap, 0);
+    }
+  }
+
+  &--stacked {
+    @include mixins.from-tablet {
+      @include mixins.override-logical(multiple-choices-item-tablet-content, null, padding,  0);
+      @include mixins.override-logical(multiple-choices-item-tablet-option-content, null, padding,  var(--space-12));
+
+      --multiple-choices-tablet-items-gap: var(--space-32);
+
+      --multiple-choices-item-width-block: 0;
+      --multiple-choices-item-tablet-background: transparent;
+      --multiple-choices-item-tablet-content-flex-direction: column;
+      --multiple-choices-item-tablet-content-gap: var(--space-12);
+      --multiple-choices-item-tablet-content-hover-background: transparent;
+      --multiple-choices-item-tablet-options-display: block;
+      --multiple-choices-item-tablet-choices-gap: var(--space-12);
+      --multiple-choices-item-tablet-option-width-block: 1px 0;
+      --multiple-choices-item-tablet-option-last-of-type-width-block: 1px;
+      --multiple-choices-item-tablet-label-font: var(--font-h4);
+      --multiple-choices-item-tablet-label-letter-spacing: var(--letter-spacing-h4);
     }
   }
 }

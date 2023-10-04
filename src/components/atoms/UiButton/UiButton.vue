@@ -65,7 +65,7 @@ const props = withDefaults(defineProps<ButtonProps>(), {
 });
 const defaultProps = computed(() => ({
   loaderAttrs: {
-    type: 'ellipsis',
+    type: 'ellipsis' as const,
     'transition-type': 'opacity',
     ...props.loaderAttrs,
   },
@@ -273,6 +273,10 @@ const {
         @include mixins.hover {
           background: functions.var($element + "-hover", background, var(--color-background-disabled));
           color: functions.var($element + "-hover", color, var(--color-text-on-action));
+
+          &::after {
+            @include mixins.use-logical($element + "-hover", border-color, var(--color-border-subtle));
+          }
 
           #{$this}__icon {
             --icon-color: #{functions.var($element + "-hover-icon", color, var(--color-icon-on-action))};
