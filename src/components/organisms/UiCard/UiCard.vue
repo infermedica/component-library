@@ -180,6 +180,7 @@ const defaultProps = computed(() => ({
   @include mixins.from-tablet {
     flex-direction: row;
     gap: functions.var($element + "-tablet", gap, 0);
+    box-shadow: functions.var($element, box-shadow, var(--box-shadow-high));
   }
 
   &__triage {
@@ -194,7 +195,7 @@ const defaultProps = computed(() => ({
       @include mixins.use-logical(
         $element + "-tablet-triage",
         padding,
-        var(--space-40) var(--space-32)
+        var(--space-32) var(--space-32) var(--space-40)
       );
       @include mixins.use-logical(
         $element + "-tablet-triage",
