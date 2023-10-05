@@ -183,7 +183,7 @@ const defaultProps = computed(() => ({
   }
 
   &__triage {
-    @include mixins.use-logical($element + "-triage", padding, var(--space-20));
+    @include mixins.use-logical($element + "-triage", padding, var(--space-16) var(--space-32));
     @include mixins.use-logical($element + "-triage", border-radius, var(--border-radius-container));
 
     display: flex;
@@ -205,8 +205,12 @@ const defaultProps = computed(() => ({
   }
 
   &__icon {
-    --icon-size: #{functions.var($element + "-icon", size, 4rem)};
+    --icon-size: #{functions.var($element + "-icon", size, 3rem)};
     --icon-color: #{functions.var($element + "-icon", color, var(--color-icon-negative))};
+
+    @include mixins.from-tablet {
+      --icon-size: #{functions.var($element + "-tablet-icon", size, 4rem)};
+    }
   }
 
   &__subtitle {
