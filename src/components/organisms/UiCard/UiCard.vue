@@ -173,6 +173,9 @@ const defaultProps = computed(() => ({
   @include mixins.override-logical(container-tablet, $element + "-tablet", padding, 0);
   @include mixins.override-logical(container-desktop, $element + "-desktop", padding, 0);
 
+  --container-box-shadow: #{functions.var($element, box-shadow, none)};
+  --container-tablet-box-shadow: #{functions.var($element, box-shadow)};
+
   display: flex;
   flex-direction: column;
   gap: functions.var($element, gap, var(--space-20));
@@ -180,7 +183,6 @@ const defaultProps = computed(() => ({
   @include mixins.from-tablet {
     flex-direction: row;
     gap: functions.var($element + "-tablet", gap, 0);
-    box-shadow: functions.var($element, box-shadow, var(--box-shadow-high));
   }
 
   &__triage {
