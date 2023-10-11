@@ -14,6 +14,7 @@ const { version: currentVersion } = JSON.parse(readFileSync(packageJsonPath));
 
 const setReleaseType = async () => {
   const choices = [
+    'major',
     'minor',
     'patch',
   ];
