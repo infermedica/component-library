@@ -158,10 +158,8 @@ import {
   nextTick,
   onMounted,
   onBeforeUnmount,
-} from 'vue';
-import type {
-  DialogHTMLAttributes,
-  TransitionProps,
+  type DialogHTMLAttributes,
+  type TransitionProps,
 } from 'vue';
 import {
   focusTrap as vFocusTrap,

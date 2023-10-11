@@ -269,16 +269,14 @@ import {
   nextTick,
   onBeforeUnmount,
   onMounted,
-} from 'vue';
-import type {
-  DialogHTMLAttributes,
-  TransitionProps,
+  type DialogHTMLAttributes,
+  type TransitionProps,
 } from 'vue';
 import {
   bodyScrollLock as vBodyScrollLock,
   focusTrap as vFocusTrap,
 } from '../../../utilities/directives';
-import { focusElement } from '../../../utilities/helpers/index';
+import { focusElement } from '../../../utilities/helpers';
 import UiBackdrop from '../../atoms/UiBackdrop/UiBackdrop.vue';
 import type { BackdropAttrsProps } from '../../atoms/UiBackdrop/UiBackdrop.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';

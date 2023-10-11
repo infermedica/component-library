@@ -106,8 +106,8 @@
 import {
   computed,
   ref,
+  type HTMLAttributes,
 } from 'vue';
-import type { HTMLAttributes } from 'vue';
 import { uid } from 'uid/single';
 import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
 import type { RadioAttrsProps } from '../../atoms/UiRadio/UiRadio.vue';
