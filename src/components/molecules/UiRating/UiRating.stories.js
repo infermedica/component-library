@@ -105,6 +105,7 @@ export const IsDisabled = {
       :translation="translation"
       :radio-option-attrs="radioOptionAttrs"
       :class="modifiers"
+      :disabled="true"
       @update:modelValue="onUpdateModelValue"
     />`,
   }),

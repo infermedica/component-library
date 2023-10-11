@@ -57,29 +57,50 @@
     <slot
       v-bind="{ id: inputId }"
     />
-    <!-- @slot Use this slot to replace alert template. -->
-    <slot
-      name="alert"
-      v-bind="{
-        alertAttrs,
-        hasErrorMessage,
-        errorMessage,
-      }"
-    >
-      <UiAlert
-        v-if="hasErrorMessage"
-        v-bind="alertAttrs"
-        class="ui-form-field__alert"
+    <div class="ui-form-field__messages">
+      <!-- @slot Use this slot to replace alert template. -->
+      <slot
+        name="alert"
+        v-bind="{
+          alertAttrs,
+          hasErrorMessage,
+          errorMessage,
+        }"
       >
-        {{ errorMessage }}
-      </UiAlert>
-    </slot>
+        <UiAlert
+          v-if="hasErrorMessage"
+          v-bind="alertAttrs"
+          class="ui-form-field__alert"
+        >
+          {{ errorMessage }}
+        </UiAlert>
+      </slot>
+      <slot
+        name="character-counter"
+        v-bind="{
+          value,
+          characterCounterAttrs,
+          hasCharacterCounter,
+          handleErrorEmit,
+        }"
+      >
+        <UiFormFieldCharacterCounter
+          v-if="hasCharacterCounter"
+          v-bind="characterCounterAttrs"
+          :value="value"
+          class="ui-form-field__character-counter"
+          @error="handleErrorEmit"
+        />
+      </slot>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { uid } from 'uid/single';
 import { computed } from 'vue';
+import UiFormFieldCharacterCounter from './_internal/UiFormFieldCharacterCounter.vue';
+import type { FormFieldCharacterCounterProps } from './_internal/UiFormFieldCharacterCounter.vue';
 import UiAlert from '../UiAlert/UiAlert.vue';
 import type { AlertAttrsProps } from '../UiAlert/UiAlert.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
@@ -101,6 +122,14 @@ export interface FormFieldProps {
    */
   hint?: boolean | string;
   /**
+   * Use this props to pass value of input.
+   */
+  value?: string;
+  /**
+   * Use this props to show character counter.
+   */
+  hasCharacterCounter?: boolean;
+  /**
    * Use this props to set alert message
    */
   errorMessage?: boolean | string;
@@ -116,14 +145,20 @@ export interface FormFieldProps {
    * Use this props to pass attrs to UiAlert.
    */
   alertAttrs?: AlertAttrsProps;
+  characterCounterAttrs?: FormFieldCharacterCounterProps;
 }
 export type FormFieldAttrsProps = DefineAttrsProps<FormFieldProps>;
+export interface FormFieldEmits {
+  (e: 'error', value: string | null): void;
+}
+const emit = defineEmits<FormFieldEmits>();
 
 const props = withDefaults(defineProps<FormFieldProps>(), {
   message: false,
   id: '',
   hint: false,
   errorMessage: false,
+  hasCharacterCounter: false,
   textMessageAttrs: () => ({ tag: 'span' }),
   textHintAttrs: () => ({ tag: 'span' }),
   alertAttrs: () => ({}),
@@ -139,6 +174,10 @@ const defaultProps = computed(() => {
       tag,
       ...props.textHintAttrs,
     },
+    characterCounterAttrs: {
+      max: 240,
+      ...props.characterCounterAttrs,
+    },
   };
 });
 const inputId = computed(() => (
@@ -146,6 +185,9 @@ const inputId = computed(() => (
 ));
 const hasHint = computed(() => typeof props.hint !== 'boolean');
 const hasErrorMessage = computed(() => typeof props.errorMessage !== 'boolean');
+const handleErrorEmit = (error: string | null) => {
+  emit('error', error);
+};
 </script>
 
 <style lang="scss">
@@ -155,17 +197,30 @@ const hasErrorMessage = computed(() => typeof props.errorMessage !== 'boolean');
 .ui-form-field {
   $element: form-field;
 
-  &__label {
-    @include mixins.use-logical($element + "-alert", margin, 0 0 var(--space-8) 0);
+  display: flex;
+  flex-direction: column;
+  gap: functions.var($element, gap, var(--space-8));
 
+  &__label {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap: functions.var($element + "label", gap, var(--space-8));
+    gap: functions.var($element + "-label", gap, var(--space-8));
   }
 
-  &__alert {
-    @include mixins.use-logical($element + "-alert", margin, var(--space-8) 0 0 0);
+  &__messages {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-8);
+  }
+
+  &__character-counter {
+    margin-inline: auto 0;
+  }
+
+  &--is-disabled {
+    --text-color: var(--color-text-disabled);
   }
 }
 </style>

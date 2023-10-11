@@ -131,7 +131,7 @@ const props = withDefaults(defineProps<AccordionItemProps>(), {
     iconClose: 'chevron-down',
   }),
   buttonTogglerAttrs: () => ({}),
-  iconTogglerAttrs: () => ({ icon: 'chevron-down' }),
+  iconTogglerAttrs: () => ({}),
   contentAttrs: () => ({}),
   listItemAttrs: () => ({ class: 'ui-accordion-item' }),
 });

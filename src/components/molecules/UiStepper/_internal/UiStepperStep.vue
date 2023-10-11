@@ -116,7 +116,7 @@ const itemAttrs = computed<ButtonAttrsProps>(() => (isVisitedStep.value
   $element: stepper-step;
 
   --_stepper-step-indicator-width: #{functions.var($element + "-step-indicator", width, 4px)};
-  --_list-item-content-padding-block: #{functions.var($element + "-button", padding-block, var(--space-10))};
+  --_list-item-content-padding-block: #{functions.var($element + "-button", padding-block, var(--space-12))};
   --_list-item-content-padding-inline: #{functions.var($element + "-button", padding-inline, 0 var(--space-8))};
   --list-item-content-padding-block: var(--_list-item-content-padding-block);
   --list-item-content-padding-inline: var(--_list-item-content-padding-inline);

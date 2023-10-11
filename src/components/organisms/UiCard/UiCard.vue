@@ -145,7 +145,7 @@ const props = withDefaults(defineProps<CardProps>(), {
   subtitle: '',
   description: '',
   type: 'emergency_ambulance',
-  iconTriageAttrs: () => ({ icon: 'emergency-ambulance' }),
+  iconTriageAttrs: () => ({}),
   textSubtitleAttrs: () => ({}),
   headingTitleAttrs: () => ({}),
   textDescriptionAttrs: () => ({}),
@@ -173,6 +173,9 @@ const defaultProps = computed(() => ({
   @include mixins.override-logical(container-tablet, $element + "-tablet", padding, 0);
   @include mixins.override-logical(container-desktop, $element + "-desktop", padding, 0);
 
+  --container-box-shadow: #{functions.var($element, box-shadow, none)};
+  --container-tablet-box-shadow: #{functions.var($element, box-shadow)};
+
   display: flex;
   flex-direction: column;
   gap: functions.var($element, gap, var(--space-20));
@@ -183,7 +186,7 @@ const defaultProps = computed(() => ({
   }
 
   &__triage {
-    @include mixins.use-logical($element + "-triage", padding, var(--space-20));
+    @include mixins.use-logical($element + "-triage", padding, var(--space-16) var(--space-32));
     @include mixins.use-logical($element + "-triage", border-radius, var(--border-radius-container));
 
     display: flex;
@@ -194,7 +197,7 @@ const defaultProps = computed(() => ({
       @include mixins.use-logical(
         $element + "-tablet-triage",
         padding,
-        var(--space-40) var(--space-32)
+        var(--space-32) var(--space-32) var(--space-40)
       );
       @include mixins.use-logical(
         $element + "-tablet-triage",
@@ -205,8 +208,12 @@ const defaultProps = computed(() => ({
   }
 
   &__icon {
-    --icon-size: #{functions.var($element + "-icon", size, 4rem)};
+    --icon-size: #{functions.var($element + "-icon", size, 3rem)};
     --icon-color: #{functions.var($element + "-icon", color, var(--color-icon-negative))};
+
+    @include mixins.from-tablet {
+      --icon-size: #{functions.var($element + "-tablet-icon", size, 4rem)};
+    }
   }
 
   &__subtitle {
@@ -247,6 +254,8 @@ const defaultProps = computed(() => ({
   &--modern {
     @include mixins.override-logical(container, $element, padding, 0);
 
+    gap: functions.var($element, gap, 0);
+
     @include mixins.from-tablet {
       flex-direction: row-reverse;
     }
@@ -281,7 +290,7 @@ const defaultProps = computed(() => ({
         @include mixins.use-logical(
           $element + "-tablet-content",
           padding,
-          var(--space-40) var(--space-40) var(--space-48) var(--space-48)
+          var(--space-32) var(--space-48) var(--space-48) var(--space-48)
         );
       }
     }

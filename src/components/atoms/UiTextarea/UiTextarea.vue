@@ -1,9 +1,16 @@
+<!-- eslint-disable vuejs-accessibility/form-control-has-label -->
 <template>
   <div
-    class="ui-textarea"
+    :class="[
+      'ui-textarea',
+      { 'ui-textarea--has-autogrowing': hasAutogrowing }
+    ]"
     v-bind="attrs"
+    :data-value="modelValue"
+    :style="rootStyle"
   >
     <textarea
+      ref="textarea"
       v-keyboard-focus
       v-bind="defaultProps.textareaAttrs"
       :value="modelValue"
@@ -20,7 +27,12 @@ export default { inheritAttrs: false };
 
 <script setup lang="ts">
 import {
+  ref,
   computed,
+  onMounted,
+  onBeforeUnmount,
+  nextTick,
+  reactive,
   type TextareaHTMLAttributes,
 } from 'vue';
 import { useAttributes } from '../../../composable';
@@ -49,6 +61,10 @@ export interface TextareaProps {
    */
   disabled?: boolean;
   /**
+   * Use this props to allow to textarea autogrowing.
+   */
+  hasAutogrowing?: boolean;
+  /**
    * Use this props to pass attrs for textarea element.
    */
   textareaAttrs?: DefineAttrsProps<null, TextareaHTMLAttributes>;
@@ -57,12 +73,17 @@ export type TextareaAttrsProps = DefineAttrsProps<TextareaProps>;
 export interface TextareaEmits {
   (e:'update:modelValue', value: TextareaModelValue): void
 }
+export interface Size {
+  width: string | null;
+  height: string | null;
+}
 
 const props = withDefaults(defineProps<TextareaProps>(), {
   modelValue: '',
   resize: false,
   placeholder: '',
   disabled: false,
+  hasAutogrowing: false,
   textareaAttrs: () => ({}),
 });
 const defaultProps = computed(() => ({
@@ -82,10 +103,47 @@ const inputHandler = (event: Event) => {
   emit('update:modelValue', el.value);
 };
 const resizeValue = computed(() => {
+  if (props.hasAutogrowing) {
+    return 'none';
+  }
   if (typeof props.resize !== 'boolean') {
     return props.resize;
   }
-  return props.resize ? 'both' : 'none';
+  return props.resize
+    ? 'both'
+    : 'none';
+});
+const textarea = ref<HTMLTextAreaElement | null>(null);
+const textareaSize:Size = reactive({
+  width: null,
+  height: null,
+});
+const setTextareaSize = (mutationList: MutationRecord[]) => {
+  const { style } = mutationList[0].target as HTMLElement;
+  const {
+    width, height,
+  } = style;
+  textareaSize.width = width;
+  textareaSize.height = height;
+};
+const rootStyle = computed(() => (props.hasAutogrowing ? {} : {
+  width: textareaSize.width,
+  height: textareaSize.height,
+}));
+const observer = new MutationObserver(setTextareaSize);
+onMounted(async () => {
+  if (props.hasAutogrowing) { return; }
+  await nextTick();
+  if (textarea.value) {
+    observer.observe(textarea.value, {
+      attributes: true,
+      childList: false,
+      subtree: false,
+    });
+  }
+});
+onBeforeUnmount(() => {
+  observer.disconnect();
 });
 </script>
 
@@ -99,9 +157,10 @@ const resizeValue = computed(() => {
 
   @include mixins.inner-border($element, $radius: var(--border-radius-form));
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: inline-grid;
+  grid-template-rows: 100%;
+  grid-template-columns: 100%;
+  width: 100%;
   transition: border-color 150ms ease-in-out;
 
   @include mixins.hover {
@@ -119,12 +178,13 @@ const resizeValue = computed(() => {
     @include mixins.use-logical($element, padding, var(--space-12) var(--space-16));
     @include mixins.use-logical($element, border, 0);
 
-    flex: 1;
+    max-width: 100%;
     background: transparent;
     border-radius: inherit;
     caret-color: functions.var($element, caret-color, var(--color-blue-500));
     color: functions.var($element, color, var(--color-text-body));
     outline: none;
+    overflow: hidden;
 
     &::placeholder {
       color: functions.var($element + "-placeholder", color, var(--color-text-dimmed));
@@ -164,6 +224,20 @@ const resizeValue = computed(() => {
       &::after {
         @include mixins.use-logical($element + "-hover", border-color, var(--color-border-error-strong-hover));
       }
+    }
+  }
+
+  &--has-autogrowing {
+    &::before {
+      @extend #{$this}__textarea;
+
+      content: attr(data-value) " ";
+      white-space: pre-wrap;
+    }
+
+    &::before,
+    #{$this}__textarea {
+      grid-area: 1 / 1 / 2 / 2;
     }
   }
 }

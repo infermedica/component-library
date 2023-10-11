@@ -276,6 +276,10 @@ const {
           background: functions.var($element + "-hover", background, var(--color-background-disabled));
           color: functions.var($element + "-hover", color, var(--color-text-on-action));
 
+          &::after {
+            @include mixins.use-logical($element + "-hover", border-color, var(--color-border-subtle));
+          }
+
           #{$this}__icon {
             --icon-color: #{functions.var($element + "-hover-icon", color, var(--color-icon-on-action))};
           }
