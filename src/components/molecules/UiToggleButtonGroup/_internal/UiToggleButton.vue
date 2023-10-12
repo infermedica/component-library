@@ -24,8 +24,8 @@ import {
   inject,
   watch,
   useAttrs,
+  type WritableComputedRef,
 } from 'vue';
-import type { WritableComputedRef } from 'vue';
 import equal from 'fast-deep-equal';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import type { ButtonAttrsProps } from '../../../atoms/UiButton/UiButton.vue';

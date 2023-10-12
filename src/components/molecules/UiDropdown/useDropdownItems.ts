@@ -3,8 +3,10 @@ import {
   ref,
 } from 'vue';
 import type { Ref } from 'vue';
-import useMutationObserver from '../../../composable/useMutationObserver';
-import useActiveElement from '../../../composable/useActiveElement';
+import {
+  useMutationObserver,
+  useActiveElement,
+} from '../../../composable';
 
 export default function useDropdownItems(dropdown: Ref<HTMLElement | null>) {
   const dropdownItems = ref<HTMLElement[]>([]);

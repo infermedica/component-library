@@ -40,10 +40,8 @@
 import {
   computed,
   inject,
-} from 'vue';
-import type {
-  ComputedRef,
-  LiHTMLAttributes,
+  type ComputedRef,
+  type LiHTMLAttributes,
 } from 'vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import type { IconAttrsProps } from '../../../atoms/UiIcon/UiIcon.vue';

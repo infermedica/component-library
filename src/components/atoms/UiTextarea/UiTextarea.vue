@@ -1,3 +1,4 @@
+<!-- eslint-disable vuejs-accessibility/form-control-has-label -->
 <template>
   <div
     :class="[
@@ -32,9 +33,9 @@ import {
   onBeforeUnmount,
   nextTick,
   reactive,
+  type TextareaHTMLAttributes,
 } from 'vue';
-import type { TextareaHTMLAttributes } from 'vue';
-import useAttributes from '../../../composable/useAttributes';
+import { useAttributes } from '../../../composable';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 import type { DefineAttrsProps } from '../../../types';
 

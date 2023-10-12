@@ -21,14 +21,16 @@
 </template>
 
 <script setup lang="ts">
-import type { HTMLAttributes } from 'vue';
-import { computed } from 'vue';
+import {
+  computed,
+  type HTMLAttributes,
+} from 'vue';
 import type {
   HTMLTag,
   DefineAttrsProps,
 } from '../../../types';
 import type { LoaderAttrsProps } from '../../molecules/UiLoader/UiLoader.vue';
-import useLink from '../../../composable/useLink';
+import { useLink } from '../../../composable';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 import UiLoader from '../../molecules/UiLoader/UiLoader.vue';
 

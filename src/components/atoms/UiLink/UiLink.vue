@@ -13,7 +13,7 @@
 <script setup lang="ts">
 // https://www.figma.com/file/54rgvRJfBBagt4F34rrp1s/Core-Component-Library?node-id=2%3A3027
 import type { HTMLAttributes } from 'vue';
-import useLink from '../../../composable/useLink';
+import { useLink } from '../../../composable';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 import type {
   DefineAttrsProps,

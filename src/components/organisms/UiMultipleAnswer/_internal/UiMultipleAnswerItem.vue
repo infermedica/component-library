@@ -75,9 +75,9 @@ import {
   computed,
   onMounted,
   nextTick,
+  type ComponentPublicInstance,
 } from 'vue';
-import type { ComponentPublicInstance } from 'vue';
-import { focusElement } from '../../../../utilities/helpers/index';
+import { focusElement } from '../../../../utilities/helpers';
 import type { TextAttrsProps } from '../../../atoms/UiText/UiText.vue';
 import type { ButtonAttrsProps } from '../../../atoms/UiButton/UiButton.vue';
 import type { IconAttrsProps } from '../../../atoms/UiIcon/UiIcon.vue';

@@ -20,8 +20,8 @@ import {
   computed,
   watch,
   onMounted,
+  type CSSProperties,
 } from 'vue';
-import type { CSSProperties } from 'vue';
 import type { DefineAttrsProps } from '../../../../types';
 
 export type LoaderTransitionState = 'from' | 'active' | 'to';

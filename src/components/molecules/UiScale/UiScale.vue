@@ -143,10 +143,8 @@ import {
   computed,
   ref,
   watch,
-} from 'vue';
-import type {
-  CSSProperties,
-  ComponentPublicInstance,
+  type CSSProperties,
+  type ComponentPublicInstance,
 } from 'vue';
 import { uid } from 'uid/single';
 import UiRadio from '../../atoms/UiRadio/UiRadio.vue';
@@ -155,7 +153,7 @@ import UiText from '../../atoms/UiText/UiText.vue';
 import type { TextAttrsProps } from '../../atoms/UiText/UiText.vue';
 import UiNumberStepper from '../UiNumberStepper/UiNumberStepper.vue';
 import type { NumberStepperAttrsProps } from '../UiNumberStepper/UiNumberStepper.vue';
-import { focusElement } from '../../../utilities/helpers/index';
+import { focusElement } from '../../../utilities/helpers';
 import type {
   DefineAttrsProps,
   HTMLTag,

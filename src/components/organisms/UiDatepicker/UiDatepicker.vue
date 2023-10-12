@@ -53,10 +53,8 @@ import {
   reactive,
   ref,
   watch,
-} from 'vue';
-import type {
-  ComputedRef,
-  Ref,
+  type ComputedRef,
+  type Ref,
 } from 'vue';
 import {
   format,
@@ -66,7 +64,7 @@ import {
 import {
   capitalizeFirst,
   focusElement,
-} from '../../../utilities/helpers/index';
+} from '../../../utilities/helpers';
 import UiFormField from '../../molecules/UiFormField/UiFormField.vue';
 import type { AlertAttrsProps } from '../../molecules/UiAlert/UiAlert.vue';
 import UiText from '../../atoms/UiText/UiText.vue';

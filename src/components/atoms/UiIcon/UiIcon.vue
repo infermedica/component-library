@@ -10,10 +10,8 @@ import {
   computed,
   defineAsyncComponent,
   h,
-} from 'vue';
-import type {
-  Component,
-  SVGAttributes,
+  type Component,
+  type SVGAttributes,
 } from 'vue';
 import type {
   DefineAttrsProps,
