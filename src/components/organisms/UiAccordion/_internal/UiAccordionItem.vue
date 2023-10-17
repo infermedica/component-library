@@ -70,8 +70,8 @@
 import {
   computed,
   inject,
+  type ComputedRef,
 } from 'vue';
-import type { ComputedRef } from 'vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import type { ButtonAttrsProps } from '../../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
@@ -131,7 +131,7 @@ const props = withDefaults(defineProps<AccordionItemProps>(), {
     iconClose: 'chevron-down',
   }),
   buttonTogglerAttrs: () => ({}),
-  iconTogglerAttrs: () => ({ icon: 'chevron-down' }),
+  iconTogglerAttrs: () => ({}),
   contentAttrs: () => ({}),
   listItemAttrs: () => ({ class: 'ui-accordion-item' }),
 });

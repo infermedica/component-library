@@ -41,12 +41,10 @@ export default { name: 'UiBulletPoints' };
 import {
   computed,
   provide,
-} from 'vue';
-import type {
-  ComputedRef,
-  CSSProperties,
-  LiHTMLAttributes,
-  OlHTMLAttributes,
+  type ComputedRef,
+  type CSSProperties,
+  type LiHTMLAttributes,
+  type OlHTMLAttributes,
 } from 'vue';
 import UiBulletPointsItem from './_internal/UiBulletPointsItem.vue';
 import type { BulletPointsItemAttrsProps } from './_internal/UiBulletPointsItem.vue';

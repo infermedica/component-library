@@ -76,9 +76,11 @@ export default { inheritAttrs: false };
 </script>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import type { InputHTMLAttributes } from 'vue';
-import useAttributes from '../../../composable/useAttributes';
+import {
+  computed,
+  type InputHTMLAttributes,
+} from 'vue';
+import { useAttributes } from '../../../composable';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 import UiHeading from '../UiHeading/UiHeading.vue';
 import type { HeadingAttrsProps } from '../UiHeading/UiHeading.vue';

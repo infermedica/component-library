@@ -12,10 +12,10 @@ export default { name: 'UiInteractiveSvg' };
 </script>
 
 <script setup lang="ts">
-import { provide } from 'vue';
-import type {
-  HTMLAttributes,
-  SVGAttributes,
+import {
+  provide,
+  type HTMLAttributes,
+  type SVGAttributes,
 } from 'vue';
 import type { InteractiveSvgElementAttrsProps } from './_internal/UiInteractiveSvgElement.vue';
 import type {

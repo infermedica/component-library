@@ -41,7 +41,7 @@ import UiListItem from '../../UiList/_internal/UiListItem.vue';
 import type { ListItemAttrsProps } from '../../UiList/_internal/UiListItem.vue';
 import UiMenuItemSuffix from './UiMenuItemSuffix.vue';
 import type { MenuItemSuffixAttrsProps } from './UiMenuItemSuffix.vue';
-import useAttributes from '../../../../composable/useAttributes';
+import { useAttributes } from '../../../../composable';
 import type {
   DefineAttrsProps,
   Icon,

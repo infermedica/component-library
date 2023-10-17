@@ -24,8 +24,8 @@
 import {
   computed,
   provide,
+  type ComputedRef,
 } from 'vue';
-import type { ComputedRef } from 'vue';
 import UiAccordionItem from './_internal/UiAccordionItem.vue';
 import type { AccordionItemAttrsProps } from './_internal/UiAccordionItem.vue';
 import UiList from '../UiList/UiList.vue';

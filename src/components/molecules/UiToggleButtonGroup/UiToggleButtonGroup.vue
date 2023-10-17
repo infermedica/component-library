@@ -32,8 +32,8 @@ export default { name: 'UiToggleButtonGroup' };
 import {
   computed,
   provide,
+  type WritableComputedRef,
 } from 'vue';
-import type { WritableComputedRef } from 'vue';
 import equal from 'fast-deep-equal';
 import UiToggleButton from './_internal/UiToggleButton.vue';
 import type { ToggleButtonAttrsProps } from './_internal/UiToggleButton.vue';

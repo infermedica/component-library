@@ -96,11 +96,9 @@ import {
   computed,
   provide,
   inject,
-} from 'vue';
-import type {
-  ComputedRef,
-  WritableComputedRef,
-  Ref,
+  type ComputedRef,
+  type WritableComputedRef,
+  type Ref,
 } from 'vue';
 import type {
   Icon,

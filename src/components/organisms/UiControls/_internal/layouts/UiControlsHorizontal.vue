@@ -3,7 +3,7 @@
   <slot />
   <!-- @slot Use this slot to replace actions template. -->
   <slot
-    :name="slotName"
+    name="actions"
     v-bind="{
       toNext,
       hideNextButton,
@@ -77,26 +77,11 @@
 </template>
 
 <script setup lang="ts">
-import {
-  ref,
-  useSlots,
-} from 'vue';
 import UiControlsBackButton from '../UiControlsBackButton.vue';
 import UiControlsNextButton from '../UiControlsNextButton.vue';
 import type { ControlsCommonProps } from '../../UiControls.vue';
 
 const props = defineProps<ControlsCommonProps>();
-
-// TODO: remove in 0.8.0 / BEGIN
-const slots = useSlots();
-const slotName = ref('actions');
-if (slots.bottom) {
-  slotName.value = 'bottom';
-  if (process.env.NODE_ENV === 'development') {
-    console.warn('[@infermedica/component-library warn][UiControls]: The `bottom` slots will be removed in 0.8.0. Please use `actions` slot instead.');
-  }
-}
-// END
 </script>
 
 <style lang="scss">
@@ -106,7 +91,6 @@ if (slots.bottom) {
 .ui-controls-horizontal {
   $element: controls-horizontal;
 
-  @at-root .ui-controls__bottom, // TODO: remove in 1.0.0
   &__actions {
     @include mixins.use-logical($element + "-actions", padding, var(--space-12) var(--space-20));
     @include mixins.inner-border(

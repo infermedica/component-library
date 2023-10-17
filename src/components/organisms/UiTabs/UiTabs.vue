@@ -33,8 +33,8 @@ import {
   onUnmounted,
   reactive,
   watchEffect,
+  type CSSProperties,
 } from 'vue';
-import type { CSSProperties } from 'vue';
 import UiTabsItem from './_internal/UiTabsItem.vue';
 import type { TabsItemAttrsProps } from './_internal/UiTabsItem.vue';
 import type { DefineAttrsProps } from '../../../types';

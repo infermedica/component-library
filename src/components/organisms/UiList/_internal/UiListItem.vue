@@ -46,8 +46,10 @@ export default { inheritAttrs: false };
 </script>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import type { LiHTMLAttributes } from 'vue';
+import {
+  computed,
+  type LiHTMLAttributes,
+} from 'vue';
 import type { Icon } from '../../../../types/icon';
 import UiListItemSuffixAsButton from './UiListItemSuffixAsButton.vue';
 import type { ListItemSuffixAsButtonAttrsProps } from './UiListItemSuffixAsButton.vue';
