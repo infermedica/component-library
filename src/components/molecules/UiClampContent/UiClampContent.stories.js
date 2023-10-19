@@ -15,49 +15,58 @@ const events = actions({
   scrollToElementRequest: 'scrollToElementRequest',
 });
 
-const presenceEvidences = [
-  {
-    id: 1,
-    commonName: 'Headache',
-  },
-  {
-    id: 2,
-    commonName: 'Eye pain',
-  },
-  {
-    id: 3,
-    commonName: 'Pain around or behind eye',
-  },
-  {
-    id: 4,
-    commonName: 'Light sensitivity',
-  },
-  {
-    id: 5,
-    commonName: 'Moderate headache',
-  },
-];
-const absenceEvidences = [
-  {
-    id: 1,
-    commonName: 'Headache',
-  },
-  {
-    id: 2,
-    commonName: 'Eye pain',
-  },
-  {
-    id: 3,
-    commonName: 'Pain around or behind eye',
-  },
-];
+const presenceSection = {
+  heading: 'Reasoning for',
+  subheading: 'Presence of symptoms:',
+  evidences: [
+    {
+      id: 1,
+      commonName: 'Headache',
+    },
+    {
+      id: 2,
+      commonName: 'Eye pain',
+    },
+    {
+      id: 3,
+      commonName: 'Pain around or behind eye',
+    },
+    {
+      id: 4,
+      commonName: 'Light sensitivity',
+    },
+    {
+      id: 5,
+      commonName: 'Moderate headache',
+    },
+  ],
+};
+
+const absenceSection = {
+  heading: 'Reasons against',
+  subheading: 'Absence of symptoms:',
+  evidences: [
+    {
+      id: 1,
+      commonName: 'Headache',
+    },
+    {
+      id: 2,
+      commonName: 'Eye pain',
+    },
+    {
+      id: 3,
+      commonName: 'Pain around or behind eye',
+    },
+  ],
+};
 
 export default {
   title: 'Molecules/ClampContent',
   component: UiClampContent,
   args: {
-    presenceEvidences,
-    absenceEvidences,
+    presenceSection,
+    absenceSection,
   },
   argTypes: {},
   decorators: [ () => ({
@@ -95,16 +104,16 @@ export const Common = {
     >
       <div class="ui-clamp-content__story-presence">
         <UiHeading level="4">
-          Reasoning for
+          {{ presenceSection.heading }}
         </UiHeading>
         <UiText class="ui-clamp-content__story-text">
-          Presence of symptoms:
+          {{ presenceSection.subheading}}
         </UiText>
         <UiBulletPoints
           tag="ul"
         >
           <template
-            v-for="evidence in presenceEvidences"
+            v-for="evidence in presenceSection.evidences"
             :key="evidence.id"
           >
             <UiBulletPointsItem
@@ -125,16 +134,16 @@ export const Common = {
       </div>
       <div class="ui-clamp-content__story-absence">
         <UiHeading level="4">
-          Reasons against
+          {{ absenceSection.heading }}
         </UiHeading>
         <UiText class="ui-clamp-content__story-text">
-          Absence of symptoms:
+          {{ absenceSection.subheading }}
         </UiText>
         <UiBulletPoints
           tag="ul"
         >
           <template
-            v-for="evidence in absenceEvidences"
+            v-for="evidence in absenceSection.evidences"
             :key="evidence.id"
           >
             <UiBulletPointsItem
