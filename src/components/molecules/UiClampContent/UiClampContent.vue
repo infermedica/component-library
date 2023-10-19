@@ -82,7 +82,7 @@ import type { DefineAttrsProps } from '../../../types';
 
 export interface ClampContentProps {
   /**
-   * Use this props to set truncateStategy for a component.
+   * Use this props to set truncateStrategy for a component.
    */
   truncateStrategy?: ReturnType<
       typeof truncateHTMLByElements |

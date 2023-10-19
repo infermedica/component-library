@@ -1,0 +1,16 @@
+.ui-clamp-content {
+  &__story-presence { 
+    --bullet-points-item-marker-color: var(--color-blue-600);
+  }
+
+  &__story-text {
+    --text-margin-block: var(--space-8);
+  }
+
+  &__story-absence {
+    --bullet-points-item-marker-color: var(--color-gray-600);
+
+    margin-top: var(--space-24);
+  }
+}
+

@@ -78,7 +78,6 @@ export function truncateHTMLByCharactersCount(maxCharacters: number) {
 export function truncateHTMLByTextElementCount(maxTextElements: number) {
   return (content: HTMLElement) => {
     const textNodes = findAllTextNodes(content);
-    console.log('textNodes', textNodes);
     const clonedNode = content.cloneNode(true) as HTMLElement;
     const truncated = textNodes.length > maxTextElements;
 
