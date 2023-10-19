@@ -254,16 +254,16 @@ export function getArgTypes(component, options = { variables: {}}) {
       }
     ), {})
       : {};
-    const propsDefaults = props
-      ? Object.keys(props).reduce((object, prop) => (
-      {
-        ...object,
-        [prop]: props[prop].table.defaultValue.summary
-      }
-    ), {})
-      : {};
+    // const propsDefaults = props
+    //   ? Object.keys(props).reduce((object, prop) => (
+    //   {
+    //     ...object,
+    //     [prop]: props[prop].table.defaultValue.summary
+    //   }
+    // ), {})
+    //   : {};
     return {
-      ...propsDefaults,
+      // ...propsDefaults,
       ...variablesDefaults,
     }
   })()

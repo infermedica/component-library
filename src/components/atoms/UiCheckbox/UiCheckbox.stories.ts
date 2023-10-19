@@ -28,6 +28,8 @@ const {
   args,
 } = getArgTypes(UiCheckbox);
 
+console.log(args);
+
 const meta = {
   title: 'Atoms/Checkbox',
   component: UiCheckbox,
