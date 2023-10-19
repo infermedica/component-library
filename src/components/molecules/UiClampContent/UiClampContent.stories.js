@@ -7,7 +7,11 @@ import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiClampContent from '@/components/molecules/UiClampContent/UiClampContent.vue';
 import ArrowThinUp from '@/assets/icons/arrow-thin-up.svg';
 import ArrowThinDown from '@/assets/icons/arrow-thin-down.svg';
-import { truncateHTMLByTextElementCount } from '@/utilities/helpers/truncate-HTML';
+import IconBulletCommon from '@/assets/icons/bullet-common.svg';
+import {
+  truncateHTMLByTextElementCount,
+  truncateHTMLByElements,
+} from '@/utilities/helpers/truncate-HTML';
 import './UiClampContent.stories.scss';
 
 const events = actions({
@@ -76,7 +80,7 @@ export default {
   }) ],
 };
 
-export const Common = {
+export const TruncateHTMLByTextElementCount = {
   render: (args) => ({
     components: {
       UiClampContent,
@@ -96,17 +100,17 @@ export const Common = {
         handleTruncateStrategy,
       };
     },
-    template: `
-    <UiClampContent
+    template: `<UiClampContent
       :truncate-strategy="handleTruncateStrategy"
       @expand="clickExpand"
       @scroll-to-element-request="scrollToElementRequest"
+      class="ui-clamp-content-story__truncate-html-by-text-element-count"
     >
-      <div class="ui-clamp-content__story-presence">
+      <div class="ui-clamp-content-story__truncate-html-by-text-element-count-presence">
         <UiHeading level="4">
           {{ presenceSection.heading }}
         </UiHeading>
-        <UiText class="ui-clamp-content__story-text">
+        <UiText class="ui-clamp-content-story__truncate-html-by-text-element-count-text">
           {{ presenceSection.subheading}}
         </UiText>
         <UiBulletPoints
@@ -132,11 +136,11 @@ export const Common = {
           </template>
         </UiBulletPoints>
       </div>
-      <div class="ui-clamp-content__story-absence">
+      <div class="ui-clamp-content-story__truncate-html-by-text-element-count-absence">
         <UiHeading level="4">
           {{ absenceSection.heading }}
         </UiHeading>
-        <UiText class="ui-clamp-content__story-text">
+        <UiText class="ui-clamp-content-story__truncate-html-by-text-element-count-text">
           {{ absenceSection.subheading }}
         </UiText>
         <UiBulletPoints
@@ -162,6 +166,92 @@ export const Common = {
           </template>
         </UiBulletPoints>
       </div>
+    </UiClampContent>`,
+  }),
+};
+
+export const TruncateHTMLByElements = {
+  render: (args) => ({
+    components: {
+      UiClampContent,
+      UiHeading,
+      UiText,
+      UiBulletPoints,
+      UiBulletPointsItem,
+    },
+    setup() {
+      const handleTruncateStrategy = ref(truncateHTMLByElements(5));
+      const list = [
+        'Gargle with warm, salty water (one half teaspoon or 3 grams of salt in a glass of warm water)',
+        'Drink plenty of water',
+        'Eat cool or soft foods',
+        'Avoid smoking or smoky places',
+        'Suck ice cubes, ice lollies or hard sweets',
+        'Rest in bed',
+        'Humidify the air using cool-air humidifier or just sit in a steamy bathroom for several minutes',
+      ];
+      return {
+        ...args,
+        ...events,
+        handleTruncateStrategy,
+        list,
+        IconBulletCommon,
+      };
+    },
+    template: `<UiClampContent
+      :truncate-strategy="handleTruncateStrategy"
+      @expand="clickExpand"
+      @scroll-to-element-request="scrollToElementRequest"
+      class="ui-clamp-content-story__truncate-HTML-by-elements"
+    >
+      <UiHeading level="2">
+        Common care methods
+      </UiHeading>
+      <UiHeading level="4">
+        How can people manage acute viral throat infection?
+      </UiHeading>
+      <UiText class="ui-clamp-content-story__truncate-HTML-by-elements-text">
+        To help soothe a sore throat and shorten how long it lasts, you can:
+      </UiText>
+      <UiBulletPoints
+        tag="ul"
+        type="1"
+        :items="list"
+        v-bind="{icon: IconBulletCommon}"
+      />
+
+      <UiHeading 
+        level="4"
+        class="ui-clamp-content-story__truncate-HTML-by-elements-heading"
+      >
+        What medicines can manage acute viral throat infection?
+      </UiHeading>
+      <UiText class="ui-clamp-content-story__truncate-HTML-by-elements-text">
+        There is no dedicated treatment for viral pharyngitis. Painkillers, such as acetaminophen or ibuprofen can ease the pain and fever. Throat lozenge may also help with the pain.There is no need for antibiotics for a sore throat because they will not usually relieve the symptoms or speed up the recovery.
+      </UiText>
+      <UiText>
+        It is recommended to use all medications with caution. They should be always used as directed and the labels should be read. It is recommended to talk with a healthcare professional before taking any medicines or giving it to children.
+      </UiText>
+
+      <UiHeading 
+        level="4"
+        class="ui-clamp-content-story__truncate-HTML-by-elements-heading"
+      >
+        How can acute viral throat infection be prevented?
+      </UiHeading>
+      <UiText>
+        It is important to wash the hands frequently during the day, especially after coming home from work or school and to avoid contact with people who are sick. Not sharing drinking glasses or bottler, or eating utensils are also good habits to avoid getting sick.
+      </UiText>
+
+      <UiHeading 
+        level="4"
+        class="ui-clamp-content-story__truncate-HTML-by-elements-heading"
+      >
+        When should you get help from a healthcare provider for acute viral throat infection?
+      </UiHeading>
+      <UiText>
+        Symptoms of viral tonsillopharyngitis should resolve within a week to 10 days. If they don’t, self-care methods don’t work, or if the symptoms get even worse with time, especially if they’re accompanied by difficulty swallowing or breathing, patients or their guardian should seek professional medical care.
+      </UiText>
     </UiClampContent>`,
   }),
 };
