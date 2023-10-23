@@ -31,7 +31,7 @@ const file = computed<Component>(() => {
   if (!props.icon) return h('svg');
   if (typeof props.icon === 'string') {
     return defineAsyncComponent({
-      loader: () => import(`../../../assets/icons/${props.icon}.svg`),
+      loader: () => import('../../../assets/icons/absent.svg'),
       loadingComponent: () => h('svg', { class: 'ui-icon' }),
       delay: 0,
     });
