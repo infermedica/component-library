@@ -4,7 +4,7 @@ import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints.vue';
 import UiBulletPointsItem from '@/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue';
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
-import UiClampContent from '@/components/molecules/UiClampContent/UiClampContent.vue';
+import UiTruncateContent from '@/components/molecules/UiTruncateContent/UiTruncateContent.vue';
 import ArrowThinUp from '@/assets/icons/arrow-thin-up.svg';
 import ArrowThinDown from '@/assets/icons/arrow-thin-down.svg';
 import IconBulletCommon from '@/assets/icons/bullet-common.svg';
@@ -13,67 +13,16 @@ import {
   truncateHTMLByElements,
   truncateHTMLByCharactersCount,
 } from '@/utilities/helpers/truncate-HTML';
-import './UiClampContent.stories.scss';
+import './UiTruncateContent.stories.scss';
 
 const events = actions({
   clickExpand: 'clickExpand',
   scrollToElementRequest: 'scrollToElementRequest',
 });
 
-const presenceSection = {
-  heading: 'Reasoning for',
-  subheading: 'Presence of symptoms:',
-  evidences: [
-    {
-      id: 1,
-      commonName: 'Headache',
-    },
-    {
-      id: 2,
-      commonName: 'Eye pain',
-    },
-    {
-      id: 3,
-      commonName: 'Pain around or behind eye',
-    },
-    {
-      id: 4,
-      commonName: 'Light sensitivity',
-    },
-    {
-      id: 5,
-      commonName: 'Moderate headache',
-    },
-  ],
-};
-
-const absenceSection = {
-  heading: 'Reasons against',
-  subheading: 'Absence of symptoms:',
-  evidences: [
-    {
-      id: 1,
-      commonName: 'Headache',
-    },
-    {
-      id: 2,
-      commonName: 'Eye pain',
-    },
-    {
-      id: 3,
-      commonName: 'Pain around or behind eye',
-    },
-  ],
-};
-
 export default {
-  title: 'Molecules/ClampContent',
-  component: UiClampContent,
-  args: {
-    presenceSection,
-    absenceSection,
-  },
-  argTypes: {},
+  title: 'Molecules/TruncateContent',
+  component: UiTruncateContent,
   decorators: [ () => ({
     template: `<div class="min-h-115">
       <story />
@@ -84,7 +33,7 @@ export default {
 export const TruncateHTMLByTextElementCount = {
   render: (args) => ({
     components: {
-      UiClampContent,
+      UiTruncateContent,
       UiHeading,
       UiBulletPoints,
       UiBulletPointsItem,
@@ -93,30 +42,76 @@ export const TruncateHTMLByTextElementCount = {
     setup() {
       const handleTruncateStrategy = ref(truncateHTMLByTextElementCount(7));
 
+      const presenceSection = {
+        heading: 'Reasoning for',
+        subheading: 'Presence of symptoms:',
+        evidences: [
+          {
+            id: 1,
+            commonName: 'Headache',
+          },
+          {
+            id: 2,
+            commonName: 'Eye pain',
+          },
+          {
+            id: 3,
+            commonName: 'Pain around or behind eye',
+          },
+          {
+            id: 4,
+            commonName: 'Light sensitivity',
+          },
+          {
+            id: 5,
+            commonName: 'Moderate headache',
+          },
+        ],
+      };
+
+      const absenceSection = {
+        heading: 'Reasons against',
+        subheading: 'Absence of symptoms:',
+        evidences: [
+          {
+            id: 1,
+            commonName: 'Headache',
+          },
+          {
+            id: 2,
+            commonName: 'Eye pain',
+          },
+          {
+            id: 3,
+            commonName: 'Pain around or behind eye',
+          },
+        ],
+      };
+
       return {
         ...args,
         ...events,
         ArrowThinUp,
         ArrowThinDown,
         handleTruncateStrategy,
+        presenceSection,
+        absenceSection,
       };
     },
-    template: `<UiClampContent
+    template: `<UiTruncateContent
       :truncate-strategy="handleTruncateStrategy"
       @expand="clickExpand"
       @scroll-to-element-request="scrollToElementRequest"
-      class="ui-clamp-content-story-truncate-html-by-text-element-count"
+      class="ui-truncate-content-story-truncate-html-by-text-element-count"
     >
-      <div class="ui-clamp-content-story-truncate-html-by-text-element-count__presence">
+      <div class="ui-truncate-content-story-truncate-html-by-text-element-count__presence">
         <UiHeading level="4">
           {{ presenceSection.heading }}
         </UiHeading>
-        <UiText class="ui-clamp-content-story-truncate-html-by-text-element-count__text">
+        <UiText class="ui-truncate-content-story-truncate-html-by-text-element-count__text">
           {{ presenceSection.subheading}}
         </UiText>
-        <UiBulletPoints
-          tag="ul"
-        >
+        <UiBulletPoints>
           <template
             v-for="evidence in presenceSection.evidences"
             :key="evidence.id"
@@ -137,16 +132,14 @@ export const TruncateHTMLByTextElementCount = {
           </template>
         </UiBulletPoints>
       </div>
-      <div class="ui-clamp-content-story-truncate-html-by-text-element-count__absence">
+      <div class="ui-truncate-content-story-truncate-html-by-text-element-count__absence">
         <UiHeading level="4">
           {{ absenceSection.heading }}
         </UiHeading>
-        <UiText class="ui-clamp-content-story-truncate-html-by-text-element-count__text">
+        <UiText class="ui-truncate-content-story-truncate-html-by-text-element-count__text">
           {{ absenceSection.subheading }}
         </UiText>
-        <UiBulletPoints
-          tag="ul"
-        >
+        <UiBulletPoints>
           <template
             v-for="evidence in absenceSection.evidences"
             :key="evidence.id"
@@ -167,14 +160,14 @@ export const TruncateHTMLByTextElementCount = {
           </template>
         </UiBulletPoints>
       </div>
-    </UiClampContent>`,
+    </UiTruncateContent>`,
   }),
 };
 
 export const TruncateHTMLByElements = {
   render: (args) => ({
     components: {
-      UiClampContent,
+      UiTruncateContent,
       UiHeading,
       UiText,
       UiBulletPoints,
@@ -199,11 +192,11 @@ export const TruncateHTMLByElements = {
         IconBulletCommon,
       };
     },
-    template: `<UiClampContent
+    template: `<UiTruncateContent
       :truncate-strategy="handleTruncateStrategy"
       @expand="clickExpand"
       @scroll-to-element-request="scrollToElementRequest"
-      class="ui-clamp-content-story-truncate-HTML-by-elements"
+      class="ui-truncate-content-story-truncate-HTML-by-elements"
     >
       <UiHeading level="2">
         Common care methods
@@ -211,11 +204,10 @@ export const TruncateHTMLByElements = {
       <UiHeading level="4">
         How can people manage acute viral throat infection?
       </UiHeading>
-      <UiText class="ui-clamp-content-story-truncate-HTML-by-elements__text">
+      <UiText class="ui-truncate-content-story-truncate-HTML-by-elements__text">
         To help soothe a sore throat and shorten how long it lasts, you can:
       </UiText>
       <UiBulletPoints
-        tag="ul"
         type="1"
         :items="list"
         v-bind="{icon: IconBulletCommon}"
@@ -223,11 +215,11 @@ export const TruncateHTMLByElements = {
 
       <UiHeading 
         level="4"
-        class="ui-clamp-content-story-truncate-HTML-by-elements__heading"
+        class="ui-truncate-content-story-truncate-HTML-by-elements__heading"
       >
         What medicines can manage acute viral throat infection?
       </UiHeading>
-      <UiText class="ui-clamp-content-story-truncate-HTML-by-elements__text">
+      <UiText class="ui-truncate-content-story-truncate-HTML-by-elements__text">
         There is no dedicated treatment for viral pharyngitis. Painkillers, such as acetaminophen or ibuprofen can ease the pain and fever. Throat lozenge may also help with the pain.There is no need for antibiotics for a sore throat because they will not usually relieve the symptoms or speed up the recovery.
       </UiText>
       <UiText>
@@ -236,7 +228,7 @@ export const TruncateHTMLByElements = {
 
       <UiHeading 
         level="4"
-        class="ui-clamp-content-story-truncate-HTML-by-elements__heading"
+        class="ui-truncate-content-story-truncate-HTML-by-elements__heading"
       >
         How can acute viral throat infection be prevented?
       </UiHeading>
@@ -246,21 +238,21 @@ export const TruncateHTMLByElements = {
 
       <UiHeading 
         level="4"
-        class="ui-clamp-content-story-truncate-HTML-by-elements__heading"
+        class="ui-truncate-content-story-truncate-HTML-by-elements__heading"
       >
         When should you get help from a healthcare provider for acute viral throat infection?
       </UiHeading>
       <UiText>
         Symptoms of viral tonsillopharyngitis should resolve within a week to 10 days. If they don’t, self-care methods don’t work, or if the symptoms get even worse with time, especially if they’re accompanied by difficulty swallowing or breathing, patients or their guardian should seek professional medical care.
       </UiText>
-    </UiClampContent>`,
+    </UiTruncateContent>`,
   }),
 };
 
 export const TruncateHTMLByCharactersCount = {
   render: (args) => ({
     components: {
-      UiClampContent,
+      UiTruncateContent,
       UiHeading,
       UiBulletPoints,
       UiBulletPointsItem,
@@ -277,11 +269,11 @@ export const TruncateHTMLByCharactersCount = {
         ArrowThinDown,
       };
     },
-    template: `<UiClampContent
+    template: `<UiTruncateContent
       :truncate-strategy="handleTruncateStrategy"
       @expand="clickExpand"
       @scroll-to-element-request="scrollToElementRequest"
-      class="ui-clamp-content-story-truncate-html-by-characters-count"
+      class="ui-truncate-content-story-truncate-html-by-characters-count"
     >
       <UiHeading level="2">About</UiHeading>
       <article>
@@ -294,20 +286,20 @@ export const TruncateHTMLByCharactersCount = {
         </UiText>
       </article>
 
-      <article class="ui-clamp-content-story-truncate-html-by-characters-count__article">
+      <article class="ui-truncate-content-story-truncate-html-by-characters-count__article">
         <UiHeading level="4">What causes acute viral throat infection?</UiHeading>
       <UiText>
         Sore throats are usually caused by viruses (like cold or flu).
       </UiText>
       </article>
 
-      <article class="ui-clamp-content-story-truncate-html-by-characters-count__article">
+      <article class="ui-truncate-content-story-truncate-html-by-characters-count__article">
         <UiHeading level="4">How is acute viral throat infection diagnosed?</UiHeading>
         <UiText>
           Simple throat examination correlated with symptoms reported by the patient is usually enough to diagnose viral pharyngitis. In some cases, a rapid antigen test or throat culture may be performed to distinguish if sore throat is caused by viruses or bacteria. 
         </UiText>
       </article>
-    </UiClampContent>
+    </UiTruncateContent>
     `,
   }),
 };

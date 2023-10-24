@@ -1,20 +1,20 @@
 <template>
   <div
-    ref="clampContent"
-    class="ui-clamp-content"
+    ref="truncateContent"
+    class="ui-truncate-content"
   >
     <div
       v-show="expanded"
       ref="content"
-      class="ui-clamp-content__inner"
+      class="ui-truncate-content__inner"
     >
-      <!-- @slot Use this slot to place content inside ClampContent.  -->
+      <!-- @slot Use this slot to place content inside TruncateContent.  -->
       <slot />
     </div>
     <!-- eslint-disable vue/no-v-html -->
     <div
       v-show="!expanded"
-      class="clamp-content__clamped"
+      class="ui-truncate-content__clamped"
       v-html="clippedContentHTML"
     />
     <!-- @slot Use this slot to replace toggle button. -->
@@ -28,7 +28,11 @@
     >
       <UiButton
         v-if="isContentTruncated"
-        class="ui-clamp-content__button ui-button--text ui-button--has-icon"
+        class="
+          ui-truncate-content__button
+          ui-button--text
+          ui-button--has-icon
+        "
         @click="handleToggleClick"
       >
         <template v-if="expanded">
@@ -80,7 +84,7 @@ import {
 import type { IconAttrsProps } from '../../atoms/UiIcon/UiIcon.vue';
 import type { DefineAttrsProps } from '../../../types';
 
-export interface ClampContentProps {
+export interface TruncateContentProps {
   /**
    * Use this props to set truncateStrategy for a component.
    */
@@ -114,8 +118,8 @@ export interface ClampContentProps {
    */
   hideButtonText?: string;
 }
-export type ClampContentAttrsProps = DefineAttrsProps<ClampContentProps>;
-const props = withDefaults(defineProps<ClampContentProps>(), {
+export type TruncateContentAttrsProps = DefineAttrsProps<TruncateContentProps>;
+const props = withDefaults(defineProps<TruncateContentProps>(), {
   truncateStrategy: () => (truncateHTMLByTextElementCount(7)),
   iconExpandAttrs: () => ({}),
   iconHideAttrs: () => ({}),
@@ -144,7 +148,7 @@ const emit = defineEmits([
   'scrollToElementRequest',
 ]);
 
-const clampContent = ref<HTMLElement | null>(null);
+const truncateContentElement = ref<HTMLElement | null>(null);
 const expanded = ref(false);
 const content = ref<HTMLElement | null>(null);
 const isContentTruncated = ref(false);
@@ -162,7 +166,7 @@ const truncateContent = () => {
 const handleToggleClick = () => {
   expanded.value = !expanded.value;
   emit(expanded.value ? 'expand' : 'hide');
-  if (!expanded.value) emit('scrollToElementRequest', clampContent.value);
+  if (!expanded.value) emit('scrollToElementRequest', truncateContentElement.value);
 };
 
 onMounted(truncateContent);
@@ -171,9 +175,14 @@ onUpdated(truncateContent);
 </script>
 
 <style lang="scss">
-.ui-clamp-content {
+@use "../../../styles/mixins";
+
+.ui-truncate-content {
+  $element: ui-truncate-content;
+
   &__button {
-    margin-top: var(--space-24);
+    @include mixins.use-logical($element + "-truncate-content", margin, var(--space-24) 0 0 0);
+
   }
 }
 </style>
