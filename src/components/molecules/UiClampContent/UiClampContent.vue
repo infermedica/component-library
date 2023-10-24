@@ -85,9 +85,9 @@ export interface ClampContentProps {
    * Use this props to set truncateStrategy for a component.
    */
   truncateStrategy?: ReturnType<
-      typeof truncateHTMLByElements |
-      typeof truncateHTMLByCharactersCount |
-      typeof truncateHTMLByTextElementCount
+    typeof truncateHTMLByElements |
+    typeof truncateHTMLByCharactersCount |
+    typeof truncateHTMLByTextElementCount
   >,
   /**
    * Use this props to pass attrs for UiIcon expand
@@ -115,7 +115,6 @@ export interface ClampContentProps {
   hideButtonText?: string;
 }
 export type ClampContentAttrsProps = DefineAttrsProps<ClampContentProps>;
-
 const props = withDefaults(defineProps<ClampContentProps>(), {
   truncateStrategy: () => (truncateHTMLByTextElementCount(7)),
   iconExpandAttrs: () => ({}),

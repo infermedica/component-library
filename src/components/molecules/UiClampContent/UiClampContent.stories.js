@@ -11,6 +11,7 @@ import IconBulletCommon from '@/assets/icons/bullet-common.svg';
 import {
   truncateHTMLByTextElementCount,
   truncateHTMLByElements,
+  truncateHTMLByCharactersCount,
 } from '@/utilities/helpers/truncate-HTML';
 import './UiClampContent.stories.scss';
 
@@ -104,13 +105,13 @@ export const TruncateHTMLByTextElementCount = {
       :truncate-strategy="handleTruncateStrategy"
       @expand="clickExpand"
       @scroll-to-element-request="scrollToElementRequest"
-      class="ui-clamp-content-story__truncate-html-by-text-element-count"
+      class="ui-clamp-content-story-truncate-html-by-text-element-count"
     >
-      <div class="ui-clamp-content-story__truncate-html-by-text-element-count-presence">
+      <div class="ui-clamp-content-story-truncate-html-by-text-element-count__presence">
         <UiHeading level="4">
           {{ presenceSection.heading }}
         </UiHeading>
-        <UiText class="ui-clamp-content-story__truncate-html-by-text-element-count-text">
+        <UiText class="ui-clamp-content-story-truncate-html-by-text-element-count__text">
           {{ presenceSection.subheading}}
         </UiText>
         <UiBulletPoints
@@ -136,11 +137,11 @@ export const TruncateHTMLByTextElementCount = {
           </template>
         </UiBulletPoints>
       </div>
-      <div class="ui-clamp-content-story__truncate-html-by-text-element-count-absence">
+      <div class="ui-clamp-content-story-truncate-html-by-text-element-count__absence">
         <UiHeading level="4">
           {{ absenceSection.heading }}
         </UiHeading>
-        <UiText class="ui-clamp-content-story__truncate-html-by-text-element-count-text">
+        <UiText class="ui-clamp-content-story-truncate-html-by-text-element-count__text">
           {{ absenceSection.subheading }}
         </UiText>
         <UiBulletPoints
@@ -202,7 +203,7 @@ export const TruncateHTMLByElements = {
       :truncate-strategy="handleTruncateStrategy"
       @expand="clickExpand"
       @scroll-to-element-request="scrollToElementRequest"
-      class="ui-clamp-content-story__truncate-HTML-by-elements"
+      class="ui-clamp-content-story-truncate-HTML-by-elements"
     >
       <UiHeading level="2">
         Common care methods
@@ -210,7 +211,7 @@ export const TruncateHTMLByElements = {
       <UiHeading level="4">
         How can people manage acute viral throat infection?
       </UiHeading>
-      <UiText class="ui-clamp-content-story__truncate-HTML-by-elements-text">
+      <UiText class="ui-clamp-content-story-truncate-HTML-by-elements__text">
         To help soothe a sore throat and shorten how long it lasts, you can:
       </UiText>
       <UiBulletPoints
@@ -222,11 +223,11 @@ export const TruncateHTMLByElements = {
 
       <UiHeading 
         level="4"
-        class="ui-clamp-content-story__truncate-HTML-by-elements-heading"
+        class="ui-clamp-content-story-truncate-HTML-by-elements__heading"
       >
         What medicines can manage acute viral throat infection?
       </UiHeading>
-      <UiText class="ui-clamp-content-story__truncate-HTML-by-elements-text">
+      <UiText class="ui-clamp-content-story-truncate-HTML-by-elements__text">
         There is no dedicated treatment for viral pharyngitis. Painkillers, such as acetaminophen or ibuprofen can ease the pain and fever. Throat lozenge may also help with the pain.There is no need for antibiotics for a sore throat because they will not usually relieve the symptoms or speed up the recovery.
       </UiText>
       <UiText>
@@ -235,7 +236,7 @@ export const TruncateHTMLByElements = {
 
       <UiHeading 
         level="4"
-        class="ui-clamp-content-story__truncate-HTML-by-elements-heading"
+        class="ui-clamp-content-story-truncate-HTML-by-elements__heading"
       >
         How can acute viral throat infection be prevented?
       </UiHeading>
@@ -245,7 +246,7 @@ export const TruncateHTMLByElements = {
 
       <UiHeading 
         level="4"
-        class="ui-clamp-content-story__truncate-HTML-by-elements-heading"
+        class="ui-clamp-content-story-truncate-HTML-by-elements__heading"
       >
         When should you get help from a healthcare provider for acute viral throat infection?
       </UiHeading>
@@ -253,5 +254,60 @@ export const TruncateHTMLByElements = {
         Symptoms of viral tonsillopharyngitis should resolve within a week to 10 days. If they don’t, self-care methods don’t work, or if the symptoms get even worse with time, especially if they’re accompanied by difficulty swallowing or breathing, patients or their guardian should seek professional medical care.
       </UiText>
     </UiClampContent>`,
+  }),
+};
+
+export const TruncateHTMLByCharactersCount = {
+  render: (args) => ({
+    components: {
+      UiClampContent,
+      UiHeading,
+      UiBulletPoints,
+      UiBulletPointsItem,
+      UiText,
+    },
+    setup() {
+      const handleTruncateStrategy = ref(truncateHTMLByCharactersCount(160));
+
+      return {
+        ...args,
+        ...events,
+        handleTruncateStrategy,
+        ArrowThinUp,
+        ArrowThinDown,
+      };
+    },
+    template: `<UiClampContent
+      :truncate-strategy="handleTruncateStrategy"
+      @expand="clickExpand"
+      @scroll-to-element-request="scrollToElementRequest"
+      class="ui-clamp-content-story-truncate-html-by-characters-count"
+    >
+      <UiHeading level="2">About</UiHeading>
+      <article>
+        <UiHeading level="4">What is acute viral throat infection?</UiHeading>
+        <UiText>
+          Acute viral tonsillopharyngitis known as sore throat is an inflammation of throat and tonsils, caused by viral infection. It causes pain, discomfort, swelling in the throat, which can also be red and dry. 
+        </UiText>
+        <UiText>
+          Other symptoms of pharyngitis may include painful swallowing, fever, bad breath, mild cough, joint pain, sneezing, headache, muscle aches, tender, swollen lymph nodes in the neck or runny nose. 
+        </UiText>
+      </article>
+
+      <article class="ui-clamp-content-story-truncate-html-by-characters-count__article">
+        <UiHeading level="4">What causes acute viral throat infection?</UiHeading>
+      <UiText>
+        Sore throats are usually caused by viruses (like cold or flu).
+      </UiText>
+      </article>
+
+      <article class="ui-clamp-content-story-truncate-html-by-characters-count__article">
+        <UiHeading level="4">How is acute viral throat infection diagnosed?</UiHeading>
+        <UiText>
+          Simple throat examination correlated with symptoms reported by the patient is usually enough to diagnose viral pharyngitis. In some cases, a rapid antigen test or throat culture may be performed to distinguish if sore throat is caused by viruses or bacteria. 
+        </UiText>
+      </article>
+    </UiClampContent>
+    `,
   }),
 };

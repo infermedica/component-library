@@ -1,14 +1,14 @@
 .ui-clamp-content-story {
-  &__truncate-html-by-text-element-count {
-    &-presence { 
+  &-truncate-html-by-text-element-count {
+    &__presence { 
       --bullet-points-item-marker-color: var(--color-blue-600);
     }
   
-    &-text {
+    &__text {
       --text-margin-block: var(--space-8);
     }
   
-    &-absence {
+    &__absence {
       --bullet-points-item-marker-color: var(--color-gray-600);
   
       margin-top: var(--space-24);
@@ -16,15 +16,24 @@
   }
  
 
-  &__truncate-HTML-by-elements {
+  &-truncate-HTML-by-elements {
     --heading-margin-block-end: var(--space-12);
 
-    &-heading {
+    &__heading {
       margin-block: var(--space-32) var(--space-12);
     }
 
-    &-text {
+    &__text {
       --text-margin-block-end: var(--space-8);
+    }
+  }
+
+  &-truncate-html-by-characters-count {
+    --heading-margin-block-end: var(--space-12);
+    --text-margin-block-start: var(--space-12);
+
+    &__article {
+      --heading-margin-block-start: var(--space-32);
     }
   }
 }
