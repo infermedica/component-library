@@ -165,7 +165,6 @@ import {
   focusTrap as vFocusTrap,
   bodyScrollLock as vBodyScrollLock,
   scrollTabindex as vScrollTabindex,
-  keyboardFocus as vKeyboardFocus,
 } from '../../../utilities/directives';
 import { focusElement } from '../../../utilities/helpers';
 import UiBackdrop from '../../atoms/UiBackdrop/UiBackdrop.vue';
