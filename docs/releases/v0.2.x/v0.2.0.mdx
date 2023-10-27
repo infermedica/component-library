@@ -3,11 +3,13 @@ import { Code } from '../../components/Code';
 
 <Meta title="Releases/v0.2.x/v0.2.0" />
 
-<style> {`
+<style> 
+{`
   code {
     background-color: transparent!important;
   }
-`}</style>
+`}
+</style>
 
 # v0.2.0 (January 3 , 2022)
 v0.2.0 contains CSS custom properties breaking changes and change names of some components.
@@ -22,10 +24,15 @@ v0.2.0 contains CSS custom properties breaking changes and change names of some 
 - UiTextArea is UiTextarea now [18fcbd6](https://bitbucket.org/infermedica/symptom-checker-ui-kit/commits/18fcbd6d240d2d232bd441a0fc8c73590bae91b0)
 - SC-532: focus is visible only for keyboard navigation
   - to handle focus visible in your app use `.focus-is-hidden` class, added by ui-kit components to body e.g.
-  <Code code={`.focus-is-hidden {
-      --border-radius-outline: 0;
-      --focus-outer: none;
-  }`}/>
+
+  <Code code=
+    {`
+      .focus-is-hidden \{
+        --border-radius-outline: 0;
+        --focus-outer: none;
+      \}
+    `}
+  />
 - SC-945: use vue-svg-loader instead icons.js file [f320627](https://bitbucket.org/infermedica/symptom-checker-ui-kit/commits/f320627520ce19b08877dc43f041b7d7f58a4dc7)
 - to handle this change you should install vue-svg-loader and setup vue.config.js e.g.
 
