@@ -14,7 +14,7 @@ import {
   computed,
   defineAsyncComponent,
 } from 'vue';
-import { capitalizeFirst } from '../../../../utilities/helpers/index';
+import { capitalizeFirst } from '../../../../utilities/helpers';
 import type { DefineAttrsProps } from '../../../../types';
 
 export interface LoaderSkeletonProps {

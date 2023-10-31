@@ -2,7 +2,7 @@
 import React from 'react';
 import { styled } from '@storybook/theming';
 import { Table } from './Table';
-import { capitalizeFirst } from '../../src/utilities/helpers/index';
+import { capitalizeFirst } from '../../src/utilities/helpers';
 
 const List = styled.ul`
   list-style-type: none;

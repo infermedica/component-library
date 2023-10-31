@@ -93,15 +93,15 @@ import {
   computed,
   provide,
   nextTick,
-} from 'vue';
-import type {
-  ComputedRef,
-  ComponentPublicInstance,
+  type ComputedRef,
+  type ComponentPublicInstance,
 } from 'vue';
 import useDropdownItems from './useDropdownItems';
-import { clickOutside as vClickOutside } from '../../../utilities/directives';
-import type { VClickOutsideValue } from '../../../utilities/directives';
-import { focusElement } from '../../../utilities/helpers/index';
+import {
+  clickOutside as vClickOutside,
+  type VClickOutsideValue,
+} from '../../../utilities/directives';
+import { focusElement } from '../../../utilities/helpers';
 import UiDropdownItem from './_internal/UiDropdownItem.vue';
 import type { DropdownItemAttrsProps } from './_internal/UiDropdownItem.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';

@@ -61,11 +61,13 @@ import {
   ref,
   watch,
   watchEffect,
+  type ComputedRef,
 } from 'vue';
-import type { ComputedRef } from 'vue';
-import { clickOutside as vClickOutside } from '../../../../utilities/directives';
-import type { VClickOutsideValue } from '../../../../utilities/directives';
-import { capitalizeFirst } from '../../../../utilities/helpers/index';
+import {
+  clickOutside as vClickOutside,
+  type VClickOutsideValue,
+} from '../../../../utilities/directives';
+import { capitalizeFirst } from '../../../../utilities/helpers';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiDropdown from '../../../molecules/UiDropdown/UiDropdown.vue';
 import type { DropdownAttrsProps } from '../../../molecules/UiDropdown/UiDropdown.vue';

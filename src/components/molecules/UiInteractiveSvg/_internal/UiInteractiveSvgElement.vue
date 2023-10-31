@@ -23,8 +23,8 @@ import {
   provide,
   ref,
   isRef,
+  type Ref,
 } from 'vue';
-import type { Ref } from 'vue';
 import type { InteractiveSvgFunc } from '../UiInteractiveSvg.vue';
 import type {
   DefineAttrsProps,

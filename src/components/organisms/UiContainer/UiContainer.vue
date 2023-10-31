@@ -24,11 +24,13 @@ export type ContainerAttrsProps = DefineAttrsProps<null>;
   @include mixins.use-logical($element, border-radius, 0);
 
   background: functions.var($element, background, var(--color-background-white));
-  box-shadow: functions.var($element, box-shadow, var(--box-shadow-low));
+  box-shadow: functions.var($element, box-shadow, var(--box-shadow-high));
 
   @include mixins.from-tablet {
     @include mixins.use-logical($element + "-tablet", padding, var(--space-32) var(--space-48));
     @include mixins.use-logical($element + "-tablet", border-radius, var(--border-radius-container));
+
+    box-shadow: functions.var($element+ "-tablet", box-shadow, var(--box-shadow-high));
   }
 }
 </style>

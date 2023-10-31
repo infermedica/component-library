@@ -23,8 +23,8 @@ import {
   computed,
   inject,
   ref,
+  type Ref,
 } from 'vue';
-import type { Ref } from 'vue';
 import type { DatepickerCheckAvailability } from '../UiDatepicker.vue';
 import UiDatepickerTab from './UiDatepickerTab.vue';
 import type { DatepickerTabAttrsProps } from './UiDatepickerTab.vue';

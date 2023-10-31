@@ -63,9 +63,37 @@
             "func": false,
             "value": "''"
           }
+        },
+        {
+          "name": "isLoading",
+          "description": "Use this props to set button into loading state.",
+          "required": false,
+          "type": {
+            "name": "boolean"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "false"
+          }
+        },
+        {
+          "name": "loaderAttrs",
+          "description": "Use this props to pass attrs for UiLoader.",
+          "required": false,
+          "type": {
+            "name": "LoaderAttrsProps"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "() => ({})"
+          }
         }
       ],
       "slots": [
+        {
+          "name": "loader",
+          "description": "Use this slot to replace loader."
+        },
         {
           "name": "default",
           "description": "Use this slot to place content inside button."
@@ -1009,6 +1037,18 @@
           }
         },
         {
+          "name": "hasAutogrowing",
+          "description": "Use this props to allow to textarea autogrowing.",
+          "required": false,
+          "type": {
+            "name": "boolean"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "false"
+          }
+        },
+        {
           "name": "textareaAttrs",
           "description": "Use this props to pass attrs for textarea element.",
           "required": false,
@@ -1629,6 +1669,26 @@
           }
         },
         {
+          "name": "value",
+          "description": "Use this props to pass value of input.",
+          "required": false,
+          "type": {
+            "name": "string"
+          }
+        },
+        {
+          "name": "hasCharacterCounter",
+          "description": "Use this props to show character counter.",
+          "required": false,
+          "type": {
+            "name": "boolean"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "false"
+          }
+        },
+        {
           "name": "errorMessage",
           "description": "Use this props to set alert message",
           "required": false,
@@ -1682,6 +1742,23 @@
           "defaultValue": {
             "func": false,
             "value": "() => ({})"
+          }
+        },
+        {
+          "name": "characterCounterAttrs",
+          "required": false,
+          "type": {
+            "name": "FormFieldCharacterCounterProps"
+          }
+        }
+      ],
+      "events": [
+        {
+          "name": "error",
+          "type": {
+            "names": [
+              "union"
+            ]
           }
         }
       ],
@@ -1777,6 +1854,29 @@
             },
             {
               "name": "errorMessage",
+              "title": "binding"
+            }
+          ]
+        },
+        {
+          "name": "character-counter",
+          "scoped": true,
+          "description": "Use this slot to replace alert template.",
+          "bindings": [
+            {
+              "name": "value",
+              "title": "binding"
+            },
+            {
+              "name": "characterCounterAttrs",
+              "title": "binding"
+            },
+            {
+              "name": "hasCharacterCounter",
+              "title": "binding"
+            },
+            {
+              "name": "handleErrorEmit",
               "title": "binding"
             }
           ]
@@ -2825,6 +2925,14 @@
           }
         },
         {
+          "name": "disabled",
+          "description": "Use this props to disabled input.\nRemember to use `ui-rating--is-disabled` class to style disabled rating.",
+          "required": false,
+          "type": {
+            "name": "boolean"
+          }
+        },
+        {
           "name": "legend",
           "description": "Use this props to set legend.",
           "required": false,
@@ -3735,7 +3843,7 @@
           },
           "defaultValue": {
             "func": false,
-            "value": "() => ({ icon: 'emergency-ambulance' })"
+            "value": "() => ({})"
           }
         },
         {
@@ -6302,6 +6410,18 @@
           }
         },
         {
+          "name": "description",
+          "description": "Use this props to set description title.",
+          "required": false,
+          "type": {
+            "name": "string"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "''"
+          }
+        },
+        {
           "name": "translation",
           "description": "Use this props to set valid state of the question.",
           "required": false,
@@ -6341,6 +6461,18 @@
           "required": false,
           "type": {
             "name": "HeadingAttrsProps"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "() => ({})"
+          }
+        },
+        {
+          "name": "headingDescriptionAttrs",
+          "description": "Use this props to pass attrs for description UiText",
+          "required": false,
+          "type": {
+            "name": "TextAttrsProps"
           },
           "defaultValue": {
             "func": false,
@@ -6420,6 +6552,21 @@
             },
             {
               "name": "headingTitleAttrs",
+              "title": "binding"
+            }
+          ]
+        },
+        {
+          "name": "description",
+          "scoped": true,
+          "description": "Use this slot to replace description template.",
+          "bindings": [
+            {
+              "name": "description",
+              "title": "binding"
+            },
+            {
+              "name": "headingDescriptionAttrs",
               "title": "binding"
             }
           ]
@@ -6694,6 +6841,48 @@
       "slots": [
         {
           "name": "default"
+        }
+      ]
+    },
+    {
+      "exportName": "default",
+      "displayName": "UiFormFieldCharacterCounter",
+      "description": "",
+      "tags": {},
+      "props": [
+        {
+          "name": "value",
+          "description": "Use this props to pass value of input.",
+          "required": false,
+          "type": {
+            "name": "string"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "''"
+          }
+        },
+        {
+          "name": "max",
+          "description": "Use this props to set max of characters.",
+          "required": false,
+          "type": {
+            "name": "number"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "240"
+          }
+        }
+      ],
+      "events": [
+        {
+          "name": "error",
+          "type": {
+            "names": [
+              "union"
+            ]
+          }
         }
       ]
     },
@@ -7135,7 +7324,7 @@
           },
           "defaultValue": {
             "func": false,
-            "value": "() => ({ icon: 'chevron-down' })"
+            "value": "() => ({})"
           }
         },
         {
@@ -7267,7 +7456,7 @@
           "description": "Use this slot to place container content."
         },
         {
-          "name": "slotName",
+          "name": "actions",
           "scoped": true,
           "description": "Use this slot to replace actions template.",
           "bindings": [
@@ -7305,10 +7494,6 @@
             },
             {
               "name": "translation",
-              "title": "binding"
-            },
-            {
-              "name": "name",
               "title": "binding"
             }
           ]
@@ -8314,7 +8499,7 @@
           },
           "defaultValue": {
             "func": false,
-            "value": "'checkmark'"
+            "value": "'present'"
           }
         },
         {
@@ -8418,7 +8603,7 @@
           },
           "defaultValue": {
             "func": false,
-            "value": "'checkmark'"
+            "value": "'present'"
           }
         },
         {
@@ -8821,15 +9006,15 @@
           }
         },
         {
-          "name": "textLabelAttrs",
+          "name": "headingLabelAttrs",
           "description": "Use this props to pass attrs for label UiText.",
           "required": false,
           "type": {
-            "name": "TextAttrsProps"
+            "name": "HeadingAttrsProps"
           },
           "defaultValue": {
             "func": false,
-            "value": "() => ({ tag: 'span' })"
+            "value": "() => ({ level: 2 })"
           }
         },
         {
@@ -8889,7 +9074,7 @@
               "title": "binding"
             },
             {
-              "name": "textLabelAttrs",
+              "name": "headingLabelAttrs",
               "title": "binding"
             },
             {
@@ -8923,7 +9108,7 @@
               "title": "binding"
             },
             {
-              "name": "textLabelAttrs",
+              "name": "headingLabelAttrs",
               "title": "binding"
             },
             {

@@ -353,7 +353,7 @@ export const LinkInTheLongText = {
       return { ...args };
     },
     template: `<UiText style="max-width: 600px">
-      Infermedica Component Library is a highly configurable UI components library. To configure components to your needs, you can use a lot of global CSS variables and adjust styles to your requirements. More details you can find in "<UiLink href="http://localhost:6006/iframe.html?path=/docs/getting-started-development-guide-theme-configuration--page">Theme Configuration</UiLink>" 
+      Infermedica Component Library is a highly configurable UI components library. To configure components to your needs, you can use a lot of global CSS variables and adjust styles to your requirements. More details you can find in "<UiLink href="/?path=/docs/getting-started-development-guide-theme-configuration--docs" target="_blank">Theme Configuration</UiLink>" 
       guideline.
     </UiText>`,
   }),
@@ -370,7 +370,7 @@ export const LinkInTheLongTextWithIcon = {
       return { ...args };
     },
     template: `<UiText style="max-width: 600px">
-      Infermedica Component Library is a highly configurable UI components library. To configure components to your needs, you can use a lot of global CSS variables and adjust styles to your requirements. More details you can find in "<UiLink href="http://localhost:6006/iframe.html?path=/docs/getting-started-development-guide-theme-configuration--page">
+      Infermedica Component Library is a highly configurable UI components library. To configure components to your needs, you can use a lot of global CSS variables and adjust styles to your requirements. More details you can find in "<UiLink href="/?path=/docs/getting-started-development-guide-theme-configuration--docs" target="_blank">
         <UiIcon icon="plus-circled-filled" class="ui-link__icon"/>Theme Configuration
       </UiLink>"
       guideline.
