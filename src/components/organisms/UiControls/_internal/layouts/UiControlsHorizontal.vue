@@ -103,8 +103,8 @@ const props = defineProps<ControlsCommonProps>();
     height: functions.var($element + "-actions", height, 5rem);
     flex-direction: row-reverse;
     align-items: center;
-    justify-content: space-between;
     align-self: stretch;
+    justify-content: space-between;
 
     @include mixins.from-tablet {
       @include mixins.use-logical($element + "-tablet-actions", padding, var(--space-16) var(--space-32));
