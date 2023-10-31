@@ -129,7 +129,7 @@
     "typescript": "~5.2.2",
     "uppercamelcase": "^3.0.0",
     "vitest": "^0.34.6",
-    "vue-docgen-api": "^4.74.2",
+    "vue-docgen-api": "^4.75.0",
     "vue-loader": "^17.0.0",
     "vue-tsc": "^1.8.22"
   }
