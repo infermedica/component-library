@@ -1,6 +1,7 @@
 import { Meta } from '@storybook/blocks';
 import {Alert} from "../../components/Alert";
 import { PageOutline } from '../../components/PageOutline';
+import { Code } from '../../components/Code';
 
 <Meta title="Getting Started/Development Guide/Installation"/>
 
@@ -14,9 +15,9 @@ Below you can read how you can add it to your project.
 You can create a new project or integrate Infermedica Component Library into an existing application. The installation process is mostly
 the same for both cases. Choose the installation that best suits to your project.
 
-```bash
+<Code code={`
 pnpm add @infermedica/component-library
-```
+`}/>
 
 ## Usage default styles
 Infermedica Component Library is a highly configurable UI components library. To configure components to your needs, you can use a lot of global
@@ -24,9 +25,9 @@ CSS variables and adjust styles to your requirements. More details you can find 
 
 We provide our default design if you want use it inside your project, you need to import them into the `main.js` file.
 
-```js
+<Code code={`
 import '@infermedica/component-library/styles/styles.scss'
-```
+`}/>
 
 ## Project config and loaders
 
@@ -37,13 +38,13 @@ To load SVG files for UiIcon component we use custom loader for that.
 For Webpack use [vue-svg-loader](https://www.npmjs.com/package/vue-svg-loader).
 For Vue 3 you should use next version of vue-svg-loader
 
-```bash
+<Code code={`
 pnpm i vue-svg-loader@next
-````
+`}/>
 
 To use `vue-svg-loader` you should add it to webpack config. e.g. for vue-cli project.
 
-```js
+<Code code={`
 // vue.config.js
 module.exports = {
   chainWebpack: (config) => {
@@ -73,18 +74,18 @@ module.exports = {
     })
   }
 }
-```
+`}/>
 
 ### Vite
 For Vite use [vite-svg-loader](https://www.npmjs.com/package/vite-svg-loader).
 
-```bash
+<Code code={`
 pnpm i vite-svg-loader@next
-````
+`}/>
 
 To use `vite-svg-loader` you should add it to vite config. e.g.
 
-```js
+<Code code={`
 // vite.config.loader
 export default defineConfig({
   plugins: [
@@ -100,46 +101,46 @@ export default defineConfig({
     }),
   ]
 })
-```
+`}/>
 
 ## Usage components in SFC
 You can directly import components from the Infermedica Component Library and use them in a template.
 
 ### Script syntax
 
-```html
+<Code code={`
 <template>
   <UiComponentName>
 </template>
 
-<script>
-import { UiComponentName } from '@infermedica/component-library'
+<script setup>
+import { UiComponentName } from '@infermedica/component-library';
 
 export default {
   components: {
-    UiComponentName
+    UiComponentName,
   }
 }
 </script>
-```
+`}/>
 
 ### Script setup syntax
 
-```html
+<Code code={`
 <template>
   <UiComponentName/>
 </template>
 
 <script setup>
-  import { UiComponentName } from '@infermedica/component-library'
+  import { UiComponentName } from '@infermedica/component-library';
 </script>
-```
+`}/>
 
 ### Internal components
 Some components like UiBulletPoints, UiTabs, etc. use `_internal` items component e.g. `UiBulletPoints` use `UiBulletPointsItem`.
 To use it in template you should import it with fully path. e.g.
 
-```html
+<Code code={`
 <template>
   <UiToggleButtonGroup>
     <UiToggleButton/>
@@ -147,17 +148,17 @@ To use it in template you should import it with fully path. e.g.
 </template>
 
 <script setup>
-  import { UiToggleButtonGroup } from '@infermedica/component-library'
+  import { UiToggleButtonGroup } from '@infermedica/component-library';
   import UiToggleButton from '@infermedica/component-library/src/components/molecules/UiToggleButtonGroup/_internal/UiToggleButton.vue';
 </script>
-```
+`}/>
 
 You can use custom export and skip `src/components` from import.
 
-```html
+<Code code={`
 <script setup>
   import UiToggleButton from '@infermedica/component-library/molecules/UiToggleButtonGroup/_internal/UiToggleButton.vue';
 </script>
-```
+`}/>
 
 For common cases you should use `items` props from mentioned components.

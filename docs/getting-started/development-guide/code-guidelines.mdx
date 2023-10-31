@@ -2,6 +2,7 @@
 {/* TODO: Add helper for deprecation warn. */}
 import { Meta } from '@storybook/blocks';
 import { PageOutline } from '../../components/PageOutline';
+import { Code } from '../../components/Code';
 
 <Meta title="Getting Started/Development Guide/Code Guidelines"/>
 
@@ -15,20 +16,20 @@ will help maintain readability, changeability, extensibility and maintainability
 ## Components rules
 ### Naming
 New component name should be simple to use and be understandable by everyone. Use **Pascal Case** and **prefix** `Ui` for component to avoid naming collision.
-```
+<Code code={`
 Ui<ComponentName>
-```
+`}/>
 
 ### Files structure
 We want to follow [atomic design](https://atomicdesign.bradfrost.com/chapter-2/) methodology. Components are divided into three
 levels depending on their complexity (`atoms`, `molecules`, or `organisms`). File structure should look like below.
-```
+<Code code={`
 ./<atoms | molecules | organisms>
   |__Ui<ComponentName>
     |__Ui<ComponentName>.vue
     |__Ui<ComponentName>.spec.js
     |__Ui<ComponentName>.stories.js
-```
+`}/>
 - `*.vue` - Vue.js component file. In this file you can find `template`, `script`, `styles` by scss.
 - `*.spec.js` - Vitest test file. By default you can find `render test` on it.
 - `*.stories.js` - Storybook stories file. By default you can find `common` stories. Read more about [Storybook](https://storybook.js.org/).
@@ -36,18 +37,20 @@ levels depending on their complexity (`atoms`, `molecules`, or `organisms`). Fil
 ### Creating
 If you want to create a new component, please follow these steps:
 - use script `create:component` - to create new component directory in `src/components/{level}`.
-```bash
-npm run create:component
-```
+
+<Code code={`
+pnpm run create:component
+`}/>
+
 - choose one of the three component level (`atoms`, `molecules` or `organisms`).
 - enter the name of new component - <a href="#naming">naming rules</a>
 
 ## CSS
 ### Naming rules
 We want to follow [BEM](http://getbem.com/introduction/) methodology for naming SCSS modifiers and CSS classes.
-```
+<Code code={`
  <block>__<element>--<modifiers>
-```
+`}/>
 More details you can find in [Theme Configuration](/docs/getting-started-development-guide-theme-configuration--page) guideline.
 
 ## Template Rules
@@ -58,15 +61,16 @@ More details you can find in [Theme Configuration](/docs/getting-started-develop
     - provide a slot's to allow template replacement
     - name slots with BEM
     - bind data to slots with `v-bind`
-``` html
+    
+<Code code={`
 <slot name="header">
-    <UiHeading
-        :level="1"
-        :title="title"
-        :subtitle="subtitle"
-    />
+  <UiHeading
+    :level="1"
+    :title="title"
+    :subtitle="subtitle"
+  />
 </slot>
-```
+`}/>
 
 ## Deprecation guidelines
 We are trying to keep the code clean and easy to understand. Sometimes this leads to changes to the APIs. To avoid breaking changes and make migration process easier,
@@ -76,24 +80,25 @@ we are support deprecation to next major version and adding information about de
 * Add note next to deprecated APIs `@deprecated will be removed in 0.4.0 use ... instead`
 * Add note next to deprecated code that should be removed
 
-```js
+<Code code={`
 // TODO: will be removed in 0.4.0 / BEGIN
-<code/>
+  <code/>
 // END
+`}/>
 
 As you can see, we are using `console.warn` only when deprecated API is used.
 
 ### Exceptions
 In some case we need deprecated APIs in next major version. In this case we will add information to Migration Guide and throw error if deprecated API is used (for all environments).
 
-```js
-//TODO: remove in 0.6.0 / BEGIN
-const { checkbutton } = slots;
-if (checkbutton) {
-  throw new Error('[@infermedica/component-library error]: The `checkbotton` slot is deprecated and removed. Please use `checkbox` slot instead.');
-}
-//END
-```
+<Code code={`
+// TODO: remove in 0.6.0 / BEGIN
+  const { checkbutton } = slots;
+  if (checkbutton) {
+    throw new Error('[@infermedica/component-library error]: The \`checkbotton\` slot is deprecated and removed. Please use \`checkbox\` slot instead.');
+  }
+// END
+`}/>
 
 ## Unit tests
 Unit tests allow you to test individual units of code in isolation. The purpose of unit testing is to provide developers with confidence in their code. By writing thorough,

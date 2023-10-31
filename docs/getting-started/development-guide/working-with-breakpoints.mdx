@@ -32,22 +32,22 @@ Predefined breakpoints has `!default` flag. It means you can use your own breakp
 To define your own breakpoints you need to use on of sass-loader option. `additionalData` allow to add custom data before the actual entry file.
 
 #### Webpack
-```js
+<Code code={`
 //vue.config.js
 module.exports = {
   css: {
     loaderOptions: {
       sass: {
-        additionalData: `@use "<path-to-new-breakpoints>";`
+        additionalData: '@use "<path-to-new-breakpoints>";'
       }
     }
   }
 }
-```
+`}/>
 
 Alternatively you can use [string-replace-loader](https://www.npmjs.com/package/string-replace-loader) to replace import.
 
-```js
+<Code code={`
 //vue.config.js
 module.exports = {
   chainWebpack: config => {
@@ -63,23 +63,23 @@ module.exports = {
     })
   }
 }
-```
+`}/>
 
 #### Vite
 Preprocessor options in [vite](https://vitejs.dev/config/#css-preprocessoroptions).
 
-```js
+<Code code={`
 //vite.config.js
 export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@use "<path-to-new-breakpoints>";`
+        additionalData: '@use "<path-to-new-breakpoints>";'
       },
     }
   }
 })
-```
+`}/>
 
 ## Mixins
 To use breakpoints you can use the following mixins:
@@ -126,13 +126,13 @@ It's important to keep consistency between SASS and JavaScript breakpoints.
 
 In Infermedica Component Library we solve this problem and export breakpoints and media queries. i.e.
 
-```js
+<Code code={`
 import breakpoints from "@symptom-checker/ui-kit/breakpoints";
 // or
 import { toMobile } from "@symptom-checker/ui-kit/breakpoints";
 
 const isMobile = matchMedia(toMobile).matches;
-```
+`}/>
 
 ### Exported breakpoints
 
@@ -150,7 +150,7 @@ Special thanks to @Matteo Fogli and his article [How to share SASS variables wit
 ### Troubleshooting
 SASS variables with JavaScript code use CSS modules and it can be a problem. To solve it you can use fallowing code:
 
-```js
+<Code code={`
 //vue.config.js
 module.exports = {
   css: {
@@ -163,5 +163,4 @@ module.exports = {
     },
   },
 }
-```
-
+`}/>
