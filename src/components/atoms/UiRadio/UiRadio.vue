@@ -289,8 +289,8 @@ defineExpose({ input });
     left: 50%;
     width: functions.var($element + "-mark", size, 0.625rem);
     height: functions.var($element + "-mark", size, 0.625rem);
-    background: functions.var($element + "-mark", color, transparent);
     border-radius: inherit;
+    background: functions.var($element + "-mark", color, transparent);
     transform: translate(-50%, -50%);
   }
 

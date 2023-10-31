@@ -200,8 +200,8 @@ const input = ref(null);
     @include mixins.use-logical($element, border-width, 0);
 
     width: 100%;
-    background: transparent;
     border-radius: inherit;
+    background: transparent;
     caret-color: functions.var($element, caret-color, var(--color-blue-500));
     color: functions.var($element, color, var(--color-text-body));
     outline: none;

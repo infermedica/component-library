@@ -298,6 +298,7 @@ const {
 
     &#{$this}--is-disabled {
       --loader-ellipsis-dot-background: #{functions.var($element, color, var(--color-text-disabled))};
+
       color: functions.var($element, color, var(--color-text-disabled));
 
       #{$this}__icon {

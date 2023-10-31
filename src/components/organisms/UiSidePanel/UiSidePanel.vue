@@ -376,8 +376,8 @@ onBeforeUnmount(() => {
 
   &__label {
     display: flex;
-    flex-direction: functions.var($element + "-label", flex-direction, column);
     flex: 1;
+    flex-direction: functions.var($element + "-label", flex-direction, column);
     gap: functions.var($element + "-label", gap, var(--space-4));
   }
 
