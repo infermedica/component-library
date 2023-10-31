@@ -1,7 +1,5 @@
 import UiStepper from '@/components/molecules/UiStepper/UiStepper.vue';
-import UiProgress from '@/components/atoms/UiProgress/UiProgress.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
-import UiList from '@/components/organisms/UiList/UiList.vue';
 import UiStepperStep from '@/components/molecules/UiStepper/_internal/UiStepperStep.vue';
 
 const steps = [
@@ -61,7 +59,6 @@ export const WithCurrentStep = {
     template: `<UiStepper
       :steps="steps"
       :current-step="currentStep"
-      :progress-attrs="progressAttrs"
     />`,
   }),
 };
@@ -78,7 +75,6 @@ export const WithCurrentStepSlot = {
     template: `<UiStepper
       :steps="steps"
       :current-step="currentStep"
-      :progress-attrs="progressAttrs"
     >
       <template #current-step="{ currentStepDisplayText }">
         <UiText
@@ -104,7 +100,6 @@ export const WithItemsSlot = {
     template: `<UiStepper
       :steps="steps"
       :current-step="currentStep"
-      :progress-attrs="progressAttrs"
     >
      <template #items="{
        steps,
@@ -138,7 +133,6 @@ export const WithItemSlot = {
     template: `<UiStepper
       :steps="steps"
       :current-step="currentStep"
-      :progress-attrs="progressAttrs"
     >
       <template #item="{
         step,

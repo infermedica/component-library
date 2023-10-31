@@ -1,3 +1,4 @@
+<!-- eslint-disable vuejs-accessibility/mouse-events-have-key-events -->
 <template>
   <div
     class="ui-scale"

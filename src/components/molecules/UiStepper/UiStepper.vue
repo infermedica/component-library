@@ -64,20 +64,7 @@ const props = withDefaults(defineProps<StepperProps>(), {
   steps: () => [ { label: '' } ],
   currentStep: '',
 });
-const stepsLength = computed(() => props.steps.length);
 const activeStepIndex = computed(() => props.steps.findIndex((step) => step.label === props.currentStep));
-const currentStepDisplayNumber = computed(() => activeStepIndex.value + 1);
-const currentStepDisplayText = computed(() => `
-      ${currentStepDisplayNumber.value}/${props.steps.length} ${props.currentStep}
-    `);
-const stepsProgress = computed(() => (currentStepDisplayNumber.value / stepsLength.value) * 100);
-const defaultProps = computed(() => ({
-  progressAttrs: {
-    min: 0,
-    max: 100,
-    value: stepsProgress.value,
-  },
-}));
 const stepperStepAttrs = (step: StepperStepAttrsProps) => {
   const { ...rest } = step;
   return rest;
