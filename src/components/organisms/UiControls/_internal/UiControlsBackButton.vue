@@ -20,5 +20,5 @@ export interface ControlsBackButton {
    */
   iconBackAttrs?: IconAttrsProps;
 }
-const props = defineProps<ControlsBackButton>();
+defineProps<ControlsBackButton>();
 </script>
