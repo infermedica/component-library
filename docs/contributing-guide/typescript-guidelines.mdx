@@ -44,6 +44,7 @@ Parameters of `DefineAttrsProps<ComponentProps, ElementAttrs>`
   ...
   </div>
 </template>
+
 <script setup lang="ts">
 export type InputAttrsProps = DefineAttrsProps<InputProps>;
 ...
@@ -57,6 +58,7 @@ export type InputAttrsProps = DefineAttrsProps<InputProps>;
   <label v-bind="attrs">
   ...
 </template>
+
 <script setup lang="ts">
 export type RadioAttrsProps = DefineAttrsProps<RadioProps, LabelHTMLAttributes>;
 ...
@@ -75,6 +77,7 @@ element, then we should add a parameter with default value <code>HTMLAttributes<
   <component :is="tag" v-bind="attrs"/>
   ...
 </template>
+
 <script setup lang="ts">
 export type ButtonAttrsProps<HTMLAttrs = HTMLAttributes> = DefineAttrsProps<ButtonProps, HTMLAttrs>;
 ...
@@ -99,9 +102,11 @@ If the attributes are inherited by a custom component, then use the type for att
   <UiIcon v-bind="iconCheckmarkAttrs"/>
   ...
 </template>
+
 <script setup lang="ts">
 import { Icon } from '../UiIcon/UiIcon.vue';
 import type { IconAttrsProps } from '../UiIcon/UiIcon.vue';
+
 export interface CheckboxProps {
   iconCheckmarkAttrs?: IconAttrsProps;
   ...
@@ -117,8 +122,10 @@ If the attributes are inherited by a native HTML element, then use `DefineAttrsP
   <input v-bind="inputAttrs"/>
   ...
 </template>
+
 <script setup lang="ts">
 import type { DefineAttrsProps } from '../../../types';
+
 export interface CheckboxProps {
   inputAttrs?: DefineAttrsProps<null, InputHTMLAttributes>;
   ...

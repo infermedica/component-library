@@ -25,18 +25,17 @@ v0.2.0 contains CSS custom properties breaking changes and change names of some 
 - SC-532: focus is visible only for keyboard navigation
   - to handle focus visible in your app use `.focus-is-hidden` class, added by ui-kit components to body e.g.
 
-  <Code code=
-    {`
-      .focus-is-hidden \{
-        --border-radius-outline: 0;
-        --focus-outer: none;
-      \}
-    `}
-  />
+  <Code code={`
+  .focus-is-hidden \{
+    --border-radius-outline: 0;
+    --focus-outer: none;
+  \}
+  `}/>
+
 - SC-945: use vue-svg-loader instead icons.js file [f320627](https://bitbucket.org/infermedica/symptom-checker-ui-kit/commits/f320627520ce19b08877dc43f041b7d7f58a4dc7)
 - to handle this change you should install vue-svg-loader and setup vue.config.js e.g.
 
-```js
+<Code code={`
 module.exports = {
   chainWebpack: (config) => {
     const svgRule = config.module.rule('svg');
@@ -60,7 +59,7 @@ module.exports = {
       });
     }
 }
-```
+`}/>
 
 ## 🚀 Features
 - Use `html` instead `root:` for global CSS custom properties

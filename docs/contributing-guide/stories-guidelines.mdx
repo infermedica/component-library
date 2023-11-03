@@ -231,17 +231,17 @@ To display SCSS in `mdx` file we use `<Code/>` DocBlock component e.g.
 
 <Code code={`
 import { Code } from '../../../../docs/components/Code';
-import * as stories from './ComponentName.stories.js';
+import * as ComponentNameStories from './ComponentName.stories.js';
 
-<Meta of={stories}/>
+<Meta of={ComponentNameStories}/>
 
 ## ComponentName
-<Canvas of={stories.Common}/>
-<Controls of={stories.Common} />
+<Canvas of={ComponentNameStories.Common}/>
+<Controls of={ComponentNameStories.Common} />
 
 ## Stories
 ### With custom CSS
-<Canvas of={stories.WithCustomCss}/>
+<Canvas of={ComponentNameStories.WithCustomCss}/>
 
 **Use following SCSS to get the same result**
 <Code

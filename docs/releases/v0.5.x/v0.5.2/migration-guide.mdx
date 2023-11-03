@@ -1,6 +1,8 @@
 import { Canvas, Meta, Story } from "@storybook/blocks";
 import { PageOutline } from '../../../components/PageOutline';
 import { Table } from '../../../components/Table';
+import { Code } from '../../../components/Code';
+import * as UiMultipleChoicesStories from '../../../../src/components/organisms/UiMultipleChoices/UiMultipleChoices.stories.js'
 
 <Meta title='Releases/v0.5.x/v0.5.2/Migration Guide'/>
 
@@ -52,9 +54,7 @@ From v0.5.2 UiMultipleChoices droped support for Triage application and now uses
 
 `UiMultipleChoices` put to array value of selected option with data required by Infermedica API.
 
-````js
-
-```html
+<Code code={`
 <UiMultipleChoices
   :choices="[
     {
@@ -84,11 +84,11 @@ From v0.5.2 UiMultipleChoices droped support for Triage application and now uses
     },
   ]"
 />
-````
+`}/>
 
 With selected options "Yes" for "I have hypertension" will emit array with values:
 
-```js
+<Code code={`
 [
   {
     "id": 8,
@@ -99,13 +99,13 @@ With selected options "Yes" for "I have hypertension" will emit array with value
     "choice_id": "present"
   }
 ]
-```
+`}/>
 
 **After**
 
 `UiMultipleChoices` put to array 1:1 value of selected option.
 
-```html
+<Code code={`
 <UiMultipleChoices
   :items="[
     { label: 'I have diabetes' },
@@ -117,23 +117,24 @@ With selected options "Yes" for "I have hypertension" will emit array with value
     { value: 'unknown', label: 'Don't know' },
   ]"
 />
-```
+`}/>
 
 With selected options "Yes" for "I have hypertension" will emit array with values:
 
-```js
+<Code code={`
 [undefined, 'present']
-```
+`}/>
 
 **How to migrate**
 
 To migrate to new format you need to map values from `UiMultipleChoices` to your data format e.g.:
 
-<Canvas>
-  {/* <Story id="organisms-multiplechoices--as-evidence" /> is deprecated, please migrate it to <Story of={referenceToStory} /> */}
-
-  <Story id="organisms-multiplechoices--as-evidence" />
-</Canvas>
+<Canvas
+  of={UiMultipleChoicesStories.AsEvidence}
+  story={{
+    inline: true,
+  }}
+/>
 
 ## Changes in the API of components
 

@@ -1,4 +1,5 @@
 import { Meta } from '@storybook/blocks';
+import { Code } from '../../components/Code'
 
 <Meta title="Releases/v0.1.x/v0.1.0-beta.1" />
 
@@ -19,23 +20,26 @@ import { Meta } from '@storybook/blocks';
 - Possible to bind attrs to nested components
   - A few components has props like `alertHintAttrs` (UiMultipleAnswer), `headingTitleAttrs` (UiSidePanel), etc.
   This props is binded to child component and it allow to pass attrs for it.
-  ```html
-  <UiHeading
-    v-bind="headingTitleAttrs"
-  >
-    {{ title }}
-  </UiHeading>
-  ```
+
+<Code code={`
+<UiHeading
+  v-bind="headingTitleAttrs"
+>
+  {{ title }}
+</UiHeading>
+`}/>
+
   Remember, you can bind event to
-  ```js
-  function hintClickHandler () {
-    console.log('hint is clicked')
-  }
-  const alertHintAttrs = {
-    id: 'hint',
-    onClick: hintClickHandler
-  }
-  ```
+
+<Code code={`
+function hintClickHandler () {
+  console.log('hint is clicked')
+}
+const alertHintAttrs = {
+  id: 'hint',
+  onClick: hintClickHandler
+}
+`}/>
 
 ## 🐛 Fixes
 - SC-695: Fix for missing divider in certein zoom value

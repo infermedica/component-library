@@ -81,10 +81,10 @@ The selector used allows to set theme in component. e.g.
 or do a scope where all `UiButtons` will be affected by theme. e.g.
 
 <Code code={`
-  <UiNavigation class="ui-navigation--theme-secondary">
-    <UiNavigationItem>Label</UiNavigationItem>
-    <UiNavigationItem>Label</UiNavigationItem>
-  </UiNavigation>
+<UiNavigation class="ui-navigation--theme-secondary">
+  <UiNavigationItem>Label</UiNavigationItem>
+  <UiNavigationItem>Label</UiNavigationItem>
+</UiNavigation>
 `}/>
 
 `ui-navigation--theme-secondary` was not defined in the `UiNavigation` component but `UiButton` support this approach, thanks for `[class*="-secondary"]` selector.

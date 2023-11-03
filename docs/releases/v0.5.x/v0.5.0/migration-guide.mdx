@@ -22,7 +22,8 @@ From v0.5.0 we are start to use BEM themes.
 
 We are changing props by props from single component.
 
-<Code code={`.ui-button {
+<Code code={`
+.ui-button {
    &--secondary {
     --button-color: var(--color-text-action-secondary);
     --button-hover-color: var(--color-text-action-secondary-hover);
@@ -75,16 +76,16 @@ From v0.5.0 `ui-button--has-icon` is no longer supported.
 
 **Before**
 
-```html
+<Code code={`
 <template>
     <UiButton className="ui-button--has-icon">
         <UiIcon :icon="icon"/> Label
     </UiButton>
 </template>
-```
+`}/>
 
 **After**
-```html
+<Code code={`
 <template>
     <UiButton>
         <UiIcon
@@ -93,7 +94,7 @@ From v0.5.0 `ui-button--has-icon` is no longer supported.
         /> Label
     </UiButton>
 </template>
-```
+`}/>
 
 #### CSS Variables changes
 <Table
