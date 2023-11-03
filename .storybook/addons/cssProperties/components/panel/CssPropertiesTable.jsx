@@ -1,6 +1,6 @@
 import React, { useState, useRef, useMemo } from 'react';
 import { styled } from '@storybook/theming';
-import { Table } from '../../../../../docs/components/Table';
+import Table from '../../../../../docs/components/Table';
 import { TableExpandableRows } from './internals/TableExpandableRows';
 import { getTableHeader } from './internals/TableHeader';
 import { useWindowEvent } from '../../hooks/useWindowEvents';

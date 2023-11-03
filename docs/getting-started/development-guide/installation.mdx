@@ -1,7 +1,7 @@
 import { Meta } from '@storybook/blocks';
-import {Alert} from "../../components/Alert";
-import { PageOutline } from '../../components/PageOutline';
-import { Code } from '../../components/Code';
+import Alert from "../../components/Alert";
+import PageOutline from '../../components/PageOutline';
+import Code from '../../components/Code';
 
 <Meta title="Getting Started/Development Guide/Installation"/>
 
@@ -104,13 +104,14 @@ export default defineConfig({
 `}/>
 
 #### vite-plugin-dynamic-import
-```bash
+
+<Code code={`
 pnpm add vite-plugin-dynamic-import
-````
+`}/>
 
 To use `vite-plugin-dynamic-import` you should add it to vite config. e.g.
 
-```js
+<Code code={`
 // vite.config.loader
 import { defineConfig } from 'vite';
 import dynamicImport from 'vite-plugin-dynamic-import';
@@ -129,7 +130,7 @@ export default defineConfig({
     ),
   ]
 })
-```
+`}/>
 
 ## Usage components in SFC
 You can directly import components from the Infermedica Component Library and use them in a template.
