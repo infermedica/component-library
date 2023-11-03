@@ -1,6 +1,6 @@
 import { Canvas, Meta, Story } from "@storybook/blocks";
 import PageOutline from '../../../components/PageOutline';
-import { Table } from '../../../components/Table';
+import Table from '../../../components/Table';
 import Code from '../../../components/Code';
 import * as UiMultipleChoicesStories from '../../../../src/components/organisms/UiMultipleChoices/UiMultipleChoices.stories.js'
 
@@ -180,16 +180,6 @@ To migrate to new format you need to map values from `UiMultipleChoices` to your
   headers={['Props', 'Status', 'Changes']}
   rows={[
    ['`labelAttrs`', 'Deprecated', 'Use `textHintAttrs` or `textMessageAttrs`'],
-  ]}
-/>
-
-### UiFormField
-
-#### Props changes
-
-<Table
-  headers={['Props', 'Status', 'Changes']}
-  rows={[
    ['`setElementsAttrs`', 'Deprecated', 'Use `elementsAttrs`'],
   ]}
 />

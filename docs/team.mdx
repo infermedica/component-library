@@ -41,7 +41,10 @@ export const retired = [
 <ul className="list">
 {
   core.map(({ name, role, job, location, github })=>(
-    <li className="list__item">
+    <li 
+      className="list__item"
+      key={name}
+    >
       <Maintainer
         name={ name }
         role={ role }
@@ -58,7 +61,10 @@ export const retired = [
 <ul className="list">
   {
     retired.map(({ name, role, job, location, github })=>(
-      <li className="list__item">
+      <li 
+        className="list__item"
+        key={name}
+      >
         <Maintainer
           name={ name }
           role={ role }
@@ -72,4 +78,4 @@ export const retired = [
 </ul>
 
 ## Become a maintainer?
-If you are interested in becoming a core maintainer, please contact us on <a href="mailto:przemyslaw.spaczek@infermedica.com" target="_blank">przemyslaw.spaczek@infermedica.com.</a>
+If you are interested in becoming a core maintainer, please contact us on przemyslaw.spaczek@infermedica.com
