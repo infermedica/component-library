@@ -375,8 +375,8 @@ const optionsToRender = computed(() => props.options.map((option) => ({
 
   &__choices {
     display: flex;
-    flex-direction: column;
     flex: 0;
+    flex-direction: column;
     gap: functions.var($element + "-choices", gap, 0);
 
     @include mixins.from-tablet {

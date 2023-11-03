@@ -20,7 +20,7 @@ pnpm add @infermedica/component-library
 
 ## Usage default styles
 Infermedica Component Library is a highly configurable UI components library. To configure components to your needs, you can use a lot of global
-CSS variables and adjust styles to your requirements. More details you can find in <a href="/docs/getting-started-development-guide-theme-configuration--page">Theme Configuration</a> guideline.
+CSS variables and adjust styles to your requirements. More details you can find in <a href="/?path=/docs/getting-started-development-guide-theme-configuration--docs" target="_blank">Theme Configuration</a> guideline.
 
 We provide our default design if you want use it inside your project, you need to import them into the `main.js` file.
 
@@ -28,64 +28,24 @@ We provide our default design if you want use it inside your project, you need t
 import '@infermedica/component-library/styles/styles.scss'
 ```
 
-## Project config and loaders
+## Vite configuration
+To used Infermedica Component Library in your project you need to make a few changes in `vite.config.file`.
 
-### SVG Loader
-To load SVG files for UiIcon component we use custom loader for that.
+### Icons
+Infermedica Component Library used [vite-svg-loader](https://www.npmjs.com/package/vite-svg-loader) to load SVG files as Vue components and [vite-plugin-dynamic-import](https://www.npmjs.com/package/vite-plugin-dynamic-import) to enhance Vite builtin dynamic import.
 
-#### Webpack
-For Webpack use [vue-svg-loader](https://www.npmjs.com/package/vue-svg-loader).
-For Vue 3 you should use next version of vue-svg-loader
-
+#### vite-svg-loader
 ```bash
-pnpm i vue-svg-loader@next
-````
-
-To use `vue-svg-loader` you should add it to webpack config. e.g. for vue-cli project.
-
-```js
-// vue.config.js
-module.exports = {
-  chainWebpack: (config) => {
-    const svgRule = config.module.rule('svg');
-
-    // clear all existing loaders.
-    // if you don't do this, the loader below will be appended to
-    // existing loaders of the rule.
-    svgRule.uses.clear();
-
-    // add replacement loader(s)
-    svgRule
-    .use('vue-loader')
-    .loader('vue-loader')
-    .end()
-    .use('vue-svg-loader')
-    .loader('vue-svg-loader')
-    // options is optional, below you can find our svgo settings
-    .options({
-      svgo: {
-        plugins: [
-          { removeDimensions: true },
-          { removeUselessStrokeAndFill: true },
-          { convertStyleToAttrs: true },
-        ]
-      }
-    })
-  }
-}
-```
-
-### Vite
-For Vite use [vite-svg-loader](https://www.npmjs.com/package/vite-svg-loader).
-
-```bash
-pnpm i vite-svg-loader@next
+pnpm add vite-svg-loader
 ````
 
 To use `vite-svg-loader` you should add it to vite config. e.g.
 
 ```js
 // vite.config.loader
+import { defineConfig } from 'vite';
+import svgLoader from 'vite-svg-loader';
+
 export default defineConfig({
   plugins: [
     vue(),
@@ -98,6 +58,34 @@ export default defineConfig({
         ],
       },
     }),
+  ]
+})
+```
+
+#### vite-plugin-dynamic-import
+```bash
+pnpm add vite-plugin-dynamic-import
+````
+
+To use `vite-plugin-dynamic-import` you should add it to vite config. e.g.
+
+```js
+// vite.config.loader
+import { defineConfig } from 'vite';
+import dynamicImport from 'vite-plugin-dynamic-import';
+
+export default defineConfig({
+  plugins: [
+    vue(),
+    dynamicImport(
+      {
+        filter(id) {
+          if (id.includes('/node_modules/@infermedica')) {
+            return true
+          }
+        }
+      }
+    ),
   ]
 })
 ```
