@@ -63,5 +63,5 @@ import UiControlsNextButton from '../UiControlsNextButton.vue';
 
 import type { ControlsCommonProps } from '../../UiControls.vue';
 
-const props = defineProps<ControlsCommonProps>();
+defineProps<ControlsCommonProps>();
 </script>

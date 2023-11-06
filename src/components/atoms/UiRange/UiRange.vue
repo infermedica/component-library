@@ -1,3 +1,4 @@
+<!-- eslint-disable vuejs-accessibility/form-control-has-label -->
 <template>
   <UiNumberStepper
     v-bind="numberStepperAttrs"
