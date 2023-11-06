@@ -19,10 +19,6 @@ const events = actions({
 export default {
   title: 'Atoms/Checkbox',
   component: UiCheckbox,
-  subcomponents: {
-    UiIcon,
-    UiText,
-  },
   args: {
     initModelValue: false,
     content: 'I read and accept Terms of Service and Privacy Policy.',

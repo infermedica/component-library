@@ -348,7 +348,7 @@ export const WithInputSlot = {
           class="ui-input__input"
           @keydown="validation"
           @input="input($event.target.value)"
-        >
+        />
       </template>
     </UiInput>`,
   }),
