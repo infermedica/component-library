@@ -1,8 +1,7 @@
-import { StorybookConfig } from '@storybook/vue3-vite'
+import { StorybookConfig } from '@storybook/vue3-vite';
 import path from 'path';
 import { mergeConfig } from 'vite';
 import svgLoader from 'vite-svg-loader';
-
 const config: StorybookConfig = {
   async viteFinal(config) {
     return mergeConfig(config, {
@@ -14,45 +13,24 @@ const config: StorybookConfig = {
           '@': path.resolve(__dirname, '../src'),
           '@sb': path.resolve(__dirname),
           '@index': path.resolve(__dirname, '../index.ts'),
-          '@infermedica/component-library': path.resolve(__dirname, '../index.ts'),
+          '@infermedica/component-library': path.resolve(__dirname, '../index.ts')
         }
       },
-      plugins: [
-        svgLoader({
-          svgoConfig: {
-            plugins: [
-              'removeDimensions',
-              'removeUselessStrokeAndFill',
-              'convertStyleToAttrs'
-            ]
-          }
-        })
-      ],
+      plugins: [svgLoader({
+        svgoConfig: {
+          plugins: ['removeDimensions', 'removeUselessStrokeAndFill', 'convertStyleToAttrs']
+        }
+      })],
       optimizeDeps: {
-        include: [
-          'react-syntax-highlighter',
-          'react-syntax-highlighter/dist/esm/languages/prism/scss',
-          '@storybook/theming'
-        ]
+        include: ['react-syntax-highlighter', 'react-syntax-highlighter/dist/esm/languages/prism/scss', '@storybook/theming']
       }
     });
   },
   staticDirs: ['../public'],
-  stories: [
-    '../docs/**/*.mdx',
-    '../docs/**/*.stories.@(js|jsx|ts|tsx)',
-    '../src/**/*.mdx',
-    '../src/**/*.stories.@(js|jsx|ts|tsx)'
-  ],
-  addons: [
-    '@storybook/addon-links',
-    '@storybook/addon-essentials',
-    '@storybook/addon-a11y',
-    '@storybook/addon-interactions',
-    {
-      name: '@storybook/addon-styling',
-    },
-  ],
+  stories: ['../docs/**/*.mdx', '../docs/**/*.stories.@(js|jsx|ts|tsx)', '../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  addons: ['@storybook/addon-links', '@storybook/addon-essentials', '@storybook/addon-a11y', '@storybook/addon-interactions', {
+    name: '@storybook/addon-styling'
+  }, '@storybook/addon-mdx-gfm'],
   framework: {
     name: '@storybook/vue3-vite',
     options: {}
@@ -69,5 +47,4 @@ const config: StorybookConfig = {
     }
   }
 };
-
-export default config
+export default config;

@@ -4,7 +4,6 @@ import { Title, Subtitle, Description, Primary, Controls, Stories } from '@story
 import { setup } from '@storybook/vue3';
 
 import { MetaActions } from '../docs/components/MetaActions';
-import { withArgs  } from './decorators';
 import './tailwindcss.css';
 import '@/styles/styles.scss';
 import './styles.scss';
@@ -145,9 +144,6 @@ const preview: Preview = {
      source: { code: null } ,
     },
   },
-  decorators: [
-    withArgs,
-  ]
 }
 
 export default preview

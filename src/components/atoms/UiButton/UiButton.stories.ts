@@ -55,176 +55,177 @@ const meta = {
   parameters: { chromatic: { disableSnapshot: false } },
 } satisfies Meta;
 export default meta;
-
-export const Basic: StoryObj = { render: () => (BasicStories) };
+export const Basic: StoryObj = {
+  render(args) {
+    return {
+      components: { BasicStories },
+      setup() {
+        return { args };
+      },
+      template: '<BasicStories v-bind="args"/>',
+    };
+  },
+};
 Basic.parameters = {
   docs: { source: { code: BasicStoriesSource } },
   chromatic: { disableSnapshot: true },
 };
-Basic.decorators = [ (story, { id }) => ({
+Basic.decorators = [ () => ({
+  name: 'LFlex',
   inheritAttrs: false,
-  setup(props, { attrs }) {
-    return {
-      attrs,
-      id,
-    };
-  },
   template: `<div class="flex gap-2">
-      <story 
-        v-bind="attrs" 
-        :key="id"
-      />
+      <story />
     </div>`,
 }) ];
-export const Primary: ButtonStoryType = { ...Basic };
-Primary.argTypes = {};
-Primary.decorators = [
-  ...Basic.decorators,
-  withVariants,
-];
-Primary.parameters = {
-  variants: [
-    { label: 'default' },
-    ...[
-      'hover',
-      'focus',
-      'active',
-    ].map((variant) => ({
-      label: `${variant}`,
-      class: `pseudo-${variant}`,
-    })),
-    {
-      label: 'disabled',
-      disabled: true,
-      class: 'ui-button--is-disabled',
-    },
-  ],
-  chromatic: { disableSnapshot: true },
-};
-export const Outlined: ButtonStoryType = { ...Primary };
-Outlined.parameters = {
-  variants: {
-    ...Primary.parameters.variants.map((variant: Record<string, unknown>) => ({
-      ...variant,
-      class: `${variant.class} ui-button--outlined`,
-    })),
-  },
-};
-export const Text: ButtonStoryType = { ...Primary };
-Text.parameters = {
-  variants: {
-    ...Primary.parameters.variants.map((variant: Record<string, unknown>) => ({
-      ...variant,
-      class: `${variant.class} ui-button--text`,
-    })),
-  },
-};
-export const TextSecondary: ButtonStoryType = { ...Text };
-TextSecondary.decorators = Text.decorators?.concat(
-  (story, { id }) => ({
-    components: { story },
-    setup(props, { attrs }) {
-      return {
-        attrs,
-        id,
-      };
-    },
-    template: '<div class="ui-button--theme-secondary"><story v-bind="attrs" :key="id"/></div>',
-  }),
-);
-export const TextBrand: ButtonStoryType = { ...Text };
-TextBrand.parameters = {
-  ...Text.parameters,
-  backgrounds: { default: 'brand' },
-};
-TextBrand.decorators = Text.decorators?.concat(
-  (story, { id }) => ({
-    components: { story },
-    setup(props, { attrs }) {
-      return {
-        attrs,
-        id,
-      };
-    },
-    template: '<div class="ui-button--theme-brand"><story v-bind="attrs" :key="id"/></div>',
-  }),
-);
-export const Icon: ButtonStoryType = { render: () => (IconStories) };
-Icon.args = { icon: 'plus-circled-filled' };
-Icon.argTypes = {};
-Icon.decorators = [ withVariants ];
-Icon.parameters = {
-  variants: [ ...Primary.parameters.variants.map((variant: Record<string, unknown>) => ({
-    ...variant,
-    class: `${variant.class} ui-button--icon`,
-  })) ],
-};
-export const IconSecondary: ButtonStoryType = { ...Icon };
-IconSecondary.decorators = [
-  ...Icon.decorators,
-  (story, { id }) => ({
-    components: { story },
-    setup(props, { attrs }) {
-      return {
-        attrs,
-        id,
-      };
-    },
-    template: '<div class="ui-button--theme-secondary"><story v-bind="attrs" :key="id"/></div>',
-  }),
-];
-export const IconBrand: ButtonStoryType = { ...Icon };
-IconBrand.parameters = {
-  ...Icon.parameters,
-  backgrounds: { default: 'brand' },
-};
-IconBrand.decorators = [
-  ...Icon.decorators,
-  (story, { id }) => ({
-    components: { story },
-    setup(props, { attrs }) {
-      return {
-        attrs,
-        id,
-      };
-    },
-    template: '<div class="ui-button--theme-brand"><story v-bind="attrs" :key="id"/></div>',
-  }),
-];
-export const Circled: ButtonStoryType = { render: () => (CircledStories) };
-Circled.args = {
-  content: '1',
-  icon: 'plus-circled-filled',
-};
-Circled.argTypes = {};
-Circled.decorators = [
-  (story, { id }) => ({
-    inheritAttrs: false,
-    setup(props, { attrs }) {
-      return {
-        attrs,
-        id,
-      };
-    },
-    template: `<div class="flex gap-2">
-      <story 
-        v-bind="attrs" 
-        :key="id"
-      />
-    </div>`,
-  }),
-  withVariants,
-];
-Circled.parameters = {
-  variants: [ ...Primary.parameters.variants.map((variant: Record<string, unknown>) => ({
-    ...variant,
-    class: `${variant.class} ui-button--circled`,
-  })) ],
-};
-export const CircledSelected: ButtonStoryType = { ...Circled };
-CircledSelected.parameters = {
-  variants: [ ...Circled.parameters.variants.map((variant: Record<string, unknown>) => ({
-    ...variant,
-    class: `${variant.class} ui-button--is-selected`,
-  })) ],
-};
+// export const Primary: ButtonStoryType = { ...Basic };
+// Primary.argTypes = {};
+// Primary.decorators = [
+//   ...Basic.decorators,
+//   withVariants,
+// ];
+// Primary.parameters = {
+//   variants: [
+//     { label: 'default' },
+//     ...[
+//       'hover',
+//       'focus',
+//       'active',
+//     ].map((variant) => ({
+//       label: `${variant}`,
+//       class: `pseudo-${variant}`,
+//     })),
+//     {
+//       label: 'disabled',
+//       disabled: true,
+//       class: 'ui-button--is-disabled',
+//     },
+//   ],
+//   chromatic: { disableSnapshot: true },
+// };
+// export const Outlined: ButtonStoryType = { ...Primary };
+// Outlined.parameters = {
+//   variants: {
+//     ...Primary.parameters.variants.map((variant: Record<string, unknown>) => ({
+//       ...variant,
+//       class: `${variant.class} ui-button--outlined`,
+//     })),
+//   },
+// };
+// export const Text: ButtonStoryType = { ...Primary };
+// Text.parameters = {
+//   variants: {
+//     ...Primary.parameters.variants.map((variant: Record<string, unknown>) => ({
+//       ...variant,
+//       class: `${variant.class} ui-button--text`,
+//     })),
+//   },
+// };
+// export const TextSecondary: ButtonStoryType = { ...Text };
+// TextSecondary.decorators = Text.decorators?.concat(
+//   (story, { id }) => ({
+//     components: { story },
+//     setup(props, { attrs }) {
+//       return {
+//         attrs,
+//         id,
+//       };
+//     },
+//     template: '<div class="ui-button--theme-secondary"><story v-bind="attrs" :key="id"/></div>',
+//   }),
+// );
+// export const TextBrand: ButtonStoryType = { ...Text };
+// TextBrand.parameters = {
+//   ...Text.parameters,
+//   backgrounds: { default: 'brand' },
+// };
+// TextBrand.decorators = Text.decorators?.concat(
+//   (story, { id }) => ({
+//     components: { story },
+//     setup(props, { attrs }) {
+//       return {
+//         attrs,
+//         id,
+//       };
+//     },
+//     template: '<div class="ui-button--theme-brand"><story v-bind="attrs" :key="id"/></div>',
+//   }),
+// );
+// export const Icon: ButtonStoryType = { render: () => (IconStories) };
+// Icon.args = { icon: 'plus-circled-filled' };
+// Icon.argTypes = {};
+// Icon.decorators = [ withVariants ];
+// Icon.parameters = {
+//   variants: [ ...Primary.parameters.variants.map((variant: Record<string, unknown>) => ({
+//     ...variant,
+//     class: `${variant.class} ui-button--icon`,
+//   })) ],
+// };
+// export const IconSecondary: ButtonStoryType = { ...Icon };
+// IconSecondary.decorators = [
+//   ...Icon.decorators,
+//   (story, { id }) => ({
+//     components: { story },
+//     setup(props, { attrs }) {
+//       return {
+//         attrs,
+//         id,
+//       };
+//     },
+//     template: '<div class="ui-button--theme-secondary"><story v-bind="attrs" :key="id"/></div>',
+//   }),
+// ];
+// export const IconBrand: ButtonStoryType = { ...Icon };
+// IconBrand.parameters = {
+//   ...Icon.parameters,
+//   backgrounds: { default: 'brand' },
+// };
+// IconBrand.decorators = [
+//   ...Icon.decorators,
+//   (story, { id }) => ({
+//     components: { story },
+//     setup(props, { attrs }) {
+//       return {
+//         attrs,
+//         id,
+//       };
+//     },
+//     template: '<div class="ui-button--theme-brand"><story v-bind="attrs" :key="id"/></div>',
+//   }),
+// ];
+// export const Circled: ButtonStoryType = { render: () => (CircledStories) };
+// Circled.args = {
+//   content: '1',
+//   icon: 'plus-circled-filled',
+// };
+// Circled.argTypes = {};
+// Circled.decorators = [
+//   (story, { id }) => ({
+//     inheritAttrs: false,
+//     setup(props, { attrs }) {
+//       return {
+//         attrs,
+//         id,
+//       };
+//     },
+//     template: `<div class="flex gap-2">
+//       <story
+//         v-bind="attrs"
+//         :key="id"
+//       />
+//     </div>`,
+//   }),
+//   withVariants,
+// ];
+// Circled.parameters = {
+//   variants: [ ...Primary.parameters.variants.map((variant: Record<string, unknown>) => ({
+//     ...variant,
+//     class: `${variant.class} ui-button--circled`,
+//   })) ],
+// };
+// export const CircledSelected: ButtonStoryType = { ...Circled };
+// CircledSelected.parameters = {
+//   variants: [ ...Circled.parameters.variants.map((variant: Record<string, unknown>) => ({
+//     ...variant,
+//     class: `${variant.class} ui-button--is-selected`,
+//   })) ],
+// };

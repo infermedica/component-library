@@ -6,6 +6,7 @@ import {
 
 export function getArgTypes(component, options = { variables: {}}) {
   const { __docgenInfo } = component;
+  console.log(__docgenInfo);
   const componentNameKebabCase = __docgenInfo?.displayName
     ?.replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`)
     .substring(1);
@@ -52,7 +53,11 @@ export function getArgTypes(component, options = { variables: {}}) {
     }
     return {
       defaultValue: {
-        // summary: value,
+        summary: value === "false"
+          ? false
+          : value === "true"
+            ? true
+            : value,
       },
       category: 'props'
     }
@@ -254,16 +259,16 @@ export function getArgTypes(component, options = { variables: {}}) {
       }
     ), {})
       : {};
-    // const propsDefaults = props
-    //   ? Object.keys(props).reduce((object, prop) => (
-    //   {
-    //     ...object,
-    //     [prop]: props[prop].table.defaultValue.summary
-    //   }
-    // ), {})
-    //   : {};
+    const propsDefaults = props
+      ? Object.keys(props).reduce((object, prop) => (
+      {
+        ...object,
+        [prop]: props[prop].table.defaultValue.summary
+      }
+    ), {})
+      : {};
     return {
-      // ...propsDefaults,
+      ...propsDefaults,
       ...variablesDefaults,
     }
   })()
