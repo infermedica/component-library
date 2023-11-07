@@ -1,6 +1,6 @@
 import { Meta } from '@storybook/blocks';
-import { PageOutline } from '../components/PageOutline';
-import { Code } from '../components/Code';
+import PageOutline from '../components/PageOutline';
+import Code from '../components/Code';
 
 <Meta title="Contributing Guide/CSS Var Deep Dive"/>
 
@@ -15,7 +15,7 @@ To name CSS variables we base on BEM. `--<block>-<element>-<property>` e.g.
 <Code code={`.ui-button {
   color: var(--button-color, var(--color-text-on-action))\n
   &__icon {
-    --icon-size: var(--tile-icon-size, 3rem);\n
+    --icon-size: var(--tile-icon-size, 3rem);
   }
 }`}/>
 

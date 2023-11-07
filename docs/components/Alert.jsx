@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { styled } from '@storybook/theming';
 
@@ -34,8 +36,14 @@ const Container = styled.div`
   -webkit-font-smoothing: antialiased;
   font-size: 16px;`;
 
-export const Alert = ({ children, theme = 'info' }) => <Container
+const Alert = ({
+  children, theme = 'info',
+}) => (
+  <Container
     theme={theme}
   >
     {children}
-  </Container>;
+  </Container>
+);
+
+export default Alert;

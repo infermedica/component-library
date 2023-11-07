@@ -1,5 +1,6 @@
 import { Meta, Canvas } from "@storybook/blocks"
-import { Alert } from "../../../../docs/components/Alert"
+import Alert from "../../../../docs/components/Alert"
+import Code from '../../../../docs/components/Code';
 import * as stories from './click-outside.stories.js'
 
 <Meta of={stories}/>
@@ -21,14 +22,16 @@ After adding this directive you can call some function by clicking outside of el
 </Alert>
 
 - value as a function
-```html
-  <UiPopover
-    v-click-outside="handler"
-  />
-```
+
+<Code code={`
+<UiPopover
+  v-click-outside="handler"
+/>
+`}/>
+
 - value as a object
 
-```html
+<Code code={`
 <template>
   <UiPopover
     v-click-outside="clickOutsideValue"
@@ -44,14 +47,16 @@ const clickOutsideValue: VClickOutsideValue = computed(() => ({
   isActive: boolean,
 }));
 </script>
-```
+`}/>
+
 ## Typescript
-```ts
+
+<Code code={`
 type VClickOutsideValue = ((event: MouseEvent) => void) | {
   handler: (event: MouseEvent) => void;
   isActive?: boolean;
 }
-```
+`}/>
 
 
 ## Used
