@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import glob from 'glob';
+import { glob }  from 'glob';
 import {
   dirname,
   resolve,
