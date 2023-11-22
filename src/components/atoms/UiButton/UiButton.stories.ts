@@ -11,6 +11,9 @@ import {
   extendEvents,
 } from '@sb/helpers';
 import {
+  useAttrs
+} from '@sb/composable';
+import {
   content,
   icon,
 } from '@sb/helpers/argTypes/index';
@@ -58,11 +61,16 @@ export default meta;
 export const Basic: StoryObj = {
   render(args) {
     return {
+      name: 'SBasic',
       components: { BasicStories },
       setup() {
-        return { args };
+        const { storyAttrs: attrs } = useAttrs();
+        return {
+          args,
+          attrs,
+        };
       },
-      template: '<BasicStories v-bind="args"/>',
+      template: '<BasicStories v-bind="{...args, ...attrs}"/>',
     };
   },
 };
@@ -73,35 +81,38 @@ Basic.parameters = {
 Basic.decorators = [ () => ({
   name: 'LFlex',
   inheritAttrs: false,
+  setup() {
+    const { decoratorAttrs: attrs } = useAttrs();
+    return { attrs };
+  },
   template: `<div class="flex gap-2">
-      <story />
+      <story v-bind="attrs"/>
     </div>`,
 }) ];
-// export const Primary: ButtonStoryType = { ...Basic };
-// Primary.argTypes = {};
-// Primary.decorators = [
-//   ...Basic.decorators,
-//   withVariants,
-// ];
-// Primary.parameters = {
-//   variants: [
-//     { label: 'default' },
-//     ...[
-//       'hover',
-//       'focus',
-//       'active',
-//     ].map((variant) => ({
-//       label: `${variant}`,
-//       class: `pseudo-${variant}`,
-//     })),
-//     {
-//       label: 'disabled',
-//       disabled: true,
-//       class: 'ui-button--is-disabled',
-//     },
-//   ],
-//   chromatic: { disableSnapshot: true },
-// };
+export const Primary: ButtonStoryType = { ...Basic };
+Primary.argTypes = {};
+Primary.decorators = [
+  ...Basic.decorators,
+  withVariants,
+];
+Primary.parameters = {
+  variants: [
+    { label: 'default' },
+    ...[
+      'hover',
+      'focus',
+      'active',
+    ].map((variant) => ({
+      label: `${variant}`,
+      class: `pseudo-${variant}`,
+    })),
+    {
+      label: 'disabled',
+      disabled: true,
+      class: 'ui-button--is-disabled',
+    },
+  ],
+};
 // export const Outlined: ButtonStoryType = { ...Primary };
 // Outlined.parameters = {
 //   variants: {

@@ -6,7 +6,6 @@ import {
 
 export function getArgTypes(component, options = { variables: {}}) {
   const { __docgenInfo } = component;
-  console.log(__docgenInfo);
   const componentNameKebabCase = __docgenInfo?.displayName
     ?.replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`)
     .substring(1);
@@ -46,18 +45,22 @@ export function getArgTypes(component, options = { variables: {}}) {
     if (name.match(/(Attrs)$/gm)) {
       return {
         defaultValue: {
-          // summary: value,
+          // summary: value === "false"
+          //   ? false
+          //   : value === "true"
+          //     ? true
+          //     : value,
         },
         category: 'Attrs Props'
       }
     }
     return {
       defaultValue: {
-        summary: value === "false"
-          ? false
-          : value === "true"
-            ? true
-            : value,
+        // summary: value === "false"
+        //   ? false
+        //   : value === "true"
+        //     ? true
+        //     : value,
       },
       category: 'props'
     }

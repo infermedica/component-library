@@ -114,9 +114,9 @@ const getModifiers = (variant, args) => {
   ]
 }
 export const withVariants = (story, { componentId, id, parameters }) => ({
+  name: 'DWithVariants',
   inheritAttrs: false,
-  components: { story },
-  setup(props, { attrs} ) {
+  setup() {
     const { variants } = parameters;
     const componentClassName = `.ui-${componentId.split('-')[1]}`;
     const getModifiedStyles = replacePseudoSelectors(componentClassName);
@@ -124,11 +124,8 @@ export const withVariants = (story, { componentId, id, parameters }) => ({
     onBeforeUnmount(() => {
       removeStylesFromDOM(id);
     })
-    const args = computed(()=>(attrs));
     return {
-      variants,
-      args,
-      id,
+      variants
     }
   },
   template: `<div class="sb-variants">
@@ -144,11 +141,7 @@ export const withVariants = (story, { componentId, id, parameters }) => ({
       </span>
       <!-- please don't remove this div -->
       <div>
-        <story
-          v-bind="args"
-          v-bind="rest"
-          :key="id"
-        />
+        <story v-bind="rest"/>
       </div>
     </template>
   </div>`
