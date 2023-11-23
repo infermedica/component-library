@@ -6,24 +6,25 @@ import {
 
 import { useArgs } from "@storybook/preview-api";
 
-export const withVModel = (story, { id }) => {
+export const withVModel = (story, { id, args }) => {
   const [{ modelValue }, updateArgs] = useArgs();
 
   return defineComponent({
+    name: 'DWithVModel',
     inheritAttrs: false,
-    setup(props, { attrs }) {
+    setup() {
       const modelValue = computed({
-        get: ()=>(attrs.modelValue),
+        get: ()=>(args.modelValue),
         set: (newValue) => {
           updateArgs({ modelValue: newValue });
         }
       })
       provide('value', modelValue)
-      const args = computed(()=>(Object.keys(attrs)
+      const attrs = computed(()=>(Object.keys(args)
         .reduce(
           (object, key)=> {
             if(key !== 'modelValue') {
-              object[key] = attrs[key];
+              object[key] = args[key];
             }
             return object;
           },
@@ -35,9 +36,6 @@ export const withVModel = (story, { id }) => {
         id,
       }
     },
-    template: `<story 
-      v-bind="args"
-      :key="id"
-    />`
+    template: `<story v-bind="attrs"/>`
   })
 }

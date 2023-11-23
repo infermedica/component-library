@@ -163,6 +163,7 @@ const isMin = computed(() => props.modelValue === props.min);
 const isMax = computed(() => props.modelValue === props.max);
 const change = (value: number, modifier = 0) => {
   const newValue = value + modifier;
+  console.log(value, modifier);
   if (validate(newValue)) {
     emit('update:modelValue', newValue);
     return;
