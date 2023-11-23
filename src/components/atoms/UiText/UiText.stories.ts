@@ -7,6 +7,7 @@ import type { TextProps } from '@index';
 import { withVariants } from '@sb/decorators';
 import { getArgTypes } from '@sb/helpers';
 import { content } from '@sb/helpers/argTypes/index';
+import { useAttrs } from '@sb/composable';
 import {
   BasicStories,
   BasicStoriesSource,
@@ -47,7 +48,22 @@ const meta = {
 } satisfies Meta;
 export default meta;
 
-export const Basic: StoryObj = { render: () => (BasicStories) };
+export const Basic: StoryObj = {
+  render(args, { name }) {
+    return {
+      name,
+      components: { BasicStories },
+      setup() {
+        const { storyAttrs: attrs } = useAttrs();
+        return {
+          args,
+          attrs,
+        };
+      },
+      template: '<BasicStories v-bind="{...args, ...attrs}"/>',
+    };
+  },
+};
 Basic.parameters = {
   docs: { source: { code: BasicStoriesSource } },
   chromatic: { disableSnapshot: true },
@@ -67,19 +83,9 @@ Variants.parameters = {
 export const Secondary: TextStoryType = { ...Variants };
 Secondary.decorators = [
   ...Variants.decorators,
-  (story, { id }) => ({
-    setup(props, { attrs }) {
-      return {
-        attrs,
-        id,
-      };
-    },
-    template: `<div class="ui-text--theme-secondary">
-      <story 
-        v-bind="attrs" 
-        :key="id"
-      />
-    </div>`,
+  () => ({
+    name: 'TSecondary',
+    template: '<div class="ui-text--theme-secondary"><story/></div>',
   }),
 ];
 export const Brand: TextStoryType = { ...Variants };
@@ -89,18 +95,8 @@ Brand.parameters = {
 };
 Brand.decorators = [
   ...Variants.decorators,
-  (story, { id }) => ({
-    setup(props, { attrs }) {
-      return {
-        attrs,
-        id,
-      };
-    },
-    template: `<div class="ui-text--theme-brand">
-      <story 
-        v-bind="attrs" 
-        :key="id"
-      />
-    </div>`,
+  () => ({
+    name: 'TBrand',
+    template: '<div class="ui-button--theme-brand"><story/></div>',
   }),
 ];

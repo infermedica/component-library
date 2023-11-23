@@ -5,6 +5,7 @@ import type {
 import { UiTextarea } from '@index';
 import { withVModel } from '@sb/decorators';
 import { getArgTypes } from '@sb/helpers';
+import { useAttrs } from '@sb/composable';
 import {
   BasicStories,
   BasicStoriesSource,
@@ -37,14 +38,27 @@ const meta = {
         'vertical',
       ],
     },
-    modelValue: {
-      control: 'text',
-    }
+    modelValue: { control: 'text' },
   },
   parameters: { chromatic: { disableSnapshot: false } },
 } satisfies Meta;
 export default meta;
 
-export const Basic: StoryObj = { render: () => (BasicStories) };
+export const Basic: StoryObj = {
+  render(args, { name }) {
+    return {
+      name,
+      components: { BasicStories },
+      setup() {
+        const { storyAttrs: attrs } = useAttrs();
+        return {
+          args,
+          attrs,
+        };
+      },
+      template: '<BasicStories v-bind="{...args, ...attrs}"/>',
+    };
+  },
+};
 Basic.decorators = [ withVModel ];
 Basic.parameters = { docs: { source: { code: BasicStoriesSource } } };

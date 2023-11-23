@@ -56,11 +56,11 @@ export function getArgTypes(component, options = { variables: {}}) {
     }
     return {
       defaultValue: {
-        // summary: value === "false"
-        //   ? false
-        //   : value === "true"
-        //     ? true
-        //     : value,
+        summary: value === "false"
+          ? false
+          : value === "true"
+            ? true
+            : value.replace(/'/gm, '').replace(/"/gm, '')
       },
       category: 'props'
     }

@@ -10,6 +10,7 @@ import {
 } from '@sb/decorators';
 import { getArgTypes } from '@sb/helpers';
 import { content } from '@sb/helpers/argTypes/index';
+import { useAttrs } from '@sb/composable';
 import {
   BasicStories,
   BasicStoriesSource,
@@ -54,14 +55,29 @@ const meta = {
 } satisfies Meta;
 export default meta;
 
-export const Basic: StoryObj = { render: () => (BasicStories) };
+export const Basic: StoryObj = {
+  render(args, { name }) {
+    return {
+      name,
+      components: { BasicStories },
+      setup() {
+        const { storyAttrs: attrs } = useAttrs();
+        return {
+          args,
+          attrs,
+        };
+      },
+      template: '<BasicStories v-bind="{...args, ...attrs}"/>',
+    };
+  },
+};
 Basic.decorators = [ withVModel ];
 Basic.parameters = {
   docs: { source: { code: BasicStoriesSource } },
   chromatic: { disableSnapshot: true },
 };
 
-export const Unchecked: StoryObj = { render: () => (BasicStories) };
+export const Unchecked: StoryObj = { ...Basic };
 Unchecked.decorators = [ withVariants ];
 Unchecked.parameters = {
   variants: [
@@ -85,7 +101,7 @@ Unchecked.parameters = {
   ],
 };
 
-export const Checked: StoryObj = { render: () => (BasicStories) };
+export const Checked: StoryObj = { ...Basic };
 Checked.decorators = [ withVariants ];
 Checked.parameters = {
   variants: [

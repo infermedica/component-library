@@ -4,6 +4,7 @@ import type {
 } from '@storybook/vue3';
 import { UiBackdrop } from '@index';
 import { getArgTypes } from '@sb/helpers';
+import { useAttrs } from '@sb/composable';
 import {
   BasicStories,
   BasicStoriesSource,
@@ -20,18 +21,10 @@ const meta = {
   args,
   argTypes,
   decorators: [ (story, { id }) => ({
+    name: 'LMinHeight',
     inheritAttrs: false,
-    setup(props, { attrs }) {
-      return {
-        attrs,
-        id,
-      };
-    },
     template: `<div class="min-h-80">
-      <story 
-        v-bind="attrs" 
-        :key="id"
-      />
+      <story />
     </div>`,
   }
   ) ],
@@ -39,5 +32,20 @@ const meta = {
 } satisfies Meta;
 export default meta;
 
-export const Basic: StoryObj = { render: () => (BasicStories) };
+export const Basic: StoryObj = {
+  render(args, { name }) {
+    return {
+      name,
+      components: { BasicStories },
+      setup() {
+        const { storyAttrs: attrs } = useAttrs();
+        return {
+          args,
+          attrs,
+        };
+      },
+      template: '<BasicStories v-bind="{...args, ...attrs}"/>',
+    };
+  },
+};
 Basic.parameters = { docs: { source: { code: BasicStoriesSource } } };
