@@ -2,7 +2,7 @@ import type {
   Meta,
   StoryObj,
 } from '@storybook/vue3';
-import { UiRange } from '@index';
+import { UiProgress } from '@index';
 import { getArgTypes } from '@sb/helpers';
 import { useAttrs } from '@sb/composable';
 import { withVModel } from '@sb/decorators';
@@ -14,17 +14,16 @@ import {
 const {
   argTypes,
   args,
-} = getArgTypes(UiRange);
+} = getArgTypes(UiProgress);
 
 const meta = {
-  title: 'Atoms/Range',
-  component: UiRange,
+  title: 'Atoms/Progress',
+  component: UiProgress,
   args: {
     ...args,
-    min: 18,
-    max: 122,
-    step: 1,
-    modelValue: 50,
+    min: 0,
+    max: 100,
+    value: 20,
   },
   argTypes,
   parameters: { chromatic: { disableSnapshot: false } },
