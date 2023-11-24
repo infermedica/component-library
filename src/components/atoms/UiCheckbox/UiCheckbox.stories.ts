@@ -15,6 +15,8 @@ import { Empty } from '@/components/atoms/UiInput/UiInput.stories';
 import {
   BasicStories,
   BasicStoriesSource,
+  GroupStories,
+  GroupStoriesSource,
 } from './stories';
 
 type CheckboxArgsType = CheckboxProps & {
@@ -30,13 +32,12 @@ const {
   args,
 } = getArgTypes(UiCheckbox);
 
-console.log(args);
-
 const meta = {
   title: 'Atoms/Checkbox',
   component: UiCheckbox,
   args: {
     content: 'I read and accept Terms of Service and Privacy Policy.',
+    items: [],
     class: [],
     modelValue: false,
     value: '',
@@ -52,7 +53,10 @@ const meta = {
     content,
     modelValue: { control: 'boolean' },
   },
-  parameters: { chromatic: { disableSnapshot: false } },
+  parameters: {
+    chromatic: { disableSnapshot: false },
+    controls: { exclude: [ 'items' ] },
+  },
 } satisfies Meta;
 export default meta;
 
@@ -134,4 +138,80 @@ CheckedHasError.parameters = {
     class: `${variant.class} ui-checkbox--has-error`,
     modelValue: true,
   })) ],
+};
+
+export const PrymitiveTypes: StoryObj = {
+  render(args, { name }) {
+    return {
+      name,
+      components: { GroupStories },
+      setup() {
+        const { storyAttrs: attrs } = useAttrs();
+        return {
+          args,
+          attrs,
+        };
+      },
+      template: '<GroupStories v-bind="{...args, ...attrs}"/>',
+    };
+  },
+};
+PrymitiveTypes.args = {
+  modelValue: [ 'Europe' ],
+  items: [
+    'Russia, Kazakhstan or Mongolia',
+    'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
+    'Europe',
+  ],
+};
+PrymitiveTypes.argTypes = { items: { table: { category: 'stories controls' } } };
+PrymitiveTypes.decorators = [ withVModel ];
+PrymitiveTypes.parameters = { controls: { exclude: [ 'content' ] } };
+
+export const Objets: StoryObj = { ...PrymitiveTypes };
+Objets.args = {
+  modelValue: [ {
+    id: 'russia-kazakhstan-mongolia',
+    label: 'Russia, Kazakhstan or Mongolia',
+  } ],
+  items: [
+    {
+      id: 'russia-kazakhstan-mongolia',
+      label: 'Russia, Kazakhstan or Mongolia',
+    },
+    {
+      id: 'asia-excluding-middle-east-russia-mongolia-and-kazakhstan',
+      label: 'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
+    },
+    {
+      id: 'europe',
+      label: 'Europe',
+    },
+  ],
+};
+
+export const NestedObjets: StoryObj = { ...PrymitiveTypes };
+NestedObjets.args = {
+  modelValue: [ {
+    id: 'asia-excluding-middle-east-russia-mongolia-and-kazakhstan',
+    label: 'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
+    inputAttrs: { 'data-testid': 'input-asia-excluding-middle-east-russia-mongolia-and-kazakhstan' },
+  } ],
+  items: [
+    {
+      id: 'russia-kazakhstan-mongolia',
+      label: 'Russia, Kazakhstan or Mongolia',
+      inputAttrs: { 'data-testid': 'input-russia-kazakhstan-mongolia' },
+    },
+    {
+      id: 'asia-excluding-middle-east-russia-mongolia-and-kazakhstan',
+      label: 'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
+      inputAttrs: { 'data-testid': 'input-asia-excluding-middle-east-russia-mongolia-and-kazakhstan' },
+    },
+    {
+      id: 'europe',
+      label: 'Europe',
+      inputAttrs: { 'data-testid': 'input-europe' },
+    },
+  ],
 };
