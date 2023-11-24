@@ -83,7 +83,7 @@ Basic.decorators = [ () => ({
     const { decoratorAttrs: attrs } = useAttrs();
     return { attrs };
   },
-  template: `<div class="flex gap-2">
+  template: `<div class="flex gap-4">
       <story v-bind="attrs"/>
     </div>`,
 }) ];
@@ -98,8 +98,8 @@ Primary.parameters = {
     { label: 'default' },
     ...[
       'hover',
-      'focus',
       'active',
+      'focus',
     ].map((variant) => ({
       label: `${variant}`,
       class: `pseudo-${variant}`,
@@ -113,21 +113,17 @@ Primary.parameters = {
 };
 export const Outlined: ButtonStoryType = { ...Primary };
 Outlined.parameters = {
-  variants: {
-    ...Primary.parameters.variants.map((variant: Record<string, unknown>) => ({
-      ...variant,
-      class: `${variant.class} ui-button--outlined`,
-    })),
-  },
+  variants: [ ...Primary.parameters.variants.map((variant: Record<string, unknown>) => ({
+    ...variant,
+    class: `${variant.class} ui-button--outlined`,
+  })) ],
 };
 export const Text: ButtonStoryType = { ...Primary };
 Text.parameters = {
-  variants: {
-    ...Primary.parameters.variants.map((variant: Record<string, unknown>) => ({
-      ...variant,
-      class: `${variant.class} ui-button--text`,
-    })),
-  },
+  variants: [ ...Primary.parameters.variants.map((variant: Record<string, unknown>) => ({
+    ...variant,
+    class: `${variant.class} ui-button--text`,
+  })) ],
 };
 export const TextSecondary: ButtonStoryType = { ...Text };
 TextSecondary.decorators = Text.decorators?.concat(
@@ -221,7 +217,7 @@ Circled.decorators = [
       const { decoratorAttrs: attrs } = useAttrs();
       return { attrs };
     },
-    template: `<div class="flex gap-2">
+    template: `<div class="flex gap-4">
       <story v-bind="attrs"/>
     </div>`,
   }),

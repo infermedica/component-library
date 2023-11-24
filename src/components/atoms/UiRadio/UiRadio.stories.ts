@@ -33,6 +33,7 @@ const meta = {
   title: 'Atoms/Radio',
   component: UiRadio,
   args: {
+    ...args,
     modelValue: false,
     content: 'I’m overweight or obese',
     class: [],
@@ -42,7 +43,6 @@ const meta = {
     inputAttrs: { 'data-testid': 'input-element' },
     iconCheckmarkAttrs: { 'data-testid': 'icon-checkmark' },
     textLabelAttrs: { 'data-testid': 'text-label' },
-    ...args,
   },
   argTypes: {
     ...argTypes,
@@ -97,29 +97,39 @@ Unchecked.parameters = {
       class: 'pseudo-focus-within',
       modelValue: '',
     },
+    {
+      label: 'disabled',
+      class: 'ui-radio--is-disabled',
+      modelValue: '',
+      inputAttrs: { disabled: true },
+    },
   ],
+};
+
+export const UncheckedHasError: StoryObj = { ...Basic };
+UncheckedHasError.decorators = [ withVariants ];
+UncheckedHasError.parameters = {
+  variants: [ ...Unchecked.parameters.variants.map((variant) => ({
+    ...variant,
+    class: `${variant.class} ui-radio--has-error`,
+  })) ],
 };
 
 export const Checked: StoryObj = { ...Basic };
 Checked.decorators = [ withVariants ];
 Checked.parameters = {
-  variants: [
-    {
-      label: 'default',
-      modelValue: 'overweight-or-obese',
-    },
-    ...[
-      'hover',
-      'active',
-    ].map((variant) => ({
-      label: `${variant}`,
-      class: `pseudo-${variant}`,
-      modelValue: 'overweight-or-obese',
-    })),
-    {
-      label: 'focus',
-      class: 'pseudo-focus-within',
-      modelValue: 'overweight-or-obese',
-    },
-  ],
+  variants: [ ...Unchecked.parameters.variants.map((variant) => ({
+    ...variant,
+    modelValue: 'overweight-or-obese',
+  })) ],
+};
+
+export const CheckedHasError: StoryObj = { ...Basic };
+CheckedHasError.decorators = [ withVariants ];
+CheckedHasError.parameters = {
+  variants: [ ...Unchecked.parameters.variants.map((variant) => ({
+    ...variant,
+    class: `${variant.class} ui-radio--has-error`,
+    modelValue: 'overweight-or-obese',
+  })) ],
 };

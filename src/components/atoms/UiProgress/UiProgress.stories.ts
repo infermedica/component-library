@@ -5,10 +5,12 @@ import type {
 import { UiProgress } from '@index';
 import { getArgTypes } from '@sb/helpers';
 import { useAttrs } from '@sb/composable';
-import { withVModel } from '@sb/decorators';
+import { withVariants } from '@sb/decorators';
 import {
   BasicStories,
   BasicStoriesSource,
+  EvidenceBarStories,
+  EvidenceBarStoriesSource,
 } from './stories';
 
 const {
@@ -46,5 +48,39 @@ export const Basic: StoryObj = {
     };
   },
 };
-Basic.decorators = [ withVModel ];
 Basic.parameters = { docs: { source: { code: BasicStoriesSource } } };
+
+export const EvidenceBar: StoryObj = {
+  render(args, { name }) {
+    return {
+      name,
+      components: { EvidenceBarStories },
+      setup() {
+        const { storyAttrs: attrs } = useAttrs();
+        return {
+          args,
+          attrs,
+        };
+      },
+      template: '<EvidenceBarStories v-bind="{...args, ...attrs}"/>',
+    };
+  },
+};
+EvidenceBar.decorators = [ withVariants ];
+EvidenceBar.parameters = {
+  variants: [
+    {
+      label: 'week',
+      value: 10,
+    },
+    {
+      label: 'strong',
+      value: 75,
+    },
+    {
+      label: 'strong',
+      value: 93,
+    },
+  ],
+  docs: { source: { code: EvidenceBarStoriesSource } },
+};

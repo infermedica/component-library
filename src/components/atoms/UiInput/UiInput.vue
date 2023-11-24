@@ -3,7 +3,10 @@
     class="ui-input"
     v-bind="attrs"
   >
-    <div class="ui-input__outline">
+    <div
+      class="ui-input__outline"
+      v-bind="outlineAttrs"
+    >
       <!-- @slot Use this slot to replace input template. -->
       <slot
         name="input"
@@ -88,6 +91,10 @@ export interface InputProps {
    */
   suffix?: string;
   /**
+   * Use this props to pass attrs for outline element.
+   */
+  outlineAttrs?: HTMLAttributes;
+  /**
    * Use this props to pass attrs for suffix UiText.
    */
   textSuffixAttrs?: TextAttrsProps;
@@ -107,6 +114,7 @@ const props = withDefaults(defineProps<InputProps>(), {
   disabled: false,
   modelValue: '',
   suffix: '',
+  outlineAttrs: () => ({}),
   textSuffixAttrs: () => ({ tag: 'span' }),
   inputAttrs: () => ({}),
 });

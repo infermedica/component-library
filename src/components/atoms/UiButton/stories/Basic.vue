@@ -2,6 +2,12 @@
   <UiButton v-bind="args">
     {{ content }}
   </UiButton>
+  <UiButton
+    v-bind="args"
+    :is-loading="true"
+  >
+    {{ content }}
+  </UiButton>
   <UiButton v-bind="args">
     <UiIcon
       :icon="icon"

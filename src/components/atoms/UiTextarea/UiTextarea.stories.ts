@@ -3,7 +3,10 @@ import type {
   StoryObj,
 } from '@storybook/vue3';
 import { UiTextarea } from '@index';
-import { withVModel } from '@sb/decorators';
+import {
+  withVariants,
+  withVModel,
+} from '@sb/decorators';
 import { getArgTypes } from '@sb/helpers';
 import { useAttrs } from '@sb/composable';
 import {
@@ -24,7 +27,6 @@ const meta = {
     modelValue: '',
     resize: false,
     placeholder: 'Please provide a detailed description of the issue.',
-    disabled: false,
     textareaAttrs: { 'data-testid': 'textarea-element' },
   },
   argTypes: {
@@ -62,3 +64,46 @@ export const Basic: StoryObj = {
 };
 Basic.decorators = [ withVModel ];
 Basic.parameters = { docs: { source: { code: BasicStoriesSource } } };
+
+export const Empty = { ...Basic };
+Empty.argTypes = {};
+Empty.decorators = [ withVariants ];
+Empty.parameters = {
+  variants: [
+    { label: 'default' },
+    ...[
+      'hover',
+      'active',
+    ].map((variant) => ({
+      label: `${variant}`,
+      class: `pseudo-${variant}`,
+    })),
+    {
+      label: 'focus',
+      class: 'pseudo-focus-within',
+    },
+    {
+      label: 'disabled',
+      disabled: true,
+      class: 'ui-textarea--is-disabled',
+    },
+  ],
+};
+export const Filled = { ...Basic };
+Filled.argTypes = {};
+Filled.decorators = [ withVariants ];
+Filled.parameters = {
+  variants: [ ...Empty.parameters.variants.map((variant) => ({
+    ...variant,
+    modelValue: 'Should be \'headache\' instead \'headahe\'',
+  })) ],
+};
+
+export const Error = { ...Basic };
+Error.decorators = [ withVariants ];
+Error.parameters = {
+  variants: [ ...Empty.parameters.variants.map((variant) => ({
+    ...variant,
+    class: `${variant.class} ui-textarea--has-error`,
+  })) ],
+};

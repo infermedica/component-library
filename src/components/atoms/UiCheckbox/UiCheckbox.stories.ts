@@ -11,6 +11,7 @@ import {
 import { getArgTypes } from '@sb/helpers';
 import { content } from '@sb/helpers/argTypes/index';
 import { useAttrs } from '@sb/composable';
+import { Empty } from '@/components/atoms/UiInput/UiInput.stories';
 import {
   BasicStories,
   BasicStoriesSource,
@@ -98,29 +99,39 @@ Unchecked.parameters = {
       class: 'pseudo-focus-within',
       modelValue: false,
     },
+    {
+      label: 'disabled',
+      class: 'ui-checkbox--is-disabled',
+      inputAttrs: { disabled: true },
+    },
   ],
+};
+
+export const UncheckedHasError: StoryObj = { ...Basic };
+UncheckedHasError.decorators = [ withVariants ];
+UncheckedHasError.parameters = {
+  variants: [ ...Unchecked.parameters.variants.map((variant) => ({
+    ...variant,
+    class: `${variant.class} ui-checkbox--has-error`,
+    modelValue: false,
+  })) ],
 };
 
 export const Checked: StoryObj = { ...Basic };
 Checked.decorators = [ withVariants ];
 Checked.parameters = {
-  variants: [
-    {
-      label: 'default',
-      modelValue: true,
-    },
-    ...[
-      'hover',
-      'active',
-    ].map((variant) => ({
-      label: `${variant}`,
-      class: `pseudo-${variant}`,
-      modelValue: true,
-    })),
-    {
-      label: 'focus',
-      class: 'pseudo-focus-within',
-      modelValue: true,
-    },
-  ],
+  variants: [ ...Unchecked.parameters.variants.map((variant) => ({
+    ...variant,
+    modelValue: true,
+  })) ],
+};
+
+export const CheckedHasError: StoryObj = { ...Basic };
+CheckedHasError.decorators = [ withVariants ];
+CheckedHasError.parameters = {
+  variants: [ ...Unchecked.parameters.variants.map((variant) => ({
+    ...variant,
+    class: `${variant.class} ui-checkbox--has-error`,
+    modelValue: true,
+  })) ],
 };
