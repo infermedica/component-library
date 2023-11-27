@@ -1,0 +1,21 @@
+import { Canvas, Meta, Controls } from "@storybook/blocks";
+import { Tabs } from "@docs/components/Tabs";
+import { MetaActions } from "@docs/components/MetaActions";
+import * as UiRangeStories from "./UiRange.stories";
+import * as UiNumberStepper from "../UiButton/UiButton.stories";
+
+<Meta of={ UiRangeStories } />
+
+# Range
+<MetaActions stories={ UiRangeStories }/>
+<Canvas of={ UiRangeStories.Basic } />
+<Tabs stories={[UiRangeStories, UiNumberStepper]}/>
+
+# Stories
+## Min
+{/* TODO: add description */}
+<Canvas of={ UiRangeStories.Min } />
+
+## Max
+{/* TODO: add description */}
+<Canvas of={ UiRangeStories.Max } />

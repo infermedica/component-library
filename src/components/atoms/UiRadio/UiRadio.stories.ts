@@ -39,7 +39,7 @@ const meta = {
     modelValue: false,
     content: 'I’m overweight or obese',
     class: [],
-    value: 'overweight-or-obese',
+    value: 'I’m overweight or obese',
     id: '',
     disabled: false,
     inputAttrs: { 'data-testid': 'input-element' },
@@ -153,7 +153,7 @@ export const PrymitiveTypes: StoryObj = {
   },
 };
 PrymitiveTypes.args = {
-  modelValue: [ 'I have hypertension' ],
+  modelValue: 'I have hypertension',
   items: [
     'I have diabetes',
     'I’m overweight or obese',
@@ -166,48 +166,48 @@ PrymitiveTypes.parameters = { controls: { exclude: [ 'content' ] } };
 
 export const Objets: StoryObj = { ...PrymitiveTypes };
 Objets.args = {
-  modelValue: [ {
-    id: 'russia-kazakhstan-mongolia',
-    label: 'Russia, Kazakhstan or Mongolia',
-  } ],
+  modelValue: {
+    id: 'i-have-diabetes',
+    label: 'I have diabetes',
+  },
   items: [
     {
-      id: 'russia-kazakhstan-mongolia',
-      label: 'Russia, Kazakhstan or Mongolia',
+      id: 'i-have-diabetes',
+      label: 'I have diabetes',
     },
     {
-      id: 'asia-excluding-middle-east-russia-mongolia-and-kazakhstan',
-      label: 'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
+      id: 'i-m-overweight-or-obese',
+      label: 'I’m overweight or obese',
     },
     {
-      id: 'europe',
-      label: 'Europe',
+      id: 'i-have-hypertension',
+      label: 'I have hypertension',
     },
   ],
 };
 
 export const NestedObjets: StoryObj = { ...PrymitiveTypes };
 NestedObjets.args = {
-  modelValue: [ {
-    id: 'asia-excluding-middle-east-russia-mongolia-and-kazakhstan',
-    label: 'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
-    inputAttrs: { 'data-testid': 'input-asia-excluding-middle-east-russia-mongolia-and-kazakhstan' },
-  } ],
+  modelValue: {
+    id: 'i-m-overweight-or-obese',
+    label: 'I’m overweight or obese',
+    inputAttrs: { 'data-testid': 'input-i-m-overweight-or-obese' },
+  },
   items: [
     {
-      id: 'russia-kazakhstan-mongolia',
-      label: 'Russia, Kazakhstan or Mongolia',
-      inputAttrs: { 'data-testid': 'input-russia-kazakhstan-mongolia' },
+      id: 'i-have-diabetes',
+      label: 'I have diabetes',
+      inputAttrs: { 'data-testid': 'input-i-have-diabetes' },
     },
     {
-      id: 'asia-excluding-middle-east-russia-mongolia-and-kazakhstan',
-      label: 'Asia excluding Middle East, Russia, Mongolia and Kazakhstan',
-      inputAttrs: { 'data-testid': 'input-asia-excluding-middle-east-russia-mongolia-and-kazakhstan' },
+      id: 'i-m-overweight-or-obese',
+      label: 'I’m overweight or obese',
+      inputAttrs: { 'data-testid': 'input-i-m-overweight-or-obese' },
     },
     {
-      id: 'europe',
-      label: 'Europe',
-      inputAttrs: { 'data-testid': 'input-europe' },
+      id: 'i-have-hypertension',
+      label: 'I have hypertension',
+      inputAttrs: { 'data-testid': 'input-i-have-hypertension' },
     },
   ],
 };
