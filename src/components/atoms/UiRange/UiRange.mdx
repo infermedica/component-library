@@ -2,7 +2,7 @@ import { Canvas, Meta, Controls } from "@storybook/blocks";
 import { Tabs } from "@docs/components/Tabs";
 import { MetaActions } from "@docs/components/MetaActions";
 import * as UiRangeStories from "./UiRange.stories";
-import * as UiNumberStepper from "../UiButton/UiButton.stories";
+import * as UiNumberStepper from "../../molecules/UiNumberStepper/UiNumberStepper.stories";
 
 <Meta of={ UiRangeStories } />
 
@@ -12,6 +12,10 @@ import * as UiNumberStepper from "../UiButton/UiButton.stories";
 <Tabs stories={[UiRangeStories, UiNumberStepper]}/>
 
 # Stories
+## States
+{/* TODO: add description */}
+<Canvas of={ UiRangeStories.States } />
+
 ## Min
 {/* TODO: add description */}
 <Canvas of={ UiRangeStories.Min } />

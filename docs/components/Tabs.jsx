@@ -11,23 +11,13 @@ export const Tabs = ({ stories }) => {
     setIndex(index);
   };
 
-  console.log(stories[1].default);
-
   return <React.Fragment>
     <ButtonToggle
-      titles={[
-        { title: 'UiRange' },
-        { title: 'UiNumberStepper' },
-      ]}
+      titles={stories.map((story) => ({ title: story.default.component.__name }))}
       selectedIndex={index}
       onSelectIndex={update}
       appearance={'tab'}
     />
-    <div>
-    { index === 0
-      ? <Controls of={stories[0].Basic} />
-      : <Controls of={stories[1].Basic} />
-    }
-    </div>
+    <Controls of={stories[index].Basic} />
   </React.Fragment>;
 };
