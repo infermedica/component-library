@@ -112,7 +112,9 @@ export interface NumberStepperProps {
 }
 export type NumberStepperAttrsProps = DefineAttrsProps<NumberStepperProps>;
 export interface NumberStepperEmits {
+  /** Update UiNumberStepper value */
   (e: 'update:modelValue', value: NumberStepperModelValue): void;
+  /** Emit when value of UiNumberStepper has error */
   (e: 'error:value', value: {isMin: boolean, isMax: boolean}): void;
 }
 
@@ -163,7 +165,6 @@ const isMin = computed(() => props.modelValue === props.min);
 const isMax = computed(() => props.modelValue === props.max);
 const change = (value: number, modifier = 0) => {
   const newValue = value + modifier;
-  console.log(value, modifier);
   if (validate(newValue)) {
     emit('update:modelValue', newValue);
     return;

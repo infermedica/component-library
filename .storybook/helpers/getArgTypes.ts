@@ -60,7 +60,9 @@ export function getArgTypes(component, options = { variables: {}}) {
           ? false
           : value === "true"
             ? true
-            : value.replace(/'/gm, '').replace(/"/gm, '')
+            : isNaN(Number(value.replace(/'/gm, '').replace(/"/gm, '')))
+              ? value.replace(/'/gm, '').replace(/"/gm, '')
+              : Number(value.replace(/'/gm, '').replace(/"/gm, ''))
       },
       category: 'props'
     }
@@ -124,9 +126,9 @@ export function getArgTypes(component, options = { variables: {}}) {
               control: false,
               table: {
                 category: 'slots',
-                type: {
-                  summary: getBindings(bindings),
-                }
+                // type: {
+                //   summary: getBindings(bindings),
+                // }
               }
             }
           }
@@ -136,6 +138,8 @@ export function getArgTypes(component, options = { variables: {}}) {
   })();
   const getAction = (action) => {
     switch (action) {
+      case 'error:value':
+        return 'onError:value'
       case 'update:modelValue':
         return 'onUpdate:modelValue'
       case 'after-enter': {
@@ -151,12 +155,16 @@ export function getArgTypes(component, options = { variables: {}}) {
   const events = (() => {
     return __docgenInfo?.events
       ?.reduce(
-        (object, { name }) => {
+        (object, { name, description }) => {
           const action = getAction(name);
           return {
             ...object,
             [name]: {
+              description,
               control: false,
+              table: {
+                category: 'events',
+              }
             },
             [action]: {
               name,
