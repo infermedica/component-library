@@ -28,9 +28,10 @@ const meta = {
   title: 'Atoms/Heading',
   component: UiHeading,
   args: {
+    ...args,
     content: 'How to use it?',
     class: [],
-    ...args,
+    tag: '',
   },
   argTypes: {
     content,
