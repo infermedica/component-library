@@ -1,5 +1,5 @@
 <template>
-  <UiBackdrop />
+  <UiBackdrop v-bind="args" />
 </template>
 
 <script setup>

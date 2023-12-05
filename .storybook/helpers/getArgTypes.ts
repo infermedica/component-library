@@ -262,14 +262,14 @@ export function getArgTypes(component, options = { variables: {}}) {
     return toReturn
   })()
   const args = (() => {
-    // const variablesDefaults = variables
-    //   ? Object.keys(variables).reduce((object, variable) => (
-    //   {
-    //     ...object,
-    //     [variable]: variables[variable].table.defaultValue.summary
-    //   }
-    // ), {})
-    //   : {};
+    const variablesDefaults = variables
+      ? Object.keys(variables).reduce((object, variable) => (
+      {
+        ...object,
+        [variable]: variables[variable].table.defaultValue.summary
+      }
+    ), {})
+      : {};
     const propsDefaults = props
       ? Object.keys(props).reduce((object, prop) => (
       {
@@ -280,7 +280,7 @@ export function getArgTypes(component, options = { variables: {}}) {
       : {};
     return {
       ...propsDefaults,
-      // ...variablesDefaults,
+      ...variablesDefaults,
     }
   })()
   return {
