@@ -1,4 +1,5 @@
 import { Meta, Canvas } from "@storybook/blocks";
+import Code from '../../../../docs/components/Code';
 import * as stories from './focus-trap.stories.js'
 
 <Meta of={stories}/>
@@ -8,11 +9,12 @@ This directive will keep from moving to other focusable elements
 
 ## How to use
 * `v-focus-trap` - set scope
-```html
-  <dialog v-focus-trap>
-    ...
-  </dialog>
-```
+
+<Code code={`
+<dialog v-focus-trap>
+  ...
+</dialog>
+`}/>
 
 ## Used
 * [SidePanel](/docs/organisms-sidepanel--terms-of-service)

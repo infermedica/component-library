@@ -1,6 +1,6 @@
 import { Meta } from '@storybook/blocks';
-import { PageOutline } from '../../components/PageOutline';
-import { Code } from '../../components/Code';
+import PageOutline from '../../components/PageOutline';
+import Code from '../../components/Code';
 
 <Meta title="Getting Started/Development Guide/Theme Configuration"/>
 
@@ -74,18 +74,18 @@ To set styles for theme, we override the values of default variables using in co
 
 The selector used allows to set theme in component. e.g.
 
-```html
+<Code code={`
  <UiButton class="ui-button--theme-secondary">Label</UiButton>
-```
+`}/>
 
 or do a scope where all `UiButtons` will be affected by theme. e.g.
 
-```html
-  <UiNavigation class="ui-navigation--theme-secondary">
-    <UiNavigationItem>Label</UiNavigationItem>
-    <UiNavigationItem>Label</UiNavigationItem>
-  </UiNavigation>
-```
+<Code code={`
+<UiNavigation class="ui-navigation--theme-secondary">
+  <UiNavigationItem>Label</UiNavigationItem>
+  <UiNavigationItem>Label</UiNavigationItem>
+</UiNavigation>
+`}/>
 
 `ui-navigation--theme-secondary` was not defined in the `UiNavigation` component but `UiButton` support this approach, thanks for `[class*="-secondary"]` selector.
 
@@ -149,7 +149,7 @@ This is a recommended approach to configure the CSS of a specific component. It'
 Instead, overriding the property of e.g. `.ui-button` you will create new class and add it in required places. E.g. You can create
 your own component `MyAwesomeButton` with class `my-awesome-button` on it and use it instead `UiButton` directly.
 
-```html
+<Code code={`
 <template>
   <UiButton class="my-awesome-button">
     <slot/>
@@ -167,7 +167,7 @@ import { UiButton } from '@infermedica/component-library';
   --button-active-background: #0B3D6D;
 }
 </style>
-```
+`}/>
 
 ## Atomic Design and CSS Custom Properties
 To configure nested components you should use it CSS Custom Properties. e.g.
@@ -190,7 +190,7 @@ But `UiNumberStepper` contain two different buttons. So you can use their own cl
 
 Or you can add custom classes to buttons by props. e.g.
 
-```html
+<Code code={`
 <template>
   <UiNumberStepper
     :button-decrement-attrs="{class: 'my-awesome-decrement'}"
@@ -208,7 +208,7 @@ Or you can add custom classes to buttons by props. e.g.
   }
 }
 </style>
-```
+`}/>
 
 This is a recommended approach to configure the CSS of a specific nested component. It's easier to maintain.
 

@@ -1,5 +1,6 @@
 import { Meta, Canvas } from "@storybook/blocks";
-import { Alert } from "../../../../docs/components/Alert"
+import Alert from "../../../../docs/components/Alert"
+import Code from '../../../../docs/components/Code';
 import * as stories from './body-scroll-lock.stories.js'
 
 <Meta of={stories}/>
@@ -14,14 +15,14 @@ After adding this directive and when element is visible body can't be scrolled a
 ## How to use
 * `v-body-scroll-lock` - adds styles to the body and blocks the scrollbar.
 
-```html
-  <dialog
-    class="wrapper"
-    v-body-scroll-lock
-  >
-    ...
-  </dialog>
-```
+<Code code={`
+<dialog
+  class="wrapper"
+  v-body-scroll-lock
+>
+  ...
+</dialog>
+`}/>
 
 ## Used
 * [SidePanel](/docs/organisms-sidepanel--terms-of-service)

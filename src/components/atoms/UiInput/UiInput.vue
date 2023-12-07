@@ -11,7 +11,7 @@
           inputAttrs: defaultProps.inputAttrs,
           input: inputHandler,
           value: modelValue,
-          validation: keyValidation
+          validation: keyValidation,
         }"
       >
         <input
@@ -30,7 +30,7 @@
       name="aside"
       v-bind="{
         suffix,
-        textSuffixAttrs: defaultProps.textSuffixAttrs
+        textSuffixAttrs: defaultProps.textSuffixAttrs,
       }"
     >
       <UiText

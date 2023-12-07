@@ -1,3 +1,6 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import reactStringReplace from 'react-string-replace';
 import { styled } from '@storybook/theming';
@@ -62,24 +65,32 @@ font-size: 13px;
 color: rgba(51,51,51,0.9);
 background-color: #F8F8F8`;
 
-export const Table = ({
-  headers = [], rows = [[]], isUnstyled, slotRows, slotHeader, hasBorder,
-}) => <RTable className={isUnstyled && 'sb-unstyled'}>
+const Table = ({
+  headers = [], rows = [ [] ], isUnstyled, slotRows, slotHeader, hasBorder,
+}) => (
+  <RTable className={isUnstyled && 'sb-unstyled'}>
     <THead>
       <RTr>
         {slotHeader || headers.map((header, index) => <RTh className="th" key={index}>{header}</RTh>)}
       </RTr>
     </THead>
     <TBody hasBorder={hasBorder}>
-      {slotRows ?? rows.map((row, rowIndex) => <RTr key={rowIndex}>
-        {
+      {slotRows ?? rows.map((row, rowIndex) => (
+        <RTr key={rowIndex}>
+          {
           row.map((cell, index) => {
-            const content = reactStringReplace(cell, /`(.*?)`/g, (match, p1) => <RCode>{match}</RCode>);
-            return <RTd key={index}>
-              {content}
-            </RTd>;
+            const content = reactStringReplace(cell, /`(.*?)`/g, (match, p1) => <RCode key={`${index}-${match}`}>{match}</RCode>);
+            return (
+              <RTd key={index}>
+                {content}
+              </RTd>
+            );
           })
         }
-      </RTr>)}
+        </RTr>
+      ))}
     </TBody>
-  </RTable>;
+  </RTable>
+);
+
+export default Table;
