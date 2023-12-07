@@ -2,10 +2,11 @@ import type {
   Meta,
   StoryObj,
 } from '@storybook/vue3';
-import { computed } from 'vue';
 import { UiBackdrop } from '@index';
-import { getArgTypes } from '@sb/helpers';
-import { useAttrs } from '@sb/composable';
+import {
+  getArgTypes,
+  getAttrs,
+} from '@sb/helpers';
 import {
   BasicStories,
   BasicStoriesSource,
@@ -41,24 +42,7 @@ export const Basic: StoryObj = {
       name,
       components: { BasicStories },
       setup() {
-        const { storyAttrs } = useAttrs();
-        const attrs = computed(() => (Object.keys(args).reduce(
-          (ob, key) => {
-            if (argTypes[key].table.category.match(/CSS/i)) {
-              ob.style = {
-                ...ob.style,
-                [`--${key}`]: args[key],
-              };
-            } else {
-              ob[key] = args[key];
-            }
-            return ob;
-          },
-          {
-            ...storyAttrs,
-            style: {},
-          },
-        )));
+        const { attrs } = getAttrs(args, argTypes);
         return { attrs };
       },
       template: '<BasicStories v-bind="{...attrs}"/>',

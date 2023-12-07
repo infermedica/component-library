@@ -8,6 +8,7 @@ import type { ButtonProps } from '@index';
 import { withVariants } from '@sb/decorators';
 import {
   getArgTypes,
+  getAttrs,
   extendEvents,
 } from '@sb/helpers';
 import { useAttrs } from '@sb/composable';
@@ -16,6 +17,7 @@ import {
   icon,
 } from '@sb/helpers/argTypes/index';
 import type { Icon as IconType } from '@/types';
+import { computed } from 'vue';
 import {
   BasicStories,
   BasicStoriesSource,
@@ -57,36 +59,35 @@ const meta = {
 } satisfies Meta;
 export default meta;
 export const Basic: StoryObj = {
-  render(args, { name }) {
+  render(args, {
+    name, argTypes,
+  }) {
     return {
       name,
       components: { BasicStories },
       setup() {
-        const { storyAttrs: attrs } = useAttrs();
-        return {
-          args,
-          attrs,
-        };
+        const { attrs } = getAttrs(args, argTypes);
+        return { attrs };
       },
-      template: '<BasicStories v-bind="{...args, ...attrs}"/>',
+      template: '<BasicStories v-bind="{...attrs}"/>',
     };
   },
-};
-Basic.parameters = {
-  docs: { source: { code: BasicStoriesSource } },
-  chromatic: { disableSnapshot: true },
 };
 Basic.decorators = [ () => ({
   name: 'LFlex',
   inheritAttrs: false,
   setup() {
-    const { decoratorAttrs: attrs } = useAttrs();
+    const { attrs } = getAttrs();
     return { attrs };
   },
   template: `<div class="flex gap-4">
-      <story v-bind="attrs"/>
+      <story v-bind="{...attrs}"/>
     </div>`,
 }) ];
+Basic.parameters = {
+  docs: { source: { code: BasicStoriesSource } },
+  chromatic: { disableSnapshot: true },
+};
 export const Primary: ButtonStoryType = { ...Basic };
 Primary.argTypes = {};
 Primary.decorators = [
@@ -144,18 +145,17 @@ TextBrand.decorators = Text.decorators?.concat(
   }),
 );
 export const Icon: ButtonStoryType = {
-  render(args, { name }) {
+  render(args, {
+    name, argTypes,
+  }) {
     return {
       name,
       components: { IconStories },
       setup() {
-        const { storyAttrs: attrs } = useAttrs();
-        return {
-          args,
-          attrs,
-        };
+        const { attrs } = getAttrs(args, argTypes);
+        return { attrs };
       },
-      template: '<IconStories v-bind="{...args, ...attrs}"/>',
+      template: '<IconStories v-bind="{...attrs}"/>',
     };
   },
 };
@@ -189,12 +189,14 @@ IconBrand.decorators = [
   }),
 ];
 export const Circled: ButtonStoryType = {
-  render(args, { name }) {
+  render(args, {
+    name, argTypes,
+  }) {
     return {
       name,
       components: { CircledStories },
       setup() {
-        const { storyAttrs: attrs } = useAttrs();
+        const { attrs } = getAttrs(args, argTypes);
         return {
           args,
           attrs,
