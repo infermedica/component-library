@@ -66,6 +66,7 @@ export const AsSpan = {
     template: `<UiHeading
       :level="level"
       :class="modifiers"
+      :tag="tag"
     >
       {{ content }}
     </UiHeading>`,
