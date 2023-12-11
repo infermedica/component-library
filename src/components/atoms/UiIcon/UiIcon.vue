@@ -36,6 +36,7 @@ const props = withDefaults(defineProps<IconProps>(), {
   accessibilityAttrs: () => ({
     'aria-hidden': true,
     focusable: false,
+    role: 'img',
   }),
 });
 const file = computed<Component>(() => {

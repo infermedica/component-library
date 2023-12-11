@@ -2,7 +2,7 @@
   <component
     :is="componentTag"
     v-keyboard-focus
-    v-bind="routeAttrs"
+    v-bind="defaultRouteAttrs"
     class="ui-button"
     :aria-disabled="isLoading ? true : null"
   >
@@ -55,6 +55,10 @@ export interface ButtonProps {
    * Use this props to pass attrs for UiLoader.
    */
   loaderAttrs?: LoaderAttrsProps;
+  /**
+   * Use this prop to set the attribute for Web accessibility.
+   */
+  accessibilityAttrs?: Record<string, unknown>
 }
 export type ButtonAttrsProps<HTMLAttrs = HTMLAttributes> = DefineAttrsProps<ButtonProps, HTMLAttrs>;
 
@@ -64,6 +68,7 @@ const props = withDefaults(defineProps<ButtonProps>(), {
   href: '',
   isLoading: false,
   loaderAttrs: () => ({}),
+  accessibilityAttrs: () => ({ 'aria-label': null }),
 });
 const defaultProps = computed(() => ({
   loaderAttrs: {
@@ -76,6 +81,11 @@ const {
   componentTag,
   routeAttrs,
 } = useLink(props);
+
+const defaultRouteAttrs = computed(() => ({
+  ...routeAttrs,
+  ...props.accessibilityAttrs,
+}));
 </script>
 
 <style lang="scss">
