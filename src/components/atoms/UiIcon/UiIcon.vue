@@ -1,6 +1,7 @@
 <template>
   <component
     :is="file"
+    v-bind="accessibilityAttrs"
     class="ui-icon"
   />
 </template>
@@ -23,10 +24,20 @@ export interface IconProps {
    * Use this prop to set the icon.
    */
   icon?: Icon;
+  /**
+   * Use this prop to set the attribute for Web accessibility.
+   */
+  accessibilityAttrs?: Record<string, unknown>
 }
 export type IconAttrsProps = DefineAttrsProps<IconProps, SVGAttributes>;
 
-const props = withDefaults(defineProps<IconProps>(), { icon: '' });
+const props = withDefaults(defineProps<IconProps>(), {
+  icon: '',
+  accessibilityAttrs: () => ({
+    'aria-hidden': true,
+    focusable: false,
+  }),
+});
 const file = computed<Component>(() => {
   if (!props.icon) return h('svg');
   if (typeof props.icon === 'string') {
