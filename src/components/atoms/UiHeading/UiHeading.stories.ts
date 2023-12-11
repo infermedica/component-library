@@ -5,9 +5,11 @@ import type {
 import { UiHeading } from '@index';
 import type { HeadingProps } from '@index';
 import { withVariants } from '@sb/decorators';
-import { getArgTypes } from '@sb/helpers';
+import {
+  getArgTypes,
+  getAttrs,
+} from '@sb/helpers';
 import { content } from '@sb/helpers/argTypes/index';
-import { useAttrs } from '@sb/composable';
 import {
   BasicStories,
   BasicStoriesSource,
@@ -34,8 +36,8 @@ const meta = {
     tag: '',
   },
   argTypes: {
-    content,
     ...argTypes,
+    content,
   },
   parameters: {
     chromatic: {
@@ -50,18 +52,17 @@ const meta = {
 export default meta;
 
 export const Basic: StoryObj = {
-  render(args, { name }) {
+  render(args, {
+    name, argTypes,
+  }) {
     return {
       name,
       components: { BasicStories },
       setup() {
-        const { storyAttrs: attrs } = useAttrs();
-        return {
-          args,
-          attrs,
-        };
+        const { attrs } = getAttrs(args, argTypes, name);
+        return { attrs };
       },
-      template: '<BasicStories v-bind="{...args, ...attrs}"/>',
+      template: '<BasicStories v-bind="{ ...attrs }"/>',
     };
   },
 };

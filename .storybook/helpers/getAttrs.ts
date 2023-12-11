@@ -2,33 +2,36 @@ import {
   computed,
   getCurrentInstance
 } from "vue";
+import deepmerge from "deepmerge";
 
-export const getAttrs = (args={}, argTypes={}) => {
+export const getAttrs = (args={}, argTypes={}, name='') => {
   const storyAttrs = (instance)=> {
-    const attrs = instance.attrs
-      ? {...instance.attrs}
-      : {};
+    const attrs = instance.attrs;
     const hasAttrs = Object.keys(attrs).length > 0;
     if(hasAttrs) {
-      return attrs;
+      return attrs
     }
     if(instance.parent) {
-      storyAttrs(instance.parent);
+      return storyAttrs(instance.parent);
     }
+    return {};
   }
-  // TODO:
-  const attrs = computed(()=>(Object.keys(args).reduce((object, key) => {
-    // .style meh, meh
-    // if (argTypes[key].table.category?.match(/CSS/i)) {
-    //   object.style[`--${key}`] = args[key];
-    // } else {
-      object[key] = args[key];
-    // }
-    return object;
-  }, {
-    ...storyAttrs(getCurrentInstance()),
-    style: {},
-  })))
+  const attrs = computed(()=>{
+    const sArgs = Object.keys(args).reduce((object, key) => {
+      if (argTypes[key]?.table?.category?.match(/CSS/i)) {
+        if(name.match(/^Basic/i)) {
+          object.style[`--${key}`] = args[key];
+        }
+      } else {
+        object[key] = args[key];
+      }
+      return object;
+    }, {
+      style: {},
+    })
+    const sAttrs = storyAttrs(getCurrentInstance())
+    return deepmerge(sArgs, sAttrs)
+  })
   return {
     attrs
   }

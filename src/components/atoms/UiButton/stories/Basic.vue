@@ -27,12 +27,14 @@ import {
   computed,
   useAttrs,
   toRefs,
+  defineOptions,
 } from 'vue';
 import {
   UiButton,
   UiIcon,
 } from '@infermedica/component-library';
 
+defineOptions({ inheritAttrs: false });
 const attrs = useAttrs();
 const args = computed(() => (attrs));
 const {

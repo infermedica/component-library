@@ -3,8 +3,10 @@ import type {
   StoryObj,
 } from '@storybook/vue3';
 import { UiProgress } from '@index';
-import { getArgTypes } from '@sb/helpers';
-import { useAttrs } from '@sb/composable';
+import {
+  getArgTypes,
+  getAttrs,
+} from '@sb/helpers';
 import { withVariants } from '@sb/decorators';
 import {
   BasicStories,
@@ -38,13 +40,10 @@ export const Basic: StoryObj = {
       name,
       components: { BasicStories },
       setup() {
-        const { storyAttrs: attrs } = useAttrs();
-        return {
-          args,
-          attrs,
-        };
+        const { attrs } = getAttrs(args, argTypes, name);
+        return { attrs };
       },
-      template: '<BasicStories v-bind="{...args, ...attrs}"/>',
+      template: '<BasicStories v-bind="{...attrs}"/>',
     };
   },
 };

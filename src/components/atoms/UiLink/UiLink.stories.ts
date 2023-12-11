@@ -3,8 +3,10 @@ import type {
   StoryObj,
 } from '@storybook/vue3';
 import { UiLink } from '@index';
-import { getArgTypes } from '@sb/helpers';
-import { useAttrs } from '@sb/composable';
+import {
+  getArgTypes,
+  getAttrs,
+} from '@sb/helpers';
 import {
   content,
   icon,
@@ -42,18 +44,17 @@ const meta = {
 export default meta;
 
 export const Basic: StoryObj = {
-  render(args, { name }) {
+  render(args, {
+    name, argTypes,
+  }) {
     return {
       name,
       components: { BasicStories },
       setup() {
-        const { storyAttrs: attrs } = useAttrs();
-        return {
-          args,
-          attrs,
-        };
+        const { attrs } = getAttrs(args, argTypes, name);
+        return { attrs };
       },
-      template: '<BasicStories v-bind="{...args, ...attrs}"/>',
+      template: '<BasicStories v-bind="{...attrs}"/>',
     };
   },
 };
@@ -61,7 +62,7 @@ Basic.decorators = [ () => ({
   name: 'LFlex',
   inheritAttrs: false,
   setup() {
-    const { decoratorAttrs: attrs } = useAttrs();
+    const { attrs } = getAttrs();
     return { attrs };
   },
   template: `<div class="flex gap-4">
@@ -109,28 +110,13 @@ Brand.parameters = {
   backgrounds: { default: 'brand' },
 };
 
-export const Small: StoryObj = {
-  render(args, { name }) {
-    return {
-      name,
-      components: { BasicStories },
-      setup() {
-        const { storyAttrs: attrs } = useAttrs();
-        return {
-          args,
-          attrs,
-        };
-      },
-      template: '<BasicStories v-bind="{...args, ...attrs}"/>',
-    };
-  },
-};
+export const Small: StoryObj = { ...Basic };
 Small.args = { class: [ 'ui-link--small' ] };
 Small.decorators = [ () => ({
   name: 'LFlex',
   inheritAttrs: false,
   setup() {
-    const { decoratorAttrs: attrs } = useAttrs();
+    const { attrs } = getAttrs();
     return { attrs };
   },
   template: `<div class="flex gap-4">
@@ -145,13 +131,10 @@ export const Text: StoryObj = {
       name,
       components: { TextStories },
       setup() {
-        const { storyAttrs: attrs } = useAttrs();
-        return {
-          args,
-          attrs,
-        };
+        const { attrs } = getAttrs(args, argTypes, name);
+        return { attrs };
       },
-      template: '<TextStories v-bind="{...args, ...attrs}"/>',
+      template: '<TextStories v-bind="{ ...attrs }"/>',
     };
   },
 };
@@ -160,11 +143,11 @@ Text.decorators = [ () => ({
   name: 'LFlex',
   inheritAttrs: false,
   setup() {
-    const { decoratorAttrs: attrs } = useAttrs();
+    const { attrs } = getAttrs();
     return { attrs };
   },
   template: `<div class="flex flex-col gap-4">
-      <story v-bind="attrs"/>
+      <story v-bind="{ ...attrs }"/>
     </div>`,
 }) ];
 Text.parameters = {

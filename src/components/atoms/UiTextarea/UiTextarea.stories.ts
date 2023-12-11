@@ -7,8 +7,10 @@ import {
   withVariants,
   withVModel,
 } from '@sb/decorators';
-import { getArgTypes } from '@sb/helpers';
-import { useAttrs } from '@sb/composable';
+import {
+  getArgTypes,
+  getAttrs,
+} from '@sb/helpers';
 import {
   BasicStories,
   BasicStoriesSource,
@@ -47,18 +49,17 @@ const meta = {
 export default meta;
 
 export const Basic: StoryObj = {
-  render(args, { name }) {
+  render(args, {
+    name, argTypes,
+  }) {
     return {
       name,
       components: { BasicStories },
       setup() {
-        const { storyAttrs: attrs } = useAttrs();
-        return {
-          args,
-          attrs,
-        };
+        const { attrs } = getAttrs(args, argTypes, name);
+        return { attrs };
       },
-      template: '<BasicStories v-bind="{...args, ...attrs}"/>',
+      template: '<BasicStories v-bind="{ ...attrs }"/>',
     };
   },
 };

@@ -8,7 +8,10 @@ import {
   withVariants,
   withVModel,
 } from '@sb/decorators';
-import { getArgTypes } from '@sb/helpers';
+import {
+  getArgTypes,
+  getAttrs,
+} from '@sb/helpers';
 import { content } from '@sb/helpers/argTypes/index';
 import { useAttrs } from '@sb/composable';
 import { Empty } from '@/components/atoms/UiInput/UiInput.stories';
@@ -61,18 +64,17 @@ const meta = {
 export default meta;
 
 export const Basic: StoryObj = {
-  render(args, { name }) {
+  render(args, {
+    name, argTypes,
+  }) {
     return {
       name,
       components: { BasicStories },
       setup() {
-        const { storyAttrs: attrs } = useAttrs();
-        return {
-          args,
-          attrs,
-        };
+        const { attrs } = getAttrs(args, argTypes, name);
+        return { attrs };
       },
-      template: '<BasicStories v-bind="{...args, ...attrs}"/>',
+      template: '<BasicStories v-bind="{...attrs}"/>',
     };
   },
 };
@@ -141,18 +143,17 @@ CheckedHasError.parameters = {
 };
 
 export const PrymitiveTypes: StoryObj = {
-  render(args, { name }) {
+  render(args, {
+    name, argTypes,
+  }) {
     return {
       name,
       components: { GroupStories },
       setup() {
-        const { storyAttrs: attrs } = useAttrs();
-        return {
-          args,
-          attrs,
-        };
+        const { attrs } = getAttrs(args, argTypes);
+        return { attrs };
       },
-      template: '<GroupStories v-bind="{...args, ...attrs}"/>',
+      template: '<GroupStories v-bind="{...attrs}"/>',
     };
   },
 };

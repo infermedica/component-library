@@ -189,6 +189,7 @@ export function getArgTypes(component, options = { variables: {}}) {
       })
       .map( ( { selectorText = '' } ) => ( selectorText.substring(1) ));
   };
+  //TODO: FETCH HOVER AND ACTIVE TOO
   const getVariables = (rules) => {
     const { variables: {
       regexp = undefined

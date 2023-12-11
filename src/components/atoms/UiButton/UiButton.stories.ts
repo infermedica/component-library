@@ -17,7 +17,6 @@ import {
   icon,
 } from '@sb/helpers/argTypes/index';
 import type { Icon as IconType } from '@/types';
-import { computed } from 'vue';
 import {
   BasicStories,
   BasicStoriesSource,
@@ -66,7 +65,7 @@ export const Basic: StoryObj = {
       name,
       components: { BasicStories },
       setup() {
-        const { attrs } = getAttrs(args, argTypes);
+        const { attrs } = getAttrs(args, argTypes, name);
         return { attrs };
       },
       template: '<BasicStories v-bind="{...attrs}"/>',
@@ -197,12 +196,9 @@ export const Circled: ButtonStoryType = {
       components: { CircledStories },
       setup() {
         const { attrs } = getAttrs(args, argTypes);
-        return {
-          args,
-          attrs,
-        };
+        return { attrs };
       },
-      template: '<CircledStories v-bind="{...args, ...attrs}"/>',
+      template: '<CircledStories v-bind="{...attrs}"/>',
     };
   },
 };
