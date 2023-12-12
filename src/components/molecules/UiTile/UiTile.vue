@@ -2,10 +2,8 @@
   <UiButton
     :id="tileId"
     :class="[
-      'ui-button--outlined ui-tile',{ 'ui-tile--is-checked': isChecked }
+      'ui-button--outlined ui-tile', { 'ui-tile--is-checked': isChecked },
     ]"
-    role="radio"
-    :aria-checked="`${isChecked}`"
     @click="selectHandler"
   >
     <!-- @slot Use this slot to replace icon template. -->

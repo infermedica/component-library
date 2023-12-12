@@ -176,7 +176,8 @@ export const AsGroup = {
         modelValue,
       };
     },
-    template: `<div class="tile-as-group">
+    template: `<div class="tile-as-group" role="group" aria-labelledby="group-description">
+      <span id="group-description" class="visual-hidden" aria-hidden="true">Answers</span>
       <template
         v-for="(item, index) in items"
         :key="index"

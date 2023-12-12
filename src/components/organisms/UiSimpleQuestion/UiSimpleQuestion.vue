@@ -1,7 +1,7 @@
 <template>
   <div
     class="ui-simple-question"
-    role="radiogroup"
+    role="group"
   >
     <template
       v-for="(item, index) in itemsToRender"
@@ -23,6 +23,7 @@
           :model-value="modelValue"
           :class="{ 'ui-tile--small': isTileSmall }"
           class="ui-simple-question__item"
+          type="submit"
           @update:model-value="updateHandler(item.value)"
         >
           {{ item.label }}

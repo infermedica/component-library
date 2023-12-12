@@ -275,6 +275,7 @@ export const WithoutSkipThisQuestion = {
 export const AsSimpleQuestion = {
   render: (args) => ({
     components: {
+      UiHeading,
       UiQuestion,
       UiSimpleQuestion,
     },
@@ -296,9 +297,13 @@ export const AsSimpleQuestion = {
       :button-issue-attrs="buttonIssueAttrs"
       :notification-feedback-attrs="notificationFeedbackAttrs"
     >
+    <template #title>
+      <UiHeading id="question-heading">{{ title }}</UiHeading>
+    </template>
       <UiSimpleQuestion
         v-model="modelValue"
         :items="items"
+        aria-labelledby="question-heading"
       />
     </UiQuestion>`,
   }),
