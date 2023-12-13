@@ -1,8 +1,8 @@
 <template>
   <component
     :is="file"
-    aria-hidden="true"
-    focusable="false"
+    :aria-hidden="true"
+    :focusable="false"
     role="img"
     class="ui-icon"
   />
