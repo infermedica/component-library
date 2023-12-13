@@ -15,7 +15,6 @@ export default {
     icon: 'plus-circled-filled',
     modifiers: [],
     isLoading: false,
-    accessibilityAttrs: { 'aria-label': 'Add' },
   },
   argTypes: {
     content,
@@ -452,7 +451,7 @@ export const Circled = {
     <UiButton 
       :class="modifiers"
       :is-loading="isLoading"
-      v-bind="accessibilityAttrs"
+      aria-label="Add"
     >
       <UiIcon
         :icon="icon"
@@ -479,7 +478,7 @@ export const Circled = {
         modifiers,
       ]"
       :is-loading="isLoading"
-      v-bind="accessibilityAttrs"
+      aria-label="Add"
     >
     <UiIcon
       :icon="icon"
@@ -521,7 +520,7 @@ export const Icon = {
     template: `<UiButton 
       class="ui-button--icon"
       :is-loading="isLoading"
-      v-bind="accessibilityAttrs"
+      aria-label="Add"
     >
       <UiIcon
         :icon="icon"
@@ -666,7 +665,7 @@ export const IconSecondary = {
         modifiers,
       ]"
       :is-loading="isLoading"
-      v-bind="accessibilityAttrs"
+      aria-label="Add"
     >
       <UiIcon
         :icon="icon"
@@ -815,7 +814,7 @@ export const IconOnBrand = {
         modifiers
       ]"
       :is-loading="isLoading"
-      v-bind="accessibilityAttrs"
+      aria-label="Add"
     >
       <UiIcon
         :icon="icon"
