@@ -32,7 +32,7 @@ export interface HeadingProps {
 export type HeadingAttrsProps<T = HTMLAttributes> = DefineAttrsProps<HeadingProps, T>;
 
 const props = withDefaults(defineProps<HeadingProps>(), {
-  level: '2',
+  level: '1',
   tag: undefined,
 });
 const headingTag = computed(() => (props.tag ? props.tag : `h${props.level}`));
