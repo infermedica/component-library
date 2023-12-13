@@ -2,7 +2,23 @@
   <div
     class="ui-simple-question"
     role="group"
+    aria-labelledby="ssn1"
   >
+    <slot
+      name="legend"
+      v-bind="{
+        legend,
+        id,
+      }"
+    >
+      <span
+        :id="id"
+        class="visual-hidden"
+        :aria-hidden="true"
+      >
+        {{ legend }}
+      </span>
+    </slot>
     <template
       v-for="(item, index) in itemsToRender"
       :key="index"
@@ -57,12 +73,12 @@ export interface SimpleQuestionProps {
    * Use this props to pass items for question
    */
   items?: SimpleQuestionItem[];
+  legend?: string
 }
 export type SimpleQuestionAttrsProps = DefineAttrsProps<SimpleQuestionProps>;
 export interface SimpleQuestionEmits {
   (e: 'update:modelValue', value: SimpleQuestionProps['modelValue']): void;
 }
-
 const props = withDefaults(defineProps<SimpleQuestionProps>(), {
   /**
    * Use this props or v-model to set value.
@@ -72,10 +88,11 @@ const props = withDefaults(defineProps<SimpleQuestionProps>(), {
    * Use this props to pass items for question
    */
   items: () => ([]),
+  legend: '',
 });
 const emit = defineEmits<SimpleQuestionEmits>();
-
 const attrs: SimpleQuestionAttrsProps = useAttrs();
+const id = 'ssn1';
 const isTileSmall = computed(() => attrs.class && attrs.class.includes('ui-simple-question--small'));
 const updateHandler = (value: SimpleQuestionProps['modelValue']) => {
   emit('update:modelValue', value);
