@@ -1,11 +1,10 @@
 <template>
-  <UiButton class="custom-button">
-    Label
-  </UiButton>
+  <UiPhoneNumber />
 </template>
 
 <script setup lang="ts">
-import { UiButton } from '../index';
+// import { UiButton } from '../index';
+import UiPhoneNumber from '@/components/organisms/UiPhoneNumber/UiPhoneNumber.vue';
 </script>
 
 <style lang="scss">
