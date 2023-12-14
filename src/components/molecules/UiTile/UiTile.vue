@@ -2,7 +2,8 @@
   <UiButton
     :id="tileId"
     :class="[
-      'ui-button--outlined ui-tile', { 'ui-tile--is-checked': isChecked },
+      'ui-button--outlined ui-tile',
+      { 'ui-tile--is-checked': isChecked },
     ]"
     @click="selectHandler"
   >

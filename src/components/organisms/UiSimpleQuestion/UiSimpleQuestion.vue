@@ -2,7 +2,7 @@
   <div
     class="ui-simple-question"
     role="group"
-    aria-labelledby="ssn1"
+    :aria-labelledby="id"
   >
     <slot
       name="legend"
@@ -12,9 +12,10 @@
       }"
     >
       <span
+        v-if="legend"
         :id="id"
-        class="visual-hidden"
         :aria-hidden="true"
+        class="visual-hidden"
       >
         {{ legend }}
       </span>
@@ -37,8 +38,10 @@
         <UiTile
           v-bind="tileItemAttrs(item)"
           :model-value="modelValue"
-          :class="{ 'ui-tile--small': isTileSmall }"
-          class="ui-simple-question__item"
+          :class="[
+            'ui-simple-question__item',
+            { 'ui-tile--small': isTileSmall }
+          ]"
           type="submit"
           @update:model-value="updateHandler(item.value)"
         >
@@ -54,6 +57,7 @@ import {
   computed,
   useAttrs,
 } from 'vue';
+import { uid } from 'uid/single';
 import UiTile from '../../molecules/UiTile/UiTile.vue';
 import type {
   TileModelValue,
@@ -73,6 +77,9 @@ export interface SimpleQuestionProps {
    * Use this props to pass items for question
    */
   items?: SimpleQuestionItem[];
+  /**
+   * Use this props to set legend.
+   */
   legend?: string
 }
 export type SimpleQuestionAttrsProps = DefineAttrsProps<SimpleQuestionProps>;
@@ -80,19 +87,13 @@ export interface SimpleQuestionEmits {
   (e: 'update:modelValue', value: SimpleQuestionProps['modelValue']): void;
 }
 const props = withDefaults(defineProps<SimpleQuestionProps>(), {
-  /**
-   * Use this props or v-model to set value.
-   */
   modelValue: () => ({}),
-  /**
-   * Use this props to pass items for question
-   */
   items: () => ([]),
   legend: '',
 });
 const emit = defineEmits<SimpleQuestionEmits>();
 const attrs: SimpleQuestionAttrsProps = useAttrs();
-const id = 'ssn1';
+const id = `simple-question-${uid()}`;
 const isTileSmall = computed(() => attrs.class && attrs.class.includes('ui-simple-question--small'));
 const updateHandler = (value: SimpleQuestionProps['modelValue']) => {
   emit('update:modelValue', value);
