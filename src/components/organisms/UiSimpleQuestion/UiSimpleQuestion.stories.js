@@ -128,3 +128,27 @@ export const WithTileSlot = {
     </UiSimpleQuestion>`,
   }),
 };
+
+export const WithGroupDescriptionSlot = {
+  render: (args) => ({
+    components: { UiSimpleQuestion },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      const legend = 'Default group description';
+      return {
+        ...args,
+        modelValue,
+        legend,
+      };
+    },
+    template: `<UiSimpleQuestion
+      v-model="modelValue"
+      :items="items"
+      :class="modifiers"
+      :legend="legend"
+    />
+    `,
+  }),
+
+  args: { modifiers: [ 'ui-simple-question--small' ] },
+};
