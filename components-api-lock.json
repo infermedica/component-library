@@ -596,6 +596,18 @@
             "func": false,
             "value": "() => ([])"
           }
+        },
+        {
+          "name": "legend",
+          "description": "Use this props to set legend.",
+          "required": false,
+          "type": {
+            "name": "string"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "''"
+          }
         }
       ],
       "events": [
@@ -609,6 +621,20 @@
         }
       ],
       "slots": [
+        {
+          "name": "legend",
+          "scoped": true,
+          "bindings": [
+            {
+              "name": "legend",
+              "title": "binding"
+            },
+            {
+              "name": "id",
+              "title": "binding"
+            }
+          ]
+        },
         {
           "name": "tile",
           "scoped": true,
@@ -6610,7 +6636,7 @@
           },
           "defaultValue": {
             "func": false,
-            "value": "'2'"
+            "value": "'1'"
           }
         },
         {
