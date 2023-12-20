@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 // import { UiButton } from '../index';
-import UiPhoneNumber from '@/components/organisms/UiPhoneNumber/UiPhoneNumber.vue';
+import UiPhoneNumber from './components/organisms/UiPhoneNumber/UiPhoneNumber.vue';
 </script>
 
 <style lang="scss">
