@@ -299,6 +299,7 @@ export const AsSimpleQuestion = {
       <UiSimpleQuestion
         v-model="modelValue"
         :items="items"
+        :legend="title"
       />
     </UiQuestion>`,
   }),

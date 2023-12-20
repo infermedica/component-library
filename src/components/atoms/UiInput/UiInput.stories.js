@@ -283,6 +283,7 @@ export const WithAButtonInSuffix = {
       }">
         <UiButton
           class="ui-button--icon ui-input__aside"
+          aria-label="Search"
           @click="onClick"
         >
           <UiIcon

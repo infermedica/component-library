@@ -4,6 +4,7 @@
     v-keyboard-focus
     v-bind="routeAttrs"
     class="ui-button"
+    :type="tag === 'button' ? 'button' : null"
     :aria-disabled="isLoading ? true : null"
   >
     <UiLoader

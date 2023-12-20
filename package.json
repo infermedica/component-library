@@ -1,7 +1,7 @@
 {
   "name": "@infermedica/component-library",
   "description": "Vue 3 UI library for healthcare and not only.",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "sideEffects": [
     "*.vue"
   ],
