@@ -3,7 +3,8 @@
     :aria-expanded="`${isOpen}`"
     class="ui-phone-number-prefix-toggle ui-button--outlined"
   >
-    <slot /><UiIcon
+    <slot />
+    <UiIcon
       :icon="isOpen ? 'chevron-up' : 'chevron-down'"
       class="ui-phone-number-prefix-toggle__icon ui-button__icon"
     />
@@ -34,11 +35,14 @@ withDefaults(defineProps<UiPhoneNumberPrefixPropsToggle>(), { isOpen: false });
   --button-background: #{functions.var($element, background, var(--color-background-white))};
   --button-hover-background: #{functions.var($element, background, var(--color-background-white))};
   --button-active-background: #{functions.var($element, background, var(--color-background-white))};
-  --button-border-color: #{functions.var($element, border-color, var(--color-border-strong))};
-  --button-hover-border-color: #{functions.var($element, border-color, var(--color-border-strong))};
-  --button-active-border-color: #{functions.var($element, border-color, var(--color-border-strong))};
+  --button-border-block-color: #{functions.var($element, border-color, var(--color-border-strong))};
+  --button-border-inline-color: #{functions.var($element, border-color, var(--color-border-strong))};
+  --button-hover-border-block-color: #{functions.var($element, border-color, var(--color-border-strong))};
+  --button-hover-border-inline-color: #{functions.var($element, border-color, var(--color-border-strong))};
+  --button-active-border-block-color: #{functions.var($element, border-color, var(--color-border-strong))};
+  --button-active-border-inline-color: #{functions.var($element, border-color, var(--color-border-strong))};
 
-  @include mixins.override-logical(button, $element, padding, var(--space-12) var(--space-16) var(--space-12) var(--space-12));
+  @include mixins.override-logical(button, $element, padding, var(--space-12) var(--space-12) var(--space-12) var(--space-16));
 
   width: functions.var($element, width, 6.25rem);
   justify-content: functions.var($element, justify-content, space-between);
@@ -46,9 +50,9 @@ withDefaults(defineProps<UiPhoneNumberPrefixPropsToggle>(), { isOpen: false });
   letter-spacing: functions.var($element, letter-spacing, var(--font-body-1));
 
   &__icon {
-    --button-icon-color: #{functions.var($element + '-icon', color, var(--color-icon-secondary))};
-    --button-icon-color-hover: #{functions.var($element + '-hover-icon', color, var(--color-icon-secondary-hover))};
-    --button-icon-color-active: #{functions.var($element + '-active-icon', color, var(--color-icon-secondary-active))};
+    --button-icon-color: #{functions.var($element + '-icon', color, var(--color-icon-primary))};
+    --button-icon-color-hover: #{functions.var($element + '-hover-icon', color, var(--color-icon-primary-hover))};
+    --button-icon-color-active: #{functions.var($element + '-active-icon', color, var(--color-icon-primary-active))};
 
     @include mixins.override-logical(button, null, margin, 0);
   }

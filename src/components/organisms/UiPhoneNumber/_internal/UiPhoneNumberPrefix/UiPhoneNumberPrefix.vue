@@ -94,14 +94,19 @@ onMounted(async () => {
   $this: &;
   $element: phone-number-prefix;
 
-  width: functions.var($element + "-dropdown", width, 100%);
+  &-form-field {
+    --form-field-gap: 0#{functions.var($element + '-form-field-gap', gap, 0)};
+
+    width: calc(100% - 108px );
+  }
 
   &__popover {
     --popover-border: none;
     --dropdown-popover-width: 100%;
     --dropdown-popover-max-width: none;
-    --dropdown-popover-min-height: #{functions.var($element + '-popover', min-height, 12.5rem)};;
+    --dropdown-popover-min-height: #{functions.var($element + '-popover', min-height, 12.5rem)};
 
+    width: var(--phone-number-dropdown-width);
     z-index: functions.var($element + '-popover', z-index, 1);
     overflow-y: scroll;
     max-height: functions.var($element + '-popover', max-height, 20.5rem);
