@@ -3,10 +3,8 @@ import type {
   StoryObj,
 } from '@storybook/vue3';
 import UiPhoneNumber from './UiPhoneNumber.vue';
-import {
-  BasicStories,
-  BasicStoriesSource,
-} from './stories';
+// BasicStoriesSource,
+import { BasicStories } from './stories';
 
 const meta = {
   title: 'Organisms/PhoneNumber',
@@ -30,4 +28,4 @@ export const Basic: StoryObj = {
     };
   },
 };
-Basic.parameters = { docs: { source: { code: BasicStoriesSource } } };
+// Basic.parameters = { docs: { source: { code: BasicStoriesSource } } };

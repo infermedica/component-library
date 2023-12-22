@@ -41,10 +41,11 @@ withDefaults(defineProps<UiPhoneNumberPrefixPropsToggle>(), { isOpen: false });
   --button-hover-border-inline-color: #{functions.var($element, border-color, var(--color-border-strong))};
   --button-active-border-block-color: #{functions.var($element, border-color, var(--color-border-strong))};
   --button-active-border-inline-color: #{functions.var($element, border-color, var(--color-border-strong))};
+  --border-radius-button: var(--border-radius-form);
 
   @include mixins.override-logical(button, $element, padding, var(--space-12) var(--space-12) var(--space-12) var(--space-16));
 
-  width: functions.var($element, width, 6.25rem);
+  width: functions.var($element, width, 100%);
   justify-content: functions.var($element, justify-content, space-between);
   font: functions.var($element, font, var(--font-body-1));
   letter-spacing: functions.var($element, letter-spacing, var(--font-body-1));

@@ -1,7 +1,7 @@
 <template>
   <UiDropdown
     v-model="defaultCountryCode"
-    :text="prefixCode"
+    :text="prefixButtonText"
     :items="prefixCodes"
     class="ui-phone-number-prefix"
     :popover-attrs="{ class: 'ui-phone-number-prefix__popover' }"
@@ -20,54 +20,26 @@
         {{ text }}
       </UiPhoneNumberPrefixToggle>
     </template>
-    <template
-      #popover="{
-        closeHandler,
-        isOpen,
-        popoverAttrs,
-      }"
+    <div
+      role="radiogroup"
+      class="ui-dropdown__items"
     >
-      <UiPopover
-        v-if="isOpen"
-        v-bind="popoverAttrs"
-        class="ui-dropdown__popover"
-        :title="popoverTitle"
-        @close="closeHandler"
+      <UiDropdownItem
+        v-for="({
+          code, countryCode, country,
+        }, position) in prefixCodes"
+        :key="`${countryCode}-${country}`"
+        :value="countryCode"
+        :aria-setsize="prefixCodes.length"
+        :aria-posinset="position + 1"
+        tabindex="-1"
+        class="ui-phone-number-prefix-dropdown-item"
       >
-        <template
-          #title="{
-            headingTitleAttrs,
-            title,
-          }"
-        >
-          <UiHeading
-            v-bind="headingTitleAttrs"
-          >
-            {{ title }}
-          </UiHeading>
-        </template>
-        <div
-          role="radiogroup"
-          class="ui-dropdown__items"
-        >
-          <UiDropdownItem
-            v-for="({
-              code, countryCode, country,
-            }, position) in prefixCodes"
-            :key="`${countryCode}-${country}`"
-            :value="countryCode"
-            :aria-setsize="prefixCodes.length"
-            :aria-posinset="position + 1"
-            tabindex="-1"
-            class="ui-phone-number-prefix-dropdown-item"
-          >
-            <span>
-              {{ country }} ({{ code }})
-            </span>
-          </UiDropdownItem>
-        </div>
-      </UiPopover>
-    </template>
+        <span>
+          {{ country }} ({{ code }})
+        </span>
+      </UiDropdownItem>
+    </div>
   </UiDropdown>
 </template>
 
@@ -77,15 +49,16 @@ import {
   computed,
   onMounted,
 } from 'vue';
-import UiPopover from '../../../../molecules/UiPopover/UiPopover.vue';
 import UiDropdown from '../../../../molecules/UiDropdown/UiDropdown.vue';
 import UiDropdownItem from '../../../../molecules/UiDropdown/_internal/UiDropdownItem.vue';
 import UiPhoneNumberPrefixToggle from './UiPhoneNumberPrefixToggle.vue';
-import UiHeading from '../../../../atoms/UiHeading/UiHeading.vue';
 import { getPhoneCodes } from '../../../../../utilities/helpers';
 import type { PhoneCodeType } from '../../../../../utilities/helpers';
 
 export interface UiPhoneNumberPrefixProps {
+  /**
+   * Use this props to set default prefix phone code.
+   */
   modelValue?: PhoneCodeType,
 }
 
@@ -93,7 +66,7 @@ export interface InputEmits {
   (e: 'update:modelValue', value: PhoneCodeType): void
 }
 
-const props: UiPhoneNumberPrefixProps = withDefaults(defineProps<UiPhoneNumberPrefixProps>(), {
+const props = withDefaults(defineProps<UiPhoneNumberPrefixProps>(), {
   modelValue: () => ({
     code: '+1',
     countryCode: 'US',
@@ -107,8 +80,7 @@ const prefixCodes = shallowRef<PhoneCodeType[]>([]);
 
 const defaultCountryCode = computed({
   get() {
-    const { modelValue } = props;
-    return modelValue?.countryCode;
+    return props.modelValue?.countryCode;
   },
   set(value) {
     const selectedCountry = prefixCodes.value.find((prefix) => prefix.countryCode === value);
@@ -133,7 +105,7 @@ const countryName = computed(() => {
   return defaultCountryCode.value;
 });
 
-const popoverTitle = computed(() => `${countryName.value} (${prefixCode.value})`);
+const prefixButtonText = computed(() => `${countryName.value} (${prefixCode.value})`);
 
 onMounted(async () => {
   prefixCodes.value = await getPhoneCodes();
@@ -151,8 +123,6 @@ onMounted(async () => {
 
   &-form-field {
     --form-field-gap: 0#{functions.var($element + '-form-field-gap', gap, 0)};
-
-    width: calc(100% - 108px );
   }
 
   &-dropdown-item {
