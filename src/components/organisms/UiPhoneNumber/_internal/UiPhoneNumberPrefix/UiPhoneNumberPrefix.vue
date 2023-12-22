@@ -1,8 +1,8 @@
 <template>
   <UiDropdown
-    v-model="value"
+    v-model="defaultCountryCode"
     :text="prefixCode"
-    :items="items"
+    :items="prefixCodes"
     class="ui-phone-number-prefix"
     :popover-attrs="{ class: 'ui-phone-number-prefix__popover' }"
   >
@@ -21,16 +21,52 @@
       </UiPhoneNumberPrefixToggle>
     </template>
     <template
-      v-for="(_, key) in items"
-      :key="key"
-      #[`dropdown-item-${key}`]="{
-        item: {
-          code,
-          country,
-        },
+      #popover="{
+        closeHandler,
+        isOpen,
+        popoverAttrs,
       }"
     >
-      {{ country }} ({{ code }})
+      <UiPopover
+        v-if="isOpen"
+        v-bind="popoverAttrs"
+        class="ui-dropdown__popover"
+        :title="popoverTitle"
+        @close="closeHandler"
+      >
+        <template
+          #title="{
+            headingTitleAttrs,
+            title,
+          }"
+        >
+          <UiHeading
+            v-bind="headingTitleAttrs"
+          >
+            {{ title }}
+          </UiHeading>
+        </template>
+        <div
+          role="radiogroup"
+          class="ui-dropdown__items"
+        >
+          <UiDropdownItem
+            v-for="({
+              code, countryCode, country,
+            }, position) in prefixCodes"
+            :key="`${countryCode}-${country}`"
+            :value="countryCode"
+            :aria-setsize="prefixCodes.length"
+            :aria-posinset="position + 1"
+            tabindex="-1"
+            class="ui-phone-number-prefix-dropdown-item"
+          >
+            <span>
+              {{ country }} ({{ code }})
+            </span>
+          </UiDropdownItem>
+        </div>
+      </UiPopover>
     </template>
   </UiDropdown>
 </template>
@@ -41,8 +77,11 @@ import {
   computed,
   onMounted,
 } from 'vue';
+import UiPopover from '../../../../molecules/UiPopover/UiPopover.vue';
 import UiDropdown from '../../../../molecules/UiDropdown/UiDropdown.vue';
+import UiDropdownItem from '../../../../molecules/UiDropdown/_internal/UiDropdownItem.vue';
 import UiPhoneNumberPrefixToggle from './UiPhoneNumberPrefixToggle.vue';
+import UiHeading from '../../../../atoms/UiHeading/UiHeading.vue';
 import { getPhoneCodes } from '../../../../../utilities/helpers';
 import type { PhoneCodeType } from '../../../../../utilities/helpers';
 
@@ -64,26 +103,42 @@ const props: UiPhoneNumberPrefixProps = withDefaults(defineProps<UiPhoneNumberPr
 
 const emit = defineEmits<InputEmits>();
 
-const value = computed({
+const prefixCodes = shallowRef<PhoneCodeType[]>([]);
+
+const defaultCountryCode = computed({
   get() {
     const { modelValue } = props;
-    return modelValue;
+    return modelValue?.countryCode;
   },
-  set(val) {
-    if (val) emit('update:modelValue', val);
+  set(value) {
+    const selectedCountry = prefixCodes.value.find((prefix) => prefix.countryCode === value);
+
+    if (value && selectedCountry) emit('update:modelValue', selectedCountry);
   },
 });
 
 const prefixCode = computed(() => {
-  const { code } = value.value as PhoneCodeType;
-  return code.replace('+', '+ ');
+  const selectedPrefixCode = prefixCodes.value.find((prefix) => prefix.countryCode === defaultCountryCode.value);
+
+  if (selectedPrefixCode) { return selectedPrefixCode.code.replace('+', '+ '); }
+
+  return defaultCountryCode.value?.replace('+', '+ ');
 });
 
-const items = shallowRef<PhoneCodeType[]>([]);
+const countryName = computed(() => {
+  const selectedCountryName = prefixCodes.value.find((prefix) => prefix.countryCode === props.modelValue?.countryCode);
+
+  if (selectedCountryName) { return selectedCountryName.country; }
+
+  return defaultCountryCode.value;
+});
+
+const popoverTitle = computed(() => `${countryName.value} (${prefixCode.value})`);
 
 onMounted(async () => {
-  items.value = await getPhoneCodes();
+  prefixCodes.value = await getPhoneCodes();
 });
+
 </script>
 
 <style lang="scss">
@@ -98,6 +153,10 @@ onMounted(async () => {
     --form-field-gap: 0#{functions.var($element + '-form-field-gap', gap, 0)};
 
     width: calc(100% - 108px );
+  }
+
+  &-dropdown-item {
+    width: 100%;
   }
 
   &__popover {

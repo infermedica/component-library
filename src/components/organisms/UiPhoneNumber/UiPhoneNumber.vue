@@ -22,8 +22,9 @@ import { ref } from 'vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import UiPhoneNumberPrefix from './_internal/UiPhoneNumberPrefix/UiPhoneNumberPrefix.vue';
 import UiPhoneNumberInput from './_internal/UiPhoneNumberInput/UiPhoneNumberInput.vue';
+import type { PhoneCodeType } from '../../../utilities/helpers';
 
-const prefix = ref({
+const prefix = ref<PhoneCodeType>({
   code: '+1',
   countryCode: 'US',
   country: 'United States of America',
