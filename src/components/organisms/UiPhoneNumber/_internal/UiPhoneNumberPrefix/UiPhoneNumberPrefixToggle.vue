@@ -49,6 +49,7 @@ withDefaults(defineProps<UiPhoneNumberPrefixPropsToggle>(), { isOpen: false });
   justify-content: functions.var($element, justify-content, space-between);
   font: functions.var($element, font, var(--font-body-1));
   letter-spacing: functions.var($element, letter-spacing, var(--font-body-1));
+  text-align: functions.var($element, text-align, left);
 
   &__icon {
     --button-icon-color: #{functions.var($element + '-icon', color, var(--color-icon-primary))};

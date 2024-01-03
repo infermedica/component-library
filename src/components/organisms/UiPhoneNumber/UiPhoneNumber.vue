@@ -11,7 +11,7 @@
     >
       <label
         v-if="message"
-        :for="'test'"
+        :for="inputId"
       >
         <!-- @slot Use this slot to replace message template.-->
         <slot
@@ -64,6 +64,7 @@
           <UiPhoneNumberInput
             :id="inputId"
             v-model="phoneNumber"
+            :error-message="errorMessage"
             :placeholder="placeholder"
           />
         </slot>
