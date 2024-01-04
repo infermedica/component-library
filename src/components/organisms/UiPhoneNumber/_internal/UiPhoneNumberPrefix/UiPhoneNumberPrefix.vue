@@ -53,13 +53,23 @@ import UiDropdown from '../../../../molecules/UiDropdown/UiDropdown.vue';
 import UiDropdownItem from '../../../../molecules/UiDropdown/_internal/UiDropdownItem.vue';
 import UiPhoneNumberPrefixToggle from './UiPhoneNumberPrefixToggle.vue';
 import { getPhoneCodes } from '../../../../../utilities/helpers';
-import type { PhoneCodeType } from '../../../../../utilities/helpers';
+import type {
+  PhoneCodeType,
+  SupportedCountryCodeType,
+} from '../../../../../utilities/helpers';
 
 export interface UiPhoneNumberPrefixProps {
   /**
    * Use this props to set default prefix phone code.
    */
   modelValue?: PhoneCodeType,
+   /**
+   * Use this props to set phone number prefix default country code.
+   */
+   languageData?: {
+    country: SupportedCountryCodeType,
+    language: string,
+   },
 }
 
 export interface InputEmits {
@@ -71,6 +81,10 @@ const props = withDefaults(defineProps<UiPhoneNumberPrefixProps>(), {
     code: '+1',
     countryCode: 'US',
     country: 'United States of America',
+  }),
+  languageData: () => ({
+    country: 'us',
+    language: 'en',
   }),
 });
 
@@ -108,7 +122,7 @@ const countryName = computed(() => {
 const prefixButtonText = computed(() => `${countryName.value} (${prefixCode.value})`);
 
 onMounted(async () => {
-  prefixCodes.value = await getPhoneCodes();
+  prefixCodes.value = await getPhoneCodes(props.languageData);
 });
 
 </script>

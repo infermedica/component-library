@@ -46,10 +46,14 @@
         <!-- @slot Use this slot to replace phone number prefix template.-->
         <slot
           name="phone-number-prefix"
-          v-bind="{ prefix }"
+          v-bind="{
+            prefix,
+            languageData,
+          }"
         >
           <UiPhoneNumberPrefix
             v-model="prefix"
+            :language-data="languageData"
           />
         </slot>
         <!-- @slot Use this slot to replace phone number template.-->
@@ -79,7 +83,10 @@ import { uid } from 'uid/single';
 import UiText from '../../atoms/UiText/UiText.vue';
 import UiPhoneNumberPrefix from './_internal/UiPhoneNumberPrefix/UiPhoneNumberPrefix.vue';
 import UiPhoneNumberInput from './_internal/UiPhoneNumberInput/UiPhoneNumberInput.vue';
-import type { PhoneCodeType } from '../../../utilities/helpers';
+import type {
+  PhoneCodeType,
+  SupportedCountryCodeType,
+} from '../../../utilities/helpers';
 import type { TextAttrsProps } from '../../atoms/UiText/UiText.vue';
 
 export interface UiPoneNumberProps {
@@ -105,13 +112,20 @@ export interface UiPoneNumberProps {
    */
   placeholder?: string,
   /**
-   * Use this props to set alert message
+   * Use this props to set alert message.
    */
   errorMessage?: boolean | string,
   /**
    * Use this props to pass attrs to message UiText.
    */
    textMessageAttrs?: TextAttrsProps;
+   /**
+   * Use this props to set phone number prefix default language.
+   */
+   languageData?: {
+    country: SupportedCountryCodeType,
+    language: string,
+   },
 }
 
 export interface InputEmits {
@@ -133,6 +147,10 @@ const props = withDefaults(defineProps<UiPoneNumberProps>(), {
   placeholder: 'Enter phone number',
   errorMessage: false,
   textMessageAttrs: () => ({ tag: 'span' }),
+  languageData: () => ({
+    country: 'us',
+    language: 'en',
+  }),
 });
 
 const defaultProps = computed(() => {
