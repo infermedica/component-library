@@ -22,7 +22,7 @@ export type DatepickerTabItemAttrsProps = DefineAttrsProps<null, ButtonAttrsProp
 
   @include mixins.override-logical(button, $element, padding, var(--space-8));
   @include mixins.override-logical(button, $element, border-width, 0);
-  @include mixins.override-logical(button, $element, border-radius, var(--space-8));
+  @include mixins.override-logical(button, $element, border-radius, var(--border-radius-form));
 
   --button-color: #{functions.var($element, color, var(--color-text-body))};
   --button-hover-color: #{functions.var($element + "-hover", color, var(--color-text-body))};
