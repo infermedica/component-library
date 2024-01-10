@@ -1,10 +1,17 @@
 <template>
+  <span
+    ref="el"
+    class="visual-hidden"
+    :tabindex="tabindex"
+    @blur="handleA11YHelperBlur"
+  />
   <slot v-if="isActive" />
 </template>
 
 <script setup lang="ts">
 import {
   computed,
+  watch,
   ref,
   inject,
   onBeforeUnmount,
@@ -12,6 +19,7 @@ import {
   type ComputedRef,
 } from 'vue';
 import type { HorizontalPangingHandleItems } from '../UiHorizontalPaging.vue';
+import { focusElement } from '../../../../utilities/helpers';
 
 export interface HorizontalPangingItemProps {
   /**
@@ -35,6 +43,16 @@ const props = withDefaults(defineProps<HorizontalPangingItemProps>(), {
 });
 const activeItemName = inject<ComputedRef<string>>('activeItemName', computed(() => ''));
 const isActive = computed(() => activeItemName.value === props.name);
+const el = ref<HTMLSpanElement | null>(null);
+const tabindex = ref(0);
+watch(isActive, (value) => {
+  tabindex.value = 0;
+  if (!value) return;
+  focusElement(el.value);
+});
+const handleA11YHelperBlur = () => {
+  tabindex.value = -1;
+};
 const item = computed(() => ({
   label: props.label,
   title: props.title,
