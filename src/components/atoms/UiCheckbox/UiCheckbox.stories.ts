@@ -2,8 +2,10 @@ import type {
   Meta,
   StoryObj,
 } from '@storybook/vue3';
-import { UiCheckbox } from '@index';
-import type { CheckboxProps } from '@index';
+import {
+  UiCheckbox,
+  type CheckboxProps,
+} from '@index';
 import {
   withVariants,
   withVModel,
@@ -13,8 +15,6 @@ import {
   getAttrs,
 } from '@sb/helpers';
 import { content } from '@sb/helpers/argTypes/index';
-import { useAttrs } from '@sb/composable';
-import { Empty } from '@/components/atoms/UiInput/UiInput.stories';
 import {
   BasicStories,
   BasicStoriesSource,
@@ -24,9 +24,9 @@ import {
 
 type CheckboxArgsType = CheckboxProps & {
   content?: string;
-  modifiers?: string[];
+  class?: string[];
   items?: Required<CheckboxProps['value']>[];
-}
+};
 type CheckboxMetaType = Meta<CheckboxArgsType>;
 type CheckboxStoryType = StoryObj<CheckboxArgsType>;
 
@@ -60,10 +60,10 @@ const meta = {
     chromatic: { disableSnapshot: false },
     controls: { exclude: [ 'items' ] },
   },
-} satisfies Meta;
+} satisfies CheckboxMetaType;
 export default meta;
 
-export const Basic: StoryObj = {
+export const Basic: CheckboxStoryType = {
   render(args, {
     name, argTypes,
   }) {
@@ -113,7 +113,7 @@ Unchecked.parameters = {
   ],
 };
 
-export const UncheckedHasError: StoryObj = { ...Basic };
+export const UncheckedHasError: CheckboxStoryType = { ...Basic };
 UncheckedHasError.decorators = [ withVariants ];
 UncheckedHasError.parameters = {
   variants: [ ...Unchecked.parameters.variants.map((variant) => ({
@@ -132,7 +132,7 @@ Checked.parameters = {
   })) ],
 };
 
-export const CheckedHasError: StoryObj = { ...Basic };
+export const CheckedHasError: CheckboxStoryType = { ...Basic };
 CheckedHasError.decorators = [ withVariants ];
 CheckedHasError.parameters = {
   variants: [ ...Unchecked.parameters.variants.map((variant) => ({
@@ -142,7 +142,7 @@ CheckedHasError.parameters = {
   })) ],
 };
 
-export const PrymitiveTypes: StoryObj = {
+export const PrymitiveTypes: CheckboxStoryType = {
   render(args, {
     name, argTypes,
   }) {
@@ -167,9 +167,12 @@ PrymitiveTypes.args = {
 };
 PrymitiveTypes.argTypes = { items: { table: { category: 'stories controls' } } };
 PrymitiveTypes.decorators = [ withVModel ];
-PrymitiveTypes.parameters = { controls: { exclude: [ 'content' ] } };
+PrymitiveTypes.parameters = {
+  chromatic: { disableSnapshot: false },
+  controls: { exclude: [ 'content' ] },
+};
 
-export const Objets: StoryObj = { ...PrymitiveTypes };
+export const Objets: CheckboxStoryType = { ...PrymitiveTypes };
 Objets.args = {
   modelValue: [ {
     id: 'russia-kazakhstan-mongolia',
@@ -191,7 +194,7 @@ Objets.args = {
   ],
 };
 
-export const NestedObjets: StoryObj = { ...PrymitiveTypes };
+export const NestedObjets: CheckboxStoryType = { ...PrymitiveTypes };
 NestedObjets.args = {
   modelValue: [ {
     id: 'asia-excluding-middle-east-russia-mongolia-and-kazakhstan',

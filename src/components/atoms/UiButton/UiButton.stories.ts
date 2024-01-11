@@ -3,8 +3,10 @@ import type {
   StoryObj,
 } from '@storybook/vue3';
 import deepmerge from 'deepmerge';
-import { UiButton } from '@index';
-import type { ButtonProps } from '@index';
+import {
+  UiButton,
+  type ButtonProps,
+} from '@index';
 import { withVariants } from '@sb/decorators';
 import {
   getArgTypes,
@@ -27,10 +29,8 @@ import {
 type ButtonArgsType = ButtonProps & {
   content?: string;
   class?: string[];
-  target?: string;
   icon?: IconType;
-  iconEnd?: IconType
-}
+};
 type ButtonMetaType = Meta<ButtonArgsType>;
 type ButtonStoryType = StoryObj<ButtonArgsType>;
 
@@ -55,9 +55,9 @@ const meta = {
     ...argTypes,
   },
   parameters: { chromatic: { disableSnapshot: false } },
-} satisfies Meta;
+} satisfies ButtonMetaType;
 export default meta;
-export const Basic: StoryObj = {
+export const Basic: ButtonStoryType = {
   render(args, {
     name, argTypes,
   }) {

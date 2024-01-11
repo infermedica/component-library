@@ -2,7 +2,10 @@ import type {
   Meta,
   StoryObj,
 } from '@storybook/vue3';
-import { UiTextarea } from '@index';
+import {
+  UiTextarea,
+  type TextareaProps,
+} from '@index';
 import {
   withVariants,
   withVModel,
@@ -15,6 +18,10 @@ import {
   BasicStories,
   BasicStoriesSource,
 } from './stories';
+
+type TextareaArgsType = TextareaProps
+type TextareaMetaType = Meta<TextareaArgsType>;
+type TextareaStoryType = StoryObj<TextareaArgsType>;
 
 const {
   argTypes,
@@ -45,10 +52,10 @@ const meta = {
     modelValue: { control: 'text' },
   },
   parameters: { chromatic: { disableSnapshot: false } },
-} satisfies Meta;
+} satisfies TextareaMetaType;
 export default meta;
 
-export const Basic: StoryObj = {
+export const Basic: TextareaStoryType = {
   render(args, {
     name, argTypes,
   }) {
@@ -66,7 +73,7 @@ export const Basic: StoryObj = {
 Basic.decorators = [ withVModel ];
 Basic.parameters = { docs: { source: { code: BasicStoriesSource } } };
 
-export const Empty = { ...Basic };
+export const Empty: TextareaStoryType = { ...Basic };
 Empty.argTypes = {};
 Empty.decorators = [ withVariants ];
 Empty.parameters = {
@@ -90,7 +97,7 @@ Empty.parameters = {
     },
   ],
 };
-export const Filled = { ...Basic };
+export const Filled: TextareaStoryType = { ...Basic };
 Filled.argTypes = {};
 Filled.decorators = [ withVariants ];
 Filled.parameters = {
@@ -100,7 +107,7 @@ Filled.parameters = {
   })) ],
 };
 
-export const Error = { ...Basic };
+export const Error: TextareaStoryType = { ...Basic };
 Error.decorators = [ withVariants ];
 Error.parameters = {
   variants: [ ...Empty.parameters.variants.map((variant) => ({

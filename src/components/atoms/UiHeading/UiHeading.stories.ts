@@ -2,8 +2,10 @@ import type {
   Meta,
   StoryObj,
 } from '@storybook/vue3';
-import { UiHeading } from '@index';
-import type { HeadingProps } from '@index';
+import {
+  UiHeading,
+  type HeadingProps,
+} from '@index';
 import { withVariants } from '@sb/decorators';
 import {
   getArgTypes,
@@ -48,10 +50,10 @@ const meta = {
       ],
     },
   },
-} satisfies Meta;
+} satisfies HeadingMetaType;
 export default meta;
 
-export const Basic: StoryObj = {
+export const Basic: HeadingStoryType = {
   render(args, {
     name, argTypes,
   }) {

@@ -2,7 +2,10 @@ import type {
   Meta,
   StoryObj,
 } from '@storybook/vue3';
-import { UiProgress } from '@index';
+import {
+  UiProgress,
+  type ProgressProps,
+} from '@index';
 import {
   getArgTypes,
   getAttrs,
@@ -14,6 +17,10 @@ import {
   EvidenceBarStories,
   EvidenceBarStoriesSource,
 } from './stories';
+
+type ProgressArgsType = ProgressProps
+type ProgressMetaType = Meta<ProgressArgsType>;
+type ProgressStoryType = StoryObj<ProgressArgsType>;
 
 const {
   argTypes,
@@ -31,10 +38,10 @@ const meta = {
   },
   argTypes,
   parameters: { chromatic: { disableSnapshot: false } },
-} satisfies Meta;
+} satisfies ProgressMetaType;
 export default meta;
 
-export const Basic: StoryObj = {
+export const Basic: ProgressStoryType = {
   render(args, { name }) {
     return {
       name,
@@ -49,7 +56,7 @@ export const Basic: StoryObj = {
 };
 Basic.parameters = { docs: { source: { code: BasicStoriesSource } } };
 
-export const EvidenceBar: StoryObj = {
+export const EvidenceBar: ProgressStoryType = {
   render(args, { name }) {
     return {
       name,

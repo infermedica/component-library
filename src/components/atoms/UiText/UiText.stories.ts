@@ -2,8 +2,10 @@ import type {
   Meta,
   StoryObj,
 } from '@storybook/vue3';
-import { UiText } from '@index';
-import type { TextProps } from '@index';
+import {
+  UiText,
+  type TextProps,
+} from '@index';
 import { withVariants } from '@sb/decorators';
 import {
   getArgTypes,
@@ -17,6 +19,7 @@ import {
 
 type TextArgsType = TextProps & {
   content?: string;
+  class?: string[];
 }
 type TextMetaType = Meta<TextArgsType>;
 type TextStoryType = StoryObj<TextArgsType>;
@@ -47,10 +50,10 @@ const meta = {
       ],
     },
   },
-} satisfies Meta;
+} satisfies TextMetaType;
 export default meta;
 
-export const Basic: StoryObj = {
+export const Basic: TextStoryType = {
   render(args, {
     name, argTypes,
   }) {

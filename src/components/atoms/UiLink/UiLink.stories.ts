@@ -2,7 +2,10 @@ import type {
   Meta,
   StoryObj,
 } from '@storybook/vue3';
-import { UiLink } from '@index';
+import {
+  UiLink,
+  type LinkProps,
+} from '@index';
 import {
   getArgTypes,
   getAttrs,
@@ -11,6 +14,7 @@ import {
   content,
   icon,
 } from '@sb/helpers/argTypes/index';
+import type { Icon as IconType } from '@/types';
 import { withVariants } from '@sb/decorators';
 import {
   BasicStories,
@@ -18,6 +22,14 @@ import {
   TextStories,
   TextStoriesSource,
 } from './stories';
+
+type LinkArgsType = LinkProps & {
+  content?: string;
+  class?: string[];
+  icon?: IconType;
+};
+type LinkMetaType = Meta<LinkArgsType>;
+type LinkStoryType = StoryObj<LinkArgsType>;
 
 const {
   argTypes,
@@ -40,10 +52,10 @@ const meta = {
     ...argTypes,
   },
   parameters: { chromatic: { disableSnapshot: false } },
-} satisfies Meta;
+} satisfies LinkMetaType;
 export default meta;
 
-export const Basic: StoryObj = {
+export const Basic: LinkStoryType = {
   render(args, {
     name, argTypes,
   }) {
@@ -71,7 +83,7 @@ Basic.decorators = [ () => ({
 }) ];
 Basic.parameters = { docs: { source: { code: BasicStoriesSource } } };
 
-export const Primary: StoryObj = { ...Basic };
+export const Primary: LinkStoryType = { ...Basic };
 Primary.decorators = [
   ...Basic.decorators,
   withVariants,
@@ -90,7 +102,7 @@ Primary.parameters = {
   ],
 };
 
-export const Secondary: StoryObj = { ...Primary };
+export const Secondary: LinkStoryType = { ...Primary };
 Secondary.decorators = Primary.decorators?.concat(
   () => ({
     name: 'TSecondary',
@@ -98,7 +110,7 @@ Secondary.decorators = Primary.decorators?.concat(
   }),
 );
 
-export const Brand: StoryObj = { ...Primary };
+export const Brand: LinkStoryType = { ...Primary };
 Brand.decorators = Primary.decorators?.concat(
   () => ({
     name: 'TBrand',
@@ -110,7 +122,7 @@ Brand.parameters = {
   backgrounds: { default: 'brand' },
 };
 
-export const Small: StoryObj = { ...Basic };
+export const Small: LinkStoryType = { ...Basic };
 Small.args = { class: [ 'ui-link--small' ] };
 Small.decorators = [ () => ({
   name: 'LFlex',

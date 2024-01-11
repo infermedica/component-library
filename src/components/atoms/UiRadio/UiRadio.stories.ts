@@ -2,8 +2,10 @@ import type {
   Meta,
   StoryObj,
 } from '@storybook/vue3';
-import { UiRadio } from '@index';
-import type { RadioProps } from '@index';
+import {
+  UiRadio,
+  type RadioProps,
+} from '@index';
 import {
   withVariants,
   withVModel,
@@ -22,7 +24,7 @@ import {
 
 type RadioArgsType = RadioProps & {
   content?: string;
-  modifiers?: string[];
+  class?: string[];
   items?: Required<RadioProps['value']>[];
 }
 type RadioMetaType = Meta<RadioArgsType>;
@@ -55,10 +57,10 @@ const meta = {
     value: { control: 'text' },
   },
   parameters: { chromatic: { disableSnapshot: false } },
-} satisfies Meta;
+} satisfies RadioMetaType;
 export default meta;
 
-export const Basic: StoryObj = {
+export const Basic: RadioStoryType = {
   render(args, { name }) {
     return {
       name,
@@ -77,7 +79,7 @@ Basic.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const Unchecked: StoryObj = { ...Basic };
+export const Unchecked: RadioStoryType = { ...Basic };
 Unchecked.decorators = [ withVariants ];
 Unchecked.parameters = {
   variants: [
@@ -107,7 +109,7 @@ Unchecked.parameters = {
   ],
 };
 
-export const UncheckedHasError: StoryObj = { ...Basic };
+export const UncheckedHasError: RadioStoryType = { ...Basic };
 UncheckedHasError.decorators = [ withVariants ];
 UncheckedHasError.parameters = {
   variants: [ ...Unchecked.parameters.variants.map((variant) => ({
@@ -116,7 +118,7 @@ UncheckedHasError.parameters = {
   })) ],
 };
 
-export const Checked: StoryObj = { ...Basic };
+export const Checked: RadioStoryType = { ...Basic };
 Checked.decorators = [ withVariants ];
 Checked.parameters = {
   variants: [ ...Unchecked.parameters.variants.map((variant) => ({
@@ -125,7 +127,7 @@ Checked.parameters = {
   })) ],
 };
 
-export const CheckedHasError: StoryObj = { ...Basic };
+export const CheckedHasError: RadioStoryType = { ...Basic };
 CheckedHasError.decorators = [ withVariants ];
 CheckedHasError.parameters = {
   variants: [ ...Unchecked.parameters.variants.map((variant) => ({
@@ -135,7 +137,7 @@ CheckedHasError.parameters = {
   })) ],
 };
 
-export const PrymitiveTypes: StoryObj = {
+export const PrimitiveTypes: RadioStoryType = {
   render(args, {
     name, argTypes,
   }) {
@@ -150,7 +152,7 @@ export const PrymitiveTypes: StoryObj = {
     };
   },
 };
-PrymitiveTypes.args = {
+PrimitiveTypes.args = {
   modelValue: 'I have hypertension',
   items: [
     'I have diabetes',
@@ -158,11 +160,14 @@ PrymitiveTypes.args = {
     'I have hypertension',
   ],
 };
-PrymitiveTypes.argTypes = { items: { table: { category: 'stories controls' } } };
-PrymitiveTypes.decorators = [ withVModel ];
-PrymitiveTypes.parameters = { controls: { exclude: [ 'content' ] } };
+PrimitiveTypes.argTypes = { items: { table: { category: 'stories controls' } } };
+PrimitiveTypes.decorators = [ withVModel ];
+PrimitiveTypes.parameters = {
+  chromatic: { disableSnapshot: true },
+  controls: { exclude: [ 'content' ] },
+};
 
-export const Objets: StoryObj = { ...PrymitiveTypes };
+export const Objets: RadioStoryType = { ...PrimitiveTypes };
 Objets.args = {
   modelValue: {
     id: 'i-have-diabetes',
@@ -184,7 +189,7 @@ Objets.args = {
   ],
 };
 
-export const NestedObjets: StoryObj = { ...PrymitiveTypes };
+export const NestedObjets: RadioStoryType = { ...PrimitiveTypes };
 NestedObjets.args = {
   modelValue: {
     id: 'i-m-overweight-or-obese',

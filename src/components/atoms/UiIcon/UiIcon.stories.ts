@@ -4,6 +4,7 @@ import type {
 } from '@storybook/vue3';
 import {
   UiIcon,
+  type IconProps,
   UiText,
 } from '@index';
 import { getArgTypes } from '@sb/helpers';
@@ -14,6 +15,10 @@ import {
   BasicStories,
   BasicStoriesSource,
 } from './stories';
+
+type IconArgsType = IconProps
+type IconMetaType = Meta<IconArgsType>;
+type IconStoryType = StoryObj<IconArgsType>;
 
 const {
   argTypes,
@@ -32,10 +37,10 @@ const meta = {
     icon,
   },
   parameters: { chromatic: { disableSnapshot: false } },
-} satisfies Meta;
+} satisfies IconMetaType;
 export default meta;
 
-export const Basic: StoryObj = {
+export const Basic: IconStoryType = {
   render(args, { name }) {
     return {
       name,
@@ -53,7 +58,7 @@ export const Basic: StoryObj = {
 };
 Basic.parameters = { docs: { source: { code: BasicStoriesSource } } };
 
-export const IconSets: StoryObj = { ...Basic };
+export const IconSets: IconStoryType = { ...Basic };
 IconSets.decorators = [ () => ({
   name: 'DIconSets',
   inheritAttrs: false,
@@ -61,7 +66,6 @@ IconSets.decorators = [ () => ({
   setup() {
     const { decoratorAttrs: attrs } = useAttrs();
     const { options } = icon;
-    console.log(options);
     return {
       attrs,
       options: options.slice(1),

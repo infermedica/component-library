@@ -5,6 +5,7 @@ import type {
 import deepmerge from 'deepmerge';
 import {
   UiRange,
+  type RangeProps,
   UiNumberStepper,
 } from '@index';
 import {
@@ -20,6 +21,10 @@ import {
   BasicStoriesSource,
 } from './stories';
 import * as NumberStepperStories from '../../molecules/UiNumberStepper/UiNumberStepper.stories';
+
+type RangeArgsType = RangeProps;
+type RangeMetaType = Meta<RangeArgsType>;
+type RangeStoryType = StoryObj<RangeArgsType>;
 
 const {
   argTypes,
@@ -38,10 +43,10 @@ const meta = {
     modelValue: 'number',
   },
   parameters: { chromatic: { disableSnapshot: false } },
-} satisfies Meta;
+} satisfies RangeMetaType;
 export default meta;
 
-export const Basic: StoryObj = {
+export const Basic: RangeStoryType = {
   render(args, {
     name, argTypes,
   }) {
@@ -59,7 +64,7 @@ export const Basic: StoryObj = {
 Basic.decorators = [ withVModel ];
 Basic.parameters = { docs: { source: { code: BasicStoriesSource } } };
 
-export const States: StoryObj = { ...Basic };
+export const States: RangeStoryType = { ...Basic };
 States.decorators = [
   withVariants,
   withVModel,
@@ -83,10 +88,10 @@ States.parameters = {
   ],
 };
 
-export const Min: StoryObj = { ...Basic };
+export const Min: RangeStoryType = { ...Basic };
 Min.args = { modelValue: meta.args.min };
 
-export const Max: StoryObj = { ...Basic };
+export const Max: RangeStoryType = { ...Basic };
 Max.args = { modelValue: meta.args.max };
 
 // TODO: Slots docs in Controls -> New component for Controls

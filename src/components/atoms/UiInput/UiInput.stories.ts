@@ -2,8 +2,10 @@ import type {
   Meta,
   StoryObj,
 } from '@storybook/vue3';
-import { UiInput } from '@index';
-import type { InputProps } from '@index';
+import {
+  UiInput,
+  type InputProps,
+} from '@index';
 import {
   withVariants,
   withVModel,
@@ -19,11 +21,7 @@ import {
   ButtonInSuffixStoriesSource,
 } from './stories';
 
-type InputArgsType = InputProps & {
-  content?: string;
-  modifiers?: string[];
-  items?: Required<InputProps['value']>[];
-}
+type InputArgsType = InputProps;
 type InputMetaType = Meta<InputArgsType>;
 type InputStoryType = StoryObj<InputArgsType>;
 
@@ -57,10 +55,10 @@ const meta = {
     },
   },
   parameters: { chromatic: { disableSnapshot: false } },
-} satisfies Meta;
+} satisfies InputMetaType;
 export default meta;
 
-export const Basic: StoryObj = {
+export const Basic: InputStoryType = {
   render(args, {
     name, argTypes,
   }) {
@@ -81,7 +79,7 @@ Basic.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const Empty = { ...Basic };
+export const Empty: InputStoryType = { ...Basic };
 Empty.argTypes = {};
 Empty.decorators = [ withVariants ];
 Empty.parameters = {
@@ -105,7 +103,7 @@ Empty.parameters = {
     },
   ],
 };
-export const Filled = { ...Basic };
+export const Filled: InputStoryType = { ...Basic };
 Filled.argTypes = {};
 Filled.decorators = [ withVariants ];
 Filled.parameters = {
@@ -115,7 +113,7 @@ Filled.parameters = {
   })) ],
 };
 
-export const Error = { ...Basic };
+export const Error: InputStoryType = { ...Basic };
 Error.decorators = [ withVariants ];
 Error.parameters = {
   variants: [ ...Empty.parameters.variants.map((variant) => ({
