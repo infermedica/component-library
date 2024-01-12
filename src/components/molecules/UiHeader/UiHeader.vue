@@ -6,7 +6,7 @@
         name="brand"
         v-bind="{
           buttonBrandAttrs,
-          iconLogoAttrs: defaultProps.iconLogoAttrs
+          iconLogoAttrs: defaultProps.iconLogoAttrs,
         }"
       >
         <UiButton
@@ -34,7 +34,7 @@
           v-bind="{
             buttonHamburgerAttrs,
             iconHamburgerAttrs: defaultProps.iconHamburgerAttrs,
-            handleHamburger
+            handleHamburger,
           }"
         >
           <UiButton
@@ -55,7 +55,7 @@
           name="navigation"
           v-bind="{
             navigationAttrs,
-            navigation
+            navigation,
           }"
         >
           <UiNavigation

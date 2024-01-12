@@ -25,7 +25,7 @@
           name="message"
           v-bind="{
             message,
-            textMessageAttrs: defaultProps.textMessageAttrs
+            textMessageAttrs: defaultProps.textMessageAttrs,
           }"
         >
           <UiText
@@ -41,7 +41,7 @@
           v-bind="{
             hasHint,
             hint,
-            textHintAttrs: defaultProps.textHintAttrs
+            textHintAttrs: defaultProps.textHintAttrs,
           }"
         >
           <UiText

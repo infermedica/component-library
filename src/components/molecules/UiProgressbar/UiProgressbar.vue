@@ -1,7 +1,7 @@
 <template>
   <div
     :class="[
-      'ui-progressbar', { 'ui-progressbar--has-label': label }
+      'ui-progressbar', { 'ui-progressbar--has-label': label },
     ]"
   >
     <slot

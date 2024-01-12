@@ -18,7 +18,7 @@
     <!-- @slot Use this slot to replace message template. -->
     <slot
       name="message"
-      v-bind="{ textMessageAttrs, }"
+      v-bind="{ textMessageAttrs }"
     >
       <UiText
         v-bind="textMessageAttrs"

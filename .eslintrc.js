@@ -198,6 +198,10 @@ module.exports = {
             '@',
             path.resolve(__dirname, 'src'),
           ],
+          [
+            '@index',
+            path.resolve(__dirname, 'index.ts'),
+          ],
         ],
         extensions: [
           '.ts',

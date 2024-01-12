@@ -42,7 +42,7 @@
               v-bind="radioElementAttrs"
               :style="calcActiveElementOpacity(index)"
               :class="[
-                'ui-scale__square', { 'ui-scale__square--is-checked': index <= finalValue, }
+                'ui-scale__square', { 'ui-scale__square--is-checked': index <= finalValue },
               ]"
             />
           </template>
@@ -53,7 +53,7 @@
               :id="`scale-label-${index}`"
               v-bind="textLabelAttrs"
               :class="[
-                'ui-scale__label', { 'ui-scale__label--is-checked': index === scaleValue, }
+                'ui-scale__label', { 'ui-scale__label--is-checked': index === scaleValue },
               ]"
             >
               {{ index + 1 }}
@@ -68,7 +68,7 @@
       v-bind="{
         translation: defaultProps.translation,
         textMinAttrs,
-        textMaxAttrs
+        textMaxAttrs,
       }"
     >
       <div class="ui-scale__description">
@@ -77,7 +77,7 @@
           name="min"
           v-bind="{
             textMinAttrs,
-            translation: defaultProps.translation
+            translation: defaultProps.translation,
           }"
         >
           <UiText
@@ -93,7 +93,7 @@
           name="max"
           v-bind="{
             textMaxAttrs,
-            translation: defaultProps.translation
+            translation: defaultProps.translation,
           }"
         >
           <UiText
@@ -114,7 +114,7 @@
         scaleValue,
         steps,
         max: steps - 1,
-        changeHandler
+        changeHandler,
       }"
     >
       <UiNumberStepper
@@ -352,10 +352,7 @@ const itemsToRender = computed<RadioAttrsProps[]>(() => (Array.from({ length: ma
 
       position: absolute;
       z-index: 1;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
+      inset: 0;
       box-shadow: var(--focus-outer);
       content: "";
       opacity: 0;
@@ -381,10 +378,7 @@ const itemsToRender = computed<RadioAttrsProps[]>(() => (Array.from({ length: ma
       @include mixins.use-logical($element + "-square", border-radius, inherit);
 
       position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
+      inset: 0;
       background:
         functions.var(
           $element + "-square-overlay",
