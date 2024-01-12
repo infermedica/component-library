@@ -1,4 +1,5 @@
 import { Meta } from '@storybook/blocks';
+import Code from '../../../components/Code'
 
 <Meta title="Releases/v0.3.x/v0.3.1/Migration Guide" />
 
@@ -6,7 +7,8 @@ import { Meta } from '@storybook/blocks';
 
 ## UiTextarea
 From v0.3.1, textarea HTML element is wrapped in a div with class `ui-textarea`. i.e. to focus textarea you must select `textarea`
-```html
+
+<Code code={`
 <template>
  <UiTextarea
   ref="textarea"
@@ -24,4 +26,4 @@ From v0.3.1, textarea HTML element is wrapped in a div with class `ui-textarea`.
    .focus();
  })
 </script>
-```
+`}/>

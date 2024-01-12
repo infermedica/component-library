@@ -14,7 +14,7 @@
           inputAttrs: defaultProps.inputAttrs,
           input: inputHandler,
           value: modelValue,
-          validation: keyValidation
+          validation: keyValidation,
         }"
       >
         <input
@@ -33,7 +33,7 @@
       name="aside"
       v-bind="{
         suffix,
-        textSuffixAttrs: defaultProps.textSuffixAttrs
+        textSuffixAttrs: defaultProps.textSuffixAttrs,
       }"
     >
       <UiText
@@ -184,10 +184,7 @@ const input = ref(null);
 
     &::after {
       position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
+      inset: 0;
       border-radius: inherit;
       box-shadow: var(--focus-outer);
       content: "";

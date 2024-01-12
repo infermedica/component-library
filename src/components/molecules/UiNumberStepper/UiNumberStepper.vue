@@ -9,7 +9,7 @@
         value: modelValue,
         min,
         max,
-        step
+        step,
       }"
     />
     <!-- @slot Use this slot to replace decrement template. -->

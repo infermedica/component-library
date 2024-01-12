@@ -7,7 +7,7 @@
         title,
         headingTitleAttrs,
         buttonCloseAttrs,
-        clickHandler
+        clickHandler,
       }"
     >
       <div
@@ -19,7 +19,7 @@
           name="title"
           v-bind="{
             headingTitleAttrs,
-            title
+            title,
           }"
         >
           <UiHeading
@@ -34,7 +34,7 @@
           v-bind="{
             buttonCloseAttrs,
             clickHandler,
-            iconCloseAttrs: defaultProps.iconCloseAttrs
+            iconCloseAttrs: defaultProps.iconCloseAttrs,
           }"
         >
           <UiButton

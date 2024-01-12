@@ -34,7 +34,7 @@
       v-bind="{
         closeHandler,
         isOpen,
-        popoverAttrs
+        popoverAttrs,
       }"
     >
       <UiPopover
@@ -48,7 +48,7 @@
           name="content"
           v-bind="{
             closeHandler,
-            isOpen
+            isOpen,
           }"
         >
           <div
@@ -59,7 +59,7 @@
             <slot
               v-bind="{
                 closeHandler,
-                isOpen
+                isOpen,
               }"
             >
               <template

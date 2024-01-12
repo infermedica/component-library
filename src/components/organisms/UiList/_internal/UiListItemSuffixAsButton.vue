@@ -5,7 +5,7 @@
       name="label"
       v-bind="{
         label,
-        labelSuffixAttrs
+        labelSuffixAttrs,
       }"
     >
       <span
@@ -18,7 +18,7 @@
       name="icon"
       v-bind="{
         hasIcon,
-        iconSuffixAttrs: defaultProps.iconSuffixAttrs
+        iconSuffixAttrs: defaultProps.iconSuffixAttrs,
       }"
     >
       <UiIcon

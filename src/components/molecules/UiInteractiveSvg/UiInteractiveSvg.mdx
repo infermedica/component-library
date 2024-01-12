@@ -1,5 +1,5 @@
 import { Canvas, Meta, Controls } from "@storybook/blocks";
-import { Code } from '../../../../docs/components/Code';
+import Code from '../../../../docs/components/Code';
 import * as stories from "./UiInteractiveSvg.stories.js";
 import scss from './UiInteractiveSvg.stories.scss?raw';
 
@@ -16,126 +16,93 @@ import scss from './UiInteractiveSvg.stories.scss?raw';
 
 <Canvas of={stories.Map}/>
 
-
 Some groups have `focus-for` attribute. We use it to show an outline for the focused element.
-
 
 **Use following SCSS to get the same result**
 
 <Code
-
   id="map"
-
   code={ scss }
-
-  additionalData={ '@infermedica/component-library/mixins\n;' }
-
+  additionalData={ '@infermedica/component-library/mixins;\n' }
 />
-
 
 ### Abdominal Pain Male
 
 <Canvas of={stories.AbdominalPainMale}/>
 
-
 Some groups have `focus-for` attribute. We use it to show an outline for the focused element.
-
 
 **Use following SCSS to get the same result**
 
 <Code
-
   id="abdominal-pain"
-
   code={ scss }
-
-  additionalData={ '@infermedica/component-library/mixins\n;' }
-
+  additionalData={ '@infermedica/component-library/mixins;\n' }
 />
-
 
 ### Abdominal Pain Female
 
 <Canvas of={stories.AbdominalPainFemale}/>
 
-
 ### Infant Unisex Front
 
 <Canvas of={stories.InfantUnisexFront}/>
 
-
 **Use following SCSS to get the same result**
 
 <Code
-
   id="body-model"
-
   code={ scss }
-
-  additionalData={ '@infermedica/component-library/mixins\n;' }
-
+  additionalData={ '@infermedica/component-library/mixins;\n' }
 />
-
 
 ### Infant Unisex Back
 
 <Canvas of={stories.InfantUnisexBack}/>
 
-
 ### Toddler Male Front
 
 <Canvas of={stories.ToddlerMaleFront}/>
-
 
 ### Toddler Male Back
 
 <Canvas of={stories.ToddlerMaleBack}/>
 
-
 ### Toddler Female Front
 
 <Canvas of={stories.ToddlerFemaleFront}/>
-
 
 ### Toddler Female Back
 
 <Canvas of={stories.ToddlerFemaleBack}/>
 
-
 ### Child Male Front
 
 <Canvas of={stories.ChildMaleFront}/>
-
 
 ### Child Male Back
 
 <Canvas of={stories.ChildMaleBack}/>
 
-
 ### Child Female Front
 
 <Canvas of={stories.ChildFemaleFront}/>
-
 
 ### Child Female Back
 
 <Canvas of={stories.ChildFemaleBack}/>
 
-
 ###  Adult Male Front
 
 <Canvas of={stories.AdultMaleFront}/>
-
 
 ### Adult Male Back
 
 <Canvas of={stories.AdultMaleBack}/>
 
-
 ### Adult Female Front
 
 <Canvas of={stories.AdultFemaleFront}/>
-
 
 ### Adult Female Back
 

@@ -13,7 +13,6 @@ import {
   getAttrs,
   extendEvents,
 } from '@sb/helpers';
-import { useAttrs } from '@sb/composable';
 import {
   content,
   icon,

@@ -3,7 +3,7 @@
   <div
     :class="[
       'ui-textarea',
-      { 'ui-textarea--has-autogrowing': hasAutogrowing }
+      { 'ui-textarea--has-autogrowing': hasAutogrowing },
     ]"
     v-bind="attrs"
     :data-value="modelValue"

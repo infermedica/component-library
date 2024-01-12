@@ -1,4 +1,5 @@
 import { Meta, Canvas } from "@storybook/blocks";
+import Code from '../../../../docs/components/Code';
 import * as stories from './keyboard-focus.stories.js';
 
 <Meta of={stories}/>
@@ -9,21 +10,22 @@ After adding this directive to the component you can handle `focus-hidden` on th
 
 ## How to use
 * `v-keyboard-focus` - detect mouse / keyboard navigation
-```html
+
+<Code code={`
 <button v-keyboard-focus>...</button>
-```
+`}/>
 
 ### focusElement helper
 In some cases you need to set focus to element. This focus should be always visible. To do this you can use `focusElement` helper.
 
-```js
+<Code code={`
 import { focusElement } from '@infermedica/component-library/helpers';
 
 const closeButton = ref(null);
 const handleModalOpen = () => {
   focusElement(closeButton.value?.$el);
 };
-```
+`}/>
 
 #### Used
 * [Modal](/docs/organisms-modal--start-new-checkup)

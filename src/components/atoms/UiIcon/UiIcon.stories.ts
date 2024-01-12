@@ -5,10 +5,8 @@ import type {
 import {
   UiIcon,
   type IconProps,
-  UiText,
 } from '@index';
 import { getArgTypes } from '@sb/helpers';
-import { useAttrs } from '@sb/composable';
 import { icon } from '@sb/helpers/argTypes/index';
 import {
   BasicStories,

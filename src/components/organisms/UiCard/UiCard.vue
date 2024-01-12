@@ -25,7 +25,7 @@
         title,
         headingTitleAttrs,
         description,
-        textDescriptionAttrs
+        textDescriptionAttrs,
       }"
     >
       <div class="ui-card__content">
@@ -34,7 +34,7 @@
           name="subtitle"
           v-bind="{
             subtitle,
-            textSubtitleAttrs
+            textSubtitleAttrs,
           }"
         >
           <UiText
@@ -50,7 +50,7 @@
           name="title"
           v-bind="{
             title,
-            headingTitleAttrs
+            headingTitleAttrs,
           }"
         >
           <UiHeading
@@ -66,7 +66,7 @@
           name="description"
           v-bind="{
             description,
-            textDescriptionAttrs
+            textDescriptionAttrs,
           }"
         >
           <UiText

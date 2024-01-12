@@ -18,7 +18,7 @@ export const getStoryId = (api) => {
 };
 
 addons.register(`${ADDON_ID}`, (api) => {
-  addons.addPanel(PANEL_ID, {
+  addons.add(PANEL_ID, {
     type: types.PANEL,
     title: 'CSS Properties',
     render: ({ active }) => {

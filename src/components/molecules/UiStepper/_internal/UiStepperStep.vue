@@ -14,7 +14,7 @@
       <UiButton
         v-bind="itemAttrs"
         :class="[
-          'ui-stepper-step__content', itemClass
+          'ui-stepper-step__content', itemClass,
         ]"
       >
         <!-- @slot Use this slot to replace label template. -->

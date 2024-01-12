@@ -4,8 +4,8 @@
     :class="[
       'ui-multiple-choices-item__content', {
         'ui-list-item--has-error': invalid,
-        'ui-multiple-choices-item--has-error': invalid
-      }
+        'ui-multiple-choices-item--has-error': invalid,
+      },
     ]"
     :tag="tag"
     :aria-labelledby="multipleChoicesItemId"
@@ -13,7 +13,7 @@
   >
     <!-- @slot Use this slot to replace legend template. -->
     <slot
-      v-bind="{ label, }"
+      v-bind="{ label }"
       name="legend"
     >
       <legend class="visual-hidden">
@@ -38,7 +38,7 @@
           v-bind="{
             multipleChoicesItemId,
             headingLabelAttrs,
-            label
+            label,
           }"
           name="label"
         >
@@ -57,7 +57,7 @@
             buttonInfoAttrs,
             iconInfoAttrs: defaultProps.iconInfoAttrs,
             labelInfoAttrs,
-            translation
+            translation,
           }"
         >
           <UiButton
@@ -107,7 +107,7 @@
                 'ui-multiple-choices-item__option-content', {
                   'ui-radio--has-error': invalid,
                   'ui-list-item--has-error': invalid,
-                }
+                },
               ]"
               :list-item-attrs="defaultProps.listOptionItemAttrs"
             >

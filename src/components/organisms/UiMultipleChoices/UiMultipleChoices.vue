@@ -6,7 +6,7 @@
       v-bind="{
         hint,
         alertHintAttrs,
-        hintType
+        hintType,
       }"
     >
       <UiAlert
@@ -34,7 +34,7 @@
             item,
             options,
             hasError,
-            updateHandler
+            updateHandler,
           }"
         >
           <UiMultipleChoicesItem

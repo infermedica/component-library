@@ -1,4 +1,6 @@
 /* eslint-disable no-param-reassign */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { Source } from '@storybook/blocks';
 
@@ -13,7 +15,7 @@ const getCodeBlocksAsObject = (codeBlocks) => codeBlocks.reduce((blocks, item) =
   return blocks;
 }, {});
 
-export const Code = ({
+const Code = ({
   code = '', id, additionalData = '', language = 'css',
 }) => {
   if (id) {
@@ -21,8 +23,12 @@ export const Code = ({
     const codeBlocksAsObject = getCodeBlocksAsObject(codeBlocks);
     code = `${additionalData} ${codeBlocksAsObject[id]}`.trim();
   }
-  return <Source
-    language={language}
-    code={code}
-  />;
+  return (
+    <Source
+      language={language}
+      code={code}
+    />
+  );
 };
+
+export default Code;

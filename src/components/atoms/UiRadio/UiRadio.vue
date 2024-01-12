@@ -4,7 +4,7 @@
     :for="radioId"
     v-bind="{
       ...attrs,
-      ...elementsListeners.label
+      ...elementsListeners.label,
     }"
   >
     <input
@@ -28,7 +28,7 @@
       <div
         v-bind="radioElementAttrs"
         :class="[
-          'ui-radio__radio',{ 'ui-radio__radio--is-checked': isChecked }
+          'ui-radio__radio', { 'ui-radio__radio--is-checked': isChecked },
         ]"
       >
         <div class="ui-radio__mark" />
@@ -39,7 +39,7 @@
       name="label"
       v-bind="{
         hasLabel,
-        textLabelAttrs: defaultProps.textLabelAttrs
+        textLabelAttrs: defaultProps.textLabelAttrs,
       }"
     >
       <UiText

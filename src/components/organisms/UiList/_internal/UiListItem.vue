@@ -10,7 +10,7 @@
         tag,
         hasSuffix,
         suffixComponent,
-        suffixAttrs: defaultProps.suffixAttrs
+        suffixAttrs: defaultProps.suffixAttrs,
       }"
     >
       <component
@@ -26,7 +26,7 @@
           v-bind="{
             hasSuffix,
             suffixComponent,
-            suffixAttrs: defaultProps.suffixAttrs
+            suffixAttrs: defaultProps.suffixAttrs,
           }"
         >
           <component

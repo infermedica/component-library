@@ -1,7 +1,7 @@
 <template>
   <div
     :class="[
-      'ui-horizontal-paging', { 'ui-horizontal-paging--nested': isNested }
+      'ui-horizontal-paging', { 'ui-horizontal-paging--nested': isNested },
     ]"
   >
     <!-- @slot Use this slot to replace header template. -->
@@ -37,7 +37,7 @@
           name="title"
           v-bind="{
             headingTitleAttrs,
-            title: currentTitle
+            title: currentTitle,
           }"
         >
           <UiHeading v-bind="headingTitleAttrs">
@@ -49,7 +49,7 @@
     <div class="ui-horizontal-paging__wrapper">
       <div
         :class="[
-          'ui-horizontal-paging__section', { 'ui-horizontal-paging__section--is-active': isActive }
+          'ui-horizontal-paging__section', { 'ui-horizontal-paging__section--is-active': isActive },
         ]"
       >
         <!-- @slot Use this slot to replace menu template. -->

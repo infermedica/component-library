@@ -2,7 +2,7 @@
   <UiProgress
     v-bind="args"
     :class="[
-      'evidence-bar', { 'evidence-bar--strong': isStrong }
+      'evidence-bar', { 'evidence-bar--strong': isStrong },
     ]"
   />
 </template>

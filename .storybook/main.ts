@@ -29,9 +29,7 @@ const config: StorybookConfig = {
   },
   staticDirs: ['../public'],
   stories: ['../docs/**/*.mdx', '../docs/**/*.stories.@(js|jsx|ts|tsx)', '../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
-  addons: ['@storybook/addon-links', '@storybook/addon-essentials', '@storybook/addon-a11y', '@storybook/addon-interactions', {
-    name: '@storybook/addon-styling'
-  }, '@storybook/addon-mdx-gfm'],
+  addons: ['@storybook/addon-links', '@storybook/addon-essentials', '@storybook/addon-a11y', '@storybook/addon-mdx-gfm'],
   framework: {
     name: '@storybook/vue3-vite',
     options: {}

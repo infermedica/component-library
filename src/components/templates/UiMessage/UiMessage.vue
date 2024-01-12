@@ -7,7 +7,7 @@
         subtitle,
         title,
         textSubtitleAttrs,
-        headingTitleAttrs
+        headingTitleAttrs,
       }"
     >
       <div class="ui-message__content">
@@ -16,7 +16,7 @@
           name="subtitle"
           v-bind="{
             subtitle,
-            textSubtitleAttrs
+            textSubtitleAttrs,
           }"
         >
           <UiText
@@ -32,7 +32,7 @@
           name="title"
           v-bind="{
             title,
-            headingTitleAttrs
+            headingTitleAttrs,
           }"
         >
           <UiHeading

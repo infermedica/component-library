@@ -30,7 +30,7 @@
               iconTogglerAttrs: defaultProps.iconTogglerAttrs,
               isOpen,
               iconOpen: defaultProps.settings.iconOpen,
-              iconClose: settings.iconClose
+              iconClose: settings.iconClose,
             }"
           >
             <UiIcon
@@ -46,7 +46,7 @@
         v-bind="{
           isOpen,
           contentAttrs,
-          name
+          name,
         }"
         name="content"
       >
