@@ -17,8 +17,6 @@ import {
 import {
   BasicStories,
   BasicStoriesSource,
-  ButtonInSuffixStories,
-  ButtonInSuffixStoriesSource,
 } from './stories';
 
 type InputArgsType = InputProps;
@@ -122,22 +120,5 @@ Error.parameters = {
   })) ],
 };
 
-// export const Suffix = { ...Basic };
-// Suffix.args = { suffix: 'cm' };
-//
-// export const ButtonInSuffix: StoryObj = {
-//   render(args, { name }) {
-//     return {
-//       name,
-//       components: { ButtonInSuffixStories },
-//       setup() {
-//         const { storyAttrs: attrs } = useAttrs();
-//         return {
-//           args,
-//           attrs,
-//         };
-//       },
-//       template: '<ButtonInSuffixStories v-bind="{...args, ...attrs}"/>',
-//     };
-//   },
-// };
+export const Suffix: InputStoryType = { ...Basic };
+Suffix.args = { suffix: 'cm' };
