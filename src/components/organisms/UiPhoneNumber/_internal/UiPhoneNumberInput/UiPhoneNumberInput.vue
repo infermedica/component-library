@@ -34,7 +34,6 @@ import { keyboardFocus as vKeyboardFocus } from '../../../../../utilities/direct
 import { useKeyValidation } from '../../../../../composable';
 import UiInput from '../../../../atoms/UiInput/UiInput.vue';
 import UiFormField from '../../../../molecules/UiFormField/UiFormField.vue';
-import { type InputEmits } from '../../../../atoms/UiInput/UiInput.vue';
 
 export interface UiPhoneNumberInputProps {
   /**
@@ -67,7 +66,7 @@ const props = withDefaults(defineProps<UiPhoneNumberInputProps>(), {
   errorMessage: false,
 });
 
-const emit = defineEmits<InputEmits>();
+const emit = defineEmits([ 'update:modelValue' ]);
 
 const inputAttrs = computed(() => ({
   id: props.id,

@@ -89,7 +89,7 @@ import type {
 } from '../../../utilities/helpers';
 import type { TextAttrsProps } from '../../atoms/UiText/UiText.vue';
 
-export interface UiPoneNumberProps {
+export interface UiPhoneNumberProps {
   /**
    * Use this props to set message text.
    */
@@ -128,14 +128,12 @@ export interface UiPoneNumberProps {
    },
 }
 
-export interface InputEmits {
-  (e: 'update:prefix', value: PhoneCodeType): void
-  (e: 'update:phoneNumber', value: string): void
-}
+const emit = defineEmits([
+  'update:prefix',
+  'update:phoneNumber',
+]);
 
-const emit = defineEmits<InputEmits>();
-
-const props = withDefaults(defineProps<UiPoneNumberProps>(), {
+const props = withDefaults(defineProps<UiPhoneNumberProps>(), {
   message: 'Phone number',
   id: '',
   prefix: () => ({

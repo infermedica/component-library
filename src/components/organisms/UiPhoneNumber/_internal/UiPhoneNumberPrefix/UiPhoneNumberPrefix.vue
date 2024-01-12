@@ -72,10 +72,6 @@ export interface UiPhoneNumberPrefixProps {
    },
 }
 
-export interface InputEmits {
-  (e: 'update:modelValue', value: PhoneCodeType): void
-}
-
 const props = withDefaults(defineProps<UiPhoneNumberPrefixProps>(), {
   modelValue: () => ({
     code: '+1',
@@ -88,7 +84,7 @@ const props = withDefaults(defineProps<UiPhoneNumberPrefixProps>(), {
   }),
 });
 
-const emit = defineEmits<InputEmits>();
+const emit = defineEmits([ 'update:modelValue' ]);
 
 const prefixCodes = shallowRef<PhoneCodeType[]>([]);
 

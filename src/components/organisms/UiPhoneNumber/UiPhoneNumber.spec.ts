@@ -15,7 +15,7 @@ describe('UiPhoneNumber.vue', () => {
     expect(findUiPhoneNumberPrefixComponent().exists()).toBe(true);
   });
 
-  it('passed proper props to UiPhoneNumberPrefix', () => {
+  it('pass proper props to UiPhoneNumberPrefix', () => {
     const uiPhoneNumberPrefix = findUiPhoneNumberPrefixComponent();
 
     expect(uiPhoneNumberPrefix.props('modelValue')).toMatchObject({
@@ -29,7 +29,7 @@ describe('UiPhoneNumber.vue', () => {
     });
   });
 
-  it('passed proper props to UiPhoneNumberInput', () => {
+  it('pass proper props to UiPhoneNumberInput', () => {
     const uiPhoneNumberInput = findUiPhoneNumberInputComponent();
     const property = 'input-';
 
