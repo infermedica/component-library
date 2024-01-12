@@ -10,7 +10,7 @@ const illustrations = [
       'no-internet-illustration-rtl',
       'podium',
       'podium-rtl',
-      'error-500',
+      // 'error-500',
     ]
 export const icon = {
   description: 'Use this control to set the icon.',
