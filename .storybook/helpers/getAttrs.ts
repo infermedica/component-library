@@ -6,15 +6,15 @@ import deepmerge from "deepmerge";
 
 export const getAttrs = (args={}, argTypes={}, name='') => {
   const storyAttrs = (instance)=> {
-    const attrs = instance.attrs;
-    const hasAttrs = Object.keys(attrs).length > 0;
-    if(hasAttrs) {
-      return attrs
+    const parent = instance?.parent;
+    let attrs = instance?.attrs || {};
+    if( parent ) {
+     attrs = {
+       ...attrs,
+       ...storyAttrs(parent),
+     } ;
     }
-    if(instance.parent) {
-      return storyAttrs(instance.parent);
-    }
-    return {};
+    return attrs;
   }
   const attrs = computed(()=>{
     const sArgs = Object.keys(args).reduce((object, key) => {

@@ -11,7 +11,6 @@ import {
   inject,
   useAttrs,
   defineOptions,
-  toRefs,
 } from 'vue';
 import { UiInput } from '@infermedica/component-library';
 
