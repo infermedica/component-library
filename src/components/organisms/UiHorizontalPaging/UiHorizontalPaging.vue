@@ -237,10 +237,17 @@ const menuItems = computed<MenuItemAttrsProps[]>(() => itemsAsArray.value.map((i
 const menu = ref<InstanceType<typeof UiMenu> | null>(null);
 const menuButtons = computed(() => {
   if (!menu.value) return {};
-  return itemsAsArray.value.reduce((elements, { name }, order) => ({
-    ...elements,
-    [name]: menu.value.menuItems[order].$el.querySelector('button'),
-  }), {});
+  return itemsAsArray.value.reduce((elements, { name }, order) => {
+    if (!name
+        || !menu.value
+        || !menu.value.menuItems) {
+      return elements;
+    }
+    return {
+      ...elements,
+      [name]: menu.value.menuItems[order].$el.querySelector('button'),
+    };
+  }, {});
 });
 watch(activeItemName, async (moveTo, backFrom) => {
   if (backFrom) {

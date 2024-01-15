@@ -56,7 +56,7 @@ export interface MenuProps {
 export type MenuAttrsProps = DefineAttrsProps<MenuProps, ListAttrsProps>;
 
 const props = withDefaults(defineProps<MenuProps>(), { items: () => ([]) });
-const menuItems = ref(null);
+const menuItems = ref<InstanceType<typeof UiMenuItem>[] | null>(null);
 defineExpose({ menuItems });
 const menuItemAttrs = ({
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
