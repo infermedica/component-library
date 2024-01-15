@@ -3,7 +3,7 @@
     :list-item-attrs="defaultProps.listItemAttrs"
     :tag="UiButton"
     :class="[
-      'ui-button--outlined ui-menu-item__button', buttonClass
+      'ui-button--outlined ui-menu-item__button', buttonClass,
     ]"
   >
     <!-- @slot Use this slot to replace label template. -->
@@ -21,7 +21,7 @@
         name="suffix"
         v-bind="{
           hasSuffix,
-          suffixAttrs: defaultProps.suffixAttrs
+          suffixAttrs: defaultProps.suffixAttrs,
         }"
       >
         <UiMenuItemSuffix

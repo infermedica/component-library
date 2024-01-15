@@ -2,7 +2,7 @@
   <UiText
     :class="[
       'ui-text--body-2-comfortable ui-form-field-character-counter',
-      { 'ui-form-field-character-counter--has-error': hasError }
+      { 'ui-form-field-character-counter--has-error': hasError },
     ]"
   >
     {{ length }}/{{ max }}

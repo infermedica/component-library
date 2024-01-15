@@ -42,6 +42,9 @@
     "src/**/*.vue"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    ".storybook",
+    "src/**/stories",
+    "src/**/*.stories.ts"
   ]
 }

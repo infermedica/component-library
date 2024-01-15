@@ -54,7 +54,7 @@
         v-bind="{
           hasSuffix,
           suffixComponent,
-          suffixAttrs
+          suffixAttrs,
         }"
       >
         <component

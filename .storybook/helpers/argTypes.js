@@ -1,3 +1,4 @@
+// TODO: deprecated
 export const content = {
   description: 'Use this control to set the content.',
   table: {

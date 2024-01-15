@@ -38,3 +38,18 @@ body {
     position: absolute;
   }
 }
+
+// styles for withVariants decorator
+.sb-variants {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 20px 30px;
+  justify-content: start;
+
+  &__label {
+    display: flex;
+    align-items: center;
+    justify-self: flex-end;
+    font: var(--font-caption);
+  }
+}

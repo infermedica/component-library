@@ -21,7 +21,7 @@
         name="switchcontrol"
         v-bind="{
           checked,
-          controlAttrs
+          controlAttrs,
         }"
       >
         <UiSwitchControl
@@ -30,7 +30,7 @@
             'ui-switch__control', {
               'ui-switch-control--is-checked': checked,
               'ui-switch__control--is-checked': checked,
-            }
+            },
           ]"
         />
       </slot>

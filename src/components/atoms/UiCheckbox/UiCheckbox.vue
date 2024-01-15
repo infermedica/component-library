@@ -4,7 +4,7 @@
     :for="checkboxId"
     v-bind="{
       ...attrs,
-      ...elementsListeners.label
+      ...elementsListeners.label,
     }"
   >
     <input
@@ -22,12 +22,12 @@
       name="checkbox"
       v-bind="{
         checked: isChecked,
-        iconCheckmarkAttrs: defaultProps.iconCheckmarkAttrs
+        iconCheckmarkAttrs: defaultProps.iconCheckmarkAttrs,
       }"
     >
       <div
         class="ui-checkbox__checkbox"
-        :class="{ 'ui-checkbox__checkbox--is-checked': isChecked, }"
+        :class="{ 'ui-checkbox__checkbox--is-checked': isChecked }"
       >
         <!-- @slot Use this slot to replace checkmark template.-->
         <slot
@@ -46,7 +46,7 @@
       name="label"
       v-bind="{
         hasLabel,
-        textLabelAttrs: defaultProps.textLabelAttrs
+        textLabelAttrs: defaultProps.textLabelAttrs,
       }"
     >
       <UiText
