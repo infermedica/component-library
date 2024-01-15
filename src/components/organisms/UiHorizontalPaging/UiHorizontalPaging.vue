@@ -229,7 +229,7 @@ const menuItems = computed<MenuItemAttrsProps[]>(() => itemsAsArray.value.map((i
         item,
       ];
     },
-    tabindex: isActive.value ? '-1' : null,
+    ...(isActive.value ? { tabindex: '-1' } : {}),
     ...rest,
   };
 }));
