@@ -58,6 +58,7 @@
           v-bind="{ items: menuItems }"
         >
           <UiMenu
+            ref="menu"
             :items="menuItems"
             class="ui-horizontal-paging__menu"
           />
@@ -96,10 +97,13 @@ import {
   computed,
   provide,
   inject,
+  watch,
   type ComputedRef,
   type WritableComputedRef,
   type Ref,
+  nextTick,
 } from 'vue';
+import { focusElement } from '../../../utilities/helpers';
 import type {
   Icon,
   DefineAttrsProps,
@@ -226,9 +230,31 @@ const menuItems = computed<MenuItemAttrsProps[]>(() => itemsAsArray.value.map((i
         item,
       ];
     },
+    ...(isActive.value ? { tabindex: '-1' } : {}),
     ...rest,
   };
 }));
+const menu = ref<InstanceType<typeof UiMenu> | null>(null);
+const menuButtons = computed < Record<string, any>>(() => {
+  if (!menu.value) return {};
+  return itemsAsArray.value.reduce((elements, { name }, order) => {
+    if (!name
+        || !menu.value
+        || !menu.value.menuItems) {
+      return elements;
+    }
+    return {
+      ...elements,
+      [name]: menu.value.menuItems[order].$el.querySelector('button'),
+    };
+  }, {});
+});
+watch(activeItemName, async (moveTo, backFrom) => {
+  if (backFrom) {
+    await nextTick();
+    focusElement(menuButtons.value[backFrom]);
+  }
+});
 </script>
 
 <style lang="scss">

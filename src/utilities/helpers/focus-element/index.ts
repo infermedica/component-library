@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-export const focusElement = (el: HTMLElement, focusVisible = false): Promise<void> => {
+export const focusElement = (el: HTMLElement | null, focusVisible = false): Promise<void> => {
   if (el) {
     if (focusVisible) {
       document.body.classList.remove('focus-hidden');

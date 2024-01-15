@@ -7,6 +7,7 @@
         :key="key"
       >
         <UiMenuItem
+          ref="menuItems"
           v-bind="menuItemAttrs(item)"
         >
           <template
@@ -32,7 +33,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import {
+  ref,
+  computed,
+} from 'vue';
 import UiList from '../UiList/UiList.vue';
 import type { ListAttrsProps } from '../UiList/UiList.vue';
 import UiMenuItem from './_internal/UiMenuItem.vue';
@@ -52,6 +56,8 @@ export interface MenuProps {
 export type MenuAttrsProps = DefineAttrsProps<MenuProps, ListAttrsProps>;
 
 const props = withDefaults(defineProps<MenuProps>(), { items: () => ([]) });
+const menuItems = ref<InstanceType<typeof UiMenuItem>[] | null>(null);
+defineExpose({ menuItems });
 const menuItemAttrs = ({
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   name, label, ...itemAttrs
