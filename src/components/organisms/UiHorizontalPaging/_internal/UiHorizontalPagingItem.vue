@@ -17,6 +17,7 @@ import {
   onBeforeUnmount,
   type Ref,
   type ComputedRef,
+  nextTick,
 } from 'vue';
 import type { HorizontalPangingHandleItems } from '../UiHorizontalPaging.vue';
 import { focusElement } from '../../../../utilities/helpers';
@@ -45,9 +46,10 @@ const activeItemName = inject<ComputedRef<string>>('activeItemName', computed(()
 const isActive = computed(() => activeItemName.value === props.name);
 const el = ref<HTMLSpanElement | null>(null);
 const tabindex = ref(0);
-watch(isActive, (value) => {
+watch(isActive, async (value) => {
   tabindex.value = 0;
   if (!value) return;
+  await nextTick();
   focusElement(el.value);
 });
 const handleA11YHelperBlur = () => {

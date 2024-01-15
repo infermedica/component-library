@@ -101,6 +101,7 @@ import {
   type ComputedRef,
   type WritableComputedRef,
   type Ref,
+  nextTick,
 } from 'vue';
 import { focusElement } from '../../../utilities/helpers';
 import type {
@@ -241,8 +242,9 @@ const menuButtons = computed(() => {
     [name]: menu.value.menuItems[order].$el.querySelector('button'),
   }), {});
 });
-watch(activeItemName, (moveTo, backFrom) => {
+watch(activeItemName, async (moveTo, backFrom) => {
   if (backFrom) {
+    await nextTick();
     focusElement(menuButtons.value[backFrom]);
   }
 });
