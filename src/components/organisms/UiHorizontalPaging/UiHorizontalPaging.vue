@@ -235,7 +235,7 @@ const menuItems = computed<MenuItemAttrsProps[]>(() => itemsAsArray.value.map((i
   };
 }));
 const menu = ref<InstanceType<typeof UiMenu> | null>(null);
-const menuButtons = computed(() => {
+const menuButtons = computed < Record<string, any>>(() => {
   if (!menu.value) return {};
   return itemsAsArray.value.reduce((elements, { name }, order) => {
     if (!name
