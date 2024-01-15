@@ -49,14 +49,14 @@ import {
   computed,
   onMounted,
 } from 'vue';
-import UiDropdown from '../../../../molecules/UiDropdown/UiDropdown.vue';
-import UiDropdownItem from '../../../../molecules/UiDropdown/_internal/UiDropdownItem.vue';
+import UiDropdown from '../../../UiDropdown/UiDropdown.vue';
+import UiDropdownItem from '../../../UiDropdown/_internal/UiDropdownItem.vue';
 import UiPhoneNumberPrefixToggle from './UiPhoneNumberPrefixToggle.vue';
-import { getPhoneCodes } from '../../../../../utilities/helpers';
-import type {
-  PhoneCodeType,
-  SupportedCountryCodeType,
-} from '../../../../../utilities/helpers';
+import {
+  getPhoneCodes,
+  type PhoneCodeType,
+  type SupportedCountryCodeType,
+} from '../../helpers';
 
 export interface UiPhoneNumberPrefixProps {
   /**
@@ -145,7 +145,6 @@ onMounted(async () => {
     --dropdown-popover-max-width: none;
     --dropdown-popover-min-height: #{functions.var($element + '-popover', min-height, 12.5rem)};
 
-    width: var(--phone-number-dropdown-width);
     z-index: functions.var($element + '-popover', z-index, 1);
     overflow-y: scroll;
     max-height: functions.var($element + '-popover', max-height, 20.5rem);

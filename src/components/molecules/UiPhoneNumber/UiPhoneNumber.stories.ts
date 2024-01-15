@@ -7,7 +7,7 @@ import UiPhoneNumber from './UiPhoneNumber.vue';
 import { BasicStories } from './stories';
 
 const meta = {
-  title: 'Organisms/PhoneNumber',
+  title: 'Molecules/PhoneNumber',
   component: UiPhoneNumber,
   args: {},
   argTypes: {},
@@ -29,27 +29,28 @@ export const Basic: StoryObj<typeof UiPhoneNumber> = {
       name,
       components: { BasicStories },
       setup() {
-        const prefix = ref(args.prefix);
-        const phoneNumber = ref(args.phoneNumber);
+        const modelValue = ref(args.modelValue);
+
         return {
           args,
-          prefix,
-          phoneNumber,
+          modelValue,
         };
       },
       template: `<BasicStories 
-        v-model:prefix="prefix"
-        v-model:phone-number="phoneNumber"
+        v-model="modelValue"
       />`,
     };
   },
   args: {
-    prefix: {
-      code: '+1',
-      countryCode: 'US',
-      country: 'United States of America',
+    modelValue: {
+      prefix: {
+        code: '+1',
+        countryCode: 'US',
+        country: 'United States of America',
+      },
+      phoneNumber: '',
     },
-    phoneNumber: '',
+
   },
 };
 // Basic.parameters = { docs: { source: { code: BasicStoriesSource } } };

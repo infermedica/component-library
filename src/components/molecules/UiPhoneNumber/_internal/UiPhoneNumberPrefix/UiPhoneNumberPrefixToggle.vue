@@ -5,20 +5,23 @@
   >
     <slot />
     <UiIcon
-      :icon="isOpen ? 'chevron-up' : 'chevron-down'"
+      :icon="isDropdownOpen"
       class="ui-phone-number-prefix-toggle__icon ui-button__icon"
     />
   </UiButton>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import UiButton from '../../../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../../../atoms/UiIcon/UiIcon.vue';
 
 export interface UiPhoneNumberPrefixPropsToggle {
   isOpen?: boolean,
 }
-withDefaults(defineProps<UiPhoneNumberPrefixPropsToggle>(), { isOpen: false });
+const props = withDefaults(defineProps<UiPhoneNumberPrefixPropsToggle>(), { isOpen: false });
+
+const isDropdownOpen = computed(() => (props.isOpen ? 'chevron-up' : 'chevron-down'));
 </script>
 
 <style lang="scss">

@@ -21,7 +21,7 @@ const phoneCodes: Record<string, string>[] = countryCodes.customArray({
 
 async function initCountries(language: string) {
   const lang = await import(
-    `../../../../node_modules/i18n-iso-countries/langs/${language}.json`
+    `../../../../../node_modules/i18n-iso-countries/langs/${language}.json`
   );
   i18nCountries.registerLocale(lang);
 }
