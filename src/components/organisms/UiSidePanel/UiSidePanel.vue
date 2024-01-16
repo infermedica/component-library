@@ -350,6 +350,7 @@ onBeforeUnmount(() => {
 
   &__header {
     @include mixins.use-logical($element + "-header", padding, var(--space-20));
+    @include mixins.override-logical('button', null, border-radius, var(--border-radius-form));
 
     display: flex;
     flex: none;

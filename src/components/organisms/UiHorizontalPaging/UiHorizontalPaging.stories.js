@@ -1,6 +1,8 @@
 import {
   ref,
+  watch,
   computed,
+  nextTick,
 } from 'vue';
 import UiHorizontalPaging from '@/components/organisms/UiHorizontalPaging/UiHorizontalPaging.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
@@ -15,6 +17,7 @@ import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import UiHorizontalPagingItem from '@/components/organisms/UiHorizontalPaging/_internal/UiHorizontalPagingItem.vue';
 import { actions } from '@storybook/addon-actions';
 import './UiHorizontalPaging.stories.scss';
+import { focusElement } from '../../../utilities/helpers';
 
 const events = actions({ onUpdateModelValue: 'update:modelValue' });
 
@@ -410,6 +413,13 @@ export const AsMobileMenu = {
       const handleBackClick = () => {
         modelValue.value = modelValue.value.slice(0, -1);
       };
+      const backButton = ref(null);
+      watch(isActive, async (active) => {
+        if (active) {
+          await nextTick();
+          focusElement(backButton.value?.$el, true);
+        }
+      });
       return {
         ...args,
         ...events,
@@ -417,6 +427,7 @@ export const AsMobileMenu = {
         modelValue,
         previous,
         isActive,
+        backButton,
         handleBackClick,
       };
     },
@@ -429,7 +440,8 @@ export const AsMobileMenu = {
         <div class="horizontal-paging-as-mobile-menu__title">
           <UiButton
             v-if="isActive"
-            class="ui-button--icon"
+            ref="backButton"
+            class="ui-button--icon horizontal-paging-as-mobile-menu__back"
             @click="handleBackClick"
           >
             <UiIcon
