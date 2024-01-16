@@ -1,15 +1,25 @@
-import { ref } from 'vue';
 import type {
   Meta,
   StoryObj,
 } from '@storybook/vue3';
 import UiPhoneNumber from './UiPhoneNumber.vue';
-import { BasicStories } from './stories';
+import UiFormField from '../UiFormField/UiFormField.vue';
 
 const meta = {
   title: 'Molecules/PhoneNumber',
   component: UiPhoneNumber,
-  args: {},
+  args: {
+    modelValue: {
+      prefix: {
+        code: '+1',
+        countryCode: 'US',
+        country: 'United States of America',
+      },
+      phoneNumber: '',
+    },
+    id: 'input-id',
+    error: false,
+  },
   argTypes: {},
   decorators: [ () => ({
     name: 'LMinHeight',
@@ -27,30 +37,46 @@ export const Basic: StoryObj<typeof UiPhoneNumber> = {
   render(args, { name }) {
     return {
       name,
-      components: { BasicStories },
-      setup() {
-        const modelValue = ref(args.modelValue);
-
-        return {
-          args,
-          modelValue,
-        };
+      components: {
+        UiFormField,
+        UiPhoneNumber,
       },
-      template: `<BasicStories 
-        v-model="modelValue"
-      />`,
+      setup() {
+        return { args };
+      },
+      template: `<UiFormField
+      v-bind="{...args}"
+      message="Phone number"
+    >
+      <UiPhoneNumber
+        v-bind="{...args}"
+      />
+    </UiFormField>`,
     };
   },
-  args: {
-    modelValue: {
-      prefix: {
-        code: '+1',
-        countryCode: 'US',
-        country: 'United States of America',
-      },
-      phoneNumber: '',
-    },
-
-  },
 };
-// Basic.parameters = { docs: { source: { code: BasicStoriesSource } } };
+
+export const WithError: StoryObj<typeof UiPhoneNumber> = {
+  render(args, { name }) {
+    return {
+      name,
+      components: {
+        UiFormField,
+        UiPhoneNumber,
+      },
+      setup() {
+        return { args };
+      },
+      template: `<UiFormField
+      v-bind="{...args}"
+      message="Phone number"
+      :error-message="args.error"
+    >
+      <UiPhoneNumber
+        v-bind="{...args}"
+      />
+    </UiFormField>`,
+    };
+  },
+  args: { error: 'Please enter the phone number' },
+};
