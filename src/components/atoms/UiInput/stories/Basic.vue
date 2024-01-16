@@ -7,6 +7,7 @@
 
 <script setup>
 import {
+  reactive,
   computed,
   inject,
   useAttrs,
@@ -15,7 +16,7 @@ import {
 import { UiInput } from '@infermedica/component-library';
 
 defineOptions({ inheritAttrs: false });
-const attrs = useAttrs();
+const attrs = reactive(useAttrs());
 const args = computed(() => (attrs));
-const value = inject('value');
+const value = inject('value', '');
 </script>

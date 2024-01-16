@@ -42,7 +42,9 @@ const meta = {
 export default meta;
 
 export const Basic: ProgressStoryType = {
-  render(args, { name }) {
+  render(args, {
+    name, argTypes,
+  }) {
     return {
       name,
       components: { BasicStories },
@@ -57,12 +59,14 @@ export const Basic: ProgressStoryType = {
 Basic.parameters = { docs: { source: { code: BasicStoriesSource } } };
 
 export const EvidenceBar: ProgressStoryType = {
-  render(args, { name }) {
+  render(args, {
+    name, argTypes,
+  }) {
     return {
       name,
       components: { EvidenceBarStories },
       setup() {
-        const { storyAttrs: attrs } = useAttrs();
+        const { storyAttrs: attrs } = getAttrs(args, argTypes);
         return {
           args,
           attrs,

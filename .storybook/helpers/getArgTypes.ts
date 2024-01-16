@@ -237,7 +237,8 @@ export function getArgTypes(component, options = { variables: {}}) {
     return 'Others';
   }
   const variables = (()=> {
-    const options = getVariables([...cssRules]);
+    const options = getVariables([...cssRules])
+      .filter(({name}) => (!name.match(/_/g)));
     return options.reduce(
       (object, {name, defaultValue}) => {
         const subcategory = getSubcategory(name)

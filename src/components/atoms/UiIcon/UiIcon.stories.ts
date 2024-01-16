@@ -6,7 +6,10 @@ import {
   UiIcon,
   type IconProps,
 } from '@index';
-import { getArgTypes } from '@sb/helpers';
+import {
+  getArgTypes,
+  getAttrs,
+} from '@sb/helpers';
 import { icon } from '@sb/helpers/argTypes/index';
 import {
   BasicStories,
@@ -38,18 +41,17 @@ const meta = {
 export default meta;
 
 export const Basic: IconStoryType = {
-  render(args, { name }) {
+  render(args, {
+    name, argTypes,
+  }) {
     return {
       name,
       components: { BasicStories },
       setup() {
-        const { storyAttrs: attrs } = useAttrs();
-        return {
-          args,
-          attrs,
-        };
+        const { attrs } = getAttrs(args, argTypes);
+        return { attrs };
       },
-      template: '<BasicStories v-bind="{...args, ...attrs}"/>',
+      template: '<BasicStories v-bind="{ ...attrs }"/>',
     };
   },
 };

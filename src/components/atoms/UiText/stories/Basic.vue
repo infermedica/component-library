@@ -6,6 +6,7 @@
 
 <script setup>
 import {
+  reactive,
   computed,
   useAttrs,
   toRefs,
@@ -14,7 +15,7 @@ import {
 import { UiText } from '@infermedica/component-library';
 
 defineOptions({ inheritAttrs: false });
-const attrs = useAttrs();
+const attrs = reactive(useAttrs());
 const args = computed(() => (attrs));
 const { content } = toRefs(attrs);
 </script>
