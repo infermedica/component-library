@@ -57,6 +57,7 @@ import {
   type PhoneCodeType,
   type SupportedCountryCodeType,
 } from '../../helpers';
+import { type CountryCodeItems } from '../../UiPhoneNumber.vue';
 
 export interface UiPhoneNumberPrefixProps {
   /**
@@ -70,6 +71,10 @@ export interface UiPhoneNumberPrefixProps {
     country: SupportedCountryCodeType,
     language: string,
    },
+   /**
+   * Use this props to set country code items.
+   */
+  countryCodeItems?: CountryCodeItems,
 }
 
 const props = withDefaults(defineProps<UiPhoneNumberPrefixProps>(), {
@@ -82,12 +87,11 @@ const props = withDefaults(defineProps<UiPhoneNumberPrefixProps>(), {
     country: 'us',
     language: 'en',
   }),
+  countryCodeItems: () => [],
 });
-
 const emit = defineEmits([ 'update:modelValue' ]);
 
-const prefixCodes = shallowRef<PhoneCodeType[]>([]);
-
+const prefixCodes = shallowRef<PhoneCodeType[]>(props.countryCodeItems || []);
 const defaultCountryCode = computed({
   get() {
     return props.modelValue?.countryCode;
@@ -118,6 +122,7 @@ const countryName = computed(() => {
 const prefixButtonText = computed(() => `${countryName.value} (${prefixCode.value})`);
 
 onMounted(async () => {
+  if (prefixCodes.value.length > 0) return;
   prefixCodes.value = await getPhoneCodes(props.languageData);
 });
 

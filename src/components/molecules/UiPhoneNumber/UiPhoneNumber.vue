@@ -11,6 +11,7 @@
       <UiPhoneNumberPrefix
         v-model="modelValue.prefix"
         :language-data="languageData"
+        :country-code-items="countryCodeItems"
       />
     </slot>
     <!-- @slot Use this slot to replace phone number template.-->
@@ -42,6 +43,8 @@ import type {
   SupportedCountryCodeType,
 } from './helpers';
 
+export type CountryCodeItems = (PhoneCodeType & Record<string, unknown>)[];
+
 export interface UiPhoneNumberProps {
   /**
    * Use this props to set input id and label for
@@ -70,6 +73,10 @@ export interface UiPhoneNumberProps {
    * Use this props to set alert message.
    */
   error?: boolean | string,
+  /**
+   * Use this props to set country code items.
+   */
+  countryCodeItems?: CountryCodeItems,
 }
 
 const emit = defineEmits([ 'update:modelValue' ]);
@@ -90,6 +97,7 @@ const props = withDefaults(defineProps<UiPhoneNumberProps>(), {
     language: 'en',
   }),
   error: false,
+  countryCodeItems: () => [],
 });
 
 const inputId = computed(() => (
