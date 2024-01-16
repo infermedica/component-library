@@ -9,7 +9,7 @@
         transitionBackdropAttrs: defaultProps.transitionBackdropAttrs,
         modelValue,
         backdropAttrs,
-        closeHandler
+        closeHandler,
       }"
     >
       <Transition
@@ -112,7 +112,7 @@
                   isClosable,
                   buttonCloseAttrs,
                   closeHandler,
-                  iconCloseAttrs: defaultProps.iconCloseAttrs
+                  iconCloseAttrs: defaultProps.iconCloseAttrs,
                 }"
               >
                 <UiButton
@@ -141,7 +141,7 @@
               v-bind="{
                 hasDescription,
                 textDescriptionAttrs,
-                description
+                description,
               }"
             >
               <UiText
@@ -181,7 +181,7 @@
                     hasConfirm,
                     buttonConfirmAttrs,
                     confirmHandler,
-                    translation: defaultProps.translation
+                    translation: defaultProps.translation,
                   }"
                 >
                   <UiButton
@@ -200,7 +200,7 @@
                     hasCancel,
                     buttonCancelAttrs,
                     cancelHandler,
-                    translation: defaultProps.translation
+                    translation: defaultProps.translation,
                   }"
                 >
                   <UiButton
@@ -221,7 +221,7 @@
                     hasCancel,
                     attrs: buttonCancelAttrs,
                     cancelHandler,
-                    translation: defaultProps.translation
+                    translation: defaultProps.translation,
                   }"
                 >
                   <UiButton
@@ -241,7 +241,7 @@
                     hasConfirm,
                     attrs: buttonConfirmAttrs,
                     confirmHandler,
-                    translation: defaultProps.translation
+                    translation: defaultProps.translation,
                   }"
                 >
                   <UiButton

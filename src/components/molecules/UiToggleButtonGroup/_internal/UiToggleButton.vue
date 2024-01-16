@@ -5,8 +5,8 @@
         'ui-button--is-selected': isChecked,
         'ui-toggle-button--is-selected': isChecked,
         'ui-button--is-disabled': isDisabled,
-        'ui-button--has-icon': hasIcon
-      }
+        'ui-button--has-icon': hasIcon,
+      },
     ]"
     :aria-checked="isChecked"
     role="radio"

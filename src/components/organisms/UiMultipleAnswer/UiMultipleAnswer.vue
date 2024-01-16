@@ -9,7 +9,7 @@
       v-bind="{
         hint,
         hintType,
-        hintAlertAttrs
+        hintAlertAttrs,
       }"
     >
       <UiAlert

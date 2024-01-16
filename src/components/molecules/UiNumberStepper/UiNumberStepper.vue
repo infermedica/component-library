@@ -9,7 +9,7 @@
         value: modelValue,
         min,
         max,
-        step
+        step,
       }"
     />
     <!-- @slot Use this slot to replace decrement template. -->
@@ -112,7 +112,9 @@ export interface NumberStepperProps {
 }
 export type NumberStepperAttrsProps = DefineAttrsProps<NumberStepperProps>;
 export interface NumberStepperEmits {
+  /** Update UiNumberStepper value */
   (e: 'update:modelValue', value: NumberStepperModelValue): void;
+  /** Emit when value of UiNumberStepper has error */
   (e: 'error:value', value: {isMin: boolean, isMax: boolean}): void;
 }
 

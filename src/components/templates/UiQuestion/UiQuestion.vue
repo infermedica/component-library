@@ -5,7 +5,7 @@
       name="title"
       v-bind="{
         title,
-        headingTitleAttrs
+        headingTitleAttrs,
       }"
     >
       <UiHeading
@@ -21,7 +21,7 @@
       name="description"
       v-bind="{
         description,
-        headingDescriptionAttrs
+        headingDescriptionAttrs,
       }"
     >
       <UiText
@@ -114,7 +114,7 @@
           name="issue"
           v-bind="{
             buttonIssueAttrs,
-            settings:defaultProps.settings,
+            settings: defaultProps.settings,
             translation: defaultProps.translation,
           }"
         >

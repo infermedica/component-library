@@ -40,7 +40,7 @@
           :model-value="modelValue"
           :class="[
             'ui-simple-question__item',
-            { 'ui-tile--small': isTileSmall }
+            { 'ui-tile--small': isTileSmall },
           ]"
           type="submit"
           @update:model-value="updateHandler(item.value)"
