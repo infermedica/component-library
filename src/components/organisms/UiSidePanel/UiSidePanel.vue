@@ -61,27 +61,6 @@
             }"
           >
             <div class="ui-side-panel__header">
-              <!-- @slot Use this slot to replace close template. -->
-              <slot
-                name="close"
-                v-bind="{
-                  buttonCloseAttrs,
-                  closeHandler,
-                  iconCloseAttrs: defaultProps.iconCloseAttrs,
-                }"
-              >
-                <UiButton
-                  v-bind="buttonCloseAttrs"
-                  ref="button"
-                  class="ui-button--icon ui-button--theme-secondary ui-side-panel__close"
-                  @click="closeHandler"
-                >
-                  <UiIcon
-                    v-bind="defaultProps.iconCloseAttrs"
-                    class="ui-button__icon"
-                  />
-                </UiButton>
-              </slot>
               <!-- @slot Use this slot to replace label template. -->
               <slot
                 name="label"
@@ -128,6 +107,27 @@
                     </UiText>
                   </slot>
                 </div>
+              </slot>
+              <!-- @slot Use this slot to replace close template. -->
+              <slot
+                name="close"
+                v-bind="{
+                  buttonCloseAttrs,
+                  closeHandler,
+                  iconCloseAttrs: defaultProps.iconCloseAttrs,
+                }"
+              >
+                <UiButton
+                  v-bind="buttonCloseAttrs"
+                  ref="button"
+                  class="ui-button--icon ui-button--theme-secondary ui-side-panel__close"
+                  @click="closeHandler"
+                >
+                  <UiIcon
+                    v-bind="defaultProps.iconCloseAttrs"
+                    class="ui-button__icon"
+                  />
+                </UiButton>
               </slot>
             </div>
           </slot>
@@ -353,7 +353,7 @@ onBeforeUnmount(() => {
 
     display: flex;
     flex: none;
-    flex-direction: functions.var($element + "-header", flex-direction, row-reverse);
+    flex-direction: functions.var($element + "-header", flex-direction, row);
     background: functions.var($element + "-header", background, var(--color-background-subtle));
     gap: functions.var($element + "-header", gap, var(--space-16));
 
