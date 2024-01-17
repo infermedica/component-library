@@ -14,13 +14,14 @@
         :country-code-items="countryCodeItems"
       />
     </slot>
-    <!-- @slot Use this slot to replace phone number template.-->
+    <!-- @slot Use this slot to replace phone number input template.-->
     <slot
       name="input"
       v-bind="{
         inputId,
         modelValue,
         placeholder,
+        error,
       }"
     >
       <UiPhoneNumberInput

@@ -150,7 +150,13 @@ export const WithCustomCountryCodeItems: StoryObj<typeof UiPhoneNumber> = {
         UiPhoneNumber,
       },
       setup() {
-        return { args };
+        const items = ref(args.countryCodeItems);
+        const modelValue = ref(args.modelValue);
+        return {
+          args,
+          items,
+          modelValue,
+        };
       },
       template: `<UiFormField
       v-bind="{...args}"
@@ -159,6 +165,8 @@ export const WithCustomCountryCodeItems: StoryObj<typeof UiPhoneNumber> = {
     >
       <UiPhoneNumber
         v-bind="{...args}"
+        v-model="modelValue"
+        :country-code-items="items"
       />
     </UiFormField>`,
     };
@@ -187,7 +195,7 @@ export const WithCustomCountryCodeItemsWithTimeout: StoryObj<typeof UiPhoneNumbe
         setTimeout(() => {
           asyncItems.value = customCountryCodeItems;
           modelValue.value.prefix = asyncItems.value[0];
-        }, 5000);
+        }, 3000);
         return {
           args,
           asyncItems,

@@ -137,7 +137,10 @@ watch(prefixCodes, (value) => {
 });
 
 onMounted(async () => {
-  if (prefixCodes.value) return;
+  if (prefixCodes.value) {
+    internalPrefixCodes.value = prefixCodes.value;
+    return;
+  }
 
   internalPrefixCodes.value = await getPhoneCodes(props.languageData);
 });
