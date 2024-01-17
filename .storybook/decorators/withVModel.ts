@@ -20,22 +20,12 @@ export const withVModel = (story, { id, args }) => {
         }
       })
       provide('value', modelValue)
-      const attrs = computed(()=>(Object.keys(args)
-        .reduce(
-          (object, key)=> {
-            if(key !== 'modelValue') {
-              object[key] = args[key];
-            }
-            return object;
-          },
-          {}
-        )))
 
       return {
         args,
         id,
       }
     },
-    template: `<story v-bind="attrs"/>`
+    template: `<story />`
   })
 }

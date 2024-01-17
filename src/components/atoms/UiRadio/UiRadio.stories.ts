@@ -123,7 +123,7 @@ Checked.decorators = [ withVariants ];
 Checked.parameters = {
   variants: [ ...Unchecked.parameters.variants.map((variant) => ({
     ...variant,
-    modelValue: 'overweight-or-obese',
+    modelValue: 'I’m overweight or obese',
   })) ],
 };
 
@@ -133,7 +133,7 @@ CheckedHasError.parameters = {
   variants: [ ...Unchecked.parameters.variants.map((variant) => ({
     ...variant,
     class: `${variant.class} ui-radio--has-error`,
-    modelValue: 'overweight-or-obese',
+    modelValue: 'I’m overweight or obese',
   })) ],
 };
 

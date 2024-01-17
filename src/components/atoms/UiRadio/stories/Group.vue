@@ -10,6 +10,7 @@
 
 <script setup lang="ts">
 import {
+  reactive,
   computed,
   inject,
   useAttrs,
@@ -30,7 +31,7 @@ export type RadioGroupAttrsProps = DefineAttrsProps<RadioGroupProps>;
 const props = withDefaults(defineProps<RadioGroupProps>(), { items: () => ([]) });
 
 defineOptions({ inheritAttrs: false });
-const attrs = useAttrs();
+const attrs = reactive(useAttrs());
 const args = computed(() => (attrs));
 const { content } = toRefs(attrs);
 const value = inject('value');
