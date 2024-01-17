@@ -156,7 +156,7 @@ onMounted(async () => {
   $element: phone-number-prefix;
 
   &-form-field {
-    --form-field-gap: 0#{functions.var($element + '-form-field-gap', gap, 0)};
+    --form-field-gap: #{functions.var($element + '-form-field-gap', gap, 0)};
   }
 
   &-dropdown-item {

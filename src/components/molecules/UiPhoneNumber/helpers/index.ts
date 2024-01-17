@@ -35,7 +35,7 @@ export async function getPhoneCodes(languageData: LanguageDataType = {
   } = languageData;
 
   if (!country) {
-    throw new Error('Uncorrect country code');
+    throw new Error('Incorrect country code');
   }
 
   await initCountries(language);
