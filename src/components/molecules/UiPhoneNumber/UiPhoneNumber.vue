@@ -97,7 +97,7 @@ const props = withDefaults(defineProps<UiPhoneNumberProps>(), {
     language: 'en',
   }),
   error: false,
-  countryCodeItems: () => [],
+  countryCodeItems: undefined,
 });
 
 const inputId = computed(() => (

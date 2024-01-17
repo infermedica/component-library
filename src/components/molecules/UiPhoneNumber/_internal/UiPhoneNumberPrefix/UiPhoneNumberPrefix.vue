@@ -2,7 +2,7 @@
   <UiDropdown
     v-model="defaultCountryCode"
     :text="prefixButtonText"
-    :items="prefixCodes"
+    :items="internalPrefixCodes"
     class="ui-phone-number-prefix"
     :popover-attrs="{ class: 'ui-phone-number-prefix__popover' }"
   >
@@ -27,10 +27,10 @@
       <UiDropdownItem
         v-for="({
           code, countryCode, country,
-        }, position) in prefixCodes"
+        }, position) in internalPrefixCodes"
         :key="`${countryCode}-${country}`"
         :value="countryCode"
-        :aria-setsize="prefixCodes.length"
+        :aria-setsize="internalPrefixCodes.length"
         :aria-posinset="position + 1"
         tabindex="-1"
         class="ui-phone-number-prefix-dropdown-item"
@@ -45,9 +45,10 @@
 
 <script setup lang="ts">
 import {
-  shallowRef,
+  ref,
   computed,
   onMounted,
+  watch,
 } from 'vue';
 import UiDropdown from '../../../UiDropdown/UiDropdown.vue';
 import UiDropdownItem from '../../../UiDropdown/_internal/UiDropdownItem.vue';
@@ -79,32 +80,35 @@ export interface UiPhoneNumberPrefixProps {
 
 const props = withDefaults(defineProps<UiPhoneNumberPrefixProps>(), {
   modelValue: () => ({
-    code: '+1',
-    countryCode: 'US',
-    country: 'United States of America',
+    code: '',
+    countryCode: '',
+    country: '',
   }),
   languageData: () => ({
     country: 'us',
     language: 'en',
   }),
-  countryCodeItems: () => [],
+  countryCodeItems: undefined,
 });
 const emit = defineEmits([ 'update:modelValue' ]);
 
-const prefixCodes = shallowRef<PhoneCodeType[]>(props.countryCodeItems || []);
+const prefixCodes = computed(() => props.countryCodeItems);
+const internalPrefixCodes = ref<PhoneCodeType[]>([]);
 const defaultCountryCode = computed({
   get() {
-    return props.modelValue?.countryCode;
+    return props.modelValue.countryCode || '';
   },
   set(value) {
-    const selectedCountry = prefixCodes.value.find((prefix) => prefix.countryCode === value);
+    const selectedCountry = internalPrefixCodes.value.find((prefix) => prefix.countryCode === value);
 
     if (value && selectedCountry) emit('update:modelValue', selectedCountry);
   },
 });
 
 const prefixCode = computed(() => {
-  const selectedPrefixCode = prefixCodes.value.find((prefix) => prefix.countryCode === defaultCountryCode.value);
+  const selectedPrefixCode = internalPrefixCodes.value.find(
+    (prefix) => prefix.countryCode === defaultCountryCode.value,
+  );
 
   if (selectedPrefixCode) { return selectedPrefixCode.code.replace('+', '+ '); }
 
@@ -112,18 +116,30 @@ const prefixCode = computed(() => {
 });
 
 const countryName = computed(() => {
-  const selectedCountryName = prefixCodes.value.find((prefix) => prefix.countryCode === props.modelValue?.countryCode);
+  const selectedCountryName = internalPrefixCodes.value.find(
+    (prefix) => prefix.countryCode === props.modelValue.countryCode,
+  );
 
   if (selectedCountryName) { return selectedCountryName.country; }
 
   return defaultCountryCode.value;
 });
 
-const prefixButtonText = computed(() => `${countryName.value} (${prefixCode.value})`);
+const prefixButtonText = computed(() => {
+  if (countryName.value) {
+    return `${countryName.value} (${prefixCode.value})`;
+  }
+  return '';
+});
+
+watch(prefixCodes, (value) => {
+  if (value && value.length > 0) { internalPrefixCodes.value = value; }
+});
 
 onMounted(async () => {
-  if (prefixCodes.value.length > 0) return;
-  prefixCodes.value = await getPhoneCodes(props.languageData);
+  if (prefixCodes.value) return;
+
+  internalPrefixCodes.value = await getPhoneCodes(props.languageData);
 });
 
 </script>
@@ -149,6 +165,7 @@ onMounted(async () => {
     --dropdown-popover-width: 100%;
     --dropdown-popover-max-width: none;
     --dropdown-popover-min-height: #{functions.var($element + '-popover', min-height, 12.5rem)};
+    --popover-border-block-style: none;
 
     z-index: functions.var($element + '-popover', z-index, 1);
     overflow-y: scroll;

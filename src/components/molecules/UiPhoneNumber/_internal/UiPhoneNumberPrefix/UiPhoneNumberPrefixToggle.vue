@@ -58,6 +58,7 @@ const isDropdownOpen = computed(() => (props.isOpen ? 'chevron-up' : 'chevron-do
     --button-icon-color: #{functions.var($element + '-icon', color, var(--color-icon-primary))};
     --button-icon-color-hover: #{functions.var($element + '-hover-icon', color, var(--color-icon-primary-hover))};
     --button-icon-color-active: #{functions.var($element + '-active-icon', color, var(--color-icon-primary-active))};
+    --button-icon-margin-inline-start: #{functions.var($element + '-icon', margin-inline-start, auto)};
 
     @include mixins.override-logical(button, null, margin, 0);
   }
