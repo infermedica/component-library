@@ -10,6 +10,7 @@
       placeholder: placeholder,
       inputmode: 'numeric',
     }"
+    :type="type"
   />
 </template>
 
