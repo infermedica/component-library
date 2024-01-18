@@ -3,7 +3,7 @@
     v-model="phoneNumber"
     :class="[
       'ui-phone-number-input',
-      { 'ui-input--has-error': error },
+      { 'ui-input--has-error': hasError },
     ]"
     :input-attrs="{
       id: id,
@@ -38,7 +38,7 @@ export interface UiPhoneNumberInputProps {
   /**
    * Use this props to set error state.
    */
-  error?: boolean | string;
+  hasError?: boolean;
 }
 
 const props = withDefaults(defineProps<UiPhoneNumberInputProps>(), {
@@ -46,7 +46,7 @@ const props = withDefaults(defineProps<UiPhoneNumberInputProps>(), {
   placeholder: '',
   id: '',
   type: 'tel',
-  error: false,
+  hasError: false,
 });
 
 const emit = defineEmits([ 'update:modelValue' ]);
