@@ -148,20 +148,12 @@ onMounted(async () => {
   $this: &;
   $element: phone-number-prefix;
 
-  &-form-field {
-    --form-field-gap: #{functions.var($element + '-form-field-gap', gap, 0)};
-  }
-
-  &-dropdown-item {
-    width: 100%;
-  }
-
   &__popover {
-    --popover-border: none;
+    @include mixins.override-logical('popover', null, border-width, 0);
+
     --dropdown-popover-width: 100%;
     --dropdown-popover-max-width: none;
     --dropdown-popover-min-height: #{functions.var($element + '-popover', min-height, 12.5rem)};
-    --popover-border-block-style: none;
 
     z-index: functions.var($element + '-popover', z-index, 1);
     overflow-y: scroll;
