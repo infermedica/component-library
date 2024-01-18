@@ -5,28 +5,16 @@
       'ui-phone-number-input',
       { 'ui-input--has-error': error },
     ]"
-    :placeholder="placeholder"
-  >
-    <template #input>
-      <input
-        v-keyboard-focus
-        v-bind="inputAttrs"
-        :value="phoneNumber"
-        class="ui-input__input"
-        @keydown="keyValidation"
-        @input="inputHandler($event)"
-      />
-    </template>
-  </UiInput>
+    :input-attrs="{
+      id: id,
+      placeholder: placeholder,
+      inputmode: 'numeric',
+    }"
+  />
 </template>
 
 <script setup lang="ts">
-import {
-  computed,
-  type InputHTMLAttributes,
-} from 'vue';
-import { keyboardFocus as vKeyboardFocus } from '../../../../../utilities/directives';
-import { useKeyValidation } from '../../../../../composable';
+import { computed } from 'vue';
 import UiInput from '../../../../atoms/UiInput/UiInput.vue';
 
 export interface UiPhoneNumberInputProps {
@@ -62,31 +50,9 @@ const props = withDefaults(defineProps<UiPhoneNumberInputProps>(), {
 
 const emit = defineEmits([ 'update:modelValue' ]);
 
-const inputAttrs = computed<InputHTMLAttributes>(() => ({
-  id: props.id,
-  placeholder: props.placeholder,
-  inputmode: 'numeric',
-}));
-
 const phoneNumber = computed({
   get: () => props.modelValue,
   set: (value) => emit('update:modelValue', value),
 });
-
-const { numbersOnly } = useKeyValidation();
-
-const keyValidation = (event: KeyboardEvent) => {
-  switch (props.type) {
-    case 'tel':
-      numbersOnly(event);
-      break;
-    default:
-  }
-};
-
-const inputHandler = (event: Event) => {
-  const el = event.target as HTMLInputElement;
-  phoneNumber.value = el.value;
-};
 
 </script>

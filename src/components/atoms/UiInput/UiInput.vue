@@ -144,6 +144,9 @@ const keyValidation = (event: KeyboardEvent) => {
     case 'number':
       numbersOnly(event);
       break;
+    case 'tel':
+      numbersOnly(event);
+      break;
     default:
   }
 };
