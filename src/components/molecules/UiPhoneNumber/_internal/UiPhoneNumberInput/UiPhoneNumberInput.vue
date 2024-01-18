@@ -5,11 +5,7 @@
       'ui-phone-number-input',
       { 'ui-input--has-error': hasError },
     ]"
-    :input-attrs="{
-      id: id,
-      placeholder: placeholder,
-      inputmode: 'numeric',
-    }"
+    :input-attrs="inputAttrs"
     :type="type"
   />
 </template>
@@ -55,5 +51,11 @@ const phoneNumber = computed({
   get: () => props.modelValue,
   set: (value) => emit('update:modelValue', value),
 });
+
+const inputAttrs = computed(() => ({
+  id: props.id,
+  placeholder: props.placeholder,
+  inputmode: 'numeric',
+}));
 
 </script>
