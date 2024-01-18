@@ -65,7 +65,7 @@ const dropdownItem = ref<null | HTMLButtonElement>(null);
 const changeHandler = inject<(value: Required<DropdownModelValue>) => void>('changeHandler');
 const dropdownItemKeydownHandler = inject<DropdownItemKeydownHandler>('dropdownItemKeydownHandler', () => undefined);
 const modelValue = inject<ComputedRef<Required<DropdownModelValue>>>('modelValue', computed(() => ''));
-const isChecked = computed(() => {
+const isChecked = computed<boolean>(() => {
   if (!modelValue.value) {
     return false;
   }
@@ -75,7 +75,7 @@ const isChecked = computed(() => {
   return equal(
     JSON.parse(JSON.stringify(modelValue.value)),
     JSON.parse(JSON.stringify(props.value)),
-  );
+  ) as boolean;
 });
 const isOption = computed(() => !!props.value);
 const tabindex = computed(() => {
@@ -92,11 +92,16 @@ const optionChangeHandler = (value: DropdownModelValue) => {
     changeHandler(value);
   }
 };
-const buttonItemAttrs = computed<ButtonAttrsProps>(() => ({
-  role: isOption.value ? 'radio' : undefined,
-  'aria-checked': isOption.value ? `${isChecked.value}` : undefined,
-  onClick: attrs.to ? undefined : optionChangeHandler.bind(this, props.value),
-}));
+const buttonItemAttrs = computed<ButtonAttrsProps>(() => {
+  const extraAttrs = isOption.value ? {
+    'aria-checked': isChecked.value,
+    role: 'radio',
+  } : {};
+  return ({
+    onClick: attrs.to ? undefined : optionChangeHandler.bind(this, props.value),
+    ...extraAttrs,
+  })
+});
 </script>
 
 <style lang="scss">
