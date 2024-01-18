@@ -5,10 +5,6 @@
     :items="internalPrefixCodes"
     class="ui-phone-number-prefix"
     :popover-attrs="{ class: 'ui-phone-number-prefix__popover' }"
-    :item-attrs="{
-      'aria-setsize': internalPrefixCodes.length,
-      'aria-posinset': positionItem,
-    }"
   >
     <template
       #toggle="{

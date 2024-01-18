@@ -316,12 +316,16 @@ const itemsToRender = computed<DropdownItemComplex[]>(() => (props.items.map((it
       name: `dropdown-item-${key}`,
       text: item,
       value: item,
+      'aria-setsize': props.items.length,
+      'aria-posinset': key + 1,
     };
   }
   return {
     ...item,
     name: item.name || `dropdown-item-${key}`,
     value: item.value || JSON.parse(JSON.stringify(item)),
+    'aria-setsize': props.items.length,
+    'aria-posinset': key + 1,
   };
 })));
 const dropdownItemAttrs = ({
