@@ -13,6 +13,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import UiInput from '../../../../atoms/UiInput/UiInput.vue';
+import type { InputAttrsProps } from '../../../../atoms/UiInput/UiInput.vue';
 
 export interface UiPhoneNumberInputProps {
   /**
@@ -44,15 +45,12 @@ const props = withDefaults(defineProps<UiPhoneNumberInputProps>(), {
   type: 'tel',
   hasError: false,
 });
-
 const emit = defineEmits([ 'update:modelValue' ]);
-
 const phoneNumber = computed({
   get: () => props.modelValue,
   set: (value) => emit('update:modelValue', value),
 });
-
-const inputAttrs = computed(() => ({
+const inputAttrs = computed<InputAttrsProps>(() => ({
   id: props.id,
   placeholder: props.placeholder,
   inputmode: 'numeric',

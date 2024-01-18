@@ -1,8 +1,8 @@
 <template>
   <UiDropdown
-    v-model="defaultCountryCode"
-    :text="prefixButtonText"
-    :items="internalPrefixCodes"
+    v-model="prefix"
+    :text="toggleButtonText"
+    :items="countryCodesToRender"
     class="ui-phone-number-prefix"
     :popover-attrs="{ class: 'ui-phone-number-prefix__popover' }"
   >
@@ -21,7 +21,7 @@
       </UiPhoneNumberPrefixToggle>
     </template>
     <template
-      v-for="(_, key) in internalPrefixCodes"
+      v-for="(_, key) in countryCodesToRender"
       :key="key"
       #[`dropdown-item-${key}`]="{
         item: {
@@ -40,16 +40,14 @@ import {
   ref,
   computed,
   onMounted,
-  watch,
 } from 'vue';
 import UiDropdown from '../../../UiDropdown/UiDropdown.vue';
 import UiPhoneNumberPrefixToggle from './UiPhoneNumberPrefixToggle.vue';
 import {
-  getPhoneCodes,
   type PhoneCodeType,
   type SupportedCountryCodeType,
 } from '../../helpers';
-import { type CountryCodeItems } from '../../UiPhoneNumber.vue';
+import { type CountryCodes } from '../../UiPhoneNumber.vue';
 
 export interface UiPhoneNumberPrefixProps {
   /**
@@ -66,7 +64,7 @@ export interface UiPhoneNumberPrefixProps {
    /**
    * Use this props to set country code items.
    */
-  countryCodeItems?: CountryCodeItems,
+  countryCodes?: CountryCodes,
 }
 
 const props = withDefaults(defineProps<UiPhoneNumberPrefixProps>(), {
@@ -79,59 +77,25 @@ const props = withDefaults(defineProps<UiPhoneNumberPrefixProps>(), {
     country: 'us',
     language: 'en',
   }),
-  countryCodeItems: undefined,
+  countryCodes: () => ([]),
 });
 const emit = defineEmits([ 'update:modelValue' ]);
-
-const prefixCodes = computed(() => props.countryCodeItems);
-const internalPrefixCodes = ref<PhoneCodeType[]>([]);
-
-const defaultCountryCode = computed({
+const prefix = computed({
   get() { return props.modelValue; },
   set(value) { emit('update:modelValue', value); },
 });
-
-const prefixCode = computed(() => {
-  const selectedPrefixCode = internalPrefixCodes.value.find(
-    (prefix) => prefix.countryCode === defaultCountryCode.value.countryCode,
-  );
-
-  if (selectedPrefixCode) { return selectedPrefixCode.code.replace('+', '+ '); }
-
-  return defaultCountryCode.value?.code.replace('+', '+ ');
-});
-
-const countryName = computed(() => {
-  const selectedCountryName = internalPrefixCodes.value.find(
-    (prefix) => prefix.countryCode === props.modelValue.countryCode,
-  );
-
-  if (selectedCountryName) { return selectedCountryName.country; }
-
-  return defaultCountryCode.value.country;
-});
-
-const prefixButtonText = computed(() => {
-  if (countryName.value) {
-    return `${countryName.value} (${prefixCode.value})`;
-  }
-  return '';
-});
-
-const positionItem = ref(0);
-
-watch(prefixCodes, (value) => {
-  if (value && value.length > 0) { internalPrefixCodes.value = value; }
-});
-
+const countryCode = computed(() => prefix.value?.code
+  .replace('+', '+ '));
+const countryName = computed(() => prefix.value?.country);
+const toggleButtonText = computed(() => `${countryName.value} (${countryCode.value})`);
+const countryCodesToRender = ref<PhoneCodeType[]>([]);
 onMounted(async () => {
-  if (prefixCodes.value) {
-    internalPrefixCodes.value = prefixCodes.value;
+  if (props.countryCodes.length < 1) {
+    const helpers = await import('../../helpers/index');
+    countryCodesToRender.value = await helpers.getPhoneCodes(props.languageData);
     return;
   }
-
-  internalPrefixCodes.value = await getPhoneCodes(props.languageData);
-  positionItem.value = internalPrefixCodes.value.entries().next().value[0] + 1;
+  countryCodesToRender.value = props.countryCodes;
 });
 
 </script>
