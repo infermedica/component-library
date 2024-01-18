@@ -5,7 +5,7 @@
   >
     <slot />
     <UiIcon
-      :icon="isDropdownOpen"
+      :icon="icon"
       class="ui-phone-number-prefix-toggle__icon ui-button__icon"
     />
   </UiButton>
@@ -21,7 +21,7 @@ export interface UiPhoneNumberPrefixPropsToggle {
 }
 const props = withDefaults(defineProps<UiPhoneNumberPrefixPropsToggle>(), { isOpen: false });
 
-const isDropdownOpen = computed(() => (props.isOpen ? 'chevron-up' : 'chevron-down'));
+const icon = computed(() => (props.isOpen ? 'chevron-up' : 'chevron-down'));
 </script>
 
 <style lang="scss">
