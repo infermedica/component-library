@@ -11,7 +11,7 @@
       <UiPhoneNumberPrefix
         v-model="modelValue.prefix"
         :language-data="languageData"
-        :country-code-items="countryCodes"
+        :country-codes="countryCodes"
       />
     </slot>
     <!-- @slot Use this slot to replace phone number input template.-->

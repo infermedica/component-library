@@ -141,7 +141,7 @@ export const WithError: StoryObj<typeof UiPhoneNumber> = {
   args: { error: 'Please enter the phone number' },
 };
 
-export const WithCustomCountryCodeItems: StoryObj<typeof UiPhoneNumber> = {
+export const WithCustomCountryCodes: StoryObj<typeof UiPhoneNumber> = {
   render(args, { name }) {
     return {
       name,
@@ -150,11 +150,9 @@ export const WithCustomCountryCodeItems: StoryObj<typeof UiPhoneNumber> = {
         UiPhoneNumber,
       },
       setup() {
-        const items = ref(args.countryCodeItems);
         const modelValue = ref(args.modelValue);
         return {
           args,
-          items,
           modelValue,
         };
       },
@@ -166,21 +164,20 @@ export const WithCustomCountryCodeItems: StoryObj<typeof UiPhoneNumber> = {
       <UiPhoneNumber
         v-bind="{...args}"
         v-model="modelValue"
-        :country-code="items"
       />
     </UiFormField>`,
     };
   },
-  args: {
-    modelValue: {
-      prefix: customCountryCodeItems[0],
-      phoneNumber: '',
-    },
-    countryCodeItems: customCountryCodeItems,
+};
+WithCustomCountryCodes.args = {
+  modelValue: {
+    prefix: customCountryCodeItems[0],
+    phoneNumber: '',
   },
+  countryCodes: customCountryCodeItems,
 };
 
-export const WithCustomCountryCodeItemsWithTimeout: StoryObj<typeof UiPhoneNumber> = {
+export const WithCustomCountryCodesWithTimeout: StoryObj<typeof UiPhoneNumber> = {
   render(args, { name }) {
     return {
       name,
@@ -189,16 +186,16 @@ export const WithCustomCountryCodeItemsWithTimeout: StoryObj<typeof UiPhoneNumbe
         UiPhoneNumber,
       },
       setup() {
-        const asyncItems = ref(args.countryCodeItems);
+        const countryCodes = ref(args.countryCodeItems);
         const modelValue = ref<Record<string, unknown>>({ phoneNumber: '' });
 
         setTimeout(() => {
-          asyncItems.value = customCountryCodeItems;
-          modelValue.value.prefix = asyncItems.value[0];
+          countryCodes.value = customCountryCodeItems;
+          modelValue.value.prefix = countryCodes.value[0];
         }, 3000);
         return {
           args,
-          asyncItems,
+          countryCodes,
           modelValue,
         };
       },
@@ -210,20 +207,20 @@ export const WithCustomCountryCodeItemsWithTimeout: StoryObj<typeof UiPhoneNumbe
       <UiPhoneNumber
         v-bind="{...args}"
         v-model="modelValue"
-        :country-code="asyncItems"
+        :country-codes="countryCodes"
       />
     </UiFormField>`,
     };
   },
-  args: {
-    modelValue: {
-      prefix: {
-        code: '',
-        countryCode: '',
-        country: '',
-      },
-      phoneNumber: '',
+};
+WithCustomCountryCodesWithTimeout.args = {
+  modelValue: {
+    prefix: {
+      code: '',
+      countryCode: '',
+      country: '',
     },
-    countryCodeItems: [],
+    phoneNumber: '',
   },
+  countryCodeItems: [],
 };
