@@ -86,7 +86,7 @@ const prefix = computed({
 });
 const countryCode = computed(() => prefix.value?.code);
 const countryName = computed(() => prefix.value?.country);
-const toggleButtonText = computed(() => `${countryName.value} (${countryCode.value})`);
+const toggleButtonText = computed(() => (countryName.value ? `${countryName.value} (${countryCode.value})` : ''));
 const countryCodesToRender = ref<PhoneCodeType[]>([]);
 onMounted(async () => {
   if (props.countryCodes.length < 1) {

@@ -166,7 +166,7 @@ export const WithCustomCountryCodeItems: StoryObj<typeof UiPhoneNumber> = {
       <UiPhoneNumber
         v-bind="{...args}"
         v-model="modelValue"
-        :country-code-items="items"
+        :country-code="items"
       />
     </UiFormField>`,
     };
@@ -210,7 +210,7 @@ export const WithCustomCountryCodeItemsWithTimeout: StoryObj<typeof UiPhoneNumbe
       <UiPhoneNumber
         v-bind="{...args}"
         v-model="modelValue"
-        :country-code-items="asyncItems"
+        :country-code="asyncItems"
       />
     </UiFormField>`,
     };
