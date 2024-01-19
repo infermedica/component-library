@@ -21,14 +21,14 @@
         inputId,
         modelValue,
         placeholder,
-        error,
+        hasError,
       }"
     >
       <UiPhoneNumberInput
         :id="inputId"
         v-model="modelValue.phoneNumber"
         :placeholder="placeholder"
-        :error="error"
+        :has-error="hasError"
       />
     </slot>
   </div>
@@ -73,7 +73,7 @@ export interface UiPhoneNumberProps {
    /**
    * Use this props to set alert message.
    */
-  error?: boolean | string,
+  hasError?: boolean,
   /**
    * Use this props to set country code items.
    */
@@ -95,7 +95,7 @@ const props = withDefaults(defineProps<UiPhoneNumberProps>(), {
     country: 'us',
     language: 'en',
   }),
-  error: false,
+  hasError: false,
   countryCodes: () => ([]),
 });
 const inputId = computed(() => (

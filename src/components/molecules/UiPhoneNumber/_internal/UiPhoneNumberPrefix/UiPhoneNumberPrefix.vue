@@ -84,8 +84,7 @@ const prefix = computed({
   get() { return props.modelValue; },
   set(value) { emit('update:modelValue', value); },
 });
-const countryCode = computed(() => prefix.value?.code
-  .replace('+', '+ '));
+const countryCode = computed(() => prefix.value?.code);
 const countryName = computed(() => prefix.value?.country);
 const toggleButtonText = computed(() => `${countryName.value} (${countryCode.value})`);
 const countryCodesToRender = ref<PhoneCodeType[]>([]);
