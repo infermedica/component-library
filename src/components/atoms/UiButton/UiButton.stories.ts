@@ -207,11 +207,11 @@ Circled.args = {
 };
 Circled.argTypes = {};
 Circled.decorators = [
-  () => ({
+  (story, { args }) => ({
     name: 'LFlex',
     inheritAttrs: false,
     setup() {
-      const { decoratorAttrs: attrs } = useAttrs();
+      const { decoratorAttrs: attrs } = getAttrs(args);
       return { attrs };
     },
     template: `<div class="flex gap-4">

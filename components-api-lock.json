@@ -955,25 +955,6 @@
           ]
         },
         {
-          "name": "close",
-          "scoped": true,
-          "description": "Use this slot to replace close template.",
-          "bindings": [
-            {
-              "name": "buttonCloseAttrs",
-              "title": "binding"
-            },
-            {
-              "name": "closeHandler",
-              "title": "binding"
-            },
-            {
-              "name": "iconCloseAttrs",
-              "title": "binding"
-            }
-          ]
-        },
-        {
           "name": "label",
           "scoped": true,
           "description": "Use this slot to replace label template.",
@@ -1022,6 +1003,25 @@
             },
             {
               "name": "textSubtitleAttrs",
+              "title": "binding"
+            }
+          ]
+        },
+        {
+          "name": "close",
+          "scoped": true,
+          "description": "Use this slot to replace close template.",
+          "bindings": [
+            {
+              "name": "buttonCloseAttrs",
+              "title": "binding"
+            },
+            {
+              "name": "closeHandler",
+              "title": "binding"
+            },
+            {
+              "name": "iconCloseAttrs",
               "title": "binding"
             }
           ]

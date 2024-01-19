@@ -9,6 +9,7 @@
 
 <script setup lang="ts">
 import {
+  reactive,
   computed,
   withDefaults,
   useAttrs,
@@ -24,7 +25,7 @@ export type EvidenceBarAttrsProps = DefineAttrsProps<EvidenceBarProps>;
 const props = withDefaults(defineProps<EvidenceBarProps>(), { strongMin: 20 });
 
 defineOptions({ inheritAttrs: false });
-const attrs = useAttrs();
+const attrs = reactive(useAttrs());
 const args = computed(() => (attrs));
 const isStrong = computed(() => (args.value.value >= props.strongMin));
 </script>

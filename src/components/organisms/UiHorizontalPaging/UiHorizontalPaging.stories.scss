@@ -79,5 +79,10 @@
     display: flex;
     gap: var(--space-12);
   }
+
+  &__back {
+    align-self: flex-start;
+    margin-block-start: 3px;
+  }
 }
 //</Code>

@@ -1,10 +1,4 @@
 <template>
-  <span
-    ref="el"
-    class="visual-hidden"
-    :tabindex="tabindex"
-    @blur="handleA11YHelperBlur"
-  />
   <slot v-if="isActive" />
 </template>
 
@@ -44,17 +38,6 @@ const props = withDefaults(defineProps<HorizontalPangingItemProps>(), {
 });
 const activeItemName = inject<ComputedRef<string>>('activeItemName', computed(() => ''));
 const isActive = computed(() => activeItemName.value === props.name);
-const el = ref<HTMLSpanElement | null>(null);
-const tabindex = ref(0);
-watch(isActive, async (value) => {
-  tabindex.value = 0;
-  if (!value) return;
-  await nextTick();
-  focusElement(el.value);
-});
-const handleA11YHelperBlur = () => {
-  tabindex.value = -1;
-};
 const item = computed(() => ({
   label: props.label,
   title: props.title,
