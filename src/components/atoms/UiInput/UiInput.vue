@@ -142,6 +142,7 @@ const { numbersOnly } = useKeyValidation();
 const keyValidation = (event: KeyboardEvent) => {
   switch (props.type) {
     case 'number':
+    case 'tel':
       numbersOnly(event);
       break;
     default:

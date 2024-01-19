@@ -39,9 +39,12 @@
     "update:docs": "node scripts/update-components-docs.mjs && pnpm lint"
   },
   "dependencies": {
+    "country-codes-list": "^1.6.11",
     "date-fns": "^2.29.3",
     "dotenv": "^16.0.3",
     "fast-deep-equal": "github:infermedica/fast-deep-equal",
+    "google-libphonenumber": "^3.2.33",
+    "i18n-iso-countries": "^7.7.0",
     "uid": "^2.0.1",
     "vite-svg-loader": "^4.0.0",
     "vue": "^3.3.4"
