@@ -35,6 +35,7 @@ export * from './src/components/molecules/UiScale/UiScale.vue';
 export * from './src/components/molecules/UiRating/UiRating.vue';
 export * from './src/components/molecules/UiProgressbar/UiProgressbar.vue';
 export * from './src/components/molecules/UiPopover/UiPopover.vue';
+export * from './src/components/molecules/UiPhoneNumber/UiPhoneNumber.vue';
 export * from './src/components/molecules/UiNumberStepper/UiNumberStepper.vue';
 export * from './src/components/molecules/UiNotification/UiNotification.vue';
 export * from './src/components/molecules/UiNavigation/UiNavigation.vue';
@@ -84,6 +85,7 @@ export { default as UiScale } from './src/components/molecules/UiScale/UiScale.v
 export { default as UiRating } from './src/components/molecules/UiRating/UiRating.vue';
 export { default as UiProgressbar } from './src/components/molecules/UiProgressbar/UiProgressbar.vue';
 export { default as UiPopover } from './src/components/molecules/UiPopover/UiPopover.vue';
+export { default as UiPhoneNumber } from './src/components/molecules/UiPhoneNumber/UiPhoneNumber.vue';
 export { default as UiNumberStepper } from './src/components/molecules/UiNumberStepper/UiNumberStepper.vue';
 export { default as UiNotification } from './src/components/molecules/UiNotification/UiNotification.vue';
 export { default as UiNavigation } from './src/components/molecules/UiNavigation/UiNavigation.vue';
