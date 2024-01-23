@@ -461,6 +461,9 @@ export const AsMobileMenu = {
         :has-header="false"
         @update:modelValue="onUpdateModelValue"
       >
+        <template #menu-item-for-business>
+          000
+        </template>
         <template #for-business>
           <ForBusiness/>
         </template>
@@ -482,6 +485,42 @@ export const AsMobileMenu = {
       </UiHorizontalPaging>
     </UiSidePanel>`,
   }),
+
+  args: {
+    items: [
+      {
+        label: 'For business',
+        title: 'For business',
+        name: 'for-business',
+        tag: 'span',
+      },
+      {
+        label: 'Medical Certification',
+        title: 'Medical certification and compliance',
+        name: 'medical-certification',
+      },
+      {
+        label: 'Instruction for Use',
+        title: 'Instruction for Use',
+        name: 'instruction-for-use',
+      },
+      {
+        label: 'Terms of Service',
+        title: 'Terms of Service',
+        name: 'terms-of-service',
+      },
+      {
+        label: 'Privacy Policy',
+        title: 'Privacy Policy',
+        name: 'privacy-policy',
+      },
+      {
+        label: 'Interview ID',
+        title: 'Interview ID',
+        name: 'interview-id',
+      },
+    ],
+  },
 
   parameters: { viewport: { defaultViewport: 'mobile2' } },
 
