@@ -15,11 +15,63 @@ import UiLoader from '@/components/molecules/UiLoader/UiLoader.vue';
 import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints.vue';
 import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import UiHorizontalPagingItem from '@/components/organisms/UiHorizontalPaging/_internal/UiHorizontalPagingItem.vue';
+import UiMenu from '@/components/organisms/UiMenu/UiMenu.vue';
 import { actions } from '@storybook/addon-actions';
 import './UiHorizontalPaging.stories.scss';
+import equal from 'fast-deep-equal';
 import { focusElement } from '../../../utilities/helpers';
 
 const events = actions({ onUpdateModelValue: 'update:modelValue' });
+
+const Language = {
+  components: { UiMenu },
+  setup() {
+    const items = [
+      {
+        label: 'Čeština',
+        name: 'cestina',
+      },
+      {
+        label: 'Deutsch',
+        name: 'deutsch',
+      },
+      {
+        label: 'English',
+        name: 'english',
+      },
+      {
+        label: 'Polski',
+        name: 'polski',
+      },
+    ];
+    const isChecked = (item, language) => {
+      if (!language) {
+        return false;
+      }
+      if (typeof language === 'string') {
+        return item === language;
+      }
+      return equal(
+        JSON.parse(JSON.stringify(language)),
+        JSON.parse(JSON.stringify(item)),
+      );
+    };
+    const lang = {
+      label: 'English',
+      name: 'english',
+    };
+    const itemsToRender = computed(() => (
+      items.map((item) => ({
+        ...item,
+        class: isChecked(item, lang)
+          ? 'ui-menu-item--is-selected'
+          : undefined,
+      }))
+    ));
+    return { itemsToRender };
+  },
+  template: '<UiMenu :items="itemsToRender"/>',
+};
 
 const ForBusiness = {
   components: {
@@ -395,6 +447,7 @@ export const AsMobileMenu = {
       UiHeading,
       UiButton,
       UiIcon,
+      Language,
       ForBusiness,
       MedicalCertification,
       InstructionForUse,
@@ -461,6 +514,9 @@ export const AsMobileMenu = {
         :has-header="false"
         @update:modelValue="onUpdateModelValue"
       >
+        <template #language>
+          <Language/>
+        </template>
         <template #for-business>
           <ForBusiness/>
         </template>
@@ -482,6 +538,7 @@ export const AsMobileMenu = {
       </UiHorizontalPaging>
     </UiSidePanel>`,
   }),
+
   args: {
     items: [
       {

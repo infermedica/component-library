@@ -126,7 +126,7 @@ const defaultProps = computed(() => ({
 
   &--is-selected {
     #{$this}__label {
-      color: functions.var($element + "-label", color, unset);;
+      color: functions.var($element + "-label", color, unset);
     }
   }
 }
