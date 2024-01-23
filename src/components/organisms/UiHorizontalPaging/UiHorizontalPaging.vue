@@ -83,9 +83,7 @@
                 :key="key"
               >
                 <UiHorizontalPagingItem
-                  :label="item.label"
-                  :title="item.title"
-                  :name="item.name"
+                  v-bind="item"
                 >
                   <slot
                     v-bind="{ item }"

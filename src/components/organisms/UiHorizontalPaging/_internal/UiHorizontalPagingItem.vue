@@ -5,16 +5,14 @@
 <script setup lang="ts">
 import {
   computed,
-  watch,
   ref,
   inject,
   onBeforeUnmount,
   type Ref,
   type ComputedRef,
-  nextTick,
+  useAttrs,
 } from 'vue';
 import type { HorizontalPangingHandleItems } from '../UiHorizontalPaging.vue';
-import { focusElement } from '../../../../utilities/helpers';
 
 export interface HorizontalPangingItemProps {
   /**
@@ -30,7 +28,7 @@ export interface HorizontalPangingItemProps {
    */
   name?: string;
 }
-
+const attrs = useAttrs();
 const props = withDefaults(defineProps<HorizontalPangingItemProps>(), {
   label: '',
   title: '',
@@ -42,6 +40,7 @@ const item = computed(() => ({
   label: props.label,
   title: props.title,
   name: props.name,
+  ...attrs,
 }));
 const items = inject<Ref<HorizontalPangingHandleItems>>('items', ref({}));
 items.value[props.name] = item.value;
