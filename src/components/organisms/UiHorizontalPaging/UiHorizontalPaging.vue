@@ -49,7 +49,8 @@
     <div class="ui-horizontal-paging__wrapper">
       <div
         :class="[
-          'ui-horizontal-paging__section', { 'ui-horizontal-paging__section--is-active': isActive },
+          'ui-horizontal-paging__section',
+          { 'ui-horizontal-paging__section--is-active': isActive },
         ]"
       >
         <!-- @slot Use this slot to replace menu template. -->
@@ -83,9 +84,7 @@
                 :key="key"
               >
                 <UiHorizontalPagingItem
-                  :label="item.label"
-                  :title="item.title"
-                  :name="item.name"
+                  v-bind="item"
                 >
                   <slot
                     v-bind="{ item }"

@@ -461,9 +461,6 @@ export const AsMobileMenu = {
         :has-header="false"
         @update:modelValue="onUpdateModelValue"
       >
-        <template #menu-item-for-business>
-          000
-        </template>
         <template #for-business>
           <ForBusiness/>
         </template>
@@ -492,7 +489,6 @@ export const AsMobileMenu = {
         label: 'For business',
         title: 'For business',
         name: 'for-business',
-        tag: 'span',
       },
       {
         label: 'Medical Certification',
