@@ -19,6 +19,7 @@ import UiMenu from '@/components/organisms/UiMenu/UiMenu.vue';
 import { actions } from '@storybook/addon-actions';
 import './UiHorizontalPaging.stories.scss';
 import equal from 'fast-deep-equal';
+import useLanguageItems from './useLanguageItems';
 import { focusElement } from '../../../utilities/helpers';
 
 const events = actions({ onUpdateModelValue: 'update:modelValue' });
@@ -66,11 +67,57 @@ const Language = {
         class: isChecked(item, lang)
           ? 'ui-menu-item--is-selected'
           : undefined,
+        tabindex: !isChecked(item, lang) ? '-1' : undefined,
+        onClick: () => {
+          alert('');
+        },
       }))
     ));
-    return { itemsToRender };
+    const menu = ref(null);
+    const {
+      firstDropdownItem,
+      lastDropdownItem,
+      prevDropdownItem,
+      nextDropdownItem,
+    } = useLanguageItems(menu);
+    const languageMenuKeydownHandler = ({ key }) => {
+      switch (key) {
+        case 'ArrowDown':
+          if (nextDropdownItem.value) {
+            focusElement(nextDropdownItem.value);
+          }
+          break;
+        case 'ArrowUp':
+          if (prevDropdownItem.value) {
+            focusElement(prevDropdownItem.value);
+          }
+          break;
+        case 'Home':
+        case 'PageUp':
+          if (firstDropdownItem.value) {
+            focusElement(firstDropdownItem.value);
+          }
+          break;
+        case 'End':
+        case 'PageDown':
+          if (lastDropdownItem.value) {
+            focusElement(lastDropdownItem.value);
+          }
+          break;
+        default: break;
+      }
+    };
+    return {
+      itemsToRender,
+      menu,
+      languageMenuKeydownHandler,
+    };
   },
-  template: '<UiMenu :items="itemsToRender"/>',
+  template: `<UiMenu
+      ref="menu"
+      :items="itemsToRender"
+      @keydown="languageMenuKeydownHandler"
+  />`,
 };
 
 const ForBusiness = {
@@ -545,7 +592,6 @@ export const AsMobileMenu = {
         label: 'Language',
         title: 'Language',
         name: 'language',
-        foo: 'bar',
         suffixAttrs: { label: 'English' },
       },
       {
