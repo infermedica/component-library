@@ -111,6 +111,8 @@ const defaultProps = computed(() => ({
     --button-font: #{functions.var($element + "-button", font, var(--font-body-1))};
     --button-letter-spacing: #{functions.var($element + "-button", letter-spacing, var(--letter-spacing-body-1))};
 
+    display: flex;
+    align-items: center;
     justify-content: space-between;
   }
 

@@ -84,5 +84,26 @@
     align-self: flex-start;
     margin-block-start: 3px;
   }
+
+  &__language {
+    padding-inline: 10px;
+    margin-inline: calc(var(--space-4) * -1);
+    border-bottom: solid var(--color-border-divider);
+    border-width: 0 0 1px 0;
+    padding-block-end: var(--space-12);
+    margin-block-end: var(--space-4);
+  }
+
+  &__selected-language{
+    padding-inline-end: 0px ;
+  }
+
+  &__log-out {
+    padding-inline: var(--space-16);
+    margin-inline: calc(var(--space-8) * -1);
+    border: solid var(--color-border-divider);
+    border-width: 1px 0;
+    padding-block: var(--space-12);
+  }
 }
 //</Code>

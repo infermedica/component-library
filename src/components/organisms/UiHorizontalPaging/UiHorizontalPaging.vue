@@ -233,7 +233,7 @@ const menuItems = computed<MenuItemAttrsProps[]>(() => itemsAsArray.value.map((i
   return {
     icon,
     suffixVisible: 'always',
-    class: 'ui-button--theme-secondary',
+    class: rest.class ? rest.class : 'ui-button--theme-secondary',
     name: `menu-item-${name}`,
     onClick: () => {
       activeItems.value = [

@@ -1,9 +1,9 @@
 import { computed } from 'vue';
 import type { Ref } from 'vue';
-import UiMenuItem from '@/components/organisms/UiMenu/_internal/UiMenuItem.vue';
+import UiMenu from '@/components/organisms/UiMenu/UiMenu.vue';
 import { useActiveElement } from '../../../composable';
 
-export default function useLanguageItems(dropdown: Ref<InstanceType<typeof UiMenuItem>[] | null>) {
+export default function useLanguageItems(dropdown: Ref<InstanceType<typeof UiMenu> | null>) {
   const dropdownItems = computed(() => {
     if (!dropdown.value) return [];
     return [ ...dropdown.value.menuItems ].map((item) => (item.$el.querySelector('button')));

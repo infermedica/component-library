@@ -592,7 +592,12 @@ export const AsMobileMenu = {
         label: 'Language',
         title: 'Language',
         name: 'language',
-        suffixAttrs: { label: 'English' },
+        class: 'ui-button--theme-primary',
+        suffixAttrs: {
+          label: 'English',
+          class: 'ui-menu-item horizontal-paging-as-mobile-menu__selected-language',
+        },
+        listItemAttrs: { class: 'ui-menu-item horizontal-paging-as-mobile-menu__language' },
       },
       {
         label: 'For business',
@@ -623,6 +628,17 @@ export const AsMobileMenu = {
         label: 'Interview ID',
         title: 'Interview ID',
         name: 'interview-id',
+      },
+      {
+        label: 'Log out',
+        title: 'Log out',
+        name: 'log-out',
+        suffixAttrs: { icon: 'minus' },
+        listItemAttrs: { class: 'ui-menu-item horizontal-paging-as-mobile-menu__log-out' },
+        onClick: (event) => {
+          event.preventDefault();
+          alert();
+        },
       },
     ],
   },
