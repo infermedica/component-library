@@ -40,31 +40,10 @@ import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiListItem from '../../UiList/_internal/UiListItem.vue';
 import type { ListItemAttrsProps } from '../../UiList/_internal/UiListItem.vue';
 import UiMenuItemSuffix from './UiMenuItemSuffix.vue';
-import type { MenuItemSuffixAttrsProps } from './UiMenuItemSuffix.vue';
 import { useAttributes } from '../../../../composable';
-import type {
-  DefineAttrsProps,
-  Icon,
-} from '../../../../types';
+import type { DefineAttrsProps } from '../../../../types';
+import type { MenuItemProps } from './MenuItemProps';
 
-export interface MenuItemProps {
-  /**
-   * Use this props to set icon.
-   */
-  icon?: Icon;
-  /**
-   * Use this props to set suffix visibility.
-   */
-  suffixVisible?: 'default' | 'always' | 'never';
-  /**
-   * Use this props to pass attrs for UIMenuItemSuffix
-   */
-  suffixAttrs?: MenuItemSuffixAttrsProps;
-  /**
-   * Use this props to pass attrs for list item element
-   */
-  listItemAttrs?: ListItemAttrsProps;
-}
 export type MenuItemAttrsProps = DefineAttrsProps<MenuItemProps, ListItemAttrsProps>;
 
 const props = withDefaults(defineProps<MenuItemProps>(), {
