@@ -55,7 +55,10 @@
           }"
         >
           <UiMenu
+            ref="menu"
             class="ui-dropdown__items"
+            :enable-keyboard-navigation="enableKeyboardNavigation"
+            @mounted="handleMenuMounted"
           >
             <template
               v-for="(item, key) in itemsToRender"
@@ -180,13 +183,20 @@ const preventScrollingByArrows = (event: KeyboardEvent) => {
     event.preventDefault();
   }
 };
+const menu = ref(null);
+const handleMenuMounted = () => {
+  if (menu.value.selectedMenuItem) {
+    focusElement(menu.value.selectedMenuItem.$el.querySelector('button'));
+    return;
+  }
+  if (menu.value.firstMenuItem) {
+    focusElement(menu.value.firstMenuItem.$el.querySelector('button'));
+  }
+};
 const handlePopoverOpen = async ({ focus = false }: DropdownHandlersOptions) => {
   window.addEventListener('keydown', preventScrollingByArrows, false);
   emit('open');
   isOpen.value = true;
-  if (!focus) return;
-  await nextTick();
-  // TODO: focus selected || first element on the list
 };
 const toggleButton = ref<ButtonInstance | null>(null);
 const dropdownToggleButton = computed<HTMLElement>(() => {
@@ -255,7 +265,7 @@ const itemsToRender = computed(() => (props.items.map((item, index) => {
 const handleDropdownKeydown = ({ key }: KeyboardEvent) => {
   if (!props.enableKeyboardNavigation) return;
   switch (key) {
-    // case 'Tab':
+    case 'Tab':
     case 'Escape':
       handlePopoverClose();
       break;

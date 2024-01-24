@@ -1,7 +1,9 @@
 <template>
   <UiListItem
+    ref="menuItem"
     :list-item-attrs="defaultProps.listItemAttrs"
     :tag="UiButton"
+    :tabindex="tabindex"
     :class="[
       'ui-button--outlined ui-menu-item__button', buttonClass,
     ]"
@@ -35,7 +37,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import {
+  ref,
+  computed,
+  onMounted,
+  nextTick,
+  inject,
+} from 'vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiListItem from '../../UiList/_internal/UiListItem.vue';
 import type { ListItemAttrsProps } from '../../UiList/_internal/UiListItem.vue';
@@ -67,6 +75,20 @@ const defaultProps = computed(() => ({
     ...props.listItemAttrs,
   },
 }));
+const tabindex = ref(null);
+defineExpose({ tabindex });
+const menuItem = ref(null);
+const menuItems = inject('menuItems');
+onMounted(async () => {
+  await nextTick();
+  menuItems.value = [
+    ...menuItems.value,
+    {
+      $el: menuItem.value.$el,
+      tabindex,
+    },
+  ];
+});
 </script>
 
 <style lang="scss">
