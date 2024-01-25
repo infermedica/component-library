@@ -14,6 +14,7 @@
 import {
   computed,
   inject,
+  type WritableComputedRef,
 } from 'vue';
 import equal from 'fast-deep-equal';
 import type { MenuItemProps } from '../../../organisms/UiMenu/_internal/MenuItemProps';
@@ -36,7 +37,7 @@ const props = withDefaults(defineProps<DropdownItemProps>(), {
   suffixAttrs: () => ({ class: 'ui-button--text ui-menu-item__suffix' }),
   listItemAttrs: () => ({ class: 'ui-menu-item' }),
 });
-const modelValue = inject<DropdownModelValue>('modelValue');
+const modelValue = inject<WritableComputedRef<Required<DropdownModelValue>>>('modelValue', computed(() => ''));
 const handleUpdateModelValue = () => {
   modelValue.value = props.value;
 };
@@ -66,5 +67,6 @@ const buttonItemAttrs = computed(() => {
 @use "../../../../styles/mixins";
 
 .ui-dropdown-item {
+  $element: dropdown-item;
 }
 </style>

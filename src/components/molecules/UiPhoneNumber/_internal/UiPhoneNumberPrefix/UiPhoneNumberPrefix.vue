@@ -21,14 +21,11 @@
       </UiPhoneNumberPrefixToggle>
     </template>
     <template
-      v-for="(_, key) in countryCodesToRender"
+      v-for="({
+        country, code,
+      }, key) in countryCodesToRender"
       :key="key"
-      #[`dropdown-item-${key}`]="{
-        item: {
-          code,
-          country,
-        },
-      }"
+      #[`dropdown-item-${key}`]
     >
       {{ country }} ({{ code }})
     </template>

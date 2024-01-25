@@ -56,7 +56,10 @@
         >
           <UiMenu
             ref="menu"
-            class="ui-dropdown__items"
+            :class="[
+              'ui-dropdown__items',
+              { 'ui-menu--compact': isCompact },
+            ]"
             :enable-keyboard-navigation="enableKeyboardNavigation"
             @mounted="handleMenuMounted"
           >
@@ -88,7 +91,9 @@ import {
   ref,
   computed,
   provide,
+  useAttrs,
   type ComponentPublicInstance,
+  type WritableComputedRef,
 } from 'vue';
 import { focusElement } from '../../../utilities/helpers';
 import {
@@ -185,6 +190,7 @@ const preventScrollingByArrows = (event: KeyboardEvent) => {
 };
 const menu = ref<MenuInstance | null>(null);
 const handleMenuMounted = () => {
+  if (!menu.value) return;
   if (menu.value.selectedMenuItem) {
     focusElement(menu.value.selectedMenuItem.$el.querySelector('button'));
     return;
@@ -223,7 +229,7 @@ const modelValue = computed({
     handlePopoverClose();
   },
 });
-provide('modelValue', modelValue);
+provide<WritableComputedRef<DropdownProps['modelValue']>>('modelValue', modelValue);
 const handlePopoverToggle = async () => {
   if (isOpen.value) {
     handlePopoverClose();
@@ -277,6 +283,8 @@ const handleDropdownKeydown = ({ key }: KeyboardEvent) => {
     default: break;
   }
 };
+const attrs: DropdownItemAttrsProps = useAttrs();
+const isCompact = computed(() => attrs.class && attrs.class.includes('ui-dropdown--compact'));
 // TODO: try to remove this exposing
 defineExpose({
   isOpen,
@@ -301,8 +309,7 @@ defineExpose({
     @include mixins.use-logical($element + "-popover", inset, 100% auto auto 0);
 
     position: absolute;
-    width: functions.var($element + "-popover", width, 100%);
-    max-width: functions.var($element + "-popover", max-width, 15rem);
+    width: functions.var($element + "-popover", width, 15rem);
     min-height: functions.var($element + "-popover", min-height, 0);
   }
 }

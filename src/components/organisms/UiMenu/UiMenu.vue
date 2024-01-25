@@ -69,7 +69,7 @@ export interface MenuProps {
 export type MenuAttrsProps = DefineAttrsProps<MenuProps, ListAttrsProps>;
 export interface MenuItem {
   $el: HTMLLIElement,
-  tabindex: Ref<number>
+  tabindex: Ref<number | null>
 }
 
 const props = withDefaults(defineProps<MenuProps>(), {

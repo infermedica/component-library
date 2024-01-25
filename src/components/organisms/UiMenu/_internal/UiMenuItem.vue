@@ -43,6 +43,7 @@ import {
   onMounted,
   nextTick,
   inject,
+  type Ref,
 } from 'vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiListItem from '../../UiList/_internal/UiListItem.vue';
@@ -51,6 +52,7 @@ import UiMenuItemSuffix from './UiMenuItemSuffix.vue';
 import { useAttributes } from '../../../../composable';
 import type { DefineAttrsProps } from '../../../../types';
 import type { MenuItemProps } from './MenuItemProps';
+import type { MenuItem } from '../UiMenu.vue';
 
 export type MenuItemAttrsProps = DefineAttrsProps<MenuItemProps, ListItemAttrsProps>;
 export type ListItemInstance = InstanceType<typeof UiListItem>
@@ -78,10 +80,11 @@ const defaultProps = computed(() => ({
 }));
 const tabindex = ref(null);
 defineExpose({ tabindex });
-const menuItem = ref<ListItemInstance>(null);
-const menuItems = inject('menuItems');
+const menuItem = ref<ListItemInstance | null>(null);
+const menuItems = inject<Ref<MenuItem[]>>('menuItems', ref([]));
 onMounted(async () => {
   await nextTick();
+  if (!menuItem.value) return;
   menuItems.value = [
     ...menuItems.value,
     {
