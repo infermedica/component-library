@@ -8,7 +8,7 @@
   "numFailedTests": 14,
   "numPendingTests": 0,
   "numTodoTests": 0,
-  "startTime": 1706182694681,
+  "startTime": 1706187936316,
   "success": false,
   "testResults": [
     {
@@ -21,7 +21,7 @@
           "fullName": " composable/useActiveElement active item is null when no one items is focused",
           "status": "passed",
           "title": "active item is null when no one items is focused",
-          "duration": 30,
+          "duration": 36,
           "failureMessages": []
         },
         {
@@ -32,7 +32,7 @@
           "fullName": " composable/useActiveElement correct active element on focus",
           "status": "passed",
           "title": "correct active element on focus",
-          "duration": 16,
+          "duration": 14,
           "failureMessages": []
         },
         {
@@ -43,7 +43,7 @@
           "fullName": " composable/useActiveElement reset active element on blur",
           "status": "passed",
           "title": "reset active element on blur",
-          "duration": 7,
+          "duration": 8,
           "failureMessages": []
         },
         {
@@ -54,12 +54,12 @@
           "fullName": " composable/useActiveElement correct update active element",
           "status": "passed",
           "title": "correct update active element",
-          "duration": 7,
+          "duration": 8,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182710836,
-      "endTime": 1706182710897,
+      "startTime": 1706187952611,
+      "endTime": 1706187952677,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/composable/useActiveElement/useActiveElement.spec.js"
@@ -74,7 +74,7 @@
           "fullName": " composable/useAttributes attrs do not contain listeners",
           "status": "passed",
           "title": "attrs do not contain listeners",
-          "duration": 33,
+          "duration": 42,
           "failureMessages": []
         },
         {
@@ -85,7 +85,7 @@
           "fullName": " composable/useAttributes attrs is reactive",
           "status": "passed",
           "title": "attrs is reactive",
-          "duration": 8,
+          "duration": 9,
           "failureMessages": []
         },
         {
@@ -107,12 +107,12 @@
           "fullName": " composable/useAttributes listeners is reactive",
           "status": "passed",
           "title": "listeners is reactive",
-          "duration": 7,
+          "duration": 6,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182710548,
-      "endTime": 1706182710600,
+      "startTime": 1706187950271,
+      "endTime": 1706187950333,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/composable/useAttributes/useAttributes.spec.js"
@@ -127,7 +127,7 @@
           "fullName": " composable/useKeyValidation pressed key is digit",
           "status": "passed",
           "title": "pressed key is digit",
-          "duration": 12,
+          "duration": 2,
           "failureMessages": []
         },
         {
@@ -149,12 +149,12 @@
           "fullName": " composable/useKeyValidation pressed key value length is greater than 1",
           "status": "passed",
           "title": "pressed key value length is greater than 1",
-          "duration": 0,
+          "duration": 1,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182713874,
-      "endTime": 1706182713889,
+      "startTime": 1706187956042,
+      "endTime": 1706187956045,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/composable/useKeyValidation/useKeyValidation.spec.js"
@@ -169,7 +169,7 @@
           "fullName": " composable/useLink return correct component tag when parameter has property href",
           "status": "passed",
           "title": "return correct component tag when parameter has property href",
-          "duration": 3,
+          "duration": 2,
           "failureMessages": []
         },
         {
@@ -180,7 +180,7 @@
           "fullName": " composable/useLink return correct component tag when parameter has property to",
           "status": "passed",
           "title": "return correct component tag when parameter has property to",
-          "duration": 1,
+          "duration": 0,
           "failureMessages": []
         },
         {
@@ -235,7 +235,7 @@
           "fullName": " composable/useLink return correct attributes when parameter has property href",
           "status": "passed",
           "title": "return correct attributes when parameter has property href",
-          "duration": 2,
+          "duration": 1,
           "failureMessages": []
         },
         {
@@ -268,7 +268,7 @@
           "fullName": " composable/useLink return empty route attrs when parameter property href is undefined",
           "status": "passed",
           "title": "return empty route attrs when parameter property href is undefined",
-          "duration": 0,
+          "duration": 1,
           "failureMessages": []
         },
         {
@@ -290,7 +290,7 @@
           "fullName": " composable/useLink return empty route attrs when parameter property to is undefined",
           "status": "passed",
           "title": "return empty route attrs when parameter property to is undefined",
-          "duration": 1,
+          "duration": 0,
           "failureMessages": []
         },
         {
@@ -305,8 +305,8 @@
           "failureMessages": []
         }
       ],
-      "startTime": 1706182713986,
-      "endTime": 1706182713996,
+      "startTime": 1706187955983,
+      "endTime": 1706187955988,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/composable/useLink/useLink.spec.js"
@@ -321,7 +321,7 @@
           "fullName": " composable/useMutationObserver not supported when window doesn't have IntersectionObserver property",
           "status": "passed",
           "title": "not supported when window doesn't have IntersectionObserver property",
-          "duration": 3,
+          "duration": 2,
           "failureMessages": []
         },
         {
@@ -332,7 +332,7 @@
           "fullName": " composable/useMutationObserver no mutation observer added when not supported",
           "status": "passed",
           "title": "no mutation observer added when not supported",
-          "duration": 3,
+          "duration": 2,
           "failureMessages": []
         },
         {
@@ -343,7 +343,7 @@
           "fullName": " composable/useMutationObserver supported when window have property IntersectionObserver",
           "status": "passed",
           "title": "supported when window have property IntersectionObserver",
-          "duration": 1,
+          "duration": 0,
           "failureMessages": []
         },
         {
@@ -358,8 +358,8 @@
           "failureMessages": []
         }
       ],
-      "startTime": 1706182713465,
-      "endTime": 1706182713473,
+      "startTime": 1706187955938,
+      "endTime": 1706187955943,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/composable/useMutationObserver/useMutationObserver.spec.js"
@@ -374,12 +374,12 @@
           "fullName": " UiBackdrop.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 31,
+          "duration": 30,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182713211,
-      "endTime": 1706182713242,
+      "startTime": 1706187955044,
+      "endTime": 1706187955074,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiBackdrop/UiBackdrop.spec.js"
@@ -394,7 +394,7 @@
           "fullName": " UiButton.vue render a component",
           "status": "passed",
           "title": "render a component",
-          "duration": 42,
+          "duration": 50,
           "failureMessages": []
         },
         {
@@ -405,7 +405,7 @@
           "fullName": " UiButton.vue render a content via default slot",
           "status": "passed",
           "title": "render a content via default slot",
-          "duration": 21,
+          "duration": 24,
           "failureMessages": []
         },
         {
@@ -416,7 +416,7 @@
           "fullName": " UiButton.vue component is router-link when you pass it a \"to\" prop",
           "status": "passed",
           "title": "component is router-link when you pass it a \"to\" prop",
-          "duration": 9,
+          "duration": 8,
           "failureMessages": []
         },
         {
@@ -438,12 +438,12 @@
           "fullName": " UiButton.vue component is a button without \"to\" and \"href\" props",
           "status": "passed",
           "title": "component is a button without \"to\" and \"href\" props",
-          "duration": 16,
+          "duration": 7,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182703431,
-      "endTime": 1706182703526,
+      "startTime": 1706187949015,
+      "endTime": 1706187949111,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiButton/UiButton.spec.js"
@@ -458,7 +458,7 @@
           "fullName": " UiCheckbox.vue render a component",
           "status": "passed",
           "title": "render a component",
-          "duration": 45,
+          "duration": 66,
           "failureMessages": []
         },
         {
@@ -469,7 +469,7 @@
           "fullName": " UiCheckbox.vue render a content via default slot",
           "status": "passed",
           "title": "render a content via default slot",
-          "duration": 54,
+          "duration": 40,
           "failureMessages": []
         },
         {
@@ -491,7 +491,7 @@
           "fullName": " UiCheckbox.vue render default id for non passed id property",
           "status": "passed",
           "title": "render default id for non passed id property",
-          "duration": 10,
+          "duration": 11,
           "failureMessages": []
         },
         {
@@ -502,7 +502,7 @@
           "fullName": " UiCheckbox.vue a checkbox click emits change event",
           "status": "passed",
           "title": "a checkbox click emits change event",
-          "duration": 11,
+          "duration": 26,
           "failureMessages": []
         },
         {
@@ -513,7 +513,7 @@
           "fullName": " UiCheckbox.vue a component pass Object as value",
           "status": "passed",
           "title": "a component pass Object as value",
-          "duration": 7,
+          "duration": 9,
           "failureMessages": []
         },
         {
@@ -524,12 +524,12 @@
           "fullName": " UiCheckbox.vue a component emits array for multiple checkboxes with object",
           "status": "passed",
           "title": "a component emits array for multiple checkboxes with object",
-          "duration": 9,
+          "duration": 10,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182703117,
-      "endTime": 1706182703262,
+      "startTime": 1706187943762,
+      "endTime": 1706187943932,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiCheckbox/UiCheckbox.spec.js"
@@ -544,7 +544,7 @@
           "fullName": " UiHeading.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 18,
+          "duration": 20,
           "failureMessages": []
         },
         {
@@ -555,7 +555,7 @@
           "fullName": " UiHeading.vue renders an h2 element by default",
           "status": "failed",
           "title": "renders an h2 element by default",
-          "duration": 17,
+          "duration": 23,
           "failureMessages": [
             "expected false to be true // Object.is equality"
           ],
@@ -572,7 +572,7 @@
           "fullName": " UiHeading.vue renders heading corresponding to selected level",
           "status": "passed",
           "title": "renders heading corresponding to selected level",
-          "duration": 3,
+          "duration": 4,
           "failureMessages": []
         },
         {
@@ -594,12 +594,12 @@
           "fullName": " UiHeading.vue renders different styles for an element when special class is provided",
           "status": "passed",
           "title": "renders different styles for an element when special class is provided",
-          "duration": 4,
+          "duration": 5,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182698438,
-      "endTime": 1706182698483,
+      "startTime": 1706187939894,
+      "endTime": 1706187939949,
       "status": "failed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiHeading/UiHeading.spec.js"
@@ -614,12 +614,12 @@
           "fullName": " UiIcon.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 33,
+          "duration": 31,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182712390,
-      "endTime": 1706182712423,
+      "startTime": 1706187954388,
+      "endTime": 1706187954419,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiIcon/UiIcon.spec.js"
@@ -634,7 +634,7 @@
           "fullName": " UiInput.vue render a component",
           "status": "passed",
           "title": "render a component",
-          "duration": 36,
+          "duration": 37,
           "failureMessages": []
         },
         {
@@ -645,7 +645,7 @@
           "fullName": " UiInput.vue render a component with suffix",
           "status": "passed",
           "title": "render a component with suffix",
-          "duration": 21,
+          "duration": 33,
           "failureMessages": []
         },
         {
@@ -656,7 +656,7 @@
           "fullName": " UiInput.vue render a native attributes on root element",
           "status": "passed",
           "title": "render a native attributes on root element",
-          "duration": 8,
+          "duration": 7,
           "failureMessages": []
         },
         {
@@ -667,7 +667,7 @@
           "fullName": " UiInput.vue render a content via aside slot",
           "status": "passed",
           "title": "render a content via aside slot",
-          "duration": 24,
+          "duration": 19,
           "failureMessages": []
         },
         {
@@ -693,8 +693,8 @@
           "failureMessages": []
         }
       ],
-      "startTime": 1706182705835,
-      "endTime": 1706182705942,
+      "startTime": 1706187948358,
+      "endTime": 1706187948472,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiInput/UiInput.spec.js"
@@ -709,7 +709,7 @@
           "fullName": " UiLink.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 46,
+          "duration": 35,
           "failureMessages": []
         },
         {
@@ -720,7 +720,7 @@
           "fullName": " UiLink.vue component is router-link when you pass it a \"to\" prop",
           "status": "passed",
           "title": "component is router-link when you pass it a \"to\" prop",
-          "duration": 6,
+          "duration": 8,
           "failureMessages": []
         },
         {
@@ -731,7 +731,7 @@
           "fullName": " UiLink.vue component is link when you pass it a  \"href\" propf",
           "status": "passed",
           "title": "component is link when you pass it a  \"href\" propf",
-          "duration": 7,
+          "duration": 6,
           "failureMessages": []
         },
         {
@@ -742,7 +742,7 @@
           "fullName": " UiLink.vue component is a span without \"to\" and \"href\" props",
           "status": "passed",
           "title": "component is a span without \"to\" and \"href\" props",
-          "duration": 8,
+          "duration": 5,
           "failureMessages": []
         },
         {
@@ -757,8 +757,8 @@
           "failureMessages": []
         }
       ],
-      "startTime": 1706182709151,
-      "endTime": 1706182709225,
+      "startTime": 1706187952663,
+      "endTime": 1706187952723,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiLink/UiLink.spec.js"
@@ -773,12 +773,12 @@
           "fullName": " UiProgress.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 29,
+          "duration": 36,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182712321,
-      "endTime": 1706182712350,
+      "startTime": 1706187953284,
+      "endTime": 1706187953320,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiProgress/UiProgress.spec.js"
@@ -793,7 +793,7 @@
           "fullName": " UiRadio.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 36,
+          "duration": 35,
           "failureMessages": []
         },
         {
@@ -804,7 +804,7 @@
           "fullName": " UiRadio.vue render a content via default slot",
           "status": "passed",
           "title": "render a content via default slot",
-          "duration": 32,
+          "duration": 39,
           "failureMessages": []
         },
         {
@@ -826,7 +826,7 @@
           "fullName": " UiRadio.vue render default id for non passed id property",
           "status": "passed",
           "title": "render default id for non passed id property",
-          "duration": 13,
+          "duration": 12,
           "failureMessages": []
         },
         {
@@ -837,7 +837,7 @@
           "fullName": " UiRadio.vue a radio click emits change event",
           "status": "passed",
           "title": "a radio click emits change event",
-          "duration": 10,
+          "duration": 12,
           "failureMessages": []
         },
         {
@@ -848,12 +848,12 @@
           "fullName": " UiRadio.vue a component pass Object as value",
           "status": "passed",
           "title": "a component pass Object as value",
-          "duration": 7,
+          "duration": 8,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182704103,
-      "endTime": 1706182704212,
+      "startTime": 1706187948736,
+      "endTime": 1706187948853,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiRadio/UiRadio.spec.js"
@@ -868,7 +868,7 @@
           "fullName": " UiRange.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 69,
+          "duration": 74,
           "failureMessages": []
         },
         {
@@ -879,7 +879,7 @@
           "fullName": " UiRange.vue renders a content via value slot",
           "status": "passed",
           "title": "renders a content via value slot",
-          "duration": 44,
+          "duration": 40,
           "failureMessages": []
         },
         {
@@ -890,7 +890,7 @@
           "fullName": " UiRange.vue renders a content via decrement slot",
           "status": "passed",
           "title": "renders a content via decrement slot",
-          "duration": 12,
+          "duration": 33,
           "failureMessages": []
         },
         {
@@ -901,7 +901,7 @@
           "fullName": " UiRange.vue renders a content via increment slot",
           "status": "passed",
           "title": "renders a content via increment slot",
-          "duration": 13,
+          "duration": 14,
           "failureMessages": []
         },
         {
@@ -912,7 +912,7 @@
           "fullName": " UiRange.vue percent position of thumb is right",
           "status": "passed",
           "title": "percent position of thumb is right",
-          "duration": 14,
+          "duration": 16,
           "failureMessages": []
         },
         {
@@ -923,7 +923,7 @@
           "fullName": " UiRange.vue pass percent position of thumb to component style",
           "status": "passed",
           "title": "pass percent position of thumb to component style",
-          "duration": 18,
+          "duration": 21,
           "failureMessages": []
         },
         {
@@ -945,7 +945,7 @@
           "fullName": " UiRange.vue clicking decrement button decrements the value",
           "status": "passed",
           "title": "clicking decrement button decrements the value",
-          "duration": 23,
+          "duration": 18,
           "failureMessages": []
         },
         {
@@ -956,35 +956,15 @@
           "fullName": " UiRange.vue component passes attributes to child button components",
           "status": "passed",
           "title": "component passes attributes to child button components",
-          "duration": 26,
+          "duration": 24,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182701510,
-      "endTime": 1706182701749,
+      "startTime": 1706187942502,
+      "endTime": 1706187942761,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiRange/UiRange.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "UiText.vue"
-          ],
-          "fullName": " UiText.vue renders a component",
-          "status": "passed",
-          "title": "renders a component",
-          "duration": 30,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1706182712600,
-      "endTime": 1706182712630,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiText/UiText.spec.js"
     },
     {
       "assertionResults": [
@@ -996,7 +976,7 @@
           "fullName": " UiTextarea.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 38,
+          "duration": 39,
           "failureMessages": []
         },
         {
@@ -1018,15 +998,35 @@
           "fullName": " UiTextarea.vue a component emits input event",
           "status": "passed",
           "title": "a component emits input event",
-          "duration": 8,
+          "duration": 9,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182710877,
-      "endTime": 1706182710944,
+      "startTime": 1706187951461,
+      "endTime": 1706187951528,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiTextarea/UiTextarea.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "UiText.vue"
+          ],
+          "fullName": " UiText.vue renders a component",
+          "status": "passed",
+          "title": "renders a component",
+          "duration": 33,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1706187954442,
+      "endTime": 1706187954475,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiText/UiText.spec.js"
     },
     {
       "assertionResults": [
@@ -1038,7 +1038,7 @@
           "fullName": " UiAlert.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 68,
+          "duration": 46,
           "failureMessages": []
         },
         {
@@ -1049,7 +1049,7 @@
           "fullName": " UiAlert.vue renders content via icon slot",
           "status": "passed",
           "title": "renders content via icon slot",
-          "duration": 32,
+          "duration": 37,
           "failureMessages": []
         },
         {
@@ -1060,12 +1060,12 @@
           "fullName": " UiAlert.vue renders content via message slot",
           "status": "passed",
           "title": "renders content via message slot",
-          "duration": 14,
+          "duration": 11,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182708711,
-      "endTime": 1706182708825,
+      "startTime": 1706187950810,
+      "endTime": 1706187950904,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiAlert/UiAlert.spec.js"
@@ -1080,7 +1080,7 @@
           "fullName": " UiBulletPoints.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 63,
+          "duration": 34,
           "failureMessages": []
         },
         {
@@ -1091,7 +1091,7 @@
           "fullName": " UiBulletPoints.vue component pass tag props",
           "status": "passed",
           "title": "component pass tag props",
-          "duration": 16,
+          "duration": 17,
           "failureMessages": []
         },
         {
@@ -1102,12 +1102,12 @@
           "fullName": " UiBulletPoints.vue component pass type props",
           "status": "passed",
           "title": "component pass type props",
-          "duration": 109,
+          "duration": 99,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182702290,
-      "endTime": 1706182702478,
+      "startTime": 1706187942935,
+      "endTime": 1706187943085,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiBulletPoints/UiBulletPoints.spec.js"
@@ -1122,7 +1122,7 @@
           "fullName": " UiChip.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 62,
+          "duration": 61,
           "failureMessages": []
         },
         {
@@ -1133,7 +1133,7 @@
           "fullName": " UiChip.vue component emit click:remove event",
           "status": "passed",
           "title": "component emit click:remove event",
-          "duration": 44,
+          "duration": 32,
           "failureMessages": []
         },
         {
@@ -1144,7 +1144,7 @@
           "fullName": " UiChip.vue a component pass attributes for remove button",
           "status": "passed",
           "title": "a component pass attributes for remove button",
-          "duration": 11,
+          "duration": 14,
           "failureMessages": []
         },
         {
@@ -1155,12 +1155,12 @@
           "fullName": " UiChip.vue render a content via remove slot",
           "status": "passed",
           "title": "render a content via remove slot",
-          "duration": 15,
+          "duration": 19,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182702915,
-      "endTime": 1706182703047,
+      "startTime": 1706187946993,
+      "endTime": 1706187947119,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiChip/UiChip.spec.js"
@@ -1175,12 +1175,12 @@
           "fullName": " UiDropdown.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 51,
+          "duration": 59,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182710683,
-      "endTime": 1706182710734,
+      "startTime": 1706187952866,
+      "endTime": 1706187952925,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiDropdown/UiDropdown.spec.js"
@@ -1195,7 +1195,7 @@
           "fullName": " UiFormField.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 36,
+          "duration": 42,
           "failureMessages": []
         },
         {
@@ -1206,7 +1206,7 @@
           "fullName": " UiFormField.vue renders component with custom label from slot",
           "status": "passed",
           "title": "renders component with custom label from slot",
-          "duration": 39,
+          "duration": 31,
           "failureMessages": []
         },
         {
@@ -1217,7 +1217,7 @@
           "fullName": " UiFormField.vue renders component with custom label from slot and has only one label",
           "status": "passed",
           "title": "renders component with custom label from slot and has only one label",
-          "duration": 12,
+          "duration": 15,
           "failureMessages": []
         },
         {
@@ -1228,7 +1228,7 @@
           "fullName": " UiFormField.vue renders a label when passed a message prop",
           "status": "passed",
           "title": "renders a label when passed a message prop",
-          "duration": 11,
+          "duration": 17,
           "failureMessages": []
         },
         {
@@ -1239,7 +1239,7 @@
           "fullName": " UiFormField.vue renders an alert when passed an errorMessage prop",
           "status": "passed",
           "title": "renders an alert when passed an errorMessage prop",
-          "duration": 16,
+          "duration": 18,
           "failureMessages": []
         },
         {
@@ -1250,7 +1250,7 @@
           "fullName": " UiFormField.vue renders a hint alert when passed a label and hint props",
           "status": "passed",
           "title": "renders a hint alert when passed a label and hint props",
-          "duration": 8,
+          "duration": 10,
           "failureMessages": []
         },
         {
@@ -1265,8 +1265,8 @@
           "failureMessages": []
         }
       ],
-      "startTime": 1706182707694,
-      "endTime": 1706182707822,
+      "startTime": 1706187946900,
+      "endTime": 1706187947040,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiFormField/UiFormField.spec.js"
@@ -1281,7 +1281,7 @@
           "fullName": " UiHeader.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 41,
+          "duration": 44,
           "failureMessages": []
         },
         {
@@ -1325,15 +1325,35 @@
           "fullName": " UiHeader.vue a component emits hamburger:close event",
           "status": "passed",
           "title": "a component emits hamburger:close event",
-          "duration": 13,
+          "duration": 12,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182707214,
-      "endTime": 1706182707330,
+      "startTime": 1706187945113,
+      "endTime": 1706187945230,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiHeader/UiHeader.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "UiLoader.vue"
+          ],
+          "fullName": " UiLoader.vue renders a component",
+          "status": "passed",
+          "title": "renders a component",
+          "duration": 88,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1706187951384,
+      "endTime": 1706187951472,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiLoader/UiLoader.spec.js"
     },
     {
       "assertionResults": [
@@ -1345,7 +1365,7 @@
           "fullName": " UiInteractiveSvg.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 31,
+          "duration": 35,
           "failureMessages": []
         },
         {
@@ -1356,7 +1376,7 @@
           "fullName": " UiInteractiveSvg.vue renders UiInteractiveSvgElement tag provided by tag prop",
           "status": "passed",
           "title": "renders UiInteractiveSvgElement tag provided by tag prop",
-          "duration": 11,
+          "duration": 13,
           "failureMessages": []
         },
         {
@@ -1367,7 +1387,7 @@
           "fullName": " UiInteractiveSvg.vue pass attributes to UiInteractiveSvgElement",
           "status": "passed",
           "title": "pass attributes to UiInteractiveSvgElement",
-          "duration": 6,
+          "duration": 7,
           "failureMessages": []
         },
         {
@@ -1378,7 +1398,7 @@
           "fullName": " UiInteractiveSvg.vue pass listeners to UiInteractiveSvgElement",
           "status": "passed",
           "title": "pass listeners to UiInteractiveSvgElement",
-          "duration": 10,
+          "duration": 17,
           "failureMessages": []
         },
         {
@@ -1389,7 +1409,7 @@
           "fullName": " UiInteractiveSvg.vue pass attrs to nested UiInteractiveSvg elements",
           "status": "passed",
           "title": "pass attrs to nested UiInteractiveSvg elements",
-          "duration": 17,
+          "duration": 34,
           "failureMessages": []
         },
         {
@@ -1411,7 +1431,7 @@
           "fullName": " UiInteractiveSvg.vue do not pass attrs to deeper levels of UiInteractiveSvg elements",
           "status": "passed",
           "title": "do not pass attrs to deeper levels of UiInteractiveSvg elements",
-          "duration": 7,
+          "duration": 8,
           "failureMessages": []
         },
         {
@@ -1422,7 +1442,7 @@
           "fullName": " UiInteractiveSvg.vue pass listeners to nested UiInteractiveSvg elements",
           "status": "passed",
           "title": "pass listeners to nested UiInteractiveSvg elements",
-          "duration": 9,
+          "duration": 8,
           "failureMessages": []
         },
         {
@@ -1433,7 +1453,7 @@
           "fullName": " UiInteractiveSvg.vue do not pass listeners to deeper levels of UiInteractiveSvg elements",
           "status": "passed",
           "title": "do not pass listeners to deeper levels of UiInteractiveSvg elements",
-          "duration": 7,
+          "duration": 15,
           "failureMessages": []
         },
         {
@@ -1444,35 +1464,15 @@
           "fullName": " UiInteractiveSvg.vue do not pass nested listeners to higher levels of UiInteractiveSvg elements",
           "status": "passed",
           "title": "do not pass nested listeners to higher levels of UiInteractiveSvg elements",
-          "duration": 7,
+          "duration": 9,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182705179,
-      "endTime": 1706182705292,
+      "startTime": 1706187947387,
+      "endTime": 1706187947540,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiInteractiveSvg/UiInteractiveSvg.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "UiLoader.vue"
-          ],
-          "fullName": " UiLoader.vue renders a component",
-          "status": "passed",
-          "title": "renders a component",
-          "duration": 56,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1706182709621,
-      "endTime": 1706182709677,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiLoader/UiLoader.spec.js"
     },
     {
       "assertionResults": [
@@ -1484,7 +1484,7 @@
           "fullName": " UiNavigation.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 27,
+          "duration": 34,
           "failureMessages": []
         },
         {
@@ -1495,7 +1495,7 @@
           "fullName": " UiNavigation.vue component render item with the correct text",
           "status": "passed",
           "title": "component render item with the correct text",
-          "duration": 38,
+          "duration": 42,
           "failureMessages": []
         },
         {
@@ -1506,7 +1506,7 @@
           "fullName": " UiNavigation.vue component render the correct number of items",
           "status": "passed",
           "title": "component render the correct number of items",
-          "duration": 19,
+          "duration": 20,
           "failureMessages": []
         },
         {
@@ -1517,12 +1517,12 @@
           "fullName": " UiNavigation.vue component pass attributes to the one item",
           "status": "passed",
           "title": "component pass attributes to the one item",
-          "duration": 28,
+          "duration": 27,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182704935,
-      "endTime": 1706182705047,
+      "startTime": 1706187945644,
+      "endTime": 1706187945767,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiNavigation/UiNavigation.spec.js"
@@ -1537,7 +1537,7 @@
           "fullName": " UiNotification.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 47,
+          "duration": 57,
           "failureMessages": []
         },
         {
@@ -1559,7 +1559,7 @@
           "fullName": " UiNotification.vue component is info type",
           "status": "passed",
           "title": "component is info type",
-          "duration": 10,
+          "duration": 11,
           "failureMessages": []
         },
         {
@@ -1570,7 +1570,7 @@
           "fullName": " UiNotification.vue component is warning type",
           "status": "passed",
           "title": "component is warning type",
-          "duration": 11,
+          "duration": 9,
           "failureMessages": []
         },
         {
@@ -1581,12 +1581,12 @@
           "fullName": " UiNotification.vue component is error type",
           "status": "passed",
           "title": "component is error type",
-          "duration": 13,
+          "duration": 8,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182705290,
-      "endTime": 1706182705392,
+      "startTime": 1706187949513,
+      "endTime": 1706187949620,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiNotification/UiNotification.spec.js"
@@ -1601,7 +1601,7 @@
           "fullName": " UiNumberStepper.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 65,
+          "duration": 71,
           "failureMessages": []
         },
         {
@@ -1623,7 +1623,7 @@
           "fullName": " UiNumberStepper.vue clicking increment button increment the value",
           "status": "passed",
           "title": "clicking increment button increment the value",
-          "duration": 13,
+          "duration": 14,
           "failureMessages": []
         },
         {
@@ -1634,7 +1634,7 @@
           "fullName": " UiNumberStepper.vue value can't be smallest than min",
           "status": "passed",
           "title": "value can't be smallest than min",
-          "duration": 14,
+          "duration": 16,
           "failureMessages": []
         },
         {
@@ -1645,12 +1645,12 @@
           "fullName": " UiNumberStepper.vue value can't be bigger than max",
           "status": "passed",
           "title": "value can't be bigger than max",
-          "duration": 21,
+          "duration": 17,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182705372,
-      "endTime": 1706182705506,
+      "startTime": 1706187944485,
+      "endTime": 1706187944624,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiNumberStepper/UiNumberStepper.spec.js"
@@ -1676,7 +1676,7 @@
           "fullName": " UiPhoneNumber.vue pass proper props to UiPhoneNumberPrefix",
           "status": "passed",
           "title": "pass proper props to UiPhoneNumberPrefix",
-          "duration": 3,
+          "duration": 2,
           "failureMessages": []
         },
         {
@@ -1689,7 +1689,7 @@
           "title": "pass proper props to UiPhoneNumberInput",
           "duration": 11,
           "failureMessages": [
-            "expected 'phone-number-wrot99t26dn' to match /^input-?/"
+            "expected 'phone-number-ztbe4jf9909' to match /^input-?/"
           ],
           "location": {
             "line": 36,
@@ -1697,8 +1697,8 @@
           }
         }
       ],
-      "startTime": 1706182699688,
-      "endTime": 1706182699707,
+      "startTime": 1706187941205,
+      "endTime": 1706187941223,
       "status": "failed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiPhoneNumber/UiPhoneNumber.spec.ts"
@@ -1713,7 +1713,7 @@
           "fullName": " UiPopover.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 35,
+          "duration": 36,
           "failureMessages": []
         },
         {
@@ -1724,12 +1724,12 @@
           "fullName": " UiPopover.vue a component emit close event",
           "status": "passed",
           "title": "a component emit close event",
-          "duration": 50,
+          "duration": 55,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182709222,
-      "endTime": 1706182709308,
+      "startTime": 1706187950760,
+      "endTime": 1706187950851,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiPopover/UiPopover.spec.js"
@@ -1744,12 +1744,12 @@
           "fullName": " UiProgressbar.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 42,
+          "duration": 45,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182711775,
-      "endTime": 1706182711817,
+      "startTime": 1706187953284,
+      "endTime": 1706187953329,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiProgressbar/UiProgressbar.spec.js"
@@ -1764,7 +1764,7 @@
           "fullName": " UiRating.vue check if component renders",
           "status": "passed",
           "title": "check if component renders",
-          "duration": 52,
+          "duration": 55,
           "failureMessages": []
         },
         {
@@ -1775,7 +1775,7 @@
           "fullName": " UiRating.vue check if max rate pass to component",
           "status": "passed",
           "title": "check if max rate pass to component",
-          "duration": 31,
+          "duration": 32,
           "failureMessages": []
         },
         {
@@ -1786,7 +1786,7 @@
           "fullName": " UiRating.vue check if rate value pass to component",
           "status": "passed",
           "title": "check if rate value pass to component",
-          "duration": 28,
+          "duration": 29,
           "failureMessages": []
         },
         {
@@ -1801,8 +1801,8 @@
           "failureMessages": []
         }
       ],
-      "startTime": 1706182702479,
-      "endTime": 1706182702613,
+      "startTime": 1706187944890,
+      "endTime": 1706187945029,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiRating/UiRating.spec.js"
@@ -1817,7 +1817,7 @@
           "fullName": " UiScale.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 120,
+          "duration": 125,
           "failureMessages": []
         },
         {
@@ -1828,7 +1828,7 @@
           "fullName": " UiScale.vue renders a content via decrement slot",
           "status": "passed",
           "title": "renders a content via decrement slot",
-          "duration": 67,
+          "duration": 64,
           "failureMessages": []
         },
         {
@@ -1839,7 +1839,7 @@
           "fullName": " UiScale.vue renders a content via increment slot",
           "status": "passed",
           "title": "renders a content via increment slot",
-          "duration": 61,
+          "duration": 50,
           "failureMessages": []
         },
         {
@@ -1850,7 +1850,7 @@
           "fullName": " UiScale.vue rendes certein number of options",
           "status": "passed",
           "title": "rendes certein number of options",
-          "duration": 114,
+          "duration": 106,
           "failureMessages": []
         },
         {
@@ -1861,7 +1861,7 @@
           "fullName": " UiScale.vue pain value pass to component",
           "status": "passed",
           "title": "pain value pass to component",
-          "duration": 88,
+          "duration": 74,
           "failureMessages": []
         },
         {
@@ -1872,7 +1872,7 @@
           "fullName": " UiScale.vue clicking increment button increments scale value",
           "status": "passed",
           "title": "clicking increment button increments scale value",
-          "duration": 68,
+          "duration": 104,
           "failureMessages": []
         },
         {
@@ -1883,7 +1883,7 @@
           "fullName": " UiScale.vue clicking decrement button decrements scale value",
           "status": "passed",
           "title": "clicking decrement button decrements scale value",
-          "duration": 71,
+          "duration": 41,
           "failureMessages": []
         },
         {
@@ -1894,7 +1894,7 @@
           "fullName": " UiScale.vue incrementing by button dont get value out of scale bounds",
           "status": "passed",
           "title": "incrementing by button dont get value out of scale bounds",
-          "duration": 71,
+          "duration": 51,
           "failureMessages": []
         },
         {
@@ -1905,12 +1905,12 @@
           "fullName": " UiScale.vue decrementing by button dont get value out of scale bounds",
           "status": "passed",
           "title": "decrementing by button dont get value out of scale bounds",
-          "duration": 55,
+          "duration": 45,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182699082,
-      "endTime": 1706182699798,
+      "startTime": 1706187940486,
+      "endTime": 1706187941147,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiScale/UiScale.spec.js"
@@ -1925,7 +1925,7 @@
           "fullName": " UiStepper.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 31,
+          "duration": 29,
           "failureMessages": []
         },
         {
@@ -1936,7 +1936,7 @@
           "fullName": " UiStepper.vue renders a component in desktop version",
           "status": "passed",
           "title": "renders a component in desktop version",
-          "duration": 74,
+          "duration": 82,
           "failureMessages": []
         },
         {
@@ -1947,7 +1947,7 @@
           "fullName": " UiStepper.vue renders a component with active class on the active element",
           "status": "passed",
           "title": "renders a component with active class on the active element",
-          "duration": 42,
+          "duration": 43,
           "failureMessages": []
         },
         {
@@ -1958,12 +1958,12 @@
           "fullName": " UiStepper.vue renders a component with visited class on the visited elements",
           "status": "passed",
           "title": "renders a component with visited class on the visited elements",
-          "duration": 49,
+          "duration": 55,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182701536,
-      "endTime": 1706182701733,
+      "startTime": 1706187943014,
+      "endTime": 1706187943223,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiStepper/UiStepper.spec.js"
@@ -1978,7 +1978,7 @@
           "fullName": " UiSwitch.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 43,
+          "duration": 46,
           "failureMessages": []
         },
         {
@@ -1989,7 +1989,7 @@
           "fullName": " UiSwitch.vue render a content via switchcontrol slot",
           "status": "passed",
           "title": "render a content via switchcontrol slot",
-          "duration": 32,
+          "duration": 31,
           "failureMessages": []
         },
         {
@@ -2011,12 +2011,12 @@
           "fullName": " UiSwitch.vue a component emits update event",
           "status": "passed",
           "title": "a component emits update event",
-          "duration": 13,
+          "duration": 11,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182707244,
-      "endTime": 1706182707347,
+      "startTime": 1706187948914,
+      "endTime": 1706187949018,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiSwitch/UiSwitch.spec.js"
@@ -2031,7 +2031,7 @@
           "fullName": " UiTile.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 62,
+          "duration": 68,
           "failureMessages": []
         },
         {
@@ -2042,7 +2042,7 @@
           "fullName": " UiTile.vue renders a content via default slot",
           "status": "passed",
           "title": "renders a content via default slot",
-          "duration": 37,
+          "duration": 36,
           "failureMessages": []
         },
         {
@@ -2057,8 +2057,8 @@
           "failureMessages": []
         }
       ],
-      "startTime": 1706182708024,
-      "endTime": 1706182708136,
+      "startTime": 1706187946376,
+      "endTime": 1706187946493,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiTile/UiTile.spec.js"
@@ -2073,7 +2073,7 @@
           "fullName": " UiToggleButtonGroup.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 30,
+          "duration": 32,
           "failureMessages": []
         },
         {
@@ -2084,7 +2084,7 @@
           "fullName": " UiToggleButtonGroup.vue updates modelValue after click a first toggle button",
           "status": "passed",
           "title": "updates modelValue after click a first toggle button",
-          "duration": 62,
+          "duration": 63,
           "failureMessages": []
         },
         {
@@ -2095,7 +2095,7 @@
           "fullName": " UiToggleButtonGroup.vue unpressed a first item after third item clicked",
           "status": "passed",
           "title": "unpressed a first item after third item clicked",
-          "duration": 31,
+          "duration": 35,
           "failureMessages": []
         },
         {
@@ -2106,7 +2106,7 @@
           "fullName": " UiToggleButtonGroup.vue deselects item when deselectable props is set",
           "status": "passed",
           "title": "deselects item when deselectable props is set",
-          "duration": 22,
+          "duration": 23,
           "failureMessages": []
         },
         {
@@ -2117,7 +2117,7 @@
           "fullName": " UiToggleButtonGroup.vue not deselects item when deselectable props is not set",
           "status": "passed",
           "title": "not deselects item when deselectable props is not set",
-          "duration": 18,
+          "duration": 17,
           "failureMessages": []
         },
         {
@@ -2128,12 +2128,12 @@
           "fullName": " UiToggleButtonGroup.vue updates value with object values",
           "status": "passed",
           "title": "updates value with object values",
-          "duration": 25,
+          "duration": 20,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182701566,
-      "endTime": 1706182701754,
+      "startTime": 1706187942985,
+      "endTime": 1706187943175,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiToggleButtonGroup/UiToggleButtonGroup.spec.js"
@@ -2148,7 +2148,7 @@
           "fullName": " UiAccordion.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 41,
+          "duration": 34,
           "failureMessages": []
         },
         {
@@ -2159,7 +2159,7 @@
           "fullName": " UiAccordion.vue component emit single item for String v-model",
           "status": "passed",
           "title": "component emit single item for String v-model",
-          "duration": 71,
+          "duration": 63,
           "failureMessages": []
         },
         {
@@ -2170,12 +2170,12 @@
           "fullName": " UiAccordion.vue component emit multiple items for Array v-model",
           "status": "passed",
           "title": "component emit multiple items for Array v-model",
-          "duration": 21,
+          "duration": 28,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182703543,
-      "endTime": 1706182703676,
+      "startTime": 1706187947578,
+      "endTime": 1706187947704,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiAccordion/UiAccordion.spec.js"
@@ -2190,12 +2190,12 @@
           "fullName": " UiCard.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 63,
+          "duration": 49,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182711463,
-      "endTime": 1706182711526,
+      "startTime": 1706187954019,
+      "endTime": 1706187954068,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiCard/UiCard.spec.js"
@@ -2210,12 +2210,12 @@
           "fullName": " UiContainer.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 30,
+          "duration": 29,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182712710,
-      "endTime": 1706182712740,
+      "startTime": 1706187954659,
+      "endTime": 1706187954688,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiContainer/UiContainer.spec.js"
@@ -2230,7 +2230,7 @@
           "fullName": " UiControls.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 49,
+          "duration": 40,
           "failureMessages": []
         },
         {
@@ -2241,7 +2241,7 @@
           "fullName": " UiControls.vue component does not show next button when \"hideNextButton\" is true",
           "status": "passed",
           "title": "component does not show next button when \"hideNextButton\" is true",
-          "duration": 16,
+          "duration": 17,
           "failureMessages": []
         },
         {
@@ -2263,7 +2263,7 @@
           "fullName": " UiControls.vue component does not show back button when \"toBack\" is absent",
           "status": "passed",
           "title": "component does not show back button when \"toBack\" is absent",
-          "duration": 7,
+          "duration": 8,
           "failureMessages": []
         },
         {
@@ -2285,12 +2285,12 @@
           "fullName": " UiControls.vue component emit has-error when \"invalid\" is true and \"toNext\" is present",
           "status": "passed",
           "title": "component emit has-error when \"invalid\" is true and \"toNext\" is present",
-          "duration": 14,
+          "duration": 23,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182706491,
-      "endTime": 1706182706608,
+      "startTime": 1706187946811,
+      "endTime": 1706187946929,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiControls/UiControls.spec.js"
@@ -2305,7 +2305,7 @@
           "fullName": " UiDatepicker.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 102,
+          "duration": 99,
           "failureMessages": []
         },
         {
@@ -2333,7 +2333,7 @@
           "fullName": " UiDatepicker.vue open calendar with month tab when all fields are filled",
           "status": "failed",
           "title": "open calendar with month tab when all fields are filled",
-          "duration": 38,
+          "duration": 44,
           "failureMessages": [
             "ResizeObserver is not defined"
           ],
@@ -2350,7 +2350,7 @@
           "fullName": " UiDatepicker.vue open calendar with year tab when all fields are filled",
           "status": "failed",
           "title": "open calendar with year tab when all fields are filled",
-          "duration": 39,
+          "duration": 51,
           "failureMessages": [
             "ResizeObserver is not defined"
           ],
@@ -2367,7 +2367,7 @@
           "fullName": " UiDatepicker.vue open calendar with day tab when non fields are filled",
           "status": "failed",
           "title": "open calendar with day tab when non fields are filled",
-          "duration": 32,
+          "duration": 35,
           "failureMessages": [
             "ResizeObserver is not defined"
           ],
@@ -2384,7 +2384,7 @@
           "fullName": " UiDatepicker.vue open calendar with month tab when non fields are filled",
           "status": "failed",
           "title": "open calendar with month tab when non fields are filled",
-          "duration": 30,
+          "duration": 38,
           "failureMessages": [
             "ResizeObserver is not defined"
           ],
@@ -2401,7 +2401,7 @@
           "fullName": " UiDatepicker.vue open calendar with year tab when non fields are filled",
           "status": "failed",
           "title": "open calendar with year tab when non fields are filled",
-          "duration": 38,
+          "duration": 51,
           "failureMessages": [
             "ResizeObserver is not defined"
           ],
@@ -2435,7 +2435,7 @@
           "fullName": " UiDatepicker.vue calendar is still open after focus on any input",
           "status": "failed",
           "title": "calendar is still open after focus on any input",
-          "duration": 29,
+          "duration": 27,
           "failureMessages": [
             "ResizeObserver is not defined"
           ],
@@ -2452,7 +2452,7 @@
           "fullName": " UiDatepicker.vue focuses calendar button after select date on calendar",
           "status": "failed",
           "title": "focuses calendar button after select date on calendar",
-          "duration": 34,
+          "duration": 31,
           "failureMessages": [
             "ResizeObserver is not defined"
           ],
@@ -2469,12 +2469,12 @@
           "fullName": " UiDatepicker.vue skips to next field when entered value can't includes any other number",
           "status": "passed",
           "title": "skips to next field when entered value can't includes any other number",
-          "duration": 72,
+          "duration": 69,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182700250,
-      "endTime": 1706182700762,
+      "startTime": 1706187941415,
+      "endTime": 1706187941957,
       "status": "failed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiDatepicker/UiDatepicker.spec.js"
@@ -2489,7 +2489,7 @@
           "fullName": " HorizontalPaging.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 47,
+          "duration": 54,
           "failureMessages": []
         },
         {
@@ -2500,7 +2500,7 @@
           "fullName": " HorizontalPaging.vue component with title",
           "status": "passed",
           "title": "component with title",
-          "duration": 14,
+          "duration": 13,
           "failureMessages": []
         },
         {
@@ -2511,7 +2511,7 @@
           "fullName": " HorizontalPaging.vue component without header",
           "status": "passed",
           "title": "component without header",
-          "duration": 14,
+          "duration": 16,
           "failureMessages": []
         },
         {
@@ -2522,7 +2522,7 @@
           "fullName": " HorizontalPaging.vue component has back button when some item is active ",
           "status": "passed",
           "title": "component has back button when some item is active ",
-          "duration": 55,
+          "duration": 65,
           "failureMessages": []
         },
         {
@@ -2533,7 +2533,7 @@
           "fullName": " HorizontalPaging.vue component with items passed by default slot",
           "status": "passed",
           "title": "component with items passed by default slot",
-          "duration": 20,
+          "duration": 24,
           "failureMessages": []
         },
         {
@@ -2544,7 +2544,7 @@
           "fullName": " HorizontalPaging.vue component with items passed by items props",
           "status": "passed",
           "title": "component with items passed by items props",
-          "duration": 20,
+          "duration": 25,
           "failureMessages": []
         },
         {
@@ -2555,7 +2555,7 @@
           "fullName": " HorizontalPaging.vue component supports nesting elements",
           "status": "passed",
           "title": "component supports nesting elements",
-          "duration": 44,
+          "duration": 51,
           "failureMessages": []
         },
         {
@@ -2566,12 +2566,12 @@
           "fullName": " HorizontalPaging.vue back button in component with nesting elements remove last active item",
           "status": "passed",
           "title": "back button in component with nesting elements remove last active item",
-          "duration": 42,
+          "duration": 56,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182700344,
-      "endTime": 1706182700600,
+      "startTime": 1706187941742,
+      "endTime": 1706187942046,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiHorizontalPaging/UiHorizontalPaging.spec.ts"
@@ -2586,12 +2586,12 @@
           "fullName": " UiList.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 31,
+          "duration": 35,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182712653,
-      "endTime": 1706182712684,
+      "startTime": 1706187954488,
+      "endTime": 1706187954523,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiList/UiList.spec.js"
@@ -2606,7 +2606,7 @@
           "fullName": " UiMenu.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 34,
+          "duration": 37,
           "failureMessages": []
         },
         {
@@ -2617,7 +2617,7 @@
           "fullName": " UiMenu.vue renders a component via default slot",
           "status": "passed",
           "title": "renders a component via default slot",
-          "duration": 32,
+          "duration": 28,
           "failureMessages": []
         },
         {
@@ -2628,7 +2628,7 @@
           "fullName": " UiMenu.vue renders a component via label slot",
           "status": "passed",
           "title": "renders a component via label slot",
-          "duration": 34,
+          "duration": 45,
           "failureMessages": []
         },
         {
@@ -2639,7 +2639,7 @@
           "fullName": " UiMenu.vue renders a component via suffix slot",
           "status": "passed",
           "title": "renders a component via suffix slot",
-          "duration": 17,
+          "duration": 18,
           "failureMessages": []
         },
         {
@@ -2651,7 +2651,7 @@
           "fullName": " UiMenu.vue component correct render icon when item is selected \n      component  render an icon when \"suffixVisible\" is set to always and item is selected",
           "status": "passed",
           "title": "\n      component  render an icon when \"suffixVisible\" is set to always and item is selected",
-          "duration": 12,
+          "duration": 18,
           "failureMessages": []
         },
         {
@@ -2663,7 +2663,7 @@
           "fullName": " UiMenu.vue component correct render icon when item is selected \n      component doesn't render an icon when \"suffixVisible\" is set to never and item is selected",
           "status": "passed",
           "title": "\n      component doesn't render an icon when \"suffixVisible\" is set to never and item is selected",
-          "duration": 11,
+          "duration": 13,
           "failureMessages": []
         },
         {
@@ -2675,7 +2675,7 @@
           "fullName": " UiMenu.vue component correct render icon when item is selected \n      component  render an icon when \"suffixVisible\" is set to default and item is selected",
           "status": "passed",
           "title": "\n      component  render an icon when \"suffixVisible\" is set to default and item is selected",
-          "duration": 13,
+          "duration": 16,
           "failureMessages": []
         },
         {
@@ -2687,7 +2687,7 @@
           "fullName": " UiMenu.vue component correct render icon when item isn't selected \n      component  render an icon when \"suffixVisible\" is set to always and item isn't selected",
           "status": "passed",
           "title": "\n      component  render an icon when \"suffixVisible\" is set to always and item isn't selected",
-          "duration": 12,
+          "duration": 15,
           "failureMessages": []
         },
         {
@@ -2699,7 +2699,7 @@
           "fullName": " UiMenu.vue component correct render icon when item isn't selected \n      component doesn't render an icon when \"suffixVisible\" is set to never and item isn't selected",
           "status": "passed",
           "title": "\n      component doesn't render an icon when \"suffixVisible\" is set to never and item isn't selected",
-          "duration": 12,
+          "duration": 18,
           "failureMessages": []
         },
         {
@@ -2711,7 +2711,7 @@
           "fullName": " UiMenu.vue component correct render icon when item isn't selected \n      component  render an icon when \"suffixVisible\" is set to default and item isn't selected",
           "status": "passed",
           "title": "\n      component  render an icon when \"suffixVisible\" is set to default and item isn't selected",
-          "duration": 22,
+          "duration": 12,
           "failureMessages": []
         },
         {
@@ -2722,12 +2722,12 @@
           "fullName": " UiMenu.vue renders the correct number of items",
           "status": "passed",
           "title": "renders the correct number of items",
-          "duration": 38,
+          "duration": 41,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182701017,
-      "endTime": 1706182701255,
+      "startTime": 1706187942921,
+      "endTime": 1706187943183,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiMenu/UiMenu.spec.js"
@@ -2753,7 +2753,7 @@
           "fullName": " UiModal.vue component can be open by model value",
           "status": "passed",
           "title": "component can be open by model value",
-          "duration": 30,
+          "duration": 32,
           "failureMessages": []
         },
         {
@@ -2775,7 +2775,7 @@
           "fullName": " UiModal.vue component can't be closed by clicking outside when is unclosable",
           "status": "passed",
           "title": "component can't be closed by clicking outside when is unclosable",
-          "duration": 63,
+          "duration": 44,
           "failureMessages": []
         },
         {
@@ -2786,7 +2786,7 @@
           "fullName": " UiModal.vue component emit confirm event",
           "status": "passed",
           "title": "component emit confirm event",
-          "duration": 29,
+          "duration": 30,
           "failureMessages": []
         },
         {
@@ -2797,7 +2797,7 @@
           "fullName": " UiModal.vue component emit cancel event",
           "status": "passed",
           "title": "component emit cancel event",
-          "duration": 26,
+          "duration": 29,
           "failureMessages": []
         },
         {
@@ -2808,7 +2808,7 @@
           "fullName": " UiModal.vue title scope slot renders content for title when component has title and description props",
           "status": "passed",
           "title": "title scope slot renders content for title when component has title and description props",
-          "duration": 70,
+          "duration": 64,
           "failureMessages": []
         },
         {
@@ -2819,7 +2819,7 @@
           "fullName": " UiModal.vue title slot is not rendered if component does not have title prop",
           "status": "passed",
           "title": "title slot is not rendered if component does not have title prop",
-          "duration": 78,
+          "duration": 77,
           "failureMessages": []
         },
         {
@@ -2830,7 +2830,7 @@
           "fullName": " UiModal.vue description scope slot render content for description when component has title and description props",
           "status": "passed",
           "title": "description scope slot render content for description when component has title and description props",
-          "duration": 63,
+          "duration": 95,
           "failureMessages": []
         },
         {
@@ -2841,7 +2841,7 @@
           "fullName": " UiModal.vue description scope slot render content for description if component does not have title prop",
           "status": "passed",
           "title": "description scope slot render content for description if component does not have title prop",
-          "duration": 66,
+          "duration": 40,
           "failureMessages": []
         },
         {
@@ -2852,12 +2852,12 @@
           "fullName": " UiModal.vue description scope slot is rendered once if component does not have title prop",
           "status": "passed",
           "title": "description scope slot is rendered once if component does not have title prop",
-          "duration": 62,
+          "duration": 47,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182699087,
-      "endTime": 1706182699716,
+      "startTime": 1706187940494,
+      "endTime": 1706187941095,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiModal/UiModal.spec.js"
@@ -2873,7 +2873,7 @@
           "fullName": " UiMultipleAnswer.vue Component with Radioses renders a component with radio buttons when modelValue is a string",
           "status": "passed",
           "title": "renders a component with radio buttons when modelValue is a string",
-          "duration": 83,
+          "duration": 73,
           "failureMessages": []
         },
         {
@@ -2885,7 +2885,7 @@
           "fullName": " UiMultipleAnswer.vue Component with Radioses renders a component with radio buttons when modelValue is an object",
           "status": "passed",
           "title": "renders a component with radio buttons when modelValue is an object",
-          "duration": 23,
+          "duration": 21,
           "failureMessages": []
         },
         {
@@ -2897,7 +2897,7 @@
           "fullName": " UiMultipleAnswer.vue Component with Radioses renders a component with correct number of radioses",
           "status": "passed",
           "title": "renders a component with correct number of radioses",
-          "duration": 21,
+          "duration": 25,
           "failureMessages": []
         },
         {
@@ -2909,7 +2909,7 @@
           "fullName": " UiMultipleAnswer.vue Component with Radioses renders a component and radioses with error styles when invalid and touched prop is true",
           "status": "passed",
           "title": "renders a component and radioses with error styles when invalid and touched prop is true",
-          "duration": 44,
+          "duration": 47,
           "failureMessages": []
         },
         {
@@ -2921,7 +2921,7 @@
           "fullName": " UiMultipleAnswer.vue Component with Radioses renders a component and radioses with error styles when invalid prop is false and touched prop is true",
           "status": "passed",
           "title": "renders a component and radioses with error styles when invalid prop is false and touched prop is true",
-          "duration": 39,
+          "duration": 23,
           "failureMessages": []
         },
         {
@@ -2933,7 +2933,7 @@
           "fullName": " UiMultipleAnswer.vue Component with Checkboxes renders a component with checkboxes when modelValue is an array",
           "status": "passed",
           "title": "renders a component with checkboxes when modelValue is an array",
-          "duration": 42,
+          "duration": 25,
           "failureMessages": []
         },
         {
@@ -2945,7 +2945,7 @@
           "fullName": " UiMultipleAnswer.vue Component with Checkboxes renders a component correct number of checkboxes",
           "status": "passed",
           "title": "renders a component correct number of checkboxes",
-          "duration": 40,
+          "duration": 26,
           "failureMessages": []
         },
         {
@@ -2957,7 +2957,7 @@
           "fullName": " UiMultipleAnswer.vue Component with Checkboxes renders a component and checkboxes with error styles when invalid and touched prop is true",
           "status": "passed",
           "title": "renders a component and checkboxes with error styles when invalid and touched prop is true",
-          "duration": 39,
+          "duration": 42,
           "failureMessages": []
         },
         {
@@ -2969,7 +2969,7 @@
           "fullName": " UiMultipleAnswer.vue Component with Checkboxes renders a component and checkboxes with error styles when invalid prop is false and touched prop is true",
           "status": "passed",
           "title": "renders a component and checkboxes with error styles when invalid prop is false and touched prop is true",
-          "duration": 37,
+          "duration": 54,
           "failureMessages": []
         },
         {
@@ -2981,12 +2981,12 @@
           "fullName": " UiMultipleAnswer.vue Component with Checkboxes renders inputs with \"name\" attribute",
           "status": "passed",
           "title": "renders inputs with \"name\" attribute",
-          "duration": 53,
+          "duration": 31,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182699281,
-      "endTime": 1706182699703,
+      "startTime": 1706187940657,
+      "endTime": 1706187941026,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiMultipleAnswer/UiMultipleAnswer.spec.js"
@@ -3001,7 +3001,7 @@
           "fullName": " UiMultipleChoices.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 45,
+          "duration": 36,
           "failureMessages": []
         },
         {
@@ -3012,7 +3012,7 @@
           "fullName": " UiMultipleChoices.vue a component emits update:modelValue as array",
           "status": "passed",
           "title": "a component emits update:modelValue as array",
-          "duration": 70,
+          "duration": 58,
           "failureMessages": []
         },
         {
@@ -3023,7 +3023,7 @@
           "fullName": " UiMultipleChoices.vue a possible to pass custom choices by options property",
           "status": "passed",
           "title": "a possible to pass custom choices by options property",
-          "duration": 19,
+          "duration": 15,
           "failureMessages": []
         },
         {
@@ -3034,7 +3034,7 @@
           "fullName": " UiMultipleChoices.vue a possible to valid custom choices component",
           "status": "passed",
           "title": "a possible to valid custom choices component",
-          "duration": 37,
+          "duration": 32,
           "failureMessages": []
         },
         {
@@ -3045,12 +3045,12 @@
           "fullName": " UiMultipleChoices.vue renders inputs with name attribute",
           "status": "passed",
           "title": "renders inputs with name attribute",
-          "duration": 27,
+          "duration": 19,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182703549,
-      "endTime": 1706182703747,
+      "startTime": 1706187943807,
+      "endTime": 1706187943969,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiMultipleChoices/UiMultipleChoices.spec.js"
@@ -3065,7 +3065,7 @@
           "fullName": " UiSidePanel.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 42,
+          "duration": 36,
           "failureMessages": []
         },
         {
@@ -3076,7 +3076,7 @@
           "fullName": " UiSidePanel.vue a component can be open by model value",
           "status": "passed",
           "title": "a component can be open by model value",
-          "duration": 58,
+          "duration": 62,
           "failureMessages": []
         },
         {
@@ -3087,12 +3087,12 @@
           "fullName": " UiSidePanel.vue render a content via default slot",
           "status": "passed",
           "title": "render a content via default slot",
-          "duration": 33,
+          "duration": 29,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182704294,
-      "endTime": 1706182704427,
+      "startTime": 1706187944855,
+      "endTime": 1706187944982,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiSidePanel/UiSidePanel.spec.js"
@@ -3107,7 +3107,7 @@
           "fullName": " UiSimpleQuestion.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 50,
+          "duration": 34,
           "failureMessages": []
         },
         {
@@ -3122,8 +3122,8 @@
           "failureMessages": []
         }
       ],
-      "startTime": 1706182708643,
-      "endTime": 1706182708756,
+      "startTime": 1706187950758,
+      "endTime": 1706187950855,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiSimpleQuestion/UiSimpleQuestion.spec.js"
@@ -3138,7 +3138,7 @@
           "fullName": " UiTabs.vue renders a component",
           "status": "failed",
           "title": "renders a component",
-          "duration": 26,
+          "duration": 27,
           "failureMessages": [
             "ResizeObserver is not defined"
           ],
@@ -3172,7 +3172,7 @@
           "fullName": " UiTabs.vue component emit update for UiTabsItem with id instead name",
           "status": "failed",
           "title": "component emit update for UiTabsItem with id instead name",
-          "duration": 13,
+          "duration": 12,
           "failureMessages": [
             "ResizeObserver is not defined"
           ],
@@ -3182,8 +3182,8 @@
           }
         }
       ],
-      "startTime": 1706182699071,
-      "endTime": 1706182699140,
+      "startTime": 1706187940462,
+      "endTime": 1706187940531,
       "status": "failed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiTabs/UiTabs.spec.js"
@@ -3198,7 +3198,7 @@
           "fullName": " UiQuestion.vue renders a component",
           "status": "passed",
           "title": "renders a component",
-          "duration": 39,
+          "duration": 40,
           "failureMessages": []
         },
         {
@@ -3209,7 +3209,7 @@
           "fullName": " UiQuestion.vue component does not render skip button when buttonActionAttrs is empty",
           "status": "passed",
           "title": "component does not render skip button when buttonActionAttrs is empty",
-          "duration": 50,
+          "duration": 47,
           "failureMessages": []
         },
         {
@@ -3220,7 +3220,7 @@
           "fullName": " UiQuestion.vue component render skip button",
           "status": "passed",
           "title": "component render skip button",
-          "duration": 24,
+          "duration": 26,
           "failureMessages": []
         },
         {
@@ -3231,12 +3231,12 @@
           "fullName": " UiQuestion.vue skip button is hidden even onClick is pass to buttonActionAttrs",
           "status": "passed",
           "title": "skip button is hidden even onClick is pass to buttonActionAttrs",
-          "duration": 14,
+          "duration": 13,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182706765,
-      "endTime": 1706182706892,
+      "startTime": 1706187945097,
+      "endTime": 1706187945223,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/templates/UiQuestion/UiQuestion.spec.ts"
@@ -3251,7 +3251,7 @@
           "fullName": " directive/bodyScrollLock The directive add styles to body",
           "status": "passed",
           "title": "The directive add styles to body",
-          "duration": 40,
+          "duration": 52,
           "failureMessages": []
         },
         {
@@ -3262,15 +3262,46 @@
           "fullName": " directive/bodyScrollLock The directive removes body styles before the component unmounts",
           "status": "passed",
           "title": "The directive removes body styles before the component unmounts",
-          "duration": 20,
+          "duration": 22,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182709934,
-      "endTime": 1706182709994,
+      "startTime": 1706187952102,
+      "endTime": 1706187952176,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/utilities/directives/body-scroll-lock/body-scroll-lock.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "directive/focusTrap"
+          ],
+          "fullName": " directive/focusTrap focus state goes from last child to first child when press Tab",
+          "status": "passed",
+          "title": "focus state goes from last child to first child when press Tab",
+          "duration": 90,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "directive/focusTrap"
+          ],
+          "fullName": " directive/focusTrap focus state goes from first child to last child when press Tab + Shift",
+          "status": "passed",
+          "title": "focus state goes from first child to last child when press Tab + Shift",
+          "duration": 21,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1706187948811,
+      "endTime": 1706187948922,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/utilities/directives/focus-trap/focus-trap.spec.js"
     },
     {
       "assertionResults": [
@@ -3282,7 +3313,7 @@
           "fullName": " directive/clickOutside handler function is called when click outside",
           "status": "passed",
           "title": "handler function is called when click outside",
-          "duration": 63,
+          "duration": 80,
           "failureMessages": []
         },
         {
@@ -3315,7 +3346,7 @@
           "fullName": " directive/clickOutside adding false isActive parameter disables the directive",
           "status": "passed",
           "title": "adding false isActive parameter disables the directive",
-          "duration": 6,
+          "duration": 12,
           "failureMessages": []
         },
         {
@@ -3326,7 +3357,7 @@
           "fullName": " directive/clickOutside handler function is called when isActive parameter is undefined",
           "status": "passed",
           "title": "handler function is called when isActive parameter is undefined",
-          "duration": 8,
+          "duration": 10,
           "failureMessages": []
         },
         {
@@ -3337,46 +3368,15 @@
           "fullName": " directive/clickOutside reactivity of isActive parameter",
           "status": "passed",
           "title": "reactivity of isActive parameter",
-          "duration": 7,
+          "duration": 12,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182701384,
-      "endTime": 1706182701488,
+      "startTime": 1706187946667,
+      "endTime": 1706187946801,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/utilities/directives/click-outside/click-outside.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "directive/focusTrap"
-          ],
-          "fullName": " directive/focusTrap focus state goes from last child to first child when press Tab",
-          "status": "passed",
-          "title": "focus state goes from last child to first child when press Tab",
-          "duration": 96,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "directive/focusTrap"
-          ],
-          "fullName": " directive/focusTrap focus state goes from first child to last child when press Tab + Shift",
-          "status": "passed",
-          "title": "focus state goes from first child to last child when press Tab + Shift",
-          "duration": 24,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1706182707209,
-      "endTime": 1706182707329,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/utilities/directives/focus-trap/focus-trap.spec.js"
     },
     {
       "assertionResults": [
@@ -3388,7 +3388,7 @@
           "fullName": " directive/highlight no markings if searched query is empty string",
           "status": "passed",
           "title": "no markings if searched query is empty string",
-          "duration": 51,
+          "duration": 54,
           "failureMessages": []
         },
         {
@@ -3399,7 +3399,7 @@
           "fullName": " directive/highlight marking searched query",
           "status": "passed",
           "title": "marking searched query",
-          "duration": 19,
+          "duration": 21,
           "failureMessages": []
         },
         {
@@ -3421,7 +3421,7 @@
           "fullName": " directive/highlight no markings if text does not contain searched query",
           "status": "passed",
           "title": "no markings if text does not contain searched query",
-          "duration": 14,
+          "duration": 11,
           "failureMessages": []
         },
         {
@@ -3443,12 +3443,12 @@
           "fullName": " directive/highlight thrown error when search query is undefined",
           "status": "passed",
           "title": "thrown error when search query is undefined",
-          "duration": 7,
+          "duration": 6,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182704580,
-      "endTime": 1706182704699,
+      "startTime": 1706187945582,
+      "endTime": 1706187945702,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/utilities/directives/highlight/highlight.spec.js"
@@ -3463,7 +3463,7 @@
           "fullName": " directive/keyboardFocus remove class focus-hidden from body when press tab",
           "status": "passed",
           "title": "remove class focus-hidden from body when press tab",
-          "duration": 59,
+          "duration": 62,
           "failureMessages": []
         },
         {
@@ -3485,7 +3485,7 @@
           "fullName": " directive/keyboardFocus focus element when press tab",
           "status": "passed",
           "title": "focus element when press tab",
-          "duration": 7,
+          "duration": 8,
           "failureMessages": []
         },
         {
@@ -3496,79 +3496,15 @@
           "fullName": " directive/keyboardFocus add class focus-hidden to body on mouse click",
           "status": "passed",
           "title": "add class focus-hidden to body on mouse click",
-          "duration": 7,
+          "duration": 8,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182706005,
-      "endTime": 1706182706086,
+      "startTime": 1706187950684,
+      "endTime": 1706187950770,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/utilities/directives/keyboard-focus/keyboard-focus.spec.js"
-    },
-    {
-      "assertionResults": [
-        {
-          "ancestorTitles": [
-            "",
-            "directive/scrollTabindex"
-          ],
-          "fullName": " directive/scrollTabindex remove tabindex if scrollHeight is lower than clientHeight",
-          "status": "passed",
-          "title": "remove tabindex if scrollHeight is lower than clientHeight",
-          "duration": 43,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "directive/scrollTabindex"
-          ],
-          "fullName": " directive/scrollTabindex adding tabindex if scrollHeight changed",
-          "status": "passed",
-          "title": "adding tabindex if scrollHeight changed",
-          "duration": 6,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "directive/scrollTabindex"
-          ],
-          "fullName": " directive/scrollTabindex remove tabindex if clientHeight changed",
-          "status": "passed",
-          "title": "remove tabindex if clientHeight changed",
-          "duration": 7,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "directive/scrollTabindex"
-          ],
-          "fullName": " directive/scrollTabindex remove tabindex if scrollHeight equals clientHeight",
-          "status": "passed",
-          "title": "remove tabindex if scrollHeight equals clientHeight",
-          "duration": 6,
-          "failureMessages": []
-        },
-        {
-          "ancestorTitles": [
-            "",
-            "directive/scrollTabindex"
-          ],
-          "fullName": " directive/scrollTabindex add tabindex if scrollHeight is greater than clientHeight",
-          "status": "passed",
-          "title": "add tabindex if scrollHeight is greater than clientHeight",
-          "duration": 7,
-          "failureMessages": []
-        }
-      ],
-      "startTime": 1706182710989,
-      "endTime": 1706182711059,
-      "status": "passed",
-      "message": "",
-      "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/utilities/directives/scroll-tabindex/scroll-tabindex.spec.js"
     },
     {
       "assertionResults": [
@@ -3580,7 +3516,7 @@
           "fullName": " helpers/capitalizeFirst return string with first letter capitalized when first is lowercase",
           "status": "passed",
           "title": "return string with first letter capitalized when first is lowercase",
-          "duration": 3,
+          "duration": 2,
           "failureMessages": []
         },
         {
@@ -3591,7 +3527,7 @@
           "fullName": " helpers/capitalizeFirst return string when first letter is capitalize",
           "status": "passed",
           "title": "return string when first letter is capitalize",
-          "duration": 1,
+          "duration": 0,
           "failureMessages": []
         },
         {
@@ -3602,7 +3538,7 @@
           "fullName": " helpers/capitalizeFirst return string when number is first char",
           "status": "passed",
           "title": "return string when number is first char",
-          "duration": 1,
+          "duration": 0,
           "failureMessages": []
         },
         {
@@ -3646,7 +3582,7 @@
           "fullName": " helpers/capitalizeFirst thrown type error when parameter is undefined",
           "status": "passed",
           "title": "thrown type error when parameter is undefined",
-          "duration": 1,
+          "duration": 0,
           "failureMessages": []
         },
         {
@@ -3668,15 +3604,79 @@
           "fullName": " helpers/capitalizeFirst thrown type error when parameter is type number",
           "status": "passed",
           "title": "thrown type error when parameter is type number",
-          "duration": 1,
+          "duration": 0,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182714105,
-      "endTime": 1706182714113,
+      "startTime": 1706187955904,
+      "endTime": 1706187955908,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/utilities/helpers/capitalize-first/capitalize-first.spec.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "",
+            "directive/scrollTabindex"
+          ],
+          "fullName": " directive/scrollTabindex remove tabindex if scrollHeight is lower than clientHeight",
+          "status": "passed",
+          "title": "remove tabindex if scrollHeight is lower than clientHeight",
+          "duration": 47,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "directive/scrollTabindex"
+          ],
+          "fullName": " directive/scrollTabindex adding tabindex if scrollHeight changed",
+          "status": "passed",
+          "title": "adding tabindex if scrollHeight changed",
+          "duration": 6,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "directive/scrollTabindex"
+          ],
+          "fullName": " directive/scrollTabindex remove tabindex if clientHeight changed",
+          "status": "passed",
+          "title": "remove tabindex if clientHeight changed",
+          "duration": 6,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "directive/scrollTabindex"
+          ],
+          "fullName": " directive/scrollTabindex remove tabindex if scrollHeight equals clientHeight",
+          "status": "passed",
+          "title": "remove tabindex if scrollHeight equals clientHeight",
+          "duration": 5,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "",
+            "directive/scrollTabindex"
+          ],
+          "fullName": " directive/scrollTabindex add tabindex if scrollHeight is greater than clientHeight",
+          "status": "passed",
+          "title": "add tabindex if scrollHeight is greater than clientHeight",
+          "duration": 6,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1706187949541,
+      "endTime": 1706187949611,
+      "status": "passed",
+      "message": "",
+      "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/utilities/directives/scroll-tabindex/scroll-tabindex.spec.js"
     },
     {
       "assertionResults": [
@@ -3688,7 +3688,7 @@
           "fullName": " helpers/focusElement focus element",
           "status": "passed",
           "title": "focus element",
-          "duration": 50,
+          "duration": 47,
           "failureMessages": []
         },
         {
@@ -3699,12 +3699,12 @@
           "fullName": " helpers/focusElement focus element with visible focus",
           "status": "passed",
           "title": "focus element with visible focus",
-          "duration": 11,
+          "duration": 12,
           "failureMessages": []
         }
       ],
-      "startTime": 1706182709076,
-      "endTime": 1706182709137,
+      "startTime": 1706187952561,
+      "endTime": 1706187952620,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/utilities/helpers/focus-element/focus-element.spec.js"
@@ -3719,7 +3719,7 @@
           "fullName": " helpers/removeNonDigits given %p as arguments, returns %p  ",
           "status": "passed",
           "title": "given %p as arguments, returns %p  ",
-          "duration": 3,
+          "duration": 2,
           "failureMessages": []
         },
         {
@@ -3730,7 +3730,7 @@
           "fullName": " helpers/removeNonDigits given %p as arguments, returns %p 2e 2",
           "status": "passed",
           "title": "given %p as arguments, returns %p 2e 2",
-          "duration": 1,
+          "duration": 0,
           "failureMessages": []
         },
         {
@@ -3752,7 +3752,7 @@
           "fullName": " helpers/removeNonDigits given %p as arguments, returns %p ea2f/ 2",
           "status": "passed",
           "title": "given %p as arguments, returns %p ea2f/ 2",
-          "duration": 0,
+          "duration": 1,
           "failureMessages": []
         },
         {
@@ -3767,8 +3767,8 @@
           "failureMessages": []
         }
       ],
-      "startTime": 1706182714160,
-      "endTime": 1706182714167,
+      "startTime": 1706187955623,
+      "endTime": 1706187955628,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/utilities/helpers/remove-non-digits/remove-non-digits.spec.js"
@@ -3783,7 +3783,7 @@
           "fullName": " helpers/getPhoneCodes returns an array of phone codes with default settings",
           "status": "passed",
           "title": "returns an array of phone codes with default settings",
-          "duration": 12,
+          "duration": 13,
           "failureMessages": []
         },
         {
@@ -3798,8 +3798,8 @@
           "failureMessages": []
         }
       ],
-      "startTime": 1706182714179,
-      "endTime": 1706182714195,
+      "startTime": 1706187954949,
+      "endTime": 1706187954965,
       "status": "passed",
       "message": "",
       "name": "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiPhoneNumber/helpers/get-phone-codes.spec.ts"

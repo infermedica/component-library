@@ -2299,6 +2299,18 @@
           }
         },
         {
+          "name": "menuAttrs",
+          "description": "Use this props to pass attrs for title UiMenu",
+          "required": false,
+          "type": {
+            "name": "MenuAttrsProps"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "() => ({})"
+          }
+        },
+        {
           "name": "translation",
           "description": "Use this props to pass labels inside component translation.",
           "required": false,
