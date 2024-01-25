@@ -42,6 +42,7 @@ import {
   onMounted,
   provide,
   nextTick,
+  watch,
   type Ref,
 } from 'vue';
 import { focusElement } from '../../../utilities/helpers';
@@ -139,9 +140,10 @@ export interface MenuEmits {
   (e: 'mounted'): void;
 }
 const emit = defineEmits<MenuEmits>();
-onMounted(async () => {
-  if (!props.enableKeyboardNavigation) return;
-  await nextTick();
+const hasMenuItems = computed(() => (
+  menuItems.value.length > 0
+));
+const makeItemsUnacessibleForTab = () => {
   [ ...menuItems.value ].forEach((item) => {
     item.tabindex = -1;
   });
@@ -150,7 +152,16 @@ onMounted(async () => {
   } else {
     firstMenuItem.value.tabindex = 0;
   }
+};
+onMounted(async () => {
+  if (!props.enableKeyboardNavigation) return;
   emit('mounted');
+});
+watch(hasMenuItems, async (hasItems) => {
+  if (hasItems) {
+    await nextTick();
+    makeItemsUnacessibleForTab();
+  }
 });
 </script>
 
