@@ -1,71 +1,47 @@
 <template>
-  <UiButton
-    ref="dropdownItem"
-    :tabindex="tabindex"
-    class="ui-button--outlined ui-dropdown-item"
-    :class="{ 'ui-button--is-selected': isChecked }"
+  <UiMenuItem
     v-bind="buttonItemAttrs"
-    @keydown="dropdownItemKeydownHandler"
+    :class="[
+      'ui-dropdown-item',
+      { 'ui-menu-item--is-selected': isSelected },
+    ]"
   >
     <slot />
-    <UiIcon
-      v-if="isChecked"
-      v-bind="defaultProps.iconItemAttrs"
-      class="ui-button__icon ui-dropdown-item__icon"
-    />
-  </UiButton>
+  </UiMenuItem>
 </template>
 
 <script setup lang="ts">
 import {
   computed,
-  ref,
   inject,
-  useAttrs,
-  type ComputedRef,
+  type WritableComputedRef,
 } from 'vue';
 import equal from 'fast-deep-equal';
-import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
-import type { IconAttrsProps } from '../../../atoms/UiIcon/UiIcon.vue';
-import UiButton from '../../../atoms/UiButton/UiButton.vue';
-import type { ButtonAttrsProps } from '../../../atoms/UiButton/UiButton.vue';
-import type {
-  DropdownModelValue,
-  DropdownItemKeydownHandler,
-} from '../UiDropdown.vue';
+import type { MenuItemProps } from '../../../organisms/UiMenu/_internal/MenuItemProps';
 import type { DefineAttrsProps } from '../../../../types';
+import UiMenuItem from '../../../organisms/UiMenu/_internal/UiMenuItem.vue';
+import type { DropdownModelValue } from '../UiDropdown.vue';
 
-export interface DropdownItemProps {
+export interface DropdownItemProps extends MenuItemProps {
   /**
    * Use this props to set the value of the dropdown item.
    */
   value?: DropdownModelValue;
-  /**
-   *  Use this props to pass attrs to UiIcon.
-   */
-  iconItemAttrs?: IconAttrsProps;
 }
-export type DropdownItemAttrsProps = DefineAttrsProps<DropdownItemProps, ButtonAttrsProps>;
+export type DropdownItemAttrsProps = DefineAttrsProps<DropdownItemProps>;
 
 const props = withDefaults(defineProps<DropdownItemProps>(), {
   value: '',
-  iconItemAttrs: () => ({ icon: 'present' }),
+  icon: 'present',
+  suffixVisible: 'default',
+  suffixAttrs: () => ({ class: 'ui-button--text ui-menu-item__suffix' }),
+  listItemAttrs: () => ({ class: 'ui-menu-item' }),
 });
-const defaultProps = computed(() => {
-  const icon: IconAttrsProps['icon'] = 'present';
-  return {
-    iconItemAttrs: {
-      icon,
-      ...props.iconItemAttrs,
-    },
-  };
-});
-const attrs = useAttrs();
-const dropdownItem = ref<null | HTMLButtonElement>(null);
-const changeHandler = inject<(value: Required<DropdownModelValue>) => void>('changeHandler');
-const dropdownItemKeydownHandler = inject<DropdownItemKeydownHandler>('dropdownItemKeydownHandler', () => undefined);
-const modelValue = inject<ComputedRef<Required<DropdownModelValue>>>('modelValue', computed(() => ''));
-const isChecked = computed<boolean>(() => {
+const modelValue = inject<WritableComputedRef<Required<DropdownModelValue>>>('modelValue', computed(() => ''));
+const handleUpdateModelValue = () => {
+  modelValue.value = props.value;
+};
+const isSelected = computed<boolean>(() => {
   if (!modelValue.value) {
     return false;
   }
@@ -77,30 +53,12 @@ const isChecked = computed<boolean>(() => {
     JSON.parse(JSON.stringify(props.value)),
   ) as boolean;
 });
-const isOption = computed(() => !!props.value);
-const tabindex = computed(() => {
-  if (isChecked.value || !modelValue.value) {
-    return 0;
-  }
-  if (typeof modelValue.value === 'string') {
-    return !modelValue.value ? 0 : -1;
-  }
-  return !Object.keys(modelValue.value).length ? 0 : -1;
-});
-const optionChangeHandler = (value: DropdownModelValue) => {
-  if (isOption.value && changeHandler) {
-    changeHandler(value);
-  }
-};
-const buttonItemAttrs = computed<ButtonAttrsProps>(() => {
-  const extraAttrs = isOption.value ? {
-    'aria-checked': isChecked.value,
-    role: 'radio',
-  } : {};
-  return ({
-    onClick: attrs.to ? undefined : optionChangeHandler.bind(this, props.value),
-    ...extraAttrs,
-  })
+const buttonItemAttrs = computed(() => {
+  const obj = { 'aria-checked': isSelected.value };
+  return {
+    onClick: handleUpdateModelValue,
+    ...obj,
+  };
 });
 </script>
 
@@ -110,32 +68,5 @@ const buttonItemAttrs = computed<ButtonAttrsProps>(() => {
 
 .ui-dropdown-item {
   $element: dropdown-item;
-
-  @include mixins.override-logical(button, $element, padding, var(--space-8));
-  @include mixins.override-logical(button, $element, border-radius, var(--border-radius-form));
-  @include mixins.override-logical(button, null, border-width, 0);
-
-  --button-color: #{functions.var($element, color, var(--color-text-body))};
-  --button-hover-color: #{functions.var($element + "-hover", color, var(--color-text-body))};
-  --button-active-color: #{functions.var($element + "-active", color, var(--color-text-body))};
-  --button-font: #{functions.var($element, font, var(--font-body-1))};
-  --button-letter-spacing: #{functions.var($element, letter-spacing, var(--letter-spacing-body-1))};
-
-  @include mixins.use-logical($element, margin, var(--space-8) 0 0);
-
-  justify-content: space-between;
-  text-align: start;
-
-  &:first-of-type {
-    @include mixins.use-logical($element, margin, 0);
-  }
-
-  /* fixme: do something to remove this hack */
-  /* stylelint-disable-next-line selector-class-pattern */
-  &.ui-button--is-selected {
-    --button-color: unset;
-    --button-hover-color: unset;
-    --button-active-color: unset;
-  }
 }
 </style>

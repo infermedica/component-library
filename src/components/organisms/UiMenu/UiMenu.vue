@@ -1,5 +1,8 @@
 <template>
-  <UiList class="ui-menu">
+  <UiList
+    class="ui-menu"
+    @keydown="handleMenuKeydown"
+  >
     <!-- @slot Use this slot to place menu items. -->
     <slot>
       <template
@@ -7,7 +10,7 @@
         :key="key"
       >
         <UiMenuItem
-          ref="menuItems"
+          ref=""
           v-bind="menuItemAttrs(item)"
         >
           <template
@@ -36,7 +39,13 @@
 import {
   ref,
   computed,
+  onMounted,
+  provide,
+  nextTick,
+  type Ref,
 } from 'vue';
+import { focusElement } from '../../../utilities/helpers';
+import useMenuItems from './useMenuItems';
 import UiList from '../UiList/UiList.vue';
 import type { ListAttrsProps } from '../UiList/UiList.vue';
 import UiMenuItem from './_internal/UiMenuItem.vue';
@@ -52,12 +61,21 @@ export interface MenuProps {
    * Use this props to pass list of menu items.
    */
   items?: (string | MenuRenderItem)[];
+  /**
+   * Use this props to allow using arrows to navigation.
+   */
+  enableKeyboardNavigation?: boolean;
 }
 export type MenuAttrsProps = DefineAttrsProps<MenuProps, ListAttrsProps>;
+export interface MenuItem {
+  $el: HTMLLIElement,
+  tabindex: Ref<number | null>
+}
 
-const props = withDefaults(defineProps<MenuProps>(), { items: () => ([]) });
-const menuItems = ref<InstanceType<typeof UiMenuItem>[] | null>(null);
-defineExpose({ menuItems });
+const props = withDefaults(defineProps<MenuProps>(), {
+  items: () => ([]),
+  enableKeyboardNavigation: true,
+});
 const menuItemAttrs = ({
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   name, label, ...itemAttrs
@@ -74,6 +92,66 @@ const itemsToRender = computed<MenuRenderItem[]>(() => (props.items.map((item, k
     ...item,
   };
 })));
+const menuItems = ref<MenuItem[] | []>([]);
+provide('menuItems', menuItems);
+const mItems = computed(() => (menuItems.value));
+const {
+  firstMenuItem,
+  lastMenuItem,
+  nextMenuItem,
+  prevMenuItem,
+  selectedMenuItem,
+} = useMenuItems(mItems);
+const handleMenuKeydown = ({ key }: KeyboardEvent) => {
+  if (!props.enableKeyboardNavigation) return;
+  switch (key) {
+    case 'ArrowUp':
+      if (prevMenuItem.value) {
+        focusElement(prevMenuItem.value.$el.querySelector('button'));
+      }
+      break;
+    case 'ArrowDown':
+      if (nextMenuItem.value) {
+        focusElement(nextMenuItem.value.$el.querySelector('button'));
+      }
+      break;
+    case 'Home':
+    case 'PageUp':
+      if (firstMenuItem.value) {
+        focusElement(firstMenuItem.value.$el.querySelector('button'));
+      }
+      break;
+    case 'End':
+    case 'PageDown':
+      if (lastMenuItem.value) {
+        focusElement(lastMenuItem.value.$el.querySelector('button'));
+      }
+      break;
+    default: break;
+  }
+};
+defineExpose({
+  menuItems,
+  firstMenuItem,
+  selectedMenuItem,
+});
+export interface MenuEmits {
+  (e: 'mounted'): void;
+}
+const emit = defineEmits<MenuEmits>();
+onMounted(async () => {
+  if (!props.enableKeyboardNavigation) return;
+  await nextTick();
+  [ ...menuItems.value ].forEach((item) => {
+    item.tabindex = -1;
+  });
+  if (selectedMenuItem.value) {
+    selectedMenuItem.value.tabindex = 0;
+  } else {
+    firstMenuItem.value.tabindex = 0;
+  }
+  emit('mounted');
+});
 </script>
 
 <style lang="scss">

@@ -1,29 +1,30 @@
 <template>
   <div
-    ref="dropdown"
     v-click-outside="clickOutsideValue"
     class="ui-dropdown"
-    :class="{ 'is-active': isOpen }"
-    @keydown="dropdownKeydownHandler"
+    @keydown="handleDropdownKeydown"
   >
     <!-- @slot Use this slot to place toggle template. -->
     <slot
       name="toggle"
       v-bind="{
-        toggleHandler,
-        openHandler,
-        closeHandler,
-        isOpen,
         text,
+        isOpen,
         buttonToggleAttrs,
+        handlePopoverToggle,
+        handlePopoverOpen,
+        handlePopoverClose,
+        toggleHandler: handlePopoverToggle,
+        openHandler: handlePopoverOpen,
+        closeHandler: handlePopoverClose,
       }"
     >
       <UiButton
+        ref="toggleButton"
         v-bind="buttonToggleAttrs"
-        ref="toggle"
         class="ui-dropdown__toggle"
         :aria-expanded="`${isOpen}`"
-        @click="toggleHandler"
+        @click="handlePopoverToggle"
       >
         {{ text }}
       </UiButton>
@@ -32,54 +33,53 @@
     <slot
       name="popover"
       v-bind="{
-        closeHandler,
         isOpen,
         popoverAttrs,
+        handlePopoverClose,
+        closeHandler: handlePopoverClose,
       }"
     >
       <UiPopover
         v-if="isOpen"
         v-bind="popoverAttrs"
         class="ui-dropdown__popover"
-        @close="closeHandler"
+        @close="handlePopoverClose"
       >
         <!-- @slot Use this slot to replace content template. -->
         <slot
           name="content"
           v-bind="{
-            closeHandler,
             isOpen,
+            handlePopoverClose,
+            closeHandler: handlePopoverClose,
           }"
         >
-          <div
-            role="radiogroup"
-            class="ui-dropdown__items"
+          <UiMenu
+            ref="menu"
+            :class="[
+              'ui-dropdown__items',
+              { 'ui-menu--compact': isCompact },
+            ]"
+            :enable-keyboard-navigation="enableKeyboardNavigation"
+            @mounted="handleMenuMounted"
           >
-            <!-- @slot Use this slot to place dropdown content inside dropdown. -->
-            <slot
-              v-bind="{
-                closeHandler,
-                isOpen,
-              }"
+            <template
+              v-for="(item, key) in itemsToRender"
+              :key="key"
             >
-              <template
-                v-for="(item, key) in itemsToRender"
-                :key="key"
+              <UiDropdownItem
+                v-bind="item"
               >
-                <UiDropdownItem
-                  v-bind="dropdownItemAttrs(item)"
+                <!-- @slot Use this slot to replace dropdown item content. -->
+                <slot
+                  :name="item.name"
+                  v-bind="{ item }"
                 >
-                  <!-- @slot Use this slot to replace dropdown item content. -->
-                  <slot
-                    :name="item.name"
-                    v-bind="{ item }"
-                  >
-                    {{ item.text }}
-                  </slot>
-                </UiDropdownItem>
-              </template>
-            </slot>
-          </div>
+                  {{ item.label }}
+                </slot>
+              </UiDropdownItem>
+            </template>
+          </UiMenu>
         </slot>
       </UiPopover>
     </slot>
@@ -87,43 +87,45 @@
 </template>
 
 <script setup lang="ts">
-import { uid } from 'uid/single';
 import {
   ref,
   computed,
   provide,
-  nextTick,
-  type ComputedRef,
+  useAttrs,
   type ComponentPublicInstance,
+  type WritableComputedRef,
 } from 'vue';
-import useDropdownItems from './useDropdownItems';
+import { focusElement } from '../../../utilities/helpers';
 import {
   clickOutside as vClickOutside,
   type VClickOutsideValue,
 } from '../../../utilities/directives';
-import { focusElement } from '../../../utilities/helpers';
-import UiDropdownItem from './_internal/UiDropdownItem.vue';
-import type { DropdownItemAttrsProps } from './_internal/UiDropdownItem.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
 import type { ButtonAttrsProps } from '../../atoms/UiButton/UiButton.vue';
 import UiPopover from '../UiPopover/UiPopover.vue';
 import type { PopoverAttrsProps } from '../UiPopover/UiPopover.vue';
+import UiMenu from '../../organisms/UiMenu/UiMenu.vue';
+import UiDropdownItem from './_internal/UiDropdownItem.vue';
+import type { DropdownItemAttrsProps } from './_internal/UiDropdownItem.vue';
 import type { DefineAttrsProps } from '../../../types';
 
-export type ButtonInstance = InstanceType<typeof UiButton>;
+export type DropdownModelValue = string | Record<string, unknown>;
 export interface DropdownItemComplex extends DropdownItemAttrsProps {
-    text?: string;
-    name?: string;
+  text?: string;
+  name?: string;
 }
 export type DropdownItem = string | DropdownItemComplex;
 export interface DropdownHandlersOptions {
-    focus?: boolean;
-    focusToggle?: boolean;
+  focus?: boolean;
+  focusToggle?: boolean;
 }
-export type DropdownModelValue = string | Record<string, unknown>;
-export type DropdownItemKeydownHandler = ({ key }: KeyboardEvent) => void;
-export type DropdownChangeHandler = (value: DropdownModelValue) => void;
+export type ButtonInstance = InstanceType<typeof UiButton>;
+export type MenuInstance = InstanceType<typeof UiMenu>;
 export interface DropdownProps {
+  /**
+   * Use this props or v-model to set value.
+   */
+  modelValue?: DropdownModelValue;
   /**
    * Use this props to set text on toggle button.
    */
@@ -133,22 +135,6 @@ export interface DropdownProps {
    * Default value is generated by uid i.e. `dropdown-<uid>`.
    */
   name?: string;
-  /**
-   * Use this props or v-model to set value.
-   */
-  modelValue?: DropdownModelValue;
-  /**
-   * Use this props to allow clicking outside to close dropdown.
-   */
-  closeOnClickOutside?: boolean;
-  /**
-   * Use this props to set toggle DOM element to back to it after close popover.
-   */
-  toggleElement?: ComponentPublicInstance | HTMLElement | null;
-  /**
-   * Use this props to allow using key navigation.
-   */
-  enableKeyboardNavigation?: boolean;
   /**
    * Use this props to pass list of dropdown items.
    */
@@ -161,6 +147,18 @@ export interface DropdownProps {
    *  Use this props to pass attrs to UiPopover.
    */
   popoverAttrs?: PopoverAttrsProps;
+  /**
+   * Use this props to set toggle DOM element to back to it after close popover.
+   */
+  toggleElement?: ComponentPublicInstance | HTMLElement | null;
+  /**
+   * Use this props to allow clicking outside to close dropdown.
+   */
+  closeOnClickOutside?: boolean;
+  /**
+   * Use this props to allow using key navigation.
+   */
+  enableKeyboardNavigation?: boolean;
 }
 export type DropdownAttrsProps = DefineAttrsProps<DropdownProps>
 export interface DropdownEmits {
@@ -170,40 +168,19 @@ export interface DropdownEmits {
 }
 
 const props = withDefaults(defineProps<DropdownProps>(), {
+  modelValue: '',
   text: '',
   name: '',
-  modelValue: '',
-  closeOnClickOutside: true,
-  toggleElement: undefined,
-  enableKeyboardNavigation: true,
   items: () => ([]),
   buttonToggleAttrs: () => ({}),
   popoverAttrs: () => ({}),
+  toggleElement: null,
+  closeOnClickOutside: true,
+  enableKeyboardNavigation: true,
 });
 const emit = defineEmits<DropdownEmits>();
-const toggle = ref<ButtonInstance | null>(null);
-const dropdown = ref<HTMLElement | null>(null);
 const isOpen = ref(false);
-const dropdownToggle = computed<HTMLElement>(
-  () => {
-    if (!props.toggleElement) {
-      return toggle.value?.$el;
-    }
-    return '$el' in props.toggleElement
-      ? props.toggleElement.$el
-      : props.toggleElement;
-  },
-);
-const {
-  dropdownItems,
-  activeDropdownItemIndex,
-  firstDropdownItem,
-  lastDropdownItem,
-  nextDropdownItem,
-  prevDropdownItem,
-  selectedDropdownItem,
-} = useDropdownItems(dropdown);
-const disableArrows = (event: KeyboardEvent) => {
+const preventScrollingByArrows = (event: KeyboardEvent) => {
   if ([
     'ArrowUp',
     'ArrowDown',
@@ -211,127 +188,109 @@ const disableArrows = (event: KeyboardEvent) => {
     event.preventDefault();
   }
 };
-const openHandler = async ({ focus = false }: DropdownHandlersOptions = {}) => {
-  isOpen.value = true;
+const menu = ref<MenuInstance | null>(null);
+const handleMenuMounted = () => {
+  if (!menu.value) return;
+  if (menu.value.selectedMenuItem) {
+    focusElement(menu.value.selectedMenuItem.$el.querySelector('button'));
+    return;
+  }
+  if (menu.value.firstMenuItem) {
+    focusElement(menu.value.firstMenuItem.$el.querySelector('button'));
+  }
+};
+const handlePopoverOpen = async ({ focus = false }: DropdownHandlersOptions) => {
+  window.addEventListener('keydown', preventScrollingByArrows, false);
   emit('open');
-  window.addEventListener('keydown', disableArrows, false);
-
-  await nextTick();
-
-  if (focus) {
-    if (selectedDropdownItem.value) focusElement(selectedDropdownItem.value);
-    else if (nextDropdownItem.value) focusElement(nextDropdownItem.value);
-  }
+  isOpen.value = true;
 };
-const closeHandler = ({ focusToggle }: DropdownHandlersOptions = { focusToggle: true }) => {
-  if (dropdownToggle.value && focusToggle) {
-    dropdownToggle.value.focus();
+const toggleButton = ref<ButtonInstance | null>(null);
+const dropdownToggleButton = computed<HTMLElement>(() => {
+  if (props.toggleElement) {
+    return '$el' in props.toggleElement
+      ? props.toggleElement.$el
+      : props.toggleElement;
   }
-  isOpen.value = false;
+  return toggleButton.value?.$el;
+});
+const handlePopoverClose = ({ focusToggle }: DropdownHandlersOptions = { focusToggle: true }) => {
+  window.removeEventListener('keydown', preventScrollingByArrows, false);
   emit('close');
-  window.removeEventListener('keydown', disableArrows, false);
+  isOpen.value = false;
+  if (!focusToggle) return;
+  focusElement(dropdownToggleButton.value);
 };
-const toggleHandler = async () => {
+const modelValue = computed({
+  get() {
+    return props.modelValue;
+  },
+  set(value) {
+    emit('update:modelValue', value);
+    handlePopoverClose();
+  },
+});
+provide<WritableComputedRef<DropdownProps['modelValue']>>('modelValue', modelValue);
+const handlePopoverToggle = async () => {
   if (isOpen.value) {
-    closeHandler();
-  } else {
-    await openHandler({ focus: true });
+    handlePopoverClose();
+    return;
   }
+  await handlePopoverOpen({ focus: true });
 };
 const clickOutsideValue = computed<VClickOutsideValue>(() => ({
   isActive: props.closeOnClickOutside && isOpen.value,
-  handler: () => closeHandler({ focusToggle: false }),
+  handler: () => handlePopoverClose(),
 }));
-const dropdownName = computed(() => (
-  props.name || `dropdown-${uid()}`
-));
-provide<ComputedRef<string>>('name', dropdownName);
-const modelValue = computed(() => props.modelValue);
-provide<ComputedRef<DropdownProps['modelValue']>>('modelValue', modelValue);
-const changeHandler: DropdownChangeHandler = (value) => {
-  emit('update:modelValue', value);
-  closeHandler();
-};
-provide<DropdownChangeHandler>('changeHandler', changeHandler);
-const dropdownKeydownHandler = async ({ key }: KeyboardEvent) => {
+const itemsToRender = computed(() => (props.items.map((item, index) => {
+  const template = {
+    'aria-setsize': props.items.length,
+    'aria-posinset': index + 1,
+  };
+  if (typeof item === 'string') {
+    return {
+      ...template,
+      name: `dropdown-item-${index}`,
+      label: item,
+      value: item,
+    };
+  }
+  const {
+    text,
+    value,
+    name,
+    ...rest
+  } = item;
+  return {
+    ...template,
+    name: name || `dropdown-item-${index}`,
+    label: text,
+    value: value || JSON.parse(JSON.stringify(item)),
+    ...rest,
+  };
+})));
+const handleDropdownKeydown = ({ key }: KeyboardEvent) => {
   if (!props.enableKeyboardNavigation) return;
-
   switch (key) {
     case 'Tab':
     case 'Escape':
-      closeHandler();
+      handlePopoverClose();
       break;
     case 'ArrowDown':
       if (!isOpen.value) {
-        await openHandler({ focus: true });
-      } else if (nextDropdownItem.value) {
-        focusElement(nextDropdownItem.value);
-      }
-      break;
-    case 'ArrowUp':
-      if (prevDropdownItem.value) {
-        focusElement(prevDropdownItem.value);
-      }
-      break;
-    case 'Home':
-    case 'PageUp':
-      if (firstDropdownItem.value) {
-        focusElement(firstDropdownItem.value);
-      }
-      break;
-    case 'End':
-    case 'PageDown':
-      if (lastDropdownItem.value) {
-        focusElement(lastDropdownItem.value);
+        handlePopoverOpen({ focus: true });
       }
       break;
     default: break;
   }
 };
-// todo: why this component handle searchQuery and searchDebounce?
-const searchQuery = ref('');
-const searchDebounce = ref<ReturnType<typeof setTimeout> | null>(null);
-const handleInputQuery = (key: KeyboardEvent['key']) => {
-  searchQuery.value += key.toLowerCase();
-  const match: number = dropdownItems.value.findIndex(
-    (item: HTMLElement) => item.innerText.toLowerCase().startsWith(searchQuery.value),
-  );
-  if (match !== -1 && match !== activeDropdownItemIndex.value) focusElement(dropdownItems.value[match]);
-};
-const dropdownItemKeydownHandler: DropdownItemKeydownHandler = ({ key }) => {
-  if (searchDebounce.value) clearTimeout(searchDebounce.value);
-  if (key.length === 1) {
-    handleInputQuery(key);
-    searchDebounce.value = setTimeout(() => { searchQuery.value = ''; }, 500);
-  }
-};
-provide<DropdownItemKeydownHandler>('dropdownItemKeydownHandler', dropdownItemKeydownHandler);
+const attrs: DropdownItemAttrsProps = useAttrs();
+const isCompact = computed(() => attrs.class && attrs.class.includes('ui-dropdown--compact'));
+// TODO: try to remove this exposing
 defineExpose({
   isOpen,
-  closeHandler,
+  handlePopoverClose,
+  closeHandler: handlePopoverClose,
 });
-const itemsToRender = computed<DropdownItemComplex[]>(() => (props.items.map((item, key) => {
-  if (typeof item === 'string') {
-    return {
-      name: `dropdown-item-${key}`,
-      text: item,
-      value: item,
-      'aria-setsize': props.items.length,
-      'aria-posinset': key + 1,
-    };
-  }
-  return {
-    ...item,
-    name: item.name || `dropdown-item-${key}`,
-    value: item.value || JSON.parse(JSON.stringify(item)),
-    'aria-setsize': props.items.length,
-    'aria-posinset': key + 1,
-  };
-})));
-const dropdownItemAttrs = ({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  name, text, ...itemAttrs
-}: DropdownItemComplex) => itemAttrs;
 </script>
 
 <style lang="scss">
@@ -345,24 +304,13 @@ const dropdownItemAttrs = ({
   display: inline-flex;
 
   &__popover {
-    @include mixins.override-logical(popover-content, $element + "-popover", padding, var(--space-8));
+    @include mixins.override-logical(popover-content, $element + "-popover", padding, var(--space-4) 0);
     @include mixins.use-logical($element + "-popover", margin, var(--space-8) 0 0);
     @include mixins.use-logical($element + "-popover", inset, 100% auto auto 0);
 
     position: absolute;
-    width: functions.var($element + "-popover", width, 100%);
-    max-width: functions.var($element + "-popover", max-width, 15rem);
+    width: functions.var($element + "-popover", width, 15rem);
     min-height: functions.var($element + "-popover", min-height, 0);
-  }
-
-  &__items {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-  }
-
-  &--compact {
-    @include mixins.override-logical(dropdown-item, null, padding, var(--space-4) var(--space-8));
   }
 }
 </style>
