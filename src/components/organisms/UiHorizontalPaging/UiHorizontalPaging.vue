@@ -114,20 +114,16 @@ import {
   type WritableComputedRef,
   type Ref,
 } from 'vue';
-import UiMenu, { type MenuAttrsProps } from '@/components/organisms/UiMenu/UiMenu.vue';
+import UiMenu, { type MenuAttrsProps } from '../UiMenu/UiMenu.vue';
 import { focusElement } from '../../../utilities/helpers';
 import type {
   Icon,
   DefineAttrsProps,
 } from '../../../types';
-import UiButton from '../../atoms/UiButton/UiButton.vue';
-import type { ButtonAttrsProps } from '../../atoms/UiButton/UiButton.vue';
-import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
-import type { IconAttrsProps } from '../../atoms/UiIcon/UiIcon.vue';
-import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
+import UiButton, { type ButtonAttrsProps } from '../../atoms/UiButton/UiButton.vue';
+import UiIcon, { type IconAttrsProps } from '../../atoms/UiIcon/UiIcon.vue';
 import type { MenuItemAttrsProps } from '../UiMenu/_internal/UiMenuItem.vue';
-import UiHorizontalPagingItem from './_internal/UiHorizontalPagingItem.vue';
-import type { HorizontalPangingItemProps } from './_internal/UiHorizontalPagingItem.vue';
+import UiHorizontalPagingItem, { type HorizontalPangingItemProps } from './_internal/UiHorizontalPagingItem.vue';
 import type { HeadingAttrsProps } from '../../atoms/UiHeading/UiHeading.vue';
 
 export type HorizontalPangingHandleItems = Record<string, HorizontalPangingItemProps>;
