@@ -124,7 +124,7 @@ import UiButton, { type ButtonAttrsProps } from '../../atoms/UiButton/UiButton.v
 import UiIcon, { type IconAttrsProps } from '../../atoms/UiIcon/UiIcon.vue';
 import type { MenuItemAttrsProps } from '../UiMenu/_internal/UiMenuItem.vue';
 import UiHorizontalPagingItem, { type HorizontalPangingItemProps } from './_internal/UiHorizontalPagingItem.vue';
-import type { HeadingAttrsProps } from '../../atoms/UiHeading/UiHeading.vue';
+import UiHeading, { type HeadingAttrsProps } from '../../atoms/UiHeading/UiHeading.vue';
 
 export type HorizontalPangingHandleItems = Record<string, HorizontalPangingItemProps>;
 export type HorizontalPangingActiveItems = WritableComputedRef<HorizontalPangingItemProps[]>;
