@@ -1,5 +1,5 @@
 import { computed } from 'vue';
-import { useActiveElement } from '@/composable';
+import { useActiveElement } from '../../../composable';
 
 export default function useMenuItems(menuItems) {
   const activeElement = useActiveElement();
