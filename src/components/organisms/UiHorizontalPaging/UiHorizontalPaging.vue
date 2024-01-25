@@ -236,14 +236,16 @@ const menuItems = computed<MenuItemAttrsProps[]>(() => itemsAsArray.value.map((i
   return {
     icon,
     suffixVisible: 'always',
-    class: 'ui-button--theme-secondary',
+    class: 'ui-menu-item--theme-secondary',
     name: `menu-item-${name}`,
-    onClick: () => {
-      activeItems.value = [
-        ...activeItems.value,
-        item,
-      ];
-    },
+    ...(item.tag ? {} : {
+      onClick: () => {
+        activeItems.value = [
+          ...activeItems.value,
+          item,
+        ];
+      },
+    }),
     ...(isActive.value ? { tabindex: '-1' } : {}),
     ...rest,
   };
