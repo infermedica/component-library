@@ -17,10 +17,30 @@ import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import UiHorizontalPagingItem from '@/components/organisms/UiHorizontalPaging/_internal/UiHorizontalPagingItem.vue';
 import { actions } from '@storybook/addon-actions';
 import './UiHorizontalPaging.stories.scss';
+import UiMenu from '@/components/organisms/UiMenu/UiMenu.vue';
 import { focusElement } from '../../../utilities/helpers';
 
 const events = actions({ onUpdateModelValue: 'update:modelValue' });
-
+const Language = {
+  components: { UiMenu },
+  setup() {
+    const languages = ref([
+      { label: 'Čeština' },
+      { label: 'English' },
+      { label: 'Deutsch' },
+      {
+        label: 'Polski',
+        class: 'ui-menu-item--is-selected',
+      },
+      { label: 'Українська' },
+    ]);
+    return { languages };
+  },
+  template: `<UiMenu 
+    :items="languages" 
+    :enable-keyboard-navigation="true"
+  />`,
+};
 const ForBusiness = {
   components: {
     UiText,
@@ -401,6 +421,7 @@ export const AsMobileMenu = {
       TermsOfService,
       PrivacyPolicy,
       InterviewId,
+      Language,
     },
     setup() {
       const modelValue = ref(args.initialModelValue);
@@ -459,8 +480,12 @@ export const AsMobileMenu = {
         v-model="modelValue"
         :items="items"
         :has-header="false"
+        :menu-attrs="{enableKeyboardNavigation: true}"
         @update:modelValue="onUpdateModelValue"
       >
+        <template #languages>
+          <Language/>
+        </template>
         <template #for-business>
           <ForBusiness/>
         </template>
@@ -485,6 +510,12 @@ export const AsMobileMenu = {
 
   args: {
     items: [
+      {
+        label: 'Languages',
+        title: 'Languages',
+        name: 'languages',
+        suffixAttrs: { label: 'English' },
+      },
       {
         label: 'For business',
         title: 'For business',

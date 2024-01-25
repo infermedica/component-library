@@ -62,6 +62,7 @@
             ref="menu"
             :items="menuItems"
             class="ui-horizontal-paging__menu"
+            v-bind="menuAttrs"
           >
             <template
               v-for="(_, name) in menuItemsSlots"
@@ -113,6 +114,7 @@ import {
   type WritableComputedRef,
   type Ref,
 } from 'vue';
+import UiMenu, { type MenuAttrsProps } from '@/components/organisms/UiMenu/UiMenu.vue';
 import { focusElement } from '../../../utilities/helpers';
 import type {
   Icon,
@@ -123,7 +125,6 @@ import type { ButtonAttrsProps } from '../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import type { IconAttrsProps } from '../../atoms/UiIcon/UiIcon.vue';
 import UiHeading from '../../atoms/UiHeading/UiHeading.vue';
-import UiMenu from '../UiMenu/UiMenu.vue';
 import type { MenuItemAttrsProps } from '../UiMenu/_internal/UiMenuItem.vue';
 import UiHorizontalPagingItem from './_internal/UiHorizontalPagingItem.vue';
 import type { HorizontalPangingItemProps } from './_internal/UiHorizontalPagingItem.vue';
@@ -164,6 +165,10 @@ export interface HorizontalPangingProps{
    */
   headingTitleAttrs?: HeadingAttrsProps;
   /**
+   * Use this props to pass attrs for title UiMenu
+   */
+  menuAttrs?: MenuAttrsProps;
+  /**
    * Use this props to pass labels inside component translation.
    */
   translation?: HorizontalPagingTranslation;
@@ -181,6 +186,7 @@ const props = withDefaults(defineProps<HorizontalPangingProps>(), {
   buttonBackAttrs: () => ({}),
   iconBackAttrs: () => ({ icon: 'chevron-left' }),
   headingTitleAttrs: () => ({}),
+  menuAttrs: () => ({}),
   translation: () => ({ back: 'Back to' }),
 });
 const defaultProps = computed(() => {
