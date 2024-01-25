@@ -74,7 +74,7 @@ export interface MenuItem {
 
 const props = withDefaults(defineProps<MenuProps>(), {
   items: () => ([]),
-  enableKeyboardNavigation: true,
+  enableKeyboardNavigation: false,
 });
 const menuItemAttrs = ({
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
