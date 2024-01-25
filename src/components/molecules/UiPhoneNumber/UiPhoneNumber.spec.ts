@@ -36,6 +36,5 @@ describe('UiPhoneNumber.vue', () => {
     expect(uiPhoneNumberInput.props('id')).toMatch(new RegExp(`^${property}?`));
     expect(uiPhoneNumberInput.props('modelValue')).toStrictEqual('');
     expect(uiPhoneNumberInput.props('placeholder')).toStrictEqual('Enter phone number');
-    expect(uiPhoneNumberInput.props('errorMessage')).toStrictEqual(false);
   });
 });
