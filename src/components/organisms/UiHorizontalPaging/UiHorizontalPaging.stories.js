@@ -38,6 +38,7 @@ const Language = {
     return { languages };
   },
   template: `<UiMenu 
+    class="language"
     :items="languages" 
     :enable-keyboard-navigation="true"
   />`,

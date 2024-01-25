@@ -1,4 +1,8 @@
 @use "../../../styles/mixins";
+.language {
+  margin-block: calc(var(--space-12) * -1);
+  margin-inline: calc(var(--space-16) * -1);
+}
 
 .for-business {
   &__products {

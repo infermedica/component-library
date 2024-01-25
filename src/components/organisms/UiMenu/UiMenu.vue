@@ -145,7 +145,7 @@ const hasMenuItems = computed(() => (
 ));
 const makeItemsUnacessibleForTab = () => {
   [ ...menuItems.value ].forEach((item) => {
-    item.tabindex = -1;
+    item.tabindex = item.$el.querySelector('button') ? -1 : 0;
   });
   if (selectedMenuItem.value) {
     selectedMenuItem.value.tabindex = 0;

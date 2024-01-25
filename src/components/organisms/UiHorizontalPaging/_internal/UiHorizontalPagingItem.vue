@@ -47,7 +47,7 @@ const isActive = computed(() => activeItemName.value === props.name);
 const item = computed(() => ({
   label: props.label,
   title: props.title,
-  name: props.title,
+  name: props.name,
   ...(props.tag === UiButton ? {} : { tag: props.tag }),
   ...attrs,
 }));
