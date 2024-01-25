@@ -49,7 +49,8 @@
     <div class="ui-horizontal-paging__wrapper">
       <div
         :class="[
-          'ui-horizontal-paging__section', { 'ui-horizontal-paging__section--is-active': isActive },
+          'ui-horizontal-paging__section',
+          { 'ui-horizontal-paging__section--is-active': isActive },
         ]"
       >
         <!-- @slot Use this slot to replace menu template. -->
@@ -61,7 +62,17 @@
             ref="menu"
             :items="menuItems"
             class="ui-horizontal-paging__menu"
-          />
+          >
+            <template
+              v-for="(_, name) in menuItemsSlots"
+              #[name]="data"
+            >
+              <slot
+                v-bind="data"
+                :name="name"
+              />
+            </template>
+          </UiMenu>
         </slot>
         <!-- @slot Use this slot to replace content template. -->
         <slot name="content">
@@ -73,9 +84,7 @@
                 :key="key"
               >
                 <UiHorizontalPagingItem
-                  :label="item.label"
-                  :title="item.title"
-                  :name="item.name"
+                  v-bind="item"
                 >
                   <slot
                     v-bind="{ item }"
@@ -98,10 +107,11 @@ import {
   provide,
   inject,
   watch,
+  nextTick,
+  useSlots,
   type ComputedRef,
   type WritableComputedRef,
   type Ref,
-  nextTick,
 } from 'vue';
 import { focusElement } from '../../../utilities/helpers';
 import type {
@@ -216,6 +226,7 @@ const menuItems = computed<MenuItemAttrsProps[]>(() => itemsAsArray.value.map((i
   /* eslint-disable @typescript-eslint/no-unused-vars */
   const {
     title,
+    name,
     ...rest
   } = item;
     /* eslint-enable @typescript-eslint/no-unused-vars */
@@ -224,6 +235,7 @@ const menuItems = computed<MenuItemAttrsProps[]>(() => itemsAsArray.value.map((i
     icon,
     suffixVisible: 'always',
     class: 'ui-button--theme-secondary',
+    name: `menu-item-${name}`,
     onClick: () => {
       activeItems.value = [
         ...activeItems.value,
@@ -255,6 +267,16 @@ watch(activeItemName, async (moveTo, backFrom) => {
     focusElement(menuButtons.value[backFrom]);
   }
 });
+const slots = useSlots();
+const menuItemsSlots = computed(() => (Object.keys(slots).reduce((object, slotName) => {
+  if (slotName.match(/menu-item/gm)) {
+    return {
+      ...object,
+      [slotName]: slots[slotName],
+    };
+  }
+  return object;
+}, {})));
 </script>
 
 <style lang="scss">
