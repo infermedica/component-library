@@ -53,6 +53,7 @@ import type { DefineAttrsProps } from '../../../../types';
 import type { MenuItemProps } from './MenuItemProps';
 
 export type MenuItemAttrsProps = DefineAttrsProps<MenuItemProps, ListItemAttrsProps>;
+export type ListItemInstance = InstanceType<typeof UiListItem>
 
 const props = withDefaults(defineProps<MenuItemProps>(), {
   icon: 'present',
@@ -77,7 +78,7 @@ const defaultProps = computed(() => ({
 }));
 const tabindex = ref(null);
 defineExpose({ tabindex });
-const menuItem = ref(null);
+const menuItem = ref<ListItemInstance>(null);
 const menuItems = inject('menuItems');
 onMounted(async () => {
   await nextTick();

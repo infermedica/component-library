@@ -87,7 +87,6 @@
 import {
   ref,
   computed,
-  nextTick,
   provide,
   type ComponentPublicInstance,
 } from 'vue';
@@ -116,6 +115,7 @@ export interface DropdownHandlersOptions {
   focusToggle?: boolean;
 }
 export type ButtonInstance = InstanceType<typeof UiButton>;
+export type MenuInstance = InstanceType<typeof UiMenu>;
 export interface DropdownProps {
   /**
    * Use this props or v-model to set value.
@@ -183,7 +183,7 @@ const preventScrollingByArrows = (event: KeyboardEvent) => {
     event.preventDefault();
   }
 };
-const menu = ref(null);
+const menu = ref<MenuInstance | null>(null);
 const handleMenuMounted = () => {
   if (menu.value.selectedMenuItem) {
     focusElement(menu.value.selectedMenuItem.$el.querySelector('button'));
@@ -293,9 +293,7 @@ defineExpose({
   $element: dropdown;
 
   position: relative;
-  //display: inline-flex;
-
-  &__toggle {}
+  display: inline-flex;
 
   &__popover {
     @include mixins.override-logical(popover-content, $element + "-popover", padding, var(--space-4) 0);

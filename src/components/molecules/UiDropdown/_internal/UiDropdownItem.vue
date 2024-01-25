@@ -16,19 +16,18 @@ import {
   inject,
 } from 'vue';
 import equal from 'fast-deep-equal';
-import type { MenuItemProps } from '@/components/organisms/UiMenu/_internal/MenuItemProps';
+import type { MenuItemProps } from '../../../organisms/UiMenu/_internal/MenuItemProps';
 import type { DefineAttrsProps } from '../../../../types';
 import UiMenuItem from '../../../organisms/UiMenu/_internal/UiMenuItem.vue';
-import type MenuItemAttrsProps from '../../../organisms/UiMenu/_internal/UiMenuItem.vue';
 import type { DropdownModelValue } from '../UiDropdown.vue';
 
-export interface DropdownItemProps extends MenuItemProps{
+export interface DropdownItemProps extends MenuItemProps {
   /**
    * Use this props to set the value of the dropdown item.
    */
   value?: DropdownModelValue;
 }
-export type DropdownItemAttrsProps = DefineAttrsProps<DropdownItemProps, MenuItemAttrsProps>;
+export type DropdownItemAttrsProps = DefineAttrsProps<DropdownItemProps>;
 
 const props = withDefaults(defineProps<DropdownItemProps>(), {
   value: '',

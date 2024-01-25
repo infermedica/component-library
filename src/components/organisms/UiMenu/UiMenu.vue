@@ -42,6 +42,7 @@ import {
   onMounted,
   provide,
   nextTick,
+  type Ref,
 } from 'vue';
 import { focusElement } from '../../../utilities/helpers';
 import useMenuItems from './useMenuItems';
@@ -66,6 +67,10 @@ export interface MenuProps {
   enableKeyboardNavigation?: boolean;
 }
 export type MenuAttrsProps = DefineAttrsProps<MenuProps, ListAttrsProps>;
+export interface MenuItem {
+  $el: HTMLLIElement,
+  tabindex: Ref<number>
+}
 
 const props = withDefaults(defineProps<MenuProps>(), {
   items: () => ([]),
@@ -87,7 +92,7 @@ const itemsToRender = computed<MenuRenderItem[]>(() => (props.items.map((item, k
     ...item,
   };
 })));
-const menuItems = ref<InstanceType<typeof UiMenuItem>[] | null>([]);
+const menuItems = ref<MenuItem[] | []>([]);
 provide('menuItems', menuItems);
 const mItems = computed(() => (menuItems.value));
 const {
