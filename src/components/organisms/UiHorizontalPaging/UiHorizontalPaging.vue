@@ -168,6 +168,8 @@ export interface HorizontalPangingProps{
    * Use this props to pass labels inside component translation.
    */
   translation?: HorizontalPagingTranslation;
+  /** Use this props to pass menu template ref when you use menu slot. */
+  menuTemplateRef?: InstanceType<typeof UiMenu> | null
 }
 export type HorizontalPagingAttrsProps = DefineAttrsProps<HorizontalPangingProps>;
 export interface HorizontalPangingEmits {
@@ -184,6 +186,7 @@ const props = withDefaults(defineProps<HorizontalPangingProps>(), {
   headingTitleAttrs: () => ({}),
   menuAttrs: () => ({}),
   translation: () => ({ back: 'Back to' }),
+  menuTemplateRef: null,
 });
 const defaultProps = computed(() => {
   const icon: Icon = 'chevron-left';
@@ -251,17 +254,18 @@ const menuItems = computed<MenuItemAttrsProps[]>(() => itemsAsArray.value.map((i
   };
 }));
 const menu = ref<InstanceType<typeof UiMenu> | null>(null);
+const menuRef = computed(() => (props.menuTemplateRef || menu.value));
 const menuButtons = computed < Record<string, any>>(() => {
-  if (!menu.value) return {};
+  if (!menuRef.value) return {};
   return itemsAsArray.value.reduce((elements, { name }, order) => {
     if (!name
-        || !menu.value
-        || !menu.value.menuItems) {
+        || !menuRef.value
+        || !menuRef.value.menuItems) {
       return elements;
     }
     return {
       ...elements,
-      [name]: menu.value.menuItems[order].$el.querySelector('button'),
+      [name]: menuRef.value.menuItems[order].$el.querySelector('button'),
     };
   }, {});
 });
