@@ -76,6 +76,8 @@
 
 //<Code id="horizontal-paging-as-mobile-menu">
 .horizontal-paging-as-mobile-menu {
+  $element: horizontal-paging-as-mobile-menu;
+
   --side-panel-content-padding-block: 0;
   --side-panel-content-padding-inline: 0;
 
@@ -87,6 +89,12 @@
   &__back {
     align-self: flex-start;
     margin-block-start: 3px;
+  }
+
+  &__menu {
+    @include mixins.use-logical($element + "-menu", padding, var(--space-12) var(--space-4));
+
+    flex: 0 0 100%;
   }
 
   &__language {
@@ -113,18 +121,6 @@
   &__footer {
     padding-inline: var(--space-20);
     padding-block: var(--space-24);
-
-    &::after {
-      border-block: 0;
-    }
-  }
-
-  &__copyright {
-    --list-item-content-background: transparent;
-    --list-item-content-hover-background: transparent;
-    --list-item-content-active-background: transparent;
-    --list-item-content-padding-block: 0;
-    --list-item-content-padding-inline: 0;
   }
 }
 //</Code>
