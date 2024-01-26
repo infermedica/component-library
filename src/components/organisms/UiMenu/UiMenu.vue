@@ -136,7 +136,7 @@ defineExpose({
   selectedMenuItem,
 });
 export interface MenuEmits {
-  (e: 'itemsNotReachable'): void;
+  (e: 'itemsLoaded'): void;
 }
 const emit = defineEmits<MenuEmits>();
 const hasMenuItems = computed(() => (
@@ -151,7 +151,7 @@ const setItemsNotReachable = () => {
   } else {
     firstMenuItem.value.tabindex = 0;
   }
-  emit('itemsNotReachable');
+  emit('itemsLoaded');
 };
 watch(hasMenuItems, async (hasItems) => {
   if (hasItems) {
