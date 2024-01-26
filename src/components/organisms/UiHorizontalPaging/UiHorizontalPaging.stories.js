@@ -490,7 +490,7 @@ export const AsMobileMenu = {
         :menu-template-ref="menu"
         @update:modelValue="onUpdateModelValue"
       >
-        <template #menu="{items}">
+        <template #menu="{items, isActive}">
           <div class="horizontal-paging-as-mobile-menu__menu">
             <UiMenu
               ref="menu"
@@ -500,6 +500,7 @@ export const AsMobileMenu = {
             />
             <footer class="horizontal-paging-as-mobile-menu__footer">
               <UiLink 
+                :tabindex="isActive ? -1 : undefined"
                 href="http://infermedica.com" 
                 target="_blank"
                 class="ui-link--theme-secondary"
@@ -578,15 +579,6 @@ export const AsMobileMenu = {
         name: 'logo-ut',
         listItemAttrs: { class: 'horizontal-paging-as-mobile-menu__log-out' },
       },
-      // {
-      //   label: '© 2021 Infermedica',
-      //   tag: UiLink,
-      //   href: 'https://infermedica.com',
-      //   target: '_blank',
-      //   suffixVisible: 'never',
-      //   class: 'ui-link--small ui-link--theme-secondary horizontal-paging-as-mobile-menu__copyright',
-      //   listItemAttrs: { class: 'horizontal-paging-as-mobile-menu__footer' },
-      // },
     ],
   },
 

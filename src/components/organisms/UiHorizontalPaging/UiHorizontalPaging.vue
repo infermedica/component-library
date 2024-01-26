@@ -56,7 +56,10 @@
         <!-- @slot Use this slot to replace menu template. -->
         <slot
           name="menu"
-          v-bind="{ items: menuItems }"
+          v-bind="{
+            items: menuItems,
+            isActive,
+          }"
         >
           <UiMenu
             ref="menu"

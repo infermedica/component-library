@@ -39,7 +39,6 @@
 import {
   ref,
   computed,
-  onMounted,
   provide,
   nextTick,
   watch,
@@ -137,13 +136,13 @@ defineExpose({
   selectedMenuItem,
 });
 export interface MenuEmits {
-  (e: 'mounted'): void;
+  (e: 'itemsNotReachable'): void;
 }
 const emit = defineEmits<MenuEmits>();
 const hasMenuItems = computed(() => (
   menuItems.value.length > 0
 ));
-const makeItemsUnacessibleForTab = () => {
+const setItemsNotReachable = () => {
   [ ...menuItems.value ].forEach((item) => {
     item.tabindex = item.$el.querySelector('button') ? -1 : 0;
   });
@@ -152,15 +151,12 @@ const makeItemsUnacessibleForTab = () => {
   } else {
     firstMenuItem.value.tabindex = 0;
   }
+  emit('itemsNotReachable');
 };
-onMounted(async () => {
-  if (!props.enableKeyboardNavigation) return;
-  emit('mounted');
-});
 watch(hasMenuItems, async (hasItems) => {
   if (hasItems) {
     await nextTick();
-    makeItemsUnacessibleForTab();
+    setItemsNotReachable();
   }
 });
 </script>
