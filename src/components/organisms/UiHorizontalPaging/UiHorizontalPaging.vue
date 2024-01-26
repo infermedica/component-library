@@ -254,20 +254,16 @@ const menuItems = computed<MenuItemAttrsProps[]>(() => itemsAsArray.value.map((i
   };
 }));
 const menu = ref<InstanceType<typeof UiMenu> | null>(null);
-const menuRef = computed(() => (props.menuTemplateRef || menu.value));
-const menuButtons = computed < Record<string, any>>(() => {
+const menuRef = computed<InstanceType<typeof UiMenu> | null>(() => (props.menuTemplateRef || menu.value));
+const menuButtons = computed(() => {
   if (!menuRef.value) return {};
-  return itemsAsArray.value.reduce((elements, { name }, order) => {
-    if (!name
-        || !menuRef.value
-        || !menuRef.value.menuItems) {
-      return elements;
+  const buttons = itemsAsArray.value.reduce<Record<string, HTMLButtonElement | null> | Record<string, never>>((elements, { name }, order) => {
+    if (name && menuRef.value && menuRef.value.menuItems) {
+      elements[name] = menuRef.value.menuItems[order].$el.querySelector('button');
     }
-    return {
-      ...elements,
-      [name]: menuRef.value.menuItems[order].$el.querySelector('button'),
-    };
+    return elements;
   }, {});
+  return buttons;
 });
 watch(activeItemName, async (moveTo, backFrom) => {
   if (backFrom) {
