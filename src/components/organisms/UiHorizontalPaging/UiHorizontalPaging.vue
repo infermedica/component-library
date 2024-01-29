@@ -260,12 +260,14 @@ const menu = ref<InstanceType<typeof UiMenu> | null>(null);
 const menuRef = computed<InstanceType<typeof UiMenu> | null>(() => (props.menuTemplateRef || menu.value));
 const menuButtons = computed(() => {
   if (!menuRef.value) return {};
-  const buttons = itemsAsArray.value.reduce<Record<string, HTMLButtonElement | null> | Record<string, never>>((elements, { name }, order) => {
-    if (name && menuRef.value && menuRef.value.menuItems) {
-      elements[name] = menuRef.value.menuItems[order].$el.querySelector('button');
-    }
-    return elements;
-  }, {});
+  const buttons = itemsAsArray.value
+    .reduce<Record<string, HTMLButtonElement | null> | Record<string, never>>((elements, { name }, order) => {
+      if (name && menuRef.value && menuRef.value.menuItems) {
+        /* eslint-disable-next-line no-param-reassign */
+        elements[name] = menuRef.value.menuItems[order].$el.querySelector('button');
+      }
+      return elements;
+    }, {});
   return buttons;
 });
 watch(activeItemName, async (moveTo, backFrom) => {

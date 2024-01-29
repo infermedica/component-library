@@ -34,7 +34,7 @@ export interface HorizontalPangingItemProps {
    */
   tag?: HTMLTag;
 }
-
+defineOptions({ inheritAttrs: false });
 const props = withDefaults(defineProps<HorizontalPangingItemProps>(), {
   label: '',
   title: '',
