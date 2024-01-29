@@ -108,7 +108,6 @@ onMounted(async () => {
     @include mixins.override-logical('popover', null, border-width, 0);
 
     --dropdown-popover-width: 100%;
-    --dropdown-popover-max-width: none;
     --dropdown-popover-min-height: #{functions.var($element + '-popover', min-height, 12.5rem)};
 
     z-index: functions.var($element + '-popover', z-index, 1);
