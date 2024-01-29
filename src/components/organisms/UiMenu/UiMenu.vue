@@ -101,31 +101,53 @@ const {
   nextMenuItem,
   prevMenuItem,
   selectedMenuItem,
+  focusedMenuItem,
 } = useMenuItems(mItems);
-const handleMenuKeydown = ({ key }: KeyboardEvent) => {
+const handleMenuKeydown = async ({ key }: KeyboardEvent) => {
   if (!props.enableKeyboardNavigation) return;
   switch (key) {
     case 'ArrowUp':
       if (prevMenuItem.value) {
+        focusedMenuItem.value.tabindex = -1;
+        prevMenuItem.value.tabindex = 0;
         focusElement(prevMenuItem.value.$el.querySelector('button'));
       }
       break;
     case 'ArrowDown':
       if (nextMenuItem.value) {
+        focusedMenuItem.value.tabindex = -1;
+        nextMenuItem.value.tabindex = 0;
         focusElement(nextMenuItem.value.$el.querySelector('button'));
       }
       break;
     case 'Home':
     case 'PageUp':
       if (firstMenuItem.value) {
+        focusedMenuItem.value.tabindex = -1;
+        firstMenuItem.value.tabindex = 0;
         focusElement(firstMenuItem.value.$el.querySelector('button'));
       }
       break;
     case 'End':
     case 'PageDown':
       if (lastMenuItem.value) {
+        focusedMenuItem.value.tabindex = -1;
+        lastMenuItem.value.tabindex = 0;
         focusElement(lastMenuItem.value.$el.querySelector('button'));
       }
+      break;
+    case 'Tab':
+      const lastFocusedElement = ref(focusedMenuItem.value);
+      setTimeout(() => {
+        lastFocusedElement.value.tabindex = -1;
+        if (selectedMenuItem.value) {
+          selectedMenuItem.value.tabindex = 0;
+          return;
+        }
+        if (firstMenuItem.value) {
+          firstMenuItem.value.tabindex = 0;
+        }
+      }, 0);
       break;
     default: break;
   }
