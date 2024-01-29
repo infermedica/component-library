@@ -198,7 +198,7 @@ const handleMenuItemsNotReachable = () => {
     focusElement(menu.value.firstMenuItem.$el.querySelector('button'));
   }
 };
-const handlePopoverOpen = async () => {
+const handlePopoverOpen = () => {
   window.addEventListener('keydown', preventScrollingByArrows, false);
   emit('open');
   isOpen.value = true;
