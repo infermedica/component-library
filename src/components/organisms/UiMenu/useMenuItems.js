@@ -21,7 +21,7 @@ export default function useMenuItems(menuItems) {
       : menuItems.value[activeMenuItemIndex.value - 1]));
   const selectedMenuItem = computed(
     () => [ ...menuItems.value ].find(
-      (item) => item.$el.querySelector('button').classList.contains('ui-menu-item--is-selected'),
+      (item) => item.$el.querySelector('button')?.classList.contains('ui-menu-item--is-selected'),
     ),
   );
 

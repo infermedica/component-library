@@ -15,6 +15,7 @@ import UiLoader from '@/components/molecules/UiLoader/UiLoader.vue';
 import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints.vue';
 import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import UiHorizontalPagingItem from '@/components/organisms/UiHorizontalPaging/_internal/UiHorizontalPagingItem.vue';
+import UiLink from '@/components/atoms/UiLink/UiLink.vue';
 import { actions } from '@storybook/addon-actions';
 import './UiHorizontalPaging.stories.scss';
 import UiMenu from '@/components/organisms/UiMenu/UiMenu.vue';
@@ -37,6 +38,7 @@ const Language = {
     return { languages };
   },
   template: `<UiMenu 
+    class="language"
     :items="languages" 
     :enable-keyboard-navigation="true"
   />`,
@@ -415,6 +417,8 @@ export const AsMobileMenu = {
       UiHeading,
       UiButton,
       UiIcon,
+      UiMenu,
+      UiLink,
       ForBusiness,
       MedicalCertification,
       InstructionForUse,
@@ -441,6 +445,7 @@ export const AsMobileMenu = {
           focusElement(backButton.value?.$el, true);
         }
       });
+      const menu = ref(null);
       return {
         ...args,
         ...events,
@@ -449,6 +454,7 @@ export const AsMobileMenu = {
         previous,
         isActive,
         backButton,
+        menu,
         handleBackClick,
       };
     },
@@ -480,9 +486,28 @@ export const AsMobileMenu = {
         v-model="modelValue"
         :items="items"
         :has-header="false"
-        :menu-attrs="{enableKeyboardNavigation: true}"
+        :menu-attrs="{ enableKeyboardNavigation: true }"
+        :menu-template-ref="menu"
         @update:modelValue="onUpdateModelValue"
       >
+        <template #menu="{items, isActive}">
+          <div class="horizontal-paging-as-mobile-menu__menu">
+            <UiMenu
+              ref="menu"
+              :items="items"
+              class=""
+              :enable-keyboard-navigation="true"
+            />
+            <footer class="horizontal-paging-as-mobile-menu__footer">
+              <UiLink 
+                :tabindex="isActive ? -1 : undefined"
+                href="http://infermedica.com" 
+                target="_blank"
+                class="ui-link--theme-secondary"
+              >© 2021 Infermedica</UiLink>
+            </footer>
+          </div>
+        </template>
         <template #languages>
           <Language/>
         </template>
@@ -514,7 +539,9 @@ export const AsMobileMenu = {
         label: 'Languages',
         title: 'Languages',
         name: 'languages',
+        class: '', // override default class `ui-menu-item--theme-secondary`
         suffixAttrs: { label: 'English' },
+        listItemAttrs: { class: 'ui-menu-item horizontal-paging-as-mobile-menu__language' },
       },
       {
         label: 'For business',
@@ -545,6 +572,12 @@ export const AsMobileMenu = {
         label: 'Interview ID',
         title: 'Interview ID',
         name: 'interview-id',
+      },
+      {
+        label: 'Log out',
+        title: 'Log out',
+        name: 'logo-ut',
+        listItemAttrs: { class: 'horizontal-paging-as-mobile-menu__log-out' },
       },
     ],
   },

@@ -56,7 +56,10 @@
         <!-- @slot Use this slot to replace menu template. -->
         <slot
           name="menu"
-          v-bind="{ items: menuItems }"
+          v-bind="{
+            items: menuItems,
+            isActive,
+          }"
         >
           <UiMenu
             ref="menu"
@@ -168,6 +171,8 @@ export interface HorizontalPangingProps{
    * Use this props to pass labels inside component translation.
    */
   translation?: HorizontalPagingTranslation;
+  /** Use this props to pass menu template ref when you use menu slot. */
+  menuTemplateRef?: InstanceType<typeof UiMenu> | null
 }
 export type HorizontalPagingAttrsProps = DefineAttrsProps<HorizontalPangingProps>;
 export interface HorizontalPangingEmits {
@@ -184,6 +189,7 @@ const props = withDefaults(defineProps<HorizontalPangingProps>(), {
   headingTitleAttrs: () => ({}),
   menuAttrs: () => ({}),
   translation: () => ({ back: 'Back to' }),
+  menuTemplateRef: null,
 });
 const defaultProps = computed(() => {
   const icon: Icon = 'chevron-left';
@@ -236,32 +242,33 @@ const menuItems = computed<MenuItemAttrsProps[]>(() => itemsAsArray.value.map((i
   return {
     icon,
     suffixVisible: 'always',
-    class: 'ui-button--theme-secondary',
+    class: 'ui-menu-item--theme-secondary',
     name: `menu-item-${name}`,
-    onClick: () => {
-      activeItems.value = [
-        ...activeItems.value,
-        item,
-      ];
-    },
+    ...(item.tag ? {} : {
+      onClick: () => {
+        activeItems.value = [
+          ...activeItems.value,
+          item,
+        ];
+      },
+    }),
     ...(isActive.value ? { tabindex: '-1' } : {}),
     ...rest,
   };
 }));
 const menu = ref<InstanceType<typeof UiMenu> | null>(null);
-const menuButtons = computed < Record<string, any>>(() => {
-  if (!menu.value) return {};
-  return itemsAsArray.value.reduce((elements, { name }, order) => {
-    if (!name
-        || !menu.value
-        || !menu.value.menuItems) {
+const menuRef = computed<InstanceType<typeof UiMenu> | null>(() => (props.menuTemplateRef || menu.value));
+const menuButtons = computed(() => {
+  if (!menuRef.value) return {};
+  const buttons = itemsAsArray.value
+    .reduce<Record<string, HTMLButtonElement | null> | Record<string, never>>((elements, { name }, order) => {
+      if (name && menuRef.value && menuRef.value.menuItems) {
+        /* eslint-disable-next-line no-param-reassign */
+        elements[name] = menuRef.value.menuItems[order].$el.querySelector('button');
+      }
       return elements;
-    }
-    return {
-      ...elements,
-      [name]: menu.value.menuItems[order].$el.querySelector('button'),
-    };
-  }, {});
+    }, {});
+  return buttons;
 });
 watch(activeItemName, async (moveTo, backFrom) => {
   if (backFrom) {
