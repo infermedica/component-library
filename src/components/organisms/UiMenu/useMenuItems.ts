@@ -1,7 +1,10 @@
-import { computed } from 'vue';
+import {
+  computed,
+  type ComputedRef,
+} from 'vue';
 import { useActiveElement } from '../../../composable';
 
-export default function useMenuItems(menuItems) {
+export default function useMenuItems(menuItems: ComputedRef<[] | {$el: HTMLLIElement, tabindex: number | null}[]>) {
   const activeElement = useActiveElement();
   const focusedMenuItem = computed(
     () => ([ ...menuItems.value ].find((item) => item.$el.querySelector('button') === activeElement.value)),
