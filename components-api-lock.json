@@ -2085,7 +2085,7 @@
       ],
       "events": [
         {
-          "name": "mounted"
+          "name": "itemsLoaded"
         }
       ],
       "slots": [
@@ -2321,6 +2321,31 @@
             "func": false,
             "value": "() => ({ back: 'Back to' })"
           }
+        },
+        {
+          "name": "menuTemplateRef",
+          "description": "Use this props to pass menu template ref when you use menu slot.",
+          "required": false,
+          "type": {
+            "name": "union",
+            "elements": [
+              {
+                "name": "InstanceType",
+                "elements": [
+                  {
+                    "name": "TSTypeQuery"
+                  }
+                ]
+              },
+              {
+                "name": "null"
+              }
+            ]
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "null"
+          }
         }
       ],
       "events": [
@@ -2384,6 +2409,10 @@
           "bindings": [
             {
               "name": "items",
+              "title": "binding"
+            },
+            {
+              "name": "isActive",
               "title": "binding"
             }
           ]
@@ -8309,6 +8338,18 @@
           "defaultValue": {
             "func": false,
             "value": "''"
+          }
+        },
+        {
+          "name": "tag",
+          "description": "Use this props to set list item content tag.",
+          "required": false,
+          "type": {
+            "name": "HTMLTag"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "UiButton"
           }
         }
       ],
