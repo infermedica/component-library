@@ -116,7 +116,6 @@ export interface DropdownItemComplex extends DropdownItemAttrsProps {
 }
 export type DropdownItem = string | DropdownItemComplex;
 export interface DropdownHandlersOptions {
-  focus?: boolean;
   focusToggle?: boolean;
 }
 export type ButtonInstance = InstanceType<typeof UiButton>;
@@ -199,7 +198,7 @@ const handleMenuItemsNotReachable = () => {
     focusElement(menu.value.firstMenuItem.$el.querySelector('button'));
   }
 };
-const handlePopoverOpen = async ({ focus = false }: DropdownHandlersOptions) => {
+const handlePopoverOpen = async () => {
   window.addEventListener('keydown', preventScrollingByArrows, false);
   emit('open');
   isOpen.value = true;
@@ -235,7 +234,7 @@ const handlePopoverToggle = async () => {
     handlePopoverClose();
     return;
   }
-  await handlePopoverOpen({ focus: true });
+  await handlePopoverOpen();
 };
 const clickOutsideValue = computed<VClickOutsideValue>(() => ({
   isActive: props.closeOnClickOutside && isOpen.value,
@@ -277,7 +276,7 @@ const handleDropdownKeydown = ({ key }: KeyboardEvent) => {
       break;
     case 'ArrowDown':
       if (!isOpen.value) {
-        handlePopoverOpen({ focus: true });
+        handlePopoverOpen();
       }
       break;
     default: break;
