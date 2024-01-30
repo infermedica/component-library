@@ -191,11 +191,11 @@ const menu = ref<MenuInstance | null>(null);
 const handleMenuItemsNotReachable = () => {
   if (!menu.value) return;
   if (menu.value.selectedMenuItem) {
-    focusElement(menu.value.selectedMenuItem.$el.querySelector('button'));
+    focusElement(menu.value.selectedMenuItem.$el.querySelector('.ui-button'));
     return;
   }
   if (menu.value.firstMenuItem) {
-    focusElement(menu.value.firstMenuItem.$el.querySelector('button'));
+    focusElement(menu.value.firstMenuItem.$el.querySelector('.ui-button'));
   }
 };
 const handlePopoverOpen = () => {
