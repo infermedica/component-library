@@ -171,7 +171,6 @@ const setItemsNotReachable = () => {
   });
   if (selectedMenuItem.value) {
     selectedMenuItem.value.tabindex = 0;
-    return
   } else if(firstMenuItem.value) {
     firstMenuItem.value.tabindex = 0;
   }

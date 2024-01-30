@@ -61,7 +61,7 @@
               { 'ui-menu--compact': isCompact },
             ]"
             :enable-keyboard-navigation="enableKeyboardNavigation"
-            @items-loaded="handleMenuItemsNotReachable"
+            @items-loaded="handleMenuItemsLoaded"
           >
             <template
               v-for="(item, key) in itemsToRender"
@@ -188,7 +188,7 @@ const preventScrollingByArrows = (event: KeyboardEvent) => {
   }
 };
 const menu = ref<MenuInstance | null>(null);
-const handleMenuItemsNotReachable = () => {
+const handleMenuItemsLoaded = () => {
   if (!menu.value) return;
   if (menu.value.selectedMenuItem) {
     focusElement(menu.value.selectedMenuItem.$el.querySelector('.ui-button'));
