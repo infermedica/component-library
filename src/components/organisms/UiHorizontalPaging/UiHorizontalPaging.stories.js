@@ -567,6 +567,9 @@ export const AsMobileMenu = {
         label: 'Privacy Policy',
         title: 'Privacy Policy',
         name: 'privacy-policy',
+        href: 'https://infermedica.com',
+        target: '_blank',
+        onClick: () => (false),
       },
       {
         label: 'Interview ID',

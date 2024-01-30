@@ -264,7 +264,7 @@ const menuButtons = computed(() => {
     .reduce<Record<string, HTMLButtonElement | null> | Record<string, never>>((elements, { name }, order) => {
       if (name && menuRef.value && menuRef.value.menuItems) {
         /* eslint-disable-next-line no-param-reassign */
-        elements[name] = menuRef.value.menuItems[order].$el.querySelector('button');
+        elements[name] = menuRef.value.menuItems[order].$el.querySelector('.ui-button');
       }
       return elements;
     }, {});

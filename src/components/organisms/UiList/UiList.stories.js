@@ -347,7 +347,7 @@ const handleExplicationFocus = (event) => {
     key, target,
   } = event;
   if (key !== 'ArrowRight') return;
-  const explicationButton = target.parentElement.querySelector('button');
+  const explicationButton = target.parentElement.querySelector('.ui-button');
   if (explicationButton) {
     event.preventDefault();
     explicationButton.focus();

@@ -7,7 +7,7 @@ import { useActiveElement } from '../../../composable';
 export default function useMenuItems(menuItems: ComputedRef<[] | {$el: HTMLLIElement, tabindex: number | null}[]>) {
   const activeElement = useActiveElement();
   const focusedMenuItem = computed(
-    () => ([ ...menuItems.value ].find((item) => item.$el.querySelector('button') === activeElement.value)),
+    () => ([ ...menuItems.value ].find((item) => item.$el.querySelector('.ui-button') === activeElement.value)),
   );
   const activeMenuItemIndex = computed(() => menuItems.value.findIndex(
     (el) => el === focusedMenuItem.value,
@@ -24,7 +24,7 @@ export default function useMenuItems(menuItems: ComputedRef<[] | {$el: HTMLLIEle
       : menuItems.value[activeMenuItemIndex.value - 1]));
   const selectedMenuItem = computed(
     () => [ ...menuItems.value ].find(
-      (item) => item.$el.querySelector('button')?.classList.contains('ui-menu-item--is-selected'),
+      (item) => item.$el.querySelector('.ui-button')?.classList.contains('ui-menu-item--is-selected'),
     ),
   );
 
