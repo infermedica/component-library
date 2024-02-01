@@ -120,6 +120,7 @@ export interface DropdownHandlersOptions {
 }
 export type ButtonInstance = InstanceType<typeof UiButton>;
 export type MenuInstance = InstanceType<typeof UiMenu>;
+export type DropdownChangeHandler = (value: DropdownModelValue) => void;
 export interface DropdownProps {
   /**
    * Use this props or v-model to set value.
@@ -290,6 +291,16 @@ defineExpose({
   handlePopoverClose,
   closeHandler: handlePopoverClose,
 });
+// TODO: will be removed in 2.0.0 / BEGIN
+const changeHandler: DropdownChangeHandler = (value) => {
+  emit('update:modelValue', value);
+  handlePopoverClose();
+};
+provide<DropdownChangeHandler>('changeHandler', changeHandler);
+if (process.env.NODE_ENV === 'development') {
+  console.warn('[@infermedica/component-library warn][UiDropdown]: `changeHandler` will be remover in 2.0.0. Please use provided computed modelValue instead');
+}
+// END
 </script>
 
 <style lang="scss">
