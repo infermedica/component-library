@@ -5510,25 +5510,10 @@
           "name": "isOpen"
         },
         {
-          "name": "handlePopoverClose"
-        },
-        {
           "name": "closeHandler"
         }
       ],
       "props": [
-        {
-          "name": "modelValue",
-          "description": "Use this props or v-model to set value.",
-          "required": false,
-          "type": {
-            "name": "DropdownModelValue"
-          },
-          "defaultValue": {
-            "func": false,
-            "value": "''"
-          }
-        },
         {
           "name": "text",
           "description": "Use this props to set text on toggle button.",
@@ -5551,6 +5536,65 @@
           "defaultValue": {
             "func": false,
             "value": "''"
+          }
+        },
+        {
+          "name": "modelValue",
+          "description": "Use this props or v-model to set value.",
+          "required": false,
+          "type": {
+            "name": "DropdownModelValue"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "''"
+          }
+        },
+        {
+          "name": "closeOnClickOutside",
+          "description": "Use this props to allow clicking outside to close dropdown.",
+          "required": false,
+          "type": {
+            "name": "boolean"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "true"
+          }
+        },
+        {
+          "name": "toggleElement",
+          "description": "Use this props to set toggle DOM element to back to it after close popover.",
+          "required": false,
+          "type": {
+            "name": "union",
+            "elements": [
+              {
+                "name": "ComponentPublicInstance"
+              },
+              {
+                "name": "HTMLElement"
+              },
+              {
+                "name": "null"
+              }
+            ]
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "undefined"
+          }
+        },
+        {
+          "name": "enableKeyboardNavigation",
+          "description": "Use this props to allow using key navigation.",
+          "required": false,
+          "type": {
+            "name": "boolean"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "true"
           }
         },
         {
@@ -5593,53 +5637,6 @@
             "func": false,
             "value": "() => ({})"
           }
-        },
-        {
-          "name": "toggleElement",
-          "description": "Use this props to set toggle DOM element to back to it after close popover.",
-          "required": false,
-          "type": {
-            "name": "union",
-            "elements": [
-              {
-                "name": "ComponentPublicInstance"
-              },
-              {
-                "name": "HTMLElement"
-              },
-              {
-                "name": "null"
-              }
-            ]
-          },
-          "defaultValue": {
-            "func": false,
-            "value": "null"
-          }
-        },
-        {
-          "name": "closeOnClickOutside",
-          "description": "Use this props to allow clicking outside to close dropdown.",
-          "required": false,
-          "type": {
-            "name": "boolean"
-          },
-          "defaultValue": {
-            "func": false,
-            "value": "true"
-          }
-        },
-        {
-          "name": "enableKeyboardNavigation",
-          "description": "Use this props to allow using key navigation.",
-          "required": false,
-          "type": {
-            "name": "boolean"
-          },
-          "defaultValue": {
-            "func": false,
-            "value": "true"
-          }
         }
       ],
       "events": [
@@ -5665,30 +5662,6 @@
           "description": "Use this slot to place toggle template.",
           "bindings": [
             {
-              "name": "text",
-              "title": "binding"
-            },
-            {
-              "name": "isOpen",
-              "title": "binding"
-            },
-            {
-              "name": "buttonToggleAttrs",
-              "title": "binding"
-            },
-            {
-              "name": "handlePopoverToggle",
-              "title": "binding"
-            },
-            {
-              "name": "handlePopoverOpen",
-              "title": "binding"
-            },
-            {
-              "name": "handlePopoverClose",
-              "title": "binding"
-            },
-            {
               "name": "toggleHandler",
               "title": "binding"
             },
@@ -5699,6 +5672,18 @@
             {
               "name": "closeHandler",
               "title": "binding"
+            },
+            {
+              "name": "isOpen",
+              "title": "binding"
+            },
+            {
+              "name": "text",
+              "title": "binding"
+            },
+            {
+              "name": "buttonToggleAttrs",
+              "title": "binding"
             }
           ]
         },
@@ -5708,19 +5693,15 @@
           "description": "Use this slot to replace popover template.",
           "bindings": [
             {
+              "name": "closeHandler",
+              "title": "binding"
+            },
+            {
               "name": "isOpen",
               "title": "binding"
             },
             {
               "name": "popoverAttrs",
-              "title": "binding"
-            },
-            {
-              "name": "handlePopoverClose",
-              "title": "binding"
-            },
-            {
-              "name": "closeHandler",
               "title": "binding"
             }
           ]
@@ -5731,15 +5712,26 @@
           "description": "Use this slot to replace content template.",
           "bindings": [
             {
+              "name": "closeHandler",
+              "title": "binding"
+            },
+            {
               "name": "isOpen",
               "title": "binding"
-            },
+            }
+          ]
+        },
+        {
+          "name": "default",
+          "scoped": true,
+          "description": "Use this slot to place dropdown content inside dropdown.",
+          "bindings": [
             {
-              "name": "handlePopoverClose",
+              "name": "closeHandler",
               "title": "binding"
             },
             {
-              "name": "closeHandler",
+              "name": "isOpen",
               "title": "binding"
             }
           ]
@@ -10089,65 +10081,6 @@
       "tags": {},
       "props": [
         {
-          "name": "listItemAttrs",
-          "description": "Use this props to pass attrs for list item element",
-          "required": false,
-          "type": {
-            "name": "ListItemAttrsProps"
-          },
-          "defaultValue": {
-            "func": false,
-            "value": "() => ({ class: 'ui-menu-item' })"
-          }
-        },
-        {
-          "name": "suffixAttrs",
-          "description": "Use this props to pass attrs for UIMenuItemSuffix",
-          "required": false,
-          "type": {
-            "name": "MenuItemSuffixAttrsProps"
-          },
-          "defaultValue": {
-            "func": false,
-            "value": "() => ({ class: 'ui-button--text ui-menu-item__suffix' })"
-          }
-        },
-        {
-          "name": "suffixVisible",
-          "description": "Use this props to set suffix visibility.",
-          "required": false,
-          "type": {
-            "name": "union",
-            "elements": [
-              {
-                "name": "\"default\""
-              },
-              {
-                "name": "\"always\""
-              },
-              {
-                "name": "\"never\""
-              }
-            ]
-          },
-          "defaultValue": {
-            "func": false,
-            "value": "'default'"
-          }
-        },
-        {
-          "name": "icon",
-          "description": "Use this props to set icon.",
-          "required": false,
-          "type": {
-            "name": "Icon"
-          },
-          "defaultValue": {
-            "func": false,
-            "value": "'present'"
-          }
-        },
-        {
           "name": "value",
           "description": "Use this props to set the value of the dropdown item.",
           "required": false,
@@ -10157,6 +10090,18 @@
           "defaultValue": {
             "func": false,
             "value": "''"
+          }
+        },
+        {
+          "name": "iconItemAttrs",
+          "description": "Use this props to pass attrs to UiIcon.",
+          "required": false,
+          "type": {
+            "name": "IconAttrsProps"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "() => ({ icon: 'present' })"
           }
         }
       ],
