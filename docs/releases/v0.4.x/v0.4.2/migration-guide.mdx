@@ -1,4 +1,5 @@
 import { Meta } from '@storybook/blocks';
+import Code from '../../../components/Code';
 
 <Meta title="Releases/v0.4.x/v0.4.2/Migration Guide" />
 
@@ -7,20 +8,21 @@ import { Meta } from '@storybook/blocks';
 ## _internal components
 From v0.4.2 components that use _internal approach start to support `items` property to pass items to render with default template.
 
-```html
+<Code code={`
 <template>
   <UiBulletPoints :items="items" />
 </template>
 
 <script setup>
 import UiBulletPointsItem from "@symptom-checker/ui-kit/src/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue"
+
 const items = ref(["Painful swallowing", "Stuffy nose", "Sneeze"])
 </script>
-```
+`}/>
 
 For components like [UiAccordion](/docs/organisms-accordion--multiple-items) and [UiTabs](/docs/organisms-tabs--common) where you pass template for items you should use named slot to put it.
 
-```html
+<Code code={`
 <template>
  <UiAccordion
   v-model="modelValue"
@@ -34,20 +36,26 @@ For components like [UiAccordion](/docs/organisms-accordion--multiple-items) and
   </template>
  </UiAccordion>
 <template>
+
 <script setup>
-const items = ref([{
-name: 'mortphology',
-title: 'Mortphology'
-}, {
-name: 'rheumatology',
-title: 'Rheumatology blood tests panel'
-}])
+import UiAccordion from "@symptom-checker/ui-kit/src/components/organisms/UiAccordion/UiAccordion.vue"
+
+const items = ref([
+  {
+    name: 'mortphology',
+    title: 'Mortphology'
+  }, 
+  {
+    name: 'rheumatology',
+    title: 'Rheumatology blood tests panel'
+  },
+])
 </script>
-```
+`}/>
 
 New approach is another way to render items. You can still use `default` slot and `v-for` to pass items.
 
-```html
+<Code code={`
 <template>
   <UiBulletPoints>
     <template
@@ -63,9 +71,10 @@ New approach is another way to render items. You can still use `default` slot an
 
 <script setup>
 import UiBulletPointsItem from "@symptom-checker/ui-kit/src/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue"
+
 const items = ref(["Painful swallowing", "Stuffy nose", "Sneeze"])
 </script>
-```
+`}/>
 
 ### Used
 * [UiBulletPoints](/docs/molecules-bulletpoints--unordered-list)

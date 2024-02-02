@@ -3,7 +3,10 @@
     class="ui-input"
     v-bind="attrs"
   >
-    <div class="ui-input__outline">
+    <div
+      class="ui-input__outline"
+      v-bind="outlineAttrs"
+    >
       <!-- @slot Use this slot to replace input template. -->
       <slot
         name="input"
@@ -11,7 +14,7 @@
           inputAttrs: defaultProps.inputAttrs,
           input: inputHandler,
           value: modelValue,
-          validation: keyValidation
+          validation: keyValidation,
         }"
       >
         <input
@@ -30,7 +33,7 @@
       name="aside"
       v-bind="{
         suffix,
-        textSuffixAttrs: defaultProps.textSuffixAttrs
+        textSuffixAttrs: defaultProps.textSuffixAttrs,
       }"
     >
       <UiText
@@ -88,6 +91,10 @@ export interface InputProps {
    */
   suffix?: string;
   /**
+   * Use this props to pass attrs for outline element.
+   */
+  outlineAttrs?: HTMLAttributes;
+  /**
    * Use this props to pass attrs for suffix UiText.
    */
   textSuffixAttrs?: TextAttrsProps;
@@ -107,6 +114,7 @@ const props = withDefaults(defineProps<InputProps>(), {
   disabled: false,
   modelValue: '',
   suffix: '',
+  outlineAttrs: () => ({}),
   textSuffixAttrs: () => ({ tag: 'span' }),
   inputAttrs: () => ({}),
 });
@@ -134,6 +142,7 @@ const { numbersOnly } = useKeyValidation();
 const keyValidation = (event: KeyboardEvent) => {
   switch (props.type) {
     case 'number':
+    case 'tel':
       numbersOnly(event);
       break;
     default:
@@ -176,10 +185,7 @@ const input = ref(null);
 
     &::after {
       position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
+      inset: 0;
       border-radius: inherit;
       box-shadow: var(--focus-outer);
       content: "";
@@ -200,8 +206,8 @@ const input = ref(null);
     @include mixins.use-logical($element, border-width, 0);
 
     width: 100%;
-    background: transparent;
     border-radius: inherit;
+    background: transparent;
     caret-color: functions.var($element, caret-color, var(--color-blue-500));
     color: functions.var($element, color, var(--color-text-body));
     outline: none;

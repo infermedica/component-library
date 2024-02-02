@@ -4,6 +4,7 @@
     v-keyboard-focus
     v-bind="routeAttrs"
     class="ui-button"
+    :type="tag === 'button' ? 'button' : null"
     :aria-disabled="isLoading ? true : null"
   >
     <UiLoader
@@ -298,6 +299,7 @@ const {
 
     &#{$this}--is-disabled {
       --loader-ellipsis-dot-background: #{functions.var($element, color, var(--color-text-disabled))};
+
       color: functions.var($element, color, var(--color-text-disabled));
 
       #{$this}__icon {

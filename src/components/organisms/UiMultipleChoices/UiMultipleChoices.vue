@@ -6,7 +6,7 @@
       v-bind="{
         hint,
         alertHintAttrs,
-        hintType
+        hintType,
       }"
     >
       <UiAlert
@@ -34,7 +34,7 @@
             item,
             options,
             hasError,
-            updateHandler
+            updateHandler,
           }"
         >
           <UiMultipleChoicesItem
@@ -158,7 +158,6 @@ const updateHandler = (newValue: MultipleChoicesModelValue, index: number) => {
       @include mixins.override-logical(multiple-choices-item-tablet-option-content, null, padding,  var(--space-12));
 
       --multiple-choices-tablet-items-gap: var(--space-32);
-
       --multiple-choices-item-width-block: 0;
       --multiple-choices-item-tablet-background: transparent;
       --multiple-choices-item-tablet-content-flex-direction: column;

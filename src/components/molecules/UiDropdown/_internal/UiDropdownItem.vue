@@ -3,7 +3,7 @@
     ref="dropdownItem"
     :tabindex="tabindex"
     class="ui-button--outlined ui-dropdown-item"
-    :class="{ 'ui-button--is-selected': isChecked, }"
+    :class="{ 'ui-button--is-selected': isChecked }"
     v-bind="buttonItemAttrs"
     @keydown="dropdownItemKeydownHandler"
   >
@@ -92,11 +92,16 @@ const optionChangeHandler = (value: DropdownModelValue) => {
     changeHandler(value);
   }
 };
-const buttonItemAttrs = computed<ButtonAttrsProps>(() => ({
-  role: isOption.value ? 'radio' : undefined,
-  'aria-checked': isOption.value ? `${isChecked.value}` : undefined,
-  onClick: attrs.to ? undefined : optionChangeHandler.bind(this, props.value),
-}));
+const buttonItemAttrs = computed<ButtonAttrsProps>(() => {
+  const extraAttrs = isOption.value ? {
+    'aria-checked': isChecked.value,
+    role: 'radio',
+  } : {};
+  return ({
+    onClick: attrs.to ? undefined : optionChangeHandler.bind(this, props.value),
+    ...extraAttrs,
+  });
+});
 </script>
 
 <style lang="scss">

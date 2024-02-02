@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import fs from 'fs';
-import glob from 'glob';
+import { glob } from 'glob';
 import {
   dirname,
   resolve,

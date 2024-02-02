@@ -15,6 +15,10 @@ module.exports = {
   ],
   parserOptions: { ecmaVersion: 2020 },
   rules: {
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      { ignoreRestSiblings: true },
+    ],
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': [ 'error' ],
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
@@ -193,6 +197,10 @@ module.exports = {
           [
             '@',
             path.resolve(__dirname, 'src'),
+          ],
+          [
+            '@index',
+            path.resolve(__dirname, 'index.ts'),
           ],
         ],
         extensions: [

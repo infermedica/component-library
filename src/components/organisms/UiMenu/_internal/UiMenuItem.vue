@@ -1,9 +1,11 @@
 <template>
   <UiListItem
+    ref="menuItem"
     :list-item-attrs="defaultProps.listItemAttrs"
     :tag="UiButton"
+    :tabindex="tabindex"
     :class="[
-      'ui-button--outlined ui-menu-item__button', buttonClass
+      'ui-button--outlined ui-menu-item__button', buttonClass,
     ]"
   >
     <!-- @slot Use this slot to replace label template. -->
@@ -21,7 +23,7 @@
         name="suffix"
         v-bind="{
           hasSuffix,
-          suffixAttrs: defaultProps.suffixAttrs
+          suffixAttrs: defaultProps.suffixAttrs,
         }"
       >
         <UiMenuItemSuffix
@@ -35,37 +37,25 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import {
+  ref,
+  computed,
+  onMounted,
+  nextTick,
+  inject,
+  type Ref,
+} from 'vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiListItem from '../../UiList/_internal/UiListItem.vue';
 import type { ListItemAttrsProps } from '../../UiList/_internal/UiListItem.vue';
 import UiMenuItemSuffix from './UiMenuItemSuffix.vue';
-import type { MenuItemSuffixAttrsProps } from './UiMenuItemSuffix.vue';
 import { useAttributes } from '../../../../composable';
-import type {
-  DefineAttrsProps,
-  Icon,
-} from '../../../../types';
+import type { DefineAttrsProps } from '../../../../types';
+import type { MenuItemProps } from './MenuItemProps';
+import type { MenuItem } from '../UiMenu.vue';
 
-export interface MenuItemProps {
-  /**
-   * Use this props to set icon.
-   */
-  icon?: Icon;
-  /**
-   * Use this props to set suffix visibility.
-   */
-  suffixVisible?: 'default' | 'always' | 'never';
-  /**
-   * Use this props to pass attrs for UIMenuItemSuffix
-   */
-  suffixAttrs?: MenuItemSuffixAttrsProps;
-  /**
-   * Use this props to pass attrs for list item element
-   */
-  listItemAttrs?: ListItemAttrsProps;
-}
 export type MenuItemAttrsProps = DefineAttrsProps<MenuItemProps, ListItemAttrsProps>;
+export type ListItemInstance = InstanceType<typeof UiListItem>
 
 const props = withDefaults(defineProps<MenuItemProps>(), {
   icon: 'present',
@@ -88,6 +78,21 @@ const defaultProps = computed(() => ({
     ...props.listItemAttrs,
   },
 }));
+const tabindex = ref(null);
+defineExpose({ tabindex });
+const menuItem = ref<ListItemInstance | null>(null);
+const menuItems = inject<Ref<MenuItem[]>>('menuItems', ref([]));
+onMounted(async () => {
+  await nextTick();
+  if (!menuItem.value) return;
+  menuItems.value = [
+    ...menuItems.value,
+    {
+      $el: menuItem.value.$el,
+      tabindex,
+    },
+  ];
+});
 </script>
 
 <style lang="scss">

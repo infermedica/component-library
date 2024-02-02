@@ -66,7 +66,7 @@
           v-if="toBack && !hideBackButton"
           v-bind="{
             buttonBackAttrs,
-            iconBackAttrs
+            iconBackAttrs,
           }"
         >
           {{ translation?.back }}
@@ -79,9 +79,23 @@
 <script setup lang="ts">
 import UiControlsBackButton from '../UiControlsBackButton.vue';
 import UiControlsNextButton from '../UiControlsNextButton.vue';
-import type { ControlsCommonProps } from '../../UiControls.vue';
+import type { ControlsCommonProps as ControlsHorizontalProps } from '../../UiControls.vue';
 
-const props = defineProps<ControlsCommonProps>();
+withDefaults(defineProps<ControlsHorizontalProps>(), {
+  hideNextButton: false,
+  hideBackButton: false,
+  toBack: '',
+  toNext: '',
+  invalid: true,
+  translation: () => ({
+    back: 'Back',
+    next: 'Next',
+  }),
+  buttonNextAttrs: () => ({}),
+  buttonBackAttrs: () => ({ to: '' }),
+  iconBackAttrs: () => ({ icon: 'chevron-left' }),
+});
+
 </script>
 
 <style lang="scss">
@@ -103,8 +117,8 @@ const props = defineProps<ControlsCommonProps>();
     height: functions.var($element + "-actions", height, 5rem);
     flex-direction: row-reverse;
     align-items: center;
-    justify-content: space-between;
     align-self: stretch;
+    justify-content: space-between;
 
     @include mixins.from-tablet {
       @include mixins.use-logical($element + "-tablet-actions", padding, var(--space-16) var(--space-32));

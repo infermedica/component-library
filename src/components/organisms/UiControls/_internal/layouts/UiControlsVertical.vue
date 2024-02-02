@@ -21,7 +21,7 @@
       v-if="toBack && !hideBackButton"
       v-bind="{
         buttonBackAttrs,
-        iconBackAttrs
+        iconBackAttrs,
       }"
     >
       {{ translation?.back }}
@@ -60,8 +60,21 @@
 <script setup lang="ts">
 import UiControlsBackButton from '../UiControlsBackButton.vue';
 import UiControlsNextButton from '../UiControlsNextButton.vue';
+import type { ControlsCommonProps as ControlsVerticalProps } from '../../UiControls.vue';
 
-import type { ControlsCommonProps } from '../../UiControls.vue';
+withDefaults(defineProps<ControlsVerticalProps>(), {
+  hideNextButton: false,
+  hideBackButton: false,
+  toBack: '',
+  toNext: '',
+  invalid: true,
+  translation: () => ({
+    back: 'Back',
+    next: 'Next',
+  }),
+  buttonNextAttrs: () => ({}),
+  buttonBackAttrs: () => ({ to: '' }),
+  iconBackAttrs: () => ({ icon: 'chevron-left' }),
+});
 
-const props = defineProps<ControlsCommonProps>();
 </script>

@@ -3,7 +3,7 @@
   <div
     :class="[
       'ui-textarea',
-      { 'ui-textarea--has-autogrowing': hasAutogrowing }
+      { 'ui-textarea--has-autogrowing': hasAutogrowing },
     ]"
     v-bind="attrs"
     :data-value="modelValue"
@@ -158,9 +158,9 @@ onBeforeUnmount(() => {
   @include mixins.inner-border($element, $radius: var(--border-radius-form));
 
   display: inline-grid;
-  grid-template-rows: 100%;
-  grid-template-columns: 100%;
   width: 100%;
+  grid-template-columns: 100%;
+  grid-template-rows: 100%;
   transition: border-color 150ms ease-in-out;
 
   @include mixins.hover {
@@ -178,13 +178,13 @@ onBeforeUnmount(() => {
     @include mixins.use-logical($element, padding, var(--space-12) var(--space-16));
     @include mixins.use-logical($element, border, 0);
 
+    overflow: hidden;
     max-width: 100%;
-    background: transparent;
     border-radius: inherit;
+    background: transparent;
     caret-color: functions.var($element, caret-color, var(--color-blue-500));
     color: functions.var($element, color, var(--color-text-body));
     outline: none;
-    overflow: hidden;
 
     &::placeholder {
       color: functions.var($element + "-placeholder", color, var(--color-text-dimmed));

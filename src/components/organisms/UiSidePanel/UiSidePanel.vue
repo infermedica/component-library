@@ -61,27 +61,6 @@
             }"
           >
             <div class="ui-side-panel__header">
-              <!-- @slot Use this slot to replace close template. -->
-              <slot
-                name="close"
-                v-bind="{
-                  buttonCloseAttrs,
-                  closeHandler,
-                  iconCloseAttrs: defaultProps.iconCloseAttrs
-                }"
-              >
-                <UiButton
-                  v-bind="buttonCloseAttrs"
-                  ref="button"
-                  class="ui-button--icon ui-button--theme-secondary ui-side-panel__close"
-                  @click="closeHandler"
-                >
-                  <UiIcon
-                    v-bind="defaultProps.iconCloseAttrs"
-                    class="ui-button__icon"
-                  />
-                </UiButton>
-              </slot>
               <!-- @slot Use this slot to replace label template. -->
               <slot
                 name="label"
@@ -101,7 +80,7 @@
                     name="title"
                     v-bind="{
                       title,
-                      headingTitleAttrs: defaultProps.headingTitleAttrs
+                      headingTitleAttrs: defaultProps.headingTitleAttrs,
                     }"
                   >
                     <UiHeading
@@ -128,6 +107,27 @@
                     </UiText>
                   </slot>
                 </div>
+              </slot>
+              <!-- @slot Use this slot to replace close template. -->
+              <slot
+                name="close"
+                v-bind="{
+                  buttonCloseAttrs,
+                  closeHandler,
+                  iconCloseAttrs: defaultProps.iconCloseAttrs,
+                }"
+              >
+                <UiButton
+                  v-bind="buttonCloseAttrs"
+                  ref="button"
+                  class="ui-button--icon ui-button--theme-secondary ui-side-panel__close"
+                  @click="closeHandler"
+                >
+                  <UiIcon
+                    v-bind="defaultProps.iconCloseAttrs"
+                    class="ui-button__icon"
+                  />
+                </UiButton>
               </slot>
             </div>
           </slot>
@@ -165,7 +165,6 @@ import {
   focusTrap as vFocusTrap,
   bodyScrollLock as vBodyScrollLock,
   scrollTabindex as vScrollTabindex,
-  keyboardFocus as vKeyboardFocus,
 } from '../../../utilities/directives';
 import { focusElement } from '../../../utilities/helpers';
 import UiBackdrop from '../../atoms/UiBackdrop/UiBackdrop.vue';
@@ -327,10 +326,7 @@ onBeforeUnmount(() => {
   &__dialog {
     position: fixed;
     z-index: 1000;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: auto;
+    inset: 0 0 0 auto;
     display: flex;
     width: 100%;
     max-width: functions.var($element, max-width, 100%);
@@ -354,10 +350,11 @@ onBeforeUnmount(() => {
 
   &__header {
     @include mixins.use-logical($element + "-header", padding, var(--space-20));
+    @include mixins.override-logical('button', null, border-radius, var(--border-radius-form));
 
     display: flex;
     flex: none;
-    flex-direction: functions.var($element + "-header", flex-direction, row-reverse);
+    flex-direction: functions.var($element + "-header", flex-direction, row);
     background: functions.var($element + "-header", background, var(--color-background-subtle));
     gap: functions.var($element + "-header", gap, var(--space-16));
 
@@ -376,8 +373,8 @@ onBeforeUnmount(() => {
 
   &__label {
     display: flex;
-    flex-direction: functions.var($element + "-label", flex-direction, column);
     flex: 1;
+    flex-direction: functions.var($element + "-label", flex-direction, column);
     gap: functions.var($element + "-label", gap, var(--space-4));
   }
 

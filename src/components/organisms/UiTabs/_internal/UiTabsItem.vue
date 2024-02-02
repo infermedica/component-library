@@ -12,7 +12,7 @@
         buttonTabAttrs,
         contentAttrs,
         handleTabActive,
-        title
+        title,
       }"
     >
       <div
@@ -27,7 +27,7 @@
             isActive,
             buttonTabAttrs,
             handleTabActive,
-            title
+            title,
           }"
         >
           <UiButton

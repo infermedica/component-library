@@ -4,7 +4,7 @@
     :for="radioId"
     v-bind="{
       ...attrs,
-      ...elementsListeners.label
+      ...elementsListeners.label,
     }"
   >
     <input
@@ -28,7 +28,7 @@
       <div
         v-bind="radioElementAttrs"
         :class="[
-          'ui-radio__radio',{ 'ui-radio__radio--is-checked': isChecked }
+          'ui-radio__radio', { 'ui-radio__radio--is-checked': isChecked },
         ]"
       >
         <div class="ui-radio__mark" />
@@ -39,7 +39,7 @@
       name="label"
       v-bind="{
         hasLabel,
-        textLabelAttrs: defaultProps.textLabelAttrs
+        textLabelAttrs: defaultProps.textLabelAttrs,
       }"
     >
       <UiText
@@ -289,8 +289,8 @@ defineExpose({ input });
     left: 50%;
     width: functions.var($element + "-mark", size, 0.625rem);
     height: functions.var($element + "-mark", size, 0.625rem);
-    background: functions.var($element + "-mark", color, transparent);
     border-radius: inherit;
+    background: functions.var($element + "-mark", color, transparent);
     transform: translate(-50%, -50%);
   }
 

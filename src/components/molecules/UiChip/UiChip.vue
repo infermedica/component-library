@@ -19,7 +19,7 @@
       v-bind="{
         buttonRemoveAttrs,
         clickHandler,
-        iconRemoveAttrs: defaultProps.iconRemoveAttrs
+        iconRemoveAttrs: defaultProps.iconRemoveAttrs,
       }"
     >
       <UiButton

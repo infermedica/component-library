@@ -1,3 +1,4 @@
+<!-- eslint-disable vuejs-accessibility/mouse-events-have-key-events -->
 <template>
   <component
     :is="tag"
@@ -30,7 +31,7 @@
           hoverHandler,
           finalScore,
           settings,
-          translation: defaultProps.translation
+          translation: defaultProps.translation,
         }"
       >
         <UiRadio
@@ -48,7 +49,7 @@
             <div
               v-bind="radioElementAttrs"
               :class="[
-                'ui-rating__radio',{ 'ui-rating__radio--is-checked': item.index <= finalScore }
+                'ui-rating__radio', { 'ui-rating__radio--is-checked': item.index <= finalScore },
               ]"
             >
               <!-- @slot Use this slot to replace rating icon. -->

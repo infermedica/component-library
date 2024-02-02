@@ -1,3 +1,4 @@
+<!-- eslint-disable vuejs-accessibility/form-control-has-label -->
 <template>
   <UiNumberStepper
     v-bind="numberStepperAttrs"
@@ -21,7 +22,7 @@
     <template
       #default="{
         change,
-        value
+        value,
       }"
     >
       <div class="ui-range__input">
@@ -30,7 +31,7 @@
           name="value"
           v-bind="{
             value,
-            headingValueAttrs: defaultProps.headingValueAttrs
+            headingValueAttrs: defaultProps.headingValueAttrs,
           }"
         >
           <UiHeading
@@ -49,7 +50,7 @@
             min,
             max,
             change,
-            value
+            value,
           }"
         >
           <input

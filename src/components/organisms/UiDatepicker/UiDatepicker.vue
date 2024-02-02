@@ -23,8 +23,8 @@
             :ref="(el: DatepickerInput) => setDatePartElement(el, datePart)"
             :model-value="date[datePart]"
             v-bind="{
-              'error': invalid && touched,
-              'valid': isInputValid[datePart],
+              error: invalid && touched,
+              valid: isInputValid[datePart],
               ...getInputAttrs(datePart),
             }"
             @change-input="focusNextField"

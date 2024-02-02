@@ -1,6 +1,8 @@
 import {
   ref,
+  watch,
   computed,
+  nextTick,
 } from 'vue';
 import UiHorizontalPaging from '@/components/organisms/UiHorizontalPaging/UiHorizontalPaging.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
@@ -13,11 +15,34 @@ import UiLoader from '@/components/molecules/UiLoader/UiLoader.vue';
 import UiBulletPoints from '@/components/molecules/UiBulletPoints/UiBulletPoints.vue';
 import UiSidePanel from '@/components/organisms/UiSidePanel/UiSidePanel.vue';
 import UiHorizontalPagingItem from '@/components/organisms/UiHorizontalPaging/_internal/UiHorizontalPagingItem.vue';
+import UiLink from '@/components/atoms/UiLink/UiLink.vue';
 import { actions } from '@storybook/addon-actions';
 import './UiHorizontalPaging.stories.scss';
+import UiMenu from '@/components/organisms/UiMenu/UiMenu.vue';
+import { focusElement } from '../../../utilities/helpers';
 
 const events = actions({ onUpdateModelValue: 'update:modelValue' });
-
+const Language = {
+  components: { UiMenu },
+  setup() {
+    const languages = ref([
+      { label: 'Čeština' },
+      { label: 'English' },
+      { label: 'Deutsch' },
+      {
+        label: 'Polski',
+        class: 'ui-menu-item--is-selected',
+      },
+      { label: 'Українська' },
+    ]);
+    return { languages };
+  },
+  template: `<UiMenu 
+    class="language"
+    :items="languages" 
+    :enable-keyboard-navigation="true"
+  />`,
+};
 const ForBusiness = {
   components: {
     UiText,
@@ -392,12 +417,15 @@ export const AsMobileMenu = {
       UiHeading,
       UiButton,
       UiIcon,
+      UiMenu,
+      UiLink,
       ForBusiness,
       MedicalCertification,
       InstructionForUse,
       TermsOfService,
       PrivacyPolicy,
       InterviewId,
+      Language,
     },
     setup() {
       const modelValue = ref(args.initialModelValue);
@@ -410,6 +438,14 @@ export const AsMobileMenu = {
       const handleBackClick = () => {
         modelValue.value = modelValue.value.slice(0, -1);
       };
+      const backButton = ref(null);
+      watch(isActive, async (active) => {
+        if (active) {
+          await nextTick();
+          focusElement(backButton.value?.$el, true);
+        }
+      });
+      const menu = ref(null);
       return {
         ...args,
         ...events,
@@ -417,6 +453,8 @@ export const AsMobileMenu = {
         modelValue,
         previous,
         isActive,
+        backButton,
+        menu,
         handleBackClick,
       };
     },
@@ -429,7 +467,8 @@ export const AsMobileMenu = {
         <div class="horizontal-paging-as-mobile-menu__title">
           <UiButton
             v-if="isActive"
-            class="ui-button--icon"
+            ref="backButton"
+            class="ui-button--icon horizontal-paging-as-mobile-menu__back"
             @click="handleBackClick"
           >
             <UiIcon
@@ -447,8 +486,31 @@ export const AsMobileMenu = {
         v-model="modelValue"
         :items="items"
         :has-header="false"
+        :menu-attrs="{ enableKeyboardNavigation: true }"
+        :menu-template-ref="menu"
         @update:modelValue="onUpdateModelValue"
       >
+        <template #menu="{items, isActive}">
+          <div class="horizontal-paging-as-mobile-menu__menu">
+            <UiMenu
+              ref="menu"
+              :items="items"
+              class=""
+              :enable-keyboard-navigation="true"
+            />
+            <footer class="horizontal-paging-as-mobile-menu__footer">
+              <UiLink 
+                :tabindex="isActive ? -1 : undefined"
+                href="http://infermedica.com" 
+                target="_blank"
+                class="ui-link--theme-secondary"
+              >© 2021 Infermedica</UiLink>
+            </footer>
+          </div>
+        </template>
+        <template #languages>
+          <Language/>
+        </template>
         <template #for-business>
           <ForBusiness/>
         </template>
@@ -470,6 +532,58 @@ export const AsMobileMenu = {
       </UiHorizontalPaging>
     </UiSidePanel>`,
   }),
+
+  args: {
+    items: [
+      {
+        label: 'Languages',
+        title: 'Languages',
+        name: 'languages',
+        class: '', // override default class `ui-menu-item--theme-secondary`
+        suffixAttrs: { label: 'English' },
+        listItemAttrs: { class: 'ui-menu-item horizontal-paging-as-mobile-menu__language' },
+      },
+      {
+        label: 'For business',
+        title: 'For business',
+        name: 'for-business',
+      },
+      {
+        label: 'Medical Certification',
+        title: 'Medical certification and compliance',
+        name: 'medical-certification',
+      },
+      {
+        label: 'Instruction for Use',
+        title: 'Instruction for Use',
+        name: 'instruction-for-use',
+      },
+      {
+        label: 'Terms of Service',
+        title: 'Terms of Service',
+        name: 'terms-of-service',
+      },
+      {
+        label: 'Privacy Policy',
+        title: 'Privacy Policy',
+        name: 'privacy-policy',
+        href: 'https://infermedica.com',
+        target: '_blank',
+        onClick: () => (false),
+      },
+      {
+        label: 'Interview ID',
+        title: 'Interview ID',
+        name: 'interview-id',
+      },
+      {
+        label: 'Log out',
+        title: 'Log out',
+        name: 'logo-ut',
+        listItemAttrs: { class: 'horizontal-paging-as-mobile-menu__log-out' },
+      },
+    ],
+  },
 
   parameters: { viewport: { defaultViewport: 'mobile2' } },
 

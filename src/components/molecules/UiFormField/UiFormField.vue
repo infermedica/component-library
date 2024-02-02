@@ -1,3 +1,4 @@
+<!-- eslint-disable vuejs-accessibility/label-has-for -->
 <template>
   <div
     class="ui-form-field"
@@ -24,7 +25,7 @@
           name="message"
           v-bind="{
             message,
-            textMessageAttrs: defaultProps.textMessageAttrs
+            textMessageAttrs: defaultProps.textMessageAttrs,
           }"
         >
           <UiText
@@ -40,7 +41,7 @@
           v-bind="{
             hasHint,
             hint,
-            textHintAttrs: defaultProps.textHintAttrs
+            textHintAttrs: defaultProps.textHintAttrs,
           }"
         >
           <UiText
@@ -157,11 +158,16 @@ const props = withDefaults(defineProps<FormFieldProps>(), {
   message: false,
   id: '',
   hint: false,
+  value: '',
   errorMessage: false,
   hasCharacterCounter: false,
   textMessageAttrs: () => ({ tag: 'span' }),
   textHintAttrs: () => ({ tag: 'span' }),
   alertAttrs: () => ({}),
+  characterCounterAttrs: () => ({
+    value: '',
+    max: 240,
+  }),
 });
 const defaultProps = computed(() => {
   const tag: TextAttrsProps['tag'] = 'span';

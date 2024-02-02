@@ -13,7 +13,7 @@
       :disabled="isDisabled(i)"
       @click="select(`${i}`)"
     >
-      {{ monthNames[i-1] }}
+      {{ monthNames[i - 1] }}
     </UiDatepickerTabItem>
   </UiDatepickerTab>
 </template>

@@ -79,7 +79,7 @@ export const Common = {
       :button-next-attrs="buttonNextAttrs"
       :button-back-attrs="buttonBackAttrs"
       :icon-back-attrs="iconBackAttrs"
-      :direction="direction"
+      :layout="layout"
       @has-error="onHasError"
     />`,
   }),
