@@ -267,6 +267,7 @@ const clickOutsideValue = computed<VClickOutsideValue>(() => ({
   @include mixins.override-logical(dropdown-popover, $element + "-popover", padding, 0);
 
   --dropdown-popover-width: #{functions.var($element + "-popover", width, 100% )};
+  --dropdown-popover-max-width: #{functions.var($element + "-popover", max-width, 100% )};
 
   position: unset;
 }
