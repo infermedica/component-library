@@ -1,5 +1,5 @@
 <template>
-  <div class="ui-question">
+  <form class="ui-question">
     <!-- @slot Use this slot to replace title template. -->
     <slot
       name="title"
@@ -152,7 +152,7 @@
         {{ defaultProps.translation.issue.feedback }}
       </UiNotification>
     </slot>
-  </div>
+  </form>
 </template>
 
 <script setup lang="ts">
