@@ -1,10 +1,12 @@
-import * as child from 'child_process';
+import util from 'util';
+import child from 'child_process';
 import {
   writeFileSync,
   existsSync,
   mkdirSync,
 } from 'fs';
 
+const exec = util.promisify(child.exec);
 const githubURL = 'https://github.com/infermedica/component-library/pull/';
 const releaseDate = new Date().toLocaleString('en-US', {
   year: 'numeric',
@@ -142,19 +144,14 @@ ${createChangelogSections(commits)}
   return doc;
 };
 
-const createReleaseChangelog = (version) => {
-  child.exec('git log --pretty=format:"%s" --no-merges $(git describe --tags --abbrev=0 @^)..@', (error, stdout, stderr) => {
-    if (error) {
-      console.error(`GIT LOG Error: ${error.message}`);
-      return;
-    }
-    if (stderr) {
-      console.error(`GIT LOG stdError: ${stderr.message}`);
-      return;
-    }
+const createReleaseChangelog = async (version) => {
+  try {
+    const { stdout } = await exec('git log --pretty=format:"%s" --no-merges $(git describe --tags --abbrev=0 @^)..@');
     const commits = stdout.split(/\n/);
     createChangelogMdx(version, commits);
-  });
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 export default createReleaseChangelog;
