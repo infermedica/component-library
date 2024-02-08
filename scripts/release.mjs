@@ -1,4 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
+import util from 'util';
+import child from 'child_process';
 import {
   readFileSync,
   writeFileSync,
@@ -14,6 +16,7 @@ import updateComponentsApi from './update-components-api.mjs';
 import createReleaseNotes from './create-release-notes.mjs';
 import createReleaseChangelog from './create-release-changelog.mjs';
 
+const exec = util.promisify(child.exec);
 const fileName = fileURLToPath(import.meta.url);
 const dirName = dirname(fileName);
 const packageJsonPath = resolve(dirName, '../', 'package.json');
@@ -23,6 +26,15 @@ const updatePackageJson = (value) => {
   writeFileSync(packageJsonPath, JSON.stringify(packageJsonContent, null, 2));
   console.log('🚀 Version updated successfully.');
 };
+
+const createReleaseCommit = async (version) => {
+  try {
+    const { stdout } = await exec(`git add -A && git commit -m "v${ version }" && git tag -a v${ version }`);
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 const release = async (type, withDocs) => {
   const {
     newVersion, releaseType,
@@ -30,7 +42,8 @@ const release = async (type, withDocs) => {
   if (newVersion) {
     await updateComponentsApi();
     updatePackageJson(newVersion);
-    createReleaseChangelog(newVersion);
+    await createReleaseChangelog(newVersion);
+    await createReleaseCommit(newVersion);
   }
   if (withDocs) await createReleaseNotes(releaseType);
 };
