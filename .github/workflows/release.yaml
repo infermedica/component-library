@@ -1,20 +1,20 @@
 on:
   push:
-    tags:
-      - 'v*'
-    branches:
+    branches-ignore:
       - main
+      - develop
+    tags:
+      - v*
 
 name: Release
 
 jobs:
   build:
-    name: Create Release
+    name: Try to create release
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Create Release
+      - uses: actions/checkout@v4
+      - name: Create release
         id: create_release
         uses: actions/create-release@v1
         env:
