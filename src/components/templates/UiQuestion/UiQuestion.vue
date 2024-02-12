@@ -1,5 +1,8 @@
 <template>
-  <form class="ui-question" @submit.prevent>
+  <form 
+    class="ui-question" 
+    @submit.prevent
+  >
     <!-- @slot Use this slot to replace title template. -->
     <slot
       name="title"
