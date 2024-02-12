@@ -1,20 +1,16 @@
+name: Deploy Storybook
 on:
   workflow_run:
     workflows: ["Release"]
     types:
      - completed
-
-name: Deploy Storybook
-
 permissions:
   contents: read
   pages: write
   id-token: write
-
 concurrency:
   group: 'pages'
   cancel-in-progress: true
-
 jobs:
   deploy:
     environment:
@@ -22,17 +18,20 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           ref: main
-      - uses: pnpm/action-setup@v2
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v2
         with:
           version: 7
-      - uses: actions/setup-node@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
           node-version: '16'
           cache: 'pnpm'
-      - name: Frozen
+      - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Build
         run: pnpm run build-storybook
@@ -41,7 +40,6 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          # Upload dist repository
           path: './storybook-static'
       - name: Deploy to GitHub Pages
         id: deployment
