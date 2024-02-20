@@ -8,11 +8,20 @@ interface ElementKeyboardFocus extends HTMLElement {
 
 export const keyboardFocus: Directive<ElementKeyboardFocus> = {
   beforeMount(el) {
+    const codesTriggeringFocus = [
+      'Tab',
+      'ArrowDown',
+      'ArrowUp',
+      'ArrowLeft',
+      'ArrowRight',
+      'Space',
+      'Enter',
+    ];
     el.__vueMouseHandler__ = () => {
       document.body.classList.add('focus-hidden');
     };
     el.__vueKeyHandler__ = (event) => {
-      if (event.code === 'Tab') {
+      if (codesTriggeringFocus.includes(event.code)) {
         document.body.classList.remove('focus-hidden');
         el.focus();
       }
