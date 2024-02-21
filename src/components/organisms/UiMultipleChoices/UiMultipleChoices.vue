@@ -19,6 +19,7 @@
       </UiAlert>
     </slot>
     <UiList
+      ref="multipleChoicesItemsRef"
       class="ui-multiple-choices__items"
     >
       <template
@@ -54,6 +55,8 @@
 import {
   computed,
   watch,
+  ref,
+  type ComponentPublicInstance,
 } from 'vue';
 import UiAlert from '../../molecules/UiAlert/UiAlert.vue';
 import type { AlertAttrsProps } from '../../molecules/UiAlert/UiAlert.vue';
@@ -111,6 +114,17 @@ const props = withDefaults(defineProps<MultipleChoicesProps>(), {
   alertHintAttrs: () => ({}),
 });
 const emit = defineEmits<MultipleChoicesEmits>();
+
+const multipleChoicesItemsRef = ref<ComponentPublicInstance | null>(null);
+const multipleChoicesItemsWithErrors = computed(() => {
+  const multipleChoicesItemsElement = multipleChoicesItemsRef.value;
+  if (multipleChoicesItemsElement && multipleChoicesItemsElement.$el instanceof HTMLElement) {
+    const inputElement = multipleChoicesItemsRef.value?.$el.querySelectorAll('.ui-radio--has-error > input')[0];
+    if (inputElement && inputElement instanceof HTMLInputElement) return inputElement;
+  }
+  return null;
+});
+
 const value = computed<MultipleChoicesModelValue[]>(() => (JSON.parse(JSON.stringify(props.modelValue))));
 const valid = computed(() => (value.value.filter(
   (item) => item,
@@ -118,12 +132,13 @@ const valid = computed(() => (value.value.filter(
 watch(valid, (newValue) => {
   emit('update:invalid', !newValue);
 }, { immediate: true });
-const hintType = computed(() => (
-  props.touched && props.invalid ? 'error' : 'default'
-));
-const hasError = (index: number) => (
-  props.touched && !value.value[index]
-);
+const hintType = computed(() => (props.touched && props.invalid ? 'error' : 'default'));
+
+const hasError = (index: number) => {
+  if (multipleChoicesItemsWithErrors.value) multipleChoicesItemsWithErrors.value.focus();
+  return props.touched && !value.value[index];
+};
+
 const updateHandler = (newValue: MultipleChoicesModelValue, index: number) => {
   value.value[index] = newValue;
   emit('update:modelValue', value.value);

@@ -101,7 +101,7 @@
           >
             <UiListItem
               v-model="value"
-              v-bind="option"
+              v-bind="{ value: option.value }"
               :tag="UiRadio"
               :class="[
                 'ui-multiple-choices-item__option-content', {
