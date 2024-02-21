@@ -1,0 +1,20 @@
+name: Update develop Branch
+on:
+  workflow_run:
+    workflows: ["Release"]
+    types:
+      - completed
+jobs:
+  updateBranch:
+    name: Update develop branch
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: Embraser01/update-git-branch-action@1.0.0
+        if: github.ref == 'refs/heads/master'
+        witch:
+          branch: develop
+          force: 1
+          githubToken: ${{secrets.GITHUB_TOKEN}}
