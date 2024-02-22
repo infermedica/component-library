@@ -15,7 +15,6 @@ export default {
     legend: 'How strong is the headache?',
     steps: 10,
     translation: {
-      label: 'Pain scale',
       min: 'Mild',
       max: 'Unbearable',
     },
