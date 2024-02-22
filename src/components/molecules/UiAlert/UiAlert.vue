@@ -2,7 +2,7 @@
   <div
     class="ui-alert"
     :class="rootClassModifier"
-    role="alert"
+    v-bind="alertAttrs"
   >
     <!-- @slot Use this slot to replace icon template. -->
     <slot
@@ -32,7 +32,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import {
+  computed,
+  type HTMLAttributes,
+} from 'vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import type { IconAttrsProps } from '../../atoms/UiIcon/UiIcon.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
@@ -76,6 +79,10 @@ const defaultProps = computed(() => ({
     ...props.iconAlertAttrs,
   },
 }));
+const alertAttrs = computed<HTMLAttributes>(() => ((props.type !== 'error') ? ({}) : ({
+  role: 'alert',
+  'aria-live': 'polite',
+})));
 </script>
 
 <style lang="scss">
