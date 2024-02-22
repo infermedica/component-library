@@ -245,6 +245,64 @@ export const WithSingleChoice = {
   },
 };
 
+export const WithSingleChoiceWithError = {
+  render: (args) => ({
+    components: { UiMultipleAnswer },
+    setup() {
+      const modelValue = ref(args.initModelValue);
+      const invalid = ref(args.initInvalid);
+      return {
+        ...args,
+        ...events,
+        modelValue,
+        invalid,
+      };
+    },
+    template: `<UiMultipleAnswer
+      v-model="modelValue"
+      v-model:invalid="invalid"
+      :items="items"
+      :name="name"
+      :legend="legend"
+      :hint="hint"
+      :touched="touched"
+      :hint-alert-attrs="hintAlertAttrs"
+      @update:modelValue="onUpdateModelValue"
+      @update:invalid="onUpdateInvalid"
+    />`,
+  }),
+
+  args: {
+    initModelValue: {},
+    touched: true,
+    hint: 'Select one answer.',
+    items: [
+      {
+        id: 'fatigue',
+        label: 'Fatigue',
+        translation: { info: 'How to check it?' },
+        textLabelAttrs: { 'data-testid': 'label-text' },
+        buttonInfoAttrs: { onClick: events.onClickInfoButton },
+        labelInfoAttrs: { 'data-testid': 'suffix-label' },
+        iconInfoAttrs: { 'data-testid': 'info-icon' },
+      },
+      {
+        id: 'fever',
+        label: 'Fever',
+      },
+      {
+        id: 'illusion',
+        label: 'Illusion of surrounding objects being bigger or smaller than they actually are',
+        translation: { info: 'What does it mean?' },
+        textLabelAttrs: { 'data-testid': 'label-text' },
+        buttonInfoAttrs: { onClick: events.onClickInfoButton },
+        labelInfoAttrs: { 'data-testid': 'suffix-label' },
+        iconInfoAttrs: { 'data-testid': 'info-icon' },
+      },
+    ],
+  },
+};
+
 export const WithHintSlot = {
   render: (args) => ({
     components: {
