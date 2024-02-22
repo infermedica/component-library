@@ -34,6 +34,7 @@
       </legend>
     </slot>
     <UiList
+      ref="multipleAnswerListRef"
       class="ui-multiple-answer__list"
     >
       <template
@@ -74,7 +75,9 @@
 <script setup lang="ts">
 import {
   computed,
+  ref,
   watch,
+  type ComponentPublicInstance,
 } from 'vue';
 import UiAlert from '../../molecules/UiAlert/UiAlert.vue';
 import type { AlertAttrsProps } from '../../molecules/UiAlert/UiAlert.vue';
@@ -143,10 +146,24 @@ const props = withDefaults(defineProps<MultipleAnswerProps>(), {
   legend: '',
 });
 const emit = defineEmits<MultipleAnswerEmits>();
+
+const multipleAnswerListRef = ref<ComponentPublicInstance | null>(null);
+const multipleAnswerItemsWithErrors = computed(() => {
+  const multipleAnswerItemsElement = multipleAnswerListRef.value;
+  if (multipleAnswerItemsElement && multipleAnswerItemsElement.$el instanceof HTMLElement) {
+    const inputElement = multipleAnswerListRef.value?.$el.querySelectorAll('.ui-radio--has-error > input')[0];
+    if (inputElement && inputElement instanceof HTMLInputElement) return inputElement;
+  }
+  return null;
+});
+
 const valid = computed(() => (Array.isArray(props.modelValue)
   ? !!props.modelValue.length
   : !!Object.keys(props.modelValue).length));
-const hasError = computed(() => (props.touched && !valid.value));
+const hasError = computed(() => {
+  if (multipleAnswerItemsWithErrors.value) multipleAnswerItemsWithErrors.value.focus();
+  return props.touched && !valid.value;
+});
 const hintType = computed<'error'|'default'>(() => (props.touched && props.invalid ? 'error' : 'default'));
 watch(valid, (value) => {
   emit('update:invalid', !value);
