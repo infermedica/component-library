@@ -77,7 +77,7 @@ const meta = {
       phoneNumber: '',
     },
     id: 'input-id',
-    error: false,
+    errorMessage: false,
     countryCodeItems: undefined,
   },
   argTypes: {},
@@ -130,7 +130,7 @@ export const WithError: StoryObj<typeof UiPhoneNumber> = {
       template: `<UiFormField
       v-bind="{...args}"
       message="Phone number"
-      :error-message="args.error"
+      :error-message="args.errorMessage"
     >
       <UiPhoneNumber
         v-bind="{...args}"
@@ -138,7 +138,8 @@ export const WithError: StoryObj<typeof UiPhoneNumber> = {
     </UiFormField>`,
     };
   },
-  args: { error: 'Please enter the phone number' },
+  args: { errorMessage: 'Please enter the phone number' },
+  // args: { errorMessage: true },
 };
 
 export const WithCustomCountryCodes: StoryObj<typeof UiPhoneNumber> = {
@@ -186,7 +187,7 @@ export const WithCustomCountryCodesWithTimeout: StoryObj<typeof UiPhoneNumber> =
         UiPhoneNumber,
       },
       setup() {
-        const countryCodes = ref(args.countryCodeItems);
+        const countryCodes = ref(args.countryCodes);
         const modelValue = ref<Record<string, unknown>>({ phoneNumber: '' });
 
         setTimeout(() => {
@@ -222,5 +223,5 @@ WithCustomCountryCodesWithTimeout.args = {
     },
     phoneNumber: '',
   },
-  countryCodeItems: [],
+  countryCodes: [],
 };
