@@ -151,8 +151,8 @@ const multipleAnswerListRef = ref<ComponentPublicInstance | null>(null);
 const multipleAnswerItemsWithErrors = computed(() => {
   const multipleAnswerItemsElement = multipleAnswerListRef.value;
   if (multipleAnswerItemsElement && multipleAnswerItemsElement.$el instanceof HTMLElement) {
-    const inputElement = multipleAnswerListRef.value?.$el.querySelectorAll('.ui-radio--has-error > input')[0];
-    if (inputElement && inputElement instanceof HTMLInputElement) return inputElement;
+    const inputElement = multipleAnswerListRef.value?.$el.querySelector('.ui-radio--has-error > input');
+    return (inputElement && inputElement instanceof HTMLInputElement) ? inputElement : null;
   }
   return null;
 });

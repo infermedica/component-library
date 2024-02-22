@@ -119,8 +119,8 @@ const multipleChoicesItemsRef = ref<ComponentPublicInstance | null>(null);
 const multipleChoicesItemsWithErrors = computed(() => {
   const multipleChoicesItemsElement = multipleChoicesItemsRef.value;
   if (multipleChoicesItemsElement && multipleChoicesItemsElement.$el instanceof HTMLElement) {
-    const inputElement = multipleChoicesItemsRef.value?.$el.querySelectorAll('.ui-radio--has-error > input')[0];
-    if (inputElement && inputElement instanceof HTMLInputElement) return inputElement;
+    const inputElement = multipleChoicesItemsRef.value?.$el.querySelector('.ui-radio--has-error > input');
+    return (inputElement && inputElement instanceof HTMLInputElement) ? inputElement : null;
   }
   return null;
 });

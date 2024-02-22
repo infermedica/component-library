@@ -78,13 +78,10 @@ const defaultProps = computed(() => ({
     ...props.iconAlertAttrs,
   },
 }));
-const alertAttrs = computed<HTMLAttributes>(() => {
-  if (props.type !== 'error') return {};
-  return {
-    role: 'alert',
-    'aria-live': 'polite',
-  };
-});
+const alertAttrs = computed<HTMLAttributes>(() => ((props.type !== 'error') ? ({}) : ({
+  role: 'alert',
+  'aria-live': 'polite',
+})));
 </script>
 
 <style lang="scss">
