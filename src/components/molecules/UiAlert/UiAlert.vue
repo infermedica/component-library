@@ -62,6 +62,10 @@ export interface AlertProps {
    * Use this props to pass attrs for message UiText
    */
   textMessageAttrs?: TextAttrsProps;
+  /**
+   * Use this props to pass HTML attrs
+   */
+   alertAttrs?: HTMLAttributes;
 }
 export type AlertAttrsProps = DefineAttrsProps<AlertProps>;
 
@@ -70,6 +74,10 @@ const props = withDefaults(defineProps<AlertProps>(), {
   hasIcon: true,
   iconAlertAttrs: () => ({}),
   textMessageAttrs: () => ({}),
+  alertAttrs: () => ({
+    role: 'alert',
+    'aria-live': 'polite',
+  }),
 });
 const rootClassModifier = computed(() => `ui-alert--${props.type}`);
 const icon = computed<IconName>(() => ((!props.hasIcon || props.type === 'default') ? '' : `${props.type}-filled`));
@@ -79,10 +87,6 @@ const defaultProps = computed(() => ({
     ...props.iconAlertAttrs,
   },
 }));
-const alertAttrs = computed<HTMLAttributes>(() => ((props.type !== 'error') ? ({}) : ({
-  role: 'alert',
-  'aria-live': 'polite',
-})));
 </script>
 
 <style lang="scss">
