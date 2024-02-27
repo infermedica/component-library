@@ -19,7 +19,6 @@
       </UiAlert>
     </slot>
     <UiList
-      ref="multipleChoicesItemsRef"
       class="ui-multiple-choices__items"
     >
       <template
@@ -39,6 +38,7 @@
           }"
         >
           <UiMultipleChoicesItem
+            :ref="(el)=>{ setFirstMultipleAnswerItemRef(el, index) }"
             :model-value="value[index]"
             v-bind="item"
             :options="options"
@@ -55,8 +55,8 @@
 import {
   computed,
   watch,
-  ref,
   type ComponentPublicInstance,
+  reactive,
 } from 'vue';
 import UiAlert from '../../molecules/UiAlert/UiAlert.vue';
 import type { AlertAttrsProps } from '../../molecules/UiAlert/UiAlert.vue';
@@ -65,6 +65,7 @@ import type { RadioAttrsProps } from '../../atoms/UiRadio/UiRadio.vue';
 import UiMultipleChoicesItem from './_internal/UiMultipleChoicesItem.vue';
 import type { MultipleChoicesItemAttrsProps } from './_internal/UiMultipleChoicesItem.vue';
 import type { DefineAttrsProps } from '../../../types/attrs';
+import { focusElement } from '../../../utilities/helpers';
 
 export type MultipleChoicesOption = RadioAttrsProps & { label?: string };
 export type MultipleChoicesModelValue = string | Record<string, unknown>;
@@ -115,15 +116,7 @@ const props = withDefaults(defineProps<MultipleChoicesProps>(), {
 });
 const emit = defineEmits<MultipleChoicesEmits>();
 
-const multipleChoicesItemsRef = ref<ComponentPublicInstance | null>(null);
-const multipleChoicesItemsWithErrors = computed(() => {
-  const multipleChoicesItemsElement = multipleChoicesItemsRef.value;
-  if (multipleChoicesItemsElement && multipleChoicesItemsElement.$el instanceof HTMLElement) {
-    const inputElement = multipleChoicesItemsRef.value?.$el.querySelector('.ui-radio--has-error > input');
-    return (inputElement && inputElement instanceof HTMLInputElement) ? inputElement : null;
-  }
-  return null;
-});
+const invalidMultipleChoicesItemRefs = reactive<Map<number, HTMLInputElement>>(new Map());
 
 const value = computed<MultipleChoicesModelValue[]>(() => (JSON.parse(JSON.stringify(props.modelValue))));
 const valid = computed(() => (value.value.filter(
@@ -134,15 +127,36 @@ watch(valid, (newValue) => {
 }, { immediate: true });
 const hintType = computed(() => (props.touched && props.invalid ? 'error' : 'default'));
 
-const hasError = (index: number) => {
-  if (multipleChoicesItemsWithErrors.value) multipleChoicesItemsWithErrors.value.focus();
-  return props.touched && !value.value[index];
-};
+const hasError = (index: number) => props.touched && !value.value[index];
 
 const updateHandler = (newValue: MultipleChoicesModelValue, index: number) => {
   value.value[index] = newValue;
   emit('update:modelValue', value.value);
 };
+
+const setFirstMultipleAnswerItemRef = (
+  el: Element | ComponentPublicInstance | null,
+  idx: number,
+) => {
+  if (!el) return;
+
+  const multipleChoicesItem = el as InstanceType<typeof UiMultipleChoicesItem>;
+
+  if (multipleChoicesItem.content && multipleChoicesItem.content[0].content && multipleChoicesItem.invalid) {
+    invalidMultipleChoicesItemRefs.set(idx, multipleChoicesItem.content[0].content.input);
+  }
+};
+
+watch(
+  invalidMultipleChoicesItemRefs,
+  (val) => {
+    if (val.size > 0) {
+      const element = [ ...val.values() ][0];
+      focusElement(element);
+    }
+  },
+  { immediate: true },
+);
 </script>
 
 <style lang="scss">

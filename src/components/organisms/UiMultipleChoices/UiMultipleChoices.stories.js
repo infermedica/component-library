@@ -176,7 +176,10 @@ export const WithOneCorrectAnswerAndErrors = {
 
   args: {
     touched: true,
-    initModelValue: [ 'present' ],
+    initModelValue: [
+      null,
+      'present',
+    ],
   },
 };
 
