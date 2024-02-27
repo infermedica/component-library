@@ -51,7 +51,7 @@
           name="list-item"
         >
           <UiMultipleAnswerItem
-            :ref="(el)=>{ if (el) setFirstMultipleAnswerItemRef(el, index) }"
+            :ref="(el)=>{ setFirstMultipleAnswerItemRef(el, index) }"
             v-model="value"
             v-bind="item"
             :invalid="hasError"
@@ -79,6 +79,7 @@ import {
   watch,
   type ComponentPublicInstance,
 } from 'vue';
+import UiAlert from '../../molecules/UiAlert/UiAlert.vue';
 import type { AlertAttrsProps } from '../../molecules/UiAlert/UiAlert.vue';
 import UiList from '../UiList/UiList.vue';
 import UiMultipleAnswerItem from './_internal/UiMultipleAnswerItem.vue';
@@ -88,7 +89,6 @@ import type {
   HTMLTag,
 } from '../../../types';
 import { focusElement } from '../../../utilities/helpers';
-import UiAlert from '../../molecules/UiAlert/UiAlert.vue';
 
 export type MultipleAnswerModelValue = string | Record<string, unknown> | (string | Record<string, unknown>)[];
 export interface MultipleAnswerProps {
@@ -187,16 +187,14 @@ const itemsToRender = computed(() => (props.items.map((item) => {
 })));
 
 const setFirstMultipleAnswerItemRef = (
-  el: Element | ComponentPublicInstance,
+  el: Element | ComponentPublicInstance | null,
   index: number,
 ) => {
-  if (index === 0
-    && 'content' in el
-    && typeof el.content === 'object'
-    && el.content
-    && 'input' in el.content
-    && el.content.input instanceof HTMLInputElement
-  ) firstMultipleAnswerItemRef.value = el.content.input;
+  if (!el || index > 0) return;
+
+  const multipleAnswerItem = el as InstanceType<typeof UiMultipleAnswerItem>;
+
+  if (multipleAnswerItem.content) firstMultipleAnswerItemRef.value = multipleAnswerItem.content.input;
 };
 
 watch([
@@ -207,7 +205,7 @@ watch([
   item,
 ]) => {
   if (errorValue) focusElement(item);
-}, { immediate: true });
+});
 </script>
 
 <style lang="scss">
