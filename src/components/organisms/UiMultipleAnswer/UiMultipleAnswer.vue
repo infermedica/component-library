@@ -34,7 +34,6 @@
       </legend>
     </slot>
     <UiList
-      ref="multipleAnswerListRef"
       class="ui-multiple-answer__list"
     >
       <template
@@ -52,6 +51,7 @@
           name="list-item"
         >
           <UiMultipleAnswerItem
+            :ref="(el)=>{ if (el) setFirstMultipleAnswerItemRef(el, index) }"
             v-model="value"
             v-bind="item"
             :invalid="hasError"
@@ -79,7 +79,6 @@ import {
   watch,
   type ComponentPublicInstance,
 } from 'vue';
-import UiAlert from '../../molecules/UiAlert/UiAlert.vue';
 import type { AlertAttrsProps } from '../../molecules/UiAlert/UiAlert.vue';
 import UiList from '../UiList/UiList.vue';
 import UiMultipleAnswerItem from './_internal/UiMultipleAnswerItem.vue';
@@ -88,6 +87,8 @@ import type {
   DefineAttrsProps,
   HTMLTag,
 } from '../../../types';
+import { focusElement } from '../../../utilities/helpers';
+import UiAlert from '../../molecules/UiAlert/UiAlert.vue';
 
 export type MultipleAnswerModelValue = string | Record<string, unknown> | (string | Record<string, unknown>)[];
 export interface MultipleAnswerProps {
@@ -134,6 +135,8 @@ export interface MultipleAnswerEmits {
   (e: 'update:invalid', value: boolean): void;
 }
 
+const firstMultipleAnswerItemRef = ref<HTMLInputElement | null>(null);
+
 const props = withDefaults(defineProps<MultipleAnswerProps>(), {
   modelValue: () => ([]),
   items: () => ([]),
@@ -147,23 +150,10 @@ const props = withDefaults(defineProps<MultipleAnswerProps>(), {
 });
 const emit = defineEmits<MultipleAnswerEmits>();
 
-const multipleAnswerListRef = ref<ComponentPublicInstance | null>(null);
-const multipleAnswerItemsWithErrors = computed(() => {
-  const multipleAnswerItemsElement = multipleAnswerListRef.value;
-  if (multipleAnswerItemsElement && multipleAnswerItemsElement.$el instanceof HTMLElement) {
-    const inputElement = multipleAnswerListRef.value?.$el.querySelector('.ui-radio--has-error > input');
-    return (inputElement && inputElement instanceof HTMLInputElement) ? inputElement : null;
-  }
-  return null;
-});
-
 const valid = computed(() => (Array.isArray(props.modelValue)
   ? !!props.modelValue.length
   : !!Object.keys(props.modelValue).length));
-const hasError = computed(() => {
-  if (multipleAnswerItemsWithErrors.value) multipleAnswerItemsWithErrors.value.focus();
-  return props.touched && !valid.value;
-});
+const hasError = computed(() => props.touched && !valid.value);
 const hintType = computed<'error'|'default'>(() => (props.touched && props.invalid ? 'error' : 'default'));
 watch(valid, (value) => {
   emit('update:invalid', !value);
@@ -195,6 +185,29 @@ const itemsToRender = computed(() => (props.items.map((item) => {
     },
   };
 })));
+
+const setFirstMultipleAnswerItemRef = (
+  el: Element | ComponentPublicInstance,
+  index: number,
+) => {
+  if (index === 0
+    && 'content' in el
+    && typeof el.content === 'object'
+    && el.content
+    && 'input' in el.content
+    && el.content.input instanceof HTMLInputElement
+  ) firstMultipleAnswerItemRef.value = el.content.input;
+};
+
+watch([
+  hasError,
+  firstMultipleAnswerItemRef,
+], ([
+  errorValue,
+  item,
+]) => {
+  if (errorValue) focusElement(item);
+}, { immediate: true });
 </script>
 
 <style lang="scss">
