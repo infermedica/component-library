@@ -167,7 +167,7 @@ const changeHandler = (event: Event) => {
     emit('update:modelValue', JSON.parse(JSON.stringify(props.value)));
   }
 };
-const input = ref<HTMLElement | null>(null);
+const input = ref<HTMLInputElement | null>(null);
 defineExpose({ input });
 </script>
 
