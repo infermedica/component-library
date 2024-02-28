@@ -264,7 +264,7 @@ defineExpose({ input });
   }
 
   @include mixins.with-focus {
-    &:focus-within {
+    &:focus-within:has(input[type="checkbox"]:focus) {
       #{$this}__checkbox {
         box-shadow: var(--focus-outer);
       }
