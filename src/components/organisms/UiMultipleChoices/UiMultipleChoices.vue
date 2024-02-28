@@ -152,7 +152,7 @@ watch(
   (val) => {
     if (val.size > 0) {
       const element = [ ...val.values() ][0];
-      focusElement(element);
+      focusElement(element, true);
     }
   },
   { immediate: true },
