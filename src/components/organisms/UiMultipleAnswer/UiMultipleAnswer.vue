@@ -204,7 +204,7 @@ watch([
   errorValue,
   item,
 ]) => {
-  if (errorValue) focusElement(item);
+  if (errorValue) focusElement(item, true);
 });
 </script>
 
