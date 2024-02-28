@@ -15,6 +15,7 @@
     >
       <component
         :is="tag"
+        ref="content"
         v-bind="$attrs"
         class="ui-list-item__content"
       >
@@ -48,6 +49,7 @@ export default { inheritAttrs: false };
 <script setup lang="ts">
 import {
   computed,
+  ref,
   type LiHTMLAttributes,
 } from 'vue';
 import type { Icon } from '../../../../types/icon';
@@ -105,6 +107,8 @@ const defaultProps = computed<ListItemProps>(() => ({
     }
     : props.suffixAttrs,
 }));
+const content = ref<HTMLTag | null>(null);
+defineExpose({ content });
 </script>
 
 <style lang="scss">

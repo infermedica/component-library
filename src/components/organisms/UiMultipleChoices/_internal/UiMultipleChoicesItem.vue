@@ -100,6 +100,7 @@
             }"
           >
             <UiListItem
+              ref="content"
               v-model="value"
               v-bind="option"
               :tag="UiRadio"
@@ -138,7 +139,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import {
+  computed,
+  ref,
+} from 'vue';
 import { uid } from 'uid/single';
 import type {
   MultipleChoicesModelValue,
@@ -291,6 +295,13 @@ const optionsToRender = computed(() => props.options.map((option) => ({
     ...option.inputAttrs,
   },
 })));
+
+const content = ref<typeof UiRadio | null>(null);
+
+defineExpose({
+  content,
+  invalid: props.invalid,
+});
 </script>
 
 <style lang="scss">
