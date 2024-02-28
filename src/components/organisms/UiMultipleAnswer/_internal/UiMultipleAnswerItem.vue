@@ -187,6 +187,7 @@ const errorClass = computed(() => (props.invalid
   ]
   : []));
 const content = ref<InstanceType<typeof component.value> | null>(null);
+defineExpose({ content });
 const suffix = ref<ComponentPublicInstance | null>(null);
 const suffixSize = ref({
   '--_label-suffix-width': '0',
