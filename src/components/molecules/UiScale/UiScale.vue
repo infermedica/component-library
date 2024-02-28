@@ -3,7 +3,6 @@
   <div
     class="ui-scale"
     role="radiogroup"
-    :aria-label="defaultProps.translation.label"
   >
     <component
       :is="tag"
@@ -31,7 +30,6 @@
           v-model="scaleValue"
           :value="index"
           class="ui-scale__option"
-          :aria-labelledby="`scale-label-${index}`"
           @mouseover="hoverHandler($event, index)"
           @mouseleave="hoverHandler($event, index)"
         >
@@ -161,7 +159,6 @@ import type {
 } from '../../../types';
 
 export interface ScaleTranslation {
-  label?: string;
   min?: string;
   max?: string;
 }
@@ -219,9 +216,8 @@ const props = withDefaults(defineProps<ScaleProps>(), {
   name: '',
   steps: 10,
   translation: () => ({
-    label: 'Pain scale',
-    min: 'Mild',
-    max: 'Unbearable',
+    min: 'Min',
+    max: 'Max',
   }),
   tag: 'fieldset',
   legend: '',
@@ -264,9 +260,8 @@ const calcActiveElementOpacity = (index: number): CSSProperties => {
 };
 const defaultProps = computed(() => ({
   translation: {
-    label: 'Pain scale',
-    min: 'Mild',
-    max: 'Unbearable',
+    min: 'Min',
+    max: 'Max',
     ...props.translation,
   },
   numberStepperAttrs: { ...props.numberStepperAttrs },
@@ -276,6 +271,7 @@ const itemsToRender = computed<RadioAttrsProps[]>(() => (Array.from({ length: ma
     ? props.radioOptionAttrs[index]
     : props.radioOptionAttrs;
   return {
+    'aria-labelledby': `scale-label-${index}`,
     ...radioOptionAttrs,
     textLabelAttrs: {
       tag: 'div',
