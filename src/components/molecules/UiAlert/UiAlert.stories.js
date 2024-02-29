@@ -29,7 +29,6 @@ export default {
     type: {
       control: 'select',
       options: [
-        'default',
         'success',
         'info',
         'warning',
