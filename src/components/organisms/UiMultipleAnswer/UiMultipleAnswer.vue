@@ -51,6 +51,7 @@
           name="list-item"
         >
           <UiMultipleAnswerItem
+            :ref="(el)=>{ setFirstMultipleAnswerItemRef(el, index) }"
             v-model="value"
             v-bind="item"
             :invalid="hasError"
@@ -74,7 +75,9 @@
 <script setup lang="ts">
 import {
   computed,
+  ref,
   watch,
+  type ComponentPublicInstance,
 } from 'vue';
 import UiAlert from '../../molecules/UiAlert/UiAlert.vue';
 import type { AlertAttrsProps } from '../../molecules/UiAlert/UiAlert.vue';
@@ -85,6 +88,7 @@ import type {
   DefineAttrsProps,
   HTMLTag,
 } from '../../../types';
+import { focusElement } from '../../../utilities/helpers';
 
 export type MultipleAnswerModelValue = string | Record<string, unknown> | (string | Record<string, unknown>)[];
 export interface MultipleAnswerProps {
@@ -131,6 +135,8 @@ export interface MultipleAnswerEmits {
   (e: 'update:invalid', value: boolean): void;
 }
 
+const firstMultipleAnswerItemRef = ref<HTMLInputElement | null>(null);
+
 const props = withDefaults(defineProps<MultipleAnswerProps>(), {
   modelValue: () => ([]),
   items: () => ([]),
@@ -143,10 +149,11 @@ const props = withDefaults(defineProps<MultipleAnswerProps>(), {
   legend: '',
 });
 const emit = defineEmits<MultipleAnswerEmits>();
+
 const valid = computed(() => (Array.isArray(props.modelValue)
   ? !!props.modelValue.length
   : !!Object.keys(props.modelValue).length));
-const hasError = computed(() => (props.touched && !valid.value));
+const hasError = computed(() => props.touched && !valid.value);
 const hintType = computed<'error'|'default'>(() => (props.touched && props.invalid ? 'error' : 'default'));
 watch(valid, (value) => {
   emit('update:invalid', !value);
@@ -178,6 +185,27 @@ const itemsToRender = computed(() => (props.items.map((item) => {
     },
   };
 })));
+
+const setFirstMultipleAnswerItemRef = (
+  el: Element | ComponentPublicInstance | null,
+  index: number,
+) => {
+  if (!el || index > 0) return;
+
+  const multipleAnswerItem = el as InstanceType<typeof UiMultipleAnswerItem>;
+
+  if (multipleAnswerItem.content) firstMultipleAnswerItemRef.value = multipleAnswerItem.content.input;
+};
+
+watch([
+  hasError,
+  firstMultipleAnswerItemRef,
+], ([
+  errorValue,
+  item,
+]) => {
+  if (errorValue) focusElement(item, true);
+});
 </script>
 
 <style lang="scss">

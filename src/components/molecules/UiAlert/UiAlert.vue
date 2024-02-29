@@ -1,8 +1,9 @@
 <template>
   <div
-    class="ui-alert"
-    :class="rootClassModifier"
-    v-bind="alertAttrs"
+    :class="[
+      'ui-alert',
+      rootClassModifier,
+    ]"
   >
     <!-- @slot Use this slot to replace icon template. -->
     <slot
@@ -32,10 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  computed,
-  type HTMLAttributes,
-} from 'vue';
+import { computed } from 'vue';
 import UiIcon from '../../atoms/UiIcon/UiIcon.vue';
 import type { IconAttrsProps } from '../../atoms/UiIcon/UiIcon.vue';
 import UiText from '../../atoms/UiText/UiText.vue';
@@ -49,7 +47,7 @@ export interface AlertProps {
   /**
    * Use this props to set alert type.
    */
-  type?: 'success' | 'info' | 'warning' | 'error' | 'default';
+  type?: 'success' | 'info' | 'warning' | 'error';
   /**
    * Use this props to hide icon.
    */
@@ -62,10 +60,6 @@ export interface AlertProps {
    * Use this props to pass attrs for message UiText
    */
   textMessageAttrs?: TextAttrsProps;
-  /**
-   * Use this props to pass HTML attrs
-   */
-   alertAttrs?: HTMLAttributes;
 }
 export type AlertAttrsProps = DefineAttrsProps<AlertProps>;
 
@@ -74,13 +68,9 @@ const props = withDefaults(defineProps<AlertProps>(), {
   hasIcon: true,
   iconAlertAttrs: () => ({}),
   textMessageAttrs: () => ({}),
-  alertAttrs: () => ({
-    role: 'alert',
-    'aria-live': 'polite',
-  }),
 });
 const rootClassModifier = computed(() => `ui-alert--${props.type}`);
-const icon = computed<IconName>(() => ((!props.hasIcon || props.type === 'default') ? '' : `${props.type}-filled`));
+const icon = computed<IconName>(() => ((!props.hasIcon) ? '' : `${props.type}-filled`));
 const defaultProps = computed(() => ({
   iconAlertAttrs: {
     icon: icon.value,
