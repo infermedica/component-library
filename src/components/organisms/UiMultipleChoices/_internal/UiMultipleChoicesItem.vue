@@ -297,7 +297,6 @@ const optionsToRender = computed(() => props.options.map((option) => ({
 })));
 
 const listItemOptionAttrs = ({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   label, ...rest
 }: ListItemAttrsProps) => rest;
 

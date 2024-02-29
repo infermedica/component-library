@@ -325,7 +325,6 @@ const itemsToRender = computed<DropdownItemComplex[]>(() => (props.items.map((it
   };
 })));
 const dropdownItemAttrs = ({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   name, text, ...itemAttrs
 }: DropdownItemComplex) => itemAttrs;
 </script>

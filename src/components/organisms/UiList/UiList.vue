@@ -92,7 +92,6 @@ const itemsToRender = computed<ListRenderItem[]>(() => (props.items.map((item, k
   };
 })));
 const listItemAttrs = ({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   name, label, children, ...rest
 }: ListRenderItem) => rest;
 </script>
