@@ -79,6 +79,7 @@ const meta = {
     id: 'input-id',
     error: false,
     countryCodeItems: undefined,
+    class: [],
   },
   argTypes: {},
   decorators: [ () => ({
@@ -138,7 +139,10 @@ export const WithError: StoryObj<typeof UiPhoneNumber> = {
     </UiFormField>`,
     };
   },
-  args: { error: 'Please enter the phone number' },
+  args: {
+    error: 'Please enter the phone number',
+    class: [ 'ui-phone-number--has-error' ],
+  },
 };
 
 export const WithCustomCountryCodes: StoryObj<typeof UiPhoneNumber> = {

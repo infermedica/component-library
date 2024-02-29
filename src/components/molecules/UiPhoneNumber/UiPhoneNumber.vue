@@ -35,7 +35,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import {
+  computed,
+  useAttrs,
+} from 'vue';
 import { uid } from 'uid/single';
 import UiPhoneNumberPrefix from './_internal/UiPhoneNumberPrefix/UiPhoneNumberPrefix.vue';
 import UiPhoneNumberInput from './_internal/UiPhoneNumberInput/UiPhoneNumberInput.vue';
@@ -70,10 +73,6 @@ export interface UiPhoneNumberProps {
     country: SupportedCountryCodeType,
     language: string,
    },
-   /**
-   * Use this props to set alert message.
-   */
-  hasError?: boolean,
   /**
    * Use this props to set country code items.
    */
@@ -95,7 +94,6 @@ const props = withDefaults(defineProps<UiPhoneNumberProps>(), {
     country: 'us',
     language: 'en',
   }),
-  hasError: false,
   countryCodes: () => ([]),
 });
 const inputId = computed(() => (
@@ -105,6 +103,10 @@ const modelValue = computed({
   get: () => props.modelValue,
   set: (value) => emit('update:modelValue', value),
 });
+const attrs = useAttrs();
+const hasError = computed(() => ((!attrs.class)
+  ? false
+  : !!attrs.class.match(/ui-phone-number--has-error/gm)));
 </script>
 
 <style lang="scss">
