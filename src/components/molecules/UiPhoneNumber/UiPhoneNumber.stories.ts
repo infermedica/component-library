@@ -78,7 +78,7 @@ const meta = {
     },
     id: 'input-id',
     error: false,
-    countryCodeItems: undefined,
+    countryCodes: undefined,
     class: [],
   },
   argTypes: {},
@@ -190,7 +190,7 @@ export const WithCustomCountryCodesWithTimeout: StoryObj<typeof UiPhoneNumber> =
         UiPhoneNumber,
       },
       setup() {
-        const countryCodes = ref(args.countryCodeItems);
+        const countryCodes = ref(args.countryCodes);
         const modelValue = ref<Record<string, unknown>>({ phoneNumber: '' });
 
         setTimeout(() => {
@@ -226,5 +226,5 @@ WithCustomCountryCodesWithTimeout.args = {
     },
     phoneNumber: '',
   },
-  countryCodeItems: [],
+  countryCodes: [],
 };
