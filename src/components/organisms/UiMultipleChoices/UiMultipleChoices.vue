@@ -6,13 +6,18 @@
       v-bind="{
         hint,
         alertHintAttrs,
-        hintType,
       }"
     >
+      <UiText
+        v-if="!isAlertDisplayed"
+        class="ui-text--body-2-comfortable ui-multiple-choices__hint"
+      >
+        {{ hint }}
+      </UiText>
       <UiAlert
-        v-if="hint"
+        v-if="isAlertDisplayed"
         v-bind="alertHintAttrs"
-        :type="hintType"
+        type="error"
         class="ui-multiple-choices__hint"
       >
         {{ hint }}
@@ -58,6 +63,7 @@ import {
   type ComponentPublicInstance,
   reactive,
 } from 'vue';
+import UiText from '../../atoms/UiText/UiText.vue';
 import UiAlert from '../../molecules/UiAlert/UiAlert.vue';
 import type { AlertAttrsProps } from '../../molecules/UiAlert/UiAlert.vue';
 import UiList from '../UiList/UiList.vue';
@@ -125,9 +131,10 @@ const valid = computed(() => (value.value.filter(
 watch(valid, (newValue) => {
   emit('update:invalid', !newValue);
 }, { immediate: true });
-const hintType = computed(() => (props.touched && props.invalid ? 'error' : 'default'));
 
 const hasError = (index: number) => props.touched && !value.value[index];
+
+const isAlertDisplayed = computed(() => props.hint !== '' && props.touched && !valid.value);
 
 const updateHandler = (newValue: MultipleChoicesModelValue, index: number) => {
   value.value[index] = newValue;

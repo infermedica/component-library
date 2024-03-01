@@ -1,8 +1,9 @@
 <template>
   <div
-    class="ui-alert"
-    :class="rootClassModifier"
-    role="alert"
+    :class="[
+      'ui-alert',
+      rootClassModifier,
+    ]"
   >
     <!-- @slot Use this slot to replace icon template. -->
     <slot
@@ -46,7 +47,7 @@ export interface AlertProps {
   /**
    * Use this props to set alert type.
    */
-  type?: 'success' | 'info' | 'warning' | 'error' | 'default';
+  type?: 'success' | 'info' | 'warning' | 'error';
   /**
    * Use this props to hide icon.
    */
@@ -69,7 +70,7 @@ const props = withDefaults(defineProps<AlertProps>(), {
   textMessageAttrs: () => ({}),
 });
 const rootClassModifier = computed(() => `ui-alert--${props.type}`);
-const icon = computed<IconName>(() => ((!props.hasIcon || props.type === 'default') ? '' : `${props.type}-filled`));
+const icon = computed<IconName>(() => ((!props.hasIcon) ? '' : `${props.type}-filled`));
 const defaultProps = computed(() => ({
   iconAlertAttrs: {
     icon: icon.value,
