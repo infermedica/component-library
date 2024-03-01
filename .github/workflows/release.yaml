@@ -20,7 +20,6 @@ jobs:
         with:
           tag_name: ${{github.ref}}
           release_name: ${{github.ref}}
-          # body: Text describing the contents of the release. Optional, and not needed if using body_path.
-          # body_path A file with contents describing the release. Optional, and not needed if using body.
+          body: ${{github.event.pull_request.description}}
           draft: false
           prerelease: false
