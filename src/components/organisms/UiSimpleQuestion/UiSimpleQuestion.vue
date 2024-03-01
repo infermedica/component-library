@@ -99,7 +99,6 @@ const updateHandler = (value: SimpleQuestionProps['modelValue']) => {
   emit('update:modelValue', value);
 };
 const tileItemAttrs = ({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   label, ...itemAttrs
 }: SimpleQuestionItem) => itemAttrs;
 const itemsToRender = computed(() => props.items);

@@ -102,7 +102,7 @@
             <UiListItem
               ref="content"
               v-model="value"
-              v-bind="option"
+              v-bind="listItemOptionAttrs(option)"
               :tag="UiRadio"
               :class="[
                 'ui-multiple-choices-item__option-content', {
@@ -295,6 +295,10 @@ const optionsToRender = computed(() => props.options.map((option) => ({
     ...option.inputAttrs,
   },
 })));
+
+const listItemOptionAttrs = ({
+  label, ...rest
+}: ListItemAttrsProps) => rest;
 
 const content = ref<typeof UiRadio | null>(null);
 
