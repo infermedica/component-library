@@ -45,8 +45,9 @@ import {
   type SupportedCountryCodeType,
 } from '../../helpers';
 import { type CountryCodes } from '../../UiPhoneNumber.vue';
+import type { DefineAttrsProps } from '../../../../../types';
 
-export interface UiPhoneNumberPrefixProps {
+export interface PhoneNumberPrefixProps {
   /**
    * Use this props to set default prefix phone code.
    */
@@ -63,8 +64,9 @@ export interface UiPhoneNumberPrefixProps {
    */
   countryCodes?: CountryCodes,
 }
+export type PhoneNumberPrefixAttrsProps = DefineAttrsProps<PhoneNumberPrefixProps>
 
-const props = withDefaults(defineProps<UiPhoneNumberPrefixProps>(), {
+const props = withDefaults(defineProps<PhoneNumberPrefixProps>(), {
   modelValue: () => ({
     code: '',
     countryCode: '',

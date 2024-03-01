@@ -15,11 +15,14 @@
 import { computed } from 'vue';
 import UiButton from '../../../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../../../atoms/UiIcon/UiIcon.vue';
+import type { DefineAttrsProps } from '../../../../../types';
 
-export interface UiPhoneNumberPrefixPropsToggle {
+export interface PhoneNumberPrefixToggleProps {
   isOpen?: boolean,
 }
-const props = withDefaults(defineProps<UiPhoneNumberPrefixPropsToggle>(), { isOpen: false });
+export type PhoneNumberPrefixToggleAttrsProps = DefineAttrsProps<PhoneNumberPrefixToggleProps>
+
+const props = withDefaults(defineProps<PhoneNumberPrefixToggleProps>(), { isOpen: false });
 
 const icon = computed(() => (props.isOpen ? 'chevron-up' : 'chevron-down'));
 </script>

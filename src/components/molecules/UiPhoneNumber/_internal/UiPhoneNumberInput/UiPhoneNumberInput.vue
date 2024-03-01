@@ -13,9 +13,10 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import UiInput from '../../../../atoms/UiInput/UiInput.vue';
+import type { DefineAttrsProps } from '../../../../../types';
 import type { InputAttrsProps } from '../../../../atoms/UiInput/UiInput.vue';
 
-export interface UiPhoneNumberInputProps {
+export interface PhoneNumberInputProps {
   /**
    * Use this props to set phone number.
    */
@@ -37,8 +38,9 @@ export interface UiPhoneNumberInputProps {
    */
   hasError?: boolean;
 }
+export type PhoneNumberInputAttrsProps = DefineAttrsProps<PhoneNumberInputProps>
 
-const props = withDefaults(defineProps<UiPhoneNumberInputProps>(), {
+const props = withDefaults(defineProps<PhoneNumberInputProps>(), {
   modelValue: '',
   placeholder: '',
   id: '',
