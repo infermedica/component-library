@@ -107,9 +107,9 @@ const modelValue = computed({
   set: (value) => emit('update:modelValue', value),
 });
 const attrs:PhoneNumberAttrsProps = useAttrs();
-const hasError = computed(() => ((!attrs.class)
-  ? false
-  : attrs.class.includes('ui-phone-number--has-error')));
+const hasError = computed(() => ((attrs.class)
+  ? attrs.class.includes('ui-phone-number--has-error')
+  : false));
 </script>
 
 <style lang="scss">
