@@ -40,6 +40,7 @@ import {
   useAttrs,
 } from 'vue';
 import { uid } from 'uid/single';
+import { DefineAttrsProps } from '@/types';
 import UiPhoneNumberPrefix from './_internal/UiPhoneNumberPrefix/UiPhoneNumberPrefix.vue';
 import UiPhoneNumberInput from './_internal/UiPhoneNumberInput/UiPhoneNumberInput.vue';
 import type {
@@ -78,6 +79,8 @@ export interface UiPhoneNumberProps {
    */
   countryCodes?: CountryCodes,
 }
+export type PhoneNumberAttrsProps = DefineAttrsProps<UiPhoneNumberProps>;
+
 const emit = defineEmits([ 'update:modelValue' ]);
 const props = withDefaults(defineProps<UiPhoneNumberProps>(), {
   id: '',
@@ -103,10 +106,10 @@ const modelValue = computed({
   get: () => props.modelValue,
   set: (value) => emit('update:modelValue', value),
 });
-const attrs = useAttrs();
+const attrs:PhoneNumberAttrsProps = useAttrs();
 const hasError = computed(() => ((!attrs.class)
   ? false
-  : !!attrs.class.match(/ui-phone-number--has-error/gm)));
+  : attrs.class.includes('ui-phone-number--has-error')));
 </script>
 
 <style lang="scss">
