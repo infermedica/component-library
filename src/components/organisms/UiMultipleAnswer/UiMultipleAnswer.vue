@@ -8,14 +8,19 @@
       name="hint"
       v-bind="{
         hint,
-        hintType,
         hintAlertAttrs,
       }"
     >
+      <UiText
+        v-if="!isAlertDisplayed"
+        class="ui-text--body-2-comfortable ui-multiple-answer__hint"
+      >
+        {{ hint }}
+      </UiText>
       <UiAlert
-        v-if="hint"
+        v-if="isAlertDisplayed"
         v-bind="hintAlertAttrs"
-        :type="hintType"
+        type="error"
         class="ui-multiple-answer__hint"
       >
         {{ hint }}
@@ -79,6 +84,7 @@ import {
   watch,
   type ComponentPublicInstance,
 } from 'vue';
+import UiText from '../../atoms/UiText/UiText.vue';
 import UiAlert from '../../molecules/UiAlert/UiAlert.vue';
 import type { AlertAttrsProps } from '../../molecules/UiAlert/UiAlert.vue';
 import UiList from '../UiList/UiList.vue';
@@ -154,7 +160,9 @@ const valid = computed(() => (Array.isArray(props.modelValue)
   ? !!props.modelValue.length
   : !!Object.keys(props.modelValue).length));
 const hasError = computed(() => props.touched && !valid.value);
-const hintType = computed<'error'|'default'>(() => (props.touched && props.invalid ? 'error' : 'default'));
+
+const isAlertDisplayed = computed(() => props.hint !== '' && hasError.value);
+
 watch(valid, (value) => {
   emit('update:invalid', !value);
 }, { immediate: true });
