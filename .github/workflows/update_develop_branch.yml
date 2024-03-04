@@ -14,7 +14,7 @@ jobs:
           ref: main
       - uses: Embraser01/update-git-branch-action@1.0.0
         if: github.ref == 'refs/heads/master'
-        witch:
+        with:
           branch: develop
           force: 1
           githubToken: ${{secrets.GITHUB_TOKEN}}
