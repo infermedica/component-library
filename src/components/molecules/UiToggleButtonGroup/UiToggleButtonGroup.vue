@@ -34,10 +34,10 @@ import {
   provide,
   type WritableComputedRef,
 } from 'vue';
-import equal from 'fast-deep-equal';
 import UiToggleButton from './_internal/UiToggleButton.vue';
 import type { ToggleButtonAttrsProps } from './_internal/UiToggleButton.vue';
 import type { DefineAttrsProps } from '../../../types';
+import { equal } from '../../../utilities/helpers';
 
 export interface ToggleButtonRenderItemComplex extends ToggleButtonAttrsProps {
   name: string;

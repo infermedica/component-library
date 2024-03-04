@@ -73,10 +73,10 @@ import {
   type LabelHTMLAttributes,
   type InputHTMLAttributes,
 } from 'vue';
-import equal from 'fast-deep-equal';
 import { uid } from 'uid/single';
 import { useAttributes } from '../../../composable';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
+import { equal } from '../../../utilities/helpers';
 import UiIcon from '../UiIcon/UiIcon.vue';
 import type { IconAttrsProps } from '../UiIcon/UiIcon.vue';
 import UiText from '../UiText/UiText.vue';
@@ -172,7 +172,7 @@ const checkboxId = computed(() => (props.id || `checkbox-${uid()}`));
 const isChecked = computed(() => {
   if (Array.isArray(props.modelValue)) {
     return !!props.modelValue.find((option) => (
-      equal(JSON.parse(JSON.stringify(props.value)), JSON.parse(JSON.stringify(option)))));
+      equal(props.value, option)));
   }
   return props.modelValue;
 });
