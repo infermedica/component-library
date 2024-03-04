@@ -1,26 +1,11 @@
-name: TMP Release
+name: New Release
 on:
   pull_request:
     types: closed
-    branches:
-      - 'releases/**'
 
 jobs:
-  check:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup PNPM
-        uses: pnpm/action-setup@v2
-        with:
-          version: 7
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: pnpm
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-      - name: Check types
-        run: pnpm run check:types
+  if: github.event.pull_request.merged == false
+  runs-on: ubuntu-latest
+  steps:
+    - name: 'Annotation'
+      run: echo {{github.event.pull_request.base.ref}}
