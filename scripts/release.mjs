@@ -29,7 +29,7 @@ const updatePackageJson = (value) => {
 
 const createReleaseCommit = async (version) => {
   try {
-    const { stdout } = await exec(`git add -A && git commit -m "v${ version }" && git tag v${ version }`);
+    const { stdout } = await exec(`git add -A && git commit -m "v${ version }"`);
   } catch (e) {
     console.error(e);
   }
