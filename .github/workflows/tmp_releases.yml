@@ -9,4 +9,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'Annotation'
-        run: echo {{github.event.pull_request.base.ref}}
+        run: echo ${{github.event.pull_request.base.ref}}
