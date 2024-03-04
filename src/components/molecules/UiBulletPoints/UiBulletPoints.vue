@@ -163,7 +163,6 @@ const itemsToRender = computed<BulletPointsRenderItem[]>(() => (
     };
   })));
 const bulletPointsItemAttrs = ({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   name, text, children, ...itemAttrs
 }: BulletPointsRenderItem) => itemAttrs;
 </script>

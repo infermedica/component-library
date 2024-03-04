@@ -166,7 +166,6 @@ const layoutComponent = computed(() => (
 
 const layoutProps = computed(() => {
   const {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     layout, containerAttrs, ...rest
   } = props;
   return {
