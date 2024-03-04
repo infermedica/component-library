@@ -131,7 +131,7 @@ export const WithError: StoryObj<typeof UiPhoneNumber> = {
       template: `<UiFormField
       v-bind="{...args}"
       message="Phone number"
-      :error-message="args.error"
+      :error-message="args.errorMessage"
     >
       <UiPhoneNumber
         v-bind="{...args}"
@@ -140,7 +140,7 @@ export const WithError: StoryObj<typeof UiPhoneNumber> = {
     };
   },
   args: {
-    error: 'Please enter the phone number',
+    errorMessage: 'Please enter the phone number',
     class: [ 'ui-phone-number--has-error' ],
   },
 };
