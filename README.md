@@ -1,4 +1,4 @@
-# Infermedica Component Library XYZ
+# Infermedica Component Library XYZCPB
 <a href="https://www.npmjs.com/package/@infermedica/component-library" target="_blank"><img alt="npm" src="https://img.shields.io/npm/v/@infermedica/component-library"/></a>
 <a href="https://github.com/infermedica/component-library">
   <img alt="License" src="https://img.shields.io/github/license/infermedica/component-library" />
