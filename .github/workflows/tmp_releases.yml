@@ -1,0 +1,12 @@
+name: New Release
+on:
+  pull_request:
+    types: closed
+
+jobs:
+  if-merged:
+    if: github.event.pull_request.merged == false
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Annotation'
+        run: echo ${{github.event.pull_request.base.ref}}
