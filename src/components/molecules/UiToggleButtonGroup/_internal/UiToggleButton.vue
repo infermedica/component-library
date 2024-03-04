@@ -26,7 +26,7 @@ import {
   useAttrs,
   type WritableComputedRef,
 } from 'vue';
-import equal from 'fast-deep-equal';
+import { equal } from '../../../../utilities/helpers';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import type { ButtonAttrsProps } from '../../../atoms/UiButton/UiButton.vue';
 import type { ToggleButtonGroupProps } from '../UiToggleButtonGroup.vue';

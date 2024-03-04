@@ -45,7 +45,7 @@ describe('directive/scrollTabindex', () => {
     global.dispatchEvent(new Event('resize'));
     expect(elementDiv.getAttribute('tabindex')).toBe(null);
   });
-  test('remove tabindex if scrollHeight equals clientHeight', async () => {
+  test('remove tabindex if scrollHeight equal clientHeight', async () => {
     elementDiv.scrollHeight = 1;
     elementDiv.clientHeight = 1;
     global.dispatchEvent(new Event('resize'));

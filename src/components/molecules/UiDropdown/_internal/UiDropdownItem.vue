@@ -24,7 +24,7 @@ import {
   useAttrs,
   type ComputedRef,
 } from 'vue';
-import equal from 'fast-deep-equal';
+import { equal } from '../../../../utilities/helpers';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import type { IconAttrsProps } from '../../../atoms/UiIcon/UiIcon.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
@@ -72,10 +72,7 @@ const isChecked = computed(() => {
   if (typeof modelValue.value === 'string') {
     return props.value === modelValue.value;
   }
-  return equal(
-    JSON.parse(JSON.stringify(modelValue.value)),
-    JSON.parse(JSON.stringify(props.value)),
-  );
+  return equal(modelValue.value, props.value);
 });
 const isOption = computed(() => !!props.value);
 const tabindex = computed(() => {
