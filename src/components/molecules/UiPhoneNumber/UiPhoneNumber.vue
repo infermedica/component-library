@@ -107,7 +107,7 @@ const modelValue = computed({
   set: (value) => emit('update:modelValue', value),
 });
 const attrs:PhoneNumberAttrsProps = useAttrs();
-const hasError = computed(() => ((attrs.class)
+const hasError = computed(() => (('class' in attrs)
   ? attrs.class.includes('ui-phone-number--has-error')
   : false));
 </script>
