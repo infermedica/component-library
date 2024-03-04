@@ -5,7 +5,7 @@ on:
 
 jobs:
   if-merged:
-    if: github.event.pull_request.merged == false
+    if: (github.event.pull_request.merged == false) && (startsWith(github.event.pull_request.head.ref, 'releases/'))
     runs-on: ubuntu-latest
     steps:
       - name: 'Annotation'
