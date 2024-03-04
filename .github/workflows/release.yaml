@@ -1,25 +1,30 @@
 name: Release
 on:
-  pull-request:
-    branches:
-      - `release/**`
-    types:
-      - closed
+  pull_request:
+    types: closed
+
 jobs:
   if-merged:
-    if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'releases/')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Tag Version
+        uses: cardinalby/git-tag-action@master
+        env:
+          TAG: ${{github.event.pull_request.title}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Release
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
-          tag_name: ${{github.ref}}
-          release_name: ${{github.ref}}
-          body: ${{github.event.pull_request.description}}
+          tag_name: ${{github.event.pull_request.title}}
+          release_name: ${{github.event.pull_request.title}}
+          body: ${{github.event.pull_request.body}}
           draft: false
           prerelease: false
