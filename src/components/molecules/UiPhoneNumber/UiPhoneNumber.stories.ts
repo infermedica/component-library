@@ -77,8 +77,9 @@ const meta = {
       phoneNumber: '',
     },
     id: 'input-id',
-    error: false,
-    countryCodeItems: undefined,
+    errorMessage: false,
+    countryCodes: undefined,
+    class: [],
   },
   argTypes: {},
   decorators: [ () => ({
@@ -130,7 +131,7 @@ export const WithError: StoryObj<typeof UiPhoneNumber> = {
       template: `<UiFormField
       v-bind="{...args}"
       message="Phone number"
-      :error-message="args.error"
+      :error-message="args.errorMessage"
     >
       <UiPhoneNumber
         v-bind="{...args}"
@@ -138,7 +139,10 @@ export const WithError: StoryObj<typeof UiPhoneNumber> = {
     </UiFormField>`,
     };
   },
-  args: { error: 'Please enter the phone number' },
+  args: {
+    errorMessage: 'Please enter the phone number',
+    class: [ 'ui-phone-number--has-error' ],
+  },
 };
 
 export const WithCustomCountryCodes: StoryObj<typeof UiPhoneNumber> = {
@@ -159,7 +163,7 @@ export const WithCustomCountryCodes: StoryObj<typeof UiPhoneNumber> = {
       template: `<UiFormField
       v-bind="{...args}"
       message="Phone number"
-      :error-message="args.error"
+      :error-message="args.errorMessage"
     >
       <UiPhoneNumber
         v-bind="{...args}"
@@ -186,7 +190,7 @@ export const WithCustomCountryCodesWithTimeout: StoryObj<typeof UiPhoneNumber> =
         UiPhoneNumber,
       },
       setup() {
-        const countryCodes = ref(args.countryCodeItems);
+        const countryCodes = ref(args.countryCodes);
         const modelValue = ref<Record<string, unknown>>({ phoneNumber: '' });
 
         setTimeout(() => {
@@ -202,7 +206,7 @@ export const WithCustomCountryCodesWithTimeout: StoryObj<typeof UiPhoneNumber> =
       template: `<UiFormField
       v-bind="{...args}"
       message="Phone number"
-      :error-message="args.error"
+      :error-message="args.errorMessage"
     >
       <UiPhoneNumber
         v-bind="{...args}"
@@ -222,5 +226,5 @@ WithCustomCountryCodesWithTimeout.args = {
     },
     phoneNumber: '',
   },
-  countryCodeItems: [],
+  countryCodes: [],
 };
