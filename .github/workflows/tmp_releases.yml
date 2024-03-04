@@ -1,7 +1,6 @@
 name: TMP Release
 on:
   pull_request:
-    branches: releases/**
     types: closed
 
 jobs:
