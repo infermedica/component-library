@@ -77,7 +77,7 @@ const meta = {
       phoneNumber: '',
     },
     id: 'input-id',
-    error: false,
+    errorMessage: false,
     countryCodes: undefined,
     class: [],
   },
@@ -163,7 +163,7 @@ export const WithCustomCountryCodes: StoryObj<typeof UiPhoneNumber> = {
       template: `<UiFormField
       v-bind="{...args}"
       message="Phone number"
-      :error-message="args.error"
+      :error-message="args.errorMessage"
     >
       <UiPhoneNumber
         v-bind="{...args}"
@@ -206,7 +206,7 @@ export const WithCustomCountryCodesWithTimeout: StoryObj<typeof UiPhoneNumber> =
       template: `<UiFormField
       v-bind="{...args}"
       message="Phone number"
-      :error-message="args.error"
+      :error-message="args.errorMessage"
     >
       <UiPhoneNumber
         v-bind="{...args}"
