@@ -1188,10 +1188,6 @@
             {
               "name": "alertHintAttrs",
               "title": "binding"
-            },
-            {
-              "name": "hintType",
-              "title": "binding"
             }
           ]
         },
@@ -1377,10 +1373,6 @@
           "bindings": [
             {
               "name": "hint",
-              "title": "binding"
-            },
-            {
-              "name": "hintType",
               "title": "binding"
             },
             {
@@ -3658,7 +3650,7 @@
           },
           "defaultValue": {
             "func": false,
-            "value": "() => ({\n  label: 'Pain scale',\n  min: 'Mild',\n  max: 'Unbearable',\n})"
+            "value": "() => ({\n  min: 'Min',\n  max: 'Max',\n})"
           }
         },
         {
@@ -4386,18 +4378,6 @@
           "defaultValue": {
             "func": false,
             "value": "() => ({\n  country: 'us',\n  language: 'en',\n})"
-          }
-        },
-        {
-          "name": "hasError",
-          "description": "Use this props to set alert message.",
-          "required": false,
-          "type": {
-            "name": "boolean"
-          },
-          "defaultValue": {
-            "func": false,
-            "value": "false"
           }
         },
         {
@@ -5962,9 +5942,6 @@
               },
               {
                 "name": "\"error\""
-              },
-              {
-                "name": "\"default\""
               }
             ]
           },
@@ -7321,6 +7298,14 @@
       "displayName": "UiMultipleChoicesItem",
       "description": "",
       "tags": {},
+      "expose": [
+        {
+          "name": "content"
+        },
+        {
+          "name": "invalid"
+        }
+      ],
       "props": [
         {
           "name": "tag",
@@ -7654,6 +7639,11 @@
       "displayName": "UiMultipleAnswerItem",
       "description": "",
       "tags": {},
+      "expose": [
+        {
+          "name": "content"
+        }
+      ],
       "props": [
         {
           "name": "invalid",
@@ -8160,6 +8150,11 @@
       "displayName": "UiListItem",
       "description": "",
       "tags": {},
+      "expose": [
+        {
+          "name": "content"
+        }
+      ],
       "props": [
         {
           "name": "tag",
