@@ -7,24 +7,34 @@
     :type="tag === 'button' ? 'button' : null"
     :aria-disabled="isLoading ? true : null"
   >
-    <UiLoader
-      :is-loading="isLoading"
-      v-bind="defaultProps.loaderAttrs"
-    >
-      <template #loader>
-        <!-- @slot Use this slot to replace loader. -->
-        <slot name="loader" />
-      </template>
+    <template v-if="hasLoader">
+      <component
+        :is="loader"
+        :is-loading="isLoading"
+        v-bind="defaultProps.loaderAttrs"
+      >
+        <template #loader>
+          <!-- @slot Use this slot to replace loader. -->
+          <slot name="loader" />
+        </template>
+        <!-- @slot Use this slot to place content inside button. -->
+        <slot />
+      </component>
+    </template>
+    <template v-else>
       <!-- @slot Use this slot to place content inside button. -->
       <slot />
-    </UiLoader>
+    </template>
   </component>
 </template>
 
 <script setup lang="ts">
 import {
+  ref,
   computed,
+  watch,
   type HTMLAttributes,
+  defineAsyncComponent,
 } from 'vue';
 import type {
   HTMLTag,
@@ -33,7 +43,6 @@ import type {
 import type { LoaderAttrsProps } from '../../molecules/UiLoader/UiLoader.vue';
 import { useLink } from '../../../composable';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
-import UiLoader from '../../molecules/UiLoader/UiLoader.vue';
 
 export interface ButtonProps {
   /**
@@ -77,6 +86,18 @@ const {
   componentTag,
   routeAttrs,
 } = useLink(props);
+const hasLoader = ref(false);
+watch(() => (props.isLoading), (isLoading) => {
+  if (isLoading && !hasLoader.value) {
+    hasLoader.value = true;
+  }
+}, { immediate: true });
+const loader = computed(() => (
+  hasLoader.value
+    ? defineAsyncComponent(() => import('../../molecules/UiLoader/UiLoader.vue'))
+    : null
+));
+
 </script>
 
 <style lang="scss">
