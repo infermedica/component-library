@@ -1,12 +1,13 @@
 <template>
   <UiListItem
-    ref="menuItem"
+    ref="menuItemTemplateRef"
     :list-item-attrs="defaultProps.listItemAttrs"
     :tag="UiButton"
-    :tabindex="tabindex"
     :class="[
-      'ui-button--outlined ui-menu-item__button', buttonClass,
+      'ui-button--outlined ui-menu-item__button',
+      buttonClass,
     ]"
+    :tabindex="tabindex"
   >
     <!-- @slot Use this slot to replace label template. -->
     <slot name="label">
@@ -40,10 +41,9 @@
 import {
   ref,
   computed,
+  inject,
   onMounted,
   nextTick,
-  inject,
-  type Ref,
 } from 'vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import UiListItem from '../../UiList/_internal/UiListItem.vue';
@@ -52,7 +52,6 @@ import UiMenuItemSuffix from './UiMenuItemSuffix.vue';
 import { useAttributes } from '../../../../composable';
 import type { DefineAttrsProps } from '../../../../types';
 import type { MenuItemProps } from './MenuItemProps';
-import type { MenuItem } from '../UiMenu.vue';
 
 export type MenuItemAttrsProps = DefineAttrsProps<MenuItemProps, ListItemAttrsProps>;
 export type ListItemInstance = InstanceType<typeof UiListItem>
@@ -78,20 +77,18 @@ const defaultProps = computed(() => ({
     ...props.listItemAttrs,
   },
 }));
-const tabindex = ref(null);
-defineExpose({ tabindex });
-const menuItem = ref<ListItemInstance | null>(null);
-const menuItems = inject<Ref<MenuItem[]>>('menuItems', ref([]));
+
+const menuItemsTemplateRef = inject('menuItemsTemplateRef', ref([]));
+const menuItemTemplateRef = ref(null);
+const tabindex = ref(0);
+const menuItem = computed(() => ({
+  ...menuItemTemplateRef.value,
+  isSelected,
+  tabindex,
+}));
 onMounted(async () => {
   await nextTick();
-  if (!menuItem.value) return;
-  menuItems.value = [
-    ...menuItems.value,
-    {
-      $el: menuItem.value.$el,
-      tabindex,
-    },
-  ];
+  menuItemsTemplateRef.value.push(menuItem);
 });
 </script>
 
