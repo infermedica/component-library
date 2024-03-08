@@ -13,6 +13,7 @@ import {
 import {
   BasicStories,
   BasicStoriesSource,
+  LoopStories,
 } from './stories';
 
 type MenuArgsType = MenuProps;
@@ -40,6 +41,7 @@ const meta = {
       },
       { label: 'Interview ID' },
     ],
+    enableKeyboardNavigation: true,
   },
   argTypes,
   parameters: { chromatic: { disableSnapshot: false } },
@@ -62,3 +64,19 @@ export const Basic: MenuStoryType = {
   },
 };
 Basic.parameters = { docs: { source: { code: BasicStoriesSource } } };
+
+export const Loop: MenuStoryType = {
+  render(args, {
+    name, argTypes,
+  }) {
+    return {
+      name,
+      components: { LoopStories },
+      setup() {
+        const { attrs } = getAttrs(args, argTypes, name);
+        return { attrs };
+      },
+      template: '<LoopStories v-bind="{...attrs}"/>',
+    };
+  },
+};
