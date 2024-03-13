@@ -5,8 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import UiText from '../../../atoms/UiText/UiText.vue';
-import type { TextAttrsProps } from '../../../atoms/UiText/UiText.vue';
+import UiText, { type TextAttrsProps } from '../../../atoms/UiText/UiText.vue';
 import type { DefineAttrsProps } from '../../../../types';
 
 export interface ListItemSuffixAsTextProps {

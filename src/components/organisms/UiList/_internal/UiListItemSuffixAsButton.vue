@@ -32,10 +32,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import UiButton from '../../../atoms/UiButton/UiButton.vue';
-import type { ButtonAttrsProps } from '../../../atoms/UiButton/UiButton.vue';
-import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
-import type { IconAttrsProps } from '../../../atoms/UiIcon/UiIcon.vue';
+import UiButton, { type ButtonAttrsProps } from '../../../atoms/UiButton/UiButton.vue';
+import UiIcon, { type IconAttrsProps } from '../../../atoms/UiIcon/UiIcon.vue';
 import type {
   DefineAttrsProps,
   Icon,
@@ -73,5 +71,5 @@ const defaultProps = computed(() => ({
     ...props.iconSuffixAttrs,
   },
 }));
-const hasIcon = computed(() => (!!defaultProps.value.iconSuffixAttrs?.icon));
+const hasIcon = computed(() => ('icon' in defaultProps.value.iconSuffixAttrs));
 </script>

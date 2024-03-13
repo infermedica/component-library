@@ -91,10 +91,7 @@ watch(() => (props.isLoading), (isLoading) => {
   if (isLoading && !hasLoader.value) {
     hasLoader.value = true;
   }
-}, {
-  immediate: true,
-  once: true,
-});
+}, { immediate: true });
 const loader = computed(() => (
   hasLoader.value
     ? defineAsyncComponent(() => import('../../molecules/UiLoader/UiLoader.vue'))
