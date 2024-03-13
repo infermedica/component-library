@@ -7301,9 +7301,6 @@
       "expose": [
         {
           "name": "content"
-        },
-        {
-          "name": "invalid"
         }
       ],
       "props": [
