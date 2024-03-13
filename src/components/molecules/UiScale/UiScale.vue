@@ -1,9 +1,6 @@
 <!-- eslint-disable vuejs-accessibility/mouse-events-have-key-events -->
 <template>
-  <div
-    class="ui-scale"
-    role="radiogroup"
-  >
+  <div class="ui-scale">
     <component
       :is="tag"
       class="ui-scale__controls"
@@ -48,7 +45,6 @@
             #label="{ textLabelAttrs }"
           >
             <UiText
-              :id="`scale-label-${index}`"
               v-bind="textLabelAttrs"
               :class="[
                 'ui-scale__label', { 'ui-scale__label--is-checked': index === scaleValue },
@@ -271,7 +267,6 @@ const itemsToRender = computed<RadioAttrsProps[]>(() => (Array.from({ length: ma
     ? props.radioOptionAttrs[index]
     : props.radioOptionAttrs;
   return {
-    'aria-labelledby': `scale-label-${index}`,
     ...radioOptionAttrs,
     textLabelAttrs: {
       tag: 'div',
