@@ -320,7 +320,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/templates/UiQuestion/UiQuestion.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/templates/UiQuestion/UiQuestion.vue"
       ]
     },
     {
@@ -488,7 +488,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/templates/UiMessage/UiMessage.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/templates/UiMessage/UiMessage.vue"
       ]
     },
     {
@@ -559,7 +559,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiTabs/UiTabs.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiTabs/UiTabs.vue"
       ]
     },
     {
@@ -664,7 +664,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiSimpleQuestion/UiSimpleQuestion.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiSimpleQuestion/UiSimpleQuestion.vue"
       ]
     },
     {
@@ -1043,7 +1043,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiSidePanel/UiSidePanel.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiSidePanel/UiSidePanel.vue"
       ]
     },
     {
@@ -1224,7 +1224,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiMultipleChoices/UiMultipleChoices.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiMultipleChoices/UiMultipleChoices.vue"
       ]
     },
     {
@@ -1427,7 +1427,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiMultipleAnswer/UiMultipleAnswer.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiMultipleAnswer/UiMultipleAnswer.vue"
       ]
     },
     {
@@ -2025,7 +2025,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiModal/UiModal.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiModal/UiModal.vue"
       ]
     },
     {
@@ -2108,7 +2108,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiMenu/UiMenu.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiMenu/UiMenu.vue"
       ]
     },
     {
@@ -2179,7 +2179,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiList/UiList.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiList/UiList.vue"
       ]
     },
     {
@@ -2443,7 +2443,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiHorizontalPaging/UiHorizontalPaging.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiHorizontalPaging/UiHorizontalPaging.vue"
       ]
     },
     {
@@ -2729,7 +2729,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiDatepicker/UiDatepicker.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiDatepicker/UiDatepicker.vue"
       ]
     },
     {
@@ -2910,7 +2910,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiControls/UiControls.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiControls/UiControls.vue"
       ]
     },
     {
@@ -2925,7 +2925,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiContainer/UiContainer.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiContainer/UiContainer.vue"
       ]
     },
     {
@@ -3142,7 +3142,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiCard/UiCard.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiCard/UiCard.vue"
       ]
     },
     {
@@ -3213,7 +3213,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiAccordion/UiAccordion.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiAccordion/UiAccordion.vue"
       ]
     },
     {
@@ -3314,7 +3314,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiToggleButtonGroup/UiToggleButtonGroup.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiToggleButtonGroup/UiToggleButtonGroup.vue"
       ]
     },
     {
@@ -3435,7 +3435,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiTile/UiTile.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiTile/UiTile.vue"
       ]
     },
     {
@@ -3507,7 +3507,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiSwitch/UiSwitch.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiSwitch/UiSwitch.vue"
       ]
     },
     {
@@ -3596,7 +3596,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiStepper/UiStepper.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiStepper/UiStepper.vue"
       ]
     },
     {
@@ -3675,6 +3675,26 @@
           "defaultValue": {
             "func": false,
             "value": "''"
+          }
+        },
+        {
+          "name": "legendAttrs",
+          "description": "Use this props to add attributes for the legend.",
+          "required": false,
+          "type": {
+            "name": "Record",
+            "elements": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "unknown"
+              }
+            ]
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "() => ({})"
           }
         },
         {
@@ -3757,6 +3777,10 @@
           "bindings": [
             {
               "name": "legend",
+              "title": "binding"
+            },
+            {
+              "name": "legendAttrs",
               "title": "binding"
             }
           ]
@@ -3849,7 +3873,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiScale/UiScale.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiScale/UiScale.vue"
       ]
     },
     {
@@ -4080,7 +4104,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiRating/UiRating.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiRating/UiRating.vue"
       ]
     },
     {
@@ -4185,7 +4209,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiProgressbar/UiProgressbar.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiProgressbar/UiProgressbar.vue"
       ]
     },
     {
@@ -4323,7 +4347,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiPopover/UiPopover.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiPopover/UiPopover.vue"
       ]
     },
     {
@@ -4439,7 +4463,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiPhoneNumber/UiPhoneNumber.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiPhoneNumber/UiPhoneNumber.vue"
       ]
     },
     {
@@ -4661,7 +4685,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiNumberStepper/UiNumberStepper.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiNumberStepper/UiNumberStepper.vue"
       ]
     },
     {
@@ -4801,7 +4825,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiNotification/UiNotification.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiNotification/UiNotification.vue"
       ]
     },
     {
@@ -4850,7 +4874,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiNavigation/UiNavigation.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiNavigation/UiNavigation.vue"
       ]
     },
     {
@@ -4967,7 +4991,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiLoader/UiLoader.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiLoader/UiLoader.vue"
       ]
     },
     {
@@ -4996,7 +5020,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiInteractiveSvg/UiInteractiveSvg.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiInteractiveSvg/UiInteractiveSvg.vue"
       ]
     },
     {
@@ -5185,7 +5209,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiHeader/UiHeader.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiHeader/UiHeader.vue"
       ]
     },
     {
@@ -5477,7 +5501,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiFormField/UiFormField.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiFormField/UiFormField.vue"
       ]
     },
     {
@@ -5733,7 +5757,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiDropdown/UiDropdown.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiDropdown/UiDropdown.vue"
       ]
     },
     {
@@ -5830,7 +5854,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiChip/UiChip.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiChip/UiChip.vue"
       ]
     },
     {
@@ -5915,7 +5939,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiBulletPoints/UiBulletPoints.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiBulletPoints/UiBulletPoints.vue"
       ]
     },
     {
@@ -6016,7 +6040,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiAlert/UiAlert.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiAlert/UiAlert.vue"
       ]
     },
     {
@@ -6128,7 +6152,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiTextarea/UiTextarea.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/atoms/UiTextarea/UiTextarea.vue"
       ]
     },
     {
@@ -6157,7 +6181,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiText/UiText.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/atoms/UiText/UiText.vue"
       ]
     },
     {
@@ -6312,7 +6336,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiRange/UiRange.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/atoms/UiRange/UiRange.vue"
       ]
     },
     {
@@ -6474,7 +6498,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiRadio/UiRadio.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/atoms/UiRadio/UiRadio.vue"
       ]
     },
     {
@@ -6521,7 +6545,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiProgress/UiProgress.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/atoms/UiProgress/UiProgress.vue"
       ]
     },
     {
@@ -6590,7 +6614,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiLink/UiLink.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/atoms/UiLink/UiLink.vue"
       ]
     },
     {
@@ -6755,7 +6779,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiInput/UiInput.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/atoms/UiInput/UiInput.vue"
       ]
     },
     {
@@ -6778,7 +6802,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiIcon/UiIcon.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/atoms/UiIcon/UiIcon.vue"
       ]
     },
     {
@@ -6857,7 +6881,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiHeading/UiHeading.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/atoms/UiHeading/UiHeading.vue"
       ]
     },
     {
@@ -7038,7 +7062,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiCheckbox/UiCheckbox.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/atoms/UiCheckbox/UiCheckbox.vue"
       ]
     },
     {
@@ -7135,7 +7159,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiButton/UiButton.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/atoms/UiButton/UiButton.vue"
       ]
     },
     {
@@ -7144,7 +7168,7 @@
       "description": "",
       "tags": {},
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/atoms/UiBackdrop/UiBackdrop.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/atoms/UiBackdrop/UiBackdrop.vue"
       ]
     },
     {
@@ -7290,7 +7314,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiTabs/_internal/UiTabsItem.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiTabs/_internal/UiTabsItem.vue"
       ]
     },
     {
@@ -7628,7 +7652,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiMultipleChoices/_internal/UiMultipleChoicesItem.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiMultipleChoices/_internal/UiMultipleChoicesItem.vue"
       ]
     },
     {
@@ -7845,7 +7869,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiMultipleAnswer/_internal/UiMultipleAnswerItem.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiMultipleAnswer/_internal/UiMultipleAnswerItem.vue"
       ]
     },
     {
@@ -7920,7 +7944,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiMenu/_internal/UiMenuItemSuffix.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiMenu/_internal/UiMenuItemSuffix.vue"
       ]
     },
     {
@@ -8020,7 +8044,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiMenu/_internal/UiMenuItem.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiMenu/_internal/UiMenuItem.vue"
       ]
     },
     {
@@ -8043,7 +8067,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiList/_internal/UiListItemSuffixAsText.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiList/_internal/UiListItemSuffixAsText.vue"
       ]
     },
     {
@@ -8139,7 +8163,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiList/_internal/UiListItemSuffixAsButton.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiList/_internal/UiListItemSuffixAsButton.vue"
       ]
     },
     {
@@ -8279,7 +8303,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiList/_internal/UiListItem.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiList/_internal/UiListItem.vue"
       ]
     },
     {
@@ -8343,7 +8367,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiHorizontalPaging/_internal/UiHorizontalPagingItem.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiHorizontalPaging/_internal/UiHorizontalPagingItem.vue"
       ]
     },
     {
@@ -8384,7 +8408,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerYearTab.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerYearTab.vue"
       ]
     },
     {
@@ -8461,7 +8485,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerYearInput.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerYearInput.vue"
       ]
     },
     {
@@ -8475,7 +8499,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerTabItem.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerTabItem.vue"
       ]
     },
     {
@@ -8489,7 +8513,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerTab.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerTab.vue"
       ]
     },
     {
@@ -8530,7 +8554,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerMonthTab.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerMonthTab.vue"
       ]
     },
     {
@@ -8607,7 +8631,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerMonthInput.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerMonthInput.vue"
       ]
     },
     {
@@ -8648,7 +8672,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerDayTab.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerDayTab.vue"
       ]
     },
     {
@@ -8725,7 +8749,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerDayInput.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerDayInput.vue"
       ]
     },
     {
@@ -8846,7 +8870,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerCalendar.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerCalendar.vue"
       ]
     },
     {
@@ -8861,7 +8885,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiControls/_internal/UiControlsNextButton.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiControls/_internal/UiControlsNextButton.vue"
       ]
     },
     {
@@ -8886,7 +8910,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiControls/_internal/UiControlsBackButton.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiControls/_internal/UiControlsBackButton.vue"
       ]
     },
     {
@@ -9050,7 +9074,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiControls/_internal/layouts/UiControlsVertical.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiControls/_internal/layouts/UiControlsVertical.vue"
       ]
     },
     {
@@ -9257,7 +9281,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiControls/_internal/layouts/UiControlsHorizontal.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiControls/_internal/layouts/UiControlsHorizontal.vue"
       ]
     },
     {
@@ -9444,7 +9468,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/organisms/UiAccordion/_internal/UiAccordionItem.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/organisms/UiAccordion/_internal/UiAccordionItem.vue"
       ]
     },
     {
@@ -9481,7 +9505,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiToggleButtonGroup/_internal/UiToggleButton.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiToggleButtonGroup/_internal/UiToggleButton.vue"
       ]
     },
     {
@@ -9490,7 +9514,7 @@
       "description": "",
       "tags": {},
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiSwitch/_internal/UiSwitchControl.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiSwitch/_internal/UiSwitchControl.vue"
       ]
     },
     {
@@ -9569,7 +9593,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiStepper/_internal/UiStepperStep.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiStepper/_internal/UiStepperStep.vue"
       ]
     },
     {
@@ -9596,7 +9620,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiPhoneNumber/_internal/UiPhoneNumberPrefix/UiPhoneNumberPrefixToggle.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiPhoneNumber/_internal/UiPhoneNumberPrefix/UiPhoneNumberPrefixToggle.vue"
       ]
     },
     {
@@ -9648,7 +9672,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiPhoneNumber/_internal/UiPhoneNumberPrefix/UiPhoneNumberPrefix.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiPhoneNumber/_internal/UiPhoneNumberPrefix/UiPhoneNumberPrefix.vue"
       ]
     },
     {
@@ -9724,7 +9748,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiPhoneNumber/_internal/UiPhoneNumberInput/UiPhoneNumberInput.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiPhoneNumber/_internal/UiPhoneNumberInput/UiPhoneNumberInput.vue"
       ]
     },
     {
@@ -9739,7 +9763,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiNavigation/_internal/UiNavigationItem.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiNavigation/_internal/UiNavigationItem.vue"
       ]
     },
     {
@@ -9806,7 +9830,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiLoader/_internal/UiLoaderTransition.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiLoader/_internal/UiLoaderTransition.vue"
       ]
     },
     {
@@ -9889,7 +9913,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiLoader/_internal/UiLoaderSpinner.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiLoader/_internal/UiLoaderSpinner.vue"
       ]
     },
     {
@@ -9926,7 +9950,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiLoader/_internal/UiLoaderSkeleton.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiLoader/_internal/UiLoaderSkeleton.vue"
       ]
     },
     {
@@ -9957,7 +9981,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiLoader/_internal/UiLoaderNativeTransition.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiLoader/_internal/UiLoaderNativeTransition.vue"
       ]
     },
     {
@@ -9965,7 +9989,7 @@
       "description": "",
       "tags": {},
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiLoader/_internal/UiLoaderEllipsis.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiLoader/_internal/UiLoaderEllipsis.vue"
       ]
     },
     {
@@ -9973,7 +9997,7 @@
       "description": "",
       "tags": {},
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiLoader/_internal/UiLoaderSkeletons/UiLoaderSkeletonQuestion.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiLoader/_internal/UiLoaderSkeletons/UiLoaderSkeletonQuestion.vue"
       ]
     },
     {
@@ -9981,7 +10005,7 @@
       "description": "",
       "tags": {},
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiLoader/_internal/UiLoaderSkeletons/UiLoaderSkeletonCommon.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiLoader/_internal/UiLoaderSkeletons/UiLoaderSkeletonCommon.vue"
       ]
     },
     {
@@ -10010,7 +10034,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiInteractiveSvg/_internal/UiInteractiveSvgElement.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiInteractiveSvg/_internal/UiInteractiveSvgElement.vue"
       ]
     },
     {
@@ -10063,7 +10087,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiFormField/_internal/UiFormFieldCharacterCounter.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiFormField/_internal/UiFormFieldCharacterCounter.vue"
       ]
     },
     {
@@ -10103,7 +10127,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiDropdown/_internal/UiDropdownItem.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiDropdown/_internal/UiDropdownItem.vue"
       ]
     },
     {
@@ -10202,7 +10226,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przemyslawspaczek/Projects/infermedica-component-library/src/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue"
+        "/Users/soniajarczak/projects/ui-kit_fork/component-library/src/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue"
       ]
     }
   ]

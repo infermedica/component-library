@@ -1,0 +1,907 @@
+{
+  "diffs": {
+    "UiQuestion": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiMessage": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiTabs": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiSimpleQuestion": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiSidePanel": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiMultipleChoices": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiMultipleAnswer": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiModal": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiMenu": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiList": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiHorizontalPaging": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiDatepicker": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiControls": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiContainer": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiCard": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiAccordion": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiToggleButtonGroup": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiTile": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiSwitch": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiStepper": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiScale": {
+      "props": [
+        {
+          "name": "legendAttrs",
+          "type": "added"
+        }
+      ],
+      "slots": [
+        {
+          "name": "legend",
+          "type": "added",
+          "description": "bindings: legendAttrs"
+        }
+      ],
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiRating": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiProgressbar": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiPopover": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiPhoneNumber": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiNumberStepper": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiNotification": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiNavigation": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiLoader": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiInteractiveSvg": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiHeader": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiFormField": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiDropdown": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiChip": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiBulletPoints": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiAlert": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiTextarea": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiText": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiRange": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiRadio": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiProgress": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiLink": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiInput": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiIcon": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiHeading": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiCheckbox": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiButton": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiBackdrop": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiTabsItem": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiMultipleChoicesItem": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiMultipleAnswerItem": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiMenuItemSuffix": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiMenuItem": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiListItemSuffixAsText": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiListItemSuffixAsButton": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiListItem": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiHorizontalPagingItem": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiDatepickerYearTab": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiDatepickerYearInput": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiDatepickerTabItem": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiDatepickerTab": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiDatepickerMonthTab": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiDatepickerMonthInput": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiDatepickerDayTab": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiDatepickerDayInput": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiDatepickerCalendar": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiControlsNextButton": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiControlsBackButton": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiControlsVertical": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiControlsHorizontal": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiAccordionItem": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiToggleButton": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiSwitchControl": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiStepperStep": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiPhoneNumberPrefixToggle": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiPhoneNumberPrefix": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiPhoneNumberInput": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiNavigationItem": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiLoaderTransition": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiLoaderSpinner": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiLoaderSkeleton": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiLoaderNativeTransition": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiLoaderEllipsis": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiLoaderSkeletonQuestion": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiLoaderSkeletonCommon": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiInteractiveSvgElement": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiFormFieldCharacterCounter": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiDropdownItem": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    },
+    "UiBulletPointsItem": {
+      "sourceFiles": [
+        {
+          "type": "added"
+        },
+        {
+          "type": "removed"
+        }
+      ]
+    }
+  }
+}
