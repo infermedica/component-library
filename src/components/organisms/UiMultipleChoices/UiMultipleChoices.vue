@@ -156,10 +156,7 @@ const setFirstMultipleAnswerItemRef = (
 };
 
 watch(() => props.touched, (isTouched) => {
-  if (isTouched) {
-    return;
-  }
-  invalidMultipleChoicesItemRefs.clear();
+  if (!isTouched) invalidMultipleChoicesItemRefs.clear();
 });
 
 watch(
