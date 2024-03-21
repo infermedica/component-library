@@ -8,11 +8,15 @@
       <!-- @slot Use this slot to replace legend template. -->
       <slot
         name="legend"
-        v-bind="{ legend }"
+        v-bind="{
+          legend,
+          legendAttrs,
+        }"
       >
         <legend
           v-if="legend"
           class="visual-hidden"
+          v-bind="legendAttrs"
         >
           {{ legend }}
         </legend>
@@ -186,6 +190,10 @@ export interface ScaleProps {
    */
   legend?: string;
   /**
+   * Use this props to add attributes for the legend.
+   */
+   legendAttrs?: Record<string, unknown>;
+  /**
    * Use this props to pass attrs for option UiRadio.
    */
   radioOptionAttrs?: RadioAttrsProps | RadioAttrsProps[];
@@ -217,6 +225,7 @@ const props = withDefaults(defineProps<ScaleProps>(), {
   }),
   tag: 'fieldset',
   legend: '',
+  legendAttrs: () => ({}),
   radioOptionAttrs: () => ([]),
   textMinAttrs: () => ({}),
   textMaxAttrs: () => ({}),
