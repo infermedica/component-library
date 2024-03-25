@@ -25,6 +25,7 @@ export default {
       { label: 'Interview ID' },
     ],
     tag: 'ul',
+    enableKeyboardNavigation: true,
   },
   argTypes: { modifiers: modifiers({ options: [ 'ui-menu--compact' ] }) },
   decorators: [ () => ({ template: '<div style="max-width: 21.875rem"><story /></div>' }) ],
@@ -45,6 +46,7 @@ export const WithSelectedItem = {
     template: `<UiMenu
       :class="modifiers"
       :items="items"
+      :enable-keyboard-navigation="enableKeyboardNavigation"
     />`,
   }),
 };
@@ -58,6 +60,7 @@ export const AsCompact = {
     template: `<UiMenu
       :class="modifiers"
       :items="items"
+      :enable-keyboard-navigation="enableKeyboardNavigation"
     />`,
   }),
 
