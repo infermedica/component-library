@@ -94,13 +94,16 @@ watch(() => (props.isLoading), (isLoading) => {
     hasLoader.value = true;
   }
 }, { once: true });
-const slot = useSlots();
+const slots = useSlots();
 const loader = computed(() => (
   hasLoader.value
     ? defineAsyncComponent({
       loader: () => import('../../molecules/UiLoader/UiLoader.vue'),
       delay: 0,
-      loadingComponent: () => h('slot', slot.default()),
+      loadingComponent: () => (slots.default
+        ? h('slot', slots.default())
+        : null)
+      ,
     })
     : null
 ));
