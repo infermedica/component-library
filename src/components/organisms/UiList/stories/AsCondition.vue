@@ -4,18 +4,20 @@
     class="as-condition"
   >
     <template #listItem="{ item }">
-      <UiHeading level="3">
-        {{ item.label }}
-      </UiHeading>
-      <div class="as-condition__probability">
-        <UiProgress
-          :value="item.evidence.value"
-          :max="10"
-          class="as-condition__progress"
-        />
-        <UiText class="ui-text--body-2-comfortable as-condition__label">
-          {{ item.evidence.label }}
-        </UiText>
+      <div class="as-condition__content">
+        <UiHeading level="3">
+          {{ item.label }}
+        </UiHeading>
+        <div class="as-condition__probability">
+          <UiProgress
+            :value="item.evidence.value"
+            :max="10"
+            class="as-condition__progress"
+          />
+          <UiText class="ui-text--body-2-comfortable as-condition__label">
+            {{ item.evidence.label }}
+          </UiText>
+        </div>
       </div>
     </template>
   </UiList>
@@ -57,9 +59,10 @@ const args = computed(() => (attrs));
     --button-border-block-width: 0;
     --button-border-inline-width: 0;
 
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 100%;
+    flex: 1;
   }
 
   &__probability {
@@ -78,7 +81,11 @@ const args = computed(() => (attrs));
     flex: 0 0 auto;
   }
 
-  &__suffix {}
+  &__suffix {
+    align-self: end;
+    font: var(--font-body-2-comfortable);
+    letter-spacing: var(--letter-spacing-body-2-comfortable);
+  }
 
   &__suffix-icon {}
 }

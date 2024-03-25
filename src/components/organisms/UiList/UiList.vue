@@ -17,6 +17,7 @@
           />
         </template>
         <template v-if="useListItemSlot">
+          <!-- @slot Use this slot to replace list item content -->
           <slot
             name="listItem"
             v-bind="{ item }"
@@ -30,6 +31,7 @@
           </template>
         </template>
         <template v-else>
+          <!-- @slot Use this slot to replace list item content -->
           <slot
             :name="item.name"
             v-bind="{ item }"
@@ -38,6 +40,11 @@
               {{ item.label }}
             </UiText>
           </slot>
+        </template>
+        <template v-if="item.children?.items">
+          <UiList
+            v-bind="item.children"
+          />
         </template>
       </UiListItem>
     </template>

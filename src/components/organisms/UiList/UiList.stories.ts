@@ -11,6 +11,7 @@ import {
   getArgTypes,
   getAttrs,
 } from '@sb/helpers';
+import { actions } from '@storybook/addon-actions';
 import {
   BasicStories,
   BasicStoriesSource,
@@ -48,6 +49,10 @@ const meta = {
     items,
   },
   argTypes,
+  excludeStories: [
+    'Long',
+    'HasChildren',
+  ],
   parameters: { chromatic: { disableSnapshot: false } },
 } satisfies ListMetaType;
 export default meta;
@@ -69,23 +74,29 @@ export const Basic: ListStoryType = {
 };
 Basic.parameters = { docs: { source: { code: BasicStoriesSource } } };
 
-// export const Long: ListStoryType = { ...Basic };
-// Long.args = {
-//   items: [
-//     ...items,
-//     ...items,
-//     ...items,
-//     ...items,
-//     ...items,
-//     ...items,
-//     ...items,
-//     ...items,
-//     ...items,
-//     ...items,
-//
-//   ],
-// };
+export const Long: ListStoryType = { ...Basic };
+Long.args = {
+  items: [
+    ...items,
+    ...items,
+    ...items,
+    ...items,
+    ...items,
+    ...items,
+    ...items,
+    ...items,
+    ...items,
+    ...items,
 
+  ],
+};
+export const HasChildren: ListStoryType = { ...Basic };
+HasChildren.args = {
+  items: items.map((item) => ({
+    ...item,
+    children: { items },
+  })),
+};
 export const HasError: ListStoryType = { ...Basic };
 HasError.args = {
   items: items.map((item) => ({
@@ -93,29 +104,28 @@ HasError.args = {
     class: 'ui-list-item--has-error',
   })),
 };
-
-export const TextSuffix: ListStoryType = { ...Basic };
-TextSuffix.args = {
+export const HasTextSuffix: ListStoryType = { ...Basic };
+HasTextSuffix.args = {
   items: items.map((item) => ({
     ...item,
     hasSuffix: true,
     suffixAttrs: { label: 'more info' },
   })),
 };
-
-export const ButtonSuffix: ListStoryType = { ...Basic };
-ButtonSuffix.args = {
+const events = actions({ onClick: 'click' });
+export const HasButtonSuffix: ListStoryType = { ...Basic };
+HasButtonSuffix.args = {
   items: items.map((item) => ({
     ...item,
     hasSuffix: true,
     suffixAttrs: {
       icon: 'chevron-right',
       label: 'more info',
-      onClick: () => ({}),
+      ...events,
+      iconSuffixAttrs: { class: 'ui-button__icon' },
     },
   })),
 };
-
 export const AsCondition: ListStoryType = {
   render(args, {
     name, argTypes,
@@ -165,12 +175,16 @@ AsCondition.args = {
       'ui-button--outlined',
       'as-condition__content',
     ],
-    // hasSuffix: true,
-    // icon: 'chevron-right',
-    // suffixAttrs: { label: 'Show details' },
+    hasSuffix: true,
+    icon: 'chevron-right',
+    ...events,
+    suffixAttrs: {
+      tag: 'div',
+      label: 'Show details',
+      class: [ 'as-condition__suffix' ],
+    },
   })),
 };
-
 export const IconInHeading: ListStoryType = {
   render(args, {
     name, argTypes,
@@ -196,5 +210,7 @@ IconInHeading.args = {
       'icon-in-heading__content',
     ],
     hasSuffix: true,
+    icon: 'arrow-right',
+    ...events,
   })),
 };

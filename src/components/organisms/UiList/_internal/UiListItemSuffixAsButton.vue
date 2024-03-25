@@ -72,4 +72,6 @@ const defaultProps = computed(() => ({
   },
 }));
 const hasIcon = computed(() => ('icon' in defaultProps.value.iconSuffixAttrs));
+// TODO: UiListItemSuffixAsButton will be removed in 2.0.0
+console.warn('[@infermedica/component-library]: The `UiListItemSuffixAsButton` component is deprecated and it will be removed in v2.0.0. Please use `UiListItemSuffix` component instead.');
 </script>
