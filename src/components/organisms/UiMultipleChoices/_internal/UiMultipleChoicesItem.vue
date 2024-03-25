@@ -302,10 +302,7 @@ const listItemOptionAttrs = ({
 
 const content = ref<typeof UiRadio | null>(null);
 
-defineExpose({
-  content,
-  invalid: props.invalid,
-});
+defineExpose({ content });
 </script>
 
 <style lang="scss">

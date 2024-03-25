@@ -109,9 +109,12 @@ ButtonSuffix.args = {
     ...item,
     hasSuffix: true,
     suffixAttrs: {
+      tag: UiButton,
+      class: 'ui-button--text',
       icon: 'chevron-right',
       label: 'more info',
       onClick: () => ({}),
+      iconSuffixAttrs: { class: 'ui-button__icon' },
     },
   })),
 };
@@ -165,9 +168,9 @@ AsCondition.args = {
       'ui-button--outlined',
       'as-condition__content',
     ],
-    // hasSuffix: true,
-    // icon: 'chevron-right',
-    // suffixAttrs: { label: 'Show details' },
+    hasSuffix: true,
+    icon: 'chevron-right',
+    suffixAttrs: { label: 'Show details' },
   })),
 };
 
@@ -196,5 +199,6 @@ IconInHeading.args = {
       'icon-in-heading__content',
     ],
     hasSuffix: true,
+    icon: 'arrow-right',
   })),
 };

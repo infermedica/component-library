@@ -103,12 +103,7 @@ const filteredAttrs = computed(() => {
 const isButtonSuffix = computed(() => (Object.keys(props.suffixAttrs)
   .find((key) => key
     .match(/(^on*|to|href)/))));
-const suffixComponent = computed(() => {
-  if (!props.hasSuffix) return null;
-  return isButtonSuffix.value
-    ? defineAsyncComponent(() => import('./UiListItemSuffixAsButton.vue'))
-    : defineAsyncComponent(() => import('./UiListItemSuffixAsText.vue'));
-});
+const suffixComponent = computed(() => (props.hasSuffix ? defineAsyncComponent(() => import('./UiListItemSuffix.vue')) : null));
 
 const defaultProps = computed<ListItemProps>(() => ({
   suffixAttrs: {

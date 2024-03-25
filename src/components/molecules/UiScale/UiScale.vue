@@ -1,9 +1,6 @@
 <!-- eslint-disable vuejs-accessibility/mouse-events-have-key-events -->
 <template>
-  <div
-    class="ui-scale"
-    role="radiogroup"
-  >
+  <div class="ui-scale">
     <component
       :is="tag"
       class="ui-scale__controls"
@@ -11,11 +8,15 @@
       <!-- @slot Use this slot to replace legend template. -->
       <slot
         name="legend"
-        v-bind="{ legend }"
+        v-bind="{
+          legend,
+          legendAttrs,
+        }"
       >
         <legend
           v-if="legend"
           class="visual-hidden"
+          v-bind="legendAttrs"
         >
           {{ legend }}
         </legend>
@@ -48,7 +49,6 @@
             #label="{ textLabelAttrs }"
           >
             <UiText
-              :id="`scale-label-${index}`"
               v-bind="textLabelAttrs"
               :class="[
                 'ui-scale__label', { 'ui-scale__label--is-checked': index === scaleValue },
@@ -190,6 +190,10 @@ export interface ScaleProps {
    */
   legend?: string;
   /**
+   * Use this props to add attributes for the legend.
+   */
+   legendAttrs?: Record<string, unknown>;
+  /**
    * Use this props to pass attrs for option UiRadio.
    */
   radioOptionAttrs?: RadioAttrsProps | RadioAttrsProps[];
@@ -221,6 +225,7 @@ const props = withDefaults(defineProps<ScaleProps>(), {
   }),
   tag: 'fieldset',
   legend: '',
+  legendAttrs: () => ({}),
   radioOptionAttrs: () => ([]),
   textMinAttrs: () => ({}),
   textMaxAttrs: () => ({}),
@@ -271,7 +276,6 @@ const itemsToRender = computed<RadioAttrsProps[]>(() => (Array.from({ length: ma
     ? props.radioOptionAttrs[index]
     : props.radioOptionAttrs;
   return {
-    'aria-labelledby': `scale-label-${index}`,
     ...radioOptionAttrs,
     textLabelAttrs: {
       tag: 'div',

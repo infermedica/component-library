@@ -3678,6 +3678,26 @@
           }
         },
         {
+          "name": "legendAttrs",
+          "description": "Use this props to add attributes for the legend.",
+          "required": false,
+          "type": {
+            "name": "Record",
+            "elements": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "unknown"
+              }
+            ]
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "() => ({})"
+          }
+        },
+        {
           "name": "radioOptionAttrs",
           "description": "Use this props to pass attrs for option UiRadio.",
           "required": false,
@@ -3757,6 +3777,10 @@
           "bindings": [
             {
               "name": "legend",
+              "title": "binding"
+            },
+            {
+              "name": "legendAttrs",
               "title": "binding"
             }
           ]
@@ -7301,9 +7325,6 @@
       "expose": [
         {
           "name": "content"
-        },
-        {
-          "name": "invalid"
         }
       ],
       "props": [

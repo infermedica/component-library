@@ -43,7 +43,7 @@
           }"
         >
           <UiMultipleChoicesItem
-            :ref="(el)=>{ setFirstMultipleAnswerItemRef(el, index) }"
+            :ref="(el)=>{ setFirstMultipleAnswerItemRef(el, index, hasError(index)) }"
             :model-value="value[index]"
             v-bind="item"
             :options="options"
@@ -144,12 +144,13 @@ const updateHandler = (newValue: MultipleChoicesModelValue, index: number) => {
 const setFirstMultipleAnswerItemRef = (
   el: Element | ComponentPublicInstance | null,
   idx: number,
+  elHasError: boolean,
 ) => {
   if (!el) return;
 
   const multipleChoicesItem = el as InstanceType<typeof UiMultipleChoicesItem>;
 
-  if (multipleChoicesItem.content && multipleChoicesItem.content[0].content && multipleChoicesItem.invalid) {
+  if (multipleChoicesItem.content && multipleChoicesItem.content[0].content && elHasError) {
     invalidMultipleChoicesItemRefs.set(idx, multipleChoicesItem.content[0].content.input);
   }
 };
