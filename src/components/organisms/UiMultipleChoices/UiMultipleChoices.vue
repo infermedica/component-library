@@ -124,7 +124,6 @@ const props = withDefaults(defineProps<MultipleChoicesProps>(), {
   options: () => ([]),
   modelValue: () => ([]),
   alertHintAttrs: () => ({}),
-  resend: false,
 });
 const emit = defineEmits<MultipleChoicesEmits>();
 

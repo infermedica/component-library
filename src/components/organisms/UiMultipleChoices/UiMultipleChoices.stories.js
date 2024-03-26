@@ -6,6 +6,7 @@ import UiRadio from '@/components/atoms/UiRadio/UiRadio.vue';
 import {
   ref,
   computed,
+  nextTick,
 } from 'vue';
 import { actions } from '@storybook/addon-actions';
 import { modifiers } from '@sb/helpers/argTypes';
@@ -125,14 +126,32 @@ export const WithError = {
     setup() {
       const modelValue = ref(args.initModelValue);
       const invalid = ref(args.initInvalid);
+      const invalidChoices = ref(null);
+
+      const handleSubmit = async () => {
+        await nextTick();
+
+        if (invalidChoices.value) {
+          const {
+            focusInvalidChoice, invalidInputs,
+          } = invalidChoices.value;
+
+          await nextTick();
+          focusInvalidChoice(invalidInputs);
+        }
+      };
+      handleSubmit();
+
       return {
         ...args,
         ...events,
         modelValue,
         invalid,
+        invalidChoices,
       };
     },
     template: `<UiMultipleChoices
+      ref="invalidChoices"
       v-model="modelValue"
       v-model:invalid="invalid"
       :hint="hint"
@@ -154,14 +173,32 @@ export const WithOneCorrectAnswerAndErrors = {
     setup() {
       const modelValue = ref(args.initModelValue);
       const invalid = ref(args.initInvalid);
+      const invalidChoices = ref(null);
+
+      const handleSubmit = async () => {
+        await nextTick();
+
+        if (invalidChoices.value) {
+          const {
+            focusInvalidChoice, invalidInputs,
+          } = invalidChoices.value;
+
+          await nextTick();
+          focusInvalidChoice(invalidInputs);
+        }
+      };
+      handleSubmit();
+
       return {
         ...args,
         ...events,
         modelValue,
         invalid,
+        invalidChoices,
       };
     },
     template: `<UiMultipleChoices
+      ref="invalidChoices"
       v-model="modelValue"
       v-model:invalid="invalid"
       :hint="hint"
@@ -463,14 +500,32 @@ export const StackedWithError = {
     setup() {
       const modelValue = ref(args.initModelValue);
       const invalid = ref(args.initInvalid);
+      const invalidChoices = ref(null);
+
+      const handleSubmit = async () => {
+        await nextTick();
+
+        if (invalidChoices.value) {
+          const {
+            focusInvalidChoice, invalidInputs,
+          } = invalidChoices.value;
+
+          await nextTick();
+          focusInvalidChoice(invalidInputs);
+        }
+      };
+      handleSubmit();
+
       return {
         ...args,
         ...events,
         modelValue,
         invalid,
+        invalidChoices,
       };
     },
     template: `<UiMultipleChoices
+      ref="invalidChoices"
       v-model="modelValue"
       v-model:invalid="invalid"
       :hint="hint"
