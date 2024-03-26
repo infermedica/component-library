@@ -5,8 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import UiText from '../../../atoms/UiText/UiText.vue';
-import type { TextAttrsProps } from '../../../atoms/UiText/UiText.vue';
+import UiText, { type TextAttrsProps } from '../../../atoms/UiText/UiText.vue';
 import type { DefineAttrsProps } from '../../../../types';
 
 export interface ListItemSuffixAsTextProps {
@@ -18,4 +17,7 @@ export interface ListItemSuffixAsTextProps {
 export type ListItemSuffixAsTextAttrsProps = DefineAttrsProps<ListItemSuffixAsTextProps, TextAttrsProps>;
 
 withDefaults(defineProps<ListItemSuffixAsTextProps>(), { label: '' });
+
+// TODO: UiListItemSuffixAsText will be removed in 2.0.0
+console.warn('[@infermedica/component-library]: The `UiListItemSuffixAsButton` component is deprecated and it will be removed in v2.0.0. Please use `UiListItemSuffix` component instead.');
 </script>
