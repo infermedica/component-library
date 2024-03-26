@@ -104,6 +104,10 @@ export interface MultipleChoicesProps {
    * Use this props to pass attrs for hint UiAlert
    */
   alertHintAttrs?: AlertAttrsProps;
+  /**
+   * Use this props to pass information about resend form
+   */
+  resend?: boolean;
 }
 export type MultipleChoicesAttrsProps = DefineAttrsProps<MultipleChoicesProps>;
 export interface MultipleChoicesEmits {
@@ -119,6 +123,7 @@ const props = withDefaults(defineProps<MultipleChoicesProps>(), {
   options: () => ([]),
   modelValue: () => ([]),
   alertHintAttrs: () => ({}),
+  resend: false,
 });
 const emit = defineEmits<MultipleChoicesEmits>();
 
@@ -165,6 +170,8 @@ watch(
   },
   { immediate: true },
 );
+
+watch(() => props.resend, () => invalidMultipleChoicesItemRefs.clear());
 </script>
 
 <style lang="scss">
