@@ -30,11 +30,13 @@
 
 <script setup lang="ts">
 import {
+  h,
   ref,
   computed,
   watch,
   type HTMLAttributes,
   defineAsyncComponent,
+  useSlots,
 } from 'vue';
 import type {
   HTMLTag,
@@ -92,9 +94,17 @@ watch(() => (props.isLoading), (isLoading) => {
     hasLoader.value = true;
   }
 }, { once: true });
+const slots = useSlots();
 const loader = computed(() => (
   hasLoader.value
-    ? defineAsyncComponent(() => import('../../molecules/UiLoader/UiLoader.vue'))
+    ? defineAsyncComponent({
+      loader: () => import('../../molecules/UiLoader/UiLoader.vue'),
+      delay: 0,
+      loadingComponent: () => (slots.default
+        ? h('slot', slots.default())
+        : null)
+      ,
+    })
     : null
 ));
 
