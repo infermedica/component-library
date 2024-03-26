@@ -104,15 +104,16 @@ export interface MultipleChoicesProps {
    * Use this props to pass attrs for hint UiAlert
    */
   alertHintAttrs?: AlertAttrsProps;
-  /**
-   * Use this props to pass information about resend form
-   */
-  resend?: boolean;
 }
 export type MultipleChoicesAttrsProps = DefineAttrsProps<MultipleChoicesProps>;
 export interface MultipleChoicesEmits {
   (e: 'update:modelValue', value: MultipleChoicesModelValue[]): void;
   (e: 'update:invalid', value: boolean): void;
+}
+export type InvalidInputs = Map<number, HTMLInputElement>;
+export type ExposedTypes = {
+  invalidInputs: InvalidInputs,
+  focusInvalidChoice: (inputs: InvalidInputs) => void
 }
 
 const props = withDefaults(defineProps<MultipleChoicesProps>(), {
@@ -127,7 +128,7 @@ const props = withDefaults(defineProps<MultipleChoicesProps>(), {
 });
 const emit = defineEmits<MultipleChoicesEmits>();
 
-const invalidMultipleChoicesItemRefs = reactive<Map<number, HTMLInputElement>>(new Map());
+const invalidInputsRefs = reactive<InvalidInputs>(new Map());
 
 const value = computed<MultipleChoicesModelValue[]>(() => (JSON.parse(JSON.stringify(props.modelValue))));
 const valid = computed(() => (value.value.filter(
@@ -146,6 +147,13 @@ const updateHandler = (newValue: MultipleChoicesModelValue, index: number) => {
   emit('update:modelValue', value.value);
 };
 
+function focusInvalidChoice(inputs: InvalidInputs) {
+  if (inputs.size > 0) {
+    const element = [ ...inputs.values() ][0];
+    focusElement(element, true);
+  }
+}
+
 const setFirstMultipleAnswerItemRef = (
   el: Element | ComponentPublicInstance | null,
   idx: number,
@@ -156,22 +164,15 @@ const setFirstMultipleAnswerItemRef = (
   const multipleChoicesItem = el as InstanceType<typeof UiMultipleChoicesItem>;
 
   if (multipleChoicesItem.content && multipleChoicesItem.content[0].content && elHasError) {
-    invalidMultipleChoicesItemRefs.set(idx, multipleChoicesItem.content[0].content.input);
+    invalidInputsRefs.set(idx, multipleChoicesItem.content[0].content.input);
   }
 };
 
-watch(
-  invalidMultipleChoicesItemRefs,
-  (val) => {
-    if (val.size > 0) {
-      const element = [ ...val.values() ][0];
-      focusElement(element, true);
-    }
-  },
-  { immediate: true },
-);
+defineExpose<ExposedTypes>({
+  invalidInputs: invalidInputsRefs,
+  focusInvalidChoice,
+});
 
-watch(() => props.resend, () => invalidMultipleChoicesItemRefs.clear());
 </script>
 
 <style lang="scss">
