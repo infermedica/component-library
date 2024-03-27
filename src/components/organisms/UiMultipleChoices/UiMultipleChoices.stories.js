@@ -10,6 +10,7 @@ import {
 } from 'vue';
 import { actions } from '@storybook/addon-actions';
 import { modifiers } from '@sb/helpers/argTypes';
+import focusOnInvalidChoice from '@/utilities/helpers/focus-on-first-invalid-choice';
 
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
@@ -129,15 +130,12 @@ export const WithError = {
       const invalidChoices = ref(null);
 
       const handleSubmit = async () => {
-        await nextTick();
-
-        if (!invalidChoices.value) return;
-
-        const { focusInvalidChoice } = invalidChoices.value;
+        const { focusInvalidInput } = focusOnInvalidChoice(invalidChoices);
 
         await nextTick();
-        focusInvalidChoice();
+        focusInvalidInput();
       };
+
       handleSubmit();
 
       return {
@@ -174,15 +172,12 @@ export const WithOneCorrectAnswerAndErrors = {
       const invalidChoices = ref(null);
 
       const handleSubmit = async () => {
-        await nextTick();
-
-        if (!invalidChoices.value) return;
-
-        const { focusInvalidChoice } = invalidChoices.value;
+        const { focusInvalidInput } = focusOnInvalidChoice(invalidChoices);
 
         await nextTick();
-        focusInvalidChoice();
+        focusInvalidInput();
       };
+
       handleSubmit();
 
       return {
@@ -499,17 +494,12 @@ export const StackedWithError = {
       const invalidChoices = ref(null);
 
       const handleSubmit = async () => {
+        const { focusInvalidInput } = focusOnInvalidChoice(invalidChoices);
+
         await nextTick();
-
-        if (invalidChoices.value) {
-          const {
-            focusInvalidChoice, invalidInputs,
-          } = invalidChoices.value;
-
-          await nextTick();
-          focusInvalidChoice(invalidInputs);
-        }
+        focusInvalidInput();
       };
+
       handleSubmit();
 
       return {

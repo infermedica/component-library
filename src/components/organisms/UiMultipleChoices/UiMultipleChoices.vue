@@ -112,7 +112,7 @@ export interface MultipleChoicesEmits {
 }
 export type InvalidInputs = Map<number, HTMLInputElement>;
 export type ExposedTypes = {
-  focusInvalidChoice: (inputs: InvalidInputs) => void
+  focusInvalidChoice: () => void
 }
 
 const props = withDefaults(defineProps<MultipleChoicesProps>(), {
