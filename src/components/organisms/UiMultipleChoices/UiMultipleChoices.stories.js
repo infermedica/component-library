@@ -131,14 +131,12 @@ export const WithError = {
       const handleSubmit = async () => {
         await nextTick();
 
-        if (invalidChoices.value) {
-          const {
-            focusInvalidChoice, invalidInputs,
-          } = invalidChoices.value;
+        if (!invalidChoices.value) return;
 
-          await nextTick();
-          focusInvalidChoice(invalidInputs);
-        }
+        const { focusInvalidChoice } = invalidChoices.value;
+
+        await nextTick();
+        focusInvalidChoice();
       };
       handleSubmit();
 
@@ -178,14 +176,12 @@ export const WithOneCorrectAnswerAndErrors = {
       const handleSubmit = async () => {
         await nextTick();
 
-        if (invalidChoices.value) {
-          const {
-            focusInvalidChoice, invalidInputs,
-          } = invalidChoices.value;
+        if (!invalidChoices.value) return;
 
-          await nextTick();
-          focusInvalidChoice(invalidInputs);
-        }
+        const { focusInvalidChoice } = invalidChoices.value;
+
+        await nextTick();
+        focusInvalidChoice();
       };
       handleSubmit();
 

@@ -43,7 +43,7 @@
           }"
         >
           <UiMultipleChoicesItem
-            :ref="(el)=>{ setFirstMultipleAnswerItemRef(el, index, hasError(index)) }"
+            :ref="(el)=>{ setInvalidMultipleChoicesItemsRef(el, index, hasError(index)) }"
             :model-value="value[index]"
             v-bind="item"
             :options="options"
@@ -112,7 +112,6 @@ export interface MultipleChoicesEmits {
 }
 export type InvalidInputs = Map<number, HTMLInputElement>;
 export type ExposedTypes = {
-  invalidInputs: InvalidInputs,
   focusInvalidChoice: (inputs: InvalidInputs) => void
 }
 
@@ -146,14 +145,14 @@ const updateHandler = (newValue: MultipleChoicesModelValue, index: number) => {
   emit('update:modelValue', value.value);
 };
 
-function focusInvalidChoice(inputs: InvalidInputs) {
-  if (inputs.size > 0) {
-    const element = [ ...inputs.values() ][0];
+function focusInvalidChoice() {
+  if (invalidInputsRefs.size > 0) {
+    const element = [ ...invalidInputsRefs.values() ][0];
     focusElement(element, true);
   }
 }
 
-const setFirstMultipleAnswerItemRef = (
+const setInvalidMultipleChoicesItemsRef = (
   el: Element | ComponentPublicInstance | null,
   idx: number,
   elHasError: boolean,
@@ -165,13 +164,10 @@ const setFirstMultipleAnswerItemRef = (
   if (multipleChoicesItem.content && multipleChoicesItem.content[0].content && elHasError) {
     invalidInputsRefs.set(idx, multipleChoicesItem.content[0].content.input);
   }
+  if (!elHasError) invalidInputsRefs.delete(idx);
 };
 
-defineExpose<ExposedTypes>({
-  invalidInputs: invalidInputsRefs,
-  focusInvalidChoice,
-});
-
+defineExpose<ExposedTypes>({ focusInvalidChoice });
 </script>
 
 <style lang="scss">
