@@ -48,11 +48,11 @@ const meta = {
     ...args,
     items,
   },
-  argTypes,
-  excludeStories: [
-    'Long',
-    'HasChildren',
-  ],
+  argTypes: {
+    ...argTypes,
+    items: { control: 'object' },
+  },
+  // excludeStories: [ 'HasChildren' ],
   parameters: { chromatic: { disableSnapshot: false } },
 } satisfies ListMetaType;
 export default meta;
@@ -73,9 +73,8 @@ export const Basic: ListStoryType = {
   },
 };
 Basic.parameters = { docs: { source: { code: BasicStoriesSource } } };
-
-export const Long: ListStoryType = { ...Basic };
-Long.args = {
+export const LargeList: ListStoryType = { ...Basic };
+LargeList.args = {
   items: [
     ...items,
     ...items,
@@ -87,7 +86,16 @@ Long.args = {
     ...items,
     ...items,
     ...items,
-
+    ...items,
+    ...items,
+    ...items,
+    ...items,
+    ...items,
+    ...items,
+    ...items,
+    ...items,
+    ...items,
+    ...items,
   ],
 };
 export const HasChildren: ListStoryType = { ...Basic };
@@ -122,7 +130,7 @@ HasButtonSuffix.args = {
       icon: 'chevron-right',
       label: 'more info',
       ...events,
-      iconSuffixAttrs: { class: 'ui-button__icon' },
+      iconAttrs: { class: 'ui-button__icon' },
     },
   })),
 };
@@ -184,7 +192,6 @@ AsCondition.args = {
     },
   })),
 };
-// TODO: CSS for '>'
 export const IconInHeading: ListStoryType = {
   render(args, {
     name, argTypes,
@@ -212,5 +219,6 @@ IconInHeading.args = {
     hasSuffix: true,
     icon: 'arrow-right',
     ...events,
+    suffixAttrs: { class: [ 'icon-in-heading__suffix' ] },
   })),
 };

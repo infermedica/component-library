@@ -6,7 +6,7 @@
     <slot
       name="content"
       v-bind="{
-        tag: defaultProps.tag,
+        tag,
         filteredAttrs,
         hasSuffix,
         suffixComponent,
@@ -14,7 +14,7 @@
       }"
     >
       <component
-        :is="defaultProps.tag"
+        :is="tag"
         v-bind="filteredAttrs"
         ref="content"
         class="ui-list-item__content"
@@ -92,6 +92,14 @@ const props = withDefaults(defineProps<ListItemProps>(), {
   suffixAttrs: () => ({}),
   listItemAttrs: () => ({}),
 });
+const defaultProps = computed<ListItemProps>(() => ({
+  ...props,
+  suffixAttrs: {
+    icon: props.icon,
+    ...props.suffixAttrs,
+  },
+}));
+
 const attrs = useAttrs();
 const filteredAttrs = computed(() => {
   const {
@@ -100,27 +108,9 @@ const filteredAttrs = computed(() => {
   return rest;
 });
 
-const isButtonSuffix = computed(() => (!!Object.keys(props.suffixAttrs)
-  .find((key) => key
-    .match(/(^on*|to|href)/))));
 const suffixComponent = computed(() => (props.hasSuffix
   ? defineAsyncComponent(() => import('./UiListItemSuffix.vue'))
   : null));
-
-const defaultProps = computed<ListItemProps>(() => ({
-  ...props,
-  suffixAttrs: {
-    icon: props.icon,
-    tag: isButtonSuffix.value
-      ? defineAsyncComponent(() => import('../../../atoms/UiButton/UiButton.vue'))
-      : props.suffixAttrs.tag,
-    class: [
-      { 'ui-button--text': isButtonSuffix.value },
-      props.suffixAttrs.class,
-    ],
-    ...props.suffixAttrs,
-  },
-}));
 
 const content = ref<HTMLTag | null>(null);
 defineExpose({ content });

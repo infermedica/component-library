@@ -1,6 +1,7 @@
 <template>
   <component
-    :is="tag"
+    :is="defaultProps.tag"
+    v-bind="defaultProps"
     class="ui-list-item-suffix"
   >
     <!-- @slot Use this slot to replace suffix template. -->
@@ -10,12 +11,13 @@
         name="label"
         v-bind="{
           label,
+          labelSuffixAttrs,
           labelAttrs,
         }"
       >
         <span
           v-if="label"
-          v-bind="labelAttrs"
+          v-bind="labelSuffixAttrs || labelAttrs"
         >
           {{ label }}
         </span>
@@ -25,6 +27,7 @@
         name="icon"
         v-bind="{
           hasIcon,
+          iconSuffixAttrs,
           iconAttrs: defaultProps.iconAttrs,
         }"
       >
@@ -38,9 +41,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import {
+  computed,
+  defineAsyncComponent,
+  useAttrs,
+} from 'vue';
 import UiIcon, { type IconAttrsProps } from '../../../atoms/UiIcon/UiIcon.vue';
-import UiText from '../../../atoms/UiText/UiText.vue';
 
 import type {
   DefineAttrsProps,
@@ -72,17 +78,45 @@ export interface ListItemSuffixProps {
 }
 export type ListItemSuffixAsButtonAttrsProps = DefineAttrsProps<ListItemSuffixProps>;
 const props = withDefaults(defineProps<ListItemSuffixProps>(), {
-  tag: UiText,
+  tag: 'div',
   label: '',
   icon: '',
   iconAttrs: () => ({}),
   labelAttrs: () => ({}),
 });
 
+const attrs = useAttrs();
+
+// TODO: will be removed in 2.0.0 / BEGIN
+const {
+  iconSuffixAttrs, labelSuffixAttrs,
+} = attrs;
+if (iconSuffixAttrs) {
+  console.warn('[@infermedica/component-library]: The `iconSuffixAttrs` props is deprecated and it will be removed in v2.0.0. Please use `iconAttrs` instead.');
+}
+if (labelSuffixAttrs) {
+  console.warn('[@infermedica/component-library]: The `labelSuffixAttrs` props is deprecated and it will be removed in v2.0.0. Please use `labelAttrs` instead.');
+}
+// END
+
+const isButton = computed(() => (!!Object.keys(attrs)
+  .find((key) => key
+    .match(/(^on*|to|href)/))));
 const defaultProps = computed(() => ({
+  ...props,
+  tag: isButton.value
+    ? defineAsyncComponent(() => import('../../../atoms/UiButton/UiButton.vue'))
+    : defineAsyncComponent(() => import('../../../atoms/UiText/UiText.vue')),
+  class: [ { 'ui-button--text': isButton.value } ],
   iconAttrs: {
     icon: props.icon,
+    class: [
+      { 'ui-button__icon ui-button__icon-end': isButton.value },
+      props.iconAttrs.class,
+      iconSuffixAttrs.class,
+    ],
     ...props.iconAttrs,
+    ...iconSuffixAttrs,
   },
 }));
 const hasIcon = computed(() => (defaultProps.value.iconAttrs.icon));

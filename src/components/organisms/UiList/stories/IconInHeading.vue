@@ -42,6 +42,7 @@ const args = computed(() => (attrs));
 @use "../../../../styles/mixins";
 
 .icon-in-heading {
+  $this: &;
 
   &__content {
     @include mixins.focus {
@@ -55,6 +56,18 @@ const args = computed(() => (attrs));
     --button-border-end-end-radius: 0;
     --button-border-block-width: 0;
     --button-border-inline-width: 0;
+
+    @include mixins.hover {
+      & #{$this}__suffix {
+        --icon-color: var(--color-icon-primary-hover);
+      }
+    }
+
+    &:active {
+      & #{$this}__suffix {
+        --icon-color: var(--color-icon-primary-active);
+      }
+    }
   }
 
   &__prefix-icon {
@@ -71,7 +84,9 @@ const args = computed(() => (attrs));
     margin-block-start: var(--space-4)
   }
 
-  &__suffix {}
+  &__suffix {
+    --icon-color: var(--color-icon-primary);
+  }
 }
 </style>
 

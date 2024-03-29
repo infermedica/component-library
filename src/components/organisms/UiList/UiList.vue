@@ -1,64 +1,42 @@
 <template>
-  <ul class="ui-list">
-    <template
-      v-for="(item, key) in itemsToRender"
-      :key="key"
-    >
-      <UiListItem
-        v-bind="item"
+  <component
+    :is="tag"
+    class="ui-list"
+  >
+    <!-- @slot Use this slot to place list items. -->
+    <slot>
+      <template
+        v-for="(item, key) in itemsToRender"
+        :key="key"
       >
-        <template
-          v-for="(_, name) in slots"
-          #[name]="data"
+        <UiListItem
+          v-bind="item"
         >
-          <slot
-            v-bind="data"
-            :name="name"
-          />
-        </template>
-        <template v-if="useListItemSlot">
-          <!-- @slot Use this slot to replace list item content -->
-          <slot
-            name="listItem"
-            v-bind="{ item }"
+          <!-- Allow to use UiListItemSlots / BEGIN -->
+          <template
+            v-for="(_, name) in $slots"
+            #[name]="data"
           >
-            <UiText>
-              {{ item.label }}
-            </UiText>
-          </slot>
-          <template>
-          <!-- TODO: restore support for children rendering -->
+            <slot
+              v-bind="data"
+              :name="name"
+            />
           </template>
-        </template>
-        <template v-else>
-          <!-- @slot Use this slot to replace list item content -->
-          <slot
-            :name="item.name"
-            v-bind="{ item }"
-          >
-            <UiText>
-              {{ item.label }}
-            </UiText>
-          </slot>
-        </template>
-        <template v-if="item.children?.items">
-          <UiList
-            v-bind="item.children"
-          />
-        </template>
-      </UiListItem>
-    </template>
-  </ul>
+          <!-- END -->
+          <UiListItemContent :item="item" />
+        </UiListItem>
+      </template>
+    </slot>
+  </component>
 </template>
 
 <script setup lang="ts">
 import {
   computed,
   type HTMLAttributes,
-  useSlots,
 } from 'vue';
-import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiListItem, { type ListItemAttrsProps } from './_internal/UiListItem.vue';
+import UiListItemContent from './_internal/UiListItemContent.vue';
 import type {
   DefineAttrsProps,
   HTMLListTag,
@@ -72,19 +50,19 @@ export interface ListRenderItem extends ListItemAttrsProps {
 export type ListItem = string | ListRenderItem;
 export interface ListProps {
   /**
-   * Use this props to pass list items.
-   */
-  items?: ListItem[];
-  /**
    * Use this props to pass list tag.
    */
   tag?: HTMLListTag;
+  /**
+   * Use this props to pass list items.
+   */
+  items?: ListItem[];
 }
 export type ListAttrsProps<HTMLAttrs = HTMLAttributes> = DefineAttrsProps<ListProps, HTMLAttrs>;
 
 const props = withDefaults(defineProps<ListProps>(), {
-  items: () => ([]),
   tag: 'ul',
+  items: () => ([]),
 });
 const itemsToRender = computed(() => (props.items
   .map((item, index) => {
@@ -99,8 +77,6 @@ const itemsToRender = computed(() => (props.items
       name: item.name || `list-item-${index}`,
     };
   })));
-const slots = useSlots();
-const useListItemSlot = computed(() => ('listItem' in slots));
 </script>
 
 <style lang="scss">
