@@ -46,6 +46,8 @@ const args = computed(() => (attrs));
 @use "../../../../styles/mixins";
 
 .as-condition {
+  $this: &;
+
   &__content {
     @include mixins.focus {
       box-shadow: var(--focus-inner);
@@ -63,6 +65,20 @@ const args = computed(() => (attrs));
     flex-direction: column;
     align-items: flex-start;
     flex: 1;
+
+    @include mixins.hover {
+      & #{$this}__suffix {
+        --text-color: var(--color-text-action-primary-hover);
+        --icon-color: var(--color-icon-primary-hover);
+      }
+    }
+
+    &:active {
+      & #{$this}__suffix {
+        --text-color: var(--color-text-action-primary-active);
+        --icon-color: var(--color-icon-primary-active);
+      }
+    }
   }
 
   &__probability {
@@ -82,12 +98,13 @@ const args = computed(() => (attrs));
   }
 
   &__suffix {
+    --text-color: var(--color-text-action-primary);
+    --icon-color: var(--color-icon-primary);
+
     align-self: end;
     font: var(--font-body-2-comfortable);
     letter-spacing: var(--letter-spacing-body-2-comfortable);
   }
-
-  &__suffix-icon {}
 }
 </style>
 

@@ -179,12 +179,12 @@ AsCondition.args = {
     icon: 'chevron-right',
     ...events,
     suffixAttrs: {
-      tag: 'div',
       label: 'Show details',
       class: [ 'as-condition__suffix' ],
     },
   })),
 };
+// TODO: CSS for '>'
 export const IconInHeading: ListStoryType = {
   render(args, {
     name, argTypes,
