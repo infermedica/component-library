@@ -6,9 +6,11 @@ import UiRadio from '@/components/atoms/UiRadio/UiRadio.vue';
 import {
   ref,
   computed,
+  nextTick,
 } from 'vue';
 import { actions } from '@storybook/addon-actions';
 import { modifiers } from '@sb/helpers/argTypes';
+import focusOnInvalidChoice from '@/utilities/helpers/focus-on-first-invalid-choice';
 
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
@@ -125,14 +127,30 @@ export const WithError = {
     setup() {
       const modelValue = ref(args.initModelValue);
       const invalid = ref(args.initInvalid);
+      const invalidChoices = ref(null);
+
+      const handleSubmit = async () => {
+        await focusOnInvalidChoice(invalidChoices);
+        const { focusInvalidInput } = focusOnInvalidChoice(invalidChoices);
+
+        // Note: Two nextTick functions are required to focus on the first invalid input after page load.
+        await nextTick();
+        await nextTick();
+        focusInvalidInput();
+      };
+
+      handleSubmit();
+
       return {
         ...args,
         ...events,
         modelValue,
         invalid,
+        invalidChoices,
       };
     },
     template: `<UiMultipleChoices
+      ref="invalidChoices"
       v-model="modelValue"
       v-model:invalid="invalid"
       :hint="hint"
@@ -154,14 +172,29 @@ export const WithOneCorrectAnswerAndErrors = {
     setup() {
       const modelValue = ref(args.initModelValue);
       const invalid = ref(args.initInvalid);
+      const invalidChoices = ref(null);
+
+      const handleSubmit = async () => {
+        const { focusInvalidInput } = focusOnInvalidChoice(invalidChoices);
+
+        // Note: Two nextTick functions are required to focus on the first invalid input after page load.
+        await nextTick();
+        await nextTick();
+        focusInvalidInput();
+      };
+
+      handleSubmit();
+
       return {
         ...args,
         ...events,
         modelValue,
         invalid,
+        invalidChoices,
       };
     },
     template: `<UiMultipleChoices
+      ref="invalidChoices"
       v-model="modelValue"
       v-model:invalid="invalid"
       :hint="hint"
@@ -463,14 +496,29 @@ export const StackedWithError = {
     setup() {
       const modelValue = ref(args.initModelValue);
       const invalid = ref(args.initInvalid);
+      const invalidChoices = ref(null);
+
+      const handleSubmit = async () => {
+        const { focusInvalidInput } = focusOnInvalidChoice(invalidChoices);
+
+        // Note: Two nextTick functions are required to focus on the first invalid input after page load.
+        await nextTick();
+        await nextTick();
+        focusInvalidInput();
+      };
+
+      handleSubmit();
+
       return {
         ...args,
         ...events,
         modelValue,
         invalid,
+        invalidChoices,
       };
     },
     template: `<UiMultipleChoices
+      ref="invalidChoices"
       v-model="modelValue"
       v-model:invalid="invalid"
       :hint="hint"
