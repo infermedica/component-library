@@ -133,6 +133,7 @@ export const WithError = {
         const { focusInvalidInput } = focusOnInvalidChoice(invalidChoices);
 
         await nextTick();
+        await nextTick();
         focusInvalidInput();
       };
 
@@ -174,6 +175,7 @@ export const WithOneCorrectAnswerAndErrors = {
       const handleSubmit = async () => {
         const { focusInvalidInput } = focusOnInvalidChoice(invalidChoices);
 
+        await nextTick();
         await nextTick();
         focusInvalidInput();
       };
