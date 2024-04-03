@@ -6,6 +6,7 @@ import {
   UiList,
   type ListProps,
   UiButton,
+  UiCheckbox,
 } from '@index';
 import {
   getArgTypes,
@@ -15,10 +16,14 @@ import { actions } from '@storybook/addon-actions';
 import {
   BasicStories,
   BasicStoriesSource,
-  AsConditionStories,
-  AsConditionStoriesSource,
+  ConditionStories,
+  ConditionStoriesSource,
+  ConditionWithButtonStories,
+  ConditionWithButtonStoriesSource,
   IconInHeadingStories,
   IconInHeadingStoriesSource,
+  AnswerWithCheckboxStories,
+  AnswerWithCheckboxStoriesSource,
 } from './stories';
 
 type ListArgsType = ListProps;
@@ -52,7 +57,7 @@ const meta = {
     ...argTypes,
     items: { control: 'object' },
   },
-  // excludeStories: [ 'HasChildren' ],
+  excludeStories: [ 'HasChildren' ], // TODO: Design for HasChildren
   parameters: { chromatic: { disableSnapshot: false } },
 } satisfies ListMetaType;
 export default meta;
@@ -134,27 +139,28 @@ HasButtonSuffix.args = {
     },
   })),
 };
-export const AsCondition: ListStoryType = {
+export const Condition: ListStoryType = {
   render(args, {
     name, argTypes,
   }) {
     return {
       name,
-      components: { AsConditionStories },
+      components: { ConditionStories },
       setup() {
         const { attrs } = getAttrs(args, argTypes, name);
         return { attrs };
       },
-      template: '<AsConditionStories v-bind="{...attrs}"/>',
+      template: '<ConditionStories v-bind="{...attrs}"/>',
     };
   },
 };
-AsCondition.parameters = { docs: { source: { code: AsConditionStoriesSource } } };
-AsCondition.args = {
+Condition.parameters = { docs: { source: { code: ConditionStoriesSource } } };
+Condition.args = {
   items: [
     {
       name: 'common-cold',
       label: 'Common cold',
+      description: 'Acute viral rhinosinusitis',
       evidence: {
         value: 8,
         label: 'Strong evidence',
@@ -163,6 +169,7 @@ AsCondition.args = {
     {
       name: 'tension-type-headaches',
       label: 'Tension-type headaches',
+      description: 'Acute viral rhinosinusitis',
       evidence: {
         value: 6,
         label: 'Moderate evidence',
@@ -171,6 +178,7 @@ AsCondition.args = {
     {
       name: 'migraine',
       label: 'Migraine',
+      description: 'Acute viral rhinosinusitis',
       evidence: {
         value: 4,
         label: 'Moderate evidence',
@@ -181,14 +189,71 @@ AsCondition.args = {
     tag: UiButton,
     class: [
       'ui-button--outlined',
-      'as-condition__content',
+      'condition__content',
     ],
     hasSuffix: true,
     icon: 'chevron-right',
     ...events,
     suffixAttrs: {
       label: 'Show details',
-      class: [ 'as-condition__suffix' ],
+      class: [ 'condition__suffix' ],
+    },
+  })),
+};
+export const ConditionWithButton: ListStoryType = {
+  render(args, {
+    name, argTypes,
+  }) {
+    return {
+      name,
+      components: { ConditionWithButtonStories },
+      setup() {
+        const { attrs } = getAttrs(args, argTypes, name);
+        return { attrs };
+      },
+      template: '<ConditionWithButtonStories v-bind="{...attrs}"/>',
+    };
+  },
+};
+ConditionWithButton.parameters = { docs: { source: { code: ConditionWithButtonStoriesSource } } };
+ConditionWithButton.args = {
+  items: [
+    {
+      name: 'common-cold',
+      label: 'Common cold',
+      description: 'Acute viral rhinosinusitis',
+      evidence: {
+        value: 8,
+        label: 'Strong evidence',
+      },
+    },
+    {
+      name: 'tension-type-headaches',
+      label: 'Tension-type headaches',
+      description: 'Acute viral rhinosinusitis',
+      evidence: {
+        value: 6,
+        label: 'Moderate evidence',
+      },
+    },
+    {
+      name: 'migraine',
+      label: 'Migraine',
+      description: 'Acute viral rhinosinusitis',
+      evidence: {
+        value: 4,
+        label: 'Moderate evidence',
+      },
+    },
+  ].map((item) => ({
+    ...item,
+    hasSuffix: true,
+    icon: 'chevron-right',
+    class: [ 'condition-with-button__item' ],
+    suffixAttrs: {
+      label: 'Learn more',
+      ...events,
+      class: [ 'ui-button--small condition-with-button__suffix' ],
     },
   })),
 };
@@ -220,5 +285,41 @@ IconInHeading.args = {
     icon: 'arrow-right',
     ...events,
     suffixAttrs: { class: [ 'icon-in-heading__suffix' ] },
+  })),
+};
+export const AnswerWithCheckbox:ListStoryType = {
+  render(args, {
+    name, argTypes,
+  }) {
+    return {
+      name,
+      components: { AnswerWithCheckboxStories },
+      setup() {
+        const { attrs } = getAttrs(args, argTypes, name);
+        return { attrs };
+      },
+      template: '<AnswerWithCheckboxStories v-bind="{...attrs}"/>',
+    };
+  },
+};
+AnswerWithCheckbox.parameters = { docs: { source: { code: AnswerWithCheckboxStoriesSource } } };
+AnswerWithCheckbox.args = {
+  items: items.map((item, index) => ({
+    ...item,
+    tag: UiCheckbox,
+    class: [ {
+      'ui-checkbox--has-error': index === 1,
+      'ui-list-item--has-error': index === 1,
+    } ],
+    hasSuffix: index === 1 && true,
+    icon: 'info',
+    textLabelAttrs: {
+      tag: 'dic',
+      class: 'answer-with-checkbox__label',
+    },
+    suffixAttrs: {
+      class: [ 'icon-in-heading__suffix' ],
+      ...events,
+    },
   })),
 };

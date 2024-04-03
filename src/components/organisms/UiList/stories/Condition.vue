@@ -1,21 +1,25 @@
 <template>
   <UiList
     v-bind="args"
-    class="as-condition"
+    class="condition"
   >
-    <template #listItem="{ item }">
-      <div class="as-condition__content">
+    <template
+      v-for="{ name } in args.items"
+      #[name]="item"
+      :key="name"
+    >
+      <div class="condition__content">
         <UiHeading level="3">
-          {{ item.label }}
+          {{ item?.label }}
         </UiHeading>
-        <div class="as-condition__probability">
+        <div class="condition__probability">
           <UiProgress
-            :value="item.evidence.value"
+            :value="item?.evidence?.value"
             :max="10"
-            class="as-condition__progress"
+            class="condition__progress"
           />
-          <UiText class="ui-text--body-2-comfortable as-condition__label">
-            {{ item.evidence.label }}
+          <UiText class="ui-text--body-2-comfortable condition__label">
+            {{ item?.evidence?.label }}
           </UiText>
         </div>
       </div>
@@ -32,7 +36,6 @@ import {
 import {
   UiList,
   UiHeading,
-  UiIcon,
   UiProgress,
   UiText,
 } from '@infermedica/component-library';
@@ -45,7 +48,7 @@ const args = computed(() => (attrs));
 <style lang="scss">
 @use "../../../../styles/mixins";
 
-.as-condition {
+.condition {
   $this: &;
 
   &__content {

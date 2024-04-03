@@ -1,9 +1,5 @@
 <template>
-  <!-- @slot Use this slot to replace list item content -->
-  <slot
-    :name="name"
-    v-bind="item"
-  >
+  <slot>
     <UiText>{{ label }}</UiText>
   </slot>
   <component
@@ -27,7 +23,6 @@ export interface ListItemContentProps {
 
 const props = withDefaults(defineProps<ListItemContentProps>(), { item: () => ([]) });
 const {
-  name,
   label,
   children,
 } = props.item;

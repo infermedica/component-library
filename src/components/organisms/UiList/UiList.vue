@@ -23,7 +23,13 @@
             />
           </template>
           <!-- END -->
-          <UiListItemContent :item="item" />
+          <!-- @slot Use this slot to replace list item content -->
+          <slot
+            :name="item?.name"
+            v-bind="item"
+          >
+            <UiListItemContent :item="item" />
+          </slot>
         </UiListItem>
       </template>
     </slot>
@@ -34,6 +40,7 @@
 import {
   computed,
   type HTMLAttributes,
+  useSlots,
 } from 'vue';
 import UiListItem, { type ListItemAttrsProps } from './_internal/UiListItem.vue';
 import UiListItemContent from './_internal/UiListItemContent.vue';

@@ -3,17 +3,21 @@
     v-bind="args"
     class="icon-in-heading"
   >
-    <template v-if="true" #listItem="{ item }">
+    <template
+      v-for="{ name } in args.items"
+      #[name]="item"
+      :key="name"
+    >
       <UiIcon
         icon="calendar"
         class="ui-button__icon icon-in-heading__prefix-icon"
       />
       <div class="icon-in-heading__heading">
         <UiHeading level="4">
-          {{ item.label }}
+          {{ item?.label }}
         </UiHeading>
         <UiText>
-          {{ item.label }}
+          {{ item?.label }}
         </UiText>
       </div>
     </template>

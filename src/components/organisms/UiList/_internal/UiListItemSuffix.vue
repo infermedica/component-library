@@ -112,14 +112,14 @@ const defaultProps = computed(() => ({
     icon: props.icon,
     class: [
       { 'ui-button__icon ui-button__icon-end': isButton.value },
-      props.iconAttrs.class,
-      iconSuffixAttrs.class,
+      props.iconAttrs?.class,
+      () => (iconSuffixAttrs?.class || ''),
     ],
     ...props.iconAttrs,
     ...iconSuffixAttrs,
   },
 }));
-const hasIcon = computed(() => (defaultProps.value.iconAttrs.icon));
+const hasIcon = computed(() => (defaultProps.value?.iconAttrs?.icon));
 </script>
 
 <style lang="scss">
