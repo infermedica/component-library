@@ -22,7 +22,7 @@ export interface ListItemContentProps {
   item?: ListRenderItem
 }
 
-const props = withDefaults(defineProps<ListItemContentProps>(), { item: () => ([]) });
+const props = withDefaults(defineProps<ListItemContentProps>(), { item: () => ({ name: '' }) });
 
 const {
   label,

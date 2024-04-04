@@ -45,6 +45,7 @@ import {
   computed,
   defineAsyncComponent,
   useAttrs,
+  toRefs,
 } from 'vue';
 import UiIcon, { type IconAttrsProps } from '../../../atoms/UiIcon/UiIcon.vue';
 
@@ -76,7 +77,7 @@ export interface ListItemSuffixProps {
    */
   labelAttrs?: DefineAttrsProps<null>;
 }
-export type ListItemSuffixAsButtonAttrsProps = DefineAttrsProps<ListItemSuffixProps>;
+export type ListItemSuffixAttrsProps = DefineAttrsProps<ListItemSuffixProps>;
 
 const props = withDefaults(defineProps<ListItemSuffixProps>(), {
   tag: 'div',
@@ -86,6 +87,19 @@ const props = withDefaults(defineProps<ListItemSuffixProps>(), {
   labelAttrs: () => ({}),
 });
 const attrs = useAttrs();
+// TODO: will be removed in 2.0.0 / BEGIN
+const {
+  iconSuffixAttrs,
+  labelSuffixAttrs,
+} = toRefs(attrs);
+if (iconSuffixAttrs.value) {
+  console.warn('[@infermedica/component-library]: The `iconSuffixAttrs` props is deprecated and it will be removed in v2.0.0. Please use `iconAttrs` instead.');
+}
+if (labelSuffixAttrs.value) {
+  console.warn('[@infermedica/component-library]: The `labelSuffixAttrs` props is deprecated and it will be removed in v2.0.0. Please use `labelAttrs` instead.');
+}
+// END
+
 const isButton = computed(() => (!!Object.keys(attrs)
   .find((key) => key
     .match(/(^on*|to|href)/))));
@@ -100,25 +114,11 @@ const defaultProps = computed(() => ({
     class: [
       { 'ui-button__icon ui-button__icon-end': isButton.value },
       props.iconAttrs?.class,
-      () => (iconSuffixAttrs?.class || ''),
     ],
     ...props.iconAttrs,
     ...iconSuffixAttrs,
   },
 }));
-
-// TODO: will be removed in 2.0.0 / BEGIN
-const {
-  iconSuffixAttrs, labelSuffixAttrs,
-} = attrs;
-if (iconSuffixAttrs) {
-  console.warn('[@infermedica/component-library]: The `iconSuffixAttrs` props is deprecated and it will be removed in v2.0.0. Please use `iconAttrs` instead.');
-}
-if (labelSuffixAttrs) {
-  console.warn('[@infermedica/component-library]: The `labelSuffixAttrs` props is deprecated and it will be removed in v2.0.0. Please use `labelAttrs` instead.');
-}
-// END
-
 const hasIcon = computed(() => (defaultProps.value?.iconAttrs?.icon));
 </script>
 
