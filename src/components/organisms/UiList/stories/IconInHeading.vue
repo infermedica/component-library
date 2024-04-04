@@ -61,6 +61,8 @@ const args = computed(() => (attrs));
     --button-border-block-width: 0;
     --button-border-inline-width: 0;
 
+    justify-content: space-between;
+
     @include mixins.hover {
       & #{$this}__suffix {
         --icon-color: var(--color-icon-primary-hover);

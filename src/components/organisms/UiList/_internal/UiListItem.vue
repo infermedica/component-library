@@ -50,6 +50,7 @@ import {
   defineAsyncComponent,
   defineExpose,
   type LiHTMLAttributes,
+  onMounted,
 } from 'vue';
 import type {
   DefineAttrsProps,
@@ -114,6 +115,11 @@ const suffixComponent = computed(() => (props.hasSuffix
 
 const content = ref<HTMLTag | null>(null);
 defineExpose({ content });
+
+console.time(attrs.label);
+onMounted(() => {
+  console.timeEnd(attrs.label);
+});
 </script>
 
 <style lang="scss">
