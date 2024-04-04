@@ -12,6 +12,7 @@
 <script setup lang="ts">
 import {
   computed,
+  toRefs,
   defineAsyncComponent,
 } from 'vue';
 import type { ListRenderItem } from '../UiList.vue';
@@ -22,10 +23,11 @@ export interface ListItemContentProps {
 }
 
 const props = withDefaults(defineProps<ListItemContentProps>(), { item: () => ([]) });
+
 const {
   label,
   children,
-} = props.item;
+} = toRefs(props.item);
 const hasChildren = computed(() => ('children' in props.item));
 const childrenListComponent = computed(() => (hasChildren.value ? defineAsyncComponent(() => import('../UiList.vue')) : null));
 </script>

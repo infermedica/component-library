@@ -40,7 +40,6 @@
 import {
   computed,
   type HTMLAttributes,
-  useSlots,
 } from 'vue';
 import UiListItem, { type ListItemAttrsProps } from './_internal/UiListItem.vue';
 import UiListItemContent from './_internal/UiListItemContent.vue';
