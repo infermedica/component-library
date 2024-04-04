@@ -133,8 +133,6 @@ export const WithError = {
         await focusOnInvalidChoice(invalidChoices);
         const { focusInvalidInput } = focusOnInvalidChoice(invalidChoices);
 
-        // Note: Two nextTick functions are required to focus on the first invalid input after page load.
-        await nextTick();
         await nextTick();
         focusInvalidInput();
       };
@@ -177,8 +175,6 @@ export const WithOneCorrectAnswerAndErrors = {
       const handleSubmit = async () => {
         const { focusInvalidInput } = focusOnInvalidChoice(invalidChoices);
 
-        // Note: Two nextTick functions are required to focus on the first invalid input after page load.
-        await nextTick();
         await nextTick();
         focusInvalidInput();
       };
@@ -501,8 +497,6 @@ export const StackedWithError = {
       const handleSubmit = async () => {
         const { focusInvalidInput } = focusOnInvalidChoice(invalidChoices);
 
-        // Note: Two nextTick functions are required to focus on the first invalid input after page load.
-        await nextTick();
         await nextTick();
         focusInvalidInput();
       };
