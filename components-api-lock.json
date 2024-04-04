@@ -1051,6 +1051,11 @@
       "displayName": "UiMultipleChoices",
       "description": "",
       "tags": {},
+      "expose": [
+        {
+          "name": "focusInvalidChoice"
+        }
+      ],
       "props": [
         {
           "name": "hint",
