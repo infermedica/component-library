@@ -32,8 +32,10 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import UiButton, { type ButtonAttrsProps } from '../../../atoms/UiButton/UiButton.vue';
-import UiIcon, { type IconAttrsProps } from '../../../atoms/UiIcon/UiIcon.vue';
+import UiButton from '../../../atoms/UiButton/UiButton.vue';
+import type { ButtonAttrsProps } from '../../../atoms/UiButton/UiButton.vue';
+import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
+import type { IconAttrsProps } from '../../../atoms/UiIcon/UiIcon.vue';
 import type {
   DefineAttrsProps,
   Icon,
@@ -55,7 +57,7 @@ export interface ListItemSuffixAsButtonProps {
   /**
    * Use this props to pass attrs for label element.
    */
-  iconSuffixAttrs?: DefineAttrsProps<null>;
+  labelSuffixAttrs?: DefineAttrsProps<null>;
 }
 export type ListItemSuffixAsButtonAttrsProps = DefineAttrsProps<ListItemSuffixAsButtonProps, ButtonAttrsProps>;
 
@@ -71,7 +73,7 @@ const defaultProps = computed(() => ({
     ...props.iconSuffixAttrs,
   },
 }));
-const hasIcon = computed(() => ('icon' in defaultProps.value.iconSuffixAttrs));
+const hasIcon = computed(() => (!!defaultProps.value.iconSuffixAttrs?.icon));
 
 // TODO: UiListItemSuffixAsButton will be removed in 2.0.0
 console.warn('[@infermedica/component-library]: The `UiListItemSuffixAsButton` component is deprecated and it will be removed in v2.0.0. Please use `UiListItemSuffix` component instead.');
