@@ -334,7 +334,28 @@ export const IconInHeading: ListStoryType = {
 };
 IconInHeading.parameters = { docs: { source: { code: IconInHeadingStoriesSource } } };
 IconInHeading.args = {
-  items: items.map((item) => ({
+  items: [
+    {
+      label: 'Painful swallowing',
+      name: 'painful-swallowing',
+    },
+    {
+      label: 'Stuffy nose',
+      name: 'stuffy-nos',
+    },
+    {
+      label: 'Sneeze',
+      name: 'sneeze',
+    },
+    {
+      label: 'Muscle pain',
+      name: 'muscle-pain',
+    },
+    {
+      label: 'Runny nose',
+      name: 'runny-nose',
+    },
+  ].map((item) => ({
     ...item,
     tag: UiButton,
     class: [

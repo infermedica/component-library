@@ -5,8 +5,8 @@
   >
     <template
       v-for="{ name } in args.items"
-      #[name]="item"
       :key="name"
+      #[name]="item"
     >
       <UiIcon
         icon="calendar"
