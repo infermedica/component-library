@@ -27,7 +27,7 @@ const props = withDefaults(defineProps<ListItemContentProps>(), { item: () => ({
 const {
   label,
   children,
-} = toRefs(props.item);
+} = props.item;
 const hasChildren = computed(() => ('children' in props.item));
 const childrenListComponent = computed(() => (hasChildren.value ? defineAsyncComponent(() => import('../UiList.vue')) : null));
 </script>

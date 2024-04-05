@@ -48,9 +48,7 @@ import {
   computed,
   useAttrs,
   defineAsyncComponent,
-  defineExpose,
   type LiHTMLAttributes,
-  onMounted,
 } from 'vue';
 import type {
   DefineAttrsProps,

@@ -395,7 +395,7 @@ AnswerWithCheckbox.args = {
     hasSuffix: index === 1 && true,
     icon: 'info',
     value: item,
-    modelValue: index === 1 && item,
+    modelValue: index === 1 && [ item ],
     textLabelAttrs: {
       tag: 'div',
       class: 'answer-with-checkbox__label',
@@ -421,7 +421,7 @@ AnswerWithRadio.args = {
     icon: 'info',
     inputAttrs: { name: 'answer-with-radio' },
     value: item,
-    modelValue: index === 1 && item,
+    modelValue: items[1],
     textLabelAttrs: {
       tag: 'div',
       class: 'answer-with-checkbox__label',
