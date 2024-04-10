@@ -125,7 +125,7 @@ const props = withDefaults(defineProps<MultipleChoicesProps>(), {
 });
 const emit = defineEmits<MultipleChoicesEmits>();
 
-const multipleChoicesItemRefs = ref([]);
+const multipleChoicesItemRefs = ref<InstanceType<typeof UiMultipleChoicesItem>[]>([]);
 
 const value = computed<MultipleChoicesModelValue[]>(() => (JSON.parse(JSON.stringify(props.modelValue))));
 const valid = computed(() => (value.value.filter(
