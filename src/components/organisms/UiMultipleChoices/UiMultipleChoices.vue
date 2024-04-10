@@ -146,7 +146,14 @@ const updateHandler = (newValue: MultipleChoicesModelValue, index: number) => {
 
 function focusInvalidChoice() {
   const firstInvalidChoice = multipleChoicesItemRefs.value.find((element, index) => hasError(index));
-  if (firstInvalidChoice) focusElement(firstInvalidChoice.$el.querySelector('input'), true);
+  if (!firstInvalidChoice) return;
+
+  const choicesFirstRadioItem = firstInvalidChoice?.content?.at(0);
+  const firstRadioItemsInput = choicesFirstRadioItem?.content?.input;
+
+  const elementToFocus = firstRadioItemsInput ?? firstInvalidChoice.$el.querySelector('input');
+
+  focusElement(elementToFocus, true);
 }
 
 defineExpose<ExposedTypes>({ focusInvalidChoice });
