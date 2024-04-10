@@ -43,7 +43,7 @@
           }"
         >
           <UiMultipleChoicesItem
-            :ref="(el)=>{ setInvalidMultipleChoicesItemsRef(el, index, hasError(index)) }"
+            ref="multipleChoicesItemRefs"
             :model-value="value[index]"
             v-bind="item"
             :options="options"
@@ -60,8 +60,7 @@
 import {
   computed,
   watch,
-  type ComponentPublicInstance,
-  reactive,
+  ref,
 } from 'vue';
 import UiText from '../../atoms/UiText/UiText.vue';
 import UiAlert from '../../molecules/UiAlert/UiAlert.vue';
@@ -126,7 +125,7 @@ const props = withDefaults(defineProps<MultipleChoicesProps>(), {
 });
 const emit = defineEmits<MultipleChoicesEmits>();
 
-const invalidInputsRefs = reactive<InvalidInputs>(new Map());
+const multipleChoicesItemRefs = ref([]);
 
 const value = computed<MultipleChoicesModelValue[]>(() => (JSON.parse(JSON.stringify(props.modelValue))));
 const valid = computed(() => (value.value.filter(
@@ -146,26 +145,9 @@ const updateHandler = (newValue: MultipleChoicesModelValue, index: number) => {
 };
 
 function focusInvalidChoice() {
-  if (invalidInputsRefs.size > 0) {
-    const element = [ ...invalidInputsRefs.values() ][0];
-    focusElement(element, true);
-  }
+  const firstInvalidChoice = multipleChoicesItemRefs.value.find((element, index) => hasError(index));
+  if (firstInvalidChoice) focusElement(firstInvalidChoice.$el.querySelector('input'), true);
 }
-
-const setInvalidMultipleChoicesItemsRef = (
-  el: Element | ComponentPublicInstance | null,
-  idx: number,
-  elHasError: boolean,
-) => {
-  if (!el) return;
-
-  const multipleChoicesItem = el as InstanceType<typeof UiMultipleChoicesItem>;
-
-  if (multipleChoicesItem.content && multipleChoicesItem.content[0].content && elHasError) {
-    invalidInputsRefs.set(idx, multipleChoicesItem.content[0].content.input);
-  }
-  if (!elHasError) invalidInputsRefs.delete(idx);
-};
 
 defineExpose<ExposedTypes>({ focusInvalidChoice });
 </script>
