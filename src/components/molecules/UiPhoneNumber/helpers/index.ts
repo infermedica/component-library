@@ -35,7 +35,8 @@ export async function getPhoneCodes(languageData: LanguageDataType = {
   }
 
   if (!i18nCountries.langs().includes(language)) {
-    throw new Error('No locales provided');
+    if (countriesLocales.has(language)) i18nCountries.registerLocale(countriesLocales.get(language));
+    else throw new Error('No locales provided');
   }
 
   // initCountries(language);
