@@ -3,8 +3,10 @@ import type {
   Meta,
   StoryObj,
 } from '@storybook/vue3';
+import polishCountriesTranslation from 'i18n-iso-countries/langs/pl.json';
 import UiPhoneNumber from './UiPhoneNumber.vue';
 import UiFormField from '../UiFormField/UiFormField.vue';
+import { countriesLocales } from './helpers';
 
 const customCountryCodeItems = [
   {
@@ -111,6 +113,30 @@ export const Basic: StoryObj<typeof UiPhoneNumber> = {
     >
       <UiPhoneNumber
         v-bind="{...args}"
+      />
+    </UiFormField>`,
+    };
+  },
+};
+
+export const WithTranslatedCountryNames: StoryObj<typeof UiPhoneNumber> = {
+  render(args, { name }) {
+    return {
+      name,
+      components: {
+        UiFormField,
+        UiPhoneNumber,
+      },
+      setup() {
+        countriesLocales.set('pl', polishCountriesTranslation);
+        return { args };
+      },
+      template: `<UiFormField
+      v-bind="{...args}"
+      message="Phone number"
+    >
+      <UiPhoneNumber
+        v-bind="{ languageData: { language: 'pl', country: 'us' }, ...args }"
       />
     </UiFormField>`,
     };
