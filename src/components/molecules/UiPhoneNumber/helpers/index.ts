@@ -1,5 +1,6 @@
-import * as i18nCountries from 'i18n-iso-countries';
 import type { Alpha2Code } from 'i18n-iso-countries';
+import * as i18nCountries from 'i18n-iso-countries';
+import englishCountriesTranslation from 'i18n-iso-countries/langs/en.json';
 import countryCodes from 'country-codes-list';
 
 export type PhoneCodeType = {
@@ -18,17 +19,12 @@ const phoneCodes: Record<string, string>[] = countryCodes.customArray({
   code: '{countryCallingCode}',
   countryCode: '{countryCode}',
 });
-
-async function initCountries(language: string) {
-  const lang = await import(
-    `../../../../../node_modules/i18n-iso-countries/langs/${language}.json`
-  );
-  i18nCountries.registerLocale(lang);
-}
+export const countriesLocales = new Map();
+countriesLocales.set('en', englishCountriesTranslation);
 
 export async function getPhoneCodes(languageData: LanguageDataType = {
-  country: 'us',
   language: 'en',
+  country: 'us',
 }) {
   const {
     language, country,
@@ -38,7 +34,11 @@ export async function getPhoneCodes(languageData: LanguageDataType = {
     throw new Error('Incorrect country code');
   }
 
-  await initCountries(language);
+  if (!i18nCountries.langs().includes(language)) {
+    throw new Error('No locales provided');
+  }
+
+  // initCountries(language);
   return phoneCodes
     .map((item) => ({
       ...item,
