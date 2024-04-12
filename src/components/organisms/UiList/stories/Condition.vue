@@ -68,9 +68,9 @@ const args = computed(() => (attrs));
     --button-border-inline-width: 0;
 
     display: flex;
+    flex: 1;
     flex-direction: column;
     align-items: flex-start;
-    flex: 1;
 
     @include mixins.hover {
       & #{$this}__suffix {

@@ -12,7 +12,6 @@
 <script setup lang="ts">
 import {
   computed,
-  toRefs,
   defineAsyncComponent,
 } from 'vue';
 import type { ListRenderItem } from '../UiList.vue';

@@ -45,7 +45,6 @@ import {
   computed,
   defineAsyncComponent,
   useAttrs,
-  toRefs,
 } from 'vue';
 import UiIcon, { type IconAttrsProps } from '../../../atoms/UiIcon/UiIcon.vue';
 

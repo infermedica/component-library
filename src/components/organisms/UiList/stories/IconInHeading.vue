@@ -83,11 +83,11 @@ const args = computed(() => (attrs));
 
   &__heading {
     display: flex;
+    flex: 1;
     flex-direction: column;
     gap: var(--space-4);
-    flex: 1;
-    text-align: start;
-    margin-block-start: var(--space-4)
+    margin-block-start: var(--space-4);
+    text-align: start
   }
 
   &__suffix {

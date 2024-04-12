@@ -64,11 +64,10 @@ const args = computed(() => (attrs));
   $this: &;
 
   &__content {
-
     display: flex;
+    flex: 1;
     flex-direction: column;
     align-items: flex-start;
-    flex: 1;
   }
 
   &__probability {
