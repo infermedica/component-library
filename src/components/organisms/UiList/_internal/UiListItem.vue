@@ -127,9 +127,9 @@ defineExpose({ content });
   align-items: center;
 
   @include mixins.inner-border(
-          $element,
-      $color: var(--color-border-divider),
-      $width: 1px 0 0 0,
+    $element,
+    $color: var(--color-border-divider),
+    $width: 1px 0 0 0,
   );
 
   &:last-of-type {
