@@ -7,6 +7,7 @@ import {
   ref,
   computed,
   nextTick,
+  onMounted,
 } from 'vue';
 import { actions } from '@storybook/addon-actions';
 import { modifiers } from '@sb/helpers/argTypes';
@@ -130,16 +131,14 @@ export const WithError = {
       const invalidChoices = ref(null);
 
       const handleSubmit = async () => {
-        await focusOnInvalidChoice(invalidChoices);
         const { focusInvalidInput } = focusOnInvalidChoice(invalidChoices);
-
-        // Note: Two nextTick functions are required to focus on the first invalid input after page load.
-        await nextTick();
-        await nextTick();
         focusInvalidInput();
       };
 
-      handleSubmit();
+      onMounted(async () => {
+        await nextTick();
+        handleSubmit();
+      });
 
       return {
         ...args,
@@ -176,14 +175,13 @@ export const WithOneCorrectAnswerAndErrors = {
 
       const handleSubmit = async () => {
         const { focusInvalidInput } = focusOnInvalidChoice(invalidChoices);
-
-        // Note: Two nextTick functions are required to focus on the first invalid input after page load.
-        await nextTick();
-        await nextTick();
         focusInvalidInput();
       };
 
-      handleSubmit();
+      onMounted(async () => {
+        await nextTick();
+        handleSubmit();
+      });
 
       return {
         ...args,
@@ -500,14 +498,13 @@ export const StackedWithError = {
 
       const handleSubmit = async () => {
         const { focusInvalidInput } = focusOnInvalidChoice(invalidChoices);
-
-        // Note: Two nextTick functions are required to focus on the first invalid input after page load.
-        await nextTick();
-        await nextTick();
         focusInvalidInput();
       };
 
-      handleSubmit();
+      onMounted(async () => {
+        await nextTick(); // Wait for child element to mount as well
+        handleSubmit();
+      });
 
       return {
         ...args,
