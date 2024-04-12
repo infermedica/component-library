@@ -34,8 +34,8 @@ type ListMetaType = Meta<ListArgsType>;
 type ListStoryType = StoryObj<ListArgsType>;
 
 const {
-  argTypes,
-  args,
+  argTypes: metaArgTypes,
+  args: metaArgs,
 } = getArgTypes(UiList);
 
 const items = [
@@ -53,11 +53,11 @@ const meta = {
   title: 'Organisms/List',
   component: UiList,
   args: {
-    ...args,
+    ...metaArgs,
     items,
   },
   argTypes: {
-    ...argTypes,
+    ...metaArgTypes,
     items: { control: 'object' },
   },
   excludeStories: [ 'HasChildren' ], // TODO: Design for HasChildren
@@ -82,9 +82,7 @@ export const Basic: ListStoryType = {
 };
 Basic.parameters = { docs: { source: { code: BasicStoriesSource } } };
 export const LargeList: ListStoryType = { ...Basic };
-LargeList.args = {
-  items: Array.from({length: 100}, (_, i) => items[i%items.length]),
-};
+LargeList.args = { items: Array.from({ length: 100 }, (_, i) => items[i % items.length]) };
 export const HasChildren: ListStoryType = { ...Basic };
 HasChildren.args = {
   items: items.map((item) => ({
