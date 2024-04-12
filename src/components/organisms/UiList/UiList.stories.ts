@@ -83,28 +83,7 @@ export const Basic: ListStoryType = {
 Basic.parameters = { docs: { source: { code: BasicStoriesSource } } };
 export const LargeList: ListStoryType = { ...Basic };
 LargeList.args = {
-  items: [
-    ...items,
-    ...items,
-    ...items,
-    ...items,
-    ...items,
-    ...items,
-    ...items,
-    ...items,
-    ...items,
-    ...items,
-    ...items,
-    ...items,
-    ...items,
-    ...items,
-    ...items,
-    ...items,
-    ...items,
-    ...items,
-    ...items,
-    ...items,
-  ],
+  items: Array.from({length: 100}, (_, i) => items[i%items.length]),
 };
 export const HasChildren: ListStoryType = { ...Basic };
 HasChildren.args = {
