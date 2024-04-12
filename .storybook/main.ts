@@ -21,10 +21,10 @@ const config: StorybookConfig = {
       },
       plugins: [
         svgLoader({
-        svgoConfig: {
-          plugins: ['removeDimensions', 'removeUselessStrokeAndFill', 'convertStyleToAttrs']
-        }
-      }),
+          svgoConfig: {
+            plugins: ['removeDimensions', 'removeUselessStrokeAndFill', 'convertStyleToAttrs']
+          }
+        }),
         VueDevTools(),
       ],
       optimizeDeps: {
