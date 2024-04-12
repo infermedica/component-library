@@ -2,6 +2,8 @@ import { StorybookConfig } from '@storybook/vue3-vite';
 import path from 'path';
 import { mergeConfig } from 'vite';
 import svgLoader from 'vite-svg-loader';
+import VueDevTools from 'vite-plugin-vue-devtools'
+
 const config: StorybookConfig = {
   async viteFinal(config) {
     return mergeConfig(config, {
@@ -17,11 +19,14 @@ const config: StorybookConfig = {
           '@infermedica/component-library': path.resolve(__dirname, '../index.ts')
         }
       },
-      plugins: [svgLoader({
-        svgoConfig: {
-          plugins: ['removeDimensions', 'removeUselessStrokeAndFill', 'convertStyleToAttrs']
-        }
-      })],
+      plugins: [
+        svgLoader({
+          svgoConfig: {
+            plugins: ['removeDimensions', 'removeUselessStrokeAndFill', 'convertStyleToAttrs']
+          }
+        }),
+        VueDevTools(),
+      ],
       optimizeDeps: {
         include: ['react-syntax-highlighter', 'react-syntax-highlighter/dist/esm/languages/prism/scss', '@storybook/theming']
       }
