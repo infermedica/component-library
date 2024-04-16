@@ -3,6 +3,20 @@
     class="ui-input"
     v-bind="attrs"
   >
+    <!-- @slot Use this slot to place prefix element. -->
+    <slot
+      name="prefix"
+      v-bind="{
+        hasPrefix,
+        prefixAttrs: defaultProps.prefixAttrs,
+      }"
+    >
+      <UiIcon
+        v-if="hasPrefix"
+        v-bind="defaultProps.prefixAttrs"
+        class="ui-input__prefix"
+      />
+    </slot>
     <div
       class="ui-input__outline"
       v-bind="outlineAttrs"
@@ -63,9 +77,13 @@ import {
   useKeyValidation,
 } from '../../../composable';
 import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
+import UiIcon from '../UiIcon/UiIcon.vue';
 import UiText from '../UiText/UiText.vue';
 import type { TextAttrsProps } from '../UiText/UiText.vue';
-import type { DefineAttrsProps } from '../../../types';
+import type {
+  DefineAttrsProps,
+  Icon,
+} from '../../../types';
 
 export type InputModelValue = string;
 export interface InputProps {
@@ -102,12 +120,19 @@ export interface InputProps {
    * Use this props to pass attrs for input element.
    */
   inputAttrs?: DefineAttrsProps<InputProps, InputHTMLAttributes>;
+  /**
+   * Use this props to set prefix.
+   */
+  hasPrefix?: boolean;
+  /**
+   * Use this props to set prefix icon.
+   */
+  prefixIcon?: Icon,
 }
 export type InputAttrsProps = DefineAttrsProps<InputProps>;
 export interface InputEmits {
   (e: 'update:modelValue', value: InputModelValue): void
 }
-
 const props = withDefaults(defineProps<InputProps>(), {
   placeholder: '',
   type: 'text',
@@ -117,6 +142,8 @@ const props = withDefaults(defineProps<InputProps>(), {
   outlineAttrs: () => ({}),
   textSuffixAttrs: () => ({ tag: 'span' }),
   inputAttrs: () => ({}),
+  hasPrefix: false,
+  prefixIcon: '',
 });
 const defaultProps = computed(() => {
   const tag: TextAttrsProps['tag'] = 'span';
@@ -132,6 +159,7 @@ const defaultProps = computed(() => {
       ...listeners.value,
       ...props.inputAttrs,
     },
+    prefixAttrs: { icon: props.prefixIcon },
   };
 });
 const emit = defineEmits<InputEmits>();
@@ -202,7 +230,7 @@ const input = ref(null);
 
   &__input {
     @include mixins.font($element, body-1);
-    @include mixins.use-logical($element, padding, var(--space-12) var(--space-16));
+    @include mixins.use-logical($element, padding, var(--space-12));
     @include mixins.use-logical($element, border-width, 0);
 
     width: 100%;
@@ -237,8 +265,14 @@ const input = ref(null);
     }
   }
 
+  &__prefix {
+    @include mixins.use-logical($element + "-prefix", margin, 0 0 0 var(--space-12));
+
+    fill: functions.var($element, fill, var(--color-blue-600));
+  }
+
   &__aside {
-    @include mixins.use-logical($element + "-aside", margin, 0 var(--space-16) 0 calc(var(--space-4) * -1));
+    @include mixins.use-logical($element + "-aside", margin, 0 var(--space-12) 0 0);
 
     &.ui-button {
       @include mixins.use-logical($element + "-aside", margin, 0 var(--space-12) 0 calc(var(--space-4) * -1));
