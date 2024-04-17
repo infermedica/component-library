@@ -1,8 +1,10 @@
 <template>
   <component
     :is="listItemSuffixComponent"
-    v-bind="defaultProps"
-    class="ui-list-item-suffix"
+    :class="[
+      'ui-list-item-suffix',
+      { 'ui-button--text': isButton },
+    ]"
   >
     <!-- @slot Use this slot to replace suffix template. -->
     <slot>
@@ -113,8 +115,6 @@ const listItemSuffixComponent = computed(() => {
     : defineAsyncComponent(() => import('../../../atoms/UiText/UiText.vue'));
 });
 const defaultProps = computed(() => ({
-  ...props,
-  class: [ { 'ui-button--text': isButton.value } ],
   iconAttrs: {
     icon: props.icon,
     class: [
