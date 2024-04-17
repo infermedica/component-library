@@ -1,7 +1,7 @@
 <template>
   <UiList
     v-bind="args"
-    class="answer-with-checkbox "
+    class="answer-with-checkbox"
   />
 </template>
 
