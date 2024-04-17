@@ -155,3 +155,7 @@ PrefixAndSuffix.args = {
   prefixIcon: 'search',
   placeholder: 'Search medications',
 };
+PrefixAndSuffix.parameters = {
+  docs: { source: { code: PrefixAndSuffixStoriesSource } },
+  chromatic: { disableSnapshot: true },
+};
