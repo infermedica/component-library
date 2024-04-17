@@ -80,10 +80,8 @@ import { keyboardFocus as vKeyboardFocus } from '../../../utilities/directives';
 import UiIcon from '../UiIcon/UiIcon.vue';
 import UiText from '../UiText/UiText.vue';
 import type { TextAttrsProps } from '../UiText/UiText.vue';
-import type {
-  DefineAttrsProps,
-  Icon,
-} from '../../../types';
+import type { IconAttrsProps } from '../UiIcon/UiIcon.vue';
+import type { DefineAttrsProps } from '../../../types';
 
 export type InputModelValue = string;
 export interface InputProps {
@@ -124,10 +122,10 @@ export interface InputProps {
    * Use this props to set prefix.
    */
   hasPrefix?: boolean;
-  /**
-   * Use this props to set prefix icon.
+   /**
+   * Use this props to pass attrs for prefix element.
    */
-  prefixIcon?: Icon,
+   prefixAttrs?: IconAttrsProps;
 }
 export type InputAttrsProps = DefineAttrsProps<InputProps>;
 export interface InputEmits {
@@ -143,7 +141,7 @@ const props = withDefaults(defineProps<InputProps>(), {
   textSuffixAttrs: () => ({ tag: 'span' }),
   inputAttrs: () => ({}),
   hasPrefix: false,
-  prefixIcon: '',
+  prefixAttrs: () => ({ icon: '' }),
 });
 const defaultProps = computed(() => {
   const tag: TextAttrsProps['tag'] = 'span';
@@ -159,7 +157,7 @@ const defaultProps = computed(() => {
       ...listeners.value,
       ...props.inputAttrs,
     },
-    prefixAttrs: { icon: props.prefixIcon },
+    prefixAttrs: { ...props.prefixAttrs },
   };
 });
 const emit = defineEmits<InputEmits>();

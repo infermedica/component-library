@@ -55,7 +55,7 @@ const meta = {
         'text',
       ],
     },
-    prefixIcon: icon,
+    prefixAttrs: { icon },
   },
   parameters: { chromatic: { disableSnapshot: false } },
 } satisfies InputMetaType;
@@ -131,7 +131,7 @@ Suffix.args = { suffix: 'cm' };
 export const Prefix: InputStoryType = { ...Basic };
 Prefix.args = {
   hasPrefix: true,
-  prefixIcon: 'search',
+  prefixAttrs: { icon: 'search' },
   placeholder: 'Search medications',
 };
 
@@ -152,7 +152,7 @@ export const PrefixAndSuffix: InputStoryType = {
 };
 PrefixAndSuffix.args = {
   hasPrefix: true,
-  prefixIcon: 'search',
+  prefixAttrs: { icon: 'search' },
   placeholder: 'Search medications',
 };
 PrefixAndSuffix.parameters = {
