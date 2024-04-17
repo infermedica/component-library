@@ -6731,6 +6731,30 @@
             "func": false,
             "value": "() => ({})"
           }
+        },
+        {
+          "name": "hasPrefix",
+          "description": "Use this props to set prefix.",
+          "required": false,
+          "type": {
+            "name": "boolean"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "false"
+          }
+        },
+        {
+          "name": "prefixAttrs",
+          "description": "Use this props to pass attrs for prefix element.",
+          "required": false,
+          "type": {
+            "name": "IconAttrsProps"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "() => ({ icon: '' })"
+          }
         }
       ],
       "events": [
@@ -6744,6 +6768,21 @@
         }
       ],
       "slots": [
+        {
+          "name": "prefix",
+          "scoped": true,
+          "description": "Use this slot to place prefix element.",
+          "bindings": [
+            {
+              "name": "hasPrefix",
+              "title": "binding"
+            },
+            {
+              "name": "prefixAttrs",
+              "title": "binding"
+            }
+          ]
+        },
         {
           "name": "input",
           "scoped": true,
