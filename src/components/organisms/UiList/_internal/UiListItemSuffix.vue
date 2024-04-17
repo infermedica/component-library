@@ -77,9 +77,6 @@ export interface ListItemSuffixProps {
    * Use this props to pass attrs for label element.
    */
   labelAttrs?: DefineAttrsProps<null>;
-  // @deprecated will be removed in 2.0.0
-  iconSuffixAttrs?: IconAttrsProps,
-  labelSuffixAttrs?: DefineAttrsProps<null>;
 }
 export type ListItemSuffixAttrsProps = DefineAttrsProps<ListItemSuffixProps>;
 
@@ -89,12 +86,10 @@ const props = withDefaults(defineProps<ListItemSuffixProps>(), {
   icon: '',
   iconAttrs: () => ({}),
   labelAttrs: () => ({}),
-  // @deprecated will be removed in 2.0.0
-  iconSuffixAttrs: () => ({}),
-  labelSuffixAttrs: () => ({}),
 });
 const attrs:ListItemSuffixAttrsProps = useAttrs();
 // TODO: will be removed in 2.0.0 / BEGIN
+console.log(attrs);
 if (attrs?.iconSuffixAttrs) {
   console.warn('[@infermedica/component-library]: The `iconSuffixAttrs` props is deprecated and it will be removed in v2.0.0. Please use `iconAttrs` instead.');
 }
