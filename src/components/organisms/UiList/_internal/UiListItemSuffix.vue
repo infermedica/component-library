@@ -89,7 +89,6 @@ const props = withDefaults(defineProps<ListItemSuffixProps>(), {
 });
 const attrs:ListItemSuffixAttrsProps = useAttrs();
 // TODO: will be removed in 2.0.0 / BEGIN
-console.log(attrs);
 if (attrs?.iconSuffixAttrs) {
   console.warn('[@infermedica/component-library]: The `iconSuffixAttrs` props is deprecated and it will be removed in v2.0.0. Please use `iconAttrs` instead.');
 }
