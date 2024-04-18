@@ -13,13 +13,13 @@
         name="label"
         v-bind="{
           label,
-          labelSuffixAttrs: attrs.labelSuffixAttrs,
+          labelSuffixAttrs,
           labelAttrs,
         }"
       >
         <span
           v-if="label"
-          v-bind="attrs.labelSuffixAttrs || labelAttrs"
+          v-bind="labelSuffixAttrs || labelAttrs"
         >
           {{ label }}
         </span>
@@ -29,7 +29,7 @@
         name="icon"
         v-bind="{
           hasIcon,
-          iconSuffixAttrs: attrs.iconSuffixAttrs,
+          iconSuffixAttrs: iconSuffixAttrs,
           iconAttrs: defaultProps.iconAttrs,
         }"
       >
@@ -77,6 +77,14 @@ export interface ListItemSuffixProps {
    * Use this props to pass attrs for label element.
    */
   labelAttrs?: DefineAttrsProps<null>;
+  /**
+   * @deprecated will be removed in 2.0.0 Use this props to pass attrs for suffix UiIcon.
+   */
+  iconSuffixAttrs?: IconAttrsProps,
+  /**
+   * @deprecated will be removed in 2.0.0 Use this props to pass attrs for label element.
+   */
+  labelSuffixAttrs?: DefineAttrsProps<null>;
 }
 export type ListItemSuffixAttrsProps = DefineAttrsProps<ListItemSuffixProps>;
 
@@ -86,13 +94,17 @@ const props = withDefaults(defineProps<ListItemSuffixProps>(), {
   icon: '',
   iconAttrs: () => ({}),
   labelAttrs: () => ({}),
+  // @deprecated will be removed in 2.0.0 / BEGIN
+  iconSuffixAttrs: () => ({}),
+  labelSuffixAttrs: () => ({}),
+  // END
 });
 const attrs:ListItemSuffixAttrsProps = useAttrs();
 // TODO: will be removed in 2.0.0 / BEGIN
-if (attrs?.iconSuffixAttrs) {
+if (Object.keys(props.iconSuffixAttrs).length > 0) {
   console.warn('[@infermedica/component-library]: The `iconSuffixAttrs` props is deprecated and it will be removed in v2.0.0. Please use `iconAttrs` instead.');
 }
-if (attrs?.labelSuffixAttrs) {
+if (Object.keys(props.labelSuffixAttrs).length > 0) {
   console.warn('[@infermedica/component-library]: The `labelSuffixAttrs` props is deprecated and it will be removed in v2.0.0. Please use `labelAttrs` instead.');
 }
 // END
@@ -116,7 +128,8 @@ const defaultProps = computed(() => ({
       props.iconAttrs?.class,
     ],
     ...props.iconAttrs,
-    ...attrs.iconSuffixAttrs,
+    // @TODO: will be removed in 2.0.0
+    ...props.iconSuffixAttrs,
   },
 }));
 const hasIcon = computed(() => (defaultProps.value?.iconAttrs?.icon));
