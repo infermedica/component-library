@@ -22,7 +22,7 @@ export function getArgTypes(component, options = { variables: {}}) {
   const getControl = (type) => {
     const { name } = type
 
-    if ( name.match(/^(HTMLTag|string)$/gm) ) {
+    if ( name.match(/^(HTML.*Tag|string)$/gm) ) {
       return 'text'
     }
     if ( name.match(/^(union)$/gm) ) {
