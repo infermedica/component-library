@@ -59,7 +59,10 @@ const handleMenuItemFocus = () => { isFocused.value = true; };
 const handleMenuItemBlur = () => { isFocused.value = false; };
 const defaultProps = computed(() => ({
   listItemAttrs: {
-    class: 'ui-menu-item',
+    class: [
+      'ui-menu-item',
+      { 'ui-menu-item--is-selected': isSelected.value },
+    ],
     ...() => (attrs.listItemAttrs
       ? attrs.listItemAttrs
       : {}),
@@ -72,10 +75,7 @@ const defaultProps = computed(() => ({
 const menuItemClass = computed(() => ([
   'ui-menu-item__content',
   'ui-button--outlined',
-  {
-    'ui-button--is-selected': isSelected.value,
-    'ui-menu-item--is-selected': isSelected.value,
-  },
+  { 'ui-button--is-selected': isSelected.value },
 ]));
 
 const menuItemTemplateRefs = ref(null);
@@ -110,6 +110,9 @@ defineExpose({
 
   &--is-selected {
     --text-color: var(--color-text-on-selection);
+    --list-item-suffix-icon-color: var(--color-icon-on-selection);
+    --list-item-suffix-hover-icon-color: var(--color-icon-on-selection);
+    --list-item-suffix-active-icon-color: var(--color-icon-on-selection);
   }
 }
 </style>
