@@ -1,33 +1,25 @@
 <template>
   <UiList
     class="ui-menu"
-    @keydown="handleMenuKeydown"
+    @keydown="handleMenuKeyDown"
+    @focus.capture="handleMenuFocus"
+    @blur.capture="handleMenuBlur"
   >
     <!-- @slot Use this slot to place menu items. -->
     <slot>
       <template
-        v-for="(item, key) in itemsToRender"
-        :key="key"
+        v-for="(item, index) in itemsToRender"
+        :key="index"
       >
         <UiMenuItem
-          ref=""
-          v-bind="menuItemAttrs(item)"
+          ref="menuItemsTemplateRefs"
+          v-bind="item"
         >
-          <template
-            v-for="(_, name) in $slots"
-            #[name]="data"
-          >
-            <slot
-              v-bind="data"
-              :name="name"
-            />
-          </template>
-          <!-- @slot Use this slot to place menu item content. -->
           <slot
             v-bind="item"
             :name="item.name"
           >
-            {{ item.label }}
+            <UiMenuItemContent :item="item" />
           </slot>
         </UiMenuItem>
       </template>
@@ -39,17 +31,16 @@
 import {
   ref,
   computed,
+  onMounted,
   provide,
   nextTick,
   watch,
-  type Ref,
 } from 'vue';
+import useArrowNavigation from './useArrowNavigation';
 import { focusElement } from '../../../utilities/helpers';
-import useMenuItems from './useMenuItems';
-import UiList from '../UiList/UiList.vue';
-import type { ListAttrsProps } from '../UiList/UiList.vue';
-import UiMenuItem from './_internal/UiMenuItem.vue';
-import type { MenuItemAttrsProps } from './_internal/UiMenuItem.vue';
+import UiList, { type ListAttrsProps } from '../UiList/UiList.vue';
+import UiMenuItem, { type MenuItemAttrsProps } from './_internal/UiMenuItem.vue';
+import UiMenuItemContent from './_internal/UiMenuItemContent.vue';
 import type { DefineAttrsProps } from '../../../types';
 
 export interface MenuRenderItem extends MenuItemAttrsProps {
@@ -62,125 +53,122 @@ export interface MenuProps {
    */
   items?: (string | MenuRenderItem)[];
   /**
-   * Use this props to allow using arrows to navigation.
+   * Use this props to allow using arrows instead tabs for navigation UiMenuItems.
    */
   enableKeyboardNavigation?: boolean;
+  /**
+   * Use this props to pass refs to UiMenuItems.
+   */
+  itemsTemplateRefs?: any;
 }
 export type MenuAttrsProps = DefineAttrsProps<MenuProps, ListAttrsProps>;
-export interface MenuItem {
-  $el: HTMLLIElement,
-  tabindex: Ref<number | null>
-}
 
 const props = withDefaults(defineProps<MenuProps>(), {
   items: () => ([]),
   enableKeyboardNavigation: false,
+  itemsTemplateRefs: () => ([]),
 });
-const menuItemAttrs = ({
-  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-  name, label, ...itemAttrs
-}: MenuRenderItem) => itemAttrs;
-const itemsToRender = computed<MenuRenderItem[]>(() => (props.items.map((item, key) => {
+provide('enableKeyboardNavigation', props.enableKeyboardNavigation);
+
+const itemsToRender = computed<MenuRenderItem[]>(() => (props.items.map((item, index) => {
   if (typeof item === 'string') {
     return {
-      name: `menu-item-${key}`,
+      name: `menu-item-${index}`,
       label: item,
     };
   }
   return {
-    name: `menu-item-${key}`,
+    name: `menu-item-${index}`,
     ...item,
   };
 })));
-const menuItems = ref<MenuItem[] | []>([]);
-provide('menuItems', menuItems);
-const mItems = computed(() => (menuItems.value));
+const disabledKeyboardNavigation = computed(() => (!props.enableKeyboardNavigation));
+const menuItemsTemplateRefs = ref(props.itemsTemplateRefs);
+if (props.enableKeyboardNavigation && menuItemsTemplateRefs.value.length < 1) {
+  console.warn('@infermedica/component-library: use itemsTemplateRefs to pass UiMenuItems template refs.');
+}
 const {
-  firstMenuItem,
-  lastMenuItem,
-  nextMenuItem,
-  prevMenuItem,
-  selectedMenuItem,
-  focusedMenuItem,
-} = useMenuItems(mItems);
-const handleMenuKeydown = async ({ key }: KeyboardEvent) => {
-  if (!props.enableKeyboardNavigation) return;
+  focusedElement,
+  firstElement,
+  initialElement,
+  lastElement,
+  selectedElement,
+  nextElement,
+  prevElement,
+} = useArrowNavigation(menuItemsTemplateRefs);
+watch(() => props.enableKeyboardNavigation, async (isEnableKeyboardNavigation) => {
+  await nextTick();
+  if (isEnableKeyboardNavigation) {
+    menuItemsTemplateRefs.value.forEach((menuItem) => {
+      if (menuItem === initialElement.value) {
+        return;
+      }
+      menuItem.tabindex = -1;
+    });
+  } else {
+    menuItemsTemplateRefs.value.forEach((menuItem) => {
+      if (menuItem === initialElement.value) {
+        return;
+      }
+      menuItem.tabindex = 0;
+    });
+  }
+}, { immediate: true });
+const lastFocusedMenuItemTemplateRefs = ref(null);
+const handleMenuKeyDown = async ({ key }: KeyboardEvent) => {
+  if (disabledKeyboardNavigation.value) {
+    return;
+  }
+  const activeElement = focusedElement.value;
   switch (key) {
     case 'ArrowUp':
-      if (prevMenuItem.value && focusedMenuItem.value) {
-        focusedMenuItem.value.tabindex = -1;
-        prevMenuItem.value.tabindex = 0;
-        focusElement(prevMenuItem.value.$el.querySelector('.ui-button'));
+      if (prevElement.value) {
+        await focusElement(prevElement.value.menuItemTemplateRefs.content.$el, true);
       }
       break;
     case 'ArrowDown':
-      if (nextMenuItem.value && focusedMenuItem.value) {
-        focusedMenuItem.value.tabindex = -1;
-        nextMenuItem.value.tabindex = 0;
-        focusElement(nextMenuItem.value.$el.querySelector('.ui-button'));
+      if (nextElement.value) {
+        await focusElement(nextElement.value.menuItemTemplateRefs.content.$el, true);
       }
       break;
     case 'Home':
     case 'PageUp':
-      if (firstMenuItem.value && focusedMenuItem.value) {
-        focusedMenuItem.value.tabindex = -1;
-        firstMenuItem.value.tabindex = 0;
-        focusElement(firstMenuItem.value.$el.querySelector('.ui-button'));
+      if (firstElement.value) {
+        await focusElement(firstElement.value.menuItemTemplateRefs.content.$el, true);
       }
       break;
     case 'End':
     case 'PageDown':
-      if (lastMenuItem.value && focusedMenuItem.value) {
-        focusedMenuItem.value.tabindex = -1;
-        lastMenuItem.value.tabindex = 0;
-        focusElement(lastMenuItem.value.$el.querySelector('.ui-button'));
+      if (lastElement.value) {
+        await focusElement(lastElement.value.menuItemTemplateRefs.content.$el, true);
       }
       break;
     case 'Tab':
-      const lastFocusedElement = ref(focusedMenuItem.value);
-      setTimeout(() => {
-        if(!lastFocusedElement.value) return;
-        lastFocusedElement.value.tabindex = -1;
-        if (selectedMenuItem.value) {
-          selectedMenuItem.value.tabindex = 0;
-          return;
-        }
-        if (firstMenuItem.value) {
-          firstMenuItem.value.tabindex = 0;
-        }
+      if (initialElement.value === activeElement) {
+        return;
+      }
+      activeElement.tabindex = 0;
+      // We need to use setTimeout() because nextTick() does not bring the desired effect.
+      window.setTimeout(() => {
+        activeElement.tabindex = -1;
       }, 0);
       break;
-    default: break;
+    default:
+      break;
   }
 };
+const handleMenuFocus = () => {};
+const handleMenuBlur = () => {
+  lastFocusedMenuItemTemplateRefs.value = focusedElement;
+};
+
 defineExpose({
-  menuItems,
-  firstMenuItem,
-  selectedMenuItem,
-});
-export interface MenuEmits {
-  (e: 'itemsLoaded'): void;
-}
-const emit = defineEmits<MenuEmits>();
-const hasMenuItems = computed(() => (
-  menuItems.value.length > 0
-));
-const setItemsNotReachable = () => {
-  [ ...menuItems.value ].forEach((item) => {
-    item.tabindex = item.$el.querySelector('.ui-button') ? -1 : 0;
-  });
-  if (selectedMenuItem.value) {
-    selectedMenuItem.value.tabindex = 0;
-  } else if(firstMenuItem.value) {
-    firstMenuItem.value.tabindex = 0;
-  }
-  emit('itemsLoaded');
-};
-watch(hasMenuItems, async (hasItems) => {
-  if (hasItems) {
-    await nextTick();
-    setItemsNotReachable();
-  }
+  menuItemsTemplateRefs,
+  initialMenuItemTemplateRefs: initialElement,
+  firstMenuItemTemplateRefs: firstElement,
+  lastMenuItemTemplateRefs: lastElement,
+  selectedMenuItemTemplateRefs: selectedElement,
+  lastFocusedMenuItemTemplateRefs,
 });
 </script>
 
@@ -189,12 +177,12 @@ watch(hasMenuItems, async (hasItems) => {
 @use "../../../styles/mixins";
 
 .ui-menu {
+  $this: &;
+
   &--compact {
-    .ui-menu-item {
-      &__button {
-        @include mixins.override-logical(list-item-content, "menu-item-button", padding, var(--space-4) var(--space-8));
-        @include mixins.override-logical(list-item-tablet-content, "menu-item-button", padding, var(--space-4) var(--space-8));
-        @include mixins.override-logical(button, "menu-item-button", padding, var(--space-4) var(--space-8));
+    #{$this}-item {
+      &__content {
+        @include mixins.override-logical(button, "menu-item-content", padding, var(--space-4) var(--space-8));
       }
     }
   }

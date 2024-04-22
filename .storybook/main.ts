@@ -25,7 +25,7 @@ const config: StorybookConfig = {
             plugins: ['removeDimensions', 'removeUselessStrokeAndFill', 'convertStyleToAttrs']
           }
         }),
-        VueDevTools(),
+        // VueDevTools(),
       ],
       optimizeDeps: {
         include: ['react-syntax-highlighter', 'react-syntax-highlighter/dist/esm/languages/prism/scss', '@storybook/theming']

@@ -1,38 +1,29 @@
 <template>
+  <!-- :has-suffix, :icon  -->
   <UiListItem
-    ref="menuItem"
-    :list-item-attrs="defaultProps.listItemAttrs"
+    ref="menuItemTemplateRefs"
+    v-bind="filteredAttrs"
     :tag="UiButton"
+    :has-suffix="hasSuffix"
+    :class="menuItemClass"
     :tabindex="tabindex"
-    :class="[
-      'ui-button--outlined ui-menu-item__button', buttonClass,
-    ]"
+    :list-item-attrs="defaultProps.listItemAttrs"
+    :suffix-attrs="defaultProps.suffixAttrs"
+    @blur="handleMenuItemBlur"
+    @focus="handleMenuItemFocus"
   >
-    <!-- @slot Use this slot to replace label template. -->
-    <slot name="label">
-      <!-- @slot Use this slot to replace label template. -->
-      <span class="ui-menu-item__label">
-        <!-- @slot Use this slot to place label content inside menu-item. -->
-        <slot />
-      </span>
-    </slot>
-
-    <template #suffix>
-      <!-- @slot Use this slot to replace suffix template -->
+    <!-- Allow to use UiListItemSlots / BEGIN -->
+    <template
+      v-for="(_, name) in $slots"
+      #[name]="data"
+    >
       <slot
-        name="suffix"
-        v-bind="{
-          hasSuffix,
-          suffixAttrs: defaultProps.suffixAttrs,
-        }"
-      >
-        <UiMenuItemSuffix
-          v-if="hasSuffix"
-          v-bind="defaultProps.suffixAttrs"
-          class="ui-menu-item__suffix"
-        />
-      </slot>
+        v-bind="data"
+        :name="name"
+      />
     </template>
+    <!-- END -->
+    <slot />
   </UiListItem>
 </template>
 
@@ -40,58 +31,59 @@
 import {
   ref,
   computed,
-  onMounted,
-  nextTick,
-  inject,
-  type Ref,
+  useAttrs,
 } from 'vue';
+import UiListItem, { type ListItemAttrsProps } from '../../UiList/_internal/UiListItem.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
-import UiListItem from '../../UiList/_internal/UiListItem.vue';
-import type { ListItemAttrsProps } from '../../UiList/_internal/UiListItem.vue';
-import UiMenuItemSuffix from './UiMenuItemSuffix.vue';
-import { useAttributes } from '../../../../composable';
 import type { DefineAttrsProps } from '../../../../types';
-import type { MenuItemProps } from './MenuItemProps';
-import type { MenuItem } from '../UiMenu.vue';
 
-export type MenuItemAttrsProps = DefineAttrsProps<MenuItemProps, ListItemAttrsProps>;
-export type ListItemInstance = InstanceType<typeof UiListItem>
+export type MenuItemAttrsProps = DefineAttrsProps<ListItemAttrsProps>;
 
-const props = withDefaults(defineProps<MenuItemProps>(), {
-  icon: 'present',
-  suffixVisible: 'default',
-  suffixAttrs: () => ({ class: 'ui-button--text ui-menu-item__suffix' }),
-  listItemAttrs: () => ({ class: 'ui-menu-item' }),
+defineOptions({ inheritAttrs: false });
+
+const attrs = useAttrs();
+const filteredAttrs = computed(() => {
+  const {
+    name, label, ...rest
+  } = attrs;
+  return rest;
 });
-const { attrs } = useAttributes();
-const isSelected = computed(() => (attrs.value.class && attrs.value.class.includes('ui-menu-item--is-selected')));
-const hasSuffix = computed(() => !!(props.suffixVisible === 'always' || (props.suffixVisible === 'default' && isSelected.value)));
-const buttonClass = computed(() => ({ 'ui-button--is-selected': isSelected.value }));
+
+const isSelected = computed(() => (('class' in filteredAttrs.value)
+  ? filteredAttrs.value.class.includes('ui-menu-item--is-selected')
+  : false));
+const hasSuffix = computed(() => (isSelected.value || filteredAttrs.value.hasSuffix));
+const isFocused = ref(false);
+const tabindex = ref(0);
+const handleMenuItemFocus = () => { isFocused.value = true; };
+const handleMenuItemBlur = () => { isFocused.value = false; };
 const defaultProps = computed(() => ({
-  suffixAttrs: {
-    icon: props.icon,
-    class: 'ui-button--text ui-menu-item__suffix',
-    ...props.suffixAttrs,
-  },
   listItemAttrs: {
     class: 'ui-menu-item',
-    ...props.listItemAttrs,
+    ...() => (attrs.listItemAttrs
+      ? attrs.listItemAttrs
+      : {}),
+  },
+  suffixAttrs: {
+    icon: filteredAttrs.value.icon || 'present',
+    ...filteredAttrs.value.suffixAttrs,
   },
 }));
-const tabindex = ref(null);
-defineExpose({ tabindex });
-const menuItem = ref<ListItemInstance | null>(null);
-const menuItems = inject<Ref<MenuItem[]>>('menuItems', ref([]));
-onMounted(async () => {
-  await nextTick();
-  if (!menuItem.value) return;
-  menuItems.value = [
-    ...menuItems.value,
-    {
-      $el: menuItem.value.$el,
-      tabindex,
-    },
-  ];
+const menuItemClass = computed(() => ([
+  'ui-menu-item__content',
+  'ui-button--outlined',
+  {
+    'ui-button--is-selected': isSelected.value,
+    'ui-menu-item--is-selected': isSelected.value,
+  },
+]));
+
+const menuItemTemplateRefs = ref(null);
+defineExpose({
+  menuItemTemplateRefs,
+  isSelected,
+  isFocused,
+  tabindex,
 });
 </script>
 
@@ -103,36 +95,21 @@ onMounted(async () => {
   $this: &;
   $element: menu-item;
 
-  @include mixins.use-logical($element, padding, var(--space-4) var(--space-8));
   @include mixins.override-logical(list-item, null, border-width, 0);
+  @include mixins.use-logical($element, padding, var(--space-4) var(--space-8));
 
-  &__button {
-    @include mixins.override-logical(list-item-content, $element + "-button", padding, var(--space-8));
-    @include mixins.override-logical(list-item-tablet-content, $element + "-button", padding, var(--space-8));
-    @include mixins.override-logical(button, $element + "-button", padding, var(--space-8));
-    @include mixins.override-logical(button, $element + "-button", border-width, 0);
-    @include mixins.override-logical(button, $element + "-button", border-radius, var(--border-radius-form));
+  justify-content: flex-start;
 
-    --button-font: #{functions.var($element + "-button", font, var(--font-body-1))};
-    --button-letter-spacing: #{functions.var($element + "-button", letter-spacing, var(--letter-spacing-body-1))};
+  &__content {
+    @include mixins.override-logical(button, $element + "-content", border-radius, var(--border-radius-form));
+    @include mixins.override-logical(button, $element + "-content", padding, var(--space-8));
+    @include mixins.override-logical(button, null, border-width, 0);
 
     justify-content: space-between;
   }
 
-  &__label {
-    flex: 1;
-    color: functions.var($element + "-label", color, var(--color-text-body));
-    text-align: start;
-  }
-
-  &__suffix {
-    @include mixins.use-logical($element + "-suffix", margin, 0 0 0 var(--space-12));
-  }
-
   &--is-selected {
-    #{$this}__label {
-      color: functions.var($element + "-label", color, unset);;
-    }
+    --text-color: var(--color-text-on-selection);
   }
 }
 </style>
