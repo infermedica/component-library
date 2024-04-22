@@ -110,12 +110,55 @@ const hasIcon = computed(() => (defaultProps.value?.iconAttrs?.icon));
 
 <style lang="scss">
 @use "../../../../styles/functions";
+@use "../../../../styles/mixins";
 
 .ui-list-item-prefix {
+  $this: &;
   $element: list-item-prefix;
+
+  --icon-color: var(--color-icon-primary);
+  --text-color: var(--color-text-action-primary);
 
   display: flex;
   align-items: center;
   gap: functions.var($element, gap, var(--space-4));
+
+  @at-root .ui-list-item {
+     @include mixins.hover {
+       #{$this}:not(.ui-button) {
+         --icon-color: var(--color-icon-primary-hover);
+         --text-color: var(--color-text-action-primary-hover);
+       }
+     }
+     &:active {
+       #{$this}:not(.ui-button) {
+         --icon-color: var(--color-icon-primary-active);
+         --text-color: var(--color-text-action-primary-active);
+       }
+     }
+   }
+
+  @at-root [class*="-secondary"] {
+    #{$this},
+    &#{$this} {
+      --icon-color: var(--color-icon-secondary);
+      --text-color: var(--color-text-action-secondary);
+
+      @at-root .ui-list-item {
+        @include mixins.hover {
+          #{$this}:not(.ui-button) {
+            --icon-color: var(--color-icon-secondary-hover);
+            --text-color: var(--color-text-action-secondary-hover);
+          }
+        }
+        &:active {
+          #{$this}:not(.ui-button) {
+            --icon-color: var(--color-icon-secondary-active);
+            --text-color: var(--color-text-action-secondary-active);
+          }
+        }
+      }
+    }
+  }
 }
 </style>

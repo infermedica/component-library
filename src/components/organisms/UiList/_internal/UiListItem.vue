@@ -188,15 +188,7 @@ defineExpose({ content });
     }
   }
 
-  &__prefix:not(.ui-button) {
-    --icon-color: var(--color-icon-primary);
-    --text-color: var(--color-text-action-primary);
-  }
-
   &__suffix {
-    --icon-color: var(--color-icon-primary);
-    --text-color: var(--color-text-action-primary);
-
     margin-inline-start: auto;
   }
 
@@ -205,22 +197,6 @@ defineExpose({ content });
 
     @include mixins.hover {
       background: functions.var($element + "-hover", background, var(--color-background-error));
-    }
-  }
-
-  @include mixins.hover {
-    & #{$this}__prefix:not(.ui-button),
-    & #{$this}__suffix:not(.ui-button){
-      --icon-color: var(--color-icon-primary-hover);
-      --text-color: var(--color-text-action-primary-hover);
-    }
-  }
-
-  &:active {
-    & #{$this}__prefix:not(.ui-button),
-    & #{$this}__suffix:not(.ui-button) {
-      --icon-color: var(--color-icon-primary-active);
-      --text-color: var(--color-text-action-active);
     }
   }
 }
