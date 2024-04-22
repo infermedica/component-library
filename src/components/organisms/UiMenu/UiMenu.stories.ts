@@ -94,7 +94,7 @@ HasSuffix.args = {
       hasSuffix: true,
       suffixAttrs: {
         icon: 'chevron-right',
-        class: 'ui-list-item-suffix--theme-secondary',
+        class: 'ui-menu-item-suffix--theme-secondary',
       },
     })),
   ],
