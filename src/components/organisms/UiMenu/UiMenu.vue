@@ -31,7 +31,6 @@
 import {
   ref,
   computed,
-  onMounted,
   provide,
   nextTick,
   watch,
@@ -65,7 +64,7 @@ export type MenuAttrsProps = DefineAttrsProps<MenuProps, ListAttrsProps>;
 
 const props = withDefaults(defineProps<MenuProps>(), {
   items: () => ([]),
-  enableKeyboardNavigation: false,
+  enableKeyboardNavigation: true,
   itemsTemplateRefs: () => ([]),
 });
 provide('enableKeyboardNavigation', props.enableKeyboardNavigation);
@@ -157,7 +156,35 @@ const handleMenuKeyDown = async ({ key }: KeyboardEvent) => {
       break;
   }
 };
-const handleMenuFocus = () => {};
+const isFocused = ref(false);
+const handleDisableArrows = (event) => {
+  const { key } = event;
+  switch (key) {
+    case 'ArrowUp':
+    case 'ArrowDown':
+    case 'Home':
+    case 'PageUp':
+    case 'End':
+    case 'PageDown':
+      event.preventDefault();
+    default:
+      break;
+  }
+};
+watch(isFocused, (value) => {
+  if (disabledKeyboardNavigation.value) {
+    return;
+  }
+  if (value) {
+    window.addEventListener('keydown', handleDisableArrows);
+  } else {
+    window.removeEventListener('keydown', handleDisableArrows);
+  }
+});
+const handleMenuFocus = () => {
+  isFocused.value = true;
+};
+// TODO: detect leave UiMenu to set isFocused to false
 const handleMenuBlur = () => {
   lastFocusedMenuItemTemplateRefs.value = focusedElement;
 };

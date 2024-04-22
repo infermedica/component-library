@@ -105,7 +105,7 @@ defineExpose({
     @include mixins.override-logical(button, $element + "-content", padding, var(--space-8));
     @include mixins.override-logical(button, null, border-width, 0);
 
-    justify-content: space-between;
+    justify-content: flex-start;
   }
 
   &--is-selected {
