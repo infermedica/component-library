@@ -216,7 +216,6 @@ const handleErrorEmit = (error: string | null) => {
 
   &__messages {
     display: flex;
-    align-items: center;
     justify-content: space-between;
     gap: var(--space-8);
   }

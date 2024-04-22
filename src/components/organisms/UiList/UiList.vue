@@ -3,15 +3,16 @@
     :is="tag"
     class="ui-list"
   >
-    <!-- @slot Use this slot to place list items -->
+    <!-- @slot Use this slot to place list items. -->
     <slot>
       <template
         v-for="(item, key) in itemsToRender"
         :key="key"
       >
         <UiListItem
-          v-bind="listItemAttrs(item)"
+          v-bind="item"
         >
+          <!-- Allow to use UiListItemSlots / BEGIN -->
           <template
             v-for="(_, name) in $slots"
             #[name]="data"
@@ -21,22 +22,14 @@
               :name="name"
             />
           </template>
+          <!-- END -->
           <!-- @slot Use this slot to replace list item content -->
           <slot
-            :name="item.name"
-            v-bind="{ item }"
+            :name="item?.name"
+            v-bind="item"
           >
-            <UiText
-              v-if="item.label"
-            >
-              {{ item.label }}
-            </UiText>
+            <UiListItemContent :item="item" />
           </slot>
-          <template v-if="item.children?.items">
-            <ui-list
-              v-bind="item.children"
-            />
-          </template>
         </UiListItem>
       </template>
     </slot>
@@ -48,9 +41,8 @@ import {
   computed,
   type HTMLAttributes,
 } from 'vue';
-import UiListItem from './_internal/UiListItem.vue';
-import type { ListItemAttrsProps } from './_internal/UiListItem.vue';
-import UiText from '../../atoms/UiText/UiText.vue';
+import UiListItem, { type ListItemAttrsProps } from './_internal/UiListItem.vue';
+import UiListItemContent from './_internal/UiListItemContent.vue';
 import type {
   DefineAttrsProps,
   HTMLListTag,
@@ -59,8 +51,7 @@ import type {
 export interface ListRenderItem extends ListItemAttrsProps {
   name: string;
   label?: string;
-  // eslint-disable-next-line no-use-before-define
-  children?: ListAttrsProps;
+  children?: ListItemAttrsProps;
 }
 export type ListItem = string | ListRenderItem;
 export interface ListProps {
@@ -79,21 +70,19 @@ const props = withDefaults(defineProps<ListProps>(), {
   tag: 'ul',
   items: () => ([]),
 });
-const itemsToRender = computed<ListRenderItem[]>(() => (props.items.map((item, key) => {
-  if (typeof item === 'string') {
+const itemsToRender = computed(() => (props.items
+  .map((item, index) => {
+    if (typeof item === 'string') {
+      return {
+        name: `list-item-${index}`,
+        label: item,
+      };
+    }
     return {
-      name: `list-item-${key}`,
-      label: item,
+      ...item,
+      name: item.name || `list-item-${index}`,
     };
-  }
-  return {
-    ...item,
-    name: item.name || `list-item-${key}`,
-  };
-})));
-const listItemAttrs = ({
-  name, label, children, ...rest
-}: ListRenderItem) => rest;
+  })));
 </script>
 
 <style lang="scss">

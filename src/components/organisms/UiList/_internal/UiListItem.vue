@@ -1,13 +1,13 @@
 <template>
   <li
-    class="ui-list-item"
     v-bind="listItemAttrs"
+    class="ui-list-item"
   >
-    <!-- @slot Use this slot to replace list item content template. -->
     <slot
       name="content"
       v-bind="{
         tag,
+        filteredAttrs,
         hasSuffix,
         suffixComponent,
         suffixAttrs: defaultProps.suffixAttrs,
@@ -15,8 +15,8 @@
     >
       <component
         :is="tag"
+        v-bind="filteredAttrs"
         ref="content"
-        v-bind="$attrs"
         class="ui-list-item__content"
       >
         <!-- @slot Use this slot to place content inside list-item. -->
@@ -42,25 +42,21 @@
   </li>
 </template>
 
-<script lang="ts">
-export default { inheritAttrs: false };
-</script>
-
 <script setup lang="ts">
 import {
-  computed,
   ref,
+  computed,
+  useAttrs,
+  defineAsyncComponent,
   type LiHTMLAttributes,
 } from 'vue';
-import type { Icon } from '../../../../types/icon';
-import UiListItemSuffixAsButton from './UiListItemSuffixAsButton.vue';
-import type { ListItemSuffixAsButtonAttrsProps } from './UiListItemSuffixAsButton.vue';
-import UiListItemSuffixAsText from './UiListItemSuffixAsText.vue';
-import type { ListItemSuffixAsTextAttrsProps } from './UiListItemSuffixAsText.vue';
 import type {
   DefineAttrsProps,
   HTMLTag,
 } from '../../../../types';
+import type { Icon } from '../../../../types/icon';
+import type { ListItemSuffixAsTextAttrsProps } from './UiListItemSuffixAsText.vue';
+import type { ListItemSuffixAsButtonAttrsProps } from './UiListItemSuffixAsButton.vue';
 
 export interface ListItemProps {
   /**
@@ -78,13 +74,15 @@ export interface ListItemProps {
   /**
    * Use this props to pass attrs for UIListItemSuffix
    */
-  suffixAttrs?: ListItemSuffixAsButtonAttrsProps | ListItemSuffixAsTextAttrsProps;
+  suffixAttrs?: ListItemSuffixAsTextAttrsProps | ListItemSuffixAsButtonAttrsProps;
   /**
    * Use this props to pass attrs for list item element
    */
   listItemAttrs?: DefineAttrsProps<null, LiHTMLAttributes>;
 }
 export type ListItemAttrsProps = DefineAttrsProps<ListItemProps>;
+
+defineOptions({ inheritAttrs: false });
 
 const props = withDefaults(defineProps<ListItemProps>(), {
   tag: 'div',
@@ -93,20 +91,26 @@ const props = withDefaults(defineProps<ListItemProps>(), {
   suffixAttrs: () => ({}),
   listItemAttrs: () => ({}),
 });
-const hasButtonSuffix = computed(() => !!Object.keys(props.suffixAttrs).filter(
-  (key) => key.match(/(^on*|to|href)/),
-).length);
-const suffixComponent = computed(() => (hasButtonSuffix.value
-  ? UiListItemSuffixAsButton
-  : UiListItemSuffixAsText));
 const defaultProps = computed<ListItemProps>(() => ({
-  suffixAttrs: hasButtonSuffix.value
-    ? {
-      icon: props.icon,
-      ...props.suffixAttrs,
-    }
-    : props.suffixAttrs,
+  ...props,
+  suffixAttrs: {
+    icon: props.icon,
+    ...props.suffixAttrs,
+  },
 }));
+
+const attrs = useAttrs();
+const filteredAttrs = computed(() => {
+  const {
+    name, label, children, ...rest
+  } = attrs;
+  return rest;
+});
+
+const suffixComponent = computed(() => (props.hasSuffix
+  ? defineAsyncComponent(() => import('./UiListItemSuffix.vue'))
+  : null));
+
 const content = ref<HTMLTag | null>(null);
 defineExpose({ content });
 </script>
