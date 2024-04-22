@@ -60,7 +60,10 @@ const meta = {
     ...metaArgTypes,
     items: { control: 'object' },
   },
-  excludeStories: [ 'HasChildren' ], // TODO: Design for HasChildren
+  excludeStories: [
+    'LargeList',
+    'HasChildren',
+  ], // TODO: Design for HasChildren
   parameters: { chromatic: { disableSnapshot: false } },
 } satisfies ListMetaType;
 export default meta;
@@ -97,12 +100,15 @@ HasError.args = {
     class: 'ui-list-item--has-error',
   })),
 };
-export const HasTextSuffix: ListStoryType = { ...Basic };
-HasTextSuffix.args = {
+export const HasSuffix: ListStoryType = { ...Basic };
+HasSuffix.args = {
   items: items.map((item) => ({
     ...item,
     hasSuffix: true,
-    suffixAttrs: { label: 'more info' },
+    suffixAttrs: {
+      icon: 'arrow-right',
+      label: 'more info',
+    },
   })),
 };
 const events = actions({ onClick: 'click' });
@@ -117,6 +123,15 @@ HasButtonSuffix.args = {
       ...events,
       iconAttrs: { class: 'ui-button__icon' },
     },
+  })),
+};
+export const HasPrefix: ListStoryType = { ...Basic };
+HasPrefix.args = {
+  items: items.map((item) => ({
+    ...item,
+    hasSuffix: true,
+    hasPrefix: true,
+    prefixAttrs: { icon: 'calendar' },
   })),
 };
 export const Condition: ListStoryType = {
@@ -172,9 +187,9 @@ Condition.args = {
       'condition__content',
     ],
     hasSuffix: true,
-    icon: 'chevron-right',
     ...events,
     suffixAttrs: {
+      icon: 'chevron-right',
       label: 'Show details',
       class: [ 'condition__suffix' ],
     },
@@ -228,9 +243,9 @@ ConditionWithButton.args = {
   ].map((item) => ({
     ...item,
     hasSuffix: true,
-    icon: 'chevron-right',
     class: [ 'condition-with-button__item' ],
     suffixAttrs: {
+      icon: 'chevron-right',
       label: 'Learn more',
       ...events,
       class: [ 'ui-button--small condition-with-button__suffix' ],
@@ -285,9 +300,9 @@ ConditionWithPrimaryButton.args = {
   ].map((item) => ({
     ...item,
     hasSuffix: true,
-    icon: 'chevron-right',
     class: [ 'condition-with-button__item' ],
     suffixAttrs: {
+      icon: 'chevron-right',
       label: 'Learn more',
       ...events,
       class: [ 'ui-button--small condition-with-button__suffix' ],
@@ -339,10 +354,14 @@ IconInHeading.args = {
       'ui-button--outlined',
       'icon-in-heading__content',
     ],
+    hasPrefix: true,
+    prefixAttrs: {
+      icon: 'calendar',
+      class: [ 'icon-in-heading__prefix' ],
+    },
     hasSuffix: true,
-    icon: 'arrow-right',
     ...events,
-    suffixAttrs: { class: [ 'icon-in-heading__suffix' ] },
+    suffixAttrs: { icon: 'arrow-right' },
   })),
 };
 export const AnswerWithCheckbox:ListStoryType = {
@@ -370,7 +389,6 @@ AnswerWithCheckbox.args = {
       'ui-list-item--has-error': index === 1,
     } ],
     hasSuffix: index === 1 && true,
-    icon: 'info',
     value: item,
     modelValue: index === 1 && [ item ],
     textLabelAttrs: {
@@ -378,6 +396,7 @@ AnswerWithCheckbox.args = {
       class: 'answer-with-checkbox__label',
     },
     suffixAttrs: {
+      icon: 'info',
       label: 'Show more',
       class: [ 'icon-in-heading__suffix' ],
       ...events,
@@ -395,7 +414,6 @@ AnswerWithRadio.args = {
       'ui-list-item--has-error': index === 1,
     } ],
     hasSuffix: index === 1 && true,
-    icon: 'info',
     inputAttrs: { name: 'answer-with-radio' },
     value: item,
     modelValue: items[1],
@@ -404,6 +422,7 @@ AnswerWithRadio.args = {
       class: 'answer-with-checkbox__label',
     },
     suffixAttrs: {
+      icon: 'info',
       label: 'Show more',
       class: [ 'icon-in-heading__suffix' ],
       ...events,

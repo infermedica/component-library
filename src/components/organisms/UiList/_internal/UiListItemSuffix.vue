@@ -60,7 +60,7 @@ export interface ListItemSuffixProps {
   /**
    * Use this props to set list item suffix tag.
    */
-  tag?: HTMLTag;
+  tag?: string | HTMLTag;
   /**
    * Use this props to set label.
    */
@@ -89,7 +89,7 @@ export interface ListItemSuffixProps {
 export type ListItemSuffixAttrsProps = DefineAttrsProps<ListItemSuffixProps>;
 
 const props = withDefaults(defineProps<ListItemSuffixProps>(), {
-  tag: 'div',
+  tag: '',
   label: '',
   icon: '',
   iconAttrs: () => ({}),
@@ -113,7 +113,7 @@ const isButton = computed(() => (!!Object.keys(attrs)
   .find((key) => key
     .match(/(^on*|to|href)/))));
 const listItemSuffixComponent = computed(() => {
-  if (props.tag !== 'div') {
+  if (props.tag !== '') {
     return props.tag;
   }
   return isButton.value
@@ -136,8 +136,13 @@ const hasIcon = computed(() => (defaultProps.value?.iconAttrs?.icon));
 </script>
 
 <style lang="scss">
+@use "../../../../styles/functions";
+
 .ui-list-item-suffix {
+  $element: list-item-suffix;
+
   display: flex;
   align-items: center;
+  gap: functions.var($element, gap, var(--space-4));
 }
 </style>
