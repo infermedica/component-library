@@ -116,45 +116,49 @@ const hasIcon = computed(() => (defaultProps.value?.iconAttrs?.icon));
   $this: &;
   $element: list-item-prefix;
 
-  --icon-color: var(--color-icon-primary);
-  --text-color: var(--color-text-action-primary);
-
   display: flex;
   align-items: center;
   gap: functions.var($element, gap, var(--space-4));
 
-  @at-root .ui-list-item {
-     @include mixins.hover {
-       #{$this}:not(.ui-button) {
-         --icon-color: var(--color-icon-primary-hover);
-         --text-color: var(--color-text-action-primary-hover);
-       }
-     }
-     &:active {
-       #{$this}:not(.ui-button) {
-         --icon-color: var(--color-icon-primary-active);
-         --text-color: var(--color-text-action-primary-active);
-       }
-     }
-   }
+  &:not(.ui-button) {
+    --icon-color: #{functions.var($element, icon-color, var(--color-icon-primary))};
+    --text-color: #{functions.var($element, text-color, var(--color-text-action-primary))};
+  }
+
+  @at-root .ui-list-item__content {
+    @include mixins.hover {
+      #{$this}:not(.ui-button) {
+        --icon-color: #{functions.var($element + '-hover', icon-color, var(--color-icon-primary-hover))};
+        --text-color: #{functions.var($element + '-hover', text-color, var(--color-text-action-primary-hover))};
+      }
+    }
+    &:active {
+      #{$this}:not(.ui-button) {
+        --icon-color: #{functions.var($element + '-active', icon-color, var(--color-icon-primary-active))};
+        --text-color: #{functions.var($element, '-active', var(--color-text-action-primary-active))};
+      }
+    }
+  }
 
   @at-root [class*="-secondary"] {
     #{$this},
     &#{$this} {
-      --icon-color: var(--color-icon-secondary);
-      --text-color: var(--color-text-action-secondary);
+      &:not(.ui-button) {
+        --icon-color: #{functions.var($element, icon-color, var(--color-icon-secondary))};
+        --text-color: #{functions.var($element, text-color, var(--color-text-action-secondary))};
+      }
 
-      @at-root .ui-list-item {
+      @at-root .ui-list-item__content {
         @include mixins.hover {
           #{$this}:not(.ui-button) {
-            --icon-color: var(--color-icon-secondary-hover);
-            --text-color: var(--color-text-action-secondary-hover);
+            --icon-color: #{functions.var($element + '-hover', icon-color, var(--color-icon-secondary-hover))};
+            --text-color: #{functions.var($element + '-hover', text-color, var(--color-text-action-secondary-hover))};
           }
         }
         &:active {
           #{$this}:not(.ui-button) {
-            --icon-color: var(--color-icon-secondary-active);
-            --text-color: var(--color-text-action-secondary-active);
+            --icon-color: #{functions.var($element + '-active', icon-color, var(--color-icon-secondary-active))};
+            --text-color: #{functions.var($element + '-active', text-color, var(--color-text-action-primary-active))};
           }
         }
       }
