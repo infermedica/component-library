@@ -30,12 +30,11 @@ import {
   ref,
   computed,
   provide,
-  reactive,
   watch,
   nextTick,
+  type ComponentInstance,
 } from 'vue';
-import { disabled } from '@sb/helpers/argTypes';
-import useArrowNavigation from './useArrowNavigation';
+import useArrowNavigation, { type ElementRef } from './useArrowNavigation';
 import { focusElement } from '../../../utilities/helpers';
 import UiList, { type ListAttrsProps } from '../UiList/UiList.vue';
 import UiMenuItem, { type MenuItemAttrsProps } from './_internal/UiMenuItem.vue';
@@ -81,7 +80,7 @@ const itemsToRender = computed<MenuRenderItem[]>(() => (props.items.map((item, i
   };
 })));
 const disabledKeyboardNavigation = computed(() => (!props.enableKeyboardNavigation));
-const menuItemsTemplateRefs = ref([]);
+const menuItemsTemplateRefs = ref<InstanceType<typeof UiMenuItem>[]>([]);
 watch(props.itemsTemplateRefs, () => {
   menuItemsTemplateRefs.value = props.itemsTemplateRefs;
 });
@@ -119,7 +118,7 @@ watch([
     });
   }
 }, { immediate: true });
-const lastFocusedMenuItemTemplateRefs = ref(null);
+const lastFocusedItemTemplateRefs = ref<ElementRef | null>(null);
 const handleMenuKeyDown = async ({ key }: KeyboardEvent) => {
   if (disabledKeyboardNavigation.value) {
     return;
@@ -127,28 +126,32 @@ const handleMenuKeyDown = async ({ key }: KeyboardEvent) => {
   const activeElement = focusedElement.value;
   switch (key) {
     case 'ArrowUp':
-      if (prevElement.value) {
-        await focusElement(prevElement.value.menuItemTemplateRefs.content.$el, true);
+      if (prevElement.value
+          && initialElement.value) {
+        await focusElement(prevElement.value.itemTemplateRefs.content.$el, true);
         initialElement.value.tabindex = -1;
       }
       break;
     case 'ArrowDown':
-      if (nextElement.value) {
-        await focusElement(nextElement.value.menuItemTemplateRefs.content.$el, true);
+      if (nextElement.value
+          && initialElement.value) {
+        await focusElement(nextElement.value.itemTemplateRefs.content.$el, true);
         initialElement.value.tabindex = -1;
       }
       break;
     case 'Home':
     case 'PageUp':
-      if (firstElement.value) {
-        await focusElement(firstElement.value.menuItemTemplateRefs.content.$el, true);
+      if (firstElement.value
+          && initialElement.value) {
+        await focusElement(firstElement.value.itemTemplateRefs.content.$el, true);
         initialElement.value.tabindex = -1;
       }
       break;
     case 'End':
     case 'PageDown':
-      if (lastElement.value) {
-        await focusElement(lastElement.value.menuItemTemplateRefs.content.$el, true);
+      if (lastElement.value
+          && initialElement.value) {
+        await focusElement(lastElement.value.itemTemplateRefs.content.$el, true);
         initialElement.value.tabindex = -1;
       }
       break;
@@ -156,18 +159,20 @@ const handleMenuKeyDown = async ({ key }: KeyboardEvent) => {
       if (initialElement.value === activeElement) {
         return;
       }
-      activeElement.tabindex = 0;
-      // We need to use setTimeout() because nextTick() does not bring the desired effect.
-      window.setTimeout(() => {
-        activeElement.tabindex = -1;
-      }, 0);
+      if (activeElement) {
+        activeElement.tabindex = 0;
+        // We need to use setTimeout() because nextTick() does not bring the desired effect.
+        window.setTimeout(() => {
+          activeElement.tabindex = -1;
+        }, 0);
+      }
       break;
     default:
       break;
   }
 };
 const isFocused = ref(false);
-const scrollLock = (event) => {
+const scrollLock = (event: KeyboardEvent) => {
   const { key } = event;
   switch (key) {
     case 'ArrowUp':
@@ -193,19 +198,23 @@ watch(isFocused, (value) => {
   }
 });
 watch(focusedElement, (el, prevEl) => {
-  isFocused.value = el && Object.keys(el).length > 0;
+  isFocused.value = !!(el && Object.keys(el).length > 0);
   if (!el && prevEl) {
-    lastFocusedMenuItemTemplateRefs.value = prevEl;
-    initialElement.value.tabindex = 0;
+    if (lastFocusedItemTemplateRefs.value) {
+      lastFocusedItemTemplateRefs.value = prevEl;
+    }
+    if (initialElement.value) {
+      initialElement.value.tabindex = 0;
+    }
   }
 });
 defineExpose({
   menuItemsTemplateRefs,
-  initialMenuItemTemplateRefs: initialElement,
-  firstMenuItemTemplateRefs: firstElement,
-  lastMenuItemTemplateRefs: lastElement,
-  selectedMenuItemTemplateRefs: selectedElement,
-  lastFocusedMenuItemTemplateRefs,
+  initialItemTemplateRefs: initialElement,
+  firstItemTemplateRefs: firstElement,
+  lastItemTemplateRefs: lastElement,
+  selectedItemTemplateRefs: selectedElement,
+  lastFocusedItemTemplateRefs,
 });
 </script>
 

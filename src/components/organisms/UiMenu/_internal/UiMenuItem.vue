@@ -41,7 +41,7 @@ export type MenuItemAttrsProps = DefineAttrsProps<ListItemAttrsProps>;
 
 defineOptions({ inheritAttrs: false });
 
-const attrs = useAttrs();
+const attrs:ListItemAttrsProps = useAttrs();
 const filteredAttrs = computed(() => {
   const {
     name, label, ...rest
@@ -52,7 +52,8 @@ const filteredAttrs = computed(() => {
 const isSelected = computed(() => (('class' in filteredAttrs.value)
   ? filteredAttrs.value.class.includes('ui-menu-item--is-selected')
   : false));
-const hasSuffix = computed(() => (isSelected.value || filteredAttrs.value.hasSuffix));
+const hasSuffix = computed(() => (isSelected.value
+    || filteredAttrs.value.hasSuffix));
 const isFocused = ref(false);
 const tabindex = ref(0);
 const handleMenuItemFocus = () => { isFocused.value = true; };
@@ -80,7 +81,7 @@ const menuItemClass = computed(() => ([
 
 const menuItemTemplateRefs = ref(null);
 defineExpose({
-  menuItemTemplateRefs,
+  itemTemplateRefs: menuItemTemplateRefs,
   isSelected,
   isFocused,
   tabindex,
