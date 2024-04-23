@@ -100,6 +100,14 @@ HasSuffix.args = {
     })),
   ],
 };
+export const HasPrefix: MenuStoryType = { ...Basic };
+HasPrefix.args = {
+  items: items.map((item) => ({
+    ...item,
+    hasPrefix: true,
+    prefixAttrs: { icon: 'calendar' },
+  })),
+};
 export const ItemsViaSlot: MenuStoryType = {
   render(args, {
     name, argTypes,

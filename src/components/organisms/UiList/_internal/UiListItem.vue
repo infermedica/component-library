@@ -173,11 +173,12 @@ defineExpose({ content });
 
   &__content {
     @include mixins.use-logical($element + "-content", padding, var(--space-12));
+    --button-gap: #{functions.var($element + "-content", gap, var(--space-12))};
 
     display: flex;
     flex: 1;
     align-items: flex-start;
-    gap: functions.var($element + "-content", gap, var(--space-12));
+    gap: #{functions.var($element + "-content", gap, var(--space-12))};
 
     @include mixins.from-tablet {
       @include mixins.use-logical($element + "-tablet-content", padding, var(--space-12));
