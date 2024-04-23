@@ -15,6 +15,7 @@ import {
   BasicStories,
   BasicStoriesSource,
   ItemsViaSlotStories,
+  HasOutsideElementsStories,
 } from './stories';
 
 type MenuArgsType = MenuProps;
@@ -123,3 +124,19 @@ export const ItemsViaSlot: MenuStoryType = {
     };
   },
 };
+export const HasOutsideElements: MenuStoryType = {
+  render(args, {
+    name, argTypes,
+  }) {
+    return {
+      name,
+      components: { HasOutsideElementsStories },
+      setup() {
+        const { attrs } = getAttrs(args, argTypes, name);
+        return { attrs };
+      },
+      template: '<HasOutsideElementsStories v-bind="{...attrs}"/>',
+    };
+  },
+};
+
