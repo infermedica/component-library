@@ -2,8 +2,6 @@
   <UiList
     class="ui-menu"
     @keydown="handleMenuKeyDown"
-    @focus.capture="handleMenuFocus"
-    @blur.capture="handleMenuBlur"
   >
     <!-- @slot Use this slot to place menu items. -->
     <slot>
@@ -70,7 +68,6 @@ const props = withDefaults(defineProps<MenuProps>(), {
   itemsTemplateRefs: () => ([]),
 });
 provide('enableKeyboardNavigation', props.enableKeyboardNavigation);
-
 const itemsToRender = computed<MenuRenderItem[]>(() => (props.items.map((item, index) => {
   if (typeof item === 'string') {
     return {
@@ -132,23 +129,27 @@ const handleMenuKeyDown = async ({ key }: KeyboardEvent) => {
     case 'ArrowUp':
       if (prevElement.value) {
         await focusElement(prevElement.value.menuItemTemplateRefs.content.$el, true);
+        initialElement.value.tabindex = -1;
       }
       break;
     case 'ArrowDown':
       if (nextElement.value) {
         await focusElement(nextElement.value.menuItemTemplateRefs.content.$el, true);
+        initialElement.value.tabindex = -1;
       }
       break;
     case 'Home':
     case 'PageUp':
       if (firstElement.value) {
         await focusElement(firstElement.value.menuItemTemplateRefs.content.$el, true);
+        initialElement.value.tabindex = -1;
       }
       break;
     case 'End':
     case 'PageDown':
       if (lastElement.value) {
         await focusElement(lastElement.value.menuItemTemplateRefs.content.$el, true);
+        initialElement.value.tabindex = -1;
       }
       break;
     case 'Tab':
@@ -191,15 +192,13 @@ watch(isFocused, (value) => {
     window.removeEventListener('keydown', scrollLock);
   }
 });
-watch(focusedElement, (element) => {
-  isFocused.value = element && Object.keys(element).length > 0;
+watch(focusedElement, (el, prevEl) => {
+  isFocused.value = el && Object.keys(el).length > 0;
+  if (!el && prevEl) {
+    lastFocusedMenuItemTemplateRefs.value = prevEl;
+    initialElement.value.tabindex = 0;
+  }
 });
-const handleMenuFocus = () => {
-  isFocused.value = true;
-};
-const handleMenuBlur = () => {
-  lastFocusedMenuItemTemplateRefs.value = focusedElement;
-};
 defineExpose({
   menuItemsTemplateRefs,
   initialMenuItemTemplateRefs: initialElement,
