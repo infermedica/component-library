@@ -14,6 +14,7 @@ import {
 import {
   BasicStories,
   BasicStoriesSource,
+  ItemsViaSlotStories,
 } from './stories';
 
 type MenuArgsType = MenuProps;
@@ -98,4 +99,19 @@ HasSuffix.args = {
       },
     })),
   ],
+};
+export const ItemsViaSlot: MenuStoryType = {
+  render(args, {
+    name, argTypes,
+  }) {
+    return {
+      name,
+      components: { ItemsViaSlotStories },
+      setup() {
+        const { attrs } = getAttrs(args, argTypes, name);
+        return { attrs };
+      },
+      template: '<ItemsViaSlotStories v-bind="{...attrs}"/>',
+    };
+  },
 };

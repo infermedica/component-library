@@ -32,9 +32,11 @@ import {
   ref,
   computed,
   provide,
-  nextTick,
+  reactive,
   watch,
+  nextTick,
 } from 'vue';
+import { disabled } from '@sb/helpers/argTypes';
 import useArrowNavigation from './useArrowNavigation';
 import { focusElement } from '../../../utilities/helpers';
 import UiList, { type ListAttrsProps } from '../UiList/UiList.vue';
@@ -82,8 +84,13 @@ const itemsToRender = computed<MenuRenderItem[]>(() => (props.items.map((item, i
   };
 })));
 const disabledKeyboardNavigation = computed(() => (!props.enableKeyboardNavigation));
-const menuItemsTemplateRefs = ref(props.itemsTemplateRefs);
-if (props.enableKeyboardNavigation && menuItemsTemplateRefs.value.length < 1) {
+const menuItemsTemplateRefs = ref([]);
+watch(props.itemsTemplateRefs, () => {
+  menuItemsTemplateRefs.value = props.itemsTemplateRefs;
+});
+if (props.enableKeyboardNavigation
+    && props.itemsTemplateRefs.value
+    && props.itemsTemplateRefs.value.length < 1) {
   console.warn('@infermedica/component-library: use itemsTemplateRefs to pass UiMenuItems template refs.');
 }
 const {
@@ -95,21 +102,23 @@ const {
   nextElement,
   prevElement,
 } = useArrowNavigation(menuItemsTemplateRefs);
-watch(() => props.enableKeyboardNavigation, async (isEnableKeyboardNavigation) => {
+watch([
+  menuItemsTemplateRefs,
+  () => (props.enableKeyboardNavigation),
+], async () => {
   await nextTick();
-  if (isEnableKeyboardNavigation) {
-    menuItemsTemplateRefs.value.forEach((menuItem) => {
-      if (menuItem === initialElement.value) {
-        return;
-      }
-      menuItem.tabindex = -1;
+  if (disabledKeyboardNavigation.value) {
+    menuItemsTemplateRefs.value.forEach((item) => {
+      item.tabindex = 0;
     });
-  } else {
-    menuItemsTemplateRefs.value.forEach((menuItem) => {
-      if (menuItem === initialElement.value) {
+  }
+  if (props.enableKeyboardNavigation
+      && menuItemsTemplateRefs.value.length > 0) {
+    menuItemsTemplateRefs.value.forEach((item) => {
+      if (item === initialElement.value) {
         return;
       }
-      menuItem.tabindex = 0;
+      item.tabindex = -1;
     });
   }
 }, { immediate: true });
@@ -157,7 +166,7 @@ const handleMenuKeyDown = async ({ key }: KeyboardEvent) => {
   }
 };
 const isFocused = ref(false);
-const handleDisableArrows = (event) => {
+const scrollLock = (event) => {
   const { key } = event;
   switch (key) {
     case 'ArrowUp':
@@ -167,6 +176,7 @@ const handleDisableArrows = (event) => {
     case 'End':
     case 'PageDown':
       event.preventDefault();
+      break;
     default:
       break;
   }
@@ -176,19 +186,20 @@ watch(isFocused, (value) => {
     return;
   }
   if (value) {
-    window.addEventListener('keydown', handleDisableArrows);
+    window.addEventListener('keydown', scrollLock);
   } else {
-    window.removeEventListener('keydown', handleDisableArrows);
+    window.removeEventListener('keydown', scrollLock);
   }
+});
+watch(focusedElement, (element) => {
+  isFocused.value = element && Object.keys(element).length > 0;
 });
 const handleMenuFocus = () => {
   isFocused.value = true;
 };
-// TODO: detect leave UiMenu to set isFocused to false
 const handleMenuBlur = () => {
   lastFocusedMenuItemTemplateRefs.value = focusedElement;
 };
-
 defineExpose({
   menuItemsTemplateRefs,
   initialMenuItemTemplateRefs: initialElement,
