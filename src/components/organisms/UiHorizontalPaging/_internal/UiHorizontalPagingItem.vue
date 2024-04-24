@@ -13,10 +13,10 @@ import {
   useAttrs,
 } from 'vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
-import type { HorizontalPangingHandleItems } from '../UiHorizontalPaging.vue';
+import type { HorizontalPangingHandleItems } from '../_.vue';
 import type { HTMLTag } from '../../../../types';
 
-export interface HorizontalPangingItemProps {
+export interface HorizontalPagingItemProps {
   /**
    * Use this props to set inside pages item label.
    */
@@ -35,7 +35,7 @@ export interface HorizontalPangingItemProps {
   tag?: HTMLTag;
 }
 defineOptions({ inheritAttrs: false });
-const props = withDefaults(defineProps<HorizontalPangingItemProps>(), {
+const props = withDefaults(defineProps<HorizontalPagingItemProps>(), {
   label: '',
   title: '',
   name: '',

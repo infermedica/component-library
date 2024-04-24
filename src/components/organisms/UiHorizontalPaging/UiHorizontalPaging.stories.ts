@@ -20,10 +20,10 @@ type HorizontalPagingArgsType = HorizontalPagingProps;
 type HorizontalPagingMetaType = Meta<HorizontalPagingArgsType>;
 type HorizontalPagingStoryType = StoryObj<HorizontalPagingArgsType>;
 
-const {
-  argTypes: metaArgTypes,
-  args: metaArgs,
-} = getArgTypes(UiHorizontalPaging);
+// const {
+//   argTypes: metaArgTypes,
+//   args: metaArgs,
+// } = getArgTypes(UiHorizontalPaging);
 
 const items = [
   {
@@ -57,12 +57,12 @@ const meta = {
   title: 'Organisms/HorizontalPaging',
   component: UiHorizontalPaging,
   args: {
-    ...metaArgs,
+    // ...metaArgs,
     modelValue: [],
     items,
     title: 'Settings & Info',
   },
-  argTypes: getArgTypes,
+  // argTypes: metaArgTypes,
   decorators: [ () => ({
     name: 'LMaxWidth',
     template: '<div style="max-width: 21.875rem"><story /></div>',

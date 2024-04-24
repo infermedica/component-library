@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import UiHorizontalPaging from './UiHorizontalPaging.vue';
+import UiHorizontalPaging from './_.vue';
 
 const items = [
   {

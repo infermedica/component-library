@@ -1,16 +1,15 @@
 <template>
   <div
     :class="[
-      'ui-horizontal-paging',
-      { 'ui-horizontal-paging--nested': isNested },
+      'ui-horizontal-paging', { 'ui-horizontal-paging--nested': isNested },
     ]"
   >
     <!-- @slot Use this slot to replace header template. -->
-    <slot name="header">
-      <div
-        v-if="isHeaderDisplayed"
-        class="ui-horizontal-paging__header"
-      >
+    <slot
+      v-if="isHeaderDisplayed"
+      name="header"
+    >
+      <div class="ui-horizontal-paging__header">
         <!-- @slot Use this slot to replace back-button template. -->
         <slot
           name="back-button"
@@ -58,15 +57,15 @@
         <slot
           name="menu"
           v-bind="{
-            items: menuItemsToRender,
+            items: menuItems,
             isActive,
           }"
         >
           <UiMenu
-            ref="menuTemplateRefs"
-            :items="menuItemsToRender"
-            v-bind="menuAttrs"
+            ref="menu"
+            :items="menuItems"
             class="ui-horizontal-paging__menu"
+            v-bind="menuAttrs"
           >
             <template
               v-for="(_, name) in menuItemsSlots"
@@ -85,8 +84,8 @@
             <!-- @slot Use this slot to place inside pages items. -->
             <slot>
               <template
-                v-for="(item, index) in items"
-                :key="index"
+                v-for="(item, key) in items"
+                :key="key"
               >
                 <UiHorizontalPagingItem
                   v-bind="item"
@@ -127,19 +126,19 @@ import type {
 import UiButton, { type ButtonAttrsProps } from '../../atoms/UiButton/UiButton.vue';
 import UiIcon, { type IconAttrsProps } from '../../atoms/UiIcon/UiIcon.vue';
 import type { MenuItemAttrsProps } from '../UiMenu/_internal/UiMenuItem.vue';
-import UiHorizontalPagingItem, { type HorizontalPagingItemProps } from './_internal/UiHorizontalPagingItem.vue';
+import UiHorizontalPagingItem, { type HorizontalPangingItemProps } from './_internal/UiHorizontalPagingItem.vue';
 import UiHeading, { type HeadingAttrsProps } from '../../atoms/UiHeading/UiHeading.vue';
 
-export type HorizontalPagingHandleItems = Record<string, HorizontalPagingItemProps>;
-export type HorizontalPagingActiveItems = WritableComputedRef<HorizontalPagingItemProps[]>;
+export type HorizontalPangingHandleItems = Record<string, HorizontalPangingItemProps>;
+export type HorizontalPangingActiveItems = WritableComputedRef<HorizontalPangingItemProps[]>;
 export interface HorizontalPagingTranslation {
   back?: string;
 }
-export interface HorizontalPagingProps{
+export interface HorizontalPangingProps{
   /**
    * Use this props to set active page item.
    */
-  modelValue?: HorizontalPagingItemProps[] | HorizontalPagingItemProps;
+  modelValue?: HorizontalPangingItemProps[] | HorizontalPangingItemProps;
   /**
    * Use this props to set inside pages title.
    */
@@ -147,7 +146,7 @@ export interface HorizontalPagingProps{
   /**
    * Use this props to pass inside pages items.
    */
-  items?: HorizontalPagingItemProps[];
+  items?: HorizontalPangingItemProps[];
   /**
    * Use this props to display inside pages header.
    */
@@ -173,14 +172,14 @@ export interface HorizontalPagingProps{
    */
   translation?: HorizontalPagingTranslation;
   /** Use this props to pass menu template ref when you use menu slot. */
-  // menuTemplateRefs?: InstanceType<typeof UiMenu> | null
+  menuTemplateRef?: InstanceType<typeof UiMenu> | null
 }
-export type HorizontalPagingAttrsProps = DefineAttrsProps<HorizontalPagingProps>;
-export interface HorizontalPagingEmits {
-  (event: 'update:modelValue', value: HorizontalPagingItemProps[]): void;
+export type HorizontalPagingAttrsProps = DefineAttrsProps<HorizontalPangingProps>;
+export interface HorizontalPangingEmits {
+  (event: 'update:modelValue', value: HorizontalPangingItemProps[]): void;
 }
 
-const props = withDefaults(defineProps<HorizontalPagingProps>(), {
+const props = withDefaults(defineProps<HorizontalPangingProps>(), {
   modelValue: () => ([]),
   title: '',
   items: () => ([]),
@@ -190,7 +189,7 @@ const props = withDefaults(defineProps<HorizontalPagingProps>(), {
   headingTitleAttrs: () => ({}),
   menuAttrs: () => ({}),
   translation: () => ({ back: 'Back to' }),
-  // menuTemplateRefs: null,
+  menuTemplateRef: null,
 });
 const defaultProps = computed(() => {
   const icon: Icon = 'chevron-left';
@@ -205,45 +204,46 @@ const defaultProps = computed(() => {
     },
   };
 });
-const emit = defineEmits<HorizontalPagingEmits>();
+const emit = defineEmits<HorizontalPangingEmits>();
 const index = inject<number>('index', 0);
 provide<number>('index', index + 1);
 const isNested = computed(() => index > 0);
 const isHeaderDisplayed = computed(() => (props.hasHeader && !isNested.value));
-const activeItems = inject<HorizontalPagingActiveItems>('activeItems', computed({
+const activeItems = inject<HorizontalPangingActiveItems>('activeItems', computed({
   get: () => (Array.isArray(props.modelValue)
     ? props.modelValue
     : [ props.modelValue ]),
   set: (value) => { emit('update:modelValue', value); },
 }));
-provide<HorizontalPagingActiveItems>('activeItems', activeItems);
+provide<HorizontalPangingActiveItems>('activeItems', activeItems);
 const sizeOfActiveItems = computed(() => (activeItems.value.length));
-const activeItem = computed<HorizontalPagingItemProps>(() => (activeItems.value[index] || {}));
+const activeItem = computed<HorizontalPangingItemProps>(() => (activeItems.value[index] || {}));
 const isActive = computed(() => (Object.keys(activeItem.value).length > 0));
 const activeItemName = computed(() => activeItem.value?.name || '');
 provide<ComputedRef<string>>('activeItemName', activeItemName);
 const currentTitle = computed(() => (activeItems.value[sizeOfActiveItems.value - 1]?.title || props.title));
 const backToTitle = computed(() => (activeItems.value[sizeOfActiveItems.value - 2]?.title || props.title));
-const itemsToHandle = ref<HorizontalPagingHandleItems>({});
-provide<Ref<HorizontalPagingHandleItems>>('items', itemsToHandle);
+
+const itemsToHandle = ref<HorizontalPangingHandleItems>({});
+provide<Ref<HorizontalPangingHandleItems>>('items', itemsToHandle);
+
 const itemsAsArray = computed(() => (Object.values(itemsToHandle.value)));
-const menuItemsToRender = computed<MenuItemAttrsProps[]>(() => itemsAsArray.value.map((item) => {
+const handleBackClick = () => {
+  activeItems.value = activeItems.value.slice(0, -1);
+};
+const menuItems = computed<MenuItemAttrsProps[]>(() => itemsAsArray.value.map((item) => {
   /* eslint-disable @typescript-eslint/no-unused-vars */
   const {
     title,
     name,
     ...rest
   } = item;
-  /* eslint-enable @typescript-eslint/no-unused-vars */
+    /* eslint-enable @typescript-eslint/no-unused-vars */
   const icon: Icon = 'chevron-right';
   return {
     icon,
     suffixVisible: 'always',
-    hasSuffix: true,
-    suffixAttrs: {
-      icon,
-      class: 'ui-menu-item-suffix--theme-secondary',
-    },
+    class: 'ui-menu-item--theme-secondary',
     name: `menu-item-${name}`,
     ...(item.tag ? {} : {
       onClick: () => {
@@ -253,9 +253,30 @@ const menuItemsToRender = computed<MenuItemAttrsProps[]>(() => itemsAsArray.valu
         ];
       },
     }),
+    ...(isActive.value ? { tabindex: '-1' } : {}),
     ...rest,
   };
 }));
+const menu = ref<InstanceType<typeof UiMenu> | null>(null);
+const menuRef = computed<InstanceType<typeof UiMenu> | null>(() => (props.menuTemplateRef || menu.value));
+const menuButtons = computed(() => {
+  if (!menuRef.value) return {};
+  const buttons = itemsAsArray.value
+    .reduce<Record<string, HTMLButtonElement | null> | Record<string, never>>((elements, { name }, order) => {
+      if (name && menuRef.value && menuRef.value.menuItems) {
+        /* eslint-disable-next-line no-param-reassign */
+        elements[name] = menuRef.value.menuItems[order].$el.querySelector('.ui-button');
+      }
+      return elements;
+    }, {});
+  return buttons;
+});
+watch(activeItemName, async (moveTo, backFrom) => {
+  if (backFrom) {
+    await nextTick();
+    focusElement(menuButtons.value[backFrom]);
+  }
+});
 const slots = useSlots();
 const menuItemsSlots = computed(() => (Object.keys(slots).reduce((object, slotName) => {
   if (slotName.match(/menu-item/gm)) {
@@ -266,14 +287,6 @@ const menuItemsSlots = computed(() => (Object.keys(slots).reduce((object, slotNa
   }
   return object;
 }, {})));
-// Handle Changes In UiMenu
-const menuTemplateRefs = ref<InstanceType<typeof UiMenu> | null>(null);
-const handleBackClick = () => {
-  activeItems.value = activeItems.value.slice(0, -1);
-  if (menuTemplateRefs.value) {
-    console.log(menuTemplateRefs.value?.lastFocusedItemTemplateRefs);
-  }
-};
 </script>
 
 <style lang="scss">
