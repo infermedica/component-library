@@ -32,6 +32,7 @@ import {
   provide,
   watch,
   nextTick,
+  onMounted,
   type ComponentInstance,
 } from 'vue';
 import useArrowNavigation, { type ElementRef } from './useArrowNavigation';
@@ -103,6 +104,7 @@ watch([
   () => (props.enableKeyboardNavigation),
 ], async () => {
   await nextTick();
+  console.log('?');
   if (disabledKeyboardNavigation.value) {
     menuItemsTemplateRefs.value.forEach((item) => {
       item.tabindex = 0;
@@ -111,6 +113,7 @@ watch([
   if (props.enableKeyboardNavigation
       && menuItemsTemplateRefs.value.length > 0) {
     menuItemsTemplateRefs.value.forEach((item) => {
+      console.log('watch;tabindex="-1"');
       if (item === initialElement.value) {
         return;
       }
@@ -118,6 +121,19 @@ watch([
     });
   }
 }, { immediate: true });
+onMounted(async () => {
+  await nextTick();
+  if (props.enableKeyboardNavigation
+      && menuItemsTemplateRefs.value.length > 0) {
+    menuItemsTemplateRefs.value.forEach((item) => {
+      console.log('onMounted;tabindex="-1"');
+      if (item === initialElement.value) {
+        return;
+      }
+      item.tabindex = -1;
+    });
+  }
+});
 const lastFocusedItemTemplateRefs = ref<ElementRef | null>(null);
 const handleMenuKeyDown = async ({ key }: KeyboardEvent) => {
   if (disabledKeyboardNavigation.value) {
@@ -200,9 +216,7 @@ watch(isFocused, (value) => {
 watch(focusedElement, (el, prevEl) => {
   isFocused.value = !!(el && Object.keys(el).length > 0);
   if (!el && prevEl) {
-    if (lastFocusedItemTemplateRefs.value) {
-      lastFocusedItemTemplateRefs.value = prevEl;
-    }
+    lastFocusedItemTemplateRefs.value = prevEl;
     if (initialElement.value) {
       initialElement.value.tabindex = 0;
     }
