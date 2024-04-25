@@ -33,6 +33,7 @@ import {
   watch,
   nextTick,
   onMounted,
+  type ComputedRef,
   type ComponentInstance,
 } from 'vue';
 import useArrowNavigation, { type ElementRef } from './useArrowNavigation';
@@ -58,7 +59,7 @@ export interface MenuProps {
   /**
    * Use this props to pass refs to UiMenuItems.
    */
-  itemsTemplateRefs?: any;
+  itemsTemplateRefs?: ComponentInstance<typeof UiMenuItem>[] | [];
 }
 export type MenuAttrsProps = DefineAttrsProps<MenuProps, ListAttrsProps>;
 
@@ -86,8 +87,8 @@ watch(props.itemsTemplateRefs, () => {
   menuItemsTemplateRefs.value = props.itemsTemplateRefs;
 });
 if (props.enableKeyboardNavigation
-    && props.itemsTemplateRefs.value
-    && props.itemsTemplateRefs.value.length < 1) {
+    && props.itemsTemplateRefs
+    && props.itemsTemplateRefs.length < 1) {
   console.warn('@infermedica/component-library: use itemsTemplateRefs to pass UiMenuItems template refs.');
 }
 const {
@@ -99,12 +100,16 @@ const {
   nextElement,
   prevElement,
 } = useArrowNavigation(menuItemsTemplateRefs);
-watch([
-  menuItemsTemplateRefs,
-  () => (props.enableKeyboardNavigation),
-], async () => {
+const setNegativeTabindexForNonInitialMenuItems = async () => {
+  menuItemsTemplateRefs.value.forEach((item) => {
+    if (item === initialElement.value) {
+      return;
+    }
+    item.tabindex = -1;
+  });
+};
+watch(() => (props.enableKeyboardNavigation), async () => {
   await nextTick();
-  console.log('?');
   if (disabledKeyboardNavigation.value) {
     menuItemsTemplateRefs.value.forEach((item) => {
       item.tabindex = 0;
@@ -112,29 +117,23 @@ watch([
   }
   if (props.enableKeyboardNavigation
       && menuItemsTemplateRefs.value.length > 0) {
-    menuItemsTemplateRefs.value.forEach((item) => {
-      console.log('watch;tabindex="-1"');
-      if (item === initialElement.value) {
-        return;
-      }
-      item.tabindex = -1;
-    });
+    setNegativeTabindexForNonInitialMenuItems();
   }
-}, { immediate: true });
+});
 onMounted(async () => {
   await nextTick();
   if (props.enableKeyboardNavigation
       && menuItemsTemplateRefs.value.length > 0) {
-    menuItemsTemplateRefs.value.forEach((item) => {
-      console.log('onMounted;tabindex="-1"');
-      if (item === initialElement.value) {
-        return;
-      }
-      item.tabindex = -1;
-    });
+    setNegativeTabindexForNonInitialMenuItems();
   }
 });
-const lastFocusedItemTemplateRefs = ref<ElementRef | null>(null);
+const lastFocusedMenuItemTemplateRefs = ref<ElementRef | null>(null);
+const handleMenuItemFocus = async (element: ComputedRef<ElementRef | undefined>) => {
+  if (element.value && initialElement.value) {
+    await focusElement(element.value.itemTemplateRefs.content.$el, true);
+    initialElement.value.tabindex = -1;
+  }
+};
 const handleMenuKeyDown = async ({ key }: KeyboardEvent) => {
   if (disabledKeyboardNavigation.value) {
     return;
@@ -142,34 +141,18 @@ const handleMenuKeyDown = async ({ key }: KeyboardEvent) => {
   const activeElement = focusedElement.value;
   switch (key) {
     case 'ArrowUp':
-      if (prevElement.value
-          && initialElement.value) {
-        await focusElement(prevElement.value.itemTemplateRefs.content.$el, true);
-        initialElement.value.tabindex = -1;
-      }
+      handleMenuItemFocus(prevElement);
       break;
     case 'ArrowDown':
-      if (nextElement.value
-          && initialElement.value) {
-        await focusElement(nextElement.value.itemTemplateRefs.content.$el, true);
-        initialElement.value.tabindex = -1;
-      }
+      handleMenuItemFocus(nextElement);
       break;
     case 'Home':
     case 'PageUp':
-      if (firstElement.value
-          && initialElement.value) {
-        await focusElement(firstElement.value.itemTemplateRefs.content.$el, true);
-        initialElement.value.tabindex = -1;
-      }
+      handleMenuItemFocus(firstElement);
       break;
     case 'End':
     case 'PageDown':
-      if (lastElement.value
-          && initialElement.value) {
-        await focusElement(lastElement.value.itemTemplateRefs.content.$el, true);
-        initialElement.value.tabindex = -1;
-      }
+      handleMenuItemFocus(lastElement);
       break;
     case 'Tab':
       if (initialElement.value === activeElement) {
@@ -216,7 +199,7 @@ watch(isFocused, (value) => {
 watch(focusedElement, (el, prevEl) => {
   isFocused.value = !!(el && Object.keys(el).length > 0);
   if (!el && prevEl) {
-    lastFocusedItemTemplateRefs.value = prevEl;
+    lastFocusedMenuItemTemplateRefs.value = prevEl;
     if (initialElement.value) {
       initialElement.value.tabindex = 0;
     }
@@ -224,11 +207,11 @@ watch(focusedElement, (el, prevEl) => {
 });
 defineExpose({
   menuItemsTemplateRefs,
-  initialItemTemplateRefs: initialElement,
-  firstItemTemplateRefs: firstElement,
-  lastItemTemplateRefs: lastElement,
-  selectedItemTemplateRefs: selectedElement,
-  lastFocusedItemTemplateRefs,
+  initialMenuItemTemplateRefs: initialElement,
+  firstMenuItemTemplateRefs: firstElement,
+  lastMenuItemTemplateRefs: lastElement,
+  selectedMenuItemTemplateRefs: selectedElement,
+  lastFocusedMenuItemTemplateRefs,
 });
 </script>
 
