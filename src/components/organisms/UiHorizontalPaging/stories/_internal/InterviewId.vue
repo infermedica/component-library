@@ -16,6 +16,8 @@ import {
 
 <style lang="scss">
 .interview-id {
- &__id {}
+ &__id {
+   margin-block: var(--space-4);
+ }
 }
 </style>

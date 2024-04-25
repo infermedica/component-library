@@ -50,8 +50,18 @@ const items = [
 
 <style lang="scss">
 .terms-of-service {
-  &__heading {}
+  &__heading {
+    margin-block: 0 var(--space-32);
+  }
 
-  &__bullet-points {}
+  &__bullet-points {
+    --bullet-points-gap: var(--space-32);
+  }
+
+  &__sub-points {
+    --bullet-points-gap: var(--space-8);
+
+    margin-block-start: var(--space-12);
+  }
 }
 </style>

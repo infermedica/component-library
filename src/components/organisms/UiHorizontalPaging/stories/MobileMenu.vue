@@ -6,6 +6,7 @@
     <UiHorizontalPaging
       v-model="value"
       v-bind="args"
+      class=""
     >
       <template #medical-certification>
         <MedicalCertification />
@@ -23,6 +24,13 @@
         <InterviewId />
       </template>
     </UiHorizontalPaging>
+    <UiLink
+      href="https://infermedica.com/"
+      target="_blank"
+      class="ui-link--theme-secondary"
+    >
+      © 2021 Infermedica
+    </UiLink>
   </UiSidePanel>
 </template>
 
@@ -41,6 +49,7 @@ import {
 import MedicalCertification from './_internal/MedicalCertification.vue';
 import TermsOfService from './_internal/TermsOfService.vue';
 import InterviewId from './_internal/InterviewId.vue';
+import UiLink from '../../../atoms/UiLink/UiLink.vue';
 
 defineOptions({ inheritAttrs: false });
 const attrs = useAttrs();
@@ -49,5 +58,7 @@ const value = inject('value', []);
 </script>
 
 <style lang="scss">
-.mobile-menu {}
+.mobile-menu {
+
+}
 </style>

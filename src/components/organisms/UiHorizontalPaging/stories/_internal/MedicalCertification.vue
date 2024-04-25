@@ -27,8 +27,13 @@ import {
 
 <style lang="scss">
 .medical-certification {
-  &__heading {}
+  &__heading {
+    margin-block: var(--space-8);
+  }
 
-  &__icon {}
+  &__icon {
+    --icons-size: 3rem;
+    margin-block: var(--space-12) 0;
+  }
 }
 </style>
