@@ -237,12 +237,12 @@ const menuItemsToRender = computed<MenuItemAttrsProps[]>(() => itemsAsArray.valu
   /* eslint-enable @typescript-eslint/no-unused-vars */
   const icon: Icon = 'chevron-right';
   return {
-    icon,
-    suffixVisible: 'always',
+    ...rest,
     hasSuffix: true,
     suffixAttrs: {
+      ...(item.suffixAttrs || {}),
       icon,
-      class: 'ui-menu-item-suffix--theme-secondary',
+      class: [ { 'ui-menu-item-suffix--theme-secondary': true } ],
     },
     name: `menu-item-${name}`,
     ...(item.tag ? {} : {
@@ -253,7 +253,6 @@ const menuItemsToRender = computed<MenuItemAttrsProps[]>(() => itemsAsArray.valu
         ];
       },
     }),
-    ...rest,
   };
 }));
 const slots = useSlots();
@@ -270,9 +269,7 @@ const menuItemsSlots = computed(() => (Object.keys(slots).reduce((object, slotNa
 const menuTemplateRefs = ref<InstanceType<typeof UiMenu> | null>(null);
 const handleBackClick = () => {
   activeItems.value = activeItems.value.slice(0, -1);
-  if (menuTemplateRefs.value) {
-    console.log(menuTemplateRefs.value?.lastFocusedItemTemplateRefs);
-  }
+  focusElement(menuTemplateRefs.value.lastFocusedItemTemplateRefs.itemTemplateRefs.content.$el, true);
 };
 </script>
 

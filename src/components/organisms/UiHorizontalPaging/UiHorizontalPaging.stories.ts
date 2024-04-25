@@ -11,19 +11,21 @@ import {
   getArgTypes,
   getAttrs,
 } from '@sb/helpers';
+import { action } from '@storybook/addon-actions';
 import {
   BasicStories,
   BasicStoriesSource,
+  MobileMenuStories,
 } from './stories';
 
 type HorizontalPagingArgsType = HorizontalPagingProps;
 type HorizontalPagingMetaType = Meta<HorizontalPagingArgsType>;
 type HorizontalPagingStoryType = StoryObj<HorizontalPagingArgsType>;
 
-// const {
-//   argTypes: metaArgTypes,
-//   args: metaArgs,
-// } = getArgTypes(UiHorizontalPaging);
+const {
+  argTypes: metaArgTypes,
+  args: metaArgs,
+} = getArgTypes(UiHorizontalPaging);
 
 const items = [
   {
@@ -88,3 +90,38 @@ export const Basic: HorizontalPagingStoryType = {
 };
 Basic.decorators = [ withVModel ];
 Basic.parameters = { docs: { source: { code: BasicStoriesSource } } };
+
+export const MobileMenu: HorizontalPagingStoryType = {
+  render(args, {
+    name, argTypes,
+  }) {
+    return {
+      name,
+      components: { MobileMenuStories },
+      setup() {
+        const { attrs } = getAttrs(args, argTypes, name);
+        return { attrs };
+      },
+      template: '<MobileMenuStories v-bind="{...attrs}"/>',
+    };
+  },
+};
+MobileMenu.args = {
+  items: [
+    {
+      label: 'Language',
+      hasSuffix: true,
+      suffixAttrs: {
+        label: 'English',
+        icon: 'chevron-right',
+      },
+      onClick: action('onClick'),
+    },
+    ...items.map((item) => ({
+      ...item,
+      hasSuffix: true,
+    })),
+  ],
+  hasHeader: false,
+};
+MobileMenu.decorators = [ withVModel ];
