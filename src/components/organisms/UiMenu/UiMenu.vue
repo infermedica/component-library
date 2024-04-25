@@ -33,6 +33,7 @@ import {
   watch,
   nextTick,
   onMounted,
+  type ComputedRef,
   type ComponentInstance,
 } from 'vue';
 import useArrowNavigation, { type ElementRef } from './useArrowNavigation';
@@ -58,7 +59,7 @@ export interface MenuProps {
   /**
    * Use this props to pass refs to UiMenuItems.
    */
-  itemsTemplateRefs?: any;
+  itemsTemplateRefs?: ComponentInstance<typeof UiMenuItem>[] | [];
 }
 export type MenuAttrsProps = DefineAttrsProps<MenuProps, ListAttrsProps>;
 
@@ -86,8 +87,8 @@ watch(props.itemsTemplateRefs, () => {
   menuItemsTemplateRefs.value = props.itemsTemplateRefs;
 });
 if (props.enableKeyboardNavigation
-    && props.itemsTemplateRefs.value
-    && props.itemsTemplateRefs.value.length < 1) {
+    && props.itemsTemplateRefs
+    && props.itemsTemplateRefs.length < 1) {
   console.warn('@infermedica/component-library: use itemsTemplateRefs to pass UiMenuItems template refs.');
 }
 const {
@@ -127,7 +128,7 @@ onMounted(async () => {
   }
 });
 const lastFocusedMenuItemTemplateRefs = ref<ElementRef | null>(null);
-const handleMenuItemFocus = async (element) => {
+const handleMenuItemFocus = async (element: ComputedRef<ElementRef | undefined>) => {
   if (element.value && initialElement.value) {
     await focusElement(element.value.itemTemplateRefs.content.$el, true);
     initialElement.value.tabindex = -1;
