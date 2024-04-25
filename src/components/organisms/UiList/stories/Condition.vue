@@ -58,6 +58,7 @@ const args = computed(() => (attrs));
     @include mixins.override-logical(button, null, padding, var(--space-16) var(--space-12));
     @include mixins.override-logical(button, null, border-radius, 0);
     @include mixins.override-logical(button, null, border-width, 0);
+
     @include mixins.focus {
       box-shadow: var(--focus-inner);
     }
