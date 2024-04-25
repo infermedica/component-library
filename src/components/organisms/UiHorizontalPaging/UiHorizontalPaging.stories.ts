@@ -110,6 +110,9 @@ MobileMenu.args = {
   items: [
     {
       label: 'Language',
+      title: 'Language',
+      name: 'language',
+      class: [ 'mobile-menu__language' ],
       hasSuffix: true,
       suffixAttrs: {
         label: 'English',
@@ -120,8 +123,10 @@ MobileMenu.args = {
     ...items.map((item) => ({
       ...item,
       hasSuffix: true,
+      suffixAttrs: { class: 'ui-menu-item-suffix--theme-secondary' },
     })),
   ],
   hasHeader: false,
 };
 MobileMenu.decorators = [ withVModel ];
+MobileMenu.parameters = { viewport: { defaultViewport: 'mobile2' } };

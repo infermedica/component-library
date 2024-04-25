@@ -238,13 +238,12 @@ const menuItemsToRender = computed<MenuItemAttrsProps[]>(() => itemsAsArray.valu
   const icon: Icon = 'chevron-right';
   return {
     ...rest,
+    name: `menu-item-${name}`,
     hasSuffix: true,
     suffixAttrs: {
-      ...(item.suffixAttrs || {}), // FIXME
+      ...(item.suffixAttrs || {}),
       icon,
-      class: [ { 'ui-menu-item-suffix--theme-secondary': true } ], // FIXME
     },
-    name: `menu-item-${name}`,
     ...(item.tag ? {} : {
       onClick: () => {
         activeItems.value = [
@@ -272,6 +271,11 @@ const handleBackClick = () => {
     focusElement(menuTemplateRefs.value?.lastFocusedMenuItemTemplateRefs.itemTemplateRefs.content.$el, true);
   }
 };
+defineExpose({
+  isActive,
+  activeItem,
+  handleBackClick,
+});
 </script>
 
 <style lang="scss">
