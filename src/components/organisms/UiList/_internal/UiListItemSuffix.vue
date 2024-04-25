@@ -159,6 +159,7 @@ const hasIcon = computed(() => (defaultProps.value?.iconAttrs?.icon));
         --text-color: #{functions.var($element + '-hover', text-color, var(--color-text-action-primary-hover))};
       }
     }
+
     &:active {
       #{$this}:not(.ui-button) {
         --icon-color: #{functions.var($element + '-active', icon-color, var(--color-icon-primary-active))};
@@ -174,19 +175,22 @@ const hasIcon = computed(() => (defaultProps.value?.iconAttrs?.icon));
         --icon-color: #{functions.var($element, icon-color, var(--color-icon-secondary))};
         --text-color: #{functions.var($element, text-color, var(--color-text-action-secondary))};
       }
+    }
 
-      @at-root .ui-list-item__content {
-        @include mixins.hover {
-          #{$this}:not(.ui-button) {
-            --icon-color: #{functions.var($element + '-hover', icon-color, var(--color-icon-secondary-hover))};
-            --text-color: #{functions.var($element + '-hover', text-color, var(--color-text-action-secondary-hover))};
-          }
+    @at-root .ui-list-item__content {
+      @include mixins.hover {
+        [class*="-secondary"]#{$this}:not(.ui-button),
+        & [class*="-secondary"] #{$this}:not(.ui-button) {
+          --icon-color: #{functions.var($element + '-hover', icon-color, var(--color-icon-secondary-hover))};
+          --text-color: #{functions.var($element + '-hover', text-color, var(--color-text-action-secondary-hover))};
         }
-        &:active {
-          #{$this}:not(.ui-button) {
-            --icon-color: #{functions.var($element + '-active', icon-color, var(--color-icon-secondary-active))};
-            --text-color: #{functions.var($element + '-active', text-color, var(--color-text-action-primary-active))};
-          }
+      }
+
+      &:active {
+        [class*="-secondary"]#{$this}:not(.ui-button),
+        & [class*="-secondary"] #{$this}:not(.ui-button) {
+          --icon-color: #{functions.var($element + '-hover', icon-color, var(--color-icon-secondary-active))};
+          --text-color: #{functions.var($element + '-hover', text-color, var(--color-text-action-secondary-active))};
         }
       }
     }
