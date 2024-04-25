@@ -240,9 +240,9 @@ const menuItemsToRender = computed<MenuItemAttrsProps[]>(() => itemsAsArray.valu
     ...rest,
     hasSuffix: true,
     suffixAttrs: {
-      ...(item.suffixAttrs || {}),
+      ...(item.suffixAttrs || {}), // FIXME
       icon,
-      class: [ { 'ui-menu-item-suffix--theme-secondary': true } ],
+      class: [ { 'ui-menu-item-suffix--theme-secondary': true } ], // FIXME
     },
     name: `menu-item-${name}`,
     ...(item.tag ? {} : {
@@ -265,11 +265,12 @@ const menuItemsSlots = computed(() => (Object.keys(slots).reduce((object, slotNa
   }
   return object;
 }, {})));
-// Handle Changes In UiMenu
 const menuTemplateRefs = ref<InstanceType<typeof UiMenu> | null>(null);
 const handleBackClick = () => {
   activeItems.value = activeItems.value.slice(0, -1);
-  focusElement(menuTemplateRefs.value.lastFocusedItemTemplateRefs.itemTemplateRefs.content.$el, true);
+  if (menuTemplateRefs.value?.lastFocusedMenuItemTemplateRefs) {
+    focusElement(menuTemplateRefs.value?.lastFocusedMenuItemTemplateRefs.itemTemplateRefs.content.$el, true);
+  }
 };
 </script>
 

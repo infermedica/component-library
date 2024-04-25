@@ -13,7 +13,7 @@ import {
   useAttrs,
 } from 'vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
-import type { HorizontalPangingHandleItems } from '../_.vue';
+import type { HorizontalPagingHandleItems } from '../UiHorizontalPaging.vue';
 import type { HTMLTag } from '../../../../types';
 
 export interface HorizontalPagingItemProps {
@@ -51,7 +51,7 @@ const item = computed(() => ({
   ...(props.tag === UiButton ? {} : { tag: props.tag }),
   ...attrs,
 }));
-const items = inject<Ref<HorizontalPangingHandleItems>>('items', ref({}));
+const items = inject<Ref<HorizontalPagingHandleItems>>('items', ref({}));
 items.value[props.name] = item.value;
 onBeforeUnmount(() => {
   delete items.value[props.name];
