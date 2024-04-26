@@ -57,7 +57,7 @@ export interface ListItemPrefixProps {
   /**
    * Use this props to set list item prefix tag.
    */
-  tag?: string | HTMLTag;
+  tag?: HTMLTag;
   /**
    * Use this props to set label.
    */
@@ -77,7 +77,7 @@ export interface ListItemPrefixProps {
 }
 export type ListItemPrefixAttrsProps = DefineAttrsProps<ListItemPrefixProps>;
 const props = withDefaults(defineProps<ListItemPrefixProps>(), {
-  tag: '',
+  tag: undefined,
   label: '',
   icon: '',
   iconAttrs: () => ({}),
@@ -88,7 +88,7 @@ const isButton = computed(() => (!!Object.keys(attrs)
   .find((key) => key
     .match(/(^on*|to|href)/))));
 const listItemPrefixComponent = computed(() => {
-  if (props.tag !== '') {
+  if (props.tag) {
     return props.tag;
   }
   return isButton.value
