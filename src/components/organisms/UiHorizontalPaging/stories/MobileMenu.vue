@@ -34,7 +34,12 @@
           isActive,
         }"
       >
-        <div class="mobile-menu__menu">
+        <div
+          :class="[
+            'mobile-menu__menu',
+            { 'mobile-menu__menu--is-hidden': isActive },
+          ]"
+        >
           <UiMenu
             :items="items"
           />
@@ -126,6 +131,10 @@ const sidePanelTitle = computed(() => (horizontalPagingTemplateRefs.value?.activ
     @include mixins.use-logical($element + "-menu", padding, var(--space-12) var(--space-4));
 
     flex: 0 0 100%;
+
+    &--is-hidden {
+      visibility: hidden;
+    }
   }
 
   &__language {

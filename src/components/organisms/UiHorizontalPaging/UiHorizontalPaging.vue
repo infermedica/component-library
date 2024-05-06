@@ -66,7 +66,10 @@
             ref="menuTemplateRefs"
             :items="menuItemsToRender"
             v-bind="menuAttrs"
-            class="ui-horizontal-paging__menu"
+            :class="[
+              'ui-horizontal-paging__menu',
+              { 'ui-horizontal-paging__menu--is-hidden': isActive },
+            ]"
           >
             <template
               v-for="(_, name) in menuItemsSlots"
@@ -320,6 +323,10 @@ defineExpose({
     @include mixins.use-logical($element + "-menu", padding, var(--space-12) var(--space-4));
 
     flex: 0 0 100%;
+
+    &--is-hidden {
+      visibility: hidden;
+    }
   }
 
   &__content {
