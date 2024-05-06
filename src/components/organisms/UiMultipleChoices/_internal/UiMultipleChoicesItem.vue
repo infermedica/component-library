@@ -386,12 +386,16 @@ defineExpose({ content });
   }
 
   &__choices {
+    @include mixins.use-logical($element + "-choices", margin, 0);
+
     display: flex;
-    flex: 0;
+    flex: functions.var($element + "-choices", flex, 0);
     flex-direction: column;
     gap: functions.var($element + "-choices", gap, 0);
 
     @include mixins.from-tablet {
+      @include mixins.use-logical($element + "-tablet-choices", margin, 0 0 0 auto);
+
       gap: functions.var($element + "-tablet-choices", gap, var(--space-8));
     }
   }
