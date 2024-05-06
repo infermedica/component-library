@@ -278,7 +278,7 @@ const menuItemsSlots = computed(() => (Object.keys(slots).reduce((object, slotNa
   return object;
 }, {})));
 const internalMenuTemplateRefs = ref<InstanceType<typeof UiMenu> | null>(null);
-watch(props.menuTemplateRefs, () => {
+watch(() => props.menuTemplateRefs, () => {
   internalMenuTemplateRefs.value = props.menuTemplateRefs;
 });
 const handleBackClick = () => {
