@@ -22,6 +22,7 @@
         >
           <UiButton
             v-if="isActive"
+            ref="backButtonTemplateRefs"
             v-bind="buttonBackAttrs"
             class="ui-button--icon ui-horizontal-paging__back"
             @click="handleBackClick"
@@ -121,6 +122,7 @@ import {
   type WritableComputedRef,
   type Ref,
 } from 'vue';
+import UiMenuItem from '@/components/organisms/UiMenu/_internal/UiMenuItem.vue';
 import UiMenu, { type MenuAttrsProps } from '../UiMenu/UiMenu.vue';
 import { focusElement } from '../../../utilities/helpers';
 import type {
@@ -223,6 +225,15 @@ provide<HorizontalPagingActiveItems>('activeItems', activeItems);
 const sizeOfActiveItems = computed(() => (activeItems.value.length));
 const activeItem = computed<HorizontalPagingItemProps>(() => (activeItems.value[index] || {}));
 const isActive = computed(() => (Object.keys(activeItem.value).length > 0));
+const backButtonTemplateRefs = ref<InstanceType<typeof UiButton> | null>(null);
+watch(isActive, async (active) => {
+  if (active) {
+    await nextTick();
+    if (backButtonTemplateRefs.value) {
+      focusElement(backButtonTemplateRefs.value.$el);
+    }
+  }
+});
 const activeItemName = computed(() => activeItem.value?.name || '');
 provide<ComputedRef<string>>('activeItemName', activeItemName);
 const currentTitle = computed(() => (activeItems.value[sizeOfActiveItems.value - 1]?.title || props.title));
