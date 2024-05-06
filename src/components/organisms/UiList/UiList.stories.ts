@@ -121,7 +121,6 @@ HasButtonSuffix.args = {
       icon: 'chevron-right',
       label: 'more info',
       ...events,
-      iconAttrs: { class: 'ui-button__icon' },
     },
   })),
 };

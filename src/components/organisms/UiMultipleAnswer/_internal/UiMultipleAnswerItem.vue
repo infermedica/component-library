@@ -215,8 +215,8 @@ const suffixAttrs = computed(() => ({
   tabindex: -1,
   onKeydown: handleInfoUnfocus,
   class: [ 'ui-multiple-answer-item__info' ],
-  iconSuffixAttrs: defaultProps.value.iconInfoAttrs,
-  labelSuffixAttrs: {
+  iconAttrs: defaultProps.value.iconInfoAttrs,
+  labelAttrs: {
     class: [
       'visual-hidden',
       props.labelInfoAttrs?.class,

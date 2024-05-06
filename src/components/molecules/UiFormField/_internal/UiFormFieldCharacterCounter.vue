@@ -58,7 +58,7 @@ watch(
 .ui-form-field-character-counter {
   $element: form-field-character-counter;
 
-  --text-color: #{functions.var($element, color, var(--color-text-body))};
+  --text-color: #{functions.var($element, color, var(--color-text-dimmed))};
 
   &--has-error {
     --text-color: #{functions.var($element, color, var(--color-text-error))};

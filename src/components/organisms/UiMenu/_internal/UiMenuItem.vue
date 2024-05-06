@@ -80,7 +80,6 @@ const menuItemClass = computed(() => ([
 ]));
 
 const menuItemTemplateRefs = ref(null);
-console.log(menuItemTemplateRefs);
 defineExpose({
   itemTemplateRefs: menuItemTemplateRefs,
   isSelected,

@@ -71,8 +71,8 @@ import type {
   HTMLTag,
 } from '../../../../types';
 import type { Icon } from '../../../../types/icon';
-import type { ListItemSuffixAsTextAttrsProps } from './UiListItemSuffixAsText.vue';
-import type { ListItemSuffixAsButtonAttrsProps } from './UiListItemSuffixAsButton.vue';
+import type { ListItemPrefixAttrsProps } from './UiListItemPrefix.vue';
+import type { ListItemSuffixAttrsProps } from './UiListItemSuffix.vue';
 
 export interface ListItemProps {
   /**
@@ -84,21 +84,21 @@ export interface ListItemProps {
    */
   icon?: Icon;
   /**
-   * Use this props to control suffix visibility.
-   */
-  hasSuffix?: boolean;
-  /**
-   * Use this props to pass attrs for UIListItemSuffix
-   */
-  suffixAttrs?: ListItemSuffixAsTextAttrsProps | ListItemSuffixAsButtonAttrsProps;
-  /**
    * Use this props to control prefix visibility.
    */
   hasPrefix?: boolean;
   /**
    * Use this props to pass attrs for UIListItemPrefix
    */
-  prefixAttrs?: ListItemSuffixAsTextAttrsProps | ListItemSuffixAsButtonAttrsProps;
+  prefixAttrs?: ListItemPrefixAttrsProps;
+  /**
+   * Use this props to control suffix visibility.
+   */
+  hasSuffix?: boolean;
+  /**
+   * Use this props to pass attrs for UIListItemSuffix
+   */
+  suffixAttrs?: ListItemSuffixAttrsProps;
   /**
    * Use this props to pass attrs for list item element
    */
@@ -137,11 +137,11 @@ const filteredAttrs = computed(() => {
   return rest;
 });
 
-const suffixComponent = computed(() => (props.hasSuffix
-  ? defineAsyncComponent(() => import('./UiListItemSuffix.vue'))
-  : null));
 const prefixComponent = computed(() => (props.hasPrefix
   ? defineAsyncComponent(() => import('./UiListItemPrefix.vue'))
+  : null));
+const suffixComponent = computed(() => (props.hasSuffix
+  ? defineAsyncComponent(() => import('./UiListItemSuffix.vue'))
   : null));
 
 const content = ref<HTMLTag | null>(null);
