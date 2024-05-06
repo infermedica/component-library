@@ -64,7 +64,7 @@
           }"
         >
           <UiMenu
-            ref="menuTemplateRefs"
+            ref="internalMenuTemplateRefs"
             :items="menuItemsToRender"
             v-bind="menuAttrs"
             :class="[
@@ -122,7 +122,6 @@ import {
   type WritableComputedRef,
   type Ref,
 } from 'vue';
-import UiMenuItem from '@/components/organisms/UiMenu/_internal/UiMenuItem.vue';
 import UiMenu, { type MenuAttrsProps } from '../UiMenu/UiMenu.vue';
 import { focusElement } from '../../../utilities/helpers';
 import type {
@@ -178,7 +177,7 @@ export interface HorizontalPagingProps{
    */
   translation?: HorizontalPagingTranslation;
   /** Use this props to pass menu template ref when you use menu slot. */
-  // menuTemplateRefs?: InstanceType<typeof UiMenu> | null
+  menuTemplateRefs?: InstanceType<typeof UiMenu> | null
 }
 export type HorizontalPagingAttrsProps = DefineAttrsProps<HorizontalPagingProps>;
 export interface HorizontalPagingEmits {
@@ -195,7 +194,7 @@ const props = withDefaults(defineProps<HorizontalPagingProps>(), {
   headingTitleAttrs: () => ({}),
   menuAttrs: () => ({}),
   translation: () => ({ back: 'Back to' }),
-  // menuTemplateRefs: null,
+  menuTemplateRefs: null,
 });
 const defaultProps = computed(() => {
   const icon: Icon = 'chevron-left';
@@ -278,11 +277,14 @@ const menuItemsSlots = computed(() => (Object.keys(slots).reduce((object, slotNa
   }
   return object;
 }, {})));
-const menuTemplateRefs = ref<InstanceType<typeof UiMenu> | null>(null);
+const internalMenuTemplateRefs = ref<InstanceType<typeof UiMenu> | null>(null);
+watch(props.menuTemplateRefs, () => {
+  internalMenuTemplateRefs.value = props.menuTemplateRefs;
+});
 const handleBackClick = () => {
   activeItems.value = activeItems.value.slice(0, -1);
-  if (menuTemplateRefs.value?.lastFocusedMenuItemTemplateRefs) {
-    focusElement(menuTemplateRefs.value?.lastFocusedMenuItemTemplateRefs.itemTemplateRefs.content.$el, true);
+  if (internalMenuTemplateRefs.value?.lastFocusedMenuItemTemplateRefs) {
+    focusElement(internalMenuTemplateRefs.value?.lastFocusedMenuItemTemplateRefs.itemTemplateRefs.content.$el, true);
   }
 };
 defineExpose({

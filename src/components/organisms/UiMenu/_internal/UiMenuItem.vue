@@ -36,8 +36,9 @@ import {
 import UiListItem, { type ListItemAttrsProps } from '../../UiList/_internal/UiListItem.vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
 import type { DefineAttrsProps } from '../../../../types';
+import type { MenuItemProps } from './MenuItemProps';
 
-export type MenuItemAttrsProps = DefineAttrsProps<ListItemAttrsProps>;
+export type MenuItemAttrsProps = DefineAttrsProps<MenuItemProps>;
 
 defineOptions({ inheritAttrs: false });
 

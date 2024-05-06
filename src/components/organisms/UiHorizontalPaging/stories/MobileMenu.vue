@@ -26,7 +26,7 @@
       ref="horizontalPagingTemplateRefs"
       v-model="value"
       v-bind="args"
-      class=""
+      :menu-template-refs="menuTemplateRefs"
     >
       <template
         #menu="{
@@ -41,6 +41,7 @@
           ]"
         >
           <UiMenu
+            ref="menuTemplateRefs"
             :items="items"
           />
           <footer class="mobile-menu__footer">
@@ -80,6 +81,7 @@ import {
   useAttrs,
   defineOptions,
   inject,
+  nextTick,
 } from 'vue';
 import {
   UiHorizontalPaging,
@@ -94,6 +96,7 @@ import {
 import MedicalCertification from './_internal/MedicalCertification.vue';
 import TermsOfService from './_internal/TermsOfService.vue';
 import InterviewId from './_internal/InterviewId.vue';
+import { focusElement } from '../../../../utilities/helpers';
 
 defineOptions({ inheritAttrs: false });
 const attrs = useAttrs();
@@ -102,11 +105,14 @@ const value = inject('value', []);
 
 const horizontalPagingTemplateRefs = ref(null);
 const isActive = computed(() => (horizontalPagingTemplateRefs.value?.isActive));
-const handleBackClick = () => {
-  horizontalPagingTemplateRefs.value.handleBackClick();
-};
 const sidePanelTitle = computed(() => (horizontalPagingTemplateRefs.value?.currentTitle));
 const backToTitle = computed(() => (horizontalPagingTemplateRefs.value?.backToTitle));
+const menuTemplateRefs = ref(null);
+const handleBackClick = async () => {
+  horizontalPagingTemplateRefs.value.handleBackClick();
+  await nextTick();
+  focusElement(menuTemplateRefs.value.lastFocusedMenuItemTemplateRefs.itemTemplateRefs.content.$el);
+};
 </script>
 
 <style lang="scss">
