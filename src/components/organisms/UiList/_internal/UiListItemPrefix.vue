@@ -12,9 +12,11 @@
         labelAttrs,
       }"
     >
+      <!-- @slot Use this slot to replace icon template. -->
       <slot
         name="icon"
         v-bind="{
+          isButton,
           hasIcon,
           iconAttrs,
         }"
@@ -26,6 +28,7 @@
           :class="[ { 'ui-button__icon': isButton } ]"
         />
       </slot>
+      <!-- @slot Use this slot to replace label template. -->
       <slot
         name="label"
         v-bind="{

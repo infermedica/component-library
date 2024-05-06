@@ -12,6 +12,7 @@
         labelAttrs,
       }"
     >
+      <!-- @slot Use this slot to replace label template. -->
       <slot
         name="label"
         v-bind="{
@@ -23,9 +24,11 @@
           v-bind="labelAttrs"
         >{{ label }}</span>
       </slot>
+      <!-- @slot Use this slot to replace icon template. -->
       <slot
         name="icon"
         v-bind="{
+          isButton,
           hasIcon,
           iconAttrs,
         }"
