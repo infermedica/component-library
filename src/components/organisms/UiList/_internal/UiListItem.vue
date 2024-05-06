@@ -71,8 +71,8 @@ import type {
   HTMLTag,
 } from '../../../../types';
 import type { Icon } from '../../../../types/icon';
-import type { ListItemSuffixAttrsProps } from './UiListItemSuffix.vue';
 import type { ListItemPrefixAttrsProps } from './UiListItemPrefix.vue';
+import type { ListItemSuffixAttrsProps } from './UiListItemSuffix.vue';
 
 export interface ListItemProps {
   /**
