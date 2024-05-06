@@ -288,6 +288,8 @@ const handleBackClick = () => {
 defineExpose({
   isActive,
   activeItem,
+  currentTitle,
+  backToTitle,
   handleBackClick,
 });
 </script>

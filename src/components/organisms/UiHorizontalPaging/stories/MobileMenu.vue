@@ -15,7 +15,7 @@
             icon="chevron-left"
             class="ui-button__icon"
           />
-          <span class="visual-hidden">Back to {{ previous }}</span>
+          <span class="visual-hidden">Back to {{ backToTitle }}</span>
         </UiButton>
         <UiHeading>
           {{ title }}
@@ -105,7 +105,8 @@ const isActive = computed(() => (horizontalPagingTemplateRefs.value?.isActive));
 const handleBackClick = () => {
   horizontalPagingTemplateRefs.value.handleBackClick();
 };
-const sidePanelTitle = computed(() => (horizontalPagingTemplateRefs.value?.activeItem.title || args.value.title));
+const sidePanelTitle = computed(() => (horizontalPagingTemplateRefs.value?.currentTitle));
+const backToTitle = computed(() => (horizontalPagingTemplateRefs.value?.backToTitle));
 </script>
 
 <style lang="scss">
