@@ -2155,7 +2155,7 @@
       "slots": [
         {
           "name": "default",
-          "description": "Use this slot to place list items"
+          "description": "Use this slot to place list items."
         },
         {
           "name": "name",
@@ -2168,14 +2168,10 @@
           ]
         },
         {
-          "name": "item.name",
+          "name": "item?.name",
           "scoped": true,
           "description": "Use this slot to replace list item content",
           "bindings": [
-            {
-              "name": "item",
-              "title": "binding"
-            },
             {
               "name": "name",
               "title": "binding"
@@ -8212,6 +8208,196 @@
     },
     {
       "exportName": "default",
+      "displayName": "UiListItemSuffix",
+      "description": "",
+      "tags": {},
+      "props": [
+        {
+          "name": "tag",
+          "description": "Use this props to set list item suffix tag.",
+          "required": false,
+          "type": {
+            "name": "HTMLTag"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "'div'"
+          }
+        },
+        {
+          "name": "label",
+          "description": "Use this props to set label.",
+          "required": false,
+          "type": {
+            "name": "string"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "''"
+          }
+        },
+        {
+          "name": "icon",
+          "description": "Use this props to set icon.",
+          "required": false,
+          "type": {
+            "name": "Icon"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "''"
+          }
+        },
+        {
+          "name": "iconAttrs",
+          "description": "Use this props to pass attrs for suffix UiIcon.",
+          "required": false,
+          "type": {
+            "name": "IconAttrsProps"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "() => ({})"
+          }
+        },
+        {
+          "name": "labelAttrs",
+          "description": "Use this props to pass attrs for label element.",
+          "required": false,
+          "type": {
+            "name": "DefineAttrsProps",
+            "elements": [
+              {
+                "name": "null"
+              }
+            ]
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "() => ({})"
+          }
+        },
+        {
+          "name": "iconSuffixAttrs",
+          "tags": {
+            "deprecated": [
+              {
+                "description": "will be removed in 2.0.0 Use this props to pass attrs for suffix UiIcon.",
+                "title": "deprecated"
+              }
+            ]
+          },
+          "required": false,
+          "type": {
+            "name": "IconAttrsProps"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "() => ({})"
+          }
+        },
+        {
+          "name": "labelSuffixAttrs",
+          "tags": {
+            "deprecated": [
+              {
+                "description": "will be removed in 2.0.0 Use this props to pass attrs for label element.",
+                "title": "deprecated"
+              }
+            ]
+          },
+          "required": false,
+          "type": {
+            "name": "DefineAttrsProps",
+            "elements": [
+              {
+                "name": "null"
+              }
+            ]
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "() => ({})"
+          }
+        }
+      ],
+      "slots": [
+        {
+          "name": "default",
+          "description": "Use this slot to replace suffix template."
+        },
+        {
+          "name": "label",
+          "scoped": true,
+          "description": "Use this slot to replace label template.",
+          "bindings": [
+            {
+              "name": "label",
+              "title": "binding"
+            },
+            {
+              "name": "labelSuffixAttrs",
+              "title": "binding"
+            },
+            {
+              "name": "labelAttrs",
+              "title": "binding"
+            }
+          ]
+        },
+        {
+          "name": "icon",
+          "scoped": true,
+          "description": "Use this slot to replace icon template.",
+          "bindings": [
+            {
+              "name": "hasIcon",
+              "title": "binding"
+            },
+            {
+              "name": "iconSuffixAttrs",
+              "title": "binding"
+            },
+            {
+              "name": "iconAttrs",
+              "title": "binding"
+            }
+          ]
+        }
+      ],
+      "sourceFiles": [
+        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiList/_internal/UiListItemSuffix.vue"
+      ]
+    },
+    {
+      "exportName": "default",
+      "displayName": "UiListItemContent",
+      "description": "",
+      "tags": {},
+      "props": [
+        {
+          "name": "item",
+          "required": false,
+          "type": {
+            "name": "ListRenderItem"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "() => ({ name: '' })"
+          }
+        }
+      ],
+      "slots": [
+        {
+          "name": "default"
+        }
+      ],
+      "sourceFiles": [
+        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiList/_internal/UiListItemContent.vue"
+      ]
+    },
+    {
+      "exportName": "default",
       "displayName": "UiListItem",
       "description": "",
       "tags": {},
@@ -8265,10 +8451,10 @@
             "name": "union",
             "elements": [
               {
-                "name": "ListItemSuffixAsButtonAttrsProps"
+                "name": "ListItemSuffixAsTextAttrsProps"
               },
               {
-                "name": "ListItemSuffixAsTextAttrsProps"
+                "name": "ListItemSuffixAsButtonAttrsProps"
               }
             ]
           },
@@ -8302,10 +8488,13 @@
         {
           "name": "content",
           "scoped": true,
-          "description": "Use this slot to replace list item content template.",
           "bindings": [
             {
               "name": "tag",
+              "title": "binding"
+            },
+            {
+              "name": "filteredAttrs",
               "title": "binding"
             },
             {
