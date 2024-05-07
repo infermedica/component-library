@@ -25,7 +25,7 @@ import {
   defineAsyncComponent,
   useAttrs,
 } from 'vue';
-import UiIcon, { type IconAttrsProps } from '../../../atoms/UiIcon/UiIcon.vue';
+import { type IconAttrsProps } from '../../../atoms/UiIcon/UiIcon.vue';
 
 import type {
   DefineAttrsProps,
