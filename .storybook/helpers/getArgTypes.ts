@@ -63,7 +63,11 @@ export function getArgTypes(component, options = { variables: {}}) {
             : value.length < 1
               ? value
               : isNaN(Number(value))
-                ? value
+                ? value === 'null'
+                  ? null
+                  : value.match(/\(\{/gm)
+                    ? new Object(value)
+                    : value
                 : Number(value)
       },
       category: 'props'

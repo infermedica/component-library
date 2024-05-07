@@ -2,7 +2,7 @@
   <UiMenu v-bind="args" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {
   computed,
   useAttrs,
