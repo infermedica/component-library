@@ -1,7 +1,13 @@
 <template>
   <UiMenu v-bind="args" :items-template-refs="menuItemsTemplateRefs">
-    <template v-for="item in args.items">
-      <UiMenuItem v-bind="item" ref="menuItemsTemplateRefs">
+    <template
+      v-for="(item, index) in items"
+      :key="index"
+    >
+      <UiMenuItem
+        ref="menuItemsTemplateRefs"
+        v-bind="item"
+      >
         <UiText>{{ item.label }}</UiText>
       </UiMenuItem>
     </template>
@@ -20,9 +26,11 @@ import {
   UiText,
 } from '@infermedica/component-library';
 import UiMenuItem from '../_internal/UiMenuItem.vue';
+import type { MenuItemProps } from '../_internal/MenuItemProps';
 
 defineOptions({ inheritAttrs: false });
 const attrs = useAttrs();
 const args = computed(() => (attrs));
+const items = computed<MenuItemProps>(() => (args.value.items));
 const menuItemsTemplateRefs = ref([]);
 </script>
