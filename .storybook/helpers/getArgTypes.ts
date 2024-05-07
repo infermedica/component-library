@@ -41,7 +41,7 @@ export function getArgTypes(component, options = { variables: {}}) {
     return name
   }
   const getTable = (name, defaultValue) => {
-    const value = defaultValue.value.replace(/'/gm, '').replace(/"/gm, '')
+    const value = defaultValue.value.replace(/"/gm, '')
     if (name.match(/(Attrs)$/gm)) {
       return {
         defaultValue: {
@@ -65,8 +65,8 @@ export function getArgTypes(component, options = { variables: {}}) {
               : isNaN(Number(value))
                 ? value === 'null'
                   ? null
-                  : value.match(/\(\{/gm)
-                    ? new Object(value)
+                  : value.match(/\(\) => \(/gm)
+                    ? new Function(value)()
                     : value
                 : Number(value)
       },
