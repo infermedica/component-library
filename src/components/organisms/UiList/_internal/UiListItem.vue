@@ -93,7 +93,9 @@ const defaultProps = computed<ListItemProps>(() => ({
 }));
 
 if (props.icon !== '') {
-  console.warn('[@infermedica/component-library]: The `icon` props is deprecated and it will be removed in v2.0.0. Please use `suffixAttrs` to pass icon.');
+  if (process.env.NODE_ENV !== 'production') {
+    console.warn('[@infermedica/component-library]: The `icon` props is deprecated and it will be removed in v2.0.0. Please use `suffixAttrs` to pass icon.');
+  }
 }
 
 const attrs = useAttrs();

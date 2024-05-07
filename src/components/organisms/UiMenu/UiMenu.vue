@@ -86,11 +86,6 @@ const menuItemsTemplateRefs = ref<InstanceType<typeof UiMenuItem>[]>([]);
 watch(props.itemsTemplateRefs, () => {
   menuItemsTemplateRefs.value = props.itemsTemplateRefs;
 });
-if (props.enableKeyboardNavigation
-    && props.itemsTemplateRefs
-    && props.itemsTemplateRefs.length < 1) {
-  console.warn('@infermedica/component-library: use itemsTemplateRefs to pass UiMenuItems template refs.');
-}
 const {
   focusedElement,
   firstElement,
@@ -125,6 +120,13 @@ onMounted(async () => {
   if (props.enableKeyboardNavigation
       && menuItemsTemplateRefs.value.length > 0) {
     setNegativeTabindexForNonInitialMenuItems();
+  }
+  if (process.env.NODE_ENV !== 'production') {
+    if (props.enableKeyboardNavigation
+        && menuItemsTemplateRefs.value.length < 1
+    ) {
+      console.warn('@infermedica/component-library: use itemsTemplateRefs to pass UiMenuItems template refs.');
+    }
   }
 });
 const lastFocusedMenuItemTemplateRefs = ref<ElementRef | null>(null);
