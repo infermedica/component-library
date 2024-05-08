@@ -111,8 +111,7 @@ watch(() => (props.enableKeyboardNavigation), async () => {
       // eslint-disable-next-line no-param-reassign
       item.tabindex = 0;
     });
-  }
-  if (props.enableKeyboardNavigation
+  } else if (props.enableKeyboardNavigation
       && menuItemsTemplateRefs.value.length > 0) {
     setNegativeTabindexForNonInitialMenuItems();
   }
