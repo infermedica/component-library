@@ -35,6 +35,7 @@ import {
   onMounted,
   type ComputedRef,
   type ComponentInstance,
+  onBeforeUnmount,
 } from 'vue';
 import useArrowNavigation, { type ElementRef } from './useArrowNavigation';
 import { focusElement } from '../../../utilities/helpers';
@@ -175,6 +176,10 @@ const handleMenuKeyDown = async ({ key }: KeyboardEvent) => {
 };
 const isFocused = ref(false);
 const scrollLock = (event: KeyboardEvent) => {
+  if ((!props.enableKeyboardNavigation && !isFocused.value)
+      || !isFocused.value) {
+    return;
+  }
   const { key } = event;
   if ([
     'ArrowUp',
@@ -187,15 +192,11 @@ const scrollLock = (event: KeyboardEvent) => {
     event.preventDefault();
   }
 };
-watch(isFocused, (value) => {
-  if (disabledKeyboardNavigation.value) {
-    return;
-  }
-  if (value) {
-    window.addEventListener('keydown', scrollLock);
-  } else {
-    window.removeEventListener('keydown', scrollLock);
-  }
+onMounted(() => {
+  window.addEventListener('keydown', scrollLock);
+});
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', scrollLock);
 });
 watch(focusedElement, (el, prevEl) => {
   isFocused.value = !!(el && Object.keys(el).length > 0);
