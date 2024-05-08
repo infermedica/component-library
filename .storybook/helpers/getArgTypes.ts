@@ -81,7 +81,7 @@ export function getArgTypes(component, options = { variables: {}}) {
     }
     return {
       defaultValue: {
-        summary: getDefaultValue(value);
+        summary: getDefaultValue(value)
       },
       category: 'props'
     }
