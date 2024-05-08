@@ -17,6 +17,7 @@ import {
   BasicStoriesSource,
   MobileMenuStories,
 } from './stories';
+import './stories/style.scss';
 
 type HorizontalPagingArgsType = HorizontalPagingProps;
 type HorizontalPagingMetaType = Meta<HorizontalPagingArgsType>;
@@ -91,42 +92,52 @@ export const Basic: HorizontalPagingStoryType = {
 Basic.decorators = [ withVModel ];
 Basic.parameters = { docs: { source: { code: BasicStoriesSource } } };
 
-// export const MobileMenu: HorizontalPagingStoryType = {
-//   render(args, {
-//     name, argTypes,
-//   }) {
-//     return {
-//       name,
-//       components: { MobileMenuStories },
-//       setup() {
-//         const { attrs } = getAttrs(args, argTypes, name);
-//         return { attrs };
-//       },
-//       template: '<MobileMenuStories v-bind="{...attrs}"/>',
-//     };
-//   },
-// };
-// MobileMenu.args = {
-//   items: [
-//     {
-//       label: 'Language',
-//       title: 'Language',
-//       name: 'language',
-//       class: [ 'mobile-menu__language' ],
-//       hasSuffix: true,
-//       suffixAttrs: {
-//         label: 'English',
-//         icon: 'chevron-right',
-//       },
-//       onClick: action('onClick'),
-//     },
-//     ...items.map((item) => ({
-//       ...item,
-//       hasSuffix: true,
-//       suffixAttrs: { class: 'ui-menu-item-suffix--theme-secondary' },
-//     })),
-//   ],
-//   hasHeader: false,
-// };
-// MobileMenu.decorators = [ withVModel ];
-// MobileMenu.parameters = { viewport: { defaultViewport: 'mobile2' } };
+// WARING: stories/styles.scss use this name
+export const MobileMenu: HorizontalPagingStoryType = {
+  render(args, {
+    name, argTypes,
+  }) {
+    return {
+      name,
+      components: { MobileMenuStories },
+      setup() {
+        const { attrs } = getAttrs(args, argTypes, name);
+        return { attrs };
+      },
+      template: '<MobileMenuStories v-bind="{...attrs}"/>',
+    };
+  },
+};
+MobileMenu.args = {
+  items: [
+    {
+      label: 'Language',
+      title: 'Language',
+      name: 'language',
+      class: [ 'mobile-menu__language' ],
+      hasSuffix: true,
+      suffixAttrs: {
+        label: 'English',
+        icon: 'chevron-right',
+      },
+      onClick: action('onClick'),
+    },
+    ...items.map((item) => ({
+      ...item,
+      hasSuffix: true,
+      suffixAttrs: { class: 'ui-menu-item-suffix--theme-secondary' },
+    })),
+  ],
+  hasHeader: false,
+};
+MobileMenu.decorators = [
+  () => ({
+    name: 'LMinHeight',
+    inheritAttrs: false,
+    template: `<div class="min-h-140">
+      <story />
+    </div>`,
+  }),
+  withVModel,
+];
+MobileMenu.parameters = { viewport: { defaultViewport: 'mobile2' } };
