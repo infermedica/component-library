@@ -82,7 +82,6 @@ const itemsToRender = computed<MenuRenderItem[]>(() => (props.items.map((item, i
     ...item,
   };
 })));
-const disabledKeyboardNavigation = computed(() => (!props.enableKeyboardNavigation));
 const menuItemsTemplateRefs = ref<InstanceType<typeof UiMenuItem>[]>([]);
 watch(props.itemsTemplateRefs, () => {
   menuItemsTemplateRefs.value = props.itemsTemplateRefs;
@@ -107,14 +106,14 @@ const setNegativeTabindexForNonInitialMenuItems = async () => {
 };
 watch(() => (props.enableKeyboardNavigation), async () => {
   await nextTick();
-  if (disabledKeyboardNavigation.value) {
+  if (props.enableKeyboardNavigation
+      && menuItemsTemplateRefs.value.length > 0) {
+    setNegativeTabindexForNonInitialMenuItems();
+  } else {
     menuItemsTemplateRefs.value.forEach((item) => {
       // eslint-disable-next-line no-param-reassign
       item.tabindex = 0;
     });
-  } else if (props.enableKeyboardNavigation
-      && menuItemsTemplateRefs.value.length > 0) {
-    setNegativeTabindexForNonInitialMenuItems();
   }
 });
 onMounted(async () => {
@@ -139,7 +138,7 @@ const handleMenuItemFocus = async (element: ComputedRef<ElementRef | undefined>)
   }
 };
 const handleMenuKeyDown = async ({ key }: KeyboardEvent) => {
-  if (disabledKeyboardNavigation.value) {
+  if (!props.enableKeyboardNavigation) {
     return;
   }
   const activeElement = focusedElement.value;
