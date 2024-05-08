@@ -2,7 +2,7 @@
   <!-- :has-suffix, :icon  -->
   <UiListItem
     ref="menuItemTemplateRefs"
-    v-bind="filteredAttrs"
+    v-bind="attrsForListItem"
     :tag="UiButton"
     :has-suffix="hasSuffix"
     :class="menuItemClass"
@@ -43,18 +43,18 @@ export type MenuItemAttrsProps = DefineAttrsProps<MenuItemProps>;
 defineOptions({ inheritAttrs: false });
 
 const attrs:ListItemAttrsProps = useAttrs();
-const filteredAttrs = computed(() => {
+const attrsForListItem = computed(() => {
   const {
     name, label, ...rest
   } = attrs;
   return rest;
 });
 
-const isSelected = computed(() => (('class' in filteredAttrs.value)
-  ? filteredAttrs.value.class.includes('ui-menu-item--is-selected')
+const isSelected = computed(() => (('class' in attrsForListItem.value)
+  ? attrs.class.includes('ui-menu-item--is-selected')
   : false));
 const hasSuffix = computed(() => (isSelected.value
-    || filteredAttrs.value.hasSuffix));
+    || attrsForListItem.value.hasSuffix));
 const isFocused = ref(false);
 const tabindex = ref(0);
 const handleMenuItemFocus = () => { isFocused.value = true; };
@@ -70,8 +70,8 @@ const defaultProps = computed(() => ({
       : {}),
   },
   suffixAttrs: {
-    icon: filteredAttrs.value.icon || 'present',
-    ...filteredAttrs.value.suffixAttrs,
+    icon: attrsForListItem.value.icon || 'present',
+    ...attrsForListItem.value.suffixAttrs,
   },
 }));
 const menuItemClass = computed(() => ([
