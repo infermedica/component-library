@@ -10,7 +10,7 @@
         :key="index"
       >
         <UiMenuItem
-          ref="menuItemsTemplateRefs"
+          ref="internalMenuItemsTemplateRefs"
           v-bind="item"
         >
           <slot
@@ -60,14 +60,14 @@ export interface MenuProps {
   /**
    * Use this props to pass refs to UiMenuItems.
    */
-  itemsTemplateRefs?: ComponentInstance<typeof UiMenuItem>[] | [];
+  menuItemsTemplateRefs?: ComponentInstance<typeof UiMenuItem>[] | null;
 }
 export type MenuAttrsProps = DefineAttrsProps<MenuProps, ListAttrsProps>;
 
 const props = withDefaults(defineProps<MenuProps>(), {
   items: () => ([]),
   enableKeyboardNavigation: true,
-  itemsTemplateRefs: () => ([]),
+  menuItemsTemplateRefs: null,
 });
 provide('enableKeyboardNavigation', props.enableKeyboardNavigation);
 const itemsToRender = computed<MenuRenderItem[]>(() => (props.items.map((item, index) => {
@@ -82,10 +82,8 @@ const itemsToRender = computed<MenuRenderItem[]>(() => (props.items.map((item, i
     ...item,
   };
 })));
-const menuItemsTemplateRefs = ref<InstanceType<typeof UiMenuItem>[]>([]);
-watch(props.itemsTemplateRefs, () => {
-  menuItemsTemplateRefs.value = props.itemsTemplateRefs;
-});
+const internalMenuItemsTemplateRefs = ref<InstanceType<typeof UiMenuItem>[]>([]);
+const usedMenuTemplateRefs = computed(() => (props.menuItemsTemplateRefs || internalMenuItemsTemplateRefs.value));
 const {
   focusedElement,
   firstElement,
@@ -94,9 +92,9 @@ const {
   selectedElement,
   nextElement,
   prevElement,
-} = useArrowNavigation(menuItemsTemplateRefs);
+} = useArrowNavigation(usedMenuTemplateRefs);
 const setNegativeTabindexForNonInitialMenuItems = async () => {
-  menuItemsTemplateRefs.value.forEach((item) => {
+  usedMenuTemplateRefs.value.forEach((item) => {
     if (item === initialElement.value) {
       return;
     }
@@ -107,10 +105,10 @@ const setNegativeTabindexForNonInitialMenuItems = async () => {
 watch(() => (props.enableKeyboardNavigation), async () => {
   await nextTick();
   if (props.enableKeyboardNavigation
-      && menuItemsTemplateRefs.value.length > 0) {
+      && usedMenuTemplateRefs.value.length > 0) {
     setNegativeTabindexForNonInitialMenuItems();
   } else {
-    menuItemsTemplateRefs.value.forEach((item) => {
+    usedMenuTemplateRefs.value.forEach((item) => {
       // eslint-disable-next-line no-param-reassign
       item.tabindex = 0;
     });
@@ -119,12 +117,12 @@ watch(() => (props.enableKeyboardNavigation), async () => {
 onMounted(async () => {
   await nextTick();
   if (props.enableKeyboardNavigation
-      && menuItemsTemplateRefs.value.length > 0) {
+      && usedMenuTemplateRefs.value.length > 0) {
     setNegativeTabindexForNonInitialMenuItems();
   }
   if (process.env.NODE_ENV !== 'production') {
     if (props.enableKeyboardNavigation
-        && menuItemsTemplateRefs.value.length < 1
+        && usedMenuTemplateRefs.value.length < 1
     ) {
       console.warn('@infermedica/component-library: use itemsTemplateRefs to pass UiMenuItems template refs.');
     }
@@ -207,7 +205,7 @@ watch(focusedElement, (el, prevEl) => {
   }
 });
 defineExpose({
-  menuItemsTemplateRefs,
+  menuItemsTemplateRefs: usedMenuTemplateRefs,
   initialMenuItemTemplateRefs: initialElement,
   firstMenuItemTemplateRefs: firstElement,
   lastMenuItemTemplateRefs: lastElement,

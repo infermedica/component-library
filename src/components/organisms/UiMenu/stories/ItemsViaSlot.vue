@@ -1,5 +1,5 @@
 <template>
-  <UiMenu v-bind="args" :items-template-refs="menuItemsTemplateRefs">
+  <UiMenu v-bind="args" :menu-items-template-refs="menuItemsTemplateRefs">
     <template
       v-for="(item, index) in items"
       :key="index"

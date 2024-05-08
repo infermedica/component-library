@@ -278,12 +278,10 @@ const menuItemsSlots = computed(() => (Object.keys(slots).reduce((object, slotNa
   return object;
 }, {})));
 const internalMenuTemplateRefs = ref<InstanceType<typeof UiMenu> | null>(null);
-watch(() => props.menuTemplateRefs, () => {
-  internalMenuTemplateRefs.value = props.menuTemplateRefs;
-});
+const usedMenuTemplateRefs = computed(() => (props.menuTemplateRefs || internalMenuTemplateRefs.value));
 const handleBackClick = () => {
   activeItems.value = activeItems.value.slice(0, -1);
-  if (internalMenuTemplateRefs.value?.lastFocusedMenuItemTemplateRefs) {
+  if (usedMenuTemplateRefs.value?.lastFocusedMenuItemTemplateRefs) {
     focusElement(internalMenuTemplateRefs.value?.lastFocusedMenuItemTemplateRefs.itemTemplateRefs.content.$el, true);
   }
 };
