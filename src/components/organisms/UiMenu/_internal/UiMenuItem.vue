@@ -65,9 +65,7 @@ const defaultProps = computed(() => ({
       'ui-menu-item',
       { 'ui-menu-item--is-selected': isSelected.value },
     ],
-    ...() => (attrs.listItemAttrs
-      ? attrs.listItemAttrs
-      : {}),
+    ...{ ...(attrs.listItemAttrs || {}) },
   },
   suffixAttrs: {
     icon: attrsForListItem.value.icon || 'present',
