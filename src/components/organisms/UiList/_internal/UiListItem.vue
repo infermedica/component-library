@@ -64,13 +64,46 @@ import {
   computed,
   useAttrs,
   defineAsyncComponent,
+  type LiHTMLAttributes,
 } from 'vue';
 import type {
   DefineAttrsProps,
   HTMLTag,
 } from '../../../../types';
-import type { ListItemProps } from './ListItemProps';
+import type { Icon } from '../../../../types/icon';
+import type { ListItemPrefixAttrsProps } from './UiListItemPrefix.vue';
+import type { ListItemSuffixAttrsProps } from './UiListItemSuffix.vue';
 
+export interface ListItemProps {
+  /**
+   * Use this props to set list item content tag.
+   */
+  tag?: HTMLTag;
+  /**
+   * @deprecated will be removed in 2.0.0; Use this props to set suffix icon.
+   */
+  icon?: Icon;
+  /**
+   * Use this props to control prefix visibility.
+   */
+  hasPrefix?: boolean;
+  /**
+   * Use this props to pass attrs for UIListItemPrefix
+   */
+  prefixAttrs?: ListItemPrefixAttrsProps;
+  /**
+   * Use this props to control suffix visibility.
+   */
+  hasSuffix?: boolean;
+  /**
+   * Use this props to pass attrs for UIListItemSuffix
+   */
+  suffixAttrs?: ListItemSuffixAttrsProps;
+  /**
+   * Use this props to pass attrs for list item element
+   */
+  listItemAttrs?: DefineAttrsProps<null, LiHTMLAttributes>;
+}
 export type ListItemAttrsProps = DefineAttrsProps<ListItemProps>;
 
 defineOptions({ inheritAttrs: false });
@@ -93,9 +126,7 @@ const defaultProps = computed<ListItemProps>(() => ({
 }));
 
 if (props.icon !== '') {
-  if (process.env.NODE_ENV !== 'production') {
-    console.warn('[@infermedica/component-library]: The `icon` props is deprecated and it will be removed in v2.0.0. Please use `suffixAttrs` to pass icon.');
-  }
+  console.warn('[@infermedica/component-library]: The `icon` props is deprecated and it will be removed in v2.0.0. Please use `suffixAttrs` to pass icon.');
 }
 
 const attrs = useAttrs();
@@ -142,12 +173,11 @@ defineExpose({ content });
 
   &__content {
     @include mixins.use-logical($element + "-content", padding, var(--space-12));
-    --button-gap: #{functions.var($element + "-content", gap, var(--space-12))};
 
     display: flex;
     flex: 1;
     align-items: flex-start;
-    gap: #{functions.var($element + "-content", gap, var(--space-12))};
+    gap: functions.var($element + "-content", gap, var(--space-12));
 
     @include mixins.from-tablet {
       @include mixins.use-logical($element + "-tablet-content", padding, var(--space-12));

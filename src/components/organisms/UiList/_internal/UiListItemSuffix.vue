@@ -68,14 +68,10 @@ const props = withDefaults(defineProps<ListItemSuffixProps>(), { // @deprecated 
 
 // TODO: will be removed in 2.0.0 / BEGIN
 if (Object.keys(props.iconSuffixAttrs).length > 0) {
-  if (process.env.NODE_ENV !== 'production') {
-    console.warn('[@infermedica/component-library]: The `iconSuffixAttrs` props is deprecated and it will be removed in v2.0.0. Please use `iconAttrs` instead.');
-  }
+  console.warn('[@infermedica/component-library]: The `iconSuffixAttrs` props is deprecated and it will be removed in v2.0.0. Please use `iconAttrs` instead.');
 }
 if (Object.keys(props.labelSuffixAttrs).length > 0) {
-  if (process.env.NODE_ENV !== 'production') {
-    console.warn('[@infermedica/component-library]: The `labelSuffixAttrs` props is deprecated and it will be removed in v2.0.0. Please use `labelAttrs` instead.');
-  }
+  console.warn('[@infermedica/component-library]: The `labelSuffixAttrs` props is deprecated and it will be removed in v2.0.0. Please use `labelAttrs` instead.');
 }
 // END
 </script>
