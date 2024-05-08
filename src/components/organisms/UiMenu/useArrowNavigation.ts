@@ -18,9 +18,9 @@ export default function useArrowNavigation(elementsRefs: Ref<ElementRef[]>) {
   const firstElement = computed(() => (elementsRefs.value.at(0)));
   const initialElement = computed(() => (selectedElement.value || firstElement.value));
   const lastElement = computed(() => (elementsRefs.value.at(-1)));
-  const elements = computed(() => (elementsRefs.value.length));
+  const elementsLength = computed(() => (elementsRefs.value.length));
   const nextElement = computed(() => {
-    if (focusedElementIndex.value >= elements.value - 1) {
+    if (focusedElementIndex.value >= elementsLength.value - 1) {
       return firstElement.value;
     }
     return elementsRefs.value.at(focusedElementIndex.value + 1);
