@@ -23,8 +23,8 @@ type MenuMetaType = Meta<MenuArgsType>;
 type MenuStoryType = StoryObj<MenuArgsType>;
 
 const {
-  argTypes,
-  args,
+  argTypes: metaArgTypes,
+  args: metaArgs,
 } = getArgTypes(UiMenu);
 
 const items = [
@@ -42,10 +42,10 @@ const meta = {
   title: 'Organisms/Menu',
   component: UiMenu,
   args: {
-    ...args,
+    ...metaArgs,
     items,
   },
-  argTypes,
+  argTypes: { ...metaArgTypes },
   decorators: [ () => ({
     name: 'LMaxWidth',
     template: '<div style="max-width: 21.875rem"><story /></div>',

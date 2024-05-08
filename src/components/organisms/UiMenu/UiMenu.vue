@@ -100,6 +100,7 @@ const setNegativeTabindexForNonInitialMenuItems = async () => {
     if (item === initialElement.value) {
       return;
     }
+    // eslint-disable-next-line no-param-reassign
     item.tabindex = -1;
   });
 };
@@ -107,6 +108,7 @@ watch(() => (props.enableKeyboardNavigation), async () => {
   await nextTick();
   if (disabledKeyboardNavigation.value) {
     menuItemsTemplateRefs.value.forEach((item) => {
+      // eslint-disable-next-line no-param-reassign
       item.tabindex = 0;
     });
   }
