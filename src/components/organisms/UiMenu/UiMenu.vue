@@ -17,7 +17,7 @@
             v-bind="item"
             :name="item.name"
           >
-            <UiMenuItemContent :item="item" />
+            <UiText>{{ item.label }}</UiText>
           </slot>
         </UiMenuItem>
       </template>
@@ -37,11 +37,11 @@ import {
   type ComponentInstance,
   onBeforeUnmount,
 } from 'vue';
+import UiText from '@/components/atoms/UiText/UiText.vue';
 import useArrowNavigation, { type ElementRef } from './useArrowNavigation';
 import { focusElement } from '../../../utilities/helpers';
 import UiList, { type ListAttrsProps } from '../UiList/UiList.vue';
 import UiMenuItem, { type MenuItemAttrsProps } from './_internal/UiMenuItem.vue';
-import UiMenuItemContent from './_internal/UiMenuItemContent.vue';
 import type { DefineAttrsProps } from '../../../types';
 
 export interface MenuRenderItem extends MenuItemAttrsProps {
