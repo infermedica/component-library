@@ -1,13 +1,13 @@
 <template>
   <li
-    class="ui-list-item"
     v-bind="listItemAttrs"
+    class="ui-list-item"
   >
-    <!-- @slot Use this slot to replace list item content template. -->
     <slot
       name="content"
       v-bind="{
         tag,
+        filteredAttrs,
         hasSuffix,
         suffixComponent,
         suffixAttrs: defaultProps.suffixAttrs,
@@ -15,10 +15,26 @@
     >
       <component
         :is="tag"
+        v-bind="filteredAttrs"
         ref="content"
-        v-bind="$attrs"
         class="ui-list-item__content"
       >
+        <!-- @slot Use this slot to replace prefix template -->
+        <slot
+          name="prefix"
+          v-bind="{
+            hasPrefix,
+            prefixComponent,
+            prefixAttrs: defaultProps.prefixAttrs,
+          }"
+        >
+          <component
+            :is="prefixComponent"
+            v-if="hasPrefix"
+            v-bind="defaultProps.prefixAttrs"
+            class="ui-list-item__prefix"
+          />
+        </slot>
         <!-- @slot Use this slot to place content inside list-item. -->
         <slot />
         <!-- @slot Use this slot to replace suffix template -->
@@ -42,25 +58,21 @@
   </li>
 </template>
 
-<script lang="ts">
-export default { inheritAttrs: false };
-</script>
-
 <script setup lang="ts">
 import {
-  computed,
   ref,
+  computed,
+  useAttrs,
+  defineAsyncComponent,
   type LiHTMLAttributes,
 } from 'vue';
-import type { Icon } from '../../../../types/icon';
-import UiListItemSuffixAsButton from './UiListItemSuffixAsButton.vue';
-import type { ListItemSuffixAsButtonAttrsProps } from './UiListItemSuffixAsButton.vue';
-import UiListItemSuffixAsText from './UiListItemSuffixAsText.vue';
-import type { ListItemSuffixAsTextAttrsProps } from './UiListItemSuffixAsText.vue';
 import type {
   DefineAttrsProps,
   HTMLTag,
 } from '../../../../types';
+import type { Icon } from '../../../../types/icon';
+import type { ListItemPrefixAttrsProps } from './UiListItemPrefix.vue';
+import type { ListItemSuffixAttrsProps } from './UiListItemSuffix.vue';
 
 export interface ListItemProps {
   /**
@@ -68,9 +80,17 @@ export interface ListItemProps {
    */
   tag?: HTMLTag;
   /**
-   * Use this props to set suffix icon.
+   * @deprecated will be removed in 2.0.0; Use this props to set suffix icon.
    */
   icon?: Icon;
+  /**
+   * Use this props to control prefix visibility.
+   */
+  hasPrefix?: boolean;
+  /**
+   * Use this props to pass attrs for UIListItemPrefix
+   */
+  prefixAttrs?: ListItemPrefixAttrsProps;
   /**
    * Use this props to control suffix visibility.
    */
@@ -78,7 +98,7 @@ export interface ListItemProps {
   /**
    * Use this props to pass attrs for UIListItemSuffix
    */
-  suffixAttrs?: ListItemSuffixAsButtonAttrsProps | ListItemSuffixAsTextAttrsProps;
+  suffixAttrs?: ListItemSuffixAttrsProps;
   /**
    * Use this props to pass attrs for list item element
    */
@@ -86,27 +106,44 @@ export interface ListItemProps {
 }
 export type ListItemAttrsProps = DefineAttrsProps<ListItemProps>;
 
+defineOptions({ inheritAttrs: false });
+
 const props = withDefaults(defineProps<ListItemProps>(), {
   tag: 'div',
   icon: '',
   hasSuffix: false,
   suffixAttrs: () => ({}),
+  hasPrefix: false,
+  prefixAttrs: () => ({}),
   listItemAttrs: () => ({}),
 });
-const hasButtonSuffix = computed(() => !!Object.keys(props.suffixAttrs).filter(
-  (key) => key.match(/(^on*|to|href)/),
-).length);
-const suffixComponent = computed(() => (hasButtonSuffix.value
-  ? UiListItemSuffixAsButton
-  : UiListItemSuffixAsText));
 const defaultProps = computed<ListItemProps>(() => ({
-  suffixAttrs: hasButtonSuffix.value
-    ? {
-      icon: props.icon,
-      ...props.suffixAttrs,
-    }
-    : props.suffixAttrs,
+  ...props,
+  suffixAttrs: {
+    icon: props.icon,
+    ...props.suffixAttrs,
+  },
 }));
+
+if (props.icon !== '') {
+  console.warn('[@infermedica/component-library]: The `icon` props is deprecated and it will be removed in v2.0.0. Please use `suffixAttrs` to pass icon.');
+}
+
+const attrs = useAttrs();
+const filteredAttrs = computed(() => {
+  const {
+    name, label, children, ...rest
+  } = attrs;
+  return rest;
+});
+
+const prefixComponent = computed(() => (props.hasPrefix
+  ? defineAsyncComponent(() => import('./UiListItemPrefix.vue'))
+  : null));
+const suffixComponent = computed(() => (props.hasSuffix
+  ? defineAsyncComponent(() => import('./UiListItemSuffix.vue'))
+  : null));
+
 const content = ref<HTMLTag | null>(null);
 defineExpose({ content });
 </script>
@@ -140,7 +177,7 @@ defineExpose({ content });
     display: flex;
     flex: 1;
     align-items: flex-start;
-    justify-content: space-between;
+    gap: functions.var($element + "-content", gap, var(--space-12));
 
     @include mixins.from-tablet {
       @include mixins.use-logical($element + "-tablet-content", padding, var(--space-12));
@@ -152,7 +189,7 @@ defineExpose({ content });
   }
 
   &__suffix {
-    @include mixins.use-logical($element + "-suffix", margin, 0 0 0 var(--space-12));
+    margin-inline-start: auto;
   }
 
   &--has-error {

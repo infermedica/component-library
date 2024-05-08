@@ -14,9 +14,12 @@ import {
   getArgTypes,
   getAttrs,
 } from '@sb/helpers';
+import { icon } from '@sb/helpers/argTypes/index';
 import {
   BasicStories,
   BasicStoriesSource,
+  PrefixAndSuffixStories,
+  PrefixAndSuffixStoriesSource,
 } from './stories';
 
 type InputArgsType = InputProps;
@@ -35,6 +38,7 @@ const meta = {
     ...args,
     modelValue: '',
     placeholder: 'Put your height',
+    hasPrefix: false,
   },
   argTypes: {
     ...argTypes,
@@ -51,6 +55,7 @@ const meta = {
         'text',
       ],
     },
+    prefixAttrs: { icon },
   },
   parameters: { chromatic: { disableSnapshot: false } },
 } satisfies InputMetaType;
@@ -122,3 +127,35 @@ Error.parameters = {
 
 export const Suffix: InputStoryType = { ...Basic };
 Suffix.args = { suffix: 'cm' };
+
+export const Prefix: InputStoryType = { ...Basic };
+Prefix.args = {
+  hasPrefix: true,
+  prefixAttrs: { icon: 'search' },
+  placeholder: 'Search medications',
+};
+
+export const PrefixAndSuffix: InputStoryType = {
+  render(args, {
+    name, argTypes,
+  }) {
+    return {
+      name,
+      components: { PrefixAndSuffixStories },
+      setup() {
+        const { attrs } = getAttrs(args, argTypes);
+        return { attrs };
+      },
+      template: '<PrefixAndSuffixStories v-bind="{...attrs}"/>',
+    };
+  },
+};
+PrefixAndSuffix.args = {
+  hasPrefix: true,
+  prefixAttrs: { icon: 'search' },
+  placeholder: 'Search medications',
+};
+PrefixAndSuffix.parameters = {
+  docs: { source: { code: PrefixAndSuffixStoriesSource } },
+  chromatic: { disableSnapshot: true },
+};
