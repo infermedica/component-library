@@ -6,7 +6,7 @@ import type {
 import polishCountriesTranslation from 'i18n-iso-countries/langs/pl.json';
 import UiPhoneNumber from './UiPhoneNumber.vue';
 import UiFormField from '../UiFormField/UiFormField.vue';
-import { countriesLocales } from './helpers';
+import { i18nCountries } from './helpers';
 
 const customCountryCodeItems = [
   {
@@ -128,7 +128,7 @@ export const WithTranslatedCountryNames: StoryObj<typeof UiPhoneNumber> = {
         UiPhoneNumber,
       },
       setup() {
-        countriesLocales.set('pl', polishCountriesTranslation);
+        i18nCountries.registerLocale(polishCountriesTranslation);
         return { args };
       },
       template: `<UiFormField
@@ -136,7 +136,7 @@ export const WithTranslatedCountryNames: StoryObj<typeof UiPhoneNumber> = {
       message="Phone number"
     >
       <UiPhoneNumber
-        v-bind="{ languageData: { language: 'pl', country: 'us' }, ...args }"
+        v-bind="{ language: 'pl', ...args }"
       />
     </UiFormField>`,
     };

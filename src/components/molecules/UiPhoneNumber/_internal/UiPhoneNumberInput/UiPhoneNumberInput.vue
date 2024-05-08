@@ -32,7 +32,7 @@ export interface PhoneNumberInputProps {
   /**
    * Use this props to set input type.
    */
-   type?: string;
+  type?: string;
   /**
    * Use this props to set error state.
    */
