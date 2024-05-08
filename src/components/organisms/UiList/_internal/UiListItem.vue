@@ -19,6 +19,22 @@
         ref="content"
         class="ui-list-item__content"
       >
+        <!-- @slot Use this slot to replace prefix template -->
+        <slot
+          name="prefix"
+          v-bind="{
+            hasPrefix,
+            prefixComponent,
+            prefixAttrs: defaultProps.prefixAttrs,
+          }"
+        >
+          <component
+            :is="prefixComponent"
+            v-if="hasPrefix"
+            v-bind="defaultProps.prefixAttrs"
+            class="ui-list-item__prefix"
+          />
+        </slot>
         <!-- @slot Use this slot to place content inside list-item. -->
         <slot />
         <!-- @slot Use this slot to replace suffix template -->
@@ -55,8 +71,8 @@ import type {
   HTMLTag,
 } from '../../../../types';
 import type { Icon } from '../../../../types/icon';
-import type { ListItemSuffixAsTextAttrsProps } from './UiListItemSuffixAsText.vue';
-import type { ListItemSuffixAsButtonAttrsProps } from './UiListItemSuffixAsButton.vue';
+import type { ListItemPrefixAttrsProps } from './UiListItemPrefix.vue';
+import type { ListItemSuffixAttrsProps } from './UiListItemSuffix.vue';
 
 export interface ListItemProps {
   /**
@@ -64,9 +80,17 @@ export interface ListItemProps {
    */
   tag?: HTMLTag;
   /**
-   * Use this props to set suffix icon.
+   * @deprecated will be removed in 2.0.0; Use this props to set suffix icon.
    */
   icon?: Icon;
+  /**
+   * Use this props to control prefix visibility.
+   */
+  hasPrefix?: boolean;
+  /**
+   * Use this props to pass attrs for UIListItemPrefix
+   */
+  prefixAttrs?: ListItemPrefixAttrsProps;
   /**
    * Use this props to control suffix visibility.
    */
@@ -74,7 +98,7 @@ export interface ListItemProps {
   /**
    * Use this props to pass attrs for UIListItemSuffix
    */
-  suffixAttrs?: ListItemSuffixAsTextAttrsProps | ListItemSuffixAsButtonAttrsProps;
+  suffixAttrs?: ListItemSuffixAttrsProps;
   /**
    * Use this props to pass attrs for list item element
    */
@@ -89,6 +113,8 @@ const props = withDefaults(defineProps<ListItemProps>(), {
   icon: '',
   hasSuffix: false,
   suffixAttrs: () => ({}),
+  hasPrefix: false,
+  prefixAttrs: () => ({}),
   listItemAttrs: () => ({}),
 });
 const defaultProps = computed<ListItemProps>(() => ({
@@ -99,6 +125,10 @@ const defaultProps = computed<ListItemProps>(() => ({
   },
 }));
 
+if (props.icon !== '') {
+  console.warn('[@infermedica/component-library]: The `icon` props is deprecated and it will be removed in v2.0.0. Please use `suffixAttrs` to pass icon.');
+}
+
 const attrs = useAttrs();
 const filteredAttrs = computed(() => {
   const {
@@ -107,6 +137,9 @@ const filteredAttrs = computed(() => {
   return rest;
 });
 
+const prefixComponent = computed(() => (props.hasPrefix
+  ? defineAsyncComponent(() => import('./UiListItemPrefix.vue'))
+  : null));
 const suffixComponent = computed(() => (props.hasSuffix
   ? defineAsyncComponent(() => import('./UiListItemSuffix.vue'))
   : null));
@@ -144,7 +177,7 @@ defineExpose({ content });
     display: flex;
     flex: 1;
     align-items: flex-start;
-    justify-content: space-between;
+    gap: functions.var($element + "-content", gap, var(--space-12));
 
     @include mixins.from-tablet {
       @include mixins.use-logical($element + "-tablet-content", padding, var(--space-12));
@@ -156,7 +189,7 @@ defineExpose({ content });
   }
 
   &__suffix {
-    @include mixins.use-logical($element + "-suffix", margin, 0 0 0 var(--space-12));
+    margin-inline-start: auto;
   }
 
   &--has-error {

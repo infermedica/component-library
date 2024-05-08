@@ -55,17 +55,15 @@ const args = computed(() => (attrs));
   $this: &;
 
   &__content {
+    @include mixins.override-logical(button, null, padding, var(--space-16) var(--space-12));
+    @include mixins.override-logical(button, null, border-radius, 0);
+    @include mixins.override-logical(button, null, border-width, 0);
+
     @include mixins.focus {
       box-shadow: var(--focus-inner);
     }
 
-    --button-gap: 0;
-    --button-border-start-start-radius: 0;
-    --button-border-start-end-radius: 0;
-    --button-border-end-start-radius: 0;
-    --button-border-end-end-radius: 0;
-    --button-border-block-width: 0;
-    --button-border-inline-width: 0;
+    --button-gap: var(--space-12);
 
     display: flex;
     flex: 1;
@@ -104,9 +102,6 @@ const args = computed(() => (attrs));
   }
 
   &__suffix {
-    --text-color: var(--color-text-action-primary);
-    --icon-color: var(--color-icon-primary);
-
     align-self: end;
     font: var(--font-body-2-comfortable);
     letter-spacing: var(--letter-spacing-body-2-comfortable);
