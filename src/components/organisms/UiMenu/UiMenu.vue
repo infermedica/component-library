@@ -177,17 +177,15 @@ const handleMenuKeyDown = async ({ key }: KeyboardEvent) => {
 const isFocused = ref(false);
 const scrollLock = (event: KeyboardEvent) => {
   const { key } = event;
-  switch (key) {
-    case 'ArrowUp':
-    case 'ArrowDown':
-    case 'Home':
-    case 'PageUp':
-    case 'End':
-    case 'PageDown':
-      event.preventDefault();
-      break;
-    default:
-      break;
+  if ([
+    'ArrowUp',
+    'ArrowDown',
+    'Home',
+    'PageUp',
+    'End',
+    'PageDown',
+  ].includes(key)) {
+    event.preventDefault();
   }
 };
 watch(isFocused, (value) => {
