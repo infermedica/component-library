@@ -282,7 +282,8 @@ const usedMenuTemplateRefs = computed(() => (props.menuTemplateRefs || internalM
 const handleBackClick = () => {
   activeItems.value = activeItems.value.slice(0, -1);
   if (usedMenuTemplateRefs.value?.lastFocusedMenuItemTemplateRefs) {
-    focusElement(internalMenuTemplateRefs.value?.lastFocusedMenuItemTemplateRefs.itemTemplateRefs.content.$el, true);
+    // TODO: https://github.com/infermedica/component-library/pull/424#discussion_r1593935248
+    focusElement(usedMenuTemplateRefs.value?.lastFocusedMenuItemTemplateRefs.itemTemplateRefs.content.$el, true);
   }
 };
 defineExpose({
