@@ -16,6 +16,7 @@ import {
   BasicStories,
   BasicStoriesSource,
   MobileMenuStories,
+  MultilevelStories,
 } from './stories';
 import './stories/style.scss';
 
@@ -92,6 +93,24 @@ export const Basic: HorizontalPagingStoryType = {
 Basic.decorators = [ withVModel ];
 Basic.parameters = { docs: { source: { code: BasicStoriesSource } } };
 
+// TODO: add Multilevel stories
+export const Multilevel: HorizontalPagingStoryType = {
+  render(args, {
+    name, argTypes,
+  }) {
+    return {
+      name,
+      components: { MultilevelStories },
+      setup() {
+        const { attrs } = getAttrs(args, argTypes, name);
+        return { attrs };
+      },
+      template: '<MultilevelStories v-bind="{...attrs}"/>',
+    };
+  },
+};
+Multilevel.decorators = [ withVModel ];
+
 // WARING: stories/styles.scss use this name
 export const MobileMenu: HorizontalPagingStoryType = {
   render(args, {
@@ -104,7 +123,7 @@ export const MobileMenu: HorizontalPagingStoryType = {
         const { attrs } = getAttrs(args, argTypes, name);
         return { attrs };
       },
-      template: '<MobileMenuStories v-bind="{...attrs}"/>',
+      template: '<div class="min-h-140"><MobileMenuStories v-bind="{...attrs}"/></div>',
     };
   },
 };
@@ -130,14 +149,5 @@ MobileMenu.args = {
   ],
   hasHeader: false,
 };
-MobileMenu.decorators = [
-  () => ({
-    name: 'LMinHeight',
-    inheritAttrs: false,
-    template: `<div class="min-h-140">
-      <story />
-    </div>`,
-  }),
-  withVModel,
-];
+MobileMenu.decorators = [ withVModel ];
 MobileMenu.parameters = { viewport: { defaultViewport: 'mobile2' } };
