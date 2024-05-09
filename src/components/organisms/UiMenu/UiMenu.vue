@@ -131,7 +131,7 @@ onMounted(async () => {
 const lastFocusedMenuItemTemplateRefs = ref<ElementRef | null>(null);
 const handleMenuItemFocus = async (element: ComputedRef<ElementRef | undefined>) => {
   if (element.value && initialElement.value) {
-    await focusElement(element.value.itemTemplateRefs.content.$el, true);
+    await focusElement(element.value?.itemTemplateRefs?.content?.$el, true);
     initialElement.value.tabindex = -1;
   }
 };
