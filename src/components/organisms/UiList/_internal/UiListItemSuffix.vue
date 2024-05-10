@@ -88,7 +88,7 @@ defineExpose({ listItemSuffixTemplateRefs });
   $this: &;
   $element: list-item-suffix;
 
-  --list-item-affix-gap: functions.var($element, gap);
+  --list-item-affix-gap: #{functions.var($element, gap)};
   --list-item-affix-icon-color: #{functions.var($element, icon-color)};
   --list-item-affix-hover-icon-color: #{functions.var($element + '-hover', icon-color)};
   --list-item-affix-active-icon-color: #{functions.var($element + '-active', icon-color)};
