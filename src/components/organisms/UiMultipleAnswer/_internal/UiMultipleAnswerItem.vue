@@ -57,12 +57,11 @@
           suffixAttrs,
         }"
       >
-        <component
-          :is="suffixComponent"
+        <UiListItemSuffix
           v-if="hasSuffix"
-          ref="suffix"
+          ref="suffixTemplateRefs"
           v-bind="suffixAttrs"
-          class="ui-list-item__suffix ui-multiple-answer-item__suffix"
+          class="ui-multiple-answer-item__suffix"
         />
       </slot>
     </template>
@@ -83,9 +82,10 @@ import type { ButtonAttrsProps } from '../../../atoms/UiButton/UiButton.vue';
 import type { IconAttrsProps } from '../../../atoms/UiIcon/UiIcon.vue';
 import type { MultipleAnswerModelValue } from '../UiMultipleAnswer.vue';
 import UiCheckbox from '../../../atoms/UiCheckbox/UiCheckbox.vue';
+import UiRadio from '../../../atoms/UiRadio/UiRadio.vue';
 import UiListItem from '../../UiList/_internal/UiListItem.vue';
 import type { ListItemAttrsProps } from '../../UiList/_internal/UiListItem.vue';
-import UiRadio from '../../../atoms/UiRadio/UiRadio.vue';
+import UiListItemSuffix from '../../UiList/_internal/UiListItemSuffix.vue';
 import type {
   DefineAttrsProps,
   HTMLTag,
@@ -188,16 +188,26 @@ const errorClass = computed(() => (props.invalid
   : []));
 const content = ref<InstanceType<typeof component.value> | null>(null);
 defineExpose({ content });
-const suffix = ref<ComponentPublicInstance | null>(null);
-const suffixSize = ref({
-  '--_label-suffix-width': '0',
-  '--_label-suffix-height': '0',
+const suffixTemplateRefs = ref(null);
+const suffixEl = computed(() => (suffixTemplateRefs.value?.listItemSuffixTemplateRefs?.$el));
+const suffixSize = computed(() => {
+  let width = 0;
+  let height = 0;
+  if (suffixEl.value) {
+    const size = suffixEl.value.getBoundingClientRect();
+    width = size.width;
+    height = size.height;
+  }
+  return {
+    '--_label-suffix-width': `${width}px`,
+    '--_label-suffix-height': `${height}px`,
+  };
 });
 const handleInfoFocus = (event: KeyboardEvent) => {
   if (event.key !== 'ArrowRight') return;
-  if (suffix.value?.$el) {
+  if (suffixEl.value) {
     event.preventDefault();
-    focusElement(suffix.value.$el);
+    focusElement(suffixEl.value);
   }
 };
 const handleInfoUnfocus = (event: KeyboardEvent) => {
@@ -226,18 +236,6 @@ const suffixAttrs = computed(() => ({
   ...props.buttonInfoAttrs,
 }));
 const hasInfo = computed(() => (Object.keys(props.buttonInfoAttrs).length > 0));
-onMounted(async () => {
-  await nextTick();
-  if (suffix.value?.$el) {
-    const {
-      width, height,
-    } = suffix.value.$el.getBoundingClientRect();
-    suffixSize.value = {
-      '--_label-suffix-width': `${width}px`,
-      '--_label-suffix-height': `${height}px`,
-    };
-  }
-});
 const listItemAttrs = computed(() => ({
   class: [
     'ui-multiple-answer-item',
@@ -258,7 +256,7 @@ const listItemAttrs = computed(() => ({
   &--has-info {
     #{$this}__label {
       &::after {
-        @include mixins.use-logical($element + "-suffix", margin, 0 0 0 var(--space-12));
+        @include mixins.use-logical($element + "-suffix", margin, 0 var(--space-8) 0 var(--space-12));
 
         width: var(--_label-suffix-width);
         height: var(--_label-suffix-height);
