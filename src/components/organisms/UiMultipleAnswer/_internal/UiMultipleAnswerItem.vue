@@ -75,6 +75,7 @@ import {
   onMounted,
   nextTick,
   type ComponentPublicInstance,
+  type ComponentInstance,
 } from 'vue';
 import { focusElement } from '../../../../utilities/helpers';
 import type { TextAttrsProps } from '../../../atoms/UiText/UiText.vue';
@@ -188,7 +189,7 @@ const errorClass = computed(() => (props.invalid
   : []));
 const content = ref<InstanceType<typeof component.value> | null>(null);
 defineExpose({ content });
-const suffixTemplateRefs = ref(null);
+const suffixTemplateRefs = ref<ComponentInstance<typeof UiListItemSuffix> | null>(null);
 const suffixEl = computed(() => (suffixTemplateRefs.value?.listItemSuffixTemplateRefs?.$el));
 const suffixSize = computed(() => {
   let width = 0;
