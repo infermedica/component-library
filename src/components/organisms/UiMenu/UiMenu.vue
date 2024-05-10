@@ -33,7 +33,6 @@ import {
   watch,
   nextTick,
   onMounted,
-  type ComputedRef,
   type ComponentInstance,
   onBeforeUnmount,
 } from 'vue';
@@ -86,9 +85,7 @@ const internalMenuItemsTemplateRefs = ref<InstanceType<typeof UiMenuItem>[]>([])
 const usedMenuTemplateRefs = computed(() => (props.menuItemsTemplateRefs || internalMenuItemsTemplateRefs.value));
 const {
   focusedElement,
-  firstElement,
   initialElement,
-  lastElement,
   selectedElement,
   nextElement,
   prevElement,
@@ -129,9 +126,9 @@ onMounted(async () => {
   }
 });
 const lastFocusedMenuItemTemplateRefs = ref<ElementRef | null>(null);
-const handleMenuItemFocus = async (element: ComputedRef<ElementRef | undefined>) => {
-  if (element.value && initialElement.value) {
-    await focusElement(element.value?.itemTemplateRefs?.content?.$el, true);
+const handleMenuItemFocus = async (element: ElementRef | InstanceType<typeof UiMenuItem> | undefined) => {
+  if (element && initialElement.value) {
+    await focusElement(element?.itemTemplateRefs?.content?.$el, true);
     initialElement.value.tabindex = -1;
   }
 };
@@ -142,18 +139,18 @@ const handleMenuKeyDown = async ({ key }: KeyboardEvent) => {
   const activeElement = focusedElement.value;
   switch (key) {
     case 'ArrowUp':
-      handleMenuItemFocus(prevElement);
+      handleMenuItemFocus(prevElement.value);
       break;
     case 'ArrowDown':
-      handleMenuItemFocus(nextElement);
+      handleMenuItemFocus(nextElement.value);
       break;
     case 'Home':
     case 'PageUp':
-      handleMenuItemFocus(firstElement);
+      handleMenuItemFocus(usedMenuTemplateRefs.value.at(0));
       break;
     case 'End':
     case 'PageDown':
-      handleMenuItemFocus(lastElement);
+      handleMenuItemFocus(usedMenuTemplateRefs.value.at(-1));
       break;
     case 'Tab':
       if (initialElement.value === activeElement) {
@@ -207,8 +204,8 @@ watch(focusedElement, (el, prevEl) => {
 defineExpose({
   menuItemsTemplateRefs: usedMenuTemplateRefs,
   initialMenuItemTemplateRefs: initialElement,
-  firstMenuItemTemplateRefs: firstElement,
-  lastMenuItemTemplateRefs: lastElement,
+  firstMenuItemTemplateRefs: usedMenuTemplateRefs.value.at(0),
+  lastMenuItemTemplateRefs: usedMenuTemplateRefs.value.at(-1),
   selectedMenuItemTemplateRefs: selectedElement,
   lastFocusedMenuItemTemplateRefs,
 });

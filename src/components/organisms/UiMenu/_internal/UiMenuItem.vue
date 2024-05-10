@@ -78,7 +78,7 @@ const menuItemClass = computed(() => ([
   { 'ui-button--is-selected': isSelected.value },
 ]));
 
-const menuItemTemplateRefs = ref(null);
+const menuItemTemplateRefs = ref<InstanceType<typeof UiListItem> | null>(null);
 defineExpose({
   itemTemplateRefs: menuItemTemplateRefs,
   isSelected,
