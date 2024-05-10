@@ -1,5 +1,6 @@
 <template>
   <UiListItemAffix
+    ref="listItemPrefixTemplateRefs"
     class="ui-list-item-prefix"
   >
     <template
@@ -45,11 +46,15 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import UiListItemAffix, { type ListItemAffixAttrsProps } from '@/components/organisms/UiList/_internal/UiListItemAffix.vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import type { DefineAttrsProps } from '../../../../types';
 
 export type ListItemPrefixAttrsProps = DefineAttrsProps<ListItemAffixAttrsProps>
+
+const listItemPrefixTemplateRefs = ref(null);
+defineExpose({ listItemPrefixTemplateRefs });
 </script>
 
 <style scoped lang="scss">

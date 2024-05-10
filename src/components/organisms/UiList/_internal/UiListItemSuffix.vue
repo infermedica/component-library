@@ -1,5 +1,6 @@
 <template>
   <UiListItemAffix
+    ref="listItemSuffixTemplateRefs"
     class="ui-list-item-suffix"
   >
     <template
@@ -45,6 +46,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import UiListItemAffix, { type ListItemAffixAttrsProps } from '@/components/organisms/UiList/_internal/UiListItemAffix.vue';
 import UiIcon, { type IconAttrsProps } from '../../../atoms/UiIcon/UiIcon.vue';
 import type { DefineAttrsProps } from '../../../../types';
@@ -74,6 +76,8 @@ if (Object.keys(props.labelSuffixAttrs).length > 0) {
   console.warn('[@infermedica/component-library]: The `labelSuffixAttrs` props is deprecated and it will be removed in v2.0.0. Please use `labelAttrs` instead.');
 }
 // END
+const listItemSuffixTemplateRefs = ref(null);
+defineExpose({ listItemSuffixTemplateRefs });
 </script>
 
 <style scoped lang="scss">
