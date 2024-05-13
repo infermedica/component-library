@@ -3,12 +3,13 @@ import type {
   Meta,
   StoryObj,
 } from '@storybook/vue3';
+import { Alpha2Code } from 'i18n-iso-countries';
 import polishCountriesTranslation from 'i18n-iso-countries/langs/pl.json';
 import UiPhoneNumber from './UiPhoneNumber.vue';
 import UiFormField from '../UiFormField/UiFormField.vue';
 import { i18nCountries } from './helpers';
 
-const customCountryCodeItems = [
+const customCountryCodeItems: Alpha2Code[] = [
   'AF',
   'AL',
   'DZ',
