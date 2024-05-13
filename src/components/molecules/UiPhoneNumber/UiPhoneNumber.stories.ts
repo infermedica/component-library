@@ -157,9 +157,7 @@ export const WithCustomCountryCodesAndDefault: StoryObj<typeof UiPhoneNumber> = 
 };
 WithCustomCountryCodesAndDefault.args = {
   modelValue: {
-    prefix: {
-      countryCode: customCountryCodeItems[2],
-    },
+    prefix: { countryCode: customCountryCodeItems[2] },
     phoneNumber: '',
   },
   countryCodes: customCountryCodeItems,
