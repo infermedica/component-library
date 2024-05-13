@@ -184,7 +184,7 @@ const itemsToRender = computed(() => (props.items.map((item) => {
     };
   }
   return {
-    value: JSON.parse(JSON.stringify(item)),
+    value: item,
     label: item.name as string,
     ...item,
     inputAttrs: {

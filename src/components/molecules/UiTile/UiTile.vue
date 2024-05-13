@@ -112,7 +112,7 @@ const isChecked = computed(() => {
       (props.modelValue as Record<string, unknown>)[key] === (props.value as Record<string, unknown>)[key]));
 });
 const selectHandler = () => {
-  emit('update:modelValue', JSON.parse(JSON.stringify(props.value)));
+  emit('update:modelValue', props.value);
 };
 </script>
 

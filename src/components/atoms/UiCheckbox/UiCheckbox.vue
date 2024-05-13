@@ -181,7 +181,7 @@ const getChecked = (checked: boolean): CheckboxModelValue => {
     return checked
       ? [
         ...props.modelValue,
-        JSON.parse(JSON.stringify(props.value)),
+        props.value,
       ]
       : props.modelValue.filter((option) => (!equal(props.value, option)));
   }
