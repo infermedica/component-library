@@ -22,10 +22,11 @@
 <script setup lang="ts">
 import {
   computed,
-  defineAsyncComponent,
   useAttrs,
 } from 'vue';
-import UiIcon, { type IconAttrsProps } from '../../../atoms/UiIcon/UiIcon.vue';
+import { type IconAttrsProps } from '../../../atoms/UiIcon/UiIcon.vue';
+import UiButton from '../../../atoms/UiButton/UiButton.vue';
+import UiText from '../../../atoms/UiText/UiText.vue';
 
 import type {
   DefineAttrsProps,
@@ -73,8 +74,8 @@ const listItemAffixComponent = computed(() => {
     return props.tag;
   }
   return isButton.value
-    ? defineAsyncComponent(() => import('../../../atoms/UiButton/UiButton.vue'))
-    : defineAsyncComponent(() => import('../../../atoms/UiText/UiText.vue'));
+    ? UiButton
+    : UiText;
 });
 const defaultProps = computed(() => ({
   iconAttrs: {

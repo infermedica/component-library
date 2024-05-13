@@ -1,5 +1,6 @@
 <template>
   <UiListItemAffix
+    ref="listItemPrefixTemplateRef"
     class="ui-list-item-prefix"
   >
     <template
@@ -45,11 +46,15 @@
 </template>
 
 <script setup lang="ts">
-import UiListItemAffix, { type ListItemAffixAttrsProps } from './UiListItemAffix.vue';
+import { ref } from 'vue';
+import UiListItemAffix, { type ListItemAffixAttrsProps } from '@/components/organisms/UiList/_internal/UiListItemAffix.vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import type { DefineAttrsProps } from '../../../../types';
 
 export type ListItemPrefixAttrsProps = DefineAttrsProps<ListItemAffixAttrsProps>
+
+const listItemPrefixTemplateRef = ref(null);
+defineExpose({ listItemPrefixTemplateRef });
 </script>
 
 <style scoped lang="scss">
@@ -60,7 +65,7 @@ export type ListItemPrefixAttrsProps = DefineAttrsProps<ListItemAffixAttrsProps>
   $this: &;
   $element: list-item-prefix;
 
-  --list-item-affix-gap: functions.var($element, gap);
+  --list-item-affix-gap: #{functions.var($element, gap)};
   --list-item-affix-icon-color: #{functions.var($element, icon-color)};
   --list-item-affix-hover-icon-color: #{functions.var($element + '-hover', icon-color)};
   --list-item-affix-active-icon-color: #{functions.var($element + '-active', icon-color)};

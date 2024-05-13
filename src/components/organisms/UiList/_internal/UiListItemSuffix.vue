@@ -1,5 +1,6 @@
 <template>
   <UiListItemAffix
+    ref="listItemSuffixTemplateRef"
     class="ui-list-item-suffix"
   >
     <template
@@ -45,7 +46,11 @@
 </template>
 
 <script setup lang="ts">
-import UiListItemAffix, { type ListItemAffixAttrsProps } from './UiListItemAffix.vue';
+import {
+  type ComponentInstance,
+  ref,
+} from 'vue';
+import UiListItemAffix, { type ListItemAffixAttrsProps } from '@/components/organisms/UiList/_internal/UiListItemAffix.vue';
 import UiIcon, { type IconAttrsProps } from '../../../atoms/UiIcon/UiIcon.vue';
 import type { DefineAttrsProps } from '../../../../types';
 
@@ -74,6 +79,8 @@ if (Object.keys(props.labelSuffixAttrs).length > 0) {
   console.warn('[@infermedica/component-library]: The `labelSuffixAttrs` props is deprecated and it will be removed in v2.0.0. Please use `labelAttrs` instead.');
 }
 // END
+const listItemSuffixTemplateRef = ref<ComponentInstance<typeof UiListItemAffix> | null>(null);
+defineExpose({ listItemSuffixTemplateRef });
 </script>
 
 <style scoped lang="scss">
@@ -84,7 +91,7 @@ if (Object.keys(props.labelSuffixAttrs).length > 0) {
   $this: &;
   $element: list-item-suffix;
 
-  --list-item-affix-gap: functions.var($element, gap);
+  --list-item-affix-gap: #{functions.var($element, gap)};
   --list-item-affix-icon-color: #{functions.var($element, icon-color)};
   --list-item-affix-hover-icon-color: #{functions.var($element + '-hover', icon-color)};
   --list-item-affix-active-icon-color: #{functions.var($element + '-active', icon-color)};
