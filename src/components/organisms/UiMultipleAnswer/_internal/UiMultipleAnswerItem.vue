@@ -192,13 +192,9 @@ defineExpose({ content });
 const suffixTemplateRefs = ref<ComponentInstance<typeof UiListItemSuffix> | null>(null);
 const suffixEl = computed(() => (suffixTemplateRefs.value?.listItemSuffixTemplateRefs?.$el));
 const suffixSize = computed(() => {
-  let width = 0;
-  let height = 0;
-  if (suffixEl.value) {
-    const size = suffixEl.value.getBoundingClientRect();
-    width = size.width;
-    height = size.height;
-  }
+  const size = suffixEl.value?.getBoundingClientRect();
+  const width = suffixEl.value ? size.width : 0;
+  const height = suffixEl.value ? size.height : 0;
   return {
     '--_label-suffix-width': `${width}px`,
     '--_label-suffix-height': `${height}px`,
@@ -206,10 +202,9 @@ const suffixSize = computed(() => {
 });
 const handleInfoFocus = (event: KeyboardEvent) => {
   if (event.key !== 'ArrowRight') return;
-  if (suffixEl.value) {
-    event.preventDefault();
-    focusElement(suffixEl.value);
-  }
+  if (!suffixEl.value) return;
+  event.preventDefault();
+  focusElement(suffixEl.value);
 };
 const handleInfoUnfocus = (event: KeyboardEvent) => {
   if (event.key !== 'ArrowLeft') return;
