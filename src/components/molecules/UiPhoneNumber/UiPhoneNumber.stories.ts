@@ -178,7 +178,7 @@ export const WithCustomCountryCodesWithTimeout: StoryObj<typeof UiPhoneNumber> =
 
         setTimeout(() => {
           countryCodes.value = customCountryCodeItems;
-          modelValue.value.prefix = countryCodes.value[0];
+          modelValue.value.prefix = { countryCode: customCountryCodeItems[2] };
         }, 3000);
         return {
           args,
