@@ -76,7 +76,7 @@ const props = withDefaults(defineProps<PhoneNumberProps>(), {
   id: '',
   modelValue: () => ({
     prefix: {
-      code: '+1',
+      code: '',
       countryCode: 'US',
     },
     phoneNumber: '',
