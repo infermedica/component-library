@@ -1,6 +1,6 @@
 <template>
   <UiListItemAffix
-    ref="listItemPrefixTemplateRefs"
+    ref="listItemPrefixTemplateRef"
     class="ui-list-item-prefix"
   >
     <template
@@ -53,8 +53,8 @@ import type { DefineAttrsProps } from '../../../../types';
 
 export type ListItemPrefixAttrsProps = DefineAttrsProps<ListItemAffixAttrsProps>
 
-const listItemPrefixTemplateRefs = ref(null);
-defineExpose({ listItemPrefixTemplateRefs });
+const listItemPrefixTemplateRef = ref(null);
+defineExpose({ listItemPrefixTemplateRef });
 </script>
 
 <style scoped lang="scss">

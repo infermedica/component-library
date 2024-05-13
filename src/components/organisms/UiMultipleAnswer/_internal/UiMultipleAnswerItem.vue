@@ -59,7 +59,7 @@
       >
         <UiListItemSuffix
           v-if="hasSuffix"
-          ref="suffixTemplateRefs"
+          ref="suffixTemplateRef"
           v-bind="suffixAttrs"
           class="ui-multiple-answer-item__suffix"
         />
@@ -189,8 +189,8 @@ const errorClass = computed(() => (props.invalid
   : []));
 const content = ref<InstanceType<typeof component.value> | null>(null);
 defineExpose({ content });
-const suffixTemplateRefs = ref<ComponentInstance<typeof UiListItemSuffix> | null>(null);
-const suffixEl = computed(() => (suffixTemplateRefs.value?.listItemSuffixTemplateRefs?.$el));
+const suffixTemplateRef = ref<ComponentInstance<typeof UiListItemSuffix> | null>(null);
+const suffixEl = computed(() => (suffixTemplateRef.value?.listItemSuffixTemplateRef?.$el));
 const suffixSize = computed(() => {
   const size = suffixEl.value?.getBoundingClientRect();
   const width = suffixEl.value ? size.width : 0;

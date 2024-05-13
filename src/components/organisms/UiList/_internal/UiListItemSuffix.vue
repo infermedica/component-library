@@ -1,6 +1,6 @@
 <template>
   <UiListItemAffix
-    ref="listItemSuffixTemplateRefs"
+    ref="listItemSuffixTemplateRef"
     class="ui-list-item-suffix"
   >
     <template
@@ -79,8 +79,8 @@ if (Object.keys(props.labelSuffixAttrs).length > 0) {
   console.warn('[@infermedica/component-library]: The `labelSuffixAttrs` props is deprecated and it will be removed in v2.0.0. Please use `labelAttrs` instead.');
 }
 // END
-const listItemSuffixTemplateRefs = ref<ComponentInstance<typeof UiListItemAffix> | null>(null);
-defineExpose({ listItemSuffixTemplateRefs });
+const listItemSuffixTemplateRef = ref<ComponentInstance<typeof UiListItemAffix> | null>(null);
+defineExpose({ listItemSuffixTemplateRef });
 </script>
 
 <style scoped lang="scss">
