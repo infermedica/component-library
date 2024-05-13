@@ -37,14 +37,11 @@ import {
   useAttrs,
 } from 'vue';
 import { uid } from 'uid/single';
+import type { Alpha2Code } from 'i18n-iso-countries';
 import UiPhoneNumberPrefix from './_internal/UiPhoneNumberPrefix/UiPhoneNumberPrefix.vue';
 import UiPhoneNumberInput from './_internal/UiPhoneNumberInput/UiPhoneNumberInput.vue';
 import type { DefineAttrsProps } from '../../../types';
-import type {
-  PhoneCodeType,
-} from './helpers';
-
-export type CountryCodes = (PhoneCodeType & Record<string, unknown>)[];
+import type { PhoneCodeType } from './helpers';
 
 export interface PhoneNumberProps {
   /**
@@ -68,9 +65,9 @@ export interface PhoneNumberProps {
    */
   language?: string,
   /**
-   * Use this props to set country code items.
+   * Use this props to set countries available on dropdown.
    */
-  countryCodes?: CountryCodes,
+  countryCodes?: Alpha2Code[],
 }
 export type PhoneNumberAttrsProps = DefineAttrsProps<PhoneNumberProps>;
 

@@ -9,61 +9,17 @@ import UiFormField from '../UiFormField/UiFormField.vue';
 import { i18nCountries } from './helpers';
 
 const customCountryCodeItems = [
-  {
-    code: '+93',
-    countryCode: 'AF',
-    country: 'Afghanistan',
-  },
-  {
-    code: '+355',
-    countryCode: 'AL',
-    country: 'Albania',
-  },
-  {
-    code: '+213',
-    countryCode: 'DZ',
-    country: 'Algeria',
-  },
-  {
-    code: '+1684',
-    countryCode: 'AS',
-    country: 'American Samoa',
-  },
-  {
-    code: '+376',
-    countryCode: 'AD',
-    country: 'Andorra',
-  },
-  {
-    code: '+244',
-    countryCode: 'AO',
-    country: 'Angola',
-  },
-  {
-    code: '+1264',
-    countryCode: 'AI',
-    country: 'Anguilla',
-  },
-  {
-    code: '+672',
-    countryCode: 'AQ',
-    country: 'Antarctica',
-  },
-  {
-    code: '+1268',
-    countryCode: 'AG',
-    country: 'Antigua and Barbuda',
-  },
-  {
-    code: '+54',
-    countryCode: 'AR',
-    country: 'Argentina',
-  },
-  {
-    code: '+374',
-    countryCode: 'AM',
-    country: 'Armenia',
-  },
+  'AF',
+  'AL',
+  'DZ',
+  'AS',
+  'AD',
+  'AO',
+  'AI',
+  'AQ',
+  'AG',
+  'AR',
+  'AM',
 ];
 
 const meta = {
@@ -171,7 +127,7 @@ export const WithError: StoryObj<typeof UiPhoneNumber> = {
   },
 };
 
-export const WithCustomCountryCodes: StoryObj<typeof UiPhoneNumber> = {
+export const WithCustomCountryCodesAndDefault: StoryObj<typeof UiPhoneNumber> = {
   render(args, { name }) {
     return {
       name,
@@ -199,9 +155,11 @@ export const WithCustomCountryCodes: StoryObj<typeof UiPhoneNumber> = {
     };
   },
 };
-WithCustomCountryCodes.args = {
+WithCustomCountryCodesAndDefault.args = {
   modelValue: {
-    prefix: customCountryCodeItems[0],
+    prefix: {
+      countryCode: customCountryCodeItems[2],
+    },
     phoneNumber: '',
   },
   countryCodes: customCountryCodeItems,

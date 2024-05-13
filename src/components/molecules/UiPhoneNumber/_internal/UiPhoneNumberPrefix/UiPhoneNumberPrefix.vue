@@ -38,15 +38,14 @@ import {
   computed,
   onMounted,
 } from 'vue';
+import type { Alpha2Code } from 'i18n-iso-countries';
 import UiDropdown from '../../../UiDropdown/UiDropdown.vue';
 import UiPhoneNumberPrefixToggle from './UiPhoneNumberPrefixToggle.vue';
 import {
   type CountryInfoType,
   type PhoneCodeType,
-  i18nCountries,
   getCountriesInfo,
 } from '../../helpers';
-import { type CountryCodes } from '../../UiPhoneNumber.vue';
 
 export interface PhoneNumberPrefixProps {
   /**
@@ -60,7 +59,7 @@ export interface PhoneNumberPrefixProps {
   /**
    * Use this props to set country code items.
    */
-  countryCodes?: CountryCodes,
+  countryCodes?: Alpha2Code[],
 }
 
 const props = withDefaults(defineProps<PhoneNumberPrefixProps>(), {
@@ -80,12 +79,13 @@ const prefix = computed({
 });
 
 const countriesInfo = ref<CountryInfoType[]>([]);
-const countryName = computed(() => i18nCountries.getName(prefix.value?.countryCode, props.language) ?? '');
-const toggleButtonText = computed(() => (`${countryName.value} (${prefix.value?.code})`));
+const toggleButtonText = computed(() => {
+  const selectedCountryInfo = countriesInfo.value.find((item) => (item.countryCode === prefix.value?.countryCode));
+  return selectedCountryInfo ? `${selectedCountryInfo.country} (${selectedCountryInfo.code})` : '';
+});
 
 onMounted(async () => {
-  if (!props.countryCodes.length) countriesInfo.value = getCountriesInfo(props.language);
-  // countriesInfo.value = props.countryCodes; // TODO: also get phone translations for limited list
+  countriesInfo.value = getCountriesInfo(props.countryCodes, props.language);
 });
 
 </script>
