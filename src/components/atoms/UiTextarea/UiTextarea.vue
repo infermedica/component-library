@@ -14,7 +14,10 @@
       v-keyboard-focus
       v-bind="defaultProps.textareaAttrs"
       :value="modelValue"
-      :style="{ resize: resizeValue }"
+      :style="{
+        resize: resizeValue,
+        'min-height': rootStyle.minHeight,
+      }"
       class="ui-textarea__textarea"
       @input="inputHandler($event)"
     />
@@ -76,6 +79,7 @@ export interface TextareaEmits {
 export interface Size {
   width: string | null;
   height: string | null;
+  minHeight: string | null;
 }
 
 const props = withDefaults(defineProps<TextareaProps>(), {
@@ -117,24 +121,33 @@ const textarea = ref<HTMLTextAreaElement | null>(null);
 const textareaSize:Size = reactive({
   width: null,
   height: null,
+  minHeight: null,
 });
 const setTextareaSize = (mutationList: MutationRecord[]) => {
   const { style } = mutationList[0].target as HTMLElement;
   const {
-    width, height,
+    width, height, minHeight,
   } = style;
+
+  const calcHeightPx = Number(height.replace('px', ''));
+  const calcMinHeightPx = Number(minHeight.replace('px', '')) + 4;
+  const calcHeight = calcHeightPx > calcMinHeightPx ? null : `${calcMinHeightPx}px`;
+
   textareaSize.width = width;
-  textareaSize.height = height;
+  textareaSize.height = calcHeight;
+  textareaSize.minHeight = minHeight;
 };
 const rootStyle = computed(() => (props.hasAutogrowing ? {} : {
   width: textareaSize.width,
   height: textareaSize.height,
+  minHeight: textareaSize.minHeight,
 }));
 const observer = new MutationObserver(setTextareaSize);
 onMounted(async () => {
   if (props.hasAutogrowing) { return; }
   await nextTick();
   if (textarea.value) {
+    textareaSize.minHeight = `${textarea.value.offsetHeight}px`;
     observer.observe(textarea.value, {
       attributes: true,
       childList: false,
@@ -178,8 +191,10 @@ onBeforeUnmount(() => {
     @include mixins.use-logical($element, padding, var(--space-12) var(--space-16));
     @include mixins.use-logical($element, border, 0);
 
+    margin: 2px;
     overflow: hidden;
-    max-width: 100%;
+    overflow-y: scroll;
+    max-width: calc(100% - 4px);
     border-radius: inherit;
     background: transparent;
     caret-color: functions.var($element, caret-color, var(--color-blue-500));
