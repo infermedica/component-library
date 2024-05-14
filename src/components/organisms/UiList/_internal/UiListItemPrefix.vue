@@ -47,7 +47,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import UiListItemAffix, { type ListItemAffixAttrsProps } from '@/components/organisms/UiList/_internal/UiListItemAffix.vue';
+import UiListItemAffix, { type ListItemAffixAttrsProps } from './UiListItemAffix.vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import type { DefineAttrsProps } from '../../../../types';
 
