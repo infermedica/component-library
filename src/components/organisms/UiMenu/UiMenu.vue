@@ -82,16 +82,16 @@ const itemsToRender = computed<MenuRenderItem[]>(() => (props.items.map((item, i
   };
 })));
 const internalMenuItemsTemplateRefs = ref<InstanceType<typeof UiMenuItem>[]>([]);
-const usedMenuTemplateRefs = computed(() => (props.menuItemsTemplateRefs || internalMenuItemsTemplateRefs.value));
+const usedmenuTemplateRef = computed(() => (props.menuItemsTemplateRefs || internalMenuItemsTemplateRefs.value));
 const {
   focusedElement,
   initialElement,
   selectedElement,
   nextElement,
   prevElement,
-} = useArrowNavigation(usedMenuTemplateRefs);
+} = useArrowNavigation(usedmenuTemplateRef);
 const setNegativeTabindexForNonInitialMenuItems = async () => {
-  usedMenuTemplateRefs.value.forEach((item) => {
+  usedmenuTemplateRef.value.forEach((item) => {
     if (item === initialElement.value) {
       return;
     }
@@ -102,10 +102,10 @@ const setNegativeTabindexForNonInitialMenuItems = async () => {
 watch(() => (props.enableKeyboardNavigation), async () => {
   await nextTick();
   if (props.enableKeyboardNavigation
-      && usedMenuTemplateRefs.value.length > 0) {
+      && usedmenuTemplateRef.value.length > 0) {
     setNegativeTabindexForNonInitialMenuItems();
   } else {
-    usedMenuTemplateRefs.value.forEach((item) => {
+    usedmenuTemplateRef.value.forEach((item) => {
       // eslint-disable-next-line no-param-reassign
       item.tabindex = 0;
     });
@@ -114,18 +114,18 @@ watch(() => (props.enableKeyboardNavigation), async () => {
 onMounted(async () => {
   await nextTick();
   if (props.enableKeyboardNavigation
-      && usedMenuTemplateRefs.value.length > 0) {
+      && usedmenuTemplateRef.value.length > 0) {
     setNegativeTabindexForNonInitialMenuItems();
   }
   if (process.env.NODE_ENV !== 'production') {
     if (props.enableKeyboardNavigation
-        && usedMenuTemplateRefs.value.length < 1
+        && usedmenuTemplateRef.value.length < 1
     ) {
       console.warn('@infermedica/component-library: use itemsTemplateRefs to pass UiMenuItems template refs.');
     }
   }
 });
-const lastFocusedMenuItemTemplateRefs = ref<ElementRef | null>(null);
+const lastFocusedmenuItemTemplateRef = ref<ElementRef | null>(null);
 const handleMenuItemFocus = async (element: ElementRef | InstanceType<typeof UiMenuItem> | undefined) => {
   if (element && initialElement.value) {
     await focusElement(element?.itemTemplateRefs?.content?.$el, true);
@@ -146,11 +146,11 @@ const handleMenuKeyDown = async ({ key }: KeyboardEvent) => {
       break;
     case 'Home':
     case 'PageUp':
-      handleMenuItemFocus(usedMenuTemplateRefs.value.at(0));
+      handleMenuItemFocus(usedmenuTemplateRef.value.at(0));
       break;
     case 'End':
     case 'PageDown':
-      handleMenuItemFocus(usedMenuTemplateRefs.value.at(-1));
+      handleMenuItemFocus(usedmenuTemplateRef.value.at(-1));
       break;
     case 'Tab':
       if (initialElement.value === activeElement) {
@@ -195,19 +195,19 @@ onBeforeUnmount(() => {
 watch(focusedElement, (el, prevEl) => {
   isFocused.value = !!(el && Object.keys(el).length > 0);
   if (!el && prevEl) {
-    lastFocusedMenuItemTemplateRefs.value = prevEl;
+    lastFocusedmenuItemTemplateRef.value = prevEl;
     if (initialElement.value) {
       initialElement.value.tabindex = 0;
     }
   }
 });
 defineExpose({
-  menuItemsTemplateRefs: usedMenuTemplateRefs,
-  initialMenuItemTemplateRefs: initialElement,
-  firstMenuItemTemplateRefs: usedMenuTemplateRefs.value.at(0),
-  lastMenuItemTemplateRefs: usedMenuTemplateRefs.value.at(-1),
-  selectedMenuItemTemplateRefs: selectedElement,
-  lastFocusedMenuItemTemplateRefs,
+  menuItemsTemplateRefs: usedmenuTemplateRef,
+  initialmenuItemTemplateRef: initialElement,
+  firstmenuItemTemplateRef: usedmenuTemplateRef.value.at(0),
+  lastmenuItemTemplateRef: usedmenuTemplateRef.value.at(-1),
+  selectedmenuItemTemplateRef: selectedElement,
+  lastFocusedmenuItemTemplateRef,
 });
 </script>
 

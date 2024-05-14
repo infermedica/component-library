@@ -26,7 +26,7 @@
       ref="horizontalPagingTemplateRefs"
       v-model="value"
       v-bind="args"
-      :menu-template-refs="menuTemplateRefs"
+      :menu-template-refs="menuTemplateRef"
     >
       <template
         #menu="{
@@ -41,7 +41,7 @@
           ]"
         >
           <UiMenu
-            ref="menuTemplateRefs"
+            ref="menuTemplateRef"
             :items="items"
           />
           <footer class="mobile-menu__footer">
@@ -107,11 +107,11 @@ const horizontalPagingTemplateRefs = ref(null);
 const isActive = computed(() => (horizontalPagingTemplateRefs.value?.isActive));
 const sidePanelTitle = computed(() => (horizontalPagingTemplateRefs.value?.currentTitle));
 const backToTitle = computed(() => (horizontalPagingTemplateRefs.value?.backToTitle));
-const menuTemplateRefs = ref(null);
+const menuTemplateRef = ref(null);
 const handleBackClick = async () => {
   horizontalPagingTemplateRefs.value.handleBackClick();
   await nextTick();
-  focusElement(menuTemplateRefs.value.lastFocusedMenuItemTemplateRefs.itemTemplateRefs.content.$el);
+  focusElement(menuTemplateRef.value.lastFocusedmenuItemTemplateRef.itemTemplateRefs.content.$el);
 };
 </script>
 

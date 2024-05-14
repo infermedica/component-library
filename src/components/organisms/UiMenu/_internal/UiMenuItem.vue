@@ -1,7 +1,7 @@
 <template>
   <!-- :has-suffix, :icon  -->
   <UiListItem
-    ref="menuItemTemplateRefs"
+    ref="menuItemTemplateRef"
     v-bind="attrsForListItem"
     :tag="UiButton"
     :has-suffix="hasSuffix"
@@ -78,9 +78,9 @@ const menuItemClass = computed(() => ([
   { 'ui-button--is-selected': isSelected.value },
 ]));
 
-const menuItemTemplateRefs = ref<InstanceType<typeof UiListItem> | null>(null);
+const menuItemTemplateRef = ref<InstanceType<typeof UiListItem> | null>(null);
 defineExpose({
-  itemTemplateRefs: menuItemTemplateRefs,
+  itemTemplateRefs: menuItemTemplateRef,
   isSelected,
   isFocused,
   tabindex,

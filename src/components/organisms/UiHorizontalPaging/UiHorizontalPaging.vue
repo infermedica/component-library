@@ -64,7 +64,7 @@
           }"
         >
           <UiMenu
-            ref="internalMenuTemplateRefs"
+            ref="internalmenuTemplateRef"
             :items="menuItemsToRender"
             v-bind="menuAttrs"
             :class="[
@@ -177,7 +177,7 @@ export interface HorizontalPagingProps{
    */
   translation?: HorizontalPagingTranslation;
   /** Use this props to pass menu template ref when you use menu slot. */
-  menuTemplateRefs?: InstanceType<typeof UiMenu> | null
+  menuTemplateRef?: InstanceType<typeof UiMenu> | null
 }
 export type HorizontalPagingAttrsProps = DefineAttrsProps<HorizontalPagingProps>;
 export interface HorizontalPagingEmits {
@@ -194,7 +194,7 @@ const props = withDefaults(defineProps<HorizontalPagingProps>(), {
   headingTitleAttrs: () => ({}),
   menuAttrs: () => ({}),
   translation: () => ({ back: 'Back to' }),
-  menuTemplateRefs: null,
+  menuTemplateRef: null,
 });
 const defaultProps = computed(() => {
   const icon: Icon = 'chevron-left';
@@ -277,13 +277,13 @@ const menuItemsSlots = computed(() => (Object.keys(slots).reduce((object, slotNa
   }
   return object;
 }, {})));
-const internalMenuTemplateRefs = ref<InstanceType<typeof UiMenu> | null>(null);
-const usedMenuTemplateRefs = computed(() => (props.menuTemplateRefs || internalMenuTemplateRefs.value));
+const internalmenuTemplateRef = ref<InstanceType<typeof UiMenu> | null>(null);
+const usedmenuTemplateRef = computed(() => (props.menuTemplateRef || internalmenuTemplateRef.value));
 const handleBackClick = () => {
   activeItems.value = activeItems.value.slice(0, -1);
-  if (usedMenuTemplateRefs.value?.lastFocusedMenuItemTemplateRefs) {
+  if (usedmenuTemplateRef.value?.lastFocusedmenuItemTemplateRef) {
     // TODO: https://github.com/infermedica/component-library/pull/424#discussion_r1593935248
-    focusElement(usedMenuTemplateRefs.value?.lastFocusedMenuItemTemplateRefs?.itemTemplateRefs?.content?.$el, true);
+    focusElement(usedmenuTemplateRef.value?.lastFocusedmenuItemTemplateRef?.itemTemplateRefs?.content?.$el, true);
   }
 };
 defineExpose({
