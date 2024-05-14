@@ -66,7 +66,10 @@ const meta = {
     items,
     title: 'Settings & Info',
   },
-  argTypes: metaArgTypes,
+  argTypes: {
+    ...metaArgTypes,
+    items: { control: 'object' },
+  },
   decorators: [ () => ({
     name: 'LMaxWidth',
     template: '<div style="max-width: 21.875rem"><story /></div>',

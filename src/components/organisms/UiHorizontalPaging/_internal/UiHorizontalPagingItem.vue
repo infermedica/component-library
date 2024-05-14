@@ -36,9 +36,8 @@ const props = withDefaults(defineProps<HorizontalPagingItemProps>(), {
 });
 const activeItemName = inject<ComputedRef<string>>('activeItemName', computed(() => ''));
 const isActive = computed(() => activeItemName.value === props.name);
-const item = computed(() => ({ ...props }));
 const items = inject<Ref<HorizontalPagingHandleItems>>('items', ref({}));
-items.value[props.name] = item.value;
+items.value[props.name] = props;
 onBeforeUnmount(() => {
   delete items.value[props.name];
 });
