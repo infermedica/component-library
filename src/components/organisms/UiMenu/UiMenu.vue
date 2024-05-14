@@ -133,9 +133,7 @@ const handleMenuItemFocus = async (element: ElementRef | InstanceType<typeof UiM
   }
 };
 const handleMenuKeyDown = async ({ key }: KeyboardEvent) => {
-  if (!props.enableKeyboardNavigation) {
-    return;
-  }
+  if (!props.enableKeyboardNavigation) return;
   const activeElement = focusedElement.value;
   switch (key) {
     case 'ArrowUp':
