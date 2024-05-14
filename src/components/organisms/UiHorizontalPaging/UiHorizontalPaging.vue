@@ -64,7 +64,7 @@
           }"
         >
           <UiMenu
-            ref="internalmenuTemplateRef"
+            ref="internalMenuTemplateRef"
             :items="menuItemsToRender"
             v-bind="menuAttrs"
             :class="[
@@ -89,8 +89,8 @@
             <!-- @slot Use this slot to place inside pages items. -->
             <slot>
               <template
-                v-for="(item, index) in items"
-                :key="index"
+                v-for="item in items"
+                :key="item.name"
               >
                 <UiHorizontalPagingItem
                   v-bind="item"
@@ -277,13 +277,13 @@ const menuItemsSlots = computed(() => (Object.keys(slots).reduce((object, slotNa
   }
   return object;
 }, {})));
-const internalmenuTemplateRef = ref<InstanceType<typeof UiMenu> | null>(null);
-const usedmenuTemplateRef = computed(() => (props.menuTemplateRef || internalmenuTemplateRef.value));
+const internalMenuTemplateRef = ref<InstanceType<typeof UiMenu> | null>(null);
+const usedMenuTemplateRef = computed(() => (props.menuTemplateRef || internalMenuTemplateRef.value));
 const handleBackClick = () => {
   activeItems.value = activeItems.value.slice(0, -1);
-  if (usedmenuTemplateRef.value?.lastFocusedmenuItemTemplateRef) {
+  if (usedMenuTemplateRef.value?.lastFocusedmenuItemTemplateRef) {
     // TODO: https://github.com/infermedica/component-library/pull/424#discussion_r1593935248
-    focusElement(usedmenuTemplateRef.value?.lastFocusedmenuItemTemplateRef?.itemTemplateRefs?.content?.$el, true);
+    focusElement(usedMenuTemplateRef.value?.lastFocusedmenuItemTemplateRef?.itemTemplateRefs?.content?.$el, true);
   }
 };
 defineExpose({

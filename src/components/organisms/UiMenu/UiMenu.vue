@@ -6,8 +6,8 @@
     <!-- @slot Use this slot to place menu items. -->
     <slot>
       <template
-        v-for="(item, index) in itemsToRender"
-        :key="index"
+        v-for="item in itemsToRender"
+        :key="item.name"
       >
         <UiMenuItem
           ref="internalMenuItemsTemplateRefs"
