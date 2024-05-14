@@ -71,6 +71,7 @@ export const Basic: TextareaStoryType = {
   },
 };
 Basic.decorators = [ withVModel ];
+Basic.args = { resize: 'vertical' };
 Basic.parameters = { docs: { source: { code: BasicStoriesSource } } };
 
 export const Empty: TextareaStoryType = { ...Basic };
