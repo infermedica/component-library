@@ -84,7 +84,7 @@ export interface Size {
 
 const props = withDefaults(defineProps<TextareaProps>(), {
   modelValue: '',
-  resize: false,
+  resize: 'vertical',
   placeholder: '',
   disabled: false,
   hasAutogrowing: false,
@@ -123,6 +123,9 @@ const textareaSize:Size = reactive({
   height: null,
   minHeight: null,
 });
+
+const textareaMargin = '2px';
+
 const setTextareaSize = (mutationList: MutationRecord[]) => {
   const { style } = mutationList[0].target as HTMLElement;
   const {
@@ -130,7 +133,7 @@ const setTextareaSize = (mutationList: MutationRecord[]) => {
   } = style;
 
   const calcHeightPx = Number(height.replace('px', ''));
-  const calcMinHeightPx = Number(minHeight.replace('px', '')) + 4;
+  const calcMinHeightPx = Number(minHeight.replace('px', '')) + (2 * Number(textareaMargin.replace('px', '')));
   const calcHeight = calcHeightPx > calcMinHeightPx ? null : `${calcMinHeightPx}px`;
 
   textareaSize.width = width;
@@ -192,10 +195,10 @@ defineExpose({ textarea });
     @include mixins.use-logical($element, padding, var(--space-12) var(--space-16));
     @include mixins.use-logical($element, border, 0);
 
-    margin: var(--space-2);
+    margin: v-bind(textareaMargin);
     overflow: hidden;
     overflow-y: auto;
-    max-width: calc(100% - var(--space-4));
+    max-width: calc(100% - (2 * v-bind(textareaMargin)));
     border-radius: inherit;
     background: transparent;
     caret-color: functions.var($element, caret-color, var(--color-blue-500));

@@ -34,7 +34,7 @@ const meta = {
   args: {
     ...args,
     modelValue: '',
-    resize: false,
+    resize: 'vertical',
     placeholder: 'Please provide a detailed description of the issue.',
     textareaAttrs: { 'data-testid': 'textarea-element' },
   },
@@ -71,7 +71,6 @@ export const Basic: TextareaStoryType = {
   },
 };
 Basic.decorators = [ withVModel ];
-Basic.args = { resize: 'vertical' };
 Basic.parameters = { docs: { source: { code: BasicStoriesSource } } };
 
 export const Empty: TextareaStoryType = { ...Basic };
