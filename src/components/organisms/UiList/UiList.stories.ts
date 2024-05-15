@@ -27,6 +27,8 @@ import {
   IconInHeadingStoriesSource,
   AnswerWithCheckboxStories,
   AnswerWithCheckboxStoriesSource,
+  ListBoxStories,
+  ListBoxStoriesSource,
 } from './stories';
 
 type ListArgsType = ListProps;
@@ -422,6 +424,46 @@ AnswerWithRadio.args = {
     },
     suffixAttrs: {
       icon: 'info',
+      label: 'Show more',
+      class: [ 'icon-in-heading__suffix' ],
+      ...events,
+      labelAttrs: { class: [ 'visual-hidden' ] },
+    },
+  })),
+};
+export const ListBox:ListStoryType = {
+  render(args, {
+    name, argTypes,
+  }) {
+    return {
+      name,
+      components: { ListBoxStories },
+      setup() {
+        const { attrs } = getAttrs(args, argTypes, name);
+        return { attrs };
+      },
+      template: '<ListBoxStories v-bind="{...attrs}"/>',
+    };
+  },
+};
+ListBox.parameters = { docs: { source: { code: ListBoxStoriesSource } } };
+ListBox.args = {
+  items: items.map((item, index) => ({
+    ...item,
+    tag: UiCheckbox,
+    class: [ {
+      'ui-checkbox--has-error': index === 1,
+      'ui-list-item--has-error': index === 1,
+    } ],
+    hasSuffix: index === 1 && true,
+    icon: 'info',
+    value: item,
+    modelValue: index === 1 && [ item ],
+    textLabelAttrs: {
+      tag: 'div',
+      class: 'answer-with-checkbox__label',
+    },
+    suffixAttrs: {
       label: 'Show more',
       class: [ 'icon-in-heading__suffix' ],
       ...events,
