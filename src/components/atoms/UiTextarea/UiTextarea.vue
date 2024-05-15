@@ -145,9 +145,7 @@ onMounted(async () => {
 onBeforeUnmount(() => {
   observer.disconnect();
 });
-defineExpose(
-  textarea,
-);
+defineExpose({ textarea });
 </script>
 
 <style lang="scss">
