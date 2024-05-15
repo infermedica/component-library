@@ -6087,7 +6087,7 @@
           },
           "defaultValue": {
             "func": false,
-            "value": "false"
+            "value": "'vertical'"
           }
         },
         {
