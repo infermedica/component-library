@@ -6049,6 +6049,11 @@
       "displayName": "UiTextarea",
       "description": "",
       "tags": {},
+      "expose": [
+        {
+          "name": "textarea"
+        }
+      ],
       "props": [
         {
           "name": "modelValue",
