@@ -1,134 +1,74 @@
 <template>
-  <InfiniteScroll
-    ref="elementContainer"
-    :next="asyncElements"
-    :has-more="hasAsyncElements"
-    class="search-dropdown__scroll"
-    :class="{ 'search-dropdown__scroll--has-input': inputRow }"
-  >
-    <div
-      v-if="showList"
-      class="search-dropdown__scroll-container"
-    >
-      <template v-if="showCategories && categories.length">
-        <template v-for="(category, key) in categories" :key="key">
-          <SearchDropdownCategoryRow>{{ t(category.label) }}</SearchDropdownCategoryRow>
-          <DynamicScroller
-            v-slot="{ item, index, active }"
-            :items="byCategory(category.id as string)"
-            :min-item-size="52"
-            key-field="name"
-            class="search-dropdown__dynamic-scroller"
-          >
-            <DynamicScrollerItem
-              :item="item"
-              :active="active"
-              :data-index="index"
-            >
-              <SearchDropdownScrollerWrapper>
-                <SearchDropdownRow v-model="selected" :value="item" />
-              </SearchDropdownScrollerWrapper>
-            </DynamicScrollerItem>
-          </DynamicScroller>
-        </template>
-      </template>
-
-      <template v-else>
-        <DynamicScroller
-          v-slot="{ item, index, active }"
-          :items="elementsWithoutCustom"
-          :min-item-size="52"
-          key-field="id"
-          class="search-dropdown__dynamic-scroller"
-          :page-mode="true"
-        >
-          <DynamicScrollerItem
-            :item="item"
-            :active="active"
-            :data-index="index"
-            :size-dependencies="[
-              item.dose,
-              item.label,
-              item.commonName,
-              item.category,
-            ]"
-          >
-            <SearchDropdownScrollerWrapper>
-              <slot
-                name="row"
-                :value="item"
-                :update-selected="updateSelected"
-              >
-                <SearchDropdownRow v-model="selected" :value="item" />
-              </slot>
-            </SearchDropdownScrollerWrapper>
-          </DynamicScrollerItem>
-        </DynamicScroller>
-      </template>
-
-      <template v-if="showCustomOnMobile">
-        <SearchDropdownCategoryRow>
-          {{ t('searchDropdown.customElementsLabel') }}
-        </SearchDropdownCategoryRow>
-        <DynamicScroller
-          v-slot="{ item, index, active }"
-          :items="customElements"
-          :min-item-size="72"
-          key-field="name"
-          class="search-dropdown__dynamic-scroller"
-        >
-          <DynamicScrollerItem
-            :item="item"
-            :active="active"
-            :data-index="index"
-          >
-            <SearchDropdownScrollerWrapper>
-              <SearchDropdownRow v-model="selected" :value="item" />
-            </SearchDropdownScrollerWrapper>
-          </DynamicScrollerItem>
-        </DynamicScroller>
-      </template>
-    </div>
-
-    <div
-      v-else-if="showEmptyState"
-      class="search-dropdown__empty-state"
-    >
-      <AppIcon
-        class="search-dropdown__empty-state-icon"
-        icon="minus"
-      />
-      {{ t('searchDropdown.notFound') }}
-    </div>
-  </InfiniteScroll>
-  <SearchDropdownInputRow
-    v-if="inputRow"
-    :value="inputText"
-    :limit="inputLimit"
-    class="search-dropdown__input"
-    :class="{ 'search-dropdown__input--no-border': !showEmptyState }"
-    @add="onAdd"
+  <UiList
+    v-bind="args"
+    class="list-box"
   />
+  <div class="search-dropdown-input-row">
+    <UiButton
+      class="search-dropdown-input-row__button ui-button--text"
+      @click="clickHandler"
+    >
+      <UiIcon
+        icon="plus"
+        class="ui-button__icon"
+      />
+      <UiText class="search-dropdown-input-row__button">
+        Didn't find chronic condition?
+      </UiText>
+    </UiButton>
+    <UiText class="search-dropdown-input-row__text">
+      Add with your own words
+    </UiText>
+  </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {
   computed,
   useAttrs,
   defineOptions,
 } from 'vue';
-import { UiList } from '@infermedica/component-library';
+import {
+  UiButton,
+  UiIcon,
+  UiList,
+  UiText,
+} from '@infermedica/component-library';
 
 defineOptions({ inheritAttrs: false });
+export interface AddEmits {
+  (e:'add'): void;
+}
 const attrs = useAttrs();
 const args = computed(() => (attrs));
+
+const emit = defineEmits<AddEmits>();
+const clickHandler = () => {
+  emit('add');
+};
 </script>
 
 <style lang="scss">
-.answer-with-checkbox {
+.list-box {
   &__label {
     display: flex;
     justify-content: space-between;
+  }
+}
+.search-dropdown-input-row {
+  padding: var(--space-12) var(--space-4);
+
+  &__button {
+    margin-inline: var(--space-8);
+    font: var(--font-body-1-thick);
+  }
+
+  &__text {
+    padding: var(--space-4) var(--space-12);
+    margin-inline: var(--space-32);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 </style>

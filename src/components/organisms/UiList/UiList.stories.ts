@@ -451,23 +451,12 @@ ListBox.args = {
   items: items.map((item, index) => ({
     ...item,
     tag: UiCheckbox,
-    class: [ {
-      'ui-checkbox--has-error': index === 1,
-      'ui-list-item--has-error': index === 1,
-    } ],
-    hasSuffix: index === 1 && true,
     icon: 'info',
     value: item,
     modelValue: index === 1 && [ item ],
     textLabelAttrs: {
       tag: 'div',
-      class: 'answer-with-checkbox__label',
-    },
-    suffixAttrs: {
-      label: 'Show more',
-      class: [ 'icon-in-heading__suffix' ],
-      ...events,
-      labelAttrs: { class: [ 'visual-hidden' ] },
+      class: 'list-box__label',
     },
   })),
 };
