@@ -64,6 +64,7 @@ import {
   computed,
   useAttrs,
   defineAsyncComponent,
+  type ComponentPublicInstance,
   type LiHTMLAttributes,
 } from 'vue';
 import type {
@@ -144,7 +145,7 @@ const suffixComponent = computed(() => (props.hasSuffix
   ? defineAsyncComponent(() => import('./UiListItemSuffix.vue'))
   : null));
 
-const content = ref<HTMLTag | null>(null);
+const content = ref<ComponentPublicInstance | null>(null);
 defineExpose({ content });
 </script>
 

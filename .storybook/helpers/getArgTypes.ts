@@ -40,8 +40,21 @@ export function getArgTypes(component, options = { variables: {}}) {
 
     return name
   }
+  const getDefaultValue = (value: string) => {
+    const arrowFunctionReturn = value.match(/\(\) => \((.*?)\)$/m);
+    switch (true) {
+      case value.length < 1: return value;
+      case value === 'false': return false;
+      case value === 'true': return true;
+      case value === 'null': return null;
+      case value === 'undefined': return undefined;
+      case !isNaN(parseInt(value)): return Number(value);
+      case !!arrowFunctionReturn: return new Function(`return ${arrowFunctionReturn.at(1)}`);
+      default: return value;
+    }
+  }
   const getTable = (name, defaultValue) => {
-    const value = defaultValue.value.replace(/'/gm, '').replace(/"/gm, '')
+    const value = defaultValue.value.replace(/"/gm, '');
     if (name.match(/(Attrs)$/gm)) {
       return {
         defaultValue: {
@@ -56,15 +69,7 @@ export function getArgTypes(component, options = { variables: {}}) {
     }
     return {
       defaultValue: {
-        summary: value === "false"
-          ? false
-          : value === "true"
-            ? true
-            : value.length < 1
-              ? value
-              : isNaN(Number(value))
-                ? value
-                : Number(value)
+        summary: getDefaultValue(value)
       },
       category: 'props'
     }

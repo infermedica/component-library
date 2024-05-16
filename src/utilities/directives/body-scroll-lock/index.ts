@@ -41,12 +41,13 @@ const enableBodyScroll = (preventScroll = false) => {
     window.scrollTo(body.__vueScrollPosition__);
   }
 };
+const isStorybook = ('STORYBOOK_ENV' in window);
+const isDocsViewMode = window.location.search.includes('--docs');
 
 export const bodyScrollLock: Directive = {
   async beforeMount() {
     await nextTick();
-    const currentWindow: WindowScrollLock = window;
-    if (currentWindow.IS_STORYBOOK && currentWindow.location.search.includes('viewMode=docs')) {
+    if (isStorybook && isDocsViewMode) {
       // required to fix back from story to docs mode and unlock body scroll
       enableBodyScroll(true);
       return;
@@ -54,8 +55,7 @@ export const bodyScrollLock: Directive = {
     disableBodyScroll();
   },
   beforeUnmount() {
-    const currentWindow: WindowScrollLock = window;
-    if (currentWindow.IS_STORYBOOK && currentWindow.location.search.includes('viewMode=docs')) return;
+    if (isStorybook && isDocsViewMode) return;
     enableBodyScroll();
   },
 };

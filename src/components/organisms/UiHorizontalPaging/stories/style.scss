@@ -1,0 +1,16 @@
+#anchor--organisms-horizontalpaging--mobile-menu {
+  --side-panel-tablet-header-padding-block: var(--space-20);
+  --side-panel-tablet-header-padding-inline: var(--space-20);
+  --side-panel-tablet-content-padding-block: 0;
+  --side-panel-tablet-content-padding-inline: 0;
+
+  .docs-story {
+    background-color: #F6F9FC;
+    display: flex;
+    justify-content: center;
+
+    > div {
+      flex: 0 0 25.875rem;
+    }
+  }
+}
