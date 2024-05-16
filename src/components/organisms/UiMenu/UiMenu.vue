@@ -36,7 +36,7 @@ import {
   type ComponentInstance,
   onBeforeUnmount,
 } from 'vue';
-import UiText from '@/components/atoms/UiText/UiText.vue';
+import UiText from '../../atoms/UiText/UiText.vue';
 import useArrowNavigation, { type ElementRef } from './useArrowNavigation';
 import { focusElement } from '../../../utilities/helpers';
 import UiList, { type ListAttrsProps } from '../UiList/UiList.vue';
