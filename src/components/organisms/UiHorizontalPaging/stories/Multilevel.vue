@@ -52,7 +52,11 @@ import {
 defineOptions({ inheritAttrs: false });
 const attrs = useAttrs();
 const args = computed(() => (Object.keys(attrs).reduce((object, key) => {
-  if (key !== 'items') {
+  const excluded = [
+    'items',
+    'modelValue',
+  ];
+  if (!excluded.includes(key)) {
     return {
       ...object,
       [key]: attrs[key],

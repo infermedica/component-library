@@ -1,4 +1,5 @@
 import {
+  ref,
   computed,
   defineComponent,
   provide,
@@ -13,9 +14,11 @@ export const withVModel = (story, { id, args }) => {
     name: 'DWithVModel',
     inheritAttrs: false,
     setup() {
+      const modelValueFallback = ref(null)
       const modelValue = computed({
-        get: ()=>(args.modelValue),
+        get: ()=>(modelValueFallback.value || args.modelValue),
         set: (newValue) => {
+          modelValueFallback.value = newValue;
           updateArgs({ modelValue: newValue });
         }
       })

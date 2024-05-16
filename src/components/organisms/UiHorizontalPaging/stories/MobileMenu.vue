@@ -26,7 +26,7 @@
       ref="horizontalPagingTemplateRefs"
       v-model="value"
       v-bind="args"
-      :menu-template-refs="menuTemplateRef"
+      :menu-template-ref="menuTemplateRef"
     >
       <template
         #menu="{
@@ -100,8 +100,17 @@ import { focusElement } from '../../../../utilities/helpers';
 
 defineOptions({ inheritAttrs: false });
 const attrs = useAttrs();
-const args = computed(() => (attrs));
-const value = inject('value', []);
+const args = computed(() => (Object.keys(attrs).reduce((object, key) => {
+  const excluded = [ 'modelValue' ];
+  if (!excluded.includes(key)) {
+    return {
+      ...object,
+      [key]: attrs[key],
+    };
+  }
+  return object;
+}, {})));
+const value = inject('value', ref([]));
 
 const horizontalPagingTemplateRefs = ref(null);
 const isActive = computed(() => (horizontalPagingTemplateRefs.value?.isActive));
