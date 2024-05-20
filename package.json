@@ -8,11 +8,6 @@
   ],
   "main": "index.ts",
   "module": "index.ts",
-  "files": [
-    "src/*",
-    "index.ts",
-    "scripts/create-index.mjs"
-  ],
   "scripts": {
     "build": "vite build --out-dir dist",
     "build-storybook": "storybook build",
