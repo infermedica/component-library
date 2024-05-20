@@ -49,8 +49,8 @@ export function getArgTypes(component, options = { variables: {}}) {
       case value === 'null': return null;
       case value === 'undefined': return undefined;
       case !isNaN(parseInt(value)): return Number(value);
-      case !!arrowFunctionReturn: return new Function(`return ${arrowFunctionReturn.at(1)}`);
-      default: return value;
+      case !!arrowFunctionReturn: return new Function(`return ${arrowFunctionReturn.at(1)}`)();
+      default: return value.replace(/\'/gm, '');
     }
   }
   const getTable = (name, defaultValue) => {
