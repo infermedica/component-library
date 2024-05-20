@@ -39,8 +39,6 @@
 
 <script setup lang="ts">
 import {
-  computed,
-  useAttrs,
   defineOptions,
   inject,
 } from 'vue';
@@ -48,22 +46,15 @@ import {
   UiHorizontalPaging,
   UiLoader,
 } from '@infermedica/component-library';
+import { useArgs } from '@sb/composable/useArgs';
 
 defineOptions({ inheritAttrs: false });
-const attrs = useAttrs();
-const args = computed(() => (Object.keys(attrs).reduce((object, key) => {
-  const excluded = [
-    'items',
-    'modelValue',
-  ];
-  if (!excluded.includes(key)) {
-    return {
-      ...object,
-      [key]: attrs[key],
-    };
-  }
-  return object;
-}, {})));
+const {
+  attrs, args,
+} = useArgs([
+  'modelValue',
+  'items',
+]);
 const value = inject('value', []);
 const itemsA = [
   {

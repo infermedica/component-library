@@ -78,7 +78,6 @@
 import {
   ref,
   computed,
-  useAttrs,
   defineOptions,
   inject,
   nextTick,
@@ -93,23 +92,17 @@ import {
   UiLink,
   UiHeading,
 } from '@infermedica/component-library';
+import { useArgs } from '@sb/composable/useArgs';
 import MedicalCertification from './_internal/MedicalCertification.vue';
 import TermsOfService from './_internal/TermsOfService.vue';
 import InterviewId from './_internal/InterviewId.vue';
 import { focusElement } from '../../../../utilities/helpers';
 
 defineOptions({ inheritAttrs: false });
-const attrs = useAttrs();
-const args = computed(() => (Object.keys(attrs).reduce((object, key) => {
-  const excluded = [ 'modelValue' ];
-  if (!excluded.includes(key)) {
-    return {
-      ...object,
-      [key]: attrs[key],
-    };
-  }
-  return object;
-}, {})));
+const {
+  attrs,
+  args,
+} = useArgs([ 'modelValue' ]);
 const value = inject('value', ref([]));
 
 const horizontalPagingTemplateRefs = ref(null);
