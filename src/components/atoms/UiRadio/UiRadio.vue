@@ -161,7 +161,7 @@ const isChecked = computed(() => equal(props.value, props.modelValue));
 const changeHandler = (event: Event) => {
   const el = event.target as HTMLInputElement;
   if (el.checked) {
-    emit('update:modelValue', JSON.parse(JSON.stringify(props.value)));
+    emit('update:modelValue', props.value);
   }
 };
 const input = ref<HTMLInputElement | null>(null);

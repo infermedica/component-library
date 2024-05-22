@@ -6049,6 +6049,11 @@
       "displayName": "UiTextarea",
       "description": "",
       "tags": {},
+      "expose": [
+        {
+          "name": "textarea"
+        }
+      ],
       "props": [
         {
           "name": "modelValue",
@@ -6082,7 +6087,7 @@
           },
           "defaultValue": {
             "func": false,
-            "value": "false"
+            "value": "'vertical'"
           }
         },
         {
@@ -6623,6 +6628,11 @@
       "displayName": "UiInput",
       "description": "",
       "tags": {},
+      "expose": [
+        {
+          "name": "input"
+        }
+      ],
       "props": [
         {
           "name": "placeholder",
@@ -8211,6 +8221,178 @@
       "displayName": "UiListItemSuffix",
       "description": "",
       "tags": {},
+      "expose": [
+        {
+          "name": "listItemSuffixTemplateRef"
+        }
+      ],
+      "props": [
+        {
+          "name": "iconSuffixAttrs",
+          "tags": {
+            "deprecated": [
+              {
+                "description": "will be removed in 2.0.0 Use this props to pass attrs for suffix UiIcon.",
+                "title": "deprecated"
+              }
+            ]
+          },
+          "required": false,
+          "type": {
+            "name": "IconAttrsProps"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "() => ({})"
+          }
+        },
+        {
+          "name": "labelSuffixAttrs",
+          "tags": {
+            "deprecated": [
+              {
+                "description": "will be removed in 2.0.0 Use this props to pass attrs for label element.",
+                "title": "deprecated"
+              }
+            ]
+          },
+          "required": false,
+          "type": {
+            "name": "DefineAttrsProps",
+            "elements": [
+              {
+                "name": "null"
+              }
+            ]
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "() => ({})"
+          }
+        }
+      ],
+      "slots": [
+        {
+          "name": "label",
+          "scoped": true,
+          "description": "Use this slot to replace label template.",
+          "bindings": [
+            {
+              "name": "label",
+              "title": "binding"
+            },
+            {
+              "name": "labelAttrs",
+              "title": "binding"
+            }
+          ]
+        },
+        {
+          "name": "icon",
+          "scoped": true,
+          "description": "Use this slot to replace icon template.",
+          "bindings": [
+            {
+              "name": "isButton",
+              "title": "binding"
+            },
+            {
+              "name": "hasIcon",
+              "title": "binding"
+            },
+            {
+              "name": "iconAttrs",
+              "title": "binding"
+            }
+          ]
+        }
+      ],
+      "sourceFiles": [
+        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiList/_internal/UiListItemSuffix.vue"
+      ]
+    },
+    {
+      "exportName": "default",
+      "displayName": "UiListItemPrefix",
+      "description": "",
+      "tags": {},
+      "expose": [
+        {
+          "name": "listItemPrefixTemplateRef"
+        }
+      ],
+      "slots": [
+        {
+          "name": "icon",
+          "scoped": true,
+          "description": "Use this slot to replace icon template.",
+          "bindings": [
+            {
+              "name": "isButton",
+              "title": "binding"
+            },
+            {
+              "name": "hasIcon",
+              "title": "binding"
+            },
+            {
+              "name": "iconAttrs",
+              "title": "binding"
+            }
+          ]
+        },
+        {
+          "name": "label",
+          "scoped": true,
+          "description": "Use this slot to replace label template.",
+          "bindings": [
+            {
+              "name": "label",
+              "title": "binding"
+            },
+            {
+              "name": "labelAttrs",
+              "title": "binding"
+            }
+          ]
+        }
+      ],
+      "sourceFiles": [
+        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiList/_internal/UiListItemPrefix.vue"
+      ]
+    },
+    {
+      "exportName": "default",
+      "displayName": "UiListItemContent",
+      "description": "",
+      "tags": {},
+      "props": [
+        {
+          "name": "item",
+          "required": false,
+          "type": {
+            "name": "ListRenderItem"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "() => ({ name: '' })"
+          }
+        }
+      ],
+      "slots": [
+        {
+          "name": "default"
+        }
+      ],
+      "sourceFiles": [
+        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiList/_internal/UiListItemContent.vue"
+      ]
+    },
+    {
+      "exportName": "default",
+      "displayName": "UiListItemAffix",
+      "description": "",
+      "tags": {},
       "props": [
         {
           "name": "tag",
@@ -8221,7 +8403,7 @@
           },
           "defaultValue": {
             "func": false,
-            "value": "'div'"
+            "value": "undefined"
           }
         },
         {
@@ -8276,67 +8458,31 @@
             "func": false,
             "value": "() => ({})"
           }
-        },
-        {
-          "name": "iconSuffixAttrs",
-          "tags": {
-            "deprecated": [
-              {
-                "description": "will be removed in 2.0.0 Use this props to pass attrs for suffix UiIcon.",
-                "title": "deprecated"
-              }
-            ]
-          },
-          "required": false,
-          "type": {
-            "name": "IconAttrsProps"
-          },
-          "defaultValue": {
-            "func": false,
-            "value": "() => ({})"
-          }
-        },
-        {
-          "name": "labelSuffixAttrs",
-          "tags": {
-            "deprecated": [
-              {
-                "description": "will be removed in 2.0.0 Use this props to pass attrs for label element.",
-                "title": "deprecated"
-              }
-            ]
-          },
-          "required": false,
-          "type": {
-            "name": "DefineAttrsProps",
-            "elements": [
-              {
-                "name": "null"
-              }
-            ]
-          },
-          "defaultValue": {
-            "func": false,
-            "value": "() => ({})"
-          }
         }
       ],
       "slots": [
         {
           "name": "default",
-          "description": "Use this slot to replace suffix template."
-        },
-        {
-          "name": "label",
           "scoped": true,
-          "description": "Use this slot to replace label template.",
           "bindings": [
             {
               "name": "label",
               "title": "binding"
             },
             {
-              "name": "labelSuffixAttrs",
+              "name": "icon",
+              "title": "binding"
+            },
+            {
+              "name": "isButton",
+              "title": "binding"
+            },
+            {
+              "name": "hasIcon",
+              "title": "binding"
+            },
+            {
+              "name": "iconAttrs",
               "title": "binding"
             },
             {
@@ -8344,56 +8490,10 @@
               "title": "binding"
             }
           ]
-        },
-        {
-          "name": "icon",
-          "scoped": true,
-          "description": "Use this slot to replace icon template.",
-          "bindings": [
-            {
-              "name": "hasIcon",
-              "title": "binding"
-            },
-            {
-              "name": "iconSuffixAttrs",
-              "title": "binding"
-            },
-            {
-              "name": "iconAttrs",
-              "title": "binding"
-            }
-          ]
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiList/_internal/UiListItemSuffix.vue"
-      ]
-    },
-    {
-      "exportName": "default",
-      "displayName": "UiListItemContent",
-      "description": "",
-      "tags": {},
-      "props": [
-        {
-          "name": "item",
-          "required": false,
-          "type": {
-            "name": "ListRenderItem"
-          },
-          "defaultValue": {
-            "func": false,
-            "value": "() => ({ name: '' })"
-          }
-        }
-      ],
-      "slots": [
-        {
-          "name": "default"
-        }
-      ],
-      "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiList/_internal/UiListItemContent.vue"
+        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiList/_internal/UiListItemAffix.vue"
       ]
     },
     {
@@ -8421,7 +8521,14 @@
         },
         {
           "name": "icon",
-          "description": "Use this props to set suffix icon.",
+          "tags": {
+            "deprecated": [
+              {
+                "description": "will be removed in 2.0.0; Use this props to set suffix icon.",
+                "title": "deprecated"
+              }
+            ]
+          },
           "required": false,
           "type": {
             "name": "Icon"
@@ -8429,6 +8536,30 @@
           "defaultValue": {
             "func": false,
             "value": "''"
+          }
+        },
+        {
+          "name": "hasPrefix",
+          "description": "Use this props to control prefix visibility.",
+          "required": false,
+          "type": {
+            "name": "boolean"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "false"
+          }
+        },
+        {
+          "name": "prefixAttrs",
+          "description": "Use this props to pass attrs for UIListItemPrefix",
+          "required": false,
+          "type": {
+            "name": "ListItemPrefixAttrsProps"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "() => ({})"
           }
         },
         {
@@ -8448,15 +8579,7 @@
           "description": "Use this props to pass attrs for UIListItemSuffix",
           "required": false,
           "type": {
-            "name": "union",
-            "elements": [
-              {
-                "name": "ListItemSuffixAsTextAttrsProps"
-              },
-              {
-                "name": "ListItemSuffixAsButtonAttrsProps"
-              }
-            ]
+            "name": "ListItemSuffixAttrsProps"
           },
           "defaultValue": {
             "func": false,
@@ -8507,6 +8630,25 @@
             },
             {
               "name": "suffixAttrs",
+              "title": "binding"
+            }
+          ]
+        },
+        {
+          "name": "prefix",
+          "scoped": true,
+          "description": "Use this slot to replace prefix template",
+          "bindings": [
+            {
+              "name": "hasPrefix",
+              "title": "binding"
+            },
+            {
+              "name": "prefixComponent",
+              "title": "binding"
+            },
+            {
+              "name": "prefixAttrs",
               "title": "binding"
             }
           ]

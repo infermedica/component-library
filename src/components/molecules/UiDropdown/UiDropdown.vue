@@ -321,7 +321,7 @@ const itemsToRender = computed<DropdownItemComplex[]>(() => (props.items.map((it
   return {
     ...item,
     name: item.name || `dropdown-item-${key}`,
-    value: item.value || JSON.parse(JSON.stringify(item)),
+    value: item.value || item,
   };
 })));
 const dropdownItemAttrs = ({

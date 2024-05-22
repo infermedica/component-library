@@ -14,7 +14,10 @@
       v-keyboard-focus
       v-bind="defaultProps.textareaAttrs"
       :value="modelValue"
-      :style="{ resize: resizeValue }"
+      :style="{
+        resize: resizeValue,
+        'min-height': rootStyle.minHeight,
+      }"
       class="ui-textarea__textarea"
       @input="inputHandler($event)"
     />
@@ -76,11 +79,12 @@ export interface TextareaEmits {
 export interface Size {
   width: string | null;
   height: string | null;
+  minHeight: string | null;
 }
 
 const props = withDefaults(defineProps<TextareaProps>(), {
   modelValue: '',
-  resize: false,
+  resize: 'vertical',
   placeholder: '',
   disabled: false,
   hasAutogrowing: false,
@@ -117,24 +121,36 @@ const textarea = ref<HTMLTextAreaElement | null>(null);
 const textareaSize:Size = reactive({
   width: null,
   height: null,
+  minHeight: null,
 });
+
+const textareaMargin = '2px';
+
 const setTextareaSize = (mutationList: MutationRecord[]) => {
   const { style } = mutationList[0].target as HTMLElement;
   const {
-    width, height,
+    width, height, minHeight,
   } = style;
+
+  const calcHeightPx = Number(height.replace('px', ''));
+  const calcMinHeightPx = Number(minHeight.replace('px', '')) + (2 * Number(textareaMargin.replace('px', '')));
+  const calcHeight = calcHeightPx > calcMinHeightPx ? null : `${calcMinHeightPx}px`;
+
   textareaSize.width = width;
-  textareaSize.height = height;
+  textareaSize.height = calcHeight;
+  textareaSize.minHeight = minHeight;
 };
 const rootStyle = computed(() => (props.hasAutogrowing ? {} : {
   width: textareaSize.width,
   height: textareaSize.height,
+  minHeight: textareaSize.minHeight,
 }));
 const observer = new MutationObserver(setTextareaSize);
 onMounted(async () => {
   if (props.hasAutogrowing) { return; }
   await nextTick();
   if (textarea.value) {
+    textareaSize.minHeight = `${textarea.value.offsetHeight}px`;
     observer.observe(textarea.value, {
       attributes: true,
       childList: false,
@@ -145,6 +161,7 @@ onMounted(async () => {
 onBeforeUnmount(() => {
   observer.disconnect();
 });
+defineExpose({ textarea });
 </script>
 
 <style lang="scss">
@@ -178,8 +195,10 @@ onBeforeUnmount(() => {
     @include mixins.use-logical($element, padding, var(--space-12) var(--space-16));
     @include mixins.use-logical($element, border, 0);
 
+    margin: v-bind(textareaMargin);
     overflow: hidden;
-    max-width: 100%;
+    overflow-y: auto;
+    max-width: calc(100% - (2 * v-bind(textareaMargin)));
     border-radius: inherit;
     background: transparent;
     caret-color: functions.var($element, caret-color, var(--color-blue-500));

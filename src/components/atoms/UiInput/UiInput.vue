@@ -179,6 +179,7 @@ const inputHandler = (event: Event) => {
   emit('update:modelValue', el.value);
 };
 const input = ref(null);
+defineExpose({ input });
 </script>
 
 <style lang="scss">

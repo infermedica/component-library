@@ -193,6 +193,7 @@ const loader = computed(() => (
 
     @include mixins.use-logical($element + "-icon", margin, 0 0 0 calc(var(--space-8) * -1));
 
+    flex: none;
     transition: fill 150ms ease-in-out;
 
     &--end {
