@@ -15,6 +15,8 @@
     >
       <UiPhoneNumberPrefixToggle
         :is-open="isOpen"
+        :is-placeholder="!selectedCountryInfo"
+        :has-error="hasError"
         @click="toggleHandler"
       >
         {{ text }}
@@ -60,6 +62,10 @@ export interface PhoneNumberPrefixProps {
    * Use this props to set country code items.
    */
   countryCodes?: Alpha2Code[],
+  /**
+   * Use this props to set error state.
+   */
+  hasError?: boolean;
 }
 
 const props = withDefaults(defineProps<PhoneNumberPrefixProps>(), {
@@ -70,6 +76,7 @@ const props = withDefaults(defineProps<PhoneNumberPrefixProps>(), {
   }),
   language: 'en',
   countryCodes: () => ([]),
+  hasError: false,
 });
 const emit = defineEmits([ 'update:modelValue' ]);
 
@@ -79,16 +86,20 @@ const prefix = computed({
 });
 
 const countriesInfo = ref<CountryInfoType[]>([]);
-const toggleButtonText = computed(() => {
-  if (!prefix.value || (!prefix.value.countryCode && !prefix.value.code)) return '';
+
+const selectedCountryInfo = computed(() => {
+  if (!prefix.value || (!prefix.value.countryCode && !prefix.value.code)) return undefined;
 
   // Note: some countries have the same phone prefix, so countryCode is preferred
-  const selectedCountryInfo = countriesInfo.value.find((item) => (
+  return countriesInfo.value.find((item) => (
     prefix.value.countryCode
       ? item.countryCode === prefix.value.countryCode
       : item.code === prefix.value.code
   ));
-  return selectedCountryInfo ? `${selectedCountryInfo.country} (${selectedCountryInfo.code})` : '';
+});
+const toggleButtonText = computed(() => {
+  if (!selectedCountryInfo.value) return 'Select country code';
+  return `${selectedCountryInfo.value.country} (${selectedCountryInfo.value.code})`;
 });
 
 onMounted(async () => {

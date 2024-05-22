@@ -9,6 +9,7 @@
         v-model="modelValue.prefix"
         :language="language"
         :country-codes="countryCodes"
+        :has-error="hasPrefixError"
       />
     </slot>
     <!-- @slot Use this slot to replace phone number input template.-->
@@ -25,7 +26,7 @@
         :id="inputId"
         v-model="modelValue.phoneNumber"
         :placeholder="placeholder"
-        :has-error="hasError"
+        :has-error="hasPhoneNumberError"
       />
     </slot>
   </div>
@@ -77,7 +78,7 @@ const props = withDefaults(defineProps<PhoneNumberProps>(), {
   modelValue: () => ({
     prefix: {
       code: '',
-      countryCode: 'US',
+      countryCode: '',
     },
     phoneNumber: '',
   }),
@@ -96,6 +97,10 @@ const attrs:PhoneNumberAttrsProps = useAttrs();
 const hasError = computed(() => (('class' in attrs)
   ? attrs.class.includes('ui-phone-number--has-error')
   : false));
+const hasPrefixError = computed(() => (hasError.value && !modelValue.value.prefix?.code));
+const hasPhoneNumberError = computed(() => (
+  // Has error & empty value, or has error, but it's not prefix error, so it has to be invalid number
+  hasError.value && (!modelValue.value.phoneNumber || !hasPrefixError.value)));
 </script>
 
 <style lang="scss">
