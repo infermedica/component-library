@@ -80,7 +80,11 @@ const prefix = computed({
 
 const countriesInfo = ref<CountryInfoType[]>([]);
 const toggleButtonText = computed(() => {
-  const selectedCountryInfo = countriesInfo.value.find((item) => (item.countryCode === prefix.value?.countryCode));
+  if (!prefix.value) return '';
+
+  const selectedCountryInfo = countriesInfo.value.find((item) => (
+    item.countryCode === prefix.value.countryCode || item.code === prefix.value.code
+  ));
   return selectedCountryInfo ? `${selectedCountryInfo.country} (${selectedCountryInfo.code})` : '';
 });
 

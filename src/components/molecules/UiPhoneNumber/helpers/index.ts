@@ -5,7 +5,7 @@ import countryCodes from 'country-codes-list';
 
 export type PhoneCodeType = {
   code?: string,
-  countryCode: string,
+  countryCode?: string,
  };
 
 export type CountryInfoType = {
