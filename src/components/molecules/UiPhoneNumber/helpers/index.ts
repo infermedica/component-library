@@ -36,9 +36,7 @@ function getCountriesInfo(countryList: Alpha2Code[], language = 'us') {
       countryCode: item.countryCode,
     }))
     .filter((countryInfo): countryInfo is CountryInfoType => !!countryInfo.country)
-    .sort((a, b) => (
-      a.country > b.country ? 1 : -1
-    ));
+    .sort((a, b) => (a.country.localeCompare(b.country)));
 }
 export {
   i18nCountries,
