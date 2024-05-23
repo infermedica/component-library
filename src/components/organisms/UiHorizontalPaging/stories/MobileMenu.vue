@@ -26,7 +26,7 @@
       ref="horizontalPagingTemplateRefs"
       v-model="value"
       v-bind="args"
-      :menu-template-refs="menuTemplateRef"
+      :menu-template-ref="menuTemplateRef"
     >
       <template
         #menu="{
@@ -78,7 +78,6 @@
 import {
   ref,
   computed,
-  useAttrs,
   defineOptions,
   inject,
   nextTick,
@@ -93,15 +92,18 @@ import {
   UiLink,
   UiHeading,
 } from '@infermedica/component-library';
+import { useArgs } from '@sb/composable/useArgs';
 import MedicalCertification from './_internal/MedicalCertification.vue';
 import TermsOfService from './_internal/TermsOfService.vue';
 import InterviewId from './_internal/InterviewId.vue';
 import { focusElement } from '../../../../utilities/helpers';
 
 defineOptions({ inheritAttrs: false });
-const attrs = useAttrs();
-const args = computed(() => (attrs));
-const value = inject('value', []);
+const {
+  attrs,
+  args,
+} = useArgs([ 'modelValue' ]);
+const value = inject('value', ref([]));
 
 const horizontalPagingTemplateRefs = ref(null);
 const isActive = computed(() => (horizontalPagingTemplateRefs.value?.isActive));
