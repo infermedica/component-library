@@ -2,6 +2,10 @@
   <UiButton
     :aria-expanded="`${isOpen}`"
     class="ui-phone-number-prefix-toggle ui-button--outlined"
+    :class="{
+      'ui-phone-number-prefix-toggle--placeholder': isPlaceholder,
+      'ui-phone-number-prefix-toggle--error': hasError,
+    }"
   >
     <slot />
     <UiIcon
@@ -19,10 +23,16 @@ import type { DefineAttrsProps } from '../../../../../types';
 
 export interface PhoneNumberPrefixToggleProps {
   isOpen?: boolean,
+  isPlaceholder?: boolean,
+  hasError?: boolean,
 }
 export type PhoneNumberPrefixToggleAttrsProps = DefineAttrsProps<PhoneNumberPrefixToggleProps>
 
-const props = withDefaults(defineProps<PhoneNumberPrefixToggleProps>(), { isOpen: false });
+const props = withDefaults(defineProps<PhoneNumberPrefixToggleProps>(), {
+  isOpen: false,
+  isPlaceholder: false,
+  hasError: false,
+});
 
 const icon = computed(() => (props.isOpen ? 'chevron-up' : 'chevron-down'));
 </script>
@@ -56,6 +66,21 @@ const icon = computed(() => (props.isOpen ? 'chevron-up' : 'chevron-down'));
   font: functions.var($element, font, var(--font-body-1));
   letter-spacing: functions.var($element, letter-spacing, var(--font-body-1));
   text-align: functions.var($element, text-align, left);
+
+  &--placeholder {
+    --button-color: #{functions.var($element, placeholder-color, var(--color-text-dimmed))};
+    --button-hover-color: #{functions.var($element, placeholder-color, var(--color-text-dimmed))};
+    --button-active-color: #{functions.var($element, placeholder-color, var(--color-text-dimmed))};
+  }
+
+  &--error {
+    --button-border-block-color: #{functions.var($element, border-color, var(--color-border-error-strong))};
+  --button-border-inline-color: #{functions.var($element, border-color, var(--color-border-error-strong))};
+  --button-hover-border-block-color: #{functions.var($element, border-color, var(--color-border-error-strong))};
+  --button-hover-border-inline-color: #{functions.var($element, border-color, var(--color-border-error-strong))};
+  --button-active-border-block-color: #{functions.var($element, border-color, var(--color-border-error-strong))};
+  --button-active-border-inline-color: #{functions.var($element, border-color, var(--color-border-error-strong))};
+  }
 
   &__icon {
     --button-icon-color: #{functions.var($element + '-icon', color, var(--color-icon-primary))};
