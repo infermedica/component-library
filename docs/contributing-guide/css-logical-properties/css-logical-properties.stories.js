@@ -11,6 +11,7 @@ export default {
     initValue: '12px 32px',
   },
   decorators: [ withUseLogicalMixinCode ],
+  tags: [ '!autodocs' ],
 };
 
 const Template = (args) => ({

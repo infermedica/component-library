@@ -10,6 +10,7 @@ import './UiFormField.stories.scss';
 export default {
   title: 'Molecules/FormField',
   component: UiFormField,
+  tags: [ '!autodocs' ],
   args: {
     message: 'What is your height?',
     id: '',

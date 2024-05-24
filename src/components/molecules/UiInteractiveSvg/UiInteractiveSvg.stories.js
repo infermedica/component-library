@@ -10,6 +10,7 @@ import './UiInteractiveSvg.stories.scss';
 export default {
   title: 'Molecules/InteractiveSvg',
   component: UiInteractiveSvg,
+  tags: [ '!autodocs' ],
 };
 
 export const WithFocusOnMounted = {

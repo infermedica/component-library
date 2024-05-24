@@ -14,6 +14,7 @@ import './body-scroll-lock.stories.scss';
 
 export default {
   title: 'Utilities/Directives/Body Scroll Lock',
+  tags: [ '!autodocs' ],
   decorators: [ () => ({ template: '<div style="height: 320px;"><story /></div>' }) ],
 };
 

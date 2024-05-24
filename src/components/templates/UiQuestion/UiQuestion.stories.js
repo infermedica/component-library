@@ -19,6 +19,7 @@ const events = actions({
 export default {
   title: 'Templates/Question',
   component: UiQuestion,
+  tags: [ '!autodocs' ],
   args: {
     items: [],
     title: 'Do you have a sore throat?',

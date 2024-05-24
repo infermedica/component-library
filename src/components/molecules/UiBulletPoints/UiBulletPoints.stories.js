@@ -9,6 +9,7 @@ import { modifiers } from '@sb/helpers/argTypes';
 export default {
   title: 'Molecules/BulletPoints',
   component: UiBulletPoints,
+  tags: [ '!autodocs' ],
   args: {
     items: [
       'Painful swallowing',

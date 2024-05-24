@@ -11,6 +11,7 @@ import { focusTrap } from '@/utilities/directives';
 
 export default {
   title: 'Utilities/Directives/Focus Trap',
+  tags: [ '!autodocs' ],
   decorators: [ () => ({
     template:
         '<div style="--backdrop-position: absolute; --side-panel-position: absolute; --side-panel-z-index: 0; min-height: 320px;"><story /></div>',

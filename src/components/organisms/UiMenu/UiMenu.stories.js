@@ -11,6 +11,7 @@ import { modifiers } from '@sb/helpers/argTypes';
 export default {
   title: 'Organisms/Menu',
   component: UiMenu,
+  tags: [ '!autodocs' ],
   args: {
     modifiers: [],
     items: [

@@ -34,7 +34,13 @@ const config: StorybookConfig = {
   },
   staticDirs: ['../public'],
   stories: ['../docs/**/*.mdx', '../docs/**/*.stories.@(js|jsx|ts|tsx)', '../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
-  addons: ['@storybook/addon-links', '@storybook/addon-essentials', '@storybook/addon-a11y', '@storybook/addon-mdx-gfm'],
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/addon-a11y',
+    '@storybook/addon-mdx-gfm',
+    '@chromatic-com/storybook'
+  ],
   framework: {
     name: '@storybook/vue3-vite',
     options: {}
@@ -42,9 +48,7 @@ const config: StorybookConfig = {
   core: {
     disableTelemetry: true
   },
-  docs: {
-    autodocs: true
-  },
+  docs: {},
   refs: {
     '@storybook/design-system': {
       disable: true
