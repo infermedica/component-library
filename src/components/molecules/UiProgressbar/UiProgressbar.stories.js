@@ -6,6 +6,7 @@ import './UiProgressbar.stories.scss';
 export default {
   title: 'Molecules/Progressbar',
   component: UiProgressbar,
+  tags: [ '!autodocs' ],
   args: {
     label: '',
     steps: 6,

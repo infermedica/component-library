@@ -209,6 +209,7 @@ const Loader = {
 export default {
   title: 'Organisms/HorizontalPaging',
   component: UiHorizontalPaging,
+  tags: [ '!autodocs' ],
   args: {
     initialModelValue: [],
     title: 'Settings & Info',

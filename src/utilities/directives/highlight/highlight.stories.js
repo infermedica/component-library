@@ -5,6 +5,7 @@ import { highlight } from '@/utilities/directives';
 
 export default {
   title: 'Utilities/Directives/Highlight',
+  tags: [ '!autodocs' ],
   components: { UiText },
 };
 

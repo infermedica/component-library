@@ -11,6 +11,7 @@ import './UiMessage.stories.scss';
 export default {
   title: 'Templates/Message',
   component: UiMessage,
+  tags: [ '!autodocs' ],
   args: {
     content:
       'You’re about to use a short (3 min), safe and anonymous health checkup. Your answers will be carefully analyzed and you’ll learn about possible causes of your symptoms.',

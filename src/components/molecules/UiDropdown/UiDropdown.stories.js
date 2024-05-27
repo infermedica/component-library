@@ -25,6 +25,7 @@ const events = actions({
 export default {
   title: 'Molecules/Dropdown',
   component: UiDropdown,
+  tags: [ '!autodocs' ],
   args: {
     initModelValue: 'English',
     text: 'English',

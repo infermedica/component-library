@@ -5,7 +5,10 @@ import UiFormField from '@/components/molecules/UiFormField/UiFormField.vue';
 import { ref } from 'vue';
 import { keyboardFocus } from '@/utilities/directives';
 
-export default { title: 'Utilities/Directives/Keyboard Focus' };
+export default {
+  title: 'Utilities/Directives/Keyboard Focus',
+  tags: [ '!autodocs' ],
+};
 
 export const WithDirective = () => ({
   components: {
