@@ -77,9 +77,9 @@ export interface TextareaEmits {
   (e:'update:modelValue', value: TextareaModelValue): void
 }
 export interface Size {
-  width: string | null;
-  height: string | null;
-  minHeight: string | null;
+  width: string;
+  height: string;
+  minHeight: string;
 }
 
 const props = withDefaults(defineProps<TextareaProps>(), {
@@ -119,9 +119,9 @@ const resizeValue = computed(() => {
 });
 const textarea = ref<HTMLTextAreaElement | null>(null);
 const textareaSize:Size = reactive({
-  width: null,
-  height: null,
-  minHeight: null,
+  width: '',
+  height: '',
+  minHeight: '',
 });
 
 const textareaMargin = '2px';
@@ -134,7 +134,7 @@ const setTextareaSize = (mutationList: MutationRecord[]) => {
 
   const calcHeightPx = Number(height.replace('px', ''));
   const calcMinHeightPx = Number(minHeight.replace('px', '')) + (2 * Number(textareaMargin.replace('px', '')));
-  const calcHeight = calcHeightPx > calcMinHeightPx ? null : `${calcMinHeightPx}px`;
+  const calcHeight = calcHeightPx > calcMinHeightPx ? '' : `${calcMinHeightPx}px`;
 
   textareaSize.width = width;
   textareaSize.height = calcHeight;
