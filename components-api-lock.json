@@ -4374,11 +4374,11 @@
           "description": "Use this props to set default prefix phone code and phone number.",
           "required": false,
           "type": {
-            "name": "{\n prefix?: PhoneCodeType,\n phoneNumber?: string,\n}"
+            "name": "{\n  prefix?: PhoneCodeType,\n  phoneNumber?: string,\n}"
           },
           "defaultValue": {
             "func": false,
-            "value": "() => ({\n  prefix: {\n    code: '+1',\n    countryCode: 'US',\n    country: 'United States of America',\n  },\n  phoneNumber: '',\n})"
+            "value": "() => ({\n  prefix: {\n    code: '',\n    countryCode: '',\n  },\n  phoneNumber: '',\n})"
           }
         },
         {
@@ -4394,23 +4394,28 @@
           }
         },
         {
-          "name": "languageData",
+          "name": "language",
           "description": "Use this props to set phone number prefix default language.",
           "required": false,
           "type": {
-            "name": "{\n country: SupportedCountryCodeType,\n language: string,\n}"
+            "name": "string"
           },
           "defaultValue": {
             "func": false,
-            "value": "() => ({\n  country: 'us',\n  language: 'en',\n})"
+            "value": "'en'"
           }
         },
         {
           "name": "countryCodes",
-          "description": "Use this props to set country code items.",
+          "description": "Use this props to set countries available on dropdown.",
           "required": false,
           "type": {
-            "name": "CountryCodes"
+            "name": "Array",
+            "elements": [
+              {
+                "name": "Alpha2Code"
+              }
+            ]
           },
           "defaultValue": {
             "func": false,
@@ -4428,16 +4433,7 @@
           "name": "prefix",
           "scoped": true,
           "description": "Use this slot to replace phone number prefix template.",
-          "bindings": [
-            {
-              "name": "modelValue",
-              "title": "binding"
-            },
-            {
-              "name": "languageData",
-              "title": "binding"
-            }
-          ]
+          "bindings": []
         },
         {
           "name": "input",
@@ -9987,6 +9983,28 @@
             "func": false,
             "value": "false"
           }
+        },
+        {
+          "name": "isPlaceholder",
+          "required": false,
+          "type": {
+            "name": "boolean"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "false"
+          }
+        },
+        {
+          "name": "hasError",
+          "required": false,
+          "type": {
+            "name": "boolean"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "false"
+          }
         }
       ],
       "slots": [
@@ -10013,19 +10031,19 @@
           },
           "defaultValue": {
             "func": false,
-            "value": "() => ({\n  code: '',\n  countryCode: '',\n  country: '',\n})"
+            "value": "() => ({\n  // TODO: generic \"code\" and \"countryCode\" are hard to distinguish\n  code: '',\n  countryCode: '',\n})"
           }
         },
         {
-          "name": "languageData",
+          "name": "language",
           "description": "Use this props to set phone number prefix default country code.",
           "required": false,
           "type": {
-            "name": "{\n country: SupportedCountryCodeType,\n language: string,\n}"
+            "name": "string"
           },
           "defaultValue": {
             "func": false,
-            "value": "() => ({\n  country: 'us',\n  language: 'en',\n})"
+            "value": "'en'"
           }
         },
         {
@@ -10033,11 +10051,28 @@
           "description": "Use this props to set country code items.",
           "required": false,
           "type": {
-            "name": "CountryCodes"
+            "name": "Array",
+            "elements": [
+              {
+                "name": "Alpha2Code"
+              }
+            ]
           },
           "defaultValue": {
             "func": false,
             "value": "() => ([])"
+          }
+        },
+        {
+          "name": "hasError",
+          "description": "Use this props to set error state.",
+          "required": false,
+          "type": {
+            "name": "boolean"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "false"
           }
         }
       ],
