@@ -1,6 +1,6 @@
 <template>
-  <form 
-    class="ui-question" 
+  <form
+    class="ui-question"
     @submit.prevent
   >
     <!-- @slot Use this slot to replace title template. -->
@@ -359,11 +359,26 @@ const hasFeedback = computed(() => (
     justify-content: flex-start;
 
     @include mixins.from-tablet {
-      @include mixins.use-logical($element + "-tablet-action", margin, 0 0 0 var(--space-24));
+      @include mixins.use-logical($element + "-tablet-action", margin, 0);
+
+      &::before {
+        @include mixins.use-logical($element + "-action-indicator", margin, 0 var(--space-16));
+
+        width: functions.var($element + "-action-indicator", width, 1px);
+        align-self: stretch;
+        background: functions.var($element + "-action-indicator", background, var(--color-border-divider));
+        content: "";
+      }
     }
 
     &:first-of-type {
       margin: 0;
+
+      @include mixins.from-tablet {
+        &::before {
+          content: unset;
+        }
+      }
     }
   }
 
