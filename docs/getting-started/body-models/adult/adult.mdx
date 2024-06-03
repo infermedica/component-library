@@ -1,0 +1,38 @@
+import { Meta, Canvas, Source } from '@storybook/blocks';
+import * as AdultStories from './adult.stories';
+
+<Meta title="Getting Started/Body Models/Adult"/>
+
+# Adult
+
+We have removed inline styles from our SVGs. You will see the result on the left, labeled 'copied svg' when you copy the SVG code. Below, we will apply the simplest possible styles to achieve the effect shown on the right, labeled 'svg with styles'. However, for production applications, we recommend expanding the CSS styles.
+
+<Source code={`path {
+  cursor: pointer;
+  fill: #CDE1FE;
+
+  @media (min-width: 768px) {
+    fill: transparent;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      fill: #7AB0FC
+    }
+  }
+}
+
+path:not([data-bodypart]) {
+  pointer-events: none;
+  fill: #0068FA;
+}`}/>
+
+## SVG'S
+
+<Canvas of={AdultStories.MaleFront} source={{code: AdultStories.MaleFront.parameters.source.code}} />
+
+<Canvas of={AdultStories.MaleBack} source={{code: AdultStories.MaleBack.parameters.source.code}} />
+
+<Canvas of={AdultStories.FemaleFront} source={{code: AdultStories.FemaleFront.parameters.source.code}} />
+
+<Canvas of={AdultStories.FemaleBack} source={{code: AdultStories.FemaleBack.parameters.source.code}} />
