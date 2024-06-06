@@ -8,17 +8,19 @@
       class="search-dropdown-input-row__button ui-button--text"
       @click="clickHandler"
     >
-      <UiIcon
-        icon="plus"
-        class="ui-button__icon"
-      />
-      <UiText class="search-dropdown-input-row__button">
-        Didn't find chronic condition?
+      <div class="search-dropdown-input-row__title">
+        <UiIcon
+          icon="plus"
+          class="ui-button__icon"
+        />
+        <UiText class="search-dropdown-input-row__label">
+          Didn't find chronic condition?
+        </UiText>
+      </div>
+      <UiText class="search-dropdown-input-row__hint">
+        Add with your own words
       </UiText>
     </UiButton>
-    <UiText class="search-dropdown-input-row__text">
-      Add with your own words
-    </UiText>
   </div>
 </template>
 
@@ -55,18 +57,36 @@ const clickHandler = () => {
     justify-content: space-between;
   }
 }
-.search-dropdown-input-row {
-  padding: var(--space-12) var(--space-4);
 
-  &__button {
-    margin-inline: var(--space-8);
-    font: var(--font-body-1-thick);
+.search-dropdown-input-row {
+  padding: var(--space-8);
+
+  .ui-button__icon {
+    margin-block: var(--space-4);
   }
 
-  &__text {
-    padding: var(--space-4) var(--space-12);
-    margin-inline: var(--space-32);
+  &__title {
+    display: flex;
+  }
+
+  &__button {
+    display: initial;
+    width: 100%;
+    margin-inline: var(--space-8);
+    text-align: left;
+  }
+
+  &__label {
+    align-content: center;
+    padding: 0 var(--space-12);
+    font: var(--font-body-1-thick);
+    letter-spacing: var(--letter-spacing-small);
+  }
+
+  &__hint {
     overflow: hidden;
+    padding: var(--space-4);
+    margin-inline: var(--space-32);
     text-overflow: ellipsis;
     white-space: nowrap;
   }
