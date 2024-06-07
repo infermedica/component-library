@@ -52,6 +52,9 @@ const clickHandler = () => {
 
 <style lang="scss">
 .list-box {
+  max-height: 20.5rem;
+  overflow-y: auto;
+
   &__label {
     display: flex;
     justify-content: space-between;
@@ -89,6 +92,10 @@ const clickHandler = () => {
     margin-inline: var(--space-32);
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  &:hover {
+    background: var(--color-background-white-hover);
   }
 }
 </style>

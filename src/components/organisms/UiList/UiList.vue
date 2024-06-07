@@ -32,6 +32,18 @@
           </slot>
         </UiListItem>
       </template>
+      <!-- @slot Use this slot to replace button -->
+      <UiListItemButton v-if="hasButton">
+        <template
+          v-for="(_, name) in itemsToRender"
+          #[name]="data"
+        >
+          <slot
+            v-bind="data"
+            :name="name"
+          />
+        </template>
+      </UiListItemButton>
     </slot>
     <template v-if="hasLoader">
       <component
@@ -43,8 +55,6 @@
           <!-- @slot Use this slot to replace loader. -->
           <slot name="loader" />
         </template>
-        <!-- @slot Use this slot to place content inside button. -->
-        <slot />
       </component>
     </template>
   </component>
@@ -61,6 +71,7 @@ import {
   useSlots,
 } from 'vue';
 import UiListItem, { type ListItemAttrsProps } from './_internal/UiListItem.vue';
+import UiListItemButton from './_internal/UiListItemButton.vue';
 import type { LoaderAttrsProps } from '../../molecules/UiLoader/UiLoader.vue';
 import UiListItemContent from './_internal/UiListItemContent.vue';
 import type {
@@ -84,6 +95,10 @@ export interface ListProps {
    */
   items?: ListItem[];
   /**
+   * Use this props to show button.
+   */
+  isButton?: boolean;
+  /**
    * Use this props to set button into loading state.
    */
   isLoading?: boolean;
@@ -97,6 +112,7 @@ export type ListAttrsProps<HTMLAttrs = HTMLAttributes> = DefineAttrsProps<ListPr
 const props = withDefaults(defineProps<ListProps>(), {
   tag: 'ul',
   items: () => ([]),
+  isButton: false,
   isLoading: false,
   loaderAttrs: () => ({}),
 });
@@ -107,6 +123,7 @@ const defaultProps = computed(() => ({
     ...props.loaderAttrs,
   },
 }));
+const hasButton = ref(props.isButton);
 const hasLoader = ref(props.isLoading);
 watch(() => (props.isLoading), (isLoading) => {
   if (isLoading && !hasLoader.value) {

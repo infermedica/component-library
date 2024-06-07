@@ -448,7 +448,26 @@ export const ListBox:ListStoryType = {
 };
 ListBox.parameters = { docs: { source: { code: ListBoxStoriesSource } } };
 ListBox.args = {
-  items: items.map((item, index) => ({
+  items: [
+    'ADHD — hyperactive type',
+    'ADHD — inattentive type',
+    'Abdominal aortic aneurysm',
+    'Achalasia',
+    'Acne',
+    'Acoustic neuroma',
+    'Painful swallowing',
+    'Stuffy nose',
+    'Sneeze',
+    'Muscle pain',
+    'Runny nose',
+    'Wernicke`s encephalopathy',
+    'Whipworm infection',
+    'Wilson`s disease',
+    'Zollinger-Ellison syndrome',
+  ].map((item) => ({
+    label: item,
+    hasSuffix: false,
+  })).map((item, index) => ({
     ...item,
     tag: UiCheckbox,
     icon: 'info',
