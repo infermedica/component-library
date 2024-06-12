@@ -65,23 +65,33 @@ export interface ListItemButtonProps {
   /**
    * Use this props to set icon.
    */
-  icon?: Icon;
+  hint?: string;
   /**
-   * Use this props to pass attrs for Button UiIcon.
+   * Use this props to set icon.
    */
-  iconButtonAttrs?: IconAttrsProps;
+  icon?: Icon;
   /**
    * Use this props to pass attrs for label element.
    */
   labelButtonAttrs?: DefineAttrsProps<null>;
+  /**
+   * Use this props to pass attrs for label element.
+   */
+  hintButtonAttrs?: DefineAttrsProps<null>;
+  /**
+   * Use this props to pass attrs for Button UiIcon.
+   */
+  iconButtonAttrs?: IconAttrsProps;
 }
 export type ListItemButtonAttrsProps = DefineAttrsProps<ListItemButtonProps, ButtonAttrsProps>;
 
 const props = withDefaults(defineProps<ListItemButtonProps>(), {
   label: '',
+  hint: '',
   icon: '',
-  iconButtonAttrs: () => ({}),
   labelButtonAttrs: () => ({}),
+  hintButtonAttrs: () => ({}),
+  iconButtonAttrs: () => ({}),
 });
 const defaultProps = computed(() => ({
   iconButtonAttrs: {
