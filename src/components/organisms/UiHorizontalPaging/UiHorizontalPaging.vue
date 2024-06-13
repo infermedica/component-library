@@ -245,6 +245,7 @@ const menuItemsToRender = computed<MenuItemAttrsProps[]>(() => itemsAsArray.valu
   const {
     title,
     name,
+    menuItemAttrs,
     ...rest
   } = item;
   /* eslint-enable @typescript-eslint/no-unused-vars */
@@ -257,14 +258,19 @@ const menuItemsToRender = computed<MenuItemAttrsProps[]>(() => itemsAsArray.valu
       ...(item.suffixAttrs || {}),
       icon,
     },
-    ...(item.tag ? {} : {
-      onClick: () => {
-        activeItems.value = [
-          ...activeItems.value,
-          item,
-        ];
-      },
-    }),
+    ...menuItemAttrs,
+    ...([
+      'onClick',
+      'href',
+      'tag',
+    ].some((key) => key in (menuItemAttrs as MenuItemAttrsProps)) ? {} : {
+        onClick: () => {
+          activeItems.value = [
+            ...activeItems.value,
+            item,
+          ];
+        },
+      }),
   };
 }));
 const slots = useSlots();
