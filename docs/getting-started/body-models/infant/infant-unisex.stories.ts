@@ -9,6 +9,7 @@ import { UiText } from '../../../../index';
 
 const meta = {
   title: 'Getting Started/Body Models/Infant Unisex',
+  tags: [ '!autodocs' ],
   decorators: [ () => ({
     components: { UiText },
     template: `<div class="flex gap-8">

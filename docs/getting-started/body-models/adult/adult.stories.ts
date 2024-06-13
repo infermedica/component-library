@@ -11,6 +11,7 @@ import { UiText } from '../../../../index';
 
 const meta = {
   title: 'Getting Started/Body Models/Adult',
+  tags: [ '!autodocs' ],
   decorators: [ () => ({
     components: { UiText },
     template: `<div class="flex gap-8">
