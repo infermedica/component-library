@@ -58,7 +58,11 @@
     <slot
       v-bind="{ id: inputId }"
     />
-    <div class="ui-form-field__messages">
+    <!-- @slot Use this slot to replace messages template.-->
+    <div
+      v-if="hasMessages"
+      class="ui-form-field__messages"
+    >
       <!-- @slot Use this slot to replace alert template. -->
       <slot
         name="alert"
@@ -194,6 +198,7 @@ const hasErrorMessage = computed(() => typeof props.errorMessage !== 'boolean');
 const handleErrorEmit = (error: string | null) => {
   emit('error', error);
 };
+const hasMessages = computed(() => hasErrorMessage.value || props.hasCharacterCounter);
 </script>
 
 <style lang="scss">
