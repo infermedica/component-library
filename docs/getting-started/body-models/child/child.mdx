@@ -1,0 +1,38 @@
+import { Meta, Canvas, Source } from '@storybook/blocks';
+import * as ChildStories from './child.stories';
+
+<Meta title="Getting Started/Body Models/Child"/>
+
+# Child
+
+We have removed inline styles from our SVGs. You will see the result on the left, labeled 'copied svg' when you copy the SVG code. Below, we will apply the simplest possible styles to achieve the effect shown on the right, labeled 'svg with styles'. However, for production applications, we recommend expanding the CSS styles.
+
+<Source code={`path {
+  cursor: pointer;
+  fill: #CDE1FE;
+
+  @media (min-width: 768px) {
+    fill: transparent;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      fill: #7AB0FC
+    }
+  }
+}
+
+path:not([data-bodypart]) {
+  pointer-events: none;
+  fill: #0068FA;
+}`}/>
+
+## SVG'S
+
+<Canvas of={ChildStories.MaleFront} source={{code: ChildStories.MaleFront.parameters.source.code}} />
+
+<Canvas of={ChildStories.MaleBack} source={{code: ChildStories.MaleBack.parameters.source.code}} />
+
+<Canvas of={ChildStories.FemaleFront} source={{code: ChildStories.FemaleFront.parameters.source.code}} />
+
+<Canvas of={ChildStories.FemaleBack} source={{code: ChildStories.FemaleBack.parameters.source.code}} />

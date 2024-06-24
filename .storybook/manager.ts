@@ -3,4 +3,7 @@ import theme from './theme';
 
 addons.setConfig({
   theme,
+  sidebar: {
+    collapsedRoots: ['releases', 'templates', 'utilities'],
+  },
 });

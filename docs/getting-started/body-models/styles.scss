@@ -1,0 +1,21 @@
+.has-styles {
+  path {
+    cursor: pointer;
+    fill: #CDE1FE;
+
+    @media (min-width: 768px) {
+      fill: transparent;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        fill: #7AB0FC
+      }
+    }
+  }
+
+  path:not([data-bodypart]) {
+    pointer-events: none;
+    fill: #0068FA;
+  }
+}

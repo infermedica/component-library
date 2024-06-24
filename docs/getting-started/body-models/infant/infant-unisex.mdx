@@ -1,0 +1,34 @@
+import { Meta, Canvas, Source } from '@storybook/blocks';
+import * as InfantUnisexStories from './infant-unisex.stories';
+
+<Meta title="Getting Started/Body Models/Infant Unisex"/>
+
+# Infant Unisex
+
+We have removed inline styles from our SVGs. You will see the result on the left, labeled 'copied svg' when you copy the SVG code. Below, we will apply the simplest possible styles to achieve the effect shown on the right, labeled 'svg with styles'. However, for production applications, we recommend expanding the CSS styles.
+
+<Source code={`path {
+  cursor: pointer;
+  fill: #CDE1FE;
+
+  @media (min-width: 768px) {
+    fill: transparent;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      fill: #7AB0FC
+    }
+  }
+}
+
+path:not([data-bodypart]) {
+  pointer-events: none;
+  fill: #0068FA;
+}`}/>
+
+## SVG'S
+
+<Canvas of={InfantUnisexStories.Front} source={{code: InfantUnisexStories.Front.parameters.source.code}} />
+
+<Canvas of={InfantUnisexStories.Back} source={{code: InfantUnisexStories.Back.parameters.source.code}} />
