@@ -4,6 +4,8 @@ import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
+import UiInput from '@/components/atoms/UiInput/UiInput.vue';
+import UiFormField from '@/components/molecules/UiFormField/UiFormField.vue';
 import {
   ref,
   provide,
@@ -31,6 +33,7 @@ export default {
     isClosable: true,
     hasCancel: true,
     hasConfirm: true,
+    hasContent: false,
     translation: {
       confirm: 'Yes, start new checkup',
       cancel: 'Cancel',
@@ -1003,4 +1006,77 @@ export const WithCancelSlot = {
       </template>
     </UiModal>`,
   }),
+};
+
+export const WithContentSlot = {
+  render: (args) => ({
+    components: {
+      UiFormField,
+      UiModal,
+      UiInput,
+      UiIcon,
+    },
+    directives: {
+      focusTrap,
+      bodyScrollLock,
+    },
+    setup() {
+      const modelValue = inject('modelValue');
+      const searchText = ref('');
+      const characterCounterAttrs = { max: 80 };
+
+      return {
+        ...args,
+        ...events,
+        modelValue,
+        searchText,
+        characterCounterAttrs,
+      };
+    },
+    template: `<UiModal
+      v-model="modelValue"
+      :title='title'
+      :is-closable="isClosable"
+      :has-cancel="hasCancel"
+      :has-confirm="hasConfirm"
+      :has-content="hasContent"
+      :translation="translation"
+      :transition-backdrop-attrs="transitionBackdropAttrs"
+      :backdrop-attrs="backdropAttrs"
+      :transition-dialog-attrs="transitionDialogAttrs"
+      :heading-title-attrs="headingTitleAttrs"
+      :text-description-attrs="textDescriptionAttrs"
+      :button-confirm-attrs="buttonConfirmAttrs"
+      :button-cancel-attrs="buttonCancelAttrs"
+      :button-close-attrs="buttonCloseAttrs"
+      :icon-close-attrs="iconCloseAttrs"
+      :dialog-attrs="dialogAttrs"
+      @update:modelValue="onUpdateModelValue"
+      @confirm="onConfirm"
+      @cancel="onCancel"
+    >
+      <template #content>
+        <UiFormField
+          :value="searchText"
+          :alert-attrs="{'data-testid': 'alert-attrs'}"
+          :has-character-counter="true"
+          :character-counter-attrs="characterCounterAttrs"
+          class="w-full"
+        >
+          <UiInput 
+            v-model="searchText"
+          />
+        </UiFormField>
+      </template>
+    </UiModal>`,
+  }),
+  args: {
+    title: 'Enter chronic condition',
+    isClosable: false,
+    hasContent: true,
+    translation: {
+      confirm: 'Add',
+      cancel: 'Cancel',
+    },
+  },
 };
