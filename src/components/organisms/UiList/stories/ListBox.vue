@@ -19,16 +19,8 @@ import {
 } from '@infermedica/component-library';
 
 defineOptions({ inheritAttrs: false });
-export interface AddEmits {
-  (e:'add'): void;
-}
 const attrs = useAttrs();
 const args = computed(() => (attrs));
-
-const emit = defineEmits<AddEmits>();
-const clickHandler = () => {
-  emit('add');
-};
 </script>
 
 <style lang="scss">

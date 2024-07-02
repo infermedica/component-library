@@ -60,6 +60,15 @@ export interface ListItemButtonProps {
 }
 export type ListItemButtonAttrsProps = DefineAttrsProps<ListItemButtonProps, ButtonAttrsProps>;
 
+export interface AddEmits {
+  (e:'add'): void;
+}
+
+const emit = defineEmits<AddEmits>();
+const clickHandler = () => {
+  emit('add');
+};
+
 const props = withDefaults(defineProps<ListItemButtonProps>(), {
   label: '',
   hint: '',
