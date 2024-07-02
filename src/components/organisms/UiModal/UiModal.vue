@@ -58,11 +58,14 @@
       >
         <dialog
           v-if="modelValue"
+          ref="dialog"
           v-focus-trap
           v-body-scroll-lock
           v-bind="dialogAttrs"
-          class="ui-modal__dialog"
-          :class="{ 'ui-modal__dialog--has-title': title }"
+          :class="[
+            'ui-modal__dialog',
+            { 'ui-modal__dialog--has-title': title },
+          ]"
         >
           <!-- @slot Use this slot to replace header template. -->
           <slot
@@ -153,6 +156,21 @@
               </UiText>
             </slot>
           </slot>
+          <!-- @slot Use this slot to replace content template. -->
+          <slot
+            v-if="hasContent"
+            name="content"
+            v-bind="{
+              textDescriptionAttrs,
+              description,
+            }"
+          >
+            <UiText
+              v-bind="textDescriptionAttrs"
+            >
+              {{ description }}
+            </UiText>
+          </slot>
           <!-- @slot Use this slot to replace actions template. -->
           <slot
             name="actions"
@@ -193,27 +211,27 @@
                     {{ defaultProps.translation!.confirm }}
                   </UiButton>
                 </slot>
-                <!-- @slot Use this slot to replace cancel button template. -->
+              </template>
+              <template v-else>
+                <!-- @slot Use this slot to replace confirm button template. -->
                 <slot
-                  name="cancel"
+                  name="confirm"
                   v-bind="{
-                    hasCancel,
-                    buttonCancelAttrs,
-                    cancelHandler,
+                    hasConfirm,
+                    attrs: buttonConfirmAttrs,
+                    confirmHandler,
                     translation: defaultProps.translation,
                   }"
                 >
                   <UiButton
-                    v-if="hasCancel"
-                    v-bind="buttonCancelAttrs"
-                    class="ui-button--outlined ui-modal__cancel"
-                    @click="cancelHandler"
+                    v-if="hasConfirm"
+                    v-bind="buttonConfirmAttrs"
+                    class="ui-modal__confirm ui-modal__confirm--order"
+                    @click="confirmHandler"
                   >
-                    {{ defaultProps.translation!.cancel }}
+                    {{ defaultProps.translation!.confirm }}
                   </UiButton>
                 </slot>
-              </template>
-              <template v-else>
                 <!-- @slot Use this slot to replace cancel button template. -->
                 <slot
                   name="cancel"
@@ -234,25 +252,6 @@
                     {{ defaultProps.translation!.cancel }}
                   </UiButton>
                 </slot>
-                <!-- @slot Use this slot to replace confirm button template. -->
-                <slot
-                  name="confirm"
-                  v-bind="{
-                    hasConfirm,
-                    attrs: buttonConfirmAttrs,
-                    confirmHandler,
-                    translation: defaultProps.translation,
-                  }"
-                >
-                  <UiButton
-                    v-if="hasConfirm"
-                    v-bind="buttonConfirmAttrs"
-                    class="ui-modal__confirm ui-modal__confirm--order"
-                    @click="confirmHandler"
-                  >
-                    {{ defaultProps.translation!.confirm }}
-                  </UiButton>
-                </slot>
               </template>
             </div>
           </slot>
@@ -266,7 +265,6 @@
 import {
   ref,
   computed,
-  nextTick,
   onBeforeUnmount,
   onMounted,
   type DialogHTMLAttributes,
@@ -368,6 +366,10 @@ export interface ModalProps {
    * Use this props to pass attrs for close UiIcon
    */
   iconCloseAttrs?: IconAttrsProps;
+  /**
+   * Use this props to hide content in dialog.
+   */
+  hasContent?: boolean;
 }
 export type ModalAttrsProps = DefineAttrsProps<ModalProps>;
 export interface ModalEmits {
@@ -402,12 +404,11 @@ const props = withDefaults(defineProps<ModalProps>(), {
   buttonCancelAttrs: () => ({}),
   buttonCloseAttrs: () => ({}),
   iconCloseAttrs: () => ({ icon: 'close' }),
+  hasContent: false,
 });
+
+const dialog = ref<HTMLDialogElement | null>(null);
 const button = ref<InstanceType<typeof UiButton>|null>(null);
-const enterHandler = async () => {
-  await nextTick();
-  focusElement(button.value?.$el, true);
-};
 const defaultProps = computed(() => {
   const icon: Icon = 'close';
   const level: HeadingProps['level'] = 2;
@@ -433,7 +434,6 @@ const defaultProps = computed(() => {
     transitionDialogAttrs: {
       appear: true,
       name: 'fade',
-      onEnter: enterHandler,
       ...props.transitionDialogAttrs,
     },
   };
@@ -453,6 +453,7 @@ const titleAttrs = computed(() => (props.title
 const closeHandler = () => {
   if (!props.isClosable) return;
   emit('update:modelValue', false);
+  if (dialog.value) dialog.value.close();
 };
 const keydownHandler = ({ key }: KeyboardEvent) => {
   if (key !== 'Escape') return;
@@ -464,9 +465,19 @@ const confirmHandler = () => {
 const cancelHandler = () => {
   emit('cancel');
   emit('update:modelValue', false);
+  if (dialog.value) dialog.value.close();
 };
 onMounted(() => {
+  if (dialog.value) {
+    const focusableElements = dialog.value.querySelectorAll<HTMLElement>(
+      'a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])',
+    );
+
+    if (focusableElements.length > 0) focusElement(focusableElements[0], true);
+  }
+
   if (!props.isClosable) return;
+
   window.addEventListener('keydown', keydownHandler);
 });
 onBeforeUnmount(() => {
@@ -484,6 +495,7 @@ onBeforeUnmount(() => {
   $this: &;
   $element: modal;
 
+  position: absolute;
   z-index: 1;
 
   &__dialog {
@@ -541,17 +553,17 @@ onBeforeUnmount(() => {
     flex-direction: column;
 
     @include mixins.from-tablet {
-      flex-direction: row;
       justify-content: flex-end;
+      display: grid;
+      grid-template-areas: "cancel confirm";
+
     }
   }
 
   &__confirm {
     @include mixins.use-logical($element + "-confirm", margin, 0 0 var(--space-12) 0);
 
-    &--order {
-      order: -1;
-    }
+    grid-area: confirm;
 
     @include mixins.from-tablet {
       @include mixins.use-logical($element + "-tablet-confirm", margin, 0 0 0 var(--space-12));
@@ -560,7 +572,7 @@ onBeforeUnmount(() => {
 
   &__cancel {
     @include mixins.from-tablet {
-      order: -1;
+      grid-area: cancel;
     }
   }
 }
