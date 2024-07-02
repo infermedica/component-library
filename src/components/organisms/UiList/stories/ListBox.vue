@@ -3,25 +3,6 @@
     v-bind="args"
     class="list-box"
   />
-  <div class="search-dropdown-input-row">
-    <UiButton
-      class="search-dropdown-input-row__button ui-button--text"
-      @click="clickHandler"
-    >
-      <div class="search-dropdown-input-row__title">
-        <UiIcon
-          icon="plus"
-          class="ui-button__icon"
-        />
-        <UiText class="search-dropdown-input-row__label">
-          Didn't find chronic condition?
-        </UiText>
-      </div>
-      <UiText class="search-dropdown-input-row__hint">
-        Add with your own words
-      </UiText>
-    </UiButton>
-  </div>
 </template>
 
 <script setup lang="ts">
@@ -51,6 +32,8 @@ const clickHandler = () => {
 </script>
 
 <style lang="scss">
+@use "../../../../styles/mixins";
+
 .list-box {
   max-height: 20.5rem;
   overflow-y: auto;
@@ -58,14 +41,65 @@ const clickHandler = () => {
   &__label {
     display: flex;
     justify-content: space-between;
+    border-radius: var(--border-radius-form);
+
+    @include mixins.from-tablet {
+      padding: var(--space-4) var(--space-8);
+    }
+
+    @include mixins.with-hover {
+      &:hover {
+        background-color: var(--color-background-white-hover);
+      }
+    }
+
+    &:active {
+      background-color: var(--color-background-white-active);
+    }
+  }
+
+  .ui-list-item {
+    padding: var(--space-4) var(--space-8);
+    
+    &::after {
+      border-block-style: none;
+    }
+
+    &__content {
+      padding-block: var(--space-4);
+      padding-inline: var(--space-8);
+
+      &:focus-within {
+        border-radius: 0.5rem;
+        box-shadow: var(--focus-outer);
+      }
+    }
+
+    .ui-checkbox:focus-within:has(input[type="checkbox"]:focus) .ui-checkbox {
+      &__checkbox {
+        box-shadow: none;
+      }
+    }
+
+    @media (hover: hover) {
+      .ui-list-item {
+        &__content:not([aria-disabled]):hover {
+          border-radius: var(--border-radius-form);
+          background: var(--list-item-content-hover-background, var(--color-background-white-hover));
+        }
+      }
+    }
   }
 }
 
-.search-dropdown-input-row {
-  padding: var(--space-8);
+.additional-element-row {
+  padding: var(--space-4) var(--space-8);
+  border-top: 1px solid var(--color-gray-100);
 
-  .ui-button__icon {
-    margin-block: var(--space-4);
+  .ui-button {
+    &__icon {
+      margin-block: var(--space-4);
+    }
   }
 
   &__title {
@@ -75,8 +109,28 @@ const clickHandler = () => {
   &__button {
     display: initial;
     width: 100%;
-    margin-inline: var(--space-8);
+    padding: var(--space-8) var(--space-8);
+    padding-inline: var(--space-4);
     text-align: left;
+
+    @include mixins.from-tablet {
+      padding: var(--space-4) var(--space-8);
+    }
+
+    @include mixins.with-hover {
+      &:hover {
+        background-color: var(--color-background-white-hover);
+      }
+    }
+
+    &:active {
+      background-color: var(--color-background-white-active);
+    }
+
+    &:not([aria-disabled]):hover  {
+      border-radius: var(--border-radius-form);
+      background: var(--color-background-white-hover);
+    }
   }
 
   &__label {
@@ -92,10 +146,6 @@ const clickHandler = () => {
     margin-inline: var(--space-32);
     text-overflow: ellipsis;
     white-space: nowrap;
-  }
-
-  &:hover {
-    background: var(--color-background-white-hover);
   }
 }
 </style>

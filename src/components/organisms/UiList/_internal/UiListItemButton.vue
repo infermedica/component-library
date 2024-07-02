@@ -1,54 +1,29 @@
 <template>
-  <UiButton class="search-dropdown-input-row__button ui-button--text ui-list-item-button">
-    <div class="search-dropdown-input-row__title">
-      <!-- @slot Use this slot to replace icon template. -->
-      <slot
-        name="icon"
-        v-bind="{
-          hasIcon,
-          iconButtonAttrs: defaultProps.iconButtonAttrs,
-        }"
-      >
-        <UiIcon
-          v-if="hasIcon"
-          v-bind="defaultProps.iconButtonAttrs"
-          icon="plus"
-          class="ui-button__icon ui-list-item-button__icon"
-        />
-      </slot>
-      <!-- @slot Use this slot to replace label template. -->
-      <slot
-        name="label"
-        v-bind="{
-          label,
-          labelButtonAttrs,
-        }"
-      >
-        <span
-          v-if="label"
-          v-bind="labelButtonAttrs"
-        >{{ label }}</span>
-      </slot>
-    </div>
-    <!-- @slot Use this slot to replace hint template. -->
-    <slot
-      name="hint"
-      v-bind="{
-        hint,
-        hintButtonAttrs,
-      }"
+  <div class="additional-element-row">
+    <UiButton
+      class="additional-element-row__button ui-button--text"
+      @click="clickHandler"
     >
-      <span
-        v-if="hint"
-        v-bind="hintButtonAttrs"
-      >Add with your own words</span>
-    </slot>
-  </UiButton>
+      <div class="additional-element-row__title">
+        <UiIcon
+          icon="plus"
+          class="ui-button__icon"
+        />
+        <UiText class="additional-element-row__label">
+          Didn't find chronic condition?
+        </UiText>
+      </div>
+      <UiText class="additional-element-row__hint">
+        Add with your own words
+      </UiText>
+    </UiButton>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
 import UiButton from '../../../atoms/UiButton/UiButton.vue';
+import UiText from '../../../atoms/UiText/UiText.vue';
 import type { ButtonAttrsProps } from '../../../atoms/UiButton/UiButton.vue';
 import UiIcon from '../../../atoms/UiIcon/UiIcon.vue';
 import type { IconAttrsProps } from '../../../atoms/UiIcon/UiIcon.vue';

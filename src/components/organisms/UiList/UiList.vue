@@ -3,48 +3,6 @@
     :is="tag"
     class="ui-list"
   >
-    <!-- @slot Use this slot to place list items. -->
-    <slot>
-      <template
-        v-for="(item, key) in itemsToRender"
-        :key="key"
-      >
-        <UiListItem
-          v-bind="item"
-        >
-          <!-- Allow to use UiListItemSlots / BEGIN -->
-          <template
-            v-for="(_, name) in $slots"
-            #[name]="data"
-          >
-            <slot
-              v-bind="data"
-              :name="name"
-            />
-          </template>
-          <!-- END -->
-          <!-- @slot Use this slot to replace list item content -->
-          <slot
-            :name="item?.name"
-            v-bind="item"
-          >
-            <UiListItemContent :item="item" />
-          </slot>
-        </UiListItem>
-      </template>
-      <!-- @slot Use this slot to replace button -->
-      <UiListItemButton v-if="hasButton">
-        <template
-          v-for="(_, name) in itemsToRender"
-          #[name]="data"
-        >
-          <slot
-            v-bind="data"
-            :name="name"
-          />
-        </template>
-      </UiListItemButton>
-    </slot>
     <template v-if="hasLoader">
       <component
         :is="loader"
@@ -57,6 +15,51 @@
         </template>
       </component>
     </template>
+    <template v-else>
+      <!-- @slot Use this slot to place list items. -->
+      <slot>
+        <template
+          v-for="(item, key) in itemsToRender"
+          :key="key"
+        >
+          <UiListItem
+            v-bind="item"
+            class="focus-hidden"
+          >
+            <!-- Allow to use UiListItemSlots / BEGIN -->
+            <template
+              v-for="(_, name) in $slots"
+              #[name]="data"
+            >
+              <slot
+                v-bind="data"
+                :name="name"
+              />
+            </template>
+            <!-- END -->
+            <!-- @slot Use this slot to replace list item content -->
+            <slot
+              :name="item?.name"
+              v-bind="item"
+            >
+              <UiListItemContent :item="item" />
+            </slot>
+          </UiListItem>
+        </template>
+      </slot>
+    </template>
+    <!-- @slot Use this slot to replace button -->
+    <UiListItemButton v-if="hasButton">
+      <template
+        v-for="(_, name) in itemsToRender"
+        #[name]="data"
+      >
+        <slot
+          v-bind="data"
+          :name="name"
+        />
+      </template>
+    </UiListItemButton>
   </component>
 </template>
 
@@ -151,8 +154,7 @@ const loader = computed(() => (
       delay: 0,
       loadingComponent: () => (slots.default
         ? h('slot', slots.default())
-        : null)
-      ,
+        : null),
     })
     : null
 ));
