@@ -472,7 +472,6 @@ const cancelHandler = () => {
 
 onMounted(() => {
   if (!props.isClosable) return;
-
   window.addEventListener('keydown', keydownHandler);
 });
 
@@ -484,17 +483,17 @@ onBeforeUnmount(() => {
 watch(
   () => props.modelValue,
   async (value) => {
-    if (value) {
-      await nextTick();
-      if (dialog.value) {
-        const focusableElements = dialog.value.querySelectorAll<HTMLElement>(
-          'a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])',
-        );
+    // NOTE: Checks if UiModal is visible, then waits for the next rendering cycle to complete using nextTick()
+    if (!value) return;
+    await nextTick();
+    if (!dialog.value) return;
 
-        if (focusableElements.length > 0) {
-          focusElement(focusableElements[0], true);
-        }
-      }
+    // NOTE: Finds all focusable elements within the dialog, then sets focus on the first one if any are found
+    const focusableElements = dialog.value.querySelectorAll<HTMLElement>(
+      'a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])',
+    );
+    if (focusableElements.length > 0) {
+      focusElement(focusableElements[0], true);
     }
   },
   { immediate: true },
@@ -571,7 +570,6 @@ watch(
       justify-content: flex-end;
       display: grid;
       grid-template-areas: "cancel confirm";
-
     }
   }
 
