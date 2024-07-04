@@ -269,6 +269,8 @@ import {
   onMounted,
   type DialogHTMLAttributes,
   type TransitionProps,
+  watch,
+  nextTick,
 } from 'vue';
 import {
   bodyScrollLock as vBodyScrollLock,
@@ -467,23 +469,36 @@ const cancelHandler = () => {
   emit('update:modelValue', false);
   if (dialog.value) dialog.value.close();
 };
+
 onMounted(() => {
-  if (dialog.value) {
-    const focusableElements = dialog.value.querySelectorAll<HTMLElement>(
-      'a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])',
-    );
-
-    if (focusableElements.length > 0) focusElement(focusableElements[0], true);
-  }
-
   if (!props.isClosable) return;
 
   window.addEventListener('keydown', keydownHandler);
 });
+
 onBeforeUnmount(() => {
   if (!props.isClosable) return;
   window.removeEventListener('keydown', keydownHandler);
 });
+
+watch(
+  () => props.modelValue,
+  async (value) => {
+    if (value) {
+      await nextTick();
+      if (dialog.value) {
+        const focusableElements = dialog.value.querySelectorAll<HTMLElement>(
+          'a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])',
+        );
+
+        if (focusableElements.length > 0) {
+          focusElement(focusableElements[0], true);
+        }
+      }
+    }
+  },
+  { immediate: true },
+);
 </script>
 
 <style lang="scss">

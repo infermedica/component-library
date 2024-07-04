@@ -6,16 +6,21 @@ import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
 import UiInput from '@/components/atoms/UiInput/UiInput.vue';
 import UiFormField from '@/components/molecules/UiFormField/UiFormField.vue';
+import UiTextarea from '@/components/atoms/UiTextarea/UiTextarea.vue';
 import {
   ref,
   provide,
   inject,
+  onMounted,
+  watch,
 } from 'vue';
 import { actions } from '@storybook/addon-actions';
 import {
   bodyScrollLock,
   focusTrap,
 } from '@/utilities/directives';
+import { focusElement } from '@/utilities/helpers';
+import './stories/style.stories.scss';
 
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
@@ -1015,6 +1020,7 @@ export const WithContentSlot = {
       UiModal,
       UiInput,
       UiIcon,
+      UiTextarea,
     },
     directives: {
       focusTrap,
@@ -1024,7 +1030,17 @@ export const WithContentSlot = {
       const modelValue = inject('modelValue');
       const searchText = ref('');
       const characterCounterAttrs = { max: 80 };
+      const button = ref(null);
 
+      onMounted(() => {
+        button.value = document.querySelector('button.ui-button--theme-secondary');
+      });
+
+      watch(
+        modelValue,
+        (value) => { if (!value) focusElement(button.value, true); },
+        { immediate: true },
+      );
       return {
         ...args,
         ...events,
@@ -1056,17 +1072,23 @@ export const WithContentSlot = {
       @cancel="onCancel"
     >
       <template #content>
-        <UiFormField
-          :value="searchText"
-          :alert-attrs="{'data-testid': 'alert-attrs'}"
-          :has-character-counter="true"
-          :character-counter-attrs="characterCounterAttrs"
-          class="w-full"
-        >
-          <UiInput 
-            v-model="searchText"
-          />
-        </UiFormField>
+          <UiFormField
+            :value="searchText"
+            :error-message="false"
+            :has-character-counter="true"
+            :character-counter-attrs="characterCounterAttrs"
+            class="w-full"
+          >
+            <UiTextarea
+              v-model="searchText"
+              :resize="false"
+              class="ui-form-field__textarea"
+            />
+            <UiInput 
+              v-model="searchText"
+              class="ui-form-field__input"
+            />
+          </UiFormField>
       </template>
     </UiModal>`,
   }),
@@ -1079,4 +1101,5 @@ export const WithContentSlot = {
       cancel: 'Cancel',
     },
   },
+  parameters: { viewport: { defaultViewport: 'mobile1' } },
 };
