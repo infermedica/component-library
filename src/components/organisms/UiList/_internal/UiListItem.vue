@@ -2,6 +2,8 @@
   <li
     v-bind="listItemAttrs"
     class="ui-list-item"
+    role="option"
+    aria-selected="false"
   >
     <slot
       name="content"

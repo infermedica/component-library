@@ -3,10 +3,15 @@ import type {
   StoryObj,
 } from '@storybook/vue3';
 import {
+  onMounted,
+  ref,
+} from 'vue';
+import {
   UiList,
   type ListProps,
   UiButton,
   UiCheckbox,
+  UiLoader,
   UiRadio,
 } from '@index';
 import {
@@ -437,12 +442,27 @@ export const ListBox:ListStoryType = {
   }) {
     return {
       name,
-      components: { ListBoxStories },
+      components: { ListBoxStories, UiLoader },
       setup() {
         const { attrs } = getAttrs(args, argTypes, name);
-        return { attrs };
+        const isLoaded = ref(false);
+        onMounted(() => window.setTimeout(() => {
+          isLoaded.value = true;
+        }, 1500));
+        
+        return { attrs, isLoaded };
       },
-      template: '<ListBoxStories v-bind="{...attrs}"/>',
+      template: `
+      <UiLoader
+        :is-loading="!isLoaded"
+        :loaderAttrs="{
+          label: 'Label'
+        }"
+        type="skeleton"
+      >
+      <ListBoxStories v-if="isLoaded" v-bind="{...attrs}" 
+        role="listbox" aria-label="Chronic conditions" aria-multiselectable="true" aria-busy="false"/>
+      </UiLoader>`,
     };
   },
 };
@@ -464,11 +484,9 @@ ListBox.args = {
     'Whipworm infection',
     'Wilson`s disease',
     'Zollinger-Ellison syndrome',
-  ].map((item) => ({
+  ].map((item, index) => ({
     label: item,
     hasSuffix: false,
-  })).map((item, index) => ({
-    ...item,
     tag: UiCheckbox,
     icon: 'info',
     value: item,

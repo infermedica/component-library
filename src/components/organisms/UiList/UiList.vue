@@ -25,6 +25,8 @@
           <UiListItem
             v-bind="item"
             class="focus-hidden"
+            :aria-posinset="key + 1"
+            :aria-setsize="itemsToRender.length"
           >
             <!-- Allow to use UiListItemSlots / BEGIN -->
             <template
@@ -49,7 +51,7 @@
       </slot>
     </template>
     <!-- @slot Use this slot to replace button -->
-    <UiListItemButton v-if="hasButton">
+    <UiListItemButton v-if="showButton">
       <template
         v-for="(_, name) in itemsToRender"
         #[name]="data"
@@ -100,7 +102,7 @@ export interface ListProps {
   /**
    * Use this props to show button.
    */
-  isButton?: boolean;
+  showButton?: boolean;
   /**
    * Use this props to set button into loading state.
    */
@@ -115,7 +117,7 @@ export type ListAttrsProps<HTMLAttrs = HTMLAttributes> = DefineAttrsProps<ListPr
 const props = withDefaults(defineProps<ListProps>(), {
   tag: 'ul',
   items: () => ([]),
-  isButton: false,
+  showButton: true,
   isLoading: false,
   loaderAttrs: () => ({}),
 });
@@ -126,7 +128,6 @@ const defaultProps = computed(() => ({
     ...props.loaderAttrs,
   },
 }));
-const hasButton = ref(props.isButton);
 const hasLoader = ref(props.isLoading);
 watch(() => (props.isLoading), (isLoading) => {
   if (isLoading && !hasLoader.value) {

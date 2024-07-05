@@ -84,7 +84,4 @@ const defaultProps = computed(() => ({
   },
 }));
 const hasIcon = computed(() => (!!defaultProps.value.iconButtonAttrs?.icon));
-
-// TODO: UiListItemButton will be removed in 2.0.0
-console.warn('[@infermedica/component-library]: The `UiListItemButton` component is deprecated and it will be removed in v2.0.0. Please use `UiListItemButton` component instead.');
 </script>

@@ -21,10 +21,17 @@ import {
 defineOptions({ inheritAttrs: false });
 const attrs = useAttrs();
 const args = computed(() => (attrs));
+const label = computed(() => (listLabel));
 </script>
 
 <style lang="scss">
 @use "../../../../styles/mixins";
+
+$element: list;
+
+#storybook-root:has(.list-box) {
+  @include mixins.inner-border($element, $color: var(--color-border-subtle), $radius: var(--border-radius-form));
+}
 
 .list-box {
   max-height: 20.5rem;
@@ -34,10 +41,6 @@ const args = computed(() => (attrs));
     display: flex;
     justify-content: space-between;
     border-radius: var(--border-radius-form);
-
-    @include mixins.from-tablet {
-      padding: var(--space-4) var(--space-8);
-    }
 
     @include mixins.with-hover {
       &:hover {
