@@ -17,6 +17,7 @@ const events = actions({
 export default {
   title: 'Molecules/Header',
   component: UiHeader,
+  tags: [ '!autodocs' ],
   args: {
     modifiers: [],
     title: 'Infermedica',

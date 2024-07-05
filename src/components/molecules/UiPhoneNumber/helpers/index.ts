@@ -1,54 +1,44 @@
 import * as i18nCountries from 'i18n-iso-countries';
 import type { Alpha2Code } from 'i18n-iso-countries';
+import englishCountriesTranslation from 'i18n-iso-countries/langs/en.json';
 import countryCodes from 'country-codes-list';
 
 export type PhoneCodeType = {
-  code: string,
-  countryCode: string,
-  country?: string,
+  code?: string,
+  countryCode?: string,
  };
 
-export type SupportedCountryCodeType = Lowercase<Alpha2Code>;
-export type LanguageDataType = {
-  country: SupportedCountryCodeType,
-  language: string,
- }
-
-const phoneCodes: Record<string, string>[] = countryCodes.customArray({
-  code: '{countryCallingCode}',
-  countryCode: '{countryCode}',
-});
-
-async function initCountries(language: string) {
-  const lang = await import(
-    `../../../../../node_modules/i18n-iso-countries/langs/${language}.json`
-  );
-  i18nCountries.registerLocale(lang);
+export type CountryInfoType = {
+  code: string,
+  country: string,
+  countryCode: Alpha2Code,
 }
 
-export async function getPhoneCodes(languageData: LanguageDataType = {
-  country: 'us',
-  language: 'en',
-}) {
-  const {
-    language, country,
-  } = languageData;
+i18nCountries.registerLocale(englishCountriesTranslation);
 
-  if (!country) {
-    throw new Error('Incorrect country code');
-  }
+const phoneCodes = countryCodes.customArray({
+  code: '{countryCallingCode}',
+  countryCode: '{countryCode}' as Alpha2Code,
+}) as { code: string, countryCode: Alpha2Code }[];
 
-  await initCountries(language);
-  return phoneCodes
+function getCountriesInfo(countryList: Alpha2Code[], language = 'us') {
+  if (!i18nCountries.langs().includes(language)) throw new Error('No locales provided');
+
+  const filteredPhoneCodes = countryList.length
+    ? phoneCodes.filter((item) => (countryList.includes(item.countryCode)))
+    : phoneCodes;
+
+  return filteredPhoneCodes
     .map((item) => ({
       ...item,
       code: `+${item.code.replace(/\s+/g, '').replace('-', '')}`,
       country: i18nCountries.getName(item.countryCode, language),
       countryCode: item.countryCode,
     }))
-    .sort((a, b) => {
-      if (a.country && b.country) return a.country > b.country ? 1 : -1;
-
-      return 1;
-    });
+    .filter((countryInfo): countryInfo is CountryInfoType => !!countryInfo.country)
+    .sort((a, b) => (a.country.localeCompare(b.country)));
 }
+export {
+  i18nCountries,
+  getCountriesInfo,
+};

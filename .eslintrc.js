@@ -202,6 +202,10 @@ module.exports = {
             '@index',
             path.resolve(__dirname, 'index.ts'),
           ],
+          [
+            '@infermedica/component-library',
+            path.resolve(__dirname, 'index.ts'),
+          ],
         ],
         extensions: [
           '.ts',

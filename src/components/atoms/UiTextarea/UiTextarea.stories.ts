@@ -34,7 +34,7 @@ const meta = {
   args: {
     ...args,
     modelValue: '',
-    resize: false,
+    resize: 'vertical',
     placeholder: 'Please provide a detailed description of the issue.',
     textareaAttrs: { 'data-testid': 'textarea-element' },
   },

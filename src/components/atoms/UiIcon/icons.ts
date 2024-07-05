@@ -30,6 +30,7 @@ export default [
   'menu',
   'manufacturer',
   'male',
+  'log-out',
   'lock',
   'location',
   'instruction',

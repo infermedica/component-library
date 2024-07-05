@@ -2040,13 +2040,22 @@
       "tags": {},
       "expose": [
         {
-          "name": "menuItems"
+          "name": "menuItemsTemplateRefs"
         },
         {
-          "name": "firstMenuItem"
+          "name": "initialmenuItemTemplateRef"
         },
         {
-          "name": "selectedMenuItem"
+          "name": "firstmenuItemTemplateRef"
+        },
+        {
+          "name": "lastmenuItemTemplateRef"
+        },
+        {
+          "name": "selectedmenuItemTemplateRef"
+        },
+        {
+          "name": "lastFocusedmenuItemTemplateRef"
         }
       ],
       "props": [
@@ -2069,20 +2078,45 @@
         },
         {
           "name": "enableKeyboardNavigation",
-          "description": "Use this props to allow using arrows to navigation.",
+          "description": "Use this props to allow using arrows instead tabs for navigation UiMenuItems.",
           "required": false,
           "type": {
             "name": "boolean"
           },
           "defaultValue": {
             "func": false,
-            "value": "false"
+            "value": "true"
           }
-        }
-      ],
-      "events": [
+        },
         {
-          "name": "itemsLoaded"
+          "name": "menuItemsTemplateRefs",
+          "description": "Use this props to pass refs to UiMenuItems.",
+          "required": false,
+          "type": {
+            "name": "union",
+            "elements": [
+              {
+                "name": "Array",
+                "elements": [
+                  {
+                    "name": "ComponentInstance",
+                    "elements": [
+                      {
+                        "name": "TSTypeQuery"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "null"
+              }
+            ]
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "null"
+          }
         }
       ],
       "slots": [
@@ -2091,19 +2125,8 @@
           "description": "Use this slot to place menu items."
         },
         {
-          "name": "name",
-          "scoped": true,
-          "bindings": [
-            {
-              "name": "name",
-              "title": "binding"
-            }
-          ]
-        },
-        {
           "name": "item.name",
           "scoped": true,
-          "description": "Use this slot to place menu item content.",
           "bindings": [
             {
               "name": "name",
@@ -2188,6 +2211,23 @@
       "displayName": "UiHorizontalPaging",
       "description": "",
       "tags": {},
+      "expose": [
+        {
+          "name": "isActive"
+        },
+        {
+          "name": "activeItem"
+        },
+        {
+          "name": "currentTitle"
+        },
+        {
+          "name": "backToTitle"
+        },
+        {
+          "name": "handleBackClick"
+        }
+      ],
       "props": [
         {
           "name": "modelValue",
@@ -2200,12 +2240,12 @@
                 "name": "Array",
                 "elements": [
                   {
-                    "name": "HorizontalPangingItemProps"
+                    "name": "HorizontalPagingItemProps"
                   }
                 ]
               },
               {
-                "name": "HorizontalPangingItemProps"
+                "name": "HorizontalPagingItemProps"
               }
             ]
           },
@@ -2234,7 +2274,7 @@
             "name": "Array",
             "elements": [
               {
-                "name": "HorizontalPangingItemProps"
+                "name": "HorizontalPagingItemProps"
               }
             ]
           },
@@ -2350,7 +2390,7 @@
             ],
             "elements": [
               {
-                "name": "HorizontalPangingItemProps"
+                "name": "HorizontalPagingItemProps"
               }
             ]
           }
@@ -4374,11 +4414,11 @@
           "description": "Use this props to set default prefix phone code and phone number.",
           "required": false,
           "type": {
-            "name": "{\n prefix?: PhoneCodeType,\n phoneNumber?: string,\n}"
+            "name": "{\n  prefix?: PhoneCodeType,\n  phoneNumber?: string,\n}"
           },
           "defaultValue": {
             "func": false,
-            "value": "() => ({\n  prefix: {\n    code: '+1',\n    countryCode: 'US',\n    country: 'United States of America',\n  },\n  phoneNumber: '',\n})"
+            "value": "() => ({\n  prefix: {\n    code: '',\n    countryCode: '',\n  },\n  phoneNumber: '',\n})"
           }
         },
         {
@@ -4394,23 +4434,28 @@
           }
         },
         {
-          "name": "languageData",
+          "name": "language",
           "description": "Use this props to set phone number prefix default language.",
           "required": false,
           "type": {
-            "name": "{\n country: SupportedCountryCodeType,\n language: string,\n}"
+            "name": "string"
           },
           "defaultValue": {
             "func": false,
-            "value": "() => ({\n  country: 'us',\n  language: 'en',\n})"
+            "value": "'en'"
           }
         },
         {
           "name": "countryCodes",
-          "description": "Use this props to set country code items.",
+          "description": "Use this props to set countries available on dropdown.",
           "required": false,
           "type": {
-            "name": "CountryCodes"
+            "name": "Array",
+            "elements": [
+              {
+                "name": "Alpha2Code"
+              }
+            ]
           },
           "defaultValue": {
             "func": false,
@@ -4428,16 +4473,7 @@
           "name": "prefix",
           "scoped": true,
           "description": "Use this slot to replace phone number prefix template.",
-          "bindings": [
-            {
-              "name": "modelValue",
-              "title": "binding"
-            },
-            {
-              "name": "languageData",
-              "title": "binding"
-            }
-          ]
+          "bindings": []
         },
         {
           "name": "input",
@@ -6087,7 +6123,7 @@
           },
           "defaultValue": {
             "func": false,
-            "value": "false"
+            "value": "'vertical'"
           }
         },
         {
@@ -7924,173 +7960,36 @@
     },
     {
       "exportName": "default",
-      "displayName": "UiMenuItemSuffix",
-      "description": "",
-      "tags": {},
-      "props": [
-        {
-          "name": "label",
-          "description": "Use this props to set label.",
-          "required": false,
-          "type": {
-            "name": "string"
-          },
-          "defaultValue": {
-            "func": false,
-            "value": "''"
-          }
-        },
-        {
-          "name": "icon",
-          "description": "Use this props to set icon.",
-          "required": false,
-          "type": {
-            "name": "Icon"
-          },
-          "defaultValue": {
-            "func": false,
-            "value": "'present'"
-          }
-        },
-        {
-          "name": "iconSuffixAttrs",
-          "description": "Use this props to pass attrs for suffix UIIcon",
-          "required": false,
-          "type": {
-            "name": "IconAttrsProps"
-          },
-          "defaultValue": {
-            "func": false,
-            "value": "() => ({})"
-          }
-        }
-      ],
-      "slots": [
-        {
-          "name": "label",
-          "scoped": true,
-          "description": "Use this slot to replace label template.",
-          "bindings": [
-            {
-              "name": "label",
-              "title": "binding"
-            }
-          ]
-        },
-        {
-          "name": "icon",
-          "scoped": true,
-          "description": "Use this slot to replace icon template.",
-          "bindings": [
-            {
-              "name": "hasIcon",
-              "title": "binding"
-            },
-            {
-              "name": "iconSuffixAttrs",
-              "title": "binding"
-            }
-          ]
-        }
-      ],
-      "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiMenu/_internal/UiMenuItemSuffix.vue"
-      ]
-    },
-    {
-      "exportName": "default",
       "displayName": "UiMenuItem",
       "description": "",
       "tags": {},
       "expose": [
         {
+          "name": "itemTemplateRefs"
+        },
+        {
+          "name": "isSelected"
+        },
+        {
+          "name": "isFocused"
+        },
+        {
           "name": "tabindex"
-        }
-      ],
-      "props": [
-        {
-          "name": "icon",
-          "description": "Use this props to set icon.",
-          "required": false,
-          "type": {
-            "name": "Icon"
-          },
-          "defaultValue": {
-            "func": false,
-            "value": "'present'"
-          }
-        },
-        {
-          "name": "suffixVisible",
-          "description": "Use this props to set suffix visibility.",
-          "required": false,
-          "type": {
-            "name": "union",
-            "elements": [
-              {
-                "name": "\"default\""
-              },
-              {
-                "name": "\"always\""
-              },
-              {
-                "name": "\"never\""
-              }
-            ]
-          },
-          "defaultValue": {
-            "func": false,
-            "value": "'default'"
-          }
-        },
-        {
-          "name": "suffixAttrs",
-          "description": "Use this props to pass attrs for UIMenuItemSuffix",
-          "required": false,
-          "type": {
-            "name": "MenuItemSuffixAttrsProps"
-          },
-          "defaultValue": {
-            "func": false,
-            "value": "() => ({ class: 'ui-button--text ui-menu-item__suffix' })"
-          }
-        },
-        {
-          "name": "listItemAttrs",
-          "description": "Use this props to pass attrs for list item element",
-          "required": false,
-          "type": {
-            "name": "ListItemAttrsProps"
-          },
-          "defaultValue": {
-            "func": false,
-            "value": "() => ({ class: 'ui-menu-item' })"
-          }
         }
       ],
       "slots": [
         {
-          "name": "label",
-          "description": "Use this slot to replace label template."
-        },
-        {
-          "name": "default",
-          "description": "Use this slot to place label content inside menu-item."
-        },
-        {
-          "name": "suffix",
+          "name": "name",
           "scoped": true,
-          "description": "Use this slot to replace suffix template",
           "bindings": [
             {
-              "name": "hasSuffix",
-              "title": "binding"
-            },
-            {
-              "name": "suffixAttrs",
+              "name": "name",
               "title": "binding"
             }
           ]
+        },
+        {
+          "name": "default"
         }
       ],
       "sourceFiles": [
@@ -8688,6 +8587,77 @@
       "tags": {},
       "props": [
         {
+          "name": "tag",
+          "description": "Use this props to set list item content tag.",
+          "required": false,
+          "type": {
+            "name": "HTMLTag"
+          }
+        },
+        {
+          "name": "icon",
+          "tags": {
+            "deprecated": [
+              {
+                "description": "will be removed in 2.0.0; Use this props to set suffix icon.",
+                "title": "deprecated"
+              }
+            ]
+          },
+          "required": false,
+          "type": {
+            "name": "Icon"
+          }
+        },
+        {
+          "name": "hasPrefix",
+          "description": "Use this props to control prefix visibility.",
+          "required": false,
+          "type": {
+            "name": "boolean"
+          }
+        },
+        {
+          "name": "prefixAttrs",
+          "description": "Use this props to pass attrs for UIListItemPrefix",
+          "required": false,
+          "type": {
+            "name": "ListItemPrefixAttrsProps"
+          }
+        },
+        {
+          "name": "hasSuffix",
+          "description": "Use this props to control suffix visibility.",
+          "required": false,
+          "type": {
+            "name": "boolean"
+          }
+        },
+        {
+          "name": "suffixAttrs",
+          "description": "Use this props to pass attrs for UIListItemSuffix",
+          "required": false,
+          "type": {
+            "name": "ListItemSuffixAttrsProps"
+          }
+        },
+        {
+          "name": "listItemAttrs",
+          "description": "Use this props to pass attrs for list item element",
+          "required": false,
+          "type": {
+            "name": "DefineAttrsProps",
+            "elements": [
+              {
+                "name": "null"
+              },
+              {
+                "name": "LiHTMLAttributes"
+              }
+            ]
+          }
+        },
+        {
           "name": "label",
           "description": "Use this props to set inside pages item label.",
           "required": false,
@@ -8724,15 +8694,15 @@
           }
         },
         {
-          "name": "tag",
-          "description": "Use this props to set list item content tag.",
+          "name": "menuItemAttrs",
+          "description": "Use this props to set UiMenuItemAttrs.",
           "required": false,
           "type": {
-            "name": "HTMLTag"
+            "name": "MenuItemAttrsProps"
           },
           "defaultValue": {
             "func": false,
-            "value": "UiButton"
+            "value": "() => ({})"
           }
         }
       ],
@@ -9987,6 +9957,28 @@
             "func": false,
             "value": "false"
           }
+        },
+        {
+          "name": "isPlaceholder",
+          "required": false,
+          "type": {
+            "name": "boolean"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "false"
+          }
+        },
+        {
+          "name": "hasError",
+          "required": false,
+          "type": {
+            "name": "boolean"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "false"
+          }
         }
       ],
       "slots": [
@@ -10013,19 +10005,19 @@
           },
           "defaultValue": {
             "func": false,
-            "value": "() => ({\n  code: '',\n  countryCode: '',\n  country: '',\n})"
+            "value": "() => ({\n  // TODO: generic \"code\" and \"countryCode\" are hard to distinguish\n  code: '',\n  countryCode: '',\n})"
           }
         },
         {
-          "name": "languageData",
+          "name": "language",
           "description": "Use this props to set phone number prefix default country code.",
           "required": false,
           "type": {
-            "name": "{\n country: SupportedCountryCodeType,\n language: string,\n}"
+            "name": "string"
           },
           "defaultValue": {
             "func": false,
-            "value": "() => ({\n  country: 'us',\n  language: 'en',\n})"
+            "value": "'en'"
           }
         },
         {
@@ -10033,11 +10025,28 @@
           "description": "Use this props to set country code items.",
           "required": false,
           "type": {
-            "name": "CountryCodes"
+            "name": "Array",
+            "elements": [
+              {
+                "name": "Alpha2Code"
+              }
+            ]
           },
           "defaultValue": {
             "func": false,
             "value": "() => ([])"
+          }
+        },
+        {
+          "name": "hasError",
+          "description": "Use this props to set error state.",
+          "required": false,
+          "type": {
+            "name": "boolean"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "false"
           }
         }
       ],

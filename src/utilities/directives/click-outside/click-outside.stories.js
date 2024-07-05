@@ -8,6 +8,7 @@ import { clickOutside } from '@/utilities/directives';
 
 export default {
   title: 'Utilities/Directives/Click Outside',
+  tags: [ '!autodocs' ],
   decorators: [ () => ({ template: '<div style="height: 200px;"><story /></div>' }) ],
 };
 

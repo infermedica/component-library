@@ -25,6 +25,7 @@ const events = actions({ onMounted: 'onMounted' });
 export default {
   title: 'Molecules/Loader',
   component: UiLoader,
+  tags: [ '!autodocs' ],
   args: {
     isLoading: true,
     type: 'spinner',

@@ -144,6 +144,8 @@ const preview: Preview = {
      source: { code: null } ,
     },
   },
+
+  tags: ['autodocs']
 }
 
 export default preview

@@ -3,65 +3,24 @@ import type {
   Meta,
   StoryObj,
 } from '@storybook/vue3';
+import { Alpha2Code } from 'i18n-iso-countries';
+import polishCountriesTranslation from 'i18n-iso-countries/langs/pl.json';
 import UiPhoneNumber from './UiPhoneNumber.vue';
 import UiFormField from '../UiFormField/UiFormField.vue';
+import { i18nCountries } from './helpers';
 
-const customCountryCodeItems = [
-  {
-    code: '+93',
-    countryCode: 'AF',
-    country: 'Afghanistan',
-  },
-  {
-    code: '+355',
-    countryCode: 'AL',
-    country: 'Albania',
-  },
-  {
-    code: '+213',
-    countryCode: 'DZ',
-    country: 'Algeria',
-  },
-  {
-    code: '+1684',
-    countryCode: 'AS',
-    country: 'American Samoa',
-  },
-  {
-    code: '+376',
-    countryCode: 'AD',
-    country: 'Andorra',
-  },
-  {
-    code: '+244',
-    countryCode: 'AO',
-    country: 'Angola',
-  },
-  {
-    code: '+1264',
-    countryCode: 'AI',
-    country: 'Anguilla',
-  },
-  {
-    code: '+672',
-    countryCode: 'AQ',
-    country: 'Antarctica',
-  },
-  {
-    code: '+1268',
-    countryCode: 'AG',
-    country: 'Antigua and Barbuda',
-  },
-  {
-    code: '+54',
-    countryCode: 'AR',
-    country: 'Argentina',
-  },
-  {
-    code: '+374',
-    countryCode: 'AM',
-    country: 'Armenia',
-  },
+const customCountryCodeItems: Alpha2Code[] = [
+  'AF',
+  'AL',
+  'DZ',
+  'AS',
+  'AD',
+  'AO',
+  'AI',
+  'AQ',
+  'AG',
+  'AR',
+  'AM',
 ];
 
 const meta = {
@@ -117,6 +76,30 @@ export const Basic: StoryObj<typeof UiPhoneNumber> = {
   },
 };
 
+export const WithTranslatedCountryNames: StoryObj<typeof UiPhoneNumber> = {
+  render(args, { name }) {
+    return {
+      name,
+      components: {
+        UiFormField,
+        UiPhoneNumber,
+      },
+      setup() {
+        i18nCountries.registerLocale(polishCountriesTranslation);
+        return { args };
+      },
+      template: `<UiFormField
+      v-bind="{...args}"
+      message="Phone number"
+    >
+      <UiPhoneNumber
+        v-bind="{ language: 'pl', ...args }"
+      />
+    </UiFormField>`,
+    };
+  },
+};
+
 export const WithError: StoryObj<typeof UiPhoneNumber> = {
   render(args, { name }) {
     return {
@@ -145,7 +128,7 @@ export const WithError: StoryObj<typeof UiPhoneNumber> = {
   },
 };
 
-export const WithCustomCountryCodes: StoryObj<typeof UiPhoneNumber> = {
+export const WithCustomCountryCodesAndDefault: StoryObj<typeof UiPhoneNumber> = {
   render(args, { name }) {
     return {
       name,
@@ -173,9 +156,9 @@ export const WithCustomCountryCodes: StoryObj<typeof UiPhoneNumber> = {
     };
   },
 };
-WithCustomCountryCodes.args = {
+WithCustomCountryCodesAndDefault.args = {
   modelValue: {
-    prefix: customCountryCodeItems[0],
+    prefix: { countryCode: customCountryCodeItems[2] },
     phoneNumber: '',
   },
   countryCodes: customCountryCodeItems,
@@ -195,7 +178,7 @@ export const WithCustomCountryCodesWithTimeout: StoryObj<typeof UiPhoneNumber> =
 
         setTimeout(() => {
           countryCodes.value = customCountryCodeItems;
-          modelValue.value.prefix = countryCodes.value[0];
+          modelValue.value.prefix = { countryCode: customCountryCodeItems[2] };
         }, 3000);
         return {
           args,

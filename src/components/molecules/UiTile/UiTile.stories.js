@@ -14,6 +14,7 @@ const events = actions({ onUpdateModelValue: 'update:modelValue' });
 export default {
   title: 'Molecules/Tile',
   component: UiTile,
+  tags: [ '!autodocs' ],
   args: {
     initModelValue: '',
     content: 'Yes',

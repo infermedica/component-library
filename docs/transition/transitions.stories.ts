@@ -49,6 +49,7 @@ const transitionDecorator = (story) => ({
 const meta = {
   title: 'Utilities/Transition',
   component: Transition,
+  tags: [ '!autodocs' ],
   args: { name: 'fade' },
   argTypes: { name: { table: { disable: true } } },
   decorators: [ transitionDecorator ],

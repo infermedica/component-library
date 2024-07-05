@@ -23,10 +23,7 @@ describe('UiPhoneNumber.vue', () => {
       countryCode: 'US',
       country: 'United States of America',
     });
-    expect(uiPhoneNumberPrefix.props('languageData')).toMatchObject({
-      country: 'us',
-      language: 'en',
-    });
+    expect(uiPhoneNumberPrefix.props('language')).toMatchObject({ language: 'en' });
   });
 
   it('pass proper props to UiPhoneNumberInput', () => {

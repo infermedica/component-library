@@ -7,6 +7,7 @@ import './UiNavigation.stories.scss';
 export default {
   title: 'Molecules/Navigation',
   component: UiNavigation,
+  tags: [ '!autodocs' ],
   args: {
     modifiers: [],
     items: [
