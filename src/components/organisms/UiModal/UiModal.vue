@@ -36,14 +36,14 @@
         titleTag,
         titleAttrs,
         titleText,
-        description,
+        content,
         buttonCloseAttrs,
         confirmHandler,
         cancelHandler,
         closeHandler,
         iconCloseAttrs,
-        hasDescription,
-        textDescriptionAttrs,
+        hasContent,
+        textContentAttrs,
         isClosable,
         hasActions,
         hasConfirm,
@@ -76,14 +76,14 @@
               titleTag,
               titleAttrs,
               titleText,
-              description,
+              content,
               isClosable,
               buttonCloseAttrs,
               closeHandler,
               iconCloseAttrs: defaultProps.iconCloseAttrs,
               title,
-              hasDescription,
-              textDescriptionAttrs,
+              hasContent,
+              textContentAttrs,
             }"
           >
             <div
@@ -97,7 +97,7 @@
                   titleTag,
                   titleAttrs: titleAttrs,
                   titleText,
-                  description,
+                  content,
                 }"
               >
                 <component
@@ -137,41 +137,24 @@
                 </UiButton>
               </slot>
             </div>
-            <!-- @slot Use this slot to replace description template. -->
+            <!-- @slot Use this slot to replace content template. -->
             <slot
-              v-if="title"
-              name="description"
+              name="content"
               v-bind="{
-                hasDescription,
-                textDescriptionAttrs,
-                description,
+                hasContent,
+                textContentAttrs,
+                content,
               }"
             >
               <UiText
-                v-if="hasDescription"
-                v-bind="textDescriptionAttrs"
-                class="ui-modal__description"
+                v-if="hasContent"
+                v-bind="textContentAttrs"
+                class="ui-modal__content"
               >
-                {{ description }}
+                {{ content }}
               </UiText>
             </slot>
           </slot>
-          <!-- @slot Use this slot to replace content template. -->
-          <slot
-            v-if="hasContent"
-            name="content"
-            v-bind="{
-              textDescriptionAttrs,
-              description,
-            }"
-          >
-            <UiText
-              v-bind="textDescriptionAttrs"
-            >
-              {{ description }}
-            </UiText>
-          </slot>
-          <!-- @slot Use this slot to replace actions template. -->
           <slot
             name="actions"
             v-bind="{
@@ -269,14 +252,11 @@ import {
   onMounted,
   type DialogHTMLAttributes,
   type TransitionProps,
-  watch,
-  nextTick,
 } from 'vue';
 import {
   bodyScrollLock as vBodyScrollLock,
   focusTrap as vFocusTrap,
 } from '../../../utilities/directives';
-import { focusElement } from '../../../utilities/helpers';
 import UiBackdrop from '../../atoms/UiBackdrop/UiBackdrop.vue';
 import type { BackdropAttrsProps } from '../../atoms/UiBackdrop/UiBackdrop.vue';
 import UiButton from '../../atoms/UiButton/UiButton.vue';
@@ -309,9 +289,9 @@ export interface ModalProps {
    */
   title?: string;
   /**
-   * Use this props to set dialog description.
+   * Use this props to set dialog content.
    */
-  description?: string;
+  content?: string;
   /**
    * Use this props to hide close icon.
    */
@@ -349,9 +329,9 @@ export interface ModalProps {
    */
   headingTitleAttrs?: HeadingAttrsProps;
   /**
-   * Use this props to pass attrs for description UiText
+   * Use this props to pass attrs for content UiText
    */
-  textDescriptionAttrs?: TextAttrsProps;
+  textContentAttrs?: TextAttrsProps;
   /**
    * Use this props to pass attrs for confirm UiButton.
    */
@@ -371,7 +351,7 @@ export interface ModalProps {
   /**
    * Use this props to hide content in dialog.
    */
-  hasContent?: boolean;
+  // hasContent?: boolean;
 }
 export type ModalAttrsProps = DefineAttrsProps<ModalProps>;
 export interface ModalEmits {
@@ -382,7 +362,7 @@ export interface ModalEmits {
 const props = withDefaults(defineProps<ModalProps>(), {
   modelValue: false,
   title: '',
-  description: '',
+  content: '',
   isClosable: true,
   hasCancel: true,
   hasConfirm: true,
@@ -401,7 +381,7 @@ const props = withDefaults(defineProps<ModalProps>(), {
     name: 'fade',
   }),
   headingTitleAttrs: () => ({ level: 2 }),
-  textDescriptionAttrs: () => ({}),
+  textContentAttrs: () => ({}),
   buttonConfirmAttrs: () => ({}),
   buttonCancelAttrs: () => ({}),
   buttonCloseAttrs: () => ({}),
@@ -442,20 +422,19 @@ const defaultProps = computed(() => {
 });
 const emit = defineEmits<ModalEmits>();
 const hasActions = computed(() => props.hasCancel || props.hasConfirm);
-const hasDescription = computed(() => !!(props.title && props.description));
-const hasHeader = computed(() => !!(props.title || props.description || props.isClosable));
-const titleSlotName = computed(() => (props.title ? 'title' : 'description'));
+const hasContent = computed(() => !!(props.title && props.content));
+const hasHeader = computed(() => !!(props.title || props.content || props.isClosable));
+const titleSlotName = computed(() => (props.title ? 'title' : 'content'));
 const titleTag = computed(() => (props.title
   ? UiHeading
   : UiText));
-const titleText = computed(() => props.title || props.description);
+const titleText = computed(() => props.title || props.content);
 const titleAttrs = computed(() => (props.title
   ? defaultProps.value.headingTitleAttrs
-  : props.textDescriptionAttrs));
+  : props.textContentAttrs));
 const closeHandler = () => {
   if (!props.isClosable) return;
   emit('update:modelValue', false);
-  if (dialog.value) dialog.value.close();
 };
 const keydownHandler = ({ key }: KeyboardEvent) => {
   if (key !== 'Escape') return;
@@ -467,7 +446,6 @@ const confirmHandler = () => {
 const cancelHandler = () => {
   emit('cancel');
   emit('update:modelValue', false);
-  if (dialog.value) dialog.value.close();
 };
 
 onMounted(() => {
@@ -479,25 +457,6 @@ onBeforeUnmount(() => {
   if (!props.isClosable) return;
   window.removeEventListener('keydown', keydownHandler);
 });
-
-watch(
-  () => props.modelValue,
-  async (value) => {
-    // NOTE: Checks if UiModal is visible, then waits for the next rendering cycle to complete using nextTick()
-    if (!value) return;
-    await nextTick();
-    if (!dialog.value) return;
-
-    // NOTE: Finds all focusable elements within the dialog, then sets focus on the first one if any are found
-    const focusableElements = dialog.value.querySelectorAll<HTMLElement>(
-      'a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])',
-    );
-    if (focusableElements.length > 0) {
-      focusElement(focusableElements[0], true);
-    }
-  },
-  { immediate: true },
-);
 </script>
 
 <style lang="scss">
@@ -556,7 +515,7 @@ watch(
     flex: 1;
   }
 
-  &__description {
+  &__content {
     flex: 1;
   }
 
