@@ -4,16 +4,22 @@ import UiButton from '@/components/atoms/UiButton/UiButton.vue';
 import UiHeading from '@/components/atoms/UiHeading/UiHeading.vue';
 import UiIcon from '@/components/atoms/UiIcon/UiIcon.vue';
 import UiText from '@/components/atoms/UiText/UiText.vue';
+import UiInput from '@/components/atoms/UiInput/UiInput.vue';
+import UiFormField from '@/components/molecules/UiFormField/UiFormField.vue';
+import UiTextarea from '@/components/atoms/UiTextarea/UiTextarea.vue';
 import {
   ref,
   provide,
   inject,
+  onMounted,
+  watch,
 } from 'vue';
 import { actions } from '@storybook/addon-actions';
 import {
   bodyScrollLock,
   focusTrap,
 } from '@/utilities/directives';
+import { focusElement } from '@/utilities/helpers';
 
 const events = actions({
   onUpdateModelValue: 'update:modelValue',
@@ -27,10 +33,11 @@ export default {
   args: {
     initModelValue: true,
     title: 'Start new checkup?',
-    description: 'You will have to answer the question again.',
+    content: 'You will have to answer the question again.',
     isClosable: true,
     hasCancel: true,
     hasConfirm: true,
+    hasContent: false,
     translation: {
       confirm: 'Yes, start new checkup',
       cancel: 'Cancel',
@@ -40,7 +47,7 @@ export default {
     transitionDialogAttrs: { 'data-testid': 'dialog-transition' },
     dialogAttrs: { 'data-testid': 'dialog-element' },
     headingTitleAttrs: { 'data-testid': 'title-heading' },
-    textDescriptionAttrs: { 'data-testid': 'description-text' },
+    textContentAttrs: { 'data-testid': 'content-text' },
     buttonConfirmAttrs: { 'data-testid': 'confirm-button' },
     buttonCancelAttrs: { 'data-testid': 'cancel-button' },
     buttonCloseAttrs: {
@@ -70,17 +77,17 @@ export default {
       },
       control: 'object',
     },
-    description: {
-      description: 'Use this props to set dialog description.',
+    content: {
+      description: 'Use this props to set dialog content.',
       table: {
         category: 'props',
         type: { summary: 'string' },
       },
       control: 'text',
     },
-    descriptionSlot: {
-      name: 'description',
-      description: 'Use this slot to replace description template.',
+    contentSlot: {
+      name: 'content',
+      description: 'Use this slot to replace content template.',
       table: {
         category: 'slots',
         type: { summary: 'unknown' },
@@ -93,7 +100,7 @@ export default {
     backdropAttrs: { table: { subcategory: 'Attrs props' } },
     dialogAttrs: { table: { subcategory: 'Attrs props' } },
     headingTitleAttrs: { table: { subcategory: 'Attrs props' } },
-    textDescriptionAttrs: { table: { subcategory: 'Attrs props' } },
+    textContentAttrs: { table: { subcategory: 'Attrs props' } },
     buttonConfirmAttrs: { table: { subcategory: 'Attrs props' } },
     buttonCancelAttrs: { table: { subcategory: 'Attrs props' } },
     buttonCloseAttrs: { table: { subcategory: 'Attrs props' } },
@@ -173,7 +180,7 @@ export const StartNewCheckup = {
     template: `<UiModal
       v-model="modelValue"
       :title='title'
-      :description='description'
+      :content='content'
       :is-closable="isClosable"
       :has-cancel="hasCancel"
       :has-confirm="hasConfirm"
@@ -182,7 +189,7 @@ export const StartNewCheckup = {
       :backdrop-attrs="backdropAttrs"
       :transition-dialog-attrs="transitionDialogAttrs"
       :heading-title-attrs="headingTitleAttrs"
-      :text-description-attrs="textDescriptionAttrs"
+      :text-content-attrs="textContentAttrs"
       :button-confirm-attrs="buttonConfirmAttrs"
       :button-cancel-attrs="buttonCancelAttrs"
       :button-close-attrs="buttonCloseAttrs"
@@ -209,7 +216,7 @@ export const WithoutTitle = {
     template: `<UiModal
       v-model="modelValue"
       :title='title'
-      :description='description'
+      :content='content'
       :is-closable="isClosable"
       :has-cancel="hasCancel"
       :has-confirm="hasConfirm"
@@ -218,7 +225,7 @@ export const WithoutTitle = {
       :backdrop-attrs="backdropAttrs"
       :transition-dialog-attrs="transitionDialogAttrs"
       :heading-title-attrs="headingTitleAttrs"
-      :text-description-attrs="textDescriptionAttrs"
+      :text-content-attrs="textContentAttrs"
       :button-confirm-attrs="buttonConfirmAttrs"
       :button-cancel-attrs="buttonCancelAttrs"
       :button-close-attrs="buttonCloseAttrs"
@@ -232,7 +239,7 @@ export const WithoutTitle = {
 
   args: {
     title: '',
-    description: 'Delete this file?',
+    content: 'Delete this file?',
     translation: { confirm: 'Yes, delete' },
   },
 };
@@ -254,7 +261,7 @@ export const WithBackdropSlot = {
     template: `<UiModal
       v-model="modelValue"
       :title='title'
-      :description='description'
+      :content='content'
       :is-closable="isClosable"
       :has-cancel="hasCancel"
       :has-confirm="hasConfirm"
@@ -263,7 +270,7 @@ export const WithBackdropSlot = {
       :backdrop-attrs="backdropAttrs"
       :transition-dialog-attrs="transitionDialogAttrs"
       :heading-title-attrs="headingTitleAttrs"
-      :text-description-attrs="textDescriptionAttrs"
+      :text-content-attrs="textContentAttrs"
       :button-confirm-attrs="buttonConfirmAttrs"
       :button-cancel-attrs="buttonCancelAttrs"
       :button-close-attrs="buttonCloseAttrs"
@@ -316,7 +323,7 @@ export const WithContainerSlot = {
     template: `<UiModal
       v-model="modelValue"
       :title='title'
-      :description='description'
+      :content='content'
       :is-closable="isClosable"
       :has-cancel="hasCancel"
       :has-confirm="hasConfirm"
@@ -325,7 +332,7 @@ export const WithContainerSlot = {
       :backdrop-attrs="backdropAttrs"
       :transition-dialog-attrs="transitionDialogAttrs"
       :heading-title-attrs="headingTitleAttrs"
-      :text-description-attrs="textDescriptionAttrs"
+      :text-content-attrs="textContentAttrs"
       :button-confirm-attrs="buttonConfirmAttrs"
       :button-cancel-attrs="buttonCancelAttrs"
       :button-close-attrs="buttonCloseAttrs"
@@ -344,14 +351,14 @@ export const WithContainerSlot = {
         titleTag,
         titleAttrs,
         titleText,
-        description,
+        content,
         buttonCloseAttrs,
         confirmHandler,
         cancelHandler,
         closeHandler,
         iconCloseAttrs,
-        hasDescription,
-        textDescriptionAttrs,
+        hasContent,
+        textContentAttrs,
         isClosable,
         hasActions,
         hasConfirm,
@@ -398,11 +405,11 @@ export const WithContainerSlot = {
               </UiButton>
             </div>
             <UiText
-              v-if="hasDescription"
-              v-bind="textDescriptionAttrs"
-              class="ui-modal__description"
+              v-if="hasContent"
+              v-bind="textContentAttrs"
+              class="ui-modal__content"
             >
-              {{ description }}
+              {{ content }}
             </UiText>
             <div
               v-if="hasActions"
@@ -450,6 +457,7 @@ export const WithContainerSlot = {
       </template>
     </UiModal>`,
   }),
+  args: { iconCloseAttrs: { icon: 'close' } },
 };
 
 export const WithHeaderSlot = {
@@ -476,7 +484,7 @@ export const WithHeaderSlot = {
     template: `<UiModal
       v-model="modelValue"
       :title='title'
-      :description='description'
+      :content='content'
       :is-closable="isClosable"
       :has-cancel="hasCancel"
       :has-confirm="hasConfirm"
@@ -485,7 +493,7 @@ export const WithHeaderSlot = {
       :backdrop-attrs="backdropAttrs"
       :transition-dialog-attrs="transitionDialogAttrs"
       :heading-title-attrs="headingTitleAttrs"
-      :text-description-attrs="textDescriptionAttrs"
+      :text-content-attrs="textContentAttrs"
       :button-confirm-attrs="buttonConfirmAttrs"
       :button-cancel-attrs="buttonCancelAttrs"
       :button-close-attrs="buttonCloseAttrs"
@@ -501,14 +509,14 @@ export const WithHeaderSlot = {
         titleTag,
         titleAttrs,
         titleText,
-        description,
+        content,
         isClosable,
         buttonCloseAttrs,
         closeHandler,
         iconCloseAttrs,
         title,
-        hasDescription,
-        textDescriptionAttrs,
+        hasContent,
+        textContentAttrs,
       }">
         <div
           v-if="hasHeader"
@@ -534,11 +542,11 @@ export const WithHeaderSlot = {
           </UiButton>
         </div>
         <UiText
-          v-if="hasDescription"
-          v-bind="textDescriptionAttrs"
-          class="ui-modal__description"
+          v-if="hasContent"
+          v-bind="textContentAttrs"
+          class="ui-modal__content"
         >
-          {{ description }}
+          {{ content }}
         </UiText>
       </template>
     </UiModal>`,
@@ -566,7 +574,7 @@ export const WithTitleSlot = {
     template: `<UiModal
       v-model="modelValue"
       :title='title'
-      :description='description'
+      :content='content'
       :is-closable="isClosable"
       :has-cancel="hasCancel"
       :has-confirm="hasConfirm"
@@ -575,7 +583,7 @@ export const WithTitleSlot = {
       :backdrop-attrs="backdropAttrs"
       :transition-dialog-attrs="transitionDialogAttrs"
       :heading-title-attrs="headingTitleAttrs"
-      :text-description-attrs="textDescriptionAttrs"
+      :text-content-attrs="textContentAttrs"
       :button-confirm-attrs="buttonConfirmAttrs"
       :button-cancel-attrs="buttonCancelAttrs"
       :button-close-attrs="buttonCloseAttrs"
@@ -589,7 +597,7 @@ export const WithTitleSlot = {
         titleTag,
         titleAttrs,
         titleText,
-        description,
+        content,
       }">
         <component
           :is="titleTag"
@@ -625,7 +633,7 @@ export const WithCloseSlot = {
     template: `<UiModal
       v-model="modelValue"
       :title='title'
-      :description='description'
+      :content='content'
       :is-closable="isClosable"
       :has-cancel="hasCancel"
       :has-confirm="hasConfirm"
@@ -634,7 +642,7 @@ export const WithCloseSlot = {
       :backdrop-attrs="backdropAttrs"
       :transition-dialog-attrs="transitionDialogAttrs"
       :heading-title-attrs="headingTitleAttrs"
-      :text-description-attrs="textDescriptionAttrs"
+      :text-content-attrs="textContentAttrs"
       :button-confirm-attrs="buttonConfirmAttrs"
       :button-cancel-attrs="buttonCancelAttrs"
       :button-close-attrs="buttonCloseAttrs"
@@ -666,7 +674,7 @@ export const WithCloseSlot = {
   }),
 };
 
-export const WithDescriptionSlot = {
+export const WithoutTitleWithContentSlot = {
   render: (args) => ({
     components: {
       UiModal,
@@ -687,7 +695,7 @@ export const WithDescriptionSlot = {
     template: `<UiModal
       v-model="modelValue"
       :title='title'
-      :description='description'
+      :content='content'
       :is-closable="isClosable"
       :has-cancel="hasCancel"
       :has-confirm="hasConfirm"
@@ -696,7 +704,7 @@ export const WithDescriptionSlot = {
       :backdrop-attrs="backdropAttrs"
       :transition-dialog-attrs="transitionDialogAttrs"
       :heading-title-attrs="headingTitleAttrs"
-      :text-description-attrs="textDescriptionAttrs"
+      :text-content-attrs="textContentAttrs"
       :button-confirm-attrs="buttonConfirmAttrs"
       :button-cancel-attrs="buttonCancelAttrs"
       :button-close-attrs="buttonCloseAttrs"
@@ -706,28 +714,95 @@ export const WithDescriptionSlot = {
       @confirm="onConfirm"
       @cancel="onCancel"
     >
-      <template #description="{
-        hasDescription,
-        textDescriptionAttrs,
-        description
+      <template #content="{
+        hasContent,
+        textContentAttrs,
+        content
       }">
         <UiText
-          v-if="hasDescription"
-          v-bind="textDescriptionAttrs"
-          class="ui-modal__description"
+          v-if="hasContent"
+          v-bind="textContentAttrs"
+          class="ui-modal__content"
         >
-          {{ description }}
+          {{ content }}
+        </UiText>
+      </template>
+    </UiModal>`,
+  }),
+  args: {
+    title: '',
+    content: 'Delete this file?',
+    translation: {
+      confirm: 'Yes, delete',
+      cancel: 'Cancel',
+    },
+  },
+};
+
+export const WithContentSlot = {
+  render: (args) => ({
+    components: {
+      UiModal,
+      UiText,
+    },
+    directives: {
+      focusTrap,
+      bodyScrollLock,
+    },
+    setup() {
+      const modelValue = inject('modelValue');
+      return {
+        ...args,
+        ...events,
+        modelValue,
+      };
+    },
+    template: `<UiModal
+      v-model="modelValue"
+      :title='title'
+      :content='content'
+      :is-closable="isClosable"
+      :has-cancel="hasCancel"
+      :has-confirm="hasConfirm"
+      :translation="translation"
+      :transition-backdrop-attrs="transitionBackdropAttrs"
+      :backdrop-attrs="backdropAttrs"
+      :transition-dialog-attrs="transitionDialogAttrs"
+      :heading-title-attrs="headingTitleAttrs"
+      :text-content-attrs="textContentAttrs"
+      :button-confirm-attrs="buttonConfirmAttrs"
+      :button-cancel-attrs="buttonCancelAttrs"
+      :button-close-attrs="buttonCloseAttrs"
+      :icon-close-attrs="iconCloseAttrs"
+      :dialog-attrs="dialogAttrs"
+      @update:modelValue="onUpdateModelValue"
+      @confirm="onConfirm"
+      @cancel="onCancel"
+    >
+      <template #content="{
+        hasContent,
+        textContentAttrs,
+        content
+      }">
+        <UiText
+          v-if="hasContent"
+          v-bind="textContentAttrs"
+          class="ui-modal__content"
+        >
+          {{ content }}
         </UiText>
       </template>
     </UiModal>`,
   }),
 };
 
-export const WithoutTitleWithDescriptionSlot = {
+export const WithInputInContentSlot = {
   render: (args) => ({
     components: {
+      UiFormField,
       UiModal,
-      UiText,
+      UiInput,
+      UiIcon,
     },
     directives: {
       focusTrap,
@@ -735,25 +810,72 @@ export const WithoutTitleWithDescriptionSlot = {
     },
     setup() {
       const modelValue = inject('modelValue');
+      const searchText = ref('');
+      const characterCounterAttrs = { max: 80 };
+      const button = ref(null);
+      const input = ref(null);
+      const errorMessage = ref(false);
+
+      function onConfirm() {
+        if (searchText.value) {
+          modelValue.value = false;
+          errorMessage.value = false;
+          focusElement(button.value, true);
+          searchText.value = '';
+        } else {
+          errorMessage.value = 'Please enter chronic condition';
+          focusElement(input.value?.$el.querySelector('input'));
+        }
+      }
+
+      function onCancel() {
+        searchText.value = '';
+        errorMessage.value = false;
+      }
+
+      onMounted(() => {
+        button.value = document.querySelector('button.ui-button--theme-secondary');
+      });
+
+      watch(
+        searchText,
+        (value) => {
+          if (value.length > characterCounterAttrs.max) errorMessage.value = 'Use max 80 characters';
+          else errorMessage.value = false;
+        },
+      );
+
+      watch(
+        modelValue,
+        (value) => { if (!value) focusElement(button.value, true); },
+        { immediate: true },
+      );
       return {
         ...args,
         ...events,
         modelValue,
+        searchText,
+        characterCounterAttrs,
+        errorMessage,
+        onConfirm,
+        onCancel,
+        input,
+        button,
       };
     },
     template: `<UiModal
       v-model="modelValue"
       :title='title'
-      :description='description'
       :is-closable="isClosable"
       :has-cancel="hasCancel"
       :has-confirm="hasConfirm"
+      :has-content="hasContent"
       :translation="translation"
       :transition-backdrop-attrs="transitionBackdropAttrs"
       :backdrop-attrs="backdropAttrs"
       :transition-dialog-attrs="transitionDialogAttrs"
       :heading-title-attrs="headingTitleAttrs"
-      :text-description-attrs="textDescriptionAttrs"
+      :text-content-attrs="textContentAttrs"
       :button-confirm-attrs="buttonConfirmAttrs"
       :button-cancel-attrs="buttonCancelAttrs"
       :button-close-attrs="buttonCloseAttrs"
@@ -763,30 +885,157 @@ export const WithoutTitleWithDescriptionSlot = {
       @confirm="onConfirm"
       @cancel="onCancel"
     >
-      <template #description="{
-        hasDescription,
-        textDescriptionAttrs,
-        description
-      }">
-        <UiText
-          v-if="hasDescription"
-          v-bind="textDescriptionAttrs"
-          class="ui-modal__description"
+      <template #content>
+        <UiFormField
+          :value="searchText"
+          :error-message="errorMessage"
+          :has-character-counter="true"
+          :character-counter-attrs="characterCounterAttrs"
+          class="w-full"
         >
-          {{ description }}
-        </UiText>
+          <UiInput 
+            ref="input"
+            v-model="searchText"
+            :class="[
+              'ui-form-field__input',
+              { 'ui-input--has-error': errorMessage },
+            ]"
+          />
+        </UiFormField>
       </template>
     </UiModal>`,
   }),
-
   args: {
-    title: '',
-    description: 'Delete this file?',
+    title: 'Enter chronic condition',
+    isClosable: false,
+    hasContent: true,
     translation: {
-      confirm: 'Yes, delete',
+      confirm: 'Add',
       cancel: 'Cancel',
     },
   },
+};
+
+export const WithWithTextareaAsContentSlotOnMobile = {
+  render: (args) => ({
+    components: {
+      UiFormField,
+      UiModal,
+      UiIcon,
+      UiTextarea,
+    },
+    directives: {
+      focusTrap,
+      bodyScrollLock,
+    },
+    setup() {
+      const modelValue = inject('modelValue');
+      const searchText = ref('');
+      const characterCounterAttrs = { max: 80 };
+      const button = ref(null);
+      const textarera = ref(null);
+      const errorMessage = ref(false);
+
+      function onConfirm() {
+        if (searchText.value) {
+          modelValue.value = false;
+          errorMessage.value = false;
+          focusElement(button.value, true);
+          searchText.value = '';
+        } else {
+          errorMessage.value = 'Please enter chronic condition';
+          focusElement(textarera.value?.$el.querySelector('textarera'));
+        }
+      }
+
+      function onCancel() {
+        searchText.value = '';
+        errorMessage.value = false;
+      }
+
+      onMounted(() => {
+        button.value = document.querySelector('button.ui-button--theme-secondary');
+      });
+
+      watch(
+        searchText,
+        (value) => {
+          if (value.length > characterCounterAttrs.max) errorMessage.value = 'Use max 80 characters';
+          else errorMessage.value = false;
+        },
+      );
+
+      watch(
+        modelValue,
+        (value) => { if (!value) focusElement(button.value, true); },
+        { immediate: true },
+      );
+      return {
+        ...args,
+        ...events,
+        modelValue,
+        searchText,
+        characterCounterAttrs,
+        errorMessage,
+        onConfirm,
+        onCancel,
+        textarera,
+        button,
+      };
+    },
+    template: `<UiModal
+      v-model="modelValue"
+      :title='title'
+      :is-closable="isClosable"
+      :has-cancel="hasCancel"
+      :has-confirm="hasConfirm"
+      :has-content="hasContent"
+      :translation="translation"
+      :transition-backdrop-attrs="transitionBackdropAttrs"
+      :backdrop-attrs="backdropAttrs"
+      :transition-dialog-attrs="transitionDialogAttrs"
+      :heading-title-attrs="headingTitleAttrs"
+      :text-content-attrs="textContentAttrs"
+      :button-confirm-attrs="buttonConfirmAttrs"
+      :button-cancel-attrs="buttonCancelAttrs"
+      :button-close-attrs="buttonCloseAttrs"
+      :icon-close-attrs="iconCloseAttrs"
+      :dialog-attrs="dialogAttrs"
+      @update:modelValue="onUpdateModelValue"
+      @confirm="onConfirm"
+      @cancel="onCancel"
+    >
+        <template #content>
+            <UiFormField
+              :value="searchText"
+              :error-message="errorMessage"
+              :has-character-counter="true"
+              :character-counter-attrs="characterCounterAttrs"
+              class="w-full"
+            >
+              <UiTextarea
+                ref="textarera"
+                v-model="searchText"
+                :resize="false"
+                :class="[
+                  'ui-form-field__textarea',
+                  { 'ui-textarea--has-error': errorMessage },
+                ]"
+              />
+            </UiFormField>
+        </template>
+    </UiModal>`,
+  }),
+  args: {
+    title: 'Enter chronic condition',
+    isClosable: false,
+    hasContent: true,
+    translation: {
+      confirm: 'Add',
+      cancel: 'Cancel',
+    },
+  },
+  parameters: { viewport: { defaultViewport: 'mobile1' } },
 };
 
 export const WithActionsSlot = {
@@ -810,7 +1059,7 @@ export const WithActionsSlot = {
     template: `<UiModal
       v-model="modelValue"
       :title='title'
-      :description='description'
+      :content='content'
       :is-closable="isClosable"
       :has-cancel="hasCancel"
       :has-confirm="hasConfirm"
@@ -819,7 +1068,7 @@ export const WithActionsSlot = {
       :backdrop-attrs="backdropAttrs"
       :transition-dialog-attrs="transitionDialogAttrs"
       :heading-title-attrs="headingTitleAttrs"
-      :text-description-attrs="textDescriptionAttrs"
+      :text-content-attrs="textContentAttrs"
       :button-confirm-attrs="buttonConfirmAttrs"
       :button-cancel-attrs="buttonCancelAttrs"
       :button-close-attrs="buttonCloseAttrs"
@@ -908,7 +1157,7 @@ export const WithConfirmSlot = {
     template: `<UiModal
       v-model="modelValue"
       :title='title'
-      :description='description'
+      :content='content'
       :is-closable="isClosable"
       :has-cancel="hasCancel"
       :has-confirm="hasConfirm"
@@ -917,7 +1166,7 @@ export const WithConfirmSlot = {
       :backdrop-attrs="backdropAttrs"
       :transition-dialog-attrs="transitionDialogAttrs"
       :heading-title-attrs="headingTitleAttrs"
-      :text-description-attrs="textDescriptionAttrs"
+      :text-content-attrs="textContentAttrs"
       :button-confirm-attrs="buttonConfirmAttrs"
       :button-cancel-attrs="buttonCancelAttrs"
       :button-close-attrs="buttonCloseAttrs"
@@ -967,7 +1216,7 @@ export const WithCancelSlot = {
     template: `<UiModal
       v-model="modelValue"
       :title='title'
-      :description='description'
+      :content='content'
       :is-closable="isClosable"
       :has-cancel="hasCancel"
       :has-confirm="hasConfirm"
@@ -976,7 +1225,7 @@ export const WithCancelSlot = {
       :backdrop-attrs="backdropAttrs"
       :transition-dialog-attrs="transitionDialogAttrs"
       :heading-title-attrs="headingTitleAttrs"
-      :text-description-attrs="textDescriptionAttrs"
+      :text-content-attrs="textContentAttrs"
       :button-confirm-attrs="buttonConfirmAttrs"
       :button-cancel-attrs="buttonCancelAttrs"
       :button-close-attrs="buttonCloseAttrs"
