@@ -897,9 +897,9 @@ export const WithInputInContentSlot = {
             ref="input"
             v-model="searchText"
             :class="[
-            'ui-form-field__input',
-            { 'ui-input--has-error': errorMessage },
-          ]"
+              'ui-form-field__input',
+              { 'ui-input--has-error': errorMessage },
+            ]"
           />
         </UiFormField>
       </template>
@@ -933,10 +933,37 @@ export const WithWithTextareaAsContentSlotOnMobile = {
       const searchText = ref('');
       const characterCounterAttrs = { max: 80 };
       const button = ref(null);
+      const textarera = ref(null);
+      const errorMessage = ref(false);
+
+      function onConfirm() {
+        if (searchText.value) {
+          modelValue.value = false;
+          errorMessage.value = false;
+          focusElement(button.value, true);
+          searchText.value = '';
+        } else {
+          errorMessage.value = 'Please enter chronic condition';
+          focusElement(textarera.value?.$el.querySelector('textarera'));
+        }
+      }
+
+      function onCancel() {
+        searchText.value = '';
+        errorMessage.value = false;
+      }
 
       onMounted(() => {
         button.value = document.querySelector('button.ui-button--theme-secondary');
       });
+
+      watch(
+        searchText,
+        (value) => {
+          if (value.length > characterCounterAttrs.max) errorMessage.value = 'Use max 80 characters';
+          else errorMessage.value = false;
+        },
+      );
 
       watch(
         modelValue,
@@ -949,6 +976,11 @@ export const WithWithTextareaAsContentSlotOnMobile = {
         modelValue,
         searchText,
         characterCounterAttrs,
+        errorMessage,
+        onConfirm,
+        onCancel,
+        textarera,
+        button,
       };
     },
     template: `<UiModal
@@ -976,15 +1008,19 @@ export const WithWithTextareaAsContentSlotOnMobile = {
         <template #content>
             <UiFormField
               :value="searchText"
-              :error-message="false"
+              :error-message="errorMessage"
               :has-character-counter="true"
               :character-counter-attrs="characterCounterAttrs"
               class="w-full"
             >
               <UiTextarea
+                ref="textarera"
                 v-model="searchText"
                 :resize="false"
-                class="ui-form-field__textarea"
+                :class="[
+                  'ui-form-field__textarea',
+                  { 'ui-textarea--has-error': errorMessage },
+                ]"
               />
             </UiFormField>
         </template>
