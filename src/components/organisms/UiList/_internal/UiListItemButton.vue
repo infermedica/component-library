@@ -1,21 +1,52 @@
 <template>
-  <div class="additional-element-row">
+  <div class="ui-list-item-button">
     <UiButton
-      class="additional-element-row__button ui-button--text"
+      class="ui-list-item-button__button ui-button--text"
       @click="clickHandler"
     >
-      <div class="additional-element-row__title">
-        <UiIcon
-          icon="plus"
-          class="ui-button__icon"
-        />
-        <UiText class="additional-element-row__label">
-          Didn't find chronic condition?
+      <slot name="title">
+        <UiText tag="span" class="ui-list-item-button__title">
+          <slot
+            name="icon"
+            v-bind="{
+              icon,
+              iconButtonAttrs,
+            }"
+          >
+            <UiIcon
+              :icon="icon"
+              class="ui-button__icon"
+              v-bind="iconButtonAttrs"
+            />
+          </slot>
+          <slot
+            name="label"
+            v-bind="{
+              label,
+              labelButtonAttrs,
+            }"
+          >
+            <UiText 
+              tag="span"
+              class="ui-list-item-button__label"
+              v-bind="labelButtonAttrs"
+            >
+              {{ label }}
+            </UiText>
+          </slot>
         </UiText>
-      </div>
-      <UiText class="additional-element-row__hint">
-        Add with your own words
-      </UiText>
+      </slot>
+      <slot
+        name="hint"
+        v-bind="{
+          hint,
+          hintButtonAttrs,
+        }"
+      >
+        <UiText tag="span" class="ui-list-item-button__hint">
+          {{ hint }}
+        </UiText>
+      </slot>
     </UiButton>
   </div>
 </template>
@@ -37,6 +68,10 @@ export interface ListItemButtonProps {
    * Use this props to set label.
    */
   label?: string;
+  /**
+   * Use this props to set label attributes.
+   */
+  labelAttrs?: DefineAttrsProps<null>;
   /**
    * Use this props to set icon.
    */
@@ -70,9 +105,9 @@ const clickHandler = () => {
 };
 
 const props = withDefaults(defineProps<ListItemButtonProps>(), {
-  label: '',
-  hint: '',
-  icon: '',
+  label: `Didn't find chronic condition?`,
+  hint: 'Add with your own words',
+  icon: 'plus',
   labelButtonAttrs: () => ({}),
   hintButtonAttrs: () => ({}),
   iconButtonAttrs: () => ({}),

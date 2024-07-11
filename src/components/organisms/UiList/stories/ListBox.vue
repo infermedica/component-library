@@ -2,6 +2,7 @@
   <UiList
     v-bind="args"
     class="list-box"
+    role="listbox"
   />
 </template>
 
@@ -87,7 +88,7 @@ $element: list;
   }
 }
 
-.additional-element-row {
+.ui-list-item-button {
   padding: var(--space-4) var(--space-8);
   border-top: 1px solid var(--color-gray-100);
 

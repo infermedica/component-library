@@ -3,15 +3,10 @@ import type {
   StoryObj,
 } from '@storybook/vue3';
 import {
-  onMounted,
-  ref,
-} from 'vue';
-import {
   UiList,
   type ListProps,
   UiButton,
   UiCheckbox,
-  UiLoader,
   UiRadio,
 } from '@index';
 import {
@@ -442,27 +437,12 @@ export const ListBox:ListStoryType = {
   }) {
     return {
       name,
-      components: { ListBoxStories, UiLoader },
+      components: { ListBoxStories },
       setup() {
         const { attrs } = getAttrs(args, argTypes, name);
-        const isLoaded = ref(false);
-        onMounted(() => window.setTimeout(() => {
-          isLoaded.value = true;
-        }, 1500));
-        
-        return { attrs, isLoaded };
+        return { attrs };
       },
-      template: `
-      <UiLoader
-        :is-loading="!isLoaded"
-        :loaderAttrs="{
-          label: 'Label'
-        }"
-        type="skeleton"
-      >
-      <ListBoxStories v-if="isLoaded" v-bind="{...attrs}" 
-        role="listbox" aria-label="Chronic conditions" aria-multiselectable="true" aria-busy="false"/>
-      </UiLoader>`,
+      template: '<ListBoxStories v-bind="{...attrs}"/>',
     };
   },
 };
@@ -491,6 +471,10 @@ ListBox.args = {
     icon: 'info',
     value: item,
     modelValue: index === 1 && [ item ],
+    role: 'option',
+    ariaSelected: false,
+    ariaSetsize: 15,
+    ariaPosinet: index + 1,
     textLabelAttrs: {
       tag: 'div',
       class: 'list-box__label',
