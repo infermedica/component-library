@@ -6,6 +6,7 @@ import type {
 import {
   UiMenu,
   type MenuProps,
+  UiCheckbox
 } from '@index';
 import {
   getArgTypes,
@@ -16,6 +17,8 @@ import {
   BasicStoriesSource,
   ItemsViaSlotStories,
   HasOutsideElementsStories,
+  HasButtonStories,
+  HasButtonStoriesSource,
 } from './stories';
 
 type MenuArgsType = MenuProps;
@@ -139,4 +142,55 @@ export const HasOutsideElements: MenuStoryType = {
     };
   },
 };
+export const HasButton:MenuStoryType = {
+  render(args, {
+    name, argTypes,
+  }) {
+    return {
+      name,
+      components: { HasButtonStories },
+      setup() {
+        const { attrs } = getAttrs(args, argTypes, name);
+        return { attrs };
+      },
+      template: '<HasButtonStories v-bind="{...attrs}"/>',
+    };
+  },
+};
+HasButton.parameters = { docs: { source: { code: HasButtonStoriesSource } } };
+HasButton.args = {
+  items: [
+    'ADHD — hyperactive type',
+    'ADHD — inattentive type',
+    'Abdominal aortic aneurysm',
+    'Achalasia',
+    'Acne',
+    'Acoustic neuroma',
+    'Painful swallowing',
+    'Stuffy nose',
+    'Sneeze',
+    'Muscle pain',
+    'Runny nose',
+    'Wernicke`s encephalopathy',
+    'Whipworm infection',
+    'Wilson`s disease',
+    'Zollinger-Ellison syndrome',
+  ].map((item, index) => ({
+    label: item,
+    hasSuffix: false,
+    tag: UiCheckbox,
+    icon: 'info',
+    value: item,
+    modelValue: index === 1 && [ item ],
+    role: 'option',
+    ariaSelected: false,
+    ariaSetsize: 15,
+    ariaPosinet: index + 1,
+    textLabelAttrs: {
+      tag: 'div',
+      class: 'list-box__label',
+    },
+  })),
+};
+
 
