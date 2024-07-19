@@ -1,6 +1,3 @@
-import * as i18nCountries from 'i18n-iso-countries';
-import type { Alpha2Code } from 'i18n-iso-countries';
-import englishCountriesTranslation from 'i18n-iso-countries/langs/en.json';
 import countryCodes from 'country-codes-list';
 
 export type PhoneCodeType = {
@@ -11,18 +8,16 @@ export type PhoneCodeType = {
 export type CountryInfoType = {
   code: string,
   country: string,
-  countryCode: Alpha2Code,
+  countryCode: string,
 }
-
-i18nCountries.registerLocale(englishCountriesTranslation);
 
 const phoneCodes = countryCodes.customArray({
   code: '{countryCallingCode}',
-  countryCode: '{countryCode}' as Alpha2Code,
-}) as { code: string, countryCode: Alpha2Code }[];
+  countryCode: '{countryCode}',
+}) as { code: string, countryCode: string }[];
 
-function getCountriesInfo(countryList: Alpha2Code[], language = 'us') {
-  if (!i18nCountries.langs().includes(language)) throw new Error('No locales provided');
+function getCountriesInfo(countryList: string[], language = 'en') {
+  const countryTranslations = new Intl.DisplayNames([language, 'en'], { type: 'region' });
 
   const filteredPhoneCodes = countryList.length
     ? phoneCodes.filter((item) => (countryList.includes(item.countryCode)))
@@ -32,7 +27,7 @@ function getCountriesInfo(countryList: Alpha2Code[], language = 'us') {
     .map((item) => ({
       ...item,
       code: `+${item.code.replace(/\s+/g, '').replace('-', '')}`,
-      country: i18nCountries.getName(item.countryCode, language),
+      country: countryTranslations.of(item.countryCode),
       countryCode: item.countryCode,
     }))
     .filter((countryInfo): countryInfo is CountryInfoType => !!countryInfo.country)

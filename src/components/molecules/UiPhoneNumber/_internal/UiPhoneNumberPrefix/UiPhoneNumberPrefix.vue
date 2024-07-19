@@ -40,7 +40,6 @@ import {
   computed,
   onMounted,
 } from 'vue';
-import type { Alpha2Code } from 'i18n-iso-countries';
 import UiDropdown from '../../../UiDropdown/UiDropdown.vue';
 import UiPhoneNumberPrefixToggle from './UiPhoneNumberPrefixToggle.vue';
 import {
@@ -61,7 +60,7 @@ export interface PhoneNumberPrefixProps {
   /**
    * Use this props to set country code items.
    */
-  countryCodes?: Alpha2Code[],
+  countryCodes?: string[],
   /**
    * Use this props to set error state.
    */
