@@ -67,7 +67,7 @@ export interface PhoneNumberProps {
   /**
    * Use this props to set countries available on dropdown.
    */
-  countryCodes?: string,
+  countryCodes?: string[],
 }
 export type PhoneNumberAttrsProps = DefineAttrsProps<PhoneNumberProps>;
 
