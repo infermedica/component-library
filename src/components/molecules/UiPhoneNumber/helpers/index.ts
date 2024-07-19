@@ -34,6 +34,5 @@ function getCountriesInfo(countryList: string[], language = 'en') {
     .sort((a, b) => (a.country.localeCompare(b.country)));
 }
 export {
-  i18nCountries,
   getCountriesInfo,
 };
