@@ -27,8 +27,6 @@ import {
   IconInHeadingStoriesSource,
   AnswerWithCheckboxStories,
   AnswerWithCheckboxStoriesSource,
-  ListBoxStories,
-  ListBoxStoriesSource,
 } from './stories';
 
 type ListArgsType = ListProps;
@@ -428,56 +426,6 @@ AnswerWithRadio.args = {
       class: [ 'icon-in-heading__suffix' ],
       ...events,
       labelAttrs: { class: [ 'visual-hidden' ] },
-    },
-  })),
-};
-export const ListBox:ListStoryType = {
-  render(args, {
-    name, argTypes,
-  }) {
-    return {
-      name,
-      components: { ListBoxStories },
-      setup() {
-        const { attrs } = getAttrs(args, argTypes, name);
-        return { attrs };
-      },
-      template: '<ListBoxStories v-bind="{...attrs}"/>',
-    };
-  },
-};
-ListBox.parameters = { docs: { source: { code: ListBoxStoriesSource } } };
-ListBox.args = {
-  items: [
-    'ADHD — hyperactive type',
-    'ADHD — inattentive type',
-    'Abdominal aortic aneurysm',
-    'Achalasia',
-    'Acne',
-    'Acoustic neuroma',
-    'Painful swallowing',
-    'Stuffy nose',
-    'Sneeze',
-    'Muscle pain',
-    'Runny nose',
-    'Wernicke`s encephalopathy',
-    'Whipworm infection',
-    'Wilson`s disease',
-    'Zollinger-Ellison syndrome',
-  ].map((item, index) => ({
-    label: item,
-    hasSuffix: false,
-    tag: UiCheckbox,
-    icon: 'info',
-    value: item,
-    modelValue: index === 1 && [ item ],
-    role: 'option',
-    ariaSelected: false,
-    ariaSetsize: 15,
-    ariaPosinet: index + 1,
-    textLabelAttrs: {
-      tag: 'div',
-      class: 'list-box__label',
     },
   })),
 };

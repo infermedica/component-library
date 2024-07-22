@@ -26,7 +26,7 @@
               labelButtonAttrs,
             }"
           >
-            <UiText 
+            <UiText
               tag="span"
               class="ui-list-item-button__label"
               v-bind="labelButtonAttrs"
@@ -105,7 +105,7 @@ const clickHandler = () => {
 };
 
 const props = withDefaults(defineProps<ListItemButtonProps>(), {
-  label: `Didn't find chronic condition?`,
+  label: 'Didn\'t find chronic condition?',
   hint: 'Add with your own words',
   icon: 'plus',
   labelButtonAttrs: () => ({}),

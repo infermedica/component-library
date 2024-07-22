@@ -10,5 +10,3 @@ export { default as IconInHeadingStories } from './IconInHeading.vue';
 export { default as IconInHeadingStoriesSource } from './IconInHeading.vue?raw';
 export { default as AnswerWithCheckboxStories } from './AnswerWithCheckbox.vue';
 export { default as AnswerWithCheckboxStoriesSource } from './AnswerWithCheckbox.vue?raw';
-export { default as ListBoxStories } from './ListBox.vue';
-export { default as ListBoxStoriesSource } from './ListBox.vue?raw';

@@ -2,10 +2,6 @@
   <li
     v-bind="listItemAttrs"
     class="ui-list-item"
-    :role="role"
-    :aria-selected="ariaSelected"
-    :aria-setsize="ariaSetsize"
-    :aria-posinset="ariaPosinet"
   >
     <slot
       name="content"
@@ -108,22 +104,6 @@ export interface ListItemProps {
    * Use this props to pass attrs for list item element
    */
   listItemAttrs?: DefineAttrsProps<null, LiHTMLAttributes>;
-  /**
-   * Use this props to pass role for list item element
-   */
-  role?: string;
-  /**
-   * Use this props to pass ariaSelected for list item element
-   */
-  ariaSelected?: boolean;
-  /**
-   * Use this props to pass ariaSelected for list item element
-   */
-  ariaSetsize?: number;
-  /**
-   * Use this props to pass ariaSelected for list item element
-   */
-  ariaPosinet?: number;
 }
 export type ListItemAttrsProps = DefineAttrsProps<ListItemProps>;
 
@@ -132,10 +112,6 @@ defineOptions({ inheritAttrs: false });
 const props = withDefaults(defineProps<ListItemProps>(), {
   tag: 'div',
   icon: '',
-  role: '',
-  ariaSelected: false,
-  ariaSetsize: 0,
-  ariaPosinet: 0,
   hasSuffix: false,
   suffixAttrs: () => ({}),
   hasPrefix: false,

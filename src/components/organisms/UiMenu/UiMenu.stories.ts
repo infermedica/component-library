@@ -6,7 +6,7 @@ import type {
 import {
   UiMenu,
   type MenuProps,
-  UiCheckbox
+  UiCheckbox,
 } from '@index';
 import {
   getArgTypes,
@@ -192,5 +192,4 @@ HasButton.args = {
     },
   })),
 };
-
 
