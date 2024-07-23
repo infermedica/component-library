@@ -46,7 +46,10 @@ export default {
     backdropAttrs: { 'data-testid': 'backdrop' },
     transitionDialogAttrs: { 'data-testid': 'dialog-transition' },
     dialogAttrs: { 'data-testid': 'dialog-element' },
-    headingTitleAttrs: { 'data-testid': 'title-heading' },
+    headingTitleAttrs: {
+      'data-testid': 'title-heading',
+      id: 'title-heading',
+    },
     textContentAttrs: { 'data-testid': 'content-text' },
     buttonConfirmAttrs: { 'data-testid': 'confirm-button' },
     buttonCancelAttrs: { 'data-testid': 'cancel-button' },
@@ -815,6 +818,7 @@ export const WithInputInContentSlot = {
       const button = ref(null);
       const input = ref(null);
       const errorMessage = ref(false);
+      const inputAttrs = { 'aria-labelledby': 'title-heading' };
 
       function onConfirm() {
         if (searchText.value) {
@@ -861,6 +865,7 @@ export const WithInputInContentSlot = {
         onCancel,
         input,
         button,
+        inputAttrs,
       };
     },
     template: `<UiModal
@@ -900,6 +905,7 @@ export const WithInputInContentSlot = {
               'ui-form-field__input',
               { 'ui-input--has-error': errorMessage },
             ]"
+            :input-attrs="inputAttrs"
           />
         </UiFormField>
       </template>
@@ -935,6 +941,7 @@ export const WithWithTextareaAsContentSlotOnMobile = {
       const button = ref(null);
       const textarera = ref(null);
       const errorMessage = ref(false);
+      const textareaAttrs = { 'aria-labelledby': 'title-heading' };
 
       function onConfirm() {
         if (searchText.value) {
@@ -981,6 +988,7 @@ export const WithWithTextareaAsContentSlotOnMobile = {
         onCancel,
         textarera,
         button,
+        textareaAttrs,
       };
     },
     template: `<UiModal
@@ -1021,6 +1029,7 @@ export const WithWithTextareaAsContentSlotOnMobile = {
                   'ui-form-field__textarea',
                   { 'ui-textarea--has-error': errorMessage },
                 ]"
+                :textarea-attrs="textareaAttrs"
               />
             </UiFormField>
         </template>
