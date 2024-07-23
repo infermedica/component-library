@@ -153,7 +153,16 @@ export const HasButton:MenuStoryType = {
         const { attrs } = getAttrs(args, argTypes, name);
         return { attrs };
       },
-      template: '<HasButtonStories v-bind="{...attrs}" :isButton="true"/>',
+      template: `
+      <HasButtonStories v-bind="{...attrs}"
+      role="listbox"
+      aria-label="Chronic conditions"
+      aria-multiselectable="true"
+      aria-activedescendant="2"
+      aria-busy="false"
+      isButton="true"
+      />
+      `,
     };
   },
 };
@@ -184,12 +193,8 @@ HasButton.args = {
     modelValue: index === 1 && [ item ],
     role: 'option',
     ariaSelected: false,
-    ariaSetsize: 15,
-    ariaPosinet: index + 1,
-    textLabelAttrs: {
-      tag: 'div',
-      class: 'list-box__label',
-    },
+    "aria-setsize": 15,
+    "aria-posinet": index + 1,
   })),
 };
 

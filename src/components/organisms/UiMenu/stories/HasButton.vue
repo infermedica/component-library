@@ -33,7 +33,7 @@ const args = computed(() => (attrs));
       padding-block: var(--space-2);
     }
 
-    .ui-button p {
+    .ui-list-item__content span {
       margin-inline: var(--space-8);
     }
   }

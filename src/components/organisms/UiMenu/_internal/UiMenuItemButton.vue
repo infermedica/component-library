@@ -1,5 +1,5 @@
 <template>
-  <div class="ui-menu-item-button">
+  <li class="ui-menu-item-button">
     <UiButton
       class="ui-menu-item-button__button ui-button--text"
       @click="clickHandler"
@@ -48,7 +48,7 @@
         </UiText>
       </slot>
     </UiButton>
-  </div>
+  </li>
 </template>
 
 <script setup lang="ts">

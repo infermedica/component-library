@@ -18,7 +18,7 @@
             :name="item.name"
           >
             <UiCheckbox v-if="isButton" disabled />
-            <UiText>{{ item.label }}</UiText>
+            <UiText tag="span">{{ item.label }}</UiText>
           </slot>
         </UiMenuItem>
       </template>
