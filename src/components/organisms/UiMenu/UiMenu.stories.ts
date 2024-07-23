@@ -51,7 +51,7 @@ const meta = {
   argTypes: { ...metaArgTypes },
   decorators: [ () => ({
     name: 'LMaxWidth',
-    template: '<div style="max-width: 21.875rem"><story /></div>',
+    template: '<div><story /></div>',
   }) ],
   parameters: { chromatic: { disableSnapshot: false } },
 } satisfies MenuMetaType;
@@ -68,7 +68,7 @@ export const Basic: MenuStoryType = {
         const { attrs } = getAttrs(args, argTypes, name);
         return { attrs };
       },
-      template: '<BasicStories v-bind="{...attrs}"/>',
+      template: '<BasicStories v-bind="{...attrs}" style="max-width: 21.875rem"/>',
     };
   },
 };
@@ -123,7 +123,7 @@ export const ItemsViaSlot: MenuStoryType = {
         const { attrs } = getAttrs(args, argTypes, name);
         return { attrs };
       },
-      template: '<ItemsViaSlotStories v-bind="{...attrs}"/>',
+      template: '<ItemsViaSlotStories v-bind="{...attrs}" style="max-width: 21.875rem"/>',
     };
   },
 };
@@ -138,7 +138,7 @@ export const HasOutsideElements: MenuStoryType = {
         const { attrs } = getAttrs(args, argTypes, name);
         return { attrs };
       },
-      template: '<HasOutsideElementsStories v-bind="{...attrs}"/>',
+      template: '<HasOutsideElementsStories v-bind="{...attrs}" style="max-width: 21.875rem"/>',
     };
   },
 };
@@ -153,7 +153,7 @@ export const HasButton:MenuStoryType = {
         const { attrs } = getAttrs(args, argTypes, name);
         return { attrs };
       },
-      template: '<HasButtonStories v-bind="{...attrs}"/>',
+      template: '<HasButtonStories v-bind="{...attrs}" :isButton="true"/>',
     };
   },
 };

@@ -38,6 +38,8 @@ const args = computed(() => (attrs));
 <style lang="scss">
 @use "../../../../styles/mixins";
 .has-outside-elements {
+  max-width: 21.875rem;
+
   &__header {
     @include mixins.use-logical(null, padding, var(--space-20));
     display: flex;

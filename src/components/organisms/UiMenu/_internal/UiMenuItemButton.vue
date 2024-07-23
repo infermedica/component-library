@@ -1,11 +1,11 @@
 <template>
-  <div class="ui-list-item-button">
+  <div class="ui-menu-item-button">
     <UiButton
-      class="ui-list-item-button__button ui-button--text"
+      class="ui-menu-item-button__button ui-button--text"
       @click="clickHandler"
     >
       <slot name="title">
-        <UiText tag="span" class="ui-list-item-button__title">
+        <UiText tag="span" class="ui-menu-item-button__title">
           <slot
             name="icon"
             v-bind="{
@@ -28,7 +28,7 @@
           >
             <UiText
               tag="span"
-              class="ui-list-item-button__label"
+              class="ui-menu-item-button__label"
               v-bind="labelButtonAttrs"
             >
               {{ label }}
@@ -43,7 +43,7 @@
           hintButtonAttrs,
         }"
       >
-        <UiText tag="span" class="ui-list-item-button__hint">
+        <UiText tag="span" class="ui-menu-item-button__hint">
           {{ hint }}
         </UiText>
       </slot>

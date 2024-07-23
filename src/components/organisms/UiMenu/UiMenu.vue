@@ -17,10 +17,25 @@
             v-bind="item"
             :name="item.name"
           >
+            <UiCheckbox v-if="isButton" disabled />
             <UiText>{{ item.label }}</UiText>
           </slot>
         </UiMenuItem>
       </template>
+    </slot>
+    <!-- @slot Use this slot to replace button -->
+    <slot>
+      <UiMenuItemButton v-if="isButton">
+        <template
+          v-for="(_, name) in itemsToRender"
+          #[name]="data"
+        >
+          <slot
+            v-bind="data"
+            :name="name"
+          />
+        </template>
+      </UiMenuItemButton>
     </slot>
   </UiList>
 </template>
@@ -37,10 +52,12 @@ import {
   onBeforeUnmount,
 } from 'vue';
 import UiText from '../../atoms/UiText/UiText.vue';
+import UiCheckbox from '../../atoms/UiCheckbox/UiCheckbox.vue';
 import useArrowNavigation, { type ElementRef } from './useArrowNavigation';
 import { focusElement } from '../../../utilities/helpers';
 import UiList, { type ListAttrsProps } from '../UiList/UiList.vue';
 import UiMenuItem, { type MenuItemAttrsProps } from './_internal/UiMenuItem.vue';
+import UiMenuItemButton from './_internal/UiMenuItemButton.vue';
 import type { DefineAttrsProps } from '../../../types';
 
 export interface MenuRenderItem extends MenuItemAttrsProps {
@@ -60,6 +77,10 @@ export interface MenuProps {
    * Use this props to pass refs to UiMenuItems.
    */
   menuItemsTemplateRefs?: ComponentInstance<typeof UiMenuItem>[] | null;
+  /**
+   * Use this props to show button.
+   */
+  isButton?: boolean;
 }
 export type MenuAttrsProps = DefineAttrsProps<MenuProps, ListAttrsProps>;
 
@@ -67,6 +88,7 @@ const props = withDefaults(defineProps<MenuProps>(), {
   items: () => ([]),
   enableKeyboardNavigation: true,
   menuItemsTemplateRefs: null,
+  isButton: false,
 });
 provide('enableKeyboardNavigation', props.enableKeyboardNavigation);
 const itemsToRender = computed<MenuRenderItem[]>(() => (props.items.map((item, index) => {
@@ -213,6 +235,12 @@ defineExpose({
 @use "../../../styles/functions";
 @use "../../../styles/mixins";
 
+$element: list;
+
+#storybook-root:has(.has-button) {
+  @include mixins.inner-border($element, $color: var(--color-border-subtle), $radius: var(--border-radius-form));
+}
+
 .ui-menu {
   $this: &;
 
@@ -222,6 +250,63 @@ defineExpose({
         @include mixins.override-logical(button, "menu-item-content", padding, var(--space-4) var(--space-8));
       }
     }
+  }
+}
+
+.ui-menu-item-button {
+  padding: var(--space-4) var(--space-8);
+  border-top: 1px solid var(--color-gray-100);
+
+  .ui-button {
+    &__icon {
+      margin-block: var(--space-4);
+    }
+  }
+
+  &__title {
+    display: flex;
+  }
+
+  &__button {
+    display: initial;
+    width: 100%;
+    padding: var(--space-8) var(--space-12);
+    padding-inline: var(--space-8);
+    text-align: left;
+
+    @include mixins.from-tablet {
+      padding: var(--space-4) var(--space-8);
+    }
+
+    @include mixins.with-hover {
+      &:hover {
+        background-color: var(--color-background-white-hover);
+      }
+    }
+
+    &:active {
+      background-color: var(--color-background-white-active);
+    }
+
+    &:not([aria-disabled]):hover  {
+      border-radius: var(--border-radius-form);
+      background: var(--color-background-white-hover);
+    }
+  }
+
+  &__label {
+    align-content: center;
+    padding: 0 var(--space-12);
+    font: var(--font-body-1-thick);
+    letter-spacing: var(--letter-spacing-small);
+  }
+
+  &__hint {
+    overflow: hidden;
+    padding: var(--space-4);
+    margin-inline: var(--space-32);
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 </style>
