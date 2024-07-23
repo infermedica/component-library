@@ -33,8 +33,8 @@ const args = computed(() => (attrs));
       padding-block: var(--space-2);
     }
 
-    .ui-list-item__content span {
-      margin-inline: var(--space-8);
+    .ui-list-item__content {
+      --text-margin-inline: var(--space-8);
     }
   }
 }

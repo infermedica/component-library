@@ -17,7 +17,7 @@
             v-bind="item"
             :name="item.name"
           >
-            <UiCheckbox v-if="isButton" disabled />
+            <UiCheckbox v-if="isButton" :aria-label="item.label" disabled />
             <UiText tag="span">{{ item.label }}</UiText>
           </slot>
         </UiMenuItem>
