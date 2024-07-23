@@ -1,9 +1,6 @@
-name: Deploy Storybook
+name: Deploy Storybook Manual
 on:
-  workflow_run:
-    workflows: ["Release"]
-    types:
-     - completed
+  workflow_dispatch:
 permissions:
   contents: read
   pages: write
