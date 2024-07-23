@@ -254,6 +254,7 @@ $element: list;
 }
 
 .ui-menu-item-button {
+  margin: 0 0 var(--space-4);
   padding: var(--space-4) var(--space-8);
   border-top: 1px solid var(--color-gray-100);
 
@@ -289,7 +290,6 @@ $element: list;
     }
 
     &:not([aria-disabled]):hover  {
-      border-radius: var(--border-radius-form);
       background: var(--color-background-white-hover);
     }
   }
