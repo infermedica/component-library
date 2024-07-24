@@ -75,11 +75,11 @@ const icon = computed(() => (props.isOpen ? 'chevron-up' : 'chevron-down'));
 
   &--error {
     --button-border-block-color: #{functions.var($element, border-color, var(--color-border-error-strong))};
-  --button-border-inline-color: #{functions.var($element, border-color, var(--color-border-error-strong))};
-  --button-hover-border-block-color: #{functions.var($element, border-color, var(--color-border-error-strong))};
-  --button-hover-border-inline-color: #{functions.var($element, border-color, var(--color-border-error-strong))};
-  --button-active-border-block-color: #{functions.var($element, border-color, var(--color-border-error-strong))};
-  --button-active-border-inline-color: #{functions.var($element, border-color, var(--color-border-error-strong))};
+    --button-border-inline-color: #{functions.var($element, border-color, var(--color-border-error-strong))};
+    --button-hover-border-block-color: #{functions.var($element, border-color, var(--color-border-error-strong))};
+    --button-hover-border-inline-color: #{functions.var($element, border-color, var(--color-border-error-strong))};
+    --button-active-border-block-color: #{functions.var($element, border-color, var(--color-border-error-strong))};
+    --button-active-border-inline-color: #{functions.var($element, border-color, var(--color-border-error-strong))};
   }
 
   &__icon {

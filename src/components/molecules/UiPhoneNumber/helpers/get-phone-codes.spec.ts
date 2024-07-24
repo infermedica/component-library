@@ -1,8 +1,4 @@
-import polishCountriesTranslation from 'i18n-iso-countries/langs/pl.json';
-import {
-  getCountriesInfo,
-  i18nCountries,
-} from './index';
+import { getCountriesInfo } from './index';
 
 describe('helpers/getCountriesInfo', () => {
   it('returns an array of phone codes with default settings', async () => {
@@ -13,7 +9,6 @@ describe('helpers/getCountriesInfo', () => {
   });
 
   it('returns an array of phone codes with the correct language passed', async () => {
-    i18nCountries.registerLocale(polishCountriesTranslation);
     const phoneCodes = getCountriesInfo([], 'pl');
 
     expect(phoneCodes).toBeInstanceOf(Array);

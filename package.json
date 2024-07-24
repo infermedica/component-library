@@ -39,7 +39,6 @@
     "dotenv": "^16.0.3",
     "fast-equals": "^5.0.1",
     "google-libphonenumber": "^3.2.33",
-    "i18n-iso-countries": "^7.7.0",
     "sass": "^1.32.7",
     "uid": "^2.0.2",
     "vite-svg-loader": "^4.0.0",
