@@ -6,6 +6,7 @@ import type {
 import {
   UiMenu,
   type MenuProps,
+  UiButton,
   UiCheckbox,
 } from '@index';
 import {
@@ -167,6 +168,21 @@ export const HasButton:MenuStoryType = {
   },
 };
 HasButton.parameters = { docs: { source: { code: HasButtonStoriesSource } } };
+
+const additionalButton = {
+  label: 'Didn\'t find chronic condition?',
+  hasSuffix: false,
+  isButton: true,
+  tag: UiButton,
+  icon: 'plus',
+  value: 'Add with your own words',
+  modelValue: ["plus"],
+  role: 'option',
+  ariaSelected: false,
+  "aria-setsize": 16,
+  "aria-posinet": 16,
+};
+
 HasButton.args = {
   items: [
     'ADHD — hyperactive type',
@@ -187,14 +203,15 @@ HasButton.args = {
   ].map((item, index) => ({
     label: item,
     hasSuffix: false,
+    isButton: false,
     tag: UiCheckbox,
     icon: 'info',
     value: item,
     modelValue: index === 1 && [ item ],
     role: 'option',
     ariaSelected: false,
-    "aria-setsize": 15,
+    "aria-setsize": 16,
     "aria-posinet": index + 1,
-  })),
+  })).push(additionalButton),
 };
 

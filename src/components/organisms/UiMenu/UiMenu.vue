@@ -17,25 +17,10 @@
             v-bind="item"
             :name="item.name"
           >
-            <UiCheckbox v-if="isButton" :aria-label="item.label" disabled />
             <UiText tag="span">{{ item.label }}</UiText>
           </slot>
         </UiMenuItem>
       </template>
-    </slot>
-    <!-- @slot Use this slot to replace button -->
-    <slot>
-      <UiMenuItemButton v-if="isButton">
-        <template
-          v-for="(_, name) in itemsToRender"
-          #[name]="data"
-        >
-          <slot
-            v-bind="data"
-            :name="name"
-          />
-        </template>
-      </UiMenuItemButton>
     </slot>
   </UiList>
 </template>
@@ -52,12 +37,10 @@ import {
   onBeforeUnmount,
 } from 'vue';
 import UiText from '../../atoms/UiText/UiText.vue';
-import UiCheckbox from '../../atoms/UiCheckbox/UiCheckbox.vue';
 import useArrowNavigation, { type ElementRef } from './useArrowNavigation';
 import { focusElement } from '../../../utilities/helpers';
 import UiList, { type ListAttrsProps } from '../UiList/UiList.vue';
 import UiMenuItem, { type MenuItemAttrsProps } from './_internal/UiMenuItem.vue';
-import UiMenuItemButton from './_internal/UiMenuItemButton.vue';
 import type { DefineAttrsProps } from '../../../types';
 
 export interface MenuRenderItem extends MenuItemAttrsProps {
