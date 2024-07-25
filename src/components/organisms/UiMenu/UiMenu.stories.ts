@@ -1,3 +1,4 @@
+import { ref } from 'vue';
 import { action } from '@storybook/addon-actions';
 import type {
   Meta,
@@ -152,36 +153,20 @@ export const HasButton:MenuStoryType = {
       components: { HasButtonStories },
       setup() {
         const { attrs } = getAttrs(args, argTypes, name);
-        return { attrs };
+        const hasButton = ref(args.hasButton);
+
+        setTimeout(() => {
+          hasButton.value = true;
+        }, 3000);
+        return { attrs, hasButton };
       },
       template: `
-      <HasButtonStories v-bind="{...attrs}"
-      role="listbox"
-      aria-label="Chronic conditions"
-      aria-multiselectable="true"
-      aria-activedescendant="2"
-      aria-busy="false"
-      isButton="true"
-      />
+      <HasButtonStories v-bind="{...attrs}" :hasButton="hasButton"/>
       `,
     };
   },
 };
 HasButton.parameters = { docs: { source: { code: HasButtonStoriesSource } } };
-
-const additionalButton = {
-  label: 'Didn\'t find chronic condition?',
-  hasSuffix: false,
-  isButton: true,
-  tag: UiButton,
-  icon: 'plus',
-  value: 'Add with your own words',
-  modelValue: ["plus"],
-  role: 'option',
-  ariaSelected: false,
-  "aria-setsize": 16,
-  "aria-posinet": 16,
-};
 
 HasButton.args = {
   items: [
@@ -203,15 +188,16 @@ HasButton.args = {
   ].map((item, index) => ({
     label: item,
     hasSuffix: false,
-    isButton: false,
     tag: UiCheckbox,
     icon: 'info',
     value: item,
+    hasCustomOption: false,
     modelValue: index === 1 && [ item ],
     role: 'option',
     ariaSelected: false,
     "aria-setsize": 16,
     "aria-posinet": index + 1,
-  })).push(additionalButton),
+  })),
+  hasButton: false,
 };
 

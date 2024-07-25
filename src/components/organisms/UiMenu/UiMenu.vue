@@ -60,10 +60,6 @@ export interface MenuProps {
    * Use this props to pass refs to UiMenuItems.
    */
   menuItemsTemplateRefs?: ComponentInstance<typeof UiMenuItem>[] | null;
-  /**
-   * Use this props to show button.
-   */
-  isButton?: boolean;
 }
 export type MenuAttrsProps = DefineAttrsProps<MenuProps, ListAttrsProps>;
 
@@ -71,7 +67,6 @@ const props = withDefaults(defineProps<MenuProps>(), {
   items: () => ([]),
   enableKeyboardNavigation: true,
   menuItemsTemplateRefs: null,
-  isButton: false,
 });
 provide('enableKeyboardNavigation', props.enableKeyboardNavigation);
 const itemsToRender = computed<MenuRenderItem[]>(() => (props.items.map((item, index) => {
