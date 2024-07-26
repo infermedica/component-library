@@ -12,7 +12,6 @@
         <UiMenuItem
           ref="internalMenuItemsTemplateRefs"
           v-bind="item"
-          :class="item.hasCustomOption ? 'custom-option' : ''"
         >
           <slot
             v-bind="item"

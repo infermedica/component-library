@@ -2,13 +2,18 @@
   <UiPopover class="has-button">
     <UiMenu
       v-bind="args"
+      :items="itemsToRender"
       role="listbox"
       :aria-label="ariaLabel"
       aria-multiselectable="true"
       :aria-activedescendant="ariaActivedescendant"
       :aria-busy="ariaBusy"
     >
-      <template #[`menu-item-${index}`] v-for="(item, index) in itemsToRender">
+      <template
+        #[`menu-item-${index}`]="{label, name}" 
+        v-for="(item, index) in itemsToRender"
+        :key="name"
+      >
         <template v-if="item.hasCustomOption">
           <UiText
             tag="span"

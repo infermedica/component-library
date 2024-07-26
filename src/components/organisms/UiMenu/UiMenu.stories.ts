@@ -7,8 +7,6 @@ import type {
 import {
   UiMenu,
   type MenuProps,
-  UiButton,
-  UiCheckbox,
 } from '@index';
 import {
   getArgTypes,
@@ -53,7 +51,7 @@ const meta = {
   argTypes: { ...metaArgTypes },
   decorators: [ () => ({
     name: 'LMaxWidth',
-    template: '<div><story /></div>',
+    template: '<div style="max-width: 21.875rem"><story /></div>',
   }) ],
   parameters: { chromatic: { disableSnapshot: false } },
 } satisfies MenuMetaType;
@@ -70,7 +68,7 @@ export const Basic: MenuStoryType = {
         const { attrs } = getAttrs(args, argTypes, name);
         return { attrs };
       },
-      template: '<BasicStories v-bind="{...attrs}" style="max-width: 21.875rem"/>',
+      template: '<BasicStories v-bind="{...attrs}"/>',
     };
   },
 };
@@ -125,7 +123,7 @@ export const ItemsViaSlot: MenuStoryType = {
         const { attrs } = getAttrs(args, argTypes, name);
         return { attrs };
       },
-      template: '<ItemsViaSlotStories v-bind="{...attrs}" style="max-width: 21.875rem"/>',
+      template: '<ItemsViaSlotStories v-bind="{...attrs}"/>',
     };
   },
 };
@@ -140,7 +138,7 @@ export const HasOutsideElements: MenuStoryType = {
         const { attrs } = getAttrs(args, argTypes, name);
         return { attrs };
       },
-      template: '<HasOutsideElementsStories v-bind="{...attrs}" style="max-width: 21.875rem"/>',
+      template: '<HasOutsideElementsStories v-bind="{...attrs}"/>',
     };
   },
 };
@@ -153,15 +151,11 @@ export const HasButton:MenuStoryType = {
       components: { HasButtonStories },
       setup() {
         const { attrs } = getAttrs(args, argTypes, name);
-        const hasButton = ref(args.hasButton);
 
-        setTimeout(() => {
-          hasButton.value = true;
-        }, 3000);
-        return { attrs, hasButton };
+        return { attrs };
       },
       template: `
-      <HasButtonStories v-bind="{...attrs}" :hasButton="hasButton"/>
+      <HasButtonStories v-bind="{...attrs}"/>
       `,
     };
   },
@@ -185,16 +179,6 @@ HasButton.args = {
     'Whipworm infection',
     'Wilson`s disease',
     'Zollinger-Ellison syndrome',
-  ].map((item, index) => ({
-    label: item,
-    hasSuffix: false,
-    tag: UiCheckbox,
-    icon: 'info',
-    value: item,
-    hasCustomOption: false,
-    modelValue: index === 1 && [ item ],
-    role: 'option',
-  })),
-  hasButton: false,
+  ]
 };
 
