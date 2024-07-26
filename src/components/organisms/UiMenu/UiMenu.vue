@@ -12,6 +12,7 @@
         <UiMenuItem
           ref="internalMenuItemsTemplateRefs"
           v-bind="item"
+          :class="item.hasCustomOption ? 'custom-option' : ''"
         >
           <slot
             v-bind="item"
@@ -213,12 +214,6 @@ defineExpose({
 @use "../../../styles/functions";
 @use "../../../styles/mixins";
 
-$element: list;
-
-#storybook-root:has(.has-button) {
-  @include mixins.inner-border($element, $color: var(--color-border-subtle), $radius: var(--border-radius-form));
-}
-
 .ui-menu {
   $this: &;
 
@@ -231,22 +226,25 @@ $element: list;
   }
 }
 
-.ui-menu-item-button {
-  margin: 0 0 var(--space-4);
+li:has(> button.custom-option) {
   padding: var(--space-4) var(--space-8);
   border-top: 1px solid var(--color-gray-100);
 
   .ui-button {
+    display: block;
+    text-align: left;
+
     &__icon {
       margin-block: var(--space-4);
     }
   }
 
-  &__title {
+  .ui-menu-item-button__title {
     display: flex;
+    margin-inline: var(--space-8);
   }
 
-  &__button {
+  .ui-menu-item-button__button {
     display: initial;
     width: 100%;
     padding: var(--space-8) var(--space-12);
@@ -272,14 +270,14 @@ $element: list;
     }
   }
 
-  &__label {
+  .ui-menu-item-button__label {
     align-content: center;
     padding: 0 var(--space-12);
     font: var(--font-body-1-thick);
     letter-spacing: var(--letter-spacing-small);
   }
 
-  &__hint {
+  .ui-menu-item-button__hint {
     overflow: hidden;
     padding: var(--space-4);
     margin-inline: var(--space-32);

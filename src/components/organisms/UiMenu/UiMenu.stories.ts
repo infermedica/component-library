@@ -194,9 +194,6 @@ HasButton.args = {
     hasCustomOption: false,
     modelValue: index === 1 && [ item ],
     role: 'option',
-    ariaSelected: false,
-    "aria-setsize": 16,
-    "aria-posinet": index + 1,
   })),
   hasButton: false,
 };
