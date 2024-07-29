@@ -1,4 +1,3 @@
-import { ref } from 'vue';
 import { action } from '@storybook/addon-actions';
 import type {
   Meta,
@@ -20,6 +19,7 @@ import {
   HasButtonStories,
   HasButtonStoriesSource,
 } from './stories';
+import { withVModel } from '../../../../.storybook/decorators';
 
 type MenuArgsType = MenuProps;
 type MenuMetaType = Meta<MenuArgsType>;
@@ -164,9 +164,8 @@ export const HasButton:MenuStoryType = {
     };
   },
 };
-HasButton.parameters = { docs: { source: { code: HasButtonStoriesSource } } };
-
 HasButton.args = {
+  modelValue: [ 'ADHD — hyperactive type' ],
   items: [
     'ADHD — hyperactive type',
     'ADHD — inattentive type',
@@ -183,6 +182,8 @@ HasButton.args = {
     'Whipworm infection',
     'Wilson`s disease',
     'Zollinger-Ellison syndrome',
-  ]
+  ],
 };
+HasButton.decorators = [ withVModel ];
+HasButton.parameters = { docs: { source: { code: HasButtonStoriesSource } } };
 

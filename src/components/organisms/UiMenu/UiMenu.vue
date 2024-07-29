@@ -17,7 +17,9 @@
             v-bind="item"
             :name="item.name"
           >
-            <UiText tag="span">{{ item.label }}</UiText>
+            <UiText tag="span">
+              {{ item.label }}
+            </UiText>
           </slot>
         </UiMenuItem>
       </template>
@@ -222,66 +224,6 @@ defineExpose({
         @include mixins.override-logical(button, "menu-item-content", padding, var(--space-4) var(--space-8));
       }
     }
-  }
-}
-
-li:has(> button.custom-option) {
-  padding: var(--space-4) var(--space-8);
-  border-top: 1px solid var(--color-gray-100);
-
-  .ui-button {
-    display: block;
-    text-align: left;
-
-    &__icon {
-      margin-block: var(--space-4);
-    }
-  }
-
-  .ui-menu-item-button__title {
-    display: flex;
-    margin-inline: var(--space-8);
-  }
-
-  .ui-menu-item-button__button {
-    display: initial;
-    width: 100%;
-    padding: var(--space-8) var(--space-12);
-    padding-inline: var(--space-8);
-    text-align: left;
-
-    @include mixins.from-tablet {
-      padding: var(--space-4) var(--space-8);
-    }
-
-    @include mixins.with-hover {
-      &:hover {
-        background-color: var(--color-background-white-hover);
-      }
-    }
-
-    &:active {
-      background-color: var(--color-background-white-active);
-    }
-
-    &:not([aria-disabled]):hover  {
-      background: var(--color-background-white-hover);
-    }
-  }
-
-  .ui-menu-item-button__label {
-    align-content: center;
-    padding: 0 var(--space-12);
-    font: var(--font-body-1-thick);
-    letter-spacing: var(--letter-spacing-small);
-  }
-
-  .ui-menu-item-button__hint {
-    overflow: hidden;
-    padding: var(--space-4);
-    margin-inline: var(--space-32);
-    text-overflow: ellipsis;
-    white-space: nowrap;
   }
 }
 </style>
