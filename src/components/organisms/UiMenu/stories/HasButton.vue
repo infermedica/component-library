@@ -9,34 +9,28 @@
       :aria-activedescendant="ariaActivedescendant"
       :aria-busy="ariaBusy"
     >
-      <template
-        #[`menu-item-${index}`]="{label, name}" 
-        v-for="(item, index) in itemsToRender"
-        :key="name"
-      >
-        <template v-if="item.hasCustomOption">
+      <template #[`menu-item-${index}`] v-for="(item, index) in itemsToRender">
+        <UiCheckbox :aria-label="item.label" disabled>{{ item.label }}</UiCheckbox>
+      </template>
+      <template #custom-option>
+        <UiText
+          tag="span"
+          class="ui-menu-item-button__title">
+          <UiIcon
+            :icon="item.icon"
+            class="ui-button__icon" />
           <UiText
             tag="span"
-            class="ui-menu-item-button__title">
-            <UiIcon
-              :icon="item.icon"
-              class="ui-button__icon" />
-            <UiText
-              tag="span"
-              class="ui-menu-item-button__label"
-              v-bind="item.labelButtonAttrs">
-              {{ item.label }}
-            </UiText>
+            class="ui-menu-item-button__label"
+            v-bind="item.labelButtonAttrs">
+            {{ item.label }}
           </UiText>
-          <UiText
-            tag="span"
-            class="ui-menu-item-button__hint">
-            {{ item.hint }}
-          </UiText>
-        </template>
-        <template v-else>
-          <UiCheckbox :aria-label="item.label" disabled>{{ item.label }}</UiCheckbox>
-        </template>
+        </UiText>
+        <UiText
+          tag="span"
+          class="ui-menu-item-button__hint">
+          {{ item.hint }}
+        </UiText>
       </template>
     </UiMenu>
   </UiPopover>
@@ -47,6 +41,8 @@ import {
   computed,
   useAttrs,
   defineOptions,
+  onMounted,
+  ref,
 } from 'vue';
 import {
   UiButton,
@@ -59,7 +55,14 @@ import {
 
 defineOptions({ inheritAttrs: false });
 const attrs = useAttrs();
-const args = computed(() => (attrs));
+const args = computed(() => (Object.keys(attrs).reduce((object, key) => {
+  if (key !== 'items') {
+    return {
+      ...object,
+      [key]: args[key]
+    }
+  }
+}, {})));
 
 export interface AddEmits {
   (e:'add'): void;
@@ -70,28 +73,29 @@ const clickHandler = () => {
   emit('add');
 };
 
+const allPredefinedOptionsAreLoaded = ref(false);
+
+onMounted(() => {
+  setTimeout(() => {
+    allPredefinedOptionsAreLoaded.value = true;
+  }, 1000)
+});
+
 const itemsToRender = computed(() => {
-  let items = [attrs.items, {
-    label: 'Didn\'t find chronic condition?',
-    hint: 'Add with your own words',
-    tag: UiButton,
-    icon: 'plus',
-    role: 'option',
-    hasCustomOption: true,
-  }].flat();
-
-  items = items.map((item, index) => {
-    if (typeof item === 'object') {
-      return {
-        ...item,
-        "aria-selected": false,
-        "aria-setsize": items.length,
-        "aria-posinet": index + 1,
-      };
-    }
-  });
-
-  return items.slice(0, attrs.hasButton ? items.length : items.length - 1);
+  const customOption = {
+    name: 'custom-option'
+  }
+  return [
+    ...items,
+    allPredefinedOptionsAreLoaded
+      ? customOption
+      : {}
+  ].map((item, index) => ({
+    ...item,
+    "aria-selected": false,
+    "aria-setsize": args.items.length,
+    "aria-posinet": index + 1,
+  }))
 });
 </script>
 
