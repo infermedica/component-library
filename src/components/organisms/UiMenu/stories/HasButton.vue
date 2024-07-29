@@ -17,19 +17,18 @@
           tag="span"
           class="ui-menu-item-button__title">
           <UiIcon
-            :icon="item.icon"
+            :icon="defaultProps.icon"
             class="ui-button__icon" />
           <UiText
             tag="span"
-            class="ui-menu-item-button__label"
-            v-bind="item.labelButtonAttrs">
-            {{ item.label }}
+            class="ui-menu-item-button__label">
+            {{ defaultProps.translation.label }}
           </UiText>
         </UiText>
         <UiText
           tag="span"
           class="ui-menu-item-button__hint">
-          {{ item.hint }}
+          {{ defaultProps.translation.hint }}
         </UiText>
       </template>
     </UiMenu>
@@ -53,15 +52,50 @@ import {
   UiText,
 } from '@infermedica/component-library';
 
+export interface HasButtonTranslation {
+  label?: string;
+  hint?: string;
+}
+export interface HasButtonTranslationProps {
+  /**
+   * Use this props to pass labels inside component translation.
+   */
+  translation?: HasButtonTranslation;
+  /**
+   * Use this props to pass icon inside component translation.
+   */
+   icon?: string;
+}
+
+const props = withDefaults(defineProps<HasButtonTranslationProps>(), {
+  translation: () => ({
+    label: 'Didn\'t find chronic condition?',
+    hint: 'Add with your own words',
+  }),
+  icon: 'plus',
+});
+
+const defaultProps = computed(() => {
+  return {
+    translation: {
+      label: 'Didn\'t find chronic condition?',
+      hint: 'Add with your own words',
+      ...props.translation,
+    },
+    icon: 'plus',
+  };
+});
+
 defineOptions({ inheritAttrs: false });
 const attrs = useAttrs();
 const args = computed(() => (Object.keys(attrs).reduce((object, key) => {
   if (key !== 'items') {
     return {
       ...object,
-      [key]: args[key]
-    }
+      [key]: args[key],
+    };
   }
+  return object;
 }, {})));
 
 export interface AddEmits {
@@ -79,21 +113,25 @@ onMounted(() => {
   setTimeout(() => {
     allPredefinedOptionsAreLoaded.value = true;
   }, 1000)
-});
+})
 
 const itemsToRender = computed(() => {
   const customOption = {
-    name: 'custom-option'
+    tag: UiButton,
+    role: 'option',
+    customOption: true,
   }
+  const items = [attrs.items].flat();
+
   return [
     ...items,
     allPredefinedOptionsAreLoaded
       ? customOption
       : {}
   ].map((item, index) => ({
-    ...item,
+    label: item,
     "aria-selected": false,
-    "aria-setsize": args.items.length,
+    "aria-setsize": itemsToRender.length,
     "aria-posinet": index + 1,
   }))
 });
