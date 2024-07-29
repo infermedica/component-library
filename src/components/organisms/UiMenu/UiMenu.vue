@@ -225,7 +225,12 @@ defineExpose({
   }
 }
 
-li:has(> button.custom-option) {
+div:has(.has-button) {
+  max-width: none !important; // overwriting styles from template
+}
+
+li:has(.custom-option) {
+  margin-block-start: var(--space-2);
   padding: var(--space-4) var(--space-8);
   border-top: 1px solid var(--color-gray-100);
 
@@ -241,32 +246,6 @@ li:has(> button.custom-option) {
   .ui-menu-item-button__title {
     display: flex;
     margin-inline: var(--space-8);
-  }
-
-  .ui-menu-item-button__button {
-    display: initial;
-    width: 100%;
-    padding: var(--space-8) var(--space-12);
-    padding-inline: var(--space-8);
-    text-align: left;
-
-    @include mixins.from-tablet {
-      padding: var(--space-4) var(--space-8);
-    }
-
-    @include mixins.with-hover {
-      &:hover {
-        background-color: var(--color-background-white-hover);
-      }
-    }
-
-    &:active {
-      background-color: var(--color-background-white-active);
-    }
-
-    &:not([aria-disabled]):hover  {
-      background: var(--color-background-white-hover);
-    }
   }
 
   .ui-menu-item-button__label {

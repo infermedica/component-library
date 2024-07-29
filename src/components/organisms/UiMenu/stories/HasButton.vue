@@ -7,29 +7,36 @@
       :aria-label="ariaLabel"
       aria-multiselectable="true"
       :aria-activedescendant="ariaActivedescendant"
-      :aria-busy="ariaBusy"
+      :aria-busy="!allPredefinedOptionsAreLoaded"
     >
       <template #[`menu-item-${index}`] v-for="(item, index) in itemsToRender">
-        <UiCheckbox :aria-label="item.label" disabled>{{ item.label }}</UiCheckbox>
-      </template>
-      <template #custom-option>
-        <UiText
-          tag="span"
-          class="ui-menu-item-button__title">
-          <UiIcon
-            :icon="defaultProps.icon"
-            class="ui-button__icon" />
+        <div v-if="item.label.customOption" @click="clickHandler" class="custom-option">
           <UiText
             tag="span"
-            class="ui-menu-item-button__label">
-            {{ defaultProps.translation.label }}
+            class="ui-menu-item-button__title">
+            <UiIcon
+              :icon="defaultProps.icon"
+              class="ui-button__icon" />
+            <UiText
+              tag="span"
+              class="ui-menu-item-button__label">
+              {{ defaultProps.translation.label }}
+            </UiText>
           </UiText>
-        </UiText>
-        <UiText
-          tag="span"
-          class="ui-menu-item-button__hint">
-          {{ defaultProps.translation.hint }}
-        </UiText>
+          <UiText
+            tag="span"
+            class="ui-menu-item-button__hint">
+            {{ defaultProps.translation.hint }}
+          </UiText>
+        </div>
+        <UiCheckbox
+          v-else
+          :aria-label="item.label"
+          :aria-selected="false"
+          role="option"
+          disabled>
+          {{ item.label }}
+        </UiCheckbox>
       </template>
     </UiMenu>
   </UiPopover>
@@ -62,9 +69,17 @@ export interface HasButtonTranslationProps {
    */
   translation?: HasButtonTranslation;
   /**
-   * Use this props to pass icon inside component translation.
+   * Use this props to pass icon inside component.
    */
    icon?: string;
+   /**
+   * Use this props to pass aria-label inside component.
+   */
+   ariaLabel?: string;
+   /**
+   * Use this props to pass aria-label inside component.
+   */
+   ariaActivedescendant?: string;
 }
 
 const props = withDefaults(defineProps<HasButtonTranslationProps>(), {
@@ -73,6 +88,8 @@ const props = withDefaults(defineProps<HasButtonTranslationProps>(), {
     hint: 'Add with your own words',
   }),
   icon: 'plus',
+  ariaLabel: 'Chronic conditions',
+  ariaActivedescendant: '',
 });
 
 const defaultProps = computed(() => {
@@ -83,6 +100,8 @@ const defaultProps = computed(() => {
       ...props.translation,
     },
     icon: 'plus',
+    ariaLabel: 'Chronic conditions',
+    ariaActivedescendant: '',
   };
 });
 
@@ -100,7 +119,7 @@ const args = computed(() => (Object.keys(attrs).reduce((object, key) => {
 
 export interface AddEmits {
   (e:'add'): void;
-}
+};
 
 const emit = defineEmits<AddEmits>();
 const clickHandler = () => {
@@ -113,12 +132,10 @@ onMounted(() => {
   setTimeout(() => {
     allPredefinedOptionsAreLoaded.value = true;
   }, 1000)
-})
+});
 
 const itemsToRender = computed(() => {
   const customOption = {
-    tag: UiButton,
-    role: 'option',
     customOption: true,
   }
   const items = [attrs.items].flat();
