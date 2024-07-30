@@ -20,7 +20,7 @@
           {{ label }}
         </UiCheckbox>
       </template>
-      <template #custom-option>
+      <template #custom-option @keyup.enter="handleCustomOptionClick">
         <UiIcon
           icon="plus"
           class="ui-button__icon has-button__custom-option-icon"
