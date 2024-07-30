@@ -16,7 +16,7 @@
         #[`menu-item-${index}`]
         :key="name"
       >
-        <UiCheckbox v-bind="checkboxAttrs">
+        <UiCheckbox v-bind="checkboxAttrs" :aria-label="label">
           {{ label }}
         </UiCheckbox>
       </template>
