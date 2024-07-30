@@ -17,7 +17,9 @@
             v-bind="item"
             :name="item.name"
           >
-            <UiText tag="span">{{ item.label }}</UiText>
+            <UiText tag="span">
+              {{ item.label }}
+            </UiText>
           </slot>
         </UiMenuItem>
       </template>
@@ -222,45 +224,6 @@ defineExpose({
         @include mixins.override-logical(button, "menu-item-content", padding, var(--space-4) var(--space-8));
       }
     }
-  }
-}
-
-div:has(.has-button) {
-  max-width: none !important; // overwriting styles from template
-}
-
-li:has(.custom-option) {
-  margin-block-start: var(--space-2);
-  padding: var(--space-4) var(--space-8);
-  border-top: 1px solid var(--color-gray-100);
-
-  .ui-button {
-    display: block;
-    text-align: left;
-
-    &__icon {
-      margin-block: var(--space-4);
-    }
-  }
-
-  .ui-menu-item-button__title {
-    display: flex;
-    margin-inline: var(--space-8);
-  }
-
-  .ui-menu-item-button__label {
-    align-content: center;
-    padding: 0 var(--space-12);
-    font: var(--font-body-1-thick);
-    letter-spacing: var(--letter-spacing-small);
-  }
-
-  .ui-menu-item-button__hint {
-    overflow: hidden;
-    padding: var(--space-4);
-    margin-inline: var(--space-32);
-    text-overflow: ellipsis;
-    white-space: nowrap;
   }
 }
 </style>

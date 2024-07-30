@@ -4,39 +4,39 @@
       v-bind="args"
       :items="itemsToRender"
       role="listbox"
-      :aria-label="ariaLabel"
+      aria-label="Chronic condition"
       aria-multiselectable="true"
-      :aria-activedescendant="ariaActivedescendant"
+      aria-activedescendant=""
       :aria-busy="!allPredefinedOptionsAreLoaded"
     >
-      <template #[`menu-item-${index}`] v-for="(item, index) in itemsToRender">
-        <div v-if="item.label.customOption" @click="clickHandler" class="custom-option">
-          <UiText
-            tag="span"
-            class="ui-menu-item-button__title">
-            <UiIcon
-              :icon="defaultProps.icon"
-              class="ui-button__icon" />
-            <UiText
-              tag="span"
-              class="ui-menu-item-button__label">
-              {{ defaultProps.translation.label }}
-            </UiText>
-          </UiText>
-          <UiText
-            tag="span"
-            class="ui-menu-item-button__hint">
-            {{ defaultProps.translation.hint }}
-          </UiText>
-        </div>
-        <UiCheckbox
-          v-else
-          :aria-label="item.label"
-          :aria-selected="false"
-          role="option"
-          disabled>
-          {{ item.label }}
+      <template
+        v-for="({
+          label, name, checkboxAttrs,
+        }, index) in itemsToRender"
+        #[`menu-item-${index}`]
+        :key="name"
+      >
+        <UiCheckbox v-bind="checkboxAttrs">
+          {{ label }}
         </UiCheckbox>
+      </template>
+      <template #custom-option>
+        <UiIcon
+          icon="plus"
+          class="ui-button__icon has-button__custom-option-icon"
+        />
+        <UiText
+          tag="span"
+          class="ui-text--body-1-thick"
+        >
+          Didn't find chronic condition?
+        </UiText>
+        <UiText
+          tag="span"
+          class="has-button__custom-option-hint"
+        >
+          Add with your own words
+        </UiText>
       </template>
     </UiMenu>
   </UiPopover>
@@ -49,61 +49,16 @@ import {
   defineOptions,
   onMounted,
   ref,
+  inject,
 } from 'vue';
 import {
-  UiButton,
   UiCheckbox,
   UiIcon,
   UiMenu,
   UiPopover,
   UiText,
 } from '@infermedica/component-library';
-
-export interface HasButtonTranslation {
-  label?: string;
-  hint?: string;
-}
-export interface HasButtonTranslationProps {
-  /**
-   * Use this props to pass labels inside component translation.
-   */
-  translation?: HasButtonTranslation;
-  /**
-   * Use this props to pass icon inside component.
-   */
-   icon?: string;
-   /**
-   * Use this props to pass aria-label inside component.
-   */
-   ariaLabel?: string;
-   /**
-   * Use this props to pass aria-label inside component.
-   */
-   ariaActivedescendant?: string;
-}
-
-const props = withDefaults(defineProps<HasButtonTranslationProps>(), {
-  translation: () => ({
-    label: 'Didn\'t find chronic condition?',
-    hint: 'Add with your own words',
-  }),
-  icon: 'plus',
-  ariaLabel: 'Chronic conditions',
-  ariaActivedescendant: '',
-});
-
-const defaultProps = computed(() => {
-  return {
-    translation: {
-      label: 'Didn\'t find chronic condition?',
-      hint: 'Add with your own words',
-      ...props.translation,
-    },
-    icon: 'plus',
-    ariaLabel: 'Chronic conditions',
-    ariaActivedescendant: '',
-  };
-});
+import { equal } from '../../../../utilities/helpers';
 
 defineOptions({ inheritAttrs: false });
 const attrs = useAttrs();
@@ -117,59 +72,95 @@ const args = computed(() => (Object.keys(attrs).reduce((object, key) => {
   return object;
 }, {})));
 
-export interface AddEmits {
-  (e:'add'): void;
-};
-
-const emit = defineEmits<AddEmits>();
-const clickHandler = () => {
-  emit('add');
-};
-
+const value = inject('value', []);
 const allPredefinedOptionsAreLoaded = ref(false);
-
 onMounted(() => {
   setTimeout(() => {
     allPredefinedOptionsAreLoaded.value = true;
-  }, 1000)
+  }, 1000);
 });
 
+const handleUpdateModelValue = (val) => (value['value'].includes(val)
+  ? value['value'].filter((option) => (!equal(val, option)))
+  : [
+    ...value['value'],
+    val,
+  ]);
+const handleOptionClick = (val) => {
+  console.log(val);
+  
+  value['value'] = handleUpdateModelValue(val);
+};
+const handleCustomOptionClick = () => {
+  console.log('emit cusomOtptionClick');
+};
 const itemsToRender = computed(() => {
   const customOption = {
-    customOption: true,
-  }
-  const items = [attrs.items].flat();
-
+    name: 'custom-option',
+    class: 'has-button__custom-option',
+    listItemAttrs: { class: 'ui-list-item ui-menu-item has-button__menu-item--has-border' },
+    onClick: () => handleCustomOptionClick(),
+  };
+  const items = (attrs.items as any).map((item) => ({
+    label: item,
+    checkboxAttrs: {
+      modelValue: value['value'],
+      value: item,
+      disabled: true,
+    },
+    onClick: () => handleOptionClick(item),
+  }));
   return [
     ...items,
-    allPredefinedOptionsAreLoaded
-      ? customOption
-      : {}
+    (
+      allPredefinedOptionsAreLoaded.value
+        ? customOption
+        : {}
+    ),
   ].map((item, index) => ({
-    label: item,
-    "aria-selected": false,
-    "aria-setsize": itemsToRender.length,
-    "aria-posinet": index + 1,
-  }))
+    ...item,
+    'aria-selected': false,
+    'aria-setsize': items.length + (
+      allPredefinedOptionsAreLoaded.value
+        ? 1
+        : 0
+    ),
+    'aria-posinet': index + 1,
+  }));
 });
 </script>
 
 <style lang="scss">
 @use "../../../../styles/mixins";
 .has-button {
+  --popover-content-padding-block: 0;
+  --popover-content-padding-inline: 0;
+
   max-height: 20rem;
   overflow-y: auto;
 
-  &.ui-popover::after {
-    border: none;
+  &__menu-item {
+    &--has-border {
+      border: 1px solid var(--color-border-divider);
+      border-width: 1px 0 0 0 ;
+    }
   }
 
-  .ui-popover__content {
-    padding: var(--space-4) 0;
-  }
+  &__custom-option {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    text-align: start;
+    gap: 0 var(--space-12);
 
-  .ui-menu-item {
-    padding-block: var(--space-2);
+    &-icon {
+      --button-icon-margin-inline: 0;
+      --button-icon-margin-block: 0;
+    }
+
+    &-hint {
+      grid-column: 2;
+    }
   }
 }
 </style>
