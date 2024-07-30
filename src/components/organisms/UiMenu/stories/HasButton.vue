@@ -87,8 +87,6 @@ const handleUpdateModelValue = (val) => (value['value'].includes(val)
     val,
   ]);
 const handleOptionClick = (val) => {
-  console.log(val);
-  
   value['value'] = handleUpdateModelValue(val);
 };
 const handleCustomOptionClick = () => {
