@@ -226,8 +226,4 @@ defineExpose({
     }
   }
 }
-
-div:has(.has-button) {
-  max-width: none !important; // overwriting styles from template
-}
 </style>

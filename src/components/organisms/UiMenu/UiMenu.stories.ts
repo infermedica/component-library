@@ -45,10 +45,6 @@ const meta = {
   title: 'Organisms/Menu',
   component: UiMenu,
   args: {
-    translation: {
-      label: 'Didn\'t find chronic condition?',
-      hint: 'Add with your own words',
-    },
     ...metaArgs,
     items,
   },
@@ -159,7 +155,7 @@ export const HasButton:MenuStoryType = {
         return { attrs };
       },
       template: `
-      <HasButtonStories v-bind="{...attrs}" :translation="translation"/>
+      <HasButtonStories v-bind="{...attrs}"/>
       `,
     };
   },

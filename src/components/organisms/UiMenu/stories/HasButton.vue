@@ -20,7 +20,7 @@
           {{ label }}
         </UiCheckbox>
       </template>
-      <template #custom-option @keyup.enter="handleCustomOptionClick">
+      <template #custom-option>
         <UiIcon
           icon="plus"
           class="ui-button__icon has-button__custom-option-icon"
@@ -98,6 +98,7 @@ const itemsToRender = computed(() => {
     class: 'has-button__custom-option',
     listItemAttrs: { class: 'ui-list-item ui-menu-item has-button__menu-item--has-border' },
     onClick: () => handleCustomOptionClick(),
+    onKeyup: (e) => { e.key === 'enter' ? handleCustomOptionClick() : '' },
   };
   const items = (attrs.items as any).map((item) => ({
     label: item,
