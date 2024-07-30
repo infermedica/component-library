@@ -98,7 +98,7 @@ const itemsToRender = computed(() => {
     class: 'has-button__custom-option',
     listItemAttrs: { class: 'ui-list-item ui-menu-item has-button__menu-item--has-border' },
     onClick: () => handleCustomOptionClick(),
-    onKeyup: (e) => { e.key === 'enter' ? handleCustomOptionClick() : '' },
+    onKeyup: ({key}) => { key === 'enter' ? handleCustomOptionClick() : '' },
   };
   const items = (attrs.items as any).map((item) => ({
     label: item,
