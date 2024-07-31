@@ -85,14 +85,14 @@ const handleFocus = (item) => {
   focusedOption.value = item;
 };
 
-const handleUpdateModelValue = (val) => (value['value'].includes(val)
-  ? value['value'].filter((option) => (!equal(val, option)))
+const handleUpdateModelValue = (val) => (value.value.includes(val)
+  ? value.value.filter((option) => (!equal(val, option)))
   : [
-    ...value['value'],
+    ...value.value,
     val,
   ]);
 const handleOptionClick = (val) => {
-  value['value'] = handleUpdateModelValue(val);
+  value.value = handleUpdateModelValue(val);
 };
 const handleCustomOptionClick = () => {
   console.log('emit cusomOtptionClick');
@@ -103,12 +103,12 @@ const itemsToRender = computed(() => {
     class: 'has-button__custom-option',
     listItemAttrs: { class: 'ui-list-item ui-menu-item has-button__menu-item--has-border' },
     onClick: () => handleCustomOptionClick(),
-    onKeyup: ({key}) => { key === 'enter' ? handleCustomOptionClick() : '' },
+    onKeyup: ({ key }) => { key === 'enter' ? handleCustomOptionClick() : ''; },
   };
   const items = (attrs.items as any).map((item) => ({
     label: item,
     checkboxAttrs: {
-      modelValue: value['value'],
+      modelValue: value.value,
       value: item,
       disabled: true,
     },
@@ -140,13 +140,8 @@ const itemsToRender = computed(() => {
 .has-button {
   --popover-content-padding-block: 0;
   --popover-content-padding-inline: 0;
-
-  box-shadow: none;
-
-  .ui-popover__content {
-    max-height: 20rem;
-    overflow-y: auto;
-  }
+  --popover-content-max-height: 20rem;
+  --popover-box-shadow: none;
 
   &__menu-item {
     &--has-border {

@@ -49,10 +49,6 @@ const meta = {
     items,
   },
   argTypes: { ...metaArgTypes },
-  decorators: [ () => ({
-    name: 'LMaxWidth',
-    template: '<div style="max-width: 21.875rem"><story /></div>',
-  }) ],
   parameters: { chromatic: { disableSnapshot: false } },
 } satisfies MenuMetaType;
 export default meta;
@@ -73,8 +69,14 @@ export const Basic: MenuStoryType = {
   },
 };
 Basic.parameters = { docs: { source: { code: BasicStoriesSource } } };
+Basic.decorators = [ () => ({
+  name: 'LMaxWidth',
+  template: '<div style="max-width: 21.875rem"><story /></div>',
+}) ];
+
 export const Compact: MenuStoryType = { ...Basic };
 Compact.args = { class: 'ui-menu--compact' };
+
 export const HasSelectedItem: MenuStoryType = { ...Basic };
 HasSelectedItem.args = {
   items: items.map((item, index) => ({
@@ -82,6 +84,7 @@ HasSelectedItem.args = {
     class: [ { 'ui-menu-item--is-selected': index === 1 } ],
   })),
 };
+
 export const HasSuffix: MenuStoryType = { ...Basic };
 HasSuffix.args = {
   items: [
@@ -104,6 +107,7 @@ HasSuffix.args = {
     })),
   ],
 };
+
 export const HasPrefix: MenuStoryType = { ...Basic };
 HasPrefix.args = {
   items: items.map((item) => ({
@@ -112,6 +116,7 @@ HasPrefix.args = {
     prefixAttrs: { icon: 'calendar' },
   })),
 };
+
 export const ItemsViaSlot: MenuStoryType = {
   render(args, {
     name, argTypes,
@@ -127,6 +132,11 @@ export const ItemsViaSlot: MenuStoryType = {
     };
   },
 };
+ItemsViaSlot.decorators = [ () => ({
+  name: 'LMaxWidth',
+  template: '<div style="max-width: 21.875rem"><story /></div>',
+}) ];
+
 export const HasOutsideElements: MenuStoryType = {
   render(args, {
     name, argTypes,
@@ -142,6 +152,11 @@ export const HasOutsideElements: MenuStoryType = {
     };
   },
 };
+HasOutsideElements.decorators = [ () => ({
+  name: 'LMaxWidth',
+  template: '<div style="max-width: 21.875rem"><story /></div>',
+}) ];
+
 export const HasButton:MenuStoryType = {
   render(args, {
     name, argTypes,
@@ -180,6 +195,12 @@ HasButton.args = {
     'Zollinger-Ellison syndrome',
   ],
 };
-HasButton.decorators = [ withVModel ];
+HasButton.decorators = [
+  () => ({
+    name: 'LMaxWidth',
+    template: '<div style="max-width: 41.25rem"><story /></div>',
+  }),
+  withVModel,
+];
 HasButton.parameters = { docs: { source: { code: HasButtonStoriesSource } } };
 
