@@ -4460,7 +4460,7 @@
             "name": "Array",
             "elements": [
               {
-                "name": "Alpha2Code"
+                "name": "string"
               }
             ]
           },
@@ -10035,7 +10035,7 @@
             "name": "Array",
             "elements": [
               {
-                "name": "Alpha2Code"
+                "name": "string"
               }
             ]
           },
