@@ -17,7 +17,9 @@
             v-bind="item"
             :name="item.name"
           >
-            <UiText>{{ item.label }}</UiText>
+            <UiText tag="span">
+              {{ item.label }}
+            </UiText>
           </slot>
         </UiMenuItem>
       </template>
