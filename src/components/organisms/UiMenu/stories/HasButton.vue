@@ -6,7 +6,7 @@
       role="listbox"
       aria-label="Chronic condition"
       aria-multiselectable="true"
-      aria-activedescendant=""
+      :aria-activedescendant="focusedOption"
       :aria-busy="!allPredefinedOptionsAreLoaded"
     >
       <template
@@ -80,6 +80,11 @@ onMounted(() => {
   }, 1000);
 });
 
+const focusedOption = ref('');
+const handleFocus = (item) => {
+  focusedOption.value = item;
+};
+
 const handleUpdateModelValue = (val) => (value['value'].includes(val)
   ? value['value'].filter((option) => (!equal(val, option)))
   : [
@@ -108,6 +113,7 @@ const itemsToRender = computed(() => {
       disabled: true,
     },
     onClick: () => handleOptionClick(item),
+    onFocus: () => handleFocus(item),
   }));
   return [
     ...items,
@@ -135,8 +141,12 @@ const itemsToRender = computed(() => {
   --popover-content-padding-block: 0;
   --popover-content-padding-inline: 0;
 
-  max-height: 20rem;
-  overflow-y: auto;
+  box-shadow: none;
+
+  .ui-popover__content {
+    max-height: 20rem;
+    overflow-y: auto;
+  }
 
   &__menu-item {
     &--has-border {
