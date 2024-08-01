@@ -112,6 +112,7 @@ const itemsToRender = computed(() => {
       value: item,
       disabled: true,
     },
+    'aria-selected': value.value.includes(item) ? 'true' : 'false',
     onClick: () => handleOptionClick(item),
     onFocus: () => handleFocus(item),
   }));
@@ -124,7 +125,6 @@ const itemsToRender = computed(() => {
     ),
   ].map((item, index) => ({
     ...item,
-    'aria-selected': false,
     'aria-setsize': items.length + (
       allPredefinedOptionsAreLoaded.value
         ? 1
