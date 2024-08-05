@@ -15,6 +15,7 @@ import getReleaseInfo from './helpers/get-release-info.mjs';
 import updateComponentsApi from './update-components-api.mjs';
 import createReleaseNotes from './create-release-notes.mjs';
 import createReleaseChangelog from './create-release-changelog.mjs';
+import createIconsList from './create-icons-list.mjs';
 
 const exec = util.promisify(child.exec);
 const fileName = fileURLToPath(import.meta.url);
@@ -40,6 +41,7 @@ const release = async (type, withDocs) => {
     newVersion, releaseType,
   } = await getReleaseInfo(type, true);
   if (newVersion) {
+    await createIconsList();
     await updateComponentsApi();
     await updatePackageJson(newVersion);
     await createReleaseChangelog(newVersion);

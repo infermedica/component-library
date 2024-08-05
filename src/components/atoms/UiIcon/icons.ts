@@ -3,6 +3,8 @@ export default [
   'yes',
   'warning-filled',
   'unknown',
+  'thumb-up',
+  'thumb-down',
   'tablet',
   'symptom-checker',
   'success-filled',

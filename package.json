@@ -1,6 +1,6 @@
 {
   "name": "@infermedica/component-library",
-  "version": "1.9.4",
+  "version": "1.9.5",
   "description": "Vue 3 UI library for healthcare and not only.",
   "license": "MIT",
   "sideEffects": [
