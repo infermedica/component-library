@@ -2,7 +2,7 @@ import { computed } from 'vue';
 import type { ButtonProps } from '../../components/atoms/UiButton/UiButton.vue';
 import type { LinkProps } from '../../components/atoms/UiLink/UiLink.vue';
 
-export default function useLink(props: ButtonProps | (LinkProps & { target: '_blank', rel: 'noopener noreferrer' })) {
+export default function useLink(props: ButtonProps | (LinkProps & { target: HTMLAnchorElement['target'], rel: HTMLAnchorElement['rel']})) {
   const componentTag = computed(() => {
     if (props.href) {
       return 'a';

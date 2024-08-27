@@ -34,12 +34,24 @@ describe('composable/useLink', () => {
   test('thrown error when parameter is undefined', () => {
     expect(() => useLink(undefined).componentTag.value).toThrow(Error);
   });
-  test('return correct attributes when parameter has property href', () => {
+  test('return correct default attributes when parameter has only property href', () => {
     const { routeAttrs } = useLink(hrefProps);
     expect(routeAttrs.value).toStrictEqual({
       href: hrefProps.href,
       target: '_blank',
       rel: 'noopener noreferrer',
+    });
+  });
+  test('return correct attributes when parameter has property href', () => {
+    const { routeAttrs } = useLink({
+      ...hrefProps,
+      rel: 'rel link',
+      target: 'target link',
+    });
+    expect(routeAttrs.value).toStrictEqual({
+      href: hrefProps.href,
+      target: 'target link',
+      rel: 'rel link',
     });
   });
   test('return correct attributes when parameter has property to', () => {
