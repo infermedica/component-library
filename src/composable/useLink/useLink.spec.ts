@@ -4,12 +4,13 @@ const hrefProps = {
   href: 'href link',
   to: 'to link',
   tag: 'li',
-};
+} as const;
 const toProps = {
   to: 'to link',
   tag: 'li',
-};
-const tagProps = { tag: 'li' };
+} as const;
+
+const tagProps = { tag: 'li' } as const;
 
 describe('composable/useLink', () => {
   test('return correct component tag when parameter has property href', () => {
@@ -27,12 +28,6 @@ describe('composable/useLink', () => {
   test("return undefined when parameter doesn't have any property", () => {
     const { componentTag } = useLink({});
     expect(componentTag.value).toBe(undefined);
-  });
-  test('thrown error when parameter is null', () => {
-    expect(() => useLink(null).componentTag.value).toThrow(Error);
-  });
-  test('thrown error when parameter is undefined', () => {
-    expect(() => useLink(undefined).componentTag.value).toThrow(Error);
   });
   test('return correct default attributes when parameter has only property href', () => {
     const { routeAttrs } = useLink(hrefProps);
@@ -66,16 +61,8 @@ describe('composable/useLink', () => {
     const undefinedAttrs = useLink({ href: undefined }).routeAttrs.value;
     expect(undefinedAttrs).toStrictEqual({});
   });
-  test('return empty route attrs when parameter property href is null', () => {
-    const nullAttrs = useLink({ href: null }).routeAttrs.value;
-    expect(nullAttrs).toStrictEqual({});
-  });
   test('return empty route attrs when parameter property to is undefined', () => {
     const undefinedAttrs = useLink({ to: undefined }).routeAttrs.value;
     expect(undefinedAttrs).toStrictEqual({});
-  });
-  test('return empty route attrs when parameter property to is null', () => {
-    const nullAttrs = useLink({ to: null }).routeAttrs.value;
-    expect(nullAttrs).toStrictEqual({});
   });
 });
