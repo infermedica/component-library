@@ -36,7 +36,11 @@ describe('composable/useLink', () => {
   });
   test('return correct attributes when parameter has property href', () => {
     const { routeAttrs } = useLink(hrefProps);
-    expect(routeAttrs.value).toStrictEqual({ href: hrefProps.href });
+    expect(routeAttrs.value).toStrictEqual({
+      href: hrefProps.href,
+      target: '_blank',
+      rel: 'noopener noreferrer',
+    });
   });
   test('return correct attributes when parameter has property to', () => {
     const { routeAttrs } = useLink(toProps);

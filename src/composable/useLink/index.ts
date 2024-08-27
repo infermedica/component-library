@@ -16,8 +16,8 @@ export default function useLink(props: ButtonProps | (LinkProps & { target: '_bl
     if (props.href) {
       return {
         href: props.href,
-        target: '_blank',
-        rel: 'noopener noreferrer',
+        target: ('target' in props && props.target) ?? '_blank',
+        rel: ('rel' in props && props.rel) ?? 'noopener noreferrer',
       };
     }
     if (props.to) {
