@@ -1,4 +1,4 @@
-import countryCodes from 'country-codes-list';
+import { customArray as getCustomCountryList } from 'country-codes-list';
 
 export type PhoneCodeType = {
   code?: string,
@@ -11,7 +11,7 @@ export type CountryInfoType = {
   countryCode: string,
 }
 
-const phoneCodes = countryCodes.customArray({
+const phoneCodes = getCustomCountryList({
   code: '{countryCallingCode}',
   countryCode: '{countryCode}',
 }) as { code: string, countryCode: string }[];
