@@ -70,6 +70,7 @@ export default [
   'arrow-left',
   'arrow-dropdown-up',
   'arrow-dropdown-down',
+  'arrow-clockwise',
   'api',
   'agreement',
   'agreement-rtl',
