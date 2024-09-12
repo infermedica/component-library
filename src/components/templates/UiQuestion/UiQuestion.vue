@@ -111,7 +111,7 @@
               class="ui-button--small ui-button--text"
             >
               <UiIcon
-                v-if="iconWhyAttrs.icon"
+                v-if="defaultProps.iconWhyAttrs.icon"
                 v-bind="defaultProps.iconWhyAttrs"
                 class="ui-button__icon"
               />
