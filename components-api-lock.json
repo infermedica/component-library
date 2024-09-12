@@ -125,6 +125,18 @@
           }
         },
         {
+          "name": "iconWhyAttrs",
+          "description": "Use this props to pass attrs for why UiIcon",
+          "required": false,
+          "type": {
+            "name": "IconAttrsProps"
+          },
+          "defaultValue": {
+            "func": false,
+            "value": "() => ({ })"
+          }
+        },
+        {
           "name": "buttonIssueAttrs",
           "description": "Use this props to pass attrs for issue UiButton",
           "required": false,
@@ -254,6 +266,10 @@
             {
               "name": "translation",
               "title": "binding"
+            },
+            {
+              "name": "iconWhyAttrs",
+              "title": "binding"
             }
           ]
         },
@@ -272,6 +288,10 @@
             },
             {
               "name": "buttonWhyAttrs",
+              "title": "binding"
+            },
+            {
+              "name": "iconWhyAttrs",
               "title": "binding"
             }
           ]
