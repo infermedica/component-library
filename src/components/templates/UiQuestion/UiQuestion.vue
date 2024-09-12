@@ -85,6 +85,7 @@
         buttonIssueAttrs,
         settings: defaultProps.settings,
         translation: defaultProps.translation,
+        iconWhyAttrs: defaultProps.iconWhyAttrs,
       }"
     >
       <div
@@ -98,6 +99,7 @@
             settings: defaultProps.settings,
             translation: defaultProps.translation,
             buttonWhyAttrs,
+            iconWhyAttrs: defaultProps.iconWhyAttrs,
           }"
         >
           <div
@@ -108,6 +110,11 @@
               v-bind="buttonWhyAttrs"
               class="ui-button--small ui-button--text"
             >
+              <UiIcon
+                v-if="iconWhyAttrs.icon"
+                v-bind="defaultProps.iconWhyAttrs"
+                class="ui-button__icon"
+              />
               {{ defaultProps.translation.why }}
             </UiButton>
           </div>
@@ -222,6 +229,10 @@ export interface QuestionProps {
    */
   buttonWhyAttrs?: ButtonAttrsProps;
   /**
+   * Use this props to pass attrs for why UiIcon
+   */
+  iconWhyAttrs?: IconAttrsProps;
+  /**
    * Use this props to pass attrs for issue UiButton
    */
   buttonIssueAttrs?: ButtonAttrsProps;
@@ -257,6 +268,7 @@ const props = withDefaults(defineProps<QuestionProps>(), {
   buttonInfoAttrs: () => ({}),
   iconInfoAttrs: () => ({ icon: 'info' }),
   buttonWhyAttrs: () => ({}),
+  iconWhyAttrs: () => ({ }),
   buttonIssueAttrs: () => ({}),
   notificationFeedbackAttrs: () => ({ type: 'success' }),
 });
@@ -295,6 +307,7 @@ const defaultProps = computed(() => {
       icon,
       ...props.iconInfoAttrs,
     },
+    iconWhyAttrs: { ...props.iconWhyAttrs },
     notificationFeedbackAttrs: {
       type,
       ...props.notificationFeedbackAttrs,

@@ -52,6 +52,7 @@ export default {
       'data-test': 'why-button',
       onClick: events.onClickWhyButton,
     },
+    iconWhyAttrs: { 'data-test': 'info-icon' },
     buttonIssueAttrs: {
       'data-test': 'issue-button',
       onClick: events.onClickIssueButton,
@@ -557,4 +558,73 @@ export const WithIssueSlot = {
       </template>
     </UiQuestion>`,
   }),
+};
+
+export const AsSimpleQuestionWithCustomWhyButton = {
+  render: (args) => ({
+    components: {
+      UiQuestion,
+      UiSimpleQuestion,
+    },
+    setup() {
+      const modelValue = ref('');
+      return {
+        ...args,
+        modelValue,
+      };
+    },
+    template: `<UiQuestion
+      :title="title"
+      :translation="translation"
+      :settings="settings"
+      :heading-title-attrs="headingTitleAttrs"
+      :button-info-attrs="buttonInfoAttrs"
+      :icon-info-attrs="iconInfoAttrs"
+      :button-why-attrs="buttonWhyAttrs"
+      :icon-why-attrs="iconWhyAttrs"
+      :button-issue-attrs="buttonIssueAttrs"
+      :notification-feedback-attrs="notificationFeedbackAttrs"
+    >
+      <UiSimpleQuestion
+        v-model="modelValue"
+        :items="items"
+        :legend="title"
+      />
+    </UiQuestion>`,
+  }),
+
+  args: {
+    title: 'What is your sex?',
+    translation: { why: 'What should I select?' },
+    iconWhyAttrs: {
+      'data-test': 'info-icon',
+      icon: 'info',
+    },
+    items: [
+      {
+        value: 'female',
+        label: 'Female',
+        icon: 'female',
+      },
+      {
+        value: 'male',
+        label: 'Male',
+        icon: 'male',
+      },
+    ],
+  },
+
+  decorators: [ (story) => ({
+    components: {
+      story,
+      UiControls,
+    },
+    template: `<UiControls
+      :to-next="{path: '/next'}"
+      :to-back="{path: '/back'}"
+      class="max-w-195 min-h-135 w-full"
+    >
+      <story/>
+    </UiControls>`,
+  }) ],
 };
