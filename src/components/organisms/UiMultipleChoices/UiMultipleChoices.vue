@@ -108,6 +108,7 @@ export type MultipleChoicesAttrsProps = DefineAttrsProps<MultipleChoicesProps>;
 export interface MultipleChoicesEmits {
   (e: 'update:modelValue', value: MultipleChoicesModelValue[]): void;
   (e: 'update:invalid', value: boolean): void;
+  (e: 'focus:invalidChoice', value: HTMLInputElement): void;
 }
 export type InvalidInputs = Map<number, HTMLInputElement>;
 export type ExposedTypes = {
@@ -154,6 +155,7 @@ function focusInvalidChoice() {
   const elementToFocus = firstRadioItemsInput ?? firstInvalidChoice.$el.querySelector('input');
 
   focusElement(elementToFocus, true);
+  emit('focus:invalidChoice', elementToFocus);
 }
 
 defineExpose<ExposedTypes>({ focusInvalidChoice });

@@ -139,6 +139,7 @@ export type MultipleAnswerAttrsProps = DefineAttrsProps<MultipleAnswerProps>;
 export interface MultipleAnswerEmits {
   (e:'update:modelValue', value: MultipleAnswerModelValue): void;
   (e: 'update:invalid', value: boolean): void;
+  (e: 'focus:invalidChoice', value: HTMLInputElement): void;
 }
 
 const firstMultipleAnswerItemRef = ref<HTMLInputElement | null>(null);
@@ -212,7 +213,10 @@ watch([
   errorValue,
   item,
 ]) => {
-  if (errorValue) focusElement(item, true);
+  if (errorValue && item) {
+    focusElement(item, true);
+    emit('focus:invalidChoice', item);
+  }
 });
 </script>
 
