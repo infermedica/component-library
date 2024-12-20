@@ -6,7 +6,7 @@ export const focusElement = (el: HTMLElement | null, focusVisible = false): Prom
     }
     return new Promise((resolve) => {
       setTimeout(() => {
-        el.focus();
+        el.focus({ preventScroll: true });
         resolve();
       }, 0);
     });
