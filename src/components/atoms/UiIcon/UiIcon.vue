@@ -53,7 +53,7 @@ const file = computed<Component>(() => {
 
   width: functions.var($element, size, functions.var($element, width, 1.5rem));
   height: functions.var($element, size, functions.var($element, height, 1.5rem));
-  fill: functions.var($element, color);
+  fill: functions.var($element, color,  var(--color-icon-primary));
 
   &.rtl-supported {
     [dir="rtl"] & {

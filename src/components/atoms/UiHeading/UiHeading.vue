@@ -54,8 +54,8 @@ const headingClass = computed(() => `ui-heading--h${props.level}`);
 
   @for $i from 1 through 6 {
     &--h#{$i} {
-      font: functions.var($element, font, var(--font-h#{$i}));
-      letter-spacing: functions.var($element, letter-spacing, var(--letter-spacing-h#{$i}));
+      font: functions.var($element, font, var(--font-heading-style-#{$i}));
+      letter-spacing: functions.var($element, letter-spacing, var(--letter-spacing-heading-style-#{$i}));
     }
   }
 
