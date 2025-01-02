@@ -5,8 +5,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 const fileName = fileURLToPath(import.meta.url);
 const figmaToken = process.env.FIGMA_TOKEN;
+const figmaFileId = process.env.FIGMA_FILE_ID;
 const figmaUrl = 'https://api.figma.com/v1';
-const figmaFileId = 'AuIoOW4ZpMZDye6lZp35sq';
 const indentation = '  ';
 
 const saveFile = (name, content) => {
