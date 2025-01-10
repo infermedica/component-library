@@ -23,7 +23,12 @@ const getComponentsApi = async () => {
   pathsComponentsLoop((componentPath) => {
     promises.push(vueDocs.parse(`${pathComponentsRoot}/${componentPath}`));
   });
-  const componentsApi = await Promise.all(promises);
+  const componentsApi = (await Promise.all(promises))
+    .map((component) => ({
+      ...component,
+      sourceFiles: component.sourceFiles.map((sourceFile) => sourceFile
+        .replace(pathComponentsRoot, '/src/components')),
+    }));
   return componentsApi;
 };
 function saveComponentsApiFile(componentsApi) {
