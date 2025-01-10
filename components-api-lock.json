@@ -340,7 +340,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/templates/UiQuestion/UiQuestion.vue"
+        "/src/components/templates/UiQuestion/UiQuestion.vue"
       ]
     },
     {
@@ -508,7 +508,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/templates/UiMessage/UiMessage.vue"
+        "/src/components/templates/UiMessage/UiMessage.vue"
       ]
     },
     {
@@ -579,7 +579,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiTabs/UiTabs.vue"
+        "/src/components/organisms/UiTabs/UiTabs.vue"
       ]
     },
     {
@@ -684,7 +684,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiSimpleQuestion/UiSimpleQuestion.vue"
+        "/src/components/organisms/UiSimpleQuestion/UiSimpleQuestion.vue"
       ]
     },
     {
@@ -1063,7 +1063,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiSidePanel/UiSidePanel.vue"
+        "/src/components/organisms/UiSidePanel/UiSidePanel.vue"
       ]
     },
     {
@@ -1198,6 +1198,14 @@
               "boolean"
             ]
           }
+        },
+        {
+          "name": "focus:invalidChoice",
+          "type": {
+            "names": [
+              "HTMLInputElement"
+            ]
+          }
         }
       ],
       "slots": [
@@ -1249,7 +1257,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiMultipleChoices/UiMultipleChoices.vue"
+        "/src/components/organisms/UiMultipleChoices/UiMultipleChoices.vue"
       ]
     },
     {
@@ -1388,6 +1396,14 @@
               "boolean"
             ]
           }
+        },
+        {
+          "name": "focus:invalidChoice",
+          "type": {
+            "names": [
+              "HTMLInputElement"
+            ]
+          }
         }
       ],
       "slots": [
@@ -1452,7 +1468,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiMultipleAnswer/UiMultipleAnswer.vue"
+        "/src/components/organisms/UiMultipleAnswer/UiMultipleAnswer.vue"
       ]
     },
     {
@@ -2057,7 +2073,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiModal/UiModal.vue"
+        "/src/components/organisms/UiModal/UiModal.vue"
       ]
     },
     {
@@ -2163,7 +2179,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiMenu/UiMenu.vue"
+        "/src/components/organisms/UiMenu/UiMenu.vue"
       ]
     },
     {
@@ -2230,7 +2246,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiList/UiList.vue"
+        "/src/components/organisms/UiList/UiList.vue"
       ]
     },
     {
@@ -2511,7 +2527,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiHorizontalPaging/UiHorizontalPaging.vue"
+        "/src/components/organisms/UiHorizontalPaging/UiHorizontalPaging.vue"
       ]
     },
     {
@@ -2797,7 +2813,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiDatepicker/UiDatepicker.vue"
+        "/src/components/organisms/UiDatepicker/UiDatepicker.vue"
       ]
     },
     {
@@ -2978,7 +2994,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiControls/UiControls.vue"
+        "/src/components/organisms/UiControls/UiControls.vue"
       ]
     },
     {
@@ -2993,7 +3009,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiContainer/UiContainer.vue"
+        "/src/components/organisms/UiContainer/UiContainer.vue"
       ]
     },
     {
@@ -3210,7 +3226,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiCard/UiCard.vue"
+        "/src/components/organisms/UiCard/UiCard.vue"
       ]
     },
     {
@@ -3281,7 +3297,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiAccordion/UiAccordion.vue"
+        "/src/components/organisms/UiAccordion/UiAccordion.vue"
       ]
     },
     {
@@ -3382,7 +3398,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiToggleButtonGroup/UiToggleButtonGroup.vue"
+        "/src/components/molecules/UiToggleButtonGroup/UiToggleButtonGroup.vue"
       ]
     },
     {
@@ -3503,7 +3519,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiTile/UiTile.vue"
+        "/src/components/molecules/UiTile/UiTile.vue"
       ]
     },
     {
@@ -3575,7 +3591,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiSwitch/UiSwitch.vue"
+        "/src/components/molecules/UiSwitch/UiSwitch.vue"
       ]
     },
     {
@@ -3664,7 +3680,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiStepper/UiStepper.vue"
+        "/src/components/molecules/UiStepper/UiStepper.vue"
       ]
     },
     {
@@ -3941,7 +3957,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiScale/UiScale.vue"
+        "/src/components/molecules/UiScale/UiScale.vue"
       ]
     },
     {
@@ -4172,7 +4188,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiRating/UiRating.vue"
+        "/src/components/molecules/UiRating/UiRating.vue"
       ]
     },
     {
@@ -4277,7 +4293,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiProgressbar/UiProgressbar.vue"
+        "/src/components/molecules/UiProgressbar/UiProgressbar.vue"
       ]
     },
     {
@@ -4415,7 +4431,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiPopover/UiPopover.vue"
+        "/src/components/molecules/UiPopover/UiPopover.vue"
       ]
     },
     {
@@ -4527,7 +4543,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiPhoneNumber/UiPhoneNumber.vue"
+        "/src/components/molecules/UiPhoneNumber/UiPhoneNumber.vue"
       ]
     },
     {
@@ -4749,7 +4765,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiNumberStepper/UiNumberStepper.vue"
+        "/src/components/molecules/UiNumberStepper/UiNumberStepper.vue"
       ]
     },
     {
@@ -4889,7 +4905,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiNotification/UiNotification.vue"
+        "/src/components/molecules/UiNotification/UiNotification.vue"
       ]
     },
     {
@@ -4938,7 +4954,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiNavigation/UiNavigation.vue"
+        "/src/components/molecules/UiNavigation/UiNavigation.vue"
       ]
     },
     {
@@ -5055,7 +5071,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiLoader/UiLoader.vue"
+        "/src/components/molecules/UiLoader/UiLoader.vue"
       ]
     },
     {
@@ -5084,7 +5100,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiInteractiveSvg/UiInteractiveSvg.vue"
+        "/src/components/molecules/UiInteractiveSvg/UiInteractiveSvg.vue"
       ]
     },
     {
@@ -5273,7 +5289,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiHeader/UiHeader.vue"
+        "/src/components/molecules/UiHeader/UiHeader.vue"
       ]
     },
     {
@@ -5565,7 +5581,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiFormField/UiFormField.vue"
+        "/src/components/molecules/UiFormField/UiFormField.vue"
       ]
     },
     {
@@ -5821,7 +5837,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiDropdown/UiDropdown.vue"
+        "/src/components/molecules/UiDropdown/UiDropdown.vue"
       ]
     },
     {
@@ -5918,7 +5934,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiChip/UiChip.vue"
+        "/src/components/molecules/UiChip/UiChip.vue"
       ]
     },
     {
@@ -6003,7 +6019,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiBulletPoints/UiBulletPoints.vue"
+        "/src/components/molecules/UiBulletPoints/UiBulletPoints.vue"
       ]
     },
     {
@@ -6104,7 +6120,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiAlert/UiAlert.vue"
+        "/src/components/molecules/UiAlert/UiAlert.vue"
       ]
     },
     {
@@ -6221,7 +6237,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/atoms/UiTextarea/UiTextarea.vue"
+        "/src/components/atoms/UiTextarea/UiTextarea.vue"
       ]
     },
     {
@@ -6250,7 +6266,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/atoms/UiText/UiText.vue"
+        "/src/components/atoms/UiText/UiText.vue"
       ]
     },
     {
@@ -6405,7 +6421,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/atoms/UiRange/UiRange.vue"
+        "/src/components/atoms/UiRange/UiRange.vue"
       ]
     },
     {
@@ -6567,7 +6583,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/atoms/UiRadio/UiRadio.vue"
+        "/src/components/atoms/UiRadio/UiRadio.vue"
       ]
     },
     {
@@ -6614,7 +6630,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/atoms/UiProgress/UiProgress.vue"
+        "/src/components/atoms/UiProgress/UiProgress.vue"
       ]
     },
     {
@@ -6683,7 +6699,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/atoms/UiLink/UiLink.vue"
+        "/src/components/atoms/UiLink/UiLink.vue"
       ]
     },
     {
@@ -6892,7 +6908,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/atoms/UiInput/UiInput.vue"
+        "/src/components/atoms/UiInput/UiInput.vue"
       ]
     },
     {
@@ -6915,7 +6931,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/atoms/UiIcon/UiIcon.vue"
+        "/src/components/atoms/UiIcon/UiIcon.vue"
       ]
     },
     {
@@ -6994,7 +7010,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/atoms/UiHeading/UiHeading.vue"
+        "/src/components/atoms/UiHeading/UiHeading.vue"
       ]
     },
     {
@@ -7175,7 +7191,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/atoms/UiCheckbox/UiCheckbox.vue"
+        "/src/components/atoms/UiCheckbox/UiCheckbox.vue"
       ]
     },
     {
@@ -7272,7 +7288,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/atoms/UiButton/UiButton.vue"
+        "/src/components/atoms/UiButton/UiButton.vue"
       ]
     },
     {
@@ -7281,7 +7297,7 @@
       "description": "",
       "tags": {},
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/atoms/UiBackdrop/UiBackdrop.vue"
+        "/src/components/atoms/UiBackdrop/UiBackdrop.vue"
       ]
     },
     {
@@ -7427,7 +7443,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiTabs/_internal/UiTabsItem.vue"
+        "/src/components/organisms/UiTabs/_internal/UiTabsItem.vue"
       ]
     },
     {
@@ -7765,7 +7781,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiMultipleChoices/_internal/UiMultipleChoicesItem.vue"
+        "/src/components/organisms/UiMultipleChoices/_internal/UiMultipleChoicesItem.vue"
       ]
     },
     {
@@ -7982,7 +7998,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiMultipleAnswer/_internal/UiMultipleAnswerItem.vue"
+        "/src/components/organisms/UiMultipleAnswer/_internal/UiMultipleAnswerItem.vue"
       ]
     },
     {
@@ -8020,7 +8036,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiMenu/_internal/UiMenuItem.vue"
+        "/src/components/organisms/UiMenu/_internal/UiMenuItem.vue"
       ]
     },
     {
@@ -8043,7 +8059,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiList/_internal/UiListItemSuffixAsText.vue"
+        "/src/components/organisms/UiList/_internal/UiListItemSuffixAsText.vue"
       ]
     },
     {
@@ -8139,7 +8155,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiList/_internal/UiListItemSuffixAsButton.vue"
+        "/src/components/organisms/UiList/_internal/UiListItemSuffixAsButton.vue"
       ]
     },
     {
@@ -8234,7 +8250,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiList/_internal/UiListItemSuffix.vue"
+        "/src/components/organisms/UiList/_internal/UiListItemSuffix.vue"
       ]
     },
     {
@@ -8284,7 +8300,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiList/_internal/UiListItemPrefix.vue"
+        "/src/components/organisms/UiList/_internal/UiListItemPrefix.vue"
       ]
     },
     {
@@ -8311,7 +8327,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiList/_internal/UiListItemContent.vue"
+        "/src/components/organisms/UiList/_internal/UiListItemContent.vue"
       ]
     },
     {
@@ -8419,7 +8435,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiList/_internal/UiListItemAffix.vue"
+        "/src/components/organisms/UiList/_internal/UiListItemAffix.vue"
       ]
     },
     {
@@ -8604,7 +8620,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiList/_internal/UiListItem.vue"
+        "/src/components/organisms/UiList/_internal/UiListItem.vue"
       ]
     },
     {
@@ -8739,7 +8755,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiHorizontalPaging/_internal/UiHorizontalPagingItem.vue"
+        "/src/components/organisms/UiHorizontalPaging/_internal/UiHorizontalPagingItem.vue"
       ]
     },
     {
@@ -8780,7 +8796,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerYearTab.vue"
+        "/src/components/organisms/UiDatepicker/_internal/UiDatepickerYearTab.vue"
       ]
     },
     {
@@ -8857,7 +8873,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerYearInput.vue"
+        "/src/components/organisms/UiDatepicker/_internal/UiDatepickerYearInput.vue"
       ]
     },
     {
@@ -8871,7 +8887,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerTabItem.vue"
+        "/src/components/organisms/UiDatepicker/_internal/UiDatepickerTabItem.vue"
       ]
     },
     {
@@ -8885,7 +8901,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerTab.vue"
+        "/src/components/organisms/UiDatepicker/_internal/UiDatepickerTab.vue"
       ]
     },
     {
@@ -8926,7 +8942,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerMonthTab.vue"
+        "/src/components/organisms/UiDatepicker/_internal/UiDatepickerMonthTab.vue"
       ]
     },
     {
@@ -9003,7 +9019,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerMonthInput.vue"
+        "/src/components/organisms/UiDatepicker/_internal/UiDatepickerMonthInput.vue"
       ]
     },
     {
@@ -9044,7 +9060,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerDayTab.vue"
+        "/src/components/organisms/UiDatepicker/_internal/UiDatepickerDayTab.vue"
       ]
     },
     {
@@ -9121,7 +9137,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerDayInput.vue"
+        "/src/components/organisms/UiDatepicker/_internal/UiDatepickerDayInput.vue"
       ]
     },
     {
@@ -9242,7 +9258,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiDatepicker/_internal/UiDatepickerCalendar.vue"
+        "/src/components/organisms/UiDatepicker/_internal/UiDatepickerCalendar.vue"
       ]
     },
     {
@@ -9257,7 +9273,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiControls/_internal/UiControlsNextButton.vue"
+        "/src/components/organisms/UiControls/_internal/UiControlsNextButton.vue"
       ]
     },
     {
@@ -9282,7 +9298,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiControls/_internal/UiControlsBackButton.vue"
+        "/src/components/organisms/UiControls/_internal/UiControlsBackButton.vue"
       ]
     },
     {
@@ -9446,7 +9462,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiControls/_internal/layouts/UiControlsVertical.vue"
+        "/src/components/organisms/UiControls/_internal/layouts/UiControlsVertical.vue"
       ]
     },
     {
@@ -9653,7 +9669,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiControls/_internal/layouts/UiControlsHorizontal.vue"
+        "/src/components/organisms/UiControls/_internal/layouts/UiControlsHorizontal.vue"
       ]
     },
     {
@@ -9840,7 +9856,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/organisms/UiAccordion/_internal/UiAccordionItem.vue"
+        "/src/components/organisms/UiAccordion/_internal/UiAccordionItem.vue"
       ]
     },
     {
@@ -9877,7 +9893,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiToggleButtonGroup/_internal/UiToggleButton.vue"
+        "/src/components/molecules/UiToggleButtonGroup/_internal/UiToggleButton.vue"
       ]
     },
     {
@@ -9886,7 +9902,7 @@
       "description": "",
       "tags": {},
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiSwitch/_internal/UiSwitchControl.vue"
+        "/src/components/molecules/UiSwitch/_internal/UiSwitchControl.vue"
       ]
     },
     {
@@ -9965,7 +9981,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiStepper/_internal/UiStepperStep.vue"
+        "/src/components/molecules/UiStepper/_internal/UiStepperStep.vue"
       ]
     },
     {
@@ -10014,7 +10030,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiPhoneNumber/_internal/UiPhoneNumberPrefix/UiPhoneNumberPrefixToggle.vue"
+        "/src/components/molecules/UiPhoneNumber/_internal/UiPhoneNumberPrefix/UiPhoneNumberPrefixToggle.vue"
       ]
     },
     {
@@ -10083,7 +10099,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiPhoneNumber/_internal/UiPhoneNumberPrefix/UiPhoneNumberPrefix.vue"
+        "/src/components/molecules/UiPhoneNumber/_internal/UiPhoneNumberPrefix/UiPhoneNumberPrefix.vue"
       ]
     },
     {
@@ -10159,7 +10175,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiPhoneNumber/_internal/UiPhoneNumberInput/UiPhoneNumberInput.vue"
+        "/src/components/molecules/UiPhoneNumber/_internal/UiPhoneNumberInput/UiPhoneNumberInput.vue"
       ]
     },
     {
@@ -10174,7 +10190,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiNavigation/_internal/UiNavigationItem.vue"
+        "/src/components/molecules/UiNavigation/_internal/UiNavigationItem.vue"
       ]
     },
     {
@@ -10241,7 +10257,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiLoader/_internal/UiLoaderTransition.vue"
+        "/src/components/molecules/UiLoader/_internal/UiLoaderTransition.vue"
       ]
     },
     {
@@ -10324,7 +10340,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiLoader/_internal/UiLoaderSpinner.vue"
+        "/src/components/molecules/UiLoader/_internal/UiLoaderSpinner.vue"
       ]
     },
     {
@@ -10361,7 +10377,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiLoader/_internal/UiLoaderSkeleton.vue"
+        "/src/components/molecules/UiLoader/_internal/UiLoaderSkeleton.vue"
       ]
     },
     {
@@ -10392,7 +10408,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiLoader/_internal/UiLoaderNativeTransition.vue"
+        "/src/components/molecules/UiLoader/_internal/UiLoaderNativeTransition.vue"
       ]
     },
     {
@@ -10400,7 +10416,7 @@
       "description": "",
       "tags": {},
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiLoader/_internal/UiLoaderEllipsis.vue"
+        "/src/components/molecules/UiLoader/_internal/UiLoaderEllipsis.vue"
       ]
     },
     {
@@ -10408,7 +10424,7 @@
       "description": "",
       "tags": {},
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiLoader/_internal/UiLoaderSkeletons/UiLoaderSkeletonQuestion.vue"
+        "/src/components/molecules/UiLoader/_internal/UiLoaderSkeletons/UiLoaderSkeletonQuestion.vue"
       ]
     },
     {
@@ -10416,7 +10432,7 @@
       "description": "",
       "tags": {},
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiLoader/_internal/UiLoaderSkeletons/UiLoaderSkeletonCommon.vue"
+        "/src/components/molecules/UiLoader/_internal/UiLoaderSkeletons/UiLoaderSkeletonCommon.vue"
       ]
     },
     {
@@ -10445,7 +10461,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiInteractiveSvg/_internal/UiInteractiveSvgElement.vue"
+        "/src/components/molecules/UiInteractiveSvg/_internal/UiInteractiveSvgElement.vue"
       ]
     },
     {
@@ -10498,7 +10514,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiFormField/_internal/UiFormFieldCharacterCounter.vue"
+        "/src/components/molecules/UiFormField/_internal/UiFormFieldCharacterCounter.vue"
       ]
     },
     {
@@ -10538,7 +10554,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiDropdown/_internal/UiDropdownItem.vue"
+        "/src/components/molecules/UiDropdown/_internal/UiDropdownItem.vue"
       ]
     },
     {
@@ -10637,7 +10653,7 @@
         }
       ],
       "sourceFiles": [
-        "/Users/przeyslawspaczek/Projects/component-library/src/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue"
+        "/src/components/molecules/UiBulletPoints/_internal/UiBulletPointsItem.vue"
       ]
     }
   ]
