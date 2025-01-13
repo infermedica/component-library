@@ -276,7 +276,7 @@ defineExpose({ input });
       $element,
       $color: var(--color-border-strong),
       $width: 2px,
-      $radius: var(--border-radius-button),
+      $radius: functions.var('border-radius', $element, var(--border-radius-button)),
       $transition: (
         border-color 150ms ease-in-out,
         background-color 150ms ease-in-out
