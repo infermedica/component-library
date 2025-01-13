@@ -70,7 +70,10 @@ import type { RadioAttrsProps } from '../../atoms/UiRadio/UiRadio.vue';
 import UiMultipleChoicesItem from './_internal/UiMultipleChoicesItem.vue';
 import type { MultipleChoicesItemAttrsProps } from './_internal/UiMultipleChoicesItem.vue';
 import type { DefineAttrsProps } from '../../../types/attrs';
-import { focusElement } from '../../../utilities/helpers';
+import {
+  focusElement,
+  isSafariOnIOS,
+} from '../../../utilities/helpers';
 
 export type MultipleChoicesOption = RadioAttrsProps & { label?: string };
 export type MultipleChoicesModelValue = string | Record<string, unknown>;
@@ -145,6 +148,16 @@ const updateHandler = (newValue: MultipleChoicesModelValue, index: number) => {
   emit('update:modelValue', value.value);
 };
 
+// NOTE: hack only for Safari on IOS
+function scrollToFirstInvalidInput(el: HTMLElement) {
+  el.setAttribute('tabindex', '0');
+  el.scrollIntoView({
+    behavior: 'smooth',
+    block: 'center',
+  });
+  el.removeAttribute('tabindex');
+}
+
 function focusInvalidChoice() {
   const firstInvalidChoice = multipleChoicesItemRefs.value.find((element, index) => hasError(index));
   if (!firstInvalidChoice) return;
@@ -153,8 +166,12 @@ function focusInvalidChoice() {
   const firstRadioItemsInput = choicesFirstRadioItem?.content?.input;
 
   const elementToFocus = firstRadioItemsInput ?? firstInvalidChoice.$el.querySelector('input');
+  const elementToScroll = firstRadioItemsInput ?? firstInvalidChoice.$el;
 
   focusElement(elementToFocus, true);
+
+  if (isSafariOnIOS()) scrollToFirstInvalidInput(elementToScroll);
+
   emit('focus:invalidChoice', elementToFocus);
 }
 
