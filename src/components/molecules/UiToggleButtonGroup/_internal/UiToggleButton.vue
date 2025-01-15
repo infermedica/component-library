@@ -53,7 +53,13 @@ if (!parentComponent || parentComponent.type.name !== 'UiToggleButtonGroup') {
     throw new Error('UiToggleButton has to be child of UiToggleButtonGroup');
   }
 }
-const modelValue = inject<WritableComputedRef<ToggleButtonGroupProps['modelValue']>>('modelValue', computed(() => ''));
+const modelValue = inject<WritableComputedRef<ToggleButtonGroupProps['modelValue']>>(
+  'modelValue',
+  computed({
+    get: () => '',
+    set: (value) => value,
+  }),
+);
 const isChecked = computed(() => (modelValue && equal(modelValue.value, props.value)));
 const clickHandler = () => {
   modelValue.value = props.value;
