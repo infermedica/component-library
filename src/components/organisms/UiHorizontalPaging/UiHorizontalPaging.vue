@@ -121,6 +121,7 @@ import {
   type ComputedRef,
   type WritableComputedRef,
   type Ref,
+  type Slots,
 } from 'vue';
 import UiMenu, { type MenuAttrsProps } from '../UiMenu/UiMenu.vue';
 import { focusElement } from '../../../utilities/helpers';
@@ -273,7 +274,7 @@ const menuItemsToRender = computed<MenuItemAttrsProps[]>(() => itemsAsArray.valu
       }),
   };
 }));
-const slots = useSlots();
+const slots: Slots = useSlots();
 const menuItemsSlots = computed(() => (Object.keys(slots).reduce((object, slotName) => {
   if (slotName.match(/menu-item/gm)) {
     return {
@@ -336,6 +337,10 @@ defineExpose({
 
     &--is-active {
       transform: translate3d(-100%, 0, 0);
+
+      [dir='rtl'] & {
+        transform: translate3d(100%, 0, 0);
+      }
     }
   }
 
