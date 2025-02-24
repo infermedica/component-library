@@ -101,6 +101,8 @@ defineExpose({
   justify-content: flex-start;
 
   &__content {
+    --button-text-align: start;
+
     @include mixins.override-logical(button, $element + "-content", border-radius, var(--border-radius-form));
     @include mixins.override-logical(button, $element + "-content", padding, var(--space-8));
     @include mixins.override-logical(button, null, border-width, 0);
