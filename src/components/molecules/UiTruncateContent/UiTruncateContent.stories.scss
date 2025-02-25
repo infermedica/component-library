@@ -1,0 +1,40 @@
+.ui-truncate-content-story {
+  &-truncate-html-by-text-element-count {
+    &__presence { 
+      --bullet-points-item-marker-color: var(--color-blue-600);
+    }
+  
+    &__text {
+      --text-margin-block: var(--space-8);
+    }
+  
+    &__absence {
+      --bullet-points-item-marker-color: var(--color-gray-600);
+  
+      margin-top: var(--space-24);
+    }
+  }
+ 
+
+  &-truncate-HTML-by-elements {
+    --heading-margin-block-end: var(--space-12);
+
+    &__heading {
+      margin-block: var(--space-32) var(--space-12);
+    }
+
+    &__text {
+      --text-margin-block-end: var(--space-8);
+    }
+  }
+
+  &-truncate-html-by-characters-count {
+    --heading-margin-block-end: var(--space-12);
+    --text-margin-block-start: var(--space-12);
+
+    &__article {
+      --heading-margin-block-start: var(--space-32);
+    }
+  }
+}
+
