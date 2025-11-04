@@ -16,9 +16,6 @@ follow best practice in terms of design and coding. We provide raw source and ai
 ## Links
 - Documentation https://component.infermedica.com/
 
-## Contributing
-Contribution is welcome but always before you want to contribute please mail to <a href="maito:przemyslaw.spaczek@infermedica.com?subject=Component Library Contribute">przemyslaw.spaczek@infermedica.com</a>.
-
 ## Dependencies
 A list of dependencies can be found in [package.json](https://github.com/infermedica/component-library/blob/master/package.json) file or on npm [@infermedica/component-library](https://www.npmjs.com/package/@infermedica/component-library) site. 
 
