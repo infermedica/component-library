@@ -15,8 +15,6 @@ follow best practice in terms of design and coding. We provide raw source and ai
 
 ## Links
 - Documentation https://component.infermedica.com/
-- Discord Community https://discord.gg/Uhv8Ev8yqC
-
 
 ## Contributing
 Contribution is welcome but always before you want to contribute please mail to <a href="maito:przemyslaw.spaczek@infermedica.com?subject=Component Library Contribute">przemyslaw.spaczek@infermedica.com</a>.
