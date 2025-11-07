@@ -38,7 +38,6 @@ const preview: Preview = {
         const storiesOrder = {
           // Keys must be in camelCase
           welcome: {},
-          team: {},
           gettingStarted: {
             developmentGuide: {
               installation: {},
