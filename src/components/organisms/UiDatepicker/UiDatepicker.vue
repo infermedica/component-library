@@ -288,7 +288,21 @@ const datePartElements: Record<DatepickerDatePart, DatepickerInput | null> = {
 const setDatePartElement = (el: DatepickerInput, datePart: DatepickerDatePart): void => {
   datePartElements[datePart] = el;
 };
-const monthNames = ref<string[]>([]);
+
+const monthList = (locale: string): string[] => {
+  const getMonth = new Intl.DateTimeFormat(locale, { month: 'long' }).format;
+  return [ ...Array(12).keys() ].map((m) => getMonth(new Date(2022, m)));
+};
+
+const monthNames = computed(() => {
+  try {
+    return monthList(props.lang);
+  } catch {
+    console.error('Unrecognized language props value, default \'en-us\' language loaded'); // eslint-disable-line no-console
+    return monthList('en-US');
+  }
+});
+
 provide<Ref<string[]>>('monthNames', monthNames);
 const date = reactive<DatepickerDate<string>>({
   day: '',
@@ -527,22 +541,7 @@ watch(isDayFulfilled, (fulfilled: boolean) => handleFulfilledChange(fulfilled, '
 watch(isMonthFulfilled, (fulfilled: boolean) => handleFulfilledChange(fulfilled, 'month', date.month, isMonthValid.value));
 watch(isYearFulfilled, (fulfilled: boolean) => handleFulfilledChange(fulfilled, 'year', date.year, isYearValid.value));
 
-const monthList = (locale: string): string[] => {
-  const getMonth = new Intl.DateTimeFormat(locale, { month: 'long' }).format;
-  return [ ...Array(12).keys() ].map((m) => getMonth(new Date(2022, m)));
-};
-
-const localizeMonths = () => {
-  try {
-    monthNames.value = monthList(props.lang);
-  } catch {
-    monthNames.value = monthList('en-US');
-    console.error('Unrecognized language props value, default \'en-us\' language loaded'); // eslint-disable-line no-console
-  }
-};
-
 onMounted(() => {
-  localizeMonths();
   if (props.modelValue) {
     assignDateParts();
   }
