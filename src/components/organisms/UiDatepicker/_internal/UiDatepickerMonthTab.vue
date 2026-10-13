@@ -77,6 +77,29 @@ const select = (value: string) => {
     &:nth-of-type(-n+3) {
       @include mixins.use-logical($element, margin, 0);
     }
+
+    @include mixins.to(320px) {
+      --datepicker-tab-item-width: 100%;
+
+      &.ui-button {
+        display: block;
+        overflow: hidden;
+        min-width: 0;
+        max-width: 100%;
+        overflow-wrap: normal;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        word-break: normal;
+      }
+
+      &:nth-of-type(-n+3) {
+        @include mixins.use-logical(datepicker-tab-item, margin, var(--space-16) 0 0 0);
+      }
+
+      &:first-of-type {
+        @include mixins.use-logical($element, margin, 0);
+      }
+    }
   }
 }
 </style>
