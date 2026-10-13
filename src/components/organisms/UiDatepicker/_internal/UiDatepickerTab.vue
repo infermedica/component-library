@@ -7,11 +7,14 @@
 </template>
 
 <script setup lang="ts">
-import UiTabsItem from '../../UiTabs/_internal/UiTabsItem.vue';
-import type { TabsItemAttrsProps } from '../../UiTabs/_internal/UiTabsItem.vue';
-import type { DefineAttrsProps } from '../../../../types';
+import UiTabsItem from "../../UiTabs/_internal/UiTabsItem.vue";
+import type { TabsItemAttrsProps } from "../../UiTabs/_internal/UiTabsItem.vue";
+import type { DefineAttrsProps } from "../../../../types";
 
-export type DatepickerTabAttrsProps = DefineAttrsProps<null, TabsItemAttrsProps>;
+export type DatepickerTabAttrsProps = DefineAttrsProps<
+  null,
+  TabsItemAttrsProps
+>;
 </script>
 
 <style lang="scss">
@@ -24,10 +27,22 @@ export type DatepickerTabAttrsProps = DefineAttrsProps<null, TabsItemAttrsProps>
   @include mixins.override-logical(tabs-item-content, null, padding, 0);
 
   &__content {
-    @include mixins.use-logical($element + "-content", padding, var(--space-16) var(--space-20));
+    @include mixins.use-logical(
+      $element + "-content",
+      padding,
+      var(--space-16) var(--space-20)
+    );
 
     height: 15.5rem;
     overflow-y: auto;
+
+    @include mixins.to(320px) {
+      @include mixins.use-logical(
+        $element + "-content",
+        padding,
+        var(--space-8)
+      );
+    }
   }
 }
 </style>
