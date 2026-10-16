@@ -72,9 +72,6 @@
 import {
   ref,
   computed,
-  onMounted,
-  nextTick,
-  type ComponentPublicInstance,
   type ComponentInstance,
 } from 'vue';
 import { focusElement } from '../../../../utilities/helpers';
@@ -181,6 +178,7 @@ const emit = defineEmits<MultipleAnswerItemEmits>();
 const isCheckbox = computed(() => (Array.isArray(props.modelValue)));
 const component = computed(() => (isCheckbox.value ? UiCheckbox : UiRadio));
 const componentName = computed(() => (isCheckbox.value ? 'ui-checkbox' : 'ui-radio'));
+const hasInfo = computed(() => (Object.keys(props.buttonInfoAttrs).length > 0));
 const errorClass = computed(() => (props.invalid
   ? [
     `${componentName.value}--has-error`,
@@ -191,15 +189,6 @@ const content = ref<InstanceType<typeof component.value> | null>(null);
 defineExpose({ content });
 const suffixTemplateRef = ref<ComponentInstance<typeof UiListItemSuffix> | null>(null);
 const suffixEl = computed(() => (suffixTemplateRef.value?.listItemSuffixTemplateRef?.$el));
-const suffixSize = computed(() => {
-  const size = suffixEl.value?.getBoundingClientRect();
-  const width = suffixEl.value ? size.width : 0;
-  const height = suffixEl.value ? size.height : 0;
-  return {
-    '--_label-suffix-width': `${width}px`,
-    '--_label-suffix-height': `${height}px`,
-  };
-});
 const handleInfoFocus = (event: KeyboardEvent) => {
   if (event.key !== 'ArrowRight') return;
   if (!suffixEl.value) return;
@@ -231,13 +220,11 @@ const suffixAttrs = computed(() => ({
   },
   ...props.buttonInfoAttrs,
 }));
-const hasInfo = computed(() => (Object.keys(props.buttonInfoAttrs).length > 0));
 const listItemAttrs = computed(() => ({
   class: [
     'ui-multiple-answer-item',
     { 'ui-multiple-answer-item--has-info': hasInfo.value },
   ],
-  style: { ...suffixSize.value },
 }));
 </script>
 
@@ -250,29 +237,45 @@ const listItemAttrs = computed(() => ({
   $element: multiple-answer-item;
 
   &--has-info {
-    #{$this}__label {
-      &::after {
-        @include mixins.use-logical($element + "-suffix", margin, 0 var(--space-8) 0 var(--space-12));
+    isolation: isolate;
 
-        width: var(--_label-suffix-width);
-        height: var(--_label-suffix-height);
-        flex: none;
+    // the label shrink-wraps to its content, so the info button follows it
+    .ui-list-item__content {
+      flex: 0 1 auto;
+      background: transparent;
+
+      // stretch the label click and hover area to the whole list item
+      &::before {
+        position: absolute;
+        z-index: -1;
         content: "";
+        inset: 0;
+      }
+
+      @include mixins.hover {
+        background: transparent;
+
+        &::before {
+          background: var(--list-item-content-hover-background, var(--color-background-white-hover));
+        }
+      }
+    }
+
+    .ui-list-item--has-error {
+      &::before {
+        background: var(--list-item-background, var(--color-background-error));
+      }
+
+      @include mixins.hover {
+        &::before {
+          background: var(--list-item-hover-background, var(--color-background-error));
+        }
       }
     }
   }
 
-  &__label {
-    position: relative;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-  }
-
   &__suffix {
-    position: absolute;
-    inset-block-start: 0;
-    inset-inline-end: 0;
+    align-self: flex-start;
     // HACK: use list-item-content-padding to make the same spacing for suffix as in list item content / BEGIN
     margin-block: var(--list-item-content-padding-block, var(--list-item-content-padding-block-start, var(--space-12)) var(--list-item-content-padding-block-end, var(--space-12)));
     margin-inline: var(--list-item-content-padding-inline, var(--list-item-content-padding-inline-start, 0) var(--list-item-content-padding-inline-end, var(--space-20)));

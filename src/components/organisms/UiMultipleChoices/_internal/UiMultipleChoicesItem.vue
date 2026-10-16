@@ -345,7 +345,8 @@ defineExpose({ content });
 
   &__header {
     display: flex;
-    justify-content: space-between;
+    align-items: flex-start;
+    justify-content: flex-start;
     gap: functions.var($element + "-header", gap, var(--space-12));
 
     @include mixins.from-tablet {
@@ -356,8 +357,8 @@ defineExpose({ content });
   }
 
   &__label {
-    font: functions.var($element + 'label', font, var(--font-h4));
-    letter-spacing: functions.var($element + 'label', letter-spacing, (--letter-spacing-h4));
+    font: functions.var($element + 'label', font, var(--font-heading-style-4));
+    letter-spacing: functions.var($element + 'label', letter-spacing, var(--letter-spacing-heading-style-4));
 
     @include mixins.from-tablet {
       font: functions.var($element + "-tablet-label", font, var(--font-body-1));
