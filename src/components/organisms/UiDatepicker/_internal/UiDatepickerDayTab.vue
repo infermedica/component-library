@@ -69,8 +69,20 @@ const select = (value: number) => {
   $this: &;
   $element: datepicker-day-tab;
 
+  --datepicker-tab-content-display: grid;
+  --datepicker-tab-content-columns: repeat(7, minmax(0, 1fr));
+  --datepicker-tab-content-row-gap: var(--space-4);
+
   &__item {
-    &:nth-of-type(-n+7) {
+    --datepicker-tab-item-width: 100%;
+
+    &.ui-button {
+      overflow-wrap: normal;
+      white-space: nowrap;
+      word-break: normal;
+    }
+
+    &.ui-datepicker-tab-item {
       @include mixins.use-logical($element, margin, 0);
     }
   }

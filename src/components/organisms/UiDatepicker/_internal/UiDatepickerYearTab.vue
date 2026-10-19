@@ -70,10 +70,24 @@ const select = (value: string) => {
   $this: &;
   $element: datepicker-year-tab;
 
-  &__item {
-    --datepicker-tab-item-width: calc(100% / 5);
+  --datepicker-tab-content-display: grid;
+  --datepicker-tab-content-columns: repeat(5, minmax(0, 1fr));
+  --datepicker-tab-content-row-gap: var(--space-4);
 
-    &:nth-of-type(-n+5) {
+  @include mixins.to(320px) {
+    --datepicker-tab-content-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  &__item {
+    --datepicker-tab-item-width: 100%;
+
+    &.ui-button {
+      overflow-wrap: normal;
+      white-space: nowrap;
+      word-break: normal;
+    }
+
+    &.ui-datepicker-tab-item {
       @include mixins.use-logical($element, margin, 0);
     }
   }

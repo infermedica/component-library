@@ -26,8 +26,15 @@ export type DatepickerTabAttrsProps = DefineAttrsProps<null, TabsItemAttrsProps>
   &__content {
     @include mixins.use-logical($element + "-content", padding, var(--space-16) var(--space-20));
 
+    display: var(--datepicker-tab-content-display, block);
     height: 15.5rem;
+    grid-template-columns: var(--datepicker-tab-content-columns, none);
     overflow-y: auto;
+    row-gap: var(--datepicker-tab-content-row-gap, 0);
+
+    @include mixins.to(320px) {
+      @include mixins.use-logical($element + "-content", padding, var(--space-8));
+    }
   }
 }
 </style>
