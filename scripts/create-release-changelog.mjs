@@ -80,12 +80,17 @@ const saveFile = (version, content) => {
 const createChangelogSections = (commits) => {
   const groupedCommits = commits.reduce(
     (object, commit) => {
+      const parsedCommit = commit.match(/^(.+?)(?:\((.+?)\))?(!)?:.*/);
+      if (!parsedCommit) {
+        console.warn(`Skipping non-conventional commit: ${commit}`);
+        return object;
+      }
       const [
         match,
         type,
         scope,
         breaking,
-      ] = commit.match(/^(.+?)(?:\((.+?)\))?(!)?:.*/);
+      ] = parsedCommit;
       const formattedCommit = commit.replace(
         /.+: (.*?)(?:\(#(.*)\))?$/gm,
         (match, description, hash) => {
@@ -151,6 +156,7 @@ const createReleaseChangelog = async (version) => {
     createChangelogMdx(version, commits);
   } catch (e) {
     console.error(e);
+    throw e;
   }
 };
 
