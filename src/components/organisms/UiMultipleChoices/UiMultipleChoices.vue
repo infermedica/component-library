@@ -215,8 +215,8 @@ defineExpose<ExposedTypes>({ focusInvalidChoice });
       --multiple-choices-item-tablet-choices-gap: var(--space-12);
       --multiple-choices-item-tablet-option-width-block: 1px 0;
       --multiple-choices-item-tablet-option-last-of-type-width-block: 1px;
-      --multiple-choices-item-tablet-label-font: var(--font-h4);
-      --multiple-choices-item-tablet-label-letter-spacing: var(--letter-spacing-h4);
+      --multiple-choices-item-tablet-label-font: var(--font-heading-style-4);
+      --multiple-choices-item-tablet-label-letter-spacing: var(--letter-spacing-heading-style-4);
       --multiple-choices-item-tablet-choices-margin-inline-start: 0;
     }
   }
