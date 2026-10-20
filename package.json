@@ -3,6 +3,10 @@
   "version": "1.11.5",
   "description": "Vue 3 UI library for healthcare and not only.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/infermedica/component-library.git"
+  },
   "sideEffects": [
     "*.vue"
   ],
